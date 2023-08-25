@@ -3,7 +3,6 @@ from typing import ClassVar
 
 from ..core import WesternCalendar
 
-
 class Mozambique(WesternCalendar):
     FIXED_HOLIDAYS: Incomplete
     include_labour_day: ClassVar[bool]

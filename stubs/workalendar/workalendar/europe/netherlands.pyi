@@ -1,8 +1,7 @@
-from typing import ClassVar
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import WesternCalendar
-
 
 class Netherlands(WesternCalendar):
     include_good_friday: ClassVar[bool]
@@ -19,23 +18,16 @@ class Netherlands(WesternCalendar):
     def get_carnival_days(self, year): ...
     def get_variable_days(self, year): ...
 
-
 FALL_HOLIDAYS_EARLY_REGIONS: Incomplete
 SPRING_HOLIDAYS_EARLY_REGIONS: Incomplete
 SUMMER_HOLIDAYS_EARLY_REGIONS: Incomplete
 SUMMER_HOLIDAYS_LATE_REGIONS: Incomplete
 
-
 class NetherlandsWithSchoolHolidays(Netherlands):
     region: Incomplete
     carnival_instead_of_spring: Incomplete
 
-    def __init__(
-        self,
-        region,
-        carnival_instead_of_spring: bool = False,
-        **kwargs) -> None: ...
-
+    def __init__(self, region, carnival_instead_of_spring: bool = False, **kwargs) -> None: ...
     def get_fall_holidays(self, year): ...
     def get_christmas_holidays(self, year): ...
     def get_spring_holidays(self, year): ...

@@ -1,8 +1,7 @@
-from typing import ClassVar
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from .core import UnitedStates
-
 
 class California(UnitedStates):
     include_thanksgiving_friday: ClassVar[bool]
@@ -11,10 +10,8 @@ class California(UnitedStates):
     shift_exceptions: Incomplete
     def get_cesar_chavez_days(self, year): ...
 
-
 class CaliforniaEducation(California):
     def get_variable_days(self, year): ...
-
 
 class CaliforniaBerkeley(California):
     FIXED_HOLIDAYS: Incomplete
@@ -23,11 +20,9 @@ class CaliforniaBerkeley(California):
     include_columbus_day: ClassVar[bool]
     columbus_day_label: ClassVar[str]
 
-
 class CaliforniaSanFrancisco(California):
     include_cesar_chavez_day: ClassVar[bool]
     include_columbus_day: ClassVar[bool]
-
 
 class CaliforniaWestHollywood(California):
     FIXED_HOLIDAYS: Incomplete

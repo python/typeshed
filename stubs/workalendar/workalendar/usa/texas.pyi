@@ -1,6 +1,6 @@
 from typing import ClassVar
-from .core import UnitedStates
 
+from .core import UnitedStates
 
 class TexasBase(UnitedStates):
     include_columbus_day: ClassVar[bool]
@@ -13,7 +13,6 @@ class TexasBase(UnitedStates):
     include_christmas_eve: ClassVar[bool]
     include_boxing_day: ClassVar[bool]
     def get_fixed_holidays(self, year): ...
-
 
 class Texas(TexasBase):
     texas_include_confederate_heroes: ClassVar[bool]

@@ -3,7 +3,6 @@ from typing import ClassVar
 
 from .core import UnitedStates
 
-
 class Hawaii(UnitedStates):
     include_good_friday: ClassVar[bool]
     include_columbus_day: ClassVar[bool]

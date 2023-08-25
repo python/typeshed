@@ -4,7 +4,6 @@ from typing import ClassVar
 
 from ..core import OrthodoxCalendar
 
-
 class Bulgaria(OrthodoxCalendar):
     FIXED_HOLIDAYS: Incomplete
     include_labour_day: ClassVar[bool]
@@ -19,11 +18,7 @@ class Bulgaria(OrthodoxCalendar):
     include_orthodox_christmas: ClassVar[bool]
     boxing_day_label: ClassVar[str]
 
-    def get_shifted_holidays(self,
-                             days) -> Generator[Incomplete,
-                                                None,
-                                                None]: ...
-
+    def get_shifted_holidays(self, days) -> Generator[Incomplete, None, None]: ...
     def get_fixed_holidays(self, year): ...
     def shift_christmas_boxing_days(self, year): ...
     def get_variable_days(self, year): ...

@@ -1,6 +1,6 @@
 from typing import ClassVar
-from .core import UnitedStates
 
+from .core import UnitedStates
 
 class Alabama(UnitedStates):
     include_confederation_day: ClassVar[bool]
@@ -9,14 +9,11 @@ class Alabama(UnitedStates):
     columbus_day_label: ClassVar[str]
     include_jefferson_davis_birthday: ClassVar[bool]
 
-
 class AlabamaBaldwinCounty(Alabama):
     include_fat_tuesday: ClassVar[bool]
 
-
 class AlabamaMobileCounty(Alabama):
     include_fat_tuesday: ClassVar[bool]
-
 
 class AlabamaPerryCounty(Alabama):
     def get_obama_day(self, year): ...

@@ -3,7 +3,6 @@ from typing import ClassVar
 
 from ..core import WesternCalendar
 
-
 class Cyprus(WesternCalendar):
     include_labour_day: ClassVar[bool]
     include_epiphany: ClassVar[bool]

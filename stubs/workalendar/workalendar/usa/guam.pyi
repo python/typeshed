@@ -3,7 +3,6 @@ from typing import ClassVar
 
 from .core import UnitedStates
 
-
 class Guam(UnitedStates):
     FIXED_HOLIDAYS: Incomplete
     include_all_souls: ClassVar[bool]

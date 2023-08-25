@@ -1,12 +1,11 @@
 from typing import ClassVar
-from .core import UnitedStates
 
+from .core import UnitedStates
 
 class Illinois(UnitedStates):
     include_thanksgiving_friday: ClassVar[bool]
     include_lincoln_birthday: ClassVar[bool]
     include_election_day_even: ClassVar[bool]
-
 
 class ChicagoIllinois(Illinois):
     include_thanksgiving_friday: ClassVar[bool]

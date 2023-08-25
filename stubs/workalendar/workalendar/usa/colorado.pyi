@@ -1,5 +1,3 @@
 from .core import UnitedStates
 
-
-class Colorado(UnitedStates):
-    ...
+class Colorado(UnitedStates): ...
