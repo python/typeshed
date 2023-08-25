@@ -1,8 +1,12 @@
 import datetime
+from _typeshed import Incomplete
 from typing import Callable
 
 TZAwareDate = datetime.date
 YEAR_INTERVAL: int
+TIME_ZONES: Incomplete
+pre_computed_equinoxes_path: Incomplete
+pre_computed_solar_terms_path: Incomplete
 
 
 def fromisoformat(iso): ...

@@ -5,7 +5,7 @@ from .core import Calendar
 
 
 class IsoRegistry:
-    STANDARD_MODULES: Tuple[str]
+    STANDARD_MODULES: Incomplete
     region_registry: Dict[str, Calendar]
     def __init__(self, load_standard_modules: bool = True) -> None: ...
     def register(self, iso_code, cls) -> None: ...

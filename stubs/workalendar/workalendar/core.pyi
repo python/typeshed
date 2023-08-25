@@ -1,7 +1,30 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import ClassVar
+from typing import ClassVar, Optional
 
+MON: Incomplete
+TUE: Incomplete
+WED: Incomplete
+THU: Incomplete
+FRI: Incomplete
+SAT: Incomplete
+SUN: Incomplete
+ISO_MON: Incomplete
+ISO_TUE: Incomplete
+ISO_WED: Incomplete
+ISO_THU: Incomplete
+ISO_FRI: Incomplete
+ISO_SAT: Incomplete
+ISO_SUN: Incomplete
+
+class classproperty:
+    getter: Incomplete
+    __doc__: Incomplete
+    def __init__(self, getter) -> None: ...
+    def __get__(self, instance, owner): ...
+
+def cleaned_date(day, keep_datetime: bool = False): ...
+def daterange(start, end) -> Generator[Incomplete, None, None]: ...
 
 class ChristianMixin:
     EASTER_METHOD: Incomplete
@@ -9,7 +32,7 @@ class ChristianMixin:
     include_clean_monday: ClassVar[bool]
     include_annunciation: ClassVar[bool]
     include_fat_tuesday: ClassVar[bool]
-    fat_tuesday_label: ClassVar[str]
+    fat_tuesday_label: ClassVar[Optional[str]]
     include_ash_wednesday: ClassVar[bool]
     ash_wednesday_label: ClassVar[str]
     include_palm_sunday: ClassVar[bool]
