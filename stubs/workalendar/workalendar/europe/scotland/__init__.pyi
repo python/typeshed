@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ...core import WesternCalendar
 from .mixins import (
@@ -140,8 +141,6 @@ class SouthLanarkshire(SpringHolidayLastMondayMay, FairHolidayThirdMondayJuly, A
 class Stirling(SpringHolidayTuesdayAfterFirstMondayMay, BattleStirlingBridge, Scotland):
     include_good_friday: ClassVar[bool]
     include_easter_monday: ClassVar[bool]
-
-from typing import ClassVar
 
 class WestDunbartonshire(AutumnHolidayLastMondaySeptember, Scotland):
     include_good_friday: ClassVar[bool]

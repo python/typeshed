@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from ..core import WesternCalendar
 
+
 class ElSalvador(WesternCalendar):
     include_labour_day: ClassVar[bool]
     include_holy_thursday: ClassVar[bool]

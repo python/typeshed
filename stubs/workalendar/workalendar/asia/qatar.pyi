@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from ..core import IslamicCalendar
 
+
 class Qatar(IslamicCalendar):
     include_new_years_day: ClassVar[bool]
     FIXED_HOLIDAYS: Incomplete

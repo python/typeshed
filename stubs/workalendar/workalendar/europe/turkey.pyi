@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from ..core import IslamicCalendar
 
+
 class Turkey(IslamicCalendar):
     shift_new_years_day: ClassVar[bool]
     WEEKEND_DAYS: Incomplete

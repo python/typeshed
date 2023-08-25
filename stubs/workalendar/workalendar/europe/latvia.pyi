@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from ..core import WesternCalendar
 
+
 class Latvia(WesternCalendar):
     include_labour_day: ClassVar[bool]
     FIXED_HOLIDAYS: Incomplete

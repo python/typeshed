@@ -1,23 +1,33 @@
+from typing import ClassVar
 from _typeshed import Incomplete
 
 from .core import UnitedStates
+
 
 class HebrewHolidays:
     hebrew_calendars: Incomplete
     @classmethod
     def get_hebrew_calendar(cls, gregorian_year): ...
+
     @classmethod
-    def search_hebrew_calendar(cls, gregorian_year, hebrew_month, hebrew_day): ...
+    def search_hebrew_calendar(
+        cls,
+        gregorian_year,
+        hebrew_month,
+        hebrew_day): ...
+
     @classmethod
     def get_rosh_hashanah(cls, year): ...
     @classmethod
     def get_yom_kippur(cls, year): ...
+
 
 class Florida(UnitedStates):
     include_thanksgiving_friday: ClassVar[bool]
     thanksgiving_friday_label: ClassVar[str]
     include_columbus_day: ClassVar[bool]
     include_federal_presidents_day: ClassVar[bool]
+
 
 class FloridaLegal(Florida):
     FIXED_HOLIDAYS: Incomplete
@@ -34,12 +44,12 @@ class FloridaLegal(Florida):
     def get_confederate_day(self, year): ...
     def get_jefferson_davis_birthday(self, year): ...
 
+
 class FloridaCircuitCourts(HebrewHolidays, Florida):
     include_federal_presidents_day: ClassVar[bool]
     include_good_friday: ClassVar[bool]
     def get_variable_days(self, year): ...
 
-from typing import ClassVar
 
 class FloridaMiamiDade(Florida):
     include_federal_presidents_day: ClassVar[bool]

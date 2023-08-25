@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from ..core import WesternCalendar
 
+
 class SaoTomeAndPrincipe(WesternCalendar):
     FIXED_HOLIDAYS: Incomplete
     include_labour_day: ClassVar[bool]

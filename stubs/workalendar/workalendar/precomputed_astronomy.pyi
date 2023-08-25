@@ -1,6 +1,6 @@
 import datetime
 from _typeshed import Incomplete
-from typing import Callable
+from collections.abc import Callable
 
 TZAwareDate = datetime.date
 YEAR_INTERVAL: int

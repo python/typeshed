@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from ..core import WesternCalendar
 
+
 class UnitedKingdom(WesternCalendar):
     include_good_friday: ClassVar[bool]
     include_easter_sunday: ClassVar[bool]
@@ -15,6 +16,7 @@ class UnitedKingdom(WesternCalendar):
     def get_late_summer_bank_holiday(self, year): ...
     def non_computable_holiday(self, year): ...
     def get_variable_days(self, year): ...
+
 
 class UnitedKingdomNorthernIreland(UnitedKingdom):
     def get_variable_days(self, year): ...

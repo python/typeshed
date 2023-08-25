@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from ..core import ChineseNewYearCalendar
 
+
 class Taiwan(ChineseNewYearCalendar):
     FIXED_HOLIDAYS: Incomplete
     include_chinese_new_year_eve: ClassVar[bool]

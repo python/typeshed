@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from ..core import ChineseNewYearCalendar, IslamicMixin, WesternMixin
 
+
 class Singapore(WesternMixin, IslamicMixin, ChineseNewYearCalendar):
     include_labour_day: ClassVar[bool]
     include_good_friday: ClassVar[bool]

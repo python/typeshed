@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from .core import UnitedStates
 
+
 class Alaska(UnitedStates):
     FIXED_HOLIDAYS: Incomplete
     include_columbus_day: ClassVar[bool]

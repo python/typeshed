@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from ..core import IslamoWesternCalendar
 
+
 class IvoryCoast(IslamoWesternCalendar):
     include_labour_day: ClassVar[bool]
     include_easter_monday: ClassVar[bool]

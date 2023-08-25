@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from ..core import ChineseNewYearCalendar, IslamicMixin
 
+
 class Malaysia(IslamicMixin, ChineseNewYearCalendar):
     include_labour_day: ClassVar[bool]
     labour_day_label: ClassVar[str]

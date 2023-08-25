@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from ..core import WesternCalendar
 
+
 class MarshallIslands(WesternCalendar):
     FIXED_HOLIDAYS: Incomplete
     include_good_friday: ClassVar[bool]

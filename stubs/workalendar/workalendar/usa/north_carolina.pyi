@@ -2,6 +2,7 @@ from typing import ClassVar
 
 from .core import UnitedStates
 
+
 class NorthCarolina(UnitedStates):
     include_good_friday: ClassVar[bool]
     include_christmas_eve: ClassVar[bool]

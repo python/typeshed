@@ -2,6 +2,7 @@ from typing import ClassVar
 
 from .core import UnitedStates
 
+
 class AmericanSamoa(UnitedStates):
     include_boxing_day: ClassVar[bool]
     boxing_day_label: ClassVar[str]

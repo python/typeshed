@@ -3,6 +3,7 @@ from typing import ClassVar
 
 from ..core import IslamicCalendar
 
+
 class Tunisia(IslamicCalendar):
     include_labour_day: ClassVar[bool]
     include_prophet_birthday: ClassVar[bool]

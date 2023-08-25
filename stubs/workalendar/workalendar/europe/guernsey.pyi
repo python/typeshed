@@ -2,6 +2,7 @@ from typing import ClassVar
 
 from ..core import WesternCalendar
 
+
 class Guernsey(WesternCalendar):
     include_easter_monday: ClassVar[bool]
     include_boxing_day: ClassVar[bool]
