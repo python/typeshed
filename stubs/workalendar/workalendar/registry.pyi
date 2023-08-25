@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Tuple, Dict
+from typing import Dict
 
 from .core import Calendar
 
