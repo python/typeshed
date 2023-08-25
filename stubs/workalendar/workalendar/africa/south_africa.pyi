@@ -3,8 +3,8 @@ from _typeshed import Incomplete
 from ..core import WesternCalendar
 
 class SouthAfrica(WesternCalendar):
-    include_good_friday: bool
-    include_christmas: bool
+    include_good_friday: ClassVar[bool]
+    include_christmas: ClassVar[bool]
     def holidays(self, year: Incomplete | None = None): ...
     def get_easter_monday_or_family_day(self, year): ...
     def get_fixed_holidays(self, year): ...

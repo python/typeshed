@@ -3,16 +3,16 @@ from _typeshed import Incomplete
 from ..core import WesternCalendar
 
 class Netherlands(WesternCalendar):
-    include_good_friday: bool
-    include_easter_sunday: bool
-    include_easter_monday: bool
-    include_ascension: bool
-    include_whit_sunday: bool
-    include_whit_monday: bool
-    include_boxing_day: bool
+    include_good_friday: ClassVar[bool]
+    include_easter_sunday: ClassVar[bool]
+    include_easter_monday: ClassVar[bool]
+    include_ascension: ClassVar[bool]
+    include_whit_sunday: ClassVar[bool]
+    include_whit_monday: ClassVar[bool]
+    include_boxing_day: ClassVar[bool]
     FIXED_HOLIDAYS: Incomplete
     include_carnival: Incomplete
-    def __init__(self, include_carnival: bool = False) -> None: ...
+    def __init__(self, include_carnival: ClassVar[bool] = False) -> None: ...
     def get_king_queen_day(self, year): ...
     def get_carnival_days(self, year): ...
     def get_variable_days(self, year): ...
@@ -25,7 +25,7 @@ SUMMER_HOLIDAYS_LATE_REGIONS: Incomplete
 class NetherlandsWithSchoolHolidays(Netherlands):
     region: Incomplete
     carnival_instead_of_spring: Incomplete
-    def __init__(self, region, carnival_instead_of_spring: bool = False, **kwargs) -> None: ...
+    def __init__(self, region, carnival_instead_of_spring: ClassVar[bool] = False, **kwargs) -> None: ...
     def get_fall_holidays(self, year): ...
     def get_christmas_holidays(self, year): ...
     def get_spring_holidays(self, year): ...

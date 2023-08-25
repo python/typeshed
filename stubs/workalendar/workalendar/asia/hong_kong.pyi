@@ -3,20 +3,20 @@ from _typeshed import Incomplete
 from ..core import ChineseNewYearCalendar, WesternMixin
 
 class HongKong(WesternMixin, ChineseNewYearCalendar):
-    include_labour_day: bool
-    include_good_friday: bool
-    include_easter_saturday: bool
-    include_easter_monday: bool
-    include_boxing_day: bool
+    include_labour_day: ClassVar[bool]
+    include_good_friday: ClassVar[bool]
+    include_easter_saturday: ClassVar[bool]
+    include_easter_monday: ClassVar[bool]
+    include_boxing_day: ClassVar[bool]
     WEEKEND_DAYS: Incomplete
     FIXED_HOLIDAYS: Incomplete
     chinese_new_year_label: ClassVar[str]
-    include_chinese_second_day: bool
+    include_chinese_second_day: ClassVar[bool]
     chinese_second_day_label: ClassVar[str]
-    include_chinese_third_day: bool
+    include_chinese_third_day: ClassVar[bool]
     chinese_third_day_label: ClassVar[str]
-    shift_sunday_holidays: bool
-    shift_start_cny_sunday: bool
+    shift_sunday_holidays: ClassVar[bool]
+    shift_start_cny_sunday: ClassVar[bool]
     def get_variable_days(self, year): ...
 
 class HongKongBank(HongKong):

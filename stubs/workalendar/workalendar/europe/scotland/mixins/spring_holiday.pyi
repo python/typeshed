@@ -1,5 +1,5 @@
 class SpringHoliday:
-    include_spring_holiday: bool
+    include_spring_holiday: ClassVar[bool]
 
 class SpringHolidayFirstMondayApril(SpringHoliday):
     def get_spring_holiday(self, year): ...

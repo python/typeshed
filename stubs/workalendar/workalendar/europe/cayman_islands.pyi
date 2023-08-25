@@ -5,11 +5,11 @@ from ..core import WesternCalendar
 QUEENS_BIRTHDAY_EXCEPTIONS: Incomplete
 
 class CaymanIslands(WesternCalendar):
-    include_ash_wednesday: bool
-    include_good_friday: bool
-    include_easter_monday: bool
-    include_boxing_day: bool
-    shift_new_years_day: bool
+    include_ash_wednesday: ClassVar[bool]
+    include_good_friday: ClassVar[bool]
+    include_easter_monday: ClassVar[bool]
+    include_boxing_day: ClassVar[bool]
+    shift_new_years_day: ClassVar[bool]
     def get_variable_days(self, year): ...
     def get_national_heroes_day(self, year): ...
     def get_discovery_day(self, year): ...

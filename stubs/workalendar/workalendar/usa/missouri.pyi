@@ -4,4 +4,4 @@ from .core import UnitedStates
 
 class Missouri(UnitedStates):
     FIXED_HOLIDAYS: Incomplete
-    include_lincoln_birthday: bool
+    include_lincoln_birthday: ClassVar[bool]

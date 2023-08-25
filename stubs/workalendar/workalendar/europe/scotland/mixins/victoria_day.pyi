@@ -1,5 +1,5 @@
 class VictoriaDayMixin:
-    include_victoria_day: bool
+    include_victoria_day: ClassVar[bool]
     victoria_day_label: ClassVar[str]
 
 class VictoriaDayFourthMondayMay(VictoriaDayMixin):

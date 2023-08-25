@@ -4,5 +4,5 @@ from ..core import WesternCalendar
 
 class SaoTomeAndPrincipe(WesternCalendar):
     FIXED_HOLIDAYS: Incomplete
-    include_labour_day: bool
-    include_all_saints: bool
+    include_labour_day: ClassVar[bool]
+    include_all_saints: ClassVar[bool]

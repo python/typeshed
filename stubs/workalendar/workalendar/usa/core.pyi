@@ -4,29 +4,29 @@ from ..core import WesternCalendar
 
 class UnitedStates(WesternCalendar):
     FIXED_HOLIDAYS: Incomplete
-    include_veterans_day: bool
+    include_veterans_day: ClassVar[bool]
     veterans_day_label: ClassVar[str]
     martin_luther_king_label: ClassVar[str]
-    include_thanksgiving_friday: bool
+    include_thanksgiving_friday: ClassVar[bool]
     thanksgiving_friday_label: ClassVar[str]
-    include_federal_presidents_day: bool
+    include_federal_presidents_day: ClassVar[bool]
     presidents_day_label: ClassVar[str]
-    include_lincoln_birthday: bool
-    include_columbus_day: bool
+    include_lincoln_birthday: ClassVar[bool]
+    include_columbus_day: ClassVar[bool]
     columbus_day_label: ClassVar[str]
-    include_confederation_day: bool
-    include_jefferson_davis_birthday: bool
-    include_cesar_chavez_day: bool
-    include_patriots_day: bool
+    include_confederation_day: ClassVar[bool]
+    include_jefferson_davis_birthday: ClassVar[bool]
+    include_cesar_chavez_day: ClassVar[bool]
+    include_patriots_day: ClassVar[bool]
     boxing_day_label: ClassVar[str]
-    include_election_day_every_year: bool
-    include_election_day_even: bool
+    include_election_day_every_year: ClassVar[bool]
+    include_election_day_even: ClassVar[bool]
     election_day_label: ClassVar[str]
-    include_inauguration_day: bool
+    include_inauguration_day: ClassVar[bool]
     national_memorial_day_label: ClassVar[str]
-    include_fat_tuesday: bool
+    include_fat_tuesday: ClassVar[bool]
     fat_tuesday_label: ClassVar[str]
-    include_juneteenth: bool
+    include_juneteenth: ClassVar[bool]
     shift_exceptions: Incomplete
     def shift(self, holidays, year): ...
     @staticmethod
@@ -52,4 +52,4 @@ class UnitedStates(WesternCalendar):
     def get_calendar_holidays(self, year): ...
 
 class FederalReserveSystem(UnitedStates):
-    include_juneteenth: bool
+    include_juneteenth: ClassVar[bool]

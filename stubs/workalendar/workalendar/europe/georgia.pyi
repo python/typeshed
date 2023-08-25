@@ -3,13 +3,13 @@ from _typeshed import Incomplete
 from ..core import OrthodoxCalendar
 
 class Georgia(OrthodoxCalendar):
-    include_christmas: bool
-    include_christmas_eve: bool
-    include_new_years_day: bool
-    include_orthodox_christmas: bool
-    include_epiphany: bool
-    include_good_friday: bool
-    include_easter_saturday: bool
-    include_easter_sunday: bool
-    include_easter_monday: bool
+    include_christmas: ClassVar[bool]
+    include_christmas_eve: ClassVar[bool]
+    include_new_years_day: ClassVar[bool]
+    include_orthodox_christmas: ClassVar[bool]
+    include_epiphany: ClassVar[bool]
+    include_good_friday: ClassVar[bool]
+    include_easter_saturday: ClassVar[bool]
+    include_easter_sunday: ClassVar[bool]
+    include_easter_monday: ClassVar[bool]
     FIXED_HOLIDAYS: Incomplete

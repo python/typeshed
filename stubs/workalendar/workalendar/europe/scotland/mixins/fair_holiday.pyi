@@ -1,5 +1,5 @@
 class FairHoliday:
-    include_fair_holiday: bool
+    include_fair_holiday: ClassVar[bool]
     fair_holiday_label: ClassVar[str]
 
 class FairHolidayLastMondayJune(FairHoliday):

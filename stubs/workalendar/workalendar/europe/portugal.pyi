@@ -3,12 +3,12 @@ from _typeshed import Incomplete
 from ..core import WesternCalendar
 
 class Portugal(WesternCalendar):
-    include_good_friday: bool
-    include_easter_sunday: bool
-    include_christmas: bool
-    include_immaculate_conception: bool
+    include_good_friday: ClassVar[bool]
+    include_easter_sunday: ClassVar[bool]
+    include_christmas: ClassVar[bool]
+    include_immaculate_conception: ClassVar[bool]
     immaculate_conception_label: ClassVar[str]
-    include_labour_day: bool
+    include_labour_day: ClassVar[bool]
     labour_day_label: ClassVar[str]
     FIXED_HOLIDAYS: Incomplete
     def get_fixed_holidays(self, year): ...

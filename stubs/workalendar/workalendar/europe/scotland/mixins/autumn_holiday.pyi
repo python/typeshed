@@ -1,5 +1,5 @@
 class AutumHoliday:
-    include_autumn_holiday: bool
+    include_autumn_holiday: ClassVar[bool]
     autumn_holiday_label: ClassVar[str]
 
 class AutumnHolidayLastMondaySeptember(AutumHoliday):

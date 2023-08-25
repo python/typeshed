@@ -1,10 +1,10 @@
 from ..core import WesternCalendar
 
 class Guernsey(WesternCalendar):
-    include_easter_monday: bool
-    include_boxing_day: bool
-    shift_new_years_day: bool
-    include_good_friday: bool
+    include_easter_monday: ClassVar[bool]
+    include_boxing_day: ClassVar[bool]
+    shift_new_years_day: ClassVar[bool]
+    include_good_friday: ClassVar[bool]
     def get_spring_bank_holiday(self, year): ...
     def get_early_may_bank_holiday(self, year): ...
     def get_summer_bank_holiday(self, year): ...

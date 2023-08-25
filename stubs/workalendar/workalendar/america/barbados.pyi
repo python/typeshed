@@ -3,11 +3,11 @@ from _typeshed import Incomplete
 from ..core import WesternCalendar
 
 class Barbados(WesternCalendar):
-    include_labour_day: bool
-    include_good_friday: bool
-    include_easter_sunday: bool
-    include_easter_monday: bool
-    include_whit_monday: bool
+    include_labour_day: ClassVar[bool]
+    include_good_friday: ClassVar[bool]
+    include_easter_sunday: ClassVar[bool]
+    include_easter_monday: ClassVar[bool]
+    include_whit_monday: ClassVar[bool]
     non_computable_holiday_dict: Incomplete
     FIXED_HOLIDAYS: Incomplete
     def get_kadooment_day(self, year): ...

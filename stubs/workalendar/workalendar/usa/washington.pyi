@@ -1,4 +1,4 @@
 from .core import UnitedStates
 
 class Washington(UnitedStates):
-    include_columbus_day: bool
+    include_columbus_day: ClassVar[bool]

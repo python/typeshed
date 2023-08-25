@@ -4,13 +4,13 @@ from ..core import WesternCalendar
 
 class Colombia(WesternCalendar):
     FIXED_HOLIDAYS: Incomplete
-    include_labour_day: bool
-    include_palm_sunday: bool
-    include_holy_thursday: bool
-    include_good_friday: bool
-    include_easter_sunday: bool
-    include_corpus_christi: bool
-    include_immaculate_conception: bool
+    include_labour_day: ClassVar[bool]
+    include_palm_sunday: ClassVar[bool]
+    include_holy_thursday: ClassVar[bool]
+    include_good_friday: ClassVar[bool]
+    include_easter_sunday: ClassVar[bool]
+    include_corpus_christi: ClassVar[bool]
+    include_immaculate_conception: ClassVar[bool]
     def get_epiphany(self, year): ...
     def get_saint_joseph(self, year): ...
     def get_ascension(self, year): ...

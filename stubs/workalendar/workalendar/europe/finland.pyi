@@ -3,17 +3,17 @@ from _typeshed import Incomplete
 from ..core import WesternCalendar
 
 class Finland(WesternCalendar):
-    include_epiphany: bool
-    include_good_friday: bool
-    include_easter_sunday: bool
-    include_easter_monday: bool
-    include_ascension: bool
-    include_whit_sunday: bool
+    include_epiphany: ClassVar[bool]
+    include_good_friday: ClassVar[bool]
+    include_easter_sunday: ClassVar[bool]
+    include_easter_monday: ClassVar[bool]
+    include_ascension: ClassVar[bool]
+    include_whit_sunday: ClassVar[bool]
     whit_sunday_label: ClassVar[str]
-    include_christmas_eve: bool
-    include_boxing_day: bool
+    include_christmas_eve: ClassVar[bool]
+    include_boxing_day: ClassVar[bool]
     boxing_day_label: ClassVar[str]
-    include_labour_day: bool
+    include_labour_day: ClassVar[bool]
     FIXED_HOLIDAYS: Incomplete
     def get_midsummer_eve(self, year): ...
     def get_midsummer_day(self, year): ...

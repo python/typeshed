@@ -3,15 +3,15 @@ from _typeshed import Incomplete
 from ..core import IslamoWesternCalendar
 
 class Nigeria(IslamoWesternCalendar):
-    include_labour_day: bool
+    include_labour_day: ClassVar[bool]
     labour_day_label: ClassVar[str]
-    include_good_friday: bool
-    include_easter_monday: bool
-    include_boxing_day: bool
-    include_eid_al_fitr: bool
-    include_day_of_sacrifice: bool
-    shift_sunday_holidays: bool
-    shift_new_years_day: bool
+    include_good_friday: ClassVar[bool]
+    include_easter_monday: ClassVar[bool]
+    include_boxing_day: ClassVar[bool]
+    include_eid_al_fitr: ClassVar[bool]
+    include_day_of_sacrifice: ClassVar[bool]
+    shift_sunday_holidays: ClassVar[bool]
+    shift_new_years_day: ClassVar[bool]
     WEEKEND_DAYS: Incomplete
     FIXED_HOLIDAYS: Incomplete
     def get_fixed_holidays(self, year): ...

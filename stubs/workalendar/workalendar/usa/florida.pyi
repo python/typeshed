@@ -14,31 +14,31 @@ class HebrewHolidays:
     def get_yom_kippur(cls, year): ...
 
 class Florida(UnitedStates):
-    include_thanksgiving_friday: bool
+    include_thanksgiving_friday: ClassVar[bool]
     thanksgiving_friday_label: ClassVar[str]
-    include_columbus_day: bool
-    include_federal_presidents_day: bool
+    include_columbus_day: ClassVar[bool]
+    include_federal_presidents_day: ClassVar[bool]
 
 class FloridaLegal(Florida):
     FIXED_HOLIDAYS: Incomplete
-    include_fat_tuesday: bool
-    include_lincoln_birthday: bool
-    include_federal_presidents_day: bool
-    include_good_friday: bool
-    include_confederation_day: bool
-    include_jefferson_davis_birthday: bool
-    include_columbus_day: bool
+    include_fat_tuesday: ClassVar[bool]
+    include_lincoln_birthday: ClassVar[bool]
+    include_federal_presidents_day: ClassVar[bool]
+    include_good_friday: ClassVar[bool]
+    include_confederation_day: ClassVar[bool]
+    include_jefferson_davis_birthday: ClassVar[bool]
+    include_columbus_day: ClassVar[bool]
     columbus_day_label: ClassVar[str]
-    include_election_day_every_year: bool
+    include_election_day_every_year: ClassVar[bool]
     def __init__(self, *args, **kwargs) -> None: ...
     def get_confederate_day(self, year): ...
     def get_jefferson_davis_birthday(self, year): ...
 
 class FloridaCircuitCourts(HebrewHolidays, Florida):
-    include_federal_presidents_day: bool
-    include_good_friday: bool
+    include_federal_presidents_day: ClassVar[bool]
+    include_good_friday: ClassVar[bool]
     def get_variable_days(self, year): ...
 
 class FloridaMiamiDade(Florida):
-    include_federal_presidents_day: bool
-    include_columbus_day: bool
+    include_federal_presidents_day: ClassVar[bool]
+    include_columbus_day: ClassVar[bool]

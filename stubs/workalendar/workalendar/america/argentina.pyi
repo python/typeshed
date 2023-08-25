@@ -3,15 +3,15 @@ from _typeshed import Incomplete
 from ..core import WesternCalendar
 
 class Argentina(WesternCalendar):
-    include_labour_day: bool
+    include_labour_day: ClassVar[bool]
     labour_day_label: ClassVar[str]
-    include_fat_tuesday: bool
+    include_fat_tuesday: ClassVar[bool]
     fat_tuesday_label: ClassVar[str]
-    include_good_friday: bool
-    include_easter_saturday: bool
-    include_easter_sunday: bool
-    include_christmas: bool
-    include_immaculate_conception: bool
+    include_good_friday: ClassVar[bool]
+    include_easter_saturday: ClassVar[bool]
+    include_easter_sunday: ClassVar[bool]
+    include_christmas: ClassVar[bool]
+    include_immaculate_conception: ClassVar[bool]
     immaculate_conception_label: ClassVar[str]
     FIXED_HOLIDAYS: Incomplete
     def get_general_guemes_day(self, year): ...

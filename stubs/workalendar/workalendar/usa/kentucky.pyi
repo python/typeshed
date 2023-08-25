@@ -3,9 +3,9 @@ from _typeshed import Incomplete
 from .core import UnitedStates
 
 class Kentucky(UnitedStates):
-    include_good_friday: bool
-    include_thanksgiving_friday: bool
-    include_christmas_eve: bool
-    include_columbus_day: bool
-    include_federal_presidents_day: bool
+    include_good_friday: ClassVar[bool]
+    include_thanksgiving_friday: ClassVar[bool]
+    include_christmas_eve: ClassVar[bool]
+    include_columbus_day: ClassVar[bool]
+    include_federal_presidents_day: ClassVar[bool]
     FIXED_HOLIDAYS: Incomplete

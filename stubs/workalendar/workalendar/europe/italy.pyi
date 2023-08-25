@@ -3,13 +3,13 @@ from _typeshed import Incomplete
 from ..core import WesternCalendar
 
 class Italy(WesternCalendar):
-    include_labour_day: bool
+    include_labour_day: ClassVar[bool]
     labour_day_label: ClassVar[str]
     FIXED_HOLIDAYS: Incomplete
-    include_immaculate_conception: bool
-    include_epiphany: bool
-    include_easter_monday: bool
-    include_assumption: bool
-    include_all_saints: bool
-    include_boxing_day: bool
+    include_immaculate_conception: ClassVar[bool]
+    include_epiphany: ClassVar[bool]
+    include_easter_monday: ClassVar[bool]
+    include_assumption: ClassVar[bool]
+    include_all_saints: ClassVar[bool]
+    include_boxing_day: ClassVar[bool]
     boxing_day_label: ClassVar[str]

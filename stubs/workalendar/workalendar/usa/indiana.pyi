@@ -1,12 +1,12 @@
 from .core import UnitedStates
 
 class Indiana(UnitedStates):
-    include_good_friday: bool
-    include_thanksgiving_friday: bool
+    include_good_friday: ClassVar[bool]
+    include_thanksgiving_friday: ClassVar[bool]
     thanksgiving_friday_label: ClassVar[str]
-    include_federal_presidents_day: bool
+    include_federal_presidents_day: ClassVar[bool]
     label_washington_birthday_december: ClassVar[str]
-    include_election_day_even: bool
+    include_election_day_even: ClassVar[bool]
     election_day_label: ClassVar[str]
     def get_washington_birthday_december(self, year): ...
     def get_primary_election_day(self, year): ...
