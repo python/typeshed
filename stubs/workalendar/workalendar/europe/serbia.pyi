@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import OrthodoxCalendar
+
 
 class Serbia(OrthodoxCalendar):
     FIXED_HOLIDAYS: Incomplete

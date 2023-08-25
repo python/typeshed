@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import Calendar
+
 
 class Israel(Calendar):
     include_new_years_day: ClassVar[bool]

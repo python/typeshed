@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import OrthodoxCalendar
+
 
 class Georgia(OrthodoxCalendar):
     include_christmas: ClassVar[bool]

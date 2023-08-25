@@ -4,6 +4,9 @@ from ..core import WesternCalendar
 
 QUEENS_BIRTHDAY_EXCEPTIONS: Incomplete
 
+from typing import ClassVar
+
+
 class CaymanIslands(WesternCalendar):
     include_ash_wednesday: ClassVar[bool]
     include_good_friday: ClassVar[bool]

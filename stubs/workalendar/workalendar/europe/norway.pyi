@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import WesternCalendar
+
 
 class Norway(WesternCalendar):
     include_holy_thursday: ClassVar[bool]

@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from .core import UnitedStates
+
 
 class Kentucky(UnitedStates):
     include_good_friday: ClassVar[bool]

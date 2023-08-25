@@ -1,4 +1,7 @@
+from typing import ClassVar
+
 from .core import UnitedStates
+
 
 class NewYork(UnitedStates):
     include_lincoln_birthday: ClassVar[bool]

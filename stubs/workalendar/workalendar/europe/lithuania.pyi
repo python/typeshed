@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import WesternCalendar
+
 
 class Lithuania(WesternCalendar):
     include_labour_day: ClassVar[bool]
@@ -15,5 +17,5 @@ class Lithuania(WesternCalendar):
     boxing_day_label: ClassVar[str]
     def get_mothers_day(self, year): ...
     def get_fathers_day(self, year): ...
-    include_all_souls: Incomplete
+    include_all_souls: ClassVar[bool]
     def get_variable_days(self, year): ...

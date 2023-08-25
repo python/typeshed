@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import IslamicCalendar
+
 
 class Algeria(IslamicCalendar):
     include_labour_day: ClassVar[bool]

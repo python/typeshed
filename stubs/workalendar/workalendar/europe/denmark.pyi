@@ -1,4 +1,7 @@
+from typing import ClassVar
+
 from ..core import WesternCalendar
+
 
 class Denmark(WesternCalendar):
     include_holy_thursday: ClassVar[bool]

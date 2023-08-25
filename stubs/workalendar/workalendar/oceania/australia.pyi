@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 
 from ..core import WesternCalendar
 
+
 class Australia(WesternCalendar):
     include_good_friday: ClassVar[bool]
     include_easter_monday: ClassVar[bool]
@@ -17,6 +18,7 @@ class Australia(WesternCalendar):
     def get_anzac_day(self, year): ...
     def get_variable_days(self, year): ...
 
+
 class AustralianCapitalTerritory(Australia):
     include_easter_saturday: ClassVar[bool]
     include_queens_birthday: ClassVar[bool]
@@ -26,6 +28,7 @@ class AustralianCapitalTerritory(Australia):
     def get_reconciliation_day(self, year): ...
     def get_variable_days(self, year): ...
 
+
 class NewSouthWales(Australia):
     include_queens_birthday: ClassVar[bool]
     include_easter_saturday: ClassVar[bool]
@@ -33,6 +36,7 @@ class NewSouthWales(Australia):
     include_labour_day_october: ClassVar[bool]
     include_boxing_day: ClassVar[bool]
     ANZAC_SHIFT_DAYS: Incomplete
+
 
 class NorthernTerritory(Australia):
     include_easter_saturday: ClassVar[bool]
@@ -43,6 +47,7 @@ class NorthernTerritory(Australia):
     def get_picnic_day(self, year): ...
     def get_variable_days(self, year): ...
 
+
 class Queensland(Australia):
     include_easter_saturday: ClassVar[bool]
     include_queens_birthday: ClassVar[bool]
@@ -50,6 +55,7 @@ class Queensland(Australia):
     ANZAC_SHIFT_DAYS: Incomplete
     def get_labour_day_may(self, year): ...
     def get_variable_days(self, year): ...
+
 
 class SouthAustralia(Australia):
     include_easter_saturday: ClassVar[bool]
@@ -59,6 +65,7 @@ class SouthAustralia(Australia):
     def get_adelaides_cup(self, year): ...
     def get_proclamation_day(self, year): ...
     def get_variable_days(self, year): ...
+
 
 class Tasmania(Australia):
     include_queens_birthday: ClassVar[bool]
@@ -76,6 +83,7 @@ class Hobart(Tasmania):
     def get_hobart(self, year): ...
     def get_variable_days(self, year): ...
 
+
 class Victoria(Australia):
     include_easter_saturday: ClassVar[bool]
     include_queens_birthday: ClassVar[bool]
@@ -84,6 +92,10 @@ class Victoria(Australia):
     def get_labours_day_in_march(self, year): ...
     def get_melbourne_cup(self, year): ...
     def get_variable_days(self, year): ...
+
+
+from typing import ClassVar
+
 
 class WesternAustralia(Australia):
     include_boxing_day: ClassVar[bool]

@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import WesternCalendar
+
 
 class Slovakia(WesternCalendar):
     include_epiphany: ClassVar[bool]

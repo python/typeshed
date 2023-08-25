@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import OrthodoxCalendar
+
 
 class Greece(OrthodoxCalendar):
     include_labour_day: ClassVar[bool]

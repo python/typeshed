@@ -1,4 +1,7 @@
+from typing import ClassVar
+
 from .core import UnitedStates
+
 
 class Maryland(UnitedStates):
     thanksgiving_friday_label: ClassVar[str]

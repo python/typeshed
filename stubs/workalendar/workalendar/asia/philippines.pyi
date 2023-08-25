@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import ChineseNewYearCalendar, IslamicMixin, WesternMixin
+
 
 class Philippines(WesternMixin, IslamicMixin, ChineseNewYearCalendar):
     include_labour_day: ClassVar[bool]

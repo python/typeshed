@@ -1,3 +1,6 @@
+from typing import ClassVar
+
+
 class AutumHoliday:
     include_autumn_holiday: ClassVar[bool]
     autumn_holiday_label: ClassVar[str]

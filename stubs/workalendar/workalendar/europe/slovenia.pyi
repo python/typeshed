@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import WesternCalendar
+
 
 class Slovenia(WesternCalendar):
     include_easter_sunday: ClassVar[bool]

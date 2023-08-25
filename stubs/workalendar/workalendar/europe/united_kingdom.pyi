@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import WesternCalendar
+
 
 class UnitedKingdom(WesternCalendar):
     include_good_friday: ClassVar[bool]

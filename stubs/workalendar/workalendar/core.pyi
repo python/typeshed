@@ -9,7 +9,7 @@ class ChristianMixin:
     include_clean_monday: ClassVar[bool]
     include_annunciation: ClassVar[bool]
     include_fat_tuesday: ClassVar[bool]
-    fat_tuesday_label: Incomplete
+    fat_tuesday_label: ClassVar[str]
     include_ash_wednesday: ClassVar[bool]
     ash_wednesday_label: ClassVar[str]
     include_palm_sunday: ClassVar[bool]
@@ -133,7 +133,7 @@ class CoreCalendar:
         delta,
         extra_working_days: Incomplete | None = None,
         extra_holidays: Incomplete | None = None,
-        keep_datetime: ClassVar[bool] = False,
+        keep_datetime: bool = False,
     ): ...
     def sub_working_days(
         self,
@@ -141,7 +141,7 @@ class CoreCalendar:
         delta,
         extra_working_days: Incomplete | None = None,
         extra_holidays: Incomplete | None = None,
-        keep_datetime: ClassVar[bool] = False,
+        keep_datetime: bool = False,
     ): ...
     def find_following_working_day(self, day): ...
     @staticmethod
@@ -156,7 +156,7 @@ class CoreCalendar:
         self,
         start,
         end,
-        include_start: ClassVar[bool] = False,
+        include_start: bool = False,
         extra_working_days: Incomplete | None = None,
         extra_holidays: Incomplete | None = None,
     ): ...

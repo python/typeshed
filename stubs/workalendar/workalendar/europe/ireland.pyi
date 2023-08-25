@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..core import WesternCalendar
+
 
 class Ireland(WesternCalendar):
     include_easter_monday: ClassVar[bool]
@@ -9,5 +11,5 @@ class Ireland(WesternCalendar):
     shift_new_years_day: ClassVar[bool]
     def get_june_holiday(self, year): ...
     def get_august_holiday(self, year): ...
-    include_whit_monday: Incomplete
+    include_whit_monday: ClassVar[bool]
     def get_variable_days(self, year): ...
