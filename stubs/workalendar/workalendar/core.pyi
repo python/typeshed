@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import ClassVar, Optional
+from typing import ClassVar
 
 MON: Incomplete
 TUE: Incomplete
@@ -32,7 +32,7 @@ class ChristianMixin:
     include_clean_monday: ClassVar[bool]
     include_annunciation: ClassVar[bool]
     include_fat_tuesday: ClassVar[bool]
-    fat_tuesday_label: ClassVar[Optional[str]]
+    fat_tuesday_label: ClassVar[str | None]
     include_ash_wednesday: ClassVar[bool]
     ash_wednesday_label: ClassVar[str]
     include_palm_sunday: ClassVar[bool]

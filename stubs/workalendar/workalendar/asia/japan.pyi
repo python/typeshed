@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 
 from ..core import Calendar
 
-
 class Japan(Calendar):
     WEEKEND_DAYS: Incomplete
     FIXED_HOLIDAYS: Incomplete

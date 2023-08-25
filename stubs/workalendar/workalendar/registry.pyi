@@ -1,12 +1,10 @@
 from _typeshed import Incomplete
-from typing import Dict
 
 from .core import Calendar
 
-
 class IsoRegistry:
     STANDARD_MODULES: Incomplete
-    region_registry: Dict[str, Calendar]
+    region_registry: dict[str, Calendar]
     def __init__(self, load_standard_modules: bool = True) -> None: ...
     def register(self, iso_code, cls) -> None: ...
     def load_module_from_items(self, module_name, items) -> None: ...

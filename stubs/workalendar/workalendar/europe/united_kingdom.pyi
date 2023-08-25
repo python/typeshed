@@ -3,7 +3,6 @@ from typing import ClassVar
 
 from ..core import WesternCalendar
 
-
 class UnitedKingdom(WesternCalendar):
     include_good_friday: ClassVar[bool]
     include_easter_sunday: ClassVar[bool]

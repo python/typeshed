@@ -1,6 +1,5 @@
 from typing import ClassVar
 
-
 class SpringHoliday:
     include_spring_holiday: ClassVar[bool]
 

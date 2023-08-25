@@ -2,7 +2,6 @@ from typing import ClassVar
 
 from .core import UnitedStates
 
-
 class Georgia(UnitedStates):
     include_confederation_day: ClassVar[bool]
     include_federal_presidents_day: ClassVar[bool]

@@ -2,7 +2,6 @@ from typing import ClassVar
 
 from .core import UnitedStates
 
-
 class RhodeIsland(UnitedStates):
     include_federal_presidents_day: ClassVar[bool]
     include_election_day_even: ClassVar[bool]

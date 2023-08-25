@@ -1,6 +1,5 @@
 from typing import ClassVar
 
-
 class FairHoliday:
     include_fair_holiday: ClassVar[bool]
     fair_holiday_label: ClassVar[str]

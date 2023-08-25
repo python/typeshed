@@ -7,7 +7,6 @@ workdays: Incomplete
 
 from typing import ClassVar
 
-
 class China(ChineseNewYearCalendar):
     shift_new_years_day: ClassVar[bool]
     include_chinese_new_year_eve: ClassVar[bool]

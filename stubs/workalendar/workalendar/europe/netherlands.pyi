@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 
 from ..core import WesternCalendar
 
-
 class Netherlands(WesternCalendar):
     include_good_friday: ClassVar[bool]
     include_easter_sunday: ClassVar[bool]
@@ -23,9 +22,7 @@ SPRING_HOLIDAYS_EARLY_REGIONS: Incomplete
 SUMMER_HOLIDAYS_EARLY_REGIONS: Incomplete
 SUMMER_HOLIDAYS_LATE_REGIONS: Incomplete
 
-
 from typing import ClassVar
-
 
 class NetherlandsWithSchoolHolidays(Netherlands):
     region: Incomplete

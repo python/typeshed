@@ -4,7 +4,6 @@ from typing import ClassVar
 
 from ..core import IslamoWesternCalendar
 
-
 class Kenya(IslamoWesternCalendar):
     include_labour_day: ClassVar[bool]
     include_good_friday: ClassVar[bool]

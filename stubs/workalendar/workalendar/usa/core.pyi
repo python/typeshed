@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 
 from ..core import WesternCalendar
 
-
 class UnitedStates(WesternCalendar):
     FIXED_HOLIDAYS: Incomplete
     include_veterans_day: ClassVar[bool]
@@ -52,9 +51,7 @@ class UnitedStates(WesternCalendar):
     def get_fixed_holidays(self, year): ...
     def get_calendar_holidays(self, year): ...
 
-
 from typing import ClassVar
-
 
 class FederalReserveSystem(UnitedStates):
     include_juneteenth: ClassVar[bool]

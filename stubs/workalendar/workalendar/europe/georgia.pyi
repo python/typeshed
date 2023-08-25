@@ -3,7 +3,6 @@ from typing import ClassVar
 
 from ..core import OrthodoxCalendar
 
-
 class Georgia(OrthodoxCalendar):
     include_christmas: ClassVar[bool]
     include_christmas_eve: ClassVar[bool]
