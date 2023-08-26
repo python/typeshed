@@ -16,10 +16,10 @@ else:
 _T = TypeVar("_T")
 
 class TaskGroup:
+    _loop: AbstractEventLoop | None
+    _tasks: set[Task[Any]]
+
     async def __aenter__(self) -> Self: ...
     async def __aexit__(self, et: type[BaseException] | None, exc: BaseException | None, tb: TracebackType | None) -> None: ...
     def create_task(self, coro: _CoroutineLike[_T], *, name: str | None = None, context: Context | None = None) -> Task[_T]: ...
     def _on_task_done(self, task: Task[Any]) -> None: ...
-
-    _loop: AbstractEventLoop | None
-    _tasks: set[Task[Any]]
