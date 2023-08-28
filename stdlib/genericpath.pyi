@@ -19,7 +19,7 @@ __all__ = [
     "samestat",
 ]
 if sys.version_info >= (3, 12):
-    __all__ += ["is_link"]
+    __all__ += ["islink"]
 
 # All overloads can return empty string. Ideally, Literal[""] would be a valid
 # Iterable[T], so that list[T] | Literal[""] could be used as a return
@@ -40,7 +40,7 @@ def isfile(path: FileDescriptorOrPath) -> bool: ...
 def isdir(s: FileDescriptorOrPath) -> bool: ...
 
 if sys.version_info >= (3, 12):
-    def is_link(path: FileDescriptorOrPath) -> bool: ...
+    def islink(path: FileDescriptorOrPath) -> bool: ...
 
 # These return float if os.stat_float_times() == True,
 # but int is a subclass of float.
