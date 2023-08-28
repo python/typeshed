@@ -1,3 +1,4 @@
+import sys
 import os
 from _typeshed import BytesPath, FileDescriptorOrPath, StrPath, SupportsRichComparisonT
 from collections.abc import Sequence
@@ -17,6 +18,8 @@ __all__ = [
     "sameopenfile",
     "samestat",
 ]
+if sys.version_info >= (3, 12):
+    __all__ += ["is_link"]
 
 # All overloads can return empty string. Ideally, Literal[""] would be a valid
 # Iterable[T], so that list[T] | Literal[""] could be used as a return
@@ -35,6 +38,8 @@ def exists(path: FileDescriptorOrPath) -> bool: ...
 def getsize(filename: FileDescriptorOrPath) -> int: ...
 def isfile(path: FileDescriptorOrPath) -> bool: ...
 def isdir(s: FileDescriptorOrPath) -> bool: ...
+if sys.version_info >= (3, 12):
+    def is_link(path: FileDescriptorOrPath) -> bool: ...
 
 # These return float if os.stat_float_times() == True,
 # but int is a subclass of float.
