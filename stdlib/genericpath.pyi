@@ -1,6 +1,6 @@
 import os
 import sys
-from _typeshed import BytesPath, FileDescriptorOrPath, StrPath, StrOrBytesPath, SupportsRichComparisonT
+from _typeshed import BytesPath, FileDescriptorOrPath, StrOrBytesPath, StrPath, SupportsRichComparisonT
 from collections.abc import Sequence
 from typing import overload
 from typing_extensions import Literal, LiteralString
