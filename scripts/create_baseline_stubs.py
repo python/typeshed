@@ -154,16 +154,11 @@ def add_pyright_exclusion(stub_dir: str) -> None:
         i += 1
     # Must use forward slash in the .json file
     line_to_add = f'        "{stub_dir}",'.replace("\\", "/")
-    initial = i - 1
     while lines[i].lower() > line_to_add.lower():
         i -= 1
     if lines[i + 1].strip().rstrip(",") == line_to_add.strip().rstrip(","):
         print(f"{PYRIGHT_CONFIG} already up-to-date")
         return
-    if i == initial:
-        # Special case: when adding to the end of the list, commas need tweaking
-        line_to_add = line_to_add.rstrip(",")
-        lines[i] = lines[i].rstrip() + ",\n"
     lines.insert(i + 1, line_to_add + "\n")
     print(f"Updating {PYRIGHT_CONFIG}")
     with open(PYRIGHT_CONFIG, "w", encoding="UTF-8") as f:
