@@ -127,7 +127,7 @@ def create_metadata(project: str, stub_dir: str, version: str) -> None:
     version = match.group(0)
     if os.path.exists(filename):
         return
-    metadata = f'version = "{version}.*"'
+    metadata = f'version = "{version}.*"\n'
     upstream_repo_url = asyncio.run(get_upstream_repo_url(project))
     if upstream_repo_url is None:
         warning = (
@@ -136,7 +136,7 @@ def create_metadata(project: str, stub_dir: str, version: str) -> None:
         )
         print(termcolor.colored(warning, "red"))
     else:
-        metadata += f'\nupstream_repository = "{upstream_repo_url}"'
+        metadata += f'upstream_repository = "{upstream_repo_url}"\n'
     print(f"Writing {filename}")
     with open(filename, "w", encoding="UTF-8") as file:
         file.write(metadata)
