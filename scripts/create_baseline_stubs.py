@@ -152,14 +152,19 @@ def add_pyright_exclusion(stub_dir: str) -> None:
     assert i < len(lines), f"Error parsing {PYRIGHT_CONFIG}"
     while not lines[i].strip().startswith("]"):
         i += 1
+    end_of_list = i
     # Must use forward slash in the .json file
     line_to_add = f'        "{stub_dir}",'.replace("\\", "/")
-    while lines[i].lower() > line_to_add.lower():
+    while lines[i - 1].lower() >= line_to_add.lower():
         i -= 1
-    if lines[i + 1].strip().rstrip(",") == line_to_add.strip().rstrip(","):
+    if lines[i].strip().rstrip(",") == line_to_add.strip().rstrip(","):
         print(f"{PYRIGHT_CONFIG} already up-to-date")
         return
-    lines.insert(i + 1, line_to_add + "\n")
+    if i == end_of_list:
+        # Let's add a trailing comma, so that adding to end of list will work.
+        # Pyright's "JSON" files support it even though plain old JSON does not.
+        lines[i - 1] = lines[i - 1].rstrip().rstrip(",") + ",\n"
+    lines.insert(i, line_to_add + "\n")
     print(f"Updating {PYRIGHT_CONFIG}")
     with open(PYRIGHT_CONFIG, "w", encoding="UTF-8") as f:
         f.writelines(lines)

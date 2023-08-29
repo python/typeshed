@@ -75,7 +75,7 @@
         "stubs/urllib3",
         "stubs/vobject",
         "stubs/WebOb",
-        "stubs/workalendar",
+        "stubs/workalendar"
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
