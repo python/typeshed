@@ -260,6 +260,7 @@ if sys.version_info >= (3, 11):
     async def wait(
         fs: Iterable[Task[_T]], *, timeout: float | None = None, return_when: str = "ALL_COMPLETED"
     ) -> tuple[set[Task[_T]], set[Task[_T]]]: ...
+
 elif sys.version_info >= (3, 10):
     @overload
     async def wait(fs: Iterable[_FT], *, timeout: float | None = None, return_when: str = "ALL_COMPLETED") -> tuple[set[_FT], set[_FT]]: ...  # type: ignore[misc]
@@ -267,6 +268,7 @@ elif sys.version_info >= (3, 10):
     async def wait(
         fs: Iterable[Awaitable[_T]], *, timeout: float | None = None, return_when: str = "ALL_COMPLETED"
     ) -> tuple[set[Task[_T]], set[Task[_T]]]: ...
+
 else:
     @overload
     async def wait(  # type: ignore[misc]
