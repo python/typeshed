@@ -55,8 +55,7 @@ def main() -> None:
         action="store_true",
         help=(
             "Run stubtest for the selected package(s). Running stubtest may download and execute arbitrary code from PyPI: "
-            "only use this option if you trust the package you are testing. Running stubtest on the stdlib may fail "
-            "unless you're using exactly the same version of Python that we use in CI for stubtest."
+            "only use this option if you trust the package you are testing."
         ),
     )
     parser.add_argument("path", help="Path of the stub to test in format <folder>/<stub>, from the root of the project.")
