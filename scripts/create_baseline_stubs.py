@@ -161,8 +161,8 @@ def add_pyright_exclusion(stub_dir: str) -> None:
     start = i
 
     before_third_party_excludes = lines[:start]
-    third_party_excludes = lines[start : end]
-    after_third_party_excludes = lines[end :]
+    third_party_excludes = lines[start:end]
+    after_third_party_excludes = lines[end:]
 
     last_line = third_party_excludes[-1].rstrip()
     if not last_line.endswith(","):
