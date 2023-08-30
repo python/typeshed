@@ -604,6 +604,7 @@ if sys.platform != "win32" and sys.version_info >= (3, 11):
 
 if sys.version_info >= (3, 11):
     def lseek(__fd: int, __position: int, __whence: int) -> int: ...
+
 else:
     def lseek(__fd: int, __position: int, __how: int) -> int: ...
 
