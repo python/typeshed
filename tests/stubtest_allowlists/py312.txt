@@ -12,7 +12,6 @@ enum.Enum.__signature__
 enum.EnumMeta.__call__
 enum.EnumType.__call__
 enum.property.member
-gzip.GzipFile.filename
 http.client.HTTPConnection.get_proxy_response_headers
 imaplib.IMAP4_SSL.__init__
 importlib.abc.Finder
