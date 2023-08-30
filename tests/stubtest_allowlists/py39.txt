@@ -149,3 +149,5 @@ asynchat.async_chat.use_encoding
 asynchat.find_prefix_at_end
 pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
+
+types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime

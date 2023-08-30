@@ -659,5 +659,3 @@ typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/com
 
 # Omit internal _KEEP argument
 tarfile.TarInfo.replace
-
-types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
