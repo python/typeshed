@@ -28,12 +28,13 @@ class TextTestResult(unittest.result.TestResult):
 
 class TextTestRunner:
     resultclass: _ResultClassType
-    stream: TextIO
+    # TODO: add `_WritelnDecorator` type
+    # stream: _WritelnDecorator
     descriptions: bool
     verbosity: int
     failfast: bool
     buffer: bool
-    warnings: type[Warning] | None
+    warnings: str | None
     tb_locals: bool
 
     if sys.version_info >= (3, 12):
@@ -46,7 +47,7 @@ class TextTestRunner:
             failfast: bool = False,
             buffer: bool = False,
             resultclass: _ResultClassType | None = None,
-            warnings: type[Warning] | None = None,
+            warnings: str | None = None,
             *,
             tb_locals: bool = False,
             durations: unittest.result._DurationsType | None = None,
@@ -60,7 +61,7 @@ class TextTestRunner:
             failfast: bool = False,
             buffer: bool = False,
             resultclass: _ResultClassType | None = None,
-            warnings: type[Warning] | None = None,
+            warnings: str | None = None,
             *,
             tb_locals: bool = False,
         ) -> None: ...
