@@ -5,9 +5,6 @@ asyncio.tasks.__all__
 asyncio.tasks.create_eager_task_factory
 asyncio.tasks.eager_task_factory
 collections.UserDict.get
-configparser.ParsingError.__init__
-configparser.RawConfigParser.readfp
-configparser.__all__
 enum.Enum.__signature__
 enum.EnumMeta.__call__
 enum.EnumType.__call__
