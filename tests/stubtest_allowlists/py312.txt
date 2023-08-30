@@ -64,17 +64,9 @@ typing_extensions.Protocol
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
 unittest.TestLoader.loadTestsFromModule
-unittest.TestProgram.__init__
-unittest.TestResult.addDuration
-unittest.TextTestResult.__init__
-unittest.TextTestRunner.__init__
 unittest.load_tests
 unittest.loader.TestLoader.loadTestsFromModule
-unittest.main.TestProgram.__init__
 unittest.mock.NonCallableMock.__new__
-unittest.result.TestResult.addDuration
-unittest.runner.TextTestResult.__init__
-unittest.runner.TextTestRunner.__init__
 urllib.request.AbstractHTTPHandler.__init__
 urllib.request.HTTPSHandler.__init__
 zipfile.Path.glob
