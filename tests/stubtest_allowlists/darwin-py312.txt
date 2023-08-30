@@ -28,3 +28,6 @@ xxlimited.Xxo.x_exports
 (locale.dgettext)?
 (locale.gettext)?
 (locale.textdomain)?
+
+# should be removable once 3.12.0rc2 is released:
+posix.lseek
