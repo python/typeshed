@@ -5,6 +5,7 @@ import unittest.suite
 from collections.abc import Callable, Iterable
 from typing import TextIO
 from typing_extensions import TypeAlias
+from _typeshed import Incomplete
 
 _ResultClassType: TypeAlias = Callable[[TextIO, bool, int], unittest.result.TestResult]
 
@@ -30,6 +31,7 @@ class TextTestRunner:
     resultclass: _ResultClassType
     # TODO: add `_WritelnDecorator` type
     # stream: _WritelnDecorator
+    stream: Incomplete
     descriptions: bool
     verbosity: int
     failfast: bool
