@@ -1,3 +1,4 @@
+import sys
 import unittest.case
 import unittest.suite
 from collections.abc import Callable, Sequence
