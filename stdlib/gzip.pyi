@@ -142,6 +142,7 @@ class GzipFile(_compression.BaseStream):
     if sys.version_info < (3, 12):
         @property
         def filename(self) -> str: ...
+
     @property
     def mtime(self) -> int | None: ...
     crc: int
