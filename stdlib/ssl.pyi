@@ -205,7 +205,9 @@ class Options(enum.IntFlag):
         OP_LEGACY_SERVER_CONNECT: int
     if sys.version_info >= (3, 12) and sys.platform != "linux":
         OP_ENABLE_KTLS: int
-    if sys.version_info >= (3, 11) or (sys.version_info >= (3, 8) and sys.platform == "linux"):
+    if sys.version_info >= (3, 11):
+        OP_IGNORE_UNEXPECTED_EOF: int
+    elif sys.version_info >= (3, 8) and sys.platform == "linux":
         OP_IGNORE_UNEXPECTED_EOF: int
 
 OP_ALL: Options
@@ -227,7 +229,9 @@ if sys.version_info >= (3, 12):
     OP_LEGACY_SERVER_CONNECT: Options
 if sys.version_info >= (3, 12) and sys.platform != "linux":
     OP_ENABLE_KTLS: Options
-if sys.version_info >= (3, 11) or (sys.version_info >= (3, 8) and sys.platform == "linux"):
+if sys.version_info >= (3, 11):
+    OP_IGNORE_UNEXPECTED_EOF: Options
+elif sys.version_info >= (3, 8) and sys.platform == "linux":
     OP_IGNORE_UNEXPECTED_EOF: Options
 
 HAS_NEVER_CHECK_COMMON_NAME: bool
