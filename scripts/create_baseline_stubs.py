@@ -152,22 +152,38 @@ def add_pyright_exclusion(stub_dir: str) -> None:
     assert i < len(lines), f"Error parsing {PYRIGHT_CONFIG}"
     while not lines[i].strip().startswith("]"):
         i += 1
-    # Must use forward slash in the .json file
-    line_to_add = f'        "{stub_dir}",'.replace("\\", "/")
-    initial = i - 1
-    while lines[i].lower() > line_to_add.lower():
+    end = i
+
+    # We assume that all third-party excludes must be at the end of the list.
+    # This helps with skipping special entries, such as "stubs/**/@tests/test_cases".
+    while lines[i - 1].strip().startswith('"stubs/'):
         i -= 1
-    if lines[i + 1].strip().rstrip(",") == line_to_add.strip().rstrip(","):
+    start = i
+
+    before_third_party_excludes = lines[:start]
+    third_party_excludes = lines[start:end]
+    after_third_party_excludes = lines[end:]
+
+    last_line = third_party_excludes[-1].rstrip()
+    if not last_line.endswith(","):
+        last_line += ","
+        third_party_excludes[-1] = last_line + "\n"
+
+    # Must use forward slash in the .json file
+    line_to_add = f'        "{stub_dir}",\n'.replace("\\", "/")
+
+    if line_to_add in third_party_excludes:
         print(f"{PYRIGHT_CONFIG} already up-to-date")
         return
-    if i == initial:
-        # Special case: when adding to the end of the list, commas need tweaking
-        line_to_add = line_to_add.rstrip(",")
-        lines[i] = lines[i].rstrip() + ",\n"
-    lines.insert(i + 1, line_to_add + "\n")
+
+    third_party_excludes.append(line_to_add)
+    third_party_excludes.sort(key=str.lower)
+
     print(f"Updating {PYRIGHT_CONFIG}")
     with open(PYRIGHT_CONFIG, "w", encoding="UTF-8") as f:
-        f.writelines(lines)
+        f.writelines(before_third_party_excludes)
+        f.writelines(third_party_excludes)
+        f.writelines(after_third_party_excludes)
 
 
 def main() -> None:
