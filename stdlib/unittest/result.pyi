@@ -6,7 +6,7 @@ from typing import Any, TextIO, TypeVar
 from typing_extensions import TypeAlias
 
 _F = TypeVar("_F", bound=Callable[..., Any])
-_DurationsType: TypeAlias = list[tuple[unittest.case.TestCase, float]]
+_DurationsType: TypeAlias = list[tuple[str, float]]
 
 STDOUT_LINE: str
 STDERR_LINE: str
