@@ -1,6 +1,7 @@
 import sys
 from ctypes import Structure, Union, _CField, _NamedFuncPointer, _Pointer, c_int64, c_ulong, c_void_p
 from ctypes.wintypes import DWORD
+from typing import Any
 from typing_extensions import TypeAlias
 
 if sys.platform == "win32":
@@ -9,9 +10,9 @@ if sys.platform == "win32":
     ULONG_PTR: type[c_int64 | c_ulong]
 
     class _SECURITY_ATTRIBUTES(Structure):
-        nLength: _CField
-        lpSecurityDescriptor: _CField
-        bInheritHandle: _CField
+        nLength: _CField[Any, Any, Any]
+        lpSecurityDescriptor: _CField[Any, Any, Any]
+        bInheritHandle: _CField[Any, Any, Any]
     LPSECURITY_ATTRIBUTES: type[_Pointer[_SECURITY_ATTRIBUTES]]
     CreateEvent: _NamedFuncPointer
     CreateFile: _NamedFuncPointer
@@ -21,64 +22,64 @@ if sys.platform == "win32":
     CreateFileW: _NamedFuncPointer
 
     class _OVERLAPPED(Structure):
-        Internal: _CField
-        InternalHigh: _CField
-        Offset: _CField
-        OffsetHigh: _CField
-        Pointer: _CField
-        hEvent: _CField
+        Internal: _CField[Any, Any, Any]
+        InternalHigh: _CField[Any, Any, Any]
+        Offset: _CField[Any, Any, Any]
+        OffsetHigh: _CField[Any, Any, Any]
+        Pointer: _CField[Any, Any, Any]
+        hEvent: _CField[Any, Any, Any]
     OVERLAPPED: TypeAlias = _OVERLAPPED
 
     class _COMSTAT(Structure):
-        fCtsHold: _CField
-        fDsrHold: _CField
-        fRlsdHold: _CField
-        fXoffHold: _CField
-        fXoffSent: _CField
-        fEof: _CField
-        fTxim: _CField
-        fReserved: _CField
-        cbInQue: _CField
-        cbOutQue: _CField
+        fCtsHold: _CField[Any, Any, Any]
+        fDsrHold: _CField[Any, Any, Any]
+        fRlsdHold: _CField[Any, Any, Any]
+        fXoffHold: _CField[Any, Any, Any]
+        fXoffSent: _CField[Any, Any, Any]
+        fEof: _CField[Any, Any, Any]
+        fTxim: _CField[Any, Any, Any]
+        fReserved: _CField[Any, Any, Any]
+        cbInQue: _CField[Any, Any, Any]
+        cbOutQue: _CField[Any, Any, Any]
     COMSTAT: TypeAlias = _COMSTAT
 
     class _DCB(Structure):
-        DCBlength: _CField
-        BaudRate: _CField
-        fBinary: _CField
-        fParity: _CField
-        fOutxCtsFlow: _CField
-        fOutxDsrFlow: _CField
-        fDtrControl: _CField
-        fDsrSensitivity: _CField
-        fTXContinueOnXoff: _CField
-        fOutX: _CField
-        fInX: _CField
-        fErrorChar: _CField
-        fNull: _CField
-        fRtsControl: _CField
-        fAbortOnError: _CField
-        fDummy2: _CField
-        wReserved: _CField
-        XonLim: _CField
-        XoffLim: _CField
-        ByteSize: _CField
-        Parity: _CField
-        StopBits: _CField
-        XonChar: _CField
-        XoffChar: _CField
-        ErrorChar: _CField
-        EofChar: _CField
-        EvtChar: _CField
-        wReserved1: _CField
+        DCBlength: _CField[Any, Any, Any]
+        BaudRate: _CField[Any, Any, Any]
+        fBinary: _CField[Any, Any, Any]
+        fParity: _CField[Any, Any, Any]
+        fOutxCtsFlow: _CField[Any, Any, Any]
+        fOutxDsrFlow: _CField[Any, Any, Any]
+        fDtrControl: _CField[Any, Any, Any]
+        fDsrSensitivity: _CField[Any, Any, Any]
+        fTXContinueOnXoff: _CField[Any, Any, Any]
+        fOutX: _CField[Any, Any, Any]
+        fInX: _CField[Any, Any, Any]
+        fErrorChar: _CField[Any, Any, Any]
+        fNull: _CField[Any, Any, Any]
+        fRtsControl: _CField[Any, Any, Any]
+        fAbortOnError: _CField[Any, Any, Any]
+        fDummy2: _CField[Any, Any, Any]
+        wReserved: _CField[Any, Any, Any]
+        XonLim: _CField[Any, Any, Any]
+        XoffLim: _CField[Any, Any, Any]
+        ByteSize: _CField[Any, Any, Any]
+        Parity: _CField[Any, Any, Any]
+        StopBits: _CField[Any, Any, Any]
+        XonChar: _CField[Any, Any, Any]
+        XoffChar: _CField[Any, Any, Any]
+        ErrorChar: _CField[Any, Any, Any]
+        EofChar: _CField[Any, Any, Any]
+        EvtChar: _CField[Any, Any, Any]
+        wReserved1: _CField[Any, Any, Any]
     DCB: TypeAlias = _DCB
 
     class _COMMTIMEOUTS(Structure):
-        ReadIntervalTimeout: _CField
-        ReadTotalTimeoutMultiplier: _CField
-        ReadTotalTimeoutConstant: _CField
-        WriteTotalTimeoutMultiplier: _CField
-        WriteTotalTimeoutConstant: _CField
+        ReadIntervalTimeout: _CField[Any, Any, Any]
+        ReadTotalTimeoutMultiplier: _CField[Any, Any, Any]
+        ReadTotalTimeoutConstant: _CField[Any, Any, Any]
+        WriteTotalTimeoutMultiplier: _CField[Any, Any, Any]
+        WriteTotalTimeoutConstant: _CField[Any, Any, Any]
     COMMTIMEOUTS: TypeAlias = _COMMTIMEOUTS
 
     GetLastError: _NamedFuncPointer
@@ -151,11 +152,11 @@ if sys.platform == "win32":
     PURGE_RXCLEAR: int
 
     class N11_OVERLAPPED4DOLLAR_48E(Union):
-        Offset: _CField
-        OffsetHigh: _CField
-        Pointer: _CField
+        Offset: _CField[Any, Any, Any]
+        OffsetHigh: _CField[Any, Any, Any]
+        Pointer: _CField[Any, Any, Any]
 
     class N11_OVERLAPPED4DOLLAR_484DOLLAR_49E(Structure):
-        Offset: _CField
-        OffsetHigh: _CField
+        Offset: _CField[Any, Any, Any]
+        OffsetHigh: _CField[Any, Any, Any]
     PVOID: TypeAlias = c_void_p

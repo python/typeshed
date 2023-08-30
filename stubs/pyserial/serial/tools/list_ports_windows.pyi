@@ -2,6 +2,7 @@ import ctypes
 import sys
 from collections.abc import Generator
 from ctypes.wintypes import DWORD
+from typing import Any
 
 from serial.tools.list_ports_common import ListPortInfo
 
@@ -24,16 +25,16 @@ if sys.platform == "win32":
     REGSAM = ACCESS_MASK
 
     class GUID(ctypes.Structure):
-        Data1: ctypes._CField
-        Data2: ctypes._CField
-        Data3: ctypes._CField
-        Data4: ctypes._CField
+        Data1: ctypes._CField[Any, Any, Any]
+        Data2: ctypes._CField[Any, Any, Any]
+        Data3: ctypes._CField[Any, Any, Any]
+        Data4: ctypes._CField[Any, Any, Any]
 
     class SP_DEVINFO_DATA(ctypes.Structure):
-        cbSize: ctypes._CField
-        ClassGuid: ctypes._CField
-        DevInst: ctypes._CField
-        Reserved: ctypes._CField
+        cbSize: ctypes._CField[Any, Any, Any]
+        ClassGuid: ctypes._CField[Any, Any, Any]
+        DevInst: ctypes._CField[Any, Any, Any]
+        Reserved: ctypes._CField[Any, Any, Any]
     PSP_DEVINFO_DATA: type[ctypes._Pointer[SP_DEVINFO_DATA]]
     PSP_DEVICE_INTERFACE_DETAIL_DATA = ctypes.c_void_p
     setupapi: ctypes.WinDLL
