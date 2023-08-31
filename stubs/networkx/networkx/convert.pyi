@@ -1,11 +1,11 @@
+from _typeshed import Incomplete
 from collections.abc import Iterable
+from typing_extensions import TypeAlias
 
 import numpy
-from _typeshed import Incomplete
 
 # import scipy
 from networkx.classes.graph import EdgePlus, Graph, _Node
-from typing_extensions import TypeAlias
 
 # this is imported from other stub files
 _Data: TypeAlias = (  # noqa: Y047

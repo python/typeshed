@@ -11,16 +11,8 @@ def approximate_current_flow_betweenness_centrality(
     seed: Incomplete | None = None,
 ): ...
 def current_flow_betweenness_centrality(
-    G,
-    normalized: bool = True,
-    weight: Incomplete | None = None,
-    dtype=...,
-    solver: str = "full",
+    G, normalized: bool = True, weight: Incomplete | None = None, dtype=..., solver: str = "full"
 ): ...
 def edge_current_flow_betweenness_centrality(
-    G,
-    normalized: bool = True,
-    weight: Incomplete | None = None,
-    dtype=...,
-    solver: str = "full",
+    G, normalized: bool = True, weight: Incomplete | None = None, dtype=..., solver: str = "full"
 ): ...

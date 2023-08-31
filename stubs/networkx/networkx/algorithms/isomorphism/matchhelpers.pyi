@@ -9,9 +9,7 @@ def numerical_node_match(attr, default, rtol: float = 1e-05, atol: float = 1e-08
 
 numerical_edge_match: Incomplete
 
-def numerical_multiedge_match(
-    attr, default, rtol: float = 1e-05, atol: float = 1e-08
-): ...
+def numerical_multiedge_match(attr, default, rtol: float = 1e-05, atol: float = 1e-08): ...
 def generic_node_match(attr, default, op): ...
 
 generic_edge_match: Incomplete

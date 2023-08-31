@@ -1,14 +1,8 @@
 from _typeshed import Incomplete
 
-def draw(
-    G, pos: Incomplete | None = None, ax: Incomplete | None = None, **kwds
-) -> None: ...
+def draw(G, pos: Incomplete | None = None, ax: Incomplete | None = None, **kwds) -> None: ...
 def draw_networkx(
-    G,
-    pos: Incomplete | None = None,
-    arrows: Incomplete | None = None,
-    with_labels: bool = True,
-    **kwds
+    G, pos: Incomplete | None = None, arrows: Incomplete | None = None, with_labels: bool = True, **kwds
 ) -> None: ...
 def draw_networkx_nodes(
     G,

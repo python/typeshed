@@ -7,41 +7,17 @@ class EdgePartition(Enum):
     EXCLUDED: int
 
 def minimum_spanning_edges(
-    G,
-    algorithm: str = "kruskal",
-    weight: str = "weight",
-    keys: bool = True,
-    data: bool = True,
-    ignore_nan: bool = False,
+    G, algorithm: str = "kruskal", weight: str = "weight", keys: bool = True, data: bool = True, ignore_nan: bool = False
 ): ...
 def maximum_spanning_edges(
-    G,
-    algorithm: str = "kruskal",
-    weight: str = "weight",
-    keys: bool = True,
-    data: bool = True,
-    ignore_nan: bool = False,
+    G, algorithm: str = "kruskal", weight: str = "weight", keys: bool = True, data: bool = True, ignore_nan: bool = False
 ): ...
-def minimum_spanning_tree(
-    G, weight: str = "weight", algorithm: str = "kruskal", ignore_nan: bool = False
-): ...
+def minimum_spanning_tree(G, weight: str = "weight", algorithm: str = "kruskal", ignore_nan: bool = False): ...
 def partition_spanning_tree(
-    G,
-    minimum: bool = True,
-    weight: str = "weight",
-    partition: str = "partition",
-    ignore_nan: bool = False,
+    G, minimum: bool = True, weight: str = "weight", partition: str = "partition", ignore_nan: bool = False
 ): ...
-def maximum_spanning_tree(
-    G, weight: str = "weight", algorithm: str = "kruskal", ignore_nan: bool = False
-): ...
-def random_spanning_tree(
-    G,
-    weight: Incomplete | None = None,
-    *,
-    multiplicative: bool = True,
-    seed: Incomplete | None = None
-): ...
+def maximum_spanning_tree(G, weight: str = "weight", algorithm: str = "kruskal", ignore_nan: bool = False): ...
+def random_spanning_tree(G, weight: Incomplete | None = None, *, multiplicative: bool = True, seed: Incomplete | None = None): ...
 
 class SpanningTreeIterator:
     class Partition:
@@ -58,9 +34,7 @@ class SpanningTreeIterator:
     minimum: Incomplete
     ignore_nan: Incomplete
     partition_key: str
-    def __init__(
-        self, G, weight: str = "weight", minimum: bool = True, ignore_nan: bool = False
-    ) -> None: ...
+    def __init__(self, G, weight: str = "weight", minimum: bool = True, ignore_nan: bool = False) -> None: ...
     partition_queue: Incomplete
     def __iter__(self): ...
     def __next__(self): ...

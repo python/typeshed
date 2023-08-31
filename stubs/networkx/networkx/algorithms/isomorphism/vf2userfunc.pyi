@@ -7,13 +7,7 @@ class GraphMatcher(vf2.GraphMatcher):
     edge_match: Incomplete
     G1_adj: Incomplete
     G2_adj: Incomplete
-    def __init__(
-        self,
-        G1,
-        G2,
-        node_match: Incomplete | None = None,
-        edge_match: Incomplete | None = None,
-    ) -> None: ...
+    def __init__(self, G1, G2, node_match: Incomplete | None = None, edge_match: Incomplete | None = None) -> None: ...
     semantic_feasibility: Incomplete
 
 class DiGraphMatcher(vf2.DiGraphMatcher):
@@ -21,13 +15,7 @@ class DiGraphMatcher(vf2.DiGraphMatcher):
     edge_match: Incomplete
     G1_adj: Incomplete
     G2_adj: Incomplete
-    def __init__(
-        self,
-        G1,
-        G2,
-        node_match: Incomplete | None = None,
-        edge_match: Incomplete | None = None,
-    ) -> None: ...
+    def __init__(self, G1, G2, node_match: Incomplete | None = None, edge_match: Incomplete | None = None) -> None: ...
     def semantic_feasibility(self, G1_node, G2_node): ...
 
 class MultiGraphMatcher(GraphMatcher): ...

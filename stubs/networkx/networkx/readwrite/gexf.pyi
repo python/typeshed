@@ -1,22 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
-def write_gexf(
-    G,
-    path,
-    encoding: str = "utf-8",
-    prettyprint: bool = True,
-    version: str = "1.2draft",
-) -> None: ...
+def write_gexf(G, path, encoding: str = "utf-8", prettyprint: bool = True, version: str = "1.2draft") -> None: ...
 def generate_gexf(
     G, encoding: str = "utf-8", prettyprint: bool = True, version: str = "1.2draft"
 ) -> Generator[Incomplete, Incomplete, None]: ...
-def read_gexf(
-    path,
-    node_type: Incomplete | None = None,
-    relabel: bool = False,
-    version: str = "1.2draft",
-): ...
+def read_gexf(path, node_type: Incomplete | None = None, relabel: bool = False, version: str = "1.2draft"): ...
 
 class GEXF:
     versions: Incomplete
@@ -41,11 +30,7 @@ class GEXFWriter(GEXF):
     all_edge_ids: Incomplete
     attr: Incomplete
     def __init__(
-        self,
-        graph: Incomplete | None = None,
-        encoding: str = "utf-8",
-        prettyprint: bool = True,
-        version: str = "1.2draft",
+        self, graph: Incomplete | None = None, encoding: str = "utf-8", prettyprint: bool = True, version: str = "1.2draft"
     ) -> None: ...
     graph_element: Incomplete
     def add_graph(self, G) -> None: ...
@@ -64,16 +49,12 @@ class GEXFWriter(GEXF):
 class GEXFReader(GEXF):
     node_type: Incomplete
     simple_graph: bool
-    def __init__(
-        self, node_type: Incomplete | None = None, version: str = "1.2draft"
-    ) -> None: ...
+    def __init__(self, node_type: Incomplete | None = None, version: str = "1.2draft") -> None: ...
     xml: Incomplete
     def __call__(self, stream): ...
     timeformat: Incomplete
     def make_graph(self, graph_xml): ...
-    def add_node(
-        self, G, node_xml, node_attr, node_pid: Incomplete | None = None
-    ) -> None: ...
+    def add_node(self, G, node_xml, node_attr, node_pid: Incomplete | None = None) -> None: ...
     def add_start_end(self, data, xml): ...
     def add_viz(self, data, node_xml): ...
     def add_parents(self, data, node_xml): ...

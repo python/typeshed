@@ -1,11 +1,7 @@
 from _typeshed import Incomplete
 
-def random_layout(
-    G, center: Incomplete | None = None, dim: int = 2, seed: Incomplete | None = None
-): ...
-def circular_layout(
-    G, scale: int = 1, center: Incomplete | None = None, dim: int = 2
-): ...
+def random_layout(G, center: Incomplete | None = None, dim: int = 2, seed: Incomplete | None = None): ...
+def circular_layout(G, scale: int = 1, center: Incomplete | None = None, dim: int = 2): ...
 def shell_layout(
     G,
     nlist: Incomplete | None = None,
@@ -15,12 +11,7 @@ def shell_layout(
     dim: int = 2,
 ): ...
 def bipartite_layout(
-    G,
-    nodes,
-    align: str = "vertical",
-    scale: int = 1,
-    center: Incomplete | None = None,
-    aspect_ratio: float = ...,
+    G, nodes, align: str = "vertical", scale: int = 1, center: Incomplete | None = None, aspect_ratio: float = ...
 ): ...
 def spring_layout(
     G,
@@ -47,30 +38,13 @@ def kamada_kawai_layout(
     center: Incomplete | None = None,
     dim: int = 2,
 ): ...
-def spectral_layout(
-    G,
-    weight: str = "weight",
-    scale: int = 1,
-    center: Incomplete | None = None,
-    dim: int = 2,
-): ...
-def planar_layout(
-    G, scale: int = 1, center: Incomplete | None = None, dim: int = 2
-): ...
+def spectral_layout(G, weight: str = "weight", scale: int = 1, center: Incomplete | None = None, dim: int = 2): ...
+def planar_layout(G, scale: int = 1, center: Incomplete | None = None, dim: int = 2): ...
 def spiral_layout(
-    G,
-    scale: int = 1,
-    center: Incomplete | None = None,
-    dim: int = 2,
-    resolution: float = 0.35,
-    equidistant: bool = False,
+    G, scale: int = 1, center: Incomplete | None = None, dim: int = 2, resolution: float = 0.35, equidistant: bool = False
 ): ...
 def multipartite_layout(
-    G,
-    subset_key: str = "subset",
-    align: str = "vertical",
-    scale: int = 1,
-    center: Incomplete | None = None,
+    G, subset_key: str = "subset", align: str = "vertical", scale: int = 1, center: Incomplete | None = None
 ): ...
 def arf_layout(
     G,

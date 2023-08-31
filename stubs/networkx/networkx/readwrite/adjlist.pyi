@@ -2,9 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 
 def generate_adjlist(G, delimiter: str = " ") -> Generator[Incomplete, None, None]: ...
-def write_adjlist(
-    G, path, comments: str = "#", delimiter: str = " ", encoding: str = "utf-8"
-) -> None: ...
+def write_adjlist(G, path, comments: str = "#", delimiter: str = " ", encoding: str = "utf-8") -> None: ...
 def parse_adjlist(
     lines,
     comments: str = "#",

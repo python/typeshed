@@ -54,9 +54,5 @@ def write_network_text(
     end: str = "\n",
 ) -> None: ...
 def forest_str(
-    graph,
-    with_labels: bool = True,
-    sources: Incomplete | None = None,
-    write: Incomplete | None = None,
-    ascii_only: bool = False,
+    graph, with_labels: bool = True, sources: Incomplete | None = None, write: Incomplete | None = None, ascii_only: bool = False
 ): ...

@@ -23,21 +23,8 @@ class _StateParameters(NamedTuple):
     T2_tilde: Incomplete
     T2_tilde_in: Incomplete
 
-def vf2pp_isomorphism(
-    G1,
-    G2,
-    node_label: Incomplete | None = None,
-    default_label: Incomplete | None = None,
-): ...
-def vf2pp_is_isomorphic(
-    G1,
-    G2,
-    node_label: Incomplete | None = None,
-    default_label: Incomplete | None = None,
-): ...
+def vf2pp_isomorphism(G1, G2, node_label: Incomplete | None = None, default_label: Incomplete | None = None): ...
+def vf2pp_is_isomorphic(G1, G2, node_label: Incomplete | None = None, default_label: Incomplete | None = None): ...
 def vf2pp_all_isomorphisms(
-    G1,
-    G2,
-    node_label: Incomplete | None = None,
-    default_label: Incomplete | None = None,
+    G1, G2, node_label: Incomplete | None = None, default_label: Incomplete | None = None
 ) -> Generator[Incomplete, None, Incomplete]: ...

@@ -1,11 +1,11 @@
-from collections.abc import Callable, Iterable
 from _typeshed import Incomplete
+from collections.abc import Callable, Iterable
+from typing_extensions import Literal
 
 import numpy
 from networkx.classes.graph import Graph, _Node
 from pandas import DataFrame
 from pandas.core.dtypes.base import ExtensionDtype
-from typing_extensions import Literal
 
 def to_pandas_adjacency(
     G: Graph[_Node],
@@ -16,9 +16,7 @@ def to_pandas_adjacency(
     weight: str = ...,
     nonedge: float = ...,
 ) -> DataFrame: ...
-def from_pandas_adjacency(
-    df: DataFrame, create_using: type[Graph[Incomplete]] = ...
-) -> Graph[Incomplete]: ...
+def from_pandas_adjacency(df: DataFrame, create_using: type[Graph[Incomplete]] = ...) -> Graph[Incomplete]: ...
 def to_pandas_edgelist(
     G: Graph[_Node],
     source: str | int = ...,
@@ -44,7 +42,5 @@ def to_numpy_array(
     nonedge: float = ...,
 ) -> numpy.ndarray[Incomplete, numpy.dtype[Incomplete]]: ...
 def from_numpy_array(
-    A: numpy.ndarray[Incomplete, Incomplete],
-    parallel_edges: bool = ...,
-    create_using: type[Graph[Incomplete]] = ...,
+    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = ..., create_using: type[Graph[Incomplete]] = ...
 ) -> Graph[Incomplete]: ...

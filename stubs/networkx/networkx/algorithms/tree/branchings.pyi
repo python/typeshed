@@ -1,22 +1,14 @@
-from typing import Generic
 from _typeshed import Incomplete
+from typing import Generic
 
 from networkx.classes.multidigraph import MultiDiGraph, _Node
 
 def branching_weight(G, attr: str = "weight", default: int = 1): ...
-def greedy_branching(
-    G,
-    attr: str = "weight",
-    default: int = 1,
-    kind: str = "max",
-    seed: Incomplete | None = None,
-): ...
+def greedy_branching(G, attr: str = "weight", default: int = 1, kind: str = "max", seed: Incomplete | None = None): ...
 
 class MultiDiGraph_EdgeKey(MultiDiGraph[_Node], Generic[_Node]):
     edge_index: Incomplete
-    def __init__(
-        self, incoming_graph_data: Incomplete | None = None, **attr
-    ) -> None: ...
+    def __init__(self, incoming_graph_data: Incomplete | None = None, **attr) -> None: ...
     def remove_node(self, n) -> None: ...
     def remove_nodes_from(self, nbunch) -> None: ...
     def add_edge(self, u_for_edge, v_for_edge, key_for_edge, **attr) -> None: ...
@@ -42,32 +34,16 @@ class Edmonds:
     ): ...
 
 def maximum_branching(
-    G,
-    attr: str = "weight",
-    default: int = 1,
-    preserve_attrs: bool = False,
-    partition: Incomplete | None = None,
+    G, attr: str = "weight", default: int = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
 ): ...
 def minimum_branching(
-    G,
-    attr: str = "weight",
-    default: int = 1,
-    preserve_attrs: bool = False,
-    partition: Incomplete | None = None,
+    G, attr: str = "weight", default: int = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
 ): ...
 def maximum_spanning_arborescence(
-    G,
-    attr: str = "weight",
-    default: int = 1,
-    preserve_attrs: bool = False,
-    partition: Incomplete | None = None,
+    G, attr: str = "weight", default: int = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
 ): ...
 def minimum_spanning_arborescence(
-    G,
-    attr: str = "weight",
-    default: int = 1,
-    preserve_attrs: bool = False,
-    partition: Incomplete | None = None,
+    G, attr: str = "weight", default: int = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
 ): ...
 
 class ArborescenceIterator:
@@ -86,13 +62,7 @@ class ArborescenceIterator:
     method: Incomplete
     partition_key: str
     init_partition: Incomplete
-    def __init__(
-        self,
-        G,
-        weight: str = "weight",
-        minimum: bool = True,
-        init_partition: Incomplete | None = None,
-    ) -> None: ...
+    def __init__(self, G, weight: str = "weight", minimum: bool = True, init_partition: Incomplete | None = None) -> None: ...
     partition_queue: Incomplete
     def __iter__(self): ...
     def __next__(self): ...

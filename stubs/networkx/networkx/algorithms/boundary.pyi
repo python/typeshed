@@ -1,9 +1,9 @@
+from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import TypeVar, overload
-from _typeshed import Incomplete
+from typing_extensions import Literal
 
 from networkx.classes.graph import Graph
-from typing_extensions import Literal
 
 _T = TypeVar("_T")
 _U = TypeVar("_U")
@@ -62,6 +62,4 @@ def edge_boundary(
     keys: Literal[True] = ...,
     default: _U | None = None,
 ) -> Iterable[tuple[_T, _T, int, dict[str, _U]]]: ...
-def node_boundary(
-    G: Graph[_T], nbunch1: Iterable[_T], nbunch2: Iterable[_T] | None = ...
-) -> Iterable[_T]: ...
+def node_boundary(G: Graph[_T], nbunch1: Iterable[_T], nbunch2: Iterable[_T] | None = ...) -> Iterable[_T]: ...

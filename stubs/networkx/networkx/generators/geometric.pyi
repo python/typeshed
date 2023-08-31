@@ -2,12 +2,7 @@ from _typeshed import Incomplete
 
 def geometric_edges(G, radius, p: int = 2): ...
 def random_geometric_graph(
-    n,
-    radius,
-    dim: int = 2,
-    pos: Incomplete | None = None,
-    p: int = 2,
-    seed: Incomplete | None = None,
+    n, radius, dim: int = 2, pos: Incomplete | None = None, p: int = 2, seed: Incomplete | None = None
 ): ...
 def soft_random_geometric_graph(
     n,
@@ -37,9 +32,7 @@ def waxman_graph(
     metric: Incomplete | None = None,
     seed: Incomplete | None = None,
 ): ...
-def navigable_small_world_graph(
-    n, p: int = 1, q: int = 1, r: int = 2, dim: int = 2, seed: Incomplete | None = None
-): ...
+def navigable_small_world_graph(n, p: int = 1, q: int = 1, r: int = 2, dim: int = 2, seed: Incomplete | None = None): ...
 def thresholded_random_geometric_graph(
     n,
     radius,

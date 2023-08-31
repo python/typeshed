@@ -1,12 +1,6 @@
 from _typeshed import Incomplete
 
-def group_betweenness_centrality(
-    G,
-    C,
-    normalized: bool = True,
-    weight: Incomplete | None = None,
-    endpoints: bool = False,
-): ...
+def group_betweenness_centrality(G, C, normalized: bool = True, weight: Incomplete | None = None, endpoints: bool = False): ...
 def prominent_group(
     G,
     k,

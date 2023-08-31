@@ -1,6 +1,6 @@
+from _typeshed import Incomplete
 from typing import TypeVar
 
-from _typeshed import Incomplete
 from networkx.classes.digraph import DiGraph
 
 _T = TypeVar("_T")

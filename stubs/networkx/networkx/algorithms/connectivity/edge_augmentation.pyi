@@ -1,15 +1,13 @@
+from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import Any, TypeVar
 
-from _typeshed import Incomplete
 from networkx.classes.graph import Graph
 
 _N = TypeVar("_N")
 
 def is_k_edge_connected(G: Graph[Any], k: int) -> Incomplete: ...
-def is_locally_k_edge_connected(
-    G: Incomplete, s: Incomplete, t: Incomplete, k: Incomplete
-) -> Incomplete: ...
+def is_locally_k_edge_connected(G: Incomplete, s: Incomplete, t: Incomplete, k: Incomplete) -> Incomplete: ...
 def k_edge_augmentation(
     G: Graph[_N],
     k: int,

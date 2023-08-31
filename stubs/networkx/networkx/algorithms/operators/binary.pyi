@@ -1,6 +1,6 @@
+from _typeshed import Incomplete
 from typing import TypeVar
 
-from _typeshed import Incomplete
 from networkx.classes.digraph import DiGraph
 
 def disjoint_union(G: Incomplete, H: Incomplete) -> Incomplete: ...
@@ -14,9 +14,4 @@ _Y = TypeVar("_Y", covariant=True)
 # TODO: This does not handle the cases when graphs of different types are passed which is allowed
 
 def compose(G: DiGraph[_X], H: DiGraph[_Y]) -> DiGraph[_X | _Y]: ...
-def union(
-    G: DiGraph[_X],
-    H: DiGraph[_Y],
-    rename: Incomplete = ...,
-    name: Incomplete | None = ...,
-) -> DiGraph[_X | _Y]: ...
+def union(G: DiGraph[_X], H: DiGraph[_Y], rename: Incomplete = ..., name: Incomplete | None = ...) -> DiGraph[_X | _Y]: ...

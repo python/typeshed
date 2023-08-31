@@ -11,9 +11,5 @@ def katz_centrality(
     weight: Incomplete | None = None,
 ): ...
 def katz_centrality_numpy(
-    G,
-    alpha: float = 0.1,
-    beta: float = 1.0,
-    normalized: bool = True,
-    weight: Incomplete | None = None,
+    G, alpha: float = 0.1, beta: float = 1.0, normalized: bool = True, weight: Incomplete | None = None
 ): ...

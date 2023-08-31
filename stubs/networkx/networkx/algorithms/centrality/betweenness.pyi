@@ -9,9 +9,5 @@ def betweenness_centrality(
     seed: Incomplete | None = None,
 ): ...
 def edge_betweenness_centrality(
-    G,
-    k: Incomplete | None = None,
-    normalized: bool = True,
-    weight: Incomplete | None = None,
-    seed: Incomplete | None = None,
+    G, k: Incomplete | None = None, normalized: bool = True, weight: Incomplete | None = None, seed: Incomplete | None = None
 ): ...

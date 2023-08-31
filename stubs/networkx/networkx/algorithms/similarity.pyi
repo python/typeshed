@@ -67,13 +67,7 @@ def simrank_similarity(
     tolerance: float = 0.0001,
 ): ...
 def panther_similarity(
-    G,
-    source,
-    k: int = 5,
-    path_length: int = 5,
-    c: float = 0.5,
-    delta: float = 0.1,
-    eps: Incomplete | None = None,
+    G, source, k: int = 5, path_length: int = 5, c: float = 0.5, delta: float = 0.1, eps: Incomplete | None = None
 ): ...
 def generate_random_paths(
     G, sample_size, path_length: int = 5, index_map: Incomplete | None = None

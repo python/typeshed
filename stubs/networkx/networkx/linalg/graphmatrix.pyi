@@ -7,9 +7,4 @@ def incidence_matrix(
     oriented: bool = False,
     weight: Incomplete | None = None,
 ): ...
-def adjacency_matrix(
-    G,
-    nodelist: Incomplete | None = None,
-    dtype: Incomplete | None = None,
-    weight: str = "weight",
-): ...
+def adjacency_matrix(G, nodelist: Incomplete | None = None, dtype: Incomplete | None = None, weight: str = "weight"): ...
