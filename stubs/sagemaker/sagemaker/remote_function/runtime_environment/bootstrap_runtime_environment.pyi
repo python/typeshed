@@ -1,0 +1,12 @@
+from _typeshed import Incomplete
+
+SUCCESS_EXIT_CODE: int
+DEFAULT_FAILURE_CODE: int
+REMOTE_FUNCTION_WORKSPACE: str
+BASE_CHANNEL_PATH: str
+FAILURE_REASON_PATH: str
+PRE_EXECUTION_SCRIPT_NAME: str
+JOB_REMOTE_FUNCTION_WORKSPACE: str
+logger: Incomplete
+
+def main() -> None: ...

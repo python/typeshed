@@ -1,0 +1,3 @@
+SUCCESS_EXIT_CODE: int
+
+def main() -> None: ...

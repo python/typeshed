@@ -1,0 +1,9 @@
+import abc
+from abc import abstractmethod
+
+class Modifier(metaclass=abc.ABCMeta):
+    def check_and_modify_node(self, node): ...
+    @abstractmethod
+    def node_should_be_modified(self, node): ...
+    @abstractmethod
+    def modify_node(self, node): ...

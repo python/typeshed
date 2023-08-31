@@ -1,0 +1,9 @@
+from sagemaker.experiments import Run
+
+class _RunContext:
+    @classmethod
+    def add_run_object(cls, run: Run): ...
+    @classmethod
+    def drop_current_run(cls) -> Run: ...
+    @classmethod
+    def get_current_run(cls) -> Run: ...
