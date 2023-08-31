@@ -17,7 +17,6 @@ importlib.metadata._meta.PackageMetadata.get
 importlib.metadata._meta.SimplePath.__truediv__
 importlib.metadata._meta.SimplePath.parent
 importlib.resources.files
-os.DirEntry.is_junction
 pathlib.Path.__init__
 pathlib.PurePath.__init__
 pathlib.PurePath.is_relative_to
