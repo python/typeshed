@@ -3,7 +3,6 @@ import sys
 from _typeshed import Incomplete
 from collections.abc import Generator
 from ctypes.wintypes import DWORD
-from typing import Any
 
 from serial.tools.list_ports_common import ListPortInfo
 

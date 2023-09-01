@@ -2,7 +2,6 @@ import sys
 from _typeshed import Incomplete
 from ctypes import Structure, Union, _CField, _NamedFuncPointer, _Pointer, c_int64, c_ulong, c_void_p
 from ctypes.wintypes import DWORD
-from typing import Any
 from typing_extensions import TypeAlias
 
 if sys.platform == "win32":
