@@ -33,10 +33,6 @@ importlib.resources.files
 importlib.util.module_for_loader
 importlib.util.set_loader
 importlib.util.set_package
-pathlib.Path.__init__
-pathlib.PurePath.__init__
-pathlib.PurePath.is_relative_to
-pathlib.PurePath.relative_to
 poplib.POP3_SSL.__init__
 smtplib.SMTP.starttls
 smtplib.SMTP_SSL.__init__
