@@ -17,10 +17,6 @@ importlib.metadata._meta.PackageMetadata.get
 importlib.metadata._meta.SimplePath.__truediv__
 importlib.metadata._meta.SimplePath.parent
 importlib.resources.files
-pathlib.Path.__init__
-pathlib.PurePath.__init__
-pathlib.PurePath.is_relative_to
-pathlib.PurePath.relative_to
 poplib.POP3_SSL.__init__
 smtplib.SMTP.starttls
 smtplib.SMTP_SSL.__init__
