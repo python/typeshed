@@ -40,11 +40,6 @@ typing_extensions.SupportsRound.__type_params__
 unittest.mock.NonCallableMock.__new__
 urllib.request.AbstractHTTPHandler.__init__
 urllib.request.HTTPSHandler.__init__
-zipfile.Path.glob
-zipfile.Path.is_symlink
-zipfile.Path.match
-zipfile.Path.relative_to
-zipfile.Path.rglob
 
 # TODO: remove after rc2 release
 turtle.__all__
