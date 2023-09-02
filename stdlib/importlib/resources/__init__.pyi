@@ -6,6 +6,7 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any, BinaryIO, TextIO
 from typing_extensions import TypeAlias
+
 if sys.version_info >= (3, 9):
     from importlib.abc import Traversable
 
@@ -38,6 +39,7 @@ if sys.version_info >= (3, 9):
 if sys.version_info >= (3, 12):
     # `package` param is deprecated in favor of `anchor`
     def files(anchor: Package | None = ..., package: Package | None = ...) -> Traversable: ...
+
 elif sys.version_info >= (3, 9):
     def files(package: Package) -> Traversable: ...
 
