@@ -33,7 +33,6 @@ typing.override
 typing_extensions.Protocol
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
-unittest.mock.NonCallableMock.__new__
 urllib.request.AbstractHTTPHandler.__init__
 urllib.request.HTTPSHandler.__init__
 zipfile.Path.glob
