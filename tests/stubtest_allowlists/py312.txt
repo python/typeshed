@@ -16,7 +16,6 @@ importlib.metadata.SelectableGroups
 importlib.metadata._meta.PackageMetadata.get
 importlib.metadata._meta.SimplePath.__truediv__
 importlib.metadata._meta.SimplePath.parent
-importlib.resources.files
 poplib.POP3_SSL.__init__
 smtplib.SMTP.starttls
 smtplib.SMTP_SSL.__init__
