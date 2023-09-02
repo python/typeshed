@@ -124,6 +124,7 @@ class NonCallableMock(Base, Any):
         ) -> Self: ...
     else:
         def __new__(__cls, *args: Any, **kw: Any) -> Self: ...
+
     def __init__(
         self,
         spec: list[str] | object | type[object] | None = None,
