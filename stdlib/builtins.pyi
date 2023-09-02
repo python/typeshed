@@ -1848,17 +1848,7 @@ class zip(Iterator[_T_co], Generic[_T_co]):
             strict: bool = ...,
         ) -> zip[tuple[_T1, _T2, _T3, _T4, _T5]]: ...
         @overload
-        def __new__(
-            cls,
-            __iter1: Iterable[Any],
-            __iter2: Iterable[Any],
-            __iter3: Iterable[Any],
-            __iter4: Iterable[Any],
-            __iter5: Iterable[Any],
-            __iter6: Iterable[Any],
-            *iterables: Iterable[Any],
-            strict: bool = ...,
-        ) -> zip[tuple[Any, ...]]: ...
+        def __new__(cls, *iterables: Iterable[_T], strict: bool = ...) -> zip[tuple[_T, ...]]: ...
     else:
         @overload
         def __new__(cls, __iter1: Iterable[_T1]) -> zip[tuple[_T1]]: ...
@@ -1880,16 +1870,7 @@ class zip(Iterator[_T_co], Generic[_T_co]):
             __iter5: Iterable[_T5],
         ) -> zip[tuple[_T1, _T2, _T3, _T4, _T5]]: ...
         @overload
-        def __new__(
-            cls,
-            __iter1: Iterable[Any],
-            __iter2: Iterable[Any],
-            __iter3: Iterable[Any],
-            __iter4: Iterable[Any],
-            __iter5: Iterable[Any],
-            __iter6: Iterable[Any],
-            *iterables: Iterable[Any],
-        ) -> zip[tuple[Any, ...]]: ...
+        def __new__(cls, *iterables: Iterable[_T]) -> zip[tuple[_T, ...]]: ...
 
     def __iter__(self) -> Self: ...
     def __next__(self) -> _T_co: ...
