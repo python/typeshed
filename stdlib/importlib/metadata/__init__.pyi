@@ -201,6 +201,7 @@ if sys.version_info >= (3, 12):
     def entry_points(
         *, name: str = ..., value: str = ..., group: str = ..., module: str = ..., attr: str = ..., extras: list[str] = ...
     ) -> EntryPoints: ...
+
 elif sys.version_info >= (3, 10):
     @overload
     def entry_points() -> SelectableGroups: ...  # type: ignore[misc]
