@@ -196,6 +196,7 @@ def distributions(
 
 if sys.version_info >= (3, 10):
     def metadata(distribution_name: str) -> PackageMetadata: ...
+
 else:
     def metadata(distribution_name: str) -> Message: ...
 
