@@ -88,6 +88,7 @@ if sys.version_info >= (3, 10):
         @property
         def groups(self) -> set[str]: ...
 
+if sys.version_info >= (3, 10) and sys.version_info < (3, 12):
     class SelectableGroups(dict[str, EntryPoints]):  # use as dict is deprecated since 3.10
         @classmethod
         def load(cls, eps: Iterable[EntryPoint]) -> Self: ...
@@ -195,6 +196,12 @@ def distributions(
 
 if sys.version_info >= (3, 10):
     def metadata(distribution_name: str) -> PackageMetadata: ...
+
+if sys.version_info >= (3, 12):
+    def entry_points(
+        *, name: str = ..., value: str = ..., group: str = ..., module: str = ..., attr: str = ..., extras: list[str] = ...
+    ) -> EntryPoints: ...
+elif sys.version_info >= (3, 10):
     @overload
     def entry_points() -> SelectableGroups: ...  # type: ignore[misc]
     @overload
