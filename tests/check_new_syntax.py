@@ -31,8 +31,10 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
             self.lineno: int | None = None
 
         def _visit_function(self, node: ast.FunctionDef | ast.AsyncFunctionDef) -> None:
+            old_lineno = self.lineno
             self.lineno = node.lineno
             self.generic_visit(node)
+            self.lineno = old_lineno
 
         visit_FunctionDef = visit_AsyncFunctionDef = _visit_function
 
