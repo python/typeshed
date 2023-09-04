@@ -68,6 +68,7 @@
         "stubs/qrcode",
         "stubs/redis",
         "stubs/requests",
+        "stubs/requests-oauthlib",
         "stubs/setuptools",
         "stubs/stripe",
         "stubs/tqdm",
