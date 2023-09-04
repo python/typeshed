@@ -29,7 +29,7 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
     class PEP570Finder(ast.NodeVisitor):
         def __init__(self) -> None:
             self.lineno: int | None = None
-        
+
         def _visit_function(self, node: ast.FunctionDef | ast.AsyncFunctionDef) -> None:
             self.lineno = node.lineno
             self.generic_visit(node)
