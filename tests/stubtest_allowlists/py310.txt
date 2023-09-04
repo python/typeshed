@@ -162,3 +162,6 @@ pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
 
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
+
+# https://github.com/python/mypy/issues/15302
+typing_extensions\.override

@@ -123,3 +123,6 @@ asynchat.async_chat.use_encoding
 asynchat.find_prefix_at_end
 pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
+
+# https://github.com/python/mypy/issues/15302
+typing_extensions\.override
