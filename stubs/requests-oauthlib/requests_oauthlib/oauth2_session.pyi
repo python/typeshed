@@ -54,17 +54,17 @@ class OAuth2Session(requests.Session):
     ) -> None: ...
     def new_state(self): ...
     @property
-    def client_id(self) -> Incomplete | None: ...  # oauthlib.ouath2.Client.client_id
+    def client_id(self) -> Incomplete | None: ...  # oauthlib.oauth2.Client.client_id
     @client_id.setter
     def client_id(self, value: Incomplete | None) -> None: ...
     @client_id.deleter
     def client_id(self) -> None: ...
     @property
-    def token(self): ...  # oauthlib.ouath2.Client.token
+    def token(self): ...  # oauthlib.oauth2.Client.token
     @token.setter
     def token(self, value) -> None: ...
     @property
-    def access_token(self): ...  # oauthlib.ouath2.Client.access_token
+    def access_token(self): ...  # oauthlib.oauth2.Client.access_token
     @access_token.setter
     def access_token(self, value) -> None: ...
     @access_token.deleter
