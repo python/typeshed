@@ -18,19 +18,6 @@ importlib.metadata._meta.SimplePath.parent
 poplib.POP3_SSL.__init__
 smtplib.SMTP.starttls
 smtplib.SMTP_SSL.__init__
-typing.ParamSpec.__mro_entries__
-typing.ParamSpecArgs.__mro_entries__
-typing.ParamSpecKwargs.__mro_entries__
-typing.SupportsAbs.__type_params__
-typing.SupportsRound.__type_params__
-typing.TypeVar.__mro_entries__
-typing.TypeVarTuple.__mro_entries__
-typing._ProtocolMeta.__init__
-typing.__all__
-typing.override
-typing_extensions.Protocol
-typing_extensions.SupportsAbs.__type_params__
-typing_extensions.SupportsRound.__type_params__
 urllib.request.AbstractHTTPHandler.__init__
 urllib.request.HTTPSHandler.__init__
 
@@ -135,6 +122,21 @@ typing\._SpecialForm.*
 typing\.NamedTuple
 typing\.LiteralString
 typing\.Annotated
+typing_extensions\.Protocol
+
+# These only exist to give a better error message if you try to subclass an instance
+typing.ParamSpec.__mro_entries__
+typing.ParamSpecArgs.__mro_entries__
+typing.ParamSpecKwargs.__mro_entries__
+typing.TypeVar.__mro_entries__
+typing.TypeVarTuple.__mro_entries__
+
+# TODO: mypy should infer that this attribute is inherited from builtins.type;
+# why doesn't it infer this?
+typing.SupportsAbs.__type_params__
+typing.SupportsRound.__type_params__
+typing_extensions.SupportsAbs.__type_params__
+typing_extensions.SupportsRound.__type_params__
 
 # These two should be removable after 3.12rc2 is released:
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
