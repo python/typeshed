@@ -144,6 +144,7 @@ types.WrapperDescriptorType.__get__
 typing_extensions\.assert_never
 typing_extensions\.assert_type
 typing_extensions\.reveal_type
+typing_extensions\.override
 
 # We lie about the existence of these methods
 .*.__buffer__

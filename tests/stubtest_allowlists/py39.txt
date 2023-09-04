@@ -131,6 +131,7 @@ types.WrapperDescriptorType.__get__
 typing_extensions\.assert_never
 typing_extensions\.assert_type
 typing_extensions\.reveal_type
+typing_extensions\.override
 
 # Super-special typing primitives
 typing\.NamedTuple
