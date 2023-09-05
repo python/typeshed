@@ -13,7 +13,7 @@ import sys
 import urllib.parse
 from itertools import groupby
 from pathlib import Path
-from typing import TypedDict
+from typing import Any, TypedDict
 
 import yaml
 from packaging.requirements import Requirement
@@ -221,7 +221,9 @@ def _load_jsonc(filename: str) -> dict[str, Any]:
     lines = [line for line in json_text.split("\n") if not line.strip().startswith("//")]
     # strip trailing commas from the file
     valid_json = re.sub(r",(\s*?[\}\]])", r"\1", "\n".join(lines))
-    return json.loads(valid_json)
+    ret = json.loads(valid_json)
+    assert isinstance(ret, dict)
+    return ret
 
 
 def _check_pyrightconfig_section(filename: str, loaded_config: dict[str, Any], section_name: str) -> None:
