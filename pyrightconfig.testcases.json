@@ -7,7 +7,9 @@
     ],
     "typeCheckingMode": "strict",
     // Extra strict settings
-    "reportShadowedImports": "error", // Don't accidentally name a file something that shadows stdlib
+    //
+    // Don't accidentally name a file something that shadows stdlib
+    "reportShadowedImports": "error",
     "reportImplicitStringConcatenation": "error",
     "reportUninitializedInstanceVariable": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",

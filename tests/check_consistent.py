@@ -5,10 +5,13 @@
 # verify these constraints.
 from __future__ import annotations
 
+import json
 import os
+import os.path
 import re
 import sys
 import urllib.parse
+from itertools import groupby
 from pathlib import Path
 from typing import TypedDict
 
@@ -24,6 +27,13 @@ extension_descriptions = {".pyi": "stub", ".py": ".py"}
 # These type checkers and linters must have exact versions in the requirements file to ensure
 # consistent CI runs.
 linters = {"black", "flake8", "flake8-bugbear", "flake8-noqa", "flake8-pyi", "isort", "ruff", "mypy", "pytype"}
+
+pyrightconfig_files = (
+    "pyrightconfig.json",
+    "pyrightconfig.stricter.json",
+    "pyrightconfig.scripts_and_tests.json",
+    "pyrightconfig.testcases.json",
+)
 
 
 def assert_consistent_filetypes(
@@ -202,6 +212,50 @@ def check_precommit_requirements() -> None:
         assert specifier == requirements_txt_requirements[requirement], specifier_mismatch
 
 
+def _load_jsonc(filename: str) -> dict[str, Any]:
+    """Parse the 'jsonc' format that's used by our pyrightconfig files."""
+    with open(filename, encoding="utf-8") as file:
+        json_text = file.read()
+    # strip comments from the file
+    # NOTE: inline comments are not supported
+    lines = [line for line in json_text.split("\n") if not line.strip().startswith("//")]
+    # strip trailing commas from the file
+    valid_json = re.sub(r",(\s*?[\}\]])", r"\1", "\n".join(lines))
+    return json.loads(valid_json)
+
+
+def _check_pyrightconfig_section(filename: str, loaded_config: dict[str, Any], section_name: str) -> None:
+    """Check an 'include' or 'exclude' section of a pyrightconfig file."""
+    section = loaded_config[section_name]
+
+    for entry in section:
+        only_relative_paths_allowed = f"{section_name!r} section in {filename!r}: {entry!r} must be a relative path!"
+        assert not os.path.isabs(entry), only_relative_paths_allowed
+
+    for groupname, group_iter in groupby(map(str.lower, section), key=lambda path: Path(path).parts[0]):
+        group = list(group_iter)
+        if all("**" in Path(entry).parts for entry in group):
+            # likely wildcard excludes, like "stubs/**/@tests/test_cases/"
+            continue
+        must_be_sorted = (
+            f"{section_name!r} section in {filename!r}: entries in the {groupname}/ group "
+            f"must be sorted according to case-insensitive alphabetical order!"
+        )
+        assert group == sorted(group), must_be_sorted
+
+
+def check_pyrightconfig_files() -> None:
+    """Assert various invariants about our pyrightconfig files.
+
+    Some of these are relied upon by scripts such as create_baseline_stubs.py and runtests.py.
+    """
+    for pyrightconfig in pyrightconfig_files:
+        loaded_config = _load_jsonc(pyrightconfig)
+        for section_name in "exclude", "include":
+            if section_name in loaded_config:
+                _check_pyrightconfig_section(pyrightconfig, loaded_config, section_name)
+
+
 if __name__ == "__main__":
     assert sys.version_info >= (3, 9), "Python 3.9+ is required to run this test"
     check_stdlib()
@@ -212,3 +266,4 @@ if __name__ == "__main__":
     check_test_cases()
     check_requirement_pins()
     check_precommit_requirements()
+    check_pyrightconfig_files()
