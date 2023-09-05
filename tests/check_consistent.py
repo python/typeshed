@@ -223,7 +223,7 @@ def _load_jsonc(filename: str) -> dict[str, Any]:
     valid_json = re.sub(r",(\s*?[\}\]])", r"\1", "\n".join(lines))
     ret = json.loads(valid_json)
     assert isinstance(ret, dict)
-    return ret
+    return ret  # pyright: ignore[reportUnknownVariableType]
 
 
 def _check_pyrightconfig_section(filename: str, loaded_config: dict[str, Any], section_name: str) -> None:
