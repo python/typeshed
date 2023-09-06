@@ -1,9 +1,5 @@
 # Uncategorised, from Python 3.12
 collections.UserDict.get
-enum.Enum.__signature__
-enum.EnumMeta.__call__
-enum.EnumType.__call__
-enum.property.member
 http.client.HTTPConnection.get_proxy_response_headers
 imaplib.IMAP4_SSL.__init__
 importlib.metadata.PackageMetadata.get
