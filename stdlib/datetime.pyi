@@ -2,7 +2,6 @@ import sys
 from abc import abstractmethod
 from time import struct_time
 from typing import ClassVar, Generic, NamedTuple, NoReturn, overload
-
 from typing_extensions import Literal, Self, SupportsIndex, TypeAlias, TypeVar, final
 
 if sys.version_info >= (3, 11):
@@ -120,7 +119,6 @@ class date:
 
 TzT = TypeVar("TzT", bound=tzinfo | None, default=tzinfo | None)
 TzT2 = TypeVar("TzT2", bound=tzinfo | None, default=tzinfo | None)
-
 
 class time(Generic[TzT]):
     min: ClassVar[time]
