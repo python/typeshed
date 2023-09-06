@@ -223,7 +223,7 @@ def get_updated_version_spec(spec: str, version: packaging.version.Version) -> s
     spec="1.1.1.*", version="1.2.3" -> "1.2.3.*"
     """
     if not spec.endswith(".*"):
-        return _check_spec(version.base_version, version)
+        return _check_spec(str(version), version)
 
     specificity = spec.count(".") if spec.removesuffix(".*") else 0
     rounded_version = version.base_version.split(".")[:specificity]
