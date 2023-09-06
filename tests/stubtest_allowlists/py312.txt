@@ -1,9 +1,4 @@
 # Uncategorised, from Python 3.12
-asyncio.create_eager_task_factory
-asyncio.eager_task_factory
-asyncio.tasks.__all__
-asyncio.tasks.create_eager_task_factory
-asyncio.tasks.eager_task_factory
 collections.UserDict.get
 enum.Enum.__signature__
 enum.EnumMeta.__call__
