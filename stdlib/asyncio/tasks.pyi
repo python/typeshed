@@ -389,6 +389,7 @@ if sys.version_info >= (3, 12):
         def __call__(
             self,
             __coro: _TaskCompatibleCoro[Any],
+            *,
             loop: AbstractEventLoop,
             name: str | None,
             context: Context | None,
