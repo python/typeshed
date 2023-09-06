@@ -14,30 +14,52 @@ if sys.version_info >= (3, 9):
 if sys.version_info >= (3, 11):
     from contextvars import Context
 
-__all__: tuple[str, ...] = (
-    "Task",
-    "create_task",
-    "FIRST_COMPLETED",
-    "FIRST_EXCEPTION",
-    "ALL_COMPLETED",
-    "wait",
-    "wait_for",
-    "as_completed",
-    "sleep",
-    "gather",
-    "shield",
-    "ensure_future",
-    "run_coroutine_threadsafe",
-    "current_task",
-    "all_tasks",
-    "_register_task",
-    "_unregister_task",
-    "_enter_task",
-    "_leave_task",
-)
-
 if sys.version_info >= (3, 12):
-    __all__ += ("create_eager_task_factory", "eager_task_factory")
+    __all__ = (
+        "Task",
+        "create_task",
+        "FIRST_COMPLETED",
+        "FIRST_EXCEPTION",
+        "ALL_COMPLETED",
+        "wait",
+        "wait_for",
+        "as_completed",
+        "sleep",
+        "gather",
+        "shield",
+        "ensure_future",
+        "run_coroutine_threadsafe",
+        "current_task",
+        "all_tasks",
+        "create_eager_task_factory",
+        "eager_task_factory",
+        "_register_task",
+        "_unregister_task",
+        "_enter_task",
+        "_leave_task",
+    )
+else:
+    __all__ = (
+        "Task",
+        "create_task",
+        "FIRST_COMPLETED",
+        "FIRST_EXCEPTION",
+        "ALL_COMPLETED",
+        "wait",
+        "wait_for",
+        "as_completed",
+        "sleep",
+        "gather",
+        "shield",
+        "ensure_future",
+        "run_coroutine_threadsafe",
+        "current_task",
+        "all_tasks",
+        "_register_task",
+        "_unregister_task",
+        "_enter_task",
+        "_leave_task",
+    )
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
