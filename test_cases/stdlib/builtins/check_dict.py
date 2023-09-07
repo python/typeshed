@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Dict, Generic, Iterable, TypeVar
+import os
+from typing import Dict, Generic, Iterable, Mapping, TypeVar
 from typing_extensions import assert_type
 
 # These do follow `__init__` overloads order:
@@ -56,3 +57,36 @@ assert_type(dict(string.split(b".") for string in i4), Dict[bytes, bytes])
 
 dict(["foo", "bar", "baz"])  # type: ignore
 dict([b"foo", b"bar", b"baz"])  # type: ignore
+
+
+############################
+# Tests for `dict.__(r)or__`
+###########################
+
+
+class CustomDictSubclass(Dict[_KT, _VT]):
+    pass
+
+
+def test_dict_dot_or(a: dict[int, int], b: CustomDictSubclass[int, int], c: dict[str, str], d: Mapping[int, int]) -> None:
+    # dict.__(r)or__ always returns a dict, even if called on a subclass of dict:
+    assert_type(a | b, Dict[int, int])
+    assert_type(b | a, Dict[int, int])
+
+    assert_type(a | c, Dict[int | str, int | str])
+
+    # arbitrary mappings are not accepted by `dict.__or__`;
+    # it has to be a subclass of `dict`
+    a | d  # type: ignore
+
+    # but Mappings such as `os._Environ`,
+    # which define `__ror__` methods that accept `dict`, are fine:
+    assert_type(a | os.environ, Dict[str | int, str | int])
+    assert_type(os.environ | a, Dict[str | int, str | int])
+    assert_type(c | os.environ, Dict[str, str])
+    assert_type(os.environ | c, Dict[str, str])
+
+    os.environ |= c
+    os.environ |= a  # type: ignore
+    c |= os.environ
+    c |= a  # type: ignore
