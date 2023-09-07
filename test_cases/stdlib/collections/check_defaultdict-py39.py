@@ -23,6 +23,8 @@ if sys.version_info >= (3, 9):
     def test_defaultdict_dot_or(
         a: defaultdict[int, int], b: CustomDefaultDictSubclass[int, int], c: defaultdict[str, str], d: Mapping[int, int]
     ) -> None:
+        assert_type(a | b, defaultdict[int, int])
+
         # In contrast to `dict.__or__`, `defaultdict.__or__` returns `Self` if called on a subclass of `defaultdict`:
         assert_type(b | a, CustomDefaultDictSubclass[int, int])
 
