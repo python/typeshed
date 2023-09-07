@@ -8,7 +8,7 @@ from __future__ import annotations
 import os
 import sys
 from collections import defaultdict
-from typing import Iterator, Mapping, TypeVar, Union, cast
+from typing import Iterator, Mapping, TypeVar, Union
 from typing_extensions import Self, assert_type
 
 _KT = TypeVar("_KT")
