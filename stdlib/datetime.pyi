@@ -117,8 +117,8 @@ class date:
     else:
         def isocalendar(self) -> tuple[int, int, int]: ...
 
-TzT = TypeVar("TzT", bound=tzinfo | None, default=tzinfo | None)
-TzT2 = TypeVar("TzT2", bound=tzinfo | None, default=tzinfo | None)
+TzT = TypeVar("TzT", bound=tzinfo | None, default=tzinfo | None, covariant=True)
+TzT2 = TypeVar("TzT2", bound=tzinfo | None, default=tzinfo | None, covariant=True)
 
 class time(Generic[TzT]):
     min: ClassVar[time]
@@ -328,6 +328,9 @@ class datetime(date, Generic[TzT]):
         fold: int = ...,
     ) -> datetime[TzT2]: ...
     if sys.version_info >= (3, 8):
+        @overload
+        def astimezone(self: datetime[tzinfo | None]) -> datetime[timezone]: ...
+        @overload
         def astimezone(self, tz: TzT = ...) -> Self: ...
     else:
         def astimezone(self, tz: TzT = ...) -> datetime[TzT]: ...
