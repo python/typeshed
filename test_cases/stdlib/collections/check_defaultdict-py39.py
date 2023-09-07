@@ -16,9 +16,9 @@ _VT = TypeVar("_VT")
 
 
 if sys.version_info >= (3, 9):
+
     class CustomDefaultDictSubclass(defaultdict[_KT, _VT]):
         pass
-
 
     def test_defaultdict_dot_or(
         a: defaultdict[int, int], b: CustomDefaultDictSubclass[int, int], c: defaultdict[str, str], d: Mapping[int, int]
