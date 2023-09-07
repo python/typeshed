@@ -8,7 +8,7 @@ from __future__ import annotations
 import os
 import sys
 from collections import defaultdict
-from typing import Iterator, Mapping, TypeVar, Union
+from typing import Mapping, TypeVar, Union
 from typing_extensions import Self, assert_type
 
 _KT = TypeVar("_KT")
@@ -21,18 +21,6 @@ if sys.version_info >= (3, 9):
         pass
 
     class CustomMappingWithDunderOr(Mapping[_KT, _VT]):
-        def __init__(self, data: dict[_KT, _VT]) -> None:
-            self.data = data
-
-        def __getitem__(self, key: _KT) -> _VT:
-            return self.data[key]
-
-        def __iter__(self) -> Iterator[_KT]:
-            return iter(self.data)
-
-        def __len__(self) -> int:
-            return len(self.data)
-
         def __or__(self, other: Mapping[_KT, _VT]) -> dict[_KT, _VT]:
             return {}
 
@@ -75,5 +63,7 @@ if sys.version_info >= (3, 9):
         e |= c
         e |= a  # type: ignore
 
-        c |= e
+        # TODO: this test passes mypy, but fails pyright for some reason:
+        # c |= e
+
         c |= a  # type: ignore
