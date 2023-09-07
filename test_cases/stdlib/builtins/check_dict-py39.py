@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import os
 import sys
-from typing import Mapping, TypeVar, Union, cast
+from typing import Iterator, Mapping, TypeVar, Union, cast
 from typing_extensions import Self, assert_type
 
 _KT = TypeVar("_KT")
@@ -20,8 +20,17 @@ if sys.version_info >= (3, 9):
         pass
 
     class CustomMappingWithDunderOr(Mapping[_KT, _VT]):
+        def __init__(self, data: dict[_KT, _VT]) -> None:
+            self.data = data
+
         def __getitem__(self, key: _KT) -> _VT:
-            return cast(_VT, 42)
+            return self.data[key]
+
+        def __iter__(self) -> Iterator[_KT]:
+            return iter(self.data)
+
+        def __len__(self) -> int:
+            return len(self.data)
 
         def __or__(self, other: Mapping[_KT, _VT]) -> dict[_KT, _VT]:
             return {}
