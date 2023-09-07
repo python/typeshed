@@ -132,7 +132,3 @@ typing.SupportsAbs.__type_params__
 typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
-
-# These two should be removable after 3.12rc2 is released:
-types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
-os.lseek  # a pos-only parameter name changed in py311/py312
