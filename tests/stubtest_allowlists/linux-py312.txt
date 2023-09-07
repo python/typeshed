@@ -43,6 +43,3 @@ tty.__all__
 tty.cfmakecbreak
 tty.cfmakeraw
 xxlimited.Xxo.x_exports
-
-# should be removable once 3.12.0rc2 is released:
-posix.lseek
