@@ -2,8 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path, PureWindowsPath
 
-if Path("asdf") == Path("asdf"):
-    ...
+if Path("asdf") == Path("asdf"): ...
 
 # https://github.com/python/typeshed/issues/10661
 # Provide a true positive error when comparing Path to str

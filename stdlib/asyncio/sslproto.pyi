@@ -25,6 +25,7 @@ if sys.version_info >= (3, 11):
         STATE_CON_MADE: str
         STATE_EOF: str
         STATE_CON_LOST: str
+
     def add_flowcontrol_defaults(high: int | None, low: int | None, kb: int) -> tuple[int, int]: ...
 
 else:

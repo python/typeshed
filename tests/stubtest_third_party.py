@@ -166,8 +166,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     uwsgi_script = venv_dir / "uwsgi_stubtest.py"
     wrapper_script = venv_dir / "uwsgi_wrapper.py"
     exit_code_surrogate = venv_dir / "exit_code"
-    uwsgi_script_contents = dedent(
-        f"""
+    uwsgi_script_contents = dedent(f"""
         import json
         import os
         import sys
@@ -178,8 +177,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
         with open("{exit_code_surrogate}", mode="w") as fp:
             fp.write(str(exit_code))
         sys.exit(exit_code)
-        """
-    )
+        """)
     uwsgi_script.write_text(uwsgi_script_contents)
 
     uwsgi_exe = venv_dir / "bin" / "uwsgi"
@@ -189,8 +187,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     # will always go to stdout and uWSGI to stderr, but on
     # MacOS they both go to stderr, for now we deal with the
     # bit of extra spam
-    wrapper_script_contents = dedent(
-        f"""
+    wrapper_script_contents = dedent(f"""
         import json
         import os
         import subprocess
@@ -209,8 +206,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
         subprocess.run(uwsgi_cmd, env=stubtest_env)
         with open("{exit_code_surrogate}", mode="r") as fp:
             sys.exit(int(fp.read()))
-        """
-    )
+        """)
     wrapper_script.write_text(wrapper_script_contents)
 
     # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script

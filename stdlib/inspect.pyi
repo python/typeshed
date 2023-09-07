@@ -451,6 +451,7 @@ if sys.version_info < (3, 11):
         varargs: str | None
         keywords: str | None
         defaults: tuple[Any, ...]
+
     def getargspec(func: object) -> ArgSpec: ...
 
 class FullArgSpec(NamedTuple):

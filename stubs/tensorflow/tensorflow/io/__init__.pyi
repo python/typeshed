@@ -94,6 +94,7 @@ class RaggedFeature(NamedTuple):
 
     class UniformRowLength(NamedTuple):  # type: ignore[misc]
         length: int
+
     dtype: _DTypeLike
     value_key: str | None = ...
     partitions: tuple[RowSplits | RowLengths | RowStarts | RowLimits | ValueRowIds | UniformRowLength, ...] = ...  # type: ignore[name-defined]

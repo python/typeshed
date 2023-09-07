@@ -166,6 +166,7 @@ if sys.version_info >= (3, 12):
         OCTOBER: Literal[10]
         NOVEMBER: Literal[11]
         DECEMBER: Literal[12]
+
     JANUARY = Month.JANUARY
     FEBRUARY = Month.FEBRUARY
     MARCH = Month.MARCH
@@ -187,6 +188,7 @@ if sys.version_info >= (3, 12):
         FRIDAY: Literal[4]
         SATURDAY: Literal[5]
         SUNDAY: Literal[6]
+
     MONDAY = Day.MONDAY
     TUESDAY = Day.TUESDAY
     WEDNESDAY = Day.WEDNESDAY

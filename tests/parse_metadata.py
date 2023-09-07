@@ -95,10 +95,9 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
 
     for platform, dep_key in _STUBTEST_PLATFORM_MAPPING.items():
         if platform not in specified_platforms:
-            assert dep_key not in data, (
-                f"Stubtest is not run on {platform} in CI for {distribution!r}, "
-                f"but {dep_key!r} are specified in METADATA.toml"
-            )
+            assert (
+                dep_key not in data
+            ), f"Stubtest is not run on {platform} in CI for {distribution!r}, but {dep_key!r} are specified in METADATA.toml"
 
     return StubtestSettings(
         skipped=skipped,

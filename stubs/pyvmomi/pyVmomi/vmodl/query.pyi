@@ -55,6 +55,7 @@ class PropertyCollector:
         def __init__(self, *, objects: list[PropertyCollector.ObjectContent] = ..., token: str | None = ...) -> None: ...
         objects: list[PropertyCollector.ObjectContent]
         token: str | None
+
     def RetrievePropertiesEx(
         self, specSet: list[PropertyCollector.FilterSpec], options: PropertyCollector.RetrieveOptions
     ) -> PropertyCollector.RetrieveResult: ...

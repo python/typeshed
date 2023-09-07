@@ -160,6 +160,7 @@ if sys.version_info >= (3, 11):
         def __set_name__(self, ownerclass: type[Enum], name: str) -> None: ...
         name: str
         clsname: str
+
     _magic_enum_attr = property
 else:
     _magic_enum_attr = types.DynamicClassAttribute
@@ -243,6 +244,7 @@ if sys.version_info >= (3, 11):
         CONTINUOUS: str
         NAMED_FLAGS: str
         UNIQUE: str
+
     CONTINUOUS = EnumCheck.CONTINUOUS
     NAMED_FLAGS = EnumCheck.NAMED_FLAGS
     UNIQUE = EnumCheck.UNIQUE
@@ -256,6 +258,7 @@ if sys.version_info >= (3, 11):
         CONFORM: str
         EJECT: str
         KEEP: str
+
     STRICT = FlagBoundary.STRICT
     CONFORM = FlagBoundary.CONFORM
     EJECT = FlagBoundary.EJECT

@@ -43,7 +43,7 @@ def check_new_syntax(tree: ast.AST, path: Path, stub: str) -> list[str]:
                 assert isinstance(self.lineno, int)
                 errors.append(
                     f"{path}:{self.lineno}: PEP-570 syntax cannot be used in typeshed yet. "
-                    f"Prefix parameter names with `__` to indicate positional-only parameters"
+                    "Prefix parameter names with `__` to indicate positional-only parameters"
                 )
             self.generic_visit(node)
 
