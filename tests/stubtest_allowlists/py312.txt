@@ -6,9 +6,6 @@ enum.EnumType.__call__
 enum.property.member
 http.client.HTTPConnection.get_proxy_response_headers
 imaplib.IMAP4_SSL.__init__
-poplib.POP3_SSL.__init__
-smtplib.SMTP.starttls
-smtplib.SMTP_SSL.__init__
 urllib.request.AbstractHTTPHandler.__init__
 urllib.request.HTTPSHandler.__init__
 
