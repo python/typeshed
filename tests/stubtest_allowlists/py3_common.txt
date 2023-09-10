@@ -128,9 +128,7 @@ typing(_extensions)?\.IO\.__next__  # Added because IO streams are iterable. See
 typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
-weakref.WeakKeyDictionary.get
 weakref.WeakKeyDictionary.update
-weakref.WeakValueDictionary.get
 weakref.WeakValueDictionary.update
 xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
