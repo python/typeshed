@@ -5,7 +5,6 @@ from collections.abc import Callable, Mapping, Sequence
 from enum import Enum
 from tkinter.constants import *
 from tkinter.font import _FontDescription
-from types import TracebackType
 from typing import Any, Generic, NamedTuple, TypeVar, overload, type_check_only
 from typing_extensions import Literal, TypeAlias, TypedDict
 
