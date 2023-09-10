@@ -76,6 +76,7 @@ inspect.Signature.from_function  # Removed in 3.11, can add if someone needs thi
 
 # These are not positional-only at runtime, but we treat them
 # as positional-only to match dict.
+_collections_abc.Mapping.get
 _collections_abc.MutableMapping.pop
 _collections_abc.MutableMapping.setdefault
 
