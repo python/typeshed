@@ -57,6 +57,7 @@ collections.Generator.gi_code
 collections.Generator.gi_frame
 collections.Generator.gi_running
 collections.Generator.gi_yieldfrom
+collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 
 # SpooledTemporaryFile implements IO except these methods before Python 3.11
