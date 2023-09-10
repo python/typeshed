@@ -1,4 +1,5 @@
 # Uncategorised, from Python 3.12
+collections.UserDict.get
 enum.Enum.__signature__
 enum.EnumMeta.__call__
 enum.EnumType.__call__
