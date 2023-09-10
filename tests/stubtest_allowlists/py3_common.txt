@@ -23,7 +23,6 @@ asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters an
 asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
-builtins.dict.get
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
 collections.ChainMap.fromkeys  # Runtime has *args which can really only be one argument
@@ -280,7 +279,7 @@ _collections_abc.Generator.gi_frame
 _collections_abc.Generator.gi_running
 _collections_abc.Generator.gi_yieldfrom
 _collections_abc.Mapping.__reversed__  # set to None at runtime for a better error message
-_collections_abc.Mapping.get  # Adding None to the Union messed up mypy
+_collections_abc.Mapping.get  # "key" argument is pos-or-kw at runtime but we have it as pos-only
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
 
 # Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
