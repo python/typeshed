@@ -8,9 +8,9 @@ partial_stub = true
 # package, which isn't the best idea at the moment.
 # obsolete_since = "5.0.0" # Released on 2023-08-15
 extra_description = """\
-    Redis-py 5.0.0 added a py.typed file, but the annotations are fairly \
-    incomplete, which is why the typeshed maintainers recommend to continue \
-    using `types-redis` for the time being.\
+    Note: Redis-py 5.0.0 added a py.typed file, but the inline annotations \
+    are incomplete. Continuing to use `types-redis` for the time being may \
+    lead to superior results.\
     """
 
 [tool.stubtest]
