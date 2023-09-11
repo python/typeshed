@@ -1,17 +1,8 @@
 # Uncategorised, from Python 3.12
-collections.UserDict.get
 enum.Enum.__signature__
 enum.EnumMeta.__call__
 enum.EnumType.__call__
 enum.property.member
-http.client.HTTPConnection.get_proxy_response_headers
-imaplib.IMAP4_SSL.__init__
-urllib.request.AbstractHTTPHandler.__init__
-urllib.request.HTTPSHandler.__init__
-
-# TODO: remove after rc2 release
-turtle.__all__
-turtle.teleport
 
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncIterable.__class_getitem__
