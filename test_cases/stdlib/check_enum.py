@@ -6,10 +6,10 @@ from typing import Type
 from typing_extensions import Literal, assert_type
 
 
-A = enum.Enum("A", names="spam eggs bacon")
-B = enum.Enum("B", names=["spam", "eggs", "bacon"])
-C = enum.Enum("Bar", names=[("spam", 1), ("eggs", 2), ("bacon", 3)])
-D = enum.Enum("Bar", names={"spam": 1, "eggs": 2})
+A = enum.Enum("A", "spam eggs bacon")
+B = enum.Enum("B", ["spam", "eggs", "bacon"])
+C = enum.Enum("Bar", [("spam", 1), ("eggs", 2), ("bacon", 3)])
+D = enum.Enum("Bar", {"spam": 1, "eggs": 2})
 
 assert_type(A, Type[A])
 assert_type(B, Type[B])
