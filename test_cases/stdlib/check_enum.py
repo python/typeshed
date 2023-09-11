@@ -23,6 +23,11 @@ class EnumOfTuples(enum.Enum):
 
 assert_type(EnumOfTuples((1, 2, 3)), EnumOfTuples)
 
+# TODO: ideally this test would pass:
+#
+# if sys.version_info >= (3, 12):
+#     assert_type(EnumOfTuples(1, 2, 3), EnumOfTuples)
+
 
 if sys.version_info >= (3, 11):
 
