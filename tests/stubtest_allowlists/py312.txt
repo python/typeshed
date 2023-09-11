@@ -1,9 +1,3 @@
-# Uncategorised, from Python 3.12
-enum.Enum.__signature__
-enum.EnumMeta.__call__
-enum.EnumType.__call__
-enum.property.member
-
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__
