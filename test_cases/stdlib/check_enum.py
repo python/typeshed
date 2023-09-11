@@ -5,7 +5,6 @@ import sys
 from typing import Type
 from typing_extensions import Literal, assert_type
 
-
 A = enum.Enum("A", "spam eggs bacon")
 B = enum.Enum("B", ["spam", "eggs", "bacon"])
 C = enum.Enum("Bar", [("spam", 1), ("eggs", 2), ("bacon", 3)])
