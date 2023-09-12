@@ -7,7 +7,7 @@ import types
 def custom_handler(
     exc: type[BaseException], val: BaseException, tb: types.TracebackType | None
 ) -> None:
-    traceback.print_exception(exc, val, tb)
+    print("oh no")
 
 
 root = tkinter.Tk()
