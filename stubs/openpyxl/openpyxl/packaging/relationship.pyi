@@ -1,10 +1,13 @@
 from _typeshed import Incomplete, Unused
 from collections.abc import Generator
-from typing import ClassVar, overload
+from typing import ClassVar, TypeVar, overload
 from typing_extensions import Literal
+from zipfile import ZipFile
 
 from openpyxl.descriptors.base import Alias, String
 from openpyxl.descriptors.serialisable import Serialisable
+
+_SerialisableT = TypeVar("_SerialisableT", bound=Serialisable)
 
 class Relationship(Serialisable):
     tagname: ClassVar[str]
@@ -37,5 +40,12 @@ class RelationshipList(Serialisable):
     def to_tree(self): ...
 
 def get_rels_path(path): ...
-def get_dependents(archive, filename): ...
-def get_rel(archive, deps, id: Incomplete | None = None, cls: Incomplete | None = None): ...
+def get_dependents(archive: ZipFile, filename: str) -> RelationshipList: ...
+@overload
+def get_rel(
+    archive: ZipFile, deps: RelationshipList, id: str, cls: type[_SerialisableT]
+) -> _SerialisableT: ...  # incomplete: this could be restricted further from "Serialisable"
+@overload
+def get_rel(
+    archive: ZipFile, deps: RelationshipList, id: str | None = None, *, cls: type[_SerialisableT]
+) -> _SerialisableT: ...  # incomplete: this could be restricted further from "Serialisable"

@@ -1,4 +1,5 @@
-from _typeshed import Incomplete, StrPath, SupportsRead
+from _typeshed import Incomplete, StrPath
+from typing import IO
 from typing_extensions import Final, Literal, TypeAlias
 from zipfile import ZipFile
 
@@ -26,7 +27,7 @@ class ExcelReader:
 
     def __init__(
         self,
-        fn: SupportsRead[bytes] | str,
+        fn: StrPath | IO[bytes],
         read_only: bool = False,
         keep_vba: bool = False,
         data_only: bool = False,
@@ -44,7 +45,7 @@ class ExcelReader:
     def read(self) -> None: ...
 
 def load_workbook(
-    filename: SupportsRead[bytes] | StrPath,
+    filename: StrPath | IO[bytes],
     read_only: bool = False,
     keep_vba: bool = False,
     data_only: bool = False,

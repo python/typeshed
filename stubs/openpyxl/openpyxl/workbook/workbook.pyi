@@ -3,6 +3,7 @@ from collections.abc import Iterator
 from datetime import datetime
 from typing import IO
 from typing_extensions import Final
+from zipfile import ZipFile
 
 from openpyxl import _Decodable
 from openpyxl.chartsheet.chartsheet import Chartsheet
@@ -21,7 +22,7 @@ class Workbook:
     security: Incomplete
     shared_strings: Incomplete
     loaded_theme: Incomplete
-    vba_archive: Incomplete
+    vba_archive: ZipFile | None
     is_template: bool
     code_name: Incomplete
     encoding: str
