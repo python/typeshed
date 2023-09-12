@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-import traceback
 import tkinter
+import traceback
 import types
 
-def custom_handler(
-    exc: type[BaseException], val: BaseException, tb: types.TracebackType | None
-) -> None:
+
+def custom_handler(exc: type[BaseException], val: BaseException, tb: types.TracebackType | None) -> None:
     print("oh no")
 
 
