@@ -9,6 +9,7 @@ def custom_handler(
 ) -> None:
     traceback.print_exception(exc, val, tb)
 
+
 root = tkinter.Tk()
 root.report_callback_exception = traceback.print_exception
 root.report_callback_exception = custom_handler
