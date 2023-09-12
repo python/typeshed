@@ -24,8 +24,8 @@ from _typeshed import (
     SupportsRDivMod,
     SupportsRichComparison,
     SupportsRichComparisonT,
-    SupportsTrunc,
     SupportsWrite,
+    _AcceptedByInt,
 )
 from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
@@ -48,7 +48,6 @@ from typing import (  # noqa: Y022
     SupportsBytes,
     SupportsComplex,
     SupportsFloat,
-    SupportsInt,
     TypeVar,
     overload,
     type_check_only,
@@ -221,7 +220,7 @@ _LiteralInteger = _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026
 
 class int:
     @overload
-    def __new__(cls, __x: str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc = ...) -> Self: ...
+    def __new__(cls, __x: _AcceptedByInt = ...) -> Self: ...
     @overload
     def __new__(cls, __x: str | bytes | bytearray, base: SupportsIndex) -> Self: ...
     if sys.version_info >= (3, 8):

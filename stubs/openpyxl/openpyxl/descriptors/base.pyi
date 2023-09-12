@@ -18,6 +18,7 @@ _M = TypeVar("_M", int, float)
 
 _ExpectedTypeParam: TypeAlias = type[_T] | tuple[type[_T], ...]
 _ConvertibleToMultiCellRange: TypeAlias = MultiCellRange | str | Iterable[CellRange]
+# TODO: replace by `_typeshed._AcceptedByInt` when it is included in type checkers
 _ConvertibleToInt: TypeAlias = int | str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
 _ConvertibleToFloat: TypeAlias = float | SupportsFloat | SupportsIndex | str | ReadableBuffer
 # Since everything is convertible to a bool, this restricts to only intended expected types
