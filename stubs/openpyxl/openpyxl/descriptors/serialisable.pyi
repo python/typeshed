@@ -4,11 +4,11 @@ from typing_extensions import Final, Self
 
 from openpyxl.descriptors import MetaSerialisable
 
-from ..xml._functions_overloads import _HasAttrib, _HasGet, _HasText, _SupportsFind
+from ..xml._functions_overloads import _HasAttrib, _HasGet, _HasText, _SupportsFindChartLines
 
 # For any override directly re-using Serialisable.from_tree
 class _ChildSerialisableTreeElement(_HasAttrib, _HasText, SupportsIter[Incomplete], Protocol): ...
-class _SerialisableTreeElement(_HasGet[object], _SupportsFind, _ChildSerialisableTreeElement, Protocol): ...
+class _SerialisableTreeElement(_HasGet[object], _SupportsFindChartLines, _ChildSerialisableTreeElement, Protocol): ...
 
 KEYWORDS: Final[frozenset[str]]
 seq_types: Final[tuple[type[list[Any]], type[tuple[Any, ...]]]]

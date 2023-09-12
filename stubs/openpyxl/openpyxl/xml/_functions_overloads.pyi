@@ -19,23 +19,24 @@ _T_co = TypeVar("_T_co", covariant=True)
 class _HasTag(Protocol):
     tag: Any  # AnyOf[str, None, Callable[..., AnyOf[str, None]]]
 
+class _HasGet(Protocol[_T_co]):
+    def get(self, __value: str) -> _T_co | None: ...
+
 class _HasText(Protocol):
     text: str
 
 class _HasAttrib(Protocol):
     attrib: Iterable[Any]  # AnyOf[dict[str, str], Iterable[tuple[str, str]]]
 
-class _HasGet(Protocol[_T_co]):
-    def get(self, __value: str) -> _T_co | None: ...
-
-class _SupportsFind(Protocol):
-    def find(self, __path: str) -> ChartLines | None: ...
-
 class _HasTagAndGet(_HasTag, _HasGet[_T_co], Protocol[_T_co]): ...
 class _HasTagAndText(_HasTag, _HasText, Protocol): ...  # noqa: Y046
 class _HasTagAndTextAndAttrib(_HasTag, _HasText, _HasAttrib, Protocol): ...  # noqa: Y046
+
+class _SupportsFindChartLines(Protocol):
+    def find(self, __path: str) -> ChartLines | None: ...
+
 class _SupportsFindAndIterAndAttribAndText(  # noqa: Y046
-    _SupportsFind, SupportsIter[Incomplete], _HasAttrib, _HasText, Protocol
+    _SupportsFindChartLines, SupportsIter[Incomplete], _HasAttrib, _HasText, Protocol
 ): ...
 class _SupportsIterAndAttribAndTextAndTag(SupportsIter[Incomplete], _HasAttrib, _HasText, _HasTag, Protocol): ...  # noqa: Y046
 class _SupportsIterAndAttribAndTextAndGet(  # noqa: Y046

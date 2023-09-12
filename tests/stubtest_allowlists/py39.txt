@@ -95,6 +95,7 @@ json.encoder.i
 lib2to3.pgen2.grammar.line
 lib2to3.pgen2.grammar.name
 lib2to3.pgen2.grammar.op
+poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
@@ -131,6 +132,7 @@ types.WrapperDescriptorType.__get__
 typing_extensions\.assert_never
 typing_extensions\.assert_type
 typing_extensions\.reveal_type
+typing_extensions\.override
 
 # Super-special typing primitives
 typing\.NamedTuple
@@ -149,3 +151,5 @@ asynchat.async_chat.use_encoding
 asynchat.find_prefix_at_end
 pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
+
+types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime

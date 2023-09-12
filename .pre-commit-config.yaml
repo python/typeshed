@@ -9,8 +9,8 @@ repos:
       - id: check-merge-conflict
       - id: mixed-line-ending
       - id: check-case-conflict
-  - repo: https://github.com/psf/black
-    rev: 23.7.0 # must match requirements-tests.txt
+  - repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 23.9.1 # must match requirements-tests.txt
     hooks:
       - id: black
         language_version: python3.10
@@ -20,12 +20,12 @@ repos:
       - id: isort
         name: isort (python)
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.0.280  # must match requirements-tests.txt
+    rev: v0.0.287  # must match requirements-tests.txt
     hooks:
       - id: ruff
         args: [--exit-non-zero-on-fix]
   - repo: https://github.com/pycqa/flake8
-    rev: 6.0.0 # must match requirements-tests.txt
+    rev: 6.1.0 # must match requirements-tests.txt
     hooks:
       - id: flake8
         additional_dependencies:

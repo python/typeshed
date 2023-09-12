@@ -13,7 +13,6 @@ _posixsubprocess.fork_exec
 (os|posix).CLONE_SYSVSEM
 (os|posix).CLONE_THREAD
 (os|posix).CLONE_VM
-(os|posix).DirEntry.is_junction
 (os|posix).EFD_CLOEXEC
 (os|posix).EFD_NONBLOCK
 (os|posix).EFD_SEMAPHORE

@@ -26,7 +26,6 @@ asyncio.futures.Future.__init__  # Usually initialized from c object
 builtins.dict.get
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
-collections.ChainMap.get  # Adding None to the underlying Mapping Union messed up mypy
 collections.ChainMap.fromkeys  # Runtime has *args which can really only be one argument
 collections.UserList.sort  # Runtime has *args but will error if any are supplied
 configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
@@ -108,7 +107,6 @@ multiprocessing.synchronize.SemLock.release
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 pickle.Pickler.reducer_override  # implemented in C pickler
-poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
@@ -130,9 +128,7 @@ typing(_extensions)?\.IO\.__next__  # Added because IO streams are iterable. See
 typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
-weakref.WeakKeyDictionary.get
 weakref.WeakKeyDictionary.update
-weakref.WeakValueDictionary.get
 weakref.WeakValueDictionary.update
 xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
@@ -463,7 +459,6 @@ typing_extensions.NewType.__mro_entries__  # just exists for an error message
 # https://github.com/python/mypy/issues/15302
 typing_extensions.NewType.__call__
 typing_extensions\.deprecated
-typing_extensions\.override
 typing_extensions\.get_protocol_members
 typing_extensions\.is_protocol
 
@@ -659,5 +654,3 @@ typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/com
 
 # Omit internal _KEEP argument
 tarfile.TarInfo.replace
-
-types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
