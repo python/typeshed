@@ -4,7 +4,7 @@ import tkinter
 import types
 
 def log_tkinter_error(
-    exc: int, val: int, tb: int
+    exc: type[BaseException], val: BaseException, tb: types.TracebackType | None
 ) -> None:
     print("oh no")
 
