@@ -313,5 +313,5 @@ TraceFunction: TypeAlias = Callable[[FrameType, str, Any], TraceFunction | None]
 class DataclassInstance(Protocol):
     __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
 
-# Any thing that can be passed to the int constructor
-_AcceptedByInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc  # noqa: Y047
+# Anything that can be passed to the int constructor
+AcceptedByInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc

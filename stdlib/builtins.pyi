@@ -4,6 +4,7 @@ import sys
 import types
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
+    AcceptedByInt,
     AnyStr_co,
     FileDescriptorOrPath,
     OpenBinaryMode,
@@ -25,7 +26,6 @@ from _typeshed import (
     SupportsRichComparison,
     SupportsRichComparisonT,
     SupportsWrite,
-    _AcceptedByInt,
 )
 from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
@@ -220,7 +220,7 @@ _LiteralInteger = _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026
 
 class int:
     @overload
-    def __new__(cls, __x: _AcceptedByInt = ...) -> Self: ...
+    def __new__(cls, __x: AcceptedByInt = ...) -> Self: ...
     @overload
     def __new__(cls, __x: str | bytes | bytearray, base: SupportsIndex) -> Self: ...
     if sys.version_info >= (3, 8):
