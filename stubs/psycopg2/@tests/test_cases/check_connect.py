@@ -32,6 +32,7 @@ assert_type(psycopg2.connect("test-conn", connection_factory=None, cursor_factor
 # -> custom_connection
 assert_type(psycopg2.connect(connection_factory=MyConnection), MyConnection)
 assert_type(psycopg2.connect("test-conn", connection_factory=MyConnection), MyConnection)
+assert_type(psycopg2.connect("test-conn", MyConnection), MyConnection)
 assert_type(psycopg2.connect(connection_factory=custom_connection), MyConnection)
 
 assert_type(psycopg2.connect(connection_factory=MyConnection, cursor_factory=MyCursor), MyConnection)

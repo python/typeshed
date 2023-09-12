@@ -70,6 +70,7 @@ class _ISQLQuoteProto(Protocol):
     # Objects conforming this protocol should implement a getquoted() and optionally a prepare() method.
     # The real ISQLQuote class is implemented below with more stuff.
     def getquoted(self) -> bytes: ...
+    # def prepare(self, __conn: connection) -> None: ...  # optional
 
 adapters: dict[tuple[type[Any], type[ISQLQuote]], Callable[[Any], _ISQLQuoteProto]]
 apilevel: str
@@ -533,6 +534,8 @@ class lobject:
 @type_check_only
 class _datetime:
     # The class doesn't exist at runtime but functions below return "psycopg2._psycopg.datetime" objects
+    # XXX: This and other classes that implement the `ISQLQuote` protocol could be made generic
+    # in the return type of their `adapted` property if someone asks for it.
     def __init__(self, __obj: object, __type: int = -1, **kwargs: Unused) -> None: ...
     @property
     def adapted(self) -> Any: ...
