@@ -1,3 +1,4 @@
+from functools import update_wrapper, wraps
 import sys
 import types
 from _typeshed import SupportsAllComparisons, SupportsItems
@@ -20,6 +21,7 @@ __all__ = [
     "partial",
     "partialmethod",
     "singledispatch",
+    "memoize",  
 ]
 
 if sys.version_info >= (3, 8):
@@ -220,3 +222,34 @@ def _make_key(
     type: Any = ...,
     len: Callable[[Sized], int] = ...,
 ) -> Hashable: ...
+def memoize(func):
+    """
+    A decorator to cache the results of a function.
+    
+    Usage:
+    @memoize
+    def expensive_function(arg1, arg2):
+        # Expensive computation here
+        return result
+    """
+    cache = {}
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        key = (args, frozenset(kwargs.items()))
+        if key in cache:
+            return cache[key]
+        result = func(*args, **kwargs)
+        cache[key] = result
+        return result
+
+    return wrapper
+
+# Example usage of the `memoize` decorator:
+@memoize
+def expensive_function(arg1, arg2):
+    print(f"Computing result for {arg1}, {arg2}")
+    return arg1 + arg2
+
+# Test the memoization
+print(expensive_function(1, 2))  # This will compute and cache the result
