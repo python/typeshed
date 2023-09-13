@@ -55,7 +55,7 @@ available at runtime. For more information about how to use this package,
 
 ## Discussion
 
-If you've run into behavior in the type checker that suggests the type
+If you've run into behavior in the type checker that suggests the types
 stubs for a given library are incorrect or incomplete,
 we want to hear from you!
 
