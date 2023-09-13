@@ -1,8 +1,8 @@
-from functools import update_wrapper, wraps
 import sys
 import types
 from _typeshed import SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sequence, Sized
+from functools import update_wrapper, wraps
 from typing import Any, Generic, NamedTuple, TypeVar, overload
 from typing_extensions import Literal, ParamSpec, Self, TypeAlias, TypedDict, final
 
@@ -21,7 +21,7 @@ __all__ = [
     "partial",
     "partialmethod",
     "singledispatch",
-    "memoize",  
+    "memoize",
 ]
 
 if sys.version_info >= (3, 8):
@@ -225,7 +225,7 @@ def _make_key(
 def memoize(func):
     """
     A decorator to cache the results of a function.
-    
+
     Usage:
     @memoize
     def expensive_function(arg1, arg2):
@@ -242,7 +242,6 @@ def memoize(func):
         result = func(*args, **kwargs)
         cache[key] = result
         return result
-
     return wrapper
 
 # Example usage of the `memoize` decorator:
