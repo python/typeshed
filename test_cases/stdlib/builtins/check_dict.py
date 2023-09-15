@@ -29,6 +29,8 @@ class KeysAndGetItem(Generic[_KT, _VT]):
     def __getitem__(self, __k: _KT) -> _VT:
         return self.data[__k]
 
+fooooooooo = baaaaaaaaaaaaaaaaar
+
 
 kt1: KeysAndGetItem[int, str] = KeysAndGetItem({0: ""})
 assert_type(dict(kt1), Dict[int, str])
@@ -47,7 +49,7 @@ test_iterable_tuple_overload(i1)
 dict(i1, arg="a")  # type: ignore
 
 i2: Iterable[tuple[str, int]] = [("a", 1), ("b", 2)]
-assert_type(dict(i2, arg=1), Dict[str, int])
+assert_type(dict(i2, arg=1), Dict[str, int])  # type: ignore
 
 i3: Iterable[str] = ["a.b"]
 i4: Iterable[bytes] = [b"a.b"]
