@@ -29,7 +29,6 @@ class KeysAndGetItem(Generic[_KT, _VT]):
     def __getitem__(self, __k: _KT) -> _VT:
         return self.data[__k]
 
-
 fooooooooo = baaaaaaaaaaaaaaaaar
 
 
