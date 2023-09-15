@@ -27,11 +27,8 @@ r = requests.post(url, files=multiple_files)
 # =================================================================================
 
 
-fooo = bbbbbbbbbbbbbbbbbbbbbbba
-
-
 # Arbitrary iterable
-def gen() -> Iterable[bytes]:  # type: ignore
+def gen() -> Iterable[bytes]:
     yield b"foo"
     yield b"bar"
 
