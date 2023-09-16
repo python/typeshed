@@ -1911,6 +1911,7 @@ if sys.version_info < (3, 10):
     @final
     @type_check_only
     class ellipsis: ...
+
 else:
     # In Python 3.10, EllipsisType is exposed publicly in the types module.
     @final
