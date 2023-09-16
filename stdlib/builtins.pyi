@@ -1905,15 +1905,16 @@ def __import__(
 ) -> types.ModuleType: ...
 def __build_class__(__func: Callable[[], _Cell | Any], __name: str, *bases: Any, metaclass: Any = ..., **kwds: Any) -> Any: ...
 
-if sys.version_info < (3, 10):
+if sys.version_info >= (3, 10):
+    # In Python 3.10, EllipsisType is exposed publicly in the types module.
+    @final
+    class ellipsis: ...
+
+else:
     # Actually the type of Ellipsis is <type 'ellipsis'>, but since it's
     # not exposed anywhere under that name, we make it private here.
     @final
     @type_check_only
-    class ellipsis: ...
-else:
-    # In Python 3.10, EllipsisType is exposed publicly in the types module.
-    @final
     class ellipsis: ...
 
 Ellipsis: ellipsis
