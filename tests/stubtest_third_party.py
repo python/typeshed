@@ -12,7 +12,7 @@ from pathlib import Path
 from textwrap import dedent
 from typing import NoReturn
 
-from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
+from parse_metadata import PYTHON_VERSION, NoSuchStubError, get_recursive_requirements, read_metadata
 from utils import colored, get_mypy_req, make_venv, print_error, print_success_msg
 
 
@@ -36,6 +36,12 @@ def run_stubtest(
             print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
             return True
         print(colored(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
+
+    if metadata.requires_python:
+        if not metadata.requires_python.contains(PYTHON_VERSION):
+            print(colored(f"skipping (requires python {metadata.requires_python})", "yellow"))
+            return True
+        print(colored(f"Note: {dist_name} requires python {metadata.requires_python}.", "yellow"))
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)

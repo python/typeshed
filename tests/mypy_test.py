@@ -25,7 +25,7 @@ from typing_extensions import Annotated, TypeAlias
 
 import tomli
 
-from parse_metadata import PackageDependencies, get_recursive_requirements
+from parse_metadata import PYTHON_VERSION, PackageDependencies, get_recursive_requirements, read_metadata
 from utils import (
     VERSIONS_RE as VERSION_LINE_RE,
     VenvInfo,
@@ -307,6 +307,7 @@ def add_third_party_files(
 class TestResults(NamedTuple):
     exit_code: int
     files_checked: int
+    packages_skipped: int = 0
 
 
 def test_third_party_distribution(
@@ -471,6 +472,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
 def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestResults:
     print("Testing third-party packages...")
     files_checked = 0
+    packages_skipped = 0
     gitignore_spec = get_gitignore_spec()
     distributions_to_check: dict[str, PackageDependencies] = {}
 
@@ -478,6 +480,11 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
         distribution_path = Path("stubs", distribution)
 
         if spec_matches_path(gitignore_spec, distribution_path):
+            continue
+
+        dist_metadata = read_metadata(distribution)
+        if dist_metadata.requires_python and not dist_metadata.requires_python.contains(PYTHON_VERSION):
+            packages_skipped += 1
             continue
 
         if (
@@ -497,30 +504,32 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
 
     for distribution, venv_info in _DISTRIBUTION_TO_VENV_MAPPING.items():
         non_types_dependencies = venv_info.python_exe != sys.executable
-        this_code, checked = test_third_party_distribution(
+        this_code, checked, _ = test_third_party_distribution(
             distribution, args, venv_info=venv_info, non_types_dependencies=non_types_dependencies
         )
         code = max(code, this_code)
         files_checked += checked
 
-    return TestResults(code, files_checked)
+    return TestResults(code, files_checked, packages_skipped)
 
 
 def test_typeshed(code: int, args: TestConfig, tempdir: Path) -> TestResults:
     print(f"*** Testing Python {args.version} on {args.platform}")
     files_checked_this_version = 0
+    packages_skipped_this_version = 0
     stdlib_dir, stubs_dir = Path("stdlib"), Path("stubs")
     if stdlib_dir in args.filter or any(stdlib_dir in path.parents for path in args.filter):
-        code, stdlib_files_checked = test_stdlib(code, args)
+        code, stdlib_files_checked, _ = test_stdlib(code, args)
         files_checked_this_version += stdlib_files_checked
         print()
 
     if stubs_dir in args.filter or any(stubs_dir in path.parents for path in args.filter):
-        code, third_party_files_checked = test_third_party_stubs(code, args, tempdir)
+        code, third_party_files_checked, third_party_packages_skipped = test_third_party_stubs(code, args, tempdir)
         files_checked_this_version += third_party_files_checked
+        packages_skipped_this_version = third_party_packages_skipped
         print()
 
-    return TestResults(code, files_checked_this_version)
+    return TestResults(code, files_checked_this_version, packages_skipped_this_version)
 
 
 def main() -> None:
@@ -531,19 +540,24 @@ def main() -> None:
     exclude = args.exclude or []
     code = 0
     total_files_checked = 0
+    total_packages_skipped = 0
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
         for version, platform in product(versions, platforms):
             config = TestConfig(args.verbose, filter, exclude, version, platform)
-            code, files_checked_this_version = test_typeshed(code, args=config, tempdir=td_path)
+            code, files_checked_this_version, packages_skipped_this_version = test_typeshed(code, args=config, tempdir=td_path)
             total_files_checked += files_checked_this_version
+            total_packages_skipped += packages_skipped_this_version
     if code:
         print_error(f"--- exit status {code}, {total_files_checked} files checked ---")
         sys.exit(code)
-    if not total_files_checked:
+    if total_packages_skipped:
+        print(colored(f"--- {total_packages_skipped} packages skipped ---", "yellow"))
+    elif not total_files_checked:
         print_error("--- nothing to do; exit 1 ---")
         sys.exit(1)
-    print(colored(f"--- success, {total_files_checked} files checked ---", "green"))
+    if total_files_checked:
+        print(colored(f"--- success, {total_files_checked} files checked ---", "green"))
 
 
 if __name__ == "__main__":

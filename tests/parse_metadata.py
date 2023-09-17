@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import os
 import re
+import sys
 import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -15,6 +16,7 @@ from typing_extensions import Annotated, Final, TypeGuard, final
 
 import tomli
 from packaging.requirements import Requirement
+from packaging.specifiers import Specifier
 from packaging.version import Version
 
 from utils import cache
@@ -30,6 +32,8 @@ __all__ = [
     "read_stubtest_settings",
 ]
 
+OLDEST_SUPPORTED_PYTHON: Final = "3.7"
+PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
 _STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
 # Some older websites have a bad pattern of using query params for navigation.
@@ -130,6 +134,7 @@ class StubMetadata:
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
     partial_stub: Annotated[bool, "Whether this is a partial type stub package as per PEP 561."]
     stubtest_settings: StubtestSettings
+    requires_python: Annotated[Specifier | None, "Versions of Python supported by the stub package"]
 
 
 _KNOWN_METADATA_FIELDS: Final = frozenset(
@@ -144,6 +149,7 @@ _KNOWN_METADATA_FIELDS: Final = frozenset(
         "upload",
         "tool",
         "partial_stub",
+        "requires_python",
     }
 )
 _KNOWN_METADATA_TOOL_FIELDS: Final = {
@@ -240,6 +246,16 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert type(uploaded_to_pypi) is bool
     partial_stub: object = data.get("partial_stub", True)
     assert type(partial_stub) is bool
+    requires_python_str: object = data.get("requires_python")
+    if requires_python_str is None:
+        requires_python = None
+    else:
+        assert isinstance(requires_python_str, str)
+        requires_python = Specifier(requires_python_str)
+        # Check minimum Python version is not less than the oldest version of Python supported by typeshed
+        assert Specifier(f">={OLDEST_SUPPORTED_PYTHON}").contains(
+            requires_python.version
+        ), f"'requires_python' contains versions lower than the oldest supported Python {OLDEST_SUPPORTED_PYTHON}"
 
     empty_tools: dict[object, object] = {}
     tools_settings: object = data.get("tool", empty_tools)
@@ -262,6 +278,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         uploaded_to_pypi=uploaded_to_pypi,
         partial_stub=partial_stub,
         stubtest_settings=read_stubtest_settings(distribution),
+        requires_python=requires_python,
     )
 
 
