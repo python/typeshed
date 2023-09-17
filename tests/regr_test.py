@@ -254,6 +254,7 @@ def main() -> ReturnCode:
 
     code = 0
     for testcase_dir in testcase_directories:
+        assert isinstance(testcase_dir, PackageInfo)
         if not testcase_dir.is_stdlib:
             metadata = read_metadata(testcase_dir.name)
             if metadata.requires_python and not metadata.requires_python.contains(PYTHON_VERSION):
