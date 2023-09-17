@@ -15,7 +15,7 @@ from itertools import product
 from pathlib import Path
 from typing_extensions import TypeAlias
 
-from parse_metadata import get_recursive_requirements
+from parse_metadata import PYTHON_VERSION, get_recursive_requirements, read_metadata
 from utils import (
     PackageInfo,
     VenvInfo,
@@ -254,6 +254,11 @@ def main() -> ReturnCode:
 
     code = 0
     for testcase_dir in testcase_directories:
+        if not testcase_dir.is_stdlib:
+            metadata = read_metadata(testcase_dir.name)
+            if metadata.requires_python and not metadata.requires_python.contains(PYTHON_VERSION):
+                print(colored(f"skipping {testcase_dir.name!r} (requires Python {metadata.requires_python})", "yellow"))
+                continue
         with tempfile.TemporaryDirectory() as td:
             tempdir = Path(td)
             for platform, version in product(platforms_to_test, versions_to_test):

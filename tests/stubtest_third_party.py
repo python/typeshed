@@ -39,9 +39,9 @@ def run_stubtest(
 
     if metadata.requires_python:
         if not metadata.requires_python.contains(PYTHON_VERSION):
-            print(colored(f"skipping (requires python {metadata.requires_python})", "yellow"))
+            print(colored(f"skipping (requires Python {metadata.requires_python})", "yellow"))
             return True
-        print(colored(f"Note: {dist_name} requires python {metadata.requires_python}.", "yellow"))
+        print(colored(f"Note: {dist_name} requires Python {metadata.requires_python}.", "yellow"))
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
