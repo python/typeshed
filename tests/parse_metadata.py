@@ -256,6 +256,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         assert Specifier(f">={OLDEST_SUPPORTED_PYTHON}").contains(
             requires_python.version
         ), f"'requires_python' contains versions lower than the oldest supported Python {OLDEST_SUPPORTED_PYTHON}"
+        assert requires_python.operator == ">=", "'requires_python' should be a minimum version specifier, use '>=3.x'"
 
     empty_tools: dict[object, object] = {}
     tools_settings: object = data.get("tool", empty_tools)
