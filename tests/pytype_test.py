@@ -150,6 +150,8 @@ def find_stubs_in_paths(paths: Sequence[str]) -> list[str]:
 
 
 def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
+    if req_name == "pandas-stubs":
+        return ["pandas"]
     dist = importlib.metadata.distribution(req_name)
     toplevel_txt_contents = dist.read_text("top_level.txt")
     if toplevel_txt_contents is not None:
