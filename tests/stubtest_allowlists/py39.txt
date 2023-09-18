@@ -37,7 +37,6 @@ tkinter.Tk.split
 types.GenericAlias.__getattr__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 weakref.ProxyType.__reversed__  # Doesn't really exist
-typing_extensions\.get_original_bases
 
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__
@@ -127,12 +126,6 @@ types.GetSetDescriptorType.__get__
 types.MemberDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
-
-# https://github.com/python/mypy/issues/15302
-typing_extensions\.assert_never
-typing_extensions\.assert_type
-typing_extensions\.reveal_type
-typing_extensions\.override
 
 # Super-special typing primitives
 typing\.NamedTuple

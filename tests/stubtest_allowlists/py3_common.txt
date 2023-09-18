@@ -458,9 +458,6 @@ typing_extensions.NewType.__mro_entries__  # just exists for an error message
 
 # https://github.com/python/mypy/issues/15302
 typing_extensions.NewType.__call__
-typing_extensions\.deprecated
-typing_extensions\.get_protocol_members
-typing_extensions\.is_protocol
 
 # Typing-related weirdness
 _collections_abc.Callable
