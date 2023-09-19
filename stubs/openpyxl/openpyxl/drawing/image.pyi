@@ -1,20 +1,9 @@
-from _typeshed import SupportsRead
-from pathlib import Path
-from types import ModuleType
-from typing import Any
-from typing_extensions import Literal, TypeAlias
-
-# Is actually PIL.Image.Image
-_PILImageImage: TypeAlias = Any
-# same as first parameter of PIL.Image.open
-_PILImageFilePath: TypeAlias = str | bytes | Path | SupportsRead[bytes]
-
-PILImage: ModuleType | Literal[False]
+from _typeshed import Incomplete
 
 class Image:
     anchor: str
-    ref: _PILImageImage | _PILImageFilePath
-    format: str
-    def __init__(self, img: _PILImageImage | _PILImageFilePath) -> None: ...
+    ref: Incomplete
+    format: Incomplete
+    def __init__(self, img) -> None: ...
     @property
-    def path(self) -> str: ...
+    def path(self): ...

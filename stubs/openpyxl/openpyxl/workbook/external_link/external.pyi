@@ -1,7 +1,6 @@
 from _typeshed import Incomplete, Unused
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
-from zipfile import ZipFile
 
 from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.nested import NestedText
@@ -77,4 +76,4 @@ class ExternalLink(Serialisable):
     @property
     def path(self): ...
 
-def read_external_link(archive: ZipFile, book_path: str) -> ExternalLink: ...
+def read_external_link(archive, book_path): ...

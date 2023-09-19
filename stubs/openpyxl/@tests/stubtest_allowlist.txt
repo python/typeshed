@@ -41,9 +41,8 @@ openpyxl\.descriptors\.(base\.)?MinMax\.allow_none
 openpyxl\.descriptors\.(base\.)?String\.allow_none
 openpyxl\.descriptors\.(base\.)?Typed\.allow_none
 
-# Inconsistent methods because
-# - using the default value results in an error because of the runtime type-guards
-# - or, keyword arguments are explicitly specified
+# "has a default value but stub argument does not"
+# Runtime has default arguments that would fail
 openpyxl.cell.text.PhoneticProperties.__init__
 openpyxl.cell.text.PhoneticText.__init__
 openpyxl.chart.axis._BaseAxis.__init__
@@ -110,7 +109,6 @@ openpyxl.drawing.text.GeomGuide.__init__
 openpyxl.drawing.text.PresetTextShape.__init__
 openpyxl.drawing.text.TextField.__init__
 openpyxl.drawing.text.TextNormalAutofit.__init__
-openpyxl.packaging.relationship.get_rel
 openpyxl.packaging.relationship.Relationship.__init__
 openpyxl.packaging.workbook.ChildSheet.__init__
 openpyxl.packaging.workbook.PivotCache.__init__

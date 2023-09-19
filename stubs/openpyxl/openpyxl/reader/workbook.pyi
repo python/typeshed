@@ -1,5 +1,5 @@
+from _typeshed import Incomplete
 from collections.abc import Generator, Iterable
-from zipfile import ZipFile
 
 from openpyxl.packaging.relationship import Relationship, RelationshipList
 from openpyxl.packaging.workbook import ChildSheet, PivotCache
@@ -7,12 +7,12 @@ from openpyxl.pivot.cache import CacheDefinition
 from openpyxl.workbook import Workbook
 
 class WorkbookParser:
-    archive: ZipFile
+    archive: Incomplete
     workbook_part_name: str
     wb: Workbook
     keep_links: bool
     sheets: list[ChildSheet]
-    def __init__(self, archive: ZipFile, workbook_part_name: str, keep_links: bool = True) -> None: ...
+    def __init__(self, archive, workbook_part_name: str, keep_links: bool = True) -> None: ...
     @property
     def rels(self) -> RelationshipList: ...
     caches: Iterable[PivotCache]
