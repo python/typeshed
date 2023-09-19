@@ -1,9 +1,9 @@
-import datetime
 from _typeshed import Incomplete
 from collections.abc import Container, Generator, Sequence
+from datetime import datetime
 from typing import Any
 from typing_extensions import Final
-from zipfile import ZipExtFile
+from xml.etree.ElementTree import _FileRead
 
 from openpyxl.cell.cell import Cell
 from openpyxl.cell.rich_text import CellRichText
@@ -49,8 +49,8 @@ def parse_richtext_string(element: _ChildSerialisableTreeElement) -> CellRichTex
 class WorkSheetParser:
     min_row: Incomplete | None
     min_col: Incomplete | None
-    epoch: datetime.datetime
-    source: ZipExtFile | str
+    epoch: datetime
+    source: _FileRead
     shared_strings: Sequence[str]
     data_only: bool
     shared_formulae: dict[Incomplete, Incomplete]
@@ -73,10 +73,10 @@ class WorkSheetParser:
     protection: SheetProtection  # initialized after call to parse_sheet_protection()
     def __init__(
         self,
-        src: ZipExtFile | str,
+        src: _FileRead,
         shared_strings: Sequence[str],
         data_only: bool = False,
-        epoch: datetime.datetime = ...,
+        epoch: datetime = ...,
         date_formats: Container[int] = ...,
         timedelta_formats: Container[int] = ...,
         rich_text: bool = False,
@@ -102,12 +102,7 @@ class WorksheetReader:
     parser: WorkSheetParser
     tables: list[Incomplete]
     def __init__(
-        self,
-        ws: Worksheet,
-        xml_source: ZipExtFile | str,
-        shared_strings: Sequence[str] | None,
-        data_only: bool | None,
-        rich_text: bool,
+        self, ws: Worksheet, xml_source: _FileRead, shared_strings: Sequence[str] | None, data_only: bool | None, rich_text: bool
     ) -> None: ...
     def bind_cells(self) -> None: ...
     def bind_formatting(self) -> None: ...
