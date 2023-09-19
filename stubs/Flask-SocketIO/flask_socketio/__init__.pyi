@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import MutableMapping
 from threading import Thread
 from typing import Any, Callable, Literal, TypeVar
@@ -7,8 +6,8 @@ from typing_extensions import TypeAlias
 import pywsgi
 import socketio
 from flask import Flask
-from flask.testing import FlaskClient
 from flask.sessions import SessionMixin
+from flask.testing import FlaskClient
 from socketio import socketio_manage as socketio_manage
 
 from .namespace import Namespace
