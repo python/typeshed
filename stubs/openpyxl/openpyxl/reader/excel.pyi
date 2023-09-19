@@ -27,7 +27,7 @@ class ExcelReader:
 
     def __init__(
         self,
-        fn: IO[bytes] | StrPath,
+        fn: StrPath | IO[bytes],
         read_only: bool = False,
         keep_vba: bool = False,
         data_only: bool = False,
@@ -45,7 +45,7 @@ class ExcelReader:
     def read(self) -> None: ...
 
 def load_workbook(
-    filename: IO[bytes] | StrPath,
+    filename: StrPath | IO[bytes],
     read_only: bool = False,
     keep_vba: bool = False,
     data_only: bool = False,
