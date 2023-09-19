@@ -2,7 +2,7 @@ import sys
 from abc import abstractmethod
 from time import struct_time
 from typing import ClassVar, NamedTuple, NoReturn, TypeVar, overload
-from typing_extensions import Literal, Self, TypeAlias, final
+from typing_extensions import Literal, Self, SupportsIndex, TypeAlias, final
 
 if sys.version_info >= (3, 11):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")
@@ -35,6 +35,8 @@ class timezone(tzinfo):
     def tzname(self, __dt: datetime | None) -> str: ...
     def utcoffset(self, __dt: datetime | None) -> timedelta: ...
     def dst(self, __dt: datetime | None) -> None: ...
+    def __hash__(self) -> int: ...
+    def __eq__(self, __value: object) -> bool: ...
 
 if sys.version_info >= (3, 11):
     UTC: timezone
@@ -49,7 +51,7 @@ class date:
     min: ClassVar[date]
     max: ClassVar[date]
     resolution: ClassVar[timedelta]
-    def __new__(cls, year: int, month: int, day: int) -> Self: ...
+    def __new__(cls, year: SupportsIndex, month: SupportsIndex, day: SupportsIndex) -> Self: ...
     @classmethod
     def fromtimestamp(cls, __timestamp: float) -> Self: ...
     @classmethod
@@ -81,11 +83,12 @@ class date:
     def isoformat(self) -> str: ...
     def timetuple(self) -> struct_time: ...
     def toordinal(self) -> int: ...
-    def replace(self, year: int = ..., month: int = ..., day: int = ...) -> Self: ...
+    def replace(self, year: SupportsIndex = ..., month: SupportsIndex = ..., day: SupportsIndex = ...) -> Self: ...
     def __le__(self, __value: date) -> bool: ...
     def __lt__(self, __value: date) -> bool: ...
     def __ge__(self, __value: date) -> bool: ...
     def __gt__(self, __value: date) -> bool: ...
+    def __eq__(self, __value: object) -> bool: ...
     if sys.version_info >= (3, 8):
         def __add__(self, __value: timedelta) -> Self: ...
         def __radd__(self, __value: timedelta) -> Self: ...
@@ -106,6 +109,7 @@ class date:
         @overload
         def __sub__(self, __value: date) -> timedelta: ...
 
+    def __hash__(self) -> int: ...
     def weekday(self) -> int: ...
     def isoweekday(self) -> int: ...
     if sys.version_info >= (3, 9):
@@ -119,10 +123,10 @@ class time:
     resolution: ClassVar[timedelta]
     def __new__(
         cls,
-        hour: int = ...,
-        minute: int = ...,
-        second: int = ...,
-        microsecond: int = ...,
+        hour: SupportsIndex = ...,
+        minute: SupportsIndex = ...,
+        second: SupportsIndex = ...,
+        microsecond: SupportsIndex = ...,
         tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
@@ -143,6 +147,8 @@ class time:
     def __lt__(self, __value: time) -> bool: ...
     def __ge__(self, __value: time) -> bool: ...
     def __gt__(self, __value: time) -> bool: ...
+    def __eq__(self, __value: object) -> bool: ...
+    def __hash__(self) -> int: ...
     def isoformat(self, timespec: str = ...) -> str: ...
     @classmethod
     def fromisoformat(cls, __time_string: str) -> Self: ...
@@ -160,10 +166,10 @@ class time:
     def dst(self) -> timedelta | None: ...
     def replace(
         self,
-        hour: int = ...,
-        minute: int = ...,
-        second: int = ...,
-        microsecond: int = ...,
+        hour: SupportsIndex = ...,
+        minute: SupportsIndex = ...,
+        second: SupportsIndex = ...,
+        microsecond: SupportsIndex = ...,
         tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
@@ -216,20 +222,22 @@ class timedelta:
     def __lt__(self, __value: timedelta) -> bool: ...
     def __ge__(self, __value: timedelta) -> bool: ...
     def __gt__(self, __value: timedelta) -> bool: ...
+    def __eq__(self, __value: object) -> bool: ...
     def __bool__(self) -> bool: ...
+    def __hash__(self) -> int: ...
 
 class datetime(date):
     min: ClassVar[datetime]
     max: ClassVar[datetime]
     def __new__(
         cls,
-        year: int,
-        month: int,
-        day: int,
-        hour: int = ...,
-        minute: int = ...,
-        second: int = ...,
-        microsecond: int = ...,
+        year: SupportsIndex,
+        month: SupportsIndex,
+        day: SupportsIndex,
+        hour: SupportsIndex = ...,
+        minute: SupportsIndex = ...,
+        second: SupportsIndex = ...,
+        microsecond: SupportsIndex = ...,
         tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
@@ -280,13 +288,13 @@ class datetime(date):
     def timetz(self) -> _Time: ...
     def replace(
         self,
-        year: int = ...,
-        month: int = ...,
-        day: int = ...,
-        hour: int = ...,
-        minute: int = ...,
-        second: int = ...,
-        microsecond: int = ...,
+        year: SupportsIndex = ...,
+        month: SupportsIndex = ...,
+        day: SupportsIndex = ...,
+        hour: SupportsIndex = ...,
+        minute: SupportsIndex = ...,
+        second: SupportsIndex = ...,
+        microsecond: SupportsIndex = ...,
         tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
@@ -306,6 +314,8 @@ class datetime(date):
     def __lt__(self, __value: datetime) -> bool: ...  # type: ignore[override]
     def __ge__(self, __value: datetime) -> bool: ...  # type: ignore[override]
     def __gt__(self, __value: datetime) -> bool: ...  # type: ignore[override]
+    def __eq__(self, __value: object) -> bool: ...
+    def __hash__(self) -> int: ...
     if sys.version_info >= (3, 8):
         @overload  # type: ignore[override]
         def __sub__(self, __value: timedelta) -> Self: ...

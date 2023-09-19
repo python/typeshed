@@ -1,1 +1,2 @@
-version = "2022.10.31"
+version = "2023.8.8"
+upstream_repository = "https://github.com/mrabarnett/mrab-regex"

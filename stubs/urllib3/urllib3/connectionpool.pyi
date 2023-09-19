@@ -7,8 +7,7 @@ from typing_extensions import Literal, Self, TypeAlias
 
 from . import connection, exceptions, request, response
 from .connection import BaseSSLError as BaseSSLError, ConnectionError as ConnectionError, HTTPException as HTTPException
-from .packages import ssl_match_hostname
-from .util import Url, connection as _connection, queue as urllib3queue, retry, timeout, url
+from .util import Url, connection as _connection, queue as urllib3queue, retry, ssl_match_hostname, timeout, url
 
 ClosedPoolError = exceptions.ClosedPoolError
 ProtocolError = exceptions.ProtocolError
@@ -45,7 +44,7 @@ class ConnectionPool:
     QueueCls: ClassVar[type[queue.Queue[Any]]]
     host: str
     port: int | None
-    def __init__(self, host: str, port: int | None = ...) -> None: ...
+    def __init__(self, host: str, port: int | None = None) -> None: ...
     def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
@@ -69,15 +68,15 @@ class HTTPConnectionPool(ConnectionPool, RequestMethods):
     def __init__(
         self,
         host: str,
-        port: int | None = ...,
-        strict: bool = ...,
+        port: int | None = None,
+        strict: bool = False,
         timeout: _Timeout = ...,
-        maxsize: int = ...,
-        block: bool = ...,
-        headers: Mapping[str, str] | None = ...,
-        retries: _Retries | None = ...,
-        _proxy: Url | None = ...,
-        _proxy_headers: Mapping[str, str] | None = ...,
+        maxsize: int = 1,
+        block: bool = False,
+        headers: Mapping[str, str] | None = None,
+        retries: _Retries | None = None,
+        _proxy: Url | None = None,
+        _proxy_headers: Mapping[str, str] | None = None,
         **conn_kw,
     ) -> None: ...
     def close(self) -> None: ...
@@ -86,14 +85,14 @@ class HTTPConnectionPool(ConnectionPool, RequestMethods):
         self,
         method,
         url,
-        body=...,
-        headers=...,
-        retries=...,
-        redirect=...,
-        assert_same_host=...,
+        body=None,
+        headers=None,
+        retries=None,
+        redirect=True,
+        assert_same_host=True,
         timeout=...,
-        pool_timeout=...,
-        release_conn=...,
+        pool_timeout=None,
+        release_conn=None,
         **response_kw,
     ): ...
 
@@ -108,22 +107,22 @@ class HTTPSConnectionPool(HTTPConnectionPool):
     def __init__(
         self,
         host: str,
-        port: int | None = ...,
-        strict: bool = ...,
+        port: int | None = None,
+        strict: bool = False,
         timeout: _Timeout = ...,
-        maxsize: int = ...,
-        block: bool = ...,
-        headers: Mapping[str, str] | None = ...,
-        retries: _Retries | None = ...,
-        _proxy: Url | None = ...,
-        _proxy_headers: Mapping[str, str] | None = ...,
-        key_file: str | None = ...,
-        cert_file: str | None = ...,
-        cert_reqs: int | str | None = ...,
-        ca_certs: str | None = ...,
-        ssl_version: int | str | None = ...,
-        assert_hostname: str | Literal[False] | None = ...,
-        assert_fingerprint: str | None = ...,
+        maxsize: int = 1,
+        block: bool = False,
+        headers: Mapping[str, str] | None = None,
+        retries: _Retries | None = None,
+        _proxy: Url | None = None,
+        _proxy_headers: Mapping[str, str] | None = None,
+        key_file: str | None = None,
+        cert_file: str | None = None,
+        cert_reqs: int | str | None = None,
+        ca_certs: str | None = None,
+        ssl_version: int | str | None = None,
+        assert_hostname: str | Literal[False] | None = None,
+        assert_fingerprint: str | None = None,
         **conn_kw,
     ) -> None: ...
 

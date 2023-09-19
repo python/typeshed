@@ -15,19 +15,27 @@ will also discover incorrect usage of imported modules.
 from __future__ import annotations
 
 import argparse
+import importlib.metadata
+import inspect
 import os
 import sys
 import traceback
 from collections.abc import Iterable, Sequence
 
-import pkg_resources
+from packaging.requirements import Requirement
 
 from parse_metadata import read_dependencies
 
-assert sys.platform != "win32"
+if sys.platform == "win32":
+    print("pytype does not support Windows.", file=sys.stderr)
+    sys.exit(1)
+if sys.version_info >= (3, 11):
+    print("pytype does not support Python 3.11+ yet.", file=sys.stderr)
+    sys.exit(1)
+
 # pytype is not py.typed https://github.com/google/pytype/issues/1325
-from pytype import config as pytype_config, load_pytd  # type: ignore[import]  # noqa: E402
-from pytype.imports import typeshed  # type: ignore[import]  # noqa: E402
+from pytype import config as pytype_config, load_pytd  # type: ignore[import]
+from pytype.imports import typeshed  # type: ignore[import]
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"
@@ -141,12 +149,26 @@ def find_stubs_in_paths(paths: Sequence[str]) -> list[str]:
     return filenames
 
 
+def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
+    dist = importlib.metadata.distribution(req_name)
+    toplevel_txt_contents = dist.read_text("top_level.txt")
+    if toplevel_txt_contents is not None:
+        return toplevel_txt_contents.split()
+    if dist.files is None:
+        raise RuntimeError("Can't read find the packages associated with requirement {req_name!r}")
+    maybe_modules = [f.parts[0] if len(f.parts) > 1 else inspect.getmodulename(f) for f in dist.files]
+    return [name for name in maybe_modules if name is not None and "." not in name]
+
+
 def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
-    """Gets module names provided by typeshed-external dependencies.
+    """Get names of modules that should be treated as missing.
 
     Some typeshed stubs depend on dependencies outside of typeshed. Since pytype
     isn't able to read such dependencies, we instead declare them as "missing"
     modules, so that no errors are reported for them.
+
+    Similarly, pytype cannot parse files on its exclude list, so we also treat
+    those as missing.
     """
     stub_distributions = set()
     for fi in files_to_test:
@@ -156,15 +178,25 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
         except ValueError:
             continue
         stub_distributions.add(parts[idx + 1])
+
     missing_modules = set()
     for distribution in stub_distributions:
-        for pkg in read_dependencies(distribution).external_pkgs:
-            egg_info = pkg_resources.get_distribution(pkg).egg_info
-            assert isinstance(egg_info, str)
-            # See https://stackoverflow.com/a/54853084
-            top_level_file = os.path.join(egg_info, "top_level.txt")
-            with open(top_level_file) as f:
-                missing_modules.update(f.read().splitlines())
+        for external_req in read_dependencies(distribution).external_pkgs:
+            req_name = Requirement(external_req).name
+            associated_packages = _get_pkgs_associated_with_requirement(req_name)
+            missing_modules.update(associated_packages)
+
+    test_dir = os.path.dirname(__file__)
+    exclude_list = os.path.join(test_dir, "pytype_exclude_list.txt")
+    with open(exclude_list) as f:
+        excluded_files = f.readlines()
+        for fi in excluded_files:
+            if not fi.startswith("stubs/"):
+                # Skips comments, empty lines, and stdlib files, which are in
+                # the exclude list because pytype has its own version.
+                continue
+            unused_stubs_prefix, unused_pkg, mod_path = fi.split("/", 2)  # pyright: ignore [reportUnusedVariable]
+            missing_modules.add(os.path.splitext(mod_path)[0])
     return missing_modules
 
 

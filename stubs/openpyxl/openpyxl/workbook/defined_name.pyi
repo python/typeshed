@@ -2,50 +2,53 @@ from _typeshed import Incomplete
 from collections import defaultdict
 from collections.abc import Generator
 from re import Pattern
+from typing import ClassVar
+from typing_extensions import Final, Literal
 
 from openpyxl.descriptors import Sequence
+from openpyxl.descriptors.base import Alias, Bool, Integer, String, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
 
-RESERVED: frozenset[str]
-RESERVED_REGEX: Pattern[str]
+RESERVED: Final[frozenset[str]]
+RESERVED_REGEX: Final[Pattern[str]]
 
 class DefinedName(Serialisable):
-    tagname: str
-    name: Incomplete
-    comment: Incomplete
-    customMenu: Incomplete
-    description: Incomplete
-    help: Incomplete
-    statusBar: Incomplete
-    localSheetId: Incomplete
-    hidden: Incomplete
-    function: Incomplete
-    vbProcedure: Incomplete
-    xlm: Incomplete
-    functionGroupId: Incomplete
-    shortcutKey: Incomplete
-    publishToServer: Incomplete
-    workbookParameter: Incomplete
+    tagname: ClassVar[str]
+    name: String[Literal[False]]
+    comment: String[Literal[True]]
+    customMenu: String[Literal[True]]
+    description: String[Literal[True]]
+    help: String[Literal[True]]
+    statusBar: String[Literal[True]]
+    localSheetId: Integer[Literal[True]]
+    hidden: Bool[Literal[True]]
+    function: Bool[Literal[True]]
+    vbProcedure: Bool[Literal[True]]
+    xlm: Bool[Literal[True]]
+    functionGroupId: Integer[Literal[True]]
+    shortcutKey: String[Literal[True]]
+    publishToServer: Bool[Literal[True]]
+    workbookParameter: Bool[Literal[True]]
     attr_text: Incomplete
-    value: Incomplete
+    value: Alias
     def __init__(
         self,
-        name: Incomplete | None = ...,
-        comment: Incomplete | None = ...,
-        customMenu: Incomplete | None = ...,
-        description: Incomplete | None = ...,
-        help: Incomplete | None = ...,
-        statusBar: Incomplete | None = ...,
-        localSheetId: Incomplete | None = ...,
-        hidden: Incomplete | None = ...,
-        function: Incomplete | None = ...,
-        vbProcedure: Incomplete | None = ...,
-        xlm: Incomplete | None = ...,
-        functionGroupId: Incomplete | None = ...,
-        shortcutKey: Incomplete | None = ...,
-        publishToServer: Incomplete | None = ...,
-        workbookParameter: Incomplete | None = ...,
-        attr_text: Incomplete | None = ...,
+        name: str,
+        comment: str | None = None,
+        customMenu: str | None = None,
+        description: str | None = None,
+        help: str | None = None,
+        statusBar: str | None = None,
+        localSheetId: _ConvertibleToInt | None = None,
+        hidden: _ConvertibleToBool | None = None,
+        function: _ConvertibleToBool | None = None,
+        vbProcedure: _ConvertibleToBool | None = None,
+        xlm: _ConvertibleToBool | None = None,
+        functionGroupId: _ConvertibleToInt | None = None,
+        shortcutKey: str | None = None,
+        publishToServer: _ConvertibleToBool | None = None,
+        workbookParameter: _ConvertibleToBool | None = None,
+        attr_text: Incomplete | None = None,
     ) -> None: ...
     @property
     def type(self): ...
@@ -61,8 +64,8 @@ class DefinedNameDict(dict[str, DefinedName]):
     def add(self, value: DefinedName) -> None: ...
 
 class DefinedNameList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     definedName: Sequence
-    def __init__(self, definedName=...) -> None: ...
+    def __init__(self, definedName=()) -> None: ...
     def by_sheet(self) -> defaultdict[int, DefinedNameDict]: ...
     def __len__(self) -> int: ...
