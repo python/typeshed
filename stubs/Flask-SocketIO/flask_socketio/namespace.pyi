@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing import Any, Callable, TypedDict, TypeVar
-
 from typing_extensions import TypeAlias
+
 from socketio import Namespace as _Namespace
 
 from .socketio import SocketIO

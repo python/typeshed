@@ -1,11 +1,11 @@
 from _typeshed import Incomplete
-from typing import Any, Callable, Literal, TypeVar
-from collections import MutableMapping
+from collections.abc import MutableMapping
 from threading import Thread
-
+from typing import Any, Callable, Literal, TypeVar
 from typing_extensions import TypeAlias
-import socketio
+
 import pywsgi
+import socketio
 from flask import Flask
 from flask.sessions import SessionMixin
 from socketio import socketio_manage as socketio_manage
@@ -13,9 +13,9 @@ from socketio import socketio_manage as socketio_manage
 from .namespace import Namespace
 from .test_client import SocketIOTestClient
 
-_ExceptionHandler = TypeVar('_ExceptionHandler', Callable)
-_Handler = TypeVar('Handler', Callable)
-_Environ = TypeVar('Environ', MutableMapping[str, Any])
+_ExceptionHandler = TypeVar("_ExceptionHandler", Callable)
+_Handler = TypeVar("Handler", Callable)
+_Environ = TypeVar("Environ", MutableMapping[str, Any])
 
 _HandlerDecorator: TypeAlias = Callable[_Handler, _Handler]
 
@@ -38,7 +38,7 @@ class SocketIO:
     default_exception_handler: None | _ExceptionHandler
     manage_session: bool
     def __init__(self, app: Flask | None = None, **kwargs) -> None: ...
-    async_mode: Literal['threading', 'eventlet', 'gevent', 'gevent_uwsgi']
+    async_mode: Literal["threading", "eventlet", "gevent", "gevent_uwsgi"]
     sockio_mw: _SocketIOMiddleware | None
     def init_app(self, app: Flask, **kwargs): ...
     def on(self, message: str, namespace=None) -> _HandlerDecorator: ...
