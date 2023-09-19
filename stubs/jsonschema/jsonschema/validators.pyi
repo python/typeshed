@@ -29,7 +29,13 @@ class _Validator:
     resolver: Incomplete
     format_checker: Incomplete
     evolve: Incomplete
-    def __init__(self, schema: _Schema, resolver: Incomplete | None = ..., format_checker: Incomplete | None = ...) -> None: ...
+    def __init__(
+        self,
+        schema: _Schema,
+        resolver: Incomplete | None = ...,
+        format_checker: Incomplete | None = ...,
+        registry: Incomplete | None = ...,
+    ) -> None: ...
     @classmethod
     def check_schema(cls, schema: _Schema, format_checker: FormatChecker | Unset = ...) -> None: ...
     def iter_errors(self, instance, _schema: _Schema | None = ...) -> Generator[Incomplete, None, None]: ...
