@@ -7,6 +7,7 @@ from typing_extensions import TypeAlias
 import pywsgi
 import socketio
 from flask import Flask
+from flask.testing import FlaskClient
 from flask.sessions import SessionMixin
 from socketio import socketio_manage as socketio_manage
 
@@ -22,7 +23,7 @@ _HandlerDecorator: TypeAlias = Callable[_Handler, _Handler]
 gevent_socketio_found: bool
 
 class _SocketIOMiddleware(socketio.WSGIApp):
-    flask_app: Incomplete
+    flask_app: Flask
     def __init__(self, socketio_app: socketio.Server, flask_app: Flask, socketio_path: str = "socket.io") -> None: ...
     def __call__(self, environ: _Environ, start_response: Callable[[str, list[tuple[str, str]]]]): ...
 
@@ -72,7 +73,7 @@ class SocketIO:
         query_string: str | None = None,
         headers: dict[str, Any] | None = None,
         auth: dict[str, Any] | None = None,
-        flask_test_client: Incomplete | None = None,
+        flask_test_client: FlaskClient | None = None,
     ) -> SocketIOTestClient: ...
 
 def emit(event, *args, **kwargs) -> None: ...

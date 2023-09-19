@@ -1,10 +1,7 @@
-from __future__ import annotations
-
 from typing import Any
 
 from flask import Flask
 from flask.testing import FlaskClient
-
 
 class SocketIOTestClient:
     clients: dict[str, SocketIOTestClient]

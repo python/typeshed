@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Any, Callable, TypedDict, TypeVar
 from typing_extensions import TypeAlias
 
@@ -7,7 +6,6 @@ from socketio import Namespace as _Namespace
 from .socketio import SocketIO
 
 _T = TypeVar('T')
-_Json: TypeAlias = dict[str, _Json] | list[_Json] | int | str | float | bool | None
 
 class _Acks(TypedDict):
     args: Any
@@ -18,11 +16,11 @@ class Namespace(_Namespace):
     socketio: SocketIO | None
 
     def __init__(self, namespace=None) -> None: ...
-    def trigger_event(self, event: Incomplete, *args): ...
+    def trigger_event(self, event: str, *args): ...
     def emit(
         self,
-        event: Incomplete,
-        data: Incomplete | None = None,
+        event: str,
+        data: Any = None,
         room: str | None = None,
         include_self: bool = True,
         namespace: str | None = None,
@@ -30,7 +28,7 @@ class Namespace(_Namespace):
     ) -> _T | tuple[str, int]: ...
     def send(
         self,
-        data: str | list[_Json] | dict[str, _Json],
+        data: Any,
         room: str | None = None,
         include_self: bool = True,
         namespace=None,
@@ -41,6 +39,6 @@ class Namespace(_Namespace):
     def emit(self, event: str, *args, **kwargs): ...
     def send(
         self,
-        data: _Json,
+        data: Any,
         json: bool = False,
-        callback=False, namespace=None) -> None:
+        callback=False, namespace=None) -> None: ...
