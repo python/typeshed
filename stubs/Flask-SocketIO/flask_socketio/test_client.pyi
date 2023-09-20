@@ -1,5 +1,5 @@
-from typing import Any, TypedDict
 from collections.abc import Callable
+from typing import Any, TypedDict
 
 from flask import Flask
 from flask.testing import FlaskClient
@@ -39,4 +39,5 @@ class SocketIOTestClient:
         include_self: bool = True,
         skip_sid: list[str] | str | None = None,
         callback: Callable[..., Any] | None = None,
-        **kwargs): ...
+        **kwargs,
+    ): ...
