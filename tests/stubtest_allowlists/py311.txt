@@ -14,7 +14,6 @@ enum.Enum._generate_next_value_
 enum.StrEnum._generate_next_value_
 importlib.abc.Finder.find_module
 tkinter._VersionInfoType.__doc__
-typing_extensions\.get_original_bases
 typing.NewType.__call__
 typing.NewType.__mro_entries__
 
@@ -124,6 +123,3 @@ asynchat.async_chat.use_encoding
 asynchat.find_prefix_at_end
 pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
-
-# https://github.com/python/mypy/issues/15302
-typing_extensions\.override

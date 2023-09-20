@@ -23,7 +23,6 @@ types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 typing._SpecialForm.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
-typing_extensions\.get_original_bases
 
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__
@@ -139,9 +138,6 @@ dataclasses.KW_ONLY
 typing.ParamSpec(Args|Kwargs).__origin__
 
 # https://github.com/python/mypy/issues/15302
-typing_extensions\.assert_never
-typing_extensions\.assert_type
-typing_extensions\.reveal_type
 typing.NewType.__call__
 
 # Super-special typing primitives
@@ -163,6 +159,3 @@ pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
 
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
-
-# https://github.com/python/mypy/issues/15302
-typing_extensions\.override
