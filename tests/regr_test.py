@@ -15,8 +15,9 @@ from itertools import product
 from pathlib import Path
 from typing_extensions import TypeAlias
 
-from parse_metadata import PYTHON_VERSION, get_recursive_requirements, read_metadata
+from parse_metadata import get_recursive_requirements, read_metadata
 from utils import (
+    PYTHON_VERSION,
     PackageInfo,
     VenvInfo,
     colored,

@@ -6,7 +6,6 @@ from __future__ import annotations
 
 import os
 import re
-import sys
 import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -30,10 +29,8 @@ __all__ = [
     "read_dependencies",
     "read_metadata",
     "read_stubtest_settings",
-    "PYTHON_VERSION",
 ]
 
-PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
 _STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
 # Some older websites have a bad pattern of using query params for navigation.

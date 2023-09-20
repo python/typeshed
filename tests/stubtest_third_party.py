@@ -12,8 +12,8 @@ from pathlib import Path
 from textwrap import dedent
 from typing import NoReturn
 
-from parse_metadata import PYTHON_VERSION, NoSuchStubError, get_recursive_requirements, read_metadata
-from utils import colored, get_mypy_req, make_venv, print_error, print_success_msg
+from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
+from utils import PYTHON_VERSION, colored, get_mypy_req, make_venv, print_error, print_success_msg
 
 
 def run_stubtest(

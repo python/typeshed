@@ -25,8 +25,9 @@ from typing_extensions import Annotated, TypeAlias
 
 import tomli
 
-from parse_metadata import PYTHON_VERSION, PackageDependencies, get_recursive_requirements, read_metadata
+from parse_metadata import PackageDependencies, get_recursive_requirements, read_metadata
 from utils import (
+    PYTHON_VERSION,
     VERSIONS_RE as VERSION_LINE_RE,
     VenvInfo,
     colored,
