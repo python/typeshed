@@ -1,2 +1,4 @@
 version = "5.3.*"
+# Requires a version of flask with a `py.typed` file
+requires = ["Flask>=2.0.0"]
 upstream_repository = "https://github.com/miguelgrinberg/flask-socketio"

@@ -1,8 +1,8 @@
 from collections.abc import Callable
 from logging import Logger
 from threading import Thread
-from typing import Any, ParamSpec, TypedDict
-from typing_extensions import NotRequired, TypeAlias, Unpack
+from typing import Any
+from typing_extensions import NotRequired, ParamSpec, TypeAlias, TypedDict, Unpack
 
 from flask import Flask
 from flask.testing import FlaskClient
