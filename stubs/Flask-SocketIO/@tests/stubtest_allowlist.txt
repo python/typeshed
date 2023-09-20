@@ -1,0 +1,1 @@
+flask_socketio.test_client.SocketIOTestClient.clients     # private attribute, not present in docs
