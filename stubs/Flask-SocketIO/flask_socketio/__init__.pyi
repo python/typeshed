@@ -4,10 +4,9 @@ from threading import Thread
 from typing import Any, ParamSpec, TypedDict
 from typing_extensions import NotRequired, TypeAlias, Unpack
 
-from socketio.base_manager import BaseManager             # type: ignore
 from flask import Flask
 from flask.testing import FlaskClient
-from socketio.base_manager import BaseManager
+from socketio.base_manager import BaseManager  # type: ignore
 
 from .namespace import Namespace
 from .test_client import SocketIOTestClient
@@ -19,7 +18,6 @@ _Handler: TypeAlias = Callable[[Any], Any]
 _HandlerDecorator: TypeAlias = Callable[[_Handler], _Handler]
 
 gevent_socketio_found: bool
-
 
 class _SocketIOConfig(TypedDict, total=False):
     manage_session: NotRequired[bool]
@@ -53,24 +51,16 @@ class _SocketIORunArgs(TypedDict, total=False):
     allow_unsafe_werkzeug: NotRequired[bool]
 
 class SocketIO:
-    def __init__(self, app: Flask | None = None,
-                 **kwargs: Unpack[_SocketIOConfig]             # type: ignore
-    ) -> None: ...
-    def init_app(self, app: Flask,
-                 **kwargs: Unpack[_SocketIOConfig]             # type: ignore
-    ): ...
+    def __init__(self, app: Flask | None = None, **kwargs: Unpack[_SocketIOConfig]) -> None: ...  # type: ignore
+    def init_app(self, app: Flask, **kwargs: Unpack[_SocketIOConfig]): ...  # type: ignore
     def on(self, message: str, namespace: str | None = None) -> _HandlerDecorator: ...
     def on_error(self, namespace: str | None = None) -> Callable[[_ExceptionHandler], _ExceptionHandler]: ...
     def on_error_default(self, exception_handler: _ExceptionHandler) -> Callable[[_ExceptionHandler], _ExceptionHandler]: ...
     def on_event(self, message: str, handler: _Handler, namespace: str | None = None) -> None: ...
     def event(self, namespace: str | None = None, *args, **kwargs) -> _Handler | Callable[[_Handler], _HandlerDecorator]: ...
     def on_namespace(self, namespace_handler: Namespace) -> None: ...
-    def emit(self, event: str, *args,
-             **kwargs: Unpack[_SocketIOEmitArgs]          # type: ignore
-    ) -> None: ...
-    def call(self, event: str, *args,
-             **kwargs: Unpack[_SocketIOCallArgs]     # type: ignore
-    ): ...
+    def emit(self, event: str, *args, **kwargs: Unpack[_SocketIOEmitArgs]) -> None: ...  # type: ignore
+    def call(self, event: str, *args, **kwargs: Unpack[_SocketIOCallArgs]): ...  # type: ignore
     def send(
         self,
         data: Any,
@@ -97,12 +87,8 @@ class SocketIO:
         flask_test_client: FlaskClient | None = None,
     ) -> SocketIOTestClient: ...
 
-def emit(event, *args,
-         **kwargs: Unpack[_SocketIOEmitArgs]          # type: ignore
-) -> None: ...
-def call(event, *args,
-         **kwargs: Unpack[_SocketIOCallArgs]          # type: ignore
-): ...
+def emit(event, *args, **kwargs: Unpack[_SocketIOEmitArgs]) -> None: ...  # type: ignore
+def call(event, *args, **kwargs: Unpack[_SocketIOCallArgs]): ...  # type: ignore
 def send(message: str, **kwargs) -> None: ...
 def join_room(room, sid: str | None = None, namespace: str | None = None) -> None: ...
 def leave_room(room, sid: str | None = None, namespace: str | None = None) -> None: ...
