@@ -1,4 +1,5 @@
 from typing import Any, TypedDict
+from collections.abc import Callable
 
 from flask import Flask
 from flask.testing import FlaskClient
@@ -30,3 +31,12 @@ class SocketIOTestClient:
     def disconnect(self, namespace: str | None = None) -> None: ...
     def emit(self, event: str, *args, callback: bool = True, namespace: str | None = None): ...
     def get_recieved(self, namespace: str | None = None) -> list[_Packet]: ...
+    def send(
+        self,
+        data: Any,
+        json: bool = False,
+        namespace: str | None = None,
+        include_self: bool = True,
+        skip_sid: list[str] | str | None = None,
+        callback: Callable[..., Any] | None = None,
+        **kwargs): ...
