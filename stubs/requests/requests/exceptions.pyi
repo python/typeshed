@@ -1,6 +1,7 @@
+from typing import Any
+
 from urllib3.exceptions import HTTPError as BaseHTTPError
 
-from stdlib.typing import Any
 from .models import Request, Response
 
 class RequestException(OSError):
