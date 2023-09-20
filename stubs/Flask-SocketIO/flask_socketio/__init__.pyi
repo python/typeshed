@@ -1,12 +1,12 @@
 from collections.abc import Callable
+from logging import Logger
 from threading import Thread
 from typing import Any, ParamSpec, TypedDict
-from logging import Logger
+from typing_extensions import NotRequired, TypeAlias, Unpack
 
-from socketio.base_manager import BaseManager
 from flask import Flask
 from flask.testing import FlaskClient
-from typing_extensions import TypeAlias, Unpack, NotRequired
+from socketio.base_manager import BaseManager
 
 from .namespace import Namespace
 from .test_client import SocketIOTestClient
@@ -18,7 +18,6 @@ _Handler: TypeAlias = Callable[[Any], Any]
 _HandlerDecorator: TypeAlias = Callable[[_Handler], _Handler]
 
 gevent_socketio_found: bool
-
 
 class _SocketIOConfig(TypedDict, total=False):
     manage_session: NotRequired[bool]

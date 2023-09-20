@@ -1,5 +1,5 @@
-from typing import Any, TypeVar
 from collections.abc import Callable
+from typing import Any, TypeVar
 
 _T = TypeVar("_T")
 
@@ -21,6 +21,6 @@ class Namespace:
         room: str | None = None,
         include_self: bool = True,
         namespace: str | None = None,
-        callback: Callable[..., Any] | None = None
+        callback: Callable[..., Any] | None = None,
     ) -> None: ...
     def close_room(self, room: str, namespace: str | None = None) -> None: ...
