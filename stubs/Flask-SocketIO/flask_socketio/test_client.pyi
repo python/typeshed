@@ -1,5 +1,6 @@
 from collections.abc import Callable
-from typing import Any, TypedDict
+from typing import Any
+from typing_extensions import TypedDict
 
 from flask import Flask
 from flask.testing import FlaskClient
