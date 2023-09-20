@@ -14,7 +14,6 @@ from Xlib.ext.xinput import ClassInfoClass
 from Xlib.protocol import display
 
 _T = TypeVar("_T")
-# TODO: replace with `_typeshed.AcceptedByInt` when it is included in type checkers
 _IntNew: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
 _ModifierMappingList8Elements: TypeAlias = Sequence[Sequence[int]]
 

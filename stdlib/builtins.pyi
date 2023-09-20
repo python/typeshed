@@ -4,8 +4,8 @@ import sys
 import types
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
-    AcceptedByInt,
     AnyStr_co,
+    ConvertibleToInt,
     FileDescriptorOrPath,
     OpenBinaryMode,
     OpenBinaryModeReading,
@@ -220,7 +220,7 @@ _LiteralInteger = _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026
 
 class int:
     @overload
-    def __new__(cls, __x: AcceptedByInt = ...) -> Self: ...
+    def __new__(cls, __x: ConvertibleToInt = ...) -> Self: ...
     @overload
     def __new__(cls, __x: str | bytes | bytearray, base: SupportsIndex) -> Self: ...
     if sys.version_info >= (3, 8):

@@ -6,7 +6,6 @@ from typing_extensions import Self, SupportsIndex, TypeAlias
 from pyasn1.type import base, constraint, namedtype, namedval
 from pyasn1.type.tag import TagSet
 
-# TODO: replace with `_typeshed.AcceptedByInt` when it is included in type checkers
 _SizedIntegerable: TypeAlias = ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc
 
 NoValue = base.NoValue
