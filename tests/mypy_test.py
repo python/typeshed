@@ -482,8 +482,15 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
         if spec_matches_path(gitignore_spec, distribution_path):
             continue
 
-        dist_metadata = read_metadata(distribution)
-        if dist_metadata.requires_python and not dist_metadata.requires_python.contains(PYTHON_VERSION):
+        metadata = read_metadata(distribution)
+        if not metadata.requires_python.contains(PYTHON_VERSION):
+            msg = f"skipping {distribution!r} on Python {PYTHON_VERSION} (requires Python {metadata.requires_python})"
+            print(colored(msg, "yellow"))
+            packages_skipped += 1
+            continue
+        if not metadata.requires_python.contains(args.version):
+            msg = f"skipping {distribution!r} for target Python {args.version} (requires Python {metadata.requires_python})"
+            print(colored(msg, "yellow"))
             packages_skipped += 1
             continue
 

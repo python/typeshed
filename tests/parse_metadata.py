@@ -30,9 +30,12 @@ __all__ = [
     "read_dependencies",
     "read_metadata",
     "read_stubtest_settings",
+    "OLDEST_SUPPORTED_PYTHON",
+    "PYTHON_VERSION",
 ]
 
-OLDEST_SUPPORTED_PYTHON: Final = "3.7"
+with open("pyproject.toml", "rb") as config:
+    OLDEST_SUPPORTED_PYTHON: Final[str] = tomli.load(config)["tool"]["typeshed"]["oldest_supported_python"]
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
 _STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
@@ -134,7 +137,7 @@ class StubMetadata:
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
     partial_stub: Annotated[bool, "Whether this is a partial type stub package as per PEP 561."]
     stubtest_settings: StubtestSettings
-    requires_python: Annotated[Specifier | None, "Versions of Python supported by the stub package"]
+    requires_python: Annotated[Specifier, "Versions of Python supported by the stub package"]
 
 
 _KNOWN_METADATA_FIELDS: Final = frozenset(
@@ -247,15 +250,17 @@ def read_metadata(distribution: str) -> StubMetadata:
     partial_stub: object = data.get("partial_stub", True)
     assert type(partial_stub) is bool
     requires_python_str: object = data.get("requires_python")
+    oldest_supported_python_specifier = Specifier(f">={OLDEST_SUPPORTED_PYTHON}")
     if requires_python_str is None:
-        requires_python = None
+        requires_python = oldest_supported_python_specifier
     else:
         assert isinstance(requires_python_str, str)
         requires_python = Specifier(requires_python_str)
+        assert requires_python != oldest_supported_python_specifier, f'requires_python="{requires_python}" is redundant'
         # Check minimum Python version is not less than the oldest version of Python supported by typeshed
-        assert Specifier(f">={OLDEST_SUPPORTED_PYTHON}").contains(
+        assert oldest_supported_python_specifier.contains(
             requires_python.version
-        ), f"'requires_python' contains versions lower than the oldest supported Python {OLDEST_SUPPORTED_PYTHON}"
+        ), f"'requires_python' contains versions lower than the oldest supported Python ({OLDEST_SUPPORTED_PYTHON})"
         assert requires_python.operator == ">=", "'requires_python' should be a minimum version specifier, use '>=3.x'"
 
     empty_tools: dict[object, object] = {}

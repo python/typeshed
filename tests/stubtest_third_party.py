@@ -37,11 +37,9 @@ def run_stubtest(
             return True
         print(colored(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
 
-    if metadata.requires_python:
-        if not metadata.requires_python.contains(PYTHON_VERSION):
-            print(colored(f"skipping (requires Python {metadata.requires_python})", "yellow"))
-            return True
-        print(colored(f"Note: {dist_name} requires Python {metadata.requires_python}.", "yellow"))
+    if not metadata.requires_python.contains(PYTHON_VERSION):
+        print(colored(f"skipping (requires Python {metadata.requires_python})", "yellow"))
+        return True
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)

@@ -250,19 +250,27 @@ def main() -> ReturnCode:
         platforms_to_test, versions_to_test = SUPPORTED_PLATFORMS, SUPPORTED_VERSIONS
     else:
         platforms_to_test = args.platforms_to_test or [sys.platform]
-        versions_to_test = args.versions_to_test or [f"3.{sys.version_info[1]}"]
+        versions_to_test = args.versions_to_test or [PYTHON_VERSION]
 
     code = 0
     for testcase_dir in testcase_directories:
         assert isinstance(testcase_dir, PackageInfo)
+        metadata = None
         if not testcase_dir.is_stdlib:
             metadata = read_metadata(testcase_dir.name)
-            if metadata.requires_python and not metadata.requires_python.contains(PYTHON_VERSION):
-                print(colored(f"skipping {testcase_dir.name!r} (requires Python {metadata.requires_python})", "yellow"))
+            if not metadata.requires_python.contains(PYTHON_VERSION):
+                msg = f"skipping {testcase_dir.name!r} on Python {PYTHON_VERSION} (requires Python {metadata.requires_python})"
+                print(colored(msg, "yellow"))
                 continue
         with tempfile.TemporaryDirectory() as td:
             tempdir = Path(td)
             for platform, version in product(platforms_to_test, versions_to_test):
+                if not testcase_dir.is_stdlib:
+                    assert metadata is not None
+                    if not metadata.requires_python.contains(version):
+                        msg = f"skipping {testcase_dir.name!r} for target Python {version} (requires Python {metadata.requires_python})"
+                        print(colored(msg, "yellow"))
+                        continue
                 this_code = test_testcase_directory(testcase_dir, version, platform, verbosity=verbosity, tempdir=tempdir)
                 code = max(code, this_code)
     if code:
