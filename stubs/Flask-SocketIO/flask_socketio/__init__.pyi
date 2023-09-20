@@ -1,69 +1,82 @@
-from collections.abc import MutableMapping
+from collections.abc import Callable
 from threading import Thread
-from typing import Any, Callable, Literal, TypeVar
-from typing_extensions import TypeAlias
+from typing import Any, ParamSpec, TypedDict
+from logging import Logger
 
-import pywsgi
-import socketio
+from socketio.base_manager import BaseManager
 from flask import Flask
-from flask.sessions import SessionMixin
 from flask.testing import FlaskClient
-from socketio import socketio_manage as socketio_manage
+from typing_extensions import TypeAlias, Unpack, NotRequired
 
 from .namespace import Namespace
 from .test_client import SocketIOTestClient
 
-_ExceptionHandler = TypeVar("_ExceptionHandler", Callable)
-_Handler = TypeVar("Handler", Callable)
-_Environ = TypeVar("Environ", MutableMapping[str, Any])
+_P = ParamSpec("_P")
+_ExceptionHandler: TypeAlias = Callable[[Exception], Any]
+_Handler: TypeAlias = Callable[[Any], Any]
 
-_HandlerDecorator: TypeAlias = Callable[_Handler, _Handler]
+_HandlerDecorator: TypeAlias = Callable[[_Handler], _Handler]
 
 gevent_socketio_found: bool
 
-class _SocketIOMiddleware(socketio.WSGIApp):
-    flask_app: Flask
-    def __init__(self, socketio_app: socketio.Server, flask_app: Flask, socketio_path: str = "socket.io") -> None: ...
-    def __call__(self, environ: _Environ, start_response: Callable[[str, list[tuple[str, str]]]]): ...
 
-class _ManagedSession(dict, SessionMixin): ...
+class _SocketIOConfig(TypedDict, total=False):
+    manage_session: NotRequired[bool]
+    message_queue: NotRequired[str]
+    channel: NotRequired[str]
+    path: NotRequired[str]
+    resource: NotRequired[str]
+
+    # SocketIO.Server options
+    client_manager: NotRequired[BaseManager]
+    logger: NotRequired[bool | Logger]
+    json: NotRequired[Any]
+    async_handlers: NotRequired[bool]
+    always_connect: NotRequired[bool]
+
+class _SocketIOCallArgs(TypedDict, total=False):
+    namespace: NotRequired[str]
+    to: NotRequired[str]
+    room: NotRequired[str]
+
+class _SocketIOEmitArgs(_SocketIOCallArgs, total=False):
+    include_self: NotRequired[bool]
+    skip_sid: NotRequired[str | list[str]]
+    callback: NotRequired[Callable[..., Any]]
+
+class _SocketIORunArgs(TypedDict, total=False):
+    debug: NotRequired[bool]
+    use_reloader: NotRequired[bool]
+    reloader_options: dict[str, Any]
+    log_output: NotRequired[bool]
+    allow_unsafe_werkzeug: NotRequired[bool]
 
 class SocketIO:
-    server: socketio.Server | None
-    server_options: dict[str, Any]
-    wsgi_server: pywsgi.WSGIServer | None
-    handlers: list[_Handler]
-    namespace_handlers: list
-    exception_handlers: list[_ExceptionHandler]
-    default_exception_handler: None | _ExceptionHandler
-    manage_session: bool
-    def __init__(self, app: Flask | None = None, **kwargs) -> None: ...
-    async_mode: Literal["threading", "eventlet", "gevent", "gevent_uwsgi"]
-    sockio_mw: _SocketIOMiddleware | None
-    def init_app(self, app: Flask, **kwargs): ...
+    def __init__(self, app: Flask | None = None, **kwargs: Unpack[_SocketIOConfig]) -> None: ...
+    def init_app(self, app: Flask, **kwargs: Unpack[_SocketIOConfig]): ...
     def on(self, message: str, namespace: str | None = None) -> _HandlerDecorator: ...
-    def on_error(self, namespace: str | None = None) -> Callable[_ExceptionHandler, _ExceptionHandler]: ...
-    def on_error_default(self, exception_handler: _ExceptionHandler) -> Callable[_ExceptionHandler, _ExceptionHandler]: ...
+    def on_error(self, namespace: str | None = None) -> Callable[[_ExceptionHandler], _ExceptionHandler]: ...
+    def on_error_default(self, exception_handler: _ExceptionHandler) -> Callable[[_ExceptionHandler], _ExceptionHandler]: ...
     def on_event(self, message: str, handler: _Handler, namespace: str | None = None) -> None: ...
-    def event(self, *args, **kwargs) -> _Handler | Callable[[_Handler], _HandlerDecorator]: ...
+    def event(self, namespace: str | None = None, *args, **kwargs) -> _Handler | Callable[[_Handler], _HandlerDecorator]: ...
     def on_namespace(self, namespace_handler: Namespace) -> None: ...
-    def emit(self, event: str, *args, **kwargs) -> None: ...
-    def call(self, event: str, *args, **kwargs): ...
+    def emit(self, event: str, *args, **kwargs: Unpack[_SocketIOEmitArgs]) -> None: ...
+    def call(self, event: str, *args, **kwargs: Unpack[_SocketIOCallArgs]): ...
     def send(
         self,
         data: Any,
         json: bool = False,
         namespace: str | None = None,
-        to=None,
+        to: str | None = None,
         callback: Callable | None = None,
         include_self: bool = True,
         skip_sid: list[str] | str | None = None,
         **kwargs,
     ) -> None: ...
-    def close_room(self, room, namespace: str | None = None) -> None: ...
-    def run(self, app, host: str | None = None, port: int | str | None = None, **kwargs) -> None: ...
+    def close_room(self, room: str, namespace: str | None = None) -> None: ...
+    def run(self, app, host: str | None = None, port: int | None = None, **kwargs: _SocketIORunArgs) -> None: ...
     def stop(self) -> None: ...
-    def start_background_task(self, target: Callable, *args, **kwargs) -> Thread: ...
+    def start_background_task(self, target: Callable[_P, None], *args: _P.args, **kwargs: _P.kwargs) -> Thread: ...
     def sleep(self, seconds: int = 0): ...
     def test_client(
         self,
@@ -75,8 +88,8 @@ class SocketIO:
         flask_test_client: FlaskClient | None = None,
     ) -> SocketIOTestClient: ...
 
-def emit(event, *args, **kwargs) -> None: ...
-def call(event, *args, **kwargs): ...
+def emit(event, *args, **kwargs: Unpack[_SocketIOEmitArgs]) -> None: ...
+def call(event, *args, **kwargs: Unpack[_SocketIOCallArgs]): ...
 def send(message: str, **kwargs) -> None: ...
 def join_room(room, sid: str | None = None, namespace: str | None = None) -> None: ...
 def leave_room(room, sid: str | None = None, namespace: str | None = None) -> None: ...
