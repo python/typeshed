@@ -7,7 +7,7 @@ from collections.abc import Awaitable, Callable, Iterable, Sequence, Set as Abst
 from dataclasses import Field
 from os import PathLike
 from types import FrameType, TracebackType
-from typing import Any, AnyStr, ClassVar, Generic, Protocol, SupportsInt, TypeVar, overload
+from typing import Any, AnyStr, ClassVar, Generic, Protocol, SupportsFloat, SupportsInt, TypeVar, overload
 from typing_extensions import Buffer, Final, Literal, LiteralString, SupportsIndex, TypeAlias, final
 
 _KT = TypeVar("_KT")
@@ -313,5 +313,6 @@ TraceFunction: TypeAlias = Callable[[FrameType, str, Any], TraceFunction | None]
 class DataclassInstance(Protocol):
     __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
 
-# Anything that can be passed to the int constructor
+# Anything that can be passed to the int/float constructors
 ConvertibleToInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+ConvertibleToFloat: TypeAlias = str | ReadableBuffer | SupportsFloat | SupportsIndex
