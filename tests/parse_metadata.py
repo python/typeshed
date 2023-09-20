@@ -257,13 +257,13 @@ def read_metadata(distribution: str) -> StubMetadata:
     if requires_python_str is None:
         requires_python = oldest_supported_python_specifier
     else:
-        assert isinstance(requires_python_str, str)
+        assert type(requires_python_str) is str
         requires_python = Specifier(requires_python_str)
         assert requires_python != oldest_supported_python_specifier, f'requires_python="{requires_python}" is redundant'
         # Check minimum Python version is not less than the oldest version of Python supported by typeshed
         assert oldest_supported_python_specifier.contains(
             requires_python.version
-        ), f"'requires_python' contains versions lower than the oldest supported Python ({oldest_supported_python})"
+        ), f"'requires_python' contains versions lower than typeshed's oldest supported Python ({oldest_supported_python})"
         assert requires_python.operator == ">=", "'requires_python' should be a minimum version specifier, use '>=3.x'"
 
     empty_tools: dict[object, object] = {}
