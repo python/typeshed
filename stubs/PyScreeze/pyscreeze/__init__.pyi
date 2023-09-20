@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, StrOrBytesPath, Unused
+from _typeshed import Incomplete, ReadableBuffer, StrOrBytesPath, Unused
 from collections.abc import Callable, Generator
 from typing import NamedTuple, SupportsFloat, TypeVar, overload
 from typing_extensions import Final, ParamSpec, SupportsIndex, TypeAlias
@@ -40,8 +40,9 @@ class RGB(NamedTuple):
 class PyScreezeException(Exception): ...
 class ImageNotFoundException(PyScreezeException): ...
 
-# _locateAll_opencv
 def requiresPyGetWindow(wrappedFunction: Callable[_P, _R]) -> Callable[_P, _R]: ...
+
+# _locateAll_opencv
 @overload
 def locate(
     needleImage: str | Image.Image | _Mat,
@@ -51,10 +52,10 @@ def locate(
     limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str = 0.999,
+    confidence: SupportsFloat | SupportsIndex | str | ReadableBuffer = 0.999,
 ) -> Box | None: ...
 
-# _locateAll_python / _locateAll_pillow
+# _locateAll_pillow
 @overload
 def locate(
     needleImage: str | Image.Image,
@@ -77,10 +78,10 @@ def locateOnScreen(
     limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str = 0.999,
+    confidence: SupportsFloat | SupportsIndex | str | ReadableBuffer = 0.999,
 ) -> Box | None: ...
 
-# _locateAll_python / _locateAll_pillow
+# _locateAll_pillow
 @overload
 def locateOnScreen(
     image: str | Image.Image,
@@ -102,10 +103,10 @@ def locateAllOnScreen(
     limit: int = 1000,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str = 0.999,
+    confidence: SupportsFloat | SupportsIndex | str | ReadableBuffer = 0.999,
 ) -> Generator[Box, None, None]: ...
 
-# _locateAll_python / _locateAll_pillow
+# _locateAll_pillow
 @overload
 def locateAllOnScreen(
     image: str | Image.Image,
@@ -127,10 +128,10 @@ def locateCenterOnScreen(
     limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str = 0.999,
+    confidence: SupportsFloat | SupportsIndex | str | ReadableBuffer = 0.999,
 ) -> Point | None: ...
 
-# _locateAll_python / _locateAll_pillow
+# _locateAll_pillow
 @overload
 def locateCenterOnScreen(
     image: str | Image.Image,
@@ -154,10 +155,10 @@ def locateOnWindow(
     grayscale: bool | None = None,
     limit: Unused = 1,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str = 0.999,
+    confidence: SupportsFloat | SupportsIndex | str | ReadableBuffer = 0.999,
 ) -> Box | None: ...
 
-# _locateAll_python / _locateAll_pillow
+# _locateAll_pillow
 @overload
 def locateOnWindow(
     image: str | Image.Image,
@@ -187,10 +188,10 @@ def locateAll(
     limit: int = 1000,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str = 0.999,
+    confidence: SupportsFloat | SupportsIndex | str | ReadableBuffer = 0.999,
 ) -> Generator[Box, None, None]: ...
 
-# _locateAll_python / _locateAll_pillow
+# _locateAll_pillow
 @overload
 def locateAll(
     needleImage: str | Image.Image,
