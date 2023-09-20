@@ -6,7 +6,7 @@ from typing_extensions import NotRequired, ParamSpec, TypeAlias, TypedDict, Unpa
 
 from flask import Flask
 from flask.testing import FlaskClient
-from socketio.base_manager import BaseManager  # type: ignore
+from socketio.base_manager import BaseManager  # type: ignore[import]  # pyright: ignore[reportMissingImports]
 
 from .namespace import Namespace
 from .test_client import SocketIOTestClient
