@@ -7,13 +7,9 @@ from PIL import Image
 
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
-# TODO: cv2.Mat is not available as a type yet:
-# https://github.com/microsoft/python-type-stubs/issues/211
-# https://github.com/microsoft/python-type-stubs/tree/main/cv2
-# https://github.com/opencv/opencv/pull/20370
-# cv2.Mat is just an alias for a numpy NDArray, but can't import that either.
-# Because pyscreeze does not declare it as a dependency, stub_uploader won't let it.
-_Mat: TypeAlias = Incomplete
+# cv2.typing.MatLike: is an alias for `numpy.ndarray | cv2.mat_wrapper.Mat`, Mat extends ndarray.
+# But can't import either, because pyscreeze does not declare them as dependencies, stub_uploader won't let it.
+_MatLike: TypeAlias = Incomplete
 
 useOpenCV: Final[bool]
 RUNNING_PYTHON_2: Final = False
@@ -45,8 +41,8 @@ def requiresPyGetWindow(wrappedFunction: Callable[_P, _R]) -> Callable[_P, _R]: 
 # _locateAll_opencv
 @overload
 def locate(
-    needleImage: str | Image.Image | _Mat,
-    haystackImage: str | Image.Image | _Mat,
+    needleImage: str | Image.Image | _MatLike,
+    haystackImage: str | Image.Image | _MatLike,
     *,
     grayscale: bool | None = None,
     limit: Unused = 1,
@@ -71,7 +67,7 @@ def locate(
 # _locateAll_opencv
 @overload
 def locateOnScreen(
-    image: str | Image.Image | _Mat,
+    image: str | Image.Image | _MatLike,
     minSearchTime: float = 0,
     *,
     grayscale: bool | None = None,
@@ -97,7 +93,7 @@ def locateOnScreen(
 # _locateAll_opencv
 @overload
 def locateAllOnScreen(
-    image: str | Image.Image | _Mat,
+    image: str | Image.Image | _MatLike,
     *,
     grayscale: bool | None = None,
     limit: int = 1000,
@@ -121,7 +117,7 @@ def locateAllOnScreen(
 # _locateAll_opencv
 @overload
 def locateCenterOnScreen(
-    image: str | Image.Image | _Mat,
+    image: str | Image.Image | _MatLike,
     *,
     minSearchTime: float,
     grayscale: bool | None = None,
@@ -143,13 +139,13 @@ def locateCenterOnScreen(
     step: int = 1,
     confidence: None = None,
 ) -> Point | None: ...
-def locateOnScreenNear(image: str | Image.Image | _Mat, x: int, y: int) -> Box: ...
-def locateCenterOnScreenNear(image: str | Image.Image | _Mat, x: int, y: int) -> Point | None: ...
+def locateOnScreenNear(image: str | Image.Image | _MatLike, x: int, y: int) -> Box: ...
+def locateCenterOnScreenNear(image: str | Image.Image | _MatLike, x: int, y: int) -> Point | None: ...
 
 # _locateAll_opencv
 @overload
 def locateOnWindow(
-    image: str | Image.Image | _Mat,
+    image: str | Image.Image | _MatLike,
     title: str,
     *,
     grayscale: bool | None = None,
@@ -182,8 +178,8 @@ def screenshot(imageFilename: StrOrBytesPath | None = None, region: tuple[int, i
 # _locateAll_opencv
 @overload
 def locateAll(
-    needleImage: str | Image.Image | _Mat,
-    haystackImage: str | Image.Image | _Mat,
+    needleImage: str | Image.Image | _MatLike,
+    haystackImage: str | Image.Image | _MatLike,
     grayscale: bool | None = None,
     limit: int = 1000,
     region: tuple[int, int, int, int] | None = None,
