@@ -154,12 +154,15 @@ def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
         return ["pandas"]
     dist = importlib.metadata.distribution(req_name)
     toplevel_txt_contents = dist.read_text("top_level.txt")
-    if toplevel_txt_contents is not None:
-        return toplevel_txt_contents.split()
-    if dist.files is None:
-        raise RuntimeError("Can't read find the packages associated with requirement {req_name!r}")
-    maybe_modules = [f.parts[0] if len(f.parts) > 1 else inspect.getmodulename(f) for f in dist.files]
-    return [name for name in maybe_modules if name is not None and "." not in name]
+    if toplevel_txt_contents is None:
+        if dist.files is None:
+            raise RuntimeError("Can't read find the packages associated with requirement {req_name!r}")
+        maybe_modules = [f.parts[0] if len(f.parts) > 1 else inspect.getmodulename(f) for f in dist.files]
+        packages = [name for name in maybe_modules if name is not None and "." not in name]
+    else:
+        packages = toplevel_txt_contents.split()
+    # https://peps.python.org/pep-0561/#stub-only-packages
+    return sorted({package.removesuffix("-stubs") for package in packages})
 
 
 def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
