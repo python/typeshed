@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections import OrderedDict
 from collections.abc import Callable, Sequence
 from configparser import ConfigParser
-from typing import Any, Generic, Protocol, TextIO, TypeVar, overload
+from typing import Any, Generic, TextIO, TypeVar, overload
 
 _T = TypeVar("_T")
 _TCsv = TypeVar("_TCsv", bound=Sequence[Any])
