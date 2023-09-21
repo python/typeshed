@@ -75,23 +75,15 @@ class AutoConfig:
 
 config: AutoConfig
 
-class _CsvType(Protocol[_T, _TCsv]):
+class Csv(Generic[_T, _TCsv]):
     cast: Callable[..., _T]
     delimiter: str
     strip: str
     post_process: Callable[..., _TCsv]
     def __call__(self, value: str) -> _TCsv: ...
-
-@overload
-def Csv() -> _CsvType[str, list[str]]: ...
-@overload
-def Csv(cast: Callable[..., _T], delimiter: str = ..., strip: str = ...) -> _CsvType[_T, list[_T]]: ...
-@overload
-def Csv(cast: Callable[..., _T], delimiter: str, strip: str, post_process: Callable[..., _TCsv]) -> _CsvType[_T, _TCsv]: ...
-@overload
-def Csv(
-    *, cast: Callable[..., _T], post_process: Callable[..., _TCsv], delimiter: str = ..., strip: str = ...
-) -> _CsvType[_T, _TCsv]: ...
+    def __init__(
+        self, cast: Callable[..., _T] = str, delimiter: str = ..., strip: str = ..., post_process: Callable[..., _TCsv] = list[_T]
+    ) -> None: ...
 
 class Choices(Generic[_T]):
     flat: Sequence[_T]
