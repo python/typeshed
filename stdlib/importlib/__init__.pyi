@@ -1,5 +1,6 @@
 import sys
 from collections.abc import Mapping, Sequence
+from importlib import abc as abc, machinery as machinery, util as util
 from importlib.abc import Loader
 from types import ModuleType
 
