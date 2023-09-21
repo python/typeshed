@@ -1,0 +1,6 @@
+# Csv is a class, but this type definition utilizes a function to determine different types
+# based on the parameters passed
+decouple.Csv
+
+# Runtime has a default of it's internal Undefined class, but ultimately it is a string
+decouple.Config.get
