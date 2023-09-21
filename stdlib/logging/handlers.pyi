@@ -2,12 +2,14 @@ import datetime
 import http.client
 import ssl
 import sys
-from _typeshed import ReadableBuffer, StrPath
 from collections.abc import Callable
 from logging import FileHandler, Handler, LogRecord
 from re import Pattern
 from socket import SocketKind, socket
+from threading import Thread
 from typing import Any, ClassVar, Protocol, TypeVar
+
+from _typeshed import ReadableBuffer, StrPath
 
 _T = TypeVar("_T")
 
@@ -264,6 +266,7 @@ class QueueListener:
     handlers: tuple[Handler, ...]  # undocumented
     respect_handler_level: bool  # undocumented
     queue: _QueueLike[Any]  # undocumented
+    _thread: Thread | None  # undocumented
     def __init__(self, queue: _QueueLike[Any], *handlers: Handler, respect_handler_level: bool = False) -> None: ...
     def dequeue(self, block: bool) -> LogRecord: ...
     def prepare(self, record: LogRecord) -> Any: ...
