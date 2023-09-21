@@ -363,14 +363,14 @@ project's tracker to fix their documentation.
 ### Stub versioning
 
 You can use checks
-like `if sys.version_info >= (3, 8):` to denote new functionality introduced
+like `if sys.version_info >= (3, 12):` to denote new functionality introduced
 in a given Python version or solve type differences.  When doing so, only use
 two-tuples. Because of this, if a given functionality was
-introduced in, say, Python 3.7.4, your check:
+introduced in, say, Python 3.11.4, your check:
 
-* should be expressed as `if sys.version_info >= (3, 7):`
-* should NOT be expressed as `if sys.version_info >= (3, 7, 4):`
-* should NOT be expressed as `if sys.version_info >= (3, 8):`
+* should be expressed as `if sys.version_info >= (3, 11):`
+* should NOT be expressed as `if sys.version_info >= (3, 11, 4):`
+* should NOT be expressed as `if sys.version_info >= (3, 12):`
 
 When your stub contains if statements for different Python versions,
 always put the code for the most recent Python version first.
