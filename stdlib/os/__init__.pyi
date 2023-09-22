@@ -341,6 +341,11 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
         if sys.version_info >= (3, 8):
             @property
             def st_reparse_tag(self) -> int: ...
+        if sys.version_info >= (3, 12):
+            @property
+            def st_birthtime(self) -> int: ...  # time of file creation in seconds
+            @property
+            def st_birthtime_ns(self) -> int: ...  # time of file creation in nanoseconds
     else:
         @property
         def st_blocks(self) -> int: ...  # number of blocks allocated for file
@@ -353,13 +358,8 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
             # available (but may be only filled out if root tries to use them):
             @property
             def st_gen(self) -> int: ...  # file generation number
-
-    if (sys.version_info >= (3, 12) and sys.platform == "win32") or (sys.platform != "linux" and sys.platform != "win32"):
-        @property
-        def st_birthtime(self) -> int: ...  # time of file creation in seconds
-    if sys.version_info >= (3, 12) and sys.platform == "win32":
-        @property
-        def st_birthtime_ns(self) -> int: ...  # time of file creation in nanoseconds
+            @property
+            def st_birthtime(self) -> int: ...  # time of file creation in seconds
     if sys.platform == "darwin":
         @property
         def st_flags(self) -> int: ...  # user defined flags for file
