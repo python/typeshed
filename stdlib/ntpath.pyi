@@ -1,5 +1,5 @@
 import sys
-from _typeshed import BytesPath, StrPath
+from _typeshed import BytesPath, FileDescriptorOrPath, StrPath
 from genericpath import (
     commonprefix as commonprefix,
     exists as exists,
@@ -7,7 +7,6 @@ from genericpath import (
     getctime as getctime,
     getmtime as getmtime,
     getsize as getsize,
-    isdir as isdir,
     isfile as isfile,
     samefile as samefile,
     sameopenfile as sameopenfile,
@@ -45,6 +44,13 @@ from posixpath import (
 
 if sys.version_info >= (3, 12):
     from posixpath import isjunction as isjunction, splitroot as splitroot
+
+if sys.version_info >= (3, 12) and sys.platform == "win32":
+    def isdir(path: FileDescriptorOrPath) -> bool: ...
+
+else:
+    def isdir(s: FileDescriptorOrPath) -> bool: ...
+
 from typing import AnyStr, overload
 from typing_extensions import LiteralString
 
