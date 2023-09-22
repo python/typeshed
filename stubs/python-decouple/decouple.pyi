@@ -99,7 +99,7 @@ class Csv(Generic[_T, _TCsv]):
         cast: Callable[[str], _T],
         delimiter: str = ...,
         strip: str = ...,
-        post_process: Callable[[Iterable[_T]], list[_T]] = ...,
+        post_process: Callable[[Iterable[Any]], list[_T]] = ...,
     ) -> None: ...
     @overload
     def __init__(
@@ -121,7 +121,11 @@ class Csv(Generic[_T, _TCsv]):
     ) -> None: ...
     @overload
     def __init__(
-        self: Csv[_T, _TCsv], cast: Callable[[str], _T], delimiter: str, strip: str, post_process: Callable[[Iterable[_T]], _TCsv]
+        self: Csv[_T, _TCsv],
+        cast: Callable[[str], _T],
+        delimiter: str,
+        strip: str,
+        post_process: Callable[[Iterable[Any]], _TCsv],
     ) -> None: ...
 
 class Choices(Generic[_T]):
