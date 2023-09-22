@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections import OrderedDict
 from collections.abc import Callable, Iterable, Sequence
 from configparser import ConfigParser
-from typing import Generic, Protocol, TextIO, TypeVar, overload
+from typing import Any, Generic, Protocol, TextIO, TypeVar, overload
 
 _T = TypeVar("_T")
 _TCsv = TypeVar("_TCsv")
@@ -83,7 +83,7 @@ class Csv(Generic[_T, _TCsv]):
     cast: Callable[[str], _T]
     delimiter: str
     strip: str
-    post_process: Callable[[Iterable[str]], _TCsv]
+    post_process: Callable[[Iterable[Any]], _TCsv]
     def __call__(self, value: str) -> _TCsv: ...
     @overload
     def __init__(
@@ -91,7 +91,7 @@ class Csv(Generic[_T, _TCsv]):
         cast: Callable[[str], str] = ...,
         delimiter: str = ...,
         strip: str = ...,
-        post_process: Callable[[Iterable[str]], list[str]] = ...,
+        post_process: Callable[[Iterable[Any]], list[str]] = ...,
     ) -> None: ...
     @overload
     def __init__(
@@ -108,7 +108,16 @@ class Csv(Generic[_T, _TCsv]):
         delimiter: str = ...,
         strip: str = ...,
         *,
-        post_process: Callable[[Iterable[str]], _TCsv],
+        post_process: Callable[[Iterable[Any]], _TCsv],
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Csv[_T, _TCsv],
+        cast: Callable[[str], _T],
+        delimiter: str = ",",
+        strip: str = ...,
+        *,
+        post_process: Callable[[Iterable[Any]], _TCsv],
     ) -> None: ...
     @overload
     def __init__(
