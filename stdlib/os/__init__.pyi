@@ -252,12 +252,14 @@ environ: _Environ[str]
 if sys.platform != "win32":
     environb: _Environ[bytes]
 
+if sys.version_info >= (3, 11) or sys.platform != "win32":
+    EX_OK: int
+
 if sys.platform != "win32":
     confstr_names: dict[str, int]
     pathconf_names: dict[str, int]
     sysconf_names: dict[str, int]
 
-    EX_OK: int
     EX_USAGE: int
     EX_DATAERR: int
     EX_NOINPUT: int
