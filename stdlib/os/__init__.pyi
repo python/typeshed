@@ -343,7 +343,7 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
             def st_reparse_tag(self) -> int: ...
         if sys.version_info >= (3, 12):
             @property
-            def st_birthtime(self) -> int: ...  # time of file creation in seconds
+            def st_birthtime(self) -> float: ...  # time of file creation in seconds
             @property
             def st_birthtime_ns(self) -> int: ...  # time of file creation in nanoseconds
     else:
@@ -360,7 +360,7 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
             @property
             def st_gen(self) -> int: ...  # file generation number
             @property
-            def st_birthtime(self) -> int: ...  # time of file creation in seconds
+            def st_birthtime(self) -> float: ...  # time of file creation in seconds
     if sys.platform == "darwin":
         @property
         def st_flags(self) -> int: ...  # user defined flags for file
