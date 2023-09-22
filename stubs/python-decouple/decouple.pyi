@@ -1,11 +1,11 @@
 from _typeshed import Incomplete
 from collections import OrderedDict
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Iterable, Sequence
 from configparser import ConfigParser
-from typing import Any, Generic, TextIO, TypeVar, overload
+from typing import Generic, TextIO, TypeVar, overload
 
 _T = TypeVar("_T")
-_TCsv = TypeVar("_TCsv", bound=Sequence[Any])
+_TCsv = TypeVar("_TCsv")
 
 PYVERSION: Incomplete  # undocumented
 DEFAULT_ENCODING: str  # undocumented
@@ -81,18 +81,57 @@ class Csv(Generic[_T, _TCsv]):
     strip: str
     post_process: Callable[..., _TCsv]
     def __call__(self, value: str) -> _TCsv: ...
+    @overload
     def __init__(
-        self, cast: Callable[..., _T] = str, delimiter: str = ..., strip: str = ..., post_process: Callable[..., _TCsv] = list[_T]
+        self: Csv[str, list[str]],
+        cast: Callable[[str], str] = ...,
+        delimiter: str = ...,
+        strip: str = ...,
+        post_process: Callable[[Iterable[str]], list[str]] = ...,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Csv[_T, list[_T]],
+        cast: Callable[[str], _T],
+        delimiter: str = ...,
+        strip: str = ...,
+        post_process: Callable[[Iterable[_T]], list[_T]] = ...,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Csv[str, _TCsv],
+        cast: Callable[[str], str] = ...,
+        delimiter: str = ...,
+        strip: str = ...,
+        *,
+        post_process: Callable[[Iterable[str]], _TCsv],
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Csv[_T, _TCsv], cast: Callable[[str], _T], delimiter: str, strip: str, post_process: Callable[[Iterable[_T]], _TCsv]
     ) -> None: ...
 
 class Choices(Generic[_T]):
     flat: Sequence[_T]
     cast: Callable[..., _T]
     choices: Sequence[_T]
+    @overload
     def __init__(
-        self,
-        flat: Sequence[_T] | None = None,
-        cast: Callable[..., _T] = ...,
-        choices: Sequence[_T | tuple[Incomplete, _T]] | None = None,
+        self: Choices[str],
+        flat: Sequence[str] | None = None,
+        cast: Callable[[str], str] = ...,
+        choices: Sequence[tuple[str, str]] | None = None,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Choices[_T], flat: Sequence[_T], cast: Callable[[str], _T] = ..., choices: Sequence[tuple[_T, str]] | None = None
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Choices[_T], flat: None, cast: Callable[[str], _T], choices: Sequence[tuple[_T, str]] | None = None
+    ) -> None: ...
+    @overload
+    def __init__(
+        self: Choices[_T], flat: None = None, cast: Callable[[str], _T] = ..., *, choices: Sequence[tuple[_T, str]]
     ) -> None: ...
     def __call__(self, value: str) -> _T: ...
