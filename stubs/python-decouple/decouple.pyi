@@ -3,6 +3,7 @@ from collections import OrderedDict
 from collections.abc import Callable, Iterable, Sequence
 from configparser import ConfigParser
 from typing import Generic, TextIO, TypeVar, overload
+from typing_extensions import Protocol
 
 _T = TypeVar("_T")
 _TCsv = TypeVar("_TCsv")
@@ -21,8 +22,8 @@ class Undefined: ...
 undefined: Undefined
 
 class Config:
-    repository: RepositoryEmpty
-    def __init__(self, repository: RepositoryEmpty) -> None: ...
+    repository: _Repository
+    def __init__(self, repository: _Repository) -> None: ...
     @overload
     def get(self, option: str, default: str = ...) -> str: ...
     @overload
@@ -35,6 +36,10 @@ class Config:
     def __call__(self, option: str, *, cast: Callable[[str], _T]) -> _T: ...
     @overload
     def __call__(self, option: str, default: str, cast: Callable[[str], _T]) -> _T: ...
+
+class _Repository(Protocol):  # undocumented
+    def __contains__(self, key: str) -> bool: ...
+    def __getitem__(self, key: str) -> str: ...
 
 class RepositoryEmpty:  # undocumented
     def __init__(self, source: str = ..., encoding: str = ...) -> None: ...
