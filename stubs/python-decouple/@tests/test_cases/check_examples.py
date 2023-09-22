@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import List
+from typing import List, Optional
 from typing_extensions import assert_type
 
 from decouple import Choices, Csv, config
@@ -35,4 +35,4 @@ controller = Controller(config("MAX_ALLOWED_POWER", cast=int))
 
 
 # Example from https://github.com/HBNetwork/python-decouple/issues/159
-assert_type(config("MAX_RETRIES", cast=lambda v: int(v) if v else None, default=None), int | None)
+assert_type(config("MAX_RETRIES", cast=lambda v: int(v) if v else None, default=None), Optional[int])
