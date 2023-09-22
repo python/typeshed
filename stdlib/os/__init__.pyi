@@ -354,6 +354,7 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
         @property
         def st_rdev(self) -> int: ...  # type of device if an inode device
         if sys.platform != "linux":
+            # These properties are available on MacOS, but not Ubuntu.
             # On other Unix systems (such as FreeBSD), the following attributes may be
             # available (but may be only filled out if root tries to use them):
             @property
