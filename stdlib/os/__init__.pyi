@@ -341,6 +341,11 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
         if sys.version_info >= (3, 8):
             @property
             def st_reparse_tag(self) -> int: ...
+        if sys.version_info >= (3, 12):
+            @property
+            def st_birthtime(self) -> float: ...  # time of file creation in seconds
+            @property
+            def st_birthtime_ns(self) -> int: ...  # time of file creation in nanoseconds
     else:
         @property
         def st_blocks(self) -> int: ...  # number of blocks allocated for file
@@ -349,13 +354,13 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
         @property
         def st_rdev(self) -> int: ...  # type of device if an inode device
         if sys.platform != "linux":
-            # These properties are available on MacOS, but not on Windows or Ubuntu.
+            # These properties are available on MacOS, but not Ubuntu.
             # On other Unix systems (such as FreeBSD), the following attributes may be
             # available (but may be only filled out if root tries to use them):
             @property
             def st_gen(self) -> int: ...  # file generation number
             @property
-            def st_birthtime(self) -> int: ...  # time of file creation
+            def st_birthtime(self) -> float: ...  # time of file creation in seconds
     if sys.platform == "darwin":
         @property
         def st_flags(self) -> int: ...  # user defined flags for file
@@ -616,13 +621,15 @@ def open(path: StrOrBytesPath, flags: int, mode: int = 0o777, *, dir_fd: int | N
 def pipe() -> tuple[int, int]: ...
 def read(__fd: int, __length: int) -> bytes: ...
 
+if sys.version_info >= (3, 12) or sys.platform != "win32":
+    def get_blocking(__fd: int) -> bool: ...
+    def set_blocking(__fd: int, __blocking: bool) -> None: ...
+
 if sys.platform != "win32":
     def fchmod(fd: int, mode: int) -> None: ...
     def fchown(fd: int, uid: int, gid: int) -> None: ...
     def fpathconf(__fd: int, __name: str | int) -> int: ...
     def fstatvfs(__fd: int) -> statvfs_result: ...
-    def get_blocking(__fd: int) -> bool: ...
-    def set_blocking(__fd: int, __blocking: bool) -> None: ...
     def lockf(__fd: int, __command: int, __length: int) -> None: ...
     def openpty() -> tuple[int, int]: ...  # some flavors of Unix
     if sys.platform != "darwin":
@@ -1044,3 +1051,8 @@ if sys.version_info >= (3, 9):
 
     if sys.platform == "linux":
         def pidfd_open(pid: int, flags: int = ...) -> int: ...
+
+if sys.version_info >= (3, 12) and sys.platform == "win32":
+    def listdrives() -> list[str]: ...
+    def listmounts(volume: str) -> list[str]: ...
+    def listvolumes() -> list[str]: ...
