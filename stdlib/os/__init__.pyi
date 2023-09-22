@@ -353,7 +353,7 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
             # available (but may be only filled out if root tries to use them):
             @property
             def st_gen(self) -> int: ...  # file generation number
-    
+
     if (sys.version_info >= (3, 12) and sys.platform == "win32") or (sys.platform != "linux" and sys.platform != "win32"):
         @property
         def st_birthtime(self) -> int: ...  # time of file creation in seconds
