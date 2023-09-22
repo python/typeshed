@@ -67,7 +67,7 @@ class SocketIO:
         json: bool = False,
         namespace: str | None = None,
         to: str | None = None,
-        callback: Callable | None = None,
+        callback: Callable[..., Any] | None = None,
         include_self: bool = True,
         skip_sid: list[str] | str | None = None,
         **kwargs,
