@@ -2,7 +2,7 @@ import abc
 import sys
 from _typeshed import FileDescriptorOrPath, Unused
 from abc import abstractmethod
-from collections.abc import AsyncGenerator, Awaitable, Callable, Coroutine, Generator, Iterator
+from collections.abc import AsyncGenerator, AsyncIterator, Awaitable, Callable, Coroutine, Generator, Iterator
 from types import TracebackType
 from typing import IO, Any, Generic, Protocol, TypeVar, overload, runtime_checkable
 from typing_extensions import ParamSpec, Self, TypeAlias
@@ -85,7 +85,7 @@ if sys.version_info >= (3, 10):
         # __init__ and these attributes are actually defined in the base class _GeneratorContextManagerBase,
         # which is more trouble than it's worth to include in the stub (see #6676)
         def __init__(
-            self, func: Callable[..., AsyncGenerator[_T_co, Any]], args: tuple[Any, ...], kwds: dict[str, Any]
+            self, func: Callable[..., AsyncIterator[_T_co]], args: tuple[Any, ...], kwds: dict[str, Any]
         ) -> None: ...
         gen: AsyncGenerator[_T_co, Any]
         func: Callable[..., AsyncGenerator[_T_co, Any]]
@@ -98,7 +98,7 @@ if sys.version_info >= (3, 10):
 else:
     class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co], Generic[_T_co]):
         def __init__(
-            self, func: Callable[..., AsyncGenerator[_T_co, Any]], args: tuple[Any, ...], kwds: dict[str, Any]
+            self, func: Callable[..., AsyncIterator[_T_co]], args: tuple[Any, ...], kwds: dict[str, Any]
         ) -> None: ...
         gen: AsyncGenerator[_T_co, Any]
         func: Callable[..., AsyncGenerator[_T_co, Any]]
@@ -110,10 +110,10 @@ else:
 
 @overload
 def asynccontextmanager(
-    func: Callable[_P, Coroutine[Any, Any, AsyncGenerator[_T_co, Any]]]
+    func: Callable[_P, Coroutine[Any, Any, AsyncIterator[_T_co]]]
 ) -> Callable[_P, _AsyncGeneratorContextManager[_T_co]]: ...
 @overload
-def asynccontextmanager(func: Callable[_P, AsyncGenerator[_T_co, Any]]) -> Callable[_P, _AsyncGeneratorContextManager[_T_co]]: ...
+def asynccontextmanager(func: Callable[_P, AsyncIterator[_T_co]]) -> Callable[_P, _AsyncGeneratorContextManager[_T_co]]: ...
 
 class _SupportsClose(Protocol):
     def close(self) -> object: ...
