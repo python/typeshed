@@ -254,13 +254,17 @@ def main() -> ReturnCode:
         versions_to_test = args.versions_to_test or [PYTHON_VERSION]
 
     code = 0
+    completed_tests = 0
     for testcase_dir in testcase_directories:
         assert isinstance(testcase_dir, PackageInfo)
         metadata = None
         if not testcase_dir.is_stdlib:
             metadata = read_metadata(testcase_dir.name)
             if not metadata.requires_python.contains(PYTHON_VERSION):
-                msg = f"skipping {testcase_dir.name!r} on Python {PYTHON_VERSION} (requires Python {metadata.requires_python})"
+                msg = (
+                    f"skipping {testcase_dir.name!r} (requires Python {metadata.requires_python}; "
+                    f"test is being run using Python {PYTHON_VERSION})"
+                )
                 print(colored(msg, "yellow"))
                 continue
         with tempfile.TemporaryDirectory() as td:
@@ -272,12 +276,16 @@ def main() -> ReturnCode:
                         msg = f"skipping {testcase_dir.name!r} for target Python {version} (requires Python {metadata.requires_python})"
                         print(colored(msg, "yellow"))
                         continue
+                completed_tests += 1
                 this_code = test_testcase_directory(testcase_dir, version, platform, verbosity=verbosity, tempdir=tempdir)
                 code = max(code, this_code)
     if code:
         print_error("\nTest completed with errors")
+    elif completed_tests:
+        plural = "" if completed_tests == 1 else "s"
+        print(colored(f"\n{completed_tests} test{plural} completed successfully!", "green"))
     else:
-        print(colored("\nTest completed successfully!", "green"))
+        print(colored("\nAll tests were skipped!", "yellow"))
 
     return code
 

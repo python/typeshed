@@ -485,7 +485,10 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
 
         metadata = read_metadata(distribution)
         if not metadata.requires_python.contains(PYTHON_VERSION):
-            msg = f"skipping {distribution!r} on Python {PYTHON_VERSION} (requires Python {metadata.requires_python})"
+            msg = (
+                f"skipping {distribution!r} (requires Python {metadata.requires_python}; "
+                f"test is being run using Python {PYTHON_VERSION})"
+            )
             print(colored(msg, "yellow"))
             packages_skipped += 1
             continue
@@ -508,9 +511,21 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
     if not _DISTRIBUTION_TO_VENV_MAPPING:
         setup_virtual_environments(distributions_to_check, args, tempdir)
 
-    assert _DISTRIBUTION_TO_VENV_MAPPING.keys() == distributions_to_check.keys()
+    # Some distributions may have been skipped earlier and therefore don't have a venv.
+    distributions_without_venv = {
+        distribution: requirements
+        for distribution, requirements in distributions_to_check.items()
+        if distribution not in _DISTRIBUTION_TO_VENV_MAPPING
+    }
+    if distributions_without_venv:
+        setup_virtual_environments(distributions_without_venv, args, tempdir)
 
-    for distribution, venv_info in _DISTRIBUTION_TO_VENV_MAPPING.items():
+    # Check that there is a venv for every distribution we're testing.
+    # Some venvs may exist from previous runs but are skipped in this run.
+    assert _DISTRIBUTION_TO_VENV_MAPPING.keys() >= distributions_to_check.keys()
+
+    for distribution in distributions_to_check:
+        venv_info = _DISTRIBUTION_TO_VENV_MAPPING[distribution]
         non_types_dependencies = venv_info.python_exe != sys.executable
         this_code, checked, _ = test_third_party_distribution(
             distribution, args, venv_info=venv_info, non_types_dependencies=non_types_dependencies
@@ -557,15 +572,19 @@ def main() -> None:
             total_files_checked += files_checked_this_version
             total_packages_skipped += packages_skipped_this_version
     if code:
-        print_error(f"--- exit status {code}, {total_files_checked} files checked ---")
+        plural = "" if total_files_checked == 1 else "s"
+        print_error(f"--- exit status {code}, {total_files_checked} file{plural} checked ---")
         sys.exit(code)
     if total_packages_skipped:
-        print(colored(f"--- {total_packages_skipped} packages skipped ---", "yellow"))
+        {1: ""}.get(total_packages_skipped, "s")
+        plural = "" if total_packages_skipped == 1 else "s"
+        print(colored(f"--- {total_packages_skipped} package{plural} skipped ---", "yellow"))
     elif not total_files_checked:
         print_error("--- nothing to do; exit 1 ---")
         sys.exit(1)
     if total_files_checked:
-        print(colored(f"--- success, {total_files_checked} files checked ---", "green"))
+        plural = "" if total_files_checked == 1 else "s"
+        print(colored(f"--- success, {total_files_checked} file{plural} checked ---", "green"))
 
 
 if __name__ == "__main__":
