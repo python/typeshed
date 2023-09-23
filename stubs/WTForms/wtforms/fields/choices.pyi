@@ -12,6 +12,10 @@ _GroupedChoices: TypeAlias = dict[str, Iterable[_Choice]]
 _FullChoice: TypeAlias = tuple[Any, str, bool]  # value, label, selected
 _FullGroupedChoices: TypeAlias = tuple[str, Iterable[_FullChoice]]
 
+# we use this alias just once to avoid ambiguous cyclic name conflicts inside
+# SelectFieldBase
+_OptionType: TypeAlias = type[_Option]
+
 # this is defined anonymously inside SelectFieldBase, we have to pull it
 # out of there so pytype doesn't crash
 class _Option(Field):
@@ -41,7 +45,7 @@ class SelectFieldBase(Field):
     def has_groups(self) -> bool: ...
     def iter_groups(self) -> Iterator[_FullGroupedChoices]: ...
     def __iter__(self) -> Iterator[_Option]: ...
-    _Option: type[_Option]
+    _Option: _OptionType
 
 class SelectField(SelectFieldBase):
     coerce: Callable[[Any], Any]
