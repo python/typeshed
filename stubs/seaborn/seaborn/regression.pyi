@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
-from collections.abc import Iterable
+from collections.abc import Iterable, Sequence
 from typing import Any
 from typing_extensions import Literal
 
 import numpy as np
 import pandas as pd
 from matplotlib.axes import Axes
+from matplotlib.typing import ColorType
 
 from .axisgrid import FacetGrid
 
@@ -19,7 +20,7 @@ def lmplot(
     hue: str | None = None,
     col: str | None = None,
     row: str | None = None,
-    palette: Incomplete | None = None,
+    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
     col_wrap: int | None = None,
     height: float = 5,
     aspect: float = 1,
@@ -80,7 +81,7 @@ def regplot(
     x_jitter: float | None = None,
     y_jitter: float | None = None,
     label: str | None = None,
-    color: Incomplete | None = None,
+    color: ColorType | None = None,
     marker: str = "o",
     scatter_kws: dict[str, Any] | None = None,
     line_kws: dict[str, Any] | None = None,
@@ -98,7 +99,7 @@ def residplot(
     robust: bool = False,
     dropna: bool = True,
     label: str | None = None,
-    color: Incomplete | None = None,
+    color: ColorType | None = None,
     scatter_kws: dict[str, Any] | None = None,
     line_kws: dict[str, Any] | None = None,
     ax: Axes | None = None,

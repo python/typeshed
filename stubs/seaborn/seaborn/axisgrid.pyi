@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Generator, Iterable, Mapping
+from collections.abc import Callable, Generator, Iterable, Mapping, Sequence
 from typing import Any, TypeVar
 from typing_extensions import Concatenate, Literal, ParamSpec, Self
 
@@ -8,8 +8,10 @@ from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from matplotlib.legend import Legend
 from matplotlib.text import Text
+from matplotlib.typing import ColorType
 from numpy.typing import NDArray
 from pandas import DataFrame, Series
+from seaborn.palettes import _RGBColorPalette
 
 __all__ = ["FacetGrid", "PairGrid", "JointGrid", "pairplot", "jointplot"]
 
@@ -65,7 +67,7 @@ class FacetGrid(Grid):
         sharey: bool | Literal["col", "row"] = True,
         height: float = 3,
         aspect: float = 1,
-        palette: Incomplete | None = None,
+        palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
         row_order: Iterable[Any] | None = None,
         col_order: Iterable[Any] | None = None,
         hue_order: Iterable[Any] | None = None,
@@ -83,7 +85,18 @@ class FacetGrid(Grid):
     def map(self, func: Callable[..., object], *args: str, **kwargs: Any) -> Self: ...
     def map_dataframe(self, func: Callable[..., object], *args: str, **kwargs: Any) -> Self: ...
     def facet_axis(self, row_i: int, col_j: int, modify_state: bool = True) -> Axes: ...
-    def despine(self, **kwargs: Incomplete) -> Self: ...  # **kwargs are passed to `seaborn.utils.despine`
+    def despine(
+        self,
+        *,
+        fig: Figure | None = None,
+        ax: Axes | None = None,
+        top: bool = True,
+        right: bool = True,
+        left: bool = False,
+        bottom: bool = False,
+        offset: int | Mapping[str, int] | None = None,
+        trim: bool = False,
+    ) -> Self: ...
     def set_axis_labels(
         self, x_var: str | None = None, y_var: str | None = None, clear_inner: bool = True, **kwargs: Any
     ) -> Self: ...
@@ -95,13 +108,7 @@ class FacetGrid(Grid):
         self, template: str | None = None, row_template: str | None = None, col_template: str | None = None, **kwargs: Any
     ) -> Self: ...
     def refline(
-        self,
-        *,
-        x: float | None = None,
-        y: float | None = None,
-        color: str | tuple[float, float, float] = ".5",
-        linestyle: str = "--",
-        **line_kws: Any,
+        self, *, x: float | None = None, y: float | None = None, color: ColorType = ".5", linestyle: str = "--", **line_kws: Any
     ) -> Self: ...
     @property
     def axes(self) -> NDArray[Incomplete]: ...  # array of `Axes`
@@ -122,7 +129,7 @@ class PairGrid(Grid):
     hue_names: list[str]
     hue_vals: Series[Incomplete]
     hue_kws: dict[str, Any]
-    palette: Incomplete
+    palette: _RGBColorPalette
     def __init__(
         self,
         data: DataFrame,
@@ -132,7 +139,7 @@ class PairGrid(Grid):
         x_vars: Iterable[str] | None = None,
         y_vars: Iterable[str] | None = None,
         hue_order: Iterable[str] | None = None,
-        palette: Incomplete | None = None,
+        palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
         hue_kws: dict[str, Any] | None = None,
         corner: bool = False,
         diag_sharey: bool = True,
@@ -165,7 +172,7 @@ class JointGrid(_BaseGrid):
         height: float = 6,
         ratio: float = 5,
         space: float = 0.2,
-        palette: Incomplete | None = None,
+        palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
         hue_order: Iterable[str] | None = None,
         hue_norm: Incomplete | None = None,
         dropna: bool = False,
@@ -183,7 +190,7 @@ class JointGrid(_BaseGrid):
         y: float | None = None,
         joint: bool = True,
         marginal: bool = True,
-        color: str | tuple[float, float, float] = ".5",
+        color: ColorType = ".5",
         linestyle: str = "--",
         **line_kws: Any,
     ) -> Self: ...
@@ -194,7 +201,7 @@ def pairplot(
     *,
     hue: str | None = None,
     hue_order: Iterable[str] | None = None,
-    palette: Incomplete | None = None,
+    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
     vars: Iterable[str] | None = None,
     x_vars: Iterable[str] | None = None,
     y_vars: Iterable[str] | None = None,
@@ -223,8 +230,8 @@ def jointplot(
     dropna: bool = False,
     xlim: Incomplete | None = None,
     ylim: Incomplete | None = None,
-    color: str | tuple[float, float, float] | None = None,
-    palette: Incomplete | None = None,
+    color: ColorType | None = None,
+    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
     marginal_ticks: bool = False,

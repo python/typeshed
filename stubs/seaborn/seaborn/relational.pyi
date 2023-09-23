@@ -1,14 +1,18 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterable
+from collections.abc import Callable, Iterable, Sequence
 from typing import Any
 from typing_extensions import Literal
 
 import numpy as np
 from matplotlib.axes import Axes
+from matplotlib.typing import ColorType
 
 from .axisgrid import FacetGrid
 
 __all__ = ["relplot", "scatterplot", "lineplot"]
+
+# The docs of these functions say that the palette argument accepts `matplotlib.colors.Colormap`
+# as well but it doesn't
 
 def lineplot(
     data: Incomplete | None = None,
@@ -19,7 +23,7 @@ def lineplot(
     size: Incomplete | None = None,
     style: Incomplete | None = None,
     units: Incomplete | None = None,
-    palette: Incomplete | None = None,
+    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
     hue_order: Iterable[Any] | None = None,
     hue_norm: Incomplete | None = None,
     sizes: list[float] | dict[str, float] | tuple[float, float] | None = None,
@@ -49,7 +53,7 @@ def scatterplot(
     hue: Incomplete | None = None,
     size: Incomplete | None = None,
     style: Incomplete | None = None,
-    palette: Incomplete | None = None,
+    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
     hue_order: Iterable[Any] | None = None,
     hue_norm: Incomplete | None = None,
     sizes: list[float] | dict[str, float] | tuple[float, float] | None = None,
@@ -75,7 +79,7 @@ def relplot(
     col_wrap: int | None = None,
     row_order: Iterable[Any] | None = None,
     col_order: Iterable[Any] | None = None,
-    palette: Incomplete | None = None,
+    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
     hue_order: Iterable[Any] | None = None,
     hue_norm: Incomplete | None = None,
     sizes: list[float] | dict[str, float] | tuple[float, float] | None = None,

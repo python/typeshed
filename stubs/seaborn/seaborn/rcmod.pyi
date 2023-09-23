@@ -1,7 +1,8 @@
-from _typeshed import Incomplete
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from typing import Any, TypeVar
 from typing_extensions import Literal
+
+from matplotlib.typing import ColorType
 
 __all__ = [
     "set_theme",
@@ -22,7 +23,7 @@ _F = TypeVar("_F", bound=Callable[..., Any])
 def set_theme(
     context: Literal["paper", "notebook", "talk", "poster"] | dict[str, Any] = "notebook",
     style: Literal["white", "dark", "whitegrid", "darkgrid", "ticks"] | dict[str, Any] = "darkgrid",
-    palette: Incomplete = "deep",
+    palette: str | Sequence[ColorType] | None = "deep",
     font: str = "sans-serif",
     font_scale: float = 1,
     color_codes: bool = True,
@@ -62,5 +63,5 @@ class _AxesStyle(_RCAesthetics[_KT, _VT]): ...
 class _PlottingContext(_RCAesthetics[_KT, _VT]): ...
 
 def set_palette(
-    palette: Incomplete, n_colors: int | None = None, desat: float | None = None, color_codes: bool = False
+    palette: str | Sequence[ColorType] | None, n_colors: int | None = None, desat: float | None = None, color_codes: bool = False
 ) -> None: ...
