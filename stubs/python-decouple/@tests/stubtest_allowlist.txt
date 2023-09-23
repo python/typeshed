@@ -1,2 +1,2 @@
-# Runtime has a default of it's internal Undefined class, but ultimately it is a string
+# Runtime has a default of its internal Undefined class, but ultimately it is a string
 decouple.Config.get

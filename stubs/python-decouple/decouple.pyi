@@ -2,17 +2,18 @@ from _typeshed import Incomplete
 from collections import OrderedDict
 from collections.abc import Callable, Iterable, Sequence
 from configparser import ConfigParser
-from typing import Any, Generic, Protocol, TextIO, TypeVar, overload
+from typing import Any, Generic, Protocol, TypeVar, overload
 
 _T = TypeVar("_T")
 _TCsv = TypeVar("_TCsv")
+_TCsv_co = TypeVar("_TCsv_co", covariant=True)
 
 PYVERSION: Incomplete  # undocumented
 DEFAULT_ENCODING: str  # undocumented
 TRUE_VALUES: set[str]  # undocumented
 FALSE_VALUES: set[str]  # undocumented
 
-def read_config(parser: ConfigParser, file: TextIO) -> None: ...  # undocumented
+def read_config(parser: ConfigParser, file: Iterable[str]) -> None: ...  # undocumented
 def strtobool(value: str | bool) -> bool: ...  # undocumented
 
 class UndefinedValueError(Exception): ...
@@ -85,12 +86,18 @@ class AutoConfig:
 
 config: AutoConfig
 
+class _PostProcess(Protocol[_TCsv_co]):  # undocumented
+    @overload
+    def __call__(self) -> _TCsv_co: ...
+    @overload
+    def __call__(self, value: Iterable[Any]) -> _TCsv_co: ...
+
 class Csv(Generic[_T, _TCsv]):
     cast: Callable[[str], _T]
     delimiter: str
     strip: str
-    post_process: Callable[[Iterable[Any]], _TCsv]
-    def __call__(self, value: str) -> _TCsv: ...
+    post_process: _PostProcess[_TCsv]
+    def __call__(self, value: str | None = None) -> _TCsv: ...
     @overload
     def __init__(
         self: Csv[str, list[str]],
@@ -137,7 +144,7 @@ class Csv(Generic[_T, _TCsv]):
 class Choices(Generic[_T]):
     flat: Sequence[_T]
     cast: Callable[[str], _T]
-    choices: Sequence[_T]
+    choices: Sequence[tuple[_T, str]]
     @overload
     def __init__(
         self: Choices[str],
