@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures
-import multiprocessing
 import os
 import queue
 import re
@@ -109,14 +108,16 @@ parser.add_argument(
     ),
 )
 
-
-def verbose_log(msg: str, q: PrintQueue) -> None:
-    q.put(colored(msg, "blue"))
+_PRINT_QUEUE: queue.SimpleQueue[str] = queue.SimpleQueue()
 
 
-def setup_testcase_dir(package: PackageInfo, tempdir: Path, verbosity: Verbosity, q: PrintQueue) -> None:
+def verbose_log(msg: str) -> None:
+    _PRINT_QUEUE.put(colored(msg, "blue"))
+
+
+def setup_testcase_dir(package: PackageInfo, tempdir: Path, verbosity: Verbosity) -> None:
     if verbosity is verbosity.VERBOSE:
-        verbose_log(f"{package.name}: Setting up testcase dir in {tempdir}", q)
+        verbose_log(f"{package.name}: Setting up testcase dir in {tempdir}")
     # --warn-unused-ignores doesn't work for files inside typeshed.
     # SO, to work around this, we copy the test_cases directory into a TemporaryDirectory,
     # and run the test cases inside of that.
@@ -147,16 +148,16 @@ def setup_testcase_dir(package: PackageInfo, tempdir: Path, verbosity: Verbosity
         # Use --no-cache-dir to avoid issues with concurrent read/writes to the cache
         pip_command = [pip_exe, "install", get_mypy_req(), *requirements.external_pkgs, "--no-cache-dir"]
         if verbosity is Verbosity.VERBOSE:
-            verbose_log(f"{package.name}: Setting up venv in {tempdir / VENV_DIR}. {pip_command=}\n", q)
+            verbose_log(f"{package.name}: Setting up venv in {tempdir / VENV_DIR}. {pip_command=}\n")
         try:
             subprocess.run(pip_command, check=True, capture_output=True, text=True)
         except subprocess.CalledProcessError as e:
-            q.put(f"{package.name}\n{e.stderr}")
+            _PRINT_QUEUE.put(f"{package.name}\n{e.stderr}")
             raise
 
 
 def run_testcases(
-    package: PackageInfo, version: str, platform: str, *, tempdir: Path, verbosity: Verbosity, q: PrintQueue
+    package: PackageInfo, version: str, platform: str, *, tempdir: Path, verbosity: Verbosity
 ) -> subprocess.CompletedProcess[str]:
     env_vars = dict(os.environ)
     new_test_case_dir = tempdir / TEST_CASES
@@ -210,7 +211,7 @@ def run_testcases(
         else:
             msg += f"{description}: MYPYPATH not set"
         msg += "\n"
-        verbose_log(msg, q)
+        verbose_log(msg)
     return subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
 
 
@@ -234,15 +235,13 @@ class Result:
                 print_error(self.stdout, fix_path=replacements)
 
 
-def test_testcase_directory(
-    package: PackageInfo, version: str, platform: str, *, verbosity: Verbosity, tempdir: Path, q: PrintQueue
-) -> Result:
+def test_testcase_directory(package: PackageInfo, version: str, platform: str, *, verbosity: Verbosity, tempdir: Path) -> Result:
     msg = f"mypy --platform {platform} --python-version {version} on the "
     msg += "standard library test cases" if package.is_stdlib else f"test cases for {package.name!r}"
     if verbosity > Verbosity.QUIET:
-        q.put(f"Running {msg}...")
+        _PRINT_QUEUE.put(f"Running {msg}...")
 
-    proc_info = run_testcases(package=package, version=version, platform=platform, tempdir=tempdir, verbosity=verbosity, q=q)
+    proc_info = run_testcases(package=package, version=version, platform=platform, tempdir=tempdir, verbosity=verbosity)
     return Result(
         code=proc_info.returncode,
         command_run=msg,
@@ -253,13 +252,13 @@ def test_testcase_directory(
     )
 
 
-def print_queued_messages(ev: threading.Event, q: PrintQueue) -> None:
+def print_queued_messages(ev: threading.Event) -> None:
     while not ev.is_set():
         with suppress(queue.Empty):
-            print(q.get(timeout=0.5), flush=True)
+            print(_PRINT_QUEUE.get(timeout=0.5), flush=True)
     while True:
         try:
-            msg = q.get_nowait()
+            msg = _PRINT_QUEUE.get_nowait()
         except queue.Empty:
             return
         else:
@@ -277,36 +276,30 @@ def concurrently_run_testcases(
         package_info: Path(stack.enter_context(tempfile.TemporaryDirectory())) for package_info in testcase_directories
     }
 
-    with multiprocessing.Manager() as manager:
-        event = threading.Event()
-        q: PrintQueue = manager.Queue()
+    event = threading.Event()
+    printer_thread = threading.Thread(target=print_queued_messages, args=(event,))
+    printer_thread.start()
 
-        printer_thread = threading.Thread(target=print_queued_messages, args=(event, q))
-        printer_thread.start()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
+        # Each temporary directory may be used by multiple processes concurrently during the next step;
+        # must make sure that they're all setup correctly before starting the next step,
+        # in order to avoid race conditions
+        testcase_futures = [
+            executor.submit(setup_testcase_dir, package, tempdir, verbosity)
+            for package, tempdir in packageinfo_to_tempdir.items()
+        ]
+        concurrent.futures.wait(testcase_futures)
 
-        with concurrent.futures.ProcessPoolExecutor() as executor:
-            # Each temporary directory may be used by multiple processes concurrently during the next step;
-            # must make sure that they're all setup correctly before starting the next step,
-            # in order to avoid race conditions
-            testcase_futures = [
-                executor.submit(setup_testcase_dir, package, tempdir, verbosity, q)
-                for package, tempdir in packageinfo_to_tempdir.items()
-            ]
-            concurrent.futures.wait(testcase_futures)
+        mypy_futures = [
+            executor.submit(test_testcase_directory, testcase_dir, version, platform, verbosity=verbosity, tempdir=tempdir)
+            for (testcase_dir, tempdir), platform, version in product(
+                packageinfo_to_tempdir.items(), platforms_to_test, versions_to_test
+            )
+        ]
+        results = [future.result() for future in mypy_futures]
 
-            mypy_futures = [
-                executor.submit(
-                    test_testcase_directory, testcase_dir, version, platform, verbosity=verbosity, tempdir=tempdir, q=q
-                )
-                for (testcase_dir, tempdir), platform, version in product(
-                    packageinfo_to_tempdir.items(), platforms_to_test, versions_to_test
-                )
-            ]
-            results = [future.result() for future in mypy_futures]
-
-        event.set()
-        printer_thread.join()
-
+    event.set()
+    printer_thread.join()
     return results
 
 
