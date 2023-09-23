@@ -98,7 +98,7 @@ class Csv(Generic[_T, _TCsv]):
     delimiter: str
     strip: str
     post_process: _PostProcess[_TCsv]
-    def __call__(self, value: str | None = None) -> _TCsv: ...
+    def __call__(self, value: str | None) -> _TCsv: ...
     @overload
     def __init__(
         self: Csv[str, list[str]],
