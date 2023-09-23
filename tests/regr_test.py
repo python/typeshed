@@ -294,10 +294,8 @@ def concurrently_run_testcases(
                     print(colored(msg, "yellow"))
                     continue
             to_do.extend(
-                [
-                    partial(test_testcase_directory, testcase_dir, version, platform, verbosity=verbosity, tempdir=tempdir)
-                    for platform in platforms_to_test
-                ]
+                partial(test_testcase_directory, testcase_dir, version, platform, verbosity=verbosity, tempdir=tempdir)
+                for platform in platforms_to_test
             )
 
     event = threading.Event()
@@ -336,8 +334,6 @@ def main() -> ReturnCode:
     else:
         platforms_to_test = args.platforms_to_test or [sys.platform]
         versions_to_test = args.versions_to_test or [PYTHON_VERSION]
-
-    code = 0
 
     results: list[Result] | None = None
 
