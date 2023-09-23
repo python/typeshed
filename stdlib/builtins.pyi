@@ -5,6 +5,8 @@ import types
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
     AnyStr_co,
+    ConvertibleToFloat,
+    ConvertibleToInt,
     FileDescriptorOrPath,
     OpenBinaryMode,
     OpenBinaryModeReading,
@@ -24,7 +26,6 @@ from _typeshed import (
     SupportsRDivMod,
     SupportsRichComparison,
     SupportsRichComparisonT,
-    SupportsTrunc,
     SupportsWrite,
 )
 from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
@@ -48,7 +49,6 @@ from typing import (  # noqa: Y022
     SupportsBytes,
     SupportsComplex,
     SupportsFloat,
-    SupportsInt,
     TypeVar,
     overload,
     type_check_only,
@@ -221,7 +221,7 @@ _LiteralInteger = _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026
 
 class int:
     @overload
-    def __new__(cls, __x: str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc = ...) -> Self: ...
+    def __new__(cls, __x: ConvertibleToInt = ...) -> Self: ...
     @overload
     def __new__(cls, __x: str | bytes | bytearray, base: SupportsIndex) -> Self: ...
     if sys.version_info >= (3, 8):
@@ -327,7 +327,7 @@ class int:
     def __index__(self) -> int: ...
 
 class float:
-    def __new__(cls, __x: SupportsFloat | SupportsIndex | str | ReadableBuffer = ...) -> Self: ...
+    def __new__(cls, __x: ConvertibleToFloat = ...) -> Self: ...
     def as_integer_ratio(self) -> tuple[int, int]: ...
     def hex(self) -> str: ...
     def is_integer(self) -> bool: ...
@@ -1819,6 +1819,8 @@ def vars(__object: Any = ...) -> dict[str, Any]: ...
 class zip(Iterator[_T_co], Generic[_T_co]):
     if sys.version_info >= (3, 10):
         @overload
+        def __new__(cls, *, strict: bool = ...) -> zip[Any]: ...
+        @overload
         def __new__(cls, __iter1: Iterable[_T1], *, strict: bool = ...) -> zip[tuple[_T1]]: ...
         @overload
         def __new__(cls, __iter1: Iterable[_T1], __iter2: Iterable[_T2], *, strict: bool = ...) -> zip[tuple[_T1, _T2]]: ...
@@ -1860,6 +1862,8 @@ class zip(Iterator[_T_co], Generic[_T_co]):
             strict: bool = ...,
         ) -> zip[tuple[Any, ...]]: ...
     else:
+        @overload
+        def __new__(cls) -> zip[Any]: ...
         @overload
         def __new__(cls, __iter1: Iterable[_T1]) -> zip[tuple[_T1]]: ...
         @overload
