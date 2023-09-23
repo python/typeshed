@@ -2,7 +2,7 @@ import sys
 from _typeshed import FileDescriptor
 from collections.abc import Callable
 from types import TracebackType
-from typing import Any, Protocol
+from typing import Protocol
 from typing_extensions import ParamSpec, TypeAlias
 
 from gevent._types import _AsyncWatcher, _Callback, _ChildWatcher, _IoWatcher, _StatWatcher, _TimerWatcher, _Watcher
