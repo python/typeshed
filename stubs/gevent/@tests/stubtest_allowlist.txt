@@ -138,6 +138,7 @@ gevent.event.Event.__init__
 
 # positional only arguments due to Cython?
 gevent._abstract_linkable.AbstractLinkable.rawlink
+gevent._abstract_linkable.AbstractLinkable.unlink
 
 # removed undocumented arguments for internal use
 gevent.Greenlet.link
