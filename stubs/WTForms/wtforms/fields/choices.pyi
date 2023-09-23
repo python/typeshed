@@ -11,7 +11,7 @@ _Choice: TypeAlias = tuple[Any, str]
 _GroupedChoices: TypeAlias = dict[str, Iterable[_Choice]]
 _FullChoice: TypeAlias = tuple[Any, str, bool]  # value, label, selected
 _FullGroupedChoices: TypeAlias = tuple[str, Iterable[_FullChoice]]
-_Option: TypeAlias = type[SelectFieldBase._Option]
+_Option: TypeAlias = SelectFieldBase._Option
 
 class SelectFieldBase(Field):
     option_widget: _Widget[_Option]
