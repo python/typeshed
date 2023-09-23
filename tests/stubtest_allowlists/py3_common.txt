@@ -4,13 +4,28 @@
 
 # Please keep sorted alphabetically
 
+_collections_abc.AsyncGenerator.ag_await
+_collections_abc.AsyncGenerator.ag_code
+_collections_abc.AsyncGenerator.ag_frame
+_collections_abc.AsyncGenerator.ag_running
+_collections_abc.ItemsView.__reversed__
+_collections_abc.KeysView.__reversed__
+_collections_abc.ValuesView.__reversed__
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
 _threading_local.local.__new__
+ast.Bytes.__new__
+ast.Ellipsis.__new__
+ast.NameConstant.__new__
+ast.Num.__new__
+ast.Str.__new__
+asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
+asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
+asyncio.Future.__init__  # Usually initialized from c object
+asyncio.futures.Future.__init__  # Usually initialized from c object
 builtins.dict.get
 builtins.ellipsis  # type is not exposed anywhere
 builtins.function
-collections.ChainMap.get  # Adding None to the underlying Mapping Union messed up mypy
 collections.ChainMap.fromkeys  # Runtime has *args which can really only be one argument
 collections.UserList.sort  # Runtime has *args but will error if any are supplied
 configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
@@ -24,6 +39,10 @@ ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
 ctypes.string_at  # docstring argument name is wrong
 ctypes.wstring_at  # docstring argument name is wrong
+fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
+ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
+functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
+hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
@@ -44,6 +63,10 @@ io.FileIO.seek
 io.StringIO.seek
 io.StringIO.truncate
 io.TextIOWrapper.truncate
+ipaddress.IPv4Interface.hostmask
+ipaddress.IPv6Interface.hostmask
+ipaddress._BaseNetwork.broadcast_address
+ipaddress._BaseNetwork.hostmask
 ipaddress._BaseAddress.is_global
 ipaddress._BaseAddress.is_link_local
 ipaddress._BaseAddress.is_loopback
@@ -74,6 +97,7 @@ multiprocessing.managers.SyncManager.RLock
 multiprocessing.queues.JoinableQueue.__init__
 multiprocessing.queues.Queue.__init__
 multiprocessing.queues.SimpleQueue.__init__
+multiprocessing.spawn._main
 multiprocessing.synchronize.Barrier.__init__
 multiprocessing.synchronize.Condition.acquire
 multiprocessing.synchronize.Condition.release
@@ -82,7 +106,7 @@ multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
-poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
+pickle.Pickler.reducer_override  # implemented in C pickler
 pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
@@ -91,6 +115,7 @@ socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
 ssl.Purpose.__new__  # the multiple inheritance confuses mypy
+sys.UnraisableHookArgs  # Not exported from sys
 tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
@@ -103,9 +128,10 @@ typing(_extensions)?\.IO\.__next__  # Added because IO streams are iterable. See
 typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
-weakref.WeakKeyDictionary.get
 weakref.WeakKeyDictionary.update
-weakref.WeakValueDictionary.get
+weakref.WeakValueDictionary.update
+xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
+xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.parsers.expat.expat_CAPI
 
 # ==========
@@ -151,6 +177,12 @@ multiprocessing.managers.Server.number_of_objects
 multiprocessing.managers.Server.public
 multiprocessing.managers.Server.serve_client
 multiprocessing.managers.Server.shutdown
+multiprocessing.managers.SharedMemoryServer.create
+multiprocessing.managers.SharedMemoryServer.list_segments
+multiprocessing.managers.SharedMemoryServer.public
+multiprocessing.managers.SharedMemoryServer.release_segment
+multiprocessing.managers.SharedMemoryServer.shutdown
+multiprocessing.managers.SharedMemoryServer.track_segment
 multiprocessing.managers.SyncManager.Barrier
 multiprocessing.managers.SyncManager.JoinableQueue
 multiprocessing.managers.SyncManager.Pool
@@ -321,10 +353,6 @@ csv.Dialect.skipinitialspace
 csv.DictReader.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 
-# Removed undocumented and often mistakenly used _normalize parameter that was removed in 3.12
-# On 3.12, stubtest doesn't correctly combine the overload because parameter names mismatch
-fractions.Fraction.__new__
-
 contextvars.Context.__init__  # C signature is broader than what is actually accepted
 dataclasses.field  # White lies around defaults
 hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
@@ -364,6 +392,9 @@ multiprocessing.(dummy|managers).Namespace.__[gs]etattr__  # Any field can be se
 # but stubtest infers the runtime type as <class ForkingPickler>
 multiprocessing.reduction.AbstractReducer.ForkingPickler
 
+# C signature is broader than what is actually accepted
+queue.SimpleQueue.__init__
+
 # Items that depend on the existence and flags of SSL
 imaplib.IMAP4_SSL.ssl
 ssl.PROTOCOL_SSLv2
@@ -390,6 +421,7 @@ typing_extensions\._TypedDict\..*
 
 # Special primitives
 typing_extensions\.Annotated
+typing_extensions\.Final
 typing_extensions\.NamedTuple
 typing_extensions\.LiteralString
 typing_extensions\.Coroutine
@@ -426,10 +458,6 @@ typing_extensions.NewType.__mro_entries__  # just exists for an error message
 
 # https://github.com/python/mypy/issues/15302
 typing_extensions.NewType.__call__
-typing_extensions\.deprecated
-typing_extensions\.override
-typing_extensions\.get_protocol_members
-typing_extensions\.is_protocol
 
 # Typing-related weirdness
 _collections_abc.Callable
@@ -620,3 +648,6 @@ typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/com
 (tarfile.AbsolutePathError)?
 (tarfile.AbsoluteLinkError)?
 (shutil.unpack_archive)?
+
+# Omit internal _KEEP argument
+tarfile.TarInfo.replace
