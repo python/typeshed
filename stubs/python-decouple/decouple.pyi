@@ -5,6 +5,7 @@ from configparser import ConfigParser
 from typing import Any, Generic, Protocol, TypeVar, overload
 
 _T = TypeVar("_T")
+_T_co = TypeVar("_T_co", covariant=True)
 _TCsv = TypeVar("_TCsv")
 _TCsv_co = TypeVar("_TCsv_co", covariant=True)
 
@@ -87,59 +88,63 @@ class AutoConfig:
 
 config: AutoConfig
 
-class _PostProcess(Protocol[_TCsv_co]):  # undocumented
+class _PostProcess(Protocol[_T_co, _TCsv_co]):  # undocumented
     @overload
     def __call__(self) -> _TCsv_co: ...
     @overload
-    def __call__(self, value: Iterable[Any]) -> _TCsv_co: ...
+    def __call__(self, /, __value: Iterable[_T_co]) -> _TCsv_co: ...
+    @overload
+    def __call__(self, /, __value: Iterable[Any]) -> _TCsv_co: ...
 
-class Csv(Generic[_T, _TCsv]):
+_TPostProcess = TypeVar("_TPostProcess")
+
+class Csv(Generic[_T, _TCsv, _TPostProcess]):
     cast: Callable[[str], _T]
     delimiter: str
     strip: str
-    post_process: _PostProcess[_TCsv]
+    post_process: _TPostProcess
     def __call__(self, value: str | None) -> _TCsv: ...
     @overload
     def __init__(
-        self: Csv[str, list[str]],
+        self: Csv[str, list[str], _PostProcess[str, list[str]]],
         cast: Callable[[str], str] = ...,
         delimiter: str = ...,
         strip: str = ...,
-        post_process: Callable[[Iterable[Any]], list[str]] = ...,
+        post_process: _PostProcess[str, list[str]] = ...,
     ) -> None: ...
     @overload
     def __init__(
-        self: Csv[_T, list[_T]],
+        self: Csv[_T, list[_T], _PostProcess[_T, list[_T]]],
         cast: Callable[[str], _T],
         delimiter: str = ...,
         strip: str = ...,
-        post_process: Callable[[Iterable[Any]], list[_T]] = ...,
+        post_process: _PostProcess[_T, list[_T]] = ...,
     ) -> None: ...
     @overload
     def __init__(
-        self: Csv[str, _TCsv],
+        self: Csv[str, _TCsv, _PostProcess[str, _TCsv]],
         cast: Callable[[str], str] = ...,
         delimiter: str = ...,
         strip: str = ...,
         *,
-        post_process: Callable[[Iterable[Any]], _TCsv],
+        post_process: _PostProcess[str, _TCsv],
     ) -> None: ...
     @overload
     def __init__(
-        self: Csv[_T, _TCsv],
+        self: Csv[_T, _TCsv, _PostProcess[_T, _TCsv]],
         cast: Callable[[str], _T],
         delimiter: str = ",",
         strip: str = ...,
         *,
-        post_process: Callable[[Iterable[Any]], _TCsv],
+        post_process: _PostProcess[_T, _TCsv],
     ) -> None: ...
     @overload
     def __init__(
-        self: Csv[_T, _TCsv],
+        self: Csv[_T, _TCsv, _PostProcess[_T, _TCsv]],
         cast: Callable[[str], _T],
         delimiter: str,
         strip: str,
-        post_process: Callable[[Iterable[Any]], _TCsv],
+        post_process: _PostProcess[_T, _TCsv],
     ) -> None: ...
 
 class Choices(Generic[_T]):
