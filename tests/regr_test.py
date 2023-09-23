@@ -256,9 +256,8 @@ def main() -> ReturnCode:
     code = 0
     completed_tests = 0
     for testcase_dir in testcase_directories:
-        assert isinstance(testcase_dir, PackageInfo)
         metadata = None
-        if not testcase_dir.is_stdlib:
+        if not testcase_dir.is_stdlib:  # type: ignore[misc]
             metadata = read_metadata(testcase_dir.name)
             if not metadata.requires_python.contains(PYTHON_VERSION):
                 msg = (
@@ -270,7 +269,7 @@ def main() -> ReturnCode:
         with tempfile.TemporaryDirectory() as td:
             tempdir = Path(td)
             for platform, version in product(platforms_to_test, versions_to_test):
-                if not testcase_dir.is_stdlib:
+                if not testcase_dir.is_stdlib:  # type: ignore[misc]
                     assert metadata is not None
                     if not metadata.requires_python.contains(version):
                         msg = f"skipping {testcase_dir.name!r} for target Python {version} (requires Python {metadata.requires_python})"
