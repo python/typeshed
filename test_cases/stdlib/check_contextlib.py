@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from contextlib import ExitStack, asynccontextmanager
-from typing import AsyncIterator, Awaitable
+from typing import AsyncGenerator
 from typing_extensions import assert_type
 
 
