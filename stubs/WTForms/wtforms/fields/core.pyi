@@ -1,3 +1,4 @@
+from builtins import type as _type  # type is being shadowed in Field
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Generic, Protocol, TypeVar, overload
 from typing_extensions import Self, TypeAlias
@@ -41,6 +42,7 @@ class Field:
     name: str
     short_name: str
     id: str
+    type: str
     label: Label
     # technically this can return UnboundField, but that is not allowed
     # by type checkers, so we use a descriptor hack to get around this
@@ -92,12 +94,9 @@ class Field:
     # This workaround only works for Form, not BaseForm, but we take what we can get
     # BaseForm shouldn't really be used anyways
     @overload
-    def __get__(self, obj: None, owner: type[object] | None = None) -> UnboundField[Self]: ...
+    def __get__(self, obj: None, owner: _type[object] | None = None) -> UnboundField[Self]: ...
     @overload
-    def __get__(self, obj: object, owner: type[object] | None = None) -> Self: ...
-
-    # we put this at the bottom so it doesn't shadow builtins.type
-    type: str
+    def __get__(self, obj: object, owner: _type[object] | None = None) -> Self: ...
 
 class UnboundField(Generic[_FieldT]):
     creation_counter: int
