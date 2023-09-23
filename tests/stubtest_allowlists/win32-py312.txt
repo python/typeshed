@@ -5,12 +5,4 @@ asyncio.windows_events.IocpProactor.finish_socket_func
 asyncio.windows_events.IocpProactor.recvfrom_into
 msvcrt.GetErrorMode
 ntpath.isdir
-os.EX_OK
-os.get_blocking
-os.listdrives
-os.listmounts
-os.listvolumes
 os.path.isdir
-os.set_blocking
-os.stat_result.st_birthtime
-os.stat_result.st_birthtime_ns
