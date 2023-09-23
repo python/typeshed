@@ -23,11 +23,11 @@ with thing as cm2:
 
 @asynccontextmanager
 async def async_context() -> AsyncGenerator[str, None]:
-    yield 'example'
+    yield "example"
 
 
 async def async_gen() -> AsyncGenerator[str, None]:
-    yield 'async gen'
+    yield "async gen"
 
 
 @asynccontextmanager
