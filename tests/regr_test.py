@@ -33,7 +33,6 @@ from utils import (
 )
 
 ReturnCode: TypeAlias = int
-PrintQueue: TypeAlias = queue.Queue[str]
 
 TEST_CASES = "test_cases"
 VENV_DIR = ".venv"
