@@ -395,6 +395,9 @@ def install_requirements_for_venv(venv_info: VenvInfo, args: TestConfig, externa
 
 def setup_virtual_environments(distributions: dict[str, PackageDependencies], args: TestConfig, tempdir: Path) -> None:
     """Logic necessary for testing stubs with non-types dependencies in isolated environments."""
+    if not distributions:
+        return  # hooray! Nothing to do
+
     # STAGE 1: Determine which (if any) stubs packages require virtual environments.
     # Group stubs packages according to their external-requirements sets
 
@@ -505,20 +508,17 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
         ):
             distributions_to_check[distribution] = get_recursive_requirements(distribution)
 
-    # If it's the first time test_third_party_stubs() has been called during this session,
-    # setup the necessary virtual environments for testing the third-party stubs.
-    # It should only be necessary to call setup_virtual_environments() once per session.
-    if not _DISTRIBUTION_TO_VENV_MAPPING:
-        setup_virtual_environments(distributions_to_check, args, tempdir)
-
-    # Some distributions may have been skipped earlier and therefore don't have a venv.
+    # Setup the necessary virtual environments for testing the third-party stubs.
+    # Note that some stubs may not be tested on all Python versions
+    # (due to version incompatibilities),
+    # so we can't guarantee that setup_virtual_environments()
+    # will only be called once per session.
     distributions_without_venv = {
         distribution: requirements
         for distribution, requirements in distributions_to_check.items()
         if distribution not in _DISTRIBUTION_TO_VENV_MAPPING
     }
-    if distributions_without_venv:
-        setup_virtual_environments(distributions_without_venv, args, tempdir)
+    setup_virtual_environments(distributions_without_venv, args, tempdir)
 
     # Check that there is a venv for every distribution we're testing.
     # Some venvs may exist from previous runs but are skipped in this run.
