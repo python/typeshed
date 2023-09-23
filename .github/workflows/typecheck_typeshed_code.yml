@@ -1,5 +1,4 @@
-# This workflow is for testing typeshed's scripts and tests themselves
-name: Meta-tests
+name: Typecheck-typeshed-code
 
 on:
   workflow_dispatch:
@@ -10,9 +9,8 @@ on:
     paths:
       - "scripts/**"
       - "tests/**"
-      - ".github/workflows/meta_tests.yml"
+      - ".github/workflows/typecheck_typeshed_code.yml"
       - "requirements-tests.txt"
-      - "pyproject.toml"
 
 permissions:
   contents: read
@@ -70,19 +68,3 @@ jobs:
           python-platform: ${{ matrix.python-platform }}
           python-version: "3.9"
           project: ./pyrightconfig.scripts_and_tests.json
-  stubsabot-dry-run:
-    name: Stubsabot dry run
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-          cache: pip
-          cache-dependency-path: requirements-tests.txt
-      - name: Git config
-        run: |
-          git config --global user.name stubsabot
-          git config --global user.email '<>'
-      - run: pip install -r requirements-tests.txt
-      - run: python scripts/stubsabot.py --action-level local
