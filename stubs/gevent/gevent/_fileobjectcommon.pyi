@@ -15,7 +15,7 @@ from typing_extensions import Literal, Self
 from gevent.lock import DummySemaphore, Semaphore
 from gevent.threadpool import ThreadPool
 
-_IOT = TypeVar("_IOT", io.TextIOWrapper, io.FileIO, io.BufferedRandom, io.BufferedWriter, io.BufferedReader, IO[bytes], IO[Any])
+_IOT = TypeVar("_IOT", bound=IO[Any])
 
 class cancel_wait_ex(IOError):
     def __init__(self) -> None: ...
@@ -23,8 +23,7 @@ class cancel_wait_ex(IOError):
 class FileObjectClosed(IOError):
     def __init__(self) -> None: ...
 
-class FlushingBufferedWriter(io.BufferedWriter):
-    def write(self, __b: ReadableBuffer) -> int: ...
+class FlushingBufferedWriter(io.BufferedWriter): ...
 
 class WriteallMixin:
     def writeall(self, __b: ReadableBuffer) -> int: ...

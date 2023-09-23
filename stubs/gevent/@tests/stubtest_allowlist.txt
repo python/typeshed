@@ -136,6 +136,9 @@ gevent._ident.IdentRegistry.__init__
 gevent.event.AsyncResult.__init__
 gevent.event.Event.__init__
 
+# positional only arguments due to Cython?
+gevent._abstract_linkable.AbstractLinkable.rawlink
+
 # removed undocumented arguments for internal use
 gevent.Greenlet.link
 gevent.Greenlet.link_exception
