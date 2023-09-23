@@ -576,15 +576,14 @@ def main() -> None:
         print_error(f"--- exit status {code}, {total_files_checked} file{plural} checked ---")
         sys.exit(code)
     if total_packages_skipped:
-        {1: ""}.get(total_packages_skipped, "s")
         plural = "" if total_packages_skipped == 1 else "s"
         print(colored(f"--- {total_packages_skipped} package{plural} skipped ---", "yellow"))
-    elif not total_files_checked:
-        print_error("--- nothing to do; exit 1 ---")
-        sys.exit(1)
     if total_files_checked:
         plural = "" if total_files_checked == 1 else "s"
         print(colored(f"--- success, {total_files_checked} file{plural} checked ---", "green"))
+    else:
+        print_error("--- nothing to do; exit 1 ---")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
