@@ -9,9 +9,6 @@ from flask.testing import FlaskClient
 from .namespace import Namespace
 from .test_client import SocketIOTestClient
 
-# Actually socketio.base_manager.BaseManager,
-# but socketio isn't py.typed and typeshed has no stubs for it
-BaseManager: TypeAlias = Any
 
 _P = ParamSpec("_P")
 _ExceptionHandler: TypeAlias = Callable[[Exception], Any]
