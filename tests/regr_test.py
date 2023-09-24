@@ -13,15 +13,17 @@ import subprocess
 import sys
 import tempfile
 import threading
+from collections.abc import Callable
 from contextlib import ExitStack, suppress
 from dataclasses import dataclass
 from enum import IntEnum
-from itertools import product
+from functools import partial
 from pathlib import Path
 from typing_extensions import TypeAlias
 
-from parse_metadata import get_recursive_requirements
+from parse_metadata import get_recursive_requirements, read_metadata
 from utils import (
+    PYTHON_VERSION,
     PackageInfo,
     VenvInfo,
     colored,
@@ -274,6 +276,30 @@ def concurrently_run_testcases(
     packageinfo_to_tempdir = {
         package_info: Path(stack.enter_context(tempfile.TemporaryDirectory())) for package_info in testcase_directories
     }
+    to_do: list[Callable[[], Result]] = []
+    for testcase_dir, tempdir in packageinfo_to_tempdir.items():
+        pkg = testcase_dir.name
+        requires_python = None
+        if not testcase_dir.is_stdlib:  # type: ignore[misc]  # mypy bug, already fixed on master
+            requires_python = read_metadata(pkg).requires_python
+            if not requires_python.contains(PYTHON_VERSION):
+                msg = f"skipping {pkg!r} (requires Python {requires_python}; test is being run using Python {PYTHON_VERSION})"
+                print(colored(msg, "yellow"))
+                continue
+        for version in versions_to_test:
+            if not testcase_dir.is_stdlib:  # type: ignore[misc]  # mypy bug, already fixed on master
+                assert requires_python is not None
+                if not requires_python.contains(version):
+                    msg = f"skipping {pkg!r} for target Python {version} (requires Python {requires_python})"
+                    print(colored(msg, "yellow"))
+                    continue
+            to_do.extend(
+                partial(test_testcase_directory, testcase_dir, version, platform, verbosity=verbosity, tempdir=tempdir)
+                for platform in platforms_to_test
+            )
+
+    if not to_do:
+        return []
 
     event = threading.Event()
     printer_thread = threading.Thread(target=print_queued_messages, args=(event,))
@@ -289,12 +315,7 @@ def concurrently_run_testcases(
         ]
         concurrent.futures.wait(testcase_futures)
 
-        mypy_futures = [
-            executor.submit(test_testcase_directory, testcase_dir, version, platform, verbosity=verbosity, tempdir=tempdir)
-            for (testcase_dir, tempdir), platform, version in product(
-                packageinfo_to_tempdir.items(), platforms_to_test, versions_to_test
-            )
-        ]
+        mypy_futures = [executor.submit(task) for task in to_do]
         results = [future.result() for future in mypy_futures]
 
     event.set()
@@ -315,15 +336,18 @@ def main() -> ReturnCode:
         platforms_to_test, versions_to_test = SUPPORTED_PLATFORMS, SUPPORTED_VERSIONS
     else:
         platforms_to_test = args.platforms_to_test or [sys.platform]
-        versions_to_test = args.versions_to_test or [f"3.{sys.version_info[1]}"]
+        versions_to_test = args.versions_to_test or [PYTHON_VERSION]
 
-    code = 0
     results: list[Result] | None = None
 
     with ExitStack() as stack:
         results = concurrently_run_testcases(stack, testcase_directories, verbosity, platforms_to_test, versions_to_test)
 
     assert results is not None
+    if not results:
+        print_error("All tests were skipped!")
+        return 1
+
     print()
 
     for result in results:
