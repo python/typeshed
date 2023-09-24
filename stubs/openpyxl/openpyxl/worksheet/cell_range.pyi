@@ -12,17 +12,17 @@ class CellRange(Serialisable):
     min_row: MinMax[int, Literal[False]]
     max_col: MinMax[int, Literal[False]]
     max_row: MinMax[int, Literal[False]]
-    title: Incomplete
+    title: str | None
 
     @overload
     def __init__(
         self,
-        range_string: Incomplete,
+        range_string: str | None,
         min_col: Unused = None,
         min_row: Unused = None,
         max_col: Unused = None,
         max_row: Unused = None,
-        title: Incomplete | None = None,
+        title: str | None = None,
     ) -> None: ...
     @overload
     def __init__(
@@ -33,7 +33,7 @@ class CellRange(Serialisable):
         min_row: _ConvertibleToInt,
         max_col: _ConvertibleToInt,
         max_row: _ConvertibleToInt,
-        title: Incomplete | None = None,
+        title: str | None = None,
     ) -> None: ...
     @property
     def bounds(self): ...
@@ -79,6 +79,7 @@ class MultiCellRange(Strict):
     ranges: Incomplete
     def __init__(self, ranges=...) -> None: ...
     def __contains__(self, coord): ...
+    def sorted(self) -> list[CellRange]: ...
     def add(self, coord) -> None: ...
     def __iadd__(self, coord): ...
     def __eq__(self, other): ...

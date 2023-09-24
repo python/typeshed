@@ -14,10 +14,19 @@ winsound.SND_APPLICATION
 
 # Exists at runtime, but missing from stubs
 _msi.MSIError
+_winapi.CreateFileMapping
+_winapi.MapViewOfFile
+_winapi.OpenFileMapping
+_winapi.VirtualQuerySize
+asyncio.IocpProactor.recvfrom
+asyncio.IocpProactor.sendto
+asyncio.windows_events.IocpProactor.recvfrom
+asyncio.windows_events.IocpProactor.sendto
 msvcrt.SetErrorMode
 ssl.SSLSocket.recvmsg
 ssl.SSLSocket.recvmsg_into
 ssl.SSLSocket.sendmsg
+subprocess.STARTUPINFO.copy
 winreg.HKEYType.handle
 _ctypes.FreeLibrary
 _ctypes.LoadLibrary

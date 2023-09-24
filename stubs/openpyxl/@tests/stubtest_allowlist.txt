@@ -1,12 +1,24 @@
-# "cls" argument has wrong name in implementation.
-openpyxl.descriptors.slots.AutoSlotProperties.__new__
+# Loop variables leaked in global scope
+openpyxl.utils.cell.col
+openpyxl.utils.cell.i
+
+# Unintended re-export from star-import
+openpyxl.chart.marker.DRAWING_NS
+openpyxl.chart.marker.PRESET_COLORS
+openpyxl.chart.shapes.DRAWING_NS
+openpyxl.chart.shapes.PRESET_COLORS
+openpyxl.descriptors.DEBUG
+
+# The actual runtime definition depends on what else is installed
+# (lxml, defusedxml, et_xmlfile)
+openpyxl.xml._functions_overloads
+openpyxl.xml.functions.Element.__iter__
+openpyxl.xml.functions.fromstring
+openpyxl.xml.functions.iterparse
+openpyxl.xml.functions.tostring
 
 # Requires numpy to be installed
 openpyxl.utils.dataframe
-
-# Element can be imported from lxml or xml.etree, so the attributes can
-# differ at runtime.
-openpyxl.xml.functions.Element.*
 
 # Fake getters
 openpyxl\.descriptors\..*\.__get__

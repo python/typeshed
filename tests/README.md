@@ -49,7 +49,10 @@ You must provide a single argument which is a path to the stubs to test, like
 so: `stdlib/os` or `stubs/requests`.
 
 Run `python scripts/runtests.py --help` for information on the various configuration options
-for this script.
+for this script. Note that if you use the `--run-stubtest` flag with the stdlib stubs,
+whether or not the test passes will depend on the exact version of Python
+you're using, as well as various other details regarding your local environment.
+For more information, see the docs on [`stubtest_stdlib.py`](#stubtest_stdlibpy) below.
 
 ## mypy\_test.py
 
@@ -72,6 +75,8 @@ for this script.
 
 Note: this test cannot be run on Windows
 systems unless you are using Windows Subsystem for Linux.
+It also requires a Python version < 3.11 as pytype does not yet support
+Python 3.11 and above.
 
 Run using:
 ```bash

@@ -29,7 +29,7 @@ it takes a bit longer. For more details, read below.
 Typeshed runs continuous integration (CI) on all pull requests. This means that
 if you file a pull request (PR), our full test suite -- including our linter,
 `flake8` -- is run on your PR. It also means that bots will automatically apply
-changes to your PR (using `pycln`, `black` and `isort`) to fix any formatting issues.
+changes to your PR (using `black`, `isort` and `ruff`) to fix any formatting issues.
 This frees you up to ignore all local setup on your side, focus on the
 code and rely on the CI to fix everything, or point you to the places that
 need fixing.
@@ -84,8 +84,8 @@ terminal to install all non-pytype requirements:
 
 ## Code formatting
 
-The code is formatted using `black` and `isort`. Unused imports are also
-auto-removed using `pycln`.
+The code is formatted using `black` and `isort`. Various other autofixes are
+also performed by `ruff`.
 
 The repository is equipped with a [`pre-commit.ci`](https://pre-commit.ci/)
 configuration file. This means that you don't *need* to do anything yourself to
@@ -93,11 +93,11 @@ run the code formatters. When you push a commit, a bot will run those for you
 right away and add a commit to your PR.
 
 That being said, if you *want* to run the checks locally when you commit,
-you're free to do so. Either run `pycln`, `black` and `isort` manually...
+you're free to do so. Either run `isort`, `black` and `ruff` manually...
 
 ```bash
-$ pycln --config=pyproject.toml .
 $ isort .
+$ ruff .
 $ black .
 ```
 
@@ -183,6 +183,7 @@ supported:
 * `stub_distribution` (optional): Distribution name to be uploaded to PyPI.
   This defaults to `types-<distribution>` and should only be set in special
   cases.
+* `upstream_repository` (recommended): The URL of the upstream repository.
 * `obsolete_since` (optional): This field is part of our process for
   [removing obsolete third-party libraries](#third-party-library-removal-policy).
   It contains the first version of the corresponding library that ships
@@ -362,14 +363,14 @@ project's tracker to fix their documentation.
 ### Stub versioning
 
 You can use checks
-like `if sys.version_info >= (3, 8):` to denote new functionality introduced
+like `if sys.version_info >= (3, 12):` to denote new functionality introduced
 in a given Python version or solve type differences.  When doing so, only use
 two-tuples. Because of this, if a given functionality was
-introduced in, say, Python 3.7.4, your check:
+introduced in, say, Python 3.11.4, your check:
 
-* should be expressed as `if sys.version_info >= (3, 7):`
-* should NOT be expressed as `if sys.version_info >= (3, 7, 4):`
-* should NOT be expressed as `if sys.version_info >= (3, 8):`
+* should be expressed as `if sys.version_info >= (3, 11):`
+* should NOT be expressed as `if sys.version_info >= (3, 11, 4):`
+* should NOT be expressed as `if sys.version_info >= (3, 12):`
 
 When your stub contains if statements for different Python versions,
 always put the code for the most recent Python version first.

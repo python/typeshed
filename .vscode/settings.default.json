@@ -5,7 +5,6 @@
  *
  * ⚠ Disclaimer: The typeshed team doesn't commit to maintaining this file. It exists purely for your ease of use.
 */
-// TODO: Add charliermarsh.ruff to unrecommended extensions
 {
     // Don't format on save for formatters we don't explicitely control
     "editor.formatOnSave": false,
@@ -22,7 +21,8 @@
         "pytype_exclude_list.txt": "properties"
     },
     "files.exclude": {
-        "**/.mypy_cache": true
+        "**/.*_cache": true, // mypy and Ruff cache
+        "**/__pycache__": true
     },
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
@@ -48,6 +48,7 @@
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
             "source.fixAll": true,
+            // Allow isort or Ruff to organize imports
             "source.organizeImports": true
         }
     },
@@ -96,11 +97,11 @@
     "mypy-type-checker.importStrategy": "fromEnvironment",
     "mypy-type-checker.args": [
         "--custom-typeshed-dir=${workspaceFolder}",
-        "--python-version=3.7",
-        "--strict"
-        // Needed because a library stubbed in typeshed won't necessarily be installed inthe dev's environment
-        // Currentyl broken in dmypy: https://github.com/python/mypy/issues/10709
-        // "--ignore-missing-imports"
+        // We only guarantee all of our tests can be run if you're on Python 3.9 or higher
+        "--python-version=3.9",
+        "--strict",
+        // Needed because a library stubbed in typeshed won't necessarily be installed in the dev's environment
+        "--ignore-missing-imports"
     ],
     // Ensure typeshed's configs are used, and not user's VSCode settings
     "flake8.args": [
@@ -110,6 +111,10 @@
     "isort.check": true,
     "isort.importStrategy": "fromEnvironment",
     "black-formatter.importStrategy": "fromEnvironment",
+    "ruff.importStrategy": "fromEnvironment",
+    "ruff.fixAll": true,
+    // Conflict between Ruff and isort
+    "ruff.organizeImports": false,
     "evenBetterToml.formatter.alignComments": false,
     "evenBetterToml.formatter.alignEntries": false,
     "evenBetterToml.formatter.allowedBlankLines": 1,

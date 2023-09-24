@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Mapping, MutableMapping, Sequence
+from collections.abc import AsyncIterator, Awaitable, Callable, Generator, Iterable, Mapping, MutableMapping, Sequence
 from datetime import datetime, timedelta
 from types import TracebackType
 from typing import Any, ClassVar, Generic, NoReturn, Protocol, overload
@@ -30,10 +30,11 @@ class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], Asy
     connection_pool: Any
     single_connection_client: Any
     connection: Any
+    @overload
     @classmethod
-    def from_url(cls, url: str, **kwargs) -> Redis[Any]: ...
-    def __init__(
-        self,
+    def from_url(
+        cls,
+        url: str,
         *,
         host: str = "localhost",
         port: int = 6379,
@@ -47,7 +48,81 @@ class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], Asy
         unix_socket_path: str | None = None,
         encoding: str = "utf-8",
         encoding_errors: str = "strict",
-        decode_responses: bool = False,
+        decode_responses: Literal[True],
+        retry_on_timeout: bool = False,
+        retry_on_error: list[type[RedisError]] | None = None,
+        ssl: bool = False,
+        ssl_keyfile: str | None = None,
+        ssl_certfile: str | None = None,
+        ssl_cert_reqs: str = "required",
+        ssl_ca_certs: str | None = None,
+        ssl_ca_data: str | None = None,
+        ssl_check_hostname: bool = False,
+        max_connections: int | None = None,
+        single_connection_client: bool = False,
+        health_check_interval: int = 0,
+        client_name: str | None = None,
+        username: str | None = None,
+        retry: Retry | None = None,
+        auto_close_connection_pool: bool = True,
+        redis_connect_func: ConnectCallbackT | None = None,
+        credential_provider: CredentialProvider | None = None,
+    ) -> Redis[str]: ...
+    @overload
+    @classmethod
+    def from_url(
+        cls,
+        url: str,
+        *,
+        host: str = "localhost",
+        port: int = 6379,
+        db: str | int = 0,
+        password: str | None = None,
+        socket_timeout: float | None = None,
+        socket_connect_timeout: float | None = None,
+        socket_keepalive: bool | None = None,
+        socket_keepalive_options: Mapping[int, int | bytes] | None = None,
+        connection_pool: ConnectionPool | None = None,
+        unix_socket_path: str | None = None,
+        encoding: str = "utf-8",
+        encoding_errors: str = "strict",
+        decode_responses: Literal[False] = False,
+        retry_on_timeout: bool = False,
+        retry_on_error: list[type[RedisError]] | None = None,
+        ssl: bool = False,
+        ssl_keyfile: str | None = None,
+        ssl_certfile: str | None = None,
+        ssl_cert_reqs: str = "required",
+        ssl_ca_certs: str | None = None,
+        ssl_ca_data: str | None = None,
+        ssl_check_hostname: bool = False,
+        max_connections: int | None = None,
+        single_connection_client: bool = False,
+        health_check_interval: int = 0,
+        client_name: str | None = None,
+        username: str | None = None,
+        retry: Retry | None = None,
+        auto_close_connection_pool: bool = True,
+        redis_connect_func: ConnectCallbackT | None = None,
+        credential_provider: CredentialProvider | None = None,
+    ) -> Redis[bytes]: ...
+    @overload
+    def __init__(
+        self: Redis[str],
+        *,
+        host: str = "localhost",
+        port: int = 6379,
+        db: str | int = 0,
+        password: str | None = None,
+        socket_timeout: float | None = None,
+        socket_connect_timeout: float | None = None,
+        socket_keepalive: bool | None = None,
+        socket_keepalive_options: Mapping[int, int | bytes] | None = None,
+        connection_pool: ConnectionPool | None = None,
+        unix_socket_path: str | None = None,
+        encoding: str = "utf-8",
+        encoding_errors: str = "strict",
+        decode_responses: Literal[True],
         retry_on_timeout: bool = False,
         retry_on_error: list[type[RedisError]] | None = None,
         ssl: bool = False,
@@ -67,7 +142,43 @@ class Redis(AbstractRedis, RedisModuleCommands, AsyncCoreCommands[_StrType], Asy
         redis_connect_func: ConnectCallbackT | None = None,
         credential_provider: CredentialProvider | None = None,
     ) -> None: ...
-    def __await__(self): ...
+    @overload
+    def __init__(
+        self: Redis[bytes],
+        *,
+        host: str = "localhost",
+        port: int = 6379,
+        db: str | int = 0,
+        password: str | None = None,
+        socket_timeout: float | None = None,
+        socket_connect_timeout: float | None = None,
+        socket_keepalive: bool | None = None,
+        socket_keepalive_options: Mapping[int, int | bytes] | None = None,
+        connection_pool: ConnectionPool | None = None,
+        unix_socket_path: str | None = None,
+        encoding: str = "utf-8",
+        encoding_errors: str = "strict",
+        decode_responses: Literal[False] = False,
+        retry_on_timeout: bool = False,
+        retry_on_error: list[type[RedisError]] | None = None,
+        ssl: bool = False,
+        ssl_keyfile: str | None = None,
+        ssl_certfile: str | None = None,
+        ssl_cert_reqs: str = "required",
+        ssl_ca_certs: str | None = None,
+        ssl_ca_data: str | None = None,
+        ssl_check_hostname: bool = False,
+        max_connections: int | None = None,
+        single_connection_client: bool = False,
+        health_check_interval: int = 0,
+        client_name: str | None = None,
+        username: str | None = None,
+        retry: Retry | None = None,
+        auto_close_connection_pool: bool = True,
+        redis_connect_func: ConnectCallbackT | None = None,
+        credential_provider: CredentialProvider | None = None,
+    ) -> None: ...
+    def __await__(self) -> Generator[Any, None, Self]: ...
     async def initialize(self) -> Self: ...
     def set_response_callback(self, command: str, callback: ResponseCallbackT): ...
     def load_external_module(self, funcname, func) -> None: ...
@@ -200,7 +311,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
     async def __aexit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
-    def __await__(self): ...
+    def __await__(self) -> Generator[Any, None, Self]: ...
     def __len__(self) -> int: ...
     def __bool__(self) -> bool: ...
     async def reset(self) -> None: ...  # type: ignore[override]
@@ -588,7 +699,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         self,
         name,
         fields,
-        id: str = "*",
+        id: str | int | bytes | memoryview = "*",
         maxlen=None,
         approximate: bool = True,
         nomkstream: bool = False,
@@ -827,7 +938,7 @@ class Pipeline(Redis[_StrType], Generic[_StrType]):
         withscores: bool = False,
         score_cast_func: Callable[[_StrType], Any] = ...,
     ) -> Any: ...
-    def zrank(self, name: _Key, value: _Value) -> Any: ...  # type: ignore[override]
+    def zrank(self, name: _Key, value: _Value, withscore: bool = False) -> Any: ...  # type: ignore[override]
     def zrem(self, name: _Key, *values: _Value) -> Any: ...  # type: ignore[override]
     def zremrangebylex(self, name: _Key, min: _Value, max: _Value) -> Any: ...  # type: ignore[override]
     def zremrangebyrank(self, name: _Key, min: int, max: int) -> Any: ...  # type: ignore[override]

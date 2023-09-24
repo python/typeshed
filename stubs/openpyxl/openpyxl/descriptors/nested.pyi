@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, Unused
-from collections.abc import Callable, Iterable
-from typing import Any, ClassVar, NoReturn, Protocol, TypeVar, overload
+from collections.abc import Iterable
+from typing import Any, ClassVar, NoReturn, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import Strict
@@ -9,18 +9,8 @@ from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.fill import Blip
 from openpyxl.xml.functions import Element
 
+from ..xml._functions_overloads import _HasGet, _HasTagAndGet, _HasText
 from .base import _M, _N, _T, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt, _ExpectedTypeParam
-
-_T_co = TypeVar("_T_co", covariant=True)
-
-# Usually an Element() from either lxml or xml.etree (has a 'tag' element)
-class _HasTagAndGet(Protocol[_T_co]):
-    tag: Any  # str | None | Callable[..., Any]
-    def get(self, __value: str) -> _T_co | None: ...
-
-class _HasTagAndText(Protocol):
-    tag: str | Callable[..., Any]
-    text: str
 
 _NestedNoneSetParam: TypeAlias = _HasTagAndGet[_T | Literal["none"] | None] | _T | Literal["none"] | None
 
@@ -45,7 +35,7 @@ class Nested(Descriptor[_T]):
     ) -> None: ...
     def __get__(self, instance: Serialisable | Strict, cls: type | None) -> _T: ...
     def __set__(self, instance: Serialisable | Strict, value: _HasTagAndGet[_T] | _T) -> None: ...
-    def from_tree(self, node: _HasTagAndGet[_T]) -> _T: ...
+    def from_tree(self, node: _HasGet[_T]) -> _T: ...
     def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None) -> Element: ...
 
 class NestedValue(Nested[_T], Convertible[_T, _N]):  # type: ignore[misc]
@@ -74,14 +64,14 @@ class NestedValue(Nested[_T], Convertible[_T, _N]):  # type: ignore[misc]
     # str | Blip
     @overload
     def __set__(
-        self: NestedValue[str, bool] | NestedValue[Blip, bool],
+        self: NestedValue[str, _N] | NestedValue[Blip, _N],
         instance: Serialisable | Strict,
         value: object,  # Not[None] when _N = False
     ) -> None: ...
     # bool
     @overload
     def __set__(
-        self: NestedValue[bool, bool],
+        self: NestedValue[bool, _N],
         instance: Serialisable | Strict,
         value: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool,
     ) -> None: ...
@@ -145,22 +135,22 @@ class NestedText(NestedValue[_T, _N]):
     # str
     @overload
     def __set__(  # type: ignore[misc] # Incompatible return type because of NoReturn
-        self: NestedValue[str, bool], instance: Serialisable | Strict, value: object  # Not[None] when _N = False
+        self: NestedText[str, _N], instance: Serialisable | Strict, value: object  # Not[None] when _N = False
     ) -> None: ...
     # int
     @overload
     def __set__(
-        self: NestedValue[int, Literal[True]], instance: Serialisable | Strict, value: _ConvertibleToInt | None
+        self: NestedText[int, Literal[True]], instance: Serialisable | Strict, value: _ConvertibleToInt | None
     ) -> None: ...
     @overload
-    def __set__(self: NestedValue[int, Literal[False]], instance: Serialisable | Strict, value: _ConvertibleToInt) -> None: ...
+    def __set__(self: NestedText[int, Literal[False]], instance: Serialisable | Strict, value: _ConvertibleToInt) -> None: ...
     # If expected type (_T) is not str, it's impossible to use an Element as the value
     @overload
-    def __set__(self: NestedValue[_T, Literal[True]], instance: Serialisable | Strict, value: _HasTagAndGet[Any]) -> NoReturn: ...
+    def __set__(self: NestedText[_T, Literal[True]], instance: Serialisable | Strict, value: _HasTagAndGet[Any]) -> NoReturn: ...
     # Anything else
     @overload
-    def __set__(self: NestedValue[_T, Literal[True]], instance: Serialisable | Strict, value: _T | int | Any | None) -> None: ...
-    def from_tree(self, node: _HasTagAndText) -> str: ...  # type: ignore[override]
+    def __set__(self: NestedText[_T, Literal[True]], instance: Serialisable | Strict, value: _T | int | Any | None) -> None: ...
+    def from_tree(self, node: _HasText) -> str: ...  # type: ignore[override]
     def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None) -> Element: ...
 
 class NestedFloat(NestedValue[float, _N], Float[_N]):  # type: ignore[misc]
@@ -189,7 +179,7 @@ class NestedBool(NestedValue[bool, _N], Bool[_N]):  # type: ignore[misc]
     def __set__(  # type:ignore[override]  # Different restrictions
         self, instance: Serialisable | Strict, value: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool
     ) -> None: ...
-    def from_tree(self, node) -> bool: ...  # type: ignore[override]  # Actual overriden return type
+    def from_tree(self, node: _HasGet[bool]) -> bool: ...  # type: ignore[override]  # Actual overriden return type
 
 class NestedNoneSet(Nested[_T | None], NoneSet[_T]):  # type: ignore[misc]
     def __init__(self, name: str | None = None, *, values: Iterable[_T | None]) -> None: ...
