@@ -298,6 +298,9 @@ def concurrently_run_testcases(
                 for platform in platforms_to_test
             )
 
+    if not to_do:
+        return []
+
     event = threading.Event()
     printer_thread = threading.Thread(target=print_queued_messages, args=(event,))
     printer_thread.start()
