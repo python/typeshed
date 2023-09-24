@@ -9,7 +9,6 @@ from flask.testing import FlaskClient
 from .namespace import Namespace
 from .test_client import SocketIOTestClient
 
-
 _P = ParamSpec("_P")
 _ExceptionHandler: TypeAlias = Callable[[Exception], Any]
 _Handler: TypeAlias = Callable[[Any], Any]
