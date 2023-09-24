@@ -27,3 +27,6 @@ tty.__all__
 tty.cfmakecbreak
 tty.cfmakeraw
 xxlimited.Xxo.x_exports
+
+# Not available in Github Actions on Linux with Python 3.12
+(os|posix).CLONE_NEWTIME
