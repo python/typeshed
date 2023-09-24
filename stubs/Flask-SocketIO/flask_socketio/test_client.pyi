@@ -1,13 +1,16 @@
 from collections.abc import Callable
-from typing import Any, TypedDict
+from typing import Any
 
 from flask import Flask
 from flask.testing import FlaskClient
+from typing_extensions import TypedDict
+
 
 class _Packet(TypedDict):
     name: str
     args: Any
     namespace: str
+
 
 class SocketIOTestClient:
     def __init__(
