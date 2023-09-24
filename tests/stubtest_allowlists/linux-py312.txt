@@ -36,9 +36,6 @@ signal.sigtimedwait
 signal.sigwaitinfo
 ssl.OP_ENABLE_KTLS
 ssl.Options.OP_ENABLE_KTLS
-syslog.LOG_MASK
-syslog.LOG_UPTO
-syslog.setlogmask
 tty.__all__
 tty.cfmakecbreak
 tty.cfmakeraw
