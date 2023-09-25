@@ -17,7 +17,7 @@ class Policy(Generic[_MessageT], metaclass=ABCMeta):
     cte_type: str
     raise_on_defect: bool
     mangle_from_: bool
-    message_factory: Callable[[Policy], _MessageT] | None
+    message_factory: Callable[[Policy[_MessageT]], _MessageT] | None
     @overload
     def __init__(
         self: Policy[Message],
@@ -38,7 +38,7 @@ class Policy(Generic[_MessageT], metaclass=ABCMeta):
         cte_type: str = ...,
         raise_on_defect: bool = ...,
         mangle_from_: bool = ...,
-        message_factory: Callable[[Policy], _MessageT],
+        message_factory: Callable[[Policy[_MessageT]], _MessageT],
     ) -> None: ...
     def clone(self, **kw: Any) -> Self: ...
     def handle_defect(self, obj: _MessageT, defect: MessageDefect) -> None: ...
@@ -93,7 +93,7 @@ class EmailPolicy(Policy[_MessageT]):
         cte_type: str = ...,
         raise_on_defect: bool = ...,
         mangle_from_: bool = ...,
-        message_factory: Callable[[Policy], _MessageT] | None = ...,
+        message_factory: Callable[[Policy[_MessageT]], _MessageT] | None = ...,
         utf8: bool = ...,
         refold_source: str = ...,
         header_factory: Callable[[str, str], str] = ...,
