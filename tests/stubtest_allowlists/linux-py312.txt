@@ -4,10 +4,6 @@ _posixsubprocess.fork_exec
 (os|posix).setns
 (os|posix).setresgid
 (os|posix).setresuid
-(os|posix).splice
-(os|posix).SPLICE_F_MORE
-(os|posix).SPLICE_F_MOVE
-(os|posix).SPLICE_F_NONBLOCK
 fcntl.FICLONE
 fcntl.FICLONERANGE
 mmap.MAP_STACK

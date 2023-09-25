@@ -242,9 +242,13 @@ if sys.platform != "win32":
                 EFD_CLOEXEC as EFD_CLOEXEC,
                 EFD_NONBLOCK as EFD_NONBLOCK,
                 EFD_SEMAPHORE as EFD_SEMAPHORE,
+                SPLICE_F_MORE as SPLICE_F_MORE,
+                SPLICE_F_MOVE as SPLICE_F_MOVE,
+                SPLICE_F_NONBLOCK as SPLICE_F_NONBLOCK,
                 eventfd as eventfd,
                 eventfd_read as eventfd_read,
                 eventfd_write as eventfd_write,
+                splice as splice,
             )
     else:
         from os import chflags as chflags, lchflags as lchflags, lchmod as lchmod
