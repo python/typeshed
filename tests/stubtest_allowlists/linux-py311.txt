@@ -1,14 +1,8 @@
 _?curses.color_pair
 mmap.MAP_STACK
-(os|posix).EFD_CLOEXEC
-(os|posix).EFD_NONBLOCK
-(os|posix).EFD_SEMAPHORE
 (os|posix).setresgid
 (os|posix).setresuid
 (os|posix).sendfile
-(os|posix).eventfd
-(os|posix).eventfd_read
-(os|posix).eventfd_write
 signal.sigtimedwait
 signal.sigwaitinfo
 xxlimited.Xxo.x_exports

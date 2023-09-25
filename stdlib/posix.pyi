@@ -239,9 +239,15 @@ if sys.platform != "win32":
 
         if sys.version_info >= (3, 10):
             from os import (
+                EFD_CLOEXEC as EFD_CLOEXEC,
+                EFD_NONBLOCK as EFD_NONBLOCK,
+                EFD_SEMAPHORE as EFD_SEMAPHORE,
                 SPLICE_F_MORE as SPLICE_F_MORE,
                 SPLICE_F_MOVE as SPLICE_F_MOVE,
                 SPLICE_F_NONBLOCK as SPLICE_F_NONBLOCK,
+                eventfd as eventfd,
+                eventfd_read as eventfd_read,
+                eventfd_write as eventfd_write,
                 splice as splice,
             )
     else:
@@ -338,6 +344,7 @@ if sys.platform != "win32":
             CLONE_SYSVSEM as CLONE_SYSVSEM,
             CLONE_THREAD as CLONE_THREAD,
             CLONE_VM as CLONE_VM,
+            unshare as unshare,
         )
 
     # Not same as os.environ or os.environb
