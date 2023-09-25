@@ -1,7 +1,7 @@
 # Contributing to typeshed
 
-Welcome!  typeshed is a community project that aims to work for a wide
-range of Python users and Python codebases.  If you're trying a type
+Welcome! typeshed is a community project that aims to work for a wide
+range of Python users and Python codebases. If you're trying a type
 checker on your Python code, your experience and what you can contribute
 are important to the project's success.
 
@@ -96,9 +96,9 @@ That being said, if you *want* to run the checks locally when you commit,
 you're free to do so. Either run `isort`, `black` and `ruff` manually...
 
 ```bash
-$ isort .
-$ ruff .
-$ black .
+(.venv)$ isort .
+(.venv)$ ruff .
+(.venv)$ black .
 ```
 
 ...Or install the pre-commit hooks: please refer to the
@@ -110,7 +110,7 @@ flake8 before filing a PR is not required. However, if you wish to run flake8
 locally, install the test dependencies as outlined above, and then run:
 
 ```bash
-(.venv3)$ flake8 .
+(.venv)$ flake8 .
 ```
 
 ## Where to make changes
@@ -254,12 +254,12 @@ It generates stubs automatically using a tool called
 
 To get started, fork typeshed, clone your fork, and then
 [create a virtualenv](#-or-create-a-local-development-environment).
-You can then install the library with `pip` into the virtualenv and run the script,
-replacing `libraryname` with the name of the library below:
+You can then install the library with `pip` into the virtualenv and run the script below,
+replacing `$INSERT_LIBRARY_NAME_HERE` with the name of the library:
 
 ```bash
-(.venv3)$ pip install libraryname
-(.venv3)$ python3 scripts/create_baseline_stubs.py libraryname
+(.venv)$ pip install $INSERT_LIBRARY_NAME_HERE
+(.venv)$ python3 scripts/create_baseline_stubs.py $INSERT_LIBRARY_NAME_HERE
 ```
 
 When the script has finished running, it will print instructions telling you what to do next.
