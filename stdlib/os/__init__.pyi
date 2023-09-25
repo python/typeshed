@@ -1069,7 +1069,12 @@ if sys.version_info >= (3, 10) and sys.platform == "linux":
     def eventfd_read(fd: FileDescriptor) -> int: ...
     def eventfd_write(fd: FileDescriptor, value: int) -> None: ...
     def splice(
-        src: FileDescriptor, dst: FileDescriptor, count: int, offset_src: int | None = ..., offset_dst: int | None = ...
+        src: FileDescriptor,
+        dst: FileDescriptor,
+        count: int,
+        offset_src: int | None = ...,
+        offset_dst: int | None = ...,
+        flags: int = 0,
     ) -> int: ...
 
 if sys.version_info >= (3, 12) and sys.platform == "linux":
