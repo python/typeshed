@@ -8,14 +8,10 @@ os.PRIO_DARWIN_BG
 os.PRIO_DARWIN_NONUI
 os.PRIO_DARWIN_PROCESS
 os.PRIO_DARWIN_THREAD
-posix.DirEntry.is_junction
 posix.PRIO_DARWIN_BG
 posix.PRIO_DARWIN_NONUI
 posix.PRIO_DARWIN_PROCESS
 posix.PRIO_DARWIN_THREAD
-syslog.LOG_MASK
-syslog.LOG_UPTO
-syslog.setlogmask
 tty.__all__
 tty.cfmakecbreak
 tty.cfmakeraw

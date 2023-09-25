@@ -236,6 +236,16 @@ if sys.platform != "win32":
             removexattr as removexattr,
             setxattr as setxattr,
         )
+
+        if sys.version_info >= (3, 10):
+            from os import (
+                EFD_CLOEXEC as EFD_CLOEXEC,
+                EFD_NONBLOCK as EFD_NONBLOCK,
+                EFD_SEMAPHORE as EFD_SEMAPHORE,
+                eventfd as eventfd,
+                eventfd_read as eventfd_read,
+                eventfd_write as eventfd_write,
+            )
     else:
         from os import chflags as chflags, lchflags as lchflags, lchmod as lchmod
 
@@ -313,6 +323,25 @@ if sys.platform != "win32":
 
     if sys.platform != "darwin":
         from os import RWF_DSYNC as RWF_DSYNC, RWF_HIPRI as RWF_HIPRI, RWF_NOWAIT as RWF_NOWAIT, RWF_SYNC as RWF_SYNC
+
+    if sys.version_info >= (3, 12) and sys.platform == "linux":
+        from os import (
+            CLONE_FILES as CLONE_FILES,
+            CLONE_FS as CLONE_FS,
+            CLONE_NEWCGROUP as CLONE_NEWCGROUP,
+            CLONE_NEWIPC as CLONE_NEWIPC,
+            CLONE_NEWNET as CLONE_NEWNET,
+            CLONE_NEWNS as CLONE_NEWNS,
+            CLONE_NEWPID as CLONE_NEWPID,
+            CLONE_NEWTIME as CLONE_NEWTIME,
+            CLONE_NEWUSER as CLONE_NEWUSER,
+            CLONE_NEWUTS as CLONE_NEWUTS,
+            CLONE_SIGHAND as CLONE_SIGHAND,
+            CLONE_SYSVSEM as CLONE_SYSVSEM,
+            CLONE_THREAD as CLONE_THREAD,
+            CLONE_VM as CLONE_VM,
+            unshare as unshare,
+        )
 
     # Not same as os.environ or os.environb
     # Because of this variable, we can't do "from posix import *" in os/__init__.pyi

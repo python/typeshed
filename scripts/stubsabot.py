@@ -223,7 +223,7 @@ def get_updated_version_spec(spec: str, version: packaging.version.Version) -> s
     spec="1.1.1.*", version="1.2.3" -> "1.2.3.*"
     """
     if not spec.endswith(".*"):
-        return _check_spec(version.base_version, version)
+        return _check_spec(str(version), version)
 
     specificity = spec.count(".") if spec.removesuffix(".*") else 0
     rounded_version = version.base_version.split(".")[:specificity]
@@ -313,9 +313,6 @@ async def get_diff_info(
         old_tag = versions_to_tags[old_version]
 
     diff_url = f"https://github.com/{github_info.repo_path}/compare/{old_tag}...{new_tag}"
-    async with session.get(diff_url, headers=get_github_api_headers()) as response:
-        # Double-check we're returning a valid URL here
-        response.raise_for_status()
     return GithubDiffInfo(repo_path=github_info.repo_path, old_tag=old_tag, new_tag=new_tag, diff_url=diff_url)
 
 
@@ -747,7 +744,7 @@ async def main() -> None:
         ["git", "branch", "--show-current"], text=True, capture_output=True, check=True
     ).stdout.strip()
 
-    if args.action_level >= ActionLevel.fork:
+    if args.action_level >= ActionLevel.local:
         subprocess.check_call(["git", "fetch", "--prune", "--all"])
 
     try:
@@ -787,7 +784,7 @@ async def main() -> None:
     finally:
         # if you need to cleanup, try:
         # git branch -D $(git branch --list 'stubsabot/*')
-        if args.action_level >= ActionLevel.local:
+        if args.action_level >= ActionLevel.local and original_branch:
             subprocess.check_call(["git", "checkout", original_branch])
 
 

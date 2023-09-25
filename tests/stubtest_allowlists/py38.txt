@@ -41,7 +41,6 @@ typing.NamedTuple._replace
 typing._SpecialForm.__new__
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
-typing_extensions\.get_original_bases
 
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__
@@ -115,6 +114,7 @@ json.encoder.i
 lib2to3.pgen2.grammar.line
 lib2to3.pgen2.grammar.name
 lib2to3.pgen2.grammar.op
+poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
@@ -140,11 +140,6 @@ types.MemberDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
 
-# https://github.com/python/mypy/issues/15302
-typing_extensions\.assert_never
-typing_extensions\.assert_type
-typing_extensions\.reveal_type
-
 # We lie about the existence of these methods
 .*.__buffer__
 .*.__release_buffer__
@@ -158,3 +153,5 @@ asynchat.async_chat.use_encoding
 asynchat.find_prefix_at_end
 pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
+
+types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime

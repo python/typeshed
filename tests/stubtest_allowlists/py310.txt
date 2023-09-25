@@ -23,7 +23,6 @@ types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 typing._SpecialForm.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
-typing_extensions\.get_original_bases
 
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__
@@ -119,6 +118,7 @@ json.encoder.i
 lib2to3.pgen2.grammar.line
 lib2to3.pgen2.grammar.name
 lib2to3.pgen2.grammar.op
+poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
@@ -138,9 +138,6 @@ dataclasses.KW_ONLY
 typing.ParamSpec(Args|Kwargs).__origin__
 
 # https://github.com/python/mypy/issues/15302
-typing_extensions\.assert_never
-typing_extensions\.assert_type
-typing_extensions\.reveal_type
 typing.NewType.__call__
 
 # Super-special typing primitives
@@ -160,3 +157,5 @@ asynchat.async_chat.use_encoding
 asynchat.find_prefix_at_end
 pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
+
+types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
