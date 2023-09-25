@@ -1,4 +1,4 @@
-from collections.abc import Callable
+from _typeshed import Incomplete
 from typing import Any
 from typing_extensions import TypedDict
 
@@ -17,19 +17,25 @@ class SocketIOTestClient:
         socketio,
         namespace: str | None = None,
         query_string: str | None = None,
-        headers: dict[str, Any] | None = None,
-        auth: dict[str, Any] | None = None,
+        headers: dict[str, Incomplete] | None = None,
+        auth: dict[str, Incomplete] | None = None,
         flask_test_client: FlaskClient | None = None,
-    ): ...
+    ) -> None: ...
     def is_connected(self, namespace: str | None = None) -> bool: ...
     def connect(
         self,
         namespace: str | None = None,
         query_string: str | None = None,
-        headers: dict[str, Any] | None = None,
-        auth: dict[str, Any] | None = None,
+        headers: dict[str, Incomplete] | None = None,
+        auth: dict[str, Incomplete] | None = None,
     ) -> None: ...
     def disconnect(self, namespace: str | None = None) -> None: ...
-    def emit(self, event: str, *args, callback: bool = True, namespace: str | None = None): ...
+    def emit(self, event: str, *args, callback: bool = True, namespace: str | None = None) -> Incomplete | None: ...
+    def send(
+        self,
+        data: str | dict[str, Incomplete] | list[Incomplete],
+        json: bool = False,
+        callback: bool = False,
+        namespace: str | None = None,
+    ): ...
     def get_received(self, namespace: str | None = None) -> list[_Packet]: ...
-    def send(self, data: Any, json: bool = False, callback: Callable[..., Any] | Any = False, namespace: str | None = None): ...

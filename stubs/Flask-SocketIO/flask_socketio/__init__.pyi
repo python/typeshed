@@ -1,6 +1,7 @@
+from _typeshed import Incomplete
 from collections.abc import Callable
 from threading import Thread
-from typing import Any
+from typing import Any, Protocol, TypeVar, overload
 from typing_extensions import ParamSpec, TypeAlias
 
 from flask import Flask
@@ -10,12 +11,20 @@ from .namespace import Namespace
 from .test_client import SocketIOTestClient
 
 _P = ParamSpec("_P")
-_ExceptionHandler: TypeAlias = Callable[[Exception], Any]
-_Handler: TypeAlias = Callable[[Any], Any]
+_R_co = TypeVar("_R_co", covariant=True)
+_ExceptionHandler: TypeAlias = Callable[[BaseException], _R_co]
+_Handler: TypeAlias = Callable[_P, _R_co]
 
-_HandlerDecorator: TypeAlias = Callable[[_Handler], _Handler]
+class _HandlerDecorator(Protocol):
+    def __call__(self, handler: _Handler[_P, _R_co]) -> _Handler[_P, _R_co]: ...
+
+class _ExceptionHandlerDecorator(Protocol):
+    def __call__(self, exception_handler: _ExceptionHandler[_R_co]) -> _ExceptionHandler[_R_co]: ...
 
 class SocketIO:
+    # Many instance attributes are deliberately not included here,
+    # as the maintainer of Flask-SocketIO considers them private, internal details:
+    # https://github.com/python/typeshed/pull/10735#discussion_r1330768869
     def __init__(
         self,
         app: Flask | None = None,
@@ -41,10 +50,13 @@ class SocketIO:
         **kwargs,  # TODO: Socket.IO server options, Engine.IO server config: ...
     ) -> None: ...
     def on(self, message: str, namespace: str | None = None) -> _HandlerDecorator: ...
-    def on_error(self, namespace: str | None = None) -> Callable[[_ExceptionHandler], _ExceptionHandler]: ...
-    def on_error_default(self, exception_handler: _ExceptionHandler) -> Callable[[_ExceptionHandler], _ExceptionHandler]: ...
-    def on_event(self, message: str, handler: _Handler, namespace: str | None = None) -> None: ...
-    def event(self, namespace: str | None = None, *args, **kwargs) -> _Handler | Callable[[_Handler], _HandlerDecorator]: ...
+    def on_error(self, namespace: str | None = None) -> _ExceptionHandlerDecorator: ...
+    def on_error_default(self, exception_handler: _ExceptionHandler[_R_co]) -> _ExceptionHandler[_R_co]: ...
+    def on_event(self, message: str, handler: _Handler[[Incomplete], object], namespace: str | None = None) -> None: ...
+    @overload
+    def event(self, __event_handler: _Handler[_P, _R_co]) -> _Handler[_P, _R_co]: ...
+    @overload
+    def event(self, namespace: str | None = None, *args, **kwargs) -> _HandlerDecorator: ...
     def on_namespace(self, namespace_handler: Namespace) -> None: ...
     def emit(
         self,
@@ -54,7 +66,7 @@ class SocketIO:
         to: str | None = None,
         include_self: bool = True,
         skip_sid: str | list[str] | None = None,
-        callback: Callable[..., Any] | None = None,
+        callback: Callable[..., Incomplete] | None = None,
     ) -> None: ...
     def call(
         self,
@@ -71,7 +83,7 @@ class SocketIO:
         json: bool = False,
         namespace: str | None = None,
         to: str | None = None,
-        callback: Callable[..., Any] | None = None,
+        callback: Callable[..., Incomplete] | None = None,
         include_self: bool = True,
         skip_sid: list[str] | str | None = None,
         **kwargs,
@@ -85,7 +97,7 @@ class SocketIO:
         *,
         debug: bool = True,
         use_reloader: bool,
-        reloader_options: dict[str, Any] = {},
+        reloader_options: dict[str, Incomplete] = {},
         log_output: bool,
         allow_unsafe_werkzeug: bool = False,
         **kwargs,
@@ -98,8 +110,8 @@ class SocketIO:
         app: Flask,
         namespace: str | None = None,
         query_string: str | None = None,
-        headers: dict[str, Any] | None = None,
-        auth: dict[str, Any] | None = None,
+        headers: dict[str, Incomplete] | None = None,
+        auth: dict[str, Incomplete] | None = None,
         flask_test_client: FlaskClient | None = None,
     ) -> SocketIOTestClient: ...
 
@@ -110,7 +122,7 @@ def emit(
     to: str | None = None,
     include_self: bool = True,
     skip_sid: str | list[str] | None = None,
-    callback: Callable[..., Any] | None = None,
+    callback: Callable[..., Incomplete] | None = None,
     broadcast: bool = False,
 ) -> None: ...
 def send(message: str, **kwargs) -> None: ...
