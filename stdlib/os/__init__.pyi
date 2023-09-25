@@ -2,6 +2,7 @@ import sys
 from _typeshed import (
     AnyStr_co,
     BytesPath,
+    FileDescriptor,
     FileDescriptorLike,
     FileDescriptorOrPath,
     GenericPath,
@@ -1061,9 +1062,9 @@ if sys.version_info >= (3, 10) and sys.platform == "linux":
     EFD_CLOEXEC: int
     EFD_NONBLOCK: int
     EFD_SEMAPHORE: int
-    def eventfd(initval: int, flags: int = 524288) -> int: ...
-    def eventfd_read(fd: int) -> int: ...
-    def eventfd_write(fd: int, value: int) -> int: ...
+    def eventfd(initval: int, flags: int = 524288) -> FileDescriptor: ...
+    def eventfd_read(fd: FileDescriptor) -> int: ...
+    def eventfd_write(fd: FileDescriptor, value: int) -> int: ...
 
 if sys.version_info >= (3, 12) and sys.platform == "linux":
     CLONE_FILES: int
