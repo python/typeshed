@@ -10,7 +10,7 @@ _ParamType: TypeAlias = str | tuple[str | None, str | None, str]  # noqa: Y047
 _ParamsType: TypeAlias = str | None | tuple[str, str | None, str]  # noqa: Y047
 
 # TODO: These functions should be generic over the message with appropriate
-# overloads.
+# overloads. (#10762)
 def message_from_string(s: str, _class: Callable[[], Message] = ..., *, policy: Policy[Incomplete] = ...) -> Message: ...
 def message_from_bytes(
     s: bytes | bytearray, _class: Callable[[], Message] = ..., *, policy: Policy[Incomplete] = ...
