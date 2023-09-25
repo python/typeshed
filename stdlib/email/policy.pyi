@@ -4,7 +4,7 @@ from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.header import Header
 from email.message import EmailMessage, Message
-from typing import Any, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self
 
 __all__ = ["Compat32", "compat32", "Policy", "EmailPolicy", "default", "strict", "SMTP", "HTTP"]
