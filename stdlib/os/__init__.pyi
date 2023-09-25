@@ -1061,6 +1061,9 @@ if sys.version_info >= (3, 10) and sys.platform == "linux":
     EFD_CLOEXEC: int
     EFD_NONBLOCK: int
     EFD_SEMAPHORE: int
+    def eventfd(initval: int, flags: int = 524288) -> int: ...
+    def eventfd_read(fd: int) -> int: ...
+    def eventfd_write(fd: int, value: int) -> int: ...
 
 if sys.version_info >= (3, 12) and sys.platform == "linux":
     CLONE_FILES: int
@@ -1077,3 +1080,4 @@ if sys.version_info >= (3, 12) and sys.platform == "linux":
     CLONE_SYSVSEM: int
     CLONE_THREAD: int
     CLONE_VM: int
+    def unshare(flags: int) -> None: ...

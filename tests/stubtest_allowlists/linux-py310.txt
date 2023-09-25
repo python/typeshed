@@ -5,9 +5,6 @@ _?curses.color_pair
 (os|posix).setresgid
 (os|posix).setresuid
 (os|posix).sendfile
-(os|posix).eventfd
-(os|posix).eventfd_read
-(os|posix).eventfd_write
 (os|posix).splice
 signal.sigtimedwait
 signal.sigwaitinfo

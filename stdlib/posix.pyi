@@ -238,7 +238,14 @@ if sys.platform != "win32":
         )
 
         if sys.version_info >= (3, 10):
-            from os import EFD_CLOEXEC as EFD_CLOEXEC, EFD_NONBLOCK as EFD_NONBLOCK, EFD_SEMAPHORE as EFD_SEMAPHORE
+            from os import (
+                EFD_CLOEXEC as EFD_CLOEXEC,
+                EFD_NONBLOCK as EFD_NONBLOCK,
+                EFD_SEMAPHORE as EFD_SEMAPHORE,
+                eventfd as eventfd,
+                eventfd_read as eventfd_read,
+                eventfd_write as eventfd_write,
+            )
     else:
         from os import chflags as chflags, lchflags as lchflags, lchmod as lchmod
 
@@ -333,6 +340,7 @@ if sys.platform != "win32":
             CLONE_SYSVSEM as CLONE_SYSVSEM,
             CLONE_THREAD as CLONE_THREAD,
             CLONE_VM as CLONE_VM,
+            unshare as unshare,
         )
 
     # Not same as os.environ or os.environb
