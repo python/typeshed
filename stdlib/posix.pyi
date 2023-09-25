@@ -236,6 +236,9 @@ if sys.platform != "win32":
             removexattr as removexattr,
             setxattr as setxattr,
         )
+
+        if sys.version_info >= (3, 10):
+            from os import EFD_CLOEXEC as EFD_CLOEXEC, EFD_NONBLOCK as EFD_NONBLOCK, EFD_SEMAPHORE as EFD_SEMAPHORE
     else:
         from os import chflags as chflags, lchflags as lchflags, lchmod as lchmod
 

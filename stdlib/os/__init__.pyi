@@ -1057,6 +1057,11 @@ if sys.version_info >= (3, 12) and sys.platform == "win32":
     def listmounts(volume: str) -> list[str]: ...
     def listvolumes() -> list[str]: ...
 
+if sys.version_info >= (3, 10) and sys.platform == "linux":
+    EFD_CLOEXEC: int
+    EFD_NONBLOCK: int
+    EFD_SEMAPHORE: int
+
 if sys.version_info >= (3, 12) and sys.platform == "linux":
     CLONE_FILES: int
     CLONE_FS: int
