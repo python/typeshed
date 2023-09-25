@@ -19,7 +19,7 @@ class _Namespace(_BaseNamespace, Protocol):
         room: str | None = None,
         skip_sid=None,
         namespace: str | None = None,
-        callback: Callable[..., _T] | None = None,
+        callback: Callable[..., _Incomplete] | None = None,
         ignore_queue: bool = False,
     ): ...
     def send(
