@@ -45,7 +45,7 @@ class Request:
     headers: CaseInsensitiveDict | None
     body: str | None
     decoded_body: list | None
-    oauth_params: Union[dict, list] | None
+    oauth_params: dict | list | None
     validator_log: dict
     _params: dict
     def __init__(
