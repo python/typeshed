@@ -254,12 +254,12 @@ It generates stubs automatically using a tool called
 
 To get started, fork typeshed, clone your fork, and then
 [create a virtualenv](#-or-create-a-local-development-environment).
-You can then install the library with `pip` into the virtualenv and run the script,
-replacing `libraryname` with the name of the library below:
+You can then install the library with `pip` into the virtualenv and run the script below,
+inserting the name of the library in '':
 
 ```bash
-(.venv3)$ pip install libraryname
-(.venv3)$ python3 scripts/create_baseline_stubs.py libraryname
+(.venv3)$ pip install ''
+(.venv3)$ python3 scripts/create_baseline_stubs.py ''
 ```
 
 When the script has finished running, it will print instructions telling you what to do next.
