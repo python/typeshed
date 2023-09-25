@@ -93,7 +93,7 @@ class EmailPolicy(Policy[_MessageT]):
         cte_type: str = ...,
         raise_on_defect: bool = ...,
         mangle_from_: bool = ...,
-        message_factory: Callable[[Policy[_MessageT]], _MessageT] | None = ...,
+        message_factory: Callable[[Policy[_MessageT]], _MessageT],
         utf8: bool = ...,
         refold_source: str = ...,
         header_factory: Callable[[str, str], str] = ...,
