@@ -12,9 +12,6 @@ posix.PRIO_DARWIN_BG
 posix.PRIO_DARWIN_NONUI
 posix.PRIO_DARWIN_PROCESS
 posix.PRIO_DARWIN_THREAD
-syslog.LOG_MASK
-syslog.LOG_UPTO
-syslog.setlogmask
 tty.__all__
 tty.cfmakecbreak
 tty.cfmakeraw

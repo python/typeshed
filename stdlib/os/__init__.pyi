@@ -2,6 +2,7 @@ import sys
 from _typeshed import (
     AnyStr_co,
     BytesPath,
+    FileDescriptor,
     FileDescriptorLike,
     FileDescriptorOrPath,
     GenericPath,
@@ -1056,3 +1057,39 @@ if sys.version_info >= (3, 12) and sys.platform == "win32":
     def listdrives() -> list[str]: ...
     def listmounts(volume: str) -> list[str]: ...
     def listvolumes() -> list[str]: ...
+
+if sys.version_info >= (3, 10) and sys.platform == "linux":
+    EFD_CLOEXEC: int
+    EFD_NONBLOCK: int
+    EFD_SEMAPHORE: int
+    SPLICE_F_MORE: int
+    SPLICE_F_MOVE: int
+    SPLICE_F_NONBLOCK: int
+    def eventfd(initval: int, flags: int = 524288) -> FileDescriptor: ...
+    def eventfd_read(fd: FileDescriptor) -> int: ...
+    def eventfd_write(fd: FileDescriptor, value: int) -> None: ...
+    def splice(
+        src: FileDescriptor,
+        dst: FileDescriptor,
+        count: int,
+        offset_src: int | None = ...,
+        offset_dst: int | None = ...,
+        flags: int = 0,
+    ) -> int: ...
+
+if sys.version_info >= (3, 12) and sys.platform == "linux":
+    CLONE_FILES: int
+    CLONE_FS: int
+    CLONE_NEWCGROUP: int
+    CLONE_NEWIPC: int
+    CLONE_NEWNET: int
+    CLONE_NEWNS: int
+    CLONE_NEWPID: int
+    CLONE_NEWTIME: int
+    CLONE_NEWUSER: int
+    CLONE_NEWUTS: int
+    CLONE_SIGHAND: int
+    CLONE_SYSVSEM: int
+    CLONE_THREAD: int
+    CLONE_VM: int
+    def unshare(flags: int) -> None: ...

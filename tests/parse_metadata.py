@@ -15,6 +15,7 @@ from typing_extensions import Annotated, Final, TypeGuard, final
 
 import tomli
 from packaging.requirements import Requirement
+from packaging.specifiers import Specifier
 from packaging.version import Version
 
 from utils import cache
@@ -38,6 +39,14 @@ _QUERY_URL_ALLOWLIST = {"sourceware.org"}
 
 def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
     return isinstance(obj, list) and all(isinstance(item, str) for item in obj)
+
+
+@cache
+def _get_oldest_supported_python() -> str:
+    with open("pyproject.toml", "rb") as config:
+        val = tomli.load(config)["tool"]["typeshed"]["oldest_supported_python"]
+    assert type(val) is str
+    return val
 
 
 @final
@@ -130,6 +139,7 @@ class StubMetadata:
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
     partial_stub: Annotated[bool, "Whether this is a partial type stub package as per PEP 561."]
     stubtest_settings: StubtestSettings
+    requires_python: Annotated[Specifier, "Versions of Python supported by the stub package"]
 
 
 _KNOWN_METADATA_FIELDS: Final = frozenset(
@@ -144,6 +154,7 @@ _KNOWN_METADATA_FIELDS: Final = frozenset(
         "upload",
         "tool",
         "partial_stub",
+        "requires_python",
     }
 )
 _KNOWN_METADATA_TOOL_FIELDS: Final = {
@@ -240,6 +251,20 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert type(uploaded_to_pypi) is bool
     partial_stub: object = data.get("partial_stub", True)
     assert type(partial_stub) is bool
+    requires_python_str: object = data.get("requires_python")
+    oldest_supported_python = _get_oldest_supported_python()
+    oldest_supported_python_specifier = Specifier(f">={oldest_supported_python}")
+    if requires_python_str is None:
+        requires_python = oldest_supported_python_specifier
+    else:
+        assert type(requires_python_str) is str
+        requires_python = Specifier(requires_python_str)
+        assert requires_python != oldest_supported_python_specifier, f'requires_python="{requires_python}" is redundant'
+        # Check minimum Python version is not less than the oldest version of Python supported by typeshed
+        assert oldest_supported_python_specifier.contains(
+            requires_python.version
+        ), f"'requires_python' contains versions lower than typeshed's oldest supported Python ({oldest_supported_python})"
+        assert requires_python.operator == ">=", "'requires_python' should be a minimum version specifier, use '>=3.x'"
 
     empty_tools: dict[object, object] = {}
     tools_settings: object = data.get("tool", empty_tools)
@@ -262,6 +287,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         uploaded_to_pypi=uploaded_to_pypi,
         partial_stub=partial_stub,
         stubtest_settings=read_stubtest_settings(distribution),
+        requires_python=requires_python,
     )
 
 
