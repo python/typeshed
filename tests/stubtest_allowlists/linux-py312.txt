@@ -4,8 +4,6 @@ _posixsubprocess.fork_exec
 (os|posix).setns
 (os|posix).setresgid
 (os|posix).setresuid
-fcntl.FICLONE
-fcntl.FICLONERANGE
 mmap.MAP_STACK
 resource.prlimit
 signal.sigtimedwait
