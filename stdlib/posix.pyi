@@ -236,6 +236,14 @@ if sys.platform != "win32":
             removexattr as removexattr,
             setxattr as setxattr,
         )
+
+        if sys.version_info >= (3, 10):
+            from os import (
+                SPLICE_F_MORE as SPLICE_F_MORE,
+                SPLICE_F_MOVE as SPLICE_F_MOVE,
+                SPLICE_F_NONBLOCK as SPLICE_F_NONBLOCK,
+                splice as splice,
+            )
     else:
         from os import chflags as chflags, lchflags as lchflags, lchmod as lchmod
 

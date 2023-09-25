@@ -2,6 +2,7 @@ import sys
 from _typeshed import (
     AnyStr_co,
     BytesPath,
+    FileDescriptor,
     FileDescriptorLike,
     FileDescriptorOrPath,
     GenericPath,
@@ -1056,6 +1057,14 @@ if sys.version_info >= (3, 12) and sys.platform == "win32":
     def listdrives() -> list[str]: ...
     def listmounts(volume: str) -> list[str]: ...
     def listvolumes() -> list[str]: ...
+
+if sys.version_info >= (3, 10) and sys.platform == "linux":
+    SPLICE_F_MORE: int
+    SPLICE_F_MOVE: int
+    SPLICE_F_NONBLOCK: int
+    def splice(
+        src: FileDescriptor, dst: FileDescriptor, count: int, offset_src: int | None = ..., offset_dst: int | None = ...
+    ) -> int: ...
 
 if sys.version_info >= (3, 12) and sys.platform == "linux":
     CLONE_FILES: int
