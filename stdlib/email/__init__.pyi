@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from email.message import Message
 from email.policy import Policy
-from typing import IO, Any
+from typing import IO
 from typing_extensions import TypeAlias
 
 # Definitions imported by multiple submodules in typeshed
