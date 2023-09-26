@@ -122,6 +122,12 @@ if sys.platform == "linux":
     GRND_NONBLOCK: int
     GRND_RANDOM: int
 
+if sys.platform == "darwin" and sys.version_info >= (3, 12):
+    PRIO_DARWIN_BG: int
+    PRIO_DARWIN_NONUI: int
+    PRIO_DARWIN_PROCESS: int
+    PRIO_DARWIN_THREAD: int
+
 SEEK_SET: int
 SEEK_CUR: int
 SEEK_END: int
