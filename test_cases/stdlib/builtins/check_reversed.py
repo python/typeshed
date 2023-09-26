@@ -24,5 +24,5 @@ class MyLenAndGetItem(Generic[_T]):
         raise KeyError
 
 
-len_and_get_item: MyLenAndGetItem[int] = LenAndGetItem()
+len_and_get_item: MyLenAndGetItem[int] = MyLenAndGetItem()
 assert_type(list(reversed(len_and_get_item)), list[int])
