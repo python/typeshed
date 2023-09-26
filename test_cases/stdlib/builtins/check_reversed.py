@@ -17,7 +17,7 @@ class MyIterable:
 
 assert_type(list(reversed(MyIterable())), list[str])
 
-_T = TypeVar("T")
+_T = TypeVar("_T")
 
 
 class MyLenAndGetItem(Generic[_T]):
