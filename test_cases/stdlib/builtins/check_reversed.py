@@ -23,7 +23,7 @@ _T = TypeVar("_T")
 
 
 class MyLenAndGetItem(Generic[_T]):
-    def __len__(self):
+    def __len__(self) -> int:
         return 0
 
     def __getitem__(self, item: int) -> _T:
