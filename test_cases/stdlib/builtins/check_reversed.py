@@ -15,4 +15,4 @@ class LenAndGetItem:
         raise KeyError
 
 len_and_get_item = LenAndGetItem()
-assert_type(list(reversed(len_and_get_item), list[int])
+assert_type(list(reversed(len_and_get_item)), list[int])
