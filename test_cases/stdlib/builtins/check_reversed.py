@@ -9,12 +9,16 @@ assert_type(list(reversed(x)), list[int])
 iterator = iter(x)
 assert_type(list(reversed(iterator)), list[int])
 
+
 class MyIterable:
     def __iter__(self):
         yield "blah"
+
+
 assert_type(list(reversed(MyIterable())), list[str])
 
-_T = TypeVar('T')
+_T = TypeVar("T")
+
 
 class MyLenAndGetItem(Generic[_T]):
     def __len__(self):
