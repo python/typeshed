@@ -8,8 +8,6 @@ mmap.MAP_STACK
 resource.prlimit
 signal.sigtimedwait
 signal.sigwaitinfo
-ssl.OP_ENABLE_KTLS
-ssl.Options.OP_ENABLE_KTLS
 tty.__all__
 tty.cfmakecbreak
 tty.cfmakeraw
