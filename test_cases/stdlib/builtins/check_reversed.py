@@ -5,7 +5,7 @@ from typing import Generic, TypeVar
 from typing_extensions import assert_type
 
 x: list[int] = []
-assert_type(list(reversed(x)), list[int])
+assert_type(list(reversed(x)), "list[int]")
 
 
 class MyReversible:
@@ -16,7 +16,7 @@ class MyReversible:
         yield "blah"
 
 
-assert_type(list(reversed(MyReversible())), list[str])
+assert_type(list(reversed(MyReversible())), "list[str]")
 
 
 _T = TypeVar("_T")
@@ -31,4 +31,4 @@ class MyLenAndGetItem(Generic[_T]):
 
 
 len_and_get_item: MyLenAndGetItem[int] = MyLenAndGetItem()
-assert_type(list(reversed(len_and_get_item)), list[int])
+assert_type(list(reversed(len_and_get_item)), "list[int]")
