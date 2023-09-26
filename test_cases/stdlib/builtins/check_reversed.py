@@ -6,16 +6,14 @@ from typing_extensions import assert_type
 x: list[int] = []
 assert_type(list(reversed(x)), list[int])
 
-iterator = iter(x)
-assert_type(list(reversed(iterator)), list[int])
 
-
-class MyIterable:
-    def __iter__(self):
+class MyReversible:
+    def __reversed__(self):
         yield "blah"
 
 
-assert_type(list(reversed(MyIterable())), list[str])
+assert_type(list(reversed(MyReversible())), list[str])
+
 
 _T = TypeVar("_T")
 
