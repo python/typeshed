@@ -11,7 +11,7 @@ assert_type(list(reversed(x)), list[int])
 class MyReversible:
     def __iter__(self) -> Iterator[str]:
         yield "blah"
-    
+
     def __reversed__(self) -> Iterator[str]:
         yield "blah"
 
