@@ -226,7 +226,6 @@ if sys.version_info >= (3, 8):
     OP_ENABLE_MIDDLEBOX_COMPAT: Options
 if sys.version_info >= (3, 12):
     OP_LEGACY_SERVER_CONNECT: Options
-if sys.version_info >= (3, 12):
     OP_ENABLE_KTLS: Options
 if sys.version_info >= (3, 11):
     OP_IGNORE_UNEXPECTED_EOF: Options
