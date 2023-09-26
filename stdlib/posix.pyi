@@ -347,6 +347,14 @@ if sys.platform != "win32":
             unshare as unshare,
         )
 
+    if sys.version_info >= (3, 12) and sys.platform == "darwin":
+        from os import (
+            PRIO_DARWIN_BG as PRIO_DARWIN_BG,
+            PRIO_DARWIN_NONUI as PRIO_DARWIN_NONUI,
+            PRIO_DARWIN_PROCESS as PRIO_DARWIN_PROCESS,
+            PRIO_DARWIN_THREAD as PRIO_DARWIN_THREAD,
+        )
+
     # Not same as os.environ or os.environb
     # Because of this variable, we can't do "from posix import *" in os/__init__.pyi
     environ: dict[bytes, bytes]
