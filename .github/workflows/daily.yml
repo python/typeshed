@@ -98,8 +98,10 @@ jobs:
           fi
 
           $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-platforms-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
+
   stub-uploader:
     name: Run the stub_uploader tests
+    if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
