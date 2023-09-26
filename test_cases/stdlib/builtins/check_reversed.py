@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import Generic, TypeVar
 from typing_extensions import assert_type
 
@@ -8,7 +9,10 @@ assert_type(list(reversed(x)), list[int])
 
 
 class MyReversible:
-    def __reversed__(self):
+    def __iter__(self) -> Iterator[str]:
+        yield "blah"
+    
+    def __reversed__(self) -> Iterator[str]:
         yield "blah"
 
 
