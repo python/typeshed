@@ -4,6 +4,8 @@ from typing_extensions import TypeAlias
 
 if sys.platform != "win32":
     __all__ = ["setraw", "setcbreak"]
+    if sys.version_info >= (3, 12):
+        __all__ += ["cfmakeraw", "cfmakecbreak"]
 
     _FD: TypeAlias = int | IO[str]
 
@@ -19,8 +21,6 @@ if sys.platform != "win32":
     def setcbreak(fd: _FD, when: int = 2) -> None: ...
 
     if sys.version_info >= (3, 12):
-        __all__ += ["cfmakeraw", "cfmakecbreak"]
-
         # It is: `list[int, int, int, int, int, int, list[str]]
         _Mode: TypeAlias = list[Any]
 
