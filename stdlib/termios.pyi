@@ -4,7 +4,7 @@ from typing import Any
 from typing_extensions import TypeAlias
 
 # Must be a list of length 7, containing 6 ints and a list of NCCS 1-character bytes or ints.
-_Attr: TypeAlias = list[int | list[bytes | int]]
+_Attr: TypeAlias = list[int | list[bytes | int]] | list[int | list[bytes]] | list[int | list[int]]
 # Same as _Attr for return types; we use Any to avoid a union.
 _AttrReturn: TypeAlias = list[Any]
 
