@@ -7,9 +7,10 @@ if sys.platform != "win32":
     __all__ = ["setraw", "setcbreak"]
     if sys.version_info >= (3, 12):
         __all__ += ["cfmakeraw", "cfmakecbreak"]
-        _SetReturn: TypeAlias = _AttrReturn
+
+        _ModeSetterReturn: TypeAlias = _AttrReturn
     else:
-        _SetReturn: TypeAlias = None
+        _ModeSetterReturn: TypeAlias = None
 
     _FD: TypeAlias = int | IO[str]
 
@@ -21,8 +22,8 @@ if sys.platform != "win32":
     ISPEED: int
     OSPEED: int
     CC: int
-    def setraw(fd: _FD, when: int = 2) -> _SetReturn: ...
-    def setcbreak(fd: _FD, when: int = 2) -> _SetReturn: ...
+    def setraw(fd: _FD, when: int = 2) -> _ModeSetterReturn: ...
+    def setcbreak(fd: _FD, when: int = 2) -> _ModeSetterReturn: ...
 
     if sys.version_info >= (3, 12):
         # It is: `list[int, int, int, int, int, int, list[str]]
