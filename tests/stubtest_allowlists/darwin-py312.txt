@@ -4,9 +4,6 @@ _curses.window.get_wch
 _posixsubprocess.fork_exec
 curses.unget_wch
 curses.window.get_wch
-tty.__all__
-tty.cfmakecbreak
-tty.cfmakeraw
 xxlimited.Xxo.x_exports
 
 (dbm.gnu)?

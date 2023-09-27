@@ -1,5 +1,5 @@
 import sys
-from typing import IO
+from typing import IO, Any
 from typing_extensions import TypeAlias
 
 if sys.platform != "win32":
@@ -17,3 +17,12 @@ if sys.platform != "win32":
     CC: int
     def setraw(fd: _FD, when: int = 2) -> None: ...
     def setcbreak(fd: _FD, when: int = 2) -> None: ...
+
+    if sys.version_info >= (3, 12):
+        __all__ += ["cfmakeraw", "cfmakecbreak"]
+
+        # It is: `list[int, int, int, int, int, int, list[str]]
+        _Mode: TypeAlias = list[Any]
+
+        def cfmakeraw(mode: _Mode):
+        def cfmakecbreak(mode: _Mode) -> None: ...
