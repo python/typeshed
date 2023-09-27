@@ -24,5 +24,5 @@ if sys.platform != "win32":
         # It is: `list[int, int, int, int, int, int, list[str]]
         _Mode: TypeAlias = list[Any]
 
-        def cfmakeraw(mode: _Mode):
+        def cfmakeraw(mode: _Mode) -> None: ...
         def cfmakecbreak(mode: _Mode) -> None: ...
