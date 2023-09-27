@@ -1,12 +1,12 @@
 import sys
 from termios import _AttrReturn
-from typing import IO
+from typing import IO, Any
 from typing_extensions import TypeAlias
 
 if sys.platform != "win32":
     __all__ = ["setraw", "setcbreak"]
-
     if sys.version_info >= (3, 12):
+        __all__ += ["cfmakeraw", "cfmakecbreak"]
         _SetReturn: TypeAlias = _AttrReturn
     else:
         _SetReturn: TypeAlias = None
@@ -23,3 +23,10 @@ if sys.platform != "win32":
     CC: int
     def setraw(fd: _FD, when: int = 2) -> _SetReturn: ...
     def setcbreak(fd: _FD, when: int = 2) -> _SetReturn: ...
+
+    if sys.version_info >= (3, 12):
+        # It is: `list[int, int, int, int, int, int, list[str]]
+        _Mode: TypeAlias = list[Any]
+
+        def cfmakeraw(mode: _Mode) -> None: ...
+        def cfmakecbreak(mode: _Mode) -> None: ...
