@@ -8,9 +8,6 @@ mmap.MAP_STACK
 resource.prlimit
 signal.sigtimedwait
 signal.sigwaitinfo
-tty.__all__
-tty.cfmakecbreak
-tty.cfmakeraw
 xxlimited.Xxo.x_exports
 
 # Exists on some Linux builds, and is documented,
