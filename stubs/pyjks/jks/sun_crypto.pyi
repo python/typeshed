@@ -1,4 +1,3 @@
-
 from .util import *
 
 SUN_JKS_ALGO_ID: tuple[int, ...]

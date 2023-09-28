@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from hashlib import _Hash
-from typing_extensions import TypeAlias, Literal
+from typing_extensions import Literal, TypeAlias
 
 from pyasn1.type import univ
 

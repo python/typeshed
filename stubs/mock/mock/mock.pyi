@@ -7,6 +7,7 @@ from typing_extensions import Literal, ParamSpec, Self
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _AF = TypeVar("_AF", bound=Callable[..., Coroutine[Any, Any, Any]])
+
 class _Call(tuple[Any, ...]):
     name: Any
     parent: Any
@@ -28,6 +29,7 @@ class _Call(tuple[Any, ...]):
     @property
     def kwargs(self) -> dict[str, Any]: ...
     def call_list(self) -> _CallList: ...
+
 _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=type[Any])
 _R = TypeVar("_R")
@@ -63,9 +65,11 @@ class _SentinelObject:
 
 class _Sentinel:
     def __getattr__(self, name: str) -> _SentinelObject: ...
+
 sentinel: _Sentinel
 
 DEFAULT: _SentinelObject
+
 def __new__(
     cls,
     value: Any = (),

@@ -1,6 +1,6 @@
 from .bks import *
-from .jks import __version__, __version_info__
 from .jks import *
+from .jks import __version__, __version_info__
 from .util import *
 
 # pyjks exports lots of junk such as jks.jks.SIGNATURE_WHITENING, jks.util.b8 etc.
