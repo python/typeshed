@@ -61,6 +61,7 @@
         "stubs/pyasn1",
         "stubs/pyflakes",
         "stubs/Pygments",
+        "stubs/pyjks",
         "stubs/PyMySQL",
         "stubs/python-dateutil",
         "stubs/python-jose",
