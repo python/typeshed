@@ -7,9 +7,31 @@ from typing_extensions import Literal, ParamSpec, Self
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _AF = TypeVar("_AF", bound=Callable[..., Coroutine[Any, Any, Any]])
+class _Call(tuple[Any, ...]):
+    name: Any
+    parent: Any
+    from_kall: Any
+    def __init__(
+        self,
+        value: Any = (),
+        name: Incomplete | None = None,
+        parent: Incomplete | None = None,
+        two: bool = False,
+        from_kall: bool = True,
+    ) -> None: ...
+    def __eq__(self, other: object) -> bool: ...
+    def __ne__(self, __other: object) -> bool: ...
+    def __call__(self, *args: Any, **kwargs: Any) -> _Call: ...
+    def __getattr__(self, attr: str) -> Any: ...
+    @property
+    def args(self) -> tuple[Any, ...]: ...
+    @property
+    def kwargs(self) -> dict[str, Any]: ...
+    def call_list(self) -> _CallList: ...
 _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=type[Any])
 _R = TypeVar("_R")
+
 _P = ParamSpec("_P")
 
 __all__ = (
@@ -41,39 +63,17 @@ class _SentinelObject:
 
 class _Sentinel:
     def __getattr__(self, name: str) -> _SentinelObject: ...
-
 sentinel: _Sentinel
-DEFAULT: _SentinelObject
 
-class _Call(tuple[Any, ...]):
-    def __new__(
-        cls,
-        value: Any = (),
-        name: Incomplete | None = "",
-        parent: Incomplete | None = None,
-        two: bool = False,
-        from_kall: bool = True,
-    ) -> Self: ...
-    name: Any
-    parent: Any
-    from_kall: Any
-    def __init__(
-        self,
-        value: Any = (),
-        name: Incomplete | None = None,
-        parent: Incomplete | None = None,
-        two: bool = False,
-        from_kall: bool = True,
-    ) -> None: ...
-    def __eq__(self, other: object) -> bool: ...
-    def __ne__(self, __other: object) -> bool: ...
-    def __call__(self, *args: Any, **kwargs: Any) -> _Call: ...
-    def __getattr__(self, attr: str) -> Any: ...
-    @property
-    def args(self) -> tuple[Any, ...]: ...
-    @property
-    def kwargs(self) -> dict[str, Any]: ...
-    def call_list(self) -> _CallList: ...
+DEFAULT: _SentinelObject
+def __new__(
+    cls,
+    value: Any = (),
+    name: Incomplete | None = "",
+    parent: Incomplete | None = None,
+    two: bool = False,
+    from_kall: bool = True,
+) -> Self: ...
 
 call: _Call
 

@@ -1,15 +1,16 @@
 from _typeshed import Incomplete
+from typing_extensions import Literal
 
-from .jks import KeyStore as KeyStore, TrustedCertEntry
+from .jks import TrustedCertEntry
 from .util import *
 
-ENTRY_TYPE_CERTIFICATE: int
-ENTRY_TYPE_KEY: int
-ENTRY_TYPE_SECRET: int
-ENTRY_TYPE_SEALED: int
-KEY_TYPE_PRIVATE: int
-KEY_TYPE_PUBLIC: int
-KEY_TYPE_SECRET: int
+ENTRY_TYPE_CERTIFICATE: Literal[1]
+ENTRY_TYPE_KEY: Literal[2]
+ENTRY_TYPE_SECRET: Literal[3]
+ENTRY_TYPE_SEALED: Literal[4]
+KEY_TYPE_PRIVATE: Literal[0]
+KEY_TYPE_PUBLIC: Literal[1]
+KEY_TYPE_SECRET: Literal[2]
 
 class AbstractBksEntry(AbstractKeystoreEntry):
     cert_chain: Incomplete
