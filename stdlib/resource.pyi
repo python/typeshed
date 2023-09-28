@@ -1,6 +1,5 @@
 import sys
 from _typeshed import structseq
-from typing import overload
 from typing_extensions import Final, final
 
 if sys.platform != "win32":
