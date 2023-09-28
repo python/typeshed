@@ -345,6 +345,7 @@ if sys.platform != "win32":
             CLONE_THREAD as CLONE_THREAD,
             CLONE_VM as CLONE_VM,
             unshare as unshare,
+            setns as setns,
         )
 
     if sys.version_info >= (3, 12) and sys.platform == "darwin":
