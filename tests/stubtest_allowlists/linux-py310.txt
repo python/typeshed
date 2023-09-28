@@ -1,5 +1,4 @@
 _?curses.color_pair
-(os|posix).sendfile
 signal.sigtimedwait
 signal.sigwaitinfo
 

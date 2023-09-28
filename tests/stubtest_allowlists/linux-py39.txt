@@ -1,4 +1,3 @@
-(os|posix).sendfile
 select.epoll.register
 
 # ==========
