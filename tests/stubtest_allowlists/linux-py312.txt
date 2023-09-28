@@ -1,8 +1,6 @@
 _?curses.color_pair
 _posixsubprocess.fork_exec
 (os|posix).setns
-(os|posix).setresgid
-(os|posix).setresuid
 mmap.MAP_STACK
 resource.prlimit
 signal.sigtimedwait
