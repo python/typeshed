@@ -344,6 +344,7 @@ if sys.platform != "win32":
             CLONE_SYSVSEM as CLONE_SYSVSEM,
             CLONE_THREAD as CLONE_THREAD,
             CLONE_VM as CLONE_VM,
+            setns as setns,
             unshare as unshare,
         )
 

@@ -1,6 +1,5 @@
 _?curses.color_pair
 _posixsubprocess.fork_exec
-(os|posix).setns
 resource.prlimit
 signal.sigtimedwait
 signal.sigwaitinfo
