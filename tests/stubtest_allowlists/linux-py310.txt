@@ -1,7 +1,6 @@
 _?curses.color_pair
 (os|posix).setresgid
 (os|posix).setresuid
-(os|posix).sendfile
 signal.sigtimedwait
 signal.sigwaitinfo
 

@@ -657,18 +657,21 @@ if sys.platform != "win32":
         RWF_SYNC: int
         RWF_HIPRI: int
         RWF_NOWAIT: int
-    @overload
-    def sendfile(out_fd: int, in_fd: int, offset: int | None, count: int) -> int: ...
-    @overload
-    def sendfile(
-        out_fd: int,
-        in_fd: int,
-        offset: int,
-        count: int,
-        headers: Sequence[ReadableBuffer] = ...,
-        trailers: Sequence[ReadableBuffer] = ...,
-        flags: int = 0,
-    ) -> int: ...  # FreeBSD and Mac OS X only
+
+    if sys.platform == "linux":
+        def sendfile(out_fd: FileDescriptor, in_fd: FileDescriptor, offset: int | None, count: int) -> int: ...
+
+    if sys.platform != "linux":
+        def sendfile(
+            out_fd: FileDescriptor,
+            in_fd: FileDescriptor,
+            offset: int,
+            count: int,
+            headers: Sequence[ReadableBuffer] = ...,
+            trailers: Sequence[ReadableBuffer] = ...,
+            flags: int = 0,
+        ) -> int: ...  # FreeBSD and Mac OS X only
+
     def readv(__fd: int, __buffers: SupportsLenAndGetItem[WriteableBuffer]) -> int: ...
     def writev(__fd: int, __buffers: SupportsLenAndGetItem[ReadableBuffer]) -> int: ...
 
