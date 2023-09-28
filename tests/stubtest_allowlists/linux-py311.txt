@@ -1,5 +1,4 @@
 _?curses.color_pair
-mmap.MAP_STACK
 (os|posix).sendfile
 signal.sigtimedwait
 signal.sigwaitinfo
