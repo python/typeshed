@@ -12,5 +12,5 @@ jks.jks.PrivateKeyEntry.pkey_pkcs8
 jks.jks.SecretKeyEntry.algorithm
 jks.jks.SecretKeyEntry.key
 jks.jks.SecretKeyEntry.key_size
-jks.print_function
-jks.sun_crypto.print_function
+# Unintended reexports due to `from .utils import *` imports at runtime
+jks\..*print_function
