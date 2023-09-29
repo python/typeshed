@@ -3,7 +3,7 @@ from collections.abc import Iterable, Sequence
 from typing import ClassVar
 from typing_extensions import Literal, LiteralString, Self, SupportsIndex, TypeAlias
 
-_TypeCode: TypeAlias = Literal["DATA", "BINARY", "EXTENSION", "OPTION"]
+_TypeCode: TypeAlias = Literal["DEPENDENCY", "SYMLINK", "DATA", "BINARY", "EXECUTABLE", "EXTENSION", "OPTION"]
 _TOCTuple: TypeAlias = tuple[str, str | None, _TypeCode | None]
 
 class TOC(list[_TOCTuple]):
