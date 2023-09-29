@@ -4,7 +4,8 @@ from struct import Struct
 from typing import Any
 from typing_extensions import Literal, Self, TypeAlias
 
-from jks import BksKeyEntry, PrivateKeyEntry
+from .bks import BksKeyEntry
+from .jks import PrivateKeyEntry
 
 b8: Struct
 b4: Struct
