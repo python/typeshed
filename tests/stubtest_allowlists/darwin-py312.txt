@@ -4,7 +4,6 @@ _curses.window.get_wch
 _posixsubprocess.fork_exec
 curses.unget_wch
 curses.window.get_wch
-xxlimited.Xxo.x_exports
 
 (dbm.gnu)?
 (locale.bind_textdomain_codeset)?
