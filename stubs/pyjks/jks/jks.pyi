@@ -5,8 +5,8 @@ from typing_extensions import Final, Literal, Self, TypeAlias
 
 from .util import AbstractKeystore, AbstractKeystoreEntry
 
-__version_info__: tuple[int, int, int] | tuple[int, int, int, str]
-__version__: str
+__version_info__: Final[tuple[int, int, int] | tuple[int, int, int, str]]
+__version__: Final[str]
 MAGIC_NUMBER_JKS: Final[bytes]
 MAGIC_NUMBER_JCEKS: Final[bytes]
 SIGNATURE_WHITENING: Final[bytes]

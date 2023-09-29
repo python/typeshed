@@ -7,11 +7,11 @@ from typing_extensions import Final, Literal, Self, TypeAlias
 from .bks import BksKeyEntry
 from .jks import PrivateKeyEntry
 
-b8: Struct
-b4: Struct
-b2: Struct
-b1: Struct
-py23basestring: tuple[type[str], type[str]]
+b8: Final[Struct]
+b4: Final[Struct]
+b2: Final[Struct]
+b1: Final[Struct]
+py23basestring: Final[tuple[type[str], type[str]]]
 RSA_ENCRYPTION_OID: Final[tuple[int, ...]]
 DSA_OID: Final[tuple[int, ...]]
 DSA_WITH_SHA1_OID: Final[tuple[int, ...]]
