@@ -13,7 +13,6 @@ from PyInstaller.building.build_main import Analysis
 from PyInstaller.building.datastruct import Target, _TOCTuple
 from PyInstaller.building.splash import Splash
 from PyInstaller.utils.win32.versioninfo import VSVersionInfo
-from PyInstaller.utils.win32.winmanifest import Manifest
 
 if sys.platform == "darwin":
     _TargetArch: TypeAlias = Literal["x86_64", "arm64", "universal2"]
@@ -22,9 +21,9 @@ if sys.platform == "darwin":
     _CodesignIdentityParam: TypeAlias = str | None
 else:
     _TargetArch: TypeAlias = None
-    _SuportedTargetArchParam: TypeAlias = object
+    _SuportedTargetArchParam: TypeAlias = Unused
     _CodesignIdentity: TypeAlias = None
-    _CodesignIdentityParam: TypeAlias = object
+    _CodesignIdentityParam: TypeAlias = Unused
 
 if sys.platform == "win32":
     _Icon: TypeAlias = list[StrPath] | str
@@ -34,18 +33,18 @@ elif sys.platform == "darwin":
     _IconParam: TypeAlias = StrPath | list[StrPath] | None
 else:
     _Icon: TypeAlias = None
-    _IconParam: TypeAlias = object
+    _IconParam: TypeAlias = Unused
 
 if sys.platform == "win32":
     _VersionSrc: TypeAlias = VSVersionInfo | None
     _VersionParam: TypeAlias = VSVersionInfo | StrOrBytesPath | None
-    _Manifest: TypeAlias = Manifest
-    _ManifestParam: TypeAlias = Manifest | None
+    _Manifest: TypeAlias = bytes
+    _ManifestParam: TypeAlias = str | None
 else:
     _VersionSrc: TypeAlias = None
-    _VersionParam: TypeAlias = object
+    _VersionParam: TypeAlias = Unused
     _Manifest: TypeAlias = None
-    _ManifestParam: TypeAlias = object
+    _ManifestParam: TypeAlias = Unused
 
 class PYZ(Target):
     name: str
