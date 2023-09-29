@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 from .jks import TrustedCertEntry
-from .util import *
+from .util import AbstractKeystore, AbstractKeystoreEntry
 
 ENTRY_TYPE_CERTIFICATE: Literal[1]
 ENTRY_TYPE_KEY: Literal[2]
@@ -60,10 +60,10 @@ class BksKeyStore(AbstractKeystore):
     @property
     def plain_keys(self): ...
     @classmethod
-    def loads(cls, data, store_password, try_decrypt_keys: bool = True): ...
+    def loads(cls, data, store_password, try_decrypt_keys: bool = True) -> Self: ...
 
 class UberKeyStore(BksKeyStore):
     @classmethod
-    def loads(cls, data, store_password, try_decrypt_keys: bool = True): ...
+    def loads(cls, data, store_password, try_decrypt_keys: bool = True) -> Self: ...
     version: Incomplete
     def __init__(self, store_type, entries, version: int = 1) -> None: ...

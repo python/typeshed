@@ -4,7 +4,7 @@ from .jks import __version__, __version_info__
 from .util import *
 
 # pyjks exports lots of junk such as jks.jks.SIGNATURE_WHITENING, jks.util.b8 etc.
-# We don't mark those as re-exported as those don't seem like intended part of the public API
+# We don't mark those as re-exported as those don't seem like intended part of the public API.
 __all__ = [
     # jks.jks
     "__version__",

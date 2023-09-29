@@ -3,7 +3,7 @@ from collections.abc import Iterable
 from typing import Any, NoReturn, overload
 from typing_extensions import Literal, Self, TypeAlias
 
-from .util import *
+from .util import AbstractKeystore, AbstractKeystoreEntry
 
 __version_info__: tuple[int, int, int] | tuple[int, int, int, str]
 __version__: str
@@ -16,16 +16,25 @@ _CertType: TypeAlias = Literal["X.509"]
 _KeyFormat: TypeAlias = Literal["pkcs8", "rsa_raw"]
 
 class TrustedCertEntry(AbstractKeystoreEntry):
+    store_type: _JksType | None
     type: _CertType | None
     cert: bytes
     def __init__(
-        self, *, type: str = ..., cert: bytes = ..., store_type: str = ..., alias: str = ..., timestamp: int = ..., **kwargs: Any
+        self,
+        *,
+        type: str = ...,
+        cert: bytes = ...,
+        store_type: _JksType = ...,
+        alias: str = ...,
+        timestamp: int = ...,
+        **kwargs: Any,
     ) -> None: ...
     @classmethod
     def new(cls, alias: str, cert: bytes) -> Self: ...  # type:ignore[override]
     def is_decrypted(self) -> Literal[True]: ...
 
 class PrivateKeyEntry(AbstractKeystoreEntry):
+    store_type: _JksType | None
     cert_chain: list[tuple[_CertType, bytes]]
     # Properties provided by __getattr__ after decryption
     @property
@@ -42,7 +51,7 @@ class PrivateKeyEntry(AbstractKeystoreEntry):
         pkey: bytes = ...,
         pkey_pkcs8: bytes = ...,
         algorithm_oid: tuple[int, ...] = ...,
-        store_type: str = ...,
+        store_type: _JksType = ...,
         alias: str = ...,
         timestamp: int = ...,
         **kwargs: Any,
@@ -53,6 +62,7 @@ class PrivateKeyEntry(AbstractKeystoreEntry):
     ) -> Self: ...
 
 class SecretKeyEntry(AbstractKeystoreEntry):
+    store_type: _JksType | None
     # Properties provided by __getattr__
     @property
     def algorithm(self) -> str: ...
@@ -67,7 +77,7 @@ class SecretKeyEntry(AbstractKeystoreEntry):
         algorithm: str = ...,
         key: bytes = ...,
         key_size: int = ...,
-        store_type: str = ...,
+        store_type: _JksType = ...,
         alias: str = ...,
         timestamp: int = ...,
         **kwargs: Any,
@@ -81,6 +91,7 @@ class SecretKeyEntry(AbstractKeystoreEntry):
     def encrypt(self, key_password: str) -> NoReturn: ...
 
 class KeyStore(AbstractKeystore):
+    store_type: _JksType
     @classmethod
     @overload
     def new(cls, store_type: Literal["jks"], store_entries: Iterable[TrustedCertEntry | PrivateKeyEntry]) -> Self: ...
