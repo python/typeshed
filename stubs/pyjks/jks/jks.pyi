@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
-from typing import Any, NoReturn, overload
+from typing import Any, NoReturn
 from typing_extensions import Literal, Self, TypeAlias
 
 from .util import AbstractKeystore, AbstractKeystoreEntry
@@ -94,10 +94,6 @@ class KeyStore(AbstractKeystore):
     entries: dict[str, TrustedCertEntry | PrivateKeyEntry | SecretKeyEntry]
     store_type: _JksType
     @classmethod
-    @overload
-    def new(cls, store_type: Literal["jks"], store_entries: Iterable[TrustedCertEntry | PrivateKeyEntry]) -> Self: ...
-    @classmethod
-    @overload
     def new(cls, store_type: _JksType, store_entries: Iterable[TrustedCertEntry | PrivateKeyEntry | SecretKeyEntry]) -> Self: ...
     @classmethod
     def loads(cls, data: bytes, store_password: str | None, try_decrypt_keys: bool = True) -> Self: ...
