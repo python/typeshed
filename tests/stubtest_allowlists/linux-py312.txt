@@ -1,7 +1,5 @@
 _?curses.color_pair
 _posixsubprocess.fork_exec
-signal.sigtimedwait
-signal.sigwaitinfo
 
 # Exists on some Linux builds, and is documented,
 # but is unavailable in Github Actions on Linux with Python 3.12
