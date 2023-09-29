@@ -1,5 +1,1 @@
 _?curses.color_pair
-
-# ==========
-# Allowlist entries that cannot or should not be fixed
-# ==========

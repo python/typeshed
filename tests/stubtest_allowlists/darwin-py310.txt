@@ -7,7 +7,3 @@ _?curses.color_pair
 (locale.dgettext)?
 (locale.gettext)?
 (locale.textdomain)?
-
-# ==========
-# Allowlist entries that cannot or should not be fixed
-# ==========
