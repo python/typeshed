@@ -1,4 +1,4 @@
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 from pathlib import Path
 from struct import Struct
 from typing import Any
@@ -38,7 +38,7 @@ class UnsupportedKeyFormatException(KeystoreException): ...
 
 class AbstractKeystore:
     store_type: _KeystoreType
-    entries: dict[str, AbstractKeystoreEntry]
+    entries: Mapping[str, AbstractKeystoreEntry]
     def __init__(self, store_type: _KeystoreType, entries: dict[str, AbstractKeystoreEntry]) -> None: ...
     @classmethod
     def load(cls, filename: str | bytes | Path, store_password: str | None, try_decrypt_keys: bool = True) -> Self: ...

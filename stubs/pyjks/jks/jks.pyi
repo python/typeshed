@@ -91,6 +91,7 @@ class SecretKeyEntry(AbstractKeystoreEntry):
     def encrypt(self, key_password: str) -> NoReturn: ...
 
 class KeyStore(AbstractKeystore):
+    entries: dict[str, TrustedCertEntry | PrivateKeyEntry | SecretKeyEntry]
     store_type: _JksType
     @classmethod
     @overload
