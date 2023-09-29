@@ -5,12 +5,18 @@ jks.SecretKeyEntry.algorithm
 jks.SecretKeyEntry.key
 jks.SecretKeyEntry.key_size
 jks.__all__
-jks.bks.print_function
+# Attributes implemented by __getattr__
 jks.jks.PrivateKeyEntry.algorithm_oid
 jks.jks.PrivateKeyEntry.pkey
 jks.jks.PrivateKeyEntry.pkey_pkcs8
 jks.jks.SecretKeyEntry.algorithm
 jks.jks.SecretKeyEntry.key
 jks.jks.SecretKeyEntry.key_size
+jks.PrivateKeyEntry.algorithm_oid
+jks.PrivateKeyEntry.pkey
+jks.PrivateKeyEntry.pkey_pkcs8
+jks.SecretKeyEntry.algorithm
+jks.SecretKeyEntry.key
+jks.SecretKeyEntry.key_size
 # Unintended reexports due to `from .utils import *` imports at runtime
 jks\..*print_function
