@@ -60,6 +60,7 @@ class PKG(Target):
     xformdict: ClassVar[dict[str, str]]
     toc: list[_TOCTuple]
     cdict: Mapping[str, bool]
+    python_lib_name: str
     name: str
     exclude_binaries: bool
     strip_binaries: bool
@@ -71,6 +72,7 @@ class PKG(Target):
     def __init__(
         self,
         toc: Iterable[_TOCTuple],
+        python_lib_name: str,
         name: str | None = None,
         cdict: Mapping[str, bool] | None = None,
         exclude_binaries: bool = False,
