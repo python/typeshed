@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing_extensions import Final, Literal, Self
+from typing_extensions import Final, Self
 
 from .jks import TrustedCertEntry
 from .util import AbstractKeystore, AbstractKeystoreEntry
