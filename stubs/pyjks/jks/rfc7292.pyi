@@ -5,9 +5,9 @@ from typing_extensions import Final, Literal, TypeAlias
 from pyasn1.type import univ
 
 PBE_WITH_SHA1_AND_TRIPLE_DES_CBC_OID: Final[tuple[int, ...]]
-PURPOSE_KEY_MATERIAL: Final[Literal[1]]
-PURPOSE_IV_MATERIAL: Final[Literal[2]]
-PURPOSE_MAC_MATERIAL: Final[Literal[3]]
+PURPOSE_KEY_MATERIAL: Final = 1
+PURPOSE_IV_MATERIAL: Final = 2
+PURPOSE_MAC_MATERIAL: Final = 3
 
 _Purpose: TypeAlias = Literal[1, 2, 3]
 

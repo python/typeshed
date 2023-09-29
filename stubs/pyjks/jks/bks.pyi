@@ -4,13 +4,13 @@ from typing_extensions import Final, Literal, Self
 from .jks import TrustedCertEntry
 from .util import AbstractKeystore, AbstractKeystoreEntry
 
-ENTRY_TYPE_CERTIFICATE: Final[Literal[1]]
-ENTRY_TYPE_KEY: Final[Literal[2]]
-ENTRY_TYPE_SECRET: Final[Literal[3]]
-ENTRY_TYPE_SEALED: Final[Literal[4]]
-KEY_TYPE_PRIVATE: Final[Literal[0]]
-KEY_TYPE_PUBLIC: Final[Literal[1]]
-KEY_TYPE_SECRET: Final[Literal[2]]
+ENTRY_TYPE_CERTIFICATE: Final = 1
+ENTRY_TYPE_KEY: Final = 2
+ENTRY_TYPE_SECRET: Final = 3
+ENTRY_TYPE_SEALED: Final = 4
+KEY_TYPE_PRIVATE: Final = 0
+KEY_TYPE_PUBLIC: Final = 1
+KEY_TYPE_SECRET: Final = 2
 
 class AbstractBksEntry(AbstractKeystoreEntry):
     cert_chain: Incomplete
