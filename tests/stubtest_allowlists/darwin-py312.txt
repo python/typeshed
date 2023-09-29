@@ -6,9 +6,3 @@ curses.unget_wch
 curses.window.get_wch
 
 (dbm.gnu)?
-(locale.bind_textdomain_codeset)?
-(locale.bindtextdomain)?
-(locale.dcgettext)?
-(locale.dgettext)?
-(locale.gettext)?
-(locale.textdomain)?
