@@ -1,10 +1,10 @@
 from _typeshed import Incomplete
 from hashlib import _Hash
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Final, Literal, TypeAlias
 
 from pyasn1.type import univ
 
-PBE_WITH_SHA1_AND_TRIPLE_DES_CBC_OID: tuple[int, ...]
+PBE_WITH_SHA1_AND_TRIPLE_DES_CBC_OID: Final[tuple[int, ...]]
 PURPOSE_KEY_MATERIAL: Literal[1]
 PURPOSE_IV_MATERIAL: Literal[2]
 PURPOSE_MAC_MATERIAL: Literal[3]

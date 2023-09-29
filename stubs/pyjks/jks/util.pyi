@@ -2,7 +2,7 @@ from collections.abc import Iterable, Mapping
 from pathlib import Path
 from struct import Struct
 from typing import Any
-from typing_extensions import Literal, Self, TypeAlias
+from typing_extensions import Final, Literal, Self, TypeAlias
 
 from .bks import BksKeyEntry
 from .jks import PrivateKeyEntry
@@ -12,9 +12,9 @@ b4: Struct
 b2: Struct
 b1: Struct
 py23basestring: tuple[type[str], type[str]]
-RSA_ENCRYPTION_OID: tuple[int, ...]
-DSA_OID: tuple[int, ...]
-DSA_WITH_SHA1_OID: tuple[int, ...]
+RSA_ENCRYPTION_OID: Final[tuple[int, ...]]
+DSA_OID: Final[tuple[int, ...]]
+DSA_WITH_SHA1_OID: Final[tuple[int, ...]]
 
 _KeystoreType: TypeAlias = Literal["jks", "jceks", "bks", "uber"]
 _PemType: TypeAlias = Literal["CERTIFICATE", "PUBLIC KEY", "PRIVATE KEY", "RSA PRIVATE KEY"]

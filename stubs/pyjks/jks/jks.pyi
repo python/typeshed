@@ -1,15 +1,15 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import Any, NoReturn
-from typing_extensions import Literal, Self, TypeAlias
+from typing_extensions import Final, Literal, Self, TypeAlias
 
 from .util import AbstractKeystore, AbstractKeystoreEntry
 
 __version_info__: tuple[int, int, int] | tuple[int, int, int, str]
 __version__: str
-MAGIC_NUMBER_JKS: bytes
-MAGIC_NUMBER_JCEKS: bytes
-SIGNATURE_WHITENING: bytes
+MAGIC_NUMBER_JKS: Final[bytes]
+MAGIC_NUMBER_JCEKS: Final[bytes]
+SIGNATURE_WHITENING: Final[bytes]
 
 _JksType: TypeAlias = Literal["jks", "jceks"]
 _CertType: TypeAlias = Literal["X.509"]
