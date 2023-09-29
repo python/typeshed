@@ -22,7 +22,7 @@ class TrustedCertEntry(AbstractKeystoreEntry):
     def __init__(
         self,
         *,
-        type: str = ...,
+        type: _CertType = ...,
         cert: bytes = ...,
         store_type: _JksType = ...,
         alias: str = ...,
