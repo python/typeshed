@@ -2,7 +2,6 @@ _?curses.color_pair
 _posixsubprocess.fork_exec
 signal.sigtimedwait
 signal.sigwaitinfo
-xxlimited.Xxo.x_exports
 
 # Exists on some Linux builds, and is documented,
 # but is unavailable in Github Actions on Linux with Python 3.12

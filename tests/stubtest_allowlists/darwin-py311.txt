@@ -1,5 +1,4 @@
 _?curses.color_pair
-xxlimited.Xxo.x_exports
 
 (dbm.gnu)?
 (locale.bind_textdomain_codeset)?
