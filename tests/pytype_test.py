@@ -20,11 +20,14 @@ import inspect
 import os
 import sys
 import traceback
+from collections import defaultdict
 from collections.abc import Iterable, Sequence
+from pathlib import Path
 
 from packaging.requirements import Requirement
 
-from parse_metadata import read_dependencies
+from parse_metadata import read_dependencies, read_metadata
+from utils import PYTHON_VERSION, chdir, colored
 
 if sys.platform == "win32":
     print("pytype does not support Windows.", file=sys.stderr)
@@ -45,12 +48,16 @@ _LOADERS = {}
 def main() -> None:
     args = create_parser().parse_args()
     typeshed_location = args.typeshed_location or os.getcwd()
-    subdir_paths = [os.path.join(typeshed_location, d) for d in TYPESHED_SUBDIRS]
-    check_subdirs_discoverable(subdir_paths)
     old_typeshed_home = os.environ.get(TYPESHED_HOME)
     os.environ[TYPESHED_HOME] = typeshed_location
-    files_to_test = determine_files_to_test(paths=args.files or subdir_paths)
-    run_all_tests(files_to_test=files_to_test, print_stderr=args.print_stderr, dry_run=args.dry_run)
+    print("Testing files with pytype...")
+    with chdir(typeshed_location):
+        check_subdirs_discoverable(TYPESHED_SUBDIRS)
+        files_to_test = determine_files_to_test(paths=args.files or TYPESHED_SUBDIRS)
+        if not files_to_test:
+            print(colored("Nothing to do; exit 1.", "red"))
+            sys.exit(1)
+        run_all_tests(files_to_test=files_to_test, print_stderr=args.print_stderr, dry_run=args.dry_run)
     if old_typeshed_home is None:
         del os.environ[TYPESHED_HOME]
     else:
@@ -122,11 +129,38 @@ def check_subdirs_discoverable(subdir_paths: list[str]) -> None:
             raise SystemExit(f"Cannot find typeshed subdir at {p} (specify parent dir via --typeshed-location)")
 
 
+def classify_files(paths: Sequence[str]) -> tuple[list[str], defaultdict[str, list[str]]]:
+    """Classify files into stdlib and stubs by distribution."""
+    stdlib: list[str] = []
+    stubs: defaultdict[str, list[str]] = defaultdict(list)
+    stubs_location = Path("stubs").resolve()
+    for path_s in paths:
+        path = Path(path_s).resolve()
+        if not path.is_relative_to(stubs_location):
+            stdlib.append(path_s)
+        elif path.samefile(stubs_location):
+            for subdir in path.iterdir():
+                stubs[subdir.name].append(str(subdir))
+        else:
+            distribution = path.relative_to(stubs_location).parts[0]
+            stubs[distribution].append(str(path))
+    return stdlib, stubs
+
+
 def determine_files_to_test(*, paths: Sequence[str]) -> list[str]:
     """Determine all files to test, checking if it's in the exclude list and which Python versions to use.
 
     Returns a list of pairs of the file path and Python version as an int."""
-    filenames = find_stubs_in_paths(paths)
+    stdlib, stubs = classify_files(paths)
+    paths_to_test = list(stdlib)
+    for pkg, pkg_paths in stubs.items():
+        requires_python = read_metadata(pkg).requires_python
+        if not requires_python.contains(PYTHON_VERSION):
+            msg = f"skipping {pkg!r} (requires Python {requires_python}; test is being run using Python {PYTHON_VERSION})"
+            print(colored(msg, "yellow"))
+            continue
+        paths_to_test.extend(pkg_paths)
+    filenames = find_stubs_in_paths(paths_to_test)
     ts = typeshed.Typeshed()
     skipped = set(ts.read_blacklist())
     files = []
@@ -204,33 +238,38 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
 
 
 def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: bool) -> None:
-    bad = []
     errors = 0
     total_tests = len(files_to_test)
     missing_modules = get_missing_modules(files_to_test)
-    print("Testing files with pytype...")
-    for i, f in enumerate(files_to_test):
-        python_version = "{0.major}.{0.minor}".format(sys.version_info)
+    for runs, f in enumerate(files_to_test, start=1):
         if dry_run:
             stderr = None
         else:
-            stderr = run_pytype(filename=f, python_version=python_version, missing_modules=missing_modules)
+            stderr = run_pytype(filename=f, python_version=PYTHON_VERSION, missing_modules=missing_modules)
         if stderr:
-            if print_stderr:
-                print(f"\n{stderr}")
             errors += 1
-            stacktrace_final_line = stderr.rstrip().rsplit("\n", 1)[-1]
-            bad.append((_get_relative(f), python_version, stacktrace_final_line))
+            if print_stderr:
+                print(f"{stderr}\n")
+            else:
+                stacktrace_final_line = stderr.rstrip().rsplit("\n", 1)[-1]
+                print(f"{_get_relative(f)} ({PYTHON_VERSION}): {stacktrace_final_line}\n")
 
-        runs = i + 1
         if runs % 25 == 0:
             print(f"  {runs:3d}/{total_tests:d} with {errors:3d} errors")
 
-    print(f"Ran pytype with {total_tests:d} pyis, got {errors:d} errors.")
-    for f, v, err in bad:
-        print(f"\n{f} ({v}): {err}")
+    file_plural = "file" if total_tests == 1 else "files"
+    error_plural = "error" if errors == 1 else "errors"
+    msg = f"Ran pytype with {total_tests:d} pyi {file_plural}, got {errors:d} {error_plural}."
     if errors:
-        raise SystemExit("\nRun again with --print-stderr to get the full stacktrace.")
+        color = "red"
+        code = 1
+        if not print_stderr:
+            msg += "\nRun again with --print-stderr to get the full stacktrace."
+    else:
+        color = "green"
+        code = 0
+    print(colored(msg, color))
+    sys.exit(code)
 
 
 if __name__ == "__main__":

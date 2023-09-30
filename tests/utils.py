@@ -7,6 +7,8 @@ import re
 import subprocess
 import sys
 import venv
+from collections.abc import Iterator
+from contextlib import contextmanager
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Final, NamedTuple
@@ -138,3 +140,16 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
     if path.is_dir():
         normalized_path += "/"
     return spec.match_file(normalized_path)
+
+
+# ====================================================================
+# Similar to `contextlib.chdir` on Python 3.11+
+# ====================================================================
+@contextmanager
+def chdir(path: str | os.PathLike[str]) -> Iterator[None]:
+    old_cwd = os.getcwd()
+    try:
+        os.chdir(path)
+        yield
+    finally:
+        os.chdir(old_cwd)
