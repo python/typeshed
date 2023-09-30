@@ -133,17 +133,20 @@ def classify_files(paths: Sequence[str]) -> tuple[list[str], defaultdict[str, li
     """Classify files into stdlib and stubs by distribution."""
     stdlib: list[str] = []
     stubs: defaultdict[str, list[str]] = defaultdict(list)
-    stubs_location = Path("stubs").resolve()
+    stubs_path = Path("stubs")
+    stubs_absolute_path = Path(stubs_path).resolve()
     for path_s in paths:
         path = Path(path_s).resolve()
-        if not path.is_relative_to(stubs_location):
-            stdlib.append(path_s)
-        elif path.samefile(stubs_location):
-            for subdir in path.iterdir():
+        if path.samefile(stubs_absolute_path):
+            # All stubs, classify by distribution for version checking later.
+            for subdir in stubs_path.iterdir():
                 stubs[subdir.name].append(str(subdir))
+        elif path.is_relative_to(stubs_absolute_path):
+            # A single stub directory or file.
+            distribution = path.relative_to(stubs_absolute_path).parts[0]
+            stubs[distribution].append(path_s)
         else:
-            distribution = path.relative_to(stubs_location).parts[0]
-            stubs[distribution].append(str(path))
+            stdlib.append(path_s)
     return stdlib, stubs
 
 
