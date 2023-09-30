@@ -45,6 +45,13 @@ jobs:
           cache-dependency-path: requirements-tests.txt
           allow-prereleases: true
           check-latest: true
+      - name: Temp
+        if: matrix.os == 'macos-11'
+        run: |
+          gdbmtool --version || true
+          brew --version || true
+          brew list || true
+          gettext --version || true
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
       - name: Run stubtest
