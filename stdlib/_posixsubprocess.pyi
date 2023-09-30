@@ -14,7 +14,7 @@ if sys.platform != "win32":
         __env: Sequence[bytes] | None,
         __p2cread: int,
         __p2cwrite: int,
-        __c2pred: int,
+        __c2pread: int,
         __c2pwrite: int,
         __errread: int,
         __errwrite: int,
