@@ -1,6 +1,5 @@
 _?curses.color_pair
 
-(dbm.gnu)?
 (locale.bind_textdomain_codeset)?
 (locale.bindtextdomain)?
 (locale.dcgettext)?
