@@ -46,7 +46,7 @@ jobs:
           allow-prereleases: true
           check-latest: true
       - name: Temp
-        if: matrix.os == 'macos-11'
+        if: matrix.os == 'macos-latest'
         run: |
           gdbmtool --version || true
           brew --version || true
