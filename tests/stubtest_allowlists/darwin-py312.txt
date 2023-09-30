@@ -1,5 +1,4 @@
 _?curses.color_pair
-_posixsubprocess.fork_exec
 
 (dbm.gnu)?
 (locale.bind_textdomain_codeset)?
