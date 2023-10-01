@@ -10,10 +10,8 @@ NSIG: int
 
 class Signals(IntEnum):
     SIGABRT: int
-    SIGEMT: int
     SIGFPE: int
     SIGILL: int
-    SIGINFO: int
     SIGINT: int
     SIGSEGV: int
     SIGTERM: int
@@ -23,6 +21,8 @@ class Signals(IntEnum):
         CTRL_C_EVENT: int
         CTRL_BREAK_EVENT: int
     else:
+        SIGEMT: int
+        SIGINFO: int
         SIGALRM: int
         SIGBUS: int
         SIGCHLD: int
@@ -77,10 +77,8 @@ else:
     def signal(__signalnum: _SIGNUM, __handler: _HANDLER) -> _HANDLER: ...
 
 SIGABRT: Signals
-SIGEMT: Signals
 SIGFPE: Signals
 SIGILL: Signals
-SIGINFO: Signals
 SIGINT: Signals
 SIGSEGV: Signals
 SIGTERM: Signals
@@ -90,6 +88,8 @@ if sys.platform == "win32":
     CTRL_C_EVENT: Signals
     CTRL_BREAK_EVENT: Signals
 else:
+    SIGINFO: Signals
+    SIGEMT: Signals
     SIGALRM: Signals
     SIGBUS: Signals
     SIGCHLD: Signals
