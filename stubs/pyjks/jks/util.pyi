@@ -1,5 +1,4 @@
 from collections.abc import Iterable, Mapping
-from pathlib import Path
 from struct import Struct
 from typing import Any
 from typing_extensions import Final, Literal, Self, TypeAlias
