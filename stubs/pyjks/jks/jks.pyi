@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import Iterable
 from typing import Any, NoReturn
 from typing_extensions import Final, Literal, Self, TypeAlias
@@ -98,7 +98,9 @@ class KeyStore(AbstractKeystore):
     @classmethod
     def loads(cls, data: bytes, store_password: str | None, try_decrypt_keys: bool = True) -> Self: ...
     def saves(self, store_password: str) -> bytes: ...
-    def __init__(self, store_type: _JksType, entries: dict[str, TrustedCertEntry | PrivateKeyEntry | SecretKeyEntry]) -> None: ...
+    def __init__(
+        self, store_type: _JksType, entries: SupportsKeysAndGetItem[str, TrustedCertEntry | PrivateKeyEntry | SecretKeyEntry]
+    ) -> None: ...
     @property
     def certs(self) -> dict[str, TrustedCertEntry]: ...
     @property

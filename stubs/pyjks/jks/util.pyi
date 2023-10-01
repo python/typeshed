@@ -4,6 +4,7 @@ from struct import Struct
 from typing import Any
 from typing_extensions import Final, Literal, Self, TypeAlias
 
+from _typeshed import FileDescriptorOrPath
 from .bks import BksKeyEntry
 from .jks import PrivateKeyEntry
 
