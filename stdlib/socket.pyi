@@ -131,6 +131,8 @@ if sys.platform != "darwin" or sys.version_info >= (3, 9):
 
 if sys.platform != "darwin":
     from _socket import SO_EXCLUSIVEADDRUSE as SO_EXCLUSIVEADDRUSE
+else:
+    from _socket import PF_SYSTEM as PF_SYSTEM, SYSPROTO_CONTROL as SYSPROTO_CONTROL
 
 if sys.version_info >= (3, 10):
     from _socket import IP_RECVTOS as IP_RECVTOS
