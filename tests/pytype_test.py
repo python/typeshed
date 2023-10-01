@@ -134,7 +134,7 @@ def classify_files(paths: Sequence[str]) -> tuple[list[str], defaultdict[str, li
     stdlib: list[str] = []
     stubs: defaultdict[str, list[str]] = defaultdict(list)
     stubs_path = Path("stubs")
-    stubs_absolute_path = Path(stubs_path).resolve()
+    stubs_absolute_path = stubs_path.resolve()
     for path_s in paths:
         path = Path(path_s).resolve()
         if path.samefile(stubs_absolute_path):
