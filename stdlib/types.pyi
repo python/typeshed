@@ -1,5 +1,4 @@
 import sys
-from _typeshed import SupportsKeysAndGetItem
 from collections.abc import (
     AsyncGenerator,
     Awaitable,
@@ -17,6 +16,8 @@ from importlib.machinery import ModuleSpec
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
 from typing import Any, ClassVar, Generic, Mapping, Protocol, TypeVar, overload  # noqa: Y022
+
+from _typeshed import SupportsKeysAndGetItem
 from typing_extensions import Literal, ParamSpec, Self, TypeVarTuple, final
 
 __all__ = [
@@ -359,6 +360,12 @@ _ReturnT_co = TypeVar("_ReturnT_co", covariant=True)
 @final
 class GeneratorType(Generator[_YieldT_co, _SendT_contra, _ReturnT_co]):
     @property
+    def gi_code(self) -> CodeType: ...
+    @property
+    def gi_frame(self) -> FrameType: ...
+    @property
+    def gi_running(self) -> bool: ...
+    @property
     def gi_yieldfrom(self) -> GeneratorType[_YieldT_co, _SendT_contra, Any] | None: ...
     if sys.version_info >= (3, 11):
         @property
@@ -379,6 +386,12 @@ class GeneratorType(Generator[_YieldT_co, _SendT_contra, _ReturnT_co]):
 class AsyncGeneratorType(AsyncGenerator[_YieldT_co, _SendT_contra]):
     @property
     def ag_await(self) -> Awaitable[Any] | None: ...
+    @property
+    def ag_code(self) -> CodeType: ...
+    @property
+    def ag_frame(self) -> FrameType: ...
+    @property
+    def ag_running(self) -> bool: ...
     __name__: str
     __qualname__: str
     if sys.version_info >= (3, 12):
@@ -402,6 +415,14 @@ class AsyncGeneratorType(AsyncGenerator[_YieldT_co, _SendT_contra]):
 class CoroutineType(Coroutine[_YieldT_co, _SendT_contra, _ReturnT_co]):
     __name__: str
     __qualname__: str
+    @property
+    def cr_await(self) -> Any | None: ...
+    @property
+    def cr_code(self) -> CodeType: ...
+    @property
+    def cr_frame(self) -> FrameType: ...
+    @property
+    def cr_running(self) -> bool: ...
     @property
     def cr_origin(self) -> tuple[tuple[str, int, str], ...] | None: ...
     if sys.version_info >= (3, 11):
