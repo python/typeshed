@@ -30,7 +30,7 @@ class TrustedCertEntry(AbstractKeystoreEntry):
         **kwargs: Any,
     ) -> None: ...
     @classmethod
-    def new(cls, alias: str, cert: bytes) -> Self: ...  # type:ignore[override]
+    def new(cls, alias: str, cert: bytes) -> Self: ...  # type: ignore[override]
     def is_decrypted(self) -> Literal[True]: ...
 
 class PrivateKeyEntry(AbstractKeystoreEntry):
@@ -57,7 +57,7 @@ class PrivateKeyEntry(AbstractKeystoreEntry):
         **kwargs: Any,
     ) -> None: ...
     @classmethod
-    def new(  # type:ignore[override]
+    def new(  # type: ignore[override]
         cls, alias: str, certs: Iterable[bytes], key: bytes, key_format: _KeyFormat = "pkcs8"
     ) -> Self: ...
 
@@ -84,14 +84,14 @@ class SecretKeyEntry(AbstractKeystoreEntry):
     ) -> None: ...
     # Not implemented by pyjks
     @classmethod
-    def new(  # type:ignore[override]
+    def new(  # type: ignore[override]
         cls, alias: str, sealed_obj: bool, algorithm: str, key: bytes, key_size: int
     ) -> NoReturn: ...
     # Not implemented by pyjks
     def encrypt(self, key_password: str) -> NoReturn: ...
 
 class KeyStore(AbstractKeystore):
-    entries: dict[str, TrustedCertEntry | PrivateKeyEntry | SecretKeyEntry]
+    entries: dict[str, TrustedCertEntry | PrivateKeyEntry | SecretKeyEntry]  # type: ignore[assignment]
     store_type: _JksType
     @classmethod
     def new(cls, store_type: _JksType, store_entries: Iterable[TrustedCertEntry | PrivateKeyEntry | SecretKeyEntry]) -> Self: ...
