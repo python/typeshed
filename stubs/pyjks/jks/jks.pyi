@@ -47,7 +47,7 @@ class PrivateKeyEntry(AbstractKeystoreEntry):
         self,
         *,
         cert_chain: list[tuple[_CertType, bytes]] = ...,
-        encrypted: bool = ...,
+        encrypted: bytes | None = ...,
         pkey: bytes = ...,
         pkey_pkcs8: bytes = ...,
         algorithm_oid: tuple[int, ...] = ...,
