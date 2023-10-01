@@ -25,6 +25,7 @@ class AbstractBksEntry(AbstractKeystoreEntry):
     cert_chain: list[tuple[_CertType, bytes]]
     def __init__(
         self,
+        *,
         cert_chain: list[tuple[_CertType, bytes]] = ...,
         encrypted: bytes | None = ...,
         store_type: _BksType = ...,
@@ -57,6 +58,7 @@ class BksKeyEntry(AbstractBksEntry):
         format: _EntryFormat,
         algorithm: str,
         encoded: bytes,
+        *,
         cert_chain: list[tuple[_CertType, bytes]] = ...,
         encrypted: bytes | None = ...,
         store_type: _BksType = ...,
