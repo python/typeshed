@@ -19,6 +19,7 @@ import importlib.metadata
 import inspect
 import os
 import sys
+import textwrap
 import traceback
 from collections import defaultdict
 from collections.abc import Iterable, Sequence
@@ -50,7 +51,7 @@ def main() -> None:
     typeshed_location = args.typeshed_location or os.getcwd()
     old_typeshed_home = os.environ.get(TYPESHED_HOME)
     os.environ[TYPESHED_HOME] = typeshed_location
-    print("Testing files with pytype...")
+    print(f"Testing files with pytype on Python {PYTHON_VERSION}...")
     with chdir(typeshed_location):
         check_subdirs_discoverable(TYPESHED_SUBDIRS)
         files_to_test = determine_files_to_test(paths=args.files or TYPESHED_SUBDIRS)
@@ -241,6 +242,7 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
 
 
 def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: bool) -> None:
+    bad = []
     errors = 0
     total_tests = len(files_to_test)
     missing_modules = get_missing_modules(files_to_test)
@@ -251,18 +253,23 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
             stderr = run_pytype(filename=f, python_version=PYTHON_VERSION, missing_modules=missing_modules)
         if stderr:
             errors += 1
+            test_file = f"{_get_relative(f)}:"
             if print_stderr:
-                print(f"{stderr}\n")
-            else:
-                stacktrace_final_line = stderr.rstrip().rsplit("\n", 1)[-1]
-                print(f"{_get_relative(f)} ({PYTHON_VERSION}): {stacktrace_final_line}\n")
+                print(colored(test_file, "red"))
+                print(f"{textwrap.indent(stderr, '  ')}")
+            stacktrace_final_line = stderr.rstrip().rsplit("\n", 1)[-1]
+            bad.append((test_file, stacktrace_final_line))
 
         if runs % 25 == 0:
-            print(f"  {runs:3d}/{total_tests:d} with {errors:3d} errors")
+            color = "red" if errors else "green"
+            print(colored(f"  {runs:4d}/{total_tests:d} with {errors:4d} errors", color))
+
+    for test, err in bad:
+        print(colored(test, "red"), err)
 
     file_plural = "file" if total_tests == 1 else "files"
     error_plural = "error" if errors == 1 else "errors"
-    msg = f"Ran pytype with {total_tests:d} pyi {file_plural}, got {errors:d} {error_plural}."
+    msg = f"\nRan pytype with {total_tests:d} pyi {file_plural}, got {errors:d} {error_plural}."
     if errors:
         color = "red"
         code = 1
