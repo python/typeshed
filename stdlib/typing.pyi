@@ -405,6 +405,7 @@ _YieldT_co = TypeVar("_YieldT_co", covariant=True)
 _SendT_contra = TypeVar("_SendT_contra", contravariant=True)
 _ReturnT_co = TypeVar("_ReturnT_co", covariant=True)
 
+@runtime_checkable
 class Generator(Iterator[_YieldT_co], Protocol[_YieldT_co, _SendT_contra, _ReturnT_co]):
     @abstractmethod
     def send(self, __value: _SendT_contra) -> _YieldT_co: ...
@@ -423,6 +424,7 @@ class Awaitable(Protocol[_T_co]):
     @abstractmethod
     def __await__(self) -> Generator[Any, None, _T_co]: ...
 
+@runtime_checkable
 class Coroutine(Awaitable[_ReturnT_co], Protocol[_YieldT_co, _SendT_contra, _ReturnT_co]):
     __name__: str
     __qualname__: str
@@ -459,6 +461,7 @@ class AsyncIterator(AsyncIterable[_T_co], Protocol[_T_co]):
     def __anext__(self) -> Awaitable[_T_co]: ...
     def __aiter__(self) -> AsyncIterator[_T_co]: ...
 
+@runtime_checkable
 class AsyncGenerator(AsyncIterator[_YieldT_co], Protocol[_YieldT_co, _SendT_contra]):
     @abstractmethod
     def asend(self, __value: _SendT_contra) -> Awaitable[_YieldT_co]: ...
