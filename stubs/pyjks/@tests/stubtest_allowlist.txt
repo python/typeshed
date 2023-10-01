@@ -12,6 +12,16 @@ jks.SecretKeyEntry.algorithm
 jks.SecretKeyEntry.key
 jks.SecretKeyEntry.key_size
 
+# Additional arguments hinted from **kwargs
+jks.AbstractBksEntry.__init__
+jks.BksKeyEntry.__init__
+jks.BksSealedKeyEntry.__init__
+jks.BksSecretKeyEntry.__init__
+jks.bks.AbstractBksEntry.__init__
+jks.bks.BksKeyEntry.__init__
+jks.bks.BksSealedKeyEntry.__init__
+jks.bks.BksSecretKeyEntry.__init__
+
 # Implicit imports, not re-exported
 jks.DSA_OID
 jks.DSA_WITH_SHA1_OID
