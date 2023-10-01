@@ -9,7 +9,6 @@ from re import Match as Match, Pattern as Pattern
 from types import (
     BuiltinFunctionType,
     CodeType,
-    FrameType,
     FunctionType,
     MethodDescriptorType,
     MethodType,
