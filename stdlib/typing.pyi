@@ -407,6 +407,7 @@ _ReturnT_co = TypeVar("_ReturnT_co", covariant=True)
 
 @runtime_checkable
 class Generator(Iterator[_YieldT_co], Protocol[_YieldT_co, _SendT_contra, _ReturnT_co]):
+    def __next__(self) -> _YieldT_co: ...
     @abstractmethod
     def send(self, __value: _SendT_contra) -> _YieldT_co: ...
     @overload
