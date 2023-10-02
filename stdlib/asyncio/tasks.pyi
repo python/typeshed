@@ -174,7 +174,7 @@ if sys.version_info >= (3, 10):
         ]
     ]: ...
     @overload
-    def gather(*coros_or_futures: _FutureLike[_T], return_exceptions: bool = False) -> Future[list[_T | BaseException]]: ...  # type: ignore[misc]
+    def gather(*coros_or_futures: _FutureLike[_T], return_exceptions: bool) -> Future[list[_T | BaseException]]: ...  # type: ignore[misc]
 
 else:
     @overload
@@ -285,7 +285,7 @@ else:
     ]: ...
     @overload
     def gather(  # type: ignore[misc]
-        *coros_or_futures: _FutureLike[_T], loop: AbstractEventLoop | None = None, return_exceptions: bool = False
+        *coros_or_futures: _FutureLike[_T], loop: AbstractEventLoop | None = None, return_exceptions: bool
     ) -> Future[list[_T | BaseException]]: ...
 
 def run_coroutine_threadsafe(coro: _FutureLike[_T], loop: AbstractEventLoop) -> concurrent.futures.Future[_T]: ...
