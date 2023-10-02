@@ -15,7 +15,7 @@ if sys.platform != "win32":
     POLLOUT: int
     POLLPRI: int
     POLLRDBAND: int
-    if sys.platform != "darwin":
+    if sys.platform == "linux":
         POLLRDHUP: int
     POLLRDNORM: int
     POLLWRBAND: int
