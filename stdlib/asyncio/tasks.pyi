@@ -2,7 +2,7 @@ import concurrent.futures
 import sys
 from collections.abc import Awaitable, Coroutine, Generator, Iterable, Iterator
 from types import FrameType
-from typing import Any, Generic, TextIO, TypeVar, overload
+from typing import Any, Generic, Sequence, TextIO, TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from .events import AbstractEventLoop
@@ -174,7 +174,7 @@ if sys.version_info >= (3, 10):
         ]
     ]: ...
     @overload
-    def gather(*coros_or_futures: _FutureLike[_T], return_exceptions: bool) -> Future[list[_T | BaseException]]: ...  # type: ignore[misc]
+    def gather(*coros_or_futures: _FutureLike[_T], return_exceptions: bool) -> Future[list[_T | BaseException]]: ...
 
 else:
     @overload
@@ -233,6 +233,10 @@ else:
     ) -> Future[tuple[_T1, _T2, _T3, _T4, _T5, _T6]]: ...
     @overload
     def gather(  # type: ignore[misc]
+        *coros_or_futures: _FutureLike[_T], loop: AbstractEventLoop | None = None, return_exceptions: Literal[False] = False
+    ) -> Future[list[_T]]: ...
+    @overload
+    def gather(  # type: ignore[misc]
         __coro_or_future1: _FutureLike[_T1], *, loop: AbstractEventLoop | None = None, return_exceptions: bool
     ) -> Future[tuple[_T1 | BaseException]]: ...
     @overload
@@ -288,6 +292,7 @@ else:
         *coros_or_futures: _FutureLike[_T], loop: AbstractEventLoop | None = None, return_exceptions: bool
     ) -> Future[list[_T | BaseException]]: ...
 
+
 def run_coroutine_threadsafe(coro: _FutureLike[_T], loop: AbstractEventLoop) -> concurrent.futures.Future[_T]: ...
 
 if sys.version_info >= (3, 10):
@@ -332,7 +337,7 @@ else:
 # While this is true in general, here it's sort-of okay to have a covariant subclass,
 # since the only reason why `asyncio.Future` is invariant is the `set_result()` method,
 # and `asyncio.Task.set_result()` always raises.
-class Task(Future[_T_co], Generic[_T_co]):  # type: ignore[type-var]  # pyright: ignore[reportGeneralTypeIssues]
+class Task(Future[_T_co], Generic[_T_co]):  # type: ignore[type-var, reportGeneralTypeIssues]
     if sys.version_info >= (3, 8):
         def __init__(
             self,
