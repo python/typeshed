@@ -30,7 +30,6 @@ select.POLLMSG   # system dependent
 
 # Exists at runtime, but missing from stubs
 mimetypes.MimeTypes.read_windows_registry
-selectors.DefaultSelector.fileno
 
 _ctypes.dlclose
 _ctypes.dlopen
