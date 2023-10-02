@@ -34,7 +34,6 @@ _ctypes.dlopen
 _ctypes.dlsym
 
 posix.NGROUPS_MAX
-select.POLLRDHUP
 webbrowser.MacOSX.__init__
 
 # ==========
