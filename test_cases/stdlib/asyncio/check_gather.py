@@ -27,8 +27,8 @@ async def test_gather(awaitable1: Awaitable[int], awaitable2: Awaitable[str]) ->
     d = await asyncio.gather(*awaitables_list)
     assert_type(d, List[int])
 
-    e = await asyncio.gather()
-    assert_type(e, list[Any])  # type: ignore[reportUnknownVariableType]  # type is list[Unknown]
+    e = await asyncio.gather()  # type: ignore[reportUnknownVariableType]  # type is list[Unknown]
+    assert_type(e, list[Any])
 
 
 asyncio.run(test_gather(coro1(), coro2()))
