@@ -28,7 +28,7 @@ async def test_gather(awaitable1: Awaitable[int], awaitable2: Awaitable[str]) ->
     assert_type(d, List[int])
 
     e = await asyncio.gather()
-    assert_type(e, list[Any])
+    assert_type(e, list)
 
 
 asyncio.run(test_gather(coro1(), coro2()))
