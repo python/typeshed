@@ -292,7 +292,6 @@ else:
         *coros_or_futures: _FutureLike[_T], loop: AbstractEventLoop | None = None, return_exceptions: bool
     ) -> Future[list[_T | BaseException]]: ...
 
-
 def run_coroutine_threadsafe(coro: _FutureLike[_T], loop: AbstractEventLoop) -> concurrent.futures.Future[_T]: ...
 
 if sys.version_info >= (3, 10):
