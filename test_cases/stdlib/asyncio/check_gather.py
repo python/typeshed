@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import asyncio
-from typing import Any, Awaitable, List, Tuple, Union
+from typing import Awaitable, List, Tuple, Union
 from typing_extensions import assert_type
 
 
