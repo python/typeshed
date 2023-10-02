@@ -4,11 +4,8 @@ locale.nl_langinfo  # Function that should be moved to _locale and re-exported c
 # alias for a class defined elsewhere,
 # mypy infers the variable has type `(*args) -> DupHandle` but stubtest infers the runtime type as <class DupHandle>
 multiprocessing.reduction.AbstractReducer.DupHandle
-msilib.text.dirname
-selectors.KqueueSelector
 
 # Exists at runtime, but missing from stubs
-_msi.MSIError
 _winapi.CreateFileMapping
 _winapi.MapViewOfFile
 _winapi.OpenFileMapping
@@ -21,7 +18,6 @@ msvcrt.SetErrorMode
 ssl.SSLSocket.recvmsg
 ssl.SSLSocket.recvmsg_into
 ssl.SSLSocket.sendmsg
-subprocess.STARTUPINFO.copy
 winreg.HKEYType.handle
 _ctypes.FreeLibrary
 _ctypes.LoadLibrary
