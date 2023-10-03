@@ -14,7 +14,6 @@ if sys.platform != "win32":
         EX_NOHOST as EX_NOHOST,
         EX_NOINPUT as EX_NOINPUT,
         EX_NOPERM as EX_NOPERM,
-        EX_NOTFOUND as EX_NOTFOUND,
         EX_NOUSER as EX_NOUSER,
         EX_OK as EX_OK,
         EX_OSERR as EX_OSERR,
