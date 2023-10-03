@@ -222,9 +222,11 @@ if sys.platform != "win32":
         writev as writev,
     )
 
+    if sys.platform != "darwin":
+        from os import EX_NOTFOUND as EX_NOTFOUND
+
     if sys.platform == "linux":
         from os import (
-            EX_NOTFOUND as EX_NOTFOUND,
             GRND_NONBLOCK as GRND_NONBLOCK,
             GRND_RANDOM as GRND_RANDOM,
             RTLD_DEEPBIND as RTLD_DEEPBIND,

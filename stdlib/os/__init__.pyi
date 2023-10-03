@@ -282,6 +282,8 @@ if sys.platform != "win32":
     EX_PROTOCOL: int
     EX_NOPERM: int
     EX_CONFIG: int
+
+if sys.platform != "win32" and sys.platform != "darwin":
     EX_NOTFOUND: int
 
 P_NOWAIT: int

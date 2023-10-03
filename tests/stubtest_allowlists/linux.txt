@@ -1,6 +1,5 @@
 _socket.*
 _posixsubprocess.cloexec_pipe
-os.EX_NOTFOUND
 os.SF_MNOWAIT
 os.SF_NODISKIO
 os.SF_SYNC
@@ -45,6 +44,10 @@ multiprocessing.popen_spawn_win32
 fcntl.I_[A-Z0-9_]+
 os.SCHED_[A-Z_]+
 posix.SCHED_[A-Z_]+
+
+# Exists on some Unix platforms, but not in CI:
+os.EX_NOTFOUND
+posix.EX_NOTFOUND
 
 # Some of these exist on non-windows, but they are useless and this is not intended
 stat.FILE_ATTRIBUTE_[A-Z_]+
