@@ -33,7 +33,6 @@ _ctypes.dlclose
 _ctypes.dlopen
 _ctypes.dlsym
 
-posix.NGROUPS_MAX
 webbrowser.MacOSX.__init__
 
 # ==========

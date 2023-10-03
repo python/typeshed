@@ -29,6 +29,7 @@ if sys.platform != "win32":
         F_TEST as F_TEST,
         F_TLOCK as F_TLOCK,
         F_ULOCK as F_ULOCK,
+        NGROUPS_MAX as NGROUPS_MAX,
         O_APPEND as O_APPEND,
         O_ASYNC as O_ASYNC,
         O_CREAT as O_CREAT,
@@ -224,6 +225,7 @@ if sys.platform != "win32":
 
     if sys.platform == "linux":
         from os import (
+            EX_NOTFOUND as EX_NOTFOUND,
             GRND_NONBLOCK as GRND_NONBLOCK,
             GRND_RANDOM as GRND_RANDOM,
             RTLD_DEEPBIND as RTLD_DEEPBIND,
