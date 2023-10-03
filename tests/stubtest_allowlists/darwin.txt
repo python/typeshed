@@ -29,15 +29,11 @@ select.POLLMSG   # system dependent
 (termios.[A-Z0-9_]+)?
 
 # Exists at runtime, but missing from stubs
-mimetypes.MimeTypes.read_windows_registry
-selectors.DefaultSelector.fileno
-
 _ctypes.dlclose
 _ctypes.dlopen
 _ctypes.dlsym
 
 posix.NGROUPS_MAX
-select.POLLRDHUP
 webbrowser.MacOSX.__init__
 
 # ==========
