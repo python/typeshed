@@ -23,13 +23,16 @@ async def test_gather(awaitable1: Awaitable[int], awaitable2: Awaitable[str]) ->
     c = await asyncio.gather(awaitable1, awaitable2, awaitable1, awaitable1, awaitable1, awaitable1)
     assert_type(c, Tuple[int, str, int, int, int, int])
 
-    awaitables_list: list[Awaitable[int]] = [awaitable1]
-    d = await asyncio.gather(*awaitables_list)
+    d = await asyncio.gather(awaitable1, awaitable1, awaitable1, awaitable1, awaitable1, awaitable1, awaitable1)
     assert_type(d, List[int])
 
+    awaitables_list: list[Awaitable[int]] = [awaitable1]
+    e = await asyncio.gather(*awaitables_list)
+    assert_type(e, List[int])
+
     # this case isn't reliable between typecheckers, no one would ever call it with no args anyway
-    # e = await asyncio.gather()
-    # assert_type(e, list[Any])
+    # f = await asyncio.gather()
+    # assert_type(f, list[Any])
 
 
 asyncio.run(test_gather(coro1(), coro2()))
