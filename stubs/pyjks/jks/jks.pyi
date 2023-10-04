@@ -1,6 +1,6 @@
-from _typeshed import Incomplete, SupportsKeysAndGetItem
+from _typeshed import Incomplete, SupportsKeysAndGetItem, Unused
 from collections.abc import Iterable
-from typing import Any, NoReturn
+from typing import NoReturn
 from typing_extensions import Final, Literal, Self, TypeAlias
 
 from .util import AbstractKeystore, AbstractKeystoreEntry
@@ -27,7 +27,7 @@ class TrustedCertEntry(AbstractKeystoreEntry):
         store_type: _JksType = ...,
         alias: str = ...,
         timestamp: int = ...,
-        **kwargs: Any,
+        **kwargs: Unused,
     ) -> None: ...
     @classmethod
     def new(cls, alias: str, cert: bytes) -> Self: ...  # type: ignore[override]
@@ -54,7 +54,7 @@ class PrivateKeyEntry(AbstractKeystoreEntry):
         store_type: _JksType = ...,
         alias: str = ...,
         timestamp: int = ...,
-        **kwargs: Any,
+        **kwargs: Unused,
     ) -> None: ...
     @classmethod
     def new(  # type: ignore[override]
@@ -80,7 +80,7 @@ class SecretKeyEntry(AbstractKeystoreEntry):
         store_type: _JksType = ...,
         alias: str = ...,
         timestamp: int = ...,
-        **kwargs: Any,
+        **kwargs: Unused,
     ) -> None: ...
     # Not implemented by pyjks
     @classmethod

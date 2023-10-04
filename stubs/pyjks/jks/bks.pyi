@@ -1,4 +1,4 @@
-from _typeshed import SupportsKeysAndGetItem
+from _typeshed import SupportsKeysAndGetItem, Unused
 from typing import Any
 from typing_extensions import Final, Literal, Self, TypeAlias
 
@@ -31,7 +31,7 @@ class AbstractBksEntry(AbstractKeystoreEntry):
         store_type: _BksType = ...,
         alias: str = ...,
         timestamp: int = ...,
-        **kwargs: Any,
+        **kwargs: Unused,
     ) -> None: ...
 
 class BksTrustedCertEntry(TrustedCertEntry):
@@ -64,7 +64,7 @@ class BksKeyEntry(AbstractBksEntry):
         store_type: _BksType = ...,
         alias: str = ...,
         timestamp: int = ...,
-        **kwargs: Any,
+        **kwargs: Unused,
     ) -> None: ...
     @classmethod
     def type2str(cls, t: _KeyType) -> Literal["PRIVATE", "PUBLIC", "SECRET"]: ...
