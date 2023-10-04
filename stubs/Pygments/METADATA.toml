@@ -1,5 +1,7 @@
-version = "2.14.*"
+version = "2.16.*"
+upstream_repository = "https://github.com/pygments/pygments"
 requires = ["types-docutils", "types-setuptools"]
+partial_stub = true
 
 [tool.stubtest]
 stubtest_requirements = ["sphinx"]
