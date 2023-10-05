@@ -1,5 +1,4 @@
 from _typeshed import SupportsKeysAndGetItem, Unused
-from typing import Any
 from typing_extensions import Final, Literal, Self, TypeAlias
 
 from .jks import TrustedCertEntry
@@ -27,10 +26,10 @@ class AbstractBksEntry(AbstractKeystoreEntry):
         self,
         *,
         cert_chain: list[tuple[_CertType, bytes]] = ...,
-        encrypted: bytes | None = ...,
-        store_type: _BksType = ...,
-        alias: str = ...,
-        timestamp: int = ...,
+        encrypted: bytes | None = None,
+        store_type: _BksType | None = None,
+        alias: str,
+        timestamp: int,
         **kwargs: Unused,
     ) -> None: ...
 
@@ -60,10 +59,10 @@ class BksKeyEntry(AbstractBksEntry):
         encoded: bytes,
         *,
         cert_chain: list[tuple[_CertType, bytes]] = ...,
-        encrypted: bytes | None = ...,
-        store_type: _BksType = ...,
-        alias: str = ...,
-        timestamp: int = ...,
+        encrypted: bytes | None = None,
+        store_type: _BksType | None = None,
+        alias: str,
+        timestamp: int,
         **kwargs: Unused,
     ) -> None: ...
     @classmethod
