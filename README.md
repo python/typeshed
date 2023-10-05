@@ -46,6 +46,50 @@ and are automatically released (multiple times a day, when needed) by
 Type checkers should be able to use these stub packages when installed. For more
 details, see the documentation for your type checker.
 
+### Stub package versioning
+
+Version numbers of third-party stub packages consist of at least four elements,
+where the last element represents the stub version. The other elements
+are the version of the package being stubbed.
+
+While we try to minimize the number of breaking changes, due to the nature
+of stubs, every version can introduce changes that make your code fail
+to type check.
+
+There are several strategies to pin the version of the stubs you are using,
+all with their own tradeoffs:
+
+* Use the same pin that you use for the package being stubbed. For example,
+  if you use `requests>=2.30.0,<2.32`, you can use
+  `types-requests>=2.30.0,<2.32`. This ensures that the stubs are compatible
+  with the package you are using, but it carries a small risk of breaking
+  type checking due to changes in the stubs. Also, stubs often lag behind
+  the package being stubbed. You might want to force the package being stubbed
+  to a certain minimum version, because it fixes a critical bug, but you
+  could be unable to update the stubs, since an update has not been released.
+* When the package being stubbed is using [Semantic Versioning](https://semver.org/lang/de/),
+  you could use the same major version for the stubs. For example, if you use
+  `requests>=2.30.0,<2.33`, you can use `types-requests>=2.29.3.4,<3`. This
+  means that the stubs are not as tighly coupled to the package being stubbed,
+  and you will gain potential improvements in the stubs, but it carries a
+  risk, since the stubs might provide a different API surface than the
+  implementation. It also works around the problem that stubs often lag behind
+  the package being stubbed.
+* Pin the stubs to a known good version and update manually. For example, if
+  you use `types-requests==2.31.0.1`, you can be sure that upgrading
+  dependencies will not break type checking. However, you will miss out on
+  improvements in the stubs that could potentially improve type checking.
+  It also has the risk that the stubs you are using are not compatible with
+  the package being stubbed.
+* Don't pin the stubs. This is the most flexible option, but it carries the
+  risk that the stubs become incompatible with the package being stubbed.
+  For example, when a new major version of the package is released and the
+  stubs are updated before you update the package being stubbed.
+
+You can also use the different strategies as needed. For example, you could
+default match the pinning, but pin the stubs to a known good version when
+a problem arises that can't easily be fixed.
+
 ### The `_typeshed` package
 
 typeshed includes a package `_typeshed` as part of the standard library.
