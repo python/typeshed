@@ -64,7 +64,7 @@ package you're using, each with its own tradeoffs
   `types-requests>=2.30.0,<2.32`. This ensures that the stubs are compatible
   with the package you are using, but it carries a small risk of breaking
   type checking due to changes in the stubs.
-  
+
   Another risk of this strategy is that stubs often lag behind
   the package being stubbed. You might want to force the package being stubbed
   to a certain minimum version, because it fixes a critical bug, but you
