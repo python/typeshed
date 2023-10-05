@@ -1,0 +1,3 @@
+class ServiceCheckClient:
+    @classmethod
+    def setup_parser(cls, subparsers) -> None: ...

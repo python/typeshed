@@ -1,0 +1,3 @@
+class ServiceLevelObjectiveClient:
+    @classmethod
+    def setup_parser(cls, subparsers) -> None: ...

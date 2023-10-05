@@ -32,6 +32,7 @@
         "stubs/cffi",
         "stubs/click-default-group",
         "stubs/commonmark",
+        "stubs/datadog",
         "stubs/dateparser",
         "stubs/docutils",
         "stubs/Flask-Migrate",

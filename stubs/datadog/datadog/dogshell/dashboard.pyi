@@ -1,0 +1,3 @@
+class DashboardClient:
+    @classmethod
+    def setup_parser(cls, subparsers) -> None: ...

@@ -1,0 +1,3 @@
+class DowntimeClient:
+    @classmethod
+    def setup_parser(cls, subparsers) -> None: ...

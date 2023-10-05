@@ -1,0 +1,3 @@
+class MonitorClient:
+    @classmethod
+    def setup_parser(cls, subparsers) -> None: ...

@@ -1,0 +1,3 @@
+class MetricClient:
+    @classmethod
+    def setup_parser(cls, subparsers) -> None: ...

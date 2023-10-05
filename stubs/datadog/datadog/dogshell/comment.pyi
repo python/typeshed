@@ -1,0 +1,3 @@
+class CommentClient:
+    @classmethod
+    def setup_parser(cls, subparsers) -> None: ...

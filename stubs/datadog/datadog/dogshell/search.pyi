@@ -1,0 +1,3 @@
+class SearchClient:
+    @classmethod
+    def setup_parser(cls, subparsers) -> None: ...

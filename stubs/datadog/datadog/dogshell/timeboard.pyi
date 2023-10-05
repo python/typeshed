@@ -1,0 +1,3 @@
+class TimeboardClient:
+    @classmethod
+    def setup_parser(cls, subparsers) -> None: ...

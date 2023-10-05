@@ -1,0 +1,13 @@
+from datadog.api.resources import ActionAPIResource, CreateableAPIResource, GetableAPIResource, ListableAPIResource
+
+class Graph(CreateableAPIResource, ActionAPIResource):
+    @classmethod
+    def create(cls, **params): ...
+    @classmethod
+    def status(cls, snapshot_url): ...
+
+class Embed(ListableAPIResource, GetableAPIResource, ActionAPIResource, CreateableAPIResource):
+    @classmethod
+    def enable(cls, embed_id): ...
+    @classmethod
+    def revoke(cls, embed_id): ...

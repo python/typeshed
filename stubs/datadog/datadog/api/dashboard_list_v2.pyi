@@ -1,0 +1,3 @@
+from datadog.api.resources import AddableAPISubResource, DeletableAPISubResource, ListableAPISubResource, UpdatableAPISubResource
+
+class DashboardListV2(ListableAPISubResource, AddableAPISubResource, UpdatableAPISubResource, DeletableAPISubResource): ...

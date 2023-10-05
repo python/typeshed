@@ -1,0 +1,3 @@
+class TagClient:
+    @classmethod
+    def setup_parser(cls, subparsers) -> None: ...
