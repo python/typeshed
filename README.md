@@ -46,24 +46,26 @@ and are automatically released (multiple times a day, when needed) by
 Type checkers should be able to use these stub packages when installed. For more
 details, see the documentation for your type checker.
 
-### Stub package versioning
+### Package versioning for third-party stubs
 
 Version numbers of third-party stub packages consist of at least four elements,
 where the last element represents the stub version. The other elements
 are the version of the package being stubbed.
 
-While we try to minimize the number of breaking changes, due to the nature
-of stubs, every version can introduce changes that make your code fail
-to type check.
+At typeshed, we try to keep breaking changes to a minimum. However, due to the
+nature of stubs, any version bump can introduce changes that might make your
+code fail to type check.
 
-There are several strategies to pin the version of the stubs you are using,
-all with their own tradeoffs:
+There are several strategies available for specifying the version of a stubs
+package you're using, each with its own tradeoffs
 
 * Use the same pin that you use for the package being stubbed. For example,
   if you use `requests>=2.30.0,<2.32`, you can use
   `types-requests>=2.30.0,<2.32`. This ensures that the stubs are compatible
   with the package you are using, but it carries a small risk of breaking
-  type checking due to changes in the stubs. Also, stubs often lag behind
+  type checking due to changes in the stubs.
+  
+  Another risk of this strategy is that stubs often lag behind
   the package being stubbed. You might want to force the package being stubbed
   to a certain minimum version, because it fixes a critical bug, but you
   could be unable to update the stubs, since an update has not been released.
@@ -83,8 +85,9 @@ all with their own tradeoffs:
   the package being stubbed.
 * Don't pin the stubs. This is the most flexible option, but it carries the
   risk that the stubs become incompatible with the package being stubbed.
-  For example, when a new major version of the package is released and the
-  stubs are updated before you update the package being stubbed.
+  For example, if a new major version of the package is released, there's a
+  chance the stubs might be updated to reflect the new version of the runtime
+  package before you update the package being stubbed.
 
 You can also use the different strategies as needed. For example, you could
 default match the pinning, but pin the stubs to a known good version when
