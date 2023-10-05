@@ -48,9 +48,15 @@ details, see the documentation for your type checker.
 
 ### Package versioning for third-party stubs
 
-Version numbers of third-party stub packages consist of at least four elements,
-where the last element represents the stub version. The other elements
-are the version of the package being stubbed.
+Version numbers of third-party stub packages consist of at least four parts.
+All parts of the stub version, except for the last part, correspond to the
+version of the runtime package being stubbed. For example, if the `types-foo`
+package has version `1.1.2.0`, this signifies that the package contains stubs
+for the `foo==1.1.2`. In this example, the final element of the version
+indicates that this is the first revision of the stubs for `foo`. If an update
+to the stubs was pushed (but the stubs were still aiming to provide
+annotations for `foo==1.1.2`), then the version of `types-foo` would
+increment to `1.1.2.1`.
 
 At typeshed, we try to keep breaking changes to a minimum. However, due to the
 nature of stubs, any version bump can introduce changes that might make your
@@ -69,14 +75,6 @@ package you're using, each with its own tradeoffs
   the package being stubbed. You might want to force the package being stubbed
   to a certain minimum version, because it fixes a critical bug, but you
   could be unable to update the stubs, since an update has not been released.
-* When the package being stubbed is using [Semantic Versioning](https://semver.org/lang/de/),
-  you could use the same major version for the stubs. For example, if you use
-  `requests>=2.30.0,<2.33`, you can use `types-requests>=2.29.3.4,<3`. This
-  means that the stubs are not as tighly coupled to the package being stubbed,
-  and you will gain potential improvements in the stubs, but it carries a
-  risk, since the stubs might provide a different API surface than the
-  implementation. It also works around the problem that stubs often lag behind
-  the package being stubbed.
 * Pin the stubs to a known good version and update manually. For example, if
   you use `types-requests==2.31.0.1`, you can be sure that upgrading
   dependencies will not break type checking. However, you will miss out on
