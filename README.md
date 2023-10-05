@@ -78,7 +78,8 @@ package you're using, each with its own tradeoffs
 * Pin the stubs to a known good version and update manually. For example, if
   you use `types-requests==2.31.0.1`, you can be sure that upgrading
   dependencies will not break type checking. However, you will miss out on
-  improvements in the stubs that could potentially improve type checking.
+  improvements in the stubs that could potentially improve type checking,
+  unless you manually update the stubs.
   It also has the risk that the stubs you are using are not compatible with
   the package being stubbed.
 * Don't pin the stubs. This is the most flexible option, but it carries the
