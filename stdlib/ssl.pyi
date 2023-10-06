@@ -1,9 +1,9 @@
 import enum
 import socket
 import sys
-from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
+from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer, Unused
 from collections.abc import Callable, Iterable
-from typing import Any, NamedTuple, overload
+from typing import Any, NamedTuple, NoReturn, overload
 from typing_extensions import Literal, Self, TypeAlias, TypedDict, final
 
 _PCTRTT: TypeAlias = tuple[tuple[str, str], ...]
@@ -367,6 +367,10 @@ class SSLSocket(socket.socket):
     def pending(self) -> int: ...
     if sys.version_info >= (3, 8):
         def verify_client_post_handshake(self) -> None: ...
+    # These methods always produce `NotImplemented` error:
+    def recvmsg(self, *args: Unused, **kwargs: Unused) -> NoReturn: ...
+    def recvmsg_into(self, *args: Unused, **kwargs: Unused) -> NoReturn: ...
+    def sendmsg(self, *args: Unused, **kwargs: Unused) -> NoReturn: ...
 
 class TLSVersion(enum.IntEnum):
     MINIMUM_SUPPORTED: int

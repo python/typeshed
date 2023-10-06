@@ -10,9 +10,6 @@ _winapi.CreateFileMapping
 _winapi.MapViewOfFile
 _winapi.OpenFileMapping
 _winapi.VirtualQuerySize
-ssl.SSLSocket.recvmsg
-ssl.SSLSocket.recvmsg_into
-ssl.SSLSocket.sendmsg
 _ctypes.FreeLibrary
 _ctypes.LoadLibrary
 
