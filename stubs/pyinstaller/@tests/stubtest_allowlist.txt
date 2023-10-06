@@ -9,9 +9,14 @@ PyInstaller.__main__.run_makespec
 PyInstaller.utils.hooks.conda.lib_dir
 
 # A mix of modules meant to be private, and shallow incomplete type references for other modules
-PyInstaller\.building\.\w+?
 PyInstaller.building.build_main.*
 PyInstaller.building.datastruct.unique_name
+PyInstaller.building.icon.*
+PyInstaller.building.makespec.*
+PyInstaller.building.osx.*
+PyInstaller.building.splash_templates.*
+PyInstaller.building.templates.*
+PyInstaller.building.utils.*
 PyInstaller.depend.analysis.*
 PyInstaller.isolated._parent.*
 PyInstaller\.lib\.modulegraph\.modulegraph\.\w+?
