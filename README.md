@@ -63,7 +63,7 @@ nature of stubs, any version bump can introduce changes that might make your
 code fail to type check.
 
 There are several strategies available for specifying the version of a stubs
-package you're using, each with its own tradeoffs
+package you're using, each with its own tradeoffs:
 
 1. Use the same pin that you use for the package being stubbed. For example,
    if you use `requests>=2.30.0,<2.32`, you can use
@@ -75,21 +75,26 @@ package you're using, each with its own tradeoffs
    the package being stubbed. You might want to force the package being stubbed
    to a certain minimum version, because it fixes a critical bug, but you
    could be unable to update the stubs, since an update has not been released.
-2. Pin the stubs to a known good version and update manually. For example, if
-   you use `types-requests==2.31.0.1`, you can be sure that upgrading
-   dependencies will not break type checking. However, you will miss out on
-   improvements in the stubs that could potentially improve type checking,
-   until you update the pin.
-   It also has the risk that the stubs you are using are not compatible with
-   the package being stubbed.
-3. Don't pin the stubs. This is the most flexible option, but it carries the
-   risk that the stubs become incompatible with the package being stubbed.
+2. Pin the stubs to a known good version and update the pin from time to time
+   (either manually, or using a tool such as dependabot or renovate).
+
+   For example, if you use `types-requests==2.31.0.1`, you can have confidence
+   that upgrading dependencies will not break type checking. However, you will
+   miss out on improvements in the stubs that could potentially improve type
+   checking until you update the pin. This strategy also has the risk that the
+   stubs you are using might become incompatible with the package being stubbed.
+3. Don't pin the stubs. This is the option that demands the least work from
+   you when it comes to updating version pins, and has the advantage that you
+   will automatically benefit from improved stubs whenever a new version of the
+   stubs package is released. However, it carries the risk that the stubs
+   become incompatible with the package being stubbed.
+
    For example, if a new major version of the package is released, there's a
    chance the stubs might be updated to reflect the new version of the runtime
    package before you update the package being stubbed.
 
-You can also use the different strategies as needed. For example, you could
-default to strategy (1), but fall back to strategy (2) when
+You can also switch between the different strategies as needed. For example,
+you could default to strategy (1), but fall back to strategy (2) when
 a problem arises that can't easily be fixed.
 
 ### The `_typeshed` package
