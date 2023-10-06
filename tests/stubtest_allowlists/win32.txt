@@ -13,7 +13,6 @@ _winapi.VirtualQuerySize
 ssl.SSLSocket.recvmsg
 ssl.SSLSocket.recvmsg_into
 ssl.SSLSocket.sendmsg
-winreg.HKEYType.handle
 _ctypes.FreeLibrary
 _ctypes.LoadLibrary
 
