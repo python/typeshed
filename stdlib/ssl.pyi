@@ -1,7 +1,7 @@
 import enum
 import socket
 import sys
-from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer, Unused
+from _typeshed import ReadableBuffer, StrOrBytesPath, Unused, WriteableBuffer
 from collections.abc import Callable, Iterable
 from typing import Any, NamedTuple, NoReturn, overload
 from typing_extensions import Literal, Self, TypeAlias, TypedDict, final
