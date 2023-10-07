@@ -21,8 +21,6 @@ class Signals(IntEnum):
         CTRL_C_EVENT: int
         CTRL_BREAK_EVENT: int
     else:
-        SIGEMT: int
-        SIGINFO: int
         SIGALRM: int
         SIGBUS: int
         SIGCHLD: int
@@ -47,6 +45,9 @@ class Signals(IntEnum):
         SIGWINCH: int
         SIGXCPU: int
         SIGXFSZ: int
+        if sys.platform != "linux":
+            SIGEMT: int
+            SIGINFO: int
         if sys.platform != "darwin":
             SIGCLD: int
             SIGPOLL: int
@@ -88,8 +89,9 @@ if sys.platform == "win32":
     CTRL_C_EVENT: Signals
     CTRL_BREAK_EVENT: Signals
 else:
-    SIGINFO: Signals
-    SIGEMT: Signals
+    if sys.platform != "linux":
+        SIGINFO: Signals
+        SIGEMT: Signals
     SIGALRM: Signals
     SIGBUS: Signals
     SIGCHLD: Signals
