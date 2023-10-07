@@ -4,7 +4,7 @@ import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Callable, Iterable
 from typing import Any, NamedTuple, overload
-from typing_extensions import Literal, Self, Never, TypeAlias, TypedDict, final
+from typing_extensions import Literal, Never, Self, TypeAlias, TypedDict, final
 
 _PCTRTT: TypeAlias = tuple[tuple[str, str], ...]
 _PCTRTTT: TypeAlias = tuple[_PCTRTT, ...]
