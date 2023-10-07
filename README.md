@@ -51,12 +51,13 @@ details, see the documentation for your type checker.
 Version numbers of third-party stub packages consist of at least four parts.
 All parts of the stub version, except for the last part, correspond to the
 version of the runtime package being stubbed. For example, if the `types-foo`
-package has version `1.1.2.0`, this signifies that the package contains stubs
-for `foo>=1.1.2`, but which have only been tested against `foo<1.2`.
-In this example, the final element of the version indicates that this is the
-first revision of the stubs for `foo>=1.1.2`. If an update to the stubs were
-pushed (but the stubs were still aiming to provide annotations for
-`foo>=1.1.2`), then the version of `types-foo` would increment to `1.1.2.1`.
+package has version `1.2.0.7`, this guarantees that the `types-foo` package
+contains stubs targeted against `foo==1.2.*` and tested against the latest
+version of `foo` matching that specifier. In this example, the final element
+of the version (7) indicates that this is the eighth revision of the stubs for
+`foo==1.2.*`. If an update to the stubs were pushed (but the stubs were still
+aiming to provide annotations for `foo==1.2.*`), then the version of
+`types-foo` would increment to `1.2.0.8`.
 
 At typeshed, we try to keep breaking changes to a minimum. However, due to the
 nature of stubs, any version bump can introduce changes that might make your
