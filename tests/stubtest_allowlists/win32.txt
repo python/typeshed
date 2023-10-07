@@ -10,8 +10,6 @@ _winapi.CreateFileMapping
 _winapi.MapViewOfFile
 _winapi.OpenFileMapping
 _winapi.VirtualQuerySize
-_ctypes.FreeLibrary
-_ctypes.LoadLibrary
 
 
 # ==========
