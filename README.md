@@ -6,8 +6,8 @@
 
 ## About
 
-Typeshed is a repository containing external type annotations for the Python standard library, Python builtins, and third-party packages contributed by individuals external to those projects. 
-  
+Typeshed is a repository containing external type annotations for the Python standard library, Python builtins, and third-party packages contributed by individuals external to those projects.
+
 > **These data are used for purposes such as static analysis, type checking, and type inference.**
 
 For information on how to use `typeshed`, read below.  Information for
