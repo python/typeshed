@@ -65,7 +65,7 @@ code fail to type check.
 There are several strategies available for specifying the version of a stubs
 package you're using, each with its own tradeoffs:
 
-1. Use the same pin that you use for the package being stubbed. For example,
+1. Use the same bounds that you use for the package being stubbed. For example,
    if you use `requests>=2.30.0,<2.32`, you can use
    `types-requests>=2.30.0,<2.32`. This ensures that the stubs are compatible
    with the package you are using, but it carries a small risk of breaking
@@ -73,8 +73,9 @@ package you're using, each with its own tradeoffs:
 
    Another risk of this strategy is that stubs often lag behind
    the package being stubbed. You might want to force the package being stubbed
-   to a certain minimum version, because it fixes a critical bug, but you
-   could be unable to update the stubs, since an update has not been released.
+   to a certain minimum version because it fixes a critical bug, but if
+   correspondingly updated stubs have not been released, your type
+   checking results may not be fully accurate.
 2. Pin the stubs to a known good version and update the pin from time to time
    (either manually, or using a tool such as dependabot or renovate).
 
