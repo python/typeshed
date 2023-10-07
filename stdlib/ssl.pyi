@@ -3,8 +3,8 @@ import socket
 import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Callable, Iterable
-from typing import Any, NamedTuple, Never, overload
-from typing_extensions import Literal, Self, TypeAlias, TypedDict, final
+from typing import Any, NamedTuple, overload
+from typing_extensions import Literal, Self, Never, TypeAlias, TypedDict, final
 
 _PCTRTT: TypeAlias = tuple[tuple[str, str], ...]
 _PCTRTTT: TypeAlias = tuple[_PCTRTT, ...]
