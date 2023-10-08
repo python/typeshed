@@ -2,13 +2,23 @@ import sys
 from _typeshed import StrPath
 from collections.abc import Iterable, Mapping
 
-# These functions are redefined in `locale.py` if import fails,
-# so we pretend that they always exist here.
+LC_MESSAGES: int
+LC_CTYPE: int
+LC_COLLATE: int
+LC_TIME: int
+LC_MONETARY: int
+LC_NUMERIC: int
+LC_ALL: int
+CHAR_MAX: int
+
 def setlocale(category: int, locale: str | Iterable[str | None] | None = None) -> str: ...
 def localeconv() -> Mapping[str, int | str | list[int]]: ...
 
 if sys.version_info >= (3, 11):
     def getencoding() -> str: ...
+
+def strcoll(__os1: str, __os2: str) -> int: ...
+def strxfrm(__string: str) -> str: ...
 
 # native gettext functions
 # https://docs.python.org/3/library/locale.html#access-to-message-catalogs
@@ -34,15 +44,6 @@ if sys.platform == "linux" or sys.platform == "darwin":
     ABMON_10: int
     ABMON_11: int
     ABMON_12: int
-
-    LC_MESSAGES: int
-    LC_CTYPE: int
-    LC_COLLATE: int
-    LC_TIME: int
-    LC_MONETARY: int
-    LC_NUMERIC: int
-    LC_ALL: int
-    CHAR_MAX: int
 
     DAY_1: int
     DAY_2: int
@@ -91,6 +92,4 @@ if sys.platform == "linux" or sys.platform == "darwin":
     def textdomain(__domain: str | None) -> str: ...
     def bindtextdomain(__domain: str, __dir: StrPath | None) -> str: ...
     def bind_textdomain_codeset(__domain: str, __codeset: str | None) -> str | None: ...
-    def strcoll(__os1: str, __os2: str) -> int: ...
-    def strxfrm(__string: str) -> str: ...
     def nl_langinfo(__key: int) -> str: ...

@@ -33,7 +33,25 @@ if sys.version_info >= (3, 11):
 if sys.version_info < (3, 12):
     __all__ += ["format"]
 
-# `_locale` module can be missing on some platforms:
+from _locale import (
+    LC_ALL as LC_ALL,
+    LC_COLLATE as LC_COLLATE,
+    LC_CTYPE as LC_CTYPE,
+    LC_MESSAGES as LC_MESSAGES,
+    LC_MONETARY as LC_MONETARY,
+    LC_NUMERIC as LC_NUMERIC,
+    LC_TIME as LC_TIME,
+    CHAR_MAX as CHAR_MAX,
+    localeconv as localeconv,
+    setlocale as setlocale,
+    strcoll as strcoll,
+    strxfrm as strxfrm,
+)
+
+if sys.version_info >= (3, 11):
+    from _locale import getencoding as getencoding
+
+# However, some parts of `_local` module is platform-specific:
 if sys.platform == "linux" or sys.platform == "darwin":
     from _locale import (
         ABDAY_1 as ABDAY_1,
@@ -57,7 +75,6 @@ if sys.platform == "linux" or sys.platform == "darwin":
         ABMON_12 as ABMON_12,
         ALT_DIGITS as ALT_DIGITS,
         AM_STR as AM_STR,
-        CHAR_MAX as CHAR_MAX,
         CODESET as CODESET,
         CRNCYSTR as CRNCYSTR,
         D_FMT as D_FMT,
@@ -73,13 +90,6 @@ if sys.platform == "linux" or sys.platform == "darwin":
         ERA_D_FMT as ERA_D_FMT,
         ERA_D_T_FMT as ERA_D_T_FMT,
         ERA_T_FMT as ERA_T_FMT,
-        LC_ALL as LC_ALL,
-        LC_COLLATE as LC_COLLATE,
-        LC_CTYPE as LC_CTYPE,
-        LC_MESSAGES as LC_MESSAGES,
-        LC_MONETARY as LC_MONETARY,
-        LC_NUMERIC as LC_NUMERIC,
-        LC_TIME as LC_TIME,
         MON_1 as MON_1,
         MON_2 as MON_2,
         MON_3 as MON_3,
@@ -100,15 +110,7 @@ if sys.platform == "linux" or sys.platform == "darwin":
         THOUSEP as THOUSEP,
         YESEXPR as YESEXPR,
         nl_langinfo as nl_langinfo,
-        strcoll as strcoll,
-        strxfrm as strxfrm,
     )
-
-# However, some function always exist:
-from _locale import localeconv as localeconv, setlocale as setlocale
-
-if sys.version_info >= (3, 11):
-    from _locale import getencoding as getencoding
 
 # This module defines a function "str()", which is why "str" can't be used
 # as a type annotation or type alias.
