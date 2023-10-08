@@ -1,5 +1,5 @@
 import sys
-from collections.abc import Callable, Iterable, Mapping
+from collections.abc import Callable
 
 __all__ = [
     "getlocale",
@@ -44,9 +44,6 @@ if sys.platform == "linux" or sys.platform == "darwin":
         ABDAY_6 as ABDAY_6,
         ABDAY_7 as ABDAY_7,
         ABMON_1 as ABMON_1,
-        ABMON_10 as ABMON_10,
-        ABMON_11 as ABMON_11,
-        ABMON_12 as ABMON_12,
         ABMON_2 as ABMON_2,
         ABMON_3 as ABMON_3,
         ABMON_4 as ABMON_4,
@@ -55,11 +52,16 @@ if sys.platform == "linux" or sys.platform == "darwin":
         ABMON_7 as ABMON_7,
         ABMON_8 as ABMON_8,
         ABMON_9 as ABMON_9,
+        ABMON_10 as ABMON_10,
+        ABMON_11 as ABMON_11,
+        ABMON_12 as ABMON_12,
         ALT_DIGITS as ALT_DIGITS,
         AM_STR as AM_STR,
         CHAR_MAX as CHAR_MAX,
         CODESET as CODESET,
         CRNCYSTR as CRNCYSTR,
+        D_FMT as D_FMT,
+        D_T_FMT as D_T_FMT,
         DAY_1 as DAY_1,
         DAY_2 as DAY_2,
         DAY_3 as DAY_3,
@@ -67,8 +69,6 @@ if sys.platform == "linux" or sys.platform == "darwin":
         DAY_5 as DAY_5,
         DAY_6 as DAY_6,
         DAY_7 as DAY_7,
-        D_FMT as D_FMT,
-        D_T_FMT as D_T_FMT,
         ERA as ERA,
         ERA_D_FMT as ERA_D_FMT,
         ERA_D_T_FMT as ERA_D_T_FMT,
@@ -81,9 +81,6 @@ if sys.platform == "linux" or sys.platform == "darwin":
         LC_NUMERIC as LC_NUMERIC,
         LC_TIME as LC_TIME,
         MON_1 as MON_1,
-        MON_10 as MON_10,
-        MON_11 as MON_11,
-        MON_12 as MON_12,
         MON_2 as MON_2,
         MON_3 as MON_3,
         MON_4 as MON_4,
@@ -92,12 +89,15 @@ if sys.platform == "linux" or sys.platform == "darwin":
         MON_7 as MON_7,
         MON_8 as MON_8,
         MON_9 as MON_9,
+        MON_10 as MON_10,
+        MON_11 as MON_11,
+        MON_12 as MON_12,
         NOEXPR as NOEXPR,
         PM_STR as PM_STR,
         RADIXCHAR as RADIXCHAR,
-        THOUSEP as THOUSEP,
         T_FMT as T_FMT,
         T_FMT_AMPM as T_FMT_AMPM,
+        THOUSEP as THOUSEP,
         YESEXPR as YESEXPR,
         nl_langinfo as nl_langinfo,
         strcoll as strcoll,
@@ -105,7 +105,8 @@ if sys.platform == "linux" or sys.platform == "darwin":
     )
 
 # However, some function always exist:
-from _locale import setlocale as setlocale, localeconv as localeconv
+from _locale import localeconv as localeconv, setlocale as setlocale
+
 if sys.version_info >= (3, 11):
     from _locale import getencoding as getencoding
 
