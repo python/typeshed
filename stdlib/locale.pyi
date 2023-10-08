@@ -34,6 +34,7 @@ if sys.version_info < (3, 12):
     __all__ += ["format"]
 
 from _locale import (
+    CHAR_MAX as CHAR_MAX,
     LC_ALL as LC_ALL,
     LC_COLLATE as LC_COLLATE,
     LC_CTYPE as LC_CTYPE,
@@ -41,7 +42,6 @@ from _locale import (
     LC_MONETARY as LC_MONETARY,
     LC_NUMERIC as LC_NUMERIC,
     LC_TIME as LC_TIME,
-    CHAR_MAX as CHAR_MAX,
     localeconv as localeconv,
     setlocale as setlocale,
     strcoll as strcoll,
