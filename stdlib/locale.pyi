@@ -1,40 +1,4 @@
 import sys
-from collections.abc import Callable
-
-__all__ = [
-    "getlocale",
-    "getdefaultlocale",
-    "getpreferredencoding",
-    "Error",
-    "setlocale",
-    "resetlocale",
-    "localeconv",
-    "strcoll",
-    "strxfrm",
-    "str",
-    "atof",
-    "atoi",
-    "format_string",
-    "currency",
-    "normalize",
-    "LC_CTYPE",
-    "LC_COLLATE",
-    "LC_TIME",
-    "LC_MONETARY",
-    "LC_NUMERIC",
-    "LC_ALL",
-    "CHAR_MAX",
-]
-
-if sys.version_info >= (3, 11):
-    __all__ += ["getencoding"]
-
-if sys.version_info < (3, 12):
-    __all__ += ["format"]
-
-if sys.platform != "win32":
-    __all__ += ["LC_MESSAGES"]
-
 from _locale import (
     CHAR_MAX as CHAR_MAX,
     LC_ALL as LC_ALL,
@@ -48,6 +12,13 @@ from _locale import (
     strcoll as strcoll,
     strxfrm as strxfrm,
 )
+
+# This module defines a function "str()", which is why "str" can't be used
+# as a type annotation or type alias.
+from builtins import str as _str
+from collections.abc import Callable
+from decimal import Decimal
+from typing import Any
 
 if sys.version_info >= (3, 11):
     from _locale import getencoding as getencoding
@@ -120,11 +91,39 @@ if sys.platform != "win32":
         textdomain as textdomain,
     )
 
-# This module defines a function "str()", which is why "str" can't be used
-# as a type annotation or type alias.
-from builtins import str as _str
-from decimal import Decimal
-from typing import Any
+__all__ = [
+    "getlocale",
+    "getdefaultlocale",
+    "getpreferredencoding",
+    "Error",
+    "setlocale",
+    "resetlocale",
+    "localeconv",
+    "strcoll",
+    "strxfrm",
+    "str",
+    "atof",
+    "atoi",
+    "format_string",
+    "currency",
+    "normalize",
+    "LC_CTYPE",
+    "LC_COLLATE",
+    "LC_TIME",
+    "LC_MONETARY",
+    "LC_NUMERIC",
+    "LC_ALL",
+    "CHAR_MAX",
+]
+
+if sys.version_info >= (3, 11):
+    __all__ += ["getencoding"]
+
+if sys.version_info < (3, 12):
+    __all__ += ["format"]
+
+if sys.platform != "win32":
+    __all__ += ["LC_MESSAGES"]
 
 class Error(Exception): ...
 
