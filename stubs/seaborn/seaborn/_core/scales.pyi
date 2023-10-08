@@ -25,15 +25,15 @@ class Scale:
 @dataclass
 class Boolean(Scale):
     values: tuple[Incomplete, ...] | list[Incomplete] | dict[Incomplete, Incomplete] | None = None
-    def tick(self, locator: Locator | None = None) -> Self: ...  # type: ignore[override]
-    def label(self, formatter: Formatter | None = None) -> Self: ...  # type: ignore[override]
+    def tick(self, locator: Locator | None = None) -> Self: ...
+    def label(self, formatter: Formatter | None = None) -> Self: ...
 
 @dataclass
 class Nominal(Scale):
     values: tuple[Incomplete, ...] | str | list[Incomplete] | dict[Incomplete, Incomplete] | None = None
     order: list[Incomplete] | None = None
-    def tick(self, locator: Locator | None = None) -> Self: ...  # type: ignore[override]
-    def label(self, formatter: Formatter | None = None) -> Self: ...  # type: ignore[override]
+    def tick(self, locator: Locator | None = None) -> Self: ...
+    def label(self, formatter: Formatter | None = None) -> Self: ...
 
 @dataclass
 class Ordinal(Scale): ...
@@ -50,7 +50,7 @@ class ContinuousBase(Scale):
 class Continuous(ContinuousBase):
     values: tuple[Incomplete, ...] | str | None = None
     trans: str | TransFuncs | None = None
-    def tick(  # type: ignore[override]
+    def tick(
         self,
         locator: Locator | None = None,
         *,
@@ -61,7 +61,7 @@ class Continuous(ContinuousBase):
         between: tuple[float, float] | None = None,
         minor: int | None = None,
     ) -> Self: ...
-    def label(  # type: ignore[override]
+    def label(
         self,
         formatter: Formatter | None = None,
         *,
@@ -73,8 +73,8 @@ class Continuous(ContinuousBase):
 @dataclass
 class Temporal(ContinuousBase):
     trans: ClassVar[Incomplete]  # not sure it is a classvar but the runtime has no annotation so it is not a dataclass field
-    def tick(self, locator: Locator | None = None, *, upto: int | None = None) -> Self: ...  # type: ignore[override]
-    def label(self, formatter: Formatter | None = None, *, concise: bool = False) -> Self: ...  # type: ignore[override]
+    def tick(self, locator: Locator | None = None, *, upto: int | None = None) -> Self: ...
+    def label(self, formatter: Formatter | None = None, *, concise: bool = False) -> Self: ...
 
 class PseudoAxis:
     axis_name: str
