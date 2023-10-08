@@ -34,78 +34,20 @@ if sys.version_info >= (3, 11):
 if sys.version_info < (3, 12):
     __all__ += ["format"]
 
+# `_locale` module does not exist on windows:
+if sys.platform != "win32":
+    from _locale import *
+
 # This module defines a function "str()", which is why "str" can't be used
 # as a type annotation or type alias.
 from builtins import str as _str
 from decimal import Decimal
 from typing import Any
 
-CODESET: int
-D_T_FMT: int
-D_FMT: int
-T_FMT: int
-T_FMT_AMPM: int
-AM_STR: int
-PM_STR: int
-
-DAY_1: int
-DAY_2: int
-DAY_3: int
-DAY_4: int
-DAY_5: int
-DAY_6: int
-DAY_7: int
-ABDAY_1: int
-ABDAY_2: int
-ABDAY_3: int
-ABDAY_4: int
-ABDAY_5: int
-ABDAY_6: int
-ABDAY_7: int
-
-MON_1: int
-MON_2: int
-MON_3: int
-MON_4: int
-MON_5: int
-MON_6: int
-MON_7: int
-MON_8: int
-MON_9: int
-MON_10: int
-MON_11: int
-MON_12: int
-ABMON_1: int
-ABMON_2: int
-ABMON_3: int
-ABMON_4: int
-ABMON_5: int
-ABMON_6: int
-ABMON_7: int
-ABMON_8: int
-ABMON_9: int
-ABMON_10: int
-ABMON_11: int
-ABMON_12: int
-
-RADIXCHAR: int
-THOUSEP: int
-YESEXPR: int
-NOEXPR: int
-CRNCYSTR: int
-
-ERA: int
-ERA_D_T_FMT: int
-ERA_D_FMT: int
-ERA_T_FMT: int
-
-ALT_DIGITS: int
-
 LC_CTYPE: int
 LC_COLLATE: int
 LC_TIME: int
 LC_MONETARY: int
-LC_MESSAGES: int
 LC_NUMERIC: int
 LC_ALL: int
 
@@ -115,7 +57,6 @@ class Error(Exception): ...
 
 def setlocale(category: int, locale: _str | Iterable[_str | None] | None = None) -> _str: ...
 def localeconv() -> Mapping[_str, int | _str | list[int]]: ...
-def nl_langinfo(__key: int) -> _str: ...
 def getdefaultlocale(
     envvars: tuple[_str, ...] = ("LC_ALL", "LC_CTYPE", "LANG", "LANGUAGE")
 ) -> tuple[_str | None, _str | None]: ...
