@@ -144,6 +144,9 @@ types.WrapperDescriptorType.__get__
 .*.__buffer__
 .*.__release_buffer__
 
+# A property at runtime that works like a method.
+zipfile.Path.open
+
 # Removed in 3.12
 distutils\..*
 asyncore.dispatcher.addr
