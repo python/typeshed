@@ -1,6 +1,11 @@
 import sys
+from _typeshed import StrPath
+from collections.abc import Iterable, Mapping
 
-if sys.platform != "win32":
+# native gettext functions
+# https://docs.python.org/3/library/locale.html#access-to-message-catalogs
+# https://github.com/python/cpython/blob/f4c03484da59049eb62a9bf7777b963e2267d187/Modules/_localemodule.c#L626
+if sys.platform == "linux" or sys.platform == "darwin":
     ABDAY_1: int
     ABDAY_2: int
     ABDAY_3: int
@@ -23,6 +28,13 @@ if sys.platform != "win32":
     ABMON_12: int
 
     LC_MESSAGES: int
+    LC_CTYPE: int
+    LC_COLLATE: int
+    LC_TIME: int
+    LC_MONETARY: int
+    LC_NUMERIC: int
+    LC_ALL: int
+    CHAR_MAX: int
 
     DAY_1: int
     DAY_2: int
@@ -65,4 +77,19 @@ if sys.platform != "win32":
     CRNCYSTR: int
     ALT_DIGITS: int
 
+    def gettext(__msg: str) -> str: ...
+    def dgettext(__domain: str | None, __msg: str) -> str: ...
+    def dcgettext(__domain: str | None, __msg: str, __category: int) -> str: ...
+    def textdomain(__domain: str | None) -> str: ...
+    def bindtextdomain(__domain: str, __dir: StrPath | None) -> str: ...
+    def bind_textdomain_codeset(__domain: str, __codeset: str | None) -> str | None: ...
+
+    def strcoll(__os1: str, __os2: str) -> int: ...
+    def strxfrm(_string: str) -> str: ...
+
     def nl_langinfo(__key: int) -> str: ...
+
+    def setlocale(category: int, locale: str | Iterable[str | None] | None = None) -> str: ...
+    def localeconv() -> Mapping[str, int | str | list[int]]: ...
+    if sys.version_info >= (3, 11):
+        def getencoding() -> str: ...
