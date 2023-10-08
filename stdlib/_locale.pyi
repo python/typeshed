@@ -2,7 +2,6 @@ import sys
 from _typeshed import StrPath
 from collections.abc import Iterable, Mapping
 
-LC_MESSAGES: int
 LC_CTYPE: int
 LC_COLLATE: int
 LC_TIME: int
@@ -24,6 +23,8 @@ def strxfrm(__string: str) -> str: ...
 # https://docs.python.org/3/library/locale.html#access-to-message-catalogs
 # https://github.com/python/cpython/blob/f4c03484da59049eb62a9bf7777b963e2267d187/Modules/_localemodule.c#L626
 if sys.platform == "linux" or sys.platform == "darwin":
+    LC_MESSAGES: int
+
     ABDAY_1: int
     ABDAY_2: int
     ABDAY_3: int
