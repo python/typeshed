@@ -1,6 +1,4 @@
 ctypes.GetLastError  # Is actually a pointer
-locale.[A-Z0-9_]+  # Constants that should be moved to _locale and re-exported conditionally
-locale.nl_langinfo  # Function that should be moved to _locale and re-exported conditionally
 # alias for a class defined elsewhere,
 # mypy infers the variable has type `(*args) -> DupHandle` but stubtest infers the runtime type as <class DupHandle>
 multiprocessing.reduction.AbstractReducer.DupHandle
