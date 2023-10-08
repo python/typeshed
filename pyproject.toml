@@ -32,6 +32,7 @@ extra_standard_library = [
     "_heapq",
     "_imp",
     "_json",
+    "_locale",
     "_markupbase",
     "_msi",
     "_operator",
