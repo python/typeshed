@@ -48,7 +48,7 @@ if sys.platform != "win32":
     MON_9: int
     MON_10: int
     MON_11: int
-    MON_12:
+    MON_12: int
 
     CODESET: int
     D_T_FMT: int
