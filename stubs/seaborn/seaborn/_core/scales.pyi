@@ -16,7 +16,7 @@ TransFuncs: TypeAlias = tuple[Callable[[ArrayLike], ArrayLike], Callable[[ArrayL
 Pipeline: TypeAlias = Sequence[Callable[[Any], Any] | None]
 
 class Scale:
-    values: tuple[Incomplete] | str | list[Incomplete] | dict[Incomplete, Incomplete] | None
+    values: tuple[Incomplete, ...] | str | list[Incomplete] | dict[Incomplete, Incomplete] | None
     def __post_init__(self) -> None: ...
     def tick(self) -> Self: ...
     def label(self) -> Self: ...
@@ -24,13 +24,13 @@ class Scale:
 
 @dataclass
 class Boolean(Scale):
-    values: tuple[Incomplete] | list[Incomplete] | dict[Incomplete, Incomplete] | None = None
+    values: tuple[Incomplete, ...] | list[Incomplete] | dict[Incomplete, Incomplete] | None = None
     def tick(self, locator: Locator | None = None) -> Self: ...  # type: ignore[override]
     def label(self, formatter: Formatter | None = None) -> Self: ...  # type: ignore[override]
 
 @dataclass
 class Nominal(Scale):
-    values: tuple[Incomplete] | str | list[Incomplete] | dict[Incomplete, Incomplete] | None = None
+    values: tuple[Incomplete, ...] | str | list[Incomplete] | dict[Incomplete, Incomplete] | None = None
     order: list[Incomplete] | None = None
     def tick(self, locator: Locator | None = None) -> Self: ...  # type: ignore[override]
     def label(self, formatter: Formatter | None = None) -> Self: ...  # type: ignore[override]
@@ -43,12 +43,12 @@ class Discrete(Scale): ...
 
 @dataclass
 class ContinuousBase(Scale):
-    values: tuple[Incomplete] | str | None = None
-    norm: tuple[Incomplete] | None = None
+    values: tuple[Incomplete, ...] | str | None = None
+    norm: tuple[Incomplete, ...] | None = None
 
 @dataclass
 class Continuous(ContinuousBase):
-    values: tuple[Incomplete] | str | None = None
+    values: tuple[Incomplete, ...] | str | None = None
     trans: str | TransFuncs | None = None
     def tick(  # type: ignore[override]
         self,

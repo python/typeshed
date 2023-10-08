@@ -1,14 +1,14 @@
 from _typeshed import Incomplete
-from collections.abc import Iterable, Sequence
+from collections.abc import Iterable
 from typing import Any
 from typing_extensions import Literal
 
-import numpy as np
 import pandas as pd
 from matplotlib.axes import Axes
 from matplotlib.typing import ColorType
 
 from .axisgrid import FacetGrid
+from .utils import _Palette, _Seed
 
 __all__ = ["lmplot", "regplot", "residplot"]
 
@@ -20,7 +20,7 @@ def lmplot(
     hue: str | None = None,
     col: str | None = None,
     row: str | None = None,
-    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
+    palette: _Palette | None = None,
     col_wrap: int | None = None,
     height: float = 5,
     aspect: float = 1,
@@ -40,7 +40,7 @@ def lmplot(
     ci: int | None = 95,
     n_boot: int = 1000,
     units: str | None = None,
-    seed: int | np.random.Generator | np.random.RandomState | None = None,
+    seed: _Seed | None = None,
     order: int = 1,
     logistic: bool = False,
     lowess: bool = False,
@@ -68,7 +68,7 @@ def regplot(
     ci: int | None = 95,
     n_boot: int = 1000,
     units: str | None = None,
-    seed: int | np.random.Generator | np.random.RandomState | None = None,
+    seed: _Seed | None = None,
     order: int = 1,
     logistic: bool = False,
     lowess: bool = False,

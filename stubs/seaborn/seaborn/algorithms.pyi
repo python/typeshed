@@ -1,8 +1,9 @@
 from collections.abc import Callable
 from typing import Any
 
-import numpy as np
 from numpy.typing import ArrayLike, NDArray
+
+from .utils import _Seed
 
 def bootstrap(
     *args: ArrayLike,
@@ -10,5 +11,5 @@ def bootstrap(
     func: str | Callable[..., Any] = "mean",
     axis: int | None = None,
     units: ArrayLike | None = None,
-    seed: int | np.random.Generator | np.random.RandomState | None = None,
+    seed: _Seed | None = None,
 ) -> NDArray[Any]: ...

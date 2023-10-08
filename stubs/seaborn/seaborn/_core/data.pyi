@@ -1,5 +1,12 @@
+from _typeshed import Incomplete
+from collections.abc import Mapping
+from typing import TypeVar, overload
+
 from pandas import DataFrame
+from pandas.core.interchange.dataframe_protocol import DataFrame as DataFrameProtocol
 from seaborn._core.typing import DataSource, VariableSpec
+
+_T = TypeVar("_T", Mapping[Incomplete, Incomplete], None)
 
 class PlotData:
     frame: DataFrame
@@ -11,3 +18,9 @@ class PlotData:
     def __init__(self, data: DataSource, variables: dict[str, VariableSpec]) -> None: ...
     def __contains__(self, key: str) -> bool: ...
     def join(self, data: DataSource, variables: dict[str, VariableSpec] | None) -> PlotData: ...
+
+@overload
+def handle_data_source(data: _T) -> _T: ...
+@overload
+def handle_data_source(data: DataFrameProtocol) -> DataFrame: ...
+def convert_dataframe_to_pandas(data: object) -> DataFrame: ...

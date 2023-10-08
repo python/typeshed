@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Generator, Iterable, Mapping, Sequence
+from collections.abc import Callable, Generator, Iterable, Mapping
 from typing import Any, TypeVar
 from typing_extensions import Concatenate, Literal, ParamSpec, Self
 
@@ -11,7 +11,9 @@ from matplotlib.text import Text
 from matplotlib.typing import ColorType
 from numpy.typing import NDArray
 from pandas import DataFrame, Series
-from seaborn.palettes import _RGBColorPalette
+
+from .palettes import _RGBColorPalette
+from .utils import _Palette
 
 __all__ = ["FacetGrid", "PairGrid", "JointGrid", "pairplot", "jointplot"]
 
@@ -19,7 +21,7 @@ _P = ParamSpec("_P")
 _R = TypeVar("_R")
 
 class _BaseGrid:
-    def set(self, **kwargs: Any) -> Self: ...
+    def set(self, **kwargs: Incomplete) -> Self: ...  # **kwargs are passed to `matplotlib.axes.Axes.set`
     @property
     def fig(self) -> Figure: ...
     @property
@@ -67,7 +69,7 @@ class FacetGrid(Grid):
         sharey: bool | Literal["col", "row"] = True,
         height: float = 3,
         aspect: float = 1,
-        palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
+        palette: _Palette | None = None,
         row_order: Iterable[Any] | None = None,
         col_order: Iterable[Any] | None = None,
         hue_order: Iterable[Any] | None = None,
@@ -139,7 +141,7 @@ class PairGrid(Grid):
         x_vars: Iterable[str] | None = None,
         y_vars: Iterable[str] | None = None,
         hue_order: Iterable[str] | None = None,
-        palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
+        palette: _Palette | None = None,
         hue_kws: dict[str, Any] | None = None,
         corner: bool = False,
         diag_sharey: bool = True,
@@ -172,7 +174,7 @@ class JointGrid(_BaseGrid):
         height: float = 6,
         ratio: float = 5,
         space: float = 0.2,
-        palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
+        palette: _Palette | None = None,
         hue_order: Iterable[str] | None = None,
         hue_norm: Incomplete | None = None,
         dropna: bool = False,
@@ -201,7 +203,7 @@ def pairplot(
     *,
     hue: str | None = None,
     hue_order: Iterable[str] | None = None,
-    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
+    palette: _Palette | None = None,
     vars: Iterable[str] | None = None,
     x_vars: Iterable[str] | None = None,
     y_vars: Iterable[str] | None = None,
@@ -231,7 +233,7 @@ def jointplot(
     xlim: Incomplete | None = None,
     ylim: Incomplete | None = None,
     color: ColorType | None = None,
-    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
+    palette: _Palette | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
     marginal_ticks: bool = False,

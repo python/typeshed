@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Iterable, Sequence
+from collections.abc import Iterable
 from typing import Any
 from typing_extensions import Literal
 
@@ -7,6 +7,7 @@ from matplotlib.axes import Axes
 from matplotlib.typing import ColorType
 
 from .axisgrid import FacetGrid
+from .utils import _LogScale, _Palette
 
 __all__ = ["displot", "histplot", "kdeplot", "ecdfplot", "rugplot", "distplot"]
 
@@ -41,11 +42,11 @@ def histplot(
     cbar: bool = False,
     cbar_ax: Axes | None = None,
     cbar_kws: dict[str, Any] | None = None,
-    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
+    palette: _Palette | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
     color: ColorType | None = None,
-    log_scale: bool | float | tuple[bool | float, bool | float] | None = None,
+    log_scale: _LogScale | None = None,
     legend: bool = True,
     ax: Axes | None = None,
     **kwargs: Any,
@@ -57,7 +58,7 @@ def kdeplot(
     y: Incomplete | None = None,
     hue: Incomplete | None = None,
     weights: Incomplete | None = None,
-    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
+    palette: _Palette | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
     color: ColorType | None = None,
@@ -69,7 +70,7 @@ def kdeplot(
     bw_method: str = "scott",
     bw_adjust: float = 1,
     warn_singular: bool = True,
-    log_scale: bool | float | tuple[bool | float, bool | float] | None = None,
+    log_scale: _LogScale | None = None,
     levels: int | Iterable[int] = 10,
     thresh: float = 0.05,
     gridsize: int = 200,
@@ -91,10 +92,10 @@ def ecdfplot(
     weights: Incomplete | None = None,
     stat: Literal["proportion", "count"] = "proportion",
     complementary: bool = False,
-    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
+    palette: _Palette | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
-    log_scale: bool | float | tuple[bool | float, bool | float] | None = None,
+    log_scale: _LogScale | None = None,
     legend: bool = True,
     ax: Axes | None = None,
     **kwargs: Any,
@@ -107,7 +108,7 @@ def rugplot(
     hue: Incomplete | None = None,
     height: float = 0.025,
     expand_margins: bool = True,
-    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
+    palette: _Palette | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
     legend: bool = True,
@@ -126,9 +127,9 @@ def displot(
     kind: Literal["hist", "kde", "ecdf"] = "hist",
     rug: bool = False,
     rug_kws: dict[str, Any] | None = None,
-    log_scale: bool | float | tuple[bool | float, bool | float] | None = None,
+    log_scale: _LogScale | None = None,
     legend: bool = True,
-    palette: str | Sequence[ColorType] | dict[Incomplete, ColorType] | None = None,
+    palette: _Palette | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
     color: ColorType | None = None,

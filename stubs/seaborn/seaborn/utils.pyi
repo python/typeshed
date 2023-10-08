@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, SupportsGetItem
-from collections.abc import Iterable, Mapping, Sequence
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any, TypeVar, overload
-from typing_extensions import SupportsIndex
+from typing_extensions import Literal, SupportsIndex, TypeAlias
 
 import numpy as np
 from matplotlib.axes import Axes
@@ -27,6 +27,17 @@ __all__ = [
 
 _VectorT = TypeVar("_VectorT", bound=SupportsGetItem[Any, Any])
 
+# Type aliases used heavily throughout seaborn
+_ErrorBar: TypeAlias = str | tuple[str, float] | Callable[[Iterable[float]], tuple[float, float]]  # noqa: Y047
+_Estimator: TypeAlias = str | Callable[..., Incomplete]  # noqa: Y047
+_Legend: TypeAlias = Literal["auto", "brief", "full"] | bool  # noqa: Y047
+_LogScale: TypeAlias = bool | float | tuple[bool | float, bool | float]  # noqa: Y047
+_Palette: TypeAlias = str | Sequence[ColorType] | dict[Incomplete, ColorType]  # noqa: Y047
+_Seed: TypeAlias = int | np.random.Generator | np.random.RandomState  # noqa: Y047
+
+DATASET_SOURCE: str
+DATASET_NAMES_URL: str
+
 def ci_to_errsize(cis: ArrayLike, heights: ArrayLike) -> NDArray[np.float64]: ...
 def desaturate(color: ColorType, prop: float) -> tuple[float, float, float]: ...
 def saturate(color: ColorType) -> tuple[float, float, float]: ...
@@ -36,6 +47,8 @@ def set_hls_values(
 def axlabel(xlabel: str, ylabel: str, **kwargs: Any) -> None: ...  # deprecated
 def remove_na(vector: _VectorT) -> _VectorT: ...
 def get_color_cycle() -> list[str]: ...
+
+# Please modify `seaborn.axisgrid.FacetGrid.despine` when modifying despine here.
 def despine(
     fig: Figure | None = None,
     ax: Axes | None = None,
