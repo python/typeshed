@@ -54,7 +54,7 @@ if sys.version_info >= (3, 11):
 
 # Some parts of the `_locale` module are platform-specific:
 if sys.platform != "win32":
-    from _locale import (  # This is dependent on `libintl.h` which is a part of `gettext`; system dependency. These functions might be missing.; But, we always say that they are present.
+    from _locale import (
         ABDAY_1 as ABDAY_1,
         ABDAY_2 as ABDAY_2,
         ABDAY_3 as ABDAY_3,
