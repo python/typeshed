@@ -54,7 +54,7 @@ if sys.version_info >= (3, 11):
 
 # Some parts of the `_locale` module are platform-specific:
 if sys.platform != "win32":
-    from _locale import (
+    from _locale import (  # This is dependent on `libintl.h` which is a part of `gettext`; system dependency. These functions might be missing.; But, we always say that they are present.
         ABDAY_1 as ABDAY_1,
         ABDAY_2 as ABDAY_2,
         ABDAY_3 as ABDAY_3,
@@ -111,16 +111,13 @@ if sys.platform != "win32":
         T_FMT_AMPM as T_FMT_AMPM,
         THOUSEP as THOUSEP,
         YESEXPR as YESEXPR,
-        nl_langinfo as nl_langinfo,
-        # This is dependent on `libintl.h` which is a part of `gettext`
-        # system dependency. These functions might be missing.
-        # But, we always say that they are present.
-        gettext as gettext,
-        dgettext as dgettext,
-        dcgettext as dcgettext,
-        textdomain as textdomain,
-        bindtextdomain as bindtextdomain,
         bind_textdomain_codeset as bind_textdomain_codeset,
+        bindtextdomain as bindtextdomain,
+        dcgettext as dcgettext,
+        dgettext as dgettext,
+        gettext as gettext,
+        nl_langinfo as nl_langinfo,
+        textdomain as textdomain,
     )
 
 # This module defines a function "str()", which is why "str" can't be used
