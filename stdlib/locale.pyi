@@ -19,7 +19,6 @@ __all__ = [
     "normalize",
     "LC_CTYPE",
     "LC_COLLATE",
-    "LC_MESSAGES",
     "LC_TIME",
     "LC_MONETARY",
     "LC_NUMERIC",
@@ -111,6 +110,7 @@ if sys.platform == "linux" or sys.platform == "darwin":
         YESEXPR as YESEXPR,
         nl_langinfo as nl_langinfo,
     )
+    __all__ += ["LC_MESSAGES"]
 
 # This module defines a function "str()", which is why "str" can't be used
 # as a type annotation or type alias.
