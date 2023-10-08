@@ -32,6 +32,9 @@ if sys.version_info >= (3, 11):
 if sys.version_info < (3, 12):
     __all__ += ["format"]
 
+if sys.platform != "win32":
+    __all__ += ["LC_MESSAGES"]
+
 from _locale import (
     CHAR_MAX as CHAR_MAX,
     LC_ALL as LC_ALL,
@@ -49,8 +52,8 @@ from _locale import (
 if sys.version_info >= (3, 11):
     from _locale import getencoding as getencoding
 
-# However, some parts of `_local` module is platform-specific:
-if sys.platform == "linux" or sys.platform == "darwin":
+# Some parts of the `_locale` module are platform-specific:
+if sys.platform != "win32":
     from _locale import (
         ABDAY_1 as ABDAY_1,
         ABDAY_2 as ABDAY_2,
@@ -109,8 +112,16 @@ if sys.platform == "linux" or sys.platform == "darwin":
         THOUSEP as THOUSEP,
         YESEXPR as YESEXPR,
         nl_langinfo as nl_langinfo,
+        # This is dependent on `libintl.h` which is a part of `gettext`
+        # system dependency. These functions might be missing.
+        # But, we always say that they are present.
+        gettext as gettext,
+        dgettext as dgettext,
+        dcgettext as dcgettext,
+        textdomain as textdomain,
+        bindtextdomain as bindtextdomain,
+        bind_textdomain_codeset as bind_textdomain_codeset,
     )
-    __all__ += ["LC_MESSAGES"]
 
 # This module defines a function "str()", which is why "str" can't be used
 # as a type annotation or type alias.
