@@ -1,4 +1,5 @@
 _posixsubprocess.cloexec_pipe
+curses.has_key
 (os|posix).sched_param  # system dependent. Unclear if macos has it.
 select.KQ_FILTER_NETDEV  # system dependent
 select.kqueue.__init__  # default C signature is wrong

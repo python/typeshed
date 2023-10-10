@@ -17,6 +17,22 @@ tkinter._VersionInfoType.__doc__
 typing.NewType.__call__
 typing.NewType.__mro_entries__
 
+# Modules that exist at runtime, but are missing from typeshed
+importlib.readers
+importlib.resources.readers
+importlib.resources.simple
+importlib.simple
+
+# Modules that exist at runtime, but shouldn't be added to typeshed
+ctypes.test
+ctypes\.test\..+
+lib2to3.tests
+lib2to3\.tests\..+
+tkinter.test
+tkinter\.test\..+
+unittest.test
+unittest\.test\..+
+
 # ==========
 # Related to positional-only arguments
 # ==========
