@@ -381,26 +381,29 @@ def test_stdlib(args: TestConfig) -> TestResult:
     return TestResult(result, len(files))
 
 
-@dataclass(frozen=True)
+@dataclass
 class TestSummary:
     mypy_result: MypyResult = MypyResult.SUCCESS
     files_checked: int = 0
     packages_skipped: int = 0
     packages_with_errors: int = 0
 
-    def register_result(self, mypy_result: MypyResult, files_checked: int) -> TestSummary:
-        errors = 1 if mypy_result != MypyResult.SUCCESS else 0
-        return self.combine(TestSummary(mypy_result, files_checked, 0, errors))
+    def register_result(self, mypy_result: MypyResult, files_checked: int) -> None:
+        if mypy_result.value > self.mypy_result.value:
+            self.mypy_result = mypy_result
+        if mypy_result != MypyResult.SUCCESS:
+            self.packages_with_errors += 1
+        self.files_checked += files_checked
 
-    def skip_package(self) -> TestSummary:
-        return TestSummary(self.mypy_result, self.files_checked, self.packages_skipped + 1)
+    def skip_package(self) -> None:
+        self.packages_skipped += 1
 
-    def combine(self, other: TestSummary) -> TestSummary:
-        result = self.mypy_result if self.mypy_result.value > other.mypy_result.value else other.mypy_result
-        checked = self.files_checked + other.files_checked
-        skipped = self.packages_skipped + other.packages_skipped
-        errors = self.packages_with_errors + other.packages_with_errors
-        return TestSummary(result, checked, skipped, errors)
+    def merge(self, other: TestSummary) -> None:
+        if other.mypy_result.value > self.mypy_result.value:
+            self.mypy_result = other.mypy_result
+        self.files_checked += other.files_checked
+        self.packages_skipped += other.packages_skipped
+        self.packages_with_errors += other.packages_with_errors
 
 
 _PRINT_LOCK = Lock()
@@ -524,12 +527,12 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
                 f"test is being run using Python {PYTHON_VERSION})"
             )
             print(colored(msg, "yellow"))
-            summary = summary.skip_package()
+            summary.skip_package()
             continue
         if not metadata.requires_python.contains(args.version):
             msg = f"skipping {distribution!r} for target Python {args.version} (requires Python {metadata.requires_python})"
             print(colored(msg, "yellow"))
-            summary = summary.skip_package()
+            summary.skip_package()
             continue
 
         if (
@@ -561,7 +564,7 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
         mypy_result, files_checked = test_third_party_distribution(
             distribution, args, venv_info=venv_info, non_types_dependencies=non_types_dependencies
         )
-        summary = summary.register_result(mypy_result, files_checked)
+        summary.register_result(mypy_result, files_checked)
 
     return summary
 
@@ -573,12 +576,12 @@ def test_typeshed(args: TestConfig, tempdir: Path) -> TestSummary:
 
     if stdlib_dir in args.filter or any(stdlib_dir in path.parents for path in args.filter):
         mypy_result, files_checked = test_stdlib(args)
-        summary = summary.register_result(mypy_result, files_checked)
+        summary.register_result(mypy_result, files_checked)
         print()
 
     if stubs_dir in args.filter or any(stubs_dir in path.parents for path in args.filter):
         tp_results = test_third_party_stubs(args, tempdir)
-        summary = summary.combine(tp_results)
+        summary.merge(tp_results)
         print()
 
     return summary
@@ -596,7 +599,7 @@ def main() -> None:
         for version, platform in product(versions, platforms):
             config = TestConfig(args.verbose, filter, exclude, version, platform)
             version_summary = test_typeshed(args=config, tempdir=td_path)
-            summary = summary.combine(version_summary)
+            summary.merge(version_summary)
 
     if summary.mypy_result == MypyResult.FAILURE:
         plural1 = "" if summary.packages_with_errors == 1 else "s"
