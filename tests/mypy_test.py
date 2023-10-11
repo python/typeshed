@@ -507,7 +507,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
 
 def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
     print("Testing third-party packages...")
-    results = TestSummary()
+    summary = TestSummary()
     gitignore_spec = get_gitignore_spec()
     distributions_to_check: dict[str, PackageDependencies] = {}
 
@@ -524,12 +524,12 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
                 f"test is being run using Python {PYTHON_VERSION})"
             )
             print(colored(msg, "yellow"))
-            results = results.skip_package()
+            summary = summary.skip_package()
             continue
         if not metadata.requires_python.contains(args.version):
             msg = f"skipping {distribution!r} for target Python {args.version} (requires Python {metadata.requires_python})"
             print(colored(msg, "yellow"))
-            results = results.skip_package()
+            summary = summary.skip_package()
             continue
 
         if (
@@ -561,27 +561,27 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
         mypy_result, files_checked = test_third_party_distribution(
             distribution, args, venv_info=venv_info, non_types_dependencies=non_types_dependencies
         )
-        results = results.register_result(mypy_result, files_checked)
+        summary = summary.register_result(mypy_result, files_checked)
 
-    return results
+    return summary
 
 
 def test_typeshed(args: TestConfig, tempdir: Path) -> TestSummary:
     print(f"*** Testing Python {args.version} on {args.platform}")
     stdlib_dir, stubs_dir = Path("stdlib"), Path("stubs")
-    results = TestSummary()
+    summary = TestSummary()
 
     if stdlib_dir in args.filter or any(stdlib_dir in path.parents for path in args.filter):
         mypy_result, files_checked = test_stdlib(args)
-        results = results.register_result(mypy_result, files_checked)
+        summary = summary.register_result(mypy_result, files_checked)
         print()
 
     if stubs_dir in args.filter or any(stubs_dir in path.parents for path in args.filter):
         tp_results = test_third_party_stubs(args, tempdir)
-        results = results.combine(tp_results)
+        summary = summary.combine(tp_results)
         print()
 
-    return results
+    return summary
 
 
 def main() -> None:
@@ -590,31 +590,31 @@ def main() -> None:
     platforms = args.platform or [sys.platform]
     filter = args.filter or DIRECTORIES_TO_TEST
     exclude = args.exclude or []
-    results = TestSummary()
+    summary = TestSummary()
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
         for version, platform in product(versions, platforms):
             config = TestConfig(args.verbose, filter, exclude, version, platform)
-            this_results = test_typeshed(args=config, tempdir=td_path)
-            results = results.combine(this_results)
+            version_summary = test_typeshed(args=config, tempdir=td_path)
+            summary = summary.combine(version_summary)
 
-    if results.mypy_result == MypyResult.FAILURE:
-        plural1 = "" if results.packages_with_errors == 1 else "s"
-        plural2 = "" if results.files_checked == 1 else "s"
+    if summary.mypy_result == MypyResult.FAILURE:
+        plural1 = "" if summary.packages_with_errors == 1 else "s"
+        plural2 = "" if summary.files_checked == 1 else "s"
         print_error(
-            f"--- {results.packages_with_errors} package{plural1} with errors, {results.files_checked} file{plural2} checked ---"
+            f"--- {summary.packages_with_errors} package{plural1} with errors, {summary.files_checked} file{plural2} checked ---"
         )
         sys.exit(1)
-    if results.mypy_result == MypyResult.CRASH:
-        plural = "" if results.files_checked == 1 else "s"
-        print_error(f"--- mypy crashed, {results.files_checked} file{plural} checked ---")
+    if summary.mypy_result == MypyResult.CRASH:
+        plural = "" if summary.files_checked == 1 else "s"
+        print_error(f"--- mypy crashed, {summary.files_checked} file{plural} checked ---")
         sys.exit(2)
-    if results.packages_skipped:
-        plural = "" if results.packages_skipped == 1 else "s"
-        print(colored(f"--- {results.packages_skipped} package{plural} skipped ---", "yellow"))
-    if results.files_checked:
-        plural = "" if results.files_checked == 1 else "s"
-        print(colored(f"--- success, {results.files_checked} file{plural} checked ---", "green"))
+    if summary.packages_skipped:
+        plural = "" if summary.packages_skipped == 1 else "s"
+        print(colored(f"--- {summary.packages_skipped} package{plural} skipped ---", "yellow"))
+    if summary.files_checked:
+        plural = "" if summary.files_checked == 1 else "s"
+        print(colored(f"--- success, {summary.files_checked} file{plural} checked ---", "green"))
     else:
         print_error("--- nothing to do; exit 1 ---")
         sys.exit(1)
