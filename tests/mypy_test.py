@@ -318,8 +318,8 @@ class TestResults:
     files_checked: int = 0
     packages_skipped: int = 0
 
-    @classmethod
-    def from_code(self, mypy_result_code: int, files_checked: int = 0) -> TestResults:
+    @staticmethod
+    def from_code(mypy_result_code: int, files_checked: int = 0) -> TestResults:
         if mypy_result_code == 0:
             result = MypyResult.SUCCESS
         elif mypy_result_code == 1:
