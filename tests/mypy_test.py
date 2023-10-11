@@ -11,7 +11,6 @@ import subprocess
 import sys
 import tempfile
 import time
-from calendar import c
 from collections import defaultdict
 from dataclasses import dataclass
 from itertools import product
