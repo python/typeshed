@@ -52,7 +52,6 @@ SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
 
-ReturnCode: TypeAlias = int
 VersionString: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_VERSIONS"]
 VersionTuple: TypeAlias = Tuple[int, int]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
@@ -223,6 +222,12 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         configurations.append(MypyDistConf(module_name, values.copy()))
 
 
+class MypyResult(Enum):
+    SUCCESS = 0
+    FAILURE = 1
+    CRASH = 2
+
+
 def run_mypy(
     args: TestConfig,
     configurations: list[MypyDistConf],
@@ -232,7 +237,7 @@ def run_mypy(
     non_types_dependencies: bool,
     venv_info: VenvInfo,
     mypypath: str | None = None,
-) -> ReturnCode:
+) -> MypyResult:
     env_vars = dict(os.environ)
     if mypypath is not None:
         env_vars["MYPYPATH"] = mypypath
@@ -288,7 +293,12 @@ def run_mypy(
                 print()
         else:
             print_success_msg()
-        return result.returncode
+        if result.returncode == 0:
+            return MypyResult.SUCCESS
+        elif result.returncode == 1:
+            return MypyResult.FAILURE
+        else:
+            return MypyResult.CRASH
 
 
 def add_third_party_files(
@@ -307,7 +317,7 @@ def add_third_party_files(
 
 
 class TestResult(NamedTuple):
-    mypy_return_code: int
+    mypy_result: MypyResult
     files_checked: int
 
 
@@ -326,7 +336,7 @@ def test_third_party_distribution(
     add_third_party_files(distribution, files, args, configurations, seen_dists)
 
     if not files and args.filter:
-        return TestResult(0, 0)
+        return TestResult(MypyResult.SUCCESS, 0)
 
     print(f"testing {distribution} ({len(files)} files)... ", end="", flush=True)
 
@@ -337,7 +347,7 @@ def test_third_party_distribution(
     mypypath = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
     if args.verbose:
         print(colored(f"\nMYPYPATH={mypypath}", "blue"))
-    code = run_mypy(
+    result = run_mypy(
         args,
         configurations,
         files,
@@ -346,7 +356,7 @@ def test_third_party_distribution(
         testing_stdlib=False,
         non_types_dependencies=non_types_dependencies,
     )
-    return TestResult(code, len(files))
+    return TestResult(result, len(files))
 
 
 def test_stdlib(args: TestConfig) -> TestResult:
@@ -362,19 +372,13 @@ def test_stdlib(args: TestConfig) -> TestResult:
             add_files(files, (stdlib / name), args)
 
     if not files:
-        return TestResult(0, 0)
+        return TestResult(MypyResult.SUCCESS, 0)
 
     print(f"Testing stdlib ({len(files)} files)...", end="", flush=True)
     # We don't actually need pip for the stdlib testing
     venv_info = VenvInfo(pip_exe="", python_exe=sys.executable)
-    code = run_mypy(args, [], files, venv_info=venv_info, testing_stdlib=True, non_types_dependencies=False)
-    return TestResult(code, len(files))
-
-
-class MypyResult(Enum):
-    SUCCESS = 0
-    FAILURE = 1
-    CRASH = 2
+    result = run_mypy(args, [], files, venv_info=venv_info, testing_stdlib=True, non_types_dependencies=False)
+    return TestResult(result, len(files))
 
 
 @dataclass(frozen=True)
@@ -384,17 +388,9 @@ class TestSummary:
     packages_skipped: int = 0
     packages_with_errors: int = 0
 
-    def register_result(self, mypy_result_code: int, files_checked: int) -> TestSummary:
-        if mypy_result_code == 0:
-            result = MypyResult.SUCCESS
-            errors = 0
-        elif mypy_result_code == 1:
-            result = MypyResult.FAILURE
-            errors = 1
-        else:
-            result = MypyResult.CRASH
-            errors = 1
-        return self.combine(TestSummary(result, files_checked, 0, errors))
+    def register_result(self, mypy_result: MypyResult, files_checked: int) -> TestSummary:
+        errors = 1 if mypy_result != MypyResult.SUCCESS else 0
+        return self.combine(TestSummary(mypy_result, files_checked, 0, errors))
 
     def combine(self, other: TestSummary) -> TestSummary:
         result = self.mypy_result if self.mypy_result.value > other.mypy_result.value else other.mypy_result
@@ -562,10 +558,10 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
     for distribution in distributions_to_check:
         venv_info = _DISTRIBUTION_TO_VENV_MAPPING[distribution]
         non_types_dependencies = venv_info.python_exe != sys.executable
-        code, files_checked = test_third_party_distribution(
+        mypy_result, files_checked = test_third_party_distribution(
             distribution, args, venv_info=venv_info, non_types_dependencies=non_types_dependencies
         )
-        results = results.register_result(code, files_checked)
+        results = results.register_result(mypy_result, files_checked)
 
     return results
 
@@ -576,8 +572,8 @@ def test_typeshed(args: TestConfig, tempdir: Path) -> TestSummary:
     results = TestSummary()
 
     if stdlib_dir in args.filter or any(stdlib_dir in path.parents for path in args.filter):
-        code, files_checked = test_stdlib(args)
-        results = results.register_result(code, files_checked)
+        mypy_result, files_checked = test_stdlib(args)
+        results = results.register_result(mypy_result, files_checked)
         print()
 
     if stubs_dir in args.filter or any(stubs_dir in path.parents for path in args.filter):
