@@ -11,6 +11,7 @@ import subprocess
 import sys
 import tempfile
 import time
+from calendar import c
 from collections import defaultdict
 from dataclasses import dataclass
 from itertools import product
@@ -366,7 +367,8 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
         # We don't actually need pip for the stdlib testing
         venv_info = VenvInfo(pip_exe="", python_exe=sys.executable)
         this_code = run_mypy(args, [], files, venv_info=venv_info, testing_stdlib=True, non_types_dependencies=False)
-        code = max(code, this_code)
+        if code == 0:
+            code = this_code
 
     return TestResults(code, len(files))
 
@@ -530,7 +532,8 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
         this_code, checked, _ = test_third_party_distribution(
             distribution, args, venv_info=venv_info, non_types_dependencies=non_types_dependencies
         )
-        code = max(code, this_code)
+        if code == 0:
+            code = this_code
         files_checked += checked
 
     return TestResults(code, files_checked, packages_skipped)
