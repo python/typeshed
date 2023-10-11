@@ -392,15 +392,15 @@ class TestSummary:
         errors = 1 if mypy_result != MypyResult.SUCCESS else 0
         return self.combine(TestSummary(mypy_result, files_checked, 0, errors))
 
+    def skip_package(self) -> TestSummary:
+        return TestSummary(self.mypy_result, self.files_checked, self.packages_skipped + 1)
+
     def combine(self, other: TestSummary) -> TestSummary:
         result = self.mypy_result if self.mypy_result.value > other.mypy_result.value else other.mypy_result
         checked = self.files_checked + other.files_checked
         skipped = self.packages_skipped + other.packages_skipped
         errors = self.packages_with_errors + other.packages_with_errors
         return TestSummary(result, checked, skipped, errors)
-
-    def skip_package(self) -> TestSummary:
-        return TestSummary(self.mypy_result, self.files_checked, self.packages_skipped + 1)
 
 
 _PRINT_LOCK = Lock()
