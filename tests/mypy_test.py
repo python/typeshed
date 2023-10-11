@@ -575,8 +575,8 @@ def main() -> None:
             total_packages_skipped += packages_skipped_this_version
     if code:
         plural = "" if total_files_checked == 1 else "s"
-        print_error(f"--- exit status {code}, {total_files_checked} file{plural} checked ---")
-        sys.exit(code)
+        print_error(f"--- mypy exit status {code}, {total_files_checked} file{plural} checked ---")
+        sys.exit(1)
     if total_packages_skipped:
         plural = "" if total_packages_skipped == 1 else "s"
         print(colored(f"--- {total_packages_skipped} package{plural} skipped ---", "yellow"))
