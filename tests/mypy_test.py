@@ -276,7 +276,7 @@ def run_mypy(
             print(colored(f"running {' '.join(mypy_command)}", "blue"))
         result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
         if result.returncode:
-            print_error("failure\n")
+            print_error(f"failure (exit code {result.returncode})\n")
             if result.stdout:
                 print_error(result.stdout)
             if result.stderr:
@@ -575,7 +575,7 @@ def main() -> None:
             total_packages_skipped += packages_skipped_this_version
     if code:
         plural = "" if total_files_checked == 1 else "s"
-        print_error(f"--- mypy exit status {code}, {total_files_checked} file{plural} checked ---")
+        print_error(f"--- error, {total_files_checked} file{plural} checked ---")
         sys.exit(1)
     if total_packages_skipped:
         plural = "" if total_packages_skipped == 1 else "s"
