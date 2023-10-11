@@ -13,6 +13,7 @@ import tempfile
 import time
 from collections import defaultdict
 from dataclasses import dataclass
+from enum import Enum
 from itertools import product
 from pathlib import Path
 from threading import Lock
@@ -305,10 +306,36 @@ def add_third_party_files(
         add_configuration(configurations, distribution)
 
 
-class TestResults(NamedTuple):
-    exit_code: int
-    files_checked: int
+class MypyResult(Enum):
+    SUCCESS = 0
+    FAILURE = 1
+    CRASH = 2
+
+
+@dataclass(frozen=True)
+class TestResults:
+    mypy_result: MypyResult = MypyResult.SUCCESS
+    files_checked: int = 0
     packages_skipped: int = 0
+
+    @classmethod
+    def from_code(self, mypy_result_code: int, files_checked: int = 0) -> TestResults:
+        if mypy_result_code == 0:
+            result = MypyResult.SUCCESS
+        elif mypy_result_code == 1:
+            result = MypyResult.FAILURE
+        else:
+            result = MypyResult.CRASH
+        return TestResults(result, files_checked)
+
+    def combine(self, other: TestResults) -> TestResults:
+        result = self.mypy_result if self.mypy_result.value > other.mypy_result.value else other.mypy_result
+        checked = self.files_checked + other.files_checked
+        skipped = self.packages_skipped + other.packages_skipped
+        return TestResults(result, checked, skipped)
+
+    def skip_package(self) -> TestResults:
+        return TestResults(self.mypy_result, self.files_checked, self.packages_skipped + 1)
 
 
 def test_third_party_distribution(
@@ -326,7 +353,7 @@ def test_third_party_distribution(
     add_third_party_files(distribution, files, args, configurations, seen_dists)
 
     if not files and args.filter:
-        return TestResults(0, 0)
+        return TestResults()
 
     print(f"testing {distribution} ({len(files)} files)... ", end="", flush=True)
 
@@ -346,10 +373,10 @@ def test_third_party_distribution(
         testing_stdlib=False,
         non_types_dependencies=non_types_dependencies,
     )
-    return TestResults(code, len(files))
+    return TestResults.from_code(code, len(files))
 
 
-def test_stdlib(code: int, args: TestConfig) -> TestResults:
+def test_stdlib(args: TestConfig) -> TestResults:
     files: list[Path] = []
     stdlib = Path("stdlib")
     supported_versions = parse_versions(stdlib / "VERSIONS")
@@ -361,15 +388,14 @@ def test_stdlib(code: int, args: TestConfig) -> TestResults:
         if module_min_version <= tuple(map(int, args.version.split("."))) <= module_max_version:
             add_files(files, (stdlib / name), args)
 
-    if files:
-        print(f"Testing stdlib ({len(files)} files)...", end="", flush=True)
-        # We don't actually need pip for the stdlib testing
-        venv_info = VenvInfo(pip_exe="", python_exe=sys.executable)
-        this_code = run_mypy(args, [], files, venv_info=venv_info, testing_stdlib=True, non_types_dependencies=False)
-        if code == 0:
-            code = this_code
+    if not files:
+        return TestResults()
 
-    return TestResults(code, len(files))
+    print(f"Testing stdlib ({len(files)} files)...", end="", flush=True)
+    # We don't actually need pip for the stdlib testing
+    venv_info = VenvInfo(pip_exe="", python_exe=sys.executable)
+    code = run_mypy(args, [], files, venv_info=venv_info, testing_stdlib=True, non_types_dependencies=False)
+    return TestResults.from_code(code, len(files))
 
 
 _PRINT_LOCK = Lock()
@@ -474,10 +500,9 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
         _DISTRIBUTION_TO_VENV_MAPPING.update(dict.fromkeys(distribution_list, venv_to_use))
 
 
-def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestResults:
+def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestResults:
     print("Testing third-party packages...")
-    files_checked = 0
-    packages_skipped = 0
+    results = TestResults()
     gitignore_spec = get_gitignore_spec()
     distributions_to_check: dict[str, PackageDependencies] = {}
 
@@ -494,12 +519,12 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
                 f"test is being run using Python {PYTHON_VERSION})"
             )
             print(colored(msg, "yellow"))
-            packages_skipped += 1
+            results = results.skip_package()
             continue
         if not metadata.requires_python.contains(args.version):
             msg = f"skipping {distribution!r} for target Python {args.version} (requires Python {metadata.requires_python})"
             print(colored(msg, "yellow"))
-            packages_skipped += 1
+            results = results.skip_package()
             continue
 
         if (
@@ -528,33 +553,30 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
     for distribution in distributions_to_check:
         venv_info = _DISTRIBUTION_TO_VENV_MAPPING[distribution]
         non_types_dependencies = venv_info.python_exe != sys.executable
-        this_code, checked, _ = test_third_party_distribution(
+        this_results = test_third_party_distribution(
             distribution, args, venv_info=venv_info, non_types_dependencies=non_types_dependencies
         )
-        if code == 0:
-            code = this_code
-        files_checked += checked
+        results = results.combine(this_results)
 
-    return TestResults(code, files_checked, packages_skipped)
+    return results
 
 
-def test_typeshed(code: int, args: TestConfig, tempdir: Path) -> TestResults:
+def test_typeshed(args: TestConfig, tempdir: Path) -> TestResults:
     print(f"*** Testing Python {args.version} on {args.platform}")
-    files_checked_this_version = 0
-    packages_skipped_this_version = 0
     stdlib_dir, stubs_dir = Path("stdlib"), Path("stubs")
+    results = TestResults()
+
     if stdlib_dir in args.filter or any(stdlib_dir in path.parents for path in args.filter):
-        code, stdlib_files_checked, _ = test_stdlib(code, args)
-        files_checked_this_version += stdlib_files_checked
+        stdlib_results = test_stdlib(args)
+        results = results.combine(stdlib_results)
         print()
 
     if stubs_dir in args.filter or any(stubs_dir in path.parents for path in args.filter):
-        code, third_party_files_checked, third_party_packages_skipped = test_third_party_stubs(code, args, tempdir)
-        files_checked_this_version += third_party_files_checked
-        packages_skipped_this_version = third_party_packages_skipped
+        third_party_results = test_third_party_stubs(args, tempdir)
+        results = results.combine(third_party_results)
         print()
 
-    return TestResults(code, files_checked_this_version, packages_skipped_this_version)
+    return results
 
 
 def main() -> None:
@@ -563,26 +585,28 @@ def main() -> None:
     platforms = args.platform or [sys.platform]
     filter = args.filter or DIRECTORIES_TO_TEST
     exclude = args.exclude or []
-    code = 0
-    total_files_checked = 0
-    total_packages_skipped = 0
+    results = TestResults()
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
         for version, platform in product(versions, platforms):
             config = TestConfig(args.verbose, filter, exclude, version, platform)
-            code, files_checked_this_version, packages_skipped_this_version = test_typeshed(code, args=config, tempdir=td_path)
-            total_files_checked += files_checked_this_version
-            total_packages_skipped += packages_skipped_this_version
-    if code:
-        plural = "" if total_files_checked == 1 else "s"
-        print_error(f"--- error, {total_files_checked} file{plural} checked ---")
+            this_results = test_typeshed(args=config, tempdir=td_path)
+            results = results.combine(this_results)
+
+    if results.mypy_result == MypyResult.FAILURE:
+        plural = "" if results.files_checked == 1 else "s"
+        print_error(f"--- error, {results.files_checked} file{plural} checked ---")
         sys.exit(1)
-    if total_packages_skipped:
-        plural = "" if total_packages_skipped == 1 else "s"
-        print(colored(f"--- {total_packages_skipped} package{plural} skipped ---", "yellow"))
-    if total_files_checked:
-        plural = "" if total_files_checked == 1 else "s"
-        print(colored(f"--- success, {total_files_checked} file{plural} checked ---", "green"))
+    if results.mypy_result == MypyResult.CRASH:
+        plural = "" if results.files_checked == 1 else "s"
+        print_error(f"--- mypy crashed, {results.files_checked} file{plural} checked ---")
+        sys.exit(2)
+    if results.packages_skipped:
+        plural = "" if results.packages_skipped == 1 else "s"
+        print(colored(f"--- {results.packages_skipped} package{plural} skipped ---", "yellow"))
+    if results.files_checked:
+        plural = "" if results.files_checked == 1 else "s"
+        print(colored(f"--- success, {results.files_checked} file{plural} checked ---", "green"))
     else:
         print_error("--- nothing to do; exit 1 ---")
         sys.exit(1)
