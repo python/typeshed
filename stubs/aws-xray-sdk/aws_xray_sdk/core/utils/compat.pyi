@@ -1,5 +1,4 @@
 from typing import Any
-from typing_extensions import Literal
 
 annotation_value_types: Any
 

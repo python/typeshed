@@ -2,9 +2,7 @@ from _typeshed import Incomplete
 from types import TracebackType
 
 from .models.segment import SegmentContextManager
-from .models.subsegment import (
-    SubsegmentContextManager
-)
+from .models.subsegment import SubsegmentContextManager
 from .recorder import AWSXRayRecorder
 
 class AsyncSegmentContextManager(SegmentContextManager):

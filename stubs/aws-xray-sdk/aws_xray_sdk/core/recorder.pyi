@@ -6,8 +6,8 @@ from typing import Any
 from .context import Context
 from .emitters.udp_emitter import UDPEmitter
 from .models.default_dynamic_naming import DefaultDynamicNaming
-from .models.dummy_entities import DummySegment , DummySubsegment
-from .models.segment import Segment , SegmentContextManager
+from .models.dummy_entities import DummySegment, DummySubsegment
+from .models.segment import Segment, SegmentContextManager
 from .models.subsegment import Subsegment, SubsegmentContextManager
 from .sampling.local.sampler import LocalSampler
 from .sampling.sampler import DefaultSampler

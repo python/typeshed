@@ -2,7 +2,6 @@ from collections.abc import Iterable
 from logging import Logger
 from typing import Any
 
-
 log: Logger
 SUPPORTED_MODULES: Any
 NO_DOUBLE_PATCH: Any
