@@ -1,8 +1,7 @@
-from _typeshed import StrPath
-from typing import IO
 from typing_extensions import Literal
 from zipfile import ZipFile
 
+from openpyxl import _ZipFileFileProtocol
 from openpyxl.packaging.manifest import Manifest
 from openpyxl.workbook.workbook import Workbook
 
@@ -15,4 +14,4 @@ class ExcelWriter:
     def write_worksheet(self, ws) -> None: ...
     def save(self) -> None: ...
 
-def save_workbook(workbook: Workbook, filename: StrPath | IO[bytes]) -> Literal[True]: ...
+def save_workbook(workbook: Workbook, filename: _ZipFileFileProtocol) -> Literal[True]: ...
