@@ -7,4 +7,5 @@ class PolyFit(Stat):
     order: int = 2
     gridsize: int = 100
 
+@dataclass
 class OLSFit(Stat): ...

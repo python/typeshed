@@ -12,4 +12,5 @@ def bootstrap(
     axis: int | None = None,
     units: ArrayLike | None = None,
     seed: _Seed | None = None,
+    random_seed: _Seed | None = None,  # deprecated
 ) -> NDArray[Any]: ...

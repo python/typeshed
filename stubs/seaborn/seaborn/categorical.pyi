@@ -36,9 +36,9 @@ def boxplot(
     hue_norm: Incomplete | None = None,
     native_scale: bool = False,
     log_scale: _LogScale | None = None,
-    formatter: Callable[..., str] | None = None,
+    formatter: Callable[[Any], str] | None = None,
     legend: _Legend = "auto",
-    **kwargs,
+    **kwargs: Any,
 ) -> Axes: ...
 def violinplot(
     data: Incomplete | None = None,
@@ -67,7 +67,7 @@ def violinplot(
     density_norm: Literal["area", "count", "width"] = "area",
     common_norm: bool | None = False,
     hue_norm: Incomplete | None = None,
-    formatter: Callable[..., str] | None = None,
+    formatter: Callable[[Any], str] | None = None,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
     legend: _Legend = "auto",
@@ -76,7 +76,7 @@ def violinplot(
     bw: Incomplete = ...,  # deprecated
     inner_kws: dict[str, Any] | None = None,
     ax: Axes | None = None,
-    **kwargs,
+    **kwargs: Any,
 ) -> Axes: ...
 def boxenplot(
     data: Incomplete | None = None,
@@ -104,13 +104,14 @@ def boxenplot(
     hue_norm: Incomplete | None = None,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
-    formatter: Callable[..., str] | None = None,
+    formatter: Callable[[Any], str] | None = None,
     legend: _Legend = "auto",
     scale: Incomplete = ...,  # deprecated
     box_kws: dict[str, Any] | None = None,
     flier_kws: dict[str, Any] | None = None,
     line_kws: dict[str, Any] | None = None,
     ax: Axes | None = None,
+    **kwargs: Any,
 ) -> Axes: ...
 def stripplot(
     data: Incomplete | None = None,
@@ -131,10 +132,10 @@ def stripplot(
     hue_norm: Incomplete | None = None,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
-    formatter: Callable[..., str] | None = None,
+    formatter: Callable[[Any], str] | None = None,
     legend: _Legend = "auto",
     ax: Axes | None = None,
-    **kwargs,
+    **kwargs: Any,
 ) -> Axes: ...
 def swarmplot(
     data: Incomplete | None = None,
@@ -154,11 +155,11 @@ def swarmplot(
     hue_norm: Incomplete | None = None,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
-    formatter: Callable[..., str] | None = None,
+    formatter: Callable[[Any], str] | None = None,
     legend: _Legend = "auto",
     warn_thresh: float = 0.05,
     ax: Axes | None = None,
-    **kwargs,
+    **kwargs: Any,
 ) -> Axes: ...
 def barplot(
     data: Incomplete | None = None,
@@ -184,7 +185,7 @@ def barplot(
     gap: float = 0,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
-    formatter: Callable[..., str] | None = None,
+    formatter: Callable[[Any], str] | None = None,
     legend: _Legend = "auto",
     capsize: float = 0,
     err_kws: dict[str, Any] | None = None,
@@ -217,7 +218,7 @@ def pointplot(
     native_scale: bool = False,
     orient: Literal["v", "h", "x", "y"] | None = None,
     capsize: float = 0,
-    formatter: Callable[..., str] | None = None,
+    formatter: Callable[[Any], str] | None = None,
     legend: _Legend = "auto",
     err_kws: dict[str, Any] | None = None,
     ci: Incomplete = ...,  # deprecated
@@ -225,7 +226,7 @@ def pointplot(
     join: Incomplete = ...,  # deprecated
     scale: Incomplete = ...,  # deprecated
     ax: Axes | None = None,
-    **kwargs,
+    **kwargs: Any,
 ) -> Axes: ...
 def countplot(
     data: Incomplete | None = None,
@@ -247,10 +248,10 @@ def countplot(
     gap: float = 0,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
-    formatter: Callable[..., str] | None = None,
+    formatter: Callable[[Any], str] | None = None,
     legend: _Legend = "auto",
     ax: Axes | None = None,
-    **kwargs,
+    **kwargs: Any,
 ) -> Axes: ...
 def catplot(
     data: Incomplete | None = None,
@@ -275,7 +276,7 @@ def catplot(
     aspect: float = 1,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
-    formatter: Callable[..., str] | None = None,
+    formatter: Callable[[Any], str] | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
     palette: _Palette | None = None,
@@ -287,5 +288,5 @@ def catplot(
     margin_titles: bool = False,
     facet_kws: dict[str, Any] | None = None,
     ci: Incomplete = ...,  # deprecated
-    **kwargs,
+    **kwargs: Any,
 ) -> FacetGrid: ...

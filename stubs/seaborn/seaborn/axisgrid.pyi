@@ -30,16 +30,16 @@ class _BaseGrid:
     def pipe(self, func: Callable[Concatenate[Self, _P], _R], *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
     def savefig(
         self, *args: Incomplete, **kwargs: Incomplete
-    ) -> None: ...  # *arg and **kwargs are passed to `matplotlib.figure.Figure.savefig`
+    ) -> None: ...  # *args and **kwargs are passed to `matplotlib.figure.Figure.savefig`
 
 class Grid(_BaseGrid):
     def __init__(self) -> None: ...
     def tight_layout(
         self, *args: Incomplete, **kwargs: Incomplete
-    ) -> Self: ...  # *arg and **kwargs are passed to `matplotlib.figure.Figure.tight_layout`
+    ) -> Self: ...  # *args and **kwargs are passed to `matplotlib.figure.Figure.tight_layout`
     def add_legend(
         self,
-        legend_data: Mapping[str | tuple[Incomplete, str], Artist] | None = None,
+        legend_data: Mapping[Any, Artist] | None = None,  # cannot use precise key type because of invariant Mapping keys
         title: str | None = None,
         label_order: list[str] | None = None,
         adjust_subtitles: bool = False,
@@ -207,7 +207,7 @@ def pairplot(
     vars: Iterable[str] | None = None,
     x_vars: Iterable[str] | None = None,
     y_vars: Iterable[str] | None = None,
-    kind: Literal["scatter", "kde", "hist", "reg"] = "scatter",
+    kind: str = "scatter",  # ideally Literal["scatter", "kde", "hist", "reg"] but it is checked with startswith
     diag_kind: Literal["auto", "hist", "kde"] | None = "auto",
     markers: Incomplete | None = None,
     height: float = 2.5,
@@ -217,7 +217,7 @@ def pairplot(
     plot_kws: dict[str, Any] | None = None,
     diag_kws: dict[str, Any] | None = None,
     grid_kws: dict[str, Any] | None = None,
-    size: float | None = None,
+    size: float | None = None,  # deprecated
 ) -> PairGrid: ...
 def jointplot(
     data: Incomplete | None = None,
