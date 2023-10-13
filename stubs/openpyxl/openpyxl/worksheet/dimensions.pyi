@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, Unused
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Generator
 from typing import ClassVar, Generic, TypeVar
 from typing_extensions import Literal, Self
 
@@ -42,7 +42,7 @@ class Dimension(Strict, StyleableObject):
         visible: Unused = True,
         style: Incomplete | None = None,
     ) -> None: ...
-    def __iter__(self) -> Iterator[tuple[str, str]]: ...
+    def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
     def __copy__(self) -> Self: ...
 
 class RowDimension(Dimension):

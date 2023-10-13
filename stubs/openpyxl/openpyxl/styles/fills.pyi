@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Iterable, Sequence as ABCSequence
+from collections.abc import Generator, Iterable, Sequence as ABCSequence
 from typing import ClassVar
 from typing_extensions import Final, Literal, TypeAlias
 
@@ -111,5 +111,5 @@ class GradientFill(Fill):
         bottom: _ConvertibleToFloat = 0,
         stop=(),
     ) -> None: ...
-    def __iter__(self): ...
+    def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
     def to_tree(self, tagname: str | None = None, namespace: str | None = None, idx: Incomplete | None = None): ...  # type: ignore[override]

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, Unused
+from collections.abc import Generator
 from typing import ClassVar, overload
 from typing_extensions import Final, Literal, Self, TypeAlias
 
@@ -127,7 +128,7 @@ class TableColumn(Serialisable):
         xmlColumnPr: XMLColumnProps | None = None,
         extLst: ExtensionList | None = None,
     ) -> None: ...
-    def __iter__(self): ...
+    def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
     @classmethod
     def from_tree(cls, node: _ChildSerialisableTreeElement) -> Self: ...
 

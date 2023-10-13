@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Iterator
+from collections.abc import Generator, Iterator
 from typing import ClassVar
 
 class DataTableFormula:
@@ -26,7 +26,7 @@ class DataTableFormula:
         del2: bool = False,
         **kw,
     ) -> None: ...
-    def __iter__(self) -> Iterator[tuple[str, str]]: ...
+    def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
 
 class ArrayFormula:
     t: ClassVar[str]
