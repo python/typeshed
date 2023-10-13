@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0 # must match requirements-tests.txt
+    rev: v4.5.0 # must match requirements-tests.txt
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -20,7 +20,7 @@ repos:
       - id: isort
         name: isort (python)
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.0.287  # must match requirements-tests.txt
+    rev: v0.0.292  # must match requirements-tests.txt
     hooks:
       - id: ruff
         args: [--exit-non-zero-on-fix]
@@ -29,9 +29,9 @@ repos:
     hooks:
       - id: flake8
         additional_dependencies:
-          - "flake8-bugbear==23.7.10" # must match requirements-tests.txt
+          - "flake8-bugbear==23.9.16" # must match requirements-tests.txt
           - "flake8-noqa==1.3.2" # must match requirements-tests.txt
-          - "flake8-pyi==23.6.0" # must match requirements-tests.txt
+          - "flake8-pyi==23.10.0" # must match requirements-tests.txt
         types: [file]
         types_or: [python, pyi]
 

@@ -1,22 +1,16 @@
-from datetime import date, datetime, time, timedelta
-from decimal import Decimal
+from _typeshed import ReadableBuffer
+from datetime import datetime
 from re import Pattern
 from typing import overload
-from typing_extensions import Final, Literal, TypeAlias
+from typing_extensions import Final, Literal
 
-from openpyxl.cell.rich_text import CellRichText
+from openpyxl.cell import _CellValue, _TimeTypes
 from openpyxl.comments.comments import Comment
 from openpyxl.compat.numbers import NUMERIC_TYPES as NUMERIC_TYPES
 from openpyxl.styles.cell_style import StyleArray
 from openpyxl.styles.styleable import StyleableObject
 from openpyxl.workbook.child import _WorkbookChild
-from openpyxl.worksheet.formula import ArrayFormula, DataTableFormula
 from openpyxl.worksheet.hyperlink import Hyperlink
-
-_TimeTypes: TypeAlias = datetime | date | time | timedelta
-_CellValue: TypeAlias = (  # if numpy is installed also numpy bool and number types
-    bool | float | Decimal | str | CellRichText | _TimeTypes | DataTableFormula | ArrayFormula
-)
 
 __docformat__: Final = "restructuredtext en"
 TIME_TYPES: Final[tuple[type, ...]]
@@ -66,14 +60,14 @@ class Cell(StyleableObject):
     @overload
     def check_string(self, value: None) -> None: ...
     @overload
-    def check_string(self, value: str | bytes) -> str: ...
+    def check_string(self, value: str | ReadableBuffer) -> str: ...
     def check_error(self, value: object) -> str: ...
     @property
-    def value(self) -> _CellValue: ...
+    def value(self) -> _CellValue | None: ...
     @value.setter
     def value(self, value: _CellValue | bytes | None) -> None: ...
     @property
-    def internal_value(self) -> _CellValue: ...
+    def internal_value(self) -> _CellValue | None: ...
     @property
     def hyperlink(self) -> Hyperlink | None: ...
     @hyperlink.setter
@@ -93,6 +87,7 @@ class MergedCell(StyleableObject):
     row: int | None
     column: int | None
     def __init__(self, worksheet: _WorkbookChild, row: int | None = None, column: int | None = None) -> None: ...
+    # Same as Cell.coordinate
     @property
     def coordinate(self) -> str: ...
     value: _CellValue | bytes | None

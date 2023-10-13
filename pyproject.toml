@@ -32,6 +32,7 @@ extra_standard_library = [
     "_heapq",
     "_imp",
     "_json",
+    "_locale",
     "_markupbase",
     "_msi",
     "_operator",
@@ -97,4 +98,5 @@ select = [
 ]
 
 [tool.typeshed]
-pyright_version = "1.1.326"
+pyright_version = "1.1.330"
+oldest_supported_python = "3.7"
