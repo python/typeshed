@@ -208,7 +208,7 @@ def pairplot(
     vars: Iterable[str] | None = None,
     x_vars: Iterable[str] | None = None,
     y_vars: Iterable[str] | None = None,
-    kind: str = "scatter",  # ideally Literal["scatter", "kde", "hist", "reg"] but it is checked with startswith
+    kind: Literal["scatter", "kde", "hist", "reg"] = "scatter",
     diag_kind: Literal["auto", "hist", "kde"] | None = "auto",
     markers: Incomplete | None = None,
     height: float = 2.5,
@@ -226,7 +226,7 @@ def jointplot(
     x: Incomplete | None = None,
     y: Incomplete | None = None,
     hue: Incomplete | None = None,
-    kind: Literal["scatter", "kde", "hist", "hex", "reg", "resid"] = "scatter",
+    kind: str = "scatter",  # ideally Literal["scatter", "kde", "hist", "hex", "reg", "resid"] but it is checked with startswith
     height: float = 6,
     ratio: float = 5,
     space: float = 0.2,
