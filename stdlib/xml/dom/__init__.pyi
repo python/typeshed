@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Protocol
 
 from .domreg import getDOMImplementation as getDOMImplementation, registerDOMImplementation as registerDOMImplementation
 
@@ -56,11 +56,13 @@ class NamespaceErr(DOMException): ...
 class InvalidAccessErr(DOMException): ...
 class ValidationErr(DOMException): ...
 
-class UserDataHandler:
+class UserDataHandler(Protocol):
     NODE_CLONED: int
     NODE_IMPORTED: int
     NODE_DELETED: int
     NODE_RENAMED: int
+
+    def handle(self, operation: int, key: str, data: object, src: Node, dst: Node) -> None: ...
 
 XML_NAMESPACE: str
 XMLNS_NAMESPACE: str
