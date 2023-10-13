@@ -1,6 +1,5 @@
 from typing import Any
 
-
 module_prefix: str
 PLUGIN_MAPPING: Any
 

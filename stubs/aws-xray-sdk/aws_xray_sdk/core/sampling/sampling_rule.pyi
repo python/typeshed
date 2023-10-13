@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 
-
 class SamplingRule:
     def __init__(
         self,
