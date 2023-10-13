@@ -34,7 +34,7 @@ jobs:
         platform: ["linux", "win32"]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
@@ -50,7 +50,7 @@ jobs:
         python-platform: ["Linux", "Windows"]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: "3.9"
@@ -74,7 +74,7 @@ jobs:
     name: Stubsabot dry run
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: "3.11"
