@@ -5,6 +5,7 @@ from typing_extensions import Concatenate, Literal, ParamSpec, Self
 
 from matplotlib.artist import Artist
 from matplotlib.axes import Axes
+from matplotlib.colors import Colormap
 from matplotlib.figure import Figure
 from matplotlib.legend import Legend
 from matplotlib.text import Text
@@ -174,7 +175,7 @@ class JointGrid(_BaseGrid):
         height: float = 6,
         ratio: float = 5,
         space: float = 0.2,
-        palette: _Palette | None = None,
+        palette: _Palette | Colormap | None = None,
         hue_order: Iterable[str] | None = None,
         hue_norm: Incomplete | None = None,
         dropna: bool = False,
@@ -233,7 +234,7 @@ def jointplot(
     xlim: Incomplete | None = None,
     ylim: Incomplete | None = None,
     color: ColorType | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
     marginal_ticks: bool = False,

@@ -4,15 +4,13 @@ from typing import Any
 from typing_extensions import Literal
 
 from matplotlib.axes import Axes
+from matplotlib.colors import Colormap
 from matplotlib.typing import ColorType
 
 from .axisgrid import FacetGrid
 from .utils import _LogScale, _Palette
 
 __all__ = ["displot", "histplot", "kdeplot", "ecdfplot", "rugplot", "distplot"]
-
-# The docs of these functions say that the palette argument accepts `matplotlib.colors.Colormap`
-# as well but it doesn't
 
 def histplot(
     data: Incomplete | None = None,
@@ -42,7 +40,7 @@ def histplot(
     cbar: bool = False,
     cbar_ax: Axes | None = None,
     cbar_kws: dict[str, Any] | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
     color: ColorType | None = None,
@@ -58,7 +56,7 @@ def kdeplot(
     y: Incomplete | None = None,
     hue: Incomplete | None = None,
     weights: Incomplete | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
     color: ColorType | None = None,
@@ -92,7 +90,7 @@ def ecdfplot(
     weights: Incomplete | None = None,
     stat: Literal["proportion", "count"] = "proportion",
     complementary: bool = False,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
     log_scale: _LogScale | None = None,
@@ -108,7 +106,7 @@ def rugplot(
     hue: Incomplete | None = None,
     height: float = 0.025,
     expand_margins: bool = True,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
     legend: bool = True,
@@ -129,7 +127,7 @@ def displot(
     rug_kws: dict[str, Any] | None = None,
     log_scale: _LogScale | None = None,
     legend: bool = True,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     hue_order: Iterable[str] | None = None,
     hue_norm: Incomplete | None = None,
     color: ColorType | None = None,

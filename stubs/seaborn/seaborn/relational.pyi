@@ -4,6 +4,7 @@ from typing import Any
 from typing_extensions import Literal, TypeAlias
 
 from matplotlib.axes import Axes
+from matplotlib.colors import Colormap
 
 from .axisgrid import FacetGrid
 from .utils import _ErrorBar, _Estimator, _Legend, _Palette, _Seed
@@ -11,9 +12,6 @@ from .utils import _ErrorBar, _Estimator, _Legend, _Palette, _Seed
 __all__ = ["relplot", "scatterplot", "lineplot"]
 
 _Sizes: TypeAlias = list[float] | dict[str, float] | tuple[float, float]
-
-# The docs of these functions say that the palette argument accepts `matplotlib.colors.Colormap`
-# as well but it doesn't
 
 def lineplot(
     data: Incomplete | None = None,
@@ -24,7 +22,7 @@ def lineplot(
     size: Incomplete | None = None,
     style: Incomplete | None = None,
     units: Incomplete | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     hue_order: Iterable[Any] | None = None,
     hue_norm: Incomplete | None = None,
     sizes: _Sizes | None = None,
@@ -54,7 +52,7 @@ def scatterplot(
     hue: Incomplete | None = None,
     size: Incomplete | None = None,
     style: Incomplete | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     hue_order: Iterable[Any] | None = None,
     hue_norm: Incomplete | None = None,
     sizes: _Sizes | None = None,
@@ -80,7 +78,7 @@ def relplot(
     col_wrap: int | None = None,
     row_order: Iterable[Any] | None = None,
     col_order: Iterable[Any] | None = None,
-    palette: _Palette | None = None,
+    palette: _Palette | Colormap | None = None,
     hue_order: Iterable[Any] | None = None,
     hue_norm: Incomplete | None = None,
     sizes: _Sizes | None = None,
