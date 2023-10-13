@@ -1,9 +1,5 @@
-from datetime import datetime
 
-from aws_xray_sdk.core.context import Context
-from aws_xray_sdk.core.models.dummy_entities import DummySegment
 
-from .sampling_rule import SamplingRule
 
 class ServiceConnector:
     def __init__(self) -> None: ...
