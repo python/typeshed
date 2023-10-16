@@ -3,7 +3,7 @@ from collections.abc import Iterable, Iterator, Sequence as ABCSequence
 from typing import ClassVar
 from typing_extensions import Final, Literal, TypeAlias
 
-from openpyxl.descriptors import Sequence
+from openpyxl.descriptors import Sequence, Strict
 from openpyxl.descriptors.base import Alias, Float, MinMax, NoneSet, Set, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color, ColorDescriptor
@@ -32,7 +32,6 @@ FILL_PATTERN_MEDIUMGRAY: Final = "mediumGray"
 
 _GradientFillType: TypeAlias = Literal["linear", "path"]
 _FillsType: TypeAlias = Literal[
-    "none",
     "solid",
     "darkDown",
     "darkGray",
@@ -52,7 +51,7 @@ _FillsType: TypeAlias = Literal[
     "lightVertical",
     "mediumGray",
 ]
-fills: tuple[_FillsType, ...]
+fills: Final[tuple[_FillsType, ...]]
 
 class Fill(Serialisable):
     tagname: ClassVar[str]
@@ -90,7 +89,7 @@ class Stop(Serialisable):
 
 class StopList(Sequence):
     expected_type: type[Incomplete]
-    def __set__(self, obj, values) -> None: ...
+    def __set__(self, obj: Serialisable | Strict, values) -> None: ...
 
 class GradientFill(Fill):
     tagname: ClassVar[str]
