@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
-from typing import ClassVar
+from typing import ClassVar, Iterator
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Bool, Min, MinMax, NoneSet, _ConvertibleToBool, _ConvertibleToFloat
@@ -45,4 +44,4 @@ class Alignment(Serialisable):
         shrink_to_fit: Incomplete | None = None,
         mergeCell: Incomplete | None = None,
     ) -> None: ...
-    def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
+    def __iter__(self) -> Iterator[tuple[str, str]]: ...
