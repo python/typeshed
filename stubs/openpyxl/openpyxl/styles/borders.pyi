@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Iterator
 from typing import ClassVar
 from typing_extensions import Final, Literal, TypeAlias
 
@@ -82,6 +83,6 @@ class Border(Serialisable):
         start: Side | None = None,
         end: Side | None = None,
     ) -> None: ...
-    def __iter__(self): ...
+    def __iter__(self) -> Iterator[tuple[str, str]]: ...
 
 DEFAULT_BORDER: Final[Border]
