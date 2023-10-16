@@ -1,11 +1,20 @@
 from _typeshed import Incomplete, Unused
-from collections.abc import Generator
+from collections.abc import Iterator
 from re import Pattern
 from typing import ClassVar, TypeVar, overload
 from typing_extensions import Final, Literal, Self
 
 from openpyxl.descriptors import Strict, Typed
-from openpyxl.descriptors.base import Bool, Integer, MinMax, String, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
+from openpyxl.descriptors.base import (
+    _N,
+    Bool,
+    Integer,
+    MinMax,
+    String,
+    _ConvertibleToBool,
+    _ConvertibleToFloat,
+    _ConvertibleToInt,
+)
 from openpyxl.descriptors.serialisable import Serialisable
 
 _S = TypeVar("_S", bound=Serialisable)
@@ -16,13 +25,20 @@ WHITE: Final = "00FFFFFF"
 BLUE: Final = "00FFFFFF"
 aRGB_REGEX: Final[Pattern[str]]
 
-class RGB(Typed[str, Incomplete]):
+class RGB(Typed[str, _N]):
     expected_type: type[str]
-    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
+    @overload
+    def __init__(self: RGB[Literal[True]], name: str | None = None, *, allow_none: Literal[True]) -> None: ...
+    @overload
+    def __init__(self: RGB[Literal[False]], name: str | None = None, *, allow_none: Literal[False] = False) -> None: ...
+    @overload
+    def __set__(self: RGB[Literal[True]], instance: Serialisable | Strict, value: str | None) -> None: ...
+    @overload
+    def __set__(self: RGB[Literal[False]], instance: Serialisable | Strict, value: str) -> None: ...
 
 class Color(Serialisable):
     tagname: ClassVar[str]
-    rgb: Incomplete
+    rgb: RGB[Literal[False]]
     indexed: Integer[Literal[False]]
     auto: Bool[Literal[False]]
     theme: Integer[Literal[False]]
@@ -42,7 +58,7 @@ class Color(Serialisable):
     def value(self) -> str | int | bool: ...
     @value.setter
     def value(self, value: str | _ConvertibleToInt | _ConvertibleToBool) -> None: ...
-    def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
+    def __iter__(self) -> Iterator[tuple[str, str]]: ...
     @property
     def index(self) -> str | int | bool: ...
     @overload
@@ -50,13 +66,24 @@ class Color(Serialisable):
     @overload
     def __add__(self, other: _S) -> _S: ...
 
-class ColorDescriptor(Typed[Color, Incomplete]):
+class ColorDescriptor(Typed[Color, _N]):
     expected_type: type[Color]
-    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
+    @overload
+    def __init__(self: ColorDescriptor[Literal[True]], name: str | None = None, *, allow_none: Literal[True]) -> None: ...
+    @overload
+    def __init__(
+        self: ColorDescriptor[Literal[False]], name: str | None = None, *, allow_none: Literal[False] = False
+    ) -> None: ...
+    @overload
+    def __set__(self: ColorDescriptor[_N], instance: Serialisable | Strict, value: str) -> None: ...
+    @overload
+    def __set__(self: ColorDescriptor[Literal[True]], instance: Serialisable | Strict, value: Color | None) -> None: ...
+    @overload
+    def __set__(self: ColorDescriptor[Literal[False]], instance: Serialisable | Strict, value: Color) -> None: ...
 
 class RgbColor(Serialisable):
     tagname: ClassVar[str]
-    rgb: RGB
+    rgb: RGB[Literal[False]]
     def __init__(self, rgb: str) -> None: ...
 
 class ColorList(Serialisable):
@@ -64,7 +91,9 @@ class ColorList(Serialisable):
     indexedColors: Incomplete
     mruColors: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, indexedColors=(), mruColors=()) -> None: ...
+    def __init__(
+        self, indexedColors: list[RgbColor] | tuple[RgbColor, ...] = (), mruColors: list[Color] | tuple[Color, ...] = ()
+    ) -> None: ...
     def __bool__(self) -> bool: ...
     @property
     def index(self) -> list[str]: ...

@@ -109,6 +109,7 @@ openpyxl.drawing.text.GeomGuide.__init__
 openpyxl.drawing.text.PresetTextShape.__init__
 openpyxl.drawing.text.TextField.__init__
 openpyxl.drawing.text.TextNormalAutofit.__init__
+openpyxl.formatting.rule.DataBar.__init__
 openpyxl.packaging.relationship.Relationship.__init__
 openpyxl.packaging.workbook.ChildSheet.__init__
 openpyxl.packaging.workbook.PivotCache.__init__

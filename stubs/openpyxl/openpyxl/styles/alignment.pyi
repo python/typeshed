@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Iterator
 from typing import ClassVar
 from typing_extensions import Final, Literal, TypeAlias
 
@@ -45,4 +45,4 @@ class Alignment(Serialisable):
         shrink_to_fit: Incomplete | None = None,
         mergeCell: Incomplete | None = None,
     ) -> None: ...
-    def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
+    def __iter__(self) -> Iterator[tuple[str, str]]: ...

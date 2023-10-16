@@ -1,15 +1,15 @@
 from _typeshed import Incomplete, Unused
-from collections.abc import Generator, Iterable, Sequence as ABCSequence
+from collections.abc import Iterable, Iterator, Sequence as ABCSequence
 from typing import ClassVar
 from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors import Sequence, Strict
 from openpyxl.descriptors.base import Alias, Float, MinMax, NoneSet, Set, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.styles.colors import Color, ColorDescriptor
 from openpyxl.xml.functions import Element
 
 from ..xml._functions_overloads import _SupportsIterAndAttribAndTextAndTag
-from .colors import Color
 
 FILL_NONE: Final = "none"
 FILL_SOLID: Final = "solid"
@@ -64,18 +64,18 @@ class PatternFill(Fill):
     __elements__: ClassVar[tuple[str, ...]]
     patternType: NoneSet[_FillsType]
     fill_type: Alias
-    fgColor: Incomplete
+    fgColor: ColorDescriptor[Literal[False]]
     start_color: Alias
-    bgColor: Incomplete
+    bgColor: ColorDescriptor[Literal[False]]
     end_color: Alias
     def __init__(
         self,
-        patternType: _FillsType | Literal["none", None] = None,
-        fgColor: Color = ...,
-        bgColor: Color = ...,
-        fill_type: _FillsType | Literal["none", None] = None,
-        start_color: Color | None = None,
-        end_color: Color | None = None,
+        patternType: _FillsType | Literal["none"] | None = None,
+        fgColor: str | Color = ...,
+        bgColor: str | Color = ...,
+        fill_type: _FillsType | Literal["none"] | None = None,
+        start_color: str | Color | None = None,
+        end_color: str | Color | None = None,
     ) -> None: ...
     def to_tree(self, tagname: Unused = None, idx: Unused = None): ...  # type: ignore[override]
 
@@ -112,7 +112,7 @@ class GradientFill(Fill):
         bottom: _ConvertibleToFloat = 0,
         stop=(),
     ) -> None: ...
-    def __iter__(self) -> Generator[tuple[str, str], None, None]: ...
+    def __iter__(self) -> Iterator[tuple[str, str]]: ...
     def to_tree(  # type: ignore[override]
         self, tagname: Unused = None, namespace: Unused = None, idx: Unused = None
     ) -> Element: ...
