@@ -8,12 +8,13 @@ from xml.etree.ElementTree import _FileRead
 from openpyxl.cell.cell import Cell
 from openpyxl.cell.rich_text import CellRichText
 from openpyxl.descriptors.serialisable import _ChildSerialisableTreeElement
-from openpyxl.worksheet.hyperlink import HyperlinkList
-from openpyxl.worksheet.pagebreak import ColBreak, RowBreak
-from openpyxl.worksheet.protection import SheetProtection
-from openpyxl.worksheet.table import TablePartList
-from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.xml.functions import Element
+
+from .hyperlink import HyperlinkList
+from .pagebreak import ColBreak, RowBreak
+from .protection import SheetProtection
+from .table import TablePartList
+from .worksheet import Worksheet
 
 CELL_TAG: Final[str]
 VALUE_TAG: Final[str]

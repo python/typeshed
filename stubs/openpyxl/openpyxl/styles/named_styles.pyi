@@ -6,14 +6,13 @@ from typing_extensions import Literal
 from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.styles.alignment import Alignment
+from openpyxl.styles.borders import Border
+from openpyxl.styles.cell_style import CellStyle, StyleArray
+from openpyxl.styles.fills import Fill
+from openpyxl.styles.fonts import Font
+from openpyxl.styles.protection import Protection
 from openpyxl.workbook.workbook import Workbook
-
-from .alignment import Alignment
-from .borders import Border
-from .cell_style import CellStyle, StyleArray
-from .fills import Fill
-from .fonts import Font
-from .protection import Protection
 
 class NamedStyle(Serialisable):
     font: Typed[Font, Literal[False]]
