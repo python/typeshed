@@ -11,7 +11,9 @@ def use_tool_id(__id: int, __name: str) -> None: ...
 def free_tool_id(__id: int) -> None: ...
 def get_tool(__id: int) -> str | None: ...
 
-class events(SimpleNamespace):
+events: _events
+
+class _events:
     BRANCH: int
     CALL: int
     C_RAISE: int
