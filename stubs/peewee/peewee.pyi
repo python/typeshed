@@ -2,9 +2,9 @@ import itertools
 import logging
 import threading
 from _typeshed import Incomplete, SupportsKeysAndGetItem
-from collections.abc import Generator, Iterable
+from collections.abc import Callable, Generator, Iterable
 from types import TracebackType
-from typing import Any, Callable, ClassVar, NamedTuple, TypeVar
+from typing import Any, ClassVar, NamedTuple, TypeVar
 from typing_extensions import Self
 
 class NullHandler(logging.Handler):
