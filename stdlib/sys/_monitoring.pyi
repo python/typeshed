@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from types import CodeType, SimpleNamespace
+from types import CodeType
 from typing import Any
 
 DEBUGGER_ID: int
