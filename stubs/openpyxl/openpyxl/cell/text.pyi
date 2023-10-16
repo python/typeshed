@@ -12,7 +12,6 @@ from ..xml._functions_overloads import _HasTagAndGet
 
 _PhoneticPropertiesType: TypeAlias = Literal["halfwidthKatakana", "fullwidthKatakana", "Hiragana", "noConversion"]
 _PhoneticPropertiesAlignment: TypeAlias = Literal["noControl", "left", "center", "distributed"]
-_PhoneticProperties: TypeAlias = PhoneticProperties
 
 class PhoneticProperties(Serialisable):
     tagname: ClassVar[str]
@@ -25,6 +24,8 @@ class PhoneticProperties(Serialisable):
         type: _PhoneticPropertiesType | Literal["none"] | None = None,
         alignment: _PhoneticPropertiesAlignment | Literal["none"] | None = None,
     ) -> None: ...
+
+_PhoneticProperties: TypeAlias = PhoneticProperties
 
 class PhoneticText(Serialisable):
     tagname: ClassVar[str]
