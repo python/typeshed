@@ -18,7 +18,7 @@ long = int
 izip_longest = itertools.zip_longest
 
 _VT = TypeVar("_VT")
-_F = TypeVar("_F", bound=Callable)
+_F = TypeVar("_F", bound=Callable[..., Any])
 
 class attrdict(dict[str, _VT]):
     def __getattr__(self, attr: str) -> _VT: ...
