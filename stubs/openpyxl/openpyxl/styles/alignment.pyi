@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from typing import ClassVar, Iterator
+from collections.abc import Iterator
+from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Bool, Min, MinMax, NoneSet, _ConvertibleToBool, _ConvertibleToFloat
