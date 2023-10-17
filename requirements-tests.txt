@@ -9,7 +9,7 @@ flake8-pyi==23.10.0      # must match .pre-commit-config.yaml
 isort==5.12.0            # must match .pre-commit-config.yaml
 mypy==1.5.1
 pre-commit-hooks==4.5.0  # must match .pre-commit-config.yaml
-pytype==2023.10.5; platform_system != "Windows" and python_version < "3.11"
+pytype==2023.10.17; platform_system != "Windows" and python_version < "3.12"
 ruff==0.1.0              # must match .pre-commit-config.yaml
 
 # Libraries used by our various scripts.
