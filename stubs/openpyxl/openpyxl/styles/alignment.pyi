@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterator
 from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors.base import Alias, Bool, Min, MinMax, NoneSet, _ConvertibleToBool, _ConvertibleToFloat
 from openpyxl.descriptors.serialisable import Serialisable
@@ -11,8 +11,8 @@ _HorizontalAlignmentsType: TypeAlias = Literal[
 ]
 _VerticalAlignmentsType: TypeAlias = Literal["top", "center", "bottom", "justify", "distributed"]
 
-horizontal_alignments: tuple[_HorizontalAlignmentsType, ...]
-vertical_aligments: tuple[_VerticalAlignmentsType, ...]
+horizontal_alignments: Final[tuple[_HorizontalAlignmentsType, ...]]
+vertical_aligments: Final[tuple[_VerticalAlignmentsType, ...]]
 
 class Alignment(Serialisable):
     tagname: ClassVar[str]
