@@ -98,7 +98,7 @@ run the code formatters. When you push a commit, a bot will run those for you
 right away and add a commit to your PR.
 
 That being said, if you *want* to run the checks locally when you commit,
-you're free to do so. Run either of the following manually...
+you're free to do so. Either run the following manually...
 
 ```bash
 (.venv)$ isort .
