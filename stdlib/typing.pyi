@@ -136,7 +136,8 @@ AsyncContextManager = AbstractAsyncContextManager
 def type_check_only(func_or_cls: _F) -> _F: ...
 
 if sys.version_info >= (3, 11):
-    class Any:
+    class _AnyMeta(type): ...
+    class Any(metaclass=_AnyMeta):
         ...
 
 else:
