@@ -1,3 +1,4 @@
+from _typeshsed import Incomplete
 from typing import Any, ClassVar
 
 from braintree.exceptions.configuration_error import ConfigurationError as ConfigurationError
@@ -9,10 +10,18 @@ class Environment:
     Production: ClassVar[Environment]
     All: ClassVar[dict[str, Environment]]
     __name__: str
-    is_ssl: Any
-    ssl_certificate: Any
+    is_ssl: bool
+    ssl_certificate: Incomplete
     def __init__(
-        self, name, server: str, port, auth_url: str, is_ssl, ssl_certificate, graphql_server: str = "", graphql_port: str = ""
+        self,
+        name,
+        server: str,
+        port,
+        auth_url: str,
+        is_ssl: bool,
+        ssl_certificate,
+        graphql_server: str = "",
+        graphql_port: str = "",
     ) -> None: ...
     @property
     def base_url(self) -> str: ...
