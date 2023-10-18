@@ -331,7 +331,7 @@ class TypeSpecProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TypeSpecClassEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TypeSpecProto._TypeSpecClass.ValueType], builtins.type):  # noqa: F821
+    class _TypeSpecClassEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TypeSpecProto._TypeSpecClass.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: TypeSpecProto._TypeSpecClass.ValueType  # 0
         SPARSE_TENSOR_SPEC: TypeSpecProto._TypeSpecClass.ValueType  # 1

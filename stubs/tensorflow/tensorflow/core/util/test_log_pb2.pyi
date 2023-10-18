@@ -483,7 +483,7 @@ class TestResults(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _BenchmarkTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TestResults._BenchmarkType.ValueType], builtins.type):  # noqa: F821
+    class _BenchmarkTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TestResults._BenchmarkType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: TestResults._BenchmarkType.ValueType  # 0
         """Fallback for protos written before Type was introduced."""

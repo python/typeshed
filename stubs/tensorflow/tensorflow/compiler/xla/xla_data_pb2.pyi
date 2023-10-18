@@ -848,7 +848,7 @@ class ChannelHandle(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ChannelTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ChannelHandle._ChannelType.ValueType], builtins.type):  # noqa: F821
+    class _ChannelTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ChannelHandle._ChannelType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         CHANNEL_TYPE_INVALID: ChannelHandle._ChannelType.ValueType  # 0
         """Invalid primitive type to serve as default."""
@@ -1307,7 +1307,7 @@ class TriangularSolveOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TransposeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TriangularSolveOptions._Transpose.ValueType], builtins.type):  # noqa: F821
+    class _TransposeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TriangularSolveOptions._Transpose.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         TRANSPOSE_INVALID: TriangularSolveOptions._Transpose.ValueType  # 0
         NO_TRANSPOSE: TriangularSolveOptions._Transpose.ValueType  # 1
@@ -1415,7 +1415,7 @@ class OpSharding(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OpSharding._Type.ValueType], builtins.type):  # noqa: F821
+    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OpSharding._Type.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         REPLICATED: OpSharding._Type.ValueType  # 0
         """This sharding is replicated across all devices (implies maximal,
@@ -1573,7 +1573,7 @@ class PrecisionConfig(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _PrecisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PrecisionConfig._Precision.ValueType], builtins.type):  # noqa: F821
+    class _PrecisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PrecisionConfig._Precision.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT: PrecisionConfig._Precision.ValueType  # 0
         HIGH: PrecisionConfig._Precision.ValueType  # 1

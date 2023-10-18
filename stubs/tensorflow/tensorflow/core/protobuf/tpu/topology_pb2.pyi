@@ -28,7 +28,7 @@ class TPUHardwareFeature(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _EmbeddingFeatureEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUHardwareFeature._EmbeddingFeature.ValueType], builtins.type):  # noqa: F821
+    class _EmbeddingFeatureEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUHardwareFeature._EmbeddingFeature.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNSUPPORTED: TPUHardwareFeature._EmbeddingFeature.ValueType  # 0
         """No embedding lookup accelerator available on the tpu."""

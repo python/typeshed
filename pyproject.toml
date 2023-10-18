@@ -65,8 +65,6 @@ fix = true
 exclude = [
     # We're only interested in autofixes for our stubs
     "*.py",
-    # Ignore generated protobuf stubs
-    "*_pb2.pyi",
     # virtual environment, cache directories, etc.:
     "env",
     ".env",

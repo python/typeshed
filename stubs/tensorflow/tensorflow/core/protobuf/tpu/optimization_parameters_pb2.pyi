@@ -735,7 +735,7 @@ class GradientAccumulationStatus(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GradientAccumulationStatus._Status.ValueType], builtins.type):  # noqa: F821
+    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GradientAccumulationStatus._Status.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNSPECIFIED: GradientAccumulationStatus._Status.ValueType  # 0
         ENABLED: GradientAccumulationStatus._Status.ValueType  # 1
@@ -802,7 +802,7 @@ class LowDimensionalPackingStatus(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LowDimensionalPackingStatus._Status.ValueType], builtins.type):  # noqa: F821
+    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LowDimensionalPackingStatus._Status.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNSPECIFIED: LowDimensionalPackingStatus._Status.ValueType  # 0
         ENABLED: LowDimensionalPackingStatus._Status.ValueType  # 1
@@ -843,7 +843,7 @@ class HotIdReplicationConfiguration(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HotIdReplicationConfiguration._Status.ValueType], builtins.type):  # noqa: F821
+    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HotIdReplicationConfiguration._Status.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNSPECIFIED: HotIdReplicationConfiguration._Status.ValueType  # 0
         ENABLED: HotIdReplicationConfiguration._Status.ValueType  # 1
