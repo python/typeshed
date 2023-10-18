@@ -65,11 +65,6 @@ def run_black(stub_dir: str) -> None:
     subprocess.run(["black", stub_dir])
 
 
-def run_isort(stub_dir: str) -> None:
-    print(f"Running isort: isort {stub_dir}")
-    subprocess.run([sys.executable, "-m", "isort", stub_dir])
-
-
 def run_ruff(stub_dir: str) -> None:
     print(f"Running ruff: ruff {stub_dir}")
     subprocess.run([sys.executable, "-m", "ruff", stub_dir])
@@ -189,7 +184,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="""Generate baseline stubs automatically for an installed pip package
-                       using stubgen. Also run black, isort and ruff. If the name of
+                       using stubgen. Also run black and ruff. If the name of
                        the project is different from the runtime Python package name, you may
                        need to use --package (example: --package yaml PyYAML)."""
     )

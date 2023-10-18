@@ -29,7 +29,7 @@ it takes a bit longer. For more details, read below.
 Typeshed runs continuous integration (CI) on all pull requests. This means that
 if you file a pull request (PR), our full test suite -- including our linter,
 `flake8` -- is run on your PR. It also means that bots will automatically apply
-changes to your PR (using `black`, `isort` and `ruff`) to fix any formatting issues.
+changes to your PR (using `black` and `ruff`) to fix any formatting issues.
 This frees you up to ignore all local setup on your side, focus on the
 code and rely on the CI to fix everything, or point you to the places that
 need fixing.
@@ -84,7 +84,7 @@ terminal to install all non-pytype requirements:
 
 ## Code formatting
 
-The code is formatted using `black` and `isort`. Various other autofixes are
+The code is formatted using `black`. Various other autofixes are
 also performed by `ruff`.
 
 The repository is equipped with a [`pre-commit.ci`](https://pre-commit.ci/)
@@ -93,10 +93,9 @@ run the code formatters. When you push a commit, a bot will run those for you
 right away and add a commit to your PR.
 
 That being said, if you *want* to run the checks locally when you commit,
-you're free to do so. Either run `isort`, `black` and `ruff` manually...
+you're free to do so. Either run `black` and `ruff` manually...
 
 ```bash
-(.venv)$ isort .
 (.venv)$ ruff .
 (.venv)$ black .
 ```
