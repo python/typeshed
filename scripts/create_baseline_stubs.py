@@ -66,8 +66,8 @@ def run_black(stub_dir: str) -> None:
 
 
 def run_ruff(stub_dir: str) -> None:
-    print(f"Running ruff: ruff {stub_dir}")
-    subprocess.run([sys.executable, "-m", "ruff", stub_dir])
+    print(f"Running Ruff: ruff {stub_dir}")
+    subprocess.run([sys.executable, "-m", "ruff", stub_dir, "--fix-only"])
 
 
 async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSession) -> dict[str, str]:
@@ -184,7 +184,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="""Generate baseline stubs automatically for an installed pip package
-                       using stubgen. Also run black and ruff. If the name of
+                       using stubgen. Also run black and Ruff. If the name of
                        the project is different from the runtime Python package name, you may
                        need to use --package (example: --package yaml PyYAML)."""
     )
