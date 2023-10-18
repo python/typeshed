@@ -9,7 +9,7 @@ flake8-pyi==23.10.0      # must match .pre-commit-config.yaml
 mypy==1.5.1
 pre-commit-hooks==4.5.0  # must match .pre-commit-config.yaml
 pytype==2023.10.5; platform_system != "Windows" and python_version < "3.11"
-ruff==0.0.292            # must match .pre-commit-config.yaml and tests.yml
+ruff==0.1.0            # must match .pre-commit-config.yaml and tests.yml
 
 # Libraries used by our various scripts.
 aiohttp==3.8.5; python_version < "3.12"  # aiohttp can't be installed on 3.12 yet
