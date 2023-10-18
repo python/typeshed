@@ -1,3 +1,10 @@
+# Modules that exist at runtime, but are missing from typeshed
+zipfile._path.glob
+importlib.readers
+importlib.resources.readers
+importlib.resources.simple
+importlib.simple
+
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__

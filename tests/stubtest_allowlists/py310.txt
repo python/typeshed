@@ -24,6 +24,21 @@ types.GenericAlias.__call__  # Would be complicated to fix properly, Any could s
 typing._SpecialForm.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
 
+# Modules that exist at runtime, but are missing from typeshed
+importlib.readers
+
+# Modules that exist at runtime, but shouldn't be added to typeshed
+ctypes.test
+ctypes\.test\..+
+lib2to3.tests
+lib2to3\.tests\..+
+sqlite3.test
+sqlite3\.test\..+
+tkinter.test
+tkinter\.test\..+
+unittest.test
+unittest\.test\..+
+
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__
 typing_extensions\.TypeAliasType\.__init_subclass__
