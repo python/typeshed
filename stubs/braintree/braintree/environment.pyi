@@ -1,6 +1,6 @@
+from _typeshed import Incomplete
 from typing import ClassVar
 
-from _typeshsed import Incomplete
 from braintree.exceptions.configuration_error import ConfigurationError as ConfigurationError
 
 class Environment:
