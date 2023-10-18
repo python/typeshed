@@ -47,7 +47,7 @@ Unused: TypeAlias = object
 # _SentinelType = NewType("_SentinelType", object)
 # sentinel: _SentinelType
 # def foo(x: int | None | _SentinelType = ...) -> None: ...
-sentinel = Any  # noqa: Y026
+sentinel: Any = Any  # noqa: Y026
 
 # stable
 class IdentityFunction(Protocol):
