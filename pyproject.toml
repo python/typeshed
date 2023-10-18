@@ -63,8 +63,6 @@ line-length = 130
 target-version = "py37"
 fix = true
 exclude = [
-    # We're only interested in autofixes for our stubs
-    "*.py",
     # Ignore generated protobuf stubs
     "*_pb2.pyi",
     # virtual environment, cache directories, etc.:
@@ -79,6 +77,7 @@ exclude = [
 # Only enable rules that have safe autofixes;
 # only enable rules that are relevant to stubs
 select = [
+    "FA", # flake8-future-annotations
     "F401",   # Remove unused imports
     "UP004",  # Remove explicit `object` inheritance
     "UP006",  # PEP-585 autofixes
