@@ -26,7 +26,7 @@ class SaverDef(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _CheckpointFormatVersionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SaverDef._CheckpointFormatVersion.ValueType], builtins.type):
+    class _CheckpointFormatVersionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SaverDef._CheckpointFormatVersion.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         LEGACY: SaverDef._CheckpointFormatVersion.ValueType  # 0
         """Internal legacy format."""

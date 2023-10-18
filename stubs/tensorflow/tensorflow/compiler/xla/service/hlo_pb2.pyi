@@ -803,7 +803,7 @@ class HloModuleProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ProfileTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HloModuleProto._ProfileType.ValueType], builtins.type):
+    class _ProfileTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HloModuleProto._ProfileType.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         INVALID: HloModuleProto._ProfileType.ValueType  # 0
         FLAG: HloModuleProto._ProfileType.ValueType  # 1
@@ -1076,7 +1076,7 @@ class HeapSimulatorTrace(google.protobuf.message.Message):
             ValueType = typing.NewType("ValueType", builtins.int)
             V: typing_extensions.TypeAlias = ValueType
 
-        class _KindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HeapSimulatorTrace.Event._Kind.ValueType], builtins.type):
+        class _KindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HeapSimulatorTrace.Event._Kind.ValueType], builtins.type):  # noqa: F821
             DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
             ALLOC: HeapSimulatorTrace.Event._Kind.ValueType  # 0
             """A memory region was allocated for the buffer."""

@@ -41,7 +41,7 @@ class BundleHeaderProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _EndiannessEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BundleHeaderProto._Endianness.ValueType], builtins.type):
+    class _EndiannessEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BundleHeaderProto._Endianness.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         LITTLE: BundleHeaderProto._Endianness.ValueType  # 0
         BIG: BundleHeaderProto._Endianness.ValueType  # 1

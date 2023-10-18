@@ -148,7 +148,7 @@ class LogMessage(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _LevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LogMessage._Level.ValueType], builtins.type):
+    class _LevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LogMessage._Level.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: LogMessage._Level.ValueType  # 0
         DEBUGGING: LogMessage._Level.ValueType  # 10
@@ -199,7 +199,7 @@ class SessionLog(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _SessionStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SessionLog._SessionStatus.ValueType], builtins.type):
+    class _SessionStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SessionLog._SessionStatus.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         STATUS_UNSPECIFIED: SessionLog._SessionStatus.ValueType  # 0
         START: SessionLog._SessionStatus.ValueType  # 1

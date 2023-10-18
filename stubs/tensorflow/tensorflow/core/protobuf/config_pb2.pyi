@@ -345,7 +345,7 @@ class OptimizerOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _LevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._Level.ValueType], builtins.type):
+    class _LevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._Level.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         L1: OptimizerOptions._Level.ValueType  # 0
         """L1 is the default level.
@@ -372,7 +372,7 @@ class OptimizerOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _GlobalJitLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._GlobalJitLevel.ValueType], builtins.type):
+    class _GlobalJitLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._GlobalJitLevel.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT: OptimizerOptions._GlobalJitLevel.ValueType  # 0
         """Default setting ("off" now, but later expected to be "on")"""
@@ -683,7 +683,7 @@ class ConfigProto(google.protobuf.message.Message):
             ValueType = typing.NewType("ValueType", builtins.int)
             V: typing_extensions.TypeAlias = ValueType
 
-        class _MlirBridgeRolloutEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConfigProto.Experimental._MlirBridgeRollout.ValueType], builtins.type):
+        class _MlirBridgeRolloutEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConfigProto.Experimental._MlirBridgeRollout.ValueType], builtins.type):  # noqa: F821
             DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
             MLIR_BRIDGE_ROLLOUT_UNSPECIFIED: ConfigProto.Experimental._MlirBridgeRollout.ValueType  # 0
             """If this field is left unspecified, the MLIR bridge may be selectively
@@ -1083,7 +1083,7 @@ class RunOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TraceLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RunOptions._TraceLevel.ValueType], builtins.type):
+    class _TraceLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RunOptions._TraceLevel.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         NO_TRACE: RunOptions._TraceLevel.ValueType  # 0
         SOFTWARE_TRACE: RunOptions._TraceLevel.ValueType  # 1

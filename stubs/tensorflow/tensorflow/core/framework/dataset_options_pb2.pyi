@@ -132,7 +132,7 @@ class CardinalityOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ComputeLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CardinalityOptions._ComputeLevel.ValueType], builtins.type):
+    class _ComputeLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CardinalityOptions._ComputeLevel.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         CARDINALITY_COMPUTE_UNSPECIFIED: CardinalityOptions._ComputeLevel.ValueType  # 0
         CARDINALITY_COMPUTE_LOW: CardinalityOptions._ComputeLevel.ValueType  # 1

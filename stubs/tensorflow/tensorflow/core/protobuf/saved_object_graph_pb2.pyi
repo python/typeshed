@@ -472,7 +472,7 @@ class FunctionSpec(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _JitCompileEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FunctionSpec._JitCompile.ValueType], builtins.type):
+    class _JitCompileEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FunctionSpec._JitCompile.ValueType], builtins.type):  # noqa: F821
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT: FunctionSpec._JitCompile.ValueType  # 0
         ON: FunctionSpec._JitCompile.ValueType  # 1
