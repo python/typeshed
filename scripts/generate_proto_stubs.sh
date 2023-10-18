@@ -13,7 +13,7 @@ set -ex -o pipefail
 # Update these two variables when rerunning script
 PROTOBUF_VERSION=21.8
 PYTHON_PROTOBUF_VERSION=4.21.8
-MYPY_PROTOBUF_VERSION=v3.4.0
+MYPY_PROTOBUF_VERSION=v3.5.0
 
 if uname -a | grep Darwin; then
     # brew install coreutils wget
@@ -76,5 +76,5 @@ protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="re
 isort "$REPO_ROOT/stubs/protobuf"
 black "$REPO_ROOT/stubs/protobuf"
 
-sed -i "" "s/mypy-protobuf [^\"]*/mypy-protobuf ${MYPY_PROTOBUF_VERSION}/" "$REPO_ROOT/stubs/protobuf/METADATA.toml"
-sed -i "" "s/version = .*$/version = \"$(echo ${PYTHON_PROTOBUF_VERSION} | cut -d. -f1-2)\.\*\"/" "$REPO_ROOT/stubs/protobuf/METADATA.toml"
+sed --in-place="" "s/mypy-protobuf [^\"]*/mypy-protobuf ${MYPY_PROTOBUF_VERSION}/" "$REPO_ROOT/stubs/protobuf/METADATA.toml"
+sed --in-place="" "s/version = .*$/version = \"$(echo ${PYTHON_PROTOBUF_VERSION} | cut -d. -f1-2)\.\*\"/" "$REPO_ROOT/stubs/protobuf/METADATA.toml"
