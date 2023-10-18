@@ -135,7 +135,11 @@ AsyncContextManager = AbstractAsyncContextManager
 # This itself is only available during type checking
 def type_check_only(func_or_cls: _F) -> _F: ...
 
-Any = object()
+if sys.version_info >= (3, 11):
+    class Any:
+        pass
+else:
+    Any = object()
 
 @_final
 class TypeVar:
