@@ -76,6 +76,7 @@ os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all Pat
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
+sys._monitoring  # Doesn't really exist. See comments in the stub.
 weakref.ProxyType.__reversed__  # Doesn't really exist
 
 # C signature is broader than what is actually accepted

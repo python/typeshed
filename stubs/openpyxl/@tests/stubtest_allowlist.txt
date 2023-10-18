@@ -109,6 +109,7 @@ openpyxl.drawing.text.GeomGuide.__init__
 openpyxl.drawing.text.PresetTextShape.__init__
 openpyxl.drawing.text.TextField.__init__
 openpyxl.drawing.text.TextNormalAutofit.__init__
+openpyxl.formatting.rule.DataBar.__init__
 openpyxl.packaging.relationship.Relationship.__init__
 openpyxl.packaging.workbook.ChildSheet.__init__
 openpyxl.packaging.workbook.PivotCache.__init__
@@ -154,6 +155,7 @@ openpyxl.pivot.table.PivotFilter.__init__
 openpyxl.pivot.table.PivotFilters.__init__
 openpyxl.pivot.table.RowColField.__init__
 openpyxl.pivot.table.TableDefinition.__init__
+openpyxl.styles.colors.RgbColor.__init__
 openpyxl.styles.named_styles._NamedCellStyle.__init__
 openpyxl.styles.numbers.NumberFormat.__init__
 openpyxl.styles.table.TableStyle.__init__
