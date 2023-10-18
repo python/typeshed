@@ -87,7 +87,9 @@ terminal to install all non-pytype requirements:
 
 ## Code formatting
 
-The code is formatted using [`Black`](https://github.com/psf/black) and [`isort`](https://github.com/PyCQA/isort). Various other autofixes are
+The code is formatted using [`Black`](https://github.com/psf/black)
+and [`isort`](https://github.com/PyCQA/isort).
+Various other autofixes are
 also performed by [`Ruff`](https://github.com/astral-sh/ruff).
 
 The repository is equipped with a [`pre-commit.ci`](https://pre-commit.ci/)
