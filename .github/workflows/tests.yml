@@ -46,7 +46,7 @@ jobs:
       - run: ./tests/check_new_syntax.py
 
   flake8:
-    name: Lint with flake8
+    name: Lint with Flake8
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

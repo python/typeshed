@@ -45,7 +45,7 @@ PYTHON_PROTOBUF_DIR="protobuf-$PYTHON_PROTOBUF_VERSION"
 VENV=venv
 python3 -m venv "$VENV"
 source "$VENV/bin/activate"
-pip install -r "$REPO_ROOT/requirements-tests.txt"  # for black and isort
+pip install -r "$REPO_ROOT/requirements-tests.txt"  # for Black and isort
 
 # Install mypy-protobuf
 pip install "git+https://github.com/dropbox/mypy-protobuf@$MYPY_PROTOBUF_VERSION"

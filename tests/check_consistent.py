@@ -191,7 +191,7 @@ def check_precommit_requirements() -> None:
     precommit_requirements = get_precommit_requirements()
     no_txt_entry_msg = "All pre-commit requirements must also be listed in `requirements-tests.txt` (missing {requirement!r})"
     for requirement, specifier in precommit_requirements.items():
-        # annoying: the ruff and black repos for pre-commit are different to the names in requirements-tests.txt
+        # annoying: the Ruff and Black repos for pre-commit are different to the names in requirements-tests.txt
         if requirement in {"ruff-pre-commit", "black-pre-commit-mirror"}:
             requirement = requirement.split("-")[0]
         assert requirement in requirements_txt_requirements, no_txt_entry_msg.format(requirement=requirement)
