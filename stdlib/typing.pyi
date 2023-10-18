@@ -137,7 +137,8 @@ def type_check_only(func_or_cls: _F) -> _F: ...
 
 if sys.version_info >= (3, 11):
     class Any:
-        pass
+        ...
+
 else:
     Any = object()
 
