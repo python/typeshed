@@ -83,7 +83,7 @@ class OpDef(google.protobuf.message.Message):
             etc. into a unified representation.
             This declaration may contain non-concrete types (for example,
             Tensor<TypeVar<'T'>> is a valid type declaration.
-
+            
             Note: this is a transient field. The long-term aim is to represent the
             entire OpDef as a single type: a callable. In that context, this field is
             just the type of a single argument.
@@ -231,7 +231,7 @@ class OpDef(google.protobuf.message.Message):
     a side-effect (e.g. printing or asserting ops). Equivalently, stateless ops
     must always produce the same output for the same input and have
     no side-effects.
-
+    
     By default Ops may be moved between devices.  Stateful ops should
     either not be moved, or should only be moved if that state can also
     be moved (e.g. via some sort of save / restore).

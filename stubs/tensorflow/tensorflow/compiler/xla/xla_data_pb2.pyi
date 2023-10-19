@@ -54,7 +54,7 @@ class _PrimitiveTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._
     U64: _PrimitiveType.ValueType  # 9
     F16: _PrimitiveType.ValueType  # 10
     """Floating-point values of fixed width.
-
+    
     Note: if f16s are not natively supported on the device, they will be
     converted to f16 from f32 at arbirary points in the computation.
     """
@@ -65,6 +65,22 @@ class _PrimitiveTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._
     and 7 bits for the mantissa.
     """
     F64: _PrimitiveType.ValueType  # 12
+    F8E5M2: _PrimitiveType.ValueType  # 19
+    """FP8 dtypes, as described in this paper: https://arxiv.org/abs/2209.05433
+    
+    F8E5M2 has 5 exponent bits and 2 mantissa bits, and is similar to the
+    existing IEEE types.
+    
+    F8E4M3FN has 4 exponent bits and 3 mantissa bits. The "FN" means only
+    Finite and NaN values are supported. Unlike IEEE types, infinities are not
+    supported.  NaN is represented when the exponent and mantissa bits are all
+    1s. All other values are finite.
+    
+    Support for these dtypes is under development. They do not yet work
+    properly in most cases.
+    TODO(b/259609697): Fully support FP8.
+    """
+    F8E4M3FN: _PrimitiveType.ValueType  # 20
     C64: _PrimitiveType.ValueType  # 15
     """Complex values of fixed width.
     Paired F32 (real, imag), as in std::complex<float>.
@@ -76,7 +92,7 @@ class _PrimitiveTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._
     sub-shapes. They are used for things like returning multiple values from a
     computation; e.g. a computation that returns weights and biases may have a
     signature that results in a tuple like (f32[784x2000], f32[2000])
-
+    
     If a shape proto has the tuple element type, it may not have any entries
     in the dimensions field.
     """
@@ -84,7 +100,7 @@ class _PrimitiveTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._
     """An opaque type used for passing context-specific data to a custom
     operation. Shapes of this primitive type will have empty dimensions and
     tuple_shapes fields.
-
+    
     (OPAQUE would be a better name for this identifier, but that conflicts with
     a macro defined in windows.h.)
     """
@@ -97,7 +113,7 @@ class PrimitiveType(_PrimitiveType, metaclass=_PrimitiveTypeEnumTypeWrapper):
     """Primitive types are the individual values that can be held in rectangular
     multidimensional arrays. A description of the rectangular multidimensional
     array dimensions / primitive type is given by Shape, below.
-
+    
     LINT.IfChange
     """
 
@@ -128,6 +144,22 @@ floating-point format, but uses 1 bit for the sign, 8 bits for the exponent
 and 7 bits for the mantissa.
 """
 F64: PrimitiveType.ValueType  # 12
+F8E5M2: PrimitiveType.ValueType  # 19
+"""FP8 dtypes, as described in this paper: https://arxiv.org/abs/2209.05433
+
+F8E5M2 has 5 exponent bits and 2 mantissa bits, and is similar to the
+existing IEEE types.
+
+F8E4M3FN has 4 exponent bits and 3 mantissa bits. The "FN" means only
+Finite and NaN values are supported. Unlike IEEE types, infinities are not
+supported.  NaN is represented when the exponent and mantissa bits are all
+1s. All other values are finite.
+
+Support for these dtypes is under development. They do not yet work
+properly in most cases.
+TODO(b/259609697): Fully support FP8.
+"""
+F8E4M3FN: PrimitiveType.ValueType  # 20
 C64: PrimitiveType.ValueType  # 15
 """Complex values of fixed width.
 Paired F32 (real, imag), as in std::complex<float>.
@@ -421,30 +453,44 @@ global___TileProto = TileProto
 class LayoutProto(google.protobuf.message.Message):
     """A layout describes how the array is placed in (1D) memory space.  This
     includes the minor-to-major ordering of dimensions within a shape.
-
+    
     Clients must specify the layouts of input Literals to the
     computation. Layouts specified in interior operations which take Shapes (for
     example, Convert) are ignored.
-
+    
     See the XLA documentation for more information on shapes and layouts.
-
+    
     LINT.IfChange
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     DIM_LEVEL_TYPES_FIELD_NUMBER: builtins.int
+    DIM_UNIQUE_FIELD_NUMBER: builtins.int
+    DIM_ORDERED_FIELD_NUMBER: builtins.int
     MINOR_TO_MAJOR_FIELD_NUMBER: builtins.int
     TILES_FIELD_NUMBER: builtins.int
-    ELEMENT_SIZE_IN_BITS_FIELD_NUMBER: builtins.int
     MEMORY_SPACE_FIELD_NUMBER: builtins.int
+    INDEX_PRIMITIVE_TYPE_FIELD_NUMBER: builtins.int
+    POINTER_PRIMITIVE_TYPE_FIELD_NUMBER: builtins.int
     PHYSICAL_SHAPE_FIELD_NUMBER: builtins.int
+    DYNAMIC_SHAPE_METADATA_PREFIX_BYTES_FIELD_NUMBER: builtins.int
     @property
     def dim_level_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___DimLevelType.ValueType]:
         """The dimension level type list for this array, specifying the way in which
         each array dimension is represented in memory. If this list is empty, the
         array is assumed to be dense.
         """
+    @property
+    def dim_unique(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
+        """Whether each dimension is unique or ordered.  Each of the following lists
+        must be empty, or have one entry for each entry of dim_level_types.  If
+        either list is empty, all dimensions are assumed to be unique and ordered,
+        respectively.  Entries in this list may not be false for some DimLevelType
+        values (such as DIM_DENSE in particular).
+        """
+    @property
+    def dim_ordered(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
     @property
     def minor_to_major(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """Sequence of dimension numbers, from minor (fastest varying index) to major
@@ -454,21 +500,23 @@ class LayoutProto(google.protobuf.message.Message):
     def tiles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TileProto]:
         """A sequence of tiles, starting from the tile that's applied first to the
         Shape.
-
+        
         TODO(b/119839262): implement tiling in each backend or add Unimplemented
         error.
         """
-    element_size_in_bits: builtins.int
-    """Bit size of each element. If the size is bigger than what the element
-    type requires, the value is stored in the least significant
-    bits and the additional most significant bits are filled with 0's.
-
-    TODO(b/119839262): implement in each backend or add Unimplemented error.
-    """
     memory_space: builtins.int
     """Memory space where this array resides. The integer field is interpreted in
     a backend-specific manner.
     """
+    index_primitive_type: global___PrimitiveType.ValueType
+    """The integer types to be used for indices and pointers.  These fields must
+    not be used unless the layout represents a sparse array.  The PrimitiveType
+    must correspond to an unsigned integer (U8, U16, U32, or U64).
+    If not provided, the compiler will use the largest unsigned integer
+    that is naturally supported by the target device (U32 or U64 in currently
+    supported devices).
+    """
+    pointer_primitive_type: global___PrimitiveType.ValueType
     @property
     def physical_shape(self) -> global___ShapeProto:
         """The physical, on-device shape used to represent the shape this layout
@@ -476,18 +524,27 @@ class LayoutProto(google.protobuf.message.Message):
         The layout(s) contained within the physical shape should not also contain
         a physical shape.
         """
+    dynamic_shape_metadata_prefix_bytes: builtins.int
+    """The dynamic shape metadata size in bytes in front of the shape data. The
+    field may be non-zero for a static shape whose associated buffer is for a
+    dynamic shape, e.g. a result of SliceToDynamic.
+    """
     def __init__(
         self,
         *,
         dim_level_types: collections.abc.Iterable[global___DimLevelType.ValueType] | None = ...,
+        dim_unique: collections.abc.Iterable[builtins.bool] | None = ...,
+        dim_ordered: collections.abc.Iterable[builtins.bool] | None = ...,
         minor_to_major: collections.abc.Iterable[builtins.int] | None = ...,
         tiles: collections.abc.Iterable[global___TileProto] | None = ...,
-        element_size_in_bits: builtins.int | None = ...,
         memory_space: builtins.int | None = ...,
+        index_primitive_type: global___PrimitiveType.ValueType | None = ...,
+        pointer_primitive_type: global___PrimitiveType.ValueType | None = ...,
         physical_shape: global___ShapeProto | None = ...,
+        dynamic_shape_metadata_prefix_bytes: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["physical_shape", b"physical_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["dim_level_types", b"dim_level_types", "element_size_in_bits", b"element_size_in_bits", "memory_space", b"memory_space", "minor_to_major", b"minor_to_major", "physical_shape", b"physical_shape", "tiles", b"tiles"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dim_level_types", b"dim_level_types", "dim_ordered", b"dim_ordered", "dim_unique", b"dim_unique", "dynamic_shape_metadata_prefix_bytes", b"dynamic_shape_metadata_prefix_bytes", "index_primitive_type", b"index_primitive_type", "memory_space", b"memory_space", "minor_to_major", b"minor_to_major", "physical_shape", b"physical_shape", "pointer_primitive_type", b"pointer_primitive_type", "tiles", b"tiles"]) -> None: ...
 
 global___LayoutProto = LayoutProto
 
@@ -495,12 +552,12 @@ global___LayoutProto = LayoutProto
 class ShapeProto(google.protobuf.message.Message):
     """A shape describes the number of dimensions in the array, the size of each
     dimension, and the primitive component type.
-
+    
     Tuples are a special case in that they have rank zero and have tuple_shapes
     defined.
-
+    
     See the XLA documentation for more information on shapes and layouts.
-
+    
     LINT.IfChange
     """
 
@@ -520,7 +577,7 @@ class ShapeProto(google.protobuf.message.Message):
         to N-1 for an N-dimensional array. The first element of 'dimensions' is the
         size of dimension 0, the second element is the size of dimension 1, and so
         forth.  Empty list indicates a scalar.
-
+        
         If the respective element in 'is_dimension_dynamic' is true then the value
         in this field represents an upper bound on the size of the dimension.
         """
@@ -605,7 +662,7 @@ global___ComputationStats = ComputationStats
 @typing_extensions.final
 class OpMetadata(google.protobuf.message.Message):
     """Symbolization metadata for HLO Instructions.
-
+    
     This metadata is used for debugging XLA code generation, as well as
     performance profiling of XLA-generated executables.
     """
@@ -655,7 +712,7 @@ class OpMetadata(google.protobuf.message.Message):
     PROFILE_INFO_FIELD_NUMBER: builtins.int
     op_type: builtins.str
     """The framework op name that generated this XLA op.
-
+    
     Frameworks that build on top of XLA should mirror the names of their ops
     back to users by specifying the op_type. In this way, even if the
     framework's "ops" are implemented as multiple XLA HLO Ops, they can be
@@ -664,13 +721,13 @@ class OpMetadata(google.protobuf.message.Message):
     """
     op_name: builtins.str
     """The user-specified name of the op.
-
+    
     This name is often unique within a computation. Note: some frameworks
     add auto-generated names if the user does not provide one.
     """
     source_file: builtins.str
     """Indicate a file and line that this op is associated to in a user's program.
-
+    
     e.g. it could be the file and line of user code that generated the op.
     """
     source_line: builtins.int
@@ -848,7 +905,7 @@ class ChannelHandle(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ChannelTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ChannelHandle._ChannelType.ValueType], builtins.type):  # noqa: F821
+    class _ChannelTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ChannelHandle._ChannelType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         CHANNEL_TYPE_INVALID: ChannelHandle._ChannelType.ValueType  # 0
         """Invalid primitive type to serve as default."""
@@ -941,7 +998,7 @@ class LiteralProto(google.protobuf.message.Message):
     """Literals are used when the server and client need to exchange materialized
     data / results. Literals are also used to describe constants used in
     computations.
-
+    
     Transfers to/from the client are encoded in literal form, and the structure
     of the repeated fields is implied by the shape.
     """
@@ -965,6 +1022,8 @@ class LiteralProto(google.protobuf.message.Message):
     BF16S_FIELD_NUMBER: builtins.int
     U16S_FIELD_NUMBER: builtins.int
     S16S_FIELD_NUMBER: builtins.int
+    F8E5M2S_FIELD_NUMBER: builtins.int
+    F8E4M3FNS_FIELD_NUMBER: builtins.int
     SPARSE_INDICES_FIELD_NUMBER: builtins.int
     @property
     def shape(self) -> global___ShapeProto: ...
@@ -997,9 +1056,11 @@ class LiteralProto(google.protobuf.message.Message):
     bf16s: builtins.bytes
     u16s: builtins.bytes
     s16s: builtins.bytes
+    f8e5m2s: builtins.bytes
+    f8e4m3fns: builtins.bytes
     @property
     def sparse_indices(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Next = 19"""
+        """Next = 21"""
     def __init__(
         self,
         *,
@@ -1020,10 +1081,12 @@ class LiteralProto(google.protobuf.message.Message):
         bf16s: builtins.bytes | None = ...,
         u16s: builtins.bytes | None = ...,
         s16s: builtins.bytes | None = ...,
+        f8e5m2s: builtins.bytes | None = ...,
+        f8e4m3fns: builtins.bytes | None = ...,
         sparse_indices: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["bf16s", b"bf16s", "c128s", b"c128s", "c64s", b"c64s", "f16s", b"f16s", "f32s", b"f32s", "f64s", b"f64s", "preds", b"preds", "s16s", b"s16s", "s32s", b"s32s", "s64s", b"s64s", "s8s", b"s8s", "shape", b"shape", "sparse_indices", b"sparse_indices", "tuple_literals", b"tuple_literals", "u16s", b"u16s", "u32s", b"u32s", "u64s", b"u64s", "u8s", b"u8s"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["bf16s", b"bf16s", "c128s", b"c128s", "c64s", b"c64s", "f16s", b"f16s", "f32s", b"f32s", "f64s", b"f64s", "f8e4m3fns", b"f8e4m3fns", "f8e5m2s", b"f8e5m2s", "preds", b"preds", "s16s", b"s16s", "s32s", b"s32s", "s64s", b"s64s", "s8s", b"s8s", "shape", b"shape", "sparse_indices", b"sparse_indices", "tuple_literals", b"tuple_literals", "u16s", b"u16s", "u32s", b"u32s", "u64s", b"u64s", "u8s", b"u8s"]) -> None: ...
 
 global___LiteralProto = LiteralProto
 
@@ -1096,7 +1159,7 @@ global___WindowDimension = WindowDimension
 @typing_extensions.final
 class Window(google.protobuf.message.Message):
     """Describes the windowing in an operation such as convolution.
-
+    
     The window is moved across a base area and for each position of the
     window a computation is performed. The field below describes the
     window and the movement of the window across a base area.
@@ -1119,7 +1182,7 @@ global___Window = Window
 @typing_extensions.final
 class GatherDimensionNumbers(google.protobuf.message.Message):
     """Describes the dimension numbers for a gather operation.
-
+    
     See https://www.tensorflow.org/performance/xla/operation_semantics#gather for
     more details.
     """
@@ -1136,9 +1199,9 @@ class GatherDimensionNumbers(google.protobuf.message.Message):
         interior of a dynamic-slice from the input tensor, the starting indices for
         which were computed from output_gather_dims (see the operation semantic for
         how this is defined) and the start_indices tensor.
-
+        
         The window indices for a specific output index Out is computed as:
-
+        
          i = 0
          for (k : [0, input_tensor_shape.rank))
            window_indices[k] =
@@ -1173,7 +1236,7 @@ global___GatherDimensionNumbers = GatherDimensionNumbers
 @typing_extensions.final
 class ScatterDimensionNumbers(google.protobuf.message.Message):
     """Describes the dimension numbers for a scatter operation.
-
+    
     All the fields are similar to the corresponding fields in
     GatherDimensionNumbers. Differences are noted below.
     """
@@ -1307,7 +1370,7 @@ class TriangularSolveOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TransposeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TriangularSolveOptions._Transpose.ValueType], builtins.type):  # noqa: F821
+    class _TransposeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TriangularSolveOptions._Transpose.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         TRANSPOSE_INVALID: TriangularSolveOptions._Transpose.ValueType  # 0
         NO_TRANSPOSE: TriangularSolveOptions._Transpose.ValueType  # 1
@@ -1415,7 +1478,7 @@ class OpSharding(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OpSharding._Type.ValueType], builtins.type):  # noqa: F821
+    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OpSharding._Type.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         REPLICATED: OpSharding._Type.ValueType  # 0
         """This sharding is replicated across all devices (implies maximal,
@@ -1573,7 +1636,7 @@ class PrecisionConfig(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _PrecisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PrecisionConfig._Precision.ValueType], builtins.type):  # noqa: F821
+    class _PrecisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PrecisionConfig._Precision.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT: PrecisionConfig._Precision.ValueType  # 0
         HIGH: PrecisionConfig._Precision.ValueType  # 1
@@ -1613,7 +1676,7 @@ class ParameterReplication(google.protobuf.message.Message):
     def replicated_at_leaf_buffers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
         """A list of boolean values for the flattened leaf buffers. Each value
         indicates whether the corresponding leaf buffer is replicated.
-
+        
         If this field is empty, it means no buffer is replicated. Otherwise, the
         number of elements in this field must match the number of leaf buffers in
         the HLO instruction's shape.
@@ -1631,7 +1694,7 @@ global___ParameterReplication = ParameterReplication
 class WhileLoopBackendConfig(google.protobuf.message.Message):
     """A backend-config for kWhile loops that stores the loop's trip count, if it is
     known.
-
+    
     This is useful for backends that can implement a `for i in 0..N` loop more
     efficiently than a `while` loop.  For example, on GPUs, we can implement a
     `for i in 0..N` loop by enqueueing the kernels for the loop body N times,
@@ -1671,9 +1734,9 @@ class WhileLoopBackendConfig(google.protobuf.message.Message):
 global___WhileLoopBackendConfig = WhileLoopBackendConfig
 
 @typing_extensions.final
-class CustomCallOutputOperandAliasing(google.protobuf.message.Message):
-    """Specifies a pair of output/operand buffers for kCustomCall that alias each
-    other.
+class OutputOperandAliasing(google.protobuf.message.Message):
+    """Specifies a pair of output/operand buffers that alias each other for
+    kCustomCall and kFusion
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -1695,4 +1758,4 @@ class CustomCallOutputOperandAliasing(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["operand_index", b"operand_index", "operand_shape_index", b"operand_shape_index", "output_shape_index", b"output_shape_index"]) -> None: ...
 
-global___CustomCallOutputOperandAliasing = CustomCallOutputOperandAliasing
+global___OutputOperandAliasing = OutputOperandAliasing

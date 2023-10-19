@@ -152,7 +152,7 @@ global___SummaryMetadata = SummaryMetadata
 class Summary(google.protobuf.message.Message):
     """A Summary is a set of named values to be displayed by the
     visualizer.
-
+    
     Summaries are produced regularly during training, as controlled by
     the "summary_interval_secs" attribute of the training operation.
     Summaries are also produced at the end of an evaluation.

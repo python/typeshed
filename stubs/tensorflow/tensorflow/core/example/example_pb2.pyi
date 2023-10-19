@@ -30,7 +30,7 @@ class Example(google.protobuf.message.Message):
     format, so any configuration that describes data with rank-2 or above
     should keep this in mind. If you flatten a matrix into a FloatList it should
     be stored as [ row 0 ... row 1 ... row M-1 ]
-
+    
     An Example for a movie recommendation application:
       features {
         feature {
@@ -81,7 +81,7 @@ class Example(google.protobuf.message.Message):
           }}
         }
      }
-
+    
     A conformant Example data set obeys the following conventions:
       - If a Feature K exists in one example with data type T, it must be of
           type T in all other examples when present. It may be omitted.
@@ -116,7 +116,7 @@ class SequenceExample(google.protobuf.message.Message):
     associated with a repeated set of Features (a FeatureList).
     A FeatureList thus represents the values of a feature identified by its key
     over time / frames.
-
+    
     Below is a SequenceExample for a movie recommendation application recording a
     sequence of ratings by a user. The time-independent features ("locale",
     "age", "favorites") describing the user are part of the context. The sequence
@@ -127,7 +127,7 @@ class SequenceExample(google.protobuf.message.Message):
     namely "movie_ratings", "movie_names", and "actors" have a feature value for
     both movies. Note, that "actors" is itself a bytes_list with multiple
     strings per movie.
-
+    
     context: {
       feature: {
         key  : "locale"
@@ -201,9 +201,9 @@ class SequenceExample(google.protobuf.message.Message):
         }
       }
     }
-
+    
     A conformant SequenceExample data set obeys the following conventions:
-
+    
     Context:
       - All conformant context features K must obey the same conventions as
         a conformant Example's features (see above).
@@ -228,21 +228,21 @@ class SequenceExample(google.protobuf.message.Message):
         number of Feature messages, so that the ith element in each FeatureList
         is part of the ith frame (or time step).
     Examples of conformant and non-conformant examples' FeatureLists:
-
+    
     Conformant FeatureLists:
        feature_lists: { feature_list: {
          key: "movie_ratings"
          value: { feature: { float_list: { value: [ 4.5 ] } }
                   feature: { float_list: { value: [ 5.0 ] } } }
        } }
-
+    
     Non-conformant FeatureLists (mismatched types):
        feature_lists: { feature_list: {
          key: "movie_ratings"
          value: { feature: { float_list: { value: [ 4.5 ] } }
                   feature: { int64_list: { value: [ 5 ] } } }
        } }
-
+    
     Conditionally conformant FeatureLists, the parser configuration determines
     if the feature sizes must match:
        feature_lists: { feature_list: {
@@ -250,7 +250,7 @@ class SequenceExample(google.protobuf.message.Message):
          value: { feature: { float_list: { value: [ 4.5 ] } }
                   feature: { float_list: { value: [ 5.0, 6.0 ] } } }
        } }
-
+    
     Conformant pair of SequenceExample
        feature_lists: { feature_list: {
          key: "movie_ratings"
@@ -264,7 +264,7 @@ class SequenceExample(google.protobuf.message.Message):
                   feature: { float_list: { value: [ 5.0 ] } }
                   feature: { float_list: { value: [ 2.0 ] } } }
        } }
-
+    
     Conformant pair of SequenceExample
        feature_lists: { feature_list: {
          key: "movie_ratings"
@@ -276,7 +276,7 @@ class SequenceExample(google.protobuf.message.Message):
          key: "movie_ratings"
          value: { }
        } }
-
+    
     Conditionally conformant pair of SequenceExample, the parser configuration
     determines if the second feature_lists is consistent (zero-length) or
     invalid (missing "movie_ratings"):
@@ -287,7 +287,7 @@ class SequenceExample(google.protobuf.message.Message):
        } }
     and:
        feature_lists: { }
-
+    
     Non-conformant pair of SequenceExample (mismatched types)
        feature_lists: { feature_list: {
          key: "movie_ratings"
@@ -301,7 +301,7 @@ class SequenceExample(google.protobuf.message.Message):
                   feature: { int64_list: { value: [ 5 ] } }
                   feature: { int64_list: { value: [ 2 ] } } }
        } }
-
+    
     Conditionally conformant pair of SequenceExample; the parser configuration
     determines if the feature sizes must match:
        feature_lists: { feature_list: {

@@ -50,7 +50,7 @@ class FunctionDef(google.protobuf.message.Message):
     """A function can be instantiated when the runtime can bind every attr
     with a value. When a GraphDef has a call to a function, it must
     have binding for every attr defined in the signature.
-
+    
     TODO(zhifengc):
       * device spec, etc.
     """
@@ -199,10 +199,10 @@ class FunctionDef(google.protobuf.message.Message):
         """Unique IDs for each resource argument, used to track aliasing resources. If
         Argument A and Argument B alias each other, then
         resource_arg_unique_ids[A.index] == resource_arg_unique_ids[B.index].
-
+        
         If this field is empty, none of the arguments could alias; otherwise, every
         resource argument should have an entry in this field.
-
+        
         When instantiated, the unique IDs will be attached to the _Arg nodes'
         "_resource_arg_unique_id" attribute.
         """
@@ -246,14 +246,14 @@ global___FunctionDef = FunctionDef
 class GradientDef(google.protobuf.message.Message):
     """GradientDef defines the gradient function of a function defined in
     a function library.
-
+    
     A gradient function g (specified by gradient_func) for a function f
     (specified by function_name) must follow the following:
-
+    
     The function 'f' must be a numerical function which takes N inputs
     and produces M outputs. Its gradient function 'g', which is a
     function taking N + M inputs and produces N outputs.
-
+    
     I.e. if we have
        (y1, y2, ..., y_M) = f(x1, x2, ..., x_N),
     then, g is

@@ -18,21 +18,21 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 @typing_extensions.final
 class FingerprintDef(google.protobuf.message.Message):
     """Protocol buffer representing a SavedModel Fingerprint.
-
+    
     If there are multiple MetaGraphDefs in the SavedModel, the FingerprintDef
     corresponds to the first one.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    GRAPH_DEF_CHECKSUM_FIELD_NUMBER: builtins.int
+    SAVED_MODEL_CHECKSUM_FIELD_NUMBER: builtins.int
     GRAPH_DEF_PROGRAM_HASH_FIELD_NUMBER: builtins.int
     SIGNATURE_DEF_HASH_FIELD_NUMBER: builtins.int
     SAVED_OBJECT_GRAPH_HASH_FIELD_NUMBER: builtins.int
     CHECKPOINT_HASH_FIELD_NUMBER: builtins.int
     VERSION_FIELD_NUMBER: builtins.int
-    graph_def_checksum: builtins.int
-    """Hash of the graph_def, referred to as a "checksum"."""
+    saved_model_checksum: builtins.int
+    """Hash of the saved_model.pb, referred to as a "checksum"."""
     graph_def_program_hash: builtins.int
     """Hash of regularized graph_def."""
     signature_def_hash: builtins.int
@@ -47,7 +47,7 @@ class FingerprintDef(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        graph_def_checksum: builtins.int | None = ...,
+        saved_model_checksum: builtins.int | None = ...,
         graph_def_program_hash: builtins.int | None = ...,
         signature_def_hash: builtins.int | None = ...,
         saved_object_graph_hash: builtins.int | None = ...,
@@ -55,6 +55,6 @@ class FingerprintDef(google.protobuf.message.Message):
         version: tensorflow.core.framework.versions_pb2.VersionDef | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["version", b"version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["checkpoint_hash", b"checkpoint_hash", "graph_def_checksum", b"graph_def_checksum", "graph_def_program_hash", b"graph_def_program_hash", "saved_object_graph_hash", b"saved_object_graph_hash", "signature_def_hash", b"signature_def_hash", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["checkpoint_hash", b"checkpoint_hash", "graph_def_program_hash", b"graph_def_program_hash", "saved_model_checksum", b"saved_model_checksum", "saved_object_graph_hash", b"saved_object_graph_hash", "signature_def_hash", b"signature_def_hash", "version", b"version"]) -> None: ...
 
 global___FingerprintDef = FingerprintDef

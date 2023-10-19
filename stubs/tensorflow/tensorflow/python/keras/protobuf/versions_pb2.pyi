@@ -23,18 +23,18 @@ class VersionDef(google.protobuf.message.Message):
     https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/versions.proto
 
     Version information for a piece of serialized data
-
+    
     There are different types of versions for each type of data
     (GraphDef, etc.), but they all have the same common shape
     described here.
-
+    
     Each consumer has "consumer" and "min_producer" versions (specified
     elsewhere).  A consumer is allowed to consume this data if
-
+    
       producer >= min_producer
       consumer >= min_consumer
       consumer not in bad_consumers
-
+    
     LINT.IfChange
     """
 

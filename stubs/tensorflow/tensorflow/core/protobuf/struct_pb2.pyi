@@ -26,12 +26,12 @@ class StructuredValue(google.protobuf.message.Message):
     """`StructuredValue` represents a dynamically typed value representing various
     data structures that are inspired by Python data structures typically used in
     TensorFlow functions as inputs and outputs.
-
+    
     For example when saving a Layer there may be a `training` argument. If the
     user passes a boolean True/False, that switches between two concrete
     TensorFlow functions. In order to switch between them in the same way after
     loading the SavedModel, we need to represent "True" and "False".
-
+    
     A more advanced example might be a function which takes a list of
     dictionaries mapping from strings to Tensors. In order to map from
     user-specified arguments `[{"a": tf.constant(1.)}, {"q": tf.constant(3.)}]`
@@ -39,11 +39,11 @@ class StructuredValue(google.protobuf.message.Message):
     nested structure and the strings, recording that we have a trace for anything
     matching `[{"a": tf.TensorSpec(None, tf.float32)}, {"q": tf.TensorSpec([],
     tf.float64)}]` as an example.
-
+    
     Likewise functions may return nested structures of Tensors, for example
     returning a dictionary mapping from strings to Tensors. In order for the
     loaded function to return the same structure we need to serialize it.
-
+    
     This is an ergonomic aid for working with loaded SavedModels, not a promise
     to serialize all possible function signatures. For example we do not expect
     to pickle generic Python objects, and ideally we'd stay language-agnostic.
@@ -331,7 +331,7 @@ class TypeSpecProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TypeSpecClassEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TypeSpecProto._TypeSpecClass.ValueType], builtins.type):  # noqa: F821
+    class _TypeSpecClassEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TypeSpecProto._TypeSpecClass.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: TypeSpecProto._TypeSpecClass.ValueType  # 0
         SPARSE_TENSOR_SPEC: TypeSpecProto._TypeSpecClass.ValueType  # 1

@@ -58,7 +58,7 @@ class SavedObjectGraph(google.protobuf.message.Message):
     @property
     def nodes(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SavedObject]:
         """Flattened list of objects in the object graph.
-
+        
         The position of the object in this list indicates its id.
         Nodes[0] is considered the root node.
         """
@@ -118,7 +118,7 @@ class SavedObject(google.protobuf.message.Message):
     def children(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference]:
         """Objects which this object depends on: named edges in the dependency
         graph.
-
+        
         Note: All kinds of SavedObject may have children, except
         "constant" and "captured_tensor".
         """
@@ -133,7 +133,7 @@ class SavedObject(google.protobuf.message.Message):
         """Slot variables owned by this object. This describes the three-way
         (optimizer, variable, slot variable) relationship; none of the three
         depend on the others directly.
-
+        
         Note: currently only valid if kind == "user_object".
         """
     @property
@@ -162,13 +162,13 @@ class SavedObject(google.protobuf.message.Message):
     registered_name: builtins.str
     """The fields below are filled when the user serializes a registered Trackable
     class or an object with a registered saver function.
-
+    
     Registered classes may save additional metadata and supersede the
     default loading process where nodes are recreated from the proto.
     If the registered class cannot be found, then the object will load as one
     one of the default trackable objects: Autotrackable (a class similar to
     tf.Module), tf.function, or tf.Variable.
-
+    
     Unlike SaveableObjects, which store the functions for saving and restoring
     from tensors, registered savers allow Trackables to write checkpoint shards
     directly (e.g. for performance or coordination reasons).
@@ -217,7 +217,7 @@ class SavedUserObject(google.protobuf.message.Message):
     """A SavedUserObject is an object (in the object-oriented language of the
     TensorFlow program) of some user- or framework-defined class other than
     those handled specifically by the other kinds of SavedObjects.
-
+    
     This object cannot be evaluated as a tensor, and therefore cannot be bound
     to an input of a function.
     """
@@ -234,7 +234,7 @@ class SavedUserObject(google.protobuf.message.Message):
         """Version information from the producer of this SavedUserObject."""
     metadata: builtins.str
     """Metadata for deserializing this object.
-
+    
     Deprecated! At the time of deprecation, Keras was the only user of this
     field, and its saving and loading code will be updated shortly.
     Please save your application-specific metadata to a separate file.
@@ -254,7 +254,7 @@ global___SavedUserObject = SavedUserObject
 @typing_extensions.final
 class SavedAsset(google.protobuf.message.Message):
     """A SavedAsset points to an asset in the MetaGraph.
-
+    
     When bound to a function this object evaluates to a tensor with the absolute
     filename. Users should not depend on a particular part of the filename to
     remain stable (e.g. basename could be changed).
@@ -265,7 +265,7 @@ class SavedAsset(google.protobuf.message.Message):
     ASSET_FILE_DEF_INDEX_FIELD_NUMBER: builtins.int
     asset_file_def_index: builtins.int
     """Index into `MetaGraphDef.asset_file_def[]` that describes the Asset.
-
+    
     Only the field `AssetFileDef.filename` is used. Other fields, such as
     `AssetFileDef.tensor_info`, MUST be ignored.
     """
@@ -437,10 +437,10 @@ class SavedVariable(google.protobuf.message.Message):
     @property
     def experimental_distributed_variable_components(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SavedVariable]:
         """List of component variables for a distributed variable.
-
+        
         When this field is non-empty, the SavedVariable will be assumed
         to be a distributed variable defined by the components listed here.
-
+        
         This is only supported by experimental loaders at the moment.
         """
     def __init__(
@@ -472,7 +472,7 @@ class FunctionSpec(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _JitCompileEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FunctionSpec._JitCompile.ValueType], builtins.type):  # noqa: F821
+    class _JitCompileEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FunctionSpec._JitCompile.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT: FunctionSpec._JitCompile.ValueType  # 0
         ON: FunctionSpec._JitCompile.ValueType  # 1
@@ -480,12 +480,12 @@ class FunctionSpec(google.protobuf.message.Message):
 
     class JitCompile(_JitCompile, metaclass=_JitCompileEnumTypeWrapper):
         """Whether the function should be compiled by XLA.
-
+        
         The public interface to `tf.function` uses an optional boolean to
         represent three distinct states for this field.  Unfortunately, proto3
         removes the ability to explicitly check for the presence or absence of a
         field, so we instead map to an enum.
-
+        
         See `tf.function` for details.
         """
 

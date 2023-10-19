@@ -27,7 +27,7 @@ class BundleHeaderProto(google.protobuf.message.Message):
     """Protos used in the tensor bundle module (tf/core/util/tensor_bundle/).
 
     Special header that is associated with a bundle.
-
+    
     TODO(zongheng,zhifengc): maybe in the future, we can add information about
     which binary produced this checkpoint, timestamp, etc. Sometime, these can be
     valuable debugging information. And if needed, these can be used as defensive
@@ -41,7 +41,7 @@ class BundleHeaderProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _EndiannessEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BundleHeaderProto._Endianness.ValueType], builtins.type):  # noqa: F821
+    class _EndiannessEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BundleHeaderProto._Endianness.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         LITTLE: BundleHeaderProto._Endianness.ValueType  # 0
         BIG: BundleHeaderProto._Endianness.ValueType  # 1
@@ -50,7 +50,7 @@ class BundleHeaderProto(google.protobuf.message.Message):
         """An enum indicating the endianness of the platform that produced this
         bundle.  A bundle can only be read by a platform with matching endianness.
         Defaults to LITTLE, as most modern platforms are little-endian.
-
+        
         Affects the binary tensor data bytes only, not the metadata in protobufs.
         """
 
@@ -107,7 +107,7 @@ class BundleEntryProto(google.protobuf.message.Message):
     def slices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.tensor_slice_pb2.TensorSliceProto]:
         """Iff present, this entry represents a partitioned tensor.  The previous
         fields are interpreted as follows:
-
+        
           "dtype", "shape": describe the full tensor.
           "shard_id", "offset", "size", "crc32c": all IGNORED.
              These information for each slice can be looked up in their own

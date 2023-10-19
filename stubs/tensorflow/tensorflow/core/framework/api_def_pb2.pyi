@@ -29,12 +29,12 @@ class ApiDef(google.protobuf.message.Message):
     to all client languages, and another set per client language.
     The per-client-language ApiDefs will inherit values from the
     common ApiDefs which it can either replace or modify.
-
+    
     We separate the API definition from the OpDef so we can evolve the
     API while remaining backwards compatible when interpreting old
     graphs.  Overrides go in an "api_def.pbtxt" file with a text-format
     ApiDefs message.
-
+    
     WARNING: Be *very* careful changing the API for any existing op --
     you can change the semantics of existing code.  These changes may
     need to wait until a major release of TensorFlow to avoid breaking
@@ -47,7 +47,7 @@ class ApiDef(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _VisibilityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ApiDef._Visibility.ValueType], builtins.type):  # noqa: F821
+    class _VisibilityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ApiDef._Visibility.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT_VISIBILITY: ApiDef._Visibility.ValueType  # 0
         """Normally this is "VISIBLE" unless you are inheriting a

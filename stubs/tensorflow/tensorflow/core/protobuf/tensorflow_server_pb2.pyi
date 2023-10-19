@@ -49,13 +49,13 @@ class ServerDef(google.protobuf.message.Message):
         """The cluster of which this server is a member."""
     job_name: builtins.str
     """The name of the job of which this server is a member.
-
+    
     NOTE(mrry): The `cluster` field must contain a `JobDef` with a `name` field
     that matches this name.
     """
     task_index: builtins.int
     """The task index of this server in its job.
-
+    
     NOTE: The `cluster` field must contain a `JobDef` with a matching `name`
     and a mapping in its `tasks` field for this index.
     """
@@ -64,7 +64,7 @@ class ServerDef(google.protobuf.message.Message):
         """The default configuration for sessions that run on this server."""
     protocol: builtins.str
     """The protocol to be used by this server.
-
+    
     Acceptable values include: "grpc", "grpc+verbs".
     """
     port: builtins.int

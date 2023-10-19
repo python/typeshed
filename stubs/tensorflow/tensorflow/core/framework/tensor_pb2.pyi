@@ -42,6 +42,7 @@ class TensorProto(google.protobuf.message.Message):
     VARIANT_VAL_FIELD_NUMBER: builtins.int
     UINT32_VAL_FIELD_NUMBER: builtins.int
     UINT64_VAL_FIELD_NUMBER: builtins.int
+    FLOAT8_VAL_FIELD_NUMBER: builtins.int
     dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
     @property
     def tensor_shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto:
@@ -52,7 +53,7 @@ class TensorProto(google.protobuf.message.Message):
     contain repeated fields it would require another extra set of messages.
 
     Version number.
-
+    
     In version 0, if the "repeated xxx" representations contain only one
     element, that element is repeated to fill the shape.  This makes it easy
     to represent a constant Tensor with a single value.
@@ -114,6 +115,10 @@ class TensorProto(google.protobuf.message.Message):
     @property
     def uint64_val(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """DT_UINT64"""
+    float8_val: builtins.bytes
+    """DT_FLOAT8_*, use variable-sized set of bytes
+    (i.e. the equivalent of repeated uint8, if such a thing existed).
+    """
     def __init__(
         self,
         *,
@@ -134,9 +139,10 @@ class TensorProto(google.protobuf.message.Message):
         variant_val: collections.abc.Iterable[global___VariantTensorDataProto] | None = ...,
         uint32_val: collections.abc.Iterable[builtins.int] | None = ...,
         uint64_val: collections.abc.Iterable[builtins.int] | None = ...,
+        float8_val: builtins.bytes | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["tensor_shape", b"tensor_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["bool_val", b"bool_val", "dcomplex_val", b"dcomplex_val", "double_val", b"double_val", "dtype", b"dtype", "float_val", b"float_val", "half_val", b"half_val", "int64_val", b"int64_val", "int_val", b"int_val", "resource_handle_val", b"resource_handle_val", "scomplex_val", b"scomplex_val", "string_val", b"string_val", "tensor_content", b"tensor_content", "tensor_shape", b"tensor_shape", "uint32_val", b"uint32_val", "uint64_val", b"uint64_val", "variant_val", b"variant_val", "version_number", b"version_number"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["bool_val", b"bool_val", "dcomplex_val", b"dcomplex_val", "double_val", b"double_val", "dtype", b"dtype", "float8_val", b"float8_val", "float_val", b"float_val", "half_val", b"half_val", "int64_val", b"int64_val", "int_val", b"int_val", "resource_handle_val", b"resource_handle_val", "scomplex_val", b"scomplex_val", "string_val", b"string_val", "tensor_content", b"tensor_content", "tensor_shape", b"tensor_shape", "uint32_val", b"uint32_val", "uint64_val", b"uint64_val", "variant_val", b"variant_val", "version_number", b"version_number"]) -> None: ...
 
 global___TensorProto = TensorProto
 

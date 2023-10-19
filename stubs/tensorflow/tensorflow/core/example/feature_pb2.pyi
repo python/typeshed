@@ -187,10 +187,10 @@ global___Features = Features
 @typing_extensions.final
 class FeatureList(google.protobuf.message.Message):
     """Containers for sequential data.
-
+    
     A FeatureList contains lists of Features.  These may hold zero or more
     Feature values.
-
+    
     FeatureLists are organized into categories by name.  The FeatureLists message
     contains the mapping from name to FeatureList.
     """

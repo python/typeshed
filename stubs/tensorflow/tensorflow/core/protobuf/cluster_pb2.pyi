@@ -34,38 +34,38 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 class JobDef(google.protobuf.message.Message):
     """This file contains protos to be used when defining a TensorFlow
     cluster.
-
+    
     EXAMPLES
     --------
-
+    
     1. A single-process cluster, containing "/job:local/task:0".
-
+    
        Cluster:
          job { name: 'local' tasks { key: 0 value: 'localhost:2222' } }
-
+    
        Server:
          cluster { $CLUSTER } job_name: 'local' task_index: 0
-
+    
     2. A two-process cluster, containing "/job:local/task:{0,1}".
-
+    
        Cluster:
          job { name: 'local' tasks { key: 0 value: 'localhost:2222' }
                              tasks { key: 1 value: 'localhost:2223' } }
-
+    
        Servers:
          cluster { $CLUSTER } job_name: 'local' task_index: 0
          cluster { $CLUSTER } job_name: 'local' task_index: 1
-
+    
     3. A two-job cluster, containing "/job:worker/task:{0,1,2}" and
        "/job:ps/task:{0,1}".
-
+    
        Cluster:
          job { name: 'worker' tasks { key: 0 value: 'worker1:2222' }
                               tasks { key: 1 value: 'worker2:2222' }
                               tasks { key: 2 value: 'worker3:2222' } }
          job { name: 'ps'     tasks { key: 0 value: 'ps0:2222' }
                               tasks { key: 1 value: 'ps1:2222' } }
-
+    
        Servers:
          cluster { $CLUSTER } job_name: 'worker' task_index: 0
          cluster { $CLUSTER } job_name: 'worker' task_index: 1
@@ -101,7 +101,7 @@ class JobDef(google.protobuf.message.Message):
     @property
     def tasks(self) -> google.protobuf.internal.containers.ScalarMap[builtins.int, builtins.str]:
         """Mapping from task ID to "hostname:port" string.
-
+        
         If the `name` field contains "worker", and the `tasks` map contains a
         mapping from 7 to "example.org:2222", then the device prefix
         "/job:worker/task:7" will be assigned to "example.org:2222".
