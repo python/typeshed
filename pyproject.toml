@@ -60,15 +60,17 @@ known_first_party = ["parse_metadata", "utils"]
 
 [tool.ruff]
 line-length = 130
+# Oldest supported Python version
 target-version = "py37"
 fix = true
 exclude = [
-    # We're only interested in autofixes for our stubs
-    "*.py",
     # Ignore generated protobuf stubs
     "*_pb2.pyi",
-    # virtual environment, cache directories, etc.:
+    # virtual environment
     ".env",
+    ".venv",
+    "env",
+    # cache directories, etc.:
     ".git",
     ".mypy_cache",
     ".pytype",
@@ -80,6 +82,7 @@ exclude = [
 # only enable rules that are relevant to stubs
 select = [
     "F401", # Remove unused imports
+    "FA", # flake8-future-annotations
     "PYI009", # use `...`, not `pass`, in empty class bodies
     "PYI010", # function bodies must be empty
     "PYI012", # class bodies must not contain `pass`
