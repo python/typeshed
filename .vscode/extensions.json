@@ -28,7 +28,7 @@
         "matangover.mypy",
         // Use Ruff instead
         "ms-python.isort",
-        // We use black
+        // We use Black
         "ms-python.autopep8",
         // Not using pylint
         "ms-python.pylint",

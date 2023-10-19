@@ -184,7 +184,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="""Generate baseline stubs automatically for an installed pip package
-                       using stubgen. Also run black and Ruff. If the name of
+                       using stubgen. Also run Black and Ruff. If the name of
                        the project is different from the runtime Python package name, you may
                        need to use --package (example: --package yaml PyYAML)."""
     )
