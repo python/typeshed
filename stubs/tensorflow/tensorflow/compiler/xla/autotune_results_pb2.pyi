@@ -36,12 +36,12 @@ class AutotuneResults(google.protobuf.message.Message):
     """A collection of algorithms for particular dot/convs.  Usually this is "the
     best" algorithm for the particular dot/conv, although that's not strictly
     required.
-    
+
     Users don't interact with this proto directly.  It's used internally to
     facilitate ahead-of-time autotuning -- The string used by
     xla::{Serialize,Load}AutotuneResults is, internally, a serialization of this
     proto.
-    
+
     LINT.IfChange
     """
 

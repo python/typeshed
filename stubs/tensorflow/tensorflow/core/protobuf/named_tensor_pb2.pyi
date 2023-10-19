@@ -29,7 +29,7 @@ class NamedTensorProto(google.protobuf.message.Message):
     def tensor(self) -> tensorflow.core.framework.tensor_pb2.TensorProto:
         """The client can populate a TensorProto using a tensorflow::Tensor`, or
         directly using the protobuf field accessors.
-        
+
         The client specifies whether the returned tensor values should be
         filled tensor fields (float_val, int_val, etc.) or encoded in a
         compact form in tensor.tensor_content.

@@ -77,7 +77,7 @@ class BenchmarkEntry(google.protobuf.message.Message):
     some set of information.  Here we provide some reasonable keys
     one would expect to see, with optional key/value pairs for things
     we haven't considered.
-    
+
     This BenchmarkEntry should be emitted by each unit test or benchmark
     reporter.
     """
@@ -470,7 +470,7 @@ global___RunConfiguration = RunConfiguration
 class TestResults(google.protobuf.message.Message):
     """The output of one benchmark / test run.  Each run contains a list of
     tests or benchmarks, stored as BenchmarkEntry messages.
-    
+
     This message should be emitted by the reporter (which runs the
     test / BM in a subprocess and then reads the emitted BenchmarkEntry messages;
     usually from a serialized json file, finally collecting them along

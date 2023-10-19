@@ -57,21 +57,21 @@ class _CustomCallApiVersionEnumTypeWrapper(google.protobuf.internal.enum_type_wr
     API_VERSION_UNSPECIFIED: _CustomCallApiVersion.ValueType  # 0
     API_VERSION_ORIGINAL: _CustomCallApiVersion.ValueType  # 1
     """The first version of the API, with the following signatures:
-    
+
     CPU:
       void do_custom_call(void* out, const void** in);
-    
+
     GPU:
       void do_custom_call(CUstream stream, void** buffers,
                           const char* opaque, size_t opaque_len);
     """
     API_VERSION_STATUS_RETURNING: _CustomCallApiVersion.ValueType  # 2
     """When the ability to return success/failure status was added:
-    
+
     CPU:
       void do_custom_call(void* out, const void** in,
                           XlaCustomCallStatus* status);
-    
+
     GPU:
       void do_custom_call(CUstream stream, void** buffers,
                           const char* opaque, size_t opaque_len,
@@ -83,12 +83,12 @@ class _CustomCallApiVersionEnumTypeWrapper(google.protobuf.internal.enum_type_wr
     CPUs and GPUs. For GPUs, the behaviors invoked by
     API_VERSION_STATUS_RETURNING and API_VERSION_STATUS_RETURNING_UNIFIED are
     the same.
-    
+
     CPU:
       void do_custom_call(void* out, const void** in,
                           const char* opaque, size_t opaque_len,
                           XlaCustomCallStatus* status);
-    
+
     GPU:
       void do_custom_call(CUstream stream, void** buffers,
                           const char* opaque, size_t opaque_len,
@@ -98,20 +98,20 @@ class _CustomCallApiVersionEnumTypeWrapper(google.protobuf.internal.enum_type_wr
     """Api version implementing XLA runtime custom call calling convention. These
     custom calls can be registered as an XLA runtime custom call (1) or as XLA
     runtime FFI binding (2).
-    
+
     This type of custom call uses custom ABI to pass type information along
     with custom call arguments. Also it passes buffer arguments together with
     data type, sizes and strides.
-    
+
     Example: (XLA runtime custom call)
-    
+
       absl::Status DoCustomCall(StridedMemrefView arg, float attr);
-    
+
       CustomCall::Bind("custom_call")
         .Arg<StridedMemrefView>()
         .Attr<float>("attr")
         .To(DoCustomCall);
-    
+
     (1) xla/runtime/custom_call.h
     (2) xla/runtime/ffi/ffi.h
     """
@@ -705,13 +705,13 @@ class HloInputOutputAliasProto(google.protobuf.message.Message):
         (described by parameter number and a ShapeIndex of the parameter)
         and an output (described by a ShapeIndex of the root
         instruction). For example:
-        
+
         entry = {
          output_shape_index={1},
          parameter_number=0,
          parameter_shape_index={1, 2},
         }
-        
+
         This entry indicates that the first paremter's {1, 2} element is
         aliased with the {1} element of the root instruction.
         """
@@ -764,19 +764,19 @@ class DynamicParameterBindingProto(google.protobuf.message.Message):
         the subshape `target_param_index` of parameter `target_param_num`
         is a dynamic dimension and its real dynamic size is represented
         by `dynamic_param_index` in parameter `dynamic_param_num`.
-        
+
         As an example, imagine we have a program:
-        
+
         ENTRY main {
           a = f32[] parameter(0)
           b = f32[10] parameter(1)
           ROOT root = (f32[], f32[10]) tuple(%a, %b)
         }
-        
+
         Let's say 'b' (param index 1) is a dynamic shape whose input has
         an upperbound of 10 and real size is determined at runtime.'a'
         represents the real size of b's first dimension.
-        
+
         In this case, the fields are set in the following way:
         dynamic_param_num = 1
         dynamic_param_index = {}

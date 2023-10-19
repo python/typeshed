@@ -293,7 +293,7 @@ global___ThreadingOptions = ThreadingOptions
 class Options(google.protobuf.message.Message):
     """Message stored with Dataset objects to control how datasets are processed and
     optimized.
-    
+
     next: 9
     """
 

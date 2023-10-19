@@ -18,7 +18,7 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 @typing_extensions.final
 class FingerprintDef(google.protobuf.message.Message):
     """Protocol buffer representing a SavedModel Fingerprint.
-    
+
     If there are multiple MetaGraphDefs in the SavedModel, the FingerprintDef
     corresponds to the first one.
     """

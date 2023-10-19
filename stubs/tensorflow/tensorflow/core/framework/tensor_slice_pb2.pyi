@@ -50,7 +50,7 @@ class TensorSliceProto(google.protobuf.message.Message):
     @property
     def extent(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TensorSliceProto.Extent]:
         """Extent of the slice in all tensor dimensions.
-        
+
         Must have one entry for each of the dimension of the tensor that this
         slice belongs to.  The order of sizes is the same as the order of
         dimensions in the TensorShape.

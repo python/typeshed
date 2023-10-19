@@ -75,7 +75,7 @@ class ProcessingModeDef(google.protobuf.message.Message):
         * The tf.data service cluster has a fixed size, and you need to specify
           the workers in DispatcherConfig.
         * Each client only reads from the local tf.data service worker.
-        
+
         Shards by input files (each worker will get a set of files to process).
         When this option is selected, make sure that there is at least as many
         files as workers. If there are fewer input files than workers, a runtime
@@ -116,7 +116,7 @@ class ProcessingModeDef(google.protobuf.message.Message):
     * The tf.data service cluster has a fixed size, and you need to specify
       the workers in DispatcherConfig.
     * Each client only reads from the local tf.data service worker.
-    
+
     Shards by input files (each worker will get a set of files to process).
     When this option is selected, make sure that there is at least as many
     files as workers. If there are fewer input files than workers, a runtime

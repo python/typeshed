@@ -54,7 +54,7 @@ class _PrimitiveTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._
     U64: _PrimitiveType.ValueType  # 9
     F16: _PrimitiveType.ValueType  # 10
     """Floating-point values of fixed width.
-    
+
     Note: if f16s are not natively supported on the device, they will be
     converted to f16 from f32 at arbirary points in the computation.
     """
@@ -67,15 +67,15 @@ class _PrimitiveTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._
     F64: _PrimitiveType.ValueType  # 12
     F8E5M2: _PrimitiveType.ValueType  # 19
     """FP8 dtypes, as described in this paper: https://arxiv.org/abs/2209.05433
-    
+
     F8E5M2 has 5 exponent bits and 2 mantissa bits, and is similar to the
     existing IEEE types.
-    
+
     F8E4M3FN has 4 exponent bits and 3 mantissa bits. The "FN" means only
     Finite and NaN values are supported. Unlike IEEE types, infinities are not
     supported.  NaN is represented when the exponent and mantissa bits are all
     1s. All other values are finite.
-    
+
     Support for these dtypes is under development. They do not yet work
     properly in most cases.
     TODO(b/259609697): Fully support FP8.
@@ -92,7 +92,7 @@ class _PrimitiveTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._
     sub-shapes. They are used for things like returning multiple values from a
     computation; e.g. a computation that returns weights and biases may have a
     signature that results in a tuple like (f32[784x2000], f32[2000])
-    
+
     If a shape proto has the tuple element type, it may not have any entries
     in the dimensions field.
     """
@@ -100,7 +100,7 @@ class _PrimitiveTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._
     """An opaque type used for passing context-specific data to a custom
     operation. Shapes of this primitive type will have empty dimensions and
     tuple_shapes fields.
-    
+
     (OPAQUE would be a better name for this identifier, but that conflicts with
     a macro defined in windows.h.)
     """
@@ -113,7 +113,7 @@ class PrimitiveType(_PrimitiveType, metaclass=_PrimitiveTypeEnumTypeWrapper):
     """Primitive types are the individual values that can be held in rectangular
     multidimensional arrays. A description of the rectangular multidimensional
     array dimensions / primitive type is given by Shape, below.
-    
+
     LINT.IfChange
     """
 
@@ -453,13 +453,13 @@ global___TileProto = TileProto
 class LayoutProto(google.protobuf.message.Message):
     """A layout describes how the array is placed in (1D) memory space.  This
     includes the minor-to-major ordering of dimensions within a shape.
-    
+
     Clients must specify the layouts of input Literals to the
     computation. Layouts specified in interior operations which take Shapes (for
     example, Convert) are ignored.
-    
+
     See the XLA documentation for more information on shapes and layouts.
-    
+
     LINT.IfChange
     """
 
@@ -500,7 +500,7 @@ class LayoutProto(google.protobuf.message.Message):
     def tiles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TileProto]:
         """A sequence of tiles, starting from the tile that's applied first to the
         Shape.
-        
+
         TODO(b/119839262): implement tiling in each backend or add Unimplemented
         error.
         """
@@ -552,12 +552,12 @@ global___LayoutProto = LayoutProto
 class ShapeProto(google.protobuf.message.Message):
     """A shape describes the number of dimensions in the array, the size of each
     dimension, and the primitive component type.
-    
+
     Tuples are a special case in that they have rank zero and have tuple_shapes
     defined.
-    
+
     See the XLA documentation for more information on shapes and layouts.
-    
+
     LINT.IfChange
     """
 
@@ -577,7 +577,7 @@ class ShapeProto(google.protobuf.message.Message):
         to N-1 for an N-dimensional array. The first element of 'dimensions' is the
         size of dimension 0, the second element is the size of dimension 1, and so
         forth.  Empty list indicates a scalar.
-        
+
         If the respective element in 'is_dimension_dynamic' is true then the value
         in this field represents an upper bound on the size of the dimension.
         """
@@ -662,7 +662,7 @@ global___ComputationStats = ComputationStats
 @typing_extensions.final
 class OpMetadata(google.protobuf.message.Message):
     """Symbolization metadata for HLO Instructions.
-    
+
     This metadata is used for debugging XLA code generation, as well as
     performance profiling of XLA-generated executables.
     """
@@ -712,7 +712,7 @@ class OpMetadata(google.protobuf.message.Message):
     PROFILE_INFO_FIELD_NUMBER: builtins.int
     op_type: builtins.str
     """The framework op name that generated this XLA op.
-    
+
     Frameworks that build on top of XLA should mirror the names of their ops
     back to users by specifying the op_type. In this way, even if the
     framework's "ops" are implemented as multiple XLA HLO Ops, they can be
@@ -721,13 +721,13 @@ class OpMetadata(google.protobuf.message.Message):
     """
     op_name: builtins.str
     """The user-specified name of the op.
-    
+
     This name is often unique within a computation. Note: some frameworks
     add auto-generated names if the user does not provide one.
     """
     source_file: builtins.str
     """Indicate a file and line that this op is associated to in a user's program.
-    
+
     e.g. it could be the file and line of user code that generated the op.
     """
     source_line: builtins.int
@@ -998,7 +998,7 @@ class LiteralProto(google.protobuf.message.Message):
     """Literals are used when the server and client need to exchange materialized
     data / results. Literals are also used to describe constants used in
     computations.
-    
+
     Transfers to/from the client are encoded in literal form, and the structure
     of the repeated fields is implied by the shape.
     """
@@ -1159,7 +1159,7 @@ global___WindowDimension = WindowDimension
 @typing_extensions.final
 class Window(google.protobuf.message.Message):
     """Describes the windowing in an operation such as convolution.
-    
+
     The window is moved across a base area and for each position of the
     window a computation is performed. The field below describes the
     window and the movement of the window across a base area.
@@ -1182,7 +1182,7 @@ global___Window = Window
 @typing_extensions.final
 class GatherDimensionNumbers(google.protobuf.message.Message):
     """Describes the dimension numbers for a gather operation.
-    
+
     See https://www.tensorflow.org/performance/xla/operation_semantics#gather for
     more details.
     """
@@ -1199,9 +1199,9 @@ class GatherDimensionNumbers(google.protobuf.message.Message):
         interior of a dynamic-slice from the input tensor, the starting indices for
         which were computed from output_gather_dims (see the operation semantic for
         how this is defined) and the start_indices tensor.
-        
+
         The window indices for a specific output index Out is computed as:
-        
+
          i = 0
          for (k : [0, input_tensor_shape.rank))
            window_indices[k] =
@@ -1236,7 +1236,7 @@ global___GatherDimensionNumbers = GatherDimensionNumbers
 @typing_extensions.final
 class ScatterDimensionNumbers(google.protobuf.message.Message):
     """Describes the dimension numbers for a scatter operation.
-    
+
     All the fields are similar to the corresponding fields in
     GatherDimensionNumbers. Differences are noted below.
     """
@@ -1676,7 +1676,7 @@ class ParameterReplication(google.protobuf.message.Message):
     def replicated_at_leaf_buffers(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
         """A list of boolean values for the flattened leaf buffers. Each value
         indicates whether the corresponding leaf buffer is replicated.
-        
+
         If this field is empty, it means no buffer is replicated. Otherwise, the
         number of elements in this field must match the number of leaf buffers in
         the HLO instruction's shape.
@@ -1694,7 +1694,7 @@ global___ParameterReplication = ParameterReplication
 class WhileLoopBackendConfig(google.protobuf.message.Message):
     """A backend-config for kWhile loops that stores the loop's trip count, if it is
     known.
-    
+
     This is useful for backends that can implement a `for i in 0..N` loop more
     efficiently than a `while` loop.  For example, on GPUs, we can implement a
     `for i in 0..N` loop by enqueueing the kernels for the loop body N times,

@@ -53,7 +53,7 @@ class TensorProto(google.protobuf.message.Message):
     contain repeated fields it would require another extra set of messages.
 
     Version number.
-    
+
     In version 0, if the "repeated xxx" representations contain only one
     element, that element is repeated to fill the shape.  This makes it easy
     to represent a constant Tensor with a single value.
