@@ -181,6 +181,7 @@ multiprocessing.shared_memory: 3.8-
 netrc: 2.7-
 nis: 2.7-
 nntplib: 2.7-
+nt: 2.7-
 ntpath: 2.7-
 nturl2path: 2.7-
 numbers: 2.7-
