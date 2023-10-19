@@ -13,7 +13,7 @@ set -ex -o pipefail
 # Update these two variables when rerunning script
 PROTOBUF_VERSION=21.8
 PYTHON_PROTOBUF_VERSION=4.21.8
-MYPY_PROTOBUF_VERSION=v3.5.0
+MYPY_PROTOBUF_VERSION=3.5.0
 
 if uname -a | grep Darwin; then
     # brew install coreutils wget
@@ -48,7 +48,7 @@ source "$VENV/bin/activate"
 pip install -r "$REPO_ROOT/requirements-tests.txt"  # for black and isort
 
 # Install mypy-protobuf
-pip install "git+https://github.com/dropbox/mypy-protobuf@$MYPY_PROTOBUF_VERSION"
+pip install mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 
 # Remove existing pyi
 find "$REPO_ROOT/stubs/protobuf/" -name '*_pb2.pyi' -delete
@@ -76,5 +76,6 @@ protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="re
 isort "$REPO_ROOT/stubs/protobuf"
 black "$REPO_ROOT/stubs/protobuf"
 
-sed --in-place="" "s/mypy-protobuf [^\"]*/mypy-protobuf ${MYPY_PROTOBUF_VERSION}/" "$REPO_ROOT/stubs/protobuf/METADATA.toml"
-sed --in-place="" "s/version = .*$/version = \"$(echo ${PYTHON_PROTOBUF_VERSION} | cut -d. -f1-2)\.\*\"/" "$REPO_ROOT/stubs/protobuf/METADATA.toml"
+sed --in-place="" \
+  "s/extra_description = .*$/extra_description = \"Generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on protobuf==$PYTHON_PROTOBUF_VERSION\"/" \
+  "$REPO_ROOT/stubs/protobuf/METADATA.toml"
