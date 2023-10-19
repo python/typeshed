@@ -21,7 +21,7 @@ cd "$(dirname "$0")" > /dev/null
 cd ../stubs/tensorflow
 mkdir -p repository
 pushd repository &> /dev/null
-    # If the script fails halfway, it's nice to be able to re-run it immediatly
+    # If the script fails halfway, it's nice to be able to re-run it immediately
     if [ ! -d "tensorflow" ] ; then
         git clone --depth 1 --branch v"$TENSORFLOW_VERSION" https://github.com/tensorflow/tensorflow.git
     fi
