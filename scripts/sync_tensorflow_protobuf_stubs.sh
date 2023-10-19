@@ -65,10 +65,7 @@ ruff "$REPO_ROOT/stubs/tensorflow/tensorflow" --exit-non-zero-on-fix --fix-only
 black "$REPO_ROOT/stubs/tensorflow/tensorflow"
 
 sed --in-place="" \
-    "s/extra_description = .*$/extra_description = \"Partially generated with aid from [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION)\"/" \
-    "$REPO_ROOT/stubs/tensorflow/METADATA.toml"
-sed --in-place="" \
-    "s/version = .*$/version = \"$(echo ${TENSORFLOW_VERSION} | cut -d. -f1-2)\.\*\"/" \
+    "s/extra_description = .*$/extra_description = \"Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on tensorflow==$TENSORFLOW_VERSION\"/" \
     "$REPO_ROOT/stubs/tensorflow/METADATA.toml"
 
 # Cleanup last. If the script fails halfway, it's nice to be able to re-run it immediatly

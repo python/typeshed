@@ -77,8 +77,5 @@ isort "$REPO_ROOT/stubs/protobuf"
 black "$REPO_ROOT/stubs/protobuf"
 
 sed --in-place="" \
-  "s/extra_description = .*$/extra_description = \"Generated with aid from [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION)\"/" \
-  "$REPO_ROOT/stubs/protobuf/METADATA.toml"
-sed --in-place="" \
-  "s/version = .*$/version = \"$(echo ${PYTHON_PROTOBUF_VERSION} | cut -d. -f1-2)\.\*\"/" \
+  "s/extra_description = .*$/extra_description = \"Generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on protobuf==$PYTHON_PROTOBUF_VERSION\"/" \
   "$REPO_ROOT/stubs/protobuf/METADATA.toml"
