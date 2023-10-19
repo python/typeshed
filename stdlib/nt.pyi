@@ -4,7 +4,6 @@ if sys.platform == "win32":
     # Actually defined here and re-exported from os at runtime,
     # but this leads to less code duplication
     from os import (
-        DirEntry as DirEntry,
         F_OK as F_OK,
         O_APPEND as O_APPEND,
         O_BINARY as O_BINARY,
@@ -29,6 +28,7 @@ if sys.platform == "win32":
         TMP_MAX as TMP_MAX,
         W_OK as W_OK,
         X_OK as X_OK,
+        DirEntry as DirEntry,
         abort as abort,
         access as access,
         chdir as chdir,
