@@ -99,5 +99,13 @@ if sys.platform == "win32":
         from os import unsetenv as unsetenv, waitstatus_to_exitcode as waitstatus_to_exitcode
     if sys.version_info >= (3, 11):
         from os import EX_OK as EX_OK
+    if sys.version_info >= (3, 12):
+        from os import (
+            get_blocking as get_blocking,
+            listdrives as listdrives,
+            listmounts as listmounts,
+            listvolumes as listvolumes,
+            set_blocking as set_blocking,
+        )
 
     environ: dict[str, str]
