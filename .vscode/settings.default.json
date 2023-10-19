@@ -24,6 +24,7 @@
         "**/.*_cache": true, // mypy and Ruff cache
         "**/__pycache__": true
     },
+    "files.eol": "\n",
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
@@ -31,7 +32,7 @@
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,
     "editor.tabSize": 2,
-    "[json][jsonc][python]": {
+    "[json][jsonc][python][toml]": {
         "editor.tabSize": 4
     },
     "editor.rulers": [
