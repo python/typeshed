@@ -5,7 +5,7 @@ from typing import TypeVar
 from typing_extensions import assert_type
 
 if sys.version_info >= (3, 11):
-    # This can be removed later, but right now `flake8` does not know
+    # This can be removed later, but right now Flake8 does not know
     # about these two classes:
     from builtins import BaseExceptionGroup, ExceptionGroup
 
