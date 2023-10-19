@@ -34,26 +34,26 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 class TaskDeviceFilters(google.protobuf.message.Message):
     """This file contains protos to be used when defining a TensorFlow
     cluster.
-    
+
     Configure device filters for remote tasks in the cluster. When associated
     with a ClusterDef in setting up the cluster, a remote task will ignore all
     devices which do not match any of its filters. Device filters must be
     configured at the cluster startup, and cannot be updated once the cluster is
     up and running.
-    
+
     EXAMPLES
     --------
-    
+
     A two-job cluster with the following ClusterDef:
-    
+
      Cluster:
        job { name: 'worker' tasks { key: 0 value: 'worker1:2222' }
                             tasks { key: 1 value: 'worker2:2222' } }
        job { name: 'ps'     tasks { key: 0 value: 'ps0:2222' }
                             tasks { key: 1 value: 'ps1:2222' } }
-    
+
     Set device filters to isolate worker tasks:
-    
+
      ClusterDeviceFilters:
        job { name: 'worker' tasks { key: 0
                                     value: device_filter '/job:ps'

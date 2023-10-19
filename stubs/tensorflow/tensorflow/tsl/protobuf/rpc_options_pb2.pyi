@@ -28,7 +28,7 @@ class RPCOptions(google.protobuf.message.Message):
     NUM_CHANNELS_PER_TARGET_FIELD_NUMBER: builtins.int
     use_rpc_for_inprocess_master: builtins.bool
     """If true, always use RPC to contact the session target.
-    
+
     If false (the default option), TensorFlow may use an optimized
     transport for client-master communication that avoids the RPC
     stack. This option is primarily for used testing the RPC stack.

@@ -64,7 +64,7 @@ class _DataLayoutEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
     Batch <-> batch, or N
     Depth <-> feature, or channel
     TODO(timshen): turn them into cuDNN names, e.g. kNCHW.
-    
+
     Note: In cudnn, kBatchDepthYX4 and kBatchDepthYX32 are the same layout
     (namely, NCHW_VECT_C).  It differentiates between these two by using a
     different data type (int8x4 vs int8x32).  In StreamExecutor we use
@@ -341,7 +341,7 @@ class AlgorithmProto(google.protobuf.message.Message):
         along with the choice of algorithm.  For consistency and convenience,
         cuDNN uses this field in the same way, even though it would be possible to
         re-query the workspace size from cuDNN at each use.
-        
+
         Since this message is persisted in files, we need to be able to distinguish
         0 workspace size from unknown workspace size in an old message, so this is
         a message field.

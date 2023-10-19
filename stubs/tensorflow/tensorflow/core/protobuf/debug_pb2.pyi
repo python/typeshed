@@ -48,7 +48,7 @@ class DebugTensorWatch(google.protobuf.message.Message):
     @property
     def debug_urls(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """URL(s) for debug targets(s).
-        
+
         Supported URL formats are:
           - file:///foo/tfdbg_dump: Writes out Event content to file
             /foo/tfdbg_dump.  Assumes all directories can be created if they don't
@@ -57,10 +57,10 @@ class DebugTensorWatch(google.protobuf.message.Message):
             service running at localhost:11011 with the event.
           - memcbk:///event_key: Routes tensors to clients using the
             callback registered with the DebugCallbackRegistry for event_key.
-        
+
         Each debug op listed in debug_ops will publish its output tensor (debug
         signal) to all URLs in debug_urls.
-        
+
         N.B. Session::Run() supports concurrent invocations of the same inputs
         (feed keys), outputs and target nodes. If such concurrent invocations
         are to be debugged, the callers of Session::Run() must use distinct

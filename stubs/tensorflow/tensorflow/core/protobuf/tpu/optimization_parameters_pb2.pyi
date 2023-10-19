@@ -47,11 +47,11 @@ class SimulatedQuantization(google.protobuf.message.Message):
     reduce training/serving skew when the serving variables are quantized. The
     same quantization operations are executed during training to minimize
     differences with serving.
-    
+
     Simulated quantization inserts the following operations on the forward pass
     after gathering the embedding vector from HBM. The backward pass operations
     are unchanged.
-    
+
     clipped_val = clip(input, clipping_limits)
     quantum = clipping_limits.range() / (num_buckets - 1)
     quantized_val = floor((clipped_val - clipping_limits.lower()) / quantum + .5)
@@ -97,23 +97,23 @@ class DynamicLearningRate(google.protobuf.message.Message):
     """For tables where learning rates are dynamically computed and communicated
     to the TPU embedding program, a tag must be specified for the learning
     rate.
-    
+
     The tag must be a non-negative  integer. The total number of unique tags
     must be less than or equal to the number of tables in the TPU embedding
     configuration (a table does not specify any tag if it uses a constant
     learning rate, and specifies exactly one tag if it uses dynamic learning
     rates).
-    
+
     All tags in the range [0, number_of_unique_tags) must be present in the TPU
     embedding configuration, i.e. a tag cannot be skipped if a different tag
     numerically greater than it is used in the configuration.
-    
+
     If multiple tables specify the same tag, they *MUST* have
     the same dynamic learning rate, for example, their dynamic learning rate
     could be computed by the same TensorFlow sub-graph. The partitioning of the
     embedding layer would be more optimal if the number_of_unique_tags is as
     *LOW* as possible, i.e., if many tables share the same tag.
-    
+
     The learning_rate input of the SendTPUEmbeddingGradients op is used to
     communicate dynamic learning rates to the TPU embedding program.
     The learning_rate input is a list of scalars where the size of the list is
@@ -267,7 +267,7 @@ class FtrlParameters(google.protobuf.message.Message):
     """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Ftrl
     https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/41159.pdf
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L2646
-    
+
     The hyperparameters for FTRL are the same as for the Keras implementation,
     with some additions. The "beta" parameter matches the behavior described in
     the second link above; "beta" / (2 * learning rate) should be added to "l2"
@@ -322,10 +322,10 @@ class AdamParameters(google.protobuf.message.Message):
     limitations; use the dynamic learning rate feature instead, setting the
     learning rate to: user learning_rate * sqrt(1 - beta2^t) / (1 - beta1^t)
     Here, t is the current timestep.
-    
+
     https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Adam
     https://github.com/tensorflow/tensorflow/blob/ab51450c817674c8ff08a7ae4f8ac50cdc4bed8b/tensorflow/python/training/adam.py#L32
-    
+
     Note that the code by default implements the lazy version of Adam
     (https://www.tensorflow.org/api_docs/python/tf/contrib/opt/LazyAdamOptimizer)
     unless the use_non_lazy_adam parameter is set, in which case it implements
@@ -537,10 +537,10 @@ class OnlineYogiParameters(google.protobuf.message.Message):
     dynamic learning rate feature instead, setting the learning rate to:
     user learning_rate * sqrt(1 - beta2^t) / (1 - beta1^t)
     Here, t is the current timestep.
-    
+
     https://papers.nips.cc/paper/8186-adaptive-methods-for-nonconvex-optimization.pdf
     plus some extensions based on FTRL.
-    
+
     Note that the code by default implements the lazy version of online Yogi.
     """
 
@@ -572,10 +572,10 @@ class ProximalYogiParameters(google.protobuf.message.Message):
     dynamic learning rate feature instead, setting the learning rate to:
     user learning_rate * sqrt(1 - beta2^t) / (1 - beta1^t)
     Here, t is the current timestep.
-    
+
     https://papers.nips.cc/paper/8186-adaptive-methods-for-nonconvex-optimization.pdf
     plus some extensions based on FTRL.
-    
+
     Note that the code by default implements the lazy version of proximal Yogi.
     """
 
@@ -616,19 +616,19 @@ class FrequencyEstimatorParameters(google.protobuf.message.Message):
     global steps between two consecutive batches that hit the corresponding
     bucket. Once an item with bucket id i is sampled, D[i] is updated by:
       D[i] <- D[i] * (1 - tau) + delta[i] * tau,
-    
+
     where tau is a learning rate between 0 and 1 (exclusive), and
       delta[i] = current global step - last step i is sampled.
-    
+
     The estimated frequency (sampling rate in a batch) is thus 1 / D[i].
-    
+
     Elements in D are initialized with a large value max_delta. delta[i] will
     also be capped by this value.
-    
+
     The exact sequence of operations used in the optimizer is shown below.
     last_hit_step[i] is a tf.Variable that holds the last global step at which i
     was sampled.
-    
+
       delta = global_step - last_hit_step[i]
       clipped_delta = min(delta, params.max_delta)
       is_outlier = (delta >= params.outlier_threshold * D[i])
@@ -677,12 +677,12 @@ class UserDefinedProgramParameters(google.protobuf.message.Message):
     3.  slot variables
     4.  an optional scalar input that is passed in via the dynamic learning
         rate mechanism.
-    
+
     It must return/end in a tuple op that contains the following values in the
     following order:
     1.  new table values
     2.  new slot variable value
-    
+
     The program must have shape (1,1) with dtype float32 throughout and only use
     HLO that operate elementwise (e.g., no reduce, no variables, no control flow
     and no broadcasting outside of the single scalar input).
@@ -775,7 +775,7 @@ class LowDimensionalPackingStatus(google.protobuf.message.Message):
     for embedding tables with such optimizers. The TPU software automatically
     recognizes that a zero gradient can modify state and turns off the low
     dimensional embedding packing in that scenario.
-    
+
     However, for optimizers where a zero gradient is a NoOp, such as SGD,
     Adagrad, and FTRL, this packing optimization can be used. However, there are
     some important considerations:
@@ -788,7 +788,7 @@ class LowDimensionalPackingStatus(google.protobuf.message.Message):
       should match that computed from the initial values of the accumulator and
       linear slot variables. Note that in nearly all cases, the linear value is
       initialized to zero; this corresponds to an embedding value of zero.
-    
+
     Performance: The TPU has to perform additional work when low dimensional
     packing is enabled. In certain situations when the vocabulary size is small,
     it may not make sense to turn on this packing since the total memory usage
@@ -811,13 +811,13 @@ class LowDimensionalPackingStatus(google.protobuf.message.Message):
     class Status(_Status, metaclass=_StatusEnumTypeWrapper):
         """if UNSPECIFIED (default), the low dimension packing status is DISABLED.
         This can change in future.
-        
+
         if ENABLED, the low dimension packing is enabled only if the following
         three additional conditions are true:
          * The optimizer treats the zero gradient as a NoOp.
          * The embedding dimension is 1, 2, or 4.
          * The vocabulary size is large enough to avoid performance issues.
-        
+
         if DISABLED, the low dimension packing is always disabled.
         """
 

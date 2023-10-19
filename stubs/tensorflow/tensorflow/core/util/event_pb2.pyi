@@ -164,7 +164,7 @@ global___SourceMetadata = SourceMetadata
 @typing_extensions.final
 class LogMessage(google.protobuf.message.Message):
     """Protocol buffer used for logging messages to the events file.
-    
+
     This was theoretically used by the defunct tensorboard_logging module, which
     has been removed; this message is now deprecated and should not be used.
     """

@@ -190,7 +190,7 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
     pipelined with that of the TensorCore. This parameter only affects results
     when mode=TRAINING. If mode=INFERENCE or BACKWARD_PASS_ONLY, this parameter
     does not affect execution and hence, is a don't care value.
-    
+
     false: The execution of the sparse core is not pipelined with that of the
     TensorCore. The forward pass of every step on the sparse core is executed
     only after the backward pass of the previous step is complete. And the
@@ -198,7 +198,7 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
     gradients have been computed on the TensorCore on every step. This ensures
     that the activations on every step observe the gradient updates from the
     previous step on both the sparse core and the TensorCore.
-    
+
     true: The execution of the sparse core is pipelined with that of the
     TensorCore. The forward pass of every step on the sparse core can be
     executed after the forward pass of the previous step is complete without

@@ -49,7 +49,7 @@ class NodeDef(google.protobuf.message.Message):
         @property
         def original_node_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
             """Opaque string inserted into error messages created by the runtime.
-            
+
             This is intended to store the list of names of the nodes from the
             original graph that this node was derived. For example if this node, say
             C, was result of a fusion of 2 nodes A and B, then 'original_node' would
@@ -102,20 +102,20 @@ class NodeDef(google.protobuf.message.Message):
     """A (possibly partial) specification for the device on which this
     node should be placed.
     The expected syntax for this string is as follows:
-    
+
     DEVICE_SPEC ::= PARTIAL_SPEC
-    
+
     PARTIAL_SPEC ::= ("/" CONSTRAINT) *
     CONSTRAINT ::= ("job:" JOB_NAME)
                  | ("replica:" [1-9][0-9]*)
                  | ("task:" [1-9][0-9]*)
                  | ("device:" [A-Za-z]* ":" ([1-9][0-9]* | "*") )
-    
+
     Valid values for this string include:
     * "/job:worker/replica:0/task:1/device:GPU:3"  (full specification)
     * "/job:worker/device:GPU:3"                   (partial specification)
     * ""                                    (no specification)
-    
+
     If the constraints do not resolve to a single device (or if this
     field is empty or not present), the runtime will attempt to
     choose a device automatically.

@@ -77,7 +77,7 @@ class _CodeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeW
     required for the operation's execution.  For example, directory
     to be deleted may be non-empty, an rmdir operation is applied to
     a non-directory, etc.
-    
+
     A litmus test that may help a service implementor in deciding
     between FAILED_PRECONDITION, ABORTED, and UNAVAILABLE:
      (a) Use UNAVAILABLE if the client can retry just the failing call.
@@ -96,21 +96,21 @@ class _CodeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeW
     ABORTED: _Code.ValueType  # 10
     """The operation was aborted, typically due to a concurrency issue
     like sequencer check failures, transaction aborts, etc.
-    
+
     See litmus test above for deciding between FAILED_PRECONDITION,
     ABORTED, and UNAVAILABLE.
     """
     OUT_OF_RANGE: _Code.ValueType  # 11
     """Operation tried to iterate past the valid input range.  E.g., seeking or
     reading past end of file.
-    
+
     Unlike INVALID_ARGUMENT, this error indicates a problem that may
     be fixed if the system state changes. For example, a 32-bit file
     system will generate INVALID_ARGUMENT if asked to read at an
     offset that is not in the range [0,2^32-1], but it will generate
     OUT_OF_RANGE if asked to read from an offset past the current
     file size.
-    
+
     There is a fair bit of overlap between FAILED_PRECONDITION and
     OUT_OF_RANGE.  We recommend using OUT_OF_RANGE (the more specific
     error) when it applies so that callers who are iterating through
@@ -128,7 +128,7 @@ class _CodeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeW
     """The service is currently unavailable.  This is a most likely a
     transient condition and may be corrected by retrying with
     a backoff.
-    
+
     See litmus test above for deciding between FAILED_PRECONDITION,
     ABORTED, and UNAVAILABLE.
     """
@@ -137,27 +137,27 @@ class _CodeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeW
     DO_NOT_USE_RESERVED_FOR_FUTURE_EXPANSION_USE_DEFAULT_IN_SWITCH_INSTEAD_: _Code.ValueType  # 20
     """An extra enum entry to prevent people from writing code that
     fails to compile when a new code is added.
-    
+
     Nobody should ever reference this enumeration entry. In particular,
     if you write C++ code that switches on this enumeration, add a default:
     case instead of a case that mentions this enumeration entry.
-    
+
     Nobody should rely on the value (currently 20) listed here.  It
     may change in the future.
     """
 
 class Code(_Code, metaclass=_CodeEnumTypeWrapper):
     """The canonical error codes for TensorFlow APIs.
-    
+
     Warnings:
-    
+
     -   Do not change any numeric assignments.
     -   Changes to this list should only be made if there is a compelling
         need that can't be satisfied in another way.  Such changes
         must be approved by at least two OWNERS.
     -   These error codes must match gRPC and protobuf error codes (except for
         DO_NOT_USE_RESERVED_FOR_FUTURE_EXPANSION_USE_DEFAULT_IN_SWITCH_INSTEAD_).
-    
+
     Sometimes multiple error codes may apply.  Services should return
     the most specific error code that applies.  For example, prefer
     OUT_OF_RANGE over FAILED_PRECONDITION if both codes apply.

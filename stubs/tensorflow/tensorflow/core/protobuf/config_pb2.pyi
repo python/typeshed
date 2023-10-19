@@ -52,7 +52,7 @@ class GPUOptions(google.protobuf.message.Message):
                 corresponding visible GPU (see "virtual_devices" below).
                 If empty, it will create single virtual device taking all available
                 memory from the device.
-                
+
                 For the concept of "visible" and "virtual" GPU, see the comments for
                 "visible_device_list" above for more information.
                 """
@@ -61,10 +61,10 @@ class GPUOptions(google.protobuf.message.Message):
                 """Priority values to use with the virtual devices. Use the cuda function
                 cudaDeviceGetStreamPriorityRange to query for valid range of values for
                 priority.
-                
+
                 On a P4000 GPU with cuda 10.1, the priority range reported was 0 for
                 least priority and -1 for greatest priority.
-                
+
                 If this field is not specified, then the virtual devices will be
                 created with the default. If this field has values set, then the size
                 of this must match with the above memory_limit_mb.
@@ -109,7 +109,7 @@ class GPUOptions(google.protobuf.message.Message):
             devices and have the <id> field assigned sequentially starting from 0,
             according to the order of the virtual devices determined by
             device_ordinal and the location in the virtual device list.
-            
+
             For example,
               visible_device_list = "1,0"
               virtual_devices { memory_limit: 1GB memory_limit: 2GB }
@@ -119,7 +119,7 @@ class GPUOptions(google.protobuf.message.Message):
               /device:GPU:1 -> visible GPU 1 with 2GB memory
               /device:GPU:2 -> visible GPU 0 with 3GB memory
               /device:GPU:3 -> visible GPU 0 with 4GB memory
-            
+
             but
               visible_device_list = "1,0"
               virtual_devices { memory_limit: 1GB memory_limit: 2GB
@@ -131,7 +131,7 @@ class GPUOptions(google.protobuf.message.Message):
               /device:GPU:1 -> visible GPU 0 with 3GB memory  (ordinal 10)
               /device:GPU:2 -> visible GPU 1 with 2GB memory  (ordinal 20)
               /device:GPU:3 -> visible GPU 0 with 4GB memory  (ordinal 20)
-            
+
             NOTE:
             1. It's invalid to set both this and "per_process_gpu_memory_fraction"
                at the same time.
@@ -173,7 +173,7 @@ class GPUOptions(google.protobuf.message.Message):
         Parameters for GPUKernelTracker.  By default no kernel tracking is done.
         Note that timestamped_allocator is only effective if some tracking is
         specified.
-        
+
         If kernel_tracker_max_interval = n > 0, then a tracking event
         is inserted after every n kernels without an event.
         """
@@ -216,7 +216,7 @@ class GPUOptions(google.protobuf.message.Message):
         """If true, then the host allocator allocates its max memory all upfront and
         never grows.  This can be useful for latency-sensitive systems, because
         growing the GPU host memory pool can be expensive.
-        
+
         You probably only want to use this in combination with
         gpu_host_mem_limit_in_mb, because the default GPU host memory limit is
         quite high.
@@ -253,9 +253,9 @@ class GPUOptions(google.protobuf.message.Message):
     """Fraction of the total GPU memory to allocate for each process.
     1 means to allocate all of the GPU memory, 0.5 means the process
     allocates up to ~50% of the total GPU memory.
-    
+
     GPU memory is pre-allocated unless the allow_growth option is enabled.
-    
+
     If greater than 1.0, uses CUDA unified memory to potentially oversubscribe
     the amount of memory available on the GPU device by using host memory as a
     swap space. Accessing memory not available on the device will be
@@ -274,11 +274,11 @@ class GPUOptions(google.protobuf.message.Message):
     """
     allocator_type: builtins.str
     """The type of GPU allocation strategy to use.
-    
+
     Allowed values:
     "": The empty string (default) uses a system-chosen default
         which may change over time.
-    
+
     "BFC": A "Best-fit with coalescing" algorithm, simplified from a
            version of dlmalloc.
     """
@@ -295,7 +295,7 @@ class GPUOptions(google.protobuf.message.Message):
     then one would specify this field as "5,3".  This field is similar in
     spirit to the CUDA_VISIBLE_DEVICES environment variable, except
     it applies to the visible GPU devices in the process.
-    
+
     NOTE:
     1. The GPU driver provides the process with the visible GPUs
        in an order which is not guaranteed to have any correlation to
@@ -504,7 +504,7 @@ class GraphOptions(google.protobuf.message.Message):
     """
     place_pruned_graph: builtins.bool
     """Only place the subgraphs that are run, rather than the entire graph.
-    
+
     This is useful for interactive graph building, where one might
     produce graphs that cannot be placed during the debugging
     process.  In particular, it allows the client to continue work in
@@ -549,16 +549,16 @@ class ThreadPoolOptionProto(google.protobuf.message.Message):
     GLOBAL_NAME_FIELD_NUMBER: builtins.int
     num_threads: builtins.int
     """The number of threads in the pool.
-    
+
     0 means the system picks a value based on where this option proto is used
     (see the declaration of the specific field for more info).
     """
     global_name: builtins.str
     """The global name of the threadpool.
-    
+
     If empty, then the threadpool is made and used according to the scope it's
     in - e.g., for a session threadpool, it is used by that session only.
-    
+
     If non-empty, then:
     - a global threadpool associated with this name is looked
       up or created. This allows, for example, sharing one threadpool across
@@ -583,12 +583,12 @@ global___ThreadPoolOptionProto = ThreadPoolOptionProto
 @typing_extensions.final
 class SessionMetadata(google.protobuf.message.Message):
     """Metadata about the session.
-    
+
     This can be used by the runtime and the Ops for debugging, monitoring, etc.
-    
+
     The (name, version) tuple is expected to be a unique identifier for
     sessions within the same process.
-    
+
     NOTE: This is currently used and propagated only by the direct session.
     """
 
@@ -718,7 +718,7 @@ class ConfigProto(google.protobuf.message.Message):
         """In the following, session state means the value of a variable, elements
         in a hash table, or any other resource, accessible by worker sessions
         held by a TF server.
-        
+
         When ClusterSpec propagation is enabled, the value of
         isolate_session_state is ignored when deciding whether to share session
         states in a TF server (for backwards compatibility reasons).
@@ -726,13 +726,13 @@ class ConfigProto(google.protobuf.message.Message):
         states are shared.
         - If share_session_state_in_clusterspec_propagation is false, session
         states are isolated.
-        
+
         When clusterspec propagation is not used, the value of
         share_session_state_in_clusterspec_propagation is ignored when deciding
         whether to share session states in a TF server.
         - If isolate_session_state is true, session states are isolated.
         - If isolate_session_state is false, session states are shared.
-        
+
         TODO(b/129330037): Add a single API that consistently treats
         isolate_session_state and ClusterSpec propagation.
         """
@@ -749,17 +749,17 @@ class ConfigProto(google.protobuf.message.Message):
         @property
         def session_metadata(self) -> global___SessionMetadata:
             """Metadata about the session.
-            
+
             If set, this can be used by the runtime and the Ops for debugging,
             monitoring, etc.
-            
+
             NOTE: This is currently used and propagated only by the direct session
             and EagerContext.
             """
         optimize_for_static_graph: builtins.bool
         """If true, the session may treat the graph as being static for optimization
         purposes.
-        
+
         If this option is set to true when a session is created, the full
         GraphDef must be passed in a single call to Session::Create(), and
         Session::Extend() may not be supported.
@@ -768,7 +768,7 @@ class ConfigProto(google.protobuf.message.Message):
         """Whether to enable the MLIR-based TF->XLA bridge. This is only used if set
         to true. Default value or false is ignored. Use mlir_bridge_rollout for
         finer control.
-        
+
         If this option is set to true when a session is created, MLIR is used to
         perform the set of graph transformations to put the graph in a form that
         can be executed with delegation of some computations to an accelerator.
@@ -781,7 +781,7 @@ class ConfigProto(google.protobuf.message.Message):
         """Whether to enable the MLIR-based TF->XLA bridge."""
         enable_mlir_graph_optimization: builtins.bool
         """Whether to enable the MLIR-based Graph optimizations.
-        
+
         This will become a part of standard Tensorflow graph optimization
         pipeline, currently this is only used for gradual migration and testing
         new passes that are replacing existing optimizations in Grappler.
@@ -789,14 +789,14 @@ class ConfigProto(google.protobuf.message.Message):
         disable_output_partition_graphs: builtins.bool
         """If true, the session will not store an additional copy of the graph for
         each subgraph.
-        
+
         If this option is set to true when a session is created, the
         `RunOptions.output_partition_graphs` options must not be set.
         """
         xla_fusion_autotuner_thresh: builtins.int
         """Minimum number of batches run through the XLA graph before XLA fusion
         autotuner is enabled. Default value of zero disables the autotuner.
-        
+
         The XLA fusion autotuner can improve performance by executing a heuristic
         search on the compiler parameters.
         """
@@ -817,11 +817,11 @@ class ConfigProto(google.protobuf.message.Message):
         disable_optimize_for_static_graph: builtins.bool
         """If true, the session will treat the graph as being non-static for
         optimization purposes.
-        
+
         If this option is set to true when a session is created, the full
         GraphDef will be retained to enable calls to Session::Extend().
         Calling Extend() without setting this flag will result in errors.
-        
+
         This option is meant to replace `optimize_for_static_graph` and it
         aims to negate its value.
         """
@@ -881,12 +881,12 @@ class ConfigProto(google.protobuf.message.Message):
     """The execution of an individual op (for some op types) can be
     parallelized on a pool of intra_op_parallelism_threads.
     0 means the system picks an appropriate number.
-    
+
     If you create an ordinary session, e.g., from Python or C++,
     then there is exactly one intra op thread pool per process.
     The first session created determines the number of threads in this pool.
     All subsequent sessions reuse/share this one global pool.
-    
+
     There are notable exceptions to the default behavior described above:
     1. There is an environment variable  for overriding this thread pool,
        named TF_OVERRIDE_GLOBAL_THREADPOOL.
@@ -896,10 +896,10 @@ class ConfigProto(google.protobuf.message.Message):
     inter_op_parallelism_threads: builtins.int
     """Nodes that perform blocking operations are enqueued on a pool of
     inter_op_parallelism_threads available in each process.
-    
+
     0 means the system picks an appropriate number.
     Negative means all operations are performed in caller's thread.
-    
+
     Note that the first Session created in the process sets the
     number of threads for all future sessions unless use_per_session_threads is
     true or session_inter_op_thread_pool is configured.
@@ -907,10 +907,10 @@ class ConfigProto(google.protobuf.message.Message):
     use_per_session_threads: builtins.bool
     """If true, use a new set of threads for this session rather than the global
     pool of threads. Only supported by direct sessions.
-    
+
     If false, use the global threads created by the first session, or the
     per-session thread pools configured by session_inter_op_thread_pool.
-    
+
     This option is deprecated. The same effect can be achieved by setting
     session_inter_op_thread_pool to have one element, whose num_threads equals
     inter_op_parallelism_threads.
@@ -919,10 +919,10 @@ class ConfigProto(google.protobuf.message.Message):
     def session_inter_op_thread_pool(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ThreadPoolOptionProto]:
         """This option is experimental - it may be replaced with a different mechanism
         in the future.
-        
+
         Configures session thread pools. If this is configured, then RunOptions for
         a Run call can select the thread pool to use.
-        
+
         The intended use is for when some session invocations need to run in a
         background pool limited to a small number of threads:
         - For example, a session may be configured to have one large pool (for
@@ -1125,7 +1125,7 @@ class RunOptions(google.protobuf.message.Message):
     """When enabled, causes tensor allocation information to be included in
     the error message when the Run() call fails because the allocator ran
     out of memory (OOM).
-    
+
     Enabling this option can slow down the Run() call.
     """
     @property
@@ -1253,7 +1253,7 @@ global___TensorConnection = TensorConnection
 class CallableOptions(google.protobuf.message.Message):
     """Defines a subgraph in another `GraphDef` as a set of feed points and nodes
     to be fetched or executed.
-    
+
     Compare with the arguments to `Session::Run()`.
     """
 
@@ -1326,47 +1326,47 @@ class CallableOptions(google.protobuf.message.Message):
     def feed_devices(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
         """The Tensor objects fed in the callable and fetched from the callable
         are expected to be backed by host (CPU) memory by default.
-        
+
         The options below allow changing that - feeding tensors backed by
         device memory, or returning tensors that are backed by device memory.
-        
+
         The maps below map the name of a feed/fetch tensor (which appears in
         'feed' or 'fetch' fields above), to the fully qualified name of the device
         owning the memory backing the contents of the tensor.
-        
+
         For example, creating a callable with the following options:
-        
+
         CallableOptions {
           feed: "a:0"
           feed: "b:0"
-        
+
           fetch: "x:0"
           fetch: "y:0"
-        
+
           feed_devices: {
             "a:0": "/job:localhost/replica:0/task:0/device:GPU:0"
           }
-        
+
           fetch_devices: {
             "y:0": "/job:localhost/replica:0/task:0/device:GPU:0"
          }
         }
-        
+
         means that the Callable expects:
         - The first argument ("a:0") is a Tensor backed by GPU memory.
         - The second argument ("b:0") is a Tensor backed by host memory.
         and of its return values:
         - The first output ("x:0") will be backed by host memory.
         - The second output ("y:0") will be backed by GPU memory.
-        
+
         FEEDS:
         It is the responsibility of the caller to ensure that the memory of the fed
         tensors will be correctly initialized and synchronized before it is
         accessed by operations executed during the call to Session::RunCallable().
-        
+
         This is typically ensured by using the TensorFlow memory allocators
         (Device::GetAllocator()) to create the Tensor to be fed.
-        
+
         Alternatively, for CUDA-enabled GPU devices, this typically means that the
         operation that produced the contents of the tensor has completed, i.e., the
         CUDA stream has been synchronized (e.g., via cuCtxSynchronize() or
@@ -1379,7 +1379,7 @@ class CallableOptions(google.protobuf.message.Message):
     fetched tensors on a GPU device, to ensure that the values in those tensors
     have been produced. This simplifies interacting with the tensors, but
     potentially incurs a performance hit.
-    
+
     If this options is set to true, the caller is responsible for ensuring
     that the values in the fetched tensors have been produced before they are
     used. The caller can do this by invoking `Device::Sync()` on the underlying

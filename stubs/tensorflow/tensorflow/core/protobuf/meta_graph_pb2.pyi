@@ -90,7 +90,7 @@ class MetaGraphDef(google.protobuf.message.Message):
         @property
         def tags(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
             """User supplied tag(s) on the meta_graph and included graph_def.
-            
+
             MetaGraphDefs should be tagged with their capabilities or use-cases.
             Examples: "train", "serve", "gpu", "tpu", etc.
             These tags enable loaders to access the MetaGraph(s) appropriate for a
@@ -218,11 +218,11 @@ class CollectionDef(google.protobuf.message.Message):
     1. For simple data types, such as string, int, float:
          tf.add_to_collection("your_collection_name", your_simple_value)
        strings will be stored as bytes_list.
-    
+
     2. For Protobuf types, there are three ways to add them:
        1) tf.add_to_collection("your_collection_name",
             your_proto.SerializeToString())
-    
+
           collection_def {
             key: "user_defined_bytes_collection"
             value {
@@ -231,11 +231,11 @@ class CollectionDef(google.protobuf.message.Message):
               }
             }
           }
-    
+
      or
-    
+
        2) tf.add_to_collection("your_collection_name", str(your_proto))
-    
+
           collection_def {
             key: "user_defined_string_collection"
             value {
@@ -244,13 +244,13 @@ class CollectionDef(google.protobuf.message.Message):
               }
             }
           }
-    
+
      or
-    
+
        3) any_buf = any_pb2.Any()
           tf.add_to_collection("your_collection_name",
             any_buf.Pack(your_proto))
-    
+
           collection_def {
             key: "user_defined_any_collection"
             value {
@@ -262,7 +262,7 @@ class CollectionDef(google.protobuf.message.Message):
               }
             }
           }
-    
+
     3. For Python objects, implement to_proto() and from_proto(), and register
        them in the following manner:
        ops.register_proto_function("your_collection_name",
@@ -514,15 +514,15 @@ global___TensorInfo = TensorInfo
 class SignatureDef(google.protobuf.message.Message):
     """SignatureDef defines the signature of a computation supported by a TensorFlow
     graph.
-    
+
     For example, a model with two loss computations, sharing a single input,
     might have the following signature_def map, in a MetaGraphDef message.
-    
+
     Note that across the two SignatureDefs "loss_A" and "loss_B", the input key,
     output key, and method_name are identical, and will be used by system(s) that
     implement or rely upon this particular loss method. The output tensor names
     differ, demonstrating how different outputs can exist for the same method.
-    
+
     signature_def {
       key: "loss_A"
       value {
@@ -623,7 +623,7 @@ class SignatureDef(google.protobuf.message.Message):
     SignatureDef as supporting a particular method. This enables producers and
     consumers of SignatureDefs, e.g. a model definition library and a serving
     library to have a clear hand-off regarding the semantics of a computation.
-    
+
     Note that multiple SignatureDefs in a single MetaGraphDef may have the same
     method_name. This is commonly used to support multi-headed computation,
     where a single graph computation may return multiple results.
