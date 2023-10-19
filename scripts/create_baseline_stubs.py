@@ -61,7 +61,7 @@ def run_stubdefaulter(stub_dir: str) -> None:
 
 
 def run_black(stub_dir: str) -> None:
-    print(f"Running black: black {stub_dir}")
+    print(f"Running Black: black {stub_dir}")
     subprocess.run(["black", stub_dir])
 
 

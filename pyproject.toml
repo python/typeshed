@@ -3,11 +3,12 @@ line_length = 130
 target_version = ["py310"]
 skip_magic_trailing_comma = true
 # Exclude protobuf files because they have long line lengths
-# Ideally, we could configure black to allow longer line lengths
+# Ideally, we could configure Black to allow longer line lengths
 # for just these files, but doesn't seem possible yet.
 force-exclude = ".*_pb2.pyi"
 
 [tool.ruff.isort]
+split-on-trailing-comma = false
 combine-as-imports = true
 extra-standard-library = [
     "_typeshed",
@@ -71,13 +72,14 @@ exclude = [
     ".git",
     ".mypy_cache",
     ".pytype",
+    ".venv",
+    "env",
 ]
-
-# Only enable rules that have safe autofixes;
-# only enable rules that are relevant to stubs
 select = [
-    "F401", # Remove unused imports
+    "FA", # flake8-future-annotations
     "I", # isort
+    # Only enable rules that have safe autofixes:
+    "F401", # Remove unused imports
     "PYI009", # use `...`, not `pass`, in empty class bodies
     "PYI010", # function bodies must be empty
     "PYI012", # class bodies must not contain `pass`
