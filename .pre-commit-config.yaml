@@ -20,10 +20,10 @@ repos:
       - id: isort
         name: isort (python)
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.0 # must match requirements-tests.txt
+    rev: v0.1.0 # must match requirements-tests.txt and tests.yml
     hooks:
       - id: ruff
-        args: [--exit-non-zero-on-fix]
+        args: [--exit-non-zero-on-fix, --fix-only]
   - repo: https://github.com/pycqa/flake8
     rev: 6.1.0 # must match requirements-tests.txt
     hooks:

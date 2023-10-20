@@ -40,6 +40,7 @@ asyncio.windows_events
 asyncio.windows_utils
 msilib(.[a-z]+)?
 msvcrt
+nt
 winreg
 winsound
 ossaudiodev

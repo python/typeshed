@@ -27,7 +27,7 @@
         "bungcip.better-toml",
         // Don't use two mypy extensions simultaneously
         "matangover.mypy",
-        // We use black
+        // We use Black
         "ms-python.autopep8",
         // Not using pylint
         "ms-python.pylint",

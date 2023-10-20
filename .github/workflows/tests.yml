@@ -45,8 +45,17 @@ jobs:
           python-version: "3.11"
       - run: ./tests/check_new_syntax.py
 
+  ruff:
+    name: Lint with Ruff
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: chartboost/ruff-action@v1
+        with:
+          version: "0.1.0" # must match .pre-commit-config.yaml and requirements-test.txt
+
   flake8:
-    name: Lint with flake8
+    name: Lint with Flake8
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
