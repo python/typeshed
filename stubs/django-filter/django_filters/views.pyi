@@ -1,15 +1,11 @@
-from typing import Any, Optional
+from typing import Any
 
 from django.views.generic import View
-from django.views.generic.list import (
-    MultipleObjectMixin,
-    MultipleObjectTemplateResponseMixin,
-)
+from django.views.generic.list import MultipleObjectMixin, MultipleObjectTemplateResponseMixin
 
 from .constants import ALL_FIELDS as ALL_FIELDS
 from .filterset import filterset_factory as filterset_factory
-from .utils import MigrationNotice as MigrationNotice
-from .utils import RenameAttributesBase as RenameAttributesBase
+from .utils import MigrationNotice as MigrationNotice, RenameAttributesBase as RenameAttributesBase
 
 class FilterMixinRenames(RenameAttributesBase):
     renamed_attributes: Any = ...
@@ -33,10 +29,10 @@ class FilterView(MultipleObjectTemplateResponseMixin, BaseFilterView):
 
 def object_filter(
     request: Any,
-    model: Optional[Any] = ...,
-    queryset: Optional[Any] = ...,
-    template_name: Optional[Any] = ...,
-    extra_context: Optional[Any] = ...,
-    context_processors: Optional[Any] = ...,
-    filter_class: Optional[Any] = ...,
+    model: Any | None = ...,
+    queryset: Any | None = ...,
+    template_name: Any | None = ...,
+    extra_context: Any | None = ...,
+    context_processors: Any | None = ...,
+    filter_class: Any | None = ...,
 ): ...

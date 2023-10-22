@@ -1,24 +1,4 @@
-from typing import Any, Optional
-
-from .conf import settings
-from .constants import ALL_FIELDS
-from .filters import (
-    BaseInFilter,
-    BaseRangeFilter,
-    BooleanFilter,
-    CharFilter,
-    ChoiceFilter,
-    DateFilter,
-    DateTimeFilter,
-    DurationFilter,
-    Filter,
-    ModelChoiceFilter,
-    ModelMultipleChoiceFilter,
-    NumberFilter,
-    TimeFilter,
-    UUIDFilter,
-)
-from .utils import get_all_model_fields, get_model_field, resolve_field, try_dbfield
+from typing import Any
 
 def remote_queryset(field: Any): ...
 
@@ -28,7 +8,7 @@ class FilterSetOptions:
     exclude: Any = ...
     filter_overrides: Any = ...
     form: Any = ...
-    def __init__(self, options: Optional[Any] = ...) -> None: ...
+    def __init__(self, options: Any | None = ...) -> None: ...
 
 class FilterSetMetaclass(type):
     def __new__(cls, name: Any, bases: Any, attrs: Any): ...
@@ -46,12 +26,7 @@ class BaseFilterSet:
     form_prefix: Any = ...
     filters: Any = ...
     def __init__(
-        self,
-        data: Optional[Any] = ...,
-        queryset: Optional[Any] = ...,
-        *,
-        request: Optional[Any] = ...,
-        prefix: Optional[Any] = ...
+        self, data: Any | None = ..., queryset: Any | None = ..., *, request: Any | None = ..., prefix: Any | None = ...
     ) -> None: ...
     def is_valid(self): ...
     @property

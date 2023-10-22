@@ -1,4 +1,4 @@
-from typing import Any, Callable, Optional
+from typing import Any, Callable
 
 class Filter:
     creation_counter: int = ...
@@ -10,14 +10,14 @@ class Filter:
     extra: Any = ...
     def __init__(
         self,
-        field_name: Optional[Any] = ...,
+        field_name: Any | None = ...,
         lookup_expr: str = ...,
         *,
-        label: Optional[Any] = ...,
-        method: Optional[Any] = ...,
+        label: Any | None = ...,
+        method: Any | None = ...,
         distinct: bool = ...,
         exclude: bool = ...,
-        **kwargs: Any
+        **kwargs: Any,
     ) -> None: ...
     def get_method(self, qs: Any): ...
     method: Callable = ...
@@ -103,13 +103,7 @@ class RangeFilter(Filter):
 class DateRangeFilter(ChoiceFilter):
     choices: Any = ...
     filters: Any = ...
-    def __init__(
-        self,
-        choices: Optional[Any] = ...,
-        filters: Optional[Any] = ...,
-        *args: Any,
-        **kwargs: Any
-    ) -> None: ...
+    def __init__(self, choices: Any | None = ..., filters: Any | None = ..., *args: Any, **kwargs: Any) -> None: ...
     def filter(self, qs: Any, value: Any): ...
 
 class DateFromToRangeFilter(RangeFilter):
@@ -150,11 +144,7 @@ class LookupChoiceFilter(Filter):
     empty_label: Any = ...
     lookup_choices: Any = ...
     def __init__(
-        self,
-        field_name: Optional[Any] = ...,
-        lookup_choices: Optional[Any] = ...,
-        field_class: Optional[Any] = ...,
-        **kwargs: Any
+        self, field_name: Any | None = ..., lookup_choices: Any | None = ..., field_class: Any | None = ..., **kwargs: Any
     ) -> None: ...
     @classmethod
     def normalize_lookup(cls, lookup: Any): ...
