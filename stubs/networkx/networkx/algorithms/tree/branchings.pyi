@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 from typing import Generic
 
-from networkx.classes.multidigraph import MultiDiGraph, _Node
+from networkx.classes.graph import _Node
+from networkx.classes.multidigraph import MultiDiGraph
 
 def branching_weight(G, attr: str = "weight", default: int = 1): ...
 def greedy_branching(G, attr: str = "weight", default: int = 1, kind: str = "max", seed: Incomplete | None = None): ...
