@@ -27,7 +27,7 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUEmbeddingConfiguration._Mode.ValueType], builtins.type):  # noqa: F821
+    class _ModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUEmbeddingConfiguration._Mode.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNSPECIFIED: TPUEmbeddingConfiguration._Mode.ValueType  # 0
         INFERENCE: TPUEmbeddingConfiguration._Mode.ValueType  # 1
@@ -48,7 +48,7 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ShardingStrategyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUEmbeddingConfiguration._ShardingStrategy.ValueType], builtins.type):  # noqa: F821
+    class _ShardingStrategyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUEmbeddingConfiguration._ShardingStrategy.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DIV_DEFAULT: TPUEmbeddingConfiguration._ShardingStrategy.ValueType  # 0
         MOD: TPUEmbeddingConfiguration._ShardingStrategy.ValueType  # 1

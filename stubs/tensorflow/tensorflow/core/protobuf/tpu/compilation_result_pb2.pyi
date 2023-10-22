@@ -33,7 +33,7 @@ class CompilationResultProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ErrorCodeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CompilationResultProto._ErrorCode.ValueType], builtins.type):  # noqa: F821
+    class _ErrorCodeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CompilationResultProto._ErrorCode.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: CompilationResultProto._ErrorCode.ValueType  # 0
         OUT_OF_MEMORY: CompilationResultProto._ErrorCode.ValueType  # 1
