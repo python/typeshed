@@ -1,21 +1,21 @@
-from typing import Any, Optional
+from typing import Any
 
 from django import forms
 
 from .conf import settings as settings
 from .constants import EMPTY_VALUES as EMPTY_VALUES
 from .utils import handle_timezone as handle_timezone
-from .widgets import BaseCSVWidget as BaseCSVWidget
-from .widgets import CSVWidget as CSVWidget
-from .widgets import DateRangeWidget as DateRangeWidget
-from .widgets import LookupChoiceWidget as LookupChoiceWidget
-from .widgets import RangeWidget as RangeWidget
+from .widgets import (
+    BaseCSVWidget as BaseCSVWidget,
+    CSVWidget as CSVWidget,
+    DateRangeWidget as DateRangeWidget,
+    LookupChoiceWidget as LookupChoiceWidget,
+    RangeWidget as RangeWidget,
+)
 
 class RangeField(forms.MultiValueField):
     widget: Any = ...
-    def __init__(
-        self, fields: Optional[Any] = ..., *args: Any, **kwargs: Any
-    ) -> None: ...
+    def __init__(self, fields: Any | None = ..., *args: Any, **kwargs: Any) -> None: ...
     def compress(self, data_list: Any): ...
 
 class DateRangeField(RangeField):
@@ -40,9 +40,7 @@ class Lookup:
 
 class LookupChoiceField(forms.MultiValueField):
     default_error_messages: Any = ...
-    def __init__(
-        self, field: Any, lookup_choices: Any, *args: Any, **kwargs: Any
-    ) -> None: ...
+    def __init__(self, field: Any, lookup_choices: Any, *args: Any, **kwargs: Any) -> None: ...
     def compress(self, data_list: Any): ...
 
 class IsoDateTimeField(forms.DateTimeField):
