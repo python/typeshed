@@ -1,10 +1,12 @@
+from _typeshed import Incomplete
 from typing import Any
+from typing_extensions import TypeAlias
 
 from django import forms
 from django.forms.renderers import BaseRenderer
 from django.utils.safestring import SafeText
 
-_OptAttrs = dict[str, Any]
+_OptAttrs: TypeAlias = dict[str, Any]
 
 class LinkWidget(forms.Widget):
     choices: Any = ...
@@ -12,7 +14,12 @@ class LinkWidget(forms.Widget):
     data: Any = ...
     def value_from_datadict(self, data: Any, files: Any, name: Any): ...
     def render(  # type: ignore[override]
-        self, name: str, value: Any, attrs: _OptAttrs | None = ..., choices: tuple = ..., renderer: BaseRenderer | None = ...
+        self,
+        name: str,
+        value: Any,
+        attrs: _OptAttrs | None = ...,
+        choices: tuple[Incomplete, ...] = ...,
+        renderer: BaseRenderer | None = ...,
     ) -> SafeText: ...
     def render_options(self, choices: Any, selected_choices: Any, name: Any): ...
     def render_option(self, name: Any, selected_choices: Any, option_value: Any, option_label: Any): ...
