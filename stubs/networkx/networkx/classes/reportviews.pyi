@@ -3,7 +3,7 @@ from collections.abc import Iterator
 from typing import Generic, TypeVar, overload
 from typing_extensions import Literal
 
-from networkx.classes.graph import _Edge, Graph, _NBunch, _Node
+from networkx.classes.graph import Graph, _Edge, _NBunch, _Node
 
 _D = TypeVar("_D")
 _U = TypeVar("_U")

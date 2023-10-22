@@ -5,7 +5,7 @@ from typing_extensions import TypeAlias
 import numpy
 
 # import scipy
-from networkx.classes.graph import _EdgePlus, Graph, _Node
+from networkx.classes.graph import Graph, _EdgePlus, _Node
 
 # this is imported from other stub files
 _Data: TypeAlias = (  # noqa: Y047
