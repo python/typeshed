@@ -1,6 +1,7 @@
-from typing import Any
+from typing import Any, TypeVar
 
 from django import forms
+from django.db.models import Model
 
 from .conf import settings as settings
 from .constants import EMPTY_VALUES as EMPTY_VALUES
@@ -12,6 +13,8 @@ from .widgets import (
     LookupChoiceWidget as LookupChoiceWidget,
     RangeWidget as RangeWidget,
 )
+
+_M = TypeVar("_M", bound=Model)
 
 class RangeField(forms.MultiValueField):
     widget: Any = ...
@@ -85,9 +88,9 @@ class MultipleChoiceField(ChoiceIteratorMixin, forms.MultipleChoiceField):
     empty_label: Any = ...
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
-class ModelChoiceField(ChoiceIteratorMixin, forms.ModelChoiceField):
+class ModelChoiceField(ChoiceIteratorMixin, forms.ModelChoiceField[_M]):
     iterator: Any = ...
     def to_python(self, value: Any): ...
 
-class ModelMultipleChoiceField(ChoiceIteratorMixin, forms.ModelMultipleChoiceField):
+class ModelMultipleChoiceField(ChoiceIteratorMixin, forms.ModelMultipleChoiceField[_M]):
     iterator: Any = ...

@@ -8,12 +8,12 @@ django_filters.RemovedInDjangoFilter25Warning
 django_filters.fields.BaseCSVWidget.surrogate
 django_filters.fields.CSVWidget.__init__
 django_filters.fields.DJANGO_50
+django_filters.filters.__all__
 django_filters.filters.Filter.__init__
 django_filters.filters.NumberFilter.get_max_validator
 django_filters.filterset.BaseFilterSet.filter_for_field
 django_filters.filterset.FilterSet.base_filters
 django_filters.filterset.FilterSet.declared_filters
-django_filters.models
 django_filters.rest_framework.DjangoFilterBackend
 django_filters.rest_framework.Filter.__init__
 django_filters.rest_framework.FilterSet.base_filters
