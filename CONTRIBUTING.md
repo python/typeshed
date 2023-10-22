@@ -99,7 +99,7 @@ That being said, if you *want* to run the checks locally when you commit,
 you're free to do so. Either run the following manually...
 
 ```bash
-(.venv)$ ruff .
+(.venv)$ ruff check .
 (.venv)$ black .
 ```
 

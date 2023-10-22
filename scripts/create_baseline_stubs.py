@@ -66,8 +66,8 @@ def run_black(stub_dir: str) -> None:
 
 
 def run_ruff(stub_dir: str) -> None:
-    print(f"Running Ruff: ruff {stub_dir}")
-    subprocess.run([sys.executable, "-m", "ruff", stub_dir, "--fix-only"])
+    print(f"Running Ruff: ruff check {stub_dir} --fix-only")
+    subprocess.run([sys.executable, "-m", "ruff", "check", stub_dir, "--fix-only"])
 
 
 async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSession) -> dict[str, str]:

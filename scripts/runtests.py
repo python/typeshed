@@ -83,7 +83,7 @@ def main() -> None:
 
     # Run formatters first. Order matters.
     print("\nRunning Ruff...")
-    subprocess.run([sys.executable, "-m", "ruff", path])
+    subprocess.run([sys.executable, "-m", "ruff", "check", path])
     print("\nRunning Black...")
     black_result = subprocess.run([sys.executable, "-m", "black", path])
     if black_result.returncode == 123:
