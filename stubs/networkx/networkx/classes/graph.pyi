@@ -9,10 +9,10 @@ from networkx.classes.reportviews import DiDegreeView, NodeView, OutEdgeView
 from networkx.convert import _Data
 
 _Node = TypeVar("_Node", bound=Hashable)
-Edge: TypeAlias = tuple[_Node, _Node]
-EdgePlus: TypeAlias = Edge[_Node] | tuple[_Node, _Node, dict[str, Incomplete]]
-MapFactory: TypeAlias = Callable[[], MutableMapping[str, Incomplete]]
-NBunch: TypeAlias = None | _Node | Iterable[_Node]
+_Edge: TypeAlias = tuple[_Node, _Node]
+_EdgePlus: TypeAlias = _Edge[_Node] | tuple[_Node, _Node, dict[str, Incomplete]]
+_MapFactory: TypeAlias = Callable[[], MutableMapping[str, Incomplete]]
+_NBunch: TypeAlias = _Node | Iterable[_Node] | None
 
 class Graph(Collection[_Node], Generic[_Node]):
     node_dict_factory: ClassVar[MapFactory] = ...
