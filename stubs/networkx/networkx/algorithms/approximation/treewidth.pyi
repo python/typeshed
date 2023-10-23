@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
 
+__all__ = ["treewidth_min_degree", "treewidth_min_fill_in"]
+
 def treewidth_min_degree(G): ...
 def treewidth_min_fill_in(G): ...
 

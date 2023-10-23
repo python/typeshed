@@ -4,9 +4,12 @@ from typing import Generic, TypeVar
 
 import networkx as nx
 
-def check_planarity(G, counterexample: bool = ...): ...
+__all__ = ["check_planarity", "is_planar", "PlanarEmbedding"]
 
 _N = TypeVar("_N")
+
+def is_planar(G) -> bool: ...
+def check_planarity(G, counterexample: bool = ...): ...
 
 class Interval:
     low: Incomplete

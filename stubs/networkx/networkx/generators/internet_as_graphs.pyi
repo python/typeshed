@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
 
+__all__ = ["random_internet_as_graph"]
+
 class AS_graph_generator:
     seed: Incomplete
     n_t: Incomplete

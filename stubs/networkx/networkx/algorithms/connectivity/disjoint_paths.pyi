@@ -3,6 +3,8 @@ from collections.abc import Generator
 
 from networkx.algorithms.flow import edmonds_karp
 
+__all__ = ["edge_disjoint_paths", "node_disjoint_paths"]
+
 default_flow_func = edmonds_karp
 
 def edge_disjoint_paths(

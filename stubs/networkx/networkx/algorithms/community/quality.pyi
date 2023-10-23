@@ -1,5 +1,7 @@
 from networkx import NetworkXError
 
+__all__ = ["modularity", "partition_quality"]
+
 class NotAPartition(NetworkXError):
     def __init__(self, G, collection) -> None: ...
 

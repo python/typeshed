@@ -1,6 +1,18 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
+__all__ = [
+    "greedy_color",
+    "strategy_connected_sequential",
+    "strategy_connected_sequential_bfs",
+    "strategy_connected_sequential_dfs",
+    "strategy_independent_set",
+    "strategy_largest_first",
+    "strategy_random_sequential",
+    "strategy_saturation_largest_first",
+    "strategy_smallest_last",
+]
+
 def strategy_largest_first(G, colors): ...
 def strategy_random_sequential(G, colors, seed: Incomplete | None = None): ...
 def strategy_smallest_last(G, colors): ...
