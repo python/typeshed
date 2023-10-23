@@ -64,8 +64,6 @@ line-length = 130
 target-version = "py37"
 fix = true
 exclude = [
-    # Ignore generated protobuf stubs
-    "*_pb2.pyi",
     # virtual environment
     ".env",
     ".venv",
