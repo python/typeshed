@@ -10,7 +10,7 @@ def is_locally_k_edge_connected(G, s, t, k): ...
 def k_edge_augmentation(
     G: Graph[_N],
     k: int,
-    avail: tuple[_N, _N] | tuple[_N, _N, dict[str, int]] | None = ...,
-    weight: str | None = ...,
-    partial: bool = ...,
+    avail: tuple[_N, _N] | tuple[_N, _N, dict[str, int]] | None = None,
+    weight: str | None = None,
+    partial: bool = False,
 ) -> Iterable[tuple[_N, _N]]: ...
