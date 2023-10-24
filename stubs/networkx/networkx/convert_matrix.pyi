@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
+from typing import TypeVar, overload
 from typing_extensions import Literal, TypeAlias
 
 import numpy
@@ -10,6 +11,7 @@ from networkx.classes.graph import Graph, _Node
 _DataFrame: TypeAlias = Incomplete
 # from pandas.core.dtypes.base import ExtensionDtype
 _ExtensionDtype: TypeAlias = Incomplete
+_G = TypeVar("_G")
 
 def to_pandas_adjacency(
     G: Graph[_Node],
@@ -20,7 +22,10 @@ def to_pandas_adjacency(
     weight: str = "weight",
     nonedge: float = 0.0,
 ) -> _DataFrame: ...
-def from_pandas_adjacency(df: _DataFrame, create_using: type[Graph[Incomplete]] | None = None) -> Graph[Incomplete]: ...
+@overload
+def from_pandas_adjacency(df: _DataFrame, create_using: type[_G]) -> _G: ...
+@overload
+def from_pandas_adjacency(df: _DataFrame, create_using: None = None) -> Graph[Incomplete]: ...
 def to_pandas_edgelist(
     G: Graph[_Node],
     source: str | int = "source",
@@ -29,13 +34,24 @@ def to_pandas_edgelist(
     dtype: _ExtensionDtype | None = None,
     edge_key: str | int | None = None,
 ) -> _DataFrame: ...
+@overload
 def from_pandas_edgelist(
     df: _DataFrame,
     source: str | int = "source",
     target: str | int = "target",
     edge_attr: str | int | Iterable[str | int] | Literal[True] | None = None,
-    create_using: type[Graph[Incomplete]] | None = None,
-    edge_key: str | int | None = None,
+    *,
+    create_using: type[_G],
+    edge_key: str | None = None,
+) -> _G: ...
+@overload
+def from_pandas_edgelist(
+    df: _DataFrame,
+    source: str | int = "source",
+    target: str | int = "target",
+    edge_attr: str | int | Iterable[str | int] | Literal[True] | None = None,
+    create_using: None = None,
+    edge_key: str | None = None,
 ) -> Graph[Incomplete]: ...
 def to_numpy_array(
     G: Graph[_Node],
@@ -46,6 +62,9 @@ def to_numpy_array(
     weight: str = "weight",
     nonedge: float = 0.0,
 ) -> numpy.ndarray[Incomplete, numpy.dtype[Incomplete]]: ...
+@overload
 def from_numpy_array(
-    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: type[Graph[Incomplete]] | None = None
+    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: None = ...
 ) -> Graph[Incomplete]: ...
+@overload
+def from_numpy_array(A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, *, create_using: type[_G]) -> _G: ...
