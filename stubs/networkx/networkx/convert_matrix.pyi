@@ -20,7 +20,7 @@ def to_pandas_adjacency(
     weight: str = "weight",
     nonedge: float = 0.0,
 ) -> _DataFrame: ...
-def from_pandas_adjacency(df: _DataFrame, create_using: type[Graph[Incomplete]] = None) -> Graph[Incomplete]: ...
+def from_pandas_adjacency(df: _DataFrame, create_using: type[Graph[Incomplete]] | None = None) -> Graph[Incomplete]: ...
 def to_pandas_edgelist(
     G: Graph[_Node],
     source: str | int = "source",
@@ -34,7 +34,7 @@ def from_pandas_edgelist(
     source: str | int = "source",
     target: str | int = "target",
     edge_attr: str | int | Iterable[str | int] | Literal[True] | None = None,
-    create_using: type[Graph[Incomplete]] = None,
+    create_using: type[Graph[Incomplete]] | None = None,
 ) -> Graph[Incomplete]: ...
 def to_numpy_array(
     G: Graph[_Node],
@@ -46,5 +46,5 @@ def to_numpy_array(
     nonedge: float = 0.0,
 ) -> numpy.ndarray[Incomplete, numpy.dtype[Incomplete]]: ...
 def from_numpy_array(
-    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: type[Graph[Incomplete]] = None
+    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: type[Graph[Incomplete]] | None = None
 ) -> Graph[Incomplete]: ...
