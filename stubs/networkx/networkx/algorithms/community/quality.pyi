@@ -1,4 +1,4 @@
-from networkx import NetworkXError
+from networkx.exception import NetworkXError
 
 __all__ = ["modularity", "partition_quality"]
 
