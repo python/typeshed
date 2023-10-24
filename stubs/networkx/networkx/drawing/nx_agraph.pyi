@@ -28,4 +28,5 @@ def view_pygraphviz(
     args: str = "",
     suffix: str = "",
     path: str | None = None,
+    show: bool = True,
 ): ...

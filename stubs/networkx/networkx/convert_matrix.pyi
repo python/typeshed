@@ -35,6 +35,7 @@ def from_pandas_edgelist(
     target: str | int = "target",
     edge_attr: str | int | Iterable[str | int] | Literal[True] | None = None,
     create_using: type[Graph[Incomplete]] | None = None,
+    edge_key: str | int | None = None,
 ) -> Graph[Incomplete]: ...
 def to_numpy_array(
     G: Graph[_Node],
