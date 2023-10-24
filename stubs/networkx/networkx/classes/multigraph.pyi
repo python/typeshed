@@ -1,8 +1,11 @@
 from _typeshed import Incomplete
 from typing import Generic
+from typing_extensions import TypeAlias
 
 from networkx.classes.graph import Graph, _Node
 from networkx.classes.multidigraph import MultiDiGraph
+
+_MultiEdge: TypeAlias = tuple[_Node, _Node, int]  # noqa: Y047
 
 class MultiGraph(Graph[_Node], Generic[_Node]):
     def __init__(self, incoming_graph_data: Incomplete | None = None, multigraph_input: bool | None = None, **attr) -> None: ...
