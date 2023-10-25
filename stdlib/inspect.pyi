@@ -294,7 +294,8 @@ _SourceObjectType: TypeAlias = (
 
 def findsource(object: _SourceObjectType) -> tuple[list[str], int]: ...
 def getabsfile(object: _SourceObjectType, _filename: str | None = None) -> str: ...
-@overload
+# Special-case the two most common input types here
+# to avoid the annoyingly vague `Sequence[str]` return type
 @overload
 def getblock(lines: list[str]) -> list[str]: ...
 @overload
