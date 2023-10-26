@@ -8,5 +8,5 @@ def traverse(t: importlib.abc.Traversable) -> None:
     pass
 
 
-traverse(pathlib.Path())  # noqa: F821
-traverse(zipfile.Path(""))  # noqa: F821
+traverse(pathlib.Path())
+traverse(zipfile.Path(""))
