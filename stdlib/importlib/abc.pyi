@@ -1,20 +1,13 @@
 import _ast
 import sys
 import types
-from _typeshed import (
-    OpenBinaryMode,
-    OpenBinaryModeReading,
-    OpenBinaryModeUpdating,
-    OpenBinaryModeWriting,
-    OpenTextMode,
-    ReadableBuffer,
-    StrPath,
-)
 from abc import ABCMeta, abstractmethod
 from collections.abc import Iterator, Mapping, Sequence
 from importlib.machinery import ModuleSpec
-from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from typing import IO, Any, BinaryIO, Protocol, overload, runtime_checkable
+from io import BufferedReader
+from typing import IO, Any, Protocol, overload, runtime_checkable
+
+from _typeshed import ReadableBuffer, StrPath
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 11):
@@ -140,66 +133,20 @@ if sys.version_info >= (3, 9):
         else:
             @abstractmethod
             def joinpath(self, child: str) -> Traversable: ...
-        # The .open method comes from pathlib.pyi and should be kept in sync.
+
         @overload
         @abstractmethod
         def open(
             self,
-            mode: OpenTextMode = "r",
-            buffering: int = ...,
-            encoding: str | None = ...,
-            errors: str | None = ...,
-            newline: str | None = ...,
-        ) -> TextIOWrapper: ...
-        # Unbuffered binary mode: returns a FileIO
+            mode: Literal["r", "w"] = "r",
+            *,
+            encoding: str | None = None,
+            errors: str | None = None,
+            newline: str | None = None,
+        ) -> IO[str]: ...
         @overload
         @abstractmethod
-        def open(
-            self, mode: OpenBinaryMode, buffering: Literal[0], encoding: None = None, errors: None = None, newline: None = None
-        ) -> FileIO: ...
-        # Buffering is on: return BufferedRandom, BufferedReader, or BufferedWriter
-        @overload
-        @abstractmethod
-        def open(
-            self,
-            mode: OpenBinaryModeUpdating,
-            buffering: Literal[-1, 1] = ...,
-            encoding: None = None,
-            errors: None = None,
-            newline: None = None,
-        ) -> BufferedRandom: ...
-        @overload
-        @abstractmethod
-        def open(
-            self,
-            mode: OpenBinaryModeWriting,
-            buffering: Literal[-1, 1] = ...,
-            encoding: None = None,
-            errors: None = None,
-            newline: None = None,
-        ) -> BufferedWriter: ...
-        @overload
-        @abstractmethod
-        def open(
-            self,
-            mode: OpenBinaryModeReading,
-            buffering: Literal[-1, 1] = ...,
-            encoding: None = None,
-            errors: None = None,
-            newline: None = None,
-        ) -> BufferedReader: ...
-        # Buffering cannot be determined: fall back to BinaryIO
-        @overload
-        @abstractmethod
-        def open(
-            self, mode: OpenBinaryMode, buffering: int = ..., encoding: None = None, errors: None = None, newline: None = None
-        ) -> BinaryIO: ...
-        # Fallback if mode is not specified
-        @overload
-        @abstractmethod
-        def open(
-            self, mode: str, buffering: int = ..., encoding: str | None = ..., errors: str | None = ..., newline: str | None = ...
-        ) -> IO[Any]: ...
+        def open(self, mode: Literal["rb", "wb"]) -> IO[bytes]: ...
         @property
         @abstractmethod
         def name(self) -> str: ...
