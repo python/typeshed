@@ -24,9 +24,6 @@ types.GenericAlias.__call__  # Would be complicated to fix properly, Any could s
 typing._SpecialForm.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
 
-# Modules that exist at runtime, but are missing from typeshed
-importlib.readers
-
 # Modules that exist at runtime, but shouldn't be added to typeshed
 ctypes.test
 ctypes\.test\..+

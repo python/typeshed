@@ -18,8 +18,6 @@ typing.NewType.__call__
 typing.NewType.__mro_entries__
 
 # Modules that exist at runtime, but are missing from typeshed
-importlib.readers
-importlib.resources.readers
 importlib.resources.simple
 importlib.simple
 
