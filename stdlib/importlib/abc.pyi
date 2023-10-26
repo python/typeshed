@@ -1,13 +1,12 @@
 import _ast
 import sys
 import types
+from _typeshed import ReadableBuffer, StrPath
 from abc import ABCMeta, abstractmethod
 from collections.abc import Iterator, Mapping, Sequence
 from importlib.machinery import ModuleSpec
 from io import BufferedReader
 from typing import IO, Any, Protocol, overload, runtime_checkable
-
-from _typeshed import ReadableBuffer, StrPath
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 11):
