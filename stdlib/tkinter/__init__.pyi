@@ -3064,11 +3064,32 @@ class Text(Widget, XView, YView):
     def edit_separator(self) -> None: ...  # actually returns empty string
     def edit_undo(self) -> None: ...  # actually returns empty string
     def get(self, index1: _TextIndex, index2: _TextIndex | None = None) -> str: ...
-    # TODO: image_* methods
-    def image_cget(self, index, option): ...
-    def image_configure(self, index, cnf: Incomplete | None = None, **kw): ...
-    def image_create(self, index, cnf={}, **kw): ...
-    def image_names(self): ...
+    def image_cget(self, index: _TextIndex, option: str) -> str | int: ...  # image returned as string, others return str, int.
+    @overload
+    def image_configure(self, index: _TextIndex, cnf: str) -> tuple[str, str, str, str, str | int]: ...
+    @overload
+    def image_configure(
+        self,
+        index: _TextIndex,
+        *,
+        align: Literal["top", "center", "bottom", "baseline"] = ...,
+        image: _Image = ...,
+        name: str = ...,
+        padx: _ScreenUnits = ...,
+        pady: _ScreenUnits = ...,
+    ) -> None: ...
+    def image_create(
+        self,
+        index: _TextIndex,
+        cnf: dict[str, Any] | None = None,
+        *,
+        align: Literal["top", "center", "bottom", "baseline"] = ...,
+        image: _Image = ...,
+        name: str = ...,
+        padx: _ScreenUnits = ...,
+        pady: _ScreenUnits = ...,
+    ) -> str: ...
+    def image_names(self) -> tuple[str, ...]: ...
     def index(self, index: _TextIndex) -> str: ...
     def insert(self, index: _TextIndex, chars: str, *args: str | list[str] | tuple[str, ...]) -> None: ...
     @overload
