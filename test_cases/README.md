@@ -3,7 +3,7 @@
 This directory contains code samples that act as a regression test for
 typeshed's stdlib stubs.
 
-**This directory should _only_ contain test cases for functions and classes which
+**This directory should *only* contain test cases for functions and classes which
 are known to have caused problems in the past, where the stubs are difficult to
 get right.** 100% test coverage for typeshed is neither necessary nor
 desirable, as it would lead to code duplication. Moreover, typeshed has
@@ -27,17 +27,10 @@ the annotations correctly. Examples of tests like these are
 
 Other test cases, such as the samples for `ExitStack` in `stdlib/check_contextlib.py`
 and the samples for `LogRecord` in `stdlib/check_logging.py`, do not relate to
-stubs where the annotations are particularly complex, but they _do_ relate to
+stubs where the annotations are particularly complex, but they *do* relate to
 stubs where decisions have been taken that might be slightly unusual. These
 test cases serve a different purpose: to check that type checkers do not emit
 false-positive errors for idiomatic usage of these classes.
-
-## Running the tests
-
-To run the tests in this directory, run `python tests/typecheck_typeshed.py stdlib`
-from the root of the typeshed repository. This assumes that the development
-environment has been set up as described in the [CONTRIBUTING.md](../CONTRIBUTING.md)
-document.
 
 ### How the tests work
 
@@ -58,7 +51,7 @@ mypy's
 [`--warn-unused-ignores`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-warn-unused-ignores)
 setting and pyright's
 [`reportUnnecessaryTypeIgnoreComment`](https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings)
-setting) to test instances where a type checker _should_ emit some kind of
+setting) to test instances where a type checker *should* emit some kind of
 error, if the stubs are correct. Both settings are enabled by default for the entire
 subdirectory.
 
@@ -118,7 +111,7 @@ test cases for `foo` should be put in a file named `test_cases/stdlib/check_foo-
 This means that mypy will only run the test case
 if `--python-version 3.9`, `--python-version 3.10` or `--python-version 3.11`
 is passed on the command line to `tests/regr_test.py`,
-but it _won't_ run the test case if `--python-version 3.7` or `--python-version 3.8`
+but it *won't* run the test case if `--python-version 3.7` or `--python-version 3.8`
 is passed on the command line.
 
 However, `if sys.version_info >= (3, target):` is still required for `pyright`
