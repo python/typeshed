@@ -14,7 +14,7 @@ from abc import ABCMeta, abstractmethod
 from collections.abc import Iterator, Mapping, Sequence
 from importlib.machinery import ModuleSpec
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from typing import IO, Any, BinaryIO, NoReturn, Protocol, overload, runtime_checkable
+from typing import IO, Any, BinaryIO, Protocol, overload, runtime_checkable
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 11):
@@ -208,6 +208,7 @@ if sys.version_info >= (3, 9):
         else:
             @abstractmethod
             def __truediv__(self, child: str) -> Traversable: ...
+
         @abstractmethod
         def read_bytes(self) -> bytes: ...
         @abstractmethod

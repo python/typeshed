@@ -4,7 +4,6 @@
 
 import pathlib
 import sys
-import zipfile
 from _typeshed import Incomplete, StrPath
 from collections.abc import Iterable, Iterator
 from io import BufferedReader
