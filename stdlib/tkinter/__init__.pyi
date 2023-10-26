@@ -3187,12 +3187,36 @@ class Text(Widget, XView, YView):
     def tag_ranges(self, tagName: str) -> tuple[_tkinter.Tcl_Obj, ...]: ...
     # tag_remove and tag_delete are different
     def tag_remove(self, tagName: str, index1: _TextIndex, index2: _TextIndex | None = None) -> None: ...
-    # TODO: window_* methods
-    def window_cget(self, index, option): ...
-    def window_configure(self, index, cnf: Incomplete | None = None, **kw): ...
+    def window_cget(self, index: _TextIndex, option: str) -> str | int: ...  # window returned as str, others are str/int.
+    @overload
+    def window_configure(self, index: _TextIndex, cnf: str) -> tuple[str, str, str, str, str | int]: ...
+    @overload
+    def window_configure(
+        self,
+        index: _TextIndex,
+        cnf: dict[str, Any] | None = None,
+        *,
+        align: Literal["top", "center", "bottom", "baseline"] = ...,
+        create: str = ...,
+        padx: _ScreenUnits = ...,
+        pady: _ScreenUnits = ...,
+        stretch: bool = ...,
+        window: Misc = ...,
+    ): ...
     window_config = window_configure
-    def window_create(self, index, cnf={}, **kw) -> None: ...
-    def window_names(self): ...
+    def window_create(
+        self,
+        index: _TextIndex,
+        cnf: dict[str, Any] | None = None,
+        *,
+        align: Literal["top", "center", "bottom", "baseline"] = ...,
+        create: str = ...,
+        padx: _ScreenUnits = ...,
+        pady: _ScreenUnits = ...,
+        stretch: bool = ...,
+        window: Misc = ...,
+    ) -> None: ...  # actually returns empty string
+    def window_names(self) -> tuple[str, ...]: ...
     def yview_pickplace(self, *what): ...  # deprecated
 
 class _setit:
