@@ -1,12 +1,13 @@
 import importlib.abc
 import pathlib
+import sys
 import zipfile
 
-
 # Assert that some Path classes are Traversable.
-def traverse(t: importlib.abc.Traversable) -> None:
-    pass
+if sys.version_info >= (3, 9):
 
+    def traverse(t: importlib.abc.Traversable) -> None:
+        pass
 
-traverse(pathlib.Path())
-traverse(zipfile.Path(""))
+    traverse(pathlib.Path())
+    traverse(zipfile.Path(""))
