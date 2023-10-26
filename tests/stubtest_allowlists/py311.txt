@@ -107,6 +107,10 @@ platform.uname_result.processor
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
+# Problematic protocol signature at runtime, see source code comments.
+importlib.abc.Traversable.open
+importlib.resources.abc.Traversable.open
+
 # Super-special typing primitives
 typing\._SpecialForm.*
 typing\.NamedTuple
