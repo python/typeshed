@@ -152,7 +152,8 @@ typing.ParamSpec(Args|Kwargs).__origin__
 # https://github.com/python/mypy/issues/15302
 typing.NewType.__call__
 
-# Problematic protocol signature at runtime, see source code comments.
+# Problematic protocol signatures at runtime, see source code comments.
+importlib.abc.Traversable.joinpath
 importlib.abc.Traversable.open
 
 # Super-special typing primitives
