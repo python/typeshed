@@ -135,14 +135,7 @@ if sys.version_info >= (3, 9):
 
         @overload
         @abstractmethod
-        def open(
-            self,
-            mode: Literal["r", "w"] = "r",
-            *,
-            encoding: str | None = None,
-            errors: str | None = None,
-            newline: str | None = None,
-        ) -> IO[str]: ...
+        def open(self, mode: Literal["r", "w"] = "r", *, encoding: str | None = None, errors: str | None = None) -> IO[str]: ...
         @overload
         @abstractmethod
         def open(self, mode: Literal["rb", "wb"]) -> IO[bytes]: ...
