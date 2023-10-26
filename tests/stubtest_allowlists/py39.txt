@@ -141,6 +141,9 @@ types.MemberDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
 
+# Problematic protocol signature at runtime, see source code comments.
+importlib.abc.Traversable.open
+
 # Super-special typing primitives
 typing\.NamedTuple
 typing\.Annotated
