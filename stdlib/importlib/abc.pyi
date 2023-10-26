@@ -1,12 +1,13 @@
 import _ast
 import sys
 import types
-from _typeshed import ReadableBuffer, StrPath
 from abc import ABCMeta, abstractmethod
 from collections.abc import Iterator, Mapping, Sequence
 from importlib.machinery import ModuleSpec
 from io import BufferedReader
 from typing import IO, Any, Protocol, overload, runtime_checkable
+
+from _typeshed import ReadableBuffer, StrPath
 from typing_extensions import Literal
 
 if sys.version_info >= (3, 11):
@@ -131,7 +132,7 @@ if sys.version_info >= (3, 9):
             def joinpath(self, *descendants: str) -> Traversable: ...
         else:
             @abstractmethod
-            def joinpath(self, child: str) -> Traversable: ...
+            def joinpath(self, __child: str) -> Traversable: ...
 
         # The documentation and runtime protocol allows *args, **kwargs arguments,
         # but this would mean that all implementors would have to support them,
