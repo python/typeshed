@@ -1,9 +1,9 @@
 import abc
 import sys
-from _typeshed import Incomplete, OpenTextMode, OpenBinaryMode, Unused
+from _typeshed import Incomplete, OpenBinaryMode, OpenTextMode, Unused
 from collections.abc import Iterator
 from io import TextIOWrapper
-from typing import Any, BinaryIO, IO, NoReturn, overload
+from typing import IO, Any, BinaryIO, NoReturn, overload
 from typing_extensions import Literal, Never
 
 if sys.version_info >= (3, 11):
@@ -46,4 +46,3 @@ if sys.version_info >= (3, 11):
 
     class TraversableReader(TraversableResources, SimpleReader, metaclass=abc.ABCMeta):
         def files(self) -> ResourceContainer: ...
-
