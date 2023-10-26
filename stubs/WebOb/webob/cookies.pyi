@@ -90,7 +90,7 @@ def make_cookie(
 
 class JSONSerializer:
     def dumps(self, appstruct: Any) -> bytes: ...
-    def loads(self, bstruct: bytes) -> Any: ...
+    def loads(self, bstruct: bytes | str) -> Any: ...
 
 class Base64Serializer:
     serializer: _Serializer
@@ -128,7 +128,7 @@ class CookieProfile:
         httponly: bool | None = None,
         samesite: _SameSitePolicy | None = None,
         path: str = "/",
-        # even thoug the docs claim any iterable is fine, that is
+        # even though the docs claim any iterable is fine, that is
         # clearly not the case judging by the implementation
         domains: Collection[str] | None = None,
         serializer: _Serializer | None = None,
