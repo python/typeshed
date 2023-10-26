@@ -2,10 +2,13 @@
 # and re-exported from importlib.readers,
 # but doing it this way leads to less code duplication for us
 
+import sys
 from collections.abc import Iterable, Iterator
-from importlib.readers import *
 from typing import TypeVar
 
-_T = TypeVar("_T")
+if sys.version_info >= (3, 11):
+    from importlib.readers import *
 
-def remove_duplicates(items: Iterable[_T]) -> Iterator[_T]: ...
+    _T = TypeVar("_T")
+
+    def remove_duplicates(items: Iterable[_T]) -> Iterator[_T]: ...
