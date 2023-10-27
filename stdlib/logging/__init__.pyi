@@ -209,7 +209,6 @@ class Logger(Filterer):
             extra: Mapping[str, object] | None = None,
             stack_info: bool = False,
             stacklevel: int = 1,
-            **kwargs: object,
         ) -> None: ...  # undocumented
     else:
         def debug(
