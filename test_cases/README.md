@@ -34,7 +34,7 @@ false-positive errors for idiomatic usage of these classes.
 
 ## Running the tests
 
-To run the tests in this directory, run `python tests/regr_test.py stdlib`
+To verify the test cases in this directory pass with mypy, run `python tests/regr_test.py stdlib`
 from the root of the typeshed repository. This assumes that the development
 environment has been set up as described in the [CONTRIBUTING.md](../CONTRIBUTING.md)
 document.
