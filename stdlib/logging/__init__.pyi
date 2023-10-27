@@ -127,6 +127,7 @@ class Logger(Filterer):
             stack_info: bool = False,
             stacklevel: int = 1,
             extra: Mapping[str, object] | None = None,
+            **kwargs: object,
         ) -> None: ...
         def info(
             self,
@@ -136,6 +137,7 @@ class Logger(Filterer):
             stack_info: bool = False,
             stacklevel: int = 1,
             extra: Mapping[str, object] | None = None,
+            **kwargs: object,
         ) -> None: ...
         def warning(
             self,
@@ -145,6 +147,7 @@ class Logger(Filterer):
             stack_info: bool = False,
             stacklevel: int = 1,
             extra: Mapping[str, object] | None = None,
+            **kwargs: object,
         ) -> None: ...
         def warn(
             self,
@@ -154,6 +157,7 @@ class Logger(Filterer):
             stack_info: bool = False,
             stacklevel: int = 1,
             extra: Mapping[str, object] | None = None,
+            **kwargs: object,
         ) -> None: ...
         def error(
             self,
@@ -163,6 +167,7 @@ class Logger(Filterer):
             stack_info: bool = False,
             stacklevel: int = 1,
             extra: Mapping[str, object] | None = None,
+            **kwargs: object,
         ) -> None: ...
         def exception(
             self,
@@ -172,6 +177,7 @@ class Logger(Filterer):
             stack_info: bool = False,
             stacklevel: int = 1,
             extra: Mapping[str, object] | None = None,
+            **kwargs: object,
         ) -> None: ...
         def critical(
             self,
@@ -181,6 +187,7 @@ class Logger(Filterer):
             stack_info: bool = False,
             stacklevel: int = 1,
             extra: Mapping[str, object] | None = None,
+            **kwargs: object,
         ) -> None: ...
         def log(
             self,
@@ -191,6 +198,7 @@ class Logger(Filterer):
             stack_info: bool = False,
             stacklevel: int = 1,
             extra: Mapping[str, object] | None = None,
+            **kwargs: object,
         ) -> None: ...
         def _log(
             self,
@@ -201,6 +209,7 @@ class Logger(Filterer):
             extra: Mapping[str, object] | None = None,
             stack_info: bool = False,
             stacklevel: int = 1,
+            **kwargs: object,
         ) -> None: ...  # undocumented
     else:
         def debug(
