@@ -1,6 +1,6 @@
 import datetime
 from _typeshed import Incomplete, StrPath, Unused
-from collections.abc import Callable, Iterable, Sequence
+from collections.abc import Callable, Generator, Iterable, Sequence
 from contextlib import _GeneratorContextManager
 from io import BytesIO
 from pathlib import PurePath
@@ -200,6 +200,14 @@ class FPDF(GraphicsStateMixin):
         zoom: Literal["fullpage", "fullwidth", "real", "default"] | float,
         layout: Literal["single", "continuous", "two", "default"] = "continuous",
     ) -> None: ...
+    def set_text_shaping(
+        self,
+        use_shaping_engine: bool = True,
+        features: dict[str, bool] | None = None,
+        direction: Literal["ltr", "rtl"] | None = None,
+        script: str | None = None,
+        language: str | None = None,
+    ): ...
     def set_compression(self, compress: bool) -> None: ...
     title: str
     def set_title(self, title: str) -> None: ...
@@ -403,6 +411,7 @@ class FPDF(GraphicsStateMixin):
     def skew(
         self, ax: float = 0, ay: float = 0, x: float | None = None, y: float | None = None
     ) -> _GeneratorContextManager[None]: ...
+    def mirror(self, origin, angle) -> Generator[None, None, None]: ...
     def local_context(
         self,
         font_family: Incomplete | None = None,
@@ -427,7 +436,7 @@ class FPDF(GraphicsStateMixin):
         align: str | Align = ...,
         fill: bool = False,
         link: str = "",
-        center: bool | Literal["DEPRECATED"] = "DEPRECATED",
+        center: bool = False,
         markdown: bool = False,
         new_x: XPos | str = ...,
         new_y: YPos | str = ...,
@@ -443,8 +452,8 @@ class FPDF(GraphicsStateMixin):
         align: str | Align = ...,
         fill: bool = False,
         split_only: bool = False,
-        link: str | int = "",
         ln: int | Literal["DEPRECATED"] = "DEPRECATED",
+        link: str | int = "",
         max_line_height: float | None = None,
         markdown: bool = False,
         print_sh: bool = False,
@@ -453,10 +462,26 @@ class FPDF(GraphicsStateMixin):
         wrapmode: WrapMode = ...,
         dry_run: bool = False,
         output: MethodReturnValue | str | int = ...,
+        center: bool = False,
+        padding: int = 0,
     ): ...
     def write(
         self, h: float | None = None, text: str = "", link: str = "", print_sh: bool = False, wrapmode: WrapMode = ...
     ) -> bool: ...
+    def text_columns(
+        self,
+        text: str | None = None,
+        ncols: int = 1,
+        gutter: float = 10,
+        balance: bool = False,
+        text_align: Align | str = "LEFT",
+        line_height: float = 1,
+        l_margin: float | None = None,
+        r_margin: float | None = None,
+        print_sh: bool = False,
+        wrapmode: WrapMode = ...,
+        skip_leading_spaces: bool = False,
+    ): ...
     def image(
         self,
         name: str | Image.Image | BytesIO | StrPath,
