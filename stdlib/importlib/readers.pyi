@@ -46,11 +46,17 @@ if sys.version_info >= (3, 10):
         def read_text(self, *args: Never, **kwargs: Never) -> NoReturn: ...  # type: ignore[override]
         def is_dir(self) -> Literal[True]: ...
         def is_file(self) -> Literal[False]: ...
+
         if sys.version_info >= (3, 12):
             def joinpath(self, *descendants: str) -> abc.Traversable: ...
+        elif sys.version_info >= (3, 11):
+            def joinpath(self, child: str) -> abc.Traversable: ...  # type: ignore[override]
         else:
             def joinpath(self, child: str) -> abc.Traversable: ...
+
+        if sys.version_info < (3, 12):
             __truediv__ = joinpath
+
         def open(self, *args: Never, **kwargs: Never) -> NoReturn: ...  # type: ignore[override]
         @property
         def name(self) -> str: ...
