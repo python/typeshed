@@ -101,6 +101,7 @@ class FPDF(GraphicsStateMixin):
     MARKDOWN_UNDERLINE_MARKER: ClassVar[str]
     MARKDOWN_LINK_REGEX: ClassVar[Pattern[str]]
     MARKDOWN_LINK_COLOR: ClassVar[Incomplete | None]
+    MARKDOWN_LINK_UNDERLINE: ClassVar[bool]
 
     HTML2FPDF_CLASS: ClassVar[type[HTML2FPDF]]
 
@@ -452,8 +453,8 @@ class FPDF(GraphicsStateMixin):
         align: str | Align = ...,
         fill: bool = False,
         split_only: bool = False,
+        link: str = "",
         ln: int | Literal["DEPRECATED"] = "DEPRECATED",
-        link: str | int = "",
         max_line_height: float | None = None,
         markdown: bool = False,
         print_sh: bool = False,
