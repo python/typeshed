@@ -49,7 +49,7 @@ if sys.version_info >= (3, 10):
         if sys.version_info >= (3, 12):
             def joinpath(self, *descendants: str) -> abc.Traversable: ...
         else:
-            def joinpath(self, child: str) -> abc.Traversable: ...  # type: ignore[override]
+            def joinpath(self, child: str) -> abc.Traversable: ...
             __truediv__ = joinpath
         def open(self, *args: Never, **kwargs: Never) -> NoReturn: ...  # type: ignore[override]
         @property
