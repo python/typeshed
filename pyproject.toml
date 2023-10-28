@@ -46,9 +46,6 @@ select = [
     "UP039", # don't use parens after a class definition with no bases
 ]
 
-[tool.ruff.per-file-ignores]
-"*_pb2.pyi" = ["I"]  # Skip isort rules for files generated with mypy-protobuf
-
 [tool.ruff.isort]
 split-on-trailing-comma = false
 combine-as-imports = true
