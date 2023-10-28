@@ -18,10 +18,11 @@ limitations under the License.
 """
 import builtins
 import collections.abc
+import sys
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-import sys
 import tensorflow.tsl.protobuf.autotuning_pb2
 
 if sys.version_info >= (3, 8):
