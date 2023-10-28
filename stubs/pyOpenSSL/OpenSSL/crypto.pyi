@@ -202,5 +202,5 @@ def dump_publickey(type: int, pkey: PKey) -> bytes: ...
 def load_publickey(type: int, buffer: str | bytes) -> PKey: ...
 def dump_crl(type: int, crl: CRL) -> bytes: ...  # deprecated
 def load_crl(type: int, buffer: str | bytes) -> CRL: ...  # deprecated
-def sign(pkey: PKey, data: str | bytes, digest: str) -> bytes: ...   # deprecated
-def verify(cert: X509, signature: bytes, data: str | bytes, digest: str) -> None: ... # deprecated
+def sign(pkey: PKey, data: str | bytes, digest: str) -> bytes: ...  # deprecated
+def verify(cert: X509, signature: bytes, data: str | bytes, digest: str) -> None: ...  # deprecated
