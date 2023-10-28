@@ -45,8 +45,17 @@ jobs:
           python-version: "3.11"
       - run: ./tests/check_new_syntax.py
 
+  ruff:
+    name: Lint with Ruff
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: chartboost/ruff-action@v1
+        with:
+          version: "0.1.0" # must match .pre-commit-config.yaml and requirements-test.txt
+
   flake8:
-    name: Lint with flake8
+    name: Lint with Flake8
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -65,7 +74,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           cache: pip
           cache-dependency-path: requirements-tests.txt
       - run: pip install -r requirements-tests.txt
@@ -85,7 +94,7 @@ jobs:
     strategy:
       matrix:
         platform: ["linux", "win32", "darwin"]
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
@@ -96,25 +105,6 @@ jobs:
           cache-dependency-path: requirements-tests.txt
       - run: pip install -r requirements-tests.txt
       - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
-
-  # Run mypy slightly differently on the py312 stubs,
-  # as at least one non-types dependency (greenlet) can't be installed on Python 3.12 yet
-  mypy-312:
-    name: Run mypy against the stubs (3.12)
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        platform: ["linux", "win32", "darwin"]
-      fail-fast: false
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-          cache: pip
-          cache-dependency-path: requirements-tests.txt
-      - run: pip install -r requirements-tests.txt
-      - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=3.12
 
   regression-tests:
     name: Run mypy on the test cases
