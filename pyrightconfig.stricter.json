@@ -56,6 +56,7 @@
         "stubs/pexpect",
         "stubs/pika",
         "stubs/Pillow",
+        "stubs/portpicker",
         "stubs/protobuf",
         "stubs/psutil",
         "stubs/psycopg2",
