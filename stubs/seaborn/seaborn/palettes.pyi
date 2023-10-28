@@ -20,14 +20,14 @@ __all__ = [
     "set_color_codes",
 ]
 
-_T = TypeVar("_T")
+_ColorT = TypeVar("_ColorT", bound=ColorType)
 
 SEABORN_PALETTES: dict[str, list[str]]
 MPL_QUAL_PALS: dict[str, int]
 QUAL_PALETTE_SIZES: dict[str, int]
 QUAL_PALETTES: list[str]
 
-class _ColorPalette(list[_T]):
+class _ColorPalette(list[_ColorT]):
     def __enter__(self) -> Self: ...
     def __exit__(self, *args: object) -> None: ...
     def as_hex(self) -> _ColorPalette[str]: ...
