@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from collections.abc import Sequence
 from typing_extensions import Literal
 
 import _win32typing
