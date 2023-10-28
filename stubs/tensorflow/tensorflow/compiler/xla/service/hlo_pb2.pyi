@@ -16,14 +16,13 @@ protos as JSON, which includes the field names in the serialization.
 """
 import builtins
 import collections.abc
-import sys
-import typing
-
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+import sys
 import tensorflow.compiler.xla.xla_data_pb2
+import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions

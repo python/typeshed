@@ -3,10 +3,9 @@
 isort:skip_file
 """
 import builtins
-import sys
-
 import google.protobuf.descriptor
 import google.protobuf.message
+import sys
 import tensorflow.core.framework.allocation_description_pb2
 import tensorflow.core.framework.tensor_shape_pb2
 import tensorflow.core.framework.types_pb2

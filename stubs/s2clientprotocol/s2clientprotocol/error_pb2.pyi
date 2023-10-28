@@ -3,11 +3,10 @@
 isort:skip_file
 """
 import builtins
-import sys
-import typing
-
 import google.protobuf.descriptor
 import google.protobuf.internal.enum_type_wrapper
+import sys
+import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
