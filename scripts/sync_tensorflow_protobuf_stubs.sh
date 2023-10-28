@@ -61,7 +61,7 @@ rm tensorflow/compiler/xla/service/hlo_execution_profile_data_pb2.pyi \
    tensorflow/core/protobuf/worker_service_pb2.pyi \
    tensorflow/core/util/example_proto_fast_parsing_test_pb2.pyi
 
-isort "$REPO_ROOT/stubs/tensorflow/tensorflow"
+ruff check "$REPO_ROOT/stubs/tensorflow/tensorflow" --fix-only
 black "$REPO_ROOT/stubs/tensorflow/tensorflow"
 
 sed --in-place="" \
