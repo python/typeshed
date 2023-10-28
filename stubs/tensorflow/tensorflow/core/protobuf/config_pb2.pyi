@@ -4,13 +4,11 @@ isort:skip_file
 """
 import builtins
 import collections.abc
-import sys
-import typing
-
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+import sys
 import tensorflow.core.framework.cost_graph_pb2
 import tensorflow.core.framework.graph_pb2
 import tensorflow.core.framework.step_stats_pb2
@@ -19,6 +17,7 @@ import tensorflow.core.protobuf.debug_pb2
 import tensorflow.core.protobuf.rewriter_config_pb2
 import tensorflow.tsl.protobuf.coordination_config_pb2
 import tensorflow.tsl.protobuf.rpc_options_pb2
+import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
