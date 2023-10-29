@@ -3071,17 +3071,18 @@ class Text(Widget, XView, YView):
     def image_configure(
         self,
         index: _TextIndex,
+        cnf: dict[str, Any] | None = {},
         *,
         align: Literal["top", "center", "bottom", "baseline"] = ...,
         image: _Image = ...,
         name: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-    ) -> None: ...
+    ) -> dict[str, tuple[str, str, str, str, str | int]] | None: ...
     def image_create(
         self,
         index: _TextIndex,
-        cnf: dict[str, Any] | None = None,
+        cnf: dict[str, Any] | None = {},
         *,
         align: Literal["top", "center", "bottom", "baseline"] = ...,
         image: _Image = ...,
@@ -3202,12 +3203,12 @@ class Text(Widget, XView, YView):
         pady: _ScreenUnits = ...,
         stretch: bool = ...,
         window: Misc = ...,
-    ): ...
+    ) -> dict[str, tuple[str, str, str, str, str | int]] | None: ...
     window_config = window_configure
     def window_create(
         self,
         index: _TextIndex,
-        cnf: dict[str, Any] | None = None,
+        cnf: dict[str, Any] | None = {},
         *,
         align: Literal["top", "center", "bottom", "baseline"] = ...,
         create: str = ...,
