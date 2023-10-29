@@ -46,6 +46,11 @@ select = [
     "UP039", # don't use parens after a class definition with no bases
 ]
 
+[tool.ruff.per-file-ignores]
+# "Unused imports" in test cases might be there for a reason
+"test_cases/**/check_*.py" = ["F401"]
+"stubs/*/@tests/test_cases/check_*.py" = ["F401"]
+
 [tool.ruff.isort]
 split-on-trailing-comma = false
 combine-as-imports = true
