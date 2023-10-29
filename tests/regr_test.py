@@ -69,7 +69,10 @@ parser.add_argument(
     type=package_with_test_cases,
     nargs="*",
     action="extend",
-    help="Test only these packages (defaults to all typeshed stubs that have test cases)",
+    help=(
+        "Test only these packages (defaults to all typeshed stubs that have test cases). "
+        'Use "stdlib" to test the standard library test cases.'
+    ),
 )
 parser.add_argument(
     "--all",
