@@ -82,7 +82,7 @@ class Pool:
         func: Callable[..., _T],
         args: Iterable[Any] = (),
         kwds: Mapping[str, Any] = {},
-        callback: Callable[[_T], object] | None = None,
+        callback: Callable[[Iterable[_T]], object] | None = None,
         error_callback: Callable[[BaseException], object] | None = None,
     ) -> AsyncResult[_T]: ...
     def map(self, func: Callable[[_S], _T], iterable: Iterable[_S], chunksize: int | None = None) -> list[_T]: ...
@@ -91,7 +91,7 @@ class Pool:
         func: Callable[[_S], _T],
         iterable: Iterable[_S],
         chunksize: int | None = None,
-        callback: Callable[[_T], object] | None = None,
+        callback: Callable[[Iterable[_T]], object] | None = None,
         error_callback: Callable[[BaseException], object] | None = None,
     ) -> MapResult[_T]: ...
     def imap(self, func: Callable[[_S], _T], iterable: Iterable[_S], chunksize: int | None = 1) -> IMapIterator[_T]: ...
@@ -102,7 +102,7 @@ class Pool:
         func: Callable[..., _T],
         iterable: Iterable[Iterable[Any]],
         chunksize: int | None = None,
-        callback: Callable[[_T], object] | None = None,
+        callback: Callable[[Iterable[_T]], object] | None = None,
         error_callback: Callable[[BaseException], object] | None = None,
     ) -> AsyncResult[list[_T]]: ...
     def close(self) -> None: ...
