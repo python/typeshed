@@ -161,8 +161,8 @@ def run_stubtest(
         else:
             print_success_msg()
 
-    if verbose:
-        print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
+        if verbose:
+            print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
 
     return True
 
