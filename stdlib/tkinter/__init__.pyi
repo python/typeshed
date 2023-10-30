@@ -2891,6 +2891,7 @@ class Scrollbar(Widget):
     def set(self, first: float | str, last: float | str) -> None: ...
 
 _TextIndex: TypeAlias = _tkinter.Tcl_Obj | str | float | Misc
+_TextChildAlign: TypeAlias = Literal["top", "center", "bottom", "baseline"]
 
 class Text(Widget, XView, YView):
     def __init__(
@@ -3065,9 +3066,11 @@ class Text(Widget, XView, YView):
     def edit_undo(self) -> None: ...  # actually returns empty string
     def get(self, index1: _TextIndex, index2: _TextIndex | None = None) -> str: ...
     @overload
-    def image_cget(self, index: _TextIndex, option: Literal["align", "image", "name"]) -> str: ...
+    def image_cget(self, index: _TextIndex, option: Literal["image", "name"]) -> str: ...
     @overload
     def image_cget(self, index: _TextIndex, option: Literal["padx", "pady"]) -> int: ...
+    @overload
+    def image_cget(self, index: _TextIndex, option: Literal["align"]) -> _TextChildAlign: ...
     @overload
     def image_cget(self, index: _TextIndex, option: str) -> Any: ...
     @overload
@@ -3078,8 +3081,8 @@ class Text(Widget, XView, YView):
         index: _TextIndex,
         cnf: dict[str, Any] | None = {},
         *,
-        align: Literal["top", "center", "bottom", "baseline"] = ...,
-        image: _Image = ...,
+        align: _TextChildAlign = ...,
+        image: _ImageSpec = ...,
         name: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
@@ -3089,8 +3092,8 @@ class Text(Widget, XView, YView):
         index: _TextIndex,
         cnf: dict[str, Any] | None = {},
         *,
-        align: Literal["top", "center", "bottom", "baseline"] = ...,
-        image: _Image = ...,
+        align: _TextChildAlign = ...,
+        image: _ImageSpec = ...,
         name: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
@@ -3193,7 +3196,16 @@ class Text(Widget, XView, YView):
     def tag_ranges(self, tagName: str) -> tuple[_tkinter.Tcl_Obj, ...]: ...
     # tag_remove and tag_delete are different
     def tag_remove(self, tagName: str, index1: _TextIndex, index2: _TextIndex | None = None) -> None: ...
-    def window_cget(self, index: _TextIndex, option: str) -> str | int: ...  # window returned as str, others are str/int.
+    @overload
+    def window_cget(self, index: _TextIndex, option: Literal['padx', 'pady']) -> int: ...
+    @overload
+    def window_cget(self, index: _TextIndex, option: Literal['stretch']) -> Literal[0, 1]: ...
+    @overload
+    def window_cget(self, index: _TextIndex, option: Literal['align']) -> _TextChildAlign: ...
+    @overload  # window is set to a widget, but read as the string name.
+    def window_cget(self, index: _TextIndex, option: Literal['create', 'window']) -> str: ...
+    @overload
+    def window_cget(self, index: _TextIndex, option: str) -> Any: ...
     @overload
     def window_configure(self, index: _TextIndex, cnf: str) -> tuple[str, str, str, str, str | int]: ...
     @overload
@@ -3202,7 +3214,7 @@ class Text(Widget, XView, YView):
         index: _TextIndex,
         cnf: dict[str, Any] | None = None,
         *,
-        align: Literal["top", "center", "bottom", "baseline"] = ...,
+        align: _TextChildAlign = ...,
         create: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
@@ -3215,13 +3227,13 @@ class Text(Widget, XView, YView):
         index: _TextIndex,
         cnf: dict[str, Any] | None = {},
         *,
-        align: Literal["top", "center", "bottom", "baseline"] = ...,
+        align: _TextChildAlign = ...,
         create: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
         stretch: bool = ...,
         window: Misc = ...,
-    ) -> None: ...  # actually returns empty string
+    ) -> None: ...
     def window_names(self) -> tuple[str, ...]: ...
     def yview_pickplace(self, *what): ...  # deprecated
 
