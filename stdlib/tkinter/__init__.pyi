@@ -2891,7 +2891,6 @@ class Scrollbar(Widget):
     def set(self, first: float | str, last: float | str) -> None: ...
 
 _TextIndex: TypeAlias = _tkinter.Tcl_Obj | str | float | Misc
-_TextChildAlign: TypeAlias = Literal["top", "center", "bottom", "baseline"]
 
 class Text(Widget, XView, YView):
     def __init__(
@@ -3070,7 +3069,7 @@ class Text(Widget, XView, YView):
     @overload
     def image_cget(self, index: _TextIndex, option: Literal["padx", "pady"]) -> int: ...
     @overload
-    def image_cget(self, index: _TextIndex, option: Literal["align"]) -> _TextChildAlign: ...
+    def image_cget(self, index: _TextIndex, option: Literal["align"]) -> Literal["baseline", "bottom", "center", "top"]: ...
     @overload
     def image_cget(self, index: _TextIndex, option: str) -> Any: ...
     @overload
@@ -3081,7 +3080,7 @@ class Text(Widget, XView, YView):
         index: _TextIndex,
         cnf: dict[str, Any] | None = {},
         *,
-        align: _TextChildAlign = ...,
+        align: Literal["baseline", "bottom", "center", "top"] = ...,
         image: _ImageSpec = ...,
         name: str = ...,
         padx: _ScreenUnits = ...,
@@ -3092,7 +3091,7 @@ class Text(Widget, XView, YView):
         index: _TextIndex,
         cnf: dict[str, Any] | None = {},
         *,
-        align: _TextChildAlign = ...,
+        align: Literal["baseline", "bottom", "center", "top"] = ...,
         image: _ImageSpec = ...,
         name: str = ...,
         padx: _ScreenUnits = ...,
@@ -3201,7 +3200,7 @@ class Text(Widget, XView, YView):
     @overload
     def window_cget(self, index: _TextIndex, option: Literal["stretch"]) -> Literal[0, 1]: ...
     @overload
-    def window_cget(self, index: _TextIndex, option: Literal["align"]) -> _TextChildAlign: ...
+    def window_cget(self, index: _TextIndex, option: Literal["align"]) -> Literal["baseline", "bottom", "center", "top"]: ...
     @overload  # window is set to a widget, but read as the string name.
     def window_cget(self, index: _TextIndex, option: Literal["create", "window"]) -> str: ...
     @overload
@@ -3214,12 +3213,12 @@ class Text(Widget, XView, YView):
         index: _TextIndex,
         cnf: dict[str, Any] | None = None,
         *,
-        align: _TextChildAlign = ...,
+        align: Literal["baseline", "bottom", "center", "top"] = ...,
         create: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        stretch: bool = ...,
-        window: Misc = ...,
+        stretch: bool | Literal[0, 1] = ...,
+        window: Misc | str = ...,
     ) -> dict[str, tuple[str, str, str, str, str | int]] | None: ...
     window_config = window_configure
     def window_create(
@@ -3227,12 +3226,12 @@ class Text(Widget, XView, YView):
         index: _TextIndex,
         cnf: dict[str, Any] | None = {},
         *,
-        align: _TextChildAlign = ...,
+        align: Literal["baseline", "bottom", "center", "top"] = ...,
         create: str = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
-        stretch: bool = ...,
-        window: Misc = ...,
+        stretch: bool | Literal[0, 1] = ...,
+        window: Misc | str = ...,
     ) -> None: ...
     def window_names(self) -> tuple[str, ...]: ...
     def yview_pickplace(self, *what): ...  # deprecated
