@@ -4,10 +4,13 @@
 from __future__ import annotations
 
 import argparse
+import contextlib
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
+from collections.abc import Iterator
 from pathlib import Path
 from textwrap import dedent
 from typing import NoReturn
@@ -16,10 +19,23 @@ from parse_metadata import NoSuchStubError, get_recursive_requirements, read_met
 from utils import PYTHON_VERSION, colored, get_mypy_req, make_venv, print_error, print_success_msg
 
 
+@contextlib.contextmanager
+def temporarily_delete_stdlib_distutils(typeshed_dir: Path) -> Iterator[None]:
+    stdlib_distutils_dir = typeshed_dir / "stdlib" / "distutils"
+    with tempfile.TemporaryDirectory() as td:
+        shutil.copytree(stdlib_distutils_dir, td, dirs_exist_ok=True)
+        try:
+            shutil.rmtree(stdlib_distutils_dir)
+            yield
+        finally:
+            shutil.copytree(td, stdlib_distutils_dir, dirs_exist_ok=True)
+
+
 def run_stubtest(
     dist: Path, *, parser: argparse.ArgumentParser, verbose: bool = False, specified_platforms_only: bool = False
 ) -> bool:
     dist_name = dist.name
+    typeshed_dir = dist.parent.parent
     try:
         metadata = read_metadata(dist_name)
     except NoSuchStubError as e:
@@ -41,8 +57,8 @@ def run_stubtest(
         print(colored(f"skipping (requires Python {metadata.requires_python})", "yellow"))
         return True
 
-    with tempfile.TemporaryDirectory() as tmp:
-        venv_dir = Path(tmp)
+    with contextlib.ExitStack() as stack:
+        venv_dir = Path(stack.enter_context(tempfile.TemporaryDirectory()))
         try:
             pip_exe, python_exe = make_venv(venv_dir)
         except Exception:
@@ -83,7 +99,7 @@ def run_stubtest(
             "mypy.stubtest",
             # Use --custom-typeshed-dir in case we make linked changes to stdlib or _typeshed
             "--custom-typeshed-dir",
-            str(dist.parent.parent),
+            str(typeshed_dir),
             *ignore_missing_stub,
             *packages_to_check,
             *modules_to_check,
@@ -111,6 +127,10 @@ def run_stubtest(
         if dist_name == "uWSGI":
             if not setup_uwsgi_stubtest_command(dist, venv_dir, stubtest_cmd):
                 return False
+        # setuptools also requires special-casing, or stubtest gets confused
+        # between stdlib-distutils and setuptools-distutils
+        elif dist_name == "setuptools":
+            stack.enter_context(temporarily_delete_stdlib_distutils(typeshed_dir))
 
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
