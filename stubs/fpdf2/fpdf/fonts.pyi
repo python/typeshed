@@ -26,7 +26,7 @@ class FontFace:
 
     replace = dataclasses.replace
 
-class FontMixin:
+class _FontMixin:
     i: int
     type: str
     name: str
@@ -37,11 +37,11 @@ class FontMixin:
     emphasis: TextEmphasis
     def encode_text(self, text: str): ...
 
-class CoreFont(FontMixin):
+class CoreFont(_FontMixin):
     def __init__(self, fpdf, fontkey: str, style: int) -> None: ...
     def get_text_width(self, text: str, font_size_pt: int, _): ...
 
-class TTFFont(FontMixin):
+class TTFFont(_FontMixin):
     ttffile: Incomplete
     ttfont: Incomplete
     scale: Incomplete
