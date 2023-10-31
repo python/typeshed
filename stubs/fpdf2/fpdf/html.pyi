@@ -2,7 +2,6 @@ from _typeshed import Incomplete, SupportsKeysAndGetItem, Unused
 from collections.abc import Callable, Iterable
 from html.parser import HTMLParser
 from logging import Logger
-from re import Match, Pattern
 from typing import ClassVar
 from typing_extensions import Final
 
@@ -14,31 +13,32 @@ __copyright__: Final[str]
 LOGGER: Logger
 BULLET_WIN1252: Final[str]
 DEFAULT_HEADING_SIZES: dict[str, int]
-LEADING_SPACE: Pattern[str]
-WHITESPACE: Pattern[str]
-TRAILING_SPACE: Pattern[str]
 
 COLOR_DICT: Final[dict[str, str]]
 
-def px2mm(px: float) -> float: ...
 def color_as_decimal(color: str | None = "#000000") -> tuple[int, int, int] | None: ...
 
 class HTML2FPDF(HTMLParser):
     HTML_UNCLOSED_TAGS: ClassVar[tuple[str, ...]]
 
-    pdf: Incomplete
+    pdf: FPDF
     image_map: Incomplete
-    li_tag_indent: Incomplete
-    table_line_separators: Incomplete
-    ul_bullet_char: Incomplete
+    li_tag_indent: int
+    dd_tag_indent: int
+    ul_bullet_char: str
+    heading_sizes: dict[str, int]
+    pre_code_font: str
+    warn_on_tags_not_matching: bool
     style: Incomplete
+    font_size: Incomplete
+    follows_trailing_space: bool
+    follows_heading: bool
     href: str
     align: str
     page_links: Incomplete
     font_stack: Incomplete
     indent: int
     bullet: Incomplete
-    font_size: Incomplete
     font_color: Incomplete
     table: Incomplete
     table_col_width: Incomplete
@@ -54,11 +54,8 @@ class HTML2FPDF(HTMLParser):
     theader_out: bool
     table_row_height: int
     heading_level: Incomplete
-    heading_sizes: dict[str, int]
     heading_above: float
     heading_below: float
-    pre_code_font: str
-    warn_on_tags_not_matching: bool
 
     # Not initialized in __init__:
     font_face: Incomplete
@@ -86,9 +83,6 @@ class HTML2FPDF(HTMLParser):
     def put_link(self, text) -> None: ...
     def render_toc(self, pdf, outline) -> None: ...
     def error(self, message: str) -> None: ...
-
-def leading_whitespace_repl(matchobj: Match[str]) -> str: ...
-def whitespace_repl(matchobj: Match[str]) -> str: ...
 
 class HTMLMixin:
     def __init__(self, *args: Incomplete, **kwargs: Incomplete) -> None: ...
