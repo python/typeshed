@@ -43,7 +43,6 @@
         "stubs/httplib2",
         "stubs/humanfriendly",
         "stubs/influxdb-client",
-        "stubs/invoke",
         "stubs/jmespath",
         "stubs/jsonschema",
         "stubs/ldap3",
