@@ -36,7 +36,7 @@ _DataValidationOperator: TypeAlias = Literal[
     "between", "notBetween", "equal", "notEqual", "lessThan", "lessThanOrEqual", "greaterThan", "greaterThanOrEqual"
 ]
 
-class HasCoordinate(Protocol):
+class _HasCoordinate(Protocol):
     coordinate: str | CellRange
 
 def collapse_cell_addresses(cells, input_ranges=()): ...
@@ -84,7 +84,7 @@ class DataValidation(Serialisable):
         allow_blank: Incomplete | None = False,
     ) -> None: ...
     def add(self, cell) -> None: ...
-    def __contains__(self, cell: HasCoordinate) -> bool: ...
+    def __contains__(self, cell: _HasCoordinate) -> bool: ...
 
 class DataValidationList(Serialisable):
     tagname: ClassVar[str]
