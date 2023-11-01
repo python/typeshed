@@ -14,9 +14,18 @@ enum.Enum._generate_next_value_
 enum.StrEnum._generate_next_value_
 importlib.abc.Finder.find_module
 tkinter._VersionInfoType.__doc__
-typing_extensions\.get_original_bases
 typing.NewType.__call__
 typing.NewType.__mro_entries__
+
+# Modules that exist at runtime, but shouldn't be added to typeshed
+ctypes.test
+ctypes\.test\..+
+lib2to3.tests
+lib2to3\.tests\..+
+tkinter.test
+tkinter\.test\..+
+unittest.test
+unittest\.test\..+
 
 # ==========
 # Related to positional-only arguments
@@ -94,6 +103,10 @@ platform.uname_result.processor
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
+# Problematic protocol signature at runtime, see source code comments.
+importlib.abc.Traversable.open
+importlib.resources.abc.Traversable.open
+
 # Super-special typing primitives
 typing\._SpecialForm.*
 typing\.NamedTuple
@@ -124,6 +137,3 @@ asynchat.async_chat.use_encoding
 asynchat.find_prefix_at_end
 pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
-
-# https://github.com/python/mypy/issues/15302
-typing_extensions\.override

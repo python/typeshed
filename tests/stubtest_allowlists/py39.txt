@@ -37,7 +37,7 @@ tkinter.Tk.split
 types.GenericAlias.__getattr__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 weakref.ProxyType.__reversed__  # Doesn't really exist
-typing_extensions\.get_original_bases
+xxsubtype  # module missing from the stubs
 
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__
@@ -55,6 +55,19 @@ collections.Generator.gi_running
 collections.Generator.gi_yieldfrom
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
+
+# Modules that exist at runtime, but shouldn't be added to typeshed
+ctypes.test
+ctypes\.test\..+
+lib2to3.tests
+lib2to3\.tests\..+
+sqlite3.test
+sqlite3\.test\..+
+test
+tkinter.test
+tkinter\.test\..+
+unittest.test
+unittest\.test\..+
 
 # Exists at runtime, but missing from stubs
 _collections_abc.AsyncIterable.__class_getitem__
@@ -128,11 +141,8 @@ types.MemberDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
 
-# https://github.com/python/mypy/issues/15302
-typing_extensions\.assert_never
-typing_extensions\.assert_type
-typing_extensions\.reveal_type
-typing_extensions\.override
+# Problematic protocol signature at runtime, see source code comments.
+importlib.abc.Traversable.open
 
 # Super-special typing primitives
 typing\.NamedTuple

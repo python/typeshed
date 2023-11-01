@@ -1,3 +1,6 @@
+# Modules that exist at runtime, but are missing from typeshed
+zipfile._path.glob
+
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__
@@ -69,6 +72,7 @@ os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all Pat
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
+sys._monitoring  # Doesn't really exist. See comments in the stub.
 weakref.ProxyType.__reversed__  # Doesn't really exist
 
 # C signature is broader than what is actually accepted
@@ -89,6 +93,10 @@ platform.uname_result.processor
 # Runtime has *args, **kwargs, but will error if any are supplied
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
+
+# Problematic protocol signature at runtime, see source code comments.
+importlib.abc.Traversable.open
+importlib.resources.abc.Traversable.open
 
 # Super-special typing primitives
 typing\._SpecialForm.*
