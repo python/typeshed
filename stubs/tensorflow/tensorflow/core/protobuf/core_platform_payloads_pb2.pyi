@@ -3,11 +3,12 @@
 isort:skip_file
 """
 import builtins
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -29,7 +30,7 @@ class ErrorSourceProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ErrorSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ErrorSourceProto._ErrorSource.ValueType], builtins.type):  # noqa: F821
+    class _ErrorSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ErrorSourceProto._ErrorSource.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: ErrorSourceProto._ErrorSource.ValueType  # 0
         TPU_COMPILE_OP: ErrorSourceProto._ErrorSource.ValueType  # 1

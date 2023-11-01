@@ -134,8 +134,69 @@ xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signatur
 xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.parsers.expat.expat_CAPI
 
+# Modules that exist at runtime, but shouldn't be added to typeshed
+idlelib
+
 # ==========
-# Exists at runtime, but missing from stubs
+# Modules that exist at runtime, but are missing from stubs
+# ==========
+ctypes.macholib
+ctypes.macholib.dyld
+ctypes.macholib.dylib
+ctypes.macholib.framework
+encodings.aliases
+encodings.ascii
+encodings.base64_codec
+encodings.big5
+encodings.big5hkscs
+encodings.bz2_codec
+encodings.charmap
+encodings\.cp\d+
+encodings\.euc_.+
+encodings.gb18030
+encodings.gb2312
+encodings.gbk
+encodings.hex_codec
+encodings.hp_roman8
+encodings.hz
+encodings.idna
+encodings\.iso2022_.*
+encodings\.iso8859_\d+
+encodings.johab
+encodings\.koi8_\w
+encodings.kz1048
+encodings.latin_1
+encodings\.mac_.+
+encodings.palmos
+encodings.ptcp154
+encodings.punycode
+encodings.quopri_codec
+encodings.raw_unicode_escape
+encodings.rot_13
+encodings\.shift_jis.*
+encodings.tis_620
+encodings.undefined
+encodings.unicode_escape
+encodings.utf_16
+encodings.utf_16_be
+encodings.utf_16_le
+encodings.utf_32
+encodings.utf_32_be
+encodings.utf_32_le
+encodings.utf_7
+encodings.uu_codec
+encodings.zlib_codec
+json.scanner
+lib2to3.btm_utils
+lib2to3.fixer_util
+lib2to3.patcomp
+sqlite3.dump
+turtledemo
+turtledemo\..+
+xml.sax.expatreader
+
+# ==========
+# Module members that exist at runtime, but are missing from stubs
 # ==========
 _json.encode_basestring
 _socket.CAPI
@@ -355,6 +416,7 @@ csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 p
 
 contextvars.Context.__init__  # C signature is broader than what is actually accepted
 dataclasses.field  # White lies around defaults
+hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
 hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hmac.HMAC.blocksize  # use block_size instead

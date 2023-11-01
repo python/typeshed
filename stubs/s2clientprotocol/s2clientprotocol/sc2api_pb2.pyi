@@ -4,6 +4,9 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
@@ -17,8 +20,6 @@ import s2clientprotocol.raw_pb2
 import s2clientprotocol.score_pb2
 import s2clientprotocol.spatial_pb2
 import s2clientprotocol.ui_pb2
-import sys
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -542,7 +543,7 @@ class ResponseCreateGame(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseCreateGame._Error.ValueType], builtins.type):  # noqa: F821
+    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseCreateGame._Error.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         MissingMap: ResponseCreateGame._Error.ValueType  # 1
         InvalidMapPath: ResponseCreateGame._Error.ValueType  # 2
@@ -664,7 +665,7 @@ class ResponseJoinGame(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseJoinGame._Error.ValueType], builtins.type):  # noqa: F821
+    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseJoinGame._Error.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         MissingParticipation: ResponseJoinGame._Error.ValueType  # 1
         InvalidObservedPlayerId: ResponseJoinGame._Error.ValueType  # 2
@@ -741,7 +742,7 @@ class ResponseRestartGame(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseRestartGame._Error.ValueType], builtins.type):  # noqa: F821
+    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseRestartGame._Error.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         LaunchError: ResponseRestartGame._Error.ValueType  # 1
 
@@ -818,7 +819,7 @@ class ResponseStartReplay(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseStartReplay._Error.ValueType], builtins.type):  # noqa: F821
+    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseStartReplay._Error.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         MissingReplay: ResponseStartReplay._Error.ValueType  # 1
         InvalidReplayPath: ResponseStartReplay._Error.ValueType  # 2
@@ -878,7 +879,7 @@ class ResponseMapCommand(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseMapCommand._Error.ValueType], builtins.type):  # noqa: F821
+    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseMapCommand._Error.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         NoTriggerError: ResponseMapCommand._Error.ValueType  # 1
 
@@ -1371,7 +1372,7 @@ class ResponseReplayInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseReplayInfo._Error.ValueType], builtins.type):  # noqa: F821
+    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseReplayInfo._Error.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         MissingReplay: ResponseReplayInfo._Error.ValueType  # 1
         InvalidReplayPath: ResponseReplayInfo._Error.ValueType  # 2
@@ -1501,7 +1502,7 @@ class ResponseSaveMap(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseSaveMap._Error.ValueType], builtins.type):  # noqa: F821
+    class _ErrorEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ResponseSaveMap._Error.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         InvalidMapData: ResponseSaveMap._Error.ValueType  # 1
 
@@ -1897,7 +1898,7 @@ class ActionChat(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ChannelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ActionChat._Channel.ValueType], builtins.type):  # noqa: F821
+    class _ChannelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ActionChat._Channel.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         Broadcast: ActionChat._Channel.ValueType  # 1
         Team: ActionChat._Channel.ValueType  # 2

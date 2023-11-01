@@ -6,7 +6,7 @@ from typing_extensions import Final, Literal
 
 from openpyxl.cell import _CellValue, _TimeTypes
 from openpyxl.comments.comments import Comment
-from openpyxl.compat.numbers import NUMERIC_TYPES as NUMERIC_TYPES
+from openpyxl.compat.numbers import NUMERIC_TYPES as NUMERIC_TYPES  # cell numeric types
 from openpyxl.styles.cell_style import StyleArray
 from openpyxl.styles.styleable import StyleableObject
 from openpyxl.workbook.child import _WorkbookChild
