@@ -30,8 +30,7 @@ Typeshed runs continuous integration (CI) on all pull requests. This means that
 if you file a pull request (PR), our full test suite
 -- including our linter, [Flake8](https://github.com/PyCQA/flake8) --
 is run on your PR. It also means that bots will automatically apply
-changes to your PR (using [Black](https://github.com/psf/black),
-[isort](https://github.com/PyCQA/isort) and
+changes to your PR (using [Black](https://github.com/psf/black) and
 [Ruff](https://github.com/astral-sh/ruff)) to fix any formatting issues.
 This frees you up to ignore all local setup on your side, focus on the
 code and rely on the CI to fix everything, or point you to the places that
@@ -87,8 +86,7 @@ terminal to install all non-pytype requirements:
 
 ## Code formatting
 
-The code is formatted using [`Black`](https://github.com/psf/black)
-and [`isort`](https://github.com/PyCQA/isort).
+The code is formatted using [`Black`](https://github.com/psf/black).
 Various other autofixes are
 also performed by [`Ruff`](https://github.com/astral-sh/ruff).
 
@@ -101,8 +99,7 @@ That being said, if you *want* to run the checks locally when you commit,
 you're free to do so. Either run the following manually...
 
 ```bash
-(.venv)$ isort .
-(.venv)$ ruff .
+(.venv)$ ruff check .
 (.venv)$ black .
 ```
 
