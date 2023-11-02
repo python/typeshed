@@ -6,14 +6,17 @@ from openpyxl.descriptors import DateTime
 from openpyxl.descriptors.base import Alias
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.xml.functions import Element
 
 # Does not reimplement the relevant methods, so runtime also has incompatible supertypes
 class NestedDateTime(DateTime[Incomplete], NestedText[Incomplete, Incomplete]):  # type: ignore[misc]
     expected_type: type[Incomplete]
-    def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None): ...
+    def to_tree(
+        self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None
+    ) -> Element | None: ...
 
 class QualifiedDateTime(NestedDateTime):
-    def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None): ...
+    def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None) -> Element: ...
 
 class DocumentProperties(Serialisable):
     tagname: ClassVar[str]

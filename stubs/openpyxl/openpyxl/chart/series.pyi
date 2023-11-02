@@ -13,6 +13,7 @@ from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool, _Convert
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedBool, NestedInteger, NestedNoneSet, NestedText, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.xml.functions import Element
 
 from ..xml._functions_overloads import _HasTagAndGet
 
@@ -82,7 +83,7 @@ class Series(Serialisable):
         explosion: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
         extLst: Unused = None,
     ) -> None: ...
-    def to_tree(self, tagname: str | None = None, idx: Incomplete | None = None): ...  # type: ignore[override]
+    def to_tree(self, tagname: str | None = None, idx: Incomplete | None = None) -> Element: ...  # type: ignore[override]
 
 class XYSeries(Series):
     # Same as parent

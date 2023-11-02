@@ -8,6 +8,7 @@ from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, Typed, _Con
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable, _ChildSerialisableTreeElement
 from openpyxl.worksheet.filters import AutoFilter, SortState
+from openpyxl.xml.functions import Element
 
 _TableColumnTotalsRowFunction: TypeAlias = Literal[
     "sum", "min", "max", "average", "count", "countNums", "stdDev", "var", "custom"
@@ -196,7 +197,7 @@ class Table(Serialisable):
         tableStyleInfo: TableStyleInfo | None = None,
         extLst: Unused = None,
     ) -> None: ...
-    def to_tree(self): ...
+    def to_tree(self) -> Element: ...  # type:ignore[override]
     @property
     def path(self) -> str: ...
     @property

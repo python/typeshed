@@ -6,6 +6,7 @@ from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _Co
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.packaging.relationship import Relationship
+from openpyxl.xml.functions import Element
 
 _ExternalCellType: TypeAlias = Literal["b", "d", "n", "e", "s", "str", "inlineStr"]
 
@@ -72,7 +73,7 @@ class ExternalLink(Serialisable):
     def __init__(
         self, externalBook: ExternalBook | None = None, ddeLink: Unused = None, oleLink: Unused = None, extLst: Unused = None
     ) -> None: ...
-    def to_tree(self): ...
+    def to_tree(self) -> Element: ...  # type:ignore[override]
     @property
     def path(self) -> str: ...
 

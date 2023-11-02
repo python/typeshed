@@ -5,6 +5,7 @@ from typing_extensions import Final, Literal, Self
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.base import Alias, Bool, Integer, MatchPattern, String, Typed, _ConvertibleToBool, _ConvertibleToInt
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.xml.functions import Element
 
 from ..xml._functions_overloads import _HasText
 
@@ -38,7 +39,7 @@ class HeaderFooterItem(Strict):
         center: _HeaderFooterPart | None = None,
     ) -> None: ...
     def __bool__(self) -> bool: ...
-    def to_tree(self, tagname): ...
+    def to_tree(self, tagname) -> Element: ...
     @classmethod
     def from_tree(cls, node: _HasText) -> Self: ...
 

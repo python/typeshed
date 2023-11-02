@@ -6,6 +6,7 @@ from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.filters import AutoFilter
+from openpyxl.xml.functions import Element
 
 _PivotAreaType: TypeAlias = Literal["normal", "data", "all", "origin", "button", "topEnd", "topRight"]
 _PivotAxis: TypeAlias = Literal["axisRow", "axisCol", "axisPage", "axisValues"]
@@ -420,7 +421,7 @@ class ConditionalFormatList(Serialisable):
     def by_priority(self): ...
     @property
     def count(self) -> int: ...
-    def to_tree(self, tagname: str | None = None): ...  # type: ignore[override]
+    def to_tree(self, tagname: str | None = None) -> Element: ...  # type: ignore[override]
 
 class Format(Serialisable):
     tagname: ClassVar[str]
@@ -950,7 +951,7 @@ class TableDefinition(Serialisable):
         extLst: ExtensionList | None = None,
         id: Incomplete | None = None,
     ) -> None: ...
-    def to_tree(self): ...
+    def to_tree(self) -> Element: ...  # type:ignore[override]
     @property
     def path(self) -> str: ...
     def formatted_fields(self) -> dict[Incomplete, list[Incomplete]]: ...

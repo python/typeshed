@@ -15,6 +15,7 @@ from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedBool, NestedMinMax, NestedNoneSet, NestedString, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import ColorMapping
+from openpyxl.xml.functions import Element
 
 from ..xml._functions_overloads import _HasTagAndGet
 
@@ -140,4 +141,6 @@ class ChartSpace(Serialisable):
         userShapes: Incomplete | None = None,
         extLst: Unused = None,
     ) -> None: ...
-    def to_tree(self, tagname: Incomplete | None = None, idx: Incomplete | None = None, namespace: str | None = None): ...
+    def to_tree(
+        self, tagname: Incomplete | None = None, idx: Incomplete | None = None, namespace: str | None = None
+    ) -> Element: ...
