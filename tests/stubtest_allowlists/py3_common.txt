@@ -416,6 +416,7 @@ csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 p
 
 contextvars.Context.__init__  # C signature is broader than what is actually accepted
 dataclasses.field  # White lies around defaults
+hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
 hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hmac.HMAC.blocksize  # use block_size instead

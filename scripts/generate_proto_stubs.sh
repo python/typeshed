@@ -45,7 +45,7 @@ PYTHON_PROTOBUF_DIR="protobuf-$PYTHON_PROTOBUF_VERSION"
 VENV=venv
 python3 -m venv "$VENV"
 source "$VENV/bin/activate"
-pip install -r "$REPO_ROOT/requirements-tests.txt"  # for Black and isort
+pip install -r "$REPO_ROOT/requirements-tests.txt"  # for Black and Ruff
 
 # Install mypy-protobuf
 pip install mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
@@ -73,7 +73,7 @@ PROTO_FILES=$(grep "GenProto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py | \
 # shellcheck disable=SC2086
 protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="relax_strict_optional_primitives:$REPO_ROOT/stubs/protobuf" $PROTO_FILES
 
-isort "$REPO_ROOT/stubs/protobuf"
+ruff check "$REPO_ROOT/stubs/protobuf" --fix-only
 black "$REPO_ROOT/stubs/protobuf"
 
 sed --in-place="" \
