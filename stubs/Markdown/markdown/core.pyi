@@ -37,7 +37,7 @@ class Markdown:
         self,
         *,
         extensions: Sequence[str | Extension] | None = ...,
-        extension_configs: Mapping[str, dict[str, Any]] | None = ...,
+        extension_configs: Mapping[str, Mapping[str, Any]] | None = ...,
         output_format: Literal["xhtml", "html"] | None = ...,
         tab_length: int | None = ...,
     ) -> None: ...
@@ -57,7 +57,7 @@ def markdown(
     text: str,
     *,
     extensions: Sequence[str | Extension] | None = ...,
-    extension_configs: Mapping[str, dict[str, Any]] | None = ...,
+    extension_configs: Mapping[str, Mapping[str, Any]] | None = ...,
     output_format: Literal["xhtml", "html"] | None = ...,
     tab_length: int | None = ...,
 ) -> str: ...
@@ -67,7 +67,7 @@ def markdownFromFile(
     output: str | _WritableStream | None = ...,
     encoding: str | None = ...,
     extensions: Sequence[str | Extension] | None = ...,
-    extension_configs: Mapping[str, dict[str, Any]] | None = ...,
+    extension_configs: Mapping[str, Mapping[str, Any]] | None = ...,
     output_format: Literal["xhtml", "html"] | None = ...,
     tab_length: int | None = ...,
 ) -> None: ...

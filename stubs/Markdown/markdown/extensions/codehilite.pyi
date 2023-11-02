@@ -21,16 +21,16 @@ class CodeHilite:
     options: dict[str, Any]
     def __init__(
         self,
-        src: str = ...,
+        src: str,
         *,
-        linenums: Any = ...,
+        linenums: bool | None = None,
         guess_lang: bool = ...,
         css_class: str = ...,
         lang: str | None = ...,
         style: str = ...,
         noclasses: bool = ...,
         tab_length: int = ...,
-        hl_lines: Any = ...,
+        hl_lines: list[int] = ...,
         use_pygments: bool = ...,
         **options: Any,
     ) -> None: ...
