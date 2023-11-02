@@ -1,6 +1,5 @@
 markdown.extensions.abbr.ABBR_REF_RE
 markdown.extensions.attr_list.AttrListTreeprocessor.run
-markdown.extensions.codehilite.CodeHilite.__init__
 markdown.extensions.footnotes.DEF_RE
 markdown.extensions.footnotes.TABBED_RE
 markdown.extensions.legacy_attrs.LegacyAttrs.run
