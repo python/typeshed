@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Unused
 from collections.abc import Iterable
 from typing import Any, ClassVar, NoReturn, overload
 from typing_extensions import Literal, TypeAlias
@@ -36,7 +36,13 @@ class Nested(Descriptor[_T]):
     def __get__(self, instance: Serialisable | Strict, cls: type | None) -> _T: ...
     def __set__(self, instance: Serialisable | Strict, value: _HasTagAndGet[_T] | _T) -> None: ...
     def from_tree(self, node: _HasGet[_T]) -> _T: ...
-    def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None) -> Element: ...
+    @overload
+    def to_tree(self, tagname: Unused = None, value: None = None, namespace: Unused = None) -> None: ...  # type: ignore[misc]  # Overlap with incompatible return type
+    # TODO: tagname is passed to Element, which seems to say that tag param can be callable AND not None, that doesn't seem right.
+    @overload
+    def to_tree(self, tagname: str | None = None, *, value: object, namespace: str | None = None) -> Element: ...
+    @overload
+    def to_tree(self, tagname: str | None, value: object, namespace: str | None = None) -> Element: ...
 
 class NestedValue(Nested[_T], Convertible[_T, _N]):  # type: ignore[misc]
     @overload
@@ -151,7 +157,13 @@ class NestedText(NestedValue[_T, _N]):
     @overload
     def __set__(self: NestedText[_T, Literal[True]], instance: Serialisable | Strict, value: _T | int | Any | None) -> None: ...
     def from_tree(self, node: _HasText) -> str: ...  # type: ignore[override]
-    def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None) -> Element: ...
+    @overload
+    def to_tree(self, tagname: Unused = None, value: None = None, namespace: Unused = None) -> None: ...  # type: ignore[misc]  # Overlap with incompatible return type
+    # TODO: tagname is passed to Element, which seems to say that tag param can be callable AND not None, that doesn't seem right.
+    @overload
+    def to_tree(self, tagname: str | None = None, *, value: object, namespace: str | None = None) -> Element: ...
+    @overload
+    def to_tree(self, tagname: str | None, value: object, namespace: str | None = None) -> Element: ...
 
 class NestedFloat(NestedValue[float, _N], Float[_N]):  # type: ignore[misc]
     @overload
@@ -268,4 +280,10 @@ class EmptyTag(Nested[bool], Bool[_N]):  # type: ignore[misc]
         self, instance: Serialisable | Strict, value: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool
     ) -> None: ...
     def from_tree(self, node: Unused) -> Literal[True]: ...  # type: ignore[override]  # Actual overriden return type
-    def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None) -> Element: ...
+    @overload
+    def to_tree(self, tagname: Unused = None, value: None = None, namespace: Unused = None) -> None: ...  # type: ignore[misc]  # Overlap with incompatible return type
+    # TODO: tagname is passed to Element, which seems to say that tag param can be callable AND not None, that doesn't seem right.
+    @overload
+    def to_tree(self, tagname: str | None = None, *, value: object, namespace: str | None = None) -> Element: ...
+    @overload
+    def to_tree(self, tagname: str | None, value: object, namespace: str | None = None) -> Element: ...

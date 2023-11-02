@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from typing import ClassVar
+from datetime import datetime
+from typing import ClassVar, overload
 from typing_extensions import Literal
 
 from openpyxl.descriptors import DateTime
@@ -11,12 +12,19 @@ from openpyxl.xml.functions import Element
 # Does not reimplement the relevant methods, so runtime also has incompatible supertypes
 class NestedDateTime(DateTime[Incomplete], NestedText[Incomplete, Incomplete]):  # type: ignore[misc]
     expected_type: type[Incomplete]
-    def to_tree(  # type:ignore[override]
-        self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None
-    ) -> Element | None: ...
+    @overload  # type: ignore[override]
+    def to_tree(self, tagname: str | None = None, value: None = None, namespace: str | None = None) -> None: ...
+    @overload
+    def to_tree(self, tagname: str | None = None, *, value: datetime, namespace: str | None = None) -> Element: ...
+    @overload
+    def to_tree(self, tagname: str | None, value: datetime, namespace: str | None = None) -> Element: ...
 
 class QualifiedDateTime(NestedDateTime):
-    def to_tree(self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None) -> Element: ...
+    # value cannot be None or it'll raise
+    @overload  # type: ignore[override]
+    def to_tree(self, tagname: str | None = None, *, value: datetime, namespace: str | None = None) -> Element: ...
+    @overload
+    def to_tree(self, tagname: str | None, value: datetime, namespace: str | None = None) -> Element: ...
 
 class DocumentProperties(Serialisable):
     tagname: ClassVar[str]
