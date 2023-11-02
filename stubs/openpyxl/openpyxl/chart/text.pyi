@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from typing import ClassVar
 from typing_extensions import Literal
 
@@ -26,4 +26,4 @@ class Text(Serialisable):
     rich: Typed[RichText, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, strRef: StrRef | None = None, rich: RichText | None = None) -> None: ...
-    def to_tree(self, tagname: str | None = None, idx: Incomplete | None = None, namespace: str | None = None) -> Element: ...
+    def to_tree(self, tagname: str | None = None, idx: Unused = None, namespace: str | None = None) -> Element: ...

@@ -37,7 +37,7 @@ class ValueSequence(Sequence):
 class NestedSequence(Sequence):
     count: bool
     expected_type: type[_SupportsFromTree]
-    def to_tree(self, tagname, obj, namespace: str | None = None) -> Element: ...
+    def to_tree(self, tagname, obj, namespace: str | None = None) -> Element: ...  # type:ignore[override]
     # returned list generic type should be same as the return type of expected_type.from_tree(node)
     # Which can really be anything given the wildly different, and sometimes generic, from_tree return types
     def from_tree(self, node: Iterable[_SerialisableTreeElement]) -> list[Any]: ...

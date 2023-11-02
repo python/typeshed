@@ -11,7 +11,7 @@ from openpyxl.xml.functions import Element
 # Does not reimplement the relevant methods, so runtime also has incompatible supertypes
 class NestedDateTime(DateTime[Incomplete], NestedText[Incomplete, Incomplete]):  # type: ignore[misc]
     expected_type: type[Incomplete]
-    def to_tree(
+    def to_tree(  # type:ignore[override]
         self, tagname: str | None = None, value: Incomplete | None = None, namespace: str | None = None
     ) -> Element | None: ...
 
