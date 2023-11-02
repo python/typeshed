@@ -111,7 +111,7 @@ class CurrentLine:
     number_of_spaces: int
     space_break_hint: Incomplete
     hyphen_break_hint: Incomplete
-    def __init__(self, print_sh: bool = False) -> None: ...
+    def __init__(self, max_width: float, print_sh: bool = False) -> None: ...
     def add_character(
         self,
         character: str,
@@ -142,7 +142,7 @@ class MultiLineBreak:
     idx_last_forced_break: int | None
     def __init__(
         self,
-        ragments: Sequence[Fragment],
+        fragments: Sequence[Fragment],
         max_width: float | Callable[[float], float],
         margins: Sequence[float],
         align: Align = ...,
