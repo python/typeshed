@@ -82,7 +82,7 @@ class Pool:
         func: Callable[..., _T],
         args: Iterable[Any] = (),
         kwds: Mapping[str, Any] = {},
-        callback: Callable[[Iterable[_T]], object] | None = None,
+        callback: Callable[[_T], object] | None = None,
         error_callback: Callable[[BaseException], object] | None = None,
     ) -> AsyncResult[_T]: ...
     def map(self, func: Callable[[_S], _T], iterable: Iterable[_S], chunksize: int | None = None) -> list[_T]: ...
