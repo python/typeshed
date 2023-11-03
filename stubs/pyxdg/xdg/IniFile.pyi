@@ -18,7 +18,13 @@ class IniFile:
     def parse(self, filename: str, headers: Iterable[str] | None = None) -> None: ...
     @overload
     def get(
-        self, key: str, group: str | None, locale: bool, type: Literal["string"], list: Literal[False], strict: bool = False
+        self,
+        key: str,
+        group: str | None = None,
+        locale: bool = False,
+        type: Literal["string"] = "string",
+        list: Literal[False] = False,
+        strict: bool = False,
     ) -> str: ...
     @overload
     def get(
@@ -26,7 +32,35 @@ class IniFile:
     ) -> list[str]: ...
     @overload
     def get(
-        self, key: str, group: str | None, locale: bool, type: Literal["boolean"], list: Literal[False], strict: bool = False
+        self,
+        key: str,
+        *,
+        list: Literal[True],
+        type: Literal["string"] = "string",
+        group: str | None = None,
+        locale: bool = False,
+        strict: bool = False,
+    ) -> list[str]: ...
+    @overload
+    def get(
+        self,
+        key: str,
+        group: str | None,
+        locale: bool,
+        type: Literal["boolean"],
+        list: Literal[False] = False,
+        strict: bool = False,
+    ) -> bool: ...
+    @overload
+    def get(
+        self,
+        key: str,
+        *,
+        type: Literal["boolean"],
+        group: str | None = None,
+        locale: bool = False,
+        list: Literal[False] = False,
+        strict: bool = False,
     ) -> bool: ...
     @overload
     def get(
@@ -34,7 +68,35 @@ class IniFile:
     ) -> list[bool]: ...
     @overload
     def get(
-        self, key: str, group: str | None, locale: bool, type: Literal["integer"], list: Literal[False], strict: bool = False
+        self,
+        key: str,
+        *,
+        type: Literal["boolean"],
+        list: Literal[True],
+        group: str | None = None,
+        locale: bool = False,
+        strict: bool = False,
+    ) -> list[bool]: ...
+    @overload
+    def get(
+        self,
+        key: str,
+        group: str | None,
+        locale: bool,
+        type: Literal["integer"],
+        list: Literal[False] = False,
+        strict: bool = False,
+    ) -> int: ...
+    @overload
+    def get(
+        self,
+        key: str,
+        *,
+        type: Literal["integer"],
+        group: str | None = None,
+        locale: bool = False,
+        list: Literal[False] = False,
+        strict: bool = False,
     ) -> int: ...
     @overload
     def get(
@@ -42,7 +104,37 @@ class IniFile:
     ) -> list[int]: ...
     @overload
     def get(
-        self, key: str, group: str | None, locale: bool, type: Literal["numeric"], list: Literal[False], strict: bool = False
+        self,
+        key: str,
+        *,
+        type: Literal["integer"],
+        list: Literal[True],
+        group: str | None = None,
+        locale: bool = False,
+        strict: bool = False,
+    ) -> list[int]: ...
+
+    # Float
+    @overload
+    def get(
+        self,
+        key: str,
+        group: str | None,
+        locale: bool,
+        type: Literal["numeric"],
+        list: Literal[False] = False,
+        strict: bool = False,
+    ) -> float: ...
+    @overload
+    def get(
+        self,
+        key: str,
+        *,
+        type: Literal["numeric"],
+        group: str | None = None,
+        locale: bool = False,
+        list: Literal[False] = False,
+        strict: bool = False,
     ) -> float: ...
     @overload
     def get(
@@ -50,12 +142,54 @@ class IniFile:
     ) -> list[float]: ...
     @overload
     def get(
-        self, key: str, group: str | None, locale: bool, type: Literal["regex"], list: Literal[False], strict: bool = False
+        self,
+        key: str,
+        *,
+        type: Literal["numeric"],
+        list: Literal[True],
+        group: str | None = None,
+        locale: bool = False,
+        strict: bool = False,
+    ) -> list[float]: ...
+
+    # Regex
+    @overload
+    def get(
+        self,
+        key: str,
+        group: str | None,
+        locale: bool,
+        type: Literal["regex"],
+        list: Literal[False] = False,
+        strict: bool = False,
+    ) -> re.Pattern[str]: ...
+    @overload
+    def get(
+        self,
+        key: str,
+        *,
+        type: Literal["regex"],
+        group: str | None = None,
+        locale: bool = False,
+        list: Literal[False] = False,
+        strict: bool = False,
     ) -> re.Pattern[str]: ...
     @overload
     def get(
         self, key: str, group: str | None, locale: bool, type: Literal["regex"], list: Literal[True], strict: bool = False
     ) -> list[re.Pattern[str]]: ...
+    @overload
+    def get(
+        self,
+        key: str,
+        *,
+        type: Literal["regex"],
+        list: Literal[True],
+        group: str | None = None,
+        locale: bool = False,
+        strict: bool = False,
+    ) -> list[re.Pattern[str]]: ...
+    # point
     @overload
     def get(
         self,
@@ -70,24 +204,28 @@ class IniFile:
     def get(
         self,
         key: str,
-        group: str | None,
-        locale: bool,
+        *,
         type: Literal["point"],
+        group: str | None = None,
+        locale: bool = False,
         list: Literal[False] = False,
         strict: bool = False,
+    ) -> tuple[int, int]: ...
+    @overload
+    def get(
+        self, key: str, group: str | None, locale: bool, type: Literal["point"], list: Literal[True], strict: bool = False
     ) -> list[tuple[int, int]]: ...
-    # The final overload has an untyped return value to keep various tests happy.
-    # In reality, all valid cases are handled above.
     @overload
     def get(
         self,
         key: str,
+        *,
+        type: Literal["point"],
+        list: Literal[True],
         group: str | None = None,
         locale: bool = False,
-        type: str = "string",
-        list: bool = False,
         strict: bool = False,
-    ): ...
+    ) -> list[tuple[int, int]]: ...
     def getList(self, string: str) -> list[str]: ...
     def validate(self, report: Literal["All", "Warnings", "Errors"] = "All") -> None: ...
     def checkGroup(self, group: str) -> None: ...
