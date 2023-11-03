@@ -8,10 +8,10 @@ _Unit: TypeAlias = Literal["pt", "mm", "cm", "in"]
 PIL_MEM_BLOCK_SIZE_IN_MIB: Final = 16
 
 class Padding(NamedTuple):
-    top: Number
-    right: Number
-    bottom: Number
-    left: Number
+    top: Number = 0
+    right: Number = 0
+    bottom: Number = 0
+    left: Number = 0
     @classmethod
     def new(cls, padding: float | tuple[float, ...] | list[float]): ...
 
