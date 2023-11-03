@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, SupportsLenAndGetItem
 from collections.abc import Generator, Iterable
 from logging import Logger
-from typing import ClassVar, Protocol, TypeVar
+from typing import ClassVar, Protocol, TypeVar, overload
 from typing_extensions import TypeAlias
 
 from .enums import AccessPermission, EncryptionMethod
@@ -64,11 +64,11 @@ class StandardSecurityHandler:
     o: str
     k: str
     u: str
-    # The following fields are only defined after a call to generate_user_password_rev6().
+    # The following field is only defined after a call to generate_user_password_rev6().
     ue: Incomplete
-    # The following fields are only defined after a call to generate_owner_password_rev6().
+    # The following field is only defined after a call to generate_owner_password_rev6().
     oe: Incomplete
-    # The following fields are only defined after a call to generate_perms_rev6().
+    # The following field is only defined after a call to generate_perms_rev6().
     perms_rev6: Incomplete
 
     def __init__(
@@ -82,7 +82,10 @@ class StandardSecurityHandler:
     ) -> None: ...
     def generate_passwords(self, file_id: str) -> None: ...
     def get_encryption_obj(self) -> EncryptionDictionary: ...
-    def encrypt(self, text: str | bytes | bytearray, obj_id: int) -> str | bytes: ...
+    @overload
+    def encrypt(self, text: bytes | bytearray, obj_id: int) -> bytes: ...
+    @overload
+    def encrypt(self, text: str, obj_id: int) -> str: ...
     def encrypt_string(self, string: str, obj_id: int) -> str: ...
     def encrypt_stream(self, stream: bytes, obj_id: int) -> bytes: ...
     def is_aes_algorithm(self) -> bool: ...

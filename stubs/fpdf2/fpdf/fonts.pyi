@@ -73,7 +73,7 @@ class PDFFontDescriptor(PDFObject):
 
 class Glyph:
     glyph_id: int
-    unicode: tuple[Incomplete]
+    unicode: tuple[Incomplete, ...]
     glyph_name: str
     glyph_width: int
     def __hash__(self): ...
