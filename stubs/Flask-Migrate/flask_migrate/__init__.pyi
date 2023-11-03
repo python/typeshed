@@ -28,7 +28,9 @@ class Config:  # should inherit from alembic.config.Config which is not possible
         stdout: TextIO = sys.stdout,
         cmd_opts: Namespace | None = None,
         config_args: SupportsKeysAndGetItem[str, _AlembicConfigValue] | Iterable[tuple[str, _AlembicConfigValue]] = ...,
-        attributes: SupportsKeysAndGetItem[str, _AlembicConfigValue] | Iterable[tuple[str, _AlembicConfigValue]] | None = None,
+        attributes: SupportsKeysAndGetItem[_AlembicConfigValue, _AlembicConfigValue]
+        | Iterable[tuple[_AlembicConfigValue, _AlembicConfigValue]]
+        | None = None,
         *,
         template_directory: str | None = None,
     ) -> None: ...
