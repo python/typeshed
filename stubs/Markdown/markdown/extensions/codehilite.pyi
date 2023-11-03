@@ -1,4 +1,3 @@
-from collections.abc import Callable
 from typing import Any
 
 from markdown.extensions import Extension
@@ -14,7 +13,7 @@ class CodeHilite:
     guess_lang: bool
     use_pygments: bool
     lang_prefix: str
-    pygments_formatter: str | Callable
+    pygments_formatter: Any
     options: dict[str, Any]
     def __init__(
         self,
