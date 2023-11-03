@@ -4,14 +4,15 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
 import tensorflow.core.framework.tensor_pb2
 import tensorflow.core.protobuf.graph_debug_info_pb2
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions

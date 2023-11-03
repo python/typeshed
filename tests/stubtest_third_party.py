@@ -12,13 +12,18 @@ from pathlib import Path
 from textwrap import dedent
 from typing import NoReturn
 
-from parse_metadata import get_recursive_requirements, read_metadata
-from utils import colored, get_mypy_req, make_venv, print_error, print_success_msg
+from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
+from utils import PYTHON_VERSION, colored, get_mypy_req, make_venv, print_error, print_success_msg
 
 
-def run_stubtest(dist: Path, *, verbose: bool = False, specified_platforms_only: bool = False) -> bool:
+def run_stubtest(
+    dist: Path, *, parser: argparse.ArgumentParser, verbose: bool = False, specified_platforms_only: bool = False
+) -> bool:
     dist_name = dist.name
-    metadata = read_metadata(dist_name)
+    try:
+        metadata = read_metadata(dist_name)
+    except NoSuchStubError as e:
+        parser.error(str(e))
     print(f"{dist_name}... ", end="")
 
     stubtest_settings = metadata.stubtest_settings
@@ -31,6 +36,10 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_platforms_only:
             print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
             return True
         print(colored(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
+
+    if not metadata.requires_python.contains(PYTHON_VERSION):
+        print(colored(f"skipping (requires Python {metadata.requires_python})", "yellow"))
+        return True
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
@@ -109,6 +118,10 @@ def run_stubtest(dist: Path, *, verbose: bool = False, specified_platforms_only:
             print_error("fail")
             print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
             print_command_output(e)
+
+            print("Python version: ", file=sys.stderr)
+            ret = subprocess.run([sys.executable, "-VV"], capture_output=True)
+            print_command_output(ret)
 
             print("Ran with the following environment:", file=sys.stderr)
             ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
@@ -253,7 +266,7 @@ def main() -> NoReturn:
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if not run_stubtest(dist, verbose=args.verbose, specified_platforms_only=args.specified_platforms_only):
+        if not run_stubtest(dist, parser=parser, verbose=args.verbose, specified_platforms_only=args.specified_platforms_only):
             result = 1
     sys.exit(result)
 

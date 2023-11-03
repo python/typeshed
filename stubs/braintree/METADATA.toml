@@ -1,4 +1,5 @@
-version = "4.21.*"
+version = "4.23.*"
+upstream_repository = "https://github.com/braintree/braintree_python"
 partial_stub = true
 
 [tool.stubtest]

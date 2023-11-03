@@ -213,6 +213,7 @@ class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], Sentinel
         *,
         decode_responses: Literal[True],
         retry_on_timeout: bool = False,
+        retry_on_error: list[type[RedisError]] | None = None,
         ssl: bool = False,
         ssl_keyfile: str | None = None,
         ssl_certfile: str | None = None,
@@ -253,6 +254,7 @@ class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], Sentinel
         errors: str | None = None,
         decode_responses: Literal[False] = False,
         retry_on_timeout: bool = False,
+        retry_on_error: list[type[RedisError]] | None = None,
         ssl: bool = False,
         ssl_keyfile: str | None = None,
         ssl_certfile: str | None = None,
@@ -382,7 +384,7 @@ class PubSubWorkerThread(threading.Thread):
     def run(self) -> None: ...
     def stop(self) -> None: ...
 
-class Pipeline(Redis[_StrType], Generic[_StrType]):
+class Pipeline(Redis[_StrType]):
     UNWATCH_COMMANDS: Any
     connection_pool: Any
     connection: Any

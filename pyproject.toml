@@ -3,19 +3,56 @@ line_length = 130
 target_version = ["py310"]
 skip_magic_trailing_comma = true
 # Exclude protobuf files because they have long line lengths
-# Ideally, we could configure black to allow longer line lengths
+# Ideally, we could configure Black to allow longer line lengths
 # for just these files, but doesn't seem possible yet.
 force-exclude = ".*_pb2.pyi"
 
-[tool.isort]
-profile = "black"
-combine_as_imports = true
-line_length = 130
-skip = [".git", ".github", ".venv"]
-extra_standard_library = [
-    "typing_extensions",
+[tool.ruff]
+line-length = 130
+# Oldest supported Python version
+target-version = "py37"
+fix = true
+exclude = [
+    # virtual environment
+    ".env",
+    ".venv",
+    "env",
+    # cache directories, etc.:
+    ".git",
+    ".mypy_cache",
+    ".pytype",
+    ".venv",
+    "env",
+]
+select = [
+    "FA", # flake8-future-annotations
+    "I", # isort
+    # Only enable rules that have safe autofixes:
+    "F401", # Remove unused imports
+    "PYI009", # use `...`, not `pass`, in empty class bodies
+    "PYI010", # function bodies must be empty
+    "PYI012", # class bodies must not contain `pass`
+    "PYI013", # non-empty class bodies must not contain `...`
+    "PYI020", # quoted annotations are always unnecessary in stubs
+    "PYI025", # always alias `collections.abc.Set` as `AbstractSet` when importing it
+    "PYI032", # use `object`, not `Any`, as the second parameter to `__eq__`
+    "UP004", # Remove explicit `object` inheritance
+    "UP006", # PEP-585 autofixes
+    "UP007", # PEP-604 autofixes
+    "UP013", # Class-based syntax for TypedDicts
+    "UP014", # Class-based syntax for NamedTuples
+    "UP019", # Use str over typing.Text
+    "UP035", # import from typing, not typing_extensions, wherever possible
+    "UP039", # don't use parens after a class definition with no bases
+]
+
+[tool.ruff.isort]
+split-on-trailing-comma = false
+combine-as-imports = true
+extra-standard-library = [
     "_typeshed",
-    # Extra modules not recognized by isort
+    "typing_extensions",
+    # Extra modules not recognized by Ruff/isort
     "_ast",
     "_bisect",
     "_bootlocale",
@@ -32,6 +69,7 @@ extra_standard_library = [
     "_heapq",
     "_imp",
     "_json",
+    "_locale",
     "_markupbase",
     "_msi",
     "_operator",
@@ -55,46 +93,8 @@ extra_standard_library = [
     "opcode",
     "pyexpat",
 ]
-known_first_party = ["utils", "parse_metadata"]
-
-[tool.ruff]
-line-length = 130
-target-version = "py37"
-fix = true
-exclude = [
-    # We're only interested in autofixes for our stubs
-    "*.py",
-    # Ignore generated protobuf stubs
-    "*_pb2.pyi",
-    # virtual environment, cache directories, etc.:
-    "env",
-    ".env",
-    ".venv",
-    ".git",
-    ".mypy_cache",
-    ".pytype",
-]
-
-# Only enable rules that have safe autofixes;
-# only enable rules that are relevant to stubs
-select = [
-    "F401",   # Remove unused imports
-    "UP004",  # Remove explicit `object` inheritance
-    "UP006",  # PEP-585 autofixes
-    "UP007",  # PEP-604 autofixes
-    "UP013",  # Class-based syntax for TypedDicts
-    "UP014",  # Class-based syntax for NamedTuples
-    "UP019",  # Use str over typing.Text
-    "UP035",  # import from typing, not typing_extensions, wherever possible
-    "UP039",  # don't use parens after a class definition with no bases
-    "PYI009",  # use `...`, not `pass`, in empty class bodies
-    "PYI010",  # function bodies must be empty
-    "PYI012",  # class bodies must not contain `pass`
-    "PYI013",  # non-empty class bodies must not contain `...`
-    "PYI020",  # quoted annotations are always unnecessary in stubs
-    "PYI025",  # always alias `collections.abc.Set` as `AbstractSet` when importing it
-    "PYI032",  # use `object`, not `Any`, as the second parameter to `__eq__`
-]
+known-first-party = ["parse_metadata", "utils"]
 
 [tool.typeshed]
-pyright_version = "1.1.319"
+pyright_version = "1.1.334"
+oldest_supported_python = "3.7"

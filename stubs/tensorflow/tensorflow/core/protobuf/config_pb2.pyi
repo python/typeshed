@@ -4,19 +4,21 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
 import tensorflow.core.framework.cost_graph_pb2
 import tensorflow.core.framework.graph_pb2
 import tensorflow.core.framework.step_stats_pb2
 import tensorflow.core.protobuf.cluster_pb2
-import tensorflow.core.protobuf.coordination_config_pb2
 import tensorflow.core.protobuf.debug_pb2
 import tensorflow.core.protobuf.rewriter_config_pb2
-import typing
+import tensorflow.tsl.protobuf.coordination_config_pb2
+import tensorflow.tsl.protobuf.rpc_options_pb2
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -95,6 +97,8 @@ class GPUOptions(google.protobuf.message.Message):
         INTERNAL_FRAGMENTATION_FRACTION_FIELD_NUMBER: builtins.int
         USE_CUDA_MALLOC_ASYNC_FIELD_NUMBER: builtins.int
         DISALLOW_RETRY_ON_ALLOCATION_FAILURE_FIELD_NUMBER: builtins.int
+        GPU_HOST_MEM_LIMIT_IN_MB_FIELD_NUMBER: builtins.int
+        GPU_HOST_MEM_DISALLOW_GROWTH_FIELD_NUMBER: builtins.int
         @property
         def virtual_devices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GPUOptions.Experimental.VirtualDevices]:
             """The multi virtual device settings. If empty (not set), it will create
@@ -205,6 +209,19 @@ class GPUOptions(google.protobuf.message.Message):
         hopes that another thread will free up memory in the meantime.  Setting
         this to true disables the sleep; instead we'll OOM immediately.
         """
+        gpu_host_mem_limit_in_mb: builtins.float
+        """Memory limit for "GPU host allocator", aka pinned memory allocator.  This
+        can also be set via the envvar TF_GPU_HOST_MEM_LIMIT_IN_MB.
+        """
+        gpu_host_mem_disallow_growth: builtins.bool
+        """If true, then the host allocator allocates its max memory all upfront and
+        never grows.  This can be useful for latency-sensitive systems, because
+        growing the GPU host memory pool can be expensive.
+
+        You probably only want to use this in combination with
+        gpu_host_mem_limit_in_mb, because the default GPU host memory limit is
+        quite high.
+        """
         def __init__(
             self,
             *,
@@ -219,8 +236,10 @@ class GPUOptions(google.protobuf.message.Message):
             internal_fragmentation_fraction: builtins.float | None = ...,
             use_cuda_malloc_async: builtins.bool | None = ...,
             disallow_retry_on_allocation_failure: builtins.bool | None = ...,
+            gpu_host_mem_limit_in_mb: builtins.float | None = ...,
+            gpu_host_mem_disallow_growth: builtins.bool | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["collective_ring_order", b"collective_ring_order", "disallow_retry_on_allocation_failure", b"disallow_retry_on_allocation_failure", "internal_fragmentation_fraction", b"internal_fragmentation_fraction", "kernel_tracker_max_bytes", b"kernel_tracker_max_bytes", "kernel_tracker_max_interval", b"kernel_tracker_max_interval", "kernel_tracker_max_pending", b"kernel_tracker_max_pending", "num_dev_to_dev_copy_streams", b"num_dev_to_dev_copy_streams", "timestamped_allocator", b"timestamped_allocator", "use_cuda_malloc_async", b"use_cuda_malloc_async", "use_unified_memory", b"use_unified_memory", "virtual_devices", b"virtual_devices"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["collective_ring_order", b"collective_ring_order", "disallow_retry_on_allocation_failure", b"disallow_retry_on_allocation_failure", "gpu_host_mem_disallow_growth", b"gpu_host_mem_disallow_growth", "gpu_host_mem_limit_in_mb", b"gpu_host_mem_limit_in_mb", "internal_fragmentation_fraction", b"internal_fragmentation_fraction", "kernel_tracker_max_bytes", b"kernel_tracker_max_bytes", "kernel_tracker_max_interval", b"kernel_tracker_max_interval", "kernel_tracker_max_pending", b"kernel_tracker_max_pending", "num_dev_to_dev_copy_streams", b"num_dev_to_dev_copy_streams", "timestamped_allocator", b"timestamped_allocator", "use_cuda_malloc_async", b"use_cuda_malloc_async", "use_unified_memory", b"use_unified_memory", "virtual_devices", b"virtual_devices"]) -> None: ...
 
     PER_PROCESS_GPU_MEMORY_FRACTION_FIELD_NUMBER: builtins.int
     ALLOW_GROWTH_FIELD_NUMBER: builtins.int
@@ -232,9 +251,9 @@ class GPUOptions(google.protobuf.message.Message):
     FORCE_GPU_COMPATIBLE_FIELD_NUMBER: builtins.int
     EXPERIMENTAL_FIELD_NUMBER: builtins.int
     per_process_gpu_memory_fraction: builtins.float
-    """Fraction of the available GPU memory to allocate for each process.
+    """Fraction of the total GPU memory to allocate for each process.
     1 means to allocate all of the GPU memory, 0.5 means the process
-    allocates up to ~50% of the available GPU memory.
+    allocates up to ~50% of the total GPU memory.
 
     GPU memory is pre-allocated unless the allow_growth option is enabled.
 
@@ -345,7 +364,7 @@ class OptimizerOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _LevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._Level.ValueType], builtins.type):  # noqa: F821
+    class _LevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._Level.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         L1: OptimizerOptions._Level.ValueType  # 0
         """L1 is the default level.
@@ -372,7 +391,7 @@ class OptimizerOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _GlobalJitLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._GlobalJitLevel.ValueType], builtins.type):  # noqa: F821
+    class _GlobalJitLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._GlobalJitLevel.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT: OptimizerOptions._GlobalJitLevel.ValueType  # 0
         """Default setting ("off" now, but later expected to be "on")"""
@@ -563,61 +582,6 @@ class ThreadPoolOptionProto(google.protobuf.message.Message):
 global___ThreadPoolOptionProto = ThreadPoolOptionProto
 
 @typing_extensions.final
-class RPCOptions(google.protobuf.message.Message):
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    USE_RPC_FOR_INPROCESS_MASTER_FIELD_NUMBER: builtins.int
-    COMPRESSION_ALGORITHM_FIELD_NUMBER: builtins.int
-    COMPRESSION_LEVEL_FIELD_NUMBER: builtins.int
-    CACHE_RPC_RESPONSE_FIELD_NUMBER: builtins.int
-    DISABLE_SESSION_CONNECTION_SHARING_FIELD_NUMBER: builtins.int
-    NUM_CHANNELS_PER_TARGET_FIELD_NUMBER: builtins.int
-    use_rpc_for_inprocess_master: builtins.bool
-    """If true, always use RPC to contact the session target.
-
-    If false (the default option), TensorFlow may use an optimized
-    transport for client-master communication that avoids the RPC
-    stack. This option is primarily for used testing the RPC stack.
-    """
-    compression_algorithm: builtins.str
-    """The compression algorithm to be used. One of "deflate", "gzip"."""
-    compression_level: builtins.int
-    """If compression_algorithm is set, the compression level to be used.
-    From 0 (no compression), up to 3.
-    """
-    cache_rpc_response: builtins.bool
-    """Setting cache_rpc_response to true will enable sender side caching of
-    response for RecvTensorAsync and RecvBufAsync to allow receiver to retry
-    requests . This is only necessary when the network fabric is experiencing a
-    significant error rate.  Without it we'll fail a step on an network error,
-    while with it we'll be able to complete long steps (like complex
-    initializations) in the face of some network errors during RecvTensor.
-    """
-    disable_session_connection_sharing: builtins.bool
-    """Disables TCP connection sharing when opening a new RPC channel."""
-    num_channels_per_target: builtins.int
-    """Setting num_channels_per_target > 0 allows uses of multiple channels to
-    communicate to the same target. This can be used to improve the aggregate
-    throughput on high speed links (e.g 100G) where single connection is not
-    sufficient to maximize link utilization. Note that a single RPC only goes
-    on a single channel, this only helps in situations where there are multiple
-    transfers to the same target overlapping in time.
-    """
-    def __init__(
-        self,
-        *,
-        use_rpc_for_inprocess_master: builtins.bool | None = ...,
-        compression_algorithm: builtins.str | None = ...,
-        compression_level: builtins.int | None = ...,
-        cache_rpc_response: builtins.bool | None = ...,
-        disable_session_connection_sharing: builtins.bool | None = ...,
-        num_channels_per_target: builtins.int | None = ...,
-    ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["cache_rpc_response", b"cache_rpc_response", "compression_algorithm", b"compression_algorithm", "compression_level", b"compression_level", "disable_session_connection_sharing", b"disable_session_connection_sharing", "num_channels_per_target", b"num_channels_per_target", "use_rpc_for_inprocess_master", b"use_rpc_for_inprocess_master"]) -> None: ...
-
-global___RPCOptions = RPCOptions
-
-@typing_extensions.final
 class SessionMetadata(google.protobuf.message.Message):
     """Metadata about the session.
 
@@ -683,7 +647,7 @@ class ConfigProto(google.protobuf.message.Message):
             ValueType = typing.NewType("ValueType", builtins.int)
             V: typing_extensions.TypeAlias = ValueType
 
-        class _MlirBridgeRolloutEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConfigProto.Experimental._MlirBridgeRollout.ValueType], builtins.type):  # noqa: F821
+        class _MlirBridgeRolloutEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConfigProto.Experimental._MlirBridgeRollout.ValueType], builtins.type):
             DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
             MLIR_BRIDGE_ROLLOUT_UNSPECIFIED: ConfigProto.Experimental._MlirBridgeRollout.ValueType  # 0
             """If this field is left unspecified, the MLIR bridge may be selectively
@@ -693,20 +657,6 @@ class ConfigProto(google.protobuf.message.Message):
             """Enabling the MLIR bridge enables it for all graphs in this session."""
             MLIR_BRIDGE_ROLLOUT_DISABLED: ConfigProto.Experimental._MlirBridgeRollout.ValueType  # 2
             """Disabling the MLIR bridge disables it for all graphs in this session."""
-            MLIR_BRIDGE_ROLLOUT_SAFE_MODE_ENABLED: ConfigProto.Experimental._MlirBridgeRollout.ValueType  # 3
-            """Enable the MLIR bridge on a per graph basis based on an analysis of
-            the features used in the graph. If the features used by the graph are
-            supported by the MLIR bridge, the MLIR bridge will be used to run the
-            graph.
-            """
-            MLIR_BRIDGE_ROLLOUT_SAFE_MODE_FALLBACK_ENABLED: ConfigProto.Experimental._MlirBridgeRollout.ValueType  # 4
-            """Enable the MLIR bridge in a fallback mode on a per graph basis based
-            on an analysis of the features used in the graph.
-            Running the MLIR bridge in the fallback mode means that it is
-            executed and it commits all the changes to the TF graph in case
-            of success. And it does not in case of failures and let the old bridge
-            to process the TF graph.
-            """
 
         class MlirBridgeRollout(_MlirBridgeRollout, metaclass=_MlirBridgeRolloutEnumTypeWrapper):
             """An enum that describes the state of the MLIR bridge rollout."""
@@ -719,20 +669,6 @@ class ConfigProto(google.protobuf.message.Message):
         """Enabling the MLIR bridge enables it for all graphs in this session."""
         MLIR_BRIDGE_ROLLOUT_DISABLED: ConfigProto.Experimental.MlirBridgeRollout.ValueType  # 2
         """Disabling the MLIR bridge disables it for all graphs in this session."""
-        MLIR_BRIDGE_ROLLOUT_SAFE_MODE_ENABLED: ConfigProto.Experimental.MlirBridgeRollout.ValueType  # 3
-        """Enable the MLIR bridge on a per graph basis based on an analysis of
-        the features used in the graph. If the features used by the graph are
-        supported by the MLIR bridge, the MLIR bridge will be used to run the
-        graph.
-        """
-        MLIR_BRIDGE_ROLLOUT_SAFE_MODE_FALLBACK_ENABLED: ConfigProto.Experimental.MlirBridgeRollout.ValueType  # 4
-        """Enable the MLIR bridge in a fallback mode on a per graph basis based
-        on an analysis of the features used in the graph.
-        Running the MLIR bridge in the fallback mode means that it is
-        executed and it commits all the changes to the TF graph in case
-        of success. And it does not in case of failures and let the old bridge
-        to process the TF graph.
-        """
 
         COLLECTIVE_GROUP_LEADER_FIELD_NUMBER: builtins.int
         EXECUTOR_TYPE_FIELD_NUMBER: builtins.int
@@ -754,6 +690,7 @@ class ConfigProto(google.protobuf.message.Message):
         DISABLE_FUNCTIONAL_OPS_LOWERING_FIELD_NUMBER: builtins.int
         XLA_PREFER_SINGLE_GRAPH_CLUSTER_FIELD_NUMBER: builtins.int
         COORDINATION_CONFIG_FIELD_NUMBER: builtins.int
+        DISABLE_OPTIMIZE_FOR_STATIC_GRAPH_FIELD_NUMBER: builtins.int
         collective_group_leader: builtins.str
         """Task name for group resolution."""
         executor_type: builtins.str
@@ -817,7 +754,8 @@ class ConfigProto(google.protobuf.message.Message):
             If set, this can be used by the runtime and the Ops for debugging,
             monitoring, etc.
 
-            NOTE: This is currently used and propagated only by the direct session.
+            NOTE: This is currently used and propagated only by the direct session
+            and EagerContext.
             """
         optimize_for_static_graph: builtins.bool
         """If true, the session may treat the graph as being static for optimization
@@ -828,13 +766,10 @@ class ConfigProto(google.protobuf.message.Message):
         Session::Extend() may not be supported.
         """
         enable_mlir_bridge: builtins.bool
-        """This field will eventually be deprecated and replaced by
-        mlir_bridge_rollout (b/166038521).
+        """Whether to enable the MLIR-based TF->XLA bridge. This is only used if set
+        to true. Default value or false is ignored. Use mlir_bridge_rollout for
+        finer control.
 
-        Whether to enable the MLIR-based TF->XLA bridge.
-
-        This is a replacement to the existing bridge, and not ready for
-        production usage yet.
         If this option is set to true when a session is created, MLIR is used to
         perform the set of graph transformations to put the graph in a form that
         can be executed with delegation of some computations to an accelerator.
@@ -844,11 +779,7 @@ class ConfigProto(google.protobuf.message.Message):
         to lower the encapsulated graph to a particular device.
         """
         mlir_bridge_rollout: global___ConfigProto.Experimental.MlirBridgeRollout.ValueType
-        """This field is underdevelopment, for now use enable_mlir_bridge
-        (b/166038521).
-
-        Whether to enable the MLIR-based TF->XLA bridge.
-        """
+        """Whether to enable the MLIR-based TF->XLA bridge."""
         enable_mlir_graph_optimization: builtins.bool
         """Whether to enable the MLIR-based Graph optimizations.
 
@@ -882,8 +813,19 @@ class ConfigProto(google.protobuf.message.Message):
         cluster that encompases most of the graph.
         """
         @property
-        def coordination_config(self) -> tensorflow.core.protobuf.coordination_config_pb2.CoordinationServiceConfig:
+        def coordination_config(self) -> tensorflow.tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig:
             """Distributed coordination service configurations."""
+        disable_optimize_for_static_graph: builtins.bool
+        """If true, the session will treat the graph as being non-static for
+        optimization purposes.
+
+        If this option is set to true when a session is created, the full
+        GraphDef will be retained to enable calls to Session::Extend().
+        Calling Extend() without setting this flag will result in errors.
+
+        This option is meant to replace `optimize_for_static_graph` and it
+        aims to negate its value.
+        """
         def __init__(
             self,
             *,
@@ -906,10 +848,11 @@ class ConfigProto(google.protobuf.message.Message):
             use_tfrt: builtins.bool | None = ...,
             disable_functional_ops_lowering: builtins.bool | None = ...,
             xla_prefer_single_graph_cluster: builtins.bool | None = ...,
-            coordination_config: tensorflow.core.protobuf.coordination_config_pb2.CoordinationServiceConfig | None = ...,
+            coordination_config: tensorflow.tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig | None = ...,
+            disable_optimize_for_static_graph: builtins.bool | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["coordination_config", b"coordination_config", "session_metadata", b"session_metadata"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["collective_deterministic_sequential_execution", b"collective_deterministic_sequential_execution", "collective_group_leader", b"collective_group_leader", "collective_nccl", b"collective_nccl", "coordination_config", b"coordination_config", "disable_functional_ops_lowering", b"disable_functional_ops_lowering", "disable_output_partition_graphs", b"disable_output_partition_graphs", "disable_thread_spinning", b"disable_thread_spinning", "enable_mlir_bridge", b"enable_mlir_bridge", "enable_mlir_graph_optimization", b"enable_mlir_graph_optimization", "executor_type", b"executor_type", "mlir_bridge_rollout", b"mlir_bridge_rollout", "optimize_for_static_graph", b"optimize_for_static_graph", "recv_buf_max_chunk", b"recv_buf_max_chunk", "session_metadata", b"session_metadata", "share_cluster_devices_in_session", b"share_cluster_devices_in_session", "share_session_state_in_clusterspec_propagation", b"share_session_state_in_clusterspec_propagation", "use_numa_affinity", b"use_numa_affinity", "use_tfrt", b"use_tfrt", "xla_fusion_autotuner_thresh", b"xla_fusion_autotuner_thresh", "xla_prefer_single_graph_cluster", b"xla_prefer_single_graph_cluster"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["collective_deterministic_sequential_execution", b"collective_deterministic_sequential_execution", "collective_group_leader", b"collective_group_leader", "collective_nccl", b"collective_nccl", "coordination_config", b"coordination_config", "disable_functional_ops_lowering", b"disable_functional_ops_lowering", "disable_optimize_for_static_graph", b"disable_optimize_for_static_graph", "disable_output_partition_graphs", b"disable_output_partition_graphs", "disable_thread_spinning", b"disable_thread_spinning", "enable_mlir_bridge", b"enable_mlir_bridge", "enable_mlir_graph_optimization", b"enable_mlir_graph_optimization", "executor_type", b"executor_type", "mlir_bridge_rollout", b"mlir_bridge_rollout", "optimize_for_static_graph", b"optimize_for_static_graph", "recv_buf_max_chunk", b"recv_buf_max_chunk", "session_metadata", b"session_metadata", "share_cluster_devices_in_session", b"share_cluster_devices_in_session", "share_session_state_in_clusterspec_propagation", b"share_session_state_in_clusterspec_propagation", "use_numa_affinity", b"use_numa_affinity", "use_tfrt", b"use_tfrt", "xla_fusion_autotuner_thresh", b"xla_fusion_autotuner_thresh", "xla_prefer_single_graph_cluster", b"xla_prefer_single_graph_cluster"]) -> None: ...
 
     DEVICE_COUNT_FIELD_NUMBER: builtins.int
     INTRA_OP_PARALLELISM_THREADS_FIELD_NUMBER: builtins.int
@@ -1029,7 +972,7 @@ class ConfigProto(google.protobuf.message.Message):
     deadline for all blocking operations.
     """
     @property
-    def rpc_options(self) -> global___RPCOptions:
+    def rpc_options(self) -> tensorflow.tsl.protobuf.rpc_options_pb2.RPCOptions:
         """Options that apply when this session uses the distributed runtime."""
     @property
     def cluster_def(self) -> tensorflow.core.protobuf.cluster_pb2.ClusterDef:
@@ -1062,7 +1005,7 @@ class ConfigProto(google.protobuf.message.Message):
         log_device_placement: builtins.bool | None = ...,
         graph_options: global___GraphOptions | None = ...,
         operation_timeout_in_ms: builtins.int | None = ...,
-        rpc_options: global___RPCOptions | None = ...,
+        rpc_options: tensorflow.tsl.protobuf.rpc_options_pb2.RPCOptions | None = ...,
         cluster_def: tensorflow.core.protobuf.cluster_pb2.ClusterDef | None = ...,
         isolate_session_state: builtins.bool | None = ...,
         share_cluster_devices_in_session: builtins.bool | None = ...,
@@ -1083,7 +1026,7 @@ class RunOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TraceLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RunOptions._TraceLevel.ValueType], builtins.type):  # noqa: F821
+    class _TraceLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RunOptions._TraceLevel.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         NO_TRACE: RunOptions._TraceLevel.ValueType  # 0
         SOFTWARE_TRACE: RunOptions._TraceLevel.ValueType  # 1

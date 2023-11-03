@@ -32,6 +32,13 @@ stubs where decisions have been taken that might be slightly unusual. These
 test cases serve a different purpose: to check that type checkers do not emit
 false-positive errors for idiomatic usage of these classes.
 
+## Running the tests
+
+To verify the test cases in this directory pass with mypy, run `python tests/regr_test.py stdlib`
+from the root of the typeshed repository. This assumes that the development
+environment has been set up as described in the [CONTRIBUTING.md](../CONTRIBUTING.md)
+document.
+
 ### How the tests work
 
 The code in this directory is not intended to be directly executed. Instead,

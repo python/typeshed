@@ -3,11 +3,12 @@
 isort:skip_file
 """
 import builtins
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -56,7 +57,7 @@ class ProcessingModeDef(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ShardingPolicyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ProcessingModeDef._ShardingPolicy.ValueType], builtins.type):  # noqa: F821
+    class _ShardingPolicyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ProcessingModeDef._ShardingPolicy.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         OFF: ProcessingModeDef._ShardingPolicy.ValueType  # 0
         """No sharding will be performed. Each worker produces the entire dataset
@@ -160,7 +161,7 @@ class DataServiceMetadata(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _CompressionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DataServiceMetadata._Compression.ValueType], builtins.type):  # noqa: F821
+    class _CompressionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DataServiceMetadata._Compression.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         COMPRESSION_UNSPECIFIED: DataServiceMetadata._Compression.ValueType  # 0
         COMPRESSION_OFF: DataServiceMetadata._Compression.ValueType  # 1
