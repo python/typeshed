@@ -1,4 +1,5 @@
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor

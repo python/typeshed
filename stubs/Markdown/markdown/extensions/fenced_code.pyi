@@ -1,5 +1,6 @@
+from collections.abc import Iterable
 from re import Pattern
-from typing import Any, ClassVar, Iterable
+from typing import Any, ClassVar
 
 from markdown.core import Markdown
 from markdown.extensions import Extension
