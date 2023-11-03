@@ -1,5 +1,5 @@
 from collections.abc import Sequence
-from typing import Any
+from typing import Any, Mapping
 from xml.etree.ElementTree import Element
 
 from markdown import inlinepatterns, util
@@ -11,18 +11,18 @@ punctClass: str
 endOfWordClass: str
 closeClass: str
 openingQuotesBase: str
-substitutions: Any
-singleQuoteStartRe: Any
-doubleQuoteStartRe: Any
+substitutions: Mapping[str, str]
+singleQuoteStartRe: str
+doubleQuoteStartRe: str
 doubleQuoteSetsRe: str
 singleQuoteSetsRe: str
 decadeAbbrRe: str
-openingDoubleQuotesRegex: Any
+openingDoubleQuotesRegex: str
 closingDoubleQuotesRegex: str
-closingDoubleQuotesRegex2: Any
-openingSingleQuotesRegex: Any
-closingSingleQuotesRegex: Any
-closingSingleQuotesRegex2: Any
+closingDoubleQuotesRegex2: str
+openingSingleQuotesRegex: str
+closingSingleQuotesRegex: str
+closingSingleQuotesRegex2: str
 remainingSingleQuotesRegex: str
 remainingDoubleQuotesRegex: str
 HTML_STRICT_RE: str

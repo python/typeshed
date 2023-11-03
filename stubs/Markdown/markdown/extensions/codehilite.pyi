@@ -1,23 +1,19 @@
-from typing import Any
+from typing import Any, Callable
 
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
 
 pygments: bool
 
-def parse_hl_lines(expr): ...
+def parse_hl_lines(expr: str) -> list[int]: ...
 
 class CodeHilite:
-    src: Any
-    lang: Any
-    linenums: Any
-    guess_lang: Any
-    css_class: Any
-    style: Any
-    noclasses: Any
-    tab_length: Any
-    hl_lines: Any
-    use_pygments: Any
+    src: str
+    lang: str | None
+    guess_lang: bool
+    use_pygments: bool
+    lang_prefix: str
+    pygments_formatter: str | Callable
     options: dict[str, Any]
     def __init__(
         self,
@@ -37,6 +33,7 @@ class CodeHilite:
     def hilite(self, shebang: bool = True) -> str: ...
 
 class HiliteTreeprocessor(Treeprocessor):
+    config: dict[str, Any]
     def code_unescape(self, text: str) -> str: ...
 
 class CodeHiliteExtension(Extension):
