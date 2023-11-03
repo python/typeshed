@@ -36,9 +36,9 @@ class IniFile:
         key: str,
         *,
         list: Literal[True],
-        type: Literal["string"] = "string",
         group: str | None = None,
         locale: bool = False,
+        type: Literal["string"] = "string",
         strict: bool = False,
     ) -> list[str]: ...
     @overload
