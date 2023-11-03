@@ -35,7 +35,6 @@
         "stubs/commonmark",
         "stubs/dateparser",
         "stubs/docutils",
-        "stubs/Flask-Migrate",
         "stubs/Flask-SocketIO",
         "stubs/fpdf2",
         "stubs/google-cloud-ndb",
