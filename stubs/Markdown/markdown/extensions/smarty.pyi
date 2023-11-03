@@ -1,5 +1,5 @@
 from collections.abc import Mapping, Sequence
-from typing import Any, Mapping
+from typing import Any
 from xml.etree.ElementTree import Element
 
 from markdown import inlinepatterns, util
