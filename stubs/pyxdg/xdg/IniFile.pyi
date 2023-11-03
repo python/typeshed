@@ -18,24 +18,44 @@ class IniFile:
     def parse(self, filename: str, headers: Iterable[str] | None = None) -> None: ...
     @overload
     def get(
-        self, key: str, group: str | None, locale: bool, type: Literal["string"], list: bool = False, strict: bool = False
-    ) -> str | list[str]: ...
+        self, key: str, group: str | None, locale: bool, type: Literal["string"], list: Literal[False], strict: bool = False
+    ) -> str: ...
     @overload
     def get(
-        self, key: str, group: str | None, locale: bool, type: Literal["boolean"], list: bool = False, strict: bool = False
-    ) -> bool | list[bool]: ...
+        self, key: str, group: str | None, locale: bool, type: Literal["string"], list: Literal[True], strict: bool = False
+    ) -> list[str]: ...
     @overload
     def get(
-        self, key: str, group: str | None, locale: bool, type: Literal["integer"], list: bool = False, strict: bool = False
-    ) -> int | list[int]: ...
+        self, key: str, group: str | None, locale: bool, type: Literal["boolean"], list: Literal[False], strict: bool = False
+    ) -> bool: ...
     @overload
     def get(
-        self, key: str, group: str | None, locale: bool, type: Literal["numeric"], list: bool = False, strict: bool = False
-    ) -> float | list[bool]: ...
+        self, key: str, group: str | None, locale: bool, type: Literal["boolean"], list: Literal[True], strict: bool = False
+    ) -> list[bool]: ...
     @overload
     def get(
-        self, key: str, group: str | None, locale: bool, type: Literal["regex"], list: bool = False, strict: bool = False
-    ) -> re.Pattern[str] | list[re.Pattern[str]]: ...
+        self, key: str, group: str | None, locale: bool, type: Literal["integer"], list: Literal[False], strict: bool = False
+    ) -> int: ...
+    @overload
+    def get(
+        self, key: str, group: str | None, locale: bool, type: Literal["integer"], list: Literal[True], strict: bool = False
+    ) -> list[int]: ...
+    @overload
+    def get(
+        self, key: str, group: str | None, locale: bool, type: Literal["numeric"], list: Literal[False], strict: bool = False
+    ) -> float: ...
+    @overload
+    def get(
+        self, key: str, group: str | None, locale: bool, type: Literal["numeric"], list: Literal[True], strict: bool = False
+    ) -> list[float]: ...
+    @overload
+    def get(
+        self, key: str, group: str | None, locale: bool, type: Literal["regex"], list: Literal[False], strict: bool = False
+    ) -> re.Pattern[str]: ...
+    @overload
+    def get(
+        self, key: str, group: str | None, locale: bool, type: Literal["regex"], list: Literal[True], strict: bool = False
+    ) -> list[re.Pattern[str]]: ...
     @overload
     def get(
         self,
@@ -45,7 +65,17 @@ class IniFile:
         type: Literal["point"],
         list: Literal[False] = False,
         strict: bool = False,
-    ) -> tuple[int, int] | list[tuple[int, int]]: ...
+    ) -> tuple[int, int]: ...
+    @overload
+    def get(
+        self,
+        key: str,
+        group: str | None,
+        locale: bool,
+        type: Literal["point"],
+        list: Literal[False] = False,
+        strict: bool = False,
+    ) -> list[tuple[int, int]]: ...
     # The final overload has an untyped return value to keep various tests happy.
     # In reality, all valid cases are handled above.
     @overload
