@@ -1,5 +1,3 @@
-from re import Match
-
 from markdown.core import Markdown
 
 from . import util
@@ -14,6 +12,3 @@ class RawHtmlPostprocessor(Postprocessor):
     def stash_to_string(self, text: str) -> str: ...
 
 class AndSubstitutePostprocessor(Postprocessor): ...
-
-class UnescapePostprocessor(Postprocessor):
-    def unescape(self, m: Match[str]) -> str: ...

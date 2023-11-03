@@ -24,7 +24,7 @@ class ListIndentProcessor(BlockProcessor):
     ITEM_TYPES: list[str]
     LIST_TYPES: list[str]
     INDENT_RE: Pattern[str]
-    def __init__(self, parser: BlockParser, /) -> None: ...  # Note: This was done because the args are sent as-is.
+    def __init__(self, parser: BlockParser) -> None: ...  # Note: This was done because the args are sent as-is.
     def create_item(self, parent: Element, block: str) -> None: ...
     def get_level(self, parent: Element, block: str) -> tuple[int, Element]: ...
 
