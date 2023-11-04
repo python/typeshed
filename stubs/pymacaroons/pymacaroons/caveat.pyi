@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import TypedDict
 
 class _CaveatDict(TypedDict):

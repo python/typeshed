@@ -1,5 +1,6 @@
-from abc import abstractmethod, ABCMeta
-from typing import Iterable, Literal
+from abc import ABCMeta, abstractmethod
+from collections.abc import Iterable
+from typing import Literal
 
 from pymacaroons import Caveat, Macaroon, Verifier
 

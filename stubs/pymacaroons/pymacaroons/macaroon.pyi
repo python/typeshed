@@ -19,10 +19,12 @@ class Macaroon:
         key: str | bytes | None = None,
         caveats: str | None = None,
         signature: str | None = None,
-        version: int = MACAROON_V1,
+        version: int = 1,
     ) -> None: ...
     @classmethod
-    def deserialize(cls, serialized: str | bytes | bytearray, serializer: BaseSerializer | JsonSerializer | None = None) -> Macaroon: ...
+    def deserialize(
+        cls, serialized: str | bytes | bytearray, serializer: BaseSerializer | JsonSerializer | None = None
+    ) -> Macaroon: ...
     @property
     def location(self) -> str: ...
     @property

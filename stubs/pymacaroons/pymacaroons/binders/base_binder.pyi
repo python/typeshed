@@ -4,7 +4,6 @@ from abc import abstractmethod
 
 from pymacaroons import Macaroon
 
-
 class BaseBinder(metaclass=abc.ABCMeta):
     __metaclass__: type
     root: Incomplete
