@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from io import TextIOWrapper
 from os import _Environ
+from typing import TextIO
 
 from .spawnbase import SpawnBase
 
@@ -22,7 +23,7 @@ class spawn(SpawnBase):
         timeout: int = 30,
         maxread: int = 2000,
         searchwindowsize: int | None = None,
-        logfile: TextIOWrapper | None = None,
+        logfile: TextIOWrapper | TextIO | None = None,
         cwd: str | bytes | None = None,
         env: _Environ[Incomplete] | None = None,
         ignore_sighup: bool = False,
