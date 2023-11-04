@@ -1,5 +1,6 @@
 from collections.abc import Callable, Iterable
-from typing import Any, Literal
+from typing import Any
+from typing_extensions import Literal
 
 from pymacaroons import Macaroon
 from pymacaroons.caveat_delegates import FirstPartyCaveatVerifierDelegate, ThirdPartyCaveatVerifierDelegate

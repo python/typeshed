@@ -1,5 +1,5 @@
 from collections.abc import Iterable
-from typing import Literal
+from typing_extensions import Literal
 
 from pymacaroons import Caveat, Macaroon, Verifier
 
