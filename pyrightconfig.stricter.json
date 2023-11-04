@@ -70,7 +70,6 @@
         "stubs/redis",
         "stubs/requests",
         "stubs/requests-oauthlib",
-        "stubs/seaborn",
         "stubs/setuptools",
         "stubs/stripe",
         "stubs/tqdm",
