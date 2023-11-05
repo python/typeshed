@@ -1,12 +1,16 @@
 from _typeshed import Incomplete
-from collections.abc import Callable
+from collections.abc import Callable, Hashable, Mapping
 from typing import Any
-from typing_extensions import Concatenate, ParamSpec
+from typing_extensions import Concatenate, ParamSpec, TypeAlias
 
+from numpy import ufunc
 from pandas import DataFrame
-from pandas._typing import (
-    AggFuncTypeFrame,  # pyright: ignore[reportUnknownVariableType]  # This is for pandas-stubs to improve https://github.com/pandas-dev/pandas-stubs/issues/811
-)
+from pandas._typing import HashableT
+
+# pandas._typing.AggFuncTypeFrame is partially Unknown: https://github.com/pandas-dev/pandas-stubs/issues/811
+_AggFuncTypeBase: TypeAlias = Callable[..., Any] | str | ufunc
+_AggFuncTypeDictFrame: TypeAlias = Mapping[HashableT, _AggFuncTypeBase | list[_AggFuncTypeBase]]
+_AggFuncTypeFrame: TypeAlias = _AggFuncTypeBase | list[_AggFuncTypeBase] | _AggFuncTypeDictFrame[HashableT]
 
 _P = ParamSpec("_P")
 
@@ -19,7 +23,7 @@ class GroupBy:
     def agg(
         self,
         data: DataFrame,
-        func: AggFuncTypeFrame = ...,  # pyright: ignore[reportUnknownParameterType]  # This is for pandas-stubs to improve https://github.com/pandas-dev/pandas-stubs/issues/811
+        func: _AggFuncTypeFrame[Hashable] = ...,
         *args: Any,
         engine: str | None = None,
         engine_kwargs: dict[str, bool] | None = None,
