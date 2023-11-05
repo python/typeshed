@@ -5,12 +5,12 @@ from typing_extensions import Concatenate, ParamSpec, TypeAlias
 
 from numpy import ufunc
 from pandas import DataFrame
-from pandas._typing import HashableT
 
 # pandas._typing.AggFuncTypeFrame is partially Unknown: https://github.com/pandas-dev/pandas-stubs/issues/811
 _AggFuncTypeBase: TypeAlias = Callable[..., Any] | str | ufunc
-_AggFuncTypeDictFrame: TypeAlias = Mapping[HashableT, _AggFuncTypeBase | list[_AggFuncTypeBase]]
-_AggFuncTypeFrame: TypeAlias = _AggFuncTypeBase | list[_AggFuncTypeBase] | _AggFuncTypeDictFrame[HashableT]
+# Using Hashable instead of HashableT to work around pytype issue
+_AggFuncTypeDictFrame: TypeAlias = Mapping[Hashable, _AggFuncTypeBase | list[_AggFuncTypeBase]]
+_AggFuncTypeFrame: TypeAlias = _AggFuncTypeBase | list[_AggFuncTypeBase] | _AggFuncTypeDictFrame
 
 _P = ParamSpec("_P")
 
@@ -23,7 +23,7 @@ class GroupBy:
     def agg(
         self,
         data: DataFrame,
-        func: _AggFuncTypeFrame[Hashable] = ...,
+        func: _AggFuncTypeFrame = ...,
         *args: Any,
         engine: str | None = None,
         engine_kwargs: dict[str, bool] | None = None,
