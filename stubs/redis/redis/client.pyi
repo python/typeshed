@@ -4,7 +4,7 @@ from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta
 from re import Pattern
 from types import TracebackType
-from typing import Any, ClassVar, Generic, TypeVar, overload
+from typing import Any, ClassVar, TypeVar, overload
 from typing_extensions import Literal, Self, TypeAlias
 
 from redis import RedisError
@@ -76,7 +76,7 @@ _LockType = TypeVar("_LockType")
 class AbstractRedis:
     RESPONSE_CALLBACKS: dict[str, Any]
 
-class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], SentinelCommands, Generic[_StrType]):
+class Redis(AbstractRedis, RedisModuleCommands, CoreCommands[_StrType], SentinelCommands):
     @overload
     @classmethod
     def from_url(
