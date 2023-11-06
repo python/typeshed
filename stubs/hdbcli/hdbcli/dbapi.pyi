@@ -10,7 +10,7 @@ from .resultrow import ResultRow
 
 apilevel: str
 threadsafety: int
-paramstyle: str | tuple[str, ...]  # hdbcli defines it as a tuple which does not follow PEP 249
+paramstyle: tuple[str, ...]
 connect = Connection
 
 class Connection:
