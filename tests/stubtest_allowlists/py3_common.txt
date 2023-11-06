@@ -374,6 +374,10 @@ threading.Condition.release
 multiprocessing.dummy.Condition.acquire
 multiprocessing.dummy.Condition.release
 
+# Some of these take a "_warn" parameter at runtime
+# for technical reasons; no need to expose it in the stub.
+asyncio\..*\.__del__
+
 # Weird special builtins that are typed as functions, but aren't functions
 builtins.copyright
 builtins.credits
