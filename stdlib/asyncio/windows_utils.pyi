@@ -2,16 +2,12 @@ import subprocess
 import sys
 from collections.abc import Callable
 from types import TracebackType
-from typing import Any, AnyStr, Protocol
+from typing import Any, AnyStr
 from typing_extensions import Literal, Self
 
 if sys.platform == "win32":
     __all__ = ("pipe", "Popen", "PIPE", "PipeHandle")
 
-    class _WarnFunction(Protocol):
-        def __call__(
-            self, message: str, category: type[Warning] = ..., stacklevel: int = ..., source: PipeHandle = ...
-        ) -> object: ...
     BUFSIZE: Literal[8192]
     PIPE = subprocess.PIPE
     STDOUT = subprocess.STDOUT
@@ -20,7 +16,7 @@ if sys.platform == "win32":
     class PipeHandle:
         def __init__(self, handle: int) -> None: ...
         if sys.version_info >= (3, 8):
-            def __del__(self, _warn: _WarnFunction = ...) -> None: ...
+            def __del__(self, _warn: Any = ...) -> None: ...
         else:
             def __del__(self) -> None: ...
 
