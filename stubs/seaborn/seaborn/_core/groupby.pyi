@@ -1,13 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Hashable, Mapping
-from typing import Any
 from typing_extensions import Concatenate, ParamSpec, TypeAlias
 
 from numpy import ufunc
 from pandas import DataFrame
 
 # pandas._typing.AggFuncTypeFrame is partially Unknown: https://github.com/pandas-dev/pandas-stubs/issues/811
-_AggFuncTypeBase: TypeAlias = Callable[..., Any] | str | ufunc
+_AggFuncTypeBase: TypeAlias = Callable[..., Incomplete] | str | ufunc
 # Using Hashable instead of HashableT to work around pytype issue
 _AggFuncTypeDictFrame: TypeAlias = Mapping[Hashable, _AggFuncTypeBase | list[_AggFuncTypeBase]]
 _AggFuncTypeFrame: TypeAlias = _AggFuncTypeBase | list[_AggFuncTypeBase] | _AggFuncTypeDictFrame
@@ -24,10 +23,10 @@ class GroupBy:
         self,
         data: DataFrame,
         func: _AggFuncTypeFrame = ...,
-        *args: Any,
+        *args: Incomplete,
         engine: str | None = None,
         engine_kwargs: dict[str, bool] | None = None,
-        **kwargs: Any,
+        **kwargs: Incomplete,
     ) -> DataFrame: ...
     def apply(
         self, data: DataFrame, func: Callable[Concatenate[DataFrame, _P], DataFrame], *args: _P.args, **kwargs: _P.kwargs
