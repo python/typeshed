@@ -925,11 +925,11 @@ def waitpid(__pid: int, __options: int) -> tuple[int, int]: ...
 if sys.platform == "win32":
     if sys.version_info >= (3, 10):
         def startfile(
-            filepath: StrOrBytesPath, 
-            operation: str = ..., 
-            arguments: str = "", 
-            cwd: StrOrBytesPath | None = None, 
-            show_cmd: int = 1
+            filepath: StrOrBytesPath,
+            operation: str = ...,
+            arguments: str = "",
+            cwd: StrOrBytesPath | None = None,
+            show_cmd: int = 1,
         ) -> None: ...
     else:
         def startfile(filepath: StrOrBytesPath, operation: str = ...) -> None: ...
