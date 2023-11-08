@@ -18,6 +18,7 @@ from _typeshed import (
     SupportsAiter,
     SupportsAnext,
     SupportsDivMod,
+    SupportsFlush,
     SupportsIter,
     SupportsKeysAndGetItem,
     SupportsLenAndGetItem,
@@ -1637,8 +1638,7 @@ def open(
 ) -> IO[Any]: ...
 def ord(__c: str | bytes | bytearray) -> int: ...
 
-class _SupportsWriteAndFlush(SupportsWrite[_T_contra], Protocol[_T_contra]):
-    def flush(self) -> None: ...
+class _SupportsWriteAndFlush(SupportsWrite[_T_contra], SupportsFlush, Protocol[_T_contra]): ...
 
 @overload
 def print(
