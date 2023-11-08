@@ -11,23 +11,25 @@ if sys.version_info >= (3, 8):
         if sys.version_info >= (3, 9):
             def __init__(cls, *args: Unused) -> None: ...
 
-    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")
+    # TODO: flake8-pyi should allow long strings here
+    # https://github.com/PyCQA/flake8-pyi/issues/443
+    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")  # noqa: Y053
     class Num(Constant, metaclass=_ABC):
         value: int | float | complex
-    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")
+    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")  # noqa: Y053
     class Str(Constant, metaclass=_ABC):
         value: str
         # Aliases for value, for backwards compatibility
         s: str
-    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")
+    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")  # noqa: Y053
     class Bytes(Constant, metaclass=_ABC):
         value: bytes
         # Aliases for value, for backwards compatibility
         s: bytes
-    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")
+    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")  # noqa: Y053
     class NameConstant(Constant, metaclass=_ABC): ...
 
-    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")
+    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")  # noqa: Y053
     class Ellipsis(Constant, metaclass=_ABC): ...
 
 if sys.version_info >= (3, 9):
