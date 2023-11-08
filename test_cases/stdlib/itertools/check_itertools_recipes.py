@@ -112,7 +112,9 @@ def quantify(iterable: Iterable[object], pred: Callable[[Any], bool] = bool) -> 
 
 
 @overload
-def first_true(iterable: Iterable[_T], default: Literal[False] = False, pred: Callable[[_T], bool] | None = None) -> _T | Literal[False]:
+def first_true(
+    iterable: Iterable[_T], default: Literal[False] = False, pred: Callable[[_T], bool] | None = None
+) -> _T | Literal[False]:
     ...
 
 
