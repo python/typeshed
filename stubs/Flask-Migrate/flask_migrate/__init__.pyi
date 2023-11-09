@@ -20,7 +20,9 @@ _AlembicConfigValue: TypeAlias = Any
 alembic_version: tuple[int, int, int]
 log: Logger
 
-class _SupportsWriteAndFlush(SupportsWrite[_T_contra], SupportsFlush, Protocol): ...
+# TODO: Use _typeshed.SupportsFlush when it's available in type checkers.
+class _SupportsWriteAndFlush(SupportsWrite[_T_contra], Protocol):
+    def flush(self) -> object: ...
 
 class Config:  # should inherit from alembic.config.Config which is not possible yet
     template_directory: str | None
