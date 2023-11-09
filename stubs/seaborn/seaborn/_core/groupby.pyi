@@ -5,7 +5,7 @@ from typing_extensions import Concatenate, ParamSpec, TypeAlias
 from numpy import ufunc
 from pandas import DataFrame
 
-# pandas._typing.AggFuncTypeFrame is partially Unknown: https://github.com/pandas-dev/pandas-stubs/issues/811
+# pandas._typing.AggFuncTypeFrame is partially Unknown
 _AggFuncTypeBase: TypeAlias = Callable[..., Incomplete] | str | ufunc
 # Using Hashable instead of HashableT to work around pytype issue
 _AggFuncTypeDictFrame: TypeAlias = Mapping[Hashable, _AggFuncTypeBase | list[_AggFuncTypeBase]]

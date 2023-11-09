@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Hashable, Iterable, Mapping, Sequence
-from typing_extensions import Literal, Self
+from typing_extensions import Literal, Self, TypeAlias
 
 import numpy as np
 from matplotlib.axes import Axes
@@ -9,10 +9,12 @@ from matplotlib.gridspec import GridSpec
 from matplotlib.typing import ColorType
 from numpy._typing import _ArrayLike, _ArrayLikeInt_co
 from numpy.typing import ArrayLike, NDArray
-from pandas import DataFrame
-from pandas._typing import ListLikeU
+from pandas import DataFrame, Index, Series
 
 from .axisgrid import Grid
+
+# pandas._typing.ListLikeU is partially Unknown
+_ListLikeU: TypeAlias = Sequence[Incomplete] | np.ndarray[Incomplete, Incomplete] | Series[Incomplete] | Index[Incomplete]
 
 __all__ = ["heatmap", "clustermap"]
 
@@ -103,10 +105,10 @@ class ClusterGrid(Grid):
     dendrogram_col: _DendrogramPlotter | None
     def __init__(
         self,
-        data: ListLikeU
+        data: _ListLikeU
         | DataFrame
         | dict[Incomplete, Incomplete]
-        | Iterable[ListLikeU | tuple[Hashable, ListLikeU] | dict[Incomplete, Incomplete]]
+        | Iterable[_ListLikeU | tuple[Hashable, _ListLikeU] | dict[Incomplete, Incomplete]]
         | None,
         pivot_kws: Mapping[str, Incomplete] | None = None,
         z_score: int | None = None,
@@ -163,10 +165,10 @@ class ClusterGrid(Grid):
     ) -> Self: ...
 
 def clustermap(
-    data: ListLikeU
+    data: _ListLikeU
     | DataFrame
     | dict[Incomplete, Incomplete]
-    | Iterable[ListLikeU | tuple[Hashable, ListLikeU] | dict[Incomplete, Incomplete]]
+    | Iterable[_ListLikeU | tuple[Hashable, _ListLikeU] | dict[Incomplete, Incomplete]]
     | None,
     *,
     pivot_kws: dict[str, Incomplete] | None = None,
