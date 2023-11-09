@@ -1,7 +1,7 @@
 # pyright: reportInvalidStubStatement=none
 
 import sys
-from _typeshed import StrPath, SupportsFlush, SupportsKeysAndGetItem, SupportsWrite
+from _typeshed import StrPath, SupportsKeysAndGetItem, SupportsWrite
 from argparse import Namespace
 from collections.abc import Callable, Iterable, Sequence
 from logging import Logger
