@@ -20,7 +20,7 @@ from pyscreeze import (
 
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
-# Explicitely mentionning str despite being in the ConvertibleToInt Alias because it has a different meaning (filename on screen)
+# Explicitly mentioning str despite being in the ConvertibleToInt Alias because it has a different meaning (filename on screen)
 # Specifying non-None Y arg when X is a string or sequence raises an error
 # TODO: This could be better represented through overloads
 _NormalizeableXArg: TypeAlias = str | ConvertibleToInt | Sequence[ConvertibleToInt]
