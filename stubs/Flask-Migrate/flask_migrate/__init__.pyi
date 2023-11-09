@@ -1,5 +1,5 @@
 import sys
-from _typeshed import StrPath, SupportsFlush, SupportsKeysAndGetItem, SupportsWrite
+from _typeshed import StrPath, SupportsKeysAndGetItem, SupportsWrite
 from argparse import Namespace
 from collections.abc import Callable, Iterable, Sequence
 from logging import Logger
@@ -16,8 +16,6 @@ _AlembicConfigValue: TypeAlias = Any
 
 alembic_version: tuple[int, int, int]
 log: Logger
-
-class _SupportsWriteAndFlush(SupportsWrite[_T], SupportsFlush): ...
 
 class Config:  # should inherit from alembic.config.Config which is not possible yet
     template_directory: str | None
