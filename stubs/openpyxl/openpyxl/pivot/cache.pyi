@@ -1,20 +1,9 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from datetime import datetime
 from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import (
-    Bool,
-    DateTime,
-    Float,
-    Integer,
-    Set,
-    String,
-    Typed,
-    _ConvertibleToBool,
-    _ConvertibleToFloat,
-    _ConvertibleToInt,
-)
+from openpyxl.descriptors.base import Bool, DateTime, Float, Integer, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedInteger
 from openpyxl.descriptors.serialisable import Serialisable
@@ -30,7 +19,7 @@ class MeasureDimensionMap(Serialisable):
     tagname: ClassVar[str]
     measureGroup: Integer[Literal[True]]
     dimension: Integer[Literal[True]]
-    def __init__(self, measureGroup: _ConvertibleToInt | None = None, dimension: _ConvertibleToInt | None = None) -> None: ...
+    def __init__(self, measureGroup: ConvertibleToInt | None = None, dimension: ConvertibleToInt | None = None) -> None: ...
 
 class MeasureGroup(Serialisable):
     tagname: ClassVar[str]
@@ -67,7 +56,7 @@ class CalculatedMember(Serialisable):
         memberName: str,
         hierarchy: str,
         parent: str,
-        solveOrder: _ConvertibleToInt,
+        solveOrder: ConvertibleToInt,
         set: _ConvertibleToBool = None,
         extLst: Unused = None,
     ) -> None: ...
@@ -81,11 +70,11 @@ class CalculatedItem(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
-        self, field: _ConvertibleToInt | None = None, *, formula: str, pivotArea: PivotArea, extLst: Incomplete | None = None
+        self, field: ConvertibleToInt | None = None, *, formula: str, pivotArea: PivotArea, extLst: Incomplete | None = None
     ) -> None: ...
     @overload
     def __init__(
-        self, field: _ConvertibleToInt | None, formula: str, pivotArea: PivotArea, extLst: Incomplete | None = None
+        self, field: ConvertibleToInt | None, formula: str, pivotArea: PivotArea, extLst: Incomplete | None = None
     ) -> None: ...
 
 class ServerFormat(Serialisable):
@@ -115,7 +104,7 @@ class QueryCache(Serialisable):
     count: Integer[Literal[False]]
     query: Typed[Query, Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: _ConvertibleToInt, query: Query) -> None: ...
+    def __init__(self, count: ConvertibleToInt, query: Query) -> None: ...
 
 class OLAPSet(Serialisable):
     tagname: ClassVar[str]
@@ -129,8 +118,8 @@ class OLAPSet(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        count: _ConvertibleToInt,
-        maxRank: _ConvertibleToInt,
+        count: ConvertibleToInt,
+        maxRank: ConvertibleToInt,
         setDefinition: str,
         sortType: Incomplete | None = None,
         queryFailed: _ConvertibleToBool = None,
@@ -142,7 +131,7 @@ class OLAPSets(Serialisable):
     count: Integer[Literal[False]]
     set: Typed[OLAPSet, Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: _ConvertibleToInt, set: OLAPSet) -> None: ...
+    def __init__(self, count: ConvertibleToInt, set: OLAPSet) -> None: ...
 
 class PCDSDTCEntries(Serialisable):
     tagname: ClassVar[str]
@@ -152,7 +141,7 @@ class PCDSDTCEntries(Serialisable):
     e: Typed[Error, Literal[False]]
     s: Typed[Text, Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: _ConvertibleToInt, m: Missing, n: Number, e: Error, s: Text) -> None: ...
+    def __init__(self, count: ConvertibleToInt, m: Missing, n: Number, e: Error, s: Text) -> None: ...
 
 class TupleCache(Serialisable):
     tagname: ClassVar[str]
@@ -226,7 +215,7 @@ class GroupMembers(Serialisable):
     count: Integer[Literal[False]]
     groupMember: Typed[GroupMember, Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: _ConvertibleToInt, groupMember: GroupMember) -> None: ...
+    def __init__(self, count: ConvertibleToInt, groupMember: GroupMember) -> None: ...
 
 class LevelGroup(Serialisable):
     tagname: ClassVar[str]
@@ -238,7 +227,7 @@ class LevelGroup(Serialisable):
     groupMembers: Typed[GroupMembers, Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
-        self, name: str, uniqueName: str, caption: str, uniqueParent: str, id: _ConvertibleToInt, groupMembers: GroupMembers
+        self, name: str, uniqueName: str, caption: str, uniqueParent: str, id: ConvertibleToInt, groupMembers: GroupMembers
     ) -> None: ...
 
 class Groups(Serialisable):
@@ -246,7 +235,7 @@ class Groups(Serialisable):
     count: Integer[Literal[False]]
     group: Typed[LevelGroup, Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: _ConvertibleToInt, group: LevelGroup) -> None: ...
+    def __init__(self, count: ConvertibleToInt, group: LevelGroup) -> None: ...
 
 class GroupLevel(Serialisable):
     tagname: ClassVar[str]
@@ -271,18 +260,18 @@ class GroupLevels(Serialisable):
     count: Integer[Literal[False]]
     groupLevel: Typed[GroupLevel, Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: _ConvertibleToInt, groupLevel: GroupLevel) -> None: ...
+    def __init__(self, count: ConvertibleToInt, groupLevel: GroupLevel) -> None: ...
 
 class FieldUsage(Serialisable):
     tagname: ClassVar[str]
     x: Integer[Literal[False]]
-    def __init__(self, x: _ConvertibleToInt) -> None: ...
+    def __init__(self, x: ConvertibleToInt) -> None: ...
 
 class FieldsUsage(Serialisable):
     count: Integer[Literal[False]]
     fieldUsage: Typed[FieldUsage, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: _ConvertibleToInt, fieldUsage: FieldUsage | None = None) -> None: ...
+    def __init__(self, count: ConvertibleToInt, fieldUsage: FieldUsage | None = None) -> None: ...
 
 class CacheHierarchy(Serialisable):
     tagname: ClassVar[str]
@@ -319,8 +308,8 @@ class CacheHierarchy(Serialisable):
         caption: str | None = None,
         measure: _ConvertibleToBool = None,
         set: _ConvertibleToBool = None,
-        parentSet: _ConvertibleToInt | None = None,
-        iconSet: _ConvertibleToInt = 0,
+        parentSet: ConvertibleToInt | None = None,
+        iconSet: ConvertibleToInt = 0,
         attribute: _ConvertibleToBool = None,
         time: _ConvertibleToBool = None,
         keyAttribute: _ConvertibleToBool = None,
@@ -332,9 +321,9 @@ class CacheHierarchy(Serialisable):
         measureGroup: str | None = None,
         measures: _ConvertibleToBool = None,
         *,
-        count: _ConvertibleToInt,
+        count: ConvertibleToInt,
         oneField: _ConvertibleToBool = None,
-        memberValueDatatype: _ConvertibleToInt | None = None,
+        memberValueDatatype: ConvertibleToInt | None = None,
         unbalanced: _ConvertibleToBool | None = None,
         unbalancedGroup: _ConvertibleToBool | None = None,
         hidden: _ConvertibleToBool = None,
@@ -349,8 +338,8 @@ class CacheHierarchy(Serialisable):
         caption: str | None,
         measure: _ConvertibleToBool,
         set: _ConvertibleToBool,
-        parentSet: _ConvertibleToInt | None,
-        iconSet: _ConvertibleToInt,
+        parentSet: ConvertibleToInt | None,
+        iconSet: ConvertibleToInt,
         attribute: _ConvertibleToBool,
         time: _ConvertibleToBool,
         keyAttribute: _ConvertibleToBool,
@@ -361,9 +350,9 @@ class CacheHierarchy(Serialisable):
         displayFolder: str | None,
         measureGroup: str | None,
         measures: _ConvertibleToBool,
-        count: _ConvertibleToInt,
+        count: ConvertibleToInt,
         oneField: _ConvertibleToBool = None,
-        memberValueDatatype: _ConvertibleToInt | None = None,
+        memberValueDatatype: ConvertibleToInt | None = None,
         unbalanced: _ConvertibleToBool | None = None,
         unbalancedGroup: _ConvertibleToBool | None = None,
         hidden: _ConvertibleToBool = None,
@@ -392,7 +381,7 @@ class DiscretePr(Serialisable):
     x: NestedInteger[Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
-        self, count: _ConvertibleToInt, x: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None
+        self, count: ConvertibleToInt, x: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None
     ) -> None: ...
 
 class RangePr(Serialisable):
@@ -410,11 +399,11 @@ class RangePr(Serialisable):
         autoStart: _ConvertibleToBool | None = True,
         autoEnd: _ConvertibleToBool | None = True,
         groupBy: _RangePrGroupBy = "range",
-        startNum: _ConvertibleToFloat | None = None,
-        endNum: _ConvertibleToFloat | None = None,
+        startNum: ConvertibleToFloat | None = None,
+        endNum: ConvertibleToFloat | None = None,
         startDate: datetime | str | None = None,
         endDate: datetime | str | None = None,
-        groupInterval: _ConvertibleToFloat | None = 1,
+        groupInterval: ConvertibleToFloat | None = 1,
     ) -> None: ...
 
 class FieldGroup(Serialisable):
@@ -427,8 +416,8 @@ class FieldGroup(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        par: _ConvertibleToInt | None = None,
-        base: _ConvertibleToInt | None = None,
+        par: ConvertibleToInt | None = None,
+        base: ConvertibleToInt | None = None,
         rangePr: RangePr | None = None,
         discretePr: DiscretePr | None = None,
         groupItems: GroupItems | None = None,
@@ -467,8 +456,8 @@ class SharedItems(Serialisable):
         containsMixedTypes: _ConvertibleToBool | None = None,
         containsNumber: _ConvertibleToBool | None = None,
         containsInteger: _ConvertibleToBool | None = None,
-        minValue: _ConvertibleToFloat | None = None,
-        maxValue: _ConvertibleToFloat | None = None,
+        minValue: ConvertibleToFloat | None = None,
+        maxValue: ConvertibleToFloat | None = None,
         minDate: datetime | str | None = None,
         maxDate: datetime | str | None = None,
         count: Unused = None,
@@ -502,7 +491,7 @@ class CacheField(Serialisable):
         self,
         sharedItems: SharedItems | None = None,
         fieldGroup: FieldGroup | None = None,
-        mpMap: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+        mpMap: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
         extLst: ExtensionList | None = None,
         *,
         name: str,
@@ -510,13 +499,13 @@ class CacheField(Serialisable):
         propertyName: str | None = None,
         serverField: _ConvertibleToBool | None = None,
         uniqueList: _ConvertibleToBool | None = True,
-        numFmtId: _ConvertibleToInt | None = None,
+        numFmtId: ConvertibleToInt | None = None,
         formula: str | None = None,
-        sqlType: _ConvertibleToInt | None = 0,
-        hierarchy: _ConvertibleToInt | None = 0,
-        level: _ConvertibleToInt | None = 0,
+        sqlType: ConvertibleToInt | None = 0,
+        hierarchy: ConvertibleToInt | None = 0,
+        level: ConvertibleToInt | None = 0,
         databaseField: _ConvertibleToBool | None = True,
-        mappingCount: _ConvertibleToInt | None = None,
+        mappingCount: ConvertibleToInt | None = None,
         memberPropertyField: _ConvertibleToBool | None = None,
     ) -> None: ...
     @overload
@@ -531,13 +520,13 @@ class CacheField(Serialisable):
         propertyName: str | None = None,
         serverField: _ConvertibleToBool | None = None,
         uniqueList: _ConvertibleToBool | None = True,
-        numFmtId: _ConvertibleToInt | None = None,
+        numFmtId: ConvertibleToInt | None = None,
         formula: str | None = None,
-        sqlType: _ConvertibleToInt | None = 0,
-        hierarchy: _ConvertibleToInt | None = 0,
-        level: _ConvertibleToInt | None = 0,
+        sqlType: ConvertibleToInt | None = 0,
+        hierarchy: ConvertibleToInt | None = 0,
+        level: ConvertibleToInt | None = 0,
         databaseField: _ConvertibleToBool | None = True,
-        mappingCount: _ConvertibleToInt | None = None,
+        mappingCount: ConvertibleToInt | None = None,
         memberPropertyField: _ConvertibleToBool | None = None,
     ) -> None: ...
 
@@ -553,10 +542,10 @@ class RangeSet(Serialisable):
     @overload
     def __init__(
         self,
-        i1: _ConvertibleToInt | None = None,
-        i2: _ConvertibleToInt | None = None,
-        i3: _ConvertibleToInt | None = None,
-        i4: _ConvertibleToInt | None = None,
+        i1: ConvertibleToInt | None = None,
+        i2: ConvertibleToInt | None = None,
+        i3: ConvertibleToInt | None = None,
+        i4: ConvertibleToInt | None = None,
         *,
         ref: str,
         name: str | None = None,
@@ -565,10 +554,10 @@ class RangeSet(Serialisable):
     @overload
     def __init__(
         self,
-        i1: _ConvertibleToInt | None,
-        i2: _ConvertibleToInt | None,
-        i3: _ConvertibleToInt | None,
-        i4: _ConvertibleToInt | None,
+        i1: ConvertibleToInt | None,
+        i2: ConvertibleToInt | None,
+        i3: ConvertibleToInt | None,
+        i4: ConvertibleToInt | None,
         ref: str,
         name: str | None = None,
         sheet: str | None = None,
@@ -613,7 +602,7 @@ class CacheSource(Serialisable):
     def __init__(
         self,
         type: _CacheSourceType,
-        connectionId: _ConvertibleToInt | None = None,
+        connectionId: ConvertibleToInt | None = None,
         worksheetSource: WorksheetSource | None = None,
         consolidation: Consolidation | None = None,
         extLst: ExtensionList | None = None,
@@ -663,14 +652,14 @@ class CacheDefinition(Serialisable):
         optimizeMemory: _ConvertibleToBool | None = None,
         enableRefresh: _ConvertibleToBool | None = None,
         refreshedBy: str | None = None,
-        refreshedDate: _ConvertibleToFloat | None = None,
+        refreshedDate: ConvertibleToFloat | None = None,
         refreshedDateIso: datetime | str | None = None,
         backgroundQuery: _ConvertibleToBool | None = None,
-        missingItemsLimit: _ConvertibleToInt | None = None,
-        createdVersion: _ConvertibleToInt | None = None,
-        refreshedVersion: _ConvertibleToInt | None = None,
-        minRefreshableVersion: _ConvertibleToInt | None = None,
-        recordCount: _ConvertibleToInt | None = None,
+        missingItemsLimit: ConvertibleToInt | None = None,
+        createdVersion: ConvertibleToInt | None = None,
+        refreshedVersion: ConvertibleToInt | None = None,
+        minRefreshableVersion: ConvertibleToInt | None = None,
+        recordCount: ConvertibleToInt | None = None,
         upgradeOnRefresh: _ConvertibleToBool | None = None,
         tupleCache: TupleCache | None = None,
         supportSubquery: _ConvertibleToBool | None = None,
@@ -697,14 +686,14 @@ class CacheDefinition(Serialisable):
         optimizeMemory: _ConvertibleToBool | None,
         enableRefresh: _ConvertibleToBool | None,
         refreshedBy: str | None,
-        refreshedDate: _ConvertibleToFloat | None,
+        refreshedDate: ConvertibleToFloat | None,
         refreshedDateIso: datetime | str | None,
         backgroundQuery: _ConvertibleToBool | None,
-        missingItemsLimit: _ConvertibleToInt | None,
-        createdVersion: _ConvertibleToInt | None,
-        refreshedVersion: _ConvertibleToInt | None,
-        minRefreshableVersion: _ConvertibleToInt | None,
-        recordCount: _ConvertibleToInt | None,
+        missingItemsLimit: ConvertibleToInt | None,
+        createdVersion: ConvertibleToInt | None,
+        refreshedVersion: ConvertibleToInt | None,
+        minRefreshableVersion: ConvertibleToInt | None,
+        recordCount: ConvertibleToInt | None,
         upgradeOnRefresh: _ConvertibleToBool | None,
         tupleCache: TupleCache | None,
         supportSubquery: _ConvertibleToBool | None,

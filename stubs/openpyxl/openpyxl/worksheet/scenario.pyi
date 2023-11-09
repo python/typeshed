@@ -5,10 +5,10 @@ from typing_extensions import Literal
 from openpyxl.descriptors.base import (
     Bool,
     Convertible,
+    ConvertibleToInt,
     Integer,
     String,
     _ConvertibleToBool,
-    _ConvertibleToInt,
     _ConvertibleToMultiCellRange,
 )
 from openpyxl.descriptors.serialisable import Serialisable
@@ -30,7 +30,7 @@ class InputCells(Serialisable):
         undone: _ConvertibleToBool | None = False,
         *,
         val: str,
-        numFmtId: _ConvertibleToInt | None = None,
+        numFmtId: ConvertibleToInt | None = None,
     ) -> None: ...
     @overload
     def __init__(
@@ -39,7 +39,7 @@ class InputCells(Serialisable):
         deleted: _ConvertibleToBool | None,
         undone: _ConvertibleToBool | None,
         val: str,
-        numFmtId: _ConvertibleToInt | None = None,
+        numFmtId: ConvertibleToInt | None = None,
     ) -> None: ...
 
 class Scenario(Serialisable):
@@ -88,8 +88,8 @@ class ScenarioList(Serialisable):
     def __init__(
         self,
         scenario=(),
-        current: _ConvertibleToInt | None = None,
-        show: _ConvertibleToInt | None = None,
+        current: ConvertibleToInt | None = None,
+        show: ConvertibleToInt | None = None,
         sqref: _ConvertibleToMultiCellRange | None = None,
     ) -> None: ...
     def append(self, scenario) -> None: ...

@@ -6,11 +6,11 @@ from openpyxl.descriptors.base import (
     Alias,
     Bool,
     Convertible,
+    ConvertibleToInt,
     Integer,
     NoneSet,
     String,
     _ConvertibleToBool,
-    _ConvertibleToInt,
     _ConvertibleToMultiCellRange,
 )
 from openpyxl.descriptors.nested import NestedText
@@ -97,8 +97,8 @@ class DataValidationList(Serialisable):
     def __init__(
         self,
         disablePrompts: _ConvertibleToBool | None = None,
-        xWindow: _ConvertibleToInt | None = None,
-        yWindow: _ConvertibleToInt | None = None,
+        xWindow: ConvertibleToInt | None = None,
+        yWindow: ConvertibleToInt | None = None,
         count: Incomplete | None = None,
         dataValidation=(),
     ) -> None: ...
