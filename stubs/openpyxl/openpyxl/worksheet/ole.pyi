@@ -1,8 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import ConvertibleToInt, Incomplete
 from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, ConvertibleToInt, Integer, Set, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.spreadsheet_drawing import AnchorMarker
 

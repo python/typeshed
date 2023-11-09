@@ -1,9 +1,9 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 from zipfile import ZipFile
 
-from openpyxl.descriptors.base import Bool, ConvertibleToInt, Integer, NoneSet, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.packaging.relationship import Relationship

@@ -1,9 +1,9 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors import Float, Strict
-from openpyxl.descriptors.base import Bool, ConvertibleToInt, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color, ColorDescriptor

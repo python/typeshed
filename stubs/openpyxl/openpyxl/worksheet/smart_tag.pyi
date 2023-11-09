@@ -1,8 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import ConvertibleToInt, Incomplete
 from typing import ClassVar, overload
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, ConvertibleToInt, Integer, String, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class CellSmartTagPr(Serialisable):

@@ -1,9 +1,10 @@
+from _typeshed import ConvertibleToInt
 from re import Pattern
 from typing import ClassVar
 from typing_extensions import Final, Literal, Self
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import Alias, Bool, ConvertibleToInt, Integer, MatchPattern, String, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Integer, MatchPattern, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 from ..xml._functions_overloads import _HasText

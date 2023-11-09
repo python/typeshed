@@ -1,10 +1,10 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from collections.abc import Iterator
 from typing import ClassVar, overload
 from typing_extensions import Final, Literal, Self, TypeAlias
 
 from openpyxl.descriptors import Strict, String
-from openpyxl.descriptors.base import Alias, Bool, ConvertibleToInt, Integer, NoneSet, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable, _ChildSerialisableTreeElement
 from openpyxl.worksheet.filters import AutoFilter, SortState

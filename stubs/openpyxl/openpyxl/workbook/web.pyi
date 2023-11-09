@@ -1,8 +1,8 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, ConvertibleToInt, Integer, NoneSet, String, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 _WebPublishingTargetScreenSize: TypeAlias = Literal[

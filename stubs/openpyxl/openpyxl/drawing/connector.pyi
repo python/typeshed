@@ -1,10 +1,11 @@
+from _typeshed import ConvertibleToInt
 from typing import ClassVar, overload
 from typing_extensions import Literal
 
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
 from openpyxl.descriptors import Typed
-from openpyxl.descriptors.base import Alias, Bool, ConvertibleToInt, Integer, String, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Integer, String, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.geometry import ShapeStyle

@@ -1,11 +1,11 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from array import array
 from collections.abc import Iterable
 from typing import ClassVar
 from typing_extensions import Literal, Self
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import Bool, ConvertibleToInt, Integer, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.alignment import Alignment

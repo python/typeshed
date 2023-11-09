@@ -1,8 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import ConvertibleToInt, Incomplete
 from typing import ClassVar, overload
 from typing_extensions import Literal, Self
 
-from openpyxl.descriptors.base import Alias, Bool, ConvertibleToInt, Integer, String, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Integer, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 from ..xml._functions_overloads import _SupportsIterAndAttribAndTextAndGet

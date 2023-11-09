@@ -1,8 +1,8 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, ConvertibleToInt, Integer, _ConvertibleToBool
+from openpyxl.descriptors.base import Bool, Integer, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Break(Serialisable):

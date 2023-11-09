@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import ConvertibleToInt, Incomplete
 from collections import defaultdict
 from collections.abc import Generator, Iterator
 from re import Pattern
@@ -6,7 +6,7 @@ from typing import ClassVar
 from typing_extensions import Final, Literal
 
 from openpyxl.descriptors import Sequence
-from openpyxl.descriptors.base import Alias, Bool, ConvertibleToInt, Integer, String, _ConvertibleToBool
+from openpyxl.descriptors.base import Alias, Bool, Integer, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.formula.tokenizer import _TokenOperandSubtypes, _TokenTypesNotOperand
 
