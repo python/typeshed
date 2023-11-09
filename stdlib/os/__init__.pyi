@@ -970,9 +970,9 @@ else:
     def WTERMSIG(status: int) -> int: ...
     if sys.version_info >= (3, 8):
         def posix_spawn(
-            path: StrOrBytesPath,
-            argv: _ExecVArgs,
-            env: _ExecEnv,
+            __path: StrOrBytesPath,
+            __argv: _ExecVArgs,
+            __env: _ExecEnv,
             *,
             file_actions: Sequence[tuple[Any, ...]] | None = ...,
             setpgroup: int | None = ...,
@@ -983,9 +983,9 @@ else:
             scheduler: tuple[Any, sched_param] | None = ...,
         ) -> int: ...
         def posix_spawnp(
-            path: StrOrBytesPath,
-            argv: _ExecVArgs,
-            env: _ExecEnv,
+            __path: StrOrBytesPath,
+            __argv: _ExecVArgs,
+            __env: _ExecEnv,
             *,
             file_actions: Sequence[tuple[Any, ...]] | None = ...,
             setpgroup: int | None = ...,
