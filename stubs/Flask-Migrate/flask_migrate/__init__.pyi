@@ -1,21 +1,26 @@
+# pyright: reportInvalidStubStatement=none
+
 import sys
-from _typeshed import StrPath, SupportsKeysAndGetItem, SupportsWrite
+from _typeshed import StrPath, SupportsFlush, SupportsKeysAndGetItem, SupportsWrite
 from argparse import Namespace
 from collections.abc import Callable, Iterable, Sequence
 from logging import Logger
-from typing import IO, Any, TypeVar
+from typing import Any, Protocol, TypeVar
 from typing_extensions import ParamSpec, TypeAlias
 
 import flask
 from flask_sqlalchemy import SQLAlchemy
 
 _T = TypeVar("_T")
+_T_contra = TypeVar("_T_contra", contravariant=True)
 _P = ParamSpec("_P")
 _ConfigureCallback: TypeAlias = Callable[[Config], Config]
 _AlembicConfigValue: TypeAlias = Any
 
 alembic_version: tuple[int, int, int]
 log: Logger
+
+class _SupportsWriteAndFlush(SupportsWrite[_T_contra], SupportsFlush, Protocol): ...
 
 class Config:  # should inherit from alembic.config.Config which is not possible yet
     template_directory: str | None
@@ -24,8 +29,8 @@ class Config:  # should inherit from alembic.config.Config which is not possible
         self,
         file_: StrPath | None = None,
         ini_section: str = "alembic",
-        # Same as buffer argument in TextIOWrapper.__init__
-        output_buffer: IO[bytes] | None = None,
+        # Same as buffer argument in TextIOWrapper.__init__.buffer
+        output_buffer: _SupportsWriteAndFlush[str] | None = None,
         # Same as stream argument in alembic.util.messaging
         stdout: SupportsWrite[str] = sys.stdout,
         cmd_opts: Namespace | None = None,
