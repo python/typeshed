@@ -1,9 +1,9 @@
 import sys
-from _typeshed import StrPath, SupportsKeysAndGetItem
+from _typeshed import StrPath, SupportsFlush, SupportsKeysAndGetItem, SupportsWrite
 from argparse import Namespace
 from collections.abc import Callable, Iterable, Sequence
 from logging import Logger
-from typing import Any, TextIO, TypeVar
+from typing import IO, Any, TypeVar
 from typing_extensions import ParamSpec, TypeAlias
 
 import flask
@@ -17,6 +17,8 @@ _AlembicConfigValue: TypeAlias = Any
 alembic_version: tuple[int, int, int]
 log: Logger
 
+class _SupportsWriteAndFlush(SupportsWrite[_T], SupportsFlush): ...
+
 class Config:  # should inherit from alembic.config.Config which is not possible yet
     template_directory: str | None
     # Same as alembic.config.Config + template_directory kwarg
@@ -24,8 +26,10 @@ class Config:  # should inherit from alembic.config.Config which is not possible
         self,
         file_: StrPath | None = None,
         ini_section: str = "alembic",
-        output_buffer: TextIO | None = None,
-        stdout: TextIO = sys.stdout,
+        # Same as buffer argument in TextIOWrapper.__init__
+        output_buffer: IO[bytes] | None = None,
+        # Same as stream argument in alembic.util.messaging
+        stdout: SupportsWrite[str] = sys.stdout,
         cmd_opts: Namespace | None = None,
         config_args: SupportsKeysAndGetItem[str, _AlembicConfigValue] | Iterable[tuple[str, _AlembicConfigValue]] = ...,
         attributes: SupportsKeysAndGetItem[_AlembicConfigValue, _AlembicConfigValue]
