@@ -11,12 +11,13 @@ import operator
 import sys
 from itertools import chain, combinations, count, cycle, filterfalse, islice, repeat, starmap, tee, zip_longest
 from typing import Any, Callable, Hashable, Iterable, Iterator, Sequence, TypeVar, overload
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
 _HashableT = TypeVar("_HashableT", bound=Hashable)
+_Ts = TypeVarTuple("_Ts")
 
 
 def take(n: int, iterable: Iterable[_T]) -> list[_T]:
@@ -38,18 +39,14 @@ def tabulate(function: Callable[[int], _T], start: int = 0) -> Iterator[_T]:
     return map(function, count(start))
 
 
-# TODO: Uncomment when we can use PEP-646 in typeshed:
-#
-# _Ts = TypeVarTuple("_Ts")
-#
-# def repeatfunc(func: Callable[[Unpack[_Ts]], _T], times: int | None = None, *args: Unpack[_Ts]) -> Iterator[_T]:
-#     """Repeat calls to func with specified arguments.
-#
-#     Example:  repeatfunc(random.random)
-#     """
-#     if times is None:
-#         return starmap(func, repeat(args))
-#     return starmap(func, repeat(args, times))
+def repeatfunc(func: Callable[[Unpack[_Ts]], _T], times: int | None = None, *args: Unpack[_Ts]) -> Iterator[_T]:
+    """Repeat calls to func with specified arguments.
+
+    Example:  repeatfunc(random.random)
+    """
+    if times is None:
+        return starmap(func, repeat(args))
+    return starmap(func, repeat(args, times))
 
 
 def flatten(list_of_lists: Iterable[Iterable[_T]]) -> chain[_T]:
