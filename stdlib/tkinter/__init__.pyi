@@ -7,7 +7,7 @@ from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
 from typing import Any, Generic, NamedTuple, TypeVar, overload, type_check_only
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing_extensions import Literal, TypeAlias, TypedDict, deprecated
 
 if sys.version_info >= (3, 9):
     __all__ = [
@@ -273,10 +273,14 @@ class Variable:
     def trace_add(self, mode: _TraceMode, callback: Callable[[str, str, str], object]) -> str: ...
     def trace_remove(self, mode: _TraceMode, cbname: str) -> None: ...
     def trace_info(self) -> list[tuple[tuple[_TraceMode, ...], str]]: ...
-    def trace_variable(self, mode, callback): ...  # deprecated
-    def trace_vdelete(self, mode, cbname) -> None: ...  # deprecated
-    def trace_vinfo(self): ...  # deprecated
-    trace = trace_variable  # deprecated
+    @deprecated("use trace_add() instead of trace()")
+    def trace(self, mode, callback): ...
+    @deprecated("use trace_add() instead of trace_variable()")
+    def trace_variable(self, mode, callback): ...
+    @deprecated("use trace_remove() instead of trace_vdelete()")
+    def trace_vdelete(self, mode, cbname) -> None: ...
+    @deprecated("use trace_info() instead of trace_vinfo()")
+    def trace_vinfo(self): ...
     def __eq__(self, other: object) -> bool: ...
 
 class StringVar(Variable):
