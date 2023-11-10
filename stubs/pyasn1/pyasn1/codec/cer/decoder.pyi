@@ -1,29 +1,43 @@
-from typing_extensions import TypeAlias
+from _typeshed import Unused
 
 from pyasn1.codec.ber import decoder
 from pyasn1.type import univ
 from pyasn1.type.tag import TagSet
 
-_Unused: TypeAlias = object
+__all__ = ["decode", "StreamingDecoder"]
 
-class BooleanDecoder(decoder.AbstractSimpleDecoder):
+class BooleanPayloadDecoder(decoder.AbstractSimplePayloadDecoder):
     protoComponent: univ.Boolean
     def valueDecoder(
         self,
         substrate,
         asn1Spec,
-        tagSet: TagSet | None = ...,
-        length: int | None = ...,
-        state: _Unused = ...,
-        decodeFun: _Unused = ...,
-        substrateFun: _Unused = ...,
+        tagSet: TagSet | None = None,
+        length: int | None = None,
+        state: Unused = None,
+        decodeFun: Unused = None,
+        substrateFun: Unused = None,
         **options,
     ): ...
 
-BitStringDecoder = decoder.BitStringDecoder
-OctetStringDecoder = decoder.OctetStringDecoder
-RealDecoder = decoder.RealDecoder
+BitStringPayloadDecoder = decoder.BitStringPayloadDecoder
+OctetStringPayloadDecoder = decoder.OctetStringPayloadDecoder
+RealPayloadDecoder = decoder.RealPayloadDecoder
 
-class Decoder(decoder.Decoder): ...
+TAG_MAP: dict[TagSet, decoder.AbstractPayloadDecoder]
+TYPE_MAP: dict[int, decoder.AbstractPayloadDecoder]
+# deprecated aliases
+tagMap = TAG_MAP
+typeMap = TYPE_MAP
+
+class SingleItemDecoder(decoder.SingleItemDecoder):
+    TAG_MAP: dict[TagSet, decoder.AbstractPayloadDecoder]
+    TYPE_MAP: dict[int, decoder.AbstractPayloadDecoder]
+
+class StreamingDecoder(decoder.StreamingDecoder):
+    SINGLE_ITEM_DECODER: type[SingleItemDecoder]
+
+class Decoder(decoder.Decoder):
+    STREAMING_DECODER: type[StreamingDecoder]
 
 decode: Decoder

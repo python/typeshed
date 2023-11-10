@@ -4,6 +4,7 @@ win32com(ext)?.mapi._exchdapi
 win32._wincerapi
 
 # PyWin tool / debugger
+pythonwin.start_pythonwin
 pythonwin.pywin.*
 win32com.client.combrowse
 win32com.client.tlbrowse

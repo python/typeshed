@@ -1,5 +1,7 @@
-version = "67.3.*"
-requires = ["types-docutils"]
+version = "68.2.*"
+upstream_repository = "https://github.com/pypa/setuptools"
+partial_stub = true
 
 [tool.stubtest]
-ignore_missing_stub = true
+# darwin is equivalent to linux for OS-specific methods
+platforms = ["linux", "win32"]

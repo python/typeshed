@@ -1,5 +1,0 @@
-version = "1.26.*"
-
-[tool.stubtest]
-ignore_missing_stub = true
-extras = ["socks"]

@@ -1,5 +1,5 @@
 import sys
-from _typeshed import SupportsWrite
+from _typeshed import SupportsWrite, Unused
 from collections.abc import Generator, Iterable, Iterator, Mapping
 from types import FrameType, TracebackType
 from typing import Any, overload
@@ -84,7 +84,10 @@ def format_list(extracted_list: list[FrameSummary]) -> list[str]: ...
 def print_list(extracted_list: list[FrameSummary], file: SupportsWrite[str] | None = None) -> None: ...
 
 if sys.version_info >= (3, 10):
-    def format_exception_only(__exc: type[BaseException] | None, value: BaseException | None = ...) -> list[str]: ...
+    @overload
+    def format_exception_only(__exc: BaseException | None) -> list[str]: ...
+    @overload
+    def format_exception_only(__exc: Unused, value: BaseException | None) -> list[str]: ...
 
 else:
     def format_exception_only(etype: type[BaseException] | None, value: BaseException | None) -> list[str]: ...
@@ -132,12 +135,12 @@ class TracebackException:
             cls,
             exc: BaseException,
             *,
-            limit: int | None = ...,
-            lookup_lines: bool = ...,
-            capture_locals: bool = ...,
-            compact: bool = ...,
-            max_group_width: int = ...,
-            max_group_depth: int = ...,
+            limit: int | None = None,
+            lookup_lines: bool = True,
+            capture_locals: bool = False,
+            compact: bool = False,
+            max_group_width: int = 15,
+            max_group_depth: int = 10,
         ) -> Self: ...
     elif sys.version_info >= (3, 10):
         def __init__(
@@ -157,10 +160,10 @@ class TracebackException:
             cls,
             exc: BaseException,
             *,
-            limit: int | None = ...,
-            lookup_lines: bool = ...,
-            capture_locals: bool = ...,
-            compact: bool = ...,
+            limit: int | None = None,
+            lookup_lines: bool = True,
+            capture_locals: bool = False,
+            compact: bool = False,
         ) -> Self: ...
     else:
         def __init__(
@@ -176,7 +179,7 @@ class TracebackException:
         ) -> None: ...
         @classmethod
         def from_exception(
-            cls, exc: BaseException, *, limit: int | None = ..., lookup_lines: bool = ..., capture_locals: bool = ...
+            cls, exc: BaseException, *, limit: int | None = None, lookup_lines: bool = True, capture_locals: bool = False
         ) -> Self: ...
 
     def __eq__(self, other: object) -> bool: ...
