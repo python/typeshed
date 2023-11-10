@@ -293,7 +293,9 @@ class TarFile:
     def next(self) -> TarInfo | None: ...
     if sys.version_info >= (3, 8):
         @overload
-        @deprecated("Extracting tar archives without specifying `filter` is deprecated until Python 3.14, when 'data' filter will become the default.")
+        @deprecated(
+            "Extracting tar archives without specifying `filter` is deprecated until Python 3.14, when 'data' filter will become the default."
+        )
         def extractall(
             self,
             path: StrOrBytesPath = ".",
@@ -309,10 +311,12 @@ class TarFile:
             members: Iterable[TarInfo] | None = None,
             *,
             numeric_owner: bool = False,
-            filter: _TarfileFilter
+            filter: _TarfileFilter,
         ) -> None: ...
         @overload
-        @deprecated("Extracting tar archives without specifying `filter` is deprecated until Python 3.14, when 'data' filter will become the default.")
+        @deprecated(
+            "Extracting tar archives without specifying `filter` is deprecated until Python 3.14, when 'data' filter will become the default."
+        )
         def extract(
             self,
             member: str | TarInfo,

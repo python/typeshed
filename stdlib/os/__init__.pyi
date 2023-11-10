@@ -348,11 +348,14 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
     # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
     if sys.version_info >= (3, 12) and sys.platform == "win32":
         @property
-        @deprecated("Use st_birthtime instead to retrieve the file creation time. In the future, this property will contain the last metadata change time.")
+        @deprecated(
+            "Use st_birthtime instead to retrieve the file creation time. In the future, this property will contain the last metadata change time."
+        )
         def st_ctime(self) -> float: ...
     else:
         @property
         def st_ctime(self) -> float: ...
+
     @property
     def st_atime_ns(self) -> int: ...  # time of most recent access, in nanoseconds
     @property

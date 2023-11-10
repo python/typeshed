@@ -151,6 +151,7 @@ class CodeType:
     else:
         @property
         def co_lnotab(self) -> bytes: ...
+
     @property
     def co_freevars(self) -> tuple[str, ...]: ...
     @property
