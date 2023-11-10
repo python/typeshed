@@ -3,7 +3,7 @@ import types
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable
 from typing import Any
-from typing_extensions import Literal, Self
+from typing_extensions import Literal, Self, deprecated
 
 from .events import AbstractEventLoop, BaseDefaultEventLoopPolicy
 from .selector_events import BaseSelectorEventLoop
@@ -11,6 +11,7 @@ from .selector_events import BaseSelectorEventLoop
 # This is also technically not available on Win,
 # but other parts of typeshed need this definition.
 # So, it is special cased.
+@deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
 class AbstractChildWatcher:
     @abstractmethod
     def add_child_handler(self, pid: int, callback: Callable[..., object], *args: Any) -> None: ...
@@ -62,12 +63,14 @@ if sys.platform != "win32":
 
         def attach_loop(self, loop: AbstractEventLoop | None) -> None: ...
 
+    @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
     class SafeChildWatcher(BaseChildWatcher):
         def __enter__(self) -> Self: ...
         def __exit__(self, a: type[BaseException] | None, b: BaseException | None, c: types.TracebackType | None) -> None: ...
         def add_child_handler(self, pid: int, callback: Callable[..., object], *args: Any) -> None: ...
         def remove_child_handler(self, pid: int) -> bool: ...
 
+    @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
     class FastChildWatcher(BaseChildWatcher):
         def __enter__(self) -> Self: ...
         def __exit__(self, a: type[BaseException] | None, b: BaseException | None, c: types.TracebackType | None) -> None: ...
@@ -77,13 +80,16 @@ if sys.platform != "win32":
     class _UnixSelectorEventLoop(BaseSelectorEventLoop): ...
 
     class _UnixDefaultEventLoopPolicy(BaseDefaultEventLoopPolicy):
+        @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
         def get_child_watcher(self) -> AbstractChildWatcher: ...
+        @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
         def set_child_watcher(self, watcher: AbstractChildWatcher | None) -> None: ...
     SelectorEventLoop = _UnixSelectorEventLoop
 
     DefaultEventLoopPolicy = _UnixDefaultEventLoopPolicy
 
     if sys.version_info >= (3, 8):
+        @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
         class MultiLoopChildWatcher(AbstractChildWatcher):
             def is_active(self) -> bool: ...
             def close(self) -> None: ...
