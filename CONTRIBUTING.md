@@ -285,21 +285,21 @@ Accepted features that *cannot* yet be used in typeshed include:
   use argument names prefixed with `__` instead
 
 The following features are partially supported:
-- [PEP 585](https://www.python.org/dev/peps/pep-0585/) (builtin
-  generics): see [#4820](https://github.com/python/typeshed/issues/4820),
-  mostly supported but bugs remain for a few specific cases
-- [PEP 612](https://www.python.org/dev/peps/pep-0612/) (ParamSpec):
-  see [#4827](https://github.com/python/typeshed/issues/4827),
-  supported in some contexts but requires `# type: ignore` comments
 
 Supported features include:
-- [PEP 544](https://www.python.org/dev/peps/pep-0544/) (Protocol)
-- [PEP 586](https://www.python.org/dev/peps/pep-0586/) (Literal)
-- [PEP 591](https://www.python.org/dev/peps/pep-0591/) (Final/@final)
-- [PEP 589](https://www.python.org/dev/peps/pep-0589/) (TypedDict)
-- [PEP 604](https://www.python.org/dev/peps/pep-0604/) (`Foo | Bar` union syntax)
-- [PEP 647](https://www.python.org/dev/peps/pep-0647/) (TypeGuard):
+- [PEP 544](https://peps.python.org/pep-0544/) (Protocol)
+- [PEP 585](https://peps.python.org/pep-0585/) (builtin generics)
+- [PEP 586](https://peps.python.org/pep-0586/) (Literal)
+- [PEP 591](https://peps.python.org/pep-0591/) (Final/@final)
+- [PEP 589](https://peps.python.org/pep-0589/) (TypedDict)
+- [PEP 604](https://peps.python.org/pep-0604/) (`Foo | Bar` union syntax)
+- [PEP 612](https://peps.python.org/pep-0612/) (ParamSpec)
+- [PEP 647](https://peps.python.org/pep-0647/) (TypeGuard):
   see [#5406](https://github.com/python/typeshed/issues/5406)
+- [PEP 655](https://peps.python.org/pep-0655/) (`Required` and `NotRequired`)
+- [PEP 673](https://peps.python.org/pep-0673/) (`Self`)
+- [PEP 675](https://peps.python.org/pep-0675/) (`LiteralString`)
+- [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
 
 Features from the `typing` module that are not present in all
 supported Python 3 versions must be imported from `typing_extensions`
@@ -312,16 +312,20 @@ instead in typeshed stubs. This currently affects:
 - `Concatenate` (new in Python 3.10)
 - `ParamSpec` (new in Python 3.10)
 - `TypeGuard` (new in Python 3.10)
+- `Self` (new in Python 3.11)
+- `LiteralString` (new in Python 3.11)
+- `@deprecated` (new in Python 3.13; in the `warnings` module)
 
 Two exceptions are `Protocol` and `runtime_checkable`: although
 these were added in Python 3.8, they can be used in stubs regardless
 of Python version.
 
-[PEP 688](https://www.python.org/dev/peps/pep-0688/), which is
-currently a draft, removes the implicit promotion of the
-`bytearray` and `memoryview` classes to `bytes`.
-Typeshed stubs should be written assuming that this proposal
-is accepted, so a parameter that accepts either `bytes` or
+Some type checkers implicitly promote the `bytearray` and
+`memoryview` types to `bytes`.
+[PEP 688](https://www.python.org/dev/peps/pep-0688/) removes
+this implicit promotion.
+Typeshed stubs should be written assuming that these promotions
+do not happen, so a parameter that accepts either `bytes` or
 `bytearray` should be typed as `bytes | bytearray`.
 Often one of the aliases from `_typeshed`, such as
 `_typeshed.ReadableBuffer`, can be used instead.
@@ -448,7 +452,7 @@ Some further tips for good type hints:
   of importing them from `typing`.
 * use `X | Y` instead of `Union[X, Y]` and `X | None`, instead of
   `Optional[X]`;
-* in Python 3 stubs, import collections (`Mapping`, `Iterable`, etc.)
+* import collections (`Mapping`, `Iterable`, etc.)
   from `collections.abc` instead of `typing`;
 * avoid invariant collection types (`list`, `dict`) in argument
   positions, in favor of covariant types like `Mapping` or `Sequence`;
@@ -485,9 +489,7 @@ a stub file.  You can also use the name of the class within its own
 body.  Focus on making your stubs clear to the reader.  Avoid using
 string literals in type annotations.
 
-Type variables and aliases you introduce purely for legibility reasons
-should be prefixed with an underscore to make it obvious to the reader
-they are not part of the stubbed API.
+### Context managers
 
 When adding type annotations for context manager classes, annotate
 the return type of `__exit__` as bool only if the context manager
@@ -502,6 +504,12 @@ See https://github.com/python/mypy/issues/7214 for more details.
 current class should be annotated with the `_typeshed.Self` type
 variable ([example](https://github.com/python/typeshed/pull/5698)).
 
+### Naming
+
+Type variables and aliases you introduce purely for legibility reasons
+should be prefixed with an underscore to make it obvious to the reader
+they are not part of the stubbed API.
+
 A few guidelines for protocol names below. In cases that don't fall
 into any of those categories, use your best judgement.
 
@@ -511,6 +519,22 @@ into any of those categories, use your best judgement.
   `SupportsInt`, `SupportsRead`, `SupportsReadSeek`).
 * Use `HasX` for protocols that have readable and/or writable attributes
   or getter/setter methods (e.g. `HasItems`, `HasFileno`).
+
+### `@deprecated`
+
+Typeshed uses the `@typing_extensions.deprecated` decorator
+(`@warnings.deprecated` since Python 3.13) to mark deprecated
+functionality; see [PEP 702](https://peps.python.org/pep-0702/).
+
+A few guidelines for how to use it:
+
+* In the standard library, apply the decorator only in Python versions
+  where the functionality is deprecated, either through runtime warnings
+  or through documentation. Use `if sys.version_info` checks to apply the
+  decorator only to some versions.
+* Keep the deprecation message concise, but try to mention the projected
+  version when the functionality is to be removed, and a suggested
+  replacement.
 
 ### Incomplete annotations
 
