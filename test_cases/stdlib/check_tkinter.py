@@ -17,5 +17,6 @@ root.report_callback_exception = custom_handler
 def foo(x: int, y: str) -> None:
     pass
 
+
 root.after(1000, foo, 10, "lol")
 root.after(1000, foo, 10, 10)  # type: ignore
