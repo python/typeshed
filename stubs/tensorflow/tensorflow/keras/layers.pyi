@@ -38,7 +38,7 @@ class InputSpec:
 
 # Most layers have input and output type of just Tensor and when we support default type variables,
 # maybe worth trying.
-class Layer(Generic[_InputT, _OutputT], tf.Module):
+class Layer(tf.Module, Generic[_InputT, _OutputT]):
     # The most general type is _ContainerGeneric[InputSpec] as it really
     # depends on _InputT. For most Layers it is just InputSpec
     # though. Maybe describable with HKT?
