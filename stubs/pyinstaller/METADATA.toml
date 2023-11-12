@@ -4,5 +4,4 @@ requires = ["types-setuptools"]
 requires_python = ">=3.8"
 
 [tool.stubtest]
-# Avoids stubtest-false-positives, doesn't affect type-hints since autocomplete is for internal use for the CLI app
 extras = ["completion"]
