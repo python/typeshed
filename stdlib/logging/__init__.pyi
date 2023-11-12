@@ -63,18 +63,22 @@ if sys.version_info >= (3, 11):
 if sys.version_info >= (3, 12):
     __all__ += ["getHandlerByName", "getHandlerNames"]
 
-class _SupportsFilter(Protocol):
-    if sys.version_info >= (3, 12):
-        def filter(self, record: LogRecord) -> bool | LogRecord: ...
-    else:
-        def filter(self, record: LogRecord) -> bool: ...
-
 _SysExcInfoType: TypeAlias = tuple[type[BaseException], BaseException, TracebackType | None] | tuple[None, None, None]
 _ExcInfoType: TypeAlias = None | bool | _SysExcInfoType | BaseException
 _ArgsType: TypeAlias = tuple[object, ...] | Mapping[str, object]
-_FilterType: TypeAlias = _SupportsFilter | Callable[[LogRecord], bool]
 _Level: TypeAlias = int | str
 _FormatStyle: TypeAlias = Literal["%", "{", "$"]
+
+if sys.version_info >= (3, 12):
+    class _SupportsFilter(Protocol):
+        def filter(self, record: LogRecord) -> bool | LogRecord: ...
+
+    _FilterType: TypeAlias = Filter | Callable[[LogRecord], bool | LogRecord] | _SupportsFilter
+else:
+    class _SupportsFilter(Protocol):
+        def filter(self, record: LogRecord) -> bool: ...
+
+    _FilterType: TypeAlias = Filter | Callable[[LogRecord], bool] | _SupportsFilter
 
 raiseExceptions: bool
 logThreads: bool
