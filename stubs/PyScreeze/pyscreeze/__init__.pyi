@@ -1,3 +1,4 @@
+import sys
 from _typeshed import Incomplete, ReadableBuffer, StrOrBytesPath, Unused
 from collections.abc import Callable, Generator
 from typing import NamedTuple, SupportsFloat, TypeVar, overload
@@ -15,6 +16,10 @@ PILLOW_VERSION: Final[tuple[int, int, int]]
 RUNNING_PYTHON_2: Final = False
 SCROT_EXISTS: Final[bool]
 GNOMESCREENSHOT_EXISTS: Final[bool]
+
+if sys.platform == "linux":
+    RUNNING_X11: Final[bool]
+    RUNNING_WAYLAND: Final[bool]
 
 # Meant to be overridable as a setting
 GRAYSCALE_DEFAULT: bool
@@ -168,7 +173,6 @@ def locateOnWindow(
     step: int = 1,
     confidence: None = None,
 ) -> Box | None: ...
-def screenshotWindow(title: Unused) -> None: ...  # Not implemented yet.
 def showRegionOnScreen(
     region: tuple[int, int, int, int], outlineColor: str = "red", filename: str = "_showRegionOnScreen.png"
 ) -> None: ...
@@ -177,9 +181,16 @@ def pixelMatchesColor(
     x: int, y: int, expectedRGBColor: tuple[int, int, int] | tuple[int, int, int, int], tolerance: int = 0
 ) -> bool: ...
 def pixel(x: int, y: int) -> tuple[int, int, int]: ...
-def screenshot(
-    imageFilename: StrOrBytesPath | None = None, region: tuple[int, int, int, int] | None = None, allScreens: bool = False
-) -> Image.Image: ...
+
+if sys.platform == "win32":
+    def screenshot(
+        imageFilename: StrOrBytesPath | None = None, region: tuple[int, int, int, int] | None = None, allScreens: bool = False
+    ) -> Image.Image: ...
+
+else:
+    def screenshot(
+        imageFilename: StrOrBytesPath | None = None, region: tuple[int, int, int, int] | None = None
+    ) -> Image.Image: ...
 
 # _locateAll_opencv
 @overload
