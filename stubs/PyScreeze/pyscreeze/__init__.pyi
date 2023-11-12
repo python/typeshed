@@ -11,10 +11,13 @@ _R = TypeVar("_R")
 # But can't import either, because pyscreeze does not declare them as dependencies, stub_uploader won't let it.
 _MatLike: TypeAlias = Incomplete
 
-useOpenCV: Final[bool]
+PILLOW_VERSION: Final[tuple[int, int, int]]
 RUNNING_PYTHON_2: Final = False
-GRAYSCALE_DEFAULT: Final = False
-scrotExists: Final[bool]
+SCROT_EXISTS: Final[bool]
+GNOMESCREENSHOT_EXISTS: Final[bool]
+
+# Meant to be overridable as a setting
+GRAYSCALE_DEFAULT: bool
 # Meant to be overridable for backward-compatibility
 USE_IMAGE_NOT_FOUND_EXCEPTION: bool
 
@@ -165,6 +168,7 @@ def locateOnWindow(
     step: int = 1,
     confidence: None = None,
 ) -> Box | None: ...
+def screenshotWindow(title: Unused) -> None: ...  # Not implemented yet.
 def showRegionOnScreen(
     region: tuple[int, int, int, int], outlineColor: str = "red", filename: str = "_showRegionOnScreen.png"
 ) -> None: ...
@@ -173,7 +177,9 @@ def pixelMatchesColor(
     x: int, y: int, expectedRGBColor: tuple[int, int, int] | tuple[int, int, int, int], tolerance: int = 0
 ) -> bool: ...
 def pixel(x: int, y: int) -> tuple[int, int, int]: ...
-def screenshot(imageFilename: StrOrBytesPath | None = None, region: tuple[int, int, int, int] | None = None) -> Image.Image: ...
+def screenshot(
+    imageFilename: StrOrBytesPath | None = None, region: tuple[int, int, int, int] | None = None, allScreens=False
+) -> Image.Image: ...
 
 # _locateAll_opencv
 @overload
