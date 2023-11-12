@@ -1,6 +1,7 @@
-from _typeshed import ConvertibleToInt, Incomplete, SupportsRichComparison
+from _typeshed import Incomplete, ReadableBuffer, SupportsRichComparison, SupportsTrunc
 from collections.abc import Callable, Generator
-from typing_extensions import Self
+from typing import SupportsInt
+from typing_extensions import Self, SupportsIndex, TypeAlias
 
 from pyasn1.type import base, constraint, namedtype, namedval
 from pyasn1.type.tag import TagSet
@@ -25,6 +26,7 @@ __all__ = [
     "NoValue",
     "noValue",
 ]
+_SizedIntegerable: TypeAlias = ReadableBuffer | str | SupportsInt | SupportsIndex | SupportsTrunc
 
 NoValue = base.NoValue
 noValue: NoValue
@@ -127,11 +129,11 @@ class BitString(base.SimpleAsn1Type):
     def asInteger(self): ...
     def asBinary(self): ...
     @classmethod
-    def fromHexString(cls, value, internalFormat: bool = False, prepend: ConvertibleToInt | None = None): ...
+    def fromHexString(cls, value, internalFormat: bool = False, prepend: _SizedIntegerable | None = None): ...
     @classmethod
-    def fromBinaryString(cls, value, internalFormat: bool = False, prepend: ConvertibleToInt | None = None): ...
+    def fromBinaryString(cls, value, internalFormat: bool = False, prepend: _SizedIntegerable | None = None): ...
     @classmethod
-    def fromOctetString(cls, value, internalFormat: bool = False, prepend: ConvertibleToInt | None = None, padding: int = 0): ...
+    def fromOctetString(cls, value, internalFormat: bool = False, prepend: _SizedIntegerable | None = None, padding: int = 0): ...
     def prettyIn(self, value): ...
 
 class OctetString(base.SimpleAsn1Type):

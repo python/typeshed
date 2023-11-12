@@ -1,13 +1,14 @@
 import datetime as dt
-from _typeshed import ConvertibleToInt, Incomplete, SupportsRead, SupportsReadline, SupportsWrite, Unused
+from _typeshed import Incomplete, ReadableBuffer, SupportsRead, SupportsReadline, SupportsTrunc, SupportsWrite, Unused
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
-from typing import Any, NoReturn, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import Literal, Self, TypeAlias
+from typing import Any, NoReturn, Protocol, SupportsInt, TypeVar, overload, type_check_only
+from typing_extensions import Literal, Self, SupportsIndex, TypeAlias
 
 from psycopg2.sql import Composable
 
 _Vars: TypeAlias = Sequence[Any] | Mapping[str, Any] | None
+_AcceptedByInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
 
 @type_check_only
 class _type:
@@ -320,7 +321,7 @@ class Float:
     def __conform__(self, __proto) -> Self | None: ...
 
 class Int:
-    def __init__(self, __value: ConvertibleToInt, **kwargs: Unused) -> None: ...
+    def __init__(self, __value: _AcceptedByInt, **kwargs: Unused) -> None: ...
     @property
     def adapted(self) -> Any: ...
     def getquoted(self) -> bytes: ...

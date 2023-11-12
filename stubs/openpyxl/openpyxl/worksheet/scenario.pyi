@@ -1,8 +1,16 @@
-from _typeshed import ConvertibleToInt, Incomplete, Unused
+from _typeshed import Incomplete, Unused
 from typing import ClassVar, overload
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Convertible, Integer, String, _ConvertibleToBool, _ConvertibleToMultiCellRange
+from openpyxl.descriptors.base import (
+    Bool,
+    Convertible,
+    Integer,
+    String,
+    _ConvertibleToBool,
+    _ConvertibleToInt,
+    _ConvertibleToMultiCellRange,
+)
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.cell_range import MultiCellRange
 
@@ -22,7 +30,7 @@ class InputCells(Serialisable):
         undone: _ConvertibleToBool | None = False,
         *,
         val: str,
-        numFmtId: ConvertibleToInt | None = None,
+        numFmtId: _ConvertibleToInt | None = None,
     ) -> None: ...
     @overload
     def __init__(
@@ -31,7 +39,7 @@ class InputCells(Serialisable):
         deleted: _ConvertibleToBool | None,
         undone: _ConvertibleToBool | None,
         val: str,
-        numFmtId: ConvertibleToInt | None = None,
+        numFmtId: _ConvertibleToInt | None = None,
     ) -> None: ...
 
 class Scenario(Serialisable):
@@ -80,8 +88,8 @@ class ScenarioList(Serialisable):
     def __init__(
         self,
         scenario=(),
-        current: ConvertibleToInt | None = None,
-        show: ConvertibleToInt | None = None,
+        current: _ConvertibleToInt | None = None,
+        show: _ConvertibleToInt | None = None,
         sqref: _ConvertibleToMultiCellRange | None = None,
     ) -> None: ...
     def append(self, scenario) -> None: ...

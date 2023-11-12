@@ -1,8 +1,17 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
+from _typeshed import Incomplete, Unused
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Alias, Integer, MinMax, NoneSet, Typed, _ConvertibleToBool
+from openpyxl.descriptors.base import (
+    Alias,
+    Integer,
+    MinMax,
+    NoneSet,
+    Typed,
+    _ConvertibleToBool,
+    _ConvertibleToFloat,
+    _ConvertibleToInt,
+)
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import EmptyTag, NestedInteger, NestedNoneSet, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
@@ -40,7 +49,7 @@ class DashStop(Serialisable):
     length: Alias
     sp: Integer[Literal[False]]
     space: Alias
-    def __init__(self, d: ConvertibleToInt = 0, sp: ConvertibleToInt = 0) -> None: ...
+    def __init__(self, d: _ConvertibleToInt = 0, sp: _ConvertibleToInt = 0) -> None: ...
 
 class DashStopList(Serialisable):
     ds: Incomplete
@@ -70,7 +79,7 @@ class LineProperties(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        w: ConvertibleToFloat | None = None,
+        w: _ConvertibleToFloat | None = None,
         cap: _LinePropertiesCap | Literal["none"] | None = None,
         cmpd: _LinePropertiesCmpd | Literal["none"] | None = None,
         algn: _LinePropertiesAlgn | Literal["none"] | None = None,
@@ -82,7 +91,7 @@ class LineProperties(Serialisable):
         custDash: DashStop | None = None,
         round: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
         bevel: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
-        miter: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
+        miter: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
         headEnd: LineEndProperties | None = None,
         tailEnd: LineEndProperties | None = None,
         extLst: Unused = None,

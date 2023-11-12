@@ -1,8 +1,17 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
+from _typeshed import Incomplete
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, Float, Integer, NoneSet, String, _ConvertibleToBool
+from openpyxl.descriptors.base import (
+    Bool,
+    Float,
+    Integer,
+    NoneSet,
+    String,
+    _ConvertibleToBool,
+    _ConvertibleToFloat,
+    _ConvertibleToInt,
+)
 from openpyxl.descriptors.serialisable import Serialisable
 
 _WorkbookPropertiesShowObjects: TypeAlias = Literal["all", "placeholders"]
@@ -51,7 +60,7 @@ class WorkbookProperties(Serialisable):
         checkCompatibility: _ConvertibleToBool | None = None,
         autoCompressPictures: _ConvertibleToBool | None = None,
         refreshAllConnections: _ConvertibleToBool | None = None,
-        defaultThemeVersion: ConvertibleToInt | None = None,
+        defaultThemeVersion: _ConvertibleToInt | None = None,
     ) -> None: ...
 
 class CalcProperties(Serialisable):
@@ -71,18 +80,18 @@ class CalcProperties(Serialisable):
     forceFullCalc: Bool[Literal[True]]
     def __init__(
         self,
-        calcId: ConvertibleToInt = 124519,
+        calcId: _ConvertibleToInt = 124519,
         calcMode: _CalcPropertiesCalcMode | Literal["none"] | None = None,
         fullCalcOnLoad: _ConvertibleToBool | None = True,
         refMode: _CalcPropertiesRefMode | Literal["none"] | None = None,
         iterate: _ConvertibleToBool | None = None,
-        iterateCount: ConvertibleToInt | None = None,
-        iterateDelta: ConvertibleToFloat | None = None,
+        iterateCount: _ConvertibleToInt | None = None,
+        iterateDelta: _ConvertibleToFloat | None = None,
         fullPrecision: _ConvertibleToBool | None = None,
         calcCompleted: _ConvertibleToBool | None = None,
         calcOnSave: _ConvertibleToBool | None = None,
         concurrentCalc: _ConvertibleToBool | None = None,
-        concurrentManualCount: ConvertibleToInt | None = None,
+        concurrentManualCount: _ConvertibleToInt | None = None,
         forceFullCalc: _ConvertibleToBool | None = None,
     ) -> None: ...
 

@@ -1,9 +1,9 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, ReadableBuffer, Unused
+from _typeshed import Incomplete, ReadableBuffer, SupportsTrunc, Unused
 from collections.abc import Iterable, Sized
 from datetime import datetime
 from re import Pattern
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing import Any, Generic, SupportsFloat, SupportsInt, TypeVar, overload
+from typing_extensions import Literal, SupportsIndex, TypeAlias
 
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.serialisable import Serialisable
@@ -18,7 +18,9 @@ _M = TypeVar("_M", int, float)
 
 _ExpectedTypeParam: TypeAlias = type[_T] | tuple[type[_T], ...]
 _ConvertibleToMultiCellRange: TypeAlias = MultiCellRange | str | Iterable[CellRange]
-# Since everything is convertible to a bool, this restricts to only intended expected types of intended literals
+_ConvertibleToInt: TypeAlias = int | str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+_ConvertibleToFloat: TypeAlias = float | SupportsFloat | SupportsIndex | str | ReadableBuffer
+# Since everything is convertible to a bool, this restricts to only intended expected types
 _ConvertibleToBool: TypeAlias = bool | str | int | None  # True | False | "true" | "t" | "false" | "f" | 1 | 0 | None
 
 class Descriptor(Generic[_T]):
@@ -104,17 +106,19 @@ class Convertible(Typed[_T, _N]):
     # int
     @overload
     def __set__(
-        self: Convertible[int, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToInt | None
+        self: Convertible[int, Literal[True]], instance: Serialisable | Strict, value: _ConvertibleToInt | None
     ) -> None: ...
     @overload
-    def __set__(self: Convertible[int, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToInt) -> None: ...
+    def __set__(self: Convertible[int, Literal[False]], instance: Serialisable | Strict, value: _ConvertibleToInt) -> None: ...
     # float
     @overload
     def __set__(
-        self: Convertible[float, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None
+        self: Convertible[float, Literal[True]], instance: Serialisable | Strict, value: _ConvertibleToFloat | None
     ) -> None: ...
     @overload
-    def __set__(self: Convertible[float, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat) -> None: ...
+    def __set__(
+        self: Convertible[float, Literal[False]], instance: Serialisable | Strict, value: _ConvertibleToFloat
+    ) -> None: ...
     # Anything else
     @overload
     def __set__(self: Convertible[_T, Literal[True]], instance: Serialisable | Strict, value: _T | int | Any | None) -> None: ...
@@ -145,13 +149,13 @@ class Max(Convertible[_M, _N]):
         max: float,
     ) -> None: ...
     @overload  # type:ignore[override]  # Different restrictions
-    def __set__(self: Max[int, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToInt | None) -> None: ...
+    def __set__(self: Max[int, Literal[True]], instance: Serialisable | Strict, value: _ConvertibleToInt | None) -> None: ...
     @overload
-    def __set__(self: Max[int, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToInt) -> None: ...
+    def __set__(self: Max[int, Literal[False]], instance: Serialisable | Strict, value: _ConvertibleToInt) -> None: ...
     @overload
-    def __set__(self: Max[float, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None) -> None: ...
+    def __set__(self: Max[float, Literal[True]], instance: Serialisable | Strict, value: _ConvertibleToFloat | None) -> None: ...
     @overload
-    def __set__(self: Max[float, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat) -> None: ...
+    def __set__(self: Max[float, Literal[False]], instance: Serialisable | Strict, value: _ConvertibleToFloat) -> None: ...
 
 class Min(Convertible[_M, _N]):
     expected_type: type[_M]
@@ -179,13 +183,13 @@ class Min(Convertible[_M, _N]):
         min: float,
     ) -> None: ...
     @overload  # type:ignore[override]  # Different restrictions
-    def __set__(self: Min[int, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToInt | None) -> None: ...
+    def __set__(self: Min[int, Literal[True]], instance: Serialisable | Strict, value: _ConvertibleToInt | None) -> None: ...
     @overload
-    def __set__(self: Min[int, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToInt) -> None: ...
+    def __set__(self: Min[int, Literal[False]], instance: Serialisable | Strict, value: _ConvertibleToInt) -> None: ...
     @overload
-    def __set__(self: Min[float, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToFloat | None) -> None: ...
+    def __set__(self: Min[float, Literal[True]], instance: Serialisable | Strict, value: _ConvertibleToFloat | None) -> None: ...
     @overload
-    def __set__(self: Min[float, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToFloat) -> None: ...
+    def __set__(self: Min[float, Literal[False]], instance: Serialisable | Strict, value: _ConvertibleToFloat) -> None: ...
 
 class MinMax(Min[_M, _N], Max[_M, _N]):
     expected_type: type[_M]
