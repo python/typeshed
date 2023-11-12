@@ -2,6 +2,7 @@
 pyi_splash
 
 # Undocumented and clearly not meant to be exposed
+PyInstaller\..+?\.autocomplete
 PyInstaller\..+?\.logger
 PyInstaller.__main__.generate_parser
 PyInstaller.__main__.run_build
