@@ -1,3 +1,3 @@
-version = "0.1.29"
+version = "0.1.30"
 upstream_repository = "https://github.com/asweigart/pyscreeze"
 requires = ["types-Pillow"]
