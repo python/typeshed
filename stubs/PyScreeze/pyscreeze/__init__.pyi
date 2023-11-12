@@ -1,7 +1,7 @@
-from _typeshed import Incomplete, ReadableBuffer, StrOrBytesPath, Unused
+from _typeshed import ConvertibleToFloat, Incomplete, StrOrBytesPath, Unused
 from collections.abc import Callable, Generator
-from typing import NamedTuple, SupportsFloat, TypeVar, overload
-from typing_extensions import Final, ParamSpec, SupportsIndex, TypeAlias
+from typing import NamedTuple, TypeVar, overload
+from typing_extensions import Final, ParamSpec, TypeAlias
 
 from PIL import Image
 
@@ -48,7 +48,7 @@ def locate(
     limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str | ReadableBuffer = 0.999,
+    confidence: ConvertibleToFloat = 0.999,
 ) -> Box | None: ...
 
 # _locateAll_pillow
@@ -74,7 +74,7 @@ def locateOnScreen(
     limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str | ReadableBuffer = 0.999,
+    confidence: ConvertibleToFloat = 0.999,
 ) -> Box | None: ...
 
 # _locateAll_pillow
@@ -99,7 +99,7 @@ def locateAllOnScreen(
     limit: int = 1000,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str | ReadableBuffer = 0.999,
+    confidence: ConvertibleToFloat = 0.999,
 ) -> Generator[Box, None, None]: ...
 
 # _locateAll_pillow
@@ -124,7 +124,7 @@ def locateCenterOnScreen(
     limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str | ReadableBuffer = 0.999,
+    confidence: ConvertibleToFloat = 0.999,
 ) -> Point | None: ...
 
 # _locateAll_pillow
@@ -151,7 +151,7 @@ def locateOnWindow(
     grayscale: bool | None = None,
     limit: Unused = 1,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str | ReadableBuffer = 0.999,
+    confidence: ConvertibleToFloat = 0.999,
 ) -> Box | None: ...
 
 # _locateAll_pillow
@@ -184,7 +184,7 @@ def locateAll(
     limit: int = 1000,
     region: tuple[int, int, int, int] | None = None,
     step: int = 1,
-    confidence: SupportsFloat | SupportsIndex | str | ReadableBuffer = 0.999,
+    confidence: ConvertibleToFloat = 0.999,
 ) -> Generator[Box, None, None]: ...
 
 # _locateAll_pillow

@@ -1,10 +1,10 @@
-from _typeshed import Incomplete
+from _typeshed import ConvertibleToFloat, Incomplete
 from collections.abc import Iterable, Iterator, Sequence as ABCSequence
 from typing import ClassVar
 from typing_extensions import Final, Literal, TypeAlias
 
 from openpyxl.descriptors import Sequence, Strict
-from openpyxl.descriptors.base import Alias, Float, MinMax, NoneSet, Set, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Float, MinMax, NoneSet, Set
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color, ColorDescriptor
 
@@ -85,7 +85,7 @@ class Stop(Serialisable):
     tagname: ClassVar[str]
     position: MinMax[float, Literal[False]]
     color: Incomplete
-    def __init__(self, color, position: _ConvertibleToFloat) -> None: ...
+    def __init__(self, color, position: ConvertibleToFloat) -> None: ...
 
 class StopList(Sequence):
     expected_type: type[Incomplete]
@@ -104,11 +104,11 @@ class GradientFill(Fill):
     def __init__(
         self,
         type: _GradientFillType = "linear",
-        degree: _ConvertibleToFloat = 0,
-        left: _ConvertibleToFloat = 0,
-        right: _ConvertibleToFloat = 0,
-        top: _ConvertibleToFloat = 0,
-        bottom: _ConvertibleToFloat = 0,
+        degree: ConvertibleToFloat = 0,
+        left: ConvertibleToFloat = 0,
+        right: ConvertibleToFloat = 0,
+        top: ConvertibleToFloat = 0,
+        bottom: ConvertibleToFloat = 0,
         stop=(),
     ) -> None: ...
     def __iter__(self) -> Iterator[tuple[str, str]]: ...
