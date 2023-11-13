@@ -6,7 +6,7 @@ from xml.etree.ElementTree import Element
 from markdown import util
 from markdown.core import Markdown
 
-def build_inlinepatterns(md: Markdown, **kwargs) -> util.Registry[InlineProcessor]: ...
+def build_inlinepatterns(md: Markdown, **kwargs) -> util.Registry[Pattern]: ...
 
 NOIMG: str
 BACKTICK_RE: str

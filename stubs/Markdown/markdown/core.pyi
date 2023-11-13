@@ -21,7 +21,7 @@ class _ReadableStream(Protocol):
 
 class Markdown:
     preprocessors: Registry[preprocessors.Preprocessor]
-    inlinePatterns: Registry[inlinepatterns.InlineProcessor]
+    inlinePatterns: Registry[inlinepatterns.Pattern]
     treeprocessors: Registry[treeprocessors.Treeprocessor]
     postprocessors: Registry[postprocessors.Postprocessor]
     parser: blockparser.BlockParser
