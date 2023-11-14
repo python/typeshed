@@ -5,7 +5,7 @@ from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Coroutine, Generator, Sequence
 from contextvars import Context
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, Generic, Protocol, TypeVar, overload
+from typing import IO, Any, Protocol, TypeVar, overload
 from typing_extensions import Literal, Self, TypeAlias, TypeVarTuple, Unpack
 
 from . import _AwaitableLike, _CoroutineLike
