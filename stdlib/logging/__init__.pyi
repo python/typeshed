@@ -71,12 +71,12 @@ _FormatStyle: TypeAlias = Literal["%", "{", "$"]
 
 if sys.version_info >= (3, 12):
     class _SupportsFilter(Protocol):
-        def filter(self, record: LogRecord) -> bool | LogRecord: ...
+        def filter(self, __record: LogRecord) -> bool | LogRecord: ...
 
     _FilterType: TypeAlias = Filter | Callable[[LogRecord], bool | LogRecord] | _SupportsFilter
 else:
     class _SupportsFilter(Protocol):
-        def filter(self, record: LogRecord) -> bool: ...
+        def filter(self, __record: LogRecord) -> bool: ...
 
     _FilterType: TypeAlias = Filter | Callable[[LogRecord], bool] | _SupportsFilter
 
