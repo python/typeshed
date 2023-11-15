@@ -10,8 +10,8 @@ import math
 import operator
 import sys
 from itertools import chain, combinations, count, cycle, filterfalse, islice, repeat, starmap, tee, zip_longest
-from typing import Any, Callable, Hashable, Iterable, Iterator, Sequence, TypeVar, overload
-from typing_extensions import Literal, TypeVarTuple, Unpack
+from typing import Any, Callable, Hashable, Iterable, Iterator, Sequence, Tuple, Type, TypeVar, Union, overload
+from typing_extensions import Literal, TypeAlias, TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
@@ -28,7 +28,7 @@ def take(n: int, iterable: Iterable[_T]) -> list[_T]:
 # Note: the itertools docs uses the parameter name "iterator",
 # but the function actually accepts any iterable
 # as its second argument
-def prepend(value: _T1, iterator: Iterable[_T2]) -> chain[_T1 | _T2]:
+def prepend(value: _T1, iterator: Iterable[_T2]) -> Iterator[_T1 | _T2]:
     "Prepend a single value in front of an iterator"
     # prepend(1, [2, 3, 4]) --> 1 2 3 4
     return chain([value], iterator)
@@ -49,7 +49,7 @@ def repeatfunc(func: Callable[[Unpack[_Ts]], _T], times: int | None = None, *arg
     return starmap(func, repeat(args, times))
 
 
-def flatten(list_of_lists: Iterable[Iterable[_T]]) -> chain[_T]:
+def flatten(list_of_lists: Iterable[Iterable[_T]]) -> Iterator[_T]:
     "Flatten one level of nesting"
     return chain.from_iterable(list_of_lists)
 
@@ -131,18 +131,21 @@ def first_true(iterable: Iterable[object], default: object = False, pred: Callab
     return next(filter(pred, iterable), default)
 
 
+_ExceptionOrExceptionTuple: TypeAlias = Union[Type[BaseException], Tuple[Type[BaseException], ...]]
+
+
 @overload
-def iter_except(func: Callable[[], _T], exception: type[BaseException], first: None = None) -> Iterator[_T]:
+def iter_except(func: Callable[[], _T], exception: _ExceptionOrExceptionTuple, first: None = None) -> Iterator[_T]:
     ...
 
 
 @overload
-def iter_except(func: Callable[[], _T], exception: type[BaseException], first: Callable[[], _T1]) -> Iterator[_T | _T1]:
+def iter_except(func: Callable[[], _T], exception: _ExceptionOrExceptionTuple, first: Callable[[], _T1]) -> Iterator[_T | _T1]:
     ...
 
 
 def iter_except(
-    func: Callable[[], object], exception: type[BaseException], first: Callable[[], object] | None = None
+    func: Callable[[], object], exception: _ExceptionOrExceptionTuple, first: Callable[[], object] | None = None
 ) -> Iterator[object]:
     """Call a function repeatedly until an exception is raised.
     Converts a call-until-exception interface to an iterator interface.
@@ -275,7 +278,7 @@ def powerset(iterable: Iterable[_T]) -> Iterator[tuple[_T, ...]]:
     return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
 
 
-def polynomial_derivative(coefficients: Sequence[int]) -> list[int]:
+def polynomial_derivative(coefficients: Sequence[float]) -> list[float]:
     """Compute the first derivative of a polynomial.
     f(x)  =  x³ -4x² -17x + 60
     f'(x) = 3x² -8x  -17
@@ -355,7 +358,7 @@ if sys.version_info >= (3, 12):
         windowed_signal = sliding_window(padded_signal, n)
         return map(math.sumprod, repeat(kernel), windowed_signal)
 
-    def polynomial_eval(coefficients: Sequence[int], x: float) -> float:
+    def polynomial_eval(coefficients: Sequence[float], x: float) -> float:
         """Evaluate a polynomial at a specific value.
         Computes with better numeric stability than Horner's method.
         """
