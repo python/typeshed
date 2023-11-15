@@ -33,6 +33,8 @@ class Markdown:
     block_level_elements: list[str]
     registeredExtensions: list[Extension]
     ESCAPED_CHARS: list[str]
+    doc_tag: ClassVar[str]
+    stripTopLevelTags: bool
     def __init__(
         self,
         *,
