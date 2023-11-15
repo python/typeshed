@@ -289,6 +289,25 @@ def polynomial_derivative(coefficients: Sequence[float]) -> list[float]:
     return list(map(operator.mul, coefficients, powers))
 
 
+def nth_combination(iterable: Iterable[_T], r: int, index: int) -> tuple[_T, ...]:
+    "Equivalent to list(combinations(iterable, r))[index]"
+    pool = tuple(iterable)
+    n = len(pool)
+    c = math.comb(n, r)
+    if index < 0:
+        index += c
+    if index < 0 or index >= c:
+        raise IndexError
+    result: list[_T] = []
+    while r:
+        c, n, r = c * r // n, n - 1, r - 1
+        while index >= c:
+            index -= c
+            c, n = c * (n - r) // n, n - 1
+        result.append(pool[-1 - n])
+    return tuple(result)
+
+
 if sys.version_info >= (3, 10):
 
     @overload
