@@ -87,9 +87,4 @@ def check_other_isdataclass_overloads(x: type, y: object) -> None:
         assert_type(dc.fields(y), Tuple[dc.Field[Any], ...])
         assert_type(dc.asdict(y), Dict[str, Any])
         assert_type(dc.astuple(y), Tuple[Any, ...])
-
-        # No longer passes with mypy 1.5.0
-        # now that mypy gives a tailored signature for dataclasses.replace()
-        # (https://github.com/python/mypy/issues/15843):
-        #
-        # dc.replace(y)
+        dc.replace(y)

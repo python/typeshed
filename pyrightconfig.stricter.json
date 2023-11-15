@@ -35,7 +35,6 @@
         "stubs/commonmark",
         "stubs/dateparser",
         "stubs/docutils",
-        "stubs/Flask-Migrate",
         "stubs/Flask-SocketIO",
         "stubs/fpdf2",
         "stubs/google-cloud-ndb",
@@ -65,12 +64,12 @@
         "stubs/python-dateutil",
         "stubs/python-jose",
         "stubs/pywin32",
+        "stubs/pyxdg",
         "stubs/PyYAML",
         "stubs/qrcode",
         "stubs/redis",
         "stubs/requests",
         "stubs/requests-oauthlib",
-        "stubs/seaborn",
         "stubs/setuptools",
         "stubs/stripe",
         "stubs/tqdm",
@@ -108,4 +107,6 @@
     "reportOverlappingOverload": "none",
     // The name of the self/cls parameter is out of typeshed's control.
     "reportSelfClsParameterName": "none",
+    // Not actionable in typeshed
+    "reportDeprecated": "none",
 }
