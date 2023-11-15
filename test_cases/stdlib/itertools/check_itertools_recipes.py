@@ -9,7 +9,7 @@ import collections
 import math
 import operator
 import sys
-from itertools import chain, combinations, count, cycle, filterfalse, islice, repeat, starmap, tee, zip_longest
+from itertools import chain, combinations, count, cycle, filterfalse, groupby, islice, repeat, starmap, tee, zip_longest
 from typing import Any, Callable, Hashable, Iterable, Iterator, Sequence, Tuple, Type, TypeVar, Union, overload
 from typing_extensions import Literal, TypeAlias, TypeVarTuple, Unpack
 
@@ -270,6 +270,15 @@ def unique_everseen(iterable: Iterable[_T], key: Callable[[_T], Hashable] | None
         # a faster but non-lazy solution is:
         #      t1, t2 = tee(iterable)
         #      yield from dict(zip(map(key, t1), t2)).values()
+
+
+# Slightly adapted from the docs recipe; a one-liner was a bit much for pyright
+def unique_justseen(iterable: Iterable[_T], key: Callable[[_T], bool] | None = None) -> Iterator[_T]:
+    "List unique elements, preserving order. Remember only the element just seen."
+    # unique_justseen('AAAABBBCCDAABBB') --> A B C D A B
+    # unique_justseen('ABBcCAD', str.lower) --> A B c A D
+    g: groupby[_T | bool, _T] = groupby(iterable, key)
+    return map(next, map(operator.itemgetter(1), g))
 
 
 def powerset(iterable: Iterable[_T]) -> Iterator[tuple[_T, ...]]:
