@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
-from collections.abc import ItemsView
+from collections.abc import ItemsView, Iterator
+
+from .exceptions import ValidationError
 
 def ignore_ref_siblings(schema) -> list[tuple[str, Incomplete]] | ItemsView[str, Incomplete]: ...
 def dependencies_draft3(validator, dependencies, instance, schema) -> None: ...
