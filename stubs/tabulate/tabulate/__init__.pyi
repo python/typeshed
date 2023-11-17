@@ -1,6 +1,7 @@
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence
 from typing import Any, NamedTuple
 from typing_extensions import Final, Self, TypeAlias
+import pandas as pd
 
 from .version import __version__ as __version__
 
@@ -44,7 +45,7 @@ multiline_formats: dict[str, str]
 
 def simple_separated_format(separator: str) -> TableFormat: ...
 def tabulate(
-    tabular_data: Mapping[str, Iterable[Any]] | Iterable[Iterable[Any]],
+    tabular_data: Mapping[str, Iterable[Any]] | Iterable[Iterable[Any]] | pd.DataFrame,
     headers: str | dict[str, str] | Sequence[str] = (),
     tablefmt: str | TableFormat = "simple",
     floatfmt: str | Iterable[str] = "g",
