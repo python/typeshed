@@ -10,6 +10,7 @@ _T = TypeVar("_T")
 _S = TypeVar("_S")
 _N = TypeVar("_N", int, float, SupportsFloat, SupportsInt, SupportsIndex, SupportsComplex)
 _T_co = TypeVar("_T_co", covariant=True)
+_S_co = TypeVar("_S_co", covariant=True)
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
 _T3 = TypeVar("_T3")
@@ -84,13 +85,13 @@ class filterfalse(Iterator[_T]):
     def __iter__(self) -> Self: ...
     def __next__(self) -> _T: ...
 
-class groupby(Iterator[tuple[_T, Iterator[_S]]], Generic[_T, _S]):
+class groupby(Iterator[tuple[_T_co, Iterator[_S_co]]], Generic[_T_co, _S_co]):
     @overload
     def __new__(cls, iterable: Iterable[_T1], key: None = None) -> groupby[_T1, _T1]: ...
     @overload
     def __new__(cls, iterable: Iterable[_T1], key: Callable[[_T1], _T2]) -> groupby[_T2, _T1]: ...
     def __iter__(self) -> Self: ...
-    def __next__(self) -> tuple[_T, Iterator[_S]]: ...
+    def __next__(self) -> tuple[_T_co, Iterator[_S_co]]: ...
 
 class islice(Iterator[_T]):
     @overload
