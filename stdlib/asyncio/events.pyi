@@ -70,13 +70,9 @@ class _TaskFactory(Protocol):
 
 class Handle:
     _cancelled: bool
-    _args: tuple[Any, ...]
+    _args: Sequence[Any]
     def __init__(
-        self,
-        callback: Callable[[Unpack[_Ts]], object],
-        args: tuple[Unpack[_Ts]],
-        loop: AbstractEventLoop,
-        context: Context | None = None,
+        self, callback: Callable[..., object], args: Sequence[Any], loop: AbstractEventLoop, context: Context | None = None
     ) -> None: ...
     def cancel(self) -> None: ...
     def _run(self) -> None: ...
@@ -88,8 +84,8 @@ class TimerHandle(Handle):
     def __init__(
         self,
         when: float,
-        callback: Callable[[Unpack[_Ts]], object],
-        args: tuple[Unpack[_Ts]],
+        callback: Callable[..., object],
+        args: Sequence[Any],
         loop: AbstractEventLoop,
         context: Context | None = None,
     ) -> None: ...
