@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, SupportsRichComparison
 from collections import deque
-from collections.abc import Callable, Container, Iterable, MutableMapping, Sequence
+from collections.abc import Callable, Container, Iterable, Iterator, MutableMapping, Sequence
 from typing_extensions import Self, TypeAlias, deprecated
 
 from jsonschema import _utils, protocols
@@ -74,7 +74,7 @@ class FormatError(Exception):
 class ErrorTree:
     errors: MutableMapping[str, ValidationError]
     def __init__(self, errors: Iterable[ValidationError] = ()) -> None: ...
-    def __contains__(self, index: str | int) -> bool: ...
+    def __contains__(self, index: object) -> bool: ...
     def __getitem__(self, index): ...
     @deprecated("ErrorTree.__setitem__ is deprecated without replacement.")
     def __setitem__(self, index: str | int, value: ErrorTree) -> None: ...
