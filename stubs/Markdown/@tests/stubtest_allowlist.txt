@@ -1,6 +1,0 @@
-markdown.extensions.abbr.ABBR_REF_RE
-markdown.extensions.attr_list.AttrListTreeprocessor.run
-markdown.extensions.footnotes.DEF_RE
-markdown.extensions.footnotes.TABBED_RE
-markdown.extensions.legacy_attrs.LegacyAttrs.run
-markdown.extensions.toc.TocTreeprocessor.run
