@@ -8,7 +8,7 @@
 #     RST    flake8-rst-docstrings
 #     TYP    flake8-typing-imports
 
-# The following rules are incompatible with or enforced by black:
+# The following rules are incompatible with or enforced by Black:
 #     E203   whitespace before ':' -- scripts only
 #     E301   expected 1 blank line
 #     E302   expected 2 blank lines
@@ -31,15 +31,13 @@ extend-ignore = A, D, N8, SIM, RST, TYP, E301, E302, E305, E501
 per-file-ignores =
   *.py: E203
   *.pyi: B, E701, E741, F401, F403, F405
-  # Since typing.pyi defines "overload" this is not recognized by flake8 as typing.overload.
-  # Unfortunately, flake8 does not allow to "noqa" just a specific error inside the file itself.
+  # Since typing.pyi defines "overload" this is not recognized by Flake8 as typing.overload.
+  # Unfortunately, Flake8 does not allow to "noqa" just a specific error inside the file itself.
   # https://github.com/PyCQA/flake8/issues/1079
   #     F811 redefinition of unused '...'
   stdlib/typing.pyi: B, E701, E741, F401, F403, F405, F811
   # Generated protobuf files include docstrings
-  # *_pb2.pyi: B, E701, E741, F401, F403, F405, Y021, Y026, Y053, Y054
+  *_pb2.pyi: B, E701, E741, F401, F403, F405, Y021, Y026, Y053, Y054
 
-# TODO: Re-enable flake8 on generated protobuf files
-# after https://github.com/nipunn1313/mypy-protobuf/issues/523 is resolved
-exclude = .venv*,.git,*_pb2.pyi
+exclude = .venv*,.git
 noqa_require_code = true
