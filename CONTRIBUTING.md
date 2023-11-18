@@ -285,6 +285,11 @@ Accepted features that *cannot* yet be used in typeshed include:
   use argument names prefixed with `__` instead
 
 The following features are partially supported:
+- [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
+  - For now, cannot be used in combination with other decorators
+    (e.g., `@overload` and `@property`) due to bugs in
+    [pytype](https://github.com/google/pytype/issues/1531) and
+    [stubtest](https://github.com/python/mypy/pull/16457).
 
 Supported features include:
 - [PEP 544](https://peps.python.org/pep-0544/) (Protocol)
@@ -299,7 +304,6 @@ Supported features include:
 - [PEP 655](https://peps.python.org/pep-0655/) (`Required` and `NotRequired`)
 - [PEP 673](https://peps.python.org/pep-0673/) (`Self`)
 - [PEP 675](https://peps.python.org/pep-0675/) (`LiteralString`)
-- [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
 
 Features from the `typing` module that are not present in all
 supported Python 3 versions must be imported from `typing_extensions`
@@ -529,9 +533,11 @@ functionality; see [PEP 702](https://peps.python.org/pep-0702/).
 A few guidelines for how to use it:
 
 * In the standard library, apply the decorator only in Python versions
-  where the functionality is deprecated, either through runtime warnings
-  or through documentation. Use `if sys.version_info` checks to apply the
-  decorator only to some versions.
+  where an appropriate replacement for the deprecated functionality
+  exists. If in doubt, apply the decorator only on versions where the
+  functionality has been explicitly deprecated, either through runtime
+  warnings or in the documentation. Use `if sys.version_info` checks to
+  apply the decorator only to some versions.
 * Keep the deprecation message concise, but try to mention the projected
   version when the functionality is to be removed, and a suggested
   replacement.
