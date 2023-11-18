@@ -287,7 +287,7 @@ Accepted features that *cannot* yet be used in typeshed include:
 The following features are partially supported:
 - [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
   - For now, cannot be used in combination with other decorators
-    (e.g., `@overload` and `@property`) due to bugs in
+    (e.g., `@overload`, `@classmethod`, and `@property`) due to bugs in
     [pytype](https://github.com/google/pytype/issues/1531) and
     [stubtest](https://github.com/python/mypy/pull/16457).
 
