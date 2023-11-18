@@ -17,7 +17,7 @@ from importlib.machinery import ModuleSpec
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
 from typing import Any, ClassVar, Mapping, Protocol, TypeVar, overload  # noqa: Y022
-from typing_extensions import Literal, ParamSpec, Self, TypeVarTuple, final
+from typing_extensions import Literal, ParamSpec, Self, TypeVarTuple, deprecated, final
 
 __all__ = [
     "FunctionType",
@@ -146,8 +146,7 @@ class CodeType:
     def co_firstlineno(self) -> int: ...
     if sys.version_info >= (3, 10):
         @property
-        # TODO: wait for https://github.com/google/pytype/issues/1531
-        # @deprecated("Will be removed in Python 3.14. Use the co_lines() method instead.")
+        @deprecated("Will be removed in Python 3.14. Use the co_lines() method instead.")
         def co_lnotab(self) -> bytes: ...
     else:
         @property
