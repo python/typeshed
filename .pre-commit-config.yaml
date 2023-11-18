@@ -15,7 +15,7 @@ repos:
       - id: black
         language_version: python3.10
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.5 # must match requirements-tests.txt and tests.yml
+    rev: v0.1.6 # must match requirements-tests.txt and tests.yml
     hooks:
       - id: ruff
         args: [--exit-non-zero-on-fix, --fix-only]
