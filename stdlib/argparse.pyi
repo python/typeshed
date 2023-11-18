@@ -3,7 +3,7 @@ from _typeshed import sentinel
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
 from typing import IO, Any, Generic, NewType, NoReturn, Protocol, TypeVar, overload
-from typing_extensions import Literal, Self, TypeAlias, deprecated
+from typing_extensions import Literal, Self, TypeAlias
 
 __all__ = [
     "ArgumentParser",
@@ -337,23 +337,11 @@ class Action(_AttributeHolder):
 
 if sys.version_info >= (3, 12):
     class BooleanOptionalAction(Action):
-        @overload
         def __init__(
             self,
             option_strings: Sequence[str],
             dest: str,
-            default: bool | None = None,
-            *,
-            required: bool = False,
-            help: str | None = None,
-        ) -> None: ...
-        @overload
-        @deprecated("The `type`, `choices`, and `metavar` parameters are ignored and will be removed in Python 3.14.")
-        def __init__(
-            self,
-            option_strings: Sequence[str],
-            dest: str,
-            default: _T | bool | None = None,
+            default: _T | str | None = None,
             type: Callable[[str], _T] | FileType | None = sentinel,
             choices: Iterable[_T] | None = sentinel,
             required: bool = False,
@@ -363,23 +351,11 @@ if sys.version_info >= (3, 12):
 
 elif sys.version_info >= (3, 9):
     class BooleanOptionalAction(Action):
-        @overload
         def __init__(
             self,
             option_strings: Sequence[str],
             dest: str,
-            default: bool | None = None,
-            *,
-            required: bool = False,
-            help: str | None = None,
-        ) -> None: ...
-        @overload
-        @deprecated("The `type`, `choices`, and `metavar` parameters are ignored and will be removed in Python 3.14.")
-        def __init__(
-            self,
-            option_strings: Sequence[str],
-            dest: str,
-            default: _T | bool | None = None,
+            default: _T | str | None = None,
             type: Callable[[str], _T] | FileType | None = None,
             choices: Iterable[_T] | None = None,
             required: bool = False,
