@@ -27,9 +27,3 @@ PIL.XVThumbImagePlugin.r
 
 # Forwarded arguments
 PIL\.TiffImagePlugin\.IFDRational\.__[a-z]+__
-
-# Already removed in the 10.0.x branch, but still present in 10.0.0
-PIL.Image.MEDIANCUT
-PIL.Image.MAXCOVERAGE
-PIL.Image.FASTOCTREE
-PIL.Image.LIBIMAGEQUANT
