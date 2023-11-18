@@ -1,6 +1,5 @@
 from abc import abstractmethod
 from collections.abc import Iterable
-from importlib.metadata import EntryPoint
 from threading import Lock
 from typing import Any, ClassVar, Protocol, TypeVar
 from typing_extensions import Literal, Self
@@ -8,6 +7,7 @@ from typing_extensions import Literal, Self
 from fanstatic.compiler import Compiler, Minifier
 from fanstatic.core import Library
 from fanstatic.injector import InjectorPlugin
+from pkg_resources import EntryPoint
 
 class _HasName(Protocol):
     @property

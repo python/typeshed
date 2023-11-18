@@ -64,5 +64,5 @@ fanstatic.injector.InjectorPlugin.name
 
 # Error: failed to find stubs
 # ===========================
-# Internal PY2 compat stuff that should not be necessary for typing
-fanstatic.compat
+# Tests should not be part of the stubs
+fanstatic.tests.*
