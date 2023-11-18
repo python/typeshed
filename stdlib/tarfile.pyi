@@ -7,7 +7,7 @@ from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
 from typing import IO, ClassVar, Protocol, overload
-from typing_extensions import Literal, Self, TypeAlias, deprecated
+from typing_extensions import Literal, Self, TypeAlias
 
 __all__ = [
     "TarFile",
@@ -292,31 +292,14 @@ class TarFile:
     def list(self, verbose: bool = True, *, members: _list[TarInfo] | None = None) -> None: ...
     def next(self) -> TarInfo | None: ...
     if sys.version_info >= (3, 8):
-        @overload
-        @deprecated(
-            "Extracting tar archives without specifying `filter` is deprecated until Python 3.14, when 'data' filter will become the default."
-        )
         def extractall(
             self,
             path: StrOrBytesPath = ".",
             members: Iterable[TarInfo] | None = None,
             *,
             numeric_owner: bool = False,
-            filter: None = ...,
+            filter: _TarfileFilter | None = ...,
         ) -> None: ...
-        @overload
-        def extractall(
-            self,
-            path: StrOrBytesPath = ".",
-            members: Iterable[TarInfo] | None = None,
-            *,
-            numeric_owner: bool = False,
-            filter: _TarfileFilter,
-        ) -> None: ...
-        @overload
-        @deprecated(
-            "Extracting tar archives without specifying `filter` is deprecated until Python 3.14, when 'data' filter will become the default."
-        )
         def extract(
             self,
             member: str | TarInfo,
@@ -324,17 +307,7 @@ class TarFile:
             set_attrs: bool = True,
             *,
             numeric_owner: bool = False,
-            filter: None = ...,
-        ) -> None: ...
-        @overload
-        def extract(
-            self,
-            member: str | TarInfo,
-            path: StrOrBytesPath = "",
-            set_attrs: bool = True,
-            *,
-            numeric_owner: bool = False,
-            filter: _TarfileFilter,
+            filter: _TarfileFilter | None = ...,
         ) -> None: ...
     else:
         def extractall(

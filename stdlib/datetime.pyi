@@ -2,7 +2,7 @@ import sys
 from abc import abstractmethod
 from time import struct_time
 from typing import ClassVar, NamedTuple, NoReturn, TypeVar, overload
-from typing_extensions import Literal, Self, SupportsIndex, TypeAlias, deprecated, final
+from typing_extensions import Literal, Self, SupportsIndex, TypeAlias, final
 
 if sys.version_info >= (3, 11):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")
@@ -265,7 +265,6 @@ class datetime(date):
         def fromtimestamp(cls, __timestamp: float, tz: _TzInfo | None = ...) -> Self: ...
 
     @classmethod
-    @deprecated("Use timezone-aware objects to represent datetimes in UTC; e.g. by calling .fromtimestamp(datetime.UTC)")
     def utcfromtimestamp(cls, __t: float) -> Self: ...
     if sys.version_info >= (3, 8):
         @classmethod
@@ -279,7 +278,6 @@ class datetime(date):
         def now(cls, tz: _TzInfo) -> datetime: ...
 
     @classmethod
-    @deprecated("Use timezone-aware objects to represent datetimes in UTC; e.g. by calling .now(datetime.UTC)")
     def utcnow(cls) -> Self: ...
     @classmethod
     def combine(cls, date: _Date, time: _Time, tzinfo: _TzInfo | None = ...) -> Self: ...
