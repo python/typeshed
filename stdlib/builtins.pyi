@@ -164,7 +164,6 @@ class type:
     # object.__base__ is None. Otherwise, it would be a type.
     @property
     def __base__(self) -> type | None: ...
-    # object.__bases__ is (). Otherwise, it would be a non-empty tuple of type(s).
     __bases__: tuple[type, ...]
     @property
     def __basicsize__(self) -> int: ...
