@@ -859,7 +859,7 @@ if sys.version_info >= (3, 11):
 
 # Type constructors
 
-class NamedTupleMeta(type):
+class NamedTupleMeta(ABCMeta):  # We lie about `ABCMeta`, but it solves the conflict
     def __new__(cls: type[_typeshed_Self], typename: str, bases: tuple[type, ...], ns: dict[str, Any]) -> _typeshed_Self: ...
 
 class NamedTuple(tuple[Any, ...], metaclass=NamedTupleMeta):
