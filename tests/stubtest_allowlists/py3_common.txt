@@ -718,3 +718,10 @@ typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/com
 
 # Omit internal _KEEP argument
 tarfile.TarInfo.replace
+
+# Private parameters are deliberately omitted in the stubs (see https://github.com/python/mypy/issues/16443)
+asyncio.(base_events.)?BaseEventLoop.__del__
+asyncio.(base_subprocess.)?BaseSubprocessTransport.__del__
+asyncio.(sslproto.)?_SSLProtocolTransport.__del__
+multiprocessing.pool.Pool.__del__
+subprocess.Popen.__del__
