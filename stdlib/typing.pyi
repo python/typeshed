@@ -2,7 +2,7 @@ import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import IdentityFunction, Incomplete, ReadableBuffer, SupportsKeysAndGetItem, Self as _typeshed_Self
+from _typeshed import IdentityFunction, Incomplete, ReadableBuffer, Self as _typeshed_Self, SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from re import Match as Match, Pattern as Pattern
