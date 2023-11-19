@@ -2,7 +2,7 @@ import collections  # Needed by aliases like DefaultDict, see mypy issue 2986
 import sys
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import IdentityFunction, Incomplete, ReadableBuffer, Self as _typeshed_Self, SupportsKeysAndGetItem
+from _typeshed import IdentityFunction, Incomplete, ReadableBuffer, SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from re import Match as Match, Pattern as Pattern
@@ -859,10 +859,12 @@ if sys.version_info >= (3, 11):
 
 # Type constructors
 
-class NamedTupleMeta(ABCMeta):  # We lie about `ABCMeta`, but it solves the conflict
-    def __new__(cls: type[_typeshed_Self], typename: str, bases: tuple[type, ...], ns: dict[str, Any]) -> _typeshed_Self: ...
+class NamedTupleMeta(type):
+    def __new__(cls, typename: str, bases: tuple[type, ...], ns: dict[str, Any]) -> typing_extensions.Self: ...
 
-class NamedTuple(tuple[Any, ...], metaclass=NamedTupleMeta):
+# We `type: ignore` here, because `tuple` base-class has `ABCMeta` in stubs,
+# while in runtime it does not. So, ignoring this error.
+class NamedTuple(tuple[Any, ...], metaclass=NamedTupleMeta):  # type: ignore[misc]
     if sys.version_info < (3, 8):
         _field_types: ClassVar[collections.OrderedDict[str, type]]
     elif sys.version_info < (3, 9):
