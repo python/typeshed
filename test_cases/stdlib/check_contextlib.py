@@ -10,7 +10,7 @@ class Thing(ExitStack[Optional[bool]]):
     pass
 
 
-stack: ExitStack[Optional[bool]] = ExitStack()
+stack: ExitStack[bool | None] = ExitStack()
 thing = Thing()
 assert_type(stack.enter_context(Thing()), Thing)
 assert_type(thing.enter_context(ExitStack()), ExitStack[Optional[bool]])
