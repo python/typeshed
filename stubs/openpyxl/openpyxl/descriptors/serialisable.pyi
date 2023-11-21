@@ -38,7 +38,6 @@ class Serialisable(metaclass=MetaSerialisable):
     def from_tree(cls, node: _SerialisableTreeElement) -> Self | None: ...
     # Note: To respect the Liskov substitution principle, idx is a type union of all child class requirements.
     # Use Unused instead for child classes that reuse Serialisable.to_tree directly.
-    # TODO: tagname is passed to Element, which seems to say that tag param can be callable AND not None, that doesn't seem right.
     def to_tree(
         self,
         tagname: str | None = None,

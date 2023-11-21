@@ -36,9 +36,7 @@ class UniqueSequence(Sequence):
 
 class ValueSequence(Sequence):
     attribute: str
-    def to_tree(
-        self, tagname: str | None, obj: Iterable[object], namespace: str | None = None
-    ) -> Generator[Element, None, None]: ...
+    def to_tree(self, tagname: str, obj: Iterable[object], namespace: str | None = None) -> Generator[Element, None, None]: ...
     def from_tree(self, node: _HasGet[_T]) -> _T: ...
 
 class _NestedSequenceToTreeObj(Sized, Iterable[_SupportsToTree], Protocol): ...
@@ -47,7 +45,7 @@ class NestedSequence(Sequence):
     count: bool
     expected_type: type[_SupportsFromTree]
     def to_tree(  # type:ignore[override]
-        self, tagname: str | None, obj: _NestedSequenceToTreeObj, namespace: str | None = None
+        self, tagname: str, obj: _NestedSequenceToTreeObj, namespace: str | None = None
     ) -> Element: ...
     # returned list generic type should be same as the return type of expected_type.from_tree(node)
     # Which can really be anything given the wildly different, and sometimes generic, from_tree return types

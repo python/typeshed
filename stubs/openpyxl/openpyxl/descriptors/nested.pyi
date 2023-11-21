@@ -38,11 +38,8 @@ class Nested(Descriptor[_T]):
     def from_tree(self, node: _HasGet[_T]) -> _T: ...
     @overload
     def to_tree(self, tagname: Unused = None, value: None = None, namespace: Unused = None) -> None: ...  # type: ignore[misc]  # Overlap with incompatible return type
-    # TODO: tagname is passed to Element, which seems to say that tag param can be callable AND not None, that doesn't seem right.
     @overload
-    def to_tree(self, tagname: str | None = None, *, value: object, namespace: str | None = None) -> Element: ...
-    @overload
-    def to_tree(self, tagname: str | None, value: object, namespace: str | None = None) -> Element: ...
+    def to_tree(self, tagname: str, value: object, namespace: str | None = None) -> Element: ...
 
 class NestedValue(Nested[_T], Convertible[_T, _N]):  # type: ignore[misc]
     @overload
@@ -159,11 +156,8 @@ class NestedText(NestedValue[_T, _N]):
     def from_tree(self, node: _HasText) -> str: ...  # type: ignore[override]
     @overload
     def to_tree(self, tagname: Unused = None, value: None = None, namespace: Unused = None) -> None: ...  # type: ignore[misc]  # Overlap with incompatible return type
-    # TODO: tagname is passed to Element, which seems to say that tag param can be callable AND not None, that doesn't seem right.
     @overload
-    def to_tree(self, tagname: str | None = None, *, value: object, namespace: str | None = None) -> Element: ...
-    @overload
-    def to_tree(self, tagname: str | None, value: object, namespace: str | None = None) -> Element: ...
+    def to_tree(self, tagname: str, value: object, namespace: str | None = None) -> Element: ...
 
 class NestedFloat(NestedValue[float, _N], Float[_N]):  # type: ignore[misc]
     @overload
@@ -282,8 +276,5 @@ class EmptyTag(Nested[bool], Bool[_N]):  # type: ignore[misc]
     def from_tree(self, node: Unused) -> Literal[True]: ...  # type: ignore[override]  # Actual overriden return type
     @overload
     def to_tree(self, tagname: Unused = None, value: None = None, namespace: Unused = None) -> None: ...  # type: ignore[misc]  # Overlap with incompatible return type
-    # TODO: tagname is passed to Element, which seems to say that tag param can be callable AND not None, that doesn't seem right.
     @overload
-    def to_tree(self, tagname: str | None = None, *, value: object, namespace: str | None = None) -> Element: ...
-    @overload
-    def to_tree(self, tagname: str | None, value: object, namespace: str | None = None) -> Element: ...
+    def to_tree(self, tagname: str, value: object, namespace: str | None = None) -> Element: ...

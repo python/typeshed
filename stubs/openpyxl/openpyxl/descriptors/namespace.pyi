@@ -1,8 +1,2 @@
-from typing import overload
-
-@overload
+# 'None' shouldn't be a valid tagname and namespaced should always return str
 def namespaced(obj: object, tagname: str, namespace: str | None = None) -> str: ...
-@overload
-def namespaced(obj: object, tagname: str | None, namespace: str) -> str: ...
-@overload
-def namespaced(obj: object, tagname: str | None, namespace: str | None = None) -> str | None: ...
