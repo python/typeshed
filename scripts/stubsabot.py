@@ -15,7 +15,6 @@ import sys
 import tarfile
 import textwrap
 import urllib.parse
-import warnings
 import zipfile
 from collections.abc import Iterator, Mapping, Sequence
 from dataclasses import dataclass, field
@@ -35,10 +34,6 @@ TYPESHED_OWNER = "python"
 TYPESHED_API_URL = f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed"
 
 STUBSABOT_LABEL = "stubsabot"
-
-
-class EmptyRuntimeDistributionWarning(Warning):
-    pass
 
 
 class ActionLevel(enum.IntEnum):
@@ -177,54 +172,36 @@ class NoUpdate:
         return f"Skipping {self.distribution}: {self.reason}"
 
 
-def wheel_dir_is_py_typed(directory: zipfile.Path, *, dist_name: str) -> bool:
-    top_level = list(directory.iterdir())
-    if any(path.is_dir() and path.name.endswith(".dist-info") for path in top_level):
-        raise RuntimeError(f"Unexpectedly found a `.dist-info` subdirectory in the wheel for {dist_name}!")
-    if all(path.is_dir() for path in top_level):
-        # The directory only contains other directories: we're probably looking at a namespace package
-        # Recurse into the lower-down directories to see if they all have py.typed files.
-        return all(wheel_dir_is_py_typed(path, dist_name=dist_name) for path in top_level)
-    return any(path.is_file() and path.name == "py.typed" for path in top_level)
+def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfile.TarFile) -> bool:
+    py_typed_dirs: list[Path] = []
+    all_python_files: list[Path] = []
+    py_file_suffixes = {".py", ".pyi"}
 
+    if isinstance(source, zipfile.ZipFile):
+        all_whl_paths = {Path(info.filename): info for info in source.infolist()}
+        for path, tar_info in all_whl_paths.items():
+            if path.suffix in py_file_suffixes:
+                all_python_files.append(path)
+            elif path.name == "py.typed" and not tar_info.is_dir():
+                py_typed_dirs.append(path.parent)
+    else:
+        all_sdist_paths = {Path(info.path): info for info in source}
+        for path, zip_info in all_sdist_paths.items():
+            if path.suffix in py_file_suffixes:
+                all_python_files.append(path)
+            elif path.name == "py.typed" and zip_info.isfile():
+                py_typed_dirs.append(path.parent)
 
-def all_pkgs_in_wheel_are_py_typed(wheel_file: zipfile.ZipFile, *, dist_name: str) -> bool:
-    wheel = zipfile.Path(wheel_file)
-    top_level_contents = [path for path in wheel.iterdir() if not (path.is_dir() and path.name.endswith(".dist-info"))]
-    if not top_level_contents:
-        warnings.warn(f"Unexpectedly found an empty wheel for {dist_name}", EmptyRuntimeDistributionWarning, stacklevel=1)
-    top_level_dirs = [path for path in top_level_contents if path.is_dir()]
-    if not top_level_dirs:
-        # single-module package, e.g. mypy-extensions, flake8-pyi
+    if not py_typed_dirs:
         return False
-    return all(wheel_dir_is_py_typed(dirpath, dist_name=dist_name) for dirpath in top_level_dirs)
-
-
-def tarfile_dir_is_py_typed(directory: Path, tarfile_map: dict[Path, tarfile.TarInfo], *, dist_name: str) -> bool:
-    toplevel = {path: info for path, info in tarfile_map.items() if path.parent == directory}
-    if any(info.isdir() and path.suffix == ".dist-info" for path, info in toplevel.items()):
-        raise RuntimeError(f"Unexpectedly found a `.dist-info` subdirectory in the sdist for {dist_name}!")
-    if all(info.isdir() for info in toplevel.values()):
-        # The directory only contains other directories: we're probably looking at a namespace package
-        # Recurse into the lower-down directories to see if they all have py.typed files.
-        return all(tarfile_dir_is_py_typed(path, tarfile_map, dist_name=dist_name) for path in toplevel)
-    return any(info.isfile() and path.name == "py.typed" for path, info in toplevel.items())
-
-
-def all_pkgs_in_tarfile_are_py_typed(sdist: tarfile.TarFile, *, dist_name: str) -> bool:
-    tar_paths = {Path(info.path): info for info in sdist}
-    top_level_contents = {
-        path: info
-        for path, info in tar_paths.items()
-        if len(path.parts) == 2 and not (path.suffix == ".dist-info" and info.isdir())
-    }
-    if not top_level_contents:
-        warnings.warn(f"Unexpectedly found an empty wheel for {dist_name}", EmptyRuntimeDistributionWarning, stacklevel=1)
-    top_level_dirs = [path for path, info in top_level_contents.items() if info.isdir()]
-    if not top_level_dirs:
-        # single-module package, e.g. mypy-extensions, flake8-pyi
+    if not all_python_files:
         return False
-    return all(tarfile_dir_is_py_typed(dirpath, tar_paths, dist_name=dist_name) for dirpath in top_level_dirs)
+
+    for path in all_python_files:
+        if not any(py_typed_dir in path.parents for py_typed_dir in py_typed_dirs):
+            return False
+    else:
+        return True
 
 
 async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *, session: aiohttp.ClientSession) -> bool:
@@ -232,17 +209,16 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
         body = io.BytesIO(await response.read())
 
     packagetype = release_to_download.packagetype
-    dist_name = release_to_download.distribution
     if packagetype == "bdist_wheel":
         assert release_to_download.filename.endswith(".whl")
         with zipfile.ZipFile(body) as zf:
-            return all_pkgs_in_wheel_are_py_typed(zf, dist_name=dist_name)
+            return all_py_files_in_source_are_in_py_typed_dirs(zf)
     elif packagetype == "sdist":
         assert release_to_download.filename.endswith(".tar.gz")
         with tarfile.open(fileobj=body, mode="r:gz") as zf:
-            return all_pkgs_in_tarfile_are_py_typed(zf, dist_name=dist_name)
+            return all_py_files_in_source_are_in_py_typed_dirs(zf)
     else:
-        raise AssertionError(f"Unknown package type for {dist_name}: {packagetype!r}")
+        raise AssertionError(f"Unknown package type for {release_to_download.distribution}: {packagetype!r}")
 
 
 async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
