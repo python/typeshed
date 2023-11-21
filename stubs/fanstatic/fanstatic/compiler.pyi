@@ -71,9 +71,9 @@ class CoffeeScript(CommandlineBase, Compiler):
     name: ClassVar[Literal["coffee"]]
     command: ClassVar[Literal["coffee"]]
     source_extension = NotImplemented
-    def process(
+    def process(  # type:ignore[override]
         self, source: StrOrBytesPath | _SourceType, target: StrOrBytesPath | _TargetType
-    ) -> None: ...  # type:ignore[override]
+    ) -> None: ...
 
 COFFEE_COMPILER: CoffeeScript
 
