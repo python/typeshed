@@ -17,7 +17,7 @@ import textwrap
 import urllib.parse
 import zipfile
 from collections.abc import Iterator, Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from http import HTTPStatus
 from pathlib import Path
 from typing import Annotated, Any, ClassVar, NamedTuple
@@ -105,8 +105,8 @@ def _best_effort_version(version: VersionString) -> packaging.version.Version:
 class PypiInfo:
     distribution: str
     pypi_root: str
-    releases: dict[VersionString, list[ReleaseDownload]]
-    info: dict[str, Any]
+    releases: dict[VersionString, list[ReleaseDownload]] = field(repr=False)
+    info: dict[str, Any] = field(repr=False)
 
     def get_release(self, *, version: VersionString) -> PypiReleaseDownload:
         # prefer wheels, since it's what most users will get / it's pretty easy to mess up MANIFEST
@@ -244,7 +244,7 @@ def get_github_api_headers() -> Mapping[str, str]:
 @dataclass
 class GithubInfo:
     repo_path: str
-    tags: list[dict[str, Any]]
+    tags: list[dict[str, Any]] = field(repr=False)
 
 
 async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubInfo) -> GithubInfo | None:
@@ -323,7 +323,7 @@ def _plural_s(num: int, /) -> str:
     return "s" if num != 1 else ""
 
 
-@dataclass
+@dataclass(repr=False)
 class DiffAnalysis:
     MAXIMUM_NUMBER_OF_FILES_TO_LIST: ClassVar[int] = 7
     py_files: list[FileInfo]
