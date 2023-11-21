@@ -56,6 +56,15 @@ fanstatic.registry.Registry.ENTRY_POINT
 fanstatic.Library.path
 fanstatic.core.Library.path
 
+# Error: variable differs from runtime type
+# ======================
+# These are some sentinel objects which use the NewType pattern to create a
+# distinct type
+fanstatic.compiler.SOURCE
+fanstatic.compiler.TARGET
+fanstatic.core.NOTHING
+fanstatic.core.REQUIRED_DEFAULT_MARKER
+
 # Error: is not present at runtime
 # ================================
 # See above, defining correct subclasses is more easy with abstract
