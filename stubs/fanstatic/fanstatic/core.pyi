@@ -2,6 +2,7 @@ from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from threading import local
 from types import ModuleType
+from typing import NewType
 from typing_extensions import Literal, TypeAlias
 
 from fanstatic.compiler import Compiler, Minifier
@@ -96,7 +97,8 @@ class Asset(Dependable):
     def set_dependencies(self, depends: Iterable[Dependable] | None) -> None: ...
     def list_assets(self) -> set[Asset]: ...
 
-NOTHING: object
+_NothingType = NewType("_NothingType", object)
+NOTHING: _NothingType
 
 class Resource(Renderable, Asset):
     relpath: str
@@ -123,8 +125,8 @@ class Resource(Renderable, Asset):
         debug: str | Resource | None = None,
         dont_bundle: bool = False,
         minified: str | Resource | None = None,
-        minifier: Minifier = ...,
-        compiler: Compiler = ...,
+        minifier: Minifier | _NothingType = ...,
+        compiler: Compiler | _NothingType = ...,
         source: str | None = None,
         mode_parent: str | None = None,
     ) -> None: ...
@@ -134,7 +136,8 @@ class Resource(Renderable, Asset):
     def mode(self, mode: str | None) -> Resource: ...
     def need(self, slots: dict[Slot, Resource] | None = None) -> None: ...
 
-REQUIRED_DEFAULT_MARKER: object
+_RequiredDefaultMarkerType = NewType("_RequiredDefaultMarkerType", object)
+REQUIRED_DEFAULT_MARKER: _RequiredDefaultMarkerType
 
 class Slot(Asset):
     default: Resource | None
@@ -145,7 +148,7 @@ class Slot(Asset):
         library: Library,
         extension: str,
         depends: Iterable[Dependable] | None = None,
-        required: bool = ...,
+        required: bool | _RequiredDefaultMarkerType = ...,
         default: Resource | None = None,
     ) -> None: ...
 

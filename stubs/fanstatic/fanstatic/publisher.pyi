@@ -1,5 +1,5 @@
 from _typeshed import StrOrBytesPath
-from _typeshed.wsgi import StartResponse, WSGIApplication
+from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 from collections.abc import Iterable
 from typing import IO, Any
 from typing_extensions import Literal

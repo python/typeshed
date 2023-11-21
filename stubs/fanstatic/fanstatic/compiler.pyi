@@ -2,7 +2,7 @@ from _typeshed import StrOrBytesPath
 from abc import abstractmethod
 from logging import Logger
 from subprocess import Popen
-from typing import Any, ClassVar
+from typing import Any, ClassVar, NewType
 from typing_extensions import Literal
 
 import setuptools.command.sdist
@@ -53,8 +53,10 @@ class NullCompiler(Compiler):
     @property
     def available(self) -> Literal[False]: ...
 
-SOURCE: object
-TARGET: object
+_SourceType = NewType("_SourceType", object)
+_TargetType = NewType("_TargetType", object)
+SOURCE: _SourceType
+TARGET: _TargetType
 
 class CommandlineBase:
     @property
@@ -63,13 +65,15 @@ class CommandlineBase:
     arguments: ClassVar[list[str]]
     @property
     def available(self) -> bool: ...
-    def process(self, source: StrOrBytesPath, target: StrOrBytesPath) -> Popen[str]: ...
+    def process(self, source: StrOrBytesPath | _SourceType, target: StrOrBytesPath | _TargetType) -> Popen[str]: ...
 
 class CoffeeScript(CommandlineBase, Compiler):
     name: ClassVar[Literal["coffee"]]
     command: ClassVar[Literal["coffee"]]
     source_extension = NotImplemented
-    def process(self, source: StrOrBytesPath, target: StrOrBytesPath) -> None: ...  # type:ignore[override]
+    def process(
+        self, source: StrOrBytesPath | _SourceType, target: StrOrBytesPath | _TargetType
+    ) -> None: ...  # type:ignore[override]
 
 COFFEE_COMPILER: CoffeeScript
 
