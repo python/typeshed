@@ -329,9 +329,6 @@ class DiffAnalysis:
     py_files: list[FileInfo]
     py_files_stubbed_in_typeshed: list[FileInfo]
 
-    def __repr__(self) -> str:
-        return f"<DiffAnalysis object at {id(self)}>"
-
     @property
     def runtime_definitely_has_consistent_directory_structure_with_typeshed(self) -> bool:
         """
