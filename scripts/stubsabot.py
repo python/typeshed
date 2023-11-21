@@ -143,7 +143,7 @@ class Update:
     old_version_spec: str
     new_version_spec: str
     links: dict[str, str]
-    diff_analysis: DiffAnalysis | None = field(repr=False)
+    diff_analysis: DiffAnalysis | None
 
     def __str__(self) -> str:
         return f"Updating {self.distribution} from {self.old_version_spec!r} to {self.new_version_spec!r}"
