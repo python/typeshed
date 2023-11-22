@@ -178,11 +178,9 @@ def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfil
     py_file_suffixes = {".py", ".pyi"}
 
     if isinstance(source, zipfile.ZipFile):
-        all_whl_paths = {Path(info.filename): info for info in source.infolist()}
-        path_iter = (path for path, zip_info in all_whl_paths.items() if not zip_info.is_dir())
+        path_iter = (Path(zip_info.filename) for zip_info in source.infolist() if not zip_info.is_dir())
     else:
-        all_sdist_paths = {Path(info.path): info for info in source}
-        path_iter = (path for path, tar_info in all_sdist_paths.items() if tar_info.isfile())
+        path_iter = (Path(tar_info.path) for tar_info in source if tar_info.isfile())
 
     for path in path_iter:
         if path.suffix in py_file_suffixes:
