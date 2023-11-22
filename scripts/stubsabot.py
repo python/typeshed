@@ -179,18 +179,20 @@ def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfil
 
     if isinstance(source, zipfile.ZipFile):
         all_whl_paths = {Path(info.filename): info for info in source.infolist()}
-        for path, tar_info in all_whl_paths.items():
-            if path.suffix in py_file_suffixes:
-                all_python_files.append(path)
-            elif path.name == "py.typed" and not tar_info.is_dir():
-                py_typed_dirs.append(path.parent)
+        for path, zip_info in all_whl_paths.items():
+            if not zip_info.is_dir()
+                if path.suffix in py_file_suffixes:
+                    all_python_files.append(path)
+                elif path.name == "py.typed":
+                    py_typed_dirs.append(path.parent)
     else:
         all_sdist_paths = {Path(info.path): info for info in source}
-        for path, zip_info in all_sdist_paths.items():
-            if path.suffix in py_file_suffixes:
-                all_python_files.append(path)
-            elif path.name == "py.typed" and zip_info.isfile():
-                py_typed_dirs.append(path.parent)
+        for path, tar_info in all_sdist_paths.items():
+            if tar_info.isfile():
+                if path.suffix in py_file_suffixes:
+                    all_python_files.append(path)
+                elif path.name == "py.typed":
+                    py_typed_dirs.append(path.parent)
 
     if not py_typed_dirs:
         return False
