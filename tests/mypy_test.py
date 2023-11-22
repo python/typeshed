@@ -268,6 +268,8 @@ def run_mypy(
             "--allow-subclassing-any",
             "--enable-error-code",
             "ignore-without-code",
+            "--enable-error-code",
+            "redundant-self",
             "--config-file",
             temp.name,
         ]
