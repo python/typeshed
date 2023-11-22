@@ -180,7 +180,7 @@ def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfil
     if isinstance(source, zipfile.ZipFile):
         all_whl_paths = {Path(info.filename): info for info in source.infolist()}
         for path, zip_info in all_whl_paths.items():
-            if not zip_info.is_dir()
+            if not zip_info.is_dir():
                 if path.suffix in py_file_suffixes:
                     all_python_files.append(path)
                 elif path.name == "py.typed":
