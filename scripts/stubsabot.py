@@ -79,6 +79,7 @@ def read_typeshed_stub_metadata(stub_path: Path) -> StubInfo:
 
 @dataclass
 class PypiReleaseDownload:
+    distribution: str
     url: str
     packagetype: Annotated[str, "Should hopefully be either 'bdist_wheel' or 'sdist'"]
     filename: str
@@ -112,6 +113,7 @@ class PypiInfo:
         # prefer wheels, since it's what most users will get / it's pretty easy to mess up MANIFEST
         release_info = sorted(self.releases[version], key=lambda x: bool(x["packagetype"] == "bdist_wheel"))[-1]
         return PypiReleaseDownload(
+            distribution=self.distribution,
             url=release_info["url"],
             packagetype=release_info["packagetype"],
             filename=release_info["filename"],
@@ -170,6 +172,33 @@ class NoUpdate:
         return f"Skipping {self.distribution}: {self.reason}"
 
 
+def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfile.TarFile) -> bool:
+    py_typed_dirs: list[Path] = []
+    all_python_files: list[Path] = []
+    py_file_suffixes = {".py", ".pyi"}
+
+    if isinstance(source, zipfile.ZipFile):
+        path_iter = (Path(zip_info.filename) for zip_info in source.infolist() if not zip_info.is_dir())
+    else:
+        path_iter = (Path(tar_info.path) for tar_info in source if tar_info.isfile())
+
+    for path in path_iter:
+        if path.suffix in py_file_suffixes:
+            all_python_files.append(path)
+        elif path.name == "py.typed":
+            py_typed_dirs.append(path.parent)
+
+    if not py_typed_dirs:
+        return False
+    if not all_python_files:
+        return False
+
+    for path in all_python_files:
+        if not any(py_typed_dir in path.parents for py_typed_dir in py_typed_dirs):
+            return False
+    return True
+
+
 async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *, session: aiohttp.ClientSession) -> bool:
     async with session.get(release_to_download.url) as response:
         body = io.BytesIO(await response.read())
@@ -178,13 +207,13 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
     if packagetype == "bdist_wheel":
         assert release_to_download.filename.endswith(".whl")
         with zipfile.ZipFile(body) as zf:
-            return any(Path(f).name == "py.typed" for f in zf.namelist())
+            return all_py_files_in_source_are_in_py_typed_dirs(zf)
     elif packagetype == "sdist":
         assert release_to_download.filename.endswith(".tar.gz")
         with tarfile.open(fileobj=body, mode="r:gz") as zf:
-            return any(Path(f).name == "py.typed" for f in zf.getnames())
+            return all_py_files_in_source_are_in_py_typed_dirs(zf)
     else:
-        raise AssertionError(f"Unknown package type: {packagetype!r}")
+        raise AssertionError(f"Unknown package type for {release_to_download.distribution}: {packagetype!r}")
 
 
 async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
