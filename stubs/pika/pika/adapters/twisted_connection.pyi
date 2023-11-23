@@ -7,7 +7,10 @@ from typing import Generic, NamedTuple, TypeVar
 import pika.connection
 from pika.adapters.utils import nbio_interface
 from twisted.internet.base import DelayedCall  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
-from twisted.internet.defer import Deferred, DeferredQueue  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
+from twisted.internet.defer import (  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
+    Deferred,
+    DeferredQueue,
+)
 from twisted.internet.interfaces import ITransport  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
 from twisted.internet.protocol import Protocol  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
 from twisted.python.failure import Failure  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
