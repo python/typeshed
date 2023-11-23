@@ -1795,11 +1795,11 @@ _SupportsSumNoDefaultT = TypeVar("_SupportsSumNoDefaultT", bound=_SupportsSumWit
 # Instead, we special-case the most common examples of this: bool and literal integers.
 if sys.version_info >= (3, 8):
     @overload
-    def sum(__iterable: Iterable[bool | _LiteralInteger], start: int = 0) -> int: ...  # type: ignore[misc]
+    def sum(__iterable: Iterable[bool | _LiteralInteger], start: int = 0) -> int: ...  # type: ignore[overload-overlap]
 
 else:
     @overload
-    def sum(__iterable: Iterable[bool | _LiteralInteger], __start: int = 0) -> int: ...  # type: ignore[misc]
+    def sum(__iterable: Iterable[bool | _LiteralInteger], __start: int = 0) -> int: ...  # type: ignore[overload-overlap]
 
 @overload
 def sum(__iterable: Iterable[_SupportsSumNoDefaultT]) -> _SupportsSumNoDefaultT | Literal[0]: ...
@@ -1816,7 +1816,7 @@ else:
 # (A "SupportsDunderDict" protocol doesn't work)
 # Use a type: ignore to make complaints about overlapping overloads go away
 @overload
-def vars(__object: type) -> types.MappingProxyType[str, Any]: ...  # type: ignore[misc]
+def vars(__object: type) -> types.MappingProxyType[str, Any]: ...  # type: ignore[overload-overlap]
 @overload
 def vars(__object: Any = ...) -> dict[str, Any]: ...
 
