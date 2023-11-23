@@ -140,7 +140,7 @@ class Plotter:
         pad_inches: float | None = None,
         bbox_extra_artists: list[Artist] | None = None,
         backend: str | None = None,
-        # Further **kwargs can truly be anything from an overriden Canvas method that is still passed down
+        # Further **kwargs can truly be anything from an overridden Canvas method that is still passed down
         **kwargs: Any,
     ) -> Self: ...
     # Same as matplotlib.backend_bases._Bases. No other backend override show
