@@ -562,7 +562,7 @@ class FPDF(GraphicsStateMixin):
         width: int | None = None,
     ) -> _GeneratorContextManager[Table]: ...
     @overload
-    def output(  # type: ignore[misc]
+    def output(  # type: ignore[overload-overlap]
         self,
         name: Literal[""] | None = "",
         dest: Unused = "",
