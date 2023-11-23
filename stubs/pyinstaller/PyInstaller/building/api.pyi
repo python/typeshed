@@ -52,7 +52,7 @@ _HideConsole: TypeAlias = Literal["hide-early", "minimize-early", "hide-late", "
 class PYZ(Target):
     name: str
     cipher: _PyiBlockCipher
-    dependencies: list[_TOCTuple]  # type: ignore[assignment]
+    dependencies: list[_TOCTuple]
     toc: list[_TOCTuple]
     code_dict: dict[str, CodeType]
     def __init__(self, *tocs: Iterable[_TOCTuple], name: str | None = None, cipher: _PyiBlockCipher = None) -> None: ...
