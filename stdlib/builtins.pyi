@@ -64,6 +64,7 @@ from typing_extensions import (
     TypeAlias,
     TypeGuard,
     TypeVarTuple,
+    deprecated,
     final,
 )
 
@@ -938,6 +939,8 @@ class bool(int):
     @overload
     def __rxor__(self, __value: int) -> int: ...
     def __getnewargs__(self) -> tuple[int]: ...
+    @deprecated("Will throw an error in Python 3.14. Use `not` for logical negation of bools instead.")
+    def __invert__(self) -> int: ...
 
 @final
 class slice:
