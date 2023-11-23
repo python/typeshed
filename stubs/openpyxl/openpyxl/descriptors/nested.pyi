@@ -60,7 +60,7 @@ class NestedValue(Nested[_T], Convertible[_T, _N]):  # type: ignore[misc]
     @overload
     def __get__(self: NestedValue[_T, Literal[False]], instance: Serialisable | Strict, cls: type | None = None) -> _T: ...
     # NOTE: It is currently impossible to make a generic based on the parameter type of another generic
-    # So we implement explicitely the types used internally
+    # So we implement explicitly the types used internally
     # str | Blip
     @overload
     def __set__(
