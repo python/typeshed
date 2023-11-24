@@ -46,7 +46,7 @@ class _NestedSequenceToTreeObj(Sized, Iterable[_SupportsToTree], Protocol): ...
 class NestedSequence(Sequence):
     count: bool
     expected_type: type[_SupportsFromTree]
-    def to_tree(  # type:ignore[override]
+    def to_tree(  # type: ignore[override]
         self, tagname: str, obj: _NestedSequenceToTreeObj, namespace: str | None = None
     ) -> Element: ...
     # returned list generic type should be same as the return type of expected_type.from_tree(node)
@@ -56,10 +56,7 @@ class NestedSequence(Sequence):
 class MultiSequence(Sequence):
     def __set__(self, instance: Serialisable | Strict, seq) -> None: ...
     def to_tree(
-        self,
-        tagname: Unused,
-        obj: Iterable[_SupportsToTree],  # type:ignore[override]
-        namespace: str | None = None,
+        self, tagname: Unused, obj: Iterable[_SupportsToTree], namespace: str | None = None  # type: ignore[override]
     ) -> Generator[Element, None, None]: ...
 
 class MultiSequencePart(Alias):

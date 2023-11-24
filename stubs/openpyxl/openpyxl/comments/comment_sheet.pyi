@@ -113,7 +113,7 @@ class CommentSheet(Serialisable):
     mime_type: str
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, authors: AuthorList, commentList: Incomplete | None = None, extLst: Unused = None) -> None: ...
-    def to_tree(self) -> Element: ...  # type:ignore[override]
+    def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
     def comments(self) -> Generator[tuple[str, Comment], None, None]: ...
     @classmethod

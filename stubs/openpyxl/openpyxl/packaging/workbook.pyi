@@ -100,6 +100,6 @@ class WorkbookPackage(Serialisable):
         extLst: Unused = None,
         Ignorable: Unused = None,
     ) -> None: ...
-    def to_tree(self) -> Element: ...  # type:ignore[override]
+    def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
     def active(self) -> int: ...

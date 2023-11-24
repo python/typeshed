@@ -197,7 +197,7 @@ class Table(Serialisable):
         tableStyleInfo: TableStyleInfo | None = None,
         extLst: Unused = None,
     ) -> None: ...
-    def to_tree(self) -> Element: ...  # type:ignore[override]
+    def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
     def path(self) -> str: ...
     @property

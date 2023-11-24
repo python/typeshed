@@ -74,7 +74,7 @@ class ExternalLink(Serialisable):
     def __init__(
         self, externalBook: ExternalBook | None = None, ddeLink: Unused = None, oleLink: Unused = None, extLst: Unused = None
     ) -> None: ...
-    def to_tree(self) -> Element: ...  # type:ignore[override]
+    def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
     def path(self) -> str: ...
 

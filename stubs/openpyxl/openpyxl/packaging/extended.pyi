@@ -81,4 +81,4 @@ class ExtendedProperties(Serialisable):
         AppVersion: object = None,
         DocSecurity: _ConvertibleToInt | None = None,
     ) -> None: ...
-    def to_tree(self) -> Element: ...  # type:ignore[override]
+    def to_tree(self) -> Element: ...  # type: ignore[override]
