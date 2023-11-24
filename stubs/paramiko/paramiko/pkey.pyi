@@ -1,5 +1,5 @@
-from re import Pattern
 from pathlib import Path
+from re import Pattern
 from typing import IO, TypeVar
 from typing_extensions import Self
 
@@ -16,7 +16,7 @@ class PKey:
     BEGIN_TAG: Pattern[str]
     END_TAG: Pattern[str]
     @staticmethod
-    def from_path(path: Path | str, passphrase = None) -> PKey: ...
+    def from_path(path: Path | str, passphrase=None) -> PKey: ...
     @staticmethod
     def from_type_string(key_type: str, key_bytes: bytes) -> PKey: ...
     @classmethod
