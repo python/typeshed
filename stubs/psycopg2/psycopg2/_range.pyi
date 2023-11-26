@@ -33,7 +33,7 @@ class Range:
     def __ge__(self, other: Range) -> bool: ...
 
 def register_range(
-    pgrange: str, pyrange: str | Range, conn_or_curs: connection | cursor, globally: bool = False
+    pgrange: str, pyrange: str | type[Range], conn_or_curs: connection | cursor, globally: bool = False
 ) -> RangeCaster: ...
 
 class RangeAdapter:
