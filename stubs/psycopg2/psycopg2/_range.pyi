@@ -51,7 +51,7 @@ class RangeCaster:
     typecaster: Any
     array_typecaster: Any
     def __init__(
-        self, pgrange: str | RangeAdapter, pyrange: str | Range, oid: int, subtype_oid: int, array_oid: int | None = None
+        self, pgrange: str | type[RangeAdapter], pyrange: str | type[Range], oid: int, subtype_oid: int, array_oid: int | None = None
     ) -> None: ...
     @overload
     def parse(self, s: None, cur: cursor | None = None) -> None: ...
