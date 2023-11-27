@@ -252,7 +252,7 @@ if sys.platform != "win32":
             IPV6_USE_MIN_MTU as IPV6_USE_MIN_MTU,
         )
 
-if sys.platform != "win32" or sys.version_info >= (3, 8):
+if (sys.platform != "win32" or sys.version_info >= (3, 8)) and sys.implementation.name != "pypy":
     from _socket import if_indextoname as if_indextoname, if_nameindex as if_nameindex, if_nametoindex as if_nametoindex
 
 if sys.platform != "darwin":
