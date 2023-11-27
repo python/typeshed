@@ -1,9 +1,10 @@
 import importlib.abc
 import sys
 import types
-from _typeshed import ReadableBuffer
-from collections.abc import Callable, Iterable, Sequence
+from _typeshed import Incomplete, ReadableBuffer
+from collections.abc import Callable, Iterable, MutableSequence, Sequence
 from typing import Any
+from typing_extensions import Literal
 
 if sys.version_info >= (3, 8):
     from importlib.metadata import DistributionFinder, PathDistribution
@@ -158,3 +159,16 @@ class ExtensionFileLoader(importlib.abc.ExecutionLoader):
     def get_code(self, fullname: str) -> None: ...
     def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> int: ...
+
+if sys.version_info >= (3, 11):
+    class NamespaceLoader(importlib.abc.InspectLoader):
+        def __init__(
+            self, name: str, path: MutableSequence[str], path_finder: Callable[[str, tuple[str, ...]], ModuleSpec]
+        ) -> None: ...
+        def is_package(self, fullname: str) -> Literal[True]: ...
+        def get_source(self, fullname: str) -> Literal[""]: ...
+        def get_code(self, fullname: str) -> types.CodeType: ...
+        # Actually it returns importlib.readers.NamespaceReader.
+        # Unfortunately, importing from importlib.readers in importlib.machinery
+        # appears to break mypy's brain a little (probably due to a massive import cycle)?
+        def get_resource_reader(self, module: types.ModuleType) -> Incomplete: ...
