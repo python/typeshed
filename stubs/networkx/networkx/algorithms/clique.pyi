@@ -1,5 +1,5 @@
 from _typeshed import SupportsGetItem, Unused
-from collections.abc import Iterable, Generator, Iterator, Sized, Container
+from collections.abc import Container, Generator, Iterable, Iterator, Sized
 from typing import overload
 
 from networkx.classes.graph import Graph, _Node

@@ -1,5 +1,4 @@
 from _typeshed import Incomplete, Unused
-from abc import ABCMeta
 from collections.abc import Iterator, Mapping, Set as AbstractSet
 from typing import Generic, TypeVar, overload
 from typing_extensions import Literal, Self

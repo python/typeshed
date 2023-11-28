@@ -32,6 +32,7 @@ def waxman_graph(
     metric: Incomplete | None = None,
     seed: Incomplete | None = None,
 ): ...
+
 # docstring marks p as int, but it still works with floats. So I think it's better for consistency
 def navigable_small_world_graph(n, p: float = 1, q: int = 1, r: float = 2, dim: int = 2, seed: Incomplete | None = None): ...
 def thresholded_random_geometric_graph(

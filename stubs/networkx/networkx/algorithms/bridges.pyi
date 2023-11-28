@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterable
+from collections.abc import Callable
 from typing import overload
 from typing_extensions import Literal
 

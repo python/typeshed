@@ -1,4 +1,4 @@
-from collections.abc import Hashable, Iterable
+from collections.abc import Hashable
 
 from networkx.classes.graph import Graph, _Node
 from networkx.exception import NetworkXException

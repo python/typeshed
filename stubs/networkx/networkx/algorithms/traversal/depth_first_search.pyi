@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from collections.abc import Iterator
 from typing import TypeVar
 
 from networkx.classes.graph import Graph

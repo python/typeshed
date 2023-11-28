@@ -1,4 +1,3 @@
-from collections.abc import Iterable
 
 from networkx.classes.graph import Graph, _Node
 
