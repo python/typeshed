@@ -1,4 +1,4 @@
-from collections.abc import Hashable, Iterable
+from collections.abc import Generator, Hashable, Iterable
 from typing import TypeVar
 
 from networkx.classes.digraph import DiGraph

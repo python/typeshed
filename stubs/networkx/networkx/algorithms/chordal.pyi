@@ -1,4 +1,5 @@
-from collections.abc import Hashable
+import sys
+from collections.abc import Generator, Hashable
 
 from networkx.classes.graph import Graph, _Node
 from networkx.exception import NetworkXException

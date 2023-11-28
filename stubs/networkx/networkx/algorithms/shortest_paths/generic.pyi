@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Generator
 from typing import TypeVar, overload
 
 from networkx.classes.graph import Graph

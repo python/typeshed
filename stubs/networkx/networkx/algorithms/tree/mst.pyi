@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Iterator
+from dataclasses import dataclass
 from enum import Enum
 
 class EdgePartition(Enum):
@@ -21,7 +22,7 @@ def maximum_spanning_tree(G, weight: str = "weight", algorithm: str = "kruskal",
 def random_spanning_tree(G, weight: Incomplete | None = None, *, multiplicative: bool = True, seed: Incomplete | None = None): ...
 
 class SpanningTreeIterator:
-    @dataclass(order=True)
+    @dataclass
     class Partition:
         mst_weight: float
         partition_dict: dict[Incomplete, Incomplete]

@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Iterator
+from dataclasses import dataclass
 from typing import Generic
 
 from networkx.classes.graph import _Node
@@ -60,7 +61,7 @@ def minimum_spanning_arborescence(
 ): ...
 
 class ArborescenceIterator:
-    @dataclass(order=True)
+    @dataclass
     class Partition:
         mst_weight: float
         partition_dict: dict[Incomplete, Incomplete]

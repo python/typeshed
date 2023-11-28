@@ -1,9 +1,9 @@
 from _typeshed import Incomplete
-from collections.abc import Hashable, Iterable
+from collections.abc import Generator, Hashable, Iterator
 from typing import TypeVar, overload
 from typing_extensions import Literal
 
-from networkx.classes.graph import Graph
+from networkx.classes.graph import Graph, _NBunch
 from networkx.classes.graphviews import reverse_view as reverse_view, subgraph_view as subgraph_view
 
 __all__ = [
@@ -104,11 +104,13 @@ def selfloop_edges(
     G: Graph[_T], data: str, keys: Literal[False] = False, default: _U | None = None
 ) -> Generator[tuple[_T, _T, _U], None, None]: ...
 @overload
-def selfloop_edges(G: Graph[_T], data: Literal[False], keys: Literal[True], default=None) -> Generator[tuple[_T, _T, int], None, None]: ...
+def selfloop_edges(
+    G: Graph[_T], data: Literal[False], keys: Literal[True], default=None
+) -> Generator[tuple[_T, _T, int], None, None]: ...
 @overload
 def selfloop_edges(
     G: Graph[_T], data: Literal[False] = False, *, keys: Literal[True], default=None
-) -> Generator[tuple[_T, _T, int]], None, None]: ...
+) -> Generator[tuple[_T, _T, int], None, None]: ...
 @overload
 def selfloop_edges(
     G: Graph[_T], data: Literal[True], keys: Literal[True], default=None

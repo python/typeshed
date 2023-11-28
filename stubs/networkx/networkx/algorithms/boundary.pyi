@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Iterable
+from collections.abc import Generator, Iterable
 from typing import TypeVar, overload
 from typing_extensions import Literal
 

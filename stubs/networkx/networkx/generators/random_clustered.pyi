@@ -1,6 +1,8 @@
+from collections.abc import Iterable
 from typing import Any, TypeVar, overload
 
 from networkx import MultiGraph
+from networkx.classes.graph import Graph
 
 _G = TypeVar("_G", bound=Graph[int])
 

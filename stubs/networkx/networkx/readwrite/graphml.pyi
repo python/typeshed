@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from typing_extensions import Final
 
 __all__ = [
     "write_graphml",
@@ -41,10 +42,10 @@ def read_graphml(path, node_type=..., edge_key_type=..., force_multigraph: bool 
 def parse_graphml(graphml_string, node_type=..., edge_key_type=..., force_multigraph: bool = False): ...
 
 class GraphML:
-    NS_GRAPHML: Literal[str]
-    NS_XSI: Literal[str]
-    NS_Y: Literal[str]
-    SCHEMALOCATION: Literal[str]
+    NS_GRAPHML: Final[str]
+    NS_XSI: Final[str]
+    NS_Y: Final[str]
+    SCHEMALOCATION: Final[str]
     xml_type: Incomplete
     python_type: Incomplete
     def construct_types(self) -> None: ...

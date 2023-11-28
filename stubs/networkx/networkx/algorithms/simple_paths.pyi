@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Generator, Sequence
 from typing import TypeVar
 
 from networkx.classes.graph import Graph

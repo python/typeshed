@@ -3,7 +3,7 @@ from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, 
 from typing import ClassVar, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
-from networkx.classes.coreviews import AdjacencyView
+from networkx.classes.coreviews import AdjacencyView, AtlasView
 from networkx.classes.digraph import DiGraph
 from networkx.classes.reportviews import DiDegreeView, NodeView, OutEdgeView
 from networkx.convert import _Data

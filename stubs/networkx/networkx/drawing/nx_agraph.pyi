@@ -1,14 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Hashable
 from io import TextIOBase
-from typing import TypeVar
 from typing_extensions import TypeAlias
 
-from networkx.classes.graph import Graph
+from networkx.classes.graph import Graph, _Node
 
 # from pygraphviz.agraph import AGraph as _AGraph
 _AGraph: TypeAlias = Incomplete
-_T = TypeVar("_T")
 
 def from_agraph(A, create_using: Incomplete | None = None) -> Graph[Incomplete]: ...
 def to_agraph(N: Graph[Hashable]) -> _AGraph: ...

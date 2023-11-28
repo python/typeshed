@@ -1,4 +1,4 @@
-from collections.abc import Hashable
+from collections.abc import Generator, Hashable
 from typing import TypeVar
 
 from networkx.classes.graph import Graph

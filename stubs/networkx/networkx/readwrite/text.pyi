@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from typing import ClassVar
 
 __all__ = ["forest_str", "generate_network_text", "write_network_text"]
 

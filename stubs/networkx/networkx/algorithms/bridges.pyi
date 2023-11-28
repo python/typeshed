@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable
+from collections.abc import Callable, Generator
 from typing import overload
 from typing_extensions import Literal
 
@@ -10,8 +10,8 @@ def has_bridges(G: Graph[_Node], root: Incomplete | None = None) -> bool: ...
 @overload
 def local_bridges(
     G: Graph[_Node], with_span: Literal[False], weight: str | Callable[[_Node], float] | None = None
-) -> Generator[tuple[_Node, _Node], Node, Node]: ...
+) -> Generator[tuple[_Node, _Node], None, None]: ...
 @overload
 def local_bridges(
     G: Graph[_Node], with_span: Literal[True] = True, weight: str | Callable[[_Node], float] | None = None
-) -> Generator[tuple[_Node, _Node, int], Node, Node]: ...
+) -> Generator[tuple[_Node, _Node, int], None, None]: ...
