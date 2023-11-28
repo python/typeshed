@@ -7,6 +7,7 @@ At present the active maintainers are (alphabetically):
 * Guido van Rossum (@gvanrossum)
 * Shantanu (@hauntsaninja)
 * Nikita Sobolev (@sobolevn)
+* Samuel Therrien (@Avasam)
 * Aku Viljanen (@Akuli)
 * Alex Waygood (@AlexWaygood)
 * Jelle Zijlstra (@JelleZijlstra)
