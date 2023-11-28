@@ -3,9 +3,9 @@ from collections.abc import Iterator
 from enum import Enum
 
 class EdgePartition(Enum):
-    OPEN: int
-    INCLUDED: int
-    EXCLUDED: int
+    OPEN = 0
+    INCLUDED = 1
+    EXCLUDED = 2
 
 def minimum_spanning_edges(
     G, algorithm: str = "kruskal", weight: str = "weight", keys: bool = True, data: bool = True, ignore_nan: bool = False
@@ -21,15 +21,10 @@ def maximum_spanning_tree(G, weight: str = "weight", algorithm: str = "kruskal",
 def random_spanning_tree(G, weight: Incomplete | None = None, *, multiplicative: bool = True, seed: Incomplete | None = None): ...
 
 class SpanningTreeIterator:
+    @dataclass(order=True)
     class Partition:
         mst_weight: float
         partition_dict: dict[Incomplete, Incomplete]
-        def __copy__(self): ...
-        def __init__(self, mst_weight, partition_dict) -> None: ...
-        def __lt__(self, other): ...
-        def __gt__(self, other): ...
-        def __le__(self, other): ...
-        def __ge__(self, other): ...
     G: Incomplete
     weight: Incomplete
     minimum: Incomplete

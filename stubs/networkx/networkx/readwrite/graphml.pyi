@@ -41,10 +41,10 @@ def read_graphml(path, node_type=..., edge_key_type=..., force_multigraph: bool 
 def parse_graphml(graphml_string, node_type=..., edge_key_type=..., force_multigraph: bool = False): ...
 
 class GraphML:
-    NS_GRAPHML: str
-    NS_XSI: str
-    NS_Y: str
-    SCHEMALOCATION: Incomplete
+    NS_GRAPHML: Literal[str]
+    NS_XSI: Literal[str]
+    NS_Y: Literal[str]
+    SCHEMALOCATION: Literal[str]
     xml_type: Incomplete
     python_type: Incomplete
     def construct_types(self) -> None: ...

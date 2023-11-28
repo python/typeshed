@@ -4,40 +4,40 @@ from collections.abc import Generator
 __all__ = ["forest_str", "generate_network_text", "write_network_text"]
 
 class _AsciiBaseGlyphs:
-    empty: str
-    newtree_last: str
-    newtree_mid: str
-    endof_forest: str
-    within_forest: str
-    within_tree: str
+    empty: ClassVar[str]
+    newtree_last: ClassVar[str]
+    newtree_mid: ClassVar[str]
+    endof_forest: ClassVar[str]
+    within_forest: ClassVar[str]
+    within_tree: ClassVar[str]
 
 class AsciiDirectedGlyphs(_AsciiBaseGlyphs):
-    last: str
-    mid: str
-    backedge: str
+    last: ClassVar[str]
+    mid: ClassVar[str]
+    backedge: ClassVar[str]
 
 class AsciiUndirectedGlyphs(_AsciiBaseGlyphs):
-    last: str
-    mid: str
-    backedge: str
+    last: ClassVar[str]
+    mid: ClassVar[str]
+    backedge: ClassVar[str]
 
 class _UtfBaseGlyphs:
-    empty: str
-    newtree_last: str
-    newtree_mid: str
-    endof_forest: str
-    within_forest: str
-    within_tree: str
+    empty: ClassVar[str]
+    newtree_last: ClassVar[str]
+    newtree_mid: ClassVar[str]
+    endof_forest: ClassVar[str]
+    within_forest: ClassVar[str]
+    within_tree: ClassVar[str]
 
 class UtfDirectedGlyphs(_UtfBaseGlyphs):
-    last: str
-    mid: str
-    backedge: str
+    last: ClassVar[str]
+    mid: ClassVar[str]
+    backedge: ClassVar[str]
 
 class UtfUndirectedGlyphs(_UtfBaseGlyphs):
-    last: str
-    mid: str
-    backedge: str
+    last: ClassVar[str]
+    mid: ClassVar[str]
+    backedge: ClassVar[str]
 
 def generate_network_text(
     graph,

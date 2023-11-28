@@ -11,13 +11,13 @@ def read_gml(path, label: str = "label", destringizer: Incomplete | None = None)
 def parse_gml(lines, label: str = "label", destringizer: Incomplete | None = None): ...
 
 class Pattern(Enum):
-    KEYS: int
-    REALS: int
-    INTS: int
-    STRINGS: int
-    DICT_START: int
-    DICT_END: int
-    COMMENT_WHITESPACE: int
+    KEYS = 0
+    REALS = 1
+    INTS = 2
+    STRINGS = 3
+    DICT_START = 4
+    DICT_END = 5
+    COMMENT_WHITESPACE = 6
 
 class Token(NamedTuple, Generic[_T]):
     category: Pattern

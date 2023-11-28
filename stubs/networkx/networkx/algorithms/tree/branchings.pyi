@@ -16,8 +16,8 @@ __all__ = [
     "Edmonds",
 ]
 
-def branching_weight(G, attr: str = "weight", default: int = 1): ...
-def greedy_branching(G, attr: str = "weight", default: int = 1, kind: str = "max", seed: Incomplete | None = None): ...
+def branching_weight(G, attr: str = "weight", default: float = 1): ...
+def greedy_branching(G, attr: str = "weight", default: float = 1, kind: str = "max", seed: Incomplete | None = None): ...
 
 class MultiDiGraph_EdgeKey(MultiDiGraph[_Node], Generic[_Node]):
     edge_index: Incomplete
@@ -38,7 +38,7 @@ class Edmonds:
     def find_optimum(
         self,
         attr: str = "weight",
-        default: int = 1,
+        default: float = 1,
         kind: str = "max",
         style: str = "branching",
         preserve_attrs: bool = False,
@@ -47,28 +47,23 @@ class Edmonds:
     ): ...
 
 def maximum_branching(
-    G, attr: str = "weight", default: int = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
+    G, attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
 ): ...
 def minimum_branching(
-    G, attr: str = "weight", default: int = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
+    G, attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
 ): ...
 def maximum_spanning_arborescence(
-    G, attr: str = "weight", default: int = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
+    G, attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
 ): ...
 def minimum_spanning_arborescence(
-    G, attr: str = "weight", default: int = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
+    G, attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
 ): ...
 
 class ArborescenceIterator:
+    @dataclass(order=True)
     class Partition:
         mst_weight: float
         partition_dict: dict[Incomplete, Incomplete]
-        def __copy__(self): ...
-        def __init__(self, mst_weight, partition_dict) -> None: ...
-        def __lt__(self, other): ...
-        def __gt__(self, other): ...
-        def __le__(self, other): ...
-        def __ge__(self, other): ...
     G: Incomplete
     weight: Incomplete
     minimum: Incomplete

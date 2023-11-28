@@ -9,7 +9,7 @@ def scale_free_graph(
     beta: float = 0.54,
     gamma: float = 0.05,
     delta_in: float = 0.2,
-    delta_out: int = 0,
+    delta_out: float = 0,
     create_using: Incomplete | None = None,
     seed: Incomplete | None = None,
     initial_graph: Incomplete | None = None,

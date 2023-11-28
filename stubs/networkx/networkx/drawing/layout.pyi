@@ -1,17 +1,17 @@
 from _typeshed import Incomplete
 
 def random_layout(G, center: Incomplete | None = None, dim: int = 2, seed: Incomplete | None = None): ...
-def circular_layout(G, scale: int = 1, center: Incomplete | None = None, dim: int = 2): ...
+def circular_layout(G, scale: float = 1, center: Incomplete | None = None, dim: int = 2): ...
 def shell_layout(
     G,
     nlist: Incomplete | None = None,
     rotate: Incomplete | None = None,
-    scale: int = 1,
+    scale: float = 1,
     center: Incomplete | None = None,
     dim: int = 2,
 ): ...
 def bipartite_layout(
-    G, nodes, align: str = "vertical", scale: int = 1, center: Incomplete | None = None, aspect_ratio: float = ...
+    G, nodes, align: str = "vertical", scale: float = 1, center: Incomplete | None = None, aspect_ratio: float = ...
 ): ...
 def spring_layout(
     G,
@@ -21,7 +21,7 @@ def spring_layout(
     iterations: int = 50,
     threshold: float = 0.0001,
     weight: str = "weight",
-    scale: int = 1,
+    scale: float = 1,
     center: Incomplete | None = None,
     dim: int = 2,
     seed: Incomplete | None = None,
@@ -34,26 +34,26 @@ def kamada_kawai_layout(
     dist: Incomplete | None = None,
     pos: Incomplete | None = None,
     weight: str = "weight",
-    scale: int = 1,
+    scale: float = 1,
     center: Incomplete | None = None,
     dim: int = 2,
 ): ...
-def spectral_layout(G, weight: str = "weight", scale: int = 1, center: Incomplete | None = None, dim: int = 2): ...
-def planar_layout(G, scale: int = 1, center: Incomplete | None = None, dim: int = 2): ...
+def spectral_layout(G, weight: str = "weight", scale: float = 1, center: Incomplete | None = None, dim: int = 2): ...
+def planar_layout(G, scale: float = 1, center: Incomplete | None = None, dim: int = 2): ...
 def spiral_layout(
-    G, scale: int = 1, center: Incomplete | None = None, dim: int = 2, resolution: float = 0.35, equidistant: bool = False
+    G, scale: float = 1, center: Incomplete | None = None, dim: int = 2, resolution: float = 0.35, equidistant: bool = False
 ): ...
 def multipartite_layout(
-    G, subset_key: str = "subset", align: str = "vertical", scale: int = 1, center: Incomplete | None = None
+    G, subset_key: str = "subset", align: str = "vertical", scale: float = 1, center: Incomplete | None = None
 ): ...
 def arf_layout(
     G,
     pos: Incomplete | None = None,
-    scaling: int = 1,
+    scaling: float = 1,
     a: float = 1.1,
     etol: float = 1e-06,
     dt: float = 0.001,
     max_iter: int = 1000,
 ): ...
-def rescale_layout(pos, scale: int = 1): ...
-def rescale_layout_dict(pos, scale: int = 1): ...
+def rescale_layout(pos, scale: float = 1): ...
+def rescale_layout_dict(pos, scale: float = 1): ...

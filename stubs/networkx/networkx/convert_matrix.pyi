@@ -11,14 +11,14 @@ from networkx.classes.graph import Graph, _Node
 _DataFrame: TypeAlias = Incomplete
 # from pandas.core.dtypes.base import ExtensionDtype
 _ExtensionDtype: TypeAlias = Incomplete
-_G = TypeVar("_G")
+_G = TypeVar("_G", bound=Graph[Hashable])
 
 def to_pandas_adjacency(
     G: Graph[_Node],
     nodelist: list[_Node] | None = None,
     dtype: numpy.dtype[Incomplete] | None = None,
-    order: Literal["C", "F"] | None = None,
-    multigraph_weight: Callable[[Iterable[float]], float] = ...,
+    order: numpy._OrderCF = None,
+    multigraph_weight: Callable[[list[float]], float] = ...,
     weight: str = "weight",
     nonedge: float = 0.0,
 ) -> _DataFrame: ...
@@ -30,16 +30,25 @@ def to_pandas_edgelist(
     G: Graph[_Node],
     source: str | int = "source",
     target: str | int = "target",
-    nodelist: list[_Node] | None = None,
+    nodelist: Iterable[_Node] | None = None,
     dtype: _ExtensionDtype | None = None,
     edge_key: str | int | None = None,
 ) -> _DataFrame: ...
 @overload
 def from_pandas_edgelist(
     df: _DataFrame,
+    source: str | int,
+    target: str | int,
+    edge_attr: str | int | list[str | int] | tuple[str | int] | Literal[True] | None,
+    create_using: type[_G],
+    edge_key: str | None = None,
+) -> _G: ...
+@overload
+def from_pandas_edgelist(
+    df: _DataFrame,
     source: str | int = "source",
     target: str | int = "target",
-    edge_attr: str | int | Iterable[str | int] | Literal[True] | None = None,
+    edge_attr: str | int | list[str | int] | tuple[str | int] | Literal[True] | None = None,
     *,
     create_using: type[_G],
     edge_key: str | None = None,
@@ -49,16 +58,16 @@ def from_pandas_edgelist(
     df: _DataFrame,
     source: str | int = "source",
     target: str | int = "target",
-    edge_attr: str | int | Iterable[str | int] | Literal[True] | None = None,
+    edge_attr: str | int | list[str | int] | tuple[str | int] | Literal[True] | None = None,
     create_using: None = None,
     edge_key: str | None = None,
 ) -> Graph[Incomplete]: ...
 def to_numpy_array(
     G: Graph[_Node],
-    nodelist: list[_Node] | None = None,
+    nodelist: Collection[_Node] | None = None,
     dtype: numpy.dtype[Incomplete] | None = None,
-    order: Literal["C", "F"] | None = None,
-    multigraph_weight: Callable[[Iterable[float]], float] = ...,
+    order: numpy._OrderCF = None,
+    multigraph_weight: Callable[[list[float]], float] = ...,
     weight: str = "weight",
     nonedge: float = 0.0,
 ) -> numpy.ndarray[Incomplete, numpy.dtype[Incomplete]]: ...

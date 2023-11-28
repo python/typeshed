@@ -7,7 +7,6 @@ from typing_extensions import TypeAlias
 from networkx.classes.graph import Graph
 
 # from pygraphviz.agraph import AGraph as _AGraph
-
 _AGraph: TypeAlias = Incomplete
 _T = TypeVar("_T")
 
@@ -16,14 +15,14 @@ def to_agraph(N: Graph[Hashable]) -> _AGraph: ...
 def write_dot(G: Graph[Hashable], path: str | TextIOBase) -> None: ...
 def read_dot(path: str | TextIOBase) -> Graph[Incomplete]: ...
 def graphviz_layout(
-    G: Graph[_T], prog: str = "neato", root: str | None = None, args: str = ""
-) -> dict[_T, tuple[float, float]]: ...
+    G: Graph[_Node], prog: str = "neato", root: str | None = None, args: str = ""
+) -> dict[_Node, tuple[float, float]]: ...
 
 pygraphviz_layout = graphviz_layout
 
 def view_pygraphviz(
-    G: Graph[_T],
-    edgelabel: str | Callable[[_T], str] | None = None,
+    G: Graph[_Node],
+    edgelabel: str | Callable[[_Node], str] | None = None,
     prog: str = "dot",
     args: str = "",
     suffix: str = "",
