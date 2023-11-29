@@ -1,12 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import TypeVar
 
-from networkx.classes.graph import Graph
+from networkx.classes.graph import Graph, _Node
 
-_T = TypeVar("_T")
-
-def dfs_edges(G: Graph[_T], source: _T | None = None, depth_limit: int | None = None) -> Generator[tuple[_T, _T], None, None]: ...
+def dfs_edges(
+    G: Graph[_Node], source: _Node | None = None, depth_limit: int | None = None
+) -> Generator[tuple[_Node, _Node], None, None]: ...
 def dfs_tree(G, source: Incomplete | None = None, depth_limit: Incomplete | None = None): ...
 def dfs_predecessors(G, source: Incomplete | None = None, depth_limit: Incomplete | None = None): ...
 def dfs_successors(G, source: Incomplete | None = None, depth_limit: Incomplete | None = None): ...

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Hashable
 from typing import TypeVar
 
 from networkx.classes.digraph import DiGraph
@@ -8,9 +9,9 @@ def intersection(G, H): ...
 def difference(G, H): ...
 def symmetric_difference(G, H): ...
 
-_X = TypeVar("_X", covariant=True)
-_Y = TypeVar("_Y", covariant=True)
-# GT = TypeVar('GT', bound=Graph)
+_X = TypeVar("_X", bound=Hashable, covariant=True)
+_Y = TypeVar("_Y", bound=Hashable, covariant=True)
+# GT = TypeVar('GT', bound=Graph[_Node])
 # TODO: This does not handle the cases when graphs of different types are passed which is allowed
 
 def compose(G: DiGraph[_X], H: DiGraph[_Y]) -> DiGraph[_X | _Y]: ...

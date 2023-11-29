@@ -8,8 +8,8 @@ from networkx.classes.graph import Graph
 from networkx.classes.multidigraph import MultiDiGraph
 from networkx.classes.multigraph import MultiGraph
 
-_X = TypeVar("_X")
-_Y = TypeVar("_Y")
+_X = TypeVar("_X", bound=Hashable)
+_Y = TypeVar("_Y", bound=Hashable)
 
 @overload
 def relabel_nodes(G: MultiDiGraph[_X], mapping: Mapping[_X, _Y], copy: bool = True) -> MultiDiGraph[_X | _Y]: ...

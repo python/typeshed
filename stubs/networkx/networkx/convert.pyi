@@ -1,18 +1,19 @@
 from _typeshed import Incomplete
-from collections.abc import Iterable
-from typing_extensions import TypeAlias
 
-import numpy
+__all__ = [
+    "to_networkx_graph",
+    "from_dict_of_dicts",
+    "to_dict_of_dicts",
+    "from_dict_of_lists",
+    "to_dict_of_lists",
+    "from_edgelist",
+    "to_edgelist",
+]
 
-# import scipy
-from networkx.classes.graph import Graph, _EdgePlus, _Node
-
-# this is imported from other stub files
-_Data: TypeAlias = (  # noqa: Y047
-    Graph[_Node]
-    | dict[_Node, dict[_Node, dict[str, Incomplete]]]
-    | dict[_Node, Iterable[_Node]]
-    | Iterable[_EdgePlus[_Node]]
-    | numpy.ndarray[_Node, Incomplete]
-    # | scipy.sparse.base.spmatrix
-)
+def to_networkx_graph(data, create_using=None, multigraph_input=False): ...
+def to_dict_of_lists(G, nodelist=None) -> dict[Incomplete, Incomplete]: ...
+def from_dict_of_lists(d, create_using=None): ...
+def to_dict_of_dicts(G, nodelist=None, edge_data=None) -> dict[Incomplete, Incomplete]: ...
+def from_dict_of_dicts(d, create_using=None, multigraph_input=False): ...
+def to_edgelist(G, nodelist=None): ...
+def from_edgelist(edgelist, create_using=None): ...

@@ -1,22 +1,20 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, Sequence
-from typing import TypeVar
 
-from networkx.classes.graph import Graph
+from networkx.classes.graph import Graph, _Node
 
 __all__ = ["all_simple_paths", "is_simple_path", "shortest_simple_paths", "all_simple_edge_paths"]
-_T = TypeVar("_T")
 
-def is_simple_path(G: Graph[_T], nodes: Sequence[_T]): ...
+def is_simple_path(G: Graph[_Node], nodes: Sequence[_Node]): ...
 def all_simple_paths(
-    G: Graph[_T], source: _T, target: _T, cutoff: Incomplete | None = None
-) -> Generator[list[_T], None, None]: ...
+    G: Graph[_Node], source: _Node, target: _Node, cutoff: Incomplete | None = None
+) -> Generator[list[_Node], None, None]: ...
 def all_simple_edge_paths(
-    G: Graph[_T], source: _T, target: _T, cutoff: Incomplete | None = None
-) -> Generator[list[_T] | list[tuple[_T, _T]], None, list[_T] | None]: ...
+    G: Graph[_Node], source: _Node, target: _Node, cutoff: Incomplete | None = None
+) -> Generator[list[_Node] | list[tuple[_Node, _Node]], None, list[_Node] | None]: ...
 def shortest_simple_paths(
-    G: Graph[_T], source: _T, target: _T, weight: Incomplete | None = None
-) -> Generator[list[_T], None, None]: ...
+    G: Graph[_Node], source: _Node, target: _Node, weight: Incomplete | None = None
+) -> Generator[list[_Node], None, None]: ...
 
 class PathBuffer:
     paths: Incomplete

@@ -3,16 +3,24 @@ from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, 
 from typing import ClassVar, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
+import numpy
 from networkx.classes.coreviews import AdjacencyView, AtlasView
 from networkx.classes.digraph import DiGraph
 from networkx.classes.reportviews import DiDegreeView, NodeView, OutEdgeView
-from networkx.convert import _Data
 
 _Node = TypeVar("_Node", bound=Hashable)
 _Edge: TypeAlias = tuple[_Node, _Node]
 _EdgePlus: TypeAlias = _Edge[_Node] | tuple[_Node, _Node, dict[str, Incomplete]]
 _MapFactory: TypeAlias = Callable[[], MutableMapping[str, Incomplete]]
 _NBunch: TypeAlias = _Node | Iterable[_Node] | None
+_Data: TypeAlias = (
+    Graph[_Node]
+    | dict[_Node, dict[_Node, dict[str, Incomplete]]]
+    | dict[_Node, Iterable[_Node]]
+    | Iterable[_EdgePlus[_Node]]
+    | numpy.ndarray[_Node, Incomplete]
+    # | scipy.sparse.base.spmatrix
+)
 
 class Graph(Collection[_Node]):
     node_dict_factory: ClassVar[_MapFactory] = ...

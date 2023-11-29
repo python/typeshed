@@ -1,8 +1,5 @@
-from typing import TypeVar
-
 from networkx.classes.digraph import DiGraph
-
-_T = TypeVar("_T")
+from networkx.classes.graph import _Node
 
 def complement(G): ...
-def reverse(G: DiGraph[_T], copy: bool = True) -> DiGraph[_T]: ...
+def reverse(G: DiGraph[_Node], copy: bool = True) -> DiGraph[_Node]: ...
