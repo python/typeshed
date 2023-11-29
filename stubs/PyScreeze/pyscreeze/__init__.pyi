@@ -1,5 +1,5 @@
 import sys
-from _typeshed import ConvertibleToFloat, Incomplete, ReadableBuffer, StrOrBytesPath, Unused
+from _typeshed import ConvertibleToFloat, Incomplete, StrOrBytesPath, Unused
 from collections.abc import Callable, Generator
 from typing import NamedTuple, TypeVar, overload
 from typing_extensions import Final, ParamSpec, TypeAlias
