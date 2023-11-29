@@ -89,7 +89,7 @@ class _SupportsReadAndReadlineAndWrite(_SupportsReadAndReadline, SupportsWrite[s
 class cursor:
     arraysize: int
     binary_types: Incomplete | None
-    connection: _Connection
+    connection: connection
     itersize: int
     row_factory: Incomplete | None
     scrollable: bool | None
@@ -149,8 +149,6 @@ class cursor:
     ) -> None: ...
     def __iter__(self) -> Self: ...
     def __next__(self) -> tuple[Any, ...]: ...
-
-_Cursor: TypeAlias = cursor
 
 class AsIs:
     def __init__(self, __obj: object, **kwargs: Unused) -> None: ...
@@ -258,7 +256,7 @@ class ConnectionInfo:
     def ssl_attribute(self, name: str) -> str | None: ...
 
 class Error(Exception):
-    cursor: _Cursor | None
+    cursor: cursor | None
     diag: Diagnostics
     pgcode: str | None
     pgerror: str | None
@@ -412,7 +410,7 @@ class connection:
     def binary_types(self) -> dict[Incomplete, Incomplete]: ...
     @property
     def closed(self) -> int: ...
-    cursor_factory: Callable[..., _Cursor]
+    cursor_factory: Callable[[connection, str | bytes | None], cursor]
     @property
     def dsn(self) -> str: ...
     @property
@@ -452,13 +450,13 @@ class connection:
     @overload
     def cursor(
         self, name: str | bytes | None = None, cursor_factory: None = None, withhold: bool = False, scrollable: bool | None = None
-    ) -> _Cursor: ...
+    ) -> cursor: ...
     @overload
     def cursor(
         self,
         name: str | bytes | None = None,
         *,
-        cursor_factory: Callable[..., _T_cur],
+        cursor_factory: Callable[[connection, str | bytes | None], _T_cur],
         withhold: bool = False,
         scrollable: bool | None = None,
     ) -> _T_cur: ...
@@ -466,7 +464,7 @@ class connection:
     def cursor(
         self,
         name: str | bytes | None,
-        cursor_factory: Callable[..., _T_cur],
+        cursor_factory: Callable[[connection, str | bytes | None], _T_cur],
         withhold: bool = False,
         scrollable: bool | None = None,
     ) -> _T_cur: ...
