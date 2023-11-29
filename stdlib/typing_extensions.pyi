@@ -182,6 +182,7 @@ __all__ = [
     "is_protocol",
     "no_type_check",
     "no_type_check_decorator",
+    "ReadOnly",
 ]
 
 _T = typing.TypeVar("_T")
@@ -220,6 +221,8 @@ def IntVar(name: str) -> Any: ...  # returns a new TypeVar
 class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     __required_keys__: ClassVar[frozenset[str]]
     __optional_keys__: ClassVar[frozenset[str]]
+    __readonly_keys__: ClassVar[frozenset[str]]
+    __mutable_keys__: ClassVar[frozenset[str]]
     __total__: ClassVar[bool]
     __orig_bases__: ClassVar[tuple[Any, ...]]
     def copy(self) -> Self: ...
@@ -310,7 +313,7 @@ else:
 
     class NewType:
         def __init__(self, name: str, tp: Any) -> None: ...
-        def __call__(self, __x: _T) -> _T: ...
+        def __call__(self, __obj: _T) -> _T: ...
         __supertype__: type
 
 # New things in 3.11
@@ -449,7 +452,12 @@ class TypeVarTuple:
     def __init__(self, name: str, *, default: Any | None = None) -> None: ...
     def __iter__(self) -> Any: ...  # Unpack[Self]
 
-def deprecated(__msg: str, *, category: type[Warning] | None = ..., stacklevel: int = 1) -> Callable[[_T], _T]: ...
+class deprecated:
+    message: str
+    category: type[Warning] | None
+    stacklevel: int
+    def __init__(self, __message: str, *, category: type[Warning] | None = ..., stacklevel: int = 1) -> None: ...
+    def __call__(self, __arg: _T) -> _T: ...
 
 if sys.version_info >= (3, 12):
     from collections.abc import Buffer as Buffer
@@ -496,3 +504,5 @@ class Doc:
     def __init__(self, __documentation: str) -> None: ...
     def __hash__(self) -> int: ...
     def __eq__(self, other: object) -> bool: ...
+
+ReadOnly: _SpecialForm
