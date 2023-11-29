@@ -1,10 +1,8 @@
-_?curses.color_pair
-xxlimited.Xxo.x_exports
-
+# These entries looks like a `setup-python` bug:
 (dbm.gnu)?
-(locale.bind_textdomain_codeset)?
-(locale.bindtextdomain)?
-(locale.dcgettext)?
-(locale.dgettext)?
-(locale.gettext)?
-(locale.textdomain)?
+(_?locale.bind_textdomain_codeset)?
+(_?locale.bindtextdomain)?
+(_?locale.dcgettext)?
+(_?locale.dgettext)?
+(_?locale.gettext)?
+(_?locale.textdomain)?

@@ -9,8 +9,8 @@ strict_collect_mode: bool
 is_64bits: Final[bool]
 is_py35: Final = True
 is_py36: Final = True
-is_py37: Final[bool]
-is_py38: Final[bool]
+is_py37: Final = True
+is_py38: Final = True
 is_py39: Final[bool]
 is_py310: Final[bool]
 is_py311: Final[bool]
@@ -45,7 +45,7 @@ ALL_SUFFIXES: Final[list[str]]
 
 architecture: Final[Literal["64bit", "n32bit", "32bit"]]
 system: Final[Literal["Cygwin", "Linux", "Darwin", "Java", "Windows"]]
-machine: Final[Literal["sw_64", "loongarch64", "arm", "intel", "ppc", "mips", "riscv", "s390x", "unknown", None]]
+machine: Final[Literal["sw_64", "loongarch64", "arm", "intel", "ppc", "mips", "riscv", "s390x", "unknown"] | None]
 
 def is_wine_dll(filename: FileDescriptorOrPath) -> bool: ...
 @overload

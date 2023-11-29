@@ -1,70 +1,5 @@
-# Uncategorised, from Python 3.12
-asyncio.create_eager_task_factory
-asyncio.eager_task_factory
-asyncio.tasks.__all__
-asyncio.tasks.create_eager_task_factory
-asyncio.tasks.eager_task_factory
-collections.UserDict.get
-enum.Enum.__signature__
-enum.EnumMeta.__call__
-enum.EnumType.__call__
-enum.property.member
-http.client.HTTPConnection.get_proxy_response_headers
-imaplib.IMAP4_SSL.__init__
-importlib.abc.Finder
-importlib.abc.Loader.module_repr
-importlib.abc.MetaPathFinder.find_module
-importlib.abc.PathEntryFinder.find_loader
-importlib.abc.PathEntryFinder.find_module
-importlib.abc.__all__
-importlib.find_loader
-importlib.machinery.BuiltinImporter.find_module
-importlib.machinery.BuiltinImporter.module_repr
-importlib.machinery.FrozenImporter.find_module
-importlib.machinery.FrozenImporter.module_repr
-importlib.machinery.PathFinder.find_module
-importlib.machinery.WindowsRegistryFinder.find_module
-importlib.metadata.PackageMetadata.get
-importlib.metadata.SelectableGroups
-importlib.metadata._meta.PackageMetadata.get
-importlib.metadata._meta.SimplePath.__truediv__
-importlib.metadata._meta.SimplePath.parent
-importlib.resources.files
-importlib.util.module_for_loader
-importlib.util.set_loader
-importlib.util.set_package
-pathlib.Path.__init__
-pathlib.PurePath.__init__
-pathlib.PurePath.is_relative_to
-pathlib.PurePath.relative_to
-poplib.POP3_SSL.__init__
-smtplib.SMTP.starttls
-smtplib.SMTP_SSL.__init__
-typing.ParamSpec.__mro_entries__
-typing.ParamSpecArgs.__mro_entries__
-typing.ParamSpecKwargs.__mro_entries__
-typing.SupportsAbs.__type_params__
-typing.SupportsRound.__type_params__
-typing.TypeVar.__mro_entries__
-typing.TypeVarTuple.__mro_entries__
-typing._ProtocolMeta.__init__
-typing.__all__
-typing.override
-typing_extensions.Protocol
-typing_extensions.SupportsAbs.__type_params__
-typing_extensions.SupportsRound.__type_params__
-unittest.mock.NonCallableMock.__new__
-urllib.request.AbstractHTTPHandler.__init__
-urllib.request.HTTPSHandler.__init__
-zipfile.Path.glob
-zipfile.Path.is_symlink
-zipfile.Path.match
-zipfile.Path.relative_to
-zipfile.Path.rglob
-
-# TODO: remove after rc2 release
-turtle.__all__
-turtle.teleport
+# Modules that exist at runtime, but are missing from typeshed
+zipfile._path.glob
 
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncIterable.__class_getitem__
@@ -137,6 +72,7 @@ os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all Pat
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
+sys._monitoring  # Doesn't really exist. See comments in the stub.
 weakref.ProxyType.__reversed__  # Doesn't really exist
 
 # C signature is broader than what is actually accepted
@@ -158,12 +94,27 @@ platform.uname_result.processor
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
+# Problematic protocol signature at runtime, see source code comments.
+importlib.abc.Traversable.open
+importlib.resources.abc.Traversable.open
+
 # Super-special typing primitives
 typing\._SpecialForm.*
 typing\.NamedTuple
 typing\.LiteralString
 typing\.Annotated
+typing_extensions\.Protocol
 
-# These two should be removable after 3.12rc2 is released:
-types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
-os.lseek  # a pos-only parameter name changed in py311/py312
+# These only exist to give a better error message if you try to subclass an instance
+typing.ParamSpec.__mro_entries__
+typing.ParamSpecArgs.__mro_entries__
+typing.ParamSpecKwargs.__mro_entries__
+typing.TypeVar.__mro_entries__
+typing.TypeVarTuple.__mro_entries__
+
+# TODO: mypy should infer that this attribute is inherited from builtins.type;
+# why doesn't it infer this?
+typing.SupportsAbs.__type_params__
+typing.SupportsRound.__type_params__
+typing_extensions.SupportsAbs.__type_params__
+typing_extensions.SupportsRound.__type_params__

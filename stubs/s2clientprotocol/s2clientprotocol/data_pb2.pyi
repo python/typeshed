@@ -4,13 +4,14 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import s2clientprotocol.common_pb2
-import sys
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -66,7 +67,7 @@ class AbilityData(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TargetEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[AbilityData._Target.ValueType], builtins.type):  # noqa: F821
+    class _TargetEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[AbilityData._Target.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         Point: AbilityData._Target.ValueType  # 2
         """Requires a target position."""
@@ -183,7 +184,7 @@ class Weapon(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TargetTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Weapon._TargetType.ValueType], builtins.type):  # noqa: F821
+    class _TargetTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[Weapon._TargetType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         Ground: Weapon._TargetType.ValueType  # 1
         Air: Weapon._TargetType.ValueType  # 2
