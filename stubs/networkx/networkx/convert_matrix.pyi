@@ -11,11 +11,14 @@ from networkx.classes.graph import Graph, _Node
 _DataFrame: TypeAlias = Incomplete
 # from pandas.core.dtypes.base import ExtensionDtype
 _ExtensionDtype: TypeAlias = Incomplete
+# pandas._typing import Axes
+# _Axes: TypeAlias = Index | Series | np.ndarray | list | dict | range | tuple
+_Axes: TypeAlias = Collection[_Node]
 _G = TypeVar("_G", bound=Graph[Hashable])
 
 def to_pandas_adjacency(
     G: Graph[_Node],
-    nodelist: list[_Node] | None = None,
+    nodelist: _Axes[_Node] | None = None,
     dtype: numpy.dtype[Incomplete] | None = None,
     order: numpy._OrderCF = None,
     multigraph_weight: Callable[[list[float]], float] = ...,
