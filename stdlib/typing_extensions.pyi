@@ -286,7 +286,6 @@ class SupportsIndex(Protocol, metaclass=abc.ABCMeta):
 if sys.version_info >= (3, 10):
     from typing import (
         Concatenate as Concatenate,
-        NewType as NewType,
         ParamSpecArgs as ParamSpecArgs,
         ParamSpecKwargs as ParamSpecKwargs,
         TypeAlias as TypeAlias,
@@ -311,11 +310,6 @@ else:
     TypeGuard: _SpecialForm
     def is_typeddict(tp: object) -> bool: ...
 
-    class NewType:
-        def __init__(self, name: str, tp: Any) -> None: ...
-        def __call__(self, __obj: _T) -> _T: ...
-        __supertype__: type
-
 # New things in 3.11
 # NamedTuples are not new, but the ability to create generic NamedTuples is new in 3.11
 if sys.version_info >= (3, 11):
@@ -323,6 +317,7 @@ if sys.version_info >= (3, 11):
         LiteralString as LiteralString,
         NamedTuple as NamedTuple,
         Never as Never,
+        NewType as NewType,
         NotRequired as NotRequired,
         Required as Required,
         Self as Self,
@@ -378,6 +373,11 @@ else:
             def _asdict(self) -> collections.OrderedDict[str, Any]: ...
 
         def _replace(self, **kwargs: Any) -> Self: ...
+
+    class NewType:
+        def __init__(self, name: str, tp: Any) -> None: ...
+        def __call__(self, __obj: _T) -> _T: ...
+        __supertype__: type
 
 # New things in 3.xx
 # The `default` parameter was added to TypeVar, ParamSpec, and TypeVarTuple (PEP 696)
