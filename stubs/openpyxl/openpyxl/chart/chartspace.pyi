@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToFloat, Incomplete, Unused
 from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
@@ -10,7 +10,7 @@ from openpyxl.chart.print_settings import PrintSettings
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
 from openpyxl.chart.title import Title
-from openpyxl.descriptors.base import Alias, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedBool, NestedMinMax, NestedNoneSet, NestedString, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
@@ -109,7 +109,7 @@ class ChartSpace(Serialisable):
         date1904: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         lang: object = None,
         roundedCorners: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
-        style: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None = None,
+        style: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = None,
         clrMapOvr: ColorMapping | None = None,
         pivotSource: PivotSource | None = None,
         protection: Protection | None = None,
@@ -128,7 +128,7 @@ class ChartSpace(Serialisable):
         date1904: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None,
         lang: object,
         roundedCorners: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None,
-        style: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None,
+        style: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None,
         clrMapOvr: ColorMapping | None,
         pivotSource: PivotSource | None,
         protection: Protection | None,

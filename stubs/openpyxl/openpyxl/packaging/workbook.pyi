@@ -1,9 +1,9 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl import _VisibilityType
-from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedString
 from openpyxl.descriptors.serialisable import Serialisable
@@ -39,7 +39,7 @@ class ChildSheet(Serialisable):
     def __init__(
         self,
         name: str,
-        sheetId: _ConvertibleToInt,
+        sheetId: ConvertibleToInt,
         state: _VisibilityType | Literal["none"] | None = "visible",
         id: Incomplete | None = None,
     ) -> None: ...
@@ -48,7 +48,7 @@ class PivotCache(Serialisable):
     tagname: ClassVar[str]
     cacheId: Integer[Literal[False]]
     id: Incomplete
-    def __init__(self, cacheId: _ConvertibleToInt, id: Incomplete | None = None) -> None: ...
+    def __init__(self, cacheId: ConvertibleToInt, id: Incomplete | None = None) -> None: ...
 
 class WorkbookPackage(Serialisable):
     tagname: ClassVar[str]

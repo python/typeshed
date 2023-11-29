@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import ConvertibleToInt, Incomplete
 from typing import ClassVar, Protocol
 from typing_extensions import Literal, TypeAlias
 
@@ -10,7 +10,6 @@ from openpyxl.descriptors.base import (
     NoneSet,
     String,
     _ConvertibleToBool,
-    _ConvertibleToInt,
     _ConvertibleToMultiCellRange,
 )
 from openpyxl.descriptors.nested import NestedText
@@ -97,8 +96,8 @@ class DataValidationList(Serialisable):
     def __init__(
         self,
         disablePrompts: _ConvertibleToBool | None = None,
-        xWindow: _ConvertibleToInt | None = None,
-        yWindow: _ConvertibleToInt | None = None,
+        xWindow: ConvertibleToInt | None = None,
+        yWindow: ConvertibleToInt | None = None,
         count: Incomplete | None = None,
         dataValidation=(),
     ) -> None: ...

@@ -1,11 +1,11 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from collections.abc import Generator, Iterator
 from itertools import product
 from typing import Any, overload
 from typing_extensions import Literal
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import MinMax, _ConvertibleToInt
+from openpyxl.descriptors.base import MinMax
 from openpyxl.descriptors.serialisable import Serialisable
 
 class CellRange(Serialisable):
@@ -30,10 +30,10 @@ class CellRange(Serialisable):
         self,
         range_string: None = None,
         *,
-        min_col: _ConvertibleToInt,
-        min_row: _ConvertibleToInt,
-        max_col: _ConvertibleToInt,
-        max_row: _ConvertibleToInt,
+        min_col: ConvertibleToInt,
+        min_row: ConvertibleToInt,
+        max_col: ConvertibleToInt,
+        max_row: ConvertibleToInt,
         title: str | None = None,
     ) -> None: ...
     @property

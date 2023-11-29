@@ -1,9 +1,9 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar
 from typing_extensions import Literal, TypeAlias
 from zipfile import ZipFile
 
-from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.packaging.relationship import Relationship
@@ -16,21 +16,21 @@ class ExternalCell(Serialisable):
     vm: Integer[Literal[True]]
     v: NestedText[str, Literal[True]]
     def __init__(
-        self, r: str, t: _ExternalCellType | Literal["none"] | None = None, vm: _ConvertibleToInt | None = None, v: object = None
+        self, r: str, t: _ExternalCellType | Literal["none"] | None = None, vm: ConvertibleToInt | None = None, v: object = None
     ) -> None: ...
 
 class ExternalRow(Serialisable):
     r: Integer[Literal[False]]
     cell: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, r: _ConvertibleToInt, cell: Incomplete | None = None) -> None: ...
+    def __init__(self, r: ConvertibleToInt, cell: Incomplete | None = None) -> None: ...
 
 class ExternalSheetData(Serialisable):
     sheetId: Integer[Literal[False]]
     refreshError: Bool[Literal[True]]
     row: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, sheetId: _ConvertibleToInt, refreshError: _ConvertibleToBool | None = None, row=()) -> None: ...
+    def __init__(self, sheetId: ConvertibleToInt, refreshError: _ConvertibleToBool | None = None, row=()) -> None: ...
 
 class ExternalSheetDataSet(Serialisable):
     sheetData: Incomplete
@@ -47,7 +47,7 @@ class ExternalDefinedName(Serialisable):
     name: String[Literal[False]]
     refersTo: String[Literal[True]]
     sheetId: Integer[Literal[True]]
-    def __init__(self, name: str, refersTo: str | None = None, sheetId: _ConvertibleToInt | None = None) -> None: ...
+    def __init__(self, name: str, refersTo: str | None = None, sheetId: ConvertibleToInt | None = None) -> None: ...
 
 class ExternalBook(Serialisable):
     tagname: ClassVar[str]
