@@ -20,6 +20,9 @@ pygraphviz_layout = graphviz_layout
 
 def view_pygraphviz(
     G: Graph[_Node],
+    # From implementation looks like Callable could return object since it's always immediatly stringified
+    # But judging by documentation this seems like an extra runtime safty thing and not intended
+    # Leaving as str unless anyone reports a valid use-case
     edgelabel: str | Callable[[_Node], str] | None = None,
     prog: str = "dot",
     args: str = "",
