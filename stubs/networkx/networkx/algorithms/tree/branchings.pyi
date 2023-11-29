@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Iterator
 from dataclasses import dataclass
-from typing import Generic
 
 from networkx.classes.graph import _Node
 from networkx.classes.multidigraph import MultiDiGraph
@@ -20,7 +19,7 @@ __all__ = [
 def branching_weight(G, attr: str = "weight", default: float = 1): ...
 def greedy_branching(G, attr: str = "weight", default: float = 1, kind: str = "max", seed: Incomplete | None = None): ...
 
-class MultiDiGraph_EdgeKey(MultiDiGraph[_Node], Generic[_Node]):
+class MultiDiGraph_EdgeKey(MultiDiGraph[_Node]):
     edge_index: Incomplete
     def __init__(self, incoming_graph_data: Incomplete | None = None, **attr) -> None: ...
     def remove_node(self, n) -> None: ...

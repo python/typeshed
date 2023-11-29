@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, Mapping, MutableMapping
-from typing import ClassVar, Generic, TypeVar, overload
+from typing import ClassVar, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 from networkx.classes.coreviews import AdjacencyView, AtlasView
@@ -14,7 +14,7 @@ _EdgePlus: TypeAlias = _Edge[_Node] | tuple[_Node, _Node, dict[str, Incomplete]]
 _MapFactory: TypeAlias = Callable[[], MutableMapping[str, Incomplete]]
 _NBunch: TypeAlias = _Node | Iterable[_Node] | None
 
-class Graph(Collection[_Node], Generic[_Node]):
+class Graph(Collection[_Node]):
     node_dict_factory: ClassVar[_MapFactory] = ...
     node_attr_dict_factory: ClassVar[_MapFactory] = ...
     adjlist_outer_dict_factory: ClassVar[_MapFactory] = ...

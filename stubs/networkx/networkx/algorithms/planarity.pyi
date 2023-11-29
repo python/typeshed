@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, Mapping, MutableSet, Reversible
-from typing import Generic, TypeVar
+from typing import TypeVar
 
 from networkx.classes.digraph import DiGraph
 
@@ -59,7 +59,7 @@ class LRPlanarity:
     def sign(self, e): ...
     def sign_recursive(self, e): ...
 
-class PlanarEmbedding(Generic[_N], DiGraph[_N]):
+class PlanarEmbedding(DiGraph[_N]):
     def get_data(self) -> dict[_N, list[_N]]: ...
     def set_data(self, data: Mapping[_N, Reversible[_N]]) -> None: ...
     def neighbors_cw_order(self, v: _N) -> Generator[_N, None, None]: ...
