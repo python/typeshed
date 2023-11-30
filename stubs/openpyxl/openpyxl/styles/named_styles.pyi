@@ -1,8 +1,9 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
+from collections.abc import Iterator
 from typing import ClassVar
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.alignment import Alignment
@@ -32,14 +33,14 @@ class NamedStyle(Serialisable):
         alignment: Alignment | None = None,
         number_format: Incomplete | None = None,
         protection: Protection | None = None,
-        builtinId: _ConvertibleToInt | None = None,
+        builtinId: ConvertibleToInt | None = None,
         hidden: _ConvertibleToBool | None = False,
         xfId: Unused = None,
     ) -> None: ...
     def __setattr__(self, attr: str, value) -> None: ...
-    def __iter__(self): ...
+    def __iter__(self) -> Iterator[tuple[str, str]]: ...
     @property
-    def xfId(self): ...
+    def xfId(self) -> int | None: ...
     def bind(self, wb) -> None: ...
     def as_tuple(self): ...
     def as_xf(self): ...
@@ -47,7 +48,7 @@ class NamedStyle(Serialisable):
 
 class NamedStyleList(list[Incomplete]):
     @property
-    def names(self): ...
+    def names(self) -> list[str]: ...
     def __getitem__(self, key): ...
     def append(self, style) -> None: ...
 
@@ -64,9 +65,9 @@ class _NamedCellStyle(Serialisable):
     def __init__(
         self,
         name: str,
-        xfId: _ConvertibleToInt,
-        builtinId: _ConvertibleToInt | None = None,
-        iLevel: _ConvertibleToInt | None = None,
+        xfId: ConvertibleToInt,
+        builtinId: ConvertibleToInt | None = None,
+        iLevel: ConvertibleToInt | None = None,
         hidden: _ConvertibleToBool | None = None,
         customBuiltin: _ConvertibleToBool | None = None,
         extLst: Unused = None,
@@ -80,6 +81,6 @@ class _NamedCellStyleList(Serialisable):
     __attrs__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Unused = None, cellStyle=()) -> None: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...
     @property
-    def names(self): ...
+    def names(self) -> NamedStyleList: ...

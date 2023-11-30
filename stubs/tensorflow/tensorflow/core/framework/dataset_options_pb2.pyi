@@ -3,12 +3,13 @@
 isort:skip_file
 """
 import builtins
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
 import tensorflow.core.framework.model_pb2
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -132,7 +133,7 @@ class CardinalityOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ComputeLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CardinalityOptions._ComputeLevel.ValueType], builtins.type):  # noqa: F821
+    class _ComputeLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CardinalityOptions._ComputeLevel.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         CARDINALITY_COMPUTE_UNSPECIFIED: CardinalityOptions._ComputeLevel.ValueType  # 0
         CARDINALITY_COMPUTE_LOW: CardinalityOptions._ComputeLevel.ValueType  # 1
@@ -294,7 +295,7 @@ class Options(google.protobuf.message.Message):
     """Message stored with Dataset objects to control how datasets are processed and
     optimized.
 
-    next: 8
+    next: 9
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -306,6 +307,7 @@ class Options(google.protobuf.message.Message):
     SLACK_FIELD_NUMBER: builtins.int
     THREADING_OPTIONS_FIELD_NUMBER: builtins.int
     EXTERNAL_STATE_POLICY_FIELD_NUMBER: builtins.int
+    SYMBOLIC_CHECKPOINT_FIELD_NUMBER: builtins.int
     deterministic: builtins.bool
     @property
     def autotune_options(self) -> global___AutotuneOptions:
@@ -321,6 +323,7 @@ class Options(google.protobuf.message.Message):
     def threading_options(self) -> global___ThreadingOptions:
         """The threading options associated with the dataset."""
     external_state_policy: global___ExternalStatePolicy.ValueType
+    symbolic_checkpoint: builtins.bool
     def __init__(
         self,
         *,
@@ -331,14 +334,17 @@ class Options(google.protobuf.message.Message):
         slack: builtins.bool | None = ...,
         threading_options: global___ThreadingOptions | None = ...,
         external_state_policy: global___ExternalStatePolicy.ValueType | None = ...,
+        symbolic_checkpoint: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["autotune_options", b"autotune_options", "deterministic", b"deterministic", "distribute_options", b"distribute_options", "external_state_policy", b"external_state_policy", "optimization_options", b"optimization_options", "optional_deterministic", b"optional_deterministic", "optional_external_state_policy", b"optional_external_state_policy", "optional_slack", b"optional_slack", "slack", b"slack", "threading_options", b"threading_options"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["autotune_options", b"autotune_options", "deterministic", b"deterministic", "distribute_options", b"distribute_options", "external_state_policy", b"external_state_policy", "optimization_options", b"optimization_options", "optional_deterministic", b"optional_deterministic", "optional_external_state_policy", b"optional_external_state_policy", "optional_slack", b"optional_slack", "slack", b"slack", "threading_options", b"threading_options"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["autotune_options", b"autotune_options", "deterministic", b"deterministic", "distribute_options", b"distribute_options", "external_state_policy", b"external_state_policy", "optimization_options", b"optimization_options", "optional_deterministic", b"optional_deterministic", "optional_external_state_policy", b"optional_external_state_policy", "optional_slack", b"optional_slack", "optional_symbolic_checkpoint", b"optional_symbolic_checkpoint", "slack", b"slack", "symbolic_checkpoint", b"symbolic_checkpoint", "threading_options", b"threading_options"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["autotune_options", b"autotune_options", "deterministic", b"deterministic", "distribute_options", b"distribute_options", "external_state_policy", b"external_state_policy", "optimization_options", b"optimization_options", "optional_deterministic", b"optional_deterministic", "optional_external_state_policy", b"optional_external_state_policy", "optional_slack", b"optional_slack", "optional_symbolic_checkpoint", b"optional_symbolic_checkpoint", "slack", b"slack", "symbolic_checkpoint", b"symbolic_checkpoint", "threading_options", b"threading_options"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["optional_deterministic", b"optional_deterministic"]) -> typing_extensions.Literal["deterministic"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["optional_external_state_policy", b"optional_external_state_policy"]) -> typing_extensions.Literal["external_state_policy"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing_extensions.Literal["optional_slack", b"optional_slack"]) -> typing_extensions.Literal["slack"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["optional_symbolic_checkpoint", b"optional_symbolic_checkpoint"]) -> typing_extensions.Literal["symbolic_checkpoint"] | None: ...
 
 global___Options = Options

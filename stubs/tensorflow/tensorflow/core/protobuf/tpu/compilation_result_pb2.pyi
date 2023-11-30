@@ -4,14 +4,15 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
 import tensorflow.compiler.xla.service.hlo_pb2
 import tensorflow.tsl.protobuf.error_codes_pb2
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -33,7 +34,7 @@ class CompilationResultProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ErrorCodeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CompilationResultProto._ErrorCode.ValueType], builtins.type):  # noqa: F821
+    class _ErrorCodeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[CompilationResultProto._ErrorCode.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: CompilationResultProto._ErrorCode.ValueType  # 0
         OUT_OF_MEMORY: CompilationResultProto._ErrorCode.ValueType  # 1

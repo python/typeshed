@@ -89,7 +89,7 @@ class NonCallableMock(Base, Any):
     def __new__(
         cls,
         spec: list[str] | object | type[object] | None = None,
-        wraps: Incomplete | None = None,
+        wraps: Any | None = None,
         name: str | None = None,
         spec_set: list[str] | object | type[object] | None = None,
         parent: NonCallableMock | None = None,
@@ -104,7 +104,7 @@ class NonCallableMock(Base, Any):
     def __init__(
         self,
         spec: list[str] | object | type[object] | None = None,
-        wraps: Incomplete | None = None,
+        wraps: Any | None = None,
         name: str | None = None,
         spec_set: list[str] | object | type[object] | None = None,
         parent: NonCallableMock | None = None,
@@ -227,7 +227,7 @@ class _patcher:
     TEST_PREFIX: str
     dict: type[_patch_dict]
     @overload
-    def __call__(  # type: ignore[misc]
+    def __call__(
         self,
         target: Any,
         *,
@@ -257,7 +257,7 @@ class _patcher:
         **kwargs: Any,
     ) -> _patch[_T]: ...
     @overload
-    def object(  # type: ignore[misc]
+    def object(
         self,
         target: Any,
         attribute: str,

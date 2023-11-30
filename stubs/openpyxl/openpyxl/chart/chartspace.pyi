@@ -1,7 +1,8 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToFloat, Incomplete, Unused
 from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
+from openpyxl.chart._3d import Surface, View3D
 from openpyxl.chart.legend import Legend
 from openpyxl.chart.pivot import PivotSource
 from openpyxl.chart.plotarea import PlotArea
@@ -9,7 +10,7 @@ from openpyxl.chart.print_settings import PrintSettings
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
 from openpyxl.chart.title import Title
-from openpyxl.descriptors.base import Alias, String, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedBool, NestedMinMax, NestedNoneSet, NestedString, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
@@ -24,10 +25,13 @@ class ChartContainer(Serialisable):
     title: Typed[Title, Literal[True]]
     autoTitleDeleted: NestedBool[Literal[True]]
     pivotFmts: Incomplete
-    view3D: Incomplete
-    floor: Incomplete
-    sideWall: Incomplete
-    backWall: Incomplete
+
+    # Same as _3DBase
+    view3D: Typed[View3D, Literal[True]]
+    floor: Typed[Surface, Literal[True]]
+    sideWall: Typed[Surface, Literal[True]]
+    backWall: Typed[Surface, Literal[True]]
+
     plotArea: Typed[PlotArea, Literal[False]]
     legend: Typed[Legend, Literal[True]]
     plotVisOnly: NestedBool[Literal[False]]
@@ -40,10 +44,10 @@ class ChartContainer(Serialisable):
         title: Title | None = None,
         autoTitleDeleted: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         pivotFmts=(),
-        view3D: Incomplete | None = None,
-        floor: Incomplete | None = None,
-        sideWall: Incomplete | None = None,
-        backWall: Incomplete | None = None,
+        view3D: View3D | None = None,
+        floor: Surface | None = None,
+        sideWall: Surface | None = None,
+        backWall: Surface | None = None,
         plotArea: PlotArea | None = None,
         legend: Legend | None = None,
         plotVisOnly: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = True,
@@ -91,7 +95,7 @@ class ChartSpace(Serialisable):
     protection: Typed[Protection, Literal[True]]
     chart: Typed[ChartContainer, Literal[False]]
     spPr: Typed[GraphicalProperties, Literal[True]]
-    graphicalProperties: Alias
+    graphical_properties: Alias
     txPr: Typed[RichText, Literal[True]]
     textProperties: Alias
     externalData: Typed[ExternalData, Literal[True]]
@@ -105,7 +109,7 @@ class ChartSpace(Serialisable):
         date1904: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         lang: object = None,
         roundedCorners: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
-        style: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None = None,
+        style: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = None,
         clrMapOvr: ColorMapping | None = None,
         pivotSource: PivotSource | None = None,
         protection: Protection | None = None,
@@ -124,7 +128,7 @@ class ChartSpace(Serialisable):
         date1904: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None,
         lang: object,
         roundedCorners: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None,
-        style: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None,
+        style: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None,
         clrMapOvr: ColorMapping | None,
         pivotSource: PivotSource | None,
         protection: Protection | None,

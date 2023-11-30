@@ -1,11 +1,12 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from collections.abc import Generator
 from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.cell.text import Text
 from openpyxl.comments.author import AuthorList
-from openpyxl.descriptors.base import Bool, Integer, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.comments.comments import Comment
+from openpyxl.descriptors.base import Bool, Integer, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.ole import ObjectAnchor
@@ -89,9 +90,9 @@ class CommentRecord(Serialisable):
     def __init__(
         self,
         ref: str = "",
-        authorId: _ConvertibleToInt = 0,
+        authorId: ConvertibleToInt = 0,
         guid: Incomplete | None = None,
-        shapeId: _ConvertibleToInt | None = 0,
+        shapeId: ConvertibleToInt | None = 0,
         text: Text | None = None,
         commentPr: Properties | None = None,
         author: str | None = None,
@@ -101,7 +102,7 @@ class CommentRecord(Serialisable):
     @classmethod
     def from_cell(cls, cell): ...
     @property
-    def content(self): ...
+    def content(self) -> str: ...
 
 class CommentSheet(Serialisable):
     tagname: ClassVar[str]
@@ -113,9 +114,9 @@ class CommentSheet(Serialisable):
     def __init__(self, authors: AuthorList, commentList: Incomplete | None = None, extLst: Unused = None) -> None: ...
     def to_tree(self): ...
     @property
-    def comments(self) -> Generator[Incomplete, None, None]: ...
+    def comments(self) -> Generator[tuple[str, Comment], None, None]: ...
     @classmethod
     def from_comments(cls, comments): ...
     def write_shapes(self, vml: Incomplete | None = None): ...
     @property
-    def path(self): ...
+    def path(self) -> str: ...

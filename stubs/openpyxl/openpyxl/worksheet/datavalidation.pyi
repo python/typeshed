@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
-from typing import ClassVar
+from _typeshed import ConvertibleToInt, Incomplete
+from typing import ClassVar, Protocol
 from typing_extensions import Literal, TypeAlias
 
 from openpyxl.descriptors.base import (
@@ -10,12 +10,11 @@ from openpyxl.descriptors.base import (
     NoneSet,
     String,
     _ConvertibleToBool,
-    _ConvertibleToInt,
     _ConvertibleToMultiCellRange,
 )
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
-from openpyxl.worksheet.cell_range import MultiCellRange
+from openpyxl.worksheet.cell_range import CellRange, MultiCellRange
 
 _DataValidationType: TypeAlias = Literal["whole", "decimal", "list", "date", "time", "textLength", "custom"]
 _DataValidationErrorStyle: TypeAlias = Literal["stop", "warning", "information"]
@@ -35,6 +34,9 @@ _DataValidationImeMode: TypeAlias = Literal[
 _DataValidationOperator: TypeAlias = Literal[
     "between", "notBetween", "equal", "notEqual", "lessThan", "lessThanOrEqual", "greaterThan", "greaterThanOrEqual"
 ]
+
+class _HasCoordinate(Protocol):
+    coordinate: str | CellRange
 
 def collapse_cell_addresses(cells, input_ranges=()): ...
 def expand_cell_ranges(range_string): ...
@@ -81,7 +83,7 @@ class DataValidation(Serialisable):
         allow_blank: Incomplete | None = False,
     ) -> None: ...
     def add(self, cell) -> None: ...
-    def __contains__(self, cell): ...
+    def __contains__(self, cell: _HasCoordinate | str | CellRange) -> bool: ...
 
 class DataValidationList(Serialisable):
     tagname: ClassVar[str]
@@ -94,13 +96,13 @@ class DataValidationList(Serialisable):
     def __init__(
         self,
         disablePrompts: _ConvertibleToBool | None = None,
-        xWindow: _ConvertibleToInt | None = None,
-        yWindow: _ConvertibleToInt | None = None,
+        xWindow: ConvertibleToInt | None = None,
+        yWindow: ConvertibleToInt | None = None,
         count: Incomplete | None = None,
         dataValidation=(),
     ) -> None: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...
     def __len__(self) -> int: ...
     def append(self, dv) -> None: ...
     def to_tree(self, tagname: str | None = None): ...  # type: ignore[override]
