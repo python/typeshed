@@ -1,11 +1,11 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from array import array
 from collections.abc import Iterable
 from typing import ClassVar
 from typing_extensions import Literal, Self
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import Bool, Integer, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.alignment import Alignment
@@ -56,11 +56,11 @@ class CellStyle(Serialisable):
     __attrs__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        numFmtId: _ConvertibleToInt = 0,
-        fontId: _ConvertibleToInt = 0,
-        fillId: _ConvertibleToInt = 0,
-        borderId: _ConvertibleToInt = 0,
-        xfId: _ConvertibleToInt | None = None,
+        numFmtId: ConvertibleToInt = 0,
+        fontId: ConvertibleToInt = 0,
+        fillId: ConvertibleToInt = 0,
+        borderId: ConvertibleToInt = 0,
+        xfId: ConvertibleToInt | None = None,
         quotePrefix: _ConvertibleToBool | None = None,
         pivotButton: _ConvertibleToBool | None = None,
         applyNumberFormat: _ConvertibleToBool | None = None,

@@ -55,7 +55,7 @@ class _OptionalDictConfigArgs(TypedDict, total=False):
     filters: dict[str, _FilterConfiguration]
     handlers: dict[str, _HandlerConfiguration]
     loggers: dict[str, _LoggerConfiguration]
-    root: _RootLoggerConfiguration | None
+    root: _RootLoggerConfiguration
     incremental: bool
     disable_existing_loggers: bool
 

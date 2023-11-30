@@ -1,8 +1,8 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, overload
 from typing_extensions import Literal, TypeAlias
 
-from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.filters import AutoFilter
@@ -109,7 +109,7 @@ _PivotFieldSortType: TypeAlias = Literal["manual", "ascending", "descending"]
 class HierarchyUsage(Serialisable):
     tagname: ClassVar[str]
     hierarchyUsage: Integer[Literal[False]]
-    def __init__(self, hierarchyUsage: _ConvertibleToInt) -> None: ...
+    def __init__(self, hierarchyUsage: ConvertibleToInt) -> None: ...
 
 class ColHierarchiesUsage(Serialisable):
     tagname: ClassVar[str]
@@ -148,14 +148,14 @@ class PivotFilter(Serialisable):
     @overload
     def __init__(
         self,
-        fld: _ConvertibleToInt,
-        mpFld: _ConvertibleToInt | None = None,
+        fld: ConvertibleToInt,
+        mpFld: ConvertibleToInt | None = None,
         *,
         type: _PivotFilterType,
-        evalOrder: _ConvertibleToInt | None = None,
-        id: _ConvertibleToInt,
-        iMeasureHier: _ConvertibleToInt | None = None,
-        iMeasureFld: _ConvertibleToInt | None = None,
+        evalOrder: ConvertibleToInt | None = None,
+        id: ConvertibleToInt,
+        iMeasureHier: ConvertibleToInt | None = None,
+        iMeasureFld: ConvertibleToInt | None = None,
         name: str | None = None,
         description: str | None = None,
         stringValue1: str | None = None,
@@ -166,13 +166,13 @@ class PivotFilter(Serialisable):
     @overload
     def __init__(
         self,
-        fld: _ConvertibleToInt,
-        mpFld: _ConvertibleToInt | None,
+        fld: ConvertibleToInt,
+        mpFld: ConvertibleToInt | None,
         type: _PivotFilterType,
-        evalOrder: _ConvertibleToInt | None,
-        id: _ConvertibleToInt,
-        iMeasureHier: _ConvertibleToInt | None,
-        iMeasureFld: _ConvertibleToInt | None,
+        evalOrder: ConvertibleToInt | None,
+        id: ConvertibleToInt,
+        iMeasureHier: ConvertibleToInt | None,
+        iMeasureFld: ConvertibleToInt | None,
         name: str | None,
         description: str | None,
         stringValue1: str | None,
@@ -185,7 +185,7 @@ class PivotFilters(Serialisable):
     count: Integer[Literal[False]]
     filter: Typed[PivotFilter, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: _ConvertibleToInt, filter: PivotFilter | None = None) -> None: ...
+    def __init__(self, count: ConvertibleToInt, filter: PivotFilter | None = None) -> None: ...
 
 class PivotTableStyle(Serialisable):
     tagname: ClassVar[str]
@@ -210,7 +210,7 @@ class MemberList(Serialisable):
     level: Integer[Literal[True]]
     member: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: Incomplete | None = None, level: _ConvertibleToInt | None = None, member=()) -> None: ...
+    def __init__(self, count: Incomplete | None = None, level: ConvertibleToInt | None = None, member=()) -> None: ...
     @property
     def count(self) -> int: ...
 
@@ -232,12 +232,12 @@ class MemberProperty(Serialisable):
         showCell: _ConvertibleToBool | None = None,
         showTip: _ConvertibleToBool | None = None,
         showAsCaption: _ConvertibleToBool | None = None,
-        nameLen: _ConvertibleToInt | None = None,
-        pPos: _ConvertibleToInt | None = None,
-        pLen: _ConvertibleToInt | None = None,
-        level: _ConvertibleToInt | None = None,
+        nameLen: ConvertibleToInt | None = None,
+        pPos: ConvertibleToInt | None = None,
+        pLen: ConvertibleToInt | None = None,
+        level: ConvertibleToInt | None = None,
         *,
-        field: _ConvertibleToInt,
+        field: ConvertibleToInt,
     ) -> None: ...
     @overload
     def __init__(
@@ -246,11 +246,11 @@ class MemberProperty(Serialisable):
         showCell: _ConvertibleToBool | None,
         showTip: _ConvertibleToBool | None,
         showAsCaption: _ConvertibleToBool | None,
-        nameLen: _ConvertibleToInt | None,
-        pPos: _ConvertibleToInt | None,
-        pLen: _ConvertibleToInt | None,
-        level: _ConvertibleToInt | None,
-        field: _ConvertibleToInt,
+        nameLen: ConvertibleToInt | None,
+        pPos: ConvertibleToInt | None,
+        pLen: ConvertibleToInt | None,
+        level: ConvertibleToInt | None,
+        field: ConvertibleToInt,
     ) -> None: ...
 
 class PivotHierarchy(Serialisable):
@@ -311,7 +311,7 @@ class Reference(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        field: _ConvertibleToInt | None = None,
+        field: ConvertibleToInt | None = None,
         count: Unused = None,
         selected: _ConvertibleToBool | None = None,
         byPosition: _ConvertibleToBool | None = None,
@@ -355,7 +355,7 @@ class PivotArea(Serialisable):
         self,
         references=(),
         extLst: ExtensionList | None = None,
-        field: _ConvertibleToInt | None = None,
+        field: ConvertibleToInt | None = None,
         type: _PivotAreaType | Literal["none"] | None = "normal",
         dataOnly: _ConvertibleToBool | None = True,
         labelOnly: _ConvertibleToBool | None = None,
@@ -366,7 +366,7 @@ class PivotArea(Serialisable):
         offset: str | None = None,
         collapsedLevelsAreSubtotals: _ConvertibleToBool | None = None,
         axis: _PivotAxis | Literal["none"] | None = None,
-        fieldPosition: _ConvertibleToInt | None = None,
+        fieldPosition: ConvertibleToInt | None = None,
     ) -> None: ...
 
 class ChartFormat(Serialisable):
@@ -378,11 +378,11 @@ class ChartFormat(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
-        self, chart: _ConvertibleToInt, format: _ConvertibleToInt, series: _ConvertibleToBool = None, *, pivotArea: PivotArea
+        self, chart: ConvertibleToInt, format: ConvertibleToInt, series: _ConvertibleToBool = None, *, pivotArea: PivotArea
     ) -> None: ...
     @overload
     def __init__(
-        self, chart: _ConvertibleToInt, format: _ConvertibleToInt, series: _ConvertibleToBool, pivotArea: PivotArea
+        self, chart: ConvertibleToInt, format: ConvertibleToInt, series: _ConvertibleToBool, pivotArea: PivotArea
     ) -> None: ...
 
 class ConditionalFormat(Serialisable):
@@ -399,7 +399,7 @@ class ConditionalFormat(Serialisable):
         scope: _ConditionalFormatScope = "selection",
         type: _ConditionalFormatType | Literal["none"] | None = None,
         *,
-        priority: _ConvertibleToInt,
+        priority: ConvertibleToInt,
         pivotAreas=(),
         extLst: ExtensionList | None = None,
     ) -> None: ...
@@ -408,7 +408,7 @@ class ConditionalFormat(Serialisable):
         self,
         scope: _ConditionalFormatScope,
         type: _ConditionalFormatType | Literal["none"] | None,
-        priority: _ConvertibleToInt,
+        priority: ConvertibleToInt,
         pivotAreas=(),
         extLst: ExtensionList | None = None,
     ) -> None: ...
@@ -434,7 +434,7 @@ class Format(Serialisable):
     def __init__(
         self,
         action: _FormatAction | Literal["none"] | None = "formatting",
-        dxfId: _ConvertibleToInt | None = None,
+        dxfId: ConvertibleToInt | None = None,
         *,
         pivotArea: PivotArea,
         extLst: ExtensionList | None = None,
@@ -443,7 +443,7 @@ class Format(Serialisable):
     def __init__(
         self,
         action: _FormatAction | Literal["none"] | None,
-        dxfId: _ConvertibleToInt | None,
+        dxfId: ConvertibleToInt | None,
         pivotArea: PivotArea,
         extLst: ExtensionList | None = None,
     ) -> None: ...
@@ -464,24 +464,24 @@ class DataField(Serialisable):
         self,
         name: str | None = None,
         *,
-        fld: _ConvertibleToInt,
+        fld: ConvertibleToInt,
         subtotal: str = "sum",
         showDataAs: str = "normal",
-        baseField: _ConvertibleToInt = -1,
-        baseItem: _ConvertibleToInt = 1048832,
-        numFmtId: _ConvertibleToInt | None = None,
+        baseField: ConvertibleToInt = -1,
+        baseItem: ConvertibleToInt = 1048832,
+        numFmtId: ConvertibleToInt | None = None,
         extLst: ExtensionList | None = None,
     ) -> None: ...
     @overload
     def __init__(
         self,
         name: str | None,
-        fld: _ConvertibleToInt,
+        fld: ConvertibleToInt,
         subtotal: str = "sum",
         showDataAs: str = "normal",
-        baseField: _ConvertibleToInt = -1,
-        baseItem: _ConvertibleToInt = 1048832,
-        numFmtId: _ConvertibleToInt | None = None,
+        baseField: ConvertibleToInt = -1,
+        baseItem: ConvertibleToInt = 1048832,
+        numFmtId: ConvertibleToInt | None = None,
         extLst: ExtensionList | None = None,
     ) -> None: ...
 
@@ -496,9 +496,9 @@ class PageField(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        fld: _ConvertibleToInt,
-        item: _ConvertibleToInt | None = None,
-        hier: _ConvertibleToInt | None = None,
+        fld: ConvertibleToInt,
+        item: ConvertibleToInt | None = None,
+        hier: ConvertibleToInt | None = None,
         name: str | None = None,
         cap: str | None = None,
         extLst: ExtensionList | None = None,
@@ -511,12 +511,12 @@ class RowColItem(Serialisable):
     i: Integer[Literal[False]]
     x: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, t: _ItemType = "data", r: _ConvertibleToInt = 0, i: _ConvertibleToInt = 0, x=()) -> None: ...
+    def __init__(self, t: _ItemType = "data", r: ConvertibleToInt = 0, i: ConvertibleToInt = 0, x=()) -> None: ...
 
 class RowColField(Serialisable):
     tagname: ClassVar[str]
     x: Integer[Literal[False]]
-    def __init__(self, x: _ConvertibleToInt) -> None: ...
+    def __init__(self, x: ConvertibleToInt) -> None: ...
 
 class AutoSortScope(Serialisable):
     pivotArea: Typed[PivotArea, Literal[False]]
@@ -546,7 +546,7 @@ class FieldItem(Serialisable):
         f: _ConvertibleToBool | None = None,
         m: _ConvertibleToBool | None = None,
         c: _ConvertibleToBool | None = None,
-        x: _ConvertibleToInt | None = None,
+        x: ConvertibleToInt | None = None,
         d: _ConvertibleToBool | None = None,
         e: _ConvertibleToBool | None = None,
     ) -> None: ...
@@ -618,7 +618,7 @@ class PivotField(Serialisable):
         uniqueMemberProperty: str | None = None,
         compact: _ConvertibleToBool | None = True,
         allDrilled: _ConvertibleToBool | None = None,
-        numFmtId: _ConvertibleToInt | None = None,
+        numFmtId: ConvertibleToInt | None = None,
         outline: _ConvertibleToBool | None = True,
         subtotalTop: _ConvertibleToBool | None = True,
         dragToRow: _ConvertibleToBool | None = True,
@@ -636,11 +636,11 @@ class PivotField(Serialisable):
         hideNewItems: _ConvertibleToBool | None = None,
         measureFilter: _ConvertibleToBool | None = None,
         includeNewItemsInFilter: _ConvertibleToBool | None = None,
-        itemPageCount: _ConvertibleToInt | None = 10,
+        itemPageCount: ConvertibleToInt | None = 10,
         sortType: _PivotFieldSortType = "manual",
         dataSourceSort: _ConvertibleToBool | None = None,
         nonAutoSortDefault: _ConvertibleToBool | None = None,
-        rankBy: _ConvertibleToInt | None = None,
+        rankBy: ConvertibleToInt | None = None,
         defaultSubtotal: _ConvertibleToBool | None = True,
         sumSubtotal: _ConvertibleToBool | None = None,
         countASubtotal: _ConvertibleToBool | None = None,
@@ -671,11 +671,11 @@ class Location(Serialisable):
     def __init__(
         self,
         ref: str,
-        firstHeaderRow: _ConvertibleToInt,
-        firstDataRow: _ConvertibleToInt,
-        firstDataCol: _ConvertibleToInt,
-        rowPageCount: _ConvertibleToInt | None = None,
-        colPageCount: _ConvertibleToInt | None = None,
+        firstHeaderRow: ConvertibleToInt,
+        firstDataRow: ConvertibleToInt,
+        firstDataCol: ConvertibleToInt,
+        rowPageCount: ConvertibleToInt | None = None,
+        colPageCount: ConvertibleToInt | None = None,
     ) -> None: ...
 
 class TableDefinition(Serialisable):
@@ -774,9 +774,9 @@ class TableDefinition(Serialisable):
     def __init__(
         self,
         name: str,
-        cacheId: _ConvertibleToInt,
+        cacheId: ConvertibleToInt,
         dataOnRows: _ConvertibleToBool = False,
-        dataPosition: _ConvertibleToInt | None = None,
+        dataPosition: ConvertibleToInt | None = None,
         *,
         dataCaption: str,
         grandTotalCaption: str | None = None,
@@ -788,8 +788,8 @@ class TableDefinition(Serialisable):
         pivotTableStyle: str | None = None,
         vacatedStyle: str | None = None,
         tag: str | None = None,
-        updatedVersion: _ConvertibleToInt = 0,
-        minRefreshableVersion: _ConvertibleToInt = 0,
+        updatedVersion: ConvertibleToInt = 0,
+        minRefreshableVersion: ConvertibleToInt = 0,
         asteriskTotals: _ConvertibleToBool = False,
         showItems: _ConvertibleToBool = True,
         editData: _ConvertibleToBool = False,
@@ -807,7 +807,7 @@ class TableDefinition(Serialisable):
         enableFieldProperties: _ConvertibleToBool = True,
         preserveFormatting: _ConvertibleToBool = True,
         useAutoFormatting: _ConvertibleToBool = False,
-        pageWrap: _ConvertibleToInt = 0,
+        pageWrap: ConvertibleToInt = 0,
         pageOverThenDown: _ConvertibleToBool = False,
         subtotalHiddenItems: _ConvertibleToBool = False,
         rowGrandTotals: _ConvertibleToBool = True,
@@ -816,8 +816,8 @@ class TableDefinition(Serialisable):
         itemPrintTitles: _ConvertibleToBool = False,
         mergeItem: _ConvertibleToBool = False,
         showDropZones: _ConvertibleToBool = True,
-        createdVersion: _ConvertibleToInt = 0,
-        indent: _ConvertibleToInt = 1,
+        createdVersion: ConvertibleToInt = 0,
+        indent: ConvertibleToInt = 1,
         showEmptyRow: _ConvertibleToBool = False,
         showEmptyCol: _ConvertibleToBool = False,
         showHeaders: _ConvertibleToBool = True,
@@ -829,13 +829,13 @@ class TableDefinition(Serialisable):
         gridDropZones: _ConvertibleToBool = False,
         immersive: _ConvertibleToBool = True,
         multipleFieldFilters: _ConvertibleToBool = None,
-        chartFormat: _ConvertibleToInt = 0,
+        chartFormat: ConvertibleToInt = 0,
         rowHeaderCaption: str | None = None,
         colHeaderCaption: str | None = None,
         fieldListSortAscending: _ConvertibleToBool = None,
         mdxSubqueries: _ConvertibleToBool = None,
         customListSort: _ConvertibleToBool | None = None,
-        autoFormatId: _ConvertibleToInt | None = None,
+        autoFormatId: ConvertibleToInt | None = None,
         applyNumberFormats: _ConvertibleToBool = False,
         applyBorderFormats: _ConvertibleToBool = False,
         applyFontFormats: _ConvertibleToBool = False,
@@ -865,9 +865,9 @@ class TableDefinition(Serialisable):
     def __init__(
         self,
         name: str,
-        cacheId: _ConvertibleToInt,
+        cacheId: ConvertibleToInt,
         dataOnRows: _ConvertibleToBool,
-        dataPosition: _ConvertibleToInt | None,
+        dataPosition: ConvertibleToInt | None,
         dataCaption: str,
         grandTotalCaption: str | None,
         errorCaption: str | None,
@@ -878,8 +878,8 @@ class TableDefinition(Serialisable):
         pivotTableStyle: str | None,
         vacatedStyle: str | None,
         tag: str | None,
-        updatedVersion: _ConvertibleToInt,
-        minRefreshableVersion: _ConvertibleToInt,
+        updatedVersion: ConvertibleToInt,
+        minRefreshableVersion: ConvertibleToInt,
         asteriskTotals: _ConvertibleToBool,
         showItems: _ConvertibleToBool,
         editData: _ConvertibleToBool,
@@ -897,7 +897,7 @@ class TableDefinition(Serialisable):
         enableFieldProperties: _ConvertibleToBool,
         preserveFormatting: _ConvertibleToBool,
         useAutoFormatting: _ConvertibleToBool,
-        pageWrap: _ConvertibleToInt,
+        pageWrap: ConvertibleToInt,
         pageOverThenDown: _ConvertibleToBool,
         subtotalHiddenItems: _ConvertibleToBool,
         rowGrandTotals: _ConvertibleToBool,
@@ -906,8 +906,8 @@ class TableDefinition(Serialisable):
         itemPrintTitles: _ConvertibleToBool,
         mergeItem: _ConvertibleToBool,
         showDropZones: _ConvertibleToBool,
-        createdVersion: _ConvertibleToInt,
-        indent: _ConvertibleToInt,
+        createdVersion: ConvertibleToInt,
+        indent: ConvertibleToInt,
         showEmptyRow: _ConvertibleToBool,
         showEmptyCol: _ConvertibleToBool,
         showHeaders: _ConvertibleToBool,
@@ -919,13 +919,13 @@ class TableDefinition(Serialisable):
         gridDropZones: _ConvertibleToBool,
         immersive: _ConvertibleToBool,
         multipleFieldFilters: _ConvertibleToBool,
-        chartFormat: _ConvertibleToInt,
+        chartFormat: ConvertibleToInt,
         rowHeaderCaption: str | None,
         colHeaderCaption: str | None,
         fieldListSortAscending: _ConvertibleToBool,
         mdxSubqueries: _ConvertibleToBool,
         customListSort: _ConvertibleToBool | None,
-        autoFormatId: _ConvertibleToInt | None,
+        autoFormatId: ConvertibleToInt | None,
         applyNumberFormats: _ConvertibleToBool,
         applyBorderFormats: _ConvertibleToBool,
         applyFontFormats: _ConvertibleToBool,
