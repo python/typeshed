@@ -25,7 +25,6 @@
         "stdlib/xml/sax",
         "stubs/aws-xray-sdk",
         "stubs/beautifulsoup4",
-        "stubs/bleach",
         "stubs/boltons",
         "stubs/boto",
         "stubs/braintree",
