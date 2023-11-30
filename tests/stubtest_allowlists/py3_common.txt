@@ -523,9 +523,6 @@ typing(_extensions)?\.AbstractSet
 
 typing_extensions.NewType.__mro_entries__  # just exists for an error message
 
-# https://github.com/python/mypy/issues/15302
-typing_extensions.NewType.__call__
-
 # Typing-related weirdness
 _collections_abc.Callable
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime

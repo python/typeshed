@@ -1,19 +1,10 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from collections.abc import Callable, Iterator
 from typing import ClassVar, Generic, TypeVar
 from typing_extensions import Literal, Self
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import (
-    Alias,
-    Bool,
-    Float,
-    Integer,
-    String,
-    _ConvertibleToBool,
-    _ConvertibleToFloat,
-    _ConvertibleToInt,
-)
+from openpyxl.descriptors.base import Alias, Bool, Float, Integer, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.styleable import StyleableObject
 from openpyxl.utils.bound_dictionary import BoundDictionary
@@ -34,9 +25,9 @@ class Dimension(Strict, StyleableObject):
 
     def __init__(
         self,
-        index: _ConvertibleToInt,
+        index: ConvertibleToInt,
         hidden: _ConvertibleToBool,
-        outlineLevel: _ConvertibleToInt | None,
+        outlineLevel: ConvertibleToInt | None,
         collapsed: _ConvertibleToBool,
         worksheet: Worksheet,
         visible: Unused = True,
@@ -56,13 +47,13 @@ class RowDimension(Dimension):
         self,
         worksheet: Worksheet,
         index: int = 0,
-        ht: _ConvertibleToFloat | None = None,
+        ht: ConvertibleToFloat | None = None,
         customHeight: Unused = None,
         s: Incomplete | None = None,
         customFormat: Unused = None,
         hidden: _ConvertibleToBool = None,
-        outlineLevel: _ConvertibleToInt | None = 0,
-        outline_level: _ConvertibleToInt | None = None,
+        outlineLevel: ConvertibleToInt | None = 0,
+        outline_level: ConvertibleToInt | None = None,
         collapsed: _ConvertibleToBool = None,
         visible: Incomplete | None = None,
         height: Incomplete | None = None,
@@ -90,15 +81,15 @@ class ColumnDimension(Dimension):
         self,
         worksheet: Worksheet,
         index: str = "A",
-        width: _ConvertibleToFloat = 13,
+        width: ConvertibleToFloat = 13,
         bestFit: _ConvertibleToBool = False,
         hidden: _ConvertibleToBool = False,
-        outlineLevel: _ConvertibleToInt | None = 0,
-        outline_level: _ConvertibleToInt | None = None,
+        outlineLevel: ConvertibleToInt | None = 0,
+        outline_level: ConvertibleToInt | None = None,
         collapsed: _ConvertibleToBool = False,
         style: Incomplete | None = None,
-        min: _ConvertibleToInt | None = None,
-        max: _ConvertibleToInt | None = None,
+        min: ConvertibleToInt | None = None,
+        max: ConvertibleToInt | None = None,
         customWidth: Unused = False,
         visible: bool | None = None,
         auto_size: _ConvertibleToBool | None = None,
@@ -132,15 +123,15 @@ class SheetFormatProperties(Serialisable):
     outlineLevelCol: Integer[Literal[True]]
     def __init__(
         self,
-        baseColWidth: _ConvertibleToInt | None = 8,
-        defaultColWidth: _ConvertibleToFloat | None = None,
-        defaultRowHeight: _ConvertibleToFloat = 15,
+        baseColWidth: ConvertibleToInt | None = 8,
+        defaultColWidth: ConvertibleToFloat | None = None,
+        defaultRowHeight: ConvertibleToFloat = 15,
         customHeight: _ConvertibleToBool | None = None,
         zeroHeight: _ConvertibleToBool | None = None,
         thickTop: _ConvertibleToBool | None = None,
         thickBottom: _ConvertibleToBool | None = None,
-        outlineLevelRow: _ConvertibleToInt | None = None,
-        outlineLevelCol: _ConvertibleToInt | None = None,
+        outlineLevelRow: ConvertibleToInt | None = None,
+        outlineLevelCol: ConvertibleToInt | None = None,
     ) -> None: ...
 
 class SheetDimension(Serialisable):

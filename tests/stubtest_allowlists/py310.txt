@@ -149,9 +149,6 @@ dataclasses.KW_ONLY
 # We pretend it's a read-only property for forward compatibility with 3.12
 typing.ParamSpec(Args|Kwargs).__origin__
 
-# https://github.com/python/mypy/issues/15302
-typing.NewType.__call__
-
 # Problematic protocol signatures at runtime, see source code comments.
 importlib.abc.Traversable.joinpath
 importlib.abc.Traversable.open
