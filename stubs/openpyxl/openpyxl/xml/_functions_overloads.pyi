@@ -16,8 +16,10 @@ _T_co = TypeVar("_T_co", covariant=True)
 
 # Comment from openpyxl.cell.rich_text.py
 # Usually an Element() from either lxml or xml.etree (has a 'tag' element)
+# lxml.etree._Element
+# xml.etree.Element
 class _HasTag(Protocol):
-    tag: Any  # AnyOf[str, None, Callable[..., AnyOf[str, None]]]
+    tag: str
 
 class _HasGet(Protocol[_T_co]):
     def get(self, __value: str) -> _T_co | None: ...
@@ -75,7 +77,7 @@ def fromstring(text: str | ReadableBuffer, parser: XMLParser | None = None) -> E
 # from lxml.etree import fromstring
 # But made partial, removing parser arg
 @overload
-def fromstring(text: str | bytes, *, base_url: str | bytes = ...) -> _lxml_Element: ...  # type: ignore[misc]  # Overlap with incompatible return types
+def fromstring(text: str | bytes, *, base_url: str | bytes = ...) -> _lxml_Element: ...  # type: ignore[overload-overlap]
 
 # from defusedxml.ElementTree import fromstring
 @overload

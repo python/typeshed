@@ -1,9 +1,9 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from collections.abc import Iterator
 from typing import ClassVar
 from typing_extensions import Literal
 
-from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.alignment import Alignment
@@ -35,7 +35,7 @@ class NamedStyle(Serialisable):
         alignment: Alignment | None = None,
         number_format: Incomplete | None = None,
         protection: Protection | None = None,
-        builtinId: _ConvertibleToInt | None = None,
+        builtinId: ConvertibleToInt | None = None,
         hidden: _ConvertibleToBool | None = False,
         xfId: Unused = None,
     ) -> None: ...
@@ -67,9 +67,9 @@ class _NamedCellStyle(Serialisable):
     def __init__(
         self,
         name: str,
-        xfId: _ConvertibleToInt,
-        builtinId: _ConvertibleToInt | None = None,
-        iLevel: _ConvertibleToInt | None = None,
+        xfId: ConvertibleToInt,
+        builtinId: ConvertibleToInt | None = None,
+        iLevel: ConvertibleToInt | None = None,
         hidden: _ConvertibleToBool | None = None,
         customBuiltin: _ConvertibleToBool | None = None,
         extLst: Unused = None,

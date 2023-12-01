@@ -1,10 +1,10 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from re import Pattern
 from typing import ClassVar, overload
 from typing_extensions import Final, Literal, TypeGuard
 
 from openpyxl.descriptors import Strict, String
-from openpyxl.descriptors.base import Integer, _ConvertibleToInt
+from openpyxl.descriptors.base import Integer
 from openpyxl.descriptors.serialisable import Serialisable
 
 BUILTIN_FORMATS: Final[dict[int, str]]
@@ -70,7 +70,7 @@ class NumberFormatDescriptor(String[Incomplete]):
 class NumberFormat(Serialisable):
     numFmtId: Integer[Literal[False]]
     formatCode: String[Literal[False]]
-    def __init__(self, numFmtId: _ConvertibleToInt, formatCode: str) -> None: ...
+    def __init__(self, numFmtId: ConvertibleToInt, formatCode: str) -> None: ...
 
 class NumberFormatList(Serialisable):
     # Overwritten by property below
