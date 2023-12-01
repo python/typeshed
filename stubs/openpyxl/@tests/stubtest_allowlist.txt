@@ -44,6 +44,8 @@ openpyxl\.descriptors\.(base\.)?Typed\.allow_none
 # Inconsistent methods because
 # - using the default value results in an error because of the runtime type-guards
 # - or, keyword arguments are explicitly specified
+openpyxl.cell.Cell.__init__
+openpyxl.cell.cell.Cell.__init__
 openpyxl.cell.text.PhoneticProperties.__init__
 openpyxl.cell.text.PhoneticText.__init__
 openpyxl.chart.axis._BaseAxis.__init__

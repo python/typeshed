@@ -36,6 +36,16 @@ class CellRange(Serialisable):
         max_row: ConvertibleToInt,
         title: str | None = None,
     ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        range_string: None,
+        min_col: ConvertibleToInt,
+        min_row: ConvertibleToInt,
+        max_col: ConvertibleToInt,
+        max_row: ConvertibleToInt,
+        title: str | None = None,
+    ) -> None: ...
     @property
     def bounds(self) -> tuple[int, int, int, int]: ...
     @property
