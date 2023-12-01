@@ -36,14 +36,15 @@ def get_type(t: type, value: object) -> Literal["n", "s", "d", "f"] | None: ...
 def get_time_format(t: _TimeTypes) -> str: ...
 
 class Cell(StyleableObject):
-    row: int | None
-    column: int | None
+    row: int
+    column: int
     data_type: str
+    # row and column are never meant to be None and would lead to errors
     def __init__(
         self,
         worksheet: _WorkbookChild,
-        row: int | None = None,
-        column: int | None = None,
+        row: int,
+        column: int,
         value: _CellValue | bytes | None = None,
         style_array: StyleArray | None = None,
     ) -> None: ...

@@ -1,6 +1,7 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Iterator
 from datetime import datetime
+from typing import Any
 from typing_extensions import Final
 from zipfile import ZipFile
 
@@ -50,7 +51,10 @@ class Workbook:
     def active(self) -> Worksheet | WriteOnlyWorksheet | Chartsheet | ReadOnlyWorksheet | None: ...
     @active.setter
     def active(self, value: Worksheet | Chartsheet | int) -> None: ...
-    def create_sheet(self, title: str | _Decodable | None = None, index: int | None = None) -> WriteOnlyWorksheet | Worksheet: ...
+    # Could be generic based on write_only
+    def create_sheet(
+        self, title: str | _Decodable | None = None, index: int | None = None
+    ) -> Any: ...  # AnyOf[WriteOnlyWorksheet, Worksheet]
     def move_sheet(self, sheet: Worksheet | str, offset: int = 0) -> None: ...
     def remove(self, worksheet: Worksheet | WriteOnlyWorksheet | Chartsheet | ReadOnlyWorksheet) -> None: ...
     remove_sheet = remove
@@ -74,8 +78,8 @@ class Workbook:
         self,
         name: str,
         worksheet: _WorkbookChild | ReadOnlyWorksheet | None = None,
-        value: str | None = None,
-        scope: int | None = None,
+        value: str | Incomplete | None = None,
+        scope: Unused = None,
     ) -> None: ...
     def add_named_style(self, style: NamedStyle) -> None: ...
     @property

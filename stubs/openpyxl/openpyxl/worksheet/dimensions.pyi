@@ -8,6 +8,7 @@ from openpyxl.descriptors.base import Alias, Bool, Float, Integer, String, _Conv
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.styleable import StyleableObject
 from openpyxl.utils.bound_dictionary import BoundDictionary
+from openpyxl.utils.cell import _RangeBoundariesTuple
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.xml.functions import Element
 
@@ -139,4 +140,4 @@ class SheetDimension(Serialisable):
     ref: String[Literal[False]]
     def __init__(self, ref: str) -> None: ...
     @property
-    def boundaries(self) -> tuple[int, int, int, int]: ...
+    def boundaries(self) -> _RangeBoundariesTuple: ...

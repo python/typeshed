@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from collections.abc import Generator, Iterable, Iterator
 from types import GeneratorType
 from typing import Any, NoReturn, overload
@@ -188,7 +188,7 @@ class Worksheet(_WorkbookChild):
     @property
     def columns(self) -> Generator[tuple[_Cell, ...], None, None]: ...
     def set_printer_settings(
-        self, paper_size: int | None, orientation: Literal["default", "portrait", "landscape", None]
+        self, paper_size: int | None, orientation: Literal["default", "portrait", "landscape"] | None
     ) -> None: ...
     def add_data_validation(self, data_validation: DataValidation) -> None: ...
     def add_chart(self, chart: ChartBase, anchor: str | None = None) -> None: ...
@@ -199,10 +199,6 @@ class Worksheet(_WorkbookChild):
     def add_pivot(self, pivot) -> None: ...
     # Same overload as CellRange.__init__
     @overload
-    def merge_cells(self, *, start_row: int, start_column: int, end_row: int, end_column: int) -> None: ...
-    @overload
-    def merge_cells(self, range_string: None, start_row: int, start_column: int, end_row: int, end_column: int) -> None: ...
-    @overload
     def merge_cells(
         self,
         range_string: str,
@@ -210,6 +206,25 @@ class Worksheet(_WorkbookChild):
         start_column: Unused = None,
         end_row: Unused = None,
         end_column: Unused = None,
+    ) -> None: ...
+    @overload
+    def merge_cells(
+        self,
+        range_string: None = None,
+        *,
+        start_row: ConvertibleToInt,
+        start_column: ConvertibleToInt,
+        end_row: ConvertibleToInt,
+        end_column: ConvertibleToInt,
+    ) -> None: ...
+    @overload
+    def merge_cells(
+        self,
+        range_string: None,
+        start_row: ConvertibleToInt,
+        start_column: ConvertibleToInt,
+        end_row: ConvertibleToInt,
+        end_column: ConvertibleToInt,
     ) -> None: ...
     # deprecated: Will always raise: TypeError: 'set' object is not subscriptable
     @property

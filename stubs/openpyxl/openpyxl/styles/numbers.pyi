@@ -1,7 +1,7 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
 from re import Pattern
 from typing import ClassVar, overload
-from typing_extensions import Final, Literal, TypeGuard
+from typing_extensions import Final, Literal, SupportsIndex, TypeGuard
 
 from openpyxl.descriptors import Strict, String
 from openpyxl.descriptors.base import Integer
@@ -81,4 +81,4 @@ class NumberFormatList(Serialisable):
     def __init__(self, count: Unused = None, numFmt=()) -> None: ...
     @property
     def count(self) -> int: ...
-    def __getitem__(self, idx) -> NumberFormat: ...
+    def __getitem__(self, idx: SupportsIndex) -> NumberFormat: ...
