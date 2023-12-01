@@ -5,7 +5,7 @@ from configparser import RawConfigParser
 from re import Pattern
 from threading import Thread
 from typing import IO, Any, overload
-from typing_extensions import Literal, SupportsIndex, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, SupportsIndex, TypeAlias, TypedDict
 
 from . import Filter, Filterer, Formatter, Handler, Logger, _FilterType, _FormatStyle, _Level
 
@@ -50,7 +50,8 @@ _FilterConfiguration: TypeAlias = _FilterConfigurationTypedDict | dict[str, Any]
 # Handler config can have additional keys even when not providing a custom factory so we just use `dict`.
 _HandlerConfiguration: TypeAlias = dict[str, Any]
 
-class _OptionalDictConfigArgs(TypedDict, total=False):
+class _DictConfigArgs(TypedDict, total=False):
+    version: Required[Literal[1]]
     formatters: dict[str, _FormatterConfiguration]
     filters: dict[str, _FilterConfiguration]
     handlers: dict[str, _HandlerConfiguration]
@@ -58,9 +59,6 @@ class _OptionalDictConfigArgs(TypedDict, total=False):
     root: _RootLoggerConfiguration
     incremental: bool
     disable_existing_loggers: bool
-
-class _DictConfigArgs(_OptionalDictConfigArgs, TypedDict):
-    version: Literal[1]
 
 # Accept dict[str, Any] to avoid false positives if called with a dict
 # type, since dict types are not compatible with TypedDicts.

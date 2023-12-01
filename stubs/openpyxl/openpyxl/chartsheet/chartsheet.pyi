@@ -16,6 +16,7 @@ from openpyxl.workbook.child import _WorkbookChild
 from openpyxl.worksheet.drawing import Drawing
 from openpyxl.worksheet.header_footer import HeaderFooter as _HeaderFooter
 from openpyxl.worksheet.page import PageMargins, PrintPageSetup
+from openpyxl.xml.functions import Element
 
 class Chartsheet(_WorkbookChild, Serialisable):
     tagname: ClassVar[str]
@@ -55,4 +56,4 @@ class Chartsheet(_WorkbookChild, Serialisable):
         sheet_state: _VisibilityType = "visible",
     ) -> None: ...
     def add_chart(self, chart) -> None: ...
-    def to_tree(self): ...
+    def to_tree(self) -> Element: ...  # type:ignore[override]
