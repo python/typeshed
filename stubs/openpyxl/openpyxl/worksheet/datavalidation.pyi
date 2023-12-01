@@ -15,6 +15,7 @@ from openpyxl.descriptors.base import (
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.cell_range import CellRange, MultiCellRange
+from openpyxl.xml.functions import Element
 
 _DataValidationType: TypeAlias = Literal["whole", "decimal", "list", "date", "time", "textLength", "custom"]
 _DataValidationErrorStyle: TypeAlias = Literal["stop", "warning", "information"]
@@ -105,4 +106,4 @@ class DataValidationList(Serialisable):
     def count(self) -> int: ...
     def __len__(self) -> int: ...
     def append(self, dv) -> None: ...
-    def to_tree(self, tagname: str | None = None): ...  # type: ignore[override]
+    def to_tree(self, tagname: str | None = None) -> Element: ...  # type: ignore[override]

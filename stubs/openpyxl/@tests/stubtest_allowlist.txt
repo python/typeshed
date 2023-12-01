@@ -111,6 +111,7 @@ openpyxl.drawing.text.PresetTextShape.__init__
 openpyxl.drawing.text.TextField.__init__
 openpyxl.drawing.text.TextNormalAutofit.__init__
 openpyxl.formatting.rule.DataBar.__init__
+openpyxl.packaging.core.QualifiedDateTime.to_tree
 openpyxl.packaging.relationship.get_rel
 openpyxl.packaging.relationship.Relationship.__init__
 openpyxl.packaging.workbook.ChildSheet.__init__

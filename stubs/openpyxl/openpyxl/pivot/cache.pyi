@@ -9,6 +9,7 @@ from openpyxl.descriptors.nested import NestedInteger
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.pivot.fields import Error, Missing, Number, Text, TupleList
 from openpyxl.pivot.table import PivotArea
+from openpyxl.xml.functions import Element
 
 from ..xml._functions_overloads import _HasTagAndGet
 
@@ -710,6 +711,6 @@ class CacheDefinition(Serialisable):
         extLst: ExtensionList | None = None,
         id: Incomplete | None = None,
     ) -> None: ...
-    def to_tree(self): ...
+    def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
     def path(self) -> str: ...
