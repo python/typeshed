@@ -1,10 +1,9 @@
-from _typeshed import Incomplete, SupportsIter
+from _typeshed import ConvertibleToInt, Incomplete, SupportsIter
 from collections.abc import Iterator
 from typing import Any, ClassVar, Protocol
 from typing_extensions import Final, Self
 
 from openpyxl.descriptors import MetaSerialisable
-from openpyxl.descriptors.base import _ConvertibleToInt
 from openpyxl.xml.functions import Element
 
 from ..xml._functions_overloads import _HasAttrib, _HasGet, _HasTagAndGet, _HasText, _SupportsFindChartLines
@@ -41,7 +40,7 @@ class Serialisable(metaclass=MetaSerialisable):
     def to_tree(
         self,
         tagname: str | None = None,
-        idx: _HasTagAndGet[_ConvertibleToInt] | _ConvertibleToInt | None = None,
+        idx: _HasTagAndGet[ConvertibleToInt] | ConvertibleToInt | None = None,
         namespace: str | None = None,
     ) -> Element: ...
     def __iter__(self) -> Iterator[tuple[str, str]]: ...
