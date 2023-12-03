@@ -89,7 +89,7 @@ class _SupportsReadAndReadlineAndWrite(_SupportsReadAndReadline, SupportsWrite[s
 class cursor:
     arraysize: int
     binary_types: Incomplete | None
-    connection: connection
+    connection: _Connection
     itersize: int
     row_factory: Incomplete | None
     scrollable: bool | None
@@ -149,6 +149,8 @@ class cursor:
     ) -> None: ...
     def __iter__(self) -> Self: ...
     def __next__(self) -> tuple[Any, ...]: ...
+
+_Cursor: TypeAlias = cursor
 
 class AsIs:
     def __init__(self, __obj: object, **kwargs: Unused) -> None: ...
@@ -256,7 +258,7 @@ class ConnectionInfo:
     def ssl_attribute(self, name: str) -> str | None: ...
 
 class Error(Exception):
-    cursor: cursor | None
+    cursor: _Cursor | None
     diag: Diagnostics
     pgcode: str | None
     pgerror: str | None
