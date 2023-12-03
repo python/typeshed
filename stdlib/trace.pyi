@@ -46,8 +46,8 @@ class Trace:
     donothing: int
     trace: int
     start_time: int | None
-    globaltrace: Callable[[types.FrameType, str, Any], TraceFunction]
-    localtrace: Callable[[types.FrameType, str, Any], TraceFunction]
+    globaltrace: TraceFunction
+    localtrace: TraceFunction
     def __init__(
         self,
         count: int = 1,
