@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToInt, Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete
 from collections.abc import Generator, Iterable, Iterator
 from datetime import datetime
 from types import GeneratorType
@@ -198,12 +198,7 @@ class Worksheet(_WorkbookChild):
     # Same overload as CellRange.__init__
     @overload
     def merge_cells(
-        self,
-        range_string: str,
-        start_row: Unused = None,
-        start_column: Unused = None,
-        end_row: Unused = None,
-        end_column: Unused = None,
+        self, range_string: str, start_row: None = None, start_column: None = None, end_row: None = None, end_column: None = None
     ) -> None: ...
     @overload
     def merge_cells(
