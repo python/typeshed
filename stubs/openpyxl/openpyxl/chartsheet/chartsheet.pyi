@@ -34,7 +34,7 @@ class Chartsheet(_WorkbookChild, Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     sheet_state: Set[_VisibilityType]
     headerFooter: Typed[_HeaderFooter, Literal[False]]
-    HeaderFooter: Alias
+    HeaderFooter: Alias  # type: ignore[assignment] # Different from parent class
     __elements__: ClassVar[tuple[str, ...]]
     __attrs__: ClassVar[tuple[str, ...]]
     def __init__(

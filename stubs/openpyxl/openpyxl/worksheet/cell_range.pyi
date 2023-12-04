@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToInt, Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete
 from collections.abc import Generator, Iterator
 from itertools import product
 from typing import Any, overload
@@ -15,14 +15,17 @@ class CellRange(Serialisable):
     max_row: MinMax[int, Literal[False]]
     title: str | None
 
+    # With `range_string`, min/max parameters go unused.
+    # Enforcing `None` to avoid confusion upon which params get used
+    # if the user still tries to pass a `ConvertibleToInt`.
     @overload
     def __init__(
         self,
         range_string: str,
-        min_col: Unused = None,
-        min_row: Unused = None,
-        max_col: Unused = None,
-        max_row: Unused = None,
+        min_col: None = None,
+        min_row: None = None,
+        max_col: None = None,
+        max_row: None = None,
         title: str | None = None,
     ) -> None: ...
     @overload
@@ -30,6 +33,16 @@ class CellRange(Serialisable):
         self,
         range_string: None = None,
         *,
+        min_col: ConvertibleToInt,
+        min_row: ConvertibleToInt,
+        max_col: ConvertibleToInt,
+        max_row: ConvertibleToInt,
+        title: str | None = None,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        range_string: None,
         min_col: ConvertibleToInt,
         min_row: ConvertibleToInt,
         max_col: ConvertibleToInt,
