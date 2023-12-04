@@ -12,7 +12,7 @@ from _typeshed import (
 )
 from collections.abc import Callable, Generator, Iterator, Sequence
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from os import PathLike, stat_result
+from os import stat_result
 from types import TracebackType
 from typing import IO, Any, BinaryIO, overload
 from typing_extensions import Literal, Self
@@ -22,7 +22,7 @@ if sys.version_info >= (3, 9):
 
 __all__ = ["PurePath", "PurePosixPath", "PureWindowsPath", "Path", "PosixPath", "WindowsPath"]
 
-class PurePath(PathLike[str]):
+class PurePath:
     @property
     def parts(self) -> tuple[str, ...]: ...
     @property
