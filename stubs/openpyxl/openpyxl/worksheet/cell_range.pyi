@@ -15,9 +15,9 @@ class CellRange(Serialisable):
     max_row: MinMax[int, Literal[False]]
     title: str | None
 
-    # with `range_string`, min/max parameters go unused.
-    # Enforcing None to avoid confusion upon which params gets used
-    # if the user still tries to pass a `ConvertibleToInt`
+    # With `range_string`, min/max parameters go unused.
+    # Enforcing `None` to avoid confusion upon which params get used
+    # if the user still tries to pass a `ConvertibleToInt`.
     @overload
     def __init__(
         self,
