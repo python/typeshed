@@ -164,6 +164,6 @@ pkgutil.ImpLoader\..*
 
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 
-# These enums derive from (int, IntEnum) or (str, Enum)
+# These enums derive from (str, Enum)
 pstats.SortKey.__new__
 tkinter.EventType.__new__
