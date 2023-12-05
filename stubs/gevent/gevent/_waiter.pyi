@@ -6,6 +6,8 @@ from gevent.event import _ValueSource
 from gevent.hub import Hub
 from greenlet import greenlet as greenlet_t
 
+__all__ = ["Waiter"]
+
 _T = TypeVar("_T")
 # this is annoying, it's due to them using *throw args, rather than just storing them in standardized form
 _ThrowArgs: TypeAlias = (
@@ -43,5 +45,3 @@ class Waiter(Generic[_T]):
 
 @final
 class MultipleWaiter(Waiter[_T]): ...
-
-__all__ = ["Waiter"]

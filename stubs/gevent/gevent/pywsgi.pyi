@@ -13,6 +13,8 @@ from gevent.server import StreamServer
 from gevent.socket import socket as _GeventSocket
 from gevent.ssl import SSLContext
 
+__all__ = ["WSGIServer", "WSGIHandler", "LoggingLogAdapter", "Environ", "SecureEnviron", "WSGISecureEnviron"]
+
 _T = TypeVar("_T")
 
 class _LogOutputStream(SupportsWrite[str], Protocol):
@@ -174,5 +176,3 @@ class WSGIServer(StreamServer):
     def init_socket(self) -> None: ...
     def update_environ(self) -> None: ...
     def handle(self, sock: _GeventSocket, address: str) -> None: ...
-
-__all__ = ["WSGIServer", "WSGIHandler", "LoggingLogAdapter", "Environ", "SecureEnviron", "WSGISecureEnviron"]

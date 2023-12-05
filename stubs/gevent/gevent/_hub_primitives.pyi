@@ -9,6 +9,8 @@ from gevent._types import _Loop, _Watcher
 from gevent.hub import Hub
 from gevent.socket import socket
 
+__all__ = ["WaitOperationsGreenlet", "iwait_on_objects", "wait_on_objects", "wait_read", "wait_write", "wait_readwrite"]
+
 _T = TypeVar("_T")
 _WaitableT = TypeVar("_WaitableT", bound=_Waitable)
 _P = ParamSpec("_P")
@@ -68,5 +70,3 @@ def wait_write(
 def wait_readwrite(
     fileno: FileDescriptor, timeout: float | None = None, timeout_exc: type[BaseException] | BaseException = ...
 ) -> None: ...
-
-__all__ = ["WaitOperationsGreenlet", "iwait_on_objects", "wait_on_objects", "wait_read", "wait_write", "wait_readwrite"]

@@ -1,6 +1,8 @@
 from _thread import LockType, allocate_lock as Lock
 from typing import Generic, NewType, TypeVar
 
+__all__ = ["Lock", "Queue", "EmptyTimeout"]
+
 _T = TypeVar("_T")
 _Cookie = NewType("_Cookie", LockType)
 
@@ -17,5 +19,3 @@ class Queue(Generic[_T]):
     def get(self, cookie: _Cookie, timeout: int = -1) -> _T: ...
     def allocate_cookie(self) -> _Cookie: ...
     def kill(self) -> None: ...
-
-__all__ = ["Lock", "Queue", "EmptyTimeout"]

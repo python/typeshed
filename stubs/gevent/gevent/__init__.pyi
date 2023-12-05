@@ -16,13 +16,6 @@ from gevent.hub import (
 )
 from gevent.timeout import Timeout as Timeout, with_timeout as with_timeout
 
-getswitchinterval = sys.getswitchinterval
-setswitchinterval = sys.setswitchinterval
-spawn = Greenlet.spawn
-spawn_later = Greenlet.spawn_later
-
-__version__: str
-
 if sys.platform != "win32":
     from gevent.os import fork
 
@@ -74,3 +67,10 @@ else:
         "wait",
         "with_timeout",
     ]
+
+__version__: str
+
+getswitchinterval = sys.getswitchinterval
+setswitchinterval = sys.setswitchinterval
+spawn = Greenlet.spawn
+spawn_later = Greenlet.spawn_later

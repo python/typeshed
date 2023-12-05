@@ -6,6 +6,8 @@ from typing_extensions import ParamSpec, TypeAlias
 from gevent._ffi import watcher as _base
 from gevent.libev.corecffi import loop as cffi_loop
 
+__all__: list[str] = []
+
 if sys.platform != "win32":
     from gevent.libev.corecext import loop as cext_loop
 
@@ -61,5 +63,3 @@ class child(_base.ChildMixin, watcher):
 class stat(_base.StatMixin, watcher):
     @property
     def interval(self) -> float: ...
-
-__all__: list[str] = []

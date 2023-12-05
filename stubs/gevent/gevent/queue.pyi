@@ -9,6 +9,8 @@ from typing_extensions import Literal, Self, final
 from gevent._waiter import Waiter
 from gevent.hub import Hub
 
+__all__ = ["Queue", "PriorityQueue", "LifoQueue", "SimpleQueue", "JoinableQueue", "Channel", "Empty", "Full"]
+
 _T = TypeVar("_T")
 
 class Queue(Generic[_T]):
@@ -83,5 +85,3 @@ class Channel(Generic[_T]):
     def __iter__(self) -> Self: ...
     def __next__(self) -> _T: ...
     next = __next__
-
-__all__ = ["Queue", "PriorityQueue", "LifoQueue", "SimpleQueue", "JoinableQueue", "Channel", "Empty", "Full"]

@@ -6,6 +6,8 @@ from gevent._imap import IMap, IMapUnordered
 from gevent.greenlet import Greenlet
 from gevent.queue import Full as QueueFull
 
+__all__ = ["Group", "Pool", "PoolFull"]
+
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
@@ -193,5 +195,3 @@ class Pool(Group):
     def free_count(self) -> int: ...
     def start(self, greenlet: Greenlet[..., object], blocking: bool = True, timeout: float | None = None) -> None: ...
     def add(self, greenlet: Greenlet[..., object], blocking: bool = True, timeout: float | None = None) -> None: ...
-
-__all__ = ["Group", "Pool", "PoolFull"]

@@ -5,6 +5,8 @@ from gevent.events import IPeriodicMonitorThread, MemoryUsageThresholdExceeded, 
 from gevent.hub import Hub
 from greenlet import greenlet
 
+__all__ = ["PeriodicMonitoringThread"]
+
 _T = TypeVar("_T")
 
 # FIXME: While it would be nice to import Interface from zope.interface here so the
@@ -46,5 +48,3 @@ class PeriodicMonitoringThread:
     def can_monitor_memory_usage(self) -> bool: ...
     def install_monitor_memory_usage(self) -> None: ...
     def monitor_memory_usage(self, _hub: Hub) -> MemoryUsageThresholdExceeded | MemoryUsageUnderThreshold | None: ...
-
-__all__ = ["PeriodicMonitoringThread"]

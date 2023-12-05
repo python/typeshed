@@ -6,6 +6,8 @@ from typing_extensions import Literal
 from gevent._abstract_linkable import AbstractLinkable
 from gevent.hub import Hub
 
+__all__ = ["Semaphore", "BoundedSemaphore", "DummySemaphore", "RLock"]
+
 class Semaphore(AbstractLinkable):
     counter: int
     def __init__(self, value: int = 1, hub: Hub | None = None) -> None: ...
@@ -37,5 +39,3 @@ class RLock:
     def __enter__(self) -> bool: ...
     def release(self) -> None: ...
     def __exit__(self, typ: type[BaseException] | None, val: BaseException | None, tb: TracebackType | None) -> None: ...
-
-__all__ = ["Semaphore", "BoundedSemaphore", "DummySemaphore", "RLock"]

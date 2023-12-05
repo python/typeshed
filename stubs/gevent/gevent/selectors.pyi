@@ -7,6 +7,8 @@ from typing_extensions import TypeAlias
 from gevent._util import Lazy
 from gevent.hub import Hub
 
+__all__ = ["DefaultSelector", "GeventSelector"]
+
 _EventMask: TypeAlias = int
 
 # technically this derives from _BaseSelectorImpl, which does not have type annotations
@@ -23,5 +25,3 @@ class GeventSelector(BaseSelector):
     def get_map(self) -> Mapping[FileDescriptorLike, SelectorKey]: ...
 
 DefaultSelector = GeventSelector
-
-__all__ = ["DefaultSelector", "GeventSelector"]

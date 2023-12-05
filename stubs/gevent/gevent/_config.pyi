@@ -5,6 +5,8 @@ from gevent._types import _Loop, _Resolver
 from gevent.fileobject import _FileObjectType
 from gevent.threadpool import ThreadPool
 
+__all__ = ["config"]
+
 _T = TypeVar("_T")
 
 class _SettingDescriptor(Protocol[_T]):
@@ -192,5 +194,3 @@ class ResolverTimeout(FloatSettingMixin, AresSettingMixin, Setting[float | None]
     def kwarg_name(self) -> str: ...
 
 config: Config = ...
-
-__all__ = ["config"]
