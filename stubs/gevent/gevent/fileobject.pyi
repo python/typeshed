@@ -153,4 +153,4 @@ if sys.platform != "win32":
 else:
     _FileObjectType: TypeAlias = type[FileObjectBlock[Any, Any] | FileObjectThread[Any, Any]]
 
-FileObject: _FileObjectType = ...
+FileObject: _FileObjectType

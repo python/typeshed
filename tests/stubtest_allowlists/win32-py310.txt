@@ -1,6 +1,3 @@
-# Exists at runtime, but missing from stubs
-msvcrt.GetErrorMode
-
 # pathlib methods that exist on Windows, but always raise NotImplementedError,
 # so are omitted from the stub
 pathlib.Path.is_mount

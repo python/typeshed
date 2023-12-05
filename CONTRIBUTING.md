@@ -1,7 +1,7 @@
 # Contributing to typeshed
 
-Welcome!  typeshed is a community project that aims to work for a wide
-range of Python users and Python codebases.  If you're trying a type
+Welcome! typeshed is a community project that aims to work for a wide
+range of Python users and Python codebases. If you're trying a type
 checker on your Python code, your experience and what you can contribute
 are important to the project's success.
 
@@ -27,9 +27,11 @@ it takes a bit longer. For more details, read below.
 ### Code away!
 
 Typeshed runs continuous integration (CI) on all pull requests. This means that
-if you file a pull request (PR), our full test suite -- including our linter,
-`flake8` -- is run on your PR. It also means that bots will automatically apply
-changes to your PR (using `black`, `isort` and `ruff`) to fix any formatting issues.
+if you file a pull request (PR), our full test suite
+-- including our linter, [Flake8](https://github.com/PyCQA/flake8) --
+is run on your PR. It also means that bots will automatically apply
+changes to your PR (using [Black](https://github.com/psf/black) and
+[Ruff](https://github.com/astral-sh/ruff)) to fix any formatting issues.
 This frees you up to ignore all local setup on your side, focus on the
 code and rely on the CI to fix everything, or point you to the places that
 need fixing.
@@ -84,8 +86,9 @@ terminal to install all non-pytype requirements:
 
 ## Code formatting
 
-The code is formatted using `black` and `isort`. Various other autofixes are
-also performed by `ruff`.
+The code is formatted using [`Black`](https://github.com/psf/black).
+Various other autofixes are
+also performed by [`Ruff`](https://github.com/astral-sh/ruff).
 
 The repository is equipped with a [`pre-commit.ci`](https://pre-commit.ci/)
 configuration file. This means that you don't *need* to do anything yourself to
@@ -93,24 +96,26 @@ run the code formatters. When you push a commit, a bot will run those for you
 right away and add a commit to your PR.
 
 That being said, if you *want* to run the checks locally when you commit,
-you're free to do so. Either run `isort`, `black` and `ruff` manually...
+you're free to do so. Either run the following manually...
 
 ```bash
-$ isort .
-$ ruff .
-$ black .
+(.venv)$ ruff check .
+(.venv)$ black .
 ```
 
 ...Or install the pre-commit hooks: please refer to the
 [pre-commit](https://pre-commit.com/) documentation.
 
-Our code is also linted using `flake8`, with plugins `flake8-pyi`,
-`flake8-bugbear`, and `flake8-noqa`. As with our other checks, running
-flake8 before filing a PR is not required. However, if you wish to run flake8
+Our code is also linted using [`Flake8`](https://github.com/pycqa/flake8),
+with plugins [`flake8-pyi`](https://github.com/pycqa/flake8-pyi),
+[`flake8-bugbear`](https://github.com/PyCQA/flake8-bugbear),
+and [`flake8-noqa`](https://github.com/plinss/flake8-noqa).
+As with our other checks, running
+Flake8 before filing a PR is not required. However, if you wish to run Flake8
 locally, install the test dependencies as outlined above, and then run:
 
 ```bash
-(.venv3)$ flake8 .
+(.venv)$ flake8 .
 ```
 
 ## Where to make changes
@@ -254,12 +259,12 @@ It generates stubs automatically using a tool called
 
 To get started, fork typeshed, clone your fork, and then
 [create a virtualenv](#-or-create-a-local-development-environment).
-You can then install the library with `pip` into the virtualenv and run the script,
-replacing `libraryname` with the name of the library below:
+You can then install the library with `pip` into the virtualenv and run the script below,
+replacing `$INSERT_LIBRARY_NAME_HERE` with the name of the library:
 
 ```bash
-(.venv3)$ pip install libraryname
-(.venv3)$ python3 scripts/create_baseline_stubs.py libraryname
+(.venv)$ pip install $INSERT_LIBRARY_NAME_HERE
+(.venv)$ python3 scripts/create_baseline_stubs.py $INSERT_LIBRARY_NAME_HERE
 ```
 
 When the script has finished running, it will print instructions telling you what to do next.

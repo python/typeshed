@@ -9,7 +9,7 @@ from .ImageColor import _Ink
 _Border: TypeAlias = int | tuple[int, int] | tuple[int, int, int, int]
 
 class _Deformer(Protocol):
-    def getmesh(self, image: Image): ...
+    def getmesh(self, __image: Image): ...
 
 def autocontrast(
     image: Image, cutoff: int = 0, ignore: int | None = None, mask: Image | None = None, preserve_tone: bool = False
@@ -24,6 +24,7 @@ def colorize(
     midpoint: int = 127,
 ) -> Image: ...
 def contain(image: Image, size: _Size, method: Resampling | _Resample = ...) -> Image: ...
+def cover(image: Image, size: _Size, method: Resampling | _Resample = ...) -> Image: ...
 def pad(
     image: Image,
     size: _Size,

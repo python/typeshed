@@ -4,11 +4,12 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+
 import google.protobuf.any_pb2
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-import sys
 import tensorflow.core.framework.graph_pb2
 import tensorflow.core.framework.op_def_pb2
 import tensorflow.core.framework.tensor_shape_pb2
