@@ -77,7 +77,11 @@ gevent.ssl.os
 gevent.ssl.socket_error
 gevent.ssl.warnings
 gevent\.subprocess\._[A-Za-z0-9]\w*
+
+# gevent implements its own Popen which doesn't completely match the original
+# API, for now we ignore this discrepancy
 gevent.subprocess.Popen.rawlink
+gevent.subprocess.Popen.__del__
 
 # Error: is not present at runtime
 # =============================
