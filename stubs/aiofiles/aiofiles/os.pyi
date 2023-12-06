@@ -1,12 +1,11 @@
 import sys
 from _typeshed import BytesPath, FileDescriptorOrPath, GenericPath, ReadableBuffer, StrOrBytesPath, StrPath
 from asyncio.events import AbstractEventLoop
-from collections.abc import Sequence
+from collections.abc import Awaitable, Callable, Sequence
 from os import _ScandirIterator, stat_result
-from typing import Any, AnyStr, overload
+from typing import Any, AnyStr, TypeVar, overload
 
 from aiofiles import ospath
-from aiofiles.ospath import wrap as wrap
 
 __all__ = [
     "path",
@@ -31,6 +30,10 @@ __all__ = [
 
 if sys.platform != "win32":
     __all__ += ["statvfs", "sendfile"]
+
+_R = TypeVar("_R")
+
+def wrap(func: Callable[..., _R]) -> Callable[..., Awaitable[_R]]: ...
 
 path = ospath
 
