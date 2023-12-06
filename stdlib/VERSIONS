@@ -303,6 +303,7 @@ xmlrpc: 3.0-
 xxlimited: 3.2-
 zipapp: 3.5-
 zipfile: 2.7-
+zipfile._path: 3.12-
 zipimport: 2.7-
 zlib: 2.7-
 zoneinfo: 3.9-
