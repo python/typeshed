@@ -14,6 +14,10 @@ enum.Enum.__init__
 tkinter._VersionInfoType.__doc__
 typing.NewType.__mro_entries__
 
+# These can be removed when the next patch release of 3.12 comes out:
+io.__all__
+sre_parse.MAXWIDTH
+
 # ==========
 # Related to positional-only arguments
 # ==========

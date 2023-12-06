@@ -1,8 +1,7 @@
 import _tkinter
 import sys
-from _typeshed import Incomplete, StrOrBytesPath
+from _typeshed import Incomplete, StrEnum, StrOrBytesPath
 from collections.abc import Callable, Mapping, Sequence
-from enum import Enum
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
@@ -195,7 +194,7 @@ if sys.version_info >= (3, 11):
         releaselevel: str
         serial: int
 
-class EventType(str, Enum):
+class EventType(StrEnum):
     Activate: str
     ButtonPress: str
     Button = ButtonPress
