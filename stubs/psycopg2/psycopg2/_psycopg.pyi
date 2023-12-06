@@ -412,7 +412,7 @@ class connection:
     def binary_types(self) -> dict[Incomplete, Incomplete]: ...
     @property
     def closed(self) -> int: ...
-    cursor_factory: Callable[..., _Cursor]
+    cursor_factory: Callable[[connection, str | bytes | None], cursor]
     @property
     def dsn(self) -> str: ...
     @property
@@ -452,13 +452,13 @@ class connection:
     @overload
     def cursor(
         self, name: str | bytes | None = None, cursor_factory: None = None, withhold: bool = False, scrollable: bool | None = None
-    ) -> _Cursor: ...
+    ) -> cursor: ...
     @overload
     def cursor(
         self,
         name: str | bytes | None = None,
         *,
-        cursor_factory: Callable[..., _T_cur],
+        cursor_factory: Callable[[connection, str | bytes | None], _T_cur],
         withhold: bool = False,
         scrollable: bool | None = None,
     ) -> _T_cur: ...
@@ -466,7 +466,7 @@ class connection:
     def cursor(
         self,
         name: str | bytes | None,
-        cursor_factory: Callable[..., _T_cur],
+        cursor_factory: Callable[[connection, str | bytes | None], _T_cur],
         withhold: bool = False,
         scrollable: bool | None = None,
     ) -> _T_cur: ...
