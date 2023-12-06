@@ -93,3 +93,6 @@ aiofiles.tempfile.temptypes.AsyncTemporaryDirectory.cleanup
 # Metaclass differs:
 aiofiles.base.AiofilesContextManager
 aiofiles.tempfile.AiofilesContextManagerTempDir
+
+# Internal wrapper, not meant to be re-exported
+aiofiles.ospath.wrap
