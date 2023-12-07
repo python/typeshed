@@ -100,7 +100,8 @@ responses: dict[int, str]
 class HTTPMessage(email.message.Message):
     def getallmatchingheaders(self, name: str) -> list[str]: ...  # undocumented
     # override below all of Message's methods that use `_HeaderType` / `_HeaderTypeParam` with `str`
-    # avoiding having to make Message generic
+    # `HTTPMessage` breaks the Liskov substitution principle by only intending for `str` headers
+    # This is easier than making `Message` generic
     def __getitem__(self, name: str) -> str: ...  # AnyOf[str, None]
     def __setitem__(self, name: str, val: str) -> None: ...
     def values(self) -> list[str]: ...
