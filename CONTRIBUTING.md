@@ -570,6 +570,26 @@ It's a "to do" item and should be replaced if possible. `Any` is used when
 it's not possible to accurately type an item using the current type system.
 It should be used sparingly.
 
+### "The `Any` trick"
+
+Consider this: (mostly copy/paste from xml module docs)
+
+```python
+import xml.etree.ElementTree as ET
+tree = ET.parse('country_data.xml')
+root = tree.getroot()
+print(root.tagg)  # this line is a typo
+```
+
+- `Any` means "please do not complain" to type checkers. If `root` has type `Any`, you will no error for this.
+- `Element` means "will always be an Element", which is wrong, and would cause type checkers to emit errors for code like `if root is None`.
+- `Element | None` means "you must check for None", which is correct but can get annoying. If I understand correctly (I don't use xml often), it is common to do things like `ET.parse("file.xml").getroot().iter("whatever")`.
+- `Element | Any` means "must be prepared to handle an Element". You will get an error for `root.tagg`, because it is not valid when `root` is an `Element`. But type heckers are happy with `if root is None` checks, because we're saying it can also be something else than an `Element`.
+
+In typeshed we unofficially call this "the Any trick". We tend to use it whenever something can be `None`, but requiring users to check for `None` would be more painful than helpful.
+
+Another example of the Any trick is `re` stubs, where various functions return a match object or `None`. Regexes are often used so that the regex matches any string, or the string has already been validated so that the regex will match. But type checkers don't know this, so complaining about the `None` would get very annoying.
+
 ## Submitting Changes
 
 Even more excellent than a good bug report is a fix for a bug, or the
