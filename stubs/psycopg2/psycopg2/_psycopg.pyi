@@ -83,7 +83,6 @@ threadsafety: int
 __libpq_version__: int
 
 class _SupportsReadAndReadline(SupportsRead[str], SupportsReadline[str], Protocol): ...
-class _SupportsReadAndReadlineAndWrite(_SupportsReadAndReadline, SupportsWrite[str], Protocol): ...
 
 class cursor:
     arraysize: int
@@ -119,7 +118,9 @@ class cursor:
     def callproc(self, __procname: str | bytes, __parameters: _Vars = None) -> None: ...
     def cast(self, __oid: int, __s: str | bytes) -> Any: ...
     def close(self) -> None: ...
-    def copy_expert(self, sql: str | bytes | Composable, file: _SupportsReadAndReadlineAndWrite, size: int = 8192) -> None: ...
+    def copy_expert(
+        self, sql: str | bytes | Composable, file: _SupportsReadAndReadline | SupportsWrite[str], size: int = 8192
+    ) -> None: ...
     def copy_from(
         self,
         file: _SupportsReadAndReadline,
@@ -411,7 +412,7 @@ class connection:
     def binary_types(self) -> dict[Incomplete, Incomplete]: ...
     @property
     def closed(self) -> int: ...
-    cursor_factory: Callable[..., _Cursor]
+    cursor_factory: Callable[[connection, str | bytes | None], cursor]
     @property
     def dsn(self) -> str: ...
     @property
@@ -451,13 +452,13 @@ class connection:
     @overload
     def cursor(
         self, name: str | bytes | None = None, cursor_factory: None = None, withhold: bool = False, scrollable: bool | None = None
-    ) -> _Cursor: ...
+    ) -> cursor: ...
     @overload
     def cursor(
         self,
         name: str | bytes | None = None,
         *,
-        cursor_factory: Callable[..., _T_cur],
+        cursor_factory: Callable[[connection, str | bytes | None], _T_cur],
         withhold: bool = False,
         scrollable: bool | None = None,
     ) -> _T_cur: ...
@@ -465,7 +466,7 @@ class connection:
     def cursor(
         self,
         name: str | bytes | None,
-        cursor_factory: Callable[..., _T_cur],
+        cursor_factory: Callable[[connection, str | bytes | None], _T_cur],
         withhold: bool = False,
         scrollable: bool | None = None,
     ) -> _T_cur: ...
