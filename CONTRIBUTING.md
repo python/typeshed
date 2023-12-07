@@ -598,7 +598,7 @@ Regexes are often used so that the regex matches any string, or the string has a
 * `-> Any` would mean "please do not complain" to type checkers. If `last_group` has type `Any`, you will get no error for this.
 * `-> str` would mean "will always be a `str`", which is wrong, and would cause type checkers to emit errors for code like `if last_group is None`.
 * `-> str | None` means "you must check for None", which is correct but can get annoying for some common patterns.
-* `-> str | Any` means "must be prepared to handle a `str`". You will get an error for `last_group.capitalise`, because it is not valid when `last_group` is a `str`. But type heckers are happy with `if last_group is None` checks, because we're saying it can also be something else than an `str`.
+* `-> str | Any` means "must be prepared to handle a `str`". You will get an error for `last_group.capitalise`, because it is not valid when `last_group` is a `str`. But type checkers are happy with `if last_group is None` checks, because we're saying it can also be something else than an `str`.
 
 In typeshed we unofficially call this "the Any trick". We tend to use it whenever something can be `None`, but requiring users to check for `None` would be more painful than helpful.
 
