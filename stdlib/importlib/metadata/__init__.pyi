@@ -174,9 +174,7 @@ class FileHash:
     def __init__(self, spec: str) -> None: ...
 
 if sys.version_info >= (3, 12):
-    class DeprecatedNonAbstract:
-        def __new__(cls, *args: object, **kwargs: object) -> Self: ...
-
+    class DeprecatedNonAbstract: ...
     _distribution_parent = DeprecatedNonAbstract
 else:
     _distribution_parent = object
