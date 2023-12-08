@@ -1,15 +1,20 @@
 import abc
 import pathlib
 import sys
+from _collections_abc import dict_keys, dict_values
 from _typeshed import StrPath
-from collections.abc import Iterable, Mapping
+from collections.abc import Iterable, Iterator, Mapping
 from email.message import Message
 from importlib.abc import MetaPathFinder
 from os import PathLike
 from pathlib import Path
 from re import Pattern
-from typing import Any, ClassVar, NamedTuple, TypeVar, overload
+from typing import Any, ClassVar, Generic, NamedTuple, TypeVar, overload
 from typing_extensions import Self
+
+_T = TypeVar("_T")
+_KT = TypeVar("_KT")
+_VT = TypeVar("_VT")
 
 __all__ = [
     "Distribution",
@@ -36,7 +41,8 @@ class PackageNotFoundError(ModuleNotFoundError):
     def name(self) -> str: ...  # type: ignore[override]
 
 if sys.version_info >= (3, 11):
-    class DeprecatedTuple: ...
+    class DeprecatedTuple:
+        def __getitem__(self, item: int) -> str: ...
     _EntryPointBase = DeprecatedTuple
 else:
     class _EntryPointBase(NamedTuple):
@@ -76,9 +82,13 @@ class EntryPoint(_EntryPointBase):
 
     def __hash__(self) -> int: ...
     def __eq__(self, other: object) -> bool: ...
+    if sys.version_info >= (3, 11):
+        def __lt__(self, other: object) -> bool: ...
+    if sys.version_info < (3, 12):
+        def __iter__(self) -> Iterator[Any]: ...  # result of iter((str, Self)), really
 
 if sys.version_info >= (3, 12):
-    class EntryPoints(tuple[EntryPoint]):
+    class EntryPoints(tuple[EntryPoint, ...]):
         def __getitem__(self, name: str) -> EntryPoint: ...  # type: ignore[override]
         def select(
             self,
@@ -96,8 +106,6 @@ if sys.version_info >= (3, 12):
         def groups(self) -> set[str]: ...
 
 elif sys.version_info >= (3, 10):
-    _T = TypeVar("_T")
-
     class DeprecatedList(list[_T]): ...
 
     class EntryPoints(DeprecatedList[EntryPoint]):  # use as list is deprecated since 3.10
@@ -119,9 +127,18 @@ elif sys.version_info >= (3, 10):
         def groups(self) -> set[str]: ...
 
 if sys.version_info >= (3, 10) and sys.version_info < (3, 12):
-    class Deprecated: ...
+    class Deprecated(Generic[_KT, _VT]):
+        def __getitem__(self, name: _KT) -> _VT: ...
+        @overload
+        def get(self, name: _KT) -> _VT | None: ...
+        @overload
+        def get(self, name: _KT, default: _T) -> _VT | _T: ...
+        def __iter__(self) -> Iterator[_KT]: ...
+        def __contains__(self, *args: object) -> bool: ...
+        def keys(self) -> dict_keys[_KT, _VT]: ...
+        def values(self) -> dict_values[_KT, _VT]: ...
 
-    class SelectableGroups(Deprecated, dict[str, EntryPoints]):  # use as dict is deprecated since 3.10
+    class SelectableGroups(Deprecated[str, EntryPoints], dict[str, EntryPoints]):  # use as dict is deprecated since 3.10
         @classmethod
         def load(cls, eps: Iterable[EntryPoint]) -> Self: ...
         @property
@@ -157,7 +174,9 @@ class FileHash:
     def __init__(self, spec: str) -> None: ...
 
 if sys.version_info >= (3, 12):
-    class DeprecatedNonAbstract: ...
+    class DeprecatedNonAbstract:
+        def __new__(cls, *args: object, **kwargs: object) -> Self: ...
+
     _distribution_parent = DeprecatedNonAbstract
 else:
     _distribution_parent = object
