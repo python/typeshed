@@ -433,10 +433,6 @@ inspect.Signature.__init__
 inspect.Parameter.empty  # set as private marker _empty
 inspect.Signature.empty  # set as private marker _empty
 
-# These enums derive from (int, IntEnum) or (str, Enum)
-pstats.SortKey.__new__
-tkinter.EventType.__new__
-
 # These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
 # But have more precise (accurate) signatures in the stub
 multiprocessing.managers.BaseListProxy.__imul__
@@ -522,9 +518,6 @@ typing(_extensions)?\.Awaitable
 typing(_extensions)?\.AbstractSet
 
 typing_extensions.NewType.__mro_entries__  # just exists for an error message
-
-# https://github.com/python/mypy/issues/15302
-typing_extensions.NewType.__call__
 
 # Typing-related weirdness
 _collections_abc.Callable
@@ -718,3 +711,10 @@ typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/com
 
 # Omit internal _KEEP argument
 tarfile.TarInfo.replace
+
+# Private parameters are deliberately omitted in the stubs (see https://github.com/python/mypy/issues/16443)
+asyncio.(base_events.)?BaseEventLoop.__del__
+asyncio.(base_subprocess.)?BaseSubprocessTransport.__del__
+asyncio.(sslproto.)?_SSLProtocolTransport.__del__
+multiprocessing.pool.Pool.__del__
+subprocess.Popen.__del__

@@ -93,7 +93,7 @@ if sys.version_info >= (3, 11):
 
     # Ideally the first part should be `ExceptionGroup[ValueError]` (done)
     # and the second part should be `BaseExceptionGroup[KeyError | SystemExit]`,
-    # but we cannot substract type from a union.
+    # but we cannot subtract type from a union.
     # We also cannot change `BaseExceptionGroup` to `ExceptionGroup` even if needed
     # in the second part here because of that.
     assert_type(

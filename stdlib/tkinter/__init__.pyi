@@ -1,8 +1,7 @@
 import _tkinter
 import sys
-from _typeshed import Incomplete, StrOrBytesPath
+from _typeshed import Incomplete, StrEnum, StrOrBytesPath
 from collections.abc import Callable, Mapping, Sequence
-from enum import Enum
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
@@ -195,7 +194,7 @@ if sys.version_info >= (3, 11):
         releaselevel: str
         serial: int
 
-class EventType(str, Enum):
+class EventType(StrEnum):
     Activate: str
     ButtonPress: str
     Button = ButtonPress
@@ -282,6 +281,7 @@ class Variable:
     @deprecated("use trace_info() instead of trace_vinfo()")
     def trace_vinfo(self): ...
     def __eq__(self, other: object) -> bool: ...
+    def __del__(self) -> None: ...
 
 class StringVar(Variable):
     def __init__(self, master: Misc | None = None, value: str | None = None, name: str | None = None) -> None: ...
