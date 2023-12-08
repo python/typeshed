@@ -14,7 +14,6 @@ enum.Enum._generate_next_value_
 enum.StrEnum._generate_next_value_
 importlib.abc.Finder.find_module
 tkinter._VersionInfoType.__doc__
-typing.NewType.__call__
 typing.NewType.__mro_entries__
 
 # Modules that exist at runtime, but shouldn't be added to typeshed
