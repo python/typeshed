@@ -5,7 +5,7 @@ from numpy.typing import ArrayLike, NDArray
 
 from .utils import _Seed
 
-# TODO: Uncomment when stubtest crash is fixed
+# TODO: This crashes stubtest. Uncomment when mypy 1.8 is released with the fix https://github.com/python/mypy/pull/16457
 # @overload
 # def bootstrap(
 #     *args: ArrayLike,
