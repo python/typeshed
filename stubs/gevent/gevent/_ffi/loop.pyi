@@ -3,11 +3,11 @@ from _typeshed import FileDescriptor
 from collections.abc import Callable
 from types import TracebackType
 from typing import Protocol
-from typing_extensions import ParamSpec, TypeAlias
+from typing_extensions import TypeAlias, TypeVarTuple, Unpack
 
 from gevent._types import _AsyncWatcher, _Callback, _ChildWatcher, _IoWatcher, _StatWatcher, _TimerWatcher, _Watcher
 
-_P = ParamSpec("_P")
+_Ts = TypeVarTuple("_Ts")
 _ErrorHandlerFunc: TypeAlias = Callable[
     [object | None, type[BaseException] | None, BaseException | None, TracebackType | None], object
 ]
@@ -74,10 +74,7 @@ class AbstractLoop:
 
     def async_(self, ref: bool = True, priority: int | None = None) -> _AsyncWatcher: ...
     def stat(self, path: str, interval: float = 0.0, ref: bool = True, priority: bool | None = ...) -> _StatWatcher: ...
-    # These technically don't allow the functions arguments to be passed in as kwargs
-    # but there's no way to express that yet with ParamSpec, however, we would still like
-    # to verify that the arguments match
-    def run_callback(self, func: Callable[_P, object], *args: _P.args, **_: _P.kwargs) -> _Callback: ...
-    def run_callback_threadsafe(self, func: Callable[_P, object], *args: _P.args, **_: _P.kwargs) -> _Callback: ...
+    def run_callback(self, func: Callable[[Unpack[_Ts]], object], *args: Unpack[_Ts]) -> _Callback: ...
+    def run_callback_threadsafe(self, func: Callable[[Unpack[_Ts]], object], *args: Unpack[_Ts]) -> _Callback: ...
     def callback(self, priority: float | None = ...) -> _Callback: ...
     def fileno(self) -> FileDescriptor | None: ...
