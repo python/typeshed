@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from typing import Any, Protocol, TypeVar
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal, TypeAlias, deprecated
 
 from matplotlib.axes import Axes
 from matplotlib.colors import Colormap, Normalize
@@ -148,7 +148,8 @@ def displot(
     facet_kws: dict[str, Any] | None = None,
     **kwargs: Any,
 ) -> FacetGrid: ...
-def distplot(  # deprecated
+@deprecated("Function `distplot` is deprecated and will be removed in seaborn v0.14.0")
+def distplot(
     a: ArrayLike | None = None,
     bins: ArrayLike | None = None,
     hist: bool = True,

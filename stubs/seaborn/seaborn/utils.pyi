@@ -2,7 +2,7 @@ import datetime as dt
 from _typeshed import Incomplete, SupportsGetItem
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any, TypeVar, overload
-from typing_extensions import Literal, SupportsIndex, TypeAlias
+from typing_extensions import Literal, SupportsIndex, TypeAlias, deprecated
 
 import numpy as np
 import pandas as pd
@@ -75,7 +75,8 @@ def saturate(color: ColorType) -> tuple[float, float, float]: ...
 def set_hls_values(
     color: ColorType, h: float | None = None, l: float | None = None, s: float | None = None
 ) -> tuple[float, float, float]: ...
-def axlabel(xlabel: str, ylabel: str, **kwargs: Any) -> None: ...  # deprecated
+@deprecated("Function `axlabel` is deprecated and will be removed in a future version")
+def axlabel(xlabel: str, ylabel: str, **kwargs: Any) -> None: ...
 def remove_na(vector: _VectorT) -> _VectorT: ...
 def get_color_cycle() -> list[str]: ...
 
