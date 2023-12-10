@@ -107,9 +107,9 @@ class attrgetter(Generic[_T_co]):
 @final
 class itemgetter(Generic[_T_co]):
     @overload
-    def __new__(cls, item: _T_co) -> itemgetter[_T_co]: ...  # type: ignore[overload-overlap]
+    def __new__(cls, __item: _T_co) -> itemgetter[_T_co]: ...
     @overload
-    def __new__(cls, item: _T_co, *items: Unpack[_Ts]) -> itemgetter[tuple[_T_co, Unpack[_Ts]]]: ...
+    def __new__(cls, __item1: _T_co, __item2: _T2_co, *items: Unpack[_Ts]) -> itemgetter[tuple[_T_co, _T2_co, Unpack[_Ts]]]: ...
     # __key: _KT_contra in SupportsGetItem seems to be causing variance issues, ie:
     # TypeVar "_KT_contra@SupportsGetItem" is contravariant
     #   "tuple[int, int]" is incompatible with protocol "SupportsIndex"
