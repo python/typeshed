@@ -16,7 +16,9 @@ b: Connection[int, str]
 a, b = Pipe()
 
 # More type safe, but extra variable
-connections_wrong: tuple[Connection[str, int], Connection[str, int]] = Pipe()  # type: ignore
+connections_wrong: tuple[
+    Connection[str, int], Connection[str, int]
+] = Pipe()  # pyright: ignore[reportGeneralTypeIssues] # mypy false-negative
 connections_ok: tuple[Connection[str, int], Connection[int, str]] = Pipe()
 a, b = connections_ok
 
