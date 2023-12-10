@@ -24,18 +24,19 @@ if sys.version_info >= (3, 11):
     if sys.version_info < (3, 12):
         __all__ += ["Finder", "ResourceReader", "Traversable", "TraversableResources"]
 
+if sys.version_info >= (3, 10):
+    from importlib._abc import Loader as Loader
+else:
+    class Loader(metaclass=ABCMeta):
+        def load_module(self, fullname: str) -> types.ModuleType: ...
+        def module_repr(self, module: types.ModuleType) -> str: ...
+        def create_module(self, spec: ModuleSpec) -> types.ModuleType | None: ...
+        # Not defined on the actual class for backwards-compatibility reasons,
+        # but expected in new code.
+        def exec_module(self, module: types.ModuleType) -> None: ...
+
 if sys.version_info < (3, 12):
     class Finder(metaclass=ABCMeta): ...
-
-class Loader(metaclass=ABCMeta):
-    def load_module(self, fullname: str) -> types.ModuleType: ...
-    if sys.version_info < (3, 12):
-        def module_repr(self, module: types.ModuleType) -> str: ...
-
-    def create_module(self, spec: ModuleSpec) -> types.ModuleType | None: ...
-    # Not defined on the actual class for backwards-compatibility reasons,
-    # but expected in new code.
-    def exec_module(self, module: types.ModuleType) -> None: ...
 
 class ResourceLoader(Loader):
     @abstractmethod
