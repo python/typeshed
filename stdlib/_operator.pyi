@@ -7,6 +7,7 @@ from typing_extensions import ParamSpec, SupportsIndex, TypeAlias, TypeVarTuple,
 _R = TypeVar("_R")
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
+_T2_co = TypeVar("_T2_co", covariant=True)
 _K = TypeVar("_K")
 _V = TypeVar("_V")
 _P = ParamSpec("_P")
