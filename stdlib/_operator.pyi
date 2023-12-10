@@ -7,7 +7,8 @@ from typing_extensions import ParamSpec, SupportsIndex, TypeAlias, TypeVarTuple,
 _R = TypeVar("_R")
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
-_T2_co = TypeVar("_T2_co", covariant=True)
+_T1 = TypeVar("_T1")
+_T2 = TypeVar("_T2")
 _K = TypeVar("_K")
 _V = TypeVar("_V")
 _P = ParamSpec("_P")
@@ -110,7 +111,7 @@ class itemgetter(Generic[_T_co]):
     @overload
     def __new__(cls, __item: _T_co) -> itemgetter[_T_co]: ...
     @overload
-    def __new__(cls, __item1: _T_co, __item2: _T2_co, *items: Unpack[_Ts]) -> itemgetter[tuple[_T_co, _T2_co, Unpack[_Ts]]]: ...
+    def __new__(cls, __item1: _T1, __item2: _T2, *items: Unpack[_Ts]) -> itemgetter[tuple[_T1, _T2, Unpack[_Ts]]]: ...
     # __key: _KT_contra in SupportsGetItem seems to be causing variance issues, ie:
     # TypeVar "_KT_contra@SupportsGetItem" is contravariant
     #   "tuple[int, int]" is incompatible with protocol "SupportsIndex"
