@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import Any
-from typing_extensions import Literal
+from typing_extensions import Literal, deprecated
 
 from matplotlib.axes import Axes
 from matplotlib.colors import Colormap
@@ -139,7 +139,8 @@ def displot(
     facet_kws: dict[str, Any] | None = None,
     **kwargs: Any,
 ) -> FacetGrid: ...
-def distplot(  # deprecated
+@deprecated("Function `distplot` is deprecated and will be removed in seaborn v0.14.0")
+def distplot(
     a: Incomplete | None = None,
     bins: Incomplete | None = None,
     hist: bool = True,
