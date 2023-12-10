@@ -4,19 +4,15 @@ from collections.abc import Callable, Container, Iterable, MutableMapping, Mutab
 from typing import Any, AnyStr, Generic, Protocol, SupportsAbs, TypeVar, overload
 from typing_extensions import ParamSpec, SupportsIndex, TypeAlias, TypeVarTuple, Unpack, final
 
+_R = TypeVar("_R")
+_T = TypeVar("_T")
+_T_co = TypeVar("_T_co", covariant=True)
+_T1 = TypeVar("_T1")
+_T2 = TypeVar("_T2")
 _K = TypeVar("_K")
 _V = TypeVar("_V")
 _P = ParamSpec("_P")
-_R = TypeVar("_R")
-_T = TypeVar("_T")
-_T1 = TypeVar("_T1")
-_T2 = TypeVar("_T2")
-_T3 = TypeVar("_T3")
-_T4 = TypeVar("_T4")
-_T5 = TypeVar("_T5")
-_T_co = TypeVar("_T_co", covariant=True)
 _Ts = TypeVarTuple("_Ts")
-_Ts1 = TypeVarTuple("_Ts1")
 
 # The following protocols return "Any" instead of bool, since the comparison
 # operators can be overloaded to return an arbitrary object. For example,
@@ -111,23 +107,18 @@ class attrgetter(Generic[_T_co]):
     def __call__(self, obj: Any) -> _T_co: ...
 
 @final
-class itemgetter(Generic[_T, Unpack[_Ts]]):
-    def __new__(cls, __item1: _T1, *items: Unpack[_Ts1]) -> itemgetter[_T1, Unpack[_Ts1]]: ...
+class itemgetter(Generic[_T_co]):
     @overload
-    def __call__(self: itemgetter[_T1], obj: SupportsGetItem[_T1, _R]) -> _R: ...
+    def __new__(cls, __item: _T) -> itemgetter[_T]: ...
     @overload
-    def __call__(self: itemgetter[_T1, _T2], obj: SupportsGetItem[_T1 | _T2, _R]) -> tuple[_R, _R]: ...
-    @overload
-    def __call__(self: itemgetter[_T1, _T2, _T3], obj: SupportsGetItem[_T1 | _T2 | _T3, _R]) -> tuple[_R, _R, _R]: ...
-    @overload
-    def __call__(
-        self: itemgetter[_T1, _T2, _T3, _T4], obj: SupportsGetItem[_T1 | _T2 | _T3 | _T4, _R]
-    ) -> tuple[_R, _R, _R, _R]: ...
-    @overload
-    def __call__(
-        self: itemgetter[_T1, _T2, _T3, _T4, _T5], obj: SupportsGetItem[_T1 | _T2 | _T3 | _T4 | _T5, _R]
-    ) -> tuple[_R, _R, _R, _R, _R]: ...
-    @overload
+    def __new__(cls, __item1: _T1, __item2: _T2, *items: Unpack[_Ts]) -> itemgetter[tuple[_T1, _T2, Unpack[_Ts]]]: ...
+    # __key: _KT_contra in SupportsGetItem seems to be causing variance issues, ie:
+    # TypeVar "_KT_contra@SupportsGetItem" is contravariant
+    #   "tuple[int, int]" is incompatible with protocol "SupportsIndex"
+    # preventing [_T_co, ...] instead of [Any, ...]
+    #
+    # A suspected mypy issue prevents using [..., _T] instead of [..., Any] here.
+    # https://github.com/python/mypy/issues/14032
     def __call__(self, obj: SupportsGetItem[Any, Any]) -> Any: ...
 
 @final
