@@ -62,8 +62,8 @@ class SourceLoader(ResourceLoader, ExecutionLoader, metaclass=ABCMeta):
     def get_source(self, fullname: str) -> str | None: ...
     def path_stats(self, path: str) -> Mapping[str, Any]: ...
 
-# The base classes differ on 3.12:
-if sys.version_info >= (3, 12):
+# The base classes differ starting in 3.10:
+if sys.version_info >= (3, 10):
     # Please keep in sync with sys._MetaPathFinder
     class MetaPathFinder(metaclass=ABCMeta):
         def invalidate_caches(self) -> None: ...
