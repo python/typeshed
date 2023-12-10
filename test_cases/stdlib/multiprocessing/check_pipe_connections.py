@@ -16,16 +16,16 @@ b: Connection[int, str]
 a, b = Pipe()
 
 # More type safe, but extra variable
-connections_wrong: tuple[Connection[str, int], Connection[str, int]] = Pipe()  # pyright: ignore[reportGeneralTypeIssues]
+connections_wrong: tuple[Connection[str, int], Connection[str, int]] = Pipe()  # type: ignore
 connections_ok: tuple[Connection[str, int], Connection[int, str]] = Pipe()
 a, b = connections_ok
 
 a.send("test")
-a.send(0)  # pyright: ignore[reportGeneralTypeIssues]
+a.send(0)  # type: ignore
 test1: str = b.recv()
-test2: int = b.recv()  # pyright: ignore[reportGeneralTypeIssues]
+test2: int = b.recv()  # type: ignore
 
-b.send("test")  # pyright: ignore[reportGeneralTypeIssues]
+b.send("test")  # type: ignore
 b.send(0)
-test3: str = a.recv()  # pyright: ignore[reportGeneralTypeIssues]
+test3: str = a.recv()  # type: ignore
 test4: int = a.recv()
