@@ -48,7 +48,6 @@ http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
 importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
-importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature

@@ -12,6 +12,7 @@ enum.Enum.__init__
 enum.Enum._generate_next_value_
 # Not strictly speaking a staticmethod on 3.11, but it acts like one:
 enum.StrEnum._generate_next_value_
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.Finder.find_module
 tkinter._VersionInfoType.__doc__
 typing.NewType.__mro_entries__
