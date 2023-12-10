@@ -9,7 +9,7 @@ __all__ = ["gaussian_kde"]
 
 # define a "Gaussian KDE" protocol so that we can also pass `scipy.stats.gaussian_kde` to
 # functions that expect it without adding a dependency on scipy
-class _GaussainKDELike(Protocol):
+class _GaussianKDELike(Protocol):
     dataset: NDArray[np.float64]
     def __init__(self, dataset: ArrayLike, bw_method: Any | None = ..., weights: ArrayLike | None = ...) -> None: ...
     def evaluate(self, points: ArrayLike) -> NDArray[Any]: ...
@@ -25,7 +25,7 @@ class _GaussainKDELike(Protocol):
     def neff(self) -> NDArray[Any]: ...
 
 _Scalar: TypeAlias = float | np.number[Any]
-_BwMethodType: TypeAlias = Literal["scott", "silverman"] | Callable[[_GaussainKDELike], _Scalar] | _Scalar | None
+_BwMethodType: TypeAlias = Literal["scott", "silverman"] | Callable[[_GaussianKDELike], _Scalar] | _Scalar | None
 
 class gaussian_kde:
     dataset: NDArray[np.float64]
