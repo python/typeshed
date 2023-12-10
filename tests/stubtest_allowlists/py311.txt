@@ -106,6 +106,10 @@ unittest.case.TestCase.__init_subclass__
 importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open
 
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedList.reverse
+importlib.metadata.DeprecatedList.sort
+
 # Super-special typing primitives
 typing\._SpecialForm.*
 typing\.NamedTuple

@@ -153,6 +153,10 @@ typing.ParamSpec(Args|Kwargs).__origin__
 importlib.abc.Traversable.joinpath
 importlib.abc.Traversable.open
 
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedList.reverse
+importlib.metadata.DeprecatedList.sort
+
 # Super-special typing primitives
 typing\.NamedTuple
 typing\.Annotated
