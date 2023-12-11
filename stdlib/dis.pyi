@@ -71,7 +71,7 @@ else:
         is_jump_target: bool
 
 class Instruction(_Instruction):
-    def _disassemble(self, lineno_width: int = ..., mark_as_current: bool = ..., offset_width: int = ...) -> str: ...
+    def _disassemble(self, lineno_width: int = 3, mark_as_current: bool = False, offset_width: int = 4) -> str: ...
 
 class Bytecode:
     codeobj: types.CodeType
