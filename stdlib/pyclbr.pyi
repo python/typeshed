@@ -1,9 +1,20 @@
 import sys
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 
 __all__ = ["readmodule", "readmodule_ex", "Class", "Function"]
 
 class _Object:
+    module: str
+    name: str
+    file: int
+    lineno: int
+
+    if sys.version_info >= (3, 10):
+        end_lineno: int | None
+
+    parent: _Object | None
+    children: Mapping[str, _Object]
+
     if sys.version_info >= (3, 10):
         def __init__(
             self, module: str, name: str, file: str, lineno: int, end_lineno: int | None, parent: _Object | None
@@ -12,16 +23,8 @@ class _Object:
         def __init__(self, module: str, name: str, file: str, lineno: int, parent: _Object | None) -> None: ...
 
 class Class(_Object):
-    module: str
-    name: str
     super: list[Class | str] | None
     methods: dict[str, int]
-    file: int
-    lineno: int
-
-    if sys.version_info >= (3, 10):
-        end_lineno: int | None
-
     parent: Class | None
     children: dict[str, Class | Function]
 
@@ -43,13 +46,7 @@ class Class(_Object):
         ) -> None: ...
 
 class Function(_Object):
-    module: str
-    name: str
-    file: int
-    lineno: int
-
     if sys.version_info >= (3, 10):
-        end_lineno: int | None
         is_async: bool
 
     parent: Function | Class | None
