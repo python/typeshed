@@ -20,12 +20,12 @@ class Policy(_PolicyBase, metaclass=ABCMeta):
     def __init__(
         self,
         *,
-        max_line_length: int | None = ...,
-        linesep: str = ...,
-        cte_type: str = ...,
-        raise_on_defect: bool = ...,
-        mangle_from_: bool = ...,
-        message_factory: Callable[[Policy], Message] | None = ...,
+        max_line_length: int | None = 78,
+        linesep: str = "\n",
+        cte_type: str = "8bit",
+        raise_on_defect: bool = False,
+        mangle_from_: bool = False,
+        message_factory: Callable[[Policy], Message] | None = None,
     ) -> None: ...
     def handle_defect(self, obj: Message, defect: MessageDefect) -> None: ...
     def register_defect(self, obj: Message, defect: MessageDefect) -> None: ...
