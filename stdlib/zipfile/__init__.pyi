@@ -228,7 +228,7 @@ class ZipInfo:
     def FileHeader(self, zip64: bool | None = None) -> bytes: ...
 
 if sys.version_info >= (3, 12):
-    from zipfile._path import CompleteDirs as CompleteDirs
+    from zipfile._path import CompleteDirs as CompleteDirs, Path as Path
 
 elif sys.version_info >= (3, 8):
     class CompleteDirs(ZipFile):
@@ -240,9 +240,6 @@ elif sys.version_info >= (3, 8):
         @classmethod
         def make(cls, source: StrPath | IO[bytes]) -> Self: ...
 
-if sys.version_info >= (3, 8):
-    # this is defined in zipfile._path starting in 3.12, but that's a fair amount of duplication
-    # to represent fully accurately right now.
     class Path:
         root: CompleteDirs
         def __init__(self, root: ZipFile | StrPath | IO[bytes], at: str = "") -> None: ...
