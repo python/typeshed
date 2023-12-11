@@ -3,7 +3,15 @@ from collections.abc import Sequence
 
 __all__ = ["readmodule", "readmodule_ex", "Class", "Function"]
 
-class Class:
+class _Object:
+    if sys.version_info >= (3, 10):
+        def __init__(
+            self, module: str, name: str, file: str, lineno: int, end_lineno: int | None, parent: _Object | None
+        ) -> None: ...
+    else:
+        def __init__(self, module: str, name: str, file: str, lineno: int, parent: _Object | None) -> None: ...
+
+class Class(_Object):
     module: str
     name: str
     super: list[Class | str] | None
@@ -34,7 +42,7 @@ class Class:
             self, module: str, name: str, super: list[Class | str] | None, file: str, lineno: int, parent: Class | None = None
         ) -> None: ...
 
-class Function:
+class Function(_Object):
     module: str
     name: str
     file: int
