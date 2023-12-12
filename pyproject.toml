@@ -21,8 +21,6 @@ exclude = [
     ".git",
     ".mypy_cache",
     ".pytype",
-    ".venv",
-    "env",
 ]
 select = [
     "FA", # flake8-future-annotations
