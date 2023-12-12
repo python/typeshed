@@ -186,7 +186,6 @@ unittest\.test\..+
 pstats.SortKey.__new__
 tkinter.EventType.__new__
 
-
 # Items that depend on the existence and flags of SSL
 ssl.RAND_egd
 _ssl.RAND_egd
