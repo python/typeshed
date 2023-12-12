@@ -464,9 +464,6 @@ queue.SimpleQueue.__init__
 imaplib.IMAP4_SSL.ssl
 ssl.PROTOCOL_SSLv2
 ssl.PROTOCOL_SSLv3
-ssl.RAND_egd
-_ssl.RAND_egd
-_ssl.OP_IGNORE_UNEXPECTED_EOF
 
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals

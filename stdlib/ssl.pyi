@@ -27,6 +27,7 @@ from _ssl import (
     RAND_bytes as RAND_bytes,
     RAND_status as RAND_status,
     SSLSession as SSLSession,
+    _PasswordType as _PasswordType,  # typeshed only, but re-export for other type stubs to use
     _SSLContext,
     _SSLSocket,
 )
