@@ -5,8 +5,9 @@ from collections.abc import Iterator, Mapping
 from datetime import datetime, timedelta
 from decimal import Decimal
 from fractions import Fraction
-from typing_extensions import TypedDict, assert_type
 from unittest.mock import MagicMock, Mock, patch
+
+from typing_extensions import TypedDict, assert_type
 
 case = unittest.TestCase()
 
@@ -135,8 +136,8 @@ case.assertDictEqual(1, {})  # type: ignore
 case.assertDictEqual({}, 1)  # type: ignore
 
 # These should fail, but don't due to TypedDict limitations:
-# case.assertDictEqual(m, {"": 0})  # type: ignore
-# case.assertDictEqual({"": 0}, m)  # type: ignore
+# case.assertDictEqual(m, {"": 0})  # xtype: ignore
+# case.assertDictEqual({"": 0}, m)  # xtype: ignore
 
 ###
 # Tests for mock.patch
