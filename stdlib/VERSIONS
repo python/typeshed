@@ -46,6 +46,7 @@ _pydecimal: 3.5-
 _random: 2.7-
 _sitebuiltins: 3.4-
 _socket: 3.0-  # present in 2.7 at runtime, but not in typeshed
+_ssl: 2.7-
 _stat: 3.4-
 _thread: 2.7-
 _threading_local: 2.7-
