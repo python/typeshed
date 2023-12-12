@@ -13,6 +13,7 @@ _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
+_ssl.MemoryBio.__init__  # takes no arguments except self, but stubtest thinks it's (self, *args, *kwargs)
 _threading_local.local.__new__
 ast.Bytes.__new__
 ast.Ellipsis.__new__
@@ -114,6 +115,7 @@ shutil.rmtree  # stubtest doesn't like that we have this as an instance of a cal
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
+ssl.MemoryBio.__init__  # takes no arguments except self, but stubtest thinks it's (self, *args, *kwargs)
 ssl.Purpose.__new__  # the multiple inheritance confuses mypy
 sys.UnraisableHookArgs  # Not exported from sys
 tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
@@ -463,6 +465,8 @@ imaplib.IMAP4_SSL.ssl
 ssl.PROTOCOL_SSLv2
 ssl.PROTOCOL_SSLv3
 ssl.RAND_egd
+_ssl.RAND_egd
+_ssl.OP_IGNORE_UNEXPECTED_EOF
 
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
