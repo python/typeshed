@@ -29,7 +29,6 @@ from _ssl import (
     SSLSession as SSLSession,
     _PasswordType as _PasswordType,  # typeshed only, but re-export for other type stubs to use
     _SSLContext,
-    _SSLSocket,
 )
 
 if sys.version_info < (3, 12):
@@ -321,7 +320,6 @@ class SSLSocket(socket.socket):
     server_side: bool
     server_hostname: str | None
     session: SSLSession | None
-    _sslobj: _SSLSocket | None
     @property
     def session_reused(self) -> bool | None: ...
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
@@ -365,17 +363,6 @@ class SSLSocket(socket.socket):
     def recvmsg(self, *args: Never, **kwargs: Never) -> Never: ...  # type: ignore[override]
     def recvmsg_into(self, *args: Never, **kwargs: Never) -> Never: ...  # type: ignore[override]
     def sendmsg(self, *args: Never, **kwargs: Never) -> Never: ...  # type: ignore[override]
-    @classmethod
-    def _create(
-        cls,
-        sock: socket.socket,
-        server_side: bool = False,
-        do_handshake_on_connect: bool = True,
-        suppress_ragged_eofs: bool = True,
-        server_hostname: str | bytes | None = None,
-        context: SSLContext | None = None,
-        session: SSLSession | None = None,
-    ) -> SSLSocket: ...
 
 class TLSVersion(enum.IntEnum):
     MINIMUM_SUPPORTED: int

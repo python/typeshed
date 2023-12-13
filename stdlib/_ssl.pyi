@@ -1,5 +1,5 @@
 import sys
-from _typeshed import Incomplete, ReadableBuffer, StrOrBytesPath
+from _typeshed import ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable
 from ssl import (
     SSLCertVerificationError as SSLCertVerificationError,
@@ -48,7 +48,6 @@ class _CertInfo(TypedDict):
 
 class _EmptyCertInfo(TypedDict): ...
 
-def _test_decode_cert(__path: str) -> _CertInfo: ...
 def RAND_add(__string: str | ReadableBuffer, __entropy: float) -> None: ...
 def RAND_bytes(__n: int) -> bytes: ...
 
@@ -70,8 +69,6 @@ def txt2obj(txt: str, name: bool = False) -> tuple[int, str, str, str]: ...
 def nid2obj(__nid: int) -> tuple[int, str, str, str]: ...
 
 class _SSLContext:
-    _host_flags: int
-    _msg_callback: Callable[..., Incomplete]
     check_hostname: bool
     if sys.version_info >= (3, 8):
         keylog_filename: str | None
@@ -88,26 +85,6 @@ class _SSLContext:
     verify_flags: int
     verify_mode: int
     def __new__(cls, __protocol: int) -> Self: ...
-    def _set_alpn_protocols(self, __protos: bytearray) -> None: ...
-    def _wrap_bio(
-        self,
-        incoming: MemoryBIO,
-        outgoing: MemoryBIO,
-        server_side: bool,
-        server_hostname: str | bytes | None = None,
-        *,
-        owner: object | None = None,
-        session: SSLSession | None = None,
-    ) -> Self: ...
-    def _wrap_socket(
-        self,
-        sock: SSLSocket,
-        server_side: bool,
-        server_hostname: str | None = None,
-        *,
-        owner: SSLSocket | SSLObject | None = None,
-        session: SSLSession | None = None,
-    ) -> _SSLSocket: ...
     def cert_store_stats(self) -> dict[str, int]: ...
     @overload
     def get_ca_certs(self, binary_form: Literal[False] = False) -> list[_PeerCertRetDictType]: ...
