@@ -1,11 +1,6 @@
 import enum
 import socket
 import sys
-from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
-from collections.abc import Callable, Iterable
-from typing import Any, NamedTuple, overload
-from typing_extensions import Literal, Never, Self, TypeAlias
-
 from _ssl import (
     _DEFAULT_CIPHERS as _DEFAULT_CIPHERS,
     _OPENSSL_API_VERSION as _OPENSSL_API_VERSION,
@@ -30,6 +25,10 @@ from _ssl import (
     _PasswordType as _PasswordType,  # typeshed only, but re-export for other type stubs to use
     _SSLContext,
 )
+from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
+from collections.abc import Callable, Iterable
+from typing import Any, NamedTuple, overload
+from typing_extensions import Literal, Never, Self, TypeAlias
 
 if sys.version_info < (3, 12):
     from _ssl import RAND_pseudo_bytes as RAND_pseudo_bytes
