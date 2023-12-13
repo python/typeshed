@@ -36,6 +36,7 @@ _heapq: 2.7-
 _imp: 3.0-
 _json: 2.7-
 _locale: 2.7-
+_lsprof: 2.7-
 _markupbase: 2.7-
 _msi: 2.7-
 _operator: 3.4-
