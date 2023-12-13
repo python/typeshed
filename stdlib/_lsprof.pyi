@@ -15,7 +15,8 @@ class Profiler:
 
 @final
 class profiler_entry(structseq[Any], tuple[CodeType | str, int, int, float, float, list[profiler_subentry]]):
-    __match_args__: Final = ("code", "callcount", "reccallcount", "totaltime", "inlinetime", "calls")
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = ("code", "callcount", "reccallcount", "totaltime", "inlinetime", "calls")
     code: CodeType | str
     callcount: int
     reccallcount: int
@@ -25,7 +26,8 @@ class profiler_entry(structseq[Any], tuple[CodeType | str, int, int, float, floa
 
 @final
 class profiler_subentry(structseq[Any], tuple[CodeType | str, int, int, float, float]):
-    __match_args__: Final = ("code", "callcount", "reccallcount", "totaltime", "inlinetime")
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = ("code", "callcount", "reccallcount", "totaltime", "inlinetime")
     code: CodeType | str
     callcount: int
     reccallcount: int
