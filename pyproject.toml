@@ -68,6 +68,7 @@ extra-standard-library = [
     "_imp",
     "_json",
     "_locale",
+    "_lsprof",
     "_markupbase",
     "_msi",
     "_operator",

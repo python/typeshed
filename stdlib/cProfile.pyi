@@ -1,11 +1,10 @@
+import _lsprof
 import sys
 from _typeshed import StrOrBytesPath, Unused
 from collections.abc import Callable
 from types import CodeType
 from typing import Any, TypeVar
 from typing_extensions import ParamSpec, Self, TypeAlias
-
-import _lsprof
 
 __all__ = ["run", "runctx", "Profile"]
 
