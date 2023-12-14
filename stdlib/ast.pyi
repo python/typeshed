@@ -413,7 +413,10 @@ class Tuple(expr):
 
 class slice(AST): ...  # deprecated and moved to ast.py for >= (3, 9)
 
-_Slice: typing_extensions.TypeAlias = slice  # alias for use with variables named slice
+if sys.version_info < (3, 9):
+    # alias for use with variables named slice
+    # that's just older versions of the Subscript class right now
+    _Slice: typing_extensions.TypeAlias = slice
 
 if sys.version_info >= (3, 9):
     class Slice(expr):
