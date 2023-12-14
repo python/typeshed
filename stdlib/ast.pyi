@@ -1,10 +1,609 @@
 import os
 import sys
-from _ast import *
+import typing_extensions
+from _ast import (
+    PyCF_ALLOW_TOP_LEVEL_AWAIT as PyCF_ALLOW_TOP_LEVEL_AWAIT,
+    PyCF_ONLY_AST as PyCF_ONLY_AST,
+    PyCF_TYPE_COMMENTS as PyCF_TYPE_COMMENTS,
+)
 from _typeshed import ReadableBuffer, Unused
 from collections.abc import Iterator
-from typing import Any, TypeVar as _TypeVar, overload
+from typing import Any, ClassVar, TypeVar as _TypeVar, overload
 from typing_extensions import Literal, deprecated
+
+_Identifier: typing_extensions.TypeAlias = str
+
+# The various AST classes are implemented in C, and imported from _ast at runtime,
+# but they consider themselves to live in the ast module, so we'll define the stubs in this file.
+class AST:
+    if sys.version_info >= (3, 10):
+        __match_args__ = ()
+    _attributes: ClassVar[tuple[str, ...]]
+    _fields: ClassVar[tuple[str, ...]]
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
+    # TODO: Not all nodes have all of the following attributes
+    lineno: int
+    col_offset: int
+    if sys.version_info >= (3, 8):
+        end_lineno: int | None
+        end_col_offset: int | None
+        type_comment: str | None
+
+class mod(AST): ...
+
+class Module(mod):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("body", "type_ignores")
+    body: list[stmt]
+    if sys.version_info >= (3, 8):
+        type_ignores: list[TypeIgnore]
+
+class Interactive(mod):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("body",)
+    body: list[stmt]
+
+class Expression(mod):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("body",)
+    body: expr
+
+if sys.version_info >= (3, 8):
+    class FunctionType(mod):
+        if sys.version_info >= (3, 10):
+            __match_args__ = ("argtypes", "returns")
+        argtypes: list[expr]
+        returns: expr
+
+class stmt(AST): ...
+
+class FunctionDef(stmt):
+    if sys.version_info >= (3, 12):
+        __match_args__ = ("name", "args", "body", "decorator_list", "returns", "type_comment", "type_params")
+    elif sys.version_info >= (3, 10):
+        __match_args__ = ("name", "args", "body", "decorator_list", "returns", "type_comment")
+    name: _Identifier
+    args: arguments
+    body: list[stmt]
+    decorator_list: list[expr]
+    returns: expr | None
+    if sys.version_info >= (3, 12):
+        type_params: list[type_param]
+
+class AsyncFunctionDef(stmt):
+    if sys.version_info >= (3, 12):
+        __match_args__ = ("name", "args", "body", "decorator_list", "returns", "type_comment", "type_params")
+    elif sys.version_info >= (3, 10):
+        __match_args__ = ("name", "args", "body", "decorator_list", "returns", "type_comment")
+    name: _Identifier
+    args: arguments
+    body: list[stmt]
+    decorator_list: list[expr]
+    returns: expr | None
+    if sys.version_info >= (3, 12):
+        type_params: list[type_param]
+
+class ClassDef(stmt):
+    if sys.version_info >= (3, 12):
+        __match_args__ = ("name", "bases", "keywords", "body", "decorator_list", "type_params")
+    elif sys.version_info >= (3, 10):
+        __match_args__ = ("name", "bases", "keywords", "body", "decorator_list")
+    name: _Identifier
+    bases: list[expr]
+    keywords: list[keyword]
+    body: list[stmt]
+    decorator_list: list[expr]
+    if sys.version_info >= (3, 12):
+        type_params: list[type_param]
+
+class Return(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("value",)
+    value: expr | None
+
+class Delete(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("targets",)
+    targets: list[expr]
+
+class Assign(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("targets", "value", "type_comment")
+    targets: list[expr]
+    value: expr
+
+if sys.version_info >= (3, 12):
+    class TypeAlias(stmt):
+        __match_args__ = ("name", "type_params", "value")
+        name: Name
+        type_params: list[type_param]
+        value: expr
+
+class AugAssign(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("target", "op", "value")
+    target: Name | Attribute | Subscript
+    op: operator
+    value: expr
+
+class AnnAssign(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("target", "annotation", "value", "simple")
+    target: Name | Attribute | Subscript
+    annotation: expr
+    value: expr | None
+    simple: int
+
+class For(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("target", "iter", "body", "orelse", "type_comment")
+    target: expr
+    iter: expr
+    body: list[stmt]
+    orelse: list[stmt]
+
+class AsyncFor(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("target", "iter", "body", "orelse", "type_comment")
+    target: expr
+    iter: expr
+    body: list[stmt]
+    orelse: list[stmt]
+
+class While(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("test", "body", "orelse")
+    test: expr
+    body: list[stmt]
+    orelse: list[stmt]
+
+class If(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("test", "body", "orelse")
+    test: expr
+    body: list[stmt]
+    orelse: list[stmt]
+
+class With(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("items", "body", "type_comment")
+    items: list[withitem]
+    body: list[stmt]
+
+class AsyncWith(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("items", "body", "type_comment")
+    items: list[withitem]
+    body: list[stmt]
+
+if sys.version_info >= (3, 10):
+    class Match(stmt):
+        __match_args__ = ("subject", "cases")
+        subject: expr
+        cases: list[match_case]
+
+class Raise(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("exc", "cause")
+    exc: expr | None
+    cause: expr | None
+
+class Try(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("body", "handlers", "orelse", "finalbody")
+    body: list[stmt]
+    handlers: list[ExceptHandler]
+    orelse: list[stmt]
+    finalbody: list[stmt]
+
+if sys.version_info >= (3, 11):
+    class TryStar(stmt):
+        __match_args__ = ("body", "handlers", "orelse", "finalbody")
+        body: list[stmt]
+        handlers: list[ExceptHandler]
+        orelse: list[stmt]
+        finalbody: list[stmt]
+
+class Assert(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("test", "msg")
+    test: expr
+    msg: expr | None
+
+class Import(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("names",)
+    names: list[alias]
+
+class ImportFrom(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("module", "names", "level")
+    module: str | None
+    names: list[alias]
+    level: int
+
+class Global(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("names",)
+    names: list[_Identifier]
+
+class Nonlocal(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("names",)
+    names: list[_Identifier]
+
+class Expr(stmt):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("value",)
+    value: expr
+
+class Pass(stmt): ...
+class Break(stmt): ...
+class Continue(stmt): ...
+class expr(AST): ...
+
+class BoolOp(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("op", "values")
+    op: boolop
+    values: list[expr]
+
+if sys.version_info >= (3, 8):
+    class NamedExpr(expr):
+        if sys.version_info >= (3, 10):
+            __match_args__ = ("target", "value")
+        target: Name
+        value: expr
+
+class BinOp(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("left", "op", "right")
+    left: expr
+    op: operator
+    right: expr
+
+class UnaryOp(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("op", "operand")
+    op: unaryop
+    operand: expr
+
+class Lambda(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("args", "body")
+    args: arguments
+    body: expr
+
+class IfExp(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("test", "body", "orelse")
+    test: expr
+    body: expr
+    orelse: expr
+
+class Dict(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("keys", "values")
+    keys: list[expr | None]
+    values: list[expr]
+
+class Set(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("elts",)
+    elts: list[expr]
+
+class ListComp(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("elt", "generators")
+    elt: expr
+    generators: list[comprehension]
+
+class SetComp(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("elt", "generators")
+    elt: expr
+    generators: list[comprehension]
+
+class DictComp(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("key", "value", "generators")
+    key: expr
+    value: expr
+    generators: list[comprehension]
+
+class GeneratorExp(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("elt", "generators")
+    elt: expr
+    generators: list[comprehension]
+
+class Await(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("value",)
+    value: expr
+
+class Yield(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("value",)
+    value: expr | None
+
+class YieldFrom(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("value",)
+    value: expr
+
+class Compare(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("left", "ops", "comparators")
+    left: expr
+    ops: list[cmpop]
+    comparators: list[expr]
+
+class Call(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("func", "args", "keywords")
+    func: expr
+    args: list[expr]
+    keywords: list[keyword]
+
+class FormattedValue(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("value", "conversion", "format_spec")
+    value: expr
+    conversion: int
+    format_spec: expr | None
+
+class JoinedStr(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("values",)
+    values: list[expr]
+
+class Constant(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("value", "kind")
+    value: Any  # None, str, bytes, bool, int, float, complex, Ellipsis
+    kind: str | None
+    # Aliases for value, for backwards compatibility
+    s: Any
+    n: int | float | complex
+
+class Attribute(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("value", "attr", "ctx")
+    value: expr
+    attr: _Identifier
+    ctx: expr_context
+
+class Subscript(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("value", "slice", "ctx")
+    value: expr
+    if sys.version_info >= (3, 9):
+        slice: expr
+    else:
+        slice: slice
+    ctx: expr_context
+
+class Starred(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("value", "ctx")
+    value: expr
+    ctx: expr_context
+
+class Name(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("id", "ctx")
+    id: _Identifier
+    ctx: expr_context
+
+class List(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("elts", "ctx")
+    elts: list[expr]
+    ctx: expr_context
+
+class Tuple(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("elts", "ctx")
+    elts: list[expr]
+    ctx: expr_context
+    if sys.version_info >= (3, 9):
+        dims: list[expr]
+
+class slice(AST): ...  # deprecated and moved to ast.py for >= (3, 9)
+
+if sys.version_info >= (3, 9):
+    class Slice(expr):
+        if sys.version_info >= (3, 10):
+            __match_args__ = ("lower", "upper", "step")
+        lower: expr | None
+        upper: expr | None
+        step: expr | None
+
+else:
+    class Slice(slice):
+        if sys.version_info >= (3, 10):
+            __match_args__ = ("lower", "upper", "step")
+        lower: expr | None
+        upper: expr | None
+        step: expr | None
+
+class ExtSlice(slice):  # deprecated and moved to ast.py if sys.version_info >= (3, 9)
+    dims: list[slice]
+
+class Index(slice):  # deprecated and moved to ast.py if sys.version_info >= (3, 9)
+    value: expr
+
+class expr_context(AST): ...
+class AugLoad(expr_context): ...  # deprecated and moved to ast.py if sys.version_info >= (3, 9)
+class AugStore(expr_context): ...  # deprecated and moved to ast.py if sys.version_info >= (3, 9)
+class Param(expr_context): ...  # deprecated and moved to ast.py if sys.version_info >= (3, 9)
+
+class Suite(mod):  # deprecated and moved to ast.py if sys.version_info >= (3, 9)
+    body: list[stmt]
+
+class Load(expr_context): ...
+class Store(expr_context): ...
+class Del(expr_context): ...
+class boolop(AST): ...
+class And(boolop): ...
+class Or(boolop): ...
+class operator(AST): ...
+class Add(operator): ...
+class Sub(operator): ...
+class Mult(operator): ...
+class MatMult(operator): ...
+class Div(operator): ...
+class Mod(operator): ...
+class Pow(operator): ...
+class LShift(operator): ...
+class RShift(operator): ...
+class BitOr(operator): ...
+class BitXor(operator): ...
+class BitAnd(operator): ...
+class FloorDiv(operator): ...
+class unaryop(AST): ...
+class Invert(unaryop): ...
+class Not(unaryop): ...
+class UAdd(unaryop): ...
+class USub(unaryop): ...
+class cmpop(AST): ...
+class Eq(cmpop): ...
+class NotEq(cmpop): ...
+class Lt(cmpop): ...
+class LtE(cmpop): ...
+class Gt(cmpop): ...
+class GtE(cmpop): ...
+class Is(cmpop): ...
+class IsNot(cmpop): ...
+class In(cmpop): ...
+class NotIn(cmpop): ...
+
+class comprehension(AST):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("target", "iter", "ifs", "is_async")
+    target: expr
+    iter: expr
+    ifs: list[expr]
+    is_async: int
+
+class excepthandler(AST): ...
+
+class ExceptHandler(excepthandler):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("type", "name", "body")
+    type: expr | None
+    name: _Identifier | None
+    body: list[stmt]
+
+class arguments(AST):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("posonlyargs", "args", "vararg", "kwonlyargs", "kw_defaults", "kwarg", "defaults")
+    if sys.version_info >= (3, 8):
+        posonlyargs: list[arg]
+    args: list[arg]
+    vararg: arg | None
+    kwonlyargs: list[arg]
+    kw_defaults: list[expr | None]
+    kwarg: arg | None
+    defaults: list[expr]
+
+class arg(AST):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("arg", "annotation", "type_comment")
+    arg: _Identifier
+    annotation: expr | None
+
+class keyword(AST):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("arg", "value")
+    arg: _Identifier | None
+    value: expr
+
+class alias(AST):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("name", "asname")
+    name: _Identifier
+    asname: _Identifier | None
+
+class withitem(AST):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("context_expr", "optional_vars")
+    context_expr: expr
+    optional_vars: expr | None
+
+if sys.version_info >= (3, 10):
+    class match_case(AST):
+        __match_args__ = ("pattern", "guard", "body")
+        pattern: _Pattern
+        guard: expr | None
+        body: list[stmt]
+
+    class pattern(AST): ...
+    # Without the alias, Pyright complains variables named pattern are recursively defined
+    _Pattern: typing_extensions.TypeAlias = pattern
+
+    class MatchValue(pattern):
+        __match_args__ = ("value",)
+        value: expr
+
+    class MatchSingleton(pattern):
+        __match_args__ = ("value",)
+        value: Literal[True, False] | None
+
+    class MatchSequence(pattern):
+        __match_args__ = ("patterns",)
+        patterns: list[pattern]
+
+    class MatchMapping(pattern):
+        __match_args__ = ("keys", "patterns", "rest")
+        keys: list[expr]
+        patterns: list[pattern]
+        rest: _Identifier | None
+
+    class MatchClass(pattern):
+        __match_args__ = ("cls", "patterns", "kwd_attrs", "kwd_patterns")
+        cls: expr
+        patterns: list[pattern]
+        kwd_attrs: list[_Identifier]
+        kwd_patterns: list[pattern]
+
+    class MatchStar(pattern):
+        __match_args__ = ("name",)
+        name: _Identifier | None
+
+    class MatchAs(pattern):
+        __match_args__ = ("pattern", "name")
+        pattern: _Pattern | None
+        name: _Identifier | None
+
+    class MatchOr(pattern):
+        __match_args__ = ("patterns",)
+        patterns: list[pattern]
+
+if sys.version_info >= (3, 8):
+    class type_ignore(AST): ...
+
+    class TypeIgnore(type_ignore):
+        if sys.version_info >= (3, 10):
+            __match_args__ = ("lineno", "tag")
+        tag: str
+
+if sys.version_info >= (3, 12):
+    class type_param(AST): ...
+
+    class TypeVar(type_param):
+        __match_args__ = ("name", "bound")
+        name: _Identifier
+        bound: expr | None
+
+    class ParamSpec(type_param):
+        __match_args__ = ("name",)
+        name: _Identifier
+
+    class TypeVarTuple(type_param):
+        __match_args__ = ("name",)
+        name: _Identifier
 
 if sys.version_info >= (3, 8):
     class _ABC(type):
@@ -30,14 +629,142 @@ if sys.version_info >= (3, 8):
     @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")
     class Ellipsis(Constant, metaclass=_ABC): ...
 
+else:
+    # C implementation prior to 3.8
+    class Num(expr):  # Deprecated in 3.8; use Constant
+        n: int | float | complex
+
+    class Str(expr):  # Deprecated in 3.8; use Constant
+        s: str
+
+    class Bytes(expr):  # Deprecated in 3.8; use Constant
+        s: bytes
+
+    class NameConstant(expr):  # Deprecated in 3.8; use Constant
+        value: Any
+
+    class Ellipsis(expr): ...  # Deprecated in 3.8; use Constant
+
+# everything below here is defined in ast.py
+
+_T = _TypeVar("_T", bound=AST)
+
+if sys.version_info >= (3, 8):
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        mode: Literal["exec"] = "exec",
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+    ) -> Module: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer | os.PathLike[Any],
+        mode: Literal["eval"],
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+    ) -> Expression: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer | os.PathLike[Any],
+        mode: Literal["func_type"],
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+    ) -> FunctionType: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer | os.PathLike[Any],
+        mode: Literal["single"],
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+    ) -> Interactive: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        *,
+        mode: Literal["eval"],
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+    ) -> Expression: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        *,
+        mode: Literal["func_type"],
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+    ) -> FunctionType: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        *,
+        mode: Literal["single"],
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+    ) -> Interactive: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        mode: str = "exec",
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+    ) -> AST: ...
+
+else:
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        mode: Literal["exec"] = "exec",
+    ) -> Module: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer, filename: str | ReadableBuffer | os.PathLike[Any], mode: Literal["eval"]
+    ) -> Expression: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer, filename: str | ReadableBuffer | os.PathLike[Any], mode: Literal["single"]
+    ) -> Interactive: ...
+    @overload
+    def parse(source: str | ReadableBuffer, *, mode: Literal["eval"]) -> Expression: ...
+    @overload
+    def parse(source: str | ReadableBuffer, *, mode: Literal["single"]) -> Interactive: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer, filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>", mode: str = "exec"
+    ) -> AST: ...
+
+def literal_eval(node_or_string: str | AST) -> Any: ...
+
 if sys.version_info >= (3, 9):
-    class slice(AST): ...
-    class ExtSlice(slice): ...
-    class Index(slice): ...
-    class Suite(mod): ...
-    class AugLoad(expr_context): ...
-    class AugStore(expr_context): ...
-    class Param(expr_context): ...
+    def dump(
+        node: AST, annotate_fields: bool = True, include_attributes: bool = False, *, indent: int | str | None = None
+    ) -> str: ...
+
+else:
+    def dump(node: AST, annotate_fields: bool = True, include_attributes: bool = False) -> str: ...
+
+def copy_location(new_node: _T, old_node: AST) -> _T: ...
+def fix_missing_locations(node: _T) -> _T: ...
+def increment_lineno(node: _T, n: int = 1) -> _T: ...
+def iter_fields(node: AST) -> Iterator[tuple[str, Any]]: ...
+def iter_child_nodes(node: AST) -> Iterator[AST]: ...
+def get_docstring(node: AsyncFunctionDef | FunctionDef | ClassDef | Module, clean: bool = True) -> str | None: ...
+
+if sys.version_info >= (3, 8):
+    def get_source_segment(source: str, node: AST, *, padded: bool = False) -> str | None: ...
+
+def walk(node: AST) -> Iterator[AST]: ...
 
 class NodeVisitor:
     def visit(self, node: AST) -> Any: ...
@@ -179,127 +906,8 @@ class NodeTransformer(NodeVisitor):
     #       The usual return type is AST | None, but Iterable[AST]
     #       is also allowed in some cases -- this needs to be mapped.
 
-_T = _TypeVar("_T", bound=AST)
-
-if sys.version_info >= (3, 8):
-    @overload
-    def parse(
-        source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
-        mode: Literal["exec"] = "exec",
-        *,
-        type_comments: bool = False,
-        feature_version: None | int | tuple[int, int] = None,
-    ) -> Module: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any],
-        mode: Literal["eval"],
-        *,
-        type_comments: bool = False,
-        feature_version: None | int | tuple[int, int] = None,
-    ) -> Expression: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any],
-        mode: Literal["func_type"],
-        *,
-        type_comments: bool = False,
-        feature_version: None | int | tuple[int, int] = None,
-    ) -> FunctionType: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any],
-        mode: Literal["single"],
-        *,
-        type_comments: bool = False,
-        feature_version: None | int | tuple[int, int] = None,
-    ) -> Interactive: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer,
-        *,
-        mode: Literal["eval"],
-        type_comments: bool = False,
-        feature_version: None | int | tuple[int, int] = None,
-    ) -> Expression: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer,
-        *,
-        mode: Literal["func_type"],
-        type_comments: bool = False,
-        feature_version: None | int | tuple[int, int] = None,
-    ) -> FunctionType: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer,
-        *,
-        mode: Literal["single"],
-        type_comments: bool = False,
-        feature_version: None | int | tuple[int, int] = None,
-    ) -> Interactive: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
-        mode: str = "exec",
-        *,
-        type_comments: bool = False,
-        feature_version: None | int | tuple[int, int] = None,
-    ) -> AST: ...
-
-else:
-    @overload
-    def parse(
-        source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
-        mode: Literal["exec"] = "exec",
-    ) -> Module: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer, filename: str | ReadableBuffer | os.PathLike[Any], mode: Literal["eval"]
-    ) -> Expression: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer, filename: str | ReadableBuffer | os.PathLike[Any], mode: Literal["single"]
-    ) -> Interactive: ...
-    @overload
-    def parse(source: str | ReadableBuffer, *, mode: Literal["eval"]) -> Expression: ...
-    @overload
-    def parse(source: str | ReadableBuffer, *, mode: Literal["single"]) -> Interactive: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer, filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>", mode: str = "exec"
-    ) -> AST: ...
-
 if sys.version_info >= (3, 9):
     def unparse(ast_obj: AST) -> str: ...
-
-def copy_location(new_node: _T, old_node: AST) -> _T: ...
-
-if sys.version_info >= (3, 9):
-    def dump(
-        node: AST, annotate_fields: bool = True, include_attributes: bool = False, *, indent: int | str | None = None
-    ) -> str: ...
-
-else:
-    def dump(node: AST, annotate_fields: bool = True, include_attributes: bool = False) -> str: ...
-
-def fix_missing_locations(node: _T) -> _T: ...
-def get_docstring(node: AsyncFunctionDef | FunctionDef | ClassDef | Module, clean: bool = True) -> str | None: ...
-def increment_lineno(node: _T, n: int = 1) -> _T: ...
-def iter_child_nodes(node: AST) -> Iterator[AST]: ...
-def iter_fields(node: AST) -> Iterator[tuple[str, Any]]: ...
-def literal_eval(node_or_string: str | AST) -> Any: ...
-
-if sys.version_info >= (3, 8):
-    def get_source_segment(source: str, node: AST, *, padded: bool = False) -> str | None: ...
-
-def walk(node: AST) -> Iterator[AST]: ...
 
 if sys.version_info >= (3, 9):
     def main() -> None: ...
