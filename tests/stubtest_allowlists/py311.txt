@@ -12,9 +12,9 @@ enum.Enum.__init__
 enum.Enum._generate_next_value_
 # Not strictly speaking a staticmethod on 3.11, but it acts like one:
 enum.StrEnum._generate_next_value_
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.Finder.find_module
 tkinter._VersionInfoType.__doc__
-typing.NewType.__call__
 typing.NewType.__mro_entries__
 
 # Modules that exist at runtime, but shouldn't be added to typeshed
@@ -106,6 +106,10 @@ unittest.case.TestCase.__init_subclass__
 # Problematic protocol signature at runtime, see source code comments.
 importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open
+
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedList.reverse
+importlib.metadata.DeprecatedList.sort
 
 # Super-special typing primitives
 typing\._SpecialForm.*

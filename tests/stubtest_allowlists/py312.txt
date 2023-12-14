@@ -11,8 +11,8 @@ _csv.Reader
 _csv.Writer
 configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 tkinter._VersionInfoType.__doc__
-typing.NewType.__call__
 typing.NewType.__mro_entries__
 
 # ==========
@@ -98,12 +98,14 @@ unittest.case.TestCase.__init_subclass__
 importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open
 
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedNonAbstract.__new__
+
 # Super-special typing primitives
 typing\._SpecialForm.*
 typing\.NamedTuple
 typing\.LiteralString
 typing\.Annotated
-typing_extensions\.Protocol
 
 # These only exist to give a better error message if you try to subclass an instance
 typing.ParamSpec.__mro_entries__

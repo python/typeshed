@@ -11,6 +11,7 @@ enum.Enum._generate_next_value_
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
 gettext.install
 gettext.translation
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.Finder.find_module
 importlib.metadata._meta.SimplePath.__truediv__  # See comments in the stub
 # platform.uname_result's processor field is now dynamically made to exist
@@ -149,12 +150,13 @@ dataclasses.KW_ONLY
 # We pretend it's a read-only property for forward compatibility with 3.12
 typing.ParamSpec(Args|Kwargs).__origin__
 
-# https://github.com/python/mypy/issues/15302
-typing.NewType.__call__
-
 # Problematic protocol signatures at runtime, see source code comments.
 importlib.abc.Traversable.joinpath
 importlib.abc.Traversable.open
+
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedList.reverse
+importlib.metadata.DeprecatedList.sort
 
 # Super-special typing primitives
 typing\.NamedTuple
@@ -175,3 +177,7 @@ pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
 
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
+
+# These enums derive from (str, Enum)
+pstats.SortKey.__new__
+tkinter.EventType.__new__
