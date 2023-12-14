@@ -1,20 +1,21 @@
 import os
 import sys
 import typing_extensions
-from _ast import (
-    PyCF_ALLOW_TOP_LEVEL_AWAIT as PyCF_ALLOW_TOP_LEVEL_AWAIT,
-    PyCF_ONLY_AST as PyCF_ONLY_AST,
-    PyCF_TYPE_COMMENTS as PyCF_TYPE_COMMENTS,
-)
+from _ast import PyCF_ONLY_AST as PyCF_ONLY_AST
 from _typeshed import ReadableBuffer, Unused
 from collections.abc import Iterator
 from typing import Any, ClassVar, TypeVar as _TypeVar, overload
 from typing_extensions import Literal, deprecated
 
+if sys.version_info >= (3, 8):
+    from _ast import PyCF_ALLOW_TOP_LEVEL_AWAIT as PyCF_ALLOW_TOP_LEVEL_AWAIT, PyCF_TYPE_COMMENTS as PyCF_TYPE_COMMENTS
+
 _Identifier: typing_extensions.TypeAlias = str
 
 # The various AST classes are implemented in C, and imported from _ast at runtime,
-# but they consider themselves to live in the ast module, so we'll define the stubs in this file.
+# on 3.9 and higer they consider themselves to live in the ast module,
+# so we'll define the stubs in this file. This means that 3.8 will have the incorrect
+# __module__ values instead, but the majority of python versions are better off this way.
 class AST:
     if sys.version_info >= (3, 10):
         __match_args__ = ()

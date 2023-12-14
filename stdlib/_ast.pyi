@@ -127,7 +127,7 @@ if sys.version_info >= (3, 10):
     )
 
 if sys.version_info >= (3, 8):
-    from ast import FunctionType as FunctionType, TypeIgnore as TypeIgnore, type_ignore as type_ignore
+    from ast import FunctionType as FunctionType, NamedExpr as NamedExpr, TypeIgnore as TypeIgnore, type_ignore as type_ignore
 
 if sys.version_info < (3, 9):
     from ast import (
