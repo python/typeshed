@@ -2,7 +2,7 @@ import contextlib
 from _typeshed import ConvertibleToInt
 from collections.abc import Callable, Iterable, Sequence
 from datetime import datetime
-from typing import NamedTuple, TypeVar
+from typing import NamedTuple, SupportsInt, TypeVar
 from typing_extensions import Final, ParamSpec, SupportsIndex, TypeAlias
 
 from pyscreeze import (
@@ -74,10 +74,10 @@ def size() -> Size: ...
 
 resolution = size
 
-def onScreen(x: _NormalizeableXArg | None, y: ConvertibleToInt | None = None) -> bool: ...
+def onScreen(x: _NormalizeableXArg | None, y: SupportsInt | None = None) -> bool: ...
 def mouseDown(
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
     button: str = "primary",
     duration: float = 0.0,
@@ -87,7 +87,7 @@ def mouseDown(
 ) -> None: ...
 def mouseUp(
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
     button: str = "primary",
     duration: float = 0.0,
@@ -97,7 +97,7 @@ def mouseUp(
 ) -> None: ...
 def click(
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     clicks: SupportsIndex = 1,
     interval: float = 0.0,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
@@ -109,7 +109,7 @@ def click(
 ) -> None: ...
 def leftClick(
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     interval: float = 0.0,
     duration: float = 0.0,
     tween: Callable[[float], float] = ...,
@@ -118,7 +118,7 @@ def leftClick(
 ) -> None: ...
 def rightClick(
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     interval: float = 0.0,
     duration: float = 0.0,
     tween: Callable[[float], float] = ...,
@@ -127,7 +127,7 @@ def rightClick(
 ) -> None: ...
 def middleClick(
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     interval: float = 0.0,
     duration: float = 0.0,
     tween: Callable[[float], float] = ...,
@@ -136,7 +136,7 @@ def middleClick(
 ) -> None: ...
 def doubleClick(
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     interval: float = 0.0,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
     button: str = "left",
@@ -147,7 +147,7 @@ def doubleClick(
 ) -> None: ...
 def tripleClick(
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     interval: float = 0.0,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
     button: str = "left",
@@ -159,27 +159,27 @@ def tripleClick(
 def scroll(
     clicks: float,
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     logScreenshot: bool | None = None,
     _pause: bool = True,
 ) -> None: ...
 def hscroll(
     clicks: float,
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     logScreenshot: bool | None = None,
     _pause: bool = True,
 ) -> None: ...
 def vscroll(
     clicks: float,
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     logScreenshot: bool | None = None,
     _pause: bool = True,
 ) -> None: ...
 def moveTo(
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     duration: float = 0.0,
     tween: Callable[[float], float] = ...,
     logScreenshot: bool = False,
@@ -187,7 +187,7 @@ def moveTo(
 ) -> None: ...
 def moveRel(
     xOffset: _NormalizeableXArg | None = None,
-    yOffset: ConvertibleToInt | None = None,
+    yOffset: SupportsInt | None = None,
     duration: float = 0.0,
     tween: Callable[[float], float] = ...,
     logScreenshot: bool = False,
@@ -198,7 +198,7 @@ move = moveRel
 
 def dragTo(
     x: _NormalizeableXArg | None = None,
-    y: ConvertibleToInt | None = None,
+    y: SupportsInt | None = None,
     duration: float = 0.0,
     tween: Callable[[float], float] = ...,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
@@ -209,7 +209,7 @@ def dragTo(
 ) -> None: ...
 def dragRel(
     xOffset: _NormalizeableXArg | None = 0,
-    yOffset: ConvertibleToInt | None = 0,
+    yOffset: SupportsInt | None = 0,
     duration: float = 0.0,
     tween: Callable[[float], float] = ...,
     # Docstring says `button` can also be `int`, but `.lower()` is called unconditionally in `_normalizeButton()`
