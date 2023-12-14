@@ -579,7 +579,9 @@ class Match:
   def group(self, __group: str | int) -> str | Any: ...
 ```
 
-and this simplified example:
+The `str | Any` seems unnecessary and weird at first.
+Because `Any` includes all strings, you would expect `str | Any` to be equivalent to `Any`, but it is not.
+To understand the difference, let's look at what happens when type-checking this simplified example:
 
 ```python
 import re
@@ -597,10 +599,10 @@ Regexes are often used so that the regex matches any string, or the string has a
 
 * `-> Any` would mean "please do not complain" to type checkers. If `last_group` has type `Any`, you will get no error for this.
 * `-> str` would mean "will always be a `str`", which is wrong, and would cause type checkers to emit errors for code like `if last_group is None`.
-* `-> str | None` means "you must check for None", which is correct but can get annoying for some common patterns.
+* `-> str | None` means "you must check for None", which is correct but can get annoying for some common patterns. Checks like `assert last_group is not None` would need to be added into various places only to satisfy type checkers, even when it is impossible to actually get a `None` value (type checkers aren't smart enough to know this).
 * `-> str | Any` means "must be prepared to handle a `str`". You will get an error for `last_group.capitalise`, because it is not valid when `last_group` is a `str`. But type checkers are happy with `if last_group is None` checks, because we're saying it can also be something else than an `str`.
 
-In typeshed we unofficially call this "the Any trick". We tend to use it whenever something can be `None`, but requiring users to check for `None` would be more painful than helpful.
+In typeshed we unofficially call returning `Foo | Any` "the Any trick". We tend to use it whenever something can be `None`, but requiring users to check for `None` would be more painful than helpful.
 
 ## Submitting Changes
 
