@@ -11,12 +11,9 @@ _csv.Reader
 _csv.Writer
 configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 tkinter._VersionInfoType.__doc__
 typing.NewType.__mro_entries__
-
-# These can be removed when the next patch release of 3.12 comes out:
-io.__all__
-sre_parse.MAXWIDTH
 
 # ==========
 # Related to positional-only arguments
@@ -100,6 +97,9 @@ unittest.case.TestCase.__init_subclass__
 # Problematic protocol signature at runtime, see source code comments.
 importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open
+
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedNonAbstract.__new__
 
 # Super-special typing primitives
 typing\._SpecialForm.*

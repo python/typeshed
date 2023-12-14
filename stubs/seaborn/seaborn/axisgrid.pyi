@@ -2,7 +2,7 @@ import os
 from _typeshed import Incomplete
 from collections.abc import Callable, Generator, Iterable, Mapping
 from typing import IO, Any, TypeVar
-from typing_extensions import Concatenate, Literal, ParamSpec, Self, TypeAlias
+from typing_extensions import Concatenate, Literal, ParamSpec, Self, TypeAlias, deprecated
 
 import numpy as np
 from matplotlib.artist import Artist
@@ -92,6 +92,7 @@ class _BaseGrid:
         **kwargs: Any,
     ) -> Self: ...
     @property
+    @deprecated("Attribute `fig` is deprecated in favor of `figure`")
     def fig(self) -> Figure: ...
     @property
     def figure(self) -> Figure: ...
