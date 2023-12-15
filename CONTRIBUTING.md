@@ -597,7 +597,7 @@ def parse_name_from_new_id(user_id: str) -> str | None:
     if match is None:
         return None
     name_group = match.group(1)
-    return name_group.uper() # This line is a typo (`uper` --> `upper`)
+    return name_group.uper()  # This line is a typo (`uper` --> `upper`)
 ```
 
 Regexes are often used so that the regex matches any string, or the string
