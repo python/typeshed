@@ -3,16 +3,12 @@ from collections.abc import Callable
 from pyexpat import errors as errors, model as model
 from typing import Any
 from typing_extensions import TypeAlias, final
+from xml.parsers.expat import ExpatError as ExpatError
 
 EXPAT_VERSION: str  # undocumented
 version_info: tuple[int, int, int]  # undocumented
 native_encoding: str  # undocumented
 features: list[tuple[str, int]]  # undocumented
-
-class ExpatError(Exception):
-    code: int
-    lineno: int
-    offset: int
 
 error = ExpatError
 
