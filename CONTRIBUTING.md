@@ -572,11 +572,11 @@ It should be used sparingly.
 
 ### "The `Any` trick"
 
-Consider the following signature of `re.Match[str].group`:
+Consider the following (simplified) signature of `re.Match[str].group`:
 
 ```python
 class Match:
-  def group(self, __group: str | int) -> str | Any: ...
+    def group(self, __group: str | int) -> str | Any: ...
 ```
 
 The `str | Any` seems unnecessary and weird at first.
@@ -600,9 +600,12 @@ def parse_name_from_new_id(user_id: str) -> str | None:
     return name_group.uper()  # This line is a typo (`uper` --> `upper`)
 ```
 
-Regexes are often used so that the regex matches any string, or the string
-has already been validated so that the regex will match. But type checkers
-don't know this, so complaining about the `None` would get very annoying.
+The `.group()` method returns `None` when the given group was not a part of the match.
+For example, with a regex like `r"\d+_(.*)|legacy_userid_\d+"`, we would get a match whose `.group(1)` is `None` for the user ID `"legacy_userid_7"`.
+But here the regex is written so that the group always exists, and `match.group(1)` cannot return `None`.
+Match groups are almost always used in this way.
+
+Let's now consider typeshed's `-> str | Any` annotation of the `.group()` method:
 
 * `-> Any` would mean "please do not complain" to type checkers.
   If `name_group` has type `Any`, you will get no error for this.
