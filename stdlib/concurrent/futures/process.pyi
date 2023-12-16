@@ -174,8 +174,8 @@ class ProcessPoolExecutor(Executor):
         @overload
         def __init__(
             self,
-            max_workers: int | None,
-            mp_context: BaseContext | None,
+            max_workers: int | None = None,
+            mp_context: BaseContext | None = None,
             initializer: Callable[[], object] | None = None,
             initargs: tuple[()] = (),
             *,
@@ -205,8 +205,8 @@ class ProcessPoolExecutor(Executor):
         @overload
         def __init__(
             self,
-            max_workers: int | None,
-            mp_context: BaseContext | None,
+            max_workers: int | None = None,
+            mp_context: BaseContext | None = None,
             initializer: Callable[[], object] | None = None,
             initargs: tuple[()] = (),
         ) -> None: ...
