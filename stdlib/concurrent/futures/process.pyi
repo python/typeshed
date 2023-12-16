@@ -112,7 +112,7 @@ if sys.version_info >= (3, 11):
         call_queue: Queue[_CallItem],
         result_queue: SimpleQueue[_ResultItem],
         initializer: Callable[[Unpack[_Ts]], object] | None,
-        initargs: tuple[[Unpack[_Ts]]],
+        initargs: tuple[Unpack[_Ts]],
         max_tasks: int | None = None,
     ) -> None: ...
 
