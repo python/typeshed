@@ -39,8 +39,14 @@ from _sqlite3 import (
     SQLITE_SELECT as SQLITE_SELECT,
     SQLITE_TRANSACTION as SQLITE_TRANSACTION,
     SQLITE_UPDATE as SQLITE_UPDATE,
+    adapt as adapt,
     adapters as adapters,
+    complete_statement as complete_statement,
+    connect as connect,
     converters as converters,
+    enable_callback_tracebacks as enable_callback_tracebacks,
+    register_adapter as register_adapter,
+    register_converter as register_converter,
     sqlite_version as sqlite_version,
 )
 from datetime import date, datetime, time
@@ -205,12 +211,14 @@ if sys.version_info >= (3, 11):
 if sys.version_info < (3, 12):
     from _sqlite3 import version as version
 
-if sys.version_info >= (3, 10) and sys.version_info < (3, 12):
-    # deprecation wrapper that has a different name for the argument...
-    def enable_shared_cache(enable: int) -> None: ...
+    if sys.version_info >= (3, 10):
+        # deprecation wrapper that has a different name for the argument...
+        def enable_shared_cache(enable: int) -> None: ...
+    else:
+        from _sqlite3 import enable_shared_cache as enable_shared_cache
 
-elif sys.version_info < (3, 10):
-    from _sqlite3 import enable_shared_cache as enable_shared_cache
+if sys.version_info < (3, 10):
+    from _sqlite3 import OptimizedUnicode as OptimizedUnicode
 
 if sys.version_info < (3, 8):
     from sqlite3 import Cache as Cache, Statement as Statement

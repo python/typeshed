@@ -1,5 +1,7 @@
 import sys
-from _sqlite3 import (
+from _typeshed import Incomplete, ReadableBuffer, StrOrBytesPath, SupportsLenAndGetItem, Unused
+from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
+from sqlite3.dbapi2 import (
     PARSE_COLNAMES as PARSE_COLNAMES,
     PARSE_DECLTYPES as PARSE_DECLTYPES,
     SQLITE_ALTER_TABLE as SQLITE_ALTER_TABLE,
@@ -39,21 +41,23 @@ from _sqlite3 import (
     SQLITE_SELECT as SQLITE_SELECT,
     SQLITE_TRANSACTION as SQLITE_TRANSACTION,
     SQLITE_UPDATE as SQLITE_UPDATE,
-    adapters as adapters,
-    converters as converters,
-    sqlite_version as sqlite_version,
-)
-from _typeshed import Incomplete, ReadableBuffer, StrOrBytesPath, SupportsLenAndGetItem, Unused
-from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
-from sqlite3.dbapi2 import (
     Binary as Binary,
     Date as Date,
     DateFromTicks as DateFromTicks,
     Time as Time,
     TimeFromTicks as TimeFromTicks,
     TimestampFromTicks as TimestampFromTicks,
+    adapt as adapt,
+    adapters as adapters,
     apilevel as apilevel,
+    complete_statement as complete_statement,
+    connect as connect,
+    converters as converters,
+    enable_callback_tracebacks as enable_callback_tracebacks,
     paramstyle as paramstyle,
+    register_adapter as register_adapter,
+    register_converter as register_converter,
+    sqlite_version as sqlite_version,
     sqlite_version_info as sqlite_version_info,
     threadsafety as threadsafety,
     version_info as version_info,
@@ -63,7 +67,7 @@ from typing import Any, Protocol, TypeVar, overload
 from typing_extensions import Literal, Self, SupportsIndex, TypeAlias, final
 
 if sys.version_info >= (3, 12):
-    from _sqlite3 import (
+    from sqlite3.dbapi2 import (
         LEGACY_TRANSACTION_CONTROL as LEGACY_TRANSACTION_CONTROL,
         SQLITE_DBCONFIG_DEFENSIVE as SQLITE_DBCONFIG_DEFENSIVE,
         SQLITE_DBCONFIG_DQS_DDL as SQLITE_DBCONFIG_DQS_DDL,
@@ -84,7 +88,7 @@ if sys.version_info >= (3, 12):
     )
 
 if sys.version_info >= (3, 11):
-    from _sqlite3 import (
+    from sqlite3.dbapi2 import (
         SQLITE_ABORT as SQLITE_ABORT,
         SQLITE_ABORT_ROLLBACK as SQLITE_ABORT_ROLLBACK,
         SQLITE_AUTH as SQLITE_AUTH,
@@ -203,7 +207,10 @@ if sys.version_info >= (3, 11):
     )
 
 if sys.version_info < (3, 12):
-    from _sqlite3 import version as version
+    from sqlite3.dbapi2 import enable_shared_cache as enable_shared_cache, version as version
+
+if sys.version_info < (3, 10):
+    from sqlite3.dbapi2 import OptimizedUnicode as OptimizedUnicode
 
 _CursorT = TypeVar("_CursorT", bound=Cursor)
 _SqliteData: TypeAlias = str | ReadableBuffer | int | float | None
@@ -352,7 +359,11 @@ class Connection:
     # enable_load_extension and load_extension is not available on python distributions compiled
     # without sqlite3 loadable extension support. see footnotes https://docs.python.org/3/library/sqlite3.html#f1
     def enable_load_extension(self, __enable: bool) -> None: ...
-    def load_extension(self, __name: str) -> None: ...
+    if sys.version_info >= (3, 12):
+        def load_extension(self, __name: str, *, entrypoint: str | None = None) -> None: ...
+    else:
+        def load_extension(self, __name: str) -> None: ...
+
     def backup(
         self,
         target: Connection,
