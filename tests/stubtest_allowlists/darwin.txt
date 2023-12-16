@@ -29,10 +29,6 @@ _ctypes.dlsym
 
 webbrowser.MacOSX.__init__
 
-# not available on python distributions compiled without sqlite3 loadable extension support
-_sqlite3.Connection.load_extension
-_sqlite3.Connection.enable_load_extension
-
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
