@@ -4919,12 +4919,7 @@ class PyCDC:
     ) -> None: ...
     def BeginPath(self) -> None: ...
     def BitBlt(
-        self,
-        __destPos: tuple[int, int],
-        __size: tuple[int, int],
-        __dc: PyCDC,
-        __srcPos: tuple[int, int],
-        __rop: int,
+        self, __destPos: tuple[int, int], __size: tuple[int, int], __dc: PyCDC, __srcPos: tuple[int, int], __rop: int
     ) -> None: ...
     def Chord(
         self,
