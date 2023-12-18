@@ -1,4 +1,5 @@
 import contextlib
+from _typeshed import ConvertibleToInt
 from collections.abc import Callable, Iterable, Sequence
 from datetime import datetime
 from typing import NamedTuple, SupportsInt, TypeVar
@@ -19,7 +20,10 @@ from pyscreeze import (
 
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
-_NormalizeableXArg: TypeAlias = str | SupportsInt | Sequence[SupportsInt]
+# Explicitly mentioning str despite being in the ConvertibleToInt Alias because it has a different meaning (filename on screen)
+# Specifying non-None Y arg when X is a string or sequence raises an error
+# TODO: This could be better represented through overloads
+_NormalizeableXArg: TypeAlias = str | ConvertibleToInt | Sequence[ConvertibleToInt]
 
 # Constants
 KEY_NAMES: list[str]
