@@ -25,11 +25,12 @@ _P = ParamSpec("_P")
 DIFF_OMITTED: str
 
 class _BaseTestCaseContext:
+    test_case: TestCase
     def __init__(self, test_case: TestCase) -> None: ...
 
 class _AssertRaisesBaseContext(_BaseTestCaseContext):
     expected: type[BaseException] | tuple[type[BaseException], ...]
-    expected_regex: str | Pattern[str] | None
+    expected_regex: Pattern[str] | None
     obj_name: str | None
     msg: str | None
 
@@ -58,7 +59,6 @@ else:
 
     class _AssertLogsContext(_BaseTestCaseContext, Generic[_L]):
         LOGGING_FORMAT: ClassVar[str]
-        test_case: TestCase
         logger_name: str
         level: int
         msg: None
