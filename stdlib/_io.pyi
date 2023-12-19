@@ -136,7 +136,6 @@ class _TextIOBase(_IOBase):
     def writelines(self, __lines: Iterable[str]) -> None: ...  # type: ignore[override]
 
 class TextIOWrapper(TextIOBase, _TextIOBase, TextIO):  # type: ignore[misc]  # incompatible definitions of methods in the base classes
-    name: str
     def __init__(
         self,
         buffer: IO[bytes],
@@ -150,6 +149,8 @@ class TextIOWrapper(TextIOBase, _TextIOBase, TextIO):  # type: ignore[misc]  # i
     def buffer(self) -> BinaryIO: ...
     @property
     def line_buffering(self) -> bool: ...
+    @property
+    def name(self) -> str: ...
     @property
     def write_through(self) -> bool: ...
     def reconfigure(
