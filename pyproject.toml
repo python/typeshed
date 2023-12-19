@@ -66,6 +66,7 @@ extra-standard-library = [
     "_dummy_threading",
     "_heapq",
     "_imp",
+    "_io",
     "_json",
     "_locale",
     "_markupbase",
