@@ -46,6 +46,8 @@ if sys.version_info >= (3, 11):
 
 _T = TypeVar("_T")
 
+# The implementation defines this in re._constants (version_info >= 3, 11) or
+# sre_constants. Typeshed has it here because it's __module__ attribute is set to "re".
 class error(Exception):
     msg: str
     pattern: str | bytes | None
