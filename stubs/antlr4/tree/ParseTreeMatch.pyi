@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+
 from antlr4.tree.ParseTreePattern import ParseTreePattern as ParseTreePattern
 from antlr4.tree.Tree import ParseTree as ParseTree
 

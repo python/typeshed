@@ -1,19 +1,23 @@
 from _typeshed import Incomplete
+from typing import TextIO
+
+from antlr4.atn.ATNDeserializationOptions import ATNDeserializationOptions as ATNDeserializationOptions
+from antlr4.atn.ATNDeserializer import ATNDeserializer as ATNDeserializer
 from antlr4.BufferedTokenStream import TokenStream as TokenStream
 from antlr4.CommonTokenFactory import TokenFactory as TokenFactory
+from antlr4.error.Errors import (
+    RecognitionException as RecognitionException,
+    UnsupportedOperationException as UnsupportedOperationException,
+)
+from antlr4.error.ErrorStrategy import DefaultErrorStrategy as DefaultErrorStrategy
 from antlr4.InputStream import InputStream as InputStream
 from antlr4.Lexer import Lexer as Lexer
 from antlr4.ParserRuleContext import ParserRuleContext as ParserRuleContext
 from antlr4.Recognizer import Recognizer as Recognizer
 from antlr4.RuleContext import RuleContext as RuleContext
 from antlr4.Token import Token as Token
-from antlr4.atn.ATNDeserializationOptions import ATNDeserializationOptions as ATNDeserializationOptions
-from antlr4.atn.ATNDeserializer import ATNDeserializer as ATNDeserializer
-from antlr4.error.ErrorStrategy import DefaultErrorStrategy as DefaultErrorStrategy
-from antlr4.error.Errors import RecognitionException as RecognitionException, UnsupportedOperationException as UnsupportedOperationException
 from antlr4.tree.ParseTreePatternMatcher import ParseTreePatternMatcher as ParseTreePatternMatcher
 from antlr4.tree.Tree import ErrorNode as ErrorNode, ParseTreeListener as ParseTreeListener, TerminalNode as TerminalNode
-from typing import TextIO
 
 class TraceListener(ParseTreeListener):
     def __init__(self, parser) -> None: ...

@@ -1,8 +1,9 @@
-from antlr4.atn.ATNState import *
 from _typeshed import Incomplete
+
+from antlr4.atn.ATNState import *
+from antlr4.atn.SemanticContext import PrecedencePredicate as PrecedencePredicate, Predicate as Predicate
 from antlr4.IntervalSet import IntervalSet as IntervalSet
 from antlr4.Token import Token as Token
-from antlr4.atn.SemanticContext import PrecedencePredicate as PrecedencePredicate, Predicate as Predicate
 
 class Transition:
     EPSILON: int

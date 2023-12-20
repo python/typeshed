@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+
 from antlr4.atn.ATNConfigSet import ATNConfigSet as ATNConfigSet
 from antlr4.atn.SemanticContext import SemanticContext as SemanticContext
 

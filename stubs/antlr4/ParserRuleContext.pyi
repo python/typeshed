@@ -1,8 +1,16 @@
 from _typeshed import Incomplete
+from collections.abc import Generator
+
 from antlr4.RuleContext import RuleContext as RuleContext
 from antlr4.Token import Token as Token
-from antlr4.tree.Tree import ErrorNodeImpl as ErrorNodeImpl, INVALID_INTERVAL as INVALID_INTERVAL, ParseTree as ParseTree, ParseTreeListener as ParseTreeListener, TerminalNode as TerminalNode, TerminalNodeImpl as TerminalNodeImpl
-from collections.abc import Generator
+from antlr4.tree.Tree import (
+    INVALID_INTERVAL as INVALID_INTERVAL,
+    ErrorNodeImpl as ErrorNodeImpl,
+    ParseTree as ParseTree,
+    ParseTreeListener as ParseTreeListener,
+    TerminalNode as TerminalNode,
+    TerminalNodeImpl as TerminalNodeImpl,
+)
 
 class ParserRuleContext(RuleContext):
     children: Incomplete

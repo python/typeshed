@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+
 from antlr4.InputStream import InputStream as InputStream
 from antlr4.ParserRuleContext import ParserRuleContext as ParserRuleContext
 from antlr4.Recognizer import Recognizer as Recognizer
@@ -28,7 +29,9 @@ class RecognitionException(Exception):
     ctx: Incomplete
     offendingToken: Incomplete
     offendingState: int
-    def __init__(self, message: str = ..., recognizer: Recognizer = ..., input: InputStream = ..., ctx: ParserRulecontext = ...) -> None: ...
+    def __init__(
+        self, message: str = ..., recognizer: Recognizer = ..., input: InputStream = ..., ctx: ParserRulecontext = ...
+    ) -> None: ...
     def getExpectedTokens(self): ...
 
 class LexerNoViableAltException(RecognitionException):
@@ -41,7 +44,15 @@ class NoViableAltException(RecognitionException):
     deadEndConfigs: Incomplete
     startToken: Incomplete
     offendingToken: Incomplete
-    def __init__(self, recognizer: Parser, input: TokenStream = ..., startToken: Token = ..., offendingToken: Token = ..., deadEndConfigs: ATNConfigSet = ..., ctx: ParserRuleContext = ...) -> None: ...
+    def __init__(
+        self,
+        recognizer: Parser,
+        input: TokenStream = ...,
+        startToken: Token = ...,
+        offendingToken: Token = ...,
+        deadEndConfigs: ATNConfigSet = ...,
+        ctx: ParserRuleContext = ...,
+    ) -> None: ...
 
 class InputMismatchException(RecognitionException):
     offendingToken: Incomplete

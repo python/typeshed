@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
-from antlr4.InputStream import InputStream as InputStream
+
 from antlr4.atn.LexerAction import LexerAction as LexerAction, LexerIndexedCustomAction as LexerIndexedCustomAction
+from antlr4.InputStream import InputStream as InputStream
 
 Lexer: Incomplete
 

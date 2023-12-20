@@ -1,7 +1,8 @@
-from antlr4 import *
 from _typeshed import Incomplete
 from io import StringIO as StringIO
 from typing import TextIO
+
+from antlr4 import *
 
 def serializedATN(): ...
 

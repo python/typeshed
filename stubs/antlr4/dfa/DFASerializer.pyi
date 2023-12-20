@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
+
 from antlr4 import DFA as DFA
-from antlr4.Utils import str_list as str_list
 from antlr4.dfa.DFAState import DFAState as DFAState
+from antlr4.Utils import str_list as str_list
 
 class DFASerializer:
     dfa: Incomplete

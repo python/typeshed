@@ -1,7 +1,14 @@
 from _typeshed import Incomplete
+
 from antlr4.Token import Token as Token
+from antlr4.tree.Tree import (
+    ErrorNode as ErrorNode,
+    ParseTree as ParseTree,
+    RuleNode as RuleNode,
+    TerminalNode as TerminalNode,
+    Tree as Tree,
+)
 from antlr4.Utils import escapeWhitespace as escapeWhitespace
-from antlr4.tree.Tree import ErrorNode as ErrorNode, ParseTree as ParseTree, RuleNode as RuleNode, TerminalNode as TerminalNode, Tree as Tree
 
 Parser: Incomplete
 

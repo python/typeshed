@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
+from collections.abc import Generator
+
 from antlr4.tree.Tree import INVALID_INTERVAL as INVALID_INTERVAL, ParseTreeVisitor as ParseTreeVisitor, RuleNode as RuleNode
 from antlr4.tree.Trees import Trees as Trees
-from collections.abc import Generator
 
 Parser: Incomplete
 

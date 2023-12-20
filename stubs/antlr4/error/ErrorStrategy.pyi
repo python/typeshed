@@ -1,8 +1,15 @@
 from _typeshed import Incomplete
+
+from antlr4.atn.ATNState import ATNState as ATNState
+from antlr4.error.Errors import (
+    FailedPredicateException as FailedPredicateException,
+    InputMismatchException as InputMismatchException,
+    NoViableAltException as NoViableAltException,
+    ParseCancellationException as ParseCancellationException,
+    RecognitionException as RecognitionException,
+)
 from antlr4.IntervalSet import IntervalSet as IntervalSet
 from antlr4.Token import Token as Token
-from antlr4.atn.ATNState import ATNState as ATNState
-from antlr4.error.Errors import FailedPredicateException as FailedPredicateException, InputMismatchException as InputMismatchException, NoViableAltException as NoViableAltException, ParseCancellationException as ParseCancellationException, RecognitionException as RecognitionException
 
 Parser: Incomplete
 

@@ -1,10 +1,14 @@
 from _typeshed import Incomplete
-from antlr4.PredictionContext import merge as merge
-from antlr4.Utils import str_list as str_list
+
 from antlr4.atn.ATN import ATN as ATN
 from antlr4.atn.ATNConfig import ATNConfig as ATNConfig
 from antlr4.atn.SemanticContext import SemanticContext as SemanticContext
-from antlr4.error.Errors import IllegalStateException as IllegalStateException, UnsupportedOperationException as UnsupportedOperationException
+from antlr4.error.Errors import (
+    IllegalStateException as IllegalStateException,
+    UnsupportedOperationException as UnsupportedOperationException,
+)
+from antlr4.PredictionContext import merge as merge
+from antlr4.Utils import str_list as str_list
 
 ATNSimulator: Incomplete
 

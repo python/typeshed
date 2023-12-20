@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+
 from antlr4.InputStream import InputStream as InputStream
 
 class FileStream(InputStream):

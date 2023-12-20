@@ -1,12 +1,16 @@
 from _typeshed import Incomplete
+
 from antlr4.CommonTokenStream import CommonTokenStream as CommonTokenStream
+from antlr4.error.Errors import (
+    ParseCancellationException as ParseCancellationException,
+    RecognitionException as RecognitionException,
+)
+from antlr4.error.ErrorStrategy import BailErrorStrategy as BailErrorStrategy
 from antlr4.InputStream import InputStream as InputStream
 from antlr4.Lexer import Lexer as Lexer
 from antlr4.ListTokenSource import ListTokenSource as ListTokenSource
 from antlr4.ParserRuleContext import ParserRuleContext as ParserRuleContext
 from antlr4.Token import Token as Token
-from antlr4.error.ErrorStrategy import BailErrorStrategy as BailErrorStrategy
-from antlr4.error.Errors import ParseCancellationException as ParseCancellationException, RecognitionException as RecognitionException
 from antlr4.tree.Chunk import TagChunk as TagChunk, TextChunk as TextChunk
 from antlr4.tree.RuleTagToken import RuleTagToken as RuleTagToken
 from antlr4.tree.TokenTagToken import TokenTagToken as TokenTagToken

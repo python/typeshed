@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+
 from antlr4.BufferedTokenStream import BufferedTokenStream as BufferedTokenStream
 from antlr4.Lexer import Lexer as Lexer
 from antlr4.Token import Token as Token

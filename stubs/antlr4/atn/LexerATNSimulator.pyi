@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
-from antlr4.InputStream import InputStream as InputStream
-from antlr4.PredictionContext import PredictionContext as PredictionContext, PredictionContextCache as PredictionContextCache, SingletonPredictionContext as SingletonPredictionContext
-from antlr4.Token import Token as Token
+
 from antlr4.atn.ATN import ATN as ATN
 from antlr4.atn.ATNConfig import LexerATNConfig as LexerATNConfig
 from antlr4.atn.ATNConfigSet import ATNConfigSet as ATNConfigSet, OrderedATNConfigSet as OrderedATNConfigSet
@@ -10,7 +8,17 @@ from antlr4.atn.ATNState import ATNState as ATNState, RuleStopState as RuleStopS
 from antlr4.atn.LexerActionExecutor import LexerActionExecutor as LexerActionExecutor
 from antlr4.atn.Transition import Transition as Transition
 from antlr4.dfa.DFAState import DFAState as DFAState
-from antlr4.error.Errors import LexerNoViableAltException as LexerNoViableAltException, UnsupportedOperationException as UnsupportedOperationException
+from antlr4.error.Errors import (
+    LexerNoViableAltException as LexerNoViableAltException,
+    UnsupportedOperationException as UnsupportedOperationException,
+)
+from antlr4.InputStream import InputStream as InputStream
+from antlr4.PredictionContext import (
+    PredictionContext as PredictionContext,
+    PredictionContextCache as PredictionContextCache,
+    SingletonPredictionContext as SingletonPredictionContext,
+)
+from antlr4.Token import Token as Token
 
 class SimState:
     def __init__(self) -> None: ...
@@ -47,11 +55,29 @@ class LexerATNSimulator(ATNSimulator):
     def computeTargetState(self, input: InputStream, s: DFAState, t: int): ...
     def failOrAccept(self, prevAccept: SimState, input: InputStream, reach: ATNConfigSet, t: int): ...
     def getReachableConfigSet(self, input: InputStream, closure: ATNConfigSet, reach: ATNConfigSet, t: int): ...
-    def accept(self, input: InputStream, lexerActionExecutor: LexerActionExecutor, startIndex: int, index: int, line: int, charPos: int): ...
+    def accept(
+        self, input: InputStream, lexerActionExecutor: LexerActionExecutor, startIndex: int, index: int, line: int, charPos: int
+    ): ...
     def getReachableTarget(self, trans: Transition, t: int): ...
     def computeStartState(self, input: InputStream, p: ATNState): ...
-    def closure(self, input: InputStream, config: LexerATNConfig, configs: ATNConfigSet, currentAltReachedAcceptState: bool, speculative: bool, treatEofAsEpsilon: bool): ...
-    def getEpsilonTarget(self, input: InputStream, config: LexerATNConfig, t: Transition, configs: ATNConfigSet, speculative: bool, treatEofAsEpsilon: bool): ...
+    def closure(
+        self,
+        input: InputStream,
+        config: LexerATNConfig,
+        configs: ATNConfigSet,
+        currentAltReachedAcceptState: bool,
+        speculative: bool,
+        treatEofAsEpsilon: bool,
+    ): ...
+    def getEpsilonTarget(
+        self,
+        input: InputStream,
+        config: LexerATNConfig,
+        t: Transition,
+        configs: ATNConfigSet,
+        speculative: bool,
+        treatEofAsEpsilon: bool,
+    ): ...
     def evaluatePredicate(self, input: InputStream, ruleIndex: int, predIndex: int, speculative: bool): ...
     def captureSimState(self, settings: SimState, input: InputStream, dfaState: DFAState): ...
     def addDFAEdge(self, from_: DFAState, tk: int, to: DFAState = ..., cfgs: ATNConfigSet = ...) -> DFAState: ...

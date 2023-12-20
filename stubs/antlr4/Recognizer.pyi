@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
+
+from antlr4.error.ErrorListener import ConsoleErrorListener as ConsoleErrorListener, ProxyErrorListener as ProxyErrorListener
 from antlr4.RuleContext import RuleContext as RuleContext
 from antlr4.Token import Token as Token
-from antlr4.error.ErrorListener import ConsoleErrorListener as ConsoleErrorListener, ProxyErrorListener as ProxyErrorListener
 
 RecognitionException: Incomplete
 

@@ -1,10 +1,10 @@
-from _typeshed import Incomplete
+from enum import Enum
+
 from antlr4.atn.ATN import ATN as ATN
 from antlr4.atn.ATNConfig import ATNConfig as ATNConfig
 from antlr4.atn.ATNConfigSet import ATNConfigSet as ATNConfigSet
 from antlr4.atn.ATNState import RuleStopState as RuleStopState
 from antlr4.atn.SemanticContext import SemanticContext as SemanticContext
-from enum import Enum
 
 class PredictionMode(Enum):
     SLL: int

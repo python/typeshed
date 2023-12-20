@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+
 from antlr4.atn.Transition import Transition as Transition
 
 INITIAL_NUM_TRANSITIONS: int

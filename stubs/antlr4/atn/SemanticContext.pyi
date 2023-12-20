@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+
 from antlr4.Recognizer import Recognizer as Recognizer
 from antlr4.RuleContext import RuleContext as RuleContext
 
@@ -8,7 +9,6 @@ class SemanticContext:
     def evalPrecedence(self, parser: Recognizer, outerContext: RuleContext): ...
 
 def andContext(a: SemanticContext, b: SemanticContext): ...
-
 def orContext(a: SemanticContext, b: SemanticContext): ...
 def filterPrecedencePredicates(collection: set): ...
 
