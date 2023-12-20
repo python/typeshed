@@ -90,6 +90,7 @@ extra-standard-library = [
     "genericpath",
     "opcode",
     "pyexpat",
+    "zoneinfo",
 ]
 known-first-party = ["parse_metadata", "utils"]
 
