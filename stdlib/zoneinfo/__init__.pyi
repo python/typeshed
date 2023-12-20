@@ -1,13 +1,18 @@
 from collections.abc import Iterable
 from datetime import datetime, timedelta, tzinfo
 from typing_extensions import Self
-from zoneinfo._common import ZoneInfoNotFoundError as ZoneInfoNotFoundError, _IOBytes
-from zoneinfo._tzpath import (
+from zoneinfo._common import ZoneInfoNotFoundError as ZoneInfoNotFoundError, _IOBytes  # pyright: ignore
+from zoneinfo._tzpath import (  # pyright: ignore [reportMissingTypeStubs]
     TZPATH as TZPATH,
     InvalidTZPathWarning as InvalidTZPathWarning,
     available_timezones as available_timezones,
     reset_tzpath as reset_tzpath,
 )
+
+# the pragmas above are because pyright errors on the imports
+# when sys.version_info < (3, 9)
+# line 4 should have the specifier [reportMissingTypeStubs, reportGeneralTypeIssues]
+# but ruff is moving the comment to it's own line if it's that long
 
 __all__ = ["ZoneInfo", "reset_tzpath", "available_timezones", "TZPATH", "ZoneInfoNotFoundError", "InvalidTZPathWarning"]
 
