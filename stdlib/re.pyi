@@ -3,7 +3,6 @@ import sre_compile
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterator, Mapping
-from sre_constants import error as error
 from typing import Any, AnyStr, Generic, TypeVar, overload
 from typing_extensions import Literal, TypeAlias, final
 
@@ -46,6 +45,14 @@ if sys.version_info >= (3, 11):
     __all__ += ["NOFLAG", "RegexFlag"]
 
 _T = TypeVar("_T")
+
+class error(Exception):
+    msg: str
+    pattern: str | bytes | None
+    pos: int | None
+    lineno: int
+    colno: int
+    def __init__(self, msg: str, pattern: str | bytes | None = None, pos: int | None = None) -> None: ...
 
 @final
 class Match(Generic[AnyStr]):
