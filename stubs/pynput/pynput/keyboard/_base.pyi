@@ -121,6 +121,9 @@ class Controller:
     @property
     def shift_pressed(self) -> bool: ...
 
+    if sys.platform == "linux":
+        def __del__(self) -> None: ...
+
 class Listener(AbstractListener):
     def __init__(
         self,

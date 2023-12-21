@@ -59,6 +59,8 @@ class Controller:
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
+    if sys.platform == "linux":
+        def __del__(self) -> None: ...
 
 class Listener(AbstractListener):
     if sys.platform == "win32":
