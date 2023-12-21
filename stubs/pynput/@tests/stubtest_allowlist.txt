@@ -1,6 +1,12 @@
 # These __init__ methods have *args, **kwargs arguments on some platforms, but not others
 pynput.mouse.Controller.__init__
 
+# To reduce duplication, our stubs simplify things:
+# the runtime has several Controller classes,
+# some of which have __del__ methods and some of which don't.
+pynput.mouse.Controller.__del__
+pynput.keyboard.Controller.__del__
+
 # stubtest issues with non-`type` metaclasses, see https://github.com/python/mypy/issues/13316
 pynput.keyboard.Controller._Key
 pynput.keyboard._base.Controller._Key
