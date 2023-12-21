@@ -24,7 +24,6 @@ from builtins import OSError
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
-from resource import struct_rusage
 from subprocess import Popen
 from typing import IO, Any, AnyStr, BinaryIO, Generic, NoReturn, Protocol, TypeVar, overload, runtime_checkable
 from typing_extensions import Final, Literal, Self, TypeAlias, Unpack, final
@@ -33,6 +32,9 @@ from . import path as _path
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
+
+if sys.platform != "win32":
+    from resource import struct_rusage
 
 # This unnecessary alias is to work around various errors
 path = _path
