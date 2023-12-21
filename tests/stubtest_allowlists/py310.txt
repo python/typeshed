@@ -24,6 +24,7 @@ types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 typing._SpecialForm.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
+builtins.ellipsis  # type is not exposed anywhere
 
 # Modules that exist at runtime, but shouldn't be added to typeshed
 ctypes.test

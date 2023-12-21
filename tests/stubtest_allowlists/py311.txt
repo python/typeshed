@@ -16,6 +16,7 @@ importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined
 importlib.abc.Finder.find_module
 tkinter._VersionInfoType.__doc__
 typing.NewType.__mro_entries__
+builtins.ellipsis  # type is not exposed anywhere
 
 # Modules that exist at runtime, but shouldn't be added to typeshed
 ctypes.test
