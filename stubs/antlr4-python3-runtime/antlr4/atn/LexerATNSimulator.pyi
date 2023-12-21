@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 
-from antlr4.dfa.DFA import DFA
 from antlr4.atn.ATN import ATN as ATN
 from antlr4.atn.ATNConfig import LexerATNConfig as LexerATNConfig
 from antlr4.atn.ATNConfigSet import ATNConfigSet as ATNConfigSet, OrderedATNConfigSet as OrderedATNConfigSet
@@ -8,6 +7,7 @@ from antlr4.atn.ATNSimulator import ATNSimulator as ATNSimulator
 from antlr4.atn.ATNState import ATNState as ATNState, RuleStopState as RuleStopState
 from antlr4.atn.LexerActionExecutor import LexerActionExecutor as LexerActionExecutor
 from antlr4.atn.Transition import Transition as Transition
+from antlr4.dfa.DFA import DFA
 from antlr4.dfa.DFAState import DFAState as DFAState
 from antlr4.error.Errors import (
     LexerNoViableAltException as LexerNoViableAltException,
