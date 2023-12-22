@@ -133,6 +133,12 @@ test it automatically (or
 [running the test via Github Actions](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow#running-a-workflow)
 on your typeshed fork).
 
+As a convenience, stubtest\_stdlib.py will look for local-only allowlist files
+and use those if they are present. Only version-specific local allowlists are supported.
+An example local allowlist file is
+`tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
+the CI run of stubtest remains canonical.
+
 If you need a specific version of Python to repro a CI failure,
 [pyenv](https://github.com/pyenv/pyenv) can also help.
 

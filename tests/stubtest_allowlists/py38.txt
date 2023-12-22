@@ -181,3 +181,7 @@ tkinter.test
 tkinter\.test\..+
 unittest.test
 unittest\.test\..+
+
+# These enums derive from (str, Enum)
+pstats.SortKey.__new__
+tkinter.EventType.__new__
