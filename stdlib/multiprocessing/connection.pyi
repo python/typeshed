@@ -11,8 +11,6 @@ __all__ = ["Client", "Listener", "Pipe", "wait"]
 # https://docs.python.org/3/library/multiprocessing.html#address-formats
 _Address: TypeAlias = str | tuple[str, int]
 
-_T1 = TypeVar("_T1")
-_T2 = TypeVar("_T2")
 _SendT = TypeVar("_SendT")
 _RecvT = TypeVar("_RecvT")
 
@@ -74,8 +72,11 @@ def Client(address: _Address, family: str | None = None, authkey: bytes | None =
 # N.B. Keep this in sync with multiprocessing.context.BaseContext.Pipe.
 # _ConnectionBase is the common base class of Connection and PipeConnection
 # and can be used in cross-platform code.
+#
+# The two connections should have the same generic types but inverted (Connection[_T1, _T2], Connection[_T2, _T1]).
+# However, TypeVars scoped entirely within a return annotation is unspecified in the spec.
 if sys.platform != "win32":
-    def Pipe(duplex: bool = True) -> tuple[Connection[_T1, _T2], Connection[_T2, _T1]]: ...
+    def Pipe(duplex: bool = True) -> tuple[Connection[Any, Any], Connection[Any, Any]]: ...
 
 else:
-    def Pipe(duplex: bool = True) -> tuple[PipeConnection[_T1, _T2], PipeConnection[_T2, _T1]]: ...
+    def Pipe(duplex: bool = True) -> tuple[PipeConnection[Any, Any], PipeConnection[Any, Any]]: ...

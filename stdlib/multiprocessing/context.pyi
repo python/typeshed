@@ -23,8 +23,6 @@ else:
 
 _LockLike: TypeAlias = synchronize.Lock | synchronize.RLock
 _CT = TypeVar("_CT", bound=_CData)
-_T1 = TypeVar("_T1")
-_T2 = TypeVar("_T2")
 
 class ProcessError(Exception): ...
 class BufferTooShort(ProcessError): ...
@@ -53,10 +51,13 @@ class BaseContext:
     # N.B. Keep this in sync with multiprocessing.connection.Pipe.
     # _ConnectionBase is the common base class of Connection and PipeConnection
     # and can be used in cross-platform code.
+    #
+    # The two connections should have the same generic types but inverted (Connection[_T1, _T2], Connection[_T2, _T1]).
+    # However, TypeVars scoped entirely within a return annotation is unspecified in the spec.
     if sys.platform != "win32":
-        def Pipe(self, duplex: bool = True) -> tuple[Connection[_T1, _T2], Connection[_T1, _T2]]: ...
+        def Pipe(self, duplex: bool = True) -> tuple[Connection[Any, Any], Connection[Any, Any]]: ...
     else:
-        def Pipe(self, duplex: bool = True) -> tuple[PipeConnection[_T1, _T2], PipeConnection[_T1, _T2]]: ...
+        def Pipe(self, duplex: bool = True) -> tuple[PipeConnection[Any, Any], PipeConnection[Any, Any]]: ...
 
     def Barrier(
         self, parties: int, action: Callable[..., object] | None = None, timeout: float | None = None
