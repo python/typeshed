@@ -1,4 +1,3 @@
-
 from _typeshed import Incomplete
 from enum import IntEnum
 
