@@ -34,7 +34,12 @@ class CommonToken(Token):
     line: Incomplete
     column: Incomplete
     def __init__(
-        self, source: tuple[Incomplete, Incomplete] = ..., type: int | None = None, channel: int = ..., start: int = ..., stop: int = ...
+        self,
+        source: tuple[Incomplete, Incomplete] = ...,
+        type: int | None = None,
+        channel: int = ...,
+        start: int = ...,
+        stop: int = ...,
     ) -> None: ...
     def clone(self) -> Incomplete: ...
     @property

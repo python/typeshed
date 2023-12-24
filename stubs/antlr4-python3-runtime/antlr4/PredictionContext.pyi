@@ -81,5 +81,7 @@ def getCachedPredictionContext(
     context: PredictionContext, contextCache: PredictionContextCache, visited: dict[PredictionContext, PredictionContext]
 ) -> Incomplete: ...
 def getAllContextNodes(
-    context: PredictionContext, nodes: list[Incomplete] | None = None, visited: dict[PredictionContext, PredictionContext] | None = None
+    context: PredictionContext,
+    nodes: list[Incomplete] | None = None,
+    visited: dict[PredictionContext, PredictionContext] | None = None,
 ) -> Incomplete: ...

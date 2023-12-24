@@ -30,7 +30,11 @@ class RecognitionException(Exception):
     offendingToken: Incomplete
     offendingState: int
     def __init__(
-        self, message: str | None = None, recognizer: Recognizer | None = None, input: InputStream | None = None, ctx: ParserRulecontext | None = None
+        self,
+        message: str | None = None,
+        recognizer: Recognizer | None = None,
+        input: InputStream | None = None,
+        ctx: ParserRulecontext | None = None,
     ) -> None: ...
     def getExpectedTokens(self) -> Incomplete: ...
 
