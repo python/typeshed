@@ -14,11 +14,11 @@ class ATNConfig:
     precedenceFilterSuppressed: Incomplete
     def __init__(
         self,
-        state: ATNState = ...,
-        alt: int = ...,
-        context: PredictionContext = ...,
-        semantic: SemanticContext = ...,
-        config: ATNConfig = ...,
+        state: ATNState | None = None,
+        alt: int | None = None,
+        context: PredictionContext | None = None,
+        semantic: SemanticContext | None = None,
+        config: ATNConfig | None = None,
     ) -> None: ...
     def __eq__(self, other: Incomplete) -> Incomplete: ...
     def __hash__(self) -> Incomplete: ...
@@ -31,11 +31,11 @@ class LexerATNConfig(ATNConfig):
     def __init__(
         self,
         state: ATNState,
-        alt: int = ...,
-        context: PredictionContext = ...,
+        alt: int | None = None,
+        context: PredictionContext | None = None,
         semantic: SemanticContext = ...,
-        lexerActionExecutor: LexerActionExecutor = ...,
-        config: LexerATNConfig = ...,
+        lexerActionExecutor: LexerActionExecutor | None = None,
+        config: LexerATNConfig | None = None,
     ) -> None: ...
     def __hash__(self) -> Incomplete: ...
     def __eq__(self, other: Incomplete) -> Incomplete: ...

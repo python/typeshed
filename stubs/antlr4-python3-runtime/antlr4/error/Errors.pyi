@@ -30,7 +30,7 @@ class RecognitionException(Exception):
     offendingToken: Incomplete
     offendingState: int
     def __init__(
-        self, message: str = ..., recognizer: Recognizer = ..., input: InputStream = ..., ctx: ParserRulecontext = ...
+        self, message: str | None = None, recognizer: Recognizer | None = None, input: InputStream | None = None, ctx: ParserRulecontext | None = None
     ) -> None: ...
     def getExpectedTokens(self) -> Incomplete: ...
 
@@ -47,11 +47,11 @@ class NoViableAltException(RecognitionException):
     def __init__(
         self,
         recognizer: Parser,
-        input: TokenStream = ...,
-        startToken: Token = ...,
-        offendingToken: Token = ...,
-        deadEndConfigs: ATNConfigSet = ...,
-        ctx: ParserRuleContext = ...,
+        input: TokenStream | None = None,
+        startToken: Token | None = None,
+        offendingToken: Token | None = None,
+        deadEndConfigs: ATNConfigSet | None = None,
+        ctx: ParserRuleContext | None = None,
     ) -> None: ...
 
 class InputMismatchException(RecognitionException):
@@ -63,7 +63,7 @@ class FailedPredicateException(RecognitionException):
     predicateIndex: Incomplete
     predicate: Incomplete
     offendingToken: Incomplete
-    def __init__(self, recognizer: Parser, predicate: str = ..., message: str = ...) -> None: ...
+    def __init__(self, recognizer: Parser, predicate: str | None = None, message: str | None = None) -> None: ...
     def formatMessage(self, predicate: str, message: str) -> Incomplete: ...
 
 class ParseCancellationException(CancellationException): ...

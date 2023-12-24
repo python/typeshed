@@ -5,6 +5,7 @@ from antlr4.Token import Token as Token
 class InputStream:
     name: str
     strdata: Incomplete
+    data: Incomplete
     def __init__(self, data: str) -> None: ...
     @property
     def index(self) -> Incomplete: ...
