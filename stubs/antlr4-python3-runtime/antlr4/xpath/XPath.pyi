@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from io import StringIO as StringIO
+from io import StringIO
 
 from antlr4 import (
     DFA as DFA,

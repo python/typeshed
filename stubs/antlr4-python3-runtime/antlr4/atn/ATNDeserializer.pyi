@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from io import StringIO as StringIO
+from io import StringIO
 
 from antlr4.atn.ATN import ATN as ATN
 from antlr4.atn.ATNDeserializationOptions import ATNDeserializationOptions as ATNDeserializationOptions
