@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from io import StringIO
 from typing import TextIO
 
 from antlr4 import *
