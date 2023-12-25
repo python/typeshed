@@ -1,5 +1,3 @@
-from typing import Optional
-
 from .CLI import CliFile
 from .cli_license import CliLicense
 
@@ -9,7 +7,7 @@ class LicenseTools:
     NON_USED_DUAL_LICENSE_TAG: str
     MANUAL_CHECK_NEEDED_TAG: str
     @staticmethod
-    def get_global_license(clifile: CliFile) -> Optional[CliLicense]: ...
+    def get_global_license(clifile: CliFile) -> CliLicense | None: ...
     @staticmethod
     def get_non_global_licenses(clifile: CliFile) -> list[CliLicense]: ...
     @staticmethod
