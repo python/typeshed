@@ -2,6 +2,7 @@ import asyncio
 import typing
 from concurrent import futures
 from types import TracebackType
+from typing_extensions import TypeAlias
 
 from grpc import (
     CallCredentials,
@@ -42,7 +43,7 @@ class AioRpcError(RpcError):
 
 # Create Client:
 
-ClientInterceptor = _PartialStubMustCastOrIgnore
+ClientInterceptor: TypeAlias = _PartialStubMustCastOrIgnore
 
 def insecure_channel(
     target: str,
@@ -74,8 +75,8 @@ def server(
 # XXX: The docs suggest these type signatures for aio, but not for non-async,
 # and it's unclear why;
 # https://grpc.github.io/grpc/python/grpc_asyncio.html#grpc.aio.Channel.stream_stream
-RequestSerializer = typing.Callable[[typing.Any], bytes]
-ResponseDeserializer = typing.Callable[[bytes], typing.Any]
+RequestSerializer: TypeAlias = typing.Callable[[typing.Any], bytes]
+ResponseDeserializer: TypeAlias = typing.Callable[[bytes], typing.Any]
 
 class Channel:
     async def close(self, grace: float | None) -> None: ...
@@ -121,8 +122,8 @@ class Server:
 
 # Client-Side Context:
 
-DoneCallbackType = typing.Callable[[typing.Any], None]
-EOFType = object
+DoneCallbackType: TypeAlias = typing.Callable[[typing.Any], None]
+EOFType: TypeAlias = object
 
 class RpcContext:
     def cancelled(self) -> bool: ...
@@ -138,19 +139,19 @@ class Call(RpcContext):
     async def details(self) -> str: ...
     async def wait_for_connection(self) -> None: ...
 
-class UnaryUnaryCall(typing.Generic[TRequest, TResponse], Call):
+class UnaryUnaryCall(Call, typing.Generic[TRequest, TResponse]):
     def __await__(self) -> typing.Generator[None, None, TResponse]: ...
 
-class UnaryStreamCall(typing.Generic[TRequest, TResponse], Call):
+class UnaryStreamCall(Call, typing.Generic[TRequest, TResponse]):
     def __aiter__(self) -> typing.AsyncIterator[TResponse]: ...
     async def read(self) -> EOFType | TResponse: ...
 
-class StreamUnaryCall(typing.Generic[TRequest, TResponse], Call):
+class StreamUnaryCall(Call, typing.Generic[TRequest, TResponse]):
     async def write(self, request: TRequest) -> None: ...
     async def done_writing(self) -> None: ...
     def __await__(self) -> typing.Generator[None, None, TResponse]: ...
 
-class StreamStreamCall(typing.Generic[TRequest, TResponse], Call):
+class StreamStreamCall(Call, typing.Generic[TRequest, TResponse]):
     def __aiter__(self) -> typing.AsyncIterator[TResponse]: ...
     async def read(self) -> EOFType | TResponse: ...
     async def write(self, request: TRequest) -> None: ...
@@ -351,10 +352,10 @@ class StreamStreamMultiCallable(typing.Generic[TRequest, TResponse]):
 
 # Metadata:
 
-MetadataKey = str
-MetadataValue = str | bytes
-MetadatumType = tuple[MetadataKey, MetadataValue]
-MetadataType = Metadata | typing.Sequence[MetadatumType]
+MetadataKey: TypeAlias = str
+MetadataValue: TypeAlias = str | bytes
+MetadatumType: TypeAlias = tuple[MetadataKey, MetadataValue]
+MetadataType: TypeAlias = Metadata | typing.Sequence[MetadatumType]
 
 class Metadata(typing.Mapping):
     def __init__(self, *args: tuple[MetadataKey, MetadataValue]) -> None: ...

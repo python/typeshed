@@ -36,7 +36,7 @@ class LocalConnectionType(enum.Enum):
 # - https://github.com/grpc/grpc/blob/0e1984effd7e977ef18f1ad7fde7d10a2a153e1d/src/python/grpcio_tests/tests/unit/_metadata_test.py#L71
 # - https://github.com/grpc/grpc/blob/0e1984effd7e977ef18f1ad7fde7d10a2a153e1d/src/python/grpcio_tests/tests/unit/_metadata_test.py#L58
 # - https://github.com/grpc/grpc/blob/0e1984effd7e977ef18f1ad7fde7d10a2a153e1d/src/python/grpcio_tests/tests/unit/_invocation_defects_test.py#L66
-Metadata = tuple[tuple[str, str | bytes], ...]
+Metadata: TypeAlias = tuple[tuple[str, str | bytes], ...]
 
 TRequest = typing.TypeVar("TRequest")
 TResponse = typing.TypeVar("TResponse")
@@ -91,7 +91,7 @@ def server(
 
 # Create Server Credentials:
 
-CertificateChainPair = tuple[bytes, bytes]
+CertificateChainPair: TypeAlias = tuple[bytes, bytes]
 
 def ssl_server_credentials(
     private_key_certificate_chain_pairs: list[CertificateChainPair],
@@ -120,12 +120,12 @@ def xds_server_credentials(fallback_credentials: ServerCredentials) -> ServerCre
 #    def FloobDoob(self, request, context):
 #       return response
 #
-Behaviour = typing.Callable
+Behaviour: TypeAlias = typing.Callable
 
 # XXX: These are probably the SerializeToTring/FromString pb2 methods, but
 # this needs further investigation
-RequestDeserializer = typing.Callable
-ResponseSerializer = typing.Callable
+RequestDeserialize: TypeAlias = typing.Callable
+ResponseSerialize: TypeAlias = typing.Callable
 
 def unary_unary_rpc_method_handler(
     behavior: Behaviour,
@@ -196,8 +196,8 @@ class StatusCode(enum.Enum):
 
 # XXX: These are probably the SerializeToTring/FromString pb2 methods, but
 # this needs further investigation
-RequestSerializer = typing.Callable
-ResponseDeserializer = typing.Callable
+RequestSerializer: TypeAlias = typing.Callable
+ResponseDeserializer: TypeAlias = typing.Callable
 
 class Channel:
     def close(self) -> None: ...
@@ -342,7 +342,7 @@ class UnaryUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
         request: TRequest,
     ) -> CallFuture[TResponse]: ...
 
-class CallIterator(typing.Generic[TResponse], Call):
+class CallIterator(Call, typing.Generic[TResponse]):
     def __iter__(self) -> typing.Iterator[TResponse]: ...
 
 class UnaryStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
