@@ -39,8 +39,8 @@ class LocalConnectionType(enum.Enum):
 # - https://github.com/grpc/grpc/blob/0e1984effd7e977ef18f1ad7fde7d10a2a153e1d/src/python/grpcio_tests/tests/unit/_invocation_defects_test.py#L66
 Metadata: TypeAlias = tuple[tuple[str, str | bytes], ...]
 
-TRequest = typing.TypeVar("TRequest")
-TResponse = typing.TypeVar("TResponse")
+_TRequest = typing.TypeVar("_TRequest")
+_TResponse = typing.TypeVar("_TResponse")
 
 # XXX: These are probably the SerializeToTring/FromString pb2 methods, but
 # this needs further investigation
@@ -61,15 +61,15 @@ class ResponseDeserializer(typing.Protocol):
 class FutureTimeoutError(Exception): ...
 class FutureCancelledError(Exception): ...
 
-TFutureValue = typing.TypeVar("TFutureValue")
+_TFutureValue = typing.TypeVar("_TFutureValue")
 
-class Future(typing.Generic[TFutureValue]):
-    def add_done_callback(self, fn: Callable[[Future[TFutureValue]], None]) -> None: ...
+class Future(typing.Generic[_TFutureValue]):
+    def add_done_callback(self, fn: Callable[[Future[_TFutureValue]], None]) -> None: ...
     def cancel(self) -> bool: ...
     def cancelled(self) -> bool: ...
     def done(self) -> bool: ...
     def exception(self) -> Exception | None: ...
-    def result(self, timeout: float | None = ...) -> TFutureValue: ...
+    def result(self, timeout: float | None = ...) -> _TFutureValue: ...
     def running(self) -> bool: ...
 
     # FIXME: unsure of the exact return type here. Is it a traceback.StackSummary?
@@ -83,10 +83,10 @@ def secure_channel(
 ) -> Channel: ...
 
 Interceptor: TypeAlias = (
-    UnaryUnaryClientInterceptor[TRequest, TResponse]
-    | UnaryStreamClientInterceptor[TRequest, TResponse]
-    | StreamUnaryClientInterceptor[TRequest, TResponse]
-    | StreamStreamClientInterceptor[TRequest, TResponse]
+    UnaryUnaryClientInterceptor[_TRequest, _TResponse]
+    | UnaryStreamClientInterceptor[_TRequest, _TResponse]
+    | StreamUnaryClientInterceptor[_TRequest, _TResponse]
+    | StreamStreamClientInterceptor[_TRequest, _TResponse]
 )
 
 def intercept_channel(channel: Channel, *interceptors: Interceptor) -> Channel: ...
@@ -341,9 +341,9 @@ class ClientCallDetails:
 # response message of the RPC. Should the event terminate with non-OK
 # status, the returned Call-Future’s exception value will be an RpcError.
 #
-class CallFuture(Call, Future[TResponse]): ...
+class CallFuture(Call, Future[_TResponse]): ...
 
-class UnaryUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
+class UnaryUnaryClientInterceptor(typing.Generic[_TRequest, _TResponse]):
     def intercept_unary_unary(
         self,
         # FIXME: decode these cryptic runes to confirm the typing mystery of
@@ -361,37 +361,37 @@ class UnaryUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
         #     status, the returned Call-Future’s exception value will be an
         #     RpcError.
         #
-        continuation: Callable[[ClientCallDetails, TRequest], CallFuture[TResponse]],
+        continuation: Callable[[ClientCallDetails, _TRequest], CallFuture[_TResponse]],
         client_call_details: ClientCallDetails,
-        request: TRequest,
-    ) -> CallFuture[TResponse]: ...
+        request: _TRequest,
+    ) -> CallFuture[_TResponse]: ...
 
-class CallIterator(Call, typing.Generic[TResponse]):
-    def __iter__(self) -> Iterator[TResponse]: ...
+class CallIterator(Call, typing.Generic[_TResponse]):
+    def __iter__(self) -> Iterator[_TResponse]: ...
 
-class UnaryStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
+class UnaryStreamClientInterceptor(typing.Generic[_TRequest, _TResponse]):
     def intercept_unary_stream(
         self,
-        continuation: Callable[[ClientCallDetails, TRequest], CallIterator[TResponse]],
+        continuation: Callable[[ClientCallDetails, _TRequest], CallIterator[_TResponse]],
         client_call_details: ClientCallDetails,
-        request: TRequest,
-    ) -> CallIterator[TResponse]: ...
+        request: _TRequest,
+    ) -> CallIterator[_TResponse]: ...
 
-class StreamUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
+class StreamUnaryClientInterceptor(typing.Generic[_TRequest, _TResponse]):
     def intercept_stream_unary(
         self,
-        continuation: Callable[[ClientCallDetails, TRequest], CallFuture[TResponse]],
+        continuation: Callable[[ClientCallDetails, _TRequest], CallFuture[_TResponse]],
         client_call_details: ClientCallDetails,
-        request_iterator: Iterator[TRequest],
-    ) -> CallFuture[TResponse]: ...
+        request_iterator: Iterator[_TRequest],
+    ) -> CallFuture[_TResponse]: ...
 
-class StreamStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
+class StreamStreamClientInterceptor(typing.Generic[_TRequest, _TResponse]):
     def intercept_stream_stream(
         self,
-        continuation: Callable[[ClientCallDetails, TRequest], CallIterator[TResponse]],
+        continuation: Callable[[ClientCallDetails, _TRequest], CallIterator[_TResponse]],
         client_call_details: ClientCallDetails,
-        request_iterator: Iterator[TRequest],
-    ) -> CallIterator[TResponse]: ...
+        request_iterator: Iterator[_TRequest],
+    ) -> CallIterator[_TResponse]: ...
 
 # Service-Side Context:
 
@@ -419,7 +419,7 @@ class ServicerContext(RpcContext):
 
 # Service-Side Handler:
 
-class RpcMethodHandler(typing.Generic[TRequest, TResponse]):
+class RpcMethodHandler(typing.Generic[_TRequest, _TResponse]):
     request_streaming: bool
     response_streaming: bool
 
@@ -429,59 +429,59 @@ class RpcMethodHandler(typing.Generic[TRequest, TResponse]):
     # XXX: not clear from docs whether this is optional or not
     response_serializer: ResponseSerializer | None
 
-    unary_unary: Callable[[TRequest, ServicerContext], TResponse] | None
+    unary_unary: Callable[[_TRequest, ServicerContext], _TResponse] | None
 
-    unary_stream: Callable[[TRequest, ServicerContext], Iterator[TResponse]] | None
+    unary_stream: Callable[[_TRequest, ServicerContext], Iterator[_TResponse]] | None
 
-    stream_unary: Callable[[Iterator[TRequest], ServicerContext], TResponse] | None
+    stream_unary: Callable[[Iterator[_TRequest], ServicerContext], _TResponse] | None
 
-    stream_stream: Callable[[Iterator[TRequest], ServicerContext], Iterator[TResponse]] | None
+    stream_stream: Callable[[Iterator[_TRequest], ServicerContext], Iterator[_TResponse]] | None
 
 class HandlerCallDetails:
     method: str
     invocation_metadata: Metadata
 
-class GenericRpcHandler(typing.Generic[TRequest, TResponse]):
-    def service(self, handler_call_details: HandlerCallDetails) -> RpcMethodHandler[TRequest, TResponse] | None: ...
+class GenericRpcHandler(typing.Generic[_TRequest, _TResponse]):
+    def service(self, handler_call_details: HandlerCallDetails) -> RpcMethodHandler[_TRequest, _TResponse] | None: ...
 
-class ServiceRpcHandler(GenericRpcHandler[TRequest, TResponse]):
+class ServiceRpcHandler(GenericRpcHandler[_TRequest, _TResponse]):
     def service_name(self) -> str: ...
 
 # Service-Side Interceptor:
 
-class ServerInterceptor(typing.Generic[TRequest, TResponse]):
+class ServerInterceptor(typing.Generic[_TRequest, _TResponse]):
     def intercept_service(
         self,
-        continuation: Callable[[HandlerCallDetails], RpcMethodHandler[TRequest, TResponse] | None],
+        continuation: Callable[[HandlerCallDetails], RpcMethodHandler[_TRequest, _TResponse] | None],
         handler_call_details: HandlerCallDetails,
-    ) -> RpcMethodHandler[TRequest, TResponse] | None: ...
+    ) -> RpcMethodHandler[_TRequest, _TResponse] | None: ...
 
 # Multi-Callable Interfaces:
 
-class UnaryUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
+class UnaryUnaryMultiCallable(typing.Generic[_TRequest, _TResponse]):
     def __call__(
         self,
-        request: TRequest,
+        request: _TRequest,
         timeout: float | None = ...,
         metadata: Metadata | None = ...,
         credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = ...,
         compression: Compression | None = ...,
-    ) -> TResponse: ...
+    ) -> _TResponse: ...
     def future(
         self,
-        request: TRequest,
+        request: _TRequest,
         timeout: float | None = ...,
         metadata: Metadata | None = ...,
         credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = ...,
         compression: Compression | None = ...,
-    ) -> CallFuture[TResponse]: ...
+    ) -> CallFuture[_TResponse]: ...
     def with_call(
         self,
-        request: TRequest,
+        request: _TRequest,
         timeout: float | None = ...,
         metadata: Metadata | None = ...,
         credentials: CallCredentials | None = ...,
@@ -490,44 +490,44 @@ class UnaryUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
         compression: Compression | None = ...,
         # FIXME: Return value is documented as "The response value for the RPC and a Call value for the RPC";
         # this is slightly unclear so this return type is a best-effort guess.
-    ) -> tuple[TResponse, Call]: ...
+    ) -> tuple[_TResponse, Call]: ...
 
-class UnaryStreamMultiCallable(typing.Generic[TRequest, TResponse]):
+class UnaryStreamMultiCallable(typing.Generic[_TRequest, _TResponse]):
     def __call__(
         self,
-        request: TRequest,
+        request: _TRequest,
         timeout: float | None = ...,
         metadata: Metadata | None = ...,
         credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = ...,
         compression: Compression | None = ...,
-    ) -> CallIterator[TResponse]: ...
+    ) -> CallIterator[_TResponse]: ...
 
-class StreamUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
+class StreamUnaryMultiCallable(typing.Generic[_TRequest, _TResponse]):
     def __call__(
         self,
-        request_iterator: Iterator[TRequest],
+        request_iterator: Iterator[_TRequest],
         timeout: float | None = ...,
         metadata: Metadata | None = ...,
         credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = ...,
         compression: Compression | None = ...,
-    ) -> TResponse: ...
+    ) -> _TResponse: ...
     def future(
         self,
-        request_iterator: Iterator[TRequest],
+        request_iterator: Iterator[_TRequest],
         timeout: float | None = ...,
         metadata: Metadata | None = ...,
         credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = ...,
         compression: Compression | None = ...,
-    ) -> CallFuture[TResponse]: ...
+    ) -> CallFuture[_TResponse]: ...
     def with_call(
         self,
-        request_iterator: Iterator[TRequest],
+        request_iterator: Iterator[_TRequest],
         timeout: float | None = ...,
         metadata: Metadata | None = ...,
         credentials: CallCredentials | None = ...,
@@ -536,19 +536,19 @@ class StreamUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
         compression: Compression | None = ...,
         # FIXME: Return value is documented as "The response value for the RPC and a Call value for the RPC";
         # this is slightly unclear so this return type is a best-effort guess.
-    ) -> tuple[TResponse, Call]: ...
+    ) -> tuple[_TResponse, Call]: ...
 
-class StreamStreamMultiCallable(typing.Generic[TRequest, TResponse]):
+class StreamStreamMultiCallable(typing.Generic[_TRequest, _TResponse]):
     def __call__(
         self,
-        request_iterator: Iterator[TRequest],
+        request_iterator: Iterator[_TRequest],
         timeout: float | None = ...,
         metadata: Metadata | None = ...,
         credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = ...,
         compression: Compression | None = ...,
-    ) -> CallIterator[TResponse]: ...
+    ) -> CallIterator[_TResponse]: ...
 
 # Runtime Protobuf Parsing:
 
