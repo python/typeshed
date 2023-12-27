@@ -1,3 +1,4 @@
+import abc
 import enum
 import threading
 import typing
@@ -63,7 +64,7 @@ class FutureCancelledError(Exception): ...
 
 _TFutureValue = typing.TypeVar("_TFutureValue")
 
-class Future(typing.Generic[_TFutureValue]):
+class Future(abc.ABC, typing.Generic[_TFutureValue]):
     def add_done_callback(self, fn: Callable[[Future[_TFutureValue]], None]) -> None: ...
     def cancel(self) -> bool: ...
     def cancelled(self) -> bool: ...
@@ -196,7 +197,7 @@ class ChannelConnectivity(enum.Enum):
 
 # gRPC Status Code:
 
-class Status:
+class Status(abc.ABC):
     code: StatusCode
 
     # XXX: misnamed property, does not align with status.proto, where it is called 'message':
@@ -226,7 +227,7 @@ class StatusCode(enum.Enum):
 
 # Channel Object:
 
-class Channel:
+class Channel(abc.ABC):
     def close(self) -> None: ...
     def stream_stream(
         self, method: str, request_serializer: RequestSerializer | None, response_deserializer: ResponseDeserializer | None
@@ -249,7 +250,7 @@ class Channel:
 
 # Server Object:
 
-class Server:
+class Server(abc.ABC):
     def add_generic_rpc_handlers(self, generic_rpc_handlers: Iterable[GenericRpcHandler[typing.Any, typing.Any]]) -> None: ...
 
     # Returns an integer port on which server will accept RPC requests.
@@ -274,14 +275,14 @@ class ChannelCredentials: ...
 # This class has no supported interface
 class CallCredentials: ...
 
-class AuthMetadataContext:
+class AuthMetadataContext(abc.ABC):
     service_url: str
     method_name: str
 
-class AuthMetadataPluginCallback:
+class AuthMetadataPluginCallback(abc.ABC):
     def __call__(self, metadata: Metadata, error: Exception | None) -> None: ...
 
-class AuthMetadataPlugin:
+class AuthMetadataPlugin(abc.ABC):
     def __call__(self, context: AuthMetadataContext, callback: AuthMetadataPluginCallback) -> None: ...
 
 # This class has no supported interface
@@ -310,7 +311,7 @@ class RpcError(Exception):
 
 # Shared Context:
 
-class RpcContext:
+class RpcContext(abc.ABC):
     def add_callback(self, callback: Callable[[], None]) -> bool: ...
     def cancel(self) -> bool: ...
     def is_active(self) -> bool: ...
@@ -318,7 +319,7 @@ class RpcContext:
 
 # Client-Side Context:
 
-class Call(RpcContext):
+class Call(RpcContext, metaclass=abc.ABCMeta):
     def code(self) -> StatusCode: ...
 
     # misnamed property, does not align with status.proto, where it is called 'message':
@@ -328,7 +329,7 @@ class Call(RpcContext):
 
 # Client-Side Interceptor:
 
-class ClientCallDetails:
+class ClientCallDetails(abc.ABC):
     method: str
     timeout: float | None
     metadata: Metadata | None
@@ -346,7 +347,7 @@ class ClientCallDetails:
 #
 class CallFuture(Call, Future[_TResponse]): ...
 
-class UnaryUnaryClientInterceptor(typing.Generic[_TRequest, _TResponse]):
+class UnaryUnaryClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]):
     def intercept_unary_unary(
         self,
         # FIXME: decode these cryptic runes to confirm the typing mystery of
@@ -372,7 +373,7 @@ class UnaryUnaryClientInterceptor(typing.Generic[_TRequest, _TResponse]):
 class CallIterator(Call, typing.Generic[_TResponse]):
     def __iter__(self) -> Iterator[_TResponse]: ...
 
-class UnaryStreamClientInterceptor(typing.Generic[_TRequest, _TResponse]):
+class UnaryStreamClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]):
     def intercept_unary_stream(
         self,
         continuation: Callable[[ClientCallDetails, _TRequest], CallIterator[_TResponse]],
@@ -380,7 +381,7 @@ class UnaryStreamClientInterceptor(typing.Generic[_TRequest, _TResponse]):
         request: _TRequest,
     ) -> CallIterator[_TResponse]: ...
 
-class StreamUnaryClientInterceptor(typing.Generic[_TRequest, _TResponse]):
+class StreamUnaryClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]):
     def intercept_stream_unary(
         self,
         continuation: Callable[[ClientCallDetails, _TRequest], CallFuture[_TResponse]],
@@ -388,7 +389,7 @@ class StreamUnaryClientInterceptor(typing.Generic[_TRequest, _TResponse]):
         request_iterator: Iterator[_TRequest],
     ) -> CallFuture[_TResponse]: ...
 
-class StreamStreamClientInterceptor(typing.Generic[_TRequest, _TResponse]):
+class StreamStreamClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]):
     def intercept_stream_stream(
         self,
         continuation: Callable[[ClientCallDetails, _TRequest], CallIterator[_TResponse]],
@@ -398,7 +399,7 @@ class StreamStreamClientInterceptor(typing.Generic[_TRequest, _TResponse]):
 
 # Service-Side Context:
 
-class ServicerContext(RpcContext):
+class ServicerContext(RpcContext, metaclass=abc.ABCMeta):
     # misnamed parameter 'details', does not align with status.proto, where it is called 'message':
     def abort(self, code: StatusCode, details: str) -> typing.NoReturn: ...
     def abort_with_status(self, status: Status) -> typing.NoReturn: ...
@@ -422,7 +423,7 @@ class ServicerContext(RpcContext):
 
 # Service-Side Handler:
 
-class RpcMethodHandler(typing.Generic[_TRequest, _TResponse]):
+class RpcMethodHandler(abc.ABC, typing.Generic[_TRequest, _TResponse]):
     request_streaming: bool
     response_streaming: bool
 
@@ -440,19 +441,19 @@ class RpcMethodHandler(typing.Generic[_TRequest, _TResponse]):
 
     stream_stream: Callable[[Iterator[_TRequest], ServicerContext], Iterator[_TResponse]] | None
 
-class HandlerCallDetails:
+class HandlerCallDetails(abc.ABC):
     method: str
     invocation_metadata: Metadata
 
-class GenericRpcHandler(typing.Generic[_TRequest, _TResponse]):
+class GenericRpcHandler(abc.ABC, typing.Generic[_TRequest, _TResponse]):
     def service(self, handler_call_details: HandlerCallDetails) -> RpcMethodHandler[_TRequest, _TResponse] | None: ...
 
-class ServiceRpcHandler(GenericRpcHandler[_TRequest, _TResponse]):
+class ServiceRpcHandler(GenericRpcHandler[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     def service_name(self) -> str: ...
 
 # Service-Side Interceptor:
 
-class ServerInterceptor(typing.Generic[_TRequest, _TResponse]):
+class ServerInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]):
     def intercept_service(
         self,
         continuation: Callable[[HandlerCallDetails], RpcMethodHandler[_TRequest, _TResponse] | None],
@@ -461,7 +462,7 @@ class ServerInterceptor(typing.Generic[_TRequest, _TResponse]):
 
 # Multi-Callable Interfaces:
 
-class UnaryUnaryMultiCallable(typing.Generic[_TRequest, _TResponse]):
+class UnaryUnaryMultiCallable(abc.ABC, typing.Generic[_TRequest, _TResponse]):
     def __call__(
         self,
         request: _TRequest,
@@ -495,7 +496,7 @@ class UnaryUnaryMultiCallable(typing.Generic[_TRequest, _TResponse]):
         # this is slightly unclear so this return type is a best-effort guess.
     ) -> tuple[_TResponse, Call]: ...
 
-class UnaryStreamMultiCallable(typing.Generic[_TRequest, _TResponse]):
+class UnaryStreamMultiCallable(abc.ABC, typing.Generic[_TRequest, _TResponse]):
     def __call__(
         self,
         request: _TRequest,
@@ -507,7 +508,7 @@ class UnaryStreamMultiCallable(typing.Generic[_TRequest, _TResponse]):
         compression: Compression | None = ...,
     ) -> CallIterator[_TResponse]: ...
 
-class StreamUnaryMultiCallable(typing.Generic[_TRequest, _TResponse]):
+class StreamUnaryMultiCallable(abc.ABC, typing.Generic[_TRequest, _TResponse]):
     def __call__(
         self,
         request_iterator: Iterator[_TRequest],
@@ -541,7 +542,7 @@ class StreamUnaryMultiCallable(typing.Generic[_TRequest, _TResponse]):
         # this is slightly unclear so this return type is a best-effort guess.
     ) -> tuple[_TResponse, Call]: ...
 
-class StreamStreamMultiCallable(typing.Generic[_TRequest, _TResponse]):
+class StreamStreamMultiCallable(abc.ABC, typing.Generic[_TRequest, _TResponse]):
     def __call__(
         self,
         request_iterator: Iterator[_TRequest],
