@@ -8,8 +8,8 @@ from grpc_reflection.v1alpha._base import BaseReflectionServicer
 
 SERVICE_NAME: str
 
-AnyServer = typing.Union[grpc.Server, aio.Server]
-AnyServicerContext = typing.Union[grpc.ServicerContext, aio.ServicerContext]
+AnyServer = grpc.Server | aio.Server
+AnyServicerContext = grpc.ServicerContext | aio.ServicerContext
 
 class ReflectionServicer(BaseReflectionServicer):
     def ServerReflectionInfo(
@@ -17,5 +17,5 @@ class ReflectionServicer(BaseReflectionServicer):
     ) -> None: ...
 
 def enable_server_reflection(
-    service_names: typing.Iterable[str], server: AnyServer, pool: typing.Optional[descriptor_pool.DescriptorPool] = ...
+    service_names: typing.Iterable[str], server: AnyServer, pool: descriptor_pool.DescriptorPool | None = ...
 ) -> None: ...

@@ -31,8 +31,8 @@ class AioRpcError(RpcError):
         code: StatusCode,
         initial_metadata: Metadata,
         trailing_metadata: Metadata,
-        details: typing.Optional[str],
-        debug_error_string: typing.Optional[str],
+        details: str | None,
+        debug_error_string: str | None,
     ) -> None: ...
 
     # FIXME: confirm if these are present in the parent type. The remaining
@@ -46,27 +46,27 @@ ClientInterceptor = _PartialStubMustCastOrIgnore
 
 def insecure_channel(
     target: str,
-    options: typing.Optional[_Options] = None,
-    compression: typing.Optional[Compression] = None,
-    interceptors: typing.Optional[typing.Sequence[ClientInterceptor]] = None,
+    options: _Options | None = None,
+    compression: Compression | None = None,
+    interceptors: typing.Sequence[ClientInterceptor] | None = None,
 ) -> Channel: ...
 def secure_channel(
     target: str,
     credentials: ChannelCredentials,
-    options: typing.Optional[_Options] = None,
-    compression: typing.Optional[Compression] = None,
-    interceptors: typing.Optional[typing.Sequence[ClientInterceptor]] = None,
+    options: _Options | None = None,
+    compression: Compression | None = None,
+    interceptors: typing.Sequence[ClientInterceptor] | None = None,
 ) -> Channel: ...
 
 """Create Server"""
 
 def server(
-    migration_thread_pool: typing.Optional[futures.Executor] = None,
-    handlers: typing.Optional[typing.Sequence[GenericRpcHandler]] = None,
-    interceptors: typing.Optional[typing.Sequence[ServerInterceptor]] = None,
-    options: typing.Optional[_Options] = None,
-    maximum_concurrent_rpcs: typing.Optional[int] = None,
-    compression: typing.Optional[Compression] = None,
+    migration_thread_pool: futures.Executor | None = None,
+    handlers: typing.Sequence[GenericRpcHandler] | None = None,
+    interceptors: typing.Sequence[ServerInterceptor] | None = None,
+    options: _Options | None = None,
+    maximum_concurrent_rpcs: int | None = None,
+    compression: Compression | None = None,
 ) -> Server: ...
 
 """Channel Object"""
@@ -78,40 +78,25 @@ RequestSerializer = typing.Callable[[typing.Any], bytes]
 ResponseDeserializer = typing.Callable[[bytes], typing.Any]
 
 class Channel:
-    async def close(self, grace: typing.Optional[float]) -> None: ...
+    async def close(self, grace: float | None) -> None: ...
     def get_state(self, try_to_connect: bool = False) -> ChannelConnectivity: ...
     async def wait_for_state_change(self, last_observed_state: ChannelConnectivity) -> None: ...
     def stream_stream(
-        self,
-        method: str,
-        request_serializer: typing.Optional[RequestSerializer],
-        response_deserializer: typing.Optional[ResponseDeserializer],
+        self, method: str, request_serializer: RequestSerializer | None, response_deserializer: ResponseDeserializer | None
     ) -> StreamStreamMultiCallable: ...
     def stream_unary(
-        self,
-        method: str,
-        request_serializer: typing.Optional[RequestSerializer],
-        response_deserializer: typing.Optional[ResponseDeserializer],
+        self, method: str, request_serializer: RequestSerializer | None, response_deserializer: ResponseDeserializer | None
     ) -> StreamUnaryMultiCallable: ...
     def unary_stream(
-        self,
-        method: str,
-        request_serializer: typing.Optional[RequestSerializer],
-        response_deserializer: typing.Optional[ResponseDeserializer],
+        self, method: str, request_serializer: RequestSerializer | None, response_deserializer: ResponseDeserializer | None
     ) -> UnaryStreamMultiCallable: ...
     def unary_unary(
-        self,
-        method: str,
-        request_serializer: typing.Optional[RequestSerializer],
-        response_deserializer: typing.Optional[ResponseDeserializer],
+        self, method: str, request_serializer: RequestSerializer | None, response_deserializer: ResponseDeserializer | None
     ) -> UnaryUnaryMultiCallable: ...
     async def __aenter__(self) -> Channel: ...
     async def __aexit__(
-        self,
-        exc_type: typing.Optional[type[BaseException]],
-        exc_val: typing.Optional[BaseException],
-        exc_tb: typing.Optional[TracebackType],
-    ) -> typing.Optional[bool]: ...
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+    ) -> bool | None: ...
     async def channel_ready(self) -> None: ...
 
 """Server Object"""
@@ -127,10 +112,10 @@ class Server:
     async def start(self) -> None: ...
 
     # Grace period is in seconds.
-    async def stop(self, grace: typing.Optional[float] = None) -> None: ...
+    async def stop(self, grace: float | None = None) -> None: ...
 
     # Returns a bool indicates if the operation times out. Timeout is in seconds.
-    async def wait_for_termination(self, timeout: typing.Optional[float] = None) -> bool: ...
+    async def wait_for_termination(self, timeout: float | None = None) -> bool: ...
 
 """Client-Side Context"""
 
@@ -140,7 +125,7 @@ EOFType = object
 class RpcContext:
     def cancelled(self) -> bool: ...
     def done(self) -> bool: ...
-    def time_remaining(self) -> typing.Optional[float]: ...
+    def time_remaining(self) -> float | None: ...
     def cancel(self) -> bool: ...
     def add_done_callback(self, callback: DoneCallbackType) -> None: ...
 
@@ -156,7 +141,7 @@ class UnaryUnaryCall(typing.Generic[TRequest, TResponse], Call):
 
 class UnaryStreamCall(typing.Generic[TRequest, TResponse], Call):
     def __aiter__(self) -> typing.AsyncIterator[TResponse]: ...
-    async def read(self) -> typing.Union[EOFType, TResponse]: ...
+    async def read(self) -> EOFType | TResponse: ...
 
 class StreamUnaryCall(typing.Generic[TRequest, TResponse], Call):
     async def write(self, request: TRequest) -> None: ...
@@ -165,7 +150,7 @@ class StreamUnaryCall(typing.Generic[TRequest, TResponse], Call):
 
 class StreamStreamCall(typing.Generic[TRequest, TResponse], Call):
     def __aiter__(self) -> typing.AsyncIterator[TResponse]: ...
-    async def read(self) -> typing.Union[EOFType, TResponse]: ...
+    async def read(self) -> EOFType | TResponse: ...
     async def write(self, request: TRequest) -> None: ...
     async def done_writing(self) -> None: ...
 
@@ -184,14 +169,14 @@ class ServicerContext(typing.Generic[TRequest, TResponse]):
     async def send_initial_metadata(self, initial_metadata: MetadataType) -> None: ...
     def add_done_callback(self, callback: DoneCallback[TRequest, TResponse]) -> None: ...
     def set_trailing_metadata(self, trailing_metadata: MetadataType) -> None: ...
-    def invocation_metadata(self) -> typing.Optional[Metadata]: ...
+    def invocation_metadata(self) -> Metadata | None: ...
     def set_code(self, code: StatusCode) -> None: ...
     def set_details(self, details: str) -> None: ...
     def set_compression(self, compression: Compression) -> None: ...
     def disable_next_message_compression(self) -> None: ...
     def peer(self) -> str: ...
-    def peer_identities(self) -> typing.Optional[typing.Iterable[bytes]]: ...
-    def peer_identity_key(self) -> typing.Optional[str]: ...
+    def peer_identities(self) -> typing.Iterable[bytes] | None: ...
+    def peer_identity_key(self) -> str | None: ...
     def auth_context(self) -> typing.Mapping[str, typing.Iterable[bytes]]: ...
     def time_remaining(self) -> float: ...
     def trailing_metadata(self) -> Metadata: ...
@@ -206,22 +191,22 @@ class ClientCallDetails:
     def __init__(
         self,
         method: str,
-        timeout: typing.Optional[float],
-        metadata: typing.Optional[Metadata],
-        credentials: typing.Optional[CallCredentials],
-        wait_for_ready: typing.Optional[bool],
+        timeout: float | None,
+        metadata: Metadata | None,
+        credentials: CallCredentials | None,
+        wait_for_ready: bool | None,
     ) -> None: ...
 
     method: str
-    timeout: typing.Optional[float]
-    metadata: typing.Optional[Metadata]
-    credentials: typing.Optional[CallCredentials]
+    timeout: float | None
+    metadata: Metadata | None
+    credentials: CallCredentials | None
 
     # "This is an EXPERIMENTAL argument. An optional flag t enable wait for ready mechanism."
-    wait_for_ready: typing.Optional[bool]
+    wait_for_ready: bool | None
 
     # As at 1.53.0, this is not supported in aio:
-    # compression: typing.Optional[Compression]
+    # compression: Compression | None
 
 class InterceptedCall(typing.Generic[TRequest, TResponse]):
     def __init__(self, interceptors_task: asyncio.Task) -> None: ...
@@ -230,12 +215,12 @@ class InterceptedCall(typing.Generic[TRequest, TResponse]):
     def cancelled(self) -> bool: ...
     def done(self) -> bool: ...
     def add_done_callback(self, callback: DoneCallback[TRequest, TResponse]) -> None: ...
-    def time_remaining(self) -> typing.Optional[float]: ...
-    async def initial_metadata(self) -> typing.Optional[Metadata]: ...
-    async def trailing_metadata(self) -> typing.Optional[Metadata]: ...
+    def time_remaining(self) -> float | None: ...
+    async def initial_metadata(self) -> Metadata | None: ...
+    async def trailing_metadata(self) -> Metadata | None: ...
     async def code(self) -> StatusCode: ...
     async def details(self) -> str: ...
-    async def debug_error_string(self) -> typing.Optional[str]: ...
+    async def debug_error_string(self) -> str | None: ...
     async def wait_for_connection(self) -> None: ...
 
 class InterceptedUnaryUnaryCall(InterceptedCall[TRequest, TResponse], typing.Generic[TRequest, TResponse]):
@@ -244,10 +229,10 @@ class InterceptedUnaryUnaryCall(InterceptedCall[TRequest, TResponse], typing.Gen
         self,
         interceptors: typing.Sequence[UnaryUnaryClientInterceptor],
         request: TRequest,
-        timeout: typing.Optional[float],
+        timeout: float | None,
         metadata: Metadata,
-        credentials: typing.Optional[CallCredentials],
-        wait_for_ready: typing.Optional[bool],
+        credentials: CallCredentials | None,
+        wait_for_ready: bool | None,
         channel: Channel,
         method: bytes,
         request_serializer: RequestSerializer,
@@ -260,15 +245,15 @@ class InterceptedUnaryUnaryCall(InterceptedCall[TRequest, TResponse], typing.Gen
         self,
         interceptors: typing.Sequence[UnaryUnaryClientInterceptor],
         method: bytes,
-        timeout: typing.Optional[float],
-        metadata: typing.Optional[Metadata],
-        credentials: typing.Optional[CallCredentials],
-        wait_for_ready: typing.Optional[bool],
+        timeout: float | None,
+        metadata: Metadata | None,
+        credentials: CallCredentials | None,
+        wait_for_ready: bool | None,
         request: TRequest,
         request_serializer: RequestSerializer,
         response_deserializer: ResponseDeserializer,
     ) -> UnaryUnaryCall: ...
-    def time_remaining(self) -> typing.Optional[float]: ...
+    def time_remaining(self) -> float | None: ...
 
 class UnaryUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
     async def intercept_unary_unary(
@@ -285,23 +270,23 @@ class UnaryStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
         continuation: typing.Callable[[ClientCallDetails, TRequest], UnaryStreamCall[TRequest, TResponse]],
         client_call_details: ClientCallDetails,
         request: TRequest,
-    ) -> typing.Union[typing.AsyncIterable[TResponse], UnaryStreamCall[TRequest, TResponse]]: ...
+    ) -> typing.AsyncIterable[TResponse] | UnaryStreamCall[TRequest, TResponse]: ...
 
 class StreamUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
     async def intercept_stream_unary(
         self,
         continuation: typing.Callable[[ClientCallDetails, TRequest], StreamUnaryCall[TRequest, TResponse]],
         client_call_details: ClientCallDetails,
-        request_iterator: typing.Union[typing.AsyncIterable[TRequest], typing.Iterable[TRequest]],
-    ) -> typing.Union[typing.AsyncIterable[TResponse], UnaryStreamCall[TRequest, TResponse]]: ...
+        request_iterator: typing.AsyncIterable[TRequest] | typing.Iterable[TRequest],
+    ) -> typing.AsyncIterable[TResponse] | UnaryStreamCall[TRequest, TResponse]: ...
 
 class StreamStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
     async def intercept_stream_stream(
         self,
         continuation: typing.Callable[[ClientCallDetails, TRequest], StreamStreamCall[TRequest, TResponse]],
         client_call_details: ClientCallDetails,
-        request_iterator: typing.Union[typing.AsyncIterable[TRequest], typing.Iterable[TRequest]],
-    ) -> typing.Union[typing.AsyncIterable[TResponse], StreamStreamCall[TRequest, TResponse]]: ...
+        request_iterator: typing.AsyncIterable[TRequest] | typing.Iterable[TRequest],
+    ) -> typing.AsyncIterable[TResponse] | StreamStreamCall[TRequest, TResponse]: ...
 
 """Server-Side Interceptor"""
 
@@ -318,56 +303,56 @@ class UnaryUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
         request: TRequest,
-        timeout: typing.Optional[float] = None,
-        metadata: typing.Optional[MetadataType] = None,
-        credentials: typing.Optional[CallCredentials] = None,
+        timeout: float | None = None,
+        metadata: MetadataType | None = None,
+        credentials: CallCredentials | None = None,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: typing.Optional[bool] = None,
-        compression: typing.Optional[Compression] = None,
+        wait_for_ready: bool | None = None,
+        compression: Compression | None = None,
     ) -> UnaryUnaryCall[TRequest, TResponse]: ...
 
 class UnaryStreamMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
         request: TRequest,
-        timeout: typing.Optional[float] = None,
-        metadata: typing.Optional[MetadataType] = None,
-        credentials: typing.Optional[CallCredentials] = None,
+        timeout: float | None = None,
+        metadata: MetadataType | None = None,
+        credentials: CallCredentials | None = None,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: typing.Optional[bool] = None,
-        compression: typing.Optional[Compression] = None,
+        wait_for_ready: bool | None = None,
+        compression: Compression | None = None,
     ) -> UnaryStreamCall[TRequest, TResponse]: ...
 
 class StreamUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
-        request_iterator: typing.Optional[typing.Union[typing.AsyncIterator[TRequest], typing.Iterator[TRequest]]],
-        timeout: typing.Optional[float] = None,
-        metadata: typing.Optional[MetadataType] = None,
-        credentials: typing.Optional[CallCredentials] = None,
+        request_iterator: typing.AsyncIterator[TRequest] | typing.Iterator[TRequest] | None,
+        timeout: float | None = None,
+        metadata: MetadataType | None = None,
+        credentials: CallCredentials | None = None,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: typing.Optional[bool] = None,
-        compression: typing.Optional[Compression] = None,
+        wait_for_ready: bool | None = None,
+        compression: Compression | None = None,
     ) -> StreamUnaryCall[TRequest, TResponse]: ...
 
 class StreamStreamMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
-        request_iterator: typing.Optional[typing.Union[typing.AsyncIterator[TRequest], typing.Iterator[TRequest]]],
-        timeout: typing.Optional[float] = None,
-        metadata: typing.Optional[MetadataType] = None,
-        credentials: typing.Optional[CallCredentials] = None,
+        request_iterator: typing.AsyncIterator[TRequest] | typing.Iterator[TRequest] | None,
+        timeout: float | None = None,
+        metadata: MetadataType | None = None,
+        credentials: CallCredentials | None = None,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: typing.Optional[bool] = None,
-        compression: typing.Optional[Compression] = None,
+        wait_for_ready: bool | None = None,
+        compression: Compression | None = None,
     ) -> StreamStreamCall[TRequest, TResponse]: ...
 
 """Metadata"""
 
 MetadataKey = str
-MetadataValue = typing.Union[str, bytes]
+MetadataValue = str | bytes
 MetadatumType = tuple[MetadataKey, MetadataValue]
-MetadataType = typing.Union[Metadata, typing.Sequence[MetadatumType]]
+MetadataType = Metadata | typing.Sequence[MetadatumType]
 
 class Metadata(typing.Mapping):
     def __init__(self, *args: tuple[MetadataKey, MetadataValue]) -> None: ...
