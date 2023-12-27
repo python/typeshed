@@ -1,6 +1,6 @@
-import typing
 import typing_extensions
 from _typeshed import Incomplete
+from collections.abc import Iterable
 
 import grpc
 from google.protobuf import descriptor_pool
@@ -15,9 +15,9 @@ AnyServicerContext: typing_extensions.TypeAlias = grpc.ServicerContext | aio.Ser
 
 class ReflectionServicer(BaseReflectionServicer):
     def ServerReflectionInfo(
-        self, request_iterator: typing.Iterable[_reflection_pb2.ServerReflectionRequest], context: AnyServicerContext
+        self, request_iterator: Iterable[_reflection_pb2.ServerReflectionRequest], context: AnyServicerContext
     ) -> None: ...
 
 def enable_server_reflection(
-    service_names: typing.Iterable[str], server: AnyServer, pool: descriptor_pool.DescriptorPool | None = ...
+    service_names: Iterable[str], server: AnyServer, pool: descriptor_pool.DescriptorPool | None = ...
 ) -> None: ...
