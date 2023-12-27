@@ -1,6 +1,7 @@
 import enum
 import threading
 import typing
+from collections.abc import Callable
 from concurrent import futures
 from types import ModuleType, TracebackType
 from typing_extensions import TypeAlias
@@ -40,6 +41,20 @@ Metadata: TypeAlias = tuple[tuple[str, str | bytes], ...]
 
 TRequest = typing.TypeVar("TRequest")
 TResponse = typing.TypeVar("TResponse")
+
+# XXX: These are probably the SerializeToTring/FromString pb2 methods, but
+# this needs further investigation
+class RequestSerializer(typing.Protocol):
+    def __call__(self, *args: typing.Any, **kwargs: typing.Any): ...
+
+class RequestDeserializer(typing.Protocol):
+    def __call__(self, *args: typing.Any, **kwargs: typing.Any): ...
+
+class ResponseSerializer(typing.Protocol):
+    def __call__(self, *args: typing.Any, **kwargs: typing.Any): ...
+
+class ResponseDeserializer(typing.Protocol):
+    def __call__(self, *args: typing.Any, **kwargs: typing.Any): ...
 
 # Create Client:
 
@@ -104,7 +119,7 @@ def ssl_server_certificate_configuration(
 ) -> ServerCertificateConfiguration: ...
 def dynamic_ssl_server_credentials(
     initial_certificate_configuration: ServerCertificateConfiguration,
-    certificate_configuration_fetcher: typing.Callable[[], ServerCertificateConfiguration],
+    certificate_configuration_fetcher: Callable[[], ServerCertificateConfiguration],
     require_client_authentication: bool = ...,
 ) -> ServerCredentials: ...
 def alts_server_credentials() -> ServerCredentials: ...
@@ -120,12 +135,7 @@ def xds_server_credentials(fallback_credentials: ServerCredentials) -> ServerCre
 #    def FloobDoob(self, request, context):
 #       return response
 #
-Behaviour: TypeAlias = typing.Callable
-
-# XXX: These are probably the SerializeToTring/FromString pb2 methods, but
-# this needs further investigation
-RequestDeserialize: TypeAlias = typing.Callable
-ResponseSerialize: TypeAlias = typing.Callable
+Behaviour: TypeAlias = Callable
 
 def unary_unary_rpc_method_handler(
     behavior: Behaviour,
@@ -194,11 +204,6 @@ class StatusCode(enum.Enum):
 
 # Channel Object:
 
-# XXX: These are probably the SerializeToTring/FromString pb2 methods, but
-# this needs further investigation
-RequestSerializer: TypeAlias = typing.Callable
-ResponseDeserializer: TypeAlias = typing.Callable
-
 class Channel:
     def close(self) -> None: ...
     def stream_stream(
@@ -207,14 +212,14 @@ class Channel:
     def stream_unary(
         self, method: str, request_serializer: RequestSerializer | None, response_deserializer: ResponseDeserializer | None
     ) -> StreamUnaryMultiCallable: ...
-    def subscribe(self, callback: typing.Callable[[ChannelConnectivity], None], try_to_connect: bool = ...) -> None: ...
+    def subscribe(self, callback: Callable[[ChannelConnectivity], None], try_to_connect: bool = ...) -> None: ...
     def unary_stream(
         self, method: str, request_serializer: RequestSerializer | None, response_deserializer: ResponseDeserializer | None
     ) -> UnaryStreamMultiCallable: ...
     def unary_unary(
         self, method: str, request_serializer: RequestSerializer | None, response_deserializer: ResponseDeserializer | None
     ) -> UnaryUnaryMultiCallable: ...
-    def unsubscribe(self, callback: typing.Callable[[ChannelConnectivity], None]) -> None: ...
+    def unsubscribe(self, callback: Callable[[ChannelConnectivity], None]) -> None: ...
     def __enter__(self) -> Channel: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
@@ -284,7 +289,7 @@ class RpcError(Exception):
 # Shared Context:
 
 class RpcContext:
-    def add_callback(self, callback: typing.Callable[[], None]) -> bool: ...
+    def add_callback(self, callback: Callable[[], None]) -> bool: ...
     def cancel(self): ...
     def is_active(self) -> bool: ...
     def time_remaining(self) -> float: ...
@@ -337,7 +342,7 @@ class UnaryUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
         #     status, the returned Call-Future’s exception value will be an
         #     RpcError.
         #
-        continuation: typing.Callable[[ClientCallDetails, TRequest], CallFuture[TResponse]],
+        continuation: Callable[[ClientCallDetails, TRequest], CallFuture[TResponse]],
         client_call_details: ClientCallDetails,
         request: TRequest,
     ) -> CallFuture[TResponse]: ...
@@ -348,7 +353,7 @@ class CallIterator(Call, typing.Generic[TResponse]):
 class UnaryStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
     def intercept_unary_stream(
         self,
-        continuation: typing.Callable[[ClientCallDetails, TRequest], CallIterator[TResponse]],
+        continuation: Callable[[ClientCallDetails, TRequest], CallIterator[TResponse]],
         client_call_details: ClientCallDetails,
         request: TRequest,
     ) -> CallIterator[TResponse]: ...
@@ -356,7 +361,7 @@ class UnaryStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
 class StreamUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
     def intercept_stream_unary(
         self,
-        continuation: typing.Callable[[ClientCallDetails, TRequest], CallFuture[TResponse]],
+        continuation: Callable[[ClientCallDetails, TRequest], CallFuture[TResponse]],
         client_call_details: ClientCallDetails,
         request_iterator: typing.Iterator[TRequest],
     ) -> CallFuture[TResponse]: ...
@@ -364,7 +369,7 @@ class StreamUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
 class StreamStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
     def intercept_stream_stream(
         self,
-        continuation: typing.Callable[[ClientCallDetails, TRequest], CallIterator[TResponse]],
+        continuation: Callable[[ClientCallDetails, TRequest], CallIterator[TResponse]],
         client_call_details: ClientCallDetails,
         request_iterator: typing.Iterator[TRequest],
     ) -> CallIterator[TResponse]: ...
@@ -405,13 +410,13 @@ class RpcMethodHandler(typing.Generic[TRequest, TResponse]):
     # XXX: not clear from docs whether this is optional or not
     response_serializer: ResponseSerializer | None
 
-    unary_unary: typing.Callable[[TRequest, ServicerContext], TResponse] | None
+    unary_unary: Callable[[TRequest, ServicerContext], TResponse] | None
 
-    unary_stream: typing.Callable[[TRequest, ServicerContext], typing.Iterator[TResponse]] | None
+    unary_stream: Callable[[TRequest, ServicerContext], typing.Iterator[TResponse]] | None
 
-    stream_unary: typing.Callable[[typing.Iterator[TRequest], ServicerContext], TResponse] | None
+    stream_unary: Callable[[typing.Iterator[TRequest], ServicerContext], TResponse] | None
 
-    stream_stream: typing.Callable[[typing.Iterator[TRequest], ServicerContext], typing.Iterator[TResponse]] | None
+    stream_stream: Callable[[typing.Iterator[TRequest], ServicerContext], typing.Iterator[TResponse]] | None
 
 class HandlerCallDetails:
     method: str
@@ -428,7 +433,7 @@ class ServiceRpcHandler(GenericRpcHandler[TRequest, TResponse], typing.Generic[T
 class ServerInterceptor(typing.Generic[TRequest, TResponse]):
     def intercept_service(
         self,
-        continuation: typing.Callable[[HandlerCallDetails], RpcMethodHandler[TRequest, TResponse] | None],
+        continuation: Callable[[HandlerCallDetails], RpcMethodHandler[TRequest, TResponse] | None],
         handler_call_details: HandlerCallDetails,
     ) -> RpcMethodHandler[TRequest, TResponse] | None: ...
 
@@ -534,7 +539,7 @@ class FutureCancelledError(Exception): ...
 TFutureValue = typing.TypeVar("TFutureValue")
 
 class Future(typing.Generic[TFutureValue]):
-    def add_done_callback(self, fn: typing.Callable[[Future[TFutureValue]], None]) -> None: ...
+    def add_done_callback(self, fn: Callable[[Future[TFutureValue]], None]) -> None: ...
     def cancel(self) -> bool: ...
     def cancelled(self) -> bool: ...
     def done(self) -> bool: ...

@@ -1,5 +1,6 @@
 import asyncio
 import typing
+from collections.abc import Callable
 from concurrent import futures
 from types import TracebackType
 from typing_extensions import TypeAlias
@@ -75,8 +76,8 @@ def server(
 # XXX: The docs suggest these type signatures for aio, but not for non-async,
 # and it's unclear why;
 # https://grpc.github.io/grpc/python/grpc_asyncio.html#grpc.aio.Channel.stream_stream
-RequestSerializer: TypeAlias = typing.Callable[[typing.Any], bytes]
-ResponseDeserializer: TypeAlias = typing.Callable[[bytes], typing.Any]
+RequestSerializer: TypeAlias = Callable[[typing.Any], bytes]
+ResponseDeserializer: TypeAlias = Callable[[bytes], typing.Any]
 
 class Channel:
     async def close(self, grace: float | None) -> None: ...
@@ -122,7 +123,7 @@ class Server:
 
 # Client-Side Context:
 
-DoneCallbackType: TypeAlias = typing.Callable[[typing.Any], None]
+DoneCallbackType: TypeAlias = Callable[[typing.Any], None]
 EOFType: TypeAlias = object
 
 class RpcContext:
@@ -262,7 +263,7 @@ class UnaryUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
     async def intercept_unary_unary(
         self,
         # XXX: See equivalent function in grpc types for notes about continuation:
-        continuation: typing.Callable[[ClientCallDetails, TRequest], UnaryUnaryCall[TRequest, TResponse]],
+        continuation: Callable[[ClientCallDetails, TRequest], UnaryUnaryCall[TRequest, TResponse]],
         client_call_details: ClientCallDetails,
         request: TRequest,
     ) -> TResponse: ...
@@ -270,7 +271,7 @@ class UnaryUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
 class UnaryStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
     async def intercept_unary_stream(
         self,
-        continuation: typing.Callable[[ClientCallDetails, TRequest], UnaryStreamCall[TRequest, TResponse]],
+        continuation: Callable[[ClientCallDetails, TRequest], UnaryStreamCall[TRequest, TResponse]],
         client_call_details: ClientCallDetails,
         request: TRequest,
     ) -> typing.AsyncIterable[TResponse] | UnaryStreamCall[TRequest, TResponse]: ...
@@ -278,7 +279,7 @@ class UnaryStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
 class StreamUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
     async def intercept_stream_unary(
         self,
-        continuation: typing.Callable[[ClientCallDetails, TRequest], StreamUnaryCall[TRequest, TResponse]],
+        continuation: Callable[[ClientCallDetails, TRequest], StreamUnaryCall[TRequest, TResponse]],
         client_call_details: ClientCallDetails,
         request_iterator: typing.AsyncIterable[TRequest] | typing.Iterable[TRequest],
     ) -> typing.AsyncIterable[TResponse] | UnaryStreamCall[TRequest, TResponse]: ...
@@ -286,7 +287,7 @@ class StreamUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
 class StreamStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
     async def intercept_stream_stream(
         self,
-        continuation: typing.Callable[[ClientCallDetails, TRequest], StreamStreamCall[TRequest, TResponse]],
+        continuation: Callable[[ClientCallDetails, TRequest], StreamStreamCall[TRequest, TResponse]],
         client_call_details: ClientCallDetails,
         request_iterator: typing.AsyncIterable[TRequest] | typing.Iterable[TRequest],
     ) -> typing.AsyncIterable[TResponse] | StreamStreamCall[TRequest, TResponse]: ...
@@ -296,7 +297,7 @@ class StreamStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
 class ServerInterceptor(typing.Generic[TRequest, TResponse]):
     async def intercept_service(
         self,
-        continuation: typing.Callable[[HandlerCallDetails], typing.Awaitable[RpcMethodHandler[TRequest, TResponse]]],
+        continuation: Callable[[HandlerCallDetails], typing.Awaitable[RpcMethodHandler[TRequest, TResponse]]],
         handler_call_details: HandlerCallDetails,
     ) -> RpcMethodHandler[TRequest, TResponse]: ...
 
