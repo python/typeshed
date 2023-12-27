@@ -1,10 +1,10 @@
 import enum
 import threading
 import typing
-from collections.abc import Callable
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from concurrent import futures
 from types import ModuleType, TracebackType
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __version__: str
 
@@ -20,7 +20,7 @@ class _PartialStubMustCastOrIgnore: ...
 # a bit segfaulty and doesn't adequately validate the option keys), but that
 # didn't quite work out. Maybe it's something we can come back to?
 _OptionKeyValue: TypeAlias = tuple[str, typing.Any]
-_Options: TypeAlias = typing.Sequence[_OptionKeyValue]
+_Options: TypeAlias = Sequence[_OptionKeyValue]
 
 class Compression(enum.IntEnum):
     NoCompression = ...
@@ -56,6 +56,25 @@ class ResponseSerializer(typing.Protocol):
 class ResponseDeserializer(typing.Protocol):
     def __call__(self, *args: typing.Any, **kwargs: typing.Any): ...
 
+# Future Interfaces:
+
+class FutureTimeoutError(Exception): ...
+class FutureCancelledError(Exception): ...
+
+TFutureValue = typing.TypeVar("TFutureValue")
+
+class Future(typing.Generic[TFutureValue]):
+    def add_done_callback(self, fn: Callable[[Future[TFutureValue]], None]) -> None: ...
+    def cancel(self) -> bool: ...
+    def cancelled(self) -> bool: ...
+    def done(self) -> bool: ...
+    def exception(self) -> Exception | None: ...
+    def result(self, timeout: float | None = ...) -> TFutureValue: ...
+    def running(self) -> bool: ...
+
+    # FIXME: unsure of the exact return type here. Is it a traceback.StackSummary?
+    def traceback(self, timeout: float | None = ...) -> typing.Any: ...
+
 # Create Client:
 
 def insecure_channel(target: str, options: _Options | None = ..., compression: Compression | None = ...) -> Channel: ...
@@ -63,7 +82,7 @@ def secure_channel(
     target: str, credentials: ChannelCredentials, options: _Options | None = ..., compression: Compression | None = ...
 ) -> Channel: ...
 
-Interceptor = (
+Interceptor: TypeAlias = (
     UnaryUnaryClientInterceptor[TRequest, TResponse]
     | UnaryStreamClientInterceptor[TRequest, TResponse]
     | StreamUnaryClientInterceptor[TRequest, TResponse]
@@ -80,7 +99,7 @@ def ssl_channel_credentials(
 def local_channel_credentials(local_connect_type: LocalConnectionType = ...) -> ChannelCredentials: ...
 def metadata_call_credentials(metadata_plugin: AuthMetadataPlugin, name: str | None = ...) -> CallCredentials: ...
 def access_token_call_credentials(access_token: str) -> CallCredentials: ...
-def alts_channel_credentials(service_accounts: typing.Sequence[str] | None = ...) -> ChannelCredentials: ...
+def alts_channel_credentials(service_accounts: Sequence[str] | None = ...) -> ChannelCredentials: ...
 def compute_engine_channel_credentials() -> ChannelCredentials: ...
 def xds_channel_credentials(fallback_credentials: ChannelCredentials | None = ...) -> ChannelCredentials: ...
 
@@ -220,7 +239,7 @@ class Channel:
         self, method: str, request_serializer: RequestSerializer | None, response_deserializer: ResponseDeserializer | None
     ) -> UnaryUnaryMultiCallable: ...
     def unsubscribe(self, callback: Callable[[ChannelConnectivity], None]) -> None: ...
-    def __enter__(self) -> Channel: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> bool | None: ...
@@ -228,7 +247,7 @@ class Channel:
 # Server Object:
 
 class Server:
-    def add_generic_rpc_handlers(self, generic_rpc_handlers: typing.Iterable[GenericRpcHandler]) -> None: ...
+    def add_generic_rpc_handlers(self, generic_rpc_handlers: Iterable[GenericRpcHandler]) -> None: ...
 
     # Returns an integer port on which server will accept RPC requests.
     def add_insecure_port(self, address: str) -> int: ...
@@ -322,7 +341,7 @@ class ClientCallDetails:
 # response message of the RPC. Should the event terminate with non-OK
 # status, the returned Call-Future’s exception value will be an RpcError.
 #
-class CallFuture(Call, Future[TResponse], typing.Generic[TResponse]): ...
+class CallFuture(Call, Future[TResponse]): ...
 
 class UnaryUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
     def intercept_unary_unary(
@@ -348,7 +367,7 @@ class UnaryUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
     ) -> CallFuture[TResponse]: ...
 
 class CallIterator(Call, typing.Generic[TResponse]):
-    def __iter__(self) -> typing.Iterator[TResponse]: ...
+    def __iter__(self) -> Iterator[TResponse]: ...
 
 class UnaryStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
     def intercept_unary_stream(
@@ -363,7 +382,7 @@ class StreamUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):
         self,
         continuation: Callable[[ClientCallDetails, TRequest], CallFuture[TResponse]],
         client_call_details: ClientCallDetails,
-        request_iterator: typing.Iterator[TRequest],
+        request_iterator: Iterator[TRequest],
     ) -> CallFuture[TResponse]: ...
 
 class StreamStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
@@ -371,7 +390,7 @@ class StreamStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
         self,
         continuation: Callable[[ClientCallDetails, TRequest], CallIterator[TResponse]],
         client_call_details: ClientCallDetails,
-        request_iterator: typing.Iterator[TRequest],
+        request_iterator: Iterator[TRequest],
     ) -> CallIterator[TResponse]: ...
 
 # Service-Side Context:
@@ -382,12 +401,12 @@ class ServicerContext(RpcContext):
     def abort_with_status(self, status: Status) -> typing.NoReturn: ...
 
     # FIXME: The docs say "A map of strings to an iterable of bytes for each auth property".
-    # Does that mean 'bytes' (which is iterable), or 'typing.Iterable[bytes]'?
-    def auth_context(self) -> typing.Mapping[str, bytes]: ...
+    # Does that mean 'bytes' (which is iterable), or 'Iterable[bytes]'?
+    def auth_context(self) -> Mapping[str, bytes]: ...
     def disable_next_message_compression(self) -> None: ...
     def invocation_metadata(self) -> Metadata: ...
     def peer(self) -> str: ...
-    def peer_identities(self) -> typing.Iterable[bytes] | None: ...
+    def peer_identities(self) -> Iterable[bytes] | None: ...
     def peer_identity_key(self) -> str | None: ...
     def send_initial_metadata(self, initial_metadata: Metadata) -> None: ...
     def set_code(self, code: StatusCode) -> None: ...
@@ -412,11 +431,11 @@ class RpcMethodHandler(typing.Generic[TRequest, TResponse]):
 
     unary_unary: Callable[[TRequest, ServicerContext], TResponse] | None
 
-    unary_stream: Callable[[TRequest, ServicerContext], typing.Iterator[TResponse]] | None
+    unary_stream: Callable[[TRequest, ServicerContext], Iterator[TResponse]] | None
 
-    stream_unary: Callable[[typing.Iterator[TRequest], ServicerContext], TResponse] | None
+    stream_unary: Callable[[Iterator[TRequest], ServicerContext], TResponse] | None
 
-    stream_stream: Callable[[typing.Iterator[TRequest], ServicerContext], typing.Iterator[TResponse]] | None
+    stream_stream: Callable[[Iterator[TRequest], ServicerContext], Iterator[TResponse]] | None
 
 class HandlerCallDetails:
     method: str
@@ -425,7 +444,7 @@ class HandlerCallDetails:
 class GenericRpcHandler(typing.Generic[TRequest, TResponse]):
     def service(self, handler_call_details: HandlerCallDetails) -> RpcMethodHandler[TRequest, TResponse] | None: ...
 
-class ServiceRpcHandler(GenericRpcHandler[TRequest, TResponse], typing.Generic[TRequest, TResponse]):
+class ServiceRpcHandler(GenericRpcHandler[TRequest, TResponse]):
     def service_name(self) -> str: ...
 
 # Service-Side Interceptor:
@@ -488,7 +507,7 @@ class UnaryStreamMultiCallable(typing.Generic[TRequest, TResponse]):
 class StreamUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
-        request_iterator: typing.Iterator[TRequest],
+        request_iterator: Iterator[TRequest],
         timeout: float | None = ...,
         metadata: Metadata | None = ...,
         credentials: CallCredentials | None = ...,
@@ -498,7 +517,7 @@ class StreamUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
     ) -> TResponse: ...
     def future(
         self,
-        request_iterator: typing.Iterator[TRequest],
+        request_iterator: Iterator[TRequest],
         timeout: float | None = ...,
         metadata: Metadata | None = ...,
         credentials: CallCredentials | None = ...,
@@ -508,7 +527,7 @@ class StreamUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
     ) -> CallFuture[TResponse]: ...
     def with_call(
         self,
-        request_iterator: typing.Iterator[TRequest],
+        request_iterator: Iterator[TRequest],
         timeout: float | None = ...,
         metadata: Metadata | None = ...,
         credentials: CallCredentials | None = ...,
@@ -522,7 +541,7 @@ class StreamUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
 class StreamStreamMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
-        request_iterator: typing.Iterator[TRequest],
+        request_iterator: Iterator[TRequest],
         timeout: float | None = ...,
         metadata: Metadata | None = ...,
         credentials: CallCredentials | None = ...,
@@ -530,25 +549,6 @@ class StreamStreamMultiCallable(typing.Generic[TRequest, TResponse]):
         wait_for_ready: bool | None = ...,
         compression: Compression | None = ...,
     ) -> CallIterator[TResponse]: ...
-
-# Future Interfaces:
-
-class FutureTimeoutError(Exception): ...
-class FutureCancelledError(Exception): ...
-
-TFutureValue = typing.TypeVar("TFutureValue")
-
-class Future(typing.Generic[TFutureValue]):
-    def add_done_callback(self, fn: Callable[[Future[TFutureValue]], None]) -> None: ...
-    def cancel(self) -> bool: ...
-    def cancelled(self) -> bool: ...
-    def done(self) -> bool: ...
-    def exception(self) -> Exception | None: ...
-    def result(self, timeout: float | None = ...) -> TFutureValue: ...
-    def running(self) -> bool: ...
-
-    # FIXME: unsure of the exact return type here. Is it a traceback.StackSummary?
-    def traceback(self, timeout: float | None = ...) -> typing.Any: ...
 
 # Runtime Protobuf Parsing:
 
