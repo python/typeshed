@@ -1,0 +1,45 @@
+from __future__ import annotations
+
+import typing
+from typing_extensions import assert_type
+
+import grpc
+
+assert_type(grpc.Channel(), grpc.Channel)
+assert_type(grpc.Server(), grpc.Server)
+
+# Channel options:
+assert_type(grpc.insecure_channel("target", ()), grpc.Channel)
+assert_type(grpc.insecure_channel("target", (("a", "b"),)), grpc.Channel)
+assert_type(grpc.insecure_channel("target", (("a", "b"), ("c", "d"))), grpc.Channel)
+
+# Local channel credentials:
+creds = grpc.local_channel_credentials(grpc.LocalConnectionType.LOCAL_TCP)
+assert_type(creds, grpc.ChannelCredentials)
+
+# Other credential types:
+assert_type(grpc.alts_channel_credentials(), grpc.ChannelCredentials)
+assert_type(grpc.alts_server_credentials(), grpc.ServerCredentials)
+assert_type(grpc.compute_engine_channel_credentials(), grpc.ChannelCredentials)
+assert_type(grpc.insecure_server_credentials(), grpc.ServerCredentials)
+
+# XDS credentials:
+assert_type(
+    grpc.xds_channel_credentials(grpc.local_channel_credentials(grpc.LocalConnectionType.LOCAL_TCP)), grpc.ChannelCredentials
+)
+assert_type(grpc.xds_server_credentials(grpc.insecure_server_credentials()), grpc.ServerCredentials)
+
+# Channel options supports list:
+assert_type(grpc.insecure_channel("target", []), grpc.Channel)
+assert_type(grpc.insecure_channel("target", [("a", "b")]), grpc.Channel)
+assert_type(grpc.insecure_channel("target", [("a", "b"), ("c", "d")]), grpc.Channel)
+
+# Client call details optionals:
+call_details = grpc.ClientCallDetails()
+assert_type(call_details.method, str)
+assert_type(call_details.timeout, typing.Optional[float])
+
+# Call iterator
+call_iter: grpc.CallIterator[str] = typing.cast(typing.Any, None)
+for call in call_iter:
+    assert_type(call, str)

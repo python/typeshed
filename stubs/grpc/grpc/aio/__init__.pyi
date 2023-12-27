@@ -61,12 +61,12 @@ def secure_channel(
 """Create Server"""
 
 def server(
-    migration_thread_pool: futures.Executor | None = None,
-    handlers: typing.Sequence[GenericRpcHandler] | None = None,
-    interceptors: typing.Sequence[ServerInterceptor] | None = None,
-    options: _Options | None = None,
-    maximum_concurrent_rpcs: int | None = None,
-    compression: Compression | None = None,
+    migration_thread_pool: futures.Executor | None = ...,
+    handlers: typing.Sequence[GenericRpcHandler[typing.Any, typing.Any]] | None = ...,
+    interceptors: typing.Sequence[ServerInterceptor[typing.Any, typing.Any]] | None = ...,
+    options: _Options | None = ...,
+    maximum_concurrent_rpcs: int | None = ...,
+    compression: Compression | None = ...,
 ) -> Server: ...
 
 """Channel Object"""
@@ -227,7 +227,7 @@ class InterceptedUnaryUnaryCall(InterceptedCall[TRequest, TResponse], typing.Gen
     def __await__(self): ...
     def __init__(
         self,
-        interceptors: typing.Sequence[UnaryUnaryClientInterceptor],
+        interceptors: typing.Sequence[UnaryUnaryClientInterceptor[TRequest, TResponse]],
         request: TRequest,
         timeout: float | None,
         metadata: Metadata,
@@ -243,7 +243,7 @@ class InterceptedUnaryUnaryCall(InterceptedCall[TRequest, TResponse], typing.Gen
     # pylint: disable=too-many-arguments
     async def _invoke(
         self,
-        interceptors: typing.Sequence[UnaryUnaryClientInterceptor],
+        interceptors: typing.Sequence[UnaryUnaryClientInterceptor[TRequest, TResponse]],
         method: bytes,
         timeout: float | None,
         metadata: Metadata | None,
@@ -252,7 +252,7 @@ class InterceptedUnaryUnaryCall(InterceptedCall[TRequest, TResponse], typing.Gen
         request: TRequest,
         request_serializer: RequestSerializer,
         response_deserializer: ResponseDeserializer,
-    ) -> UnaryUnaryCall: ...
+    ) -> UnaryUnaryCall[TRequest, TResponse]: ...
     def time_remaining(self) -> float | None: ...
 
 class UnaryUnaryClientInterceptor(typing.Generic[TRequest, TResponse]):

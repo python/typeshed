@@ -1,4 +1,6 @@
 import typing
+import typing_extensions
+from _typeshed import Incomplete
 
 import grpc
 from google.protobuf import descriptor_pool
@@ -8,8 +10,8 @@ from grpc_reflection.v1alpha._base import BaseReflectionServicer
 
 SERVICE_NAME: str
 
-AnyServer = grpc.Server | aio.Server
-AnyServicerContext = grpc.ServicerContext | aio.ServicerContext
+AnyServer: typing_extensions.TypeAlias = grpc.Server | aio.Server
+AnyServicerContext: typing_extensions.TypeAlias = grpc.ServicerContext | aio.ServicerContext[Incomplete, Incomplete]
 
 class ReflectionServicer(BaseReflectionServicer):
     def ServerReflectionInfo(
