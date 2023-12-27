@@ -29,6 +29,10 @@ assert_type(
 )
 assert_type(grpc.xds_server_credentials(grpc.insecure_server_credentials()), grpc.ServerCredentials)
 
+# Channel ready future
+channel = grpc.insecure_channel("target", ())
+assert_type(grpc.channel_ready_future(channel).result(), None)
+
 # Channel options supports list:
 assert_type(grpc.insecure_channel("target", []), grpc.Channel)
 assert_type(grpc.insecure_channel("target", [("a", "b")]), grpc.Channel)
