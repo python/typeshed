@@ -46,16 +46,16 @@ ClientInterceptor = _PartialStubMustCastOrIgnore
 
 def insecure_channel(
     target: str,
-    options: _Options | None = None,
-    compression: Compression | None = None,
-    interceptors: typing.Sequence[ClientInterceptor] | None = None,
+    options: _Options | None = ...,
+    compression: Compression | None = ...,
+    interceptors: typing.Sequence[ClientInterceptor] | None = ...,
 ) -> Channel: ...
 def secure_channel(
     target: str,
     credentials: ChannelCredentials,
-    options: _Options | None = None,
-    compression: Compression | None = None,
-    interceptors: typing.Sequence[ClientInterceptor] | None = None,
+    options: _Options | None = ...,
+    compression: Compression | None = ...,
+    interceptors: typing.Sequence[ClientInterceptor] | None = ...,
 ) -> Channel: ...
 
 # Create Server:
@@ -79,7 +79,7 @@ ResponseDeserializer = typing.Callable[[bytes], typing.Any]
 
 class Channel:
     async def close(self, grace: float | None) -> None: ...
-    def get_state(self, try_to_connect: bool = False) -> ChannelConnectivity: ...
+    def get_state(self, try_to_connect: bool = ...) -> ChannelConnectivity: ...
     async def wait_for_state_change(self, last_observed_state: ChannelConnectivity) -> None: ...
     def stream_stream(
         self, method: str, request_serializer: RequestSerializer | None, response_deserializer: ResponseDeserializer | None
@@ -102,7 +102,9 @@ class Channel:
 # Server Object:
 
 class Server:
-    def add_generic_rpc_handlers(self, generic_rpc_handlers: typing.Iterable[GenericRpcHandler]) -> None: ...
+    def add_generic_rpc_handlers(
+        self, generic_rpc_handlers: typing.Iterable[GenericRpcHandler[typing.Any, typing.Any]]
+    ) -> None: ...
 
     # Returns an integer port on which server will accept RPC requests.
     def add_insecure_port(self, address: str) -> int: ...
@@ -112,10 +114,10 @@ class Server:
     async def start(self) -> None: ...
 
     # Grace period is in seconds.
-    async def stop(self, grace: float | None = None) -> None: ...
+    async def stop(self, grace: float | None = ...) -> None: ...
 
     # Returns a bool indicates if the operation times out. Timeout is in seconds.
-    async def wait_for_termination(self, timeout: float | None = None) -> bool: ...
+    async def wait_for_termination(self, timeout: float | None = ...) -> bool: ...
 
 # Client-Side Context:
 
@@ -163,7 +165,7 @@ class DoneCallback(typing.Generic[TRequest, TResponse]):
     def __call__(self, ctx: ServicerContext[TRequest, TResponse]) -> None: ...
 
 class ServicerContext(typing.Generic[TRequest, TResponse]):
-    async def abort(self, code: StatusCode, details: str = "", trailing_metadata: MetadataType = tuple()) -> typing.NoReturn: ...
+    async def abort(self, code: StatusCode, details: str = ..., trailing_metadata: MetadataType = ...) -> typing.NoReturn: ...
     async def read(self) -> TRequest: ...
     async def write(self, message: TResponse) -> None: ...
     async def send_initial_metadata(self, initial_metadata: MetadataType) -> None: ...
@@ -303,48 +305,48 @@ class UnaryUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
         request: TRequest,
-        timeout: float | None = None,
-        metadata: MetadataType | None = None,
-        credentials: CallCredentials | None = None,
+        timeout: float | None = ...,
+        metadata: MetadataType | None = ...,
+        credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = None,
-        compression: Compression | None = None,
+        wait_for_ready: bool | None = ...,
+        compression: Compression | None = ...,
     ) -> UnaryUnaryCall[TRequest, TResponse]: ...
 
 class UnaryStreamMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
         request: TRequest,
-        timeout: float | None = None,
-        metadata: MetadataType | None = None,
-        credentials: CallCredentials | None = None,
+        timeout: float | None = ...,
+        metadata: MetadataType | None = ...,
+        credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = None,
-        compression: Compression | None = None,
+        wait_for_ready: bool | None = ...,
+        compression: Compression | None = ...,
     ) -> UnaryStreamCall[TRequest, TResponse]: ...
 
 class StreamUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
         request_iterator: typing.AsyncIterator[TRequest] | typing.Iterator[TRequest] | None,
-        timeout: float | None = None,
-        metadata: MetadataType | None = None,
-        credentials: CallCredentials | None = None,
+        timeout: float | None = ...,
+        metadata: MetadataType | None = ...,
+        credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = None,
-        compression: Compression | None = None,
+        wait_for_ready: bool | None = ...,
+        compression: Compression | None = ...,
     ) -> StreamUnaryCall[TRequest, TResponse]: ...
 
 class StreamStreamMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
         request_iterator: typing.AsyncIterator[TRequest] | typing.Iterator[TRequest] | None,
-        timeout: float | None = None,
-        metadata: MetadataType | None = None,
-        credentials: CallCredentials | None = None,
+        timeout: float | None = ...,
+        metadata: MetadataType | None = ...,
+        credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = None,
-        compression: Compression | None = None,
+        wait_for_ready: bool | None = ...,
+        compression: Compression | None = ...,
     ) -> StreamStreamCall[TRequest, TResponse]: ...
 
 # Metadata:

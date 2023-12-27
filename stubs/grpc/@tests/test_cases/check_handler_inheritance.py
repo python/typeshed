@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import typing
 from typing_extensions import assert_type
 
 import grpc
@@ -20,7 +19,7 @@ def unary_unary_call(rq: Request, ctx: grpc.ServicerContext) -> Response:
 
 
 class ServiceHandler(grpc.ServiceRpcHandler[Request, Response]):
-    def service(self, handler_call_details: grpc.HandlerCallDetails) -> typing.Optional[grpc.RpcMethodHandler[Request, Response]]:
+    def service(self, handler_call_details: grpc.HandlerCallDetails) -> grpc.RpcMethodHandler[Request, Response] | None:
         rpc = grpc.RpcMethodHandler[Request, Response]()
         rpc.unary_unary = unary_unary_call
         return rpc

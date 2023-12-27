@@ -3,6 +3,7 @@ import threading
 import typing
 from concurrent import futures
 from types import ModuleType, TracebackType
+from typing_extensions import TypeAlias
 
 __version__: str
 
@@ -17,8 +18,8 @@ class _PartialStubMustCastOrIgnore: ...
 # XXX: Early attempts to tame this used literals for all the keys (gRPC is
 # a bit segfaulty and doesn't adequately validate the option keys), but that
 # didn't quite work out. Maybe it's something we can come back to?
-_OptionKeyValue = tuple[str, typing.Any]
-_Options = typing.Sequence[_OptionKeyValue]
+_OptionKeyValue: TypeAlias = tuple[str, typing.Any]
+_Options: TypeAlias = typing.Sequence[_OptionKeyValue]
 
 class Compression(enum.IntEnum):
     NoCompression = ...
@@ -37,15 +38,21 @@ class LocalConnectionType(enum.Enum):
 # - https://github.com/grpc/grpc/blob/0e1984effd7e977ef18f1ad7fde7d10a2a153e1d/src/python/grpcio_tests/tests/unit/_invocation_defects_test.py#L66
 Metadata = tuple[tuple[str, str | bytes], ...]
 
+TRequest = typing.TypeVar("TRequest")
+TResponse = typing.TypeVar("TResponse")
+
 # Create Client:
 
-def insecure_channel(target: str, options: _Options | None = None, compression: Compression | None = None) -> Channel: ...
+def insecure_channel(target: str, options: _Options | None = ..., compression: Compression | None = ...) -> Channel: ...
 def secure_channel(
-    target: str, credentials: ChannelCredentials, options: _Options | None = None, compression: Compression | None = None
+    target: str, credentials: ChannelCredentials, options: _Options | None = ..., compression: Compression | None = ...
 ) -> Channel: ...
 
 Interceptor = (
-    UnaryUnaryClientInterceptor | UnaryStreamClientInterceptor | StreamUnaryClientInterceptor | StreamStreamClientInterceptor
+    UnaryUnaryClientInterceptor[TRequest, TResponse]
+    | UnaryStreamClientInterceptor[TRequest, TResponse]
+    | StreamUnaryClientInterceptor[TRequest, TResponse]
+    | StreamStreamClientInterceptor[TRequest, TResponse]
 )
 
 def intercept_channel(channel: Channel, *interceptors: Interceptor) -> Channel: ...
@@ -53,14 +60,14 @@ def intercept_channel(channel: Channel, *interceptors: Interceptor) -> Channel: 
 # Create Client Credentials:
 
 def ssl_channel_credentials(
-    root_certificates: bytes | None = None, private_key: bytes | None = None, certificate_chain: bytes | None = None
+    root_certificates: bytes | None = ..., private_key: bytes | None = ..., certificate_chain: bytes | None = ...
 ) -> ChannelCredentials: ...
-def local_channel_credentials(local_connect_type: LocalConnectionType = LocalConnectionType.LOCAL_TCP) -> ChannelCredentials: ...
-def metadata_call_credentials(metadata_plugin: AuthMetadataPlugin, name: str | None = None) -> CallCredentials: ...
+def local_channel_credentials(local_connect_type: LocalConnectionType = ...) -> ChannelCredentials: ...
+def metadata_call_credentials(metadata_plugin: AuthMetadataPlugin, name: str | None = ...) -> CallCredentials: ...
 def access_token_call_credentials(access_token: str) -> CallCredentials: ...
-def alts_channel_credentials(service_accounts: typing.Sequence[str] | None = None) -> ChannelCredentials: ...
+def alts_channel_credentials(service_accounts: typing.Sequence[str] | None = ...) -> ChannelCredentials: ...
 def compute_engine_channel_credentials() -> ChannelCredentials: ...
-def xds_channel_credentials(fallback_credentials: ChannelCredentials | None = None) -> ChannelCredentials: ...
+def xds_channel_credentials(fallback_credentials: ChannelCredentials | None = ...) -> ChannelCredentials: ...
 
 # GRPC docs say there should be at least two:
 def composite_call_credentials(creds1: CallCredentials, creds2: CallCredentials, *rest: CallCredentials) -> CallCredentials: ...
@@ -74,12 +81,12 @@ def composite_channel_credentials(
 
 def server(
     thread_pool: futures.ThreadPoolExecutor,
-    handlers: list[GenericRpcHandler] | None = None,
-    interceptors: list[ServerInterceptor] | None = None,
-    options: _Options | None = None,
-    maximum_concurrent_rpcs: int | None = None,
-    compression: Compression | None = None,
-    xds: bool = False,
+    handlers: list[GenericRpcHandler] | None = ...,
+    interceptors: list[ServerInterceptor] | None = ...,
+    options: _Options | None = ...,
+    maximum_concurrent_rpcs: int | None = ...,
+    compression: Compression | None = ...,
+    xds: bool = ...,
 ) -> Server: ...
 
 # Create Server Credentials:
@@ -88,17 +95,17 @@ CertificateChainPair = tuple[bytes, bytes]
 
 def ssl_server_credentials(
     private_key_certificate_chain_pairs: list[CertificateChainPair],
-    root_certificates: bytes | None = None,
-    require_client_auth: bool = False,
+    root_certificates: bytes | None = ...,
+    require_client_auth: bool = ...,
 ) -> ServerCredentials: ...
-def local_server_credentials(local_connect_type: LocalConnectionType = LocalConnectionType.LOCAL_TCP) -> ServerCredentials: ...
+def local_server_credentials(local_connect_type: LocalConnectionType = ...) -> ServerCredentials: ...
 def ssl_server_certificate_configuration(
-    private_key_certificate_chain_pairs: list[CertificateChainPair], root_certificates: bytes | None = None
+    private_key_certificate_chain_pairs: list[CertificateChainPair], root_certificates: bytes | None = ...
 ) -> ServerCertificateConfiguration: ...
 def dynamic_ssl_server_credentials(
     initial_certificate_configuration: ServerCertificateConfiguration,
     certificate_configuration_fetcher: typing.Callable[[], ServerCertificateConfiguration],
-    require_client_authentication: bool = False,
+    require_client_authentication: bool = ...,
 ) -> ServerCredentials: ...
 def alts_server_credentials() -> ServerCredentials: ...
 def insecure_server_credentials() -> ServerCredentials: ...
@@ -122,23 +129,23 @@ ResponseSerializer = typing.Callable
 
 def unary_unary_rpc_method_handler(
     behavior: Behaviour,
-    request_deserializer: RequestDeserializer | None = None,
-    response_serializer: ResponseSerializer | None = None,
+    request_deserializer: RequestDeserializer | None = ...,
+    response_serializer: ResponseSerializer | None = ...,
 ) -> RpcMethodHandler: ...
 def unary_stream_rpc_method_handler(
     behavior: Behaviour,
-    request_deserializer: RequestDeserializer | None = None,
-    response_serializer: ResponseSerializer | None = None,
+    request_deserializer: RequestDeserializer | None = ...,
+    response_serializer: ResponseSerializer | None = ...,
 ) -> RpcMethodHandler: ...
 def stream_unary_rpc_method_handler(
     behavior: Behaviour,
-    request_deserializer: RequestDeserializer | None = None,
-    response_serializer: ResponseSerializer | None = None,
+    request_deserializer: RequestDeserializer | None = ...,
+    response_serializer: ResponseSerializer | None = ...,
 ) -> RpcMethodHandler: ...
 def stream_stream_rpc_method_handler(
     behavior: Behaviour,
-    request_deserializer: RequestDeserializer | None = None,
-    response_serializer: ResponseSerializer | None = None,
+    request_deserializer: RequestDeserializer | None = ...,
+    response_serializer: ResponseSerializer | None = ...,
 ) -> RpcMethodHandler: ...
 def method_handlers_generic_handler(service: str, method_handlers: dict[str, RpcMethodHandler]) -> GenericRpcHandler: ...
 
@@ -200,7 +207,7 @@ class Channel:
     def stream_unary(
         self, method: str, request_serializer: RequestSerializer | None, response_deserializer: ResponseDeserializer | None
     ) -> StreamUnaryMultiCallable: ...
-    def subscribe(self, callback: typing.Callable[[ChannelConnectivity], None], try_to_connect: bool = False) -> None: ...
+    def subscribe(self, callback: typing.Callable[[ChannelConnectivity], None], try_to_connect: bool = ...) -> None: ...
     def unary_stream(
         self, method: str, request_serializer: RequestSerializer | None, response_deserializer: ResponseDeserializer | None
     ) -> UnaryStreamMultiCallable: ...
@@ -226,11 +233,11 @@ class Server:
     def start(self) -> None: ...
 
     # Grace period is in seconds.
-    def stop(self, grace: float | None = None) -> threading.Event: ...
+    def stop(self, grace: float | None = ...) -> threading.Event: ...
 
     # Block current thread until the server stops. Returns a bool
     # indicates if the operation times out. Timeout is in seconds.
-    def wait_for_termination(self, timeout: float | None = None) -> bool: ...
+    def wait_for_termination(self, timeout: float | None = ...) -> bool: ...
 
 # Authentication & Authorization Objects:
 
@@ -304,9 +311,6 @@ class ClientCallDetails:
     wait_for_ready: bool | None
 
     compression: Compression | None
-
-TRequest = typing.TypeVar("TRequest")
-TResponse = typing.TypeVar("TResponse")
 
 # An object that is both a Call for the RPC and a Future. In the event of
 # RPC completion, the return Call-Future’s result value will be the
@@ -434,32 +438,32 @@ class UnaryUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
         request: TRequest,
-        timeout: float | None = None,
-        metadata: Metadata | None = None,
-        credentials: CallCredentials | None = None,
+        timeout: float | None = ...,
+        metadata: Metadata | None = ...,
+        credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = None,
-        compression: Compression | None = None,
+        wait_for_ready: bool | None = ...,
+        compression: Compression | None = ...,
     ) -> TResponse: ...
     def future(
         self,
         request: TRequest,
-        timeout: float | None = None,
-        metadata: Metadata | None = None,
-        credentials: CallCredentials | None = None,
+        timeout: float | None = ...,
+        metadata: Metadata | None = ...,
+        credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = None,
-        compression: Compression | None = None,
+        wait_for_ready: bool | None = ...,
+        compression: Compression | None = ...,
     ) -> CallFuture[TResponse]: ...
     def with_call(
         self,
         request: TRequest,
-        timeout: float | None = None,
-        metadata: Metadata | None = None,
-        credentials: CallCredentials | None = None,
+        timeout: float | None = ...,
+        metadata: Metadata | None = ...,
+        credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = None,
-        compression: Compression | None = None,
+        wait_for_ready: bool | None = ...,
+        compression: Compression | None = ...,
         # FIXME: Return value is documented as "The response value for the RPC and a Call value for the RPC";
         # this is slightly unclear so this return type is a best-effort guess.
     ) -> tuple[TResponse, Call]: ...
@@ -468,44 +472,44 @@ class UnaryStreamMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
         request: TRequest,
-        timeout: float | None = None,
-        metadata: Metadata | None = None,
-        credentials: CallCredentials | None = None,
+        timeout: float | None = ...,
+        metadata: Metadata | None = ...,
+        credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = None,
-        compression: Compression | None = None,
+        wait_for_ready: bool | None = ...,
+        compression: Compression | None = ...,
     ) -> CallIterator[TResponse]: ...
 
 class StreamUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
         request_iterator: typing.Iterator[TRequest],
-        timeout: float | None = None,
-        metadata: Metadata | None = None,
-        credentials: CallCredentials | None = None,
+        timeout: float | None = ...,
+        metadata: Metadata | None = ...,
+        credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = None,
-        compression: Compression | None = None,
+        wait_for_ready: bool | None = ...,
+        compression: Compression | None = ...,
     ) -> TResponse: ...
     def future(
         self,
         request_iterator: typing.Iterator[TRequest],
-        timeout: float | None = None,
-        metadata: Metadata | None = None,
-        credentials: CallCredentials | None = None,
+        timeout: float | None = ...,
+        metadata: Metadata | None = ...,
+        credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = None,
-        compression: Compression | None = None,
+        wait_for_ready: bool | None = ...,
+        compression: Compression | None = ...,
     ) -> CallFuture[TResponse]: ...
     def with_call(
         self,
         request_iterator: typing.Iterator[TRequest],
-        timeout: float | None = None,
-        metadata: Metadata | None = None,
-        credentials: CallCredentials | None = None,
+        timeout: float | None = ...,
+        metadata: Metadata | None = ...,
+        credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = None,
-        compression: Compression | None = None,
+        wait_for_ready: bool | None = ...,
+        compression: Compression | None = ...,
         # FIXME: Return value is documented as "The response value for the RPC and a Call value for the RPC";
         # this is slightly unclear so this return type is a best-effort guess.
     ) -> tuple[TResponse, Call]: ...
@@ -514,12 +518,12 @@ class StreamStreamMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
         self,
         request_iterator: typing.Iterator[TRequest],
-        timeout: float | None = None,
-        metadata: Metadata | None = None,
-        credentials: CallCredentials | None = None,
+        timeout: float | None = ...,
+        metadata: Metadata | None = ...,
+        credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = None,
-        compression: Compression | None = None,
+        wait_for_ready: bool | None = ...,
+        compression: Compression | None = ...,
     ) -> CallIterator[TResponse]: ...
 
 # Future Interfaces:
@@ -535,11 +539,11 @@ class Future(typing.Generic[TFutureValue]):
     def cancelled(self) -> bool: ...
     def done(self) -> bool: ...
     def exception(self) -> Exception | None: ...
-    def result(self, timeout: float | None = None) -> TFutureValue: ...
+    def result(self, timeout: float | None = ...) -> TFutureValue: ...
     def running(self) -> bool: ...
 
     # FIXME: unsure of the exact return type here. Is it a traceback.StackSummary?
-    def traceback(self, timeout: float | None = None) -> typing.Any: ...
+    def traceback(self, timeout: float | None = ...) -> typing.Any: ...
 
 # Runtime Protobuf Parsing:
 

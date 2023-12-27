@@ -18,5 +18,5 @@ class NoopInterceptor(grpc.ServerInterceptor[Request, Response]):
         self,
         continuation: typing.Callable[[grpc.HandlerCallDetails], grpc.RpcMethodHandler[Request, Response] | None],
         handler_call_details: grpc.HandlerCallDetails,
-    ) -> typing.Optional[grpc.RpcMethodHandler[Request, Response]]:
+    ) -> grpc.RpcMethodHandler[Request, Response] | None:
         return continuation(handler_call_details)
