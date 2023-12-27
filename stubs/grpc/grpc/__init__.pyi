@@ -37,7 +37,7 @@ class LocalConnectionType(enum.Enum):
 # - https://github.com/grpc/grpc/blob/0e1984effd7e977ef18f1ad7fde7d10a2a153e1d/src/python/grpcio_tests/tests/unit/_invocation_defects_test.py#L66
 Metadata = tuple[tuple[str, str | bytes], ...]
 
-"""Create Client"""
+# Create Client:
 
 def insecure_channel(target: str, options: _Options | None = None, compression: Compression | None = None) -> Channel: ...
 def secure_channel(
@@ -50,7 +50,7 @@ Interceptor = (
 
 def intercept_channel(channel: Channel, *interceptors: Interceptor) -> Channel: ...
 
-"""Create Client Credentials"""
+# Create Client Credentials:
 
 def ssl_channel_credentials(
     root_certificates: bytes | None = None, private_key: bytes | None = None, certificate_chain: bytes | None = None
@@ -70,7 +70,7 @@ def composite_channel_credentials(
     channel_credentials: ChannelCredentials, call_credentials: CallCredentials, *rest: CallCredentials
 ) -> ChannelCredentials: ...
 
-"""Create Server"""
+# Create Server:
 
 def server(
     thread_pool: futures.ThreadPoolExecutor,
@@ -82,7 +82,7 @@ def server(
     xds: bool = False,
 ) -> Server: ...
 
-"""Create Server Credentials"""
+# Create Server Credentials:
 
 CertificateChainPair = tuple[bytes, bytes]
 
@@ -104,7 +104,7 @@ def alts_server_credentials() -> ServerCredentials: ...
 def insecure_server_credentials() -> ServerCredentials: ...
 def xds_server_credentials(fallback_credentials: ServerCredentials) -> ServerCredentials: ...
 
-"""RPC Method Handlers"""
+# RPC Method Handlers:
 
 # XXX: This is probably what appears in the add_FooServicer_to_server function
 # in the _pb2_grpc files that get generated, which points to the FooServicer
@@ -142,11 +142,11 @@ def stream_stream_rpc_method_handler(
 ) -> RpcMethodHandler: ...
 def method_handlers_generic_handler(service: str, method_handlers: dict[str, RpcMethodHandler]) -> GenericRpcHandler: ...
 
-"""Channel Ready Future"""
+# Channel Ready Future:
 
 def channel_ready_future(channel: Channel) -> Future: ...
 
-"""Channel Connectivity"""
+# Channel Connectivity:
 
 class ChannelConnectivity(enum.Enum):
     IDLE = ...
@@ -155,7 +155,7 @@ class ChannelConnectivity(enum.Enum):
     TRANSIENT_FAILURE = ...
     SHUTDOWN = ...
 
-"""gRPC Status Code"""
+# gRPC Status Code:
 
 class Status:
     code: StatusCode
@@ -185,7 +185,7 @@ class StatusCode(enum.Enum):
     DATA_LOSS = ...
     UNAUTHENTICATED = ...
 
-"""Channel Object"""
+# Channel Object:
 
 # XXX: These are probably the SerializeToTring/FromString pb2 methods, but
 # this needs further investigation
@@ -213,7 +213,7 @@ class Channel:
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> bool | None: ...
 
-"""Server Object"""
+# Server Object:
 
 class Server:
     def add_generic_rpc_handlers(self, generic_rpc_handlers: typing.Iterable[GenericRpcHandler]) -> None: ...
@@ -232,13 +232,13 @@ class Server:
     # indicates if the operation times out. Timeout is in seconds.
     def wait_for_termination(self, timeout: float | None = None) -> bool: ...
 
-"""Authentication & Authorization Objects"""
+# Authentication & Authorization Objects:
 
-class ChannelCredentials:
-    """This class has no supported interface"""
+# This class has no supported interface
+class ChannelCredentials: ...
 
-class CallCredentials:
-    """This class has no supported interface"""
+# This class has no supported interface
+class CallCredentials: ...
 
 class AuthMetadataContext:
     service_url: str
@@ -250,13 +250,13 @@ class AuthMetadataPluginCallback:
 class AuthMetadataPlugin:
     def __call__(self, context: AuthMetadataContext, callback: AuthMetadataPluginCallback) -> None: ...
 
-class ServerCredentials:
-    """This class has no supported interface"""
+# This class has no supported interface
+class ServerCredentials: ...
 
-class ServerCertificateConfiguration:
-    """This class has no supported interface"""
+# This class has no supported interface
+class ServerCertificateConfiguration: ...
 
-"""gRPC Exceptions"""
+# gRPC Exceptions:
 
 class _Metadatum:
     key: str
@@ -274,7 +274,7 @@ class RpcError(Exception):
     # XXX: This has a slightly different return type to all the other metadata:
     def trailing_metadata(self) -> tuple[_Metadatum, ...]: ...
 
-"""Shared Context"""
+# Shared Context:
 
 class RpcContext:
     def add_callback(self, callback: typing.Callable[[], None]) -> bool: ...
@@ -282,7 +282,7 @@ class RpcContext:
     def is_active(self) -> bool: ...
     def time_remaining(self) -> float: ...
 
-"""Client-Side Context"""
+# Client-Side Context:
 
 class Call(RpcContext):
     def code(self) -> StatusCode: ...
@@ -292,7 +292,7 @@ class Call(RpcContext):
     def initial_metadata(self) -> Metadata: ...
     def trailing_metadata(self) -> Metadata: ...
 
-"""Client-Side Interceptor"""
+# Client-Side Interceptor:
 
 class ClientCallDetails:
     method: str
@@ -365,7 +365,7 @@ class StreamStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
         request_iterator: typing.Iterator[TRequest],
     ) -> CallIterator[TResponse]: ...
 
-"""Service-Side Context"""
+# Service-Side Context:
 
 class ServicerContext(RpcContext):
     # misnamed parameter 'details', does not align with status.proto, where it is called 'message':
@@ -389,7 +389,7 @@ class ServicerContext(RpcContext):
     def set_details(self, details: str) -> None: ...
     def trailing_metadata(self) -> Metadata: ...
 
-"""Service-Side Handler"""
+# Service-Side Handler:
 
 class RpcMethodHandler(typing.Generic[TRequest, TResponse]):
     request_streaming: bool
@@ -419,7 +419,7 @@ class GenericRpcHandler(typing.Generic[TRequest, TResponse]):
 class ServiceRpcHandler(GenericRpcHandler[TRequest, TResponse], typing.Generic[TRequest, TResponse]):
     def service_name(self) -> str: ...
 
-"""Service-Side Interceptor"""
+# Service-Side Interceptor:
 
 class ServerInterceptor(typing.Generic[TRequest, TResponse]):
     def intercept_service(
@@ -428,7 +428,7 @@ class ServerInterceptor(typing.Generic[TRequest, TResponse]):
         handler_call_details: HandlerCallDetails,
     ) -> RpcMethodHandler[TRequest, TResponse] | None: ...
 
-"""Multi-Callable Interfaces"""
+# Multi-Callable Interfaces:
 
 class UnaryUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
@@ -522,7 +522,7 @@ class StreamStreamMultiCallable(typing.Generic[TRequest, TResponse]):
         compression: Compression | None = None,
     ) -> CallIterator[TResponse]: ...
 
-"""Future Interfaces"""
+# Future Interfaces:
 
 class FutureTimeoutError(Exception): ...
 class FutureCancelledError(Exception): ...
@@ -541,7 +541,7 @@ class Future(typing.Generic[TFutureValue]):
     # FIXME: unsure of the exact return type here. Is it a traceback.StackSummary?
     def traceback(self, timeout: float | None = None) -> typing.Any: ...
 
-"""Runtime Protobuf Parsing"""
+# Runtime Protobuf Parsing:
 
 def protos(protobuf_path: str) -> ModuleType: ...
 def services(protobuf_path: str) -> ModuleType: ...

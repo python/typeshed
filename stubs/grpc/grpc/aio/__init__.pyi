@@ -18,7 +18,7 @@ from grpc import (
     _PartialStubMustCastOrIgnore,
 )
 
-"""Exceptions"""
+# Exceptions:
 
 class BaseError(Exception): ...
 class UsageError(BaseError): ...
@@ -40,7 +40,7 @@ class AioRpcError(RpcError):
     def debug_error_string(self) -> str: ...
     def initial_metadata(self) -> Metadata: ...
 
-"""Create Client"""
+# Create Client:
 
 ClientInterceptor = _PartialStubMustCastOrIgnore
 
@@ -58,7 +58,7 @@ def secure_channel(
     interceptors: typing.Sequence[ClientInterceptor] | None = None,
 ) -> Channel: ...
 
-"""Create Server"""
+# Create Server:
 
 def server(
     migration_thread_pool: futures.Executor | None = ...,
@@ -69,7 +69,7 @@ def server(
     compression: Compression | None = ...,
 ) -> Server: ...
 
-"""Channel Object"""
+# Channel Object:
 
 # XXX: The docs suggest these type signatures for aio, but not for non-async,
 # and it's unclear why;
@@ -99,7 +99,7 @@ class Channel:
     ) -> bool | None: ...
     async def channel_ready(self) -> None: ...
 
-"""Server Object"""
+# Server Object:
 
 class Server:
     def add_generic_rpc_handlers(self, generic_rpc_handlers: typing.Iterable[GenericRpcHandler]) -> None: ...
@@ -117,7 +117,7 @@ class Server:
     # Returns a bool indicates if the operation times out. Timeout is in seconds.
     async def wait_for_termination(self, timeout: float | None = None) -> bool: ...
 
-"""Client-Side Context"""
+# Client-Side Context:
 
 DoneCallbackType = typing.Callable[[typing.Any], None]
 EOFType = object
@@ -157,7 +157,7 @@ class StreamStreamCall(typing.Generic[TRequest, TResponse], Call):
 TRequest = typing.TypeVar("TRequest")
 TResponse = typing.TypeVar("TResponse")
 
-"""Service-Side Context"""
+# Service-Side Context:
 
 class DoneCallback(typing.Generic[TRequest, TResponse]):
     def __call__(self, ctx: ServicerContext[TRequest, TResponse]) -> None: ...
@@ -185,7 +185,7 @@ class ServicerContext(typing.Generic[TRequest, TResponse]):
     def cancelled(self) -> bool: ...
     def done(self) -> bool: ...
 
-"""Client-Side Interceptor"""
+# Client-Side Interceptor:
 
 class ClientCallDetails:
     def __init__(
@@ -288,7 +288,7 @@ class StreamStreamClientInterceptor(typing.Generic[TRequest, TResponse]):
         request_iterator: typing.AsyncIterable[TRequest] | typing.Iterable[TRequest],
     ) -> typing.AsyncIterable[TResponse] | StreamStreamCall[TRequest, TResponse]: ...
 
-"""Server-Side Interceptor"""
+# Server-Side Interceptor:
 
 class ServerInterceptor(typing.Generic[TRequest, TResponse]):
     async def intercept_service(
@@ -297,7 +297,7 @@ class ServerInterceptor(typing.Generic[TRequest, TResponse]):
         handler_call_details: HandlerCallDetails,
     ) -> RpcMethodHandler[TRequest, TResponse]: ...
 
-"""Multi-Callable Interfaces"""
+# Multi-Callable Interfaces:
 
 class UnaryUnaryMultiCallable(typing.Generic[TRequest, TResponse]):
     def __call__(
@@ -347,7 +347,7 @@ class StreamStreamMultiCallable(typing.Generic[TRequest, TResponse]):
         compression: Compression | None = None,
     ) -> StreamStreamCall[TRequest, TResponse]: ...
 
-"""Metadata"""
+# Metadata:
 
 MetadataKey = str
 MetadataValue = str | bytes
