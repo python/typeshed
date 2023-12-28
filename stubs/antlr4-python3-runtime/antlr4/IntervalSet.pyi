@@ -1,4 +1,3 @@
-
 from antlr4.Token import Token as Token
 
 class IntervalSet:
