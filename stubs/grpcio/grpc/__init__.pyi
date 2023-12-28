@@ -320,11 +320,17 @@ class RpcContext(abc.ABC):
 # Client-Side Context:
 
 class Call(RpcContext, metaclass=abc.ABCMeta):
+    @abc.abstractmethod
     def code(self) -> StatusCode: ...
 
     # misnamed property, does not align with status.proto, where it is called 'message':
+    @abc.abstractmethod
     def details(self) -> str: ...
+
+    @abc.abstractmethod
     def initial_metadata(self) -> Metadata: ...
+
+    @abc.abstractmethod
     def trailing_metadata(self) -> Metadata: ...
 
 # Client-Side Interceptor:
