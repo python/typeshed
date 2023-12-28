@@ -365,7 +365,6 @@ class GetAttrData:
     # GetAttrData classes get their attributes dynamically
     # TODO: Complete all classes inheriting from GetAttrData
     def __getattr__(self, attr: str) -> Any: ...
-    @type_check_only
     def __setattr__(self, __name: str, __value: Any) -> None: ...
 
 class DictWrapper(GetAttrData):
