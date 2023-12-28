@@ -23,6 +23,7 @@
         "stdlib/xml/dom/minidom.pyi",
         "stdlib/xml/dom/pulldom.pyi",
         "stdlib/xml/sax",
+        "stubs/antlr4",
         "stubs/aws-xray-sdk",
         "stubs/beautifulsoup4",
         "stubs/bleach",
