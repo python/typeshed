@@ -1,5 +1,3 @@
-from typing import Any
-
 from urllib3.exceptions import HTTPError as BaseHTTPError
 
 from .models import Request, Response
@@ -16,8 +14,9 @@ class InvalidJSONError(RequestException): ...
 class JSONDecodeError(InvalidJSONError): ...
 
 class HTTPError(RequestException):
-    request: Request | PreparedRequest | Any
-    response: Response | Any
+    request: Request | PreparedRequest | None
+    response: Response
+    def __init__(self, *args: object, request: Request | PreparedRequest | None = ..., response: Response) -> None: ...
 
 class ConnectionError(RequestException): ...
 class ProxyError(ConnectionError): ...
