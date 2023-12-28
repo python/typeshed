@@ -326,10 +326,8 @@ class Call(RpcContext, metaclass=abc.ABCMeta):
     # misnamed property, does not align with status.proto, where it is called 'message':
     @abc.abstractmethod
     def details(self) -> str: ...
-
     @abc.abstractmethod
     def initial_metadata(self) -> Metadata: ...
-
     @abc.abstractmethod
     def trailing_metadata(self) -> Metadata: ...
 
