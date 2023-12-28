@@ -6,7 +6,7 @@ from antlr4.error.ErrorListener import ErrorListener as ErrorListener
 
 class DiagnosticErrorListener(ErrorListener):
     exactOnly: Incomplete
-    def __init__(self, exactOnly: bool = ...) -> None: ...
+    def __init__(self, exactOnly: bool = True) -> None: ...
     def reportAmbiguity(
         self,
         recognizer,
