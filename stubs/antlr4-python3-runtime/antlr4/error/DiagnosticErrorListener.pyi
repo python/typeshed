@@ -8,14 +8,7 @@ class DiagnosticErrorListener(ErrorListener):
     exactOnly: Incomplete
     def __init__(self, exactOnly: bool = True) -> None: ...
     def reportAmbiguity(
-        self,
-        recognizer,
-        dfa: DFA,
-        startIndex: int,
-        stopIndex: int,
-        exact: bool,
-        ambigAlts: set[int],
-        configs: ATNConfigSet,
+        self, recognizer, dfa: DFA, startIndex: int, stopIndex: int, exact: bool, ambigAlts: set[int], configs: ATNConfigSet
     ): ...
     def reportAttemptingFullContext(
         self, recognizer, dfa: DFA, startIndex: int, stopIndex: int, conflictingAlts: set[int], configs: ATNConfigSet

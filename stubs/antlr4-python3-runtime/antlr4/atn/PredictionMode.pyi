@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from enum import Enum
 
 from antlr4.atn.ATN import ATN as ATN
