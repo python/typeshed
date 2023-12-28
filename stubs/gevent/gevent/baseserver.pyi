@@ -1,13 +1,14 @@
 from collections.abc import Callable, Container
 from types import TracebackType
-from typing import Any, Generic, Protocol
-from typing_extensions import Literal, ParamSpec, Self, TypeAlias
+from typing import Generic, Protocol
+from typing_extensions import Literal, ParamSpec, Self, TypeAlias, TypeVarTuple, Unpack
 
 from gevent._types import _Loop
 from gevent.pool import Pool
 from gevent.socket import socket as _GeventSocket
 from greenlet import greenlet
 
+_Ts = TypeVarTuple("_Ts")
 _P = ParamSpec("_P")
 
 class _SpawnFunc(Protocol):
@@ -15,7 +16,7 @@ class _SpawnFunc(Protocol):
 
 _Spawner: TypeAlias = Pool | _SpawnFunc | int | Literal["default"] | None
 
-class BaseServer(Generic[_P]):
+class BaseServer(Generic[Unpack[_Ts]]):
     min_delay: float
     max_delay: float
     max_accept: int
@@ -27,27 +28,23 @@ class BaseServer(Generic[_P]):
     family: int
     address: str | tuple[str, int]
     socket: _GeventSocket
-    handle: Callable[..., object]
+    handle: Callable[[Unpack[_Ts]], object]
     def __init__(
         self,
         listener: _GeventSocket | tuple[str, int] | str,
-        handle: Callable[_P, object] | None = None,
+        handle: Callable[[Unpack[_Ts]], object] | None = None,
         spawn: _Spawner = "default",
     ) -> None: ...
     def __enter__(self) -> Self: ...
     def __exit__(self, __typ: type[BaseException] | None, __value: BaseException | None, __tb: TracebackType | None) -> None: ...
     def set_listener(self, listener: _GeventSocket | tuple[str, int] | str) -> None: ...
     def set_spawn(self, spawn: _Spawner) -> None: ...
-    def set_handle(self, handle: Callable[_P, object]) -> None: ...
+    def set_handle(self, handle: Callable[[Unpack[_Ts]], object]) -> None: ...
     def start_accepting(self) -> None: ...
     def stop_accepting(self) -> None: ...
-    # neither of these accept keyword arguments, but if we omit them, then ParamSpec
-    # won't match the arguments correctly
-    def do_handle(self, *args: _P.args, **_: _P.kwargs) -> None: ...
-    def do_close(self, *args: _P.args, **_: _P.kwargs) -> None: ...
-    # we would like to return _P.args here, however pyright will complain
-    # mypy doesn't seem to mind
-    def do_read(self) -> tuple[Any, ...] | None: ...
+    def do_handle(self, *args: Unpack[_Ts]) -> None: ...
+    def do_close(self, *args: Unpack[_Ts]) -> None: ...
+    def do_read(self) -> tuple[Unpack[_Ts]] | None: ...
     def full(self) -> bool: ...
     @property
     def server_host(self) -> str | None: ...
