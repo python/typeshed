@@ -5,9 +5,6 @@ from typing_extensions import assert_type
 
 import grpc
 
-assert_type(grpc.Channel(), grpc.Channel)
-assert_type(grpc.Server(), grpc.Server)
-
 # Channel options:
 assert_type(grpc.insecure_channel("target", ()), grpc.Channel)
 assert_type(grpc.insecure_channel("target", (("a", "b"),)), grpc.Channel)
@@ -20,7 +17,7 @@ assert_type(creds, grpc.ChannelCredentials)
 # Other credential types:
 assert_type(grpc.alts_channel_credentials(), grpc.ChannelCredentials)
 assert_type(grpc.alts_server_credentials(), grpc.ServerCredentials)
-assert_type(grpc.compute_engine_channel_credentials(), grpc.ChannelCredentials)
+assert_type(grpc.compute_engine_channel_credentials(typing.cast(typing.Any, None)), grpc.ChannelCredentials)
 assert_type(grpc.insecure_server_credentials(), grpc.ServerCredentials)
 
 # XDS credentials:
