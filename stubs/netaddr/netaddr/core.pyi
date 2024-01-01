@@ -9,6 +9,7 @@ Z: Final = 2
 ZEROFILL: Final = 2
 N: Final = 4
 NOHOST: Final = 4
+INET_ATON: Final = 8
 
 class AddrFormatError(Exception): ...
 class AddrConversionError(Exception): ...
