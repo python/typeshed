@@ -234,12 +234,12 @@ if sys.platform != "win32" and sys.platform != "darwin":
     IP_TRANSPARENT: int
     IP_BIND_ADDRESS_NO_PORT: int
 
-if sys.version_info >= (3, 12) and sys.platform == "win32":
+if sys.version_info >= (3, 12):
+    IP_ADD_SOURCE_MEMBERSHIP: int
+    IP_BLOCK_SOURCE: int
+    IP_DROP_SOURCE_MEMBERSHIP: int
     IP_PKTINFO: int
     IP_UNBLOCK_SOURCE: int
-    IP_BLOCK_SOURCE: int
-    IP_ADD_SOURCE_MEMBERSHIP: int
-    IP_DROP_SOURCE_MEMBERSHIP: int
 
 IPV6_CHECKSUM: int
 IPV6_JOIN_GROUP: int
