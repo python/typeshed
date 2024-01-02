@@ -618,7 +618,9 @@ if sys.platform != "win32" and sys.platform != "darwin":
     BTPROTO_HCI: int
     BTPROTO_L2CAP: int
     BTPROTO_SCO: int  # not in FreeBSD
-    BTPROTO_RFCOMM: int
+if sys.platform != "darwin":
+    if sys.version_info >= (3, 9) or sys.platform != "win32":
+        BTPROTO_RFCOMM: int
 
 if sys.version_info >= (3, 9) and sys.platform == "linux":
     UDPLITE_RECV_CSCOV: int
