@@ -515,8 +515,8 @@ if sys.platform == "linux":
     SO_VM_SOCKETS_BUFFER_MIN_SIZE: int
     VM_SOCKETS_INVALID_VERSION: int  # undocumented
 
-if sys.platform != "win32" or sys.version_info >= (3, 9):
-    AF_LINK: int
+if sys.platform == "darwin":
+    AF_LINK: int  # BSD, macOS
 
 has_ipv6: bool
 
