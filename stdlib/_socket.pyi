@@ -39,6 +39,7 @@ SOCK_RDM: int
 SOCK_SEQPACKET: int
 
 if sys.platform == "linux":
+    # Availability: Linux >= 2.6.27
     SOCK_CLOEXEC: int
     SOCK_NONBLOCK: int
 
@@ -185,6 +186,7 @@ if sys.platform != "win32" and sys.platform != "darwin":
     IPPROTO_MOBILE: int
     IPPROTO_VRRP: int
 if sys.version_info >= (3, 9) and sys.platform == "linux":
+    # Availability: Linux >= 2.6.20, FreeBSD >= 10.1
     IPPROTO_UDPLITE: int
 if sys.version_info >= (3, 10) and sys.platform == "linux":
     IPPROTO_MPTCP: int
@@ -329,6 +331,7 @@ if sys.platform != "win32" and sys.platform != "darwin":
 # --------------------
 
 if sys.platform == "linux":
+    # Availability: Linux >= 2.6.25, NetBSD >= 8
     AF_CAN: int
     PF_CAN: int
     SOL_CAN_BASE: int
@@ -346,6 +349,7 @@ if sys.platform == "linux":
     CAN_SFF_MASK: int
 
 if sys.platform == "linux":
+    # Availability: Linux >= 2.6.25
     CAN_BCM: int
     CAN_BCM_TX_SETUP: int
     CAN_BCM_TX_DELETE: int
@@ -375,15 +379,19 @@ if sys.platform == "linux":
         CAN_BCM_CAN_FD_FRAME: int
 
 if sys.platform == "linux":
+    # Availability: Linux >= 3.6
     CAN_RAW_FD_FRAMES: int
 
 if sys.platform == "linux" and sys.version_info >= (3, 9):
+    # Availability: Linux >= 4.1
     CAN_RAW_JOIN_FILTERS: int
 
 if sys.platform == "linux":
+    # Availability: Linux >= 2.6.25
     CAN_ISOTP: int
 
 if sys.platform == "linux" and sys.version_info >= (3, 9):
+    # Availability: Linux >= 5.4
     CAN_J1939: int
 
     J1939_MAX_UNICAST_ADDR: int
@@ -414,10 +422,12 @@ if sys.platform == "linux" and sys.version_info >= (3, 9):
     J1939_FILTER_MAX: int
 
 if sys.version_info >= (3, 12) and sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darwin":
+    # Availability: FreeBSD >= 14.0
     AF_DIVERT: int
     PF_DIVERT: int
 
 if sys.platform == "linux":
+    # Availability: Linux >= 2.2
     AF_PACKET: int
     PF_PACKET: int
     PACKET_BROADCAST: int
@@ -432,6 +442,7 @@ if sys.version_info >= (3, 12) and sys.platform == "linux":
     ETH_P_ALL: int
 
 if sys.platform == "linux":
+    # Availability: Linux >= 2.6.30
     AF_RDS: int
     PF_RDS: int
     SOL_RDS: int
@@ -491,6 +502,7 @@ if sys.platform == "linux":
     TIPC_ZONE_SCOPE: int
 
 if sys.platform == "linux":
+    # Availability: Linux >= 2.6.38
     AF_ALG: int
     SOL_ALG: int
     ALG_OP_DECRYPT: int
@@ -505,6 +517,7 @@ if sys.platform == "linux":
     ALG_SET_PUBKEY: int
 
 if sys.platform == "linux":
+    # Availability: Linux >= 4.8 (or maybe 3.9, CPython docs are confusing)
     AF_VSOCK: int
     IOCTL_VM_SOCKETS_GET_LOCAL_CID: int
     VMADDR_CID_ANY: int
@@ -515,8 +528,10 @@ if sys.platform == "linux":
     SO_VM_SOCKETS_BUFFER_MIN_SIZE: int
     VM_SOCKETS_INVALID_VERSION: int  # undocumented
 
-if sys.platform == "darwin":
-    AF_LINK: int  # BSD, macOS
+if sys.platform != "win32" or sys.version_info >= (3, 9):
+    # Documented as only available on BSD, macOS, but empirically sometimes
+    # available on Windows
+    AF_LINK: int
 
 has_ipv6: bool
 
@@ -531,7 +546,7 @@ if sys.platform != "win32" and sys.platform != "darwin":
     HCI_DATA_DIR: int  # not in FreeBSD, NetBSD, or DragonFlyBSD
 
 if sys.platform == "linux" and sys.version_info >= (3, 8):
-    AF_QIPCRTR: int
+    AF_QIPCRTR: int  # Availability: Linux >= 4.7
 
 if sys.version_info >= (3, 11) and sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darwin":
     # FreeBSD
@@ -540,9 +555,10 @@ if sys.version_info >= (3, 11) and sys.platform != "linux" and sys.platform != "
     LOCAL_CREDS_PERSISTENT: int
 
 if sys.version_info >= (3, 11) and sys.platform == "linux":
-    SO_INCOMING_CPU: int
+    SO_INCOMING_CPU: int  # Availability: Linux >= 3.9
 
 if sys.version_info >= (3, 12) and sys.platform == "win32":
+    # Availability: Windows
     AF_HYPERV: int
     HV_PROTOCOL_RAW: int
     HVSOCKET_CONNECT_TIMEOUT: int
@@ -558,6 +574,7 @@ if sys.version_info >= (3, 12) and sys.platform == "win32":
 
 if sys.version_info >= (3, 12):
     if sys.platform != "win32":
+        # Availability: Linux, FreeBSD, macOS
         ETHERTYPE_ARP: int
         ETHERTYPE_IP: int
         ETHERTYPE_IPV6: int
@@ -601,10 +618,7 @@ if sys.platform != "win32" and sys.platform != "darwin":
     BTPROTO_HCI: int
     BTPROTO_L2CAP: int
     BTPROTO_SCO: int  # not in FreeBSD
-
-if sys.platform != "darwin":
-    if sys.version_info >= (3, 9) or sys.platform != "win32":
-        BTPROTO_RFCOMM: int
+    BTPROTO_RFCOMM: int
 
 if sys.version_info >= (3, 9) and sys.platform == "linux":
     UDPLITE_RECV_CSCOV: int
