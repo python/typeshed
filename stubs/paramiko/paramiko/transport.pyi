@@ -26,7 +26,7 @@ class _KexEngine(Protocol):
 class Transport(Thread, ClosingContextManager):
     active: bool
     hostname: str | None
-    server_extensions: dict[str, str]
+    server_extensions: dict[str, bytes]
     advertise_strict_kex: bool
     agreed_on_strict_kex: bool
     sock: socket | Channel
