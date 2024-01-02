@@ -190,6 +190,7 @@ if sys.platform != "win32" or sys.version_info >= (3, 8):
         )
 if sys.platform != "win32" and sys.platform != "darwin":
     from _socket import (
+        IP_BIND_ADDRESS_NO_PORT as IP_BIND_ADDRESS_NO_PORT,
         IP_TRANSPARENT as IP_TRANSPARENT,
         IPPROTO_BIP as IPPROTO_BIP,
         IPPROTO_MOBILE as IPPROTO_MOBILE,
@@ -221,8 +222,6 @@ if sys.platform != "win32" and sys.platform != "darwin":
         TCP_SYNCNT as TCP_SYNCNT,
         TCP_USER_TIMEOUT as TCP_USER_TIMEOUT,
         TCP_WINDOW_CLAMP as TCP_WINDOW_CLAMP,
-        IP_TRANSPARENT as IP_TRANSPARENT,
-        IP_BIND_ADDRESS_NO_PORT as IP_BIND_ADDRESS_NO_PORT,
     )
 if sys.platform != "win32":
     from _socket import (
