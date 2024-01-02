@@ -152,7 +152,7 @@ if sys.platform != "darwin":
 
 if sys.version_info >= (3, 10):
     from _socket import IP_RECVTOS as IP_RECVTOS
-elif sys.platform != "darwin" and sys.platform != "win32":
+elif sys.platform != "win32" and sys.platform != "darwin":
     from _socket import IP_RECVTOS as IP_RECVTOS
 
 if sys.platform != "win32" or sys.version_info >= (3, 8):
@@ -504,7 +504,7 @@ class AddressFamily(IntEnum):
         AF_ROUTE: int
         AF_SYSTEM: int
         AF_UNIX: int
-    if sys.platform != "darwin" and sys.platform != "win32":
+    if sys.platform != "win32" and sys.platform != "darwin":
         AF_AAL5: int
         AF_ASH: int
         AF_ATMPVC: int

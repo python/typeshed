@@ -78,6 +78,8 @@ SO_SNDLOWAT: int
 SO_SNDTIMEO: int
 SO_TYPE: int
 SO_USELOOPBACK: int
+if sys.platform == "win32":
+    SO_EXCLUSIVEADDRUSE: int
 if sys.platform != "win32":
     SO_REUSEPORT: int
 if sys.platform != "win32" and sys.platform != "darwin":
@@ -91,8 +93,6 @@ if sys.platform != "win32" and sys.platform != "darwin":
     SO_PRIORITY: int
     SO_PROTOCOL: int
     SO_SETFIB: int
-if sys.platform == "win32":
-    SO_EXCLUSIVEADDRUSE: int
 
 SOMAXCONN: int
 
@@ -102,6 +102,15 @@ MSG_OOB: int
 MSG_PEEK: int
 MSG_TRUNC: int
 MSG_WAITALL: int
+if sys.platform != "win32":
+    MSG_DONTWAIT: int
+    MSG_EOF: int
+    MSG_EOR: int
+    MSG_NOSIGNAL: int  # Sometimes this exists on darwin, sometimes not
+if sys.platform != "darwin":
+    MSG_BCAST: int
+    MSG_ERRQUEUE: int
+    MSG_MCAST: int
 if sys.platform != "win32" and sys.platform != "darwin":
     MSG_BTAG: int
     MSG_CMSG_CLOEXEC: int
@@ -110,15 +119,6 @@ if sys.platform != "win32" and sys.platform != "darwin":
     MSG_FASTOPEN: int
     MSG_MORE: int
     MSG_NOTIFICATION: int
-if sys.platform != "win32":
-    MSG_DONTWAIT: int
-    MSG_EOF: int
-    MSG_EOR: int
-    MSG_NOSIGNAL: int  # Sometimes this exists on darwin, sometimes not
-if sys.platform != "darwin":
-    MSG_BCAST: int
-    MSG_MCAST: int
-    MSG_ERRQUEUE: int
 
 SOL_IP: int
 SOL_SOCKET: int
@@ -135,7 +135,6 @@ if sys.platform != "win32" and sys.platform != "darwin":
 if sys.platform != "win32":
     SCM_CREDS: int
     SCM_RIGHTS: int
-
 if sys.platform != "win32" and sys.platform != "darwin":
     SCM_CREDENTIALS: int
 
@@ -144,7 +143,6 @@ IPPROTO_IP: int
 IPPROTO_RAW: int
 IPPROTO_TCP: int
 IPPROTO_UDP: int
-
 if sys.version_info >= (3, 8) or sys.platform != "win32":
     IPPROTO_AH: int
     IPPROTO_DSTOPTS: int
@@ -165,7 +163,6 @@ if sys.version_info >= (3, 8) or sys.platform != "win32":
     IPPROTO_PUP: int
     IPPROTO_ROUTING: int
     IPPROTO_SCTP: int
-
     if sys.platform != "darwin":
         IPPROTO_CBT: int
         IPPROTO_ICLFXBM: int
@@ -174,7 +171,6 @@ if sys.version_info >= (3, 8) or sys.platform != "win32":
         IPPROTO_PGM: int
         IPPROTO_RDP: int
         IPPROTO_ST: int
-
 if sys.platform != "win32":
     IPPROTO_EON: int
     IPPROTO_GRE: int
@@ -184,15 +180,12 @@ if sys.platform != "win32":
     IPPROTO_RSVP: int
     IPPROTO_TP: int
     IPPROTO_XTP: int
-
 if sys.platform != "win32" and sys.platform != "darwin":
     IPPROTO_BIP: int
     IPPROTO_MOBILE: int
     IPPROTO_VRRP: int
-
 if sys.version_info >= (3, 9) and sys.platform == "linux":
     IPPROTO_UDPLITE: int
-
 if sys.version_info >= (3, 10) and sys.platform == "linux":
     IPPROTO_MPTCP: int
 
@@ -221,7 +214,6 @@ elif sys.platform != "win32" and sys.platform != "darwin":
     IP_RECVTOS: int
 IP_TOS: int
 IP_TTL: int
-
 if sys.platform != "win32":
     IP_DEFAULT_MULTICAST_LOOP: int
     IP_DEFAULT_MULTICAST_TTL: int
@@ -229,11 +221,9 @@ if sys.platform != "win32":
     IP_RECVOPTS: int
     IP_RECVRETOPTS: int
     IP_RETOPTS: int
-
 if sys.platform != "win32" and sys.platform != "darwin":
     IP_TRANSPARENT: int
     IP_BIND_ADDRESS_NO_PORT: int
-
 if sys.version_info >= (3, 12):
     IP_ADD_SOURCE_MEMBERSHIP: int
     IP_BLOCK_SOURCE: int
@@ -251,7 +241,6 @@ IPV6_RECVTCLASS: int
 IPV6_TCLASS: int
 IPV6_UNICAST_HOPS: int
 IPV6_V6ONLY: int
-
 if sys.version_info >= (3, 9) or sys.platform != "darwin":
     IPV6_DONTFRAG: int
     IPV6_HOPLIMIT: int
@@ -259,8 +248,8 @@ if sys.version_info >= (3, 9) or sys.platform != "darwin":
     IPV6_PKTINFO: int
     IPV6_RECVRTHDR: int
     IPV6_RTHDR: int
-
 if sys.platform != "win32":
+    IPV6_RTHDR_TYPE_0: int
     if sys.version_info >= (3, 9) or sys.platform != "darwin":
         IPV6_DSTOPTS: int
         IPV6_NEXTHOP: int
@@ -273,9 +262,6 @@ if sys.platform != "win32":
         IPV6_RTHDRDSTOPTS: int
         IPV6_USE_MIN_MTU: int
 
-if sys.platform != "win32":
-    IPV6_RTHDR_TYPE_0: int
-
 EAI_AGAIN: int
 EAI_BADFLAGS: int
 EAI_FAIL: int
@@ -285,7 +271,6 @@ EAI_NODATA: int
 EAI_NONAME: int
 EAI_SERVICE: int
 EAI_SOCKTYPE: int
-
 if sys.platform != "win32":
     EAI_ADDRFAMILY: int
     EAI_BADHINTS: int
@@ -301,7 +286,6 @@ AI_NUMERICHOST: int
 AI_NUMERICSERV: int
 AI_PASSIVE: int
 AI_V4MAPPED: int
-
 if sys.platform != "win32":
     AI_DEFAULT: int
     AI_MASK: int
@@ -320,11 +304,10 @@ TCP_KEEPCNT: int
 TCP_KEEPINTVL: int
 TCP_MAXSEG: int
 TCP_NODELAY: int
-
-if sys.platform != "darwin":
-    TCP_KEEPIDLE: int
 if sys.platform != "win32":
     TCP_NOTSENT_LOWAT: int
+if sys.platform != "darwin":
+    TCP_KEEPIDLE: int
 if sys.version_info >= (3, 10) and sys.platform == "darwin":
     TCP_KEEPALIVE: int
 if sys.version_info >= (3, 11) and sys.platform == "darwin":
@@ -651,7 +634,7 @@ if sys.platform != "win32":
 if sys.platform != "darwin":
     AF_IRDA: int
 
-if sys.platform != "darwin" and sys.platform != "win32":
+if sys.platform != "win32" and sys.platform != "darwin":
     AF_AAL5: int
     AF_ASH: int
     AF_ATMPVC: int
