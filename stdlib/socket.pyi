@@ -5,6 +5,7 @@ import _socket
 import sys
 from _socket import (
     _FD,
+    CAPI as CAPI,
     EAI_AGAIN as EAI_AGAIN,
     EAI_BADFLAGS as EAI_BADFLAGS,
     EAI_FAIL as EAI_FAIL,
@@ -82,11 +83,13 @@ from _socket import (
     SOMAXCONN as SOMAXCONN,
     TCP_FASTOPEN as TCP_FASTOPEN,
     TCP_KEEPCNT as TCP_KEEPCNT,
+    TCP_KEEPINTVL as TCP_KEEPINTVL,
     TCP_MAXSEG as TCP_MAXSEG,
     TCP_NODELAY as TCP_NODELAY,
     SocketType as SocketType,
     _Address as _Address,
     _RetAddress as _RetAddress,
+    close as close,
     dup as dup,
     error as error,
     gaierror as gaierror,
@@ -119,6 +122,18 @@ from io import BufferedReader, BufferedRWPair, BufferedWriter, IOBase, RawIOBase
 from typing import Any, Protocol, overload
 from typing_extensions import Literal, Self
 
+if sys.platform == "win32":
+    from _socket import (
+        RCVALL_MAX as RCVALL_MAX,
+        RCVALL_OFF as RCVALL_OFF,
+        RCVALL_ON as RCVALL_ON,
+        RCVALL_SOCKETLEVELONLY as RCVALL_SOCKETLEVELONLY,
+        SIO_KEEPALIVE_VALS as SIO_KEEPALIVE_VALS,
+        SIO_LOOPBACK_FAST_PATH as SIO_LOOPBACK_FAST_PATH,
+        SIO_RCVALL as SIO_RCVALL,
+        SO_EXCLUSIVEADDRUSE as SO_EXCLUSIVEADDRUSE,
+    )
+
 if sys.platform != "darwin" or sys.version_info >= (3, 9):
     from _socket import (
         IPV6_DONTFRAG as IPV6_DONTFRAG,
@@ -131,18 +146,14 @@ if sys.platform != "darwin" or sys.version_info >= (3, 9):
 
 if sys.platform == "darwin":
     from _socket import PF_SYSTEM as PF_SYSTEM, SYSPROTO_CONTROL as SYSPROTO_CONTROL
-else:
-    from _socket import SO_EXCLUSIVEADDRUSE as SO_EXCLUSIVEADDRUSE
+
+if sys.platform != "darwin":
+    from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE
 
 if sys.version_info >= (3, 10):
     from _socket import IP_RECVTOS as IP_RECVTOS
 elif sys.platform != "darwin" and sys.platform != "win32":
     from _socket import IP_RECVTOS as IP_RECVTOS
-
-from _socket import TCP_KEEPINTVL as TCP_KEEPINTVL, close as close
-
-if sys.platform != "darwin":
-    from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE
 
 if sys.platform != "win32" or sys.version_info >= (3, 8):
     from _socket import (
@@ -186,10 +197,14 @@ if sys.platform != "win32" and sys.platform != "darwin":
         IPX_TYPE as IPX_TYPE,
         SCM_CREDENTIALS as SCM_CREDENTIALS,
         SO_BINDTODEVICE as SO_BINDTODEVICE,
+        SO_DOMAIN as SO_DOMAIN,
         SO_MARK as SO_MARK,
         SO_PASSCRED as SO_PASSCRED,
+        SO_PASSSEC as SO_PASSSEC,
         SO_PEERCRED as SO_PEERCRED,
+        SO_PEERSEC as SO_PEERSEC,
         SO_PRIORITY as SO_PRIORITY,
+        SO_PROTOCOL as SO_PROTOCOL,
         SO_SETFIB as SO_SETFIB,
         SOL_ATALK as SOL_ATALK,
         SOL_AX25 as SOL_AX25,
@@ -197,6 +212,7 @@ if sys.platform != "win32" and sys.platform != "darwin":
         SOL_IPX as SOL_IPX,
         SOL_NETROM as SOL_NETROM,
         SOL_ROSE as SOL_ROSE,
+        TCP_CONGESTION as TCP_CONGESTION,
         TCP_CORK as TCP_CORK,
         TCP_DEFER_ACCEPT as TCP_DEFER_ACCEPT,
         TCP_INFO as TCP_INFO,
@@ -205,6 +221,8 @@ if sys.platform != "win32" and sys.platform != "darwin":
         TCP_SYNCNT as TCP_SYNCNT,
         TCP_USER_TIMEOUT as TCP_USER_TIMEOUT,
         TCP_WINDOW_CLAMP as TCP_WINDOW_CLAMP,
+        IP_TRANSPARENT as IP_TRANSPARENT,
+        IP_BIND_ADDRESS_NO_PORT as IP_BIND_ADDRESS_NO_PORT,
     )
 if sys.platform != "win32":
     from _socket import (
@@ -261,6 +279,9 @@ if sys.platform != "darwin":
 
 if sys.platform == "darwin" and sys.version_info >= (3, 10):
     from _socket import TCP_KEEPALIVE as TCP_KEEPALIVE
+
+if sys.platform == "darwin" and sys.version_info >= (3, 11):
+    from _socket import TCP_CONNECTION_INFO as TCP_CONNECTION_INFO
 
 if sys.platform == "linux":
     from _socket import (
@@ -426,21 +447,14 @@ if sys.platform == "linux" and sys.version_info >= (3, 9):
         SO_J1939_FILTER as SO_J1939_FILTER,
         SO_J1939_PROMISC as SO_J1939_PROMISC,
         SO_J1939_SEND_PRIO as SO_J1939_SEND_PRIO,
+        UDPLITE_RECV_CSCOV as UDPLITE_RECV_CSCOV,
+        UDPLITE_SEND_CSCOV as UDPLITE_SEND_CSCOV,
     )
 if sys.platform == "linux" and sys.version_info >= (3, 10):
     from _socket import IPPROTO_MPTCP as IPPROTO_MPTCP
 if sys.platform == "linux" and sys.version_info >= (3, 11):
     from _socket import SO_INCOMING_CPU as SO_INCOMING_CPU
-if sys.platform == "win32":
-    from _socket import (
-        RCVALL_MAX as RCVALL_MAX,
-        RCVALL_OFF as RCVALL_OFF,
-        RCVALL_ON as RCVALL_ON,
-        RCVALL_SOCKETLEVELONLY as RCVALL_SOCKETLEVELONLY,
-        SIO_KEEPALIVE_VALS as SIO_KEEPALIVE_VALS,
-        SIO_LOOPBACK_FAST_PATH as SIO_LOOPBACK_FAST_PATH,
-        SIO_RCVALL as SIO_RCVALL,
-    )
+
 if sys.version_info >= (3, 12):
     from _socket import (
         IP_ADD_SOURCE_MEMBERSHIP as IP_ADD_SOURCE_MEMBERSHIP,
@@ -471,8 +485,6 @@ if sys.version_info >= (3, 12):
             ETHERTYPE_IPV6 as ETHERTYPE_IPV6,
             ETHERTYPE_VLAN as ETHERTYPE_VLAN,
         )
-if sys.version_info >= (3, 11) and sys.platform == "darwin":
-    from _socket import TCP_CONNECTION_INFO as TCP_CONNECTION_INFO
 
 # Re-exported from errno
 EBADF: int
