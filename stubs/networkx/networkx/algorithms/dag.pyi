@@ -1,6 +1,5 @@
 from _typeshed import SupportsRichComparison
-from collections.abc import Generator
-from typing import Callable, Iterable
+from collections.abc import Callable, Generator, Iterable
 
 from networkx.classes.graph import Graph, _Node
 
