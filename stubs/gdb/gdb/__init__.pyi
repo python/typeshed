@@ -117,7 +117,6 @@ class Value:
 # Types
 
 def lookup_type(name: str, block: Block = ...) -> Type: ...
-
 @final
 class Type:
     alignof: int
@@ -271,7 +270,6 @@ class Inferior:
 # Threads
 
 def selected_thread() -> InferiorThread: ...
-
 @final
 class InferiorThread:
     name: str | None
@@ -403,7 +401,6 @@ class Function:
 
 def current_progspace() -> Progspace | None: ...
 def progspaces() -> Sequence[Progspace]: ...
-
 @final
 class Progspace:
     filename: str
@@ -422,7 +419,6 @@ class Progspace:
 def current_objfile() -> Objfile | None: ...
 def objfiles() -> list[Objfile]: ...
 def lookup_objfile(name: str, by_build_id: bool = ...) -> Objfile | None: ...
-
 @final
 class Objfile:
     filename: str | None
@@ -484,7 +480,6 @@ class Frame:
 # Blocks
 
 def block_for_pc(pc: int) -> Block | None: ...
-
 @final
 class Block:
     start: int
@@ -511,7 +506,6 @@ def lookup_symbol(name: str, block: Block | None = ..., domain: int = ...) -> tu
 def lookup_global_symbol(name: str, domain: int = ...) -> Symbol | None: ...
 def lookup_static_symbol(name: str, domain: int = ...) -> Symbol | None: ...
 def lookup_static_symbols(name: str, domain: int = ...) -> list[Symbol]: ...
-
 @final
 class Symbol:
     type: Type | None
