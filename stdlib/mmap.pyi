@@ -101,7 +101,7 @@ if sys.platform == "linux":
     MADV_DODUMP: int
 
 # This Values are defined for FreeBSD but type checkers do not support conditions for these
-if sys.platform != "linux" and sys.platform != "darwin":
+if sys.platform != "linux" and sys.platform != "darwin" and sys.platform != "win32":
     MADV_NOSYNC: int
     MADV_AUTOSYNC: int
     MADV_NOCORE: int
