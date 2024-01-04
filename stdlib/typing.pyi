@@ -1,3 +1,4 @@
+import collections  # noqa: F401
 import sys
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
