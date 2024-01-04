@@ -19,8 +19,10 @@ _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
 
-# Use for "self" annotations:
-#   def __enter__(self: Self) -> Self: ...
+# Alternative to `typing_extensions.Self`, exclusively for use with `__new__`
+# in metaclasses:
+#     def __new__(cls: type[Self], ...) -> Self: ...
+# In other cases, use `typing_extensions.Self`.
 Self = TypeVar("Self")  # noqa: Y001
 
 # covariant version of typing.AnyStr, useful for protocols
