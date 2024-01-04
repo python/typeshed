@@ -301,7 +301,7 @@ _VT = TypeVar("_VT")  # Value type.
 _T_co = TypeVar("_T_co", covariant=True)  # Any type covariant containers.
 _KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
-_TC = TypeVar("_TC", bound=Type[object])
+_TC = TypeVar("_TC", bound=type[object])
 
 def no_type_check(arg: _F) -> _F: ...
 def no_type_check_decorator(decorator: Callable[_P, _T]) -> Callable[_P, _T]: ...
@@ -418,7 +418,7 @@ class Generator(Iterator[_YieldT_co], Generic[_YieldT_co, _SendT_contra, _Return
     @overload
     @abstractmethod
     def throw(
-        self, __typ: Type[BaseException], __val: BaseException | object = None, __tb: TracebackType | None = None
+        self, __typ: type[BaseException], __val: BaseException | object = None, __tb: TracebackType | None = None
     ) -> _YieldT_co: ...
     @overload
     @abstractmethod
@@ -455,7 +455,7 @@ class Coroutine(Awaitable[_ReturnT_co], Generic[_YieldT_co, _SendT_contra, _Retu
     @overload
     @abstractmethod
     def throw(
-        self, __typ: Type[BaseException], __val: BaseException | object = None, __tb: TracebackType | None = None
+        self, __typ: type[BaseException], __val: BaseException | object = None, __tb: TracebackType | None = None
     ) -> _YieldT_co: ...
     @overload
     @abstractmethod
@@ -491,7 +491,7 @@ class AsyncGenerator(AsyncIterator[_YieldT_co], Generic[_YieldT_co, _SendT_contr
     @overload
     @abstractmethod
     def athrow(
-        self, __typ: Type[BaseException], __val: BaseException | object = None, __tb: TracebackType | None = None
+        self, __typ: type[BaseException], __val: BaseException | object = None, __tb: TracebackType | None = None
     ) -> Awaitable[_YieldT_co]: ...
     @overload
     @abstractmethod
@@ -772,7 +772,7 @@ class IO(Iterator[AnyStr]):
     def __enter__(self) -> IO[AnyStr]: ...
     @abstractmethod
     def __exit__(
-        self, __type: Type[BaseException] | None, __value: BaseException | None, __traceback: TracebackType | None
+        self, __type: type[BaseException] | None, __value: BaseException | None, __traceback: TracebackType | None
     ) -> None: ...
 
 class BinaryIO(IO[bytes]):
@@ -840,7 +840,7 @@ if sys.version_info >= (3, 8):
         def get_origin(tp: Any) -> Any | None: ...
 
 @overload
-def cast(typ: Type[_T], val: Any) -> _T: ...
+def cast(typ: type[_T], val: Any) -> _T: ...
 @overload
 def cast(typ: str, val: Any) -> Any: ...
 @overload
