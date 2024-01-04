@@ -1,5 +1,4 @@
 from typing import IO, AnyStr, Generic
-
 from typing_extensions import Literal
 
 class ContainerIO(Generic[AnyStr]):
