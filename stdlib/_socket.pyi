@@ -1,15 +1,8 @@
 import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
-from typing import Any, SupportsInt, overload
+from typing import Any, SupportsIndex, overload
 from typing_extensions import TypeAlias
-
-if sys.version_info >= (3, 8):
-    from typing import SupportsIndex
-
-    _FD: TypeAlias = SupportsIndex
-else:
-    _FD: TypeAlias = SupportsInt
 
 _CMSG: TypeAlias = tuple[int, int, bytes]
 _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]
@@ -104,35 +97,34 @@ INADDR_UNSPEC_GROUP: int
 IPPORT_RESERVED: int
 IPPORT_USERRESERVED: int
 
-if sys.platform != "win32" or sys.version_info >= (3, 8):
-    IPPROTO_AH: int
-    IPPROTO_DSTOPTS: int
-    IPPROTO_EGP: int
-    IPPROTO_ESP: int
-    IPPROTO_FRAGMENT: int
-    IPPROTO_GGP: int
-    IPPROTO_HOPOPTS: int
-    IPPROTO_ICMPV6: int
-    IPPROTO_IDP: int
-    IPPROTO_IGMP: int
-    IPPROTO_IPV4: int
-    IPPROTO_IPV6: int
-    IPPROTO_MAX: int
-    IPPROTO_ND: int
-    IPPROTO_NONE: int
-    IPPROTO_PIM: int
-    IPPROTO_PUP: int
-    IPPROTO_ROUTING: int
-    IPPROTO_SCTP: int
+IPPROTO_AH: int
+IPPROTO_DSTOPTS: int
+IPPROTO_EGP: int
+IPPROTO_ESP: int
+IPPROTO_FRAGMENT: int
+IPPROTO_GGP: int
+IPPROTO_HOPOPTS: int
+IPPROTO_ICMPV6: int
+IPPROTO_IDP: int
+IPPROTO_IGMP: int
+IPPROTO_IPV4: int
+IPPROTO_IPV6: int
+IPPROTO_MAX: int
+IPPROTO_ND: int
+IPPROTO_NONE: int
+IPPROTO_PIM: int
+IPPROTO_PUP: int
+IPPROTO_ROUTING: int
+IPPROTO_SCTP: int
 
-    if sys.platform != "darwin":
-        IPPROTO_CBT: int
-        IPPROTO_ICLFXBM: int
-        IPPROTO_IGP: int
-        IPPROTO_L2TP: int
-        IPPROTO_PGM: int
-        IPPROTO_RDP: int
-        IPPROTO_ST: int
+if sys.platform != "darwin":
+    IPPROTO_CBT: int
+    IPPROTO_ICLFXBM: int
+    IPPROTO_IGP: int
+    IPPROTO_L2TP: int
+    IPPROTO_PGM: int
+    IPPROTO_RDP: int
+    IPPROTO_ST: int
 
 IPPROTO_ICMP: int
 IPPROTO_IP: int
@@ -352,7 +344,7 @@ if sys.platform == "linux":
 
     CAN_RAW_FD_FRAMES: int
 
-if sys.platform == "linux" and sys.version_info >= (3, 8):
+if sys.platform == "linux":
     CAN_BCM_SETTIMER: int
     CAN_BCM_STARTTIMER: int
     CAN_BCM_TX_COUNTEVT: int
@@ -513,7 +505,7 @@ if sys.platform != "win32" and sys.platform != "darwin":
     TCP_CONGESTION: int
     TCP_USER_TIMEOUT: int
 
-if sys.platform == "linux" and sys.version_info >= (3, 8):
+if sys.platform == "linux":
     AF_QIPCRTR: int
 
 # Semi-documented constants
@@ -584,9 +576,11 @@ class socket:
     @property
     def timeout(self) -> float | None: ...
     if sys.platform == "win32":
-        def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: _FD | bytes | None = ...) -> None: ...
+        def __init__(
+            self, family: int = ..., type: int = ..., proto: int = ..., fileno: SupportsIndex | bytes | None = ...
+        ) -> None: ...
     else:
-        def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: _FD | None = ...) -> None: ...
+        def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: SupportsIndex | None = ...) -> None: ...
 
     def bind(self, __address: _Address) -> None: ...
     def close(self) -> None: ...
@@ -650,8 +644,8 @@ SocketType = socket
 
 # ----- Functions -----
 
-def close(__fd: _FD) -> None: ...
-def dup(__fd: _FD) -> int: ...
+def close(__fd: SupportsIndex) -> None: ...
+def dup(__fd: SupportsIndex) -> int: ...
 
 # the 5th tuple item is an address
 def getaddrinfo(
@@ -687,11 +681,9 @@ if sys.platform != "win32":
     def CMSG_SPACE(__length: int) -> int: ...
     def socketpair(__family: int = ..., __type: int = ..., __proto: int = ...) -> tuple[socket, socket]: ...
 
-# Windows added these in 3.8, but didn't have them before
-if sys.platform != "win32" or sys.version_info >= (3, 8):
-    def if_nameindex() -> list[tuple[int, str]]: ...
-    def if_nametoindex(__name: str) -> int: ...
-    def if_indextoname(__index: int) -> str: ...
+def if_nameindex() -> list[tuple[int, str]]: ...
+def if_nametoindex(__name: str) -> int: ...
+def if_indextoname(__index: int) -> str: ...
 
 if sys.version_info >= (3, 12):
     IP_PKTINFO: int

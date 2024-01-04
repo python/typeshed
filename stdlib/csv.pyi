@@ -24,15 +24,12 @@ from _csv import (
 
 if sys.version_info >= (3, 12):
     from _csv import QUOTE_NOTNULL as QUOTE_NOTNULL, QUOTE_STRINGS as QUOTE_STRINGS
+
 from _typeshed import SupportsWrite
+from builtins import dict as _DictReadMapping
 from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Literal, Self
-
-if sys.version_info >= (3, 8):
-    from builtins import dict as _DictReadMapping
-else:
-    from collections import OrderedDict as _DictReadMapping
 
 if sys.version_info >= (3, 12):
     from types import GenericAlias
@@ -139,11 +136,7 @@ class DictWriter(Generic[_T]):
         quoting: _QuotingType = 0,
         strict: bool = False,
     ) -> None: ...
-    if sys.version_info >= (3, 8):
-        def writeheader(self) -> Any: ...
-    else:
-        def writeheader(self) -> None: ...
-
+    def writeheader(self) -> Any: ...
     def writerow(self, rowdict: Mapping[_T, Any]) -> Any: ...
     def writerows(self, rowdicts: Iterable[Mapping[_T, Any]]) -> None: ...
     if sys.version_info >= (3, 12):

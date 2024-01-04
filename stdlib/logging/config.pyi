@@ -28,16 +28,9 @@ else:
 class _LoggerConfiguration(_RootLoggerConfiguration, TypedDict, total=False):
     propagate: bool
 
-if sys.version_info >= (3, 8):
-    _FormatterConfigurationTypedDict = TypedDict(
-        "_FormatterConfigurationTypedDict", {"class": str, "format": str, "datefmt": str, "style": _FormatStyle}, total=False
-    )
-else:
-    _FormatterConfigurationTypedDict = TypedDict(
-        "_FormatterConfigurationTypedDict",
-        {"class": str, "format": str, "datefmt": str, "style": _FormatStyle, "validate": bool},
-        total=False,
-    )
+_FormatterConfigurationTypedDict = TypedDict(
+    "_FormatterConfigurationTypedDict", {"class": str, "format": str, "datefmt": str, "style": _FormatStyle}, total=False
+)
 
 class _FilterConfigurationTypedDict(TypedDict):
     name: str
