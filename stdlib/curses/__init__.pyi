@@ -1,9 +1,8 @@
+from _curses import *
+from _curses import _CursesWindow as _CursesWindow
 from collections.abc import Callable
 from typing import TypeVar
 from typing_extensions import Concatenate, ParamSpec
-
-from _curses import *
-from _curses import _CursesWindow as _CursesWindow
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
