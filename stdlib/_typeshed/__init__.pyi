@@ -21,6 +21,7 @@ _T_contra = TypeVar("_T_contra", contravariant=True)
 
 # Alternative to `typing_extensions.Self`, for use with `__new__`:
 #     def __new__(cls: type[Self], ...) -> Self: ...
+# In other cases, use `typing_extensions.Self`.
 Self = TypeVar("Self")  # noqa: Y001
 
 # covariant version of typing.AnyStr, useful for protocols
