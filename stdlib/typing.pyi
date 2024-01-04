@@ -1,4 +1,6 @@
-import collections  # noqa: F401 - TODO: mypy crashes without this import
+# TODO: The collections import is required, otherwise mypy crashes.
+# https://github.com/python/mypy/issues/16744
+import collections  # noqa: F401  # pyright: reportMissingImports=false
 import sys
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
