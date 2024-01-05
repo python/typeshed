@@ -56,7 +56,19 @@ from typing import (  # noqa: Y022
     overload,
     type_check_only,
 )
-from typing_extensions import Concatenate, Literal, LiteralString, ParamSpec, Self, TypeAlias, TypeGuard, TypeVarTuple, deprecated
+
+# we can't import `Literal` from typing or mypy crashes: see #11247
+from typing_extensions import (  # noqa: Y023
+    Concatenate,
+    Literal,
+    LiteralString,
+    ParamSpec,
+    Self,
+    TypeAlias,
+    TypeGuard,
+    TypeVarTuple,
+    deprecated,
+)
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

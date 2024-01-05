@@ -29,7 +29,7 @@ class _HasText(Protocol):
 class _HasAttrib(Protocol):
     attrib: Iterable[Any]  # AnyOf[dict[str, str], Iterable[tuple[str, str]]]
 
-class _HasTagAndGet(_HasTag, _HasGet[_T_co], Protocol[_T_co]): ...
+class _HasTagAndGet(_HasTag, _HasGet[_T_co], Protocol[_T_co]): ...  # noqa: Y046
 class _HasTagAndText(_HasTag, _HasText, Protocol): ...  # noqa: Y046
 class _HasTagAndTextAndAttrib(_HasTag, _HasText, _HasAttrib, Protocol): ...  # noqa: Y046
 
