@@ -8,7 +8,8 @@ import zipfile
 from _typeshed import Incomplete, StrPath
 from collections.abc import Iterable, Iterator
 from io import BufferedReader
-from typing import Literal, Never, NoReturn, TypeVar
+from typing import Literal, NoReturn, TypeVar
+from typing_extensions import Never
 
 if sys.version_info >= (3, 11):
     import importlib.resources.abc as abc
