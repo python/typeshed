@@ -7,8 +7,22 @@ from collections.abc import Awaitable, Callable, Iterable, Sequence, Set as Abst
 from dataclasses import Field
 from os import PathLike
 from types import FrameType, TracebackType
-from typing import Any, AnyStr, ClassVar, Generic, Protocol, SupportsFloat, SupportsInt, TypeVar, overload
-from typing_extensions import Buffer, Final, Literal, LiteralString, SupportsIndex, TypeAlias, final
+from typing import (
+    Any,
+    AnyStr,
+    ClassVar,
+    Final,
+    Generic,
+    Literal,
+    Protocol,
+    SupportsFloat,
+    SupportsIndex,
+    SupportsInt,
+    TypeVar,
+    final,
+    overload,
+)
+from typing_extensions import Buffer, LiteralString, TypeAlias
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)

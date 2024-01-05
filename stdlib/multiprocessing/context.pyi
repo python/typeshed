@@ -8,8 +8,8 @@ from multiprocessing.managers import SyncManager
 from multiprocessing.pool import Pool as _Pool
 from multiprocessing.process import BaseProcess
 from multiprocessing.sharedctypes import SynchronizedArray, SynchronizedBase
-from typing import Any, ClassVar, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing import Any, ClassVar, Literal, TypeVar, overload
+from typing_extensions import TypeAlias
 
 if sys.platform != "win32":
     from multiprocessing.connection import Connection

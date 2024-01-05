@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable
-from typing import Any
-from typing_extensions import Literal, TypeAlias
+from typing import Any, Literal
+from typing_extensions import TypeAlias
 
 DEBUG_COLLECTABLE: Literal[2]
 DEBUG_LEAK: Literal[38]

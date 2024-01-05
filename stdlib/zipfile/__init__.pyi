@@ -5,8 +5,8 @@ from collections.abc import Callable, Iterable, Iterator
 from io import TextIOWrapper
 from os import PathLike
 from types import TracebackType
-from typing import IO, Protocol, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing import IO, Literal, Protocol, overload
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "BadZipFile",

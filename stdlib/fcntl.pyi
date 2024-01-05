@@ -1,7 +1,7 @@
 import sys
 from _typeshed import FileDescriptorLike, ReadOnlyBuffer, WriteableBuffer
-from typing import Any, overload
-from typing_extensions import Buffer, Literal
+from typing import Any, Literal, overload
+from typing_extensions import Buffer
 
 if sys.platform != "win32":
     FASYNC: int

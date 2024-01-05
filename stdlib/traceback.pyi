@@ -2,8 +2,8 @@ import sys
 from _typeshed import SupportsWrite, Unused
 from collections.abc import Generator, Iterable, Iterator, Mapping
 from types import FrameType, TracebackType
-from typing import Any, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing import Any, Literal, overload
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "extract_stack",

@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Iterable
-from typing import Protocol, SupportsFloat, TypeVar, overload
-from typing_extensions import SupportsIndex, TypeAlias
+from typing import Protocol, SupportsFloat, SupportsIndex, TypeVar, overload
+from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)

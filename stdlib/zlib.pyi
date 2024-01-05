@@ -1,6 +1,7 @@
 import sys
+from typing import Literal
+
 from _typeshed import ReadableBuffer
-from typing_extensions import Literal
 
 DEFLATED: Literal[8]
 DEF_MEM_LEVEL: int  # can change

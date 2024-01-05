@@ -2,8 +2,8 @@ import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable, Collection, Iterable, Mapping, Sequence
 from types import TracebackType
-from typing import IO, Any, AnyStr, Generic, TypeVar, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing import IO, Any, AnyStr, Generic, Literal, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

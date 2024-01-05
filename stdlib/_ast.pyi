@@ -1,7 +1,6 @@
 import sys
 import typing_extensions
-from typing import Any, ClassVar
-from typing_extensions import Literal
+from typing import Any, ClassVar, Literal
 
 PyCF_ONLY_AST: Literal[1024]
 PyCF_TYPE_COMMENTS: Literal[4096]

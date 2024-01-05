@@ -27,8 +27,8 @@ if sys.version_info >= (3, 12):
 
 from _typeshed import SupportsWrite
 from collections.abc import Collection, Iterable, Iterator, Mapping, Sequence
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, Self
+from typing import Any, Generic, Literal, TypeVar, overload
+from typing_extensions import Self
 
 if sys.version_info >= (3, 12):
     from types import GenericAlias

@@ -20,7 +20,7 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
-from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, final as _final
+from typing_extensions import Never as _Never, ParamSpec as _ParamSpec
 
 if sys.version_info >= (3, 10):
     from types import UnionType
@@ -135,7 +135,8 @@ def type_check_only(func_or_cls: _F) -> _F: ...
 
 Any = object()
 
-@_final
+def final(f: _T) -> _T: ...
+@final
 class TypeVar:
     @property
     def __name__(self) -> str: ...
@@ -173,7 +174,7 @@ class TypeVar:
 _promote = object()
 
 # N.B. Keep this definition in sync with typing_extensions._SpecialForm
-@_final
+@final
 class _SpecialForm:
     def __getitem__(self, parameters: Any) -> object: ...
     if sys.version_info >= (3, 10):
@@ -199,8 +200,6 @@ Optional: _SpecialForm
 Tuple: _SpecialForm
 Final: _SpecialForm
 
-def final(f: _T) -> _T: ...
-
 Literal: _SpecialForm
 # TypedDict is a (non-subscriptable) special form.
 TypedDict: object
@@ -213,7 +212,7 @@ if sys.version_info >= (3, 11):
     NotRequired: _SpecialForm
     LiteralString: _SpecialForm
 
-    @_final
+    @final
     class TypeVarTuple:
         @property
         def __name__(self) -> str: ...
@@ -223,21 +222,21 @@ if sys.version_info >= (3, 11):
         def __typing_prepare_subst__(self, alias: Incomplete, args: Incomplete) -> Incomplete: ...
 
 if sys.version_info >= (3, 10):
-    @_final
+    @final
     class ParamSpecArgs:
         @property
         def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
         def __eq__(self, other: object) -> bool: ...
 
-    @_final
+    @final
     class ParamSpecKwargs:
         @property
         def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
         def __eq__(self, other: object) -> bool: ...
 
-    @_final
+    @final
     class ParamSpec:
         @property
         def __name__(self) -> str: ...
@@ -909,7 +908,7 @@ class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
         # supposedly incompatible definitions of __or__ and __ior__
         def __ior__(self, __value: typing_extensions.Self) -> typing_extensions.Self: ...  # type: ignore[misc]
 
-@_final
+@final
 class ForwardRef:
     __forward_arg__: str
     __forward_code__: CodeType
@@ -944,7 +943,7 @@ def _type_repr(obj: object) -> str: ...
 
 if sys.version_info >= (3, 12):
     def override(__method: _F) -> _F: ...
-    @_final
+    @final
     class TypeAliasType:
         def __init__(
             self, name: str, value: Any, *, type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] = ()

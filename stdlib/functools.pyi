@@ -2,8 +2,8 @@ import sys
 import types
 from _typeshed import SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sequence, Sized
-from typing import Any, Generic, NamedTuple, TypeVar, overload
-from typing_extensions import Literal, ParamSpec, Self, TypeAlias, TypedDict, final
+from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, final, overload
+from typing_extensions import ParamSpec, Self, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

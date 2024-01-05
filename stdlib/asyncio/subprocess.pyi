@@ -3,8 +3,7 @@ import sys
 from _typeshed import StrOrBytesPath
 from asyncio import events, protocols, streams, transports
 from collections.abc import Callable, Collection
-from typing import IO, Any
-from typing_extensions import Literal
+from typing import IO, Any, Literal
 
 __all__ = ("create_subprocess_exec", "create_subprocess_shell")
 

@@ -1,7 +1,7 @@
 import sys
 from _typeshed import ReadOnlyBuffer, SupportsRead
-from typing import IO, Any, NamedTuple, overload
-from typing_extensions import TypeAlias, final
+from typing import IO, Any, NamedTuple, final, overload
+from typing_extensions import TypeAlias
 
 if sys.platform != "win32":
     # Handled by PyCurses_ConvertToChtype in _cursesmodule.c.

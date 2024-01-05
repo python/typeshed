@@ -3,8 +3,7 @@ from _typeshed import structseq
 from collections.abc import Callable
 from threading import Thread
 from types import TracebackType
-from typing import Any, NoReturn
-from typing_extensions import Final, final
+from typing import Any, Final, NoReturn, final
 
 error = RuntimeError
 

@@ -3,8 +3,7 @@ import sys
 from _typeshed import Incomplete, OpenBinaryMode, OpenTextMode, Unused
 from collections.abc import Iterator
 from io import TextIOWrapper
-from typing import IO, Any, BinaryIO, NoReturn, overload
-from typing_extensions import Literal, Never
+from typing import IO, Any, BinaryIO, Literal, Never, NoReturn, overload
 
 if sys.version_info >= (3, 11):
     from .abc import Traversable, TraversableResources

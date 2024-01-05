@@ -25,8 +25,8 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
-from typing import Any, ClassVar, NamedTuple, Protocol, TypeVar, overload
-from typing_extensions import Literal, ParamSpec, Self, TypeAlias, TypeGuard
+from typing import Any, ClassVar, Literal, NamedTuple, Protocol, TypeVar, overload
+from typing_extensions import ParamSpec, Self, TypeAlias, TypeGuard
 
 if sys.version_info >= (3, 11):
     __all__ = [

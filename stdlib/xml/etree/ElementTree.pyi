@@ -2,8 +2,8 @@ import sys
 from _collections_abc import dict_keys
 from _typeshed import FileDescriptorOrPath, ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Callable, Generator, ItemsView, Iterable, Iterator, Mapping, Sequence
-from typing import Any, TypeVar, overload
-from typing_extensions import Literal, SupportsIndex, TypeAlias, TypeGuard
+from typing import Any, Literal, SupportsIndex, TypeVar, overload
+from typing_extensions import TypeAlias, TypeGuard
 
 __all__ = [
     "C14NWriterTarget",

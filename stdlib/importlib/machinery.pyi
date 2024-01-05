@@ -4,8 +4,8 @@ import types
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterable, MutableSequence, Sequence
 from importlib.metadata import DistributionFinder, PathDistribution
-from typing import Any
-from typing_extensions import Literal, deprecated
+from typing import Any, Literal
+from typing_extensions import deprecated
 
 class ModuleSpec:
     def __init__(

@@ -16,8 +16,8 @@ from collections.abc import (
 from importlib.machinery import ModuleSpec
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
-from typing import Any, ClassVar, Mapping, Protocol, TypeVar, overload  # noqa: Y022
-from typing_extensions import Literal, ParamSpec, Self, TypeVarTuple, final
+from typing import Any, ClassVar, Literal, Mapping, Protocol, TypeVar, final, overload  # noqa: Y022
+from typing_extensions import ParamSpec, Self, TypeVarTuple
 
 __all__ = [
     "FunctionType",

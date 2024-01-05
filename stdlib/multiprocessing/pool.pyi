@@ -1,8 +1,8 @@
 import sys
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from types import TracebackType
-from typing import Any, Generic, TypeVar
-from typing_extensions import Literal, Self
+from typing import Any, Generic, Literal, TypeVar
+from typing_extensions import Self
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

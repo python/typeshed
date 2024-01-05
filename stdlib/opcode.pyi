@@ -1,5 +1,5 @@
 import sys
-from typing_extensions import Literal
+from typing import Literal
 
 __all__ = [
     "cmp_op",

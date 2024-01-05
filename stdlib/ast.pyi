@@ -3,8 +3,8 @@ import sys
 from _ast import *
 from _typeshed import ReadableBuffer, Unused
 from collections.abc import Iterator
-from typing import Any, TypeVar as _TypeVar, overload
-from typing_extensions import Literal, deprecated
+from typing import Any, Literal, TypeVar as _TypeVar, overload
+from typing_extensions import deprecated
 
 class _ABC(type):
     if sys.version_info >= (3, 9):

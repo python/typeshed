@@ -10,8 +10,8 @@ from asyncio.transports import BaseTransport, DatagramTransport, ReadTransport, 
 from collections.abc import Callable, Iterable, Sequence
 from contextvars import Context
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
-from typing import IO, Any, TypeVar, overload
-from typing_extensions import Literal, TypeAlias, TypeVarTuple, Unpack
+from typing import IO, Any, Literal, TypeVar, overload
+from typing_extensions import TypeAlias, TypeVarTuple, Unpack
 
 if sys.version_info >= (3, 9):
     __all__ = ("BaseEventLoop", "Server")
