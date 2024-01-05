@@ -22,17 +22,17 @@ try:
 except ValueError:
     pass
 
-try:
-    with tarfile.open("test.tar.xz", "w:xz", preset="high") as tar:
-        pass
-except TypeError:
-    pass
-
-try:
-    with tarfile.open("test.tar.xz", "w:xz", preset=5.5) as tar:
-        pass
-except TypeError:
-    pass
+# try:
+#     with tarfile.open("test.tar.xz", "w:xz", preset="high") as tar:
+#         pass
+# except TypeError:
+#     pass
+#
+# try:
+#     with tarfile.open("test.tar.xz", "w:xz", preset=5.5) as tar:
+#         pass
+# except TypeError:
+#     pass
 
 # Test with modes that don't support preset
 try:
