@@ -1,7 +1,7 @@
 import re
+from _typeshed import StrPath
 from typing import Literal
 
-from _typeshed import StrPath
 from xdg.IniFile import IniFile
 
 class DesktopEntry(IniFile):

@@ -1,9 +1,9 @@
+from _typeshed import Incomplete
 from collections.abc import Iterable
 from dataclasses import dataclass
 from io import BytesIO
 from typing import Literal
 
-from _typeshed import Incomplete
 from PIL import Image
 
 from .drawing import DeviceGray, DeviceRGB

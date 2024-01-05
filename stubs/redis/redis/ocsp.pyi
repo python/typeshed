@@ -1,7 +1,7 @@
+from _typeshed import Incomplete
 from ssl import SSLObject, SSLSocket
 from typing import Literal
 
-from _typeshed import Incomplete
 from cryptography.x509.base import Certificate
 from OpenSSL.SSL import Connection
 

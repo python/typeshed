@@ -1,7 +1,6 @@
 from typing import Literal
 
-from stripe import Event
-from stripe import error as error
+from stripe import Event, error as error
 
 class Webhook:
     DEFAULT_TOLERANCE: int

@@ -2,11 +2,11 @@
 # Nothing in this module is meant to be initialized externally.
 # Instances are exposed through hooks during build.
 
+from _typeshed import StrOrBytesPath
 from collections.abc import Generator, Iterable
 from types import CodeType
 from typing import Literal
 
-from _typeshed import StrOrBytesPath
 from PyInstaller.building.build_main import Analysis
 from PyInstaller.building.datastruct import TOC
 from PyInstaller.depend.analysis import PyiModuleGraph

@@ -1,10 +1,9 @@
 import ast
 import xml.dom
+from _typeshed import Unused
 from collections.abc import Collection, Iterable, Iterator
 from types import CodeType
 from typing import Literal
-
-from _typeshed import Unused
 
 from .DesktopEntry import DesktopEntry
 

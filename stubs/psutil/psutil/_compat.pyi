@@ -1,15 +1,16 @@
-from builtins import ChildProcessError as ChildProcessError
-from builtins import FileExistsError as FileExistsError
-from builtins import FileNotFoundError as FileNotFoundError
-from builtins import InterruptedError as InterruptedError
-from builtins import PermissionError as PermissionError
-from builtins import ProcessLookupError as ProcessLookupError
-from builtins import range as range
-from builtins import super as super
+from builtins import (
+    ChildProcessError as ChildProcessError,
+    FileExistsError as FileExistsError,
+    FileNotFoundError as FileNotFoundError,
+    InterruptedError as InterruptedError,
+    PermissionError as PermissionError,
+    ProcessLookupError as ProcessLookupError,
+    range as range,
+    super as super,
+)
 from contextlib import redirect_stderr as redirect_stderr
 from functools import lru_cache as lru_cache
-from shutil import get_terminal_size as get_terminal_size
-from shutil import which as which
+from shutil import get_terminal_size as get_terminal_size, which as which
 from subprocess import TimeoutExpired
 from typing import Literal
 
