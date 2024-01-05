@@ -73,8 +73,7 @@ class HTTPStatus(IntEnum):
     NOT_EXTENDED: int
     NETWORK_AUTHENTICATION_REQUIRED: int
     MISDIRECTED_REQUEST: int
-    if sys.version_info >= (3, 8):
-        UNAVAILABLE_FOR_LEGAL_REASONS: int
+    UNAVAILABLE_FOR_LEGAL_REASONS: int
     if sys.version_info >= (3, 9):
         EARLY_HINTS: Literal[103]
         IM_A_TEAPOT: Literal[418]

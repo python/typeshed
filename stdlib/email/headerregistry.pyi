@@ -1,4 +1,3 @@
-import sys
 import types
 from collections.abc import Iterable, Mapping
 from datetime import datetime as _datetime
@@ -7,6 +6,7 @@ from email._header_value_parser import (
     ContentDisposition,
     ContentTransferEncoding,
     ContentType,
+    MessageID,
     MIMEVersion,
     TokenList,
     UnstructuredTokenList,
@@ -130,15 +130,12 @@ class ContentTransferEncodingHeader:
     @staticmethod
     def value_parser(value: str) -> ContentTransferEncoding: ...
 
-if sys.version_info >= (3, 8):
-    from email._header_value_parser import MessageID
-
-    class MessageIDHeader:
-        max_count: ClassVar[Literal[1]]
-        @classmethod
-        def parse(cls, value: str, kwds: dict[str, Any]) -> None: ...
-        @staticmethod
-        def value_parser(value: str) -> MessageID: ...
+class MessageIDHeader:
+    max_count: ClassVar[Literal[1]]
+    @classmethod
+    def parse(cls, value: str, kwds: dict[str, Any]) -> None: ...
+    @staticmethod
+    def value_parser(value: str) -> MessageID: ...
 
 class _HeaderParser(Protocol):
     max_count: ClassVar[Literal[1] | None]

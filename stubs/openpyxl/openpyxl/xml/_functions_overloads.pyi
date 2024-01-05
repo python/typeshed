@@ -1,6 +1,5 @@
 # This file does not exist at runtime. It is a helper file to overload imported functions in openpyxl.xml.functions
 
-import sys
 from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Iterable, Iterator, Mapping, Sequence
 from typing import Any, Protocol, TypeVar, overload
@@ -86,20 +85,15 @@ def fromstring(text: str, forbid_dtd: bool = False, forbid_entities: bool = True
 
 # from xml.etree.ElementTree import tostring
 # But made partial, removing encoding arg
-if sys.version_info >= (3, 8):
-    @overload
-    def tostring(
-        element: Element,
-        method: str | None = "xml",
-        *,
-        xml_declaration: bool | None = None,
-        default_namespace: str | None = ...,
-        short_empty_elements: bool = ...,
-    ) -> str: ...
-
-else:
-    @overload
-    def tostring(element: Element, method: str | None = ..., *, short_empty_elements: bool = ...) -> str: ...
+@overload
+def tostring(
+    element: Element,
+    method: str | None = "xml",
+    *,
+    xml_declaration: bool | None = None,
+    default_namespace: str | None = ...,
+    short_empty_elements: bool = ...,
+) -> str: ...
 
 # from lxml.etree import Element
 # But made partial, removing encoding arg

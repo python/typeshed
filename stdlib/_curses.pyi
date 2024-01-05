@@ -548,10 +548,10 @@ if sys.platform != "win32":
         def vline(self, ch: _ChType, n: int) -> None: ...
         @overload
         def vline(self, y: int, x: int, ch: _ChType, n: int) -> None: ...
-    if sys.version_info >= (3, 8):
-        class _ncurses_version(NamedTuple):
-            major: int
-            minor: int
-            patch: int
-        ncurses_version: _ncurses_version
-        window = _CursesWindow  # undocumented
+
+    class _ncurses_version(NamedTuple):
+        major: int
+        minor: int
+        patch: int
+    ncurses_version: _ncurses_version
+    window = _CursesWindow  # undocumented
