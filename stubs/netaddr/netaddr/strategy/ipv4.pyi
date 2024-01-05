@@ -1,9 +1,10 @@
-from _typeshed import Unused
 from collections.abc import Iterable, Sequence
 from socket import AddressFamily
-from typing_extensions import Literal
+from typing import Literal
 
-from netaddr.core import INET_PTON as INET_PTON, ZEROFILL as ZEROFILL
+from _typeshed import Unused
+from netaddr.core import INET_PTON as INET_PTON
+from netaddr.core import ZEROFILL as ZEROFILL
 
 width: Literal[32]
 word_size: Literal[8]

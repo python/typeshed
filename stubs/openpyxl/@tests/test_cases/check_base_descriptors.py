@@ -4,8 +4,7 @@ from __future__ import annotations
 
 from _typeshed import ReadableBuffer
 from datetime import date, datetime, time
-from typing import Any, List, Tuple, Union
-from typing_extensions import Literal, assert_type
+from typing import Any, List, Literal, Tuple, Union, assert_type
 
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.base import (

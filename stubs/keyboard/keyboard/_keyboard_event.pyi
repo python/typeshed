@@ -1,6 +1,7 @@
-from typing_extensions import Literal
+from typing import Literal
 
-from ._canonical_names import canonical_names as canonical_names, normalize_name as normalize_name
+from ._canonical_names import canonical_names as canonical_names
+from ._canonical_names import normalize_name as normalize_name
 
 KEY_DOWN: Literal["down"]
 KEY_UP: Literal["up"]

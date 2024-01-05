@@ -1,8 +1,9 @@
 import os
 import sys
-from _typeshed import FileDescriptor, Incomplete, ReadableBuffer
 from collections.abc import Callable
-from typing_extensions import Literal
+from typing import Literal
+
+from _typeshed import FileDescriptor, Incomplete, ReadableBuffer
 
 def tp_read(fd: FileDescriptor, n: int) -> bytes: ...
 def tp_write(fd: FileDescriptor, buf: ReadableBuffer) -> int: ...

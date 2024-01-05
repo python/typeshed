@@ -1,5 +1,4 @@
-from typing import Any, ClassVar
-from typing_extensions import final
+from typing import Any, ClassVar, Final
 
 from tree_sitter import Language
 

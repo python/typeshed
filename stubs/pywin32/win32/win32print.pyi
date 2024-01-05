@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
-from typing_extensions import Literal
+from typing import Literal
 
 import _win32typing
+from _typeshed import Incomplete
 
 def OpenPrinter(printer: str, Defaults: Incomplete | None = ...) -> _win32typing.PyPrinterHANDLE: ...
 def GetPrinter(hPrinter: _win32typing.PyPrinterHANDLE, Level: int = ...): ...
