@@ -4,7 +4,8 @@
 # These tests are essentially a mirror of check_base_descriptors
 from __future__ import annotations
 
-from typing import Literal, Union, assert_type, cast
+from typing import Literal, Union, cast
+from typing_extensions import assert_type
 
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.nested import (
