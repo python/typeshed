@@ -1,15 +1,8 @@
 import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
-from typing import Any, SupportsInt, overload
+from typing import Any, SupportsIndex, overload
 from typing_extensions import TypeAlias
-
-if sys.version_info >= (3, 8):
-    from typing import SupportsIndex
-
-    _FD: TypeAlias = SupportsIndex
-else:
-    _FD: TypeAlias = SupportsInt
 
 _CMSG: TypeAlias = tuple[int, int, bytes]
 _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]
@@ -144,34 +137,33 @@ IPPROTO_IP: int
 IPPROTO_RAW: int
 IPPROTO_TCP: int
 IPPROTO_UDP: int
-if sys.version_info >= (3, 8) or sys.platform != "win32":
-    IPPROTO_AH: int
-    IPPROTO_DSTOPTS: int
-    IPPROTO_EGP: int
-    IPPROTO_ESP: int
-    IPPROTO_FRAGMENT: int
-    IPPROTO_GGP: int
-    IPPROTO_HOPOPTS: int
-    IPPROTO_ICMPV6: int
-    IPPROTO_IDP: int
-    IPPROTO_IGMP: int
-    IPPROTO_IPV4: int
-    IPPROTO_IPV6: int
-    IPPROTO_MAX: int
-    IPPROTO_ND: int
-    IPPROTO_NONE: int
-    IPPROTO_PIM: int
-    IPPROTO_PUP: int
-    IPPROTO_ROUTING: int
-    IPPROTO_SCTP: int
-    if sys.platform != "darwin":
-        IPPROTO_CBT: int
-        IPPROTO_ICLFXBM: int
-        IPPROTO_IGP: int
-        IPPROTO_L2TP: int
-        IPPROTO_PGM: int
-        IPPROTO_RDP: int
-        IPPROTO_ST: int
+IPPROTO_AH: int
+IPPROTO_DSTOPTS: int
+IPPROTO_EGP: int
+IPPROTO_ESP: int
+IPPROTO_FRAGMENT: int
+IPPROTO_GGP: int
+IPPROTO_HOPOPTS: int
+IPPROTO_ICMPV6: int
+IPPROTO_IDP: int
+IPPROTO_IGMP: int
+IPPROTO_IPV4: int
+IPPROTO_IPV6: int
+IPPROTO_MAX: int
+IPPROTO_ND: int
+IPPROTO_NONE: int
+IPPROTO_PIM: int
+IPPROTO_PUP: int
+IPPROTO_ROUTING: int
+IPPROTO_SCTP: int
+if sys.platform != "darwin":
+    IPPROTO_CBT: int
+    IPPROTO_ICLFXBM: int
+    IPPROTO_IGP: int
+    IPPROTO_L2TP: int
+    IPPROTO_PGM: int
+    IPPROTO_RDP: int
+    IPPROTO_ST: int
 if sys.platform != "win32":
     IPPROTO_EON: int
     IPPROTO_GRE: int
@@ -363,20 +355,18 @@ if sys.platform == "linux":
     CAN_BCM_RX_STATUS: int
     CAN_BCM_RX_TIMEOUT: int
     CAN_BCM_RX_CHANGED: int
-
-    if sys.version_info >= (3, 8):
-        CAN_BCM_SETTIMER: int
-        CAN_BCM_STARTTIMER: int
-        CAN_BCM_TX_COUNTEVT: int
-        CAN_BCM_TX_ANNOUNCE: int
-        CAN_BCM_TX_CP_CAN_ID: int
-        CAN_BCM_RX_FILTER_ID: int
-        CAN_BCM_RX_CHECK_DLC: int
-        CAN_BCM_RX_NO_AUTOTIMER: int
-        CAN_BCM_RX_ANNOUNCE_RESUME: int
-        CAN_BCM_TX_RESET_MULTI_IDX: int
-        CAN_BCM_RX_RTR_FRAME: int
-        CAN_BCM_CAN_FD_FRAME: int
+    CAN_BCM_SETTIMER: int
+    CAN_BCM_STARTTIMER: int
+    CAN_BCM_TX_COUNTEVT: int
+    CAN_BCM_TX_ANNOUNCE: int
+    CAN_BCM_TX_CP_CAN_ID: int
+    CAN_BCM_RX_FILTER_ID: int
+    CAN_BCM_RX_CHECK_DLC: int
+    CAN_BCM_RX_NO_AUTOTIMER: int
+    CAN_BCM_RX_ANNOUNCE_RESUME: int
+    CAN_BCM_TX_RESET_MULTI_IDX: int
+    CAN_BCM_RX_RTR_FRAME: int
+    CAN_BCM_CAN_FD_FRAME: int
 
 if sys.platform == "linux":
     # Availability: Linux >= 3.6
@@ -545,7 +535,7 @@ if sys.platform != "win32" and sys.platform != "darwin":
     HCI_TIME_STAMP: int  # not in FreeBSD, NetBSD, or DragonFlyBSD
     HCI_DATA_DIR: int  # not in FreeBSD, NetBSD, or DragonFlyBSD
 
-if sys.platform == "linux" and sys.version_info >= (3, 8):
+if sys.platform == "linux":
     AF_QIPCRTR: int  # Availability: Linux >= 4.7
 
 if sys.version_info >= (3, 11) and sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darwin":
@@ -700,9 +690,11 @@ class socket:
     @property
     def timeout(self) -> float | None: ...
     if sys.platform == "win32":
-        def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: _FD | bytes | None = ...) -> None: ...
+        def __init__(
+            self, family: int = ..., type: int = ..., proto: int = ..., fileno: SupportsIndex | bytes | None = ...
+        ) -> None: ...
     else:
-        def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: _FD | None = ...) -> None: ...
+        def __init__(self, family: int = ..., type: int = ..., proto: int = ..., fileno: SupportsIndex | None = ...) -> None: ...
 
     def bind(self, __address: _Address) -> None: ...
     def close(self) -> None: ...
@@ -766,8 +758,8 @@ SocketType = socket
 
 # ===== Functions =====
 
-def close(__fd: _FD) -> None: ...
-def dup(__fd: _FD) -> int: ...
+def close(__fd: SupportsIndex) -> None: ...
+def dup(__fd: SupportsIndex) -> int: ...
 
 # the 5th tuple item is an address
 def getaddrinfo(
@@ -803,10 +795,8 @@ if sys.platform != "win32":
     def CMSG_SPACE(__length: int) -> int: ...
     def socketpair(__family: int = ..., __type: int = ..., __proto: int = ...) -> tuple[socket, socket]: ...
 
-# Windows added these in 3.8, but didn't have them before
-if sys.platform != "win32" or sys.version_info >= (3, 8):
-    def if_nameindex() -> list[tuple[int, str]]: ...
-    def if_nametoindex(__name: str) -> int: ...
-    def if_indextoname(__index: int) -> str: ...
+def if_nameindex() -> list[tuple[int, str]]: ...
+def if_nametoindex(__name: str) -> int: ...
+def if_indextoname(__index: int) -> str: ...
 
 CAPI: object
