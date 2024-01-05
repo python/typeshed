@@ -4,7 +4,7 @@ from typing import IO, Any, NamedTuple, final, overload
 from typing_extensions import TypeAlias
 
 # NOTE: This module is ordinarily only available on Unix, but the windows-curses
-# package makes it available on Windows as well with the same types.
+# package makes it available on Windows as well with the same contents.
 
 # Handled by PyCurses_ConvertToChtype in _cursesmodule.c.
 _ChType: TypeAlias = str | bytes | int

@@ -4,6 +4,10 @@ from collections.abc import Callable
 from typing import TypeVar
 from typing_extensions import Concatenate, ParamSpec
 
+# NOTE: The _curses module is ordinarily only available on Unix, but the
+# windows-curses package makes it available on Windows as well with the same
+# contents.
+
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
 
