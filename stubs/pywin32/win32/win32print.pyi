@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing_extensions import Literal
+from typing import Literal
 
 import _win32typing
 
