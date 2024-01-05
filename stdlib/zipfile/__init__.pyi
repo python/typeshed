@@ -24,12 +24,13 @@ __all__ = [
     "LargeZipFile",
 ]
 
-# TODO: use TypeAlias when mypy bugs are fixed
+# TODO: use TypeAlias for these two when mypy bugs are fixed
 # https://github.com/python/mypy/issues/16581
 _DateTuple = tuple[int, int, int, int, int, int]  # noqa: Y026
+_ZipFileMode = Literal["r", "w", "x", "a"]  # noqa: Y026
+
 _ReadWriteMode: TypeAlias = Literal["r", "w"]
 _ReadWriteBinaryMode: TypeAlias = Literal["r", "w", "rb", "wb"]
-_ZipFileMode: TypeAlias = Literal["r", "w", "x", "a"]
 
 class BadZipFile(Exception): ...
 
