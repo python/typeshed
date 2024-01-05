@@ -4,7 +4,7 @@ from _typeshed import StrOrBytesPath
 from collections.abc import Iterable
 from importlib.metadata import PackagePath as _PackagePath
 from pathlib import Path
-from typing_extensions import Final, TypedDict
+from typing import Final, TypedDict
 
 CONDA_ROOT: Final[Path]
 CONDA_META_DIR: Final[Path]

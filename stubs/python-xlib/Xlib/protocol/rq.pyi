@@ -4,8 +4,8 @@ from array import array
 # Avoid name collision with List.type
 from builtins import type as Type
 from collections.abc import Callable, Iterable, Sequence
-from typing import Any, TypeVar, overload, type_check_only
-from typing_extensions import Final, Literal, LiteralString, SupportsIndex, TypeAlias
+from typing import Any, Final, Literal, SupportsIndex, TypeVar, overload, type_check_only
+from typing_extensions import LiteralString, TypeAlias
 
 from Xlib._typing import ErrorHandler, Unused
 from Xlib.display import _BaseDisplay, _ResourceBaseClass

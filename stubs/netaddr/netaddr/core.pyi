@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, SupportsWrite
 from collections.abc import Iterator, Mapping
-from typing_extensions import Final
+from typing import Final
 
 BIG_ENDIAN_PLATFORM: bool
 P: Final = 1

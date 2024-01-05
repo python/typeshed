@@ -1,6 +1,5 @@
 from collections.abc import Callable, Iterable, Iterator, MutableMapping, Sequence
-from typing import Any, TypeVar, overload
-from typing_extensions import SupportsIndex
+from typing import Any, SupportsIndex, TypeVar, overload
 
 from google.protobuf.descriptor import Descriptor
 from google.protobuf.internal.message_listener import MessageListener
