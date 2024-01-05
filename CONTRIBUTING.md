@@ -304,11 +304,16 @@ Features from the `typing` module that are not present in all
 supported Python 3 versions must be imported from `typing_extensions`
 instead in typeshed stubs. This currently affects:
 
+- `TypeAlias` (new in Python 3.10)
 - `Concatenate` (new in Python 3.10)
 - `ParamSpec` (new in Python 3.10)
 - `TypeGuard` (new in Python 3.10)
 - `Self` (new in Python 3.11)
+- `Never` (new in Python 3.11)
 - `LiteralString` (new in Python 3.11)
+- `TypeVarTuple` and `Unpack` (new in Python 3.11)
+- `Required` and `NotRequired` (new in Python 3.11)
+- `Buffer` (new in Python 3.12; in the `collections.abc` module)
 - `@deprecated` (new in Python 3.13; in the `warnings` module)
 
 Some type checkers implicitly promote the `bytearray` and
