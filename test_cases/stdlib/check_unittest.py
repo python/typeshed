@@ -5,7 +5,8 @@ from collections.abc import Iterator, Mapping
 from datetime import datetime, timedelta
 from decimal import Decimal
 from fractions import Fraction
-from typing_extensions import TypedDict, assert_type
+from typing import TypedDict
+from typing_extensions import assert_type
 from unittest.mock import MagicMock, Mock, patch
 
 case = unittest.TestCase()
