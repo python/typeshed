@@ -8,8 +8,7 @@ from copyreg import _DispatchTableType
 from multiprocessing import connection
 from pickle import _ReducedType
 from socket import socket
-from typing import Any
-from typing_extensions import Literal
+from typing import Any, Literal
 
 if sys.platform == "win32":
     __all__ = ["send_handle", "recv_handle", "ForkingPickler", "register", "dump", "DupHandle", "duplicate", "steal_handle"]

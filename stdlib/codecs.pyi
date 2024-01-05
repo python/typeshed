@@ -3,8 +3,8 @@ from _codecs import *
 from _typeshed import ReadableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Generator, Iterable
-from typing import Any, BinaryIO, Protocol, TextIO
-from typing_extensions import Literal, Self
+from typing import Any, BinaryIO, Literal, Protocol, TextIO
+from typing_extensions import Self
 
 __all__ = [
     "register",

@@ -2,8 +2,8 @@ import sys
 from collections.abc import Callable
 from decimal import Decimal
 from numbers import Integral, Rational, Real
-from typing import Any, overload
-from typing_extensions import Literal, Self, SupportsIndex, TypeAlias
+from typing import Any, Literal, SupportsIndex, overload
+from typing_extensions import Self, TypeAlias
 
 _ComparableNum: TypeAlias = int | float | Decimal | Real
 

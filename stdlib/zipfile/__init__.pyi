@@ -5,8 +5,8 @@ from collections.abc import Callable, Iterable, Iterator
 from io import TextIOWrapper
 from os import PathLike
 from types import TracebackType
-from typing import IO, Protocol, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing import IO, Literal, Protocol, overload
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "BadZipFile",
@@ -24,12 +24,13 @@ __all__ = [
     "LargeZipFile",
 ]
 
-# TODO: use TypeAlias when mypy bugs are fixed
+# TODO: use TypeAlias for these two when mypy bugs are fixed
 # https://github.com/python/mypy/issues/16581
 _DateTuple = tuple[int, int, int, int, int, int]  # noqa: Y026
+_ZipFileMode = Literal["r", "w", "x", "a"]  # noqa: Y026
+
 _ReadWriteMode: TypeAlias = Literal["r", "w"]
 _ReadWriteBinaryMode: TypeAlias = Literal["r", "w", "rb", "wb"]
-_ZipFileMode: TypeAlias = Literal["r", "w", "x", "a"]
 
 class BadZipFile(Exception): ...
 

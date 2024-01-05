@@ -6,8 +6,8 @@ from _typeshed import FileDescriptorOrPath, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from os import _Opener
 from types import TracebackType
-from typing import IO, Any, BinaryIO, TextIO, TypeVar, overload
-from typing_extensions import Literal, Self
+from typing import IO, Any, BinaryIO, Literal, TextIO, TypeVar, overload
+from typing_extensions import Self
 
 __all__ = [
     "BlockingIOError",

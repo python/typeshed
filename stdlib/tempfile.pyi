@@ -14,8 +14,8 @@ from _typeshed import (
 )
 from collections.abc import Iterable, Iterator
 from types import TracebackType
-from typing import IO, Any, AnyStr, Generic, overload
-from typing_extensions import Literal, Self
+from typing import IO, Any, AnyStr, Generic, Literal, overload
+from typing_extensions import Self
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

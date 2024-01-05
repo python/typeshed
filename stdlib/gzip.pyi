@@ -3,8 +3,8 @@ import sys
 import zlib
 from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath
 from io import FileIO
-from typing import Protocol, TextIO, overload
-from typing_extensions import Literal, TypeAlias
+from typing import Literal, Protocol, TextIO, overload
+from typing_extensions import TypeAlias
 
 __all__ = ["BadGzipFile", "GzipFile", "open", "compress", "decompress"]
 

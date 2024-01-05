@@ -1,8 +1,7 @@
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Sequence
-from typing import Any, NoReturn, overload
-from typing_extensions import Literal, final
+from typing import Any, Literal, NoReturn, final, overload
 
 if sys.platform == "win32":
     ABOVE_NORMAL_PRIORITY_CLASS: Literal[0x8000]

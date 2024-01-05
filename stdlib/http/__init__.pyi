@@ -1,6 +1,6 @@
 import sys
 from enum import IntEnum
-from typing_extensions import Literal
+from typing import Literal
 
 if sys.version_info >= (3, 11):
     from enum import StrEnum

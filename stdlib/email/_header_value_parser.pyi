@@ -2,8 +2,8 @@ from collections.abc import Iterable, Iterator
 from email.errors import HeaderParseError, MessageDefect
 from email.policy import Policy
 from re import Pattern
-from typing import Any
-from typing_extensions import Final, Self
+from typing import Any, Final
+from typing_extensions import Self
 
 WSP: Final[set[str]]
 CFWS_LEADER: Final[set[str]]

@@ -25,8 +25,22 @@ from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMappin
 from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper as _TextIOWrapper
 from subprocess import Popen
-from typing import IO, Any, AnyStr, BinaryIO, Generic, NoReturn, Protocol, TypeVar, overload, runtime_checkable
-from typing_extensions import Final, Literal, Self, TypeAlias, Unpack, final
+from typing import (
+    IO,
+    Any,
+    AnyStr,
+    BinaryIO,
+    Final,
+    Generic,
+    Literal,
+    NoReturn,
+    Protocol,
+    TypeVar,
+    final,
+    overload,
+    runtime_checkable,
+)
+from typing_extensions import Self, TypeAlias, Unpack
 
 from . import path as _path
 

@@ -7,8 +7,8 @@ from re import Pattern
 from string import Template
 from time import struct_time
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Generic, Protocol, TextIO, TypeVar, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing import Any, ClassVar, Generic, Literal, Protocol, TextIO, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 11):
     from types import GenericAlias

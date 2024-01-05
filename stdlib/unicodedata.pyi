@@ -1,7 +1,7 @@
 import sys
 from _typeshed import ReadOnlyBuffer
-from typing import Any, TypeVar, overload
-from typing_extensions import Literal, TypeAlias, final
+from typing import Any, Literal, TypeVar, final, overload
+from typing_extensions import TypeAlias
 
 ucd_3_2_0: UCD
 unidata_version: str

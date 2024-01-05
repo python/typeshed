@@ -2,7 +2,8 @@ import sys
 import types
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable
-from typing_extensions import Literal, Self, TypeVarTuple, Unpack, deprecated
+from typing import Literal
+from typing_extensions import Self, TypeVarTuple, Unpack, deprecated
 
 from .events import AbstractEventLoop, BaseDefaultEventLoopPolicy
 from .selector_events import BaseSelectorEventLoop

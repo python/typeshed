@@ -2,8 +2,8 @@ import ssl
 import sys
 from _typeshed import StrPath
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Sequence
-from typing import Any
-from typing_extensions import Self, SupportsIndex, TypeAlias
+from typing import Any, SupportsIndex
+from typing_extensions import Self, TypeAlias
 
 from . import events, protocols, transports
 from .base_events import Server

@@ -2,8 +2,8 @@ import sys
 from _typeshed import AnyStr_co, StrOrBytesPath
 from collections.abc import Callable, Iterable, Iterator
 from types import TracebackType
-from typing import IO, Any, AnyStr, Protocol, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing import IO, Any, AnyStr, Literal, Protocol, overload
+from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

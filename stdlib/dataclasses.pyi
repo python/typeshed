@@ -4,8 +4,8 @@ import types
 from _typeshed import DataclassInstance
 from builtins import type as Type  # alias to avoid name clashes with fields named "type"
 from collections.abc import Callable, Iterable, Mapping
-from typing import Any, Generic, Protocol, TypeVar, overload
-from typing_extensions import Literal, TypeAlias, TypeGuard
+from typing import Any, Generic, Literal, Protocol, TypeVar, overload
+from typing_extensions import TypeAlias, TypeGuard
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

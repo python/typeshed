@@ -6,8 +6,8 @@ from importlib.abc import PathEntryFinder
 from importlib.machinery import ModuleSpec
 from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
-from typing import Any, NoReturn, Protocol, TextIO, TypeVar
-from typing_extensions import Final, Literal, TypeAlias, final
+from typing import Any, Final, Literal, NoReturn, Protocol, TextIO, TypeVar, final
+from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")
 

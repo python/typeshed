@@ -4,8 +4,8 @@ import threading
 from _typeshed import SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, MutableSequence, Sequence
 from types import TracebackType
-from typing import Any, AnyStr, ClassVar, Generic, TypeVar, overload
-from typing_extensions import Self, SupportsIndex, TypeAlias
+from typing import Any, AnyStr, ClassVar, Generic, SupportsIndex, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 
 from .connection import Connection
 from .context import BaseContext

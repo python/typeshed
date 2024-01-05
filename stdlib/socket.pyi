@@ -140,8 +140,8 @@ from _typeshed import ReadableBuffer, Unused, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import BufferedReader, BufferedRWPair, BufferedWriter, IOBase, RawIOBase, TextIOWrapper
-from typing import Any, Protocol, SupportsIndex, overload
-from typing_extensions import Literal, Self
+from typing import Any, Literal, Protocol, SupportsIndex, overload
+from typing_extensions import Self
 
 if sys.platform == "win32":
     from _socket import (

@@ -4,8 +4,8 @@ from _typeshed import ReadableBuffer, StrOrBytesPath, SupportsLenAndGetItem, Unu
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from datetime import date, datetime, time
 from types import TracebackType
-from typing import Any, Protocol, TypeVar, overload
-from typing_extensions import Literal, Self, SupportsIndex, TypeAlias, final
+from typing import Any, Literal, Protocol, SupportsIndex, TypeVar, final, overload
+from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
 _CursorT = TypeVar("_CursorT", bound=Cursor)

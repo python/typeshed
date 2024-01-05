@@ -1,7 +1,7 @@
 from _typeshed import ReadableBuffer, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping
-from typing import Any, ClassVar, Protocol, SupportsBytes
-from typing_extensions import SupportsIndex, TypeAlias, final
+from typing import Any, ClassVar, Protocol, SupportsBytes, SupportsIndex, final
+from typing_extensions import TypeAlias
 
 __all__ = [
     "PickleBuffer",

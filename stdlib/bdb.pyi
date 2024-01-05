@@ -2,8 +2,8 @@ import sys
 from _typeshed import ExcInfo, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
 from types import CodeType, FrameType, TracebackType
-from typing import IO, Any, SupportsInt, TypeVar
-from typing_extensions import Literal, ParamSpec
+from typing import IO, Any, Literal, SupportsInt, TypeVar
+from typing_extensions import ParamSpec
 
 __all__ = ["BdbQuit", "Bdb", "Breakpoint"]
 

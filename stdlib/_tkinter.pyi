@@ -1,6 +1,5 @@
 import sys
-from typing import Any, ClassVar
-from typing_extensions import Literal, final
+from typing import Any, ClassVar, Literal, final
 
 # _tkinter is meant to be only used internally by tkinter, but some tkinter
 # functions e.g. return _tkinter.Tcl_Obj objects. Tcl_Obj represents a Tcl

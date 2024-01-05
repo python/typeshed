@@ -3,8 +3,8 @@ import tkinter
 from _typeshed import Incomplete
 from collections.abc import Callable
 from tkinter.font import _FontDescription
-from typing import Any, overload
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing import Any, Literal, TypedDict, overload
+from typing_extensions import TypeAlias
 
 __all__ = [
     "Button",

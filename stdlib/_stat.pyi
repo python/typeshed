@@ -1,5 +1,5 @@
 import sys
-from typing_extensions import Literal
+from typing import Literal
 
 SF_APPEND: Literal[0x00040000]
 SF_ARCHIVED: Literal[0x00010000]

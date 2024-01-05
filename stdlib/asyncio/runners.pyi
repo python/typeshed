@@ -2,8 +2,8 @@ import sys
 from _typeshed import Unused
 from collections.abc import Callable, Coroutine
 from contextvars import Context
-from typing import Any, TypeVar
-from typing_extensions import Self, final
+from typing import Any, TypeVar, final
+from typing_extensions import Self
 
 from .events import AbstractEventLoop
 

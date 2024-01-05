@@ -6,8 +6,8 @@ from builtins import list as _list  # aliases to avoid name clashes with fields 
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
-from typing import IO, ClassVar, Protocol, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing import IO, ClassVar, Literal, Protocol, overload
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "TarFile",

@@ -3,8 +3,8 @@ from _typeshed import structseq
 from collections.abc import Callable, Iterable
 from enum import IntEnum
 from types import FrameType
-from typing import Any
-from typing_extensions import Final, Never, TypeAlias, final
+from typing import Any, Final, final
+from typing_extensions import Never, TypeAlias
 
 NSIG: int
 
