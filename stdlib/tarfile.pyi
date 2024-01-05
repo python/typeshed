@@ -119,6 +119,7 @@ def open(
     debug: int | None = ...,
     errorlevel: int | None = ...,
     compresslevel: int | None = ...,
+    preset: int | None = ...,
 ) -> TarFile: ...
 
 class ExFileObject(io.BufferedReader):
