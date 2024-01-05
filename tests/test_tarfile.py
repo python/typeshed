@@ -1,6 +1,5 @@
 import tarfile
 
-
 with tarfile.open("test.tar.xz", "w:xz") as tar:
     pass
 
