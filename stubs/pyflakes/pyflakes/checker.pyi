@@ -3,8 +3,8 @@ import sys
 from collections.abc import Callable, Iterable, Iterator
 from contextlib import contextmanager
 from re import Pattern
-from typing import Any, ClassVar, TypeVar, overload
-from typing_extensions import Literal, ParamSpec, TypeAlias
+from typing import Any, ClassVar, Literal, TypeVar, overload
+from typing_extensions import ParamSpec, TypeAlias
 
 from pyflakes.messages import Message
 
