@@ -40,6 +40,7 @@ from typing import (  # noqa: Y022
     BinaryIO,
     ClassVar,
     Generic,
+    Literal,
     Mapping,
     MutableMapping,
     MutableSequence,
@@ -56,7 +57,7 @@ from typing import (  # noqa: Y022
     overload,
     type_check_only,
 )
-from typing_extensions import Concatenate, Literal, LiteralString, ParamSpec, Self, TypeAlias, TypeGuard, TypeVarTuple, deprecated
+from typing_extensions import Concatenate, LiteralString, ParamSpec, Self, TypeAlias, TypeGuard, TypeVarTuple, deprecated
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
