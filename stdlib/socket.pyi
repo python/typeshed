@@ -4,6 +4,8 @@
 import _socket
 import sys
 from _socket import (
+    _FD,
+    CAPI as CAPI,
     EAI_AGAIN as EAI_AGAIN,
     EAI_BADFLAGS as EAI_BADFLAGS,
     EAI_FAIL as EAI_FAIL,
@@ -32,28 +34,9 @@ from _socket import (
     IP_TTL as IP_TTL,
     IPPORT_RESERVED as IPPORT_RESERVED,
     IPPORT_USERRESERVED as IPPORT_USERRESERVED,
-    IPPROTO_AH as IPPROTO_AH,
-    IPPROTO_DSTOPTS as IPPROTO_DSTOPTS,
-    IPPROTO_EGP as IPPROTO_EGP,
-    IPPROTO_ESP as IPPROTO_ESP,
-    IPPROTO_FRAGMENT as IPPROTO_FRAGMENT,
-    IPPROTO_GGP as IPPROTO_GGP,
-    IPPROTO_HOPOPTS as IPPROTO_HOPOPTS,
     IPPROTO_ICMP as IPPROTO_ICMP,
-    IPPROTO_ICMPV6 as IPPROTO_ICMPV6,
-    IPPROTO_IDP as IPPROTO_IDP,
-    IPPROTO_IGMP as IPPROTO_IGMP,
     IPPROTO_IP as IPPROTO_IP,
-    IPPROTO_IPV4 as IPPROTO_IPV4,
-    IPPROTO_IPV6 as IPPROTO_IPV6,
-    IPPROTO_MAX as IPPROTO_MAX,
-    IPPROTO_ND as IPPROTO_ND,
-    IPPROTO_NONE as IPPROTO_NONE,
-    IPPROTO_PIM as IPPROTO_PIM,
-    IPPROTO_PUP as IPPROTO_PUP,
     IPPROTO_RAW as IPPROTO_RAW,
-    IPPROTO_ROUTING as IPPROTO_ROUTING,
-    IPPROTO_SCTP as IPPROTO_SCTP,
     IPPROTO_TCP as IPPROTO_TCP,
     IPPROTO_UDP as IPPROTO_UDP,
     IPV6_CHECKSUM as IPV6_CHECKSUM,
@@ -100,11 +83,13 @@ from _socket import (
     SOMAXCONN as SOMAXCONN,
     TCP_FASTOPEN as TCP_FASTOPEN,
     TCP_KEEPCNT as TCP_KEEPCNT,
+    TCP_KEEPINTVL as TCP_KEEPINTVL,
     TCP_MAXSEG as TCP_MAXSEG,
     TCP_NODELAY as TCP_NODELAY,
     SocketType as SocketType,
     _Address as _Address,
     _RetAddress as _RetAddress,
+    close as close,
     dup as dup,
     error as error,
     gaierror as gaierror,
@@ -121,9 +106,6 @@ from _socket import (
     herror as herror,
     htonl as htonl,
     htons as htons,
-    if_indextoname as if_indextoname,
-    if_nameindex as if_nameindex,
-    if_nametoindex as if_nametoindex,
     inet_aton as inet_aton,
     inet_ntoa as inet_ntoa,
     inet_ntop as inet_ntop,
@@ -137,8 +119,20 @@ from _typeshed import ReadableBuffer, Unused, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import BufferedReader, BufferedRWPair, BufferedWriter, IOBase, RawIOBase, TextIOWrapper
-from typing import Any, Protocol, SupportsIndex, overload
+from typing import Any, Protocol, overload
 from typing_extensions import Literal, Self
+
+if sys.platform == "win32":
+    from _socket import (
+        RCVALL_MAX as RCVALL_MAX,
+        RCVALL_OFF as RCVALL_OFF,
+        RCVALL_ON as RCVALL_ON,
+        RCVALL_SOCKETLEVELONLY as RCVALL_SOCKETLEVELONLY,
+        SIO_KEEPALIVE_VALS as SIO_KEEPALIVE_VALS,
+        SIO_LOOPBACK_FAST_PATH as SIO_LOOPBACK_FAST_PATH,
+        SIO_RCVALL as SIO_RCVALL,
+        SO_EXCLUSIVEADDRUSE as SO_EXCLUSIVEADDRUSE,
+    )
 
 if sys.platform != "darwin" or sys.version_info >= (3, 9):
     from _socket import (
@@ -152,32 +146,51 @@ if sys.platform != "darwin" or sys.version_info >= (3, 9):
 
 if sys.platform == "darwin":
     from _socket import PF_SYSTEM as PF_SYSTEM, SYSPROTO_CONTROL as SYSPROTO_CONTROL
-else:
-    from _socket import SO_EXCLUSIVEADDRUSE as SO_EXCLUSIVEADDRUSE
-
-if sys.version_info >= (3, 10):
-    from _socket import IP_RECVTOS as IP_RECVTOS
-elif sys.platform != "darwin" and sys.platform != "win32":
-    from _socket import IP_RECVTOS as IP_RECVTOS
-
-from _socket import TCP_KEEPINTVL as TCP_KEEPINTVL, close as close
 
 if sys.platform != "darwin":
     from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE
 
-if sys.platform != "darwin":
+if sys.version_info >= (3, 10):
+    from _socket import IP_RECVTOS as IP_RECVTOS
+elif sys.platform != "win32" and sys.platform != "darwin":
+    from _socket import IP_RECVTOS as IP_RECVTOS
+
+if sys.platform != "win32" or sys.version_info >= (3, 8):
     from _socket import (
-        IPPROTO_CBT as IPPROTO_CBT,
-        IPPROTO_ICLFXBM as IPPROTO_ICLFXBM,
-        IPPROTO_IGP as IPPROTO_IGP,
-        IPPROTO_L2TP as IPPROTO_L2TP,
-        IPPROTO_PGM as IPPROTO_PGM,
-        IPPROTO_RDP as IPPROTO_RDP,
-        IPPROTO_ST as IPPROTO_ST,
+        IPPROTO_AH as IPPROTO_AH,
+        IPPROTO_DSTOPTS as IPPROTO_DSTOPTS,
+        IPPROTO_EGP as IPPROTO_EGP,
+        IPPROTO_ESP as IPPROTO_ESP,
+        IPPROTO_FRAGMENT as IPPROTO_FRAGMENT,
+        IPPROTO_GGP as IPPROTO_GGP,
+        IPPROTO_HOPOPTS as IPPROTO_HOPOPTS,
+        IPPROTO_ICMPV6 as IPPROTO_ICMPV6,
+        IPPROTO_IDP as IPPROTO_IDP,
+        IPPROTO_IGMP as IPPROTO_IGMP,
+        IPPROTO_IPV4 as IPPROTO_IPV4,
+        IPPROTO_IPV6 as IPPROTO_IPV6,
+        IPPROTO_MAX as IPPROTO_MAX,
+        IPPROTO_ND as IPPROTO_ND,
+        IPPROTO_NONE as IPPROTO_NONE,
+        IPPROTO_PIM as IPPROTO_PIM,
+        IPPROTO_PUP as IPPROTO_PUP,
+        IPPROTO_ROUTING as IPPROTO_ROUTING,
+        IPPROTO_SCTP as IPPROTO_SCTP,
     )
 
+    if sys.platform != "darwin":
+        from _socket import (
+            IPPROTO_CBT as IPPROTO_CBT,
+            IPPROTO_ICLFXBM as IPPROTO_ICLFXBM,
+            IPPROTO_IGP as IPPROTO_IGP,
+            IPPROTO_L2TP as IPPROTO_L2TP,
+            IPPROTO_PGM as IPPROTO_PGM,
+            IPPROTO_RDP as IPPROTO_RDP,
+            IPPROTO_ST as IPPROTO_ST,
+        )
 if sys.platform != "win32" and sys.platform != "darwin":
     from _socket import (
+        IP_BIND_ADDRESS_NO_PORT as IP_BIND_ADDRESS_NO_PORT,
         IP_TRANSPARENT as IP_TRANSPARENT,
         IPPROTO_BIP as IPPROTO_BIP,
         IPPROTO_MOBILE as IPPROTO_MOBILE,
@@ -185,10 +198,14 @@ if sys.platform != "win32" and sys.platform != "darwin":
         IPX_TYPE as IPX_TYPE,
         SCM_CREDENTIALS as SCM_CREDENTIALS,
         SO_BINDTODEVICE as SO_BINDTODEVICE,
+        SO_DOMAIN as SO_DOMAIN,
         SO_MARK as SO_MARK,
         SO_PASSCRED as SO_PASSCRED,
+        SO_PASSSEC as SO_PASSSEC,
         SO_PEERCRED as SO_PEERCRED,
+        SO_PEERSEC as SO_PEERSEC,
         SO_PRIORITY as SO_PRIORITY,
+        SO_PROTOCOL as SO_PROTOCOL,
         SO_SETFIB as SO_SETFIB,
         SOL_ATALK as SOL_ATALK,
         SOL_AX25 as SOL_AX25,
@@ -196,6 +213,7 @@ if sys.platform != "win32" and sys.platform != "darwin":
         SOL_IPX as SOL_IPX,
         SOL_NETROM as SOL_NETROM,
         SOL_ROSE as SOL_ROSE,
+        TCP_CONGESTION as TCP_CONGESTION,
         TCP_CORK as TCP_CORK,
         TCP_DEFER_ACCEPT as TCP_DEFER_ACCEPT,
         TCP_INFO as TCP_INFO,
@@ -251,12 +269,18 @@ if sys.platform != "win32":
             IPV6_USE_MIN_MTU as IPV6_USE_MIN_MTU,
         )
 
+if sys.platform != "win32" or sys.version_info >= (3, 8):
+    from _socket import if_indextoname as if_indextoname, if_nameindex as if_nameindex, if_nametoindex as if_nametoindex
+
 if sys.platform != "darwin":
     if sys.platform != "win32" or sys.version_info >= (3, 9):
         from _socket import BDADDR_ANY as BDADDR_ANY, BDADDR_LOCAL as BDADDR_LOCAL, BTPROTO_RFCOMM as BTPROTO_RFCOMM
 
 if sys.platform == "darwin" and sys.version_info >= (3, 10):
     from _socket import TCP_KEEPALIVE as TCP_KEEPALIVE
+
+if sys.platform == "darwin" and sys.version_info >= (3, 11):
+    from _socket import TCP_CONNECTION_INFO as TCP_CONNECTION_INFO
 
 if sys.platform == "linux":
     from _socket import (
@@ -368,18 +392,6 @@ if sys.platform == "linux":
     )
 if sys.platform == "linux":
     from _socket import (
-        CAN_BCM_CAN_FD_FRAME as CAN_BCM_CAN_FD_FRAME,
-        CAN_BCM_RX_ANNOUNCE_RESUME as CAN_BCM_RX_ANNOUNCE_RESUME,
-        CAN_BCM_RX_CHECK_DLC as CAN_BCM_RX_CHECK_DLC,
-        CAN_BCM_RX_FILTER_ID as CAN_BCM_RX_FILTER_ID,
-        CAN_BCM_RX_NO_AUTOTIMER as CAN_BCM_RX_NO_AUTOTIMER,
-        CAN_BCM_RX_RTR_FRAME as CAN_BCM_RX_RTR_FRAME,
-        CAN_BCM_SETTIMER as CAN_BCM_SETTIMER,
-        CAN_BCM_STARTTIMER as CAN_BCM_STARTTIMER,
-        CAN_BCM_TX_ANNOUNCE as CAN_BCM_TX_ANNOUNCE,
-        CAN_BCM_TX_COUNTEVT as CAN_BCM_TX_COUNTEVT,
-        CAN_BCM_TX_CP_CAN_ID as CAN_BCM_TX_CP_CAN_ID,
-        CAN_BCM_TX_RESET_MULTI_IDX as CAN_BCM_TX_RESET_MULTI_IDX,
         CAN_ISOTP as CAN_ISOTP,
         IOCTL_VM_SOCKETS_GET_LOCAL_CID as IOCTL_VM_SOCKETS_GET_LOCAL_CID,
         SO_VM_SOCKETS_BUFFER_MAX_SIZE as SO_VM_SOCKETS_BUFFER_MAX_SIZE,
@@ -392,6 +404,21 @@ if sys.platform == "linux":
     )
 if sys.platform != "win32":
     from _socket import TCP_NOTSENT_LOWAT as TCP_NOTSENT_LOWAT
+if sys.platform == "linux" and sys.version_info >= (3, 8):
+    from _socket import (
+        CAN_BCM_CAN_FD_FRAME as CAN_BCM_CAN_FD_FRAME,
+        CAN_BCM_RX_ANNOUNCE_RESUME as CAN_BCM_RX_ANNOUNCE_RESUME,
+        CAN_BCM_RX_CHECK_DLC as CAN_BCM_RX_CHECK_DLC,
+        CAN_BCM_RX_FILTER_ID as CAN_BCM_RX_FILTER_ID,
+        CAN_BCM_RX_NO_AUTOTIMER as CAN_BCM_RX_NO_AUTOTIMER,
+        CAN_BCM_RX_RTR_FRAME as CAN_BCM_RX_RTR_FRAME,
+        CAN_BCM_SETTIMER as CAN_BCM_SETTIMER,
+        CAN_BCM_STARTTIMER as CAN_BCM_STARTTIMER,
+        CAN_BCM_TX_ANNOUNCE as CAN_BCM_TX_ANNOUNCE,
+        CAN_BCM_TX_COUNTEVT as CAN_BCM_TX_COUNTEVT,
+        CAN_BCM_TX_CP_CAN_ID as CAN_BCM_TX_CP_CAN_ID,
+        CAN_BCM_TX_RESET_MULTI_IDX as CAN_BCM_TX_RESET_MULTI_IDX,
+    )
 if sys.platform == "linux" and sys.version_info >= (3, 9):
     from _socket import (
         CAN_J1939 as CAN_J1939,
@@ -419,21 +446,14 @@ if sys.platform == "linux" and sys.version_info >= (3, 9):
         SO_J1939_FILTER as SO_J1939_FILTER,
         SO_J1939_PROMISC as SO_J1939_PROMISC,
         SO_J1939_SEND_PRIO as SO_J1939_SEND_PRIO,
+        UDPLITE_RECV_CSCOV as UDPLITE_RECV_CSCOV,
+        UDPLITE_SEND_CSCOV as UDPLITE_SEND_CSCOV,
     )
 if sys.platform == "linux" and sys.version_info >= (3, 10):
     from _socket import IPPROTO_MPTCP as IPPROTO_MPTCP
 if sys.platform == "linux" and sys.version_info >= (3, 11):
     from _socket import SO_INCOMING_CPU as SO_INCOMING_CPU
-if sys.platform == "win32":
-    from _socket import (
-        RCVALL_MAX as RCVALL_MAX,
-        RCVALL_OFF as RCVALL_OFF,
-        RCVALL_ON as RCVALL_ON,
-        RCVALL_SOCKETLEVELONLY as RCVALL_SOCKETLEVELONLY,
-        SIO_KEEPALIVE_VALS as SIO_KEEPALIVE_VALS,
-        SIO_LOOPBACK_FAST_PATH as SIO_LOOPBACK_FAST_PATH,
-        SIO_RCVALL as SIO_RCVALL,
-    )
+
 if sys.version_info >= (3, 12):
     from _socket import (
         IP_ADD_SOURCE_MEMBERSHIP as IP_ADD_SOURCE_MEMBERSHIP,
@@ -464,8 +484,6 @@ if sys.version_info >= (3, 12):
             ETHERTYPE_IPV6 as ETHERTYPE_IPV6,
             ETHERTYPE_VLAN as ETHERTYPE_VLAN,
         )
-if sys.version_info >= (3, 11) and sys.platform == "darwin":
-    from _socket import TCP_CONNECTION_INFO as TCP_CONNECTION_INFO
 
 # Re-exported from errno
 EBADF: int
@@ -486,7 +504,7 @@ class AddressFamily(IntEnum):
         AF_ROUTE: int
         AF_SYSTEM: int
         AF_UNIX: int
-    if sys.platform != "darwin" and sys.platform != "win32":
+    if sys.platform != "win32" and sys.platform != "darwin":
         AF_AAL5: int
         AF_ASH: int
         AF_ATMPVC: int
@@ -511,7 +529,8 @@ class AddressFamily(IntEnum):
         AF_ALG: int
         AF_NETLINK: int
         AF_VSOCK: int
-        AF_QIPCRTR: int
+        if sys.version_info >= (3, 8):
+            AF_QIPCRTR: int
     if sys.platform != "win32" or sys.version_info >= (3, 9):
         AF_LINK: int
         if sys.platform != "darwin":
@@ -561,7 +580,8 @@ if sys.platform == "linux":
     AF_ALG = AddressFamily.AF_ALG
     AF_NETLINK = AddressFamily.AF_NETLINK
     AF_VSOCK = AddressFamily.AF_VSOCK
-    AF_QIPCRTR = AddressFamily.AF_QIPCRTR
+    if sys.version_info >= (3, 8):
+        AF_QIPCRTR = AddressFamily.AF_QIPCRTR
 
 if sys.platform != "win32" or sys.version_info >= (3, 9):
     AF_LINK = AddressFamily.AF_LINK
@@ -762,7 +782,7 @@ class socket(_socket.socket):
     def get_inheritable(self) -> bool: ...
     def set_inheritable(self, inheritable: bool) -> None: ...
 
-def fromfd(fd: SupportsIndex, family: AddressFamily | int, type: SocketKind | int, proto: int = 0) -> socket: ...
+def fromfd(fd: _FD, family: AddressFamily | int, type: SocketKind | int, proto: int = 0) -> socket: ...
 
 if sys.platform != "win32":
     if sys.version_info >= (3, 9):
@@ -807,10 +827,16 @@ else:
         address: tuple[str | None, int], timeout: float | None = ..., source_address: _Address | None = None  # noqa: F811
     ) -> socket: ...
 
-def has_dualstack_ipv6() -> bool: ...
-def create_server(
-    address: _Address, *, family: int = ..., backlog: int | None = None, reuse_port: bool = False, dualstack_ipv6: bool = False
-) -> socket: ...
+if sys.version_info >= (3, 8):
+    def has_dualstack_ipv6() -> bool: ...
+    def create_server(
+        address: _Address,
+        *,
+        family: int = ...,
+        backlog: int | None = None,
+        reuse_port: bool = False,
+        dualstack_ipv6: bool = False,
+    ) -> socket: ...
 
 # the 5th tuple item is an address
 def getaddrinfo(
