@@ -42,6 +42,6 @@ class TransformSpec:
     unknown_reference_resolvers: ClassVar[Sequence[Callable[[Node], bool]]]
 
 class Component(SettingsSpec, TransformSpec):
-    component_type: ClassVar[Literal['reader', 'parser', 'writer'] | None]
+    component_type: ClassVar[Literal["reader", "parser", "writer"] | None]
     supported: ClassVar[tuple[str, ...]]
     def supports(self, format: str) -> bool: ...
