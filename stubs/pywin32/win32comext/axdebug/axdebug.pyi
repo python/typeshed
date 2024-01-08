@@ -75,8 +75,8 @@ APPBREAKFLAG_STEPTYPE_MACHINE: int
 APPBREAKFLAG_STEPTYPE_MASK: int
 APPBREAKFLAG_STEPTYPE_SOURCE: int
 
-def GetStackAddress(*args, **kwargs): ...  # incomplete
-def GetThreadStateHandle(*args, **kwargs): ...  # incomplete
+def GetStackAddress(*args): ...  # incomplete
+def GetThreadStateHandle(*args): ...  # incomplete
 
 IID_IActiveScriptDebug: _win32typing.PyIID
 IID_IActiveScriptErrorDebug: _win32typing.PyIID
@@ -121,4 +121,4 @@ IID_IRemoteDebugApplication: _win32typing.PyIID
 IID_IRemoteDebugApplicationEvents: _win32typing.PyIID
 IID_IRemoteDebugApplicationThread: _win32typing.PyIID
 
-def SetThreadStateTrace(*args, **kwargs): ...  # incomplete
+def SetThreadStateTrace(*args): ...  # incomplete
