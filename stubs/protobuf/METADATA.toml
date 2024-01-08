@@ -1,7 +1,9 @@
 version = "4.24.*"
 upstream_repository = "https://github.com/protocolbuffers/protobuf"
 extra_description = "Generated using [mypy-protobuf==3.5.0](https://github.com/nipunn1313/mypy-protobuf/tree/v3.5.0) on protobuf==4.21.8"
-partial_stub = true
+# Namespace packages shouldn't have py.typed files at the root. See #11254
+# This could be better reolved in stub_uploader, but in the mean time, this stays false.
+partial_stub = false
 
 [tool.stubtest]
 ignore_missing_stub = true
