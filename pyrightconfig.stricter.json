@@ -34,6 +34,7 @@
         "stubs/click-default-group",
         "stubs/commonmark",
         "stubs/dateparser",
+        "stubs/django-filter",
         "stubs/docutils",
         "stubs/Flask-SocketIO",
         "stubs/fpdf2",
