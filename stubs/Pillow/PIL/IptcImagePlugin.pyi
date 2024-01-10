@@ -1,6 +1,6 @@
 from collections.abc import Iterable
-from typing import ClassVar
-from typing_extensions import Final, Literal, deprecated
+from typing import ClassVar, Final, Literal
+from typing_extensions import deprecated
 
 from ._imaging import _PixelAccessor
 from .ImageFile import ImageFile

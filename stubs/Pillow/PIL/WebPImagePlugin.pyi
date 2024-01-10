@@ -1,5 +1,5 @@
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
 from ._imaging import _PixelAccessor
 from .ImageFile import ImageFile
