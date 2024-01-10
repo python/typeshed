@@ -1,5 +1,4 @@
-from typing import IO, AnyStr, Generic
-from typing_extensions import Literal
+from typing import IO, AnyStr, Generic, Literal
 
 class ContainerIO(Generic[AnyStr]):
     fh: IO[AnyStr]
