@@ -5,8 +5,8 @@
 import _typeshed
 from collections.abc import Callable, Iterator, Sequence
 from contextlib import AbstractContextManager
-from typing import Protocol, overload
-from typing_extensions import TypeAlias, final
+from typing import Protocol, final, overload
+from typing_extensions import TypeAlias
 
 import gdb.types
 
