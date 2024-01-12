@@ -4,7 +4,7 @@ from _typeshed import FileDescriptorOrPath, Unused
 from abc import abstractmethod
 from collections.abc import AsyncGenerator, AsyncIterator, Awaitable, Callable, Generator, Iterator
 from types import TracebackType
-from typing import IO, Any, Generic, Protocol, TypeVar, overload, runtime_checkable
+from typing import IO, Any, Generic, Protocol, TypeVar, overload
 from typing_extensions import ParamSpec, Self, TypeAlias
 
 __all__ = [
@@ -37,16 +37,18 @@ _P = ParamSpec("_P")
 _ExitFunc: TypeAlias = Callable[[type[BaseException] | None, BaseException | None, TracebackType | None], bool | None]
 _CM_EF = TypeVar("_CM_EF", bound=AbstractContextManager[Any] | _ExitFunc)
 
-@runtime_checkable
-class AbstractContextManager(Protocol[_T_co]):
+# AbstractContextManager should not be a protocol or else the exit method, which is abstract, cannot be determined by type checkers to
+# be implemented.  This prevents users from calling super.  For details, see this comment:
+# https://github.com/microsoft/pyright/issues/6965#issuecomment-1889704569
+class AbstractContextManager(Generic[_T_co], metaclass=abc.ABCMeta):
     def __enter__(self) -> _T_co: ...
     @abstractmethod
     def __exit__(
         self, __exc_type: type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
     ) -> bool | None: ...
 
-@runtime_checkable
-class AbstractAsyncContextManager(Protocol[_T_co]):
+# As with AbstractContextManager, this should not be a protocol.
+class AbstractAsyncContextManager(Generic[_T_co], metaclass=abc.ABCMeta):
     async def __aenter__(self) -> _T_co: ...
     @abstractmethod
     async def __aexit__(
