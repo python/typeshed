@@ -25,14 +25,13 @@ def SetCounterScaleFactor(hCounter, factor, /) -> None: ...
 def BrowseCounters(
     Flags: tuple[Incomplete, ...] | None,
     hWndOwner: int,
-    CallBack1,
-    CallBack2,
+    CallBack,
+    DefaultDetailLevel,
     DialogBoxCaption: str | None = ...,
     InitialPath: Incomplete | None = ...,
     DataSource: Incomplete | None = ...,
     ReturnMultiple: bool = ...,
     CallBackArg: Incomplete | None = ...,
-    /,
 ) -> str: ...
 def ConnectMachine(machineName: str, /) -> str: ...
 def LookupPerfIndexByName(machineName: str, instanceName: str, /): ...

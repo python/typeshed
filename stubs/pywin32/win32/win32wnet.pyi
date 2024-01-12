@@ -10,15 +10,13 @@ def WNetAddConnection2(
     Password: Incomplete | None = ...,
     UserName: Incomplete | None = ...,
     Flags: int = ...,
-    /,
 ) -> None: ...
 def WNetAddConnection3(
-    HwndParent: int | _win32typing.PyHANDLE,
+    HwndOwner: int | _win32typing.PyHANDLE,
     NetResource: _win32typing.PyNETRESOURCE,
     Password: Incomplete | None = ...,
     UserName: Incomplete | None = ...,
     Flags: int = ...,
-    /,
 ) -> None: ...
 def WNetCancelConnection2(name: str, flags, force, /) -> None: ...
 def WNetOpenEnum(scope, _type, usage, resource: _win32typing.PyNETRESOURCE, /) -> int: ...

@@ -75,20 +75,19 @@ def SHGetSettings(mask: int = ..., /): ...
 def FILEGROUPDESCRIPTORAsString(descriptors: list[Incomplete], arg, /) -> str: ...
 def StringAsFILEGROUPDESCRIPTOR(buf, make_unicode: int = ..., /) -> list[Incomplete]: ...
 def ShellExecuteEx(
-    lpVerb: str,
-    lpFile: str,
-    lpParameters: str,
-    lpDirectory: str,
-    lpIDlist: _win32typing.PyIDL,
-    obClass: str,
-    hkeyClass,
-    dwHotKey,
-    hIcon: int,
-    hMonitor: int,
     fMask: int = ...,
     hwnd: int = ...,
+    lpVerb: str = ...,
+    lpFile: str = ...,
+    lpParameters: str = ...,
+    lpDirectory: str = ...,
     nShow: int = ...,
-    /,
+    lpIDlist: _win32typing.PyIDL = ...,
+    lpClass: str = ...,
+    hkeyClass=...,
+    dwHotKey=...,
+    hIcon: int = ...,
+    hMonitor: int = ...,
 ): ...
 def SHGetViewStatePropertyBag(
     pidl: _win32typing.PyIDL, BagName: str, Flags, riid: _win32typing.PyIID, /
@@ -97,13 +96,11 @@ def SHILCreateFromPath(Path: str, Flags, /) -> tuple[_win32typing.PyIDL, Incompl
 def SHCreateShellItem(
     pidlParent: _win32typing.PyIDL, sfParent: _win32typing.PyIShellFolder, Child: _win32typing.PyIDL, /
 ) -> _win32typing.PyIShellItem: ...
-def SHOpenFolderAndSelectItems(Folder: _win32typing.PyIDL, Items: tuple[_win32typing.PyIDL, ...], Flags=..., /) -> None: ...
-def SHCreateStreamOnFileEx(File, Mode, Attributes, Create, Template: Incomplete | None = ..., /) -> _win32typing.PyIStream: ...
+def SHOpenFolderAndSelectItems(Folder: _win32typing.PyIDL, Items: tuple[_win32typing.PyIDL, ...], Flags=...) -> None: ...
+def SHCreateStreamOnFileEx(File, Mode, Attributes, Create, Template: Incomplete | None = ...) -> _win32typing.PyIStream: ...
 def SetCurrentProcessExplicitAppUserModelID(AppID: str, /) -> None: ...
 def GetCurrentProcessExplicitAppUserModelID() -> str: ...
-def SHParseDisplayName(
-    Name, Attributes, BindCtx: _win32typing.PyIBindCtx | None = ..., /
-) -> tuple[_win32typing.PyIDL, Incomplete]: ...
+def SHParseDisplayName(Name, Attributes, BindCtx: _win32typing.PyIBindCtx | None = ...) -> tuple[list[bytes], int]: ...
 def SHCreateItemFromIDList(*args): ...  # incomplete
 def SHCreateShellItemArrayFromIDLists(*args): ...  # incomplete
 def SHGetIDListFromObject(*args): ...  # incomplete
