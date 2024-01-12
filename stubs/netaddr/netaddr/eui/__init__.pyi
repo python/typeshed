@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToInt
-from typing import ClassVar, overload
-from typing_extensions import Literal, Self
+from typing import ClassVar, Literal, overload
+from typing_extensions import Self
 
 from netaddr.core import DictDotLookup
 from netaddr.ip import IPAddress

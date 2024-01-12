@@ -1,7 +1,6 @@
 from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable
-from typing import TypeVar
-from typing_extensions import Literal
+from typing import Literal, TypeVar
 
 import _win32typing
 from win32.lib.pywintypes import error as error

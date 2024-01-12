@@ -52,7 +52,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: chartboost/ruff-action@v1
         with:
-          version: "0.1.9" # must match .pre-commit-config.yaml and requirements-test.txt
+          version: "0.1.11" # must match .pre-commit-config.yaml and requirements-test.txt
 
   flake8:
     name: Lint with Flake8
@@ -125,7 +125,7 @@ jobs:
     strategy:
       matrix:
         python-platform: ["Linux", "Windows", "Darwin"]
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v4

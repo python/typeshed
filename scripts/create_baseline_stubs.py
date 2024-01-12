@@ -17,12 +17,10 @@ import re
 import subprocess
 import sys
 import urllib.parse
+from importlib.metadata import distribution
 
 import aiohttp
 import termcolor
-
-if sys.version_info >= (3, 8):
-    from importlib.metadata import distribution
 
 PYRIGHT_CONFIG = "pyrightconfig.stricter.json"
 
@@ -204,12 +202,11 @@ def main() -> None:
         #
         # The importlib.metadata module is used for projects whose name is different
         # from the runtime Python package name (example: PyYAML/yaml)
-        if sys.version_info >= (3, 8):
-            dist = distribution(project).read_text("top_level.txt")
-            if dist is not None:
-                packages = [name for name in dist.split() if not name.startswith("_")]
-                if len(packages) == 1:
-                    package = packages[0]
+        dist = distribution(project).read_text("top_level.txt")
+        if dist is not None:
+            packages = [name for name in dist.split() if not name.startswith("_")]
+            if len(packages) == 1:
+                package = packages[0]
         print(f'Using detected package "{package}" for project "{project}"', file=sys.stderr)
         print("Suggestion: Try again with --package argument if that's not what you wanted", file=sys.stderr)
 

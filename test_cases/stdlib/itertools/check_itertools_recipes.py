@@ -10,8 +10,22 @@ import math
 import operator
 import sys
 from itertools import chain, combinations, count, cycle, filterfalse, groupby, islice, product, repeat, starmap, tee, zip_longest
-from typing import Any, Callable, Collection, Hashable, Iterable, Iterator, Sequence, Tuple, Type, TypeVar, Union, overload
-from typing_extensions import Literal, TypeAlias, TypeVarTuple, Unpack
+from typing import (
+    Any,
+    Callable,
+    Collection,
+    Hashable,
+    Iterable,
+    Iterator,
+    Literal,
+    Sequence,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
+from typing_extensions import TypeAlias, TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
@@ -298,25 +312,23 @@ def polynomial_derivative(coefficients: Sequence[float]) -> list[float]:
     return list(map(operator.mul, coefficients, powers))
 
 
-if sys.version_info >= (3, 8):
-
-    def nth_combination(iterable: Iterable[_T], r: int, index: int) -> tuple[_T, ...]:
-        "Equivalent to list(combinations(iterable, r))[index]"
-        pool = tuple(iterable)
-        n = len(pool)
-        c = math.comb(n, r)
-        if index < 0:
-            index += c
-        if index < 0 or index >= c:
-            raise IndexError
-        result: list[_T] = []
-        while r:
-            c, n, r = c * r // n, n - 1, r - 1
-            while index >= c:
-                index -= c
-                c, n = c * (n - r) // n, n - 1
-            result.append(pool[-1 - n])
-        return tuple(result)
+def nth_combination(iterable: Iterable[_T], r: int, index: int) -> tuple[_T, ...]:
+    "Equivalent to list(combinations(iterable, r))[index]"
+    pool = tuple(iterable)
+    n = len(pool)
+    c = math.comb(n, r)
+    if index < 0:
+        index += c
+    if index < 0 or index >= c:
+        raise IndexError
+    result: list[_T] = []
+    while r:
+        c, n, r = c * r // n, n - 1, r - 1
+        while index >= c:
+            index -= c
+            c, n = c * (n - r) // n, n - 1
+        result.append(pool[-1 - n])
+    return tuple(result)
 
 
 if sys.version_info >= (3, 10):
