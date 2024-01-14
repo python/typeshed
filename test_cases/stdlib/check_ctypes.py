@@ -3,16 +3,19 @@
 from __future__ import annotations
 
 import ctypes
-from typing_extensions import assert_type
 from typing import Any
+from typing_extensions import assert_type
+
 
 class Annotated(ctypes.Structure):
     _fields_ = [("i", ctypes.c_int), ("f", ctypes.c_float)]
     i: ctypes.c_int
     f: ctypes.c_float
 
+
 class NoAnnotation(ctypes.Structure):
     _fields_ = [("i", ctypes.c_int), ("f", ctypes.c_float)]
+
 
 class NonCType:
     i: ctypes.c_int
