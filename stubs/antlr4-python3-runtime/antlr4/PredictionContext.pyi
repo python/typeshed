@@ -74,7 +74,7 @@ def mergeArrays(
     a: ArrayPredictionContext,
     b: ArrayPredictionContext,
     rootIsWildcard: bool,
-    mergeCache: dict[tuple[Incomplete], SingletonPredictionContext],
+    mergeCache: dict[tuple[Incomplete, Incomplete], SingletonPredictionContext] | None,
 ): ...
 def combineCommonParents(parents: SupportsLenAndGetItem[PredictionContext]): ...
 def getCachedPredictionContext(
