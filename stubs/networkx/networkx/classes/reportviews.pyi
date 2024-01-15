@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from collections.abc import Iterator, Mapping, Set as AbstractSet
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, Self
+from typing import Any, Generic, Literal, TypeVar, overload
+from typing_extensions import Self
 
 from networkx.classes.graph import Graph, _Edge, _NBunch, _Node
 

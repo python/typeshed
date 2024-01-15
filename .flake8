@@ -36,8 +36,9 @@ per-file-ignores =
   # https://github.com/PyCQA/flake8/issues/1079
   #     F811 redefinition of unused '...'
   stdlib/typing.pyi: B, E701, E741, F401, F403, F405, F811
-  # Generated protobuf files include docstrings
-  *_pb2.pyi: B, E701, E741, F401, F403, F405, Y021, Y026, Y053, Y054
+  # Generated protobuf files include docstrings,
+  # and import some things from typing_extensions that could be imported from typing
+  *_pb2.pyi: B, E701, E741, F401, F403, F405, Y021, Y023, Y026, Y053, Y054
 
 exclude = .venv*,.git
 noqa_require_code = true

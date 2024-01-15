@@ -2,8 +2,7 @@
 from _typeshed import FileDescriptorOrPath, GenericPath
 from collections.abc import Iterable
 from types import ModuleType
-from typing import AnyStr, overload
-from typing_extensions import Final, Literal
+from typing import AnyStr, Final, Literal, overload
 
 strict_collect_mode: bool
 is_64bits: Final[bool]

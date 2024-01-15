@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Callable, Iterable
-from typing_extensions import TypedDict
+from typing import TypedDict
 
 import _win32typing
 from win32.lib.pywintypes import error as error
