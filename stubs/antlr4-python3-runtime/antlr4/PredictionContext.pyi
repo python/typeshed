@@ -67,7 +67,7 @@ def mergeSingletons(
     a: SingletonPredictionContext,
     b: SingletonPredictionContext,
     rootIsWildcard: bool,
-    mergeCache: dict[tuple[Incomplete], SingletonPredictionContext],
+    mergeCache: dict[tuple[Incomplete, Incomplete], SingletonPredictionContext] | None,
 ): ...
 def mergeRoot(a: SingletonPredictionContext, b: SingletonPredictionContext, rootIsWildcard: bool): ...
 def mergeArrays(
