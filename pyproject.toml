@@ -95,4 +95,4 @@ known-first-party = ["parse_metadata", "utils"]
 
 [tool.typeshed]
 pyright_version = "1.1.342"
-oldest_supported_python = "3.7"
+oldest_supported_python = "3.8"
