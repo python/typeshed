@@ -6,8 +6,8 @@ from antlr4.Utils import str_list as str_list
 
 class DFASerializer:
     dfa: Incomplete
-    literalNames: Incomplete
-    symbolicNames: Incomplete
+    literalNames: list[str] | None
+    symbolicNames: list[str] | None
     def __init__(self, dfa: DFA, literalNames: list[str] | None = None, symbolicNames: list[str] | None = None) -> None: ...
     def getEdgeLabel(self, i: int): ...
     def getStateString(self, s: DFAState): ...
