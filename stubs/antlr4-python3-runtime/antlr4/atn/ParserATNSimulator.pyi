@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from _typeshed import Incomplete
 
 from antlr4 import DFA as DFA
