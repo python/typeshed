@@ -6,7 +6,7 @@ from builtins import list as _list  # aliases to avoid name clashes with fields 
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
-from typing import IO, ClassVar, Protocol, overload
+from typing import IO, ClassVar, Protocol, overload, Literal
 from typing_extensions import Literal, Self, TypeAlias
 
 __all__ = [
@@ -119,7 +119,7 @@ def open(
     debug: int | None = ...,
     errorlevel: int | None = ...,
     compresslevel: int | None = ...,
-    preset: int | None = ...,
+    preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
 ) -> TarFile: ...
 
 class ExFileObject(io.BufferedReader):
