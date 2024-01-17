@@ -1,5 +1,5 @@
-from socket import socket as Socket
 from collections.abc import Iterable
+from socket import socket as Socket
 
 from .spawnbase import SpawnBase, _Logfile
 

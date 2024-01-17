@@ -1,4 +1,3 @@
-
 from .spawnbase import SpawnBase, _Logfile
 
 __all__ = ["fdspawn"]
