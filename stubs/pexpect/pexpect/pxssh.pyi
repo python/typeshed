@@ -4,6 +4,8 @@ from pexpect import ExceptionPexpect, spawn
 
 from .spawnbase import _Logfile
 
+__all__ = ["ExceptionPxssh", "pxssh"]
+
 class ExceptionPxssh(ExceptionPexpect): ...
 
 class pxssh(spawn):
@@ -12,13 +14,14 @@ class pxssh(spawn):
     PROMPT: Incomplete
     PROMPT_SET_SH: str
     PROMPT_SET_CSH: str
-    SSH_OPTS: Incomplete
+    PROMPT_SET_ZSH: str
+    SSH_OPTS: str
     force_password: bool
     debug_command_string: Incomplete
     options: Incomplete
     def __init__(
         self,
-        timeout: int = 30,
+        timeout: float = 30,
         maxread: int = 2000,
         searchwindowsize: Incomplete | None = None,
         logfile: _Logfile | None = None,
@@ -42,7 +45,7 @@ class pxssh(spawn):
         password: str = "",
         terminal_type: str = "ansi",
         original_prompt: str = "[#$]",
-        login_timeout: int = 10,
+        login_timeout: float = 10,
         port: Incomplete | None = None,
         auto_prompt_reset: bool = True,
         ssh_key: Incomplete | None = None,
@@ -57,5 +60,5 @@ class pxssh(spawn):
         cmd: str = "ssh",
     ): ...
     def logout(self) -> None: ...
-    def prompt(self, timeout: int = -1): ...
+    def prompt(self, timeout: float = -1): ...
     def set_unique_prompt(self): ...
