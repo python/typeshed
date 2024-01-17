@@ -1,7 +1,7 @@
 from os import _Environ
 
-InterruptedError: type = InterruptedError
-string_types: tuple[type, ...] = (str,)
+InterruptedError: type
+string_types: tuple[type, ...]
 
 def is_executable_file(path): ...
 def which(filename, env: _Environ[str] | None = None): ...

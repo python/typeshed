@@ -3,7 +3,7 @@ from re import Pattern
 from typing import AnyStr, Protocol
 
 PY3: bool
-text_type: type = str
+text_type: type
 
 class _NullCoder:
     @staticmethod

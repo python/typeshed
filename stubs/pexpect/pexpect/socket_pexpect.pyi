@@ -1,4 +1,4 @@
-import socket
+from socket import socket as Socket
 from collections.abc import Iterable
 
 from .spawnbase import SpawnBase, _Logfile
@@ -8,14 +8,14 @@ __all__ = ["SocketSpawn"]
 class SocketSpawn(SpawnBase):
     args: None
     command: None
-    socket: socket.socket
+    socket: Socket
     child_fd: int
     closed: bool
     name: str
     use_poll: bool
     def __init__(
         self,
-        socket: socket.socket,
+        socket: Socket,
         args: None = None,
         timeout: float = 30,
         maxread: int = 2000,
