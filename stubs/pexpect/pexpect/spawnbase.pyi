@@ -1,5 +1,5 @@
 from asyncio import ReadTransport
-from collections.abc import Callable, Iterable, Awaitable
+from collections.abc import Awaitable, Callable, Iterable
 from re import Match, Pattern
 from typing import IO, AnyStr, Generic, Protocol, TextIO
 from typing_extensions import TypeAlias
