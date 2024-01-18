@@ -67,7 +67,7 @@ class SpawnBase(Generic[AnyStr]):
     allowed_string_types: tuple[type, ...]
     linesep: AnyStr
     write_to_stdout: Callable[[AnyStr], int]
-    async_pw_transport: tuple[PatternWaiter, ReadTransport] | None
+    async_pw_transport: tuple[PatternWaiter[AnyStr], ReadTransport] | None
     def __init__(
         self,
         timeout: float | None = 30,

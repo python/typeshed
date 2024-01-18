@@ -7,7 +7,7 @@ from collections.abc import Callable
 from .spawnbase import SpawnBase, _Logfile
 
 class PopenSpawn(SpawnBase[AnyStr]):
-    proc: subprocess.Popen
+    proc: subprocess.Popen[AnyStr]
     closed: bool
     def __init__(
         self,
