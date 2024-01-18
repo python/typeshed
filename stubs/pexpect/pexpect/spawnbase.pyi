@@ -1,6 +1,13 @@
-from _typeshed import Incomplete
-from re import Pattern
-from typing import AnyStr, Protocol
+from re import Pattern, Match
+from typing import IO, AnyStr, Callable, Generic, Protocol, TextIO
+from collections.abc import Iterable
+from typing_extensions import TypeAlias
+
+from .expect import searcher_re, searcher_string
+
+from .exceptions import TIMEOUT, EOF
+from ._async import PatternWaiter
+from asyncio import ReadTransport
 
 PY3: bool
 text_type: type
@@ -15,46 +22,52 @@ class _Logfile(Protocol):
     def write(self, __s) -> object: ...
     def flush(self) -> object: ...
 
-class SpawnBase:
-    encoding: Incomplete
-    pid: Incomplete
+_InputStringPattern: TypeAlias = str | bytes | EOF | TIMEOUT
+_InputRePattern: TypeAlias = Pattern[str] | Pattern[bytes] | _InputStringPattern
+_CompiledStringPattern: TypeAlias = AnyStr | EOF | TIMEOUT
+_CompiledRePattern: TypeAlias = Pattern[AnyStr] | EOF | TIMEOUT
+_Searcher: TypeAlias = searcher_string[AnyStr] | searcher_re[AnyStr]
+
+class SpawnBase(Generic[AnyStr]):
+    encoding: str | None
+    pid: int | None
     flag_eof: bool
-    stdin: Incomplete
-    stdout: Incomplete
-    stderr: Incomplete
-    searcher: Incomplete
+    stdin: TextIO
+    stdout: TextIO
+    stderr: TextIO
+    searcher: None
     ignorecase: bool
-    before: Incomplete
-    after: Incomplete
-    match: Incomplete
-    match_index: Incomplete
+    before: AnyStr | None
+    after: _CompiledStringPattern[AnyStr] | None
+    match: AnyStr | Match[AnyStr] | EOF | TIMEOUT | None
+    match_index: int | None
     terminated: bool
-    exitstatus: Incomplete
-    signalstatus: Incomplete
-    status: Incomplete
+    exitstatus: int | None
+    signalstatus: int | None
+    status: int | None
     child_fd: int
     timeout: float | None
-    delimiter: Incomplete
+    delimiter: type[EOF]
     logfile: _Logfile
     logfile_read: _Logfile
     logfile_send: _Logfile
-    maxread: Incomplete
+    maxread: int
     searchwindowsize: int | None
     delaybeforesend: float | None
     delayafterclose: float
     delayafterterminate: float
     delayafterread: float
     softspace: bool
-    name: Incomplete
+    name: str
     closed: bool
-    codec_errors: Incomplete
-    string_type: Incomplete
-    buffer_type: Incomplete
-    crlf: bytes
-    allowed_string_types: Incomplete
-    linesep: Incomplete
-    write_to_stdout: Incomplete
-    async_pw_transport: Incomplete
+    codec_errors: str
+    string_type: type[AnyStr]
+    buffer_type: IO[AnyStr]
+    crlf: AnyStr
+    allowed_string_types: tuple[type, ...]
+    linesep: AnyStr
+    write_to_stdout: Callable[[AnyStr], int]
+    async_pw_transport: tuple[PatternWaiter, ReadTransport] | None
     def __init__(
         self,
         timeout: float | None = 30,
@@ -64,17 +77,41 @@ class SpawnBase:
         encoding: str | None = None,
         codec_errors: str = "strict",
     ) -> None: ...
-    buffer: Incomplete
-    def read_nonblocking(self, size: int = 1, timeout: float | None = None) -> bytes: ...
-    def compile_pattern_list(self, patterns) -> list[Pattern[AnyStr]]: ...
-    def expect(self, pattern, timeout: float | None = -1, searchwindowsize: int | None = -1, async_: bool = False, **kw) -> int: ...
-    def expect_list(self, pattern_list, timeout: float | None = -1, searchwindowsize: int | None = -1, async_: bool = False, **kw) -> int: ...
-    def expect_exact(self, pattern_list, timeout: float | None = -1, searchwindowsize: int | None = -1, async_: bool = False, **kw) -> int: ...
-    def expect_loop(self, searcher, timeout: float | None = -1, searchwindowsize: int | None = -1) -> int: ...
-    def read(self, size: int = -1) -> bytes: ...
-    def readline(self, size: int = -1) -> bytes: ...
+    @property
+    def buffer(self) -> AnyStr: ...
+    @buffer.setter
+    def buffer(self, value: AnyStr) -> None: ...
+    def read_nonblocking(self, size: int = 1, timeout: float | None = None) -> AnyStr: ...
+    def compile_pattern_list(self, patterns: _InputRePattern | list[_InputRePattern]) -> list[_CompiledRePattern[AnyStr]]: ...
+    def expect(
+        self,
+        pattern: _InputRePattern | list[_InputRePattern],
+        timeout: float | None = -1,
+        searchwindowsize: int | None = -1,
+        async_: bool = False,
+        **kw,
+    ) -> int: ...
+    def expect_list(
+        self,
+        pattern_list: list[_CompiledRePattern[AnyStr]],
+        timeout: float | None = -1,
+        searchwindowsize: int | None = -1,
+        async_: bool = False,
+        **kw,
+    ) -> int: ...
+    def expect_exact(
+        self,
+        pattern_list: _InputStringPattern | Iterable[_InputStringPattern],
+        timeout: float | None = -1,
+        searchwindowsize: int | None = -1,
+        async_: bool = False,
+        **kw,
+    ) -> int: ...
+    def expect_loop(self, searcher: _Searcher[AnyStr], timeout: float | None = -1, searchwindowsize: int | None = -1) -> int: ...
+    def read(self, size: int = -1) -> AnyStr: ...
+    def readline(self, size: int = -1) -> AnyStr: ...
     def __iter__(self): ...
-    def readlines(self, sizehint: int = -1) -> list[str]: ...
+    def readlines(self, sizehint: int = -1) -> list[AnyStr]: ...
     def fileno(self): ...
     def flush(self) -> None: ...
     def isatty(self): ...
