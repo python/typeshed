@@ -76,4 +76,20 @@ class spawn(SpawnBase[AnyStr]):
         output_filter: Callable[[AnyStr], AnyStr] | None = None,
     ) -> None: ...
 
-def spawnu(*args: str, **kwargs: str): ...
+def spawnu(
+    command: str,
+    args: list[str] = [],
+    timeout: float | None = 30,
+    maxread: int = 2000,
+    searchwindowsize: int | None = None,
+    logfile: _Logfile | None = None,
+    cwd: FileDescriptorOrPath | None = None,
+    env: _Environ[str] | None = None,
+    ignore_sighup: bool = False,
+    echo: bool = True,
+    preexec_fn: Callable[[], None] | None = None,
+    encoding: str | None = "utf-8",
+    codec_errors: str = "strict",
+    dimensions: tuple[int, int] | None = None,
+    use_poll: bool = False,
+) -> spawn[AnyStr]: ...
