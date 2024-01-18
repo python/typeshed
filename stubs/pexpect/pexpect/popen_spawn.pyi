@@ -1,6 +1,6 @@
-from _typeshed import FileDescriptorOrPath, StrOrBytesPath
-from os import _Environ
 import subprocess
+from _typeshed import StrOrBytesPath
+from os import _Environ
 from typing import AnyStr, Callable
 
 from .spawnbase import SpawnBase, _Logfile

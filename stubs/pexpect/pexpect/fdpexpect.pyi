@@ -1,5 +1,6 @@
-from typing import AnyStr
 from collections.abc import Iterable
+from typing import AnyStr
+
 from .spawnbase import SpawnBase, _Logfile
 
 __all__ = ["fdspawn"]

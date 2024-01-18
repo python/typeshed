@@ -1,13 +1,12 @@
-from re import Pattern, Match
-from typing import IO, AnyStr, Callable, Generic, Protocol, TextIO
+from asyncio import ReadTransport
 from collections.abc import Iterable
+from re import Match, Pattern
+from typing import IO, AnyStr, Callable, Generic, Protocol, TextIO
 from typing_extensions import TypeAlias
 
-from .expect import searcher_re, searcher_string
-
-from .exceptions import TIMEOUT, EOF
 from ._async import PatternWaiter
-from asyncio import ReadTransport
+from .exceptions import EOF, TIMEOUT
+from .expect import searcher_re, searcher_string
 
 PY3: bool
 text_type: type

@@ -1,7 +1,8 @@
 import re
 from collections.abc import Iterable
 from typing import AnyStr, Generic
-from .spawnbase import _Searcher, SpawnBase, _CompiledStringPattern, _CompiledRePattern
+
+from .spawnbase import SpawnBase, _CompiledRePattern, _CompiledStringPattern, _Searcher
 
 class searcher_string(Generic[AnyStr]):
     eof_index: int
