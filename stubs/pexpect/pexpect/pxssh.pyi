@@ -1,11 +1,11 @@
 from _typeshed import FileDescriptorOrPath
 from os import _Environ
-from typing import AnyStr
-from typing_extensions import Literal
+from typing import AnyStr, Literal
 
-from pexpect import ExceptionPexpect, spawn
+from .pty_spawn import spawn
 
 from .spawnbase import _Logfile
+from .exceptions import ExceptionPexpect
 
 __all__ = ["ExceptionPxssh", "pxssh"]
 

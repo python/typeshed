@@ -1,11 +1,12 @@
 from collections.abc import Iterable
 from socket import socket as Socket
+from typing import AnyStr
 
 from .spawnbase import SpawnBase, _Logfile
 
 __all__ = ["SocketSpawn"]
 
-class SocketSpawn(SpawnBase):
+class SocketSpawn(SpawnBase[AnyStr]):
     args: None
     command: None
     socket: Socket
@@ -31,4 +32,4 @@ class SocketSpawn(SpawnBase):
     def sendline(self, s: str | bytes) -> int: ...
     def write(self, s: str | bytes) -> None: ...
     def writelines(self, sequence: Iterable[str | bytes]) -> None: ...
-    def read_nonblocking(self, size: int = 1, timeout: float | None = -1) -> bytes: ...
+    def read_nonblocking(self, size: int = 1, timeout: float | None = -1) -> AnyStr: ...

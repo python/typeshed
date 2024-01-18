@@ -1,7 +1,7 @@
 import asyncio
 from typing import AnyStr, Generic
 
-from pexpect.expect import Expecter
+from .expect import Expecter
 
 async def expect_async(expecter: Expecter[AnyStr], timeout: float | None = None): ...
 async def repl_run_command_async(repl, cmdlines, timeout: float | None = -1): ...
