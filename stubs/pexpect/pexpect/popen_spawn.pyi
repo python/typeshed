@@ -12,7 +12,7 @@ class PopenSpawn(SpawnBase):
         cmd,
         timeout: float | None = 30,
         maxread: int = 2000,
-        searchwindowsize: Incomplete | None = None,
+        searchwindowsize: int | None = None,
         logfile: _Logfile | None = None,
         cwd: Incomplete | None = None,
         env: Incomplete | None = None,
