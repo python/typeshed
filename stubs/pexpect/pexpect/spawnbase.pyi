@@ -1,7 +1,7 @@
 from asyncio import ReadTransport
-from collections.abc import Callable, Iterable
+from collections.abc import Callable, Iterable, Awaitable
 from re import Match, Pattern
-from typing import IO, AnyStr, Awaitable, Generic, Protocol, TextIO
+from typing import IO, AnyStr, Generic, Protocol, TextIO
 from typing_extensions import TypeAlias
 
 from ._async import PatternWaiter
