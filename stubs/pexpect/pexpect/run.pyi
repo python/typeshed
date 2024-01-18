@@ -4,7 +4,7 @@ from pexpect.spawnbase import _Logfile
 
 def run(
     command,
-    timeout: float = 30,
+    timeout: float | None = 30,
     withexitstatus: bool = False,
     events: Incomplete | None = None,
     extra_args: Incomplete | None = None,
@@ -15,7 +15,7 @@ def run(
 ): ...
 def runu(
     command,
-    timeout: float = 30,
+    timeout: float | None = 30,
     withexitstatus: bool = False,
     events: Incomplete | None = None,
     extra_args: Incomplete | None = None,

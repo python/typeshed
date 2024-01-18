@@ -21,7 +21,7 @@ class pxssh(spawn):
     options: Incomplete
     def __init__(
         self,
-        timeout: float = 30,
+        timeout: float | None = 30,
         maxread: int = 2000,
         searchwindowsize: Incomplete | None = None,
         logfile: _Logfile | None = None,
@@ -45,7 +45,7 @@ class pxssh(spawn):
         password: str = "",
         terminal_type: str = "ansi",
         original_prompt: str = "[#$]",
-        login_timeout: float = 10,
+        login_timeout: float | None = 10,
         port: Incomplete | None = None,
         auto_prompt_reset: bool = True,
         ssh_key: Incomplete | None = None,
@@ -60,5 +60,5 @@ class pxssh(spawn):
         cmd: str = "ssh",
     ): ...
     def logout(self) -> None: ...
-    def prompt(self, timeout: float = -1): ...
+    def prompt(self, timeout: float | None = -1): ...
     def set_unique_prompt(self): ...

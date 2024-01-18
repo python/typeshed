@@ -10,7 +10,7 @@ class PopenSpawn(SpawnBase):
     def __init__(
         self,
         cmd,
-        timeout: float = 30,
+        timeout: float | None = 30,
         maxread: int = 2000,
         searchwindowsize: Incomplete | None = None,
         logfile: _Logfile | None = None,
