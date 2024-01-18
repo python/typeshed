@@ -1,8 +1,8 @@
 import subprocess
 from _typeshed import StrOrBytesPath
+from collections.abc import Callable
 from os import _Environ
 from typing import AnyStr
-from collections.abc import Callable
 
 from .spawnbase import SpawnBase, _Logfile
 
