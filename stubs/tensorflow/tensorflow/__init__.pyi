@@ -406,10 +406,6 @@ class RaggedTensorSpec(TypeSpec[struct_pb2.TypeSpecProto]):
     def from_value(cls, value: RaggedTensor) -> Self: ...
 
 def __getattr__(name: str) -> Incomplete: ...
-
 def convert_to_tensor(
-    value: _TensorCompatible,
-    dtype: DType | None = None,
-    dtype_hint: DType | None = None,
-    name: str | None = None
+    value: _TensorCompatible, dtype: DType | None = None, dtype_hint: DType | None = None, name: str | None = None
 ) -> Tensor: ...
