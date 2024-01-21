@@ -1,0 +1,3 @@
+# class Model(base_layer.Layer, version_utils.ModelVersionSelector):
+class Model():
+    def __init__(self, *args, **kwargs) -> None: ...

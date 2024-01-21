@@ -9,6 +9,7 @@ from tensorflow.keras import (
     metrics as metrics,
     optimizers as optimizers,
     regularizers as regularizers,
+    models as models,
 )
 
 def __getattr__(name: str) -> Incomplete: ...
