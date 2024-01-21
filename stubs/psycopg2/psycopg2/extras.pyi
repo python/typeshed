@@ -174,9 +174,17 @@ class MinTimeLoggingCursor(LoggingCursor):
 
 class LogicalReplicationConnection(_replicationConnection):
     def __init__(self, *args, **kwargs) -> None: ...
+    @overload
+    def cursor(
+        self, name: str | bytes | None = None, cursor_factory: None = None, withhold: bool = False, scrollable: bool | None = None
+    ) -> ReplicationCursor: ...
 
 class PhysicalReplicationConnection(_replicationConnection):
     def __init__(self, *args, **kwargs) -> None: ...
+    @overload
+    def cursor(
+        self, name: str | bytes | None = None, cursor_factory: None = None, withhold: bool = False, scrollable: bool | None = None
+    ) -> ReplicationCursor: ...
 
 class StopReplication(Exception): ...
 
