@@ -5,8 +5,8 @@ from types import TracebackType
 from typing import Any, Literal, NoReturn, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
-from psycopg2.sql import Composable
 from psycopg2.extras import ReplicationCursor as extras_ReplicationCursor
+from psycopg2.sql import Composable
 
 _Vars: TypeAlias = Sequence[Any] | Mapping[str, Any] | None
 
