@@ -78,7 +78,7 @@ class Executor:
 class _AsCompletedFuture(Protocol[_T_co]):
     # as_completed only mutates non-generic aspects of passed Futures and does not do any nominal
     # checks. Therefore, we can use a Protocol here to allow as_completed to act covariantly.
-    # See check_concurrent_futures.py
+    # See the tests for concurrent.futures
     _condition: threading.Condition
     _state: str
     _waiters: list[_Waiter]
