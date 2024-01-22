@@ -2,8 +2,6 @@ from enum import Enum, Flag, IntEnum, IntFlag
 from typing import Literal
 from typing_extensions import Self
 
-from .syntax import Name
-
 class SignatureFlag(IntEnum):
     SIGNATURES_EXIST = ...
     APPEND_ONLY = ...
