@@ -520,11 +520,14 @@ class AddressFamily(IntEnum):
         AF_VSOCK = 40
         AF_QIPCRTR = 42
     if sys.platform != "win32" or sys.version_info >= (3, 9):
-        AF_LINK = ...
+        if sys.platform != "win32"
+            AF_LINK = 33
+        else:
+            AF_LINK = 18
         if sys.platform != "darwin":
-            AF_BLUETOOTH = ...
+            AF_BLUETOOTH = 32
     if sys.platform == "win32" and sys.version_info >= (3, 12):
-        AF_HYPERV = ...
+        AF_HYPERV = 34
 
 AF_INET = AddressFamily.AF_INET
 AF_INET6 = AddressFamily.AF_INET6
@@ -606,8 +609,8 @@ class MsgFlag(IntFlag):
     MSG_WAITALL = 256
 
     if sys.platform != "darwin":
-        MSG_BCAST = ...
-        MSG_MCAST = ...
+        MSG_BCAST = 1024
+        MSG_MCAST = 2048
         MSG_ERRQUEUE = 8192
 
     if sys.platform != "win32" and sys.platform != "darwin":
@@ -621,7 +624,7 @@ class MsgFlag(IntFlag):
 
     if sys.platform != "win32":
         MSG_DONTWAIT = 64
-        MSG_EOF = ...
+        MSG_EOF = 256
         MSG_EOR = 128
         MSG_NOSIGNAL = 16384  # sometimes this exists on darwin, sometimes not
 
@@ -661,9 +664,9 @@ class AddressInfo(IntFlag):
     AI_PASSIVE = 1
     AI_V4MAPPED = 8
     if sys.platform != "win32":
-        AI_DEFAULT = ...
-        AI_MASK = ...
-        AI_V4MAPPED_CFG = ...
+        AI_DEFAULT = 1536
+        AI_MASK = 5127
+        AI_V4MAPPED_CFG = 512
 
 AI_ADDRCONFIG = AddressInfo.AI_ADDRCONFIG
 AI_ALL = AddressInfo.AI_ALL
