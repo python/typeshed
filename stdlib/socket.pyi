@@ -520,10 +520,7 @@ class AddressFamily(IntEnum):
         AF_VSOCK = 40
         AF_QIPCRTR = 42
     if sys.platform != "win32" or sys.version_info >= (3, 9):
-        if sys.platform != "win32"
-            AF_LINK = 33
-        else:
-            AF_LINK = 18
+        AF_LINK = 33
         if sys.platform != "darwin":
             AF_BLUETOOTH = 32
     if sys.platform == "win32" and sys.version_info >= (3, 12):
