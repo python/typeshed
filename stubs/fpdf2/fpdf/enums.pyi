@@ -3,8 +3,8 @@ from typing import Literal
 from typing_extensions import Self
 
 class SignatureFlag(IntEnum):
-    SIGNATURES_EXIST = ...
-    APPEND_ONLY = ...
+    SIGNATURES_EXIST = 1
+    APPEND_ONLY = 2
 
 class CoerciveEnum(Enum):
     @classmethod
