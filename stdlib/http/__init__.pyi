@@ -94,12 +94,12 @@ if sys.version_info >= (3, 11):
     class HTTPMethod(StrEnum):
         @property
         def description(self) -> str: ...
-        CONNECT = 'CONNECT'
-        DELETE = 'DELETE'
-        GET = 'GET'
-        HEAD = 'HEAD'
-        OPTIONS = 'OPTIONS'
-        PATCH = 'PATCH'
-        POST = 'POST'
-        PUT = 'PUT'
-        TRACE = 'TRACE'
+        CONNECT = "CONNECT"
+        DELETE = "DELETE"
+        GET = "GET"
+        HEAD = "HEAD"
+        OPTIONS = "OPTIONS"
+        PATCH = "PATCH"
+        POST = "POST"
+        PUT = "PUT"
+        TRACE = "TRACE"

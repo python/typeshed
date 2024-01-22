@@ -98,10 +98,10 @@ class BoundedSemaphore(Semaphore): ...
 
 if sys.version_info >= (3, 11):
     class _BarrierState(enum.Enum):  # undocumented
-        FILLING = 'filling'
-        DRAINING = 'draining'
-        RESETTING = 'resetting'
-        BROKEN = 'broken'
+        FILLING = "filling"
+        DRAINING = "draining"
+        RESETTING = "resetting"
+        BROKEN = "broken"
 
     class Barrier(_LoopBoundMixin):
         def __init__(self, parties: int) -> None: ...
