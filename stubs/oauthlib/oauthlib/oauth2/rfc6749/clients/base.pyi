@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any, AnyStr
+from typing import Any
 
 AUTH_HEADER: str
 URI_QUERY: str
