@@ -279,13 +279,6 @@ new features to the Python type system. In general, new features can
 be used in typeshed as soon as the PEP has been accepted and implemented
 and most type checkers support the new feature.
 
-The following features are partially supported:
-- [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
-  - For now, cannot be used in combination with other decorators
-    (e.g., `@overload`, `@classmethod`, and `@property`) due to bugs in
-    [pytype](https://github.com/google/pytype/issues/1531) and
-    [stubtest](https://github.com/python/mypy/pull/16457).
-
 Supported features include:
 - [PEP 544](https://peps.python.org/pep-0544/) (Protocol)
 - [PEP 585](https://peps.python.org/pep-0585/) (builtin generics)
@@ -299,6 +292,7 @@ Supported features include:
 - [PEP 655](https://peps.python.org/pep-0655/) (`Required` and `NotRequired`)
 - [PEP 673](https://peps.python.org/pep-0673/) (`Self`)
 - [PEP 675](https://peps.python.org/pep-0675/) (`LiteralString`)
+- [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
 
 Features from the `typing` module that are not present in all
 supported Python 3 versions must be imported from `typing_extensions`
