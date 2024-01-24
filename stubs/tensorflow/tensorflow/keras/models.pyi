@@ -5,12 +5,9 @@ from typing import Any, Iterator, Literal, Self
 
 # import numpy as np
 # import numpy.typing as npt
-
-import numpy as np
-import numpy.typing as npt
 import tensorflow
 import tensorflow as tf
-from tensorflow import _ShapeLike, _TensorCompatible, Variable
+from tensorflow import Variable, _ShapeLike, _TensorCompatible
 from tensorflow.keras.layers import Layer, _InputT, _OutputT
 
 class Model(Layer[_InputT, _OutputT], tf.Module):
@@ -60,11 +57,7 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
         sample_weight: Incomplete | None = None,
     ) -> tf.Tensor | None: ...
     def compute_metrics(
-        self,
-        x: _TensorCompatible,
-        y: _TensorCompatible,
-        y_pred: _TensorCompatible,
-        sample_weight: Incomplete,
+        self, x: _TensorCompatible, y: _TensorCompatible, y_pred: _TensorCompatible, sample_weight: Incomplete
     ) -> dict[str, float]: ...
     def get_metrics_result(self) -> dict[str, float]: ...
     def make_train_function(self, force: bool = False) -> Callable[[tf.data.Iterator[Incomplete]], dict[str, float]]: ...
@@ -122,22 +115,9 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     ): ...
     def reset_metrics(self) -> None: ...
     def train_on_batch(
-        self,
-        x,
-        y=None,
-        sample_weight=None,
-        class_weight=None,
-        reset_metrics=True,
-        return_dict=False,
+        self, x, y=None, sample_weight=None, class_weight=None, reset_metrics=True, return_dict=False
     ) -> float | list[float]: ...
-    def test_on_batch(
-        self,
-        x,
-        y=None,
-        sample_weight=None,
-        reset_metrics=True,
-        return_dict=False,
-    ) -> float | list[float]: ...
+    def test_on_batch(self, x, y=None, sample_weight=None, reset_metrics=True, return_dict=False) -> float | list[float]: ...
     def predict_on_batch(self, x: Iterator[_InputT]) -> Incomplete: ...  # npt.NDArray[_OutputT]
     def fit_generator(
         self,
@@ -157,24 +137,10 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
         initial_epoch=0,
     ): ...
     def evaluate_generator(
-        self,
-        generator,
-        steps=None,
-        callbacks=None,
-        max_queue_size=10,
-        workers=1,
-        use_multiprocessing=False,
-        verbose=0,
+        self, generator, steps=None, callbacks=None, max_queue_size=10, workers=1, use_multiprocessing=False, verbose=0
     ): ...
     def predict_generator(
-        self,
-        generator,
-        steps=None,
-        callbacks=None,
-        max_queue_size=10,
-        workers=1,
-        use_multiprocessing=False,
-        verbose=0,
+        self, generator, steps=None, callbacks=None, max_queue_size=10, workers=1, use_multiprocessing=False, verbose=0
     ): ...
     @property
     def trainable_weights(self) -> list[Variable]: ...
@@ -182,9 +148,7 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def non_trainable_weights(self) -> list[Variable]: ...
     def get_weights(self): ...
     def save(self, filepath, overwrite=True, save_format=None, **kwargs): ...
-    def save_weights(
-        self, filepath, overwrite=True, save_format=None, options=None
-    ): ...
+    def save_weights(self, filepath, overwrite=True, save_format=None, options=None): ...
     def load_weights(
         self,
         filepath: str | Path,
