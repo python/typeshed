@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterator
 from pathlib import Path
-from typing import Any, Literal, Self
+from typing import Any, Literal
+from typing_extensions import Self
 
 # import numpy as np
 # import numpy.typing as npt
