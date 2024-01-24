@@ -221,11 +221,7 @@ class Conv2D(Layer[tf.Tensor, tf.Tensor]):
 
 class Identity(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
-        self,
-        trainable: bool = True,
-        dtype: _LayerDtype = None,
-        dynamic: bool = False,
-        name: str | None = None,
+        self, trainable: bool = True, dtype: _LayerDtype = None, dynamic: bool = False, name: str | None = None
     ) -> None: ...
 
 class LayerNormalization(Layer[tf.Tensor, tf.Tensor]):
