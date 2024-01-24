@@ -1,0 +1,3 @@
+from tensorflow.config import PhysicalDevice
+
+def set_memory_growth(device: PhysicalDevice, enable: bool) -> None: ...
