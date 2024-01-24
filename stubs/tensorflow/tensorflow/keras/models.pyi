@@ -1,32 +1,16 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Container, Iterator
 from pathlib import Path
-from typing import Any, Literal
-from typing_extensions import Self
 
 import numpy as np
 import numpy.typing as npt
 import tensorflow
 import tensorflow as tf
-from tensorflow import Variable, _ShapeLike, _TensorCompatible
+from tensorflow import _ShapeLike, _TensorCompatible
 from tensorflow.keras.layers import Layer, _InputT, _OutputT
-from tensorflow.keras import _Loss, _Metric
-from tensorflow._aliases import _ContainerGeneric
-
-_BothOptimizer = tf.optimizers.Optimizer | tf.optimizers.experimental.Optimizer
 
 class Model(Layer[_InputT, _OutputT], tf.Module):
-    _train_counter: tf.Variable
-    _test_counter: tf.Variable
-    optimizer: _BothOptimizer | None
-    loss: tf.keras.losses.Loss | dict[str, tf.keras.losses.Loss]
-    stop_training: bool
-
-    def __new__(cls, *args: Any, **kwargs: Any) -> Model[_InputT, _OutputT]: ...
-    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
-    def __setattr__(self, name: str, value: Any) -> None: ...
-    def __reduce__(self) -> Incomplete: ...
-    def __deepcopy__(self, memo: Incomplete) -> Incomplete: ...
+    def __init__(self, *args, **kwargs) -> None: ...
     def build(self, input_shape: _ShapeLike) -> None: ...
     def __call__(self, inputs: _InputT, *, training: bool = False, mask: _TensorCompatible | None = None) -> _OutputT: ...
     def call(self, inputs: _InputT, training: bool | None = None, mask: _TensorCompatible | None = None) -> _OutputT: ...
