@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Sequence
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, Generic, Literal, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
@@ -188,6 +188,59 @@ class Embedding(Layer[tf.Tensor, tf.Tensor]):
         embeddings_constraint: _Constraint = None,
         mask_zero: bool = False,
         input_length: int | None = None,
+        trainable: bool = True,
+        dtype: _LayerDtype = None,
+        dynamic: bool = False,
+        name: str | None = None,
+    ) -> None: ...
+
+class Conv2D(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self,
+        filters: int,
+        kernel_size: int | tuple[int, int],
+        strides: int | tuple[int, int] = (1, 1),
+        padding: Literal["valid", "same"] = "valid",
+        data_format: None | Literal["channels_last", "channels_first"] = None,
+        dilation_rate: int | tuple[int, int] = (1, 1),
+        groups: int = 1,
+        activation: _Activation = None,
+        use_bias: bool = True,
+        kernel_initializer: _Initializer = "glorot_uniform",
+        bias_initializer: _Initializer = "zeros",
+        kernel_regularizer: _Regularizer = None,
+        bias_regularizer: _Regularizer = None,
+        activity_regularizer: _Regularizer = None,
+        kernel_constraint: _Constraint = None,
+        bias_constraint: _Constraint = None,
+        trainable: bool = True,
+        dtype: _LayerDtype = None,
+        dynamic: bool = False,
+        name: str | None = None,
+    ) -> None: ...
+
+class Identity(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self,
+        trainable: bool = True,
+        dtype: _LayerDtype = None,
+        dynamic: bool = False,
+        name: str | None = None,
+    ) -> None: ...
+
+class LayerNormalization(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self,
+        axis: int = -1,
+        epsilon: float = 0.001,
+        center: bool = True,
+        scale: bool = True,
+        beta_initializer: _Initializer = "zeros",
+        gamma_initializer: _Initializer = "ones",
+        beta_regularizer: _Regularizer = None,
+        gamma_regularizer: _Regularizer = None,
+        beta_constraint: _Constraint = None,
+        gamma_constraint: _Constraint = None,
         trainable: bool = True,
         dtype: _LayerDtype = None,
         dynamic: bool = False,

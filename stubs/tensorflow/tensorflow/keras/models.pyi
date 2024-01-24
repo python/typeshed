@@ -1,12 +1,15 @@
 from collections.abc import Callable
 from pathlib import Path
+from typing import Generic
 
-_ShapeLike: TypeAlias = TensorShape | Iterable[_ScalarTensorCompatible | None] | int | Tensor
+import tensorflow
+import tensorflow as tf
+from tensorflow import _ShapeLike, _TensorCompatible
+from tensorflow.keras.layers import _InputT, _OutputT
 
-# class Model(base_layer.Layer, version_utils.ModelVersionSelector):
-class Model:
+class Model(tf.Module, tf.keras.layers.Layer, Generic[_InputT, _OutputT]):
     def __init__(self, *args, **kwargs) -> None: ...
-    def build(self, input_shape: _ShapeLike): ...
+    def build(self, input_shape: _ShapeLike) -> None: ...
     def summary(
         self,
         line_length: None | int = None,
@@ -19,3 +22,5 @@ class Model:
     def load_weights(
         self, filepath: str | Path, skip_mismatch: bool = False, by_name: bool = False, options: None | tensorflow.train.CheckpointOptions =None
     ): ...
+    def __call__(self, inputs: _InputT, *, training: bool = False, mask: _TensorCompatible | None = None) -> _OutputT: ...
+    def call(self, __inputs: _InputT) -> _OutputT: ...
