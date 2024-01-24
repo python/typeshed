@@ -1,13 +1,12 @@
 from collections.abc import Callable
 from pathlib import Path
-from typing import Generic
 
 import tensorflow
 import tensorflow as tf
 from tensorflow import _ShapeLike, _TensorCompatible
-from tensorflow.keras.layers import _InputT, _OutputT
+from tensorflow.keras.layers import Layer, _InputT, _OutputT
 
-class Model(tf.Module, tf.keras.layers.Layer, Generic[_InputT, _OutputT]):
+class Model(Layer[_InputT, _OutputT], tf.Module):
     def __init__(self, *args, **kwargs) -> None: ...
     def build(self, input_shape: _ShapeLike) -> None: ...
     def summary(
