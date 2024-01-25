@@ -1,15 +1,16 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Iterator, Container
 from pathlib import Path
 from typing import Any, Literal
 from typing_extensions import Self
 
-# import numpy as np
-# import numpy.typing as npt
+import numpy as np
+import numpy.typing as npt
 import tensorflow
 import tensorflow as tf
 from tensorflow import Variable, _ShapeLike, _TensorCompatible
 from tensorflow.keras.layers import Layer, _InputT, _OutputT
+from tensorflow.keras.optimizers.legacy import Optimizer
 
 class Model(Layer[_InputT, _OutputT], tf.Module):
     def __new__(cls, *args, **kwargs) -> Model[_InputT, _OutputT]: ...
@@ -22,17 +23,17 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def call(self, inputs: _InputT, training: bool = False, mask: _TensorCompatible | None = None) -> _OutputT: ...
     def compile(
         self,
-        optimizer="rmsprop",
-        loss=None,
-        metrics=None,
-        loss_weights=None,
-        weighted_metrics=None,
-        run_eagerly=None,
-        steps_per_execution=None,
-        jit_compile=None,
-        pss_evaluation_shards=0,
+        optimizer: Optimizer | str = "rmsprop",
+        loss: tf.keras.losses.Loss | str | None = None,
+        metrics: list[tf.keras.metrics.Metric | str] | None = None,
+        loss_weights: list[float] | dict[str, float] | None = None,
+        weighted_metrics: list[tf.keras.metrics.Metric] | None = None,
+        run_eagerly: bool | None = None,
+        steps_per_execution: int |  Literal["auto"] | None= None,
+        jit_compile: bool | None = None,
+        pss_evaluation_shards: int |  Literal["auto"] = 0,
         **kwargs,
-    ) -> Incomplete: ...
+    ) -> None: ...
     @property
     def metrics(self) -> list[Incomplete]: ...
     @property
@@ -64,52 +65,52 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def make_train_function(self, force: bool = False) -> Callable[[tf.data.Iterator[Incomplete]], dict[str, float]]: ...
     def fit(
         self,
-        x=None,
-        y=None,
-        batch_size=None,
-        epochs=1,
-        verbose="auto",
-        callbacks=None,
-        validation_split=0.0,
-        validation_data=None,
-        shuffle=True,
-        class_weight=None,
-        sample_weight=None,
-        initial_epoch=0,
-        steps_per_epoch=None,
-        validation_steps=None,
-        validation_batch_size=None,
-        validation_freq=1,
-        max_queue_size=10,
-        workers=1,
-        use_multiprocessing=False,
+        x: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
+        y: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
+        batch_size: int | None = None,
+        epochs: int = 1,
+        verbose: Literal["auto", 0, 1, 2] = "auto",
+        callbacks: list[tf.keras.callbacks.Callback] | None = None,
+        validation_split: float = 0.0,
+        validation_data: _TensorCompatible | tf.data.Dataset[Any] | None = None,
+        shuffle: bool = True,
+        class_weight: dict[int, float] | None = None,
+        sample_weight: npt.NDArray[np.float_] | None = None,
+        initial_epoch: int = 0,
+        steps_per_epoch: int | None = None,
+        validation_steps: int | None = None,
+        validation_batch_size: int | None = None,
+        validation_freq: int | Container[int] = 1,
+        max_queue_size: int = 10,
+        workers: int = 1,
+        use_multiprocessing: bool = False,
     ): ...
     def test_step(self, data: _TensorCompatible) -> dict[str, float]: ...
     def make_test_function(self, force: bool = False) -> Callable[[tf.data.Iterator[Incomplete]], dict[str, float]]: ...
     def evaluate(
         self,
-        x=None,
-        y=None,
-        batch_size=None,
-        verbose="auto",
-        sample_weight=None,
-        steps=None,
-        callbacks=None,
-        max_queue_size=10,
-        workers=1,
-        use_multiprocessing=False,
-        return_dict=False,
+        x: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
+        y: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
+        batch_size: int | None = None,
+        verbose: Literal["auto", 0, 1, 2] = "auto",
+        sample_weight: npt.NDArray[np.float_] | None = None,
+        steps: int | None = None,
+        callbacks: list[tf.keras.callbacks.Callback] | None = None,
+        max_queue_size: int = 10,
+        workers: int = 1,
+        use_multiprocessing: bool = False,
+        return_dict: bool = False,
         **kwargs,
     ): ...
     def predict_step(self, data: _InputT) -> _OutputT: ...
     def make_predict_function(self, force: bool = False) -> Callable[[tf.data.Iterator[Incomplete]], _OutputT]: ...
     def predict(
         self,
-        x,
+        x: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
         batch_size=None,
-        verbose="auto",
+        verbose: Literal["auto", 0, 1, 2] = "auto",
         steps=None,
-        callbacks=None,
+        callbacks: list[tf.keras.callbacks.Callback] | None = None,
         max_queue_size=10,
         workers=1,
         use_multiprocessing=False,
