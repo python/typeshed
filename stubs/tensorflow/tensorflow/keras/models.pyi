@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterator, Container
+from collections.abc import Callable, Container, Iterator
 from pathlib import Path
 from typing import Any, Literal
 from typing_extensions import Self
@@ -29,9 +29,9 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
         loss_weights: list[float] | dict[str, float] | None = None,
         weighted_metrics: list[tf.keras.metrics.Metric] | None = None,
         run_eagerly: bool | None = None,
-        steps_per_execution: int |  Literal["auto"] | None= None,
+        steps_per_execution: int | Literal["auto"] | None = None,
         jit_compile: bool | None = None,
-        pss_evaluation_shards: int |  Literal["auto"] = 0,
+        pss_evaluation_shards: int | Literal["auto"] = 0,
         **kwargs,
     ) -> None: ...
     @property
@@ -123,7 +123,7 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
         sample_weight: npt.NDArray[np.float_] | None = None,
         class_weight: dict[int, float] | None = None,
         reset_metrics: bool = True,
-        return_dict: bool = False
+        return_dict: bool = False,
     ) -> float | list[float]: ...
     def test_on_batch(self, x, y=None, sample_weight=None, reset_metrics=True, return_dict=False) -> float | list[float]: ...
     def predict_on_batch(self, x: Iterator[_InputT]) -> Incomplete: ...  # npt.NDArray[_OutputT]
