@@ -106,43 +106,63 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def make_predict_function(self, force: bool = False) -> Callable[[tf.data.Iterator[Incomplete]], _OutputT]: ...
     def predict(
         self,
-        x: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
-        batch_size=None,
+        x: _TensorCompatible | tf.data.Dataset[Incomplete] | None = None,
+        batch_size: int | None = None,
         verbose: Literal["auto", 0, 1, 2] = "auto",
-        steps=None,
+        steps: int | None = None,
         callbacks: list[tf.keras.callbacks.Callback] | None = None,
-        max_queue_size=10,
-        workers=1,
-        use_multiprocessing=False,
+        max_queue_size: int = 10,
+        workers: int = 1,
+        use_multiprocessing: bool = False,
     ): ...
     def reset_metrics(self) -> None: ...
     def train_on_batch(
-        self, x, y=None, sample_weight=None, class_weight=None, reset_metrics=True, return_dict=False
+        self,
+        x: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete],
+        y: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
+        sample_weight: npt.NDArray[np.float_] | None = None,
+        class_weight: dict[int, float] | None = None,
+        reset_metrics: bool = True,
+        return_dict: bool = False
     ) -> float | list[float]: ...
     def test_on_batch(self, x, y=None, sample_weight=None, reset_metrics=True, return_dict=False) -> float | list[float]: ...
     def predict_on_batch(self, x: Iterator[_InputT]) -> Incomplete: ...  # npt.NDArray[_OutputT]
     def fit_generator(
         self,
-        generator,
-        steps_per_epoch=None,
-        epochs=1,
-        verbose=1,
-        callbacks=None,
-        validation_data=None,
-        validation_steps=None,
-        validation_freq=1,
-        class_weight=None,
-        max_queue_size=10,
-        workers=1,
-        use_multiprocessing=False,
-        shuffle=True,
-        initial_epoch=0,
+        generator: Iterator[Incomplete],
+        steps_per_epoch: int | None = None,
+        epochs: int = 1,
+        verbose: Literal["auto", 0, 1, 2] = 1,
+        callbacks: list[tf.keras.callbacks.Callback] | None = None,
+        validation_data: _TensorCompatible | tf.data.Dataset[Any] | None = None,
+        validation_steps: int | None = None,
+        validation_freq: int | Container[int] = 1,
+        class_weight: dict[int, float] | None = None,
+        max_queue_size: int = 10,
+        workers: int = 1,
+        use_multiprocessing: bool = False,
+        shuffle: bool = True,
+        initial_epoch: int = 0,
     ): ...
     def evaluate_generator(
-        self, generator, steps=None, callbacks=None, max_queue_size=10, workers=1, use_multiprocessing=False, verbose=0
+        self,
+        generator: Iterator[Incomplete],
+        steps: int | None = None,
+        callbacks: list[tf.keras.callbacks.Callback] | None = None,
+        max_queue_size: int = 10,
+        workers: int = 1,
+        use_multiprocessing: bool = False,
+        verbose: Literal["auto", 0, 1, 2] = 0,
     ): ...
     def predict_generator(
-        self, generator, steps=None, callbacks=None, max_queue_size=10, workers=1, use_multiprocessing=False, verbose=0
+        self,
+        generator: Iterator[Incomplete],
+        steps: int | None = None,
+        callbacks: list[tf.keras.callbacks.Callback] | None = None,
+        max_queue_size: int = 10,
+        workers: int = 1,
+        use_multiprocessing: bool = False,
+        verbose: Literal["auto", 0, 1, 2] = 0,
     ): ...
     @property
     def trainable_weights(self) -> list[Variable]: ...
