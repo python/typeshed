@@ -31,6 +31,7 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
         run_eagerly: bool | None = None,
         steps_per_execution: int | Literal["auto"] | None = None,
         jit_compile: bool | None = None,
+        *,
         pss_evaluation_shards: int | Literal["auto"] = 0,
         **kwargs: Any,
     ) -> None: ...
@@ -42,10 +43,10 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def distribute_strategy(self) -> Incomplete: ...  # tf.distribute.Strategy
     @property
     def run_eagerly(self) -> bool: ...
-    @property
-    def autotune_steps_per_execution(self) -> Incomplete: ...
-    @property
-    def steps_per_execution(self) -> int: ...  # Requires a compiled model.
+    # @property
+    # def autotune_steps_per_execution(self) -> Incomplete: ...  # not present at runtime
+    # @property
+    # def steps_per_execution(self) -> int: ...  # Requires a compiled model. # not present at runtime
     @property
     def jit_compile(self) -> bool: ...
     @property
