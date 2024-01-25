@@ -170,11 +170,7 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def non_trainable_weights(self) -> list[Variable]: ...
     def get_weights(self): ...
     def save(
-        self,
-        filepath: str | Path,
-        overwrite: bool = True,
-        save_format: Literal["keras", "tf", "h5"] | None = None,
-        **kwargs,
+        self, filepath: str | Path, overwrite: bool = True, save_format: Literal["keras", "tf", "h5"] | None = None, **kwargs
     ): ...
     def save_weights(
         self,
