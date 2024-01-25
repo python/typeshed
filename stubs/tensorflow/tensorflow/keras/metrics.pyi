@@ -1,4 +1,5 @@
-from typing import Any, Self
+from typing import Any
+from typing_extensions import Self
 
 from tensorflow import Tensor, _TensorCompatible
 from tensorflow.dtypes import DType
