@@ -45,7 +45,7 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     @property
     def autotune_steps_per_execution(self) -> Incomplete: ...
     @property
-    def steps_per_execution(self) -> int: ...
+    def steps_per_execution(self) -> int: ...  # Requires a compiled model.
     @property
     def jit_compile(self) -> bool: ...
     @property
@@ -106,7 +106,7 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def make_predict_function(self, force: bool = False) -> Callable[[tf.data.Iterator[Incomplete]], _OutputT]: ...
     def predict(
         self,
-        x: _TensorCompatible | tf.data.Dataset[Incomplete] | None = None,
+        x: _TensorCompatible | tf.data.Dataset[Incomplete],
         batch_size: int | None = None,
         verbose: Literal["auto", 0, 1, 2] = "auto",
         steps: int | None = None,
@@ -130,7 +130,6 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
         x: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete],
         y: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
         sample_weight: npt.NDArray[np.float_] | None = None,
-        class_weight: dict[int, float] | None = None,
         reset_metrics: bool = True,
         return_dict: bool = False,
     ) -> float | list[float]: ...
