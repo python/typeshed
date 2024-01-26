@@ -5,7 +5,7 @@ from typing import Literal, NamedTuple
 from typing_extensions import Self, TypeAlias
 
 from tensorflow import _DTypeLike, _ShapeLike, _TensorCompatible
-from tensorflow._aliases import TensorLike
+from tensorflow._aliases import _TensorLike
 from tensorflow.io import gfile as gfile
 
 _FeatureSpecs: TypeAlias = Mapping[str, FixedLenFeature | FixedLenSequenceFeature | VarLenFeature | RaggedFeature | SparseFeature]
@@ -102,5 +102,5 @@ class RaggedFeature(NamedTuple):
 
 def parse_example(
     serialized: _TensorCompatible, features: _FeatureSpecs, example_names: Iterable[str] | None = None, name: str | None = None
-) -> dict[str, TensorLike]: ...
+) -> dict[str, _TensorLike]: ...
 def __getattr__(name: str) -> Incomplete: ...

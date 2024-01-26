@@ -7,7 +7,7 @@ from typing_extensions import Self
 import numpy as np
 import tensorflow as tf
 from tensorflow import TypeSpec, _ScalarTensorCompatible, _TensorCompatible
-from tensorflow._aliases import ContainerGeneric
+from tensorflow._aliases import _ContainerGeneric
 from tensorflow.data import experimental as experimental
 from tensorflow.data.experimental import AUTOTUNE as AUTOTUNE
 from tensorflow.dtypes import DType
@@ -21,7 +21,7 @@ _T3 = TypeVar("_T3")
 class Iterator(_Iterator[_T1], Trackable, ABC):
     @property
     @abstractmethod
-    def element_spec(self) -> ContainerGeneric[TypeSpec[Any]]: ...
+    def element_spec(self) -> _ContainerGeneric[TypeSpec[Any]]: ...
     @abstractmethod
     def get_next(self) -> _T1: ...
     @abstractmethod
@@ -43,8 +43,8 @@ class Dataset(ABC, Generic[_T1]):
         element_length_func: Callable[[_T1], _ScalarTensorCompatible],
         bucket_boundaries: Sequence[int],
         bucket_batch_sizes: Sequence[int],
-        padded_shapes: ContainerGeneric[tf.TensorShape | _TensorCompatible] | None = None,
-        padding_values: ContainerGeneric[_ScalarTensorCompatible] | None = None,
+        padded_shapes: _ContainerGeneric[tf.TensorShape | _TensorCompatible] | None = None,
+        padding_values: _ContainerGeneric[_ScalarTensorCompatible] | None = None,
         pad_to_bucket_boundary: bool = False,
         no_padding: bool = False,
         drop_remainder: bool = False,
@@ -63,7 +63,7 @@ class Dataset(ABC, Generic[_T1]):
     ) -> Dataset[tf.Tensor]: ...
     @property
     @abstractmethod
-    def element_spec(self) -> ContainerGeneric[TypeSpec[Any]]: ...
+    def element_spec(self) -> _ContainerGeneric[TypeSpec[Any]]: ...
     def enumerate(self, start: _ScalarTensorCompatible = 0, name: str | None = None) -> Dataset[tuple[int, _T1]]: ...
     def filter(self, predicate: Callable[[_T1], bool | tf.Tensor], name: str | None = None) -> Dataset[_T1]: ...
     def flat_map(self, map_func: Callable[[_T1], Dataset[_T2]], name: str | None = None) -> Dataset[_T2]: ...
@@ -71,10 +71,10 @@ class Dataset(ABC, Generic[_T1]):
     @staticmethod
     def from_generator(
         generator: Callable[..., _T2],
-        output_types: ContainerGeneric[DType] | None = None,
-        output_shapes: ContainerGeneric[tf.TensorShape | Sequence[int | None]] | None = None,
+        output_types: _ContainerGeneric[DType] | None = None,
+        output_shapes: _ContainerGeneric[tf.TensorShape | Sequence[int | None]] | None = None,
         args: tuple[object, ...] | None = None,
-        output_signature: ContainerGeneric[TypeSpec[Any]] | None = None,
+        output_signature: _ContainerGeneric[TypeSpec[Any]] | None = None,
         name: str | None = None,
     ) -> Dataset[_T2]: ...
     @staticmethod
@@ -111,7 +111,7 @@ class Dataset(ABC, Generic[_T1]):
     @staticmethod
     def load(
         path: str,
-        element_spec: ContainerGeneric[tf.TypeSpec[Any]] | None = None,
+        element_spec: _ContainerGeneric[tf.TypeSpec[Any]] | None = None,
         compression: _CompressionTypes = None,
         reader_func: Callable[[Dataset[Dataset[Any]]], Dataset[Any]] | None = None,
     ) -> Dataset[Any]: ...
@@ -127,8 +127,8 @@ class Dataset(ABC, Generic[_T1]):
     def padded_batch(
         self,
         batch_size: _ScalarTensorCompatible,
-        padded_shapes: ContainerGeneric[tf.TensorShape | _TensorCompatible] | None = None,
-        padding_values: ContainerGeneric[_ScalarTensorCompatible] | None = None,
+        padded_shapes: _ContainerGeneric[tf.TensorShape | _TensorCompatible] | None = None,
+        padding_values: _ContainerGeneric[_ScalarTensorCompatible] | None = None,
         drop_remainder: bool = False,
         name: str | None = None,
     ) -> Dataset[_T1]: ...

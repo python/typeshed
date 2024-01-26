@@ -10,9 +10,18 @@ import tensorflow
 import tensorflow as tf
 from tensorflow import Variable, _ShapeLike, _TensorCompatible
 from tensorflow.keras.layers import Layer, _InputT, _OutputT
-from tensorflow.keras.optimizers.legacy import Optimizer
+from tensorflow.keras import _Loss, _Metric
+from tensorflow._aliases import _ContainerGeneric
+
+_BothOptimizer = tf.optimizers.Optimizer | tf.optimizers.experimental.Optimizer
 
 class Model(Layer[_InputT, _OutputT], tf.Module):
+    _train_counter: tf.Variable
+    _test_counter: tf.Variable
+    optimizer: _BothOptimizer | None
+    loss: tf.keras.losses.Loss | dict[str, tf.keras.losses.Loss]
+    stop_training: bool
+
     def __new__(cls, *args: Any, **kwargs: Any) -> Model[_InputT, _OutputT]: ...
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     def __setattr__(self, name: str, value: Any) -> None: ...
@@ -21,13 +30,14 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def build(self, input_shape: _ShapeLike) -> None: ...
     def __call__(self, inputs: _InputT, *, training: bool = False, mask: _TensorCompatible | None = None) -> _OutputT: ...
     def call(self, inputs: _InputT, training: bool | None = None, mask: _TensorCompatible | None = None) -> _OutputT: ...
+    # Ideally loss/metrics/output would share the same structure but higher kinded types are not supported.
     def compile(
         self,
-        optimizer: Optimizer | str = "rmsprop",
-        loss: tf.keras.losses.Loss | str | None = None,
-        metrics: list[tf.keras.metrics.Metric | str] | None = None,
-        loss_weights: list[float] | dict[str, float] | None = None,
-        weighted_metrics: list[tf.keras.metrics.Metric] | None = None,
+        optimizer: _BothOptimizer | str = "rmsprop",
+        loss: _ContainerGeneric[_Loss] | None = None,
+        metrics: _ContainerGeneric[_Metric] | None = None,
+        loss_weights: _ContainerGeneric[float] | None = None,
+        weighted_metrics: _ContainerGeneric[_Metric] | None = None,
         run_eagerly: bool | None = None,
         steps_per_execution: int | Literal["auto"] | None = None,
         jit_compile: bool | None = None,

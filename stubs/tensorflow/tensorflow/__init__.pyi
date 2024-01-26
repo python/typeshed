@@ -19,7 +19,7 @@ from tensorflow import (
     keras as keras,
     math as math,
 )
-from tensorflow._aliases import ContainerGradients, ContainerTensors, ContainerTensorsLike, Gradients, TensorLike
+from tensorflow._aliases import _ContainerGradients, _ContainerTensors, _ContainerTensorsLike, _Gradients, _TensorLike
 from tensorflow.core.protobuf import struct_pb2
 
 # Explicit import of DType is covered by the wildcard, but
@@ -307,39 +307,39 @@ class GradientTape:
     @overload
     def gradient(
         self,
-        target: ContainerTensors,
-        sources: TensorLike,
+        target: _ContainerTensors,
+        sources: _TensorLike,
         output_gradients: list[Tensor] | None = None,
         unconnected_gradients: UnconnectedGradients = ...,
-    ) -> Gradients: ...
+    ) -> _Gradients: ...
     @overload
     def gradient(
         self,
-        target: ContainerTensors,
+        target: _ContainerTensors,
         sources: Sequence[Tensor],
         output_gradients: list[Tensor] | None = None,
         unconnected_gradients: UnconnectedGradients = ...,
-    ) -> list[Gradients]: ...
+    ) -> list[_Gradients]: ...
     @overload
     def gradient(
         self,
-        target: ContainerTensors,
+        target: _ContainerTensors,
         sources: Mapping[str, Tensor],
         output_gradients: list[Tensor] | None = None,
         unconnected_gradients: UnconnectedGradients = ...,
-    ) -> dict[str, Gradients]: ...
+    ) -> dict[str, _Gradients]: ...
     @overload
     def gradient(
         self,
-        target: ContainerTensors,
-        sources: ContainerTensors,
+        target: _ContainerTensors,
+        sources: _ContainerTensors,
         output_gradients: list[Tensor] | None = None,
         unconnected_gradients: UnconnectedGradients = ...,
-    ) -> ContainerGradients: ...
+    ) -> _ContainerGradients: ...
     @contextmanager
     def stop_recording(self) -> Generator[None, None, None]: ...
     def reset(self) -> None: ...
-    def watch(self, tensor: ContainerTensorsLike) -> None: ...
+    def watch(self, tensor: _ContainerTensorsLike) -> None: ...
     def watched_variables(self) -> tuple[Variable, ...]: ...
     def __getattr__(self, name: str) -> Incomplete: ...
 
