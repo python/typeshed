@@ -5,7 +5,7 @@ from typing_extensions import Self
 
 import numpy as np
 import tensorflow as tf
-from google._upb._message import MessageMeta
+from google.protobuf.pyext.cpp_message import GeneratedProtocolMessageType
 from tensorflow.python.trackable.base import Trackable
 
 class CheckpointOptions:
@@ -28,36 +28,36 @@ class CheckpointOptions:
     def __copy__(self) -> Self: ...
 
 @final
-class Example(MessageMeta):
+class Example(GeneratedProtocolMessageType):
     features: Features
 
 @final
-class Features(MessageMeta):
+class Features(GeneratedProtocolMessageType):
     feature: dict[str, Feature]
 
 @final
-class Feature(MessageMeta):
+class Feature(GeneratedProtocolMessageType):
     float_list: FloatList
     int64_list: Int64List
     bytes_list: BytesList
 
 @final
-class FloatList(MessageMeta):
+class FloatList(GeneratedProtocolMessageType):
     value: list[float]
 
 @final
-class Int64List(MessageMeta):
+class Int64List(GeneratedProtocolMessageType):
     value: list[int]
 
 @final
-class BytesList(MessageMeta):
+class BytesList(GeneratedProtocolMessageType):
     value: list[bytes]
 
 @final
-class ServerDef(MessageMeta): ...
+class ServerDef(GeneratedProtocolMessageType): ...
 
 @final
-class ClusterDef(MessageMeta): ...
+class ClusterDef(GeneratedProtocolMessageType): ...
 
 _T = TypeVar("_T", bound=list[str] | tuple[str] | dict[int, str])
 
