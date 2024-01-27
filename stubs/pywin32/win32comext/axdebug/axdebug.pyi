@@ -2,9 +2,9 @@
 # "ImportError: DLL load failed while importing axdebug: The specified module could not be found."
 import _win32typing
 
-def GetStackAddress(*args, **kwargs): ...  # incomplete
-def GetThreadStateHandle(*args, **kwargs): ...  # incomplete
-def SetThreadStateTrace(*args, **kwargs): ...  # incomplete
+def GetStackAddress(*args): ...  # incomplete
+def GetThreadStateHandle(*args): ...  # incomplete
+def SetThreadStateTrace(*args): ...  # incomplete
 
 APPBREAKFLAG_DEBUGGER_BLOCK: int
 APPBREAKFLAG_DEBUGGER_HALT: int

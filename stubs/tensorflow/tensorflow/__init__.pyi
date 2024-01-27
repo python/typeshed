@@ -406,3 +406,9 @@ class RaggedTensorSpec(TypeSpec[struct_pb2.TypeSpecProto]):
     def from_value(cls, value: RaggedTensor) -> Self: ...
 
 def __getattr__(name: str) -> Incomplete: ...
+def convert_to_tensor(
+    value: _TensorCompatible | IndexedSlices,
+    dtype: _DTypeLike | None = None,
+    dtype_hint: _DTypeLike | None = None,
+    name: str | None = None,
+) -> Tensor: ...
