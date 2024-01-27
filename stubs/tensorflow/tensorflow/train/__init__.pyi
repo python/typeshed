@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Any, Callable, Self, TypeVar
+from typing import Any, Callable, TypeVar
 from typing_extensions import Self
 
 import numpy as np
@@ -14,7 +14,7 @@ class CheckpointOptions:
     experimental_write_callbacks: None | list[Callable[[str], Any] | Callable[[], Any]]
     enable_async: bool
     experimental_skip_slot_variables: bool
-    experimental_sharding_callback: tf.train.experimental.ShardingCallback | None = (None,)
+    experimental_sharding_callback: tf.train.experimental.ShardingCallback | None = None
 
     def __init__(
         self,
