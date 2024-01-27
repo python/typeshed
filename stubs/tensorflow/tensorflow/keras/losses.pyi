@@ -5,7 +5,7 @@ from typing import Any, Final, Literal, TypeVar, overload
 from typing_extensions import Self, TypeAlias, TypeGuard
 
 from tensorflow import Tensor, _TensorCompatible
-from tensorflow._aliases import KerasSerializable
+from tensorflow._aliases import _KerasSerializable
 from tensorflow.keras.metrics import (
     binary_crossentropy as binary_crossentropy,
     categorical_crossentropy as categorical_crossentropy,
@@ -136,7 +136,7 @@ def log_cosh(y_true: _TensorCompatible, y_pred: _TensorCompatible) -> Tensor: ..
 def deserialize(
     name: str | dict[str, Any], custom_objects: dict[str, Any] | None = None, use_legacy_format: bool = False
 ) -> Loss: ...
-def serialize(loss: KerasSerializable, use_legacy_format: bool = False) -> dict[str, Any]: ...
+def serialize(loss: _KerasSerializable, use_legacy_format: bool = False) -> dict[str, Any]: ...
 
 _FuncT = TypeVar("_FuncT", bound=Callable[..., Any])
 
