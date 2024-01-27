@@ -1,16 +1,11 @@
 from _typeshed import Incomplete
-from typing import Any, Callable, TypeVar
+from collections.abc import Callable
+from typing import Any, Callable, Self, TypeVar
 from typing_extensions import Self
 
-from google.protobuf.message import Message
-
 import numpy as np
-
 import tensorflow as tf
-from collections.abc import Callable
-from typing import Any, Self
-
-import tensorflow as tf
+from google.protobuf.message import Message
 from tensorflow.python.trackable.base import Trackable
 
 class CheckpointOptions:
@@ -19,7 +14,7 @@ class CheckpointOptions:
     experimental_write_callbacks: None | list[Callable[[str], Any] | Callable[[], Any]]
     enable_async: bool
     experimental_skip_slot_variables: bool
-    experimental_sharding_callback: tf.train.experimental.ShardingCallback | None = None,
+    experimental_sharding_callback: tf.train.experimental.ShardingCallback | None = (None,)
 
     def __init__(
         self,
@@ -97,5 +92,4 @@ def latest_checkpoint(checkpoint_dir: str, latest_filename: str | None = None) -
 def load_checkpoint(ckpt_dir_or_file: str) -> CheckpointReader: ...
 def load_variable(ckpt_dir_or_file: str, name: str) -> np.ndarray[Any, Any]: ...
 def list_variables(ckpt_dir_or_file: str) -> list[tuple[str, list[int]]]: ...
-
 def __getattr__(name: str) -> Incomplete: ...
