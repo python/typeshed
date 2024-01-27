@@ -4,7 +4,7 @@ from builtins import bool as _bool
 from typing import Any
 
 import numpy as np
-from tensorflow._aliases import _DTypeLike
+from tensorflow._aliases import DTypeLike
 
 class _DTypeMeta(ABCMeta): ...
 
@@ -51,5 +51,5 @@ quint8: DType
 quint16: DType
 string: DType
 
-def as_dtype(type_value: _DTypeLike) -> DType: ...
+def as_dtype(type_value: DTypeLike) -> DType: ...
 def __getattr__(name: str) -> Incomplete: ...

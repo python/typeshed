@@ -5,7 +5,7 @@ from typing import Any
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
-from tensorflow._aliases import _Gradients
+from tensorflow._aliases import Gradients
 from tensorflow.keras.optimizers import schedules as schedules
 from tensorflow.python.trackable.base import Trackable
 
@@ -13,9 +13,9 @@ _Initializer: TypeAlias = str | Callable[[], tf.Tensor] | dict[str, Any]
 _Shape: TypeAlias = tf.TensorShape | Iterable[int | None]
 _Dtype: TypeAlias = tf.DType | str | None
 _LearningRate: TypeAlias = float | tf.Tensor | schedules.LearningRateSchedule | Callable[[], float | tf.Tensor]
-_GradientAggregator: TypeAlias = Callable[[list[tuple[_Gradients, tf.Variable]]], list[tuple[_Gradients, tf.Variable]]] | None
+_GradientAggregator: TypeAlias = Callable[[list[tuple[Gradients, tf.Variable]]], list[tuple[Gradients, tf.Variable]]] | None
 _GradientTransformer: TypeAlias = (
-    Iterable[Callable[[list[tuple[_Gradients, tf.Variable]]], list[tuple[_Gradients, tf.Variable]]]] | None
+    Iterable[Callable[[list[tuple[Gradients, tf.Variable]]], list[tuple[Gradients, tf.Variable]]]] | None
 )
 
 # kwargs here and in other optimizers can be given better type after Unpack[TypedDict], PEP 692, is supported.
@@ -53,7 +53,7 @@ class Optimizer(Trackable):
     ) -> tf.Variable: ...
     def apply_gradients(
         self,
-        grads_and_vars: Iterable[tuple[_Gradients, tf.Variable]],
+        grads_and_vars: Iterable[tuple[Gradients, tf.Variable]],
         name: str | None = None,
         experimental_aggregate_gradients: bool = True,
     ) -> tf.Operation | None: ...
@@ -64,7 +64,7 @@ class Optimizer(Trackable):
     def get_config(self) -> dict[str, Any]: ...
     def get_slot(self, var: tf.Variable, slot_name: str) -> tf.Variable: ...
     def get_slot_names(self) -> list[str]: ...
-    def get_gradients(self, loss: tf.Tensor, params: list[tf.Variable]) -> list[_Gradients]: ...
+    def get_gradients(self, loss: tf.Tensor, params: list[tf.Variable]) -> list[Gradients]: ...
     def minimize(
         self,
         loss: tf.Tensor | Callable[[], tf.Tensor],

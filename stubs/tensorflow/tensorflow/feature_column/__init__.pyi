@@ -1,12 +1,12 @@
 from collections.abc import Callable, Iterable, Sequence
 
 import tensorflow as tf
-from tensorflow._aliases import _ShapeLike
+from tensorflow._aliases import ShapeLike
 from tensorflow.python.feature_column import feature_column_v2 as fc, sequence_feature_column as seq_fc
 
 def numeric_column(
     key: str,
-    shape: _ShapeLike = (1,),
+    shape: ShapeLike = (1,),
     default_value: float | None = None,
     dtype: tf.DType = ...,
     normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None = None,
@@ -16,7 +16,7 @@ def embedding_column(
     categorical_column: fc.CategoricalColumn,
     dimension: int,
     combiner: fc._Combiners = "mean",
-    initializer: Callable[[_ShapeLike], tf.Tensor] | None = None,
+    initializer: Callable[[ShapeLike], tf.Tensor] | None = None,
     ckpt_to_load_from: str | None = None,
     tensor_name_in_ckpt: str | None = None,
     max_norm: float | None = None,
@@ -27,7 +27,7 @@ def shared_embeddings(
     categorical_columns: Iterable[fc.CategoricalColumn],
     dimension: int,
     combiner: fc._Combiners = "mean",
-    initializer: Callable[[_ShapeLike], tf.Tensor] | None = None,
+    initializer: Callable[[ShapeLike], tf.Tensor] | None = None,
     shared_embedding_collection_name: str | None = None,
     ckpt_to_load_from: str | None = None,
     tensor_name_in_ckpt: str | None = None,
@@ -64,7 +64,7 @@ def crossed_column(
 ) -> fc.CrossedColumn: ...
 def sequence_numeric_column(
     key: str,
-    shape: _ShapeLike = (1,),
+    shape: ShapeLike = (1,),
     default_value: float = 0.0,
     dtype: tf.DType = ...,
     normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None = None,
