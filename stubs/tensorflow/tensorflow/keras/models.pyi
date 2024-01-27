@@ -9,9 +9,9 @@ import numpy.typing as npt
 import tensorflow
 import tensorflow as tf
 from tensorflow import Variable, _ShapeLike, _TensorCompatible
-from tensorflow.keras.layers import Layer, _InputT, _OutputT
-from tensorflow.keras import _Loss, _Metric
 from tensorflow._aliases import _ContainerGeneric
+from tensorflow.keras import _Loss, _Metric
+from tensorflow.keras.layers import Layer, _InputT, _OutputT
 
 _BothOptimizer = tf.optimizers.Optimizer | tf.optimizers.experimental.Optimizer
 

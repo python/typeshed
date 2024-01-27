@@ -3,9 +3,8 @@
 # equivalent.
 
 from collections.abc import Mapping, Sequence
-from typing import Any, Protocol, TypeVar
+from typing import Any, Iterable, Mapping, Protocol, Sequence, TypeVar
 from typing_extensions import TypeAlias
-from typing import Any, Iterable, Mapping, Sequence, TypeVar
 
 import numpy as np
 import tensorflow as tf
