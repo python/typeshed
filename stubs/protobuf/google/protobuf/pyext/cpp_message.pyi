@@ -1,0 +1,6 @@
+from _typeshed import Incomplete
+
+class GeneratedProtocolMessageType(Incomplete): ...
+
+
+def __getattr__(name: str) -> Incomplete: ...
