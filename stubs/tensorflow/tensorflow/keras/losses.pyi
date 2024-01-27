@@ -4,8 +4,8 @@ from collections.abc import Callable
 from typing import Any, Final, Literal, TypeVar, overload
 from typing_extensions import Self, TypeAlias, TypeGuard
 
-from tensorflow import Tensor, _TensorCompatible
-from tensorflow._aliases import _KerasSerializable
+from tensorflow import Tensor
+from tensorflow._aliases import _KerasSerializable, _TensorCompatible
 from tensorflow.keras.metrics import (
     binary_crossentropy as binary_crossentropy,
     categorical_crossentropy as categorical_crossentropy,

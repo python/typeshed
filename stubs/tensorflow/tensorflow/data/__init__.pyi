@@ -6,8 +6,8 @@ from typing_extensions import Self
 
 import numpy as np
 import tensorflow as tf
-from tensorflow import TypeSpec, _ScalarTensorCompatible, _TensorCompatible
-from tensorflow._aliases import _ContainerGeneric
+from tensorflow import TypeSpec
+from tensorflow._aliases import _ContainerGeneric, _ScalarTensorCompatible, _TensorCompatible
 from tensorflow.data import experimental as experimental
 from tensorflow.data.experimental import AUTOTUNE as AUTOTUNE
 from tensorflow.dtypes import DType

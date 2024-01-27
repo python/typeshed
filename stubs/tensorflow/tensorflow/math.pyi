@@ -3,7 +3,8 @@ from collections.abc import Iterable
 from typing import TypeVar, overload
 from typing_extensions import TypeAlias
 
-from tensorflow import IndexedSlices, RaggedTensor, Tensor, _DTypeLike, _ShapeLike, _TensorCompatible
+from tensorflow import IndexedSlices, RaggedTensor, Tensor
+from tensorflow._aliases import _DTypeLike, _ShapeLike, _TensorCompatible
 from tensorflow.sparse import SparseTensor
 
 _TensorCompatibleT = TypeVar("_TensorCompatibleT", bound=_TensorCompatible)

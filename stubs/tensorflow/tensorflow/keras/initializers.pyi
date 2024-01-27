@@ -3,7 +3,8 @@ from collections.abc import Callable
 from typing import Any, overload
 from typing_extensions import Self, TypeAlias
 
-from tensorflow import Tensor, _DTypeLike, _ShapeLike, _TensorCompatible
+from tensorflow import Tensor
+from tensorflow._aliases import _DTypeLike, _ShapeLike, _TensorCompatible
 
 class Initializer:
     def __call__(self, shape: _ShapeLike, dtype: _DTypeLike | None = None) -> Tensor: ...

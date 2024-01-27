@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from typing import Final, TypeVar
 
-from tensorflow import Tensor, _TensorCompatible
+from tensorflow import Tensor
+from tensorflow._aliases import _TensorCompatible
 from tensorflow.data import Dataset
 
 AUTOTUNE: Final = -1

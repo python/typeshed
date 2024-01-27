@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from abc import ABCMeta
 from typing_extensions import TypeAlias
 
-from tensorflow import Tensor, TensorShape, _TensorCompatible
+from tensorflow import Tensor, TensorShape
+from tensorflow._aliases import _TensorCompatible
 from tensorflow.dtypes import DType
 
 _SparseTensorCompatible: TypeAlias = _TensorCompatible | SparseTensor

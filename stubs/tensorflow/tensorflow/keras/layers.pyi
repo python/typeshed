@@ -4,8 +4,8 @@ from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
-from tensorflow import Tensor, Variable, VariableAggregation, VariableSynchronization, _TensorCompatible
-from tensorflow._aliases import _AnyArray
+from tensorflow import Tensor, Variable, VariableAggregation, VariableSynchronization
+from tensorflow._aliases import _AnyArray, _DTypeLike, _TensorCompatible
 from tensorflow.keras.activations import _Activation
 from tensorflow.keras.constraints import Constraint
 from tensorflow.keras.initializers import _Initializer
@@ -23,7 +23,7 @@ class InputSpec:
     axes: dict[int, int | None] | None
     def __init__(
         self,
-        dtype: tf._DTypeLike | None = None,
+        dtype: _DTypeLike | None = None,
         shape: Iterable[int | None] | None = None,
         ndim: int | None = None,
         max_ndim: int | None = None,
@@ -49,7 +49,7 @@ class Layer(tf.Module, Generic[_InputT, _OutputT]):
     @trainable.setter
     def trainable(self, value: bool) -> None: ...
     def __init__(
-        self, trainable: bool = True, name: str | None = None, dtype: tf._DTypeLike | None = None, dynamic: bool = False
+        self, trainable: bool = True, name: str | None = None, dtype: _DTypeLike | None = None, dynamic: bool = False
     ) -> None: ...
 
     # *args/**kwargs are allowed, but have obscure footguns and tensorflow documentation discourages their usage.
@@ -69,7 +69,7 @@ class Layer(tf.Module, Generic[_InputT, _OutputT]):
         self,
         name: str | None = None,
         shape: Iterable[int | None] | None = None,
-        dtype: tf._DTypeLike | None = None,
+        dtype: _DTypeLike | None = None,
         initializer: _Initializer | None = None,
         regularizer: _Regularizer = None,
         trainable: bool | None = None,
@@ -106,7 +106,7 @@ class Layer(tf.Module, Generic[_InputT, _OutputT]):
 # all layer constructors.
 
 # TODO: Replace last Any after adding tf.keras.mixed_precision.Policy.
-_LayerDtype: TypeAlias = tf._DTypeLike | dict[str, Any] | Any
+_LayerDtype: TypeAlias = _DTypeLike | dict[str, Any] | Any
 
 _Constraint: TypeAlias = str | dict[str, Any] | Constraint | None
 

@@ -9,7 +9,7 @@ from typing import Literal
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
-from tensorflow import _ShapeLike
+from tensorflow._aliases import _ShapeLike
 
 _Combiners: TypeAlias = Literal["mean", "sqrtn", "sum"]
 _ExampleSpec: TypeAlias = dict[str, tf.io.FixedLenFeature | tf.io.VarLenFeature]

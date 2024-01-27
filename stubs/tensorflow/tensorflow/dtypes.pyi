@@ -4,7 +4,7 @@ from builtins import bool as _bool
 from typing import Any
 
 import numpy as np
-from tensorflow import _DTypeLike
+from tensorflow._aliases import _DTypeLike
 
 class _DTypeMeta(ABCMeta): ...
 

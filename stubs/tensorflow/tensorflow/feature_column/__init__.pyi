@@ -1,7 +1,7 @@
 from collections.abc import Callable, Iterable, Sequence
 
 import tensorflow as tf
-from tensorflow import _ShapeLike
+from tensorflow._aliases import _ShapeLike
 from tensorflow.python.feature_column import feature_column_v2 as fc, sequence_feature_column as seq_fc
 
 def numeric_column(

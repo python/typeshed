@@ -2,7 +2,7 @@ from collections.abc import Callable
 from typing_extensions import Self
 
 import tensorflow as tf
-from tensorflow import _ShapeLike
+from tensorflow._aliases import _ShapeLike
 from tensorflow.python.feature_column.feature_column_v2 import FeatureColumn, SequenceDenseColumn, _ExampleSpec
 
 # Strangely at runtime most of Sequence feature columns are defined in feature_column_v2 except

@@ -4,8 +4,7 @@ from types import TracebackType
 from typing import Literal, NamedTuple
 from typing_extensions import Self, TypeAlias
 
-from tensorflow import _DTypeLike, _ShapeLike, _TensorCompatible
-from tensorflow._aliases import _TensorLike
+from tensorflow._aliases import _DTypeLike, _ShapeLike, _TensorCompatible, _TensorLike
 from tensorflow.io import gfile as gfile
 
 _FeatureSpecs: TypeAlias = Mapping[str, FixedLenFeature | FixedLenSequenceFeature | VarLenFeature | RaggedFeature | SparseFeature]
