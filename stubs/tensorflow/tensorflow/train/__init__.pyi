@@ -1,11 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Any, Callable, TypeVar
+from typing import Any, Callable, TypeVar, final
 from typing_extensions import Self
 
 import numpy as np
 import tensorflow as tf
-from google.protobuf.message import Message
+from google.protobuf.message import MessageMeta
 from tensorflow.python.trackable.base import Trackable
 
 class CheckpointOptions:
@@ -13,8 +13,8 @@ class CheckpointOptions:
     experimental_enable_async_checkpoint: bool
     experimental_write_callbacks: None | list[Callable[[str], Any] | Callable[[], Any]]
     enable_async: bool
-    experimental_skip_slot_variables: bool
-    experimental_sharding_callback: tf.train.experimental.ShardingCallback | None = None
+    # experimental_skip_slot_variables: bool
+    # experimental_sharding_callback: tf.train.experimental.ShardingCallback | None = None
 
     def __init__(
         self,
@@ -22,33 +22,42 @@ class CheckpointOptions:
         experimental_enable_async_checkpoint: bool = False,
         experimental_write_callbacks: None | list[Callable[[str], Any] | Callable[[], Any]] = None,
         enable_async: bool = False,
-        experimental_skip_slot_variables: bool = False,
-        experimental_sharding_callback: tf.train.experimental.ShardingCallback | None = None,
+        # experimental_skip_slot_variables: bool = False,
+        # experimental_sharding_callback: tf.train.experimental.ShardingCallback | None = None,
     ) -> None: ...
     def __copy__(self) -> Self: ...
 
-class Example(Message):
+@final
+class Example(MessageMeta):
     features: Features
 
-class Features(Message):
+@final
+class Features(MessageMeta):
     feature: dict[str, Feature]
 
-class Feature(Message):
+@final
+class Feature(MessageMeta):
     float_list: FloatList
     int64_list: Int64List
     bytes_list: BytesList
 
-class FloatList(Message):
+@final
+class FloatList(MessageMeta):
     value: list[float]
 
-class Int64List(Message):
+@final
+class Int64List(MessageMeta):
     value: list[int]
 
-class BytesList(Message):
+@final
+class BytesList(MessageMeta):
     value: list[bytes]
 
-class ServerDef(Message): ...
-class ClusterDef(Message): ...
+@final
+class ServerDef(MessageMeta): ...
+
+@final
+class ClusterDef(MessageMeta): ...
 
 _T = TypeVar("_T", bound=list[str] | tuple[str] | dict[int, str])
 
@@ -56,11 +65,6 @@ class ClusterSpec:
     def __init__(self, cluster: dict[str, _T] | ClusterDef | ClusterSpec) -> None: ...
     def as_dict(self) -> dict[str, list[str] | tuple[str] | dict[int, str]]: ...
     def num_tasks(self, job_name: str) -> int: ...
-
-class CheckpointReader:
-    def get_variable_to_shape_map(self) -> dict[str, list[int]]: ...
-    def get_variable_to_dtype_map(self) -> dict[str, tf.DType]: ...
-    def get_tensor(self, name: str) -> np.ndarray[Any, Any] | Any: ...
 
 class _CheckpointLoadStatus:
     def assert_consumed(self) -> Self: ...
@@ -89,7 +93,6 @@ class CheckpointManager:
     def _sweep(self) -> None: ...
 
 def latest_checkpoint(checkpoint_dir: str, latest_filename: str | None = None) -> str: ...
-def load_checkpoint(ckpt_dir_or_file: str) -> CheckpointReader: ...
 def load_variable(ckpt_dir_or_file: str, name: str) -> np.ndarray[Any, Any]: ...
 def list_variables(ckpt_dir_or_file: str) -> list[tuple[str, list[int]]]: ...
 def __getattr__(name: str) -> Incomplete: ...
