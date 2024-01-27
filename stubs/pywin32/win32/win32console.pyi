@@ -1,5 +1,4 @@
-from typing import NoReturn, overload
-from typing_extensions import Literal
+from typing import Literal, NoReturn, overload
 
 import _win32typing
 from win32.lib.pywintypes import error as error
