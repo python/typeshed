@@ -8,7 +8,6 @@ from types import TracebackType
 from typing import Any, Generic, NoReturn, TypeVar, overload
 from typing_extensions import ParamSpec, Self
 
-import numpy
 from google.protobuf.message import Message
 from tensorflow import (
     data as data,
@@ -20,6 +19,7 @@ from tensorflow import (
     math as math,
 )
 from tensorflow._aliases import (
+    _AnyArray,
     _ContainerGradients,
     _ContainerTensors,
     _ContainerTensorsLike,
@@ -97,7 +97,7 @@ class Tensor:
     def name(self) -> str: ...
     @property
     def op(self) -> Operation: ...
-    def numpy(self) -> numpy.ndarray[Any, Any]: ...
+    def numpy(self) -> _AnyArray: ...
     def __int__(self) -> int: ...
     def __abs__(self, name: str | None = None) -> Tensor: ...
     def __add__(self, other: _TensorCompatible) -> Tensor: ...
