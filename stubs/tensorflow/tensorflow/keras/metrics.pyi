@@ -2,12 +2,14 @@ from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Literal
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, override
 
 import tensorflow as tf
-from tensorflow import Operation, Tensor, _DTypeLike, _ShapeLike, _TensorCompatible
+from tensorflow import Operation, Tensor, _DTypeLike, _TensorCompatible
 from tensorflow._aliases import KerasSerializable
 from tensorflow.keras.initializers import _Initializer
+from tensorflow.keras.layers import _Constraint
+from tensorflow.keras.regularizers import _Regularizer
 
 _Output: TypeAlias = Tensor | dict[str, Tensor]
 
@@ -32,15 +34,20 @@ class Metric(tf.keras.layers.Layer[tf.Tensor, tf.Tensor], metaclass=ABCMeta):
     @classmethod
     def from_config(cls, config: dict[str, Any]) -> Self: ...
     def get_config(self) -> dict[str, Any]: ...
+    @override
     def add_weight(
         self,
-        name: str,
-        shape: _ShapeLike = (),
-        aggregation: tf.VariableAggregation = tf.VariableAggregation.SUM,
-        synchronization: tf.VariableSynchronization = tf.VariableSynchronization.ON_READ,
-        initializer: _Initializer = None,
+        name: str | None = None,
+        shape: Iterable[int | None] | None = (),
         dtype: _DTypeLike | None = None,
-    ) -> Incomplete: ...
+        initializer: _Initializer | None = None,
+        regularizer: _Regularizer | None = None,
+        trainable: bool | None = None,
+        constraint: _Constraint | None = None,
+        use_resource: bool | None = None,
+        synchronization: tf.VariableSynchronization = tf.VariableSynchronization.ON_READ,
+        aggregation: tf.VariableAggregation = tf.VariableAggregation.SUM,
+    ) -> tf.Variable: ...
 
 class AUC(Metric):
     _from_logits: bool
