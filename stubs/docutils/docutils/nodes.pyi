@@ -19,7 +19,10 @@ class _DomModule(Protocol):
 class Node:
     # children is initialized by the subclasses
     children: Sequence[Node]
-    parent: Node | None
+    # TODO: `parent` is actually `Node | None``, but `None`` only happens rarely,
+    #       i.e. for synthetic nodes or `document`.
+    #       See https://github.com/python/typeshed/blob/main/CONTRIBUTING.md#the-any-trick
+    parent: Node | Any
     source: str | None
     line: int | None
     document: document | None
