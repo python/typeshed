@@ -14,9 +14,9 @@ _T = TypeVar("_T")
 _ContainerGeneric: TypeAlias = Mapping[str, _ContainerGeneric[_T]] | Sequence[_ContainerGeneric[_T]] | _T
 
 _TensorLike: TypeAlias = tf.Tensor | tf.RaggedTensor | tf.SparseTensor
-_SparseTensorLike: TypeAlias = tf.Tensor | tf.SparseTensor
-_RaggedTensorLike: TypeAlias = tf.Tensor | tf.RaggedTensor
-_RaggedTensorLikeT = TypeVar("_RaggedTensorLikeT", tf.Tensor, tf.RaggedTensor)
+# _SparseTensorLike: TypeAlias = tf.Tensor | tf.SparseTensor
+# _RaggedTensorLike: TypeAlias = tf.Tensor | tf.RaggedTensor
+# _RaggedTensorLikeT = TypeVar("_RaggedTensorLikeT", tf.Tensor, tf.RaggedTensor)
 _Gradients: TypeAlias = tf.Tensor | tf.IndexedSlices
 
 class _KerasSerializable1(Protocol):
@@ -27,6 +27,7 @@ class _KerasSerializable2(Protocol):
 
 _KerasSerializable: TypeAlias = _KerasSerializable1 | _KerasSerializable2
 
+_Slice: TypeAlias = int | slice | None
 _FloatDataSequence: TypeAlias = Sequence[float] | Sequence[_FloatDataSequence]
 _StrDataSequence: TypeAlias = Sequence[str] | Sequence[_StrDataSequence]
 _ScalarTensorCompatible: TypeAlias = tf.Tensor | str | float | np.ndarray[Any, Any] | np.number[Any]

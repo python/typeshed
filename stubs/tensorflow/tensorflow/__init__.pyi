@@ -6,7 +6,7 @@ from contextlib import contextmanager
 from enum import Enum
 from types import TracebackType
 from typing import Any, Generic, NoReturn, TypeVar, overload
-from typing_extensions import ParamSpec, Self, TypeAlias
+from typing_extensions import ParamSpec, Self
 
 import numpy
 from google.protobuf.message import Message
@@ -19,7 +19,17 @@ from tensorflow import (
     keras as keras,
     math as math,
 )
-from tensorflow._aliases import _ContainerGradients, _ContainerTensors, _ContainerTensorsLike, _Gradients, _TensorLike
+from tensorflow._aliases import (
+    _ContainerGradients,
+    _ContainerTensors,
+    _ContainerTensorsLike,
+    _DTypeLike,
+    _Gradients,
+    _ShapeLike,
+    _Slice,
+    _TensorCompatible,
+    _TensorLike,
+)
 from tensorflow.core.protobuf import struct_pb2
 
 # Explicit import of DType is covered by the wildcard, but
@@ -73,15 +83,6 @@ from tensorflow.sparse import SparseTensor as SparseTensor
 # we will skip making Tensor generic. Also good type hints for shapes will
 # run quickly into many places where type system is not strong enough today.
 # So shape typing is probably not worth doing anytime soon.
-_Slice: TypeAlias = int | slice | None
-
-_FloatDataSequence: TypeAlias = Sequence[float] | Sequence[_FloatDataSequence]
-_StrDataSequence: TypeAlias = Sequence[str] | Sequence[_StrDataSequence]
-_ScalarTensorCompatible: TypeAlias = Tensor | str | float | numpy.ndarray[Any, Any] | numpy.number[Any]
-_TensorCompatible: TypeAlias = _ScalarTensorCompatible | Sequence[_TensorCompatible]
-_ShapeLike: TypeAlias = TensorShape | Iterable[_ScalarTensorCompatible | None] | int | Tensor
-_DTypeLike: TypeAlias = DType | str | numpy.dtype[Any]
-
 class Tensor:
     def __init__(self, op: Operation, value_index: int, dtype: DType) -> None: ...
     def consumers(self) -> list[Incomplete]: ...
