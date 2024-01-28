@@ -5,6 +5,7 @@ from typing_extensions import Self
 
 import numpy as np
 import tensorflow as tf
+from tensorflow.core.example.example_pb2 import Example as Example
 from tensorflow.core.example.feature_pb2 import (
     BytesList as BytesList,
     Feature as Feature,
