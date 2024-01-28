@@ -117,9 +117,6 @@ class BackupAndRestore(Callback):
         self, backup_dir: str, save_freq: str = "epoch", delete_checkpoint: bool = True, save_before_preemption: bool = False
     ) -> None: ...
 
-class SidecarEvaluatorModelExport(ModelCheckpoint, Callback):
-    def __init__(self, export_filepath: str, checkpoint_filepath: str, **kwargs: Any) -> None: ...
-
 class RemoteMonitor(Callback):
     def __init__(
         self,
@@ -186,3 +183,5 @@ class LambdaCallback(Callback):
         on_train_end: Callable[[Incomplete], Incomplete] | None = None,
         **kwargs,
     ): ...
+
+def __getattr__(name: str) -> Incomplete: ...
