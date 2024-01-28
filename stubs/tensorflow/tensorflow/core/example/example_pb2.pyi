@@ -335,4 +335,33 @@ class SequenceExample(google.protobuf.message.Message):
     def HasField(self, field_name: typing_extensions.Literal["context", b"context", "feature_lists", b"feature_lists"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["context", b"context", "feature_lists", b"feature_lists"]) -> None: ...
 
+
+@typing_extensions.final
+class Features(google.protobuf.message.Message):
+    feature: dict[str, Feature]
+
+@typing_extensions.final
+class Feature(google.protobuf.message.Message):
+    float_list: FloatList
+    int64_list: Int64List
+    bytes_list: BytesList
+
+@typing_extensions.final
+class FloatList(google.protobuf.message.Message):
+    value: list[float]
+
+@typing_extensions.final
+class Int64List(google.protobuf.message.Message):
+    value: list[int]
+
+@typing_extensions.final
+class BytesList(google.protobuf.message.Message):
+    value: list[bytes]
+
+@typing_extensions.final
+class ServerDef(google.protobuf.message.Message): ...
+
+@typing_extensions.final
+class ClusterDef(google.protobuf.message.Message): ...
+
 global___SequenceExample = SequenceExample

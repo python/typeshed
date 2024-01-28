@@ -1,12 +1,20 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Any, TypeVar, final
+from typing import Any, TypeVar
 from typing_extensions import Self
 
 import numpy as np
 import tensorflow as tf
-from google.protobuf.pyext.cpp_message import GeneratedProtocolMessageType
 from tensorflow.python.trackable.base import Trackable
+from tensorflow.core.example.example_pb2 import(
+    Features as Features,
+    Feature as Feature,
+    FloatList as FloatList,
+    Int64List as Int64List,
+    BytesList as BytesList,
+    ServerDef as ServerDef,
+    ClusterDef as ClusterDef
+)
 
 class CheckpointOptions:
     experimental_io_device: None | str
@@ -26,38 +34,6 @@ class CheckpointOptions:
         # experimental_sharding_callback: tf.train.experimental.ShardingCallback | None = None,
     ) -> None: ...
     # def __copy__(self) -> Self: ...
-
-@final
-class Example(GeneratedProtocolMessageType):
-    features: Features
-
-@final
-class Features(GeneratedProtocolMessageType):
-    feature: dict[str, Feature]
-
-@final
-class Feature(GeneratedProtocolMessageType):
-    float_list: FloatList
-    int64_list: Int64List
-    bytes_list: BytesList
-
-@final
-class FloatList(GeneratedProtocolMessageType):
-    value: list[float]
-
-@final
-class Int64List(GeneratedProtocolMessageType):
-    value: list[int]
-
-@final
-class BytesList(GeneratedProtocolMessageType):
-    value: list[bytes]
-
-@final
-class ServerDef(GeneratedProtocolMessageType): ...
-
-@final
-class ClusterDef(GeneratedProtocolMessageType): ...
 
 _T = TypeVar("_T", bound=list[str] | tuple[str] | dict[int, str])
 
