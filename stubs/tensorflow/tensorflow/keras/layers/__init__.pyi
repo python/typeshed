@@ -5,7 +5,7 @@ from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
 from tensorflow import Tensor, Variable, VariableAggregation, VariableSynchronization
-from tensorflow._aliases import AnyArray, TensorLike, TensorCompatible, DTypeLike
+from tensorflow._aliases import AnyArray, DTypeLike, TensorCompatible, TensorLike
 from tensorflow.keras.activations import _Activation
 from tensorflow.keras.constraints import Constraint
 from tensorflow.keras.initializers import _Initializer
@@ -282,12 +282,23 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
         self,
         query: tf.Tensor,
         value: tf.Tensor,
-        key: tf.Tensor | None = None,
-        attention_mask: tf.Tensor | None = None,
-        return_attention_scores: Literal[False] = False,
-        training: bool = False,
-        use_causal_mask: bool = False,
+        key: tf.Tensor | None,
+        attention_mask: tf.Tensor | None,
+        return_attention_scores: Literal[False],
+        training: bool,
+        use_causal_mask: bool,
     ) -> tf.Tensor: ...
+    @overload
+    def __call__(
+        self,
+        query: tf.Tensor,
+        value: tf.Tensor,
+        key: tf.Tensor | None,
+        attention_mask: tf.Tensor | None,
+        return_attention_scores: Literal[True],
+        training: bool,
+        use_causal_mask: bool,
+    ) -> tuple[tf.Tensor, tf.Tensor]: ...
     @overload
     def __call__(
         self,
@@ -295,10 +306,10 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
         value: tf.Tensor,
         key: tf.Tensor | None = None,
         attention_mask: tf.Tensor | None = None,
-        return_attention_scores: Literal[True] = True,
+        return_attention_scores: bool = False,
         training: bool = False,
         use_causal_mask: bool = False,
-    ) -> tuple[tf.Tensor, tf.Tensor]: ...
+    ) -> tuple[tf.Tensor, tf.Tensor] | tf.Tensor: ...
 
 class GaussianDropout(Layer[tf.Tensor, tf.Tensor]):
     def __init__(

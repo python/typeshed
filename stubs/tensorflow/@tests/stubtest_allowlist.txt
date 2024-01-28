@@ -60,6 +60,7 @@ tensorflow.keras.layers.*.__init__
 tensorflow.keras.layers.*.call
 tensorflow.keras.regularizers.Regularizer.__call__
 tensorflow.keras.constraints.Constraint.__call__
+tensorflow.keras.layers.MultiHeadAttention.__call__
 
 # Layer class does good deal of __new__ magic and actually returns one of two different internal
 # types depending on tensorflow execution mode. This feels like implementation internal.
