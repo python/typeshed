@@ -9,6 +9,7 @@ from tensorflow._aliases import AnyArray, TensorLike, TensorCompatible, DTypeLik
 from tensorflow.keras.activations import _Activation
 from tensorflow.keras.constraints import Constraint
 from tensorflow.keras.initializers import _Initializer
+from tensorflow.keras.layers.preprocessing import IntegerLookup as IntegerLookup, StringLookup as StringLookup
 from tensorflow.keras.regularizers import Regularizer, _Regularizer
 from tensorflow.python.feature_column.feature_column_v2 import DenseColumn, SequenceDenseColumn
 
@@ -128,7 +129,7 @@ class Dense(Layer[tf.Tensor, tf.Tensor]):
         kernel_constraint: _Constraint = None,
         bias_constraint: _Constraint = None,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
+        dtype: _LayerDtype | None = None,
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
@@ -150,7 +151,7 @@ class BatchNormalization(Layer[tf.Tensor, tf.Tensor]):
         beta_constraint: _Constraint = None,
         gamma_constraint: _Constraint = None,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
+        dtype: _LayerDtype | None = None,
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
@@ -162,7 +163,7 @@ class ReLU(Layer[tf.Tensor, tf.Tensor]):
         negative_slope: float | None = 0.0,
         threshold: float | None = 0.0,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
+        dtype: _LayerDtype | None = None,
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
@@ -174,7 +175,7 @@ class Dropout(Layer[tf.Tensor, tf.Tensor]):
         noise_shape: TensorCompatible | Sequence[int | None] | None = None,
         seed: int | None = None,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
+        dtype: _LayerDtype | None = None,
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
@@ -190,7 +191,7 @@ class Embedding(Layer[tf.Tensor, tf.Tensor]):
         mask_zero: bool = False,
         input_length: int | None = None,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
+        dtype: _LayerDtype | None = None,
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
@@ -215,7 +216,7 @@ class Conv2D(Layer[tf.Tensor, tf.Tensor]):
         kernel_constraint: _Constraint = None,
         bias_constraint: _Constraint = None,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
+        dtype: _LayerDtype | None = None,
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
@@ -239,50 +240,9 @@ class LayerNormalization(Layer[tf.Tensor, tf.Tensor]):
         beta_constraint: _Constraint = None,
         gamma_constraint: _Constraint = None,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
+        dtype: _LayerDtype | None = None,
         dynamic: bool = False,
         name: str | None = None,
-    ) -> None: ...
-
-class _IndexLookup(Layer[TensorLike, TensorLike]):
-    @overload
-    def __call__(self, inputs: tf.Tensor) -> tf.Tensor: ...
-    @overload
-    def __call__(self, inputs: tf.SparseTensor) -> tf.SparseTensor: ...
-    @overload
-    def __call__(self, inputs: tf.RaggedTensor) -> tf.RaggedTensor: ...
-    def vocabulary_size(self) -> int: ...
-
-class StringLookup(_IndexLookup):
-    def __init__(
-        self,
-        max_tokens: int | None = None,
-        num_oov_indices: int = 1,
-        mask_token: str | None = None,
-        oov_token: str = "[UNK]",
-        vocabulary: str | None | TensorCompatible = None,
-        idf_weights: TensorCompatible | None = None,
-        encoding: str = "utf-8",
-        invert: bool = False,
-        output_mode: Literal["int", "count", "multi_hot", "one_hot", "tf_idf"] = "int",
-        sparse: bool = False,
-        pad_to_max_tokens: bool = False,
-    ) -> None: ...
-
-class IntegerLookup(_IndexLookup):
-    def __init__(
-        self,
-        max_tokens: int | None = None,
-        num_oov_indices: int = 1,
-        mask_token: int | None = None,
-        oov_token: int = -1,
-        vocabulary: str | None | TensorCompatible = None,
-        vocabulary_dtype: Literal["int64", "int32"] = "int64",
-        idf_weights: TensorCompatible | None = None,
-        invert: bool = False,
-        output_mode: Literal["int", "count", "multi_hot", "one_hot", "tf_idf"] = "int",
-        sparse: bool = False,
-        pad_to_max_tokens: bool = False,
     ) -> None: ...
 
 class DenseFeatures(Layer[Mapping[str, TensorLike], tf.Tensor]):
@@ -313,7 +273,7 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
         kernel_constraint: _Constraint | None = None,
         bias_constraint: _Constraint | None = None,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
+        dtype: _LayerDtype | None = None,
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
