@@ -5,15 +5,15 @@ from typing_extensions import Self
 
 import numpy as np
 import tensorflow as tf
-from tensorflow.core.example.example_pb2 import (
+from tensorflow.core.example.feature_pb2 import (
     BytesList as BytesList,
-    ClusterDef as ClusterDef,
     Feature as Feature,
     Features as Features,
     FloatList as FloatList,
     Int64List as Int64List,
-    ServerDef as ServerDef,
 )
+from tensorflow.core.protobuf.cluster_pb2 import ClusterDef as ClusterDef
+from tensorflow.core.protobuf.tensorflow_server_pb2 import ServerDef as ServerDef
 from tensorflow.python.trackable.base import Trackable
 
 class CheckpointOptions:
