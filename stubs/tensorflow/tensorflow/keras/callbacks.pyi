@@ -1,4 +1,5 @@
-from collections.abc import Iterable, Mapping, Sequence
+from _typeshed import Incomplete
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any, Literal
 from typing_extensions import TypeAlias
 
@@ -114,6 +115,34 @@ class BackupAndRestore(Callback):
         self, backup_dir: str, save_freq: str = "epoch", delete_checkpoint: bool = True, save_before_preemption: bool = False
     ) -> None: ...
 
+class BackupAndRestoreExperimental(BackupAndRestore):
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
+
+class RemoteMonitor(Callback):
+    def __init__(
+        self,
+        root: str = "http://localhost:9000",
+        path: str = "/publish/epoch/end/",
+        field: str = "data",
+        headers: dict[Incomplete, Incomplete] | None = None,
+        send_as_json: bool = False,
+    ): ...
+    def on_epoch_end(self, epoch: int, logs: dict[Incomplete, Incomplete] | None = None): ...
+
+class ReduceLROnPlateau(Callback):
+    def __init__(
+        self,
+        monitor: str = "val_loss",
+        factor: float = 0.1,
+        patience: int = 10,
+        verbose: Literal[0, 1] = 0,
+        mode: Literal["auto", "min", "max"] = "auto",
+        min_delta: float = 1e-4,
+        cooldown: int = 0,
+        min_lr: float = 0,
+        **kwargs,
+    ): ...
+
 class BaseLogger(Callback):
     def __init__(self, stateful_metrics: Iterable[str] | None = None) -> None: ...
 
@@ -144,3 +173,15 @@ class ProgbarLogger(Callback):
     ) -> None: ...
 
 class TerminateOnNaN(Callback): ...
+
+class LambdaCallback(Callback):
+    def __init__(
+        self,
+        on_epoch_begin: Callable[[int, Incomplete], Incomplete] | None = None,
+        on_epoch_end: Callable[[int, Incomplete], Incomplete] | None = None,
+        on_batch_begin: Callable[[int, Incomplete], Incomplete] | None = None,
+        on_batch_end: Callable[[int, Incomplete], Incomplete] | None = None,
+        on_train_begin: Callable[[Incomplete], Incomplete] | None = None,
+        on_train_end: Callable[[Incomplete], Incomplete] | None = None,
+        **kwargs,
+    ): ...
