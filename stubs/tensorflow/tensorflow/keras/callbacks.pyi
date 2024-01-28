@@ -4,11 +4,10 @@ from typing import Any, Literal
 from typing_extensions import TypeAlias
 
 import tensorflow as tf
-from tensorflow.distribute.experimental.coordinator import RemoteValue
 from tensorflow.keras import Model
 from tensorflow.keras.optimizers.schedules import LearningRateSchedule
 
-_Logs: TypeAlias = Mapping[str, object] | RemoteValue[Any] | None
+_Logs: TypeAlias = Mapping[str, Any] | None | Any
 
 class Callback:
     model: Model  # Model[Any, object]
