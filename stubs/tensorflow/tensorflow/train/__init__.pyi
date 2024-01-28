@@ -5,16 +5,16 @@ from typing_extensions import Self
 
 import numpy as np
 import tensorflow as tf
-from tensorflow.python.trackable.base import Trackable
-from tensorflow.core.example.example_pb2 import(
-    Features as Features,
+from tensorflow.core.example.example_pb2 import (
+    BytesList as BytesList,
+    ClusterDef as ClusterDef,
     Feature as Feature,
+    Features as Features,
     FloatList as FloatList,
     Int64List as Int64List,
-    BytesList as BytesList,
     ServerDef as ServerDef,
-    ClusterDef as ClusterDef
 )
+from tensorflow.python.trackable.base import Trackable
 
 class CheckpointOptions:
     experimental_io_device: None | str
