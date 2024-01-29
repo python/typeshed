@@ -1,0 +1,19 @@
+# overloading a class-decorated method crashes stubtest
+networkx\.(algorithms\.)?(boundary\.)?edge_boundary
+networkx\.(algorithms\.)?(bridges\.)?local_bridges
+networkx\.(algorithms\.)?(clique\.)?node_clique_number
+networkx\.(algorithms\.)?(shortest_paths\.)?(generic\.)?shortest_path
+networkx\.(convert_matrix\.)?from_numpy_array
+networkx\.(convert_matrix\.)?from_pandas_adjacency
+networkx\.(convert_matrix\.)?from_pandas_edgelist
+networkx\.(generators\.)?(random_clustered\.)?random_clustered_graph
+networkx\.(relabel\.)?relabel_nodes
+
+# Stubtest doesn't understand aliases of class-decorated methods
+networkx\.(algorithms\.)?(centrality\.)?(current_flow_closeness\.)?information_centrality
+networkx\.(generators\.)?(random_graphs\.)?binomial_graph
+networkx\.(generators\.)?(random_graphs\.)?erdos_renyi_graph
+
+# "is inconsistent, stub argument "backend" is not keyword-only"
+# Which is true, but pyright won't allow "backend" param after ParamSpecs
+networkx\.(utils\.backends\.)?_dispatch\.__call__
