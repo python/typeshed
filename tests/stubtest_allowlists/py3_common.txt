@@ -353,6 +353,7 @@ _?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT ==
 _?ctypes.Array._type_  # _type_ is abstract, https://github.com/python/typeshed/pull/6361
 _?ctypes.Array._length_ # _length_ is abstract, https://github.com/python/typeshed/pull/6361
 _pydecimal.*  # See comments in file
+_resource_rusage  # Does not exist at runtime; see comments in file
 argparse.ArgumentParser.__init__  # stubtest doesn't recognise the runtime default (a class) as being compatible with a callback protocol (the stub annotation)
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
