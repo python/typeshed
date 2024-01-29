@@ -19,10 +19,10 @@ class _DomModule(Protocol):
 class Node:
     # children is initialized by the subclasses
     children: Sequence[Node]
-    # TODO: `parent` is actually `Node | None``, but `None`` only happens rarely,
-    #       i.e. for synthetic nodes or `document`.
+    # TODO: `parent` is actually `Element | None``, but `None`` only happens rarely,
+    #       i.e. for synthetic nodes (or `document`, where it is overridden).
     #       See https://github.com/python/typeshed/blob/main/CONTRIBUTING.md#the-any-trick
-    parent: Node | Any
+    parent: Element | Any
     source: str | None
     line: int | None
     document: document | None
@@ -179,6 +179,7 @@ class Labeled: ...
 # Root Element
 
 class document(Root, Structural, Element):
+    parent: None
     transformer: Transformer
     def __init__(self, settings, reporter: Reporter, rawsource: str = "", *children: Node, **attributes) -> None: ...
     def __getattr__(self, __name: str) -> Incomplete: ...
