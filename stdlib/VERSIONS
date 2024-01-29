@@ -44,8 +44,9 @@ _posixsubprocess: 3.2-
 _py_abc: 3.7-
 _pydecimal: 3.5-
 _random: 3.0-
+_resource_rusage: 3.0-  # not present at runtime, only for type checking
 _sitebuiltins: 3.4-
-_socket: 3.0-  # present in 3.0 at runtime, but not in typeshed
+_socket: 3.0-
 _stat: 3.4-
 _thread: 3.0-
 _threading_local: 3.0-

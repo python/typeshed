@@ -47,9 +47,6 @@ from . import path as _path
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-if sys.platform != "win32":
-    from resource import struct_rusage
-
 # This unnecessary alias is to work around various errors
 path = _path
 
@@ -954,7 +951,9 @@ if sys.platform == "win32":
     else:
         def startfile(filepath: StrOrBytesPath, operation: str = ...) -> None: ...
 
-else:
+if sys.platform != "win32":
+    from _resource_rusage import struct_rusage
+
     def spawnlp(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
     def spawnlpe(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: Any) -> int: ...  # Imprecise signature
     def spawnvp(mode: int, file: StrOrBytesPath, args: _ExecVArgs) -> int: ...
@@ -1018,7 +1017,6 @@ else:
     POSIX_SPAWN_CLOSE: int
     POSIX_SPAWN_DUP2: int
 
-if sys.platform != "win32":
     @final
     class sched_param(structseq[int], tuple[int]):
         if sys.version_info >= (3, 10):
