@@ -3,7 +3,7 @@
 import sys
 
 if sys.platform != "win32":
-    from ._resource_rusage import struct_rusage as struct_rusage
+    from _resource_rusage import struct_rusage as struct_rusage
 
     RLIMIT_AS: int
     RLIMIT_CORE: int
