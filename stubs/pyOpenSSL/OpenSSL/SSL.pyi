@@ -1,9 +1,9 @@
 import socket
-from _socket import _Address, _RetAddress
-from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Callable, MutableSequence, Sequence
 from typing import Any, TypeVar
 
+from _socket import _Address, _RetAddress
+from _typeshed import Incomplete, ReadableBuffer
 from OpenSSL.crypto import X509, PKey, X509Name
 
 OPENSSL_VERSION_NUMBER: int
@@ -175,6 +175,7 @@ class Connection:
     def get_peer_finished(self) -> bytes | None: ...
     def set_alpn_protos(self, protos: Sequence[bytes]) -> None: ...
     def get_alpn_proto_negotiated(self) -> bytes: ...
+    def get_selected_srtp_profile(self) -> bytes: ...
     def request_ocsp(self) -> None: ...
 
 _T = TypeVar("_T")
