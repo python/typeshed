@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Mapping
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, TypeVar, overload
 from typing_extensions import ParamSpec, Self
 
 _P = ParamSpec("_P")
@@ -45,9 +45,14 @@ class _dispatch(Generic[_P, _R]):
     def __doc__(self, val) -> None: ...
     @property
     def __signature__(self): ...
-    # Type system limitations doesn't allow us to define this as it truly should
-    # But specifying backend with backend_kwargs isn't a common usecase yet anyway
-    def __call__(self, /, backend: str | None = None, *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
+    # Type system limitations doesn't allow us to define this as it truly should.
+    # But specifying backend with backend_kwargs isn't a common usecase anyway
+    # and specifying backend as explicitely None is possible but not intended.
+    # If this ever changes, update stubs/networkx/@tests/test_cases/check_dispatch_decorator.py
+    @overload
+    def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
+    @overload
+    def __call__(self, *args: Any, backend: str, **backend_kwargs: Any) -> _R: ...
     # @overload
     # def __call__(self, *args: _P.args, backend: None = None, **kwargs: _P.kwargs) -> _R: ...
     # @overload

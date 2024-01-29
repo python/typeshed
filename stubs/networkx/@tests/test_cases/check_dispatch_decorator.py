@@ -18,6 +18,6 @@ some_method(0, "", backend=None, backend_arg="")  # type: ignore
 
 # Correct usage
 assert_type(some_method(0, ""), float)
-assert_type(some_method(0, "", backend=None), float)
 # type system doesn't allow this yet (see comment in networkx/utils/backends.pyi)
-# some_method(0, "", backend="custom backend", backend_arg="")
+# assert_type(some_method(0, "", backend=None), float)
+assert_type(some_method(0, "", backend="custom backend", backend_arg=""), float)
