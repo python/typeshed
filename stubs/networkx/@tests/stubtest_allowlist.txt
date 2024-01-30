@@ -1,4 +1,6 @@
-# overloading a class-decorated method crashes stubtest
+# overloaded class-decorators are not properly supported in type-checkers:
+# - mypy: https://github.com/python/mypy/issues/16840
+# - pyright: https://github.com/microsoft/pyright/issues/7167
 networkx\.(algorithms\.)?(boundary\.)?edge_boundary
 networkx\.(algorithms\.)?(bridges\.)?local_bridges
 networkx\.(algorithms\.)?(clique\.)?node_clique_number
@@ -9,7 +11,7 @@ networkx\.(convert_matrix\.)?from_pandas_edgelist
 networkx\.(generators\.)?(random_clustered\.)?random_clustered_graph
 networkx\.(relabel\.)?relabel_nodes
 
-# Stubtest doesn't understand aliases of class-decorated methods
+# Stubtest doesn't understand aliases of class-decorated methods (possibly https://github.com/python/mypy/issues/6700 )
 networkx\.(algorithms\.)?(centrality\.)?(current_flow_closeness\.)?information_centrality
 networkx\.(generators\.)?(random_graphs\.)?binomial_graph
 networkx\.(generators\.)?(random_graphs\.)?erdos_renyi_graph
