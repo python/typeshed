@@ -5,7 +5,7 @@ from networkx.utils.backends import _dispatch
 
 @_dispatch
 def some_method(int_p: int, str_p: str) -> float:
-    ...
+    return 0.0
 
 
 # Wrong param / order
