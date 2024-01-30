@@ -1,10 +1,7 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
     "typeshedPath": ".",
-    "include": [
-        "stdlib",
-        "stubs",
-    ],
+    "include": ["stdlib", "stubs"],
     "exclude": [
         // test cases use a custom pyrightconfig file
         "stubs/**/@tests/test_cases",
@@ -12,6 +9,7 @@
         "stdlib/distutils/dist.pyi",
         "stdlib/importlib/readers.pyi",
         "stdlib/lib2to3/fixes/*.pyi",
+        "stdlib/numbers.pyi",
         "stdlib/_tkinter.pyi",
         "stdlib/tkinter/__init__.pyi",
         "stdlib/tkinter/filedialog.pyi",
@@ -79,7 +77,7 @@
         "stubs/ttkthemes",
         "stubs/vobject",
         "stubs/WebOb",
-        "stubs/workalendar",
+        "stubs/workalendar"
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
@@ -111,5 +109,5 @@
     // The name of the self/cls parameter is out of typeshed's control.
     "reportSelfClsParameterName": "none",
     // Not actionable in typeshed
-    "reportDeprecated": "none",
+    "reportDeprecated": "none"
 }
