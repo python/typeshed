@@ -1,9 +1,17 @@
 from collections.abc import Callable
-from typing import Any, Literal
+from typing import Literal, TypedDict
 from typing_extensions import TypeAlias
 
+class _RPi_Info(TypedDict):
+    P1_REVISION: int
+    REVISION: str
+    TYPE: str
+    MANUFACTURER: str
+    PROCESSOR: str
+    RAM: str
+
 VERSION: str
-RPI_INFO: dict[str, Any]
+RPI_INFO: _RPi_Info
 RPI_REVISION: int
 
 HIGH: Literal[1]
