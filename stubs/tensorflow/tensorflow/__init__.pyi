@@ -137,10 +137,10 @@ class VariableSynchronization(Enum):
     ON_READ = 3
 
 class VariableAggregation(Enum):
-    AUTO = 0
-    NONE = 1
-    ON_WRITE = 2
-    ON_READ = 3
+    NONE = 0
+    SUM = 1
+    MEAN = 2
+    ONLY_FIRST_REPLICA = 3
 
 class _VariableMetaclass(type): ...
 
