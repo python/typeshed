@@ -83,6 +83,14 @@ parser.add_argument(
     ),
 )
 parser.add_argument(
+    "--all-python-versions",
+    action="store_true",
+    help=(
+        'Run tests on all available Python versions (defaults to "False"). '
+        "Note that this cannot be specified if --all and/or --python-version are specified."
+    ),
+)
+parser.add_argument(
     "--verbosity",
     choices=[member.name for member in Verbosity],
     default=Verbosity.NORMAL.name,
@@ -338,9 +346,16 @@ def main() -> ReturnCode:
     if args.all:
         if args.platforms_to_test:
             parser.error("Cannot specify both --platform and --all")
+        if args.all_python_versions:
+            parser.error("Cannot specify both --all-python-versions and --all")
         if args.versions_to_test:
             parser.error("Cannot specify both --python-version and --all")
         platforms_to_test, versions_to_test = SUPPORTED_PLATFORMS, SUPPORTED_VERSIONS
+    elif args.all_python_versions:
+        if args.versions_to_test:
+            parser.error("Cannot specify both --python-version and --all-python-versions")
+        platforms_to_test = args.platforms_to_test or [sys.platform]
+        versions_to_test = SUPPORTED_VERSIONS
     else:
         platforms_to_test = args.platforms_to_test or [sys.platform]
         versions_to_test = args.versions_to_test or [PYTHON_VERSION]
