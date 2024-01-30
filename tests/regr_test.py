@@ -308,7 +308,11 @@ def concurrently_run_testcases(
     printer_thread = threading.Thread(target=print_queued_messages, args=(event,))
     printer_thread.start()
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
+    # Limit the number of workers to 1 for now. There are intermittent mypy
+    # crashes when running with multiple workers. See
+    # https://github.com/python/typeshed/issues/11220 for details.
+    max_workers = 1  # os.cpu_count() or 2
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
         # Each temporary directory may be used by multiple processes concurrently during the next step;
         # must make sure that they're all setup correctly before starting the next step,
         # in order to avoid race conditions
