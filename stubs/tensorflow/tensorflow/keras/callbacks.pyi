@@ -81,7 +81,7 @@ class EarlyStopping(Callback):
         self,
         monitor: str = "val_loss",
         min_delta: float = 0,
-        patience: float = 0,
+        patience: int = 0,
         verbose: Literal[0, 1] = 0,
         mode: Literal["auto", "min", "max"] = "auto",
         baseline: float | None = None,
