@@ -254,8 +254,8 @@ def reduce_std(
     name: str | None = None,
 ) -> Tensor: ...
 def reduce_variance(
-    input_tensor: _TensorCompatible | RaggedTensor,
-    axis: _TensorCompatible | None = None,
+    input_tensor: TensorCompatible | RaggedTensor,
+    axis: TensorCompatible | None = None,
     keepdims: bool = False,
     name: str | None = None,
 ) -> Tensor: ...
