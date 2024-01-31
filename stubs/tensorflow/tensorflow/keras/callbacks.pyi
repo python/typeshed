@@ -105,7 +105,11 @@ class LambdaCallback(Callback):
     ) -> None: ...
 
 class LearningRateScheduler(Callback):
-    def __init__(self, schedule: LearningRateSchedule, verbose: Literal[0, 1] = 0) -> None: ...
+    def __init__(
+        self,
+        schedule: LearningRateSchedule | Callable[[int], float | tf.Tensor] | Callable[[int, float], float | tf.Tensor],
+        verbose: Literal[0, 1] = 0,
+    ) -> None: ...
 
 class ModelCheckpoint(Callback):
     monitor_op: Any
