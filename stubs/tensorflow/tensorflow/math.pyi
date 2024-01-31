@@ -253,6 +253,12 @@ def reduce_std(
     keepdims: bool = False,
     name: str | None = None,
 ) -> Tensor: ...
+def reduce_variance(
+    input_tensor: _TensorCompatible | RaggedTensor,
+    axis: _TensorCompatible | None = None,
+    keepdims: bool = False,
+    name: str | None = None,
+) -> Tensor: ...
 def argmax(
     input: TensorCompatible, axis: TensorCompatible | None = None, output_type: DTypeLike = ..., name: str | None = None
 ) -> Tensor: ...
