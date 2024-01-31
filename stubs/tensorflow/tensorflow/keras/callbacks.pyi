@@ -95,12 +95,12 @@ class History(Callback):
 class LambdaCallback(Callback):
     def __init__(
         self,
-        on_epoch_begin: Callable[[int, Incomplete], Incomplete] | None = None,
-        on_epoch_end: Callable[[int, Incomplete], Incomplete] | None = None,
-        on_batch_begin: Callable[[int, Incomplete], Incomplete] | None = None,
-        on_batch_end: Callable[[int, Incomplete], Incomplete] | None = None,
-        on_train_begin: Callable[[Incomplete], Incomplete] | None = None,
-        on_train_end: Callable[[Incomplete], Incomplete] | None = None,
+        on_epoch_begin: Callable[[int, _Logs], object] | None = None,
+        on_epoch_end: Callable[[int, _Logs], object] | None = None,
+        on_batch_begin: Callable[[int, _Logs], object] | None = None,
+        on_batch_end: Callable[[int, _Logs], object] | None = None,
+        on_train_begin: Callable[[_Logs], object] | None = None,
+        on_train_end: Callable[[_Logs], object] | None = None,
         **kwargs: Any,
     ) -> None: ...
 
