@@ -517,13 +517,13 @@ class ReplicationConnection(connection):
     set_isolation_level: Any
     set_session: Any
     def __init__(self, *args, **kwargs) -> None: ...
+    # https://github.com/python/typeshed/issues/11282
+    # The return type should be exactly extras.ReplicationCursor (not _psycopg.ReplicationCursor)
+    # See the C code: replicationConnection_init(), psyco_conn_cursor()
     @overload
     def cursor(
         self, name: str | bytes | None = None, cursor_factory: None = None, withhold: bool = False, scrollable: bool | None = None
     ) -> extras_ReplicationCursor: ...
-    # https://github.com/python/typeshed/issues/11282
-    # There should be exactly extras.ReplicationCursor (not _psycopg.ReplicationCursor)
-    # See the C code: replicationConnection_init(), psyco_conn_cursor()
     @overload
     def cursor(
         self,
