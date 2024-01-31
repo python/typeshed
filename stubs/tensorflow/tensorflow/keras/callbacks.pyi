@@ -83,7 +83,7 @@ class ModelCheckpoint(Callback):
         options: tf.train.CheckpointOptions | tf.saved_model.SaveOptions | None = None,
         initial_value_threshold: float | None = None,
     ) -> None: ...
-    def _save_model(self, epoch: int, batch: int | None, logs: _Logs): ...
+    def _save_model(self, epoch: int, batch: int | None, logs: _Logs) -> None: ...
 
 class TensorBoard(Callback):
     _start_batch: int
@@ -125,7 +125,7 @@ class RemoteMonitor(Callback):
         field: str = "data",
         headers: dict[Incomplete, Incomplete] | None = None,
         send_as_json: bool = False,
-    ): ...
+    ) -> None: ...
 
 class ReduceLROnPlateau(Callback):
     def __init__(
@@ -138,8 +138,9 @@ class ReduceLROnPlateau(Callback):
         min_delta: float = 1e-4,
         cooldown: int = 0,
         min_lr: float = 0,
-        **kwargs,
-    ): ...
+        **kwargs: Incomplete,
+    ) -> None: ...
+    def in_cooldown(self) -> bool: ...
 
 class BaseLogger(Callback):
     def __init__(self, stateful_metrics: Iterable[str] | None = None) -> None: ...
@@ -181,7 +182,7 @@ class LambdaCallback(Callback):
         on_batch_end: Callable[[int, Incomplete], Incomplete] | None = None,
         on_train_begin: Callable[[Incomplete], Incomplete] | None = None,
         on_train_end: Callable[[Incomplete], Incomplete] | None = None,
-        **kwargs,
-    ): ...
+        **kwargs: Any,
+    ) -> None: ...
 
 def __getattr__(name: str) -> Incomplete: ...
