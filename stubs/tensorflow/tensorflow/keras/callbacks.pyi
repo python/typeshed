@@ -64,8 +64,48 @@ class CallbackList:
     def on_train_begin(self, logs: Mapping[str, object] | None = None) -> None: ...
     def on_train_end(self, logs: Mapping[str, object] | None = None) -> None: ...
 
+class BackupAndRestore(Callback):
+    def __init__(
+        self, backup_dir: str, save_freq: str = "epoch", delete_checkpoint: bool = True, save_before_preemption: bool = False
+    ) -> None: ...
+
+class BaseLogger(Callback):
+    def __init__(self, stateful_metrics: Iterable[str] | None = None) -> None: ...
+
+class CSVLogger(Callback):
+    def __init__(self, filename: str, separator: str = ",", append: bool = False) -> None: ...
+
+class EarlyStopping(Callback):
+    monitor_op: Any
+    def __init__(
+        self,
+        monitor: str = "val_loss",
+        min_delta: float = 0,
+        patience: float = 0,
+        verbose: Literal[0, 1] = 0,
+        mode: Literal["auto", "min", "max"] = "auto",
+        baseline: float | None = None,
+        restore_best_weights: bool = False,
+        start_from_epoch: int = 0,
+    ) -> None: ...
+
 class History(Callback):
     history: dict[str, list[Any]]
+
+class LambdaCallback(Callback):
+    def __init__(
+        self,
+        on_epoch_begin: Callable[[int, Incomplete], Incomplete] | None = None,
+        on_epoch_end: Callable[[int, Incomplete], Incomplete] | None = None,
+        on_batch_begin: Callable[[int, Incomplete], Incomplete] | None = None,
+        on_batch_end: Callable[[int, Incomplete], Incomplete] | None = None,
+        on_train_begin: Callable[[Incomplete], Incomplete] | None = None,
+        on_train_end: Callable[[Incomplete], Incomplete] | None = None,
+        **kwargs: Any,
+    ) -> None: ...
+
+class LearningRateScheduler(Callback):
+    def __init__(self, schedule: LearningRateSchedule, verbose: Literal[0, 1] = 0) -> None: ...
 
 class ModelCheckpoint(Callback):
     monitor_op: Any
@@ -84,6 +124,37 @@ class ModelCheckpoint(Callback):
         initial_value_threshold: float | None = None,
     ) -> None: ...
     def _save_model(self, epoch: int, batch: int | None, logs: _Logs) -> None: ...
+
+class ProgbarLogger(Callback):
+    use_steps: bool
+    def __init__(
+        self, count_mode: Literal["steps", "samples"] = "samples", stateful_metrics: Iterable[str] | None = None
+    ) -> None: ...
+
+class ReduceLROnPlateau(Callback):
+    def __init__(
+        self,
+        monitor: str = "val_loss",
+        factor: float = 0.1,
+        patience: int = 10,
+        verbose: Literal[0, 1] = 0,
+        mode: Literal["auto", "min", "max"] = "auto",
+        min_delta: float = 1e-4,
+        cooldown: int = 0,
+        min_lr: float = 0,
+        **kwargs: Incomplete,
+    ) -> None: ...
+    def in_cooldown(self) -> bool: ...
+
+class RemoteMonitor(Callback):
+    def __init__(
+        self,
+        root: str = "http://localhost:9000",
+        path: str = "/publish/epoch/end/",
+        field: str = "data",
+        headers: dict[Incomplete, Incomplete] | None = None,
+        send_as_json: bool = False,
+    ) -> None: ...
 
 class TensorBoard(Callback):
     _start_batch: int
@@ -112,75 +183,4 @@ class TensorBoard(Callback):
     def _write_keras_model_train_graph(self) -> None: ...
     def _stop_trace(self, batch: int | None = None) -> None: ...
 
-class BackupAndRestore(Callback):
-    def __init__(
-        self, backup_dir: str, save_freq: str = "epoch", delete_checkpoint: bool = True, save_before_preemption: bool = False
-    ) -> None: ...
-
-class RemoteMonitor(Callback):
-    def __init__(
-        self,
-        root: str = "http://localhost:9000",
-        path: str = "/publish/epoch/end/",
-        field: str = "data",
-        headers: dict[Incomplete, Incomplete] | None = None,
-        send_as_json: bool = False,
-    ) -> None: ...
-
-class ReduceLROnPlateau(Callback):
-    def __init__(
-        self,
-        monitor: str = "val_loss",
-        factor: float = 0.1,
-        patience: int = 10,
-        verbose: Literal[0, 1] = 0,
-        mode: Literal["auto", "min", "max"] = "auto",
-        min_delta: float = 1e-4,
-        cooldown: int = 0,
-        min_lr: float = 0,
-        **kwargs: Incomplete,
-    ) -> None: ...
-    def in_cooldown(self) -> bool: ...
-
-class BaseLogger(Callback):
-    def __init__(self, stateful_metrics: Iterable[str] | None = None) -> None: ...
-
-class CSVLogger(Callback):
-    def __init__(self, filename: str, separator: str = ",", append: bool = False) -> None: ...
-
-class EarlyStopping(Callback):
-    monitor_op: Any
-    def __init__(
-        self,
-        monitor: str = "val_loss",
-        min_delta: float = 0,
-        patience: float = 0,
-        verbose: Literal[0, 1] = 0,
-        mode: Literal["auto", "min", "max"] = "auto",
-        baseline: float | None = None,
-        restore_best_weights: bool = False,
-        start_from_epoch: int = 0,
-    ) -> None: ...
-
-class LearningRateScheduler(Callback):
-    def __init__(self, schedule: LearningRateSchedule, verbose: Literal[0, 1] = 0) -> None: ...
-
-class ProgbarLogger(Callback):
-    use_steps: bool
-    def __init__(
-        self, count_mode: Literal["steps", "samples"] = "samples", stateful_metrics: Iterable[str] | None = None
-    ) -> None: ...
-
 class TerminateOnNaN(Callback): ...
-
-class LambdaCallback(Callback):
-    def __init__(
-        self,
-        on_epoch_begin: Callable[[int, Incomplete], Incomplete] | None = None,
-        on_epoch_end: Callable[[int, Incomplete], Incomplete] | None = None,
-        on_batch_begin: Callable[[int, Incomplete], Incomplete] | None = None,
-        on_batch_end: Callable[[int, Incomplete], Incomplete] | None = None,
-        on_train_begin: Callable[[Incomplete], Incomplete] | None = None,
-        on_train_end: Callable[[Incomplete], Incomplete] | None = None,
-        **kwargs: Any,
-    ) -> None: ...
