@@ -3,7 +3,7 @@ from collections.abc import Iterable
 from typing import TypeVar, overload
 from typing_extensions import TypeAlias
 
-from tensorflow import IndexedSlices, RaggedTensor, Tensor
+from tensorflow import IndexedSlices, RaggedTensor, Tensor, TensorShape
 from tensorflow._aliases import DTypeLike, ShapeLike, TensorCompatible
 from tensorflow.sparse import SparseTensor
 
@@ -242,7 +242,7 @@ def reduce_min(
     name: str | None = None,
 ) -> Tensor: ...
 def reduce_prod(
-    input_tensor: TensorCompatible | RaggedTensor,
+    input_tensor: TensorCompatible | RaggedTensor | TensorShape,
     axis: TensorCompatible | None = None,
     keepdims: bool = False,
     name: str | None = None,
