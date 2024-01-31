@@ -9,7 +9,7 @@ from typing import Literal
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
-from tensorflow import _ShapeLike
+from tensorflow._aliases import ShapeLike
 
 _Combiners: TypeAlias = Literal["mean", "sqrtn", "sum"]
 _ExampleSpec: TypeAlias = dict[str, tf.io.FixedLenFeature | tf.io.VarLenFeature]
@@ -35,7 +35,7 @@ class SequenceDenseColumn(FeatureColumn, metaclass=ABCMeta): ...
 # _cls instead of cls is because collections.namedtuple uses _cls for __new__.
 class NumericColumn(DenseColumn):
     key: str
-    shape: _ShapeLike
+    shape: ShapeLike
     default_value: float
     dtype: tf.DType
     normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None
@@ -43,7 +43,7 @@ class NumericColumn(DenseColumn):
     def __new__(
         _cls,
         key: str,
-        shape: _ShapeLike,
+        shape: ShapeLike,
         default_value: float,
         dtype: tf.DType,
         normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None,
@@ -78,7 +78,7 @@ class EmbeddingColumn(DenseColumn, SequenceDenseColumn):
     categorical_column: CategoricalColumn
     dimension: int
     combiner: _Combiners
-    initializer: Callable[[_ShapeLike], tf.Tensor] | None
+    initializer: Callable[[ShapeLike], tf.Tensor] | None
     ckpt_to_load_from: str | None
     tensor_name_in_ckpt: str | None
     max_norm: float | None
@@ -91,7 +91,7 @@ class EmbeddingColumn(DenseColumn, SequenceDenseColumn):
         categorical_column: CategoricalColumn,
         dimension: int,
         combiner: _Combiners,
-        initializer: Callable[[_ShapeLike], tf.Tensor] | None,
+        initializer: Callable[[ShapeLike], tf.Tensor] | None,
         ckpt_to_load_from: str | None,
         tensor_name_in_ckpt: str | None,
         max_norm: float | None,
@@ -109,7 +109,7 @@ class SharedEmbeddingColumnCreator:
     def __init__(
         self,
         dimension: int,
-        initializer: Callable[[_ShapeLike], tf.Tensor] | None,
+        initializer: Callable[[ShapeLike], tf.Tensor] | None,
         ckpt_to_load_from: str | None,
         tensor_name_in_ckpt: str | None,
         num_buckets: int,
