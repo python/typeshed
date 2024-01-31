@@ -12,7 +12,7 @@ pytype==2023.12.18; platform_system != "Windows" and python_version < "3.12"
 ruff==0.1.11             # must match .pre-commit-config.yaml and tests.yml
 
 # Libraries used by our various scripts.
-aiohttp==3.9.1
+aiohttp==3.9.2
 packaging==23.2
 pathspec>=0.11.1
 pyyaml==6.0.1
