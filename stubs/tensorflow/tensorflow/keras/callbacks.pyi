@@ -4,6 +4,7 @@ from typing import Any, Literal
 from typing_extensions import TypeAlias
 
 import tensorflow as tf
+from requests.api import _HeadersMapping
 from tensorflow.keras import Model
 from tensorflow.keras.optimizers.schedules import LearningRateSchedule
 
@@ -156,7 +157,7 @@ class RemoteMonitor(Callback):
         root: str = "http://localhost:9000",
         path: str = "/publish/epoch/end/",
         field: str = "data",
-        headers: dict[Incomplete, Incomplete] | None = None,
+        headers: _HeadersMapping | None = None,
         send_as_json: bool = False,
     ) -> None: ...
 
