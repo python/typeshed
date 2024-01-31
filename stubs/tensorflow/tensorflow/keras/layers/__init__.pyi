@@ -10,7 +10,7 @@ from tensorflow.keras.activations import _Activation
 from tensorflow.keras.constraints import Constraint
 from tensorflow.keras.initializers import _Initializer
 from tensorflow.keras.layers.preprocessing import IntegerLookup as IntegerLookup, StringLookup as StringLookup
-from tensorflow.keras.regularizers import Regularizer, _Regularizer
+from tensorflow.keras.regularizers import _Regularizer
 from tensorflow.python.feature_column.feature_column_v2 import DenseColumn, SequenceDenseColumn
 
 _InputT = TypeVar("_InputT", contravariant=True)
@@ -254,62 +254,6 @@ class DenseFeatures(Layer[Mapping[str, TensorLike], tf.Tensor]):
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
-
-class MultiHeadAttention(Layer[Any, tf.Tensor]):
-    def __init__(
-        self,
-        num_heads: int,
-        key_dim: int | None,
-        value_dim: int | None = None,
-        dropout: float = 0.0,
-        use_bias: bool = True,
-        output_shape: tuple[int, ...] | None = None,
-        attention_axes: tuple[int, ...] | None = None,
-        kernel_initialize: _Initializer = "glorot_uniform",
-        bias_initializer: _Initializer = "zeros",
-        kernel_regularizer: Regularizer | None = None,
-        bias_regularizer: _Regularizer | None = None,
-        activity_regularizer: _Regularizer | None = None,
-        kernel_constraint: _Constraint | None = None,
-        bias_constraint: _Constraint | None = None,
-        trainable: bool = True,
-        dtype: _LayerDtype | None = None,
-        dynamic: bool = False,
-        name: str | None = None,
-    ) -> None: ...
-    @overload
-    def __call__(
-        self,
-        query: tf.Tensor,
-        value: tf.Tensor,
-        key: tf.Tensor | None,
-        attention_mask: tf.Tensor | None,
-        return_attention_scores: Literal[False],
-        training: bool,
-        use_causal_mask: bool,
-    ) -> tf.Tensor: ...
-    @overload
-    def __call__(
-        self,
-        query: tf.Tensor,
-        value: tf.Tensor,
-        key: tf.Tensor | None,
-        attention_mask: tf.Tensor | None,
-        return_attention_scores: Literal[True],
-        training: bool,
-        use_causal_mask: bool,
-    ) -> tuple[tf.Tensor, tf.Tensor]: ...
-    @overload
-    def __call__(
-        self,
-        query: tf.Tensor,
-        value: tf.Tensor,
-        key: tf.Tensor | None = None,
-        attention_mask: tf.Tensor | None = None,
-        return_attention_scores: bool = False,
-        training: bool = False,
-        use_causal_mask: bool = False,
-    ) -> tuple[tf.Tensor, tf.Tensor] | tf.Tensor: ...
 
 class GaussianDropout(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
