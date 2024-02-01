@@ -7,9 +7,19 @@
 # (since type checkers don't see `complex` as a subtype of `numbers.Complex`,
 # nor `float` as a subtype of `numbers.Real`, etc.)
 
+import sys
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
-from typing import Literal, SupportsComplex, SupportsFloat, SupportsIndex, overload
+from typing import Literal, SupportsFloat, SupportsIndex, overload
+from typing_extensions import TypeAlias
+
+if sys.version_info >= (3, 11):
+    from typing import SupportsComplex
+else:
+    # builtins.complex didn't have a __complex__ method on older Pythons
+    import typing
+
+    SupportsComplex: TypeAlias = typing.SupportsComplex | complex
 
 __all__ = ["Number", "Complex", "Real", "Rational", "Integral"]
 
