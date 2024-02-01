@@ -57,7 +57,13 @@ class PolynomialDecay(LearningRateSchedule):
 
 class CosineDecay(LearningRateSchedule):
     def __init__(
-        self, initial_learning_rate: float | tf.Tensor, decay_steps: int, alpha: float | tf.Tensor = 0.0, name: str | None = None
+        self,
+        initial_learning_rate: float | tf.Tensor,
+        decay_steps: int,
+        alpha: float | tf.Tensor = 0.0,
+        name: str | None = None,
+        warmup_target=None,
+        warmup_steps: int = 0,  # can also be int32 or int64 Tensor
     ) -> None: ...
     def __call__(self, step: int | tf.Tensor) -> float | tf.Tensor: ...
     def get_config(self) -> dict[str, Any]: ...
