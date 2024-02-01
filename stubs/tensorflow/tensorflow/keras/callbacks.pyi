@@ -32,9 +32,10 @@ class Callback:
     def on_train_begin(self, logs: _Logs = None) -> None: ...
     def on_train_end(self, logs: _Logs = None) -> None: ...
 
-# A CallbackList has exact same api as a callback,
-# but does not actually subclass it.
+# A CallbackList has exact same api as a callback, but does not actually subclass it.
 class CallbackList:
+    model: Model
+    params: dict[str, Any]
     def __init__(
         self,
         callbacks: Sequence[Callback] | None = None,
