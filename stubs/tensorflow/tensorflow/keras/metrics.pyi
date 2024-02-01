@@ -2,11 +2,12 @@ from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Literal
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, override
 
 import tensorflow as tf
 from tensorflow import Operation, Tensor
 from tensorflow._aliases import DTypeLike, KerasSerializable, TensorCompatible
+from tensorflow.keras.initializers import _Initializer
 
 _Output: TypeAlias = Tensor | dict[str, Tensor]
 
@@ -20,6 +21,17 @@ class Metric(tf.keras.layers.Layer[tf.Tensor, tf.Tensor], metaclass=ABCMeta):
     ) -> Operation | None: ...
     @abstractmethod
     def result(self) -> _Output: ...
+    # Metric inherits from keras.Layer, but its add_weight method is incompatible with the one from "Layer".
+    @override
+    def add_weight(  # type: ignore
+        self,
+        name: str,
+        shape: Iterable[int | None] | None = (),
+        aggregation: tf.VariableAggregation = ...,
+        synchronization: tf.VariableSynchronization = ...,
+        initializer: _Initializer | None = None,
+        dtype: DTypeLike | None = None,
+    ) -> None: ...
 
 class AUC(Metric):
     _from_logits: bool
