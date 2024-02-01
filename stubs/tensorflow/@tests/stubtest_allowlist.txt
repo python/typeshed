@@ -85,3 +85,12 @@ tensorflow.io.SparseFeature.__new__
 
 # Metaclass inconsistency. The runtime metaclass is defined from c++ extension and is undocumented.
 tensorflow.io.TFRecordWriter
+
+# stubtest does not pass for protobuf generated stubs.
+tensorflow.train.Example.*
+tensorflow.train.BytesList.*
+tensorflow.train.Feature.*
+tensorflow.train.FloatList.*
+tensorflow.train.Int64List.*
+tensorflow.train.ClusterDef.*
+tensorflow.train.ServerDef.*
