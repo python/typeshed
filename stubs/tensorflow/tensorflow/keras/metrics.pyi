@@ -2,14 +2,11 @@ from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Literal
-from typing_extensions import Self, TypeAlias, override
+from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
 from tensorflow import Operation, Tensor
 from tensorflow._aliases import DTypeLike, KerasSerializable, TensorCompatible
-from tensorflow.keras.initializers import _Initializer
-from tensorflow.keras.layers import _Constraint
-from tensorflow.keras.regularizers import _Regularizer
 
 _Output: TypeAlias = Tensor | dict[str, Tensor]
 
@@ -26,20 +23,6 @@ class Metric(tf.keras.layers.Layer[tf.Tensor, tf.Tensor], metaclass=ABCMeta):
     @classmethod
     def from_config(cls, config: dict[str, Any]) -> Self: ...
     def get_config(self) -> dict[str, Any]: ...
-    @override
-    def add_weight(
-        self,
-        name: str | None = None,
-        shape: Iterable[int | None] | None = (),
-        dtype: DTypeLike | None = None,
-        initializer: _Initializer | None = None,
-        regularizer: _Regularizer | None = None,
-        trainable: bool | None = None,
-        constraint: _Constraint | None = None,
-        use_resource: bool | None = None,
-        synchronization: tf.VariableSynchronization = ...,
-        aggregation: tf.VariableAggregation = ...,
-    ) -> tf.Variable: ...
 
 class AUC(Metric):
     _from_logits: bool
