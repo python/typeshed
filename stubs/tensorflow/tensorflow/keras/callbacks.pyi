@@ -160,15 +160,7 @@ class RemoteMonitor(Callback):
     ) -> None: ...
 
 class TensorBoard(Callback):
-    _start_batch: int
-    _stop_batch: int
-    _should_write_train_graph: bool
     write_steps_per_second: bool
-    _batch_start_time: float
-    _train_step: tf.Variable
-    _should_trace: bool
-    _is_tracing: bool
-    _global_train_batch: int
     update_freq: int | Literal["epoch"]
 
     def __init__(
