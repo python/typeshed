@@ -20,21 +20,18 @@ from tensorflow.python.trackable.base import Trackable
 class CheckpointOptions:
     experimental_io_device: None | str
     experimental_enable_async_checkpoint: bool
+    # Uncomment when the stubs' TF version is updated to 2.15
     # experimental_write_callbacks: None | list[Callable[[str], Any] | Callable[[], Any]]
     enable_async: bool
-    # experimental_skip_slot_variables: bool
-    # experimental_sharding_callback: tf.train.experimental.ShardingCallback | None = None
 
     def __init__(
         self,
         experimental_io_device: None | str = None,
         experimental_enable_async_checkpoint: bool = False,
+        # Uncomment when the stubs' TF version is updated to 2.15
         # experimental_write_callbacks: None | list[Callable[[str], Any] | Callable[[], Any]] = None,
         enable_async: bool = False,
-        # experimental_skip_slot_variables: bool = False,
-        # experimental_sharding_callback: tf.train.experimental.ShardingCallback | None = None,
     ) -> None: ...
-    # def __copy__(self) -> Self: ...
 
 _T = TypeVar("_T", bound=list[str] | tuple[str] | dict[int, str])
 
@@ -54,7 +51,7 @@ class Checkpoint:
     def read(self, save_path: str, options: CheckpointOptions | None = None) -> _CheckpointLoadStatus: ...
     def restore(self, save_path: str, options: CheckpointOptions | None = None) -> _CheckpointLoadStatus: ...
     def save(self, file_prefix: str, options: CheckpointOptions | None = None) -> str: ...
-    # def sync(self) -> None: ...
+    # def sync(self) -> None: ...  # Uncomment when the stubs' TF version is updated to 2.15
     def write(self, file_prefix: str, options: CheckpointOptions | None = None) -> str: ...
 
 class CheckpointManager:
