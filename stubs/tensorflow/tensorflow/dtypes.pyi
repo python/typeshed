@@ -5,11 +5,12 @@ from typing import Any
 
 import numpy as np
 from tensorflow._aliases import DTypeLike
+from tensorflow.python.framework.dtypes import HandleData
 
 class _DTypeMeta(ABCMeta): ...
 
 class DType(metaclass=_DTypeMeta):
-    def __init__(self, type_enum: Incomplete, handle_data: Incomplete | None = None) -> None: ...
+    def __init__(self, type_enum: int, handle_data: HandleData | None = None) -> None: ...
     @property
     def name(self) -> str: ...
     @property
