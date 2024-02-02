@@ -62,8 +62,8 @@ class CosineDecay(LearningRateSchedule):
         decay_steps: int,
         alpha: float | tf.Tensor = 0.0,
         name: str | None = None,
-        warmup_target=None,
-        warmup_steps: int = 0,  # can also be int32 or int64 Tensor
+        warmup_target: int | tf.Tensor | None = None,  # float32 or float64 Tensor
+        warmup_steps: int | tf.Tensor = 0,  # int32 or int64 Tensor
     ) -> None: ...
     def __call__(self, step: int | tf.Tensor) -> float | tf.Tensor: ...
     def get_config(self) -> dict[str, Any]: ...
