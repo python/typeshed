@@ -12,7 +12,7 @@ class searcher_string(Generic[AnyStr]):
     match: AnyStr
     start: int
     end: int
-    def search(self, buffer: AnyStr, freshlen, searchwindowsize: int | None = None): ...
+    def search(self, buffer: AnyStr, freshlen: int, searchwindowsize: int | None = None): ...
 
 class searcher_re(Generic[AnyStr]):
     eof_index: int
