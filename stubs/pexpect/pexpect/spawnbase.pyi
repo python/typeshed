@@ -21,10 +21,11 @@ class _Logfile(Protocol):
     def write(self, __s) -> object: ...
     def flush(self) -> object: ...
 
-_InputStringPattern: TypeAlias = str | bytes | EOF | TIMEOUT
+_ErrorPattern: TypeAlias = type[EOF | TIMEOUT]
+_InputStringPattern: TypeAlias = str | bytes | _ErrorPattern
 _InputRePattern: TypeAlias = Pattern[str] | Pattern[bytes] | _InputStringPattern
-_CompiledStringPattern: TypeAlias = AnyStr | EOF | TIMEOUT
-_CompiledRePattern: TypeAlias = Pattern[AnyStr] | EOF | TIMEOUT
+_CompiledStringPattern: TypeAlias = AnyStr | _ErrorPattern
+_CompiledRePattern: TypeAlias = Pattern[AnyStr] | _ErrorPattern
 _Searcher: TypeAlias = searcher_string[AnyStr] | searcher_re[AnyStr]
 
 class SpawnBase(Generic[AnyStr]):
@@ -38,7 +39,7 @@ class SpawnBase(Generic[AnyStr]):
     ignorecase: bool
     before: AnyStr | None
     after: _CompiledStringPattern[AnyStr] | None
-    match: AnyStr | Match[AnyStr] | EOF | TIMEOUT | None
+    match: AnyStr | Match[AnyStr] | _ErrorPattern | None
     match_index: int | None
     terminated: bool
     exitstatus: int | None
