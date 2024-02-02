@@ -88,7 +88,6 @@ class SpawnBase(Generic[AnyStr]):
         pattern: _InputRePattern | list[_InputRePattern],
         timeout: float | None = -1,
         searchwindowsize: int | None = -1,
-        *,
         async_: Literal[False] = False,
     ) -> int: ...
     @overload
@@ -106,7 +105,6 @@ class SpawnBase(Generic[AnyStr]):
         pattern_list: list[_CompiledRePattern[AnyStr]],
         timeout: float | None = -1,
         searchwindowsize: int | None = -1,
-        *,
         async_: Literal[False] = False,
     ) -> int: ...
     @overload
@@ -124,7 +122,6 @@ class SpawnBase(Generic[AnyStr]):
         pattern_list: _InputStringPattern | Iterable[_InputStringPattern],
         timeout: float | None = -1,
         searchwindowsize: int | None = -1,
-        *,
         async_: Literal[False] = False,
     ) -> int: ...
     @overload
