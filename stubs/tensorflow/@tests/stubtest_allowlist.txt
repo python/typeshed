@@ -21,6 +21,12 @@ tensorflow.GradientTape.__getattr__
 tensorflow.data.Dataset.__getattr__
 tensorflow.experimental.Optional.__getattr__
 
+# The Tensor methods below were removed in 2.14, however they are still defined for the
+# internal subclasses that are used at runtime/in practice.
+tensorflow.Tensor.consumers
+tensorflow.Tensor.graph
+tensorflow.Tensor.op
+
 # Internal undocumented API
 tensorflow.RaggedTensor.__init__
 tensorflow.data.Dataset.__init__
