@@ -1,7 +1,7 @@
 from asyncio import ReadTransport
 from collections.abc import Awaitable, Callable, Iterable
 from re import Match, Pattern
-from typing import IO, AnyStr, Generic, Protocol, TextIO
+from typing import IO, AnyStr, Generic, Literal, Protocol, TextIO, overload
 from typing_extensions import TypeAlias
 
 from ._async import PatternWaiter
@@ -82,30 +82,60 @@ class SpawnBase(Generic[AnyStr]):
     def buffer(self, value: AnyStr) -> None: ...
     def read_nonblocking(self, size: int = 1, timeout: float | None = None) -> AnyStr: ...
     def compile_pattern_list(self, patterns: _InputRePattern | list[_InputRePattern]) -> list[_CompiledRePattern[AnyStr]]: ...
+    @overload
     def expect(
         self,
         pattern: _InputRePattern | list[_InputRePattern],
         timeout: float | None = -1,
         searchwindowsize: int | None = -1,
-        async_: bool = False,
-        **kw,
-    ) -> int | Awaitable[int]: ...
+        *,
+        async_: Literal[False] = False,
+    ) -> int: ...
+    @overload
+    def expect(
+        self,
+        pattern: _InputRePattern | list[_InputRePattern],
+        timeout: float | None = -1,
+        searchwindowsize: int | None = -1,
+        *,
+        async_: Literal[True],
+    ) -> Awaitable[int]: ...
+    @overload
     def expect_list(
         self,
         pattern_list: list[_CompiledRePattern[AnyStr]],
         timeout: float | None = -1,
         searchwindowsize: int | None = -1,
-        async_: bool = False,
-        **kw,
-    ) -> int | Awaitable[int]: ...
+        *,
+        async_: Literal[False] = False,
+    ) -> int: ...
+    @overload
+    def expect_list(
+        self,
+        pattern_list: list[_CompiledRePattern[AnyStr]],
+        timeout: float | None = -1,
+        searchwindowsize: int | None = -1,
+        *,
+        async_: Literal[True],
+    ) -> Awaitable[int]: ...
+    @overload
     def expect_exact(
         self,
         pattern_list: _InputStringPattern | Iterable[_InputStringPattern],
         timeout: float | None = -1,
         searchwindowsize: int | None = -1,
-        async_: bool = False,
-        **kw,
-    ) -> int | Awaitable[int]: ...
+        *,
+        async_: Literal[False] = False,
+    ) -> int: ...
+    @overload
+    def expect_exact(
+        self,
+        pattern_list: _InputStringPattern | Iterable[_InputStringPattern],
+        timeout: float | None = -1,
+        searchwindowsize: int | None = -1,
+        *,
+        async_: Literal[True],
+    ) -> Awaitable[int]: ...
     def expect_loop(self, searcher: _Searcher[AnyStr], timeout: float | None = -1, searchwindowsize: int | None = -1) -> int: ...
     def read(self, size: int = -1) -> AnyStr: ...
     def readline(self, size: int = -1) -> AnyStr: ...
