@@ -20,16 +20,14 @@ from tensorflow.python.trackable.base import Trackable
 class CheckpointOptions:
     experimental_io_device: None | str
     experimental_enable_async_checkpoint: bool
-    # Uncomment when the stubs' TF version is updated to 2.15
-    # experimental_write_callbacks: None | list[Callable[[str], Any] | Callable[[], Any]]
+    experimental_write_callbacks: None | list[Callable[[str], Any] | Callable[[], Any]]
     enable_async: bool
 
     def __init__(
         self,
         experimental_io_device: None | str = None,
         experimental_enable_async_checkpoint: bool = False,
-        # Uncomment when the stubs' TF version is updated to 2.15
-        # experimental_write_callbacks: None | list[Callable[[str], Any] | Callable[[], Any]] = None,
+        experimental_write_callbacks: None | list[Callable[[str], Any] | Callable[[], Any]] = None,
         enable_async: bool = False,
     ) -> None: ...
 
@@ -51,7 +49,7 @@ class Checkpoint:
     def read(self, save_path: str, options: CheckpointOptions | None = None) -> _CheckpointLoadStatus: ...
     def restore(self, save_path: str, options: CheckpointOptions | None = None) -> _CheckpointLoadStatus: ...
     def save(self, file_prefix: str, options: CheckpointOptions | None = None) -> str: ...
-    # def sync(self) -> None: ...  # Uncomment when the stubs' TF version is updated to 2.15
+    def sync(self) -> None: ...  # Uncomment when the stubs' TF version is updated to 2.15
     def write(self, file_prefix: str, options: CheckpointOptions | None = None) -> str: ...
 
 class CheckpointManager:
