@@ -1,3 +1,4 @@
+from _typeshed import FileDescriptorLike
 from collections.abc import Iterable
 from typing import AnyStr
 
@@ -15,7 +16,7 @@ class fdspawn(SpawnBase[AnyStr]):
     use_poll: bool
     def __init__(
         self,
-        fd: int,
+        fd: FileDescriptorLike,
         args: None = None,
         timeout: float | None = 30,
         maxread: int = 2000,

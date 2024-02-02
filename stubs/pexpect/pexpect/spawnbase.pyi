@@ -47,9 +47,9 @@ class SpawnBase(Generic[AnyStr]):
     child_fd: int
     timeout: float | None
     delimiter: type[EOF]
-    logfile: _Logfile
-    logfile_read: _Logfile
-    logfile_send: _Logfile
+    logfile: _Logfile | None
+    logfile_read: _Logfile | None
+    logfile_send: _Logfile | None
     maxread: int
     searchwindowsize: int | None
     delaybeforesend: float | None
