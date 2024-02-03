@@ -7,6 +7,7 @@ import tensorflow as tf
 from requests.api import _HeadersMapping
 from tensorflow.keras import Model
 from tensorflow.keras.optimizers.schedules import LearningRateSchedule
+from tensorflow.train import CheckpointOptions
 
 _Logs: TypeAlias = Mapping[str, Any] | None | Any
 
@@ -114,7 +115,7 @@ class LearningRateScheduler(Callback):
 class ModelCheckpoint(Callback):
     monitor_op: Any
     filepath: str
-    _options: tf.train.CheckpointOptions | tf.saved_model.SaveOptions | None
+    _options: CheckpointOptions | tf.saved_model.SaveOptions | None
     def __init__(
         self,
         filepath: str,
@@ -124,7 +125,7 @@ class ModelCheckpoint(Callback):
         save_weights_only: bool = False,
         mode: Literal["auto", "min", "max"] = "auto",
         save_freq: str | int = "epoch",
-        options: tf.train.CheckpointOptions | tf.saved_model.SaveOptions | None = None,
+        options: CheckpointOptions | tf.saved_model.SaveOptions | None = None,
         initial_value_threshold: float | None = None,
     ) -> None: ...
     def _save_model(self, epoch: int, batch: int | None, logs: _Logs) -> None: ...
