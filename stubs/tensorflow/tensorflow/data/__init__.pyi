@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from collections.abc import Callable, Collection, Iterator as _Iterator, Sequence
-from typing import Any, Generic, TypeVar, Unpack, overload
-from typing_extensions import Self
+from typing import Any, Generic, TypeVar, overload
+from typing_extensions import Self, Unpack
 
 import numpy as np
 import tensorflow as tf
