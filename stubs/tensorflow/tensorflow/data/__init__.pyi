@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from collections.abc import Callable, Collection, Iterator as _Iterator, Sequence
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, Generic, TypeVar, Unpack, overload
 from typing_extensions import Self
 
 import numpy as np
@@ -230,7 +230,7 @@ class Dataset(ABC, Generic[_T1]):
     ) -> Dataset[tuple[Any, ...]]: ...
     @overload
     @staticmethod
-    def zip(*args: tuple[Dataset[_T2], Dataset[_T3]], name: str | None = None) -> Dataset[tuple[_T2, _T3]]: ...
+    def zip(*args: Unpack[tuple[Dataset[_T2], Dataset[_T3]]], name: str | None = None) -> Dataset[tuple[_T2, _T3]]: ...
     @overload
     @staticmethod
     def zip(
