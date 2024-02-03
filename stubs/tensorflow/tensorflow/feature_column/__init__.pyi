@@ -91,5 +91,5 @@ def sequence_categorical_column_with_vocabulary_list(
     num_oov_buckets: int = 0,
 ) -> fc.SequenceCategoricalColumn: ...
 def make_parse_example_spec(
-    feature_columns: Iterable[fc.FeatureColumn],
+    feature_columns: Iterable[fc._FeatureColumn],
 ) -> dict[str, tf.io.FixedLenFeature | tf.io.VarLenFeature]: ...
