@@ -1,12 +1,11 @@
-from _typeshed import Incomplete
 from collections.abc import Sequence
 from enum import Enum
-from typing import Generic, Literal, TypeAlias, TypeVar
+from typing import Any, Generic, Literal, TypeAlias, TypeVar
 
 import numpy as np
 import numpy.typing as npt
 import tensorflow as tf
-from tensorflow._aliases import DTypeLike, ScalarTensorCompatible, ShapeLike
+from tensorflow._aliases import DTypeFloat, DTypeInt, DTypeLike, ScalarTensorCompatible, ShapeLike
 from tensorflow.python.trackable import autotrackable
 
 _STATE_TYPE = TypeVar("_STATE_TYPE")
@@ -16,6 +15,8 @@ class Algorithm(Enum):
     PHILOX = 1
     THREEFRY = 2
     AUTO_SELECT = 3
+
+_Alg: TypeAlias = Literal[Algorithm.PHILOX, Algorithm.THREEFRY, Algorithm.AUTO_SELECT, "philox", "threefry", "auto_select"]
 
 class Generator(autotrackable.AutoTrackable, Generic[_STATE_TYPE]):
     @classmethod
@@ -109,32 +110,41 @@ def fixed_unigram_candidate_sampler(
     seed: int | None = None,
     name: str | None = None,
 ) -> tuple[tf.Tensor, tf.Tensor, tf.Tensor]: ...
-def uniform(
-    shape: ShapeLike,
-    minval: ScalarTensorCompatible = 0.0,
-    maxval: ScalarTensorCompatible | None = None,
-    dtype: DTypeLike = ...,
+def fold_in(
+    seed: tf.Tensor | Sequence[int],
+    data: int,
+    alg: Literal[
+        Algorithm.PHILOX, Algorithm.THREEFRY, Algorithm.AUTO_SELECT, "philox", "threefry", "auto_select"
+    ] = "auto_select",
+) -> int: ...
+def gamma(
+    shape: tf.Tensor | Sequence[int],
+    alpha: tf.Tensor | float | Sequence[float],
+    beta: tf.Tensor | float | Sequence[float] | None = None,
+    dtype: tf.dtypes.float16 | tf.dtypes.float32 | tf.dtypes.float64 = ...,
     seed: int | None = None,
     name: str | None = None,
 ) -> tf.Tensor: ...
-def stateless_uniform(
-    shape: ShapeLike,
-    seed: tuple[int, int],
-    minval: ScalarTensorCompatible = 0.0,
-    maxval: ScalarTensorCompatible | None = None,
-    dtype: DTypeLike = ...,
+def get_global_generator() -> Generator[Any]: ...
+def learned_unigram_candidate_sampler(
+    true_classes: tf.Tensor,
+    num_true: int,
+    num_sampled: int,
+    unique: bool,
+    range_max: int,
+    seed: int | None = None,
     name: str | None = None,
-    alg: Literal["philox", "auto_select", "threefry"] = "auto_select",
-) -> tf.Tensor: ...
+) -> tuple[tf.Tensor, tf.Tensor, tf.Tensor]: ...
+def log_uniform_candidate_sampler(
+    true_classes: tf.Tensor,
+    num_true: int,
+    num_sampled: int,
+    unique: bool,
+    range_max: int,
+    seed: int | None = None,
+    name: str | None = None,
+) -> tuple[tf.Tensor, tf.Tensor, tf.Tensor]: ...
 def normal(
-    shape: ShapeLike,
-    mean: ScalarTensorCompatible = 0.0,
-    stddev: ScalarTensorCompatible = 1.0,
-    dtype: DTypeLike = ...,
-    seed: int | None = None,
-    name: str | None = None,
-) -> tf.Tensor: ...
-def truncated_normal(
     shape: ShapeLike,
     mean: ScalarTensorCompatible = 0.0,
     stddev: ScalarTensorCompatible = 1.0,
@@ -145,6 +155,110 @@ def truncated_normal(
 def poisson(
     shape: ShapeLike, lam: ScalarTensorCompatible = 1.0, dtype: DTypeLike = ..., seed: int | None = None, name: str | None = None
 ) -> tf.Tensor: ...
-def shuffle(value: tf.Tensor, seed: int | None = None, name: str | None = None) -> tf.Tensor: ...
+def set_global_generator(generator: Generator[Any]) -> None: ...
 def set_seed(seed: int) -> None: ...
-def __getattr__(name: str) -> Incomplete: ...
+def shuffle(value: tf.Tensor, seed: int | None = None, name: str | None = None) -> tf.Tensor: ...
+def split(seed: tf.Tensor | Sequence[int], data: int = 2, alg: _Alg = "auto_select") -> tf.Tensor: ...
+def stateless_binomial(
+    shape: ShapeLike,
+    seed: tuple[int, int] | tf.Tensor,
+    counts: tf.Tensor,
+    probs: tf.Tensor,
+    output_dtype: DTypeLike = ...,
+    name: str | None = None,
+) -> tf.Tensor: ...
+def stateless_categorical(
+    logits: tf.Tensor,
+    num_samples: int | tf.Tensor,
+    seed: tuple[int, int] | tf.Tensor,
+    dtype: tf.dtypes.int32 | tf.dtypes.int64 = ...,
+    name: str | None = None,
+) -> tf.Tensor: ...
+def stateless_gamma(
+    shape: ShapeLike,
+    seed: tuple[int, int] | tf.Tensor,
+    alpha: tf.Tensor,
+    beta: tf.Tensor | None = None,
+    dtype: tf.dtypes.float16 | tf.dtypes.float32 | tf.dtypes.float64 = ...,
+    name: str | None = None,
+) -> tf.Tensor: ...
+def stateless_normal(
+    shape: tf.Tensor | Sequence[int],
+    seed: tuple[int, int] | tf.Tensor,
+    mean: float | tf.Tensor = 0.0,
+    stddev: float | tf.Tensor = 1.0,
+    dtype: tf.dtypes.float16 | tf.dtypes.bfloat16 | tf.dtypes.float32 | tf.dtypes.float64 = ...,
+    name: str | None = None,
+    alg: _Alg = "auto_select",
+) -> tf.Tensor: ...
+def stateless_parameterized_truncated_normal(
+    shape: tf.Tensor | Sequence[int],
+    seed: tuple[int, int] | tf.Tensor,
+    mean: float | tf.Tensor = 0.0,
+    stddev: float | tf.Tensor = 1.0,
+    minvals: tf.Tensor | float = -2.0,
+    maxvals: tf.Tensor | float = 2.0,
+    name: str | None = None,
+) -> tf.Tensor: ...
+def stateless_poisson(
+    shape: tf.Tensor | Sequence[int],
+    seed: tuple[int, int] | tf.Tensor,
+    lam,
+    dtype: DTypeInt | DTypeFloat = ...,
+    name: str | None = None,
+) -> tf.Tensor: ...
+def stateless_truncated_normal(
+    shape: tf.Tensor | Sequence[int],
+    seed: tuple[int, int] | tf.Tensor,
+    mean: float | tf.Tensor = 0.0,
+    stddev: float | tf.Tensor = 1.0,
+    dtype: DTypeFloat = ...,
+    name: str | None = None,
+    alg: _Alg = "auto_select",
+) -> tf.Tensor: ...
+def stateless_uniform(
+    shape: tf.Tensor | Sequence[int],
+    seed: tuple[int, int] | tf.Tensor,
+    minval: float | tf.Tensor = 0.0,
+    maxval: float | tf.Tensor | None = None,
+    dtype: tf.dtypes.float16
+    | tf.dtypes.bfloat16
+    | tf.dtypes.float32
+    | tf.dtypes.float64
+    | tf.dtypes.int32
+    | tf.dtypes.int64
+    | tf.dtypes.uint32
+    | tf.dtypes.uint64 = ...,
+    name: str | None = None,
+    alg: _Alg = "auto_select",
+) -> tf.Tensor: ...
+def truncated_normal(
+    shape: tf.Tensor | Sequence[int],
+    mean: float | tf.Tensor = 0.0,
+    stddev: float | tf.Tensor = 1.0,
+    dtype: DTypeFloat = ...,
+    seed: int | None = None,
+    name: str | None = None,
+) -> tf.Tensor: ...
+def uniform(
+    shape: tf.Tensor | Sequence[int],
+    minval: float | tf.Tensor = 0.0,
+    maxval: float | tf.Tensor | None = None,
+    dtype: tf.dtypes.float16
+    | tf.dtypes.bfloat16
+    | tf.dtypes.float32
+    | tf.dtypes.float64
+    | tf.dtypes.int32
+    | tf.dtypes.int64 = ...,
+    seed: int | None = None,
+    name: str | None = None,
+) -> tf.Tensor: ...
+def uniform_candidate_sampler(
+    true_classes: tf.Tensor,
+    num_true: int,
+    num_sampled: int,
+    unique: bool,
+    range_max: int,
+    seed: int | None = None,
+    name: str | None = None,
+) -> tuple[tf.Tensor, tf.Tensor, tf.Tensor]: ...
