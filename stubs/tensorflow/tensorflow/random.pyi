@@ -5,7 +5,7 @@ from typing import Any, Generic, Literal, TypeAlias, TypeVar
 import numpy as np
 import numpy.typing as npt
 import tensorflow as tf
-from tensorflow._aliases import DTypeFloat, DTypeInt, DTypeLike, ScalarTensorCompatible, ShapeLike
+from tensorflow._aliases import DTypeLike, ScalarTensorCompatible, ShapeLike
 from tensorflow.python.trackable import autotrackable
 
 _STATE_TYPE = TypeVar("_STATE_TYPE")
@@ -121,7 +121,7 @@ def gamma(
     shape: tf.Tensor | Sequence[int],
     alpha: tf.Tensor | float | Sequence[float],
     beta: tf.Tensor | float | Sequence[float] | None = None,
-    dtype: tf.dtypes.float16 | tf.dtypes.float32 | tf.dtypes.float64 = ...,
+    dtype: DTypeLike = ...,
     seed: int | None = None,
     name: str | None = None,
 ) -> tf.Tensor: ...
@@ -171,7 +171,7 @@ def stateless_categorical(
     logits: tf.Tensor,
     num_samples: int | tf.Tensor,
     seed: tuple[int, int] | tf.Tensor,
-    dtype: tf.dtypes.int32 | tf.dtypes.int64 = ...,
+    dtype: DTypeLike = ...,
     name: str | None = None,
 ) -> tf.Tensor: ...
 def stateless_gamma(
@@ -179,7 +179,7 @@ def stateless_gamma(
     seed: tuple[int, int] | tf.Tensor,
     alpha: tf.Tensor,
     beta: tf.Tensor | None = None,
-    dtype: tf.dtypes.float16 | tf.dtypes.float32 | tf.dtypes.float64 = ...,
+    dtype: DTypeLike = ...,
     name: str | None = None,
 ) -> tf.Tensor: ...
 def stateless_normal(
@@ -187,7 +187,7 @@ def stateless_normal(
     seed: tuple[int, int] | tf.Tensor,
     mean: float | tf.Tensor = 0.0,
     stddev: float | tf.Tensor = 1.0,
-    dtype: tf.dtypes.float16 | tf.dtypes.bfloat16 | tf.dtypes.float32 | tf.dtypes.float64 = ...,
+    dtype: DTypeLike = ...,
     name: str | None = None,
     alg: _Alg = "auto_select",
 ) -> tf.Tensor: ...
@@ -204,7 +204,7 @@ def stateless_poisson(
     shape: tf.Tensor | Sequence[int],
     seed: tuple[int, int] | tf.Tensor,
     lam: tf.Tensor,
-    dtype: DTypeInt | DTypeFloat = ...,
+    dtype: DTypeLike = ...,
     name: str | None = None,
 ) -> tf.Tensor: ...
 def stateless_truncated_normal(
@@ -212,7 +212,7 @@ def stateless_truncated_normal(
     seed: tuple[int, int] | tf.Tensor,
     mean: float | tf.Tensor = 0.0,
     stddev: float | tf.Tensor = 1.0,
-    dtype: DTypeFloat = ...,
+    dtype: DTypeLike = ...,
     name: str | None = None,
     alg: _Alg = "auto_select",
 ) -> tf.Tensor: ...
@@ -221,14 +221,7 @@ def stateless_uniform(
     seed: tuple[int, int] | tf.Tensor,
     minval: float | tf.Tensor = 0.0,
     maxval: float | tf.Tensor | None = None,
-    dtype: tf.dtypes.float16
-    | tf.dtypes.bfloat16
-    | tf.dtypes.float32
-    | tf.dtypes.float64
-    | tf.dtypes.int32
-    | tf.dtypes.int64
-    | tf.dtypes.uint32
-    | tf.dtypes.uint64 = ...,
+    dtype: DTypeLike = ...,
     name: str | None = None,
     alg: _Alg = "auto_select",
 ) -> tf.Tensor: ...
@@ -236,7 +229,7 @@ def truncated_normal(
     shape: tf.Tensor | Sequence[int],
     mean: float | tf.Tensor = 0.0,
     stddev: float | tf.Tensor = 1.0,
-    dtype: DTypeFloat = ...,
+    dtype: DTypeLike = ...,
     seed: int | None = None,
     name: str | None = None,
 ) -> tf.Tensor: ...
@@ -244,12 +237,7 @@ def uniform(
     shape: tf.Tensor | Sequence[int],
     minval: float | tf.Tensor = 0.0,
     maxval: float | tf.Tensor | None = None,
-    dtype: tf.dtypes.float16
-    | tf.dtypes.bfloat16
-    | tf.dtypes.float32
-    | tf.dtypes.float64
-    | tf.dtypes.int32
-    | tf.dtypes.int64 = ...,
+    dtype: DTypeLike = ...,
     seed: int | None = None,
     name: str | None = None,
 ) -> tf.Tensor: ...

@@ -40,11 +40,6 @@ TensorCompatible: TypeAlias = ScalarTensorCompatible | Sequence[TensorCompatible
 # use TensorCompatible instead.
 SparseTensorCompatible: TypeAlias = TensorCompatible | tf.SparseTensor
 
-DTypeSignedInt: TypeAlias = tf.dtypes.int8 | tf.dtypes.int16 | tf.dtypes.int32 | tf.dtypes.int64
-DTypeUInt: TypeAlias = tf.dtypes.uint8 | tf.dtypes.uint16 | tf.dtypes.uint32 | tf.dtypes.uint64
-DTypeInt: TypeAlias = DTypeSignedInt | DTypeUInt
-DTypeFloat: TypeAlias = tf.dtypes.float16 | tf.dtypes.float32 | tf.dtypes.float64
-
 ShapeLike: TypeAlias = tf.TensorShape | Iterable[ScalarTensorCompatible | None] | int | tf.Tensor
 DTypeLike: TypeAlias = tf.DType | str | np.dtype[Any] | int
 
