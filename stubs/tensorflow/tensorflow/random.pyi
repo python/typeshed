@@ -1,7 +1,10 @@
+from _typeshed import Incomplete
 from collections.abc import Sequence
 from enum import Enum
 from typing import Generic, Literal, TypeAlias, TypeVar
 
+import numpy as np
+import numpy.typing as npt
 import tensorflow as tf
 from tensorflow._aliases import DTypeLike, ScalarTensorCompatible, ShapeLike
 from tensorflow.python.trackable import autotrackable
@@ -78,6 +81,34 @@ class Generator(autotrackable.AutoTrackable, Generic[_STATE_TYPE]):
     def make_seeds(self, count: int = 1): ...
     def split(self, count: int = 1): ...
 
+def all_candidate_sampler(
+    true_classes: tf.Tensor, num_true: int, num_sampled: int, unique: bool, seed: int | None = None, name: str | None = None
+) -> tuple[tf.Tensor, tf.Tensor, tf.Tensor]: ...
+def categorical(
+    logits: tf.Tensor,
+    num_samples: int | tf.Tensor,
+    dtype: DTypeLike | None = None,
+    seed: int | None = None,
+    name: str | None = None,
+) -> tf.Tensor: ...
+def create_rng_state(
+    seed: int, alg: Literal[Algorithm.PHILOX, Algorithm.THREEFRY, Algorithm.AUTO_SELECT, "philox", "threefry", "auto_select"]
+) -> npt.NDArray[np.int64]: ...
+def fixed_unigram_candidate_sampler(
+    true_classes: tf.Tensor,
+    num_true: int,
+    num_sampled: int,
+    unique: bool,
+    range_max: int,
+    vocab_file: str = "",
+    distortion: float = 1.0,
+    num_reserved_ids: int = 0,
+    num_shards: int = 1,
+    shard: int = 0,
+    unigrams: Sequence[float] = (),
+    seed: int | None = None,
+    name: str | None = None,
+) -> tuple[tf.Tensor, tf.Tensor, tf.Tensor]: ...
 def uniform(
     shape: ShapeLike,
     minval: ScalarTensorCompatible = 0.0,
@@ -116,3 +147,4 @@ def poisson(
 ) -> tf.Tensor: ...
 def shuffle(value: tf.Tensor, seed: int | None = None, name: str | None = None) -> tf.Tensor: ...
 def set_seed(seed: int) -> None: ...
+def __getattr__(name: str) -> Incomplete: ...
