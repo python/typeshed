@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any, Generic, Literal, TypeVar, overload
-from typing_extensions import Self, TypeAlias, override
+from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
 from tensorflow import Tensor, Variable, VariableAggregation, VariableSynchronization
@@ -277,8 +277,8 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
-    @override  # type: ignore
-    @overload
+    # @override
+    @overload  # type: ignore
     def __call__(
         self,
         query: tf.Tensor,
