@@ -57,6 +57,7 @@ class Generator(autotrackable.AutoTrackable, Generic[_STATE_TYPE]):
     def skip(self, delta: int) -> tf.Tensor: ...
     def normal(
         self,
+        shape: tf.Tensor | Sequence[int],
         mean: ScalarTensorCompatible = 0.0,
         stddev: ScalarTensorCompatible = 1.0,
         dtype: DTypeLike = ...,
@@ -73,13 +74,15 @@ class Generator(autotrackable.AutoTrackable, Generic[_STATE_TYPE]):
     def uniform(
         self,
         shape: ShapeLike,
-        minval: ScalarTensorCompatible = 0.0,
+        minval: ScalarTensorCompatible = 0,
         maxval: ScalarTensorCompatible | None = None,
         dtype: DTypeLike = ...,
         name: str | None = None,
     ) -> tf.Tensor: ...
     def uniform_full_int(self, shape: ShapeLike, dtype: DTypeLike = ..., name: str | None = None) -> tf.Tensor: ...
-    def binomial(self, shape: ShapeLike, counts, probs, dtype: DTypeLike = ..., name: str | None = None) -> tf.Tensor: ...
+    def binomial(
+        self, shape: ShapeLike, counts: tf.Tensor, probs: tf.Tensor, dtype: DTypeLike = ..., name: str | None = None
+    ) -> tf.Tensor: ...
     def make_seeds(self, count: int = 1) -> tf.Tensor: ...
     def split(self, count: int = 1) -> list[Generator[_STATE_TYPE]]: ...
 
@@ -154,12 +157,12 @@ def normal(
     name: str | None = None,
 ) -> tf.Tensor: ...
 def poisson(
-    shape: ShapeLike, lam: ScalarTensorCompatible = 1.0, dtype: DTypeLike = ..., seed: int | None = None, name: str | None = None
+    shape: ShapeLike, lam: ScalarTensorCompatible, dtype: DTypeLike = ..., seed: int | None = None, name: str | None = None
 ) -> tf.Tensor: ...
 def set_global_generator(generator: Generator[Any]) -> None: ...
 def set_seed(seed: int) -> None: ...
 def shuffle(value: tf.Tensor, seed: int | None = None, name: str | None = None) -> tf.Tensor: ...
-def split(seed: tf.Tensor | Sequence[int], data: int = 2, alg: _Alg = "auto_select") -> tf.Tensor: ...
+def split(seed: tf.Tensor | Sequence[int], num: int = 2, alg: _Alg = "auto_select") -> tf.Tensor: ...
 def stateless_binomial(
     shape: ShapeLike,
     seed: tuple[int, int] | tf.Tensor,
@@ -195,8 +198,8 @@ def stateless_normal(
 def stateless_parameterized_truncated_normal(
     shape: tf.Tensor | Sequence[int],
     seed: tuple[int, int] | tf.Tensor,
-    mean: float | tf.Tensor = 0.0,
-    stddev: float | tf.Tensor = 1.0,
+    means: float | tf.Tensor = 0.0,
+    stddevs: float | tf.Tensor = 1.0,
     minvals: tf.Tensor | float = -2.0,
     maxvals: tf.Tensor | float = 2.0,
     name: str | None = None,
@@ -220,7 +223,7 @@ def stateless_truncated_normal(
 def stateless_uniform(
     shape: tf.Tensor | Sequence[int],
     seed: tuple[int, int] | tf.Tensor,
-    minval: float | tf.Tensor = 0.0,
+    minval: float | tf.Tensor = 0,
     maxval: float | tf.Tensor | None = None,
     dtype: DTypeLike = ...,
     name: str | None = None,
@@ -236,7 +239,7 @@ def truncated_normal(
 ) -> tf.Tensor: ...
 def uniform(
     shape: tf.Tensor | Sequence[int],
-    minval: float | tf.Tensor = 0.0,
+    minval: float | tf.Tensor = 0,
     maxval: float | tf.Tensor | None = None,
     dtype: DTypeLike = ...,
     seed: int | None = None,
