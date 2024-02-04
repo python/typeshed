@@ -3,7 +3,7 @@ from typing_extensions import Self
 
 import tensorflow as tf
 from tensorflow._aliases import ShapeLike
-from tensorflow.python.feature_column.feature_column_v2 import FeatureColumn, SequenceDenseColumn, _ExampleSpec
+from tensorflow.python.feature_column.feature_column_v2 import SequenceDenseColumn, _ExampleSpec, _FeatureColumn
 
 # Strangely at runtime most of Sequence feature columns are defined in feature_column_v2 except
 # for this one.
@@ -27,4 +27,4 @@ class SequenceNumericColumn(SequenceDenseColumn):
     @property
     def parse_example_spec(self) -> _ExampleSpec: ...
     @property
-    def parents(self) -> list[FeatureColumn | str]: ...
+    def parents(self) -> list[_FeatureColumn | str]: ...
