@@ -226,7 +226,7 @@ class Dataset(ABC, Generic[_T1]):
     @overload
     @staticmethod
     def zip(
-        *args: Collection[Dataset[Any]] | ContainerGeneric[Dataset[Any]], name: str | None = None
+        *args: Dataset[Any] | Collection[Dataset[Any]] | ContainerGeneric[Dataset[Any]], name: str | None = None
     ) -> Dataset[tuple[Any, ...]]: ...
     @overload
     @staticmethod
