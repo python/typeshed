@@ -1,6 +1,7 @@
 from collections.abc import Sequence
 from enum import Enum
-from typing import Any, Generic, Literal, TypeAlias, TypeVar
+from typing import Any, Generic, Literal, TypeVar
+from typing_extensions import TypeAlias
 
 import numpy as np
 import numpy.typing as npt
@@ -9,7 +10,7 @@ from tensorflow._aliases import DTypeLike, ScalarTensorCompatible, ShapeLike
 from tensorflow.python.trackable import autotrackable
 
 _STATE_TYPE = TypeVar("_STATE_TYPE")
-_State: TypeAlias = Sequence[_STATE_TYPE]
+_State = Sequence
 
 class Algorithm(Enum):
     PHILOX = 1
