@@ -1,6 +1,6 @@
 from collections.abc import Sequence
 from enum import Enum
-from typing import Any, Literal
+from typing import Literal
 from typing_extensions import TypeAlias
 
 import numpy as np
@@ -18,30 +18,16 @@ _Alg: TypeAlias = Literal[Algorithm.PHILOX, Algorithm.THREEFRY, Algorithm.AUTO_S
 
 class Generator(autotrackable.AutoTrackable):
     @classmethod
-    def from_state(
-        cls, state: tf.Variable, alg: Literal[Algorithm.PHILOX, Algorithm.THREEFRY, "philox", "threefry"] | None
-    ) -> Generator: ...
+    def from_state(cls, state: tf.Variable, alg: _Alg | None) -> Generator: ...
     @classmethod
-    def from_seed(
-        cls, seed: int, alg: Literal[Algorithm.PHILOX, Algorithm.THREEFRY, "philox", "threefry"] | None = None
-    ) -> Generator: ...
+    def from_seed(cls, seed: int, alg: _Alg | None = None) -> Generator: ...
     @classmethod
-    def from_non_deterministic_state(
-        cls, alg: Literal[Algorithm.PHILOX, Algorithm.THREEFRY, "philox", "threefry"] | None = None
-    ) -> Generator: ...
+    def from_non_deterministic_state(cls, alg: _Alg | None = None) -> Generator: ...
     @classmethod
     def from_key_counter(
-        cls,
-        key: ScalarTensorCompatible,
-        counter: Sequence[ScalarTensorCompatible],
-        alg: Literal[Algorithm.PHILOX, Algorithm.THREEFRY, "philox", "threefry"] | None,
+        cls, key: ScalarTensorCompatible, counter: Sequence[ScalarTensorCompatible], alg: _Alg | None
     ) -> Generator: ...
-    def __init__(
-        self,
-        copy_from: Generator | None = None,
-        state: tf.Variable | None = None,
-        alg: Literal[Algorithm.PHILOX, Algorithm.THREEFRY, "philox", "threefry"] | None = None,
-    ) -> None: ...
+    def __init__(self, copy_from: Generator | None = None, state: tf.Variable | None = None, alg: _Alg | None = None) -> None: ...
     def reset(self, state: tf.Variable) -> None: ...
     def reset_from_seed(self, seed: int) -> None: ...
     def reset_from_key_counter(self, key: ScalarTensorCompatible, counter: tf.Variable) -> None: ...
@@ -93,9 +79,7 @@ def categorical(
     seed: int | None = None,
     name: str | None = None,
 ) -> tf.Tensor: ...
-def create_rng_state(
-    seed: int, alg: Literal[Algorithm.PHILOX, Algorithm.THREEFRY, Algorithm.AUTO_SELECT, "philox", "threefry", "auto_select"]
-) -> npt.NDArray[np.int64]: ...
+def create_rng_state(seed: int, alg: _Alg) -> npt.NDArray[np.int64]: ...
 def fixed_unigram_candidate_sampler(
     true_classes: tf.Tensor,
     num_true: int,
@@ -111,13 +95,7 @@ def fixed_unigram_candidate_sampler(
     seed: int | None = None,
     name: str | None = None,
 ) -> tuple[tf.Tensor, tf.Tensor, tf.Tensor]: ...
-def fold_in(
-    seed: tf.Tensor | Sequence[int],
-    data: int,
-    alg: Literal[
-        Algorithm.PHILOX, Algorithm.THREEFRY, Algorithm.AUTO_SELECT, "philox", "threefry", "auto_select"
-    ] = "auto_select",
-) -> int: ...
+def fold_in(seed: tf.Tensor | Sequence[int], data: int, alg: _Alg = "auto_select") -> int: ...
 def gamma(
     shape: tf.Tensor | Sequence[int],
     alpha: tf.Tensor | float | Sequence[float],
