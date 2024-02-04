@@ -13,7 +13,7 @@ class Mesh:
         local_devices: list[Incomplete | str],
         mesh_name: str = "",
         global_devices: list[Incomplete | str] | None = None,
-        use_xla_spmd: bool = True,
+        use_xla_spmd: bool = False,
     ) -> None: ...
 
 def __getattr__(name: str) -> Incomplete: ...

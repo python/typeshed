@@ -1,3 +1,4 @@
+import abc
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterator
 from contextlib import AbstractContextManager, contextmanager
@@ -9,7 +10,7 @@ import numpy.typing as npt
 import tensorflow as tf
 from tensorflow.experimental.dtensor import Mesh
 
-class SummaryWriter:
+class SummaryWriter(metaclass=abc.ABCMeta):
     def as_default(self, step: int | None = None) -> AbstractContextManager[Self]: ...
     def close(self) -> None: ...
     def flush(self) -> None: ...
@@ -44,6 +45,7 @@ def image(
     name: str,
     data: tf.Tensor | npt.NDArray[np.uint8 | np.number[Any]],
     step: int | tf.Tensor | None = None,
+    max_outputs: int | None = 3,
     description: str | None = None,
 ) -> bool: ...
 @contextmanager
