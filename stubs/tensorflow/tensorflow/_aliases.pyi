@@ -29,7 +29,7 @@ KerasSerializable: TypeAlias = KerasSerializable1 | KerasSerializable2
 
 Slice: TypeAlias = int | slice | None
 FloatDataSequence: TypeAlias = Sequence[float] | Sequence[FloatDataSequence]
-IntDataSequence: TypeAlias = Sequence[int] | Sequence[FloatDataSequence]
+IntDataSequence: TypeAlias = Sequence[int] | Sequence[IntDataSequence]
 StrDataSequence: TypeAlias = Sequence[str] | Sequence[StrDataSequence]
 ScalarTensorCompatible: TypeAlias = tf.Tensor | str | float | np.ndarray[Any, Any] | np.number[Any]
 
