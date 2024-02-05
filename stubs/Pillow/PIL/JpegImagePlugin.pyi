@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from typing import ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from .ImageFile import ImageFile
 
@@ -16,7 +15,6 @@ class JpegImageFile(ImageFile):
     format: ClassVar[Literal["JPEG", "MPO"]]
     format_description: ClassVar[str]
     def load_read(self, read_bytes): ...
-    mode: Incomplete
     tile: Incomplete
     decoderconfig: Incomplete
     def draft(self, mode, size): ...

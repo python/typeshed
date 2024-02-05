@@ -17,7 +17,8 @@ import textwrap
 import urllib.parse
 import zipfile
 from collections.abc import Iterator, Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from http import HTTPStatus
 from pathlib import Path
 from typing import Annotated, Any, ClassVar, NamedTuple
 from typing_extensions import Self, TypeAlias
@@ -28,6 +29,11 @@ import packaging.version
 import tomli
 import tomlkit
 from termcolor import colored
+
+TYPESHED_OWNER = "python"
+TYPESHED_API_URL = f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed"
+
+STUBSABOT_LABEL = "stubsabot"
 
 
 class ActionLevel(enum.IntEnum):
@@ -73,6 +79,7 @@ def read_typeshed_stub_metadata(stub_path: Path) -> StubInfo:
 
 @dataclass
 class PypiReleaseDownload:
+    distribution: str
     url: str
     packagetype: Annotated[str, "Should hopefully be either 'bdist_wheel' or 'sdist'"]
     filename: str
@@ -99,13 +106,14 @@ def _best_effort_version(version: VersionString) -> packaging.version.Version:
 class PypiInfo:
     distribution: str
     pypi_root: str
-    releases: dict[VersionString, list[ReleaseDownload]]
-    info: dict[str, Any]
+    releases: dict[VersionString, list[ReleaseDownload]] = field(repr=False)
+    info: dict[str, Any] = field(repr=False)
 
     def get_release(self, *, version: VersionString) -> PypiReleaseDownload:
         # prefer wheels, since it's what most users will get / it's pretty easy to mess up MANIFEST
         release_info = sorted(self.releases[version], key=lambda x: bool(x["packagetype"] == "bdist_wheel"))[-1]
         return PypiReleaseDownload(
+            distribution=self.distribution,
             url=release_info["url"],
             packagetype=release_info["packagetype"],
             filename=release_info["filename"],
@@ -164,6 +172,33 @@ class NoUpdate:
         return f"Skipping {self.distribution}: {self.reason}"
 
 
+def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfile.TarFile) -> bool:
+    py_typed_dirs: list[Path] = []
+    all_python_files: list[Path] = []
+    py_file_suffixes = {".py", ".pyi"}
+
+    if isinstance(source, zipfile.ZipFile):
+        path_iter = (Path(zip_info.filename) for zip_info in source.infolist() if not zip_info.is_dir())
+    else:
+        path_iter = (Path(tar_info.path) for tar_info in source if tar_info.isfile())
+
+    for path in path_iter:
+        if path.suffix in py_file_suffixes:
+            all_python_files.append(path)
+        elif path.name == "py.typed":
+            py_typed_dirs.append(path.parent)
+
+    if not py_typed_dirs:
+        return False
+    if not all_python_files:
+        return False
+
+    for path in all_python_files:
+        if not any(py_typed_dir in path.parents for py_typed_dir in py_typed_dirs):
+            return False
+    return True
+
+
 async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *, session: aiohttp.ClientSession) -> bool:
     async with session.get(release_to_download.url) as response:
         body = io.BytesIO(await response.read())
@@ -172,13 +207,13 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
     if packagetype == "bdist_wheel":
         assert release_to_download.filename.endswith(".whl")
         with zipfile.ZipFile(body) as zf:
-            return any(Path(f).name == "py.typed" for f in zf.namelist())
+            return all_py_files_in_source_are_in_py_typed_dirs(zf)
     elif packagetype == "sdist":
         assert release_to_download.filename.endswith(".tar.gz")
         with tarfile.open(fileobj=body, mode="r:gz") as zf:
-            return any(Path(f).name == "py.typed" for f in zf.getnames())
+            return all_py_files_in_source_are_in_py_typed_dirs(zf)
     else:
-        raise AssertionError(f"Unknown package type: {packagetype!r}")
+        raise AssertionError(f"Unknown package type for {release_to_download.distribution}: {packagetype!r}")
 
 
 async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
@@ -217,7 +252,7 @@ def get_updated_version_spec(spec: str, version: packaging.version.Version) -> s
     spec="1.1.1.*", version="1.2.3" -> "1.2.3.*"
     """
     if not spec.endswith(".*"):
-        return _check_spec(version.base_version, version)
+        return _check_spec(str(version), version)
 
     specificity = spec.count(".") if spec.removesuffix(".*") else 0
     rounded_version = version.base_version.split(".")[:specificity]
@@ -238,7 +273,7 @@ def get_github_api_headers() -> Mapping[str, str]:
 @dataclass
 class GithubInfo:
     repo_path: str
-    tags: list[dict[str, Any]]
+    tags: list[dict[str, Any]] = field(repr=False)
 
 
 async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubInfo) -> GithubInfo | None:
@@ -249,16 +284,18 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubIn
     Else, return None.
     """
     if stub_info.upstream_repository:
+        # We have various sanity checks for the upstream_repository field in tests/parse_metadata.py,
+        # so no need to repeat all of them here
         split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
-        if split_url.netloc == "github.com" and not split_url.query and not split_url.fragment:
+        if split_url.netloc == "github.com":
             url_path = split_url.path.strip("/")
-            if len(Path(url_path).parts) == 2:
-                github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
-                async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
-                    if response.status == 200:
-                        tags: list[dict[str, Any]] = await response.json()
-                        assert isinstance(tags, list)
-                        return GithubInfo(repo_path=url_path, tags=tags)
+            assert len(Path(url_path).parts) == 2
+            github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
+            async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
+                if response.status == 200:
+                    tags: list[dict[str, Any]] = await response.json()
+                    assert isinstance(tags, list)
+                    return GithubInfo(repo_path=url_path, tags=tags)
     return None
 
 
@@ -305,9 +342,6 @@ async def get_diff_info(
         old_tag = versions_to_tags[old_version]
 
     diff_url = f"https://github.com/{github_info.repo_path}/compare/{old_tag}...{new_tag}"
-    async with session.get(diff_url, headers=get_github_api_headers()) as response:
-        # Double-check we're returning a valid URL here
-        response.raise_for_status()
     return GithubDiffInfo(repo_path=github_info.repo_path, old_tag=old_tag, new_tag=new_tag, diff_url=diff_url)
 
 
@@ -318,7 +352,7 @@ def _plural_s(num: int, /) -> str:
     return "s" if num != 1 else ""
 
 
-@dataclass
+@dataclass(repr=False)
 class DiffAnalysis:
     MAXIMUM_NUMBER_OF_FILES_TO_LIST: ClassVar[int] = 7
     py_files: list[FileInfo]
@@ -482,9 +516,6 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
     )
 
 
-TYPESHED_OWNER = "python"
-
-
 @functools.lru_cache()
 def get_origin_owner() -> str:
     output = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True).strip()
@@ -498,32 +529,51 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
     fork_owner = get_origin_owner()
 
     async with session.post(
-        f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls",
+        f"{TYPESHED_API_URL}/pulls",
         json={"title": title, "body": body, "head": f"{fork_owner}:{branch_name}", "base": "main"},
         headers=get_github_api_headers(),
     ) as response:
         resp_json = await response.json()
-        if response.status == 422 and any(
+        if response.status == HTTPStatus.CREATED:
+            pr_number = resp_json["number"]
+            assert isinstance(pr_number, int)
+        elif response.status == HTTPStatus.UNPROCESSABLE_ENTITY and any(
             "A pull request already exists" in e.get("message", "") for e in resp_json.get("errors", [])
         ):
-            # Find the existing PR
-            async with session.get(
-                f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls",
-                params={"state": "open", "head": f"{fork_owner}:{branch_name}", "base": "main"},
-                headers=get_github_api_headers(),
-            ) as response:
-                response.raise_for_status()
-                resp_json = await response.json()
-                assert len(resp_json) >= 1
-                pr_number = resp_json[0]["number"]
-            # Update the PR's title and body
-            async with session.patch(
-                f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed/pulls/{pr_number}",
-                json={"title": title, "body": body},
-                headers=get_github_api_headers(),
-            ) as response:
-                response.raise_for_status()
-            return
+            pr_number = await update_existing_pull_request(title=title, body=body, branch_name=branch_name, session=session)
+        else:
+            response.raise_for_status()
+            raise AssertionError(f"Unexpected response: {response.status}")
+    await update_pull_request_label(pr_number=pr_number, session=session)
+
+
+async def update_existing_pull_request(*, title: str, body: str, branch_name: str, session: aiohttp.ClientSession) -> int:
+    fork_owner = get_origin_owner()
+
+    # Find the existing PR
+    async with session.get(
+        f"{TYPESHED_API_URL}/pulls",
+        params={"state": "open", "head": f"{fork_owner}:{branch_name}", "base": "main"},
+        headers=get_github_api_headers(),
+    ) as response:
+        response.raise_for_status()
+        resp_json = await response.json()
+        assert len(resp_json) >= 1
+        pr_number = resp_json[0]["number"]
+        assert isinstance(pr_number, int)
+    # Update the PR's title and body
+    async with session.patch(
+        f"{TYPESHED_API_URL}/pulls/{pr_number}", json={"title": title, "body": body}, headers=get_github_api_headers()
+    ) as response:
+        response.raise_for_status()
+    return pr_number
+
+
+async def update_pull_request_label(*, pr_number: int, session: aiohttp.ClientSession) -> None:
+    # There is no pulls/.../labels endpoint, which is why we need to use the issues endpoint.
+    async with session.post(
+        f"{TYPESHED_API_URL}/issues/{pr_number}/labels", json={"labels": [STUBSABOT_LABEL]}, headers=get_github_api_headers()
+    ) as response:
         response.raise_for_status()
 
 
@@ -692,7 +742,13 @@ async def main() -> None:
         default=None,
         help="Limit number of actions performed and the remainder are logged. Useful for testing",
     )
+    parser.add_argument("distributions", nargs="*", help="Distributions to update, default = all")
     args = parser.parse_args()
+
+    if args.distributions:
+        paths_to_update = [Path("stubs") / distribution for distribution in args.distributions]
+    else:
+        paths_to_update = list(Path("stubs").iterdir())
 
     if args.action_level > ActionLevel.nothing:
         subprocess.run(["git", "update-index", "--refresh"], capture_output=True)
@@ -717,7 +773,7 @@ async def main() -> None:
         ["git", "branch", "--show-current"], text=True, capture_output=True, check=True
     ).stdout.strip()
 
-    if args.action_level >= ActionLevel.fork:
+    if args.action_level >= ActionLevel.local:
         subprocess.check_call(["git", "fetch", "--prune", "--all"])
 
     try:
@@ -725,7 +781,7 @@ async def main() -> None:
         async with aiohttp.ClientSession(connector=conn) as session:
             tasks = [
                 asyncio.create_task(determine_action(stubs_path, session))
-                for stubs_path in Path("stubs").iterdir()
+                for stubs_path in paths_to_update
                 if stubs_path.name not in denylist
             ]
 
@@ -757,7 +813,7 @@ async def main() -> None:
     finally:
         # if you need to cleanup, try:
         # git branch -D $(git branch --list 'stubsabot/*')
-        if args.action_level >= ActionLevel.local:
+        if args.action_level >= ActionLevel.local and original_branch:
             subprocess.check_call(["git", "checkout", original_branch])
 
 

@@ -1,3 +1,14 @@
+# Loop variables leaked in global scope
+openpyxl.utils.cell.col
+openpyxl.utils.cell.i
+
+# Unintended re-export from star-import
+openpyxl.chart.marker.DRAWING_NS
+openpyxl.chart.marker.PRESET_COLORS
+openpyxl.chart.shapes.DRAWING_NS
+openpyxl.chart.shapes.PRESET_COLORS
+openpyxl.descriptors.DEBUG
+
 # The actual runtime definition depends on what else is installed
 # (lxml, defusedxml, et_xmlfile)
 openpyxl.xml._functions_overloads
@@ -30,8 +41,11 @@ openpyxl\.descriptors\.(base\.)?MinMax\.allow_none
 openpyxl\.descriptors\.(base\.)?String\.allow_none
 openpyxl\.descriptors\.(base\.)?Typed\.allow_none
 
-# "has a default value but stub argument does not"
-# Runtime has default arguments that would fail
+# Inconsistent methods because
+# - using the default value results in an error because of the runtime type-guards
+# - or, keyword arguments are explicitly specified
+openpyxl.cell.Cell.__init__
+openpyxl.cell.cell.Cell.__init__
 openpyxl.cell.text.PhoneticProperties.__init__
 openpyxl.cell.text.PhoneticText.__init__
 openpyxl.chart.axis._BaseAxis.__init__
@@ -98,6 +112,9 @@ openpyxl.drawing.text.GeomGuide.__init__
 openpyxl.drawing.text.PresetTextShape.__init__
 openpyxl.drawing.text.TextField.__init__
 openpyxl.drawing.text.TextNormalAutofit.__init__
+openpyxl.formatting.rule.DataBar.__init__
+openpyxl.packaging.core.QualifiedDateTime.to_tree
+openpyxl.packaging.relationship.get_rel
 openpyxl.packaging.relationship.Relationship.__init__
 openpyxl.packaging.workbook.ChildSheet.__init__
 openpyxl.packaging.workbook.PivotCache.__init__
@@ -143,6 +160,7 @@ openpyxl.pivot.table.PivotFilter.__init__
 openpyxl.pivot.table.PivotFilters.__init__
 openpyxl.pivot.table.RowColField.__init__
 openpyxl.pivot.table.TableDefinition.__init__
+openpyxl.styles.colors.RgbColor.__init__
 openpyxl.styles.named_styles._NamedCellStyle.__init__
 openpyxl.styles.numbers.NumberFormat.__init__
 openpyxl.styles.table.TableStyle.__init__

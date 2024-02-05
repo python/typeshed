@@ -1,8 +1,9 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from _typeshed import ConvertibleToInt, Incomplete, Unused
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
-from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl import _VisibilityType
+from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedString
 from openpyxl.descriptors.serialisable import Serialisable
@@ -12,8 +13,8 @@ from openpyxl.workbook.properties import CalcProperties, FileVersion, WorkbookPr
 from openpyxl.workbook.protection import FileSharing, WorkbookProtection
 from openpyxl.workbook.smart_tags import SmartTagList, SmartTagProperties
 from openpyxl.workbook.web import WebPublishing, WebPublishObjectList
+from openpyxl.xml.functions import Element
 
-_ChildSheetState: TypeAlias = Literal["visible", "hidden", "veryHidden"]
 _WorkbookPackageConformance: TypeAlias = Literal["strict", "transitional"]
 
 class FileRecoveryProperties(Serialisable):
@@ -34,13 +35,13 @@ class ChildSheet(Serialisable):
     tagname: ClassVar[str]
     name: String[Literal[False]]
     sheetId: Integer[Literal[False]]
-    state: NoneSet[_ChildSheetState]
+    state: NoneSet[_VisibilityType]
     id: Incomplete
     def __init__(
         self,
         name: str,
-        sheetId: _ConvertibleToInt,
-        state: _ChildSheetState | Literal["none"] | None = "visible",
+        sheetId: ConvertibleToInt,
+        state: _VisibilityType | Literal["none"] | None = "visible",
         id: Incomplete | None = None,
     ) -> None: ...
 
@@ -48,7 +49,7 @@ class PivotCache(Serialisable):
     tagname: ClassVar[str]
     cacheId: Integer[Literal[False]]
     id: Incomplete
-    def __init__(self, cacheId: _ConvertibleToInt, id: Incomplete | None = None) -> None: ...
+    def __init__(self, cacheId: ConvertibleToInt, id: Incomplete | None = None) -> None: ...
 
 class WorkbookPackage(Serialisable):
     tagname: ClassVar[str]
@@ -99,6 +100,6 @@ class WorkbookPackage(Serialisable):
         extLst: Unused = None,
         Ignorable: Unused = None,
     ) -> None: ...
-    def to_tree(self): ...
+    def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
-    def active(self): ...
+    def active(self) -> int: ...

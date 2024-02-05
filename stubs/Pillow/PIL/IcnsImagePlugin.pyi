@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from typing import ClassVar
-from typing_extensions import Final, Literal
+from typing import ClassVar, Final, Literal
 
 from ._imaging import _PixelAccessor
 from .ImageFile import ImageFile
@@ -34,5 +33,4 @@ class IcnsImageFile(ImageFile):
     def size(self, value) -> None: ...
     best_size: Incomplete
     im: Incomplete
-    mode: Incomplete
     def load(self) -> _PixelAccessor: ...

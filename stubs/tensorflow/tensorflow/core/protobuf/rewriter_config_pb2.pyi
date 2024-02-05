@@ -4,14 +4,15 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
 import tensorflow.core.framework.attr_value_pb2
 import tensorflow.core.protobuf.verifier_config_pb2
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -67,7 +68,7 @@ class RewriterConfig(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ToggleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RewriterConfig._Toggle.ValueType], builtins.type):  # noqa: F821
+    class _ToggleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RewriterConfig._Toggle.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT: RewriterConfig._Toggle.ValueType  # 0
         ON: RewriterConfig._Toggle.ValueType  # 1
@@ -115,7 +116,7 @@ class RewriterConfig(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _CpuLayoutEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RewriterConfig._CpuLayout.ValueType], builtins.type):  # noqa: F821
+    class _CpuLayoutEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RewriterConfig._CpuLayout.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         NO_CONVERSION_ON_CPU: RewriterConfig._CpuLayout.ValueType  # 0
         NCHW_TO_NHWC: RewriterConfig._CpuLayout.ValueType  # 1
@@ -132,7 +133,7 @@ class RewriterConfig(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _NumIterationsTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RewriterConfig._NumIterationsType.ValueType], builtins.type):  # noqa: F821
+    class _NumIterationsTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RewriterConfig._NumIterationsType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT_NUM_ITERS: RewriterConfig._NumIterationsType.ValueType  # 0
         ONE: RewriterConfig._NumIterationsType.ValueType  # 1
@@ -151,7 +152,7 @@ class RewriterConfig(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _MemOptTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RewriterConfig._MemOptType.ValueType], builtins.type):  # noqa: F821
+    class _MemOptTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RewriterConfig._MemOptType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT_MEM_OPT: RewriterConfig._MemOptType.ValueType  # 0
         """The default setting (SCHEDULING and SWAPPING HEURISTICS only)"""
