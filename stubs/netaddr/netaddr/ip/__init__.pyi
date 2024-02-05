@@ -1,8 +1,8 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
 from abc import abstractmethod
 from collections.abc import Iterable, Iterator
-from typing import SupportsInt, overload
-from typing_extensions import Literal, Self, SupportsIndex, TypeAlias
+from typing import Literal, SupportsIndex, SupportsInt, overload
+from typing_extensions import Self, TypeAlias
 
 from netaddr.core import DictDotLookup
 from netaddr.strategy.ipv6 import ipv6_verbose
@@ -77,6 +77,10 @@ class IPAddress(BaseIP):
     def __lshift__(self, numbits: int) -> Self: ...
     def __rshift__(self, numbits: int) -> Self: ...
     def __bool__(self) -> bool: ...
+    def to_canonical(self) -> Self: ...
+    def is_global(self) -> bool: ...
+    def is_ipv4_private_use(self) -> bool: ...
+    def is_ipv6_unique_local(self) -> bool: ...
 
 class IPListMixin:
     def __iter__(self) -> Iterator[IPAddress]: ...
@@ -162,13 +166,19 @@ def largest_matching_cidr(ip: _IPAddressAddr, cidrs: Iterable[_IPNetworkAddr]) -
 def all_matching_cidrs(ip: _IPAddressAddr, cidrs: Iterable[_IPNetworkAddr]) -> list[IPNetwork]: ...
 
 IPV4_LOOPBACK: IPNetwork
-IPV4_PRIVATE: tuple[IPNetwork | IPRange, ...]
+IPV4_PRIVATE_USE: list[IPNetwork]
+IPV4_PRIVATEISH: tuple[IPNetwork | IPRange, ...]
 IPV4_LINK_LOCAL: IPNetwork
 IPV4_MULTICAST: IPNetwork
 IPV4_6TO4: IPNetwork
 IPV4_RESERVED: tuple[IPNetwork | IPRange, ...]
+IPV4_NOT_GLOBALLY_REACHABLE: list[IPNetwork]
+IPV4_NOT_GLOBALLY_REACHABLE_EXCEPTIONS: list[IPNetwork]
 IPV6_LOOPBACK: IPNetwork
-IPV6_PRIVATE: tuple[IPNetwork, ...]
+IPV6_UNIQUE_LOCAL: IPNetwork
+IPV6_PRIVATEISH: tuple[IPNetwork, ...]
 IPV6_LINK_LOCAL: IPNetwork
 IPV6_MULTICAST: IPNetwork
 IPV6_RESERVED: tuple[IPNetwork, ...]
+IPV6_NOT_GLOBALLY_REACHABLE: list[IPNetwork]
+IPV6_NOT_GLOBALLY_REACHABLE_EXCEPTIONS: list[IPNetwork]

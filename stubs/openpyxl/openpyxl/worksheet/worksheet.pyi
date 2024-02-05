@@ -2,8 +2,7 @@ from _typeshed import ConvertibleToInt, Incomplete
 from collections.abc import Generator, Iterable, Iterator
 from datetime import datetime
 from types import GeneratorType
-from typing import Any, NoReturn, overload
-from typing_extensions import Final, Literal
+from typing import Any, Final, Literal, NoReturn, overload
 
 from openpyxl import _Decodable, _VisibilityType
 from openpyxl.cell import _CellValue
@@ -232,11 +231,13 @@ class Worksheet(_WorkbookChild):
     ) -> None: ...
     def append(
         self,
-        iterable: list[Incomplete]
-        | tuple[Incomplete, ...]
-        | range
-        | GeneratorType[Incomplete, object, object]
-        | dict[int | str, Incomplete],
+        iterable: (
+            list[Incomplete]
+            | tuple[Incomplete, ...]
+            | range
+            | GeneratorType[Incomplete, object, object]
+            | dict[int | str, Incomplete]
+        ),
     ) -> None: ...
     def insert_rows(self, idx: int, amount: int = 1) -> None: ...
     def insert_cols(self, idx: int, amount: int = 1) -> None: ...

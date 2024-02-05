@@ -20,3 +20,11 @@ def foo(x: int, y: str) -> None:
 
 root.after(1000, foo, 10, "lol")
 root.after(1000, foo, 10, 10)  # type: ignore
+
+
+# Font size must be integer
+label = tkinter.Label()
+label.config(font=("", 12))
+label.config(font=("", 12.34))  # type: ignore
+label.config(font=("", 12, "bold"))
+label.config(font=("", 12.34, "bold"))  # type: ignore
