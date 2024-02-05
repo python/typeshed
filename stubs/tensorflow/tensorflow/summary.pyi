@@ -2,12 +2,11 @@ import abc
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterator
 from contextlib import AbstractContextManager, contextmanager
-from typing import Any, Literal
+from typing import Literal
 from typing_extensions import Self
 
-import numpy as np
-import numpy.typing as npt
 import tensorflow as tf
+from tensorflow._aliases import FloatArray, IntArray, UIntArray
 from tensorflow.experimental.dtensor import Mesh
 
 class SummaryWriter(metaclass=abc.ABCMeta):
@@ -43,7 +42,7 @@ def histogram(
 ) -> bool: ...
 def image(
     name: str,
-    data: tf.Tensor | npt.NDArray[np.uint8 | np.number[Any]],
+    data: tf.Tensor | FloatArray | IntArray | UIntArray,
     step: int | tf.Tensor | None = None,
     max_outputs: int | None = 3,
     description: str | None = None,
