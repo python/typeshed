@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from typing import ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from ._imaging import _PixelAccessor
 from .ImageFile import ImageFile
@@ -23,6 +22,5 @@ class IcoImageFile(ImageFile):
     @size.setter
     def size(self, value) -> None: ...
     im: Incomplete
-    mode: Incomplete
     def load(self) -> _PixelAccessor: ...
     def load_seek(self) -> None: ...

@@ -4,12 +4,13 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -28,7 +29,7 @@ class TPUHardwareFeature(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _EmbeddingFeatureEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUHardwareFeature._EmbeddingFeature.ValueType], builtins.type):  # noqa: F821
+    class _EmbeddingFeatureEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUHardwareFeature._EmbeddingFeature.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNSUPPORTED: TPUHardwareFeature._EmbeddingFeature.ValueType  # 0
         """No embedding lookup accelerator available on the tpu."""

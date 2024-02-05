@@ -1,8 +1,0 @@
-_?curses.color_pair
-mmap.MAP_STACK
-(os|posix).setresgid
-(os|posix).setresuid
-(os|posix).sendfile
-signal.sigtimedwait
-signal.sigwaitinfo
-xxlimited.Xxo.x_exports

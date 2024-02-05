@@ -1,14 +1,14 @@
 import datetime as dt
-from _typeshed import Incomplete, ReadableBuffer, SupportsRead, SupportsReadline, SupportsTrunc, SupportsWrite, Unused
+from _typeshed import ConvertibleToInt, Incomplete, SupportsRead, SupportsReadline, SupportsWrite, Unused
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
-from typing import Any, NoReturn, Protocol, SupportsInt, TypeVar, overload, type_check_only
-from typing_extensions import Literal, Self, SupportsIndex, TypeAlias
+from typing import Any, Literal, NoReturn, Protocol, TypeVar, overload, type_check_only
+from typing_extensions import Self, TypeAlias
 
+from psycopg2.extras import ReplicationCursor as extras_ReplicationCursor
 from psycopg2.sql import Composable
 
 _Vars: TypeAlias = Sequence[Any] | Mapping[str, Any] | None
-_AcceptedByInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
 
 @type_check_only
 class _type:
@@ -83,8 +83,7 @@ threadsafety: int
 
 __libpq_version__: int
 
-class _SupportsReadAndReadline(SupportsRead[str], SupportsReadline[str]): ...
-class _SupportsReadAndReadlineAndWrite(_SupportsReadAndReadline, SupportsWrite[str]): ...
+class _SupportsReadAndReadline(SupportsRead[str], SupportsReadline[str], Protocol): ...
 
 class cursor:
     arraysize: int
@@ -120,7 +119,9 @@ class cursor:
     def callproc(self, __procname: str | bytes, __parameters: _Vars = None) -> None: ...
     def cast(self, __oid: int, __s: str | bytes) -> Any: ...
     def close(self) -> None: ...
-    def copy_expert(self, sql: str | bytes | Composable, file: _SupportsReadAndReadlineAndWrite, size: int = 8192) -> None: ...
+    def copy_expert(
+        self, sql: str | bytes | Composable, file: _SupportsReadAndReadline | SupportsWrite[str], size: int = 8192
+    ) -> None: ...
     def copy_from(
         self,
         file: _SupportsReadAndReadline,
@@ -138,7 +139,7 @@ class cursor:
     def fetchall(self) -> list[tuple[Any, ...]]: ...
     def fetchmany(self, size: int | None = None) -> list[tuple[Any, ...]]: ...
     def fetchone(self) -> tuple[Any, ...] | None: ...
-    def mogrify(self, query: str | bytes, vars: _Vars | None = None) -> bytes: ...
+    def mogrify(self, query: str | bytes | Composable, vars: _Vars | None = None) -> bytes: ...
     def nextset(self) -> NoReturn: ...  # not supported
     def scroll(self, value: int, mode: Literal["absolute", "relative"] = "relative") -> None: ...
     def setinputsizes(self, sizes: Unused) -> None: ...
@@ -321,7 +322,7 @@ class Float:
     def __conform__(self, __proto) -> Self | None: ...
 
 class Int:
-    def __init__(self, __value: _AcceptedByInt, **kwargs: Unused) -> None: ...
+    def __init__(self, __value: ConvertibleToInt, **kwargs: Unused) -> None: ...
     @property
     def adapted(self) -> Any: ...
     def getquoted(self) -> bytes: ...
@@ -412,7 +413,7 @@ class connection:
     def binary_types(self) -> dict[Incomplete, Incomplete]: ...
     @property
     def closed(self) -> int: ...
-    cursor_factory: Callable[..., _Cursor]
+    cursor_factory: Callable[[connection, str | bytes | None], cursor]
     @property
     def dsn(self) -> str: ...
     @property
@@ -452,13 +453,13 @@ class connection:
     @overload
     def cursor(
         self, name: str | bytes | None = None, cursor_factory: None = None, withhold: bool = False, scrollable: bool | None = None
-    ) -> _Cursor: ...
+    ) -> cursor: ...
     @overload
     def cursor(
         self,
         name: str | bytes | None = None,
         *,
-        cursor_factory: Callable[..., _T_cur],
+        cursor_factory: Callable[[connection, str | bytes | None], _T_cur],
         withhold: bool = False,
         scrollable: bool | None = None,
     ) -> _T_cur: ...
@@ -466,7 +467,7 @@ class connection:
     def cursor(
         self,
         name: str | bytes | None,
-        cursor_factory: Callable[..., _T_cur],
+        cursor_factory: Callable[[connection, str | bytes | None], _T_cur],
         withhold: bool = False,
         scrollable: bool | None = None,
     ) -> _T_cur: ...
@@ -516,6 +517,30 @@ class ReplicationConnection(connection):
     set_isolation_level: Any
     set_session: Any
     def __init__(self, *args, **kwargs) -> None: ...
+    # https://github.com/python/typeshed/issues/11282
+    # The return type should be exactly extras.ReplicationCursor (not _psycopg.ReplicationCursor)
+    # See the C code: replicationConnection_init(), psyco_conn_cursor()
+    @overload
+    def cursor(
+        self, name: str | bytes | None = None, cursor_factory: None = None, withhold: bool = False, scrollable: bool | None = None
+    ) -> extras_ReplicationCursor: ...
+    @overload
+    def cursor(
+        self,
+        name: str | bytes | None = None,
+        *,
+        cursor_factory: Callable[[connection, str | bytes | None], _T_cur],
+        withhold: bool = False,
+        scrollable: bool | None = None,
+    ) -> _T_cur: ...
+    @overload
+    def cursor(
+        self,
+        name: str | bytes | None,
+        cursor_factory: Callable[[connection, str | bytes | None], _T_cur],
+        withhold: bool = False,
+        scrollable: bool | None = None,
+    ) -> _T_cur: ...
 
 class lobject:
     closed: Any

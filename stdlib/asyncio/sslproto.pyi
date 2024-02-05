@@ -3,8 +3,8 @@ import sys
 from collections import deque
 from collections.abc import Callable
 from enum import Enum
-from typing import Any, ClassVar
-from typing_extensions import Literal, TypeAlias
+from typing import Any, ClassVar, Literal
+from typing_extensions import TypeAlias
 
 from . import constants, events, futures, protocols, transports
 
@@ -25,6 +25,7 @@ if sys.version_info >= (3, 11):
         STATE_CON_MADE: str
         STATE_EOF: str
         STATE_CON_LOST: str
+
     def add_flowcontrol_defaults(high: int | None, low: int | None, kb: int) -> tuple[int, int]: ...
 
 else:
@@ -82,6 +83,8 @@ class _SSLProtocolTransport(transports._FlowControlMixin, transports.Transport):
         def get_read_buffer_limits(self) -> tuple[int, int]: ...
         def set_read_buffer_limits(self, high: int | None = None, low: int | None = None) -> None: ...
         def get_read_buffer_size(self) -> int: ...
+
+    def __del__(self) -> None: ...
 
 if sys.version_info >= (3, 11):
     _SSLProtocolBase: TypeAlias = protocols.BufferedProtocol

@@ -30,9 +30,9 @@ from typing import (  # noqa: Y022,Y038,Y057
     Sized as Sized,
     TypeVar,
     ValuesView as ValuesView,
+    final,
     runtime_checkable,
 )
-from typing_extensions import final
 
 __all__ = [
     "Awaitable",
@@ -81,7 +81,7 @@ class dict_values(ValuesView[_VT_co], Generic[_KT_co, _VT_co]):  # undocumented
         def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
 
 @final
-class dict_items(ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):  # undocumented
+class dict_items(ItemsView[_KT_co, _VT_co]):  # undocumented
     def __eq__(self, __value: object) -> bool: ...
     if sys.version_info >= (3, 10):
         @property

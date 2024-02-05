@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from logging import Logger
-from typing import Any, Protocol, overload
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing import Any, Literal, Protocol, TypedDict, overload
+from typing_extensions import TypeAlias
 
 import requests
 from oauthlib.oauth2 import Client
@@ -71,7 +71,7 @@ class OAuth2Session(requests.Session):
     def access_token(self) -> None: ...
     @property
     def authorized(self) -> bool: ...
-    def authorization_url(self, url: str, state: Incomplete | None = None, **kwargs) -> str: ...
+    def authorization_url(self, url: str, state: Incomplete | None = None, **kwargs) -> tuple[str, str]: ...
     def fetch_token(
         self,
         token_url: str,

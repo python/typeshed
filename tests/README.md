@@ -104,7 +104,8 @@ the stubs in typeshed (including the standard library).
 ## regr\_test.py
 
 This test runs mypy against the test cases for typeshed's stdlib and third-party
-stubs. See the README in the `test_cases` directory for more information about what
+stubs. See [the README in the `test_cases` directory](../test_cases/README.md)
+for more information about what
 these test cases are for and how they work. Run `python tests/regr_test.py --help`
 for information on the various configuration options.
 
@@ -131,6 +132,12 @@ in CI do not account for. If you run into this issue, consider opening a draft P
 test it automatically (or
 [running the test via Github Actions](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow#running-a-workflow)
 on your typeshed fork).
+
+As a convenience, stubtest\_stdlib.py will look for local-only allowlist files
+and use those if they are present. Only version-specific local allowlists are supported.
+An example local allowlist file is
+`tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
+the CI run of stubtest remains canonical.
 
 If you need a specific version of Python to repro a CI failure,
 [pyenv](https://github.com/pyenv/pyenv) can also help.

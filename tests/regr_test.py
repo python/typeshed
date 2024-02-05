@@ -41,7 +41,7 @@ VENV_DIR = ".venv"
 TYPESHED = "typeshed"
 
 SUPPORTED_PLATFORMS = ["linux", "darwin", "win32"]
-SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8", "3.7"]
+SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8"]
 
 
 def package_with_test_cases(package_name: str) -> PackageInfo:
@@ -69,7 +69,10 @@ parser.add_argument(
     type=package_with_test_cases,
     nargs="*",
     action="extend",
-    help="Test only these packages (defaults to all typeshed stubs that have test cases)",
+    help=(
+        "Test only these packages (defaults to all typeshed stubs that have test cases). "
+        'Use "stdlib" to test the standard library test cases.'
+    ),
 )
 parser.add_argument(
     "--all",
@@ -174,6 +177,9 @@ def run_testcases(
         platform,
         "--strict",
         "--pretty",
+        # Avoid race conditions when reading the cache
+        # (https://github.com/python/typeshed/issues/11220)
+        "--no-incremental",
     ]
 
     if package.is_stdlib:

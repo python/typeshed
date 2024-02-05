@@ -1,8 +1,8 @@
 from collections.abc import Callable
 from contextvars import Context
 from types import FrameType, TracebackType
-from typing import Any, Protocol, overload
-from typing_extensions import Literal, TypeAlias
+from typing import Any, Literal, Protocol, overload
+from typing_extensions import TypeAlias
 
 _TraceEvent: TypeAlias = Literal["switch", "throw"]
 _TraceCallback: TypeAlias = Callable[[_TraceEvent, tuple[greenlet, greenlet]], object]
@@ -62,6 +62,10 @@ class greenlet:
     def gettrace() -> _TraceCallback | None: ...
     @staticmethod
     def settrace(__callback: _TraceCallback | None) -> _TraceCallback | None: ...
+
+class UnswitchableGreenlet(greenlet):  # undocumented
+    force_switch_error: bool
+    force_slp_switch_error: bool
 
 def enable_optional_cleanup(__enabled: bool) -> None: ...
 def get_clocks_used_doing_optional_cleanup() -> int: ...

@@ -5,9 +5,10 @@ Protocol messages for describing input data Examples for machine learning
 model training or inference.
 """
 import builtins
+import sys
+
 import google.protobuf.descriptor
 import google.protobuf.message
-import sys
 import tensorflow.core.example.feature_pb2
 
 if sys.version_info >= (3, 8):
