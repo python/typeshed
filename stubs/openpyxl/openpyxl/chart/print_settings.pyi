@@ -1,13 +1,13 @@
-from typing import ClassVar
-from typing_extensions import Literal
+from _typeshed import ConvertibleToFloat
+from typing import ClassVar, Literal
 
-from openpyxl.descriptors.base import Alias, Float, Typed, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Float, Typed
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.header_footer import HeaderFooter
 from openpyxl.worksheet.page import PrintPageSetup
 
 class PageMargins(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     l: Float[Literal[False]]
     left: Alias
     r: Float[Literal[False]]
@@ -20,16 +20,16 @@ class PageMargins(Serialisable):
     footer: Float[Literal[False]]
     def __init__(
         self,
-        l: _ConvertibleToFloat = 0.75,
-        r: _ConvertibleToFloat = 0.75,
-        t: _ConvertibleToFloat = 1,
-        b: _ConvertibleToFloat = 1,
-        header: _ConvertibleToFloat = 0.5,
-        footer: _ConvertibleToFloat = 0.5,
+        l: ConvertibleToFloat = 0.75,
+        r: ConvertibleToFloat = 0.75,
+        t: ConvertibleToFloat = 1,
+        b: ConvertibleToFloat = 1,
+        header: ConvertibleToFloat = 0.5,
+        footer: ConvertibleToFloat = 0.5,
     ) -> None: ...
 
 class PrintSettings(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     headerFooter: Typed[HeaderFooter, Literal[True]]
     pageMargins: Typed[PageMargins, Literal[True]]
     pageSetup: Typed[PrintPageSetup, Literal[True]]

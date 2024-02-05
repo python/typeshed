@@ -1,19 +1,17 @@
-from _typeshed import Incomplete
-from typing import ClassVar, overload
-from typing_extensions import Literal, TypeAlias
+from _typeshed import ConvertibleToInt, Incomplete
+from typing import ClassVar, Literal, overload
 
-from openpyxl.descriptors.base import Bool, Integer, Set, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl import _VisibilityType
+from openpyxl.descriptors.base import Bool, Integer, Set, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.header_footer import HeaderFooter
 from openpyxl.worksheet.page import PageMargins, PrintPageSetup
 
-_CustomChartsheetViewState: TypeAlias = Literal["visible", "hidden", "veryHidden"]
-
 class CustomChartsheetView(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     guid: Incomplete
     scale: Integer[Literal[False]]
-    state: Set[_CustomChartsheetViewState]
+    state: Set[_VisibilityType]
     zoomToFit: Bool[Literal[True]]
     pageMargins: Typed[PageMargins, Literal[True]]
     pageSetup: Typed[PrintPageSetup, Literal[True]]
@@ -24,8 +22,8 @@ class CustomChartsheetView(Serialisable):
         self,
         guid: Incomplete | None = None,
         *,
-        scale: _ConvertibleToInt,
-        state: _CustomChartsheetViewState = "visible",
+        scale: ConvertibleToInt,
+        state: _VisibilityType = "visible",
         zoomToFit: _ConvertibleToBool | None = None,
         pageMargins: PageMargins | None = None,
         pageSetup: PrintPageSetup | None = None,
@@ -35,8 +33,8 @@ class CustomChartsheetView(Serialisable):
     def __init__(
         self,
         guid: Incomplete | None,
-        scale: _ConvertibleToInt,
-        state: _CustomChartsheetViewState = "visible",
+        scale: ConvertibleToInt,
+        state: _VisibilityType = "visible",
         zoomToFit: _ConvertibleToBool | None = None,
         pageMargins: PageMargins | None = None,
         pageSetup: PrintPageSetup | None = None,
@@ -44,7 +42,7 @@ class CustomChartsheetView(Serialisable):
     ) -> None: ...
 
 class CustomChartsheetViews(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     customSheetView: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, customSheetView: Incomplete | None = None) -> None: ...

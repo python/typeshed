@@ -1,18 +1,17 @@
-from _typeshed import Incomplete
-from typing import ClassVar, overload
-from typing_extensions import Literal
+from _typeshed import ConvertibleToInt, Incomplete
+from typing import ClassVar, Literal, overload
 
-from openpyxl.descriptors.base import Bool, Integer, String, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class CellSmartTagPr(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     key: String[Literal[False]]
     val: String[Literal[False]]
     def __init__(self, key: str, val: str) -> None: ...
 
 class CellSmartTag(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     cellSmartTagPr: Incomplete
     type: Integer[Literal[False]]
     deleted: Bool[Literal[True]]
@@ -23,7 +22,7 @@ class CellSmartTag(Serialisable):
         self,
         cellSmartTagPr=(),
         *,
-        type: _ConvertibleToInt,
+        type: ConvertibleToInt,
         deleted: _ConvertibleToBool | None = False,
         xmlBased: _ConvertibleToBool | None = False,
     ) -> None: ...
@@ -31,20 +30,20 @@ class CellSmartTag(Serialisable):
     def __init__(
         self,
         cellSmartTagPr,
-        type: _ConvertibleToInt,
+        type: ConvertibleToInt,
         deleted: _ConvertibleToBool | None = False,
         xmlBased: _ConvertibleToBool | None = False,
     ) -> None: ...
 
 class CellSmartTags(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     cellSmartTag: Incomplete
     r: String[Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, cellSmartTag, r: str) -> None: ...
 
 class SmartTags(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     cellSmartTags: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, cellSmartTags=()) -> None: ...

@@ -1,6 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from openpyxl.chart.axis import ChartLines, NumericAxis, TextAxis
 from openpyxl.chart.label import DataLabelList
@@ -11,7 +10,7 @@ from openpyxl.descriptors.excel import ExtensionList
 from ._chart import ChartBase
 
 class StockChart(ChartBase):
-    tagname: str
+    tagname: ClassVar[str]
     ser: Incomplete
     dLbls: Typed[DataLabelList, Literal[True]]
     dataLabels: Alias

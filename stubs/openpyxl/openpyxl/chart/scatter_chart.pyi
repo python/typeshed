@@ -1,18 +1,22 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
 from openpyxl.chart.axis import NumericAxis, TextAxis
 from openpyxl.chart.label import DataLabelList
-from openpyxl.descriptors.base import Alias, Typed
+from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
+from openpyxl.descriptors.nested import NestedBool, NestedNoneSet, _NestedNoneSetParam
 
+from ..xml._functions_overloads import _HasTagAndGet
 from ._chart import ChartBase as ChartBase
 
+_ScatterChartScatterStyle: TypeAlias = Literal["line", "lineMarker", "marker", "smooth", "smoothMarker"]
+
 class ScatterChart(ChartBase):
-    tagname: str
-    scatterStyle: Incomplete
-    varyColors: Incomplete
+    tagname: ClassVar[str]
+    scatterStyle: NestedNoneSet[_ScatterChartScatterStyle]
+    varyColors: NestedBool[Literal[True]]
     ser: Incomplete
     dLbls: Typed[DataLabelList, Literal[True]]
     dataLabels: Alias
@@ -22,8 +26,8 @@ class ScatterChart(ChartBase):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        scatterStyle: Incomplete | None = None,
-        varyColors: Incomplete | None = None,
+        scatterStyle: _NestedNoneSetParam[_ScatterChartScatterStyle] = None,
+        varyColors: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         ser=(),
         dLbls: DataLabelList | None = None,
         extLst: Unused = None,

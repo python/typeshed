@@ -1,39 +1,42 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import ConvertibleToInt, Incomplete, Unused
 from array import array
-from typing import ClassVar
-from typing_extensions import Literal
+from collections.abc import Iterable, MutableSequence
+from typing import ClassVar, Generic, Literal, TypeVar
+from typing_extensions import Self
 
-from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import Bool, Integer, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.alignment import Alignment
 from openpyxl.styles.protection import Protection
 
-class ArrayDescriptor:
-    key: Incomplete
-    def __init__(self, key) -> None: ...
-    def __get__(self, instance: Serialisable | Strict, cls: Unused): ...
-    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
+_T = TypeVar("_T")
 
-class StyleArray(array[Incomplete]):
-    tagname: str
-    fontId: Incomplete
-    fillId: Incomplete
-    borderId: Incomplete
-    numFmtId: Incomplete
-    protectionId: Incomplete
-    alignmentId: Incomplete
-    pivotButton: Incomplete
-    quotePrefix: Incomplete
-    xfId: Incomplete
-    def __new__(cls, args=[0, 0, 0, 0, 0, 0, 0, 0, 0]): ...
+class ArrayDescriptor(Generic[_T]):
+    key: int
+    def __init__(self, key: int) -> None: ...
+    def __get__(self, instance: MutableSequence[_T], cls: Unused) -> _T: ...
+    def __set__(self, instance: MutableSequence[_T], value: _T) -> None: ...
+
+class StyleArray(array[int]):
+    tagname: ClassVar[str]
+    fontId: ArrayDescriptor[int]
+    fillId: ArrayDescriptor[int]
+    borderId: ArrayDescriptor[int]
+    numFmtId: ArrayDescriptor[int]
+    protectionId: ArrayDescriptor[int]
+    alignmentId: ArrayDescriptor[int]
+    pivotButton: ArrayDescriptor[int]
+    quotePrefix: ArrayDescriptor[int]
+    xfId: ArrayDescriptor[int]
+    def __new__(cls, args: bytes | bytearray | Iterable[int] = [0, 0, 0, 0, 0, 0, 0, 0, 0]) -> Self: ...
+    def __init__(self, args: bytes | bytearray | Iterable[int] = [0, 0, 0, 0, 0, 0, 0, 0, 0]) -> None: ...
     def __hash__(self) -> int: ...
-    def __copy__(self): ...
-    def __deepcopy__(self, memo): ...
+    def __copy__(self) -> StyleArray: ...
+    def __deepcopy__(self, memo: Unused) -> StyleArray: ...
 
 class CellStyle(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     numFmtId: Integer[Literal[False]]
     fontId: Integer[Literal[False]]
     fillId: Integer[Literal[False]]
@@ -55,11 +58,11 @@ class CellStyle(Serialisable):
     __attrs__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        numFmtId: _ConvertibleToInt = 0,
-        fontId: _ConvertibleToInt = 0,
-        fillId: _ConvertibleToInt = 0,
-        borderId: _ConvertibleToInt = 0,
-        xfId: _ConvertibleToInt | None = None,
+        numFmtId: ConvertibleToInt = 0,
+        fontId: ConvertibleToInt = 0,
+        fillId: ConvertibleToInt = 0,
+        borderId: ConvertibleToInt = 0,
+        xfId: ConvertibleToInt | None = None,
         quotePrefix: _ConvertibleToBool | None = None,
         pivotButton: _ConvertibleToBool | None = None,
         applyNumberFormat: _ConvertibleToBool | None = None,
@@ -76,12 +79,12 @@ class CellStyle(Serialisable):
     @classmethod
     def from_array(cls, style): ...
     @property
-    def applyProtection(self): ...
+    def applyProtection(self) -> Literal[True] | None: ...
     @property
-    def applyAlignment(self): ...
+    def applyAlignment(self) -> Literal[True] | None: ...
 
 class CellStyleList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     __attrs__: ClassVar[tuple[str, ...]]
     # Overwritten by property below
     # count: Integer
@@ -91,5 +94,5 @@ class CellStyleList(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Unused = None, xf=()) -> None: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...
     def __getitem__(self, idx): ...

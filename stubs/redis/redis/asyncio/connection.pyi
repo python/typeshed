@@ -3,8 +3,8 @@ import enum
 import ssl
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping
-from typing import Any, Protocol, overload
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing import Any, Literal, Protocol, TypedDict, overload
+from typing_extensions import TypeAlias
 
 from redis import RedisError
 from redis.asyncio.retry import Retry
@@ -42,7 +42,6 @@ ExceptionMappingT: TypeAlias = Mapping[str, type[Exception] | Mapping[str, type[
 class BaseParser:
     EXCEPTION_CLASSES: ExceptionMappingT
     def __init__(self, socket_read_size: int) -> None: ...
-    def __del__(self) -> None: ...
     @classmethod
     def parse_error(cls, response: str) -> ResponseError: ...
     def on_disconnect(self) -> None: ...
@@ -61,7 +60,7 @@ class HiredisParser(BaseParser):
     def on_connect(self, connection: Connection): ...
     def on_disconnect(self) -> None: ...
     async def read_from_socket(self) -> Literal[True]: ...
-    async def read_response(self, disable_decoding: bool = False) -> EncodableT | list[EncodableT]: ...  # type: ignore[override]
+    async def read_response(self, disable_decoding: bool = False) -> EncodableT | list[EncodableT]: ...
 
 DefaultParser: type[PythonParser | HiredisParser]
 
@@ -81,8 +80,8 @@ class Connection:
     username: Any
     client_name: Any
     password: Any
-    socket_timeout: Any
-    socket_connect_timeout: Any
+    socket_timeout: float | None
+    socket_connect_timeout: float | None
     socket_keepalive: Any
     socket_keepalive_options: Any
     socket_type: Any
@@ -122,7 +121,6 @@ class Connection:
         credential_provider: CredentialProvider | None = None,
     ) -> None: ...
     def repr_pieces(self): ...
-    def __del__(self) -> None: ...
     @property
     def is_connected(self): ...
     def register_connect_callback(self, callback) -> None: ...
@@ -196,8 +194,6 @@ class UnixDomainSocketConnection(Connection):
     username: Any
     client_name: Any
     password: Any
-    socket_timeout: Any
-    socket_connect_timeout: Any
     retry_on_timeout: Any
     retry_on_error: list[type[RedisError]]
     retry: Any

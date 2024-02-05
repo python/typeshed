@@ -1,13 +1,13 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.xml.functions import Element
 
 class Record(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     m: Incomplete
     n: Incomplete
     b: Incomplete
@@ -30,14 +30,14 @@ class Record(Serialisable):
 class RecordList(Serialisable):
     mime_type: str
     rel_type: str
-    tagname: str
+    tagname: ClassVar[str]
     r: Incomplete
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     __attrs__: ClassVar[tuple[str, ...]]
     def __init__(self, count: Unused = None, r=(), extLst: ExtensionList | None = None) -> None: ...
     @property
-    def count(self): ...
-    def to_tree(self): ...
+    def count(self) -> int: ...
+    def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
-    def path(self): ...
+    def path(self) -> str: ...

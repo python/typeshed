@@ -1,5 +1,5 @@
-version = "9.5.*"
-partial_stub = true
+version = "10.2.*"
+upstream_repository = "https://github.com/python-pillow/Pillow"
 
 [tool.stubtest]
 stubtest_requirements = ["olefile"]

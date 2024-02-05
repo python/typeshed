@@ -1,8 +1,8 @@
-from _typeshed import Incomplete
-from typing import ClassVar, overload
-from typing_extensions import Literal, TypeAlias
+from _typeshed import ConvertibleToInt, Incomplete
+from typing import ClassVar, Literal, overload
+from typing_extensions import TypeAlias
 
-from openpyxl.descriptors.base import Bool, Integer, Set, String, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, Set, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 _WebPublishItemSourceType: TypeAlias = Literal[
@@ -10,7 +10,7 @@ _WebPublishItemSourceType: TypeAlias = Literal[
 ]
 
 class WebPublishItem(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     id: Integer[Literal[False]]
     divId: String[Literal[False]]
     sourceType: Set[_WebPublishItemSourceType]
@@ -22,7 +22,7 @@ class WebPublishItem(Serialisable):
     @overload
     def __init__(
         self,
-        id: _ConvertibleToInt,
+        id: ConvertibleToInt,
         divId: str,
         sourceType: _WebPublishItemSourceType,
         sourceRef: str,
@@ -35,7 +35,7 @@ class WebPublishItem(Serialisable):
     @overload
     def __init__(
         self,
-        id: _ConvertibleToInt,
+        id: ConvertibleToInt,
         divId: str,
         sourceType: _WebPublishItemSourceType,
         sourceRef: str,
@@ -46,8 +46,8 @@ class WebPublishItem(Serialisable):
     ) -> None: ...
 
 class WebPublishItems(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     count: Integer[Literal[True]]
     webPublishItem: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, count: _ConvertibleToInt | None = None, webPublishItem: Incomplete | None = None) -> None: ...
+    def __init__(self, count: ConvertibleToInt | None = None, webPublishItem: Incomplete | None = None) -> None: ...

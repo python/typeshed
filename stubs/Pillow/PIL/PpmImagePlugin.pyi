@@ -1,10 +1,10 @@
-from typing import Any, ClassVar
-from typing_extensions import Literal
+from _typeshed import Incomplete
+from typing import ClassVar, Literal
 
 from .ImageFile import ImageFile, PyDecoder
 
 b_whitespace: bytes
-MODES: Any
+MODES: Incomplete
 
 class PpmImageFile(ImageFile):
     format: ClassVar[Literal["PPM"]]

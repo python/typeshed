@@ -1,13 +1,12 @@
-from _typeshed import Incomplete
-from typing import ClassVar
-from typing_extensions import Literal
+from _typeshed import ConvertibleToInt, Incomplete
+from typing import ClassVar, Literal
 
-from openpyxl.descriptors.base import Bool, Integer, String, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.protection import _Protected
 
 class ChartsheetProtection(Serialisable, _Protected):
-    tagname: str
+    tagname: ClassVar[str]
     algorithmName: String[Literal[True]]
     hashValue: Incomplete
     saltValue: Incomplete
@@ -21,7 +20,7 @@ class ChartsheetProtection(Serialisable, _Protected):
         content: _ConvertibleToBool | None = None,
         objects: _ConvertibleToBool | None = None,
         hashValue: Incomplete | None = None,
-        spinCount: _ConvertibleToInt | None = None,
+        spinCount: ConvertibleToInt | None = None,
         saltValue: Incomplete | None = None,
         algorithmName: str | None = None,
         password: Incomplete | None = None,

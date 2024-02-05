@@ -1,12 +1,9 @@
 from _typeshed import Incomplete
-from typing import TypeVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from . import Integer, MatchPattern, MinMax, Strict, String
+from .base import _M, _N
 from .serialisable import Serialisable
-
-_N = TypeVar("_N", bound=bool)
-_M = TypeVar("_M", int, float)
 
 class HexBinary(MatchPattern[str, Incomplete]):
     pattern: str
@@ -36,7 +33,7 @@ class ExtensionList(Serialisable):
     def __init__(self, ext=()) -> None: ...
 
 class Relation(String[Incomplete]):
-    namespace: Incomplete
+    namespace: ClassVar[str]
     allow_none: bool
 
 class Base64Binary(MatchPattern[str, Incomplete]):

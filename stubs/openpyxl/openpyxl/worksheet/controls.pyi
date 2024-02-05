@@ -1,13 +1,12 @@
-from _typeshed import Incomplete
-from typing import ClassVar, overload
-from typing_extensions import Literal
+from _typeshed import ConvertibleToInt, Incomplete
+from typing import ClassVar, Literal, overload
 
-from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.ole import ObjectAnchor
 
 class ControlProperty(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     anchor: Typed[ObjectAnchor, Literal[False]]
     locked: Bool[Literal[True]]
     defaultSize: Bool[Literal[True]]
@@ -46,20 +45,20 @@ class ControlProperty(Serialisable):
     ) -> None: ...
 
 class Control(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     controlPr: Typed[ControlProperty, Literal[True]]
     shapeId: Integer[Literal[False]]
     name: String[Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     @overload
     def __init__(
-        self, controlPr: ControlProperty | None = None, *, shapeId: _ConvertibleToInt, name: str | None = None
+        self, controlPr: ControlProperty | None = None, *, shapeId: ConvertibleToInt, name: str | None = None
     ) -> None: ...
     @overload
-    def __init__(self, controlPr: ControlProperty | None, shapeId: _ConvertibleToInt, name: str | None = None) -> None: ...
+    def __init__(self, controlPr: ControlProperty | None, shapeId: ConvertibleToInt, name: str | None = None) -> None: ...
 
 class Controls(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     control: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, control=()) -> None: ...

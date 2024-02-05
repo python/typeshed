@@ -1,8 +1,8 @@
-from _typeshed import Incomplete
-from typing import ClassVar, overload
-from typing_extensions import Literal, TypeAlias
+from _typeshed import ConvertibleToInt, Incomplete
+from typing import ClassVar, Literal, overload
+from typing_extensions import TypeAlias
 
-from openpyxl.descriptors.base import Bool, Integer, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.spreadsheet_drawing import AnchorMarker
 
@@ -10,7 +10,7 @@ _OleObjectDvAspect: TypeAlias = Literal["DVASPECT_CONTENT", "DVASPECT_ICON"]
 _OleObjectOleUpdate: TypeAlias = Literal["OLEUPDATE_ALWAYS", "OLEUPDATE_ONCALL"]
 
 class ObjectAnchor(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     _from: Typed[AnchorMarker, Literal[False]]  # Not private. Avoids name clash
     to: Typed[AnchorMarker, Literal[False]]
     moveWithCells: Bool[Literal[True]]
@@ -22,11 +22,11 @@ class ObjectAnchor(Serialisable):
         to: AnchorMarker,
         moveWithCells: _ConvertibleToBool | None = False,
         sizeWithCells: _ConvertibleToBool | None = False,
-        z_order: _ConvertibleToInt | None = None,
+        z_order: ConvertibleToInt | None = None,
     ) -> None: ...
 
 class ObjectPr(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     anchor: Typed[ObjectAnchor, Literal[False]]
     locked: Bool[Literal[True]]
     defaultSize: Bool[Literal[True]]
@@ -75,7 +75,7 @@ class ObjectPr(Serialisable):
     ) -> None: ...
 
 class OleObject(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     objectPr: Typed[ObjectPr, Literal[True]]
     progId: String[Literal[True]]
     dvAspect: Set[_OleObjectDvAspect]
@@ -94,7 +94,7 @@ class OleObject(Serialisable):
         *,
         oleUpdate: _OleObjectOleUpdate,
         autoLoad: _ConvertibleToBool | None = False,
-        shapeId: _ConvertibleToInt,
+        shapeId: ConvertibleToInt,
     ) -> None: ...
     @overload
     def __init__(
@@ -105,11 +105,11 @@ class OleObject(Serialisable):
         link: str | None,
         oleUpdate: _OleObjectOleUpdate,
         autoLoad: _ConvertibleToBool | None,
-        shapeId: _ConvertibleToInt,
+        shapeId: ConvertibleToInt,
     ) -> None: ...
 
 class OleObjects(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     oleObject: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, oleObject=()) -> None: ...
