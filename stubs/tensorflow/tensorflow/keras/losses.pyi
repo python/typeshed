@@ -1,11 +1,11 @@
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from collections.abc import Callable
-from typing import Any, TypeVar, overload
-from typing_extensions import Final, Literal, Self, TypeAlias, TypeGuard
+from typing import Any, Final, Literal, TypeVar, overload
+from typing_extensions import Self, TypeAlias, TypeGuard
 
-from tensorflow import Tensor, _TensorCompatible
-from tensorflow._aliases import KerasSerializable
+from tensorflow import Tensor
+from tensorflow._aliases import KerasSerializable, TensorCompatible
 from tensorflow.keras.metrics import (
     binary_crossentropy as binary_crossentropy,
     categorical_crossentropy as categorical_crossentropy,
@@ -21,7 +21,7 @@ class Loss(ABC):
     def from_config(cls, config: dict[str, Any]) -> Self: ...
     def get_config(self) -> dict[str, Any]: ...
     def __call__(
-        self, y_true: _TensorCompatible, y_pred: _TensorCompatible, sample_weight: _TensorCompatible | None = None
+        self, y_true: TensorCompatible, y_pred: TensorCompatible, sample_weight: TensorCompatible | None = None
     ) -> Tensor: ...
 
 class BinaryCrossentropy(Loss):
@@ -130,9 +130,9 @@ class Reduction:
 
 _ReductionValues: TypeAlias = Literal["auto", "none", "sum", "sum_over_batch_size"]
 
-def categorical_hinge(y_true: _TensorCompatible, y_pred: _TensorCompatible) -> Tensor: ...
-def huber(y_true: _TensorCompatible, y_pred: _TensorCompatible, delta: float = 1.0) -> Tensor: ...
-def log_cosh(y_true: _TensorCompatible, y_pred: _TensorCompatible) -> Tensor: ...
+def categorical_hinge(y_true: TensorCompatible, y_pred: TensorCompatible) -> Tensor: ...
+def huber(y_true: TensorCompatible, y_pred: TensorCompatible, delta: float = 1.0) -> Tensor: ...
+def log_cosh(y_true: TensorCompatible, y_pred: TensorCompatible) -> Tensor: ...
 def deserialize(
     name: str | dict[str, Any], custom_objects: dict[str, Any] | None = None, use_legacy_format: bool = False
 ) -> Loss: ...
