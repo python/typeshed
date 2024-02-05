@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from multiprocessing.pool import ApplyResult
-from typing import overload
-from typing_extensions import Literal
+from typing import Literal, overload
 
 from influxdb_client.domain.tasks import Tasks
 from influxdb_client.service._base_service import _BaseService
