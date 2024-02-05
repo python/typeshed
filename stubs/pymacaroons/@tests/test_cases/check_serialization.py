@@ -1,4 +1,5 @@
 """Checks for serialization, using pymacaroons tests."""
+
 from typing_extensions import assert_type
 
 from pymacaroons import Macaroon

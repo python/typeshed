@@ -3,6 +3,7 @@
 Based on the values passed in with pymacaroons's tests:
 https://github.com/ecordell/pymacaroons/tree/v0.13.0/tests
 """
+
 from typing import Union
 from typing_extensions import assert_type
 
