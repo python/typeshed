@@ -1,24 +1,24 @@
 from collections.abc import Iterator
 from re import Pattern
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import TypedDict
+from typing import Any, Generic, TypedDict, TypeVar, overload
 
 from markdown.core import Markdown
 
 _T = TypeVar("_T")
 
-BLOCK_LEVEL_ELEMENTS: Any
+BLOCK_LEVEL_ELEMENTS: list[str]
 STX: str
 ETX: str
-INLINE_PLACEHOLDER_PREFIX: Any
-INLINE_PLACEHOLDER: Any
+INLINE_PLACEHOLDER_PREFIX: str
+INLINE_PLACEHOLDER: str
 INLINE_PLACEHOLDER_RE: Pattern[str]
-AMP_SUBSTITUTE: Any
-HTML_PLACEHOLDER: Any
+AMP_SUBSTITUTE: str
+HTML_PLACEHOLDER: str
 HTML_PLACEHOLDER_RE: Pattern[str]
-TAG_PLACEHOLDER: Any
+TAG_PLACEHOLDER: str
 RTL_BIDI_RANGES: Any
 
+def get_installed_extensions(): ...
 def deprecated(message: str, stacklevel: int = 2): ...
 @overload
 def parseBoolValue(value: str) -> bool: ...

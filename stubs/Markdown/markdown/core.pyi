@@ -1,6 +1,6 @@
 from collections.abc import Callable, Mapping, Sequence
-from typing import Any, ClassVar, Protocol
-from typing_extensions import Literal, Self
+from typing import Any, ClassVar, Literal, Protocol
+from typing_extensions import Self
 from xml.etree.ElementTree import Element
 
 from . import blockparser, inlinepatterns, postprocessors, preprocessors, treeprocessors
@@ -21,7 +21,7 @@ class _ReadableStream(Protocol):
 
 class Markdown:
     preprocessors: Registry[preprocessors.Preprocessor]
-    inlinePatterns: Registry[inlinepatterns.InlineProcessor]
+    inlinePatterns: Registry[inlinepatterns.Pattern]
     treeprocessors: Registry[treeprocessors.Treeprocessor]
     postprocessors: Registry[postprocessors.Postprocessor]
     parser: blockparser.BlockParser
@@ -33,6 +33,8 @@ class Markdown:
     block_level_elements: list[str]
     registeredExtensions: list[Extension]
     ESCAPED_CHARS: list[str]
+    doc_tag: ClassVar[str]
+    stripTopLevelTags: bool
     def __init__(
         self,
         *,
