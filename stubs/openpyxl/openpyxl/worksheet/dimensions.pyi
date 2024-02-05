@@ -1,13 +1,14 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from collections.abc import Callable, Iterator
-from typing import ClassVar, Generic, TypeVar
-from typing_extensions import Literal, Self
+from typing import ClassVar, Generic, Literal, TypeVar
+from typing_extensions import Self
 
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.base import Alias, Bool, Float, Integer, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.styleable import StyleableObject
 from openpyxl.utils.bound_dictionary import BoundDictionary
+from openpyxl.utils.cell import _RangeBoundariesTuple
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.xml.functions import Element
 
@@ -21,7 +22,7 @@ class Dimension(Strict, StyleableObject):
     outlineLevel: Integer[Literal[True]]
     outline_level: Alias
     collapsed: Bool[Literal[False]]
-    style: Alias
+    style: Alias  # type: ignore[assignment]
 
     def __init__(
         self,
@@ -139,4 +140,4 @@ class SheetDimension(Serialisable):
     ref: String[Literal[False]]
     def __init__(self, ref: str) -> None: ...
     @property
-    def boundaries(self) -> tuple[int, int, int, int]: ...
+    def boundaries(self) -> _RangeBoundariesTuple: ...

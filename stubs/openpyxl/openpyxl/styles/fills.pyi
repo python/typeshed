@@ -1,12 +1,13 @@
-from _typeshed import ConvertibleToFloat, Incomplete
+from _typeshed import ConvertibleToFloat, Incomplete, Unused
 from collections.abc import Iterable, Iterator, Sequence as ABCSequence
-from typing import ClassVar
-from typing_extensions import Final, Literal, TypeAlias
+from typing import ClassVar, Final, Literal
+from typing_extensions import TypeAlias
 
 from openpyxl.descriptors import Sequence, Strict
 from openpyxl.descriptors.base import Alias, Float, MinMax, NoneSet, Set
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color, ColorDescriptor
+from openpyxl.xml.functions import Element
 
 from ..xml._functions_overloads import _SupportsIterAndAttribAndTextAndTag
 
@@ -76,7 +77,7 @@ class PatternFill(Fill):
         start_color: str | Color | None = None,
         end_color: str | Color | None = None,
     ) -> None: ...
-    def to_tree(self, tagname: str | None = None, idx: Incomplete | None = None): ...  # type: ignore[override]
+    def to_tree(self, tagname: Unused = None, idx: Unused = None) -> Element: ...  # type: ignore[override]
 
 DEFAULT_EMPTY_FILL: Final[PatternFill]
 DEFAULT_GRAY_FILL: Final[PatternFill]
@@ -112,4 +113,6 @@ class GradientFill(Fill):
         stop=(),
     ) -> None: ...
     def __iter__(self) -> Iterator[tuple[str, str]]: ...
-    def to_tree(self, tagname: str | None = None, namespace: str | None = None, idx: Incomplete | None = None): ...  # type: ignore[override]
+    def to_tree(  # type: ignore[override]
+        self, tagname: Unused = None, namespace: Unused = None, idx: Unused = None
+    ) -> Element: ...

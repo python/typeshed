@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToFloat, Incomplete, Unused
-from typing import ClassVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing import ClassVar, Literal, overload
+from typing_extensions import TypeAlias
 
 from openpyxl.chart._3d import Surface, View3D
 from openpyxl.chart.legend import Legend
@@ -15,6 +15,7 @@ from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedBool, NestedMinMax, NestedNoneSet, NestedString, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import ColorMapping
+from openpyxl.xml.functions import Element
 
 from ..xml._functions_overloads import _HasTagAndGet
 
@@ -140,4 +141,4 @@ class ChartSpace(Serialisable):
         userShapes: Incomplete | None = None,
         extLst: Unused = None,
     ) -> None: ...
-    def to_tree(self, tagname: Incomplete | None = None, idx: Incomplete | None = None, namespace: str | None = None): ...
+    def to_tree(self, tagname: Unused = None, idx: Unused = None, namespace: Unused = None) -> Element: ...

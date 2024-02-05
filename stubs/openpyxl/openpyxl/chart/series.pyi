@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
 from openpyxl.chart.data_source import AxDataSource, NumDataSource, StrRef
 from openpyxl.chart.error_bar import ErrorBars
@@ -13,6 +13,7 @@ from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedBool, NestedInteger, NestedNoneSet, NestedText, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.xml.functions import Element
 
 from ..xml._functions_overloads import _HasTagAndGet
 
@@ -82,7 +83,7 @@ class Series(Serialisable):
         explosion: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
         extLst: Unused = None,
     ) -> None: ...
-    def to_tree(self, tagname: str | None = None, idx: Incomplete | None = None): ...  # type: ignore[override]
+    def to_tree(self, tagname: str | None = None, idx: _HasTagAndGet[ConvertibleToInt] | ConvertibleToInt | None = None) -> Element: ...  # type: ignore[override]
 
 class XYSeries(Series):
     # Same as parent

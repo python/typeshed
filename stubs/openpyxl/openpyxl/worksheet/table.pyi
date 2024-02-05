@@ -1,13 +1,14 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
 from collections.abc import Iterator
-from typing import ClassVar, overload
-from typing_extensions import Final, Literal, Self, TypeAlias
+from typing import ClassVar, Final, Literal, overload
+from typing_extensions import Self, TypeAlias
 
 from openpyxl.descriptors import Strict, String
 from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable, _ChildSerialisableTreeElement
 from openpyxl.worksheet.filters import AutoFilter, SortState
+from openpyxl.xml.functions import Element
 
 _TableColumnTotalsRowFunction: TypeAlias = Literal[
     "sum", "min", "max", "average", "count", "countNums", "stdDev", "var", "custom"
@@ -196,7 +197,7 @@ class Table(Serialisable):
         tableStyleInfo: TableStyleInfo | None = None,
         extLst: Unused = None,
     ) -> None: ...
-    def to_tree(self): ...
+    def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
     def path(self) -> str: ...
     @property

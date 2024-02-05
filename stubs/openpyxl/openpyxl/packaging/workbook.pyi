@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
 from openpyxl import _VisibilityType
 from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool
@@ -13,6 +13,7 @@ from openpyxl.workbook.properties import CalcProperties, FileVersion, WorkbookPr
 from openpyxl.workbook.protection import FileSharing, WorkbookProtection
 from openpyxl.workbook.smart_tags import SmartTagList, SmartTagProperties
 from openpyxl.workbook.web import WebPublishing, WebPublishObjectList
+from openpyxl.xml.functions import Element
 
 _WorkbookPackageConformance: TypeAlias = Literal["strict", "transitional"]
 
@@ -99,6 +100,6 @@ class WorkbookPackage(Serialisable):
         extLst: Unused = None,
         Ignorable: Unused = None,
     ) -> None: ...
-    def to_tree(self): ...
+    def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
     def active(self) -> int: ...
