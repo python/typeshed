@@ -6,7 +6,7 @@ from typing import Literal
 from typing_extensions import Self
 
 import tensorflow as tf
-from tensorflow._aliases import FloatArray, IntArray, UIntArray
+from tensorflow._aliases import FloatArray, IntArray
 from tensorflow.experimental.dtensor import Mesh
 
 class SummaryWriter(metaclass=abc.ABCMeta):
@@ -42,7 +42,7 @@ def histogram(
 ) -> bool: ...
 def image(
     name: str,
-    data: tf.Tensor | FloatArray | IntArray | UIntArray,
+    data: tf.Tensor | FloatArray | IntArray,
     step: int | tf.Tensor | None = None,
     max_outputs: int | None = 3,
     description: str | None = None,

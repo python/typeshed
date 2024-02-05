@@ -54,4 +54,5 @@ ContainerInputSpec: TypeAlias = ContainerGeneric[InputSpec]
 AnyArray: TypeAlias = npt.NDArray[Any]
 FloatArray: TypeAlias = npt.NDArray[np.float_ | np.float16 | np.float32 | np.float64]
 UIntArray: TypeAlias = npt.NDArray[np.uint | np.uint8 | np.uint16 | np.uint32 | np.uint64]
-IntArray: TypeAlias = npt.NDArray[np.int_ | np.int8 | np.int16 | np.int32 | np.int64]
+SignedIntArray: TypeAlias = npt.NDArray[np.int_ | np.int8 | np.int16 | np.int32 | np.int64]
+IntArray: TypeAlias = UIntArray | SignedIntArray
