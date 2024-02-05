@@ -1,8 +1,7 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal
+from _typeshed import ConvertibleToInt, Incomplete, Unused
+from typing import ClassVar, Literal
 
-from openpyxl.descriptors.base import Bool, Integer, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 class Break(Serialisable):
@@ -14,9 +13,9 @@ class Break(Serialisable):
     pt: Bool[Literal[True]]
     def __init__(
         self,
-        id: _ConvertibleToInt | None = 0,
-        min: _ConvertibleToInt | None = 0,
-        max: _ConvertibleToInt | None = 16383,
+        id: ConvertibleToInt | None = 0,
+        min: ConvertibleToInt | None = 0,
+        max: ConvertibleToInt | None = 16383,
         man: _ConvertibleToBool | None = True,
         pt: _ConvertibleToBool | None = None,
     ) -> None: ...
@@ -33,18 +32,17 @@ class RowBreak(Serialisable):
     def __bool__(self) -> bool: ...
     def __len__(self) -> int: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...
     @property
-    def manualBreakCount(self): ...
+    def manualBreakCount(self) -> int: ...
     def append(self, brk: Incomplete | None = None) -> None: ...
 
 PageBreak = RowBreak
 
 class ColBreak(RowBreak):
     tagname: ClassVar[str]
-    @property
-    def count(self): ...
-    @property
-    def manualBreakCount(self): ...
-    brk: Incomplete
+    # Same as parent
+    # count = RowBreak.count
+    # manualBreakCount = RowBreak.manualBreakCount
+    # brk = RowBreak.brk
     __attrs__: ClassVar[tuple[str, ...]]

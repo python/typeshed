@@ -1,18 +1,18 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar, overload
-from typing_extensions import Literal, TypeAlias
+from _typeshed import ConvertibleToInt, Incomplete, Unused
+from typing import ClassVar, Literal, overload
+from typing_extensions import TypeAlias
 
-from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl import _VisibilityType
+from openpyxl.descriptors.base import Bool, Integer, NoneSet, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 
-_BookViewVilibility: TypeAlias = Literal["visible", "hidden", "veryHidden"]
 _CustomWorkbookViewShowComments: TypeAlias = Literal["commNone", "commIndicator", "commIndAndComment"]
 _CustomWorkbookViewShowObjects: TypeAlias = Literal["all", "placeholders"]
 
 class BookView(Serialisable):
     tagname: ClassVar[str]
-    visibility: NoneSet[_BookViewVilibility]
+    visibility: NoneSet[_VisibilityType]
     minimized: Bool[Literal[True]]
     showHorizontalScroll: Bool[Literal[True]]
     showVerticalScroll: Bool[Literal[True]]
@@ -29,18 +29,18 @@ class BookView(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        visibility: _BookViewVilibility | Literal["none"] | None = "visible",
+        visibility: _VisibilityType | Literal["none"] | None = "visible",
         minimized: _ConvertibleToBool | None = False,
         showHorizontalScroll: _ConvertibleToBool | None = True,
         showVerticalScroll: _ConvertibleToBool | None = True,
         showSheetTabs: _ConvertibleToBool | None = True,
-        xWindow: _ConvertibleToInt | None = None,
-        yWindow: _ConvertibleToInt | None = None,
-        windowWidth: _ConvertibleToInt | None = None,
-        windowHeight: _ConvertibleToInt | None = None,
-        tabRatio: _ConvertibleToInt | None = 600,
-        firstSheet: _ConvertibleToInt | None = 0,
-        activeTab: _ConvertibleToInt | None = 0,
+        xWindow: ConvertibleToInt | None = None,
+        yWindow: ConvertibleToInt | None = None,
+        windowWidth: ConvertibleToInt | None = None,
+        windowHeight: ConvertibleToInt | None = None,
+        tabRatio: ConvertibleToInt | None = 600,
+        firstSheet: ConvertibleToInt | None = 0,
+        activeTab: ConvertibleToInt | None = 0,
         autoFilterDateGrouping: _ConvertibleToBool | None = True,
         extLst: Unused = None,
     ) -> None: ...
@@ -79,7 +79,7 @@ class CustomWorkbookView(Serialisable):
         name: str,
         guid: Incomplete | None = None,
         autoUpdate: _ConvertibleToBool | None = None,
-        mergeInterval: _ConvertibleToInt | None = None,
+        mergeInterval: ConvertibleToInt | None = None,
         changesSavedWin: _ConvertibleToBool | None = None,
         onlySync: _ConvertibleToBool | None = None,
         personalView: _ConvertibleToBool | None = None,
@@ -91,12 +91,12 @@ class CustomWorkbookView(Serialisable):
         showVerticalScroll: _ConvertibleToBool | None = None,
         showSheetTabs: _ConvertibleToBool | None = None,
         *,
-        xWindow: _ConvertibleToInt,
-        yWindow: _ConvertibleToInt,
-        windowWidth: _ConvertibleToInt,
-        windowHeight: _ConvertibleToInt,
-        tabRatio: _ConvertibleToInt | None = None,
-        activeSheetId: _ConvertibleToInt,
+        xWindow: ConvertibleToInt,
+        yWindow: ConvertibleToInt,
+        windowWidth: ConvertibleToInt,
+        windowHeight: ConvertibleToInt,
+        tabRatio: ConvertibleToInt | None = None,
+        activeSheetId: ConvertibleToInt,
         showFormulaBar: _ConvertibleToBool | None = None,
         showStatusbar: _ConvertibleToBool | None = None,
         showComments: _CustomWorkbookViewShowComments | Literal["none"] | None = "commIndicator",
@@ -109,7 +109,7 @@ class CustomWorkbookView(Serialisable):
         name: str,
         guid: Incomplete | None,
         autoUpdate: _ConvertibleToBool | None,
-        mergeInterval: _ConvertibleToInt | None,
+        mergeInterval: ConvertibleToInt | None,
         changesSavedWin: _ConvertibleToBool | None,
         onlySync: _ConvertibleToBool | None,
         personalView: _ConvertibleToBool | None,
@@ -120,12 +120,12 @@ class CustomWorkbookView(Serialisable):
         showHorizontalScroll: _ConvertibleToBool | None,
         showVerticalScroll: _ConvertibleToBool | None,
         showSheetTabs: _ConvertibleToBool | None,
-        xWindow: _ConvertibleToInt,
-        yWindow: _ConvertibleToInt,
-        windowWidth: _ConvertibleToInt,
-        windowHeight: _ConvertibleToInt,
-        tabRatio: _ConvertibleToInt | None,
-        activeSheetId: _ConvertibleToInt,
+        xWindow: ConvertibleToInt,
+        yWindow: ConvertibleToInt,
+        windowWidth: ConvertibleToInt,
+        windowHeight: ConvertibleToInt,
+        tabRatio: ConvertibleToInt | None,
+        activeSheetId: ConvertibleToInt,
         showFormulaBar: _ConvertibleToBool | None = None,
         showStatusbar: _ConvertibleToBool | None = None,
         showComments: _CustomWorkbookViewShowComments | Literal["none"] | None = "commIndicator",

@@ -1,3 +1,6 @@
+# Normalize EOF
+* autocrlf=false
+* eol=lf
 # Set linguist-language to support comments syntax highlight
 **/stubtest_allowlist*.txt linguist-language=ini
 tests/stubtest_allowlists/*.txt linguist-language=ini

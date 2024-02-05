@@ -1,5 +1,6 @@
 from enum import Enum, Flag, IntEnum, IntFlag
-from typing_extensions import Literal, Self
+from typing import Literal
+from typing_extensions import Self
 
 from .syntax import Name
 
@@ -37,6 +38,11 @@ class Align(CoerciveEnum):
     R: str
     J: str
 
+class VAlign(CoerciveEnum):
+    M: str
+    T: str
+    B: str
+
 class TextEmphasis(CoerciveIntFlag):
     B: int
     I: int
@@ -64,6 +70,8 @@ class TableCellFillMode(CoerciveEnum):
     ALL: str
     ROWS: str
     COLUMNS: str
+
+    def should_fill_cell(self, i: int, j: int) -> bool: ...
 
 class RenderStyle(CoerciveEnum):
     D: str
@@ -102,6 +110,16 @@ class YPos(CoerciveEnum):
     NEXT: str
     TMARGIN: str
     BMARGIN: str
+
+class Angle(CoerciveIntEnum):
+    NORTH: int
+    EAST: int
+    SOUTH: int
+    WEST: int
+    NORTHEAST: int
+    SOUTHEAST: int
+    SOUTHWEST: int
+    NORTHWEST: int
 
 class PageLayout(CoerciveEnum):
     SINGLE_PAGE: Name
@@ -236,3 +254,4 @@ class EncryptionMethod(Enum):
     NO_ENCRYPTION: int
     RC4: int
     AES_128: int
+    AES_256: int

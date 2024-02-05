@@ -1,13 +1,13 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from _typeshed import ConvertibleToInt, Incomplete, Unused
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
-from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedBool, NestedInteger, NestedNoneSet, NestedString, _NestedNoneSetParam
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
+from openpyxl.descriptors.serialisable import Serialisable
 
 from ..xml._functions_overloads import _HasTagAndGet
 
@@ -51,39 +51,41 @@ class _DataLabelBase(Serialisable):
 class DataLabel(_DataLabelBase):
     tagname: ClassVar[str]
     idx: NestedInteger[Literal[False]]
-    numFmt: Incomplete
-    spPr: Incomplete
-    txPr: Incomplete
-    dLblPos: Incomplete
-    showLegendKey: Incomplete
-    showVal: Incomplete
-    showCatName: Incomplete
-    showSerName: Incomplete
-    showPercent: Incomplete
-    showBubbleSize: Incomplete
-    showLeaderLines: Incomplete
-    separator: Incomplete
-    extLst: Incomplete
+    # Same as parent
+    # numFmt = _DataLabelBase.numFmt
+    # spPr = _DataLabelBase.spPr
+    # txPr = _DataLabelBase.txPr
+    # dLblPos = _DataLabelBase.dLblPos
+    # showLegendKey = _DataLabelBase.showLegendKey
+    # showVal = _DataLabelBase.showVal
+    # showCatName = _DataLabelBase.showCatName
+    # showSerName = _DataLabelBase.showSerName
+    # showPercent = _DataLabelBase.showPercent
+    # showBubbleSize = _DataLabelBase.showBubbleSize
+    # showLeaderLines = _DataLabelBase.showLeaderLines
+    # separator = _DataLabelBase.separator
+    # extLst = _DataLabelBase.extLst
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, idx: _HasTagAndGet[_ConvertibleToInt] | _ConvertibleToInt = 0, **kw) -> None: ...
+    def __init__(self, idx: _HasTagAndGet[ConvertibleToInt] | ConvertibleToInt = 0, **kw) -> None: ...
 
 class DataLabelList(_DataLabelBase):
     tagname: ClassVar[str]
     dLbl: Incomplete
     delete: NestedBool[Literal[True]]
-    numFmt: Incomplete
-    spPr: Incomplete
-    txPr: Incomplete
-    dLblPos: Incomplete
-    showLegendKey: Incomplete
-    showVal: Incomplete
-    showCatName: Incomplete
-    showSerName: Incomplete
-    showPercent: Incomplete
-    showBubbleSize: Incomplete
-    showLeaderLines: Incomplete
-    separator: Incomplete
-    extLst: Incomplete
+    # Same as parent
+    # numFmt = _DataLabelBase.numFmt
+    # spPr = _DataLabelBase.spPr
+    # txPr = _DataLabelBase.txPr
+    # dLblPos = _DataLabelBase.dLblPos
+    # showLegendKey = _DataLabelBase.showLegendKey
+    # showVal = _DataLabelBase.showVal
+    # showCatName = _DataLabelBase.showCatName
+    # showSerName = _DataLabelBase.showSerName
+    # showPercent = _DataLabelBase.showPercent
+    # showBubbleSize = _DataLabelBase.showBubbleSize
+    # showLeaderLines = _DataLabelBase.showLeaderLines
+    # separator = _DataLabelBase.separator
+    # extLst = _DataLabelBase.extLst
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self, dLbl=(), delete: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None, **kw

@@ -17,12 +17,10 @@ import re
 import subprocess
 import sys
 import urllib.parse
+from importlib.metadata import distribution
 
 import aiohttp
 import termcolor
-
-if sys.version_info >= (3, 8):
-    from importlib.metadata import distribution
 
 PYRIGHT_CONFIG = "pyrightconfig.stricter.json"
 
@@ -61,18 +59,13 @@ def run_stubdefaulter(stub_dir: str) -> None:
 
 
 def run_black(stub_dir: str) -> None:
-    print(f"Running black: black {stub_dir}")
+    print(f"Running Black: black {stub_dir}")
     subprocess.run(["black", stub_dir])
 
 
-def run_isort(stub_dir: str) -> None:
-    print(f"Running isort: isort {stub_dir}")
-    subprocess.run([sys.executable, "-m", "isort", stub_dir])
-
-
 def run_ruff(stub_dir: str) -> None:
-    print(f"Running ruff: ruff {stub_dir}")
-    subprocess.run([sys.executable, "-m", "ruff", stub_dir])
+    print(f"Running Ruff: ruff check {stub_dir} --fix-only")
+    subprocess.run([sys.executable, "-m", "ruff", "check", stub_dir, "--fix-only"])
 
 
 async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSession) -> dict[str, str]:
@@ -127,7 +120,7 @@ def create_metadata(project: str, stub_dir: str, version: str) -> None:
     version = match.group(0)
     if os.path.exists(filename):
         return
-    metadata = f'version = "{version}.*"'
+    metadata = f'version = "{version}.*"\n'
     upstream_repo_url = asyncio.run(get_upstream_repo_url(project))
     if upstream_repo_url is None:
         warning = (
@@ -136,7 +129,7 @@ def create_metadata(project: str, stub_dir: str, version: str) -> None:
         )
         print(termcolor.colored(warning, "red"))
     else:
-        metadata += f'\nupstream_repository = "{upstream_repo_url}"'
+        metadata += f'upstream_repository = "{upstream_repo_url}"\n'
     print(f"Writing {filename}")
     with open(filename, "w", encoding="UTF-8") as file:
         file.write(metadata)
@@ -152,28 +145,44 @@ def add_pyright_exclusion(stub_dir: str) -> None:
     assert i < len(lines), f"Error parsing {PYRIGHT_CONFIG}"
     while not lines[i].strip().startswith("]"):
         i += 1
-    # Must use forward slash in the .json file
-    line_to_add = f'        "{stub_dir}",'.replace("\\", "/")
-    initial = i - 1
-    while lines[i].lower() > line_to_add.lower():
+    end = i
+
+    # We assume that all third-party excludes must be at the end of the list.
+    # This helps with skipping special entries, such as "stubs/**/@tests/test_cases".
+    while lines[i - 1].strip().startswith('"stubs/'):
         i -= 1
-    if lines[i + 1].strip().rstrip(",") == line_to_add.strip().rstrip(","):
+    start = i
+
+    before_third_party_excludes = lines[:start]
+    third_party_excludes = lines[start:end]
+    after_third_party_excludes = lines[end:]
+
+    last_line = third_party_excludes[-1].rstrip()
+    if not last_line.endswith(","):
+        last_line += ","
+        third_party_excludes[-1] = last_line + "\n"
+
+    # Must use forward slash in the .json file
+    line_to_add = f'        "{stub_dir}",\n'.replace("\\", "/")
+
+    if line_to_add in third_party_excludes:
         print(f"{PYRIGHT_CONFIG} already up-to-date")
         return
-    if i == initial:
-        # Special case: when adding to the end of the list, commas need tweaking
-        line_to_add = line_to_add.rstrip(",")
-        lines[i] = lines[i].rstrip() + ",\n"
-    lines.insert(i + 1, line_to_add + "\n")
+
+    third_party_excludes.append(line_to_add)
+    third_party_excludes.sort(key=str.lower)
+
     print(f"Updating {PYRIGHT_CONFIG}")
     with open(PYRIGHT_CONFIG, "w", encoding="UTF-8") as f:
-        f.writelines(lines)
+        f.writelines(before_third_party_excludes)
+        f.writelines(third_party_excludes)
+        f.writelines(after_third_party_excludes)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="""Generate baseline stubs automatically for an installed pip package
-                       using stubgen. Also run black, isort and ruff. If the name of
+                       using stubgen. Also run Black and Ruff. If the name of
                        the project is different from the runtime Python package name, you may
                        need to use --package (example: --package yaml PyYAML)."""
     )
@@ -193,12 +202,11 @@ def main() -> None:
         #
         # The importlib.metadata module is used for projects whose name is different
         # from the runtime Python package name (example: PyYAML/yaml)
-        if sys.version_info >= (3, 8):
-            dist = distribution(project).read_text("top_level.txt")
-            if dist is not None:
-                packages = [name for name in dist.split() if not name.startswith("_")]
-                if len(packages) == 1:
-                    package = packages[0]
+        dist = distribution(project).read_text("top_level.txt")
+        if dist is not None:
+            packages = [name for name in dist.split() if not name.startswith("_")]
+            if len(packages) == 1:
+                package = packages[0]
         print(f'Using detected package "{package}" for project "{project}"', file=sys.stderr)
         print("Suggestion: Try again with --package argument if that's not what you wanted", file=sys.stderr)
 
@@ -223,7 +231,6 @@ def main() -> None:
     run_stubdefaulter(stub_dir)
 
     run_ruff(stub_dir)
-    run_isort(stub_dir)
     run_black(stub_dir)
 
     create_metadata(project, stub_dir, version)
