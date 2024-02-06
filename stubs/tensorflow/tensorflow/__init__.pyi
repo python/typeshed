@@ -36,6 +36,7 @@ from tensorflow.core.protobuf import struct_pb2
 # is necessary to avoid a crash in pytype.
 from tensorflow.dtypes import *
 from tensorflow.dtypes import DType as DType
+from tensorflow.experimental.dtensor import Layout
 from tensorflow.keras import losses as losses
 
 # Most tf.math functions are exported as tf, but sadly not all are.
@@ -439,4 +440,22 @@ def cast(x: TensorCompatible, dtype: DTypeLike, name: str | None = None) -> Tens
 def cast(x: SparseTensor, dtype: DTypeLike, name: str | None = None) -> SparseTensor: ...
 @overload
 def cast(x: RaggedTensor, dtype: DTypeLike, name: str | None = None) -> RaggedTensor: ...
+def zeros(shape: ShapeLike, dtype: DTypeLike = ..., name: str | None = None, layout: Layout | None = None) -> Tensor: ...
+def ones(shape: ShapeLike, dtype: DTypeLike = ..., name: str | None = None, layout: Layout | None = None) -> Tensor: ...
+@overload
+def zeros_like(
+    input: TensorCompatible | IndexedSlices, dtype: DTypeLike | None = None, name: str | None = None, layout: Layout | None = None
+) -> Tensor: ...
+@overload
+def zeros_like(
+    input: RaggedTensor, dtype: DTypeLike | None = None, name: str | None = None, layout: Layout | None = None
+) -> RaggedTensor: ...
+@overload
+def ones_like(
+    input: TensorCompatible, dtype: DTypeLike | None = None, name: str | None = None, layout: Layout | None = None
+) -> Tensor: ...
+@overload
+def ones_like(
+    input: RaggedTensor, dtype: DTypeLike | None = None, name: str | None = None, layout: Layout | None = None
+) -> RaggedTensor: ...
 def reshape(tensor: TensorCompatible, shape: ShapeLike | Tensor, name: str | None = None) -> Tensor: ...
