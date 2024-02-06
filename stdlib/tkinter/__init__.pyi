@@ -2104,21 +2104,21 @@ class Listbox(Widget, XView, YView):
         *,
         activestyle: Literal["dotbox", "none", "underline"] = ...,
         background: str = ...,
-        bd: _ScreenUnits = ...,
+        bd: _ScreenUnits = 1,
         bg: str = ...,
         border: _ScreenUnits = ...,
-        borderwidth: _ScreenUnits = ...,
-        cursor: _Cursor = ...,
+        borderwidth: _ScreenUnits = 1,
+        cursor: _Cursor = "",
         disabledforeground: str = ...,
-        exportselection: int = ...,
+        exportselection: int = 1,
         fg: str = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
-        height: int = ...,
+        height: int = 10,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        justify: Literal["left", "center", "right"] ="left",
         # There's no tkinter.ListVar, but seems like bare tkinter.Variable
         # actually works for this:
         #
@@ -2132,20 +2132,20 @@ class Listbox(Widget, XView, YView):
         name: str = ...,
         relief: _Relief = ...,
         selectbackground: str = ...,
-        selectborderwidth: _ScreenUnits = ...,
+        selectborderwidth: _ScreenUnits = 0,
         selectforeground: str = ...,
         # from listbox man page: "The value of the [selectmode] option may be
         # arbitrary, but the default bindings expect it to be ..."
         #
         # I have never seen anyone setting this to something else than what
         # "the default bindings expect", but let's support it anyway.
-        selectmode: str = ...,
-        setgrid: bool = ...,
-        state: Literal["normal", "disabled"] = ...,
-        takefocus: _TakeFocusValue = ...,
-        width: int = ...,
-        xscrollcommand: _XYScrollCommand = ...,
-        yscrollcommand: _XYScrollCommand = ...,
+        selectmode: str = "browse",
+        setgrid: bool = False,
+        state: Literal["normal", "disabled"] = "normal",
+        takefocus: _TakeFocusValue = "",
+        width: int = 20,
+        xscrollcommand: _XYScrollCommand = "",
+        yscrollcommand: _XYScrollCommand = "",
     ) -> None: ...
     @overload
     def configure(
@@ -3504,32 +3504,32 @@ class LabelFrame(Widget):
         cnf: dict[str, Any] | None = {},
         *,
         background: str = ...,
-        bd: _ScreenUnits = ...,
+        bd: _ScreenUnits = 2,
         bg: str = ...,
         border: _ScreenUnits = ...,
-        borderwidth: _ScreenUnits = ...,
-        class_: str = ...,  # can't be changed with configure()
-        colormap: Literal["new", ""] | Misc = ...,  # can't be changed with configure()
-        container: bool = ...,  # undocumented, can't be changed with configure()
-        cursor: _Cursor = ...,
+        borderwidth: _ScreenUnits = 2,
+        class_: str = "Labelframe",  # can't be changed with configure()
+        colormap: Literal["new", ""] | Misc = "",  # can't be changed with configure()
+        container: bool = False,  # undocumented, can't be changed with configure()
+        cursor: _Cursor = "",
         fg: str = ...,
-        font: _FontDescription = ...,
+        font: _FontDescription = "TkDefaultFont",
         foreground: str = ...,
-        height: _ScreenUnits = ...,
+        height: _ScreenUnits = 0,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: _ScreenUnits = ...,
+        highlightthickness: _ScreenUnits = 0,
         # 'ne' and 'en' are valid labelanchors, but only 'ne' is a valid _Anchor.
-        labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = ...,
+        labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = "nw",
         labelwidget: Misc = ...,
         name: str = ...,
-        padx: _ScreenUnits = ...,
-        pady: _ScreenUnits = ...,
-        relief: _Relief = ...,
-        takefocus: _TakeFocusValue = ...,
-        text: float | str = ...,
-        visual: str | tuple[str, int] = ...,  # can't be changed with configure()
-        width: _ScreenUnits = ...,
+        padx: _ScreenUnits = "0",
+        pady: _ScreenUnits = "0",
+        relief: _Relief = "groove",
+        takefocus: _TakeFocusValue = "0",
+        text: float | str = "",
+        visual: str | tuple[str, int] = "",  # can't be changed with configure()
+        width: _ScreenUnits = 0,
     ) -> None: ...
     @overload
     def configure(
