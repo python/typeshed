@@ -1,7 +1,7 @@
 # Note: these stubs are incomplete. The more complex type
 # signatures are currently omitted.
 #
-# Use SupportsComplex, _RealLike and _IntegralLike for return types in this module
+# Use _ComplexLike, _RealLike and _IntegralLike for return types in this module
 # rather than `numbers.Complex`, `numbers.Real` and `numbers.Integral`,
 # to avoid an excessive number of `type: ignore`s in subclasses of these ABCs
 # (since type checkers don't see `complex` as a subtype of `numbers.Complex`,
@@ -15,11 +15,12 @@ from typing_extensions import TypeAlias
 
 __all__ = ["Number", "Complex", "Real", "Rational", "Integral"]
 
-class Number(metaclass=ABCMeta):
-    @abstractmethod
-    def __hash__(self) -> int: ...
+############################
+# Protocols for return types
+############################
 
-# _ComplexLike is an approximation of numbers.Complex that works with structural typing
+# `_ComplexLike` is a structural-typing approximation
+# of the `Complex` ABC, which is not (and cannot be) a protocol
 class _SupportsComplex(Protocol):
     def __complex__(self) -> complex: ...
     def __abs__(self) -> _RealLike: ...
@@ -29,6 +30,35 @@ if sys.version_info >= (3, 11):
 else:
     # builtins.complex didn't have a __complex__ method on older Pythons
     _ComplexLike: TypeAlias = _SupportsComplex | complex
+
+# _RealLike is a structural-typing approximation
+# of the `Real` ABC, which is not (and cannot be) a protocol
+#
+# NOTE: _RealLike can't inherit from _SupportsComplex,
+# because not all builtin types that we want to be understood
+# as subtypes of _RealLike have a `__complex__` method
+# (e.g. `builtins.int.__complex__` does not exist)
+class _RealLike(Protocol):
+    def __abs__(self) -> _RealLike: ...
+    def __float__(self) -> float: ...
+    def __trunc__(self) -> _IntegralLike: ...
+    def __floor__(self) -> _IntegralLike: ...
+    def __ceil__(self) -> _IntegralLike: ...
+
+# _IntegralLike is a structural-typing approximation
+# of the `Integral` ABC, which is not (and cannot be) a protocol
+class _IntegralLike(_RealLike, Protocol):
+    def __int__(self) -> int: ...
+    def __index__(self) -> int: ...
+    def __invert__(self) -> _IntegralLike: ...
+
+#################
+# Module "proper"
+#################
+
+class Number(metaclass=ABCMeta):
+    @abstractmethod
+    def __hash__(self) -> int: ...
 
 # See comment at the top of the file
 # for why some of these return types are purposefully vague
@@ -70,18 +100,6 @@ class Complex(Number):
     def conjugate(self) -> _ComplexLike: ...
     @abstractmethod
     def __eq__(self, other: object) -> bool: ...
-
-# An approximation of numbers.Real
-# that works with structural typing
-# NOTE: this can't inherit from _SupportsComplex,
-# because not all builtin types that we want to be understood
-# as subtypes of _RealLike have a `__complex__` method
-class _RealLike(Protocol):
-    def __abs__(self) -> _RealLike: ...
-    def __float__(self) -> float: ...
-    def __trunc__(self) -> _IntegralLike: ...
-    def __floor__(self) -> _IntegralLike: ...
-    def __ceil__(self) -> _IntegralLike: ...
 
 # See comment at the top of the file
 # for why some of these return types are purposefully vague
@@ -131,13 +149,6 @@ class Rational(Real):
     @abstractmethod
     def denominator(self) -> _IntegralLike: ...
     def __float__(self) -> float: ...
-
-# An approximation of numbers.Integral
-# that works with structural typing
-class _IntegralLike(_RealLike, Protocol):
-    def __int__(self) -> int: ...
-    def __index__(self) -> int: ...
-    def __invert__(self) -> _IntegralLike: ...
 
 # See comment at the top of the file
 # for why some of these return types are purposefully vague
