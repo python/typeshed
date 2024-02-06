@@ -2,13 +2,13 @@ from _typeshed import SupportsItems, SupportsKeysAndGetItem
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 from collections.abc import Iterable
 from string import Template
-from typing import Any, Protocol
-from typing_extensions import Literal, Self
+from typing import Any, Literal, Protocol
+from typing_extensions import Self
 
 from webob.response import Response
 
 class _JSONFormatter(Protocol):
-    def __call__(self, body: str, status: str, title: str, environ: WSGIEnvironment) -> str: ...
+    def __call__(self, *, body: str, status: str, title: str, environ: WSGIEnvironment) -> str: ...
 
 class HTTPException(Exception):
     wsgi_response: Response
