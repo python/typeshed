@@ -64,7 +64,7 @@ class Number(metaclass=ABCMeta):
 
 # See comment at the top of the file
 # for why some of these return types are purposefully vague
-class Complex(Number):
+class Complex(Number, _ComplexLike):
     @abstractmethod
     def __complex__(self) -> complex: ...
     def __bool__(self) -> bool: ...
@@ -105,7 +105,7 @@ class Complex(Number):
 
 # See comment at the top of the file
 # for why some of these return types are purposefully vague
-class Real(Complex):
+class Real(Complex, _RealLike):
     @abstractmethod
     def __float__(self) -> float: ...
     @abstractmethod
@@ -160,7 +160,7 @@ class Rational(Real):
 
 # See comment at the top of the file
 # for why some of these return types are purposefully vague
-class Integral(Rational):
+class Integral(Rational, _IntegralLike):
     @abstractmethod
     def __int__(self) -> int: ...
     def __index__(self) -> int: ...
