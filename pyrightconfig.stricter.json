@@ -62,6 +62,7 @@
         "stubs/psycopg2",
         "stubs/pyasn1",
         "stubs/pyflakes",
+        "stubs/pygit2",
         "stubs/Pygments",
         "stubs/PyMySQL",
         "stubs/python-dateutil",
