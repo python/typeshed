@@ -12,7 +12,11 @@ class _Deformer(Protocol):
     def getmesh(self, __image: Image): ...
 
 def autocontrast(
-    image: Image, cutoff: int | tuple[int, int] = 0, ignore: int | None = None, mask: Image | None = None, preserve_tone: bool = False
+    image: Image,
+    cutoff: int | tuple[int, int] = 0,
+    ignore: int | None = None,
+    mask: Image | None = None,
+    preserve_tone: bool = False,
 ) -> Image: ...
 def colorize(
     image: Image,
