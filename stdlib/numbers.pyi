@@ -7,11 +7,9 @@
 # (since type checkers don't see `complex` as a subtype of `numbers.Complex`,
 # nor `float` as a subtype of `numbers.Real`, etc.)
 
-import sys
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from typing import Literal, Protocol, overload
-from typing_extensions import TypeAlias
 
 __all__ = ["Number", "Complex", "Real", "Rational", "Integral"]
 
@@ -21,28 +19,20 @@ __all__ = ["Number", "Complex", "Real", "Rational", "Integral"]
 
 # `_ComplexLike` is a structural-typing approximation
 # of the `Complex` ABC, which is not (and cannot be) a protocol
-class _SupportsComplex(Protocol):
-    def __complex__(self) -> complex: ...
+#
+# NOTE: We can't include `__complex__` here,
+# as we want `int` to be seen as a subtype of `_ComplexLike`,
+# and `int.__complex__` does not exist :(
+class _ComplexLike(Protocol):
     def __abs__(self) -> _RealLike: ...
     def __neg__(self) -> _ComplexLike: ...
     def __pos__(self) -> _ComplexLike: ...
 
-if sys.version_info >= (3, 11):
-    _ComplexLike: TypeAlias = _SupportsComplex
-else:
-    # builtins.complex didn't have a __complex__ method on older Pythons
-    _ComplexLike: TypeAlias = _SupportsComplex | complex
-
 # _RealLike is a structural-typing approximation
 # of the `Real` ABC, which is not (and cannot be) a protocol
-#
-# NOTE: _RealLike can't inherit from _SupportsComplex,
-# because not all builtin types that we want to be understood
-# as subtypes of _RealLike have a `__complex__` method
-# (e.g. `builtins.int.__complex__` does not exist)
-class _RealLike(Protocol):
-    def __neg__(self) -> _ComplexLike: ...  # TODO: ideally would be more precise
-    def __pos__(self) -> _ComplexLike: ...  # TODO: ideally would be more precise
+class _RealLike(_ComplexLike, Protocol):
+    def __neg__(self) -> _RealLike: ...
+    def __pos__(self) -> _RealLike: ...
     def __abs__(self) -> _RealLike: ...
     def __float__(self) -> float: ...
     def __trunc__(self) -> _IntegralLike: ...
@@ -52,6 +42,8 @@ class _RealLike(Protocol):
 # _IntegralLike is a structural-typing approximation
 # of the `Integral` ABC, which is not (and cannot be) a protocol
 class _IntegralLike(_RealLike, Protocol):
+    def __neg__(self) -> _IntegralLike: ...
+    def __pos__(self) -> _IntegralLike: ...
     def __int__(self) -> int: ...
     def __index__(self) -> int: ...
     def __invert__(self) -> _IntegralLike: ...
@@ -143,6 +135,12 @@ class Real(Complex):
     @property
     def imag(self) -> Literal[0]: ...
     def conjugate(self) -> _RealLike: ...  # type: ignore[override]
+    # Not actually overridden at runtime,
+    # but we override these in the stub to give them more precise return types:
+    @abstractmethod
+    def __pos__(self) -> _RealLike: ...
+    @abstractmethod
+    def __neg__(self) -> _RealLike: ...
 
 # See comment at the top of the file
 # for why some of these return types are purposefully vague
@@ -191,6 +189,16 @@ class Integral(Rational):
     @property
     def denominator(self) -> Literal[1]: ...
     # Not actually overridden at runtime,
-    # but we override it in the stub to give it a more precise return type:
+    # but we override these in the stub to give them more precise return types:
+    @abstractmethod
+    def __pos__(self) -> _IntegralLike: ...
+    @abstractmethod
+    def __neg__(self) -> _IntegralLike: ...
     @abstractmethod
     def __abs__(self) -> _IntegralLike: ...
+    @abstractmethod
+    @overload
+    def __round__(self, ndigits: None = None) -> _IntegralLike: ...
+    @abstractmethod
+    @overload
+    def __round__(self, ndigits: int) -> _IntegralLike: ...
