@@ -31,6 +31,8 @@ Slice: TypeAlias = int | slice | None
 FloatDataSequence: TypeAlias = Sequence[float] | Sequence[FloatDataSequence]
 StrDataSequence: TypeAlias = Sequence[str] | Sequence[StrDataSequence]
 ScalarTensorCompatible: TypeAlias = tf.Tensor | str | float | np.ndarray[Any, Any] | np.number[Any]
+UIntTensorCompatible: TypeAlias = tf.Tensor | int | UIntArray
+StringTensorCompatible: TypeAlias = tf.Tensor | str | npt.NDArray[np.str_] | Sequence[StringTensorCompatible]
 
 TensorCompatible: TypeAlias = ScalarTensorCompatible | Sequence[TensorCompatible]
 # _TensorCompatibleT = TypeVar("_TensorCompatibleT", bound=TensorCompatible)
@@ -53,3 +55,4 @@ ContainerInputSpec: TypeAlias = ContainerGeneric[InputSpec]
 AnyArray: TypeAlias = npt.NDArray[Any]
 FloatArray: TypeAlias = npt.NDArray[np.float_ | np.float16 | np.float32 | np.float64]
 IntArray: TypeAlias = npt.NDArray[np.int_ | np.uint8 | np.int32 | np.int64]
+UIntArray: TypeAlias = npt.NDArray[np.uint | np.uint8 | np.uint16 | np.uint32 | np.uint64]
