@@ -4,6 +4,7 @@ Tests for `dict.__(r)or__`.
 `dict.__or__` and `dict.__ror__` were only added in py39,
 hence why these are in a separate file to the other test cases for `dict`.
 """
+
 from __future__ import annotations
 
 import os
