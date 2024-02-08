@@ -5,12 +5,10 @@ from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from typing_extensions import assert_type
 
 
-class Parent:
-    ...
+class Parent: ...
 
 
-class Child(Parent):
-    ...
+class Child(Parent): ...
 
 
 def check_as_completed_covariance() -> None:
