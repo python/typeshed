@@ -2,7 +2,7 @@ from _typeshed import AnyStr_co
 from collections.abc import Callable, Iterable, Iterator
 from os import PathLike
 from tarfile import TarInfo
-from typing import IO, Protocol
+from typing import IO, Any, Protocol
 from typing_extensions import TypeAlias, deprecated
 
 from ._pygit2 import Blob, Commit, Diff, Object, Oid, Reference, Repository as _Repository, Signature, Tree, _OidArg
@@ -33,7 +33,7 @@ class _SupportsAddfile(Protocol):
     def addfile(self, tarinfo: TarInfo, fileobj: IO[bytes] | None = None) -> None: ...
 
 class BaseRepository(_Repository):
-    def __init__(self, *args, **kwargs) -> None: ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...  # not meant for direct use
     def read(self, oid: _OidArg) -> tuple[int, int, bytes]: ...
     def write(self, type: int, data: bytes) -> Oid: ...
     def pack(
