@@ -967,7 +967,7 @@ class Toplevel(BaseWidget, Wm):
         pady: _ScreenUnits = "0",
         relief: _Relief = "flat",
         screen: str = "",  # can't be changed after creating widget
-        takefocus: _TakeFocusValue = "0",
+        takefocus: _TakeFocusValue = 0,
         use: int = ...,
         visual: str | tuple[str, int] = "",
         width: _ScreenUnits = 0,
@@ -2048,7 +2048,7 @@ class Label(Widget):
         pady: _ScreenUnits = "1",
         relief: _Relief = "flat",
         state: Literal["normal", "active", "disabled"] = "normal",
-        takefocus: _TakeFocusValue = "0",
+        takefocus: _TakeFocusValue = 0,
         text: float | str = "",
         textvariable: Variable = ...,
         underline: int = -1,
@@ -2232,7 +2232,7 @@ class Menu(Widget):
         postcommand: Callable[[], object] | str = "",
         relief: _Relief = ...,
         selectcolor: str = ...,
-        takefocus: _TakeFocusValue = "0",
+        takefocus: _TakeFocusValue = 0,
         tearoff: int = ...,
         # I guess tearoffcommand arguments are supposed to be widget objects,
         # but they are widget name strings. Use nametowidget() to handle the
@@ -2514,7 +2514,7 @@ class Menubutton(Widget):
         pady: _ScreenUnits = ...,
         relief: _Relief = "flat",
         state: Literal["normal", "active", "disabled"] = "normal",
-        takefocus: _TakeFocusValue = "0",
+        takefocus: _TakeFocusValue = 0,
         text: float | str = "",
         textvariable: Variable = ...,
         underline: int = -1,
@@ -2590,7 +2590,7 @@ class Message(Widget):
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
         relief: _Relief = "flat",
-        takefocus: _TakeFocusValue = "0",
+        takefocus: _TakeFocusValue = 0,
         text: float | str = "",
         textvariable: Variable = ...,
         # there's width but no height
@@ -3526,7 +3526,7 @@ class LabelFrame(Widget):
         padx: _ScreenUnits = "0",
         pady: _ScreenUnits = "0",
         relief: _Relief = "groove",
-        takefocus: _TakeFocusValue = "0",
+        takefocus: _TakeFocusValue = 0,
         text: float | str = "",
         visual: str | tuple[str, int] = "",  # can't be changed with configure()
         width: _ScreenUnits = 0,
