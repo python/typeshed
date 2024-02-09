@@ -6,7 +6,6 @@ from typing_extensions import Literal
 from networkx.algorithms.planarity import PlanarEmbedding
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import Graph, _NBunch, _Node
-from networkx.classes.graphviews import reverse_view as reverse_view, subgraph_view as subgraph_view
 from networkx.classes.multigraph import MultiGraph
 
 __all__ = [
@@ -22,9 +21,7 @@ __all__ = [
     "freeze",
     "is_frozen",
     "subgraph",
-    "subgraph_view",
     "induced_subgraph",
-    "reverse_view",
     "edge_subgraph",
     "restricted_view",
     "to_directed",
