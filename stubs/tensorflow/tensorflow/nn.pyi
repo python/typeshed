@@ -3,18 +3,23 @@ from collections.abc import Sequence
 from typing import Any, Literal, overload
 
 from tensorflow import RaggedTensor, Tensor
-from tensorflow._aliases import ScalarTensorCompatible, TensorCompatible
+from tensorflow._aliases import ScalarTensorCompatible, TensorCompatible, TensorOrArray
 from tensorflow.math import l2_normalize as l2_normalize, sigmoid as sigmoid, tanh as tanh
 from tensorflow.sparse import SparseTensor
 
 def atrous_conv2d(
-    value: Tensor, filters: Tensor, rate: int, padding: Literal["VALID", "SAME"], name: str | None = None
+    value: TensorOrArray, filters: TensorOrArray, rate: int, padding: Literal["VALID", "SAME"], name: str | None = None
 ) -> Tensor: ...
 def atrous_conv2d_transpose(
-    value: Tensor, filters: Tensor, output_shape: Tensor, rate: int, padding: Literal["VALID", "SAME"], name: str | None = None
+    value: TensorOrArray,
+    filters: TensorOrArray,
+    output_shape: TensorOrArray,
+    rate: int,
+    padding: Literal["VALID", "SAME"],
+    name: str | None = None,
 ) -> Tensor: ...
 def avg_pool(
-    input: Tensor,
+    input: TensorOrArray,
     ksize: int | Sequence[int],
     strides: int | Sequence[int],
     padding: Literal["VALID", "SAME"],
@@ -22,7 +27,7 @@ def avg_pool(
     name: str | None = None,
 ) -> Tensor: ...
 def avg_pool1d(
-    input: Tensor,
+    input: TensorOrArray,
     ksize: int | Sequence[int],
     strides: int | Sequence[int],
     padding: Literal["VALID", "SAME"],
@@ -30,7 +35,7 @@ def avg_pool1d(
     name: str | None = None,
 ) -> Tensor: ...
 def avg_pool2d(
-    input: Tensor,
+    input: TensorOrArray,
     ksize: int | Sequence[int],
     strides: int | Sequence[int],
     padding: Literal["VALID", "SAME"],
@@ -38,7 +43,7 @@ def avg_pool2d(
     name: str | None = None,
 ) -> Tensor: ...
 def avg_pool3d(
-    input: Tensor,
+    input: TensorOrArray,
     ksize: int | Sequence[int],
     strides: int | Sequence[int],
     padding: Literal["VALID", "SAME"],
@@ -59,8 +64,8 @@ def compute_average_loss(
     per_example_loss: Tensor, sample_weight: Tensor | None = None, global_batch_size: int | None = None
 ) -> Tensor: ...
 def conv1d(
-    input: Tensor,
-    filters: Tensor,
+    input: TensorOrArray,
+    filters: TensorOrArray,
     stride: int | Sequence[int],
     padding: Literal["VALID", "SAME"],
     data_format: Literal["NWC", "NCW"] = "NWC",
@@ -68,9 +73,9 @@ def conv1d(
     name: str | None = None,
 ) -> Tensor: ...
 def conv1d_transpose(
-    input: Tensor,
-    filters: Tensor,
-    output_shape: Tensor,
+    input: TensorOrArray,
+    filters: TensorOrArray,
+    output_shape: TensorOrArray,
     strides: int | Sequence[int],
     padding: Literal["VALID", "SAME"] = "SAME",
     data_format: Literal["NWC", "NCW"] = "NWC",
@@ -78,8 +83,8 @@ def conv1d_transpose(
     name: str | None = None,
 ) -> Tensor: ...
 def conv2d(
-    input: Tensor,
-    filters: Tensor,
+    input: TensorOrArray,
+    filters: TensorOrArray,
     strides: int | Sequence[int],
     padding: Literal["VALID", "SAME"],
     data_format: Literal["NHWC", "NCHW"] = "NHWC",
@@ -87,9 +92,9 @@ def conv2d(
     name: str | None = None,
 ) -> Tensor: ...
 def conv2d_transpose(
-    input: Tensor,
-    filters: Tensor,
-    output_shape: Tensor,
+    input: TensorOrArray,
+    filters: TensorOrArray,
+    output_shape: TensorOrArray,
     strides: int | Sequence[int],
     padding: Literal["VALID", "SAME"] = "SAME",
     data_format: Literal["NHWC", "NCHW"] = "NHWC",
@@ -97,8 +102,8 @@ def conv2d_transpose(
     name: str | None = None,
 ) -> Tensor: ...
 def conv3d(
-    input: Tensor,
-    filters: Tensor,
+    input: TensorOrArray,
+    filters: TensorOrArray,
     strides: int | Sequence[int],
     padding: Literal["VALID", "SAME"],
     data_format: Literal["NDHWC", "NCDHW"] = "NDHWC",
@@ -106,9 +111,9 @@ def conv3d(
     name: str | None = None,
 ) -> Tensor: ...
 def conv3d_transpose(
-    input: Tensor,
-    filters: Tensor,
-    output_shape: Tensor,
+    input: TensorOrArray,
+    filters: TensorOrArray,
+    output_shape: TensorOrArray,
     strides: int | Sequence[int],
     padding: Literal["VALID", "SAME"] = "SAME",
     data_format: Literal["NDHWC", "NCDHW"] = "NDHWC",
@@ -116,9 +121,9 @@ def conv3d_transpose(
     name: str | None = None,
 ) -> Tensor: ...
 def conv_transpose(
-    input: Tensor,
-    filters: Tensor,
-    output_shape: Tensor,
+    input: TensorOrArray,
+    filters: TensorOrArray,
+    output_shape: TensorOrArray,
     strides: int | Sequence[int],
     padding: Literal["VALID", "SAME"] = "SAME",
     data_format: str | None = None,
@@ -126,17 +131,17 @@ def conv_transpose(
     name: str | None = None,
 ) -> Tensor: ...
 def convolution(
-    input: Tensor,
-    filters: Tensor,
+    input: TensorOrArray,
+    filters: TensorOrArray,
     strides: int | Sequence[int] | None = None,
     padding: Literal["VALID", "SAME"] = "VALID",
     dilations: int | Sequence[int] | None = None,
     data_format: Literal["NC", "NWC", "NCW", "NHWC", "NCHW", "NDHWC", "NCDHW"] | None = None,
     name: str | None = None,
 ) -> Tensor: ...
-def crelu(features: Tensor, axis: int = -1, name: str | None = None) -> Tensor: ...
+def crelu(features: TensorOrArray, axis: int = -1, name: str | None = None) -> Tensor: ...
 def ctc_beam_search_decoder(
-    inputs: Tensor, sequence_length: Tensor | Sequence[int], beam_width: int = 100, top_paths: int = 1
+    inputs: TensorOrArray, sequence_length: TensorOrArray | Sequence[int], beam_width: int = 100, top_paths: int = 1
 ) -> tuple[list[SparseTensor], Tensor]: ...
 def ctc_greedy_decoder(
     inputs: Tensor, sequence_length: Tensor | Sequence[int], merge_repeated: bool = True, blank_index: int | None = None
