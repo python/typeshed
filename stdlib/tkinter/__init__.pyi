@@ -184,7 +184,7 @@ _Relief: TypeAlias = Literal["raised", "sunken", "flat", "ridge", "solid", "groo
 _ScreenUnits: TypeAlias = str | float  # Often the right type instead of int. Manual page: Tk_GetPixels
 # -xscrollcommand and -yscrollcommand in 'options' manual page
 _XYScrollCommand: TypeAlias = str | Callable[[float, float], object]
-_TakeFocusValue: TypeAlias = int | Literal[""] | Callable[[str], bool | None]  # -takefocus in manual page named 'options'
+_TakeFocusValue: TypeAlias = bool | Literal[""] | Callable[[str], bool | None]  # -takefocus in manual page named 'options'
 
 if sys.version_info >= (3, 11):
     class _VersionInfoType(NamedTuple):
@@ -829,7 +829,7 @@ class Pack:
         after: Misc = ...,
         anchor: _Anchor = ...,
         before: Misc = ...,
-        expand: int = ...,
+        expand: bool = ...,
         fill: Literal["none", "x", "y", "both"] = ...,
         side: Literal["left", "right", "top", "bottom"] = ...,
         ipadx: _ScreenUnits = ...,
@@ -2110,7 +2110,7 @@ class Listbox(Widget, XView, YView):
         borderwidth: _ScreenUnits = 1,
         cursor: _Cursor = "",
         disabledforeground: str = ...,
-        exportselection: int = 1,
+        exportselection: bool = True,
         fg: str = ...,
         font: _FontDescription = ...,
         foreground: str = ...,
@@ -2233,7 +2233,7 @@ class Menu(Widget):
         relief: _Relief = ...,
         selectcolor: str = ...,
         takefocus: _TakeFocusValue = 0,
-        tearoff: int = ...,
+        tearoff: bool = ...,
         # I guess tearoffcommand arguments are supposed to be widget objects,
         # but they are widget name strings. Use nametowidget() to handle the
         # arguments of tearoffcommand.
