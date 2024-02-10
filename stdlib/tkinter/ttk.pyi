@@ -78,21 +78,21 @@ class Button(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        class_: str = ...,
-        command: tkinter._ButtonCommand = ...,
-        compound: _TtkCompound = ...,
-        cursor: tkinter._Cursor = ...,
-        default: Literal["normal", "active", "disabled"] = ...,
-        image: tkinter._ImageSpec = ...,
+        class_: str = "",
+        command: tkinter._ButtonCommand = "",
+        compound: _TtkCompound = "",
+        cursor: tkinter._Cursor = "",
+        default: Literal["normal", "active", "disabled"] = "normal",
+        image: tkinter._ImageSpec = "",
         name: str = ...,
         padding=...,  # undocumented
-        state: str = ...,
-        style: str = ...,
+        state: str = "normal",
+        style: str = "",
         takefocus: tkinter._TakeFocusValue = ...,
-        text: float | str = ...,
+        text: float | str = "",
         textvariable: tkinter.Variable = ...,
-        underline: int = ...,
-        width: int | Literal[""] = ...,
+        underline: int = -1,
+        width: int | Literal[""] = "",
     ) -> None: ...
     @overload
     def configure(
@@ -123,26 +123,26 @@ class Checkbutton(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        class_: str = ...,
-        command: tkinter._ButtonCommand = ...,
-        compound: _TtkCompound = ...,
-        cursor: tkinter._Cursor = ...,
-        image: tkinter._ImageSpec = ...,
+        class_: str = "",
+        command: tkinter._ButtonCommand = "",
+        compound: _TtkCompound = "",
+        cursor: tkinter._Cursor = "",
+        image: tkinter._ImageSpec = "",
         name: str = ...,
-        offvalue: Any = ...,
-        onvalue: Any = ...,
+        offvalue: Any = 0,
+        onvalue: Any = 1,
         padding=...,  # undocumented
-        state: str = ...,
-        style: str = ...,
+        state: str = "normal",
+        style: str = "",
         takefocus: tkinter._TakeFocusValue = ...,
-        text: float | str = ...,
+        text: float | str = "",
         textvariable: tkinter.Variable = ...,
-        underline: int = ...,
+        underline: int = -1,
         # Seems like variable can be empty string, but actually setting it to
         # empty string segfaults before Tcl 8.6.9. Search for ttk::checkbutton
         # here: https://sourceforge.net/projects/tcl/files/Tcl/8.6.9/tcltk-release-notes-8.6.9.txt/view
         variable: tkinter.Variable = ...,
-        width: int | Literal[""] = ...,
+        width: int | Literal[""] = "",
     ) -> None: ...
     @overload
     def configure(
@@ -177,23 +177,23 @@ class Entry(Widget, tkinter.Entry):
         widget: str | None = None,
         *,
         background: str = ...,  # undocumented
-        class_: str = ...,
+        class_: str = "",
         cursor: tkinter._Cursor = ...,
-        exportselection: bool = ...,
-        font: _FontDescription = ...,
-        foreground: str = ...,
-        invalidcommand: tkinter._EntryValidateCommand = ...,
-        justify: Literal["left", "center", "right"] = ...,
+        exportselection: bool = True,
+        font: _FontDescription = "TkTextFont",
+        foreground: str = "",
+        invalidcommand: tkinter._EntryValidateCommand = "",
+        justify: Literal["left", "center", "right"] = "left",
         name: str = ...,
-        show: str = ...,
-        state: str = ...,
-        style: str = ...,
+        show: str = "",
+        state: str = "normal",
+        style: str = "",
         takefocus: tkinter._TakeFocusValue = ...,
         textvariable: tkinter.Variable = ...,
-        validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
-        validatecommand: tkinter._EntryValidateCommand = ...,
-        width: int = ...,
-        xscrollcommand: tkinter._XYScrollCommand = ...,
+        validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = "none",
+        validatecommand: tkinter._EntryValidateCommand = "",
+        width: int = 20,
+        xscrollcommand: tkinter._XYScrollCommand = "",
     ) -> None: ...
     @overload  # type: ignore[override]
     def configure(
@@ -254,25 +254,25 @@ class Combobox(Entry):
         master: tkinter.Misc | None = None,
         *,
         background: str = ...,  # undocumented
-        class_: str = ...,
-        cursor: tkinter._Cursor = ...,
-        exportselection: bool = ...,
+        class_: str = "",
+        cursor: tkinter._Cursor = "",
+        exportselection: bool = True,
         font: _FontDescription = ...,  # undocumented
         foreground: str = ...,  # undocumented
-        height: int = ...,
+        height: int = 10,
         invalidcommand: tkinter._EntryValidateCommand = ...,  # undocumented
-        justify: Literal["left", "center", "right"] = ...,
+        justify: Literal["left", "center", "right"] = "left",
         name: str = ...,
-        postcommand: Callable[[], object] | str = ...,
+        postcommand: Callable[[], object] | str = "",
         show=...,  # undocumented
-        state: str = ...,
-        style: str = ...,
+        state: str = "normal",
+        style: str = "",
         takefocus: tkinter._TakeFocusValue = ...,
         textvariable: tkinter.Variable = ...,
         validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,  # undocumented
         validatecommand: tkinter._EntryValidateCommand = ...,  # undocumented
         values: list[str] | tuple[str, ...] = ...,
-        width: int = ...,
+        width: int = 20,
         xscrollcommand: tkinter._XYScrollCommand = ...,  # undocumented
     ) -> None: ...
     @overload  # type: ignore[override]
@@ -340,15 +340,15 @@ class Frame(Widget):
         *,
         border: tkinter._ScreenUnits = ...,
         borderwidth: tkinter._ScreenUnits = ...,
-        class_: str = ...,
-        cursor: tkinter._Cursor = ...,
-        height: tkinter._ScreenUnits = ...,
+        class_: str = "",
+        cursor: tkinter._Cursor = "",
+        height: tkinter._ScreenUnits = 0,
         name: str = ...,
         padding: _Padding = ...,
         relief: tkinter._Relief = ...,
-        style: str = ...,
-        takefocus: tkinter._TakeFocusValue = ...,
-        width: tkinter._ScreenUnits = ...,
+        style: str = "",
+        takefocus: tkinter._TakeFocusValue = "",
+        width: tkinter._ScreenUnits = 0,
     ) -> None: ...
     @overload
     def configure(
