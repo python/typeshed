@@ -963,8 +963,8 @@ class Toplevel(BaseWidget, Wm):
         highlightthickness: _ScreenUnits = 0,
         menu: Menu = ...,
         name: str = ...,
-        padx: _ScreenUnits = "0",
-        pady: _ScreenUnits = "0",
+        padx: _ScreenUnits = 0,
+        pady: _ScreenUnits = 0,
         relief: _Relief = "flat",
         screen: str = "",  # can't be changed after creating widget
         takefocus: _TakeFocusValue = 0,
@@ -1045,7 +1045,7 @@ class Button(Widget):
         textvariable: Variable = ...,
         underline: int = -1,
         width: _ScreenUnits = 0,
-        wraplength: _ScreenUnits = "0",
+        wraplength: _ScreenUnits = 0,
     ) -> None: ...
     @overload
     def configure(
@@ -1792,7 +1792,7 @@ class Checkbutton(Widget):
         underline: int = -1,
         variable: Variable | Literal[""] = "",
         width: _ScreenUnits = 0,
-        wraplength: _ScreenUnits = "0",
+        wraplength: _ScreenUnits = 0,
     ) -> None: ...
     @overload
     def configure(
@@ -1984,8 +1984,8 @@ class Frame(Widget):
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = 0,
         name: str = ...,
-        padx: _ScreenUnits = "0",
-        pady: _ScreenUnits = "0",
+        padx: _ScreenUnits = 0,
+        pady: _ScreenUnits = 0,
         relief: _Relief = "flat",
         takefocus: _TakeFocusValue = 0,
         visual: str | tuple[str, int] = "",  # can't be changed with configure()
@@ -2040,7 +2040,7 @@ class Label(Widget):
         height: _ScreenUnits = 0,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: _ScreenUnits = "0",
+        highlightthickness: _ScreenUnits = 0,
         image: _ImageSpec = "",
         justify: Literal["left", "center", "right"] = "center",
         name: str = ...,
@@ -2053,7 +2053,7 @@ class Label(Widget):
         textvariable: Variable = ...,
         underline: int = -1,
         width: _ScreenUnits = 0,
-        wraplength: _ScreenUnits = "0",
+        wraplength: _ScreenUnits = 0,
     ) -> None: ...
     @overload
     def configure(
@@ -2675,7 +2675,7 @@ class Radiobutton(Widget):
         value: Any = "",
         variable: Variable | Literal[""] = ...,
         width: _ScreenUnits = 0,
-        wraplength: _ScreenUnits = "0",
+        wraplength: _ScreenUnits = 0,
     ) -> None: ...
     @overload
     def configure(
@@ -3523,8 +3523,8 @@ class LabelFrame(Widget):
         labelanchor: Literal["nw", "n", "ne", "en", "e", "es", "se", "s", "sw", "ws", "w", "wn"] = "nw",
         labelwidget: Misc = ...,
         name: str = ...,
-        padx: _ScreenUnits = "0",
-        pady: _ScreenUnits = "0",
+        padx: _ScreenUnits = 0,
+        pady: _ScreenUnits = 0,
         relief: _Relief = "groove",
         takefocus: _TakeFocusValue = 0,
         text: float | str = "",
