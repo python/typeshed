@@ -154,7 +154,7 @@ def ctc_loss(
     logits_time_major: bool = True,
     unique: int | None = None,
     blank_index: int | None = None,
-    name: str | None = "ctc_loss_dense",
+    name: str | None = None,
 ) -> Tensor: ...
 def ctc_unique_labels(labels: Tensor, name: str | None = None) -> tuple[Tensor, Tensor]: ...
 @overload
