@@ -185,5 +185,6 @@ def safe_embedding_lookup_sparse(
     default_id: ScalarTensorCompatible | None = None,
     max_norm: float | None = None,
     name: str | None = None,
+    allow_fast_lookup: bool = False,
 ) -> Tensor: ...
 def __getattr__(name: str) -> Incomplete: ...
