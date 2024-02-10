@@ -1102,10 +1102,10 @@ class Canvas(Widget, XView, YView):
         cnf: dict[str, Any] | None = {},
         *,
         background: str = ...,
-        bd: _ScreenUnits = "0",
+        bd: _ScreenUnits = 0,
         bg: str = ...,
         border: _ScreenUnits = ...,
-        borderwidth: _ScreenUnits = "0",
+        borderwidth: _ScreenUnits = 0,
         closeenough: float = 1.0,
         confine: bool = True,
         cursor: _Cursor = "",
@@ -1116,10 +1116,10 @@ class Canvas(Widget, XView, YView):
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
         insertbackground: str = ...,
-        insertborderwidth: _ScreenUnits = "0",
+        insertborderwidth: _ScreenUnits = 0,
         insertofftime: int = 300,
         insertontime: int = 600,
-        insertwidth: _ScreenUnits = "2",
+        insertwidth: _ScreenUnits = 2,
         name: str = ...,
         offset=...,  # undocumented
         relief: _Relief = "flat",
@@ -1127,16 +1127,16 @@ class Canvas(Widget, XView, YView):
         # but setting it to () does.
         scrollregion: tuple[_ScreenUnits, _ScreenUnits, _ScreenUnits, _ScreenUnits] | tuple[()] = (),
         selectbackground: str = ...,
-        selectborderwidth: _ScreenUnits = "1",
+        selectborderwidth: _ScreenUnits = 1,
         selectforeground: str = ...,
         # man page says that state can be 'hidden', but it can't
         state: Literal["normal", "disabled"] = "normal",
         takefocus: _TakeFocusValue = "",
         width: _ScreenUnits = ...,
         xscrollcommand: _XYScrollCommand = "",
-        xscrollincrement: _ScreenUnits = "0",
+        xscrollincrement: _ScreenUnits = 0,
         yscrollcommand: _XYScrollCommand = "",
-        yscrollincrement: _ScreenUnits = "0",
+        yscrollincrement: _ScreenUnits = 0,
     ) -> None: ...
     @overload
     def configure(
@@ -1775,8 +1775,8 @@ class Checkbutton(Widget):
         # and list[int] are incompatible. Also, we would need a way to
         # specify "Checkbutton not associated with any variable", which is
         # done by setting variable to empty string (the default).
-        offvalue: Any = "0",
-        onvalue: Any = "1",
+        offvalue: Any = 0,
+        onvalue: Any = 1,
         overrelief: _Relief | Literal[""] = "",
         padx: _ScreenUnits = 1,
         pady: _ScreenUnits = 1,
@@ -2501,7 +2501,7 @@ class Menubutton(Widget):
         fg: str = ...,
         font: _FontDescription = "TkDefaultFont",
         foreground: str = ...,
-        height: _ScreenUnits = "0",
+        height: _ScreenUnits = 0,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = 0,
@@ -2518,7 +2518,7 @@ class Menubutton(Widget):
         text: float | str = "",
         textvariable: Variable = ...,
         underline: int = -1,
-        width: _ScreenUnits = "0",
+        width: _ScreenUnits = 0,
         wraplength: _ScreenUnits = 0,
     ) -> None: ...
     @overload
@@ -2842,10 +2842,10 @@ class Scrollbar(Widget):
         # that it can take any args while it can't in reality.
         command: Callable[..., tuple[float, float] | None] | str = "",
         cursor: _Cursor = "",
-        elementborderwidth: _ScreenUnits = "-1",
+        elementborderwidth: _ScreenUnits = -1,
         highlightbackground: str = ...,
         highlightcolor: str = ...,
-        highlightthickness: _ScreenUnits = "0",
+        highlightthickness: _ScreenUnits = 0,
         jump: bool = False,
         name: str = ...,
         orient: Literal["horizontal", "vertical"] = "vertical",
