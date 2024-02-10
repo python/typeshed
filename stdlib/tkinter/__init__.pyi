@@ -1790,7 +1790,7 @@ class Checkbutton(Widget):
         tristateimage: _ImageSpec = "",
         tristatevalue: Any = "",
         underline: int = -1,
-        variable: Variable | Literal[""] = "",
+        variable: Variable | Literal[""] = ...,
         width: _ScreenUnits = 0,
         wraplength: _ScreenUnits = 0,
     ) -> None: ...
