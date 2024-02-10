@@ -214,8 +214,7 @@ if sys.version_info >= (3, 11):
 
     _BE = TypeVar("_BE", bound=BaseException)
 
-    class CustomBaseGroup(BaseExceptionGroup[_BE]):
-        ...
+    class CustomBaseGroup(BaseExceptionGroup[_BE]): ...
 
     cb1 = CustomBaseGroup("x", [SystemExit()])
     assert_type(cb1, CustomBaseGroup[SystemExit])
@@ -276,8 +275,7 @@ if sys.version_info >= (3, 11):
 
     _E = TypeVar("_E", bound=Exception)
 
-    class CustomGroup(ExceptionGroup[_E]):
-        ...
+    class CustomGroup(ExceptionGroup[_E]): ...
 
     CustomGroup("x", [SystemExit()])  # type: ignore
     cg1 = CustomGroup("x", [ValueError()])

@@ -1030,7 +1030,7 @@ class Button(Widget):
         image: _ImageSpec = "",
         justify: Literal["left", "center", "right"] = "center",
         name: str = ...,
-        overrelief: _Relief = "",
+        overrelief: _Relief | Literal[""] = "",
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
@@ -1075,7 +1075,7 @@ class Button(Widget):
         highlightthickness: _ScreenUnits = ...,
         image: _ImageSpec = ...,
         justify: Literal["left", "center", "right"] = ...,
-        overrelief: _Relief = ...,
+        overrelief: _Relief | Literal[""] = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
@@ -1732,7 +1732,7 @@ class Canvas(Widget, XView, YView):
     def select_from(self, tagOrId, index) -> None: ...
     def select_item(self): ...
     def select_to(self, tagOrId, index) -> None: ...
-    def type(self, tagOrId): ...
+    def type(self, tagOrId: str | int) -> int | None: ...
 
 class Checkbutton(Widget):
     def __init__(
@@ -1777,7 +1777,7 @@ class Checkbutton(Widget):
         # done by setting variable to empty string (the default).
         offvalue: Any = "0",
         onvalue: Any = "1",
-        overrelief: _Relief = "",
+        overrelief: _Relief | Literal[""] = "",
         padx: _ScreenUnits = "1",
         pady: _ScreenUnits = "1",
         relief: _Relief = "flat",
@@ -1825,7 +1825,7 @@ class Checkbutton(Widget):
         offrelief: _Relief = ...,
         offvalue: Any = ...,
         onvalue: Any = ...,
-        overrelief: _Relief = ...,
+        overrelief: _Relief | Literal[""] = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
@@ -2659,7 +2659,7 @@ class Radiobutton(Widget):
         justify: Literal["left", "center", "right"] = "center",
         name: str = ...,
         offrelief: _Relief = ...,
-        overrelief: _Relief = "",
+        overrelief: _Relief | Literal[""] = "",
         padx: _ScreenUnits = "1",
         pady: _ScreenUnits = "1",
         relief: _Relief = "flat",
@@ -2706,7 +2706,7 @@ class Radiobutton(Widget):
         indicatoron: bool = ...,
         justify: Literal["left", "center", "right"] = ...,
         offrelief: _Relief = ...,
-        overrelief: _Relief = ...,
+        overrelief: _Relief | Literal[""] = ...,
         padx: _ScreenUnits = ...,
         pady: _ScreenUnits = ...,
         relief: _Relief = ...,
