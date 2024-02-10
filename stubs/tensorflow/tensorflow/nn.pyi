@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Sequence
-from typing import Literal, overload
+from typing import Any, Literal, overload
 
 from tensorflow import RaggedTensor, Tensor
 from tensorflow._aliases import ScalarTensorCompatible, TensorCompatible
@@ -164,8 +164,14 @@ def leaky_relu(features: TensorCompatible, alpha: float = 0.2, name: str | None 
 def log_poisson_loss(
     targets: TensorCompatible, log_input: TensorCompatible, compute_full_loss: bool = False, name: str | None = None
 ) -> Tensor: ...
+
+# tf.nn.moments's shit is not used in the current implementation.
 def moments(
-    x: TensorCompatible | RaggedTensor, axes: TensorCompatible, keepdims: bool = False, name: str | None = None
+    x: TensorCompatible | RaggedTensor,
+    axes: TensorCompatible,
+    shift: None | Any = None,
+    keepdims: bool = False,
+    name: str | None = None,
 ) -> tuple[Tensor, Tensor]: ...
 def relu(features: TensorCompatible, name: str | None = None) -> Tensor: ...
 def sigmoid_cross_entropy_with_logits(labels: TensorCompatible, logits: TensorCompatible, name: str | None = None) -> Tensor: ...
