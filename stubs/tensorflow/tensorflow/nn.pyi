@@ -61,7 +61,7 @@ def compute_average_loss(
 def conv1d(
     input: Tensor,
     filters: Tensor,
-    strides: int | Sequence[int],
+    stride: int | Sequence[int],
     padding: Literal["VALID", "SAME"],
     data_format: Literal["NWC", "NCW"] = "NWC",
     dilations: int | Sequence[int] | None = None,
@@ -128,11 +128,10 @@ def conv_transpose(
 def convolution(
     input: Tensor,
     filters: Tensor,
-    output_shape: Tensor,
     strides: int | Sequence[int] | None = None,
-    padding: Literal["VALID", "SAME"] = "SAME",
+    padding: Literal["VALID", "SAME"] = "VALID",
     dilations: int | Sequence[int] | None = None,
-    data_format: str | None = None,
+    data_format: Literal["NC", "NWC", "NCW", "NHWC", "NCHW", "NDHWC", "NCDHW"] | None = None,
     name: str | None = None,
 ) -> Tensor: ...
 def crelu(features: Tensor, axis: int = -1, name: str | None = None) -> Tensor: ...
