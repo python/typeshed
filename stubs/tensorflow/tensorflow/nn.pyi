@@ -135,8 +135,8 @@ def convolution(
     filters: TensorOrArray,
     strides: int | Sequence[int] | None = None,
     padding: Literal["VALID", "SAME"] = "VALID",
-    dilations: int | Sequence[int] | None = None,
     data_format: Literal["NC", "NWC", "NCW", "NHWC", "NCHW", "NDHWC", "NCDHW"] | None = None,
+    dilations: int | Sequence[int] | None = None,
     name: str | None = None,
 ) -> Tensor: ...
 def crelu(features: TensorOrArray, axis: int = -1, name: str | None = None) -> Tensor: ...
