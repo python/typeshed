@@ -2118,7 +2118,7 @@ class Listbox(Widget, XView, YView):
         highlightbackground: str = ...,
         highlightcolor: str = ...,
         highlightthickness: _ScreenUnits = ...,
-        justify: Literal["left", "center", "right"] ="left",
+        justify: Literal["left", "center", "right"] = "left",
         # There's no tkinter.ListVar, but seems like bare tkinter.Variable
         # actually works for this:
         #
