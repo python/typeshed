@@ -865,30 +865,30 @@ class Spinbox(Entry):
         master: tkinter.Misc | None = None,
         *,
         background: str = ...,  # undocumented
-        class_: str = ...,
-        command: Callable[[], object] | str | list[str] | tuple[str, ...] = ...,
-        cursor: tkinter._Cursor = ...,
+        class_: str = "",
+        command: Callable[[], object] | str | list[str] | tuple[str, ...] = "",
+        cursor: tkinter._Cursor = "",
         exportselection: bool = ...,  # undocumented
         font: _FontDescription = ...,  # undocumented
         foreground: str = ...,  # undocumented
-        format: str = ...,
-        from_: float = ...,
-        increment: float = ...,
+        format: str = "",
+        from_: float = 0,
+        increment: float = 1,
         invalidcommand: tkinter._EntryValidateCommand = ...,  # undocumented
         justify: Literal["left", "center", "right"] = ...,  # undocumented
         name: str = ...,
         show=...,  # undocumented
-        state: str = ...,
-        style: str = ...,
+        state: str = "normal",
+        style: str = "",
         takefocus: tkinter._TakeFocusValue = ...,
         textvariable: tkinter.Variable = ...,  # undocumented
-        to: float = ...,
-        validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = ...,
-        validatecommand: tkinter._EntryValidateCommand = ...,
+        to: float = 0,
+        validate: Literal["none", "focus", "focusin", "focusout", "key", "all"] = "none",
+        validatecommand: tkinter._EntryValidateCommand = "",
         values: list[str] | tuple[str, ...] = ...,
         width: int = ...,  # undocumented
-        wrap: bool = ...,
-        xscrollcommand: tkinter._XYScrollCommand = ...,
+        wrap: bool = False,
+        xscrollcommand: tkinter._XYScrollCommand = "",
     ) -> None: ...
     @overload  # type: ignore[override]
     def configure(
@@ -957,23 +957,23 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
         self,
         master: tkinter.Misc | None = None,
         *,
-        class_: str = ...,
-        columns: str | list[str] | list[int] | list[str | int] | tuple[str | int, ...] = ...,
-        cursor: tkinter._Cursor = ...,
-        displaycolumns: str | int | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] = ...,
-        height: int = ...,
+        class_: str = "",
+        columns: str | list[str] | list[int] | list[str | int] | tuple[str | int, ...] = "",
+        cursor: tkinter._Cursor = "",
+        displaycolumns: str | int | list[str] | tuple[str, ...] | list[int] | tuple[int, ...] = ("#all",),
+        height: int = 10,
         name: str = ...,
         padding: _Padding = ...,
-        selectmode: Literal["extended", "browse", "none"] = ...,
+        selectmode: Literal["extended", "browse", "none"] = "extended",
         # list/tuple of Literal don't actually work in mypy
         #
         # 'tree headings' is same as ['tree', 'headings'], and I wouldn't be
         # surprised if someone is using it.
-        show: Literal["tree", "headings", "tree headings", ""] | list[str] | tuple[str, ...] = ...,
-        style: str = ...,
+        show: Literal["tree", "headings", "tree headings", ""] | list[str] | tuple[str, ...] = ("tree", "headings"),
+        style: str = "",
         takefocus: tkinter._TakeFocusValue = ...,
-        xscrollcommand: tkinter._XYScrollCommand = ...,
-        yscrollcommand: tkinter._XYScrollCommand = ...,
+        xscrollcommand: tkinter._XYScrollCommand = "",
+        yscrollcommand: tkinter._XYScrollCommand = "",
     ) -> None: ...
     @overload
     def configure(
