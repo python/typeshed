@@ -712,18 +712,18 @@ class Scale(Widget, tkinter.Scale):  # type: ignore[misc]
         self,
         master: tkinter.Misc | None = None,
         *,
-        class_: str = ...,
-        command: str | Callable[[str], object] = ...,
-        cursor: tkinter._Cursor = ...,
-        from_: float = ...,
-        length: tkinter._ScreenUnits = ...,
+        class_: str = "",
+        command: str | Callable[[str], object] = "",
+        cursor: tkinter._Cursor = "",
+        from_: float = 0,
+        length: tkinter._ScreenUnits = 100,
         name: str = ...,
-        orient: Literal["horizontal", "vertical"] = ...,
+        orient: Literal["horizontal", "vertical"] = "horizontal",
         state: str = ...,  # undocumented
-        style: str = ...,
+        style: str = "",
         takefocus: tkinter._TakeFocusValue = ...,
-        to: float = ...,
-        value: float = ...,
+        to: float = 1.0,
+        value: float = 0,
         variable: tkinter.IntVar | tkinter.DoubleVar = ...,
     ) -> None: ...
     @overload  # type: ignore[override]
@@ -773,13 +773,13 @@ class Scrollbar(Widget, tkinter.Scrollbar):  # type: ignore[misc]
         self,
         master: tkinter.Misc | None = None,
         *,
-        class_: str = ...,
-        command: Callable[..., tuple[float, float] | None] | str = ...,
-        cursor: tkinter._Cursor = ...,
+        class_: str = "",
+        command: Callable[..., tuple[float, float] | None] | str = "",
+        cursor: tkinter._Cursor = "",
         name: str = ...,
-        orient: Literal["horizontal", "vertical"] = ...,
-        style: str = ...,
-        takefocus: tkinter._TakeFocusValue = ...,
+        orient: Literal["horizontal", "vertical"] = "vertical",
+        style: str = "",
+        takefocus: tkinter._TakeFocusValue = "",
     ) -> None: ...
     @overload  # type: ignore[override]
     def configure(
@@ -814,12 +814,12 @@ class Separator(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        class_: str = ...,
-        cursor: tkinter._Cursor = ...,
+        class_: str = "",
+        cursor: tkinter._Cursor = "",
         name: str = ...,
-        orient: Literal["horizontal", "vertical"] = ...,
-        style: str = ...,
-        takefocus: tkinter._TakeFocusValue = ...,
+        orient: Literal["horizontal", "vertical"] = "horizontal",
+        style: str = "",
+        takefocus: tkinter._TakeFocusValue = "",
     ) -> None: ...
     @overload
     def configure(
@@ -840,11 +840,11 @@ class Sizegrip(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        class_: str = ...,
+        class_: str = "",
         cursor: tkinter._Cursor = ...,
         name: str = ...,
-        style: str = ...,
-        takefocus: tkinter._TakeFocusValue = ...,
+        style: str = "",
+        takefocus: tkinter._TakeFocusValue = "",
     ) -> None: ...
     @overload
     def configure(
