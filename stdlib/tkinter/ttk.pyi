@@ -1190,8 +1190,8 @@ class LabeledScale(Frame):
 class OptionMenu(Menubutton):
     def __init__(
         self,
-        master,
-        variable,
+        master: tkinter.Misc | None,
+        variable: tkinter.Variable,
         default: str | None = None,
         *values: str,
         # rest of these are keyword-only because *args syntax used above
@@ -1201,4 +1201,4 @@ class OptionMenu(Menubutton):
     ) -> None: ...
     # configure, config, cget, destroy are inherited from Menubutton
     # destroy and __setitem__ are overridden, signature does not change
-    def set_menu(self, default: Incomplete | None = None, *values) -> None: ...
+    def set_menu(self, default: str | None = None, *values: str) -> None: ...
