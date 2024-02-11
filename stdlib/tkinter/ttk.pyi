@@ -1173,16 +1173,16 @@ class LabeledScale(Frame):
         *,
         border: tkinter._ScreenUnits = ...,
         borderwidth: tkinter._ScreenUnits = ...,
-        class_: str = ...,
+        class_: str = "",
         compound: Literal["top", "bottom"] = "top",
-        cursor: tkinter._Cursor = ...,
-        height: tkinter._ScreenUnits = ...,
+        cursor: tkinter._Cursor = "",
+        height: tkinter._ScreenUnits = 0,
         name: str = ...,
         padding: _Padding = ...,
         relief: tkinter._Relief = ...,
-        style: str = ...,
-        takefocus: tkinter._TakeFocusValue = ...,
-        width: tkinter._ScreenUnits = ...,
+        style: str = "",
+        takefocus: tkinter._TakeFocusValue = "",
+        width: tkinter._ScreenUnits = 0,
     ) -> None: ...
     # destroy is overridden, signature does not change
     value: Any
