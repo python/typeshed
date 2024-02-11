@@ -522,14 +522,14 @@ class Notebook(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        class_: str = ...,
-        cursor: tkinter._Cursor = ...,
-        height: int = ...,
+        class_: str = "",
+        cursor: tkinter._Cursor = "",
+        height: int = 0,
         name: str = ...,
         padding: _Padding = ...,
-        style: str = ...,
+        style: str = "",
         takefocus: tkinter._TakeFocusValue = ...,
-        width: int = ...,
+        width: int = 0,
     ) -> None: ...
     @overload
     def configure(
@@ -573,15 +573,15 @@ class Panedwindow(Widget, tkinter.PanedWindow):
         self,
         master: tkinter.Misc | None = None,
         *,
-        class_: str = ...,
-        cursor: tkinter._Cursor = ...,
+        class_: str = "",
+        cursor: tkinter._Cursor = "",
         # width and height for tkinter.ttk.Panedwindow are int but for tkinter.PanedWindow they are screen units
-        height: int = ...,
+        height: int = 0,
         name: str = ...,
-        orient: Literal["vertical", "horizontal"] = ...,  # can't be changed with configure()
-        style: str = ...,
-        takefocus: tkinter._TakeFocusValue = ...,
-        width: int = ...,
+        orient: Literal["vertical", "horizontal"] = "vertical",  # can't be changed with configure()
+        style: str = "",
+        takefocus: tkinter._TakeFocusValue = "",
+        width: int = 0,
     ) -> None: ...
     def add(self, child: tkinter.Widget, *, weight: int = ..., **kw) -> None: ...
     @overload  # type: ignore[override]
@@ -623,17 +623,17 @@ class Progressbar(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        class_: str = ...,
-        cursor: tkinter._Cursor = ...,
-        length: tkinter._ScreenUnits = ...,
-        maximum: float = ...,
-        mode: Literal["determinate", "indeterminate"] = ...,
+        class_: str = "",
+        cursor: tkinter._Cursor = "",
+        length: tkinter._ScreenUnits = 100,
+        maximum: float = 100,
+        mode: Literal["determinate", "indeterminate"] = "determinate",
         name: str = ...,
-        orient: Literal["horizontal", "vertical"] = ...,
-        phase: int = ...,  # docs say read-only but assigning int to this works
-        style: str = ...,
-        takefocus: tkinter._TakeFocusValue = ...,
-        value: float = ...,
+        orient: Literal["horizontal", "vertical"] = "horizontal",
+        phase: int = 0,  # docs say read-only but assigning int to this works
+        style: str = "",
+        takefocus: tkinter._TakeFocusValue = "",
+        value: float = 0.0,
         variable: tkinter.IntVar | tkinter.DoubleVar = ...,
     ) -> None: ...
     @overload
@@ -664,22 +664,22 @@ class Radiobutton(Widget):
         self,
         master: tkinter.Misc | None = None,
         *,
-        class_: str = ...,
-        command: tkinter._ButtonCommand = ...,
-        compound: _TtkCompound = ...,
-        cursor: tkinter._Cursor = ...,
-        image: tkinter._ImageSpec = ...,
+        class_: str = "",
+        command: tkinter._ButtonCommand = "",
+        compound: _TtkCompound = "",
+        cursor: tkinter._Cursor = "",
+        image: tkinter._ImageSpec = "",
         name: str = ...,
         padding=...,  # undocumented
-        state: str = ...,
-        style: str = ...,
+        state: str = "normal",
+        style: str = "",
         takefocus: tkinter._TakeFocusValue = ...,
-        text: float | str = ...,
+        text: float | str = "",
         textvariable: tkinter.Variable = ...,
-        underline: int = ...,
-        value: Any = ...,
+        underline: int = -1,
+        value: Any = "1",
         variable: tkinter.Variable | Literal[""] = ...,
-        width: int | Literal[""] = ...,
+        width: int | Literal[""] = "",
     ) -> None: ...
     @overload
     def configure(
