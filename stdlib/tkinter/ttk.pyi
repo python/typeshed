@@ -46,7 +46,7 @@ _Padding: TypeAlias = (
 )
 
 # from ttk_widget (aka ttk::widget) manual page, differs from tkinter._Compound
-_TtkCompound: TypeAlias = Literal["text", "image", tkinter._Compound]
+_TtkCompound: TypeAlias = Literal["", "text", "image", tkinter._Compound]
 
 class Style:
     master: Incomplete
