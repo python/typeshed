@@ -1195,9 +1195,9 @@ class OptionMenu(Menubutton):
         default: str | None = None,
         *values: str,
         # rest of these are keyword-only because *args syntax used above
-        style: str = ...,
-        direction: Literal["above", "below", "left", "right", "flush"] = ...,
-        command: Callable[[tkinter.StringVar], object] | None = ...,
+        style: str = "",
+        direction: Literal["above", "below", "left", "right", "flush"] = "below",
+        command: Callable[[tkinter.StringVar], object] | None = None,
     ) -> None: ...
     # configure, config, cget, destroy are inherited from Menubutton
     # destroy and __setitem__ are overridden, signature does not change
