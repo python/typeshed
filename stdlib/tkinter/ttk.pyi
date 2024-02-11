@@ -334,6 +334,8 @@ class Combobox(Entry):
     def set(self, value: Any) -> None: ...
 
 class Frame(Widget):
+    # This should be kept in sync with tkinter.ttk.LabeledScale.__init__()
+    # (all of these keyword-only arguments are also present there)
     def __init__(
         self,
         master: tkinter.Misc | None = None,
@@ -1158,9 +1160,10 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
     def tag_has(self, tagname: str, item: str | int) -> bool: ...
 
 class LabeledScale(Frame):
-    label: Incomplete
-    scale: Incomplete
-    # TODO: don't any-type **kw. That goes to Frame.__init__.
+    label: Label
+    scale: Scale
+    # This should be kept in sync with tkinter.ttk.Frame.__init__()
+    # (all the keyword-only args except compound are from there)
     def __init__(
         self,
         master: tkinter.Misc | None = None,
@@ -1168,8 +1171,18 @@ class LabeledScale(Frame):
         from_: float = 0,
         to: float = 10,
         *,
-        compound: Literal["top", "bottom"] = ...,
-        **kw,
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,
+        class_: str = ...,
+        compound: Literal["top", "bottom"] = "top",
+        cursor: tkinter._Cursor = ...,
+        height: tkinter._ScreenUnits = ...,
+        name: str = ...,
+        padding: _Padding = ...,
+        relief: tkinter._Relief = ...,
+        style: str = ...,
+        takefocus: tkinter._TakeFocusValue = ...,
+        width: tkinter._ScreenUnits = ...,
     ) -> None: ...
     # destroy is overridden, signature does not change
     value: Any
