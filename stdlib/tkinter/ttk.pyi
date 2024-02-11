@@ -334,6 +334,8 @@ class Combobox(Entry):
     def set(self, value: Any) -> None: ...
 
 class Frame(Widget):
+    # This should be kept in sync with tkinter.ttk.LabeledScale.__init__()
+    # (all of these keyword-only arguments are also present there)
     def __init__(
         self,
         master: tkinter.Misc | None = None,
@@ -1160,6 +1162,8 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
 class LabeledScale(Frame):
     label: Label
     scale: Scale
+    # This should be kept in sync with tkinter.ttk.Frame.__init__()
+    # (all the keyword-only args except compound are from there)
     def __init__(
         self,
         master: tkinter.Misc | None = None,
@@ -1170,7 +1174,7 @@ class LabeledScale(Frame):
         border: tkinter._ScreenUnits = ...,
         borderwidth: tkinter._ScreenUnits = ...,
         class_: str = ...,
-        compound: Literal["top", "bottom"] = ...,
+        compound: Literal["top", "bottom"] = "top",
         cursor: tkinter._Cursor = ...,
         height: tkinter._ScreenUnits = ...,
         name: str = ...,
