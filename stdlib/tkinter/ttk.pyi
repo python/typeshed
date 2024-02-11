@@ -1158,9 +1158,8 @@ class Treeview(Widget, tkinter.XView, tkinter.YView):
     def tag_has(self, tagname: str, item: str | int) -> bool: ...
 
 class LabeledScale(Frame):
-    label: Incomplete
-    scale: Incomplete
-    # TODO: don't any-type **kw. That goes to Frame.__init__.
+    label: Label
+    scale: Scale
     def __init__(
         self,
         master: tkinter.Misc | None = None,
@@ -1168,8 +1167,18 @@ class LabeledScale(Frame):
         from_: float = 0,
         to: float = 10,
         *,
+        border: tkinter._ScreenUnits = ...,
+        borderwidth: tkinter._ScreenUnits = ...,
+        class_: str = ...,
         compound: Literal["top", "bottom"] = ...,
-        **kw,
+        cursor: tkinter._Cursor = ...,
+        height: tkinter._ScreenUnits = ...,
+        name: str = ...,
+        padding: _Padding = ...,
+        relief: tkinter._Relief = ...,
+        style: str = ...,
+        takefocus: tkinter._TakeFocusValue = ...,
+        width: tkinter._ScreenUnits = ...,
     ) -> None: ...
     # destroy is overridden, signature does not change
     value: Any
