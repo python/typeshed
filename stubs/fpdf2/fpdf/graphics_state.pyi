@@ -1,9 +1,10 @@
-from typing import Any, ClassVar, Literal, TypedDict
+from typing import Any, ClassVar, Literal, TypedDict, type_check_only
 
 from .drawing import DeviceGray, DeviceRGB
 from .enums import TextMode
 from .fonts import FontFace
 
+@type_check_only
 class _TextShaping(TypedDict):
     use_shaping_engine: bool
     features: dict[str, bool]

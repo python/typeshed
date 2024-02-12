@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from dataclasses import dataclass
-from typing import Final, Literal, TypedDict
+from typing import Final, Literal, TypedDict, type_check_only
 
 MAX_DEPTH: Final[int]
 
+@type_check_only
 class _BracketInfo(TypedDict):
     pair: str
     type: Literal["o", "c"]
