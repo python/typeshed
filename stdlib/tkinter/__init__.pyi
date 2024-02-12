@@ -185,7 +185,7 @@ _ScreenUnits: TypeAlias = str | float  # Often the right type instead of int. Ma
 # -xscrollcommand and -yscrollcommand in 'options' manual page
 _XYScrollCommand: TypeAlias = str | Callable[[float, float], object]
 _TakeFocusValue: TypeAlias = (
-    bool | Literal[0, 1] | Literal[""] | Callable[[str], bool | None]
+    bool | Literal[0, 1, ""] | Callable[[str], bool | None]
 )  # -takefocus in manual page named 'options'
 
 if sys.version_info >= (3, 11):
