@@ -184,7 +184,9 @@ _Relief: TypeAlias = Literal["raised", "sunken", "flat", "ridge", "solid", "groo
 _ScreenUnits: TypeAlias = str | float  # Often the right type instead of int. Manual page: Tk_GetPixels
 # -xscrollcommand and -yscrollcommand in 'options' manual page
 _XYScrollCommand: TypeAlias = str | Callable[[float, float], object]
-_TakeFocusValue: TypeAlias = bool | Literal[0, 1] | Literal[""] | Callable[[str], bool | None]  # -takefocus in manual page named 'options'
+_TakeFocusValue: TypeAlias = (
+    bool | Literal[0, 1] | Literal[""] | Callable[[str], bool | None]
+)  # -takefocus in manual page named 'options'
 
 if sys.version_info >= (3, 11):
     class _VersionInfoType(NamedTuple):
