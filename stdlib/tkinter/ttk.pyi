@@ -1191,7 +1191,7 @@ class OptionMenu(Menubutton):
     def __init__(
         self,
         master: tkinter.Misc | None,
-        variable: tkinter.Variable,
+        variable: tkinter.StringVar,
         default: str | None = None,
         *values: str,
         # rest of these are keyword-only because *args syntax used above
