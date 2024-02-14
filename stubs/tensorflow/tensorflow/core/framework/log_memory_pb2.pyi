@@ -3,9 +3,10 @@
 isort:skip_file
 """
 import builtins
+import sys
+
 import google.protobuf.descriptor
 import google.protobuf.message
-import sys
 import tensorflow.core.framework.tensor_description_pb2
 
 if sys.version_info >= (3, 8):

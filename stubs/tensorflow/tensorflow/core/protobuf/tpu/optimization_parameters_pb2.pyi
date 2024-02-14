@@ -3,13 +3,14 @@
 isort:skip_file
 """
 import builtins
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.wrappers_pb2
-import sys
 import tensorflow.compiler.xla.service.hlo_pb2
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -735,7 +736,7 @@ class GradientAccumulationStatus(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GradientAccumulationStatus._Status.ValueType], builtins.type):  # noqa: F821
+    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GradientAccumulationStatus._Status.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNSPECIFIED: GradientAccumulationStatus._Status.ValueType  # 0
         ENABLED: GradientAccumulationStatus._Status.ValueType  # 1
@@ -802,7 +803,7 @@ class LowDimensionalPackingStatus(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LowDimensionalPackingStatus._Status.ValueType], builtins.type):  # noqa: F821
+    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LowDimensionalPackingStatus._Status.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNSPECIFIED: LowDimensionalPackingStatus._Status.ValueType  # 0
         ENABLED: LowDimensionalPackingStatus._Status.ValueType  # 1
@@ -843,20 +844,24 @@ class HotIdReplicationConfiguration(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HotIdReplicationConfiguration._Status.ValueType], builtins.type):  # noqa: F821
+    class _StatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HotIdReplicationConfiguration._Status.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNSPECIFIED: HotIdReplicationConfiguration._Status.ValueType  # 0
         ENABLED: HotIdReplicationConfiguration._Status.ValueType  # 1
         DISABLED: HotIdReplicationConfiguration._Status.ValueType  # 2
+        MIGRATION_ONLY: HotIdReplicationConfiguration._Status.ValueType  # 3
 
     class Status(_Status, metaclass=_StatusEnumTypeWrapper):
         """Whether to enable or disable hot ID optimization.
-        If UNSPECIFIED (default), hot ID optimization is DISABLED.
+        If set to UNSPECIFIED (default), hot ID optimization is DISABLED.
+        If set to ENABLED, hot ID replication is turned ON.
+        If set to MIGRATION_ONLY, hot ID migration is turned ON.
         """
 
     UNSPECIFIED: HotIdReplicationConfiguration.Status.ValueType  # 0
     ENABLED: HotIdReplicationConfiguration.Status.ValueType  # 1
     DISABLED: HotIdReplicationConfiguration.Status.ValueType  # 2
+    MIGRATION_ONLY: HotIdReplicationConfiguration.Status.ValueType  # 3
 
     STATUS_FIELD_NUMBER: builtins.int
     status: global___HotIdReplicationConfiguration.Status.ValueType

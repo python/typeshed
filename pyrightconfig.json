@@ -1,7 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
     "typeshedPath": ".",
-    "venv": ".venv",
     "include": [
         "stdlib",
         "stubs",
@@ -43,4 +42,6 @@
     "reportOverlappingOverload": "none",
     // The name of the self/cls parameter is out of typeshed's control.
     "reportSelfClsParameterName": "none",
+    // Not actionable in typeshed
+    "reportDeprecated": "none",
 }

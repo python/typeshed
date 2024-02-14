@@ -16,13 +16,14 @@ protos as JSON, which includes the field names in the serialization.
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
 import tensorflow.compiler.xla.xla_data_pb2
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -94,6 +95,27 @@ class _CustomCallApiVersionEnumTypeWrapper(google.protobuf.internal.enum_type_wr
                           const char* opaque, size_t opaque_len,
                           XlaCustomCallStatus* status);
     """
+    API_VERSION_TYPED_FFI: _CustomCallApiVersion.ValueType  # 4
+    """Api version implementing XLA runtime custom call calling convention. These
+    custom calls can be registered as an XLA runtime custom call (1) or as XLA
+    runtime FFI binding (2).
+
+    This type of custom call uses custom ABI to pass type information along
+    with custom call arguments. Also it passes buffer arguments together with
+    data type, sizes and strides.
+
+    Example: (XLA runtime custom call)
+
+      absl::Status DoCustomCall(StridedMemrefView arg, float attr);
+
+      CustomCall::Bind("custom_call")
+        .Arg<StridedMemrefView>()
+        .Attr<float>("attr")
+        .To(DoCustomCall);
+
+    (1) xla/runtime/custom_call.h
+    (2) xla/runtime/ffi/ffi.h
+    """
 
 class CustomCallApiVersion(_CustomCallApiVersion, metaclass=_CustomCallApiVersionEnumTypeWrapper):
     """The version of the API used by the custom call function. The signatures for
@@ -142,6 +164,27 @@ GPU:
                       const char* opaque, size_t opaque_len,
                       XlaCustomCallStatus* status);
 """
+API_VERSION_TYPED_FFI: CustomCallApiVersion.ValueType  # 4
+"""Api version implementing XLA runtime custom call calling convention. These
+custom calls can be registered as an XLA runtime custom call (1) or as XLA
+runtime FFI binding (2).
+
+This type of custom call uses custom ABI to pass type information along
+with custom call arguments. Also it passes buffer arguments together with
+data type, sizes and strides.
+
+Example: (XLA runtime custom call)
+
+  absl::Status DoCustomCall(StridedMemrefView arg, float attr);
+
+  CustomCall::Bind("custom_call")
+    .Arg<StridedMemrefView>()
+    .Attr<float>("attr")
+    .To(DoCustomCall);
+
+(1) xla/runtime/custom_call.h
+(2) xla/runtime/ffi/ffi.h
+"""
 global___CustomCallApiVersion = CustomCallApiVersion
 
 class _Kind:
@@ -174,7 +217,7 @@ global___Kind = Kind
 @typing_extensions.final
 class HloInstructionProto(google.protobuf.message.Message):
     """Serialization of HloInstruction.
-    Next ID: 80
+    Next ID: 81
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -254,7 +297,7 @@ class HloInstructionProto(google.protobuf.message.Message):
     CHOLESKY_OPTIONS_FIELD_NUMBER: builtins.int
     PARAMETER_REPLICATION_FIELD_NUMBER: builtins.int
     CUSTOM_CALL_HAS_SIDE_EFFECT_FIELD_NUMBER: builtins.int
-    CUSTOM_CALL_OUTPUT_OPERAND_ALIASING_FIELD_NUMBER: builtins.int
+    OUTPUT_OPERAND_ALIASING_FIELD_NUMBER: builtins.int
     CUSTOM_CALL_SCHEDULE_FIELD_NUMBER: builtins.int
     DELTA_FIELD_NUMBER: builtins.int
     INDICES_ARE_SORTED_FIELD_NUMBER: builtins.int
@@ -263,6 +306,7 @@ class HloInstructionProto(google.protobuf.message.Message):
     RNG_ALGORITHM_FIELD_NUMBER: builtins.int
     COMPARISON_TYPE_FIELD_NUMBER: builtins.int
     IS_CROSS_PROGRAM_PREFETCH_FIELD_NUMBER: builtins.int
+    CROSS_PROGRAM_PREFETCH_INDEX_FIELD_NUMBER: builtins.int
     PADDING_TYPE_FIELD_NUMBER: builtins.int
     CUSTOM_CALL_API_VERSION_FIELD_NUMBER: builtins.int
     ASYNC_GROUP_ID_FIELD_NUMBER: builtins.int
@@ -424,9 +468,9 @@ class HloInstructionProto(google.protobuf.message.Message):
     kCustomCall.
     """
     @property
-    def custom_call_output_operand_aliasing(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.CustomCallOutputOperandAliasing]:
-        """A list of CustomCallOutputOperandAliasing pairs that specifies aliasing
-        buffers between output and operands for kCustomCall.
+    def output_operand_aliasing(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.OutputOperandAliasing]:
+        """A list of OutputOperandAliasing pairs that specifies aliasing buffers
+        between output and operands for kCustomCall and kFusion.
         """
     custom_call_schedule: global___CustomCallSchedule.ValueType
     """Specifies the desired schedule for the custom-call. The field is only
@@ -450,7 +494,10 @@ class HloInstructionProto(google.protobuf.message.Message):
     comparison_type: builtins.str
     """The comparison type used for kCompare."""
     is_cross_program_prefetch: builtins.bool
-    """Specifies if this is a cross-program-prefetch, used by kCopyStart."""
+    """Specifies if this is a cross-program-prefetch, used by kCopyStart.
+    Deprecated and replaced by optional_cross_program_prefetch_index.
+    """
+    cross_program_prefetch_index: builtins.int
     padding_type: tensorflow.compiler.xla.xla_data_pb2.PaddingType.ValueType
     """If a convolution is dynamic, a dynamic padding type will be specified."""
     custom_call_api_version: global___CustomCallApiVersion.ValueType
@@ -526,7 +573,7 @@ class HloInstructionProto(google.protobuf.message.Message):
         cholesky_options: tensorflow.compiler.xla.xla_data_pb2.CholeskyOptions | None = ...,
         parameter_replication: tensorflow.compiler.xla.xla_data_pb2.ParameterReplication | None = ...,
         custom_call_has_side_effect: builtins.bool | None = ...,
-        custom_call_output_operand_aliasing: collections.abc.Iterable[tensorflow.compiler.xla.xla_data_pb2.CustomCallOutputOperandAliasing] | None = ...,
+        output_operand_aliasing: collections.abc.Iterable[tensorflow.compiler.xla.xla_data_pb2.OutputOperandAliasing] | None = ...,
         custom_call_schedule: global___CustomCallSchedule.ValueType | None = ...,
         delta: builtins.int | None = ...,
         indices_are_sorted: builtins.bool | None = ...,
@@ -535,13 +582,15 @@ class HloInstructionProto(google.protobuf.message.Message):
         rng_algorithm: tensorflow.compiler.xla.xla_data_pb2.RandomAlgorithm.ValueType | None = ...,
         comparison_type: builtins.str | None = ...,
         is_cross_program_prefetch: builtins.bool | None = ...,
+        cross_program_prefetch_index: builtins.int | None = ...,
         padding_type: tensorflow.compiler.xla.xla_data_pb2.PaddingType.ValueType | None = ...,
         custom_call_api_version: global___CustomCallApiVersion.ValueType | None = ...,
         async_group_id: builtins.int | None = ...,
         async_execution_thread: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["cholesky_options", b"cholesky_options", "convolution_dimension_numbers", b"convolution_dimension_numbers", "domain_entry_sharding", b"domain_entry_sharding", "domain_exit_sharding", b"domain_exit_sharding", "dot_dimension_numbers", b"dot_dimension_numbers", "frontend_attributes", b"frontend_attributes", "gather_dimension_numbers", b"gather_dimension_numbers", "literal", b"literal", "metadata", b"metadata", "outfeed_shape", b"outfeed_shape", "padding_config", b"padding_config", "parameter_replication", b"parameter_replication", "precision_config", b"precision_config", "scatter_dimension_numbers", b"scatter_dimension_numbers", "shape", b"shape", "sharding", b"sharding", "triangular_solve_options", b"triangular_solve_options", "window", b"window"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["all_reduce_id", b"all_reduce_id", "async_execution_thread", b"async_execution_thread", "async_group_id", b"async_group_id", "backend_config", b"backend_config", "batch_group_count", b"batch_group_count", "called_computation_ids", b"called_computation_ids", "channel_id", b"channel_id", "cholesky_options", b"cholesky_options", "comparison_direction", b"comparison_direction", "comparison_type", b"comparison_type", "constrain_layout", b"constrain_layout", "control_predecessor_ids", b"control_predecessor_ids", "convolution_dimension_numbers", b"convolution_dimension_numbers", "custom_call_api_version", b"custom_call_api_version", "custom_call_has_side_effect", b"custom_call_has_side_effect", "custom_call_output_operand_aliasing", b"custom_call_output_operand_aliasing", "custom_call_schedule", b"custom_call_schedule", "custom_call_target", b"custom_call_target", "delta", b"delta", "dimensions", b"dimensions", "distribution", b"distribution", "domain_entry_sharding", b"domain_entry_sharding", "domain_exit_sharding", b"domain_exit_sharding", "dot_dimension_numbers", b"dot_dimension_numbers", "dynamic_slice_sizes", b"dynamic_slice_sizes", "epsilon", b"epsilon", "exponent_bits", b"exponent_bits", "feature_group_count", b"feature_group_count", "feature_index", b"feature_index", "fft_length", b"fft_length", "fft_type", b"fft_type", "frontend_attributes", b"frontend_attributes", "fusion_kind", b"fusion_kind", "gather_dimension_numbers", b"gather_dimension_numbers", "gather_slice_sizes", b"gather_slice_sizes", "id", b"id", "indices_are_sorted", b"indices_are_sorted", "infeed_config", b"infeed_config", "is_cross_program_prefetch", b"is_cross_program_prefetch", "is_host_transfer", b"is_host_transfer", "is_stable", b"is_stable", "literal", b"literal", "mantissa_bits", b"mantissa_bits", "metadata", b"metadata", "name", b"name", "opcode", b"opcode", "operand_ids", b"operand_ids", "operand_shapes_with_layout", b"operand_shapes_with_layout", "outfeed_config", b"outfeed_config", "outfeed_shape", b"outfeed_shape", "padding_config", b"padding_config", "padding_type", b"padding_type", "parameter_number", b"parameter_number", "parameter_replication", b"parameter_replication", "precision_config", b"precision_config", "replica_groups", b"replica_groups", "rng_algorithm", b"rng_algorithm", "scatter_dimension_numbers", b"scatter_dimension_numbers", "shape", b"shape", "sharding", b"sharding", "slice_dimensions", b"slice_dimensions", "source_target_pairs", b"source_target_pairs", "triangular_solve_options", b"triangular_solve_options", "tuple_index", b"tuple_index", "unique_indices", b"unique_indices", "use_global_device_ids", b"use_global_device_ids", "window", b"window"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["cholesky_options", b"cholesky_options", "convolution_dimension_numbers", b"convolution_dimension_numbers", "cross_program_prefetch_index", b"cross_program_prefetch_index", "domain_entry_sharding", b"domain_entry_sharding", "domain_exit_sharding", b"domain_exit_sharding", "dot_dimension_numbers", b"dot_dimension_numbers", "frontend_attributes", b"frontend_attributes", "gather_dimension_numbers", b"gather_dimension_numbers", "literal", b"literal", "metadata", b"metadata", "optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index", "outfeed_shape", b"outfeed_shape", "padding_config", b"padding_config", "parameter_replication", b"parameter_replication", "precision_config", b"precision_config", "scatter_dimension_numbers", b"scatter_dimension_numbers", "shape", b"shape", "sharding", b"sharding", "triangular_solve_options", b"triangular_solve_options", "window", b"window"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["all_reduce_id", b"all_reduce_id", "async_execution_thread", b"async_execution_thread", "async_group_id", b"async_group_id", "backend_config", b"backend_config", "batch_group_count", b"batch_group_count", "called_computation_ids", b"called_computation_ids", "channel_id", b"channel_id", "cholesky_options", b"cholesky_options", "comparison_direction", b"comparison_direction", "comparison_type", b"comparison_type", "constrain_layout", b"constrain_layout", "control_predecessor_ids", b"control_predecessor_ids", "convolution_dimension_numbers", b"convolution_dimension_numbers", "cross_program_prefetch_index", b"cross_program_prefetch_index", "custom_call_api_version", b"custom_call_api_version", "custom_call_has_side_effect", b"custom_call_has_side_effect", "custom_call_schedule", b"custom_call_schedule", "custom_call_target", b"custom_call_target", "delta", b"delta", "dimensions", b"dimensions", "distribution", b"distribution", "domain_entry_sharding", b"domain_entry_sharding", "domain_exit_sharding", b"domain_exit_sharding", "dot_dimension_numbers", b"dot_dimension_numbers", "dynamic_slice_sizes", b"dynamic_slice_sizes", "epsilon", b"epsilon", "exponent_bits", b"exponent_bits", "feature_group_count", b"feature_group_count", "feature_index", b"feature_index", "fft_length", b"fft_length", "fft_type", b"fft_type", "frontend_attributes", b"frontend_attributes", "fusion_kind", b"fusion_kind", "gather_dimension_numbers", b"gather_dimension_numbers", "gather_slice_sizes", b"gather_slice_sizes", "id", b"id", "indices_are_sorted", b"indices_are_sorted", "infeed_config", b"infeed_config", "is_cross_program_prefetch", b"is_cross_program_prefetch", "is_host_transfer", b"is_host_transfer", "is_stable", b"is_stable", "literal", b"literal", "mantissa_bits", b"mantissa_bits", "metadata", b"metadata", "name", b"name", "opcode", b"opcode", "operand_ids", b"operand_ids", "operand_shapes_with_layout", b"operand_shapes_with_layout", "optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index", "outfeed_config", b"outfeed_config", "outfeed_shape", b"outfeed_shape", "output_operand_aliasing", b"output_operand_aliasing", "padding_config", b"padding_config", "padding_type", b"padding_type", "parameter_number", b"parameter_number", "parameter_replication", b"parameter_replication", "precision_config", b"precision_config", "replica_groups", b"replica_groups", "rng_algorithm", b"rng_algorithm", "scatter_dimension_numbers", b"scatter_dimension_numbers", "shape", b"shape", "sharding", b"sharding", "slice_dimensions", b"slice_dimensions", "source_target_pairs", b"source_target_pairs", "triangular_solve_options", b"triangular_solve_options", "tuple_index", b"tuple_index", "unique_indices", b"unique_indices", "use_global_device_ids", b"use_global_device_ids", "window", b"window"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index"]) -> typing_extensions.Literal["cross_program_prefetch_index"] | None: ...
 
 global___HloInstructionProto = HloInstructionProto
 
@@ -712,7 +761,7 @@ class DynamicParameterBindingProto(google.protobuf.message.Message):
 
     @typing_extensions.final
     class Binding(google.protobuf.message.Message):
-        """A list of bindings which indicates that the `target_dim_num` in
+        """A list of bindings which indicates that the `target_param_dim_num` in
         the subshape `target_param_index` of parameter `target_param_num`
         is a dynamic dimension and its real dynamic size is represented
         by `dynamic_param_index` in parameter `dynamic_param_num`.
@@ -734,7 +783,7 @@ class DynamicParameterBindingProto(google.protobuf.message.Message):
         dynamic_param_index = {}
         target_param_num = 0
         target_param_index = {}
-        target_param_dim = 0
+        target_param_dim_num = 0
         """
 
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -780,16 +829,19 @@ class CrossProgramPrefetch(google.protobuf.message.Message):
 
     PARAMETER_FIELD_NUMBER: builtins.int
     INDEX_FIELD_NUMBER: builtins.int
+    OFFSET_FIELD_NUMBER: builtins.int
     parameter: builtins.int
     @property
     def index(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    offset: builtins.int
     def __init__(
         self,
         *,
         parameter: builtins.int | None = ...,
         index: collections.abc.Iterable[builtins.int] | None = ...,
+        offset: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["index", b"index", "parameter", b"parameter"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["index", b"index", "offset", b"offset", "parameter", b"parameter"]) -> None: ...
 
 global___CrossProgramPrefetch = CrossProgramPrefetch
 
@@ -803,7 +855,7 @@ class HloModuleProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ProfileTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HloModuleProto._ProfileType.ValueType], builtins.type):  # noqa: F821
+    class _ProfileTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HloModuleProto._ProfileType.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         INVALID: HloModuleProto._ProfileType.ValueType  # 0
         FLAG: HloModuleProto._ProfileType.ValueType  # 1
@@ -940,28 +992,22 @@ class LogicalBufferProto(google.protobuf.message.Message):
 
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-        COMPUTATION_NAME_FIELD_NUMBER: builtins.int
         INSTRUCTION_NAME_FIELD_NUMBER: builtins.int
         INSTRUCTION_ID_FIELD_NUMBER: builtins.int
         SHAPE_INDEX_FIELD_NUMBER: builtins.int
-        computation_name: builtins.str
-        """NOTE: module_name isn't necessary, since all LogicalBuffers are
-        associated with a single HloModule.
-        TODO(b/239098765): Remove instruction_name and computation_name.
-        """
         instruction_name: builtins.str
+        """TODO(b/239098765): Remove instruction_name and computation_name."""
         instruction_id: builtins.int
         @property
         def shape_index(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
         def __init__(
             self,
             *,
-            computation_name: builtins.str | None = ...,
             instruction_name: builtins.str | None = ...,
             instruction_id: builtins.int | None = ...,
             shape_index: collections.abc.Iterable[builtins.int] | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["computation_name", b"computation_name", "instruction_id", b"instruction_id", "instruction_name", b"instruction_name", "shape_index", b"shape_index"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["instruction_id", b"instruction_id", "instruction_name", b"instruction_name", "shape_index", b"shape_index"]) -> None: ...
 
     ID_FIELD_NUMBER: builtins.int
     SIZE_FIELD_NUMBER: builtins.int
@@ -1076,7 +1122,7 @@ class HeapSimulatorTrace(google.protobuf.message.Message):
             ValueType = typing.NewType("ValueType", builtins.int)
             V: typing_extensions.TypeAlias = ValueType
 
-        class _KindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HeapSimulatorTrace.Event._Kind.ValueType], builtins.type):  # noqa: F821
+        class _KindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HeapSimulatorTrace.Event._Kind.ValueType], builtins.type):
             DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
             ALLOC: HeapSimulatorTrace.Event._Kind.ValueType  # 0
             """A memory region was allocated for the buffer."""
@@ -1488,14 +1534,10 @@ class XlaRuntimeExecutableProto(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     HLO_MODULE_PROTO_FIELD_NUMBER: builtins.int
-    ENTRY_FUNC_ATTRS_FIELD_NUMBER: builtins.int
     OBJ_FILE_FIELD_NUMBER: builtins.int
     MLIR_MODULE_FIELD_NUMBER: builtins.int
     @property
     def hlo_module_proto(self) -> global___HloModuleProto: ...
-    @property
-    def entry_func_attrs(self) -> global___EntryFunctionAttributes:
-        """XLA-specific attributes of the executable's entry function."""
     obj_file: builtins.bytes
     """TODO(b/232263665)): Serialized executable has to know what APIs it has to
     be linked with, including the version. For example Gpu executable must be
@@ -1509,11 +1551,10 @@ class XlaRuntimeExecutableProto(google.protobuf.message.Message):
         self,
         *,
         hlo_module_proto: global___HloModuleProto | None = ...,
-        entry_func_attrs: global___EntryFunctionAttributes | None = ...,
         obj_file: builtins.bytes | None = ...,
         mlir_module: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["entry_func_attrs", b"entry_func_attrs", "hlo_module_proto", b"hlo_module_proto"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["entry_func_attrs", b"entry_func_attrs", "hlo_module_proto", b"hlo_module_proto", "mlir_module", b"mlir_module", "obj_file", b"obj_file"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["hlo_module_proto", b"hlo_module_proto"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["hlo_module_proto", b"hlo_module_proto", "mlir_module", b"mlir_module", "obj_file", b"obj_file"]) -> None: ...
 
 global___XlaRuntimeExecutableProto = XlaRuntimeExecutableProto

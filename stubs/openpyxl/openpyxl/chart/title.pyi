@@ -1,6 +1,5 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal
+from _typeshed import Unused
+from typing import ClassVar, Literal
 
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.shapes import GraphicalProperties
@@ -8,8 +7,10 @@ from openpyxl.chart.text import RichText, Text
 from openpyxl.descriptors import Strict, Typed
 from openpyxl.descriptors.base import Alias, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
-from openpyxl.descriptors.nested import NestedBool, _HasTagAndGet
+from openpyxl.descriptors.nested import NestedBool
 from openpyxl.descriptors.serialisable import Serialisable
+
+from ..xml._functions_overloads import _HasTagAndGet
 
 class Title(Serialisable):
     tagname: ClassVar[str]
@@ -33,9 +34,9 @@ class Title(Serialisable):
         extLst: Unused = None,
     ) -> None: ...
 
-def title_maker(text): ...
+def title_maker(text) -> Title: ...
 
-class TitleDescriptor(Typed[Title, Incomplete]):
+class TitleDescriptor(Typed[Title, Literal[True]]):
     expected_type: type[Title]
     allow_none: Literal[True]
-    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value: str | Title | None) -> None: ...

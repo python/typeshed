@@ -9,7 +9,7 @@ import sys
 import venv
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, NamedTuple
+from typing import Any, Final, NamedTuple
 from typing_extensions import Annotated
 
 import pathspec
@@ -22,8 +22,11 @@ except ImportError:
         return text
 
 
+PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
+
+
 # A backport of functools.cache for Python <3.9
-# This module is imported by mypy_test.py, which needs to run on 3.7 in CI
+# This module is imported by mypy_test.py, which needs to run on 3.8 in CI
 cache = lru_cache(None)
 
 
@@ -111,12 +114,12 @@ def testcase_dir_from_package_name(package_name: str) -> Path:
 
 
 def get_all_testcase_directories() -> list[PackageInfo]:
-    testcase_directories = [PackageInfo("stdlib", Path("test_cases"))]
+    testcase_directories: list[PackageInfo] = []
     for package_name in os.listdir("stubs"):
         potential_testcase_dir = testcase_dir_from_package_name(package_name)
         if potential_testcase_dir.is_dir():
             testcase_directories.append(PackageInfo(package_name, potential_testcase_dir))
-    return sorted(testcase_directories)
+    return [PackageInfo("stdlib", Path("test_cases"))] + sorted(testcase_directories)
 
 
 # ====================================================================

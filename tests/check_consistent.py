@@ -23,7 +23,7 @@ extension_descriptions = {".pyi": "stub", ".py": ".py"}
 
 # These type checkers and linters must have exact versions in the requirements file to ensure
 # consistent CI runs.
-linters = {"black", "flake8", "flake8-bugbear", "flake8-noqa", "flake8-pyi", "isort", "mypy", "pycln", "pytype"}
+linters = {"black", "flake8", "flake8-bugbear", "flake8-noqa", "flake8-pyi", "ruff", "mypy", "pytype"}
 
 
 def assert_consistent_filetypes(
@@ -83,9 +83,6 @@ def check_test_cases() -> None:
         bad_test_case_filename = 'Files in a `test_cases` directory must have names starting with "check_"; got "{}"'
         for file in testcase_dir.rglob("*.py"):
             assert file.stem.startswith("check_"), bad_test_case_filename.format(file)
-            with open(file, encoding="UTF-8") as f:
-                lines = {line.strip() for line in f}
-            assert "from __future__ import annotations" in lines, "Test-case files should use modern typing syntax where possible"
 
 
 def check_no_symlinks() -> None:
@@ -168,7 +165,7 @@ def get_precommit_requirements() -> dict[str, SpecifierSet]:
         package_rev = repo["rev"].removeprefix("v")
         package_specifier = SpecifierSet(f"=={package_rev}")
         precommit_requirements[package_name] = package_specifier
-        for additional_req in hook.get("additional_dependencies", []):
+        for additional_req in hook.get("additional_dependencies", ()):
             req = Requirement(additional_req)
             precommit_requirements[req.name] = req.specifier
     return precommit_requirements
@@ -191,6 +188,9 @@ def check_precommit_requirements() -> None:
     precommit_requirements = get_precommit_requirements()
     no_txt_entry_msg = "All pre-commit requirements must also be listed in `requirements-tests.txt` (missing {requirement!r})"
     for requirement, specifier in precommit_requirements.items():
+        # annoying: the Ruff and Black repos for pre-commit are different to the names in requirements-tests.txt
+        if requirement in {"ruff-pre-commit", "black-pre-commit-mirror"}:
+            requirement = requirement.split("-")[0]
         assert requirement in requirements_txt_requirements, no_txt_entry_msg.format(requirement=requirement)
         specifier_mismatch = (
             f'Specifier "{specifier}" for {requirement!r} in `.pre-commit-config.yaml` '

@@ -1,7 +1,7 @@
 import sys
 from abc import abstractmethod
 from types import MappingProxyType
-from typing import (  # noqa: Y022,Y038
+from typing import (  # noqa: Y022,Y038,Y057
     AbstractSet as Set,
     AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
@@ -30,9 +30,9 @@ from typing import (  # noqa: Y022,Y038
     Sized as Sized,
     TypeVar,
     ValuesView as ValuesView,
+    final,
     runtime_checkable,
 )
-from typing_extensions import final
 
 __all__ = [
     "Awaitable",
@@ -69,6 +69,7 @@ _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 
 @final
 class dict_keys(KeysView[_KT_co], Generic[_KT_co, _VT_co]):  # undocumented
+    def __eq__(self, __value: object) -> bool: ...
     if sys.version_info >= (3, 10):
         @property
         def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
@@ -80,7 +81,8 @@ class dict_values(ValuesView[_VT_co], Generic[_KT_co, _VT_co]):  # undocumented
         def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
 
 @final
-class dict_items(ItemsView[_KT_co, _VT_co], Generic[_KT_co, _VT_co]):  # undocumented
+class dict_items(ItemsView[_KT_co, _VT_co]):  # undocumented
+    def __eq__(self, __value: object) -> bool: ...
     if sys.version_info >= (3, 10):
         @property
         def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...

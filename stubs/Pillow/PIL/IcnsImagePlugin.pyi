@@ -1,11 +1,10 @@
 from _typeshed import Incomplete
-from typing import Any, ClassVar
-from typing_extensions import Final, Literal
+from typing import ClassVar, Final, Literal
 
 from ._imaging import _PixelAccessor
 from .ImageFile import ImageFile
 
-enable_jpeg2k: Any
+enable_jpeg2k: Incomplete
 MAGIC: Final = b"icns"
 HEADERSIZE: Final = 8
 
@@ -16,9 +15,9 @@ def read_mk(fobj, start_length, size): ...
 def read_png_or_jpeg2000(fobj, start_length, size): ...
 
 class IcnsFile:
-    SIZES: Any
-    dct: Any
-    fobj: Any
+    SIZES: Incomplete
+    dct: Incomplete
+    fobj: Incomplete
     def __init__(self, fobj) -> None: ...
     def itersizes(self): ...
     def bestsize(self): ...
@@ -32,7 +31,6 @@ class IcnsImageFile(ImageFile):
     def size(self): ...
     @size.setter
     def size(self, value) -> None: ...
-    best_size: Any
-    im: Any
-    mode: Any
+    best_size: Incomplete
+    im: Incomplete
     def load(self) -> _PixelAccessor: ...

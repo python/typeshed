@@ -1,14 +1,14 @@
-from _typeshed import Incomplete
-from typing import ClassVar
-from typing_extensions import Literal
+from _typeshed import ConvertibleToInt, Incomplete
+from typing import ClassVar, Literal
 
 from openpyxl.chart.axis import NumericAxis, SeriesAxis, TextAxis
 from openpyxl.chart.shapes import GraphicalProperties
-from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
-from openpyxl.descriptors.nested import NestedBool, NestedInteger, _HasTagAndGet
+from openpyxl.descriptors.nested import NestedBool, NestedInteger
 from openpyxl.descriptors.serialisable import Serialisable
 
+from ..xml._functions_overloads import _HasTagAndGet
 from ._3d import _3DBase
 from ._chart import ChartBase
 
@@ -19,7 +19,7 @@ class BandFormat(Serialisable):
     graphicalProperties: Alias
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
-        self, idx: _HasTagAndGet[_ConvertibleToInt] | _ConvertibleToInt = 0, spPr: GraphicalProperties | None = None
+        self, idx: _HasTagAndGet[ConvertibleToInt] | ConvertibleToInt = 0, spPr: GraphicalProperties | None = None
     ) -> None: ...
 
 class BandFormatList(Serialisable):
@@ -43,9 +43,10 @@ class _SurfaceChartBase(ChartBase):
 
 class SurfaceChart3D(_SurfaceChartBase, _3DBase):
     tagname: ClassVar[str]
-    wireframe: Incomplete
-    ser: Incomplete
-    bandFmts: Incomplete
+    # Same as parent
+    # wireframe = _SurfaceChartBase.wireframe
+    # ser = _SurfaceChartBase.ser
+    # bandFmts = _SurfaceChartBase.bandFmts
     extLst: Typed[ExtensionList, Literal[True]]
     x_axis: Typed[TextAxis, Literal[False]]
     y_axis: Typed[NumericAxis, Literal[False]]
@@ -55,9 +56,10 @@ class SurfaceChart3D(_SurfaceChartBase, _3DBase):
 
 class SurfaceChart(SurfaceChart3D):
     tagname: ClassVar[str]
-    wireframe: Incomplete
-    ser: Incomplete
-    bandFmts: Incomplete
+    # Same as parent and grandparent
+    # wireframe = _SurfaceChartBase.wireframe
+    # ser = _SurfaceChartBase.ser
+    # bandFmts = _SurfaceChartBase.bandFmts
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(self, **kw) -> None: ...

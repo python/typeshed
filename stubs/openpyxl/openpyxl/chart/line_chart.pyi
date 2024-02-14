@@ -1,14 +1,15 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
 from openpyxl.chart.axis import ChartLines, NumericAxis, _BaseAxis
 from openpyxl.chart.label import DataLabelList
 from openpyxl.chart.updown_bars import UpDownBars
 from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
-from openpyxl.descriptors.nested import NestedBool, NestedSet, _HasTagAndGet
+from openpyxl.descriptors.nested import NestedBool, NestedSet
 
+from ..xml._functions_overloads import _HasTagAndGet
 from ._chart import ChartBase
 
 _LineChartBaseGrouping: TypeAlias = Literal["percentStacked", "standard", "stacked"]
@@ -33,11 +34,12 @@ class _LineChartBase(ChartBase):
 
 class LineChart(_LineChartBase):
     tagname: ClassVar[str]
-    grouping: Incomplete
-    varyColors: Incomplete
-    ser: Incomplete
-    dLbls: Incomplete
-    dropLines: Incomplete
+    # Same as parent
+    # grouping = _LineChartBase.grouping
+    # varyColors = _LineChartBase.varyColors
+    # ser = _LineChartBase.ser
+    # dLbls = _LineChartBase.dLbls
+    # dropLines = _LineChartBase.dropLines
     hiLowLines: Typed[ChartLines, Literal[True]]
     upDownBars: Typed[UpDownBars, Literal[True]]
     marker: NestedBool[Literal[True]]
@@ -58,11 +60,12 @@ class LineChart(_LineChartBase):
 
 class LineChart3D(_LineChartBase):
     tagname: ClassVar[str]
-    grouping: Incomplete
-    varyColors: Incomplete
-    ser: Incomplete
-    dLbls: Incomplete
-    dropLines: Incomplete
+    # Same as parent
+    # grouping = _LineChartBase.grouping
+    # varyColors = _LineChartBase.varyColors
+    # ser = _LineChartBase.ser
+    # dLbls = _LineChartBase.dLbls
+    # dropLines = _LineChartBase.dropLines
     gapDepth: Incomplete
     hiLowLines: Typed[ChartLines, Literal[True]]
     upDownBars: Typed[UpDownBars, Literal[True]]

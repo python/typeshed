@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Sequence
-from typing import Any
-from typing_extensions import Literal, Self, TypeAlias
+from typing import Literal
+from typing_extensions import Self, TypeAlias
 
 from .Image import Image
 
@@ -116,7 +116,7 @@ class Color3DLUT(MultibandFilter):
     size: list[int]
     channels: int
     mode: str | None
-    table: Any
+    table: Incomplete
     def __init__(self, size: int | Iterable[int], table, channels: int = 3, target_mode: str | None = None, **kwargs) -> None: ...
     @classmethod
     def generate(
