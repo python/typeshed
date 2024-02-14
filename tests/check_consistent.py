@@ -82,7 +82,7 @@ def check_test_cases() -> None:
         assert_consistent_filetypes(testcase_dir, kind=".py", allowed={"README.md"}, allow_nonidentifier_filenames=True)
         bad_test_case_filename = 'Files in a `test_cases` directory must have names starting with "check_"; got "{}"'
         for file in testcase_dir.rglob("*.py"):
-            assert file.stem.startswith("check_"), bad_test_case_filename.format(file)
+            assert file.name == "__init__.py" or file.stem.startswith("check_"), bad_test_case_filename.format(file)
 
 
 def check_no_symlinks() -> None:
