@@ -186,8 +186,6 @@ class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # incompatible d
         write_through: bool = ...,
     ) -> None: ...
     # Equals the "buffer" argument passed in to the constructor.
-    # TODO: Make TextIOWrapper generic over the buffer argument once
-    # PEP 696 get accepted.
     @property
     def buffer(self) -> BinaryIO: ...
     @property
@@ -212,6 +210,8 @@ class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # incompatible d
     def writelines(self, __lines: Iterable[str]) -> None: ...  # type: ignore[override]
     def readline(self, __size: int = -1) -> str: ...  # type: ignore[override]
     def readlines(self, __hint: int = -1) -> list[str]: ...  # type: ignore[override]
+    # Equals the "buffer" argument passed in to the constructor.
+    def detach(self) -> BinaryIO: ...
     # TextIOWrapper's version of seek only supports a limited subset of
     # operations.
     def seek(self, __cookie: int, __whence: int = 0) -> int: ...
