@@ -165,6 +165,8 @@ class _WrappedBuffer(Protocol):
     # def seek(self, offset: Literal[0], whence: Literal[2]) -> int: ...
     # def tell(self) -> int: ...
 
+# TODO: Should be generic over the buffer type, but needs to wait for
+# TypeVar defaults.
 class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # incompatible definitions of write in the base classes
     def __init__(
         self,
