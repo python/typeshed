@@ -5,4 +5,5 @@ __all__ = ["tomllib"]
 if sys.version_info >= (3, 11):
     import tomllib
 else:
-    import tomli as tomllib
+    # This is actually vendored
+    import tomli as tomllib  # type: ignore[import-not-found] # pyright: ignore[reportMissingImports]
