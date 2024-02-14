@@ -94,7 +94,10 @@ class BufferedIOBase(IOBase):
 
 class FileIO(RawIOBase, BinaryIO):  # type: ignore[misc]  # incompatible definitions of writelines in the base classes
     mode: str
-    name: FileDescriptorOrPath
+    # The type of "name" equals the argument passed in to the constructor,
+    # but that can make FileIO incompatible with other I/O types that assume
+    # "name" is a str. In the future, making FileIO generic might help.
+    name: Any
     def __init__(
         self, file: FileDescriptorOrPath, mode: str = ..., closefd: bool = ..., opener: _Opener | None = ...
     ) -> None: ...
