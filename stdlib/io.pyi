@@ -201,7 +201,9 @@ class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # incompatible d
     def writelines(self, __lines: Iterable[str]) -> None: ...  # type: ignore[override]
     def readline(self, __size: int = -1) -> str: ...  # type: ignore[override]
     def readlines(self, __hint: int = -1) -> list[str]: ...  # type: ignore[override]
-    @overload
+    # TextIOWrapper's version of seek only supports a limited subset of
+    # operations.
+    @overload  # type: ignore[override]
     def seek(self, __cookie: int, __whence: Literal[0] = 0) -> int: ...
     @overload
     def seek(self, __cookie: Literal[0], __whence: Literal[1, 2]) -> int: ...
