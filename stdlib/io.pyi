@@ -185,6 +185,9 @@ class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # incompatible d
         line_buffering: bool = ...,
         write_through: bool = ...,
     ) -> None: ...
+    # Equals the "buffer" argument passed in to the constructor.
+    # TODO: Make TextIOWrapper generic over the buffer argument once
+    # PEP 696 get accepted.
     @property
     def buffer(self) -> BinaryIO: ...
     @property
