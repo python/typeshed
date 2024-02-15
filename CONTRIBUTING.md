@@ -202,13 +202,15 @@ supported:
 * `partial_stub` (optional): This field marks the type stub package as
   [partial](https://peps.python.org/pep-0561/#partial-stub-packages). This is for
   3rd-party stubs that don't cover the entirety of the package's public API.
-  In most cases, this field is identical to `ignore_missing_stub`.
 
 In addition, we specify configuration for stubtest in the `tool.stubtest` table.
 This has the following keys:
 * `skip` (default: `false`): Whether stubtest should be run against this
   package. Please avoid setting this to `true`, and add a comment if you have
   to.
+* `ignore_missing_stub`: Whether to disable stubtest's warning about missing
+  stubs. This is necessary if not all implementation files have corresponding
+  stub files yet. In most cases, this field is identical to `partial_stub`.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully.
 * `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
