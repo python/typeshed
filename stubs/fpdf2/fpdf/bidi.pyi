@@ -1,9 +1,9 @@
 from _typeshed import Incomplete
-from collections.abc import Iterable
+from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Final, Literal, TypedDict, type_check_only
 
-MAX_DEPTH: Final[int]
+MAX_DEPTH: Final = 125
 
 @type_check_only
 class _BracketInfo(TypedDict):
@@ -41,7 +41,7 @@ class IsolatingRun:
     def resolve_implicit_levels(self) -> None: ...
 
 def auto_detect_base_direction(string: str, stop_at_pdi: bool = False, debug: bool = False) -> Literal["L", "R"]: ...
-def calculate_isolate_runs(paragraph: Iterable[BidiCharacter]) -> list[IsolatingRun]: ...
+def calculate_isolate_runs(paragraph: Sequence[BidiCharacter]) -> list[IsolatingRun]: ...
 
 class BidiParagraph:
     text: str
