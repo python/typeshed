@@ -2,8 +2,7 @@ import sys
 from _typeshed import structseq
 from collections.abc import Callable
 from types import CodeType
-from typing import Any, Final
-from typing_extensions import final
+from typing import Any, Final, final
 
 class Profiler:
     def __init__(
