@@ -27,7 +27,7 @@ from _ssl import (
 )
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Callable, Iterable
-from typing import Any, Literal, NamedTuple, TypedDict, final, overload
+from typing import Any, Literal, NamedTuple, overload
 from typing_extensions import Never, Self, TypeAlias
 
 if sys.version_info < (3, 12):
