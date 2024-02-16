@@ -12,8 +12,8 @@ from ssl import (
     SSLWantWriteError as SSLWantWriteError,
     SSLZeroReturnError as SSLZeroReturnError,
 )
-from typing import Any, overload
-from typing_extensions import Literal, NotRequired, Self, TypeAlias, TypedDict, final
+from typing import Any, Literal, TypedDict, final overload
+from typing_extensions import NotRequired, Self, TypeAlias
 
 _PasswordType: TypeAlias = Callable[[], str | bytes | bytearray] | str | bytes | bytearray
 _PCTRTT: TypeAlias = tuple[tuple[str, str], ...]
