@@ -27,8 +27,8 @@ from _ssl import (
 )
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Callable, Iterable
-from typing import Any, NamedTuple, TypedDict, final, overload
-from typing_extensions import Literal, Never, Self, TypeAlias
+from typing import Any, Literal, NamedTuple, TypedDict, final, overload
+from typing_extensions import Never, Self, TypeAlias
 
 if sys.version_info < (3, 12):
     from _ssl import RAND_pseudo_bytes as RAND_pseudo_bytes
