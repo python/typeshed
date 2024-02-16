@@ -211,7 +211,7 @@ This has the following keys:
 * `ignore_missing_stub`: When set to `true`, this will add the
   `--ignore_missing_stub` option to the stubtest call. See
   [tests/README.md](./tests/README.md) for more information. In most cases,
-  this field is identical to `partial_stub`.
+  this field should be identical to `partial_stub`.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully.
 * `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
