@@ -4,7 +4,7 @@ from typing_extensions import TypeAlias
 
 _UnicodeInputStream: TypeAlias = str | SupportsRead[str]
 _BinaryInputStream: TypeAlias = bytes | SupportsRead[bytes]
-_InputStream: TypeAlias = _UnicodeInputStream  # noqa: Y7047  # used in other files
+_InputStream: TypeAlias = _UnicodeInputStream  # noqa: Y047  # used in other files
 
 spaceCharactersBytes: Any
 asciiLettersBytes: Any
