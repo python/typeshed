@@ -13,7 +13,7 @@ class _Deformer(Protocol):
 
 def autocontrast(
     image: Image,
-    cutoff: int | tuple[int, int] = 0,
+    cutoff: float | tuple[float, float] = 0,
     ignore: int | None = None,
     mask: Image | None = None,
     preserve_tone: bool = False,
