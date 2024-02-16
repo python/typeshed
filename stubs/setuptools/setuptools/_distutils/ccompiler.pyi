@@ -4,19 +4,29 @@ from typing_extensions import TypeAlias
 
 _Macro: TypeAlias = tuple[str] | tuple[str, str | None]
 
+
 def gen_lib_options(
     compiler: CCompiler, library_dirs: list[str], runtime_library_dirs: list[str], libraries: list[str]
 ) -> list[str]: ...
-def gen_preprocess_options(macros: list[_Macro], include_dirs: list[str]) -> list[str]: ...
-def get_default_compiler(osname: str | None = ..., platform: str | None = ...) -> str: ...
+
+
+def gen_preprocess_options(
+    macros: list[_Macro], include_dirs: list[str]) -> list[str]: ...
+
+
+def get_default_compiler(osname: str | None = ...,
+                         platform: str | None = ...) -> str: ...
+
+
 def new_compiler(
     plat: str | None = ..., compiler: str | None = ..., verbose: int = ..., dry_run: int = ..., force: int = ...
 ) -> CCompiler: ...
 def show_compilers() -> None: ...
 
+
 class CCompiler:
     src_extensions: ClassVar[list[str] | None]
-    obj_extensions: ClassVar[str | None]
+    obj_extension: ClassVar[str | None]
     static_lib_extension: ClassVar[str | None]
     shared_lib_extension: ClassVar[str | None]
     static_lib_format: ClassVar[str | None]
@@ -34,7 +44,9 @@ class CCompiler:
     library_dirs: list[str]
     runtime_library_dirs: list[str]
     objects: list[str]
-    def __init__(self, verbose: int = ..., dry_run: int = ..., force: int = ...) -> None: ...
+    def __init__(self, verbose: int = ..., dry_run: int = ...,
+                 force: int = ...) -> None: ...
+
     def add_include_dir(self, dir: str) -> None: ...
     def set_include_dirs(self, dirs: list[str]) -> None: ...
     def add_library(self, libname: str) -> None: ...
@@ -48,7 +60,10 @@ class CCompiler:
     def add_link_object(self, object: str) -> None: ...
     def set_link_objects(self, objects: list[str]) -> None: ...
     def detect_language(self, sources: str | list[str]) -> str | None: ...
-    def find_library_file(self, dirs: list[str], lib: str, debug: bool = ...) -> str | None: ...
+
+    def find_library_file(
+        self, dirs: list[str], lib: str, debug: bool = ...) -> str | None: ...
+
     def has_function(
         self,
         funcname: str,
@@ -61,6 +76,7 @@ class CCompiler:
     def library_option(self, lib: str) -> str: ...
     def runtime_library_dir_option(self, dir: str) -> str: ...
     def set_executables(self, **args: str) -> None: ...
+
     def compile(
         self,
         sources: list[str],
@@ -72,6 +88,7 @@ class CCompiler:
         extra_postargs: list[str] | None = ...,
         depends: list[str] | None = ...,
     ) -> list[str]: ...
+
     def create_static_lib(
         self,
         objects: list[str],
@@ -80,6 +97,7 @@ class CCompiler:
         debug: bool = ...,
         target_lang: str | None = ...,
     ) -> None: ...
+
     def link(
         self,
         target_desc: str,
@@ -96,6 +114,7 @@ class CCompiler:
         build_temp: str | None = ...,
         target_lang: str | None = ...,
     ) -> None: ...
+
     def link_executable(
         self,
         objects: list[str],
@@ -109,6 +128,7 @@ class CCompiler:
         extra_postargs: list[str] | None = ...,
         target_lang: str | None = ...,
     ) -> None: ...
+
     def link_shared_lib(
         self,
         objects: list[str],
@@ -124,6 +144,7 @@ class CCompiler:
         build_temp: str | None = ...,
         target_lang: str | None = ...,
     ) -> None: ...
+
     def link_shared_object(
         self,
         objects: list[str],
@@ -139,6 +160,7 @@ class CCompiler:
         build_temp: str | None = ...,
         target_lang: str | None = ...,
     ) -> None: ...
+
     def preprocess(
         self,
         source: str,
@@ -148,11 +170,21 @@ class CCompiler:
         extra_preargs: list[str] | None = ...,
         extra_postargs: list[str] | None = ...,
     ) -> None: ...
-    def executable_filename(self, basename: str, strip_dir: int = ..., output_dir: str = ...) -> str: ...
-    def library_filename(self, libname: str, lib_type: str = ..., strip_dir: int = ..., output_dir: str = ...) -> str: ...
-    def object_filenames(self, source_filenames: list[str], strip_dir: int = ..., output_dir: str = ...) -> list[str]: ...
-    def shared_object_filename(self, basename: str, strip_dir: int = ..., output_dir: str = ...) -> str: ...
-    def execute(self, func: Callable[..., object], args: tuple[Any, ...], msg: str | None = ..., level: int = ...) -> None: ...
+
+    def executable_filename(
+        self, basename: str, strip_dir: int = ..., output_dir: str = ...) -> str: ...
+
+    def library_filename(self, libname: str, lib_type: str = ...,
+                         strip_dir: int = ..., output_dir: str = ...) -> str: ...
+
+    def object_filenames(
+        self, source_filenames: list[str], strip_dir: int = ..., output_dir: str = ...) -> list[str]: ...
+
+    def shared_object_filename(
+        self, basename: str, strip_dir: int = ..., output_dir: str = ...) -> str: ...
+    def execute(self, func: Callable[..., object], args: tuple[Any, ...],
+                msg: str | None = ..., level: int = ...) -> None: ...
+
     def spawn(self, cmd: list[str]) -> None: ...
     def mkpath(self, name: str, mode: int = ...) -> None: ...
     def move_file(self, src: str, dst: str) -> str: ...
