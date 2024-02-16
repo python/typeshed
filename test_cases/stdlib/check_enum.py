@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import enum
 import sys
-from typing import Type
-from typing_extensions import Literal, assert_type
+from typing import Literal, Type
+from typing_extensions import assert_type
 
 A = enum.Enum("A", "spam eggs bacon")
 B = enum.Enum("B", ["spam", "eggs", "bacon"])
