@@ -9,7 +9,7 @@ class _BearerToken(TypedDict):
     token_type: Literal["Bearer"]
     access_token: str
     expires_in: int
-    scope: str
+    scope: NotRequired[str]
     refresh_token: NotRequired[str]
     state: NotRequired[str]
 
