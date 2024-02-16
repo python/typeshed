@@ -1,42 +1,5 @@
-# Uncategorised, from Python 3.12
-asyncio.create_eager_task_factory
-asyncio.eager_task_factory
-asyncio.tasks.__all__
-asyncio.tasks.create_eager_task_factory
-asyncio.tasks.eager_task_factory
-collections.UserDict.get
-enum.Enum.__signature__
-enum.EnumMeta.__call__
-enum.EnumType.__call__
-enum.property.member
-http.client.HTTPConnection.get_proxy_response_headers
-imaplib.IMAP4_SSL.__init__
-importlib.metadata.PackageMetadata.get
-importlib.metadata._meta.PackageMetadata.get
-importlib.metadata._meta.SimplePath.__truediv__
-importlib.metadata._meta.SimplePath.parent
-poplib.POP3_SSL.__init__
-smtplib.SMTP.starttls
-smtplib.SMTP_SSL.__init__
-typing.ParamSpec.__mro_entries__
-typing.ParamSpecArgs.__mro_entries__
-typing.ParamSpecKwargs.__mro_entries__
-typing.SupportsAbs.__type_params__
-typing.SupportsRound.__type_params__
-typing.TypeVar.__mro_entries__
-typing.TypeVarTuple.__mro_entries__
-typing._ProtocolMeta.__init__
-typing.__all__
-typing.override
-typing_extensions.Protocol
-typing_extensions.SupportsAbs.__type_params__
-typing_extensions.SupportsRound.__type_params__
-urllib.request.AbstractHTTPHandler.__init__
-urllib.request.HTTPSHandler.__init__
-
-# TODO: remove after rc2 release
-turtle.__all__
-turtle.teleport
+# Modules that exist at runtime, but are missing from typeshed
+zipfile._path.glob
 
 # Errors that also existed on Python 3.11
 _collections_abc.AsyncIterable.__class_getitem__
@@ -48,9 +11,10 @@ _csv.Reader
 _csv.Writer
 configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 tkinter._VersionInfoType.__doc__
-typing.NewType.__call__
 typing.NewType.__mro_entries__
+builtins.ellipsis  # type is not exposed anywhere
 
 # ==========
 # Related to positional-only arguments
@@ -109,7 +73,11 @@ os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all Pat
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
+sys._monitoring  # Doesn't really exist. See comments in the stub.
 weakref.ProxyType.__reversed__  # Doesn't really exist
+
+# sys attributes that are not always defined
+sys.last_exc
 
 # C signature is broader than what is actually accepted
 ast.ExtSlice.__new__
@@ -130,12 +98,33 @@ platform.uname_result.processor
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
+# Problematic protocol signature at runtime, see source code comments.
+importlib.abc.Traversable.open
+importlib.resources.abc.Traversable.open
+
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedNonAbstract.__new__
+
 # Super-special typing primitives
 typing\._SpecialForm.*
 typing\.NamedTuple
 typing\.LiteralString
 typing\.Annotated
 
-# These two should be removable after 3.12rc2 is released:
-types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
-os.lseek  # a pos-only parameter name changed in py311/py312
+# These only exist to give a better error message if you try to subclass an instance
+typing.ParamSpec.__mro_entries__
+typing.ParamSpecArgs.__mro_entries__
+typing.ParamSpecKwargs.__mro_entries__
+typing.TypeVar.__mro_entries__
+typing.TypeVarTuple.__mro_entries__
+
+# TODO: mypy should infer that this attribute is inherited from builtins.type;
+# why doesn't it infer this?
+typing.SupportsAbs.__type_params__
+typing.SupportsRound.__type_params__
+typing_extensions.SupportsAbs.__type_params__
+typing_extensions.SupportsRound.__type_params__
+
+# Dunder that exists on all runtime-checkable protocols on py312+
+# TODO teach stubtest about this so we don't have to allowlist it
+.+\.__non_callable_proto_members__

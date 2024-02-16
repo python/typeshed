@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import Final
 from typing_extensions import TypeAlias
 
 import _win32typing
@@ -36,7 +37,7 @@ class Constants:
     __dicts__: Incomplete
     def __getattr__(self, a: str): ...
 
-constants: Incomplete
+constants: Final[Constants]
 
 class EventsProxy:
     def __init__(self, ob) -> None: ...

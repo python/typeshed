@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from typing import ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from .ImageFile import ImageFile
 
@@ -9,7 +8,6 @@ MODES: Incomplete
 class PsdImageFile(ImageFile):
     format: ClassVar[Literal["PSD"]]
     format_description: ClassVar[str]
-    mode: Incomplete
     tile: Incomplete
     frame: Incomplete
     fp: Incomplete

@@ -1,11 +1,12 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from _typeshed import ConvertibleToInt, Incomplete, Unused
+from typing import ClassVar, Literal, overload
+from typing_extensions import TypeAlias
 
 from openpyxl.descriptors import Float, Strict
-from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, NoneSet, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.styles.colors import Color, ColorDescriptor
 from openpyxl.styles.differential import DifferentialStyle
 
 _IconSetIconSet: TypeAlias = Literal[
@@ -68,7 +69,7 @@ _RuleType: TypeAlias = Literal[
 
 class ValueDescriptor(Float[Incomplete]):
     expected_type: type[Incomplete]
-    def __set__(self, instance: Serialisable | Strict, value) -> None: ...  # type: ignore[override]
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class FormatObject(Serialisable):
     tagname: ClassVar[str]
@@ -106,16 +107,27 @@ class DataBar(RuleType):
     minLength: Integer[Literal[True]]
     maxLength: Integer[Literal[True]]
     showValue: Bool[Literal[True]]
-    color: Incomplete
+    color: ColorDescriptor[Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
     cfvo: Incomplete
+    @overload
     def __init__(
         self,
-        minLength: _ConvertibleToInt | None = None,
-        maxLength: _ConvertibleToInt | None = None,
+        minLength: ConvertibleToInt | None = None,
+        maxLength: ConvertibleToInt | None = None,
         showValue: _ConvertibleToBool | None = None,
         cfvo: Incomplete | None = None,
-        color: Incomplete | None = None,
+        *,
+        color: str | Color,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        minLength: ConvertibleToInt | None,
+        maxLength: ConvertibleToInt | None,
+        showValue: _ConvertibleToBool | None,
+        cfvo: Incomplete | None,
+        color: str | Color,
     ) -> None: ...
 
 class ColorScale(RuleType):
@@ -151,8 +163,8 @@ class Rule(Serialisable):
     def __init__(
         self,
         type: _RuleType,
-        dxfId: _ConvertibleToInt | None = None,
-        priority: _ConvertibleToInt = 0,
+        dxfId: ConvertibleToInt | None = None,
+        priority: ConvertibleToInt = 0,
         stopIfTrue: _ConvertibleToBool | None = None,
         aboveAverage: _ConvertibleToBool | None = None,
         percent: _ConvertibleToBool | None = None,
@@ -160,8 +172,8 @@ class Rule(Serialisable):
         operator: _RuleOperator | Literal["none"] | None = None,
         text: str | None = None,
         timePeriod: _RuleTimePeriod | Literal["none"] | None = None,
-        rank: _ConvertibleToInt | None = None,
-        stdDev: _ConvertibleToInt | None = None,
+        rank: ConvertibleToInt | None = None,
+        stdDev: ConvertibleToInt | None = None,
         equalAverage: _ConvertibleToBool | None = None,
         formula=(),
         colorScale: ColorScale | None = None,
