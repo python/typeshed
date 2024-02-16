@@ -1,9 +1,10 @@
 from _typeshed import Incomplete, SupportsRead
-from typing import Any, TypeAlias, overload
+from typing import Any, overload
+from typing_extensions import TypeAlias
 
 _UnicodeInputStream: TypeAlias = str | SupportsRead[str]
 _BinaryInputStream: TypeAlias = bytes | SupportsRead[bytes]
-_InputStream: TypeAlias = _UnicodeInputStream
+_InputStream: TypeAlias = _UnicodeInputStream  # noqa: Y7047  # used in other files
 
 spaceCharactersBytes: Any
 asciiLettersBytes: Any
@@ -29,6 +30,7 @@ def HTMLInputStream(source: _UnicodeInputStream) -> HTMLUnicodeInputStream: ...
 @overload
 def HTMLInputStream(
     source: _BinaryInputStream,
+    *,
     override_encoding: str | bytes | None = None,
     transport_encoding: str | bytes | None = None,
     same_origin_parent_encoding: str | bytes | None = None,
