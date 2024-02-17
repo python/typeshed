@@ -1,38 +1,30 @@
-from _typeshed import ReadableBuffer, SliceableBuffer, SupportsTrunc
+from _typeshed import ConvertibleToInt, SliceableBuffer
 from array import array
 
 # Avoid name collision with List.type
 from builtins import type as Type
 from collections.abc import Callable, Iterable, Sequence
-from typing import Any, SupportsInt, TypeVar, overload, type_check_only
-from typing_extensions import Literal, LiteralString, SupportsIndex, TypeAlias
+from typing import Any, Final, Literal, SupportsIndex, TypeVar, overload, type_check_only
+from typing_extensions import LiteralString, TypeAlias
 
 from Xlib._typing import ErrorHandler, Unused
-from Xlib.display import _ResourceBaseClass
+from Xlib.display import _BaseDisplay, _ResourceBaseClass
 from Xlib.error import XError
 from Xlib.ext.xinput import ClassInfoClass
 from Xlib.protocol import display
 
 _T = TypeVar("_T")
-_IntNew: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
 _ModifierMappingList8Elements: TypeAlias = Sequence[Sequence[int]]
-
-# Workaround for pytype crash. Should be Xlib.display._BaseDisplay
-@type_check_only
-class _BaseDisplay(display.Display):
-    def __init__(self, display: str | None = ...) -> None: ...
-    def get_atom(self, atomname: str, only_if_exists: bool = ...) -> int: ...
 
 def decode_string(bs: bytes | bytearray) -> str: ...
 def encode_array(a: array[Any] | memoryview) -> str: ...
 
 class BadDataError(Exception): ...
 
-signed_codes: dict[int, str]
-unsigned_codes: dict[int, str]
-array_unsigned_codes: dict[int, LiteralString]
-struct_to_array_codes: dict[str, LiteralString]
-size: int
+signed_codes: Final[dict[int, str]]
+unsigned_codes: Final[dict[int, str]]
+array_unsigned_codes: Final[dict[int, LiteralString]]
+struct_to_array_codes: Final[dict[str, LiteralString]]
 
 class Field:
     name: str
@@ -90,7 +82,7 @@ class FormatField(Field):
 Format = FormatField
 
 class ValueField(Field):
-    def __init__(self, name: str, default: int | None = ...) -> None: ...
+    def __init__(self, name: str, default: int | None = None) -> None: ...
 
 class Int8(ValueField):
     structcode: str
@@ -114,7 +106,7 @@ class Resource(Card32):
     cast_function: str
     class_name: str
     codes: tuple[int, ...]
-    def __init__(self, name: str, codes: tuple[int, ...] = ..., default: int | None = ...) -> None: ...
+    def __init__(self, name: str, codes: tuple[int, ...] = (), default: int | None = None) -> None: ...
     @overload  # type: ignore[override]
     def check_value(self, value: Callable[[], _T]) -> _T: ...
     @overload
@@ -160,7 +152,7 @@ class Bool(ValueField):
 class Set(ValueField):
     structcode: str
     values: Sequence[object]
-    def __init__(self, name: str, size: int, values: Sequence[object], default: int | None = ...) -> None: ...
+    def __init__(self, name: str, size: int, values: Sequence[object], default: int | None = None) -> None: ...
     def check_value(self, val: _T) -> _T: ...  # type: ignore[override]
 
 class Gravity(Set):
@@ -173,7 +165,7 @@ class FixedBinary(ValueField):
 class Binary(ValueField):
     structcode: None
     pad: int
-    def __init__(self, name: str, pad: int = ...) -> None: ...
+    def __init__(self, name: str, pad: int = 1) -> None: ...
     def pack_value(  # type: ignore[override]  # Override Callable
         self, val: bytes | bytearray
     ) -> tuple[bytes | bytearray, int, None]: ...
@@ -187,7 +179,7 @@ class Binary(ValueField):
 class String8(ValueField):
     structcode: None
     pad: int
-    def __init__(self, name: str, pad: int = ...) -> None: ...
+    def __init__(self, name: str, pad: int = 1) -> None: ...
     def pack_value(self, val: bytes | str) -> tuple[bytes, int, None]: ...  # type: ignore[override]  # Override Callable
     @overload  # type: ignore[override]  # Overload for specific values
     def parse_binary_value(
@@ -201,7 +193,7 @@ class String8(ValueField):
 class String16(ValueField):
     structcode: None
     pad: int
-    def __init__(self, name: str, pad: int = ...) -> None: ...
+    def __init__(self, name: str, pad: int = 1) -> None: ...
     def pack_value(self, val: Sequence[object]) -> tuple[bytes, int, None]: ...  # type: ignore[override]  # Override Callable
     def parse_binary_value(  # type: ignore[override]  # length: None will error. See: https://github.com/python-xlib/python-xlib/pull/248
         self, data: SliceableBuffer, display: Unused, length: int | Literal["odd", "even"], format: Unused
@@ -212,7 +204,7 @@ class List(ValueField):
     type: Struct | ScalarObj | ResourceObj | ClassInfoClass | type[ValueField]
     pad: int
     def __init__(
-        self, name: str, type: Struct | ScalarObj | ResourceObj | ClassInfoClass | Type[ValueField], pad: int = ...
+        self, name: str, type: Struct | ScalarObj | ResourceObj | ClassInfoClass | Type[ValueField], pad: int = 1
     ) -> None: ...
     def parse_binary_value(
         self, data: SliceableBuffer, display: display.Display | None, length: SupportsIndex | None, format: Unused
@@ -223,7 +215,7 @@ class List(ValueField):
 
 class FixedList(List):
     size: int
-    def __init__(self, name: str, size: int, type: Struct | ScalarObj, pad: int = ...) -> None: ...
+    def __init__(self, name: str, size: int, type: Struct | ScalarObj, pad: int = 1) -> None: ...
     def parse_binary_value(
         self, data: SliceableBuffer, display: display.Display | None, length: Unused, format: Unused
     ) -> tuple[list[DictWrapper | None], SliceableBuffer]: ...
@@ -231,7 +223,7 @@ class FixedList(List):
 class Object(ValueField):
     type: Struct
     structcode: str | None
-    def __init__(self, name: str, type: Struct, default: int | None = ...) -> None: ...
+    def __init__(self, name: str, type: Struct, default: int | None = None) -> None: ...
     def parse_binary_value(
         self, data: SliceableBuffer, display: display.Display | None, length: Unused, format: Unused
     ) -> tuple[DictWrapper, SliceableBuffer]: ...
@@ -244,7 +236,7 @@ class Object(ValueField):
 class PropertyData(ValueField):
     structcode: None
     def parse_binary_value(
-        self, data: SliceableBuffer, display: Unused, length: _IntNew | None, format: int
+        self, data: SliceableBuffer, display: Unused, length: ConvertibleToInt | None, format: int
     ) -> tuple[tuple[int, SliceableBuffer] | None, SliceableBuffer]: ...
     def pack_value(  # type: ignore[override]  # Override Callable
         self, value: tuple[int, Sequence[float] | Sequence[str]]
@@ -342,7 +334,7 @@ class Struct:
     def parse_value(self, val: SliceableBuffer, display: display.Display | None, rawdict: Literal[True]) -> dict[str, Any]: ...
     @overload
     def parse_value(
-        self, val: SliceableBuffer, display: display.Display | None, rawdict: Literal[False] = ...
+        self, val: SliceableBuffer, display: display.Display | None, rawdict: Literal[False] = False
     ) -> DictWrapper: ...
     @overload
     def parse_binary(
@@ -350,7 +342,7 @@ class Struct:
     ) -> tuple[dict[str, Any], SliceableBuffer]: ...
     @overload
     def parse_binary(
-        self, data: SliceableBuffer, display: display.Display | None, rawdict: Literal[False] = ...
+        self, data: SliceableBuffer, display: display.Display | None, rawdict: Literal[False] = False
     ) -> tuple[DictWrapper, SliceableBuffer]: ...
     # Structs generate their attributes
     # TODO: Create a specific type-only class for all instances of `Struct`
@@ -373,7 +365,6 @@ class GetAttrData:
     # GetAttrData classes get their attributes dynamically
     # TODO: Complete all classes inheriting from GetAttrData
     def __getattr__(self, attr: str) -> Any: ...
-    @type_check_only
     def __setattr__(self, __name: str, __value: Any) -> None: ...
 
 class DictWrapper(GetAttrData):
@@ -385,16 +376,16 @@ class DictWrapper(GetAttrData):
 
 class Request:
     def __init__(
-        self, display: _BaseDisplay, onerror: ErrorHandler[object] | None = ..., *args: object, **keys: object
+        self, display: _BaseDisplay, onerror: ErrorHandler[object] | None = None, *args: object, **keys: object
     ) -> None: ...
 
 class ReplyRequest(GetAttrData):
-    def __init__(self, display: display.Display, defer: int = ..., *args: object, **keys: object) -> None: ...
+    def __init__(self, display: display.Display, defer: bool = False, *args: object, **keys: object) -> None: ...
     def reply(self) -> None: ...
 
 class Event(GetAttrData):
     def __init__(
-        self, binarydata: SliceableBuffer | None = ..., display: display.Display | None = ..., **keys: object
+        self, binarydata: SliceableBuffer | None = None, display: display.Display | None = None, **keys: object
     ) -> None: ...
 
 def call_error_handler(

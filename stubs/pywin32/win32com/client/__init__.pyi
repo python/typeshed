@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import Final
 from typing_extensions import TypeAlias
 
 import _win32typing
@@ -14,7 +15,7 @@ def Dispatch(
     userName: str | None = ...,
     resultCLSID: _Stringifiable | None = ...,
     typeinfo: _win32typing.PyITypeInfo | None = ...,
-    UnicodeToString: None = ...,
+    UnicodeToString: None = None,
     clsctx: int = ...,
 ) -> dynamic.CDispatch: ...
 def DispatchEx(
@@ -23,7 +24,7 @@ def DispatchEx(
     userName: Incomplete | None = ...,
     resultCLSID: Incomplete | None = ...,
     typeinfo: Incomplete | None = ...,
-    UnicodeToString: None = ...,
+    UnicodeToString: None = None,
     clsctx: Incomplete | None = ...,
 ): ...
 
@@ -36,7 +37,7 @@ class Constants:
     __dicts__: Incomplete
     def __getattr__(self, a: str): ...
 
-constants: Incomplete
+constants: Final[Constants]
 
 class EventsProxy:
     def __init__(self, ob) -> None: ...

@@ -1,6 +1,5 @@
 from collections.abc import Callable, MutableMapping
-from typing import Any, ClassVar, NoReturn
-from typing_extensions import TypedDict
+from typing import Any, ClassVar, NoReturn, TypedDict
 
 from jmespath.functions import Functions
 
@@ -8,7 +7,7 @@ class Options:
     dict_cls: Callable[[], MutableMapping[Any, Any]] | None
     custom_functions: Functions | None
     def __init__(
-        self, dict_cls: Callable[[], MutableMapping[Any, Any]] | None = ..., custom_functions: Functions | None = ...
+        self, dict_cls: Callable[[], MutableMapping[Any, Any]] | None = None, custom_functions: Functions | None = None
     ) -> None: ...
 
 class _Expression:
@@ -30,7 +29,7 @@ class _TreeNode(TypedDict):
 class TreeInterpreter(Visitor):
     COMPARATOR_FUNC: ClassVar[dict[str, Callable[[Any, Any], Any]]]
     MAP_TYPE: ClassVar[Callable[[], MutableMapping[Any, Any]]]
-    def __init__(self, options: Options | None = ...) -> None: ...
+    def __init__(self, options: Options | None = None) -> None: ...
     def default_visit(self, node: _TreeNode, *args, **kwargs) -> NoReturn: ...
     def visit_subexpression(self, node: _TreeNode, value: Any) -> Any: ...
     def visit_field(self, node: _TreeNode, value: Any) -> Any: ...

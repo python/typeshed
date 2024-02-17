@@ -1,7 +1,6 @@
 import logging
 from collections.abc import Mapping, Sequence
-from typing import IO, ClassVar
-from typing_extensions import TypedDict
+from typing import IO, ClassVar, TypedDict
 
 from .util import Context
 
@@ -37,12 +36,12 @@ class DockerfileParser:
     build_args: dict[str, str]
     def __init__(
         self,
-        path: str | None = ...,
-        cache_content: bool = ...,
-        env_replace: bool = ...,
-        parent_env: dict[str, str] | None = ...,
-        fileobj: IO[str] | None = ...,
-        build_args: dict[str, str] | None = ...,
+        path: str | None = None,
+        cache_content: bool = False,
+        env_replace: bool = True,
+        parent_env: dict[str, str] | None = None,
+        fileobj: IO[str] | None = None,
+        build_args: dict[str, str] | None = None,
     ) -> None: ...
     lines: list[str]
     content: str

@@ -19,6 +19,7 @@ class MerchantAccount(Resource):
         Bank: str
         Email: str
         MobilePhone: str
+
     FundingDestinations: Any
     individual_details: Any
     business_details: Any
@@ -26,7 +27,7 @@ class MerchantAccount(Resource):
     master_merchant_account: Any
     def __init__(self, gateway, attributes) -> None: ...
     @staticmethod
-    def create(params: Incomplete | None = ...): ...
+    def create(params: Incomplete | None = None): ...
     @staticmethod
     def update(id, attributes): ...
     @staticmethod

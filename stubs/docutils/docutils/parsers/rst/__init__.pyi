@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any, ClassVar
-from typing_extensions import Literal
+from typing import Any, ClassVar, Literal
 
 from docutils import parsers
 from docutils.parsers.rst import states
@@ -10,7 +9,7 @@ class Parser(parsers.Parser):
     initial_state: Literal["Body", "RFC2822Body"]
     state_classes: Any
     inliner: Any
-    def __init__(self, rfc2822: bool = ..., inliner: Incomplete | None = ...) -> None: ...
+    def __init__(self, rfc2822: bool = False, inliner: Incomplete | None = None) -> None: ...
 
 class DirectiveError(Exception):
     level: Any

@@ -6,12 +6,13 @@ from _typeshed import FileDescriptorOrPath, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from os import _Opener
 from types import TracebackType
-from typing import IO, Any, BinaryIO, TextIO
-from typing_extensions import Literal, Self
+from typing import IO, Any, BinaryIO, Literal, Protocol, TextIO, TypeVar, overload, type_check_only
+from typing_extensions import Self
 
 __all__ = [
     "BlockingIOError",
     "open",
+    "open_code",
     "IOBase",
     "RawIOBase",
     "FileIO",
@@ -30,8 +31,10 @@ __all__ = [
     "SEEK_END",
 ]
 
-if sys.version_info >= (3, 8):
-    __all__ += ["open_code"]
+if sys.version_info >= (3, 11):
+    __all__ += ["DEFAULT_BUFFER_SIZE", "IncrementalNewlineDecoder", "text_encoding"]
+
+_T = TypeVar("_T")
 
 DEFAULT_BUFFER_SIZE: Literal[8192]
 
@@ -41,8 +44,7 @@ SEEK_END: Literal[2]
 
 open = builtins.open
 
-if sys.version_info >= (3, 8):
-    def open_code(path: str) -> IO[bytes]: ...
+def open_code(path: str) -> IO[bytes]: ...
 
 BlockingIOError = builtins.BlockingIOError
 
@@ -90,9 +92,12 @@ class BufferedIOBase(IOBase):
     def read(self, __size: int | None = ...) -> bytes: ...
     def read1(self, __size: int = ...) -> bytes: ...
 
-class FileIO(RawIOBase, BinaryIO):
+class FileIO(RawIOBase, BinaryIO):  # type: ignore[misc]  # incompatible definitions of writelines in the base classes
     mode: str
-    name: FileDescriptorOrPath  # type: ignore[assignment]
+    # The type of "name" equals the argument passed in to the constructor,
+    # but that can make FileIO incompatible with other I/O types that assume
+    # "name" is a str. In the future, making FileIO generic might help.
+    name: Any
     def __init__(
         self, file: FileDescriptorOrPath, mode: str = ..., closefd: bool = ..., opener: _Opener | None = ...
     ) -> None: ...
@@ -102,7 +107,7 @@ class FileIO(RawIOBase, BinaryIO):
     def read(self, __size: int = -1) -> bytes: ...
     def __enter__(self) -> Self: ...
 
-class BytesIO(BufferedIOBase, BinaryIO):
+class BytesIO(BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incompatible definitions of methods in the base classes
     def __init__(self, initial_bytes: ReadableBuffer = ...) -> None: ...
     # BytesIO does not contain a "name" field. This workaround is necessary
     # to allow BytesIO sub-classes to add this field, as it is defined
@@ -113,17 +118,17 @@ class BytesIO(BufferedIOBase, BinaryIO):
     def getbuffer(self) -> memoryview: ...
     def read1(self, __size: int | None = -1) -> bytes: ...
 
-class BufferedReader(BufferedIOBase, BinaryIO):
+class BufferedReader(BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incompatible definitions of methods in the base classes
     def __enter__(self) -> Self: ...
     def __init__(self, raw: RawIOBase, buffer_size: int = ...) -> None: ...
     def peek(self, __size: int = 0) -> bytes: ...
 
-class BufferedWriter(BufferedIOBase, BinaryIO):
+class BufferedWriter(BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incompatible definitions of writelines in the base classes
     def __enter__(self) -> Self: ...
     def __init__(self, raw: RawIOBase, buffer_size: int = ...) -> None: ...
     def write(self, __buffer: ReadableBuffer) -> int: ...
 
-class BufferedRandom(BufferedReader, BufferedWriter):
+class BufferedRandom(BufferedReader, BufferedWriter):  # type: ignore[misc]  # incompatible definitions of methods in the base classes
     def __enter__(self) -> Self: ...
     def seek(self, __target: int, __whence: int = 0) -> int: ...  # stubtest needs this
 
@@ -144,16 +149,43 @@ class TextIOBase(IOBase):
     def readlines(self, __hint: int = -1) -> list[str]: ...  # type: ignore[override]
     def read(self, __size: int | None = ...) -> str: ...
 
-class TextIOWrapper(TextIOBase, TextIO):
+@type_check_only
+class _WrappedBuffer(Protocol):
+    # "name" is wrapped by TextIOWrapper. Its type is inconsistent between
+    # the various I/O types, see the comments on TextIOWrapper.name and
+    # TextIO.name.
+    @property
+    def name(self) -> Any: ...
+    @property
+    def closed(self) -> bool: ...
+    def read(self, size: int = ..., /) -> ReadableBuffer: ...
+    # Optional: def read1(self, size: int, /) -> ReadableBuffer: ...
+    def write(self, b: bytes, /) -> object: ...
+    def flush(self) -> object: ...
+    def close(self) -> object: ...
+    def seekable(self) -> bool: ...
+    def readable(self) -> bool: ...
+    def writable(self) -> bool: ...
+    def truncate(self, size: int, /) -> int: ...
+    def fileno(self) -> int: ...
+    def isatty(self) -> int: ...
+    # Optional: Only needs to be present if seekable() returns True.
+    # def seek(self, offset: Literal[0], whence: Literal[2]) -> int: ...
+    # def tell(self) -> int: ...
+
+# TODO: Should be generic over the buffer type, but needs to wait for
+# TypeVar defaults.
+class TextIOWrapper(TextIOBase, TextIO):  # type: ignore[misc]  # incompatible definitions of write in the base classes
     def __init__(
         self,
-        buffer: IO[bytes],
+        buffer: _WrappedBuffer,
         encoding: str | None = ...,
         errors: str | None = ...,
         newline: str | None = ...,
         line_buffering: bool = ...,
         write_through: bool = ...,
     ) -> None: ...
+    # Equals the "buffer" argument passed in to the constructor.
     @property
     def buffer(self) -> BinaryIO: ...
     @property
@@ -178,7 +210,11 @@ class TextIOWrapper(TextIOBase, TextIO):
     def writelines(self, __lines: Iterable[str]) -> None: ...  # type: ignore[override]
     def readline(self, __size: int = -1) -> str: ...  # type: ignore[override]
     def readlines(self, __hint: int = -1) -> list[str]: ...  # type: ignore[override]
-    def seek(self, __cookie: int, __whence: int = 0) -> int: ...  # stubtest needs this
+    # Equals the "buffer" argument passed in to the constructor.
+    def detach(self) -> BinaryIO: ...
+    # TextIOWrapper's version of seek only supports a limited subset of
+    # operations.
+    def seek(self, __cookie: int, __whence: int = 0) -> int: ...
 
 class StringIO(TextIOWrapper):
     def __init__(self, initial_value: str | None = ..., newline: str | None = ...) -> None: ...
@@ -194,3 +230,9 @@ class IncrementalNewlineDecoder(codecs.IncrementalDecoder):
     @property
     def newlines(self) -> str | tuple[str, ...] | None: ...
     def setstate(self, __state: tuple[bytes, int]) -> None: ...
+
+if sys.version_info >= (3, 10):
+    @overload
+    def text_encoding(__encoding: None, __stacklevel: int = 2) -> Literal["locale", "utf-8"]: ...
+    @overload
+    def text_encoding(__encoding: _T, __stacklevel: int = 2) -> _T: ...

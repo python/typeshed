@@ -1,5 +1,6 @@
-from _typeshed import Incomplete
+import sys
+from typing import Final
 
-VER: Incomplete
+VER: Final[sys._version_info]
 
-def safe_string(value): ...
+def safe_string(value: object) -> str: ...

@@ -1,24 +1,27 @@
 # This module is made specifically to abstract away those type errors
-# pyright: reportUnknownVariableType=false, reportUnknownArgumentType=false, reportUnknownMemberType=false
+# pyright: reportUnknownVariableType=false, reportUnknownArgumentType=false
 
 """Tools to help parse and validate information stored in METADATA.toml files."""
 from __future__ import annotations
 
 import os
 import re
+import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import NamedTuple
-from typing_extensions import Annotated, Final, TypeGuard, final
+from typing import Final, NamedTuple, final
+from typing_extensions import Annotated, TypeGuard
 
 import tomli
 from packaging.requirements import Requirement
+from packaging.specifiers import Specifier
 from packaging.version import Version
 
 from utils import cache
 
 __all__ = [
+    "NoSuchStubError",
     "StubMetadata",
     "PackageDependencies",
     "StubtestSettings",
@@ -30,10 +33,20 @@ __all__ = [
 
 
 _STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
+# Some older websites have a bad pattern of using query params for navigation.
+_QUERY_URL_ALLOWLIST = {"sourceware.org"}
 
 
 def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
     return isinstance(obj, list) and all(isinstance(item, str) for item in obj)
+
+
+@cache
+def _get_oldest_supported_python() -> str:
+    with open("pyproject.toml", "rb") as config:
+        val = tomli.load(config)["tool"]["typeshed"]["oldest_supported_python"]
+    assert type(val) is str
+    return val
 
 
 @final
@@ -66,14 +79,14 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         data: dict[str, object] = tomli.load(f).get("tool", {}).get("stubtest", {})
 
-    skipped = data.get("skip", False)
-    apt_dependencies = data.get("apt_dependencies", [])
-    brew_dependencies = data.get("brew_dependencies", [])
-    choco_dependencies = data.get("choco_dependencies", [])
-    extras = data.get("extras", [])
-    ignore_missing_stub = data.get("ignore_missing_stub", False)
-    specified_platforms = data.get("platforms", ["linux"])
-    stubtest_requirements = data.get("stubtest_requirements", [])
+    skipped: object = data.get("skip", False)
+    apt_dependencies: object = data.get("apt_dependencies", [])
+    brew_dependencies: object = data.get("brew_dependencies", [])
+    choco_dependencies: object = data.get("choco_dependencies", [])
+    extras: object = data.get("extras", [])
+    ignore_missing_stub: object = data.get("ignore_missing_stub", False)
+    specified_platforms: object = data.get("platforms", ["linux"])
+    stubtest_requirements: object = data.get("stubtest_requirements", [])
 
     assert type(skipped) is bool
     assert type(ignore_missing_stub) is bool
@@ -120,14 +133,29 @@ class StubMetadata:
     requires: Annotated[list[str], "The raw requirements as listed in METADATA.toml"]
     extra_description: str | None
     stub_distribution: Annotated[str, "The name under which the distribution is uploaded to PyPI"]
+    upstream_repository: Annotated[str, "The URL of the upstream repository"] | None
     obsolete_since: Annotated[str, "A string representing a specific version"] | None
     no_longer_updated: bool
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
+    partial_stub: Annotated[bool, "Whether this is a partial type stub package as per PEP 561."]
     stubtest_settings: StubtestSettings
+    requires_python: Annotated[Specifier, "Versions of Python supported by the stub package"]
 
 
 _KNOWN_METADATA_FIELDS: Final = frozenset(
-    {"version", "requires", "extra_description", "stub_distribution", "obsolete_since", "no_longer_updated", "upload", "tool"}
+    {
+        "version",
+        "requires",
+        "extra_description",
+        "stub_distribution",
+        "upstream_repository",
+        "obsolete_since",
+        "no_longer_updated",
+        "upload",
+        "tool",
+        "partial_stub",
+        "requires_python",
+    }
 )
 _KNOWN_METADATA_TOOL_FIELDS: Final = {
     "stubtest": {
@@ -144,6 +172,10 @@ _KNOWN_METADATA_TOOL_FIELDS: Final = {
 _DIST_NAME_RE: Final = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNORECASE)
 
 
+class NoSuchStubError(ValueError):
+    """Raise NoSuchStubError to indicate that a stubs/{distribution} directory doesn't exist"""
+
+
 @cache
 def read_metadata(distribution: str) -> StubMetadata:
     """Return an object describing the metadata of a stub as given in the METADATA.toml file.
@@ -153,8 +185,11 @@ def read_metadata(distribution: str) -> StubMetadata:
     Use `read_dependencies` if you need to parse the dependencies
     given in the `requires` field, for example.
     """
-    with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
-        data: dict[str, object] = tomli.load(f)
+    try:
+        with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
+            data: dict[str, object] = tomli.load(f)
+    except FileNotFoundError:
+        raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
 
     unknown_metadata_fields = data.keys() - _KNOWN_METADATA_FIELDS
     assert not unknown_metadata_fields, f"Unexpected keys in METADATA.toml for {distribution!r}: {unknown_metadata_fields}"
@@ -165,7 +200,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     # Check that the version parses
     Version(version[:-2] if version.endswith(".*") else version)
 
-    requires = data.get("requires", [])
+    requires: object = data.get("requires", [])
     assert isinstance(requires, list)
     for req in requires:
         assert isinstance(req, str), f"Invalid requirement {req!r} for {distribution!r}"
@@ -174,7 +209,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         # Check that the requirement parses
         Requirement(req)
 
-    extra_description = data.get("extra_description")
+    extra_description: object = data.get("extra_description")
     assert isinstance(extra_description, (str, type(None)))
 
     if "stub_distribution" in data:
@@ -184,19 +219,59 @@ def read_metadata(distribution: str) -> StubMetadata:
     else:
         stub_distribution = f"types-{distribution}"
 
-    obsolete_since = data.get("obsolete_since")
-    assert isinstance(obsolete_since, (str, type(None)))
-    no_longer_updated = data.get("no_longer_updated", False)
-    assert type(no_longer_updated) is bool
-    uploaded_to_pypi = data.get("upload", True)
-    assert type(uploaded_to_pypi) is bool
+    upstream_repository: object = data.get("upstream_repository")
+    assert isinstance(upstream_repository, (str, type(None)))
+    if isinstance(upstream_repository, str):
+        parsed_url = urllib.parse.urlsplit(upstream_repository)
+        assert parsed_url.scheme == "https", f"{distribution}: URLs in the upstream_repository field should use https"
+        no_www_please = (
+            f"{distribution}: `World Wide Web` subdomain (`www.`) should be removed from URLs in the upstream_repository field"
+        )
+        assert not parsed_url.netloc.startswith("www."), no_www_please
+        no_query_params_please = (
+            f"{distribution}: Query params (`?`) should be removed from URLs in the upstream_repository field"
+        )
+        assert parsed_url.hostname in _QUERY_URL_ALLOWLIST or (not parsed_url.query), no_query_params_please
+        no_fragments_please = f"{distribution}: Fragments (`#`) should be removed from URLs in the upstream_repository field"
+        assert not parsed_url.fragment, no_fragments_please
+        if parsed_url.netloc == "github.com":
+            cleaned_url_path = parsed_url.path.strip("/")
+            num_url_path_parts = len(Path(cleaned_url_path).parts)
+            bad_github_url_msg = (
+                f"Invalid upstream_repository for {distribution!r}: "
+                "URLs for GitHub repositories always have two parts in their paths"
+            )
+            assert num_url_path_parts == 2, bad_github_url_msg
 
-    empty_tools: dict[str, dict[str, object]] = {}
-    tools_settings = data.get("tool", empty_tools)
+    obsolete_since: object = data.get("obsolete_since")
+    assert isinstance(obsolete_since, (str, type(None)))
+    no_longer_updated: object = data.get("no_longer_updated", False)
+    assert type(no_longer_updated) is bool
+    uploaded_to_pypi: object = data.get("upload", True)
+    assert type(uploaded_to_pypi) is bool
+    partial_stub: object = data.get("partial_stub", True)
+    assert type(partial_stub) is bool
+    requires_python_str: object = data.get("requires_python")
+    oldest_supported_python = _get_oldest_supported_python()
+    oldest_supported_python_specifier = Specifier(f">={oldest_supported_python}")
+    if requires_python_str is None:
+        requires_python = oldest_supported_python_specifier
+    else:
+        assert type(requires_python_str) is str
+        requires_python = Specifier(requires_python_str)
+        assert requires_python != oldest_supported_python_specifier, f'requires_python="{requires_python}" is redundant'
+        # Check minimum Python version is not less than the oldest version of Python supported by typeshed
+        assert oldest_supported_python_specifier.contains(
+            requires_python.version
+        ), f"'requires_python' contains versions lower than typeshed's oldest supported Python ({oldest_supported_python})"
+        assert requires_python.operator == ">=", "'requires_python' should be a minimum version specifier, use '>=3.x'"
+
+    empty_tools: dict[object, object] = {}
+    tools_settings: object = data.get("tool", empty_tools)
     assert isinstance(tools_settings, dict)
     assert tools_settings.keys() <= _KNOWN_METADATA_TOOL_FIELDS.keys(), f"Unrecognised tool for {distribution!r}"
     for tool, tk in _KNOWN_METADATA_TOOL_FIELDS.items():
-        settings_for_tool = tools_settings.get(tool, {})
+        settings_for_tool: object = tools_settings.get(tool, {})  # pyright: ignore[reportUnknownMemberType]
         assert isinstance(settings_for_tool, dict)
         for key in settings_for_tool:
             assert key in tk, f"Unrecognised {tool} key {key!r} for {distribution!r}"
@@ -206,10 +281,13 @@ def read_metadata(distribution: str) -> StubMetadata:
         requires=requires,
         extra_description=extra_description,
         stub_distribution=stub_distribution,
+        upstream_repository=upstream_repository,
         obsolete_since=obsolete_since,
         no_longer_updated=no_longer_updated,
         uploaded_to_pypi=uploaded_to_pypi,
+        partial_stub=partial_stub,
         stubtest_settings=read_stubtest_settings(distribution),
+        requires_python=requires_python,
     )
 
 

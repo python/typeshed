@@ -1,6 +1,5 @@
 import sys
-from typing import Any, ClassVar
-from typing_extensions import Literal, final
+from typing import Any, ClassVar, Literal, final
 
 # _tkinter is meant to be only used internally by tkinter, but some tkinter
 # functions e.g. return _tkinter.Tcl_Obj objects. Tcl_Obj represents a Tcl
@@ -22,12 +21,12 @@ class Tcl_Obj:
     @property
     def typename(self) -> str: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
-    def __eq__(self, __other): ...
-    def __ge__(self, __other): ...
-    def __gt__(self, __other): ...
-    def __le__(self, __other): ...
-    def __lt__(self, __other): ...
-    def __ne__(self, __other): ...
+    def __eq__(self, __value): ...
+    def __ge__(self, __value): ...
+    def __gt__(self, __value): ...
+    def __le__(self, __value): ...
+    def __lt__(self, __value): ...
+    def __ne__(self, __value): ...
 
 class TclError(Exception): ...
 
@@ -107,29 +106,15 @@ TK_VERSION: str
 class TkttType:
     def deletetimerhandler(self): ...
 
-if sys.version_info >= (3, 8):
-    def create(
-        __screenName: str | None = None,
-        __baseName: str = "",
-        __className: str = "Tk",
-        __interactive: bool = False,
-        __wantobjects: bool = False,
-        __wantTk: bool = True,
-        __sync: bool = False,
-        __use: str | None = None,
-    ): ...
-
-else:
-    def create(
-        __screenName: str | None = None,
-        __baseName: str | None = None,
-        __className: str = "Tk",
-        __interactive: bool = False,
-        __wantobjects: bool = False,
-        __wantTk: bool = True,
-        __sync: bool = False,
-        __use: str | None = None,
-    ): ...
-
+def create(
+    __screenName: str | None = None,
+    __baseName: str = "",
+    __className: str = "Tk",
+    __interactive: bool = False,
+    __wantobjects: bool = False,
+    __wantTk: bool = True,
+    __sync: bool = False,
+    __use: str | None = None,
+): ...
 def getbusywaitinterval(): ...
 def setbusywaitinterval(__new_val): ...

@@ -36,7 +36,7 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: actions/setup-python@v4
@@ -85,7 +85,7 @@ jobs:
               PYTHON_EXECUTABLE="python"
             fi
 
-            $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-stubs-only $STUBS
+            $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-platforms-only $STUBS
           else
             echo "Nothing to test"
           fi

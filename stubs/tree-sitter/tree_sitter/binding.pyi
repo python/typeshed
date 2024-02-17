@@ -1,5 +1,4 @@
-from typing import Any, ClassVar
-from typing_extensions import final
+from typing import Any, ClassVar, final
 
 from tree_sitter import Language
 
@@ -66,7 +65,7 @@ class Node:
 class Parser:
     # At runtime, Parser(1, 2, 3) ignores the arguments, but that's most likely buggy code
     def __init__(self) -> None: ...
-    def parse(self, source: bytes, old_tree: Tree | None = ..., keep_text: bool = ...) -> Tree: ...
+    def parse(self, source: bytes, old_tree: Tree | None = None, keep_text: bool = True) -> Tree: ...
     def set_language(self, __language: Language) -> None: ...
 
 @final
