@@ -27,10 +27,13 @@ class KerasSerializable2(Protocol):
 
 KerasSerializable: TypeAlias = KerasSerializable1 | KerasSerializable2
 
+Integer: TypeAlias = tf.Tensor | int | IntArray | np.number[Any]
+Float: TypeAlias = Integer | float | FloatArray
 Slice: TypeAlias = int | slice | None
 FloatDataSequence: TypeAlias = Sequence[float] | Sequence[FloatDataSequence]
 IntDataSequence: TypeAlias = Sequence[int] | Sequence[IntDataSequence]
 StrDataSequence: TypeAlias = Sequence[str] | Sequence[StrDataSequence]
+DataSequence: TypeAlias = FloatDataSequence | StrDataSequence | IntDataSequence
 ScalarTensorCompatible: TypeAlias = tf.Tensor | str | float | np.ndarray[Any, Any] | np.number[Any]
 UIntTensorCompatible: TypeAlias = tf.Tensor | int | UIntArray
 StringTensorCompatible: TypeAlias = tf.Tensor | str | npt.NDArray[np.str_] | Sequence[StringTensorCompatible]
