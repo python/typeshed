@@ -47,17 +47,19 @@ def check_cached_property_settable(x: int) -> None:
     b.x = x
     assert_type(b.x, int)
 
-# https://github.com/python/typeshed/issues/10048
-class Parent:
-    ...
 
-class Child(Parent):
-    ...
+# https://github.com/python/typeshed/issues/10048
+class Parent: ...
+
+
+class Child(Parent): ...
+
 
 class X:
     @cached_property
     def some(self) -> Parent:
         return Parent()
+
 
 class Y(X):
     @cached_property
