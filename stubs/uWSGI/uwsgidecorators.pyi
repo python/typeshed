@@ -1,6 +1,6 @@
 from collections.abc import Callable
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, ParamSpec, TypeVarTuple, Unpack
+from typing import Any, Generic, Literal, TypeVar, overload
+from typing_extensions import ParamSpec, TypeVarTuple, Unpack
 
 from uwsgi import _RPCCallable
 

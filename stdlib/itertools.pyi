@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable, Iterable, Iterator
-from typing import Any, Generic, SupportsComplex, SupportsFloat, SupportsInt, TypeVar, overload
-from typing_extensions import Literal, Self, SupportsIndex, TypeAlias
+from typing import Any, Generic, Literal, SupportsComplex, SupportsFloat, SupportsIndex, SupportsInt, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -49,14 +49,10 @@ class repeat(Iterator[_T]):
     def __length_hint__(self) -> int: ...
 
 class accumulate(Iterator[_T]):
-    if sys.version_info >= (3, 8):
-        @overload
-        def __init__(self, iterable: Iterable[_T], func: None = None, *, initial: _T | None = ...) -> None: ...
-        @overload
-        def __init__(self, iterable: Iterable[_S], func: Callable[[_T, _S], _T], *, initial: _T | None = ...) -> None: ...
-    else:
-        def __init__(self, iterable: Iterable[_T], func: Callable[[_T, _T], _T] | None = ...) -> None: ...
-
+    @overload
+    def __init__(self, iterable: Iterable[_T], func: None = None, *, initial: _T | None = ...) -> None: ...
+    @overload
+    def __init__(self, iterable: Iterable[_S], func: Callable[[_T, _S], _T], *, initial: _T | None = ...) -> None: ...
     def __iter__(self) -> Self: ...
     def __next__(self) -> _T: ...
 
@@ -224,21 +220,7 @@ class product(Iterator[_T_co]):
         __iter6: Iterable[_T6],
     ) -> product[tuple[_T1, _T2, _T3, _T4, _T5, _T6]]: ...
     @overload
-    def __new__(
-        cls,
-        __iter1: Iterable[Any],
-        __iter2: Iterable[Any],
-        __iter3: Iterable[Any],
-        __iter4: Iterable[Any],
-        __iter5: Iterable[Any],
-        __iter6: Iterable[Any],
-        __iter7: Iterable[Any],
-        *iterables: Iterable[Any],
-    ) -> product[tuple[Any, ...]]: ...
-    @overload
-    def __new__(cls, *iterables: Iterable[_T1], repeat: int) -> product[tuple[_T1, ...]]: ...
-    @overload
-    def __new__(cls, *iterables: Iterable[Any], repeat: int = ...) -> product[tuple[Any, ...]]: ...
+    def __new__(cls, *iterables: Iterable[_T1], repeat: int = 1) -> product[tuple[_T1, ...]]: ...
     def __iter__(self) -> Self: ...
     def __next__(self) -> _T_co: ...
 
