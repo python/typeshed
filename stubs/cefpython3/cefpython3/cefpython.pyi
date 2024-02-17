@@ -1,8 +1,8 @@
 import datetime
 import sys
 from collections.abc import Callable, Mapping
-from typing import Any, NamedTuple, Protocol
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing import Any, Literal, NamedTuple, Protocol, TypedDict
+from typing_extensions import TypeAlias
 
 CEF_COLOR_TYPE_RGBA_8888: int = ...
 CEF_COLOR_TYPE_BGRA_8888: int = ...
