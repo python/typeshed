@@ -18,6 +18,11 @@ tkinter._VersionInfoType.__doc__
 typing.NewType.__mro_entries__
 builtins.ellipsis  # type is not exposed anywhere
 
+# Runtime definition of protocol is incorrect
+importlib.metadata._meta.SimplePath.__truediv__
+importlib.metadata._meta.SimplePath.joinpath
+importlib.metadata._meta.SimplePath.parent
+
 # Modules that exist at runtime, but shouldn't be added to typeshed
 ctypes.test
 ctypes\.test\..+

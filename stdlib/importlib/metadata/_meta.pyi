@@ -31,10 +31,15 @@ if sys.version_info >= (3, 12):
 
 else:
     class SimplePath(Protocol):
+        # Actually takes only self at runtime, but that's clearly wrong
         def joinpath(self, other: Any, /) -> SimplePath: ...
+        # Not defined as a property at runtime, but it should be
+        @property
         def parent(self) -> SimplePath: ...
         def read_text(self) -> str: ...
         # There was a bug in `SimplePath` definition in cpython, see #8451
         #  Strictly speaking `__div__` was defined in 3.10, not __truediv__,
         # but it should have always been `__truediv__`.
+        # Also, the runtime defines this method as taking no arguments,
+        # which is obviously wrong.
         def __truediv__(self, other: Any, /) -> SimplePath: ...
