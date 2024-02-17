@@ -27,10 +27,14 @@ class KerasSerializable2(Protocol):
 
 KerasSerializable: TypeAlias = KerasSerializable1 | KerasSerializable2
 
+Integer: TypeAlias = tf.Tensor | int | IntArray | np.number[Any]  # Here tf.Tensor and IntArray are assumed to be 0D.
 Slice: TypeAlias = int | slice | None
 FloatDataSequence: TypeAlias = Sequence[float] | Sequence[FloatDataSequence]
+IntDataSequence: TypeAlias = Sequence[int] | Sequence[IntDataSequence]
 StrDataSequence: TypeAlias = Sequence[str] | Sequence[StrDataSequence]
 ScalarTensorCompatible: TypeAlias = tf.Tensor | str | float | np.ndarray[Any, Any] | np.number[Any]
+UIntTensorCompatible: TypeAlias = tf.Tensor | int | UIntArray
+StringTensorCompatible: TypeAlias = tf.Tensor | str | npt.NDArray[np.str_] | Sequence[StringTensorCompatible]
 
 TensorCompatible: TypeAlias = ScalarTensorCompatible | Sequence[TensorCompatible]
 # _TensorCompatibleT = TypeVar("_TensorCompatibleT", bound=TensorCompatible)
@@ -52,4 +56,6 @@ ContainerInputSpec: TypeAlias = ContainerGeneric[InputSpec]
 
 AnyArray: TypeAlias = npt.NDArray[Any]
 FloatArray: TypeAlias = npt.NDArray[np.float_ | np.float16 | np.float32 | np.float64]
-IntArray: TypeAlias = npt.NDArray[np.int_ | np.uint8 | np.int32 | np.int64]
+UIntArray: TypeAlias = npt.NDArray[np.uint | np.uint8 | np.uint16 | np.uint32 | np.uint64]
+SignedIntArray: TypeAlias = npt.NDArray[np.int_ | np.int8 | np.int16 | np.int32 | np.int64]
+IntArray: TypeAlias = UIntArray | SignedIntArray
