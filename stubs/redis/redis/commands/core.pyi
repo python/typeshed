@@ -863,7 +863,7 @@ class StreamCommands:
         self,
         name: KeyT,
         # Only accepts dict objects, but for variance reasons we use a looser annotation
-        fields: SupportsItems[bytes | memoryview | str | float, bytes | memoryview | str | float],
+        fields: SupportsItems[bytes | memoryview | str | float, Any],
         id: str | int | bytes | memoryview = "*",
         maxlen=None,
         approximate: bool = True,
