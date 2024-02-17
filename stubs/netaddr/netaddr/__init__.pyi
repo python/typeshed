@@ -53,7 +53,7 @@ from netaddr.strategy.eui64 import (
     eui64_unix_expanded as eui64_unix_expanded,
     valid_str as valid_eui64,
 )
-from netaddr.strategy.ipv4 import valid_str as valid_ipv4, expand_partial_ipv4_address as expand_partial_ipv4_address
+from netaddr.strategy.ipv4 import expand_partial_ipv4_address as expand_partial_ipv4_address, valid_str as valid_ipv4
 from netaddr.strategy.ipv6 import (
     ipv6_compact as ipv6_compact,
     ipv6_full as ipv6_full,
