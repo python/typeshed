@@ -6,7 +6,8 @@ from tensorflow._aliases import AnyArray, DataSequence, Float, Integer, TensorCo
 from tensorflow.keras.layers import Layer
 
 class PreprocessingLayer(Layer[TensorLike, TensorLike], metaclass=abc.ABCMeta):
-    is_adapted: bool
+    @property
+    def is_adapted(self) -> bool: ...
     @overload  # type: ignore
     def __call__(self, inputs: tf.Tensor, *, training: bool = False, mask: TensorCompatible | None = None) -> tf.Tensor: ...
     @overload
