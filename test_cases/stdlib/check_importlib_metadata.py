@@ -7,8 +7,11 @@ if sys.version_info >= (3, 10):
     from zipfile import Path as ZipPath
 
     if sys.version_info >= (3, 12):
+
         def takes_simple_path(p: SimplePath[Any]) -> None: ...
+
     else:
+
         def takes_simple_path(p: SimplePath) -> None: ...
 
     takes_simple_path(Path())
