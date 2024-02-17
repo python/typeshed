@@ -51,13 +51,13 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     @property
     def metrics_names(self) -> list[str]: ...
     @property
-    def distribute_strategy(self) -> Incomplete: ...  # tf.distribute.Strategy
+    def distribute_strategy(self) -> tf.distribute.Strategy: ...
     @property
     def run_eagerly(self) -> bool: ...
-    # @property
-    # def autotune_steps_per_execution(self) -> Incomplete: ...  # not present at runtime
-    # @property
-    # def steps_per_execution(self) -> int: ...  # Requires a compiled model. # not present at runtime
+    @property
+    def autotune_steps_per_execution(self) -> bool: ...
+    @property
+    def steps_per_execution(self) -> int | None: ...  # Returns None for a non-compiled model.
     @property
     def jit_compile(self) -> bool: ...
     @property
@@ -145,7 +145,7 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
         reset_metrics: bool = True,
         return_dict: bool = False,
     ) -> float | list[float]: ...
-    def predict_on_batch(self, x: Iterator[_InputT]) -> Incomplete: ...  # npt.NDArray[_OutputT]
+    def predict_on_batch(self, x: Iterator[_InputT]) -> npt.NDArray[Incomplete]: ...
     def fit_generator(
         self,
         generator: Iterator[Incomplete],
