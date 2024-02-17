@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing import Literal
 
-from tensorflow import Tensor
+from tensorflow import Operation, Tensor
 from tensorflow._aliases import TensorCompatible
 
 def Fingerprint(data: TensorCompatible, method: Literal["farmhash64"], name: str | None = None) -> Tensor: ...
@@ -15,7 +15,7 @@ def ResourceApplyAdagradV2(
     use_locking: bool = False,
     update_slots: bool = True,
     name: str | None = None,
-) -> None: ...
+) -> Operation: ...
 def ResourceSparseApplyAdagradV2(
     var: Tensor,
     accum: Tensor,
@@ -26,7 +26,7 @@ def ResourceSparseApplyAdagradV2(
     use_locking: bool = False,
     update_slots: bool = True,
     name: str | None = None,
-) -> None: ...
+) -> Operation: ...
 def ResourceApplyAdam(
     var: Tensor,
     m: Tensor,
@@ -41,5 +41,5 @@ def ResourceApplyAdam(
     use_locking: bool = False,
     use_nesterov: bool = False,
     name: str | None = None,
-) -> None: ...
+) -> Operation: ...
 def __getattr__(name: str) -> Incomplete: ...
