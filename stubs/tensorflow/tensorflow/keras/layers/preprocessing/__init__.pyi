@@ -1,9 +1,9 @@
 from typing import Literal
 
 from tensorflow._aliases import TensorCompatible
-from tensorflow.keras.layers.preprocessing.index_lookup import IndexLookup
+from tensorflow.keras.layers.preprocessing.index_lookup import _IndexLookup
 
-class StringLookup(IndexLookup):
+class StringLookup(_IndexLookup):
     def __init__(
         self,
         max_tokens: int | None = None,
@@ -19,7 +19,7 @@ class StringLookup(IndexLookup):
         pad_to_max_tokens: bool = False,
     ) -> None: ...
 
-class IntegerLookup(IndexLookup):
+class IntegerLookup(_IndexLookup):
     def __init__(
         self,
         max_tokens: int | None = None,
