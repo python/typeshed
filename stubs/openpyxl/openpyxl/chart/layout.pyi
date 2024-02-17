@@ -1,39 +1,49 @@
-from _typeshed import Incomplete
+from _typeshed import ConvertibleToFloat, Unused
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
+from openpyxl.descriptors.base import Alias, Typed
+from openpyxl.descriptors.excel import ExtensionList
+from openpyxl.descriptors.nested import NestedMinMax, NestedNoneSet, NestedSet, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
 
+from ..xml._functions_overloads import _HasTagAndGet
+
+_ManualLayoutMode: TypeAlias = Literal["edge", "factor"]
+_ManualLayoutLayoutTarget: TypeAlias = Literal["inner", "outer"]
+
 class ManualLayout(Serialisable):
-    tagname: str
-    layoutTarget: Incomplete
-    xMode: Incomplete
-    yMode: Incomplete
-    wMode: Incomplete
-    hMode: Incomplete
-    x: Incomplete
-    y: Incomplete
-    w: Incomplete
-    width: Incomplete
-    h: Incomplete
-    height: Incomplete
-    extLst: Incomplete
-    __elements__: Incomplete
+    tagname: ClassVar[str]
+    layoutTarget: NestedNoneSet[_ManualLayoutLayoutTarget]
+    xMode: NestedNoneSet[_ManualLayoutMode]
+    yMode: NestedNoneSet[_ManualLayoutMode]
+    wMode: NestedSet[_ManualLayoutMode]
+    hMode: NestedSet[_ManualLayoutMode]
+    x: NestedMinMax[float, Literal[True]]
+    y: NestedMinMax[float, Literal[True]]
+    w: NestedMinMax[float, Literal[True]]
+    width: Alias
+    h: NestedMinMax[float, Literal[True]]
+    height: Alias
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        layoutTarget: Incomplete | None = None,
-        xMode: Incomplete | None = None,
-        yMode: Incomplete | None = None,
-        wMode: str = "factor",
-        hMode: str = "factor",
-        x: Incomplete | None = None,
-        y: Incomplete | None = None,
-        w: Incomplete | None = None,
-        h: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        layoutTarget: _NestedNoneSetParam[_ManualLayoutLayoutTarget] = None,
+        xMode: _NestedNoneSetParam[_ManualLayoutMode] = None,
+        yMode: _NestedNoneSetParam[_ManualLayoutMode] = None,
+        wMode: _HasTagAndGet[_ManualLayoutMode] | _ManualLayoutMode = "factor",
+        hMode: _HasTagAndGet[_ManualLayoutMode] | _ManualLayoutMode = "factor",
+        x: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = None,
+        y: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = None,
+        w: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = None,
+        h: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = None,
+        extLst: Unused = None,
     ) -> None: ...
 
 class Layout(Serialisable):
-    tagname: str
-    manualLayout: Incomplete
-    extLst: Incomplete
-    __elements__: Incomplete
-    def __init__(self, manualLayout: Incomplete | None = None, extLst: Incomplete | None = None) -> None: ...
+    tagname: ClassVar[str]
+    manualLayout: Typed[ManualLayout, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
+    def __init__(self, manualLayout: ManualLayout | None = None, extLst: Unused = None) -> None: ...

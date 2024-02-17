@@ -1,174 +1,219 @@
-from _typeshed import Incomplete
+from _typeshed import ConvertibleToInt, Incomplete, Unused
+from collections.abc import Iterator
+from typing import ClassVar, Final, Literal, overload
+from typing_extensions import Self, TypeAlias
 
-from openpyxl.descriptors import String
-from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.descriptors import Strict, String
+from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, Typed, _ConvertibleToBool
+from openpyxl.descriptors.excel import ExtensionList
+from openpyxl.descriptors.serialisable import Serialisable, _ChildSerialisableTreeElement
+from openpyxl.worksheet.filters import AutoFilter, SortState
+from openpyxl.xml.functions import Element
 
-TABLESTYLES: Incomplete
-PIVOTSTYLES: Incomplete
+_TableColumnTotalsRowFunction: TypeAlias = Literal[
+    "sum", "min", "max", "average", "count", "countNums", "stdDev", "var", "custom"
+]
+_TableTableType: TypeAlias = Literal["worksheet", "xml", "queryTable"]
+
+TABLESTYLES: Final[tuple[str, ...]]
+PIVOTSTYLES: Final[tuple[str, ...]]
 
 class TableStyleInfo(Serialisable):
-    tagname: str
-    name: Incomplete
-    showFirstColumn: Incomplete
-    showLastColumn: Incomplete
-    showRowStripes: Incomplete
-    showColumnStripes: Incomplete
+    tagname: ClassVar[str]
+    name: String[Literal[True]]
+    showFirstColumn: Bool[Literal[True]]
+    showLastColumn: Bool[Literal[True]]
+    showRowStripes: Bool[Literal[True]]
+    showColumnStripes: Bool[Literal[True]]
     def __init__(
         self,
-        name: Incomplete | None = None,
-        showFirstColumn: Incomplete | None = None,
-        showLastColumn: Incomplete | None = None,
-        showRowStripes: Incomplete | None = None,
-        showColumnStripes: Incomplete | None = None,
+        name: str | None = None,
+        showFirstColumn: _ConvertibleToBool | None = None,
+        showLastColumn: _ConvertibleToBool | None = None,
+        showRowStripes: _ConvertibleToBool | None = None,
+        showColumnStripes: _ConvertibleToBool | None = None,
     ) -> None: ...
 
 class XMLColumnProps(Serialisable):
-    tagname: str
-    mapId: Incomplete
-    xpath: Incomplete
-    denormalized: Incomplete
-    xmlDataType: Incomplete
-    extLst: Incomplete
-    __elements__: Incomplete
+    tagname: ClassVar[str]
+    mapId: Integer[Literal[False]]
+    xpath: String[Literal[False]]
+    denormalized: Bool[Literal[True]]
+    xmlDataType: String[Literal[False]]
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
+    @overload
     def __init__(
         self,
-        mapId: Incomplete | None = None,
-        xpath: Incomplete | None = None,
-        denormalized: Incomplete | None = None,
-        xmlDataType: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        mapId: ConvertibleToInt,
+        xpath: str,
+        denormalized: _ConvertibleToBool | None = None,
+        *,
+        xmlDataType: str,
+        extLst: Unused = None,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        mapId: ConvertibleToInt,
+        xpath: str,
+        denormalized: _ConvertibleToBool | None,
+        xmlDataType: str,
+        extLst: Unused = None,
     ) -> None: ...
 
 class TableFormula(Serialisable):
-    tagname: str
-    array: Incomplete
+    tagname: ClassVar[str]
+    array: Bool[Literal[True]]
     attr_text: Incomplete
-    text: Incomplete
-    def __init__(self, array: Incomplete | None = None, attr_text: Incomplete | None = None) -> None: ...
+    text: Alias
+    def __init__(self, array: _ConvertibleToBool | None = None, attr_text: Incomplete | None = None) -> None: ...
 
 class TableColumn(Serialisable):
-    tagname: str
-    id: Incomplete
-    uniqueName: Incomplete
-    name: Incomplete
-    totalsRowFunction: Incomplete
-    totalsRowLabel: Incomplete
-    queryTableFieldId: Incomplete
-    headerRowDxfId: Incomplete
-    dataDxfId: Incomplete
-    totalsRowDxfId: Incomplete
-    headerRowCellStyle: Incomplete
-    dataCellStyle: Incomplete
-    totalsRowCellStyle: Incomplete
-    calculatedColumnFormula: Incomplete
-    totalsRowFormula: Incomplete
-    xmlColumnPr: Incomplete
-    extLst: Incomplete
-    __elements__: Incomplete
+    tagname: ClassVar[str]
+    id: Integer[Literal[False]]
+    uniqueName: String[Literal[True]]
+    name: String[Literal[False]]
+    totalsRowFunction: NoneSet[_TableColumnTotalsRowFunction]
+    totalsRowLabel: String[Literal[True]]
+    queryTableFieldId: Integer[Literal[True]]
+    headerRowDxfId: Integer[Literal[True]]
+    dataDxfId: Integer[Literal[True]]
+    totalsRowDxfId: Integer[Literal[True]]
+    headerRowCellStyle: String[Literal[True]]
+    dataCellStyle: String[Literal[True]]
+    totalsRowCellStyle: String[Literal[True]]
+    calculatedColumnFormula: Typed[TableFormula, Literal[True]]
+    totalsRowFormula: Typed[TableFormula, Literal[True]]
+    xmlColumnPr: Typed[XMLColumnProps, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
+    @overload
     def __init__(
         self,
-        id: Incomplete | None = None,
-        uniqueName: Incomplete | None = None,
-        name: Incomplete | None = None,
-        totalsRowFunction: Incomplete | None = None,
-        totalsRowLabel: Incomplete | None = None,
-        queryTableFieldId: Incomplete | None = None,
-        headerRowDxfId: Incomplete | None = None,
-        dataDxfId: Incomplete | None = None,
-        totalsRowDxfId: Incomplete | None = None,
-        headerRowCellStyle: Incomplete | None = None,
-        dataCellStyle: Incomplete | None = None,
-        totalsRowCellStyle: Incomplete | None = None,
-        calculatedColumnFormula: Incomplete | None = None,
-        totalsRowFormula: Incomplete | None = None,
-        xmlColumnPr: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        id: ConvertibleToInt,
+        uniqueName: str | None = None,
+        *,
+        name: str,
+        totalsRowFunction: _TableColumnTotalsRowFunction | Literal["none"] | None = None,
+        totalsRowLabel: str | None = None,
+        queryTableFieldId: ConvertibleToInt | None = None,
+        headerRowDxfId: ConvertibleToInt | None = None,
+        dataDxfId: ConvertibleToInt | None = None,
+        totalsRowDxfId: ConvertibleToInt | None = None,
+        headerRowCellStyle: str | None = None,
+        dataCellStyle: str | None = None,
+        totalsRowCellStyle: str | None = None,
+        calculatedColumnFormula: TableFormula | None = None,
+        totalsRowFormula: TableFormula | None = None,
+        xmlColumnPr: XMLColumnProps | None = None,
+        extLst: ExtensionList | None = None,
     ) -> None: ...
-    def __iter__(self): ...
+    @overload
+    def __init__(
+        self,
+        id: ConvertibleToInt,
+        uniqueName: str | None,
+        name: str,
+        totalsRowFunction: _TableColumnTotalsRowFunction | Literal["none"] | None = None,
+        totalsRowLabel: str | None = None,
+        queryTableFieldId: ConvertibleToInt | None = None,
+        headerRowDxfId: ConvertibleToInt | None = None,
+        dataDxfId: ConvertibleToInt | None = None,
+        totalsRowDxfId: ConvertibleToInt | None = None,
+        headerRowCellStyle: str | None = None,
+        dataCellStyle: str | None = None,
+        totalsRowCellStyle: str | None = None,
+        calculatedColumnFormula: TableFormula | None = None,
+        totalsRowFormula: TableFormula | None = None,
+        xmlColumnPr: XMLColumnProps | None = None,
+        extLst: ExtensionList | None = None,
+    ) -> None: ...
+    def __iter__(self) -> Iterator[tuple[str, str]]: ...
     @classmethod
-    def from_tree(cls, node): ...
+    def from_tree(cls, node: _ChildSerialisableTreeElement) -> Self: ...
 
-class TableNameDescriptor(String):
-    def __set__(self, instance, value) -> None: ...
+class TableNameDescriptor(String[Incomplete]):
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class Table(Serialisable):
     mime_type: str
-    tagname: str
-    id: Incomplete
-    name: Incomplete
+    tagname: ClassVar[str]
+    id: Integer[Literal[False]]
+    name: String[Literal[True]]
     displayName: Incomplete
-    comment: Incomplete
+    comment: String[Literal[True]]
     ref: Incomplete
-    tableType: Incomplete
-    headerRowCount: Incomplete
-    insertRow: Incomplete
-    insertRowShift: Incomplete
-    totalsRowCount: Incomplete
-    totalsRowShown: Incomplete
-    published: Incomplete
-    headerRowDxfId: Incomplete
-    dataDxfId: Incomplete
-    totalsRowDxfId: Incomplete
-    headerRowBorderDxfId: Incomplete
-    tableBorderDxfId: Incomplete
-    totalsRowBorderDxfId: Incomplete
-    headerRowCellStyle: Incomplete
-    dataCellStyle: Incomplete
-    totalsRowCellStyle: Incomplete
-    connectionId: Incomplete
-    autoFilter: Incomplete
-    sortState: Incomplete
+    tableType: NoneSet[_TableTableType]
+    headerRowCount: Integer[Literal[True]]
+    insertRow: Bool[Literal[True]]
+    insertRowShift: Bool[Literal[True]]
+    totalsRowCount: Integer[Literal[True]]
+    totalsRowShown: Bool[Literal[True]]
+    published: Bool[Literal[True]]
+    headerRowDxfId: Integer[Literal[True]]
+    dataDxfId: Integer[Literal[True]]
+    totalsRowDxfId: Integer[Literal[True]]
+    headerRowBorderDxfId: Integer[Literal[True]]
+    tableBorderDxfId: Integer[Literal[True]]
+    totalsRowBorderDxfId: Integer[Literal[True]]
+    headerRowCellStyle: String[Literal[True]]
+    dataCellStyle: String[Literal[True]]
+    totalsRowCellStyle: String[Literal[True]]
+    connectionId: Integer[Literal[True]]
+    autoFilter: Typed[AutoFilter, Literal[True]]
+    sortState: Typed[SortState, Literal[True]]
     tableColumns: Incomplete
-    tableStyleInfo: Incomplete
-    extLst: Incomplete
-    __elements__: Incomplete
+    tableStyleInfo: Typed[TableStyleInfo, Literal[True]]
+    extLst: Typed[ExtensionList, Literal[True]]
+    __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        id: int = 1,
+        id: ConvertibleToInt = 1,
         displayName: Incomplete | None = None,
         ref: Incomplete | None = None,
-        name: Incomplete | None = None,
-        comment: Incomplete | None = None,
-        tableType: Incomplete | None = None,
-        headerRowCount: int = 1,
-        insertRow: Incomplete | None = None,
-        insertRowShift: Incomplete | None = None,
-        totalsRowCount: Incomplete | None = None,
-        totalsRowShown: Incomplete | None = None,
-        published: Incomplete | None = None,
-        headerRowDxfId: Incomplete | None = None,
-        dataDxfId: Incomplete | None = None,
-        totalsRowDxfId: Incomplete | None = None,
-        headerRowBorderDxfId: Incomplete | None = None,
-        tableBorderDxfId: Incomplete | None = None,
-        totalsRowBorderDxfId: Incomplete | None = None,
-        headerRowCellStyle: Incomplete | None = None,
-        dataCellStyle: Incomplete | None = None,
-        totalsRowCellStyle: Incomplete | None = None,
-        connectionId: Incomplete | None = None,
-        autoFilter: Incomplete | None = None,
-        sortState: Incomplete | None = None,
+        name: str | None = None,
+        comment: str | None = None,
+        tableType: _TableTableType | Literal["none"] | None = None,
+        headerRowCount: ConvertibleToInt | None = 1,
+        insertRow: _ConvertibleToBool | None = None,
+        insertRowShift: _ConvertibleToBool | None = None,
+        totalsRowCount: ConvertibleToInt | None = None,
+        totalsRowShown: _ConvertibleToBool | None = None,
+        published: _ConvertibleToBool | None = None,
+        headerRowDxfId: ConvertibleToInt | None = None,
+        dataDxfId: ConvertibleToInt | None = None,
+        totalsRowDxfId: ConvertibleToInt | None = None,
+        headerRowBorderDxfId: ConvertibleToInt | None = None,
+        tableBorderDxfId: ConvertibleToInt | None = None,
+        totalsRowBorderDxfId: ConvertibleToInt | None = None,
+        headerRowCellStyle: str | None = None,
+        dataCellStyle: str | None = None,
+        totalsRowCellStyle: str | None = None,
+        connectionId: ConvertibleToInt | None = None,
+        autoFilter: AutoFilter | None = None,
+        sortState: SortState | None = None,
         tableColumns=(),
-        tableStyleInfo: Incomplete | None = None,
-        extLst: Incomplete | None = None,
+        tableStyleInfo: TableStyleInfo | None = None,
+        extLst: Unused = None,
     ) -> None: ...
-    def to_tree(self): ...
+    def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
-    def path(self): ...
+    def path(self) -> str: ...
     @property
-    def column_names(self): ...
+    def column_names(self) -> list[str]: ...
 
 class TablePartList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     # Overwritten by property below
     # count: Integer
     tablePart: Incomplete
-    __elements__: Incomplete
-    __attrs__: Incomplete
-    def __init__(self, count: Incomplete | None = None, tablePart=()) -> None: ...
+    __elements__: ClassVar[tuple[str, ...]]
+    __attrs__: ClassVar[tuple[str, ...]]
+    def __init__(self, count: Unused = None, tablePart=()) -> None: ...
     def append(self, part) -> None: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...
     def __bool__(self) -> bool: ...
 
 class TableList(dict[Incomplete, Incomplete]):

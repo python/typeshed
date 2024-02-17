@@ -13,7 +13,7 @@ from utils import colored, print_error
 ReturnCode: TypeAlias = int
 
 SUPPORTED_PLATFORMS = ("linux", "darwin", "win32")
-SUPPORTED_VERSIONS = ("3.11", "3.10", "3.9")
+SUPPORTED_VERSIONS = ("3.12", "3.11", "3.10", "3.9")
 LOWEST_SUPPORTED_VERSION = min(SUPPORTED_VERSIONS, key=lambda x: int(x.split(".")[1]))
 DIRECTORIES_TO_TEST = ("scripts", "tests")
 EMPTY: list[str] = []
@@ -63,6 +63,10 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "possibly-undefined",
         "--enable-error-code",
         "redundant-expr",
+        "--enable-error-code",
+        "redundant-self",
+        "--custom-typeshed-dir",
+        ".",
     ]
     if directory == "tests" and platform == "win32":
         command.extend(["--exclude", "tests/pytype_test.py"])

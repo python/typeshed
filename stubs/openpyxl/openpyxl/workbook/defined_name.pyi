@@ -1,67 +1,70 @@
-from _typeshed import Incomplete
+from _typeshed import ConvertibleToInt, Incomplete
 from collections import defaultdict
-from collections.abc import Generator
+from collections.abc import Generator, Iterator
 from re import Pattern
+from typing import ClassVar, Final, Literal
 
 from openpyxl.descriptors import Sequence
+from openpyxl.descriptors.base import Alias, Bool, Integer, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.formula.tokenizer import _TokenOperandSubtypes, _TokenTypesNotOperand
 
-RESERVED: frozenset[str]
-RESERVED_REGEX: Pattern[str]
+RESERVED: Final[frozenset[str]]
+RESERVED_REGEX: Final[Pattern[str]]
 
 class DefinedName(Serialisable):
-    tagname: str
-    name: Incomplete
-    comment: Incomplete
-    customMenu: Incomplete
-    description: Incomplete
-    help: Incomplete
-    statusBar: Incomplete
-    localSheetId: Incomplete
-    hidden: Incomplete
-    function: Incomplete
-    vbProcedure: Incomplete
-    xlm: Incomplete
-    functionGroupId: Incomplete
-    shortcutKey: Incomplete
-    publishToServer: Incomplete
-    workbookParameter: Incomplete
+    tagname: ClassVar[str]
+    name: String[Literal[False]]
+    comment: String[Literal[True]]
+    customMenu: String[Literal[True]]
+    description: String[Literal[True]]
+    help: String[Literal[True]]
+    statusBar: String[Literal[True]]
+    localSheetId: Integer[Literal[True]]
+    hidden: Bool[Literal[True]]
+    function: Bool[Literal[True]]
+    vbProcedure: Bool[Literal[True]]
+    xlm: Bool[Literal[True]]
+    functionGroupId: Integer[Literal[True]]
+    shortcutKey: String[Literal[True]]
+    publishToServer: Bool[Literal[True]]
+    workbookParameter: Bool[Literal[True]]
     attr_text: Incomplete
-    value: Incomplete
+    value: Alias
     def __init__(
         self,
-        name: Incomplete | None = None,
-        comment: Incomplete | None = None,
-        customMenu: Incomplete | None = None,
-        description: Incomplete | None = None,
-        help: Incomplete | None = None,
-        statusBar: Incomplete | None = None,
-        localSheetId: Incomplete | None = None,
-        hidden: Incomplete | None = None,
-        function: Incomplete | None = None,
-        vbProcedure: Incomplete | None = None,
-        xlm: Incomplete | None = None,
-        functionGroupId: Incomplete | None = None,
-        shortcutKey: Incomplete | None = None,
-        publishToServer: Incomplete | None = None,
-        workbookParameter: Incomplete | None = None,
+        name: str,
+        comment: str | None = None,
+        customMenu: str | None = None,
+        description: str | None = None,
+        help: str | None = None,
+        statusBar: str | None = None,
+        localSheetId: ConvertibleToInt | None = None,
+        hidden: _ConvertibleToBool | None = None,
+        function: _ConvertibleToBool | None = None,
+        vbProcedure: _ConvertibleToBool | None = None,
+        xlm: _ConvertibleToBool | None = None,
+        functionGroupId: ConvertibleToInt | None = None,
+        shortcutKey: str | None = None,
+        publishToServer: _ConvertibleToBool | None = None,
+        workbookParameter: _ConvertibleToBool | None = None,
         attr_text: Incomplete | None = None,
     ) -> None: ...
     @property
-    def type(self): ...
+    def type(self) -> _TokenTypesNotOperand | _TokenOperandSubtypes: ...
     @property
-    def destinations(self) -> Generator[Incomplete, None, None]: ...
+    def destinations(self) -> Generator[tuple[str, str], None, None]: ...
     @property
-    def is_reserved(self): ...
+    def is_reserved(self) -> str | None: ...
     @property
-    def is_external(self): ...
-    def __iter__(self): ...
+    def is_external(self) -> bool: ...
+    def __iter__(self) -> Iterator[tuple[str, str]]: ...
 
 class DefinedNameDict(dict[str, DefinedName]):
     def add(self, value: DefinedName) -> None: ...
 
 class DefinedNameList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     definedName: Sequence
     def __init__(self, definedName=()) -> None: ...
     def by_sheet(self) -> defaultdict[int, DefinedNameDict]: ...

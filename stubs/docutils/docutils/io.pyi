@@ -8,8 +8,7 @@ from _typeshed import (
     Unused,
 )
 from re import Pattern
-from typing import Any, ClassVar
-from typing_extensions import Literal
+from typing import Any, ClassVar, Literal
 
 from docutils import TransformSpec
 
@@ -25,10 +24,10 @@ class Input(TransformSpec):
     component_type: ClassVar[str]
     default_source_path: ClassVar[str | None]
     def read(self) -> Any: ...
-    def decode(self, data: str | bytes) -> str: ...
+    def decode(self, data: str | bytes | bytearray) -> str: ...
     coding_slug: ClassVar[Pattern[bytes]]
     byte_order_marks: ClassVar[tuple[tuple[bytes, str], ...]]
-    def determine_encoding_from_data(self, data: str | bytes) -> str | None: ...
+    def determine_encoding_from_data(self, data: str | bytes | bytearray) -> str | None: ...
     def isatty(self) -> bool: ...
 
 class Output(TransformSpec):

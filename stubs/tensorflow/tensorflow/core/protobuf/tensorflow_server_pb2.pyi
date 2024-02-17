@@ -17,9 +17,10 @@ limitations under the License.
 ==============================================================================
 """
 import builtins
+import sys
+
 import google.protobuf.descriptor
 import google.protobuf.message
-import sys
 import tensorflow.core.protobuf.cluster_pb2
 import tensorflow.core.protobuf.config_pb2
 import tensorflow.core.protobuf.device_filters_pb2

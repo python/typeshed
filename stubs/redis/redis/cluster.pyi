@@ -2,8 +2,8 @@ from _typeshed import Incomplete, Unused
 from collections.abc import Callable, Iterable, Sequence
 from threading import Lock
 from types import TracebackType
-from typing import Any, ClassVar, Generic, NoReturn, Protocol
-from typing_extensions import Literal, Self
+from typing import Any, ClassVar, Literal, NoReturn, Protocol
+from typing_extensions import Self
 
 from redis.client import CaseInsensitiveDict, PubSub, Redis, _ParseResponseOptions
 from redis.commands import CommandsParser, RedisClusterCommands
@@ -18,6 +18,7 @@ def get_connection(redis_node: Redis[Any], *args, **options: _ConnectionPoolOpti
 def parse_scan_result(command: Unused, res, **options): ...
 def parse_pubsub_numsub(command: Unused, res, **options: Unused): ...
 def parse_cluster_slots(resp, **options) -> dict[tuple[int, int], dict[str, Any]]: ...
+def parse_cluster_myshardid(resp: bytes, **options: Unused) -> str: ...
 
 PRIMARY: str
 REPLICA: str
@@ -44,7 +45,7 @@ class AbstractRedisCluster:
     RESULT_CALLBACKS: ClassVar[dict[str, Callable[[Incomplete, Incomplete], Incomplete]]]
     ERRORS_ALLOW_RETRY: ClassVar[tuple[type[RedisError], ...]]
 
-class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic[_StrType]):
+class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType]):
     user_on_connect_func: Callable[[Connection], object] | None
     encoder: Encoder
     cluster_error_retry_attempts: int
@@ -69,6 +70,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands[_StrType], Generic
         read_from_replicas: bool = False,
         dynamic_startup_nodes: bool = True,
         url: str | None = None,
+        address_remap: Callable[[str, int], tuple[str, int]] | None = None,
         **kwargs,
     ) -> None: ...
     def __enter__(self) -> Self: ...
@@ -141,6 +143,7 @@ class NodesManager:
     connection_pool_class: type[ConnectionPool]
     connection_kwargs: dict[str, Incomplete]  # TODO: could be a TypedDict
     read_load_balancer: LoadBalancer
+    address_remap: Callable[[str, int], tuple[str, int]] | None
     def __init__(
         self,
         startup_nodes: Iterable[ClusterNode],
@@ -149,6 +152,7 @@ class NodesManager:
         lock: Lock | None = None,
         dynamic_startup_nodes: bool = True,
         connection_pool_class: type[ConnectionPool] = ...,
+        address_remap: Callable[[str, int], tuple[str, int]] | None = None,
         **kwargs,  # TODO: same type as connection_kwargs
     ) -> None: ...
     def get_node(
@@ -164,6 +168,7 @@ class NodesManager:
     def initialize(self) -> None: ...
     def close(self) -> None: ...
     def reset(self) -> None: ...
+    def remap_host_port(self, host: str, port: int) -> tuple[str, int]: ...
 
 class ClusterPubSub(PubSub):
     node: ClusterNode | None
@@ -183,7 +188,7 @@ class ClusterPubSub(PubSub):
     def execute_command(self, *args, **kwargs) -> None: ...
     def get_redis_connection(self) -> Redis[Any] | None: ...
 
-class ClusterPipeline(RedisCluster[_StrType], Generic[_StrType]):
+class ClusterPipeline(RedisCluster[_StrType]):
     command_stack: list[Incomplete]
     nodes_manager: Incomplete
     refresh_table_asap: bool

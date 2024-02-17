@@ -5,7 +5,7 @@ from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self
 from unittest import TestLoader, TestSuite
 
-from setuptools import Command
+from .. import Command
 
 _T = TypeVar("_T")
 
@@ -33,7 +33,7 @@ class test(Command):
     @NonDataProperty
     def test_args(self) -> list[str]: ...
     def with_project_on_sys_path(self, func) -> None: ...
-    def project_on_sys_path(self, include_dists=[]): ...
+    def project_on_sys_path(self, include_dists=()): ...
     @staticmethod
     def paths_on_pythonpath(paths) -> None: ...
     @staticmethod

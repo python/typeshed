@@ -1,4 +1,4 @@
-from collections.abc import Callable, Iterable, Sequence
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from logging import Logger
 from socket import socket
 from threading import Condition, Event, Lock, Thread
@@ -26,6 +26,9 @@ class _KexEngine(Protocol):
 class Transport(Thread, ClosingContextManager):
     active: bool
     hostname: str | None
+    server_extensions: dict[str, bytes]
+    advertise_strict_kex: bool
+    agreed_on_strict_kex: bool
     sock: socket | Channel
     packetizer: Packetizer
     local_version: str
@@ -64,7 +67,7 @@ class Transport(Thread, ClosingContextManager):
     banner_timeout: float
     handshake_timeout: float
     auth_timeout: float
-    disabled_algorithms: dict[str, Iterable[str]] | None
+    disabled_algorithms: Mapping[str, Iterable[str]] | None
     server_mode: bool
     server_object: ServerInterface | None
     server_key_dict: dict[str, PKey]
@@ -79,8 +82,10 @@ class Transport(Thread, ClosingContextManager):
         default_max_packet_size: int = 32768,
         gss_kex: bool = False,
         gss_deleg_creds: bool = True,
-        disabled_algorithms: dict[str, Iterable[str]] | None = None,
+        disabled_algorithms: Mapping[str, Iterable[str]] | None = None,
         server_sig_algs: bool = True,
+        strict_kex: bool = True,
+        packetizer_class: type[Packetizer] | None = None,
     ) -> None: ...
     @property
     def preferred_ciphers(self) -> Sequence[str]: ...

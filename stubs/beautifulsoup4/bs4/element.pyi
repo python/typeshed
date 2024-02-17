@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from re import Pattern
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 from . import BeautifulSoup
@@ -182,7 +182,7 @@ class NavigableString(str, PageElement):
     PREFIX: str
     SUFFIX: str
     known_xml: bool | None
-    def __new__(cls, value: str | bytes) -> Self: ...
+    def __new__(cls, value: str | ReadableBuffer) -> Self: ...
     def __copy__(self) -> Self: ...
     def __getnewargs__(self) -> tuple[str]: ...
     def output_ready(self, formatter: Formatter | str | None = "minimal") -> str: ...
@@ -372,7 +372,7 @@ class SoupStrainer:
     searchTag = search_tag
     def search(self, markup: PageElement | Iterable[PageElement]): ...
 
-class ResultSet(list[_PageElementT], Generic[_PageElementT]):
+class ResultSet(list[_PageElementT]):
     source: SoupStrainer
     @overload
     def __init__(self, source: SoupStrainer) -> None: ...

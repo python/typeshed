@@ -2,7 +2,8 @@ import optparse
 from _typeshed import Incomplete
 from builtins import list as _list  # alias to avoid name clashes with fields named list
 from collections.abc import Iterable
-from typing_extensions import Literal, TypeAlias
+from typing import Literal
+from typing_extensions import TypeAlias
 
 from docutils import ApplicationError
 from docutils.io import FileOutput
@@ -11,7 +12,7 @@ from docutils.nodes import document
 class DependencyList:
     list: _list[str]
     file: FileOutput | None
-    def __init__(self, output_file: str | None = None, dependencies: Iterable[str] = []) -> None: ...
+    def __init__(self, output_file: str | None = None, dependencies: Iterable[str] = ()) -> None: ...
     def set_output(self, output_file: str | None) -> None: ...
     def add(self, *filenames: str) -> None: ...
     def close(self) -> None: ...

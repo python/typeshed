@@ -1,12 +1,12 @@
 import contextlib
+from _typeshed import ConvertibleToInt
 from collections.abc import Callable, Iterable, Sequence
 from datetime import datetime
-from typing import NamedTuple, SupportsInt, TypeVar
-from typing_extensions import Final, ParamSpec, SupportsIndex, TypeAlias
+from typing import Final, NamedTuple, SupportsIndex, SupportsInt, TypeVar
+from typing_extensions import ParamSpec, TypeAlias
 
 from pyscreeze import (
     center as center,
-    grab as grab,
     locate as locate,
     locateAll as locateAll,
     locateAllOnScreen as locateAllOnScreen,
@@ -20,7 +20,10 @@ from pyscreeze import (
 
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
-_NormalizeableXArg: TypeAlias = str | SupportsInt | Sequence[SupportsInt]
+# Explicitly mentioning str despite being in the ConvertibleToInt Alias because it has a different meaning (filename on screen)
+# Specifying non-None Y arg when X is a string or sequence raises an error
+# TODO: This could be better represented through overloads
+_NormalizeableXArg: TypeAlias = str | ConvertibleToInt | Sequence[ConvertibleToInt]
 
 # Constants
 KEY_NAMES: list[str]
@@ -68,6 +71,9 @@ def getPointOnLine(x1: float, y1: float, x2: float, y2: float, n: float) -> tupl
 def linear(n: float) -> float: ...
 def position(x: int | None = None, y: int | None = None) -> Point: ...
 def size() -> Size: ...
+
+resolution = size
+
 def onScreen(x: _NormalizeableXArg | None, y: SupportsInt | None = None) -> bool: ...
 def mouseDown(
     x: _NormalizeableXArg | None = None,
@@ -235,6 +241,9 @@ def typewrite(
 write = typewrite
 
 def hotkey(*args: str, logScreenshot: bool | None = None, interval: float = 0.0) -> None: ...
+
+shortcut = hotkey
+
 def failSafeCheck() -> None: ...
 def displayMousePosition(xOffset: float = 0, yOffset: float = 0) -> None: ...
 def sleep(seconds: float) -> None: ...

@@ -68,3 +68,9 @@ analyze.py
 
 # Mypy cache
 .mypy_cache/
+
+# pyenv local python version
+.python-version
+
+# deliberately local test configuration files
+tests/stubtest_allowlists/*.local
