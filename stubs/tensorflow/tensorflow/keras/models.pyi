@@ -11,15 +11,15 @@ import tensorflow as tf
 from tensorflow import Variable
 from tensorflow._aliases import ContainerGeneric, ShapeLike, TensorCompatible
 from tensorflow.keras.layers import Layer, _InputT, _OutputT
+from tensorflow.keras.optimizers import Optimizer
 
-_BothOptimizer: TypeAlias = tf.optimizers.Optimizer | tf.optimizers.experimental.Optimizer
 _Loss: TypeAlias = str | tf.keras.losses.Loss | Callable[[TensorCompatible, TensorCompatible], tf._Tensor]
 _Metric: TypeAlias = str | tf.keras.metrics.Metric | Callable[[TensorCompatible, TensorCompatible], tf._Tensor] | None
 
 class Model(Layer[_InputT, _OutputT], tf.Module):
     _train_counter: tf.Variable
     _test_counter: tf.Variable
-    optimizer: _BothOptimizer | None
+    optimizer: Optimizer | None
     loss: tf.keras.losses.Loss | dict[str, tf.keras.losses.Loss]
     stop_training: bool
 
@@ -34,7 +34,7 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     # Ideally loss/metrics/output would share the same structure but higher kinded types are not supported.
     def compile(
         self,
-        optimizer: _BothOptimizer | str = "rmsprop",
+        optimizer: Optimizer | str = "rmsprop",
         loss: ContainerGeneric[_Loss] | None = None,
         metrics: ContainerGeneric[_Metric] | None = None,
         loss_weights: ContainerGeneric[float] | None = None,
