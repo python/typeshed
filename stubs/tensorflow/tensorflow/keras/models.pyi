@@ -13,8 +13,8 @@ from tensorflow._aliases import ContainerGeneric, ShapeLike, TensorCompatible
 from tensorflow.keras.layers import Layer, _InputT, _OutputT
 from tensorflow.keras.optimizers import Optimizer
 
-_Loss: TypeAlias = str | tf.keras.losses.Loss | Callable[[TensorCompatible, TensorCompatible], tf._Tensor]
-_Metric: TypeAlias = str | tf.keras.metrics.Metric | Callable[[TensorCompatible, TensorCompatible], tf._Tensor] | None
+_Loss: TypeAlias = str | tf.keras.losses.Loss | Callable[[TensorCompatible, TensorCompatible], tf.Tensor]
+_Metric: TypeAlias = str | tf.keras.metrics.Metric | Callable[[TensorCompatible, TensorCompatible], tf.Tensor] | None
 
 class Model(Layer[_InputT, _OutputT], tf.Module):
     _train_counter: tf.Variable
