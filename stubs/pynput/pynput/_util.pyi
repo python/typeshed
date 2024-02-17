@@ -3,8 +3,8 @@ import threading
 from collections.abc import Callable
 from queue import Queue
 from types import ModuleType, TracebackType
-from typing import Any, ClassVar, Generic, TypeVar
-from typing_extensions import ParamSpec, Self, TypedDict
+from typing import Any, ClassVar, Generic, TypedDict, TypeVar
+from typing_extensions import ParamSpec, Self
 
 _T = TypeVar("_T")
 _AbstractListener_T = TypeVar("_AbstractListener_T", bound=AbstractListener)
@@ -30,7 +30,7 @@ class AbstractListener(threading.Thread):
     _ready: bool  # undocumented
     _queue: Queue[sys._OptExcInfo | None]  # undocumented
     daemon: bool
-    def __init__(self, suppress: bool = ..., **kwargs: Callable[..., bool | None] | None) -> None: ...
+    def __init__(self, suppress: bool = False, **kwargs: Callable[..., bool | None] | None) -> None: ...
     @property
     def suppress(self) -> bool: ...
     @property
@@ -54,6 +54,7 @@ class Events(Generic[_T, _AbstractListener_T]):
 
     class Event:
         def __eq__(self, other: object) -> bool: ...
+
     _event_queue: Queue[_T]  # undocumented
     _sentinel: object  # undocumented
     _listener: _AbstractListener_T  # undocumented
@@ -65,7 +66,7 @@ class Events(Generic[_T, _AbstractListener_T]):
     ) -> None: ...
     def __iter__(self) -> Self: ...
     def __next__(self) -> _T: ...
-    def get(self, timeout: float | None = ...) -> _T | None: ...
+    def get(self, timeout: float | None = None) -> _T | None: ...
     def _event_mapper(self, event: Callable[_P, object]) -> Callable[_P, None]: ...
 
 class NotifierMixin: ...

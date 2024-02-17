@@ -44,4 +44,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    assert sys.version_info >= (3, 9), "Python 3.9+ is required to run this test"
     main()

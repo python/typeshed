@@ -4,8 +4,8 @@ import types
 from _typeshed import DataclassInstance
 from builtins import type as Type  # alias to avoid name clashes with fields named "type"
 from collections.abc import Callable, Iterable, Mapping
-from typing import Any, Generic, Protocol, TypeVar, overload
-from typing_extensions import Literal, TypeAlias, TypeGuard
+from typing import Any, Generic, Literal, Protocol, TypeVar, overload
+from typing_extensions import TypeAlias, TypeGuard
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -54,19 +54,10 @@ def asdict(obj: DataclassInstance, *, dict_factory: Callable[[list[tuple[str, An
 def astuple(obj: DataclassInstance) -> tuple[Any, ...]: ...
 @overload
 def astuple(obj: DataclassInstance, *, tuple_factory: Callable[[list[Any]], _T]) -> _T: ...
-
-if sys.version_info >= (3, 8):
-    # cls argument is now positional-only
-    @overload
-    def dataclass(__cls: None) -> Callable[[type[_T]], type[_T]]: ...
-    @overload
-    def dataclass(__cls: type[_T]) -> type[_T]: ...
-
-else:
-    @overload
-    def dataclass(_cls: None) -> Callable[[type[_T]], type[_T]]: ...
-    @overload
-    def dataclass(_cls: type[_T]) -> type[_T]: ...
+@overload
+def dataclass(__cls: None) -> Callable[[type[_T]], type[_T]]: ...
+@overload
+def dataclass(__cls: type[_T]) -> type[_T]: ...
 
 if sys.version_info >= (3, 11):
     @overload
@@ -247,12 +238,32 @@ class InitVar(Generic[_T], metaclass=_InitVarMeta):
         @overload
         def __class_getitem__(cls, type: Any) -> InitVar[Any]: ...
 
-if sys.version_info >= (3, 11):
+if sys.version_info >= (3, 12):
     def make_dataclass(
         cls_name: str,
         fields: Iterable[str | tuple[str, type] | tuple[str, type, Any]],
         *,
-        bases: tuple[type, ...] = ...,
+        bases: tuple[type, ...] = (),
+        namespace: dict[str, Any] | None = None,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
+        match_args: bool = True,
+        kw_only: bool = False,
+        slots: bool = False,
+        weakref_slot: bool = False,
+        module: str | None = None,
+    ) -> type: ...
+
+elif sys.version_info >= (3, 11):
+    def make_dataclass(
+        cls_name: str,
+        fields: Iterable[str | tuple[str, type] | tuple[str, type, Any]],
+        *,
+        bases: tuple[type, ...] = (),
         namespace: dict[str, Any] | None = None,
         init: bool = True,
         repr: bool = True,
@@ -271,7 +282,7 @@ elif sys.version_info >= (3, 10):
         cls_name: str,
         fields: Iterable[str | tuple[str, type] | tuple[str, type, Any]],
         *,
-        bases: tuple[type, ...] = ...,
+        bases: tuple[type, ...] = (),
         namespace: dict[str, Any] | None = None,
         init: bool = True,
         repr: bool = True,
@@ -289,7 +300,7 @@ else:
         cls_name: str,
         fields: Iterable[str | tuple[str, type] | tuple[str, type, Any]],
         *,
-        bases: tuple[type, ...] = ...,
+        bases: tuple[type, ...] = (),
         namespace: dict[str, Any] | None = None,
         init: bool = True,
         repr: bool = True,

@@ -18,19 +18,21 @@ class WriteApiAsync(_BaseWriteApi):
     async def write(
         self,
         bucket: str,
-        org: str | None = ...,
-        record: str
-        | Iterable[str]
-        | Point
-        | Iterable[Point]
-        | dict[Incomplete, Incomplete]
-        | Iterable[dict[Incomplete, Incomplete]]
-        | bytes
-        | Iterable[bytes]
-        | _NamedTuple
-        | Iterable[_NamedTuple]
-        | _DataClass
-        | Iterable[_DataClass] = ...,
-        write_precision: _WritePrecision = ...,
+        org: str | None = None,
+        record: (
+            str
+            | Iterable[str]
+            | Point
+            | Iterable[Point]
+            | dict[Incomplete, Incomplete]
+            | Iterable[dict[Incomplete, Incomplete]]
+            | bytes
+            | Iterable[bytes]
+            | _NamedTuple
+            | Iterable[_NamedTuple]
+            | _DataClass
+            | Iterable[_DataClass]
+        ) = None,
+        write_precision: _WritePrecision = "ns",
         **kwargs,
     ) -> bool: ...

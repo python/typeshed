@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing_extensions import Literal
+from typing import Literal
 
 class Transition(ABC):
     @abstractmethod
@@ -37,7 +37,7 @@ class GlitterTransition(Transition):
 class FlyTransition(Transition):
     dimension: Literal["H", "V"]
     direction: Literal[0, 270] | None
-    def __init__(self, dimension: Literal["H", "V"], direction: Literal[0, 270] | None = ...) -> None: ...
+    def __init__(self, dimension: Literal["H", "V"], direction: Literal[0, 270] | None = None) -> None: ...
     def serialize(self) -> str: ...
 
 class PushTransition(Transition):

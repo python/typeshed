@@ -12,8 +12,7 @@ from threading import (
     RLock as RLock,
     Semaphore as Semaphore,
 )
-from typing import Any
-from typing_extensions import Literal
+from typing import Any, Literal
 
 from .connection import Pipe as Pipe
 
@@ -50,8 +49,8 @@ class DummyProcess(threading.Thread):
         group: Any = None,
         target: Callable[..., object] | None = None,
         name: str | None = None,
-        args: Iterable[Any] = ...,
-        kwargs: Mapping[str, Any] = ...,
+        args: Iterable[Any] = (),
+        kwargs: Mapping[str, Any] = {},
     ) -> None: ...
 
 Process = DummyProcess
@@ -69,9 +68,7 @@ class Value:
 
 def Array(typecode: Any, sequence: Sequence[Any], lock: Any = True) -> array.array[Any]: ...
 def Manager() -> Any: ...
-def Pool(
-    processes: int | None = None, initializer: Callable[..., object] | None = None, initargs: Iterable[Any] = ...
-) -> Any: ...
+def Pool(processes: int | None = None, initializer: Callable[..., object] | None = None, initargs: Iterable[Any] = ()) -> Any: ...
 def active_children() -> list[Any]: ...
 
 current_process = threading.current_thread

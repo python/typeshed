@@ -35,6 +35,7 @@ class CreditCard(Resource):
         Yes: str
         No: str
         Unknown: str
+
     Commercial: Any
     DurbinRegulated: Any
     Debit: Any
@@ -45,9 +46,9 @@ class CreditCard(Resource):
     Prepaid: Any
     ProductId: Any
     @staticmethod
-    def create(params: Incomplete | None = ...): ...
+    def create(params: Incomplete | None = None): ...
     @staticmethod
-    def update(credit_card_token, params: Incomplete | None = ...): ...
+    def update(credit_card_token, params: Incomplete | None = None): ...
     @staticmethod
     def delete(credit_card_token): ...
     @staticmethod
