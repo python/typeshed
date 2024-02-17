@@ -42,7 +42,7 @@ def set_diag(
 def eye(
     num_rows: ScalarTensorCompatible,
     num_columns: ScalarTensorCompatible | None = None,
-    batch_shape: int | tuple[int, ...] | None = None,
+    batch_shape: int | list[int] | tuple[int, ...] | None = None,
     dtype: DTypeLike = ...,
     name: str | None = None,
 ) -> Tensor: ...
