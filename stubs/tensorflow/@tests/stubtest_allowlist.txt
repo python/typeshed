@@ -47,6 +47,8 @@ tensorflow._aliases
 # but the real module file is completely different name (even package) and dynamically handled.
 # tf.initializers at runtime is <module 'keras.api._v2.keras.initializers' from '...'>
 tensorflow.initializers
+# Another cursed import magic similar to the one above.
+tensorflow.distribute.experimental.coordinator
 
 # Layer constructor's always have **kwargs, but only allow a few specific values. PEP 692
 # would allow us to specify this with **kwargs and remove the need for these exceptions.
@@ -91,6 +93,7 @@ tensorflow.io.SparseFeature.__new__
 
 # Metaclass inconsistency. The runtime metaclass is defined from c++ extension and is undocumented.
 tensorflow.io.TFRecordWriter
+tensorflow.experimental.dtensor.Mesh
 
 # stubtest does not pass for protobuf generated stubs.
 tensorflow.train.Example.*
