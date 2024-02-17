@@ -170,7 +170,7 @@ def log_poisson_loss(
     targets: TensorCompatible, log_input: TensorCompatible, compute_full_loss: bool = False, name: str | None = None
 ) -> Tensor: ...
 
-# tf.nn.moments's shit is not used in the current implementation.
+# tf.nn.moments's shift is not used in the current implementation.
 def moments(
     x: TensorCompatible | RaggedTensor,
     axes: TensorCompatible,
