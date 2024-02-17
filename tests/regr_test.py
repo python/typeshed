@@ -177,6 +177,9 @@ def run_testcases(
         platform,
         "--strict",
         "--pretty",
+        # Avoid race conditions when reading the cache
+        # (https://github.com/python/typeshed/issues/11220)
+        "--no-incremental",
     ]
 
     if package.is_stdlib:
