@@ -1,8 +1,7 @@
 import re
 from _typeshed import SupportsRichComparison
 from collections.abc import Callable, Iterator
-from typing import Any, NoReturn
-from typing_extensions import Literal
+from typing import Any, Literal, NoReturn
 
 ESCAPE: re.Pattern[str]
 ESCAPE_ASCII: re.Pattern[str]
