@@ -10,4 +10,7 @@ class RedisStreamData(TypedDict):
 
 def check_xadd(r: redis.Redis[str]) -> None:
     # check that TypedDicts are accepted for the `fields` parameter of `xadd()`
-    r.xadd("stream", fields=RedisStreamData({"foo": "bar", "bar": b"foo"}))
+    #
+    # N.B. the `pyright: ignore` is not part of the test,
+    # it's just because the return type is currently unannotated
+    r.xadd("stream", fields=RedisStreamData({"foo": "bar", "bar": b"foo"}))  # pyright: ignore[reportUnknownMemberType]
