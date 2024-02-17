@@ -50,6 +50,8 @@ tensorflow.initializers
 # Other cursed import magic similar to the one above.
 tensorflow.keras.layers.preprocessing
 tensorflow.keras.layers.preprocessing.index_lookup
+# Another cursed import magic similar to the one above.
+tensorflow.distribute.experimental.coordinator
 
 # Layer constructor's always have **kwargs, but only allow a few specific values. PEP 692
 # would allow us to specify this with **kwargs and remove the need for these exceptions.
