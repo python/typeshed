@@ -27,6 +27,7 @@ class KerasSerializable2(Protocol):
 
 KerasSerializable: TypeAlias = KerasSerializable1 | KerasSerializable2
 
+Integer: TypeAlias = tf.Tensor | int | IntArray | np.number[Any]  # Here tf.Tensor and IntArray are assumed to be 0D.
 Slice: TypeAlias = int | slice | None
 FloatDataSequence: TypeAlias = Sequence[float] | Sequence[FloatDataSequence]
 StrDataSequence: TypeAlias = Sequence[str] | Sequence[StrDataSequence]
