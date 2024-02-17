@@ -1,9 +1,11 @@
 from _typeshed import Incomplete
 from builtins import bool as _bool
+from collections.abc import Iterable
 from typing import Literal, overload
 
+import tensorflow as tf
 from tensorflow import RaggedTensor, Tensor, norm as norm
-from tensorflow._aliases import DTypeLike, ScalarTensorCompatible, TensorCompatible
+from tensorflow._aliases import DTypeLike, IntArray, ScalarTensorCompatible, TensorCompatible
 from tensorflow.math import l2_normalize as l2_normalize
 
 @overload
@@ -42,7 +44,7 @@ def set_diag(
 def eye(
     num_rows: ScalarTensorCompatible,
     num_columns: ScalarTensorCompatible | None = None,
-    batch_shape: int | list[int] | tuple[int, ...] | None = None,
+    batch_shape: Iterable[int] | IntArray | tf.Tensor | None = None,
     dtype: DTypeLike = ...,
     name: str | None = None,
 ) -> Tensor: ...
