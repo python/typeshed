@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from typing_extensions import Self
 
-import tensorflow as tf
+from tensorflow import DType, Tensor
 from tensorflow._aliases import ShapeLike
 from tensorflow.python.feature_column.feature_column_v2 import SequenceDenseColumn, _ExampleSpec, _FeatureColumn
 
@@ -11,16 +11,11 @@ class SequenceNumericColumn(SequenceDenseColumn):
     key: str
     shape: ShapeLike
     default_value: float
-    dtype: tf.DType
-    normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None
+    dtype: DType
+    normalizer_fn: Callable[[Tensor], Tensor] | None
 
     def __new__(
-        _cls,
-        key: str,
-        shape: ShapeLike,
-        default_value: float,
-        dtype: tf.DType,
-        normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None,
+        _cls, key: str, shape: ShapeLike, default_value: float, dtype: DType, normalizer_fn: Callable[[Tensor], Tensor] | None
     ) -> Self: ...
     @property
     def name(self) -> str: ...

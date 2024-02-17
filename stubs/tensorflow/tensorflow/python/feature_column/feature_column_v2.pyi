@@ -9,6 +9,7 @@ from typing import Literal
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
+from tensorflow import DType
 from tensorflow._aliases import ShapeLike
 
 _Combiners: TypeAlias = Literal["mean", "sqrtn", "sum"]
@@ -37,7 +38,7 @@ class NumericColumn(DenseColumn):
     key: str
     shape: ShapeLike
     default_value: float
-    dtype: tf.DType
+    dtype: DType
     normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None
 
     def __new__(
@@ -45,7 +46,7 @@ class NumericColumn(DenseColumn):
         key: str,
         shape: ShapeLike,
         default_value: float,
-        dtype: tf.DType,
+        dtype: DType,
         normalizer_fn: Callable[[tf.Tensor], tf.Tensor] | None,
     ) -> Self: ...
     @property
@@ -174,9 +175,9 @@ class IdentityCategoricalColumn(CategoricalColumn):
 class HashedCategoricalColumn(CategoricalColumn):
     key: str
     hash_bucket_size: int
-    dtype: tf.DType
+    dtype: DType
 
-    def __new__(_cls, key: str, hash_bucket_size: int, dtype: tf.DType) -> Self: ...
+    def __new__(_cls, key: str, hash_bucket_size: int, dtype: DType) -> Self: ...
     @property
     def name(self) -> str: ...
     @property
@@ -191,7 +192,7 @@ class VocabularyFileCategoricalColumn(CategoricalColumn):
     vocabulary_file: str
     vocabulary_size: int | None
     num_oov_buckets: int
-    dtype: tf.DType
+    dtype: DType
     default_value: str | int | None
     file_format: str | None
 
@@ -201,7 +202,7 @@ class VocabularyFileCategoricalColumn(CategoricalColumn):
         vocabulary_file: str,
         vocabulary_size: int | None,
         num_oov_buckets: int,
-        dtype: tf.DType,
+        dtype: DType,
         default_value: str | int | None,
         file_format: str | None = None,
     ) -> Self: ...
@@ -217,12 +218,12 @@ class VocabularyFileCategoricalColumn(CategoricalColumn):
 class VocabularyListCategoricalColumn(CategoricalColumn):
     key: str
     vocabulary_list: Sequence[str] | Sequence[int]
-    dtype: tf.DType
+    dtype: DType
     default_value: str | int | None
     num_oov_buckets: int
 
     def __new__(
-        _cls, key: str, vocabulary_list: Sequence[str], dtype: tf.DType, default_value: str | int | None, num_oov_buckets: int
+        _cls, key: str, vocabulary_list: Sequence[str], dtype: DType, default_value: str | int | None, num_oov_buckets: int
     ) -> Self: ...
     @property
     def name(self) -> str: ...
@@ -236,9 +237,9 @@ class VocabularyListCategoricalColumn(CategoricalColumn):
 class WeightedCategoricalColumn(CategoricalColumn):
     categorical_column: CategoricalColumn
     weight_feature_key: str
-    dtype: tf.DType
+    dtype: DType
 
-    def __new__(_cls, categorical_column: CategoricalColumn, weight_feature_key: str, dtype: tf.DType) -> Self: ...
+    def __new__(_cls, categorical_column: CategoricalColumn, weight_feature_key: str, dtype: DType) -> Self: ...
     @property
     def name(self) -> str: ...
     @property
