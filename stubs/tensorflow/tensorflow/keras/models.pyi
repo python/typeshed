@@ -2,18 +2,19 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Container, Iterator
 from pathlib import Path
 from typing import Any, Literal
-from typing_extensions import Self
+from typing_extensions import Self, TypeAlias
 
 import numpy as np
 import numpy.typing as npt
 import tensorflow
 import tensorflow as tf
-from tensorflow import Variable, _ShapeLike, _TensorCompatible
-from tensorflow._aliases import ContainerGeneric
-from tensorflow.keras import _Loss, _Metric
+from tensorflow import Variable
+from tensorflow._aliases import ContainerGeneric, ShapeLike, TensorCompatible
 from tensorflow.keras.layers import Layer, _InputT, _OutputT
 
-_BothOptimizer = tf.optimizers.Optimizer | tf.optimizers.experimental.Optimizer
+_BothOptimizer: TypeAlias = tf.optimizers.Optimizer | tf.optimizers.experimental.Optimizer
+_Loss: TypeAlias = str | tf.keras.losses.Loss | Callable[[TensorCompatible, TensorCompatible], tf._Tensor]
+_Metric: TypeAlias = str | tf.keras.metrics.Metric | Callable[[TensorCompatible, TensorCompatible], tf._Tensor] | None
 
 class Model(Layer[_InputT, _OutputT], tf.Module):
     _train_counter: tf.Variable
@@ -27,9 +28,9 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def __setattr__(self, name: str, value: Any) -> None: ...
     def __reduce__(self) -> Incomplete: ...
     def __deepcopy__(self, memo: Incomplete) -> Incomplete: ...
-    def build(self, input_shape: _ShapeLike) -> None: ...
-    def __call__(self, inputs: _InputT, *, training: bool = False, mask: _TensorCompatible | None = None) -> _OutputT: ...
-    def call(self, inputs: _InputT, training: bool | None = None, mask: _TensorCompatible | None = None) -> _OutputT: ...
+    def build(self, input_shape: ShapeLike) -> None: ...
+    def __call__(self, inputs: _InputT, *, training: bool = False, mask: TensorCompatible | None = None) -> _OutputT: ...
+    def call(self, inputs: _InputT, training: bool | None = None, mask: TensorCompatible | None = None) -> _OutputT: ...
     # Ideally loss/metrics/output would share the same structure but higher kinded types are not supported.
     def compile(
         self,
@@ -61,29 +62,29 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def jit_compile(self) -> bool: ...
     @property
     def distribute_reduction_method(self) -> Incomplete | Literal["auto"]: ...
-    def train_step(self, data: _TensorCompatible) -> Incomplete: ...
+    def train_step(self, data: TensorCompatible) -> Incomplete: ...
     def compute_loss(
         self,
-        x: _TensorCompatible | None = None,
-        y: _TensorCompatible | None = None,
-        y_pred: _TensorCompatible | None = None,
+        x: TensorCompatible | None = None,
+        y: TensorCompatible | None = None,
+        y_pred: TensorCompatible | None = None,
         sample_weight: Incomplete | None = None,
     ) -> tf.Tensor | None: ...
     def compute_metrics(
-        self, x: _TensorCompatible, y: _TensorCompatible, y_pred: _TensorCompatible, sample_weight: Incomplete
+        self, x: TensorCompatible, y: TensorCompatible, y_pred: TensorCompatible, sample_weight: Incomplete
     ) -> dict[str, float]: ...
     def get_metrics_result(self) -> dict[str, float]: ...
     def make_train_function(self, force: bool = False) -> Callable[[tf.data.Iterator[Incomplete]], dict[str, float]]: ...
     def fit(
         self,
-        x: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
-        y: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
+        x: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
+        y: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
         batch_size: int | None = None,
         epochs: int = 1,
         verbose: Literal["auto", 0, 1, 2] = "auto",
         callbacks: list[tf.keras.callbacks.Callback] | None = None,
         validation_split: float = 0.0,
-        validation_data: _TensorCompatible | tf.data.Dataset[Any] | None = None,
+        validation_data: TensorCompatible | tf.data.Dataset[Any] | None = None,
         shuffle: bool = True,
         class_weight: dict[int, float] | None = None,
         sample_weight: npt.NDArray[np.float_] | None = None,
@@ -96,12 +97,12 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
         workers: int = 1,
         use_multiprocessing: bool = False,
     ) -> tf.keras.callbacks.History: ...
-    def test_step(self, data: _TensorCompatible) -> dict[str, float]: ...
+    def test_step(self, data: TensorCompatible) -> dict[str, float]: ...
     def make_test_function(self, force: bool = False) -> Callable[[tf.data.Iterator[Incomplete]], dict[str, float]]: ...
     def evaluate(
         self,
-        x: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
-        y: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
+        x: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
+        y: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
         batch_size: int | None = None,
         verbose: Literal["auto", 0, 1, 2] = "auto",
         sample_weight: npt.NDArray[np.float_] | None = None,
@@ -117,7 +118,7 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def make_predict_function(self, force: bool = False) -> Callable[[tf.data.Iterator[Incomplete]], _OutputT]: ...
     def predict(
         self,
-        x: _TensorCompatible | tf.data.Dataset[Incomplete],
+        x: TensorCompatible | tf.data.Dataset[Incomplete],
         batch_size: int | None = None,
         verbose: Literal["auto", 0, 1, 2] = "auto",
         steps: int | None = None,
@@ -129,8 +130,8 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def reset_metrics(self) -> None: ...
     def train_on_batch(
         self,
-        x: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete],
-        y: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
+        x: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete],
+        y: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
         sample_weight: npt.NDArray[np.float_] | None = None,
         class_weight: dict[int, float] | None = None,
         reset_metrics: bool = True,
@@ -138,8 +139,8 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     ) -> float | list[float]: ...
     def test_on_batch(
         self,
-        x: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete],
-        y: _TensorCompatible | dict[str, _TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
+        x: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete],
+        y: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
         sample_weight: npt.NDArray[np.float_] | None = None,
         reset_metrics: bool = True,
         return_dict: bool = False,
@@ -152,7 +153,7 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
         epochs: int = 1,
         verbose: Literal["auto", 0, 1, 2] = 1,
         callbacks: list[tf.keras.callbacks.Callback] | None = None,
-        validation_data: _TensorCompatible | tf.data.Dataset[Any] | None = None,
+        validation_data: TensorCompatible | tf.data.Dataset[Any] | None = None,
         validation_steps: int | None = None,
         validation_freq: int | Container[int] = 1,
         class_weight: dict[int, float] | None = None,
@@ -231,3 +232,5 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     def compile_from_config(self, config: dict[str, Any]) -> Self: ...
     def export(self, filepath: str | Path) -> None: ...
     def save_spec(self, dynamic_batch: bool = True) -> tuple[tuple[tf.TensorSpec, ...], dict[str, tf.TensorSpec]] | None: ...
+
+def __getattr__(name: str) -> Incomplete: ...
