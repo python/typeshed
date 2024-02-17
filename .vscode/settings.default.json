@@ -5,7 +5,6 @@
  *
  * ⚠ Disclaimer: The typeshed team doesn't commit to maintaining this file. It exists purely for your ease of use.
 */
-// TODO: Add charliermarsh.ruff to unrecommended extensions
 {
     // Don't format on save for formatters we don't explicitely control
     "editor.formatOnSave": false,
@@ -22,8 +21,10 @@
         "pytype_exclude_list.txt": "properties"
     },
     "files.exclude": {
-        "**/.mypy_cache": true
+        "**/.*_cache": true, // mypy and Ruff cache
+        "**/__pycache__": true
     },
+    "files.eol": "\n",
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "files.trimTrailingWhitespace": true,
@@ -31,7 +32,7 @@
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,
     "editor.tabSize": 2,
-    "[json][jsonc][python]": {
+    "[json][jsonc][python][toml]": {
         "editor.tabSize": 4
     },
     "editor.rulers": [
@@ -48,6 +49,7 @@
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
             "source.fixAll": true,
+            // Allow isort or Ruff to organize imports
             "source.organizeImports": true
         }
     },
@@ -69,24 +71,11 @@
         ],
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
-    // Use the new dedicated extensions instead
-    "python.formatting.provider": "none",
-    "python.linting.enabled": false,
-    "python.linting.mypyEnabled": false,
-    "python.linting.flake8Enabled": false,
-    "python.linting.pycodestyleEnabled": false,
-    "python.linting.prospectorEnabled": false,
-    "python.linting.pylamaEnabled": false,
-    "python.linting.pylintEnabled": false,
-    // Not using bandit
-    "python.linting.banditEnabled": false,
     // python.analysis is Pylance (pyright) configurations
     "python.analysis.fixAll": [
         "source.unusedImports"
         // Explicitly omiting "source.convertImportFormat", some stubs use relative imports
     ],
-    // Important to use `types-*` and flag untyped dependencies.
-    "python.analysis.useLibraryCodeForTypes": false,
     "python.analysis.typeshedPaths": [
         "${workspaceFolder}"
     ],
@@ -96,20 +85,23 @@
     "mypy-type-checker.importStrategy": "fromEnvironment",
     "mypy-type-checker.args": [
         "--custom-typeshed-dir=${workspaceFolder}",
-        "--python-version=3.7",
-        "--strict"
-        // Needed because a library stubbed in typeshed won't necessarily be installed inthe dev's environment
-        // Currentyl broken in dmypy: https://github.com/python/mypy/issues/10709
-        // "--ignore-missing-imports"
+        // We only guarantee all of our tests can be run if you're on Python 3.9 or higher
+        "--python-version=3.9",
+        "--strict",
+        // Needed because a library stubbed in typeshed won't necessarily be installed in the dev's environment
+        "--ignore-missing-imports"
     ],
     // Ensure typeshed's configs are used, and not user's VSCode settings
     "flake8.args": [
         "--config=.flake8"
     ],
     "flake8.importStrategy": "fromEnvironment",
-    "isort.check": true,
-    "isort.importStrategy": "fromEnvironment",
     "black-formatter.importStrategy": "fromEnvironment",
+    // Using Ruff instead of isort
+    "isort.check": false,
+    "ruff.importStrategy": "fromEnvironment",
+    "ruff.fixAll": true,
+    "ruff.organizeImports": true,
     "evenBetterToml.formatter.alignComments": false,
     "evenBetterToml.formatter.alignEntries": false,
     "evenBetterToml.formatter.allowedBlankLines": 1,

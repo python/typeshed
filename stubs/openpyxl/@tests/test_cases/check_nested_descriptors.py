@@ -4,8 +4,8 @@
 # These tests are essentially a mirror of check_base_descriptors
 from __future__ import annotations
 
-from typing import Union, cast
-from typing_extensions import Literal, assert_type
+from typing import Literal, Union, cast
+from typing_extensions import assert_type
 
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.nested import (
@@ -20,9 +20,9 @@ from openpyxl.descriptors.nested import (
     NestedString,
     NestedText,
     NestedValue,
-    _HasTagAndGet,
 )
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.xml._functions_overloads import _HasTagAndGet
 from openpyxl.xml.functions import Element
 
 _ = object()  # More concise discard object for casts

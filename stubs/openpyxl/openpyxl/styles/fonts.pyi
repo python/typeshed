@@ -1,8 +1,8 @@
-from _typeshed import Incomplete
-from typing import ClassVar
-from typing_extensions import Final, Literal, TypeAlias
+from _typeshed import ConvertibleToFloat, ConvertibleToInt
+from typing import ClassVar, Final, Literal
+from typing_extensions import Self, TypeAlias
 
-from openpyxl.descriptors.base import Alias, _ConvertibleToBool, _ConvertibleToFloat, _ConvertibleToInt
+from openpyxl.descriptors.base import Alias, _ConvertibleToBool
 from openpyxl.descriptors.nested import (
     NestedBool,
     NestedFloat,
@@ -10,10 +10,12 @@ from openpyxl.descriptors.nested import (
     NestedMinMax,
     NestedNoneSet,
     NestedString,
-    _HasTagAndGet,
     _NestedNoneSetParam,
 )
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.styles.colors import Color, ColorDescriptor
+
+from ..xml._functions_overloads import _HasTagAndGet, _SupportsFindAndIterAndAttribAndText
 
 _FontU: TypeAlias = Literal["single", "double", "singleAccounting", "doubleAccounting"]
 _FontVertAlign: TypeAlias = Literal["superscript", "subscript", "baseline"]
@@ -42,23 +44,23 @@ class Font(Serialisable):
     u: NestedNoneSet[_FontU]
     underline: Alias
     vertAlign: NestedNoneSet[_FontVertAlign]
-    color: Incomplete
+    color: ColorDescriptor[Literal[True]]
     scheme: NestedNoneSet[_FontScheme]
     tagname: ClassVar[str]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
         name: object = None,
-        sz: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None = None,
+        sz: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = None,
         b: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
         i: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
-        charset: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+        charset: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
         u: _NestedNoneSetParam[_FontU] = None,
         strike: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
-        color: Incomplete | None = None,
+        color: str | Color | None = None,
         scheme: _NestedNoneSetParam[_FontScheme] = None,
-        family: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None = None,
-        size: _HasTagAndGet[_ConvertibleToFloat] | _ConvertibleToFloat | None = None,
+        family: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = None,
+        size: _HasTagAndGet[ConvertibleToFloat] | ConvertibleToFloat | None = None,
         bold: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool | None = None,
         italic: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool | None = None,
         strikethrough: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool | None = None,
@@ -70,6 +72,6 @@ class Font(Serialisable):
         extend: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
     ) -> None: ...
     @classmethod
-    def from_tree(cls, node): ...
+    def from_tree(cls, node: _SupportsFindAndIterAndAttribAndText) -> Self: ...
 
 DEFAULT_FONT: Final[Font]

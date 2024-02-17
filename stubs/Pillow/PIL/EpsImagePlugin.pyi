@@ -1,7 +1,6 @@
 import sys
 from _typeshed import Incomplete
-from typing import ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from ._imaging import _PixelAccessor
 from .ImageFile import ImageFile
@@ -9,8 +8,10 @@ from .ImageFile import ImageFile
 split: Incomplete
 field: Incomplete
 if sys.platform == "win32":
-    gs_windows_binary: Literal["gswin32c", "gswin64c", "gs", False]
+    gs_binary: Literal["gswin32c", "gswin64c", "gs", False] | None
+    gs_windows_binary: Literal["gswin32c", "gswin64c", "gs", False] | None
 else:
+    gs_binary: Literal["gs", False] | None
     gs_windows_binary: None
 
 def has_ghostscript(): ...
@@ -28,7 +29,6 @@ class EpsImageFile(ImageFile):
     format_description: ClassVar[str]
     mode_map: Incomplete
     im: Incomplete
-    mode: Incomplete
     tile: Incomplete
     def load(self, scale: int = 1, transparency: bool = False) -> _PixelAccessor: ...
     def load_seek(self, *args, **kwargs) -> None: ...
