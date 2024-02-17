@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 
 from tensorflow._aliases import IntArray, IntDataSequence
 
+Layout = Incomplete
+
 class Mesh:
     def __init__(
         self,
