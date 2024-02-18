@@ -182,6 +182,7 @@ __all__ = [
     "no_type_check",
     "no_type_check_decorator",
     "ReadOnly",
+    "TypeIs",
 ]
 
 _T = typing.TypeVar("_T")
