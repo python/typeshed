@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Self
+from typing_extensions import Self
 
 import tensorflow as tf
 from tensorflow._aliases import Integer, TensorValue
