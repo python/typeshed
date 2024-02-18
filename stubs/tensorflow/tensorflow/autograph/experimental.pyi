@@ -1,6 +1,7 @@
 from collections.abc import Callable, Iterable
 from enum import Enum
-from typing import ParamSpec, TypeVar, overload
+from typing import TypeVar, overload
+from typing_extensions import ParamSpec
 
 import tensorflow as tf
 from tensorflow._aliases import Integer

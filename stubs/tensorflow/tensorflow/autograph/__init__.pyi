@@ -1,5 +1,6 @@
 from collections.abc import Callable
-from typing import Any, ParamSpec, TypeVar, overload
+from typing import Any, TypeVar, overload
+from typing_extensions import ParamSpec
 
 from tensorflow.autograph.experimental import Feature
 
