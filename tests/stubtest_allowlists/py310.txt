@@ -13,7 +13,6 @@ gettext.install
 gettext.translation
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.Finder.find_module
-importlib.metadata._meta.SimplePath.__truediv__  # See comments in the stub
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__match_args__
 platform.uname_result.__new__
@@ -25,6 +24,10 @@ types.GenericAlias.__call__  # Would be complicated to fix properly, Any could s
 typing._SpecialForm.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
 builtins.ellipsis  # type is not exposed anywhere
+
+# Runtime definition of protocol is incorrect
+importlib.metadata._meta.SimplePath.__truediv__
+importlib.metadata._meta.SimplePath.joinpath
 
 # Modules that exist at runtime, but shouldn't be added to typeshed
 ctypes.test
