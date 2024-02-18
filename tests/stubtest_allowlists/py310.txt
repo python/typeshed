@@ -25,6 +25,9 @@ typing._SpecialForm.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
 builtins.ellipsis  # type is not exposed anywhere
 
+xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+
 # Runtime definition of protocol is incorrect
 importlib.metadata._meta.SimplePath.__truediv__
 importlib.metadata._meta.SimplePath.joinpath
