@@ -17,8 +17,10 @@ class ConcreteFunction(Callable[_P, _R], metaclass=abc.ABCMeta):
 
 class GenericFunction(Callable[_P, _R], metaclass=abc.ABCMeta):
     @overload
+    @abc.abstractmethod
     def get_concrete_function(self, *args: _P.args, **kwargs: _P.kwargs) -> ConcreteFunction[_P, _R]: ...
     @overload
+    @abc.abstractmethod
     def get_concrete_function(
         self, *args: ContainerGeneric[tf.TypeSpec[Any]], **kwargs: ContainerGeneric[tf.TypeSpec[Any]]
     ) -> ConcreteFunction[_P, _R]: ...
