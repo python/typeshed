@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
 
-from tensorflow.python.distribute.distribute_lib import Strategy as Strategy
+Strategy = Incomplete
 
 def __getattr__(name: str) -> Incomplete: ...

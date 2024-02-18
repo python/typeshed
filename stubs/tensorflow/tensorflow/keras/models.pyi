@@ -42,7 +42,6 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
         run_eagerly: bool | None = None,
         steps_per_execution: int | Literal["auto"] | None = None,
         jit_compile: bool | None = None,
-        *,
         pss_evaluation_shards: int | Literal["auto"] = 0,
         **kwargs: Any,
     ) -> None: ...
