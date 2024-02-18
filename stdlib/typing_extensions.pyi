@@ -1,5 +1,4 @@
 import abc
-import collections
 import sys
 import typing
 from _collections_abc import dict_items, dict_keys, dict_values
@@ -183,6 +182,7 @@ __all__ = [
     "no_type_check",
     "no_type_check_decorator",
     "ReadOnly",
+    "TypeIs",
 ]
 
 _T = typing.TypeVar("_T")
@@ -221,10 +221,14 @@ def IntVar(name: str) -> Any: ...  # returns a new TypeVar
 class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     __required_keys__: ClassVar[frozenset[str]]
     __optional_keys__: ClassVar[frozenset[str]]
-    __readonly_keys__: ClassVar[frozenset[str]]
-    __mutable_keys__: ClassVar[frozenset[str]]
     __total__: ClassVar[bool]
     __orig_bases__: ClassVar[tuple[Any, ...]]
+    # PEP 705
+    __readonly_keys__: ClassVar[frozenset[str]]
+    __mutable_keys__: ClassVar[frozenset[str]]
+    # PEP 728
+    __closed__: ClassVar[bool]
+    __extra_items__: ClassVar[Any]
     def copy(self) -> Self: ...
     # Using Never so that only calls using mypy plugin hook that specialize the signature
     # can go through.
@@ -353,9 +357,7 @@ else:
     ) -> IdentityFunction: ...
 
     class NamedTuple(tuple[Any, ...]):
-        if sys.version_info < (3, 8):
-            _field_types: ClassVar[collections.OrderedDict[str, type]]
-        elif sys.version_info < (3, 9):
+        if sys.version_info < (3, 9):
             _field_types: ClassVar[dict[str, type]]
         _field_defaults: ClassVar[dict[str, Any]]
         _fields: ClassVar[tuple[str, ...]]
@@ -366,11 +368,7 @@ else:
         def __init__(self, typename: str, fields: None = None, **kwargs: Any) -> None: ...
         @classmethod
         def _make(cls, iterable: Iterable[Any]) -> Self: ...
-        if sys.version_info >= (3, 8):
-            def _asdict(self) -> dict[str, Any]: ...
-        else:
-            def _asdict(self) -> collections.OrderedDict[str, Any]: ...
-
+        def _asdict(self) -> dict[str, Any]: ...
         def _replace(self, **kwargs: Any) -> Self: ...
 
     class NewType:
@@ -508,3 +506,4 @@ class Doc:
     def __eq__(self, other: object) -> bool: ...
 
 ReadOnly: _SpecialForm
+TypeIs: _SpecialForm

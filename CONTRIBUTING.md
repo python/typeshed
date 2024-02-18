@@ -202,13 +202,16 @@ supported:
 * `partial_stub` (optional): This field marks the type stub package as
   [partial](https://peps.python.org/pep-0561/#partial-stub-packages). This is for
   3rd-party stubs that don't cover the entirety of the package's public API.
-  In most cases, this field is identical to `ignore_missing_stub`.
 
 In addition, we specify configuration for stubtest in the `tool.stubtest` table.
 This has the following keys:
 * `skip` (default: `false`): Whether stubtest should be run against this
   package. Please avoid setting this to `true`, and add a comment if you have
   to.
+* `ignore_missing_stub`: When set to `true`, this will add the
+  `--ignore_missing_stub` option to the stubtest call. See
+  [tests/README.md](./tests/README.md) for more information. In most cases,
+  this field should be identical to `partial_stub`.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully.
 * `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
@@ -279,18 +282,6 @@ new features to the Python type system. In general, new features can
 be used in typeshed as soon as the PEP has been accepted and implemented
 and most type checkers support the new feature.
 
-Accepted features that *cannot* yet be used in typeshed include:
-- [PEP 570](https://www.python.org/dev/peps/pep-0570/) (positional-only
-  arguments): see [#4972](https://github.com/python/typeshed/issues/4972),
-  use argument names prefixed with `__` instead
-
-The following features are partially supported:
-- [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
-  - For now, cannot be used in combination with other decorators
-    (e.g., `@overload`, `@classmethod`, and `@property`) due to bugs in
-    [pytype](https://github.com/google/pytype/issues/1531) and
-    [stubtest](https://github.com/python/mypy/pull/16457).
-
 Supported features include:
 - [PEP 544](https://peps.python.org/pep-0544/) (Protocol)
 - [PEP 585](https://peps.python.org/pep-0585/) (builtin generics)
@@ -304,25 +295,23 @@ Supported features include:
 - [PEP 655](https://peps.python.org/pep-0655/) (`Required` and `NotRequired`)
 - [PEP 673](https://peps.python.org/pep-0673/) (`Self`)
 - [PEP 675](https://peps.python.org/pep-0675/) (`LiteralString`)
+- [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
 
 Features from the `typing` module that are not present in all
 supported Python 3 versions must be imported from `typing_extensions`
 instead in typeshed stubs. This currently affects:
 
-- `Final` and `@final` (new in Python 3.8)
-- `Literal` (new in Python 3.8)
-- `SupportsIndex` (new in Python 3.8)
-- `TypedDict` (new in Python 3.8)
+- `TypeAlias` (new in Python 3.10)
 - `Concatenate` (new in Python 3.10)
 - `ParamSpec` (new in Python 3.10)
 - `TypeGuard` (new in Python 3.10)
 - `Self` (new in Python 3.11)
+- `Never` (new in Python 3.11)
 - `LiteralString` (new in Python 3.11)
+- `TypeVarTuple` and `Unpack` (new in Python 3.11)
+- `Required` and `NotRequired` (new in Python 3.11)
+- `Buffer` (new in Python 3.12; in the `collections.abc` module)
 - `@deprecated` (new in Python 3.13; in the `warnings` module)
-
-Two exceptions are `Protocol` and `runtime_checkable`: although
-these were added in Python 3.8, they can be used in stubs regardless
-of Python version.
 
 Some type checkers implicitly promote the `bytearray` and
 `memoryview` types to `bytes`.

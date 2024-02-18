@@ -16,7 +16,7 @@ def show_compilers() -> None: ...
 
 class CCompiler:
     src_extensions: ClassVar[list[str] | None]
-    obj_extensions: ClassVar[str | None]
+    obj_extension: ClassVar[str | None]
     static_lib_extension: ClassVar[str | None]
     shared_lib_extension: ClassVar[str | None]
     static_lib_format: ClassVar[str | None]
@@ -65,7 +65,7 @@ class CCompiler:
         self,
         sources: list[str],
         output_dir: str | None = ...,
-        macros: _Macro | None = ...,
+        macros: list[_Macro] | None = ...,
         include_dirs: list[str] | None = ...,
         debug: bool = ...,
         extra_preargs: list[str] | None = ...,
