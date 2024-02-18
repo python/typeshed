@@ -28,7 +28,8 @@ class Fingerprint:
     def singleprint(self) -> str: ...
 
 class TrackableResource(CapturableResource):
-    resource_handle: tf.Tensor
+    @property
+    def resource_handle(self) -> tf.Tensor: ...
     def __init__(self, device: str = "") -> None: ...
 
 class VariablePolicy(Enum):

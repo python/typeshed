@@ -1,7 +1,7 @@
 from collections.abc import Mapping, Sequence
 from pathlib import Path
-from typing import Any, Generic, Literal, TypeAlias, TypeVar
-from typing_extensions import ParamSpec
+from typing import Any, Generic, Literal, TypeVar
+from typing_extensions import ParamSpec, TypeAlias
 
 import tensorflow as tf
 from tensorflow.python.training.tracking.autotrackable import AutoTrackable
@@ -12,7 +12,8 @@ _P = ParamSpec("_P")
 _R = TypeVar("_R", covariant=True)
 
 class Asset:
-    asset_path: tf.Tensor
+    @property
+    def asset_path(self) -> tf.Tensor: ...
     def __init__(self, path: str | Path | tf.Tensor) -> None: ...
 
 class LoadOptions:
