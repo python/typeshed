@@ -9,8 +9,8 @@ from importlib.abc import MetaPathFinder
 from os import PathLike
 from pathlib import Path
 from re import Pattern
-from typing import Any, ClassVar, Generic, NamedTuple, TypeAlias, TypeVar, overload
-from typing_extensions import Self
+from typing import Any, ClassVar, Generic, NamedTuple, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
