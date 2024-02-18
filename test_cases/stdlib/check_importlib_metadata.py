@@ -2,7 +2,7 @@ import sys
 from _typeshed import StrPath
 from os import PathLike
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 from zipfile import Path as ZipPath
 
 if sys.version_info >= (3, 10):
@@ -13,7 +13,7 @@ if sys.version_info >= (3, 10):
         @property
         def parent(self) -> PathLike[str]: ...  # undocumented
 
-        def read_text(self, encoding: str | None = ..., errors: str | None = ...) -> str: ...
+        def read_text(self, encoding: Optional[str] = ..., errors: Optional[str] = ...) -> str: ...
         def joinpath(self, *other: StrPath) -> Path: ...
         def __truediv__(self, add: StrPath) -> Path: ...
 
