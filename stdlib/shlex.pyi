@@ -1,10 +1,20 @@
+import sys
 from collections.abc import Iterable
-from typing import TextIO
-from typing_extensions import Self
+from typing import TextIO, overload
+from typing_extensions import Self, deprecated
 
 __all__ = ["shlex", "split", "quote", "join"]
 
-def split(s: str, comments: bool = False, posix: bool = True) -> list[str]: ...
+if sys.version_info >= (3, 12):
+    def split(s: str | TextIO, comments: bool = False, posix: bool = True) -> list[str]: ...
+
+else:
+    @overload
+    def split(s: str | TextIO, comments: bool = False, posix: bool = True) -> list[str]: ...
+    @overload
+    @deprecated("Passing None for 's' to shlex.split() is deprecated and will raise an error in Python 3.12.")
+    def split(s: None, comments: bool = False, posix: bool = True) -> list[str]: ...
+
 def join(split_command: Iterable[str]) -> str: ...
 def quote(s: str) -> str: ...
 
