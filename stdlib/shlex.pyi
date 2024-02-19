@@ -2,13 +2,13 @@ import sys
 from collections import deque
 from collections.abc import Iterable
 from io import TextIOWrapper
-from typing import Literal, overload, type_check_only
+from typing import Literal, Protocol, overload, type_check_only
 from typing_extensions import Self, deprecated
 
 __all__ = ["shlex", "split", "quote", "join"]
 
 @type_check_only
-class _ShlexInstream:
+class _ShlexInstream(Protocol):
     def read(self, size: Literal[1]) -> str: ...
     def readline(self) -> object: ...
     def close(self) -> object: ...
