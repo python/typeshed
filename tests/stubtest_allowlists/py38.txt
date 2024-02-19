@@ -52,6 +52,9 @@ xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modu
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xxsubtype  # module missing from the stubs
 
+xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__
 typing_extensions\.TypeAliasType\.__init_subclass__
@@ -181,3 +184,7 @@ tkinter.test
 tkinter\.test\..+
 unittest.test
 unittest\.test\..+
+
+# These enums derive from (str, Enum)
+pstats.SortKey.__new__
+tkinter.EventType.__new__

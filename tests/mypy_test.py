@@ -268,6 +268,8 @@ def run_mypy(
             "--allow-subclassing-any",
             "--enable-error-code",
             "ignore-without-code",
+            "--enable-error-code",
+            "redundant-self",
             "--config-file",
             temp.name,
         ]
@@ -374,7 +376,7 @@ def test_stdlib(args: TestConfig) -> TestResult:
     if not files:
         return TestResult(MypyResult.SUCCESS, 0)
 
-    print(f"Testing stdlib ({len(files)} files)...", end="", flush=True)
+    print(f"Testing stdlib ({len(files)} files)... ", end="", flush=True)
     # We don't actually need pip for the stdlib testing
     venv_info = VenvInfo(pip_exe="", python_exe=sys.executable)
     result = run_mypy(args, [], files, venv_info=venv_info, testing_stdlib=True, non_types_dependencies=False)

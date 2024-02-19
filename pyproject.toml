@@ -10,7 +10,7 @@ force-exclude = ".*_pb2.pyi"
 [tool.ruff]
 line-length = 130
 # Oldest supported Python version
-target-version = "py37"
+target-version = "py38"
 fix = true
 exclude = [
     # virtual environment
@@ -21,9 +21,9 @@ exclude = [
     ".git",
     ".mypy_cache",
     ".pytype",
-    ".venv",
-    "env",
 ]
+
+[tool.ruff.lint]
 select = [
     "FA", # flake8-future-annotations
     "I", # isort
@@ -33,9 +33,12 @@ select = [
     "PYI010", # function bodies must be empty
     "PYI012", # class bodies must not contain `pass`
     "PYI013", # non-empty class bodies must not contain `...`
+    "PYI016", # duplicate union member
     "PYI020", # quoted annotations are always unnecessary in stubs
     "PYI025", # always alias `collections.abc.Set` as `AbstractSet` when importing it
     "PYI032", # use `object`, not `Any`, as the second parameter to `__eq__`
+    "PYI055", # multiple `type[T]` usages in a union
+    "PYI058", # use `Iterator` as the return type for `__iter__` methods
     "UP004", # Remove explicit `object` inheritance
     "UP006", # PEP-585 autofixes
     "UP007", # PEP-604 autofixes
@@ -46,7 +49,7 @@ select = [
     "UP039", # don't use parens after a class definition with no bases
 ]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 split-on-trailing-comma = false
 combine-as-imports = true
 extra-standard-library = [
@@ -70,6 +73,7 @@ extra-standard-library = [
     "_imp",
     "_json",
     "_locale",
+    "_lsprof",
     "_markupbase",
     "_msi",
     "_operator",
@@ -96,5 +100,5 @@ extra-standard-library = [
 known-first-party = ["parse_metadata", "utils"]
 
 [tool.typeshed]
-pyright_version = "1.1.334"
-oldest_supported_python = "3.7"
+pyright_version = "1.1.342"
+oldest_supported_python = "3.8"

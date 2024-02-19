@@ -1,17 +1,3 @@
-# These are used like protocols, but forgot to specify "self" as the first method param
-pkg_resources.IResourceProvider.get_resource_filename
-pkg_resources.IResourceProvider.get_resource_stream
-pkg_resources.IResourceProvider.get_resource_string
-pkg_resources.IResourceProvider.has_resource
-pkg_resources.IResourceProvider.resource_isdir
-pkg_resources.IResourceProvider.resource_listdir
-pkg_resources.IMetadataProvider.get_metadata
-pkg_resources.IMetadataProvider.get_metadata_lines
-pkg_resources.IMetadataProvider.has_metadata
-pkg_resources.IMetadataProvider.metadata_isdir
-pkg_resources.IMetadataProvider.metadata_listdir
-pkg_resources.IMetadataProvider.run_script
-
 # Is always set in __init__
 pkg_resources.PathMetadata.egg_info
 pkg_resources.EggMetadata.loader
@@ -41,6 +27,10 @@ setuptools._distutils.dist.Distribution.get_download_url
 setuptools._distutils.dist.Distribution.get_requires
 setuptools._distutils.dist.Distribution.get_provides
 setuptools._distutils.dist.Distribution.get_obsoletes
+
+# Is a functools.partial, so stubtest says "is not a function"
+setuptools.dep_util.newer_pairwise_group
+setuptools.modified.newer_pairwise_group
 
 # Private modules
 setuptools.config._validate_pyproject.*

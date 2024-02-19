@@ -1,7 +1,6 @@
 from _typeshed import Incomplete, Unused
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableSequence
-from typing import Any, ClassVar, NamedTuple, TypeVar, overload
-from typing_extensions import SupportsIndex
+from typing import Any, ClassVar, NamedTuple, SupportsIndex, TypeVar, overload
 
 _S = TypeVar("_S", bound=MutableSequence[str])
 
@@ -44,7 +43,7 @@ def dedent_lines(lines: Iterable[str]) -> list[str]: ...
 def header(text: str, style: str = "-") -> str: ...
 
 class FunctionDoc(NumpyDocString):
-    def __init__(self, func, role: str = "func", doc: str | None = None, config: Unused = {}) -> None: ...
+    def __init__(self, func: object, role: str = "func", doc: str | None = None, config: Unused = {}) -> None: ...
     def get_func(self) -> tuple[Incomplete, str]: ...
 
 class ClassDoc(NumpyDocString):
