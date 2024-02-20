@@ -5,6 +5,7 @@ from typing import Any
 from typing_extensions import TypeAlias
 
 from html5lib.filters.base import Filter
+from html5lib.treewalkers.base import TreeWalker
 
 from .callbacks import _Callback, _HTMLAttrs
 
@@ -45,7 +46,7 @@ class LinkifyFilter(Filter):
     email_re: Pattern[str]
     def __init__(
         self,
-        source,
+        source: TreeWalker,
         callbacks: Iterable[_Callback] | None = ...,
         skip_tags: Container[str] | None = None,
         parse_email: bool = False,
@@ -58,5 +59,5 @@ class LinkifyFilter(Filter):
     def strip_non_url_bits(self, fragment: str) -> tuple[str, str, str]: ...
     def handle_links(self, src_iter: Iterable[_Token]) -> Iterator[_Token]: ...
     def handle_a_tag(self, token_buffer: Sequence[_Token]) -> Iterator[_Token]: ...
-    def extract_entities(self, token): ...
+    def extract_entities(self, token: _Token) -> Iterator[_Token]: ...
     def __iter__(self) -> Iterator[Incomplete]: ...

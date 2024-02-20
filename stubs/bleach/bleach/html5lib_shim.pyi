@@ -8,12 +8,15 @@ from typing import Any
 from html5lib import HTMLParser
 from html5lib._inputstream import HTMLUnicodeInputStream
 from html5lib._tokenizer import HTMLTokenizer
+from html5lib._trie import Trie
 from html5lib.serializer import HTMLSerializer
+from html5lib.treewalkers.base import TreeWalker
 
-HTML_TAGS: list[str]
+HTML_TAGS: frozenset[str]
 HTML_TAGS_BLOCK_LEVEL: frozenset[str]
 AMP_SPLIT_RE: re.Pattern[str]
 ENTITIES: dict[str, str]
+ENTITIES_TRIE: Trie
 TAG_TOKEN_TYPES: set[int]
 TAG_TOKEN_TYPE_CHARACTERS: int
 TAG_TOKEN_TYPE_END: int
@@ -51,7 +54,7 @@ class BleachHTMLParser(HTMLParser):
 class BleachHTMLSerializer(HTMLSerializer):
     escape_rcdata: bool
     def escape_base_amp(self, stoken: str) -> Generator[str, None, None]: ...
-    def serialize(self, treewalker, encoding: str | None = None) -> Generator[str, None, None]: ...  # type: ignore[override]
+    def serialize(self, treewalker: TreeWalker, encoding: str | None = None) -> Generator[str, None, None]: ...  # type: ignore[override]
 
 def convert_entity(value: str) -> str | None: ...
 def convert_entities(text: str) -> str: ...
