@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Container, Iterable, Iterator
 from re import Pattern
-from typing import Protocol
+from typing import Final, Protocol
 from typing_extensions import TypeAlias
 
 from html5lib.filters.base import Filter
@@ -13,13 +13,13 @@ from .css_sanitizer import CSSSanitizer
 from .html5lib_shim import BleachHTMLParser, BleachHTMLSerializer
 from .linkifier import _Token
 
-ALLOWED_TAGS: frozenset[str]
-ALLOWED_ATTRIBUTES: dict[str, list[str]]
-ALLOWED_PROTOCOLS: frozenset[str]
+ALLOWED_TAGS: Final[frozenset[str]]
+ALLOWED_ATTRIBUTES: Final[dict[str, list[str]]]
+ALLOWED_PROTOCOLS: Final[frozenset[str]]
 
-INVISIBLE_CHARACTERS: str
-INVISIBLE_CHARACTERS_RE: Pattern[str]
-INVISIBLE_REPLACEMENT_CHAR: str
+INVISIBLE_CHARACTERS: Final[str]
+INVISIBLE_CHARACTERS_RE: Final[Pattern[str]]
+INVISIBLE_REPLACEMENT_CHAR: Final = "?"
 
 class NoCssSanitizerWarning(UserWarning): ...
 

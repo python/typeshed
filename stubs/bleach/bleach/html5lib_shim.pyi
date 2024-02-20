@@ -1,7 +1,7 @@
 import re
 from codecs import CodecInfo
 from collections.abc import Collection, Generator, Iterable, Iterator
-from typing import Any, Protocol
+from typing import Any, Final, Protocol
 
 # We don't re-export any `html5lib` types / values here, because they are not
 # really public and may change at any time. This is just a helper module,
@@ -19,16 +19,16 @@ class _Encoding(Protocol):
     codec_info: CodecInfo
     def __init__(self, name: str, codec_info: CodecInfo) -> None: ...
 
-HTML_TAGS: frozenset[str]
-HTML_TAGS_BLOCK_LEVEL: frozenset[str]
-AMP_SPLIT_RE: re.Pattern[str]
-ENTITIES: dict[str, str]
-ENTITIES_TRIE: Trie
-TAG_TOKEN_TYPES: set[int]
-TAG_TOKEN_TYPE_CHARACTERS: int
-TAG_TOKEN_TYPE_END: int
-TAG_TOKEN_TYPE_PARSEERROR: int
-TAG_TOKEN_TYPE_START: int
+HTML_TAGS: Final[frozenset[str]]
+HTML_TAGS_BLOCK_LEVEL: Final[frozenset[str]]
+AMP_SPLIT_RE: Final[re.Pattern[str]]
+ENTITIES: Final[dict[str, str]]
+ENTITIES_TRIE: Final[Trie]
+TAG_TOKEN_TYPES: Final[set[int]]
+TAG_TOKEN_TYPE_CHARACTERS: Final[int]
+TAG_TOKEN_TYPE_END: Final[int]
+TAG_TOKEN_TYPE_PARSEERROR: Final[int]
+TAG_TOKEN_TYPE_START: Final[int]
 
 class InputStreamWithMemory:
     position = HTMLUnicodeInputStream.position

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Container, Iterable, Iterator, Sequence
 from re import Pattern
-from typing import Any
+from typing import Any, Final
 from typing_extensions import TypeAlias
 
 from html5lib.filters.base import Filter
@@ -9,18 +9,17 @@ from html5lib.treewalkers.base import TreeWalker
 
 from .callbacks import _Callback, _HTMLAttrs
 
-DEFAULT_CALLBACKS: list[_Callback]
-
-TLDS: list[str]
+DEFAULT_CALLBACKS: Final[list[_Callback]]
+TLDS: Final[list[str]]
 
 def build_url_re(tlds: Iterable[str] = ..., protocols: Iterable[str] = ...) -> Pattern[str]: ...
 
-URL_RE: Pattern[str]
-PROTO_RE: Pattern[str]
+URL_RE: Final[Pattern[str]]
+PROTO_RE: Final[Pattern[str]]
 
 def build_email_re(tlds: Iterable[str] = ...) -> Pattern[str]: ...
 
-EMAIL_RE: Pattern[str]
+EMAIL_RE: Final[Pattern[str]]
 
 class Linker:
     def __init__(
