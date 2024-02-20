@@ -1,5 +1,10 @@
-from _typeshed import Incomplete
-from typing import Any
+from _typeshed import Incomplete, SupportsRead
+from typing import Any, overload
+from typing_extensions import TypeAlias
+
+_UnicodeInputStream: TypeAlias = str | SupportsRead[str]
+_BinaryInputStream: TypeAlias = bytes | SupportsRead[bytes]
+_InputStream: TypeAlias = _UnicodeInputStream  # noqa: Y047  # used in other files
 
 spaceCharactersBytes: Any
 asciiLettersBytes: Any
@@ -20,14 +25,26 @@ class BufferedStream:
     def seek(self, pos) -> None: ...
     def read(self, bytes): ...
 
-def HTMLInputStream(source, **kwargs): ...
+@overload
+def HTMLInputStream(source: _UnicodeInputStream) -> HTMLUnicodeInputStream: ...
+@overload
+def HTMLInputStream(
+    source: _BinaryInputStream,
+    *,
+    override_encoding: str | bytes | None = None,
+    transport_encoding: str | bytes | None = None,
+    same_origin_parent_encoding: str | bytes | None = None,
+    likely_encoding: str | bytes | None = None,
+    default_encoding: str = "windows-1252",
+    useChardet: bool = True,
+) -> HTMLBinaryInputStream: ...
 
 class HTMLUnicodeInputStream:
     reportCharacterErrors: Any
     newLines: Any
     charEncoding: Any
     dataStream: Any
-    def __init__(self, source) -> None: ...
+    def __init__(self, source: _UnicodeInputStream) -> None: ...
     chunk: str
     chunkSize: int
     chunkOffset: int
@@ -56,11 +73,11 @@ class HTMLBinaryInputStream(HTMLUnicodeInputStream):
     charEncoding: Any
     def __init__(
         self,
-        source,
-        override_encoding: Incomplete | None = None,
-        transport_encoding: Incomplete | None = None,
-        same_origin_parent_encoding: Incomplete | None = None,
-        likely_encoding: Incomplete | None = None,
+        source: _BinaryInputStream,
+        override_encoding: str | bytes | None = None,
+        transport_encoding: str | bytes | None = None,
+        same_origin_parent_encoding: str | bytes | None = None,
+        likely_encoding: str | bytes | None = None,
         default_encoding: str = "windows-1252",
         useChardet: bool = True,
     ) -> None: ...
@@ -108,4 +125,4 @@ class ContentAttrParser:
     def __init__(self, data) -> None: ...
     def parse(self): ...
 
-def lookupEncoding(encoding): ...
+def lookupEncoding(encoding: str | bytes | None) -> str | None: ...
