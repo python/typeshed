@@ -7,7 +7,7 @@ PREFIX: str
 EXEC_PREFIX: str
 
 @overload
-@deprecated("SO is deprecated, use EXT_SUFFIX")
+@deprecated("SO is deprecated, use EXT_SUFFIX. Support will be removed when this module is synchronized with stdlib Python 3.11")
 def get_config_var(name: Literal["SO"]) -> int | str | None: ...
 @overload
 def get_config_var(name: str) -> int | str | None: ...

@@ -17,7 +17,7 @@ __all__ = [
 ]
 
 @overload
-@deprecated("SO is deprecated, use EXT_SUFFIX")
+@deprecated("SO is deprecated, use EXT_SUFFIX. Support is removed in Python 3.11")
 def get_config_var(name: Literal["SO"]) -> Any: ...
 @overload
 def get_config_var(name: str) -> Any: ...
