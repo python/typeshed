@@ -1,10 +1,10 @@
 from _typeshed import Incomplete, SupportsRead
 from codecs import CodecInfo
-from typing import Any, overload
+from typing import Any, Protocol, overload
 from typing_extensions import TypeAlias
 
 # Is actually webencodings.Encoding
-class _Encoding:
+class _Encoding(Protocol):
     name: str
     codec_info: CodecInfo
     def __init__(self, name: str, codec_info: CodecInfo) -> None: ...

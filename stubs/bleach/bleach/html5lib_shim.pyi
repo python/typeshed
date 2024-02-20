@@ -1,7 +1,7 @@
 import re
 from codecs import CodecInfo
 from collections.abc import Collection, Generator, Iterable, Iterator
-from typing import Any
+from typing import Any, Protocol
 
 # We don't re-export any `html5lib` types / values here, because they are not
 # really public and may change at any time. This is just a helper module,
@@ -14,7 +14,7 @@ from html5lib.serializer import HTMLSerializer
 from html5lib.treewalkers.base import TreeWalker
 
 # Is actually webencodings.Encoding
-class _Encoding:
+class _Encoding(Protocol):
     name: str
     codec_info: CodecInfo
     def __init__(self, name: str, codec_info: CodecInfo) -> None: ...
@@ -31,7 +31,7 @@ TAG_TOKEN_TYPE_PARSEERROR: int
 TAG_TOKEN_TYPE_START: int
 
 class InputStreamWithMemory:
-    position: int
+    position = HTMLUnicodeInputStream.position
     def __init__(self, inner_stream: HTMLUnicodeInputStream) -> None: ...
     def reset(self) -> None: ...
     @property
