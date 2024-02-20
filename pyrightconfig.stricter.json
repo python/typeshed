@@ -74,7 +74,7 @@
         "stubs/redis",
         "stubs/requests",
         "stubs/requests-oauthlib",
-        "stubs/setuptools",
+        "stubs/setuptools/setuptools",
         "stubs/stripe",
         "stubs/tqdm",
         "stubs/ttkthemes",
