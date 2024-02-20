@@ -39,6 +39,9 @@ types.GenericAlias.__call__  # Would be complicated to fix properly, Any could s
 weakref.ProxyType.__reversed__  # Doesn't really exist
 xxsubtype  # module missing from the stubs
 
+xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__
 typing_extensions\.TypeAliasType\.__init_subclass__

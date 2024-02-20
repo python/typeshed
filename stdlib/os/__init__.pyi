@@ -40,7 +40,7 @@ from typing import (
     overload,
     runtime_checkable,
 )
-from typing_extensions import Self, TypeAlias, Unpack
+from typing_extensions import Self, TypeAlias, Unpack, deprecated
 
 from . import path as _path
 
@@ -361,8 +361,16 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
     @property
     def st_mtime(self) -> float: ...  # time of most recent content modification,
     # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
-    @property
-    def st_ctime(self) -> float: ...
+    if sys.version_info >= (3, 12) and sys.platform == "win32":
+        @property
+        @deprecated(
+            "Use st_birthtime instead to retrieve the file creation time. In the future, this property will contain the last metadata change time."
+        )
+        def st_ctime(self) -> float: ...
+    else:
+        @property
+        def st_ctime(self) -> float: ...
+
     @property
     def st_atime_ns(self) -> int: ...  # time of most recent access, in nanoseconds
     @property
