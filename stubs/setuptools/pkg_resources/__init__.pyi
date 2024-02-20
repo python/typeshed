@@ -339,6 +339,7 @@ class MemoizedZipManifests(ZipManifests):
     class manifest_mod(NamedTuple):
         manifest: _ZipManifestDict
         mtime: float
+
     def load(self, path: str) -> _ZipManifestDict: ...  # type: ignore[override]
 
 class ZipProvider(EggProvider):
