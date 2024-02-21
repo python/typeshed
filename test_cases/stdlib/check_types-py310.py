@@ -12,7 +12,7 @@ def check_not_implemented_type() -> None:
     class _Class:
         def __call__(self, *args: Any, **kwds: Any) -> Any:
             pass
-    
+
     union_with_class: _Class | NotImplementedType
     if callable(union_with_class):
         assert_type(union_with_class, _Class)
