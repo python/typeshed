@@ -1,6 +1,13 @@
 from _typeshed import Incomplete, SupportsRead
-from typing import Any, overload
+from codecs import CodecInfo
+from typing import Any, Protocol, overload
 from typing_extensions import TypeAlias
+
+# Is actually webencodings.Encoding
+class _Encoding(Protocol):
+    name: str
+    codec_info: CodecInfo
+    def __init__(self, name: str, codec_info: CodecInfo) -> None: ...
 
 _UnicodeInputStream: TypeAlias = str | SupportsRead[str]
 _BinaryInputStream: TypeAlias = bytes | SupportsRead[bytes]
@@ -42,13 +49,13 @@ def HTMLInputStream(
 class HTMLUnicodeInputStream:
     reportCharacterErrors: Any
     newLines: Any
-    charEncoding: Any
+    charEncoding: tuple[_Encoding, str]
     dataStream: Any
     def __init__(self, source: _UnicodeInputStream) -> None: ...
     chunk: str
     chunkSize: int
     chunkOffset: int
-    errors: Any
+    errors: list[str]
     prevNumLines: int
     prevNumCols: int
     def reset(self) -> None: ...
@@ -70,7 +77,7 @@ class HTMLBinaryInputStream(HTMLUnicodeInputStream):
     same_origin_parent_encoding: Any
     likely_encoding: Any
     default_encoding: Any
-    charEncoding: Any
+    charEncoding: tuple[_Encoding, str]
     def __init__(
         self,
         source: _BinaryInputStream,
@@ -85,7 +92,7 @@ class HTMLBinaryInputStream(HTMLUnicodeInputStream):
     def reset(self) -> None: ...
     def openStream(self, source): ...
     def determineEncoding(self, chardet: bool = True): ...
-    def changeEncoding(self, newEncoding) -> None: ...
+    def changeEncoding(self, newEncoding: str | bytes | None) -> None: ...
     def detectBOM(self): ...
     def detectEncodingMeta(self): ...
 
