@@ -40,6 +40,8 @@ class Wurlitzer:
 
 def dup2(a: int, b: int, timeout: float = 3) -> int: ...
 def sys_pipes(encoding: str = ..., bufsize: int | None = None) -> contextlib._GeneratorContextManager[tuple[TextIO, TextIO]]: ...
+
+# stubtest does not support overloaded context managers, hence the _GeneratorContextManager[Foo] return types.
 @overload
 def pipes(
     stdout: _PIPE, stderr: _STDOUT, encoding: None, bufsize: int | None = None
