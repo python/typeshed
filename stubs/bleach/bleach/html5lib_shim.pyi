@@ -7,7 +7,7 @@ from typing import Any, Final, Protocol
 # really public and may change at any time. This is just a helper module,
 # import things directly from `html5lib` instead!
 from html5lib import HTMLParser
-from html5lib._inputstream import HTMLUnicodeInputStream
+from html5lib._inputstream import HTMLBinaryInputStream, HTMLUnicodeInputStream
 from html5lib._tokenizer import HTMLTokenizer
 from html5lib._trie import Trie
 from html5lib.serializer import HTMLSerializer
@@ -32,14 +32,15 @@ TAG_TOKEN_TYPE_START: Final[int]
 
 class InputStreamWithMemory:
     position = HTMLUnicodeInputStream.position
+    reset = HTMLUnicodeInputStream.reset
     def __init__(self, inner_stream: HTMLUnicodeInputStream) -> None: ...
-    def reset(self) -> None: ...
     @property
     def errors(self) -> list[str]: ...
     @property
     def charEncoding(self) -> tuple[_Encoding, str]: ...
+    # Also if inner_stream wasn't a HTMLBinaryInputStream, this will error at runtime
     # Is a property returning a method, simplified:
-    def changeEncoding(self, newEncoding: str) -> None: ...
+    changeEncoding = HTMLBinaryInputStream.changeEncoding
     def char(self) -> str: ...
     def charsUntil(self, characters: Collection[str], opposite: bool = False) -> str: ...
     def unget(self, char: str | None) -> None: ...

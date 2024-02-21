@@ -1,6 +1,5 @@
 # Internal private stuff:
 bleach._vendor.*
 
-# Hacks:
+# Is a property returning a method, simplified:
 bleach.html5lib_shim.InputStreamWithMemory.changeEncoding
-bleach.html5lib_shim.InputStreamWithMemory.reset
