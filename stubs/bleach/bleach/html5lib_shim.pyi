@@ -1,6 +1,6 @@
 import re
 from codecs import CodecInfo
-from collections.abc import Collection, Generator, Iterable, Iterator
+from collections.abc import Generator, Iterable, Iterator
 from typing import Any, Final, Protocol
 
 # We don't re-export any `html5lib` types / values here, because they are not
