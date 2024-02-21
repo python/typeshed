@@ -3,7 +3,8 @@ import io
 from collections.abc import Iterator
 from contextlib import contextmanager
 from types import TracebackType
-from typing import Final, Literal, TextIO, TypeAlias
+from typing import Final, Literal, TextIO
+from typing_extensions import TypeAlias
 
 from IPython.core.interactiveshell import InteractiveShell
 
