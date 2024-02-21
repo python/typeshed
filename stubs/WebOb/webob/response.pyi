@@ -8,7 +8,14 @@ from typing_extensions import TypeAlias
 from webob.byterange import ContentRange
 from webob.cachecontrol import _ResponseCacheControl
 from webob.cookies import _SameSitePolicy
-from webob.descriptors import _AsymmetricProperty, _AsymmetricPropertyWithDelete, _authorization, _DateProperty, _ListProperty
+from webob.descriptors import (
+    _AsymmetricProperty,
+    _AsymmetricPropertyWithDelete,
+    _authorization,
+    _ContentRangeParams,
+    _DateProperty,
+    _ListProperty,
+)
 from webob.headers import ResponseHeaders
 from webob.request import Request
 
@@ -46,16 +53,6 @@ class _ResponseCacheControlDict(TypedDict, total=False):
     stale_if_error: int
 
 _HTTPHeader: TypeAlias = tuple[str, str]
-_ContentRangeParams: TypeAlias = (
-    ContentRange
-    | list[int | None]
-    | tuple[int, int]
-    | tuple[None, None]
-    | tuple[int, int, int | None]
-    | tuple[None, None, int | None]
-    | str
-    | None
-)
 
 class Response:
     default_content_type: str
