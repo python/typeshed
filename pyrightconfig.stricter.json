@@ -81,6 +81,7 @@
         "stubs/vobject",
         "stubs/WebOb",
         "stubs/workalendar",
+        "stubs/wurlitzer",
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
