@@ -1,5 +1,6 @@
 import contextlib
 import io
+from _typeshed import SupportsWrite
 from collections.abc import Iterator
 from contextlib import contextmanager
 from types import TracebackType
@@ -22,8 +23,8 @@ class Wurlitzer:
 
     def __init__(
         self,
-        stdout: TextIO | io.IOBase | None = None,
-        stderr: _STDOUT | TextIO | io.IOBase | None = None,
+        stdout: SupportsWrite[str | bytes] | None = None,
+        stderr: _STDOUT | SupportsWrite[str | bytes] | None = None,
         encoding: str = ...,
         bufsize: int | None = ...,
     ) -> None: ...
@@ -38,7 +39,10 @@ def sys_pipes(
 ) -> contextlib._GeneratorContextManager[tuple[TextIO | io.BytesIO | io.StringIO, TextIO | io.BytesIO | io.StringIO | None]]: ...
 @contextmanager
 def pipes(
-    stdout: _PIPE | TextIO = 3, stderr: _STDOUT | _PIPE | TextIO = 3, encoding: str = ..., bufsize: int | None = None
+    stdout: _PIPE | SupportsWrite[str | bytes] = 3,
+    stderr: _STDOUT | _PIPE | SupportsWrite[str | bytes] = 3,
+    encoding: str = ...,
+    bufsize: int | None = None,
 ) -> Iterator[tuple[TextIO | io.BytesIO | io.StringIO, TextIO | io.BytesIO | io.StringIO | None]]: ...
 def sys_pipes_forever(encoding: str = ..., bufsize: int | None = None): ...
 def stop_sys_pipes() -> None: ...
