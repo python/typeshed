@@ -10,6 +10,11 @@ STDOUT: Final = 2
 PIPE: Final = 3
 _STDOUT: TypeAlias = Literal[2]
 _PIPE: TypeAlias = Literal[3]
+
+# Alias for IPython.core.interactiveshell.InteractiveShell.
+# N.B. Even if we added ipython to the stub-uploader allowlist,
+# we wouldn't be able to declare a dependency on ipython here,
+# since `wurlitzer` does not declare a dependency on `ipython` at runtime
 _InteractiveShell: TypeAlias = Any
 
 class Wurlitzer:
