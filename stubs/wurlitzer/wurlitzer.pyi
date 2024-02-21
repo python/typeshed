@@ -4,13 +4,19 @@ from _typeshed import SupportsWrite
 from collections.abc import Iterator
 from contextlib import contextmanager
 from types import TracebackType
-from typing import Any, Final, Literal, TextIO
+from typing import Any, Final, Literal, Protocol, TextIO, TypeVar, overload
 from typing_extensions import TypeAlias
 
 STDOUT: Final = 2
 PIPE: Final = 3
 _STDOUT: TypeAlias = Literal[2]
 _PIPE: TypeAlias = Literal[3]
+_T_contra = TypeVar("_T_contra", contravariant=True)
+_StreamOutT = TypeVar("_StreamOutT", bound=_Stream[str] | _Stream[bytes])
+_StreamErrT = TypeVar("_StreamErrT", bound=_Stream[str] | _Stream[bytes])
+
+class _Stream(SupportsWrite[_T_contra], Protocol):
+    def seek(self, __offset: int, __whence: int = ...) -> int: ...
 
 # Alias for IPython.core.interactiveshell.InteractiveShell.
 # N.B. Even if we added ipython to the stub-uploader allowlist,
@@ -23,9 +29,9 @@ class Wurlitzer:
 
     def __init__(
         self,
-        stdout: SupportsWrite[str | bytes] | None = None,
-        stderr: _STDOUT | SupportsWrite[str | bytes] | None = None,
-        encoding: str = ...,
+        stdout: _Stream[str] | _Stream[bytes] | None = None,
+        stderr: _STDOUT | _Stream[str] | _Stream[bytes] | None = None,
+        encoding: str | None = ...,
         bufsize: int | None = ...,
     ) -> None: ...
     def __enter__(self): ...
@@ -34,16 +40,46 @@ class Wurlitzer:
     ) -> None: ...
 
 def dup2(a: int, b: int, timeout: float = 3) -> int: ...
-def sys_pipes(
-    encoding: str = ..., bufsize: int | None = None
-) -> contextlib._GeneratorContextManager[tuple[TextIO | io.BytesIO | io.StringIO, TextIO | io.BytesIO | io.StringIO | None]]: ...
+def sys_pipes(encoding: str = ..., bufsize: int | None = None) -> contextlib._GeneratorContextManager[tuple[TextIO, TextIO]]: ...
+@overload
+@contextmanager
+def pipes(stdout: _PIPE, stderr: _STDOUT, encoding: None, bufsize: int | None = None) -> Iterator[tuple[io.BytesIO, None]]: ...
+@overload
 @contextmanager
 def pipes(
-    stdout: _PIPE | SupportsWrite[str | bytes] = 3,
-    stderr: _STDOUT | _PIPE | SupportsWrite[str | bytes] = 3,
-    encoding: str = ...,
+    stdout: _PIPE, stderr: _PIPE, encoding: None, bufsize: int | None = None
+) -> Iterator[tuple[io.BytesIO, io.BytesIO]]: ...
+@overload
+@contextmanager
+def pipes(
+    stdout: _PIPE, stderr: _StreamErrT, encoding: None, bufsize: int | None = None
+) -> Iterator[tuple[io.BytesIO, _StreamErrT]]: ...
+@overload
+@contextmanager
+def pipes(stdout: _PIPE, stderr: _STDOUT, encoding: str, bufsize: int | None = None) -> Iterator[tuple[io.StringIO, None]]: ...
+@overload
+@contextmanager
+def pipes(
+    stdout: _PIPE, stderr: _PIPE, encoding: str, bufsize: int | None = None
+) -> Iterator[tuple[io.StringIO, io.StringIO]]: ...
+@overload
+@contextmanager
+def pipes(
+    stdout: _PIPE, stderr: _StreamErrT, encoding: str, bufsize: int | None = None
+) -> Iterator[tuple[io.StringIO, _StreamErrT]]: ...
+@overload
+@contextmanager
+def pipes(
+    stdout: _StreamOutT, stderr: _StreamErrT, encoding: str | None, bufsize: int | None = None
+) -> Iterator[tuple[_StreamOutT, _StreamErrT]]: ...
+@overload
+@contextmanager
+def pipes(
+    stdout: _PIPE | _StreamOutT = 3,
+    stderr: _STDOUT | _PIPE | _StreamErrT = 3,
+    encoding: str | None = ...,
     bufsize: int | None = None,
-) -> Iterator[tuple[TextIO | io.BytesIO | io.StringIO, TextIO | io.BytesIO | io.StringIO | None]]: ...
+) -> Iterator[tuple[io.BytesIO | io.StringIO | _StreamOutT, io.BytesIO | io.StringIO | _StreamErrT | None]]: ...
 def sys_pipes_forever(encoding: str = ..., bufsize: int | None = None): ...
 def stop_sys_pipes() -> None: ...
 def load_ipython_extension(ip: _InteractiveShell) -> None: ...
