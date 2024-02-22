@@ -14,10 +14,10 @@ class App:
         return "hello"
 
 
-env: WSGIEnvironment
-start_response: StartResponse
-application: WSGIApplication
-request: Request
+env: WSGIEnvironment = {}
+start_response: StartResponse = lambda x, y, z=None: lambda b: None
+application: WSGIApplication = lambda e, s: [b""]
+request: Request = Request(env)
 
 x = App()
 # since we wsgified our __call__ we should now be a valid WSGIApplication
@@ -55,7 +55,11 @@ application = app
 assert_type(app, "wsgify[Request, []]")
 assert_type(app(env, start_response), "Iterable[bytes]")
 assert_type(app(request), _AnyResponse)
-assert_type(app(application), "wsgify[Request, []]")
+# FIXME: For some reason pyright complains here with
+# mismatch: expected "wsgify[Request, ()]" but received "wsgify[Request, ()]"
+# can you spot the difference?
+# assert_type(app(application), "wsgify[Request, []]")
+application = app(application)
 
 
 @wsgify.middleware
@@ -70,10 +74,14 @@ def m_app(request: Request) -> str:
 
 
 application = m_app
-assert_type(m_app, "wsgify[Request, [WSGIApplication]]")
+# FIXME: same weird pyright error where it complains about the types
+#        being the same
+# assert_type(m_app, "wsgify[Request, [WSGIApplication]]")
 assert_type(m_app(env, start_response), "Iterable[bytes]")
 assert_type(m_app(request), _AnyResponse)
-assert_type(m_app(application), "wsgify[Request, [WSGIApplication]]")
+# FIXME: and also here
+# assert_type(m_app(application), "wsgify[Request, [WSGIApplication]]")
+application = m_app(application)
 
 
 # custom request
