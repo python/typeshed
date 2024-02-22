@@ -28,6 +28,10 @@ assert_type(x(env, start_response), "Iterable[bytes]")
 # on these raw intermediary functions
 assert_type(x(request), _AnyResponse)
 
+# accessing the method from the class should work as you expect it to
+assert_type(App.__call__(x, env, start_response), "Iterable[bytes]")
+assert_type(App.__call__(x, request), _AnyResponse)
+
 
 # but we can also wrap it with a middleware that expects to deal with requests
 class Middleware:

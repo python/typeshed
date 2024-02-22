@@ -7,6 +7,7 @@ from webob.request import Request
 from webob.response import Response
 
 _AnyResponse: TypeAlias = Response | WSGIApplication | str | None
+_S = TypeVar("_S")
 _AppT = TypeVar("_AppT", bound=WSGIApplication)
 _AppT_contra = TypeVar("_AppT_contra", bound=WSGIApplication, contravariant=True)
 _RequestT = TypeVar("_RequestT", bound=Request)
@@ -91,6 +92,9 @@ class wsgify(Generic[_RequestT_contra, _P]):
         kwargs: None = None,
         middleware_wraps: _AppT_contra,
     ) -> None: ...
+    @overload
+    def __get__(self, obj: None, type: type[_S]) -> _unbound_wsgify[_RequestT_contra, _P, _S]: ...
+    @overload
     def __get__(self, obj: object, type: type | None = None) -> Self: ...
     @overload
     def __call__(self, env: WSGIEnvironment, /, start_response: StartResponse) -> Iterable[bytes]: ...
@@ -140,6 +144,16 @@ class wsgify(Generic[_RequestT_contra, _P]):
     def middleware(
         cls, middle_func: _MiddlewareMethod[_RequestT, _AppT, _P2], app: _AppT, *_: _P2.args, **kw: _P2.kwargs
     ) -> type[wsgify[_RequestT, Concatenate[_AppT, _P2]]]: ...
+
+class _unbound_wsgify(wsgify[_RequestT_contra, _P], Generic[_RequestT_contra, _P, _S]):
+    @overload  # type:ignore[override]
+    def __call__(self, __self: _S, env: WSGIEnvironment, /, start_response: StartResponse) -> Iterable[bytes]: ...
+    @overload
+    def __call__(self, __self: _S, func: _RequestHandler[_RequestT_contra, _P], /) -> Self: ...
+    @overload
+    def __call__(self, __self: _S, req: _RequestT_contra) -> _AnyResponse: ...
+    @overload
+    def __call__(self, __self: _S, req: _RequestT_contra, *args: _P.args, **kw: _P.kwargs) -> _AnyResponse: ...
 
 class _UnboundMiddleware(Generic[_RequestT_contra, _AppT_contra, _P]):
     wrapper_class: type[wsgify[_RequestT_contra, Concatenate[_AppT_contra, _P]]]
