@@ -308,7 +308,7 @@ if sys.platform != "win32":
     EX_NOPERM: int
     EX_CONFIG: int
 
-if sys.platform != "win32" and sys.platform != "darwin":
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
     EX_NOTFOUND: int
 
 P_NOWAIT: int
