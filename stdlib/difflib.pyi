@@ -1,6 +1,6 @@
 import sys
 from collections.abc import Callable, Iterable, Iterator, Sequence
-from typing import Any, AnyStr, Generic, NamedTuple, TypeVar, overload, Literal
+from typing import Any, AnyStr, Generic, Literal, NamedTuple, TypeVar, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -21,8 +21,6 @@ __all__ = [
 ]
 
 _T = TypeVar("_T")
-
-OpcodeAction = Literal["replace", "delete", "insert", "equal"]
 
 class Match(NamedTuple):
     a: int
@@ -51,7 +49,7 @@ class SequenceMatcher(Generic[_T]):
         def find_longest_match(self, alo: int, ahi: int, blo: int, bhi: int) -> Match: ...
 
     def get_matching_blocks(self) -> list[Match]: ...
-    def get_opcodes(self) -> list[tuple[OpcodeAction, int, int, int, int]]: ...
+    def get_opcodes(self) -> list[tuple[Literal["replace", "delete", "insert", "equal"], int, int, int, int]]: ...
     def get_grouped_opcodes(self, n: int = 3) -> Iterable[list[tuple[str, int, int, int, int]]]: ...
     def ratio(self) -> float: ...
     def quick_ratio(self) -> float: ...
