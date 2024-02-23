@@ -61,7 +61,7 @@ class Request(RequestHooksMixin):
     headers: Any
     files: Any
     data: Any
-    json: Any
+    json: dict[str, Any]
     params: Any
     auth: Any
     cookies: Any
@@ -157,7 +157,7 @@ class Response:
         parse_constant: Callable[[str], Any] | None = ...,
         object_pairs_hook: Callable[[list[tuple[Any, Any]]], Any] | None = ...,
         **kwds: Any,
-    ) -> Any: ...
+    ) -> dict[str, Any]: ...
     @property
     def links(self) -> dict[Any, Any]: ...
     def raise_for_status(self) -> None: ...
