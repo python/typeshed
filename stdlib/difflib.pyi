@@ -1,6 +1,6 @@
 import sys
 from collections.abc import Callable, Iterable, Iterator, Sequence
-from typing import Any, AnyStr, Generic, NamedTuple, TypeVar, overload, Literal
+from typing import Any, AnyStr, Generic, Literal, NamedTuple, TypeVar, overload
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
