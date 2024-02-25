@@ -389,7 +389,6 @@ class generated(Inline, TextElement): ...
 
 node_class_names: list[str]
 
-
 class NodeVisitor:
     optional: ClassVar[tuple[str, ...]]
     document: _Document
