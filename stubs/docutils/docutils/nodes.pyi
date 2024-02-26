@@ -1,3 +1,4 @@
+from collections import Counter
 import sys
 import xml.dom.minidom
 from _typeshed import Incomplete
@@ -183,7 +184,7 @@ _Document: TypeAlias = document
 _Decoration: TypeAlias = decoration
 
 class document(Root, Structural, Element):
-    current_source: str
+    current_source: str | None
     current_line: int | None
     settings: Values
     reporter: Reporter
@@ -205,14 +206,14 @@ class document(Root, Structural, Element):
     citations: list[citation]
     autofootnote_start: int
     symbol_footnote_start: int
-    id_start: int
+    id_counter: Counter[int]
     parse_messages: list[system_message]
     transform_messages: list[system_message]
     transformer: Transformer
-    decoration: decoration
+    decoration: decoration | None
     document: document
     def __init__(self, settings: Values, reporter: Reporter, *args: Node, **kwargs: Any) -> None: ...
-    def asdom(self, dom: Any = None) -> Any: ...
+    def asdom(self, dom: Any | None = None) -> Any: ...
     def set_id(self, node: Element, msgnode: Element | None = None, suggested_prefix: str = "") -> str: ...
     def set_name_id_map(self, node: Element, id: str, msgnode: Element | None = None, explicit: bool | None = None) -> None: ...
     def set_duplicate_name_id(self, node: Element, id: str, name: str, msgnode: Element, explicit: bool) -> None: ...
