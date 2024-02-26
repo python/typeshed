@@ -1,8 +1,8 @@
-from collections import Counter
 import sys
 import xml.dom.minidom
 from _typeshed import Incomplete
 from abc import abstractmethod
+from collections import Counter
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
 from typing import Any, ClassVar, Literal, Protocol, SupportsIndex, TypeVar, overload
 from typing_extensions import Self, TypeAlias
