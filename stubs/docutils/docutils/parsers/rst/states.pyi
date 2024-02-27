@@ -10,16 +10,16 @@ from docutils.utils import Reporter
 class Struct:
     def __init__(self, **keywordargs) -> None: ...
 
-BasicDefinition = tuple[str, str, str, list[Pattern[str]]]
-DefinitionParts = tuple[str, str, str, list[Pattern[str] | BasicDefinition]]
-DefinitionType = tuple[str, str, str, list[Pattern[str] | DefinitionParts]]
+_BasicDefinition = tuple[str, str, str, list[Pattern[str]]]
+_DefinitionParts = tuple[str, str, str, list[Pattern[str] | _BasicDefinition]]
+_DefinitionType = tuple[str, str, str, list[Pattern[str] | _DefinitionParts]]
 
 class Inliner:
     implicit_dispatch: list[tuple[Pattern[str], Callable[[Match[str], int], Sequence[nodes.Node]]]]
     def __init__(self) -> None: ...
     start_string_prefix: str
     end_string_suffix: str
-    parts: DefinitionType
+    parts: _DefinitionType
     patterns: Any
     def init_customizations(self, settings: Any) -> None: ...
     reporter: Reporter
@@ -47,7 +47,7 @@ class Inliner:
         lineno: int,
         end_pattern: Pattern[str],
         nodeclass: nodes.TextElement,
-        restore_backslashes: bool = ...,
+        restore_backslashes: bool = False,
     ) -> tuple[str, list[nodes.problematic], str, list[nodes.system_message], str]: ...
     def problematic(self, text: str, rawsource: str, message: nodes.system_message) -> nodes.problematic: ...
     def emphasis(
@@ -58,7 +58,7 @@ class Inliner:
         self, match: Match[str], lineno: int
     ) -> tuple[str, list[nodes.problematic], str, list[nodes.system_message]]: ...
     def phrase_ref(
-        self, before: str, after: str, rawsource: str, escaped: str, text: str
+        self, before: str, after: str, rawsource: str, escaped: str, text: str | None = None
     ) -> tuple[str, list[nodes.Node], str, list[nodes.Node]]: ...
     def adjust_uri(self, uri: str) -> str: ...
     def interpreted(
