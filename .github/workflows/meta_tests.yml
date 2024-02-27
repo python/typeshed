@@ -64,7 +64,7 @@ jobs:
           file: "pyproject.toml"
           field: "tool.typeshed.pyright_version"
       - name: Run pyright on typeshed
-        uses: jakebailey/pyright-action@v2.0.2
+        uses: jakebailey/pyright-action@v2
         with:
           version: ${{ steps.pyright_version.outputs.value }}
           python-platform: ${{ matrix.python-platform }}
