@@ -1,6 +1,3 @@
-keyStrBase64: str
-keyStrUriSafe: str
-
 class LZString:
     @staticmethod
     def compress(uncompressed: str) -> str: ...
