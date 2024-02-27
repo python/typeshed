@@ -47,7 +47,11 @@ class CustomRole:
     supplied_options: dict[str, Any]
     supplied_content: list[str]
     def __init__(
-        self, role_name: str, base_role: _RoleFn | CustomRole, options: dict[str, Any] | None = None, content: list[str] | None = None
+        self,
+        role_name: str,
+        base_role: _RoleFn | CustomRole,
+        options: dict[str, Any] | None = None,
+        content: list[str] | None = None,
     ) -> None: ...
     def __call__(
         self,
@@ -61,25 +65,67 @@ class CustomRole:
     ) -> tuple[list[Node], list[SystemMessage]]: ...
 
 def generic_custom_role(
-    role: str, rawtext: str, text: str, lineno: int, inliner: Inliner, options: dict[str, Any] | None = None, content: list[str] | None = None
+    role: str,
+    rawtext: str,
+    text: str,
+    lineno: int,
+    inliner: Inliner,
+    options: dict[str, Any] | None = None,
+    content: list[str] | None = None,
 ) -> tuple[list[Node], list[SystemMessage]]: ...
 def pep_reference_role(
-    role: str, rawtext: str, text: str, lineno: int, inliner: Inliner, options: dict[str, Any] | None = None, content: list[str] | None = None
+    role: str,
+    rawtext: str,
+    text: str,
+    lineno: int,
+    inliner: Inliner,
+    options: dict[str, Any] | None = None,
+    content: list[str] | None = None,
 ) -> tuple[list[Node], list[SystemMessage]]: ...
 def rfc_reference_role(
-    role: str, rawtext: str, text: str, lineno: int, inliner: Inliner, options: dict[str, Any] | None = None, content: list[str] | None = None
+    role: str,
+    rawtext: str,
+    text: str,
+    lineno: int,
+    inliner: Inliner,
+    options: dict[str, Any] | None = None,
+    content: list[str] | None = None,
 ) -> tuple[list[Node], list[SystemMessage]]: ...
 def raw_role(
-    role: str, rawtext: str, text: str, lineno: int, inliner: Inliner, options: dict[str, Any] | None = None, content: list[str] | None = None
+    role: str,
+    rawtext: str,
+    text: str,
+    lineno: int,
+    inliner: Inliner,
+    options: dict[str, Any] | None = None,
+    content: list[str] | None = None,
 ) -> tuple[list[Node], list[SystemMessage]]: ...
 def code_role(
-    role: str, rawtext: str, text: str, lineno: int, inliner: Inliner, options: dict[str, Any] | None = None, content: list[str] | None = None
+    role: str,
+    rawtext: str,
+    text: str,
+    lineno: int,
+    inliner: Inliner,
+    options: dict[str, Any] | None = None,
+    content: list[str] | None = None,
 ) -> tuple[list[Node], list[SystemMessage]]: ...
 def math_role(
-    role: str, rawtext: str, text: str, lineno: int, inliner: Inliner, options: dict[str, Any] | None = None, content: list[str] | None = None
+    role: str,
+    rawtext: str,
+    text: str,
+    lineno: int,
+    inliner: Inliner,
+    options: dict[str, Any] | None = None,
+    content: list[str] | None = None,
 ) -> tuple[list[Node], list[SystemMessage]]: ...
 def unimplemented_role(
-    role: str, rawtext: str, text: str, lineno: int, inliner: Inliner, options: dict[str, Any] | None = None, content: list[str] | None = None
+    role: str,
+    rawtext: str,
+    text: str,
+    lineno: int,
+    inliner: Inliner,
+    options: dict[str, Any] | None = None,
+    content: list[str] | None = None,
 ) -> tuple[list[Node], list[SystemMessage]]: ...
 def set_classes(options: dict[str, str]) -> None: ...
-def normalized_role_options(options: dict[str, Any] | None) -> dict[str, Any]:
+def normalized_role_options(options: dict[str, Any] | None) -> dict[str, Any]: ...
