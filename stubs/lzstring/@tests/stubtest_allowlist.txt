@@ -1,0 +1,4 @@
+# Internal implementation details that are intentionally missing from stub
+lzstring.baseReverseDic
+lzstring.Object
+lzstring.getBaseValue
