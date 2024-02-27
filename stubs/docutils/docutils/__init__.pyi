@@ -1,5 +1,8 @@
+from collections.abc import Callable, Sequence
 from typing import Any, ClassVar, NamedTuple
 from typing_extensions import Self
+
+from docutils.nodes import Node
 
 __docformat__: str
 __version__: str
@@ -34,7 +37,7 @@ class SettingsSpec:
 class TransformSpec:
     def get_transforms(self) -> list[Any]: ...
     default_transforms: ClassVar[tuple[Any, ...]]
-    unknown_reference_resolvers: ClassVar[list[Any]]
+    unknown_reference_resolvers: ClassVar[Sequence[Callable[[Node], bool]]]
 
 class Component(SettingsSpec, TransformSpec):
     component_type: ClassVar[str | None]
