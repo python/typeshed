@@ -3,6 +3,7 @@ from collections.abc import Callable, Sequence
 from re import Match, Pattern
 from types import ModuleType
 from typing import Any
+from typing_extensions import TypeAlias
 
 from docutils import nodes
 from docutils.utils import Reporter
@@ -10,9 +11,9 @@ from docutils.utils import Reporter
 class Struct:
     def __init__(self, **keywordargs) -> None: ...
 
-_BasicDefinition = tuple[str, str, str, list[Pattern[str]]]
-_DefinitionParts = tuple[str, str, str, list[Pattern[str] | _BasicDefinition]]
-_DefinitionType = tuple[str, str, str, list[Pattern[str] | _DefinitionParts]]
+_BasicDefinition: TypeAlias = tuple[str, str, str, list[Pattern[str]]]
+_DefinitionParts: TypeAlias = tuple[str, str, str, list[Pattern[str] | _BasicDefinition]]
+_DefinitionType: TypeAlias = tuple[str, str, str, list[Pattern[str] | _DefinitionParts]]
 
 class Inliner:
     implicit_dispatch: list[tuple[Pattern[str], Callable[[Match[str], int], Sequence[nodes.Node]]]]
