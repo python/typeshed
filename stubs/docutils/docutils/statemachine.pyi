@@ -3,8 +3,6 @@ from re import Match, Pattern
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self
 
-__docformat__: str
-
 _Context = TypeVar("_Context")
 
 class StateMachine(Generic[_Context]):
