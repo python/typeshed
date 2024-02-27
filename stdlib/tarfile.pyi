@@ -7,7 +7,7 @@ from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
 from typing import IO, ClassVar, Literal, Protocol, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "TarFile",
