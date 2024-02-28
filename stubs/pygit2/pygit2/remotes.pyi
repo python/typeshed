@@ -1,4 +1,3 @@
-from _typeshed import AnyStr_co
 from collections.abc import Iterator
 from typing import Literal, TypedDict
 from typing_extensions import TypeAlias
@@ -43,7 +42,7 @@ class Remote:
     def connect(self, callbacks: RemoteCallbacks | None = None, direction: int = 0, proxy: _ProxySpec = None) -> None: ...
     def fetch(
         self,
-        refspecs: _IntoStrArray[AnyStr_co] = None,
+        refspecs: _IntoStrArray = None,
         message: bytes | str | None = None,
         callbacks: RemoteCallbacks | None = None,
         prune: FetchPrune = ...,
@@ -59,9 +58,7 @@ class Remote:
     def fetch_refspecs(self) -> list[str]: ...
     @property
     def push_refspecs(self) -> list[str]: ...
-    def push(
-        self, specs: _IntoStrArray[AnyStr_co], callbacks: RemoteCallbacks | None = None, proxy: _ProxySpec = None
-    ) -> None: ...
+    def push(self, specs: _IntoStrArray, callbacks: RemoteCallbacks | None = None, proxy: _ProxySpec = None) -> None: ...
 
 _RemoteName: TypeAlias = bytes | str
 

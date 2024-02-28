@@ -1,7 +1,6 @@
-from _typeshed import AnyStr_co
+from _typeshed import StrOrBytesPath
 from collections.abc import Callable
 from contextlib import AbstractContextManager
-from os import PathLike
 from typing import Protocol
 from typing_extensions import ParamSpec, Self, TypeAlias
 
@@ -67,13 +66,13 @@ def get_credentials(fn: _CredentialsFn, url: _CDataBase, username: _CDataBase, a
 def git_checkout_options(
     callbacks: CheckoutCallbacks | None = None,
     strategy: CheckoutStrategy | None = None,
-    directory: PathLike[AnyStr_co] | bytes | str | None = None,
-    paths: _IntoStrArray[AnyStr_co] = None,
+    directory: StrOrBytesPath | None = None,
+    paths: _IntoStrArray = None,
 ) -> AbstractContextManager[Payload]: ...
 def git_stash_apply_options(
     callbacks: StashApplyCallbacks | None = None,
     reinstate_index: bool = False,
     strategy: CheckoutStrategy | None = None,
-    directory: PathLike[AnyStr_co] | bytes | str | None = None,
-    paths: _IntoStrArray[AnyStr_co] = None,
+    directory: StrOrBytesPath | None = None,
+    paths: _IntoStrArray = None,
 ) -> AbstractContextManager[Payload]: ...

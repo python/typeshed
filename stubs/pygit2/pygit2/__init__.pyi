@@ -1,6 +1,5 @@
-from _typeshed import AnyStr_co, SupportsAllComparisons
+from _typeshed import StrOrBytesPath, SupportsAllComparisons
 from collections.abc import Callable
-from os import PathLike
 
 from . import enums
 from ._build import __version__ as __version__
@@ -30,7 +29,7 @@ features: enums.Feature
 LIBGIT2_VER: tuple[int, int, int]
 
 def init_repository(
-    path: str | bytes | PathLike[AnyStr_co] | None,
+    path: StrOrBytesPath | None,
     bare: bool = False,
     flags: enums.RepositoryInitFlag = ...,
     mode: int | enums.RepositoryInitMode = ...,

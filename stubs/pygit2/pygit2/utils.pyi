@@ -1,16 +1,13 @@
 import types
-from _typeshed import AnyStr_co
-from os import PathLike
+from _typeshed import StrOrBytesPath, StrPath
 from typing import Generic, TypeVar
 from typing_extensions import TypeAlias
 
 from _cffi_backend import _CDataBase
 
 def maybe_string(ptr: _CDataBase) -> str | None: ...
-def to_bytes(
-    s: _CDataBase | PathLike[AnyStr_co] | bytes | str | None, encoding: str = "utf-8", errors: str = "strict"
-) -> _CDataBase | bytes: ...
-def to_str(s: PathLike[AnyStr_co] | str | bytes) -> str: ...
+def to_bytes(s: _CDataBase | StrOrBytesPath | None, encoding: str = "utf-8", errors: str = "strict") -> _CDataBase | bytes: ...
+def to_str(s: StrOrBytesPath) -> str: ...
 def ptr_to_bytes(ptr_cdata: _CDataBase) -> bytes: ...
 def strarray_to_strings(arr: _GitStrArray) -> list[str]: ...
 
@@ -21,12 +18,11 @@ class _GitStrArray(_CDataBase):  # type: ignore[misc]  # pyright: ignore
     count: int
     strings: _CDataBase  # <cdata 'char * *'>
 
-_StrOrPath: TypeAlias = str | PathLike[AnyStr_co]
-_IntoStrArray: TypeAlias = list[_StrOrPath[AnyStr_co]] | tuple[_StrOrPath[AnyStr_co]] | None
+_IntoStrArray: TypeAlias = list[StrPath] | tuple[StrPath] | None
 
 class StrArray:
     array: _CDataBase | _GitStrArray
-    def __init__(self, l: _IntoStrArray[AnyStr_co]) -> None: ...
+    def __init__(self, l: _IntoStrArray) -> None: ...
     def __enter__(self) -> _CDataBase: ...
     def __exit__(
         self, type: type[BaseException] | None, value: BaseException | None, traceback: types.TracebackType | None

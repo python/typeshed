@@ -1,6 +1,5 @@
-from _typeshed import AnyStr_co
+from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Iterable, Iterator
-from os import PathLike
 from tarfile import TarInfo
 from typing import IO, Any, Protocol
 from typing_extensions import TypeAlias, deprecated
@@ -37,10 +36,7 @@ class BaseRepository(_Repository):
     def read(self, oid: _OidArg) -> tuple[int, int, bytes]: ...
     def write(self, type: int, data: bytes) -> Oid: ...
     def pack(
-        self,
-        path: PathLike[AnyStr_co] | bytes | str | None = None,
-        pack_delegate: _PackDelegate | None = None,
-        n_threads: int | None = None,
+        self, path: StrOrBytesPath | None = None, pack_delegate: _PackDelegate | None = None, n_threads: int | None = None
     ) -> int: ...
     def __iter__(self) -> Iterator[Oid]: ...
     @deprecated("Use repo.submodules.add(...)")
@@ -70,7 +66,7 @@ class BaseRepository(_Repository):
         callbacks: CheckoutCallbacks | None = None,
         strategy: CheckoutStrategy | None = None,
         directory: str | None = None,
-        paths: _IntoStrArray[AnyStr_co] = None,
+        paths: _IntoStrArray = None,
     ) -> None: ...
     def checkout_index(
         self,
@@ -79,7 +75,7 @@ class BaseRepository(_Repository):
         callbacks: CheckoutCallbacks | None = None,
         strategy: CheckoutStrategy | None = None,
         directory: str | None = None,
-        paths: _IntoStrArray[AnyStr_co] = None,
+        paths: _IntoStrArray = None,
     ) -> None: ...
     def checkout_tree(
         self,
@@ -88,7 +84,7 @@ class BaseRepository(_Repository):
         callbacks: CheckoutCallbacks | None = None,
         strategy: CheckoutStrategy | None = None,
         directory: str | None = None,
-        paths: _IntoStrArray[AnyStr_co] = None,
+        paths: _IntoStrArray = None,
     ) -> None: ...
     def checkout(
         self,
@@ -97,7 +93,7 @@ class BaseRepository(_Repository):
         callbacks: CheckoutCallbacks | None = None,
         strategy: CheckoutStrategy | None = None,
         directory: str | None = None,
-        paths: _IntoStrArray[AnyStr_co] = None,
+        paths: _IntoStrArray = None,
     ) -> None: ...
     def set_head(self, target: _OidArg) -> None: ...
     def diff(
@@ -113,7 +109,7 @@ class BaseRepository(_Repository):
     def state_cleanup(self) -> None: ...
     def blame(
         self,
-        path: PathLike[AnyStr_co] | bytes | str,
+        path: StrOrBytesPath,
         flags: BlameFlag = ...,
         min_match_characters: int | None = None,
         newest_commit: _OidArg | None = None,
@@ -177,7 +173,7 @@ class BaseRepository(_Repository):
         reinstate_index: bool = False,
         strategy: CheckoutStrategy | None = None,
         directory: str | None = None,
-        paths: _IntoStrArray[AnyStr_co] = None,
+        paths: _IntoStrArray = None,
     ) -> None: ...
     def stash_drop(self, index: int = 0) -> None: ...
     def stash_pop(
@@ -188,14 +184,14 @@ class BaseRepository(_Repository):
         reinstate_index: bool = False,
         strategy: CheckoutStrategy | None = None,
         directory: str | None = None,
-        paths: _IntoStrArray[AnyStr_co] = None,
+        paths: _IntoStrArray = None,
     ) -> None: ...
     def write_archive(
         self, treeish: _OidArg | Tree, archive: _SupportsAddfile, timestamp: int | None = None, prefix: str = ""
     ) -> None: ...
     def ahead_behind(self, local: _OidArg, upstream: _OidArg) -> tuple[int, int]: ...
     def get_attr(
-        self, path: str | bytes | PathLike[AnyStr_co], name: str | bytes, flags: AttrCheck = ..., commit: Oid | str | None = None
+        self, path: StrOrBytesPath, name: str | bytes, flags: AttrCheck = ..., commit: Oid | str | None = None
     ) -> bool | None | str: ...
     @property
     def ident(self) -> tuple[str, str]: ...
