@@ -232,6 +232,7 @@ if sys.version_info >= (3, 12):
         factory: type[Connection] | None = ...,
         cached_statements: int = ...,
         uri: bool = ...,
+        autocommit: bool = ...,
     ) -> Connection: ...
 
 else:
@@ -244,7 +245,6 @@ else:
         factory: type[Connection] | None = ...,
         cached_statements: int = ...,
         uri: bool = ...,
-        autocommit: bool = ...,
     ) -> Connection: ...
 
 def enable_callback_tracebacks(__enable: bool) -> None: ...
@@ -327,6 +327,7 @@ class Connection:
             factory: type[Connection] | None = ...,
             cached_statements: int = ...,
             uri: bool = ...,
+            autocommit: bool = ...,
         ) -> None: ...
     else:
         def __init__(
@@ -339,7 +340,6 @@ class Connection:
             factory: type[Connection] | None = ...,
             cached_statements: int = ...,
             uri: bool = ...,
-            autocommit: bool = ...,
         ) -> None: ...
 
     def close(self) -> None: ...
