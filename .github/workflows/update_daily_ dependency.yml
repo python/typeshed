@@ -22,7 +22,7 @@ jobs:
                   pip install requests
                   pip install toml
             - name: Run script
-              run: python scripts/update_deps.py
+              run: python scripts/check_for_update_dependency.py
             - uses: peter-evans/create-pull-request@v3
               with:
                 token: ${{ secrets.PAT }}
