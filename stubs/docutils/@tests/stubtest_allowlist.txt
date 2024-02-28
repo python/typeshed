@@ -8,7 +8,6 @@ docutils.io.Input.__init__
 docutils.languages.LanguageImporter.__getattr__
 docutils.nodes.Element.__getattr__
 docutils.nodes.GenericNodeVisitor.__getattr__
-docutils.nodes.document.__getattr__
 docutils.nodes.Element.__iter__ # doesn't exist at runtime, but the class is iterable due to __getitem__
 docutils.parsers.rst.Directive.__getattr__
 docutils.transforms.Transform.__getattr__

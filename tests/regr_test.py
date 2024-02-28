@@ -180,6 +180,8 @@ def run_testcases(
         # Avoid race conditions when reading the cache
         # (https://github.com/python/typeshed/issues/11220)
         "--no-incremental",
+        # Not useful for the test cases
+        "--disable-error-code=empty-body",
     ]
 
     if package.is_stdlib:
