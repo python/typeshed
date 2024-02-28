@@ -308,7 +308,8 @@ if sys.platform != "win32":
     EX_NOPERM: int
     EX_CONFIG: int
 
-if sys.platform != "win32" and sys.platform != "darwin":
+# Exists on some Unix platforms, e.g. Solaris.
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
     EX_NOTFOUND: int
 
 P_NOWAIT: int
