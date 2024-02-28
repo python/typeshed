@@ -114,3 +114,6 @@ tensorflow.train.ServerDef.*
 # from tensorflow import python
 # python.X
 tensorflow.python.*
+
+# The modules below are re-exported from tensorflow.python, and they therefore appear missing to stubtest.
+tensorflow.distribute.Strategy
