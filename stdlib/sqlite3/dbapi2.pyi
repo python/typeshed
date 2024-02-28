@@ -221,6 +221,7 @@ def adapt(__obj: Any, __proto: Any) -> Any: ...
 @overload
 def adapt(__obj: Any, __proto: Any, __alt: _T) -> Any | _T: ...
 def complete_statement(statement: str) -> bool: ...
+
 if sys.version_info >= (3, 12):
     def connect(
         database: StrOrBytesPath,
@@ -232,6 +233,7 @@ if sys.version_info >= (3, 12):
         cached_statements: int = ...,
         uri: bool = ...,
     ) -> Connection: ...
+
 else:
     def connect(
         database: StrOrBytesPath,
