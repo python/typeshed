@@ -1,0 +1,34 @@
+name: Check Dependencies
+
+on:
+    schedule:
+      # Runs every day at 00:00 UTC
+      - cron: '0 0 * * *'
+
+jobs:
+    build:
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+        runs-on: ${{ matrix.os }}
+        steps:
+            - uses: actions/checkout@v2
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+            - name: Install dependencies
+              run: |
+                  pip install requests
+                  pip install toml
+            - name: Run script
+              run: python scripts/update_deps.py
+            - uses: peter-evans/create-pull-request@v3
+              with:
+                token: ${{ secrets.PAT }}
+                title: "Update dpendency Daily"
+                commit-message: "Updated Depenceny after the daily check"
+                body: |
+                    There appear to be some dependency updates in ${{ github.sha }}. This pull request
+                    uses the script to find and update these dependency.
+                base: ${{ github.head_ref }}
