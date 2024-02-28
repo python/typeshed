@@ -303,8 +303,10 @@ class ReferenceFilter(IntEnum):
 
 class ReferenceType(IntFlag):
     INVALID: int
-    OID: int
+    DIRECT: int
     SYMBOLIC: int
+    ALL: int
+    OID: int
     LISTALL: int
 
 class RepositoryInitFlag(IntFlag):
