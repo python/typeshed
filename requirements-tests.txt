@@ -8,7 +8,7 @@ flake8-noqa==1.4.0       # must match .pre-commit-config.yaml
 flake8-pyi==24.1.0       # must match .pre-commit-config.yaml
 mypy==1.8.0
 pre-commit-hooks==4.5.0  # must match .pre-commit-config.yaml
-pytype==2024.2.13; platform_system != "Windows" and python_version < "3.12"
+pytype==2024.2.27; platform_system != "Windows" and python_version < "3.12"
 ruff==0.2.1              # must match .pre-commit-config.yaml and tests.yml
 
 # Libraries used by our various scripts.
