@@ -103,3 +103,9 @@ tensorflow.train.FloatList.*
 tensorflow.train.Int64List.*
 tensorflow.train.ClusterDef.*
 tensorflow.train.ServerDef.*
+
+# The python module cannot be accessed directly, so to stubtest it appears that it is not present at runtime.
+# However it can be accessed by doing:
+# from tensorflow import python
+# python.X
+tensorflow.python.*
