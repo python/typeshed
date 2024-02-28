@@ -28,7 +28,6 @@ class ABCMeta(type):
     def register(cls: ABCMeta, subclass: type[_T]) -> type[_T]: ...
 
 def abstractmethod(funcobj: _FuncT) -> _FuncT: ...
-
 @deprecated("Deprecated, use 'classmethod' with 'abstractmethod' instead")
 class abstractclassmethod(classmethod[_T, _P, _R_co]):
     __isabstractmethod__: Literal[True]
