@@ -30,6 +30,10 @@ _ProviderFactoryType: TypeAlias = Callable[[_ModuleLike], IResourceProvider]
 _DistFinderType: TypeAlias = Callable[[_T, str, bool], Iterator[Distribution]]
 _NSHandlerType: TypeAlias = Callable[[_T, str, str, types.ModuleType], str | None]
 
+@type_check_only
+class _ZipLoaderModule(Protocol):
+    __loader__: zipimport.zipimporter
+
 def declare_namespace(packageName: str) -> None: ...
 def fixup_namespace_packages(path_item: str, parent: str | None = None) -> None: ...
 
@@ -343,8 +347,9 @@ class PathMetadata(DefaultProvider):
 class ZipProvider(EggProvider):
     eagers: list[str] | None
     zip_pre: str
-    # ZipProvider's loader should always be a zipimporter or equivalent
+    # ZipProvider's loader should always be a zipimporter
     loader: zipimport.zipimporter
+    def __init__(self, module: _ZipLoaderModule) -> None: ...
     @property
     def zipinfo(self) -> dict[str, ZipInfo]: ...
 
