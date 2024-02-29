@@ -18,17 +18,12 @@ limitations under the License.
 """
 import builtins
 import collections.abc
-import sys
+import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
 import tensorflow.tsl.protobuf.autotuning_pb2
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

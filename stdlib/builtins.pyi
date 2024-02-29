@@ -447,7 +447,7 @@ class str(Sequence[str]):
     def center(self: LiteralString, __width: SupportsIndex, __fillchar: LiteralString = " ") -> LiteralString: ...
     @overload
     def center(self, __width: SupportsIndex, __fillchar: str = " ") -> str: ...  # type: ignore[misc]
-    def count(self, x: str, __start: SupportsIndex | None = ..., __end: SupportsIndex | None = ...) -> int: ...
+    def count(self, __sub: str, __start: SupportsIndex | None = ..., __end: SupportsIndex | None = ...) -> int: ...
     def encode(self, encoding: str = "utf-8", errors: str = "strict") -> bytes: ...
     def endswith(
         self, __suffix: str | tuple[str, ...], __start: SupportsIndex | None = ..., __end: SupportsIndex | None = ...
@@ -1220,7 +1220,7 @@ class property:
 class _NotImplementedType(Any):
     # A little weird, but typing the __call__ as NotImplemented makes the error message
     # for NotImplemented() much better
-    __call__: NotImplemented  # type: ignore[valid-type]  # pyright: ignore[reportGeneralTypeIssues]
+    __call__: NotImplemented  # type: ignore[valid-type]  # pyright: ignore[reportInvalidTypeForm]
 
 NotImplemented: _NotImplementedType
 

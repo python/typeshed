@@ -15,7 +15,7 @@ from typing_extensions import Annotated
 import pathspec
 
 try:
-    from termcolor import colored as colored  # pyright: ignore[reportGeneralTypeIssues]
+    from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
 except ImportError:
 
     def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
