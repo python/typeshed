@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 try:
-    from termcolor import colored  # pyright: ignore[reportGeneralTypeIssues]
+    from termcolor import colored  # pyright: ignore[reportAssignmentType]
 except ImportError:
 
     def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
