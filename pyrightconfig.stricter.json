@@ -78,7 +78,6 @@
         "stubs/tqdm",
         "stubs/ttkthemes",
         "stubs/vobject",
-        "stubs/WebOb",
         "stubs/workalendar",
     ],
     "typeCheckingMode": "strict",

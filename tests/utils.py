@@ -15,7 +15,7 @@ from typing_extensions import Annotated
 import pathspec
 
 try:
-    from termcolor import colored as colored  # pyright: ignore[reportGeneralTypeIssues]
+    from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
 except ImportError:
 
     def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
@@ -119,7 +119,7 @@ def get_all_testcase_directories() -> list[PackageInfo]:
         potential_testcase_dir = testcase_dir_from_package_name(package_name)
         if potential_testcase_dir.is_dir():
             testcase_directories.append(PackageInfo(package_name, potential_testcase_dir))
-    return [PackageInfo("stdlib", Path("test_cases"))] + sorted(testcase_directories)
+    return [PackageInfo("stdlib", Path("test_cases")), *sorted(testcase_directories)]
 
 
 # ====================================================================

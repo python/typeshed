@@ -45,8 +45,3 @@ setuptools._distutils.*
 # Other vendored code
 setuptools._vendor.*
 pkg_resources._vendor.*
-# Deprecated in favor of importlib.resources, importlib.metadata and their backports
-# So like distutils, we only add what we need to reference.
-pkg_resources.AvailableDistributions
-pkg_resources.ResourceManager
-pkg_resources.extern
