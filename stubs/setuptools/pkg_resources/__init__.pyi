@@ -1,12 +1,12 @@
 import types
 from _typeshed import Incomplete, StrPath, Unused
-from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
+from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from io import BufferedIOBase, BytesIO
 from itertools import chain
 from os import PathLike
 from pkgutil import get_importer as get_importer
 from re import Pattern
-from typing import IO, Any, BinaryIO, ClassVar, Final, Literal, NamedTuple, NoReturn, Protocol, TypeVar, overload, type_check_only
+from typing import IO, Any, BinaryIO, ClassVar, Final, Literal, NoReturn, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 from zipfile import ZipInfo
 from zipimport import zipimporter
@@ -342,26 +342,13 @@ class PathMetadata(DefaultProvider):
     module_path: str
     def __init__(self, path: str, egg_info: str) -> None: ...
 
-class ZipManifests(dict[str, MemoizedZipManifests.manifest_mod]):
-    @classmethod
-    def build(cls, path: StrPath | IO[bytes]) -> _ZipManifestDict: ...
-    # Can't do `load = build` because of https://github.com/python/mypy/issues/6700
-    load = ZipManifests.build  # noqa: F821
-
-class MemoizedZipManifests(ZipManifests):
-    class manifest_mod(NamedTuple):
-        manifest: _ZipManifestDict
-        mtime: float
-
-    def load(self, path: str) -> _ZipManifestDict: ...  # type: ignore[override]
-
 class ZipProvider(EggProvider):
     eagers: list[str] | None
     zip_pre: str
     # ZipProvider's loader should always be a zipimporter or equivalent
     loader: zipimporter
     @property
-    def zipinfo(self) -> _ZipManifestDict: ...
+    def zipinfo(self) -> dict[str, ZipInfo]: ...
 
 class EggMetadata(ZipProvider):
     loader: zipimporter
@@ -395,7 +382,6 @@ get_platform = get_build_platform
 def get_supported_platform() -> str: ...
 def compatible_platforms(provided: str | None, required: str | None) -> bool: ...
 def get_default_cache() -> str: ...
-def _find_adapter(registry: Mapping[type, _AdapterT], ob: object) -> _AdapterT: ...
 def ensure_directory(path: str) -> None: ...
 def normalize_path(filename: str) -> str: ...
 
