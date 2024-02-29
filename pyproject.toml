@@ -47,7 +47,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-# Disable "mordernization" rules with autofixes from test cases as they often
+# Disable "modernization" rules with autofixes from test cases as they often
 # deliberately contain code that might not be considered idiomatic or modern
 # These can be run manually once in a while
 "**/test_cases/**/*.py" = ["UP"]
