@@ -1,10 +1,8 @@
-from __future__ import annotations
-
 # pyright: reportWildcardImportFromLibrary=false
-
 """
 This tests that star imports work when using "all += " syntax.
 """
+from __future__ import annotations
 
 import sys
 from typing import *  # noqa: F403

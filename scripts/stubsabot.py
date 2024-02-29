@@ -48,7 +48,7 @@ class ActionLevel(enum.IntEnum):
         try:
             return cls[cmd_arg]
         except KeyError:
-            raise argparse.ArgumentTypeError(f'Argument must be one of "{list(cls.__members__)}"')
+            raise argparse.ArgumentTypeError(f'Argument must be one of "{list(cls.__members__)}"') from None
 
     nothing = 0, "make no changes"
     local = 1, "make changes that affect local repo"
