@@ -13,9 +13,6 @@ from zipimport import zipimporter
 
 from ._vendored_packaging import requirements as packaging_requirements, version as packaging_version
 
-# using `map[Requirement]` directly causes errors with pytype https://github.com/google/pytype/issues/1324
-_RequirementMap: TypeAlias = Iterator[Requirement]
-
 # Used for a protocol method return type
 @type_check_only
 class _ResourceStream(BufferedIOBase, BinaryIO, Protocol): ...  # type: ignore[misc] # pyright: ignore
@@ -98,7 +95,7 @@ class Environment:
     def __iadd__(self, other: Distribution | Environment) -> Self: ...
     def __add__(self, other: Distribution | Environment) -> Self: ...
 
-def parse_requirements(strs: str | Iterable[str]) -> _RequirementMap: ...
+def parse_requirements(strs: str | Iterable[str]) -> Iterator[Requirement]: ...
 
 class RequirementParseError(packaging_requirements.InvalidRequirement): ...
 
