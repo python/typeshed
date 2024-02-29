@@ -41,6 +41,10 @@ select = [
     "PYI055", # multiple `type[T]` usages in a union
     "PYI058", # use `Iterator` as the return type for `__iter__` methods
 ]
+ignore = [
+    # Slower and more verbose https://github.com/astral-sh/ruff/issues/7871
+    "UP038", # Use `X | Y` in `isinstance` call instead of `(X, Y)`
+]
 
 [tool.ruff.lint.per-file-ignores]
 # Disable "mordernization" rules with autofixes from test cases as they often
