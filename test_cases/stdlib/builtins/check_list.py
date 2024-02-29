@@ -15,7 +15,8 @@ class Bar:
         return 2
 
 
-combined = [Foo()] + [Bar()]
+# Testing for concatenation
+combined = [Foo()] + [Bar()]  # noqa: RUF005
 assert_type(combined, List[Union[Foo, Bar]])
 for item in combined:
     assert_type(item.asd(), int)

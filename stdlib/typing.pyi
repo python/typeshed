@@ -1,3 +1,5 @@
+# Since this module defines "overload" it is not recognized by Ruff as typing.overload
+# ruff: noqa: F811
 # TODO: The collections import is required, otherwise mypy crashes.
 # https://github.com/python/mypy/issues/16744
 import collections  # noqa: F401  # pyright: ignore
