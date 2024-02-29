@@ -73,7 +73,8 @@ PROTO_FILES=$(grep "GenProto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py | \
 # shellcheck disable=SC2086
 protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="relax_strict_optional_primitives:$REPO_ROOT/stubs/protobuf" $PROTO_FILES
 
-ruff check "$REPO_ROOT/stubs/protobuf" --fix-only
+# --unsafe-fixes to apply outdated-version-block (UP036)
+ruff check "$REPO_ROOT/stubs/protobuf" --fix-only --unsafe-fixes
 black "$REPO_ROOT/stubs/protobuf"
 
 sed --in-place="" \
