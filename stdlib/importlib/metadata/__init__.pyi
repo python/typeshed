@@ -241,6 +241,7 @@ class MetadataPathFinder(DistributionFinder):
     @classmethod
     def find_distributions(cls, context: DistributionFinder.Context = ...) -> Iterable[PathDistribution]: ...
     if sys.version_info >= (3, 10):
+        # Yes, this is an instance method that has a parameter named "cls"
         def invalidate_caches(cls) -> None: ...
 
 class PathDistribution(Distribution):
