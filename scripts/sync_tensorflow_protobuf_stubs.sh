@@ -61,7 +61,6 @@ rm tensorflow/compiler/xla/service/hlo_execution_profile_data_pb2.pyi \
    tensorflow/core/protobuf/worker_service_pb2.pyi \
    tensorflow/core/util/example_proto_fast_parsing_test_pb2.pyi
 
-# --unsafe-fixes to apply outdated-version-block (UP036)
 ruff check "$REPO_ROOT/stubs/tensorflow/tensorflow" --fix-only
 ruff check "$REPO_ROOT/stubs/protobuf" --fix-only --select=UP036 --unsafe-fixes
 black "$REPO_ROOT/stubs/tensorflow/tensorflow"
