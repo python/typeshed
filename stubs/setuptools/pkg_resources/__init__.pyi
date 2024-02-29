@@ -8,6 +8,7 @@ from io import BytesIO
 from re import Pattern
 from typing import IO, Any, ClassVar, Literal, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
+from zipfile import ZipInfo
 
 from ._vendored_packaging import requirements as packaging_requirements, version as packaging_version
 
@@ -20,6 +21,10 @@ _MetadataType: TypeAlias = IResourceProvider | None
 _PkgReqType: TypeAlias = str | Requirement
 _DistFinderType: TypeAlias = Callable[[_Importer, str, bool], Generator[Distribution, None, None]]
 _NSHandlerType: TypeAlias = Callable[[_Importer, str, str, types.ModuleType], str]
+
+@type_check_only
+class _ZipLoaderModule(Protocol):
+    __loader__: zipimport.zipimporter
 
 def declare_namespace(packageName: str) -> None: ...
 def fixup_namespace_packages(path_item: str, parent=None) -> None: ...
@@ -317,8 +322,11 @@ class PathMetadata(DefaultProvider):
 class ZipProvider(EggProvider):
     eagers: list[str] | None
     zip_pre: str
+    # ZipProvider's loader should always be a zipimporter
+    loader: zipimport.zipimporter
+    def __init__(self, module: _ZipLoaderModule): ...
     @property
-    def zipinfo(self): ...
+    def zipinfo(self) -> dict[str, ZipInfo]: ...
 
 class EggMetadata(ZipProvider):
     loader: zipimport.zipimporter
