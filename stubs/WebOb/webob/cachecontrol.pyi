@@ -83,7 +83,7 @@ class _ResponseCacheControl(_BaseCacheControl):
     stale_if_error: _IntValueProperty[None]
 
 class _AnyCacheControl(_RequestCacheControl, _ResponseCacheControl):
-    type: None  # type:ignore[assignment]
+    type: None  # type: ignore[assignment]
 
 class CacheControl(_AnyCacheControl):
     @overload
