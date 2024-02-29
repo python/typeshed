@@ -27,6 +27,7 @@ exclude = [
 select = [
     "FA", # flake8-future-annotations
     "I", # isort
+    "UP", # pyupgrade
     # Only enable rules that have safe autofixes:
     "F401", # Remove unused imports
     "PYI009", # use `...`, not `pass`, in empty class bodies
@@ -39,14 +40,16 @@ select = [
     "PYI032", # use `object`, not `Any`, as the second parameter to `__eq__`
     "PYI055", # multiple `type[T]` usages in a union
     "PYI058", # use `Iterator` as the return type for `__iter__` methods
-    "UP004", # Remove explicit `object` inheritance
-    "UP006", # PEP-585 autofixes
-    "UP007", # PEP-604 autofixes
-    "UP013", # Class-based syntax for TypedDicts
-    "UP014", # Class-based syntax for NamedTuples
-    "UP019", # Use str over typing.Text
-    "UP035", # import from typing, not typing_extensions, wherever possible
-    "UP039", # don't use parens after a class definition with no bases
+]
+ignore = [
+    # We like explicit open modes
+    "UP015", # redundant-open-modes
+]
+
+[tool.ruff.lint.extend-per-file-ignores]
+# Generated protobuf files:
+"*_pb2.pyi" = [
+    "UP036", # outdated-version-block
 ]
 
 [tool.ruff.lint.isort]

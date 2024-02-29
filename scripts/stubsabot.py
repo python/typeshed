@@ -516,7 +516,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
     )
 
 
-@functools.lru_cache()
+@functools.lru_cache
 def get_origin_owner() -> str:
     output = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True).strip()
     match = re.match(r"(git@github.com:|https://github.com/)(?P<owner>[^/]+)/(?P<repo>[^/\s]+)", output)
