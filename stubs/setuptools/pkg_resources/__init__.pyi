@@ -24,13 +24,11 @@ _InstallerType: TypeAlias = Callable[[Requirement], Distribution | None]
 _PkgReqType: TypeAlias = str | Requirement
 _EPDistType: TypeAlias = Distribution | _PkgReqType
 _MetadataType: TypeAlias = IResourceProvider | None
-_ResolvedEntryPoint: TypeAlias = Any  # Can be any atribute in the module
+_ResolvedEntryPoint: TypeAlias = Any  # Can be any attribute in the module
 _ModuleLike: TypeAlias = object | types.ModuleType  # Optionally has __loader__ or __file__
 _ProviderFactoryType: TypeAlias = Callable[[_ModuleLike], IResourceProvider]
 _DistFinderType: TypeAlias = Callable[[_T, str, bool], Iterator[Distribution]]
 _NSHandlerType: TypeAlias = Callable[[_T, str, str, types.ModuleType], str | None]
-_ZipManifestDict: TypeAlias = dict[str, ZipInfo]
-_AdapterT = TypeVar("_AdapterT", _DistFinderType[Any], _ProviderFactoryType, _NSHandlerType[Any])
 
 def declare_namespace(packageName: str) -> None: ...
 def fixup_namespace_packages(path_item: str, parent: str | None = None) -> None: ...
