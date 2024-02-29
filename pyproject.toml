@@ -43,13 +43,13 @@ select = [
 ]
 ignore = [
     # We like explicit open modes
-    "UP015", # redundant-open-modes
+    "UP015", # Unnecessary open mode parameters
 ]
 
 [tool.ruff.lint.extend-per-file-ignores]
 # Generated protobuf files:
 "*_pb2.pyi" = [
-    "UP036", # outdated-version-block
+    "UP036", # Version block is outdated for minimum Python version
 ]
 
 [tool.ruff.lint.isort]
