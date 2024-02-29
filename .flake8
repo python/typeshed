@@ -2,6 +2,7 @@
 # Since typeshed stubs them, they can still be expected to be found in a
 # developer's venv for intellisense and reference reasons
 #     A      flake8-builtins
+#     B      flake8-bugbear
 #     D      flake8-docstrings
 #     N8     pep8-naming
 #     SIM    flake8-simplify
