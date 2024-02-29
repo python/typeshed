@@ -202,9 +202,9 @@ with_descriptors.set_tuple = object()  # pyright: ignore[reportAttributeAccessIs
 with_descriptors.set_tuple = cast(_HasTagAndGet[Literal["a"]], _)
 with_descriptors.set_tuple = cast(_HasTagAndGet[str], _)  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
 with_descriptors.set_tuple = cast(_HasTagAndGet[None], _)  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-with_descriptors.set_tuple = cast(
+with_descriptors.set_tuple = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
     _HasTagAndGet[object], _
-)  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+)
 
 with_descriptors.set_list = "a"
 with_descriptors.set_list = 0
@@ -224,9 +224,9 @@ with_descriptors.set_tuple_none = None
 with_descriptors.set_tuple_none = "none"  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
 with_descriptors.set_tuple_none = object()  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
 with_descriptors.set_tuple_none = cast(_HasTagAndGet[Literal["a"]], _)
-with_descriptors.set_tuple_none = cast(
+with_descriptors.set_tuple_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
     _HasTagAndGet[str], _
-)  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+)
 with_descriptors.set_tuple_none = cast(_HasTagAndGet[None], _)
 with_descriptors.set_tuple_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
     _HasTagAndGet[object], _
@@ -240,9 +240,9 @@ with_descriptors.noneset_tuple = None
 with_descriptors.noneset_tuple = "none"
 with_descriptors.noneset_tuple = object()  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
 with_descriptors.noneset_tuple = cast(_HasTagAndGet[Literal["a"]], _)
-with_descriptors.noneset_tuple = cast(
+with_descriptors.noneset_tuple = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
     _HasTagAndGet[str], _
-)  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+)
 with_descriptors.noneset_tuple = cast(_HasTagAndGet[None], _)
 with_descriptors.noneset_tuple = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
     _HasTagAndGet[object], _
@@ -319,15 +319,15 @@ with_descriptors.text_int_none = "0"
 with_descriptors.text_int_none = None
 with_descriptors.text_int_none = object()  # FIXME: False negative(?) in pyright and mypy
 # If expected type (_T) is not str, it's impossible to use an Element as the value
-with_descriptors.text_int_none = cast(
+with_descriptors.text_int_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
     _HasTagAndGet[int], _
-)  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-with_descriptors.text_int_none = cast(
+)
+with_descriptors.text_int_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
     _HasTagAndGet[None], _
-)  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-with_descriptors.text_int_none = cast(
+)
+with_descriptors.text_int_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
     _HasTagAndGet[str], _
-)  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+)
 
 
 with_descriptors.minmax_float = 0
@@ -336,9 +336,9 @@ with_descriptors.minmax_float = 0.0
 with_descriptors.minmax_float = None  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
 with_descriptors.minmax_float = object()  # type: ignore
 with_descriptors.minmax_float = cast(_HasTagAndGet[float], _)
-with_descriptors.minmax_float = cast(
+with_descriptors.minmax_float = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
     _HasTagAndGet[None], _
-)  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+)
 with_descriptors.minmax_float = cast(_HasTagAndGet[object], _)  # type: ignore
 
 with_descriptors.minmax_float_none = 0
