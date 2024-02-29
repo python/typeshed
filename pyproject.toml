@@ -52,17 +52,15 @@ ignore = [
 # deliberately contain code that might not be considered idiomatic or modern
 # These can be run manually once in a while
 "**/test_cases/**/*.py" = ["UP"]
-# Generated protobuf files:
-# TODO: Re-run sync_tensorflow_protobuf_stubs.sh with this rule enabled to remove this entry
-"*_pb2.pyi" = [
-    "UP036", # Version block is outdated for minimum Python version
-]
-
-[tool.ruff.lint.per-file-ignores]
 "*.pyi" = [
     # Most flake8-bugbear rules don't apply for third-party stubs like typeshed,
     # B033 could be slightly useful but Ruff doesn't have per-file select
     "B", # flake8-bugbear
+]
+# Generated protobuf files:
+# TODO: Re-run sync_tensorflow_protobuf_stubs.sh with this rule enabled to remove this entry
+"*_pb2.pyi" = [
+    "UP036", # Version block is outdated for minimum Python version
 ]
 
 [tool.ruff.lint.isort]
