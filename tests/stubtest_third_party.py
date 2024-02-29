@@ -53,7 +53,7 @@ def run_stubtest(
 
         # If tool.stubtest.stubtest_requirements exists, run "pip install" on it.
         if stubtest_settings.stubtest_requirements:
-            pip_cmd = [pip_exe, "install"] + stubtest_settings.stubtest_requirements
+            pip_cmd = [pip_exe, "install", *stubtest_settings.stubtest_requirements]
             try:
                 subprocess.run(pip_cmd, check=True, capture_output=True)
             except subprocess.CalledProcessError as e:
@@ -67,7 +67,7 @@ def run_stubtest(
         # TODO: Maybe find a way to cache these in CI
         dists_to_install = [dist_req, get_mypy_req()]
         dists_to_install.extend(requirements.external_pkgs)  # Internal requirements are added to MYPYPATH
-        pip_cmd = [pip_exe, "install"] + dists_to_install
+        pip_cmd = [pip_exe, "install", *dists_to_install]
         try:
             subprocess.run(pip_cmd, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
@@ -134,7 +134,7 @@ def run_stubtest(
                 print(file=sys.stderr)
             else:
                 print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path}:", file=sys.stderr)
-                ret = subprocess.run(stubtest_cmd + ["--generate-allowlist"], env=stubtest_env, capture_output=True)
+                ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
                 print_command_output(ret)
 
             return False
