@@ -4,16 +4,11 @@ isort:skip_file
 """
 import builtins
 import collections.abc
-import sys
+import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -49,7 +44,7 @@ class DebugTensorWatch(google.protobuf.message.Message):
     @property
     def debug_urls(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """URL(s) for debug targets(s).
-
+        
         Supported URL formats are:
           - file:///foo/tfdbg_dump: Writes out Event content to file
             /foo/tfdbg_dump.  Assumes all directories can be created if they don't
@@ -58,10 +53,10 @@ class DebugTensorWatch(google.protobuf.message.Message):
             service running at localhost:11011 with the event.
           - memcbk:///event_key: Routes tensors to clients using the
             callback registered with the DebugCallbackRegistry for event_key.
-
+        
         Each debug op listed in debug_ops will publish its output tensor (debug
         signal) to all URLs in debug_urls.
-
+        
         N.B. Session::Run() supports concurrent invocations of the same inputs
         (feed keys), outputs and target nodes. If such concurrent invocations
         are to be debugged, the callers of Session::Run() must use distinct

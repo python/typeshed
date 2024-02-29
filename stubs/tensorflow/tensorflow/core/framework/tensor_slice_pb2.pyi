@@ -4,16 +4,11 @@ isort:skip_file
 Protocol buffer representing slices of a tensor"""
 import builtins
 import collections.abc
-import sys
+import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -51,7 +46,7 @@ class TensorSliceProto(google.protobuf.message.Message):
     @property
     def extent(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___TensorSliceProto.Extent]:
         """Extent of the slice in all tensor dimensions.
-
+        
         Must have one entry for each of the dimension of the tensor that this
         slice belongs to.  The order of sizes is the same as the order of
         dimensions in the TensorShape.

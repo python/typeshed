@@ -46,6 +46,7 @@ select = [
     "UP014", # Class-based syntax for NamedTuples
     "UP019", # Use str over typing.Text
     "UP035", # import from typing, not typing_extensions, wherever possible
+    "UP036", # Version block is outdated for minimum Python version
     "UP039", # don't use parens after a class definition with no bases
 ]
 

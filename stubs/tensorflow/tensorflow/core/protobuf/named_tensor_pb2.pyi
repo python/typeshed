@@ -3,16 +3,11 @@
 isort:skip_file
 """
 import builtins
-import sys
+import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.message
 import tensorflow.core.framework.tensor_pb2
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -30,7 +25,7 @@ class NamedTensorProto(google.protobuf.message.Message):
     def tensor(self) -> tensorflow.core.framework.tensor_pb2.TensorProto:
         """The client can populate a TensorProto using a tensorflow::Tensor`, or
         directly using the protobuf field accessors.
-
+        
         The client specifies whether the returned tensor values should be
         filled tensor fields (float_val, int_val, etc.) or encoded in a
         compact form in tensor.tensor_content.

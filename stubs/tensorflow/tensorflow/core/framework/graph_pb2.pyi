@@ -4,7 +4,7 @@ isort:skip_file
 """
 import builtins
 import collections.abc
-import sys
+import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
@@ -12,11 +12,6 @@ import google.protobuf.message
 import tensorflow.core.framework.function_pb2
 import tensorflow.core.framework.node_def_pb2
 import tensorflow.core.framework.versions_pb2
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -46,7 +41,7 @@ class GraphDef(google.protobuf.message.Message):
     @property
     def library(self) -> tensorflow.core.framework.function_pb2.FunctionDefLibrary:
         """"library" provides user-defined functions.
-
+        
         Naming:
           * library.function.name are in a flat namespace.
             NOTE: We may need to change it to be hierarchical to support
@@ -58,14 +53,14 @@ class GraphDef(google.protobuf.message.Message):
           * If node[i].op is the name of one function in "library",
             node[i] is deemed as a function call. Otherwise, node[i].op
             must be a primitive operation supported by the runtime.
-
-
+        
+        
         Function call semantics:
-
+        
           * The callee may start execution as soon as some of its inputs
             are ready. The caller may want to use Tuple() mechanism to
             ensure all inputs are ready in the same time.
-
+        
           * The consumer of return values may start executing as soon as
             the return values the consumer depends on are ready.  The
             consumer may want to use Tuple() mechanism to ensure the
