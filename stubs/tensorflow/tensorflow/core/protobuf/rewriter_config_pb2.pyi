@@ -420,13 +420,13 @@ class RewriterConfig(google.protobuf.message.Message):
         """If non-empty, will use this as an alternative way to specify a list of
         optimizations to turn on and the order of the optimizations (replacing the
         meta-optimizer).
-        
+
         Of the RewriterConfig options, only the AutoParallel configuration options
         (the auto_parallel field) apply to manually requested optimization passes
         ("autoparallel"). Memory optimization passes ("memory") invoked here are
         not configurable (in contrast to memory optimization passes through the
         meta-optimizer) and act only on manual op annotations.
-        
+
         Custom optimizers (see custom_optimizers) that are not part of this
         schedule will be run after - in the order that they were specified.
         """
