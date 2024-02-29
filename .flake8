@@ -26,7 +26,7 @@
 #     F405   defined from star imports
 
 [flake8]
-extend-ignore = A, D, N8, SIM, RST, TYP, E301, E302, E305, E501, E701
+extend-ignore = A, B, D, N8, SIM, RST, TYP, E301, E302, E305, E501, E701
 per-file-ignores =
   *.py: E203
   *.pyi: E741, F401, F403, F405
