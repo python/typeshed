@@ -25,6 +25,7 @@ exclude = [
 
 [tool.ruff.lint]
 select = [
+    "B", # flake8-bugbear
     "FA", # flake8-future-annotations
     "I", # isort
     # Only enable rules that have safe autofixes:
@@ -47,6 +48,12 @@ select = [
     "UP019", # Use str over typing.Text
     "UP035", # import from typing, not typing_extensions, wherever possible
     "UP039", # don't use parens after a class definition with no bases
+]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"*.pyi" = [
+    # Rules that are out of the control of stub authors:
+    "B006", # Do not use mutable data structures for argument defaults
 ]
 
 [tool.ruff.lint.isort]

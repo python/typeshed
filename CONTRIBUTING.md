@@ -108,7 +108,6 @@ you're free to do so. Either run the following manually...
 
 Our code is also linted using [`Flake8`](https://github.com/pycqa/flake8),
 with plugins [`flake8-pyi`](https://github.com/pycqa/flake8-pyi),
-[`flake8-bugbear`](https://github.com/PyCQA/flake8-bugbear),
 and [`flake8-noqa`](https://github.com/plinss/flake8-noqa).
 As with our other checks, running
 Flake8 before filing a PR is not required. However, if you wish to run Flake8
