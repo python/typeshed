@@ -211,7 +211,7 @@ def run_testcases(
                 continue
         flags.append(str(path))
 
-    mypy_command = [python_exe, "-m", "mypy"] + flags
+    mypy_command = [python_exe, "-m", "mypy", *flags]
     if verbosity is Verbosity.VERBOSE:
         description = f"{package.name}/{version}/{platform}"
         msg = f"{description}: {mypy_command=}\n"
