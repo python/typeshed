@@ -5,8 +5,9 @@ from _typeshed import Incomplete
 from abc import ABCMeta
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from io import BytesIO
+from pkgutil import get_importer as get_importer
 from re import Pattern
-from typing import IO, Any, ClassVar, Literal, Protocol, TypeVar, overload
+from typing import IO, Any, ClassVar, Final, Literal, Protocol, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 from ._vendored_packaging import requirements as packaging_requirements, version as packaging_version
@@ -20,6 +21,80 @@ _MetadataType: TypeAlias = IResourceProvider | None
 _PkgReqType: TypeAlias = str | Requirement
 _DistFinderType: TypeAlias = Callable[[_Importer, str, bool], Generator[Distribution, None, None]]
 _NSHandlerType: TypeAlias = Callable[[_Importer, str, str, types.ModuleType], str]
+
+__all__ = [
+    "require",
+    "run_script",
+    "get_provider",
+    "get_distribution",
+    "load_entry_point",
+    "get_entry_map",
+    "get_entry_info",
+    "iter_entry_points",
+    "resource_string",
+    "resource_stream",
+    "resource_filename",
+    "resource_listdir",
+    "resource_exists",
+    "resource_isdir",
+    "declare_namespace",
+    "working_set",
+    "add_activation_listener",
+    "find_distributions",
+    "set_extraction_path",
+    "cleanup_resources",
+    "get_default_cache",
+    "Environment",
+    "WorkingSet",
+    "ResourceManager",
+    "Distribution",
+    "Requirement",
+    "EntryPoint",
+    "ResolutionError",
+    "VersionConflict",
+    "DistributionNotFound",
+    "UnknownExtra",
+    "ExtractionError",
+    "PEP440Warning",
+    "parse_requirements",
+    "parse_version",
+    "safe_name",
+    "safe_version",
+    "get_platform",
+    "compatible_platforms",
+    "yield_lines",
+    "split_sections",
+    "safe_extra",
+    "to_filename",
+    "invalid_marker",
+    "evaluate_marker",
+    "ensure_directory",
+    "normalize_path",
+    "EGG_DIST",
+    "BINARY_DIST",
+    "SOURCE_DIST",
+    "CHECKOUT_DIST",
+    "DEVELOP_DIST",
+    "IMetadataProvider",
+    "IResourceProvider",
+    "FileMetadata",
+    "PathMetadata",
+    "EggMetadata",
+    "EmptyProvider",
+    "empty_provider",
+    "NullProvider",
+    "EggProvider",
+    "DefaultProvider",
+    "ZipProvider",
+    "register_finder",
+    "register_namespace_handler",
+    "register_loader_type",
+    "fixup_namespace_packages",
+    "get_importer",
+    "PkgResourcesDeprecationWarning",
+    "run_main",
+    "AvailableDistributions",
+]
 
 def declare_namespace(packageName: str) -> None: ...
 def fixup_namespace_packages(path_item: str, parent=None) -> None: ...
@@ -138,11 +213,12 @@ def get_distribution(dist: _D) -> _D: ...
 @overload
 def get_distribution(dist: _PkgReqType) -> Distribution: ...
 
-EGG_DIST: int
-BINARY_DIST: int
-SOURCE_DIST: int
-CHECKOUT_DIST: int
-DEVELOP_DIST: int
+PY_MAJOR: Final[str]
+EGG_DIST: Final = 3
+BINARY_DIST: Final = 2
+SOURCE_DIST: Final = 1
+CHECKOUT_DIST: Final = 0
+DEVELOP_DIST: Final = -1
 
 class ResourceManager:
     extraction_path: Incomplete
@@ -160,14 +236,16 @@ class ResourceManager:
     def set_extraction_path(self, path: str) -> None: ...
     def cleanup_resources(self, force: bool = False) -> list[str]: ...
 
-def resource_exists(package_or_requirement: _PkgReqType, resource_name: str) -> bool: ...
-def resource_isdir(package_or_requirement: _PkgReqType, resource_name: str) -> bool: ...
-def resource_filename(package_or_requirement: _PkgReqType, resource_name: str) -> str: ...
-def resource_stream(package_or_requirement: _PkgReqType, resource_name: str) -> IO[bytes]: ...
-def resource_string(package_or_requirement: _PkgReqType, resource_name: str) -> bytes: ...
-def resource_listdir(package_or_requirement: _PkgReqType, resource_name: str) -> list[str]: ...
-def set_extraction_path(path: str) -> None: ...
-def cleanup_resources(force: bool = False) -> list[str]: ...
+__resource_manager: ResourceManager  # Doesn't exist at runtime
+resource_exists = __resource_manager.resource_exists
+resource_isdir = __resource_manager.resource_isdir
+resource_filename = __resource_manager.resource_filename
+resource_stream = __resource_manager.resource_stream
+resource_string = __resource_manager.resource_string
+resource_listdir = __resource_manager.resource_listdir
+set_extraction_path = __resource_manager.set_extraction_path
+cleanup_resources = __resource_manager.cleanup_resources
+
 @overload
 def get_provider(moduleOrReq: str) -> IResourceProvider: ...
 @overload
@@ -248,7 +326,7 @@ class NullProvider:
     def metadata_listdir(self, name: str) -> list[str]: ...
     def run_script(self, script_name: str, namespace: dict[str, Any]) -> None: ...
 
-# Doesn't actually extend NullProvider
+# Doesn't actually extend NullProvider, solves a typing issue in pytype_test.py
 class Distribution(NullProvider):
     PKG_INFO: ClassVar[str]
     project_name: str
@@ -349,11 +427,12 @@ def safe_version(version: str) -> str: ...
 def safe_extra(extra: str) -> str: ...
 def to_filename(name: str) -> str: ...
 def get_build_platform() -> str: ...
-def get_platform() -> str: ...
+
+get_platform = get_build_platform
+
 def get_supported_platform() -> str: ...
 def compatible_platforms(provided: str | None, required: str | None) -> bool: ...
 def get_default_cache() -> str: ...
-def get_importer(path_item: str) -> _Importer: ...
 def ensure_directory(path: str) -> None: ...
 def normalize_path(filename: str) -> str: ...
 
