@@ -50,10 +50,11 @@ select = [
     "UP039", # don't use parens after a class definition with no bases
 ]
 
-[tool.ruff.lint.extend-per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "*.pyi" = [
-    # Rules that are out of the control of stub authors:
-    "B006", # Do not use mutable data structures for argument defaults
+    # Most flake8-bugbear rules don't apply for third-party stubs like typeshed,
+    # B033 could be slightly useful but Ruff doesn't have per-file select
+    "B", # flake8-bugbear
 ]
 
 [tool.ruff.lint.isort]
