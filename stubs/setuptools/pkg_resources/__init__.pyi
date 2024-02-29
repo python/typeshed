@@ -1,4 +1,5 @@
 import types
+import zipimport
 from _typeshed import Incomplete, StrPath, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from io import BufferedIOBase, BytesIO
@@ -9,7 +10,6 @@ from re import Pattern
 from typing import IO, Any, BinaryIO, ClassVar, Final, Literal, NoReturn, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 from zipfile import ZipInfo
-from zipimport import zipimporter
 
 from ._vendored_packaging import requirements as packaging_requirements, version as packaging_version
 
@@ -346,14 +346,14 @@ class ZipProvider(EggProvider):
     eagers: list[str] | None
     zip_pre: str
     # ZipProvider's loader should always be a zipimporter or equivalent
-    loader: zipimporter
+    loader: zipimport.zipimporter
     @property
     def zipinfo(self) -> dict[str, ZipInfo]: ...
 
 class EggMetadata(ZipProvider):
-    loader: zipimporter
+    loader: zipimport.zipimporter
     module_path: str
-    def __init__(self, importer: zipimporter) -> None: ...
+    def __init__(self, importer: zipimport.zipimporter) -> None: ...
 
 class EmptyProvider(NullProvider):
     module_path: None
