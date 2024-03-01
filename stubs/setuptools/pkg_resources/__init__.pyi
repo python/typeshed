@@ -1,8 +1,6 @@
-import importlib.abc
 import types
 import zipimport
 from _typeshed import Incomplete
-from abc import ABCMeta
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from io import BytesIO
 from pkgutil import get_importer as get_importer
@@ -20,8 +18,10 @@ _InstallerType: TypeAlias = Callable[[Requirement], Distribution | None]
 _EPDistType: TypeAlias = Distribution | Requirement | str
 _MetadataType: TypeAlias = IResourceProvider | None
 _PkgReqType: TypeAlias = str | Requirement
-_DistFinderType: TypeAlias = Callable[[_Importer, str, bool], Generator[Distribution, None, None]]
-_NSHandlerType: TypeAlias = Callable[[_Importer, str, str, types.ModuleType], str]
+_ModuleLike: TypeAlias = object | types.ModuleType  # Any object that optionally has __loader__ or __file__, usually a module
+_ProviderFactoryType: TypeAlias = Callable[[_ModuleLike], IResourceProvider]
+_DistFinderType: TypeAlias = Callable[[_T, str, bool], Iterable[Distribution]]
+_NSHandlerType: TypeAlias = Callable[[_T, str, str, types.ModuleType], str | None]
 
 __all__ = [
     "require",
@@ -294,11 +294,9 @@ class ExtractionError(Exception):
     cache_path: str
     original_error: Exception
 
-class _Importer(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader, metaclass=ABCMeta): ...
-
-def register_finder(importer_type: type, distribution_finder: _DistFinderType) -> None: ...
-def register_loader_type(loader_type: type, provider_factory: Callable[[types.ModuleType], IResourceProvider]) -> None: ...
-def register_namespace_handler(importer_type: type, namespace_handler: _NSHandlerType) -> None: ...
+def register_finder(importer_type: type[_T], distribution_finder: _DistFinderType[_T]) -> None: ...
+def register_loader_type(loader_type: type[_ModuleLike], provider_factory: _ProviderFactoryType) -> None: ...
+def register_namespace_handler(importer_type: type[_T], namespace_handler: _NSHandlerType[_T]) -> None: ...
 
 class IResourceProvider(IMetadataProvider, Protocol):
     def get_resource_filename(self, manager: ResourceManager, resource_name): ...
@@ -317,7 +315,7 @@ class NullProvider:
     loader: types._LoaderProtocol | None
     module_path: str | None
 
-    def __init__(self, module) -> None: ...
+    def __init__(self, module: _ModuleLike) -> None: ...
     def get_resource_filename(self, manager: ResourceManager, resource_name) -> str: ...
     def get_resource_stream(self, manager: ResourceManager, resource_name) -> BytesIO: ...
     def get_resource_string(self, manager: ResourceManager, resource_name): ...
