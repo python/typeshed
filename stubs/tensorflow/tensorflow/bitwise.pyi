@@ -5,7 +5,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow._aliases import FloatArray, IntArray
 
-_BitwiseCompatible: TypeAlias = tf.Tensor | bool | int | FloatArray | IntArray | np.number[Any]
+_BitwiseCompatible: TypeAlias = tf.Tensor | int | FloatArray | IntArray | np.number[Any]
 
 @overload
 def bitwise_and(x: _BitwiseCompatible, y: _BitwiseCompatible, name: str | None = None) -> tf.Tensor: ...
