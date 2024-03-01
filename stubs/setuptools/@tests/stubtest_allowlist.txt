@@ -1,6 +1,7 @@
 # Is always set in __init__
 pkg_resources.PathMetadata.egg_info
 pkg_resources.EggMetadata.loader
+pkg_resources.ZipProvider.loader
 
 # 1 used for True as a default value
 setuptools._distutils.dist.Distribution.get_command_obj
