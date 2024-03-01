@@ -291,7 +291,7 @@ def run_mypy(
                 print_error(result.stderr)
             if non_types_dependencies and args.verbose:
                 print("Ran with the following environment:")
-                subprocess.run(["uv", "pip", "freeze"], env=os.environ | {"VIRTUAL_ENV": str(venv_dir)})
+                subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
                 print()
         else:
             print_success_msg()
@@ -431,7 +431,7 @@ def install_requirements_for_venv(venv_dir: Path, args: TestConfig, external_req
     else:
         uv_command.append("--quiet")
     try:
-        subprocess.run(uv_command, check=True, text=True, env=os.environ | {"VIRTUAL_ENV": str(venv_dir)})
+        subprocess.run(uv_command, check=True, text=True, env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
     except subprocess.CalledProcessError as e:
         print(e.stderr)
         raise
