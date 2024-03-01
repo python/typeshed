@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 try:
-    from termcolor import colored  # pyright: ignore[reportGeneralTypeIssues]
+    from termcolor import colored  # pyright: ignore[reportAssignmentType]
 except ImportError:
 
     def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
@@ -101,7 +101,7 @@ def main() -> None:
     strict_params = _get_strict_params(path)
     print(f"\nRunning Pyright ({'stricter' if strict_params else 'base' } configs) for Python {python_version}...")
     pyright_result = subprocess.run(
-        [sys.executable, "tests/pyright_test.py", path, "--pythonversion", python_version] + strict_params,
+        [sys.executable, "tests/pyright_test.py", path, "--pythonversion", python_version, *strict_params],
         stderr=subprocess.PIPE,
         text=True,
     )

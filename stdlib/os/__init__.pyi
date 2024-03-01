@@ -308,7 +308,8 @@ if sys.platform != "win32":
     EX_NOPERM: int
     EX_CONFIG: int
 
-if sys.platform != "win32" and sys.platform != "darwin":
+# Exists on some Unix platforms, e.g. Solaris.
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
     EX_NOTFOUND: int
 
 P_NOWAIT: int
@@ -868,8 +869,8 @@ if sys.platform != "win32":
 def abort() -> NoReturn: ...
 
 # These are defined as execl(file, *args) but the first *arg is mandatory.
-def execl(file: StrOrBytesPath, __arg0: StrOrBytesPath, *args: StrOrBytesPath) -> NoReturn: ...
-def execlp(file: StrOrBytesPath, __arg0: StrOrBytesPath, *args: StrOrBytesPath) -> NoReturn: ...
+def execl(file: StrOrBytesPath, *args: Unpack[tuple[StrOrBytesPath, Unpack[tuple[StrOrBytesPath, ...]]]]) -> NoReturn: ...
+def execlp(file: StrOrBytesPath, *args: Unpack[tuple[StrOrBytesPath, Unpack[tuple[StrOrBytesPath, ...]]]]) -> NoReturn: ...
 
 # These are: execle(file, *args, env) but env is pulled from the last element of the args.
 def execle(

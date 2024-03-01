@@ -279,7 +279,7 @@ def run_mypy(
             flags.append("--no-site-packages")
 
         mypy_args = [*flags, *map(str, files)]
-        mypy_command = [venv_info.python_exe, "-m", "mypy"] + mypy_args
+        mypy_command = [venv_info.python_exe, "-m", "mypy", *mypy_args]
         if args.verbose:
             print(colored(f"running {' '.join(mypy_command)}", "blue"))
         result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
