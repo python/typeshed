@@ -5,6 +5,10 @@ import numpy as np
 import tensorflow as tf
 from tensorflow._aliases import FloatArray, IntArray
 
+# The alias below is not fully accurate, since TensorFlow casts the inputs, they have some additional
+# requirements. For example y needs to be castable into x's dtype. Moreover, x and y cannot both be booleans.
+# Properly typing the bitwise functions would be overly complicated and unlikely to provide much benefits
+# since most people use Tensors, it was therefore not done.
 _BitwiseCompatible: TypeAlias = tf.Tensor | int | FloatArray | IntArray | np.number[Any]
 
 @overload
