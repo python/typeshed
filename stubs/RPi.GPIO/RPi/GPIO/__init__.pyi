@@ -39,10 +39,7 @@ BOTH: int
 _EventCallback: TypeAlias = Callable[[int], object]
 
 def setup(
-    channel: int | list[int] | tuple[int, ...],
-    direction: Literal[0, 1],
-    pull_up_down: int = 20,
-    initial: int = -1,
+    channel: int | list[int] | tuple[int, ...], direction: Literal[0, 1], pull_up_down: int = 20, initial: int = -1
 ) -> None: ...
 def cleanup(channel: int | list[int] | tuple[int, ...] = -666) -> None: ...
 def output(
