@@ -74,6 +74,7 @@ PROTO_FILES=$(grep "GenProto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py | \
 protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="relax_strict_optional_primitives:$REPO_ROOT/stubs/protobuf" $PROTO_FILES
 
 ruff check "$REPO_ROOT/stubs/protobuf" --fix-only
+ruff check "$REPO_ROOT/stubs/protobuf" --fix-only --select=UP036 --unsafe-fixes
 black "$REPO_ROOT/stubs/protobuf"
 
 sed --in-place="" \
