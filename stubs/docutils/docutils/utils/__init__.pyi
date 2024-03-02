@@ -1,16 +1,15 @@
 import optparse
 from _typeshed import Incomplete
-from builtins import list as _list  # alias to avoid name clashes with fields named list
-from collections.abc import Iterable
-from typing import Literal
+from collections.abc import Callable, Iterable
+from typing import IO, Any, Literal
 from typing_extensions import TypeAlias
 
-from docutils import ApplicationError
-from docutils.io import FileOutput
+from docutils import ApplicationError, nodes
+from docutils.io import ErrorOutput, FileOutput
 from docutils.nodes import document
 
 class DependencyList:
-    list: _list[str]
+    list: list[str]
     file: FileOutput | None
     def __init__(self, output_file: str | None = None, dependencies: Iterable[str] = ()) -> None: ...
     def set_output(self, output_file: str | None) -> None: ...
@@ -20,16 +19,46 @@ class DependencyList:
 _SystemMessageLevel: TypeAlias = Literal[0, 1, 2, 3, 4]
 
 class Reporter:
+    levels: Literal["DEBUG", "INFO", "WARNING", "ERROR", "SEVERE"]
+
     DEBUG_LEVEL: Literal[0]
     INFO_LEVEL: Literal[1]
     WARNING_LEVEL: Literal[2]
     ERROR_LEVEL: Literal[3]
     SEVERE_LEVEL: Literal[4]
 
+    def __init__(
+        self,
+        source: str,
+        report_level: int,
+        halt_level: int,
+        stream: IO[str] | str | bool | None = None,
+        debug: bool = False,
+        encoding: str | None = None,
+        error_handler: str = "backslashreplace",
+    ) -> None: ...
+
     source: str
-    report_level: _SystemMessageLevel
-    halt_level: _SystemMessageLevel
-    def __getattr__(self, __name: str) -> Incomplete: ...
+    error_handler: str
+    debug_flag: bool
+    report_level: int
+    halt_level: int
+    stream: ErrorOutput
+    encoding: str
+    observers: list[Callable[[nodes.system_message], None]]
+    max_level: int
+    def set_conditions(
+        self, category: Any, report_level: int, halt_level: int, stream: IO[str] | None = None, debug: bool = False
+    ) -> None: ...
+    def attach_observer(self, observer: Callable[[nodes.system_message], None]) -> None: ...
+    def detach_observer(self, observer: Callable[[nodes.system_message], None]) -> None: ...
+    def notify_observers(self, message: nodes.system_message) -> None: ...
+    def system_message(self, level: int, message: str, *children: nodes.Node, **kwargs: Any) -> nodes.system_message: ...
+    def debug(self, *args: Any, **kwargs: Any) -> nodes.system_message: ...
+    def info(self, *args: Any, **kwargs: Any) -> nodes.system_message: ...
+    def warning(self, *args: Any, **kwargs: Any) -> nodes.system_message: ...
+    def error(self, *args: Any, **kwargs: Any) -> nodes.system_message: ...
+    def severe(self, *args: Any, **kwargs: Any) -> nodes.system_message: ...
 
 class SystemMessage(ApplicationError):
     level: _SystemMessageLevel
