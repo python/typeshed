@@ -21,10 +21,10 @@ repos:
         name: Remove unnecessary `sys.version_info` blocks
         args: ["--exit-non-zero-on-fix", "--select=UP036", "--unsafe-fixes"]
       - id: ruff
-        # This is the only rule
-        # that it's really useful to run on the test cases:
-        name: Check __future__ annotations in test cases
-        args: ["--exit-non-zero-on-fix", "--select=FA", "--no-force-exclude", "--unsafe-fixes"]
+        # Very few rules are useful to run on our test cases;
+        # we explicitly enumerate them here:
+        name: Run ruff on the test cases
+        args: ["--exit-non-zero-on-fix", "--select=FA,I", "--no-force-exclude", "--unsafe-fixes"]
         files: '.*test_cases/.+\.py$'
   - repo: https://github.com/psf/black-pre-commit-mirror
     rev: 24.1.1 # must match requirements-tests.txt
