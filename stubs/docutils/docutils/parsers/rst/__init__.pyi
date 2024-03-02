@@ -8,8 +8,6 @@ from docutils.statemachine import StringList
 from docutils.transforms import Transform
 
 class Parser(parsers.Parser):
-    settings_spec: tuple[str, str, tuple[str, list[str], dict[str, Any]]]
-    config_section: ClassVar[str]
     config_section_dependencies: ClassVar[tuple[str, ...]]
     initial_state: Literal["Body", "RFC2822Body"]
     state_classes: Sequence[type[RSTState]]
