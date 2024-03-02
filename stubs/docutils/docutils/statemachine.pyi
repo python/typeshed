@@ -1,7 +1,7 @@
 from collections.abc import Callable, Generator, Iterator, Sequence
 from re import Match, Pattern
-from typing import Any, Generic, TypeAlias, TypeVar, overload
-from typing_extensions import Self
+from typing import Any, Generic, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 
 _Context = TypeVar("_Context")
 _TransitionResult: TypeAlias = tuple[_Context, str | None, list[str]]
