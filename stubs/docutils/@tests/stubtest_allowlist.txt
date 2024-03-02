@@ -19,4 +19,3 @@ docutils.utils.Reporter.__getattr__
 
 # the constructor appears to be mostly internal API, public API users are meant to use docutils.utils.new_reporter instead
 docutils.utils.Reporter.__init__
-
