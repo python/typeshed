@@ -145,7 +145,6 @@ def get_txt_requirements() -> dict[str, SpecifierSet]:
 class PreCommitConfigRepos(TypedDict):
     hooks: list[dict[str, str]]
     repo: str
-    rev: str
 
 
 class PreCommitConfig(TypedDict):
@@ -159,7 +158,7 @@ def get_precommit_requirements() -> dict[str, SpecifierSet]:
     precommit_requirements: dict[str, SpecifierSet] = {}
     for repo in yam["repos"]:
         package_rev = repo.get("rev")
-        if package_rev is None:
+        if not isinstance(package_rev, str):
             continue
         package_name = Path(urllib.parse.urlparse(repo["repo"]).path).name
         package_specifier = SpecifierSet(f"=={package_rev.removeprefix('v')}")
