@@ -25,10 +25,84 @@ _PkgReqType: TypeAlias = str | Requirement
 _EPDistType: TypeAlias = Distribution | _PkgReqType
 _MetadataType: TypeAlias = IResourceProvider | None
 _ResolvedEntryPoint: TypeAlias = Any  # Can be any attribute in the module
-_ModuleLike: TypeAlias = object | types.ModuleType  # Optionally has __loader__ or __file__
+_ModuleLike: TypeAlias = object | types.ModuleType  # Any object that optionally has __loader__ or __file__, usually a module
 _ProviderFactoryType: TypeAlias = Callable[[_ModuleLike], IResourceProvider]
-_DistFinderType: TypeAlias = Callable[[_T, str, bool], Iterator[Distribution]]
+_DistFinderType: TypeAlias = Callable[[_T, str, bool], Iterable[Distribution]]
 _NSHandlerType: TypeAlias = Callable[[_T, str, str, types.ModuleType], str | None]
+
+__all__ = [
+    "require",
+    "run_script",
+    "get_provider",
+    "get_distribution",
+    "load_entry_point",
+    "get_entry_map",
+    "get_entry_info",
+    "iter_entry_points",
+    "resource_string",
+    "resource_stream",
+    "resource_filename",
+    "resource_listdir",
+    "resource_exists",
+    "resource_isdir",
+    "declare_namespace",
+    "working_set",
+    "add_activation_listener",
+    "find_distributions",
+    "set_extraction_path",
+    "cleanup_resources",
+    "get_default_cache",
+    "Environment",
+    "WorkingSet",
+    "ResourceManager",
+    "Distribution",
+    "Requirement",
+    "EntryPoint",
+    "ResolutionError",
+    "VersionConflict",
+    "DistributionNotFound",
+    "UnknownExtra",
+    "ExtractionError",
+    "PEP440Warning",
+    "parse_requirements",
+    "parse_version",
+    "safe_name",
+    "safe_version",
+    "get_platform",
+    "compatible_platforms",
+    "yield_lines",
+    "split_sections",
+    "safe_extra",
+    "to_filename",
+    "invalid_marker",
+    "evaluate_marker",
+    "ensure_directory",
+    "normalize_path",
+    "EGG_DIST",
+    "BINARY_DIST",
+    "SOURCE_DIST",
+    "CHECKOUT_DIST",
+    "DEVELOP_DIST",
+    "IMetadataProvider",
+    "IResourceProvider",
+    "FileMetadata",
+    "PathMetadata",
+    "EggMetadata",
+    "EmptyProvider",
+    "empty_provider",
+    "NullProvider",
+    "EggProvider",
+    "DefaultProvider",
+    "ZipProvider",
+    "register_finder",
+    "register_namespace_handler",
+    "register_loader_type",
+    "fixup_namespace_packages",
+    "get_importer",
+    "PkgResourcesDeprecationWarning",
+    "run_main",
+    "AvailableDistributions",
+]
 
 @type_check_only
 class _ZipLoaderModule(Protocol):
@@ -182,7 +256,7 @@ class ResourceManager:
     def set_extraction_path(self, path: str) -> None: ...
     def cleanup_resources(self, force: bool = False) -> list[str]: ...
 
-__resource_manager: ResourceManager
+__resource_manager: ResourceManager  # Doesn't exist at runtime
 resource_exists = __resource_manager.resource_exists
 resource_isdir = __resource_manager.resource_isdir
 resource_filename = __resource_manager.resource_filename
