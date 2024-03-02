@@ -26,7 +26,11 @@ exclude = [
 [tool.ruff.lint]
 # Disable all rules on test cases by default:
 # test cases often deliberately contain code
-# that might not be considered idiomatic or modern
+# that might not be considered idiomatic or modern.
+#
+# Note: some rules that are specifically useful to the test cases
+# are invoked via separate runs of ruff in pre-commit:
+# see our .pre-commit-config.yaml file for details
 exclude = ["**/test_cases/**/*.py"]
 select = [
     "B", # flake8-bugbear
