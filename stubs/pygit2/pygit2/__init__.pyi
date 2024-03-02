@@ -21,7 +21,7 @@ from .index import Index as Index, IndexEntry as IndexEntry
 from .legacyenums import *
 from .packbuilder import PackBuilder as PackBuilder
 from .remotes import Remote as Remote
-from .repository import Repository
+from .repository import Repository  # type: ignore[assignment]
 from .settings import Settings
 from .submodules import Submodule as Submodule
 
