@@ -141,7 +141,7 @@ jobs:
           if [ -n "$DEPENDENCIES" ]; then
             source .venv/bin/activate
             echo "Installing packages: $DEPENDENCIES"
-            uv pip install $DEPENDENCIES --system
+            uv pip install $DEPENDENCIES
           fi
       - name: Activate the isolated venv for the rest of the job
         run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
