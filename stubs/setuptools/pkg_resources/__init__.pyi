@@ -1,13 +1,13 @@
-import importlib.abc
 import types
 import zipimport
 from _typeshed import Incomplete
-from abc import ABCMeta
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from io import BytesIO
+from pkgutil import get_importer as get_importer
 from re import Pattern
-from typing import IO, Any, ClassVar, Literal, Protocol, TypeVar, overload
+from typing import IO, Any, ClassVar, Final, Literal, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
+from zipfile import ZipInfo
 
 from ._vendored_packaging import requirements as packaging_requirements, version as packaging_version
 
@@ -18,8 +18,88 @@ _InstallerType: TypeAlias = Callable[[Requirement], Distribution | None]
 _EPDistType: TypeAlias = Distribution | Requirement | str
 _MetadataType: TypeAlias = IResourceProvider | None
 _PkgReqType: TypeAlias = str | Requirement
-_DistFinderType: TypeAlias = Callable[[_Importer, str, bool], Generator[Distribution, None, None]]
-_NSHandlerType: TypeAlias = Callable[[_Importer, str, str, types.ModuleType], str]
+_ModuleLike: TypeAlias = object | types.ModuleType  # Any object that optionally has __loader__ or __file__, usually a module
+_ProviderFactoryType: TypeAlias = Callable[[_ModuleLike], IResourceProvider]
+_DistFinderType: TypeAlias = Callable[[_T, str, bool], Iterable[Distribution]]
+_NSHandlerType: TypeAlias = Callable[[_T, str, str, types.ModuleType], str | None]
+
+__all__ = [
+    "require",
+    "run_script",
+    "get_provider",
+    "get_distribution",
+    "load_entry_point",
+    "get_entry_map",
+    "get_entry_info",
+    "iter_entry_points",
+    "resource_string",
+    "resource_stream",
+    "resource_filename",
+    "resource_listdir",
+    "resource_exists",
+    "resource_isdir",
+    "declare_namespace",
+    "working_set",
+    "add_activation_listener",
+    "find_distributions",
+    "set_extraction_path",
+    "cleanup_resources",
+    "get_default_cache",
+    "Environment",
+    "WorkingSet",
+    "ResourceManager",
+    "Distribution",
+    "Requirement",
+    "EntryPoint",
+    "ResolutionError",
+    "VersionConflict",
+    "DistributionNotFound",
+    "UnknownExtra",
+    "ExtractionError",
+    "PEP440Warning",
+    "parse_requirements",
+    "parse_version",
+    "safe_name",
+    "safe_version",
+    "get_platform",
+    "compatible_platforms",
+    "yield_lines",
+    "split_sections",
+    "safe_extra",
+    "to_filename",
+    "invalid_marker",
+    "evaluate_marker",
+    "ensure_directory",
+    "normalize_path",
+    "EGG_DIST",
+    "BINARY_DIST",
+    "SOURCE_DIST",
+    "CHECKOUT_DIST",
+    "DEVELOP_DIST",
+    "IMetadataProvider",
+    "IResourceProvider",
+    "FileMetadata",
+    "PathMetadata",
+    "EggMetadata",
+    "EmptyProvider",
+    "empty_provider",
+    "NullProvider",
+    "EggProvider",
+    "DefaultProvider",
+    "ZipProvider",
+    "register_finder",
+    "register_namespace_handler",
+    "register_loader_type",
+    "fixup_namespace_packages",
+    "get_importer",
+    "PkgResourcesDeprecationWarning",
+    "run_main",
+    "AvailableDistributions",
+]
+
+@type_check_only
+class _ZipLoaderModule(Protocol):
+    __loader__: zipimport.zipimporter
 
 def declare_namespace(packageName: str) -> None: ...
 def fixup_namespace_packages(path_item: str, parent=None) -> None: ...
@@ -138,11 +218,12 @@ def get_distribution(dist: _D) -> _D: ...
 @overload
 def get_distribution(dist: _PkgReqType) -> Distribution: ...
 
-EGG_DIST: int
-BINARY_DIST: int
-SOURCE_DIST: int
-CHECKOUT_DIST: int
-DEVELOP_DIST: int
+PY_MAJOR: Final[str]
+EGG_DIST: Final = 3
+BINARY_DIST: Final = 2
+SOURCE_DIST: Final = 1
+CHECKOUT_DIST: Final = 0
+DEVELOP_DIST: Final = -1
 
 class ResourceManager:
     extraction_path: Incomplete
@@ -160,14 +241,16 @@ class ResourceManager:
     def set_extraction_path(self, path: str) -> None: ...
     def cleanup_resources(self, force: bool = False) -> list[str]: ...
 
-def resource_exists(package_or_requirement: _PkgReqType, resource_name: str) -> bool: ...
-def resource_isdir(package_or_requirement: _PkgReqType, resource_name: str) -> bool: ...
-def resource_filename(package_or_requirement: _PkgReqType, resource_name: str) -> str: ...
-def resource_stream(package_or_requirement: _PkgReqType, resource_name: str) -> IO[bytes]: ...
-def resource_string(package_or_requirement: _PkgReqType, resource_name: str) -> bytes: ...
-def resource_listdir(package_or_requirement: _PkgReqType, resource_name: str) -> list[str]: ...
-def set_extraction_path(path: str) -> None: ...
-def cleanup_resources(force: bool = False) -> list[str]: ...
+__resource_manager: ResourceManager  # Doesn't exist at runtime
+resource_exists = __resource_manager.resource_exists
+resource_isdir = __resource_manager.resource_isdir
+resource_filename = __resource_manager.resource_filename
+resource_stream = __resource_manager.resource_stream
+resource_string = __resource_manager.resource_string
+resource_listdir = __resource_manager.resource_listdir
+set_extraction_path = __resource_manager.set_extraction_path
+cleanup_resources = __resource_manager.cleanup_resources
+
 @overload
 def get_provider(moduleOrReq: str) -> IResourceProvider: ...
 @overload
@@ -211,11 +294,9 @@ class ExtractionError(Exception):
     cache_path: str
     original_error: Exception
 
-class _Importer(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader, metaclass=ABCMeta): ...
-
-def register_finder(importer_type: type, distribution_finder: _DistFinderType) -> None: ...
-def register_loader_type(loader_type: type, provider_factory: Callable[[types.ModuleType], IResourceProvider]) -> None: ...
-def register_namespace_handler(importer_type: type, namespace_handler: _NSHandlerType) -> None: ...
+def register_finder(importer_type: type[_T], distribution_finder: _DistFinderType[_T]) -> None: ...
+def register_loader_type(loader_type: type[_ModuleLike], provider_factory: _ProviderFactoryType) -> None: ...
+def register_namespace_handler(importer_type: type[_T], namespace_handler: _NSHandlerType[_T]) -> None: ...
 
 class IResourceProvider(IMetadataProvider, Protocol):
     def get_resource_filename(self, manager: ResourceManager, resource_name): ...
@@ -234,7 +315,7 @@ class NullProvider:
     loader: types._LoaderProtocol | None
     module_path: str | None
 
-    def __init__(self, module) -> None: ...
+    def __init__(self, module: _ModuleLike) -> None: ...
     def get_resource_filename(self, manager: ResourceManager, resource_name) -> str: ...
     def get_resource_stream(self, manager: ResourceManager, resource_name) -> BytesIO: ...
     def get_resource_string(self, manager: ResourceManager, resource_name): ...
@@ -248,7 +329,7 @@ class NullProvider:
     def metadata_listdir(self, name: str) -> list[str]: ...
     def run_script(self, script_name: str, namespace: dict[str, Any]) -> None: ...
 
-# Doesn't actually extend NullProvider
+# Doesn't actually extend NullProvider, solves a typing issue in pytype_test.py
 class Distribution(NullProvider):
     PKG_INFO: ClassVar[str]
     project_name: str
@@ -321,8 +402,11 @@ class PathMetadata(DefaultProvider):
 class ZipProvider(EggProvider):
     eagers: list[str] | None
     zip_pre: str
+    # ZipProvider's loader should always be a zipimporter
+    loader: zipimport.zipimporter
+    def __init__(self, module: _ZipLoaderModule) -> None: ...
     @property
-    def zipinfo(self): ...
+    def zipinfo(self) -> dict[str, ZipInfo]: ...
 
 class EggMetadata(ZipProvider):
     loader: zipimport.zipimporter
@@ -349,11 +433,12 @@ def safe_version(version: str) -> str: ...
 def safe_extra(extra: str) -> str: ...
 def to_filename(name: str) -> str: ...
 def get_build_platform() -> str: ...
-def get_platform() -> str: ...
+
+get_platform = get_build_platform
+
 def get_supported_platform() -> str: ...
 def compatible_platforms(provided: str | None, required: str | None) -> bool: ...
 def get_default_cache() -> str: ...
-def get_importer(path_item: str) -> _Importer: ...
 def ensure_directory(path: str) -> None: ...
 def normalize_path(filename: str) -> str: ...
 

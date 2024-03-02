@@ -34,6 +34,7 @@ IntDataSequence: TypeAlias = Sequence[int] | Sequence[IntDataSequence]
 StrDataSequence: TypeAlias = Sequence[str] | Sequence[StrDataSequence]
 ScalarTensorCompatible: TypeAlias = tf.Tensor | str | float | np.ndarray[Any, Any] | np.number[Any]
 UIntTensorCompatible: TypeAlias = tf.Tensor | int | UIntArray
+FloatTensorCompatible: TypeAlias = tf.Tensor | int | IntArray | float | FloatArray | np.number[Any]
 StringTensorCompatible: TypeAlias = tf.Tensor | str | npt.NDArray[np.str_] | Sequence[StringTensorCompatible]
 
 TensorCompatible: TypeAlias = ScalarTensorCompatible | Sequence[TensorCompatible]
@@ -43,6 +44,10 @@ TensorCompatible: TypeAlias = ScalarTensorCompatible | Sequence[TensorCompatible
 # broader type than TensorCompatible and not all operations will support broader version. If unsure,
 # use TensorCompatible instead.
 SparseTensorCompatible: TypeAlias = TensorCompatible | tf.SparseTensor
+# TensorFlow tries to convert anything passed as input. Meaning that even if, for example, only a Tensor of int32
+# is allowed, a numpy array of strings that can be converted to int32 will work. Therefore having anything more specific
+# then AnyArray might cause false positives, while AnyArray might cause false negatives.
+TensorOrArray: TypeAlias = tf.Tensor | AnyArray
 
 ShapeLike: TypeAlias = tf.TensorShape | Iterable[ScalarTensorCompatible | None] | int | tf.Tensor
 DTypeLike: TypeAlias = tf.DType | str | np.dtype[Any] | int
