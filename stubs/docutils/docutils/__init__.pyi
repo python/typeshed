@@ -24,7 +24,7 @@ class ApplicationError(Exception): ...
 class DataError(ApplicationError): ...
 
 class SettingsSpec:
-    settings_spec: ClassVar[tuple[str, str, tuple[str, list[str], dict[str, Any]]]]
+    settings_spec: ClassVar[tuple[Any, ...]]
     settings_defaults: ClassVar[dict[Any, Any] | None]
     settings_default_overrides: ClassVar[dict[Any, Any] | None]
     relative_path_settings: ClassVar[tuple[Any, ...]]
