@@ -19,7 +19,7 @@ class DependencyList:
 _SystemMessageLevel: TypeAlias = Literal[0, 1, 2, 3, 4]
 
 class Reporter:
-    levels: Literal["DEBUG", "INFO", "WARNING", "ERROR", "SEVERE"]
+    levels: list[str]
 
     DEBUG_LEVEL: Literal[0]
     INFO_LEVEL: Literal[1]
