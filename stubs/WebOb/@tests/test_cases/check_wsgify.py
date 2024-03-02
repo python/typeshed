@@ -15,8 +15,8 @@ class App:
 
 
 env: WSGIEnvironment = {}
-start_response: StartResponse = lambda x, y, z=None: lambda b: None
-application: WSGIApplication = lambda e, s: [b""]
+start_response: StartResponse = lambda x, y, z=None: lambda b: None  # noqa: E731
+application: WSGIApplication = lambda e, s: [b""]  # noqa: E731
 request: Request = Request(env)
 
 x = App()
