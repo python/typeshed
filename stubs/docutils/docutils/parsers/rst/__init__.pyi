@@ -26,7 +26,7 @@ class Directive:
     required_arguments: int
     optional_arguments: int
     final_argument_whitespace: bool
-    option_spec: dict[str, Callable[[str], Any]]
+    option_spec: dict[str, Callable[[str], Any]] | None
     has_content: bool
     name: str
     arguments: list[str]
