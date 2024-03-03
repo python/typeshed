@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from typing import Any, ClassVar, Literal
 from typing_extensions import TypeAlias
@@ -8,7 +9,7 @@ from docutils.statemachine import StringList
 from docutils.transforms import Transform
 
 class Parser(parsers.Parser):
-    settings_spec: ClassVar[tuple[str, str | None, tuple[tuple[str, list[str], dict[str, Any]], ...]]]
+    settings_spec: ClassVar[Incomplete]
     config_section_dependencies: ClassVar[tuple[str, ...]]
     initial_state: Literal["Body", "RFC2822Body"]
     state_classes: Sequence[type[RSTState]]
