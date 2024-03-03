@@ -14,7 +14,8 @@ from ._vendored_packaging import requirements as packaging_requirements, version
 _T = TypeVar("_T")
 _D = TypeVar("_D", bound=Distribution)
 _NestedStr: TypeAlias = str | Iterable[str | Iterable[Any]]
-_InstallerType: TypeAlias = Callable[[Requirement], Distribution | None]
+_StrictInstallerType: TypeAlias = Callable[[Requirement], _D]
+_InstallerType: TypeAlias = Callable[[Requirement], Distribution | None] | None
 _EPDistType: TypeAlias = Distribution | Requirement | str
 _MetadataType: TypeAlias = IResourceProvider | None
 _PkgReqType: TypeAlias = str | Requirement
@@ -114,16 +115,54 @@ class WorkingSet:
     def run_script(self, requires: str, script_name: str) -> None: ...
     def __iter__(self) -> Iterator[Distribution]: ...
     def add(self, dist: Distribution, entry: str | None = None, insert: bool = True, replace: bool = False) -> None: ...
+    @overload
+    def resolve(  # type: ignore[overload-overlap]
+        self,
+        requirements: Iterable[Requirement],
+        env: Environment | None,
+        installer: _StrictInstallerType[_D],
+        replace_conflicting: bool = False,
+        extras=None,
+    ) -> list[_D]: ...
+    @overload
+    def resolve(  # type: ignore[overload-overlap]
+        self,
+        requirements: Iterable[Requirement],
+        env: Environment | None = None,
+        *,
+        installer: _StrictInstallerType[_D],
+        replace_conflicting: bool = False,
+        extras=None,
+    ) -> list[_D]: ...
+    @overload
     def resolve(
         self,
         requirements: Iterable[Requirement],
         env: Environment | None = None,
-        installer: _InstallerType | None = None,
+        installer: _InstallerType = None,
         replace_conflicting: bool = False,
         extras=None,
     ) -> list[Distribution]: ...
+    @overload
+    def find_plugins(  # type: ignore[overload-overlap]
+        self, plugin_env: Environment, full_env: Environment | None, installer: _StrictInstallerType[_D], fallback: bool = True
+    ) -> tuple[list[_D], dict[Distribution, Exception]]: ...
+    @overload
+    def find_plugins(  # type: ignore[overload-overlap]
+        self,
+        plugin_env: Environment,
+        full_env: Environment | None = None,
+        *,
+        installer: _StrictInstallerType[_D],
+        fallback: bool = True,
+    ) -> tuple[list[_D], dict[Distribution, Exception]]: ...
+    @overload
     def find_plugins(
-        self, plugin_env: Environment, full_env: Environment | None = None, installer=None, fallback: bool = True
+        self,
+        plugin_env: Environment,
+        full_env: Environment | None = None,
+        installer: _InstallerType = None,
+        fallback: bool = True,
     ) -> tuple[list[Distribution], dict[Distribution, Exception]]: ...
     def require(self, *requirements: _NestedStr) -> Sequence[Distribution]: ...
     def subscribe(self, callback: Callable[[Distribution], object], existing: bool = True) -> None: ...
@@ -146,16 +185,16 @@ class Environment:
     def add(self, dist: Distribution) -> None: ...
     @overload
     def best_match(
-        self, req: Requirement, working_set: WorkingSet, installer: None = None, replace_conflicting: bool = False
-    ) -> Distribution: ...
+        self, req: Requirement, working_set: WorkingSet, installer: _StrictInstallerType[_D], replace_conflicting: bool = False
+    ) -> _D: ...
     @overload
     def best_match(
-        self, req: Requirement, working_set: WorkingSet, installer: Callable[[Requirement], _T], replace_conflicting: bool = False
-    ) -> _T: ...
+        self, req: Requirement, working_set: WorkingSet, installer: _InstallerType = None, replace_conflicting: bool = False
+    ) -> Distribution | None: ...
     @overload
-    def obtain(self, requirement: Requirement, installer: None = None) -> None: ...
+    def obtain(self, requirement: Requirement, installer: _StrictInstallerType[_D]) -> _D: ...  # type: ignore[overload-overlap]
     @overload
-    def obtain(self, requirement: Requirement, installer: Callable[[Requirement], _T]) -> _T: ...
+    def obtain(self, requirement: Requirement, installer: _InstallerType = None) -> None: ...
     def __iter__(self) -> Iterator[str]: ...
     def __iadd__(self, other: Distribution | Environment) -> Self: ...
     def __add__(self, other: Distribution | Environment) -> Environment: ...
@@ -200,9 +239,9 @@ class EntryPoint:
         extras: tuple[str, ...] = (),
         dist: Distribution | None = None,
     ) -> None: ...
-    def load(self, require: bool = True, env: Environment | None = ..., installer: _InstallerType | None = ...) -> Any: ...
+    def load(self, require: bool = True, env: Environment | None = None, installer: _InstallerType = None) -> Any: ...
     def resolve(self) -> Any: ...
-    def require(self, env: Environment | None = None, installer: _InstallerType | None = None) -> None: ...
+    def require(self, env: Environment | None = None, installer: _InstallerType = None) -> None: ...
     @classmethod
     def parse(cls, src: str, dist: Distribution | None = None) -> EntryPoint: ...
     @classmethod
