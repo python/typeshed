@@ -70,6 +70,8 @@ PROTO_FILES=$(grep "GenProto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py | \
 # shellcheck disable=SC2086
 protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="relax_strict_optional_primitives:$REPO_ROOT/stubs/protobuf" $PROTO_FILES
 
+# use `|| true` so the script still continues even if a pre-commit hook
+# applies autofixes (which will result in a nonzero exit code)
 pre-commit run --files "$REPO_ROOT/stubs/protobuf" || true
 
 sed --in-place="" \

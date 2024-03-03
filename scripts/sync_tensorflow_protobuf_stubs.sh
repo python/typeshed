@@ -61,6 +61,8 @@ rm tensorflow/compiler/xla/service/hlo_execution_profile_data_pb2.pyi \
    tensorflow/core/protobuf/worker_service_pb2.pyi \
    tensorflow/core/util/example_proto_fast_parsing_test_pb2.pyi
 
+# use `|| true` so the script still continues even if a pre-commit hook
+# applies autofixes (which will result in a nonzero exit code)
 pre-commit run --files "$REPO_ROOT/stubs/tensorflow/tensorflow" || true
 
 sed --in-place="" \
