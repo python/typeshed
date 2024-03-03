@@ -342,7 +342,7 @@ class OptionList(SpecializedBody):
     blank_finish: bool = ...
     def option_marker(self, match: Match[str], context: Any, next_state: str) -> tuple[list[Any], str, list[Any]]: ...  # type: ignore[override]
 
-class RFC2822list(SpecializedBody, RFC2822Body):
+class RFC2822List(SpecializedBody, RFC2822Body):
     patterns: dict[str, str | Pattern[str]] = ...
     initial_transitions: list[tuple[str, str]] = ...
     blank_finish: bool = ...
@@ -405,6 +405,7 @@ class Line(SpecializedText):
     def blank(self, match: Match[str], context: Any, next_state: str) -> tuple[list[Any], str, list[Any]]: ...  # type: ignore[override]
     def text(self, match: Match[str], context: Any, next_state: str) -> tuple[list[Any], str, list[Any]]: ...  # type: ignore[override]
     def underline(self, match: Match[str], context: Any, next_state: str) -> tuple[list[Any], str, list[Any]]: ...  # type: ignore[override]
+    def indent(self, match: Match[str], context: Any, next_state: str) -> tuple[list[Any], str, list[Any]]: ...  # type: ignore[override]
     def short_overline(self, context: Any, blocktext: str, lineno: int, lines: int = ...) -> None: ...  # type: ignore[override]
     def state_correction(self, context: Any, lines: int = ...) -> None: ...
 
