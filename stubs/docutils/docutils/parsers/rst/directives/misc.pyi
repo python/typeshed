@@ -53,7 +53,7 @@ class Title(Directive):
     final_argument_whitespace: ClassVar[Literal[True]]
 
 class MetaBody(SpecializedBody):
-    def __getattr__(name: str) -> Incomplete: ...
+    def __getattr__(self, name: str) -> Incomplete: ...
 
 class Meta(Directive):
     has_content: ClassVar[Literal[True]]
