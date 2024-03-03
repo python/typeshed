@@ -9,9 +9,9 @@ from docutils.parsers.rst import Directive, tableparser
 from docutils.statemachine import StateMachine, StateMachineWS, StateWS, Stringlist
 from docutils.utils import Reporter
 
-BasicDefinition: TypeAlias = tuple[str, str, str, list[Pattern[str]]]
-DefinitionParts: TypeAlias = tuple[str, str, str, list[Pattern[str] | BasicDefinition]]
-Definitiontype: TypeAlias = tuple[str, str, str, list[Pattern[str] | DefinitionParts]]
+_BasicDefinition: TypeAlias = tuple[str, str, str, list[Pattern[str]]]
+_DefinitionParts: TypeAlias = tuple[str, str, str, list[Pattern[str] | _BasicDefinition]]
+_Definitiontype: TypeAlias = tuple[str, str, str, list[Pattern[str] | _DefinitionParts]]
 
 __docformat__: str
 
