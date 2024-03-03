@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
-from collections.abc import Iterable  # noqa: F401
+from collections.abc import Iterable
 from typing_extensions import assert_type
 
 from webob.dec import _AnyResponse, wsgify
@@ -15,8 +15,8 @@ class App:
 
 
 env: WSGIEnvironment = {}
-start_response: StartResponse = lambda x, y, z=None: lambda b: None  # noqa: E731
-application: WSGIApplication = lambda e, s: [b""]  # noqa: E731
+start_response: StartResponse = lambda x, y, z=None: lambda b: None
+application: WSGIApplication = lambda e, s: [b""]
 request: Request = Request(env)
 
 x = App()
