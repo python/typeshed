@@ -45,7 +45,7 @@ class Role(Directive):
 
 class DefaultRole(Directive):
     optional_arguments: ClassVar[Literal[1]]
-    final_argument_whitespace: ClassVar[Literal[True]]
+    final_argument_whitespace: ClassVar[Literal[False]]
 
 class Title(Directive):
     required_arguments: ClassVar[Literal[1]]
