@@ -24,7 +24,14 @@ exclude = [
 ]
 
 [tool.ruff.lint]
-# We still use flake8-pyi and flake8-noqa to check these (see .flake8 config file)
+# Disable all rules on test cases by default:
+# test cases often deliberately contain code
+# that might not be considered idiomatic or modern.
+#
+# Note: some rules that are specifically useful to the test cases
+# are invoked via separate runs of ruff in pre-commit:
+# see our .pre-commit-config.yaml file for details
+exclude = ["**/test_cases/**/*.py"]
 external = ["F821", "NQA", "Y"]
 extend-select = [
     "B", # flake8-bugbear
@@ -61,12 +68,8 @@ ignore = [
     "RUF013", # PEP 484 prohibits implicit `Optional`
 ]
 [tool.ruff.lint.per-file-ignores]
-# Disable "modernization" rules with autofixes from test cases as they often
-# deliberately contain code that might not be considered idiomatic or modern
-# These can be run manually once in a while
-"**/test_cases/**/*.py" = ["UP"]
 "*.pyi" = [
-    # Most flake8-bugbear rules don't apply for third-party stubs like typeshed,
+    # Most flake8-bugbear rules don't apply for third-party stubs like typeshed.
     # B033 could be slightly useful but Ruff doesn't have per-file select
     "B", # flake8-bugbear
     # Rules that are out of the control of stub authors:
