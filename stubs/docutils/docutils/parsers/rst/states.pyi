@@ -321,24 +321,24 @@ class SpecializedBody(Body):
     def line(self, match: Match[str] | None = None, context: Any | None = None, next_state: str | None = None) -> None: ...  # type: ignore[override]
     def text(self, match: Match[str] | None = None, context: Any | None = None, next_state: str | None = None) -> None: ...  # type: ignore[override]
 
-class Bulletlist(SpecializedBody):
+class BulletList(SpecializedBody):
     blank_finish: bool = ...
     def bullet(self, match: Match[str], context: Any, next_state: str) -> tuple[list[Any], str, list[Any]]: ...  # type: ignore[override]
 
-class Definitionlist(SpecializedBody):
+class DefinitionList(SpecializedBody):
     def text(self, match: Match[str], context: Any, next_state: str) -> tuple[list[str], str, list[Any]]: ...  # type: ignore[override]
 
-class Enumeratedlist(SpecializedBody):
+class EnumeratedList(SpecializedBody):
     auto: int = ...
     blank_finish: bool = ...
     lastordinal: int = ...
     def enumerator(self, match: Match[str], context: Any, next_state: str) -> tuple[list[Any], str, list[Any]]: ...  # type: ignore[override]
 
-class Fieldlist(SpecializedBody):
+class FieldList(SpecializedBody):
     blank_finish: bool = ...
     def field_marker(self, match: Match[str], context: Any, next_state: str) -> tuple[list[Any], str, list[Any]]: ...  # type: ignore[override]
 
-class Optionlist(SpecializedBody):
+class OptionList(SpecializedBody):
     blank_finish: bool = ...
     def option_marker(self, match: Match[str], context: Any, next_state: str) -> tuple[list[Any], str, list[Any]]: ...  # type: ignore[override]
 
@@ -348,7 +348,7 @@ class RFC2822list(SpecializedBody, RFC2822Body):
     blank_finish: bool = ...
     def rfc2822(self, match: Match[str], context: Any, next_state: str) -> tuple[list[Any], str, list[Any]]: ...
 
-class ExtensionOptions(Fieldlist):
+class ExtensionOptions(FieldList):
     def parse_field_body(self, indented: Stringlist, offset: int, node: nodes.Node) -> None: ...
 
 class LineBlock(SpecializedBody):
