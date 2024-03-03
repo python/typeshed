@@ -24,6 +24,14 @@ exclude = [
 ]
 
 [tool.ruff.lint]
+# Disable all rules on test cases by default:
+# test cases often deliberately contain code
+# that might not be considered idiomatic or modern.
+#
+# Note: some rules that are specifically useful to the test cases
+# are invoked via separate runs of ruff in pre-commit:
+# see our .pre-commit-config.yaml file for details
+exclude = ["**/test_cases/**/*.py"]
 select = [
     "B", # flake8-bugbear
     "FA", # flake8-future-annotations
@@ -48,12 +56,8 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-# Disable "modernization" rules with autofixes from test cases as they often
-# deliberately contain code that might not be considered idiomatic or modern
-# These can be run manually once in a while
-"**/test_cases/**/*.py" = ["UP"]
 "*.pyi" = [
-    # Most flake8-bugbear rules don't apply for third-party stubs like typeshed,
+    # Most flake8-bugbear rules don't apply for third-party stubs like typeshed.
     # B033 could be slightly useful but Ruff doesn't have per-file select
     "B", # flake8-bugbear
 ]
