@@ -8,6 +8,7 @@ repos:
       - id: check-toml
       - id: check-merge-conflict
       - id: mixed-line-ending
+        args: [--fix=lf]
       - id: check-case-conflict
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.3.0 # must match requirements-tests.txt and tests.yml
