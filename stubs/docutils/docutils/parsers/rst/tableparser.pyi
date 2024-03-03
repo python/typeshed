@@ -42,8 +42,8 @@ class GridTableParser(TableParser):
     def structure_from_cells(self) -> tuple[Colspecs, list[Row], list[Row]]: ...
 
 class SimpleTableParser(TableParser):
-    head_body_separator_pat: Pattern[str]
-    span_pat: Pattern[str]
+    head_body_separator_pat: ClassVar[Pattern[str]]
+    span_pat: ClassVar[Pattern[str]]
     block: Stringlist
     head_body_sep: int
     columns: list[tuple[int, int]]
