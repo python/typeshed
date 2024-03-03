@@ -35,9 +35,9 @@ class RSTStateMachine(StateMachineWS):
         self,
         input_lines: list[str] | Stringlist,
         document: nodes.document,
-        input_offset: int = ...,
-        match_titles: bool = ...,
-        inliner: Inliner | None = ...,
+        input_offset: int = 0,
+        match_titles: bool = True,
+        inliner: Inliner | None = None,
     ) -> None: ...
 
 class NestedStateMachine(StateMachineWS):
@@ -48,14 +48,14 @@ class NestedStateMachine(StateMachineWS):
     language: ModuleType
     node: nodes.Node
     def run(
-        self, input_lines: list[str] | Stringlist, input_offset: int, memo: Struct, node: nodes.Node, match_titles: bool = ...
+        self, input_lines: list[str] | Stringlist, input_offset: int, memo: Struct, node: nodes.Node, match_titles: bool = True
     ) -> list[Any]: ...
 
 class RSTState(StateWS):
     nested_sm: type[StateMachine]
     nested_sm_cache: list[StateMachine]
     nested_sm_kwargs: dict[str, Any] | None
-    def __init__(self, state_machine: StateMachine, debug: bool = ...) -> None: ...
+    def __init__(self, state_machine: StateMachine, debug: bool = False) -> None: ...
     memo: Struct
     reporter: Reporter
     inliner: Inliner
@@ -72,9 +72,9 @@ class RSTState(StateWS):
         block: Stringlist,
         input_offset: int,
         node: nodes.Node,
-        match_titles: bool = ...,
-        state_machine_class: type[StateMachine] | None = ...,
-        state_machine_kwargs: dict[str, Any] | None = ...,
+        match_titles: bool = False,
+        state_machine_class: type[StateMachine] | None = None,
+        state_machine_kwargs: dict[str, Any] | None = None,
     ) -> int: ...
     def nested_list_parse(
         self,
@@ -83,11 +83,11 @@ class RSTState(StateWS):
         node,
         initial_state,
         blank_finish,
-        blank_finish_state: Any | None = ...,
-        extra_settings: Any = ...,
-        match_titles: bool = ...,
-        state_machine_class: Any | None = ...,
-        state_machine_kwargs: Any | None = ...,
+        blank_finish_state: Any | None = None,
+        extra_settings: dict[str, Any] = {},
+        match_titles: bool = False,
+        state_machine_class: Any | None = None,
+        state_machine_kwargs: Any | None = None,
     ) -> tuple[int, bool]: ...
     def section(self, title: str, source: str, style: str, lineno: int, messages: list[str]) -> None: ...
     def check_subsection(self, source: str, style: str, lineno: int) -> int: ...
@@ -238,13 +238,13 @@ class Body(RSTState):
     def isolate_simple_table(
         self,
     ) -> tuple[list[Any], list[nodes.system_message], bool] | tuple[Stringlist, list[nodes.system_message], bool]: ...
-    def malformed_table(self, block: Stringlist, detail: str = ..., offset: int = ...) -> list[nodes.system_message]: ...
+    def malformed_table(self, block: Stringlist, detail: str = '', offset: int = 0) -> list[nodes.system_message]: ...
     def build_table(
         self,
         tabledata: tuple[list[int], list[list[tuple[int, int, int, Stringlist]]], list[list[tuple[int, int, int, Stringlist]]]],
         tableline: int,
-        stub_columns: int = ...,
-        widths: None | str | list[int] = ...,
+        stub_columns: int = 0,
+        widths: None | str | list[int] = None,
     ) -> nodes.table: ...
     def build_table_row(self, rowdata: list[tuple[int, int, int, Stringlist]], tableline: int) -> nodes.row: ...
     explicit: Struct = ...

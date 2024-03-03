@@ -1,12 +1,13 @@
 from re import Pattern
 from typing import ClassVar
+from typing_extensions import TypeAlias
 
 from docutils import DataError
 from docutils.statemachine import Stringlist
 
-_Cell = tuple[int, int, int, list[str]]
-_Row = list[_Cell | None]
-_Colspecs = list[int]
+_Cell: TypeAlias = tuple[int, int, int, list[str]]
+_Row: TypeAlias = list[_Cell | None]
+_Colspecs: TypeAlias = list[int]
 
 __docformat__: str
 
