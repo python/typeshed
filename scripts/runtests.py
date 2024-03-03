@@ -194,7 +194,18 @@ def main() -> None:
         print(colored("\n\n--- TEST SUMMARY: One or more tests failed. See above for details. ---\n", "red"))
     else:
         print(colored("\n\n--- TEST SUMMARY: All tests passed! ---\n", "green"))
-    print("pre-commit:", _SUCCESS if pre_commit_result.returncode == 0 else _FAILED)
+    if pre_commit_result.returncode == 0:
+        print("pre-commit", _SUCCESS)
+    else:
+        print("pre-commit", _FAILED)
+        print(
+            """\
+  Check the output of pre-commit for more details.
+  This could mean that there's a lint failure on your code,
+  but could also just mean that one of the pre-commit tools
+  applied some autofixes. If the latter, you may want to check
+  that the autofixes did sensible things."""
+        )
     print("Check consistent:", _SUCCESS if check_consistent_result.returncode == 0 else _FAILED)
     print("Check new syntax:", _SUCCESS if check_new_syntax_result.returncode == 0 else _FAILED)
     if pyright_skipped:
