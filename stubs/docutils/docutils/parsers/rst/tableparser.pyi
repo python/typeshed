@@ -1,4 +1,5 @@
 from re import Pattern
+from typing import ClassVar
 
 from docutils import DataError
 from docutils.statemachine import Stringlist
@@ -14,14 +15,13 @@ class TableMarkupError(DataError):
     def __init__(self, *args, **kwargs) -> None: ...
 
 class TableParser:
-    head_body_separator_pat: Pattern[str]
-    double_width_pad_char: str
+    head_body_separator_pat: ClassVar[Pattern[str] | None]
+    double_width_pad_char: ClassVar[str]
     def parse(self, block: Stringlist) -> tuple[Colspecs, list[Row], list[Row]]: ...
-    head_body_sep: int
     def find_head_body_sep(self) -> None: ...
 
 class GridTableParser(TableParser):
-    head_body_separator_pat: Pattern[str]
+    head_body_separator_pat: ClassVar[Pattern[str]]
     block: Stringlist
     bottom: int
     right: int
