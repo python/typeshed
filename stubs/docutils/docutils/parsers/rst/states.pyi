@@ -54,7 +54,7 @@ class NestedStateMachine(StateMachineWS):
 class RSTState(StateWS):
     nested_sm: type[StateMachine]
     nested_sm_cache: list[StateMachine]
-    nested_sm_kwargs: dict[str, Any]
+    nested_sm_kwargs: dict[str, Any] | None
     def __init__(self, state_machine: StateMachine, debug: bool = ...) -> None: ...
     memo: Struct
     reporter: Reporter
