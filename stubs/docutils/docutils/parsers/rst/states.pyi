@@ -11,7 +11,7 @@ from docutils.utils import Reporter
 
 _BasicDefinition: TypeAlias = tuple[str, str, str, list[Pattern[str]]]
 _DefinitionParts: TypeAlias = tuple[str, str, str, list[Pattern[str] | _BasicDefinition]]
-_Definitiontype: TypeAlias = tuple[str, str, str, list[Pattern[str] | _DefinitionParts]]
+_DefinitionType: TypeAlias = tuple[str, str, str, list[Pattern[str] | _DefinitionParts]]
 
 __docformat__: str
 
@@ -97,14 +97,14 @@ class RSTState(StateWS):
     def inline_text(self, text: str, lineno: int) -> tuple[list[nodes.Node], list[nodes.system_message]]: ...
     def unindent_warning(self, node_name: str) -> nodes.system_message: ...
 
-def build_regexp(definition: Definitiontype, compile: bool = ...) -> Pattern[str]: ...
+def build_regexp(definition: _DefinitionType, compile: bool = ...) -> Pattern[str]: ...
 
 class Inliner:
     implicit_dispatch: list[tuple[Pattern[str], Callable]] = ...
     def __init__(self) -> None: ...
     start_string_prefix: str
     end_string_suffix: str
-    parts: Definitiontype
+    parts: _DefinitionType
     patterns: Any
     def init_customizations(self, settings: Any) -> None: ...
     reporter: Reporter
