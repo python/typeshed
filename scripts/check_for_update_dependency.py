@@ -1,6 +1,5 @@
 import re
 import requests
-import toml
 from typing import List
 
 from typing import Optional
@@ -9,11 +8,9 @@ from typing import Optional
 def get_latest_version(package_name: str) -> Optional[str]:
     """Fetch the latest version of a package from PyPI."""
     response = requests.get(f"https://pypi.org/pypi/{package_name}/json")
-    if response.status_code == 200:
-        data = response.json()
-        return str(data["info"]["version"])
-    else:
-        return None
+    response.raise_for_status()
+    data = response.json()
+    return str(data["info"]["version"])
 
 
 def update_versions(file_path: str) -> None:
@@ -31,7 +28,8 @@ def update_versions(file_path: str) -> None:
             current_version = match.group(2)
             latest_version = get_latest_version(package_name)
             if latest_version and current_version != latest_version:
-                print(f"Updating {package_name} from {current_version} to {latest_version}")
+                print(
+                    f"Updating {package_name} from {current_version} to {latest_version}")
                 line = line.replace(current_version, latest_version)
         updated_content.append(line)
 
@@ -40,17 +38,23 @@ def update_versions(file_path: str) -> None:
 
 
 def update_pyright_version(file_path: str) -> None:
+    """Update pyright version in a TOML configuration file."""
     with open(file_path, "r", encoding="utf-8") as file:
-        config = toml.load(file)
+        lines = file.readlines()
 
     latest_version = get_latest_version("pyright")
-
     if latest_version:
-        config["tool"]["typeshed"]["pyright_version"] = latest_version
+        updated_lines = []
+        for line in lines:
+            if line.startswith("pyright_version = "):
+                updated_lines.append(f'pyright_version = "{latest_version}"\n')
+                print(
+                    f"Updated pyright to version {latest_version} in {file_path}")
+            else:
+                updated_lines.append(line)
 
         with open(file_path, "w", encoding="utf-8") as file:
-            toml.dump(config, file)
-        print(f"Updated pyright to version {latest_version} in {file_path}")
+            file.writelines(updated_lines)
 
 
 file_paths: List[str] = ["requirements-tests.txt", "pyproject.toml"]
