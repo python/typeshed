@@ -15,6 +15,8 @@ from . import events as events, printing as printing, prompt as prompt, types as
 
 # Basic
 
+VERSION: str
+
 PYTHONDIR: str
 
 STDOUT: int
