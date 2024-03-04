@@ -1,0 +1,51 @@
+name: Update mypy, pytype and pyright
+
+on:
+    schedule:
+      # Runs every day at 00:00 UTC
+      - cron: '0 0 * * *'
+
+jobs:
+    build:
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+        runs-on: ${{ matrix.os }}
+        steps:
+            - uses: actions/checkout@v2
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+            - name: Install dependencies
+              run: |
+                  pip install requests
+                  pip install toml
+            - name: Run script
+              run: python scripts/check_for_update_dependency.py
+            - uses: peter-evans/create-pull-request@v3
+              with:
+                token: ${{ secrets.GITHUB_TOKEN }}
+                title: "Daily dependencies update"
+                commit-message: "Updated dependencies after the daily check"
+                body: |
+                    There appear to be some dependency updates in ${{ github.sha }}. This pull request
+                    uses the script to find and update these dependencies.
+                base: ${{ github.head_ref }}
+    # https://github.community/t/run-github-actions-job-only-if-previous-job-has-failed/174786/2
+    create-issue-on-failure:
+      name: Create an issue if Update mypy, pytype and pyright failed
+      runs-on: ubuntu-latest
+      needs: [build]
+      if: ${{ github.repository == 'python/typeshed' && always() && (needs.build.result == 'failure') }}
+      steps:
+        - uses: actions/github-script@v6
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            script: |
+              await github.rest.issues.create({
+                owner: "python",
+                repo: "typeshed",
+                title: `Update mypy, pytype and pyright failed on ${new Date().toDateString()}`,
+                body: "Update mypy, pytype and pyright runs are listed here: https://github.com/python/typeshed/actions/workflows/update_mypy_pyright.yml",
+              })
