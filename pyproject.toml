@@ -66,7 +66,6 @@ ignore = [
     "E111", # indentation-with-invalid-multiple
     "E114", # indentation-with-invalid-multiple-comment
     "E117", # over-indented
-    "E501", # line-too-long, allow comments over line-length
     "W191", # tab-indentation
     ###
     # Rules we don't want or don't agree with
@@ -93,7 +92,8 @@ ignore = [
     "F403", # `from . import *` used; unable to detect undefined names
     # False positives in stubs
     "F821", # Undefined name: https://github.com/astral-sh/ruff/issues/3011
-    # FIXME: Fix these in stubs, then remove these entries
+    # Stubs can sometimes re-export entire modules.
+    # Issues with using a star-imported name will be caught by type-checkers.
     "F405", # may be undefined, or defined from star imports
 ]
 
