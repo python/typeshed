@@ -63,7 +63,7 @@ def run_stubtest(
         dist_extras = ", ".join(stubtest_settings.extras)
         dist_req = f"{dist_name}[{dist_extras}]=={metadata.version}"
 
-        # If tool.stubtest.stubtest_requirements exists, run "uv install" on it.
+        # If tool.stubtest.stubtest_requirements exists, run "uv pip install" on it.
         if stubtest_settings.stubtest_requirements:
             uv_cmd = ["uv", "pip", "install", *stubtest_settings.stubtest_requirements]
             try:
