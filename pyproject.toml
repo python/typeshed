@@ -81,6 +81,7 @@ ignore = [
     # Ruff doesn't support multi-file analysis yet: https://github.com/astral-sh/ruff/issues/5295
     "RUF013", # PEP 484 prohibits implicit `Optional`
 ]
+
 [tool.ruff.lint.per-file-ignores]
 "*.pyi" = [
     # Most flake8-bugbear rules don't apply for third-party stubs like typeshed.
