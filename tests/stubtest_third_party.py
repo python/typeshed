@@ -13,7 +13,7 @@ from textwrap import dedent
 from typing import NoReturn
 
 from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
-from utils import PYTHON_VERSION, colored, get_mypy_req, print_error, print_success_msg
+from utils import PYTHON_VERSION, colored, get_mypy_req, print_error, print_success_msg, venv_python
 
 
 def run_stubtest(
@@ -43,21 +43,23 @@ def run_stubtest(
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
-        subprocess.run(["uv", "venv", venv_dir, "--seed"], capture_output=True, check=True)
-        if sys.platform == "win32":
-            pip_exe = str(venv_dir / "Scripts" / "pip.exe")
-            python_exe = str(venv_dir / "Scripts" / "python.exe")
-        else:
-            pip_exe = str(venv_dir / "bin" / "pip")
-            python_exe = str(venv_dir / "bin" / "python")
+
+        try:
+            subprocess.run(["uv", "venv", venv_dir], capture_output=True, check=True)
+        except subprocess.CalledProcessError as e:
+            print_command_failure("Failed to setup a virtual environment", e)
+            return False
+
+        python_exe = venv_python(venv_dir)
+        env_vars = os.environ | {"VIRTUAL_ENV": str(venv_dir)}
         dist_extras = ", ".join(stubtest_settings.extras)
         dist_req = f"{dist_name}[{dist_extras}]=={metadata.version}"
 
-        # If tool.stubtest.stubtest_requirements exists, run "pip install" on it.
+        # If tool.stubtest.stubtest_requirements exists, run "uv install" on it.
         if stubtest_settings.stubtest_requirements:
-            pip_cmd = [pip_exe, "install", *stubtest_settings.stubtest_requirements]
+            uv_cmd = ["uv", "pip", "install", *stubtest_settings.stubtest_requirements]
             try:
-                subprocess.run(pip_cmd, check=True, capture_output=True)
+                subprocess.run(uv_cmd, check=True, capture_output=True, env=env_vars)
             except subprocess.CalledProcessError as e:
                 print_command_failure("Failed to install requirements", e)
                 return False
@@ -66,12 +68,12 @@ def run_stubtest(
 
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
-        # TODO: Maybe find a way to cache these in CI
+        # TODO: Maybe find a way to cache these in CI? (But possibly not worth it now we use uv?)
         dists_to_install = [dist_req, get_mypy_req()]
         dists_to_install.extend(requirements.external_pkgs)  # Internal requirements are added to MYPYPATH
-        pip_cmd = [pip_exe, "install", *dists_to_install]
+        uv_cmd = ["uv", "pip", "install", *dists_to_install]
         try:
-            subprocess.run(pip_cmd, check=True, capture_output=True)
+            subprocess.run(uv_cmd, check=True, capture_output=True, env=env_vars)
         except subprocess.CalledProcessError as e:
             print_command_failure("Failed to install", e)
             return False
@@ -80,7 +82,7 @@ def run_stubtest(
         packages_to_check = [d.name for d in dist.iterdir() if d.is_dir() and d.name.isidentifier()]
         modules_to_check = [d.stem for d in dist.iterdir() if d.is_file() and d.suffix == ".pyi"]
         stubtest_cmd = [
-            python_exe,
+            str(python_exe),
             "-m",
             "mypy.stubtest",
             # Use --custom-typeshed-dir in case we make linked changes to stdlib or _typeshed
@@ -100,7 +102,7 @@ def run_stubtest(
         # It seems that some other environment variables are needed too,
         # because the CI fails if we pass only os.environ["DISPLAY"]. I didn't
         # "bisect" to see which variables are actually needed.
-        stubtest_env = os.environ | {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
+        env_vars |= {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
 
         allowlist_path = dist / "@tests/stubtest_allowlist.txt"
         if allowlist_path.exists():
@@ -115,18 +117,18 @@ def run_stubtest(
                 return False
 
         try:
-            subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
+            subprocess.run(stubtest_cmd, env=env_vars, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
             print_error("fail")
-            print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
+            print_commands(dist, uv_cmd, stubtest_cmd, env_vars)
             print_command_output(e)
 
             print("Python version: ", file=sys.stderr)
-            ret = subprocess.run([sys.executable, "-VV"], capture_output=True)
+            ret = subprocess.run([sys.executable, "-VV"], capture_output=True, check=True)
             print_command_output(ret)
 
             print("Ran with the following environment:", file=sys.stderr)
-            ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
+            ret = subprocess.run(["uv", "pip", "freeze"], capture_output=True, env=env_vars, check=True)
             print_command_output(ret)
 
             if allowlist_path.exists():
@@ -136,7 +138,7 @@ def run_stubtest(
                 print(file=sys.stderr)
             else:
                 print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path}:", file=sys.stderr)
-                ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
+                ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=env_vars, capture_output=True)
                 print_command_output(ret)
 
             return False
@@ -144,7 +146,7 @@ def run_stubtest(
             print_success_msg()
 
     if verbose:
-        print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
+        print_commands(dist, uv_cmd, stubtest_cmd, env_vars)
 
     return True
 
@@ -225,10 +227,10 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     return True
 
 
-def print_commands(dist: Path, pip_cmd: list[str], stubtest_cmd: list[str], mypypath: str) -> None:
+def print_commands(dist: Path, uv_cmd: list[str], stubtest_cmd: list[str], environment: dict[str, str]) -> None:
     print(file=sys.stderr)
-    print(" ".join(pip_cmd), file=sys.stderr)
-    print(f"MYPYPATH={mypypath}", " ".join(stubtest_cmd), file=sys.stderr)
+    print(f"VIRTUAL_ENV={environment['VIRTUAL_ENV']}", " ".join(uv_cmd), file=sys.stderr)
+    print(f"MYPYPATH={environment['MYPYPATH']}", " ".join(stubtest_cmd), file=sys.stderr)
     print(file=sys.stderr)
 
 
