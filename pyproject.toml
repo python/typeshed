@@ -32,6 +32,8 @@ exclude = [
 # are invoked via separate runs of ruff in pre-commit:
 # see our .pre-commit-config.yaml file for details
 exclude = ["**/test_cases/**/*.py"]
+# We still use flake8-pyi and flake8-noqa to check these (see .flake8 config file);
+# tell ruff not to flag these as e.g. "unused noqa comments"
 external = ["F821", "NQA", "Y"]
 select = [
     "B", # flake8-bugbear
