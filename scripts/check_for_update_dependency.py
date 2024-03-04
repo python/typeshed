@@ -28,8 +28,7 @@ def update_versions(file_path: str) -> None:
             current_version = match.group(2)
             latest_version = get_latest_version(package_name)
             if latest_version and current_version != latest_version:
-                print(
-                    f"Updating {package_name} from {current_version} to {latest_version}")
+                print(f"Updating {package_name} from {current_version} to {latest_version}")
                 line = line.replace(current_version, latest_version)
         updated_content.append(line)
 
@@ -48,8 +47,7 @@ def update_pyright_version(file_path: str) -> None:
         for line in lines:
             if line.startswith("pyright_version = "):
                 updated_lines.append(f'pyright_version = "{latest_version}"\n')
-                print(
-                    f"Updated pyright to version {latest_version} in {file_path}")
+                print(f"Updated pyright to version {latest_version} in {file_path}")
             else:
                 updated_lines.append(line)
 
