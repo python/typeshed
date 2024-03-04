@@ -33,12 +33,16 @@ exclude = [
 # see our .pre-commit-config.yaml file for details
 exclude = ["**/test_cases/**/*.py"]
 external = ["F821", "NQA", "Y"]
-extend-select = [
+select = [
     "B", # flake8-bugbear
     "FA", # flake8-future-annotations
     "I", # isort
     "RUF", # Ruff-specific and unused-noqa
     "UP", # pyupgrade
+    # Flake8 base rules
+    "E", # pycodestyle Error
+    "F", # Pyflakes
+    "W", # pycodestyle Warning
     # PYI: only enable rules that always autofix, avoids duplicate # noqa with flake8-pyi
     # See https://github.com/plinss/flake8-noqa/issues/22
     "PYI009", # use `...`, not `pass`, in empty class bodies
@@ -53,6 +57,15 @@ extend-select = [
     "PYI058", # use `Iterator` as the return type for `__iter__` methods
 ]
 ignore = [
+    ###
+    # Rules that can conflict with the formatter (Black)
+    # https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
+    ###
+    "E111", # indentation-with-invalid-multiple
+    "E114", # indentation-with-invalid-multiple-comment
+    "E117", # over-indented
+    "E501", # line-too-long, allow comments over line-length
+    "W191", # tab-indentation
     ###
     # Rules we don't want or don't agree with
     ###
