@@ -45,7 +45,15 @@ def run_stubtest(
         venv_dir = Path(tmp)
 
         try:
-            subprocess.run(["uv", "venv", venv_dir], capture_output=True, check=True)
+            # Use the --seed flag to automatically include pip in the environment,
+            # since loads of packages have undeclared dependencies on pip...
+            subprocess.run(["uv", "venv", venv_dir, "--seed"], capture_output=True, check=True)
+            if sys.version_info >= (3, 12):
+                # ...Same goes for setuptools/wheel!
+                # On Python <3.12, these are also installed if you specify --seed.
+                # On newer Pythons, however, uv does *not* install them as part of --seed
+                # (matching the behaviour of the stdlib venv module, which stopped doing this in py312).
+                subprocess.run(["uv", "pip", "install", "setuptools", "wheel"], capture_output=True, check=True)
         except subprocess.CalledProcessError as e:
             print_command_failure("Failed to setup a virtual environment", e)
             return False
