@@ -44,27 +44,6 @@ jobs:
           python-version: "3.11"
       - run: ./tests/check_new_syntax.py
 
-  ruff:
-    name: Lint with Ruff
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: chartboost/ruff-action@v1
-        with:
-          version: "0.2.1" # must match .pre-commit-config.yaml and requirements-test.txt
-
-  flake8:
-    name: Lint with Flake8
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - run: uv pip install -r requirements-tests.txt --system
-      - run: flake8 --color always
-
   pytype:
     name: Run pytype against the stubs
     runs-on: ubuntu-latest
