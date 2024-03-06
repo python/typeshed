@@ -43,7 +43,7 @@ class Reporter:
     source: str
     error_handler: str
     debug_flag: bool
-    report_level: int
+    report_level: _SystemMessageLevel
     halt_level: int
     stream: ErrorOutput
     encoding: str
