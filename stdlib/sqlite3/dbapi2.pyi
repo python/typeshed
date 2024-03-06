@@ -1,11 +1,11 @@
 import sqlite3
 import sys
-from _typeshed import Incomplete, ReadableBuffer, StrOrBytesPath, SupportsLenAndGetItem, Unused
+from _typeshed import ReadableBuffer, StrOrBytesPath, SupportsLenAndGetItem, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from datetime import date, datetime, time
 from types import TracebackType
-from typing import Any, Protocol, TypeVar, overload
-from typing_extensions import Literal, Self, SupportsIndex, TypeAlias, final
+from typing import Any, Literal, Protocol, SupportsIndex, TypeVar, final, overload
+from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
 _CursorT = TypeVar("_CursorT", bound=Cursor)
@@ -221,16 +221,32 @@ def adapt(__obj: Any, __proto: Any) -> Any: ...
 @overload
 def adapt(__obj: Any, __proto: Any, __alt: _T) -> Any | _T: ...
 def complete_statement(statement: str) -> bool: ...
-def connect(
-    database: StrOrBytesPath,
-    timeout: float = ...,
-    detect_types: int = ...,
-    isolation_level: str | None = ...,
-    check_same_thread: bool = ...,
-    factory: type[Connection] | None = ...,
-    cached_statements: int = ...,
-    uri: bool = ...,
-) -> Connection: ...
+
+if sys.version_info >= (3, 12):
+    def connect(
+        database: StrOrBytesPath,
+        timeout: float = ...,
+        detect_types: int = ...,
+        isolation_level: str | None = ...,
+        check_same_thread: bool = ...,
+        factory: type[Connection] | None = ...,
+        cached_statements: int = ...,
+        uri: bool = ...,
+        autocommit: bool = ...,
+    ) -> Connection: ...
+
+else:
+    def connect(
+        database: StrOrBytesPath,
+        timeout: float = ...,
+        detect_types: int = ...,
+        isolation_level: str | None = ...,
+        check_same_thread: bool = ...,
+        factory: type[Connection] | None = ...,
+        cached_statements: int = ...,
+        uri: bool = ...,
+    ) -> Connection: ...
+
 def enable_callback_tracebacks(__enable: bool) -> None: ...
 
 if sys.version_info < (3, 12):
@@ -244,12 +260,6 @@ if sys.version_info >= (3, 10):
 else:
     def register_adapter(__type: type[_T], __caster: _Adapter[_T]) -> None: ...
     def register_converter(__name: str, __converter: _Converter) -> None: ...
-
-if sys.version_info < (3, 8):
-    class Cache:
-        def __init__(self, *args: Incomplete, **kwargs: Unused) -> None: ...
-        def display(self, *args: Incomplete, **kwargs: Incomplete) -> None: ...
-        def get(self, *args: Incomplete, **kwargs: Incomplete) -> None: ...
 
 class _AggregateProtocol(Protocol):
     def step(self, __value: int) -> object: ...
@@ -306,17 +316,32 @@ class Connection:
         def autocommit(self, val: int) -> None: ...
     row_factory: Any
     text_factory: Any
-    def __init__(
-        self,
-        database: StrOrBytesPath,
-        timeout: float = ...,
-        detect_types: int = ...,
-        isolation_level: str | None = ...,
-        check_same_thread: bool = ...,
-        factory: type[Connection] | None = ...,
-        cached_statements: int = ...,
-        uri: bool = ...,
-    ) -> None: ...
+    if sys.version_info >= (3, 12):
+        def __init__(
+            self,
+            database: StrOrBytesPath,
+            timeout: float = ...,
+            detect_types: int = ...,
+            isolation_level: str | None = ...,
+            check_same_thread: bool = ...,
+            factory: type[Connection] | None = ...,
+            cached_statements: int = ...,
+            uri: bool = ...,
+            autocommit: bool = ...,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            database: StrOrBytesPath,
+            timeout: float = ...,
+            detect_types: int = ...,
+            isolation_level: str | None = ...,
+            check_same_thread: bool = ...,
+            factory: type[Connection] | None = ...,
+            cached_statements: int = ...,
+            uri: bool = ...,
+        ) -> None: ...
+
     def close(self) -> None: ...
     if sys.version_info >= (3, 11):
         def blobopen(self, __table: str, __column: str, __row: int, *, readonly: bool = False, name: str = "main") -> Blob: ...
@@ -341,13 +366,9 @@ class Connection:
         ) -> None: ...
 
     def create_collation(self, __name: str, __callback: Callable[[str, str], int | SupportsIndex] | None) -> None: ...
-    if sys.version_info >= (3, 8):
-        def create_function(
-            self, name: str, narg: int, func: Callable[..., _SqliteData] | None, *, deterministic: bool = False
-        ) -> None: ...
-    else:
-        def create_function(self, name: str, num_params: int, func: Callable[..., _SqliteData] | None) -> None: ...
-
+    def create_function(
+        self, name: str, narg: int, func: Callable[..., _SqliteData] | None, *, deterministic: bool = False
+    ) -> None: ...
     @overload
     def cursor(self, factory: None = None) -> Cursor: ...
     @overload
@@ -458,15 +479,8 @@ class Row:
     def __lt__(self, __value: object) -> bool: ...
     def __ne__(self, __value: object) -> bool: ...
 
-if sys.version_info >= (3, 8):
-    @final
-    class _Statement: ...
-
-else:
-    @final
-    class Statement:
-        def __init__(self, *args: Incomplete, **kwargs: Incomplete) -> None: ...
-    _Statement: TypeAlias = Statement
+@final
+class _Statement: ...
 
 class Warning(Exception): ...
 

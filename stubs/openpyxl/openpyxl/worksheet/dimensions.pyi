@@ -1,7 +1,7 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from collections.abc import Callable, Iterator
-from typing import ClassVar, Generic, TypeVar
-from typing_extensions import Literal, Self
+from typing import ClassVar, Generic, Literal, TypeVar
+from typing_extensions import Self
 
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.base import Alias, Bool, Float, Integer, String, _ConvertibleToBool
@@ -73,7 +73,7 @@ class ColumnDimension(Dimension):
     width: Float[Literal[False]]
     bestFit: Bool[Literal[False]]
     auto_size: Alias
-    index: String[Literal[False]]  # type:ignore[assignment]
+    index: String[Literal[False]]  # type: ignore[assignment]
     min: Integer[Literal[True]]
     max: Integer[Literal[True]]
     collapsed: Bool[Literal[False]]

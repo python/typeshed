@@ -24,6 +24,9 @@ TLSv1_2_METHOD: int
 TLS_METHOD: int
 TLS_SERVER_METHOD: int
 TLS_CLIENT_METHOD: int
+DTLS_METHOD: int
+DTLS_SERVER_METHOD: int
+DTLS_CLIENT_METHOD: int
 
 SSL3_VERSION: int
 TLS1_VERSION: int
@@ -175,6 +178,7 @@ class Connection:
     def get_peer_finished(self) -> bytes | None: ...
     def set_alpn_protos(self, protos: Sequence[bytes]) -> None: ...
     def get_alpn_proto_negotiated(self) -> bytes: ...
+    def get_selected_srtp_profile(self) -> bytes: ...
     def request_ocsp(self) -> None: ...
 
 _T = TypeVar("_T")

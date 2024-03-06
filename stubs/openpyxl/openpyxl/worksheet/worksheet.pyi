@@ -1,8 +1,8 @@
 from _typeshed import ConvertibleToInt, Incomplete
 from collections.abc import Generator, Iterable, Iterator
 from types import GeneratorType
-from typing import Any, NoReturn, overload
-from typing_extensions import Final, Literal, TypeAlias
+from typing import Any, Final, Literal, NoReturn, overload
+from typing_extensions import TypeAlias
 
 from openpyxl import _Decodable, _VisibilityType
 from openpyxl.cell import _CellValue
@@ -234,11 +234,13 @@ class Worksheet(_WorkbookChild):
     ) -> None: ...
     def append(
         self,
-        iterable: list[_CellValue | Cell]
-        | tuple[_CellValue | Cell, ...]
-        | range
-        | GeneratorType[_CellValue | Cell, object, object]
-        | dict[int | str, _CellValue],
+        iterable: (
+            list[_CellValue | Cell]
+            | tuple[_CellValue | Cell, ...]
+            | range
+            | GeneratorType[_CellValue | Cell, object, object]
+            | dict[int | str, _CellValue]
+        ),
     ) -> None: ...
     def insert_rows(self, idx: int, amount: int = 1) -> None: ...
     def insert_cols(self, idx: int, amount: int = 1) -> None: ...

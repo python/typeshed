@@ -1,8 +1,7 @@
 from _typeshed import Incomplete, SupportsGetItem, Unused
 from collections.abc import Container, Generator
 from datetime import datetime
-from typing import Any
-from typing_extensions import Final
+from typing import Any, Final
 from xml.etree.ElementTree import _FileRead
 
 from openpyxl.cell.cell import Cell

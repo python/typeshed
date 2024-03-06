@@ -1,8 +1,8 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from datetime import datetime
 from re import Pattern
-from typing import ClassVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing import ClassVar, Literal, overload
+from typing_extensions import TypeAlias
 
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.base import (
@@ -173,7 +173,7 @@ class DynamicFilter(Serialisable):
 class CustomFilterValueDescriptor(Convertible[float | str, _N]):
     pattern: Pattern[str]
     expected_type: type[float | str]
-    @overload  # type:ignore[override]  # Different restrictions
+    @overload  # type: ignore[override]  # Different restrictions
     def __set__(
         self: CustomFilterValueDescriptor[Literal[True]], instance: Serialisable | Strict, value: str | ConvertibleToFloat | None
     ) -> None: ...

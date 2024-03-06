@@ -3,8 +3,8 @@ from _typeshed.wsgi import WSGIEnvironment
 from collections.abc import Callable, Collection, ItemsView, Iterator, KeysView, MutableMapping, ValuesView
 from datetime import date, datetime, timedelta
 from hashlib import _Hash
-from typing import Any, Protocol, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing import Any, Literal, Protocol, TypeVar, overload
+from typing_extensions import TypeAlias
 
 from webob.descriptors import _AsymmetricProperty
 from webob.request import Request
@@ -41,9 +41,9 @@ class Cookie(dict[str, Morsel]):
     def __init__(self, input: str | None = None) -> None: ...
     def load(self, data: str) -> None: ...
     def add(self, key: str | bytes, val: str | bytes) -> Morsel: ...
-    def __setitem__(self, key: str | bytes, val: str | bytes) -> Morsel: ...  # type:ignore[override]
+    def __setitem__(self, key: str | bytes, val: str | bytes) -> Morsel: ...  # type: ignore[override]
     def serialize(self, full: bool = True) -> str: ...
-    def values(self) -> list[Morsel]: ...  # type:ignore[override]
+    def values(self) -> list[Morsel]: ...  # type: ignore[override]
     def __str__(self, full: bool = True) -> str: ...
 
 class Morsel(dict[bytes, bytes | bool | None]):
