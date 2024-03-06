@@ -4,7 +4,6 @@ from _typeshed import Incomplete, StrPath, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from io import BufferedIOBase, BytesIO
 from itertools import chain
-from os import PathLike
 from pkgutil import get_importer as get_importer
 from re import Pattern
 from typing import IO, Any, BinaryIO, ClassVar, Final, Literal, NoReturn, Protocol, TypeVar, overload, type_check_only
@@ -173,7 +172,7 @@ class Environment:
 
 AvailableDistributions = Environment
 
-def parse_requirements(strs: str | Iterable[str]) -> Iterator[Requirement]: ...
+def parse_requirements(strs: _NestedStr) -> Iterator[Requirement]: ...
 
 class RequirementParseError(packaging_requirements.InvalidRequirement): ...
 
@@ -181,7 +180,8 @@ class Requirement(packaging_requirements.Requirement):
     unsafe_name: str
     project_name: str
     key: str
-    extras: tuple[str, ...]  # type: ignore[assignment]  # incompatible override of attribute on base class
+    # packaging.requirements.Requirement uses a set for its extras. setuptools uses a variable-length tuple
+    extras: tuple[str, ...]  # type: ignore[assignment]
     specs: list[tuple[str, str]]
     def __init__(self, requirement_string: str) -> None: ...
     def __eq__(self, other: object) -> bool: ...
@@ -203,12 +203,7 @@ class EntryPoint:
     extras: tuple[str, ...]
     dist: Distribution | None
     def __init__(
-        self,
-        name: str,
-        module_name: str,
-        attrs: tuple[str, ...] = (),
-        extras: tuple[str, ...] = (),
-        dist: Distribution | None = None,
+        self, name: str, module_name: str, attrs: Iterable[str] = (), extras: Iterable[str] = (), dist: Distribution | None = None
     ) -> None: ...
     @overload
     def load(
@@ -225,7 +220,7 @@ class EntryPoint:
     def parse_group(cls, group: str, lines: _NestedStr, dist: Distribution | None = None) -> dict[str, Self]: ...
     @classmethod
     def parse_map(
-        cls, data: _NestedStr | dict[str, _NestedStr], dist: Distribution | None = None
+        cls, data: str | Iterable[str] | dict[str, str | Iterable[str]], dist: Distribution | None = None
     ) -> dict[str, dict[str, Self]]: ...
 
 def find_distributions(path_item: str, only: bool = False) -> Generator[Distribution, None, None]: ...
@@ -391,10 +386,10 @@ class Distribution(NullProvider):
     @overload
     def get_entry_map(self, group: str) -> dict[str, EntryPoint]: ...
     def get_entry_info(self, group: str, name: str) -> EntryPoint | None: ...
-    def insert_on(self, path: list[str] | list[PathLike[str]], loc: Incomplete | None = None, replace: bool = False) -> None: ...
+    def insert_on(self, path: list[str], loc: Incomplete | None = None, replace: bool = False) -> None: ...
     def check_version_conflict(self) -> None: ...
     def has_version(self) -> bool: ...
-    def clone(self, **kw: str | int | None) -> Requirement: ...
+    def clone(self, **kw: str | int | IResourceProvider | None) -> Requirement: ...
     @property
     def extras(self) -> list[str]: ...
 
@@ -403,6 +398,8 @@ class DistInfoDistribution(Distribution):
     EQEQ: ClassVar[Pattern[str]]
 
 class EggProvider(NullProvider):
+    egg_name: str
+    egg_info: str
     egg_root: str
 
 class DefaultProvider(EggProvider): ...
