@@ -95,6 +95,7 @@ if sys.version_info >= (3, 9):
     def wait(
         fs: Iterable[Future[_T]], timeout: float | None = None, return_when: str = "ALL_COMPLETED"
     ) -> DoneAndNotDoneFutures[_T]: ...
+
 else:
     def wait(
         fs: Collection[Future[_T]], timeout: float | None = None, return_when: str = "ALL_COMPLETED"
