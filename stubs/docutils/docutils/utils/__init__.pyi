@@ -1,5 +1,5 @@
-from _typeshed import StrPath
 import optparse
+from _typeshed import StrPath
 from collections.abc import Callable, Iterable, Mapping
 from re import Pattern
 from typing import IO, Any, Literal, TypeVar
