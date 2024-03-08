@@ -23,6 +23,11 @@ def error_string(err: BaseException) -> str: ...
 class Input(TransformSpec):
     component_type: ClassVar[str]
     default_source_path: ClassVar[str | None]
+    encoding: str | None
+    error_handler: str
+    source: str | None
+    source_path: str | None
+    successful_encoding: str | None = None
     def __init__(
         self,
         source: str | None = None,
@@ -30,11 +35,6 @@ class Input(TransformSpec):
         encoding: str | None = None,
         error_handler: str = "strict",
     ) -> None: ...
-    encoding: str | None
-    error_handler: str
-    source: str | None
-    source_path: str | None
-    successful_encoding: str | None = None
     def read(self) -> Any: ...
     def decode(self, data: str | bytes | bytearray) -> str: ...
     coding_slug: ClassVar[Pattern[bytes]]
