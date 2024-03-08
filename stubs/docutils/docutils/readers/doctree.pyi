@@ -1,3 +1,6 @@
+from typing import TypeVar
 from docutils import readers
 
-class Reader(readers.ReReader): ...
+_S = TypeVar("_S")
+
+class Reader(readers.ReReader[_S]): ...
