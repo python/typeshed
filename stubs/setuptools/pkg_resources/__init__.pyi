@@ -125,7 +125,7 @@ class WorkingSet:
         env: Environment | None,
         installer: _StrictInstallerType[_D],
         replace_conflicting: bool = False,
-        extras=None,
+        extras: tuple[str, ...] | None = None,
     ) -> list[_D]: ...
     @overload
     def resolve(  # type: ignore[overload-overlap]
@@ -135,7 +135,7 @@ class WorkingSet:
         *,
         installer: _StrictInstallerType[_D],
         replace_conflicting: bool = False,
-        extras=None,
+        extras: tuple[str, ...] | None = None,
     ) -> list[_D]: ...
     @overload
     def resolve(
