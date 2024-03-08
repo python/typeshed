@@ -41,7 +41,6 @@ gettext.translation  # codeset default value is ['unspecified'] so can't be spec
 importlib.abc.Finder.find_module
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
-random.Random.randrange  # missing undocumented arg _int
 sched.Event.__doc__  # __slots__ is overridden
 typing.NamedTuple.__new__
 typing.NamedTuple._asdict

@@ -446,6 +446,8 @@ multiprocessing.(dummy|managers).Namespace.__[gs]etattr__  # Any field can be se
 # mypy infers the variable has type `(*args) -> ForkingPickler`
 # but stubtest infers the runtime type as <class ForkingPickler>
 multiprocessing.reduction.AbstractReducer.ForkingPickler
+# Non-private parameter on __del__
+multiprocessing.pool.Pool.__del__
 
 # C signature is broader than what is actually accepted
 queue.SimpleQueue.__init__
@@ -559,6 +561,10 @@ multiprocessing.dummy.RLock
 turtle.ScrolledCanvas.find_all
 turtle.ScrolledCanvas.select_clear
 turtle.ScrolledCanvas.select_item
+
+# Attributes that are intended to be private
+uuid.bytes_
+uuid.int_
 
 # Always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action
