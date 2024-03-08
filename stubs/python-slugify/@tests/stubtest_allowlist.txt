@@ -1,2 +1,1 @@
 slugify.__main__
-slugify.annotations  # __future__.annotations is not public API
