@@ -8,7 +8,7 @@ from _typeshed import (
     Unused,
 )
 from re import Pattern
-from typing import IO, Any, ClassVar, Literal, Generic, TypeVar
+from typing import IO, Any, ClassVar, Generic, Literal, TypeVar
 
 from docutils import TransformSpec, nodes
 
@@ -31,11 +31,7 @@ class Input(TransformSpec, Generic[_S]):
     source_path: str | None
     successful_encoding: str | None = None
     def __init__(
-        self,
-        source: _S | None = None,
-        source_path: str | None = None,
-        encoding: str | None = None,
-        error_handler: str = "strict",
+        self, source: _S | None = None, source_path: str | None = None, encoding: str | None = None, error_handler: str = "strict"
     ) -> None: ...
     def read(self) -> str: ...
     def decode(self, data: str | bytes | bytearray) -> str: ...

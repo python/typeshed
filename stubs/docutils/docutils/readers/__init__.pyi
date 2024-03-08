@@ -1,4 +1,4 @@
-from typing import Any, ClassVar, TypeVar, Generic
+from typing import Any, ClassVar, Generic, TypeVar
 
 from docutils import Component, nodes
 from docutils.frontend import Values
