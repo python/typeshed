@@ -698,6 +698,3 @@ typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/com
 (tarfile.AbsolutePathError)?
 (tarfile.AbsoluteLinkError)?
 (shutil.unpack_archive)?
-
-# Omit internal _KEEP argument
-tarfile.TarInfo.replace
