@@ -395,8 +395,6 @@ class DistInfoDistribution(Distribution):
     EQEQ: ClassVar[Pattern[str]]
 
 class EggProvider(NullProvider):
-    egg_name: str
-    egg_info: str
     egg_root: str
 
 class DefaultProvider(EggProvider): ...
