@@ -8,7 +8,9 @@ from zipfile import ZipFile
 from openpyxl import _Decodable, _ZipFileFileProtocol
 from openpyxl.chartsheet.chartsheet import Chartsheet
 from openpyxl.styles.named_styles import NamedStyle
+from openpyxl.utils.indexed_list import IndexedList
 from openpyxl.workbook.child import _WorkbookChild
+from openpyxl.worksheet._read_only import ReadOnlyWorksheet
 from openpyxl.worksheet._write_only import WriteOnlyWorksheet
 from openpyxl.worksheet.worksheet import Worksheet
 
@@ -20,7 +22,7 @@ class Workbook:
     defined_names: Incomplete
     properties: Incomplete
     security: Incomplete
-    shared_strings: Incomplete
+    shared_strings: IndexedList[str]
     loaded_theme: Incomplete
     vba_archive: ZipFile | None
     is_template: bool
@@ -30,6 +32,9 @@ class Workbook:
     rels: Incomplete
     calculation: Incomplete
     views: Incomplete
+    # Private, but useful as a reference of what "sheets" can be for other types
+    # ExcelReader can add ReadOnlyWorksheet in read_only mode.
+    _sheets: list[Worksheet | WriteOnlyWorksheet | Chartsheet | ReadOnlyWorksheet]
     def __init__(self, write_only: bool = False, iso_dates: bool = False) -> None: ...
     @property
     def epoch(self) -> datetime: ...
