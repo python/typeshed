@@ -8,7 +8,7 @@ from _typeshed import (
     Unused,
 )
 from re import Pattern
-from typing import Any, ClassVar, Literal
+from typing import IO, Any, ClassVar, Literal
 
 from docutils import TransformSpec
 
@@ -30,7 +30,7 @@ class Input(TransformSpec):
     successful_encoding: str | None = None
     def __init__(
         self,
-        source: str | None = None,
+        source: IO[str] | None = None,
         source_path: str | None = None,
         encoding: str | None = None,
         error_handler: str = "strict",
