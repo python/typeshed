@@ -3,6 +3,7 @@ from collections.abc import Generator, Iterable, Iterator
 from datetime import datetime
 from types import GeneratorType
 from typing import Any, Final, Literal, NoReturn, overload
+from typing_extensions import deprecated
 
 from openpyxl import _Decodable, _VisibilityType
 from openpyxl.cell import _CellValue
@@ -218,8 +219,9 @@ class Worksheet(_WorkbookChild):
         end_row: ConvertibleToInt,
         end_column: ConvertibleToInt,
     ) -> None: ...
-    # deprecated: Will always raise: TypeError: 'set' object is not subscriptable
+    # Will always raise: TypeError: 'set' object is not subscriptable
     @property
+    @deprecated("Use ws.merged_cells.ranges")
     def merged_cell_ranges(self) -> NoReturn: ...
     def unmerge_cells(
         self,
