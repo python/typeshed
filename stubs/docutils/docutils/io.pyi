@@ -23,7 +23,13 @@ def error_string(err: BaseException) -> str: ...
 class Input(TransformSpec):
     component_type: ClassVar[str]
     default_source_path: ClassVar[str | None]
-    def __init__(self, source: str | None=None, source_path: str | None=None, encoding: str | None=None, error_handler: str='strict') -> None: ...
+    def __init__(
+        self,
+        source: str | None = None,
+        source_path: str | None = None,
+        encoding: str | None = None,
+        error_handler: str = "strict",
+    ) -> None: ...
     encoding: str | None
     error_handler: str
     source: str | None
