@@ -111,6 +111,7 @@ class Element(Node):
     known_attributes: ClassVar[Sequence[str]]
     tagname: str
     child_text_separator: ClassVar[str]
+    attributes: dict[str, Any] = ...
     children: list[Node]
     rawsource: str
     def __init__(self, rawsource: str = "", *children: Node, **attributes: Any): ...
