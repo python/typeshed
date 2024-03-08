@@ -16,6 +16,7 @@ def get_init(cls: type) -> None: ...
 
 DEF: Pattern[str]
 POS: Literal[inspect._ParameterKind.POSITIONAL_OR_KEYWORD]
+EMPTY = inspect.Parameter.empty
 
 class FunctionMaker:
     args: list[str]
