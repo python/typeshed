@@ -6,7 +6,7 @@ from typing_extensions import TypeAlias
 
 from docutils import ApplicationError, DataError, nodes
 from docutils.parsers.rst import Directive, tableparser
-from docutils.statemachine import StateMachine, StateMachineWS, StringList
+from docutils.statemachine import StateMachine, StateMachineWS, StateWS, StringList
 from docutils.utils import Reporter
 
 _BasicDefinition: TypeAlias = tuple[str, str, str, list[Pattern[str]]]
