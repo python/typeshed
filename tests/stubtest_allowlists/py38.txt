@@ -35,6 +35,7 @@ dummy_threading.Condition.release
 dummy_threading.Event.isSet
 dummy_threading.Thread.native_id
 dummy_threading.local.__new__
+email.contentmanager.typ
 enum.Enum._generate_next_value_
 gettext.install  # codeset default value is ['unspecified'] so can't be specified
 gettext.translation  # codeset default value is ['unspecified'] so can't be specified

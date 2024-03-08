@@ -65,4 +65,3 @@ curses.COLORS  # Initialized after start_color
 curses.COLOR_PAIRS  # Initialized after start_color
 curses.COLS  # Initialized only after initscr call
 curses.LINES  # Initialized only after initscr call
-
