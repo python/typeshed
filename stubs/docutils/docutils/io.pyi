@@ -25,7 +25,7 @@ class Input(TransformSpec):
     default_source_path: ClassVar[str | None]
     encoding: str | None
     error_handler: str
-    source: str | None
+    source: IO[str] | None
     source_path: str | None
     successful_encoding: str | None = None
     def __init__(
