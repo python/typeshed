@@ -29,6 +29,10 @@ class Reporter:
     ERROR_LEVEL: Literal[3]
     SEVERE_LEVEL: Literal[4]
 
+    stream: ErrorOutput
+    encoding: str
+    observers: list[Callable[[nodes.system_message], None]]
+    max_level: int
     def __init__(
         self,
         source: str,
@@ -45,10 +49,6 @@ class Reporter:
     debug_flag: bool
     report_level: _SystemMessageLevel
     halt_level: int
-    stream: ErrorOutput
-    encoding: str
-    observers: list[Callable[[nodes.system_message], None]]
-    max_level: int
     def set_conditions(
         self, category: Any, report_level: int, halt_level: int, stream: IO[str] | None = None, debug: bool = False
     ) -> None: ...
