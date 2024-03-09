@@ -24,11 +24,11 @@ class DirectiveError(Exception):
     def __init__(self, level: int, message: str) -> None: ...
 
 class Directive:
-    required_arguments: int
-    optional_arguments: int
-    final_argument_whitespace: bool
-    option_spec: dict[str, Callable[[str], Any]] | None
-    has_content: bool
+    required_arguments: ClassVar[int]
+    optional_arguments: ClassVar[int]
+    final_argument_whitespace: ClassVar[bool]
+    option_spec: ClassVar[dict[str, Callable[[str], Any]] | None]
+    has_content: ClassVar[bool]
     name: str
     arguments: list[str]
     options: dict[str, Any]
