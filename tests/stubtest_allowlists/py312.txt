@@ -125,7 +125,3 @@ typing.SupportsAbs.__type_params__
 typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
-
-# Dunder that exists on all runtime-checkable protocols on py312+
-# TODO teach stubtest about this so we don't have to allowlist it
-.+\.__non_callable_proto_members__
