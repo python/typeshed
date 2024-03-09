@@ -67,24 +67,49 @@ class Reporter:
         level: int,
         message: str | Exception,
         *children: nodes.Node,
-        base_node: nodes.Node,
-        source: str,
+        base_node: nodes.Node = ...,
+        source: str = ...,
         **kwargs: Incomplete,
     ) -> nodes.system_message: ...
     def debug(
-        self, message: str | Exception, *children: nodes.Node, base_node: nodes.Node, **kwargs: Incomplete
+        self,
+        message: str | Exception,
+        *children: nodes.Node,
+        base_node: nodes.Node = ...,
+        source: str = ...,
+        **kwargs: Incomplete,
     ) -> nodes.system_message: ...
     def info(
-        self, message: str | Exception, *children: nodes.Node, base_node: nodes.Node, **kwargs: Incomplete
+        self,
+        message: str | Exception,
+        *children: nodes.Node,
+        base_node: nodes.Node = ...,
+        source: str = ...,
+        **kwargs: Incomplete,
     ) -> nodes.system_message: ...
     def warning(
-        self, message: str | Exception, *children: nodes.Node, base_node: nodes.Node, **kwargs: Incomplete
+        self,
+        message: str | Exception,
+        *children: nodes.Node,
+        base_node: nodes.Node = ...,
+        source: str = ...,
+        **kwargs: Incomplete,
     ) -> nodes.system_message: ...
     def error(
-        self, message: str | Exception, *children: nodes.Node, base_node: nodes.Node, **kwargs: Incomplete
+        self,
+        message: str | Exception,
+        *children: nodes.Node,
+        base_node: nodes.Node = ...,
+        source: str = ...,
+        **kwargs: Incomplete,
     ) -> nodes.system_message: ...
     def severe(
-        self, message: str | Exception, *children: nodes.Node, base_node: nodes.Node, **kwargs: Incomplete
+        self,
+        message: str | Exception,
+        *children: nodes.Node,
+        base_node: nodes.Node = ...,
+        source: str = ...,
+        **kwargs: Incomplete,
     ) -> nodes.system_message: ...
 
 class SystemMessage(ApplicationError):
