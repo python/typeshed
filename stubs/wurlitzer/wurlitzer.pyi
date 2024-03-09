@@ -57,15 +57,15 @@ def pipes(
 ) -> _GeneratorContextManager[tuple[io.BytesIO, _StreamErrT]]: ...
 @overload
 def pipes(
-    stdout: _PIPE, stderr: _STDOUT, encoding: str, bufsize: int | None = None
+    stdout: _PIPE, stderr: _STDOUT, encoding: str = ..., bufsize: int | None = None
 ) -> _GeneratorContextManager[tuple[io.StringIO, None]]: ...
 @overload
 def pipes(
-    stdout: _PIPE, stderr: _PIPE, encoding: str, bufsize: int | None = None
+    stdout: _PIPE, stderr: _PIPE, encoding: str = ..., bufsize: int | None = None
 ) -> _GeneratorContextManager[tuple[io.StringIO, io.StringIO]]: ...
 @overload
 def pipes(
-    stdout: _PIPE, stderr: _StreamErrT, encoding: str, bufsize: int | None = None
+    stdout: _PIPE, stderr: _StreamErrT, encoding: str = ..., bufsize: int | None = None
 ) -> _GeneratorContextManager[tuple[io.StringIO, _StreamErrT]]: ...
 @overload
 def pipes(
