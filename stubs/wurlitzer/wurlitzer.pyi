@@ -1,3 +1,5 @@
+__all__ = ["STDOUT", "PIPE", "Wurlitzer", "pipes", "sys_pipes", "sys_pipes_forever", "stop_sys_pipes"]
+
 import contextlib
 import io
 from _typeshed import SupportsWrite
@@ -94,5 +96,3 @@ def sys_pipes_forever(encoding: str = ..., bufsize: int | None = None) -> None: 
 def stop_sys_pipes() -> None: ...
 def load_ipython_extension(ip: _InteractiveShell) -> None: ...
 def unload_ipython_extension(ip: _InteractiveShell) -> None: ...
-
-__all__ = ["STDOUT", "PIPE", "Wurlitzer", "pipes", "sys_pipes", "sys_pipes_forever", "stop_sys_pipes"]
