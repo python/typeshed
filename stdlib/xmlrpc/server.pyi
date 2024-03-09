@@ -22,8 +22,8 @@ class _DispatchArity3(Protocol):
 
 class _DispatchArity4(Protocol):
     def __call__(
-        self, arg1: _Marshallable, arg2: _Marshallable, arg3: _Marshallable, arg4: _Marshallable, 
-    /) -> _Marshallable: ...
+        self, arg1: _Marshallable, arg2: _Marshallable, arg3: _Marshallable, arg4: _Marshallable, /
+    ) -> _Marshallable: ...
 
 class _DispatchArityN(Protocol):
     def __call__(self, *args: _Marshallable) -> _Marshallable: ...

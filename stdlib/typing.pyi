@@ -414,8 +414,8 @@ class Generator(Iterator[_YieldT_co], Generic[_YieldT_co, _SendT_contra, _Return
     @overload
     @abstractmethod
     def throw(
-        self, typ: type[BaseException], val: BaseException | object = None, tb: TracebackType | None = None, 
-    /) -> _YieldT_co: ...
+        self, typ: type[BaseException], val: BaseException | object = None, tb: TracebackType | None = None, /
+    ) -> _YieldT_co: ...
     @overload
     @abstractmethod
     def throw(self, typ: BaseException, val: None = None, tb: TracebackType | None = None, /) -> _YieldT_co: ...
@@ -451,8 +451,8 @@ class Coroutine(Awaitable[_ReturnT_co], Generic[_YieldT_co, _SendT_contra, _Retu
     @overload
     @abstractmethod
     def throw(
-        self, typ: type[BaseException], val: BaseException | object = None, tb: TracebackType | None = None, 
-    /) -> _YieldT_co: ...
+        self, typ: type[BaseException], val: BaseException | object = None, tb: TracebackType | None = None, /
+    ) -> _YieldT_co: ...
     @overload
     @abstractmethod
     def throw(self, typ: BaseException, val: None = None, tb: TracebackType | None = None, /) -> _YieldT_co: ...
@@ -487,8 +487,8 @@ class AsyncGenerator(AsyncIterator[_YieldT_co], Generic[_YieldT_co, _SendT_contr
     @overload
     @abstractmethod
     def athrow(
-        self, typ: type[BaseException], val: BaseException | object = None, tb: TracebackType | None = None, 
-    /) -> Awaitable[_YieldT_co]: ...
+        self, typ: type[BaseException], val: BaseException | object = None, tb: TracebackType | None = None, /
+    ) -> Awaitable[_YieldT_co]: ...
     @overload
     @abstractmethod
     def athrow(self, typ: BaseException, val: None = None, tb: TracebackType | None = None, /) -> Awaitable[_YieldT_co]: ...
@@ -763,8 +763,8 @@ class IO(Iterator[AnyStr]):
     def __enter__(self) -> IO[AnyStr]: ...
     @abstractmethod
     def __exit__(
-        self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None, 
-    /) -> None: ...
+        self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None, /
+    ) -> None: ...
 
 class BinaryIO(IO[bytes]):
     @abstractmethod

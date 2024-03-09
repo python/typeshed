@@ -117,7 +117,8 @@ class _BlakeHash(_Hash):
         def __init__(
             self,
             data: ReadableBuffer = ...,
-            /, *,
+            /,
+            *,
             digest_size: int = ...,
             key: ReadableBuffer = ...,
             salt: ReadableBuffer = ...,
@@ -135,7 +136,8 @@ class _BlakeHash(_Hash):
         def __init__(
             self,
             data: ReadableBuffer = ...,
-            /, *,
+            /,
+            *,
             digest_size: int = ...,
             key: ReadableBuffer = ...,
             salt: ReadableBuffer = ...,

@@ -127,8 +127,8 @@ class CFuncPtr(_PointerLike, _CData):
     if sys.platform == "win32":
         @overload
         def __init__(
-            self, vtbl_index: int, name: str, paramflags: tuple[_PF, ...] | None = ..., iid: _CData | None = ..., 
-        /) -> None: ...
+            self, vtbl_index: int, name: str, paramflags: tuple[_PF, ...] | None = ..., iid: _CData | None = ..., /
+        ) -> None: ...
 
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 

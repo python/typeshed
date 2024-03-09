@@ -128,7 +128,8 @@ def load(
 ) -> Any: ...
 def loads(
     data: ReadableBuffer,
-    /, *,
+    /,
+    *,
     fix_imports: bool = True,
     encoding: str = "ASCII",
     errors: str = "strict",

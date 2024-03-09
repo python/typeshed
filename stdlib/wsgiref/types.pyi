@@ -7,8 +7,8 @@ __all__ = ["StartResponse", "WSGIEnvironment", "WSGIApplication", "InputStream",
 
 class StartResponse(Protocol):
     def __call__(
-        self, status: str, headers: list[tuple[str, str]], exc_info: _OptExcInfo | None = ..., 
-    /) -> Callable[[bytes], object]: ...
+        self, status: str, headers: list[tuple[str, str]], exc_info: _OptExcInfo | None = ..., /
+    ) -> Callable[[bytes], object]: ...
 
 WSGIEnvironment: TypeAlias = dict[str, Any]
 WSGIApplication: TypeAlias = Callable[[WSGIEnvironment, StartResponse], Iterable[bytes]]

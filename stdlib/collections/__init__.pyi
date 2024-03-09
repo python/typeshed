@@ -399,7 +399,8 @@ class defaultdict(dict[_KT, _VT]):
         self: defaultdict[str, _VT],
         default_factory: Callable[[], _VT] | None,
         map: SupportsKeysAndGetItem[str, _VT],
-        /, **kwargs: _VT,
+        /,
+        **kwargs: _VT,
     ) -> None: ...
     @overload
     def __init__(self, default_factory: Callable[[], _VT] | None, iterable: Iterable[tuple[_KT, _VT]], /) -> None: ...
@@ -408,7 +409,8 @@ class defaultdict(dict[_KT, _VT]):
         self: defaultdict[str, _VT],
         default_factory: Callable[[], _VT] | None,
         iterable: Iterable[tuple[str, _VT]],
-        /, **kwargs: _VT,
+        /,
+        **kwargs: _VT,
     ) -> None: ...
     def __missing__(self, key: _KT, /) -> _VT: ...
     def __copy__(self) -> Self: ...

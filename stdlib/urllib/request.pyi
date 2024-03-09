@@ -228,7 +228,8 @@ class _HTTPConnectionProtocol(Protocol):
     def __call__(
         self,
         host: str,
-        /, *,
+        /,
+        *,
         port: int | None = ...,
         timeout: float = ...,
         source_address: tuple[str, int] | None = ...,

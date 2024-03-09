@@ -35,7 +35,8 @@ if sys.version_info >= (3, 10):
     @overload
     def print_exception(
         exc: type[BaseException] | None,
-        /, value: BaseException | None = ...,
+        /,
+        value: BaseException | None = ...,
         tb: TracebackType | None = ...,
         limit: int | None = None,
         file: SupportsWrite[str] | None = None,
@@ -48,7 +49,8 @@ if sys.version_info >= (3, 10):
     @overload
     def format_exception(
         exc: type[BaseException] | None,
-        /, value: BaseException | None = ...,
+        /,
+        value: BaseException | None = ...,
         tb: TracebackType | None = ...,
         limit: int | None = None,
         chain: bool = True,

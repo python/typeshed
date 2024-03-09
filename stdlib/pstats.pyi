@@ -49,7 +49,8 @@ class Stats:
     def __init__(
         self,
         arg: None | str | Profile | _cProfile = ...,
-        /, *args: None | str | Profile | _cProfile | Self,
+        /,
+        *args: None | str | Profile | _cProfile | Self,
         stream: IO[Any] | None = None,
     ) -> None: ...
     def init(self, arg: None | str | Profile | _cProfile) -> None: ...

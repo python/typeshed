@@ -108,7 +108,8 @@ if sys.version_info >= (3, 10):
         coro_or_future1: _FutureLike[_T1],
         coro_or_future2: _FutureLike[_T2],
         coro_or_future3: _FutureLike[_T3],
-        /, *,
+        /,
+        *,
         return_exceptions: Literal[False] = False,
     ) -> Future[tuple[_T1, _T2, _T3]]: ...
     @overload
@@ -117,7 +118,8 @@ if sys.version_info >= (3, 10):
         coro_or_future2: _FutureLike[_T2],
         coro_or_future3: _FutureLike[_T3],
         coro_or_future4: _FutureLike[_T4],
-        /, *,
+        /,
+        *,
         return_exceptions: Literal[False] = False,
     ) -> Future[tuple[_T1, _T2, _T3, _T4]]: ...
     @overload
@@ -127,7 +129,8 @@ if sys.version_info >= (3, 10):
         coro_or_future3: _FutureLike[_T3],
         coro_or_future4: _FutureLike[_T4],
         coro_or_future5: _FutureLike[_T5],
-        /, *,
+        /,
+        *,
         return_exceptions: Literal[False] = False,
     ) -> Future[tuple[_T1, _T2, _T3, _T4, _T5]]: ...
     @overload
@@ -138,7 +141,8 @@ if sys.version_info >= (3, 10):
         coro_or_future4: _FutureLike[_T4],
         coro_or_future5: _FutureLike[_T5],
         coro_or_future6: _FutureLike[_T6],
-        /, *,
+        /,
+        *,
         return_exceptions: Literal[False] = False,
     ) -> Future[tuple[_T1, _T2, _T3, _T4, _T5, _T6]]: ...
     @overload
@@ -154,7 +158,8 @@ if sys.version_info >= (3, 10):
         coro_or_future1: _FutureLike[_T1],
         coro_or_future2: _FutureLike[_T2],
         coro_or_future3: _FutureLike[_T3],
-        /, *,
+        /,
+        *,
         return_exceptions: bool,
     ) -> Future[tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException]]: ...
     @overload
@@ -163,7 +168,8 @@ if sys.version_info >= (3, 10):
         coro_or_future2: _FutureLike[_T2],
         coro_or_future3: _FutureLike[_T3],
         coro_or_future4: _FutureLike[_T4],
-        /, *,
+        /,
+        *,
         return_exceptions: bool,
     ) -> Future[tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException]]: ...
     @overload
@@ -173,7 +179,8 @@ if sys.version_info >= (3, 10):
         coro_or_future3: _FutureLike[_T3],
         coro_or_future4: _FutureLike[_T4],
         coro_or_future5: _FutureLike[_T5],
-        /, *,
+        /,
+        *,
         return_exceptions: bool,
     ) -> Future[
         tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException, _T5 | BaseException]
@@ -186,7 +193,8 @@ if sys.version_info >= (3, 10):
         coro_or_future4: _FutureLike[_T4],
         coro_or_future5: _FutureLike[_T5],
         coro_or_future6: _FutureLike[_T6],
-        /, *,
+        /,
+        *,
         return_exceptions: bool,
     ) -> Future[
         tuple[
@@ -210,7 +218,8 @@ else:
     def gather(  # type: ignore[overload-overlap]
         coro_or_future1: _FutureLike[_T1],
         coro_or_future2: _FutureLike[_T2],
-        /, *,
+        /,
+        *,
         loop: AbstractEventLoop | None = None,
         return_exceptions: Literal[False] = False,
     ) -> Future[tuple[_T1, _T2]]: ...
@@ -219,7 +228,8 @@ else:
         coro_or_future1: _FutureLike[_T1],
         coro_or_future2: _FutureLike[_T2],
         coro_or_future3: _FutureLike[_T3],
-        /, *,
+        /,
+        *,
         loop: AbstractEventLoop | None = None,
         return_exceptions: Literal[False] = False,
     ) -> Future[tuple[_T1, _T2, _T3]]: ...
@@ -229,7 +239,8 @@ else:
         coro_or_future2: _FutureLike[_T2],
         coro_or_future3: _FutureLike[_T3],
         coro_or_future4: _FutureLike[_T4],
-        /, *,
+        /,
+        *,
         loop: AbstractEventLoop | None = None,
         return_exceptions: Literal[False] = False,
     ) -> Future[tuple[_T1, _T2, _T3, _T4]]: ...
@@ -240,7 +251,8 @@ else:
         coro_or_future3: _FutureLike[_T3],
         coro_or_future4: _FutureLike[_T4],
         coro_or_future5: _FutureLike[_T5],
-        /, *,
+        /,
+        *,
         loop: AbstractEventLoop | None = None,
         return_exceptions: Literal[False] = False,
     ) -> Future[tuple[_T1, _T2, _T3, _T4, _T5]]: ...
@@ -252,7 +264,8 @@ else:
         coro_or_future4: _FutureLike[_T4],
         coro_or_future5: _FutureLike[_T5],
         coro_or_future6: _FutureLike[_T6],
-        /, *,
+        /,
+        *,
         loop: AbstractEventLoop | None = None,
         return_exceptions: Literal[False] = False,
     ) -> Future[tuple[_T1, _T2, _T3, _T4, _T5, _T6]]: ...
@@ -268,7 +281,8 @@ else:
     def gather(  # type: ignore[overload-overlap]
         coro_or_future1: _FutureLike[_T1],
         coro_or_future2: _FutureLike[_T2],
-        /, *,
+        /,
+        *,
         loop: AbstractEventLoop | None = None,
         return_exceptions: bool,
     ) -> Future[tuple[_T1 | BaseException, _T2 | BaseException]]: ...
@@ -277,7 +291,8 @@ else:
         coro_or_future1: _FutureLike[_T1],
         coro_or_future2: _FutureLike[_T2],
         coro_or_future3: _FutureLike[_T3],
-        /, *,
+        /,
+        *,
         loop: AbstractEventLoop | None = None,
         return_exceptions: bool,
     ) -> Future[tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException]]: ...
@@ -287,7 +302,8 @@ else:
         coro_or_future2: _FutureLike[_T2],
         coro_or_future3: _FutureLike[_T3],
         coro_or_future4: _FutureLike[_T4],
-        /, *,
+        /,
+        *,
         loop: AbstractEventLoop | None = None,
         return_exceptions: bool,
     ) -> Future[tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException]]: ...
@@ -299,7 +315,8 @@ else:
         coro_or_future4: _FutureLike[_T4],
         coro_or_future5: _FutureLike[_T5],
         coro_or_future6: _FutureLike[_T6],
-        /, *,
+        /,
+        *,
         loop: AbstractEventLoop | None = None,
         return_exceptions: bool,
     ) -> Future[
@@ -447,7 +464,8 @@ if sys.version_info >= (3, 12):
         def __call__(
             self,
             coro: _TaskCompatibleCoro[Any],
-            /, *,
+            /,
+            *,
             loop: AbstractEventLoop,
             name: str | None,
             context: Context | None,

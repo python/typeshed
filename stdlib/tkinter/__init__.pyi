@@ -1232,7 +1232,8 @@ class Canvas(Widget, XView, YView):
         y0: float,
         x1: float,
         y1: float,
-        /, *,
+        /,
+        *,
         activedash: str | int | list[int] | tuple[int, ...] = ...,
         activefill: str = ...,
         activestipple: str = ...,
@@ -1261,7 +1262,8 @@ class Canvas(Widget, XView, YView):
         self,
         xy_pair_0: tuple[float, float],
         xy_pair_1: tuple[float, float],
-        /, *,
+        /,
+        *,
         activedash: str | int | list[int] | tuple[int, ...] = ...,
         activefill: str = ...,
         activestipple: str = ...,
@@ -1296,7 +1298,8 @@ class Canvas(Widget, XView, YView):
             | list[tuple[int, int]]
             | list[tuple[float, float]]
         ),
-        /, *,
+        /,
+        *,
         activedash: str | int | list[int] | tuple[int, ...] = ...,
         activefill: str = ...,
         activestipple: str = ...,
@@ -1327,7 +1330,8 @@ class Canvas(Widget, XView, YView):
         y0: float,
         x1: float,
         y1: float,
-        /, *,
+        /,
+        *,
         activedash: str | int | list[int] | tuple[int, ...] = ...,
         activefill: str = ...,
         activeoutline: str = ...,
@@ -1357,7 +1361,8 @@ class Canvas(Widget, XView, YView):
         self,
         xy_pair_0: tuple[float, float],
         xy_pair_1: tuple[float, float],
-        /, *,
+        /,
+        *,
         activedash: str | int | list[int] | tuple[int, ...] = ...,
         activefill: str = ...,
         activeoutline: str = ...,
@@ -1393,7 +1398,8 @@ class Canvas(Widget, XView, YView):
             | list[tuple[int, int]]
             | list[tuple[float, float]]
         ),
-        /, *,
+        /,
+        *,
         activedash: str | int | list[int] | tuple[int, ...] = ...,
         activefill: str = ...,
         activeoutline: str = ...,
@@ -1425,7 +1431,8 @@ class Canvas(Widget, XView, YView):
         y0: float,
         x1: float,
         y1: float,
-        /, *xy_pairs: float,
+        /,
+        *xy_pairs: float,
         activedash: str | int | list[int] | tuple[int, ...] = ...,
         activefill: str = ...,
         activeoutline: str = ...,
@@ -1458,7 +1465,8 @@ class Canvas(Widget, XView, YView):
         self,
         xy_pair_0: tuple[float, float],
         xy_pair_1: tuple[float, float],
-        /, *xy_pairs: tuple[float, float],
+        /,
+        *xy_pairs: tuple[float, float],
         activedash: str | int | list[int] | tuple[int, ...] = ...,
         activefill: str = ...,
         activeoutline: str = ...,
@@ -1497,7 +1505,8 @@ class Canvas(Widget, XView, YView):
             | list[tuple[int, int]]
             | list[tuple[float, float]]
         ),
-        /, *,
+        /,
+        *,
         activedash: str | int | list[int] | tuple[int, ...] = ...,
         activefill: str = ...,
         activeoutline: str = ...,
@@ -1532,7 +1541,8 @@ class Canvas(Widget, XView, YView):
         y0: float,
         x1: float,
         y1: float,
-        /, *,
+        /,
+        *,
         activedash: str | int | list[int] | tuple[int, ...] = ...,
         activefill: str = ...,
         activeoutline: str = ...,
@@ -1562,7 +1572,8 @@ class Canvas(Widget, XView, YView):
         self,
         xy_pair_0: tuple[float, float],
         xy_pair_1: tuple[float, float],
-        /, *,
+        /,
+        *,
         activedash: str | int | list[int] | tuple[int, ...] = ...,
         activefill: str = ...,
         activeoutline: str = ...,
@@ -1598,7 +1609,8 @@ class Canvas(Widget, XView, YView):
             | list[tuple[int, int]]
             | list[tuple[float, float]]
         ),
-        /, *,
+        /,
+        *,
         activedash: str | int | list[int] | tuple[int, ...] = ...,
         activefill: str = ...,
         activeoutline: str = ...,
@@ -1628,7 +1640,8 @@ class Canvas(Widget, XView, YView):
         self,
         x: float,
         y: float,
-        /, *,
+        /,
+        *,
         activefill: str = ...,
         activestipple: str = ...,
         anchor: _Anchor = ...,
@@ -1649,7 +1662,8 @@ class Canvas(Widget, XView, YView):
     def create_text(
         self,
         coords: tuple[float, float] | list[int] | list[float],
-        /, *,
+        /,
+        *,
         activefill: str = ...,
         activestipple: str = ...,
         anchor: _Anchor = ...,
@@ -1671,7 +1685,8 @@ class Canvas(Widget, XView, YView):
         self,
         x: float,
         y: float,
-        /, *,
+        /,
+        *,
         anchor: _Anchor = ...,
         height: _ScreenUnits = ...,
         state: Literal["normal", "hidden", "disabled"] = ...,
@@ -1683,7 +1698,8 @@ class Canvas(Widget, XView, YView):
     def create_window(
         self,
         coords: tuple[float, float] | list[int] | list[float],
-        /, *,
+        /,
+        *,
         anchor: _Anchor = ...,
         height: _ScreenUnits = ...,
         state: Literal["normal", "hidden", "disabled"] = ...,
@@ -1722,8 +1738,8 @@ class Canvas(Widget, XView, YView):
     def tkraise(self, first: str | int, second: str | int | None = ..., /) -> None: ...  # type: ignore[override]
     def lift(self, first: str | int, second: str | int | None = ..., /) -> None: ...  # type: ignore[override]
     def scale(
-        self, tagOrId: str | int, xOrigin: _ScreenUnits, yOrigin: _ScreenUnits, xScale: float, yScale: float, 
-    /) -> None: ...
+        self, tagOrId: str | int, xOrigin: _ScreenUnits, yOrigin: _ScreenUnits, xScale: float, yScale: float, /
+    ) -> None: ...
     def scan_mark(self, x, y) -> None: ...
     def scan_dragto(self, x, y, gain: int = 10) -> None: ...
     def select_adjust(self, tagOrId, index) -> None: ...
