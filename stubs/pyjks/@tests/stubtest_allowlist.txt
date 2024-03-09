@@ -26,10 +26,6 @@ jks.MAGIC_NUMBER_JCEKS
 jks.MAGIC_NUMBER_JKS
 jks.RSA_ENCRYPTION_OID
 jks.SIGNATURE_WHITENING
-jks.b1
-jks.b2
-jks.b4
-jks.b8
 jks.py23basestring
 jks.bks.DSA_OID
 jks.bks.DSA_WITH_SHA1_OID
