@@ -12,8 +12,8 @@ from paramiko.util import ClosingContextManager
 class _TransportFactory(Protocol):
     def __call__(
         self,
-        __sock: _SocketLike,
-        *,
+        sock: _SocketLike,
+        /, *,
         gss_kex: bool,
         gss_deleg_creds: bool,
         disabled_algorithms: Mapping[str, Iterable[str]] | None,
