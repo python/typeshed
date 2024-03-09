@@ -24,7 +24,8 @@ class _Stream(SupportsWrite[_T_contra], Protocol):
 _InteractiveShell: TypeAlias = Any
 
 class Wurlitzer:
-    flush_interval: float = 0.2
+    flush_interval: float
+    encoding: str | None
 
     def __init__(
         self,
