@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from docutils.parsers.rst import Directive
 
@@ -8,11 +8,11 @@ FMTERDOC: str
 FILTERDOC: str
 
 class PygmentsDoc(Directive):
-    has_content: bool
-    required_arguments: int
-    optional_arguments: int
-    final_argument_whitespace: bool
-    option_spec: Any
+    has_content: ClassVar[bool]
+    required_arguments: ClassVar[int]
+    optional_arguments: ClassVar[int]
+    final_argument_whitespace: ClassVar[bool]
+    option_spec: ClassVar[Any]
     filenames: Any
     def run(self): ...
     def document_lexers(self): ...
