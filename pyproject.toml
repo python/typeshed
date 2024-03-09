@@ -24,9 +24,19 @@ exclude = [
 ]
 
 [tool.ruff.lint]
+# Disable all rules on test cases by default:
+# test cases often deliberately contain code
+# that might not be considered idiomatic or modern.
+#
+# Note: some rules that are specifically useful to the test cases
+# are invoked via separate runs of ruff in pre-commit:
+# see our .pre-commit-config.yaml file for details
+exclude = ["**/test_cases/**/*.py"]
 select = [
+    "B", # flake8-bugbear
     "FA", # flake8-future-annotations
     "I", # isort
+    "UP", # pyupgrade
     # Only enable rules that have safe autofixes:
     "F401", # Remove unused imports
     "PYI009", # use `...`, not `pass`, in empty class bodies
@@ -39,14 +49,17 @@ select = [
     "PYI032", # use `object`, not `Any`, as the second parameter to `__eq__`
     "PYI055", # multiple `type[T]` usages in a union
     "PYI058", # use `Iterator` as the return type for `__iter__` methods
-    "UP004", # Remove explicit `object` inheritance
-    "UP006", # PEP-585 autofixes
-    "UP007", # PEP-604 autofixes
-    "UP013", # Class-based syntax for TypedDicts
-    "UP014", # Class-based syntax for NamedTuples
-    "UP019", # Use str over typing.Text
-    "UP035", # import from typing, not typing_extensions, wherever possible
-    "UP039", # don't use parens after a class definition with no bases
+]
+ignore = [
+    # Slower and more verbose https://github.com/astral-sh/ruff/issues/7871
+    "UP038", # Use `X | Y` in `isinstance` call instead of `(X, Y)`
+]
+
+[tool.ruff.lint.per-file-ignores]
+"*.pyi" = [
+    # Most flake8-bugbear rules don't apply for third-party stubs like typeshed.
+    # B033 could be slightly useful but Ruff doesn't have per-file select
+    "B", # flake8-bugbear
 ]
 
 [tool.ruff.lint.isort]
@@ -100,5 +113,5 @@ extra-standard-library = [
 known-first-party = ["parse_metadata", "utils"]
 
 [tool.typeshed]
-pyright_version = "1.1.342"
+pyright_version = "1.1.350"
 oldest_supported_python = "3.8"

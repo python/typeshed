@@ -45,10 +45,7 @@ PYTHON_PROTOBUF_DIR="protobuf-$PYTHON_PROTOBUF_VERSION"
 VENV=venv
 python3 -m venv "$VENV"
 source "$VENV/bin/activate"
-pip install -r "$REPO_ROOT/requirements-tests.txt"  # for Black and Ruff
-
-# Install mypy-protobuf
-pip install mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
+pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 
 # Remove existing pyi
 find "$REPO_ROOT/stubs/protobuf/" -name '*_pb2.pyi' -delete
@@ -73,8 +70,9 @@ PROTO_FILES=$(grep "GenProto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py | \
 # shellcheck disable=SC2086
 protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="relax_strict_optional_primitives:$REPO_ROOT/stubs/protobuf" $PROTO_FILES
 
-ruff check "$REPO_ROOT/stubs/protobuf" --fix-only
-black "$REPO_ROOT/stubs/protobuf"
+# use `|| true` so the script still continues even if a pre-commit hook
+# applies autofixes (which will result in a nonzero exit code)
+pre-commit run --files "$REPO_ROOT/stubs/protobuf" || true
 
 sed --in-place="" \
   "s/extra_description = .*$/extra_description = \"Generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on protobuf==$PYTHON_PROTOBUF_VERSION\"/" \

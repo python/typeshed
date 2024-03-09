@@ -137,6 +137,17 @@ webob.request.AdhocAttrMixin.__setattr__
 # make sense to annotate them and pretend they're part of the API.
 webob.request.BaseRequest.__init__
 
+# We needed to add a dummy *_: _P.args in order to support ParamSpec
+webob.dec.wsgify.middleware
+webob.dec._MiddlewareFactory.__call__
+
+# We renamed some of the arguments in positional only overloads for greater
+# clarity about what the arguments mean, stubtest should probably be a bit
+# more lenient here, since this is only unsafe if that overload accepts
+# arbitrary named arguments, that could overlap with the argument in that
+# specific position
+webob.dec.wsgify.__call__
+
 # Error: is not present at runtime
 # =============================
 # This attribute is there to help mypy type narrow NoVars based on its static

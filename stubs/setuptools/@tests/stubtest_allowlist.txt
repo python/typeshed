@@ -1,6 +1,7 @@
 # Is always set in __init__
 pkg_resources.PathMetadata.egg_info
 pkg_resources.EggMetadata.loader
+pkg_resources.ZipProvider.loader
 
 # 1 used for True as a default value
 setuptools._distutils.dist.Distribution.get_command_obj
@@ -44,8 +45,3 @@ setuptools._distutils.*
 # Other vendored code
 setuptools._vendor.*
 pkg_resources._vendor.*
-# Deprecated in favor of importlib.resources, importlib.metadata and their backports
-# So like distutils, we only add what we need to reference.
-pkg_resources.AvailableDistributions
-pkg_resources.ResourceManager
-pkg_resources.extern

@@ -13,7 +13,7 @@ from textwrap import dedent
 from typing import NoReturn
 
 from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
-from utils import PYTHON_VERSION, colored, get_mypy_req, make_venv, print_error, print_success_msg
+from utils import PYTHON_VERSION, colored, get_mypy_req, print_error, print_success_msg
 
 
 def run_stubtest(
@@ -43,17 +43,19 @@ def run_stubtest(
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
-        try:
-            pip_exe, python_exe = make_venv(venv_dir)
-        except Exception:
-            print_error("fail")
-            raise
+        subprocess.run(["uv", "venv", venv_dir, "--seed"], capture_output=True, check=True)
+        if sys.platform == "win32":
+            pip_exe = str(venv_dir / "Scripts" / "pip.exe")
+            python_exe = str(venv_dir / "Scripts" / "python.exe")
+        else:
+            pip_exe = str(venv_dir / "bin" / "pip")
+            python_exe = str(venv_dir / "bin" / "python")
         dist_extras = ", ".join(stubtest_settings.extras)
         dist_req = f"{dist_name}[{dist_extras}]=={metadata.version}"
 
         # If tool.stubtest.stubtest_requirements exists, run "pip install" on it.
         if stubtest_settings.stubtest_requirements:
-            pip_cmd = [pip_exe, "install"] + stubtest_settings.stubtest_requirements
+            pip_cmd = [pip_exe, "install", *stubtest_settings.stubtest_requirements]
             try:
                 subprocess.run(pip_cmd, check=True, capture_output=True)
             except subprocess.CalledProcessError as e:
@@ -67,7 +69,7 @@ def run_stubtest(
         # TODO: Maybe find a way to cache these in CI
         dists_to_install = [dist_req, get_mypy_req()]
         dists_to_install.extend(requirements.external_pkgs)  # Internal requirements are added to MYPYPATH
-        pip_cmd = [pip_exe, "install"] + dists_to_install
+        pip_cmd = [pip_exe, "install", *dists_to_install]
         try:
             subprocess.run(pip_cmd, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
@@ -134,7 +136,7 @@ def run_stubtest(
                 print(file=sys.stderr)
             else:
                 print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path}:", file=sys.stderr)
-                ret = subprocess.run(stubtest_cmd + ["--generate-allowlist"], env=stubtest_env, capture_output=True)
+                ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
                 print_command_output(ret)
 
             return False
