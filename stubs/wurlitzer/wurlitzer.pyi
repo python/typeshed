@@ -29,8 +29,8 @@ class Wurlitzer:
 
     def __init__(
         self,
-        stdout: _Stream[str] | _Stream[bytes] | None = None,
-        stderr: _STDOUT | _Stream[str] | _Stream[bytes] | None = None,
+        stdout: SupportsWrite[str] | SupportsWrite[bytes] | None = None,
+        stderr: _STDOUT | SupportsWrite[str] | SupportsWrite[bytes] | None = None,
         encoding: str | None = ...,
         bufsize: int | None = ...,
     ) -> None: ...
