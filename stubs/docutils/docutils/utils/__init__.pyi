@@ -10,6 +10,8 @@ from docutils.frontend import Values
 from docutils.io import ErrorOutput, FileOutput
 from docutils.nodes import document
 
+_Observer: TypeAlias = Callable[[nodes.system_message], object]
+
 class DependencyList:
     list: list[str]
     file: FileOutput | None
@@ -31,7 +33,7 @@ class Reporter:
 
     stream: ErrorOutput
     encoding: str
-    observers: list[Callable[[nodes.system_message], None]]
+    observers: list[_Observer]
     max_level: int
     def __init__(
         self,
@@ -57,8 +59,8 @@ class Reporter:
         stream: SupportsWrite[str] | SupportsWrite[bytes] | None = None,
         debug: bool = False,
     ) -> None: ...
-    def attach_observer(self, observer: Callable[[nodes.system_message], None]) -> None: ...
-    def detach_observer(self, observer: Callable[[nodes.system_message], None]) -> None: ...
+    def attach_observer(self, observer: _Observer) -> None: ...
+    def detach_observer(self, observer: _Observer) -> None: ...
     def notify_observers(self, message: nodes.system_message) -> None: ...
     def system_message(
         self,
