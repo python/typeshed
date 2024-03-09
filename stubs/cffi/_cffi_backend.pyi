@@ -213,7 +213,8 @@ def callback(
     python_callable: Callable[..., _T],
     error: Any = ...,
     onerror: Callable[[Exception, Any, Any], None] | None = ...,
-/) -> Callable[..., _T]: ...
+    /,
+) -> Callable[..., _T]: ...
 def cast(cdecl: CType, value: _CDataBase, /) -> _CDataBase: ...
 def complete_struct_or_union(
     cdecl: CType,
@@ -223,7 +224,8 @@ def complete_struct_or_union(
     total_alignment: int,
     sflags: int,
     pack: int,
-/) -> None: ...
+    /,
+) -> None: ...
 @overload
 def from_buffer(cdecl: CType, python_buffer: ReadableBuffer, /, require_writable: Literal[False] = ...) -> _CDataBase: ...
 @overload

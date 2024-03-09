@@ -153,7 +153,8 @@ class Dataset(ABC, Generic[_T1]):
         start: ScalarTensorCompatible,
         stop: ScalarTensorCompatible,
         step: ScalarTensorCompatible = 1,
-        /, output_type: DType = ...,
+        /,
+        output_type: DType = ...,
         name: str | None = None,
     ) -> Dataset[tf.Tensor]: ...
     def rebatch(

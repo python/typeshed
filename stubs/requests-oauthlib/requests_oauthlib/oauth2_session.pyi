@@ -17,8 +17,8 @@ class _RefreshTokenResponseHook(Protocol):
 
 class _ProtectedRequestHook(Protocol):
     def __call__(
-        self, url: Incomplete, headers: Incomplete, data: Incomplete, 
-    /) -> tuple[Incomplete, Incomplete, Incomplete]: ...
+        self, url: Incomplete, headers: Incomplete, data: Incomplete, /
+    ) -> tuple[Incomplete, Incomplete, Incomplete]: ...
 
 class _ComplianceHooks(TypedDict):
     access_token_response: set[_AccessTokenResponseHook]
