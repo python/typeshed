@@ -17,7 +17,7 @@ from importlib.machinery import ModuleSpec
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
 from typing import Any, ClassVar, Literal, Mapping, Protocol, TypeVar, final, overload  # noqa: Y022
-from typing_extensions import ParamSpec, Self, TypeVarTuple
+from typing_extensions import ParamSpec, Self, TypeVarTuple, deprecated
 
 __all__ = [
     "FunctionType",
@@ -138,8 +138,14 @@ class CodeType:
     def co_name(self) -> str: ...
     @property
     def co_firstlineno(self) -> int: ...
-    @property
-    def co_lnotab(self) -> bytes: ...
+    if sys.version_info >= (3, 10):
+        @property
+        @deprecated("Will be removed in Python 3.14. Use the co_lines() method instead.")
+        def co_lnotab(self) -> bytes: ...
+    else:
+        @property
+        def co_lnotab(self) -> bytes: ...
+
     @property
     def co_freevars(self) -> tuple[str, ...]: ...
     @property
@@ -393,18 +399,6 @@ class CoroutineType(Coroutine[_YieldT_co, _SendT_contra, _ReturnT_co]):
     @overload
     def throw(self, __typ: BaseException, __val: None = None, __tb: TracebackType | None = ...) -> _YieldT_co: ...
 
-class _StaticFunctionType:
-    # Fictional type to correct the type of MethodType.__func__.
-    # FunctionType is a descriptor, so mypy follows the descriptor protocol and
-    # converts MethodType.__func__ back to MethodType (the return type of
-    # FunctionType.__get__). But this is actually a special case; MethodType is
-    # implemented in C and its attribute access doesn't go through
-    # __getattribute__.
-    # By wrapping FunctionType in _StaticFunctionType, we get the right result;
-    # similar to wrapping a function in staticmethod() at runtime to prevent it
-    # being bound as a method.
-    def __get__(self, obj: object, type: type | None) -> FunctionType: ...
-
 @final
 class MethodType:
     @property
@@ -412,7 +406,7 @@ class MethodType:
     @property
     def __defaults__(self) -> tuple[Any, ...] | None: ...  # inherited from the added function
     @property
-    def __func__(self) -> _StaticFunctionType: ...
+    def __func__(self) -> Callable[..., Any]: ...
     @property
     def __self__(self) -> object: ...
     @property

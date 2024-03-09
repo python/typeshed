@@ -40,15 +40,12 @@ from typing import (
     overload,
     runtime_checkable,
 )
-from typing_extensions import Self, TypeAlias, Unpack
+from typing_extensions import Self, TypeAlias, Unpack, deprecated
 
 from . import path as _path
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
-
-if sys.platform != "win32":
-    from resource import struct_rusage
 
 # This unnecessary alias is to work around various errors
 path = _path
@@ -311,7 +308,8 @@ if sys.platform != "win32":
     EX_NOPERM: int
     EX_CONFIG: int
 
-if sys.platform != "win32" and sys.platform != "darwin":
+# Exists on some Unix platforms, e.g. Solaris.
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
     EX_NOTFOUND: int
 
 P_NOWAIT: int
@@ -344,6 +342,7 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
     # More items may be added at the end by some implementations.
     if sys.version_info >= (3, 10):
         __match_args__: Final = ("st_mode", "st_ino", "st_dev", "st_nlink", "st_uid", "st_gid", "st_size")
+
     @property
     def st_mode(self) -> int: ...  # protection bits,
     @property
@@ -363,8 +362,16 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
     @property
     def st_mtime(self) -> float: ...  # time of most recent content modification,
     # platform dependent (time of most recent metadata change on Unix, or the time of creation on Windows)
-    @property
-    def st_ctime(self) -> float: ...
+    if sys.version_info >= (3, 12) and sys.platform == "win32":
+        @property
+        @deprecated(
+            "Use st_birthtime instead to retrieve the file creation time. In the future, this property will contain the last metadata change time."
+        )
+        def st_ctime(self) -> float: ...
+    else:
+        @property
+        def st_ctime(self) -> float: ...
+
     @property
     def st_atime_ns(self) -> int: ...  # time of most recent access, in nanoseconds
     @property
@@ -449,6 +456,7 @@ class statvfs_result(structseq[int], tuple[int, int, int, int, int, int, int, in
             "f_flag",
             "f_namemax",
         )
+
     @property
     def f_bsize(self) -> int: ...
     @property
@@ -491,6 +499,7 @@ def umask(__mask: int) -> int: ...
 class uname_result(structseq[str], tuple[str, str, str, str, str]):
     if sys.version_info >= (3, 10):
         __match_args__: Final = ("sysname", "nodename", "release", "version", "machine")
+
     @property
     def sysname(self) -> str: ...
     @property
@@ -707,6 +716,7 @@ if sys.platform != "win32":
 class terminal_size(structseq[int], tuple[int, int]):
     if sys.version_info >= (3, 10):
         __match_args__: Final = ("columns", "lines")
+
     @property
     def columns(self) -> int: ...
     @property
@@ -859,8 +869,8 @@ if sys.platform != "win32":
 def abort() -> NoReturn: ...
 
 # These are defined as execl(file, *args) but the first *arg is mandatory.
-def execl(file: StrOrBytesPath, __arg0: StrOrBytesPath, *args: StrOrBytesPath) -> NoReturn: ...
-def execlp(file: StrOrBytesPath, __arg0: StrOrBytesPath, *args: StrOrBytesPath) -> NoReturn: ...
+def execl(file: StrOrBytesPath, *args: Unpack[tuple[StrOrBytesPath, Unpack[tuple[StrOrBytesPath, ...]]]]) -> NoReturn: ...
+def execlp(file: StrOrBytesPath, *args: Unpack[tuple[StrOrBytesPath, Unpack[tuple[StrOrBytesPath, ...]]]]) -> NoReturn: ...
 
 # These are: execle(file, *args, env) but env is pulled from the last element of the args.
 def execle(
@@ -928,6 +938,7 @@ def system(command: StrOrBytesPath) -> int: ...
 class times_result(structseq[float], tuple[float, float, float, float, float]):
     if sys.version_info >= (3, 10):
         __match_args__: Final = ("user", "system", "children_user", "children_system", "elapsed")
+
     @property
     def user(self) -> float: ...
     @property
@@ -965,6 +976,7 @@ else:
         class waitid_result(structseq[int], tuple[int, int, int, int, int]):
             if sys.version_info >= (3, 10):
                 __match_args__: Final = ("si_pid", "si_uid", "si_signo", "si_status", "si_code")
+
             @property
             def si_pid(self) -> int: ...
             @property
@@ -977,6 +989,8 @@ else:
             def si_code(self) -> int: ...
 
         def waitid(__idtype: int, __ident: int, __options: int) -> waitid_result | None: ...
+
+    from resource import struct_rusage
 
     def wait3(options: int) -> tuple[int, int, struct_rusage]: ...
     def wait4(pid: int, options: int) -> tuple[int, int, struct_rusage]: ...
@@ -1023,6 +1037,7 @@ if sys.platform != "win32":
     class sched_param(structseq[int], tuple[int]):
         if sys.version_info >= (3, 10):
             __match_args__: Final = ("sched_priority",)
+
         def __new__(cls, sched_priority: int) -> Self: ...
         @property
         def sched_priority(self) -> int: ...

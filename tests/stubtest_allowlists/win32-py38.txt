@@ -1,3 +1,5 @@
+tarfile.TarInfo.replace
+
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========

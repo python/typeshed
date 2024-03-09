@@ -15,6 +15,8 @@ _PasswordType: TypeAlias = Callable[[], str | bytes | bytearray] | str | bytes |
 
 _SrvnmeCbType: TypeAlias = Callable[[SSLSocket | SSLObject, str | None, SSLSocket], int | None]
 
+socket_error = OSError
+
 class _Cipher(TypedDict):
     aead: bool
     alg_bits: int

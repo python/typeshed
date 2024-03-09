@@ -23,7 +23,7 @@ extension_descriptions = {".pyi": "stub", ".py": ".py"}
 
 # These type checkers and linters must have exact versions in the requirements file to ensure
 # consistent CI runs.
-linters = {"black", "flake8", "flake8-bugbear", "flake8-noqa", "flake8-pyi", "ruff", "mypy", "pytype"}
+linters = {"black", "flake8", "flake8-noqa", "flake8-pyi", "ruff", "mypy", "pytype"}
 
 
 def assert_consistent_filetypes(
@@ -145,7 +145,6 @@ def get_txt_requirements() -> dict[str, SpecifierSet]:
 class PreCommitConfigRepos(TypedDict):
     hooks: list[dict[str, str]]
     repo: str
-    rev: str
 
 
 class PreCommitConfig(TypedDict):
@@ -158,16 +157,16 @@ def get_precommit_requirements() -> dict[str, SpecifierSet]:
     yam: PreCommitConfig = yaml.load(precommit, Loader=yaml.Loader)
     precommit_requirements: dict[str, SpecifierSet] = {}
     for repo in yam["repos"]:
-        if not repo.get("python_requirement", True):
+        package_rev = repo.get("rev")
+        if not isinstance(package_rev, str):
             continue
-        hook = repo["hooks"][0]
         package_name = Path(urllib.parse.urlparse(repo["repo"]).path).name
-        package_rev = repo["rev"].removeprefix("v")
-        package_specifier = SpecifierSet(f"=={package_rev}")
+        package_specifier = SpecifierSet(f"=={package_rev.removeprefix('v')}")
         precommit_requirements[package_name] = package_specifier
-        for additional_req in hook.get("additional_dependencies", ()):
-            req = Requirement(additional_req)
-            precommit_requirements[req.name] = req.specifier
+        for hook in repo["hooks"]:
+            for additional_req in hook.get("additional_dependencies", ()):
+                req = Requirement(additional_req)
+                precommit_requirements[req.name] = req.specifier
     return precommit_requirements
 
 

@@ -2,7 +2,7 @@ import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
-from ctypes import CDLL
+from ctypes import CDLL, ArgumentError as ArgumentError
 from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
@@ -64,6 +64,7 @@ class _CData(metaclass=_CDataMeta):
     # Structure.from_buffer(...)  # valid at runtime
     # Structure(...).from_buffer(...)  # invalid at runtime
     #
+
     @classmethod
     def from_buffer(cls, source: WriteableBuffer, offset: int = ...) -> Self: ...
     @classmethod
@@ -106,14 +107,15 @@ class _CArgObject: ...
 
 def byref(obj: _CData, offset: int = ...) -> _CArgObject: ...
 
-_ECT: TypeAlias = Callable[[type[_CData] | None, CFuncPtr, tuple[_CData, ...]], _CData]
+_ECT: TypeAlias = Callable[[_CData | None, CFuncPtr, tuple[_CData, ...]], _CData]
 _PF: TypeAlias = tuple[int] | tuple[int, str | None] | tuple[int, str | None, Any]
 
 class CFuncPtr(_PointerLike, _CData):
     restype: type[_CData] | Callable[[int], Any] | None
     argtypes: Sequence[type[_CData]]
     errcheck: _ECT
-    _flags_: ClassVar[int]  # Abstract attribute that must be defined on subclasses
+    # Abstract attribute that must be defined on subclasses
+    _flags_: ClassVar[int]
     @overload
     def __init__(self) -> None: ...
     @overload
@@ -200,8 +202,6 @@ class Array(_CData, Generic[_CT]):
     def __len__(self) -> int: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any) -> GenericAlias: ...
-
-class ArgumentError(Exception): ...
 
 def addressof(obj: _CData) -> int: ...
 def alignment(obj_or_type: _CData | type[_CData]) -> int: ...

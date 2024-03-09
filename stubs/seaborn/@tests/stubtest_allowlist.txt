@@ -3,3 +3,5 @@ seaborn.external.docscrape.ClassDoc.__init__  # stubtest doesn't like ABC class 
 seaborn.external.docscrape.NumpyDocString.__str__  # weird signature
 
 seaborn.axisgrid.Grid.tight_layout  # the method doesn't really take pos args but runtime has *args
+
+seaborn.external.appdirs.unicode
