@@ -77,7 +77,7 @@ def pipes(
 ) -> _GeneratorContextManager[tuple[_StreamOutT, io.BytesIO]]: ...
 @overload
 def pipes(
-    stdout: _StreamOutT, stderr: _PIPE, encoding: str, bufsize: int | None = None
+    stdout: _StreamOutT, stderr: _PIPE, encoding: str = ..., bufsize: int | None = None
 ) -> _GeneratorContextManager[tuple[_StreamOutT, io.StringIO]]: ...
 @overload
 def pipes(
