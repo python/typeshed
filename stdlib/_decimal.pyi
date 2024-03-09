@@ -182,7 +182,7 @@ class Context:
     # even settable attributes like `prec` and `rounding`,
     # but that's inexpressable in the stub.
     # Type checkers either ignore it or misinterpret it
-    # if you add a `def __delattr__(self, __name: str) -> NoReturn` method to the stub
+    # if you add a `def __delattr__(self, name: str, /) -> NoReturn` method to the stub
     prec: int
     rounding: str
     Emin: int
