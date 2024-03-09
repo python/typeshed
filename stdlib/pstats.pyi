@@ -48,8 +48,8 @@ class Stats:
     sort_arg_dict_default: _SortArgDict
     def __init__(
         self,
-        __arg: None | str | Profile | _cProfile = ...,
-        *args: None | str | Profile | _cProfile | Self,
+        arg: None | str | Profile | _cProfile = ...,
+        /, *args: None | str | Profile | _cProfile | Self,
         stream: IO[Any] | None = None,
     ) -> None: ...
     def init(self, arg: None | str | Profile | _cProfile) -> None: ...
