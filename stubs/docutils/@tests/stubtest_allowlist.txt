@@ -5,7 +5,7 @@ docutils.io.FileOutput.__getattr__
 docutils.io.FileOutput.__init__
 docutils.languages.LanguageImporter.__getattr__
 docutils.nodes.Element.__iter__ # doesn't exist at runtime, but the class is iterable due to __getitem__
-docutils.nodes.Element.tagname  # class variable is overriden in __init__ method
+docutils.nodes.Element.tagname  # class variable is overridden in __init__ method
 docutils.nodes.Element.update_all_atts  # runtime default is untyped
 docutils.nodes.GenericNodeVisitor.__getattr__
 # these methods take a rawsource parameter that has been deprecated and is completely ignored, so we omit it from the stub
