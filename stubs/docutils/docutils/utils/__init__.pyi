@@ -50,7 +50,12 @@ class Reporter:
     report_level: _SystemMessageLevel
     halt_level: int
     def set_conditions(
-        self, category: Unused, report_level: int, halt_level: int, stream: SupportsWrite[str] | SupportsWrite[bytes] | None = None, debug: bool = False
+        self,
+        category: Unused,
+        report_level: int,
+        halt_level: int,
+        stream: SupportsWrite[str] | SupportsWrite[bytes] | None = None,
+        debug: bool = False,
     ) -> None: ...
     def attach_observer(self, observer: Callable[[nodes.system_message], None]) -> None: ...
     def detach_observer(self, observer: Callable[[nodes.system_message], None]) -> None: ...
