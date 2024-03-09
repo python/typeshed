@@ -1,8 +1,8 @@
 import optparse
-from _typeshed import Incomplete, StrPath
+from _typeshed import Incomplete, StrPath, SupportsWrite, Unused
 from collections.abc import Callable, Iterable, Mapping
 from re import Pattern
-from typing import IO, Any, Literal, TypeVar
+from typing import Any, Literal, TypeVar
 from typing_extensions import TypeAlias
 
 from docutils import ApplicationError, DataError, nodes
@@ -38,7 +38,7 @@ class Reporter:
         source: str,
         report_level: int,
         halt_level: int,
-        stream: IO[str] | str | bool | None = None,
+        stream: SupportsWrite[str] | SupportsWrite[bytes] | str | bool | None = None,
         debug: bool = False,
         encoding: str | None = None,
         error_handler: str = "backslashreplace",
@@ -50,7 +50,7 @@ class Reporter:
     report_level: _SystemMessageLevel
     halt_level: int
     def set_conditions(
-        self, category: Any, report_level: int, halt_level: int, stream: IO[str] | None = None, debug: bool = False
+        self, category: Unused, report_level: int, halt_level: int, stream: SupportsWrite[str] | SupportsWrite[bytes] | None = None, debug: bool = False
     ) -> None: ...
     def attach_observer(self, observer: Callable[[nodes.system_message], None]) -> None: ...
     def detach_observer(self, observer: Callable[[nodes.system_message], None]) -> None: ...
