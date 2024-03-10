@@ -16,7 +16,7 @@
       {
         "groupName": "github-actions",
         "matchManagers": ["github-actions"],
-        "description": "Group all GitHub Action dependencies",
+        "description": "Quarterly update of GitHub Action dependencies",
         "separateMajorMinor": "false",
         "schedule": ["every 3 months on the first day of the month"]
       },
@@ -24,7 +24,7 @@
         "groupName": "Monthly pip dependencies",
         "matchManagers": ["pip_requirements"],
         "excludePackageNames": ["mypy", "pytype", "flake8-pyi"],
-        "description": "Monthly update of most pip dependencies",
+        "description": "Quarterly update of most pip dependencies",
         "separateMajorMinor": "false",
         "schedule": ["every 3 months on the first day of the month"]
       },
