@@ -1,6 +1,6 @@
 from collections.abc import Callable, Generator, Iterator, Sequence
 from re import Match, Pattern
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, ClassVar, Generic, Iterable, SupportsIndex, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 _TransitionResult: TypeAlias = tuple[list[str], str | None, list[str]]
