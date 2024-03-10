@@ -167,7 +167,6 @@ gevent.socket.SocketType.setblocking
 gevent.socket.SocketType.settimeout
 gevent.socket.SocketType.shutdown
 gevent.socket.cancel_wait
-gevent.socket.create_connection
 gevent.socket.gethostbyaddr
 gevent.socket.gethostbyname
 gevent.socket.gethostbyname_ex
