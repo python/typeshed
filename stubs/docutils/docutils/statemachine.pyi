@@ -55,8 +55,8 @@ class StateMachine(Generic[_Context]):
 class State(Generic[_Context]):
     patterns: ClassVar[dict[str, str | Pattern[str]] | None]
     initial_transitions: ClassVar[Sequence[str] | Sequence[tuple[str, str]] | None]
-    nested_sm: type[StateMachine[_Context]] | None
-    nested_sm_kwargs: dict[str, Any] | None
+    nested_sm: type[StateMachine[_Context]]
+    nested_sm_kwargs: dict[str, Any]
     transition_order: list[str]
     transitions: dict[str, tuple[Pattern[str], Callable[[], None], str]]
     state_machine: StateMachine[_Context]
