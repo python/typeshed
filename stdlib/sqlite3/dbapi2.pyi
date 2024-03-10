@@ -8,6 +8,7 @@ from typing import Any, Literal, Protocol, SupportsIndex, TypeVar, final, overlo
 from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
+_ConnectionT = TypeVar("_ConnectionT", bound=Connection)
 _CursorT = TypeVar("_CursorT", bound=Cursor)
 _SqliteData: TypeAlias = str | ReadableBuffer | int | float | None
 # Data that is passed through adapters can be of any type accepted by an adapter.
@@ -229,11 +230,11 @@ if sys.version_info >= (3, 12):
         detect_types: int = ...,
         isolation_level: str | None = ...,
         check_same_thread: bool = ...,
-        factory: type[Connection] | None = ...,
+        factory: type[_ConnectionT] = ...,
         cached_statements: int = ...,
         uri: bool = ...,
         autocommit: bool = ...,
-    ) -> Connection: ...
+    ) -> _ConnectionT: ...
 
 else:
     def connect(
@@ -242,10 +243,10 @@ else:
         detect_types: int = ...,
         isolation_level: str | None = ...,
         check_same_thread: bool = ...,
-        factory: type[Connection] | None = ...,
+        factory: type[_ConnectionT] = ...,
         cached_statements: int = ...,
         uri: bool = ...,
-    ) -> Connection: ...
+    ) -> _ConnectionT: ...
 
 def enable_callback_tracebacks(enable: bool, /) -> None: ...
 
