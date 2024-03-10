@@ -107,6 +107,7 @@ from google.cloud.ndb.tasklets import (
     wait_all as wait_all,
     wait_any as wait_any,
 )
+from google.cloud.ndb.version import __version__ as __version__
 
 __all__ = [
     "__version__",
