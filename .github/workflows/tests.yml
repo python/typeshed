@@ -128,11 +128,11 @@ jobs:
       - name: List 3rd-party stub dependencies installed
         run: uv pip freeze
       - name: Get pyright version
-        uses: SebRollen/toml-action@v1.0.2
         id: pyright_version
-        with:
-          file: "pyproject.toml"
-          field: "tool.typeshed.pyright_version"
+        run: |
+          PYRIGHT_VERSION=$(jq -r '.devDependencies.pyright' < package.json)
+          echo $PYRIGHT_VERSION
+          echo "value=$PYRIGHT_VERSION" >> $GITHUB_OUTPUT
       - name: Run pyright with basic settings on all the stubs
         uses: jakebailey/pyright-action@v2
         with:

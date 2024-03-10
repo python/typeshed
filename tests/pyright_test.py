@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
+import json
 import os
 import shutil
 import subprocess
 import sys
 from pathlib import Path
-
-import tomli
 
 _WELL_KNOWN_FILE = Path("tests", "pyright_test.py")
 
@@ -29,8 +28,8 @@ def main() -> None:
         print("error running npx; is Node.js installed?", file=sys.stderr)
         sys.exit(1)
 
-    with open("pyproject.toml", "rb") as config:
-        pyright_version: str = tomli.load(config)["tool"]["typeshed"]["pyright_version"]
+    with open("package.json", encoding="utf-8") as config:
+        pyright_version: str = json.load(config)["devDependencies"]["pyright"]
 
     os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = pyright_version
     command = [npx, f"pyright@{pyright_version}"] + sys.argv[1:]

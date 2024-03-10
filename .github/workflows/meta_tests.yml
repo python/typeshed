@@ -57,11 +57,11 @@ jobs:
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
       - name: Get pyright version
-        uses: SebRollen/toml-action@v1.0.2
         id: pyright_version
-        with:
-          file: "pyproject.toml"
-          field: "tool.typeshed.pyright_version"
+        run: |
+          PYRIGHT_VERSION=$(jq -r '.devDependencies.pyright' < package.json)
+          echo $PYRIGHT_VERSION
+          echo "value=$PYRIGHT_VERSION" >> $GITHUB_OUTPUT
       - name: Run pyright on typeshed
         uses: jakebailey/pyright-action@v2
         with:

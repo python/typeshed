@@ -1,0 +1,29 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: daily
+    groups:
+      "Daily pip dependencies":
+        patterns:
+          - "pytype*"
+          - "flake8-pyi*"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: daily
+    groups:
+      pyright:
+        patterns:
+          - "pyright*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns:
+          - "*"
