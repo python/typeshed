@@ -25,7 +25,7 @@ repos:
         # Very few rules are useful to run on our test cases;
         # we explicitly enumerate them here:
         name: Run ruff on the test cases
-        args: ["--exit-non-zero-on-fix", "--select=FA,I", "--no-force-exclude", "--unsafe-fixes"]
+        args: ["--exit-non-zero-on-fix", "--select=FA,I,RUF100", "--no-force-exclude", "--unsafe-fixes"]
         files: '.*test_cases/.+\.py$'
   - repo: https://github.com/psf/black-pre-commit-mirror
     rev: 24.1.1 # must match requirements-tests.txt

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
-from collections.abc import Iterable  # noqa: F401
+from collections.abc import Iterable
 from typing_extensions import assert_type
 
 from webob.dec import _AnyResponse, wsgify
