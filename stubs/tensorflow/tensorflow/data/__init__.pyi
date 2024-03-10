@@ -146,13 +146,14 @@ class Dataset(ABC, Generic[_T1]):
     ) -> Dataset[tf.Tensor]: ...
     @staticmethod
     @overload
-    def range(__stop: ScalarTensorCompatible, output_type: DType = ..., name: str | None = None) -> Dataset[tf.Tensor]: ...
+    def range(stop: ScalarTensorCompatible, /, output_type: DType = ..., name: str | None = None) -> Dataset[tf.Tensor]: ...
     @staticmethod
     @overload
     def range(
-        __start: ScalarTensorCompatible,
-        __stop: ScalarTensorCompatible,
-        __step: ScalarTensorCompatible = 1,
+        start: ScalarTensorCompatible,
+        stop: ScalarTensorCompatible,
+        step: ScalarTensorCompatible = 1,
+        /,
         output_type: DType = ...,
         name: str | None = None,
     ) -> Dataset[tf.Tensor]: ...
