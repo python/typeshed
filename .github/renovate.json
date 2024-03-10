@@ -6,7 +6,7 @@
         "customType": "regex",
         "fileMatch": ["^pyproject.toml$"],
         "matchStrings": [
-            "\n\\[tool\\.typeshed\\]\npyright_version\\s*=\\s*\"(?<currentValue>[\\d.]*?)\"\\s*?\\n"
+            "\\n\\[tool\\.typeshed\\]\\npyright_version\\s*=\\s*(\"|')(?<currentValue>[\\d.]*?)(\"|')\\s*?\\n"
         ],
         "depNameTemplate": "pyright",
         "datasourceTemplate": "npm"
