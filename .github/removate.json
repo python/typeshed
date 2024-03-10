@@ -1,0 +1,47 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:base"],
+    "customManagers": [
+      {
+        "customType": "regex",
+        "fileMatch": ["^pyproject.toml$"],
+        "matchStrings": [
+            "\n\\[tool\\.typeshed\\]\npyright_version\\s*=\\s*\"(?<currentValue>[\\d.]*?)\"\\s*?\\n"
+        ],
+        "depNameTemplate": "pyright",
+        "datasourceTemplate": "npm"
+      }
+    ],
+    "packageRules": [
+      {
+        "groupName": "github-actions",
+        "matchManagers": ["github-actions"],
+        "description": "Group all GitHub Action dependencies",
+        "separateMajorMinor": "false",
+        "schedule": ["every 3 months on the first day of the month"]
+      },
+      {
+        "groupName": "Monthly pip dependencies",
+        "matchManagers": ["pip_requirements"],
+        "excludePackageNames": ["mypy", "pytype", "flake8-pyi"],
+        "description": "Monthly update of most pip dependencies",
+        "separateMajorMinor": "false",
+        "schedule": ["every 3 months on the first day of the month"]
+      },
+      {
+        "groupName": "Daily pip dependencies",
+        "matchManagers": ["pip_requirements"],
+        "matchPackageNames": ["pytype", "flake8-pyi"],
+        "description": "Daily update of certain pip dependencies",
+        "separateMajorMinor": "false",
+        "schedule": ["daily"]
+      },
+      {
+        "groupName": "Daily pyright update",
+        "matchManagers": ["regex"],
+        "description": "Daily update of pyright version",
+        "schedule": ["daily"]
+      }
+    ],
+    "suppressNotifications": ["prEditedNotification"]
+  }
