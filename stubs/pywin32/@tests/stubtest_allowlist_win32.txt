@@ -73,6 +73,3 @@ win32com.axdebug.gateways
 win32comext.axdebug.gateways
 # failed to import, ModuleNotFoundError: No module named 'win32comext.axdebug.axdebug'
 win32comext.axdebug.axdebug
-
-# Stubtest doesn't agree with win32.lib.pywintypes.error.__init__ being positional-only
-.+?\.error.__init__

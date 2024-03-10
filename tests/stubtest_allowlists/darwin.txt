@@ -65,8 +65,3 @@ curses.COLORS  # Initialized after start_color
 curses.COLOR_PAIRS  # Initialized after start_color
 curses.COLS  # Initialized only after initscr call
 curses.LINES  # Initialized only after initscr call
-
-# Takes a "_warn" parameter at runtime
-# for technical reasons; no need to expose it in the stub.
-asyncio.ThreadedChildWatcher.__del__
-asyncio.unix_events.ThreadedChildWatcher.__del__
