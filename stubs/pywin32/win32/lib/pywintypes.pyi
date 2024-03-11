@@ -2,8 +2,8 @@
 # "KeyError: 'pywintypes'"
 from _typeshed import Incomplete
 from datetime import datetime
-from typing import Literal, NoReturn
-from typing_extensions import Never
+from typing import Literal, NoReturn, overload
+from typing_extensions import Never, deprecated
 
 import _win32typing
 
@@ -45,7 +45,11 @@ def SECURITY_DESCRIPTOR() -> _win32typing.PySECURITY_DESCRIPTOR: ...
 def HANDLE() -> HANDLEType: ...
 def HKEY() -> _win32typing.PyHKEY: ...
 def WAVEFORMATEX() -> _win32typing.PyWAVEFORMATEX: ...
-def TimeStamp(*args): ...  # incomplete
+@overload
+@deprecated("Support for passing 2 integers to create a 64bit value is deprecated - pass an int instead")
+def TimeStamp(timestamp: tuple[int, int], /) -> TimeType: ...
+@overload
+def TimeStamp(timestamp: int, /) -> TimeType: ...
 
 FALSE: Literal[False]
 TRUE: Literal[True]
