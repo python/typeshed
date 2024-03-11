@@ -2,6 +2,9 @@
 simplejson.scanner.make_scanner
 simplejson.scanner.JSONDecodeError.__init__
 simplejson.JSONDecodeError.__init__
+simplejson.encoder.c_make_encoder
+simplejson.encoder.c_encode_basestring_ascii
+simplejson.encoder.py_encode_basestring_ascii
 
 # Tests are not included:
 simplejson.tests.*
