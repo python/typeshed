@@ -3,7 +3,7 @@ from typing import overload
 from typing_extensions import deprecated
 
 import _win32typing
-from win32.lib.pywintypes import error as error
+from win32.lib.pywintypes import TimeType, error as error
 
 def DsGetSpn(
     ServiceType,
@@ -147,11 +147,11 @@ def LsaGetLogonSessionData(LogonId: int, /) -> tuple[Incomplete, ...]: ...
 @deprecated("Support for passing two ints to create a 64-bit value is deprecated; pass a single int instead")
 def AcquireCredentialsHandle(
     Principal, Package, CredentialUse, LogonID: tuple[int, int], AuthData, /
-) -> tuple[_win32typing.PyCredHandle, _win32typing.PyTime]: ...
+) -> tuple[_win32typing.PyCredHandle, TimeType]: ...
 @overload
 def AcquireCredentialsHandle(
     Principal, Package, CredentialUse, LogonID: int | None, AuthData, /
-) -> tuple[_win32typing.PyCredHandle, _win32typing.PyTime]: ...
+) -> tuple[_win32typing.PyCredHandle, TimeType]: ...
 def InitializeSecurityContext(
     Credential: _win32typing.PyCredHandle,
     Context: _win32typing.PyCtxtHandle,
@@ -162,7 +162,7 @@ def InitializeSecurityContext(
     NewContext: _win32typing.PyCtxtHandle,
     pOutput: _win32typing.PySecBufferDesc,
     /,
-) -> tuple[Incomplete, Incomplete, _win32typing.PyTime]: ...
+) -> tuple[Incomplete, Incomplete, TimeType]: ...
 def AcceptSecurityContext(
     Credential: _win32typing.PyCredHandle,
     Context: _win32typing.PyCtxtHandle,
