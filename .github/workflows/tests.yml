@@ -128,22 +128,18 @@ jobs:
       - name: List 3rd-party stub dependencies installed
         run: uv pip freeze
       - name: Get pyright version
-        uses: SebRollen/toml-action@v1.0.2
-        id: pyright_version
-        with:
-          file: "pyproject.toml"
-          field: "tool.typeshed.pyright_version"
+        run: echo PYRIGHT_VERSION=$(pyright --version | cat | head -n 1 | cut -d " " -f 2) >> $GITHUB_ENV
       - name: Run pyright with basic settings on all the stubs
         uses: jakebailey/pyright-action@v2
         with:
-          version: ${{ steps.pyright_version.outputs.value }}
+          version: ${{ env.PYRIGHT_VERSION }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           annotate: ${{ matrix.python-version == '3.11' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
       - name: Run pyright with stricter settings on some of the stubs
         uses: jakebailey/pyright-action@v2
         with:
-          version: ${{ steps.pyright_version.outputs.value }}
+          version: ${{ env.PYRIGHT_VERSION }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           annotate: ${{ matrix.python-version == '3.11' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
@@ -151,7 +147,7 @@ jobs:
       - name: Run pyright on the test cases
         uses: jakebailey/pyright-action@v2
         with:
-          version: ${{ steps.pyright_version.outputs.value }}
+          version: ${{ env.PYRIGHT_VERSION }}
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           annotate: ${{ matrix.python-version == '3.11' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
