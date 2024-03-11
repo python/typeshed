@@ -25,9 +25,7 @@ class BaseQuery:
 class Query(BaseQuery):
     volatilecounters: Incomplete
     def __init__(self, *args, **namedargs) -> None: ...
-    @deprecated(
-        "The use of addperfcounter by end-users is deprecated, since the use of addcounterbybrowsing is considerably more flexible and general."
-    )
+    @deprecated("Use of addcounterbybrowsing instead as its considerably more flexible and general.")
     def addperfcounter(self, object, counter, machine=None): ...
     def addinstcounter(
         self, object, counter, machine: Incomplete | None = ..., objtype: str = ..., volatile: int = ..., format=...
