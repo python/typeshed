@@ -1,7 +1,6 @@
 # Not available at runtime. Contains type definitions that are otherwise not exposed and not part of a specific module.
 from _typeshed import Incomplete, Unused
 from collections.abc import Iterable
-from datetime import datetime
 from typing import Literal, final, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
