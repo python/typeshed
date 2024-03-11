@@ -60,7 +60,3 @@ pathlib.Path.group
 # but have yet to find their way to all GitHub Actions images
 (sys.get_int_max_str_digits)?
 (sys.set_int_max_str_digits)?
-
-# Takes a "_warn" parameter at runtime
-# for technical reasons; no need to expose it in the stub.
-asyncio.windows_utils.PipeHandle.__del__
