@@ -4,11 +4,12 @@ import sqlite3
 from contextlib import closing
 from typing_extensions import assert_type
 
-
 # https://github.com/python/typeshed/issues/11558
+
 
 class MyConnection(sqlite3.Connection):
     pass
+
 
 # Default return-type is Connection.
 with closing(sqlite3.connect(":memory:")) as con1:
@@ -34,5 +35,5 @@ with closing(sqlite3.Connection(":memory:", factory=None)) as con4:
     assert_type(con4, sqlite3.Connection)
 
 # Ideally, this should pass but I'm not sure where to make this change.
-#with closing(sqlite3.Connection(":memory:", factory=MyConnection)) as con5:
+# with closing(sqlite3.Connection(":memory:", factory=MyConnection)) as con5:
 #    assert_type(con5, MyConnection)
