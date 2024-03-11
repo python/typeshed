@@ -73,6 +73,7 @@ class WorkSheetParser:
     col_breaks: ColBreak
     rich_text: bool
     protection: SheetProtection  # initialized after call to parse_sheet_protection()
+
     def __init__(
         self,
         src: _FileRead,
