@@ -12,8 +12,3 @@ fpdf.fonts.HarfBuzzFont
 # fixed in later versions.
 fpdf.FPDF.set_encryption
 fpdf.fpdf.FPDF.set_encryption
-
-# Runtime has some internal arguments.
-fpdf.syntax.build_obj_dict
-fpdf.ViewerPreferences.serialize
-fpdf\.[a-z]+\.[A-Za-z]+\.serialize

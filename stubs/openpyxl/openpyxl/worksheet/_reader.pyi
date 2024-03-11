@@ -7,6 +7,7 @@ from xml.etree.ElementTree import _FileRead
 from openpyxl.cell.cell import Cell
 from openpyxl.cell.rich_text import CellRichText
 from openpyxl.descriptors.serialisable import _ChildSerialisableTreeElement, _SerialisableTreeElement
+from openpyxl.formula.translate import Translator
 from openpyxl.utils.cell import _RangeBoundariesTuple
 
 from ..xml._functions_overloads import _HasAttrib, _SupportsIterAndAttrib
@@ -54,7 +55,7 @@ class WorkSheetParser:
     source: _FileRead
     shared_strings: SupportsGetItem[int, str]
     data_only: bool
-    shared_formulae: dict[Incomplete, Incomplete]
+    shared_formulae: dict[Incomplete, Translator]
     row_counter: int
     col_counter: int
     tables: TablePartList
@@ -84,11 +85,11 @@ class WorkSheetParser:
     ) -> None: ...
     def parse(self) -> Generator[Incomplete, None, None]: ...
     def parse_dimensions(self) -> _RangeBoundariesTuple | None: ...
-    # AnyOf[time, date, datetime, timedelta, float, int, bool, str, None]
+    # AnyOf[time, date, datetime, timedelta, float, int, bool, str, ArrayFormula, DataTableFormula, Translator, Text, TextBlock, CellRichText, None]
     def parse_cell(self, element) -> dict[str, Any]: ...
     def parse_formula(self, element): ...
     def parse_column_dimensions(self, col: _HasAttrib) -> None: ...
-    # AnyOf[time, date, datetime, timedelta, float, int, bool, str, None]
+    # Any: Same as parse_cell
     def parse_row(self, row: _SupportsIterAndAttrib) -> tuple[int, list[dict[str, Any]]]: ...
     def parse_formatting(self, element: _ChildSerialisableTreeElement) -> None: ...
     def parse_sheet_protection(self, element: _SerialisableTreeElement) -> None: ...
