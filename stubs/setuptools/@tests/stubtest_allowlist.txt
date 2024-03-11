@@ -1,20 +1,7 @@
-# These are used like protocols, but forgot to specify "self" as the first method param
-pkg_resources.IResourceProvider.get_resource_filename
-pkg_resources.IResourceProvider.get_resource_stream
-pkg_resources.IResourceProvider.get_resource_string
-pkg_resources.IResourceProvider.has_resource
-pkg_resources.IResourceProvider.resource_isdir
-pkg_resources.IResourceProvider.resource_listdir
-pkg_resources.IMetadataProvider.get_metadata
-pkg_resources.IMetadataProvider.get_metadata_lines
-pkg_resources.IMetadataProvider.has_metadata
-pkg_resources.IMetadataProvider.metadata_isdir
-pkg_resources.IMetadataProvider.metadata_listdir
-pkg_resources.IMetadataProvider.run_script
-
 # Is always set in __init__
 pkg_resources.PathMetadata.egg_info
 pkg_resources.EggMetadata.loader
+pkg_resources.ZipProvider.loader
 
 # 1 used for True as a default value
 setuptools._distutils.dist.Distribution.get_command_obj
@@ -58,8 +45,3 @@ setuptools._distutils.*
 # Other vendored code
 setuptools._vendor.*
 pkg_resources._vendor.*
-# Deprecated in favor of importlib.resources, importlib.metadata and their backports
-# So like distutils, we only add what we need to reference.
-pkg_resources.AvailableDistributions
-pkg_resources.ResourceManager
-pkg_resources.extern

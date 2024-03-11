@@ -1,6 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from openpyxl import _Decodable, _VisibilityType
 from openpyxl.chartsheet.custom import CustomChartsheetViews
@@ -56,4 +55,4 @@ class Chartsheet(_WorkbookChild, Serialisable):
         sheet_state: _VisibilityType = "visible",
     ) -> None: ...
     def add_chart(self, chart) -> None: ...
-    def to_tree(self) -> Element: ...  # type:ignore[override]
+    def to_tree(self) -> Element: ...  # type: ignore[override]

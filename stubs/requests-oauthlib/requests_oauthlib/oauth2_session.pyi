@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from logging import Logger
-from typing import Any, Protocol, overload
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing import Any, Literal, Protocol, TypedDict, overload
+from typing_extensions import TypeAlias
 
 import requests
 from oauthlib.oauth2 import Client
@@ -10,14 +10,14 @@ from requests.cookies import RequestsCookieJar
 _Token: TypeAlias = dict[str, Incomplete]  # oauthlib.oauth2.Client.token
 
 class _AccessTokenResponseHook(Protocol):
-    def __call__(self, __response: requests.Response) -> requests.Response: ...
+    def __call__(self, response: requests.Response, /) -> requests.Response: ...
 
 class _RefreshTokenResponseHook(Protocol):
-    def __call__(self, __response: requests.Response) -> requests.Response: ...
+    def __call__(self, response: requests.Response, /) -> requests.Response: ...
 
 class _ProtectedRequestHook(Protocol):
     def __call__(
-        self, __url: Incomplete, __headers: Incomplete, __data: Incomplete
+        self, url: Incomplete, headers: Incomplete, data: Incomplete, /
     ) -> tuple[Incomplete, Incomplete, Incomplete]: ...
 
 class _ComplianceHooks(TypedDict):

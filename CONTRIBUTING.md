@@ -87,35 +87,25 @@ terminal to install all non-pytype requirements:
 ## Code formatting
 
 The code is formatted using [`Black`](https://github.com/psf/black).
-Various other autofixes are
-also performed by [`Ruff`](https://github.com/astral-sh/ruff).
+Various other autofixes and lint rules are
+also performed by [`Ruff`](https://github.com/astral-sh/ruff) and
+[`Flake8`](https://github.com/pycqa/flake8),
+with plugins [`flake8-pyi`](https://github.com/pycqa/flake8-pyi),
+and [`flake8-noqa`](https://github.com/plinss/flake8-noqa).
 
 The repository is equipped with a [`pre-commit.ci`](https://pre-commit.ci/)
 configuration file. This means that you don't *need* to do anything yourself to
-run the code formatters. When you push a commit, a bot will run those for you
-right away and add a commit to your PR.
+run the code formatters or linters. When you push a commit, a bot will run
+those for you right away and add any autofixes to your PR. Anything
+that can't be autofixed will show up as a CI failure, hopefully with an error
+message that will make it clear what's gone wrong.
 
-That being said, if you *want* to run the checks locally when you commit,
-you're free to do so. Either run the following manually...
-
-```bash
-(.venv)$ ruff check .
-(.venv)$ black .
-```
-
-...Or install the pre-commit hooks: please refer to the
-[pre-commit](https://pre-commit.com/) documentation.
-
-Our code is also linted using [`Flake8`](https://github.com/pycqa/flake8),
-with plugins [`flake8-pyi`](https://github.com/pycqa/flake8-pyi),
-[`flake8-bugbear`](https://github.com/PyCQA/flake8-bugbear),
-and [`flake8-noqa`](https://github.com/plinss/flake8-noqa).
-As with our other checks, running
-Flake8 before filing a PR is not required. However, if you wish to run Flake8
-locally, install the test dependencies as outlined above, and then run:
+That being said, if you *want* to run the formatters and linters locally
+when you commit, you're free to do so. To use the same configuration as we use
+in CI, we recommend doing this via pre-commit:
 
 ```bash
-(.venv)$ flake8 .
+(.venv)$ pre-commit run --all-files
 ```
 
 ## Where to make changes
@@ -202,13 +192,16 @@ supported:
 * `partial_stub` (optional): This field marks the type stub package as
   [partial](https://peps.python.org/pep-0561/#partial-stub-packages). This is for
   3rd-party stubs that don't cover the entirety of the package's public API.
-  In most cases, this field is identical to `ignore_missing_stub`.
 
 In addition, we specify configuration for stubtest in the `tool.stubtest` table.
 This has the following keys:
 * `skip` (default: `false`): Whether stubtest should be run against this
   package. Please avoid setting this to `true`, and add a comment if you have
   to.
+* `ignore_missing_stub`: When set to `true`, this will add the
+  `--ignore_missing_stub` option to the stubtest call. See
+  [tests/README.md](./tests/README.md) for more information. In most cases,
+  this field should be identical to `partial_stub`.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully.
 * `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
@@ -279,18 +272,6 @@ new features to the Python type system. In general, new features can
 be used in typeshed as soon as the PEP has been accepted and implemented
 and most type checkers support the new feature.
 
-Accepted features that *cannot* yet be used in typeshed include:
-- [PEP 570](https://www.python.org/dev/peps/pep-0570/) (positional-only
-  arguments): see [#4972](https://github.com/python/typeshed/issues/4972),
-  use argument names prefixed with `__` instead
-
-The following features are partially supported:
-- [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
-  - For now, cannot be used in combination with other decorators
-    (e.g., `@overload`, `@classmethod`, and `@property`) due to bugs in
-    [pytype](https://github.com/google/pytype/issues/1531) and
-    [stubtest](https://github.com/python/mypy/pull/16457).
-
 Supported features include:
 - [PEP 544](https://peps.python.org/pep-0544/) (Protocol)
 - [PEP 585](https://peps.python.org/pep-0585/) (builtin generics)
@@ -304,25 +285,23 @@ Supported features include:
 - [PEP 655](https://peps.python.org/pep-0655/) (`Required` and `NotRequired`)
 - [PEP 673](https://peps.python.org/pep-0673/) (`Self`)
 - [PEP 675](https://peps.python.org/pep-0675/) (`LiteralString`)
+- [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
 
 Features from the `typing` module that are not present in all
 supported Python 3 versions must be imported from `typing_extensions`
 instead in typeshed stubs. This currently affects:
 
-- `Final` and `@final` (new in Python 3.8)
-- `Literal` (new in Python 3.8)
-- `SupportsIndex` (new in Python 3.8)
-- `TypedDict` (new in Python 3.8)
+- `TypeAlias` (new in Python 3.10)
 - `Concatenate` (new in Python 3.10)
 - `ParamSpec` (new in Python 3.10)
 - `TypeGuard` (new in Python 3.10)
 - `Self` (new in Python 3.11)
+- `Never` (new in Python 3.11)
 - `LiteralString` (new in Python 3.11)
+- `TypeVarTuple` and `Unpack` (new in Python 3.11)
+- `Required` and `NotRequired` (new in Python 3.11)
+- `Buffer` (new in Python 3.12; in the `collections.abc` module)
 - `@deprecated` (new in Python 3.13; in the `warnings` module)
-
-Two exceptions are `Protocol` and `runtime_checkable`: although
-these were added in Python 3.8, they can be used in stubs regardless
-of Python version.
 
 Some type checkers implicitly promote the `bytearray` and
 `memoryview` types to `bytes`.
@@ -569,6 +548,61 @@ While `Incomplete` is a type alias of `Any`, they serve difference purposes:
 It's a "to do" item and should be replaced if possible. `Any` is used when
 it's not possible to accurately type an item using the current type system.
 It should be used sparingly.
+
+### "The `Any` trick"
+
+Consider the following (simplified) signature of `re.Match[str].group`:
+
+```python
+class Match:
+    def group(self, __group: str | int) -> str | Any: ...
+```
+
+The `str | Any` seems unnecessary and weird at first.
+Because `Any` includes all strings, you would expect `str | Any` to be
+equivalent to `Any`, but it is not. To understand the difference,
+let's look at what happens when type-checking this simplified example:
+
+Suppose you have a legacy system that for historical reasons has two kinds
+of user IDs. Old IDs look like `"legacy_userid_123"` and new IDs look like
+`"456_username"`. The function below is supposed to extract the name
+`"USERNAME"` from a new ID, and return `None` if you give it a legacy ID.
+
+```python
+import re
+
+def parse_name_from_new_id(user_id: str) -> str | None:
+    match = re.fullmatch(r"\d+_(.*)", user_id)
+    if match is None:
+        return None
+    name_group = match.group(1)
+    return name_group.uper()  # This line is a typo (`uper` --> `upper`)
+```
+
+The `.group()` method returns `None` when the given group was not a part of the match.
+For example, with a regex like `r"\d+_(.*)|legacy_userid_\d+"`, we would get a match whose `.group(1)` is `None` for the user ID `"legacy_userid_7"`.
+But here the regex is written so that the group always exists, and `match.group(1)` cannot return `None`.
+Match groups are almost always used in this way.
+
+Let's now consider typeshed's `-> str | Any` annotation of the `.group()` method:
+
+* `-> Any` would mean "please do not complain" to type checkers.
+  If `name_group` has type `Any`, you will get no error for this.
+* `-> str` would mean "will always be a `str`", which is wrong, and would
+  cause type checkers to emit errors for code like `if name_group is None`.
+* `-> str | None` means "you must check for None", which is correct but can get
+  annoying for some common patterns. Checks like `assert name_group is not None`
+  would need to be added into various places only to satisfy type checkers,
+  even when it is impossible to actually get a `None` value
+  (type checkers aren't smart enough to know this).
+* `-> str | Any` means "must be prepared to handle a `str`". You will get an
+  error for `name_group.uper`, because it is not valid when `name_group` is a
+  `str`. But type checkers are happy with `if name_group is None` checks,
+  because we're saying it can also be something else than an `str`.
+
+In typeshed we unofficially call returning `Foo | Any` "the Any trick".
+We tend to use it whenever something can be `None`,
+but requiring users to check for `None` would be more painful than helpful.
 
 ## Submitting Changes
 

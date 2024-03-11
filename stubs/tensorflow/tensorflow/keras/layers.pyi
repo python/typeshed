@@ -4,8 +4,8 @@ from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
-from tensorflow import Tensor, Variable, VariableAggregation, VariableSynchronization, _TensorCompatible
-from tensorflow._aliases import AnyArray
+from tensorflow import Tensor, Variable, VariableAggregation, VariableSynchronization
+from tensorflow._aliases import AnyArray, DTypeLike, TensorCompatible
 from tensorflow.keras.activations import _Activation
 from tensorflow.keras.constraints import Constraint
 from tensorflow.keras.initializers import _Initializer
@@ -23,7 +23,7 @@ class InputSpec:
     axes: dict[int, int | None] | None
     def __init__(
         self,
-        dtype: tf._DTypeLike | None = None,
+        dtype: DTypeLike | None = None,
         shape: Iterable[int | None] | None = None,
         ndim: int | None = None,
         max_ndim: int | None = None,
@@ -39,7 +39,7 @@ class InputSpec:
 # Most layers have input and output type of just Tensor and when we support default type variables,
 # maybe worth trying.
 class Layer(tf.Module, Generic[_InputT, _OutputT]):
-    # The most general type is _ContainerGeneric[InputSpec] as it really
+    # The most general type is ContainerGeneric[InputSpec] as it really
     # depends on _InputT. For most Layers it is just InputSpec
     # though. Maybe describable with HKT?
     input_spec: InputSpec | Any
@@ -49,27 +49,27 @@ class Layer(tf.Module, Generic[_InputT, _OutputT]):
     @trainable.setter
     def trainable(self, value: bool) -> None: ...
     def __init__(
-        self, trainable: bool = True, name: str | None = None, dtype: tf._DTypeLike | None = None, dynamic: bool = False
+        self, trainable: bool = True, name: str | None = None, dtype: DTypeLike | None = None, dynamic: bool = False
     ) -> None: ...
 
     # *args/**kwargs are allowed, but have obscure footguns and tensorflow documentation discourages their usage.
     # First argument will automatically be cast to layer's compute dtype, but any other tensor arguments will not be.
     # Also various tensorflow tools/apis can misbehave if they encounter a layer with *args/**kwargs.
-    def __call__(self, inputs: _InputT, *, training: bool = False, mask: _TensorCompatible | None = None) -> _OutputT: ...
-    def call(self, __inputs: _InputT) -> _OutputT: ...
+    def __call__(self, inputs: _InputT, *, training: bool = False, mask: TensorCompatible | None = None) -> _OutputT: ...
+    def call(self, inputs: _InputT, /) -> _OutputT: ...
 
     # input_shape's real type depends on _InputT, but we can't express that without HKT.
     # For example _InputT tf.Tensor -> tf.TensorShape, _InputT dict[str, tf.Tensor] -> dict[str, tf.TensorShape].
-    def build(self, __input_shape: Any) -> None: ...
+    def build(self, input_shape: Any, /) -> None: ...
     @overload
-    def compute_output_shape(self: Layer[tf.Tensor, tf.Tensor], __input_shape: tf.TensorShape) -> tf.TensorShape: ...
+    def compute_output_shape(self: Layer[tf.Tensor, tf.Tensor], input_shape: tf.TensorShape, /) -> tf.TensorShape: ...
     @overload
-    def compute_output_shape(self, __input_shape: Any) -> Any: ...
+    def compute_output_shape(self, input_shape: Any, /) -> Any: ...
     def add_weight(
         self,
         name: str | None = None,
         shape: Iterable[int | None] | None = None,
-        dtype: tf._DTypeLike | None = None,
+        dtype: DTypeLike | None = None,
         initializer: _Initializer | None = None,
         regularizer: _Regularizer = None,
         trainable: bool | None = None,
@@ -106,7 +106,7 @@ class Layer(tf.Module, Generic[_InputT, _OutputT]):
 # all layer constructors.
 
 # TODO: Replace last Any after adding tf.keras.mixed_precision.Policy.
-_LayerDtype: TypeAlias = tf._DTypeLike | dict[str, Any] | Any
+_LayerDtype: TypeAlias = DTypeLike | dict[str, Any] | Any
 
 _Constraint: TypeAlias = str | dict[str, Any] | Constraint | None
 
@@ -170,7 +170,7 @@ class Dropout(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
         self,
         rate: float,
-        noise_shape: _TensorCompatible | Sequence[int | None] | None = None,
+        noise_shape: TensorCompatible | Sequence[int | None] | None = None,
         seed: int | None = None,
         trainable: bool = True,
         dtype: _LayerDtype = None,

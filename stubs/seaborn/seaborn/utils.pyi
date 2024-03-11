@@ -1,8 +1,8 @@
 import datetime as dt
 from _typeshed import Incomplete, SupportsGetItem
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import Any, TypeVar, overload
-from typing_extensions import Literal, SupportsIndex, TypeAlias
+from typing import Any, Literal, SupportsIndex, TypeVar, overload
+from typing_extensions import TypeAlias, deprecated
 
 import numpy as np
 import pandas as pd
@@ -14,7 +14,8 @@ from matplotlib.ticker import Locator
 from matplotlib.typing import ColorType
 from numpy.typing import ArrayLike, NDArray
 from pandas import DataFrame
-from seaborn.axisgrid import Grid
+
+from .axisgrid import Grid
 
 __all__ = [
     "desaturate",
@@ -34,7 +35,8 @@ _ErrorBar: TypeAlias = str | tuple[str, float] | Callable[[Iterable[float]], tup
 _Estimator: TypeAlias = str | Callable[..., Incomplete]  # noqa: Y047
 _Legend: TypeAlias = Literal["auto", "brief", "full"] | bool  # noqa: Y047
 _LogScale: TypeAlias = bool | float | tuple[bool | float, bool | float]  # noqa: Y047
-_Palette: TypeAlias = str | Sequence[ColorType] | dict[Incomplete, ColorType]  # noqa: Y047
+# `palette` requires dict but we use mapping to avoid a very long union because dict is invariant in its value type
+_Palette: TypeAlias = str | Sequence[ColorType] | Mapping[Any, ColorType]  # noqa: Y047
 _Seed: TypeAlias = int | np.random.Generator | np.random.RandomState  # noqa: Y047
 _Scalar: TypeAlias = (
     # numeric
@@ -60,7 +62,7 @@ _DataSourceWideForm: TypeAlias = (  # noqa: Y047
     # Sequence of "convertible to pd.Series" vectors
     | Sequence[_Vector]
     # A "convertible to pd.DataFrame" table
-    | Mapping[Any, Mapping[_Scalar, _Scalar]]
+    | Mapping[Any, Mapping[Any, _Scalar]]
     | NDArray[Any]
     # Flat "convertible to pd.Series" vector of scalars
     | Sequence[_Scalar]
@@ -75,7 +77,8 @@ def saturate(color: ColorType) -> tuple[float, float, float]: ...
 def set_hls_values(
     color: ColorType, h: float | None = None, l: float | None = None, s: float | None = None
 ) -> tuple[float, float, float]: ...
-def axlabel(xlabel: str, ylabel: str, **kwargs: Any) -> None: ...  # deprecated
+@deprecated("Function `axlabel` is deprecated and will be removed in a future version")
+def axlabel(xlabel: str, ylabel: str, **kwargs: Any) -> None: ...
 def remove_na(vector: _VectorT) -> _VectorT: ...
 def get_color_cycle() -> list[str]: ...
 

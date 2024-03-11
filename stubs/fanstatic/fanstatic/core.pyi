@@ -2,8 +2,8 @@ from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from threading import local
 from types import ModuleType
-from typing import NewType
-from typing_extensions import Literal, TypeAlias
+from typing import Literal, NewType
+from typing_extensions import TypeAlias
 
 from fanstatic.compiler import Compiler, Minifier
 
@@ -174,7 +174,7 @@ class Group(Dependable):
     depends: set[Dependable]
     supports: set[Dependable]
     def __init__(self, depends: Iterable[Dependable]) -> None: ...
-    def set_dependencies(self, depends: Iterable[Dependable]) -> None: ...  # type:ignore[override]
+    def set_dependencies(self, depends: Iterable[Dependable]) -> None: ...  # type: ignore[override]
     def list_assets(self) -> set[Asset]: ...
     def need(self, slots: dict[Slot, Resource] | None = None) -> None: ...
 
