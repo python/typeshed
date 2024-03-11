@@ -7,7 +7,7 @@ from multiprocessing import popen_fork, popen_forkserver, popen_spawn_posix, pop
 from multiprocessing.managers import SyncManager
 from multiprocessing.pool import Pool as _Pool
 from multiprocessing.process import BaseProcess
-from multiprocessing.sharedctypes import SynchronizedArray, Synchronized
+from multiprocessing.sharedctypes import Synchronized, SynchronizedArray
 from typing import Any, ClassVar, Literal, TypeVar, overload
 from typing_extensions import TypeAlias
 
