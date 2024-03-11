@@ -224,6 +224,19 @@ def adapt(obj: Any, proto: Any, alt: _T, /) -> Any | _T: ...
 def complete_statement(statement: str) -> bool: ...
 
 if sys.version_info >= (3, 12):
+    @overload
+    def connect(
+        database: StrOrBytesPath,
+        timeout: float = ...,
+        detect_types: int = ...,
+        isolation_level: str | None = ...,
+        check_same_thread: bool = ...,
+        cached_statements: int = ...,
+        uri: bool = ...,
+        *,
+        autocommit: bool = ...,
+    ) -> Connection: ...
+    @overload
     def connect(
         database: StrOrBytesPath,
         timeout: float = ...,
@@ -233,10 +246,22 @@ if sys.version_info >= (3, 12):
         factory: type[_ConnectionT] = ...,
         cached_statements: int = ...,
         uri: bool = ...,
+        *,
         autocommit: bool = ...,
     ) -> _ConnectionT: ...
 
 else:
+    @overload
+    def connect(
+        database: StrOrBytesPath,
+        timeout: float = ...,
+        detect_types: int = ...,
+        isolation_level: str | None = ...,
+        check_same_thread: bool = ...,
+        cached_statements: int = ...,
+        uri: bool = ...,
+    ) -> Connection: ...
+    @overload
     def connect(
         database: StrOrBytesPath,
         timeout: float = ...,
