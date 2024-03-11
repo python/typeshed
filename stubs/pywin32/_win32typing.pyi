@@ -1704,7 +1704,7 @@ class PyTRUSTEE:
 
 class PyTS_HANDLE: ...
 
-class PyTime(datetime):
+class PyTime:
     @property
     def year(self): ...
     @property
