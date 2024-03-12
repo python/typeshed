@@ -86,8 +86,17 @@ def parse_versions_from_requirements() -> dict[str, Requirement]:
     return reqs
 
 
+def parse_requirements() -> dict[str, Requirement]:
+    """Return a dictionary of requirements in requirements-tests.txt."""
+
+    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
+        stripped_lines = map(strip_comments, requirements_file)
+        requirements = map(Requirement, filter(None, stripped_lines))
+        return {requirement.name: requirement for requirement in requirements}
+
+
 def get_mypy_req() -> str:
-    return str(parse_versions_from_requirements()["mypy"])
+    return str(parse_requirements()["mypy"])
 
 
 # ====================================================================

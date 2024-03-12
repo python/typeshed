@@ -5,7 +5,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from utils import parse_versions_from_requirements, print_command
+from utils import parse_requirements, print_command
 
 _WELL_KNOWN_FILE = Path("tests", "pyright_test.py")
 
@@ -15,7 +15,7 @@ def main() -> None:
         print("pyright_test.py must be run from the typeshed root directory", file=sys.stderr)
         sys.exit(1)
 
-    req = parse_versions_from_requirements()["pyright"]
+    req = parse_requirements()["pyright"]
     assert len(req.specifier) == 1
     spec = str(req.specifier)
     assert spec.startswith("=="), f"pyright version must be pinned in requirements-tests.txt: {req}"
