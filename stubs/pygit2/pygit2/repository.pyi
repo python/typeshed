@@ -4,6 +4,9 @@ from tarfile import TarInfo
 from typing import IO, Any, Protocol
 from typing_extensions import TypeAlias, deprecated
 
+from .remotes import RemoteCollection
+from .references import References
+from .branches import Branches
 from ._pygit2 import Blob, Commit, Diff, Object, Oid, Reference, Repository as _Repository, Signature, Tree, _OidArg
 from .blame import Blame
 from .callbacks import CheckoutCallbacks, RemoteCallbacks, StashApplyCallbacks
@@ -23,7 +26,7 @@ from .enums import (
 )
 from .index import Index, IndexEntry
 from .packbuilder import PackBuilder
-from .submodules import Submodule
+from .submodules import Submodule, SubmoduleCollection
 from .utils import _IntoStrArray
 
 _PackDelegate: TypeAlias = Callable[[PackBuilder], None]
@@ -32,6 +35,11 @@ class _SupportsAddfile(Protocol):
     def addfile(self, tarinfo: TarInfo, fileobj: IO[bytes] | None = None) -> None: ...
 
 class BaseRepository(_Repository):
+    branches: Branches
+    references: References
+    remotes: RemoteCollection
+    submodules: SubmoduleCollection
+
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...  # not meant for direct use
     def read(self, oid: _OidArg) -> tuple[int, int, bytes]: ...
     def write(self, type: int, data: bytes) -> Oid: ...
