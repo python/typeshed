@@ -3,16 +3,11 @@
 isort:skip_file
 """
 import builtins
-import sys
+import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.message
 import tensorflow.core.framework.versions_pb2
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

@@ -87,35 +87,25 @@ terminal to install all non-pytype requirements:
 ## Code formatting
 
 The code is formatted using [`Black`](https://github.com/psf/black).
-Various other autofixes are
-also performed by [`Ruff`](https://github.com/astral-sh/ruff).
+Various other autofixes and lint rules are
+also performed by [`Ruff`](https://github.com/astral-sh/ruff) and
+[`Flake8`](https://github.com/pycqa/flake8),
+with plugins [`flake8-pyi`](https://github.com/pycqa/flake8-pyi),
+and [`flake8-noqa`](https://github.com/plinss/flake8-noqa).
 
 The repository is equipped with a [`pre-commit.ci`](https://pre-commit.ci/)
 configuration file. This means that you don't *need* to do anything yourself to
-run the code formatters. When you push a commit, a bot will run those for you
-right away and add a commit to your PR.
+run the code formatters or linters. When you push a commit, a bot will run
+those for you right away and add any autofixes to your PR. Anything
+that can't be autofixed will show up as a CI failure, hopefully with an error
+message that will make it clear what's gone wrong.
 
-That being said, if you *want* to run the checks locally when you commit,
-you're free to do so. Either run the following manually...
-
-```bash
-(.venv)$ ruff check .
-(.venv)$ black .
-```
-
-...Or install the pre-commit hooks: please refer to the
-[pre-commit](https://pre-commit.com/) documentation.
-
-Our code is also linted using [`Flake8`](https://github.com/pycqa/flake8),
-with plugins [`flake8-pyi`](https://github.com/pycqa/flake8-pyi),
-[`flake8-bugbear`](https://github.com/PyCQA/flake8-bugbear),
-and [`flake8-noqa`](https://github.com/plinss/flake8-noqa).
-As with our other checks, running
-Flake8 before filing a PR is not required. However, if you wish to run Flake8
-locally, install the test dependencies as outlined above, and then run:
+That being said, if you *want* to run the formatters and linters locally
+when you commit, you're free to do so. To use the same configuration as we use
+in CI, we recommend doing this via pre-commit:
 
 ```bash
-(.venv)$ flake8 .
+(.venv)$ pre-commit run --all-files
 ```
 
 ## Where to make changes
