@@ -20,6 +20,7 @@ tensorflow.python.feature_column.feature_column_v2.SharedEmbeddingColumnCreator.
 tensorflow.GradientTape.__getattr__
 tensorflow.data.Dataset.__getattr__
 tensorflow.experimental.Optional.__getattr__
+tensorflow.autodiff.GradientTape.__getattr__
 
 # The Tensor methods below were removed in 2.14, however they are still defined for the
 # internal subclasses that are used at runtime/in practice.
@@ -106,3 +107,6 @@ tensorflow.train.FloatList.*
 tensorflow.train.Int64List.*
 tensorflow.train.ClusterDef.*
 tensorflow.train.ServerDef.*
+
+# sigmoid_cross_entropy_with_logits has default values (None), however those values are not valid.
+tensorflow.nn.sigmoid_cross_entropy_with_logits

@@ -210,7 +210,7 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
     missing_modules = get_missing_modules(files_to_test)
     print("Testing files with pytype...")
     for i, f in enumerate(files_to_test):
-        python_version = "{0.major}.{0.minor}".format(sys.version_info)
+        python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
         if dry_run:
             stderr = None
         else:
