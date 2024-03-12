@@ -1,7 +1,8 @@
+from optparse import Values
 from typing import IO, Any, Generic, TypeVar
 
 from docutils import SettingsSpec, io, nodes
-from docutils.frontend import OptionParser, Values
+from docutils.frontend import OptionParser
 from docutils.io import Input, Output
 from docutils.parsers import Parser
 from docutils.readers import Reader
