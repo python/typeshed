@@ -66,11 +66,14 @@ def venv_python(venv_dir: Path) -> Path:
 # ====================================================================
 
 
+REQS_FILE = "requirements-tests.txt"
+
+
 @cache
 def parse_requirements() -> dict[str, Requirement]:
-    """Return a dictionary of requirements in requirements-tests.txt."""
+    """Return a dictionary of requirements from the requirements file."""
 
-    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
+    with open(REQS_FILE, encoding="UTF-8") as requirements_file:
         stripped_lines = map(strip_comments, requirements_file)
         requirements = map(Requirement, filter(None, stripped_lines))
         return {requirement.name: requirement for requirement in requirements}

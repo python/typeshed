@@ -18,6 +18,7 @@ from packaging.specifiers import SpecifierSet
 
 from parse_metadata import read_metadata
 from utils import (
+    REQS_FILE,
     VERSIONS_RE,
     get_all_testcase_directories,
     get_gitignore_spec,
@@ -174,26 +175,26 @@ def check_requirement_pins() -> None:
     """Check that type checkers and linters are pinned to an exact version."""
     requirements = parse_requirements()
     for package in linters:
-        assert package in requirements, f"type checker/linter '{package}' not found in requirements-tests.txt"
+        assert package in requirements, f"type checker/linter '{package}' not found in {REQS_FILE}"
         spec = requirements[package].specifier
-        assert len(spec) == 1, f"type checker/linter '{package}' has complex specifier in requirements-tests.txt"
-        msg = f"type checker/linter '{package}' is not pinned to an exact version in requirements-tests.txt"
+        assert len(spec) == 1, f"type checker/linter '{package}' has complex specifier in {REQS_FILE}"
+        msg = f"type checker/linter '{package}' is not pinned to an exact version in {REQS_FILE}"
         assert str(spec).startswith("=="), msg
 
 
 def check_precommit_requirements() -> None:
-    """Check that the requirements in requirements-tests.txt and .pre-commit-config.yaml match."""
+    """Check that the requirements in the requirements file and .pre-commit-config.yaml match."""
     requirements_txt_requirements = parse_requirements()
     precommit_requirements = get_precommit_requirements()
-    no_txt_entry_msg = "All pre-commit requirements must also be listed in `requirements-tests.txt` (missing {requirement!r})"
+    no_txt_entry_msg = f"All pre-commit requirements must also be listed in `{REQS_FILE}` (missing {{requirement!r}})"
     for requirement, specifier in precommit_requirements.items():
-        # annoying: the Ruff and Black repos for pre-commit are different to the names in requirements-tests.txt
+        # annoying: the Ruff and Black repos for pre-commit are different to the names in the requirements file
         if requirement in {"ruff-pre-commit", "black-pre-commit-mirror"}:
             requirement = requirement.split("-")[0]
         assert requirement in requirements_txt_requirements, no_txt_entry_msg.format(requirement=requirement)
         specifier_mismatch = (
             f'Specifier "{specifier}" for {requirement!r} in `.pre-commit-config.yaml` '
-            f'does not match specifier "{requirements_txt_requirements[requirement].specifier}" in `requirements-tests.txt`'
+            f'does not match specifier "{requirements_txt_requirements[requirement].specifier}" in `{REQS_FILE}`'
         )
         assert specifier == requirements_txt_requirements[requirement].specifier, specifier_mismatch
 
