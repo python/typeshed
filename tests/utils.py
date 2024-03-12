@@ -74,18 +74,6 @@ def venv_python(venv_dir: Path) -> Path:
 
 
 @cache
-def parse_versions_from_requirements() -> dict[str, Requirement]:
-    """Return the requested version for each package in the requirements file."""
-    reqs: dict[str, Requirement] = {}
-    for line in open("requirements-tests.txt"):
-        line = strip_comments(line)
-        if not line:
-            continue
-        req = Requirement(line)
-        reqs[req.name] = req
-    return reqs
-
-
 def parse_requirements() -> dict[str, Requirement]:
     """Return a dictionary of requirements in requirements-tests.txt."""
 
