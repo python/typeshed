@@ -4,7 +4,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from utils import colored
+from utils import print_command
 
 _WELL_KNOWN_FILE = Path("tests", "pyright_test.py")
 
@@ -14,12 +14,12 @@ def main() -> None:
         print("pyright_test.py must be run from the typeshed root directory", file=sys.stderr)
         sys.exit(1)
 
-    print(colored("Running: pyright --version", "blue"))
+    print_command("pyright --version")
     subprocess.run(["pyright", "--version"], check=True)
     print()
 
     command = ["pyright"] + sys.argv[1:]
-    print(colored(f"Running: {' '.join(command)}", "blue"))
+    print_command(command)
     ret = subprocess.run(command).returncode
     sys.exit(ret)
 
