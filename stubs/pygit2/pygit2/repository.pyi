@@ -4,11 +4,9 @@ from tarfile import TarInfo
 from typing import IO, Any, Protocol
 from typing_extensions import TypeAlias, deprecated
 
-from .remotes import RemoteCollection
-from .references import References
-from .branches import Branches
 from ._pygit2 import Blob, Commit, Diff, Object, Oid, Reference, Repository as _Repository, Signature, Tree, _OidArg
 from .blame import Blame
+from .branches import Branches
 from .callbacks import CheckoutCallbacks, RemoteCallbacks, StashApplyCallbacks
 from .config import Config
 from .enums import (
@@ -26,6 +24,8 @@ from .enums import (
 )
 from .index import Index, IndexEntry
 from .packbuilder import PackBuilder
+from .references import References
+from .remotes import RemoteCollection
 from .submodules import Submodule, SubmoduleCollection
 from .utils import _IntoStrArray
 
