@@ -277,13 +277,25 @@ else:
     @overload
     def connect(
         database: StrOrBytesPath,
-        timeout: float = ...,
-        detect_types: int = ...,
-        isolation_level: str | None = ...,
-        check_same_thread: bool = ...,
-        factory: type[_ConnectionT] = ...,
-        cached_statements: int = ...,
-        uri: bool = ...,
+        timeout: float,
+        detect_types: int,
+        isolation_level: str | None,
+        check_same_thread: bool,
+        factory: type[_ConnectionT],
+        cached_statements: int = 128,
+        uri: bool = False,
+    ) -> _ConnectionT: ...
+    @overload
+    def connect(
+        database: StrOrBytesPath,
+        timeout: float = 5.0,
+        detect_types: int = 0,
+        isolation_level: str | None = "DEFERRED",
+        check_same_thread: bool = True,
+        *,
+        factory: type[_ConnectionT],
+        cached_statements: int = 128,
+        uri: bool = False,
     ) -> _ConnectionT: ...
 
 def enable_callback_tracebacks(enable: bool, /) -> None: ...
