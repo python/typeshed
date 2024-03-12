@@ -1,6 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "dependencyDashboard": true,
+  "suppressNotifications": ["prEditedNotification"],
   "extends": ["config:base"],
+  "labels": ["dependencies"],
+  "pre-commit": {
+    "enabled": true
+  },
   "customManagers": [
     {
       "customType": "regex",
@@ -14,34 +20,27 @@
   ],
   "packageRules": [
     {
-      "groupName": "github-actions",
+      "groupName": "GitHub Actions update",
       "matchManagers": ["github-actions"],
       "description": "Quarterly update of GitHub Action dependencies",
       "separateMajorMinor": "false",
       "schedule": ["every 3 months on the first day of the month"]
     },
     {
-      "groupName": "Monthly pip dependencies",
-      "matchManagers": ["pip_requirements"],
-      "excludePackageNames": ["mypy", "pytype", "flake8-pyi"],
-      "description": "Quarterly update of most pip dependencies",
+      "groupName": "Quarterly dependency update",
+      "matchManagers": ["pip_requirements", "pre-commit"],
+      "excludePackageNames": ["pytype", "pyright"],
+      "description": "Quarterly update of most test dependencies",
       "separateMajorMinor": "false",
       "schedule": ["every 3 months on the first day of the month"]
     },
     {
-      "groupName": "Daily pip dependencies",
-      "matchManagers": ["pip_requirements"],
-      "matchPackageNames": ["pytype", "flake8-pyi"],
-      "description": "Daily update of certain pip dependencies",
+      "groupName": "Daily dependency update",
+      "matchManagers": ["pip_requirements", "regex"],
+      "matchPackageNames": ["pytype", "pyright"],
+      "description": "Daily update of pyright and pytype",
       "separateMajorMinor": "false",
       "schedule": ["daily"]
-    },
-    {
-      "groupName": "Daily pyright update",
-      "matchManagers": ["regex"],
-      "description": "Daily update of pyright version",
-      "schedule": ["daily"]
     }
-  ],
-  "suppressNotifications": ["prEditedNotification"]
+  ]
 }
