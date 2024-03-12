@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 import re
 import sys
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Final, NamedTuple
@@ -73,23 +73,14 @@ def venv_python(venv_dir: Path) -> Path:
 # ====================================================================
 
 
+REQS_FILE: Final = "requirements-tests.txt"
+
+
 @cache
-def parse_versions_from_requirements() -> dict[str, Requirement]:
-    """Return the requested version for each package in the requirements file."""
-    reqs: dict[str, Requirement] = {}
-    for line in open("requirements-tests.txt"):
-        line = strip_comments(line)
-        if not line:
-            continue
-        req = Requirement(line)
-        reqs[req.name] = req
-    return reqs
+def parse_requirements() -> Mapping[str, Requirement]:
+    """Return a dictionary of requirements from the requirements file."""
 
-
-def parse_requirements() -> dict[str, Requirement]:
-    """Return a dictionary of requirements in requirements-tests.txt."""
-
-    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
+    with open(REQS_FILE, encoding="UTF-8") as requirements_file:
         stripped_lines = map(strip_comments, requirements_file)
         requirements = map(Requirement, filter(None, stripped_lines))
         return {requirement.name: requirement for requirement in requirements}
