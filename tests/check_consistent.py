@@ -26,6 +26,7 @@ from utils import (
     spec_matches_path,
     strip_comments,
 )
+from collections.abc import Mapping
 
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
 
