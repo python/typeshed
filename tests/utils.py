@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any, Final, NamedTuple
 
 import pathspec
+from packaging.requirements import Requirement
 
 try:
     from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
@@ -67,27 +68,27 @@ def venv_python(venv_dir: Path) -> Path:
     return venv_dir / "bin" / "python"
 
 
-@cache
-def get_mypy_req() -> str:
-    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
-        return next(strip_comments(line) for line in requirements_file if "mypy" in line)
-
-
 # ====================================================================
 # Parsing the requirements file
 # ====================================================================
 
 
-def parse_versions_from_requirements() -> dict[str, str]:
+@cache
+def parse_versions_from_requirements() -> dict[str, Requirement]:
     """Return the requested version for each package in the requirements file."""
-    reqs: dict[str, str] = {}
+    reqs: dict[str, Requirement] = {}
     for line in open("requirements-tests.txt"):
-        pkg_and_version = line.split("#")[0].split(";")[0]
-        if "==" not in pkg_and_version:
+        line = line.split("#")[0].strip()
+        if not line:
             continue
-        package, version = pkg_and_version.split("==", 1)
-        reqs[package.strip()] = version.strip()
+        req = Requirement(line)
+        reqs[req.name] = req
     return reqs
+
+
+def get_mypy_req() -> str:
+    req = parse_versions_from_requirements()["mypy"]
+    return str(req.specifier)
 
 
 # ====================================================================

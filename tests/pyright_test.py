@@ -15,7 +15,11 @@ def main() -> None:
         print("pyright_test.py must be run from the typeshed root directory", file=sys.stderr)
         sys.exit(1)
 
-    os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = parse_versions_from_requirements()["pyright"]
+    req = parse_versions_from_requirements()["pyright"]
+    assert len(req.specifier) == 1
+    spec = str(req.specifier)
+    assert spec.startswith("=="), f"pyright version must be pinned in requirements-tests.txt: {req}"
+    os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = spec[2:]
 
     print_command("pyright --version")
     subprocess.run(["pyright", "--version"], check=True)
