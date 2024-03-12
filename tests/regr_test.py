@@ -19,9 +19,9 @@ from dataclasses import dataclass
 from enum import IntEnum
 from functools import partial
 from pathlib import Path
+from typing_extensions import TypeAlias
 
 from parse_metadata import get_recursive_requirements, read_metadata
-from typing_extensions import TypeAlias
 from utils import (
     PYTHON_VERSION,
     PackageInfo,
