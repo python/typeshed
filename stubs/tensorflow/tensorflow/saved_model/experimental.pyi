@@ -4,7 +4,7 @@ from typing_extensions import Self
 
 import tensorflow as tf
 from tensorflow._aliases import Integer, TensorValue
-from tensorflow.python.trackable.ressource import CapturableResource
+from tensorflow.python.trackable.resource import CapturableResource
 
 class Fingerprint:
     saved_model_checksum: TensorValue | None
