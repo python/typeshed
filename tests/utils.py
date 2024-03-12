@@ -78,7 +78,7 @@ def parse_versions_from_requirements() -> dict[str, Requirement]:
     """Return the requested version for each package in the requirements file."""
     reqs: dict[str, Requirement] = {}
     for line in open("requirements-tests.txt"):
-        line = line.split("#")[0].strip()
+        line = strip_comments(line)
         if not line:
             continue
         req = Requirement(line)
