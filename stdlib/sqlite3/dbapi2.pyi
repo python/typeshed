@@ -227,12 +227,12 @@ if sys.version_info >= (3, 12):
     @overload
     def connect(
         database: StrOrBytesPath,
-        timeout: float = ...,
-        detect_types: int = ...,
-        isolation_level: Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None = ...,
-        check_same_thread: bool = ...,
-        cached_statements: int = ...,
-        uri: bool = ...,
+        timeout: float = 5.0,
+        detect_types: int = 0,
+        isolation_level: Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None = "DEFERRED",
+        check_same_thread: bool = True,
+        cached_statements: int = 128,
+        uri: bool = False,
         *,
         autocommit: bool = ...,
     ) -> Connection: ...
@@ -267,12 +267,12 @@ else:
     @overload
     def connect(
         database: StrOrBytesPath,
-        timeout: float = ...,
-        detect_types: int = ...,
-        isolation_level: Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None = ...,
-        check_same_thread: bool = ...,
-        cached_statements: int = ...,
-        uri: bool = ...,
+        timeout: float = 5.0,
+        detect_types: int = 0,
+        isolation_level: Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None = "DEFERRED",
+        check_same_thread: bool = True,
+        cached_statements: int = 128,
+        uri: bool = False,
     ) -> Connection: ...
     @overload
     def connect(
