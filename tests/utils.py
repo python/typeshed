@@ -67,18 +67,13 @@ def venv_python(venv_dir: Path) -> Path:
     return venv_dir / "bin" / "python"
 
 
-@cache
-def get_mypy_req() -> str:
-    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
-        return next(strip_comments(line) for line in requirements_file if "mypy" in line)
-
-
 # ====================================================================
 # Parsing the requirements file
 # ====================================================================
 
 
-def parse_versions_from_requirements() -> dict[str, str]:
+@cache
+def pkg_requirements() -> dict[str, str]:
     """Return the requested version for each package in the requirements file."""
     reqs: dict[str, str] = {}
     for line in open("requirements-tests.txt"):
