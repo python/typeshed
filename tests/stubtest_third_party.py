@@ -13,7 +13,7 @@ from textwrap import dedent
 from typing import NoReturn
 
 from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
-from utils import PYTHON_VERSION, colored, pkg_requirements, print_error, print_success_msg
+from utils import PYTHON_VERSION, colored, get_mypy_req, print_error, print_success_msg
 
 
 def run_stubtest(
@@ -67,7 +67,7 @@ def run_stubtest(
         # We need stubtest to be able to import the package, so install mypy into the venv
         # Hopefully mypy continues to not need too many dependencies
         # TODO: Maybe find a way to cache these in CI
-        dists_to_install = [dist_req, pkg_requirements()["mypy"]]
+        dists_to_install = [dist_req, get_mypy_req()]
         dists_to_install.extend(requirements.external_pkgs)  # Internal requirements are added to MYPYPATH
         pip_cmd = [pip_exe, "install", *dists_to_install]
         try:

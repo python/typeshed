@@ -27,7 +27,7 @@ from utils import (
     PackageInfo,
     colored,
     get_all_testcase_directories,
-    pkg_requirements,
+    get_mypy_req,
     print_error,
     testcase_dir_from_package_name,
     venv_python,
@@ -149,9 +149,8 @@ def setup_testcase_dir(package: PackageInfo, tempdir: Path, verbosity: Verbosity
     if requirements.external_pkgs:
         venv_location = str(tempdir / VENV_DIR)
         subprocess.run(["uv", "venv", venv_location], check=True, capture_output=True)
-        mypy_version = pkg_requirements()["mypy"]
         # Use --no-cache-dir to avoid issues with concurrent read/writes to the cache
-        uv_command = ["uv", "pip", "install", mypy_version, *requirements.external_pkgs, "--no-cache-dir"]
+        uv_command = ["uv", "pip", "install", get_mypy_req(), *requirements.external_pkgs, "--no-cache-dir"]
         if verbosity is Verbosity.VERBOSE:
             verbose_log(f"{package.name}: Setting up venv in {venv_location}. {uv_command=}\n")
         try:
