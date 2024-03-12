@@ -38,12 +38,6 @@ def strip_comments(text: str) -> str:
 # ====================================================================
 
 
-def print_command(cmd: str | Iterable[str]) -> None:
-    if not isinstance(cmd, str):
-        cmd = " ".join(cmd)
-    print(colored(f"Running: {cmd}", "blue"))
-
-
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
     error_split = error.split("\n")
     old, new = fix_path
