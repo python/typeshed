@@ -74,6 +74,23 @@ def get_mypy_req() -> str:
 
 
 # ====================================================================
+# Parsing the requirements file
+# ====================================================================
+
+
+def parse_versions_from_requirements() -> dict[str, str]:
+    """Return the requested version for each package in the requirements file."""
+    reqs: dict[str, str] = {}
+    for line in open("requirements-tests.txt"):
+        pkg_and_version = line.split("#")[0].split(";")[0]
+        if "==" not in pkg_and_version:
+            continue
+        package, version = pkg_and_version.split("==", 1)
+        reqs[package.strip()] = version.strip()
+    return reqs
+
+
+# ====================================================================
 # Parsing the stdlib/VERSIONS file
 # ====================================================================
 
