@@ -5,7 +5,6 @@ from __future__ import annotations
 import os
 import re
 import sys
-from collections.abc import Iterable
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Final, NamedTuple
