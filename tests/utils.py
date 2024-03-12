@@ -87,8 +87,7 @@ def parse_versions_from_requirements() -> dict[str, Requirement]:
 
 
 def get_mypy_req() -> str:
-    req = parse_versions_from_requirements()["mypy"]
-    return str(req.specifier)
+    return str(parse_versions_from_requirements()["mypy"])
 
 
 # ====================================================================
