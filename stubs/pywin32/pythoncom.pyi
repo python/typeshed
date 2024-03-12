@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from typing_extensions import TypeAlias, deprecated
 
 import _win32typing
-from win32.lib.pywintypes import com_error as com_error
+from win32.lib.pywintypes import TimeType, com_error as com_error
 
 error: TypeAlias = com_error  # noqa: Y042
 
@@ -72,7 +72,7 @@ def MakePyFactory(iid: _win32typing.PyIID, /) -> _win32typing.PyIClassFactory: .
 @deprecated("Use pywintypes.IID() instead.")
 def MakeIID(iidString: str, is_bytes: bool = ..., /) -> _win32typing.PyIID: ...
 @deprecated("Use pywintypes.Time() instead.")
-def MakeTime(timeRepr, /) -> _win32typing.PyTime: ...
+def MakeTime(timeRepr, /) -> TimeType: ...
 def MkParseDisplayName(
     displayName: str, bindCtx: _win32typing.PyIBindCtx | None = ..., /
 ) -> tuple[_win32typing.PyIMoniker, Incomplete, _win32typing.PyIBindCtx]: ...
