@@ -8,6 +8,7 @@ from typing import Any, Literal, Protocol, SupportsIndex, TypeVar, final, overlo
 from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
+_ConnectionT = TypeVar("_ConnectionT", bound=Connection)
 _CursorT = TypeVar("_CursorT", bound=Cursor)
 _SqliteData: TypeAlias = str | ReadableBuffer | int | float | None
 # Data that is passed through adapters can be of any type accepted by an adapter.
@@ -223,29 +224,79 @@ def adapt(obj: Any, proto: Any, alt: _T, /) -> Any | _T: ...
 def complete_statement(statement: str) -> bool: ...
 
 if sys.version_info >= (3, 12):
+    @overload
     def connect(
         database: StrOrBytesPath,
-        timeout: float = ...,
-        detect_types: int = ...,
-        isolation_level: str | None = ...,
-        check_same_thread: bool = ...,
-        factory: type[Connection] | None = ...,
-        cached_statements: int = ...,
-        uri: bool = ...,
+        timeout: float = 5.0,
+        detect_types: int = 0,
+        isolation_level: Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None = "DEFERRED",
+        check_same_thread: bool = True,
+        cached_statements: int = 128,
+        uri: bool = False,
+        *,
         autocommit: bool = ...,
     ) -> Connection: ...
-
-else:
+    @overload
     def connect(
         database: StrOrBytesPath,
-        timeout: float = ...,
-        detect_types: int = ...,
-        isolation_level: str | None = ...,
-        check_same_thread: bool = ...,
-        factory: type[Connection] | None = ...,
-        cached_statements: int = ...,
-        uri: bool = ...,
+        timeout: float,
+        detect_types: int,
+        isolation_level: Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None,
+        check_same_thread: bool,
+        factory: type[_ConnectionT],
+        cached_statements: int = 128,
+        uri: bool = False,
+        *,
+        autocommit: bool = ...,
+    ) -> _ConnectionT: ...
+    @overload
+    def connect(
+        database: StrOrBytesPath,
+        timeout: float = 5.0,
+        detect_types: int = 0,
+        isolation_level: Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None = "DEFERRED",
+        check_same_thread: bool = True,
+        *,
+        factory: type[_ConnectionT],
+        cached_statements: int = 128,
+        uri: bool = False,
+        autocommit: bool = ...,
+    ) -> _ConnectionT: ...
+
+else:
+    @overload
+    def connect(
+        database: StrOrBytesPath,
+        timeout: float = 5.0,
+        detect_types: int = 0,
+        isolation_level: Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None = "DEFERRED",
+        check_same_thread: bool = True,
+        cached_statements: int = 128,
+        uri: bool = False,
     ) -> Connection: ...
+    @overload
+    def connect(
+        database: StrOrBytesPath,
+        timeout: float,
+        detect_types: int,
+        isolation_level: Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None,
+        check_same_thread: bool,
+        factory: type[_ConnectionT],
+        cached_statements: int = 128,
+        uri: bool = False,
+    ) -> _ConnectionT: ...
+    @overload
+    def connect(
+        database: StrOrBytesPath,
+        timeout: float = 5.0,
+        detect_types: int = 0,
+        isolation_level: Literal["DEFERRED", "EXCLUSIVE", "IMMEDIATE"] | None = "DEFERRED",
+        check_same_thread: bool = True,
+        *,
+        factory: type[_ConnectionT],
+        cached_statements: int = 128,
+        uri: bool = False,
+    ) -> _ConnectionT: ...
 
 def enable_callback_tracebacks(enable: bool, /) -> None: ...
 
