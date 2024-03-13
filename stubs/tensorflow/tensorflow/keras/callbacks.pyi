@@ -7,14 +7,15 @@ import tensorflow as tf
 from requests.api import _HeadersMapping
 from tensorflow.keras import Model
 from tensorflow.keras.optimizers.schedules import LearningRateSchedule
+from tensorflow.saved_model import SaveOptions
 from tensorflow.train import CheckpointOptions
 
 _Logs: TypeAlias = Mapping[str, Any] | None | Any
 
 class Callback:
-    model: Model  # Model[Any, object]
+    model: Model[Any, Any]
     params: dict[str, Any]
-    def set_model(self, model: Model) -> None: ...
+    def set_model(self, model: Model[Any, Any]) -> None: ...
     def set_params(self, params: dict[str, Any]) -> None: ...
     def on_batch_begin(self, batch: int, logs: _Logs = None) -> None: ...
     def on_batch_end(self, batch: int, logs: _Logs = None) -> None: ...
@@ -35,7 +36,7 @@ class Callback:
 
 # A CallbackList has exact same api as a callback, but does not actually subclass it.
 class CallbackList:
-    model: Model
+    model: Model[Any, Any]
     params: dict[str, Any]
     def __init__(
         self,
@@ -43,10 +44,10 @@ class CallbackList:
         add_history: bool = False,
         add_progbar: bool = False,
         # model: Model[Any, object] | None = None,
-        model: Model | None = None,
+        model: Model[Any, Any] | None = None,
         **params: Any,
     ) -> None: ...
-    def set_model(self, model: Model) -> None: ...
+    def set_model(self, model: Model[Any, Any]) -> None: ...
     def set_params(self, params: dict[str, Any]) -> None: ...
     def on_batch_begin(self, batch: int, logs: _Logs | None = None) -> None: ...
     def on_batch_end(self, batch: int, logs: _Logs | None = None) -> None: ...
@@ -115,7 +116,7 @@ class LearningRateScheduler(Callback):
 class ModelCheckpoint(Callback):
     monitor_op: Any
     filepath: str
-    _options: CheckpointOptions | tf.saved_model.SaveOptions | None
+    _options: CheckpointOptions | SaveOptions | None
     def __init__(
         self,
         filepath: str,
@@ -125,7 +126,7 @@ class ModelCheckpoint(Callback):
         save_weights_only: bool = False,
         mode: Literal["auto", "min", "max"] = "auto",
         save_freq: str | int = "epoch",
-        options: CheckpointOptions | tf.saved_model.SaveOptions | None = None,
+        options: CheckpointOptions | SaveOptions | None = None,
         initial_value_threshold: float | None = None,
     ) -> None: ...
     def _save_model(self, epoch: int, batch: int | None, logs: _Logs) -> None: ...
