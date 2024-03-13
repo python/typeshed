@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Literal, TypedDict
+from typing import Final, Literal, TypedDict
 from typing_extensions import TypeAlias
 
 class _RPi_Info(TypedDict):
