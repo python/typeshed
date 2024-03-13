@@ -1,4 +1,4 @@
-from . import backoff, client, connection, credentials, exceptions, sentinel, utils
+from . import backoff, client, connection, credentials, exceptions, lock, sentinel, utils
 from .cluster import RedisCluster as RedisCluster
 
 __all__ = [
@@ -15,6 +15,7 @@ __all__ = [
     "from_url",
     "default_backoff",
     "InvalidResponse",
+    "Lock",
     "PubSubError",
     "ReadOnlyError",
     "Redis",
@@ -67,6 +68,8 @@ WatchError = exceptions.WatchError
 
 CredentialProvider = credentials.CredentialProvider
 UsernamePasswordCredentialProvider = credentials.UsernamePasswordCredentialProvider
+
+Lock = lock.Lock
 
 __version__: str
 VERSION: tuple[int | str, ...]
