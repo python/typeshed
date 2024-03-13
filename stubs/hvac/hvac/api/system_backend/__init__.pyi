@@ -19,7 +19,7 @@ from hvac.api.system_backend.system_backend_mixin import SystemBackendMixin as S
 from hvac.api.system_backend.wrapping import Wrapping as Wrapping
 from hvac.api.vault_api_category import VaultApiCategory
 
-__all__ = [
+__all__ = (
     "Audit",
     "Auth",
     "Capabilities",
@@ -38,7 +38,7 @@ __all__ = [
     "SystemBackend",
     "SystemBackendMixin",
     "Wrapping",
-]
+)
 
 class SystemBackend(
     VaultApiCategory,

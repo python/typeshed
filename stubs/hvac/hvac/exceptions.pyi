@@ -19,7 +19,7 @@ class VaultError(Exception):
     ) -> None: ...
     @classmethod
     def from_status(
-        cls: type[Self],
+        cls,
         status_code: int,
         message: str | None = ...,
         errors: Iterable[Any] | str | None = ...,

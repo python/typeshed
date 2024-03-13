@@ -16,7 +16,7 @@ class Client:
         proxies: dict[str, str] | None = ...,
         allow_redirects: bool = ...,
         session: Incomplete | None = ...,
-        adapter: Adapter = ...,
+        adapter: type[Adapter] = ...,
         namespace: Incomplete | None = ...,
         **kwargs: Any,
     ) -> None: ...

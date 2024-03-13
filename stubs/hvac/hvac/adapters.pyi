@@ -6,7 +6,7 @@ from typing_extensions import Self
 
 class Adapter(metaclass=ABCMeta):
     @classmethod
-    def from_adapter(cls: type[Self], adapter: Adapter) -> Self: ...
+    def from_adapter(cls, adapter: Adapter) -> Self: ...
     base_uri: str
     token: str | None
     namespace: str | None

@@ -16,7 +16,7 @@ from hvac.api.secrets_engines.transform import Transform as Transform
 from hvac.api.secrets_engines.transit import Transit as Transit
 from hvac.api.vault_api_category import VaultApiCategory
 
-__all__ = [
+__all__ = (
     "Aws",
     "Azure",
     "Gcp",
@@ -32,7 +32,7 @@ __all__ = [
     "Database",
     "RabbitMQ",
     "Ssh",
-]
+)
 
 class SecretsEngines(VaultApiCategory):
     implemented_classes: Incomplete

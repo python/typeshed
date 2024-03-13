@@ -1,5 +1,6 @@
 from collections.abc import Callable, Iterable, Mapping
-from typing import Any, NoReturn, NotRequired, TypedDict, TypeVar
+from typing import Any, NoReturn, TypedDict, TypeVar
+from typing_extensions import NotRequired
 
 class _DeprecateProperty(TypedDict):
     to_be_removed_in_version: str

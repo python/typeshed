@@ -17,7 +17,7 @@ from hvac.api.auth_methods.token import Token as Token
 from hvac.api.auth_methods.userpass import Userpass as Userpass
 from hvac.api.vault_api_category import VaultApiCategory
 
-__all__ = [
+__all__ = (
     "AuthMethods",
     "AppRole",
     "Azure",
@@ -34,7 +34,7 @@ __all__ = [
     "Token",
     "Aws",
     "Cert",
-]
+)
 
 class AuthMethods(VaultApiCategory):
     implemented_classes: Incomplete
