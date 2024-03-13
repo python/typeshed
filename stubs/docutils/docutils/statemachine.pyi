@@ -1,7 +1,7 @@
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from re import Match, Pattern
-from typing import Any, ClassVar, Generic, Self, SupportsIndex, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import Any, ClassVar, Generic, SupportsIndex, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
 _Context = TypeVar("_Context")
