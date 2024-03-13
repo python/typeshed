@@ -25,7 +25,8 @@ class Role(Directive):
 class DefaultRole(Directive): ...
 class Title(Directive): ...
 
-class MetaBody(SpecializedBody):
+# SpecializedBody has not yet been stubbed
+class MetaBody(SpecializedBody):  # pyright: ignore[reportUntypedBaseClass]
     def __getattr__(self, name: str) -> Incomplete: ...
 
 class Meta(Directive):
