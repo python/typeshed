@@ -48,6 +48,9 @@ tensorflow._aliases
 # but the real module file is completely different name (even package) and dynamically handled.
 # tf.initializers at runtime is <module 'keras.api._v2.keras.initializers' from '...'>
 tensorflow.initializers
+# Other cursed import magic similar to the one above.
+tensorflow.keras.layers.preprocessing
+tensorflow.keras.layers.preprocessing.index_lookup
 # Another cursed import magic similar to the one above.
 tensorflow.distribute.experimental.coordinator
 
