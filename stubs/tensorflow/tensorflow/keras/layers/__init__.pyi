@@ -1,15 +1,17 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterable, Sequence
-from typing import Any, Generic, TypeVar, overload
+from collections.abc import Callable, Iterable, Mapping, Sequence
+from typing import Any, Generic, Literal, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
 from tensorflow import Tensor, Variable, VariableAggregation, VariableSynchronization
-from tensorflow._aliases import AnyArray, DTypeLike, TensorCompatible
+from tensorflow._aliases import AnyArray, DTypeLike, TensorCompatible, TensorLike
 from tensorflow.keras.activations import _Activation
 from tensorflow.keras.constraints import Constraint
 from tensorflow.keras.initializers import _Initializer
-from tensorflow.keras.regularizers import _Regularizer
+from tensorflow.keras.layers.preprocessing import IntegerLookup as IntegerLookup, StringLookup as StringLookup
+from tensorflow.keras.regularizers import Regularizer, _Regularizer
+from tensorflow.python.feature_column.feature_column_v2 import DenseColumn, SequenceDenseColumn
 
 _InputT = TypeVar("_InputT", contravariant=True)
 _OutputT = TypeVar("_OutputT", covariant=True)
@@ -127,7 +129,7 @@ class Dense(Layer[tf.Tensor, tf.Tensor]):
         kernel_constraint: _Constraint = None,
         bias_constraint: _Constraint = None,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
+        dtype: _LayerDtype | None = None,
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
@@ -149,7 +151,7 @@ class BatchNormalization(Layer[tf.Tensor, tf.Tensor]):
         beta_constraint: _Constraint = None,
         gamma_constraint: _Constraint = None,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
+        dtype: _LayerDtype | None = None,
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
@@ -161,7 +163,7 @@ class ReLU(Layer[tf.Tensor, tf.Tensor]):
         negative_slope: float | None = 0.0,
         threshold: float | None = 0.0,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
+        dtype: _LayerDtype | None = None,
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
@@ -173,7 +175,7 @@ class Dropout(Layer[tf.Tensor, tf.Tensor]):
         noise_shape: TensorCompatible | Sequence[int | None] | None = None,
         seed: int | None = None,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
+        dtype: _LayerDtype | None = None,
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...
@@ -188,6 +190,133 @@ class Embedding(Layer[tf.Tensor, tf.Tensor]):
         embeddings_constraint: _Constraint = None,
         mask_zero: bool = False,
         input_length: int | None = None,
+        trainable: bool = True,
+        dtype: _LayerDtype | None = None,
+        dynamic: bool = False,
+        name: str | None = None,
+    ) -> None: ...
+
+class Conv2D(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self,
+        filters: int,
+        kernel_size: int | Iterable[int],
+        strides: int | Iterable[int] = (1, 1),
+        padding: Literal["valid", "same"] = "valid",
+        data_format: None | Literal["channels_last", "channels_first"] = None,
+        dilation_rate: int | Iterable[int] = (1, 1),
+        groups: int = 1,
+        activation: _Activation = None,
+        use_bias: bool = True,
+        kernel_initializer: _Initializer = "glorot_uniform",
+        bias_initializer: _Initializer = "zeros",
+        kernel_regularizer: _Regularizer = None,
+        bias_regularizer: _Regularizer = None,
+        activity_regularizer: _Regularizer = None,
+        kernel_constraint: _Constraint = None,
+        bias_constraint: _Constraint = None,
+        trainable: bool = True,
+        dtype: _LayerDtype | None = None,
+        dynamic: bool = False,
+        name: str | None = None,
+    ) -> None: ...
+
+class Identity(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self, trainable: bool = True, dtype: _LayerDtype = None, dynamic: bool = False, name: str | None = None
+    ) -> None: ...
+
+class LayerNormalization(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self,
+        axis: int = -1,
+        epsilon: float = 0.001,
+        center: bool = True,
+        scale: bool = True,
+        beta_initializer: _Initializer = "zeros",
+        gamma_initializer: _Initializer = "ones",
+        beta_regularizer: _Regularizer = None,
+        gamma_regularizer: _Regularizer = None,
+        beta_constraint: _Constraint = None,
+        gamma_constraint: _Constraint = None,
+        trainable: bool = True,
+        dtype: _LayerDtype | None = None,
+        dynamic: bool = False,
+        name: str | None = None,
+    ) -> None: ...
+
+class DenseFeatures(Layer[Mapping[str, TensorLike], tf.Tensor]):
+    def __init__(
+        self,
+        feature_columns: Sequence[DenseColumn | SequenceDenseColumn],
+        trainable: bool = True,
+        dtype: _LayerDtype = None,
+        dynamic: bool = False,
+        name: str | None = None,
+    ) -> None: ...
+
+class MultiHeadAttention(Layer[Any, tf.Tensor]):
+    def __init__(
+        self,
+        num_heads: int,
+        key_dim: int | None,
+        value_dim: int | None = None,
+        dropout: float = 0.0,
+        use_bias: bool = True,
+        output_shape: tuple[int, ...] | None = None,
+        attention_axes: tuple[int, ...] | None = None,
+        kernel_initialize: _Initializer = "glorot_uniform",
+        bias_initializer: _Initializer = "zeros",
+        kernel_regularizer: Regularizer | None = None,
+        bias_regularizer: _Regularizer | None = None,
+        activity_regularizer: _Regularizer | None = None,
+        kernel_constraint: _Constraint | None = None,
+        bias_constraint: _Constraint | None = None,
+        trainable: bool = True,
+        dtype: _LayerDtype | None = None,
+        dynamic: bool = False,
+        name: str | None = None,
+    ) -> None: ...
+    # @override
+    @overload  # type: ignore
+    def __call__(
+        self,
+        query: tf.Tensor,
+        value: tf.Tensor,
+        key: tf.Tensor | None,
+        attention_mask: tf.Tensor | None,
+        return_attention_scores: Literal[False],
+        training: bool,
+        use_causal_mask: bool,
+    ) -> tf.Tensor: ...
+    @overload
+    def __call__(
+        self,
+        query: tf.Tensor,
+        value: tf.Tensor,
+        key: tf.Tensor | None,
+        attention_mask: tf.Tensor | None,
+        return_attention_scores: Literal[True],
+        training: bool,
+        use_causal_mask: bool,
+    ) -> tuple[tf.Tensor, tf.Tensor]: ...
+    @overload
+    def __call__(
+        self,
+        query: tf.Tensor,
+        value: tf.Tensor,
+        key: tf.Tensor | None = None,
+        attention_mask: tf.Tensor | None = None,
+        return_attention_scores: bool = False,
+        training: bool = False,
+        use_causal_mask: bool = False,
+    ) -> tuple[tf.Tensor, tf.Tensor] | tf.Tensor: ...
+
+class GaussianDropout(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self,
+        rate: float,
+        seed: int | None = None,
         trainable: bool = True,
         dtype: _LayerDtype = None,
         dynamic: bool = False,

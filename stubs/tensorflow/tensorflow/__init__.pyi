@@ -21,11 +21,7 @@ from tensorflow import (
 from tensorflow._aliases import AnyArray, DTypeLike, ShapeLike, Slice, TensorCompatible
 from tensorflow.autodiff import GradientTape as GradientTape
 from tensorflow.core.protobuf import struct_pb2
-
-# Explicit import of DType is covered by the wildcard, but
-# is necessary to avoid a crash in pytype.
 from tensorflow.dtypes import *
-from tensorflow.dtypes import DType as DType
 from tensorflow.experimental.dtensor import Layout
 from tensorflow.keras import losses as losses
 from tensorflow.linalg import eye as eye
