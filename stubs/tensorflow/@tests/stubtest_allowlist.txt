@@ -108,5 +108,11 @@ tensorflow.train.Int64List.*
 tensorflow.train.ClusterDef.*
 tensorflow.train.ServerDef.*
 
+# The python module cannot be accessed directly, so to stubtest it appears that it is not present at runtime.
+# However it can be accessed by doing:
+# from tensorflow import python
+# python.X
+tensorflow.python.*
+
 # sigmoid_cross_entropy_with_logits has default values (None), however those values are not valid.
 tensorflow.nn.sigmoid_cross_entropy_with_logits

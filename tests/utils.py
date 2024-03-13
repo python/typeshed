@@ -5,11 +5,13 @@ from __future__ import annotations
 import os
 import re
 import sys
+from collections.abc import Mapping
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Final, NamedTuple
 
 import pathspec
+from packaging.requirements import Requirement
 
 try:
     from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
@@ -29,6 +31,11 @@ cache = lru_cache(None)
 
 def strip_comments(text: str) -> str:
     return text.split("#")[0].strip()
+
+
+# ====================================================================
+# Printing utilities
+# ====================================================================
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
@@ -55,10 +62,26 @@ def venv_python(venv_dir: Path) -> Path:
     return venv_dir / "bin" / "python"
 
 
+# ====================================================================
+# Parsing the requirements file
+# ====================================================================
+
+
+REQS_FILE: Final = "requirements-tests.txt"
+
+
 @cache
+def parse_requirements() -> Mapping[str, Requirement]:
+    """Return a dictionary of requirements from the requirements file."""
+
+    with open(REQS_FILE, encoding="UTF-8") as requirements_file:
+        stripped_lines = map(strip_comments, requirements_file)
+        requirements = map(Requirement, filter(None, stripped_lines))
+        return {requirement.name: requirement for requirement in requirements}
+
+
 def get_mypy_req() -> str:
-    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
-        return next(strip_comments(line) for line in requirements_file if "mypy" in line)
+    return str(parse_requirements()["mypy"])
 
 
 # ====================================================================
