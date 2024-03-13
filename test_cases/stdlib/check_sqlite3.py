@@ -7,6 +7,7 @@ from typing_extensions import assert_type
 class MyConnection(sqlite3.Connection):
     pass
 
+
 # Default return-type is Connection.
 assert_type(sqlite3.connect(":memory:"), sqlite3.Connection)
 
