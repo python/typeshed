@@ -57,7 +57,7 @@ class SaveOptions:
         self,
         namespace_whitelist: list[str] | None = None,
         save_debug_info: bool = False,
-        function_aliases: dict[str, tf.types.experimental.GenericFunction[..., object]] | None = None,
+        function_aliases: Mapping[str, tf.types.experimental.GenericFunction[..., object]] | None = None,
         experimental_io_device: str | None = None,
         experimental_variable_policy: str | VariablePolicy | None = None,
         experimental_custom_gradients: bool = True,
