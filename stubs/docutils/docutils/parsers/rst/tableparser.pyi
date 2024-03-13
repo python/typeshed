@@ -3,7 +3,7 @@ from typing import ClassVar
 from typing_extensions import TypeAlias
 
 from docutils import DataError
-from docutils.statemachine import Stringlist
+from docutils.statemachine import StringList
 
 _Cell: TypeAlias = tuple[int, int, int, list[str]]
 _Row: TypeAlias = list[_Cell | None]
@@ -18,12 +18,12 @@ class TableMarkupError(DataError):
 class TableParser:
     head_body_separator_pat: ClassVar[Pattern[str] | None]
     double_width_pad_char: ClassVar[str]
-    def parse(self, block: Stringlist) -> tuple[_Colspecs, list[_Row], list[_Row]]: ...
+    def parse(self, block: StringList) -> tuple[_Colspecs, list[_Row], list[_Row]]: ...
     def find_head_body_sep(self) -> None: ...
 
 class GridTableParser(TableParser):
     head_body_separator_pat: ClassVar[Pattern[str]]
-    block: Stringlist
+    block: StringList
     bottom: int
     right: int
     head_body_sep: int
@@ -31,7 +31,7 @@ class GridTableParser(TableParser):
     cells: list[_Cell]
     rowseps: dict[int, list[int]]
     colseps: dict[int, list[int]]
-    def setup(self, block: Stringlist) -> None: ...
+    def setup(self, block: StringList) -> None: ...
     def parse_table(self) -> None: ...
     def mark_done(self, top: int, left: int, bottom: int, right: int) -> None: ...
     def check_parse_complete(self) -> bool: ...
@@ -45,7 +45,7 @@ class GridTableParser(TableParser):
 class SimpleTableParser(TableParser):
     head_body_separator_pat: ClassVar[Pattern[str]]
     span_pat: ClassVar[Pattern[str]]
-    block: Stringlist
+    block: StringList
     head_body_sep: int
     columns: list[tuple[int, int]]
     border_end: int
@@ -53,7 +53,7 @@ class SimpleTableParser(TableParser):
     done: list[int]
     rowseps: dict[int, tuple[int]]
     colseps: dict[int, tuple[int]]
-    def setup(self, block: Stringlist) -> None: ...
+    def setup(self, block: StringList) -> None: ...
     def parse_table(self) -> None: ...
     def parse_columns(self, line: str, offset: int) -> list[tuple[int, int]]: ...
     def init_row(self, colspec: list[tuple[int, int]], offset: int) -> list[_Cell]: ...
