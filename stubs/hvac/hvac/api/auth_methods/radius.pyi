@@ -1,0 +1,23 @@
+from _typeshed import Incomplete
+
+from hvac.api.vault_api_base import VaultApiBase
+
+DEFAULT_MOUNT_POINT: str
+
+class Radius(VaultApiBase):
+    def configure(
+        self,
+        host,
+        secret,
+        port: Incomplete | None = ...,
+        unregistered_user_policies: Incomplete | None = ...,
+        dial_timeout: Incomplete | None = ...,
+        nas_port: Incomplete | None = ...,
+        mount_point=...,
+    ): ...
+    def read_configuration(self, mount_point=...): ...
+    def register_user(self, username, policies: Incomplete | None = ..., mount_point=...): ...
+    def list_users(self, mount_point=...): ...
+    def read_user(self, username, mount_point=...): ...
+    def delete_user(self, username, mount_point=...): ...
+    def login(self, username, password, use_token: bool = ..., mount_point=...): ...

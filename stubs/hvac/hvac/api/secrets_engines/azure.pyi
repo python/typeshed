@@ -1,0 +1,23 @@
+from _typeshed import Incomplete
+
+from hvac.api.vault_api_base import VaultApiBase
+
+DEFAULT_MOUNT_POINT: str
+
+class Azure(VaultApiBase):
+    def configure(
+        self,
+        subscription_id,
+        tenant_id,
+        client_id: Incomplete | None = ...,
+        client_secret: Incomplete | None = ...,
+        environment: Incomplete | None = ...,
+        mount_point=...,
+    ): ...
+    def read_config(self, mount_point=...): ...
+    def delete_config(self, mount_point=...): ...
+    def create_or_update_role(
+        self, name, azure_roles, ttl: Incomplete | None = ..., max_ttl: Incomplete | None = ..., mount_point=...
+    ): ...
+    def list_roles(self, mount_point=...): ...
+    def generate_credentials(self, name, mount_point=...): ...
