@@ -21,13 +21,8 @@ with closing(sqlite3.connect(":memory:", factory=MyConnection)) as con2:
 
 # Provides a true positive error. When checking the connect() function,
 # mypy should report an arg-type error for the factory argument.
-try:
-    with closing(sqlite3.connect(":memory:", factory=None)) as con3:  # type: ignore
-        pass
-except TypeError:
-    pass  # Expected behavior.
-else:
-    raise RuntimeError("Expected TypeError, factory is not optional.")
+with sqlite3.connect(":memory:", factory=None) as con3:  # type: ignore
+    pass
 
 # While factory is not optional in the connect() function, it *is* optional
 # for the Connection class itself.
