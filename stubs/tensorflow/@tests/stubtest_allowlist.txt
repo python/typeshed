@@ -73,7 +73,7 @@ tensorflow.keras.layers.*.call
 tensorflow.keras.regularizers.Regularizer.__call__
 tensorflow.keras.constraints.Constraint.__call__
 
-# Layer class does good deal of __new__ magic and actually returns one of two different internal
+# Layer/Model class does good deal of __new__ magic and actually returns one of two different internal
 # types depending on tensorflow execution mode. This feels like implementation internal.
 tensorflow.keras.layers.Layer.__new__
 
@@ -113,6 +113,9 @@ tensorflow.train.ServerDef.*
 # from tensorflow import python
 # python.X
 tensorflow.python.*
+
+# The modules below are re-exported from tensorflow.python, and they therefore appear missing to stubtest.
+tensorflow.distribute.Strategy
 
 # sigmoid_cross_entropy_with_logits has default values (None), however those values are not valid.
 tensorflow.nn.sigmoid_cross_entropy_with_logits
