@@ -10,6 +10,7 @@ docutils.nodes.GenericNodeVisitor.__getattr__
 # these methods take a rawsource parameter that has been deprecated and is completely ignored, so we omit it from the stub
 docutils.nodes.Text.__new__
 docutils.parsers.recommonmark_wrapper
+docutils.parsers.rst.directives.misc.MetaBody.__getattr__
 docutils.transforms.Transform.__getattr__
 docutils.transforms.Transformer.__getattr__
 docutils.TransformSpec.unknown_reference_resolvers
