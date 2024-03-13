@@ -12,6 +12,9 @@ docutils.nodes.GenericNodeVisitor.__getattr__
 docutils.nodes.Text.__new__
 docutils.parsers.recommonmark_wrapper
 docutils.parsers.rst.directives.misc.MetaBody.__getattr__
+docutils.statemachine.State.nested_sm  # is initialised in __init__
+docutils.statemachine.State.nested_sm_kwargs  # is initialised in __init__
+docutils.statemachine.ViewList.__iter__ # doesn't exist at runtime, but the class is iterable due to __getitem__
 docutils.transforms.Transform.__getattr__
 docutils.transforms.Transformer.__getattr__
 docutils.TransformSpec.unknown_reference_resolvers
