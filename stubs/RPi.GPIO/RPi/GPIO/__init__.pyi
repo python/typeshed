@@ -17,24 +17,24 @@ RPI_REVISION: int
 HIGH: Literal[1]
 LOW: Literal[0]
 
-OUT: int
-IN: int
-HARD_PWM: int
-SERIAL: int
-I2C: int
-SPI: int
-UNKNOWN: int
+OUT: Final = 0
+IN: Final = 1
+HARD_PWM: Final = 43
+SERIAL: Final = 40
+I2C: Final = 42
+SPI: Final = 41
+UNKNOWN: Final = -1
 
-BOARD: int
-BCM: int
+BOARD: Final = 10
+BCM: Final = 11
 
-PUD_OFF: int
-PUD_UP: int
-PUD_DOWN: int
+PUD_OFF: Final = 20
+PUD_UP: Final = 22
+PUD_DOWN: Final = 21
 
-RISING: int
-FALLING: int
-BOTH: int
+RISING: Final = 31
+FALLING: Final = 32
+BOTH: Final = 33
 
 _EventCallback: TypeAlias = Callable[[int], object]
 
