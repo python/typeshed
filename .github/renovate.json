@@ -40,7 +40,7 @@
       "matchPackageNames": ["pytype", "pyright"],
       "description": "Daily update of pyright and pytype",
       "separateMajorMinor": "false",
-      "schedule": ["daily"]
+      "schedule": ["before 4am"]
     }
   ]
 }
