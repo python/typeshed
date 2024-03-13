@@ -48,11 +48,8 @@ win32com(ext)?.axscript.client.debug
 win32com(ext)?.axscript.client.pydumper
 win32com(ext)?.directsound.test.*
 
-# Deprecated and obsolete
-pythoncom.MakeIID
-pythoncom.MakeTime
-(win32.lib.)?win32pdhquery.Query.addperfcounter
 # Deprecated and makes a buffer of random junk. Use something like `b"\x00" * bufferSize` instead
+# It's safer to not even expose this method as deprecated.
 (win32.)?win(32|xp)gui.PyMakeBuffer
 
 # Axdebug is not built on Python 3.11 anyway: https://github.com/mhammond/pywin32/blob/main/setup.py#L403-L405
@@ -73,6 +70,3 @@ win32com.axdebug.gateways
 win32comext.axdebug.gateways
 # failed to import, ModuleNotFoundError: No module named 'win32comext.axdebug.axdebug'
 win32comext.axdebug.axdebug
-
-# Stubtest doesn't agree with win32.lib.pywintypes.error.__init__ being positional-only
-.+?\.error.__init__
