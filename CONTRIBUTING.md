@@ -729,5 +729,6 @@ We want to maintain a welcoming atmosphere for contributors, so use a friendly
 message when closing the PR. Example message:
 
     Thanks for contributing! I'm closing this PR for now, because it still
-    (fails some tests OR has unresolved review feedback OR has a merge conflict) after three months of inactivity.
-    If you are still interested, please feel free to open a new PR (or ping us to reopen this one).
+    (fails some tests OR has unresolved review feedback OR has a merge conflict)
+    after three months of inactivity. If you are still interested, please feel free to open
+    a new PR (or ping us to reopen this one).
