@@ -65,6 +65,7 @@
         "stubs/Pygments",
         "stubs/PyMySQL",
         "stubs/python-dateutil",
+        "stubs/python-decouple",
         "stubs/python-jose",
         "stubs/pywin32",
         "stubs/pyxdg",
