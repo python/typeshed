@@ -1,0 +1,13 @@
+from _typeshed import Incomplete
+
+from .first_party import FirstPartyCaveatDelegate, FirstPartyCaveatVerifierDelegate
+
+class EncryptedFirstPartyCaveatDelegate(FirstPartyCaveatDelegate):
+    field_encryptor: Incomplete
+    def __init__(self, field_encryptor: Incomplete | None = None, *args, **kwargs) -> None: ...
+    def add_first_party_caveat(self, macaroon, predicate, **kwargs): ...
+
+class EncryptedFirstPartyCaveatVerifierDelegate(FirstPartyCaveatVerifierDelegate):
+    field_encryptors: Incomplete
+    def __init__(self, field_encryptors: Incomplete | None = None, *args, **kwargs) -> None: ...
+    def verify_first_party_caveat(self, verifier, caveat, signature): ...
