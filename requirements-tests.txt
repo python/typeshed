@@ -20,4 +20,4 @@ termcolor>=2.3
 tomli==2.0.1
 tomlkit==0.12.3
 typing_extensions>=4.9.0rc1
-uv
+uv==0.1.18
