@@ -18,6 +18,7 @@ are important to the project's success.
 4. Optionally [format and check your stubs](#code-formatting).
 5. Optionally [run the tests](tests/README.md).
 6. [Submit your changes](#submitting-changes) by opening a pull request.
+7. Make sure that all tests in CI are passing.
 
 You can expect a reply within a few days, but please be patient when
 it takes a bit longer. For more details, read below.
@@ -627,6 +628,13 @@ processed incorrectly by a type checker. It is also helpful to add
 links to online documentation or to the implementation of the code
 you are changing.
 
+As the author of the pull request, it is your responsibility to make
+sure all CI tests pass and that any feedback is addressed. The typeshed
+maintainers will probably provide some help and may even push changes
+to your PR to fix any minor issues, but this is not always possible.
+If a PR lingers with unresolved problems for too long, we may close it
+(see below).
+
 Also, do not squash your commits or use `git commit --amend` after you have submitted a pull request, as this
 erases context during review. We will squash commits when the pull request is merged.
 This way, your pull request will appear as a single commit in our git history, even
@@ -690,3 +698,35 @@ When merging pull requests, follow these guidelines:
   It should be valid Markdown, be comprehensive, read like a changelog entry,
   and assume that the reader has no access to the diff.
 * Delete branches for merged PRs (by maintainers pushing to the main repo).
+
+### Marking PRs as "deferred"
+
+We use the ["deferred" label](https://github.com/python/typeshed/labels/deferred)
+to mark PRs and issues that we'd like to accept, but that are blocked by some
+external factor. Blockers can include:
+
+- An unambiguous bug in a type checker (i.e., a case where the
+  type checker is not implementing [the typing spec](https://typing.readthedocs.io/en/latest/spec/index.html)).
+- A dependency on a typing PEP that is still under consideration.
+- A pending change in a related project, such as stub-uploader.
+
+PRs should only be marked as "deferred" if there is a clear path towards getting
+the blocking issue resolved. If a PR depends on a more amorphous change, such as a type
+system change that has not yet reached the PEP stage, it should instead be closed.
+
+Maintainers who add the "deferred" label should state clearly what exactly the
+blocker is, usually with a link to an open issue in another project.
+
+### Closing stale PRs
+
+To keep the number of open PRs manageable, we may close PRs when they have been
+open for too long. Specifically, we close open PRs that either have failures in CI
+or unaddressed feedback and that have not seen any activity in three months.
+
+We want to maintain a welcoming atmosphere for contributors, so use a friendly
+message when closing the PR. Example message:
+
+    Thanks for your contribution to typeshed! Unfortunately, this PR still
+    has some unresolved problems and has not seen activity for three months.
+    Therefore, I am closing this PR. If you are still interested, feel free to
+    reopen this PR (or make a new one) and make changes.
