@@ -1,5 +1,6 @@
 from collections.abc import Callable, Container, Iterable, Sequence
 from re import Pattern
+from typing import Literal
 
 from docutils.languages import _LanguageModule
 from docutils.nodes import document
