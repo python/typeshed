@@ -1,7 +1,7 @@
+from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import IO, AnyStr, overload
-from _typeshed import Incomplete
 
 __all__ = [
     "Option",
