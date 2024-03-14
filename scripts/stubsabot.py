@@ -473,7 +473,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
 
     relevant_version = obsolete_since.version if obsolete_since else latest_version
 
-    project_urls = pypi_info.info["project_urls"] or {}
+    project_urls: dict[str, str] = pypi_info.info["project_urls"] or {}
     maybe_links: dict[str, str | None] = {
         "Release": f"{pypi_info.pypi_root}/{relevant_version}",
         "Homepage": project_urls.get("Homepage"),
