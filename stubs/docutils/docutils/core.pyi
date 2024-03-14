@@ -38,8 +38,8 @@ class Publisher(Generic[_S]):
     def set_components(self, reader_name: str, parser_name: str, writer_name: str) -> None: ...
     def setup_option_parser(
         self,
-        usage: Any | None = None,
-        description: Any | None = None,
+        usage: str | None = None,
+        description: str | None = None,
         settings_spec: SettingsSpec | None = None,
         config_section: str | None = None,
         **defaults,
