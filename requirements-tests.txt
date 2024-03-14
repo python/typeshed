@@ -20,4 +20,4 @@ termcolor>=2.3
 tomli==2.0.1
 tomlkit==0.12.3
 typing_extensions>=4.9.0rc1
-uv==0.1.18
+uv==0.1.18  # https://github.com/astral-sh/uv/issues/2450
