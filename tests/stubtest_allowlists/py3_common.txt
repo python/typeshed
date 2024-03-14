@@ -25,7 +25,6 @@ asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 builtins.dict.get
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
-collections\.UserList\.index  # ignoring pos-or-keyword parameter
 collections\.UserList\.sort  # Runtime has *args but will error if any are supplied
 configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
 # SectionProxy get functions are set in __init__
