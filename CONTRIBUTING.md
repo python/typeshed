@@ -701,7 +701,7 @@ When merging pull requests, follow these guidelines:
 
 ### Marking PRs as "deferred"
 
-We use the ["deferred" label](https://github.com/python/typeshed/labels/deferred)
+We sometimes use the ["deferred" label](https://github.com/python/typeshed/labels/deferred)
 to mark PRs and issues that we'd like to accept, but that are blocked by some
 external factor. Blockers can include:
 
@@ -711,8 +711,9 @@ external factor. Blockers can include:
 - A pending change in a related project, such as stub-uploader.
 
 PRs should only be marked as "deferred" if there is a clear path towards getting
-the blocking issue resolved. If a PR depends on a more amorphous change, such as a type
-system change that has not yet reached the PEP stage, it should instead be closed.
+the blocking issue resolved within a reasonable time frame. If a PR depends on
+a more amorphous change, such as a type system change that has not yet reached
+the PEP stage, it should instead be closed.
 
 Maintainers who add the "deferred" label should state clearly what exactly the
 blocker is, usually with a link to an open issue in another project.
@@ -720,13 +721,14 @@ blocker is, usually with a link to an open issue in another project.
 ### Closing stale PRs
 
 To keep the number of open PRs manageable, we may close PRs when they have been
-open for too long. Specifically, we close open PRs that either have failures in CI
-or unaddressed feedback and that have not seen any activity in three months.
+open for too long. Specifically, we close open PRs that either have failures in CI,
+serious merge conflicts or unaddressed feedback, and that have not seen any
+activity in three months.
 
 We want to maintain a welcoming atmosphere for contributors, so use a friendly
 message when closing the PR. Example message:
 
     Thanks for your contribution to typeshed! Unfortunately, this PR still
     has some unresolved problems and has not seen activity for three months.
-    Therefore, I am closing this PR. If you are still interested, feel free to
-    reopen this PR (or make a new one) and make changes.
+    Therefore, I am closing this PR. If you are still interested, please feel
+    free to open a new PR (or ping us to reopen this one)
