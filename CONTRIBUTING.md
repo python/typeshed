@@ -633,7 +633,7 @@ sure all CI tests pass and that any feedback is addressed. The typeshed
 maintainers will probably provide some help and may even push changes
 to your PR to fix any minor issues, but this is not always possible.
 If a PR lingers with unresolved problems for too long, we may close it
-(see below).
+([see below](#closing-stale-prs)).
 
 Also, do not squash your commits or use `git commit --amend` after you have submitted a pull request, as this
 erases context during review. We will squash commits when the pull request is merged.
