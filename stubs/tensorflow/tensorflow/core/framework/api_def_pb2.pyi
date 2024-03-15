@@ -6,13 +6,14 @@ overrides for client language op code generators.
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
 import tensorflow.core.framework.attr_value_pb2
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -47,7 +48,7 @@ class ApiDef(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _VisibilityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ApiDef._Visibility.ValueType], builtins.type):  # noqa: F821
+    class _VisibilityEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ApiDef._Visibility.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT_VISIBILITY: ApiDef._Visibility.ValueType  # 0
         """Normally this is "VISIBLE" unless you are inheriting a

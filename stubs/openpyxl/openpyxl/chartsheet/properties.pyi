@@ -1,12 +1,11 @@
-from typing import ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from openpyxl.descriptors.base import Bool, String, Typed, _ConvertibleToBool
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
+from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.styles.colors import Color
 
 class ChartsheetProperties(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     published: Bool[Literal[True]]
     codeName: String[Literal[True]]
     tabColor: Typed[Color, Literal[True]]

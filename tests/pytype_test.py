@@ -15,19 +15,27 @@ will also discover incorrect usage of imported modules.
 from __future__ import annotations
 
 import argparse
+import importlib.metadata
+import inspect
 import os
 import sys
 import traceback
 from collections.abc import Iterable, Sequence
 
-import pkg_resources
+from packaging.requirements import Requirement
 
 from parse_metadata import read_dependencies
 
-assert sys.platform != "win32"
+if sys.platform == "win32":
+    print("pytype does not support Windows.", file=sys.stderr)
+    sys.exit(1)
+if sys.version_info >= (3, 12):
+    print("pytype does not support Python 3.12+ yet.", file=sys.stderr)
+    sys.exit(1)
+
 # pytype is not py.typed https://github.com/google/pytype/issues/1325
-from pytype import config as pytype_config, load_pytd  # type: ignore[import]  # noqa: E402
-from pytype.imports import typeshed  # type: ignore[import]  # noqa: E402
+from pytype import config as pytype_config, load_pytd  # type: ignore[import]
+from pytype.imports import typeshed  # type: ignore[import]
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"
@@ -141,6 +149,20 @@ def find_stubs_in_paths(paths: Sequence[str]) -> list[str]:
     return filenames
 
 
+def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
+    dist = importlib.metadata.distribution(req_name)
+    toplevel_txt_contents = dist.read_text("top_level.txt")
+    if toplevel_txt_contents is None:
+        if dist.files is None:
+            raise RuntimeError("Can't read find the packages associated with requirement {req_name!r}")
+        maybe_modules = [f.parts[0] if len(f.parts) > 1 else inspect.getmodulename(f) for f in dist.files]
+        packages = [name for name in maybe_modules if name is not None and "." not in name]
+    else:
+        packages = toplevel_txt_contents.split()
+    # https://peps.python.org/pep-0561/#stub-only-packages
+    return sorted({package.removesuffix("-stubs") for package in packages})
+
+
 def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
     """Get names of modules that should be treated as missing.
 
@@ -159,15 +181,14 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
         except ValueError:
             continue
         stub_distributions.add(parts[idx + 1])
+
     missing_modules = set()
     for distribution in stub_distributions:
-        for pkg in read_dependencies(distribution).external_pkgs:
-            egg_info = pkg_resources.get_distribution(pkg).egg_info
-            assert isinstance(egg_info, str)
-            # See https://stackoverflow.com/a/54853084
-            top_level_file = os.path.join(egg_info, "top_level.txt")
-            with open(top_level_file) as f:
-                missing_modules.update(f.read().splitlines())
+        for external_req in read_dependencies(distribution).external_pkgs:
+            req_name = Requirement(external_req).name
+            associated_packages = _get_pkgs_associated_with_requirement(req_name)
+            missing_modules.update(associated_packages)
+
     test_dir = os.path.dirname(__file__)
     exclude_list = os.path.join(test_dir, "pytype_exclude_list.txt")
     with open(exclude_list) as f:
@@ -189,7 +210,7 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
     missing_modules = get_missing_modules(files_to_test)
     print("Testing files with pytype...")
     for i, f in enumerate(files_to_test):
-        python_version = "{0.major}.{0.minor}".format(sys.version_info)
+        python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
         if dry_run:
             stderr = None
         else:

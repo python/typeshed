@@ -3,6 +3,8 @@ import datetime
 from pyasn1.type import char
 from pyasn1.type.tag import TagSet
 
+__all__ = ["ObjectDescriptor", "GeneralizedTime", "UTCTime"]
+
 class ObjectDescriptor(char.GraphicString):
     tagSet: TagSet
     typeId: int
@@ -13,6 +15,7 @@ class TimeMixIn:
         def utcoffset(self, dt): ...
         def tzname(self, dt): ...
         def dst(self, dt): ...
+
     UTC: FixedOffset
     @property
     def asDateTime(self): ...

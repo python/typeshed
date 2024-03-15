@@ -1,6 +1,5 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.descriptors.base import Alias, Bool, String, Typed, _ConvertibleToBool
@@ -11,8 +10,8 @@ from openpyxl.drawing.geometry import ShapeStyle
 from openpyxl.drawing.properties import NonVisualDrawingProps
 
 class PictureLocking(Serialisable):
-    tagname: str
-    namespace: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
     noCrop: Bool[Literal[True]]
     noGrp: Bool[Literal[True]]
     noSelect: Bool[Literal[True]]
@@ -43,7 +42,7 @@ class PictureLocking(Serialisable):
     ) -> None: ...
 
 class NonVisualPictureProperties(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     preferRelativeResize: Bool[Literal[True]]
     picLocks: Typed[PictureLocking, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
@@ -53,7 +52,7 @@ class NonVisualPictureProperties(Serialisable):
     ) -> None: ...
 
 class PictureNonVisual(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     cNvPr: Typed[NonVisualDrawingProps, Literal[False]]
     cNvPicPr: Typed[NonVisualPictureProperties, Literal[False]]
     __elements__: ClassVar[tuple[str, ...]]
@@ -62,7 +61,7 @@ class PictureNonVisual(Serialisable):
     ) -> None: ...
 
 class PictureFrame(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     macro: String[Literal[True]]
     fPublished: Bool[Literal[True]]
     nvPicPr: Typed[PictureNonVisual, Literal[False]]

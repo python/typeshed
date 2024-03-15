@@ -4,16 +4,17 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
 import tensorflow.core.framework.tensor_shape_pb2
 import tensorflow.core.framework.tensor_slice_pb2
 import tensorflow.core.framework.types_pb2
 import tensorflow.core.framework.versions_pb2
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -41,7 +42,7 @@ class BundleHeaderProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _EndiannessEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BundleHeaderProto._Endianness.ValueType], builtins.type):  # noqa: F821
+    class _EndiannessEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BundleHeaderProto._Endianness.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         LITTLE: BundleHeaderProto._Endianness.ValueType  # 0
         BIG: BundleHeaderProto._Endianness.ValueType  # 1

@@ -1,58 +1,60 @@
 from _typeshed import Incomplete
-from typing import ClassVar
+from datetime import datetime
+from typing import ClassVar, Literal, overload
 
 from openpyxl.descriptors import DateTime
 from openpyxl.descriptors.base import Alias
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.xml.functions import Element
 
 # Does not reimplement the relevant methods, so runtime also has incompatible supertypes
-class NestedDateTime(DateTime[Incomplete], NestedText):  # type: ignore[misc]
+class NestedDateTime(DateTime[Incomplete], NestedText[Incomplete, Incomplete]):  # type: ignore[misc]
     expected_type: type[Incomplete]
-    def to_tree(
-        self, tagname: Incomplete | None = None, value: Incomplete | None = None, namespace: Incomplete | None = None
-    ): ...
+    @overload  # type: ignore[override]
+    def to_tree(self, tagname: str | None = None, value: None = None, namespace: str | None = None) -> None: ...
+    @overload
+    def to_tree(self, tagname: str, value: datetime, namespace: str | None = None) -> Element: ...
 
 class QualifiedDateTime(NestedDateTime):
-    def to_tree(
-        self, tagname: Incomplete | None = None, value: Incomplete | None = None, namespace: Incomplete | None = None
-    ): ...
+    # value cannot be None or it'll raise
+    def to_tree(self, tagname: str, value: datetime, namespace: str | None = None) -> Element: ...  # type: ignore[override]
 
 class DocumentProperties(Serialisable):
-    tagname: str
-    namespace: Incomplete
-    category: Incomplete
-    contentStatus: Incomplete
-    keywords: Incomplete
-    lastModifiedBy: Incomplete
+    tagname: ClassVar[str]
+    namespace: ClassVar[str]
+    category: NestedText[str, Literal[True]]
+    contentStatus: NestedText[str, Literal[True]]
+    keywords: NestedText[str, Literal[True]]
+    lastModifiedBy: NestedText[str, Literal[True]]
     lastPrinted: Incomplete
-    revision: Incomplete
-    version: Incomplete
+    revision: NestedText[str, Literal[True]]
+    version: NestedText[str, Literal[True]]
     last_modified_by: Alias
-    subject: Incomplete
-    title: Incomplete
-    creator: Incomplete
-    description: Incomplete
-    identifier: Incomplete
-    language: Incomplete
+    subject: NestedText[str, Literal[True]]
+    title: NestedText[str, Literal[True]]
+    creator: NestedText[str, Literal[True]]
+    description: NestedText[str, Literal[True]]
+    identifier: NestedText[str, Literal[True]]
+    language: NestedText[str, Literal[True]]
     created: Incomplete
     modified: Incomplete
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        category: Incomplete | None = None,
-        contentStatus: Incomplete | None = None,
-        keywords: Incomplete | None = None,
-        lastModifiedBy: Incomplete | None = None,
+        category: object = None,
+        contentStatus: object = None,
+        keywords: object = None,
+        lastModifiedBy: object = None,
         lastPrinted: Incomplete | None = None,
-        revision: Incomplete | None = None,
-        version: Incomplete | None = None,
+        revision: object = None,
+        version: object = None,
         created=None,
-        creator: str = "openpyxl",
-        description: Incomplete | None = None,
-        identifier: Incomplete | None = None,
-        language: Incomplete | None = None,
+        creator: object = "openpyxl",
+        description: object = None,
+        identifier: object = None,
+        language: object = None,
         modified=None,
-        subject: Incomplete | None = None,
-        title: Incomplete | None = None,
+        subject: object = None,
+        title: object = None,
     ) -> None: ...

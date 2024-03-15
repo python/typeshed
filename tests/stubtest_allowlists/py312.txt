@@ -1,274 +1,20 @@
-# Uncategorised, from Python 3.12
-_ctypes.SIZEOF_TIME_T
-_thread.daemon_threads_allowed
-argparse.BooleanOptionalAction.__init__
-array.array.__class_getitem__
-asyncio.BaseEventLoop.create_connection
-asyncio.BaseEventLoop.shutdown_default_executor
-asyncio.Handle.get_context
-asyncio.StreamWriter.start_tls
-asyncio.Task.get_context
-asyncio.base_events.BaseEventLoop.create_connection
-asyncio.base_events.BaseEventLoop.shutdown_default_executor
-asyncio.constants.THREAD_JOIN_TIMEOUT
-asyncio.create_eager_task_factory
-asyncio.eager_task_factory
-asyncio.events.Handle.get_context
-asyncio.streams.StreamWriter.start_tls
-asyncio.tasks.Task.get_context
-asyncio.tasks.__all__
-asyncio.tasks.create_eager_task_factory
-asyncio.tasks.eager_task_factory
-collections.UserDict.get
-configparser.ParsingError.__init__
-configparser.RawConfigParser.readfp
-configparser.__all__
-ctypes.c_time_t
-datetime.__all__
-dis.__all__
-dis.hasarg
-dis.hasexc
-dis.hasnargs
-email.utils.localtime
-enum.Enum.__signature__
-enum.EnumMeta.__call__
-enum.EnumType.__call__
-enum.property.member
-ftplib.FTP_TLS.__init__
-genericpath.__all__
-genericpath.islink
-gzip.GzipFile.filename
-http.HTTPStatus.is_client_error
-http.HTTPStatus.is_informational
-http.HTTPStatus.is_redirection
-http.HTTPStatus.is_server_error
-http.HTTPStatus.is_success
-http.client.HTTPConnection.get_proxy_response_headers
-http.client.HTTPSConnection.__init__
-imaplib.IMAP4_SSL.__init__
-imp
-importlib.abc.Finder
-importlib.abc.Loader.module_repr
-importlib.abc.MetaPathFinder.find_module
-importlib.abc.PathEntryFinder.find_loader
-importlib.abc.PathEntryFinder.find_module
-importlib.abc.__all__
-importlib.find_loader
-importlib.machinery.BuiltinImporter.find_module
-importlib.machinery.BuiltinImporter.module_repr
-importlib.machinery.FrozenImporter.find_module
-importlib.machinery.FrozenImporter.module_repr
-importlib.machinery.PathFinder.find_module
-importlib.machinery.WindowsRegistryFinder.find_module
-importlib.metadata.PackageMetadata.get
-importlib.metadata.SelectableGroups
-importlib.metadata._meta.PackageMetadata.get
-importlib.metadata._meta.SimplePath.__truediv__
-importlib.metadata._meta.SimplePath.parent
-importlib.resources.files
-importlib.util.allowing_all_extensions
-importlib.util.module_for_loader
-importlib.util.set_loader
-importlib.util.set_package
-inspect.AGEN_CLOSED
-inspect.AGEN_CREATED
-inspect.AGEN_RUNNING
-inspect.AGEN_SUSPENDED
-inspect.__all__
-inspect.getasyncgenlocals
-inspect.getasyncgenstate
-inspect.markcoroutinefunction
-locale.format
-logging.Logger.getChildren
-logging.__all__
-logging.getHandlerByName
-logging.getHandlerNames
-multiprocessing.connection.deliver_challenge
-multiprocessing.queues.Queue.__class_getitem__
-ntpath.__all__
-ntpath.isjunction
-ntpath.splitroot
-opcode.__all__
-opcode.hasarg
-opcode.hasexc
-opcode.hasnargs
-os.DirEntry.is_junction
-os.path.__all__
-os.path.isjunction
-os.path.splitroot
-pathlib.Path.__init__
-pathlib.PurePath.__init__
-pathlib.PurePath.is_relative_to
-pathlib.PurePath.relative_to
-pdb.Pdb.set_convenience_variable
-pkgutil.ImpImporter
-pkgutil.ImpLoader
-pkgutil.__all__
-poplib.POP3_SSL.__init__
-posixpath.__all__
-posixpath.isjunction
-posixpath.splitroot
-pydoc.HTMLRepr.__init__
-pydoc.TextRepr.__init__
-smtplib.SMTP.starttls
-smtplib.SMTP_SSL.__init__
-sqlite3.Connection.autocommit
-sqlite3.Connection.getconfig
-sqlite3.Connection.setconfig
-sqlite3.LEGACY_TRANSACTION_CONTROL
-sqlite3.SQLITE_DBCONFIG_DEFENSIVE
-sqlite3.SQLITE_DBCONFIG_DQS_DDL
-sqlite3.SQLITE_DBCONFIG_DQS_DML
-sqlite3.SQLITE_DBCONFIG_ENABLE_FKEY
-sqlite3.SQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER
-sqlite3.SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION
-sqlite3.SQLITE_DBCONFIG_ENABLE_QPSG
-sqlite3.SQLITE_DBCONFIG_ENABLE_TRIGGER
-sqlite3.SQLITE_DBCONFIG_ENABLE_VIEW
-sqlite3.SQLITE_DBCONFIG_LEGACY_ALTER_TABLE
-sqlite3.SQLITE_DBCONFIG_LEGACY_FILE_FORMAT
-sqlite3.SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE
-sqlite3.SQLITE_DBCONFIG_RESET_DATABASE
-sqlite3.SQLITE_DBCONFIG_TRIGGER_EQP
-sqlite3.SQLITE_DBCONFIG_TRUSTED_SCHEMA
-sqlite3.SQLITE_DBCONFIG_WRITABLE_SCHEMA
-sqlite3.dbapi2.Connection.autocommit
-sqlite3.dbapi2.Connection.getconfig
-sqlite3.dbapi2.Connection.setconfig
-sqlite3.dbapi2.LEGACY_TRANSACTION_CONTROL
-sqlite3.dbapi2.SQLITE_DBCONFIG_DEFENSIVE
-sqlite3.dbapi2.SQLITE_DBCONFIG_DQS_DDL
-sqlite3.dbapi2.SQLITE_DBCONFIG_DQS_DML
-sqlite3.dbapi2.SQLITE_DBCONFIG_ENABLE_FKEY
-sqlite3.dbapi2.SQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER
-sqlite3.dbapi2.SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION
-sqlite3.dbapi2.SQLITE_DBCONFIG_ENABLE_QPSG
-sqlite3.dbapi2.SQLITE_DBCONFIG_ENABLE_TRIGGER
-sqlite3.dbapi2.SQLITE_DBCONFIG_ENABLE_VIEW
-sqlite3.dbapi2.SQLITE_DBCONFIG_LEGACY_ALTER_TABLE
-sqlite3.dbapi2.SQLITE_DBCONFIG_LEGACY_FILE_FORMAT
-sqlite3.dbapi2.SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE
-sqlite3.dbapi2.SQLITE_DBCONFIG_RESET_DATABASE
-sqlite3.dbapi2.SQLITE_DBCONFIG_TRIGGER_EQP
-sqlite3.dbapi2.SQLITE_DBCONFIG_TRUSTED_SCHEMA
-sqlite3.dbapi2.SQLITE_DBCONFIG_WRITABLE_SCHEMA
-sqlite3.dbapi2.enable_shared_cache
-sqlite3.enable_shared_cache
-sre_parse.Tokenizer.checkgroupname
-sre_parse.expand_template
-sre_parse.parse_template
-ssl.OP_LEGACY_SERVER_CONNECT
-ssl.Options.OP_LEGACY_SERVER_CONNECT
-ssl.RAND_pseudo_bytes
-ssl.wrap_socket
-tarfile.AbsoluteLinkError
-tarfile.AbsolutePathError
-tarfile.FilterError
-tarfile.LinkOutsideDestinationError
-tarfile.OutsideDestinationError
-tarfile.SpecialFileError
-tarfile.TarFile.extract
-tarfile.TarFile.extractall
-tarfile.TarFile.extraction_filter
-tarfile.TarInfo.replace
-tarfile.__all__
-tarfile.data_filter
-tarfile.fully_trusted_filter
-tarfile.tar_filter
-token.EXCLAMATION
-token.FSTRING_END
-token.FSTRING_MIDDLE
-token.FSTRING_START
-token.__all__
-tokenize.EXCLAMATION
-tokenize.FSTRING_END
-tokenize.FSTRING_MIDDLE
-tokenize.FSTRING_START
-tokenize.__all__
-turtle.RawTurtle.teleport
-turtle.TNavigator.teleport
-turtle.TPen.teleport
-turtle.__all__
-turtle.teleport
-types.AsyncGeneratorType.ag_suspended
-typing.ParamSpec.__mro_entries__
-typing.ParamSpecArgs.__mro_entries__
-typing.ParamSpecKwargs.__mro_entries__
-typing.SupportsAbs.__type_params__
-typing.SupportsRound.__type_params__
-typing.TypeVar.__mro_entries__
-typing.TypeVarTuple.__mro_entries__
-typing._ProtocolMeta.__init__
-typing.__all__
-typing.override
-typing_extensions.Protocol
-typing_extensions.SupportsAbs.__type_params__
-typing_extensions.SupportsRound.__type_params__
-unittest.TestLoader.loadTestsFromModule
-unittest.TestProgram.__init__
-unittest.TestResult.addDuration
-unittest.TextTestResult.__init__
-unittest.TextTestRunner.__init__
-unittest.load_tests
-unittest.loader.TestLoader.loadTestsFromModule
-unittest.main.TestProgram.__init__
-unittest.mock.NonCallableMock.__new__
-unittest.result.TestResult.addDuration
-unittest.runner.TextTestResult.__init__
-unittest.runner.TextTestRunner.__init__
-urllib.request.AbstractHTTPHandler.__init__
-urllib.request.HTTPSHandler.__init__
-uuid.main
-webbrowser.Galeon
-webbrowser.Grail
-zipfile.Path.glob
-zipfile.Path.is_symlink
-zipfile.Path.match
-zipfile.Path.relative_to
-zipfile.Path.rglob
-zoneinfo.ZoneInfo.from_file
-
-array.array.__release_buffer__
-builtins.bytearray.__release_buffer__
-builtins.memoryview.__release_buffer__
-mmap.mmap.__release_buffer__
-pickle.PickleBuffer.__release_buffer__
+# Modules that exist at runtime, but are missing from typeshed
+zipfile._path.glob
 
 # Errors that also existed on Python 3.11
-_collections_abc.AsyncGenerator.ag_await
-_collections_abc.AsyncGenerator.ag_code
-_collections_abc.AsyncGenerator.ag_frame
-_collections_abc.AsyncGenerator.ag_running
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__
 _collections_abc.Container.__class_getitem__
-_collections_abc.ItemsView.__reversed__
 _collections_abc.Iterable.__class_getitem__
-_collections_abc.KeysView.__reversed__
 _collections_abc.MappingView.__class_getitem__
-_collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
 configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
-ftplib.FTP.trust_server_pasv_ipv4_address
-ipaddress._BaseNetwork.broadcast_address
-ipaddress._BaseNetwork.hostmask
-ipaddress.IPv4Interface.hostmask
-ipaddress.IPv6Interface.hostmask
-multiprocessing.managers.SharedMemoryServer.create
-multiprocessing.managers.SharedMemoryServer.list_segments
-multiprocessing.managers.SharedMemoryServer.public
-multiprocessing.managers.SharedMemoryServer.release_segment
-multiprocessing.managers.SharedMemoryServer.shutdown
-multiprocessing.managers.SharedMemoryServer.track_segment
-multiprocessing.spawn._main
-queue.SimpleQueue.__init__
-sys.UnraisableHookArgs  # Not exported from sys
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 tkinter._VersionInfoType.__doc__
-typing.NewType.__call__
 typing.NewType.__mro_entries__
-weakref.WeakValueDictionary.update
+builtins.ellipsis  # type is not exposed anywhere
 
 # ==========
 # Related to positional-only arguments
@@ -281,14 +27,14 @@ _collections_abc.MutableMapping.setdefault
 
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
-typing.BinaryIO.write
-typing.IO.read
-typing.IO.readline
-typing.IO.readlines
-typing.IO.seek
-typing.IO.truncate
-typing.IO.write
-typing.IO.writelines
+typing(_extensions)?\.BinaryIO\.write
+typing(_extensions)?\.IO\.read
+typing(_extensions)?\.IO\.readline
+typing(_extensions)?\.IO\.readlines
+typing(_extensions)?\.IO\.seek
+typing(_extensions)?\.IO\.truncate
+typing(_extensions)?\.IO\.write
+typing(_extensions)?\.IO\.writelines
 
 # positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
 _collections_abc.Coroutine.send
@@ -304,6 +50,9 @@ posixpath.join
 ntpath.join
 os.path.join
 
+# Pos-only parameters had different "names" in different Python versions:
+zoneinfo.ZoneInfo.from_file
+
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
@@ -313,40 +62,29 @@ _collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in 
 _weakref.ProxyType.__reversed__  # Doesn't really exist
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 ast.ImportFrom.level  # None on the class, but never None on instances
-asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
-asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 builtins.property.__set_name__  # Doesn't actually exist
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
 dataclasses.KW_ONLY  # white lies around defaults
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
-fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
-functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
-hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
 inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
-pickle.Pickler.reducer_override  # implemented in C pickler
-types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
+sys._monitoring  # Doesn't really exist. See comments in the stub.
 weakref.ProxyType.__reversed__  # Doesn't really exist
+importlib.metadata._meta.SimplePath.joinpath  # Incorrect runtime definition
+
+# sys attributes that are not always defined
+sys.last_exc
 
 # C signature is broader than what is actually accepted
-ast.Bytes.__new__
-ast.Ellipsis.__new__
 ast.ExtSlice.__new__
 ast.Index.__new__
-ast.NameConstant.__new__
-ast.Num.__new__
-ast.Str.__new__
-asyncio.futures.Future.__init__
-asyncio.Future.__init__
 contextvars.Context.__init__
-queue.SimpleQueue.__init__
-xml.etree.ElementTree.XMLParser.__init__
-xml.etree.cElementTree.XMLParser.__init__
 
 # Treated an alias of a typing class in the stubs,
 # they are generic to type checkers anyway.
@@ -362,19 +100,29 @@ platform.uname_result.processor
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
+# Problematic protocol signature at runtime, see source code comments.
+importlib.abc.Traversable.open
+importlib.resources.abc.Traversable.open
+
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedNonAbstract.__new__
+
 # Super-special typing primitives
 typing\._SpecialForm.*
-typing._TypedDict.__delitem__
-typing._TypedDict.__ior__
-typing._TypedDict.__or__
-typing._TypedDict.copy
-typing._TypedDict.items
-typing._TypedDict.keys
-typing._TypedDict.pop
-typing._TypedDict.setdefault
-typing._TypedDict.update
-typing._TypedDict.values
-typing_extensions\.Final
 typing\.NamedTuple
 typing\.LiteralString
 typing\.Annotated
+
+# These only exist to give a better error message if you try to subclass an instance
+typing.ParamSpec.__mro_entries__
+typing.ParamSpecArgs.__mro_entries__
+typing.ParamSpecKwargs.__mro_entries__
+typing.TypeVar.__mro_entries__
+typing.TypeVarTuple.__mro_entries__
+
+# TODO: mypy should infer that this attribute is inherited from builtins.type;
+# why doesn't it infer this?
+typing.SupportsAbs.__type_params__
+typing.SupportsRound.__type_params__
+typing_extensions.SupportsAbs.__type_params__
+typing_extensions.SupportsRound.__type_params__

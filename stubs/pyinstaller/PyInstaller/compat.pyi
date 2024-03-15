@@ -2,20 +2,21 @@
 from _typeshed import FileDescriptorOrPath, GenericPath
 from collections.abc import Iterable
 from types import ModuleType
-from typing import AnyStr, overload
-from typing_extensions import Final, Literal
+from typing import AnyStr, Final, Literal, overload
 
 strict_collect_mode: bool
 is_64bits: Final[bool]
 is_py35: Final = True
 is_py36: Final = True
-is_py37: Final[bool]
-is_py38: Final[bool]
+is_py37: Final = True
+is_py38: Final = True
 is_py39: Final[bool]
 is_py310: Final[bool]
 is_py311: Final[bool]
+is_py312: Final[bool]
 is_win: Final[bool]
 is_win_10: Final[bool]
+is_win_11: Final[bool]
 is_win_wine: Final[bool]
 is_cygwin: Final[bool]
 is_darwin: Final[bool]
@@ -44,7 +45,9 @@ ALL_SUFFIXES: Final[list[str]]
 
 architecture: Final[Literal["64bit", "n32bit", "32bit"]]
 system: Final[Literal["Cygwin", "Linux", "Darwin", "Java", "Windows"]]
-machine: Final[Literal["sw_64", "loongarch64", "arm", "intel", "ppc", "mips", "riscv", "s390x", "unknown", None]]
+machine: Final[
+    Literal["AMD64", "x86", "ARM64", "sw_64", "loongarch64", "arm", "intel", "ppc", "mips", "riscv", "s390x", "unknown"] | None
+]
 
 def is_wine_dll(filename: FileDescriptorOrPath) -> bool: ...
 @overload
@@ -57,9 +60,6 @@ def exec_command(
     *cmdargs: str, encoding: str | None = None, raise_enoent: bool | None = None, **kwargs: int | bool | Iterable[int] | None
 ) -> str: ...
 def exec_command_rc(*cmdargs: str, **kwargs: float | bool | Iterable[int] | None) -> int: ...
-def exec_command_stdout(
-    *command_args: str, encoding: str | None = None, **kwargs: float | str | bytes | bool | Iterable[int] | None
-) -> str: ...
 def exec_command_all(
     *cmdargs: str, encoding: str | None = None, **kwargs: int | bool | Iterable[int] | None
 ) -> tuple[int, str, str]: ...

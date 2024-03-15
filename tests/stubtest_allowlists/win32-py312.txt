@@ -1,25 +1,4 @@
-_winapi.CreateFileMapping
-_winapi.MapViewOfFile
-_winapi.NeedCurrentDirectoryForExePath
-_winapi.OpenFileMapping
-_winapi.VirtualQuerySize
+# Undocumented internal method, not really for public consumption.
+# (Hard to add types for unless we add stubs for the undocumented _overlapped module...)
 asyncio.IocpProactor.finish_socket_func
-asyncio.IocpProactor.recvfrom
-asyncio.IocpProactor.recvfrom_into
-asyncio.IocpProactor.sendto
 asyncio.windows_events.IocpProactor.finish_socket_func
-asyncio.windows_events.IocpProactor.recvfrom
-asyncio.windows_events.IocpProactor.recvfrom_into
-asyncio.windows_events.IocpProactor.sendto
-msvcrt.GetErrorMode
-ntpath.isdir
-os.EX_OK
-os.get_blocking
-os.listdrives
-os.listmounts
-os.listvolumes
-os.path.isdir
-os.set_blocking
-os.stat_result.st_birthtime
-os.stat_result.st_birthtime_ns
-subprocess.STARTUPINFO.copy

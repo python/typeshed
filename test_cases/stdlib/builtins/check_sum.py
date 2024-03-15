@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, List, Union
-from typing_extensions import Literal, assert_type
+from typing import Any, List, Literal, Union
+from typing_extensions import assert_type
 
 
 class Foo:

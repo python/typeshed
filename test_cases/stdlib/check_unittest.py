@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import unittest
+from collections.abc import Iterator, Mapping
 from datetime import datetime, timedelta
 from decimal import Decimal
 from fractions import Fraction
+from typing import TypedDict
+from typing_extensions import assert_type
+from unittest.mock import MagicMock, Mock, patch
 
 case = unittest.TestCase()
 
@@ -86,3 +90,84 @@ case.assertGreater(datetime(1999, 1, 2), 1)  # type: ignore
 case.assertGreater(Spam(), Eggs())  # type: ignore
 case.assertGreater(Ham(), Bacon())  # type: ignore
 case.assertGreater(Bacon(), Ham())  # type: ignore
+
+
+###
+# Tests for assertDictEqual
+###
+
+
+class TD1(TypedDict):
+    x: int
+    y: str
+
+
+class TD2(TypedDict):
+    a: bool
+    b: bool
+
+
+class MyMapping(Mapping[str, int]):
+    def __getitem__(self, __key: str) -> int:
+        return 42
+
+    def __iter__(self) -> Iterator[str]:
+        return iter([])
+
+    def __len__(self) -> int:
+        return 0
+
+
+td1: TD1 = {"x": 1, "y": "foo"}
+td2: TD2 = {"a": True, "b": False}
+m = MyMapping()
+
+case.assertDictEqual({}, {})
+case.assertDictEqual({"x": 1, "y": 2}, {"x": 1, "y": 2})
+case.assertDictEqual({"x": 1, "y": "foo"}, {"y": "foo", "x": 1})
+case.assertDictEqual({"x": 1}, {})
+case.assertDictEqual({}, {"x": 1})
+case.assertDictEqual({1: "x"}, {"y": 222})
+case.assertDictEqual({1: "x"}, td1)
+case.assertDictEqual(td1, {1: "x"})
+case.assertDictEqual(td1, td2)
+
+case.assertDictEqual(1, {})  # type: ignore
+case.assertDictEqual({}, 1)  # type: ignore
+
+# These should fail, but don't due to TypedDict limitations:
+# case.assertDictEqual(m, {"": 0})  # xtype: ignore
+# case.assertDictEqual({"": 0}, m)  # xtype: ignore
+
+###
+# Tests for mock.patch
+###
+
+
+@patch("sys.exit")
+def f_default_new(i: int, mock: MagicMock) -> str:
+    return "asdf"
+
+
+@patch("sys.exit", new=42)
+def f_explicit_new(i: int) -> str:
+    return "asdf"
+
+
+assert_type(f_default_new(1), str)
+f_default_new("a")  # Not an error due to ParamSpec limitations
+assert_type(f_explicit_new(1), str)
+f_explicit_new("a")  # type: ignore[arg-type]
+
+
+@patch("sys.exit", new=Mock())
+class TestXYZ(unittest.TestCase):
+    attr: int = 5
+
+    @staticmethod
+    def method() -> int:
+        return 123
+
+
+assert_type(TestXYZ.attr, int)
+assert_type(TestXYZ.method(), int)

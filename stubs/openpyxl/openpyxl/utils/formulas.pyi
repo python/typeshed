@@ -1,3 +1,5 @@
-from _typeshed import Incomplete
+from typing import Final
 
-FORMULAE: Incomplete
+FORMULAE: Final[frozenset[str]]
+
+def validate(formula: str) -> None: ...

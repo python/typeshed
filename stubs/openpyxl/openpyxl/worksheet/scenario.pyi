@@ -1,21 +1,12 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar, overload
-from typing_extensions import Literal
+from _typeshed import ConvertibleToInt, Incomplete, Unused
+from typing import ClassVar, Literal, overload
 
-from openpyxl.descriptors.base import (
-    Bool,
-    Convertible,
-    Integer,
-    String,
-    _ConvertibleToBool,
-    _ConvertibleToInt,
-    _ConvertibleToMultiCellRange,
-)
+from openpyxl.descriptors.base import Bool, Convertible, Integer, String, _ConvertibleToBool, _ConvertibleToMultiCellRange
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.worksheet.cell_range import MultiCellRange
 
 class InputCells(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     r: String[Literal[False]]
     deleted: Bool[Literal[True]]
     undone: Bool[Literal[True]]
@@ -30,7 +21,7 @@ class InputCells(Serialisable):
         undone: _ConvertibleToBool | None = False,
         *,
         val: str,
-        numFmtId: _ConvertibleToInt | None = None,
+        numFmtId: ConvertibleToInt | None = None,
     ) -> None: ...
     @overload
     def __init__(
@@ -39,11 +30,11 @@ class InputCells(Serialisable):
         deleted: _ConvertibleToBool | None,
         undone: _ConvertibleToBool | None,
         val: str,
-        numFmtId: _ConvertibleToInt | None = None,
+        numFmtId: ConvertibleToInt | None = None,
     ) -> None: ...
 
 class Scenario(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     inputCells: Incomplete
     name: String[Literal[False]]
     locked: Bool[Literal[True]]
@@ -76,10 +67,10 @@ class Scenario(Serialisable):
         comment: str | None = None,
     ) -> None: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...
 
 class ScenarioList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     scenario: Incomplete
     current: Integer[Literal[True]]
     show: Integer[Literal[True]]
@@ -88,8 +79,8 @@ class ScenarioList(Serialisable):
     def __init__(
         self,
         scenario=(),
-        current: _ConvertibleToInt | None = None,
-        show: _ConvertibleToInt | None = None,
+        current: ConvertibleToInt | None = None,
+        show: ConvertibleToInt | None = None,
         sqref: _ConvertibleToMultiCellRange | None = None,
     ) -> None: ...
     def append(self, scenario) -> None: ...

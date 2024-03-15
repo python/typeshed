@@ -1,42 +1,40 @@
-_collections_abc.AsyncGenerator.ag_await
-_collections_abc.AsyncGenerator.ag_code
-_collections_abc.AsyncGenerator.ag_frame
-_collections_abc.AsyncGenerator.ag_running
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__
 _collections_abc.Container.__class_getitem__
-_collections_abc.ItemsView.__reversed__
 _collections_abc.Iterable.__class_getitem__
-_collections_abc.KeysView.__reversed__
 _collections_abc.MappingView.__class_getitem__
-_collections_abc.ValuesView.__reversed__
 _csv.Reader
 _csv.Writer
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 configparser.LegacyInterpolation.__init__
 configparser.ParsingError.filename
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
 enum.Enum.__init__
 enum.Enum._generate_next_value_
-ftplib.FTP.trust_server_pasv_ipv4_address
+# Not strictly speaking a staticmethod on 3.11, but it acts like one:
+enum.StrEnum._generate_next_value_
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.Finder.find_module
-ipaddress._BaseNetwork.broadcast_address
-ipaddress._BaseNetwork.hostmask
-ipaddress.IPv4Interface.hostmask
-ipaddress.IPv6Interface.hostmask
-multiprocessing.managers.SharedMemoryServer.create
-multiprocessing.managers.SharedMemoryServer.list_segments
-multiprocessing.managers.SharedMemoryServer.public
-multiprocessing.managers.SharedMemoryServer.release_segment
-multiprocessing.managers.SharedMemoryServer.shutdown
-multiprocessing.managers.SharedMemoryServer.track_segment
-multiprocessing.spawn._main
-queue.SimpleQueue.__init__
-sys.UnraisableHookArgs  # Not exported from sys
 tkinter._VersionInfoType.__doc__
-typing_extensions\.get_original_bases
-typing.NewType.__call__
 typing.NewType.__mro_entries__
-weakref.WeakValueDictionary.update
+builtins.ellipsis  # type is not exposed anywhere
+
+xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+
+# Runtime definition of protocol is incorrect
+importlib.metadata._meta.SimplePath.__truediv__
+importlib.metadata._meta.SimplePath.joinpath
+
+# Modules that exist at runtime, but shouldn't be added to typeshed
+ctypes.test
+ctypes\.test\..+
+lib2to3.tests
+lib2to3\.tests\..+
+tkinter.test
+tkinter\.test\..+
+unittest.test
+unittest\.test\..+
 
 # ==========
 # Related to positional-only arguments
@@ -49,14 +47,14 @@ _collections_abc.MutableMapping.setdefault
 
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
-typing.BinaryIO.write
-typing.IO.read
-typing.IO.readline
-typing.IO.readlines
-typing.IO.seek
-typing.IO.truncate
-typing.IO.write
-typing.IO.writelines
+typing(_extensions)?\.BinaryIO\.write
+typing(_extensions)?\.IO\.read
+typing(_extensions)?\.IO\.readline
+typing(_extensions)?\.IO\.readlines
+typing(_extensions)?\.IO\.seek
+typing(_extensions)?\.IO\.truncate
+typing(_extensions)?\.IO\.write
+typing(_extensions)?\.IO\.writelines
 
 # positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
 _collections_abc.Coroutine.send
@@ -81,40 +79,24 @@ _collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in 
 _weakref.ProxyType.__reversed__  # Doesn't really exist
 ast.ImportFrom.level  # None on the class, but never None on instances
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
-asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
-asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 builtins.property.__set_name__  # Doesn't actually exist
 dataclasses.KW_ONLY  # white lies around defaults
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
-fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
-functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
-hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
 inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
-pickle.Pickler.reducer_override  # implemented in C pickler
-types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
+poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
 
 # C signature is broader than what is actually accepted
-ast.Bytes.__new__
-ast.Ellipsis.__new__
 ast.ExtSlice.__new__
 ast.Index.__new__
-ast.NameConstant.__new__
-ast.Num.__new__
-ast.Str.__new__
-asyncio.futures.Future.__init__
-asyncio.Future.__init__
 contextvars.Context.__init__
-queue.SimpleQueue.__init__
-xml.etree.ElementTree.XMLParser.__init__
-xml.etree.cElementTree.XMLParser.__init__
 
 # Treated an alias of a typing class in the stubs,
 # they are generic to type checkers anyway.
@@ -130,19 +112,16 @@ platform.uname_result.processor
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
+# Problematic protocol signature at runtime, see source code comments.
+importlib.abc.Traversable.open
+importlib.resources.abc.Traversable.open
+
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedList.reverse
+importlib.metadata.DeprecatedList.sort
+
 # Super-special typing primitives
 typing\._SpecialForm.*
-typing._TypedDict.__delitem__
-typing._TypedDict.__ior__
-typing._TypedDict.__or__
-typing._TypedDict.copy
-typing._TypedDict.items
-typing._TypedDict.keys
-typing._TypedDict.pop
-typing._TypedDict.setdefault
-typing._TypedDict.update
-typing._TypedDict.values
-typing_extensions\.Final
 typing\.NamedTuple
 typing\.LiteralString
 typing\.Annotated

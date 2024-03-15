@@ -15,5 +15,3 @@ stubs/pika/pika/adapters/twisted_connection.pyi
 
 # pytype.pytd.visitors.ContainerError: Conflicting values for TypeVar
 stubs/openpyxl/openpyxl/descriptors/nested.pyi
-stubs/SQLAlchemy/sqlalchemy/engine/row.pyi
-stubs/SQLAlchemy/sqlalchemy/sql/annotation.pyi

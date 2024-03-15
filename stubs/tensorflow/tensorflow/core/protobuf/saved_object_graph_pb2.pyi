@@ -4,19 +4,20 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.any_pb2
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
 import tensorflow.core.framework.tensor_shape_pb2
 import tensorflow.core.framework.types_pb2
 import tensorflow.core.framework.variable_pb2
 import tensorflow.core.framework.versions_pb2
 import tensorflow.core.protobuf.struct_pb2
 import tensorflow.core.protobuf.trackable_object_graph_pb2
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -472,7 +473,7 @@ class FunctionSpec(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _JitCompileEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FunctionSpec._JitCompile.ValueType], builtins.type):  # noqa: F821
+    class _JitCompileEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FunctionSpec._JitCompile.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT: FunctionSpec._JitCompile.ValueType  # 0
         ON: FunctionSpec._JitCompile.ValueType  # 1

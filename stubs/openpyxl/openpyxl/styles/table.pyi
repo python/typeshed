@@ -1,8 +1,8 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from _typeshed import ConvertibleToInt, Incomplete, Unused
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
-from openpyxl.descriptors.base import Bool, Integer, Set, String, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Bool, Integer, Set, String, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
 
 _TableStyleElementType: TypeAlias = Literal[
@@ -37,16 +37,16 @@ _TableStyleElementType: TypeAlias = Literal[
 ]
 
 class TableStyleElement(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     type: Set[_TableStyleElementType]
     size: Integer[Literal[True]]
     dxfId: Integer[Literal[True]]
     def __init__(
-        self, type: _TableStyleElementType, size: _ConvertibleToInt | None = None, dxfId: _ConvertibleToInt | None = None
+        self, type: _TableStyleElementType, size: ConvertibleToInt | None = None, dxfId: ConvertibleToInt | None = None
     ) -> None: ...
 
 class TableStyle(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     name: String[Literal[False]]
     pivot: Bool[Literal[True]]
     table: Bool[Literal[True]]
@@ -58,12 +58,12 @@ class TableStyle(Serialisable):
         name: str,
         pivot: _ConvertibleToBool | None = None,
         table: _ConvertibleToBool | None = None,
-        count: _ConvertibleToInt | None = None,
+        count: ConvertibleToInt | None = None,
         tableStyleElement=(),
     ) -> None: ...
 
 class TableStyleList(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     defaultTableStyle: String[Literal[True]]
     defaultPivotStyle: String[Literal[True]]
     tableStyle: Incomplete
@@ -77,4 +77,4 @@ class TableStyleList(Serialisable):
         tableStyle=(),
     ) -> None: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...

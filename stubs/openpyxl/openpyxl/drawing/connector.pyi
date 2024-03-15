@@ -1,10 +1,10 @@
-from typing import ClassVar, overload
-from typing_extensions import Literal
+from _typeshed import ConvertibleToInt
+from typing import ClassVar, Literal, overload
 
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText
 from openpyxl.descriptors import Typed
-from openpyxl.descriptors.base import Alias, Bool, Integer, String, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Alias, Bool, Integer, String, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.geometry import ShapeStyle
@@ -13,7 +13,7 @@ from openpyxl.drawing.properties import NonVisualDrawingProps, NonVisualDrawingS
 class Connection(Serialisable):
     id: Integer[Literal[False]]
     idx: Integer[Literal[False]]
-    def __init__(self, id: _ConvertibleToInt, idx: _ConvertibleToInt) -> None: ...
+    def __init__(self, id: ConvertibleToInt, idx: ConvertibleToInt) -> None: ...
 
 class ConnectorLocking(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
@@ -39,7 +39,7 @@ class ConnectorNonVisual(Serialisable):
     def __init__(self, cNvPr: NonVisualDrawingProps, cNvCxnSpPr: NonVisualConnectorProperties) -> None: ...
 
 class ConnectorShape(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     nvCxnSpPr: Typed[ConnectorNonVisual, Literal[False]]
     spPr: Typed[GraphicalProperties, Literal[False]]
     style: Typed[ShapeStyle, Literal[True]]
@@ -55,7 +55,7 @@ class ConnectorShape(Serialisable):
     ) -> None: ...
 
 class ShapeMeta(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     cNvPr: Typed[NonVisualDrawingProps, Literal[False]]
     cNvSpPr: Typed[NonVisualDrawingShapeProps, Literal[False]]
     def __init__(self, cNvPr: NonVisualDrawingProps, cNvSpPr: NonVisualDrawingShapeProps) -> None: ...

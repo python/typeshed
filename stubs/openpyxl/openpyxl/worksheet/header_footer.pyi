@@ -1,24 +1,28 @@
-from _typeshed import Incomplete
-from typing import ClassVar
-from typing_extensions import Literal
+from _typeshed import ConvertibleToInt
+from re import Pattern
+from typing import ClassVar, Final, Literal
+from typing_extensions import Self
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import Alias, Bool, Integer, MatchPattern, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Alias, Bool, Integer, MatchPattern, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.xml.functions import Element
 
-FONT_PATTERN: str
-COLOR_PATTERN: str
-SIZE_REGEX: str
-FORMAT_REGEX: Incomplete
+from ..xml._functions_overloads import _HasText
+
+FONT_PATTERN: Final = '&"(?P<font>.+)"'
+COLOR_PATTERN: Final = "&K(?P<color>[A-F0-9]{6})"
+SIZE_REGEX: Final = r"&(?P<size>\d+\s?)"
+FORMAT_REGEX: Final[Pattern[str]]
 
 class _HeaderFooterPart(Strict):
     text: String[Literal[True]]
     font: String[Literal[True]]
     size: Integer[Literal[True]]
-    RGB: str
+    RGB: ClassVar[str]
     color: MatchPattern[str, Literal[True]]
     def __init__(
-        self, text: str | None = None, font: str | None = None, size: _ConvertibleToInt | None = None, color: str | None = None
+        self, text: str | None = None, font: str | None = None, size: ConvertibleToInt | None = None, color: str | None = None
     ) -> None: ...
     def __bool__(self) -> bool: ...
     @classmethod
@@ -36,12 +40,12 @@ class HeaderFooterItem(Strict):
         center: _HeaderFooterPart | None = None,
     ) -> None: ...
     def __bool__(self) -> bool: ...
-    def to_tree(self, tagname): ...
+    def to_tree(self, tagname: str) -> Element: ...
     @classmethod
-    def from_tree(cls, node): ...
+    def from_tree(cls, node: _HasText) -> Self: ...
 
 class HeaderFooter(Serialisable):
-    tagname: str
+    tagname: ClassVar[str]
     differentOddEven: Bool[Literal[True]]
     differentFirst: Bool[Literal[True]]
     scaleWithDoc: Bool[Literal[True]]

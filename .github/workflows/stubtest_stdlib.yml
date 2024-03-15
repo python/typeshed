@@ -32,17 +32,19 @@ jobs:
       matrix:
         # tkinter doesn't import on macOS 12
         os: ["ubuntu-latest", "windows-latest", "macos-11"]
-        python-version: ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12-dev"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }} on ${{ matrix.os }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: requirements-tests.txt
+          allow-prereleases: true
+          check-latest: true
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
       - name: Run stubtest

@@ -4,13 +4,14 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
 import tensorflow.core.framework.summary_pb2
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -86,6 +87,7 @@ class Event(google.protobuf.message.Message):
     SESSION_LOG_FIELD_NUMBER: builtins.int
     TAGGED_RUN_METADATA_FIELD_NUMBER: builtins.int
     META_GRAPH_DEF_FIELD_NUMBER: builtins.int
+    SOURCE_METADATA_FIELD_NUMBER: builtins.int
     wall_time: builtins.float
     """Timestamp of the event."""
     step: builtins.int
@@ -115,6 +117,11 @@ class Event(google.protobuf.message.Message):
         """The metadata returned by running a session.run() call."""
     meta_graph_def: builtins.bytes
     """An encoded version of a MetaGraphDef."""
+    @property
+    def source_metadata(self) -> global___SourceMetadata:
+        """Information of the source that writes the events, this is only logged in
+        the very first event along with the `file_version` field.
+        """
     def __init__(
         self,
         *,
@@ -127,12 +134,33 @@ class Event(google.protobuf.message.Message):
         session_log: global___SessionLog | None = ...,
         tagged_run_metadata: global___TaggedRunMetadata | None = ...,
         meta_graph_def: builtins.bytes | None = ...,
+        source_metadata: global___SourceMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["file_version", b"file_version", "graph_def", b"graph_def", "log_message", b"log_message", "meta_graph_def", b"meta_graph_def", "session_log", b"session_log", "summary", b"summary", "tagged_run_metadata", b"tagged_run_metadata", "what", b"what"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["file_version", b"file_version", "graph_def", b"graph_def", "log_message", b"log_message", "meta_graph_def", b"meta_graph_def", "session_log", b"session_log", "step", b"step", "summary", b"summary", "tagged_run_metadata", b"tagged_run_metadata", "wall_time", b"wall_time", "what", b"what"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["file_version", b"file_version", "graph_def", b"graph_def", "log_message", b"log_message", "meta_graph_def", b"meta_graph_def", "session_log", b"session_log", "source_metadata", b"source_metadata", "summary", b"summary", "tagged_run_metadata", b"tagged_run_metadata", "what", b"what"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["file_version", b"file_version", "graph_def", b"graph_def", "log_message", b"log_message", "meta_graph_def", b"meta_graph_def", "session_log", b"session_log", "source_metadata", b"source_metadata", "step", b"step", "summary", b"summary", "tagged_run_metadata", b"tagged_run_metadata", "wall_time", b"wall_time", "what", b"what"]) -> None: ...
     def WhichOneof(self, oneof_group: typing_extensions.Literal["what", b"what"]) -> typing_extensions.Literal["file_version", "graph_def", "summary", "log_message", "session_log", "tagged_run_metadata", "meta_graph_def"] | None: ...
 
 global___Event = Event
+
+@typing_extensions.final
+class SourceMetadata(google.protobuf.message.Message):
+    """Holds the information of the source that writes the events."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    WRITER_FIELD_NUMBER: builtins.int
+    writer: builtins.str
+    """Low level name of the summary writer, such as
+    `tensorflow.core.util.events_writer`.
+    """
+    def __init__(
+        self,
+        *,
+        writer: builtins.str | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["writer", b"writer"]) -> None: ...
+
+global___SourceMetadata = SourceMetadata
 
 @typing_extensions.final
 class LogMessage(google.protobuf.message.Message):
@@ -148,7 +176,7 @@ class LogMessage(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _LevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LogMessage._Level.ValueType], builtins.type):  # noqa: F821
+    class _LevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[LogMessage._Level.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: LogMessage._Level.ValueType  # 0
         DEBUGGING: LogMessage._Level.ValueType  # 10
@@ -199,7 +227,7 @@ class SessionLog(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _SessionStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SessionLog._SessionStatus.ValueType], builtins.type):  # noqa: F821
+    class _SessionStatusEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[SessionLog._SessionStatus.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         STATUS_UNSPECIFIED: SessionLog._SessionStatus.ValueType  # 0
         START: SessionLog._SessionStatus.ValueType  # 1

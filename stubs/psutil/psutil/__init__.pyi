@@ -2,8 +2,8 @@ import sys
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator
 from contextlib import AbstractContextManager
-from typing import Any, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing import Any, Literal, overload
+from typing_extensions import Self, TypeAlias
 
 from psutil._common import (
     AIX as AIX,
@@ -133,6 +133,13 @@ else:
 
     def sensors_battery(): ...
 
+if sys.platform == "linux":
+    from ._pslinux import pio
+elif sys.platform == "win32":
+    from ._pswindows import pio
+else:
+    from ._common import pio
+
 AF_LINK: int
 version_info: tuple[int, int, int]
 __version__: str
@@ -186,7 +193,7 @@ class Process:
         def terminal(self) -> str: ...
         def num_fds(self) -> int: ...
     if sys.platform != "darwin":
-        def io_counters(self): ...
+        def io_counters(self) -> pio: ...
         def ionice(self, ioclass: int | None = None, value: int | None = None) -> pionice: ...
         def cpu_affinity(self, cpus: list[int] | None = None) -> list[int] | None: ...
         def memory_maps(self, grouped: bool = True): ...
