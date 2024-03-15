@@ -440,7 +440,7 @@ Some further tips for good type hints:
   `Optional[X]`;
 * import collections (`Mapping`, `Iterable`, etc.)
   from `collections.abc` instead of `typing`;
-* avoid invariant collection types (`list`, `dict`) in function
+* avoid invariant collection types (`list`, `dict`) for function
   parameters, in favor of covariant types like `Mapping` or `Sequence`;
 * avoid union return types: https://github.com/python/mypy/issues/1693;
 * use platform checks like `if sys.platform == 'win32'` to denote
