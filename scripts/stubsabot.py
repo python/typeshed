@@ -372,11 +372,10 @@ class DiffAnalysis:
 
     @functools.cached_property
     def public_files_added(self) -> Sequence[str]:
-        return [
-            file["filename"]
-            for file in self.py_files
-            if not re.match("_[^_]", Path(file["filename"]).name) and file["status"] == "added"
-        ]
+        def is_public(path: Path) -> bool:
+            return not re.match(r"_[^_]", path.name) and not path.name.startswith("test_")
+
+        return [file["filename"] for file in self.py_files if is_public(Path(file["filename"])) and file["status"] == "added"]
 
     @functools.cached_property
     def typeshed_files_deleted(self) -> Sequence[str]:
