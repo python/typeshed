@@ -1,27 +1,18 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
-from openpyxl.descriptors.base import (
-    Alias,
-    Bool,
-    Integer,
-    MinMax,
-    NoneSet,
-    Set,
-    String,
-    Typed,
-    _ConvertibleToBool,
-    _ConvertibleToFloat,
-    _ConvertibleToInt,
-)
+from openpyxl.descriptors.base import Alias, Bool, Integer, MinMax, NoneSet, Set, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import Coordinate, ExtensionList
-from openpyxl.descriptors.nested import EmptyTag, NestedBool, NestedInteger, NestedText, NestedValue, _HasTagAndGet
+from openpyxl.descriptors.nested import EmptyTag, NestedBool, NestedInteger, NestedText, NestedValue
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.drawing.colors import ColorChoice, ColorChoiceDescriptor
 from openpyxl.drawing.effect import Color, EffectContainer, EffectList
 from openpyxl.drawing.fill import Blip, BlipFillProperties, GradientFillProperties, PatternFillProperties
 from openpyxl.drawing.geometry import Scene3D
 from openpyxl.drawing.line import LineProperties
+
+from ..xml._functions_overloads import _HasTagAndGet
 
 _CharacterPropertiesU: TypeAlias = Literal[
     "words",
@@ -184,8 +175,8 @@ class Font(Serialisable):
         self,
         typeface: str,
         panose: Incomplete | None = None,
-        pitchFamily: _ConvertibleToFloat | None = None,
-        charset: _ConvertibleToInt | None = None,
+        pitchFamily: ConvertibleToFloat | None = None,
+        charset: ConvertibleToInt | None = None,
     ) -> None: ...
 
 class CharacterProperties(Serialisable):
@@ -221,7 +212,7 @@ class CharacterProperties(Serialisable):
     rtl: NestedBool[Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     noFill: EmptyTag[Literal[False]]
-    solidFill: Incomplete
+    solidFill: ColorChoiceDescriptor
     gradFill: Typed[GradientFillProperties, Literal[True]]
     blipFill: Typed[BlipFillProperties, Literal[True]]
     pattFill: Typed[PatternFillProperties, Literal[True]]
@@ -238,21 +229,21 @@ class CharacterProperties(Serialisable):
         kumimoji: _ConvertibleToBool | None = None,
         lang: str | None = None,
         altLang: str | None = None,
-        sz: _ConvertibleToFloat | None = None,
+        sz: ConvertibleToFloat | None = None,
         b: _ConvertibleToBool | None = None,
         i: _ConvertibleToBool | None = None,
         u: _CharacterPropertiesU | Literal["none"] | None = None,
         strike: _CharacterPropertiesStrike | Literal["none"] | None = None,
-        kern: _ConvertibleToInt | None = None,
+        kern: ConvertibleToInt | None = None,
         cap: _CharacterPropertiesCap | Literal["none"] | None = None,
-        spc: _ConvertibleToInt | None = None,
+        spc: ConvertibleToInt | None = None,
         normalizeH: _ConvertibleToBool | None = None,
-        baseline: _ConvertibleToInt | None = None,
+        baseline: ConvertibleToInt | None = None,
         noProof: _ConvertibleToBool | None = None,
         dirty: _ConvertibleToBool | None = None,
         err: _ConvertibleToBool | None = None,
         smtClean: _ConvertibleToBool | None = None,
-        smtId: _ConvertibleToInt | None = None,
+        smtId: ConvertibleToInt | None = None,
         bmk: str | None = None,
         ln: LineProperties | None = None,
         highlight: Color | None = None,
@@ -263,9 +254,9 @@ class CharacterProperties(Serialisable):
         hlinkClick: Hyperlink | None = None,
         hlinkMouseOver: Hyperlink | None = None,
         rtl: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
-        extLst: ExtensionList | None = None,
+        extLst: Unused = None,
         noFill: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
-        solidFill: Incomplete | None = None,
+        solidFill: str | ColorChoice | None = None,
         gradFill: GradientFillProperties | None = None,
         blipFill: BlipFillProperties | None = None,
         pattFill: PatternFillProperties | None = None,
@@ -293,14 +284,14 @@ class Spacing(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        spcPct: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
-        spcPts: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+        spcPct: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
+        spcPts: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
     ) -> None: ...
 
 class AutonumberBullet(Serialisable):
     type: Set[_AutonumberBulletType]
     startAt: Integer[Literal[False]]
-    def __init__(self, type: _AutonumberBulletType, startAt: _ConvertibleToInt) -> None: ...
+    def __init__(self, type: _AutonumberBulletType, startAt: ConvertibleToInt) -> None: ...
 
 class ParagraphProperties(Serialisable):
     tagname: ClassVar[str]
@@ -336,12 +327,12 @@ class ParagraphProperties(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        marL: _ConvertibleToInt | None = None,
-        marR: _ConvertibleToInt | None = None,
-        lvl: _ConvertibleToInt | None = None,
-        indent: _ConvertibleToInt | None = None,
+        marL: ConvertibleToInt | None = None,
+        marR: ConvertibleToInt | None = None,
+        lvl: ConvertibleToInt | None = None,
+        indent: ConvertibleToInt | None = None,
         algn: _ParagraphPropertiesAlgn | Literal["none"] | None = None,
-        defTabSz: _ConvertibleToInt | None = None,
+        defTabSz: ConvertibleToInt | None = None,
         rtl: _ConvertibleToBool | None = None,
         eaLnBrk: _ConvertibleToBool | None = None,
         fontAlgn: _ParagraphPropertiesFontAlgn | Literal["none"] | None = None,
@@ -356,8 +347,8 @@ class ParagraphProperties(Serialisable):
         buClrTx: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
         buClr: Color | None = None,
         buSzTx: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
-        buSzPct: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
-        buSzPts: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+        buSzPct: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
+        buSzPts: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
         buFontTx: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
         buFont: Font | None = None,
         buNone: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
@@ -466,7 +457,7 @@ class PresetTextShape(Serialisable):
 class TextNormalAutofit(Serialisable):
     fontScale: Integer[Literal[False]]
     lnSpcReduction: Integer[Literal[False]]
-    def __init__(self, fontScale: _ConvertibleToInt, lnSpcReduction: _ConvertibleToInt) -> None: ...
+    def __init__(self, fontScale: ConvertibleToInt, lnSpcReduction: ConvertibleToInt) -> None: ...
 
 class RichTextProperties(Serialisable):
     tagname: ClassVar[str]
@@ -500,18 +491,18 @@ class RichTextProperties(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        rot: _ConvertibleToInt | None = None,
+        rot: ConvertibleToInt | None = None,
         spcFirstLastPara: _ConvertibleToBool | None = None,
         vertOverflow: _RichTextPropertiesVertOverflow | Literal["none"] | None = None,
         horzOverflow: _RichTextPropertiesHorzOverflow | Literal["none"] | None = None,
         vert: _RichTextPropertiesVert | Literal["none"] | None = None,
         wrap: _RichTextPropertiesWrap | Literal["none"] | None = None,
-        lIns: _ConvertibleToInt | None = None,
-        tIns: _ConvertibleToInt | None = None,
-        rIns: _ConvertibleToInt | None = None,
-        bIns: _ConvertibleToInt | None = None,
-        numCol: _ConvertibleToInt | None = None,
-        spcCol: _ConvertibleToInt | None = None,
+        lIns: ConvertibleToInt | None = None,
+        tIns: ConvertibleToInt | None = None,
+        rIns: ConvertibleToInt | None = None,
+        bIns: ConvertibleToInt | None = None,
+        numCol: ConvertibleToInt | None = None,
+        spcCol: ConvertibleToInt | None = None,
         rtlCol: _ConvertibleToBool | None = None,
         fromWordArt: _ConvertibleToBool | None = None,
         anchor: _RichTextPropertiesAnchor | Literal["none"] | None = None,
@@ -525,5 +516,5 @@ class RichTextProperties(Serialisable):
         noAutofit: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
         normAutofit: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
         spAutoFit: _HasTagAndGet[_ConvertibleToBool] | _ConvertibleToBool = None,
-        flatTx: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+        flatTx: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
     ) -> None: ...

@@ -1,21 +1,10 @@
-from _typeshed import Incomplete
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
-from openpyxl.descriptors.base import (
-    Alias,
-    Bool,
-    Integer,
-    MinMax,
-    NoneSet,
-    Set,
-    Typed,
-    _ConvertibleToBool,
-    _ConvertibleToFloat,
-    _ConvertibleToInt,
-)
+from openpyxl.descriptors.base import Alias, Bool, Integer, MinMax, NoneSet, Set, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
-from openpyxl.descriptors.nested import NestedNoneSet, NestedValue, _HasTagAndGet, _NestedNoneSetParam
+from openpyxl.descriptors.nested import NestedNoneSet, NestedValue, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.drawing.colors import ColorChoice, HSLColor, RGBPercent as _RGBPercent, SchemeColor, SystemColor, _PresetColors
 from openpyxl.drawing.effect import (
@@ -37,6 +26,8 @@ from openpyxl.drawing.effect import (
     LuminanceEffect,
     TintEffect,
 )
+
+from ..xml._functions_overloads import _HasTagAndGet
 
 _PatternFillPropertiesPrst: TypeAlias = Literal[
     "pct5",
@@ -152,7 +143,7 @@ class GradientStop(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        pos: _ConvertibleToFloat | None = None,
+        pos: ConvertibleToFloat | None = None,
         scrgbClr: _RGBPercent | None = None,
         srgbClr: _HasTagAndGet[_RGBPercent | None] | _RGBPercent | None = None,
         hslClr: HSLColor | None = None,
@@ -166,7 +157,7 @@ class LinearShadeProperties(Serialisable):
     namespace: ClassVar[str]
     ang: Integer[Literal[False]]
     scaled: Bool[Literal[True]]
-    def __init__(self, ang: _ConvertibleToInt, scaled: _ConvertibleToBool | None = None) -> None: ...
+    def __init__(self, ang: ConvertibleToInt, scaled: _ConvertibleToBool | None = None) -> None: ...
 
 class PathShadeProperties(Serialisable):
     tagname: ClassVar[str]
@@ -297,10 +288,10 @@ class TileInfoProperties(Serialisable):
     algn: Set[_TileInfoPropertiesAlgn]
     def __init__(
         self,
-        tx: _ConvertibleToInt | None = None,
-        ty: _ConvertibleToInt | None = None,
-        sx: _ConvertibleToInt | None = None,
-        sy: _ConvertibleToInt | None = None,
+        tx: ConvertibleToInt | None = None,
+        ty: ConvertibleToInt | None = None,
+        sx: ConvertibleToInt | None = None,
+        sy: ConvertibleToInt | None = None,
         flip: _PropertiesFlip | Literal["none"] | None = None,
         *,
         algn: _TileInfoPropertiesAlgn,
@@ -317,7 +308,7 @@ class BlipFillProperties(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        dpi: _ConvertibleToInt | None = None,
+        dpi: ConvertibleToInt | None = None,
         rotWithShape: _ConvertibleToBool | None = None,
         blip: Blip | None = None,
         tile: TileInfoProperties | None = None,

@@ -1,13 +1,14 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
 from openpyxl.chart.axis import ChartLines, NumericAxis, SeriesAxis, TextAxis
 from openpyxl.chart.label import DataLabelList
 from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
-from openpyxl.descriptors.nested import NestedBool, NestedNoneSet, NestedSet, _HasTagAndGet, _NestedNoneSetParam
+from openpyxl.descriptors.nested import NestedBool, NestedNoneSet, NestedSet, _NestedNoneSetParam
 
+from ..xml._functions_overloads import _HasTagAndGet
 from ._3d import _3DBase
 from ._chart import ChartBase
 
@@ -36,11 +37,12 @@ class _BarChartBase(ChartBase):
 
 class BarChart(_BarChartBase):
     tagname: ClassVar[str]
-    barDir: Incomplete
-    grouping: Incomplete
-    varyColors: Incomplete
-    ser: Incomplete
-    dLbls: Incomplete
+    # Same as parent
+    # barDir = _BarChartBase.barDir
+    # grouping = _BarChartBase.grouping
+    # varyColors = _BarChartBase.varyColors
+    # ser = _BarChartBase.ser
+    # dLbls = _BarChartBase.dLbls
     gapWidth: Incomplete
     overlap: Incomplete
     serLines: Typed[ChartLines, Literal[True]]
@@ -60,15 +62,16 @@ class BarChart(_BarChartBase):
 
 class BarChart3D(_BarChartBase, _3DBase):
     tagname: ClassVar[str]
-    barDir: Incomplete
-    grouping: Incomplete
-    varyColors: Incomplete
-    ser: Incomplete
-    dLbls: Incomplete
-    view3D: Incomplete
-    floor: Incomplete
-    sideWall: Incomplete
-    backWall: Incomplete
+    # Same as parents
+    # barDir = _BarChartBase.barDir
+    # grouping = _BarChartBase.grouping
+    # varyColors = _BarChartBase.varyColors
+    # ser = _BarChartBase.ser
+    # dLbls = _BarChartBase.dLbls
+    # view3D = _3DBase.view3D
+    # floor = _3DBase.floor
+    # sideWall = _3DBase.sideWall
+    # backWall = _3DBase.backWall
     gapWidth: Incomplete
     gapDepth: Incomplete
     shape: NestedNoneSet[_BarChart3DShape]

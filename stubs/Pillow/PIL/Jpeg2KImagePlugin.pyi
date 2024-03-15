@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any, ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from ._imaging import _PixelAccessor
 from .ImageFile import ImageFile
@@ -19,6 +18,6 @@ class BoxReader:
 class Jpeg2KImageFile(ImageFile):
     format: ClassVar[Literal["JPEG2000"]]
     format_description: ClassVar[str]
-    reduce: Any
-    tile: Any
+    reduce: Incomplete
+    tile: Incomplete
     def load(self) -> _PixelAccessor: ...

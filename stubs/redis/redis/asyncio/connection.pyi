@@ -5,8 +5,8 @@ from _typeshed import Unused
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Mapping
 from types import MappingProxyType
-from typing import Any, Generic, Protocol, TypeVar, overload
-from typing_extensions import Final, Literal, Self, TypeAlias, TypedDict
+from typing import Any, Final, Generic, Literal, Protocol, TypedDict, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 
 from redis.asyncio.retry import Retry
 from redis.credentials import CredentialProvider
@@ -71,7 +71,7 @@ class HiredisParser(BaseParser):
     def on_disconnect(self) -> None: ...
     async def can_read_destructive(self) -> bool: ...
     async def read_from_socket(self) -> Literal[True]: ...
-    async def read_response(self, disable_decoding: bool = False) -> EncodableT | list[EncodableT]: ...  # type: ignore[override]
+    async def read_response(self, disable_decoding: bool = False) -> EncodableT | list[EncodableT]: ...
 
 DefaultParser: type[PythonParser | HiredisParser]
 

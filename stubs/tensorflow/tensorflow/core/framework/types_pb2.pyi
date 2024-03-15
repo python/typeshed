@@ -3,11 +3,12 @@
 isort:skip_file
 """
 import builtins
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -47,7 +48,7 @@ class _DataTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumT
     DT_QINT32: _DataType.ValueType  # 13
     """Quantized int32"""
     DT_BFLOAT16: _DataType.ValueType  # 14
-    """Float32 truncated to 16 bits.  Only for cast ops."""
+    """Float32 truncated to 16 bits."""
     DT_QINT16: _DataType.ValueType  # 15
     """Quantized int16"""
     DT_QUINT16: _DataType.ValueType  # 16
@@ -61,8 +62,14 @@ class _DataTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumT
     """Arbitrary C++ data types"""
     DT_UINT32: _DataType.ValueType  # 22
     DT_UINT64: _DataType.ValueType  # 23
+    DT_FLOAT8_E5M2: _DataType.ValueType  # 24
+    """5 exponent bits, 2 mantissa bits."""
+    DT_FLOAT8_E4M3FN: _DataType.ValueType  # 25
+    """4 exponent bits, 3 mantissa bits, finite-only, with"""
     DT_FLOAT_REF: _DataType.ValueType  # 101
-    """Do not use!  These are only for parameters.  Every enum above
+    """2 NaNs (0bS1111111).
+
+    Do not use!  These are only for parameters.  Every enum above
     should have a corresponding value below (verified by types_test).
     """
     DT_DOUBLE_REF: _DataType.ValueType  # 102
@@ -87,6 +94,8 @@ class _DataTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumT
     DT_VARIANT_REF: _DataType.ValueType  # 121
     DT_UINT32_REF: _DataType.ValueType  # 122
     DT_UINT64_REF: _DataType.ValueType  # 123
+    DT_FLOAT8_E5M2_REF: _DataType.ValueType  # 124
+    DT_FLOAT8_E4M3FN_REF: _DataType.ValueType  # 125
 
 class DataType(_DataType, metaclass=_DataTypeEnumTypeWrapper):
     """(== suppress_warning documentation-presence ==)
@@ -118,7 +127,7 @@ DT_QUINT8: DataType.ValueType  # 12
 DT_QINT32: DataType.ValueType  # 13
 """Quantized int32"""
 DT_BFLOAT16: DataType.ValueType  # 14
-"""Float32 truncated to 16 bits.  Only for cast ops."""
+"""Float32 truncated to 16 bits."""
 DT_QINT16: DataType.ValueType  # 15
 """Quantized int16"""
 DT_QUINT16: DataType.ValueType  # 16
@@ -132,8 +141,14 @@ DT_VARIANT: DataType.ValueType  # 21
 """Arbitrary C++ data types"""
 DT_UINT32: DataType.ValueType  # 22
 DT_UINT64: DataType.ValueType  # 23
+DT_FLOAT8_E5M2: DataType.ValueType  # 24
+"""5 exponent bits, 2 mantissa bits."""
+DT_FLOAT8_E4M3FN: DataType.ValueType  # 25
+"""4 exponent bits, 3 mantissa bits, finite-only, with"""
 DT_FLOAT_REF: DataType.ValueType  # 101
-"""Do not use!  These are only for parameters.  Every enum above
+"""2 NaNs (0bS1111111).
+
+Do not use!  These are only for parameters.  Every enum above
 should have a corresponding value below (verified by types_test).
 """
 DT_DOUBLE_REF: DataType.ValueType  # 102
@@ -158,6 +173,8 @@ DT_RESOURCE_REF: DataType.ValueType  # 120
 DT_VARIANT_REF: DataType.ValueType  # 121
 DT_UINT32_REF: DataType.ValueType  # 122
 DT_UINT64_REF: DataType.ValueType  # 123
+DT_FLOAT8_E5M2_REF: DataType.ValueType  # 124
+DT_FLOAT8_E4M3FN_REF: DataType.ValueType  # 125
 global___DataType = DataType
 
 @typing_extensions.final

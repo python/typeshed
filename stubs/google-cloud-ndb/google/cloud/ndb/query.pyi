@@ -55,7 +55,7 @@ class ParameterNode(Node):
     def resolve(self, bindings, used): ...
 
 class FilterNode(Node):
-    def __new__(cls, name, opsymbol, value): ...
+    def __new__(cls, name, opsymbol, value, server_op: bool = False): ...
     def __getnewargs__(self): ...
     def __eq__(self, other): ...
 
@@ -91,6 +91,7 @@ OR = DisjunctionNode
 class QueryOptions(_options.ReadOptions):
     project: Any
     namespace: Any
+    database: str | None
     def __init__(self, config: Incomplete | None = ..., context: Incomplete | None = ..., **kwargs) -> None: ...
 
 class Query:
@@ -106,6 +107,7 @@ class Query:
     keys_only: Any
     projection: Any
     distinct_on: Any
+    database: str | None
     def __init__(
         self,
         kind: Incomplete | None = ...,

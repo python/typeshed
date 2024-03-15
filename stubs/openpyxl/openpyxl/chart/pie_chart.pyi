@@ -1,22 +1,15 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from _typeshed import ConvertibleToFloat, Incomplete, Unused
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
 from openpyxl.chart.axis import ChartLines
 from openpyxl.chart.label import DataLabelList
-from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool, _ConvertibleToFloat
+from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
-from openpyxl.descriptors.nested import (
-    NestedBool,
-    NestedFloat,
-    NestedMinMax,
-    NestedNoneSet,
-    NestedSet,
-    _HasTagAndGet,
-    _NestedNoneSetParam,
-)
+from openpyxl.descriptors.nested import NestedBool, NestedFloat, NestedMinMax, NestedNoneSet, NestedSet, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
 
+from ..xml._functions_overloads import _HasTagAndGet
 from ._chart import ChartBase
 
 _ProjectedPieChartOfPieType: TypeAlias = Literal["pie", "bar"]
@@ -37,37 +30,40 @@ class _PieChartBase(ChartBase):
 
 class PieChart(_PieChartBase):
     tagname: ClassVar[str]
-    varyColors: Incomplete
-    ser: Incomplete
-    dLbls: Incomplete
+    # Same as parent
+    # varyColors = _PieChartBase.varyColors
+    # ser = _PieChartBase.ser
+    # dLbls = _PieChartBase.dLbls
     firstSliceAng: NestedMinMax[float, Literal[False]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
-        self, firstSliceAng: _HasTagAndGet[_ConvertibleToFloat] | _ConvertibleToFloat = 0, extLst: Unused = None, **kw
+        self, firstSliceAng: _HasTagAndGet[ConvertibleToFloat] | ConvertibleToFloat = 0, extLst: Unused = None, **kw
     ) -> None: ...
 
 class PieChart3D(_PieChartBase):
     tagname: ClassVar[str]
-    varyColors: Incomplete
-    ser: Incomplete
-    dLbls: Incomplete
+    # Same as parent
+    # varyColors = _PieChartBase.varyColors
+    # ser = _PieChartBase.ser
+    # dLbls = _PieChartBase.dLbls
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
 
 class DoughnutChart(_PieChartBase):
     tagname: ClassVar[str]
-    varyColors: Incomplete
-    ser: Incomplete
-    dLbls: Incomplete
+    # Same as parent
+    # varyColors = _PieChartBase.varyColors
+    # ser = _PieChartBase.ser
+    # dLbls = _PieChartBase.dLbls
     firstSliceAng: NestedMinMax[float, Literal[False]]
     holeSize: NestedMinMax[float, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        firstSliceAng: _HasTagAndGet[_ConvertibleToFloat] | _ConvertibleToFloat = 0,
-        holeSize: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None = 10,
+        firstSliceAng: _HasTagAndGet[ConvertibleToFloat] | ConvertibleToFloat = 0,
+        holeSize: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = 10,
         extLst: Unused = None,
         **kw,
     ) -> None: ...
@@ -80,9 +76,10 @@ class CustomSplit(Serialisable):
 
 class ProjectedPieChart(_PieChartBase):
     tagname: ClassVar[str]
-    varyColors: Incomplete
-    ser: Incomplete
-    dLbls: Incomplete
+    # Same as parent
+    # varyColors = _PieChartBase.varyColors
+    # ser = _PieChartBase.ser
+    # dLbls = _PieChartBase.dLbls
     ofPieType: NestedSet[_ProjectedPieChartOfPieType]
     type: Alias
     gapWidth: Incomplete
@@ -99,9 +96,9 @@ class ProjectedPieChart(_PieChartBase):
         ofPieType: _HasTagAndGet[_ProjectedPieChartOfPieType] | _ProjectedPieChartOfPieType = "pie",
         gapWidth: Incomplete | None = None,
         splitType: _NestedNoneSetParam[_ProjectedPieChartSplitType] = "auto",
-        splitPos: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None = None,
+        splitPos: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = None,
         custSplit: CustomSplit | None = None,
-        secondPieSize: _HasTagAndGet[_ConvertibleToFloat | None] | _ConvertibleToFloat | None = 75,
+        secondPieSize: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = 75,
         serLines: ChartLines | None = None,
         extLst: Unused = None,
         **kw,

@@ -1,2 +1,1 @@
 PyInstaller\.utils\.win32\.versioninfo\.\w+?
-PyInstaller\.utils\.win32\.winmanifest\.\w+?

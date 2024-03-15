@@ -4,13 +4,14 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
 import tensorflow.core.protobuf.tpu.optimization_parameters_pb2
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -27,7 +28,7 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUEmbeddingConfiguration._Mode.ValueType], builtins.type):  # noqa: F821
+    class _ModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUEmbeddingConfiguration._Mode.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNSPECIFIED: TPUEmbeddingConfiguration._Mode.ValueType  # 0
         INFERENCE: TPUEmbeddingConfiguration._Mode.ValueType  # 1
@@ -48,7 +49,7 @@ class TPUEmbeddingConfiguration(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ShardingStrategyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUEmbeddingConfiguration._ShardingStrategy.ValueType], builtins.type):  # noqa: F821
+    class _ShardingStrategyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TPUEmbeddingConfiguration._ShardingStrategy.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DIV_DEFAULT: TPUEmbeddingConfiguration._ShardingStrategy.ValueType  # 0
         MOD: TPUEmbeddingConfiguration._ShardingStrategy.ValueType  # 1

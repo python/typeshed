@@ -2,8 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import AbstractContextManager
 from types import TracebackType
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, ParamSpec, Self
+from typing import Any, ClassVar, Generic, Literal, TypeVar, overload
+from typing_extensions import ParamSpec, Self
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _AF = TypeVar("_AF", bound=Callable[..., Coroutine[Any, Any, Any]])
@@ -22,6 +22,7 @@ __all__ = (
     "call",
     "create_autospec",
     "AsyncMock",
+    "ThreadingMock",
     "FILTER_DIR",
     "NonCallableMock",
     "NonCallableMagicMock",
@@ -65,7 +66,7 @@ class _Call(tuple[Any, ...]):
         from_kall: bool = True,
     ) -> None: ...
     def __eq__(self, other: object) -> bool: ...
-    def __ne__(self, __other: object) -> bool: ...
+    def __ne__(self, other: object, /) -> bool: ...
     def __call__(self, *args: Any, **kwargs: Any) -> _Call: ...
     def __getattr__(self, attr: str) -> Any: ...
     @property
@@ -88,7 +89,7 @@ class NonCallableMock(Base, Any):
     def __new__(
         cls,
         spec: list[str] | object | type[object] | None = None,
-        wraps: Incomplete | None = None,
+        wraps: Any | None = None,
         name: str | None = None,
         spec_set: list[str] | object | type[object] | None = None,
         parent: NonCallableMock | None = None,
@@ -103,7 +104,7 @@ class NonCallableMock(Base, Any):
     def __init__(
         self,
         spec: list[str] | object | type[object] | None = None,
-        wraps: Incomplete | None = None,
+        wraps: Any | None = None,
         name: str | None = None,
         spec_set: list[str] | object | type[object] | None = None,
         parent: NonCallableMock | None = None,
@@ -203,7 +204,7 @@ class _patch(Generic[_T]):
     is_local: bool
     def __enter__(self) -> _T: ...
     def __exit__(
-        self, __exc_type: type[BaseException] | None, __exc_value: BaseException | None, __traceback: TracebackType | None
+        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None, /
     ) -> None: ...
     def start(self) -> _T: ...
     def stop(self) -> None: ...
@@ -226,7 +227,7 @@ class _patcher:
     TEST_PREFIX: str
     dict: type[_patch_dict]
     @overload
-    def __call__(  # type: ignore[misc]
+    def __call__(
         self,
         target: Any,
         *,
@@ -256,7 +257,7 @@ class _patcher:
         **kwargs: Any,
     ) -> _patch[_T]: ...
     @overload
-    def object(  # type: ignore[misc]
+    def object(
         self,
         target: Any,
         attribute: str,
@@ -328,7 +329,12 @@ class AsyncMockMixin(Base):
     __annotations__: dict[str, Any] | None  # type: ignore[assignment]
 
 class AsyncMagicMixin(MagicMixin): ...
-class AsyncMock(AsyncMockMixin, AsyncMagicMixin, Mock): ...
+
+class AsyncMock(AsyncMockMixin, AsyncMagicMixin, Mock):
+    # Improving the `reset_mock` signature.
+    # It is defined on `AsyncMockMixin` with `*args, **kwargs`, which is not ideal.
+    # But, `NonCallableMock` super-class has the better version.
+    def reset_mock(self, visited: Any = None, *, return_value: bool = False, side_effect: bool = False) -> None: ...
 
 class MagicProxy(Base):
     name: str
@@ -378,3 +384,17 @@ class PropertyMock(Mock):
     def __set__(self, obj: Any, value: Any) -> None: ...
 
 def seal(mock: Any) -> None: ...
+
+class ThreadingMixin(Base):
+    DEFAULT_TIMEOUT: ClassVar[float | None]
+
+    def __init__(self, *args: Any, timeout: float | None = ..., **kwargs: Any) -> None: ...
+    def reset_mock(self, *args: Any, **kwargs: Any) -> None: ...
+    def wait_until_called(self, *, timeout: float | None = ...) -> None: ...
+    def wait_until_any_call_with(self, *args: Any, **kwargs: Any) -> None: ...
+
+class ThreadingMock(ThreadingMixin, MagicMixin, Mock):
+    # Improving the `reset_mock` signature.
+    # It is defined on `ThreadingMixin` with `*args, **kwargs`, which is not ideal.
+    # But, `NonCallableMock` super-class has the better version.
+    def reset_mock(self, visited: Any = None, *, return_value: bool = False, side_effect: bool = False) -> None: ...

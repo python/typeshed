@@ -1,7 +1,6 @@
 import sys
 from _typeshed import Incomplete
-from typing import Any, ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from ._imaging import _PixelAccessor
 from .ImageFile import StubImageFile
@@ -10,7 +9,7 @@ def register_handler(handler) -> None: ...
 
 if sys.platform == "win32":
     class WmfHandler:
-        bbox: Any
+        bbox: Incomplete
         def open(self, im) -> None: ...
         def load(self, im): ...
 

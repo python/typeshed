@@ -1,10 +1,14 @@
+from _typeshed import ConvertibleToInt
 from re import Pattern
-from typing import ClassVar
-from typing_extensions import Final, Literal
+from typing import ClassVar, Final, Literal
+from typing_extensions import Self
 
 from openpyxl.descriptors import Strict
-from openpyxl.descriptors.base import Alias, Bool, Integer, MatchPattern, String, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Alias, Bool, Integer, MatchPattern, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.xml.functions import Element
+
+from ..xml._functions_overloads import _HasText
 
 FONT_PATTERN: Final = '&"(?P<font>.+)"'
 COLOR_PATTERN: Final = "&K(?P<color>[A-F0-9]{6})"
@@ -18,7 +22,7 @@ class _HeaderFooterPart(Strict):
     RGB: ClassVar[str]
     color: MatchPattern[str, Literal[True]]
     def __init__(
-        self, text: str | None = None, font: str | None = None, size: _ConvertibleToInt | None = None, color: str | None = None
+        self, text: str | None = None, font: str | None = None, size: ConvertibleToInt | None = None, color: str | None = None
     ) -> None: ...
     def __bool__(self) -> bool: ...
     @classmethod
@@ -36,9 +40,9 @@ class HeaderFooterItem(Strict):
         center: _HeaderFooterPart | None = None,
     ) -> None: ...
     def __bool__(self) -> bool: ...
-    def to_tree(self, tagname): ...
+    def to_tree(self, tagname: str) -> Element: ...
     @classmethod
-    def from_tree(cls, node): ...
+    def from_tree(cls, node: _HasText) -> Self: ...
 
 class HeaderFooter(Serialisable):
     tagname: ClassVar[str]

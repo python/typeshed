@@ -1,9 +1,8 @@
 import builtins
-from _typeshed import Incomplete
+from _typeshed import Incomplete, SupportsItems
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal
+from typing import Any, Generic, Literal, TypeVar, overload
 
 from ..asyncio.client import Redis as AsyncRedis
 from ..client import _CommandOptions, _Key, _Value
@@ -862,9 +861,10 @@ class StreamCommands:
     def xack(self, name, groupname, *ids): ...
     def xadd(
         self,
-        name,
-        fields,
-        id: str = "*",
+        name: KeyT,
+        # Only accepts dict objects, but for variance reasons we use a looser annotation
+        fields: SupportsItems[bytes | memoryview | str | float, Any],
+        id: str | int | bytes | memoryview = "*",
         maxlen=None,
         approximate: bool = True,
         nomkstream: bool = False,
@@ -894,7 +894,7 @@ class StreamCommands:
         force=False,
         justid=False,
     ): ...
-    def xdel(self, name, *ids): ...
+    def xdel(self, name: KeyT, *ids: str | int | bytes | memoryview): ...
     def xgroup_create(self, name, groupname, id: str = "$", mkstream: bool = False, entries_read: int | None = None): ...
     def xgroup_delconsumer(self, name, groupname, consumername): ...
     def xgroup_destroy(self, name, groupname): ...
@@ -928,9 +928,10 @@ class AsyncStreamCommands:
     async def xack(self, name, groupname, *ids): ...
     async def xadd(
         self,
-        name,
-        fields,
-        id: str = "*",
+        name: KeyT,
+        # Only accepts dict objects, but for variance reasons we use a looser annotation
+        fields: SupportsItems[bytes | memoryview | str | float, Any],
+        id: str | int | bytes | memoryview = "*",
         maxlen=None,
         approximate: bool = True,
         nomkstream: bool = False,
@@ -960,7 +961,7 @@ class AsyncStreamCommands:
         force=False,
         justid=False,
     ): ...
-    async def xdel(self, name, *ids): ...
+    async def xdel(self, name: KeyT, *ids: str | int | bytes | memoryview): ...
     async def xgroup_create(self, name, groupname, id: str = "$", mkstream: bool = False, entries_read: int | None = None): ...
     async def xgroup_delconsumer(self, name, groupname, consumername): ...
     async def xgroup_destroy(self, name, groupname): ...
@@ -1490,7 +1491,7 @@ class AsyncScriptCommands(Generic[_StrType]):
     async def script_flush(self, sync_type: Incomplete | None = None): ...
     async def script_kill(self): ...
     async def script_load(self, script): ...
-    def register_script(self, script: ScriptTextT) -> AsyncScript: ...  # type: ignore[override]
+    def register_script(self, script: ScriptTextT) -> AsyncScript: ...
 
 class GeoCommands:
     def geoadd(self, name, values, nx: bool = False, xx: bool = False, ch: bool = False): ...
@@ -1705,7 +1706,6 @@ class DataAccessCommands(
     SetCommands[_StrType],
     StreamCommands,
     SortedSetCommands[_StrType],
-    Generic[_StrType],
 ): ...
 class AsyncDataAccessCommands(
     AsyncBasicKeyCommands[_StrType],
@@ -1717,7 +1717,6 @@ class AsyncDataAccessCommands(
     AsyncSetCommands[_StrType],
     AsyncStreamCommands,
     AsyncSortedSetCommands[_StrType],
-    Generic[_StrType],
 ): ...
 class CoreCommands(
     ACLCommands[_StrType],
@@ -1727,7 +1726,6 @@ class CoreCommands(
     ModuleCommands,
     PubSubCommands,
     ScriptCommands[_StrType],
-    Generic[_StrType],
 ): ...
 class AsyncCoreCommands(
     AsyncACLCommands[_StrType],
@@ -1738,5 +1736,4 @@ class AsyncCoreCommands(
     AsyncPubSubCommands,
     AsyncScriptCommands[_StrType],
     AsyncFunctionCommands,
-    Generic[_StrType],
 ): ...

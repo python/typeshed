@@ -4,12 +4,13 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -194,6 +195,17 @@ class _FullTypeIdEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
 
     Examples:
       TFT_ENCODING[TFT_INT32, TFT_STRING] is an integer encoded as string.
+    """
+    TFT_SHAPE_TENSOR: _FullTypeId.ValueType  # 1005
+    """The type of "shape tensors" where the runtime value is the shape of
+    some tensor(s), i.e. the output of tf.shape.
+    Shape tensors have special, host-only placement, in contrast to
+    TFT_TENSOR[TFT_INT32] which is the type of a normal numeric tensor
+    with no special placement.
+
+    Examples:
+      TFT_SHAPE_TENSOR[TFT_INT32] is the most common
+      TFT_SHAPE_TENSOR[TFT_INT64] is also allowed
     """
     TFT_BOOL: _FullTypeId.ValueType  # 200
     """Type attributes. These always appear in the parametrization of a type,
@@ -459,6 +471,17 @@ Parametrization:
 
 Examples:
   TFT_ENCODING[TFT_INT32, TFT_STRING] is an integer encoded as string.
+"""
+TFT_SHAPE_TENSOR: FullTypeId.ValueType  # 1005
+"""The type of "shape tensors" where the runtime value is the shape of
+some tensor(s), i.e. the output of tf.shape.
+Shape tensors have special, host-only placement, in contrast to
+TFT_TENSOR[TFT_INT32] which is the type of a normal numeric tensor
+with no special placement.
+
+Examples:
+  TFT_SHAPE_TENSOR[TFT_INT32] is the most common
+  TFT_SHAPE_TENSOR[TFT_INT64] is also allowed
 """
 TFT_BOOL: FullTypeId.ValueType  # 200
 """Type attributes. These always appear in the parametrization of a type,

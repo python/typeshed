@@ -4,18 +4,14 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import typing as typing_extensions
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-import sys
 import tensorflow.core.framework.tensor_pb2
 import tensorflow.core.framework.tensor_shape_pb2
 import tensorflow.core.framework.types_pb2
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -124,3 +120,28 @@ class SnapshotTensorMetadata(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["tensor_metadata", b"tensor_metadata"]) -> None: ...
 
 global___SnapshotTensorMetadata = SnapshotTensorMetadata
+
+@typing_extensions.final
+class DistributedSnapshotMetadata(google.protobuf.message.Message):
+    """Metadata for a `tf.data.Dataset` distributed snapshot."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ELEMENT_SPEC_FIELD_NUMBER: builtins.int
+    COMPRESSION_FIELD_NUMBER: builtins.int
+    element_spec: builtins.bytes
+    """The element spec of the snapshotted dataset."""
+    compression: builtins.str
+    """Whether and how to compress the snapshot.  Supported values are defined in
+    `tsl::io::compression`.  In particular, an empty string specifies not to
+    compress.
+    """
+    def __init__(
+        self,
+        *,
+        element_spec: builtins.bytes | None = ...,
+        compression: builtins.str | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["compression", b"compression", "element_spec", b"element_spec"]) -> None: ...
+
+global___DistributedSnapshotMetadata = DistributedSnapshotMetadata

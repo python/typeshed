@@ -4,15 +4,11 @@ isort:skip_file
 Protocol buffer representing the shape of tensors."""
 import builtins
 import collections.abc
+import typing as typing_extensions
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-import sys
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

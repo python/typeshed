@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 try:
-    from termcolor import colored  # pyright: ignore[reportGeneralTypeIssues]
+    from termcolor import colored  # pyright: ignore[reportAssignmentType]
 except ImportError:
 
     def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
@@ -26,9 +26,9 @@ _NPX_ERROR_MESSAGE = colored("\nSkipping Pyright tests: npx is not installed or 
 _SUCCESS = colored("Success", "green")
 _SKIPPED = colored("Skipped", "yellow")
 _FAILED = colored("Failed", "red")
-# We're using the oldest supported version because it's the most likely to produce errors
+# We're using the oldest fully supported version because it's the most likely to produce errors
 # due to unsupported syntax, feature, or bug in a tool.
-_PYTHON_VERSION = "3.7"
+_PYTHON_VERSION = "3.8"
 
 
 def _parse_jsonc(json_text: str) -> str:
@@ -58,10 +58,17 @@ def main() -> None:
             "only use this option if you trust the package you are testing."
         ),
     )
+    parser.add_argument(
+        "--python-version",
+        default=_PYTHON_VERSION,
+        choices=("3.8", "3.9", "3.10", "3.11", "3.12"),
+        help="Target Python version for the test (default: %(default)s).",
+    )
     parser.add_argument("path", help="Path of the stub to test in format <folder>/<stub>, from the root of the project.")
     args = parser.parse_args()
     path: str = args.path
     run_stubtest: bool = args.run_stubtest
+    python_version: str = args.python_version
 
     path_tokens = Path(path).parts
     if len(path_tokens) != 2:
@@ -74,19 +81,8 @@ def main() -> None:
     stubtest_result: subprocess.CompletedProcess[bytes] | None = None
     pytype_result: subprocess.CompletedProcess[bytes] | None = None
 
-    # Run formatters first. Order matters.
-    print("\nRunning pycln...")
-    subprocess.run([sys.executable, "-m", "pycln", path, "--config=pyproject.toml"])
-    print("\nRunning isort...")
-    subprocess.run([sys.executable, "-m", "isort", path])
-    print("\nRunning Black...")
-    black_result = subprocess.run([sys.executable, "-m", "black", path])
-    if black_result.returncode == 123:
-        print("Could not run tests due to an internal error with Black. See above for details.", file=sys.stderr)
-        sys.exit(black_result.returncode)
-
-    print("\nRunning Flake8...")
-    flake8_result = subprocess.run([sys.executable, "-m", "flake8", path])
+    print("\nRunning pre-commit...")
+    pre_commit_result = subprocess.run(["pre-commit", "run", "--all-files"])
 
     print("\nRunning check_consistent.py...")
     check_consistent_result = subprocess.run([sys.executable, "tests/check_consistent.py"])
@@ -94,9 +90,9 @@ def main() -> None:
     check_new_syntax_result = subprocess.run([sys.executable, "tests/check_new_syntax.py"])
 
     strict_params = _get_strict_params(path)
-    print(f"\nRunning Pyright ({'stricter' if strict_params else 'base' } configs) for Python {_PYTHON_VERSION}...")
+    print(f"\nRunning Pyright ({'stricter' if strict_params else 'base' } configs) for Python {python_version}...")
     pyright_result = subprocess.run(
-        [sys.executable, "tests/pyright_test.py", path, "--pythonversion", _PYTHON_VERSION] + strict_params,
+        [sys.executable, "tests/pyright_test.py", path, "--pythonversion", python_version, *strict_params],
         stderr=subprocess.PIPE,
         text=True,
     )
@@ -109,8 +105,8 @@ def main() -> None:
         pyright_returncode = pyright_result.returncode
         pyright_skipped = False
 
-    print(f"\nRunning mypy for Python {_PYTHON_VERSION}...")
-    mypy_result = subprocess.run([sys.executable, "tests/mypy_test.py", path, "--python-version", _PYTHON_VERSION])
+    print(f"\nRunning mypy for Python {python_version}...")
+    mypy_result = subprocess.run([sys.executable, "tests/mypy_test.py", path, "--python-version", python_version])
     # If mypy failed, stubtest will fail without any helpful error
     if mypy_result.returncode == 0:
         if folder == "stdlib":
@@ -146,13 +142,13 @@ def main() -> None:
         pyright_testcases_skipped = False
         regr_test_returncode = 0
     else:
-        print(f"\nRunning Pyright regression tests for Python {_PYTHON_VERSION}...")
+        print(f"\nRunning Pyright regression tests for Python {python_version}...")
         command = [
             sys.executable,
             "tests/pyright_test.py",
             str(test_cases_path),
             "--pythonversion",
-            _PYTHON_VERSION,
+            python_version,
             "-p",
             _TESTCASES_CONFIG_FILE,
         ]
@@ -166,9 +162,9 @@ def main() -> None:
             pyright_testcases_returncode = pyright_testcases_result.returncode
             pyright_testcases_skipped = False
 
-        print(f"\nRunning mypy regression tests for Python {_PYTHON_VERSION}...")
+        print(f"\nRunning mypy regression tests for Python {python_version}...")
         regr_test_result = subprocess.run(
-            [sys.executable, "tests/regr_test.py", "stdlib" if folder == "stdlib" else stub, "--python-version", _PYTHON_VERSION],
+            [sys.executable, "tests/regr_test.py", "stdlib" if folder == "stdlib" else stub, "--python-version", python_version],
             stderr=subprocess.PIPE,
             text=True,
         )
@@ -182,7 +178,7 @@ def main() -> None:
 
     any_failure = any(
         [
-            flake8_result.returncode,
+            pre_commit_result.returncode,
             check_consistent_result.returncode,
             check_new_syntax_result.returncode,
             pyright_returncode,
@@ -198,7 +194,18 @@ def main() -> None:
         print(colored("\n\n--- TEST SUMMARY: One or more tests failed. See above for details. ---\n", "red"))
     else:
         print(colored("\n\n--- TEST SUMMARY: All tests passed! ---\n", "green"))
-    print("Flake8:", _SUCCESS if flake8_result.returncode == 0 else _FAILED)
+    if pre_commit_result.returncode == 0:
+        print("pre-commit", _SUCCESS)
+    else:
+        print("pre-commit", _FAILED)
+        print(
+            """\
+  Check the output of pre-commit for more details.
+  This could mean that there's a lint failure on your code,
+  but could also just mean that one of the pre-commit tools
+  applied some autofixes. If the latter, you may want to check
+  that the autofixes did sensible things."""
+        )
     print("Check consistent:", _SUCCESS if check_consistent_result.returncode == 0 else _FAILED)
     print("Check new syntax:", _SUCCESS if check_new_syntax_result.returncode == 0 else _FAILED)
     if pyright_skipped:

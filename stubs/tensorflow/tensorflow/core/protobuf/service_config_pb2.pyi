@@ -4,23 +4,19 @@ isort:skip_file
 """
 import builtins
 import collections.abc
+import typing as typing_extensions
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-import sys
 import tensorflow.core.protobuf.data_service_pb2
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing_extensions.final
 class DispatcherConfig(google.protobuf.message.Message):
     """Configuration for a tf.data service DispatchServer.
-    Next id: 10
+    Next id: 11
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -34,6 +30,7 @@ class DispatcherConfig(google.protobuf.message.Message):
     JOB_GC_CHECK_INTERVAL_MS_FIELD_NUMBER: builtins.int
     JOB_GC_TIMEOUT_MS_FIELD_NUMBER: builtins.int
     CLIENT_TIMEOUT_MS_FIELD_NUMBER: builtins.int
+    WORKER_TIMEOUT_MS_FIELD_NUMBER: builtins.int
     port: builtins.int
     """The port for the dispatcher to bind to. A value of 0 indicates that the
     dispatcher may bind to any available port.
@@ -75,6 +72,10 @@ class DispatcherConfig(google.protobuf.message.Message):
     heartbeated to the dispatcher. A value of 0 indicates that the timeout
     should be left to the runtime.
     """
+    worker_timeout_ms: builtins.int
+    """How long to wait for a worker to heartbeat before considering it missing.
+    A value of 0 indicates that the timeout should be left to the runtime.
+    """
     def __init__(
         self,
         *,
@@ -87,8 +88,9 @@ class DispatcherConfig(google.protobuf.message.Message):
         job_gc_check_interval_ms: builtins.int | None = ...,
         job_gc_timeout_ms: builtins.int | None = ...,
         client_timeout_ms: builtins.int | None = ...,
+        worker_timeout_ms: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["client_timeout_ms", b"client_timeout_ms", "deployment_mode", b"deployment_mode", "fault_tolerant_mode", b"fault_tolerant_mode", "job_gc_check_interval_ms", b"job_gc_check_interval_ms", "job_gc_timeout_ms", b"job_gc_timeout_ms", "port", b"port", "protocol", b"protocol", "work_dir", b"work_dir", "worker_addresses", b"worker_addresses"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["client_timeout_ms", b"client_timeout_ms", "deployment_mode", b"deployment_mode", "fault_tolerant_mode", b"fault_tolerant_mode", "job_gc_check_interval_ms", b"job_gc_check_interval_ms", "job_gc_timeout_ms", b"job_gc_timeout_ms", "port", b"port", "protocol", b"protocol", "work_dir", b"work_dir", "worker_addresses", b"worker_addresses", "worker_timeout_ms", b"worker_timeout_ms"]) -> None: ...
 
 global___DispatcherConfig = DispatcherConfig
 

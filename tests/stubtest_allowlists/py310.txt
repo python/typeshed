@@ -1,60 +1,50 @@
-_collections_abc.AsyncGenerator.ag_await
-_collections_abc.AsyncGenerator.ag_code
-_collections_abc.AsyncGenerator.ag_frame
-_collections_abc.AsyncGenerator.ag_running
 _collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
-_collections_abc.ItemsView.__reversed__
-_collections_abc.KeysView.__reversed__
-_collections_abc.ValuesView.__reversed__
 _weakref.ProxyType.__reversed__  # Doesn't really exist
-asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
-asyncio.Future.__init__  # Usually initialized from c object
-asyncio.futures.Future.__init__  # Usually initialized from c object
 builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.property.__set_name__  # Doesn't actually exist
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
 configparser.ParsingError.filename
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
+email.contentmanager.typ
 enum.Enum._generate_next_value_
-fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
-functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
 gettext.install
 gettext.translation
-hmac.new  # Stub is a white lie; see comments in the stub
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.Finder.find_module
-importlib.metadata._meta.SimplePath.__truediv__  # See comments in the stub
-ipaddress.IPv4Interface.hostmask
-ipaddress.IPv6Interface.hostmask
-ipaddress._BaseNetwork.broadcast_address
-ipaddress._BaseNetwork.hostmask
-multiprocessing.spawn._main
-pickle.Pickler.reducer_override  # implemented in C pickler
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__match_args__
 platform.uname_result.__new__
 platform.uname_result.processor
-sys.UnraisableHookArgs  # Not exported from sys
 tkinter.Tk.split
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 typing._SpecialForm.__mro_entries__
-typing._TypedDict.__delitem__
-typing._TypedDict.__ior__
-typing._TypedDict.__or__
-typing._TypedDict.copy
-typing._TypedDict.items
-typing._TypedDict.keys
-typing._TypedDict.pop
-typing._TypedDict.setdefault
-typing._TypedDict.update
-typing._TypedDict.values
 weakref.ProxyType.__reversed__  # Doesn't really exist
-weakref.WeakValueDictionary.update
-typing_extensions\.get_original_bases
+builtins.ellipsis  # type is not exposed anywhere
+
+xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+
+# Runtime definition of protocol is incorrect
+importlib.metadata._meta.SimplePath.__truediv__
+importlib.metadata._meta.SimplePath.joinpath
+
+# Modules that exist at runtime, but shouldn't be added to typeshed
+ctypes.test
+ctypes\.test\..+
+lib2to3.tests
+lib2to3\.tests\..+
+sqlite3.test
+sqlite3\.test\..+
+tkinter.test
+tkinter\.test\..+
+unittest.test
+unittest\.test\..+
 
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__
@@ -100,12 +90,6 @@ _csv.Writer
 bdb.Breakpoint.clearBreakpoints
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
-multiprocessing.managers.SharedMemoryServer.create
-multiprocessing.managers.SharedMemoryServer.list_segments
-multiprocessing.managers.SharedMemoryServer.public
-multiprocessing.managers.SharedMemoryServer.release_segment
-multiprocessing.managers.SharedMemoryServer.shutdown
-multiprocessing.managers.SharedMemoryServer.track_segment
 
 # ==========
 # Related to positional-only arguments
@@ -118,14 +102,14 @@ _collections_abc.MutableMapping.setdefault
 
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
-typing.BinaryIO.write
-typing.IO.read
-typing.IO.readline
-typing.IO.readlines
-typing.IO.seek
-typing.IO.truncate
-typing.IO.write
-typing.IO.writelines
+typing(_extensions)?\.BinaryIO\.write
+typing(_extensions)?\.IO\.read
+typing(_extensions)?\.IO\.readline
+typing(_extensions)?\.IO\.readlines
+typing(_extensions)?\.IO\.seek
+typing(_extensions)?\.IO\.truncate
+typing(_extensions)?\.IO\.write
+typing(_extensions)?\.IO\.writelines
 
 # positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
 _collections_abc.Coroutine.send
@@ -156,25 +140,16 @@ json.encoder.i
 lib2to3.pgen2.grammar.line
 lib2to3.pgen2.grammar.name
 lib2to3.pgen2.grammar.op
+poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 pydoc.Helper.symbol  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.symbols_  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 pydoc.Helper.topic  # Loop variable in class https://github.com/python/typeshed/issues/6401#issuecomment-981178522
 
 # C signature is broader than what is actually accepted
-ast.Bytes.__new__
-ast.Ellipsis.__new__
 ast.ExtSlice.__new__
 ast.Index.__new__
-ast.NameConstant.__new__
-ast.Num.__new__
-ast.Str.__new__
-queue.SimpleQueue.__init__
-xml.etree.ElementTree.XMLParser.__init__
-xml.etree.cElementTree.XMLParser.__init__
 
-ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
-types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
 _ast.ImportFrom.level  # None on the class, but never None on instances
 ast.ImportFrom.level  # None on the class, but never None on instances
 
@@ -184,14 +159,15 @@ dataclasses.KW_ONLY
 # We pretend it's a read-only property for forward compatibility with 3.12
 typing.ParamSpec(Args|Kwargs).__origin__
 
-# https://github.com/python/mypy/issues/15302
-typing_extensions\.assert_never
-typing_extensions\.assert_type
-typing_extensions\.reveal_type
-typing.NewType.__call__
+# Problematic protocol signatures at runtime, see source code comments.
+importlib.abc.Traversable.joinpath
+importlib.abc.Traversable.open
+
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedList.reverse
+importlib.metadata.DeprecatedList.sort
 
 # Super-special typing primitives
-typing_extensions\.Final
 typing\.NamedTuple
 typing\.Annotated
 
@@ -209,5 +185,8 @@ asynchat.find_prefix_at_end
 pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
 
-# Omit internal _KEEP argument
-tarfile.TarInfo.replace
+types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
+
+# These enums derive from (str, Enum)
+pstats.SortKey.__new__
+tkinter.EventType.__new__

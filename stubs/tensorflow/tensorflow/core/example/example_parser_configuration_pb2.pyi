@@ -4,18 +4,14 @@ isort:skip_file
 Protocol messages for describing the configuration of the ExampleParserOp."""
 import builtins
 import collections.abc
+import typing as typing_extensions
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-import sys
 import tensorflow.core.framework.tensor_pb2
 import tensorflow.core.framework.tensor_shape_pb2
 import tensorflow.core.framework.types_pb2
-
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
