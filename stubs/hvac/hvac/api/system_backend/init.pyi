@@ -7,12 +7,12 @@ class Init(SystemBackendMixin):
     def is_initialized(self): ...
     def initialize(
         self,
-        secret_shares: Incomplete | None = ...,
-        secret_threshold: Incomplete | None = ...,
-        pgp_keys: Incomplete | None = ...,
-        root_token_pgp_key: Incomplete | None = ...,
-        stored_shares: Incomplete | None = ...,
-        recovery_shares: Incomplete | None = ...,
-        recovery_threshold: Incomplete | None = ...,
-        recovery_pgp_keys: Incomplete | None = ...,
+        secret_shares: Incomplete | None = None,
+        secret_threshold: Incomplete | None = None,
+        pgp_keys: Incomplete | None = None,
+        root_token_pgp_key: Incomplete | None = None,
+        stored_shares: Incomplete | None = None,
+        recovery_shares: Incomplete | None = None,
+        recovery_threshold: Incomplete | None = None,
+        recovery_pgp_keys: Incomplete | None = None,
     ): ...

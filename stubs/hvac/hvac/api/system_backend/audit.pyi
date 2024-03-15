@@ -7,10 +7,10 @@ class Audit(SystemBackendMixin):
     def enable_audit_device(
         self,
         device_type,
-        description: Incomplete | None = ...,
-        options: Incomplete | None = ...,
-        path: Incomplete | None = ...,
-        local: Incomplete | None = ...,
+        description: Incomplete | None = None,
+        options: Incomplete | None = None,
+        path: Incomplete | None = None,
+        local: Incomplete | None = None,
     ): ...
     def disable_audit_device(self, path): ...
     def calculate_hash(self, path, input_to_hash): ...

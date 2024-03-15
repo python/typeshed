@@ -6,10 +6,10 @@ class Raft(SystemBackendMixin):
     def join_raft_cluster(
         self,
         leader_api_addr,
-        retry: bool = ...,
-        leader_ca_cert: Incomplete | None = ...,
-        leader_client_cert: Incomplete | None = ...,
-        leader_client_key: Incomplete | None = ...,
+        retry: bool = False,
+        leader_ca_cert: Incomplete | None = None,
+        leader_client_cert: Incomplete | None = None,
+        leader_client_key: Incomplete | None = None,
     ): ...
     def read_raft_config(self): ...
     def remove_raft_node(self, server_id): ...

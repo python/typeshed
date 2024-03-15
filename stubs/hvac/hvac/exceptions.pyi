@@ -10,12 +10,12 @@ class VaultError(Exception):
     json: object
     def __init__(
         self,
-        message: str | None = ...,
-        errors: Iterable[Any] | str | None = ...,
-        method: str | None = ...,
-        url: str | None = ...,
-        text: str | None = ...,
-        json: object | None = ...,
+        message: str | None = None,
+        errors: Iterable[Any] | str | None = None,
+        method: str | None = None,
+        url: str | None = None,
+        text: str | None = None,
+        json: object | None = None,
     ) -> None: ...
     @classmethod
     def from_status(

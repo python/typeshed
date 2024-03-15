@@ -17,18 +17,18 @@ class Adapter(metaclass=ABCMeta):
     request_header: bool
     def __init__(
         self,
-        base_uri: str = ...,
-        token: str | None = ...,
-        cert: tuple[str, str] | None = ...,
-        verify: bool = ...,
-        timeout: int = ...,
-        proxies: Mapping[str, str] | None = ...,
-        allow_redirects: bool = ...,
-        session: Incomplete | None = ...,
-        namespace: str | None = ...,
-        ignore_exceptions: bool = ...,
-        strict_http: bool = ...,
-        request_header: bool = ...,
+        base_uri: str = "http://localhost:8200",
+        token: str | None = None,
+        cert: tuple[str, str] | None = None,
+        verify: bool = True,
+        timeout: int = 30,
+        proxies: Mapping[str, str] | None = None,
+        allow_redirects: bool = True,
+        session: Incomplete | None = None,
+        namespace: str | None = None,
+        ignore_exceptions: bool = False,
+        strict_http: bool = False,
+        request_header: bool = True,
     ) -> None: ...
     @staticmethod
     def urljoin(*args: object) -> str: ...
@@ -39,16 +39,18 @@ class Adapter(metaclass=ABCMeta):
     def delete(self, url: str, **kwargs: Any) -> Incomplete: ...
     def list(self, url: str, **kwargs: Any) -> Incomplete: ...
     def head(self, url: str, **kwargs: Any) -> Incomplete: ...
-    def login(self, url: str, use_token: bool = ..., **kwargs: Any) -> Incomplete: ...
+    def login(self, url: str, use_token: bool = True, **kwargs: Any) -> Incomplete: ...
     @abstractmethod
     def get_login_token(self, response: Incomplete) -> str: ...
     @abstractmethod
-    def request(self, method, url: str, headers: Mapping[str, str] | None = ..., raise_exception: bool = ..., **kwargs: Any): ...
+    def request(
+        self, method, url: str, headers: Mapping[str, str] | None = None, raise_exception: bool = True, **kwargs: Any
+    ): ...
 
 class RawAdapter(Adapter):
     def get_login_token(self, response: Incomplete) -> str: ...
     def request(
-        self, method: str, url: str, headers: Mapping[str, str] | None = ..., raise_exception: bool = ..., **kwargs: Any
+        self, method: str, url: str, headers: Mapping[str, str] | None = None, raise_exception: bool = True, **kwargs: Any
     ) -> Incomplete: ...
 
 class JSONAdapter(RawAdapter):
