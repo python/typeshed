@@ -35,6 +35,9 @@ def main() -> None:
     assert spec.startswith("=="), f"pyright version must be pinned in requirements-tests.txt: {req}"
     pyright_version = spec[2:]
 
+    # TODO: We're currently using npx to run pyright, instead of calling the
+    # version installed into the virtual environment, due to failures on some
+    # platforms. https://github.com/python/typeshed/issues/11614
     os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = pyright_version
     command = [npx, f"pyright@{pyright_version}"] + sys.argv[1:]
     print_command(command)
