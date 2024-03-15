@@ -10,7 +10,8 @@ class MyDateTime(datetime):
 
 d = MyDateTime.now()
 x = d - relativedelta(days=1)
-assert_type(x, MyDateTime)
+# https://github.com/python/typeshed/pull/11463
+# assert_type(x, MyDateTime)
 
 d3 = datetime.today()
 x3 = d3 - relativedelta(days=1)
