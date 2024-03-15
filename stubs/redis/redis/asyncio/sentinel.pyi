@@ -1,6 +1,5 @@
 from collections.abc import AsyncIterator, Iterable, Mapping
-from typing import Any, TypeVar, overload
-from typing_extensions import Literal, TypedDict
+from typing import Any, Literal, TypedDict, TypeVar, overload
 
 from redis.asyncio.client import Redis
 from redis.asyncio.connection import (
