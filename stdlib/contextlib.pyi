@@ -122,7 +122,7 @@ if sys.version_info >= (3, 10):
 
     _SupportsAcloseT = TypeVar("_SupportsAcloseT", bound=_SupportsAclose)
 
-    class aclosing(AbstractAsyncContextManager[_SupportsAcloseT]):
+    class aclosing(AbstractAsyncContextManager[_SupportsAcloseT, None]):
         def __init__(self, thing: _SupportsAcloseT) -> None: ...
         async def __aexit__(self, *exc_info: Unused) -> None: ...
 
@@ -157,7 +157,7 @@ class ExitStack(Generic[_ExitT_co], metaclass=abc.ABCMeta):
 _ExitCoroFunc: TypeAlias = Callable[
     [type[BaseException] | None, BaseException | None, TracebackType | None], Awaitable[bool | None]
 ]
-_ACM_EF = TypeVar("_ACM_EF", bound=AbstractAsyncContextManager[Any] | _ExitCoroFunc)
+_ACM_EF = TypeVar("_ACM_EF", bound=AbstractAsyncContextManager[Any, Any] | _ExitCoroFunc)
 
 # In reality this is a subclass of `AbstractAsyncContextManager`;
 # see #7961 for why we don't do that in the stub
@@ -202,7 +202,7 @@ else:
 if sys.version_info >= (3, 11):
     _T_fd_or_any_path = TypeVar("_T_fd_or_any_path", bound=FileDescriptorOrPath)
 
-    class chdir(AbstractContextManager[None], Generic[_T_fd_or_any_path]):
+    class chdir(AbstractContextManager[None, None], Generic[_T_fd_or_any_path]):
         path: _T_fd_or_any_path
         def __init__(self, path: _T_fd_or_any_path) -> None: ...
         def __enter__(self) -> None: ...
