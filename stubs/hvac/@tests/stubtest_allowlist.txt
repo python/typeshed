@@ -1,2 +1,3 @@
 # stubtest does not understand that the adapter argument type
 hvac.Client.__init__
+hvac.v1.Client.__init__
