@@ -1,2 +1,2 @@
 # stubtest does not understand that the adapter argument type
-hvac.v1.Client.__init__
+hvac.Client.__init__
