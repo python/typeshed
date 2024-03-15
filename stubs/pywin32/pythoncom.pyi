@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, Unused
-from typing import overload
+from collections.abc import Sequence
+from typing import SupportsInt, overload
 from typing_extensions import TypeAlias, deprecated
 
 import _win32typing
@@ -73,7 +74,7 @@ def MakePyFactory(iid: _win32typing.PyIID, /) -> _win32typing.PyIClassFactory: .
 @deprecated("Use pywintypes.IID() instead.")
 def MakeIID(iidString: str, is_bytes: bool = ..., /) -> _win32typing.PyIID: ...
 @deprecated("Use pywintypes.Time() instead.")
-def MakeTime(timeRepr, /) -> TimeType: ...
+def MakeTime(timeRepr: SupportsInt | Sequence[SupportsInt] | TimeType, /) -> TimeType: ...
 def MkParseDisplayName(
     displayName: str, bindCtx: _win32typing.PyIBindCtx | None = ..., /
 ) -> tuple[_win32typing.PyIMoniker, Incomplete, _win32typing.PyIBindCtx]: ...
