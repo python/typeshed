@@ -3,6 +3,7 @@
     "typeshedPath": ".",
     "include": [
         "test_cases",
+        "stubs/**",
         "stubs/**/@tests/test_cases"
     ],
     "typeCheckingMode": "strict",
