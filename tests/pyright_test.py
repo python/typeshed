@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -15,18 +16,29 @@ def main() -> None:
         print("pyright_test.py must be run from the typeshed root directory", file=sys.stderr)
         sys.exit(1)
 
+    # subprocess.run on Windows does not look in PATH.
+    npx = shutil.which("npx")
+
+    if npx is None:
+        print("error finding npx; is Node.js installed?", file=sys.stderr)
+        sys.exit(1)
+
+    try:
+        subprocess.run([npx, "--version"])
+    except OSError:
+        print("error running npx; is Node.js installed?", file=sys.stderr)
+        sys.exit(1)
+
     req = parse_requirements()["pyright"]
     assert len(req.specifier) == 1
     spec = str(req.specifier)
     assert spec.startswith("=="), f"pyright version must be pinned in requirements-tests.txt: {req}"
-    os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = spec[2:]
+    pyright_version = spec[2:]
 
-    print_command("pyright --version")
-    subprocess.run(["pyright", "--version"], check=True)
-    print()
-
-    command = ["pyright"] + sys.argv[1:]
+    os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = pyright_version
+    command = [npx, f"pyright@{pyright_version}"] + sys.argv[1:]
     print_command(command)
+
     ret = subprocess.run(command).returncode
     sys.exit(ret)
 
