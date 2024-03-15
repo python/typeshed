@@ -4,15 +4,14 @@ from __future__ import annotations
 
 import os
 import re
-import subprocess
 import sys
-import venv
+from collections.abc import Mapping
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Final, NamedTuple
-from typing_extensions import Annotated
 
 import pathspec
+from packaging.requirements import Requirement
 
 try:
     from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
@@ -34,6 +33,11 @@ def strip_comments(text: str) -> str:
     return text.split("#")[0].strip()
 
 
+# ====================================================================
+# Printing utilities
+# ====================================================================
+
+
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
     error_split = error.split("\n")
     old, new = fix_path
@@ -51,40 +55,33 @@ def print_success_msg() -> None:
 # ====================================================================
 
 
-class VenvInfo(NamedTuple):
-    pip_exe: Annotated[str, "A path to the venv's pip executable"]
-    python_exe: Annotated[str, "A path to the venv's python executable"]
-
-    @staticmethod
-    def of_existing_venv(venv_dir: Path) -> VenvInfo:
-        if sys.platform == "win32":
-            pip = venv_dir / "Scripts" / "pip.exe"
-            python = venv_dir / "Scripts" / "python.exe"
-        else:
-            pip = venv_dir / "bin" / "pip"
-            python = venv_dir / "bin" / "python"
-
-        return VenvInfo(str(pip), str(python))
+@cache
+def venv_python(venv_dir: Path) -> Path:
+    if sys.platform == "win32":
+        return venv_dir / "Scripts" / "python.exe"
+    return venv_dir / "bin" / "python"
 
 
-def make_venv(venv_dir: Path) -> VenvInfo:
-    try:
-        venv.create(venv_dir, with_pip=True, clear=True)
-    except subprocess.CalledProcessError as e:
-        if "ensurepip" in e.cmd and b"KeyboardInterrupt" not in e.stdout.splitlines():
-            print_error(
-                "stubtest requires a Python installation with ensurepip. "
-                "If on Linux, you may need to install the python3-venv package."
-            )
-        raise
+# ====================================================================
+# Parsing the requirements file
+# ====================================================================
 
-    return VenvInfo.of_existing_venv(venv_dir)
+
+REQS_FILE: Final = "requirements-tests.txt"
 
 
 @cache
+def parse_requirements() -> Mapping[str, Requirement]:
+    """Return a dictionary of requirements from the requirements file."""
+
+    with open(REQS_FILE, encoding="UTF-8") as requirements_file:
+        stripped_lines = map(strip_comments, requirements_file)
+        requirements = map(Requirement, filter(None, stripped_lines))
+        return {requirement.name: requirement for requirement in requirements}
+
+
 def get_mypy_req() -> str:
-    with open("requirements-tests.txt", encoding="UTF-8") as requirements_file:
-        return next(strip_comments(line) for line in requirements_file if "mypy" in line)
+    return str(parse_requirements()["mypy"])
 
 
 # ====================================================================

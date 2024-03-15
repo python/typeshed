@@ -18,6 +18,7 @@ are important to the project's success.
 4. Optionally [format and check your stubs](#code-formatting).
 5. Optionally [run the tests](tests/README.md).
 6. [Submit your changes](#submitting-changes) by opening a pull request.
+7. Make sure that all tests in CI are passing.
 
 You can expect a reply within a few days, but please be patient when
 it takes a bit longer. For more details, read below.
@@ -87,34 +88,25 @@ terminal to install all non-pytype requirements:
 ## Code formatting
 
 The code is formatted using [`Black`](https://github.com/psf/black).
-Various other autofixes are
-also performed by [`Ruff`](https://github.com/astral-sh/ruff).
+Various other autofixes and lint rules are
+also performed by [`Ruff`](https://github.com/astral-sh/ruff) and
+[`Flake8`](https://github.com/pycqa/flake8),
+with plugins [`flake8-pyi`](https://github.com/pycqa/flake8-pyi),
+and [`flake8-noqa`](https://github.com/plinss/flake8-noqa).
 
 The repository is equipped with a [`pre-commit.ci`](https://pre-commit.ci/)
 configuration file. This means that you don't *need* to do anything yourself to
-run the code formatters. When you push a commit, a bot will run those for you
-right away and add a commit to your PR.
+run the code formatters or linters. When you push a commit, a bot will run
+those for you right away and add any autofixes to your PR. Anything
+that can't be autofixed will show up as a CI failure, hopefully with an error
+message that will make it clear what's gone wrong.
 
-That being said, if you *want* to run the checks locally when you commit,
-you're free to do so. Either run the following manually...
-
-```bash
-(.venv)$ ruff check .
-(.venv)$ black .
-```
-
-...Or install the pre-commit hooks: please refer to the
-[pre-commit](https://pre-commit.com/) documentation.
-
-Our code is also linted using [`Flake8`](https://github.com/pycqa/flake8),
-with plugins [`flake8-pyi`](https://github.com/pycqa/flake8-pyi),
-and [`flake8-noqa`](https://github.com/plinss/flake8-noqa).
-As with our other checks, running
-Flake8 before filing a PR is not required. However, if you wish to run Flake8
-locally, install the test dependencies as outlined above, and then run:
+That being said, if you *want* to run the formatters and linters locally
+when you commit, you're free to do so. To use the same configuration as we use
+in CI, we recommend doing this via pre-commit:
 
 ```bash
-(.venv)$ flake8 .
+(.venv)$ pre-commit run --all-files
 ```
 
 ## Where to make changes
@@ -636,6 +628,13 @@ processed incorrectly by a type checker. It is also helpful to add
 links to online documentation or to the implementation of the code
 you are changing.
 
+As the author of the pull request, it is your responsibility to make
+sure all CI tests pass and that any feedback is addressed. The typeshed
+maintainers will probably provide some help and may even push changes
+to your PR to fix any minor issues, but this is not always possible.
+If a PR lingers with unresolved problems for too long, we may close it
+([see below](#closing-stale-prs)).
+
 Also, do not squash your commits or use `git commit --amend` after you have submitted a pull request, as this
 erases context during review. We will squash commits when the pull request is merged.
 This way, your pull request will appear as a single commit in our git history, even
@@ -699,3 +698,37 @@ When merging pull requests, follow these guidelines:
   It should be valid Markdown, be comprehensive, read like a changelog entry,
   and assume that the reader has no access to the diff.
 * Delete branches for merged PRs (by maintainers pushing to the main repo).
+
+### Marking PRs as "deferred"
+
+We sometimes use the ["deferred" label](https://github.com/python/typeshed/labels/deferred)
+to mark PRs and issues that we'd like to accept, but that are blocked by some
+external factor. Blockers can include:
+
+- An unambiguous bug in a type checker (i.e., a case where the
+  type checker is not implementing [the typing spec](https://typing.readthedocs.io/en/latest/spec/index.html)).
+- A dependency on a typing PEP that is still under consideration.
+- A pending change in a related project, such as stub-uploader.
+
+PRs should only be marked as "deferred" if there is a clear path towards getting
+the blocking issue resolved within a reasonable time frame. If a PR depends on
+a more amorphous change, such as a type system change that has not yet reached
+the PEP stage, it should instead be closed.
+
+Maintainers who add the "deferred" label should state clearly what exactly the
+blocker is, usually with a link to an open issue in another project.
+
+### Closing stale PRs
+
+To keep the number of open PRs manageable, we may close PRs when they have been
+open for too long. Specifically, we close open PRs that either have failures in CI,
+serious merge conflicts or unaddressed feedback, and that have not seen any
+activity in three months.
+
+We want to maintain a welcoming atmosphere for contributors, so use a friendly
+message when closing the PR. Example message:
+
+    Thanks for contributing! I'm closing this PR for now, because it still
+    <fails some tests OR has unresolved review feedback OR has a merge conflict>
+    after three months of inactivity. If you are still interested, please feel free to open
+    a new PR (or ping us to reopen this one).

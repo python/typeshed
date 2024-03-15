@@ -4,22 +4,20 @@
 black==24.1.1            # must match .pre-commit-config.yaml
 flake8==7.0.0            # must match .pre-commit-config.yaml
 flake8-noqa==1.4.0       # must match .pre-commit-config.yaml
-flake8-pyi==24.1.0       # must match .pre-commit-config.yaml
-mypy==1.8.0
+flake8-pyi==24.3.0       # must match .pre-commit-config.yaml
+mypy==1.9.0
 pre-commit-hooks==4.5.0  # must match .pre-commit-config.yaml
-pytype==2024.2.27; platform_system != "Windows" and python_version < "3.12"
-ruff==0.2.1              # must match .pre-commit-config.yaml and tests.yml
+pytype==2024.3.11; platform_system != "Windows" and python_version < "3.12"
+ruff==0.3.0              # must match .pre-commit-config.yaml
 
 # Libraries used by our various scripts.
 aiohttp==3.9.3
 packaging==23.2
 pathspec>=0.11.1
-pyyaml==6.0.1
+pre-commit
 stubdefaulter==0.1.0
 termcolor>=2.3
 tomli==2.0.1
 tomlkit==0.12.3
 typing_extensions>=4.9.0rc1
-
-# Type stubs used to type check our scripts.
-types-pyyaml>=6.0.12.7
+uv==0.1.18  # https://github.com/astral-sh/uv/issues/2450
