@@ -35,13 +35,13 @@ dummy_threading.Condition.release
 dummy_threading.Event.isSet
 dummy_threading.Thread.native_id
 dummy_threading.local.__new__
+email.contentmanager.typ
 enum.Enum._generate_next_value_
 gettext.install  # codeset default value is ['unspecified'] so can't be specified
 gettext.translation  # codeset default value is ['unspecified'] so can't be specified
 importlib.abc.Finder.find_module
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
-random.Random.randrange  # missing undocumented arg _int
 sched.Event.__doc__  # __slots__ is overridden
 typing.NamedTuple.__new__
 typing.NamedTuple._asdict
@@ -51,6 +51,9 @@ typing._SpecialForm.__new__
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
 xxsubtype  # module missing from the stubs
+
+xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
 
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__
@@ -181,3 +184,7 @@ tkinter.test
 tkinter\.test\..+
 unittest.test
 unittest\.test\..+
+
+# These enums derive from (str, Enum)
+pstats.SortKey.__new__
+tkinter.EventType.__new__

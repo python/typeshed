@@ -1,12 +1,15 @@
-from _typeshed import Incomplete
+from _typeshed import ConvertibleToInt, Incomplete
 from collections.abc import Generator, Iterable, Iterator
 from datetime import datetime
-from typing import Any, NoReturn, overload
-from typing_extensions import Final, Literal
+from types import GeneratorType
+from typing import Any, Final, Literal, NoReturn, overload
+from typing_extensions import deprecated
 
 from openpyxl import _Decodable, _VisibilityType
 from openpyxl.cell import _CellValue
 from openpyxl.cell.cell import Cell
+from openpyxl.chart._chart import ChartBase
+from openpyxl.drawing.image import Image
 from openpyxl.formatting.formatting import ConditionalFormattingList
 from openpyxl.workbook.child import _WorkbookChild
 from openpyxl.workbook.defined_name import DefinedNameDict
@@ -68,7 +71,7 @@ class Worksheet(_WorkbookChild):
     sheet_format: SheetFormatProperties
     scenarios: ScenarioList
 
-    def __init__(self, parent: Workbook, title: str | _Decodable | None = None) -> None: ...
+    def __init__(self, parent: Workbook | None, title: str | _Decodable | None = None) -> None: ...
     @property
     def sheet_view(self) -> SheetView: ...
     @property
@@ -128,7 +131,7 @@ class Worksheet(_WorkbookChild):
     @overload
     def iter_rows(
         self, min_row: int | None, max_row: int | None, min_col: int | None, max_col: int | None, values_only: bool
-    ) -> Generator[tuple[Cell | str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[Cell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
     @overload
     def iter_rows(
         self,
@@ -138,7 +141,7 @@ class Worksheet(_WorkbookChild):
         max_col: int | None = None,
         *,
         values_only: bool,
-    ) -> Generator[tuple[Cell | str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[Cell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
     @property
     def rows(self) -> Generator[tuple[Cell, ...], None, None]: ...
     @property
@@ -169,7 +172,7 @@ class Worksheet(_WorkbookChild):
     @overload
     def iter_cols(
         self, min_col: int | None, max_col: int | None, min_row: int | None, max_row: int | None, values_only: bool
-    ) -> Generator[tuple[Cell | str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[Cell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
     @overload
     def iter_cols(
         self,
@@ -179,29 +182,46 @@ class Worksheet(_WorkbookChild):
         max_row: int | None = None,
         *,
         values_only: bool,
-    ) -> Generator[tuple[Cell | str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[Cell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
     @property
     def columns(self) -> Generator[tuple[Cell, ...], None, None]: ...
     def set_printer_settings(
-        self, paper_size: int | None, orientation: None | Literal["default", "portrait", "landscape"]
+        self, paper_size: int | None, orientation: Literal["default", "portrait", "landscape"] | None
     ) -> None: ...
     def add_data_validation(self, data_validation: DataValidation) -> None: ...
-    def add_chart(self, chart, anchor: Incomplete | None = None) -> None: ...
-    def add_image(self, img, anchor: Incomplete | None = None) -> None: ...
+    def add_chart(self, chart: ChartBase, anchor: str | None = None) -> None: ...
+    def add_image(self, img: Image, anchor: str | None = None) -> None: ...
     def add_table(self, table: Table) -> None: ...
     @property
     def tables(self) -> TableList: ...
     def add_pivot(self, pivot) -> None: ...
+    # Same overload as CellRange.__init__
+    @overload
+    def merge_cells(
+        self, range_string: str, start_row: None = None, start_column: None = None, end_row: None = None, end_column: None = None
+    ) -> None: ...
+    @overload
     def merge_cells(
         self,
-        range_string: str | None = None,
-        start_row: int | None = None,
-        start_column: int | None = None,
-        end_row: int | None = None,
-        end_column: int | None = None,
+        range_string: None = None,
+        *,
+        start_row: ConvertibleToInt,
+        start_column: ConvertibleToInt,
+        end_row: ConvertibleToInt,
+        end_column: ConvertibleToInt,
     ) -> None: ...
-    # deprecated: Will always raise: TypeError: 'set' object is not subscriptable
+    @overload
+    def merge_cells(
+        self,
+        range_string: None,
+        start_row: ConvertibleToInt,
+        start_column: ConvertibleToInt,
+        end_row: ConvertibleToInt,
+        end_column: ConvertibleToInt,
+    ) -> None: ...
+    # Will always raise: TypeError: 'set' object is not subscriptable
     @property
+    @deprecated("Use ws.merged_cells.ranges")
     def merged_cell_ranges(self) -> NoReturn: ...
     def unmerge_cells(
         self,
@@ -211,7 +231,16 @@ class Worksheet(_WorkbookChild):
         end_row: int | None = None,
         end_column: int | None = None,
     ) -> None: ...
-    def append(self, iterable: Iterable[Incomplete]) -> None: ...
+    def append(
+        self,
+        iterable: (
+            list[Incomplete]
+            | tuple[Incomplete, ...]
+            | range
+            | GeneratorType[Incomplete, object, object]
+            | dict[int | str, Incomplete]
+        ),
+    ) -> None: ...
     def insert_rows(self, idx: int, amount: int = 1) -> None: ...
     def insert_cols(self, idx: int, amount: int = 1) -> None: ...
     def delete_rows(self, idx: int, amount: int = 1) -> None: ...

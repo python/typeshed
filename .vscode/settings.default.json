@@ -71,23 +71,11 @@
         ],
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
-    // Use the new dedicated extensions instead
-    "python.formatting.provider": "none",
-    "python.linting.enabled": false,
-    "python.linting.mypyEnabled": false,
-    "python.linting.flake8Enabled": false,
-    "python.linting.pycodestyleEnabled": false,
-    "python.linting.prospectorEnabled": false,
-    "python.linting.pylamaEnabled": false,
-    "python.linting.pylintEnabled": false,
-    "python.linting.banditEnabled": false,
     // python.analysis is Pylance (pyright) configurations
     "python.analysis.fixAll": [
         "source.unusedImports"
         // Explicitly omiting "source.convertImportFormat", some stubs use relative imports
     ],
-    // Important to use `types-*` and flag untyped dependencies.
-    "python.analysis.useLibraryCodeForTypes": false,
     "python.analysis.typeshedPaths": [
         "${workspaceFolder}"
     ],

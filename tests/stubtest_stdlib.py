@@ -18,6 +18,7 @@ def run_stubtest(typeshed_dir: Path) -> int:
     version_allowlist = f"py{sys.version_info.major}{sys.version_info.minor}.txt"
     platform_allowlist = f"{sys.platform}.txt"
     combined_allowlist = f"{sys.platform}-py{sys.version_info.major}{sys.version_info.minor}.txt"
+    local_version_allowlist = version_allowlist + ".local"
 
     # Note when stubtest imports distutils, it will likely actually import setuptools._distutils
     # This is fine because we don't care about distutils and allowlist all errors from it
@@ -39,6 +40,8 @@ def run_stubtest(typeshed_dir: Path) -> int:
         cmd += ["--allowlist", str(allowlist_dir / platform_allowlist)]
     if (allowlist_dir / combined_allowlist).exists():
         cmd += ["--allowlist", str(allowlist_dir / combined_allowlist)]
+    if (allowlist_dir / local_version_allowlist).exists():
+        cmd += ["--allowlist", str(allowlist_dir / local_version_allowlist)]
     if sys.version_info < (3, 10):
         # As discussed in https://github.com/python/typeshed/issues/3693, we only aim for
         # positional-only arg accuracy for python 3.10 and above.

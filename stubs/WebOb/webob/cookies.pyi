@@ -3,8 +3,8 @@ from _typeshed.wsgi import WSGIEnvironment
 from collections.abc import Callable, Collection, ItemsView, Iterator, KeysView, MutableMapping, ValuesView
 from datetime import date, datetime, timedelta
 from hashlib import _Hash
-from typing import Any, Protocol, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing import Any, Literal, Protocol, TypeVar, overload
+from typing_extensions import TypeAlias
 
 from webob.descriptors import _AsymmetricProperty
 from webob.request import Request
@@ -13,12 +13,12 @@ from webob.response import Response
 _T = TypeVar("_T")
 # we accept both the official spelling and the one used in the WebOb docs
 # the implementation compares after lower() so technically there are more
-# valid spellings, but it seems mor natural to support these two spellings
+# valid spellings, but it seems more natural to support these two spellings
 _SameSitePolicy: TypeAlias = Literal["Strict", "Lax", "None", "strict", "lax", "none"]
 
 class _Serializer(Protocol):
-    def loads(self, __appstruct: Any) -> bytes: ...
-    def dumps(self, __bstruct: bytes) -> Any: ...
+    def loads(self, appstruct: Any, /) -> bytes: ...
+    def dumps(self, bstruct: bytes, /) -> Any: ...
 
 class RequestCookies(MutableMapping[str, str]):
     def __init__(self, environ: WSGIEnvironment) -> None: ...
@@ -41,9 +41,9 @@ class Cookie(dict[str, Morsel]):
     def __init__(self, input: str | None = None) -> None: ...
     def load(self, data: str) -> None: ...
     def add(self, key: str | bytes, val: str | bytes) -> Morsel: ...
-    def __setitem__(self, key: str | bytes, val: str | bytes) -> Morsel: ...  # type:ignore[override]
+    def __setitem__(self, key: str | bytes, val: str | bytes) -> Morsel: ...  # type: ignore[override]
     def serialize(self, full: bool = True) -> str: ...
-    def values(self) -> list[Morsel]: ...  # type:ignore[override]
+    def values(self) -> list[Morsel]: ...  # type: ignore[override]
     def __str__(self, full: bool = True) -> str: ...
 
 class Morsel(dict[bytes, bytes | bool | None]):

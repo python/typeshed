@@ -1,0 +1,9 @@
+from _typeshed import Incomplete
+
+import tensorflow as tf
+from tensorflow.keras.layers.experimental.preprocessing import PreprocessingLayer
+
+class _IndexLookup(PreprocessingLayer):
+    def compute_output_signature(self, input_spec: Incomplete) -> tf.TensorSpec: ...
+    def get_vocabulary(self, include_special_tokens: bool = True) -> list[Incomplete]: ...
+    def vocabulary_size(self) -> int: ...

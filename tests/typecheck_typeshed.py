@@ -21,7 +21,7 @@ EMPTY: list[str] = []
 parser = argparse.ArgumentParser(description="Run mypy on typeshed's own code in the `scripts` and `tests` directories.")
 parser.add_argument(
     "dir",
-    choices=DIRECTORIES_TO_TEST + (EMPTY,),
+    choices=(*DIRECTORIES_TO_TEST, EMPTY),
     nargs="*",
     action="extend",
     help=f"Test only these top-level typeshed directories (defaults to {DIRECTORIES_TO_TEST!r})",
@@ -63,6 +63,8 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "possibly-undefined",
         "--enable-error-code",
         "redundant-expr",
+        "--enable-error-code",
+        "redundant-self",
         "--custom-typeshed-dir",
         ".",
     ]
