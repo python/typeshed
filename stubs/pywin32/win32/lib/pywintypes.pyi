@@ -2,7 +2,7 @@
 # Otherwise you get the error: "KeyError: 'pywintypes'"
 from _typeshed import Incomplete
 from datetime import datetime
-from typing import ClassVar, Literal, NoReturn, overload
+from typing import ClassVar, Final, NoReturn, overload
 from typing_extensions import Never, TypeAlias, deprecated
 
 import _win32typing
@@ -53,6 +53,6 @@ def TimeStamp(timestamp: tuple[int, int], /) -> TimeType: ...
 @overload
 def TimeStamp(timestamp: int, /) -> TimeType: ...
 
-FALSE: Literal[False]
-TRUE: Literal[True]
+FALSE: Final = False
+TRUE: Final = True
 WAVE_FORMAT_PCM: int
