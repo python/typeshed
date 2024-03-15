@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
 import os
-import shutil
 import subprocess
 import sys
 from pathlib import Path
 
-import tomli
+from utils import parse_requirements, print_command
 
 _WELL_KNOWN_FILE = Path("tests", "pyright_test.py")
 
@@ -16,26 +15,18 @@ def main() -> None:
         print("pyright_test.py must be run from the typeshed root directory", file=sys.stderr)
         sys.exit(1)
 
-    # subprocess.run on Windows does not look in PATH.
-    npx = shutil.which("npx")
+    req = parse_requirements()["pyright"]
+    assert len(req.specifier) == 1
+    spec = str(req.specifier)
+    assert spec.startswith("=="), f"pyright version must be pinned in requirements-tests.txt: {req}"
+    os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = spec[2:]
 
-    if npx is None:
-        print("error finding npx; is Node.js installed?", file=sys.stderr)
-        sys.exit(1)
+    print_command("pyright --version")
+    subprocess.run(["pyright", "--version"], check=True)
+    print()
 
-    try:
-        subprocess.run([npx, "--version"])
-    except OSError:
-        print("error running npx; is Node.js installed?", file=sys.stderr)
-        sys.exit(1)
-
-    with open("pyproject.toml", "rb") as config:
-        pyright_version: str = tomli.load(config)["tool"]["typeshed"]["pyright_version"]
-
-    os.environ["PYRIGHT_PYTHON_FORCE_VERSION"] = pyright_version
-    command = [npx, f"pyright@{pyright_version}"] + sys.argv[1:]
-    print("Running:", " ".join(command))
-
+    command = ["pyright"] + sys.argv[1:]
+    print_command(command)
     ret = subprocess.run(command).returncode
     sys.exit(ret)
 

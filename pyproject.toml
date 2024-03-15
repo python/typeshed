@@ -149,5 +149,7 @@ extra-standard-library = [
 known-first-party = ["parse_metadata", "utils"]
 
 [tool.typeshed]
+# TODO: Remove once stub_uploader uses requirements.txt to determine
+# the version of pyright.
 pyright_version = "1.1.354"
 oldest_supported_python = "3.8"
