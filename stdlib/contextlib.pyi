@@ -31,7 +31,7 @@ if sys.version_info >= (3, 11):
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_io = TypeVar("_T_io", bound=IO[str] | None)
-_ExitT_co = TypeVar("_ExitT_co", covariant=True, bound=bool | None)
+_ExitT_co = TypeVar("_ExitT_co", covariant=True, bound=bool | None, default=bool | None)
 _F = TypeVar("_F", bound=Callable[..., Any])
 _P = ParamSpec("_P")
 
