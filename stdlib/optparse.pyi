@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import IO, AnyStr, Literal, overload
+from typing import IO, Any, AnyStr, Literal, overload
 
 __all__ = [
     "Option",
@@ -144,7 +144,9 @@ class OptionContainer:
     defaults: dict[str, Incomplete]
     description: str | None
     option_class: type[Option]
-    def __init__(self, option_class: type[Option], conflict_handler: Literal["error", "resolve"], description: str | None) -> None: ...
+    def __init__(
+        self, option_class: type[Option], conflict_handler: Literal["error", "resolve"], description: str | None
+    ) -> None: ...
     def _check_conflict(self, option: Option) -> None: ...
     def _create_option_mappings(self) -> None: ...
     def _share_option_mappings(self, parser: OptionParser) -> None: ...
