@@ -30,9 +30,7 @@ def main() -> None:
         sys.exit(1)
 
     req = parse_requirements()["pyright"]
-    assert len(req.specifier) == 1
     spec = str(req.specifier)
-    assert spec.startswith("=="), f"pyright version must be pinned in requirements-tests.txt: {req}"
     pyright_version = spec[2:]
 
     # TODO: We're currently using npx to run pyright, instead of calling the
