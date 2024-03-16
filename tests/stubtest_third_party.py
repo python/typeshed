@@ -43,7 +43,11 @@ def run_stubtest(
 
     with tempfile.TemporaryDirectory() as tmp:
         venv_dir = Path(tmp)
-        subprocess.run(["uv", "venv", venv_dir, "--seed"], capture_output=True, check=True)
+        try:
+            subprocess.run(["uv", "venv", venv_dir, "--seed"], capture_output=True, check=True)
+        except subprocess.CalledProcessError as e:
+            print_command_failure("Failed to create a virtualenv (likely a bug in uv?)", e)
+            return False
         if sys.platform == "win32":
             pip_exe = str(venv_dir / "Scripts" / "pip.exe")
             python_exe = str(venv_dir / "Scripts" / "python.exe")

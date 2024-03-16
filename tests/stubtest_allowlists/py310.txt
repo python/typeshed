@@ -4,6 +4,7 @@ asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several p
 builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.property.__set_name__  # Doesn't actually exist
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
 configparser.ParsingError.filename
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
