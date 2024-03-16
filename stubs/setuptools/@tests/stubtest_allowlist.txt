@@ -36,7 +36,6 @@ setuptools._distutils.ccompiler.CCompiler.EXECUTABLE
 setuptools._distutils.ccompiler.CCompiler.SHARED_LIBRARY
 setuptools._distutils.ccompiler.CCompiler.SHARED_OBJECT
 setuptools._distutils.ccompiler.CCompiler.compiler_type
-setuptools._distutils.ccompiler.CCompiler.obj_extension
 setuptools._distutils.ccompiler.CCompiler.out_extensions
 setuptools._distutils.ccompiler.CCompiler.set_executable
 setuptools._distutils.ccompiler.compiler_class
