@@ -8,8 +8,6 @@ CONTENT_TYPE_FORM_URLENCODED: str
 CONTENT_TYPE_MULTI_PART: str
 log: Logger
 
-unicode = str
-
 class OAuth1(AuthBase):
     client_class: type[Client]
     client: Client

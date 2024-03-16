@@ -8,6 +8,7 @@ _csv.Writer
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 configparser.LegacyInterpolation.__init__
 configparser.ParsingError.filename
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
 enum.Enum.__init__
 enum.Enum._generate_next_value_
 # Not strictly speaking a staticmethod on 3.11, but it acts like one:

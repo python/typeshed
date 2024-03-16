@@ -149,5 +149,5 @@ extra-standard-library = [
 known-first-party = ["parse_metadata", "utils"]
 
 [tool.typeshed]
-pyright_version = "1.1.350"
+pyright_version = "1.1.354"
 oldest_supported_python = "3.8"

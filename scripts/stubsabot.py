@@ -372,11 +372,10 @@ class DiffAnalysis:
 
     @functools.cached_property
     def public_files_added(self) -> Sequence[str]:
-        return [
-            file["filename"]
-            for file in self.py_files
-            if not re.match("_[^_]", Path(file["filename"]).name) and file["status"] == "added"
-        ]
+        def is_public(path: Path) -> bool:
+            return not re.match(r"_[^_]", path.name) and not path.name.startswith("test_")
+
+        return [file["filename"] for file in self.py_files if is_public(Path(file["filename"])) and file["status"] == "added"]
 
     @functools.cached_property
     def typeshed_files_deleted(self) -> Sequence[str]:
@@ -473,7 +472,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
 
     relevant_version = obsolete_since.version if obsolete_since else latest_version
 
-    project_urls = pypi_info.info["project_urls"] or {}
+    project_urls: dict[str, str] = pypi_info.info["project_urls"] or {}
     maybe_links: dict[str, str | None] = {
         "Release": f"{pypi_info.pypi_root}/{relevant_version}",
         "Homepage": project_urls.get("Homepage"),
