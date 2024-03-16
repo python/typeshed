@@ -13,6 +13,7 @@
         "stdlib/importlib/readers.pyi",
         "stdlib/lib2to3/fixes/*.pyi",
         "stdlib/numbers.pyi",
+        "stdlib/optparse.pyi",
         "stdlib/_tkinter.pyi",
         "stdlib/tkinter/__init__.pyi",
         "stdlib/tkinter/filedialog.pyi",
