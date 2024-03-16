@@ -1,0 +1,5 @@
+version = "2.1.*"
+upstream_repository = "https://github.com/MylesMor/nanoleafapi"
+
+[tool.stubtest]
+ignore_missing_stub = true
