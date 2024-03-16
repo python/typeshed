@@ -24,8 +24,8 @@ asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several p
 asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
 builtins.dict.get
-collections.ChainMap.fromkeys  # Runtime has *args which can really only be one argument
-collections.UserList.sort  # Runtime has *args but will error if any are supplied
+collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
+collections\.UserList\.sort  # Runtime has *args but will error if any are supplied
 configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
 # SectionProxy get functions are set in __init__
 configparser.SectionProxy.getboolean
@@ -371,10 +371,6 @@ threading.Condition.release
 multiprocessing.dummy.Condition.acquire
 multiprocessing.dummy.Condition.release
 
-# Takes a "_warn" parameter at runtime
-# for technical reasons; no need to expose it in the stub.
-asyncio.proactor_events._ProactorBasePipeTransport.__del__
-
 # Weird special builtins that are typed as functions, but aren't functions
 builtins.copyright
 builtins.credits
@@ -450,6 +446,8 @@ multiprocessing.(dummy|managers).Namespace.__[gs]etattr__  # Any field can be se
 # mypy infers the variable has type `(*args) -> ForkingPickler`
 # but stubtest infers the runtime type as <class ForkingPickler>
 multiprocessing.reduction.AbstractReducer.ForkingPickler
+# Non-private parameter on __del__
+multiprocessing.pool.Pool.__del__
 
 # C signature is broader than what is actually accepted
 queue.SimpleQueue.__init__
@@ -563,6 +561,10 @@ multiprocessing.dummy.RLock
 turtle.ScrolledCanvas.find_all
 turtle.ScrolledCanvas.select_clear
 turtle.ScrolledCanvas.select_item
+
+# Attributes that are intended to be private
+uuid.bytes_
+uuid.int_
 
 # Always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action
@@ -702,13 +704,3 @@ typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/com
 (tarfile.AbsolutePathError)?
 (tarfile.AbsoluteLinkError)?
 (shutil.unpack_archive)?
-
-# Omit internal _KEEP argument
-tarfile.TarInfo.replace
-
-# Private parameters are deliberately omitted in the stubs (see https://github.com/python/mypy/issues/16443)
-asyncio.(base_events.)?BaseEventLoop.__del__
-asyncio.(base_subprocess.)?BaseSubprocessTransport.__del__
-asyncio.(sslproto.)?_SSLProtocolTransport.__del__
-multiprocessing.pool.Pool.__del__
-subprocess.Popen.__del__
