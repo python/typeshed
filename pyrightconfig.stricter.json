@@ -50,7 +50,6 @@
         "stubs/ldap3",
         "stubs/Markdown",
         "stubs/mysqlclient",
-        "stubs/nanoleafapi",
         "stubs/networkx",
         "stubs/oauthlib",
         "stubs/openpyxl",
