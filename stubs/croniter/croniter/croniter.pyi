@@ -1,9 +1,10 @@
 import datetime
-from _typeshed import Unused
 from collections import OrderedDict
 from collections.abc import Iterator
 from re import Match, Pattern
 from typing import Any, Final, Literal, overload
+
+from _typeshed import Unused
 from typing_extensions import Never, Self, TypeAlias
 
 _RetType: TypeAlias = type[float | datetime.datetime]
@@ -106,6 +107,10 @@ class croniter(Iterator[Any]):
     def is_valid(cls, expression: str, hash_id: bytes | None = None) -> bool: ...
     @classmethod
     def match(cls, cron_expression: str, testdate: float | datetime.datetime | None, day_or: bool = True) -> bool: ...
+    @classmethod
+    def match_range(
+        cls, cron_expression: str, from_datetime: datetime.datetime, to_datetime: datetime.datetime, day_or: bool = True
+    ) -> bool: ...
 
 def croniter_range(
     start: float | datetime.datetime,
