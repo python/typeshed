@@ -32,4 +32,4 @@ assert_type(custom_c["a"], Foo)
 custom_c["a"] = Foo()
 custom_c["a"] += Foo()  # type: ignore
 # pyright incorrectly accepts the next line
-# custom_c["a"] += 42  # type: ignore
+# custom_c["a"] += 42  # xtype: ignore
