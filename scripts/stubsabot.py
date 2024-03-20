@@ -194,7 +194,7 @@ def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfil
         path_iter = (
             Path(zip_info.filename)
             for zip_info in source.infolist()
-            if not (zip_info.is_dir() or (Path(zip_info.filename).name == "__init__.py" and zip_info.file_size == 0))
+            if (not zip_info.is_dir()) and not (Path(zip_info.filename).name == "__init__.py" and zip_info.file_size == 0))
         )
     else:
         path_iter = (
