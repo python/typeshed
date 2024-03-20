@@ -36,7 +36,7 @@ class CroniterNotAlphaError(CroniterError): ...
 def datetime_to_timestamp(d: datetime.datetime) -> float: ...
 
 class croniter(Iterator[Any]):
-    MONTHS_IN_YEAR: Final[Literal[12]]
+    MONTHS_IN_YEAR: Final = 12
     RANGES: Final[tuple[tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int]]]
     DAYS: Final[
         tuple[

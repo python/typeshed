@@ -39,7 +39,7 @@ need fixing.
 
 ### ... Or create a local development environment
 
-If you prefer to run the tests & formatting locally, it's
+If you prefer to run the tests and formatting locally, it's
 possible too. Follow platform-specific instructions below.
 For more information about our available tests, see
 [tests/README.md](tests/README.md).
@@ -54,7 +54,7 @@ Note that some tests require extra setup steps to install the required dependenc
 ### Linux/Mac OS
 
 On Linux and Mac OS, you will be able to run the full test suite on Python
-3.9 or 3.10.
+3.9, 3.10, or 3.11.
 To install the necessary requirements, run the following commands from a
 terminal window:
 
@@ -94,7 +94,7 @@ also performed by [`Ruff`](https://github.com/astral-sh/ruff) and
 with plugins [`flake8-pyi`](https://github.com/pycqa/flake8-pyi),
 and [`flake8-noqa`](https://github.com/plinss/flake8-noqa).
 
-The repository is equipped with a [`pre-commit.ci`](https://pre-commit.ci/)
+The repository is equipped with a [pre-commit.ci](https://pre-commit.ci/)
 configuration file. This means that you don't *need* to do anything yourself to
 run the code formatters or linters. When you push a commit, a bot will run
 those for you right away and add any autofixes to your PR. Anything
@@ -128,9 +128,8 @@ We accept stubs for third-party packages into typeshed as long as:
 
 The fastest way to generate new stubs is to use `scripts/create_baseline_stubs.py` (see below).
 
-Stubs for third-party packages
-go into `stubs`. Each subdirectory there represents a PyPI distribution, and
-contains the following:
+Stubs for third-party packages go into the `stubs` directory. Each subdirectory
+there represents a PyPI distribution, and contains the following:
 * `METADATA.toml`, describing the package. See below for details.
 * Stubs (i.e. `*.pyi` files) for packages and modules that are shipped in the
   source distribution.
@@ -193,6 +192,9 @@ supported:
 * `partial_stub` (optional): This field marks the type stub package as
   [partial](https://peps.python.org/pep-0561/#partial-stub-packages). This is for
   3rd-party stubs that don't cover the entirety of the package's public API.
+* `requires_python` (optional): The minimum version of Python required to install
+  the type stub package. It must be in the form `>=3.*`. If omitted, the oldest
+  Python version supported by typeshed is used.
 
 In addition, we specify configuration for stubtest in the `tool.stubtest` table.
 This has the following keys:
@@ -235,7 +237,7 @@ with what you'd like to do or have ideas that will help you do it.
 
 Each Python module is represented by a `.pyi` "stub file".  This is a
 syntactically valid Python file, although it usually cannot be run by
-Python 3 (since forward references don't require string quotes).  All
+Python (since forward references don't require string quotes).  All
 the methods are empty.
 
 Python function annotations ([PEP 3107](https://www.python.org/dev/peps/pep-3107/))
@@ -289,7 +291,7 @@ Supported features include:
 - [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
 
 Features from the `typing` module that are not present in all
-supported Python 3 versions must be imported from `typing_extensions`
+supported Python versions must be imported from `typing_extensions`
 instead in typeshed stubs. This currently affects:
 
 - `TypeAlias` (new in Python 3.10)
@@ -379,16 +381,16 @@ MAXYEAR: int
 MINYEAR: int
 
 class date:
-    def __new__(cls: Type[_S], year: int, month: int, day: int) -> _S: ...
+    def __new__(cls, year: SupportsIndex, month: SupportsIndex, day: SupportsIndex) -> Self: ...
     @classmethod
-    def fromtimestamp(cls: Type[_S], __timestamp: float) -> _S: ...
+    def fromtimestamp(cls, timestamp: float, /) -> Self: ...
     @classmethod
-    def today(cls: Type[_S]) -> _S: ...
+    def today(cls) -> Self: ...
     @classmethod
-    def fromordinal(cls: Type[_S], __n: int) -> _S: ...
+    def fromordinal(cls, n: int, /) -> Self: ...
     @property
     def year(self) -> int: ...
-    def replace(self, year: int = ..., month: int = ..., day: int = ...) -> date: ...
+    def replace(self, year: SupportsIndex = ..., month: SupportsIndex = ..., day: SupportsIndex = ...) -> Self: ...
     def ctime(self) -> str: ...
     def weekday(self) -> int: ...
 ```
@@ -438,8 +440,8 @@ Some further tips for good type hints:
   `Optional[X]`;
 * import collections (`Mapping`, `Iterable`, etc.)
   from `collections.abc` instead of `typing`;
-* avoid invariant collection types (`list`, `dict`) in argument
-  positions, in favor of covariant types like `Mapping` or `Sequence`;
+* avoid invariant collection types (`list`, `dict`) for function
+  parameters, in favor of covariant types like `Mapping` or `Sequence`;
 * avoid union return types: https://github.com/python/mypy/issues/1693;
 * use platform checks like `if sys.platform == 'win32'` to denote
   platform-dependent APIs;
@@ -485,8 +487,8 @@ context manager is meant to be subclassed, pick `bool | None`.
 See https://github.com/python/mypy/issues/7214 for more details.
 
 `__enter__` methods and other methods that return instances of the
-current class should be annotated with the `_typeshed.Self` type
-variable ([example](https://github.com/python/typeshed/pull/5698)).
+current class should be annotated with `typing_extensions.Self`
+([example](https://github.com/python/typeshed/blob/3581846/stdlib/contextlib.pyi#L151)).
 
 ### Naming
 
@@ -556,7 +558,7 @@ Consider the following (simplified) signature of `re.Match[str].group`:
 
 ```python
 class Match:
-    def group(self, __group: str | int) -> str | Any: ...
+    def group(self, group: str | int, /) -> str | Any: ...
 ```
 
 The `str | Any` seems unnecessary and weird at first.

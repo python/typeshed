@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 import re
 import sys
-from collections.abc import Mapping
+from collections.abc import Iterable, Mapping
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, Final, NamedTuple
@@ -36,6 +36,12 @@ def strip_comments(text: str) -> str:
 # ====================================================================
 # Printing utilities
 # ====================================================================
+
+
+def print_command(cmd: str | Iterable[str]) -> None:
+    if not isinstance(cmd, str):
+        cmd = " ".join(cmd)
+    print(colored(f"Running: {cmd}", "blue"))
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
