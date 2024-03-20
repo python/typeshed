@@ -5,7 +5,7 @@
 import _typeshed
 from collections.abc import Callable, Iterator, Sequence
 from contextlib import AbstractContextManager
-from typing import Literal, Protocol, final, overload
+from typing import Generic, Literal, Protocol, TypeVar, final, overload
 from typing_extensions import TypeAlias
 
 import gdb.types
@@ -720,3 +720,68 @@ class _Window(Protocol):
     def hscroll(self, num: int) -> None: ...
     def vscroll(self, num: int) -> None: ...
     def click(self, x: int, y: int, button: int) -> None: ...
+
+# Events
+class Event: ...
+
+class ThreadEvent(Event):
+    inferior_thread: InferiorThread
+
+class ContinueEvent(ThreadEvent): ...
+
+class ExitedEvent(Event):
+    exit_code: int
+    inferior: Inferior
+
+class StopEvent(ThreadEvent): ...
+
+class BreakpointEvent(StopEvent):
+    breakpoints: Sequence[Breakpoint]
+    breakpoint: Breakpoint
+
+class NewObjFileEvent(Event):
+    new_objfile: Objfile
+
+class ClearObjFilesEvent(Event):
+    progspace: Progspace
+
+class SignalEvent(StopEvent):
+    stop_signal: str
+
+class _InferiorCallEvent(Event): ...
+
+class InferiorCallPreEvent(_InferiorCallEvent):
+    ptid: InferiorThread
+    address: Value
+
+class InferiorCallPostEvent(_InferiorCallEvent):
+    ptid: InferiorThread
+    address: Value
+
+class MemoryChangedEvent(Event):
+    address: Value
+    length: int
+
+class RegisterChangedEvent(Event):
+    frame: Frame
+    regnum: str
+
+class NewInferiorEvent(Event):
+    inferior: Inferior
+
+class InferiorDeletedEvent(Event):
+    inferior: Inferior
+
+class NewThreadEvent(ThreadEvent): ...
+
+class GdbExitingEvent(Event):
+    exit_code: int
+
+class ConnectionEvent(Event):
+    connection: TargetConnection
+
+_ET = TypeVar("_ET", bound=Event | Breakpoint | None)
+@final
+class EventRegistry(Generic[_ET]):
+    def connect(self, object: Callable[[_ET], object], /) -> None: ...
+    def disconnect(self, object: Callable[[_ET], object], /) -> None: ...
