@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections import Counter
 from typing_extensions import assert_type
 
