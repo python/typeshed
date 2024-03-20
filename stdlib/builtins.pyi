@@ -91,7 +91,7 @@ _AwaitableT = TypeVar("_AwaitableT", bound=Awaitable[Any])
 _AwaitableT_co = TypeVar("_AwaitableT_co", bound=Awaitable[Any], covariant=True)
 _P = ParamSpec("_P")
 _StartT = TypeVar("_StartT", default=int)
-_StopT = TypeVar("_StopT", default=StartT)
+_StopT = TypeVar("_StopT", default=_StartT)
 _StepT = TypeVar("_StepT", default=int | None)
 
 class object:
