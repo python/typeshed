@@ -177,10 +177,31 @@ def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfil
     all_python_files: list[Path] = []
     py_file_suffixes = {".py", ".pyi"}
 
+    # Obtain an iterator over all files in the zipfile/tarfile.
+    # Filter out empty __init__.py files: this reduces false negatives
+    # in cases like this:
+    #
+    # repo_root/
+    # ├─ src/
+    # |  ├─ pkg/
+    # |  |  ├─ __init__.py          <-- This file is empty
+    # |  |  ├─ subpkg/
+    # |  |  |  ├─ __init__.py
+    # |  |  |  ├─ libraryfile.py
+    # |  |  |  ├─ libraryfile2.py
+    # |  |  |  ├─ py.typed
     if isinstance(source, zipfile.ZipFile):
-        path_iter = (Path(zip_info.filename) for zip_info in source.infolist() if not zip_info.is_dir())
+        path_iter = (
+            Path(zip_info.filename)
+            for zip_info in source.infolist()
+            if not (zip_info.is_dir() or (Path(zip_info.filename).name == "__init__.py" and zip_info.file_size == 0))
+        )
     else:
-        path_iter = (Path(tar_info.path) for tar_info in source if tar_info.isfile())
+        path_iter = (
+            Path(tar_info.path)
+            for tar_info in source
+            if (tar_info.isfile() and not (Path(tar_info.name).name == "__init__.py" and tar_info.size == 0))
+        )
 
     for path in path_iter:
         if path.suffix in py_file_suffixes:
