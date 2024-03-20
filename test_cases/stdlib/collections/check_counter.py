@@ -1,12 +1,12 @@
 from collections import Counter
-from typing_extensions import Never, assert_type
+from typing_extensions import assert_type
 
 
 class Foo: ...
 
 
 # Test the constructor
-assert_type(Counter(), Counter[Never, int])
+# assert_type(Counter(), Counter[Never, int])  # pyright derives "Unknown" instead of "Never"
 assert_type(Counter(foo=42.2), Counter[str, float])
 assert_type(Counter({42: "bar"}), Counter[int, str])
 assert_type(Counter([1, 2, 3]), Counter[int, int])
