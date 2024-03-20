@@ -1,7 +1,7 @@
 # Type checkers and other linters that we test our stubs against. These should always
 # be pinned to a specific version to make failure reproducible. See also the
 # "tool.typeshed" section in pyproject.toml for additional type checkers.
-black==24.1.1            # must match .pre-commit-config.yaml
+black==24.3.0            # must match .pre-commit-config.yaml
 flake8==7.0.0            # must match .pre-commit-config.yaml
 flake8-noqa==1.4.0       # must match .pre-commit-config.yaml
 flake8-pyi==24.3.0       # must match .pre-commit-config.yaml
