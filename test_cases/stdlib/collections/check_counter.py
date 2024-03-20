@@ -1,5 +1,5 @@
 from collections import Counter
-from typing_extensions import assert_type, Never
+from typing_extensions import Never, assert_type
 
 
 class Foo: ...
