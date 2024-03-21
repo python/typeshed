@@ -38,6 +38,7 @@ class UnTrue:
     def __reversed__(self) -> UnFalse:
         return UnFalse()
 
+
 class UnFalse:
     def __reversed__(self) -> UnTrue:
         return UnTrue()
