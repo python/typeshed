@@ -129,8 +129,8 @@ if sys.version_info >= (3, 11):
 if sys.version_info >= (3, 12):
     __all__ += ["TypeAliasType", "override"]
 
-ContextManager = AbstractContextManager
-AsyncContextManager = AbstractAsyncContextManager
+ContextManager = AbstractContextManager[_T_co, bool | None]  # noqa: Y026
+AsyncContextManager = AbstractAsyncContextManager[_T_co, bool | None]  # noqa: Y026
 
 # This itself is only available during type checking
 def type_check_only(func_or_cls: _F) -> _F: ...
