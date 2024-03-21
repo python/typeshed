@@ -22,7 +22,6 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
-from typing import Protocol
 from typing_extensions import Never as _Never, ParamSpec as _ParamSpec
 
 if sys.version_info >= (3, 10):
@@ -129,9 +128,6 @@ if sys.version_info >= (3, 11):
 
 if sys.version_info >= (3, 12):
     __all__ += ["TypeAliasType", "override"]
-
-class ContextManager(AbstractContextManager[_T_co, bool | None], Protocol[_T_co]): ...
-class AsyncContextManager(AbstractAsyncContextManager[_T_co, bool | None], Protocol[_T_co]): ...
 
 # This itself is only available during type checking
 def type_check_only(func_or_cls: _F) -> _F: ...
@@ -389,6 +385,16 @@ class Hashable(Protocol, metaclass=ABCMeta):
     #   is currently mostly useless for static checking.
     @abstractmethod
     def __hash__(self) -> int: ...
+
+# TODO: Eventually this should be able to take two arguments as well, but this can happen
+#       no sooner than Python 3.13
+@runtime_checkable
+class ContextManager(AbstractContextManager[_T_co, bool | None], Protocol[_T_co], metaclass=ABCMeta): ...
+
+# TODO: Eventually this should be able to take two arguments as well, but this can happen
+#       no sooner than Python 3.13
+@runtime_checkable
+class AsyncContextManager(AbstractAsyncContextManager[_T_co, bool | None], Protocol[_T_co], metaclass=ABCMeta): ...
 
 @runtime_checkable
 class Iterable(Protocol[_T_co]):
