@@ -158,6 +158,7 @@ def run_stubtest(
 
     return True
 
+
 def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
     """
     Use wrapper scripts to run stubtest inside gdb.
@@ -220,6 +221,7 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
     assert stubtest_cmd[1:3] == ["-m", "mypy.stubtest"]
     stubtest_cmd[1:3] = [str(wrapper_script)]
     return True
+
 
 def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[str]) -> bool:
     """Perform some black magic in order to run stubtest inside uWSGI.
