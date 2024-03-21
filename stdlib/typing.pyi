@@ -22,6 +22,7 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
+from typing import Protocol
 from typing_extensions import Never as _Never, ParamSpec as _ParamSpec
 
 if sys.version_info >= (3, 10):
@@ -129,8 +130,8 @@ if sys.version_info >= (3, 11):
 if sys.version_info >= (3, 12):
     __all__ += ["TypeAliasType", "override"]
 
-ContextManager = AbstractContextManager
-AsyncContextManager = AbstractAsyncContextManager
+class ContextManager(AbstractContextManager[_T_co, bool | None], Protocol[_T_co]): ...
+class AsyncContextManager(AbstractAsyncContextManager[_T_co, bool | None], Protocol[_T_co]): ...
 
 # This itself is only available during type checking
 def type_check_only(func_or_cls: _F) -> _F: ...
