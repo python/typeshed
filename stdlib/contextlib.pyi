@@ -44,7 +44,7 @@ class AbstractContextManager(Protocol[_T_co, _ExitT_co]):
     @abstractmethod
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None, /
-    ) -> bool | None: ...
+    ) -> _ExitT_co: ...
 
 @runtime_checkable
 class AbstractAsyncContextManager(Protocol[_T_co, _ExitT_co]):
@@ -52,7 +52,7 @@ class AbstractAsyncContextManager(Protocol[_T_co, _ExitT_co]):
     @abstractmethod
     async def __aexit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None, /
-    ) -> bool | None: ...
+    ) -> _ExitT_co: ...
 
 class ContextDecorator:
     def __call__(self, func: _F) -> _F: ...
