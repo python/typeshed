@@ -7,17 +7,6 @@
   "pre-commit": {
     "enabled": true
   },
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": ["^pyproject.toml$"],
-      "matchStrings": [
-        "\\n\\[tool\\.typeshed\\]\\npyright_version\\s*=\\s*(\"|')(?<currentValue>[\\d.]*?)(\"|')\\s*?\\n"
-      ],
-      "depNameTemplate": "pyright",
-      "datasourceTemplate": "npm"
-    }
-  ],
   "packageRules": [
     {
       "groupName": "GitHub Actions",
@@ -36,7 +25,7 @@
     },
     {
       "groupName": "pytype and pyright",
-      "matchManagers": ["pip_requirements", "regex"],
+      "matchManagers": ["pip_requirements"],
       "matchPackageNames": ["pytype", "pyright"],
       "description": "Daily update of pyright and pytype",
       "separateMajorMinor": "false",
