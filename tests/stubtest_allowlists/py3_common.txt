@@ -704,3 +704,11 @@ typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/com
 (tarfile.AbsolutePathError)?
 (tarfile.AbsoluteLinkError)?
 (shutil.unpack_archive)?
+(pyexpat.XMLParserType.GetReparseDeferralEnabled)?
+(pyexpat.XMLParserType.SetReparseDeferralEnabled)?
+(xml.etree.ElementTree.XMLParser.flush)?
+(xml.etree.ElementTree.XMLPullParser.flush)?
+(xml.etree.cElementTree.XMLParser.flush)?
+(xml.etree.cElementTree.XMLPullParser.flush)?
+(xml.parsers.expat.XMLParserType.GetReparseDeferralEnabled)?
+(xml.parsers.expat.XMLParserType.SetReparseDeferralEnabled)?

@@ -3,7 +3,7 @@
   "dependencyDashboard": true,
   "suppressNotifications": ["prEditedNotification"],
   "extends": ["config:base"],
-  "labels": ["dependencies"],
+  "labels": ["bot: dependencies"],
   "pre-commit": {
     "enabled": true
   },
