@@ -33,7 +33,7 @@ from termcolor import colored
 TYPESHED_OWNER = "python"
 TYPESHED_API_URL = f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed"
 
-STUBSABOT_LABEL = "stubsabot"
+STUBSABOT_LABEL = "bot: stubsabot"
 
 
 class ActionLevel(enum.IntEnum):
