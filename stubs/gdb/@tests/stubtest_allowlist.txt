@@ -116,4 +116,3 @@ gdb.printing.basestring
 gdb.printing.long
 gdb.xmethod.basestring
 gdb.xmethod.long
-gdb.styling
