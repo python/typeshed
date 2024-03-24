@@ -1,6 +1,6 @@
-from logging import Logger
 from abc import ABCMeta, abstractmethod
 from collections.abc import Sequence
+from logging import Logger
 
 from hvac.adapters import Adapter
 from hvac.api.vault_api_base import VaultApiBase

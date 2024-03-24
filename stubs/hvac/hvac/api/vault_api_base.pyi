@@ -1,5 +1,5 @@
-from logging import Logger
 from abc import ABCMeta
+from logging import Logger
 
 logger: Logger
 
