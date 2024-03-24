@@ -194,15 +194,6 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         site_pkgs_path = glob(os.path.join({str(venv_dir)!r}, "lib/*/site-packages"))[0]
         site.addsitedir(site_pkgs_path)
 
-        # remove existing, system-level site-packages from sys.path
-        for site_packages in site.getsitepackages():
-            if site_packages in sys.path:
-                sys.path.remove(site_packages)
-
-        # Push virtualenv's site-packages to the front
-        sys.path.remove(site_pkgs_path)
-        sys.path.insert(1, site_pkgs_path)
-
         exit_code = 1
         try:
             # gdb wraps stdout and stderr without a .fileno
