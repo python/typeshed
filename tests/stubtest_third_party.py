@@ -180,21 +180,44 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
     gdb_script = venv_dir / "gdb_stubtest.py"
     wrapper_script = venv_dir / "gdb_wrapper.py"
     gdb_script_contents = dedent(
-        """
+        f"""
         import json
         import os
+        import site
         import sys
+        import traceback
 
-        # gdb wraps stdout and stderr without a .fileno
-        # colored output in mypy tries to access .fileno()
-        sys.stdout.fileno = sys.__stdout__.fileno
-        sys.stderr.fileno = sys.__stderr__.fileno
+        from glob import glob
 
-        from mypy.stubtest import main
+        # Add the venv site-packages to sys.path. gdb doesn't use the virtual environment.
+        # Taken from https://github.com/pwndbg/pwndbg/blob/83d8d95b576b749e888f533ce927ad5a77fb957b/gdbinit.py#L37
+        site_pkgs_path = glob(os.path.join({str(venv_dir)!r}, "lib/*/site-packages"))[0]
+        site.addsitedir(site_pkgs_path)
 
-        sys.argv = json.loads(os.environ.get("STUBTEST_ARGS"))
-        exit_code = main()
-        gdb.execute(f"quit {exit_code}")
+        # remove existing, system-level site-packages from sys.path
+        for site_packages in site.getsitepackages():
+            if site_packages in sys.path:
+                sys.path.remove(site_packages)
+
+        # Push virtualenv's site-packages to the front
+        sys.path.remove(site_pkgs_path)
+        sys.path.insert(1, site_pkgs_path)
+
+        exit_code = 1
+        try:
+            # gdb wraps stdout and stderr without a .fileno
+            # colored output in mypy tries to access .fileno()
+            sys.stdout.fileno = sys.__stdout__.fileno
+            sys.stderr.fileno = sys.__stderr__.fileno
+
+            from mypy.stubtest import main
+
+            sys.argv = json.loads(os.environ.get("STUBTEST_ARGS"))
+            exit_code = main()
+        except Exception:
+            traceback.print_exc()
+        finally:
+            gdb.execute(f"quit {{exit_code}}")
         """
     )
     gdb_script.write_text(gdb_script_contents)
