@@ -1,3 +1,5 @@
+# TODO: Update types in stub
+# This list includes everything to allow initial stubtests to run in gdb's environment
 gdb.BP_NONE
 gdb.Breakpoint.stop
 gdb.BreakpointEvent
