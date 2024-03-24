@@ -33,7 +33,7 @@ from termcolor import colored
 TYPESHED_OWNER = "python"
 TYPESHED_API_URL = f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed"
 
-STUBSABOT_LABEL = "stubsabot"
+STUBSABOT_LABEL = "bot: stubsabot"
 
 
 class ActionLevel(enum.IntEnum):
@@ -177,10 +177,31 @@ def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfil
     all_python_files: list[Path] = []
     py_file_suffixes = {".py", ".pyi"}
 
+    # Obtain an iterator over all files in the zipfile/tarfile.
+    # Filter out empty __init__.py files: this reduces false negatives
+    # in cases like this:
+    #
+    # repo_root/
+    # ├─ src/
+    # |  ├─ pkg/
+    # |  |  ├─ __init__.py          <-- This file is empty
+    # |  |  ├─ subpkg/
+    # |  |  |  ├─ __init__.py
+    # |  |  |  ├─ libraryfile.py
+    # |  |  |  ├─ libraryfile2.py
+    # |  |  |  ├─ py.typed
     if isinstance(source, zipfile.ZipFile):
-        path_iter = (Path(zip_info.filename) for zip_info in source.infolist() if not zip_info.is_dir())
+        path_iter = (
+            Path(zip_info.filename)
+            for zip_info in source.infolist()
+            if ((not zip_info.is_dir()) and not (Path(zip_info.filename).name == "__init__.py" and zip_info.file_size == 0))
+        )
     else:
-        path_iter = (Path(tar_info.path) for tar_info in source if tar_info.isfile())
+        path_iter = (
+            Path(tar_info.path)
+            for tar_info in source
+            if (tar_info.isfile() and not (Path(tar_info.name).name == "__init__.py" and tar_info.size == 0))
+        )
 
     for path in path_iter:
         if path.suffix in py_file_suffixes:
@@ -372,11 +393,10 @@ class DiffAnalysis:
 
     @functools.cached_property
     def public_files_added(self) -> Sequence[str]:
-        return [
-            file["filename"]
-            for file in self.py_files
-            if not re.match("_[^_]", Path(file["filename"]).name) and file["status"] == "added"
-        ]
+        def is_public(path: Path) -> bool:
+            return not re.match(r"_[^_]", path.name) and not path.name.startswith("test_")
+
+        return [file["filename"] for file in self.py_files if is_public(Path(file["filename"])) and file["status"] == "added"]
 
     @functools.cached_property
     def typeshed_files_deleted(self) -> Sequence[str]:
