@@ -112,4 +112,3 @@ gdb.function.caller_is
 gdb.function.strfns
 gdb.printer
 gdb.printer.bound_registers
-
