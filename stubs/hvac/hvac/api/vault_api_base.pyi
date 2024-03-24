@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
+from logging import Logger
 from abc import ABCMeta
 
-logger: Incomplete
+logger: Logger
 
 class VaultApiBase(metaclass=ABCMeta):
     def __init__(self, adapter) -> None: ...

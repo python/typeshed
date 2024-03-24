@@ -1,13 +1,14 @@
-from _typeshed import Incomplete
+from logging import Logger
 from abc import ABCMeta, abstractmethod
+from collections.abc import Sequence
 
 from hvac.adapters import Adapter
 from hvac.api.vault_api_base import VaultApiBase
 
-logger: Incomplete
+logger: Logger
 
 class VaultApiCategory(VaultApiBase, metaclass=ABCMeta):
-    implemented_class_names: Incomplete
+    implemented_class_names: Sequence[str]
     def __init__(self, adapter: Adapter) -> None: ...
     def __getattr__(self, item): ...
     @property
