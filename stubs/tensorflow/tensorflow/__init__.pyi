@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from abc import ABC, ABCMeta, abstractmethod
 from builtins import bool as _bool
-from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
+from collections.abc import Callable, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from enum import Enum
 from types import TracebackType
@@ -18,25 +18,13 @@ from tensorflow import (
     keras as keras,
     math as math,
 )
-from tensorflow._aliases import (
-    AnyArray,
-    ContainerGradients,
-    ContainerTensors,
-    ContainerTensorsLike,
-    DTypeLike,
-    Gradients,
-    ShapeLike,
-    Slice,
-    TensorCompatible,
-    TensorLike,
-)
+from tensorflow._aliases import AnyArray, DTypeLike, ShapeLike, Slice, TensorCompatible
+from tensorflow.autodiff import GradientTape as GradientTape
 from tensorflow.core.protobuf import struct_pb2
-
-# Explicit import of DType is covered by the wildcard, but
-# is necessary to avoid a crash in pytype.
 from tensorflow.dtypes import *
-from tensorflow.dtypes import DType as DType
+from tensorflow.experimental.dtensor import Layout
 from tensorflow.keras import losses as losses
+from tensorflow.linalg import eye as eye
 
 # Most tf.math functions are exported as tf, but sadly not all are.
 from tensorflow.math import (
@@ -300,50 +288,6 @@ class UnconnectedGradients(Enum):
     NONE = "none"
     ZERO = "zero"
 
-class GradientTape:
-    def __init__(self, persistent: _bool = False, watch_accessed_variables: _bool = True) -> None: ...
-    def __enter__(self) -> Self: ...
-    def __exit__(self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None) -> None: ...
-    # Higher kinded types would be nice here and these overloads are a way to simulate some of them.
-    @overload
-    def gradient(
-        self,
-        target: ContainerTensors,
-        sources: TensorLike,
-        output_gradients: list[Tensor] | None = None,
-        unconnected_gradients: UnconnectedGradients = ...,
-    ) -> Gradients: ...
-    @overload
-    def gradient(
-        self,
-        target: ContainerTensors,
-        sources: Sequence[Tensor],
-        output_gradients: list[Tensor] | None = None,
-        unconnected_gradients: UnconnectedGradients = ...,
-    ) -> list[Gradients]: ...
-    @overload
-    def gradient(
-        self,
-        target: ContainerTensors,
-        sources: Mapping[str, Tensor],
-        output_gradients: list[Tensor] | None = None,
-        unconnected_gradients: UnconnectedGradients = ...,
-    ) -> dict[str, Gradients]: ...
-    @overload
-    def gradient(
-        self,
-        target: ContainerTensors,
-        sources: ContainerTensors,
-        output_gradients: list[Tensor] | None = None,
-        unconnected_gradients: UnconnectedGradients = ...,
-    ) -> ContainerGradients: ...
-    @contextmanager
-    def stop_recording(self) -> Generator[None, None, None]: ...
-    def reset(self) -> None: ...
-    def watch(self, tensor: ContainerTensorsLike) -> None: ...
-    def watched_variables(self) -> tuple[Variable, ...]: ...
-    def __getattr__(self, name: str) -> Incomplete: ...
-
 _SpecProto = TypeVar("_SpecProto", bound=Message)
 
 class TypeSpec(ABC, Generic[_SpecProto]):
@@ -406,7 +350,6 @@ class RaggedTensorSpec(TypeSpec[struct_pb2.TypeSpecProto]):
     @classmethod
     def from_value(cls, value: RaggedTensor) -> Self: ...
 
-def __getattr__(name: str) -> Incomplete: ...
 def convert_to_tensor(
     value: TensorCompatible | IndexedSlices,
     dtype: DTypeLike | None = None,
@@ -439,4 +382,23 @@ def cast(x: TensorCompatible, dtype: DTypeLike, name: str | None = None) -> Tens
 def cast(x: SparseTensor, dtype: DTypeLike, name: str | None = None) -> SparseTensor: ...
 @overload
 def cast(x: RaggedTensor, dtype: DTypeLike, name: str | None = None) -> RaggedTensor: ...
+def zeros(shape: ShapeLike, dtype: DTypeLike = ..., name: str | None = None, layout: Layout | None = None) -> Tensor: ...
+def ones(shape: ShapeLike, dtype: DTypeLike = ..., name: str | None = None, layout: Layout | None = None) -> Tensor: ...
+@overload
+def zeros_like(
+    input: TensorCompatible | IndexedSlices, dtype: DTypeLike | None = None, name: str | None = None, layout: Layout | None = None
+) -> Tensor: ...
+@overload
+def zeros_like(
+    input: RaggedTensor, dtype: DTypeLike | None = None, name: str | None = None, layout: Layout | None = None
+) -> RaggedTensor: ...
+@overload
+def ones_like(
+    input: TensorCompatible, dtype: DTypeLike | None = None, name: str | None = None, layout: Layout | None = None
+) -> Tensor: ...
+@overload
+def ones_like(
+    input: RaggedTensor, dtype: DTypeLike | None = None, name: str | None = None, layout: Layout | None = None
+) -> RaggedTensor: ...
 def reshape(tensor: TensorCompatible, shape: ShapeLike | Tensor, name: str | None = None) -> Tensor: ...
+def __getattr__(name: str) -> Incomplete: ...
