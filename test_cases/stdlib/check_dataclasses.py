@@ -92,10 +92,10 @@ def check_other_isdataclass_overloads(x: type, y: object) -> None:
 
 # Regression test for #11653
 D = dc.make_dataclass(
-    "D", [("a", Union[int, None]), "y", ("z", Annotated[FrozenSet[bytes], "metadata"], dc.field(default=frozenset()))]
+    "D", [("a", Union[int, None]), "y", ("z", Annotated[FrozenSet[bytes], "metadata"], dc.field(default=frozenset({b"foo"})))]
 )
 # Check that it's inferred by the type checker as a class object of some kind
 # (but don't assert the exact type that `D` is inferred as,
 # in case a type checker decides to add some special-casing for
 # `make_dataclass` in the future)
-_: type = D
+assert_type(D.__mro__, Tuple[type, ...])
