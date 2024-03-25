@@ -16,7 +16,7 @@ class Nanoleaf:
     ip: str
     print_errors: bool
     url: str
-    auth_token: str | None
+    auth_token: str
     already_registered: bool
     def __init__(self, ip: str, auth_token: str | None = None, print_errors: bool = False) -> None: ...
     def create_auth_token(self) -> str | None: ...
