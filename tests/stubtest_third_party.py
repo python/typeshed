@@ -172,7 +172,11 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         print_error("gdb is not supported on Windows")
         return False
 
-    gdb_version = subprocess.check_output(["gdb", "--version"], text=True, stderr=subprocess.STDOUT)
+    try:
+        gdb_version = subprocess.check_output(["gdb", "--version"], text=True, stderr=subprocess.STDOUT)
+    except FileNotFoundError:
+        print_error("gdb is not installed")
+        return False
     if "Python scripting is not supported in this copy of GDB" in gdb_version:
         print_error("Python scripting is not supported in this copy of GDB")
         return False
@@ -227,7 +231,7 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
             "--nx",
             "--batch",
             "--command",
-            "{gdb_script}",
+            {str(gdb_script)!r},
         ]
         r = subprocess.run(gdb_cmd, env=stubtest_env)
         sys.exit(r.returncode)
