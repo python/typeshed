@@ -14,7 +14,7 @@ from passlib.utils import SequenceMixin
 class AppWallet:
     salt_size: int
     encrypt_cost: int
-    default_tag: str
+    default_tag: str  | None
     def __init__(
         self,
         secrets: dict[int, str] | dict[int, bytes] | dict[str, str] | dict[str, bytes] | str | None = None,
@@ -31,12 +31,12 @@ class AppWallet:
 class TOTP:
     min_json_version: int
     json_version: int
-    wallet: AppWallet
+    wallet: AppWallet | None
     now: Callable[[], float]
     digits: int
     alg: str
-    label: str
-    issuer: str
+    label: str | None
+    issuer: str | None
     period: int
     changed: bool
     @classmethod
@@ -48,6 +48,7 @@ class TOTP:
         issuer: str | None = None,
         wallet: AppWallet | None = None,
         now: Callable[[], float] | None = None,
+        *,
         secrets: dict[int, str] | dict[int, bytes] | dict[str, str] | dict[str, bytes] | str | None = None,
         **kwds: Any,
     ) -> type[TOTP]: ...
@@ -89,6 +90,7 @@ class TOTP:
         cls,
         token: int | str,
         source: TOTP | dict[str, Any] | str | bytes,
+        *,
         time: float | datetime | None = ...,
         window: int = ...,
         skew: int = ...,
@@ -115,9 +117,9 @@ class TOTP:
     def to_dict(self, encrypt: bool | None = None) -> dict[str, Any]: ...
 
 class TotpToken(SequenceMixin):
-    totp: TOTP
-    token: str
-    counter: int
+    totp: TOTP | None
+    token: str | None
+    counter: int | None
     def __init__(self, totp: TOTP, token: str, counter: int) -> None: ...
     @property
     def start_time(self) -> int: ...
@@ -129,7 +131,7 @@ class TotpToken(SequenceMixin):
     def valid(self) -> bool: ...
 
 class TotpMatch(SequenceMixin):
-    totp: TOTP
+    totp: TOTP | None
     counter: int
     time: int
     window: int
