@@ -14,7 +14,7 @@ from passlib.utils import SequenceMixin
 class AppWallet:
     salt_size: int
     encrypt_cost: int
-    default_tag: str  | None
+    default_tag: str | None
     def __init__(
         self,
         secrets: dict[int, str] | dict[int, bytes] | dict[str, str] | dict[str, bytes] | str | None = None,
