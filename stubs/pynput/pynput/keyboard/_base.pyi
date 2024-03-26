@@ -25,71 +25,71 @@ class KeyCode:
     def from_dead(cls, char: str, **kwargs: Any) -> Self: ...
 
 class Key(enum.Enum):
-    alt: int
-    alt_l: int
-    alt_r: int
-    alt_gr: int
-    backspace: int
-    caps_lock: int
-    cmd: int
-    cmd_l: int
-    cmd_r: int
-    ctrl: int
-    ctrl_l: int
-    ctrl_r: int
-    delete: int
-    down: int
-    end: int
-    enter: int
-    esc: int
-    f1: int
-    f2: int
-    f3: int
-    f4: int
-    f5: int
-    f6: int
-    f7: int
-    f8: int
-    f9: int
-    f10: int
-    f11: int
-    f12: int
-    f13: int
-    f14: int
-    f15: int
-    f16: int
-    f17: int
-    f18: int
-    f19: int
-    f20: int
+    alt = 0
+    alt_l = 0
+    alt_r = 0
+    alt_gr = 0
+    backspace = 0
+    caps_lock = 0
+    cmd = 0
+    cmd_l = 0
+    cmd_r = 0
+    ctrl = 0
+    ctrl_l = 0
+    ctrl_r = 0
+    delete = 0
+    down = 0
+    end = 0
+    enter = 0
+    esc = 0
+    f1 = 0
+    f2 = 0
+    f3 = 0
+    f4 = 0
+    f5 = 0
+    f6 = 0
+    f7 = 0
+    f8 = 0
+    f9 = 0
+    f10 = 0
+    f11 = 0
+    f12 = 0
+    f13 = 0
+    f14 = 0
+    f15 = 0
+    f16 = 0
+    f17 = 0
+    f18 = 0
+    f19 = 0
+    f20 = 0
     if sys.platform == "win32":
-        f21: int
-        f22: int
-        f23: int
-        f24: int
-    home: int
-    left: int
-    page_down: int
-    page_up: int
-    right: int
-    shift: int
-    shift_l: int
-    shift_r: int
-    space: int
-    tab: int
-    up: int
-    media_play_pause: int
-    media_volume_mute: int
-    media_volume_down: int
-    media_volume_up: int
-    media_previous: int
-    media_next: int
-    insert: int
-    menu: int
-    num_lock: int
-    pause: int
-    print_screen: int
-    scroll_lock: int
+        f21 = 0
+        f22 = 0
+        f23 = 0
+        f24 = 0
+    home = 0
+    left = 0
+    page_down = 0
+    page_up = 0
+    right = 0
+    shift = 0
+    shift_l = 0
+    shift_r = 0
+    space = 0
+    tab = 0
+    up = 0
+    media_play_pause = 0
+    media_volume_mute = 0
+    media_volume_down = 0
+    media_volume_up = 0
+    media_previous = 0
+    media_next = 0
+    insert = 0
+    menu = 0
+    num_lock = 0
+    pause = 0
+    print_screen = 0
+    scroll_lock = 0
 
 class Controller:
     _KeyCode: ClassVar[type[KeyCode]]  # undocumented
