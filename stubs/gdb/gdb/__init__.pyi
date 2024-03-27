@@ -3,15 +3,15 @@
 # (https://sourceware.org/gdb/onlinedocs/gdb/Python-API.html).
 
 import _typeshed
-from collections.abc import Callable, Iterator, Mapping, Sequence, Sized
+from collections.abc import Callable, Iterator, Mapping, Sequence
 from contextlib import AbstractContextManager
 from typing import Any, Generic, Literal, Protocol, TypeVar, final, overload
 from typing_extensions import TypeAlias, deprecated
 
+import gdb.FrameDecorator
 import gdb.types
 import gdb.unwinder
 import gdb.xmethod
-import gdb.FrameDecorator
 
 # The following submodules are automatically imported
 from . import events as events, printing as printing, prompt as prompt, types as types
@@ -258,7 +258,6 @@ class PendingFrame:
 
 class UnwindInfo:
     def add_saved_register(self, reg: str | RegisterDescriptor | int, value: Value, /) -> None: ...
-
 
 frame_unwinders: list[gdb.unwinder.Unwinder]
 
@@ -812,6 +811,7 @@ class ConnectionEvent(Event):
     connection: TargetConnection
 
 _ET = TypeVar("_ET", bound=Event | Breakpoint | None)
+
 @final
 class EventRegistry(Generic[_ET]):
     def connect(self, object: Callable[[_ET], object], /) -> None: ...

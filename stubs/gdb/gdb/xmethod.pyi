@@ -1,7 +1,6 @@
 from collections.abc import Sequence
-from typing import Protocol
-
 from re import Pattern
+from typing import Protocol
 
 import gdb
 
