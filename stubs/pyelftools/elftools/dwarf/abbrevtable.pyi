@@ -1,0 +1,19 @@
+from _typeshed import Incomplete
+from collections.abc import Generator
+
+from ..common.utils import dwarf_assert as dwarf_assert
+
+class AbbrevTable:
+    structs: Incomplete
+    stream: Incomplete
+    offset: Incomplete
+    def __init__(self, structs, stream, offset) -> None: ...
+    def get_abbrev(self, code): ...
+
+class AbbrevDecl:
+    code: Incomplete
+    decl: Incomplete
+    def __init__(self, code, decl) -> None: ...
+    def has_children(self): ...
+    def iter_attr_specs(self) -> Generator[Incomplete, None, None]: ...
+    def __getitem__(self, entry): ...
