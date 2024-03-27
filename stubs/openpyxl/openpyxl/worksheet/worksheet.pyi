@@ -1,13 +1,12 @@
 from _typeshed import ConvertibleToInt, Incomplete
 from collections.abc import Generator, Iterable, Iterator
-from datetime import datetime
 from types import GeneratorType
 from typing import Any, Final, Literal, NoReturn, overload
-from typing_extensions import deprecated
+from typing_extensions import TypeAlias, deprecated
 
 from openpyxl import _Decodable, _VisibilityType
 from openpyxl.cell import _CellValue
-from openpyxl.cell.cell import Cell
+from openpyxl.cell.cell import Cell, MergedCell
 from openpyxl.chart._chart import ChartBase
 from openpyxl.drawing.image import Image
 from openpyxl.formatting.formatting import ConditionalFormattingList
@@ -25,6 +24,8 @@ from openpyxl.worksheet.protection import SheetProtection
 from openpyxl.worksheet.scenario import ScenarioList
 from openpyxl.worksheet.table import Table, TableList
 from openpyxl.worksheet.views import SheetView, SheetViewList
+
+_Cell: TypeAlias = Cell | MergedCell
 
 class Worksheet(_WorkbookChild):
     mime_type: str
@@ -51,6 +52,7 @@ class Worksheet(_WorkbookChild):
     ORIENTATION_PORTRAIT: Final = "portrait"
     ORIENTATION_LANDSCAPE: Final = "landscape"
 
+    _cells: dict[tuple[int, int], _Cell]
     row_dimensions: DimensionHolder[RowDimension]
     column_dimensions: DimensionHolder[ColumnDimension]
     row_breaks: RowBreak
@@ -86,7 +88,7 @@ class Worksheet(_WorkbookChild):
     def freeze_panes(self) -> str | None: ...
     @freeze_panes.setter
     def freeze_panes(self, topLeftCell: str | Cell | None = ...) -> None: ...
-    def cell(self, row: int, column: int, value: str | None = None) -> Cell: ...
+    def cell(self, row: int, column: int, value: _CellValue | None = None) -> Cell: ...
     @overload
     def __getitem__(self, key: int | slice) -> tuple[Cell, ...]: ...
     @overload
@@ -108,7 +110,7 @@ class Worksheet(_WorkbookChild):
     @overload
     def iter_rows(
         self, min_row: int | None, max_row: int | None, min_col: int | None, max_col: int | None, values_only: Literal[True]
-    ) -> Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[_CellValue, ...], None, None]: ...
     @overload
     def iter_rows(
         self,
@@ -118,7 +120,7 @@ class Worksheet(_WorkbookChild):
         max_col: int | None = None,
         *,
         values_only: Literal[True],
-    ) -> Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[_CellValue, ...], None, None]: ...
     @overload
     def iter_rows(
         self,
@@ -127,11 +129,11 @@ class Worksheet(_WorkbookChild):
         min_col: int | None = None,
         max_col: int | None = None,
         values_only: Literal[False] = False,
-    ) -> Generator[tuple[Cell, ...], None, None]: ...
+    ) -> Generator[tuple[_Cell, ...], None, None]: ...
     @overload
     def iter_rows(
         self, min_row: int | None, max_row: int | None, min_col: int | None, max_col: int | None, values_only: bool
-    ) -> Generator[tuple[Cell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[_Cell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
     @overload
     def iter_rows(
         self,
@@ -141,7 +143,7 @@ class Worksheet(_WorkbookChild):
         max_col: int | None = None,
         *,
         values_only: bool,
-    ) -> Generator[tuple[Cell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[_Cell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
     @property
     def rows(self) -> Generator[tuple[Cell, ...], None, None]: ...
     @property
@@ -149,7 +151,7 @@ class Worksheet(_WorkbookChild):
     @overload
     def iter_cols(
         self, min_col: int | None, max_col: int | None, min_row: int | None, max_row: int | None, values_only: Literal[True]
-    ) -> Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[_CellValue, ...], None, None]: ...
     @overload
     def iter_cols(
         self,
@@ -159,7 +161,7 @@ class Worksheet(_WorkbookChild):
         max_row: int | None = None,
         *,
         values_only: Literal[True],
-    ) -> Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[_CellValue, ...], None, None]: ...
     @overload
     def iter_cols(
         self,
@@ -168,11 +170,11 @@ class Worksheet(_WorkbookChild):
         min_row: int | None = None,
         max_row: int | None = None,
         values_only: Literal[False] = False,
-    ) -> Generator[tuple[Cell, ...], None, None]: ...
+    ) -> Generator[tuple[_Cell, ...], None, None]: ...
     @overload
     def iter_cols(
         self, min_col: int | None, max_col: int | None, min_row: int | None, max_row: int | None, values_only: bool
-    ) -> Generator[tuple[Cell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[_Cell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
     @overload
     def iter_cols(
         self,
@@ -182,9 +184,9 @@ class Worksheet(_WorkbookChild):
         max_row: int | None = None,
         *,
         values_only: bool,
-    ) -> Generator[tuple[Cell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[_Cell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
     @property
-    def columns(self) -> Generator[tuple[Cell, ...], None, None]: ...
+    def columns(self) -> Generator[tuple[_Cell, ...], None, None]: ...
     def set_printer_settings(
         self, paper_size: int | None, orientation: Literal["default", "portrait", "landscape"] | None
     ) -> None: ...
@@ -234,11 +236,11 @@ class Worksheet(_WorkbookChild):
     def append(
         self,
         iterable: (
-            list[Incomplete]
-            | tuple[Incomplete, ...]
+            list[_CellValue | Cell]
+            | tuple[_CellValue | Cell, ...]
             | range
-            | GeneratorType[Incomplete, object, object]
-            | dict[int | str, Incomplete]
+            | GeneratorType[_CellValue | Cell, object, object]
+            | dict[int | str, _CellValue]
         ),
     ) -> None: ...
     def insert_rows(self, idx: int, amount: int = 1) -> None: ...
