@@ -32,6 +32,7 @@
         "stubs/boto",
         "stubs/braintree",
         "stubs/caldav",
+        "stubs/cefpython3",
         "stubs/cffi",
         "stubs/click-default-group",
         "stubs/commonmark",
