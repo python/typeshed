@@ -5,7 +5,7 @@ from typing_extensions import Self
 
 from requests import Response, Session
 
-_R = TypeVar("_R", bound=Response, default=Response)
+_R = TypeVar("_R")
 
 class Adapter(Generic[_R], metaclass=ABCMeta):
     @classmethod
