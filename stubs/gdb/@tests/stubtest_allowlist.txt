@@ -1,102 +1,32 @@
-# TODO: Update types in stub
-# This list includes everything to allow initial stubtests to run in gdb's environment
-gdb.BP_NONE
-gdb.Breakpoint.stop
-gdb.BreakpointEvent
-gdb.ClearObjFilesEvent
-gdb.Command.complete
-gdb.Command.invoke
-gdb.ConnectionEvent
-gdb.ContinueEvent
-gdb.DUMMY_FRAME
-gdb.Event
-gdb.EventRegistry
-gdb.ExitedEvent
-gdb.FRAME_UNWIND_FIRST_ERROR
-gdb.FinishBreakpoint.out_of_scope
-gdb.Function.invoke
-gdb.GdbExitingEvent
+# Internal list of packages to auto-load
+gdb.packages
 gdb.GdbSetPythonDirectory
-gdb.HOST_CONFIG
-gdb.Inferior.connection
-gdb.Inferior.thread_from_thread_handle
-gdb.InferiorCallPostEvent
-gdb.InferiorCallPreEvent
-gdb.InferiorDeletedEvent
-gdb.InferiorThread.details
-gdb.Instruction
-gdb.LazyString
-gdb.LineTable.__next__
-gdb.LineTable.is_valid
-gdb.LineTable.source_lines
-gdb.LineTable.source_lnes
-gdb.LineTableIterator
-gdb.MICommand.invoke
-gdb.Membuf
-gdb.MemoryChangedEvent
-gdb.NewInferiorEvent
-gdb.NewObjFileEvent
-gdb.NewThreadEvent
-gdb.Objfile.frame_unwinders
-gdb.Objfile.lookup_static_method
-gdb.Objfile.lookup_static_symbol
-gdb.Objfile.xmethods
+
+# optional method, only called when present
+gdb.Command.complete
+gdb.FinishBreakpoint.out_of_scope
 gdb.Parameter.get_set_string
 gdb.Parameter.get_show_string
-gdb.Progspace.frame_unwinders
-gdb.Progspace.xmethods
+
+
+# TODO: abstract/optional methods to be implemented by subclasses
+# gdb.FinishBreakpoint.out_of_scope
+gdb.Breakpoint.stop
+gdb.Command.invoke
+gdb.Function.invoke
+gdb.MICommand.invoke
+
+# TODO: investigate why they are not present at runtime
+gdb.Instruction
+gdb.LazyString
+gdb.Membuf
 gdb.Record
 gdb.RecordFunctionSegment
 gdb.RecordGap
 gdb.RecordInstruction
-gdb.RegisterChangedEvent
-gdb.RegisterDescriptor
-gdb.RegisterDescriptorIterator
-gdb.RegisterGroup
-gdb.RegisterGroupsIterator
-gdb.RemoteTargetConnection
-gdb.SYMBOL_FUNCTIONS_DOMAIN
-gdb.SYMBOL_TYPES_DOMAIN
-gdb.SYMBOL_VARIABLES_DOMAIN
-gdb.SignalEvent
-gdb.StopEvent
-gdb.TARGET_CONFIG
-gdb.ThreadEvent
 gdb.TuiWindow
-gdb.Type.__contains__
-gdb.Type.get
-gdb.Type.has_key
-gdb.Type.is_scalar
-gdb.Type.is_signed
-gdb.Type.items
-gdb.Type.iteritems
-gdb.Type.iterkeys
-gdb.Type.itervalues
-gdb.Type.keys
-gdb.Type.values
-gdb.TypeIterator
-gdb.Unwinder
-gdb.Value.rvalue_reference_value
-gdb.frame_filters
-gdb.frame_unwinders
-gdb.packages
-gdb.prompt_hook
-gdb.type_printers
-gdb.xmethods
-gdb.events
-gdb.printing.RegexpCollectionPrettyPrinter.RegexpSubprinter
-gdb.printing.add_builtin_pretty_printer
-gdb.prompt.prompt_help
-gdb.prompt.prompt_substitutions
-gdb.types.TypePrinter.instantiate
-gdb.unwinder.Unwinder
-gdb.xmethod.SimpleXMethodMatcher
-gdb.xmethod.XMethodMatcher.match
-gdb.xmethod.XMethodWorker.__call__
-gdb.xmethod.XMethodWorker.get_arg_types
-gdb.xmethod.XMethodWorker.get_result_type
-gdb.FrameDecorator
-gdb.FrameIterator
+
+# python implementation of built-in commands
 gdb.command
 gdb.command.explore
 gdb.command.frame_filters
@@ -105,15 +35,48 @@ gdb.command.prompt
 gdb.command.type_printers
 gdb.command.unwinders
 gdb.command.xmethods
-gdb.frames
+
+# module is auto-imported with gdb and cannot be imported on its own
+gdb.events
+
+# implementing internal convenience functions
 gdb.function
 gdb.function.as_string
 gdb.function.caller_is
 gdb.function.strfns
+
+# internal workers for frame filters
+gdb.frames
+gdb.FrameDecorator.FrameVars
+
+# function is only called when it's present
+gdb.prompt_hook
+
+# internal methods used in the public gdb.prompt.substitute_prompt
+gdb.prompt.prompt_help
+gdb.prompt.prompt_substitutions
+
+# internal module to register a printer for mpx_bound128 type
 gdb.printer
 gdb.printer.bound_registers
+
+gdb.printing.RegexpCollectionPrettyPrinter.RegexpSubprinter
+gdb.printing.add_builtin_pretty_printer
+
+# internal methods for colorful commandline output
+gdb.styling
+
+# internal worker for SimpleXMethodMatcher
+gdb.xmethod.SimpleXMethodMatcher.SimpleXMethodWorker
+
+# list of registered xmethods to be added by xmethod.register_xmethod_matcher()
+gdb.xmethods
+gdb.Objfile.xmethods
+gdb.Progspace.xmethods
+
+# Python 2 compatibility defines
+gdb.FrameDecorator.basestring
 gdb.printing.basestring
 gdb.printing.long
 gdb.xmethod.basestring
 gdb.xmethod.long
-gdb.styling
