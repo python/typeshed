@@ -1,4 +1,4 @@
-version = "4.24.*"
+version = "5.26.*"
 upstream_repository = "https://github.com/protocolbuffers/protobuf"
 extra_description = "Generated using [mypy-protobuf==3.5.0](https://github.com/nipunn1313/mypy-protobuf/tree/v3.5.0) on protobuf==4.21.8"
 partial_stub = true
