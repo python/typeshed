@@ -44,6 +44,7 @@
         "stubs/html5lib",
         "stubs/httplib2",
         "stubs/humanfriendly",
+        "stubs/hvac",
         "stubs/influxdb-client",
         "stubs/jmespath",
         "stubs/jsonschema",
