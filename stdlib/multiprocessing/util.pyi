@@ -2,7 +2,7 @@ import threading
 from _typeshed import ConvertibleToInt, Incomplete, Unused
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from logging import Logger, _Level as _LoggingLevel
-from typing import Any, TypeVar, overload
+from typing import Any, Generic, TypeVar, overload
 
 __all__ = [
     "sub_debug",
@@ -47,7 +47,7 @@ abstract_sockets_supported: bool
 def get_temp_dir() -> str: ...
 def register_after_fork(obj: _T, func: Callable[[_T], object]) -> None: ...
 
-class Finalize:
+class Finalize(Generic[_R]):
     @overload
     def __init__(
         self,
