@@ -4,7 +4,8 @@ from ast import AST
 from collections.abc import Generator
 from logging import Logger
 from tokenize import TokenInfo
-from typing import Any, Final, TypeAlias
+from typing import Any, Final
+from typing_extensions import TypeAlias
 
 from .plugins.finder import LoadedPlugin
 
