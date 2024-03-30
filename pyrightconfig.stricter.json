@@ -2,8 +2,8 @@
     "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
     "typeshedPath": ".",
     "include": [
-       "stdlib",
-       "stubs",
+        "stdlib",
+        "stubs",
     ],
     "exclude": [
         // test cases use a custom pyrightconfig file
