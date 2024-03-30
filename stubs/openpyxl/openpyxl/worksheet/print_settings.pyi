@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToInt, Incomplete, Unused
+from _typeshed import ConvertibleToInt, Unused
 from re import Pattern
 from typing import Final, Literal, overload
 from typing_extensions import Self
