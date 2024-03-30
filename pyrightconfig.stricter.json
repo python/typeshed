@@ -87,7 +87,7 @@
         "stubs/ttkthemes",
         "stubs/vobject",
         "stubs/workalendar",
-        "stubs/wurlitzer"
+        "stubs/wurlitzer",
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
