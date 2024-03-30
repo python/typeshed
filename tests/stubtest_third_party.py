@@ -73,6 +73,12 @@ def run_stubtest(
         # TODO: Maybe find a way to cache these in CI
         dists_to_install = [dist_req, get_mypy_req()]
         dists_to_install.extend(requirements.external_pkgs)  # Internal requirements are added to MYPYPATH
+
+        # Since the "gdb" Python package is available only inside GDB, it is not
+        # possible to install it through pip, so stub tests cannot install it.
+        if dist_name == "gdb":
+            dists_to_install[:] = dists_to_install[1:]
+
         pip_cmd = [pip_exe, "install", *dists_to_install]
         try:
             subprocess.run(pip_cmd, check=True, capture_output=True)
@@ -118,6 +124,10 @@ def run_stubtest(
             if not setup_uwsgi_stubtest_command(dist, venv_dir, stubtest_cmd):
                 return False
 
+        if dist_name == "gdb":
+            if not setup_gdb_stubtest_command(venv_dir, stubtest_cmd):
+                return False
+
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
@@ -150,6 +160,88 @@ def run_stubtest(
     if verbose:
         print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
 
+    return True
+
+
+def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
+    """
+    Use wrapper scripts to run stubtest inside gdb.
+    The wrapper script is used to pass the arguments to the gdb script.
+    """
+    if sys.platform == "win32":
+        print_error("gdb is not supported on Windows")
+        return False
+
+    try:
+        gdb_version = subprocess.check_output(["gdb", "--version"], text=True, stderr=subprocess.STDOUT)
+    except FileNotFoundError:
+        print_error("gdb is not installed")
+        return False
+    if "Python scripting is not supported in this copy of GDB" in gdb_version:
+        print_error("Python scripting is not supported in this copy of GDB")
+        return False
+
+    gdb_script = venv_dir / "gdb_stubtest.py"
+    wrapper_script = venv_dir / "gdb_wrapper.py"
+    gdb_script_contents = dedent(
+        f"""
+        import json
+        import os
+        import site
+        import sys
+        import traceback
+
+        from glob import glob
+
+        # Add the venv site-packages to sys.path. gdb doesn't use the virtual environment.
+        # Taken from https://github.com/pwndbg/pwndbg/blob/83d8d95b576b749e888f533ce927ad5a77fb957b/gdbinit.py#L37
+        site_pkgs_path = glob(os.path.join({str(venv_dir)!r}, "lib/*/site-packages"))[0]
+        site.addsitedir(site_pkgs_path)
+
+        exit_code = 1
+        try:
+            # gdb wraps stdout and stderr without a .fileno
+            # colored output in mypy tries to access .fileno()
+            sys.stdout.fileno = sys.__stdout__.fileno
+            sys.stderr.fileno = sys.__stderr__.fileno
+
+            from mypy.stubtest import main
+
+            sys.argv = json.loads(os.environ.get("STUBTEST_ARGS"))
+            exit_code = main()
+        except Exception:
+            traceback.print_exc()
+        finally:
+            gdb.execute(f"quit {{exit_code}}")
+        """
+    )
+    gdb_script.write_text(gdb_script_contents)
+
+    wrapper_script_contents = dedent(
+        f"""
+        import json
+        import os
+        import subprocess
+        import sys
+
+        stubtest_env = os.environ | {{"STUBTEST_ARGS": json.dumps(sys.argv)}}
+        gdb_cmd = [
+            "gdb",
+            "--quiet",
+            "--nx",
+            "--batch",
+            "--command",
+            {str(gdb_script)!r},
+        ]
+        r = subprocess.run(gdb_cmd, env=stubtest_env)
+        sys.exit(r.returncode)
+        """
+    )
+    wrapper_script.write_text(wrapper_script_contents)
+
+    # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script
+    assert stubtest_cmd[1:3] == ["-m", "mypy.stubtest"]
+    stubtest_cmd[1:3] = [str(wrapper_script)]
     return True
 
 

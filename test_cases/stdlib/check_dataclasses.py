@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import dataclasses as dc
-from typing import TYPE_CHECKING, Any, Dict, Tuple, Type, Union
-from typing_extensions import assert_type
+from typing import TYPE_CHECKING, Any, Dict, FrozenSet, Tuple, Type, Union
+from typing_extensions import Annotated, assert_type
 
 if TYPE_CHECKING:
     from _typeshed import DataclassInstance
@@ -88,3 +88,14 @@ def check_other_isdataclass_overloads(x: type, y: object) -> None:
         assert_type(dc.asdict(y), Dict[str, Any])
         assert_type(dc.astuple(y), Tuple[Any, ...])
         dc.replace(y)
+
+
+# Regression test for #11653
+D = dc.make_dataclass(
+    "D", [("a", Union[int, None]), "y", ("z", Annotated[FrozenSet[bytes], "metadata"], dc.field(default=frozenset({b"foo"})))]
+)
+# Check that it's inferred by the type checker as a class object of some kind
+# (but don't assert the exact type that `D` is inferred as,
+# in case a type checker decides to add some special-casing for
+# `make_dataclass` in the future)
+assert_type(D.__mro__, Tuple[type, ...])
