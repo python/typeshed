@@ -3,8 +3,8 @@ import sys
 from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Iterable
 from types import TracebackType
-from typing import Any, Generic, TypeVar
-from typing_extensions import Self, SupportsIndex, TypeAlias
+from typing import Any, Generic, SupportsIndex, TypeVar
+from typing_extensions import Self, TypeAlias
 
 __all__ = ["Client", "Listener", "Pipe", "wait"]
 

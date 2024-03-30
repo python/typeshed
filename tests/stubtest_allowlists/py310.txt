@@ -4,15 +4,17 @@ asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several p
 builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.property.__set_name__  # Doesn't actually exist
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
 configparser.ParsingError.filename
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
+email.contentmanager.typ
 enum.Enum._generate_next_value_
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
 gettext.install
 gettext.translation
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.Finder.find_module
-importlib.metadata._meta.SimplePath.__truediv__  # See comments in the stub
 # platform.uname_result's processor field is now dynamically made to exist
 platform.uname_result.__match_args__
 platform.uname_result.__new__
@@ -23,6 +25,14 @@ types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 typing._SpecialForm.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
+builtins.ellipsis  # type is not exposed anywhere
+
+xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+
+# Runtime definition of protocol is incorrect
+importlib.metadata._meta.SimplePath.__truediv__
+importlib.metadata._meta.SimplePath.joinpath
 
 # Modules that exist at runtime, but shouldn't be added to typeshed
 ctypes.test
@@ -152,6 +162,10 @@ typing.ParamSpec(Args|Kwargs).__origin__
 # Problematic protocol signatures at runtime, see source code comments.
 importlib.abc.Traversable.joinpath
 importlib.abc.Traversable.open
+
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedList.reverse
+importlib.metadata.DeprecatedList.sort
 
 # Super-special typing primitives
 typing\.NamedTuple

@@ -74,7 +74,6 @@ gevent.ssl.base64
 gevent.ssl.create_connection
 gevent.ssl.errno
 gevent.ssl.os
-gevent.ssl.socket_error
 gevent.ssl.warnings
 gevent\.subprocess\._[A-Za-z0-9]\w*
 
@@ -122,10 +121,6 @@ gevent._config._PositiveValueMixin.validate
 gevent._ffi.watcher.AbstractWatcherType.__new__
 
 # these are inconsistent due to the ParamSpec hack for positional only callables
-gevent._ffi.loop.AbstractLoop.run_callback
-gevent._ffi.loop.AbstractLoop.run_callback_threadsafe
-gevent._ffi.watcher.watcher.start
-gevent._hub_primitives.WaitOperationsGreenlet.cancel_waits_close_and_then
 gevent.baseserver.BaseServer.do_close
 gevent.baseserver.BaseServer.do_handle
 
@@ -151,11 +146,7 @@ gevent.Greenlet.link_value
 gevent.greenlet.Greenlet.link
 gevent.greenlet.Greenlet.link_exception
 gevent.greenlet.Greenlet.link_value
-gevent._ffi.watcher.IoMixin.__init__
 gevent._threading.Queue.qsize
-gevent.monkey.patch_module
-gevent.monkey.patch_ssl
-gevent.monkey.patch_thread
 
 # removed deprecated argument
 gevent._hub_primitives.wait_readwrite
@@ -176,7 +167,6 @@ gevent.socket.SocketType.setblocking
 gevent.socket.SocketType.settimeout
 gevent.socket.SocketType.shutdown
 gevent.socket.cancel_wait
-gevent.socket.create_connection
 gevent.socket.gethostbyaddr
 gevent.socket.gethostbyname
 gevent.socket.gethostbyname_ex
@@ -199,21 +189,9 @@ gevent.ssl.get_server_certificate
 # for now we ignore that fact, most of the ways to call Popen should be compatible
 gevent.subprocess.Popen.__init__
 
-# we exclude the undocumented internal argument _raise_exc from the stubs
-gevent.subprocess.Popen.wait
-
-# we exclude the undocumented internal argument _format_hub from the stubs
-gevent.threadpool.ThreadPool.__repr__
-
 # gevent overwrites with a named parameter for fd, but we're fine with only
 # supporting the API of the superclass
 gevent.threadpool.ThreadPoolExecutor.submit
-
-# we exclude the undocumented internal argument _one_shot from the stubs
-gevent.Timeout.__init__
-gevent.Timeout.start_new
-gevent.timeout.Timeout.__init__
-gevent.timeout.Timeout.start_new
 
 # Error: is not a type/function
 # =====================
@@ -239,3 +217,8 @@ gevent.events.IPeriodicMonitorThreadStartedEvent
 # internal use module for some complex protocols used across different modules
 # so there wasn't really a great place for them
 gevent._types
+
+# The first parameter is technically positional-or-keyword but there's no
+# useful way to use it as a keyword argument; we mark it positional-only.
+gevent.pool.GroupMappingMixin.imap
+gevent.pool.GroupMappingMixin.imap_unordered

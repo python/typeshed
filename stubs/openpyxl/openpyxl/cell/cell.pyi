@@ -1,8 +1,7 @@
 from _typeshed import ReadableBuffer
 from datetime import datetime
 from re import Pattern
-from typing import overload
-from typing_extensions import Final, Literal
+from typing import Final, Literal, overload
 
 from openpyxl.cell import _CellValue, _TimeTypes
 from openpyxl.comments.comments import Comment
@@ -85,8 +84,8 @@ class MergedCell(StyleableObject):
     data_type: str
     comment: Comment | None
     hyperlink: Hyperlink | None
-    row: int
-    column: int
+    row: int | None
+    column: int | None
     def __init__(self, worksheet: Worksheet, row: int | None = None, column: int | None = None) -> None: ...
     # Same as Cell.coordinate
     @property

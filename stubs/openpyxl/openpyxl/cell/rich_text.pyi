@@ -1,6 +1,6 @@
 from collections.abc import Iterable
-from typing import overload
-from typing_extensions import Literal, Self
+from typing import Literal, overload
+from typing_extensions import Self
 
 from openpyxl.cell.text import InlineFont
 from openpyxl.descriptors import Strict, String, Typed
@@ -15,7 +15,7 @@ class TextBlock(Strict):
 
 class CellRichText(list[str | TextBlock]):
     @overload
-    def __init__(self, __args: list[str] | list[TextBlock] | list[str | TextBlock] | tuple[str | TextBlock, ...]) -> None: ...
+    def __init__(self, args: list[str] | list[TextBlock] | list[str | TextBlock] | tuple[str | TextBlock, ...], /) -> None: ...
     @overload
     def __init__(self, *args: str | TextBlock) -> None: ...
     @classmethod

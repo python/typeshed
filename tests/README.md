@@ -133,6 +133,12 @@ test it automatically (or
 [running the test via Github Actions](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow#running-a-workflow)
 on your typeshed fork).
 
+As a convenience, stubtest\_stdlib.py will look for local-only allowlist files
+and use those if they are present. Only version-specific local allowlists are supported.
+An example local allowlist file is
+`tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
+the CI run of stubtest remains canonical.
+
 If you need a specific version of Python to repro a CI failure,
 [pyenv](https://github.com/pyenv/pyenv) can also help.
 
@@ -180,7 +186,7 @@ but missing from the stub. However, this behaviour can be disabled using the
 
 If a distribution has `ignore_missing_stub = true` in the `[tool.stubtest]` section of its
 `tests/METADATA.toml` file, `stubtest_third_party.py` will test that distribution with the
-`--ignore-missing-stub option`. This indicates that the stubs for this distribution are
+`--ignore-missing-stub` option. This indicates that the stubs for this distribution are
 considered "incomplete".
 
 You can help make typeshed's stubs more complete by removing

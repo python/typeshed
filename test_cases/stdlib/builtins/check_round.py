@@ -54,12 +54,10 @@ round(WithCustomRound2())  # type: ignore
 
 class WithOverloadedRound:
     @overload
-    def __round__(self, ndigits: None = ...) -> str:
-        ...
+    def __round__(self, ndigits: None = ...) -> str: ...
 
     @overload
-    def __round__(self, ndigits: int) -> bytes:
-        ...
+    def __round__(self, ndigits: int) -> bytes: ...
 
     def __round__(self, ndigits: int | None = None) -> str | bytes:
         return b"" if ndigits is None else ""

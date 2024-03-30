@@ -9,16 +9,15 @@ from functools import wraps as wraps
 from importlib.util import spec_from_loader as spec_from_loader
 from io import BytesIO as BytesIO, StringIO as StringIO
 from re import Pattern
-from typing import Any, AnyStr, NoReturn, Protocol, TypeVar, overload
-from typing_extensions import Literal
+from typing import Any, AnyStr, Literal, NoReturn, Protocol, TypeVar, overload
 
 from six import moves as moves
 
 # TODO: We should switch to the _typeshed version of SupportsGetItem
 # once mypy updates its vendored copy of typeshed and makes a new release
 class _SupportsGetItem(Protocol[_KT_contra, _VT_co]):
-    def __contains__(self, __x: Any) -> bool: ...
-    def __getitem__(self, __key: _KT_contra) -> _VT_co: ...
+    def __contains__(self, x: Any, /) -> bool: ...
+    def __getitem__(self, key: _KT_contra, /) -> _VT_co: ...
 
 _T = TypeVar("_T")
 _K = TypeVar("_K")
@@ -115,3 +114,5 @@ class MovedAttribute(_LazyDescr):
 
 def add_move(move: MovedModule | MovedAttribute) -> None: ...
 def remove_move(name: str) -> None: ...
+
+advance_iterator = next

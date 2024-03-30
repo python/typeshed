@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 try:
-    from termcolor import colored  # pyright: ignore[reportGeneralTypeIssues]
+    from termcolor import colored  # pyright: ignore[reportAssignmentType]
 except ImportError:
 
     def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
@@ -81,17 +81,8 @@ def main() -> None:
     stubtest_result: subprocess.CompletedProcess[bytes] | None = None
     pytype_result: subprocess.CompletedProcess[bytes] | None = None
 
-    # Run formatters first. Order matters.
-    print("\nRunning Ruff...")
-    subprocess.run([sys.executable, "-m", "ruff", "check", path])
-    print("\nRunning Black...")
-    black_result = subprocess.run([sys.executable, "-m", "black", path])
-    if black_result.returncode == 123:
-        print("Could not run tests due to an internal error with Black. See above for details.", file=sys.stderr)
-        sys.exit(black_result.returncode)
-
-    print("\nRunning Flake8...")
-    flake8_result = subprocess.run([sys.executable, "-m", "flake8", path])
+    print("\nRunning pre-commit...")
+    pre_commit_result = subprocess.run(["pre-commit", "run", "--all-files"])
 
     print("\nRunning check_consistent.py...")
     check_consistent_result = subprocess.run([sys.executable, "tests/check_consistent.py"])
@@ -101,7 +92,7 @@ def main() -> None:
     strict_params = _get_strict_params(path)
     print(f"\nRunning Pyright ({'stricter' if strict_params else 'base' } configs) for Python {python_version}...")
     pyright_result = subprocess.run(
-        [sys.executable, "tests/pyright_test.py", path, "--pythonversion", python_version] + strict_params,
+        [sys.executable, "tests/pyright_test.py", path, "--pythonversion", python_version, *strict_params],
         stderr=subprocess.PIPE,
         text=True,
     )
@@ -187,7 +178,7 @@ def main() -> None:
 
     any_failure = any(
         [
-            flake8_result.returncode,
+            pre_commit_result.returncode,
             check_consistent_result.returncode,
             check_new_syntax_result.returncode,
             pyright_returncode,
@@ -203,7 +194,18 @@ def main() -> None:
         print(colored("\n\n--- TEST SUMMARY: One or more tests failed. See above for details. ---\n", "red"))
     else:
         print(colored("\n\n--- TEST SUMMARY: All tests passed! ---\n", "green"))
-    print("Flake8:", _SUCCESS if flake8_result.returncode == 0 else _FAILED)
+    if pre_commit_result.returncode == 0:
+        print("pre-commit", _SUCCESS)
+    else:
+        print("pre-commit", _FAILED)
+        print(
+            """\
+  Check the output of pre-commit for more details.
+  This could mean that there's a lint failure on your code,
+  but could also just mean that one of the pre-commit tools
+  applied some autofixes. If the latter, you may want to check
+  that the autofixes did sensible things."""
+        )
     print("Check consistent:", _SUCCESS if check_consistent_result.returncode == 0 else _FAILED)
     print("Check new syntax:", _SUCCESS if check_new_syntax_result.returncode == 0 else _FAILED)
     if pyright_skipped:

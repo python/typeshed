@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable, Iterator
-from typing import ClassVar
-from typing_extensions import Self, TypedDict
+from typing import ClassVar, TypedDict
+from typing_extensions import Self
 
 from pkg_resources import Environment
 
@@ -116,7 +116,7 @@ class _SplitArgs(TypedDict, total=False):
     posix: bool
 
 class CommandSpec(list[str]):
-    options: list[Incomplete]
+    options: list[str]
     split_args: ClassVar[_SplitArgs]
     @classmethod
     def best(cls) -> type[CommandSpec]: ...

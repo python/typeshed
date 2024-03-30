@@ -10,8 +10,8 @@ import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import NamedTuple
-from typing_extensions import Annotated, Final, TypeGuard, final
+from typing import Final, NamedTuple, final
+from typing_extensions import Annotated, TypeGuard
 
 import tomli
 from packaging.requirements import Requirement

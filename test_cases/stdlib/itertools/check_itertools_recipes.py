@@ -3,6 +3,7 @@
 These are all meant to be examples of idiomatic itertools usage,
 so they should all type-check without error.
 """
+
 from __future__ import annotations
 
 import collections
@@ -10,8 +11,22 @@ import math
 import operator
 import sys
 from itertools import chain, combinations, count, cycle, filterfalse, groupby, islice, product, repeat, starmap, tee, zip_longest
-from typing import Any, Callable, Collection, Hashable, Iterable, Iterator, Sequence, Tuple, Type, TypeVar, Union, overload
-from typing_extensions import Literal, TypeAlias, TypeVarTuple, Unpack
+from typing import (
+    Any,
+    Callable,
+    Collection,
+    Hashable,
+    Iterable,
+    Iterator,
+    Literal,
+    Sequence,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
+from typing_extensions import TypeAlias, TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
@@ -79,13 +94,11 @@ def consume(iterator: Iterator[object], n: int | None = None) -> None:
 
 
 @overload
-def nth(iterable: Iterable[_T], n: int, default: None = None) -> _T | None:
-    ...
+def nth(iterable: Iterable[_T], n: int, default: None = None) -> _T | None: ...
 
 
 @overload
-def nth(iterable: Iterable[_T], n: int, default: _T1) -> _T | _T1:
-    ...
+def nth(iterable: Iterable[_T], n: int, default: _T1) -> _T | _T1: ...
 
 
 def nth(iterable: Iterable[object], n: int, default: object = None) -> object:
@@ -94,13 +107,11 @@ def nth(iterable: Iterable[object], n: int, default: object = None) -> object:
 
 
 @overload
-def quantify(iterable: Iterable[object]) -> int:
-    ...
+def quantify(iterable: Iterable[object]) -> int: ...
 
 
 @overload
-def quantify(iterable: Iterable[_T], pred: Callable[[_T], bool]) -> int:
-    ...
+def quantify(iterable: Iterable[_T], pred: Callable[[_T], bool]) -> int: ...
 
 
 def quantify(iterable: Iterable[object], pred: Callable[[Any], bool] = bool) -> int:
@@ -111,13 +122,11 @@ def quantify(iterable: Iterable[object], pred: Callable[[Any], bool] = bool) -> 
 @overload
 def first_true(
     iterable: Iterable[_T], default: Literal[False] = False, pred: Callable[[_T], bool] | None = None
-) -> _T | Literal[False]:
-    ...
+) -> _T | Literal[False]: ...
 
 
 @overload
-def first_true(iterable: Iterable[_T], default: _T1, pred: Callable[[_T], bool] | None = None) -> _T | _T1:
-    ...
+def first_true(iterable: Iterable[_T], default: _T1, pred: Callable[[_T], bool] | None = None) -> _T | _T1: ...
 
 
 def first_true(iterable: Iterable[object], default: object = False, pred: Callable[[Any], bool] | None = None) -> object:
@@ -135,13 +144,13 @@ _ExceptionOrExceptionTuple: TypeAlias = Union[Type[BaseException], Tuple[Type[Ba
 
 
 @overload
-def iter_except(func: Callable[[], _T], exception: _ExceptionOrExceptionTuple, first: None = None) -> Iterator[_T]:
-    ...
+def iter_except(func: Callable[[], _T], exception: _ExceptionOrExceptionTuple, first: None = None) -> Iterator[_T]: ...
 
 
 @overload
-def iter_except(func: Callable[[], _T], exception: _ExceptionOrExceptionTuple, first: Callable[[], _T1]) -> Iterator[_T | _T1]:
-    ...
+def iter_except(
+    func: Callable[[], _T], exception: _ExceptionOrExceptionTuple, first: Callable[[], _T1]
+) -> Iterator[_T | _T1]: ...
 
 
 def iter_except(
@@ -239,13 +248,11 @@ def before_and_after(predicate: Callable[[_T], bool], it: Iterable[_T]) -> tuple
 
 
 @overload
-def unique_everseen(iterable: Iterable[_HashableT], key: None = None) -> Iterator[_HashableT]:
-    ...
+def unique_everseen(iterable: Iterable[_HashableT], key: None = None) -> Iterator[_HashableT]: ...
 
 
 @overload
-def unique_everseen(iterable: Iterable[_T], key: Callable[[_T], Hashable]) -> Iterator[_T]:
-    ...
+def unique_everseen(iterable: Iterable[_T], key: Callable[[_T], Hashable]) -> Iterator[_T]: ...
 
 
 def unique_everseen(iterable: Iterable[_T], key: Callable[[_T], Hashable] | None = None) -> Iterator[_T]:
@@ -298,25 +305,23 @@ def polynomial_derivative(coefficients: Sequence[float]) -> list[float]:
     return list(map(operator.mul, coefficients, powers))
 
 
-if sys.version_info >= (3, 8):
-
-    def nth_combination(iterable: Iterable[_T], r: int, index: int) -> tuple[_T, ...]:
-        "Equivalent to list(combinations(iterable, r))[index]"
-        pool = tuple(iterable)
-        n = len(pool)
-        c = math.comb(n, r)
-        if index < 0:
-            index += c
-        if index < 0 or index >= c:
-            raise IndexError
-        result: list[_T] = []
-        while r:
-            c, n, r = c * r // n, n - 1, r - 1
-            while index >= c:
-                index -= c
-                c, n = c * (n - r) // n, n - 1
-            result.append(pool[-1 - n])
-        return tuple(result)
+def nth_combination(iterable: Iterable[_T], r: int, index: int) -> tuple[_T, ...]:
+    "Equivalent to list(combinations(iterable, r))[index]"
+    pool = tuple(iterable)
+    n = len(pool)
+    c = math.comb(n, r)
+    if index < 0:
+        index += c
+    if index < 0 or index >= c:
+        raise IndexError
+    result: list[_T] = []
+    while r:
+        c, n, r = c * r // n, n - 1, r - 1
+        while index >= c:
+            index -= c
+            c, n = c * (n - r) // n, n - 1
+        result.append(pool[-1 - n])
+    return tuple(result)
 
 
 if sys.version_info >= (3, 10):
@@ -324,20 +329,17 @@ if sys.version_info >= (3, 10):
     @overload
     def grouper(
         iterable: Iterable[_T], n: int, *, incomplete: Literal["fill"] = "fill", fillvalue: None = None
-    ) -> Iterator[tuple[_T | None, ...]]:
-        ...
+    ) -> Iterator[tuple[_T | None, ...]]: ...
 
     @overload
     def grouper(
         iterable: Iterable[_T], n: int, *, incomplete: Literal["fill"] = "fill", fillvalue: _T1
-    ) -> Iterator[tuple[_T | _T1, ...]]:
-        ...
+    ) -> Iterator[tuple[_T | _T1, ...]]: ...
 
     @overload
     def grouper(
         iterable: Iterable[_T], n: int, *, incomplete: Literal["strict", "ignore"], fillvalue: None = None
-    ) -> Iterator[tuple[_T, ...]]:
-        ...
+    ) -> Iterator[tuple[_T, ...]]: ...
 
     def grouper(
         iterable: Iterable[object], n: int, *, incomplete: Literal["fill", "strict", "ignore"] = "fill", fillvalue: object = None
