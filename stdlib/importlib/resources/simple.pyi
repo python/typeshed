@@ -1,8 +1,8 @@
 import abc
 import sys
-from _typeshed import Incomplete, OpenBinaryMode, OpenTextMode, Unused
+from _typeshed import OpenBinaryMode, OpenTextMode
 from collections.abc import Iterator
-from io import TextIOWrapper
+from io import TextIOWrapper, _WrappedBuffer
 from typing import IO, Any, BinaryIO, Literal, NoReturn, overload
 from typing_extensions import Never
 
@@ -28,11 +28,31 @@ if sys.version_info >= (3, 11):
         def is_file(self) -> Literal[True]: ...
         def is_dir(self) -> Literal[False]: ...
         @overload
-        def open(self, mode: OpenTextMode = "r", *args: Incomplete, **kwargs: Incomplete) -> TextIOWrapper: ...
+        def open(
+            self,
+            mode: OpenTextMode = "r",
+            *,
+            encoding: str | None = ...,
+            errors: str | None = ...,
+            newline: str | None = ...,
+            line_buffering: bool = ...,
+            write_through: bool = ...,
+        ) -> TextIOWrapper: ...
         @overload
-        def open(self, mode: OpenBinaryMode, *args: Unused, **kwargs: Unused) -> BinaryIO: ...
+        def open(
+            self,
+            mode: OpenTextMode,
+            buffer: _WrappedBuffer,
+            encoding: str | None = ...,
+            errors: str | None = ...,
+            newline: str | None = ...,
+            line_buffering: bool = ...,
+            write_through: bool = ...,
+        ) -> TextIOWrapper: ...
         @overload
-        def open(self, mode: str, *args: Incomplete, **kwargs: Incomplete) -> IO[Any]: ...
+        def open(self, mode: OpenBinaryMode) -> BinaryIO: ...
+        @overload
+        def open(self, mode: str, *args: Any, **kwargs: Any) -> IO[Any]: ...
         def joinpath(self, name: Never) -> NoReturn: ...  # type: ignore[override]
 
     class ResourceContainer(Traversable, metaclass=abc.ABCMeta):
