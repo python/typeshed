@@ -11,8 +11,9 @@ __all__ = ["Client", "Listener", "Pipe", "wait"]
 # https://docs.python.org/3/library/multiprocessing.html#address-formats
 _Address: TypeAlias = str | tuple[str, int]
 
-_SendT = TypeVar("_SendT", contravariant=True)
-_RecvT = TypeVar("_RecvT", covariant=True)
+# Defaulting to Any to avoid forcing generics on a lot of pre-existing code
+_SendT = TypeVar("_SendT", contravariant=True, default=Any)
+_RecvT = TypeVar("_RecvT", covariant=True, default=Any)
 
 class _ConnectionBase(Generic[_SendT, _RecvT]):
     def __init__(self, handle: SupportsIndex, readable: bool = True, writable: bool = True) -> None: ...
