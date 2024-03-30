@@ -1,10 +1,7 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
     "typeshedPath": ".",
-    "include": [
-        "stdlib",
-        "stubs",
-    ],
+    "include": ["stdlib", "stubs"],
     "exclude": [
         // test cases use a custom pyrightconfig file
         "stubs/**/@tests/test_cases",
@@ -12,18 +9,24 @@
         "stdlib/distutils/dist.pyi",
         "stdlib/importlib/readers.pyi",
         "stdlib/lib2to3/fixes/*.pyi",
+        "stdlib/multiprocessing/resource_tracker.pyi",
+        "stdlib/multiprocessing/util.pyi",
         "stdlib/numbers.pyi",
         "stdlib/optparse.pyi",
         "stdlib/_tkinter.pyi",
         "stdlib/tkinter/__init__.pyi",
+        "stdlib/tkinter/commondialog.pyi",
         "stdlib/tkinter/filedialog.pyi",
+        "stdlib/tkinter/dialog.pyi",
         "stdlib/tkinter/messagebox.pyi",
+        "stdlib/tkinter/scrolledtext.pyi",
         "stdlib/tkinter/tix.pyi",
         "stdlib/tkinter/ttk.pyi",
         "stdlib/xml/dom/NodeFilter.pyi",
         "stdlib/xml/dom/expatbuilder.pyi",
         "stdlib/xml/dom/minidom.pyi",
         "stdlib/xml/dom/pulldom.pyi",
+        "stdlib/xml/dom/xmlbuilder.pyi",
         "stdlib/xml/sax",
         "stubs/antlr4-python3-runtime",
         "stubs/aws-xray-sdk",
@@ -81,7 +84,7 @@
         "stubs/ttkthemes",
         "stubs/vobject",
         "stubs/workalendar",
-        "stubs/wurlitzer",
+        "stubs/wurlitzer"
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
@@ -113,5 +116,5 @@
     // The name of the self/cls parameter is out of typeshed's control.
     "reportSelfClsParameterName": "none",
     // Not actionable in typeshed
-    "reportDeprecated": "none",
+    "reportDeprecated": "none"
 }
