@@ -30,19 +30,7 @@ if sys.version_info >= (3, 11):
         @overload
         def open(
             self,
-            mode: OpenTextMode = "r",
-            *,
-            encoding: str | None = ...,
-            errors: str | None = ...,
-            newline: str | None = ...,
-            line_buffering: bool = ...,
-            write_through: bool = ...,
-        ) -> TextIOWrapper: ...
-        @overload
-        def open(
-            self,
             mode: OpenTextMode,
-            buffer: _WrappedBuffer,
             encoding: str | None = ...,
             errors: str | None = ...,
             newline: str | None = ...,
