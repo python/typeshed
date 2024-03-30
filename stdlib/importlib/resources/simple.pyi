@@ -2,7 +2,7 @@ import abc
 import sys
 from _typeshed import OpenBinaryMode, OpenTextMode
 from collections.abc import Iterator
-from io import TextIOWrapper, _WrappedBuffer
+from io import TextIOWrapper
 from typing import IO, Any, BinaryIO, Literal, NoReturn, overload
 from typing_extensions import Never
 
