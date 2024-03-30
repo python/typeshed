@@ -40,7 +40,6 @@
         "stubs/docutils",
         "stubs/Flask-SocketIO",
         "stubs/fpdf2",
-        "stubs/flake8-builtins",
         "stubs/google-cloud-ndb",
         "stubs/html5lib",
         "stubs/httplib2",
