@@ -48,6 +48,7 @@ def get_temp_dir() -> str: ...
 def register_after_fork(obj: _T, func: Callable[[_T], object]) -> None: ...
 
 class Finalize(Generic[_R]):
+    # "args" and "kwargs" are passed as arguments to "callback".
     @overload
     def __init__(
         self,
