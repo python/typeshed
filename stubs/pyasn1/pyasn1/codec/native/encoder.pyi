@@ -31,6 +31,9 @@ class NullEncoder(AbstractItemEncoder):
 class ObjectIdentifierEncoder(AbstractItemEncoder):
     def encode(self, value, encodeFun, **options): ...
 
+class RelativeOIDEncoder(AbstractItemEncoder):
+    def encode(self, value, encodeFun, **options): ...
+
 class RealEncoder(AbstractItemEncoder):
     def encode(self, value, encodeFun, **options): ...
 
