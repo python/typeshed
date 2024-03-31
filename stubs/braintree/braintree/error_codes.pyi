@@ -53,6 +53,8 @@ class ErrorCodes:
         InvalidToken: str
         PrivateKeyMismatch: str
         KeyMismatchStoringCertificate: str
+        CustomerIdIsInvalid: str
+        BillingAddressFormatIsInvalid: str
 
     class AuthorizationFingerprint:
         MissingFingerprint: str
@@ -67,8 +69,10 @@ class ErrorCodes:
         MakeDefaultRequiresCustomerId: str
         VerifyCardRequiresCustomerId: str
         FailOnDuplicatePaymentMethodRequiresCustomerId: str
+        InvalidDomainFormat: str
         CustomerDoesNotExist: str
         ProxyMerchantDoesNotExist: str
+        TooManyDomains: str
         UnsupportedVersion: str
         MerchantAccountDoesNotExist: str
 
@@ -410,6 +414,11 @@ class ErrorCodes:
         IBANIsRequired: str
         AccountHolderNameIsRequired: str
 
+    class SepaDirectDebitAccount:
+        SepaDebitAccountPaymentMethodMandateTypeIsNotSupported: str
+        SepaDebitAccountPaymentMethodCustomerIdIsInvalid: str
+        SepaDebitAccountPaymentMethodCustomerIdIsRequired: str
+
     class Subscription:
         BillingDayOfMonthCannotBeUpdated: str
         BillingDayOfMonthIsInvalid: str
@@ -737,6 +746,10 @@ class ErrorCodes:
             TotalAmountIsRequired: str
             TotalAmountIsTooLarge: str
             TotalAmountMustBeGreaterThanZero: str
+            UPCCodeIsMissing: str
+            UPCCodeIsTooLong: str
+            UPCTypeIsInvalid: str
+            UPCTypeIsMissing: str
             UnitAmountFormatIsInvalid: str
             UnitAmountIsRequired: str
             UnitAmountIsTooLarge: str

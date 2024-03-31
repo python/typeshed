@@ -43,6 +43,7 @@ class TransactionSearch:
     paypal_payer_email: Any
     paypal_payment_id: Any
     paypal_authorization_id: Any
+    sepa_debit_paypal_v2_order_id: Any
     credit_card_unique_identifier: Any
     store_id: Any
     credit_card_expiration_date: Any
@@ -55,6 +56,7 @@ class TransactionSearch:
     created_using: Any
     credit_card_card_type: Any
     credit_card_customer_location: Any
+    debit_network: Any
     source: Any
     status: Any
     type: Any
@@ -71,3 +73,5 @@ class TransactionSearch:
     settled_at: Any
     submitted_for_settlement_at: Any
     voided_at: Any
+    ach_return_responses_created_at: Any
+    reason_code: Any

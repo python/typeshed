@@ -32,23 +32,29 @@ class WebhookNotification(Resource):
         Disbursement: str
         DisbursementException: str
         DisputeAccepted: str
+        DisputeAutoAccepted: str
         DisputeDisputed: str
         DisputeExpired: str
         DisputeLost: str
         DisputeOpened: str
+        DisputeUnderReview: str
         DisputeWon: str
         GrantedPaymentMethodRevoked: str
         GrantorUpdatedGrantedPaymentMethod: str
         LocalPaymentCompleted: str
+        LocalPaymentExpired: str
+        LocalPaymentFunded: str
         LocalPaymentReversed: str
         OAuthAccessRevoked: str
         PartnerMerchantConnected: str
         PartnerMerchantDeclined: str
         PartnerMerchantDisconnected: str
+        PaymentMethodCustomerDataUpdated: str
         PaymentMethodRevokedByCustomer: str
         RecipientUpdatedGrantedPaymentMethod: str
         SubMerchantAccountApproved: str
         SubMerchantAccountDeclined: str
+        SubscriptionBillingSkipped: str
         SubscriptionCanceled: str
         SubscriptionChargedSuccessfully: str
         SubscriptionChargedUnsuccessfully: str
@@ -57,6 +63,7 @@ class WebhookNotification(Resource):
         SubscriptionWentActive: str
         SubscriptionWentPastDue: str
         TransactionDisbursed: str
+        TransactionReviewed: str
         TransactionSettled: str
         TransactionSettlementDeclined: str
 

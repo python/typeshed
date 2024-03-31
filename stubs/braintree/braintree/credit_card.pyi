@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from enum import Enum
 from typing import Any
 
 from braintree.address import Address as Address
@@ -35,6 +36,14 @@ class CreditCard(Resource):
         Yes: str
         No: str
         Unknown: str
+
+    class DebitNetwork(Enum):
+        Accel = "ACCEL"
+        Maestro = "MAESTRO"
+        Nyce = "NYCE"
+        Pulse = "PULSE"
+        Star = "STAR"
+        Star_Access = "STAR_ACCESS"
 
     Commercial: Any
     DurbinRegulated: Any
