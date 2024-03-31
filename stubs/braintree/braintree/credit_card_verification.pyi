@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Final
 
 from braintree.attribute_getter import AttributeGetter as AttributeGetter
 from braintree.configuration import Configuration as Configuration
@@ -8,10 +8,10 @@ from braintree.three_d_secure_info import ThreeDSecureInfo as ThreeDSecureInfo
 
 class CreditCardVerification(AttributeGetter):
     class Status:
-        Failed: str
-        GatewayRejected: str
-        ProcessorDeclined: str
-        Verified: str
+        Failed: Final = "failed"
+        GatewayRejected: Final = "gateway_rejected"
+        ProcessorDeclined: Final = "processor_declined"
+        Verified: Final = "verified"
 
     amount: Any
     currency_iso_code: Any

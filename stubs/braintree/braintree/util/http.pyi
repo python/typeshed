@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any
+from typing import Any, Final
 
 from braintree import version as version
 from braintree.environment import Environment as Environment
@@ -24,9 +24,9 @@ from braintree.util.xml_util import XmlUtil as XmlUtil
 
 class Http:
     class ContentType:
-        Xml: str
-        Multipart: str
-        Json: str
+        Xml: Final = "application/xml"
+        Multipart: Final = "multipart/form-data"
+        Json: Final = "application/json"
 
     @staticmethod
     def is_error_status(status): ...

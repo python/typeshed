@@ -1,19 +1,9 @@
-from typing import Any
+from typing import Any, Final
 
-from braintree.account_updater_daily_report import AccountUpdaterDailyReport as AccountUpdaterDailyReport
 from braintree.configuration import Configuration as Configuration
-from braintree.connected_merchant_paypal_status_changed import (
-    ConnectedMerchantPayPalStatusChanged as ConnectedMerchantPayPalStatusChanged,
-)
-from braintree.connected_merchant_status_transitioned import (
-    ConnectedMerchantStatusTransitioned as ConnectedMerchantStatusTransitioned,
-)
-from braintree.disbursement import Disbursement as Disbursement
 from braintree.dispute import Dispute as Dispute
 from braintree.error_result import ErrorResult as ErrorResult
 from braintree.granted_payment_instrument_update import GrantedPaymentInstrumentUpdate as GrantedPaymentInstrumentUpdate
-from braintree.local_payment_completed import LocalPaymentCompleted as LocalPaymentCompleted
-from braintree.local_payment_reversed import LocalPaymentReversed as LocalPaymentReversed
 from braintree.merchant_account import MerchantAccount as MerchantAccount
 from braintree.oauth_access_revocation import OAuthAccessRevocation as OAuthAccessRevocation
 from braintree.partner_merchant import PartnerMerchant as PartnerMerchant
@@ -25,47 +15,47 @@ from braintree.validation_error_collection import ValidationErrorCollection as V
 
 class WebhookNotification(Resource):
     class Kind:
-        AccountUpdaterDailyReport: str
-        Check: str
-        ConnectedMerchantPayPalStatusChanged: str
-        ConnectedMerchantStatusTransitioned: str
-        Disbursement: str
-        DisbursementException: str
-        DisputeAccepted: str
-        DisputeAutoAccepted: str
-        DisputeDisputed: str
-        DisputeExpired: str
-        DisputeLost: str
-        DisputeOpened: str
-        DisputeUnderReview: str
-        DisputeWon: str
-        GrantedPaymentMethodRevoked: str
-        GrantorUpdatedGrantedPaymentMethod: str
-        LocalPaymentCompleted: str
-        LocalPaymentExpired: str
-        LocalPaymentFunded: str
-        LocalPaymentReversed: str
-        OAuthAccessRevoked: str
-        PartnerMerchantConnected: str
-        PartnerMerchantDeclined: str
-        PartnerMerchantDisconnected: str
-        PaymentMethodCustomerDataUpdated: str
-        PaymentMethodRevokedByCustomer: str
-        RecipientUpdatedGrantedPaymentMethod: str
-        SubMerchantAccountApproved: str
-        SubMerchantAccountDeclined: str
-        SubscriptionBillingSkipped: str
-        SubscriptionCanceled: str
-        SubscriptionChargedSuccessfully: str
-        SubscriptionChargedUnsuccessfully: str
-        SubscriptionExpired: str
-        SubscriptionTrialEnded: str
-        SubscriptionWentActive: str
-        SubscriptionWentPastDue: str
-        TransactionDisbursed: str
-        TransactionReviewed: str
-        TransactionSettled: str
-        TransactionSettlementDeclined: str
+        AccountUpdaterDailyReport: Final = "account_updater_daily_report"
+        Check: Final = "check"
+        ConnectedMerchantPayPalStatusChanged: Final = "connected_merchant_paypal_status_changed"
+        ConnectedMerchantStatusTransitioned: Final = "connected_merchant_status_transitioned"
+        Disbursement: Final = "disbursement"
+        DisbursementException: Final = "disbursement_exception"
+        DisputeAccepted: Final = "dispute_accepted"
+        DisputeAutoAccepted: Final = "dispute_auto_accepted"
+        DisputeDisputed: Final = "dispute_disputed"
+        DisputeExpired: Final = "dispute_expired"
+        DisputeLost: Final = "dispute_lost"
+        DisputeOpened: Final = "dispute_opened"
+        DisputeUnderReview: Final = "dispute_under_review"
+        DisputeWon: Final = "dispute_won"
+        GrantedPaymentMethodRevoked: Final = "granted_payment_method_revoked"
+        GrantorUpdatedGrantedPaymentMethod: Final = "grantor_updated_granted_payment_method"
+        LocalPaymentCompleted: Final = "local_payment_completed"
+        LocalPaymentExpired: Final = "local_payment_expired"
+        LocalPaymentFunded: Final = "local_payment_funded"
+        LocalPaymentReversed: Final = "local_payment_reversed"
+        OAuthAccessRevoked: Final = "oauth_access_revoked"
+        PartnerMerchantConnected: Final = "partner_merchant_connected"
+        PartnerMerchantDeclined: Final = "partner_merchant_declined"
+        PartnerMerchantDisconnected: Final = "partner_merchant_disconnected"
+        PaymentMethodCustomerDataUpdated: Final = "payment_method_customer_data_updated"
+        PaymentMethodRevokedByCustomer: Final = "payment_method_revoked_by_customer"
+        RecipientUpdatedGrantedPaymentMethod: Final = "recipient_updated_granted_payment_method"
+        SubMerchantAccountApproved: Final = "sub_merchant_account_approved"
+        SubMerchantAccountDeclined: Final = "sub_merchant_account_declined"
+        SubscriptionBillingSkipped: Final = "subscription_billing_skipped"
+        SubscriptionCanceled: Final = "subscription_canceled"
+        SubscriptionChargedSuccessfully: Final = "subscription_charged_successfully"
+        SubscriptionChargedUnsuccessfully: Final = "subscription_charged_unsuccessfully"
+        SubscriptionExpired: Final = "subscription_expired"
+        SubscriptionTrialEnded: Final = "subscription_trial_ended"
+        SubscriptionWentActive: Final = "subscription_went_active"
+        SubscriptionWentPastDue: Final = "subscription_went_past_due"
+        TransactionDisbursed: Final = "transaction_disbursed"
+        TransactionReviewed: Final = "transaction_reviewed"
+        TransactionSettled: Final = "transaction_settled"
+        TransactionSettlementDeclined: Final = "transaction_settlement_declined"
 
     @staticmethod
     def parse(signature, payload): ...

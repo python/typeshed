@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any
+from typing import Any, Final
 
 from braintree.add_on import AddOn as AddOn
 from braintree.address import Address as Address
@@ -39,68 +39,68 @@ from braintree.visa_checkout_card import VisaCheckoutCard as VisaCheckoutCard
 
 class Transaction(Resource):
     class CreatedUsing:
-        FullInformation: str
-        Token: str
+        FullInformation: Final = "full_information"
+        Token: Final = "token"
 
     class GatewayRejectionReason:
-        ApplicationIncomplete: str
-        Avs: str
-        AvsAndCvv: str
-        Cvv: str
-        Duplicate: str
-        ExcessiveRetry: str
-        Fraud: str
-        RiskThreshold: str
-        ThreeDSecure: str
-        TokenIssuance: str
+        ApplicationIncomplete: Final = "application_incomplete"
+        Avs: Final = "avs"
+        AvsAndCvv: Final = "avs_and_cvv"
+        Cvv: Final = "cvv"
+        Duplicate: Final = "duplicate"
+        ExcessiveRetry: Final = "excessive_retry"
+        Fraud: Final = "fraud"
+        RiskThreshold: Final = "risk_threshold"
+        ThreeDSecure: Final = "three_d_secure"
+        TokenIssuance: Final = "token_issuance"
 
     class ReasonCode:
-        ANY_REASON_CODE: str
+        ANY_REASON_CODE: Final = "any_reason_code"
 
     class Source:
-        Api: str
-        ControlPanel: str
-        Recurring: str
+        Api: Final = "api"
+        ControlPanel: Final = "control_panel"
+        Recurring: Final = "recurring"
 
     class EscrowStatus:
-        HoldPending: str
-        Held: str
-        ReleasePending: str
-        Released: str
-        Refunded: str
+        HoldPending: Final = "hold_pending"
+        Held: Final = "held"
+        ReleasePending: Final = "release_pending"
+        Released: Final = "released"
+        Refunded: Final = "refunded"
 
     class Status:
-        AuthorizationExpired: str
-        Authorized: str
-        Authorizing: str
-        Failed: str
-        GatewayRejected: str
-        ProcessorDeclined: str
-        Settled: str
-        SettlementConfirmed: str
-        SettlementDeclined: str
-        SettlementFailed: str
-        SettlementPending: str
-        Settling: str
-        SubmittedForSettlement: str
-        Voided: str
+        AuthorizationExpired: Final = "authorization_expired"
+        Authorized: Final = "authorized"
+        Authorizing: Final = "authorizing"
+        Failed: Final = "failed"
+        GatewayRejected: Final = "gateway_rejected"
+        ProcessorDeclined: Final = "processor_declined"
+        Settled: Final = "settled"
+        SettlementConfirmed: Final = "settlement_confirmed"
+        SettlementDeclined: Final = "settlement_declined"
+        SettlementFailed: Final = "settlement_failed"
+        SettlementPending: Final = "settlement_pending"
+        Settling: Final = "settling"
+        SubmittedForSettlement: Final = "submitted_for_settlement"
+        Voided: Final = "voided"
 
     class Type:
-        Credit: str
-        Sale: str
+        Credit: Final = "credit"
+        Sale: Final = "sale"
 
     class IndustryType:
-        Lodging: str
-        TravelAndCruise: str
-        TravelAndFlight: str
+        Lodging: Final = "lodging"
+        TravelAndCruise: Final = "travel_cruise"
+        TravelAndFlight: Final = "travel_flight"
 
     class AdditionalCharge:
-        Restaurant: str
-        GiftShop: str
-        MiniBar: str
-        Telephone: str
-        Laundry: str
-        Other: str
+        Restaurant: Final = "restaurant"
+        GiftShop: Final = "gift_shop"
+        MiniBar: Final = "mini_bar"
+        Telephone: Final = "telephone"
+        Laundry: Final = "laundry"
+        Other: Final = "other"
 
     @staticmethod
     def adjust_authorization(transaction_id, amount): ...

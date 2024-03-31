@@ -1,12 +1,12 @@
-from typing import Any
+from typing import Any, Final
 
 from braintree.resource import Resource as Resource
 
 class ApplePayCard(Resource):
     class CardType:
-        AmEx: str
-        MasterCard: str
-        Visa: str
+        AmEx: Final = "Apple Pay - American Express"
+        MasterCard: Final = "Apple Pay - MasterCard"
+        Visa: Final = "Apple Pay - Visa"
 
     is_expired: Any
     subscriptions: Any
