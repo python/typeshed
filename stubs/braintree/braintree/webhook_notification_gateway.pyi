@@ -1,4 +1,4 @@
-from typing import Any
+from _typeshed import Incomplete
 
 from braintree.exceptions.invalid_challenge_error import InvalidChallengeError as InvalidChallengeError
 from braintree.exceptions.invalid_signature_error import InvalidSignatureError as InvalidSignatureError
@@ -9,8 +9,8 @@ from braintree.webhook_notification import WebhookNotification as WebhookNotific
 text_type = str
 
 class WebhookNotificationGateway:
-    gateway: Any
-    config: Any
+    gateway: Incomplete
+    config: Incomplete
     def __init__(self, gateway) -> None: ...
     def parse(self, signature, payload): ...
     def verify(self, challenge): ...

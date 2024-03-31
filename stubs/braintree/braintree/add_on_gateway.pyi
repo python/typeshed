@@ -1,10 +1,10 @@
-from typing import Any
+from _typeshed import Incomplete
 
 from braintree.add_on import AddOn as AddOn
 from braintree.resource_collection import ResourceCollection as ResourceCollection
 
 class AddOnGateway:
-    gateway: Any
-    config: Any
+    gateway: Incomplete
+    config: Incomplete
     def __init__(self, gateway) -> None: ...
     def all(self): ...

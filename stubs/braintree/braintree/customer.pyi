@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from braintree.address import Address as Address
 from braintree.amex_express_checkout_card import AmexExpressCheckoutCard as AmexExpressCheckoutCard
@@ -39,17 +38,30 @@ class Customer(Resource):
     def create_signature(): ...
     @staticmethod
     def update_signature(): ...
-    payment_methods: Any
-    credit_cards: Any
-    addresses: Any
-    paypal_accounts: Any
-    apple_pay_cards: Any
-    android_pay_cards: Any
-    amex_express_checkout_cards: Any
-    europe_bank_accounts: Any
-    venmo_accounts: Any
-    us_bank_accounts: Any
-    visa_checkout_cards: Any
-    masterpass_cards: Any
-    samsung_pay_cards: Any
+    payment_methods: list[
+        CreditCard
+        | Address
+        | PayPalAccount
+        | ApplePayCard
+        | AndroidPayCard
+        | AmexExpressCheckoutCard
+        | EuropeBankAccount
+        | VenmoAccount
+        | UsBankAccount
+        | VisaCheckoutCard
+        | MasterpassCard
+        | SamsungPayCard
+    ]
+    credit_cards: list[CreditCard]
+    addresses: list[Address]
+    paypal_accounts: list[PayPalAccount]
+    apple_pay_cards: list[ApplePayCard]
+    android_pay_cards: list[AndroidPayCard]
+    amex_express_checkout_cards: list[AmexExpressCheckoutCard]
+    europe_bank_accounts: list[EuropeBankAccount]
+    venmo_accounts: list[VenmoAccount]
+    us_bank_accounts: list[UsBankAccount]
+    visa_checkout_cards: list[VisaCheckoutCard]
+    masterpass_cards: list[MasterpassCard]
+    samsung_pay_cards: list[SamsungPayCard]
     def __init__(self, gateway, attributes) -> None: ...

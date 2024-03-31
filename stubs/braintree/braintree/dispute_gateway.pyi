@@ -1,4 +1,4 @@
-from typing import Any
+from _typeshed import Incomplete
 
 from braintree.dispute import Dispute as Dispute
 from braintree.dispute_details import DisputeEvidence as DisputeEvidence
@@ -10,8 +10,8 @@ from braintree.resource_collection import ResourceCollection as ResourceCollecti
 from braintree.successful_result import SuccessfulResult as SuccessfulResult
 
 class DisputeGateway:
-    gateway: Any
-    config: Any
+    gateway: Incomplete
+    config: Incomplete
     def __init__(self, gateway) -> None: ...
     def accept(self, dispute_id): ...
     def add_file_evidence(self, dispute_id, document_upload_id_or_request): ...
@@ -19,5 +19,5 @@ class DisputeGateway:
     def finalize(self, dispute_id): ...
     def find(self, dispute_id): ...
     def remove_evidence(self, dispute_id, evidence_id): ...
-    search_criteria: Any
+    search_criteria: dict[Incomplete, Incomplete]
     def search(self, *query): ...

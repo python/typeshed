@@ -1,4 +1,4 @@
-from typing import Any
+from _typeshed import Incomplete
 
 from braintree.bin_data import BinData as BinData
 from braintree.configuration import Configuration as Configuration
@@ -10,7 +10,7 @@ class PaymentMethodNonce(Resource):
     def create(payment_method_token, params={}): ...
     @staticmethod
     def find(payment_method_nonce): ...
-    three_d_secure_info: Any
-    authentication_insight: Any
-    bin_data: Any
+    three_d_secure_info: ThreeDSecureInfo
+    authentication_insight: Incomplete
+    bin_data: BinData
     def __init__(self, gateway, attributes) -> None: ...

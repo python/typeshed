@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from braintree.add_on import AddOn as AddOn
 from braintree.configuration import Configuration as Configuration
@@ -9,8 +8,8 @@ from braintree.resource_collection import ResourceCollection as ResourceCollecti
 from braintree.util.http import Http as Http
 
 class Plan(Resource):
-    add_ons: Any
-    discounts: Any
+    add_ons: list[AddOn]
+    discounts: list[Discount]
     def __init__(self, gateway, attributes) -> None: ...
     @staticmethod
     def all(): ...
