@@ -40,21 +40,17 @@ class Nonces:
     SamsungPayVisa: Final = "tokensam_fake_visa"
     SepaDirectDebit: Final = "fake-sepa-direct-debit-nonce"
     ThreeDSecureTwoVisaErrorOnLookup: Final = "fake-three-d-secure-two-visa-error-on-lookup-nonce"
-    ThreeDSecureTwoVisaSuccessfulFrictionlessAuthentication: Final = (
-        "fake-three-d-secure-two-visa-successful-frictionless-authentication-nonce"  # noqa: Y053
-    )
-    ThreeDSecureTwoVisaSuccessfulStepUpAuthentication: Final = (
-        "fake-three-d-secure-two-visa-successful-step-up-authentication-nonce"  # noqa: Y053
-    )
-    ThreeDSecureTwoVisaTimeoutOnLookup: Final = "fake-three-d-secure-two-visa-timeout-on-lookup-nonce"  # noqa: Y053
-    ThreeDSecureVisaAttemptsNonParticipating: Final = "fake-three-d-secure-visa-attempts-non-participating-nonce"  # noqa: Y053
-    ThreeDSecureVisaAuthenticationUnavailable: Final = "fake-three-d-secure-visa-authentication-unavailable-nonce"  # noqa: Y053
-    ThreeDSecureVisaBypassedAuthentication: Final = "fake-three-d-secure-visa-bypassed-authentication-nonce"  # noqa: Y053
-    ThreeDSecureVisaFailedAuthentication: Final = "fake-three-d-secure-visa-failed-authentication-nonce"  # noqa: Y053
+    ThreeDSecureTwoVisaSuccessfulFrictionlessAuthentication: Final[str]
+    ThreeDSecureTwoVisaSuccessfulStepUpAuthentication: Final[str]
+    ThreeDSecureTwoVisaTimeoutOnLookup: Final[str]
+    ThreeDSecureVisaAttemptsNonParticipating: Final[str]
+    ThreeDSecureVisaAuthenticationUnavailable: Final[str]
+    ThreeDSecureVisaBypassedAuthentication: Final[str]
+    ThreeDSecureVisaFailedAuthentication: Final[str]
     ThreeDSecureVisaFailedSignature: Final = "fake-three-d-secure-visa-failed-signature-nonce"
     ThreeDSecureVisaFullAuthentication: Final = "fake-three-d-secure-visa-full-authentication-nonce"
     ThreeDSecureVisaLookupTimeout: Final = "fake-three-d-secure-visa-lookup-timeout-nonce"
-    ThreeDSecureVisaMPIAuthenticateError: Final = "fake-three-d-secure-visa-mpi-authenticate-error-nonce"  # noqa: Y053
+    ThreeDSecureVisaMPIAuthenticateError: Final[str]
     ThreeDSecureVisaMPILookupError: Final = "fake-three-d-secure-visa-mpi-lookup-error-nonce"
     ThreeDSecureVisaNoteEnrolled: Final = "fake-three-d-secure-visa-not-enrolled-nonce"
     ThreeDSecureVisaUnavailable: Final = "fake-three-d-secure-visa-unavailable-nonce"
