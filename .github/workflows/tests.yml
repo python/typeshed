@@ -122,6 +122,7 @@ jobs:
           DEPENDENCIES=$(python tests/get_external_stub_requirements.py)
           if [ -n "$DEPENDENCIES" ]; then
             source .venv/bin/activate
+            echo "Installing packages: $DEPENDENCIES"
             echo "Pillow<10.3" > constraints.txt
             uv pip install -c constraints.txt $DEPENDENCIES
           fi
