@@ -1,4 +1,6 @@
-from typing import Any, Final
+from _typeshed import Incomplete
+from decimal import Decimal
+from typing import Final
 
 from braintree.attribute_getter import AttributeGetter as AttributeGetter
 from braintree.configuration import Configuration as Configuration
@@ -13,14 +15,14 @@ class CreditCardVerification(AttributeGetter):
         ProcessorDeclined: Final = "processor_declined"
         Verified: Final = "verified"
 
-    amount: Any
-    currency_iso_code: Any
-    processor_response_code: Any
-    processor_response_text: Any
-    network_response_code: Any
-    network_response_text: Any
-    risk_data: Any
-    three_d_secure_info: Any
+    amount: Decimal | None
+    currency_iso_code: Incomplete
+    processor_response_code: Incomplete
+    processor_response_text: Incomplete
+    network_response_code: Incomplete
+    network_response_text: Incomplete
+    risk_data: RiskData | None
+    three_d_secure_info: ThreeDSecureInfo | None
     def __init__(self, gateway, attributes) -> None: ...
     @staticmethod
     def find(verification_id): ...

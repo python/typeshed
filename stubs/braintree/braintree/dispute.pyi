@@ -1,4 +1,6 @@
-from typing import Any, Final
+from _typeshed import Incomplete
+from decimal import Decimal
+from typing import Final
 
 from braintree.attribute_getter import AttributeGetter as AttributeGetter
 from braintree.configuration import Configuration as Configuration
@@ -66,13 +68,15 @@ class Dispute(AttributeGetter):
     def remove_evidence(id, evidence_id): ...
     @staticmethod
     def search(*query): ...
-    amount: Any
-    amount_disputed: Any
-    amount_won: Any
-    transaction_details: Any
-    transaction: Any
-    evidence: Any
-    paypal_messages: Any
-    status_history: Any
-    forwarded_comments: Any
+    amount: Decimal | None
+    amount_disputed: Decimal | None
+    amount_won: Decimal | None
+    protection_level: Incomplete
+    transaction_details: TransactionDetails
+    transaction = transaction_details
+    evidence: list[DisputeEvidence] | None
+    paypal_messages: list[DisputePayPalMessage] | None
+    status_history: list[DisputeStatusHistory] | None
+    processor_comments: Incomplete
+    forwarded_comments: processor_comments
     def __init__(self, attributes) -> None: ...

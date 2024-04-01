@@ -1,4 +1,5 @@
-from typing import Any, Final
+from decimal import Decimal
+from typing import Final
 
 from braintree.merchant_account import MerchantAccount as MerchantAccount
 from braintree.resource import Resource as Resource
@@ -9,8 +10,8 @@ class Disbursement(Resource):
         Credit: Final = "credit"
         Debit: Final = "debit"
 
-    amount: Any
-    merchant_account: Any
+    amount: Decimal
+    merchant_account: MerchantAccount
     def __init__(self, gateway, attributes) -> None: ...
     def transactions(self): ...
     def is_credit(self): ...

@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from typing import Any, Final
+from decimal import Decimal
+from typing import Final
 
 from braintree.add_on import AddOn as AddOn
 from braintree.configuration import Configuration as Configuration
@@ -47,13 +48,13 @@ class Subscription(Resource):
     def search(*query): ...
     @staticmethod
     def update_signature(): ...
-    price: Any
-    balance: Any
-    next_billing_period_amount: Any
-    add_ons: Any
-    descriptor: Any
-    description: Any
-    discounts: Any
-    status_history: Any
-    transactions: Any
+    price: Decimal
+    balance: Decimal
+    next_billing_period_amount: Decimal
+    add_ons: list[AddOn]
+    descriptor: Descriptor
+    description: Incomplete
+    discounts: list[Discount]
+    status_history: list[SubscriptionStatusEvent]
+    transactions: list[Transaction]
     def __init__(self, gateway, attributes) -> None: ...

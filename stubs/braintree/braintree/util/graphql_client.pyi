@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from braintree.exceptions.authentication_error import AuthenticationError as AuthenticationError
 from braintree.exceptions.authorization_error import AuthorizationError as AuthorizationError
@@ -14,6 +13,6 @@ from braintree.util.http import Http as Http
 class GraphQLClient(Http):
     @staticmethod
     def raise_exception_for_graphql_error(response) -> None: ...
-    graphql_headers: Any
+    graphql_headers: dict[str, str]
     def __init__(self, config: Incomplete | None = None, environment: Incomplete | None = None) -> None: ...
     def query(self, definition, variables: Incomplete | None = None, operation_name: Incomplete | None = None): ...

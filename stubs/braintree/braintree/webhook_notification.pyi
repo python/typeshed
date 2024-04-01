@@ -1,16 +1,27 @@
-from typing import Any, Final
+from _typeshed import Incomplete
+from typing import Final
 
+from braintree.account_updater_daily_report import AccountUpdaterDailyReport
 from braintree.configuration import Configuration as Configuration
+from braintree.connected_merchant_paypal_status_changed import ConnectedMerchantPayPalStatusChanged
+from braintree.connected_merchant_status_transitioned import ConnectedMerchantStatusTransitioned
+from braintree.disbursement import Disbursement
 from braintree.dispute import Dispute as Dispute
 from braintree.error_result import ErrorResult as ErrorResult
 from braintree.granted_payment_instrument_update import GrantedPaymentInstrumentUpdate as GrantedPaymentInstrumentUpdate
+from braintree.local_payment_completed import LocalPaymentCompleted as LocalPaymentCompleted
+from braintree.local_payment_expired import LocalPaymentExpired
+from braintree.local_payment_funded import LocalPaymentFunded
+from braintree.local_payment_reversed import LocalPaymentReversed as LocalPaymentReversed
 from braintree.merchant_account import MerchantAccount as MerchantAccount
 from braintree.oauth_access_revocation import OAuthAccessRevocation as OAuthAccessRevocation
 from braintree.partner_merchant import PartnerMerchant as PartnerMerchant
+from braintree.payment_method_customer_data_updated_metadata import PaymentMethodCustomerDataUpdatedMetadata
 from braintree.resource import Resource as Resource
 from braintree.revoked_payment_method_metadata import RevokedPaymentMethodMetadata as RevokedPaymentMethodMetadata
 from braintree.subscription import Subscription as Subscription
 from braintree.transaction import Transaction as Transaction
+from braintree.transaction_review import TransactionReview
 from braintree.validation_error_collection import ValidationErrorCollection as ValidationErrorCollection
 
 class WebhookNotification(Resource):
@@ -61,21 +72,25 @@ class WebhookNotification(Resource):
     def parse(signature, payload): ...
     @staticmethod
     def verify(challenge): ...
-    source_merchant_id: Any
-    subscription: Any
-    merchant_account: Any
-    transaction: Any
-    connected_merchant_status_transitioned: Any
-    connected_merchant_paypal_status_changed: Any
-    partner_merchant: Any
-    oauth_access_revocation: Any
-    disbursement: Any
-    dispute: Any
-    account_updater_daily_report: Any
-    granted_payment_instrument_update: Any
-    revoked_payment_method_metadata: Any
-    local_payment_completed: Any
-    local_payment_reversed: Any
-    errors: Any
-    message: Any
+    source_merchant_id: Incomplete
+    subscription: Subscription
+    merchant_account: MerchantAccount
+    transaction: Transaction
+    transaction_review: TransactionReview
+    connected_merchant_status_transitioned: ConnectedMerchantStatusTransitioned
+    connected_merchant_paypal_status_changed: ConnectedMerchantPayPalStatusChanged
+    partner_merchant: PartnerMerchant
+    oauth_access_revocation: OAuthAccessRevocation
+    disbursement: Disbursement
+    dispute: Dispute
+    account_updater_daily_report: AccountUpdaterDailyReport
+    granted_payment_instrument_update: GrantedPaymentInstrumentUpdate
+    revoked_payment_method_metadata: RevokedPaymentMethodMetadata
+    local_payment_completed: LocalPaymentCompleted
+    local_payment_expired: LocalPaymentExpired
+    local_payment_funded: LocalPaymentFunded
+    local_payment_reversed: LocalPaymentReversed
+    payment_method_customer_data_updated_metadata: PaymentMethodCustomerDataUpdatedMetadata
+    errors: ValidationErrorCollection
+    message: Incomplete
     def __init__(self, gateway, attributes) -> None: ...
