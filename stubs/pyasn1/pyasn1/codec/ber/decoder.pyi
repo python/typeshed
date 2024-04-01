@@ -161,20 +161,6 @@ class ObjectIdentifierPayloadDecoder(AbstractSimplePayloadDecoder):
         **options,
     ): ...
 
-class RelativeOIDPayloadDecoder(AbstractSimplePayloadDecoder):
-    protoComponent: Incomplete
-    def valueDecoder(
-        self,
-        substrate,
-        asn1Spec,
-        tagSet: Incomplete | None = None,
-        length: Incomplete | None = None,
-        state: Incomplete | None = None,
-        decodeFun: Incomplete | None = None,
-        substrateFun: Incomplete | None = None,
-        **options,
-    ): ...
-
 class RealPayloadDecoder(AbstractSimplePayloadDecoder):
     protoComponent: univ.Real
     def valueDecoder(

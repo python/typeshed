@@ -42,10 +42,6 @@ class ObjectIdentifierEncoder(AbstractItemEncoder):
     supportIndefLenMode: bool
     def encodeValue(self, value, asn1Spec, encodeFun, **options): ...
 
-class RelativeOIDEncoder(AbstractItemEncoder):
-    supportIndefLenMode: bool
-    def encodeValue(self, value, asn1Spec, encodeFun, **options): ...
-
 class RealEncoder(AbstractItemEncoder):
     supportIndefLenMode: bool
     binEncBase: int
