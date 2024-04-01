@@ -22,9 +22,6 @@ class UsBankAccountVerification(AttributeGetter):
     class VerificationAddOns:
         CustomerVerification: Final = "customer_verification"
 
-    class VerificationAddOns:
-        CustomerVerification: str
-
     us_bank_account: Any
     def __init__(self, gateway, attributes) -> None: ...
     @staticmethod
