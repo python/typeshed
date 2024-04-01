@@ -37,7 +37,7 @@ jobs:
                  artifact_id: matchArtifact.id,
                  archive_format: "zip",
               });
-              fs.writeFileSync(`diff_${matchArtifact.name}.zip`, Buffer.from(download.data));
+              fs.writeFileSync(`${matchArtifact.name}.zip`, Buffer.from(download.data));
             }
 
       - run: for file in *.zip; do unzip $file; done
