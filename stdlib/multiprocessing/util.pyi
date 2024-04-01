@@ -23,7 +23,7 @@ __all__ = [
 ]
 
 _T = TypeVar("_T")
-_R = TypeVar("_R", default=Any)
+_R = TypeVar("_R_co", default=Any, covariant=True)
 
 NOTSET: int
 SUBDEBUG: int
