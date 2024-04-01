@@ -9,7 +9,7 @@ mypy==1.9.0
 pre-commit-hooks==4.5.0  # must match .pre-commit-config.yaml
 pyright==1.1.356
 pytype==2024.3.19; platform_system != "Windows" and python_version < "3.12"
-ruff==0.3.4              # must match .pre-commit-config.yaml
+ruff==0.3.5              # must match .pre-commit-config.yaml
 
 # Libraries used by our various scripts.
 aiohttp==3.9.3
@@ -21,4 +21,4 @@ termcolor>=2.3
 tomli==2.0.1
 tomlkit==0.12.4
 typing_extensions>=4.9.0rc1
-uv==0.1.26
+uv==0.1.27
