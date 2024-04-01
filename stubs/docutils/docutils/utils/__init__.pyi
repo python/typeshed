@@ -1,14 +1,16 @@
 import optparse
-from _typeshed import StrPath
+from _typeshed import StrPath, SupportsWrite, Unused
 from collections.abc import Callable, Iterable, Mapping
 from re import Pattern
-from typing import IO, Any, Literal, TypeVar
+from typing import Any, Literal, TypeVar
 from typing_extensions import TypeAlias
 
 from docutils import ApplicationError, DataError, nodes
 from docutils.frontend import Values
 from docutils.io import ErrorOutput, FileOutput
 from docutils.nodes import document
+
+_Observer: TypeAlias = Callable[[nodes.system_message], object]
 
 class DependencyList:
     list: list[str]
@@ -29,12 +31,16 @@ class Reporter:
     ERROR_LEVEL: Literal[3]
     SEVERE_LEVEL: Literal[4]
 
+    stream: ErrorOutput
+    encoding: str
+    observers: list[_Observer]
+    max_level: int
     def __init__(
         self,
         source: str,
         report_level: int,
         halt_level: int,
-        stream: IO[str] | str | bool | None = None,
+        stream: SupportsWrite[str] | SupportsWrite[bytes] | str | bool | None = None,
         debug: bool = False,
         encoding: str | None = None,
         error_handler: str = "backslashreplace",
@@ -43,24 +49,43 @@ class Reporter:
     source: str
     error_handler: str
     debug_flag: bool
-    report_level: int
+    report_level: _SystemMessageLevel
     halt_level: int
-    stream: ErrorOutput
-    encoding: str
-    observers: list[Callable[[nodes.system_message], None]]
-    max_level: int
     def set_conditions(
-        self, category: Any, report_level: int, halt_level: int, stream: IO[str] | None = None, debug: bool = False
+        self,
+        category: Unused,
+        report_level: int,
+        halt_level: int,
+        stream: SupportsWrite[str] | SupportsWrite[bytes] | None = None,
+        debug: bool = False,
     ) -> None: ...
-    def attach_observer(self, observer: Callable[[nodes.system_message], None]) -> None: ...
-    def detach_observer(self, observer: Callable[[nodes.system_message], None]) -> None: ...
+    def attach_observer(self, observer: _Observer) -> None: ...
+    def detach_observer(self, observer: _Observer) -> None: ...
     def notify_observers(self, message: nodes.system_message) -> None: ...
-    def system_message(self, level: int, message: str, *children: nodes.Node, **kwargs: Any) -> nodes.system_message: ...
-    def debug(self, *args: Any, **kwargs: Any) -> nodes.system_message: ...
-    def info(self, *args: Any, **kwargs: Any) -> nodes.system_message: ...
-    def warning(self, *args: Any, **kwargs: Any) -> nodes.system_message: ...
-    def error(self, *args: Any, **kwargs: Any) -> nodes.system_message: ...
-    def severe(self, *args: Any, **kwargs: Any) -> nodes.system_message: ...
+    def system_message(
+        self,
+        level: int,
+        message: str | Exception,
+        *children: nodes.Node,
+        base_node: nodes.Node = ...,
+        source: str = ...,
+        **kwargs,
+    ) -> nodes.system_message: ...
+    def debug(
+        self, message: str | Exception, *children: nodes.Node, base_node: nodes.Node = ..., source: str = ..., **kwargs
+    ) -> nodes.system_message: ...
+    def info(
+        self, message: str | Exception, *children: nodes.Node, base_node: nodes.Node = ..., source: str = ..., **kwargs
+    ) -> nodes.system_message: ...
+    def warning(
+        self, message: str | Exception, *children: nodes.Node, base_node: nodes.Node = ..., source: str = ..., **kwargs
+    ) -> nodes.system_message: ...
+    def error(
+        self, message: str | Exception, *children: nodes.Node, base_node: nodes.Node = ..., source: str = ..., **kwargs
+    ) -> nodes.system_message: ...
+    def severe(
+        self, message: str | Exception, *children: nodes.Node, base_node: nodes.Node = ..., source: str = ..., **kwargs
+    ) -> nodes.system_message: ...
 
 class SystemMessage(ApplicationError):
     level: _SystemMessageLevel

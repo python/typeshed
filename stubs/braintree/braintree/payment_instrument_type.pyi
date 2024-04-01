@@ -1,6 +1,9 @@
 class PaymentInstrumentType:
+    MetaCheckoutCard: str
+    MetaCheckoutToken: str
     PayPalAccount: str
     PayPalHere: str
+    SepaDirectDebitAccount: str
     EuropeBankAccount: str
     CreditCard: str
     ApplePayCard: str

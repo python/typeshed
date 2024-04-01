@@ -48,10 +48,14 @@ class Transaction(Resource):
         AvsAndCvv: str
         Cvv: str
         Duplicate: str
+        ExcessiveRetry: str
         Fraud: str
         RiskThreshold: str
         ThreeDSecure: str
         TokenIssuance: str
+
+    class ReasonCode:
+        ANY_REASON_CODE: str
 
     class Source:
         Api: str
@@ -132,6 +136,10 @@ class Transaction(Resource):
     def create_signature(): ...
     @staticmethod
     def submit_for_settlement_signature(): ...
+    @staticmethod
+    def package_tracking_signature(): ...
+    @staticmethod
+    def package_tracking(transaction_id, params: Incomplete | None = None): ...
     @staticmethod
     def update_details_signature(): ...
     @staticmethod
