@@ -10,8 +10,11 @@ set -ex -o pipefail
 # a meaningful update to either PROTOBUF_VERSION or MYPY_PROTOBUF_VERSION,
 # followed by committing the changes to typeshed
 #
+# Whenever you update PROTOBUF_VERSION here, version should be updated
+# in stubs/protobuf/METADATA.toml and vice-versa.
+#
 # Update these two variables when rerunning script
-PROTOBUF_VERSION=24.4
+PROTOBUF_VERSION=25.3
 MYPY_PROTOBUF_VERSION=3.5.0
 
 if uname -a | grep Darwin; then

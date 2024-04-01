@@ -26,6 +26,62 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
+class _Edition:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _EditionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_Edition.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    EDITION_UNKNOWN: _Edition.ValueType  # 0
+    """A placeholder for an unknown edition value."""
+    EDITION_PROTO2: _Edition.ValueType  # 998
+    """Legacy syntax "editions".  These pre-date editions, but behave much like
+    distinct editions.  These can't be used to specify the edition of proto
+    files, but feature definitions must supply proto2/proto3 defaults for
+    backwards compatibility.
+    """
+    EDITION_PROTO3: _Edition.ValueType  # 999
+    EDITION_2023: _Edition.ValueType  # 1000
+    """Editions that have been released.  The specific values are arbitrary and
+    should not be depended on, but they will always be time-ordered for easy
+    comparison.
+    """
+    EDITION_1_TEST_ONLY: _Edition.ValueType  # 1
+    """Placeholder editions for testing feature resolution.  These should not be
+    used or relyed on outside of tests.
+    """
+    EDITION_2_TEST_ONLY: _Edition.ValueType  # 2
+    EDITION_99997_TEST_ONLY: _Edition.ValueType  # 99997
+    EDITION_99998_TEST_ONLY: _Edition.ValueType  # 99998
+    EDITION_99999_TEST_ONLY: _Edition.ValueType  # 99999
+
+class Edition(_Edition, metaclass=_EditionEnumTypeWrapper):
+    """The full set of known editions."""
+
+EDITION_UNKNOWN: Edition.ValueType  # 0
+"""A placeholder for an unknown edition value."""
+EDITION_PROTO2: Edition.ValueType  # 998
+"""Legacy syntax "editions".  These pre-date editions, but behave much like
+distinct editions.  These can't be used to specify the edition of proto
+files, but feature definitions must supply proto2/proto3 defaults for
+backwards compatibility.
+"""
+EDITION_PROTO3: Edition.ValueType  # 999
+EDITION_2023: Edition.ValueType  # 1000
+"""Editions that have been released.  The specific values are arbitrary and
+should not be depended on, but they will always be time-ordered for easy
+comparison.
+"""
+EDITION_1_TEST_ONLY: Edition.ValueType  # 1
+"""Placeholder editions for testing feature resolution.  These should not be
+used or relyed on outside of tests.
+"""
+EDITION_2_TEST_ONLY: Edition.ValueType  # 2
+EDITION_99997_TEST_ONLY: Edition.ValueType  # 99997
+EDITION_99998_TEST_ONLY: Edition.ValueType  # 99998
+EDITION_99999_TEST_ONLY: Edition.ValueType  # 99999
+global___Edition = Edition
+
 @typing_extensions.final
 class FileDescriptorSet(google.protobuf.message.Message):
     """The protocol compiler can output a FileDescriptorSet containing the .proto
@@ -104,8 +160,8 @@ class FileDescriptorProto(google.protobuf.message.Message):
 
     If `edition` is present, this value must be "editions".
     """
-    edition: builtins.str
-    """The edition of the proto file, which is an opaque string."""
+    edition: global___Edition.ValueType
+    """The edition of the proto file."""
     def __init__(
         self,
         *,
@@ -121,7 +177,7 @@ class FileDescriptorProto(google.protobuf.message.Message):
         options: global___FileOptions | None = ...,
         source_code_info: global___SourceCodeInfo | None = ...,
         syntax: builtins.str | None = ...,
-        edition: builtins.str | None = ...,
+        edition: global___Edition.ValueType | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["edition", b"edition", "name", b"name", "options", b"options", "package", b"package", "source_code_info", b"source_code_info", "syntax", b"syntax"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["dependency", b"dependency", "edition", b"edition", "enum_type", b"enum_type", "extension", b"extension", "message_type", b"message_type", "name", b"name", "options", b"options", "package", b"package", "public_dependency", b"public_dependency", "service", b"service", "source_code_info", b"source_code_info", "syntax", b"syntax", "weak_dependency", b"weak_dependency"]) -> None: ...
@@ -312,7 +368,7 @@ class ExtensionRangeOptions(google.protobuf.message.Message):
         """Any features defined in the specific edition."""
     verification: global___ExtensionRangeOptions.VerificationState.ValueType
     """The verification state of the range.
-    TODO(b/278783756): flip the default to DECLARATION once all empty ranges
+    TODO: flip the default to DECLARATION once all empty ranges
     are marked as UNVERIFIED.
     """
     def __init__(
@@ -360,9 +416,10 @@ class FieldDescriptorProto(google.protobuf.message.Message):
         TYPE_STRING: FieldDescriptorProto._Type.ValueType  # 9
         TYPE_GROUP: FieldDescriptorProto._Type.ValueType  # 10
         """Tag-delimited aggregate.
-        Group type is deprecated and not supported in proto3. However, Proto3
+        Group type is deprecated and not supported after google.protobuf. However, Proto3
         implementations should still be able to parse the group wire format and
-        treat group fields as unknown fields.
+        treat group fields as unknown fields.  In Editions, the group wire format
+        can be enabled via the `message_encoding` feature.
         """
         TYPE_MESSAGE: FieldDescriptorProto._Type.ValueType  # 11
         """Length-delimited aggregate."""
@@ -398,9 +455,10 @@ class FieldDescriptorProto(google.protobuf.message.Message):
     TYPE_STRING: FieldDescriptorProto.Type.ValueType  # 9
     TYPE_GROUP: FieldDescriptorProto.Type.ValueType  # 10
     """Tag-delimited aggregate.
-    Group type is deprecated and not supported in proto3. However, Proto3
+    Group type is deprecated and not supported after google.protobuf. However, Proto3
     implementations should still be able to parse the group wire format and
-    treat group fields as unknown fields.
+    treat group fields as unknown fields.  In Editions, the group wire format
+    can be enabled via the `message_encoding` feature.
     """
     TYPE_MESSAGE: FieldDescriptorProto.Type.ValueType  # 11
     """Length-delimited aggregate."""
@@ -423,14 +481,22 @@ class FieldDescriptorProto(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         LABEL_OPTIONAL: FieldDescriptorProto._Label.ValueType  # 1
         """0 is reserved for errors"""
-        LABEL_REQUIRED: FieldDescriptorProto._Label.ValueType  # 2
         LABEL_REPEATED: FieldDescriptorProto._Label.ValueType  # 3
+        LABEL_REQUIRED: FieldDescriptorProto._Label.ValueType  # 2
+        """The required label is only allowed in google.protobuf.  In proto3 and Editions
+        it's explicitly prohibited.  In Editions, the `field_presence` feature
+        can be used to get this behavior.
+        """
 
     class Label(_Label, metaclass=_LabelEnumTypeWrapper): ...
     LABEL_OPTIONAL: FieldDescriptorProto.Label.ValueType  # 1
     """0 is reserved for errors"""
-    LABEL_REQUIRED: FieldDescriptorProto.Label.ValueType  # 2
     LABEL_REPEATED: FieldDescriptorProto.Label.ValueType  # 3
+    LABEL_REQUIRED: FieldDescriptorProto.Label.ValueType  # 2
+    """The required label is only allowed in google.protobuf.  In proto3 and Editions
+    it's explicitly prohibited.  In Editions, the `field_presence` feature
+    can be used to get this behavior.
+    """
 
     NAME_FIELD_NUMBER: builtins.int
     NUMBER_FIELD_NUMBER: builtins.int
@@ -993,7 +1059,7 @@ class MessageOptions(google.protobuf.message.Message):
     This should only be used as a temporary measure against broken builds due
     to the change in behavior for JSON field name conflicts.
 
-    TODO(b/261750190) This is legacy behavior we plan to remove once downstream
+    TODO This is legacy behavior we plan to remove once downstream
     teams have had time to migrate.
     """
     @property
@@ -1135,13 +1201,13 @@ class FieldOptions(google.protobuf.message.Message):
 
         EDITION_FIELD_NUMBER: builtins.int
         VALUE_FIELD_NUMBER: builtins.int
-        edition: builtins.str
+        edition: global___Edition.ValueType
         value: builtins.str
         """Textproto value."""
         def __init__(
             self,
             *,
-            edition: builtins.str | None = ...,
+            edition: global___Edition.ValueType | None = ...,
             value: builtins.str | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["edition", b"edition", "value", b"value"]) -> builtins.bool: ...
@@ -1173,7 +1239,9 @@ class FieldOptions(google.protobuf.message.Message):
     a more efficient representation on the wire. Rather than repeatedly
     writing the tag and type for each element, the entire array is encoded as
     a single length-delimited blob. In proto3, only explicit setting it to
-    false will avoid using packed encoding.
+    false will avoid using packed encoding.  This option is prohibited in
+    Editions, but the `repeated_field_encoding` feature can be used to control
+    the behavior.
     """
     jstype: global___FieldOptions.JSType.ValueType
     """The jstype option determines the JavaScript type used for values of the
@@ -1317,7 +1385,7 @@ class EnumOptions(google.protobuf.message.Message):
     and strips underscored from the fields before comparison in proto3 only.
     The new behavior takes `json_name` into account and applies to proto2 as
     well.
-    TODO(b/261750190) Remove this legacy behavior once downstream teams have
+    TODO Remove this legacy behavior once downstream teams have
     had time to migrate.
     """
     @property
@@ -1552,7 +1620,7 @@ class FeatureSet(google.protobuf.message.Message):
     """===================================================================
     Features
 
-    TODO(b/274655146) Enums in C++ gencode (and potentially other languages) are
+    TODO Enums in C++ gencode (and potentially other languages) are
     not well scoped.  This means that each of the feature enums below can clash
     with each other.  The short names we've chosen maximize call-site
     readability, but leave us very open to this scenario.  A future feature will
@@ -1609,22 +1677,20 @@ class FeatureSet(google.protobuf.message.Message):
     PACKED: FeatureSet.RepeatedFieldEncoding.ValueType  # 1
     EXPANDED: FeatureSet.RepeatedFieldEncoding.ValueType  # 2
 
-    class _StringFieldValidation:
+    class _Utf8Validation:
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StringFieldValidationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FeatureSet._StringFieldValidation.ValueType], builtins.type):
+    class _Utf8ValidationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FeatureSet._Utf8Validation.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
-        STRING_FIELD_VALIDATION_UNKNOWN: FeatureSet._StringFieldValidation.ValueType  # 0
-        MANDATORY: FeatureSet._StringFieldValidation.ValueType  # 1
-        HINT: FeatureSet._StringFieldValidation.ValueType  # 2
-        NONE: FeatureSet._StringFieldValidation.ValueType  # 3
+        UTF8_VALIDATION_UNKNOWN: FeatureSet._Utf8Validation.ValueType  # 0
+        NONE: FeatureSet._Utf8Validation.ValueType  # 1
+        VERIFY: FeatureSet._Utf8Validation.ValueType  # 2
 
-    class StringFieldValidation(_StringFieldValidation, metaclass=_StringFieldValidationEnumTypeWrapper): ...
-    STRING_FIELD_VALIDATION_UNKNOWN: FeatureSet.StringFieldValidation.ValueType  # 0
-    MANDATORY: FeatureSet.StringFieldValidation.ValueType  # 1
-    HINT: FeatureSet.StringFieldValidation.ValueType  # 2
-    NONE: FeatureSet.StringFieldValidation.ValueType  # 3
+    class Utf8Validation(_Utf8Validation, metaclass=_Utf8ValidationEnumTypeWrapper): ...
+    UTF8_VALIDATION_UNKNOWN: FeatureSet.Utf8Validation.ValueType  # 0
+    NONE: FeatureSet.Utf8Validation.ValueType  # 1
+    VERIFY: FeatureSet.Utf8Validation.ValueType  # 2
 
     class _MessageEncoding:
         ValueType = typing.NewType("ValueType", builtins.int)
@@ -1659,33 +1725,88 @@ class FeatureSet(google.protobuf.message.Message):
     FIELD_PRESENCE_FIELD_NUMBER: builtins.int
     ENUM_TYPE_FIELD_NUMBER: builtins.int
     REPEATED_FIELD_ENCODING_FIELD_NUMBER: builtins.int
-    STRING_FIELD_VALIDATION_FIELD_NUMBER: builtins.int
+    UTF8_VALIDATION_FIELD_NUMBER: builtins.int
     MESSAGE_ENCODING_FIELD_NUMBER: builtins.int
     JSON_FORMAT_FIELD_NUMBER: builtins.int
-    RAW_FEATURES_FIELD_NUMBER: builtins.int
     field_presence: global___FeatureSet.FieldPresence.ValueType
     enum_type: global___FeatureSet.EnumType.ValueType
     repeated_field_encoding: global___FeatureSet.RepeatedFieldEncoding.ValueType
-    string_field_validation: global___FeatureSet.StringFieldValidation.ValueType
+    utf8_validation: global___FeatureSet.Utf8Validation.ValueType
     message_encoding: global___FeatureSet.MessageEncoding.ValueType
     json_format: global___FeatureSet.JsonFormat.ValueType
-    @property
-    def raw_features(self) -> global___FeatureSet: ...
     def __init__(
         self,
         *,
         field_presence: global___FeatureSet.FieldPresence.ValueType | None = ...,
         enum_type: global___FeatureSet.EnumType.ValueType | None = ...,
         repeated_field_encoding: global___FeatureSet.RepeatedFieldEncoding.ValueType | None = ...,
-        string_field_validation: global___FeatureSet.StringFieldValidation.ValueType | None = ...,
+        utf8_validation: global___FeatureSet.Utf8Validation.ValueType | None = ...,
         message_encoding: global___FeatureSet.MessageEncoding.ValueType | None = ...,
         json_format: global___FeatureSet.JsonFormat.ValueType | None = ...,
-        raw_features: global___FeatureSet | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["enum_type", b"enum_type", "field_presence", b"field_presence", "json_format", b"json_format", "message_encoding", b"message_encoding", "raw_features", b"raw_features", "repeated_field_encoding", b"repeated_field_encoding", "string_field_validation", b"string_field_validation"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["enum_type", b"enum_type", "field_presence", b"field_presence", "json_format", b"json_format", "message_encoding", b"message_encoding", "raw_features", b"raw_features", "repeated_field_encoding", b"repeated_field_encoding", "string_field_validation", b"string_field_validation"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["enum_type", b"enum_type", "field_presence", b"field_presence", "json_format", b"json_format", "message_encoding", b"message_encoding", "repeated_field_encoding", b"repeated_field_encoding", "utf8_validation", b"utf8_validation"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["enum_type", b"enum_type", "field_presence", b"field_presence", "json_format", b"json_format", "message_encoding", b"message_encoding", "repeated_field_encoding", b"repeated_field_encoding", "utf8_validation", b"utf8_validation"]) -> None: ...
 
 global___FeatureSet = FeatureSet
+
+@typing_extensions.final
+class FeatureSetDefaults(google.protobuf.message.Message):
+    """A compiled specification for the defaults of a set of features.  These
+    messages are generated from FeatureSet extensions and can be used to seed
+    feature resolution. The resolution with this object becomes a simple search
+    for the closest matching edition, followed by proto merges.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    @typing_extensions.final
+    class FeatureSetEditionDefault(google.protobuf.message.Message):
+        """A map from every known edition with a unique set of defaults to its
+        defaults. Not all editions may be contained here.  For a given edition,
+        the defaults at the closest matching edition ordered at or before it should
+        be used.  This field must be in strict ascending order by edition.
+        """
+
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        EDITION_FIELD_NUMBER: builtins.int
+        FEATURES_FIELD_NUMBER: builtins.int
+        edition: global___Edition.ValueType
+        @property
+        def features(self) -> global___FeatureSet: ...
+        def __init__(
+            self,
+            *,
+            edition: global___Edition.ValueType | None = ...,
+            features: global___FeatureSet | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["edition", b"edition", "features", b"features"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["edition", b"edition", "features", b"features"]) -> None: ...
+
+    DEFAULTS_FIELD_NUMBER: builtins.int
+    MINIMUM_EDITION_FIELD_NUMBER: builtins.int
+    MAXIMUM_EDITION_FIELD_NUMBER: builtins.int
+    @property
+    def defaults(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FeatureSetDefaults.FeatureSetEditionDefault]: ...
+    minimum_edition: global___Edition.ValueType
+    """The minimum supported edition (inclusive) when this was constructed.
+    Editions before this will not have defaults.
+    """
+    maximum_edition: global___Edition.ValueType
+    """The maximum known edition (inclusive) when this was constructed. Editions
+    after this will not have reliable defaults.
+    """
+    def __init__(
+        self,
+        *,
+        defaults: collections.abc.Iterable[global___FeatureSetDefaults.FeatureSetEditionDefault] | None = ...,
+        minimum_edition: global___Edition.ValueType | None = ...,
+        maximum_edition: global___Edition.ValueType | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["maximum_edition", b"maximum_edition", "minimum_edition", b"minimum_edition"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["defaults", b"defaults", "maximum_edition", b"maximum_edition", "minimum_edition", b"minimum_edition"]) -> None: ...
+
+global___FeatureSetDefaults = FeatureSetDefaults
 
 @typing_extensions.final
 class SourceCodeInfo(google.protobuf.message.Message):
