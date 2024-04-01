@@ -1,9 +1,7 @@
 from _typeshed import Incomplete
 from typing import Final
 
-from braintree.configuration import Configuration as Configuration
-from braintree.resource import Resource as Resource
-from braintree.successful_result import SuccessfulResult as SuccessfulResult
+from braintree.resource import Resource
 
 class DocumentUpload(Resource):
     class Kind:

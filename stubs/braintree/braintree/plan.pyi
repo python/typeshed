@@ -1,11 +1,8 @@
 from _typeshed import Incomplete
 
-from braintree.add_on import AddOn as AddOn
-from braintree.configuration import Configuration as Configuration
-from braintree.discount import Discount as Discount
-from braintree.resource import Resource as Resource
-from braintree.resource_collection import ResourceCollection as ResourceCollection
-from braintree.util.http import Http as Http
+from braintree.add_on import AddOn
+from braintree.discount import Discount
+from braintree.resource import Resource
 
 class Plan(Resource):
     add_ons: list[AddOn]

@@ -1,10 +1,5 @@
 from _typeshed import Incomplete
 
-from braintree.credentials_parser import CredentialsParser as CredentialsParser
-from braintree.environment import Environment as Environment
-from braintree.exceptions.configuration_error import ConfigurationError as ConfigurationError
-from braintree.util.graphql_client import GraphQLClient as GraphQLClient
-
 class Configuration:
     @staticmethod
     def configure(environment, merchant_id, public_key, private_key, **kwargs) -> None: ...

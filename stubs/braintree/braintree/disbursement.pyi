@@ -1,9 +1,8 @@
 from decimal import Decimal
 from typing import Final
 
-from braintree.merchant_account import MerchantAccount as MerchantAccount
-from braintree.resource import Resource as Resource
-from braintree.transaction_search import TransactionSearch as TransactionSearch
+from braintree.merchant_account import MerchantAccount
+from braintree.resource import Resource
 
 class Disbursement(Resource):
     class Type:

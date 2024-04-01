@@ -1,7 +1,7 @@
 from typing import ClassVar
 
-from braintree.attribute_getter import AttributeGetter as AttributeGetter
-from braintree.merchant_account.address_details import AddressDetails as AddressDetails
+from braintree.attribute_getter import AttributeGetter
+from braintree.merchant_account.address_details import AddressDetails
 
 class BusinessDetails(AttributeGetter):
     detail_list: ClassVar[list[str]]

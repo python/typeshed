@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
-from braintree.exceptions.unexpected_error import UnexpectedError as UnexpectedError
-
 class ResourceCollection:
     def __init__(self, query, results, method) -> None: ...
     @property

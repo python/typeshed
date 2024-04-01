@@ -1,9 +1,5 @@
 from _typeshed import Incomplete
 
-from braintree.error_result import ErrorResult as ErrorResult
-from braintree.successful_result import SuccessfulResult as SuccessfulResult
-from braintree.transaction import Transaction as Transaction
-
 class TestingGateway:
     gateway: Incomplete
     config: Incomplete

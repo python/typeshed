@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from braintree.resource import Resource as Resource
+from braintree.resource import Resource
 
 class GrantedPaymentInstrumentUpdate(Resource):
     payment_method_nonce: Incomplete

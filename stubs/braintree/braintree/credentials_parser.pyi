@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
 
-from braintree.environment import Environment as Environment
-from braintree.exceptions.configuration_error import ConfigurationError as ConfigurationError
-
 class CredentialsParser:
     client_id: Incomplete
     client_secret: Incomplete

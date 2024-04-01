@@ -1,5 +1,5 @@
-from braintree.merchant_account import MerchantAccount as MerchantAccount
-from braintree.resource import Resource as Resource
+from braintree.merchant_account import MerchantAccount
+from braintree.resource import Resource
 
 class Merchant(Resource):
     merchant_accounts: list[MerchantAccount]

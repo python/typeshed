@@ -2,45 +2,38 @@ from _typeshed import Incomplete
 from decimal import Decimal
 from typing import Final
 
-from braintree.add_on import AddOn as AddOn
-from braintree.address import Address as Address
-from braintree.amex_express_checkout_card import AmexExpressCheckoutCard as AmexExpressCheckoutCard
-from braintree.android_pay_card import AndroidPayCard as AndroidPayCard
-from braintree.apple_pay_card import ApplePayCard as ApplePayCard
-from braintree.authorization_adjustment import AuthorizationAdjustment as AuthorizationAdjustment
-from braintree.configuration import Configuration as Configuration
-from braintree.credit_card import CreditCard as CreditCard
-from braintree.customer import Customer as Customer
-from braintree.descriptor import Descriptor as Descriptor
-from braintree.disbursement_detail import DisbursementDetail as DisbursementDetail
-from braintree.discount import Discount as Discount
-from braintree.dispute import Dispute as Dispute
-from braintree.error_result import ErrorResult as ErrorResult
-from braintree.europe_bank_account import EuropeBankAccount as EuropeBankAccount
-from braintree.exceptions.not_found_error import NotFoundError as NotFoundError
-from braintree.facilitated_details import FacilitatedDetails as FacilitatedDetails
-from braintree.facilitator_details import FacilitatorDetails as FacilitatorDetails
-from braintree.local_payment import LocalPayment as LocalPayment
-from braintree.masterpass_card import MasterpassCard as MasterpassCard
+from braintree.add_on import AddOn
+from braintree.address import Address
+from braintree.amex_express_checkout_card import AmexExpressCheckoutCard
+from braintree.android_pay_card import AndroidPayCard
+from braintree.apple_pay_card import ApplePayCard
+from braintree.authorization_adjustment import AuthorizationAdjustment
+from braintree.credit_card import CreditCard
+from braintree.customer import Customer
+from braintree.descriptor import Descriptor
+from braintree.disbursement_detail import DisbursementDetail
+from braintree.discount import Discount
+from braintree.dispute import Dispute
+from braintree.europe_bank_account import EuropeBankAccount
+from braintree.facilitated_details import FacilitatedDetails
+from braintree.facilitator_details import FacilitatorDetails
+from braintree.local_payment import LocalPayment
+from braintree.masterpass_card import MasterpassCard
 from braintree.meta_checkout_card import MetaCheckoutCard
 from braintree.meta_checkout_token import MetaCheckoutToken
 from braintree.package_details import PackageDetails
-from braintree.payment_instrument_type import PaymentInstrumentType as PaymentInstrumentType
-from braintree.paypal_account import PayPalAccount as PayPalAccount
-from braintree.paypal_here import PayPalHere as PayPalHere
-from braintree.resource import Resource as Resource
-from braintree.resource_collection import ResourceCollection as ResourceCollection
-from braintree.risk_data import RiskData as RiskData
-from braintree.samsung_pay_card import SamsungPayCard as SamsungPayCard
+from braintree.paypal_account import PayPalAccount
+from braintree.paypal_here import PayPalHere
+from braintree.resource import Resource
+from braintree.risk_data import RiskData
+from braintree.samsung_pay_card import SamsungPayCard
 from braintree.sepa_direct_debit_account import SepaDirectDebitAccount
-from braintree.status_event import StatusEvent as StatusEvent
-from braintree.subscription_details import SubscriptionDetails as SubscriptionDetails
-from braintree.successful_result import SuccessfulResult as SuccessfulResult
-from braintree.three_d_secure_info import ThreeDSecureInfo as ThreeDSecureInfo
-from braintree.transaction_line_item import TransactionLineItem as TransactionLineItem
-from braintree.us_bank_account import UsBankAccount as UsBankAccount
-from braintree.venmo_account import VenmoAccount as VenmoAccount
-from braintree.visa_checkout_card import VisaCheckoutCard as VisaCheckoutCard
+from braintree.status_event import StatusEvent
+from braintree.subscription_details import SubscriptionDetails
+from braintree.three_d_secure_info import ThreeDSecureInfo
+from braintree.us_bank_account import UsBankAccount
+from braintree.venmo_account import VenmoAccount
+from braintree.visa_checkout_card import VisaCheckoutCard
 
 class Transaction(Resource):
     class CreatedUsing:

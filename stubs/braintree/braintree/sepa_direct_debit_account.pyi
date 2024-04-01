@@ -1,5 +1,4 @@
-from braintree.configuration import Configuration as Configuration
-from braintree.resource import Resource as Resource
+from braintree.resource import Resource
 from braintree.subscription import Subscription
 
 class SepaDirectDebitAccount(Resource):

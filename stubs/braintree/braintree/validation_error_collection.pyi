@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 
-from braintree.validation_error import ValidationError as ValidationError
-
 class ValidationErrorCollection:
     data: dict[str, Incomplete]
     def __init__(self, data: Incomplete | None = None) -> None: ...

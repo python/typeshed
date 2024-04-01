@@ -1,13 +1,8 @@
 from _typeshed import Incomplete
 from typing import Final
 
-from braintree.configuration import Configuration as Configuration
-from braintree.merchant_account import (
-    BusinessDetails as BusinessDetails,
-    FundingDetails as FundingDetails,
-    IndividualDetails as IndividualDetails,
-)
-from braintree.resource import Resource as Resource
+from braintree.merchant_account import BusinessDetails, FundingDetails, IndividualDetails
+from braintree.resource import Resource
 
 class MerchantAccount(Resource):
     class Status:

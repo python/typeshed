@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing import Final
 
-from braintree.resource import Resource as Resource
+from braintree.resource import Resource
 from braintree.subscription import Subscription
 
 class ApplePayCard(Resource):

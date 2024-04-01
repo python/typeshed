@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 
-from braintree.configuration import Configuration as Configuration
-from braintree.resource import Resource as Resource
+from braintree.resource import Resource
 
 class AccountUpdaterDailyReport(Resource):
     report_url: Incomplete

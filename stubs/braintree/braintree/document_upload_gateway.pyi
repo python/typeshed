@@ -1,10 +1,5 @@
 from _typeshed import Incomplete
 
-from braintree.document_upload import DocumentUpload as DocumentUpload
-from braintree.error_result import ErrorResult as ErrorResult
-from braintree.resource import Resource as Resource
-from braintree.successful_result import SuccessfulResult as SuccessfulResult
-
 class DocumentUploadGateway:
     gateway: Incomplete
     config: Incomplete

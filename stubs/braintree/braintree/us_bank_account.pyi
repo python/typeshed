@@ -1,7 +1,6 @@
-from braintree.ach_mandate import AchMandate as AchMandate
-from braintree.configuration import Configuration as Configuration
-from braintree.resource import Resource as Resource
-from braintree.us_bank_account_verification import UsBankAccountVerification as UsBankAccountVerification
+from braintree.ach_mandate import AchMandate
+from braintree.resource import Resource
+from braintree.us_bank_account_verification import UsBankAccountVerification
 
 class UsBankAccount(Resource):
     @staticmethod

@@ -1,4 +1,4 @@
-from braintree.resource import Resource as Resource
+from braintree.resource import Resource
 from braintree.subscription import Subscription
 
 class AmexExpressCheckoutCard(Resource):
