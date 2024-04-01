@@ -11,7 +11,7 @@ set -ex -o pipefail
 # followed by committing the changes to typeshed
 #
 # Update these two variables when rerunning script
-PROTOBUF_VERSION=22.0
+PROTOBUF_VERSION=23.0
 MYPY_PROTOBUF_VERSION=3.5.0
 
 if uname -a | grep Darwin; then

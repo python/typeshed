@@ -62,7 +62,7 @@ class NullValue(_NullValue, metaclass=_NullValueEnumTypeWrapper):
     """`NullValue` is a singleton enumeration to represent the null value for the
     `Value` type union.
 
-     The JSON representation for `NullValue` is JSON `null`.
+    The JSON representation for `NullValue` is JSON `null`.
     """
 
 NULL_VALUE: NullValue.ValueType  # 0

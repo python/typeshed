@@ -236,16 +236,95 @@ global___DescriptorProto = DescriptorProto
 class ExtensionRangeOptions(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    class _VerificationState:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _VerificationStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ExtensionRangeOptions._VerificationState.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        DECLARATION: ExtensionRangeOptions._VerificationState.ValueType  # 0
+        """All the extensions of the range must be declared."""
+        UNVERIFIED: ExtensionRangeOptions._VerificationState.ValueType  # 1
+
+    class VerificationState(_VerificationState, metaclass=_VerificationStateEnumTypeWrapper):
+        """The verification state of the extension range."""
+
+    DECLARATION: ExtensionRangeOptions.VerificationState.ValueType  # 0
+    """All the extensions of the range must be declared."""
+    UNVERIFIED: ExtensionRangeOptions.VerificationState.ValueType  # 1
+
+    @typing_extensions.final
+    class Declaration(google.protobuf.message.Message):
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        NUMBER_FIELD_NUMBER: builtins.int
+        FULL_NAME_FIELD_NUMBER: builtins.int
+        TYPE_FIELD_NUMBER: builtins.int
+        IS_REPEATED_FIELD_NUMBER: builtins.int
+        RESERVED_FIELD_NUMBER: builtins.int
+        REPEATED_FIELD_NUMBER: builtins.int
+        number: builtins.int
+        """The extension number declared within the extension range."""
+        full_name: builtins.str
+        """The fully-qualified name of the extension field. There must be a leading
+        dot in front of the full name.
+        """
+        type: builtins.str
+        """The fully-qualified type name of the extension field. Unlike
+        Metadata.type, Declaration.type must have a leading dot for messages
+        and enums.
+        """
+        is_repeated: builtins.bool
+        """Deprecated. Please use "repeated"."""
+        reserved: builtins.bool
+        """If true, indicates that the number is reserved in the extension range,
+        and any extension field with the number will fail to compile. Set this
+        when a declared extension field is deleted.
+        """
+        repeated: builtins.bool
+        """If true, indicates that the extension must be defined as repeated.
+        Otherwise the extension must be defined as optional.
+        """
+        def __init__(
+            self,
+            *,
+            number: builtins.int | None = ...,
+            full_name: builtins.str | None = ...,
+            type: builtins.str | None = ...,
+            is_repeated: builtins.bool | None = ...,
+            reserved: builtins.bool | None = ...,
+            repeated: builtins.bool | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["full_name", b"full_name", "is_repeated", b"is_repeated", "number", b"number", "repeated", b"repeated", "reserved", b"reserved", "type", b"type"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["full_name", b"full_name", "is_repeated", b"is_repeated", "number", b"number", "repeated", b"repeated", "reserved", b"reserved", "type", b"type"]) -> None: ...
+
     UNINTERPRETED_OPTION_FIELD_NUMBER: builtins.int
+    DECLARATION_FIELD_NUMBER: builtins.int
+    VERIFICATION_FIELD_NUMBER: builtins.int
     @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
         """The parser stores options it doesn't recognize here. See above."""
+    @property
+    def declaration(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ExtensionRangeOptions.Declaration]:
+        """go/protobuf-stripping-extension-declarations
+        Like Metadata, but we use a repeated field to hold all extension
+        declarations. This should avoid the size increases of transforming a large
+        extension range into small ranges in generated binaries.
+        """
+    verification: global___ExtensionRangeOptions.VerificationState.ValueType
+    """The verification state of the range.
+    TODO(b/278783756): flip the default to DECLARATION once all empty ranges
+    are marked as UNVERIFIED.
+    """
     def __init__(
         self,
         *,
         uninterpreted_option: collections.abc.Iterable[global___UninterpretedOption] | None = ...,
+        declaration: collections.abc.Iterable[global___ExtensionRangeOptions.Declaration] | None = ...,
+        verification: global___ExtensionRangeOptions.VerificationState.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["uninterpreted_option", b"uninterpreted_option"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["verification", b"verification"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["declaration", b"declaration", "uninterpreted_option", b"uninterpreted_option", "verification", b"verification"]) -> None: ...
 
 global___ExtensionRangeOptions = ExtensionRangeOptions
 
@@ -942,12 +1021,26 @@ class FieldOptions(google.protobuf.message.Message):
         STRING: FieldOptions._CType.ValueType  # 0
         """Default mode."""
         CORD: FieldOptions._CType.ValueType  # 1
+        """The option [ctype=CORD] may be applied to a non-repeated field of type
+        "bytes". It indicates that in C++, the data should be stored in a Cord
+        instead of a string.  For very large strings, this may reduce memory
+        fragmentation. It may also allow better performance when parsing from a
+        Cord, or when parsing with aliasing enabled, as the parsed Cord may then
+        alias the original buffer.
+        """
         STRING_PIECE: FieldOptions._CType.ValueType  # 2
 
     class CType(_CType, metaclass=_CTypeEnumTypeWrapper): ...
     STRING: FieldOptions.CType.ValueType  # 0
     """Default mode."""
     CORD: FieldOptions.CType.ValueType  # 1
+    """The option [ctype=CORD] may be applied to a non-repeated field of type
+    "bytes". It indicates that in C++, the data should be stored in a Cord
+    instead of a string.  For very large strings, this may reduce memory
+    fragmentation. It may also allow better performance when parsing from a
+    Cord, or when parsing with aliasing enabled, as the parsed Cord may then
+    alias the original buffer.
+    """
     STRING_PIECE: FieldOptions.CType.ValueType  # 2
 
     class _JSType:
@@ -1036,12 +1129,15 @@ class FieldOptions(google.protobuf.message.Message):
     DEBUG_REDACT_FIELD_NUMBER: builtins.int
     RETENTION_FIELD_NUMBER: builtins.int
     TARGET_FIELD_NUMBER: builtins.int
+    TARGETS_FIELD_NUMBER: builtins.int
     UNINTERPRETED_OPTION_FIELD_NUMBER: builtins.int
     ctype: global___FieldOptions.CType.ValueType
     """The ctype option instructs the C++ code generator to use a different
     representation of the field than it normally would.  See the specific
-    options below.  This option is not yet implemented in the open source
-    release -- sorry, we'll try to include it in a future version!
+    options below.  This option is only implemented to support use of
+    [ctype=CORD] and [ctype=STRING] (the default) on non-repeated fields of
+    type "bytes" in the open source release -- sorry, we'll try to include
+    other types in a future version!
     """
     packed: builtins.bool
     """The packed option can be enabled for repeated primitive fields to enable
@@ -1115,6 +1211,8 @@ class FieldOptions(google.protobuf.message.Message):
     retention: global___FieldOptions.OptionRetention.ValueType
     target: global___FieldOptions.OptionTargetType.ValueType
     @property
+    def targets(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___FieldOptions.OptionTargetType.ValueType]: ...
+    @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
         """The parser stores options it doesn't recognize here. See above."""
     def __init__(
@@ -1130,10 +1228,11 @@ class FieldOptions(google.protobuf.message.Message):
         debug_redact: builtins.bool | None = ...,
         retention: global___FieldOptions.OptionRetention.ValueType | None = ...,
         target: global___FieldOptions.OptionTargetType.ValueType | None = ...,
+        targets: collections.abc.Iterable[global___FieldOptions.OptionTargetType.ValueType] | None = ...,
         uninterpreted_option: collections.abc.Iterable[global___UninterpretedOption] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["ctype", b"ctype", "debug_redact", b"debug_redact", "deprecated", b"deprecated", "jstype", b"jstype", "lazy", b"lazy", "packed", b"packed", "retention", b"retention", "target", b"target", "unverified_lazy", b"unverified_lazy", "weak", b"weak"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ctype", b"ctype", "debug_redact", b"debug_redact", "deprecated", b"deprecated", "jstype", b"jstype", "lazy", b"lazy", "packed", b"packed", "retention", b"retention", "target", b"target", "uninterpreted_option", b"uninterpreted_option", "unverified_lazy", b"unverified_lazy", "weak", b"weak"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ctype", b"ctype", "debug_redact", b"debug_redact", "deprecated", b"deprecated", "jstype", b"jstype", "lazy", b"lazy", "packed", b"packed", "retention", b"retention", "target", b"target", "targets", b"targets", "uninterpreted_option", b"uninterpreted_option", "unverified_lazy", b"unverified_lazy", "weak", b"weak"]) -> None: ...
 
 global___FieldOptions = FieldOptions
 
