@@ -60,6 +60,8 @@ class _SyntaxEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTyp
     """Syntax `proto2`."""
     SYNTAX_PROTO3: _Syntax.ValueType  # 1
     """Syntax `proto3`."""
+    SYNTAX_EDITIONS: _Syntax.ValueType  # 2
+    """Syntax `editions`."""
 
 class Syntax(_Syntax, metaclass=_SyntaxEnumTypeWrapper):
     """The syntax in which a protocol buffer element is defined."""
@@ -68,6 +70,8 @@ SYNTAX_PROTO2: Syntax.ValueType  # 0
 """Syntax `proto2`."""
 SYNTAX_PROTO3: Syntax.ValueType  # 1
 """Syntax `proto3`."""
+SYNTAX_EDITIONS: Syntax.ValueType  # 2
+"""Syntax `editions`."""
 global___Syntax = Syntax
 
 @typing_extensions.final
@@ -82,6 +86,7 @@ class Type(google.protobuf.message.Message):
     OPTIONS_FIELD_NUMBER: builtins.int
     SOURCE_CONTEXT_FIELD_NUMBER: builtins.int
     SYNTAX_FIELD_NUMBER: builtins.int
+    EDITION_FIELD_NUMBER: builtins.int
     name: builtins.str
     """The fully qualified message name."""
     @property
@@ -98,18 +103,21 @@ class Type(google.protobuf.message.Message):
         """The source context."""
     syntax: global___Syntax.ValueType
     """The source syntax."""
+    edition: builtins.str
+    """The source edition string, only valid when syntax is SYNTAX_EDITIONS."""
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
+        name: builtins.str = ...,
         fields: collections.abc.Iterable[global___Field] | None = ...,
         oneofs: collections.abc.Iterable[builtins.str] | None = ...,
         options: collections.abc.Iterable[global___Option] | None = ...,
         source_context: google.protobuf.source_context_pb2.SourceContext | None = ...,
-        syntax: global___Syntax.ValueType | None = ...,
+        syntax: global___Syntax.ValueType = ...,
+        edition: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["source_context", b"source_context"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["fields", b"fields", "name", b"name", "oneofs", b"oneofs", "options", b"options", "source_context", b"source_context", "syntax", b"syntax"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["edition", b"edition", "fields", b"fields", "name", b"name", "oneofs", b"oneofs", "options", b"options", "source_context", b"source_context", "syntax", b"syntax"]) -> None: ...
 
 global___Type = Type
 
@@ -271,16 +279,16 @@ class Field(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        kind: global___Field.Kind.ValueType | None = ...,
-        cardinality: global___Field.Cardinality.ValueType | None = ...,
-        number: builtins.int | None = ...,
-        name: builtins.str | None = ...,
-        type_url: builtins.str | None = ...,
-        oneof_index: builtins.int | None = ...,
-        packed: builtins.bool | None = ...,
+        kind: global___Field.Kind.ValueType = ...,
+        cardinality: global___Field.Cardinality.ValueType = ...,
+        number: builtins.int = ...,
+        name: builtins.str = ...,
+        type_url: builtins.str = ...,
+        oneof_index: builtins.int = ...,
+        packed: builtins.bool = ...,
         options: collections.abc.Iterable[global___Option] | None = ...,
-        json_name: builtins.str | None = ...,
-        default_value: builtins.str | None = ...,
+        json_name: builtins.str = ...,
+        default_value: builtins.str = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["cardinality", b"cardinality", "default_value", b"default_value", "json_name", b"json_name", "kind", b"kind", "name", b"name", "number", b"number", "oneof_index", b"oneof_index", "options", b"options", "packed", b"packed", "type_url", b"type_url"]) -> None: ...
 
@@ -297,6 +305,7 @@ class Enum(google.protobuf.message.Message):
     OPTIONS_FIELD_NUMBER: builtins.int
     SOURCE_CONTEXT_FIELD_NUMBER: builtins.int
     SYNTAX_FIELD_NUMBER: builtins.int
+    EDITION_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Enum type name."""
     @property
@@ -310,17 +319,20 @@ class Enum(google.protobuf.message.Message):
         """The source context."""
     syntax: global___Syntax.ValueType
     """The source syntax."""
+    edition: builtins.str
+    """The source edition string, only valid when syntax is SYNTAX_EDITIONS."""
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
+        name: builtins.str = ...,
         enumvalue: collections.abc.Iterable[global___EnumValue] | None = ...,
         options: collections.abc.Iterable[global___Option] | None = ...,
         source_context: google.protobuf.source_context_pb2.SourceContext | None = ...,
-        syntax: global___Syntax.ValueType | None = ...,
+        syntax: global___Syntax.ValueType = ...,
+        edition: builtins.str = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["source_context", b"source_context"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["enumvalue", b"enumvalue", "name", b"name", "options", b"options", "source_context", b"source_context", "syntax", b"syntax"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["edition", b"edition", "enumvalue", b"enumvalue", "name", b"name", "options", b"options", "source_context", b"source_context", "syntax", b"syntax"]) -> None: ...
 
 global___Enum = Enum
 
@@ -343,8 +355,8 @@ class EnumValue(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        number: builtins.int | None = ...,
+        name: builtins.str = ...,
+        number: builtins.int = ...,
         options: collections.abc.Iterable[global___Option] | None = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "number", b"number", "options", b"options"]) -> None: ...
@@ -377,7 +389,7 @@ class Option(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
+        name: builtins.str = ...,
         value: google.protobuf.any_pb2.Any | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...

@@ -62,7 +62,7 @@ class NullValue(_NullValue, metaclass=_NullValueEnumTypeWrapper):
     """`NullValue` is a singleton enumeration to represent the null value for the
     `Value` type union.
 
-     The JSON representation for `NullValue` is JSON `null`.
+    The JSON representation for `NullValue` is JSON `null`.
     """
 
 NULL_VALUE: NullValue.ValueType  # 0
@@ -95,7 +95,7 @@ class Struct(google.protobuf.message.Message, google.protobuf.internal.well_know
         def __init__(
             self,
             *,
-            key: builtins.str | None = ...,
+            key: builtins.str = ...,
             value: global___Value | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
@@ -149,10 +149,10 @@ class Value(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        null_value: global___NullValue.ValueType | None = ...,
-        number_value: builtins.float | None = ...,
-        string_value: builtins.str | None = ...,
-        bool_value: builtins.bool | None = ...,
+        null_value: global___NullValue.ValueType = ...,
+        number_value: builtins.float = ...,
+        string_value: builtins.str = ...,
+        bool_value: builtins.bool = ...,
         struct_value: global___Struct | None = ...,
         list_value: global___ListValue | None = ...,
     ) -> None: ...

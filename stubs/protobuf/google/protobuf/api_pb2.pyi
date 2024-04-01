@@ -109,13 +109,13 @@ class Api(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
+        name: builtins.str = ...,
         methods: collections.abc.Iterable[global___Method] | None = ...,
         options: collections.abc.Iterable[google.protobuf.type_pb2.Option] | None = ...,
-        version: builtins.str | None = ...,
+        version: builtins.str = ...,
         source_context: google.protobuf.source_context_pb2.SourceContext | None = ...,
         mixins: collections.abc.Iterable[global___Mixin] | None = ...,
-        syntax: google.protobuf.type_pb2.Syntax.ValueType | None = ...,
+        syntax: google.protobuf.type_pb2.Syntax.ValueType = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["source_context", b"source_context"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["methods", b"methods", "mixins", b"mixins", "name", b"name", "options", b"options", "source_context", b"source_context", "syntax", b"syntax", "version", b"version"]) -> None: ...
@@ -153,13 +153,13 @@ class Method(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        request_type_url: builtins.str | None = ...,
-        request_streaming: builtins.bool | None = ...,
-        response_type_url: builtins.str | None = ...,
-        response_streaming: builtins.bool | None = ...,
+        name: builtins.str = ...,
+        request_type_url: builtins.str = ...,
+        request_streaming: builtins.bool = ...,
+        response_type_url: builtins.str = ...,
+        response_streaming: builtins.bool = ...,
         options: collections.abc.Iterable[google.protobuf.type_pb2.Option] | None = ...,
-        syntax: google.protobuf.type_pb2.Syntax.ValueType | None = ...,
+        syntax: google.protobuf.type_pb2.Syntax.ValueType = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "options", b"options", "request_streaming", b"request_streaming", "request_type_url", b"request_type_url", "response_streaming", b"response_streaming", "response_type_url", b"response_type_url", "syntax", b"syntax"]) -> None: ...
 
@@ -214,7 +214,7 @@ class Mixin(google.protobuf.message.Message):
     The mixin construct implies that all methods in `AccessControl` are
     also declared with same name and request/response types in
     `Storage`. A documentation generator or annotation processor will
-    see the effective `Storage.GetAcl` method after inheriting
+    see the effective `Storage.GetAcl` method after inherting
     documentation and annotations as follows:
 
         service Storage {
@@ -260,8 +260,8 @@ class Mixin(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        name: builtins.str | None = ...,
-        root: builtins.str | None = ...,
+        name: builtins.str = ...,
+        root: builtins.str = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "root", b"root"]) -> None: ...
 

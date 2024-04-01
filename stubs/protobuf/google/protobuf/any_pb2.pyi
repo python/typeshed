@@ -66,8 +66,12 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
         if (any.is(Foo.class)) {
           foo = any.unpack(Foo.class);
         }
+        // or ...
+        if (any.isSameTypeAs(Foo.getDefaultInstance())) {
+          foo = any.unpack(Foo.getDefaultInstance());
+        }
 
-    Example 3: Pack and unpack a message in Python.
+     Example 3: Pack and unpack a message in Python.
 
         foo = Foo(...)
         any = Any()
@@ -77,7 +81,7 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
           any.Unpack(foo)
           ...
 
-    Example 4: Pack and unpack a message in Go
+     Example 4: Pack and unpack a message in Go
 
          foo := &pb.Foo{...}
          any, err := anypb.New(foo)
@@ -96,9 +100,8 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
     in the type URL, for example "foo.bar.com/x/y.z" will yield type
     name "y.z".
 
-
     JSON
-
+    ====
     The JSON representation of an `Any` value uses the regular
     representation of the deserialized, embedded message, with an
     additional field `@type` which contains the type URL. Example:
@@ -154,7 +157,8 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
 
     Note: this functionality is not currently available in the official
     protobuf release, and it is not used for type URLs beginning with
-    type.googleapis.com.
+    type.googleapis.com. As of May 2023, there are no widely used type server
+    implementations and no plans to implement one.
 
     Schemes other than `http`, `https` (or the empty scheme) might be
     used with implementation specific semantics.
@@ -164,8 +168,8 @@ class Any(google.protobuf.message.Message, google.protobuf.internal.well_known_t
     def __init__(
         self,
         *,
-        type_url: builtins.str | None = ...,
-        value: builtins.bytes | None = ...,
+        type_url: builtins.str = ...,
+        value: builtins.bytes = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["type_url", b"type_url", "value", b"value"]) -> None: ...
 
