@@ -23,7 +23,7 @@ __all__ = [
 ]
 
 _T = TypeVar("_T")
-_R = TypeVar("_R_co", default=Any, covariant=True)
+_R_co = TypeVar("_R_co", default=Any, covariant=True)
 
 NOTSET: int
 SUBDEBUG: int
@@ -47,13 +47,13 @@ abstract_sockets_supported: bool
 def get_temp_dir() -> str: ...
 def register_after_fork(obj: _T, func: Callable[[_T], object]) -> None: ...
 
-class Finalize(Generic[_R]):
+class Finalize(Generic[_R_co]):
     # "args" and "kwargs" are passed as arguments to "callback".
     @overload
     def __init__(
         self,
         obj: None,
-        callback: Callable[..., _R],
+        callback: Callable[..., _R_co],
         *,
         args: Sequence[Any] = (),
         kwargs: Mapping[str, Any] | None = None,
@@ -61,13 +61,13 @@ class Finalize(Generic[_R]):
     ) -> None: ...
     @overload
     def __init__(
-        self, obj: None, callback: Callable[..., _R], args: Sequence[Any], kwargs: Mapping[str, Any] | None, exitpriority: int
+        self, obj: None, callback: Callable[..., _R_co], args: Sequence[Any], kwargs: Mapping[str, Any] | None, exitpriority: int
     ) -> None: ...
     @overload
     def __init__(
         self,
         obj: Any,
-        callback: Callable[..., _R],
+        callback: Callable[..., _R_co],
         args: Sequence[Any] = (),
         kwargs: Mapping[str, Any] | None = None,
         exitpriority: int | None = None,
@@ -78,7 +78,7 @@ class Finalize(Generic[_R]):
         _finalizer_registry: MutableMapping[Incomplete, Incomplete] = {},
         sub_debug: Callable[..., object] = ...,
         getpid: Callable[[], int] = ...,
-    ) -> _R: ...
+    ) -> _R_co: ...
     def cancel(self) -> None: ...
     def still_active(self) -> bool: ...
 
