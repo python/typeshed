@@ -38,20 +38,7 @@ class Customer(Resource):
     def create_signature(): ...
     @staticmethod
     def update_signature(): ...
-    payment_methods: list[
-        CreditCard
-        | Address
-        | PayPalAccount
-        | ApplePayCard
-        | AndroidPayCard
-        | AmexExpressCheckoutCard
-        | EuropeBankAccount
-        | VenmoAccount
-        | UsBankAccount
-        | VisaCheckoutCard
-        | MasterpassCard
-        | SamsungPayCard
-    ]
+    payment_methods: list[Resource]
     credit_cards: list[CreditCard]
     addresses: list[Address]
     paypal_accounts: list[PayPalAccount]
