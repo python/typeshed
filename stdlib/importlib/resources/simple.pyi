@@ -2,7 +2,7 @@ import abc
 import sys
 from collections.abc import Iterator
 from io import TextIOWrapper
-from typing import BinaryIO, Literal, NoReturn, overload
+from typing import IO, Any, BinaryIO, Literal, NoReturn, overload
 from typing_extensions import Never
 
 if sys.version_info >= (3, 11):
