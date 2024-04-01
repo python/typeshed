@@ -7,12 +7,14 @@ class DisputeSearch:
     amount_won: Any
     case_number: Any
     chargeback_protection_level: Any
+    protection_level: Any
     customer_id: Any
     disbursement_date: Any
     effective_date: Any
     id: Any
     kind: Any
     merchant_account_id: Any
+    pre_dispute_program: Any
     reason: Any
     reason_code: Any
     received_date: Any

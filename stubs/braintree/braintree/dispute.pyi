@@ -12,11 +12,13 @@ from braintree.transaction_details import TransactionDetails as TransactionDetai
 class Dispute(AttributeGetter):
     class Status:
         Accepted: str
+        AutoAccepted: str
         Disputed: str
         Expired: str
-        Open: str
-        Won: str
         Lost: str
+        Open: str
+        UnderReview: str
+        Won: str
 
     class Reason:
         CancelledRecurringTransaction: str
@@ -40,6 +42,15 @@ class Dispute(AttributeGetter):
         Effortless: str
         Standard: str
         NotProtected: str
+
+    class PreDisputeProgram:
+        NONE: str
+        VisaRdr: str
+
+    class ProtectionLevel:
+        EffortlessCBP: str
+        StandardCBP: str
+        NoProtection: str
 
     @staticmethod
     def accept(id): ...
