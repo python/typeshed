@@ -61,7 +61,8 @@ jobs:
           DEPENDENCIES=$(python tests/get_external_stub_requirements.py)
           if [ -n "$DEPENDENCIES" ]; then
             echo "Installing packages: $DEPENDENCIES"
-            uv pip install $DEPENDENCIES --system
+            echo "Pillow<10.3" > constraints.txt
+            uv pip install $DEPENDENCIES -c constraints.txt --system
           fi
       - run: uv pip freeze
       - run: ./tests/pytype_test.py --print-stderr
