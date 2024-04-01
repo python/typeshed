@@ -7,6 +7,8 @@ set -euxo pipefail
 # Generally, new minor versions are a good time to update the stubs.
 REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/..)"
 
+# Need protoc >= 3.15 for explicit optional
+PROTOBUF_VERSION=25.3 # 4.25.3
 # Whenever you update TENSORFLOW_VERSION here, version should be updated
 # in stubs/tensorflow/METADATA.toml and vice-versa.
 TENSORFLOW_VERSION=2.16.1
@@ -15,9 +17,25 @@ TENSORFLOW_VERSION=2.16.1
 # This issue is mitigated by using a different venv
 MYPY_PROTOBUF_VERSION=3.5.0
 
+if uname -a | grep Darwin; then
+    # brew install coreutils wget
+    PLAT=osx
+else
+    PLAT=linux
+fi
+PROTOC_FILENAME="protoc-${PROTOBUF_VERSION}-${PLAT}-x86_64.zip"
+PROTOC_URL="https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/$PROTOC_FILENAME"
+
 cd $REPO_ROOT/stubs/tensorflow > /dev/null
 mkdir -p repository
 pushd repository &> /dev/null
+    # Install protoc
+    rm -rf protoc_install/
+    wget "$PROTOC_URL"
+    mkdir protoc_install
+    unzip "$PROTOC_FILENAME" -d protoc_install
+    protoc_install/bin/protoc --version
+
     # Prepare virtualenv
     uv venv .venv
     source .venv/bin/activate
@@ -30,7 +48,7 @@ pushd repository &> /dev/null
     pushd tensorflow &> /dev/null
         # Folders here cover the more commonly used protobufs externally and
         # their dependencies. Tensorflow has more protobufs and can be added if requested.
-        protoc --mypy_out "relax_strict_optional_primitives:$REPO_ROOT/stubs/tensorflow" \
+        ./../protoc_install/bin/protoc  --mypy_out "relax_strict_optional_primitives:$REPO_ROOT/stubs/tensorflow" \
             third_party/xla/xla/*.proto \
             third_party/xla/xla/service/*.proto \
             tensorflow/core/example/*.proto \

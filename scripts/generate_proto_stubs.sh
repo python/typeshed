@@ -10,7 +10,7 @@ set -ex -o pipefail
 # a meaningful update to either PROTOBUF_VERSION or MYPY_PROTOBUF_VERSION,
 # followed by committing the changes to typeshed
 #
-# Update these two variables when rerunning script
+# Update these variables when rerunning script
 PROTOBUF_VERSION=21.8
 PYTHON_PROTOBUF_VERSION=4.21.8
 MYPY_PROTOBUF_VERSION=3.5.0
@@ -35,6 +35,7 @@ echo "Working in $TMP_DIR"
 wget "$PROTOC_URL"
 mkdir protoc_install
 unzip "$PROTOC_FILENAME" -d protoc_install
+protoc_install/bin/protoc --version
 
 # Fetch protoc-python (which contains all the .proto files)
 wget "$PYTHON_PROTOBUF_URL"
