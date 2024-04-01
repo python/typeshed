@@ -11,8 +11,7 @@ set -ex -o pipefail
 # followed by committing the changes to typeshed
 #
 # Update these two variables when rerunning script
-PROTOBUF_VERSION=21.8
-PYTHON_PROTOBUF_VERSION=4.21.8
+PROTOBUF_VERSION=22.0
 MYPY_PROTOBUF_VERSION=3.5.0
 
 if uname -a | grep Darwin; then
@@ -23,10 +22,10 @@ else
 fi
 REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/..)"
 TMP_DIR="$(mktemp -d)"
-PYTHON_PROTOBUF_FILENAME="protobuf-python-${PYTHON_PROTOBUF_VERSION}.zip"
-PROTOC_FILENAME="protoc-${PROTOBUF_VERSION}-${PLAT}-x86_64.zip"
-PROTOC_URL="https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/$PROTOC_FILENAME"
-PYTHON_PROTOBUF_URL="https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/$PYTHON_PROTOBUF_FILENAME"
+PYTHON_PROTOBUF_FILENAME="protobuf-$PROTOBUF_VERSION.zip"
+PROTOC_FILENAME="protoc-$PROTOBUF_VERSION-$PLAT-x86_64.zip"
+PROTOC_URL="https://github.com/protocolbuffers/protobuf/releases/download/v$PROTOBUF_VERSION/$PROTOC_FILENAME"
+PYTHON_PROTOBUF_URL="https://github.com/protocolbuffers/protobuf/releases/download/v$PROTOBUF_VERSION/$PYTHON_PROTOBUF_FILENAME"
 
 cd "$TMP_DIR"
 echo "Working in $TMP_DIR"
@@ -39,7 +38,7 @@ unzip "$PROTOC_FILENAME" -d protoc_install
 # Fetch protoc-python (which contains all the .proto files)
 wget "$PYTHON_PROTOBUF_URL"
 unzip "$PYTHON_PROTOBUF_FILENAME"
-PYTHON_PROTOBUF_DIR="protobuf-$PYTHON_PROTOBUF_VERSION"
+PYTHON_PROTOBUF_DIR="protobuf-$PROTOBUF_VERSION"
 
 # Prepare virtualenv
 VENV=venv
@@ -74,6 +73,8 @@ protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="re
 # applies autofixes (which will result in a nonzero exit code)
 pre-commit run --files "$REPO_ROOT/stubs/protobuf" || true
 
+PYTHON_PROTOBUF_VERSION=$(jq -r '.[] | .languages.python' "$PYTHON_PROTOBUF_DIR/version.json")
+
 sed --in-place="" \
-  "s/extra_description = .*$/extra_description = \"Generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on protobuf==$PYTHON_PROTOBUF_VERSION\"/" \
+  "s/extra_description = .*$/extra_description = \"Generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on [protobuf v$PROTOBUF_VERSION](https:\/\/github.com\/protocolbuffers\/protobuf\/releases\/tag\/v$PROTOBUF_VERSION) (python protobuf==$PYTHON_PROTOBUF_VERSION)\"/" \
   "$REPO_ROOT/stubs/protobuf/METADATA.toml"

@@ -64,6 +64,7 @@ class FileDescriptorProto(google.protobuf.message.Message):
     OPTIONS_FIELD_NUMBER: builtins.int
     SOURCE_CODE_INFO_FIELD_NUMBER: builtins.int
     SYNTAX_FIELD_NUMBER: builtins.int
+    EDITION_FIELD_NUMBER: builtins.int
     name: builtins.str
     """file name, relative to root of source tree"""
     package: builtins.str
@@ -99,8 +100,12 @@ class FileDescriptorProto(google.protobuf.message.Message):
         """
     syntax: builtins.str
     """The syntax of the proto file.
-    The supported values are "proto2" and "proto3".
+    The supported values are "proto2", "proto3", and "editions".
+
+    If `edition` is present, this value must be "editions".
     """
+    edition: builtins.str
+    """The edition of the proto file, which is an opaque string."""
     def __init__(
         self,
         *,
@@ -116,9 +121,10 @@ class FileDescriptorProto(google.protobuf.message.Message):
         options: global___FileOptions | None = ...,
         source_code_info: global___SourceCodeInfo | None = ...,
         syntax: builtins.str | None = ...,
+        edition: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["name", b"name", "options", b"options", "package", b"package", "source_code_info", b"source_code_info", "syntax", b"syntax"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["dependency", b"dependency", "enum_type", b"enum_type", "extension", b"extension", "message_type", b"message_type", "name", b"name", "options", b"options", "package", b"package", "public_dependency", b"public_dependency", "service", b"service", "source_code_info", b"source_code_info", "syntax", b"syntax", "weak_dependency", b"weak_dependency"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["edition", b"edition", "name", b"name", "options", b"options", "package", b"package", "source_code_info", b"source_code_info", "syntax", b"syntax"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dependency", b"dependency", "edition", b"edition", "enum_type", b"enum_type", "extension", b"extension", "message_type", b"message_type", "name", b"name", "options", b"options", "package", b"package", "public_dependency", b"public_dependency", "service", b"service", "source_code_info", b"source_code_info", "syntax", b"syntax", "weak_dependency", b"weak_dependency"]) -> None: ...
 
 global___FileDescriptorProto = FileDescriptorProto
 
@@ -837,6 +843,7 @@ class MessageOptions(google.protobuf.message.Message):
     NO_STANDARD_DESCRIPTOR_ACCESSOR_FIELD_NUMBER: builtins.int
     DEPRECATED_FIELD_NUMBER: builtins.int
     MAP_ENTRY_FIELD_NUMBER: builtins.int
+    DEPRECATED_LEGACY_JSON_FIELD_CONFLICTS_FIELD_NUMBER: builtins.int
     UNINTERPRETED_OPTION_FIELD_NUMBER: builtins.int
     message_set_wire_format: builtins.bool
     """Set true to use the old proto1 MessageSet wire format for extensions.
@@ -870,7 +877,11 @@ class MessageOptions(google.protobuf.message.Message):
     this is a formalization for deprecating messages.
     """
     map_entry: builtins.bool
-    """Whether the message is an automatically generated map entry type for the
+    """NOTE: Do not set the option in .proto files. Always use the maps syntax
+    instead. The option should only be implicitly set by the proto compiler
+    parser.
+
+    Whether the message is an automatically generated map entry type for the
     maps field.
 
     For maps fields:
@@ -887,10 +898,18 @@ class MessageOptions(google.protobuf.message.Message):
     use a native map in the target language to hold the keys and values.
     The reflection APIs in such implementations still need to work as
     if the field is a repeated message field.
+    """
+    deprecated_legacy_json_field_conflicts: builtins.bool
+    """Enable the legacy handling of JSON field name conflicts.  This lowercases
+    and strips underscored from the fields before comparison in proto3 only.
+    The new behavior takes `json_name` into account and applies to proto2 as
+    well.
 
-    NOTE: Do not set the option in .proto files. Always use the maps syntax
-    instead. The option should only be implicitly set by the proto compiler
-    parser.
+    This should only be used as a temporary measure against broken builds due
+    to the change in behavior for JSON field name conflicts.
+
+    TODO(b/261750190) This is legacy behavior we plan to remove once downstream
+    teams have had time to migrate.
     """
     @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
@@ -902,10 +921,11 @@ class MessageOptions(google.protobuf.message.Message):
         no_standard_descriptor_accessor: builtins.bool | None = ...,
         deprecated: builtins.bool | None = ...,
         map_entry: builtins.bool | None = ...,
+        deprecated_legacy_json_field_conflicts: builtins.bool | None = ...,
         uninterpreted_option: collections.abc.Iterable[global___UninterpretedOption] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["deprecated", b"deprecated", "map_entry", b"map_entry", "message_set_wire_format", b"message_set_wire_format", "no_standard_descriptor_accessor", b"no_standard_descriptor_accessor"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["deprecated", b"deprecated", "map_entry", b"map_entry", "message_set_wire_format", b"message_set_wire_format", "no_standard_descriptor_accessor", b"no_standard_descriptor_accessor", "uninterpreted_option", b"uninterpreted_option"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["deprecated", b"deprecated", "deprecated_legacy_json_field_conflicts", b"deprecated_legacy_json_field_conflicts", "map_entry", b"map_entry", "message_set_wire_format", b"message_set_wire_format", "no_standard_descriptor_accessor", b"no_standard_descriptor_accessor"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["deprecated", b"deprecated", "deprecated_legacy_json_field_conflicts", b"deprecated_legacy_json_field_conflicts", "map_entry", b"map_entry", "message_set_wire_format", b"message_set_wire_format", "no_standard_descriptor_accessor", b"no_standard_descriptor_accessor", "uninterpreted_option", b"uninterpreted_option"]) -> None: ...
 
 global___MessageOptions = MessageOptions
 
@@ -951,6 +971,61 @@ class FieldOptions(google.protobuf.message.Message):
     JS_NUMBER: FieldOptions.JSType.ValueType  # 2
     """Use JavaScript numbers."""
 
+    class _OptionRetention:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _OptionRetentionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FieldOptions._OptionRetention.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        RETENTION_UNKNOWN: FieldOptions._OptionRetention.ValueType  # 0
+        RETENTION_RUNTIME: FieldOptions._OptionRetention.ValueType  # 1
+        RETENTION_SOURCE: FieldOptions._OptionRetention.ValueType  # 2
+
+    class OptionRetention(_OptionRetention, metaclass=_OptionRetentionEnumTypeWrapper):
+        """If set to RETENTION_SOURCE, the option will be omitted from the binary.
+        Note: as of January 2023, support for this is in progress and does not yet
+        have an effect (b/264593489).
+        """
+
+    RETENTION_UNKNOWN: FieldOptions.OptionRetention.ValueType  # 0
+    RETENTION_RUNTIME: FieldOptions.OptionRetention.ValueType  # 1
+    RETENTION_SOURCE: FieldOptions.OptionRetention.ValueType  # 2
+
+    class _OptionTargetType:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _OptionTargetTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FieldOptions._OptionTargetType.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        TARGET_TYPE_UNKNOWN: FieldOptions._OptionTargetType.ValueType  # 0
+        TARGET_TYPE_FILE: FieldOptions._OptionTargetType.ValueType  # 1
+        TARGET_TYPE_EXTENSION_RANGE: FieldOptions._OptionTargetType.ValueType  # 2
+        TARGET_TYPE_MESSAGE: FieldOptions._OptionTargetType.ValueType  # 3
+        TARGET_TYPE_FIELD: FieldOptions._OptionTargetType.ValueType  # 4
+        TARGET_TYPE_ONEOF: FieldOptions._OptionTargetType.ValueType  # 5
+        TARGET_TYPE_ENUM: FieldOptions._OptionTargetType.ValueType  # 6
+        TARGET_TYPE_ENUM_ENTRY: FieldOptions._OptionTargetType.ValueType  # 7
+        TARGET_TYPE_SERVICE: FieldOptions._OptionTargetType.ValueType  # 8
+        TARGET_TYPE_METHOD: FieldOptions._OptionTargetType.ValueType  # 9
+
+    class OptionTargetType(_OptionTargetType, metaclass=_OptionTargetTypeEnumTypeWrapper):
+        """This indicates the types of entities that the field may apply to when used
+        as an option. If it is unset, then the field may be freely used as an
+        option on any kind of entity. Note: as of January 2023, support for this is
+        in progress and does not yet have an effect (b/264593489).
+        """
+
+    TARGET_TYPE_UNKNOWN: FieldOptions.OptionTargetType.ValueType  # 0
+    TARGET_TYPE_FILE: FieldOptions.OptionTargetType.ValueType  # 1
+    TARGET_TYPE_EXTENSION_RANGE: FieldOptions.OptionTargetType.ValueType  # 2
+    TARGET_TYPE_MESSAGE: FieldOptions.OptionTargetType.ValueType  # 3
+    TARGET_TYPE_FIELD: FieldOptions.OptionTargetType.ValueType  # 4
+    TARGET_TYPE_ONEOF: FieldOptions.OptionTargetType.ValueType  # 5
+    TARGET_TYPE_ENUM: FieldOptions.OptionTargetType.ValueType  # 6
+    TARGET_TYPE_ENUM_ENTRY: FieldOptions.OptionTargetType.ValueType  # 7
+    TARGET_TYPE_SERVICE: FieldOptions.OptionTargetType.ValueType  # 8
+    TARGET_TYPE_METHOD: FieldOptions.OptionTargetType.ValueType  # 9
+
     CTYPE_FIELD_NUMBER: builtins.int
     PACKED_FIELD_NUMBER: builtins.int
     JSTYPE_FIELD_NUMBER: builtins.int
@@ -958,6 +1033,9 @@ class FieldOptions(google.protobuf.message.Message):
     UNVERIFIED_LAZY_FIELD_NUMBER: builtins.int
     DEPRECATED_FIELD_NUMBER: builtins.int
     WEAK_FIELD_NUMBER: builtins.int
+    DEBUG_REDACT_FIELD_NUMBER: builtins.int
+    RETENTION_FIELD_NUMBER: builtins.int
+    TARGET_FIELD_NUMBER: builtins.int
     UNINTERPRETED_OPTION_FIELD_NUMBER: builtins.int
     ctype: global___FieldOptions.CType.ValueType
     """The ctype option instructs the C++ code generator to use a different
@@ -1003,7 +1081,6 @@ class FieldOptions(google.protobuf.message.Message):
     call from multiple threads concurrently, while non-const methods continue
     to require exclusive access.
 
-
     Note that implementations may choose not to check required fields within
     a lazy sub-message.  That is, calling IsInitialized() on the outer message
     may return true even if the inner message has missing required fields.
@@ -1015,11 +1092,8 @@ class FieldOptions(google.protobuf.message.Message):
     check its required fields, regardless of whether or not the message has
     been parsed.
 
-    As of 2021, lazy does no correctness checks on the byte stream during
-    parsing.  This may lead to crashes if and when an invalid byte stream is
-    finally parsed upon access.
-
-    TODO(b/211906113):  Enable validation on lazy fields.
+    As of May 2022, lazy verifies the contents of the byte stream during
+    parsing.  An invalid byte stream will cause the overall parsing to fail.
     """
     unverified_lazy: builtins.bool
     """unverified_lazy does no correctness checks on the byte stream. This should
@@ -1034,6 +1108,12 @@ class FieldOptions(google.protobuf.message.Message):
     """
     weak: builtins.bool
     """For Google-internal migration only. Do not use."""
+    debug_redact: builtins.bool
+    """Indicate that the field value should not be printed out when using debug
+    formats, e.g. when the field contains sensitive credentials.
+    """
+    retention: global___FieldOptions.OptionRetention.ValueType
+    target: global___FieldOptions.OptionTargetType.ValueType
     @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
         """The parser stores options it doesn't recognize here. See above."""
@@ -1047,10 +1127,13 @@ class FieldOptions(google.protobuf.message.Message):
         unverified_lazy: builtins.bool | None = ...,
         deprecated: builtins.bool | None = ...,
         weak: builtins.bool | None = ...,
+        debug_redact: builtins.bool | None = ...,
+        retention: global___FieldOptions.OptionRetention.ValueType | None = ...,
+        target: global___FieldOptions.OptionTargetType.ValueType | None = ...,
         uninterpreted_option: collections.abc.Iterable[global___UninterpretedOption] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["ctype", b"ctype", "deprecated", b"deprecated", "jstype", b"jstype", "lazy", b"lazy", "packed", b"packed", "unverified_lazy", b"unverified_lazy", "weak", b"weak"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["ctype", b"ctype", "deprecated", b"deprecated", "jstype", b"jstype", "lazy", b"lazy", "packed", b"packed", "uninterpreted_option", b"uninterpreted_option", "unverified_lazy", b"unverified_lazy", "weak", b"weak"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["ctype", b"ctype", "debug_redact", b"debug_redact", "deprecated", b"deprecated", "jstype", b"jstype", "lazy", b"lazy", "packed", b"packed", "retention", b"retention", "target", b"target", "unverified_lazy", b"unverified_lazy", "weak", b"weak"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["ctype", b"ctype", "debug_redact", b"debug_redact", "deprecated", b"deprecated", "jstype", b"jstype", "lazy", b"lazy", "packed", b"packed", "retention", b"retention", "target", b"target", "uninterpreted_option", b"uninterpreted_option", "unverified_lazy", b"unverified_lazy", "weak", b"weak"]) -> None: ...
 
 global___FieldOptions = FieldOptions
 
@@ -1077,6 +1160,7 @@ class EnumOptions(google.protobuf.message.Message):
 
     ALLOW_ALIAS_FIELD_NUMBER: builtins.int
     DEPRECATED_FIELD_NUMBER: builtins.int
+    DEPRECATED_LEGACY_JSON_FIELD_CONFLICTS_FIELD_NUMBER: builtins.int
     UNINTERPRETED_OPTION_FIELD_NUMBER: builtins.int
     allow_alias: builtins.bool
     """Set this option to true to allow mapping different tag names to the same
@@ -1088,6 +1172,14 @@ class EnumOptions(google.protobuf.message.Message):
     for the enum, or it will be completely ignored; in the very least, this
     is a formalization for deprecating enums.
     """
+    deprecated_legacy_json_field_conflicts: builtins.bool
+    """Enable the legacy handling of JSON field name conflicts.  This lowercases
+    and strips underscored from the fields before comparison in proto3 only.
+    The new behavior takes `json_name` into account and applies to proto2 as
+    well.
+    TODO(b/261750190) Remove this legacy behavior once downstream teams have
+    had time to migrate.
+    """
     @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
         """The parser stores options it doesn't recognize here. See above."""
@@ -1096,10 +1188,11 @@ class EnumOptions(google.protobuf.message.Message):
         *,
         allow_alias: builtins.bool | None = ...,
         deprecated: builtins.bool | None = ...,
+        deprecated_legacy_json_field_conflicts: builtins.bool | None = ...,
         uninterpreted_option: collections.abc.Iterable[global___UninterpretedOption] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["allow_alias", b"allow_alias", "deprecated", b"deprecated"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["allow_alias", b"allow_alias", "deprecated", b"deprecated", "uninterpreted_option", b"uninterpreted_option"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["allow_alias", b"allow_alias", "deprecated", b"deprecated", "deprecated_legacy_json_field_conflicts", b"deprecated_legacy_json_field_conflicts"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["allow_alias", b"allow_alias", "deprecated", b"deprecated", "deprecated_legacy_json_field_conflicts", b"deprecated_legacy_json_field_conflicts", "uninterpreted_option", b"uninterpreted_option"]) -> None: ...
 
 global___EnumOptions = EnumOptions
 
@@ -1475,10 +1568,36 @@ class GeneratedCodeInfo(google.protobuf.message.Message):
     class Annotation(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+        class _Semantic:
+            ValueType = typing.NewType("ValueType", builtins.int)
+            V: typing_extensions.TypeAlias = ValueType
+
+        class _SemanticEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GeneratedCodeInfo.Annotation._Semantic.ValueType], builtins.type):
+            DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+            NONE: GeneratedCodeInfo.Annotation._Semantic.ValueType  # 0
+            """There is no effect or the effect is indescribable."""
+            SET: GeneratedCodeInfo.Annotation._Semantic.ValueType  # 1
+            """The element is set or otherwise mutated."""
+            ALIAS: GeneratedCodeInfo.Annotation._Semantic.ValueType  # 2
+            """An alias to the element is returned."""
+
+        class Semantic(_Semantic, metaclass=_SemanticEnumTypeWrapper):
+            """Represents the identified object's effect on the element in the original
+            .proto file.
+            """
+
+        NONE: GeneratedCodeInfo.Annotation.Semantic.ValueType  # 0
+        """There is no effect or the effect is indescribable."""
+        SET: GeneratedCodeInfo.Annotation.Semantic.ValueType  # 1
+        """The element is set or otherwise mutated."""
+        ALIAS: GeneratedCodeInfo.Annotation.Semantic.ValueType  # 2
+        """An alias to the element is returned."""
+
         PATH_FIELD_NUMBER: builtins.int
         SOURCE_FILE_FIELD_NUMBER: builtins.int
         BEGIN_FIELD_NUMBER: builtins.int
         END_FIELD_NUMBER: builtins.int
+        SEMANTIC_FIELD_NUMBER: builtins.int
         @property
         def path(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
             """Identifies the element in the original source .proto file. This field
@@ -1492,9 +1611,10 @@ class GeneratedCodeInfo(google.protobuf.message.Message):
         """
         end: builtins.int
         """Identifies the ending offset in bytes in the generated code that
-        relates to the identified offset. The end offset should be one past
+        relates to the identified object. The end offset should be one past
         the last relevant byte (so the length of the text = end - begin).
         """
+        semantic: global___GeneratedCodeInfo.Annotation.Semantic.ValueType
         def __init__(
             self,
             *,
@@ -1502,9 +1622,10 @@ class GeneratedCodeInfo(google.protobuf.message.Message):
             source_file: builtins.str | None = ...,
             begin: builtins.int | None = ...,
             end: builtins.int | None = ...,
+            semantic: global___GeneratedCodeInfo.Annotation.Semantic.ValueType | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["begin", b"begin", "end", b"end", "source_file", b"source_file"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["begin", b"begin", "end", b"end", "path", b"path", "source_file", b"source_file"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["begin", b"begin", "end", b"end", "semantic", b"semantic", "source_file", b"source_file"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["begin", b"begin", "end", b"end", "path", b"path", "semantic", b"semantic", "source_file", b"source_file"]) -> None: ...
 
     ANNOTATION_FIELD_NUMBER: builtins.int
     @property
