@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any
+from decimal import Decimal
 
 from braintree.add_on import AddOn as AddOn
 from braintree.address import Address as Address
@@ -21,6 +21,9 @@ from braintree.facilitated_details import FacilitatedDetails as FacilitatedDetai
 from braintree.facilitator_details import FacilitatorDetails as FacilitatorDetails
 from braintree.local_payment import LocalPayment as LocalPayment
 from braintree.masterpass_card import MasterpassCard as MasterpassCard
+from braintree.meta_checkout_card import MetaCheckoutCard
+from braintree.meta_checkout_token import MetaCheckoutToken
+from braintree.package_details import PackageDetails
 from braintree.payment_instrument_type import PaymentInstrumentType as PaymentInstrumentType
 from braintree.paypal_account import PayPalAccount as PayPalAccount
 from braintree.paypal_here import PayPalHere as PayPalHere
@@ -28,6 +31,7 @@ from braintree.resource import Resource as Resource
 from braintree.resource_collection import ResourceCollection as ResourceCollection
 from braintree.risk_data import RiskData as RiskData
 from braintree.samsung_pay_card import SamsungPayCard as SamsungPayCard
+from braintree.sepa_direct_debit_account import SepaDirectDebitAccount
 from braintree.status_event import StatusEvent as StatusEvent
 from braintree.subscription_details import SubscriptionDetails as SubscriptionDetails
 from braintree.successful_result import SuccessfulResult as SuccessfulResult
@@ -146,41 +150,45 @@ class Transaction(Resource):
     def refund_signature(): ...
     @staticmethod
     def submit_for_partial_settlement(transaction_id, amount, params: Incomplete | None = None): ...
-    amount: Any
-    tax_amount: Any
-    discount_amount: Any
-    shipping_amount: Any
-    billing_details: Any
-    credit_card_details: Any
-    paypal_details: Any
-    paypal_here_details: Any
-    local_payment_details: Any
-    europe_bank_account_details: Any
-    us_bank_account: Any
-    apple_pay_details: Any
-    android_pay_card_details: Any
-    amex_express_checkout_card_details: Any
-    venmo_account_details: Any
-    visa_checkout_card_details: Any
-    masterpass_card_details: Any
-    samsung_pay_card_details: Any
-    sca_exemption_requested: Any
-    customer_details: Any
-    shipping_details: Any
-    add_ons: Any
-    discounts: Any
-    status_history: Any
-    subscription_details: Any
-    descriptor: Any
-    disbursement_details: Any
-    disputes: Any
-    authorization_adjustments: Any
-    payment_instrument_type: Any
-    risk_data: Any
-    three_d_secure_info: Any
-    facilitated_details: Any
-    facilitator_details: Any
-    network_transaction_id: Any
+    amount: Decimal
+    tax_amount: Decimal | None
+    discount_amount: Decimal | None
+    shipping_amount: Decimal | None
+    billing_details: Address
+    credit_card_details: CreditCard
+    packages: list[PackageDetails]
+    paypal_details: PayPalAccount
+    paypal_here_details: PayPalHere
+    local_payment_details: LocalPayment
+    sepa_direct_debit_account_details: SepaDirectDebitAccount
+    europe_bank_account_details: EuropeBankAccount
+    us_bank_account: UsBankAccount
+    apple_pay_details: ApplePayCard
+    android_pay_card_details: AndroidPayCard
+    amex_express_checkout_card_details: AmexExpressCheckoutCard
+    venmo_account_details: VenmoAccount
+    visa_checkout_card_details: VisaCheckoutCard
+    masterpass_card_details: MasterpassCard
+    samsung_pay_card_details: SamsungPayCard
+    meta_checkout_card_details: MetaCheckoutCard
+    meta_checkout_token_details: MetaCheckoutToken
+    sca_exemption_requested: Incomplete
+    customer_details: Customer
+    shipping_details: Address
+    add_ons: list[AddOn]
+    discounts: list[Discount]
+    status_history: list[StatusEvent]
+    subscription_details: SubscriptionDetails
+    descriptor: Descriptor
+    disbursement_details: DisbursementDetail
+    disputes: list[Dispute]
+    authorization_adjustments: list[AuthorizationAdjustment]
+    payment_instrument_type: Incomplete
+    risk_data: RiskData | None
+    three_d_secure_info: ThreeDSecureInfo | None
+    facilitated_details: FacilitatedDetails
+    facilitator_details: FacilitatorDetails
+    network_transaction_id: Incomplete
     def __init__(self, gateway, attributes) -> None: ...
     @property
     def vault_billing_address(self): ...

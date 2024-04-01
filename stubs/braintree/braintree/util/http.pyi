@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from braintree import version as version
 from braintree.environment import Environment as Environment
@@ -32,8 +31,8 @@ class Http:
     def is_error_status(status): ...
     @staticmethod
     def raise_exception_from_status(status, message: Incomplete | None = None) -> None: ...
-    config: Any
-    environment: Any
+    config: Incomplete
+    environment: Incomplete
     def __init__(self, config, environment: Incomplete | None = None) -> None: ...
     def post(self, path, params: Incomplete | None = None): ...
     def delete(self, path): ...

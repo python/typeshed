@@ -1,11 +1,11 @@
 from _typeshed import Incomplete
 from enum import Enum
-from typing import Any
 
 from braintree.address import Address as Address
 from braintree.configuration import Configuration as Configuration
 from braintree.credit_card_verification import CreditCardVerification as CreditCardVerification
 from braintree.resource import Resource as Resource
+from braintree.subscription import Subscription
 
 class CreditCard(Resource):
     class CardType:
@@ -45,15 +45,15 @@ class CreditCard(Resource):
         Star = "STAR"
         Star_Access = "STAR_ACCESS"
 
-    Commercial: Any
-    DurbinRegulated: Any
-    Debit: Any
-    Healthcare: Any
-    CountryOfIssuance: Any
-    IssuingBank: Any
-    Payroll: Any
-    Prepaid: Any
-    ProductId: Any
+    Commercial: type[CardTypeIndicator]
+    DurbinRegulated: type[CardTypeIndicator]
+    Debit: type[CardTypeIndicator]
+    Healthcare: type[CardTypeIndicator]
+    CountryOfIssuance: type[CardTypeIndicator]
+    IssuingBank: type[CardTypeIndicator]
+    Payroll: type[CardTypeIndicator]
+    Prepaid: type[CardTypeIndicator]
+    ProductId: type[CardTypeIndicator]
     @staticmethod
     def create(params: Incomplete | None = None): ...
     @staticmethod
@@ -74,10 +74,10 @@ class CreditCard(Resource):
     def update_signature(): ...
     @staticmethod
     def signature(type): ...
-    is_expired: Any
-    billing_address: Any
-    subscriptions: Any
-    verification: Any
+    is_expired = expired
+    billing_address: Address | None
+    subscriptions: list[Subscription]
+    verification: CreditCardVerification
     def __init__(self, gateway, attributes): ...
     @property
     def expiration_date(self): ...

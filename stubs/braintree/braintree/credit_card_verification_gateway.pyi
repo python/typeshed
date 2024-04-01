@@ -1,4 +1,4 @@
-from typing import Any
+from _typeshed import Incomplete
 
 from braintree.credit_card_verification import CreditCardVerification as CreditCardVerification
 from braintree.credit_card_verification_search import CreditCardVerificationSearch as CreditCardVerificationSearch
@@ -9,8 +9,8 @@ from braintree.resource_collection import ResourceCollection as ResourceCollecti
 from braintree.successful_result import SuccessfulResult as SuccessfulResult
 
 class CreditCardVerificationGateway:
-    gateway: Any
-    config: Any
+    gateway: Incomplete
+    config: Incomplete
     def __init__(self, gateway) -> None: ...
     def find(self, verification_id): ...
     def search(self, *query): ...

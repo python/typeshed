@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from braintree.configuration import Configuration as Configuration
 from braintree.merchant_account import (
@@ -20,11 +19,11 @@ class MerchantAccount(Resource):
         Email: str
         MobilePhone: str
 
-    FundingDestinations: Any
-    individual_details: Any
-    business_details: Any
-    funding_details: Any
-    master_merchant_account: Any
+    FundingDestinations: type[FundingDestination]
+    individual_details: IndividualDetails
+    business_details: BusinessDetails
+    funding_details: FundingDetails
+    master_merchant_account: MerchantAccount
     def __init__(self, gateway, attributes) -> None: ...
     @staticmethod
     def create(params: Incomplete | None = None): ...
