@@ -43,10 +43,9 @@ unzip "$PYTHON_PROTOBUF_FILENAME"
 PYTHON_PROTOBUF_DIR="protobuf-$PYTHON_PROTOBUF_VERSION"
 
 # Prepare virtualenv
-VENV=venv
-python3 -m venv "$VENV"
-source "$VENV/bin/activate"
-pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
+uv venv .venv
+source .venv/bin/activate
+uv install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 
 # Remove existing pyi
 find "$REPO_ROOT/stubs/protobuf/" -name '*_pb2.pyi' -delete
@@ -70,6 +69,9 @@ PROTO_FILES=$(grep "GenProto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py | \
 # And regenerate!
 # shellcheck disable=SC2086
 protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="relax_strict_optional_primitives:$REPO_ROOT/stubs/protobuf" $PROTO_FILES
+
+# Cleanup after ourselves, this is a temp dir, but it can still grow fast if run multiple times
+rm -rf "$TMP_DIR"
 
 # use `|| true` so the script still continues even if a pre-commit hook
 # applies autofixes (which will result in a nonzero exit code)
