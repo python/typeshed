@@ -2,11 +2,9 @@ from _typeshed import Incomplete
 from decimal import Decimal
 from typing import Final
 
-from braintree.attribute_getter import AttributeGetter as AttributeGetter
-from braintree.configuration import Configuration as Configuration
-from braintree.resource import Resource as Resource
-from braintree.risk_data import RiskData as RiskData
-from braintree.three_d_secure_info import ThreeDSecureInfo as ThreeDSecureInfo
+from braintree.attribute_getter import AttributeGetter
+from braintree.risk_data import RiskData
+from braintree.three_d_secure_info import ThreeDSecureInfo
 
 class CreditCardVerification(AttributeGetter):
     class Status:

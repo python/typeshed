@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
 
-from braintree.exceptions.not_found_error import NotFoundError as NotFoundError
-from braintree.us_bank_account import UsBankAccount as UsBankAccount
-
 class UsBankAccountGateway:
     gateway: Incomplete
     config: Incomplete

@@ -2,27 +2,25 @@ from _typeshed import Incomplete
 from typing import Final
 
 from braintree.account_updater_daily_report import AccountUpdaterDailyReport
-from braintree.configuration import Configuration as Configuration
 from braintree.connected_merchant_paypal_status_changed import ConnectedMerchantPayPalStatusChanged
 from braintree.connected_merchant_status_transitioned import ConnectedMerchantStatusTransitioned
 from braintree.disbursement import Disbursement
-from braintree.dispute import Dispute as Dispute
-from braintree.error_result import ErrorResult as ErrorResult
-from braintree.granted_payment_instrument_update import GrantedPaymentInstrumentUpdate as GrantedPaymentInstrumentUpdate
-from braintree.local_payment_completed import LocalPaymentCompleted as LocalPaymentCompleted
+from braintree.dispute import Dispute
+from braintree.granted_payment_instrument_update import GrantedPaymentInstrumentUpdate
+from braintree.local_payment_completed import LocalPaymentCompleted
 from braintree.local_payment_expired import LocalPaymentExpired
 from braintree.local_payment_funded import LocalPaymentFunded
-from braintree.local_payment_reversed import LocalPaymentReversed as LocalPaymentReversed
-from braintree.merchant_account import MerchantAccount as MerchantAccount
-from braintree.oauth_access_revocation import OAuthAccessRevocation as OAuthAccessRevocation
-from braintree.partner_merchant import PartnerMerchant as PartnerMerchant
+from braintree.local_payment_reversed import LocalPaymentReversed
+from braintree.merchant_account import MerchantAccount
+from braintree.oauth_access_revocation import OAuthAccessRevocation
+from braintree.partner_merchant import PartnerMerchant
 from braintree.payment_method_customer_data_updated_metadata import PaymentMethodCustomerDataUpdatedMetadata
-from braintree.resource import Resource as Resource
-from braintree.revoked_payment_method_metadata import RevokedPaymentMethodMetadata as RevokedPaymentMethodMetadata
-from braintree.subscription import Subscription as Subscription
-from braintree.transaction import Transaction as Transaction
+from braintree.resource import Resource
+from braintree.revoked_payment_method_metadata import RevokedPaymentMethodMetadata
+from braintree.subscription import Subscription
+from braintree.transaction import Transaction
 from braintree.transaction_review import TransactionReview
-from braintree.validation_error_collection import ValidationErrorCollection as ValidationErrorCollection
+from braintree.validation_error_collection import ValidationErrorCollection
 
 class WebhookNotification(Resource):
     class Kind:

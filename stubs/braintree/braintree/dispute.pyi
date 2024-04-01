@@ -2,14 +2,9 @@ from _typeshed import Incomplete
 from decimal import Decimal
 from typing import Final
 
-from braintree.attribute_getter import AttributeGetter as AttributeGetter
-from braintree.configuration import Configuration as Configuration
-from braintree.dispute_details import (
-    DisputeEvidence as DisputeEvidence,
-    DisputePayPalMessage as DisputePayPalMessage,
-    DisputeStatusHistory as DisputeStatusHistory,
-)
-from braintree.transaction_details import TransactionDetails as TransactionDetails
+from braintree.attribute_getter import AttributeGetter
+from braintree.dispute_details import DisputeEvidence, DisputePayPalMessage, DisputeStatusHistory
+from braintree.transaction_details import TransactionDetails
 
 class Dispute(AttributeGetter):
     class Status:

@@ -1,7 +1,6 @@
 from typing import Final
 
-from braintree.attribute_getter import AttributeGetter as AttributeGetter
-from braintree.configuration import Configuration as Configuration
+from braintree.attribute_getter import AttributeGetter
 from braintree.us_bank_account import UsBankAccount
 
 class UsBankAccountVerification(AttributeGetter):

@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from braintree.attribute_getter import AttributeGetter as AttributeGetter
+from braintree.attribute_getter import AttributeGetter
 
 class TransactionDetails(AttributeGetter):
     amount: Decimal | None

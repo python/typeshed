@@ -1,13 +1,5 @@
 from _typeshed import Incomplete
 
-from braintree.error_result import ErrorResult as ErrorResult
-from braintree.exceptions.not_found_error import NotFoundError as NotFoundError
-from braintree.resource import Resource as Resource
-from braintree.resource_collection import ResourceCollection as ResourceCollection
-from braintree.subscription import Subscription as Subscription
-from braintree.successful_result import SuccessfulResult as SuccessfulResult
-from braintree.transaction import Transaction as Transaction
-
 class SubscriptionGateway:
     gateway: Incomplete
     config: Incomplete

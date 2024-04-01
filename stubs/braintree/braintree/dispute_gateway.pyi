@@ -1,14 +1,5 @@
 from _typeshed import Incomplete
 
-from braintree.dispute import Dispute as Dispute
-from braintree.dispute_details import DisputeEvidence as DisputeEvidence
-from braintree.error_result import ErrorResult as ErrorResult
-from braintree.exceptions.not_found_error import NotFoundError as NotFoundError
-from braintree.paginated_collection import PaginatedCollection as PaginatedCollection
-from braintree.paginated_result import PaginatedResult as PaginatedResult
-from braintree.resource_collection import ResourceCollection as ResourceCollection
-from braintree.successful_result import SuccessfulResult as SuccessfulResult
-
 class DisputeGateway:
     gateway: Incomplete
     config: Incomplete

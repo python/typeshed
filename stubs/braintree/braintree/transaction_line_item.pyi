@@ -1,8 +1,6 @@
 from typing import Final
 
-from braintree.attribute_getter import AttributeGetter as AttributeGetter
-from braintree.configuration import Configuration as Configuration
-from braintree.resource import Resource as Resource
+from braintree.attribute_getter import AttributeGetter
 
 class TransactionLineItem(AttributeGetter):
     class Kind:

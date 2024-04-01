@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 
-from braintree.resource import Resource as Resource
-from braintree.venmo_profile_data import VenmoProfileData as VenmoProfileData
+from braintree.resource import Resource
 
 class EnrichedCustomerData(Resource):
     profile_data: Incomplete

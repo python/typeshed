@@ -2,18 +2,12 @@ from _typeshed import Incomplete
 from decimal import Decimal
 from typing import Final
 
-from braintree.add_on import AddOn as AddOn
-from braintree.configuration import Configuration as Configuration
-from braintree.descriptor import Descriptor as Descriptor
-from braintree.discount import Discount as Discount
-from braintree.error_result import ErrorResult as ErrorResult
-from braintree.exceptions.not_found_error import NotFoundError as NotFoundError
-from braintree.resource import Resource as Resource
-from braintree.resource_collection import ResourceCollection as ResourceCollection
-from braintree.subscription_status_event import SubscriptionStatusEvent as SubscriptionStatusEvent
-from braintree.successful_result import SuccessfulResult as SuccessfulResult
-from braintree.transaction import Transaction as Transaction
-from braintree.util.http import Http as Http
+from braintree.add_on import AddOn
+from braintree.descriptor import Descriptor
+from braintree.discount import Discount
+from braintree.resource import Resource
+from braintree.subscription_status_event import SubscriptionStatusEvent
+from braintree.transaction import Transaction
 
 class Subscription(Resource):
     class TrialDurationUnit:

@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from braintree.attribute_getter import AttributeGetter as AttributeGetter
+from braintree.attribute_getter import AttributeGetter
 
 text_type = str
 raw_type = bytes

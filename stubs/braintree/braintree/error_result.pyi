@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 
-from braintree.credit_card_verification import CreditCardVerification as CreditCardVerification
-from braintree.errors import Errors as Errors
+from braintree.credit_card_verification import CreditCardVerification
+from braintree.errors import Errors
 from braintree.plan import Plan
 from braintree.subscription import Subscription
 from braintree.transaction import Transaction

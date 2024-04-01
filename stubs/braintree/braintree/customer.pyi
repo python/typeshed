@@ -1,25 +1,18 @@
 from _typeshed import Incomplete
 
-from braintree.address import Address as Address
-from braintree.amex_express_checkout_card import AmexExpressCheckoutCard as AmexExpressCheckoutCard
-from braintree.android_pay_card import AndroidPayCard as AndroidPayCard
-from braintree.apple_pay_card import ApplePayCard as ApplePayCard
-from braintree.configuration import Configuration as Configuration
-from braintree.credit_card import CreditCard as CreditCard
-from braintree.error_result import ErrorResult as ErrorResult
-from braintree.europe_bank_account import EuropeBankAccount as EuropeBankAccount
-from braintree.exceptions.not_found_error import NotFoundError as NotFoundError
-from braintree.ids_search import IdsSearch as IdsSearch
-from braintree.masterpass_card import MasterpassCard as MasterpassCard
-from braintree.paypal_account import PayPalAccount as PayPalAccount
-from braintree.resource import Resource as Resource
-from braintree.resource_collection import ResourceCollection as ResourceCollection
-from braintree.samsung_pay_card import SamsungPayCard as SamsungPayCard
-from braintree.successful_result import SuccessfulResult as SuccessfulResult
-from braintree.us_bank_account import UsBankAccount as UsBankAccount
-from braintree.util.http import Http as Http
-from braintree.venmo_account import VenmoAccount as VenmoAccount
-from braintree.visa_checkout_card import VisaCheckoutCard as VisaCheckoutCard
+from braintree.address import Address
+from braintree.amex_express_checkout_card import AmexExpressCheckoutCard
+from braintree.android_pay_card import AndroidPayCard
+from braintree.apple_pay_card import ApplePayCard
+from braintree.credit_card import CreditCard
+from braintree.europe_bank_account import EuropeBankAccount
+from braintree.masterpass_card import MasterpassCard
+from braintree.paypal_account import PayPalAccount
+from braintree.resource import Resource
+from braintree.samsung_pay_card import SamsungPayCard
+from braintree.us_bank_account import UsBankAccount
+from braintree.venmo_account import VenmoAccount
+from braintree.visa_checkout_card import VisaCheckoutCard
 
 class Customer(Resource):
     @staticmethod

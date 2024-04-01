@@ -1,11 +1,5 @@
 from _typeshed import Incomplete
 
-from braintree.address import Address as Address
-from braintree.error_result import ErrorResult as ErrorResult
-from braintree.exceptions.not_found_error import NotFoundError as NotFoundError
-from braintree.resource import Resource as Resource
-from braintree.successful_result import SuccessfulResult as SuccessfulResult
-
 class AddressGateway:
     gateway: Incomplete
     config: Incomplete

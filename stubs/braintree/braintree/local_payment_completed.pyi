@@ -1,5 +1,5 @@
-from braintree.resource import Resource as Resource
-from braintree.transaction import Transaction as Transaction
+from braintree.resource import Resource
+from braintree.transaction import Transaction
 
 class LocalPaymentCompleted(Resource):
     transaction: Transaction

@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from braintree.resource import Resource as Resource
+from braintree.resource import Resource
 
 class Modification(Resource):
     amount: Decimal

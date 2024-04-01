@@ -1,11 +1,5 @@
 from _typeshed import Incomplete
 
-from braintree.error_result import ErrorResult as ErrorResult
-from braintree.exceptions.not_found_error import NotFoundError as NotFoundError
-from braintree.paypal_account import PayPalAccount as PayPalAccount
-from braintree.resource import Resource as Resource
-from braintree.successful_result import SuccessfulResult as SuccessfulResult
-
 class PayPalAccountGateway:
     gateway: Incomplete
     config: Incomplete

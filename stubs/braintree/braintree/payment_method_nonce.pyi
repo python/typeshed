@@ -1,9 +1,8 @@
 from _typeshed import Incomplete
 
-from braintree.bin_data import BinData as BinData
-from braintree.configuration import Configuration as Configuration
-from braintree.resource import Resource as Resource
-from braintree.three_d_secure_info import ThreeDSecureInfo as ThreeDSecureInfo
+from braintree.bin_data import BinData
+from braintree.resource import Resource
+from braintree.three_d_secure_info import ThreeDSecureInfo
 
 class PaymentMethodNonce(Resource):
     @staticmethod
