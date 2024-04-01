@@ -45,7 +45,7 @@ PYTHON_PROTOBUF_DIR="protobuf-$PYTHON_PROTOBUF_VERSION"
 # Prepare virtualenv
 uv venv .venv
 source .venv/bin/activate
-uv install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
+uv pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 
 # Remove existing pyi
 find "$REPO_ROOT/stubs/protobuf/" -name '*_pb2.pyi' -delete
