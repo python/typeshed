@@ -12,7 +12,6 @@ class UsBankAccountVerification(AttributeGetter):
         Verified: Final = "verified"
         Pending: Final = "pending"
 
-    # NEXT_MAJOR_VERSION this can be an enum! they were added as of python 3.4 and we support 3.5+
     class VerificationMethod:
         NetworkCheck: Final = "network_check"
         IndependentCheck: Final = "independent_check"
