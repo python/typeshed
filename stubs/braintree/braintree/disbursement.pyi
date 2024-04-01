@@ -1,4 +1,5 @@
 from decimal import Decimal
+from typing import Final
 
 from braintree.merchant_account import MerchantAccount as MerchantAccount
 from braintree.resource import Resource as Resource
@@ -6,8 +7,8 @@ from braintree.transaction_search import TransactionSearch as TransactionSearch
 
 class Disbursement(Resource):
     class Type:
-        Credit: str
-        Debit: str
+        Credit: Final = "credit"
+        Debit: Final = "debit"
 
     amount: Decimal
     merchant_account: MerchantAccount

@@ -1,24 +1,26 @@
+from typing import Final
+
 from braintree.attribute_getter import AttributeGetter as AttributeGetter
 from braintree.configuration import Configuration as Configuration
 from braintree.us_bank_account import UsBankAccount
 
 class UsBankAccountVerification(AttributeGetter):
     class Status:
-        Failed: str
-        GatewayRejected: str
-        ProcessorDeclined: str
-        Unrecognized: str
-        Verified: str
-        Pending: str
+        Failed: Final = "failed"
+        GatewayRejected: Final = "gateway_rejected"
+        ProcessorDeclined: Final = "processor_declined"
+        Unrecognized: Final = "unrecognized"
+        Verified: Final = "verified"
+        Pending: Final = "pending"
 
     class VerificationMethod:
-        NetworkCheck: str
-        IndependentCheck: str
-        TokenizedCheck: str
-        MicroTransfers: str
+        NetworkCheck: Final = "network_check"
+        IndependentCheck: Final = "independent_check"
+        TokenizedCheck: Final = "tokenized_check"
+        MicroTransfers: Final = "micro_transfers"
 
     class VerificationAddOns:
-        CustomerVerification: str
+        CustomerVerification: Final = "customer_verification"
 
     us_bank_account: UsBankAccount | None
     def __init__(self, gateway, attributes) -> None: ...

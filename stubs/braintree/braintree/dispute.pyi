@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from decimal import Decimal
+from typing import Final
 
 from braintree.attribute_getter import AttributeGetter as AttributeGetter
 from braintree.configuration import Configuration as Configuration
@@ -12,46 +13,46 @@ from braintree.transaction_details import TransactionDetails as TransactionDetai
 
 class Dispute(AttributeGetter):
     class Status:
-        Accepted: str
-        AutoAccepted: str
-        Disputed: str
-        Expired: str
-        Lost: str
-        Open: str
-        UnderReview: str
-        Won: str
+        Accepted: Final = "accepted"
+        AutoAccepted: Final = "auto_accepted"
+        Disputed: Final = "disputed"
+        Expired: Final = "expired"
+        Lost: Final = "lost"
+        Open: Final = "open"
+        UnderReview: Final = "under_review"
+        Won: Final = "won"
 
     class Reason:
-        CancelledRecurringTransaction: str
-        CreditNotProcessed: str
-        Duplicate: str
-        Fraud: str
-        General: str
-        InvalidAccount: str
-        NotRecognized: str
-        ProductNotReceived: str
-        ProductUnsatisfactory: str
-        Retrieval: str
-        TransactionAmountDiffers: str
+        CancelledRecurringTransaction: Final = "cancelled_recurring_transaction"
+        CreditNotProcessed: Final = "credit_not_processed"
+        Duplicate: Final = "duplicate"
+        Fraud: Final = "fraud"
+        General: Final = "general"
+        InvalidAccount: Final = "invalid_account"
+        NotRecognized: Final = "not_recognized"
+        ProductNotReceived: Final = "product_not_received"
+        ProductUnsatisfactory: Final = "product_unsatisfactory"
+        Retrieval: Final = "retrieval"
+        TransactionAmountDiffers: Final = "transaction_amount_differs"
 
     class Kind:
-        Chargeback: str
-        PreArbitration: str
-        Retrieval: str
+        Chargeback: Final = "chargeback"
+        PreArbitration: Final = "pre_arbitration"
+        Retrieval: Final = "retrieval"
 
     class ChargebackProtectionLevel:
-        Effortless: str
-        Standard: str
-        NotProtected: str
+        Effortless: Final = "effortless"
+        Standard: Final = "standard"
+        NotProtected: Final = "not_protected"
 
     class PreDisputeProgram:
-        NONE: str
-        VisaRdr: str
+        NONE: Final = "none"
+        VisaRdr: Final = "visa_rdr"
 
     class ProtectionLevel:
-        EffortlessCBP: str
-        StandardCBP: str
-        NoProtection: str
+        EffortlessCBP: Final = "Effortless Chargeback Protection tool"
+        StandardCBP: Final = "Chargeback Protection tool"
+        NoProtection: Final = "No Protection"
 
     @staticmethod
     def accept(id): ...

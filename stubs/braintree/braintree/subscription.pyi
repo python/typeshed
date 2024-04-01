@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from decimal import Decimal
+from typing import Final
 
 from braintree.add_on import AddOn as AddOn
 from braintree.configuration import Configuration as Configuration
@@ -16,20 +17,20 @@ from braintree.util.http import Http as Http
 
 class Subscription(Resource):
     class TrialDurationUnit:
-        Day: str
-        Month: str
+        Day: Final = "day"
+        Month: Final = "month"
 
     class Source:
-        Api: str
-        ControlPanel: str
-        Recurring: str
+        Api: Final = "api"
+        ControlPanel: Final = "control_panel"
+        Recurring: Final = "recurring"
 
     class Status:
-        Active: str
-        Canceled: str
-        Expired: str
-        PastDue: str
-        Pending: str
+        Active: Final = "Active"
+        Canceled: Final = "Canceled"
+        Expired: Final = "Expired"
+        PastDue: Final = "Past Due"
+        Pending: Final = "Pending"
 
     @staticmethod
     def create(params: Incomplete | None = None): ...

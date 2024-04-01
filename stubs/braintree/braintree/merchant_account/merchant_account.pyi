@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from braintree.configuration import Configuration as Configuration
 from braintree.merchant_account import (
@@ -10,14 +11,14 @@ from braintree.resource import Resource as Resource
 
 class MerchantAccount(Resource):
     class Status:
-        Active: str
-        Pending: str
-        Suspended: str
+        Active: Final = "active"
+        Pending: Final = "pending"
+        Suspended: Final = "suspended"
 
     class FundingDestination:
-        Bank: str
-        Email: str
-        MobilePhone: str
+        Bank: Final = "bank"
+        Email: Final = "email"
+        MobilePhone: Final = "mobile_phone"
 
     FundingDestinations: type[FundingDestination]
     individual_details: IndividualDetails
