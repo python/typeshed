@@ -15,7 +15,7 @@ TENSORFLOW_VERSION=2.12.1
 # protobuf<4.
 MYPY_PROTOBUF_VERSION=3.5.0
 
-pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
+uv pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 
 cd "$(dirname "$0")" > /dev/null
 cd ../stubs/tensorflow
@@ -73,7 +73,7 @@ rm -rf repository/
 cd $REPO_ROOT
 # use `|| true` so the script still continues even if a pre-commit hook
 # applies autofixes (which will result in a nonzero exit code)
-pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/tensorflow/tensorflow") || true
+pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/tensorflow/tensorflow/**.pyi") || true
 # Ruff takes two passes to fix everything, re-running all of pre-commit is *slow*
 # and we don't need --unsafe-fixes to remove imports
-ruff check "$REPO_ROOT/stubs/protobuf" --fix --exit-zero
+ruff check "$REPO_ROOT/stubs/tensorflow/tensorflow" --fix --exit-zero
