@@ -76,4 +76,4 @@ cd $REPO_ROOT
 pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/tensorflow/tensorflow") || true
 # Ruff takes two passes to fix everything, re-running all of pre-commit is *slow*
 # and we don't need --unsafe-fixes to remove imports
-ruff check "$REPO_ROOT/stubs/protobuf" --fix --exit-zero
+ruff check "$REPO_ROOT/stubs/tensorflow/tensorflow" --fix --exit-zero
