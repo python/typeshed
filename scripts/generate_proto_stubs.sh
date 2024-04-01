@@ -11,7 +11,7 @@ set -ex -o pipefail
 # followed by committing the changes to typeshed
 #
 # Update these two variables when rerunning script
-PROTOBUF_VERSION=23.0
+PROTOBUF_VERSION=24.4
 MYPY_PROTOBUF_VERSION=3.5.0
 
 if uname -a | grep Darwin; then
@@ -69,12 +69,17 @@ PROTO_FILES=$(grep "GenProto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py | \
 # shellcheck disable=SC2086
 protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="relax_strict_optional_primitives:$REPO_ROOT/stubs/protobuf" $PROTO_FILES
 
-# use `|| true` so the script still continues even if a pre-commit hook
-# applies autofixes (which will result in a nonzero exit code)
-pre-commit run --files "$REPO_ROOT/stubs/protobuf" || true
-
 PYTHON_PROTOBUF_VERSION=$(jq -r '.[] | .languages.python' "$PYTHON_PROTOBUF_DIR/version.json")
 
 sed --in-place="" \
   "s/extra_description = .*$/extra_description = \"Generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on [protobuf v$PROTOBUF_VERSION](https:\/\/github.com\/protocolbuffers\/protobuf\/releases\/tag\/v$PROTOBUF_VERSION) (python protobuf==$PYTHON_PROTOBUF_VERSION)\"/" \
   "$REPO_ROOT/stubs/protobuf/METADATA.toml"
+
+# Must be run in a git repository
+cd $REPO_ROOT
+# use `|| true` so the script still continues even if a pre-commit hook
+# applies autofixes (which will result in a nonzero exit code)
+pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/protobuf") || true
+# Ruff takes two passes to fix everything, re-running all of pre-commit is *slow*
+# and we don't need --unsafe-fixes to remove imports
+ruff check "$REPO_ROOT/stubs/protobuf" --fix --exit-zero
