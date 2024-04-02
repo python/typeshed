@@ -28,7 +28,6 @@
         "stdlib/xml/dom/minidom.pyi",
         "stdlib/xml/dom/pulldom.pyi",
         "stdlib/xml/sax",
-        "stubs/aiofiles/aiofiles/tempfile/__init__.pyi",
         "stubs/aiofiles/aiofiles/tempfile/temptypes.pyi",
         "stubs/antlr4-python3-runtime",
         "stubs/aws-xray-sdk",
