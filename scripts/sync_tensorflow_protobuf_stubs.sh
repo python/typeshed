@@ -49,7 +49,11 @@ uv pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 
 # Folders here cover the more commonly used protobufs externally and
 # their dependencies. Tensorflow has more protobufs and can be added if requested.
-protoc_install/bin/protoc --mypy_out "relax_strict_optional_primitives:$REPO_ROOT/stubs/tensorflow" \
+protoc_install/bin/protoc \
+    --proto_path="$TENSORFLOW_DIR/third_party/xla/third_party/tsl" \
+    --proto_path="$TENSORFLOW_DIR/third_party/xla" \
+    --proto_path="$TENSORFLOW_DIR" \
+    --mypy_out "relax_strict_optional_primitives:$REPO_ROOT/stubs/tensorflow" \
     $TENSORFLOW_DIR/third_party/xla/xla/*.proto \
     $TENSORFLOW_DIR/third_party/xla/xla/service/*.proto \
     $TENSORFLOW_DIR/tensorflow/core/example/*.proto \
@@ -63,25 +67,27 @@ protoc_install/bin/protoc --mypy_out "relax_strict_optional_primitives:$REPO_ROO
 # Cleanup after ourselves, this is a temp dir, but it can still grow fast if run multiple times
 rm -rf "$TMP_DIR"
 
+cd "$REPO_ROOT"
+
 # These protos exist in a folder with protos used in python, but are not
 # included in the python wheel. They are likely only used for other
 # language builds. stubtest was used to identify them by looking for
 # ModuleNotFoundError.
-rm $REPO_ROOT/stubs/tensorflow/third_party/xla/xla/service/hlo_execution_profile_data_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/third_party/xla/xla/service/hlo_profile_printer_data_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/third_party/xla/xla/service/test_compilation_environment_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/third_party/xla/xla/xla_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/tensorflow/core/protobuf/autotuning_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/tensorflow/core/protobuf/conv_autotuning_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/tensorflow/core/protobuf/critical_section_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/tensorflow/core/protobuf/eager_service_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/tensorflow/core/protobuf/master_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/tensorflow/core/protobuf/master_service_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/tensorflow/core/protobuf/replay_log_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/tensorflow/core/protobuf/tpu/compile_metadata_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/tensorflow/core/protobuf/worker_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/tensorflow/core/protobuf/worker_service_pb2.pyi \
-   $REPO_ROOT/stubs/tensorflow/tensorflow/core/util/example_proto_fast_parsing_test_pb2.pyi
+rm stubs/tensorflow/xla/service/hlo_execution_profile_data_pb2.pyi \
+   stubs/tensorflow/xla/service/hlo_profile_printer_data_pb2.pyi \
+   stubs/tensorflow/xla/service/test_compilation_environment_pb2.pyi \
+   stubs/tensorflow/xla/xla_pb2.pyi \
+   stubs/tensorflow/tensorflow/core/protobuf/autotuning_pb2.pyi \
+   stubs/tensorflow/tensorflow/core/protobuf/conv_autotuning_pb2.pyi \
+   stubs/tensorflow/tensorflow/core/protobuf/critical_section_pb2.pyi \
+   stubs/tensorflow/tensorflow/core/protobuf/eager_service_pb2.pyi \
+   stubs/tensorflow/tensorflow/core/protobuf/master_pb2.pyi \
+   stubs/tensorflow/tensorflow/core/protobuf/master_service_pb2.pyi \
+   stubs/tensorflow/tensorflow/core/protobuf/replay_log_pb2.pyi \
+   stubs/tensorflow/tensorflow/core/protobuf/tpu/compile_metadata_pb2.pyi \
+   stubs/tensorflow/tensorflow/core/protobuf/worker_pb2.pyi \
+   stubs/tensorflow/tensorflow/core/protobuf/worker_service_pb2.pyi \
+   stubs/tensorflow/tensorflow/core/util/example_proto_fast_parsing_test_pb2.pyi
 
 
 sed --in-place="" \
