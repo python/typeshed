@@ -24,13 +24,13 @@ _WorkbookSheet: TypeAlias = _WorkbookWorksheet | Chartsheet
 # Using Any may just loose too much type information and duck-typing
 # from Worksheet works great here, even if the instance type might be wrong.
 @type_check_only
-class _WorksheetLike(
-    Worksheet, WriteOnlyWorksheet, ReadOnlyWorksheet, Protocol  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+class _WorksheetLike(  # type: ignore[misc]
+    Worksheet, WriteOnlyWorksheet, ReadOnlyWorksheet, Protocol  # pyright: ignore[reportGeneralTypeIssues]
 ): ...
 
 @type_check_only
-class _WorksheetOrChartsheetLike(
-    Chartsheet, _WorksheetLike, Protocol  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+class _WorksheetOrChartsheetLike(  # type: ignore[misc]
+    Chartsheet, _WorksheetLike, Protocol  # pyright: ignore[reportGeneralTypeIssues]
 ): ...
 
 INTEGER_TYPES: Final[tuple[type[int]]]
