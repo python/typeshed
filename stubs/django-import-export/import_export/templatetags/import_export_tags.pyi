@@ -1,5 +1,8 @@
-from _typeshed import Incomplete
+from typing_extensions import LiteralString
 
-register: Incomplete
+from django.template import Library
 
-def compare_values(value1, value2): ...
+register: Library
+
+@register.simple_tag
+def compare_values(value1: str, value2: str) -> LiteralString: ...
