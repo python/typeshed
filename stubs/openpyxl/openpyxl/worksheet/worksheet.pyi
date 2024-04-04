@@ -265,3 +265,7 @@ class Worksheet(_WorkbookChild):
     def print_area(self) -> str: ...
     @print_area.setter
     def print_area(self, value: str | Iterable[str] | None) -> None: ...
+
+ws: Worksheet
+for cell in ws["A1":"A12"]:
+    reveal_type(cell)
