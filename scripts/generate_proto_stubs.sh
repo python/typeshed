@@ -43,9 +43,9 @@ unzip "$PYTHON_PROTOBUF_FILENAME"
 PYTHON_PROTOBUF_DIR="protobuf-$PYTHON_PROTOBUF_VERSION"
 
 # Prepare virtualenv
-uv venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
-uv pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
+python3 -m pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 
 # Remove existing pyi
 find "$REPO_ROOT/stubs/protobuf/" -name '*_pb2.pyi' -delete
@@ -65,8 +65,7 @@ PROTO_FILES=$(grep "GenProto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py | \
     sed "s:^:$PYTHON_PROTOBUF_DIR/python/:" | \
     xargs -L1 realpath --relative-to=. \
 )
-echo $PROTO_FILES
-PAUSE
+
 # And regenerate!
 # shellcheck disable=SC2086
 protoc_install/bin/protoc \
@@ -79,7 +78,10 @@ rm -rf "$TMP_DIR"
 
 # use `|| true` so the script still continues even if a pre-commit hook
 # applies autofixes (which will result in a nonzero exit code)
-pre-commit run --files "$REPO_ROOT/stubs/protobuf" || true
+pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/protobuf/**.pyi") || true
+# Ruff takes two passes to fix everything, re-running all of pre-commit is *slow*
+# and we don't need --unsafe-fixes to remove imports
+ruff check "$REPO_ROOT/stubs/tensorflow/tensorflow" --fix --exit-zero
 
 sed --in-place="" \
   "s/extra_description = .*$/extra_description = \"Generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on protobuf==$PYTHON_PROTOBUF_VERSION\"/" \

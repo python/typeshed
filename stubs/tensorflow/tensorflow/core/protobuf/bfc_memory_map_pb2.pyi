@@ -3,7 +3,7 @@
 isort:skip_file
 """
 import google.protobuf.descriptor
-from tensorflow.tsl.protobuf.bfc_memory_map_pb2 import (
+from tsl.protobuf.bfc_memory_map_pb2 import (
     BinSummary as BinSummary,
     MemAllocatorStats as MemAllocatorStats,
     MemChunk as MemChunk,

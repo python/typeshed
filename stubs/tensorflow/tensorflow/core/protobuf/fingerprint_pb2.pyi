@@ -39,7 +39,9 @@ class FingerprintDef(google.protobuf.message.Message):
     """Hash of the checkpoint."""
     @property
     def version(self) -> tensorflow.core.framework.versions_pb2.VersionDef:
-        """Version specification of the fingerprint."""
+        """Version specification of the fingerprint.
+        TODO(b/290068219): add USM version when GA
+        """
     def __init__(
         self,
         *,

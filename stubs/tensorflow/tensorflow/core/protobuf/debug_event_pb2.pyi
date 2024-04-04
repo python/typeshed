@@ -11,8 +11,8 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
+import tensorflow.core.framework.graph_debug_info_pb2
 import tensorflow.core.framework.tensor_pb2
-import tensorflow.core.protobuf.graph_debug_info_pb2
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -278,7 +278,7 @@ class StackFrameWithId(google.protobuf.message.Message):
     id: builtins.str
     """A unique ID for the stack frame: A UUID-like string."""
     @property
-    def file_line_col(self) -> tensorflow.core.protobuf.graph_debug_info_pb2.GraphDebugInfo.FileLineCol:
+    def file_line_col(self) -> tensorflow.core.framework.graph_debug_info_pb2.GraphDebugInfo.FileLineCol:
         """Stack frame, i.e., a frame of a stack trace, containing information
         regarding the file name, line number, function name, code content
         of the line, and column number (if available).
@@ -287,7 +287,7 @@ class StackFrameWithId(google.protobuf.message.Message):
         self,
         *,
         id: builtins.str | None = ...,
-        file_line_col: tensorflow.core.protobuf.graph_debug_info_pb2.GraphDebugInfo.FileLineCol | None = ...,
+        file_line_col: tensorflow.core.framework.graph_debug_info_pb2.GraphDebugInfo.FileLineCol | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["file_line_col", b"file_line_col"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing_extensions.Literal["file_line_col", b"file_line_col", "id", b"id"]) -> None: ...

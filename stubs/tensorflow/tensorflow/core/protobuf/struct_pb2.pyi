@@ -66,6 +66,8 @@ class StructuredValue(google.protobuf.message.Message):
     TUPLE_VALUE_FIELD_NUMBER: builtins.int
     DICT_VALUE_FIELD_NUMBER: builtins.int
     NAMED_TUPLE_VALUE_FIELD_NUMBER: builtins.int
+    TENSOR_VALUE_FIELD_NUMBER: builtins.int
+    NUMPY_VALUE_FIELD_NUMBER: builtins.int
     @property
     def none_value(self) -> global___NoneValue:
         """Represents None."""
@@ -111,6 +113,12 @@ class StructuredValue(google.protobuf.message.Message):
     @property
     def named_tuple_value(self) -> global___NamedTupleValue:
         """Represents Python's namedtuple."""
+    @property
+    def tensor_value(self) -> tensorflow.core.framework.tensor_pb2.TensorProto:
+        """Represents a value for tf.Tensor."""
+    @property
+    def numpy_value(self) -> tensorflow.core.framework.tensor_pb2.TensorProto:
+        """Represents a value for np.ndarray."""
     def __init__(
         self,
         *,
@@ -128,10 +136,12 @@ class StructuredValue(google.protobuf.message.Message):
         tuple_value: global___TupleValue | None = ...,
         dict_value: global___DictValue | None = ...,
         named_tuple_value: global___NamedTupleValue | None = ...,
+        tensor_value: tensorflow.core.framework.tensor_pb2.TensorProto | None = ...,
+        numpy_value: tensorflow.core.framework.tensor_pb2.TensorProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["bool_value", b"bool_value", "bounded_tensor_spec_value", b"bounded_tensor_spec_value", "dict_value", b"dict_value", "float64_value", b"float64_value", "int64_value", b"int64_value", "kind", b"kind", "list_value", b"list_value", "named_tuple_value", b"named_tuple_value", "none_value", b"none_value", "string_value", b"string_value", "tensor_dtype_value", b"tensor_dtype_value", "tensor_shape_value", b"tensor_shape_value", "tensor_spec_value", b"tensor_spec_value", "tuple_value", b"tuple_value", "type_spec_value", b"type_spec_value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["bool_value", b"bool_value", "bounded_tensor_spec_value", b"bounded_tensor_spec_value", "dict_value", b"dict_value", "float64_value", b"float64_value", "int64_value", b"int64_value", "kind", b"kind", "list_value", b"list_value", "named_tuple_value", b"named_tuple_value", "none_value", b"none_value", "string_value", b"string_value", "tensor_dtype_value", b"tensor_dtype_value", "tensor_shape_value", b"tensor_shape_value", "tensor_spec_value", b"tensor_spec_value", "tuple_value", b"tuple_value", "type_spec_value", b"type_spec_value"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["kind", b"kind"]) -> typing_extensions.Literal["none_value", "float64_value", "int64_value", "string_value", "bool_value", "tensor_shape_value", "tensor_dtype_value", "tensor_spec_value", "type_spec_value", "bounded_tensor_spec_value", "list_value", "tuple_value", "dict_value", "named_tuple_value"] | None: ...
+    def HasField(self, field_name: typing_extensions.Literal["bool_value", b"bool_value", "bounded_tensor_spec_value", b"bounded_tensor_spec_value", "dict_value", b"dict_value", "float64_value", b"float64_value", "int64_value", b"int64_value", "kind", b"kind", "list_value", b"list_value", "named_tuple_value", b"named_tuple_value", "none_value", b"none_value", "numpy_value", b"numpy_value", "string_value", b"string_value", "tensor_dtype_value", b"tensor_dtype_value", "tensor_shape_value", b"tensor_shape_value", "tensor_spec_value", b"tensor_spec_value", "tensor_value", b"tensor_value", "tuple_value", b"tuple_value", "type_spec_value", b"type_spec_value"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["bool_value", b"bool_value", "bounded_tensor_spec_value", b"bounded_tensor_spec_value", "dict_value", b"dict_value", "float64_value", b"float64_value", "int64_value", b"int64_value", "kind", b"kind", "list_value", b"list_value", "named_tuple_value", b"named_tuple_value", "none_value", b"none_value", "numpy_value", b"numpy_value", "string_value", b"string_value", "tensor_dtype_value", b"tensor_dtype_value", "tensor_shape_value", b"tensor_shape_value", "tensor_spec_value", b"tensor_spec_value", "tensor_value", b"tensor_value", "tuple_value", b"tuple_value", "type_spec_value", b"type_spec_value"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing_extensions.Literal["kind", b"kind"]) -> typing_extensions.Literal["none_value", "float64_value", "int64_value", "string_value", "bool_value", "tensor_shape_value", "tensor_dtype_value", "tensor_spec_value", "type_spec_value", "bounded_tensor_spec_value", "list_value", "tuple_value", "dict_value", "named_tuple_value", "tensor_value", "numpy_value"] | None: ...
 
 global___StructuredValue = StructuredValue
 

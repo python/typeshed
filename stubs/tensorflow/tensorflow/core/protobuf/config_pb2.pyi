@@ -17,8 +17,8 @@ import tensorflow.core.framework.step_stats_pb2
 import tensorflow.core.protobuf.cluster_pb2
 import tensorflow.core.protobuf.debug_pb2
 import tensorflow.core.protobuf.rewriter_config_pb2
-import tensorflow.tsl.protobuf.coordination_config_pb2
-import tensorflow.tsl.protobuf.rpc_options_pb2
+import tsl.protobuf.coordination_config_pb2
+import tsl.protobuf.rpc_options_pb2
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -51,8 +51,8 @@ class GPUOptions(google.protobuf.message.Message):
                 """Per "virtual" device memory limit, in MB. The number of elements in
                 the list is the number of virtual devices to create on the
                 corresponding visible GPU (see "virtual_devices" below).
-                If empty, it will create single virtual device taking all available
-                memory from the device.
+                If empty and `num_virtual_devices_per_gpu` is not set, it will create
+                single virtual device taking all available memory from the device.
 
                 For the concept of "visible" and "virtual" GPU, see the comments for
                 "visible_device_list" above for more information.
@@ -87,6 +87,7 @@ class GPUOptions(google.protobuf.message.Message):
             def ClearField(self, field_name: typing_extensions.Literal["device_ordinal", b"device_ordinal", "memory_limit_mb", b"memory_limit_mb", "priority", b"priority"]) -> None: ...
 
         VIRTUAL_DEVICES_FIELD_NUMBER: builtins.int
+        NUM_VIRTUAL_DEVICES_PER_GPU_FIELD_NUMBER: builtins.int
         USE_UNIFIED_MEMORY_FIELD_NUMBER: builtins.int
         NUM_DEV_TO_DEV_COPY_STREAMS_FIELD_NUMBER: builtins.int
         COLLECTIVE_RING_ORDER_FIELD_NUMBER: builtins.int
@@ -99,6 +100,7 @@ class GPUOptions(google.protobuf.message.Message):
         DISALLOW_RETRY_ON_ALLOCATION_FAILURE_FIELD_NUMBER: builtins.int
         GPU_HOST_MEM_LIMIT_IN_MB_FIELD_NUMBER: builtins.int
         GPU_HOST_MEM_DISALLOW_GROWTH_FIELD_NUMBER: builtins.int
+        GPU_SYSTEM_MEMORY_SIZE_IN_MB_FIELD_NUMBER: builtins.int
         @property
         def virtual_devices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GPUOptions.Experimental.VirtualDevices]:
             """The multi virtual device settings. If empty (not set), it will create
@@ -140,6 +142,12 @@ class GPUOptions(google.protobuf.message.Message):
                different settings in different sessions within same process will
                result in undefined behavior.
             """
+        num_virtual_devices_per_gpu: builtins.int
+        """The number of virtual devices to create on each visible GPU. The
+        available memory will be split equally among all virtual devices. If the
+        field `memory_limit_mb` in `VirtualDevices` is not empty, this field will
+        be ignored.
+        """
         use_unified_memory: builtins.bool
         """If true, uses CUDA unified memory for memory allocations. If
         per_process_gpu_memory_fraction option is greater than 1.0, then unified
@@ -222,10 +230,18 @@ class GPUOptions(google.protobuf.message.Message):
         gpu_host_mem_limit_in_mb, because the default GPU host memory limit is
         quite high.
         """
+        gpu_system_memory_size_in_mb: builtins.int
+        """Memory limit for gpu system. This can also be set by
+        TF_DEVICE_MIN_SYS_MEMORY_IN_MB, which takes precedence over
+        gpu_system_memory_size_in_mb. With this, user can configure the gpu
+        system memory size for better resource estimation of multi-tenancy(one
+        gpu with multiple model) use case.
+        """
         def __init__(
             self,
             *,
             virtual_devices: collections.abc.Iterable[global___GPUOptions.Experimental.VirtualDevices] | None = ...,
+            num_virtual_devices_per_gpu: builtins.int | None = ...,
             use_unified_memory: builtins.bool | None = ...,
             num_dev_to_dev_copy_streams: builtins.int | None = ...,
             collective_ring_order: builtins.str | None = ...,
@@ -238,8 +254,9 @@ class GPUOptions(google.protobuf.message.Message):
             disallow_retry_on_allocation_failure: builtins.bool | None = ...,
             gpu_host_mem_limit_in_mb: builtins.float | None = ...,
             gpu_host_mem_disallow_growth: builtins.bool | None = ...,
+            gpu_system_memory_size_in_mb: builtins.int | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["collective_ring_order", b"collective_ring_order", "disallow_retry_on_allocation_failure", b"disallow_retry_on_allocation_failure", "gpu_host_mem_disallow_growth", b"gpu_host_mem_disallow_growth", "gpu_host_mem_limit_in_mb", b"gpu_host_mem_limit_in_mb", "internal_fragmentation_fraction", b"internal_fragmentation_fraction", "kernel_tracker_max_bytes", b"kernel_tracker_max_bytes", "kernel_tracker_max_interval", b"kernel_tracker_max_interval", "kernel_tracker_max_pending", b"kernel_tracker_max_pending", "num_dev_to_dev_copy_streams", b"num_dev_to_dev_copy_streams", "timestamped_allocator", b"timestamped_allocator", "use_cuda_malloc_async", b"use_cuda_malloc_async", "use_unified_memory", b"use_unified_memory", "virtual_devices", b"virtual_devices"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["collective_ring_order", b"collective_ring_order", "disallow_retry_on_allocation_failure", b"disallow_retry_on_allocation_failure", "gpu_host_mem_disallow_growth", b"gpu_host_mem_disallow_growth", "gpu_host_mem_limit_in_mb", b"gpu_host_mem_limit_in_mb", "gpu_system_memory_size_in_mb", b"gpu_system_memory_size_in_mb", "internal_fragmentation_fraction", b"internal_fragmentation_fraction", "kernel_tracker_max_bytes", b"kernel_tracker_max_bytes", "kernel_tracker_max_interval", b"kernel_tracker_max_interval", "kernel_tracker_max_pending", b"kernel_tracker_max_pending", "num_dev_to_dev_copy_streams", b"num_dev_to_dev_copy_streams", "num_virtual_devices_per_gpu", b"num_virtual_devices_per_gpu", "timestamped_allocator", b"timestamped_allocator", "use_cuda_malloc_async", b"use_cuda_malloc_async", "use_unified_memory", b"use_unified_memory", "virtual_devices", b"virtual_devices"]) -> None: ...
 
     PER_PROCESS_GPU_MEMORY_FRACTION_FIELD_NUMBER: builtins.int
     ALLOW_GROWTH_FIELD_NUMBER: builtins.int
@@ -687,10 +704,16 @@ class ConfigProto(google.protobuf.message.Message):
         DISABLE_OUTPUT_PARTITION_GRAPHS_FIELD_NUMBER: builtins.int
         XLA_FUSION_AUTOTUNER_THRESH_FIELD_NUMBER: builtins.int
         USE_TFRT_FIELD_NUMBER: builtins.int
+        ENABLE_MULTI_HOST_FIELD_NUMBER: builtins.int
+        BACKEND_SERVER_PORT_FIELD_NUMBER: builtins.int
+        TARGET_TPU_FIELD_NUMBER: builtins.int
+        TARGET_GPU_FIELD_NUMBER: builtins.int
+        STREAM_MERGE_THRESHOLD_FIELD_NUMBER: builtins.int
         DISABLE_FUNCTIONAL_OPS_LOWERING_FIELD_NUMBER: builtins.int
         XLA_PREFER_SINGLE_GRAPH_CLUSTER_FIELD_NUMBER: builtins.int
         COORDINATION_CONFIG_FIELD_NUMBER: builtins.int
         DISABLE_OPTIMIZE_FOR_STATIC_GRAPH_FIELD_NUMBER: builtins.int
+        DISABLE_EAGER_EXECUTOR_STREAMING_ENQUEUE_FIELD_NUMBER: builtins.int
         collective_group_leader: builtins.str
         """Task name for group resolution."""
         executor_type: builtins.str
@@ -803,6 +826,23 @@ class ConfigProto(google.protobuf.message.Message):
         """
         use_tfrt: builtins.bool
         """Whether runtime execution uses TFRT."""
+        enable_multi_host: builtins.bool
+        """If true, use Pathways with TFRT API for multi host support."""
+        backend_server_port: builtins.int
+        """Port for the Pathways server. Ignored if enable_multi_host=false."""
+        target_tpu: builtins.bool
+        """If true, TFRT will use TPU specific compiler passes and perform TPU
+        specific initialization.
+        """
+        target_gpu: builtins.bool
+        """If true, TFRT will use GPU specific compiler passes and perform GPU
+        specific initialization.
+        """
+        stream_merge_threshold: builtins.int
+        """The threshold to merge small streams in TFRT. The stream with cost
+        smaller than the threshold will be merged. Setting it to value 1
+        disables all merges.
+        """
         disable_functional_ops_lowering: builtins.bool
         """Whether functional control flow op lowering should be disabled. This is
         useful when executing within a portable runtime where control flow op
@@ -813,7 +853,7 @@ class ConfigProto(google.protobuf.message.Message):
         cluster that encompases most of the graph.
         """
         @property
-        def coordination_config(self) -> tensorflow.tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig:
+        def coordination_config(self) -> tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig:
             """Distributed coordination service configurations."""
         disable_optimize_for_static_graph: builtins.bool
         """If true, the session will treat the graph as being non-static for
@@ -825,6 +865,11 @@ class ConfigProto(google.protobuf.message.Message):
 
         This option is meant to replace `optimize_for_static_graph` and it
         aims to negate its value.
+        """
+        disable_eager_executor_streaming_enqueue: builtins.bool
+        """Whether eager remote execution will stream all the function calls or
+        allow them to happen in parallel. When true, streaming execution is
+        disabled, and parallel execution is allowed.
         """
         def __init__(
             self,
@@ -846,13 +891,19 @@ class ConfigProto(google.protobuf.message.Message):
             disable_output_partition_graphs: builtins.bool | None = ...,
             xla_fusion_autotuner_thresh: builtins.int | None = ...,
             use_tfrt: builtins.bool | None = ...,
+            enable_multi_host: builtins.bool | None = ...,
+            backend_server_port: builtins.int | None = ...,
+            target_tpu: builtins.bool | None = ...,
+            target_gpu: builtins.bool | None = ...,
+            stream_merge_threshold: builtins.int | None = ...,
             disable_functional_ops_lowering: builtins.bool | None = ...,
             xla_prefer_single_graph_cluster: builtins.bool | None = ...,
-            coordination_config: tensorflow.tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig | None = ...,
+            coordination_config: tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig | None = ...,
             disable_optimize_for_static_graph: builtins.bool | None = ...,
+            disable_eager_executor_streaming_enqueue: builtins.bool | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing_extensions.Literal["coordination_config", b"coordination_config", "session_metadata", b"session_metadata"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["collective_deterministic_sequential_execution", b"collective_deterministic_sequential_execution", "collective_group_leader", b"collective_group_leader", "collective_nccl", b"collective_nccl", "coordination_config", b"coordination_config", "disable_functional_ops_lowering", b"disable_functional_ops_lowering", "disable_optimize_for_static_graph", b"disable_optimize_for_static_graph", "disable_output_partition_graphs", b"disable_output_partition_graphs", "disable_thread_spinning", b"disable_thread_spinning", "enable_mlir_bridge", b"enable_mlir_bridge", "enable_mlir_graph_optimization", b"enable_mlir_graph_optimization", "executor_type", b"executor_type", "mlir_bridge_rollout", b"mlir_bridge_rollout", "optimize_for_static_graph", b"optimize_for_static_graph", "recv_buf_max_chunk", b"recv_buf_max_chunk", "session_metadata", b"session_metadata", "share_cluster_devices_in_session", b"share_cluster_devices_in_session", "share_session_state_in_clusterspec_propagation", b"share_session_state_in_clusterspec_propagation", "use_numa_affinity", b"use_numa_affinity", "use_tfrt", b"use_tfrt", "xla_fusion_autotuner_thresh", b"xla_fusion_autotuner_thresh", "xla_prefer_single_graph_cluster", b"xla_prefer_single_graph_cluster"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["backend_server_port", b"backend_server_port", "collective_deterministic_sequential_execution", b"collective_deterministic_sequential_execution", "collective_group_leader", b"collective_group_leader", "collective_nccl", b"collective_nccl", "coordination_config", b"coordination_config", "disable_eager_executor_streaming_enqueue", b"disable_eager_executor_streaming_enqueue", "disable_functional_ops_lowering", b"disable_functional_ops_lowering", "disable_optimize_for_static_graph", b"disable_optimize_for_static_graph", "disable_output_partition_graphs", b"disable_output_partition_graphs", "disable_thread_spinning", b"disable_thread_spinning", "enable_mlir_bridge", b"enable_mlir_bridge", "enable_mlir_graph_optimization", b"enable_mlir_graph_optimization", "enable_multi_host", b"enable_multi_host", "executor_type", b"executor_type", "mlir_bridge_rollout", b"mlir_bridge_rollout", "optimize_for_static_graph", b"optimize_for_static_graph", "recv_buf_max_chunk", b"recv_buf_max_chunk", "session_metadata", b"session_metadata", "share_cluster_devices_in_session", b"share_cluster_devices_in_session", "share_session_state_in_clusterspec_propagation", b"share_session_state_in_clusterspec_propagation", "stream_merge_threshold", b"stream_merge_threshold", "target_gpu", b"target_gpu", "target_tpu", b"target_tpu", "use_numa_affinity", b"use_numa_affinity", "use_tfrt", b"use_tfrt", "xla_fusion_autotuner_thresh", b"xla_fusion_autotuner_thresh", "xla_prefer_single_graph_cluster", b"xla_prefer_single_graph_cluster"]) -> None: ...
 
     DEVICE_COUNT_FIELD_NUMBER: builtins.int
     INTRA_OP_PARALLELISM_THREADS_FIELD_NUMBER: builtins.int
@@ -972,7 +1023,7 @@ class ConfigProto(google.protobuf.message.Message):
     deadline for all blocking operations.
     """
     @property
-    def rpc_options(self) -> tensorflow.tsl.protobuf.rpc_options_pb2.RPCOptions:
+    def rpc_options(self) -> tsl.protobuf.rpc_options_pb2.RPCOptions:
         """Options that apply when this session uses the distributed runtime."""
     @property
     def cluster_def(self) -> tensorflow.core.protobuf.cluster_pb2.ClusterDef:
@@ -1005,7 +1056,7 @@ class ConfigProto(google.protobuf.message.Message):
         log_device_placement: builtins.bool | None = ...,
         graph_options: global___GraphOptions | None = ...,
         operation_timeout_in_ms: builtins.int | None = ...,
-        rpc_options: tensorflow.tsl.protobuf.rpc_options_pb2.RPCOptions | None = ...,
+        rpc_options: tsl.protobuf.rpc_options_pb2.RPCOptions | None = ...,
         cluster_def: tensorflow.core.protobuf.cluster_pb2.ClusterDef | None = ...,
         isolate_session_state: builtins.bool | None = ...,
         share_cluster_devices_in_session: builtins.bool | None = ...,

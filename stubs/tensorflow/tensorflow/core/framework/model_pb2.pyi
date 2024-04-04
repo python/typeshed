@@ -248,10 +248,14 @@ class ModelProto(google.protobuf.message.Message):
         ) -> None: ...
         def ClearField(self, field_name: typing_extensions.Literal["algorithm", b"algorithm", "cpu_budget", b"cpu_budget", "model_input_time", b"model_input_time", "ram_budget", b"ram_budget"]) -> None: ...
 
+    DATASET_NAME_FIELD_NUMBER: builtins.int
     NODES_FIELD_NUMBER: builtins.int
     OUTPUT_FIELD_NUMBER: builtins.int
     ID_COUNTER_FIELD_NUMBER: builtins.int
     OPTIMIZATION_PARAMS_FIELD_NUMBER: builtins.int
+    GAP_TIMES_FIELD_NUMBER: builtins.int
+    dataset_name: builtins.str
+    """User-defined name for the dataset. Empty if no name was set."""
     @property
     def nodes(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___ModelProto.Node]:
         """Map of node IDs to nodes of this model."""
@@ -261,15 +265,19 @@ class ModelProto(google.protobuf.message.Message):
     """Counter for node IDs of this model."""
     @property
     def optimization_params(self) -> global___ModelProto.OptimizationParams: ...
+    @property
+    def gap_times(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     def __init__(
         self,
         *,
+        dataset_name: builtins.str | None = ...,
         nodes: collections.abc.Mapping[builtins.int, global___ModelProto.Node] | None = ...,
         output: builtins.int | None = ...,
         id_counter: builtins.int | None = ...,
         optimization_params: global___ModelProto.OptimizationParams | None = ...,
+        gap_times: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["optimization_params", b"optimization_params"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["id_counter", b"id_counter", "nodes", b"nodes", "optimization_params", b"optimization_params", "output", b"output"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dataset_name", b"dataset_name", "gap_times", b"gap_times", "id_counter", b"id_counter", "nodes", b"nodes", "optimization_params", b"optimization_params", "output", b"output"]) -> None: ...
 
 global___ModelProto = ModelProto

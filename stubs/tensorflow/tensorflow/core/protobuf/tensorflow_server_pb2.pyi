@@ -35,6 +35,7 @@ class ServerDef(google.protobuf.message.Message):
 
     CLUSTER_FIELD_NUMBER: builtins.int
     JOB_NAME_FIELD_NUMBER: builtins.int
+    REPLICA_FIELD_NUMBER: builtins.int
     TASK_INDEX_FIELD_NUMBER: builtins.int
     DEFAULT_SESSION_CONFIG_FIELD_NUMBER: builtins.int
     PROTOCOL_FIELD_NUMBER: builtins.int
@@ -49,6 +50,8 @@ class ServerDef(google.protobuf.message.Message):
     NOTE(mrry): The `cluster` field must contain a `JobDef` with a `name` field
     that matches this name.
     """
+    replica: builtins.int
+    """Replica this server manages."""
     task_index: builtins.int
     """The task index of this server in its job.
 
@@ -75,6 +78,7 @@ class ServerDef(google.protobuf.message.Message):
         *,
         cluster: tensorflow.core.protobuf.cluster_pb2.ClusterDef | None = ...,
         job_name: builtins.str | None = ...,
+        replica: builtins.int | None = ...,
         task_index: builtins.int | None = ...,
         default_session_config: tensorflow.core.protobuf.config_pb2.ConfigProto | None = ...,
         protocol: builtins.str | None = ...,
@@ -82,6 +86,6 @@ class ServerDef(google.protobuf.message.Message):
         cluster_device_filters: tensorflow.core.protobuf.device_filters_pb2.ClusterDeviceFilters | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["cluster", b"cluster", "cluster_device_filters", b"cluster_device_filters", "default_session_config", b"default_session_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["cluster", b"cluster", "cluster_device_filters", b"cluster_device_filters", "default_session_config", b"default_session_config", "job_name", b"job_name", "port", b"port", "protocol", b"protocol", "task_index", b"task_index"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cluster", b"cluster", "cluster_device_filters", b"cluster_device_filters", "default_session_config", b"default_session_config", "job_name", b"job_name", "port", b"port", "protocol", b"protocol", "replica", b"replica", "task_index", b"task_index"]) -> None: ...
 
 global___ServerDef = ServerDef

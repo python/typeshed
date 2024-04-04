@@ -66,11 +66,18 @@ class _DataTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumT
     """5 exponent bits, 2 mantissa bits."""
     DT_FLOAT8_E4M3FN: _DataType.ValueType  # 25
     """4 exponent bits, 3 mantissa bits, finite-only, with"""
-    DT_FLOAT_REF: _DataType.ValueType  # 101
+    DT_INT4: _DataType.ValueType  # 29
     """2 NaNs (0bS1111111).
-
-    Do not use!  These are only for parameters.  Every enum above
-    should have a corresponding value below (verified by types_test).
+    TODO - b/299182407: Leaving room for remaining float8 types.
+    DT_FLOAT8_E4M3FNUZ = 26;
+    DT_FLOAT8_E4M3B11FNUZ = 27;
+    DT_FLOAT8_E5M2FNUZ = 28;
+    """
+    DT_UINT4: _DataType.ValueType  # 30
+    DT_FLOAT_REF: _DataType.ValueType  # 101
+    """Do not use!  These are only for TF1's obsolete reference Variables.
+    Every enum above should have a corresponding value below (verified by
+    types_test).
     """
     DT_DOUBLE_REF: _DataType.ValueType  # 102
     DT_INT32_REF: _DataType.ValueType  # 103
@@ -96,6 +103,13 @@ class _DataTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumT
     DT_UINT64_REF: _DataType.ValueType  # 123
     DT_FLOAT8_E5M2_REF: _DataType.ValueType  # 124
     DT_FLOAT8_E4M3FN_REF: _DataType.ValueType  # 125
+    DT_INT4_REF: _DataType.ValueType  # 129
+    """TODO - b/299182407: Leaving room for remaining float8 types.
+    DT_FLOAT8_E4M3FNUZ_REF = 126;
+    DT_FLOAT8_E4M3B11FNUZ_REF = 127;
+    DT_FLOAT8_E5M2FNUZ_REF = 128;
+    """
+    DT_UINT4_REF: _DataType.ValueType  # 130
 
 class DataType(_DataType, metaclass=_DataTypeEnumTypeWrapper):
     """(== suppress_warning documentation-presence ==)
@@ -145,11 +159,18 @@ DT_FLOAT8_E5M2: DataType.ValueType  # 24
 """5 exponent bits, 2 mantissa bits."""
 DT_FLOAT8_E4M3FN: DataType.ValueType  # 25
 """4 exponent bits, 3 mantissa bits, finite-only, with"""
-DT_FLOAT_REF: DataType.ValueType  # 101
+DT_INT4: DataType.ValueType  # 29
 """2 NaNs (0bS1111111).
-
-Do not use!  These are only for parameters.  Every enum above
-should have a corresponding value below (verified by types_test).
+TODO - b/299182407: Leaving room for remaining float8 types.
+DT_FLOAT8_E4M3FNUZ = 26;
+DT_FLOAT8_E4M3B11FNUZ = 27;
+DT_FLOAT8_E5M2FNUZ = 28;
+"""
+DT_UINT4: DataType.ValueType  # 30
+DT_FLOAT_REF: DataType.ValueType  # 101
+"""Do not use!  These are only for TF1's obsolete reference Variables.
+Every enum above should have a corresponding value below (verified by
+types_test).
 """
 DT_DOUBLE_REF: DataType.ValueType  # 102
 DT_INT32_REF: DataType.ValueType  # 103
@@ -175,6 +196,13 @@ DT_UINT32_REF: DataType.ValueType  # 122
 DT_UINT64_REF: DataType.ValueType  # 123
 DT_FLOAT8_E5M2_REF: DataType.ValueType  # 124
 DT_FLOAT8_E4M3FN_REF: DataType.ValueType  # 125
+DT_INT4_REF: DataType.ValueType  # 129
+"""TODO - b/299182407: Leaving room for remaining float8 types.
+DT_FLOAT8_E4M3FNUZ_REF = 126;
+DT_FLOAT8_E4M3B11FNUZ_REF = 127;
+DT_FLOAT8_E5M2FNUZ_REF = 128;
+"""
+DT_UINT4_REF: DataType.ValueType  # 130
 global___DataType = DataType
 
 @typing_extensions.final

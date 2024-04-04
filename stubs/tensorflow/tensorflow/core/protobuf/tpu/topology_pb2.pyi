@@ -61,13 +61,17 @@ class TPUHardwareFeature(google.protobuf.message.Message):
     """
 
     EMBEDDING_FEATURE_FIELD_NUMBER: builtins.int
+    NUM_EMBEDDING_DEVICES_PER_CHIP_FIELD_NUMBER: builtins.int
     embedding_feature: global___TPUHardwareFeature.EmbeddingFeature.ValueType
+    num_embedding_devices_per_chip: builtins.int
+    """Number of embedding accelerator devices per chip."""
     def __init__(
         self,
         *,
         embedding_feature: global___TPUHardwareFeature.EmbeddingFeature.ValueType | None = ...,
+        num_embedding_devices_per_chip: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["embedding_feature", b"embedding_feature"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["embedding_feature", b"embedding_feature", "num_embedding_devices_per_chip", b"num_embedding_devices_per_chip"]) -> None: ...
 
 global___TPUHardwareFeature = TPUHardwareFeature
 

@@ -42,9 +42,9 @@ unzip "$TENSORFLOW_FILENAME"
 TENSORFLOW_DIR="tensorflow-$TENSORFLOW_VERSION"
 
 # Prepare virtualenv
-uv venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
-uv pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
+python3 -m pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 
 
 # Folders here cover the more commonly used protobufs externally and
@@ -69,10 +69,10 @@ rm -rf "$TMP_DIR"
 
 cd "$REPO_ROOT"
 
-# These protos exist in a folder with protos used in python, but are not
-# included in the python wheel. They are likely only used for other
-# language builds. stubtest was used to identify them by looking for
-# ModuleNotFoundError.
+# These protos exist in a folder with protos used in python,
+# but are not included in the python wheel.
+# They are likely only used for other language builds.
+# stubtest was used to identify them by looking for ModuleNotFoundError.
 rm stubs/tensorflow/xla/service/hlo_execution_profile_data_pb2.pyi \
    stubs/tensorflow/xla/service/hlo_profile_printer_data_pb2.pyi \
    stubs/tensorflow/xla/service/test_compilation_environment_pb2.pyi \
@@ -94,10 +94,9 @@ sed --in-place="" \
     "s/extra_description = .*$/extra_description = \"Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on tensorflow==$TENSORFLOW_VERSION\"/" \
     "$REPO_ROOT/stubs/tensorflow/METADATA.toml"
 
-# Keep pre-commit run after cleanup to reduce changed files. Or start using a temp folder for this script
 # use `|| true` so the script still continues even if a pre-commit hook
 # applies autofixes (which will result in a nonzero exit code)
-pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/tensorflow/tensorflow/**.pyi") || true
+pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/tensorflow/**.pyi") || true
 # Ruff takes two passes to fix everything, re-running all of pre-commit is *slow*
 # and we don't need --unsafe-fixes to remove imports
 ruff check "$REPO_ROOT/stubs/tensorflow/tensorflow" --fix --exit-zero
