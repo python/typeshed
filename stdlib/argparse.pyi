@@ -518,7 +518,7 @@ class _VersionAction(Action):
         version: str | None = None,
         dest: str = "==SUPPRESS==",
         default: str = "==SUPPRESS==",
-        help: str = "show program's version number and exit",
+        help: str | None = None,
     ) -> None: ...
 
 # undocumented

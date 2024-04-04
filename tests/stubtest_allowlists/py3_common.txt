@@ -355,6 +355,7 @@ _?ctypes.Array._length_ # _length_ is abstract, https://github.com/python/typesh
 _pydecimal.*  # See comments in file
 argparse.ArgumentParser.__init__  # stubtest doesn't recognise the runtime default (a class) as being compatible with a callback protocol (the stub annotation)
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
+argparse._VersionAction.__init__  # "help" argument default changed in 3.11+ point releases, remove entry when dropping 3.10 support
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
