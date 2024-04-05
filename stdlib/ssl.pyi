@@ -2,7 +2,7 @@ import enum
 import socket
 import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
-from collections.abc import Callable, Iterable
+from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Literal, NamedTuple, TypedDict, final, overload
 from typing_extensions import Never, Self, TypeAlias
 
@@ -366,6 +366,9 @@ class SSLSocket(socket.socket):
     def recvmsg(self, *args: Never, **kwargs: Never) -> Never: ...  # type: ignore[override]
     def recvmsg_into(self, *args: Never, **kwargs: Never) -> Never: ...  # type: ignore[override]
     def sendmsg(self, *args: Never, **kwargs: Never) -> Never: ...  # type: ignore[override]
+    if sys.version_info >= (3, 13):
+        def get_verified_chain(self) -> Sequence[bytes]: ...
+        def get_unverified_chain(self) -> Sequence[bytes]: ...
 
 class TLSVersion(enum.IntEnum):
     MINIMUM_SUPPORTED: int
@@ -476,6 +479,9 @@ class SSLObject:
     def version(self) -> str | None: ...
     def get_channel_binding(self, cb_type: str = "tls-unique") -> bytes | None: ...
     def verify_client_post_handshake(self) -> None: ...
+    if sys.version_info >= (3, 13):
+        def get_verified_chain(self) -> Sequence[bytes]: ...
+        def get_unverified_chain(self) -> Sequence[bytes]: ...
 
 @final
 class MemoryBIO:
