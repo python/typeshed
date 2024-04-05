@@ -6,6 +6,7 @@ from Xlib.protocol import request, rq
 from Xlib.protocol.structs import _Arc6IntSequence, _Rectangle4IntSequence, _RGB3IntIterable, _Segment4IntSequence
 from Xlib.xobject import colormap, cursor, fontable, resource
 
+# Protocol for the parts of PIL.Image.Image used by python-xlib.
 @type_check_only
 class _PilImage(Protocol):
     @property
