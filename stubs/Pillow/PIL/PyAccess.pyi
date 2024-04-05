@@ -1,8 +1,15 @@
 from _typeshed import Incomplete
-
-from PIL._imaging import _PixelAccessor
+from typing import Protocol
 
 ffi: Incomplete
+
+# Copy of PIL._imaging.PixelAccess.
+# See https://github.com/python/typeshed/issues/11688.
+class _PixelAccessor(Protocol):
+    def __setitem__(self, xy: tuple[int, int], color, /) -> None: ...
+    def __getitem__(self, xy: tuple[int, int], /): ...
+    def putpixel(self, xy: tuple[int, int], color, /) -> None: ...
+    def getpixel(self, xy: tuple[int, int], /): ...
 
 class PyAccess(_PixelAccessor):
     readonly: Incomplete
