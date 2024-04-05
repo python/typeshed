@@ -123,9 +123,7 @@ jobs:
           if [ -n "$DEPENDENCIES" ]; then
             source .venv/bin/activate
             echo "Installing packages: $DEPENDENCIES"
-            # https://github.com/python/typeshed/issues/11688
-            echo "Pillow<10.3" > constraints.txt
-            uv pip install -c constraints.txt $DEPENDENCIES
+            uv pip install $DEPENDENCIES
           fi
       - name: Activate the isolated venv for the rest of the job
         run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
