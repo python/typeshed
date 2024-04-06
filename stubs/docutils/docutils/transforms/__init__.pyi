@@ -16,7 +16,7 @@ class Transform:
     def apply(self, **kwargs: Any) -> None: ...
 
 class Transformer(TransformSpec):
-    transforms: list[tuple[str, type[Transform], Node | None]]
+    transforms: list[tuple[str, type[Transform], nodes.pending | None]]
     document: nodes.document
     applied: list[tuple[int, type[Transform], nodes.pending, Any]]
     sorted: bool
