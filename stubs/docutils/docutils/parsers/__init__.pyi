@@ -4,7 +4,7 @@ from docutils import Component
 from docutils.nodes import document as _document
 
 class Parser(Component):
-    component_type: ClassVar[Literal['parser']]
+    component_type: ClassVar[Literal["parser"]]
     config_section: ClassVar[str]
     inputstring: Any  # defined after call to setup_parse()
     document: Any  # defined after call to setup_parse()
