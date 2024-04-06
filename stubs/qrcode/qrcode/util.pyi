@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Generator
-from typing import Final, Literal, TypeAlias, overload
+from typing import Final, Literal, overload
+from typing_extensions import TypeAlias
 
 from qrcode.base import RSBlock as RSBlock
 
