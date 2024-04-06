@@ -40,7 +40,7 @@ class TransformSpec:
     default_transforms: ClassVar[tuple[Any, ...]]
     unknown_reference_resolvers: ClassVar[Sequence[Callable[[Node], bool]]]
 
-ComponentType = Literal['reader', 'parser', 'writer']
+ComponentType = Literal["reader", "parser", "writer"]
 
 class Component(SettingsSpec, TransformSpec):
     component_type: ClassVar[ComponentType | None]
