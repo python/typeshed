@@ -2,7 +2,7 @@ from collections.abc import Iterable
 from types import ModuleType
 from typing import Any
 
-from docutils import ApplicationError, Component, TransformSpec, nodes
+from docutils import ApplicationError, Component, TransformSpec, _ComponentType, nodes
 from docutils.nodes import Node
 
 class TransformError(ApplicationError): ...
@@ -20,7 +20,7 @@ class Transformer(TransformSpec):
     document: nodes.document
     applied: list[tuple[int, type[Transform], nodes.pending, Any]]
     sorted: bool
-    components: dict[ComponentType, Component]
+    components: dict[_ComponentType, Component]
     serialno: int
     def __init__(self, document: nodes.document) -> None: ...
     def add_transform(self, transform_class: type[Transform], priority: int | None = None, **kwargs: Any) -> None: ...

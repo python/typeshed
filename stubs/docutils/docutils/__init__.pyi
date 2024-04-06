@@ -1,5 +1,5 @@
 from collections.abc import Callable, Sequence
-from typing import Any, ClassVar, NamedTuple
+from typing import Any, ClassVar, Literal, NamedTuple
 from typing_extensions import Self
 
 from docutils.transforms import Transform
@@ -7,6 +7,8 @@ from docutils.nodes import Node
 
 __docformat__: str
 __version__: str
+
+_ComponentType = Literal["reader", "parser", "writer"]
 
 class _VersionInfo(NamedTuple):
     major: int
@@ -40,9 +42,7 @@ class TransformSpec:
     default_transforms: ClassVar[tuple[Any, ...]]
     unknown_reference_resolvers: ClassVar[Sequence[Callable[[Node], bool]]]
 
-ComponentType = Literal["reader", "parser", "writer"]
-
 class Component(SettingsSpec, TransformSpec):
-    component_type: ClassVar[ComponentType | None]
+    component_type: ClassVar[_ComponentType | None]
     supported: ClassVar[tuple[str, ...]]
     def supports(self, format: str) -> bool: ...
