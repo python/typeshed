@@ -43,6 +43,6 @@ class TransformSpec:
 ComponentType = Literal['reader', 'parser', 'writer']
 
 class Component(SettingsSpec, TransformSpec):
-    component_type: ClassVar[str | None]
+    component_type: ClassVar[ComponentType | None]
     supported: ClassVar[tuple[str, ...]]
     def supports(self, format: str) -> bool: ...
