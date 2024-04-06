@@ -1,10 +1,10 @@
 from typing import Any, ClassVar
 
-from docutils import Component
+from docutils import Component, _ComponentType
 from docutils.nodes import document as _document
 
 class Parser(Component):
-    component_type: ClassVar[str]
+    component_type: ClassVar[_ComponentType]
     config_section: ClassVar[str]
     inputstring: Any  # defined after call to setup_parse()
     document: Any  # defined after call to setup_parse()
