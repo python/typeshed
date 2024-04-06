@@ -11,3 +11,4 @@ docutils.nodes.GenericNodeVisitor.__getattr__
 docutils.nodes.Text.__new__
 docutils.parsers.recommonmark_wrapper
 docutils.parsers.rst.directives.misc.MetaBody.__getattr__
+docutils.statemachine.ViewList.__iter__ # doesn't exist at runtime, but the class is iterable due to __getitem__
