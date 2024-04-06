@@ -23,7 +23,7 @@ def error_string(err: BaseException) -> str: ...
 _S = TypeVar("_S")
 
 class Input(TransformSpec, Generic[_S]):
-    component_type: ClassVar[str]
+    component_type: ClassVar[Literal["reader"]]
     default_source_path: ClassVar[str | None]
     encoding: str | None
     error_handler: str
@@ -41,7 +41,7 @@ class Input(TransformSpec, Generic[_S]):
     def isatty(self) -> bool: ...
 
 class Output(TransformSpec):
-    component_type: ClassVar[str]
+    component_type: ClassVar[Literal["writer"]]
     default_destination_path: ClassVar[str | None]
     def __init__(
         self,
