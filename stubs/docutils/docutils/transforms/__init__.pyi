@@ -20,7 +20,7 @@ class Transformer(TransformSpec):
     document: nodes.document
     applied: list[tuple[int, type[Transform], nodes.pending, Any]]
     sorted: bool
-    components: dict[str, Component]
+    components: dict[ComponentType, Component]
     serialno: int
     def __init__(self, document: nodes.document) -> None: ...
     def add_transform(self, transform_class: type[Transform], priority: int | None = None, **kwargs: Any) -> None: ...
