@@ -63,6 +63,7 @@ _weakref.ProxyType.__reversed__  # Doesn't really exist
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 ast.ImportFrom.level  # None on the class, but never None on instances
 builtins.property.__set_name__  # Doesn't actually exist
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
 dataclasses.KW_ONLY  # white lies around defaults
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
@@ -75,6 +76,10 @@ types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 sys._monitoring  # Doesn't really exist. See comments in the stub.
 weakref.ProxyType.__reversed__  # Doesn't really exist
+importlib.metadata._meta.SimplePath.joinpath  # Incorrect runtime definition
+
+# sys attributes that are not always defined
+sys.last_exc
 
 # C signature is broader than what is actually accepted
 ast.ExtSlice.__new__
