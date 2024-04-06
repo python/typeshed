@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from collections.abc import Iterable
 from types import ModuleType
 from typing import Any
@@ -13,6 +14,7 @@ class Transform:
     startnode: Node | None
     language: ModuleType
     def __init__(self, document: nodes.document, startnode: Node | None = None) -> None: ...
+    @abstractmethod
     def apply(self, **kwargs: Any) -> None: ...
 
 class Transformer(TransformSpec):
