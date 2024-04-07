@@ -61,9 +61,6 @@ rm tensorflow/compiler/xla/service/hlo_execution_profile_data_pb2.pyi \
    tensorflow/core/protobuf/worker_service_pb2.pyi \
    tensorflow/core/util/example_proto_fast_parsing_test_pb2.pyi
 
-# use `|| true` so the script still continues even if a pre-commit hook
-# applies autofixes (which will result in a nonzero exit code)
-pre-commit run --files "$REPO_ROOT/stubs/tensorflow/tensorflow" || true
 
 sed --in-place="" \
     "s/extra_description = .*$/extra_description = \"Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on tensorflow==$TENSORFLOW_VERSION\"/" \
@@ -71,3 +68,12 @@ sed --in-place="" \
 
 # Cleanup last. If the script fails halfway, it's nice to be able to re-run it immediately
 rm -rf repository/
+
+# Must be run in a git repository
+cd $REPO_ROOT
+# use `|| true` so the script still continues even if a pre-commit hook
+# applies autofixes (which will result in a nonzero exit code)
+pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/tensorflow/tensorflow") || true
+# Ruff takes two passes to fix everything, re-running all of pre-commit is *slow*
+# and we don't need --unsafe-fixes to remove imports
+ruff check "$REPO_ROOT/stubs/tensorflow/tensorflow" --fix --exit-zero
