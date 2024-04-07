@@ -10,7 +10,7 @@ class Foo: ...
 # Test the constructor
 # We can't test the type of the constructor directly, because mypy and pyright
 # derive different types (`Never` vs. `Unknown`) for the first type variable.
-for value in Counter().values:
+for value in Counter().values():
     assert_type(value, int)
 assert_type(Counter(foo=42.2), "Counter[str, float]")
 assert_type(Counter({42: "bar"}), "Counter[int, str]")
