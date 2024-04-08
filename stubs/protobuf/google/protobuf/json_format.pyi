@@ -11,7 +11,7 @@ class SerializeToJsonError(Error): ...
 
 def MessageToJson(
     message: Message,
-    including_default_value_fields: bool = ...,
+    including_default_value_fields: bool = False,
     preserving_proto_field_name: bool = False,
     indent: int | None = 2,
     sort_keys: bool = False,
@@ -22,7 +22,7 @@ def MessageToJson(
 ) -> str: ...
 def MessageToDict(
     message: Message,
-    including_default_value_fields: bool = ...,
+    including_default_value_fields: bool = False,
     preserving_proto_field_name: bool = False,
     use_integers_for_enums: bool = False,
     descriptor_pool: DescriptorPool | None = None,
