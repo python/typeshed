@@ -38,9 +38,9 @@ class ValueSequence(Sequence):
     attribute: str
     def to_tree(
         self,
-        tagname: str,
+        tagname: str,  # type: ignore[override]
         obj: Iterable[object],
-        namespace: str | None = None,  # type: ignore[override]
+        namespace: str | None = None,
     ) -> Generator[Element, None, None]: ...
     def from_tree(self, node: _HasGet[_T]) -> _T: ...
 
@@ -61,8 +61,8 @@ class MultiSequence(Sequence):
     def to_tree(
         self,
         tagname: Unused,
-        obj: Iterable[_SupportsToTree],
-        namespace: str | None = None,  # type: ignore[override]
+        obj: Iterable[_SupportsToTree],  # type: ignore[override]
+        namespace: str | None = None,
     ) -> Generator[Element, None, None]: ...
 
 class MultiSequencePart(Alias):

@@ -89,7 +89,7 @@ class tqdm_telegram(tqdm_auto[_T]):
         chat_id: str = ...,
         **kwargs,
     ) -> None: ...
-    def display(
+    def display(  # type: ignore[override]
         self,
         *,
         msg: str | None = ...,
@@ -97,7 +97,7 @@ class tqdm_telegram(tqdm_auto[_T]):
         close: bool = ...,
         bar_style: Incomplete = ...,
         check_delay: bool = ...,
-    ) -> None: ...  # type: ignore[override]
+    ) -> None: ...
     def clear(self, *args, **kwargs) -> None: ...
     def close(self) -> None: ...
 

@@ -84,7 +84,7 @@ class tqdm_slack(tqdm_auto[_T]):
         channel: int = ...,
         **kwargs,
     ) -> None: ...
-    def display(
+    def display(  # type: ignore[override]
         self,
         *,
         msg: str | None = ...,
@@ -92,7 +92,7 @@ class tqdm_slack(tqdm_auto[_T]):
         close: bool = ...,
         bar_style: Incomplete = ...,
         check_delay: bool = ...,
-    ) -> None: ...  # type: ignore[override]
+    ) -> None: ...
     def clear(self, *args, **kwargs) -> None: ...
 
 def tsrange(*args, **kwargs) -> tqdm_slack[int]: ...

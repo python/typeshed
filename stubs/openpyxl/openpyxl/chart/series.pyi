@@ -83,9 +83,9 @@ class Series(Serialisable):
         explosion: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
         extLst: Unused = None,
     ) -> None: ...
-    def to_tree(
+    def to_tree(  # type: ignore[override]
         self, tagname: str | None = None, idx: _HasTagAndGet[ConvertibleToInt] | ConvertibleToInt | None = None
-    ) -> Element: ...  # type: ignore[override]
+    ) -> Element: ...
 
 class XYSeries(Series):
     # Same as parent
