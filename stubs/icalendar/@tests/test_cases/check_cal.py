@@ -1,6 +1,5 @@
 from icalendar.cal import Component
 
-
 component = Component()
 component.add("summary", "Test 1")
 component.add("dtstart", "2022-01-01", encode=True)
