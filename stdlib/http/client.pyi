@@ -3,7 +3,7 @@ import io
 import ssl
 import sys
 import types
-from _typeshed import ReadableBuffer, SupportsRead, WriteableBuffer
+from _typeshed import ReadableBuffer, SupportsRead, SupportsReadline, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from socket import socket
 from typing import Any, BinaryIO, TypeVar, overload
@@ -102,9 +102,9 @@ class HTTPMessage(email.message.Message[str, str]):
     def getallmatchingheaders(self, name: str) -> list[str]: ...  # undocumented
 
 @overload
-def parse_headers(fp: io.BufferedIOBase, _class: Callable[[], _MessageT]) -> _MessageT: ...
+def parse_headers(fp: SupportsReadline[bytes], _class: Callable[[], _MessageT]) -> _MessageT: ...
 @overload
-def parse_headers(fp: io.BufferedIOBase) -> HTTPMessage: ...
+def parse_headers(fp: SupportsReadline[bytes]) -> HTTPMessage: ...
 
 class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incompatible method definitions in the base classes
     msg: HTTPMessage
