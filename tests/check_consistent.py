@@ -23,9 +23,8 @@ from utils import (
 
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
 
-# These type checkers and linters must have exact versions in the requirements file to ensure
-# consistent CI runs.
-linters = {"black", "flake8", "flake8-noqa", "flake8-pyi", "mypy", "pyright", "pytype", "ruff"}
+# These checkers and fixers must have exact versions in the requirements file to ensure consistent CI runs.
+linters = {"flake8", "flake8-noqa", "flake8-pyi", "mypy", "pyright", "pytype", "ruff"}
 
 
 def assert_consistent_filetypes(

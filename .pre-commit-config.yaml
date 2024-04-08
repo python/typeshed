@@ -27,11 +27,8 @@ repos:
         name: Run ruff on the test cases
         args: ["--exit-non-zero-on-fix", "--select=FA,I,RUF100", "--no-force-exclude", "--unsafe-fixes"]
         files: '.*test_cases/.+\.py$'
-  - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 24.3.0 # must match requirements-tests.txt
-    hooks:
-      - id: black
-        language_version: python3.10
+      - id: ruff-format
+        name: Run ruff format
   - repo: https://github.com/pycqa/flake8
     rev: 7.0.0 # must match requirements-tests.txt
     hooks:

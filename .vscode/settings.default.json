@@ -69,7 +69,7 @@
         "editor.rulers": [
             130
         ],
-        "editor.defaultFormatter": "ms-python.black-formatter"
+        "editor.defaultFormatter": "charliermarsh.ruff"
     },
     // python.analysis is Pylance (pyright) configurations
     "python.analysis.fixAll": [
@@ -96,7 +96,6 @@
         "--config=.flake8"
     ],
     "flake8.importStrategy": "fromEnvironment",
-    "black-formatter.importStrategy": "fromEnvironment",
     // Using Ruff instead of isort
     "isort.check": false,
     "ruff.importStrategy": "fromEnvironment",

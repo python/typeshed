@@ -58,9 +58,9 @@ def run_stubdefaulter(stub_dir: str) -> None:
     subprocess.run(["stubdefaulter", "--packages", stub_dir])
 
 
-def run_black(stub_dir: str) -> None:
-    print(f"Running Black: black {stub_dir}")
-    subprocess.run(["black", stub_dir])
+def run_ruff_format(stub_dir: str) -> None:
+    print(f"Running Ruff format: ruff format {stub_dir}")
+    subprocess.run(["ruff", "format", stub_dir])
 
 
 def run_ruff(stub_dir: str) -> None:
@@ -182,7 +182,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="""Generate baseline stubs automatically for an installed pip package
-                       using stubgen. Also run Black and Ruff. If the name of
+                       using stubgen. Also run Ruff. If the name of
                        the project is different from the runtime Python package name, you may
                        need to use --package (example: --package yaml PyYAML)."""
     )
@@ -231,7 +231,7 @@ def main() -> None:
     run_stubdefaulter(stub_dir)
 
     run_ruff(stub_dir)
-    run_black(stub_dir)
+    run_ruff_format(stub_dir)
 
     create_metadata(project, stub_dir, version)
 

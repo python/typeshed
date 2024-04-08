@@ -31,8 +31,8 @@ Typeshed runs continuous integration (CI) on all pull requests. This means that
 if you file a pull request (PR), our full test suite
 -- including our linter, [Flake8](https://github.com/PyCQA/flake8) --
 is run on your PR. It also means that bots will automatically apply
-changes to your PR (using [Black](https://github.com/psf/black) and
-[Ruff](https://github.com/astral-sh/ruff)) to fix any formatting issues.
+changes to your PR (using [Ruff](https://github.com/astral-sh/ruff))
+to fix any formatting issues.
 This frees you up to ignore all local setup on your side, focus on the
 code and rely on the CI to fix everything, or point you to the places that
 need fixing.
@@ -87,7 +87,7 @@ terminal to install all non-pytype requirements:
 
 ## Code formatting
 
-The code is formatted using [`Black`](https://github.com/psf/black).
+The code is formatted using [`Ruff`](https://github.com/astral-sh/ruff).
 Various other autofixes and lint rules are
 also performed by [`Ruff`](https://github.com/astral-sh/ruff) and
 [`Flake8`](https://github.com/pycqa/flake8),
