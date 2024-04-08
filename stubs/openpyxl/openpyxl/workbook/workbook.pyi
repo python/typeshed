@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, Unused
 from collections.abc import Iterator
 from datetime import datetime
-from typing import Any, Final, Protocol, type_check_only
+from typing import Any, Final, type_check_only
 from typing_extensions import TypeAlias, deprecated
 from zipfile import ZipFile
 
@@ -17,21 +17,18 @@ from openpyxl.worksheet.worksheet import Worksheet
 _WorkbookWorksheet: TypeAlias = Worksheet | WriteOnlyWorksheet | ReadOnlyWorksheet
 _WorkbookSheet: TypeAlias = _WorkbookWorksheet | Chartsheet
 
-# The type of worksheets in a workbook are the same as the `*Param` aliases above.
-# However, because Worksheet adds a lots of attributes that other _WorkbookChild subclasses don't have
-# (ReadOnlyWorksheet doesn't even inherit form it), this ends up being too disruptive
-# to the typical usage of openpyxl where sheets are just Worksheets.
-# Using Any may just loose too much type information and duck-typing
-# from Worksheet works great here, even if the instance type might be wrong.
+# The type of worksheets in a workbook are the same as the aliases above.
+# However, because Worksheet adds a lots of attributes that other _WorkbookChild subclasses
+# don't have (ReadOnlyWorksheet doesn't even inherit from it), this ends up being too
+# disruptive to the typical usage of openpyxl where sheets are just Worksheets.
+# Using Any may just lose too much type information and duck-typing
+# from Worksheet works great here. Allowing instance type check, even if direct
+# type comparison might be wrong.
 @type_check_only
-class _WorksheetLike(  # type: ignore[misc]
-    Worksheet, WriteOnlyWorksheet, ReadOnlyWorksheet, Protocol  # pyright: ignore[reportGeneralTypeIssues]
-): ...
+class _WorksheetLike(Worksheet, WriteOnlyWorksheet, ReadOnlyWorksheet): ...
 
 @type_check_only
-class _WorksheetOrChartsheetLike(  # type: ignore[misc]
-    Chartsheet, _WorksheetLike, Protocol  # pyright: ignore[reportGeneralTypeIssues]
-): ...
+class _WorksheetOrChartsheetLike(Chartsheet, _WorksheetLike): ...
 
 INTEGER_TYPES: Final[tuple[type[int]]]
 
