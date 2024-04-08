@@ -11,12 +11,5 @@ from .read_only import ReadOnlyCell as ReadOnlyCell
 _TimeTypes: TypeAlias = datetime | date | time | timedelta
 _CellValue: TypeAlias = (  # noqa: Y047 # Used in other modules
     # if numpy is installed also numpy bool and number types
-    bool
-    | float
-    | Decimal
-    | str
-    | CellRichText
-    | _TimeTypes
-    | DataTableFormula
-    | ArrayFormula
+    bool | float | Decimal | str | CellRichText | _TimeTypes | DataTableFormula | ArrayFormula
 )

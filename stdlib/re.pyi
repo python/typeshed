@@ -129,7 +129,9 @@ class Pattern(Generic[AnyStr]):
     @overload
     def fullmatch(self: Pattern[str], string: str, pos: int = 0, endpos: int = sys.maxsize) -> Match[str] | None: ...
     @overload
-    def fullmatch(self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize) -> Match[bytes] | None: ...  # type: ignore[overload-overlap]
+    def fullmatch(
+        self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize
+    ) -> Match[bytes] | None: ...  # type: ignore[overload-overlap]
     @overload
     def fullmatch(self, string: AnyStr, pos: int = 0, endpos: int = sys.maxsize) -> Match[AnyStr] | None: ...
     @overload
@@ -148,7 +150,9 @@ class Pattern(Generic[AnyStr]):
     @overload
     def finditer(self: Pattern[str], string: str, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[str]]: ...
     @overload
-    def finditer(self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[bytes]]: ...  # type: ignore[overload-overlap]
+    def finditer(
+        self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize
+    ) -> Iterator[Match[bytes]]: ...  # type: ignore[overload-overlap]
     @overload
     def finditer(self, string: AnyStr, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[AnyStr]]: ...
     @overload

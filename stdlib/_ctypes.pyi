@@ -64,7 +64,6 @@ class _CData(metaclass=_CDataMeta):
     # Structure.from_buffer(...)  # valid at runtime
     # Structure(...).from_buffer(...)  # invalid at runtime
     #
-
     @classmethod
     def from_buffer(cls, source: WriteableBuffer, offset: int = ...) -> Self: ...
     @classmethod

@@ -6,6 +6,7 @@ Note that therefore the output of stubtest depends on which Python version it is
 In typeshed CI, we run stubtest with each currently supported Python minor version.
 
 """
+
 from __future__ import annotations
 
 import subprocess

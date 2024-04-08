@@ -2,6 +2,7 @@
 # pyright: reportUnknownVariableType=false, reportUnknownArgumentType=false
 
 """Tools to help parse and validate information stored in METADATA.toml files."""
+
 from __future__ import annotations
 
 import os

@@ -37,7 +37,10 @@ class UniqueSequence(Sequence):
 class ValueSequence(Sequence):
     attribute: str
     def to_tree(
-        self, tagname: str, obj: Iterable[object], namespace: str | None = None  # type: ignore[override]
+        self,
+        tagname: str,
+        obj: Iterable[object],
+        namespace: str | None = None,  # type: ignore[override]
     ) -> Generator[Element, None, None]: ...
     def from_tree(self, node: _HasGet[_T]) -> _T: ...
 
@@ -56,7 +59,10 @@ class NestedSequence(Sequence):
 class MultiSequence(Sequence):
     def __set__(self, instance: Serialisable | Strict, seq) -> None: ...
     def to_tree(
-        self, tagname: Unused, obj: Iterable[_SupportsToTree], namespace: str | None = None  # type: ignore[override]
+        self,
+        tagname: Unused,
+        obj: Iterable[_SupportsToTree],
+        namespace: str | None = None,  # type: ignore[override]
     ) -> Generator[Element, None, None]: ...
 
 class MultiSequencePart(Alias):
