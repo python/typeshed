@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
+from typing import ClassVar
 
-from braintree.attribute_getter import AttributeGetter as AttributeGetter
+from braintree.attribute_getter import AttributeGetter
 
 class PackageDetails(AttributeGetter):
-    detail_list: Incomplete
+    detail_list: ClassVar[list[str]]
     def __init__(self, attributes) -> None: ...

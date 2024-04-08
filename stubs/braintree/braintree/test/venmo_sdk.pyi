@@ -1,9 +1,9 @@
-from _typeshed import Incomplete
+from typing import Final
 
 def generate_test_payment_method_code(number): ...
 
-VisaPaymentMethodCode: Incomplete
-InvalidPaymentMethodCode: Incomplete
+VisaPaymentMethodCode: Final = "stub-4111111111111111"
+InvalidPaymentMethodCode: Final = "stub-invalid-payment-method-code"
 
-Session: str
-InvalidSession: str
+Session: Final = "stub-session"
+InvalidSession: Final = "stub-invalid-session"

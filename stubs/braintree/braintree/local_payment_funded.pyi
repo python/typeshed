@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 
-from braintree.resource import Resource as Resource
-from braintree.transaction import Transaction as Transaction
+from braintree.resource import Resource
 
 class LocalPaymentFunded(Resource):
     transaction: Incomplete
