@@ -1,14 +1,14 @@
 from _typeshed import SupportsItems
 from collections import OrderedDict
-from collections.abc import Container, Iterable, Mapping
+from collections.abc import Iterable, Mapping
 from typing import ClassVar, TypeVar, overload
 from typing_extensions import Self
 
 _T = TypeVar("_T")
 _VT = TypeVar("_VT")
 
-def canonsort_keys(keys: Iterable[str], canonical_order: Container[str] | None = None) -> list[str]: ...
-def canonsort_items(dict1: Mapping[str, _VT], canonical_order: Container[str] | None = None) -> list[tuple[str, _VT]]: ...
+def canonsort_keys(keys: Iterable[str], canonical_order: Iterable[str] | None = None) -> list[str]: ...
+def canonsort_items(dict1: Mapping[str, _VT], canonical_order: Iterable[str] | None = None) -> list[tuple[str, _VT]]: ...
 
 class CaselessDict(OrderedDict[str, _VT]):
     # Inherit complex __init__ from dict.
@@ -38,6 +38,6 @@ class CaselessDict(OrderedDict[str, _VT]):
     def copy(self) -> Self: ...
     def __eq__(self, other: SupportsItems[str, _VT]) -> bool: ...  # type: ignore[override]
     def __ne__(self, other: SupportsItems[str, _VT]) -> bool: ...  # type: ignore[override]
-    canonical_order: ClassVar[Container[str] | None]
+    canonical_order: ClassVar[Iterable[str] | None]
     def sorted_keys(self) -> list[str]: ...
     def sorted_items(self) -> list[tuple[str, _VT]]: ...
