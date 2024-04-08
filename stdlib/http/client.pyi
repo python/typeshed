@@ -98,7 +98,7 @@ NETWORK_AUTHENTICATION_REQUIRED: int
 
 responses: dict[int, str]
 
-class HTTPMessage(email.message.Message[str]):
+class HTTPMessage(email.message.Message[str, str]):
     def getallmatchingheaders(self, name: str) -> list[str]: ...  # undocumented
 
 @overload
