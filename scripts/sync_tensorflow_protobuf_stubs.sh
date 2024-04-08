@@ -67,6 +67,7 @@ protoc_install/bin/protoc \
 # Cleanup after ourselves, this is a temp dir, but it can still grow fast if run multiple times
 rm -rf "$TMP_DIR"
 
+# Must be run in a git repository to run pre-commit
 cd "$REPO_ROOT"
 
 # These protos exist in a folder with protos used in python,

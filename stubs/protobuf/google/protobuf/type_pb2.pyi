@@ -60,6 +60,8 @@ class _SyntaxEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTyp
     """Syntax `proto2`."""
     SYNTAX_PROTO3: _Syntax.ValueType  # 1
     """Syntax `proto3`."""
+    SYNTAX_EDITIONS: _Syntax.ValueType  # 2
+    """Syntax `editions`."""
 
 class Syntax(_Syntax, metaclass=_SyntaxEnumTypeWrapper):
     """The syntax in which a protocol buffer element is defined."""
@@ -68,6 +70,8 @@ SYNTAX_PROTO2: Syntax.ValueType  # 0
 """Syntax `proto2`."""
 SYNTAX_PROTO3: Syntax.ValueType  # 1
 """Syntax `proto3`."""
+SYNTAX_EDITIONS: Syntax.ValueType  # 2
+"""Syntax `editions`."""
 global___Syntax = Syntax
 
 @typing_extensions.final
@@ -82,6 +86,7 @@ class Type(google.protobuf.message.Message):
     OPTIONS_FIELD_NUMBER: builtins.int
     SOURCE_CONTEXT_FIELD_NUMBER: builtins.int
     SYNTAX_FIELD_NUMBER: builtins.int
+    EDITION_FIELD_NUMBER: builtins.int
     name: builtins.str
     """The fully qualified message name."""
     @property
@@ -98,6 +103,8 @@ class Type(google.protobuf.message.Message):
         """The source context."""
     syntax: global___Syntax.ValueType
     """The source syntax."""
+    edition: builtins.str
+    """The source edition string, only valid when syntax is SYNTAX_EDITIONS."""
     def __init__(
         self,
         *,
@@ -107,9 +114,10 @@ class Type(google.protobuf.message.Message):
         options: collections.abc.Iterable[global___Option] | None = ...,
         source_context: google.protobuf.source_context_pb2.SourceContext | None = ...,
         syntax: global___Syntax.ValueType | None = ...,
+        edition: builtins.str | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["source_context", b"source_context"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["fields", b"fields", "name", b"name", "oneofs", b"oneofs", "options", b"options", "source_context", b"source_context", "syntax", b"syntax"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["edition", b"edition", "fields", b"fields", "name", b"name", "oneofs", b"oneofs", "options", b"options", "source_context", b"source_context", "syntax", b"syntax"]) -> None: ...
 
 global___Type = Type
 
@@ -297,6 +305,7 @@ class Enum(google.protobuf.message.Message):
     OPTIONS_FIELD_NUMBER: builtins.int
     SOURCE_CONTEXT_FIELD_NUMBER: builtins.int
     SYNTAX_FIELD_NUMBER: builtins.int
+    EDITION_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Enum type name."""
     @property
@@ -310,6 +319,8 @@ class Enum(google.protobuf.message.Message):
         """The source context."""
     syntax: global___Syntax.ValueType
     """The source syntax."""
+    edition: builtins.str
+    """The source edition string, only valid when syntax is SYNTAX_EDITIONS."""
     def __init__(
         self,
         *,
@@ -318,9 +329,10 @@ class Enum(google.protobuf.message.Message):
         options: collections.abc.Iterable[global___Option] | None = ...,
         source_context: google.protobuf.source_context_pb2.SourceContext | None = ...,
         syntax: global___Syntax.ValueType | None = ...,
+        edition: builtins.str | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["source_context", b"source_context"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["enumvalue", b"enumvalue", "name", b"name", "options", b"options", "source_context", b"source_context", "syntax", b"syntax"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["edition", b"edition", "enumvalue", b"enumvalue", "name", b"name", "options", b"options", "source_context", b"source_context", "syntax", b"syntax"]) -> None: ...
 
 global___Enum = Enum
 

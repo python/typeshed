@@ -3,9 +3,6 @@
 isort:skip_file
 Author: kenton@google.com (Kenton Varda)
 
-WARNING:  The plugin interface is currently EXPERIMENTAL and is subject to
-  change.
-
 protoc (aka the Protocol Compiler) can be extended via plugins.  A plugin is
 just a program that reads a CodeGeneratorRequest from stdin and writes a
 CodeGeneratorResponse to stdout.
@@ -74,6 +71,7 @@ class CodeGeneratorRequest(google.protobuf.message.Message):
     FILE_TO_GENERATE_FIELD_NUMBER: builtins.int
     PARAMETER_FIELD_NUMBER: builtins.int
     PROTO_FILE_FIELD_NUMBER: builtins.int
+    SOURCE_FILE_DESCRIPTORS_FIELD_NUMBER: builtins.int
     COMPILER_VERSION_FIELD_NUMBER: builtins.int
     @property
     def file_to_generate(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
@@ -89,6 +87,11 @@ class CodeGeneratorRequest(google.protobuf.message.Message):
         they import.  The files will appear in topological order, so each file
         appears before any file that imports it.
 
+        Note: the files listed in files_to_generate will include runtime-retention
+        options only, but all other files will include source-retention options.
+        The source_file_descriptors field below is available in case you need
+        source-retention options for files_to_generate.
+
         protoc guarantees that all proto_files will be written after
         the fields above, even though this is not technically guaranteed by the
         protobuf wire format.  This theoretically could allow a plugin to stream
@@ -101,6 +104,12 @@ class CodeGeneratorRequest(google.protobuf.message.Message):
         fully qualified.
         """
     @property
+    def source_file_descriptors(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.descriptor_pb2.FileDescriptorProto]:
+        """File descriptors with all options, including source-retention options.
+        These descriptors are only provided for the files listed in
+        files_to_generate.
+        """
+    @property
     def compiler_version(self) -> global___Version:
         """The version number of protocol compiler."""
     def __init__(
@@ -109,10 +118,11 @@ class CodeGeneratorRequest(google.protobuf.message.Message):
         file_to_generate: collections.abc.Iterable[builtins.str] | None = ...,
         parameter: builtins.str | None = ...,
         proto_file: collections.abc.Iterable[google.protobuf.descriptor_pb2.FileDescriptorProto] | None = ...,
+        source_file_descriptors: collections.abc.Iterable[google.protobuf.descriptor_pb2.FileDescriptorProto] | None = ...,
         compiler_version: global___Version | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing_extensions.Literal["compiler_version", b"compiler_version", "parameter", b"parameter"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["compiler_version", b"compiler_version", "file_to_generate", b"file_to_generate", "parameter", b"parameter", "proto_file", b"proto_file"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["compiler_version", b"compiler_version", "file_to_generate", b"file_to_generate", "parameter", b"parameter", "proto_file", b"proto_file", "source_file_descriptors", b"source_file_descriptors"]) -> None: ...
 
 global___CodeGeneratorRequest = CodeGeneratorRequest
 
@@ -130,12 +140,14 @@ class CodeGeneratorResponse(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         FEATURE_NONE: CodeGeneratorResponse._Feature.ValueType  # 0
         FEATURE_PROTO3_OPTIONAL: CodeGeneratorResponse._Feature.ValueType  # 1
+        FEATURE_SUPPORTS_EDITIONS: CodeGeneratorResponse._Feature.ValueType  # 2
 
     class Feature(_Feature, metaclass=_FeatureEnumTypeWrapper):
         """Sync with code_generator.h."""
 
     FEATURE_NONE: CodeGeneratorResponse.Feature.ValueType  # 0
     FEATURE_PROTO3_OPTIONAL: CodeGeneratorResponse.Feature.ValueType  # 1
+    FEATURE_SUPPORTS_EDITIONS: CodeGeneratorResponse.Feature.ValueType  # 2
 
     @typing_extensions.final
     class File(google.protobuf.message.Message):
