@@ -12,7 +12,7 @@ TENSORFLOW_VERSION=2.16.1
 # Latest mypy-protobuf has dependency on protobuf >4, which is incompatible at runtime
 # with tensorflow. However, the stubs produced do still work with tensorflow.
 # This issue is mitigated by using a different venv
-MYPY_PROTOBUF_VERSION=3.5.0
+MYPY_PROTOBUF_VERSION=3.6.0
 
 if uname -a | grep Darwin; then
     # brew install coreutils wget
@@ -97,7 +97,4 @@ sed --in-place="" \
 
 # use `|| true` so the script still continues even if a pre-commit hook
 # applies autofixes (which will result in a nonzero exit code)
-pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/tensorflow/**.pyi") || true
-# Ruff takes two passes to fix everything, re-running all of pre-commit is *slow*
-# and we don't need --unsafe-fixes to remove imports
-ruff check "$REPO_ROOT/stubs/tensorflow/tensorflow" --fix --exit-zero
+pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/tensorflow/**_pb2.pyi") || true

@@ -16,9 +16,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================
 """
+
 import builtins
 import collections.abc
-import typing as typing_extensions
+import typing
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
@@ -26,7 +27,7 @@ import google.protobuf.message
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class BufferIsolationConfig(google.protobuf.message.Message):
     """This defines the buffer isolation configuration, which is a debugging tool to
     move buffers around to isolate them. The idea is to isolate buffers from the
@@ -130,6 +131,6 @@ class BufferIsolationConfig(google.protobuf.message.Message):
         isolation_order_salt: builtins.int | None = ...,
         isolation_colors: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["base_offset_bytes", b"base_offset_bytes", "isolation_colors", b"isolation_colors", "isolation_fuel", b"isolation_fuel", "isolation_order_salt", b"isolation_order_salt", "isolation_padding_bytes", b"isolation_padding_bytes"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["base_offset_bytes", b"base_offset_bytes", "isolation_colors", b"isolation_colors", "isolation_fuel", b"isolation_fuel", "isolation_order_salt", b"isolation_order_salt", "isolation_padding_bytes", b"isolation_padding_bytes"]) -> None: ...
 
 global___BufferIsolationConfig = BufferIsolationConfig

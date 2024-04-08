@@ -16,9 +16,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================
 """
+
 import builtins
 import collections.abc
-import typing as typing_extensions
+import typing
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
@@ -27,7 +28,7 @@ import xla.autotuning_pb2
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class AutotuneResults(google.protobuf.message.Message):
     """A collection of algorithms for particular dot/convs.  Usually this is "the
     best" algorithm for the particular dot/conv, although that's not strictly
@@ -43,7 +44,7 @@ class AutotuneResults(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Entry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -61,8 +62,8 @@ class AutotuneResults(google.protobuf.message.Message):
             hlo: builtins.str | None = ...,
             result: xla.autotuning_pb2.AutotuneResult | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["result", b"result"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["device", b"device", "hlo", b"hlo", "result", b"result"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["result", b"result"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["device", b"device", "hlo", b"hlo", "result", b"result"]) -> None: ...
 
     VERSION_FIELD_NUMBER: builtins.int
     RESULTS_FIELD_NUMBER: builtins.int
@@ -75,6 +76,6 @@ class AutotuneResults(google.protobuf.message.Message):
         version: builtins.int | None = ...,
         results: collections.abc.Iterable[global___AutotuneResults.Entry] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["results", b"results", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["results", b"results", "version", b"version"]) -> None: ...
 
 global___AutotuneResults = AutotuneResults
