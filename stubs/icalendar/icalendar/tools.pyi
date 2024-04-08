@@ -1,8 +1,10 @@
-from _typeshed import Incomplete
+from typing import Final
+
+from .prop import vText
 
 class UIDGenerator:
-    chars: Incomplete
+    chars: Final[list[str]]
     @staticmethod
-    def rnd_string(length: int = 16): ...
+    def rnd_string(length: int = 16) -> str: ...
     @staticmethod
-    def uid(host_name: str = "example.com", unique: str = ""): ...
+    def uid(host_name: str = "example.com", unique: str = "") -> vText: ...

@@ -1,16 +1,22 @@
+import datetime
 from _typeshed import Incomplete
 from datetime import tzinfo
+from re import Pattern
+from typing import Any, ClassVar, Final
+from typing_extensions import TypeAlias
 
-from icalendar.caselessdict import CaselessDict
+from .caselessdict import CaselessDict
+from .parser import Parameters
 
-DURATION_REGEX: Incomplete
-WEEKDAY_RULE: Incomplete
-ZERO: Incomplete
-HOUR: Incomplete
-STDOFFSET: Incomplete
-DSTOFFSET: Incomplete
-DSTOFFSET = STDOFFSET
-DSTDIFF: Incomplete
+_PropType: TypeAlias = type[Any]  # any of the v* classes in this file
+
+DURATION_REGEX: Final[Pattern[str]]
+WEEKDAY_RULE: Final[Pattern[str]]
+ZERO: Final[datetime.timedelta]
+HOUR: Final[datetime.timedelta]
+STDOFFSET: Final[datetime.timedelta]
+DSTOFFSET: Final[datetime.timedelta]
+DSTDIFF: Final[datetime.timedelta]
 
 class FixedOffset(tzinfo):
     def __init__(self, offset, name) -> None: ...
@@ -148,17 +154,17 @@ class vFrequency(str):
     @classmethod
     def from_ical(cls, ical): ...
 
-class vRecur(CaselessDict):
-    frequencies: Incomplete
-    canonical_order: Incomplete
-    types: Incomplete
-    params: Incomplete
+class vRecur(CaselessDict[Incomplete]):
+    frequencies: ClassVar[list[str]]
+    canonical_order: ClassVar[tuple[str, ...]]
+    types: ClassVar[CaselessDict[_PropType]]
+    params: Parameters
     def __init__(self, *args, **kwargs) -> None: ...
     def to_ical(self): ...
     @classmethod
     def parse_type(cls, key, values): ...
     @classmethod
-    def from_ical(cls, ical): ...
+    def from_ical(cls, ical) -> dict[str, Incomplete]: ...
 
 class vText(str):
     encoding: Incomplete
@@ -210,10 +216,10 @@ class vInline(str):
     @classmethod
     def from_ical(cls, ical): ...
 
-class TypesFactory(CaselessDict):
-    all_types: Incomplete
+class TypesFactory(CaselessDict[_PropType]):
+    all_types: tuple[_PropType, ...]
     def __init__(self, *args, **kwargs) -> None: ...
-    types_map: Incomplete
-    def for_property(self, name): ...
-    def to_ical(self, name, value): ...
-    def from_ical(self, name, value): ...
+    types_map: CaselessDict[str]
+    def for_property(self, name: str) -> _PropType: ...
+    def to_ical(self, name: str, value) -> bytes: ...
+    def from_ical(self, name: str, value): ...

@@ -1,3 +1,3 @@
-from _typeshed import Incomplete
+from typing import Final
 
-WINDOWS_TO_OLSON: Incomplete
+WINDOWS_TO_OLSON: Final[dict[str, str]]

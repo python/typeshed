@@ -1,4 +1,6 @@
-from icalendar.cal import (
+from typing import Final
+
+from .cal import (
     Alarm as Alarm,
     Calendar as Calendar,
     ComponentFactory as ComponentFactory,
@@ -10,8 +12,8 @@ from icalendar.cal import (
     TimezoneStandard as TimezoneStandard,
     Todo as Todo,
 )
-from icalendar.parser import Parameters as Parameters, q_join as q_join, q_split as q_split
-from icalendar.prop import (
+from .parser import Parameters as Parameters, q_join as q_join, q_split as q_split
+from .prop import (
     FixedOffset as FixedOffset,
     LocalTimezone as LocalTimezone,
     TypesFactory as TypesFactory,
@@ -35,4 +37,4 @@ from icalendar.prop import (
     vWeekday as vWeekday,
 )
 
-__version__: str
+__version__: Final[str]
