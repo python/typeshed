@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from braintree.attribute_getter import AttributeGetter as AttributeGetter
+from braintree.attribute_getter import AttributeGetter
 
 class ExchangeRateQuoteInput(AttributeGetter):
     parent: Incomplete

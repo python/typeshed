@@ -1,3 +1,5 @@
+from typing import Final
+
 class CreditCardDefaults:
-    CountryOfIssuance: str
-    IssuingBank: str
+    CountryOfIssuance: Final = "USA"
+    IssuingBank: Final = "NETWORK ONLY"
