@@ -33,6 +33,7 @@ __all__ = [
 
 _DataType: TypeAlias = SupportsRead[bytes] | Iterable[ReadableBuffer] | ReadableBuffer
 _T = TypeVar("_T")
+_MessageT = TypeVar("_MessageT", bound=email.message.Message)
 
 HTTP_PORT: int
 HTTPS_PORT: int
@@ -118,7 +119,10 @@ class HTTPMessage(email.message.Message):
     def set_raw(self, name: str, value: str) -> None: ...  # type: ignore[override]
     def raw_items(self) -> Iterator[tuple[str, str]]: ...
 
-def parse_headers(fp: io.BufferedIOBase, _class: Callable[[], email.message.Message] = ...) -> HTTPMessage: ...
+@overload
+def parse_headers(fp: io.BufferedIOBase, _class: Callable[[], _MessageT]) -> _MessageT: ...
+@overload
+def parse_headers(fp: io.BufferedIOBase) -> HTTPMessage: ...
 
 class HTTPResponse(io.BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incompatible method definitions in the base classes
     msg: HTTPMessage
