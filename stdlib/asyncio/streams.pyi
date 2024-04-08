@@ -2,8 +2,8 @@ import ssl
 import sys
 from _typeshed import StrPath
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Sequence
-from typing import Any, SupportsIndex
-from typing_extensions import Self, TypeAlias
+from typing import Any, Protocol, Sized, SupportsIndex
+from typing_extensions import ReadableBuffer, Self, TypeAlias
 
 from . import events, protocols, transports
 from .base_events import Server
@@ -22,6 +22,9 @@ else:
     )
 
 _ClientConnectedCallback: TypeAlias = Callable[[StreamReader, StreamWriter], Awaitable[None] | None]
+
+class _ReaduntilBuffer(ReadableBuffer, Sized, Protocol):
+    pass
 
 if sys.version_info >= (3, 10):
     async def open_connection(
@@ -140,8 +143,10 @@ class StreamReader(AsyncIterator[bytes]):
     def at_eof(self) -> bool: ...
     def feed_data(self, data: Iterable[SupportsIndex]) -> None: ...
     async def readline(self) -> bytes: ...
-    # Can be any buffer that supports len(); consider changing to a Protocol if PEP 688 is accepted
-    async def readuntil(self, separator: bytes | bytearray | memoryview = b"\n") -> bytes: ...
+    if sys.version_info >= (3, 13):
+        async def readuntil(self, separator: _ReaduntilBuffer | tuple[_ReaduntilBuffer] = b"\n") -> bytes: ...
+    else:
+        async def readuntil(self, separator: _ReaduntilBuffer = b"\n") -> bytes: ...
     async def read(self, n: int = -1) -> bytes: ...
     async def readexactly(self, n: int) -> bytes: ...
     def __aiter__(self) -> Self: ...
