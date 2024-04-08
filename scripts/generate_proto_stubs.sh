@@ -79,4 +79,4 @@ sed --in-place="" \
 cd $REPO_ROOT
 # use `|| true` so the script still continues even if a pre-commit hook
 # applies autofixes (which will result in a nonzero exit code)
-pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/protobuf/**.pyi") || true
+pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/protobuf/**_pb2.pyi") || true

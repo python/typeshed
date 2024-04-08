@@ -61,6 +61,7 @@ rm tensorflow/compiler/xla/service/hlo_execution_profile_data_pb2.pyi \
    tensorflow/core/protobuf/worker_service_pb2.pyi \
    tensorflow/core/util/example_proto_fast_parsing_test_pb2.pyi
 
+
 sed --in-place="" \
     "s/extra_description = .*$/extra_description = \"Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on tensorflow==$TENSORFLOW_VERSION\"/" \
     "$REPO_ROOT/stubs/tensorflow/METADATA.toml"
