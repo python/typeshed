@@ -1,0 +1,9 @@
+from _typeshed import Incomplete
+from typing import Any
+
+SEQUENCE_TYPES: Incomplete
+DEFAULT_ENCODING: str
+
+def from_unicode(value: Any, encoding: str = "utf-8") -> bytes: ...
+def to_unicode(value, encoding: str = "utf-8"): ...
+def data_encode(data, encoding="utf-8"): ...
