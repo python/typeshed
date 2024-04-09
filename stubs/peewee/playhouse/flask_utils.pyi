@@ -1,4 +1,5 @@
 from typing import Type
+from peewee import Model
 
 class FlaskDB:
     def __init__(self, app=None, database=None, model_class=Model, excluded_routes=None) -> None: ...
