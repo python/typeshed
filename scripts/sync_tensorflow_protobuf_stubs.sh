@@ -9,9 +9,6 @@ PROTOBUF_VERSION=25.3 # 4.25.3
 # Whenever you update TENSORFLOW_VERSION here, version should be updated
 # in stubs/tensorflow/METADATA.toml and vice-versa.
 TENSORFLOW_VERSION=2.16.1
-# Latest mypy-protobuf has dependency on protobuf >4, which is incompatible at runtime
-# with tensorflow. However, the stubs produced do still work with tensorflow.
-# This issue is mitigated by using a different venv
 MYPY_PROTOBUF_VERSION=3.6.0
 
 if uname -a | grep Darwin; then
