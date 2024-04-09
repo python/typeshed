@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from collections import Counter
+from typing import cast
 from typing_extensions import assert_type
 
 
@@ -28,10 +29,9 @@ float_c["a"] += 3.0
 float_c["a"] += 42
 float_c["a"] += "42"  # type: ignore
 
-custom_c: Counter[str, Foo] = Counter()
+custom_c = cast("Counter[str, Foo]", Counter())
 assert_type(custom_c, "Counter[str, Foo]")
 assert_type(custom_c["a"], Foo)
 custom_c["a"] = Foo()
 custom_c["a"] += Foo()  # type: ignore
-# pyright incorrectly accepts the next line
-# custom_c["a"] += 42  # xtype: ignore
+custom_c["a"] += 42  # type: ignore
