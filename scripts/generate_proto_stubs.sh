@@ -82,7 +82,7 @@ sed --in-place="" \
   "$REPO_ROOT/stubs/protobuf/METADATA.toml"
 
 # Must be run in a git repository
-cd $REPO_ROOT
+cd "$REPO_ROOT"
 # use `|| true` so the script still continues even if a pre-commit hook
 # applies autofixes (which will result in a nonzero exit code)
 pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/protobuf") || true

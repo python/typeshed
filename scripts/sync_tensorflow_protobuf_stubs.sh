@@ -47,10 +47,10 @@ source .venv/bin/activate
 python3 -m pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 
 # Empty target folders or the mv command below will fail
-rm -rf $REPO_ROOT/stubs/tensorflow/tensorflow/tsl/
-rm -rf $REPO_ROOT/stubs/tensorflow/tensorflow/compiler/xla/
+rm -rf "$REPO_ROOT/stubs/tensorflow/tensorflow/tsl/"
+rm -rf "$REPO_ROOT/stubs/tensorflow/tensorflow/compiler/xla/"
 # Remove existing pyi
-find $REPO_ROOT/stubs/tensorflow/ -name "*_pb2.pyi" -delete
+find "$REPO_ROOT/stubs/tensorflow/" -name "*_pb2.pyi" -delete
 
 # Folders here cover the more commonly used protobufs externally and
 # their dependencies. Tensorflow has more protobufs and can be added if requested.
@@ -59,15 +59,15 @@ protoc_install/bin/protoc \
     --proto_path="$TENSORFLOW_DIR/third_party/xla" \
     --proto_path="$TENSORFLOW_DIR" \
     --mypy_out "relax_strict_optional_primitives:$REPO_ROOT/stubs/tensorflow" \
-    $TENSORFLOW_DIR/third_party/xla/xla/*.proto \
-    $TENSORFLOW_DIR/third_party/xla/xla/service/*.proto \
-    $TENSORFLOW_DIR/tensorflow/core/example/*.proto \
-    $TENSORFLOW_DIR/tensorflow/core/framework/*.proto \
-    $TENSORFLOW_DIR/tensorflow/core/protobuf/*.proto \
-    $TENSORFLOW_DIR/tensorflow/core/protobuf/tpu/*.proto \
-    $TENSORFLOW_DIR/tensorflow/core/util/*.proto \
-    $TENSORFLOW_DIR/tensorflow/python/keras/protobuf/*.proto \
-    $TENSORFLOW_DIR/third_party/xla/third_party/tsl/tsl/protobuf/*.proto \
+    "$TENSORFLOW_DIR/third_party/xla/xla/*.proto" \
+    "$TENSORFLOW_DIR/third_party/xla/xla/service/*.proto" \
+    "$TENSORFLOW_DIR/tensorflow/core/example/*.proto" \
+    "$TENSORFLOW_DIR/tensorflow/core/framework/*.proto" \
+    "$TENSORFLOW_DIR/tensorflow/core/protobuf/*.proto" \
+    "$TENSORFLOW_DIR/tensorflow/core/protobuf/tpu/*.proto" \
+    "$TENSORFLOW_DIR/tensorflow/core/util/*.proto" \
+    "$TENSORFLOW_DIR/tensorflow/python/keras/protobuf/*.proto" \
+    "$TENSORFLOW_DIR/third_party/xla/third_party/tsl/tsl/protobuf/*.proto" \
 
 # Cleanup after ourselves, this is a temp dir, but it can still grow fast if run multiple times
 rm -rf "$TMP_DIR"
@@ -75,10 +75,17 @@ rm -rf "$TMP_DIR"
 # Must be run in a git repository to run pre-commit
 cd "$REPO_ROOT"
 
+# Move third-party and fix imports
+mv stubs/tensorflow/tsl/ stubs/tensorflow/tensorflow/
+find stubs/tensorflow/ -name '*_pb2.pyi' | xargs sed --in-place="" -r "s/(\[|\s)tsl\./\1tensorflow\.tsl\./"
+mv stubs/tensorflow/xla/ stubs/tensorflow/tensorflow/compiler/
+find stubs/tensorflow/ -name '*_pb2.pyi' | xargs sed --in-place="" -r "s/(\[|\s)xla\./\1tensorflow\.compiler\.xla\./"
+
 # These protos exist in a folder with protos used in python,
 # but are not included in the python wheel.
 # They are likely only used for other language builds.
 # stubtest was used to identify them by looking for ModuleNotFoundError.
+# (comment out ".*_pb2.*" from the allowlist)
 rm -r \
   stubs/tensorflow/tensorflow/core/protobuf/autotuning_pb2.pyi \
   stubs/tensorflow/tensorflow/core/protobuf/conv_autotuning_pb2.pyi \
@@ -91,17 +98,15 @@ rm -r \
   stubs/tensorflow/tensorflow/core/protobuf/worker_pb2.pyi \
   stubs/tensorflow/tensorflow/core/protobuf/worker_service_pb2.pyi \
   stubs/tensorflow/tensorflow/core/util/example_proto_fast_parsing_test_pb2.pyi \
-
-# Move third-party and fix imports
-mv stubs/tensorflow/tsl/ stubs/tensorflow/tensorflow/
-find "$REPO_ROOT/stubs/tensorflow/" -name '*_pb2.pyi' | xargs sed --in-place="" -r "s/(\[|\s)tsl\./\1tensorflow\.tsl\./"
-mv stubs/tensorflow/xla/ stubs/tensorflow/tensorflow/compiler/
-find "$REPO_ROOT/stubs/tensorflow/" -name '*_pb2.pyi' | xargs sed --in-place="" -r "s/(\[|\s)xla\./\1tensorflow\.compiler\.xla\./"
+  tensorflow/compiler/xla/autotune_results_pb2.pyi \
+  tensorflow/compiler/xla/autotuning_pb2.pyi \
+  tensorflow/compiler/xla/service/buffer_assignment_pb2.pyi \
+  tensorflow/compiler/xla/service/hlo_execution_profile_data_pb2.pyi \
 
 sed --in-place="" \
     "s/extra_description = .*$/extra_description = \"Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on tensorflow==$TENSORFLOW_VERSION\"/" \
-    "$REPO_ROOT/stubs/tensorflow/METADATA.toml"
+    stubs/tensorflow/METADATA.toml
 
 # use `|| true` so the script still continues even if a pre-commit hook
 # applies autofixes (which will result in a nonzero exit code)
-pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/tensorflow/**_pb2.pyi") || true
+pre-commit run --files $(git ls-files -- "stubs/tensorflow/**_pb2.pyi") || true
