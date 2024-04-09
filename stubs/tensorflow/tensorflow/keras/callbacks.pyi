@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterable, Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from typing import Any, Literal
 from typing_extensions import TypeAlias
 
@@ -7,8 +7,6 @@ import tensorflow as tf
 from requests.api import _HeadersMapping
 from tensorflow.keras import Model
 from tensorflow.keras.optimizers.schedules import LearningRateSchedule
-from tensorflow.saved_model import SaveOptions
-from tensorflow.train import CheckpointOptions
 
 _Logs: TypeAlias = Mapping[str, Any] | None | Any
 
@@ -95,8 +93,8 @@ class LambdaCallback(Callback):
         on_epoch_end: Callable[[int, _Logs], object] | None = None,
         on_train_begin: Callable[[_Logs], object] | None = None,
         on_train_end: Callable[[_Logs], object] | None = None,
-        on_batch_begin: Callable[[int, _Logs], object] | None = None,
-        on_batch_end: Callable[[int, _Logs], object] | None = None,
+        on_train_batch_begin: Callable[[int, _Logs], object] | None = None,
+        on_train_batch_end: Callable[[int, _Logs], object] | None = None,
         **kwargs: Any,
     ) -> None: ...
 
@@ -110,7 +108,6 @@ class LearningRateScheduler(Callback):
 class ModelCheckpoint(Callback):
     monitor_op: Any
     filepath: str
-    _options: CheckpointOptions | SaveOptions | None
     def __init__(
         self,
         filepath: str,
@@ -120,16 +117,13 @@ class ModelCheckpoint(Callback):
         save_weights_only: bool = False,
         mode: Literal["auto", "min", "max"] = "auto",
         save_freq: str | int = "epoch",
-        options: CheckpointOptions | SaveOptions | None = None,
         initial_value_threshold: float | None = None,
     ) -> None: ...
     def _save_model(self, epoch: int, batch: int | None, logs: _Logs) -> None: ...
 
 class ProgbarLogger(Callback):
     use_steps: bool
-    def __init__(
-        self, count_mode: Literal["steps", "samples"] = "samples", stateful_metrics: Iterable[str] | None = None
-    ) -> None: ...
+    def __init__(self) -> None: ...
 
 class ReduceLROnPlateau(Callback):
     def __init__(
@@ -141,7 +135,7 @@ class ReduceLROnPlateau(Callback):
         mode: Literal["auto", "min", "max"] = "auto",
         min_delta: float = 1e-4,
         cooldown: int = 0,
-        min_lr: float = 0,
+        min_lr: float = 0.0,
         **kwargs: Incomplete,
     ) -> None: ...
     def in_cooldown(self) -> bool: ...
@@ -171,7 +165,6 @@ class TensorBoard(Callback):
         profile_batch: int | tuple[int, int] = 0,
         embeddings_freq: int = 0,
         embeddings_metadata: dict[str, None] | None = None,
-        **kwargs: Any,
     ) -> None: ...
     def _write_keras_model_train_graph(self) -> None: ...
     def _stop_trace(self, batch: int | None = None) -> None: ...

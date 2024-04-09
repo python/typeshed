@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any, Generic, Literal, TypeVar
@@ -6,7 +7,7 @@ from typing_extensions import ParamSpec, TypeAlias
 import tensorflow as tf
 from tensorflow.python.training.tracking.autotrackable import AutoTrackable
 from tensorflow.saved_model.experimental import VariablePolicy
-from tensorflow.types.experimental import ConcreteFunction, GenericFunction
+from tensorflow.types.experimental import ConcreteFunction, GenericFunction  # type: ignore[attr-defined]
 
 _P = ParamSpec("_P")
 _R = TypeVar("_R", covariant=True)
@@ -39,15 +40,17 @@ class SaveOptions:
         "namespace_whitelist",
         "save_debug_info",
         "function_aliases",
+        "experimental_debug_stripper",
         "experimental_io_device",
         "experimental_variable_policy",
         "experimental_custom_gradients",
         "experimental_image_format",
         "experimental_skip_saver",
+        "experimental_sharding_callback",
     )
     namespace_whitelist: list[str]
     save_debug_info: bool
-    function_aliases: dict[str, tf.types.experimental.GenericFunction[..., object]]
+    function_aliases: dict[str, tf.types.experimental.GenericFunction[..., object]]  # type: ignore[name-defined]
     experimental_io_device: str
     experimental_variable_policy: VariablePolicy
     experimental_custom_gradients: bool
@@ -57,12 +60,14 @@ class SaveOptions:
         self,
         namespace_whitelist: list[str] | None = None,
         save_debug_info: bool = False,
-        function_aliases: Mapping[str, tf.types.experimental.GenericFunction[..., object]] | None = None,
+        function_aliases: Mapping[str, tf.types.experimental.GenericFunction[..., object]] | None = None,  # type: ignore[name-defined]
+        experimental_debug_stripper: bool = False,
         experimental_io_device: str | None = None,
         experimental_variable_policy: str | VariablePolicy | None = None,
         experimental_custom_gradients: bool = True,
         experimental_image_format: bool = False,
         experimental_skip_saver: bool = False,
+        experimental_sharding_callback: Incomplete | None = None,
     ) -> None: ...
 
 def contains_saved_model(export_dir: str | Path) -> bool: ...

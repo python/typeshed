@@ -13,13 +13,13 @@ import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import tensorflow.core.framework.tensor_pb2
-import tsl.protobuf.histogram_pb2
+import tensorflow.tsl.protobuf.histogram_pb2
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
 else:
     import typing_extensions
-from tsl.protobuf.histogram_pb2 import HistogramProto as HistogramProto
+from tensorflow.tsl.protobuf.histogram_pb2 import HistogramProto as HistogramProto
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -260,7 +260,7 @@ class Summary(google.protobuf.message.Message):
         @property
         def image(self) -> global___Summary.Image: ...
         @property
-        def histo(self) -> tsl.protobuf.histogram_pb2.HistogramProto: ...
+        def histo(self) -> tensorflow.tsl.protobuf.histogram_pb2.HistogramProto: ...
         @property
         def audio(self) -> global___Summary.Audio: ...
         @property
@@ -274,7 +274,7 @@ class Summary(google.protobuf.message.Message):
             simple_value: builtins.float | None = ...,
             obsolete_old_style_histogram: builtins.bytes | None = ...,
             image: global___Summary.Image | None = ...,
-            histo: tsl.protobuf.histogram_pb2.HistogramProto | None = ...,
+            histo: tensorflow.tsl.protobuf.histogram_pb2.HistogramProto | None = ...,
             audio: global___Summary.Audio | None = ...,
             tensor: tensorflow.core.framework.tensor_pb2.TensorProto | None = ...,
         ) -> None: ...

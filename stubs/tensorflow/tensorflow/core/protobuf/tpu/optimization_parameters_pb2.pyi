@@ -11,7 +11,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 import google.protobuf.wrappers_pb2
-import xla.service.hlo_pb2
+import tensorflow.compiler.xla.service.hlo_pb2
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -727,11 +727,11 @@ class UserDefinedProgramParameters(google.protobuf.message.Message):
 
     PROGRAM_FIELD_NUMBER: builtins.int
     @property
-    def program(self) -> xla.service.hlo_pb2.HloModuleProto: ...
+    def program(self) -> tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto: ...
     def __init__(
         self,
         *,
-        program: xla.service.hlo_pb2.HloModuleProto | None = ...,
+        program: tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["program", b"program"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["program", b"program"]) -> None: ...

@@ -1,17 +1,15 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import Any, Generic, Literal, TypeVar, overload
+from collections.abc import Callable, Iterable, Sequence
+from typing import Any, Generic, Literal, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
-from tensorflow import Tensor, Variable, VariableAggregation, VariableSynchronization
-from tensorflow._aliases import AnyArray, DTypeLike, TensorCompatible, TensorLike
+from tensorflow import Tensor, Variable
+from tensorflow._aliases import AnyArray, DataSequence, DTypeLike, Float, TensorCompatible, TensorLike
 from tensorflow.keras.activations import _Activation
 from tensorflow.keras.constraints import Constraint
 from tensorflow.keras.initializers import _Initializer
-from tensorflow.keras.layers.preprocessing import IntegerLookup as IntegerLookup, StringLookup as StringLookup
 from tensorflow.keras.regularizers import Regularizer, _Regularizer
-from tensorflow.python.feature_column.feature_column_v2 import DenseColumn, SequenceDenseColumn
 
 _InputT = TypeVar("_InputT", contravariant=True)
 _OutputT = TypeVar("_OutputT", covariant=True)
@@ -69,18 +67,17 @@ class Layer(tf.Module, Generic[_InputT, _OutputT]):
     def compute_output_shape(self, input_shape: Any, /) -> Any: ...
     def add_weight(
         self,
-        name: str | None = None,
         shape: Iterable[int | None] | None = None,
-        dtype: DTypeLike | None = None,
         initializer: _Initializer | None = None,
+        dtype: DTypeLike | None = None,
+        trainable: bool = True,
+        autocast: bool = True,
         regularizer: _Regularizer = None,
-        trainable: bool | None = None,
         constraint: _Constraint = None,
-        use_resource: bool | None = None,
-        synchronization: VariableSynchronization = ...,
-        aggregation: VariableAggregation = ...,
+        aggregation: Literal["mean", "sum", "only_first_replica"] = "mean",
+        name: str | None = None,
     ) -> tf.Variable: ...
-    def add_loss(self, losses: tf.Tensor | Sequence[tf.Tensor] | Callable[[], tf.Tensor]) -> None: ...
+    def add_loss(self, loss: tf.Tensor | Sequence[tf.Tensor] | Callable[[], tf.Tensor]) -> None: ...
     def count_params(self) -> int: ...
     @property
     def trainable_variables(self) -> list[Variable]: ...
@@ -111,6 +108,47 @@ class Layer(tf.Module, Generic[_InputT, _OutputT]):
 _LayerDtype: TypeAlias = DTypeLike | dict[str, Any] | Any
 
 _Constraint: TypeAlias = str | dict[str, Any] | Constraint | None
+
+# IndexLookup is not exported by Keras
+@type_check_only
+class _IndexLookup(Layer[tf.Tensor, tf.Tensor]):
+    def compute_output_signature(self, input_spec: Incomplete) -> tf.TensorSpec: ...
+    def get_vocabulary(self, include_special_tokens: bool = True) -> list[Incomplete]: ...
+    def vocabulary_size(self) -> int: ...
+
+class StringLookup(_IndexLookup):
+    def __init__(
+        self,
+        max_tokens: int | None = None,
+        num_oov_indices: int = 1,
+        mask_token: str | None = None,
+        oov_token: str = "[UNK]",
+        vocabulary: str | None | TensorCompatible = None,
+        idf_weights: TensorCompatible | None = None,
+        encoding: str = "utf-8",
+        invert: bool = False,
+        output_mode: Literal["int", "count", "multi_hot", "one_hot", "tf_idf"] = "int",
+        sparse: bool = False,
+        pad_to_max_tokens: bool = False,
+    ) -> None: ...
+    def adapt(self, data: tf.data.Dataset[TensorLike] | AnyArray | DataSequence, steps: Float | None = None) -> None: ...
+
+class IntegerLookup(_IndexLookup):
+    def __init__(
+        self,
+        max_tokens: int | None = None,
+        num_oov_indices: int = 1,
+        mask_token: int | None = None,
+        oov_token: int = -1,
+        vocabulary: str | None | TensorCompatible = None,
+        vocabulary_dtype: Literal["int64", "int32"] = "int64",
+        idf_weights: TensorCompatible | None = None,
+        invert: bool = False,
+        output_mode: Literal["int", "count", "multi_hot", "one_hot", "tf_idf"] = "int",
+        sparse: bool = False,
+        pad_to_max_tokens: bool = False,
+    ) -> None: ...
+    def adapt(self, data: tf.data.Dataset[TensorLike] | AnyArray | DataSequence, steps: Float | None = None) -> None: ...
 
 # Layer's compute_output_shape commonly have instance as first argument name instead of self.
 # This is an artifact of actual implementation commonly uses a decorator to define it.
@@ -241,16 +279,6 @@ class LayerNormalization(Layer[tf.Tensor, tf.Tensor]):
         gamma_constraint: _Constraint = None,
         trainable: bool = True,
         dtype: _LayerDtype | None = None,
-        dynamic: bool = False,
-        name: str | None = None,
-    ) -> None: ...
-
-class DenseFeatures(Layer[Mapping[str, TensorLike], tf.Tensor]):
-    def __init__(
-        self,
-        feature_columns: Sequence[DenseColumn | SequenceDenseColumn],
-        trainable: bool = True,
-        dtype: _LayerDtype = None,
         dynamic: bool = False,
         name: str | None = None,
     ) -> None: ...

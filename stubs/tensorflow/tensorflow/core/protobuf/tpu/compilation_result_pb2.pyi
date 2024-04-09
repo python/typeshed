@@ -12,8 +12,8 @@ import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import tsl.protobuf.error_codes_pb2
-import xla.service.hlo_pb2
+import tensorflow.compiler.xla.service.hlo_pb2
+import tensorflow.tsl.protobuf.error_codes_pb2
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -48,20 +48,20 @@ class CompilationResultProto(google.protobuf.message.Message):
     STATUS_ERROR_MESSAGE_FIELD_NUMBER: builtins.int
     HLO_PROTOS_FIELD_NUMBER: builtins.int
     ERROR_CODE_FIELD_NUMBER: builtins.int
-    status_code: tsl.protobuf.error_codes_pb2.Code.ValueType
+    status_code: tensorflow.tsl.protobuf.error_codes_pb2.Code.ValueType
     """The error message, if any, returned during compilation."""
     status_error_message: builtins.str
     error_code: global___CompilationResultProto.ErrorCode.ValueType
     @property
-    def hlo_protos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[xla.service.hlo_pb2.HloProto]:
+    def hlo_protos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.service.hlo_pb2.HloProto]:
         """HLO proto."""
 
     def __init__(
         self,
         *,
-        status_code: tsl.protobuf.error_codes_pb2.Code.ValueType | None = ...,
+        status_code: tensorflow.tsl.protobuf.error_codes_pb2.Code.ValueType | None = ...,
         status_error_message: builtins.str | None = ...,
-        hlo_protos: collections.abc.Iterable[xla.service.hlo_pb2.HloProto] | None = ...,
+        hlo_protos: collections.abc.Iterable[tensorflow.compiler.xla.service.hlo_pb2.HloProto] | None = ...,
         error_code: global___CompilationResultProto.ErrorCode.ValueType | None = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing.Literal["error_code", b"error_code", "hlo_protos", b"hlo_protos", "status_code", b"status_code", "status_error_message", b"status_error_message"]) -> None: ...

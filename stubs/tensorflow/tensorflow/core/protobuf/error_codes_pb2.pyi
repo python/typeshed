@@ -8,7 +8,7 @@ code for some users that use JS through J2CL.
 """
 
 import google.protobuf.descriptor
-from tsl.protobuf.error_codes_pb2 import (
+from tensorflow.tsl.protobuf.error_codes_pb2 import (
     ABORTED as ABORTED,
     ALREADY_EXISTS as ALREADY_EXISTS,
     CANCELLED as CANCELLED,

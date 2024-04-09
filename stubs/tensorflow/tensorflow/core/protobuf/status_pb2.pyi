@@ -8,6 +8,6 @@ code for some users that use JS through J2CL.
 """
 
 import google.protobuf.descriptor
-from tsl.protobuf.status_pb2 import StatusProto as StatusProto
+from tensorflow.tsl.protobuf.status_pb2 import StatusProto as StatusProto
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor

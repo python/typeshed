@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Container, Iterator
 from pathlib import Path
 from typing import Any, Literal
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, deprecated
 
 import numpy as np
 import numpy.typing as npt
@@ -15,11 +15,16 @@ from tensorflow.keras.optimizers import Optimizer
 _Loss: TypeAlias = str | tf.keras.losses.Loss | Callable[[TensorCompatible, TensorCompatible], tf.Tensor]
 _Metric: TypeAlias = str | tf.keras.metrics.Metric | Callable[[TensorCompatible, TensorCompatible], tf.Tensor] | None
 
-class Model(Layer[_InputT, _OutputT], tf.Module):
+# Missing keras.src.backend.tensorflow.trainer.TensorFlowTrainer as a base class, which is not exposed by tensorflow
+class Model(Layer[_InputT, _OutputT]):
     _train_counter: tf.Variable
     _test_counter: tf.Variable
     optimizer: Optimizer | None
-    loss: tf.keras.losses.Loss | dict[str, tf.keras.losses.Loss]
+    # This is actually TensorFlowTrainer.loss
+    @deprecated("Instead, use `model.compute_loss(x, y, y_pred, sample_weight)`.")
+    def loss(
+        self, y: TensorCompatible | None, y_pred: TensorCompatible | None, sample_weight: Incomplete | None = None
+    ) -> tf.Tensor | None: ...
     stop_training: bool
 
     def __new__(cls, *args: Any, **kwargs: Any) -> Model[_InputT, _OutputT]: ...
@@ -61,7 +66,6 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
         y: TensorCompatible | None = None,
         y_pred: TensorCompatible | None = None,
         sample_weight: Incomplete | None = None,
-        allow_empty: bool = False,
     ) -> tf.Tensor | None: ...
     def compute_metrics(
         self, x: TensorCompatible, y: TensorCompatible, y_pred: TensorCompatible, sample_weight: Incomplete | None = None
@@ -118,7 +122,6 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
         y: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
         sample_weight: npt.NDArray[np.float_] | None = None,
         class_weight: dict[int, float] | None = None,
-        reset_metrics: bool = True,
         return_dict: bool = False,
     ) -> float | list[float]: ...
     def test_on_batch(
@@ -142,7 +145,6 @@ class Model(Layer[_InputT, _OutputT], tf.Module):
     @classmethod
     def from_config(cls, config: dict[str, Any], custom_objects: Incomplete | None = None) -> Self: ...
     def to_json(self, **kwargs: Any) -> str: ...
-    def to_yaml(self, **kwargs: Any) -> str: ...
     @property
     def weights(self) -> list[Variable]: ...
     def summary(

@@ -18,8 +18,8 @@ import tensorflow.core.framework.step_stats_pb2
 import tensorflow.core.protobuf.cluster_pb2
 import tensorflow.core.protobuf.debug_pb2
 import tensorflow.core.protobuf.rewriter_config_pb2
-import tsl.protobuf.coordination_config_pb2
-import tsl.protobuf.rpc_options_pb2
+import tensorflow.tsl.protobuf.coordination_config_pb2
+import tensorflow.tsl.protobuf.rpc_options_pb2
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions
@@ -878,7 +878,7 @@ class ConfigProto(google.protobuf.message.Message):
             """
 
         @property
-        def coordination_config(self) -> tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig:
+        def coordination_config(self) -> tensorflow.tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig:
             """Distributed coordination service configurations."""
 
         def __init__(
@@ -908,7 +908,7 @@ class ConfigProto(google.protobuf.message.Message):
             stream_merge_threshold: builtins.int | None = ...,
             disable_functional_ops_lowering: builtins.bool | None = ...,
             xla_prefer_single_graph_cluster: builtins.bool | None = ...,
-            coordination_config: tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig | None = ...,
+            coordination_config: tensorflow.tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig | None = ...,
             disable_optimize_for_static_graph: builtins.bool | None = ...,
             disable_eager_executor_streaming_enqueue: builtins.bool | None = ...,
         ) -> None: ...
@@ -1049,7 +1049,7 @@ class ConfigProto(google.protobuf.message.Message):
         """Options that apply to all graphs."""
 
     @property
-    def rpc_options(self) -> tsl.protobuf.rpc_options_pb2.RPCOptions:
+    def rpc_options(self) -> tensorflow.tsl.protobuf.rpc_options_pb2.RPCOptions:
         """Options that apply when this session uses the distributed runtime."""
 
     @property
@@ -1073,7 +1073,7 @@ class ConfigProto(google.protobuf.message.Message):
         log_device_placement: builtins.bool | None = ...,
         graph_options: global___GraphOptions | None = ...,
         operation_timeout_in_ms: builtins.int | None = ...,
-        rpc_options: tsl.protobuf.rpc_options_pb2.RPCOptions | None = ...,
+        rpc_options: tensorflow.tsl.protobuf.rpc_options_pb2.RPCOptions | None = ...,
         cluster_def: tensorflow.core.protobuf.cluster_pb2.ClusterDef | None = ...,
         isolate_session_state: builtins.bool | None = ...,
         share_cluster_devices_in_session: builtins.bool | None = ...,
