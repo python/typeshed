@@ -31,6 +31,7 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
+
 import builtins
 import collections.abc
 import sys
@@ -74,7 +75,7 @@ SYNTAX_EDITIONS: Syntax.ValueType  # 2
 """Syntax `editions`."""
 global___Syntax = Syntax
 
-@typing_extensions.final
+@typing.final
 class Type(google.protobuf.message.Message):
     """A protocol buffer message type."""
 
@@ -89,22 +90,26 @@ class Type(google.protobuf.message.Message):
     EDITION_FIELD_NUMBER: builtins.int
     name: builtins.str
     """The fully qualified message name."""
-    @property
-    def fields(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Field]:
-        """The list of fields."""
-    @property
-    def oneofs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """The list of types appearing in `oneof` definitions in this type."""
-    @property
-    def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Option]:
-        """The protocol buffer options."""
-    @property
-    def source_context(self) -> google.protobuf.source_context_pb2.SourceContext:
-        """The source context."""
     syntax: global___Syntax.ValueType
     """The source syntax."""
     edition: builtins.str
     """The source edition string, only valid when syntax is SYNTAX_EDITIONS."""
+    @property
+    def fields(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Field]:
+        """The list of fields."""
+
+    @property
+    def oneofs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """The list of types appearing in `oneof` definitions in this type."""
+
+    @property
+    def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Option]:
+        """The protocol buffer options."""
+
+    @property
+    def source_context(self) -> google.protobuf.source_context_pb2.SourceContext:
+        """The source context."""
+
     def __init__(
         self,
         *,
@@ -116,12 +121,12 @@ class Type(google.protobuf.message.Message):
         syntax: global___Syntax.ValueType | None = ...,
         edition: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["source_context", b"source_context"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["edition", b"edition", "fields", b"fields", "name", b"name", "oneofs", b"oneofs", "options", b"options", "source_context", b"source_context", "syntax", b"syntax"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["source_context", b"source_context"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["edition", b"edition", "fields", b"fields", "name", b"name", "oneofs", b"oneofs", "options", b"options", "source_context", b"source_context", "syntax", b"syntax"]) -> None: ...
 
 global___Type = Type
 
-@typing_extensions.final
+@typing.final
 class Field(google.protobuf.message.Message):
     """A single field of a message type."""
 
@@ -269,13 +274,14 @@ class Field(google.protobuf.message.Message):
     """
     packed: builtins.bool
     """Whether to use alternative packed wire representation."""
-    @property
-    def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Option]:
-        """The protocol buffer options."""
     json_name: builtins.str
     """The field JSON name."""
     default_value: builtins.str
     """The string value of the default value of this field. Proto2 syntax only."""
+    @property
+    def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Option]:
+        """The protocol buffer options."""
+
     def __init__(
         self,
         *,
@@ -290,11 +296,11 @@ class Field(google.protobuf.message.Message):
         json_name: builtins.str | None = ...,
         default_value: builtins.str | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["cardinality", b"cardinality", "default_value", b"default_value", "json_name", b"json_name", "kind", b"kind", "name", b"name", "number", b"number", "oneof_index", b"oneof_index", "options", b"options", "packed", b"packed", "type_url", b"type_url"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["cardinality", b"cardinality", "default_value", b"default_value", "json_name", b"json_name", "kind", b"kind", "name", b"name", "number", b"number", "oneof_index", b"oneof_index", "options", b"options", "packed", b"packed", "type_url", b"type_url"]) -> None: ...
 
 global___Field = Field
 
-@typing_extensions.final
+@typing.final
 class Enum(google.protobuf.message.Message):
     """Enum type definition."""
 
@@ -308,19 +314,22 @@ class Enum(google.protobuf.message.Message):
     EDITION_FIELD_NUMBER: builtins.int
     name: builtins.str
     """Enum type name."""
-    @property
-    def enumvalue(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EnumValue]:
-        """Enum value definitions."""
-    @property
-    def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Option]:
-        """Protocol buffer options."""
-    @property
-    def source_context(self) -> google.protobuf.source_context_pb2.SourceContext:
-        """The source context."""
     syntax: global___Syntax.ValueType
     """The source syntax."""
     edition: builtins.str
     """The source edition string, only valid when syntax is SYNTAX_EDITIONS."""
+    @property
+    def enumvalue(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___EnumValue]:
+        """Enum value definitions."""
+
+    @property
+    def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Option]:
+        """Protocol buffer options."""
+
+    @property
+    def source_context(self) -> google.protobuf.source_context_pb2.SourceContext:
+        """The source context."""
+
     def __init__(
         self,
         *,
@@ -331,12 +340,12 @@ class Enum(google.protobuf.message.Message):
         syntax: global___Syntax.ValueType | None = ...,
         edition: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["source_context", b"source_context"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["edition", b"edition", "enumvalue", b"enumvalue", "name", b"name", "options", b"options", "source_context", b"source_context", "syntax", b"syntax"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["source_context", b"source_context"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["edition", b"edition", "enumvalue", b"enumvalue", "name", b"name", "options", b"options", "source_context", b"source_context", "syntax", b"syntax"]) -> None: ...
 
 global___Enum = Enum
 
-@typing_extensions.final
+@typing.final
 class EnumValue(google.protobuf.message.Message):
     """Enum value definition."""
 
@@ -352,6 +361,7 @@ class EnumValue(google.protobuf.message.Message):
     @property
     def options(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___Option]:
         """Protocol buffer options."""
+
     def __init__(
         self,
         *,
@@ -359,11 +369,11 @@ class EnumValue(google.protobuf.message.Message):
         number: builtins.int | None = ...,
         options: collections.abc.Iterable[global___Option] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "number", b"number", "options", b"options"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name", "number", b"number", "options", b"options"]) -> None: ...
 
 global___EnumValue = EnumValue
 
-@typing_extensions.final
+@typing.final
 class Option(google.protobuf.message.Message):
     """A protocol buffer option, which can be attached to a message, field,
     enumeration, etc.
@@ -386,13 +396,14 @@ class Option(google.protobuf.message.Message):
         should be used. If the value is an enum, it should be stored as an int32
         value using the google.protobuf.Int32Value type.
         """
+
     def __init__(
         self,
         *,
         name: builtins.str | None = ...,
         value: google.protobuf.any_pb2.Any | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "value", b"value"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["name", b"name", "value", b"value"]) -> None: ...
 
 global___Option = Option

@@ -10,9 +10,10 @@ set -ex -o pipefail
 # a meaningful update to either PROTOBUF_VERSION or MYPY_PROTOBUF_VERSION,
 # followed by committing the changes to typeshed
 #
-# Update these two variables when rerunning script
-PROTOBUF_VERSION=24.4
-MYPY_PROTOBUF_VERSION=3.5.0
+# Whenever you update PROTOBUF_VERSION here, version should be updated
+# in stubs/protobuf/METADATA.toml and vice-versa.
+PROTOBUF_VERSION=25.3
+MYPY_PROTOBUF_VERSION=3.6.0
 
 if uname -a | grep Darwin; then
     # brew install coreutils wget
@@ -41,10 +42,9 @@ unzip "$PYTHON_PROTOBUF_FILENAME"
 PYTHON_PROTOBUF_DIR="protobuf-$PROTOBUF_VERSION"
 
 # Prepare virtualenv
-VENV=venv
-python3 -m venv "$VENV"
-source "$VENV/bin/activate"
-pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 
 # Remove existing pyi
 find "$REPO_ROOT/stubs/protobuf/" -name '*_pb2.pyi' -delete
@@ -76,10 +76,7 @@ sed --in-place="" \
   "$REPO_ROOT/stubs/protobuf/METADATA.toml"
 
 # Must be run in a git repository
-cd $REPO_ROOT
+cd "$REPO_ROOT"
 # use `|| true` so the script still continues even if a pre-commit hook
 # applies autofixes (which will result in a nonzero exit code)
-pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/protobuf") || true
-# Ruff takes two passes to fix everything, re-running all of pre-commit is *slow*
-# and we don't need --unsafe-fixes to remove imports
-ruff check "$REPO_ROOT/stubs/protobuf" --fix --exit-zero
+pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/protobuf/**_pb2.pyi") || true

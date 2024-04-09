@@ -41,15 +41,16 @@ the ability to detect presence on individual elements.
 These wrappers have no meaningful use within a map or a oneof since
 individual entries of a map or fields of a oneof can already detect presence.
 """
+
 import builtins
-import typing as typing_extensions
+import typing
 
 import google.protobuf.descriptor
 import google.protobuf.message
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class DoubleValue(google.protobuf.message.Message):
     """Wrapper message for `double`.
 
@@ -66,11 +67,11 @@ class DoubleValue(google.protobuf.message.Message):
         *,
         value: builtins.float | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["value", b"value"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
 global___DoubleValue = DoubleValue
 
-@typing_extensions.final
+@typing.final
 class FloatValue(google.protobuf.message.Message):
     """Wrapper message for `float`.
 
@@ -87,11 +88,11 @@ class FloatValue(google.protobuf.message.Message):
         *,
         value: builtins.float | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["value", b"value"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
 global___FloatValue = FloatValue
 
-@typing_extensions.final
+@typing.final
 class Int64Value(google.protobuf.message.Message):
     """Wrapper message for `int64`.
 
@@ -108,11 +109,11 @@ class Int64Value(google.protobuf.message.Message):
         *,
         value: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["value", b"value"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
 global___Int64Value = Int64Value
 
-@typing_extensions.final
+@typing.final
 class UInt64Value(google.protobuf.message.Message):
     """Wrapper message for `uint64`.
 
@@ -129,11 +130,11 @@ class UInt64Value(google.protobuf.message.Message):
         *,
         value: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["value", b"value"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
 global___UInt64Value = UInt64Value
 
-@typing_extensions.final
+@typing.final
 class Int32Value(google.protobuf.message.Message):
     """Wrapper message for `int32`.
 
@@ -150,11 +151,11 @@ class Int32Value(google.protobuf.message.Message):
         *,
         value: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["value", b"value"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
 global___Int32Value = Int32Value
 
-@typing_extensions.final
+@typing.final
 class UInt32Value(google.protobuf.message.Message):
     """Wrapper message for `uint32`.
 
@@ -171,11 +172,11 @@ class UInt32Value(google.protobuf.message.Message):
         *,
         value: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["value", b"value"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
 global___UInt32Value = UInt32Value
 
-@typing_extensions.final
+@typing.final
 class BoolValue(google.protobuf.message.Message):
     """Wrapper message for `bool`.
 
@@ -192,11 +193,11 @@ class BoolValue(google.protobuf.message.Message):
         *,
         value: builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["value", b"value"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
 global___BoolValue = BoolValue
 
-@typing_extensions.final
+@typing.final
 class StringValue(google.protobuf.message.Message):
     """Wrapper message for `string`.
 
@@ -213,11 +214,11 @@ class StringValue(google.protobuf.message.Message):
         *,
         value: builtins.str | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["value", b"value"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
 global___StringValue = StringValue
 
-@typing_extensions.final
+@typing.final
 class BytesValue(google.protobuf.message.Message):
     """Wrapper message for `bytes`.
 
@@ -234,6 +235,6 @@ class BytesValue(google.protobuf.message.Message):
         *,
         value: builtins.bytes | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["value", b"value"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
 global___BytesValue = BytesValue
