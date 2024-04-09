@@ -11,7 +11,7 @@ class Foo: ...
 # Test the constructor
 # assert_type(Counter(), Counter[Never, int])  # pyright derives "Unknown" instead of "Never"
 assert_type(Counter(), "Counter[Any, int]")
-assert_type(next(Counter().values()), int)
+assert_type(next(iter(Counter().values())), int)
 assert_type(Counter(foo=42.2), "Counter[str, float]")
 assert_type(Counter({42: "bar"}), "Counter[int, str]")
 assert_type(Counter([1, 2, 3]), "Counter[int, int]")
