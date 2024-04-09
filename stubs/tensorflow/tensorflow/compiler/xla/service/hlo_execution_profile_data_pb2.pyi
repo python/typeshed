@@ -19,10 +19,11 @@ limitations under the License.
 
 import builtins
 import collections.abc
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
-import typing
 import tensorflow.compiler.xla.service.hlo_profile_printer_data_pb2
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor

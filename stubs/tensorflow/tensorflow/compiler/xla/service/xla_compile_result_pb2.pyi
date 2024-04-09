@@ -19,13 +19,14 @@ limitations under the License.
 
 import builtins
 import collections.abc
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.duration_pb2
 import google.protobuf.internal.containers
 import google.protobuf.message
-import tensorflow.tsl.protobuf.status_pb2
-import typing
 import tensorflow.compiler.xla.service.hlo_pb2
+import tensorflow.tsl.protobuf.status_pb2
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

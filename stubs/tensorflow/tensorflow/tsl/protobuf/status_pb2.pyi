@@ -4,10 +4,11 @@ isort:skip_file
 """
 
 import builtins
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.message
 import tensorflow.tsl.protobuf.error_codes_pb2
-import typing
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

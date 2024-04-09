@@ -10,15 +10,16 @@ tremendous statistical, testing, and debugging value.
 
 import builtins
 import collections.abc
+import sys
+import typing
+
 import google.protobuf.any_pb2
 import google.protobuf.descriptor
 import google.protobuf.duration_pb2
 import google.protobuf.internal.containers
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
-import sys
 import tensorflow.tsl.protobuf.dnn_pb2
-import typing
 
 if sys.version_info >= (3, 10):
     import typing as typing_extensions

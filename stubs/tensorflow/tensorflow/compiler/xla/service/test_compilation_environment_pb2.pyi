@@ -18,9 +18,10 @@ limitations under the License.
 """
 
 import builtins
+import typing
+
 import google.protobuf.descriptor
 import google.protobuf.message
-import typing
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
