@@ -1,4 +1,5 @@
 from typing import Type
+
 from peewee import Model
 
 class FlaskDB:
