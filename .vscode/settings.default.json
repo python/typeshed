@@ -9,7 +9,7 @@
     // Don't format on save for formatters we don't explicitely control
     "editor.formatOnSave": false,
     "editor.codeActionsOnSave": {
-        "source.fixAll": "never"
+        "source.fixAll": false
     },
     // Set file associations to support comments syntax highlight
     "files.associations": {
@@ -48,7 +48,9 @@
     "[json][jsonc][yaml][python][toml]": {
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
-            "source.fixAll": "explicit"
+            "source.fixAll": true,
+            // Allow isort or Ruff to organize imports
+            "source.organizeImports": true
         }
     },
     "[json][jsonc]": {
@@ -67,11 +69,7 @@
         "editor.rulers": [
             130
         ],
-        "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.codeActionsOnSave": {
-            // Let Ruff lint fixes handle imports
-            "source.organizeImports": "never"
-        }
+        "editor.defaultFormatter": "ms-python.black-formatter"
     },
     // python.analysis is Pylance (pyright) configurations
     "python.analysis.fixAll": [
