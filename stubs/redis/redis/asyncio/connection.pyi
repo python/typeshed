@@ -24,7 +24,7 @@ SYM_EMPTY: Final[bytes]
 SERVER_CLOSED_CONNECTION_ERROR: Final[str]
 
 class _Sentinel(enum.Enum):
-    sentinel = ...
+    sentinel = object()
 
 SENTINEL: Final[object]
 MODULE_LOAD_ERROR: Final[str]
