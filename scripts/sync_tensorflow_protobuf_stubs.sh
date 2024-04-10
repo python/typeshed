@@ -9,7 +9,7 @@ PROTOBUF_VERSION=25.3 # 4.25.3
 # Whenever you update TENSORFLOW_VERSION here, version should be updated
 # in stubs/tensorflow/METADATA.toml and vice-versa.
 TENSORFLOW_VERSION=2.16.1
-MYPY_PROTOBUF_VERSION=3.6.0
+MYPY_PROTOBUF_VERSION=3.5.0
 
 if uname -a | grep Darwin; then
     # brew install coreutils wget
@@ -56,15 +56,15 @@ protoc_install/bin/protoc \
     --proto_path="$TENSORFLOW_DIR/third_party/xla" \
     --proto_path="$TENSORFLOW_DIR" \
     --mypy_out "relax_strict_optional_primitives:$REPO_ROOT/stubs/tensorflow" \
-    "$TENSORFLOW_DIR/third_party/xla/xla/*.proto" \
-    "$TENSORFLOW_DIR/third_party/xla/xla/service/*.proto" \
-    "$TENSORFLOW_DIR/tensorflow/core/example/*.proto" \
-    "$TENSORFLOW_DIR/tensorflow/core/framework/*.proto" \
-    "$TENSORFLOW_DIR/tensorflow/core/protobuf/*.proto" \
-    "$TENSORFLOW_DIR/tensorflow/core/protobuf/tpu/*.proto" \
-    "$TENSORFLOW_DIR/tensorflow/core/util/*.proto" \
-    "$TENSORFLOW_DIR/tensorflow/python/keras/protobuf/*.proto" \
-    "$TENSORFLOW_DIR/third_party/xla/third_party/tsl/tsl/protobuf/*.proto" \
+    $TENSORFLOW_DIR/third_party/xla/xla/*.proto \
+    $TENSORFLOW_DIR/third_party/xla/xla/service/*.proto \
+    $TENSORFLOW_DIR/tensorflow/core/example/*.proto \
+    $TENSORFLOW_DIR/tensorflow/core/framework/*.proto \
+    $TENSORFLOW_DIR/tensorflow/core/protobuf/*.proto \
+    $TENSORFLOW_DIR/tensorflow/core/protobuf/tpu/*.proto \
+    $TENSORFLOW_DIR/tensorflow/core/util/*.proto \
+    $TENSORFLOW_DIR/tensorflow/python/keras/protobuf/*.proto \
+    $TENSORFLOW_DIR/third_party/xla/third_party/tsl/tsl/protobuf/*.proto \
 
 # Cleanup after ourselves, this is a temp dir, but it can still grow fast if run multiple times
 rm -rf "$TMP_DIR"
@@ -84,6 +84,10 @@ find stubs/tensorflow/ -name '*_pb2.pyi' | xargs sed --in-place="" -r "s/(\[|\s)
 # stubtest was used to identify them by looking for ModuleNotFoundError.
 # (comment out ".*_pb2.*" from the allowlist)
 rm -r \
+  stubs/tensorflow/tensorflow/compiler/xla/autotune_results_pb2.pyi \
+  stubs/tensorflow/tensorflow/compiler/xla/autotuning_pb2.pyi \
+  stubs/tensorflow/tensorflow/compiler/xla/service/buffer_assignment_pb2.pyi \
+  stubs/tensorflow/tensorflow/compiler/xla/service/hlo_execution_profile_data_pb2.pyi \
   stubs/tensorflow/tensorflow/core/protobuf/autotuning_pb2.pyi \
   stubs/tensorflow/tensorflow/core/protobuf/conv_autotuning_pb2.pyi \
   stubs/tensorflow/tensorflow/core/protobuf/critical_section_pb2.pyi \
@@ -95,10 +99,6 @@ rm -r \
   stubs/tensorflow/tensorflow/core/protobuf/worker_pb2.pyi \
   stubs/tensorflow/tensorflow/core/protobuf/worker_service_pb2.pyi \
   stubs/tensorflow/tensorflow/core/util/example_proto_fast_parsing_test_pb2.pyi \
-  tensorflow/compiler/xla/autotune_results_pb2.pyi \
-  tensorflow/compiler/xla/autotuning_pb2.pyi \
-  tensorflow/compiler/xla/service/buffer_assignment_pb2.pyi \
-  tensorflow/compiler/xla/service/hlo_execution_profile_data_pb2.pyi \
 
 sed --in-place="" \
     "s/extra_description = .*$/extra_description = \"Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on tensorflow==$TENSORFLOW_VERSION\"/" \

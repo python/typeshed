@@ -16,10 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================
 """
-
 import builtins
 import collections.abc
-import typing
+import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
@@ -27,7 +26,7 @@ import google.protobuf.message
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing.final
+@typing_extensions.final
 class TaskDeviceFilters(google.protobuf.message.Message):
     """This file contains protos to be used when defining a TensorFlow
     cluster.
@@ -72,17 +71,17 @@ class TaskDeviceFilters(google.protobuf.message.Message):
         *,
         device_filters: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["device_filters", b"device_filters"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["device_filters", b"device_filters"]) -> None: ...
 
 global___TaskDeviceFilters = TaskDeviceFilters
 
-@typing.final
+@typing_extensions.final
 class JobDeviceFilters(google.protobuf.message.Message):
     """Defines the device filters for tasks in a job."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing.final
+    @typing_extensions.final
     class TasksEntry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -97,8 +96,8 @@ class JobDeviceFilters(google.protobuf.message.Message):
             key: builtins.int | None = ...,
             value: global___TaskDeviceFilters | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
 
     NAME_FIELD_NUMBER: builtins.int
     TASKS_FIELD_NUMBER: builtins.int
@@ -107,18 +106,17 @@ class JobDeviceFilters(google.protobuf.message.Message):
     @property
     def tasks(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___TaskDeviceFilters]:
         """Mapping from task ID to task device filters."""
-
     def __init__(
         self,
         *,
         name: builtins.str | None = ...,
         tasks: collections.abc.Mapping[builtins.int, global___TaskDeviceFilters] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "tasks", b"tasks"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "tasks", b"tasks"]) -> None: ...
 
 global___JobDeviceFilters = JobDeviceFilters
 
-@typing.final
+@typing_extensions.final
 class ClusterDeviceFilters(google.protobuf.message.Message):
     """Defines the device filters for jobs in a cluster."""
 
@@ -132,6 +130,6 @@ class ClusterDeviceFilters(google.protobuf.message.Message):
         *,
         jobs: collections.abc.Iterable[global___JobDeviceFilters] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["jobs", b"jobs"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["jobs", b"jobs"]) -> None: ...
 
 global___ClusterDeviceFilters = ClusterDeviceFilters

@@ -16,10 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================
 """
-
 import builtins
 import collections.abc
-import typing
+import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
@@ -27,7 +26,7 @@ import google.protobuf.message
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing.final
+@typing_extensions.final
 class HloProfilePrinterData(google.protobuf.message.Message):
     """Describes how to pretty-print a profile counter array gathered for a specific
     HloModule.
@@ -35,7 +34,7 @@ class HloProfilePrinterData(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing.final
+    @typing_extensions.final
     class HloInstructionInfo(google.protobuf.message.Message):
         """Pretty-printer information about an HloInstruction."""
 
@@ -73,9 +72,9 @@ class HloProfilePrinterData(google.protobuf.message.Message):
             optimal_seconds: builtins.float | None = ...,
             profile_index: builtins.int | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["bytes_accessed", b"bytes_accessed", "category", b"category", "flop_count", b"flop_count", "long_name", b"long_name", "optimal_seconds", b"optimal_seconds", "profile_index", b"profile_index", "short_name", b"short_name", "transcendental_count", b"transcendental_count"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["bytes_accessed", b"bytes_accessed", "category", b"category", "flop_count", b"flop_count", "long_name", b"long_name", "optimal_seconds", b"optimal_seconds", "profile_index", b"profile_index", "short_name", b"short_name", "transcendental_count", b"transcendental_count"]) -> None: ...
 
-    @typing.final
+    @typing_extensions.final
     class HloComputationInfo(google.protobuf.message.Message):
         """Pretty-printer information about an HloComputation."""
 
@@ -94,7 +93,6 @@ class HloProfilePrinterData(google.protobuf.message.Message):
             """HloInstructionInfos for every HloInstruction in the HloComputation for
             corresponding to this HloComputattionInfo.
             """
-
         def __init__(
             self,
             *,
@@ -102,9 +100,9 @@ class HloProfilePrinterData(google.protobuf.message.Message):
             profile_index: builtins.int | None = ...,
             instruction_infos: collections.abc.Iterable[global___HloProfilePrinterData.HloInstructionInfo] | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["instruction_infos", b"instruction_infos", "name", b"name", "profile_index", b"profile_index"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["instruction_infos", b"instruction_infos", "name", b"name", "profile_index", b"profile_index"]) -> None: ...
 
-    @typing.final
+    @typing_extensions.final
     class ExtraMetricsEntry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -118,24 +116,22 @@ class HloProfilePrinterData(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: builtins.int | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
 
     COMPUTATION_INFOS_FIELD_NUMBER: builtins.int
     PROFILE_COUNTERS_SIZE_FIELD_NUMBER: builtins.int
     EXTRA_METRICS_FIELD_NUMBER: builtins.int
     ENTRY_COMPUTATION_FIELD_NUMBER: builtins.int
-    profile_counters_size: builtins.int
-    """The size of the profile counters array we will pretty-print."""
-    entry_computation: builtins.str
-    """Name of the entry computation."""
     @property
     def computation_infos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloProfilePrinterData.HloComputationInfo]:
         """HloComputationInfos for every HloComputation in the HloModule."""
-
+    profile_counters_size: builtins.int
+    """The size of the profile counters array we will pretty-print."""
     @property
     def extra_metrics(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]:
         """Maps extra metric name to the index into the profile counters array."""
-
+    entry_computation: builtins.str
+    """Name of the entry computation."""
     def __init__(
         self,
         *,
@@ -144,6 +140,6 @@ class HloProfilePrinterData(google.protobuf.message.Message):
         extra_metrics: collections.abc.Mapping[builtins.str, builtins.int] | None = ...,
         entry_computation: builtins.str | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["computation_infos", b"computation_infos", "entry_computation", b"entry_computation", "extra_metrics", b"extra_metrics", "profile_counters_size", b"profile_counters_size"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["computation_infos", b"computation_infos", "entry_computation", b"entry_computation", "extra_metrics", b"extra_metrics", "profile_counters_size", b"profile_counters_size"]) -> None: ...
 
 global___HloProfilePrinterData = HloProfilePrinterData

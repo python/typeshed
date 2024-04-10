@@ -6,7 +6,6 @@ core/lib/core/error_codes.proto, or having tensorflow.error, like
 tsl/protobuf/error_codes.proto, results in name collision errors in generated
 code for some users that use JS through J2CL.
 """
-
 import google.protobuf.descriptor
 from tensorflow.tsl.protobuf.error_codes_pb2 import (
     ABORTED as ABORTED,

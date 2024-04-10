@@ -16,10 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================
 """
-
 import builtins
 import collections.abc
-import typing
+import typing as typing_extensions
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
@@ -27,7 +26,7 @@ import google.protobuf.message
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing.final
+@typing_extensions.final
 class JobDef(google.protobuf.message.Message):
     """This file contains protos to be used when defining a TensorFlow
     cluster.
@@ -75,7 +74,7 @@ class JobDef(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing.final
+    @typing_extensions.final
     class TasksEntry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -89,7 +88,7 @@ class JobDef(google.protobuf.message.Message):
             key: builtins.int | None = ...,
             value: builtins.str | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
 
     NAME_FIELD_NUMBER: builtins.int
     TASKS_FIELD_NUMBER: builtins.int
@@ -106,18 +105,17 @@ class JobDef(google.protobuf.message.Message):
         If a job has multiple replicas, host-ports will be comma-delimited, with
         one entry for each replica.
         """
-
     def __init__(
         self,
         *,
         name: builtins.str | None = ...,
         tasks: collections.abc.Mapping[builtins.int, builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["name", b"name", "tasks", b"tasks"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["name", b"name", "tasks", b"tasks"]) -> None: ...
 
 global___JobDef = JobDef
 
-@typing.final
+@typing_extensions.final
 class ClusterDef(google.protobuf.message.Message):
     """Defines a TensorFlow cluster as a set of jobs."""
 
@@ -127,12 +125,11 @@ class ClusterDef(google.protobuf.message.Message):
     @property
     def job(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___JobDef]:
         """The jobs that comprise the cluster."""
-
     def __init__(
         self,
         *,
         job: collections.abc.Iterable[global___JobDef] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["job", b"job"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["job", b"job"]) -> None: ...
 
 global___ClusterDef = ClusterDef
