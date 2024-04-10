@@ -19,27 +19,27 @@ class CoerciveIntFlag(IntFlag):
     def coerce(cls, value: Self | str | int) -> Self: ...
 
 class WrapMode(CoerciveEnum):
-    WORD = 'WORD'
-    CHAR = 'CHAR'
+    WORD = "WORD"
+    CHAR = "CHAR"
 
 class CharVPos(CoerciveEnum):
-    SUP = 'SUP'
-    SUB = 'SUB'
-    NOM = 'NOM'
-    DENOM = 'DENOM'
-    LINE = 'LINE'
+    SUP = "SUP"
+    SUB = "SUB"
+    NOM = "NOM"
+    DENOM = "DENOM"
+    LINE = "LINE"
 
 class Align(CoerciveEnum):
-    C = 'CENTER'
-    X = 'X_CENTER'
-    L = 'LEFT'
-    R = 'RIGHT'
-    J = 'JUSTIFY'
+    C = "CENTER"
+    X = "X_CENTER"
+    L = "LEFT"
+    R = "RIGHT"
+    J = "JUSTIFY"
 
 class VAlign(CoerciveEnum):
-    M = 'MIDDLE'
-    T = 'TOP'
-    B = 'BOTTOM'
+    M = "MIDDLE"
+    T = "TOP"
+    B = "BOTTOM"
 
 class TextEmphasis(CoerciveIntFlag):
     B = 1
@@ -55,19 +55,19 @@ class MethodReturnValue(CoerciveIntFlag):
     HEIGHT = 4
 
 class TableBordersLayout(CoerciveEnum):
-    ALL = 'ALL'
-    NONE = 'NONE'
-    INTERNAL = 'INTERNAL'
-    MINIMAL = 'MINIMAL'
-    HORIZONTAL_LINES = 'HORIZONTAL_LINES'
-    NO_HORIZONTAL_LINES = 'NO_HORIZONTAL_LINES'
-    SINGLE_TOP_LINE = 'SINGLE_TOP_LINE'
+    ALL = "ALL"
+    NONE = "NONE"
+    INTERNAL = "INTERNAL"
+    MINIMAL = "MINIMAL"
+    HORIZONTAL_LINES = "HORIZONTAL_LINES"
+    NO_HORIZONTAL_LINES = "NO_HORIZONTAL_LINES"
+    SINGLE_TOP_LINE = "SINGLE_TOP_LINE"
 
 class TableCellFillMode(CoerciveEnum):
-    NONE = 'NONE'
-    ALL = 'ALL'
-    ROWS = 'ROWS'
-    COLUMNS = 'COLUMNS'
+    NONE = "NONE"
+    ALL = "ALL"
+    ROWS = "ROWS"
+    COLUMNS = "COLUMNS"
 
     def should_fill_cell(self, i: int, j: int) -> bool: ...
 
@@ -76,9 +76,9 @@ class TableSpan(CoerciveEnum):
     COL: Literal["COL"]
 
 class RenderStyle(CoerciveEnum):
-    D = 'DRAW'
-    F = 'FILL'
-    DF = 'DRAW_FILL'
+    D = "DRAW"
+    F = "FILL"
+    DF = "DRAW_FILL"
     @property
     def operator(self) -> str: ...
     @property
@@ -97,21 +97,21 @@ class TextMode(CoerciveIntEnum):
     CLIP = 7
 
 class XPos(CoerciveEnum):
-    LEFT = 'LEFT'
-    RIGHT = 'RIGHT'
-    START = 'START'
-    END = 'END'
-    WCONT = 'WCONT'
-    CENTER = 'CENTER'
-    LMARGIN = 'LMARGIN'
-    RMARGIN = 'RMARGIN'
+    LEFT = "LEFT"
+    RIGHT = "RIGHT"
+    START = "START"
+    END = "END"
+    WCONT = "WCONT"
+    CENTER = "CENTER"
+    LMARGIN = "LMARGIN"
+    RMARGIN = "RMARGIN"
 
 class YPos(CoerciveEnum):
-    TOP = 'TOP'
-    LAST = 'LAST'
-    NEXT = 'NEXT'
-    TMARGIN = 'TMARGIN'
-    BMARGIN = 'BMARGIN'
+    TOP = "TOP"
+    LAST = "LAST"
+    NEXT = "NEXT"
+    TMARGIN = "TMARGIN"
+    BMARGIN = "BMARGIN"
 
 class Angle(CoerciveIntEnum):
     NORTH = 90
@@ -124,44 +124,44 @@ class Angle(CoerciveIntEnum):
     NORTHWEST = 135
 
 class PageLayout(CoerciveEnum):
-    SINGLE_PAGE = 'SinglePage'
-    ONE_COLUMN = 'OneColumn'
-    TWO_COLUMN_LEFT = 'TwoColumnLeft'
-    TWO_COLUMN_RIGHT = 'TwoColumnRight'
-    TWO_PAGE_LEFT = 'TwoPageLeft'
-    TWO_PAGE_RIGHT = 'TwoPageRight'
+    SINGLE_PAGE = "SinglePage"
+    ONE_COLUMN = "OneColumn"
+    TWO_COLUMN_LEFT = "TwoColumnLeft"
+    TWO_COLUMN_RIGHT = "TwoColumnRight"
+    TWO_PAGE_LEFT = "TwoPageLeft"
+    TWO_PAGE_RIGHT = "TwoPageRight"
 
 class PageMode(CoerciveEnum):
-    USE_NONE = 'UseNone'
-    USE_OUTLINES = 'UseOutlines'
-    USE_THUMBS = 'UseThumbs'
-    FULL_SCREEN = 'FullScreen'
-    USE_OC = 'UseOC'
-    USE_ATTACHMENTS = 'UseAttachments'
+    USE_NONE = "UseNone"
+    USE_OUTLINES = "UseOutlines"
+    USE_THUMBS = "UseThumbs"
+    FULL_SCREEN = "FullScreen"
+    USE_OC = "UseOC"
+    USE_ATTACHMENTS = "UseAttachments"
 
 class TextMarkupType(CoerciveEnum):
-    HIGHLIGHT = 'Highlight'
-    UNDERLINE = 'Underline'
-    SQUIGGLY = 'Squiggly'
-    STRIKE_OUT = 'StrikeOut'
+    HIGHLIGHT = "Highlight"
+    UNDERLINE = "Underline"
+    SQUIGGLY = "Squiggly"
+    STRIKE_OUT = "StrikeOut"
 
 class BlendMode(CoerciveEnum):
-    NORMAL = 'Normal'
-    MULTIPLY = 'Multiply'
-    SCREEN = 'Screen'
-    OVERLAY = 'Overlay'
-    DARKEN = 'Darken'
-    LIGHTEN = 'Lighten'
-    COLOR_DODGE = 'ColorDodge'
-    COLOR_BURN = 'ColorBurn'
-    HARD_LIGHT = 'HardLight'
-    SOFT_LIGHT = 'SoftLight'
-    DIFFERENCE = 'Difference'
-    EXCLUSION = 'Exclusion'
-    HUE = 'Hue'
-    SATURATION = 'Saturation'
-    COLOR = 'Color'
-    LUMINOSITY = 'Luminosity'
+    NORMAL = "Normal"
+    MULTIPLY = "Multiply"
+    SCREEN = "Screen"
+    OVERLAY = "Overlay"
+    DARKEN = "Darken"
+    LIGHTEN = "Lighten"
+    COLOR_DODGE = "ColorDodge"
+    COLOR_BURN = "ColorBurn"
+    HARD_LIGHT = "HardLight"
+    SOFT_LIGHT = "SoftLight"
+    DIFFERENCE = "Difference"
+    EXCLUSION = "Exclusion"
+    HUE = "Hue"
+    SATURATION = "Saturation"
+    COLOR = "Color"
+    LUMINOSITY = "Luminosity"
 
 class AnnotationFlag(CoerciveIntEnum):
     INVISIBLE = 1
@@ -176,34 +176,34 @@ class AnnotationFlag(CoerciveIntEnum):
     LOCKED_CONTENTS = 512
 
 class AnnotationName(CoerciveEnum):
-    NOTE = 'Note'
-    COMMENT = 'Comment'
-    HELP = 'Help'
-    PARAGRAPH = 'Paragraph'
-    NEW_PARAGRAPH = 'NewParagraph'
-    INSERT = 'Insert'
+    NOTE = "Note"
+    COMMENT = "Comment"
+    HELP = "Help"
+    PARAGRAPH = "Paragraph"
+    NEW_PARAGRAPH = "NewParagraph"
+    INSERT = "Insert"
 
 class FileAttachmentAnnotationName(CoerciveEnum):
-    PUSH_PIN = 'PushPin'
-    GRAPH_PUSH_PIN = 'GraphPushPin'
-    PAPERCLIP_TAG = 'PaperclipTag'
+    PUSH_PIN = "PushPin"
+    GRAPH_PUSH_PIN = "GraphPushPin"
+    PAPERCLIP_TAG = "PaperclipTag"
 
 class IntersectionRule(CoerciveEnum):
-    NONZERO = 'nonzero'
-    EVENODD = 'evenodd'
+    NONZERO = "nonzero"
+    EVENODD = "evenodd"
 
 class PathPaintRule(CoerciveEnum):
-    STROKE = 'S'
-    FILL_NONZERO = 'f'
-    FILL_EVENODD = 'f*'
-    STROKE_FILL_NONZERO = 'B'
-    STROKE_FILL_EVENODD = 'B*'
-    DONT_PAINT = 'n'
-    AUTO = 'auto'
+    STROKE = "S"
+    FILL_NONZERO = "f"
+    FILL_EVENODD = "f*"
+    STROKE_FILL_NONZERO = "B"
+    STROKE_FILL_EVENODD = "B*"
+    DONT_PAINT = "n"
+    AUTO = "auto"
 
 class ClippingPathIntersectionRule(CoerciveEnum):
-    NONZERO = 'W'
-    EVENODD = 'W*'
+    NONZERO = "W"
+    EVENODD = "W*"
 
 class StrokeCapStyle(CoerciveIntEnum):
     BUTT = 0
@@ -216,21 +216,21 @@ class StrokeJoinStyle(CoerciveIntEnum):
     BEVEL = 2
 
 class PDFStyleKeys(Enum):
-    FILL_ALPHA = 'ca'
-    BLEND_MODE = 'BM'
-    STROKE_ALPHA = 'CA'
-    STROKE_ADJUSTMENT = 'SA'
-    STROKE_WIDTH = 'LW'
-    STROKE_CAP_STYLE = 'LC'
-    STROKE_JOIN_STYLE = 'LJ'
-    STROKE_MITER_LIMIT = 'ML'
-    STROKE_DASH_PATTERN = 'D'
+    FILL_ALPHA = "ca"
+    BLEND_MODE = "BM"
+    STROKE_ALPHA = "CA"
+    STROKE_ADJUSTMENT = "SA"
+    STROKE_WIDTH = "LW"
+    STROKE_CAP_STYLE = "LC"
+    STROKE_JOIN_STYLE = "LJ"
+    STROKE_MITER_LIMIT = "ML"
+    STROKE_DASH_PATTERN = "D"
 
 class Corner(CoerciveEnum):
-    TOP_RIGHT = 'TOP_RIGHT'
-    TOP_LEFT = 'TOP_LEFT'
-    BOTTOM_RIGHT = 'BOTTOM_RIGHT'
-    BOTTOM_LEFT = 'BOTTOM_LEFT'
+    TOP_RIGHT = "TOP_RIGHT"
+    TOP_LEFT = "TOP_LEFT"
+    BOTTOM_RIGHT = "BOTTOM_RIGHT"
+    BOTTOM_LEFT = "BOTTOM_LEFT"
 
 class FontDescriptorFlags(Flag):
     FIXED_PITCH = 1
