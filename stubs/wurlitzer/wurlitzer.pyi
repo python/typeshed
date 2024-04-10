@@ -17,7 +17,7 @@ _StreamOutT = TypeVar("_StreamOutT", bound=_Stream[str] | _Stream[bytes])
 _StreamErrT = TypeVar("_StreamErrT", bound=_Stream[str] | _Stream[bytes])
 
 class _Stream(SupportsWrite[_T_contra], Protocol):
-    def seek(self, __offset: int, __whence: int = ...) -> int: ...
+    def seek(self, offset: int, whence: int = ..., /) -> int: ...
 
 # Alias for IPython.core.interactiveshell.InteractiveShell.
 # N.B. Even if we added ipython to the stub-uploader allowlist,

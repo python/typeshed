@@ -167,7 +167,6 @@ gevent.socket.SocketType.setblocking
 gevent.socket.SocketType.settimeout
 gevent.socket.SocketType.shutdown
 gevent.socket.cancel_wait
-gevent.socket.create_connection
 gevent.socket.gethostbyaddr
 gevent.socket.gethostbyname
 gevent.socket.gethostbyname_ex
@@ -218,3 +217,8 @@ gevent.events.IPeriodicMonitorThreadStartedEvent
 # internal use module for some complex protocols used across different modules
 # so there wasn't really a great place for them
 gevent._types
+
+# The first parameter is technically positional-or-keyword but there's no
+# useful way to use it as a keyword argument; we mark it positional-only.
+gevent.pool.GroupMappingMixin.imap
+gevent.pool.GroupMappingMixin.imap_unordered
