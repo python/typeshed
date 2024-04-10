@@ -14,18 +14,23 @@ repos:
     rev: v0.3.5 # must match requirements-tests.txt
     hooks:
       - id: ruff
-        name: Run ruff on stubs, tests and scripts
-        args: ["--exit-non-zero-on-fix"]
-      - id: ruff
         # Run this separately because we don't really want
         # to use --unsafe-fixes for all rules
+        # Should be run first as it can leave unused imports behind
         name: Remove unnecessary `sys.version_info` blocks
         args: ["--exit-non-zero-on-fix", "--select=UP036", "--unsafe-fixes"]
+      - id: ruff
+        name: Run ruff on stubs, tests and scripts
+        args: ["--exit-non-zero-on-fix"]
       - id: ruff
         # Very few rules are useful to run on our test cases;
         # we explicitly enumerate them here:
         name: Run ruff on the test cases
-        args: ["--exit-non-zero-on-fix", "--select=FA,I,RUF100", "--no-force-exclude", "--unsafe-fixes"]
+        args:
+          - "--exit-non-zero-on-fix"
+          - "--select=FA,I,RUF100"
+          - "--no-force-exclude"
+          - "--unsafe-fixes"
         files: '.*test_cases/.+\.py$'
       - id: ruff-format
         name: Run ruff format
