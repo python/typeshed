@@ -316,8 +316,8 @@ class _ASN1Object(_ASN1ObjectBase):
     def fromname(cls, name: str) -> Self: ...
 
 class Purpose(_ASN1Object, enum.Enum):
-    SERVER_AUTH = (129, 'serverAuth', 'TLS Web Server Authentication', "1.3.6.1.5.5.7.3.2") # pyright: ignore[reportCallIssue]
-    CLIENT_AUTH = (130, 'clientAuth', 'TLS Web Client Authentication', "1.3.6.1.5.5.7.3.1") # pyright: ignore[reportCallIssue]
+    SERVER_AUTH = (129, "serverAuth", "TLS Web Server Authentication", "1.3.6.1.5.5.7.3.2")  # pyright: ignore[reportCallIssue]
+    CLIENT_AUTH = (130, "clientAuth", "TLS Web Client Authentication", "1.3.6.1.5.5.7.3.1")  # pyright: ignore[reportCallIssue]
 
 class SSLSocket(socket.socket):
     context: SSLContext
