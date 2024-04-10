@@ -35,6 +35,7 @@ echo "Working in $TMP_DIR"
 wget "$PROTOC_URL"
 mkdir protoc_install
 unzip "$PROTOC_FILENAME" -d protoc_install
+protoc_install/bin/protoc --version
 
 # Fetch protoc-python (which contains all the .proto files)
 wget "$PYTHON_PROTOBUF_URL"
@@ -67,16 +68,22 @@ PROTO_FILES=$(grep "GenProto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py | \
 
 # And regenerate!
 # shellcheck disable=SC2086
-protoc_install/bin/protoc --proto_path="$PYTHON_PROTOBUF_DIR/src" --mypy_out="relax_strict_optional_primitives:$REPO_ROOT/stubs/protobuf" $PROTO_FILES
+protoc_install/bin/protoc \
+  --proto_path="$PYTHON_PROTOBUF_DIR/src" \
+  --mypy_out="relax_strict_optional_primitives:$REPO_ROOT/stubs/protobuf" \
+  $PROTO_FILES
 
 PYTHON_PROTOBUF_VERSION=$(jq -r '.[] | .languages.python' "$PYTHON_PROTOBUF_DIR/version.json")
 
+# Cleanup after ourselves, this is a temp dir, but it can still grow fast if run multiple times
+rm -rf "$TMP_DIR"
+# Must be in a git repository to run pre-commit
+cd "$REPO_ROOT"
+
 sed --in-place="" \
   "s/extra_description = .*$/extra_description = \"Generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on [protobuf v$PROTOBUF_VERSION](https:\/\/github.com\/protocolbuffers\/protobuf\/releases\/tag\/v$PROTOBUF_VERSION) (python protobuf==$PYTHON_PROTOBUF_VERSION)\"/" \
-  "$REPO_ROOT/stubs/protobuf/METADATA.toml"
+  stubs/protobuf/METADATA.toml
 
-# Must be run in a git repository
-cd "$REPO_ROOT"
 # use `|| true` so the script still continues even if a pre-commit hook
 # applies autofixes (which will result in a nonzero exit code)
-pre-commit run --files $(git ls-files -- "$REPO_ROOT/stubs/protobuf/**_pb2.pyi") || true
+pre-commit run --files $(git ls-files -- "stubs/protobuf/**_pb2.pyi") || true
