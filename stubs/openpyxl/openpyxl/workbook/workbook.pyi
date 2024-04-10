@@ -25,10 +25,14 @@ _WorkbookSheet: TypeAlias = _WorkbookWorksheet | Chartsheet
 # from Worksheet works great here. Allowing instance type check, even if direct
 # type comparison might be wrong.
 @type_check_only
-class _WorksheetLike(Worksheet, WriteOnlyWorksheet, ReadOnlyWorksheet): ...
+class _WorksheetLike(  # type: ignore[misc] # Incompatible definitions, expected, favor Worksheet
+    Worksheet, WriteOnlyWorksheet, ReadOnlyWorksheet
+): ...
 
 @type_check_only
-class _WorksheetOrChartsheetLike(Chartsheet, _WorksheetLike): ...
+class _WorksheetOrChartsheetLike(  # type: ignore[misc] # Incompatible definitions, expected, favor Worksheet
+    Chartsheet, _WorksheetLike
+): ...
 
 INTEGER_TYPES: Final[tuple[type[int]]]
 
