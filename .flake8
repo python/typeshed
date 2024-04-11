@@ -10,6 +10,10 @@ per-file-ignores =
   *.py: NQA
   # TODO: Remove bare "Incomplete"s from stubs (Y065)
   *.pyi: Y065
+  # Ignore Y052 in this file: there are loads of false positives
+  # due to the fact that flake8-pyi doesn't understand subclasses of `CoerciveEnum`
+  # as being enum classes
+  stubs/fpdf2/fpdf/enums.pyi: Y052, Y065
   # Generated protobuf files:
   # Y021: Include docstrings
   # Y023: Alias typing as typing_extensions
