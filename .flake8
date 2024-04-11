@@ -11,7 +11,7 @@ per-file-ignores =
   # Ignore Y052 in this file: there are loads of false positives
   # due to the fact that flake8-pyi doesn't understand subclasses of `CoerciveEnum`
   # as being enum classes
-  stubs/fpdf2/fpdf/enums.pyi: Y052, Y065
+  stubs/fpdf2/fpdf/enums.pyi: Y052
   # Generated protobuf files:
   # Y021: Include docstrings
   # Y023: Alias typing as typing_extensions
