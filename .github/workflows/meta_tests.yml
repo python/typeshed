@@ -59,9 +59,7 @@ jobs:
       - name: Get pyright version
         id: pyright_version
         run: |
-          PYRIGHT_VERSION=$(grep pyright== requirements-tests.txt | cut -d "#" -f 1 | cut -d \; -f 1 | cut -d = -f 3)
-          echo pyright version: "${PYRIGHT_VERSION}"
-          echo PYRIGHT_VERSION="${PYRIGHT_VERSION}" >> "${GITHUB_OUTPUT}"
+          uv pip freeze | grep ^pyright== | cut -d = -f 3 | tee $GITHUB_OUTPUT
       - name: Run pyright on typeshed
         uses: jakebailey/pyright-action@v2
         with:
