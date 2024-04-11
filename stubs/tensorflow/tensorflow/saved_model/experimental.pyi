@@ -34,7 +34,7 @@ class TrackableResource(CapturableResource):
 
 class VariablePolicy(Enum):
     EXPAND_DISTRIBUTED_VARIABLES = "expand_distributed_variables"
-    NONE = None  # noqa: Y026
+    NONE = None
     SAVE_VARIABLE_DEVICES = "save_variable_devices"
 
 def read_fingerprint(export_dir: str) -> Fingerprint: ...
