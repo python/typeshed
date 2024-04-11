@@ -59,7 +59,7 @@ jobs:
       - name: Get pyright version
         id: pyright_version
         run: |
-          uv pip freeze | grep ^pyright== | cut -d = -f 3 | tee $GITHUB_OUTPUT
+          echo PYRIGHT_VERSION=$(uv pip freeze | grep ^pyright== | cut -d = -f 3) | tee $GITHUB_OUTPUT
       - name: Run pyright on typeshed
         uses: jakebailey/pyright-action@v2
         with:
