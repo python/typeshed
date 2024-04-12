@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
+from collections.abc import Mapping, Sequence
+
 from docker.context.context import Context
 from docker.tls import TLSConfig
-from collections.abc import Sequence, Mapping
 
 class ContextAPI:
     DEFAULT_CONTEXT: Context

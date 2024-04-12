@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
-from docker.tls import TLSConfig
-import requests
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 
+import requests
+from docker.tls import TLSConfig
 from requests.adapters import BaseAdapter
+
 from .build import BuildApiMixin
 from .config import ConfigApiMixin
 from .container import ContainerApiMixin
@@ -16,7 +17,6 @@ from .secret import SecretApiMixin
 from .service import ServiceApiMixin
 from .swarm import SwarmApiMixin
 from .volume import VolumeApiMixin
-from collections.abc import Mapping
 
 class APIClient(
     requests.Session,

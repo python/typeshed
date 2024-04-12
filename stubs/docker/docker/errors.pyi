@@ -1,9 +1,9 @@
 from _typeshed import Incomplete
+from collections.abc import Mapping
 from typing import NoReturn
 
 from docker.models.containers import Container
 from requests import HTTPError, Response
-from collections.abc import Mapping
 
 class DockerException(Exception): ...
 

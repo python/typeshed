@@ -1,6 +1,6 @@
+from collections.abc import Sequence
 from typing import TypedDict
 from typing_extensions import NotRequired
-from collections.abc import Sequence
 
 class _ProxyConfigDict(TypedDict):
     http: NotRequired[str]

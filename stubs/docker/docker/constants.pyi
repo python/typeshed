@@ -1,4 +1,4 @@
-from collections.abc import Sequence, Mapping
+from collections.abc import Mapping, Sequence
 
 DEFAULT_DOCKER_API_VERSION: str
 MINIMUM_DOCKER_API_VERSION: str
