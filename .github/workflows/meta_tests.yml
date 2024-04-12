@@ -56,7 +56,6 @@ jobs:
           python-version: "3.11"
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
-      - run: pyright --version
       - name: Run pyright on typeshed
         uses: jakebailey/pyright-action@v2
         with:
