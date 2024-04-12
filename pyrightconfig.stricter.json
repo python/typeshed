@@ -42,6 +42,7 @@
         "stubs/commonmark",
         "stubs/dateparser",
         "stubs/defusedxml",
+        "stubs/docker",
         "stubs/docutils",
         "stubs/Flask-SocketIO",
         "stubs/fpdf2",

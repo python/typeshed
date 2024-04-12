@@ -8,15 +8,14 @@ extend-ignore = Y090
 per-file-ignores =
   # We should only need to noqa Y and F821 codes in .pyi files
   *.py: NQA
-  # TODO: Remove bare "Incomplete"s from stubs (Y065)
-  *.pyi: Y065
   # Generated protobuf files:
   # Y021: Include docstrings
   # Y023: Alias typing as typing_extensions
   # Y026: Have implicit type aliases
   # Y053: have literals >50 characters long
-  # Y065: bare "Incomplete"s used
-  *_pb2.pyi: Y021, Y023, Y026, Y053, Y065
+  stubs/*_pb2.pyi: Y021, Y023, Y026, Y053
+  # TODO: Remove bare "Incomplete"s from stubs (Y065)
+  stubs/*.pyi: Y065
 
 exclude = .venv*,.git
 noqa_require_code = true
