@@ -98,7 +98,7 @@ class RestartConditionTypesEnum:
     ANY: Incomplete
 
 class RestartPolicy(dict[str, Incomplete]):
-    condition_types = RestartConditionTypesEnum
+    condition_types: type[RestartConditionTypesEnum]
     def __init__(self, condition="none", delay: int = 0, max_attempts: int = 0, window: int = 0) -> None: ...
 
 class DriverConfig(dict[str, Incomplete]):

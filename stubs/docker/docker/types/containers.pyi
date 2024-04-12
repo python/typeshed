@@ -11,7 +11,7 @@ class LogConfigTypesEnum:
     NONE: Incomplete
 
 class LogConfig(DictType):
-    types = LogConfigTypesEnum
+    types: type[LogConfigTypesEnum]
     def __init__(self, **kwargs) -> None: ...
     @property
     def type(self): ...
