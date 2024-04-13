@@ -13,36 +13,36 @@ class Button(enum.Enum):
     middle = 2
     right = 3
     if sys.platform == "linux":
-        button8 = int()
-        button9 = int()
-        button10 = int()
-        button11 = int()
-        button12 = int()
-        button13 = int()
-        button14 = int()
-        button15 = int()
-        button16 = int()
-        button17 = int()
-        button18 = int()
-        button19 = int()
-        button20 = int()
-        button21 = int()
-        button22 = int()
-        button23 = int()
-        button24 = int()
-        button25 = int()
-        button26 = int()
-        button27 = int()
-        button28 = int()
-        button29 = int()
-        button30 = int()
-        scroll_down = int()
-        scroll_left = int()
-        scroll_right = int()
-        scroll_up = int()
+        button8 = 0
+        button9 = 0
+        button10 = 0
+        button11 = 0
+        button12 = 0
+        button13 = 0
+        button14 = 0
+        button15 = 0
+        button16 = 0
+        button17 = 0
+        button18 = 0
+        button19 = 0
+        button20 = 0
+        button21 = 0
+        button22 = 0
+        button23 = 0
+        button24 = 0
+        button25 = 0
+        button26 = 0
+        button27 = 0
+        button28 = 0
+        button29 = 0
+        button30 = 0
+        scroll_down = 0
+        scroll_left = 0
+        scroll_right = 0
+        scroll_up = 0
     if sys.platform == "win32":
-        x1 = int()
-        x2 = int()
+        x1 = 0
+        x2 = 0
 
 class Controller:
     def __init__(self) -> None: ...
