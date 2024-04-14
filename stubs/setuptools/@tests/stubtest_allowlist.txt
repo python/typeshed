@@ -63,7 +63,6 @@ setuptools._distutils.command.install.SCHEME_KEYS
 setuptools._distutils.command.install.WINDOWS_SCHEME
 setuptools._distutils.command.install_lib.PYTHON_SOURCE_EXTENSION
 setuptools._distutils.command.sdist
-setuptools._distutils.command.sdist.show_formats
 setuptools._distutils.command.register
 setuptools._distutils.command.upload
 setuptools._distutils.config.DEFAULT_PYPIRC
@@ -91,7 +90,6 @@ setuptools._distutils.util.MACOSX_VERSION_VAR
 # (Many of these may be implementation details,
 # but they can be added if people ask for them)
 setuptools._distutils.bcppcompiler
-setuptools._distutils.command.bdist
 setuptools._distutils.command.bdist_dumb
 setuptools._distutils.command.build_scripts
 setuptools._distutils.command.check
@@ -100,7 +98,7 @@ setuptools._distutils.command.config
 setuptools._distutils.command.install_data
 setuptools._distutils.command.install_egg_info
 setuptools._distutils.command.install_headers
-setuptools._distutils.command.py37compat
+setuptools._distutils.compat.py38
 setuptools._distutils.core
 setuptools._distutils.cygwinccompiler
 setuptools._distutils.debug
@@ -117,6 +115,7 @@ setuptools._distutils.text_file
 setuptools._distutils.unixccompiler
 setuptools._distutils.version
 setuptools._distutils.versionpredicate
+setuptools._distutils.zosccompiler
 
 # Reexported from setuptools._distutils; problems should be fixed there
 distutils\..+

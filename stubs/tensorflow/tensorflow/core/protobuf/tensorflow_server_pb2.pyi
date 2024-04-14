@@ -16,8 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================
 """
+
 import builtins
-import typing as typing_extensions
+import typing
 
 import google.protobuf.descriptor
 import google.protobuf.message
@@ -27,7 +28,7 @@ import tensorflow.core.protobuf.device_filters_pb2
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class ServerDef(google.protobuf.message.Message):
     """Defines the configuration of a single TensorFlow server."""
 
@@ -40,9 +41,6 @@ class ServerDef(google.protobuf.message.Message):
     PROTOCOL_FIELD_NUMBER: builtins.int
     PORT_FIELD_NUMBER: builtins.int
     CLUSTER_DEVICE_FILTERS_FIELD_NUMBER: builtins.int
-    @property
-    def cluster(self) -> tensorflow.core.protobuf.cluster_pb2.ClusterDef:
-        """The cluster of which this server is a member."""
     job_name: builtins.str
     """The name of the job of which this server is a member.
 
@@ -55,9 +53,6 @@ class ServerDef(google.protobuf.message.Message):
     NOTE: The `cluster` field must contain a `JobDef` with a matching `name`
     and a mapping in its `tasks` field for this index.
     """
-    @property
-    def default_session_config(self) -> tensorflow.core.protobuf.config_pb2.ConfigProto:
-        """The default configuration for sessions that run on this server."""
     protocol: builtins.str
     """The protocol to be used by this server.
 
@@ -66,10 +61,19 @@ class ServerDef(google.protobuf.message.Message):
     port: builtins.int
     """The server port. If not set, then we identify the port from the job_name."""
     @property
+    def cluster(self) -> tensorflow.core.protobuf.cluster_pb2.ClusterDef:
+        """The cluster of which this server is a member."""
+
+    @property
+    def default_session_config(self) -> tensorflow.core.protobuf.config_pb2.ConfigProto:
+        """The default configuration for sessions that run on this server."""
+
+    @property
     def cluster_device_filters(self) -> tensorflow.core.protobuf.device_filters_pb2.ClusterDeviceFilters:
         """Device filters for remote tasks in the cluster.
         NOTE: This is an experimental feature and only effective in TensorFlow 2.x.
         """
+
     def __init__(
         self,
         *,
@@ -81,7 +85,7 @@ class ServerDef(google.protobuf.message.Message):
         port: builtins.int | None = ...,
         cluster_device_filters: tensorflow.core.protobuf.device_filters_pb2.ClusterDeviceFilters | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["cluster", b"cluster", "cluster_device_filters", b"cluster_device_filters", "default_session_config", b"default_session_config"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["cluster", b"cluster", "cluster_device_filters", b"cluster_device_filters", "default_session_config", b"default_session_config", "job_name", b"job_name", "port", b"port", "protocol", b"protocol", "task_index", b"task_index"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["cluster", b"cluster", "cluster_device_filters", b"cluster_device_filters", "default_session_config", b"default_session_config"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["cluster", b"cluster", "cluster_device_filters", b"cluster_device_filters", "default_session_config", b"default_session_config", "job_name", b"job_name", "port", b"port", "protocol", b"protocol", "task_index", b"task_index"]) -> None: ...
 
 global___ServerDef = ServerDef

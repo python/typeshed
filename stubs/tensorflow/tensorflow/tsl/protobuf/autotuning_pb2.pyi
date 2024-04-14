@@ -7,6 +7,7 @@ operations.
 They are in proto format because we want to log them structured. They offer
 tremendous statistical, testing, and debugging value.
 """
+
 import builtins
 import collections.abc
 import sys
@@ -27,7 +28,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class CudnnVersion(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -44,11 +45,11 @@ class CudnnVersion(google.protobuf.message.Message):
         minor: builtins.int | None = ...,
         patch: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["major", b"major", "minor", b"minor", "patch", b"patch"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["major", b"major", "minor", b"minor", "patch", b"patch"]) -> None: ...
 
 global___CudnnVersion = CudnnVersion
 
-@typing_extensions.final
+@typing.final
 class ComputeCapability(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -62,11 +63,11 @@ class ComputeCapability(google.protobuf.message.Message):
         major: builtins.int | None = ...,
         minor: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["major", b"major", "minor", b"minor"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["major", b"major", "minor", b"minor"]) -> None: ...
 
 global___ComputeCapability = ComputeCapability
 
-@typing_extensions.final
+@typing.final
 class AutotuneResult(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -93,7 +94,7 @@ class AutotuneResult(google.protobuf.message.Message):
     DISQUALIFIED: AutotuneResult.FailureKind.ValueType  # 3
     """Algorithm was rejected for failing to run or for known bugs."""
 
-    @typing_extensions.final
+    @typing.final
     class FailureResult(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -106,6 +107,7 @@ class AutotuneResult(google.protobuf.message.Message):
         BUFFER_ADDRESS_FIELD_NUMBER: builtins.int
         kind: global___AutotuneResult.FailureKind.ValueType
         msg: builtins.str
+        buffer_address: builtins.int
         @property
         def reference_conv(self) -> global___AutotuneResult.ConvKey: ...
         @property
@@ -114,7 +116,6 @@ class AutotuneResult(google.protobuf.message.Message):
         def reference_cuda_conv_plan(self) -> global___AutotuneResult.CudaConvPlanKey: ...
         @property
         def reference_algorithm(self) -> tensorflow.tsl.protobuf.dnn_pb2.AlgorithmProto: ...
-        buffer_address: builtins.int
         def __init__(
             self,
             *,
@@ -126,11 +127,11 @@ class AutotuneResult(google.protobuf.message.Message):
             reference_algorithm: tensorflow.tsl.protobuf.dnn_pb2.AlgorithmProto | None = ...,
             buffer_address: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["key", b"key", "reference_algorithm", b"reference_algorithm", "reference_conv", b"reference_conv", "reference_cuda_conv_plan", b"reference_cuda_conv_plan", "reference_gemm", b"reference_gemm"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["buffer_address", b"buffer_address", "key", b"key", "kind", b"kind", "msg", b"msg", "reference_algorithm", b"reference_algorithm", "reference_conv", b"reference_conv", "reference_cuda_conv_plan", b"reference_cuda_conv_plan", "reference_gemm", b"reference_gemm"]) -> None: ...
-        def WhichOneof(self, oneof_group: typing_extensions.Literal["key", b"key"]) -> typing_extensions.Literal["reference_conv", "reference_gemm", "reference_cuda_conv_plan", "reference_algorithm"] | None: ...
+        def HasField(self, field_name: typing.Literal["key", b"key", "reference_algorithm", b"reference_algorithm", "reference_conv", b"reference_conv", "reference_cuda_conv_plan", b"reference_cuda_conv_plan", "reference_gemm", b"reference_gemm"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["buffer_address", b"buffer_address", "key", b"key", "kind", b"kind", "msg", b"msg", "reference_algorithm", b"reference_algorithm", "reference_conv", b"reference_conv", "reference_cuda_conv_plan", b"reference_cuda_conv_plan", "reference_gemm", b"reference_gemm"]) -> None: ...
+        def WhichOneof(self, oneof_group: typing.Literal["key", b"key"]) -> typing.Literal["reference_conv", "reference_gemm", "reference_cuda_conv_plan", "reference_algorithm"] | None: ...
 
-    @typing_extensions.final
+    @typing.final
     class ConvKey(google.protobuf.message.Message):
         """Legacy and unused in new data; superseded by AlgorithmProto."""
 
@@ -146,9 +147,9 @@ class AutotuneResult(google.protobuf.message.Message):
             algorithm: builtins.int | None = ...,
             tensor_ops_enabled: builtins.bool | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["algorithm", b"algorithm", "tensor_ops_enabled", b"tensor_ops_enabled"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["algorithm", b"algorithm", "tensor_ops_enabled", b"tensor_ops_enabled"]) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class GemmKey(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -159,9 +160,9 @@ class AutotuneResult(google.protobuf.message.Message):
             *,
             algorithm: builtins.int | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["algorithm", b"algorithm"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["algorithm", b"algorithm"]) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class CudaConvPlanKey(google.protobuf.message.Message):
         """Legacy and unused in new data; superseded by AlgorithmProto."""
 
@@ -174,7 +175,7 @@ class AutotuneResult(google.protobuf.message.Message):
             *,
             exec_plan_id: builtins.str | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["exec_plan_id", b"exec_plan_id"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["exec_plan_id", b"exec_plan_id"]) -> None: ...
 
     SCRATCH_BYTES_FIELD_NUMBER: builtins.int
     RUN_TIME_FIELD_NUMBER: builtins.int
@@ -207,13 +208,13 @@ class AutotuneResult(google.protobuf.message.Message):
         cuda_conv_plan: global___AutotuneResult.CudaConvPlanKey | None = ...,
         algorithm: tensorflow.tsl.protobuf.dnn_pb2.AlgorithmProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["algorithm", b"algorithm", "conv", b"conv", "cuda_conv_plan", b"cuda_conv_plan", "failure", b"failure", "gemm", b"gemm", "key", b"key", "run_time", b"run_time"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["algorithm", b"algorithm", "conv", b"conv", "cuda_conv_plan", b"cuda_conv_plan", "failure", b"failure", "gemm", b"gemm", "key", b"key", "run_time", b"run_time", "scratch_bytes", b"scratch_bytes"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["key", b"key"]) -> typing_extensions.Literal["conv", "gemm", "cuda_conv_plan", "algorithm"] | None: ...
+    def HasField(self, field_name: typing.Literal["algorithm", b"algorithm", "conv", b"conv", "cuda_conv_plan", b"cuda_conv_plan", "failure", b"failure", "gemm", b"gemm", "key", b"key", "run_time", b"run_time"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["algorithm", b"algorithm", "conv", b"conv", "cuda_conv_plan", b"cuda_conv_plan", "failure", b"failure", "gemm", b"gemm", "key", b"key", "run_time", b"run_time", "scratch_bytes", b"scratch_bytes"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["key", b"key"]) -> typing.Literal["conv", "gemm", "cuda_conv_plan", "algorithm"] | None: ...
 
 global___AutotuneResult = AutotuneResult
 
-@typing_extensions.final
+@typing.final
 class AutotuningLog(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -223,18 +224,19 @@ class AutotuningLog(google.protobuf.message.Message):
     COMPUTE_CAPABILITY_FIELD_NUMBER: builtins.int
     DEVICE_PCI_BUS_ID_FIELD_NUMBER: builtins.int
     BLAS_VERSION_FIELD_NUMBER: builtins.int
+    device_pci_bus_id: builtins.str
+    """stream_executor::DeviceDescription::pci_bus_id."""
+    blas_version: builtins.str
     @property
     def instr(self) -> google.protobuf.any_pb2.Any: ...
     @property
     def results(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AutotuneResult]:
         """Records all auto-tuning results per algorithm."""
+
     @property
     def cudnn_version(self) -> global___CudnnVersion: ...
     @property
     def compute_capability(self) -> global___ComputeCapability: ...
-    device_pci_bus_id: builtins.str
-    """stream_executor::DeviceDescription::pci_bus_id."""
-    blas_version: builtins.str
     def __init__(
         self,
         *,
@@ -245,7 +247,7 @@ class AutotuningLog(google.protobuf.message.Message):
         device_pci_bus_id: builtins.str | None = ...,
         blas_version: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["compute_capability", b"compute_capability", "cudnn_version", b"cudnn_version", "instr", b"instr"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["blas_version", b"blas_version", "compute_capability", b"compute_capability", "cudnn_version", b"cudnn_version", "device_pci_bus_id", b"device_pci_bus_id", "instr", b"instr", "results", b"results"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["compute_capability", b"compute_capability", "cudnn_version", b"cudnn_version", "instr", b"instr"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["blas_version", b"blas_version", "compute_capability", b"compute_capability", "cudnn_version", b"cudnn_version", "device_pci_bus_id", b"device_pci_bus_id", "instr", b"instr", "results", b"results"]) -> None: ...
 
 global___AutotuningLog = AutotuningLog
