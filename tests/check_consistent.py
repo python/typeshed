@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
-# Check that the typeshed repository contains the correct files in the
-# correct places, and that various configuration files are correct.
+"""
+Check that the typeshed repository contains the correct files in the
+correct places, and that various configuration files are correct.
+"""
 
 from __future__ import annotations
 
@@ -116,7 +118,7 @@ def check_no_symlinks() -> None:
 
 
 def check_versions_file() -> None:
-    """Check that stdlib/VERSIONS file has the correct format."""
+    """Check that the stdlib/VERSIONS file has the correct format."""
     versions = set[str]()
     with open("stdlib/VERSIONS", encoding="UTF-8") as f:
         data = f.read().splitlines()
