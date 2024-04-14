@@ -15,7 +15,7 @@
     // See https://github.com/python/typeshed/pull/8083
     "enableTypeIgnoreComments": true,
     // If a test case uses this anti-pattern, there's likely a reason and annoying to `type: ignore`.
-    // Let flake8-bugbear flag it (B006)
+    // Let Ruff flag it (B006)
     "reportCallInDefaultInitializer": "none",
     // Too strict and not needed for type testing
     "reportMissingSuperCall": "none",

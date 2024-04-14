@@ -113,12 +113,12 @@ Some tests will only pass on mypy
 with a specific Python version passed on the command line to the `tests/regr_test.py` script.
 To mark a test-case file as being skippable on lower versions of Python,
 append `-py3*` to the filename.
-For example, if `foo` is a stdlib feature that's new in Python 3.9,
-test cases for `foo` should be put in a file named `test_cases/stdlib/check_foo-py39.py`.
+For example, if `foo` is a stdlib feature that's new in Python 3.11,
+test cases for `foo` should be put in a file named `test_cases/stdlib/check_foo-py311.py`.
 This means that mypy will only run the test case
-if `--python-version 3.9`, `--python-version 3.10` or `--python-version 3.11`
+if `--python-version 3.11`, `--python-version 3.12`, etc.
 is passed on the command line to `tests/regr_test.py`,
-but it *won't* run the test case if `--python-version 3.7` or `--python-version 3.8`
+but it _won't_ run the test case if e.g. `--python-version 3.9`
 is passed on the command line.
 
 However, `if sys.version_info >= (3, target):` is still required for `pyright`

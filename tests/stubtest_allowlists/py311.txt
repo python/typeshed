@@ -8,6 +8,7 @@ _csv.Writer
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 configparser.LegacyInterpolation.__init__
 configparser.ParsingError.filename
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
 enum.Enum.__init__
 enum.Enum._generate_next_value_
 # Not strictly speaking a staticmethod on 3.11, but it acts like one:
@@ -17,6 +18,13 @@ importlib.abc.Finder.find_module
 tkinter._VersionInfoType.__doc__
 typing.NewType.__mro_entries__
 builtins.ellipsis  # type is not exposed anywhere
+
+xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+
+# Runtime definition of protocol is incorrect
+importlib.metadata._meta.SimplePath.__truediv__
+importlib.metadata._meta.SimplePath.joinpath
 
 # Modules that exist at runtime, but shouldn't be added to typeshed
 ctypes.test

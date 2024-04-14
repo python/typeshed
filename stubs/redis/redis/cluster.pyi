@@ -2,8 +2,8 @@ from _typeshed import Incomplete, Unused
 from collections.abc import Callable, Iterable, Sequence
 from threading import Lock
 from types import TracebackType
-from typing import Any, ClassVar, NoReturn, Protocol
-from typing_extensions import Literal, Self
+from typing import Any, ClassVar, Literal, NoReturn, Protocol
+from typing_extensions import Self
 
 from redis.client import CaseInsensitiveDict, PubSub, Redis, _ParseResponseOptions
 from redis.commands import CommandsParser, RedisClusterCommands
@@ -250,7 +250,7 @@ class PipelineCommand:
     ) -> None: ...
 
 class _ParseResponseCallback(Protocol):
-    def __call__(self, __connection: Connection, __command: EncodableT, **kwargs: Incomplete) -> Any: ...
+    def __call__(self, connection: Connection, command: EncodableT, /, **kwargs: Incomplete) -> Any: ...
 
 class NodeCommands:
     parse_response: _ParseResponseCallback

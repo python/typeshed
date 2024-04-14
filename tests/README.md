@@ -186,7 +186,7 @@ but missing from the stub. However, this behaviour can be disabled using the
 
 If a distribution has `ignore_missing_stub = true` in the `[tool.stubtest]` section of its
 `tests/METADATA.toml` file, `stubtest_third_party.py` will test that distribution with the
-`--ignore-missing-stub option`. This indicates that the stubs for this distribution are
+`--ignore-missing-stub` option. This indicates that the stubs for this distribution are
 considered "incomplete".
 
 You can help make typeshed's stubs more complete by removing

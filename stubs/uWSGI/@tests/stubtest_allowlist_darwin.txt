@@ -9,4 +9,3 @@
 uwsgi.SymbolsImporter
 uwsgi.SymbolsZipImporter
 uwsgi.ZipImporter
-uwsgi.route

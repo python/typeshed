@@ -2,8 +2,8 @@ from _typeshed import ConvertibleToInt, Incomplete
 from collections.abc import Generator, Iterable, Iterator
 from datetime import datetime
 from types import GeneratorType
-from typing import Any, NoReturn, overload
-from typing_extensions import Final, Literal
+from typing import Any, Final, Literal, NoReturn, overload
+from typing_extensions import deprecated
 
 from openpyxl import _Decodable, _VisibilityType
 from openpyxl.cell import _CellValue
@@ -87,10 +87,15 @@ class Worksheet(_WorkbookChild):
     @freeze_panes.setter
     def freeze_panes(self, topLeftCell: str | Cell | None = ...) -> None: ...
     def cell(self, row: int, column: int, value: str | None = None) -> Cell: ...
+    # An int is necessarily a row selection
     @overload
-    def __getitem__(self, key: int | slice) -> tuple[Cell, ...]: ...
+    def __getitem__(self, key: int) -> tuple[Cell, ...]: ...
+    # A slice is necessarily a row or rows, even if targetting a single cell
     @overload
-    def __getitem__(self, key: str) -> Any: ...  # AnyOf[Cell, tuple[Cell, ...]]
+    def __getitem__(self, key: slice) -> tuple[Any, ...]: ...  # tuple[AnyOf[Cell, tuple[Cell, ...]]]
+    # A str could be an individual cell, row, column or full range
+    @overload
+    def __getitem__(self, key: str) -> Any: ...  # AnyOf[Cell, tuple[Cell, ...], tuple[tuple[Cell, ...], ...]]
     def __setitem__(self, key: str, value: str) -> None: ...
     def __iter__(self) -> Iterator[tuple[Cell, ...]]: ...
     def __delitem__(self, key: str) -> None: ...
@@ -131,7 +136,7 @@ class Worksheet(_WorkbookChild):
     @overload
     def iter_rows(
         self, min_row: int | None, max_row: int | None, min_col: int | None, max_col: int | None, values_only: bool
-    ) -> Generator[tuple[Cell | str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[Cell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
     @overload
     def iter_rows(
         self,
@@ -141,7 +146,7 @@ class Worksheet(_WorkbookChild):
         max_col: int | None = None,
         *,
         values_only: bool,
-    ) -> Generator[tuple[Cell | str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[Cell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
     @property
     def rows(self) -> Generator[tuple[Cell, ...], None, None]: ...
     @property
@@ -172,7 +177,7 @@ class Worksheet(_WorkbookChild):
     @overload
     def iter_cols(
         self, min_col: int | None, max_col: int | None, min_row: int | None, max_row: int | None, values_only: bool
-    ) -> Generator[tuple[Cell | str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[Cell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
     @overload
     def iter_cols(
         self,
@@ -182,7 +187,7 @@ class Worksheet(_WorkbookChild):
         max_row: int | None = None,
         *,
         values_only: bool,
-    ) -> Generator[tuple[Cell | str | float | datetime | None, ...], None, None]: ...
+    ) -> Generator[tuple[Cell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
     @property
     def columns(self) -> Generator[tuple[Cell, ...], None, None]: ...
     def set_printer_settings(
@@ -219,8 +224,9 @@ class Worksheet(_WorkbookChild):
         end_row: ConvertibleToInt,
         end_column: ConvertibleToInt,
     ) -> None: ...
-    # deprecated: Will always raise: TypeError: 'set' object is not subscriptable
+    # Will always raise: TypeError: 'set' object is not subscriptable
     @property
+    @deprecated("Use ws.merged_cells.ranges")
     def merged_cell_ranges(self) -> NoReturn: ...
     def unmerge_cells(
         self,
@@ -232,11 +238,13 @@ class Worksheet(_WorkbookChild):
     ) -> None: ...
     def append(
         self,
-        iterable: list[Incomplete]
-        | tuple[Incomplete, ...]
-        | range
-        | GeneratorType[Incomplete, object, object]
-        | dict[int | str, Incomplete],
+        iterable: (
+            list[Incomplete]
+            | tuple[Incomplete, ...]
+            | range
+            | GeneratorType[Incomplete, object, object]
+            | dict[int | str, Incomplete]
+        ),
     ) -> None: ...
     def insert_rows(self, idx: int, amount: int = 1) -> None: ...
     def insert_cols(self, idx: int, amount: int = 1) -> None: ...

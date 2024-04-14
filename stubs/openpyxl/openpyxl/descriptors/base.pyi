@@ -2,8 +2,8 @@ from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Readable
 from collections.abc import Iterable, Sized
 from datetime import datetime
 from re import Pattern
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal, TypeAlias
+from typing import Any, Generic, Literal, TypeVar, overload
+from typing_extensions import TypeAlias
 
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.serialisable import Serialisable
@@ -144,7 +144,7 @@ class Max(Convertible[_M, _N]):
         allow_none: Literal[False] = False,
         max: float,
     ) -> None: ...
-    @overload  # type:ignore[override]  # Different restrictions
+    @overload  # type: ignore[override]  # Different restrictions
     def __set__(self: Max[int, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToInt | None) -> None: ...
     @overload
     def __set__(self: Max[int, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToInt) -> None: ...
@@ -178,7 +178,7 @@ class Min(Convertible[_M, _N]):
         allow_none: Literal[False] = False,
         min: float,
     ) -> None: ...
-    @overload  # type:ignore[override]  # Different restrictions
+    @overload  # type: ignore[override]  # Different restrictions
     def __set__(self: Min[int, Literal[True]], instance: Serialisable | Strict, value: ConvertibleToInt | None) -> None: ...
     @overload
     def __set__(self: Min[int, Literal[False]], instance: Serialisable | Strict, value: ConvertibleToInt) -> None: ...
@@ -296,7 +296,7 @@ class Default(Typed[_T, _N]):  # unused
 class Alias(Descriptor[Incomplete]):
     alias: str
     def __init__(self, alias: str) -> None: ...
-    def __set__(self, instance: Serialisable | Strict, value: Incomplete) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
     def __get__(self, instance: Serialisable | Strict, cls: Unused): ...
 
 class MatchPattern(Descriptor[_P], Generic[_P, _N]):

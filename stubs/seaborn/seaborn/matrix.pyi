@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Hashable, Iterable, Mapping, Sequence
-from typing_extensions import Literal, Self, TypeAlias
+from typing import Literal
+from typing_extensions import Self, TypeAlias
 
 import numpy as np
 from matplotlib.axes import Axes
@@ -105,11 +106,13 @@ class ClusterGrid(Grid):
     dendrogram_col: _DendrogramPlotter | None
     def __init__(
         self,
-        data: _ListLikeU
-        | DataFrame
-        | dict[Incomplete, Incomplete]
-        | Iterable[_ListLikeU | tuple[Hashable, _ListLikeU] | dict[Incomplete, Incomplete]]
-        | None,
+        data: (
+            _ListLikeU
+            | DataFrame
+            | dict[Incomplete, Incomplete]
+            | Iterable[_ListLikeU | tuple[Hashable, _ListLikeU] | dict[Incomplete, Incomplete]]
+            | None
+        ),
         pivot_kws: Mapping[str, Incomplete] | None = None,
         z_score: int | None = None,
         standard_scale: int | None = None,
@@ -165,11 +168,13 @@ class ClusterGrid(Grid):
     ) -> Self: ...
 
 def clustermap(
-    data: _ListLikeU
-    | DataFrame
-    | dict[Incomplete, Incomplete]
-    | Iterable[_ListLikeU | tuple[Hashable, _ListLikeU] | dict[Incomplete, Incomplete]]
-    | None,
+    data: (
+        _ListLikeU
+        | DataFrame
+        | dict[Incomplete, Incomplete]
+        | Iterable[_ListLikeU | tuple[Hashable, _ListLikeU] | dict[Incomplete, Incomplete]]
+        | None
+    ),
     *,
     pivot_kws: dict[str, Incomplete] | None = None,
     method: str = "average",

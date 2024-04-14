@@ -30,15 +30,14 @@ from parse_metadata import PackageDependencies, get_recursive_requirements, read
 from utils import (
     PYTHON_VERSION,
     VERSIONS_RE as VERSION_LINE_RE,
-    VenvInfo,
     colored,
     get_gitignore_spec,
     get_mypy_req,
-    make_venv,
     print_error,
     print_success_msg,
     spec_matches_path,
     strip_comments,
+    venv_python,
 )
 
 # Fail early if mypy isn't installed
@@ -235,7 +234,7 @@ def run_mypy(
     *,
     testing_stdlib: bool,
     non_types_dependencies: bool,
-    venv_info: VenvInfo,
+    venv_dir: Path | None,
     mypypath: str | None = None,
 ) -> MypyResult:
     env_vars = dict(os.environ)
@@ -279,7 +278,8 @@ def run_mypy(
             flags.append("--no-site-packages")
 
         mypy_args = [*flags, *map(str, files)]
-        mypy_command = [venv_info.python_exe, "-m", "mypy"] + mypy_args
+        python_path = sys.executable if venv_dir is None else str(venv_python(venv_dir))
+        mypy_command = [python_path, "-m", "mypy", *mypy_args]
         if args.verbose:
             print(colored(f"running {' '.join(mypy_command)}", "blue"))
         result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
@@ -291,7 +291,7 @@ def run_mypy(
                 print_error(result.stderr)
             if non_types_dependencies and args.verbose:
                 print("Ran with the following environment:")
-                subprocess.run([venv_info.pip_exe, "freeze", "--all"])
+                subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
                 print()
         else:
             print_success_msg()
@@ -324,7 +324,7 @@ class TestResult(NamedTuple):
 
 
 def test_third_party_distribution(
-    distribution: str, args: TestConfig, venv_info: VenvInfo, *, non_types_dependencies: bool
+    distribution: str, args: TestConfig, venv_dir: Path | None, *, non_types_dependencies: bool
 ) -> TestResult:
     """Test the stubs of a third-party distribution.
 
@@ -353,7 +353,7 @@ def test_third_party_distribution(
         args,
         configurations,
         files,
-        venv_info=venv_info,
+        venv_dir=venv_dir,
         mypypath=mypypath,
         testing_stdlib=False,
         non_types_dependencies=non_types_dependencies,
@@ -377,9 +377,8 @@ def test_stdlib(args: TestConfig) -> TestResult:
         return TestResult(MypyResult.SUCCESS, 0)
 
     print(f"Testing stdlib ({len(files)} files)... ", end="", flush=True)
-    # We don't actually need pip for the stdlib testing
-    venv_info = VenvInfo(pip_exe="", python_exe=sys.executable)
-    result = run_mypy(args, [], files, venv_info=venv_info, testing_stdlib=True, non_types_dependencies=False)
+    # We don't actually need to install anything for the stdlib testing
+    result = run_mypy(args, [], files, venv_dir=None, testing_stdlib=True, non_types_dependencies=False)
     return TestResult(result, len(files))
 
 
@@ -409,22 +408,30 @@ class TestSummary:
 
 
 _PRINT_LOCK = Lock()
-_DISTRIBUTION_TO_VENV_MAPPING: dict[str, VenvInfo] = {}
+_DISTRIBUTION_TO_VENV_MAPPING: dict[str, Path | None] = {}
 
 
-def setup_venv_for_external_requirements_set(requirements_set: frozenset[str], tempdir: Path) -> tuple[frozenset[str], VenvInfo]:
+def setup_venv_for_external_requirements_set(
+    requirements_set: frozenset[str], tempdir: Path, args: TestConfig
+) -> tuple[frozenset[str], Path]:
     venv_dir = tempdir / f".venv-{hash(requirements_set)}"
-    return requirements_set, make_venv(venv_dir)
+    uv_command = ["uv", "venv", str(venv_dir)]
+    if not args.verbose:
+        uv_command.append("--quiet")
+    subprocess.run(uv_command, check=True)
+    return requirements_set, venv_dir
 
 
-def install_requirements_for_venv(venv_info: VenvInfo, args: TestConfig, external_requirements: frozenset[str]) -> None:
+def install_requirements_for_venv(venv_dir: Path, args: TestConfig, external_requirements: frozenset[str]) -> None:
     # Use --no-cache-dir to avoid issues with concurrent read/writes to the cache
-    pip_command = [venv_info.pip_exe, "install", get_mypy_req(), *sorted(external_requirements), "--no-cache-dir"]
+    uv_command = ["uv", "pip", "install", get_mypy_req(), *sorted(external_requirements), "--no-cache-dir"]
     if args.verbose:
         with _PRINT_LOCK:
-            print(colored(f"Running {pip_command}", "blue"))
+            print(colored(f"Running {uv_command}", "blue"))
+    else:
+        uv_command.append("--quiet")
     try:
-        subprocess.run(pip_command, check=True, capture_output=True, text=True)
+        subprocess.run(uv_command, check=True, text=True, env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
     except subprocess.CalledProcessError as e:
         print(e.stderr)
         raise
@@ -437,9 +444,6 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
 
     # STAGE 1: Determine which (if any) stubs packages require virtual environments.
     # Group stubs packages according to their external-requirements sets
-
-    # We don't actually need pip if there aren't any external dependencies
-    no_external_dependencies_venv = VenvInfo(pip_exe="", python_exe=sys.executable)
     external_requirements_to_distributions: defaultdict[frozenset[str], list[str]] = defaultdict(list)
     num_pkgs_with_external_reqs = 0
 
@@ -449,7 +453,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
             external_requirements = frozenset(requirements.external_pkgs)
             external_requirements_to_distributions[external_requirements].append(distribution_name)
         else:
-            _DISTRIBUTION_TO_VENV_MAPPING[distribution_name] = no_external_dependencies_venv
+            _DISTRIBUTION_TO_VENV_MAPPING[distribution_name] = None
 
     # Exit early if there are no stubs packages that have non-types dependencies
     if num_pkgs_with_external_reqs == 0:
@@ -458,7 +462,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
         return
 
     # STAGE 2: Setup a virtual environment for each unique set of external requirements
-    requirements_sets_to_venvs: dict[frozenset[str], VenvInfo] = {}
+    requirements_sets_to_venvs: dict[frozenset[str], Path] = {}
 
     if args.verbose:
         num_venvs = len(external_requirements_to_distributions)
@@ -472,13 +476,13 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
     venv_start_time = time.perf_counter()
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        venv_info_futures = [
-            executor.submit(setup_venv_for_external_requirements_set, requirements_set, tempdir)
+        venv_futures = [
+            executor.submit(setup_venv_for_external_requirements_set, requirements_set, tempdir, args)
             for requirements_set in external_requirements_to_distributions
         ]
-        for venv_info_future in concurrent.futures.as_completed(venv_info_futures):
-            requirements_set, venv_info = venv_info_future.result()
-            requirements_sets_to_venvs[requirements_set] = venv_info
+        for venv_future in concurrent.futures.as_completed(venv_futures):
+            requirements_set, venv_dir = venv_future.result()
+            requirements_sets_to_venvs[requirements_set] = venv_dir
 
     venv_elapsed_time = time.perf_counter() - venv_start_time
 
@@ -492,8 +496,8 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
     # Limit workers to 10 at a time, since this makes network requests
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
         pip_install_futures = [
-            executor.submit(install_requirements_for_venv, venv_info, args, requirements_set)
-            for requirements_set, venv_info in requirements_sets_to_venvs.items()
+            executor.submit(install_requirements_for_venv, venv_dir, args, requirements_set)
+            for requirements_set, venv_dir in requirements_sets_to_venvs.items()
         ]
         concurrent.futures.wait(pip_install_futures)
 
@@ -561,10 +565,10 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
     assert _DISTRIBUTION_TO_VENV_MAPPING.keys() >= distributions_to_check.keys()
 
     for distribution in distributions_to_check:
-        venv_info = _DISTRIBUTION_TO_VENV_MAPPING[distribution]
-        non_types_dependencies = venv_info.python_exe != sys.executable
+        venv_dir = _DISTRIBUTION_TO_VENV_MAPPING[distribution]
+        non_types_dependencies = venv_dir is not None
         mypy_result, files_checked = test_third_party_distribution(
-            distribution, args, venv_info=venv_info, non_types_dependencies=non_types_dependencies
+            distribution, args, venv_dir=venv_dir, non_types_dependencies=non_types_dependencies
         )
         summary.register_result(mypy_result, files_checked)
 

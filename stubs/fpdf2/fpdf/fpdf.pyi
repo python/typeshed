@@ -5,8 +5,8 @@ from contextlib import _GeneratorContextManager
 from io import BytesIO
 from pathlib import PurePath
 from re import Pattern
-from typing import Any, ClassVar, NamedTuple, overload
-from typing_extensions import Final, Literal, TypeAlias, deprecated
+from typing import Any, ClassVar, Final, Literal, NamedTuple, overload
+from typing_extensions import TypeAlias, deprecated
 
 from fpdf import ViewerPreferences
 from PIL import Image
@@ -156,8 +156,6 @@ class FPDF(GraphicsStateMixin):
     w: float
     h: float
 
-    text_shaping: dict[str, Incomplete] | None  # TODO: TypedDict
-
     def __init__(
         self,
         orientation: _Orientation = "portrait",
@@ -212,7 +210,7 @@ class FPDF(GraphicsStateMixin):
         direction: Literal["ltr", "rtl"] | None = None,
         script: str | None = None,
         language: str | None = None,
-    ): ...
+    ) -> None: ...
     def set_compression(self, compress: bool) -> None: ...
     title: str
     def set_title(self, title: str) -> None: ...
