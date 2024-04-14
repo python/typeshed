@@ -4,6 +4,7 @@ from typing import ClassVar
 from typing_extensions import deprecated
 
 def show_formats() -> None: ...
+
 class ListCompat(dict[str, tuple[str, str]]):
     @deprecated("format_commands is now a dict. append is deprecated")
     def append(self, item: Unused) -> None: ...
