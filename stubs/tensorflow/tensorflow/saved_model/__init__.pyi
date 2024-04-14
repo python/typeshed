@@ -7,7 +7,7 @@ from typing_extensions import ParamSpec, TypeAlias
 import tensorflow as tf
 from tensorflow.python.training.tracking.autotrackable import AutoTrackable
 from tensorflow.saved_model.experimental import VariablePolicy
-from tensorflow.types.experimental import ConcreteFunction, GenericFunction  # type: ignore[attr-defined]
+from tensorflow.types.experimental import ConcreteFunction, PolymorphicFunction
 
 _P = ParamSpec("_P")
 _R = TypeVar("_R", covariant=True)
@@ -50,7 +50,7 @@ class SaveOptions:
     )
     namespace_whitelist: list[str]
     save_debug_info: bool
-    function_aliases: dict[str, tf.types.experimental.GenericFunction[..., object]]  # type: ignore[name-defined]
+    function_aliases: dict[str, PolymorphicFunction[..., object]]
     experimental_io_device: str
     experimental_variable_policy: VariablePolicy
     experimental_custom_gradients: bool
@@ -60,7 +60,7 @@ class SaveOptions:
         self,
         namespace_whitelist: list[str] | None = None,
         save_debug_info: bool = False,
-        function_aliases: Mapping[str, tf.types.experimental.GenericFunction[..., object]] | None = None,  # type: ignore[name-defined]
+        function_aliases: Mapping[str, PolymorphicFunction[..., object]] | None = None,
         experimental_debug_stripper: bool = False,
         experimental_io_device: str | None = None,
         experimental_variable_policy: str | VariablePolicy | None = None,
@@ -85,7 +85,7 @@ def load(
     export_dir: str, tags: str | Sequence[str] | None = None, options: LoadOptions | None = None
 ) -> _LoadedModel[..., Any]: ...
 
-_TF_Function: TypeAlias = ConcreteFunction[..., object] | GenericFunction[..., object]
+_TF_Function: TypeAlias = ConcreteFunction[..., object] | PolymorphicFunction[..., object]
 
 def save(
     obj: tf.Module,

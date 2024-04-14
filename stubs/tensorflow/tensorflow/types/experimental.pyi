@@ -15,7 +15,7 @@ class Callable(Generic[_P, _R], metaclass=abc.ABCMeta):
 class ConcreteFunction(Callable[_P, _R], metaclass=abc.ABCMeta):
     def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
 
-class GenericFunction(Callable[_P, _R], metaclass=abc.ABCMeta):
+class PolymorphicFunction(Callable[_P, _R], metaclass=abc.ABCMeta):
     @overload
     @abc.abstractmethod
     def get_concrete_function(self, *args: _P.args, **kwargs: _P.kwargs) -> ConcreteFunction[_P, _R]: ...
@@ -25,5 +25,7 @@ class GenericFunction(Callable[_P, _R], metaclass=abc.ABCMeta):
         self, *args: ContainerGeneric[tf.TypeSpec[Any]], **kwargs: ContainerGeneric[tf.TypeSpec[Any]]
     ) -> ConcreteFunction[_P, _R]: ...
     def experimental_get_compiler_ir(self, *args: Incomplete, **kwargs: Incomplete) -> Incomplete: ...
+
+GenericFunction = PolymorphicFunction
 
 def __getattr__(name: str) -> Incomplete: ...

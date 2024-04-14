@@ -18,6 +18,7 @@ from tensorflow import (
     io as io,
     keras as keras,
     math as math,
+    types as types,
 )
 from tensorflow._aliases import AnyArray, DTypeLike, ShapeLike, Slice, TensorCompatible
 from tensorflow.autodiff import GradientTape as GradientTape

@@ -127,7 +127,7 @@ class _IndexLookup(Layer[tf.Tensor, tf.Tensor]):
         num_oov_indices: int,
         mask_token: str | None,
         oov_token: str,
-        vocabulary_dtype,
+        vocabulary_dtype: Literal["int64", "string"],
         vocabulary: str | None | TensorCompatible = None,
         idf_weights: TensorCompatible | None = None,
         invert: bool = False,
@@ -144,7 +144,7 @@ class _IndexLookup(Layer[tf.Tensor, tf.Tensor]):
         # **kwargs passed to Layer
         activity_regularizer: _Regularizer = None,
         autocast: bool = True,
-    ): ...
+    ) -> None: ...
     def compute_output_signature(self, input_spec: Incomplete) -> tf.TensorSpec: ...
     def get_vocabulary(self, include_special_tokens: bool = True) -> list[Incomplete]: ...
     def vocabulary_size(self) -> int: ...
@@ -183,7 +183,7 @@ class IntegerLookup(_IndexLookup):
         mask_token: int | None = None,
         oov_token: int = -1,
         vocabulary: str | None | TensorCompatible = None,
-        vocabulary_dtype: Literal["int64", "int32"] = "int64",
+        vocabulary_dtype: Literal["int64"] = "int64",
         idf_weights: TensorCompatible | None = None,
         invert: bool = False,
         output_mode: Literal["int", "count", "multi_hot", "one_hot", "tf_idf"] = "int",

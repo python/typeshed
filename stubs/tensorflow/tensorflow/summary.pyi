@@ -7,6 +7,7 @@ from typing_extensions import Self
 
 import tensorflow as tf
 from tensorflow._aliases import FloatArray, IntArray
+from tensorflow.core.framework.graph_pb2 import GraphDef
 from tensorflow.experimental.dtensor import Mesh
 
 class SummaryWriter(metaclass=abc.ABCMeta):
@@ -36,7 +37,7 @@ def create_file_writer(
 ) -> SummaryWriter: ...
 def create_noop_writer() -> SummaryWriter: ...
 def flush(writer: SummaryWriter | None = None, name: str | None = None) -> tf.Operation: ...
-def graph(graph_data: tf.Graph | tf.compat.v1.GraphDef) -> bool: ...  # type: ignore[name-defined]
+def graph(graph_data: tf.Graph | GraphDef) -> bool: ...
 def histogram(
     name: str, data: tf.Tensor, step: int | None = None, buckets: int | None = None, description: str | None = None
 ) -> bool: ...

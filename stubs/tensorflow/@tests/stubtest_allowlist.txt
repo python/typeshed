@@ -49,6 +49,7 @@ tensorflow._aliases
 # tf.initializers at runtime is <module 'keras.api._v2.keras.initializers' from '...'>
 tensorflow.initializers
 # Other cursed import magic similar to the one above.
+tensorflow.distribute.coordinator
 tensorflow.distribute.experimental.coordinator
 
 # __call__ in tensorflow classes often allow keyword usage, but
