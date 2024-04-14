@@ -22,8 +22,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  file-consistency:
-    name: Check file consistency
+  typeshed-structure:
+    name: Check typeshed structure
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,7 +32,7 @@ jobs:
           python-version: "3.12"
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/check_consistent.py
+      - run: python ./tests/check_typeshed_structure.py
 
   new-syntax:
     name: Ensure new syntax usage
