@@ -41,8 +41,8 @@ class Button(enum.Enum):
         scroll_right = 7
         scroll_up = 4
     if sys.platform == "win32":
-        x1 = 0 # Value unknown
-        x2 = 0 # Value unknown
+        x1 = 0  # Value unknown
+        x2 = 0  # Value unknown
 
 class Controller:
     def __init__(self) -> None: ...
