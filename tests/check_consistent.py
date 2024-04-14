@@ -92,7 +92,7 @@ def check_distutils() -> None:
     finally:
         os.chdir(old_cwd)
     extra_files = all_setuptools_files - all_distutils_files
-    joined = '\n'.join(f"  * {f}" for f in extra_files)
+    joined = "\n".join(f"  * {f}" for f in extra_files)
     assert not extra_files, f"Files missing from distutils:\n{joined}"
 
 
