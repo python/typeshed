@@ -85,14 +85,11 @@ def check_stubs() -> None:
 
 def check_distutils() -> None:
     """Check whether all setuptools._distutils files are re-exported from distutils."""
-    old_cwd = Path.cwd()
-    try:
-        os.chdir(Path("stubs", "setuptools", "setuptools", "_distutils"))
-        all_setuptools_files = set(Path(".").rglob("*.pyi"))
-        os.chdir(old_cwd / "stubs" / "setuptools" / "distutils")
-        all_distutils_files = set(Path(".").rglob("*.pyi"))
-    finally:
-        os.chdir(old_cwd)
+    def all_relative_paths_in_directory(path: Path) -> set[Path]:
+        return {pyi.relative_to(path) for pyi in path.rglob("*.pyi")}
+
+    all_setuptools_files = all_relative_paths_in_directory(Path("stubs", "setuptools", "setuptools", "_distutils"))
+    all_distutils_files = all_relative_paths_in_directory(Path("stubs", "setuptools", "distutils"))
     extra_files = all_setuptools_files - all_distutils_files
     joined = "\n".join(f"  * {f}" for f in extra_files)
     assert not extra_files, f"Files missing from distutils:\n{joined}"
