@@ -91,6 +91,7 @@ def check_distutils() -> None:
 
     all_setuptools_files = all_relative_paths_in_directory(Path("stubs", "setuptools", "setuptools", "_distutils"))
     all_distutils_files = all_relative_paths_in_directory(Path("stubs", "setuptools", "distutils"))
+    assert all_setuptools_files and all_distutils_files, "Looks like this test might be out of date!"
     extra_files = all_setuptools_files - all_distutils_files
     joined = "\n".join(f"  * {f}" for f in extra_files)
     assert not extra_files, f"Files missing from distutils:\n{joined}"
