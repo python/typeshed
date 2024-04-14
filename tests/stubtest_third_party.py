@@ -157,13 +157,13 @@ def run_stubtest(
             if allowlist_path.exists():
                 print(
                     f'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_path_relative}',
-                    file=sys.stderr
+                    file=sys.stderr,
                 )
                 print(file=sys.stderr)
             else:
                 print(
                     f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path_relative}:",
-                    file=sys.stderr
+                    file=sys.stderr,
                 )
                 ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
                 print_command_output(ret)
