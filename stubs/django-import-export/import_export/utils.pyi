@@ -1,5 +1,6 @@
+from collections.abc import Callable
 from types import TracebackType
-from typing import Any, Callable, TypeVar
+from typing import Any, TypeVar
 
 from django.db.transaction import Atomic
 

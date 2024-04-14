@@ -10,7 +10,6 @@ from django.views.generic.edit import FormView
 from tablib import Dataset
 
 from .formats.base_formats import Format
-from .forms import ExportForm
 from .resources import Resource
 
 logger: Logger
@@ -54,7 +53,7 @@ class BaseExportMixin(BaseImportExportMixin[_ModelT]):
     def get_export_filename(self, file_format: Format) -> str: ...
 
 class ExportViewMixin(BaseExportMixin[_ModelT]):
-    form_class: type[Form] = ExportForm
+    form_class: type[Form] = ...
     def get_export_data(self, file_format: Format, queryset: QuerySet[_ModelT], *args: Any, **kwargs: Any) -> str | bytes: ...
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]: ...
     def get_form_kwargs(self) -> dict[str, Any]: ...

@@ -1,5 +1,5 @@
-from collections.abc import Mapping
-from typing import Any, Callable, ClassVar
+from collections.abc import Callable, Mapping
+from typing import Any, ClassVar
 
 from django.db.models import Model
 from django.db.models.fields import NOT_PROVIDED

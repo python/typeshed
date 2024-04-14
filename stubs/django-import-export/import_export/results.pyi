@@ -1,5 +1,6 @@
 from collections import OrderedDict
-from typing import Any, ClassVar, Iterator, Literal, TypeAlias
+from collections.abc import Iterator
+from typing import Any, ClassVar, Literal, TypeAlias
 
 from django.core.exceptions import ValidationError
 from django.db.models import Model

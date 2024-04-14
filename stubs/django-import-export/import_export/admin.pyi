@@ -1,5 +1,6 @@
+from collections.abc import Callable
 from logging import Logger
-from typing import Any, Callable, Generic, TypeVar
+from typing import Any, TypeVar
 from typing_extensions import deprecated
 
 from django.contrib import admin
@@ -14,7 +15,6 @@ from django.urls import URLPattern
 from tablib import Dataset
 
 from .formats.base_formats import Format
-from .forms import ConfirmImportForm, ExportForm, ImportForm
 from .mixins import BaseExportMixin, BaseImportMixin
 from .results import Result
 from .tmp_storages import BaseStorage
@@ -34,8 +34,8 @@ class ImportExportMixinBase:
 class ImportMixin(BaseImportMixin[_ModelT], ImportExportMixinBase):
     import_export_change_list_template: str
     import_template_name: str
-    import_form_class: type[Form] = ImportForm
-    confirm_form_class: type[Form] = ConfirmImportForm
+    import_form_class: type[Form] = ...
+    confirm_form_class: type[Form] = ...
     from_encoding: str
     skip_admin_log: bool | None
     tmp_storage_class: str | type[BaseStorage]
@@ -78,11 +78,11 @@ class ImportMixin(BaseImportMixin[_ModelT], ImportExportMixinBase):
     def import_action(self, request: HttpRequest, *args: Any, **kwargs: Any) -> TemplateResponse: ...
     def changelist_view(self, request: HttpRequest, extra_context: dict[str, Any] | None = None) -> HttpResponse: ...
 
-class ExportMixin(BaseExportMixin[_ModelT], ImportExportMixinBase, Generic[_ModelT]):
+class ExportMixin(BaseExportMixin[_ModelT], ImportExportMixinBase):
     import_export_change_list_template: str
     export_template_name: str
     to_encoding: str | None
-    export_form_class: type[Form] = ExportForm
+    export_form_class: type[Form] = ...
     def get_urls(self) -> list[URLPattern]: ...
     def has_export_permission(self, request: HttpRequest) -> bool: ...
     def get_export_queryset(self, request: HttpRequest) -> QuerySet[_ModelT]: ...
