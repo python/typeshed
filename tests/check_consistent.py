@@ -103,7 +103,7 @@ def check_no_symlinks() -> None:
 
 
 def check_versions_file() -> None:
-    """Check that stdlib/VERSIONS file has the correct format."""
+    """Check that the stdlib/VERSIONS file has the correct format."""
     versions = set[str]()
     with open("stdlib/VERSIONS", encoding="UTF-8") as f:
         data = f.read().splitlines()
