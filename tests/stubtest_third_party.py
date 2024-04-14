@@ -13,7 +13,7 @@ from textwrap import dedent
 from typing import NoReturn
 
 from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
-from utils import PYTHON_VERSION, colored, get_mypy_req, print_error, print_success_msg
+from utils import PYTHON_VERSION, colored, get_mypy_req, print_divider, print_error, print_success_msg
 
 
 def run_stubtest(
@@ -132,17 +132,16 @@ def run_stubtest(
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
             print_error("fail\n")
-            divider = "*" * 70
 
-            print(divider)
+            print_divider()
             print("Commands run:")
             print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
 
-            print(divider)
+            print_divider()
             print("Command output:\n")
             print_command_output(e)
 
-            print(divider)
+            print_divider()
             print(f"Upstream repository: {metadata.upstream_repository}")
             print(f"Typeshed source code: https://github.com/python/typeshed/tree/main/stubs/{dist.name}")
 
@@ -168,7 +167,7 @@ def run_stubtest(
                 ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
                 print_command_output(ret)
 
-            print(divider)
+            print_divider()
 
             return False
         else:
