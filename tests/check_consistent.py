@@ -83,6 +83,20 @@ def check_stubs() -> None:
             assert not py_files_present, error_message
 
 
+def check_distutils() -> None:
+    """Check whether all setuptools._distutils files are re-exported from distutils."""
+
+    def all_relative_paths_in_directory(path: Path) -> set[Path]:
+        return {pyi.relative_to(path) for pyi in path.rglob("*.pyi")}
+
+    all_setuptools_files = all_relative_paths_in_directory(Path("stubs", "setuptools", "setuptools", "_distutils"))
+    all_distutils_files = all_relative_paths_in_directory(Path("stubs", "setuptools", "distutils"))
+    assert all_setuptools_files and all_distutils_files, "Looks like this test might be out of date!"
+    extra_files = all_setuptools_files - all_distutils_files
+    joined = "\n".join(f"  * {f}" for f in extra_files)
+    assert not extra_files, f"Files missing from distutils:\n{joined}"
+
+
 def check_test_cases() -> None:
     """Check that the test_cases directory contains only the correct files."""
     for _, testcase_dir in get_all_testcase_directories():
@@ -164,4 +178,5 @@ if __name__ == "__main__":
     check_no_symlinks()
     check_stdlib()
     check_stubs()
+    check_distutils()
     check_test_cases()
