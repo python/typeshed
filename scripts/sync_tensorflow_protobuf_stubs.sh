@@ -1,7 +1,8 @@
 #!/bin/bash
-# Partly based on scripts/generate_proto_stubs.sh.
+# Based on scripts/generate_proto_stubs.sh.
 # Generates the protobuf stubs for the given tensorflow version using mypy-protobuf.
 # Generally, new minor versions are a good time to update the stubs.
+
 set -euxo pipefail
 
 # Need protoc >= 3.15 for explicit optional
@@ -9,13 +10,13 @@ PROTOBUF_VERSION=25.3 # 4.25.3
 # Whenever you update TENSORFLOW_VERSION here, version should be updated
 # in stubs/tensorflow/METADATA.toml and vice-versa.
 TENSORFLOW_VERSION=2.16.1
-MYPY_PROTOBUF_VERSION=3.5.0
+MYPY_PROTOBUF_VERSION=3.6.0
 
 if uname -a | grep Darwin; then
-    # brew install coreutils wget
-    PLAT=osx
+  # brew install coreutils wget
+  PLAT=osx
 else
-    PLAT=linux
+  PLAT=linux
 fi
 REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/..)"
 TMP_DIR="$(mktemp -d)"
@@ -52,24 +53,24 @@ find "$REPO_ROOT/stubs/tensorflow/" -name "*_pb2.pyi" -delete
 # Folders here cover the more commonly used protobufs externally and
 # their dependencies. Tensorflow has more protobufs and can be added if requested.
 protoc_install/bin/protoc \
-    --proto_path="$TENSORFLOW_DIR/third_party/xla/third_party/tsl" \
-    --proto_path="$TENSORFLOW_DIR/third_party/xla" \
-    --proto_path="$TENSORFLOW_DIR" \
-    --mypy_out "relax_strict_optional_primitives:$REPO_ROOT/stubs/tensorflow" \
-    $TENSORFLOW_DIR/third_party/xla/xla/*.proto \
-    $TENSORFLOW_DIR/third_party/xla/xla/service/*.proto \
-    $TENSORFLOW_DIR/tensorflow/core/example/*.proto \
-    $TENSORFLOW_DIR/tensorflow/core/framework/*.proto \
-    $TENSORFLOW_DIR/tensorflow/core/protobuf/*.proto \
-    $TENSORFLOW_DIR/tensorflow/core/protobuf/tpu/*.proto \
-    $TENSORFLOW_DIR/tensorflow/core/util/*.proto \
-    $TENSORFLOW_DIR/tensorflow/python/keras/protobuf/*.proto \
-    $TENSORFLOW_DIR/third_party/xla/third_party/tsl/tsl/protobuf/*.proto \
+  --proto_path="$TENSORFLOW_DIR/third_party/xla/third_party/tsl" \
+  --proto_path="$TENSORFLOW_DIR/third_party/xla" \
+  --proto_path="$TENSORFLOW_DIR" \
+  --mypy_out "relax_strict_optional_primitives:$REPO_ROOT/stubs/tensorflow" \
+  $TENSORFLOW_DIR/third_party/xla/xla/*.proto \
+  $TENSORFLOW_DIR/third_party/xla/xla/service/*.proto \
+  $TENSORFLOW_DIR/tensorflow/core/example/*.proto \
+  $TENSORFLOW_DIR/tensorflow/core/framework/*.proto \
+  $TENSORFLOW_DIR/tensorflow/core/protobuf/*.proto \
+  $TENSORFLOW_DIR/tensorflow/core/protobuf/tpu/*.proto \
+  $TENSORFLOW_DIR/tensorflow/core/util/*.proto \
+  $TENSORFLOW_DIR/tensorflow/python/keras/protobuf/*.proto \
+  $TENSORFLOW_DIR/third_party/xla/third_party/tsl/tsl/protobuf/*.proto \
 
 # Cleanup after ourselves, this is a temp dir, but it can still grow fast if run multiple times
 rm -rf "$TMP_DIR"
 
-# Must be run in a git repository to run pre-commit
+# Must be in a git repository to run pre-commit
 cd "$REPO_ROOT"
 
 # Move third-party and fix imports
@@ -101,8 +102,8 @@ rm -r \
   stubs/tensorflow/tensorflow/core/util/example_proto_fast_parsing_test_pb2.pyi \
 
 sed --in-place="" \
-    "s/extra_description = .*$/extra_description = \"Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on tensorflow==$TENSORFLOW_VERSION\"/" \
-    stubs/tensorflow/METADATA.toml
+  "s/extra_description = .*$/extra_description = \"Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on tensorflow==$TENSORFLOW_VERSION\"/" \
+  stubs/tensorflow/METADATA.toml
 
 # use `|| true` so the script still continues even if a pre-commit hook
 # applies autofixes (which will result in a nonzero exit code)

@@ -129,23 +129,17 @@ jobs:
         run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
       - name: List 3rd-party stub dependencies installed
         run: uv pip freeze
-      - name: Get pyright version
-        id: pyright_version
-        run: |
-          PYRIGHT_VERSION=$(grep pyright== requirements-tests.txt | cut -d "#" -f 1 | cut -d \; -f 1 | cut -d = -f 3)
-          echo pyright version: "${PYRIGHT_VERSION}"
-          echo PYRIGHT_VERSION="${PYRIGHT_VERSION}" >> "${GITHUB_OUTPUT}"
       - name: Run pyright with basic settings on all the stubs
         uses: jakebailey/pyright-action@v2
         with:
-          version: ${{ steps.pyright_version.outputs.PYRIGHT_VERSION }}
+          version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           annotate: ${{ matrix.python-version == '3.11' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
       - name: Run pyright with stricter settings on some of the stubs
         uses: jakebailey/pyright-action@v2
         with:
-          version: ${{ steps.pyright_version.outputs.PYRIGHT_VERSION }}
+          version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           annotate: ${{ matrix.python-version == '3.11' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
@@ -153,7 +147,7 @@ jobs:
       - name: Run pyright on the test cases
         uses: jakebailey/pyright-action@v2
         with:
-          version: ${{ steps.pyright_version.outputs.PYRIGHT_VERSION }}
+          version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           annotate: ${{ matrix.python-version == '3.11' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
