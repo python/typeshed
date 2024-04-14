@@ -7,7 +7,7 @@ from django.forms import BaseForm, Form
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.views.generic.edit import FormView
-from tablib import Dataset
+from tablib import Dataset  # type: ignore[import-untyped]
 
 from .formats.base_formats import Format
 from .resources import Resource
@@ -53,12 +53,12 @@ class BaseExportMixin(BaseImportExportMixin[_ModelT]):
     def get_export_filename(self, file_format: Format) -> str: ...
 
 class ExportViewMixin(BaseExportMixin[_ModelT]):
-    form_class: type[Form] = ...
+    form_class: type[BaseForm] = ...
     def get_export_data(self, file_format: Format, queryset: QuerySet[_ModelT], *args: Any, **kwargs: Any) -> str | bytes: ...
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]: ...
     def get_form_kwargs(self) -> dict[str, Any]: ...
 
 _FormT = TypeVar("_FormT", bound=BaseForm)
 
-class ExportViewFormMixin(ExportViewMixin[_ModelT], FormView[_FormT]):
+class ExportViewFormMixin(ExportViewMixin[_ModelT], FormView[_FormT]):  # type: ignore[misc]
     def form_valid(self, form: _FormT) -> HttpResponse: ...

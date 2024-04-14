@@ -12,7 +12,7 @@ from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.template.response import TemplateResponse
 from django.urls import URLPattern
-from tablib import Dataset
+from tablib import Dataset  # type: ignore[import-untyped]
 
 from .formats.base_formats import Format
 from .mixins import BaseExportMixin, BaseImportMixin
@@ -79,7 +79,7 @@ class ImportMixin(BaseImportMixin[_ModelT], ImportExportMixinBase):
     def changelist_view(self, request: HttpRequest, extra_context: dict[str, Any] | None = None) -> HttpResponse: ...
 
 class ExportMixin(BaseExportMixin[_ModelT], ImportExportMixinBase):
-    import_export_change_list_template: str
+    import_export_change_list_template: str | None
     export_template_name: str
     to_encoding: str | None
     export_form_class: type[Form] = ...
@@ -94,15 +94,14 @@ class ExportMixin(BaseExportMixin[_ModelT], ImportExportMixinBase):
     def get_export_form_class(self) -> type[Form]: ...
     def export_action(self, request: HttpRequest, *args: Any, **kwargs: Any) -> TemplateResponse: ...
     def changelist_view(self, request: HttpRequest, extra_context: dict[str, Any] | None = None) -> HttpResponse: ...
-    def get_export_filename(self, request: HttpRequest, queryset: QuerySet[_ModelT], file_format: Format) -> str: ...
+    def get_export_filename(self, request: HttpRequest, queryset: QuerySet[_ModelT], file_format: Format) -> str: ...  # type: ignore[override]
 
 class ImportExportMixin(ImportMixin[_ModelT], ExportMixin[_ModelT]):
     import_export_change_list_template: str
 
-class ImportExportModelAdmin(ImportExportMixin[_ModelT], admin.ModelAdmin[_ModelT]): ...
+class ImportExportModelAdmin(ImportExportMixin[_ModelT], admin.ModelAdmin[_ModelT]): ...  # type: ignore[misc]
 
 class ExportActionMixin(ExportMixin[_ModelT]):
-    import_export_change_list_template: str | None
     action_form: type[ActionForm]
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     def export_admin_action(self, request: HttpRequest, queryset: QuerySet[_ModelT]): ...
@@ -110,5 +109,5 @@ class ExportActionMixin(ExportMixin[_ModelT]):
     @property
     def media(self) -> Media: ...
 
-class ExportActionModelAdmin(ExportActionMixin[_ModelT], admin.ModelAdmin[_ModelT]): ...
-class ImportExportActionModelAdmin(ImportMixin[_ModelT], ExportActionModelAdmin[_ModelT]): ...
+class ExportActionModelAdmin(ExportActionMixin[_ModelT], admin.ModelAdmin[_ModelT]): ...  # type: ignore[misc]
+class ImportExportActionModelAdmin(ImportMixin[_ModelT], ExportActionModelAdmin[_ModelT]): ...  # type: ignore[misc]

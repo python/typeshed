@@ -7,7 +7,7 @@ from typing_extensions import deprecated
 
 from django.db.models import Field as DjangoField, ForeignObjectRel, Model, QuerySet
 from django.utils.safestring import SafeString
-from tablib import Dataset
+from tablib import Dataset  # type: ignore[import-untyped]
 
 from .fields import Field
 from .instance_loaders import BaseInstanceLoader

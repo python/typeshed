@@ -1,7 +1,7 @@
 from typing import Any
 
 from django.db.models import Model, QuerySet
-from tablib import Dataset
+from tablib import Dataset  # type: ignore[import-untyped]
 
 from .fields import Field
 from .resources import Resource

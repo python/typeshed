@@ -1,10 +1,11 @@
 from collections import OrderedDict
 from collections.abc import Iterator
-from typing import Any, ClassVar, Literal, TypeAlias
+from typing import Any, ClassVar, Literal
+from typing_extensions import TypeAlias
 
 from django.core.exceptions import ValidationError
 from django.db.models import Model
-from tablib import Dataset
+from tablib import Dataset  # type: ignore[import-untyped]
 
 class Error:
     error: Exception
