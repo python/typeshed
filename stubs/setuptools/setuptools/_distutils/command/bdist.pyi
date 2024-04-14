@@ -1,7 +1,8 @@
 from _typeshed import Unused
-from distutils.core import Command
 from typing import ClassVar
 from typing_extensions import deprecated
+
+from ..cmd import Command
 
 def show_formats() -> None: ...
 
