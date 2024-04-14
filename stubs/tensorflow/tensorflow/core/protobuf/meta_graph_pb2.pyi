@@ -622,7 +622,7 @@ class SignatureDef(google.protobuf.message.Message):
         def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class DefaultsEntry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -637,19 +637,13 @@ class SignatureDef(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: tensorflow.core.framework.tensor_pb2.TensorProto | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal[value, b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal[key, b"key", value, b"value"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
     INPUTS_FIELD_NUMBER: builtins.int
     OUTPUTS_FIELD_NUMBER: builtins.int
     METHOD_NAME_FIELD_NUMBER: builtins.int
     DEFAULTS_FIELD_NUMBER: builtins.int
-    @property
-    def inputs(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___TensorInfo]:
-        """Named input parameters."""
-    @property
-    def outputs(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___TensorInfo]:
-        """Named output parameters."""
     method_name: builtins.str
     """Extensible method_name information enabling third-party users to mark a
     SignatureDef as supporting a particular method. This enables producers and
@@ -661,8 +655,17 @@ class SignatureDef(google.protobuf.message.Message):
     where a single graph computation may return multiple results.
     """
     @property
+    def inputs(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___TensorInfo]:
+        """Named input parameters."""
+
+    @property
+    def outputs(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___TensorInfo]:
+        """Named output parameters."""
+
+    @property
     def defaults(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, tensorflow.core.framework.tensor_pb2.TensorProto]:
         """Named input to corresponding default values if any."""
+
     def __init__(
         self,
         *,
@@ -671,7 +674,7 @@ class SignatureDef(google.protobuf.message.Message):
         method_name: builtins.str | None = ...,
         defaults: collections.abc.Mapping[builtins.str, tensorflow.core.framework.tensor_pb2.TensorProto] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[defaults, b"defaults", inputs, b"inputs", method_name, b"method_name", outputs, b"outputs"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["defaults", b"defaults", "inputs", b"inputs", "method_name", b"method_name", "outputs", b"outputs"]) -> None: ...
 
 global___SignatureDef = SignatureDef
 

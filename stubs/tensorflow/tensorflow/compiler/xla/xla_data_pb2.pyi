@@ -560,6 +560,19 @@ class LayoutProto(google.protobuf.message.Message):
     POINTER_PRIMITIVE_TYPE_FIELD_NUMBER: builtins.int
     PHYSICAL_SHAPE_FIELD_NUMBER: builtins.int
     DYNAMIC_SHAPE_METADATA_PREFIX_BYTES_FIELD_NUMBER: builtins.int
+    tail_padding_alignment_in_elements: builtins.int
+    """The shape is padded at the end to multiple of, in terms of number of
+    elements. This is useful when tiling does not bring the shape to certain
+    desired granules. Tiling effectively pads/reshapes/transposes the shape
+    to another shape. This field pads the total number of elements of that
+    new shape to a multiple of certain number of elements. This is useful such
+    as we want a layout which does not tile the data but still requires it to
+    be padded to certain number of elements.
+    """
+    element_size_in_bits: builtins.int
+    """(Optional) Bit size of each element. When unspecified or being 0, default
+    to ShapeUtil::ByteSizeOfPrimitiveType.
+    """
     memory_space: builtins.int
     """Memory space where this array resides. The integer field is interpreted in
     a backend-specific manner.
@@ -610,32 +623,7 @@ class LayoutProto(google.protobuf.message.Message):
         TODO(b/119839262): implement tiling in each backend or add Unimplemented
         error.
         """
-    tail_padding_alignment_in_elements: builtins.int
-    """The shape is padded at the end to multiple of, in terms of number of
-    elements. This is useful when tiling does not bring the shape to certain
-    desired granules. Tiling effectively pads/reshapes/transposes the shape
-    to another shape. This field pads the total number of elements of that
-    new shape to a multiple of certain number of elements. This is useful such
-    as we want a layout which does not tile the data but still requires it to
-    be padded to certain number of elements.
-    """
-    element_size_in_bits: builtins.int
-    """(Optional) Bit size of each element. When unspecified or being 0, default
-    to ShapeUtil::ByteSizeOfPrimitiveType.
-    """
-    memory_space: builtins.int
-    """Memory space where this array resides. The integer field is interpreted in
-    a backend-specific manner.
-    """
-    index_primitive_type: global___PrimitiveType.ValueType
-    """The integer types to be used for indices and pointers.  These fields must
-    not be used unless the layout represents a sparse array.  The PrimitiveType
-    must correspond to an unsigned integer (U8, U16, U32, or U64).
-    If not provided, the compiler will use the largest unsigned integer
-    that is naturally supported by the target device (U32 or U64 in currently
-    supported devices).
-    """
-    pointer_primitive_type: global___PrimitiveType.ValueType
+
     @property
     def physical_shape(self) -> global___ShapeProto:
         """The physical, on-device shape used to represent the shape this layout
@@ -660,8 +648,8 @@ class LayoutProto(google.protobuf.message.Message):
         physical_shape: global___ShapeProto | None = ...,
         dynamic_shape_metadata_prefix_bytes: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["physical_shape", b"physical_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["dim_level_types", b"dim_level_types", "dim_ordered", b"dim_ordered", "dim_unique", b"dim_unique", "dynamic_shape_metadata_prefix_bytes", b"dynamic_shape_metadata_prefix_bytes", "element_size_in_bits", b"element_size_in_bits", "index_primitive_type", b"index_primitive_type", "memory_space", b"memory_space", "minor_to_major", b"minor_to_major", "physical_shape", b"physical_shape", "pointer_primitive_type", b"pointer_primitive_type", "tail_padding_alignment_in_elements", b"tail_padding_alignment_in_elements", "tiles", b"tiles"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["physical_shape", b"physical_shape"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["dim_level_types", b"dim_level_types", "dim_ordered", b"dim_ordered", "dim_unique", b"dim_unique", "dynamic_shape_metadata_prefix_bytes", b"dynamic_shape_metadata_prefix_bytes", "element_size_in_bits", b"element_size_in_bits", "index_primitive_type", b"index_primitive_type", "memory_space", b"memory_space", "minor_to_major", b"minor_to_major", "physical_shape", b"physical_shape", "pointer_primitive_type", b"pointer_primitive_type", "tail_padding_alignment_in_elements", b"tail_padding_alignment_in_elements", "tiles", b"tiles"]) -> None: ...
 
 global___LayoutProto = LayoutProto
 
@@ -873,13 +861,6 @@ class OpMetadata(google.protobuf.message.Message):
     """The size of the working set, i.e., the amount of memory, used by the
     instruction in a compiler-managed fast device memory.
     """
-    @property
-    def profile_type(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___ProfileType.ValueType]:
-        """Deprecated, use [ProfileInfo][profile_type] instead."""
-
-    @property
-    def profile_info(self) -> global___OpMetadata.ProfileInfo:
-        """Profile information for the Op."""
     deduplicated_name: builtins.str
     """Deduplicated HLO name for this op. In some cases, we can have multiple
     instructions (e.g. fusions) that are considered duplicates. We want to
@@ -894,6 +875,14 @@ class OpMetadata(google.protobuf.message.Message):
     """1-based position of the frame in frames flat array.
     Ids are 1-based to keep 0 value as representation of non-set property.
     """
+    @property
+    def profile_type(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___ProfileType.ValueType]:
+        """Deprecated, use [ProfileInfo][profile_type] instead."""
+
+    @property
+    def profile_info(self) -> global___OpMetadata.ProfileInfo:
+        """Profile information for the Op."""
+
     def __init__(
         self,
         *,
@@ -911,8 +900,8 @@ class OpMetadata(google.protobuf.message.Message):
         preserve_layout: builtins.bool | None = ...,
         stack_frame_id: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["profile_info", b"profile_info"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["creation_pass_id", b"creation_pass_id", "deduplicated_name", b"deduplicated_name", "logical_creation_pass_id", b"logical_creation_pass_id", "op_name", b"op_name", "op_type", b"op_type", "preserve_layout", b"preserve_layout", "profile_info", b"profile_info", "profile_type", b"profile_type", "size_of_generated_code_in_bytes", b"size_of_generated_code_in_bytes", "size_of_memory_working_set_in_bytes", b"size_of_memory_working_set_in_bytes", "source_file", b"source_file", "source_line", b"source_line", "stack_frame_id", b"stack_frame_id"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["profile_info", b"profile_info"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["creation_pass_id", b"creation_pass_id", "deduplicated_name", b"deduplicated_name", "logical_creation_pass_id", b"logical_creation_pass_id", "op_name", b"op_name", "op_type", b"op_type", "preserve_layout", b"preserve_layout", "profile_info", b"profile_info", "profile_type", b"profile_type", "size_of_generated_code_in_bytes", b"size_of_generated_code_in_bytes", "size_of_memory_working_set_in_bytes", b"size_of_memory_working_set_in_bytes", "source_file", b"source_file", "source_line", b"source_line", "stack_frame_id", b"stack_frame_id"]) -> None: ...
 
 global___OpMetadata = OpMetadata
 
@@ -1173,6 +1162,8 @@ class LiteralProto(google.protobuf.message.Message):
     F8E5M2FNUZS_FIELD_NUMBER: builtins.int
     F8E4M3FNUZS_FIELD_NUMBER: builtins.int
     SPARSE_INDICES_FIELD_NUMBER: builtins.int
+    s4s: builtins.bytes
+    u4s: builtins.bytes
     s8s: builtins.bytes
     u8s: builtins.bytes
     f16s: builtins.bytes
@@ -1182,14 +1173,13 @@ class LiteralProto(google.protobuf.message.Message):
     s16s: builtins.bytes
     f8e5m2s: builtins.bytes
     f8e4m3fns: builtins.bytes
+    f8e4m3b11fnuzs: builtins.bytes
+    f8e5m2fnuzs: builtins.bytes
+    f8e4m3fnuzs: builtins.bytes
     @property
     def shape(self) -> global___ShapeProto: ...
     @property
     def preds(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
-    s4s: builtins.bytes
-    u4s: builtins.bytes
-    s8s: builtins.bytes
-    u8s: builtins.bytes
     @property
     def s32s(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
@@ -1212,19 +1202,10 @@ class LiteralProto(google.protobuf.message.Message):
 
     @property
     def tuple_literals(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___LiteralProto]: ...
-    f16s: builtins.bytes
-    """The F16s, BF16s, U16s and S16s are encoded in little endian byte order"""
-    bf16s: builtins.bytes
-    u16s: builtins.bytes
-    s16s: builtins.bytes
-    f8e5m2s: builtins.bytes
-    f8e4m3fns: builtins.bytes
-    f8e4m3b11fnuzs: builtins.bytes
-    f8e5m2fnuzs: builtins.bytes
-    f8e4m3fnuzs: builtins.bytes
     @property
     def sparse_indices(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """Next = 26"""
+
     def __init__(
         self,
         *,
@@ -1254,8 +1235,8 @@ class LiteralProto(google.protobuf.message.Message):
         f8e4m3fnuzs: builtins.bytes | None = ...,
         sparse_indices: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["bf16s", b"bf16s", "c128s", b"c128s", "c64s", b"c64s", "f16s", b"f16s", "f32s", b"f32s", "f64s", b"f64s", "f8e4m3b11fnuzs", b"f8e4m3b11fnuzs", "f8e4m3fns", b"f8e4m3fns", "f8e4m3fnuzs", b"f8e4m3fnuzs", "f8e5m2fnuzs", b"f8e5m2fnuzs", "f8e5m2s", b"f8e5m2s", "preds", b"preds", "s16s", b"s16s", "s32s", b"s32s", "s4s", b"s4s", "s64s", b"s64s", "s8s", b"s8s", "shape", b"shape", "sparse_indices", b"sparse_indices", "tuple_literals", b"tuple_literals", "u16s", b"u16s", "u32s", b"u32s", "u4s", b"u4s", "u64s", b"u64s", "u8s", b"u8s"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["shape", b"shape"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["bf16s", b"bf16s", "c128s", b"c128s", "c64s", b"c64s", "f16s", b"f16s", "f32s", b"f32s", "f64s", b"f64s", "f8e4m3b11fnuzs", b"f8e4m3b11fnuzs", "f8e4m3fns", b"f8e4m3fns", "f8e4m3fnuzs", b"f8e4m3fnuzs", "f8e5m2fnuzs", b"f8e5m2fnuzs", "f8e5m2s", b"f8e5m2s", "preds", b"preds", "s16s", b"s16s", "s32s", b"s32s", "s4s", b"s4s", "s64s", b"s64s", "s8s", b"s8s", "shape", b"shape", "sparse_indices", b"sparse_indices", "tuple_literals", b"tuple_literals", "u16s", b"u16s", "u32s", b"u32s", "u4s", b"u4s", "u64s", b"u64s", "u8s", b"u8s"]) -> None: ...
 
 global___LiteralProto = LiteralProto
 
@@ -1542,7 +1523,7 @@ class DotDimensionNumbers(google.protobuf.message.Message):
 
 global___DotDimensionNumbers = DotDimensionNumbers
 
-@typing_extensions.final
+@typing.final
 class SparsityDescriptor(google.protobuf.message.Message):
     """Contains sparsity metadata for a sparse dot operation.
     The only supported type atm is structured 2:4 sparsity, which is natively
@@ -1576,11 +1557,11 @@ class SparsityDescriptor(google.protobuf.message.Message):
         n: builtins.int | None = ...,
         m: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["dimension", b"dimension", "index", b"index", "m", b"m", "n", b"n", "type", b"type"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["dimension", b"dimension", "index", b"index", "m", b"m", "n", b"n", "type", b"type"]) -> None: ...
 
 global___SparsityDescriptor = SparsityDescriptor
 
-@typing_extensions.final
+@typing.final
 class TriangularSolveOptions(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1650,7 +1631,7 @@ class CholeskyOptions(google.protobuf.message.Message):
 
 global___CholeskyOptions = CholeskyOptions
 
-@typing_extensions.final
+@typing.final
 class SortOptions(google.protobuf.message.Message):
     """Attributes of the sort custom call (cub::DeviceRadixSort)."""
 
@@ -1663,11 +1644,11 @@ class SortOptions(google.protobuf.message.Message):
         *,
         descending: builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["descending", b"descending"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["descending", b"descending"]) -> None: ...
 
 global___SortOptions = SortOptions
 
-@typing_extensions.final
+@typing.final
 class FrontendAttributes(google.protobuf.message.Message):
     """Generic map of attributes used to pass hints / configuration options from
     the Python frontend to the XLA backend.
@@ -1703,7 +1684,7 @@ class FrontendAttributes(google.protobuf.message.Message):
 
 global___FrontendAttributes = FrontendAttributes
 
-@typing_extensions.final
+@typing.final
 class Statistic(google.protobuf.message.Message):
     """Represents a single statistic to track."""
 
@@ -1723,11 +1704,11 @@ class Statistic(google.protobuf.message.Message):
         stat_name: builtins.str | None = ...,
         stat_val: builtins.float | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["stat_name", b"stat_name", "stat_val", b"stat_val"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["stat_name", b"stat_name", "stat_val", b"stat_val"]) -> None: ...
 
 global___Statistic = Statistic
 
-@typing_extensions.final
+@typing.final
 class StatisticsViz(google.protobuf.message.Message):
     """Represents the information needed to visualize propagation statistics when
     rendering an HLO graph. This includes an array of statistics as well as the
@@ -1747,11 +1728,11 @@ class StatisticsViz(google.protobuf.message.Message):
         stat_index_to_visualize: builtins.int | None = ...,
         statistics: collections.abc.Iterable[global___Statistic] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["stat_index_to_visualize", b"stat_index_to_visualize", "statistics", b"statistics"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["stat_index_to_visualize", b"stat_index_to_visualize", "statistics", b"statistics"]) -> None: ...
 
 global___StatisticsViz = StatisticsViz
 
-@typing_extensions.final
+@typing.final
 class OpSharding(google.protobuf.message.Message):
     """LINT.IfChange"""
 
@@ -1854,6 +1835,11 @@ class OpSharding(google.protobuf.message.Message):
     dimensions of tile_assignment(), but replicated across devices along the
     last dimension. (Experimental)
     """
+    is_shard_group: builtins.bool
+    """This field decides whether this op is in a shard group."""
+    shard_group_id: builtins.int
+    """This field is used to store the unique id of the shard group."""
+    shard_group_type: global___OpSharding.ShardGroupType.ValueType
     @property
     def tile_shape(self) -> global___ShapeProto:
         """The shape of the sharded tile."""
@@ -1899,22 +1885,20 @@ class OpSharding(google.protobuf.message.Message):
         in [2,2,2,2] represents a subgrouping in replicate, manual,
         unreduced sharding type respectively.
         """
+
     @property
     def iota_reshape_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """Dimensions used to reshape the 1D iota array of device IDs.
         Only one of tile_assignment_devices and iota_reshape_dims shall be
         non-empty.
         """
+
     @property
     def iota_transpose_perm(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """Dimension permutations to transposed the iota array reshaped to
         iota_reshape_dims. This must have the same size as iota_reshape_dims.
         """
-    is_shard_group: builtins.bool
-    """This field decides whether this op is in a shard group."""
-    shard_group_id: builtins.int
-    """This field is used to store the unique id of the shard group."""
-    shard_group_type: global___OpSharding.ShardGroupType.ValueType
+
     def __init__(
         self,
         *,
@@ -1932,8 +1916,8 @@ class OpSharding(google.protobuf.message.Message):
         shard_group_id: builtins.int | None = ...,
         shard_group_type: global___OpSharding.ShardGroupType.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["tile_shape", b"tile_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["iota_reshape_dims", b"iota_reshape_dims", "iota_transpose_perm", b"iota_transpose_perm", "is_shard_group", b"is_shard_group", "last_tile_dims", b"last_tile_dims", "metadata", b"metadata", "replicate_on_last_tile_dim", b"replicate_on_last_tile_dim", "shard_group_id", b"shard_group_id", "shard_group_type", b"shard_group_type", "tile_assignment_devices", b"tile_assignment_devices", "tile_assignment_dimensions", b"tile_assignment_dimensions", "tile_shape", b"tile_shape", "tuple_shardings", b"tuple_shardings", "type", b"type"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["tile_shape", b"tile_shape"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["iota_reshape_dims", b"iota_reshape_dims", "iota_transpose_perm", b"iota_transpose_perm", "is_shard_group", b"is_shard_group", "last_tile_dims", b"last_tile_dims", "metadata", b"metadata", "replicate_on_last_tile_dim", b"replicate_on_last_tile_dim", "shard_group_id", b"shard_group_id", "shard_group_type", b"shard_group_type", "tile_assignment_devices", b"tile_assignment_devices", "tile_assignment_dimensions", b"tile_assignment_dimensions", "tile_shape", b"tile_shape", "tuple_shardings", b"tuple_shardings", "type", b"type"]) -> None: ...
 
 global___OpSharding = OpSharding
 

@@ -16,6 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================
 """
+
 import builtins
 import collections.abc
 import sys
@@ -36,7 +37,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class CompilationEnvironmentsProto(google.protobuf.message.Message):
     """Proto version of `xla::CompilationEnvironments`."""
 
@@ -50,11 +51,11 @@ class CompilationEnvironmentsProto(google.protobuf.message.Message):
         *,
         environments: collections.abc.Iterable[google.protobuf.any_pb2.Any] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["environments", b"environments"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["environments", b"environments"]) -> None: ...
 
 global___CompilationEnvironmentsProto = CompilationEnvironmentsProto
 
-@typing_extensions.final
+@typing.final
 class DebugOptions(google.protobuf.message.Message):
     """Debugging options for XLA. These options may change at any time - there are
     no guarantees about backward or forward compatibility for these fields.
@@ -182,7 +183,7 @@ class DebugOptions(google.protobuf.message.Message):
     PARTITIONING_ALGORITHM_EXP1: DebugOptions.PartitioningAlgorithm.ValueType  # 2
     PARTITIONING_ALGORITHM_EXP2: DebugOptions.PartitioningAlgorithm.ValueType  # 3
 
-    @typing_extensions.final
+    @typing.final
     class XlaBackendExtraOptionsEntry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -196,7 +197,7 @@ class DebugOptions(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: builtins.str | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
     XLA_HLO_GRAPH_ADDRESSES_FIELD_NUMBER: builtins.int
     XLA_HLO_PROFILE_FIELD_NUMBER: builtins.int
@@ -368,16 +369,6 @@ class DebugOptions(google.protobuf.message.Message):
     """Show addresses of HLO ops in graph dump."""
     xla_hlo_profile: builtins.bool
     """Instrument the computation to collect per-HLO cycle counts."""
-    @property
-    def xla_disable_hlo_passes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """List of HLO passes to disable/enable. These names must exactly match the
-        pass names as specified by the HloPassInterface::name() method.
-
-        At least one of xla_disable_hlo_passes and xla_enable_hlo_passes_only must
-        be empty.
-        """
-    @property
-    def xla_enable_hlo_passes_only(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
     xla_disable_all_hlo_passes: builtins.bool
     """Disables all HLO passes.  Notes that some passes are necessary for
     correctness and the invariants that must be satisfied by "fully optimized"
@@ -588,9 +579,6 @@ class DebugOptions(google.protobuf.message.Message):
     Overrides for XLA GPU's convolution layout heuristic.
     """
     xla_gpu_force_conv_nhwc: builtins.bool
-    @property
-    def xla_gpu_ptx_file(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Paths to files with ptx code."""
     xla_gpu_dump_llvmir: builtins.bool
     """Whether to dump llvm ir when compiling to ptx."""
     xla_dump_enable_mlir_pretty_form: builtins.bool
@@ -628,9 +616,6 @@ class DebugOptions(google.protobuf.message.Message):
     SelectAndScatter do not have deterministic XLA:GPU implementations.
     Compilation errors out if these ops are encountered.
     """
-    @property
-    def xla_gpu_llvm_ir_file(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """Paths to files with LLVM code."""
     xla_gpu_enable_async_collectives: builtins.bool
     """Convert synchronous collective ops into asynchronous."""
     xla_gpu_enable_async_all_reduce: builtins.bool
@@ -704,9 +689,6 @@ class DebugOptions(google.protobuf.message.Message):
     """
     xla_gpu_enable_cublaslt: builtins.bool
     """Whether to use cuBLASLt for GEMMs on GPUs."""
-    @property
-    def xla_gpu_enable_command_buffer(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___DebugOptions.CommandBufferCmdType.ValueType]:
-        """Determine the types of commands that are recorded into command buffers."""
     xla_gpu_graph_num_runs_to_instantiate: builtins.int
     """Only instantiates a GPU graph after the captured function execution count
     reaches the threshold. This constant is a heuristic to avoid creating a
@@ -866,12 +848,36 @@ class DebugOptions(google.protobuf.message.Message):
     """If enabled, uses the libnvptxcompiler library to compile PTX to cuBIN."""
     xla_gpu_enable_dot_strength_reduction: builtins.bool
     @property
+    def xla_disable_hlo_passes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """List of HLO passes to disable/enable. These names must exactly match the
+        pass names as specified by the HloPassInterface::name() method.
+
+        At least one of xla_disable_hlo_passes and xla_enable_hlo_passes_only must
+        be empty.
+        """
+
+    @property
+    def xla_enable_hlo_passes_only(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    @property
+    def xla_gpu_ptx_file(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Paths to files with ptx code."""
+
+    @property
+    def xla_gpu_llvm_ir_file(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """Paths to files with LLVM code."""
+
+    @property
+    def xla_gpu_enable_command_buffer(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___DebugOptions.CommandBufferCmdType.ValueType]:
+        """Determine the types of commands that are recorded into command buffers."""
+
+    @property
     def xla_backend_extra_options(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
         """Next id: 271
 
         Extra options to pass to the compilation backend (e.g. LLVM); specific
         interpretation of these values is left to the backend.
         """
+
     def __init__(
         self,
         *,
@@ -1042,11 +1048,11 @@ class DebugOptions(google.protobuf.message.Message):
         xla_gpu_enable_dot_strength_reduction: builtins.bool | None = ...,
         xla_backend_extra_options: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["xla_allow_excess_precision", b"xla_allow_excess_precision", "xla_allow_scalar_index_dynamic_ops", b"xla_allow_scalar_index_dynamic_ops", "xla_backend_extra_options", b"xla_backend_extra_options", "xla_backend_optimization_level", b"xla_backend_optimization_level", "xla_cpu_enable_custom_matmul_tiling", b"xla_cpu_enable_custom_matmul_tiling", "xla_cpu_enable_experimental_deallocation", b"xla_cpu_enable_experimental_deallocation", "xla_cpu_enable_fast_math", b"xla_cpu_enable_fast_math", "xla_cpu_enable_fast_min_max", b"xla_cpu_enable_fast_min_max", "xla_cpu_enable_mlir_fusion_outlining", b"xla_cpu_enable_mlir_fusion_outlining", "xla_cpu_enable_mlir_tiling_and_fusion", b"xla_cpu_enable_mlir_tiling_and_fusion", "xla_cpu_enable_xprof_traceme", b"xla_cpu_enable_xprof_traceme", "xla_cpu_fast_math_honor_division", b"xla_cpu_fast_math_honor_division", "xla_cpu_fast_math_honor_functions", b"xla_cpu_fast_math_honor_functions", "xla_cpu_fast_math_honor_infs", b"xla_cpu_fast_math_honor_infs", "xla_cpu_fast_math_honor_nans", b"xla_cpu_fast_math_honor_nans", "xla_cpu_matmul_tiling_k_dim", b"xla_cpu_matmul_tiling_k_dim", "xla_cpu_matmul_tiling_m_dim", b"xla_cpu_matmul_tiling_m_dim", "xla_cpu_matmul_tiling_n_dim", b"xla_cpu_matmul_tiling_n_dim", "xla_cpu_multi_thread_eigen", b"xla_cpu_multi_thread_eigen", "xla_cpu_sparse_cuda_threads", b"xla_cpu_sparse_cuda_threads", "xla_cpu_strict_dot_conv_math", b"xla_cpu_strict_dot_conv_math", "xla_cpu_use_acl", b"xla_cpu_use_acl", "xla_cpu_use_mkl_dnn", b"xla_cpu_use_mkl_dnn", "xla_cpu_use_xla_runtime", b"xla_cpu_use_xla_runtime", "xla_debug_buffer_assignment_show_max", b"xla_debug_buffer_assignment_show_max", "xla_detailed_logging", b"xla_detailed_logging", "xla_disable_all_hlo_passes", b"xla_disable_all_hlo_passes", "xla_disable_hlo_passes", b"xla_disable_hlo_passes", "xla_dump_compress_protos", b"xla_dump_compress_protos", "xla_dump_disable_metadata", b"xla_dump_disable_metadata", "xla_dump_enable_mlir_pretty_form", b"xla_dump_enable_mlir_pretty_form", "xla_dump_fusion_visualization", b"xla_dump_fusion_visualization", "xla_dump_hlo_as_dot", b"xla_dump_hlo_as_dot", "xla_dump_hlo_as_html", b"xla_dump_hlo_as_html", "xla_dump_hlo_as_long_text", b"xla_dump_hlo_as_long_text", "xla_dump_hlo_as_proto", b"xla_dump_hlo_as_proto", "xla_dump_hlo_as_text", b"xla_dump_hlo_as_text", "xla_dump_hlo_as_url", b"xla_dump_hlo_as_url", "xla_dump_hlo_module_re", b"xla_dump_hlo_module_re", "xla_dump_hlo_pass_re", b"xla_dump_hlo_pass_re", "xla_dump_hlo_pipeline_re", b"xla_dump_hlo_pipeline_re", "xla_dump_hlo_snapshots", b"xla_dump_hlo_snapshots", "xla_dump_include_timestamp", b"xla_dump_include_timestamp", "xla_dump_latency_hiding_schedule", b"xla_dump_latency_hiding_schedule", "xla_dump_max_hlo_modules", b"xla_dump_max_hlo_modules", "xla_dump_module_metadata", b"xla_dump_module_metadata", "xla_dump_to", b"xla_dump_to", "xla_eliminate_hlo_implicit_broadcast", b"xla_eliminate_hlo_implicit_broadcast", "xla_embed_ir_in_executable", b"xla_embed_ir_in_executable", "xla_enable_dumping", b"xla_enable_dumping", "xla_enable_hlo_passes_only", b"xla_enable_hlo_passes_only", "xla_force_host_platform_device_count", b"xla_force_host_platform_device_count", "xla_gpu_algorithm_denylist_path", b"xla_gpu_algorithm_denylist_path", "xla_gpu_all_gather_combine_threshold_bytes", b"xla_gpu_all_gather_combine_threshold_bytes", "xla_gpu_all_reduce_blueconnect_num_devices_per_host", b"xla_gpu_all_reduce_blueconnect_num_devices_per_host", "xla_gpu_all_reduce_combine_threshold_bytes", b"xla_gpu_all_reduce_combine_threshold_bytes", "xla_gpu_all_reduce_contiguous", b"xla_gpu_all_reduce_contiguous", "xla_gpu_asm_extra_flags", b"xla_gpu_asm_extra_flags", "xla_gpu_auto_spmd_partitioning_memory_budget_gb", b"xla_gpu_auto_spmd_partitioning_memory_budget_gb", "xla_gpu_auto_spmd_partitioning_memory_budget_ratio", b"xla_gpu_auto_spmd_partitioning_memory_budget_ratio", "xla_gpu_autotune_level", b"xla_gpu_autotune_level", "xla_gpu_collect_cost_model_stats", b"xla_gpu_collect_cost_model_stats", "xla_gpu_collective_inflation_factor", b"xla_gpu_collective_inflation_factor", "xla_gpu_collective_permute_decomposer_threshold", b"xla_gpu_collective_permute_decomposer_threshold", "xla_gpu_copy_insertion_use_region_analysis", b"xla_gpu_copy_insertion_use_region_analysis", "xla_gpu_crash_on_verification_failures", b"xla_gpu_crash_on_verification_failures", "xla_gpu_cublas_fallback", b"xla_gpu_cublas_fallback", "xla_gpu_cuda_data_dir", b"xla_gpu_cuda_data_dir", "xla_gpu_deterministic_ops", b"xla_gpu_deterministic_ops", "xla_gpu_disable_gpuasm_optimizations", b"xla_gpu_disable_gpuasm_optimizations", "xla_gpu_dump_autotune_results_to", b"xla_gpu_dump_autotune_results_to", "xla_gpu_dump_autotuned_triton_fusions", b"xla_gpu_dump_autotuned_triton_fusions", "xla_gpu_dump_llvmir", b"xla_gpu_dump_llvmir", "xla_gpu_enable_address_computation_fusion", b"xla_gpu_enable_address_computation_fusion", "xla_gpu_enable_all_gather_combine_by_dim", b"xla_gpu_enable_all_gather_combine_by_dim", "xla_gpu_enable_analytical_latency_estimator", b"xla_gpu_enable_analytical_latency_estimator", "xla_gpu_enable_async_all_gather", b"xla_gpu_enable_async_all_gather", "xla_gpu_enable_async_all_reduce", b"xla_gpu_enable_async_all_reduce", "xla_gpu_enable_async_all_to_all", b"xla_gpu_enable_async_all_to_all", "xla_gpu_enable_async_collective_permute", b"xla_gpu_enable_async_collective_permute", "xla_gpu_enable_async_collectives", b"xla_gpu_enable_async_collectives", "xla_gpu_enable_async_reduce_scatter", b"xla_gpu_enable_async_reduce_scatter", "xla_gpu_enable_command_buffer", b"xla_gpu_enable_command_buffer", "xla_gpu_enable_cub_radix_sort", b"xla_gpu_enable_cub_radix_sort", "xla_gpu_enable_cublaslt", b"xla_gpu_enable_cublaslt", "xla_gpu_enable_cudnn_fmha", b"xla_gpu_enable_cudnn_fmha", "xla_gpu_enable_cudnn_frontend", b"xla_gpu_enable_cudnn_frontend", "xla_gpu_enable_cudnn_int8x32_convolution_reordering", b"xla_gpu_enable_cudnn_int8x32_convolution_reordering", "xla_gpu_enable_cudnn_layer_norm", b"xla_gpu_enable_cudnn_layer_norm", "xla_gpu_enable_custom_fusions", b"xla_gpu_enable_custom_fusions", "xla_gpu_enable_custom_fusions_re", b"xla_gpu_enable_custom_fusions_re", "xla_gpu_enable_dot_strength_reduction", b"xla_gpu_enable_dot_strength_reduction", "xla_gpu_enable_fast_min_max", b"xla_gpu_enable_fast_min_max", "xla_gpu_enable_highest_priority_async_stream", b"xla_gpu_enable_highest_priority_async_stream", "xla_gpu_enable_latency_hiding_scheduler", b"xla_gpu_enable_latency_hiding_scheduler", "xla_gpu_enable_libnvptxcompiler", b"xla_gpu_enable_libnvptxcompiler", "xla_gpu_enable_llvm_module_compilation_parallelism", b"xla_gpu_enable_llvm_module_compilation_parallelism", "xla_gpu_enable_nccl_clique_optimization", b"xla_gpu_enable_nccl_clique_optimization", "xla_gpu_enable_nccl_user_buffers", b"xla_gpu_enable_nccl_user_buffers", "xla_gpu_enable_pipelined_all_gather", b"xla_gpu_enable_pipelined_all_gather", "xla_gpu_enable_pipelined_all_reduce", b"xla_gpu_enable_pipelined_all_reduce", "xla_gpu_enable_pipelined_collectives", b"xla_gpu_enable_pipelined_collectives", "xla_gpu_enable_pipelined_p2p", b"xla_gpu_enable_pipelined_p2p", "xla_gpu_enable_pipelined_reduce_scatter", b"xla_gpu_enable_pipelined_reduce_scatter", "xla_gpu_enable_priority_fusion", b"xla_gpu_enable_priority_fusion", "xla_gpu_enable_reassociation_for_converted_ar", b"xla_gpu_enable_reassociation_for_converted_ar", "xla_gpu_enable_reduce_scatter_combine_by_dim", b"xla_gpu_enable_reduce_scatter_combine_by_dim", "xla_gpu_enable_reduction_epilogue_fusion", b"xla_gpu_enable_reduction_epilogue_fusion", "xla_gpu_enable_shared_constants", b"xla_gpu_enable_shared_constants", "xla_gpu_enable_split_k_autotuning", b"xla_gpu_enable_split_k_autotuning", "xla_gpu_enable_triton_gemm", b"xla_gpu_enable_triton_gemm", "xla_gpu_enable_triton_hopper", b"xla_gpu_enable_triton_hopper", "xla_gpu_enable_triton_softmax_fusion", b"xla_gpu_enable_triton_softmax_fusion", "xla_gpu_enable_while_loop_double_buffering", b"xla_gpu_enable_while_loop_double_buffering", "xla_gpu_enable_while_loop_reduce_scatter_code_motion", b"xla_gpu_enable_while_loop_reduce_scatter_code_motion", "xla_gpu_enable_xla_runtime_executable", b"xla_gpu_enable_xla_runtime_executable", "xla_gpu_ensure_minor_dot_contraction_dims", b"xla_gpu_ensure_minor_dot_contraction_dims", "xla_gpu_exhaustive_tiling_search", b"xla_gpu_exhaustive_tiling_search", "xla_gpu_filter_kernels_spilling_registers_on_autotuning", b"xla_gpu_filter_kernels_spilling_registers_on_autotuning", "xla_gpu_force_compilation_parallelism", b"xla_gpu_force_compilation_parallelism", "xla_gpu_force_conv_nchw", b"xla_gpu_force_conv_nchw", "xla_gpu_force_conv_nhwc", b"xla_gpu_force_conv_nhwc", "xla_gpu_ftz", b"xla_gpu_ftz", "xla_gpu_fused_attention_use_cudnn_rng", b"xla_gpu_fused_attention_use_cudnn_rng", "xla_gpu_graph_enable_concurrent_region", b"xla_gpu_graph_enable_concurrent_region", "xla_gpu_graph_eviction_timeout_seconds", b"xla_gpu_graph_eviction_timeout_seconds", "xla_gpu_graph_min_graph_size", b"xla_gpu_graph_min_graph_size", "xla_gpu_graph_num_runs_to_instantiate", b"xla_gpu_graph_num_runs_to_instantiate", "xla_gpu_lhs_enable_gpu_async_tracker", b"xla_gpu_lhs_enable_gpu_async_tracker", "xla_gpu_llvm_ir_file", b"xla_gpu_llvm_ir_file", "xla_gpu_llvm_verification_level", b"xla_gpu_llvm_verification_level", "xla_gpu_load_autotune_results_from", b"xla_gpu_load_autotune_results_from", "xla_gpu_memory_limit_slop_factor", b"xla_gpu_memory_limit_slop_factor", "xla_gpu_mock_custom_calls", b"xla_gpu_mock_custom_calls", "xla_gpu_nccl_termination_timeout_seconds", b"xla_gpu_nccl_termination_timeout_seconds", "xla_gpu_normalize_layouts", b"xla_gpu_normalize_layouts", "xla_gpu_pgle_profile_file_or_directory_path", b"xla_gpu_pgle_profile_file_or_directory_path", "xla_gpu_ptx_file", b"xla_gpu_ptx_file", "xla_gpu_reduce_scatter_combine_threshold_bytes", b"xla_gpu_reduce_scatter_combine_threshold_bytes", "xla_gpu_redzone_padding_bytes", b"xla_gpu_redzone_padding_bytes", "xla_gpu_redzone_scratch_max_megabytes", b"xla_gpu_redzone_scratch_max_megabytes", "xla_gpu_shape_checks", b"xla_gpu_shape_checks", "xla_gpu_simplify_all_fp_conversions", b"xla_gpu_simplify_all_fp_conversions", "xla_gpu_strict_conv_algorithm_picker", b"xla_gpu_strict_conv_algorithm_picker", "xla_gpu_target_config_filename", b"xla_gpu_target_config_filename", "xla_gpu_threshold_for_windowed_einsum_mib", b"xla_gpu_threshold_for_windowed_einsum_mib", "xla_gpu_triton_fusion_level", b"xla_gpu_triton_fusion_level", "xla_gpu_triton_gemm_any", b"xla_gpu_triton_gemm_any", "xla_gpu_triton_gemm_disable_reduced_precision_reduction", b"xla_gpu_triton_gemm_disable_reduced_precision_reduction", "xla_gpu_unsafe_fallback_to_driver_on_ptxas_not_found", b"xla_gpu_unsafe_fallback_to_driver_on_ptxas_not_found", "xla_gpu_use_runtime_fusion", b"xla_gpu_use_runtime_fusion", "xla_hlo_evaluator_use_fast_path", b"xla_hlo_evaluator_use_fast_path", "xla_hlo_graph_addresses", b"xla_hlo_graph_addresses", "xla_hlo_graph_sharding_color", b"xla_hlo_graph_sharding_color", "xla_hlo_profile", b"xla_hlo_profile", "xla_llvm_disable_expensive_passes", b"xla_llvm_disable_expensive_passes", "xla_llvm_enable_alias_scope_metadata", b"xla_llvm_enable_alias_scope_metadata", "xla_llvm_enable_invariant_load_metadata", b"xla_llvm_enable_invariant_load_metadata", "xla_llvm_enable_noalias_metadata", b"xla_llvm_enable_noalias_metadata", "xla_multiheap_size_constraint_per_heap", b"xla_multiheap_size_constraint_per_heap", "xla_partitioning_algorithm", b"xla_partitioning_algorithm", "xla_step_marker_location", b"xla_step_marker_location", "xla_test_all_input_layouts", b"xla_test_all_input_layouts", "xla_test_all_output_layouts", b"xla_test_all_output_layouts", "xla_tpu_detect_inf", b"xla_tpu_detect_inf", "xla_tpu_detect_nan", b"xla_tpu_detect_nan"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["xla_allow_excess_precision", b"xla_allow_excess_precision", "xla_allow_scalar_index_dynamic_ops", b"xla_allow_scalar_index_dynamic_ops", "xla_backend_extra_options", b"xla_backend_extra_options", "xla_backend_optimization_level", b"xla_backend_optimization_level", "xla_cpu_enable_custom_matmul_tiling", b"xla_cpu_enable_custom_matmul_tiling", "xla_cpu_enable_experimental_deallocation", b"xla_cpu_enable_experimental_deallocation", "xla_cpu_enable_fast_math", b"xla_cpu_enable_fast_math", "xla_cpu_enable_fast_min_max", b"xla_cpu_enable_fast_min_max", "xla_cpu_enable_mlir_fusion_outlining", b"xla_cpu_enable_mlir_fusion_outlining", "xla_cpu_enable_mlir_tiling_and_fusion", b"xla_cpu_enable_mlir_tiling_and_fusion", "xla_cpu_enable_xprof_traceme", b"xla_cpu_enable_xprof_traceme", "xla_cpu_fast_math_honor_division", b"xla_cpu_fast_math_honor_division", "xla_cpu_fast_math_honor_functions", b"xla_cpu_fast_math_honor_functions", "xla_cpu_fast_math_honor_infs", b"xla_cpu_fast_math_honor_infs", "xla_cpu_fast_math_honor_nans", b"xla_cpu_fast_math_honor_nans", "xla_cpu_matmul_tiling_k_dim", b"xla_cpu_matmul_tiling_k_dim", "xla_cpu_matmul_tiling_m_dim", b"xla_cpu_matmul_tiling_m_dim", "xla_cpu_matmul_tiling_n_dim", b"xla_cpu_matmul_tiling_n_dim", "xla_cpu_multi_thread_eigen", b"xla_cpu_multi_thread_eigen", "xla_cpu_sparse_cuda_threads", b"xla_cpu_sparse_cuda_threads", "xla_cpu_strict_dot_conv_math", b"xla_cpu_strict_dot_conv_math", "xla_cpu_use_acl", b"xla_cpu_use_acl", "xla_cpu_use_mkl_dnn", b"xla_cpu_use_mkl_dnn", "xla_cpu_use_xla_runtime", b"xla_cpu_use_xla_runtime", "xla_debug_buffer_assignment_show_max", b"xla_debug_buffer_assignment_show_max", "xla_detailed_logging", b"xla_detailed_logging", "xla_disable_all_hlo_passes", b"xla_disable_all_hlo_passes", "xla_disable_hlo_passes", b"xla_disable_hlo_passes", "xla_dump_compress_protos", b"xla_dump_compress_protos", "xla_dump_disable_metadata", b"xla_dump_disable_metadata", "xla_dump_enable_mlir_pretty_form", b"xla_dump_enable_mlir_pretty_form", "xla_dump_fusion_visualization", b"xla_dump_fusion_visualization", "xla_dump_hlo_as_dot", b"xla_dump_hlo_as_dot", "xla_dump_hlo_as_html", b"xla_dump_hlo_as_html", "xla_dump_hlo_as_long_text", b"xla_dump_hlo_as_long_text", "xla_dump_hlo_as_proto", b"xla_dump_hlo_as_proto", "xla_dump_hlo_as_text", b"xla_dump_hlo_as_text", "xla_dump_hlo_as_url", b"xla_dump_hlo_as_url", "xla_dump_hlo_module_re", b"xla_dump_hlo_module_re", "xla_dump_hlo_pass_re", b"xla_dump_hlo_pass_re", "xla_dump_hlo_pipeline_re", b"xla_dump_hlo_pipeline_re", "xla_dump_hlo_snapshots", b"xla_dump_hlo_snapshots", "xla_dump_include_timestamp", b"xla_dump_include_timestamp", "xla_dump_latency_hiding_schedule", b"xla_dump_latency_hiding_schedule", "xla_dump_max_hlo_modules", b"xla_dump_max_hlo_modules", "xla_dump_module_metadata", b"xla_dump_module_metadata", "xla_dump_to", b"xla_dump_to", "xla_eliminate_hlo_implicit_broadcast", b"xla_eliminate_hlo_implicit_broadcast", "xla_embed_ir_in_executable", b"xla_embed_ir_in_executable", "xla_enable_dumping", b"xla_enable_dumping", "xla_enable_hlo_passes_only", b"xla_enable_hlo_passes_only", "xla_force_host_platform_device_count", b"xla_force_host_platform_device_count", "xla_gpu_algorithm_denylist_path", b"xla_gpu_algorithm_denylist_path", "xla_gpu_all_gather_combine_threshold_bytes", b"xla_gpu_all_gather_combine_threshold_bytes", "xla_gpu_all_reduce_blueconnect_num_devices_per_host", b"xla_gpu_all_reduce_blueconnect_num_devices_per_host", "xla_gpu_all_reduce_combine_threshold_bytes", b"xla_gpu_all_reduce_combine_threshold_bytes", "xla_gpu_all_reduce_contiguous", b"xla_gpu_all_reduce_contiguous", "xla_gpu_asm_extra_flags", b"xla_gpu_asm_extra_flags", "xla_gpu_auto_spmd_partitioning_memory_budget_gb", b"xla_gpu_auto_spmd_partitioning_memory_budget_gb", "xla_gpu_auto_spmd_partitioning_memory_budget_ratio", b"xla_gpu_auto_spmd_partitioning_memory_budget_ratio", "xla_gpu_autotune_level", b"xla_gpu_autotune_level", "xla_gpu_collect_cost_model_stats", b"xla_gpu_collect_cost_model_stats", "xla_gpu_collective_inflation_factor", b"xla_gpu_collective_inflation_factor", "xla_gpu_collective_permute_decomposer_threshold", b"xla_gpu_collective_permute_decomposer_threshold", "xla_gpu_copy_insertion_use_region_analysis", b"xla_gpu_copy_insertion_use_region_analysis", "xla_gpu_crash_on_verification_failures", b"xla_gpu_crash_on_verification_failures", "xla_gpu_cublas_fallback", b"xla_gpu_cublas_fallback", "xla_gpu_cuda_data_dir", b"xla_gpu_cuda_data_dir", "xla_gpu_deterministic_ops", b"xla_gpu_deterministic_ops", "xla_gpu_disable_gpuasm_optimizations", b"xla_gpu_disable_gpuasm_optimizations", "xla_gpu_dump_autotune_results_to", b"xla_gpu_dump_autotune_results_to", "xla_gpu_dump_autotuned_triton_fusions", b"xla_gpu_dump_autotuned_triton_fusions", "xla_gpu_dump_llvmir", b"xla_gpu_dump_llvmir", "xla_gpu_enable_address_computation_fusion", b"xla_gpu_enable_address_computation_fusion", "xla_gpu_enable_all_gather_combine_by_dim", b"xla_gpu_enable_all_gather_combine_by_dim", "xla_gpu_enable_analytical_latency_estimator", b"xla_gpu_enable_analytical_latency_estimator", "xla_gpu_enable_async_all_gather", b"xla_gpu_enable_async_all_gather", "xla_gpu_enable_async_all_reduce", b"xla_gpu_enable_async_all_reduce", "xla_gpu_enable_async_all_to_all", b"xla_gpu_enable_async_all_to_all", "xla_gpu_enable_async_collective_permute", b"xla_gpu_enable_async_collective_permute", "xla_gpu_enable_async_collectives", b"xla_gpu_enable_async_collectives", "xla_gpu_enable_async_reduce_scatter", b"xla_gpu_enable_async_reduce_scatter", "xla_gpu_enable_command_buffer", b"xla_gpu_enable_command_buffer", "xla_gpu_enable_cub_radix_sort", b"xla_gpu_enable_cub_radix_sort", "xla_gpu_enable_cublaslt", b"xla_gpu_enable_cublaslt", "xla_gpu_enable_cudnn_fmha", b"xla_gpu_enable_cudnn_fmha", "xla_gpu_enable_cudnn_frontend", b"xla_gpu_enable_cudnn_frontend", "xla_gpu_enable_cudnn_int8x32_convolution_reordering", b"xla_gpu_enable_cudnn_int8x32_convolution_reordering", "xla_gpu_enable_cudnn_layer_norm", b"xla_gpu_enable_cudnn_layer_norm", "xla_gpu_enable_custom_fusions", b"xla_gpu_enable_custom_fusions", "xla_gpu_enable_custom_fusions_re", b"xla_gpu_enable_custom_fusions_re", "xla_gpu_enable_dot_strength_reduction", b"xla_gpu_enable_dot_strength_reduction", "xla_gpu_enable_fast_min_max", b"xla_gpu_enable_fast_min_max", "xla_gpu_enable_highest_priority_async_stream", b"xla_gpu_enable_highest_priority_async_stream", "xla_gpu_enable_latency_hiding_scheduler", b"xla_gpu_enable_latency_hiding_scheduler", "xla_gpu_enable_libnvptxcompiler", b"xla_gpu_enable_libnvptxcompiler", "xla_gpu_enable_llvm_module_compilation_parallelism", b"xla_gpu_enable_llvm_module_compilation_parallelism", "xla_gpu_enable_nccl_clique_optimization", b"xla_gpu_enable_nccl_clique_optimization", "xla_gpu_enable_nccl_user_buffers", b"xla_gpu_enable_nccl_user_buffers", "xla_gpu_enable_pipelined_all_gather", b"xla_gpu_enable_pipelined_all_gather", "xla_gpu_enable_pipelined_all_reduce", b"xla_gpu_enable_pipelined_all_reduce", "xla_gpu_enable_pipelined_collectives", b"xla_gpu_enable_pipelined_collectives", "xla_gpu_enable_pipelined_p2p", b"xla_gpu_enable_pipelined_p2p", "xla_gpu_enable_pipelined_reduce_scatter", b"xla_gpu_enable_pipelined_reduce_scatter", "xla_gpu_enable_priority_fusion", b"xla_gpu_enable_priority_fusion", "xla_gpu_enable_reassociation_for_converted_ar", b"xla_gpu_enable_reassociation_for_converted_ar", "xla_gpu_enable_reduce_scatter_combine_by_dim", b"xla_gpu_enable_reduce_scatter_combine_by_dim", "xla_gpu_enable_reduction_epilogue_fusion", b"xla_gpu_enable_reduction_epilogue_fusion", "xla_gpu_enable_shared_constants", b"xla_gpu_enable_shared_constants", "xla_gpu_enable_split_k_autotuning", b"xla_gpu_enable_split_k_autotuning", "xla_gpu_enable_triton_gemm", b"xla_gpu_enable_triton_gemm", "xla_gpu_enable_triton_hopper", b"xla_gpu_enable_triton_hopper", "xla_gpu_enable_triton_softmax_fusion", b"xla_gpu_enable_triton_softmax_fusion", "xla_gpu_enable_while_loop_double_buffering", b"xla_gpu_enable_while_loop_double_buffering", "xla_gpu_enable_while_loop_reduce_scatter_code_motion", b"xla_gpu_enable_while_loop_reduce_scatter_code_motion", "xla_gpu_enable_xla_runtime_executable", b"xla_gpu_enable_xla_runtime_executable", "xla_gpu_ensure_minor_dot_contraction_dims", b"xla_gpu_ensure_minor_dot_contraction_dims", "xla_gpu_exhaustive_tiling_search", b"xla_gpu_exhaustive_tiling_search", "xla_gpu_filter_kernels_spilling_registers_on_autotuning", b"xla_gpu_filter_kernels_spilling_registers_on_autotuning", "xla_gpu_force_compilation_parallelism", b"xla_gpu_force_compilation_parallelism", "xla_gpu_force_conv_nchw", b"xla_gpu_force_conv_nchw", "xla_gpu_force_conv_nhwc", b"xla_gpu_force_conv_nhwc", "xla_gpu_ftz", b"xla_gpu_ftz", "xla_gpu_fused_attention_use_cudnn_rng", b"xla_gpu_fused_attention_use_cudnn_rng", "xla_gpu_graph_enable_concurrent_region", b"xla_gpu_graph_enable_concurrent_region", "xla_gpu_graph_eviction_timeout_seconds", b"xla_gpu_graph_eviction_timeout_seconds", "xla_gpu_graph_min_graph_size", b"xla_gpu_graph_min_graph_size", "xla_gpu_graph_num_runs_to_instantiate", b"xla_gpu_graph_num_runs_to_instantiate", "xla_gpu_lhs_enable_gpu_async_tracker", b"xla_gpu_lhs_enable_gpu_async_tracker", "xla_gpu_llvm_ir_file", b"xla_gpu_llvm_ir_file", "xla_gpu_llvm_verification_level", b"xla_gpu_llvm_verification_level", "xla_gpu_load_autotune_results_from", b"xla_gpu_load_autotune_results_from", "xla_gpu_memory_limit_slop_factor", b"xla_gpu_memory_limit_slop_factor", "xla_gpu_mock_custom_calls", b"xla_gpu_mock_custom_calls", "xla_gpu_nccl_termination_timeout_seconds", b"xla_gpu_nccl_termination_timeout_seconds", "xla_gpu_normalize_layouts", b"xla_gpu_normalize_layouts", "xla_gpu_pgle_profile_file_or_directory_path", b"xla_gpu_pgle_profile_file_or_directory_path", "xla_gpu_ptx_file", b"xla_gpu_ptx_file", "xla_gpu_reduce_scatter_combine_threshold_bytes", b"xla_gpu_reduce_scatter_combine_threshold_bytes", "xla_gpu_redzone_padding_bytes", b"xla_gpu_redzone_padding_bytes", "xla_gpu_redzone_scratch_max_megabytes", b"xla_gpu_redzone_scratch_max_megabytes", "xla_gpu_shape_checks", b"xla_gpu_shape_checks", "xla_gpu_simplify_all_fp_conversions", b"xla_gpu_simplify_all_fp_conversions", "xla_gpu_strict_conv_algorithm_picker", b"xla_gpu_strict_conv_algorithm_picker", "xla_gpu_target_config_filename", b"xla_gpu_target_config_filename", "xla_gpu_threshold_for_windowed_einsum_mib", b"xla_gpu_threshold_for_windowed_einsum_mib", "xla_gpu_triton_fusion_level", b"xla_gpu_triton_fusion_level", "xla_gpu_triton_gemm_any", b"xla_gpu_triton_gemm_any", "xla_gpu_triton_gemm_disable_reduced_precision_reduction", b"xla_gpu_triton_gemm_disable_reduced_precision_reduction", "xla_gpu_unsafe_fallback_to_driver_on_ptxas_not_found", b"xla_gpu_unsafe_fallback_to_driver_on_ptxas_not_found", "xla_gpu_use_runtime_fusion", b"xla_gpu_use_runtime_fusion", "xla_hlo_evaluator_use_fast_path", b"xla_hlo_evaluator_use_fast_path", "xla_hlo_graph_addresses", b"xla_hlo_graph_addresses", "xla_hlo_graph_sharding_color", b"xla_hlo_graph_sharding_color", "xla_hlo_profile", b"xla_hlo_profile", "xla_llvm_disable_expensive_passes", b"xla_llvm_disable_expensive_passes", "xla_llvm_enable_alias_scope_metadata", b"xla_llvm_enable_alias_scope_metadata", "xla_llvm_enable_invariant_load_metadata", b"xla_llvm_enable_invariant_load_metadata", "xla_llvm_enable_noalias_metadata", b"xla_llvm_enable_noalias_metadata", "xla_multiheap_size_constraint_per_heap", b"xla_multiheap_size_constraint_per_heap", "xla_partitioning_algorithm", b"xla_partitioning_algorithm", "xla_step_marker_location", b"xla_step_marker_location", "xla_test_all_input_layouts", b"xla_test_all_input_layouts", "xla_test_all_output_layouts", b"xla_test_all_output_layouts", "xla_tpu_detect_inf", b"xla_tpu_detect_inf", "xla_tpu_detect_nan", b"xla_tpu_detect_nan"]) -> None: ...
 
 global___DebugOptions = DebugOptions
 
-@typing_extensions.final
+@typing.final
 class GpuCompilationEnvironment(google.protobuf.message.Message):
     """Contains flags which affects the GPU compilation result.
     These flags are part of Debug Options as of now, and will be migrated to
@@ -1065,11 +1071,11 @@ class GpuCompilationEnvironment(google.protobuf.message.Message):
         *,
         dummy_flag: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["dummy_flag", b"dummy_flag"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["dummy_flag", b"dummy_flag"]) -> None: ...
 
 global___GpuCompilationEnvironment = GpuCompilationEnvironment
 
-@typing_extensions.final
+@typing.final
 class ShardableValueUpdatePairProto(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1088,11 +1094,11 @@ class ShardableValueUpdatePairProto(google.protobuf.message.Message):
         parameter_shape_index: collections.abc.Iterable[builtins.int] | None = ...,
         output_shape_index: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["input_parameter_number", b"input_parameter_number", "output_shape_index", b"output_shape_index", "parameter_shape_index", b"parameter_shape_index"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["input_parameter_number", b"input_parameter_number", "output_shape_index", b"output_shape_index", "parameter_shape_index", b"parameter_shape_index"]) -> None: ...
 
 global___ShardableValueUpdatePairProto = ShardableValueUpdatePairProto
 
-@typing_extensions.final
+@typing.final
 class ExecutionOptions(google.protobuf.message.Message):
     """These settings control how XLA compiles and/or runs code.  Not all settings
     will have an effect on every platform.
@@ -1123,37 +1129,16 @@ class ExecutionOptions(google.protobuf.message.Message):
     SHARDABLE_VALUE_UPDATE_PAIRS_FIELD_NUMBER: builtins.int
     FDO_PROFILE_FIELD_NUMBER: builtins.int
     DEVICE_MEMORY_SIZE_FIELD_NUMBER: builtins.int
-    @property
-    def shape_with_output_layout(self) -> tensorflow.compiler.xla.xla_data_pb2.ShapeProto:
-        """This optional field's layout is used as a hint when storing the output of
-        this computation.  Subsequent transfers of this output array to the client
-        may be faster when using this layout.
-
-        We use a Shape here to accommodate computations that return a tuple.
-        """
     seed: builtins.int
     """Used to seed random-number generators used in this computation.  If this is
     0, we generate a seed ourselves.
 
     TODO(b/32083678): Changing the seed unnecessarily forces a recompilation.
     """
-    @property
-    def debug_options(self) -> global___DebugOptions: ...
-    @property
-    def device_handles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.DeviceHandle]:
-        """This optional field specifies a particular set of devices to run the
-        computation on. The computation will be partitioned across these devices.
-        If not provided, the default device will be chosen.
-        """
     num_replicas: builtins.int
     """Number of replicas of the computation to run. If zero, uses the default
     number of replicas for the XLA service.
     """
-    @property
-    def device_assignment(self) -> tensorflow.compiler.xla.xla_data_pb2.DeviceAssignmentProto:
-        """This optional field specifies the device assignment if known at compile
-        time.
-        """
     alias_passthrough_params: builtins.bool
     """Alias input and output buffers for parameters that are passed-through XLA
     modules without being changed.
@@ -1170,20 +1155,58 @@ class ExecutionOptions(google.protobuf.message.Message):
     """
     use_auto_spmd_partitioning: builtins.bool
     """Whether to automatically generate XLA shardings for SPMD partitioner."""
+    deduplicate_hlo: builtins.bool
+    """If set, deduplicate hlo into function calls to reduce binary size. Only
+    works on TPU.
+    """
+    allow_separate_sharding_programs: builtins.bool
+    """If enabled, the compiler may generate sharding and unsharding programs as
+    separate HLO modules, and modify the main program's input and output to
+    be sharded.
+    """
+    fdo_profile: builtins.bytes
+    """Profiling data for feedback directed optimizations. Note that this is not
+    the only way to feed FDO data into the compiler and individual backends
+    may choose to get FDO data by other means.
+    """
+    device_memory_size: builtins.int
+    """Amount of device memory available for the executable to use."""
+    @property
+    def shape_with_output_layout(self) -> tensorflow.compiler.xla.xla_data_pb2.ShapeProto:
+        """This optional field's layout is used as a hint when storing the output of
+        this computation.  Subsequent transfers of this output array to the client
+        may be faster when using this layout.
+
+        We use a Shape here to accommodate computations that return a tuple.
+        """
+
+    @property
+    def debug_options(self) -> global___DebugOptions: ...
+    @property
+    def device_handles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.DeviceHandle]:
+        """This optional field specifies a particular set of devices to run the
+        computation on. The computation will be partitioned across these devices.
+        If not provided, the default device will be chosen.
+        """
+
+    @property
+    def device_assignment(self) -> tensorflow.compiler.xla.xla_data_pb2.DeviceAssignmentProto:
+        """This optional field specifies the device assignment if known at compile
+        time.
+        """
+
     @property
     def auto_spmd_partitioning_mesh_shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """Device mesh shape used to create the sharding search space when
         use_auto_spmd_partitioning=true.
         """
+
     @property
     def auto_spmd_partitioning_mesh_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
         """Device mesh ids compatible with the above mesh_shape used when
         use_auto_spmd_partitioning=true.
         """
-    deduplicate_hlo: builtins.bool
-    """If set, deduplicate hlo into function calls to reduce binary size. Only
-    works on TPU.
-    """
+
     @property
     def allow_spmd_sharding_propagation_to_output(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
         """Allows sharding propagation to propagate to the outputs. This changes the
@@ -1200,24 +1223,15 @@ class ExecutionOptions(google.protobuf.message.Message):
         single element of the output tuple. One value per element of the tuple
         means that each value is attached to one of the output elements.
         """
+
     @property
     def param_requires_broadcast_via_collectives(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
         """Whether to broadcast args across all replicas. One entry per arg."""
-    allow_separate_sharding_programs: builtins.bool
-    """If enabled, the compiler may generate sharding and unsharding programs as
-    separate HLO modules, and modify the main program's input and output to
-    be sharded.
-    """
+
     @property
     def shardable_value_update_pairs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ShardableValueUpdatePairProto]:
         """The list of input/output pairs in the main program that could be sharded."""
-    fdo_profile: builtins.bytes
-    """Profiling data for feedback directed optimizations. Note that this is not
-    the only way to feed FDO data into the compiler and individual backends
-    may choose to get FDO data by other means.
-    """
-    device_memory_size: builtins.int
-    """Amount of device memory available for the executable to use."""
+
     def __init__(
         self,
         *,
@@ -1242,12 +1256,12 @@ class ExecutionOptions(google.protobuf.message.Message):
         fdo_profile: builtins.bytes | None = ...,
         device_memory_size: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["debug_options", b"debug_options", "device_assignment", b"device_assignment", "shape_with_output_layout", b"shape_with_output_layout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["alias_passthrough_params", b"alias_passthrough_params", "allow_separate_sharding_programs", b"allow_separate_sharding_programs", "allow_spmd_sharding_propagation_to_output", b"allow_spmd_sharding_propagation_to_output", "auto_spmd_partitioning_mesh_ids", b"auto_spmd_partitioning_mesh_ids", "auto_spmd_partitioning_mesh_shape", b"auto_spmd_partitioning_mesh_shape", "debug_options", b"debug_options", "deduplicate_hlo", b"deduplicate_hlo", "device_assignment", b"device_assignment", "device_handles", b"device_handles", "device_memory_size", b"device_memory_size", "fdo_profile", b"fdo_profile", "launch_id", b"launch_id", "num_partitions", b"num_partitions", "num_replicas", b"num_replicas", "param_requires_broadcast_via_collectives", b"param_requires_broadcast_via_collectives", "seed", b"seed", "shape_with_output_layout", b"shape_with_output_layout", "shardable_value_update_pairs", b"shardable_value_update_pairs", "use_auto_spmd_partitioning", b"use_auto_spmd_partitioning", "use_spmd_partitioning", b"use_spmd_partitioning"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["debug_options", b"debug_options", "device_assignment", b"device_assignment", "shape_with_output_layout", b"shape_with_output_layout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["alias_passthrough_params", b"alias_passthrough_params", "allow_separate_sharding_programs", b"allow_separate_sharding_programs", "allow_spmd_sharding_propagation_to_output", b"allow_spmd_sharding_propagation_to_output", "auto_spmd_partitioning_mesh_ids", b"auto_spmd_partitioning_mesh_ids", "auto_spmd_partitioning_mesh_shape", b"auto_spmd_partitioning_mesh_shape", "debug_options", b"debug_options", "deduplicate_hlo", b"deduplicate_hlo", "device_assignment", b"device_assignment", "device_handles", b"device_handles", "device_memory_size", b"device_memory_size", "fdo_profile", b"fdo_profile", "launch_id", b"launch_id", "num_partitions", b"num_partitions", "num_replicas", b"num_replicas", "param_requires_broadcast_via_collectives", b"param_requires_broadcast_via_collectives", "seed", b"seed", "shape_with_output_layout", b"shape_with_output_layout", "shardable_value_update_pairs", b"shardable_value_update_pairs", "use_auto_spmd_partitioning", b"use_auto_spmd_partitioning", "use_spmd_partitioning", b"use_spmd_partitioning"]) -> None: ...
 
 global___ExecutionOptions = ExecutionOptions
 
-@typing_extensions.final
+@typing.final
 class HloModuleConfigProto(google.protobuf.message.Message):
     """Serialization of HloModuleConfig. See the C++ class definition for
     descriptions of each field.
@@ -1278,7 +1292,7 @@ class HloModuleConfigProto(google.protobuf.message.Message):
     PER_NODE: HloModuleConfigProto.FusionConfigCollection.ValueType  # 2
     """Collect per-node configuration."""
 
-    @typing_extensions.final
+    @typing.final
     class BoolList(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1290,9 +1304,9 @@ class HloModuleConfigProto(google.protobuf.message.Message):
             *,
             vals: collections.abc.Iterable[builtins.bool] | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["vals", b"vals"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["vals", b"vals"]) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Int64List(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1304,9 +1318,9 @@ class HloModuleConfigProto(google.protobuf.message.Message):
             *,
             vals: collections.abc.Iterable[builtins.int] | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["vals", b"vals"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["vals", b"vals"]) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class Int64ListList(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1318,9 +1332,9 @@ class HloModuleConfigProto(google.protobuf.message.Message):
             *,
             lists: collections.abc.Iterable[global___HloModuleConfigProto.Int64List] | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["lists", b"lists"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["lists", b"lists"]) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class DotConfigEntry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1335,10 +1349,10 @@ class HloModuleConfigProto(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: global___HloModuleConfigProto.Int64List | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class AnalysisAllowanceMapEntry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1352,7 +1366,7 @@ class HloModuleConfigProto(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: builtins.int | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
     ENTRY_COMPUTATION_LAYOUT_FIELD_NUMBER: builtins.int
     SEED_FIELD_NUMBER: builtins.int
@@ -1385,33 +1399,37 @@ class HloModuleConfigProto(google.protobuf.message.Message):
     MATRIX_UNIT_OPERAND_PRECISION_FIELD_NUMBER: builtins.int
     FDO_PROFILE_FIELD_NUMBER: builtins.int
     DEVICE_MEMORY_SIZE_FIELD_NUMBER: builtins.int
-    @property
-    def entry_computation_layout(self) -> tensorflow.compiler.xla.xla_data_pb2.ProgramShapeProto: ...
     seed: builtins.int
     launch_id: builtins.int
     replica_count: builtins.int
     num_partitions: builtins.int
-    @property
-    def param_requires_broadcast_via_collectives(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
     use_spmd_partitioning: builtins.bool
     use_auto_spmd_partitioning: builtins.bool
+    deduplicate_hlo: builtins.bool
+    intra_op_parallelism_threads: builtins.int
+    device_type: builtins.str
+    allow_separate_sharding_programs: builtins.bool
+    alias_passthrough_params: builtins.bool
+    content_aware_computation_sorting: builtins.bool
+    fusion_config_collection: global___HloModuleConfigProto.FusionConfigCollection.ValueType
+    phase_index: builtins.int
+    matrix_unit_operand_precision: tensorflow.compiler.xla.xla_data_pb2.PrecisionConfig.Precision.ValueType
+    fdo_profile: builtins.bytes
+    device_memory_size: builtins.int
+    @property
+    def entry_computation_layout(self) -> tensorflow.compiler.xla.xla_data_pb2.ProgramShapeProto: ...
+    @property
+    def param_requires_broadcast_via_collectives(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
     @property
     def auto_spmd_partitioning_mesh_shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
     def auto_spmd_partitioning_mesh_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-    deduplicate_hlo: builtins.bool
-    intra_op_parallelism_threads: builtins.int
-    device_type: builtins.str
     @property
     def debug_options(self) -> global___DebugOptions: ...
     @property
     def static_device_assignment(self) -> tensorflow.compiler.xla.xla_data_pb2.DeviceAssignmentProto: ...
-    allow_separate_sharding_programs: builtins.bool
     @property
     def shardable_value_update_pairs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ShardableValueUpdatePairProto]: ...
-    alias_passthrough_params: builtins.bool
-    content_aware_computation_sorting: builtins.bool
-    fusion_config_collection: global___HloModuleConfigProto.FusionConfigCollection.ValueType
     @property
     def fusion_config(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloModuleConfigProto.BoolList]: ...
     @property
@@ -1422,14 +1440,10 @@ class HloModuleConfigProto(google.protobuf.message.Message):
     def memory_space_assignment_config(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
     def phase_ordering_config(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloModuleConfigProto.BoolList]: ...
-    phase_index: builtins.int
     @property
     def allow_spmd_sharding_propagation_to_output(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
     @property
     def analysis_allowance_map(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]: ...
-    matrix_unit_operand_precision: tensorflow.compiler.xla.xla_data_pb2.PrecisionConfig.Precision.ValueType
-    fdo_profile: builtins.bytes
-    device_memory_size: builtins.int
     def __init__(
         self,
         *,
@@ -1465,12 +1479,12 @@ class HloModuleConfigProto(google.protobuf.message.Message):
         fdo_profile: builtins.bytes | None = ...,
         device_memory_size: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["debug_options", b"debug_options", "entry_computation_layout", b"entry_computation_layout", "static_device_assignment", b"static_device_assignment"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["alias_passthrough_params", b"alias_passthrough_params", "allow_separate_sharding_programs", b"allow_separate_sharding_programs", "allow_spmd_sharding_propagation_to_output", b"allow_spmd_sharding_propagation_to_output", "analysis_allowance_map", b"analysis_allowance_map", "auto_spmd_partitioning_mesh_ids", b"auto_spmd_partitioning_mesh_ids", "auto_spmd_partitioning_mesh_shape", b"auto_spmd_partitioning_mesh_shape", "content_aware_computation_sorting", b"content_aware_computation_sorting", "debug_options", b"debug_options", "deduplicate_hlo", b"deduplicate_hlo", "device_memory_size", b"device_memory_size", "device_type", b"device_type", "dot_config", b"dot_config", "entry_computation_layout", b"entry_computation_layout", "fdo_profile", b"fdo_profile", "fusion_config", b"fusion_config", "fusion_config_collection", b"fusion_config_collection", "intra_op_parallelism_threads", b"intra_op_parallelism_threads", "launch_id", b"launch_id", "layout_config", b"layout_config", "matrix_unit_operand_precision", b"matrix_unit_operand_precision", "memory_space_assignment_config", b"memory_space_assignment_config", "num_partitions", b"num_partitions", "param_requires_broadcast_via_collectives", b"param_requires_broadcast_via_collectives", "phase_index", b"phase_index", "phase_ordering_config", b"phase_ordering_config", "replica_count", b"replica_count", "seed", b"seed", "shardable_value_update_pairs", b"shardable_value_update_pairs", "static_device_assignment", b"static_device_assignment", "use_auto_spmd_partitioning", b"use_auto_spmd_partitioning", "use_spmd_partitioning", b"use_spmd_partitioning"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["debug_options", b"debug_options", "entry_computation_layout", b"entry_computation_layout", "static_device_assignment", b"static_device_assignment"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["alias_passthrough_params", b"alias_passthrough_params", "allow_separate_sharding_programs", b"allow_separate_sharding_programs", "allow_spmd_sharding_propagation_to_output", b"allow_spmd_sharding_propagation_to_output", "analysis_allowance_map", b"analysis_allowance_map", "auto_spmd_partitioning_mesh_ids", b"auto_spmd_partitioning_mesh_ids", "auto_spmd_partitioning_mesh_shape", b"auto_spmd_partitioning_mesh_shape", "content_aware_computation_sorting", b"content_aware_computation_sorting", "debug_options", b"debug_options", "deduplicate_hlo", b"deduplicate_hlo", "device_memory_size", b"device_memory_size", "device_type", b"device_type", "dot_config", b"dot_config", "entry_computation_layout", b"entry_computation_layout", "fdo_profile", b"fdo_profile", "fusion_config", b"fusion_config", "fusion_config_collection", b"fusion_config_collection", "intra_op_parallelism_threads", b"intra_op_parallelism_threads", "launch_id", b"launch_id", "layout_config", b"layout_config", "matrix_unit_operand_precision", b"matrix_unit_operand_precision", "memory_space_assignment_config", b"memory_space_assignment_config", "num_partitions", b"num_partitions", "param_requires_broadcast_via_collectives", b"param_requires_broadcast_via_collectives", "phase_index", b"phase_index", "phase_ordering_config", b"phase_ordering_config", "replica_count", b"replica_count", "seed", b"seed", "shardable_value_update_pairs", b"shardable_value_update_pairs", "static_device_assignment", b"static_device_assignment", "use_auto_spmd_partitioning", b"use_auto_spmd_partitioning", "use_spmd_partitioning", b"use_spmd_partitioning"]) -> None: ...
 
 global___HloModuleConfigProto = HloModuleConfigProto
 
-@typing_extensions.final
+@typing.final
 class HloModuleProtoWithConfig(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1486,12 +1500,12 @@ class HloModuleProtoWithConfig(google.protobuf.message.Message):
         hlo_module: tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto | None = ...,
         config: global___HloModuleConfigProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["config", b"config", "hlo_module", b"hlo_module"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["config", b"config", "hlo_module", b"hlo_module"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["config", b"config", "hlo_module", b"hlo_module"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["config", b"config", "hlo_module", b"hlo_module"]) -> None: ...
 
 global___HloModuleProtoWithConfig = HloModuleProtoWithConfig
 
-@typing_extensions.final
+@typing.final
 class GetDeviceHandlesRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1502,11 +1516,11 @@ class GetDeviceHandlesRequest(google.protobuf.message.Message):
         *,
         device_count: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["device_count", b"device_count"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["device_count", b"device_count"]) -> None: ...
 
 global___GetDeviceHandlesRequest = GetDeviceHandlesRequest
 
-@typing_extensions.final
+@typing.final
 class GetDeviceHandlesResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1518,11 +1532,11 @@ class GetDeviceHandlesResponse(google.protobuf.message.Message):
         *,
         device_handles: collections.abc.Iterable[tensorflow.compiler.xla.xla_data_pb2.DeviceHandle] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["device_handles", b"device_handles"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["device_handles", b"device_handles"]) -> None: ...
 
 global___GetDeviceHandlesResponse = GetDeviceHandlesResponse
 
-@typing_extensions.final
+@typing.final
 class TransferToClientRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1535,18 +1549,19 @@ class TransferToClientRequest(google.protobuf.message.Message):
         """This optional field directs the service to return the literal in this
         layout. A shape is used to hold the layout to accommodate tuples.
         """
+
     def __init__(
         self,
         *,
         data: tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle | None = ...,
         shape_with_layout: tensorflow.compiler.xla.xla_data_pb2.ShapeProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["data", b"data", "shape_with_layout", b"shape_with_layout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["data", b"data", "shape_with_layout", b"shape_with_layout"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["data", b"data", "shape_with_layout", b"shape_with_layout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["data", b"data", "shape_with_layout", b"shape_with_layout"]) -> None: ...
 
 global___TransferToClientRequest = TransferToClientRequest
 
-@typing_extensions.final
+@typing.final
 class TransferToClientResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1558,12 +1573,12 @@ class TransferToClientResponse(google.protobuf.message.Message):
         *,
         literal: tensorflow.compiler.xla.xla_data_pb2.LiteralProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["literal", b"literal"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["literal", b"literal"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["literal", b"literal"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["literal", b"literal"]) -> None: ...
 
 global___TransferToClientResponse = TransferToClientResponse
 
-@typing_extensions.final
+@typing.final
 class TransferToServerRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1579,12 +1594,12 @@ class TransferToServerRequest(google.protobuf.message.Message):
         literal: tensorflow.compiler.xla.xla_data_pb2.LiteralProto | None = ...,
         device_handle: tensorflow.compiler.xla.xla_data_pb2.DeviceHandle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["device_handle", b"device_handle", "literal", b"literal"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["device_handle", b"device_handle", "literal", b"literal"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["device_handle", b"device_handle", "literal", b"literal"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["device_handle", b"device_handle", "literal", b"literal"]) -> None: ...
 
 global___TransferToServerRequest = TransferToServerRequest
 
-@typing_extensions.final
+@typing.final
 class TransferToServerResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1596,21 +1611,21 @@ class TransferToServerResponse(google.protobuf.message.Message):
         *,
         data: tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["data", b"data"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["data", b"data"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["data", b"data"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["data", b"data"]) -> None: ...
 
 global___TransferToServerResponse = TransferToServerResponse
 
-@typing_extensions.final
+@typing.final
 class TransferToInfeedRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     LITERAL_FIELD_NUMBER: builtins.int
     REPLICA_ID_FIELD_NUMBER: builtins.int
     DEVICE_HANDLE_FIELD_NUMBER: builtins.int
+    replica_id: builtins.int
     @property
     def literal(self) -> tensorflow.compiler.xla.xla_data_pb2.LiteralProto: ...
-    replica_id: builtins.int
     @property
     def device_handle(self) -> tensorflow.compiler.xla.xla_data_pb2.DeviceHandle: ...
     def __init__(
@@ -1620,12 +1635,12 @@ class TransferToInfeedRequest(google.protobuf.message.Message):
         replica_id: builtins.int | None = ...,
         device_handle: tensorflow.compiler.xla.xla_data_pb2.DeviceHandle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["device_handle", b"device_handle", "literal", b"literal"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["device_handle", b"device_handle", "literal", b"literal", "replica_id", b"replica_id"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["device_handle", b"device_handle", "literal", b"literal"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["device_handle", b"device_handle", "literal", b"literal", "replica_id", b"replica_id"]) -> None: ...
 
 global___TransferToInfeedRequest = TransferToInfeedRequest
 
-@typing_extensions.final
+@typing.final
 class TransferToInfeedResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1635,19 +1650,20 @@ class TransferToInfeedResponse(google.protobuf.message.Message):
 
 global___TransferToInfeedResponse = TransferToInfeedResponse
 
-@typing_extensions.final
+@typing.final
 class TransferFromOutfeedRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     SHAPE_WITH_LAYOUT_FIELD_NUMBER: builtins.int
     REPLICA_ID_FIELD_NUMBER: builtins.int
     DEVICE_HANDLE_FIELD_NUMBER: builtins.int
+    replica_id: builtins.int
     @property
     def shape_with_layout(self) -> tensorflow.compiler.xla.xla_data_pb2.ShapeProto:
         """This optional field directs the service to return the literal in this
         layout. A shape is used to hold the layout to accommodate tuples.
         """
-    replica_id: builtins.int
+
     @property
     def device_handle(self) -> tensorflow.compiler.xla.xla_data_pb2.DeviceHandle: ...
     def __init__(
@@ -1657,12 +1673,12 @@ class TransferFromOutfeedRequest(google.protobuf.message.Message):
         replica_id: builtins.int | None = ...,
         device_handle: tensorflow.compiler.xla.xla_data_pb2.DeviceHandle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["device_handle", b"device_handle", "shape_with_layout", b"shape_with_layout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["device_handle", b"device_handle", "replica_id", b"replica_id", "shape_with_layout", b"shape_with_layout"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["device_handle", b"device_handle", "shape_with_layout", b"shape_with_layout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["device_handle", b"device_handle", "replica_id", b"replica_id", "shape_with_layout", b"shape_with_layout"]) -> None: ...
 
 global___TransferFromOutfeedRequest = TransferFromOutfeedRequest
 
-@typing_extensions.final
+@typing.final
 class TransferFromOutfeedResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1674,12 +1690,12 @@ class TransferFromOutfeedResponse(google.protobuf.message.Message):
         *,
         literal: tensorflow.compiler.xla.xla_data_pb2.LiteralProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["literal", b"literal"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["literal", b"literal"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["literal", b"literal"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["literal", b"literal"]) -> None: ...
 
 global___TransferFromOutfeedResponse = TransferFromOutfeedResponse
 
-@typing_extensions.final
+@typing.final
 class ResetDeviceRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1691,12 +1707,12 @@ class ResetDeviceRequest(google.protobuf.message.Message):
         *,
         device_handle: tensorflow.compiler.xla.xla_data_pb2.DeviceHandle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["device_handle", b"device_handle"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["device_handle", b"device_handle"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["device_handle", b"device_handle"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["device_handle", b"device_handle"]) -> None: ...
 
 global___ResetDeviceRequest = ResetDeviceRequest
 
-@typing_extensions.final
+@typing.final
 class ResetDeviceResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1706,7 +1722,7 @@ class ResetDeviceResponse(google.protobuf.message.Message):
 
 global___ResetDeviceResponse = ResetDeviceResponse
 
-@typing_extensions.final
+@typing.final
 class ComputationGraphStatsRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1722,12 +1738,12 @@ class ComputationGraphStatsRequest(google.protobuf.message.Message):
         computation: tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto | None = ...,
         debug_options: global___DebugOptions | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["computation", b"computation", "debug_options", b"debug_options"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["computation", b"computation", "debug_options", b"debug_options"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["computation", b"computation", "debug_options", b"debug_options"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["computation", b"computation", "debug_options", b"debug_options"]) -> None: ...
 
 global___ComputationGraphStatsRequest = ComputationGraphStatsRequest
 
-@typing_extensions.final
+@typing.final
 class ComputationStatsResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1739,12 +1755,12 @@ class ComputationStatsResponse(google.protobuf.message.Message):
         *,
         stats: tensorflow.compiler.xla.xla_data_pb2.ComputationStats | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["stats", b"stats"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["stats", b"stats"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["stats", b"stats"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["stats", b"stats"]) -> None: ...
 
 global___ComputationStatsResponse = ComputationStatsResponse
 
-@typing_extensions.final
+@typing.final
 class CreateChannelHandleRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1755,11 +1771,11 @@ class CreateChannelHandleRequest(google.protobuf.message.Message):
         *,
         channel_type: tensorflow.compiler.xla.xla_data_pb2.ChannelHandle.ChannelType.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["channel_type", b"channel_type"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["channel_type", b"channel_type"]) -> None: ...
 
 global___CreateChannelHandleRequest = CreateChannelHandleRequest
 
-@typing_extensions.final
+@typing.final
 class CreateChannelHandleResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1771,12 +1787,12 @@ class CreateChannelHandleResponse(google.protobuf.message.Message):
         *,
         channel: tensorflow.compiler.xla.xla_data_pb2.ChannelHandle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["channel", b"channel"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["channel", b"channel"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["channel", b"channel"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["channel", b"channel"]) -> None: ...
 
 global___CreateChannelHandleResponse = CreateChannelHandleResponse
 
-@typing_extensions.final
+@typing.final
 class UnregisterRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1788,11 +1804,11 @@ class UnregisterRequest(google.protobuf.message.Message):
         *,
         data: collections.abc.Iterable[tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["data", b"data"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["data", b"data"]) -> None: ...
 
 global___UnregisterRequest = UnregisterRequest
 
-@typing_extensions.final
+@typing.final
 class UnregisterResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1802,7 +1818,7 @@ class UnregisterResponse(google.protobuf.message.Message):
 
 global___UnregisterResponse = UnregisterResponse
 
-@typing_extensions.final
+@typing.final
 class CompileRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1812,15 +1828,18 @@ class CompileRequest(google.protobuf.message.Message):
     @property
     def computation(self) -> tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto:
         """The graph to be compiled."""
+
     @property
     def execution_options(self) -> global___ExecutionOptions:
         """Options that affect how XLA compiles code to service this request."""
+
     @property
     def input_shape_with_layout(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.ShapeProto]:
         """The layouts of the input arguments. If not set, the default layout will be
         used. Although the real arguments are not needed in compilation, the
         layouts of the arguments can affect the compilation.
         """
+
     def __init__(
         self,
         *,
@@ -1828,12 +1847,12 @@ class CompileRequest(google.protobuf.message.Message):
         execution_options: global___ExecutionOptions | None = ...,
         input_shape_with_layout: collections.abc.Iterable[tensorflow.compiler.xla.xla_data_pb2.ShapeProto] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["computation", b"computation", "execution_options", b"execution_options"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["computation", b"computation", "execution_options", b"execution_options", "input_shape_with_layout", b"input_shape_with_layout"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["computation", b"computation", "execution_options", b"execution_options"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["computation", b"computation", "execution_options", b"execution_options", "input_shape_with_layout", b"input_shape_with_layout"]) -> None: ...
 
 global___CompileRequest = CompileRequest
 
-@typing_extensions.final
+@typing.final
 class CompileResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1841,17 +1860,18 @@ class CompileResponse(google.protobuf.message.Message):
     @property
     def handle(self) -> tensorflow.compiler.xla.xla_data_pb2.ExecutionHandle:
         """The handle to the executable."""
+
     def __init__(
         self,
         *,
         handle: tensorflow.compiler.xla.xla_data_pb2.ExecutionHandle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["handle", b"handle"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["handle", b"handle"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["handle", b"handle"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["handle", b"handle"]) -> None: ...
 
 global___CompileResponse = CompileResponse
 
-@typing_extensions.final
+@typing.final
 class ExecuteRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1864,18 +1884,19 @@ class ExecuteRequest(google.protobuf.message.Message):
         """The shape and layout of the arguments must be the same as the those of the
         executable's parameters.
         """
+
     def __init__(
         self,
         *,
         handle: tensorflow.compiler.xla.xla_data_pb2.ExecutionHandle | None = ...,
         arguments: collections.abc.Iterable[tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["handle", b"handle"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["arguments", b"arguments", "handle", b"handle"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["handle", b"handle"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["arguments", b"arguments", "handle", b"handle"]) -> None: ...
 
 global___ExecuteRequest = ExecuteRequest
 
-@typing_extensions.final
+@typing.final
 class ExecuteGraphRequest(google.protobuf.message.Message):
     """TODO(b/118493728): Remove this and ExecuteGraphParallelRequest and replace
     the uses with calls to Compile and Execute.
@@ -1893,6 +1914,7 @@ class ExecuteGraphRequest(google.protobuf.message.Message):
     @property
     def execution_options(self) -> global___ExecutionOptions:
         """Options that affect how XLA compiles and runs code to service this request."""
+
     def __init__(
         self,
         *,
@@ -1900,12 +1922,12 @@ class ExecuteGraphRequest(google.protobuf.message.Message):
         arguments: collections.abc.Iterable[tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle] | None = ...,
         execution_options: global___ExecutionOptions | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["computation", b"computation", "execution_options", b"execution_options"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["arguments", b"arguments", "computation", b"computation", "execution_options", b"execution_options"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["computation", b"computation", "execution_options", b"execution_options"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["arguments", b"arguments", "computation", b"computation", "execution_options", b"execution_options"]) -> None: ...
 
 global___ExecuteGraphRequest = ExecuteGraphRequest
 
-@typing_extensions.final
+@typing.final
 class ExecuteGraphParallelRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1917,11 +1939,11 @@ class ExecuteGraphParallelRequest(google.protobuf.message.Message):
         *,
         requests: collections.abc.Iterable[global___ExecuteGraphRequest] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["requests", b"requests"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["requests", b"requests"]) -> None: ...
 
 global___ExecuteGraphParallelRequest = ExecuteGraphParallelRequest
 
-@typing_extensions.final
+@typing.final
 class ExecuteResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1937,12 +1959,12 @@ class ExecuteResponse(google.protobuf.message.Message):
         output: tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle | None = ...,
         profile: tensorflow.compiler.xla.xla_data_pb2.ExecutionProfile | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["output", b"output", "profile", b"profile"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["output", b"output", "profile", b"profile"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["output", b"output", "profile", b"profile"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["output", b"output", "profile", b"profile"]) -> None: ...
 
 global___ExecuteResponse = ExecuteResponse
 
-@typing_extensions.final
+@typing.final
 class ExecuteParallelResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1954,11 +1976,11 @@ class ExecuteParallelResponse(google.protobuf.message.Message):
         *,
         responses: collections.abc.Iterable[global___ExecuteResponse] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["responses", b"responses"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["responses", b"responses"]) -> None: ...
 
 global___ExecuteParallelResponse = ExecuteParallelResponse
 
-@typing_extensions.final
+@typing.final
 class ComputeConstantGraphRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1974,12 +1996,12 @@ class ComputeConstantGraphRequest(google.protobuf.message.Message):
         computation: tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto | None = ...,
         output_layout: tensorflow.compiler.xla.xla_data_pb2.LayoutProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["computation", b"computation", "output_layout", b"output_layout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["computation", b"computation", "output_layout", b"output_layout"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["computation", b"computation", "output_layout", b"output_layout"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["computation", b"computation", "output_layout", b"output_layout"]) -> None: ...
 
 global___ComputeConstantGraphRequest = ComputeConstantGraphRequest
 
-@typing_extensions.final
+@typing.final
 class ComputeConstantResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1987,17 +2009,18 @@ class ComputeConstantResponse(google.protobuf.message.Message):
     @property
     def literal(self) -> tensorflow.compiler.xla.xla_data_pb2.LiteralProto:
         """A LiteralProto is returned directly for this request."""
+
     def __init__(
         self,
         *,
         literal: tensorflow.compiler.xla.xla_data_pb2.LiteralProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["literal", b"literal"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["literal", b"literal"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["literal", b"literal"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["literal", b"literal"]) -> None: ...
 
 global___ComputeConstantResponse = ComputeConstantResponse
 
-@typing_extensions.final
+@typing.final
 class DeconstructTupleRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2009,12 +2032,12 @@ class DeconstructTupleRequest(google.protobuf.message.Message):
         *,
         tuple_handle: tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["tuple_handle", b"tuple_handle"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["tuple_handle", b"tuple_handle"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["tuple_handle", b"tuple_handle"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["tuple_handle", b"tuple_handle"]) -> None: ...
 
 global___DeconstructTupleRequest = DeconstructTupleRequest
 
-@typing_extensions.final
+@typing.final
 class DeconstructTupleResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2026,11 +2049,11 @@ class DeconstructTupleResponse(google.protobuf.message.Message):
         *,
         element_handles: collections.abc.Iterable[tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["element_handles", b"element_handles"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["element_handles", b"element_handles"]) -> None: ...
 
 global___DeconstructTupleResponse = DeconstructTupleResponse
 
-@typing_extensions.final
+@typing.final
 class LoadDataRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2044,9 +2067,6 @@ class LoadDataRequest(google.protobuf.message.Message):
     """Describes the path of the ColumnIO tablet to load."""
     columnio_field: builtins.str
     """Describes the field to load within the ColumnIO tablet."""
-    @property
-    def element_shape(self) -> tensorflow.compiler.xla.xla_data_pb2.ShapeProto:
-        """Individual element shape, excluding rows."""
     offset: builtins.int
     """Warning: ColumnIO does not support random-access, so use offset with
     caution in performance-critical scenarios.
@@ -2057,6 +2077,10 @@ class LoadDataRequest(google.protobuf.message.Message):
     """If more than one item is requested (via limit > 1), then this request
     attribute zips together the produced vectors.
     """
+    @property
+    def element_shape(self) -> tensorflow.compiler.xla.xla_data_pb2.ShapeProto:
+        """Individual element shape, excluding rows."""
+
     def __init__(
         self,
         *,
@@ -2067,12 +2091,12 @@ class LoadDataRequest(google.protobuf.message.Message):
         limit: builtins.int | None = ...,
         zip: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["element_shape", b"element_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["columnio_field", b"columnio_field", "columnio_tablet_path", b"columnio_tablet_path", "element_shape", b"element_shape", "limit", b"limit", "offset", b"offset", "zip", b"zip"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["element_shape", b"element_shape"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["columnio_field", b"columnio_field", "columnio_tablet_path", b"columnio_tablet_path", "element_shape", b"element_shape", "limit", b"limit", "offset", b"offset", "zip", b"zip"]) -> None: ...
 
 global___LoadDataRequest = LoadDataRequest
 
-@typing_extensions.final
+@typing.final
 class LoadDataResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2081,13 +2105,13 @@ class LoadDataResponse(google.protobuf.message.Message):
     AVAILABLE_ROWS_FIELD_NUMBER: builtins.int
     ROWS_LOADED_FIELD_NUMBER: builtins.int
     NANOSECONDS_FIELD_NUMBER: builtins.int
+    available_rows: builtins.int
+    rows_loaded: builtins.int
+    nanoseconds: builtins.int
     @property
     def data(self) -> tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle: ...
     @property
     def data_shape(self) -> tensorflow.compiler.xla.xla_data_pb2.ShapeProto: ...
-    available_rows: builtins.int
-    rows_loaded: builtins.int
-    nanoseconds: builtins.int
     def __init__(
         self,
         *,
@@ -2097,12 +2121,12 @@ class LoadDataResponse(google.protobuf.message.Message):
         rows_loaded: builtins.int | None = ...,
         nanoseconds: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["data", b"data", "data_shape", b"data_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["available_rows", b"available_rows", "data", b"data", "data_shape", b"data_shape", "nanoseconds", b"nanoseconds", "rows_loaded", b"rows_loaded"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["data", b"data", "data_shape", b"data_shape"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["available_rows", b"available_rows", "data", b"data", "data_shape", b"data_shape", "nanoseconds", b"nanoseconds", "rows_loaded", b"rows_loaded"]) -> None: ...
 
 global___LoadDataResponse = LoadDataResponse
 
-@typing_extensions.final
+@typing.final
 class GetShapeRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2114,12 +2138,12 @@ class GetShapeRequest(google.protobuf.message.Message):
         *,
         data: tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["data", b"data"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["data", b"data"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["data", b"data"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["data", b"data"]) -> None: ...
 
 global___GetShapeRequest = GetShapeRequest
 
-@typing_extensions.final
+@typing.final
 class GetShapeResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2131,12 +2155,12 @@ class GetShapeResponse(google.protobuf.message.Message):
         *,
         shape: tensorflow.compiler.xla.xla_data_pb2.ShapeProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["shape", b"shape"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["shape", b"shape"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["shape", b"shape"]) -> None: ...
 
 global___GetShapeResponse = GetShapeResponse
 
-@typing_extensions.final
+@typing.final
 class UnpackRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2148,12 +2172,12 @@ class UnpackRequest(google.protobuf.message.Message):
         *,
         data: tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["data", b"data"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["data", b"data"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["data", b"data"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["data", b"data"]) -> None: ...
 
 global___UnpackRequest = UnpackRequest
 
-@typing_extensions.final
+@typing.final
 class UnpackResponse(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2165,17 +2189,17 @@ class UnpackResponse(google.protobuf.message.Message):
         *,
         tied_data: collections.abc.Iterable[tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["tied_data", b"tied_data"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["tied_data", b"tied_data"]) -> None: ...
 
 global___UnpackResponse = UnpackResponse
 
-@typing_extensions.final
+@typing.final
 class ScheduleProto(google.protobuf.message.Message):
     """A trace estimated by the Latency Hiding Scheduler."""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Instruction(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -2194,19 +2218,19 @@ class ScheduleProto(google.protobuf.message.Message):
             start_timestamp_cycles: builtins.float | None = ...,
             end_timestamp_cycles: builtins.float | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["end_timestamp_cycles", b"end_timestamp_cycles", "id", b"id", "start_timestamp_cycles", b"start_timestamp_cycles"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["end_timestamp_cycles", b"end_timestamp_cycles", "id", b"id", "start_timestamp_cycles", b"start_timestamp_cycles"]) -> None: ...
 
     INSTRUCTIONS_FIELD_NUMBER: builtins.int
     COMPUTATION_ID_FIELD_NUMBER: builtins.int
     HLO_MODULE_FIELD_NUMBER: builtins.int
     CYCLES_PER_MICROSECOND_FIELD_NUMBER: builtins.int
-    @property
-    def instructions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ScheduleProto.Instruction]: ...
     computation_id: builtins.int
     """Computation id (matches the id in HloComputationProto)."""
+    cycles_per_microsecond: builtins.int
+    @property
+    def instructions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ScheduleProto.Instruction]: ...
     @property
     def hlo_module(self) -> tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto: ...
-    cycles_per_microsecond: builtins.int
     def __init__(
         self,
         *,
@@ -2215,7 +2239,7 @@ class ScheduleProto(google.protobuf.message.Message):
         hlo_module: tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto | None = ...,
         cycles_per_microsecond: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["hlo_module", b"hlo_module"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["computation_id", b"computation_id", "cycles_per_microsecond", b"cycles_per_microsecond", "hlo_module", b"hlo_module", "instructions", b"instructions"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["hlo_module", b"hlo_module"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["computation_id", b"computation_id", "cycles_per_microsecond", b"cycles_per_microsecond", "hlo_module", b"hlo_module", "instructions", b"instructions"]) -> None: ...
 
 global___ScheduleProto = ScheduleProto

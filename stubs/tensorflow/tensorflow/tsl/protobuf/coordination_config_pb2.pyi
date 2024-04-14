@@ -84,15 +84,6 @@ class CoordinationServiceConfig(google.protobuf.message.Message):
     find out about the disconnecte agent via stale heartbeats. Used for
     testing.
     """
-    @property
-    def coordinated_job_list(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CoordinatedJob]: ...
-    @property
-    def recoverable_jobs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
-        """The list of jobs which are recoverable. If a task in this list fails,
-        it will not propagate error to other tasks.
-        If empty, no jobs will be recoverable and every task failure will cause
-        error propagation to other tasks.
-        """
     allow_new_incarnation_to_reconnect: builtins.bool
     """If a task restarts with a new incarnation, we may allow it to reconnect
     silently. This is useful when we know that a task can immediately resume
@@ -104,6 +95,16 @@ class CoordinationServiceConfig(google.protobuf.message.Message):
     not specify any config. This field allows users to explicitly disable
     coordination service under all situations.
     """
+    @property
+    def coordinated_job_list(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CoordinatedJob]: ...
+    @property
+    def recoverable_jobs(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
+        """The list of jobs which are recoverable. If a task in this list fails,
+        it will not propagate error to other tasks.
+        If empty, no jobs will be recoverable and every task failure will cause
+        error propagation to other tasks.
+        """
+
     def __init__(
         self,
         *,
@@ -119,6 +120,6 @@ class CoordinationServiceConfig(google.protobuf.message.Message):
         allow_new_incarnation_to_reconnect: builtins.bool | None = ...,
         force_disable: builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal[agent_destruction_without_shutdown, b"agent_destruction_without_shutdown", allow_new_incarnation_to_reconnect, b"allow_new_incarnation_to_reconnect", cluster_register_timeout_in_ms, b"cluster_register_timeout_in_ms", coordinated_job_list, b"coordinated_job_list", enable_health_check, b"enable_health_check", force_disable, b"force_disable", heartbeat_timeout_in_ms, b"heartbeat_timeout_in_ms", recoverable_jobs, b"recoverable_jobs", service_leader, b"service_leader", service_type, b"service_type", shutdown_barrier_timeout_in_ms, b"shutdown_barrier_timeout_in_ms"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["agent_destruction_without_shutdown", b"agent_destruction_without_shutdown", "allow_new_incarnation_to_reconnect", b"allow_new_incarnation_to_reconnect", "cluster_register_timeout_in_ms", b"cluster_register_timeout_in_ms", "coordinated_job_list", b"coordinated_job_list", "enable_health_check", b"enable_health_check", "force_disable", b"force_disable", "heartbeat_timeout_in_ms", b"heartbeat_timeout_in_ms", "recoverable_jobs", b"recoverable_jobs", "service_leader", b"service_leader", "service_type", b"service_type", "shutdown_barrier_timeout_in_ms", b"shutdown_barrier_timeout_in_ms"]) -> None: ...
 
 global___CoordinationServiceConfig = CoordinationServiceConfig

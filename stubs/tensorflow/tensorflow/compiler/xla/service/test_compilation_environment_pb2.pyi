@@ -16,15 +16,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================
 """
+
 import builtins
-import typing as typing_extensions
+import typing
 
 import google.protobuf.descriptor
 import google.protobuf.message
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class TestCompilationEnvironment1(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -35,11 +36,11 @@ class TestCompilationEnvironment1(google.protobuf.message.Message):
         *,
         some_flag: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["some_flag", b"some_flag"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["some_flag", b"some_flag"]) -> None: ...
 
 global___TestCompilationEnvironment1 = TestCompilationEnvironment1
 
-@typing_extensions.final
+@typing.final
 class TestCompilationEnvironment2(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -50,11 +51,11 @@ class TestCompilationEnvironment2(google.protobuf.message.Message):
         *,
         some_other_flag: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["some_other_flag", b"some_other_flag"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["some_other_flag", b"some_other_flag"]) -> None: ...
 
 global___TestCompilationEnvironment2 = TestCompilationEnvironment2
 
-@typing_extensions.final
+@typing.final
 class TestCompilationEnvironment3(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -65,6 +66,6 @@ class TestCompilationEnvironment3(google.protobuf.message.Message):
         *,
         a_third_flag: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["a_third_flag", b"a_third_flag"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["a_third_flag", b"a_third_flag"]) -> None: ...
 
 global___TestCompilationEnvironment3 = TestCompilationEnvironment3

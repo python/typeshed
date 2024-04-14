@@ -105,47 +105,6 @@ class GPUOptions(google.protobuf.message.Message):
         GPU_HOST_MEM_LIMIT_IN_MB_FIELD_NUMBER: builtins.int
         GPU_HOST_MEM_DISALLOW_GROWTH_FIELD_NUMBER: builtins.int
         GPU_SYSTEM_MEMORY_SIZE_IN_MB_FIELD_NUMBER: builtins.int
-        @property
-        def virtual_devices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GPUOptions.Experimental.VirtualDevices]:
-            """The multi virtual device settings. If empty (not set), it will create
-            single virtual device on each visible GPU, according to the settings
-            in "visible_device_list" above. Otherwise, the number of elements in the
-            list must be the same as the number of visible GPUs (after
-            "visible_device_list" filtering if it is set), and the string represented
-            device names (e.g. /device:GPU:<id>) will refer to the virtual
-            devices and have the <id> field assigned sequentially starting from 0,
-            according to the order of the virtual devices determined by
-            device_ordinal and the location in the virtual device list.
-
-            For example,
-              visible_device_list = "1,0"
-              virtual_devices { memory_limit: 1GB memory_limit: 2GB }
-              virtual_devices { memory_limit: 3GB memory_limit: 4GB }
-            will create 4 virtual devices as:
-              /device:GPU:0 -> visible GPU 1 with 1GB memory
-              /device:GPU:1 -> visible GPU 1 with 2GB memory
-              /device:GPU:2 -> visible GPU 0 with 3GB memory
-              /device:GPU:3 -> visible GPU 0 with 4GB memory
-
-            but
-              visible_device_list = "1,0"
-              virtual_devices { memory_limit: 1GB memory_limit: 2GB
-                                device_ordinal: 10 device_ordinal: 20}
-              virtual_devices { memory_limit: 3GB memory_limit: 4GB
-                                device_ordinal: 10 device_ordinal: 20}
-            will create 4 virtual devices as:
-              /device:GPU:0 -> visible GPU 1 with 1GB memory  (ordinal 10)
-              /device:GPU:1 -> visible GPU 0 with 3GB memory  (ordinal 10)
-              /device:GPU:2 -> visible GPU 1 with 2GB memory  (ordinal 20)
-              /device:GPU:3 -> visible GPU 0 with 4GB memory  (ordinal 20)
-
-            NOTE:
-            1. It's invalid to set both this and "per_process_gpu_memory_fraction"
-               at the same time.
-            2. Currently this setting is per-process, not per-session. Using
-               different settings in different sessions within same process will
-               result in undefined behavior.
-            """
         num_virtual_devices_per_gpu: builtins.int
         """The number of virtual devices to create on each visible GPU. The
         available memory will be split equally among all virtual devices. If the
@@ -241,6 +200,48 @@ class GPUOptions(google.protobuf.message.Message):
         system memory size for better resource estimation of multi-tenancy(one
         gpu with multiple model) use case.
         """
+        @property
+        def virtual_devices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GPUOptions.Experimental.VirtualDevices]:
+            """The multi virtual device settings. If empty (not set), it will create
+            single virtual device on each visible GPU, according to the settings
+            in "visible_device_list" above. Otherwise, the number of elements in the
+            list must be the same as the number of visible GPUs (after
+            "visible_device_list" filtering if it is set), and the string represented
+            device names (e.g. /device:GPU:<id>) will refer to the virtual
+            devices and have the <id> field assigned sequentially starting from 0,
+            according to the order of the virtual devices determined by
+            device_ordinal and the location in the virtual device list.
+
+            For example,
+              visible_device_list = "1,0"
+              virtual_devices { memory_limit: 1GB memory_limit: 2GB }
+              virtual_devices { memory_limit: 3GB memory_limit: 4GB }
+            will create 4 virtual devices as:
+              /device:GPU:0 -> visible GPU 1 with 1GB memory
+              /device:GPU:1 -> visible GPU 1 with 2GB memory
+              /device:GPU:2 -> visible GPU 0 with 3GB memory
+              /device:GPU:3 -> visible GPU 0 with 4GB memory
+
+            but
+              visible_device_list = "1,0"
+              virtual_devices { memory_limit: 1GB memory_limit: 2GB
+                                device_ordinal: 10 device_ordinal: 20}
+              virtual_devices { memory_limit: 3GB memory_limit: 4GB
+                                device_ordinal: 10 device_ordinal: 20}
+            will create 4 virtual devices as:
+              /device:GPU:0 -> visible GPU 1 with 1GB memory  (ordinal 10)
+              /device:GPU:1 -> visible GPU 0 with 3GB memory  (ordinal 10)
+              /device:GPU:2 -> visible GPU 1 with 2GB memory  (ordinal 20)
+              /device:GPU:3 -> visible GPU 0 with 4GB memory  (ordinal 20)
+
+            NOTE:
+            1. It's invalid to set both this and "per_process_gpu_memory_fraction"
+               at the same time.
+            2. Currently this setting is per-process, not per-session. Using
+               different settings in different sessions within same process will
+               result in undefined behavior.
+            """
+
         def __init__(
             self,
             *,
@@ -260,7 +261,7 @@ class GPUOptions(google.protobuf.message.Message):
             gpu_host_mem_disallow_growth: builtins.bool | None = ...,
             gpu_system_memory_size_in_mb: builtins.int | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["collective_ring_order", b"collective_ring_order", "disallow_retry_on_allocation_failure", b"disallow_retry_on_allocation_failure", "gpu_host_mem_disallow_growth", b"gpu_host_mem_disallow_growth", "gpu_host_mem_limit_in_mb", b"gpu_host_mem_limit_in_mb", "gpu_system_memory_size_in_mb", b"gpu_system_memory_size_in_mb", "internal_fragmentation_fraction", b"internal_fragmentation_fraction", "kernel_tracker_max_bytes", b"kernel_tracker_max_bytes", "kernel_tracker_max_interval", b"kernel_tracker_max_interval", "kernel_tracker_max_pending", b"kernel_tracker_max_pending", "num_dev_to_dev_copy_streams", b"num_dev_to_dev_copy_streams", "num_virtual_devices_per_gpu", b"num_virtual_devices_per_gpu", "timestamped_allocator", b"timestamped_allocator", "use_cuda_malloc_async", b"use_cuda_malloc_async", "use_unified_memory", b"use_unified_memory", "virtual_devices", b"virtual_devices"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["collective_ring_order", b"collective_ring_order", "disallow_retry_on_allocation_failure", b"disallow_retry_on_allocation_failure", "gpu_host_mem_disallow_growth", b"gpu_host_mem_disallow_growth", "gpu_host_mem_limit_in_mb", b"gpu_host_mem_limit_in_mb", "gpu_system_memory_size_in_mb", b"gpu_system_memory_size_in_mb", "internal_fragmentation_fraction", b"internal_fragmentation_fraction", "kernel_tracker_max_bytes", b"kernel_tracker_max_bytes", "kernel_tracker_max_interval", b"kernel_tracker_max_interval", "kernel_tracker_max_pending", b"kernel_tracker_max_pending", "num_dev_to_dev_copy_streams", b"num_dev_to_dev_copy_streams", "num_virtual_devices_per_gpu", b"num_virtual_devices_per_gpu", "timestamped_allocator", b"timestamped_allocator", "use_cuda_malloc_async", b"use_cuda_malloc_async", "use_unified_memory", b"use_unified_memory", "virtual_devices", b"virtual_devices"]) -> None: ...
 
     PER_PROCESS_GPU_MEMORY_FRACTION_FIELD_NUMBER: builtins.int
     ALLOW_GROWTH_FIELD_NUMBER: builtins.int
@@ -865,6 +866,21 @@ class ConfigProto(google.protobuf.message.Message):
         allow them to happen in parallel. When true, streaming execution is
         disabled, and parallel execution is allowed.
         """
+        @property
+        def session_metadata(self) -> global___SessionMetadata:
+            """Metadata about the session.
+
+            If set, this can be used by the runtime and the Ops for debugging,
+            monitoring, etc.
+
+            NOTE: This is currently used and propagated only by the direct session
+            and EagerContext.
+            """
+
+        @property
+        def coordination_config(self) -> tensorflow.tsl.protobuf.coordination_config_pb2.CoordinationServiceConfig:
+            """Distributed coordination service configurations."""
+
         def __init__(
             self,
             *,
@@ -896,8 +912,8 @@ class ConfigProto(google.protobuf.message.Message):
             disable_optimize_for_static_graph: builtins.bool | None = ...,
             disable_eager_executor_streaming_enqueue: builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["coordination_config", b"coordination_config", "session_metadata", b"session_metadata"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["backend_server_port", b"backend_server_port", "collective_deterministic_sequential_execution", b"collective_deterministic_sequential_execution", "collective_group_leader", b"collective_group_leader", "collective_nccl", b"collective_nccl", "coordination_config", b"coordination_config", "disable_eager_executor_streaming_enqueue", b"disable_eager_executor_streaming_enqueue", "disable_functional_ops_lowering", b"disable_functional_ops_lowering", "disable_optimize_for_static_graph", b"disable_optimize_for_static_graph", "disable_output_partition_graphs", b"disable_output_partition_graphs", "disable_thread_spinning", b"disable_thread_spinning", "enable_mlir_bridge", b"enable_mlir_bridge", "enable_mlir_graph_optimization", b"enable_mlir_graph_optimization", "enable_multi_host", b"enable_multi_host", "executor_type", b"executor_type", "mlir_bridge_rollout", b"mlir_bridge_rollout", "optimize_for_static_graph", b"optimize_for_static_graph", "recv_buf_max_chunk", b"recv_buf_max_chunk", "session_metadata", b"session_metadata", "share_cluster_devices_in_session", b"share_cluster_devices_in_session", "share_session_state_in_clusterspec_propagation", b"share_session_state_in_clusterspec_propagation", "stream_merge_threshold", b"stream_merge_threshold", "target_gpu", b"target_gpu", "target_tpu", b"target_tpu", "use_numa_affinity", b"use_numa_affinity", "use_tfrt", b"use_tfrt", "xla_fusion_autotuner_thresh", b"xla_fusion_autotuner_thresh", "xla_prefer_single_graph_cluster", b"xla_prefer_single_graph_cluster"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["coordination_config", b"coordination_config", "session_metadata", b"session_metadata"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["backend_server_port", b"backend_server_port", "collective_deterministic_sequential_execution", b"collective_deterministic_sequential_execution", "collective_group_leader", b"collective_group_leader", "collective_nccl", b"collective_nccl", "coordination_config", b"coordination_config", "disable_eager_executor_streaming_enqueue", b"disable_eager_executor_streaming_enqueue", "disable_functional_ops_lowering", b"disable_functional_ops_lowering", "disable_optimize_for_static_graph", b"disable_optimize_for_static_graph", "disable_output_partition_graphs", b"disable_output_partition_graphs", "disable_thread_spinning", b"disable_thread_spinning", "enable_mlir_bridge", b"enable_mlir_bridge", "enable_mlir_graph_optimization", b"enable_mlir_graph_optimization", "enable_multi_host", b"enable_multi_host", "executor_type", b"executor_type", "mlir_bridge_rollout", b"mlir_bridge_rollout", "optimize_for_static_graph", b"optimize_for_static_graph", "recv_buf_max_chunk", b"recv_buf_max_chunk", "session_metadata", b"session_metadata", "share_cluster_devices_in_session", b"share_cluster_devices_in_session", "share_session_state_in_clusterspec_propagation", b"share_session_state_in_clusterspec_propagation", "stream_merge_threshold", b"stream_merge_threshold", "target_gpu", b"target_gpu", "target_tpu", b"target_tpu", "use_numa_affinity", b"use_numa_affinity", "use_tfrt", b"use_tfrt", "xla_fusion_autotuner_thresh", b"xla_fusion_autotuner_thresh", "xla_prefer_single_graph_cluster", b"xla_prefer_single_graph_cluster"]) -> None: ...
 
     DEVICE_COUNT_FIELD_NUMBER: builtins.int
     INTRA_OP_PARALLELISM_THREADS_FIELD_NUMBER: builtins.int

@@ -23,7 +23,7 @@ else:
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class PassMetrics(google.protobuf.message.Message):
     """Defines pass specific metrics."""
 
@@ -40,12 +40,14 @@ class PassMetrics(google.protobuf.message.Message):
     @property
     def pass_duration(self) -> google.protobuf.duration_pb2.Duration:
         """Duration of the pass."""
+
     @property
     def custom_metrics(self) -> google.protobuf.any_pb2.Any:
         """Custom pass metrics. This is kept opaque, via `google.protobuf.Any`, in
         order to decouple pass agnostic compilation logs from possibly proprietary
         compiler passes.
         """
+
     def __init__(
         self,
         *,
@@ -54,12 +56,12 @@ class PassMetrics(google.protobuf.message.Message):
         pass_duration: google.protobuf.duration_pb2.Duration | None = ...,
         custom_metrics: google.protobuf.any_pb2.Any | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["custom_metrics", b"custom_metrics", "pass_duration", b"pass_duration"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["custom_metrics", b"custom_metrics", "module_id", b"module_id", "pass_duration", b"pass_duration", "pass_name", b"pass_name"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["custom_metrics", b"custom_metrics", "pass_duration", b"pass_duration"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["custom_metrics", b"custom_metrics", "module_id", b"module_id", "pass_duration", b"pass_duration", "pass_name", b"pass_name"]) -> None: ...
 
 global___PassMetrics = PassMetrics
 
-@typing_extensions.final
+@typing.final
 class CompilationLogEntry(google.protobuf.message.Message):
     """Defines XLA compilation metrics."""
 
@@ -91,6 +93,12 @@ class CompilationLogEntry(google.protobuf.message.Message):
     DURATION_FIELD_NUMBER: builtins.int
     TASK_INDEX_FIELD_NUMBER: builtins.int
     PASS_METRICS_FIELD_NUMBER: builtins.int
+    stage: global___CompilationLogEntry.CompilationStage.ValueType
+    """Compilation stage recorded by this log entry."""
+    task_index: builtins.int
+    """Task index from which this log entry was recorded or
+    -1 if the task index could not be fetched.
+    """
     @property
     def timestamp(self) -> google.protobuf.timestamp_pb2.Timestamp:
         """Time when the event captured by this log entry occurred."""
@@ -98,13 +106,11 @@ class CompilationLogEntry(google.protobuf.message.Message):
     @property
     def duration(self) -> google.protobuf.duration_pb2.Duration:
         """Duration of the given compilation stage."""
-    task_index: builtins.int
-    """Task index from which this log entry was recorded or
-    -1 if the task index could not be fetched.
-    """
+
     @property
     def pass_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PassMetrics]:
         """Pass specific metrics."""
+
     def __init__(
         self,
         *,
@@ -114,7 +120,7 @@ class CompilationLogEntry(google.protobuf.message.Message):
         task_index: builtins.int | None = ...,
         pass_metrics: collections.abc.Iterable[global___PassMetrics] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["duration", b"duration", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["duration", b"duration", "pass_metrics", b"pass_metrics", "stage", b"stage", "task_index", b"task_index", "timestamp", b"timestamp"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["duration", b"duration", "timestamp", b"timestamp"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["duration", b"duration", "pass_metrics", b"pass_metrics", "stage", b"stage", "task_index", b"task_index", "timestamp", b"timestamp"]) -> None: ...
 
 global___CompilationLogEntry = CompilationLogEntry

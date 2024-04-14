@@ -43,6 +43,7 @@ class FingerprintDef(google.protobuf.message.Message):
         """Version specification of the fingerprint.
         TODO(b/290068219): add USM version when GA
         """
+
     def __init__(
         self,
         *,

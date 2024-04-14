@@ -434,13 +434,121 @@ class HloInstructionProto(google.protobuf.message.Message):
     largest: builtins.bool
     """Represents the largest flag for top-k."""
     @property
+    def shape(self) -> tensorflow.compiler.xla.xla_data_pb2.ShapeProto: ...
+    @property
+    def metadata(self) -> tensorflow.compiler.xla.xla_data_pb2.OpMetadata: ...
+    @property
+    def literal(self) -> tensorflow.compiler.xla.xla_data_pb2.LiteralProto:
+        """Literal, only present for kConstant."""
+
+    @property
+    def dimensions(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """Dimensions present for some operations that require reshaping or
+        broadcasting, including Reshape, Reduce, ReduceWindow, and Reverse.
+        """
+
+    @property
+    def window(self) -> tensorflow.compiler.xla.xla_data_pb2.Window:
+        """Describes the window in a windowed operation such as convolution."""
+
+    @property
+    def convolution_dimension_numbers(self) -> tensorflow.compiler.xla.xla_data_pb2.ConvolutionDimensionNumbers:
+        """Describes the dimension numbers used for a convolution."""
+
+    @property
+    def slice_dimensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloInstructionProto.SliceDimensions]: ...
+    @property
+    def dynamic_slice_sizes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """Describes the [start, start + size) range size for a dynamic slice
+        ('start' is specified dynamically in the second operand of the operation).
+        """
+
+    @property
+    def padding_config(self) -> tensorflow.compiler.xla.xla_data_pb2.PaddingConfig:
+        """The padding configuration that describes the edge padding and interior
+        padding of this pad instruction. Only set for pad instructions.
+        """
+
+    @property
+    def outfeed_shape(self) -> tensorflow.compiler.xla.xla_data_pb2.ShapeProto:
+        """Shape of outfeed request."""
+
+    @property
+    def dot_dimension_numbers(self) -> tensorflow.compiler.xla.xla_data_pb2.DotDimensionNumbers:
+        """Describes the dimension numbers used for a dot operation"""
+
+    @property
+    def fft_length(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """FFT length."""
+
+    @property
+    def gather_dimension_numbers(self) -> tensorflow.compiler.xla.xla_data_pb2.GatherDimensionNumbers:
+        """Gather dimension numbers."""
+
+    @property
+    def gather_slice_sizes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    @property
+    def operand_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    @property
+    def control_predecessor_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    @property
+    def called_computation_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    @property
+    def sharding(self) -> tensorflow.compiler.xla.xla_data_pb2.OpSharding: ...
+    @property
+    def replica_groups(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.ReplicaGroup]:
+        """Cross replica op fields."""
+
+    @property
+    def scatter_dimension_numbers(self) -> tensorflow.compiler.xla.xla_data_pb2.ScatterDimensionNumbers: ...
+    @property
+    def precision_config(self) -> tensorflow.compiler.xla.xla_data_pb2.PrecisionConfig:
+        """Precision configuration for the instruction. Has backend-specific meaning."""
+
+    @property
+    def source_target_pairs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.SourceTarget]:
+        """Collective permute field."""
+
+    @property
+    def domain_entry_sharding(self) -> tensorflow.compiler.xla.xla_data_pb2.OpSharding:
+        """Sharding for kDomain instructions."""
+
+    @property
+    def domain_exit_sharding(self) -> tensorflow.compiler.xla.xla_data_pb2.OpSharding: ...
+    @property
+    def operand_shapes_with_layout(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.ShapeProto]: ...
+    @property
+    def triangular_solve_options(self) -> tensorflow.compiler.xla.xla_data_pb2.TriangularSolveOptions:
+        """Options for TriangularSolve"""
+
+    @property
+    def cholesky_options(self) -> tensorflow.compiler.xla.xla_data_pb2.CholeskyOptions:
+        """Options for Cholesky"""
+
+    @property
+    def parameter_replication(self) -> tensorflow.compiler.xla.xla_data_pb2.ParameterReplication:
+        """Describes how parameters behave with regards to replicas."""
+
+    @property
+    def output_operand_aliasing(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.OutputOperandAliasing]:
+        """A list of OutputOperandAliasing pairs that specifies aliasing buffers
+        between output and operands for kCustomCall and kFusion.
+        """
+
+    @property
+    def frontend_attributes(self) -> tensorflow.compiler.xla.xla_data_pb2.FrontendAttributes:
+        """Frontend attributes to pass to the XLA backend."""
+
+    @property
     def statistics_viz(self) -> tensorflow.compiler.xla.xla_data_pb2.StatisticsViz:
         """Represents the information for tracking propagation of values within HLO
         graph.
         """
+
     @property
     def dot_sparsity(self) -> tensorflow.compiler.xla.xla_data_pb2.SparsityDescriptor:
         """Sparsity descriptor for dot operation."""
+
     def __init__(
         self,
         *,
@@ -516,9 +624,9 @@ class HloInstructionProto(google.protobuf.message.Message):
         statistics_viz: tensorflow.compiler.xla.xla_data_pb2.StatisticsViz | None = ...,
         dot_sparsity: tensorflow.compiler.xla.xla_data_pb2.SparsityDescriptor | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["cholesky_options", b"cholesky_options", "convolution_dimension_numbers", b"convolution_dimension_numbers", "cross_program_prefetch_index", b"cross_program_prefetch_index", "domain_entry_sharding", b"domain_entry_sharding", "domain_exit_sharding", b"domain_exit_sharding", "dot_dimension_numbers", b"dot_dimension_numbers", "dot_sparsity", b"dot_sparsity", "frontend_attributes", b"frontend_attributes", "gather_dimension_numbers", b"gather_dimension_numbers", "literal", b"literal", "metadata", b"metadata", "optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index", "outfeed_shape", b"outfeed_shape", "padding_config", b"padding_config", "parameter_replication", b"parameter_replication", "precision_config", b"precision_config", "scatter_dimension_numbers", b"scatter_dimension_numbers", "shape", b"shape", "sharding", b"sharding", "statistics_viz", b"statistics_viz", "triangular_solve_options", b"triangular_solve_options", "window", b"window"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["all_reduce_id", b"all_reduce_id", "async_execution_thread", b"async_execution_thread", "backend_config", b"backend_config", "batch_group_count", b"batch_group_count", "called_computation_ids", b"called_computation_ids", "channel_id", b"channel_id", "cholesky_options", b"cholesky_options", "comparison_direction", b"comparison_direction", "comparison_type", b"comparison_type", "constrain_layout", b"constrain_layout", "control_predecessor_ids", b"control_predecessor_ids", "convolution_dimension_numbers", b"convolution_dimension_numbers", "cross_program_prefetch_index", b"cross_program_prefetch_index", "custom_call_api_version", b"custom_call_api_version", "custom_call_has_side_effect", b"custom_call_has_side_effect", "custom_call_schedule", b"custom_call_schedule", "custom_call_target", b"custom_call_target", "delta", b"delta", "dimensions", b"dimensions", "distribution", b"distribution", "domain_entry_sharding", b"domain_entry_sharding", "domain_exit_sharding", b"domain_exit_sharding", "dot_dimension_numbers", b"dot_dimension_numbers", "dot_sparsity", b"dot_sparsity", "dynamic_slice_sizes", b"dynamic_slice_sizes", "epsilon", b"epsilon", "exponent_bits", b"exponent_bits", "feature_group_count", b"feature_group_count", "feature_index", b"feature_index", "fft_length", b"fft_length", "fft_type", b"fft_type", "frontend_attributes", b"frontend_attributes", "fusion_kind", b"fusion_kind", "gather_dimension_numbers", b"gather_dimension_numbers", "gather_slice_sizes", b"gather_slice_sizes", "id", b"id", "indices_are_sorted", b"indices_are_sorted", "infeed_config", b"infeed_config", "is_cross_program_prefetch", b"is_cross_program_prefetch", "is_host_transfer", b"is_host_transfer", "is_stable", b"is_stable", "k", b"k", "largest", b"largest", "literal", b"literal", "mantissa_bits", b"mantissa_bits", "metadata", b"metadata", "name", b"name", "opcode", b"opcode", "operand_ids", b"operand_ids", "operand_shapes_with_layout", b"operand_shapes_with_layout", "optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index", "outfeed_config", b"outfeed_config", "outfeed_shape", b"outfeed_shape", "output_operand_aliasing", b"output_operand_aliasing", "padding_config", b"padding_config", "padding_type", b"padding_type", "parameter_number", b"parameter_number", "parameter_replication", b"parameter_replication", "precision_config", b"precision_config", "replica_groups", b"replica_groups", "rng_algorithm", b"rng_algorithm", "scatter_dimension_numbers", b"scatter_dimension_numbers", "shape", b"shape", "sharding", b"sharding", "slice_dimensions", b"slice_dimensions", "source_target_pairs", b"source_target_pairs", "statistics_viz", b"statistics_viz", "triangular_solve_options", b"triangular_solve_options", "tuple_index", b"tuple_index", "unique_indices", b"unique_indices", "use_global_device_ids", b"use_global_device_ids", "window", b"window"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index"]) -> typing_extensions.Literal["cross_program_prefetch_index"] | None: ...
+    def HasField(self, field_name: typing.Literal["cholesky_options", b"cholesky_options", "convolution_dimension_numbers", b"convolution_dimension_numbers", "cross_program_prefetch_index", b"cross_program_prefetch_index", "domain_entry_sharding", b"domain_entry_sharding", "domain_exit_sharding", b"domain_exit_sharding", "dot_dimension_numbers", b"dot_dimension_numbers", "dot_sparsity", b"dot_sparsity", "frontend_attributes", b"frontend_attributes", "gather_dimension_numbers", b"gather_dimension_numbers", "literal", b"literal", "metadata", b"metadata", "optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index", "outfeed_shape", b"outfeed_shape", "padding_config", b"padding_config", "parameter_replication", b"parameter_replication", "precision_config", b"precision_config", "scatter_dimension_numbers", b"scatter_dimension_numbers", "shape", b"shape", "sharding", b"sharding", "statistics_viz", b"statistics_viz", "triangular_solve_options", b"triangular_solve_options", "window", b"window"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["all_reduce_id", b"all_reduce_id", "async_execution_thread", b"async_execution_thread", "backend_config", b"backend_config", "batch_group_count", b"batch_group_count", "called_computation_ids", b"called_computation_ids", "channel_id", b"channel_id", "cholesky_options", b"cholesky_options", "comparison_direction", b"comparison_direction", "comparison_type", b"comparison_type", "constrain_layout", b"constrain_layout", "control_predecessor_ids", b"control_predecessor_ids", "convolution_dimension_numbers", b"convolution_dimension_numbers", "cross_program_prefetch_index", b"cross_program_prefetch_index", "custom_call_api_version", b"custom_call_api_version", "custom_call_has_side_effect", b"custom_call_has_side_effect", "custom_call_schedule", b"custom_call_schedule", "custom_call_target", b"custom_call_target", "delta", b"delta", "dimensions", b"dimensions", "distribution", b"distribution", "domain_entry_sharding", b"domain_entry_sharding", "domain_exit_sharding", b"domain_exit_sharding", "dot_dimension_numbers", b"dot_dimension_numbers", "dot_sparsity", b"dot_sparsity", "dynamic_slice_sizes", b"dynamic_slice_sizes", "epsilon", b"epsilon", "exponent_bits", b"exponent_bits", "feature_group_count", b"feature_group_count", "feature_index", b"feature_index", "fft_length", b"fft_length", "fft_type", b"fft_type", "frontend_attributes", b"frontend_attributes", "fusion_kind", b"fusion_kind", "gather_dimension_numbers", b"gather_dimension_numbers", "gather_slice_sizes", b"gather_slice_sizes", "id", b"id", "indices_are_sorted", b"indices_are_sorted", "infeed_config", b"infeed_config", "is_cross_program_prefetch", b"is_cross_program_prefetch", "is_host_transfer", b"is_host_transfer", "is_stable", b"is_stable", "k", b"k", "largest", b"largest", "literal", b"literal", "mantissa_bits", b"mantissa_bits", "metadata", b"metadata", "name", b"name", "opcode", b"opcode", "operand_ids", b"operand_ids", "operand_shapes_with_layout", b"operand_shapes_with_layout", "optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index", "outfeed_config", b"outfeed_config", "outfeed_shape", b"outfeed_shape", "output_operand_aliasing", b"output_operand_aliasing", "padding_config", b"padding_config", "padding_type", b"padding_type", "parameter_number", b"parameter_number", "parameter_replication", b"parameter_replication", "precision_config", b"precision_config", "replica_groups", b"replica_groups", "rng_algorithm", b"rng_algorithm", "scatter_dimension_numbers", b"scatter_dimension_numbers", "shape", b"shape", "sharding", b"sharding", "slice_dimensions", b"slice_dimensions", "source_target_pairs", b"source_target_pairs", "statistics_viz", b"statistics_viz", "triangular_solve_options", b"triangular_solve_options", "tuple_index", b"tuple_index", "unique_indices", b"unique_indices", "use_global_device_ids", b"use_global_device_ids", "window", b"window"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index"]) -> typing.Literal["cross_program_prefetch_index"] | None: ...
 
 global___HloInstructionProto = HloInstructionProto
 
@@ -688,11 +796,11 @@ class HloInputOutputAliasProto(google.protobuf.message.Message):
 
 global___HloInputOutputAliasProto = HloInputOutputAliasProto
 
-@typing_extensions.final
+@typing.final
 class HloBufferDonorProto(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class BufferDonorEntryProto(google.protobuf.message.Message):
         """The following proto describes an input (described by parameter number and a
         ShapeIndex of the parameter) that can donate its butter to any output
@@ -717,13 +825,14 @@ class HloBufferDonorProto(google.protobuf.message.Message):
         @property
         def parameter_shape_index(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
             """ShapeIndex of the parameter instruction."""
+
         def __init__(
             self,
             *,
             parameter_number: builtins.int | None = ...,
             parameter_shape_index: collections.abc.Iterable[builtins.int] | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["parameter_number", b"parameter_number", "parameter_shape_index", b"parameter_shape_index"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["parameter_number", b"parameter_number", "parameter_shape_index", b"parameter_shape_index"]) -> None: ...
 
     ENTRIES_FIELD_NUMBER: builtins.int
     @property
@@ -759,7 +868,7 @@ class CrossProgramPrefetch(google.protobuf.message.Message):
 
 global___CrossProgramPrefetch = CrossProgramPrefetch
 
-@typing_extensions.final
+@typing.final
 class StackFrameIndexProto(google.protobuf.message.Message):
     """Serialization of stack frames index representations.
     Stack frames index presented in four flat arrays:
@@ -774,7 +883,7 @@ class StackFrameIndexProto(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class FileLocation(google.protobuf.message.Message):
         """Serialization of file position."""
 
@@ -800,9 +909,9 @@ class StackFrameIndexProto(google.protobuf.message.Message):
             line: builtins.int | None = ...,
             column: builtins.int | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["column", b"column", "file_name_id", b"file_name_id", "function_name_id", b"function_name_id", "line", b"line"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["column", b"column", "file_name_id", b"file_name_id", "function_name_id", b"function_name_id", "line", b"line"]) -> None: ...
 
-    @typing_extensions.final
+    @typing.final
     class StackFrame(google.protobuf.message.Message):
         """Serialization of frame."""
 
@@ -820,7 +929,7 @@ class StackFrameIndexProto(google.protobuf.message.Message):
             file_location_id: builtins.int | None = ...,
             parent_frame_id: builtins.int | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["file_location_id", b"file_location_id", "parent_frame_id", b"parent_frame_id"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["file_location_id", b"file_location_id", "parent_frame_id", b"parent_frame_id"]) -> None: ...
 
     FILE_NAMES_FIELD_NUMBER: builtins.int
     FUNCTION_NAMES_FIELD_NUMBER: builtins.int
@@ -829,15 +938,19 @@ class StackFrameIndexProto(google.protobuf.message.Message):
     @property
     def file_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """Flat index array of file names."""
+
     @property
     def function_names(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """Flat index array of function names."""
+
     @property
     def file_locations(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StackFrameIndexProto.FileLocation]:
         """Flat index array of file locations."""
+
     @property
     def stack_frames(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___StackFrameIndexProto.StackFrame]:
         """Flat index array of frames."""
+
     def __init__(
         self,
         *,
@@ -846,11 +959,11 @@ class StackFrameIndexProto(google.protobuf.message.Message):
         file_locations: collections.abc.Iterable[global___StackFrameIndexProto.FileLocation] | None = ...,
         stack_frames: collections.abc.Iterable[global___StackFrameIndexProto.StackFrame] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["file_locations", b"file_locations", "file_names", b"file_names", "function_names", b"function_names", "stack_frames", b"stack_frames"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["file_locations", b"file_locations", "file_names", b"file_names", "function_names", b"function_names", "stack_frames", b"stack_frames"]) -> None: ...
 
 global___StackFrameIndexProto = StackFrameIndexProto
 
-@typing_extensions.final
+@typing.final
 class HloModuleProto(google.protobuf.message.Message):
     """Serialization of HloModule."""
 
@@ -907,7 +1020,7 @@ class HloModuleProto(google.protobuf.message.Message):
             compilation_event: tensorflow.compiler.xla.xla_data_pb2.CompilationEvent.ValueType | None = ...,
             fingerprint: builtins.str | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing_extensions.Literal["compilation_event", b"compilation_event", "fingerprint", b"fingerprint", "profile_source", b"profile_source", "profile_type", b"profile_type", "relative_speedup", b"relative_speedup"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["compilation_event", b"compilation_event", "fingerprint", b"fingerprint", "profile_source", b"profile_source", "profile_type", b"profile_type", "relative_speedup", b"relative_speedup"]) -> None: ...
 
     NAME_FIELD_NUMBER: builtins.int
     ENTRY_COMPUTATION_NAME_FIELD_NUMBER: builtins.int
@@ -957,6 +1070,7 @@ class HloModuleProto(google.protobuf.message.Message):
     @property
     def buffer_donor(self) -> global___HloBufferDonorProto:
         """Describes the information of input buffer donors."""
+
     @property
     def cross_program_prefetches(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CrossProgramPrefetch]: ...
     @property
@@ -970,12 +1084,15 @@ class HloModuleProto(google.protobuf.message.Message):
     @property
     def device_assignment(self) -> tensorflow.compiler.xla.xla_data_pb2.DeviceAssignmentProto:
         """DeviceAssignment object information."""
+
     @property
     def stack_frame_index(self) -> global___StackFrameIndexProto:
         """Stack frames index."""
+
     @property
     def frontend_attributes(self) -> tensorflow.compiler.xla.xla_data_pb2.FrontendAttributes:
         """Frontend attributes to pass to the XLA backend."""
+
     def __init__(
         self,
         *,
@@ -998,8 +1115,8 @@ class HloModuleProto(google.protobuf.message.Message):
         stack_frame_index: global___StackFrameIndexProto | None = ...,
         frontend_attributes: tensorflow.compiler.xla.xla_data_pb2.FrontendAttributes | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["buffer_donor", b"buffer_donor", "device_assignment", b"device_assignment", "frontend_attributes", b"frontend_attributes", "host_program_shape", b"host_program_shape", "input_output_alias", b"input_output_alias", "schedule", b"schedule", "spmd_output_sharding", b"spmd_output_sharding", "stack_frame_index", b"stack_frame_index"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["buffer_donor", b"buffer_donor", "computations", b"computations", "cross_program_prefetches", b"cross_program_prefetches", "device_assignment", b"device_assignment", "entry_computation_id", b"entry_computation_id", "entry_computation_name", b"entry_computation_name", "frontend_attributes", b"frontend_attributes", "host_program_shape", b"host_program_shape", "id", b"id", "input_output_alias", b"input_output_alias", "is_dynamic", b"is_dynamic", "name", b"name", "profile_info", b"profile_info", "schedule", b"schedule", "spmd_output_sharding", b"spmd_output_sharding", "spmd_parameters_shardings", b"spmd_parameters_shardings", "stack_frame_index", b"stack_frame_index", "use_auto_spmd_partitioning", b"use_auto_spmd_partitioning"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["buffer_donor", b"buffer_donor", "device_assignment", b"device_assignment", "frontend_attributes", b"frontend_attributes", "host_program_shape", b"host_program_shape", "input_output_alias", b"input_output_alias", "schedule", b"schedule", "spmd_output_sharding", b"spmd_output_sharding", "stack_frame_index", b"stack_frame_index"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["buffer_donor", b"buffer_donor", "computations", b"computations", "cross_program_prefetches", b"cross_program_prefetches", "device_assignment", b"device_assignment", "entry_computation_id", b"entry_computation_id", "entry_computation_name", b"entry_computation_name", "frontend_attributes", b"frontend_attributes", "host_program_shape", b"host_program_shape", "id", b"id", "input_output_alias", b"input_output_alias", "is_dynamic", b"is_dynamic", "name", b"name", "profile_info", b"profile_info", "schedule", b"schedule", "spmd_output_sharding", b"spmd_output_sharding", "spmd_parameters_shardings", b"spmd_parameters_shardings", "stack_frame_index", b"stack_frame_index", "use_auto_spmd_partitioning", b"use_auto_spmd_partitioning"]) -> None: ...
 
 global___HloModuleProto = HloModuleProto
 
@@ -1464,12 +1581,11 @@ class HloPassMetadata(google.protobuf.message.Message):
         """If the module went through this pass as part of a module group, this is
         set as the ids of all the modules in the module group. Empty otherwise.
         """
-    start_timestamp_usec: builtins.int
-    """Timestamp before and after the pass is run. Note they may be equal."""
-    end_timestamp_usec: builtins.int
+
     @property
     def custom_metadata(self) -> google.protobuf.any_pb2.Any:
         """Custom metadata for the pass."""
+
     def __init__(
         self,
         *,
@@ -1484,12 +1600,12 @@ class HloPassMetadata(google.protobuf.message.Message):
         end_timestamp_usec: builtins.int | None = ...,
         custom_metadata: google.protobuf.any_pb2.Any | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["custom_metadata", b"custom_metadata"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["custom_metadata", b"custom_metadata", "dump_filenames", b"dump_filenames", "end_timestamp_usec", b"end_timestamp_usec", "module_changed", b"module_changed", "module_group_module_ids", b"module_group_module_ids", "module_id", b"module_id", "pass_id", b"pass_id", "pass_name", b"pass_name", "pipeline_name", b"pipeline_name", "start_timestamp_usec", b"start_timestamp_usec"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["custom_metadata", b"custom_metadata"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["custom_metadata", b"custom_metadata", "dump_filenames", b"dump_filenames", "end_timestamp_usec", b"end_timestamp_usec", "module_changed", b"module_changed", "module_group_module_ids", b"module_group_module_ids", "module_id", b"module_id", "pass_id", b"pass_id", "pass_name", b"pass_name", "pipeline_name", b"pipeline_name", "start_timestamp_usec", b"start_timestamp_usec"]) -> None: ...
 
 global___HloPassMetadata = HloPassMetadata
 
-@typing_extensions.final
+@typing.final
 class XlaRuntimeExecutableProto(google.protobuf.message.Message):
     """Encodes the underlying Xla runtime executable compiled from the XLA module."""
 

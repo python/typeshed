@@ -285,7 +285,7 @@ BMM1_OUTPUT_INPUT_TYPE: FusedMHAKind.ValueType  # 1
 BMM1_OUTPUT_FLOAT: FusedMHAKind.ValueType  # 2
 global___FusedMHAKind = FusedMHAKind
 
-@typing_extensions.final
+@typing.final
 class TensorDescriptorProto(google.protobuf.message.Message):
     """Generic tensor representation."""
 

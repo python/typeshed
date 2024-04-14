@@ -16,9 +16,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================
 """
+
 import builtins
 import collections.abc
-import typing as typing_extensions
+import typing
 
 import google.protobuf.descriptor
 import google.protobuf.duration_pb2
@@ -29,7 +30,7 @@ import tensorflow.tsl.protobuf.status_pb2
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class CompilerPerfStats(google.protobuf.message.Message):
     """Statistics on how long various parts of compilation took.
     Not all durations may be relevant for all producers of this message, in
@@ -46,18 +47,23 @@ class CompilerPerfStats(google.protobuf.message.Message):
     @property
     def init_duration(self) -> google.protobuf.duration_pb2.Duration:
         """How long did it take to initialize the compiler?"""
+
     @property
     def hlo_verification_duration(self) -> google.protobuf.duration_pb2.Duration:
         """How long did it take to verify the HLO?"""
+
     @property
     def compilation_prologue_duration(self) -> google.protobuf.duration_pb2.Duration:
         """How long did it take to prepare for compilation after verification?"""
+
     @property
     def compilation_duration(self) -> google.protobuf.duration_pb2.Duration:
         """How long did it take to compile?"""
+
     @property
     def total_duration(self) -> google.protobuf.duration_pb2.Duration:
         """How long did everything take?"""
+
     def __init__(
         self,
         *,
@@ -67,16 +73,16 @@ class CompilerPerfStats(google.protobuf.message.Message):
         compilation_duration: google.protobuf.duration_pb2.Duration | None = ...,
         total_duration: google.protobuf.duration_pb2.Duration | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["compilation_duration", b"compilation_duration", "compilation_prologue_duration", b"compilation_prologue_duration", "hlo_verification_duration", b"hlo_verification_duration", "init_duration", b"init_duration", "total_duration", b"total_duration"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["compilation_duration", b"compilation_duration", "compilation_prologue_duration", b"compilation_prologue_duration", "hlo_verification_duration", b"hlo_verification_duration", "init_duration", b"init_duration", "total_duration", b"total_duration"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["compilation_duration", b"compilation_duration", "compilation_prologue_duration", b"compilation_prologue_duration", "hlo_verification_duration", b"hlo_verification_duration", "init_duration", b"init_duration", "total_duration", b"total_duration"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["compilation_duration", b"compilation_duration", "compilation_prologue_duration", b"compilation_prologue_duration", "hlo_verification_duration", b"hlo_verification_duration", "init_duration", b"init_duration", "total_duration", b"total_duration"]) -> None: ...
 
 global___CompilerPerfStats = CompilerPerfStats
 
-@typing_extensions.final
+@typing.final
 class CompilationResult(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class CountersEntry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -90,8 +96,8 @@ class CompilationResult(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: builtins.int | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
     HLO_MODULE_FIELD_NUMBER: builtins.int
     PERF_STATS_FIELD_NUMBER: builtins.int
@@ -100,19 +106,23 @@ class CompilationResult(google.protobuf.message.Message):
     @property
     def hlo_module(self) -> tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto:
         """The compiled HLO. Only set when compilation succeeds."""
+
     @property
     def perf_stats(self) -> global___CompilerPerfStats:
         """Always set when compilation succeeds. May or may not be set when
         compilation fails.
         """
+
     @property
     def status(self) -> tensorflow.tsl.protobuf.status_pb2.StatusProto:
         """Always set when compilation fails; never set when compilation succeeds."""
+
     @property
     def counters(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]:
         """Collects counters collected during compilation. Not every producer may
         include counter support at all or any particular counter.
         """
+
     def __init__(
         self,
         *,
@@ -121,7 +131,7 @@ class CompilationResult(google.protobuf.message.Message):
         status: tensorflow.tsl.protobuf.status_pb2.StatusProto | None = ...,
         counters: collections.abc.Mapping[builtins.str, builtins.int] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["hlo_module", b"hlo_module", "perf_stats", b"perf_stats", "status", b"status"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["counters", b"counters", "hlo_module", b"hlo_module", "perf_stats", b"perf_stats", "status", b"status"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["hlo_module", b"hlo_module", "perf_stats", b"perf_stats", "status", b"status"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["counters", b"counters", "hlo_module", b"hlo_module", "perf_stats", b"perf_stats", "status", b"status"]) -> None: ...
 
 global___CompilationResult = CompilationResult

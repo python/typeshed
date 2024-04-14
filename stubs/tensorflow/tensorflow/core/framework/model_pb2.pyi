@@ -259,9 +259,6 @@ class ModelProto(google.protobuf.message.Message):
     GAP_TIMES_FIELD_NUMBER: builtins.int
     dataset_name: builtins.str
     """User-defined name for the dataset. Empty if no name was set."""
-    @property
-    def nodes(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___ModelProto.Node]:
-        """Map of node IDs to nodes of this model."""
     output: builtins.int
     """ID of the output node of this model."""
     id_counter: builtins.int
@@ -284,7 +281,7 @@ class ModelProto(google.protobuf.message.Message):
         optimization_params: global___ModelProto.OptimizationParams | None = ...,
         gap_times: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["optimization_params", b"optimization_params"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["dataset_name", b"dataset_name", "gap_times", b"gap_times", "id_counter", b"id_counter", "nodes", b"nodes", "optimization_params", b"optimization_params", "output", b"output"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["optimization_params", b"optimization_params"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["dataset_name", b"dataset_name", "gap_times", b"gap_times", "id_counter", b"id_counter", "nodes", b"nodes", "optimization_params", b"optimization_params", "output", b"output"]) -> None: ...
 
 global___ModelProto = ModelProto

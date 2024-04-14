@@ -28,6 +28,11 @@ class GraphDef(google.protobuf.message.Message):
     VERSION_FIELD_NUMBER: builtins.int
     LIBRARY_FIELD_NUMBER: builtins.int
     DEBUG_INFO_FIELD_NUMBER: builtins.int
+    version: builtins.int
+    """Deprecated single version field; use versions above instead.  Since all
+    GraphDef changes before "versions" was introduced were forward
+    compatible, this field is entirely ignored.
+    """
     @property
     def node(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.node_def_pb2.NodeDef]: ...
     @property
@@ -66,9 +71,11 @@ class GraphDef(google.protobuf.message.Message):
             consumer does not start until all return values of the callee
             function are ready.
         """
+
     @property
     def debug_info(self) -> tensorflow.core.framework.graph_debug_info_pb2.GraphDebugInfo:
         """Stack traces for the nodes in this graph."""
+
     def __init__(
         self,
         *,
@@ -78,7 +85,7 @@ class GraphDef(google.protobuf.message.Message):
         library: tensorflow.core.framework.function_pb2.FunctionDefLibrary | None = ...,
         debug_info: tensorflow.core.framework.graph_debug_info_pb2.GraphDebugInfo | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal[debug_info, b"debug_info", library, b"library", versions, b"versions"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal[debug_info, b"debug_info", library, b"library", node, b"node", version, b"version", versions, b"versions"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["debug_info", b"debug_info", "library", b"library", "versions", b"versions"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["debug_info", b"debug_info", "library", b"library", "node", b"node", "version", b"version", "versions", b"versions"]) -> None: ...
 
 global___GraphDef = GraphDef

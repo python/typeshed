@@ -392,7 +392,7 @@ class MomentumParameters(google.protobuf.message.Message):
 
 global___MomentumParameters = MomentumParameters
 
-@typing_extensions.final
+@typing.final
 class LionParameters(google.protobuf.message.Message):
     """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/Lion
     momenta(new) = beta2 * momenta(old) + (1 - beta2) * grad
@@ -416,11 +416,11 @@ class LionParameters(google.protobuf.message.Message):
         beta2: builtins.float | None = ...,
         use_non_lazy_lion: builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["beta1", b"beta1", "beta2", b"beta2", "use_non_lazy_lion", b"use_non_lazy_lion"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["beta1", b"beta1", "beta2", b"beta2", "use_non_lazy_lion", b"use_non_lazy_lion"]) -> None: ...
 
 global___LionParameters = LionParameters
 
-@typing_extensions.final
+@typing.final
 class RmsPropParameters(google.protobuf.message.Message):
     """https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/RMSprop
     https://github.com/tensorflow/tensorflow/blob/6b6471f3ffb7f1fefe42d814aa5fb9ab7a535b58/tensorflow/core/kernels/training_ops.cc#L4229
@@ -1056,9 +1056,9 @@ class OptimizationParameters(google.protobuf.message.Message):
         user_defined_program: global___UserDefinedProgramParameters | None = ...,
         assign: global___AssignParameters | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["adadelta", b"adadelta", "adagrad", b"adagrad", "adagrad_momentum", b"adagrad_momentum", "adam", b"adam", "assign", b"assign", "bounded_adagrad", b"bounded_adagrad", "centered_rms_prop", b"centered_rms_prop", "clipping_limits", b"clipping_limits", "frequency_estimator", b"frequency_estimator", "ftrl", b"ftrl", "gradient_clipping_limits", b"gradient_clipping_limits", "hot_id_replication_configuration", b"hot_id_replication_configuration", "learning_rate", b"learning_rate", "lion", b"lion", "mdl_adagrad_light", b"mdl_adagrad_light", "momentum", b"momentum", "online_yogi", b"online_yogi", "parameters", b"parameters", "proximal_adagrad", b"proximal_adagrad", "proximal_yogi", b"proximal_yogi", "rms_prop", b"rms_prop", "simulated_quantization", b"simulated_quantization", "stochastic_gradient_descent", b"stochastic_gradient_descent", "user_defined_program", b"user_defined_program"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["adadelta", b"adadelta", "adagrad", b"adagrad", "adagrad_momentum", b"adagrad_momentum", "adam", b"adam", "assign", b"assign", "bounded_adagrad", b"bounded_adagrad", "centered_rms_prop", b"centered_rms_prop", "clipping_limits", b"clipping_limits", "frequency_estimator", b"frequency_estimator", "ftrl", b"ftrl", "gradient_accumulation_status", b"gradient_accumulation_status", "gradient_clipping_limits", b"gradient_clipping_limits", "hot_id_replication_configuration", b"hot_id_replication_configuration", "learning_rate", b"learning_rate", "lion", b"lion", "low_dimensional_packing_status", b"low_dimensional_packing_status", "mdl_adagrad_light", b"mdl_adagrad_light", "momentum", b"momentum", "multiply_weight_decay_factor_by_learning_rate", b"multiply_weight_decay_factor_by_learning_rate", "online_yogi", b"online_yogi", "parameters", b"parameters", "proximal_adagrad", b"proximal_adagrad", "proximal_yogi", b"proximal_yogi", "rms_prop", b"rms_prop", "simulated_quantization", b"simulated_quantization", "stochastic_gradient_descent", b"stochastic_gradient_descent", "user_defined_program", b"user_defined_program", "weight_decay_factor", b"weight_decay_factor"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["parameters", b"parameters"]) -> typing_extensions.Literal["adagrad", "adagrad_momentum", "bounded_adagrad", "stochastic_gradient_descent", "ftrl", "adam", "momentum", "lion", "rms_prop", "centered_rms_prop", "mdl_adagrad_light", "adadelta", "proximal_adagrad", "online_yogi", "proximal_yogi", "frequency_estimator", "user_defined_program", "assign"] | None: ...
+    def HasField(self, field_name: typing.Literal["adadelta", b"adadelta", "adagrad", b"adagrad", "adagrad_momentum", b"adagrad_momentum", "adam", b"adam", "assign", b"assign", "bounded_adagrad", b"bounded_adagrad", "centered_rms_prop", b"centered_rms_prop", "clipping_limits", b"clipping_limits", "frequency_estimator", b"frequency_estimator", "ftrl", b"ftrl", "gradient_clipping_limits", b"gradient_clipping_limits", "hot_id_replication_configuration", b"hot_id_replication_configuration", "learning_rate", b"learning_rate", "lion", b"lion", "mdl_adagrad_light", b"mdl_adagrad_light", "momentum", b"momentum", "online_yogi", b"online_yogi", "parameters", b"parameters", "proximal_adagrad", b"proximal_adagrad", "proximal_yogi", b"proximal_yogi", "rms_prop", b"rms_prop", "simulated_quantization", b"simulated_quantization", "stochastic_gradient_descent", b"stochastic_gradient_descent", "user_defined_program", b"user_defined_program"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["adadelta", b"adadelta", "adagrad", b"adagrad", "adagrad_momentum", b"adagrad_momentum", "adam", b"adam", "assign", b"assign", "bounded_adagrad", b"bounded_adagrad", "centered_rms_prop", b"centered_rms_prop", "clipping_limits", b"clipping_limits", "frequency_estimator", b"frequency_estimator", "ftrl", b"ftrl", "gradient_accumulation_status", b"gradient_accumulation_status", "gradient_clipping_limits", b"gradient_clipping_limits", "hot_id_replication_configuration", b"hot_id_replication_configuration", "learning_rate", b"learning_rate", "lion", b"lion", "low_dimensional_packing_status", b"low_dimensional_packing_status", "mdl_adagrad_light", b"mdl_adagrad_light", "momentum", b"momentum", "multiply_weight_decay_factor_by_learning_rate", b"multiply_weight_decay_factor_by_learning_rate", "online_yogi", b"online_yogi", "parameters", b"parameters", "proximal_adagrad", b"proximal_adagrad", "proximal_yogi", b"proximal_yogi", "rms_prop", b"rms_prop", "simulated_quantization", b"simulated_quantization", "stochastic_gradient_descent", b"stochastic_gradient_descent", "user_defined_program", b"user_defined_program", "weight_decay_factor", b"weight_decay_factor"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["parameters", b"parameters"]) -> typing.Literal["adagrad", "adagrad_momentum", "bounded_adagrad", "stochastic_gradient_descent", "ftrl", "adam", "momentum", "lion", "rms_prop", "centered_rms_prop", "mdl_adagrad_light", "adadelta", "proximal_adagrad", "online_yogi", "proximal_yogi", "frequency_estimator", "user_defined_program", "assign"] | None: ...
 
 global___OptimizationParameters = OptimizationParameters
 
