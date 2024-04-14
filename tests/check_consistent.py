@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
-# For security (and simplicity) reasons, only a limited kind of files can be
-# present in /stdlib and /stubs directories, see README for detail. Here we
-# verify these constraints.
+"""
+Check that the typeshed repository contains the correct files in the
+correct places, and that various configuration files are correct.
+"""
+
 from __future__ import annotations
 
 import os
@@ -53,10 +55,12 @@ def assert_consistent_filetypes(
 
 
 def check_stdlib() -> None:
+    """Check that the stdlib directory contains only the correct files."""
     assert_consistent_filetypes(Path("stdlib"), kind=".pyi", allowed={"_typeshed/README.md", "VERSIONS"})
 
 
 def check_stubs() -> None:
+    """Check that the stubs directory contains only the correct files."""
     gitignore_spec = get_gitignore_spec()
     for dist in Path("stubs").iterdir():
         if spec_matches_path(gitignore_spec, dist):
@@ -80,6 +84,7 @@ def check_stubs() -> None:
 
 
 def check_test_cases() -> None:
+    """Check that the test_cases directory contains only the correct files."""
     for _, testcase_dir in get_all_testcase_directories():
         assert_consistent_filetypes(testcase_dir, kind=".py", allowed={"README.md"}, allow_nonidentifier_filenames=True)
         bad_test_case_filename = 'Files in a `test_cases` directory must have names starting with "check_"; got "{}"'
@@ -88,6 +93,7 @@ def check_test_cases() -> None:
 
 
 def check_no_symlinks() -> None:
+    """Check that there are no symlinks in the typeshed repository."""
     files = [os.path.join(root, file) for root, _, files in os.walk(".") for file in files]
     no_symlink = "You cannot use symlinks in typeshed, please copy {} to its link."
     for file in files:
@@ -96,7 +102,8 @@ def check_no_symlinks() -> None:
             raise ValueError(no_symlink.format(file))
 
 
-def check_versions() -> None:
+def check_versions_file() -> None:
+    """Check that the stdlib/VERSIONS file has the correct format."""
     versions = set[str]()
     with open("stdlib/VERSIONS", encoding="UTF-8") as f:
         data = f.read().splitlines()
@@ -132,6 +139,7 @@ def _find_stdlib_modules() -> set[str]:
 
 
 def check_metadata() -> None:
+    """Check that all METADATA.toml files are valid."""
     for distribution in os.listdir("stubs"):
         # This function does various sanity checks for METADATA.toml files
         read_metadata(distribution)
@@ -150,10 +158,10 @@ def check_requirement_pins() -> None:
 
 if __name__ == "__main__":
     assert sys.version_info >= (3, 9), "Python 3.9+ is required to run this test"
-    check_stdlib()
-    check_versions()
-    check_stubs()
+    check_versions_file()
     check_metadata()
-    check_no_symlinks()
-    check_test_cases()
     check_requirement_pins()
+    check_no_symlinks()
+    check_stdlib()
+    check_stubs()
+    check_test_cases()
