@@ -85,6 +85,7 @@ def check_stubs() -> None:
 
 def check_distutils() -> None:
     """Check whether all setuptools._distutils files are re-exported from distutils."""
+
     def all_relative_paths_in_directory(path: Path) -> set[Path]:
         return {pyi.relative_to(path) for pyi in path.rglob("*.pyi")}
 
