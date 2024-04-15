@@ -8,7 +8,7 @@ from typing_extensions import Self
 from pynput._util import AbstractListener
 
 class Button(enum.Enum):
-    unknown = None
+    unknown = 0
     left = 1
     middle = 2
     right = 3
