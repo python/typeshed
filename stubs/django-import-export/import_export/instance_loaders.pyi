@@ -1,10 +1,13 @@
+from _typeshed import Incomplete
 from typing import Any
+from typing_extensions import TypeAlias
 
 from django.db.models import Model, QuerySet
-from tablib import Dataset  # type: ignore[import-untyped]
 
 from .fields import Field
 from .resources import Resource
+
+Dataset: TypeAlias = Incomplete  # tablib.Dataset
 
 class BaseInstanceLoader:
     resource: Resource[Any]

@@ -1,16 +1,18 @@
-from _typeshed import SupportsGetItem
+from _typeshed import Incomplete, SupportsGetItem
 from logging import Logger
 from typing import Any, Generic, TypeVar
+from typing_extensions import TypeAlias
 
 from django.db.models import Model, QuerySet
 from django.forms import BaseForm, Form
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.views.generic.edit import FormView
-from tablib import Dataset  # type: ignore[import-untyped]
 
 from .formats.base_formats import Format
 from .resources import Resource
+
+Dataset: TypeAlias = Incomplete  # tablib.Dataset
 
 logger: Logger
 

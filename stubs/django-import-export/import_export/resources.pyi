@@ -1,19 +1,20 @@
+from _typeshed import Incomplete
 from collections import OrderedDict
 from collections.abc import Iterator, Sequence
 from functools import partial
 from logging import Logger
 from typing import Any, ClassVar, Generic, Literal, NoReturn, TypeVar, overload
-from typing_extensions import deprecated
+from typing_extensions import TypeAlias, deprecated
 
 from django.db.models import Field as DjangoField, ForeignObjectRel, Model, QuerySet
 from django.utils.safestring import SafeString
-from tablib import Dataset  # type: ignore[import-untyped]
 
 from .fields import Field
 from .instance_loaders import BaseInstanceLoader
 from .results import Error, Result, RowResult
 from .widgets import ForeignKeyWidget, ManyToManyWidget, Widget
 
+Dataset: TypeAlias = Incomplete  # tablib.Dataset
 logger: Logger
 
 @overload

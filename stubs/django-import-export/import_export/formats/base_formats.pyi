@@ -1,8 +1,8 @@
-from _typeshed import ReadableBuffer
+from _typeshed import Incomplete, ReadableBuffer
 from typing import IO, Any, ClassVar
-from typing_extensions import Self
+from typing_extensions import Self, TypeAlias
 
-from tablib import Dataset  # type: ignore[import-untyped]
+Dataset: TypeAlias = Incomplete  # tablib.Dataset
 
 class Format:
     def get_title(self) -> type[Self]: ...

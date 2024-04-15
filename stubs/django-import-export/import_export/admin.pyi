@@ -1,7 +1,8 @@
+from _typeshed import Incomplete
 from collections.abc import Callable
 from logging import Logger
 from typing import Any, TypeVar
-from typing_extensions import deprecated
+from typing_extensions import TypeAlias, deprecated
 
 from django.contrib import admin
 from django.contrib.admin.helpers import ActionForm
@@ -12,13 +13,13 @@ from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.template.response import TemplateResponse
 from django.urls import URLPattern
-from tablib import Dataset  # type: ignore[import-untyped]
 
 from .formats.base_formats import Format
 from .mixins import BaseExportMixin, BaseImportMixin
 from .results import Result
 from .tmp_storages import BaseStorage
 
+Dataset: TypeAlias = Incomplete  # tablib.Dataset
 logger: Logger
 
 _ModelT = TypeVar("_ModelT", bound=Model)
