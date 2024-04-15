@@ -8,7 +8,7 @@ from .resources import Resource
 
 class ImportExportFormBase(forms.Form):
     resource: forms.ChoiceField
-    def __init__(self, *args: Any, resources: list[type[Resource]] | None = None, **kwargs: Any) -> None: ...
+    def __init__(self, *args: Any, resources: list[type[Resource[Any]]] | None = None, **kwargs: Any) -> None: ...
 
 class ImportForm(ImportExportFormBase):
     import_file: forms.FileField
