@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from enum import Enum
 from typing_extensions import Self
 
@@ -24,7 +23,7 @@ class Fingerprint:
         version: Integer | None = None,
     ) -> None: ...
     @classmethod
-    def from_proto(cls, proto: Incomplete) -> Self: ...
+    def from_proto(cls, proto) -> Self: ...
     def singleprint(self) -> str: ...
 
 class TrackableResource(CapturableResource):

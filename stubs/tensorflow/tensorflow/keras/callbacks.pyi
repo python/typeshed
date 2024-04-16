@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any, Literal
 from typing_extensions import TypeAlias
@@ -148,7 +147,7 @@ class ReduceLROnPlateau(Callback):
         min_delta: float = 1e-4,
         cooldown: int = 0,
         min_lr: float = 0,
-        **kwargs: Incomplete,
+        **kwargs,
     ) -> None: ...
     def in_cooldown(self) -> bool: ...
 

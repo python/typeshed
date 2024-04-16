@@ -14,8 +14,6 @@ per-file-ignores =
   # Y026: Have implicit type aliases
   # Y053: have literals >50 characters long
   stubs/*_pb2.pyi: Y021, Y023, Y026, Y053
-  # TODO: Remove bare "Incomplete"s from stubs (Y065)
-  stubs/*.pyi: Y065
 
 exclude = .venv*,.git
 noqa_require_code = true

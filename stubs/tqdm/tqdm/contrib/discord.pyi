@@ -84,7 +84,7 @@ class tqdm_discord(tqdm_auto[_T]):
         msg: str | None = ...,
         pos: int | None = ...,
         close: bool = ...,
-        bar_style: Incomplete = ...,
+        bar_style=...,
         check_delay: bool = ...,
     ) -> None: ...
     def clear(self, *args, **kwargs) -> None: ...
