@@ -14,8 +14,8 @@ class LazyDict(DictMixin[str, _VT]):
 
 class LazyList(list[_T]):
     # does not return `Self` type:
-    def __new__(cls, fill_iter: Incomplete | None = None) -> LazyList[_T]: ...  # noqa: Y034
+    def __new__(cls, fill_iter: Incomplete | None = None) -> LazyList[_T]: ...
 
 class LazySet(set[_T]):
     # does not return `Self` type:
-    def __new__(cls, fill_iter: Incomplete | None = None) -> LazySet[_T]: ...  # noqa: Y034
+    def __new__(cls, fill_iter: Incomplete | None = None) -> LazySet[_T]: ...
