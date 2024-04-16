@@ -73,9 +73,6 @@ protoc_install/bin/protoc \
   --mypy_out="relax_strict_optional_primitives:$REPO_ROOT/stubs/protobuf" \
   $PROTO_FILES
 
-# Cleanup after ourselves, this is a temp dir, but it can still grow fast if run multiple times
-rm -rf "$TMP_DIR"
-
 PYTHON_PROTOBUF_VERSION=$(jq -r '.[] | .languages.python' "$PYTHON_PROTOBUF_DIR/version.json")
 
 # Cleanup after ourselves, this is a temp dir, but it can still grow fast if run multiple times
