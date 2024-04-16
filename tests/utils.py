@@ -56,6 +56,14 @@ def print_success_msg() -> None:
     print(colored("success", "green"))
 
 
+def print_divider() -> None:
+    """Print a row of * symbols across the screen.
+
+    This can be useful to divide terminal output into separate sections.
+    """
+    print("*" * 70)
+
+
 # ====================================================================
 # Dynamic venv creation
 # ====================================================================
