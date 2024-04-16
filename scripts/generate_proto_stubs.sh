@@ -16,10 +16,11 @@ PROTOBUF_VERSION=25.3
 MYPY_PROTOBUF_VERSION=3.6.0
 
 if uname -a | grep Darwin; then
-    # brew install coreutils wget
-    PLAT=osx
+  # brew install coreutils wget
+  PLAT=osx
 else
-    PLAT=linux
+  # sudo apt install -y unzip
+  PLAT=linux
 fi
 REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/..)"
 TMP_DIR="$(mktemp -d)"

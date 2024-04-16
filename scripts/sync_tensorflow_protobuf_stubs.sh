@@ -13,16 +13,17 @@ TENSORFLOW_VERSION=2.12.1
 MYPY_PROTOBUF_VERSION=3.6.0
 
 if uname -a | grep Darwin; then
-    # brew install coreutils wget
-    PLAT=osx
+  # brew install coreutils wget
+  PLAT=osx
 else
-    PLAT=linux
+  # sudo apt install -y unzip
+  PLAT=linux
 fi
 REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/..)"
 TMP_DIR="$(mktemp -d)"
-TENSORFLOW_FILENAME="v$TENSORFLOW_VERSION.zip"
 PROTOC_FILENAME="protoc-$PROTOBUF_VERSION-$PLAT-x86_64.zip"
 PROTOC_URL="https://github.com/protocolbuffers/protobuf/releases/download/v$PROTOBUF_VERSION/$PROTOC_FILENAME"
+TENSORFLOW_FILENAME="v$TENSORFLOW_VERSION.zip"
 TENSORFLOW_URL="https://github.com/tensorflow/tensorflow/archive/refs/tags/$TENSORFLOW_FILENAME"
 
 cd "$TMP_DIR"
@@ -89,8 +90,8 @@ rm \
   stubs/tensorflow/tensorflow/core/util/example_proto_fast_parsing_test_pb2.pyi \
 
 sed --in-place="" \
-    "s/extra_description = .*$/extra_description = \"Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on tensorflow==$TENSORFLOW_VERSION\"/" \
-    stubs/tensorflow/METADATA.toml
+  "s/extra_description = .*$/extra_description = \"Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on tensorflow==$TENSORFLOW_VERSION\"/" \
+  stubs/tensorflow/METADATA.toml
 
 # use `|| true` so the script still continues even if a pre-commit hook
 # applies autofixes (which will result in a nonzero exit code)
