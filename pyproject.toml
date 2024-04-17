@@ -91,8 +91,6 @@ ignore = [
     "E501", # Line too long
     "E741", # ambiguous variable name
     "F403", # `from . import *` used; unable to detect undefined names
-    # False positives in stubs
-    "F821", # Undefined name: https://github.com/astral-sh/ruff/issues/3011
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.
     "F405", # may be undefined, or defined from star imports
