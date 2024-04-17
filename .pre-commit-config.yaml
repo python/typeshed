@@ -3,7 +3,11 @@ repos:
     rev: v4.5.0 # must match requirements-tests.txt
     hooks:
       - id: trailing-whitespace
+        # speedup hook by leaving python files to Black & Ruff
+        exclude: .*\.pyi?$
       - id: end-of-file-fixer
+        # speedup hook by leaving python files to Black & Ruff
+        exclude: .*\.pyi?$
       - id: check-yaml
       - id: check-toml
       - id: check-merge-conflict
