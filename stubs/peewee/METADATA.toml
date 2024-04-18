@@ -4,3 +4,4 @@ partial_stub = true
 
 [tool.stubtest]
 stubtest_requirements = ["Flask>=2.0.0"]
+ignore_missing_stub = true
