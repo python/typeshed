@@ -58,6 +58,10 @@ select = [
     "PYI055", # multiple `type[T]` usages in a union
     "PYI058", # use `Iterator` as the return type for `__iter__` methods
 ]
+extend-safe-fixes = [
+    "UP036", # Remove unnecessary `sys.version_info` blocks
+    "W291", # Remove trailing whitespace (unsafe fix in string literals)
+]
 ignore = [
     ###
     # Rules that can conflict with the formatter (Black)

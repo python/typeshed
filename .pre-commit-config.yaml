@@ -18,13 +18,6 @@ repos:
     rev: v0.3.7 # must match requirements-tests.txt
     hooks:
       - id: ruff
-        # Run this separately because we don't really want
-        # to use --unsafe-fixes for all rules
-        # Should be run first as it can leave unused imports behind
-        # W291 is an unsafe fix in string literals
-        name: Remove unnecessary `sys.version_info` blocks and trailing spaces
-        args: ["--exit-non-zero-on-fix", "--select=UP036,W291", "--unsafe-fixes"]
-      - id: ruff
         name: Run ruff on stubs, tests and scripts
         args: ["--exit-non-zero-on-fix"]
       - id: ruff
