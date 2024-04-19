@@ -10,12 +10,8 @@ set -euxo pipefail
 TENSORFLOW_VERSION=2.12.1
 MYPY_PROTOBUF_VERSION=3.6.0
 
-if uname -a | grep Darwin; then
-    # brew install coreutils wget
-    PLAT=osx
-else
-    PLAT=linux
-fi
+# brew install coreutils wget
+# sudo apt install -y unzip
 REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/..)"
 TMP_DIR="$(mktemp -d)"
 TENSORFLOW_FILENAME="v$TENSORFLOW_VERSION.zip"

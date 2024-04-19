@@ -238,6 +238,8 @@ class CodeGeneratorResponse(google.protobuf.message.Message):
 
     ERROR_FIELD_NUMBER: builtins.int
     SUPPORTED_FEATURES_FIELD_NUMBER: builtins.int
+    MINIMUM_EDITION_FIELD_NUMBER: builtins.int
+    MAXIMUM_EDITION_FIELD_NUMBER: builtins.int
     FILE_FIELD_NUMBER: builtins.int
     error: builtins.str
     """Error message.  If non-empty, code generation failed.  The plugin process
@@ -253,6 +255,18 @@ class CodeGeneratorResponse(google.protobuf.message.Message):
     """A bitmask of supported features that the code generator supports.
     This is a bitwise "or" of values from the Feature enum.
     """
+    minimum_edition: builtins.int
+    """The minimum edition this plugin supports.  This will be treated as an
+    Edition enum, but we want to allow unknown values.  It should be specified
+    according the edition enum value, *not* the edition number.  Only takes
+    effect for plugins that have FEATURE_SUPPORTS_EDITIONS set.
+    """
+    maximum_edition: builtins.int
+    """The maximum edition this plugin supports.  This will be treated as an
+    Edition enum, but we want to allow unknown values.  It should be specified
+    according the edition enum value, *not* the edition number.  Only takes
+    effect for plugins that have FEATURE_SUPPORTS_EDITIONS set.
+    """
     @property
     def file(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CodeGeneratorResponse.File]: ...
     def __init__(
@@ -260,9 +274,11 @@ class CodeGeneratorResponse(google.protobuf.message.Message):
         *,
         error: builtins.str | None = ...,
         supported_features: builtins.int | None = ...,
+        minimum_edition: builtins.int | None = ...,
+        maximum_edition: builtins.int | None = ...,
         file: collections.abc.Iterable[global___CodeGeneratorResponse.File] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["error", b"error", "supported_features", b"supported_features"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["error", b"error", "file", b"file", "supported_features", b"supported_features"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["error", b"error", "maximum_edition", b"maximum_edition", "minimum_edition", b"minimum_edition", "supported_features", b"supported_features"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["error", b"error", "file", b"file", "maximum_edition", b"maximum_edition", "minimum_edition", b"minimum_edition", "supported_features", b"supported_features"]) -> None: ...
 
 global___CodeGeneratorResponse = CodeGeneratorResponse
