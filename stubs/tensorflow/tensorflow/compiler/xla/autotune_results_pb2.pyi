@@ -16,23 +16,19 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================
 """
+
 import builtins
 import collections.abc
-import sys
+import typing
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
 import google.protobuf.message
 import tensorflow.tsl.protobuf.autotuning_pb2
 
-if sys.version_info >= (3, 8):
-    import typing as typing_extensions
-else:
-    import typing_extensions
-
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class AutotuneResults(google.protobuf.message.Message):
     """A collection of algorithms for particular dot/convs.  Usually this is "the
     best" algorithm for the particular dot/conv, although that's not strictly
@@ -48,7 +44,7 @@ class AutotuneResults(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class Entry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -65,6 +61,7 @@ class AutotuneResults(google.protobuf.message.Message):
             algorithms returned by cublasLt.  Different version of cublasLt ->
             different list of algos -> different interpretation of results!
             """
+
         def __init__(
             self,
             *,
@@ -72,8 +69,8 @@ class AutotuneResults(google.protobuf.message.Message):
             hlo: builtins.str | None = ...,
             result: tensorflow.tsl.protobuf.autotuning_pb2.AutotuneResult | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["result", b"result"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["device", b"device", "hlo", b"hlo", "result", b"result"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["result", b"result"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["device", b"device", "hlo", b"hlo", "result", b"result"]) -> None: ...
 
     VERSION_FIELD_NUMBER: builtins.int
     DOTS_FIELD_NUMBER: builtins.int
@@ -90,6 +87,6 @@ class AutotuneResults(google.protobuf.message.Message):
         dots: collections.abc.Iterable[global___AutotuneResults.Entry] | None = ...,
         convs: collections.abc.Iterable[global___AutotuneResults.Entry] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["convs", b"convs", "dots", b"dots", "version", b"version"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["convs", b"convs", "dots", b"dots", "version", b"version"]) -> None: ...
 
 global___AutotuneResults = AutotuneResults

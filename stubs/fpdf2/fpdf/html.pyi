@@ -2,8 +2,7 @@ from _typeshed import Incomplete, SupportsKeysAndGetItem, Unused
 from collections.abc import Callable, Iterable
 from html.parser import HTMLParser
 from logging import Logger
-from typing import ClassVar
-from typing_extensions import Final
+from typing import ClassVar, Final
 
 from fpdf import FPDF
 
@@ -85,4 +84,4 @@ class HTML2FPDF(HTMLParser):
     def error(self, message: str) -> None: ...
 
 class HTMLMixin:
-    def __init__(self, *args: Incomplete, **kwargs: Incomplete) -> None: ...
+    def __init__(self, *args, **kwargs) -> None: ...

@@ -2,4 +2,6 @@ seaborn._core.scales.(Pipeline|TransFuncs)  # aliases defined in `if TYPE_CHECKI
 seaborn.external.docscrape.ClassDoc.__init__  # stubtest doesn't like ABC class as default value
 seaborn.external.docscrape.NumpyDocString.__str__  # weird signature
 
-seaborn(\.regression)?\.lmplot  # the `data` argument is required but it defaults to `None` at runtime
+seaborn.axisgrid.Grid.tight_layout  # the method doesn't really take pos args but runtime has *args
+
+seaborn.external.appdirs.unicode

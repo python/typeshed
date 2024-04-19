@@ -44,6 +44,10 @@ openpyxl\.descriptors\.(base\.)?Typed\.allow_none
 # Inconsistent methods because
 # - using the default value results in an error because of the runtime type-guards
 # - or, keyword arguments are explicitly specified
+openpyxl.cell.Cell.__init__
+openpyxl.cell.cell.Cell.__init__
+openpyxl.cell.cell.WriteOnlyCell
+openpyxl.cell.WriteOnlyCell
 openpyxl.cell.text.PhoneticProperties.__init__
 openpyxl.cell.text.PhoneticText.__init__
 openpyxl.chart.axis._BaseAxis.__init__
@@ -111,6 +115,7 @@ openpyxl.drawing.text.PresetTextShape.__init__
 openpyxl.drawing.text.TextField.__init__
 openpyxl.drawing.text.TextNormalAutofit.__init__
 openpyxl.formatting.rule.DataBar.__init__
+openpyxl.packaging.core.QualifiedDateTime.to_tree
 openpyxl.packaging.relationship.get_rel
 openpyxl.packaging.relationship.Relationship.__init__
 openpyxl.packaging.workbook.ChildSheet.__init__
@@ -193,3 +198,7 @@ openpyxl.worksheet.smart_tag.CellSmartTagPr.__init__
 openpyxl.worksheet.smart_tag.CellSmartTags.__init__
 openpyxl.worksheet.table.TableColumn.__init__
 openpyxl.worksheet.table.XMLColumnProps.__init__
+
+# Inherited from the stdlib, where we lie about the presence
+# of this method in order to mark it as deprecated.
+openpyxl.xml.functions.Element.__bool__

@@ -7,7 +7,7 @@ tests the stubs with [mypy](https://github.com/python/mypy/)
 [pyright](https://github.com/microsoft/pyright).
 - `tests/regr_test.py` runs mypy against the test cases for typeshed's
 stubs, guarding against accidental regressions.
-- `tests/check_consistent.py` checks that typeshed's directory
+- `tests/check_typeshed_structure.py` checks that typeshed's directory
 structure and metadata files are correct.
 - `tests/check_new_syntax.py` contains linter-like checks to ensure
 that certain code conventions are followed.
@@ -109,11 +109,13 @@ for more information about what
 these test cases are for and how they work. Run `python tests/regr_test.py --help`
 for information on the various configuration options.
 
-## check\_consistent.py
+## check\_typeshed\_structure.py
+
+This checks that typeshed's directory structure and metadata files are correct.
 
 Run using:
 ```bash
-$ python3 tests/check_consistent.py
+$ python3 tests/check_typeshed_structure.py
 ```
 
 ## stubtest\_stdlib.py
@@ -132,6 +134,12 @@ in CI do not account for. If you run into this issue, consider opening a draft P
 test it automatically (or
 [running the test via Github Actions](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow#running-a-workflow)
 on your typeshed fork).
+
+As a convenience, stubtest\_stdlib.py will look for local-only allowlist files
+and use those if they are present. Only version-specific local allowlists are supported.
+An example local allowlist file is
+`tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
+the CI run of stubtest remains canonical.
 
 If you need a specific version of Python to repro a CI failure,
 [pyenv](https://github.com/pyenv/pyenv) can also help.
@@ -180,7 +188,7 @@ but missing from the stub. However, this behaviour can be disabled using the
 
 If a distribution has `ignore_missing_stub = true` in the `[tool.stubtest]` section of its
 `tests/METADATA.toml` file, `stubtest_third_party.py` will test that distribution with the
-`--ignore-missing-stub option`. This indicates that the stubs for this distribution are
+`--ignore-missing-stub` option. This indicates that the stubs for this distribution are
 considered "incomplete".
 
 You can help make typeshed's stubs more complete by removing

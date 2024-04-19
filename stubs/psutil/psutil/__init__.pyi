@@ -2,8 +2,8 @@ import sys
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator
 from contextlib import AbstractContextManager
-from typing import Any, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing import Any, Literal, overload
+from typing_extensions import Self, TypeAlias
 
 from psutil._common import (
     AIX as AIX,
@@ -169,6 +169,8 @@ class Process:
     def __hash__(self) -> int: ...
     @property
     def pid(self) -> int: ...
+    # Only present if attrs argument is passed to process_iter
+    info: dict[str, Any]
     def oneshot(self) -> AbstractContextManager[None]: ...
     def as_dict(
         self, attrs: list[str] | tuple[str, ...] | set[str] | frozenset[str] | None = None, ad_value: Incomplete | None = None

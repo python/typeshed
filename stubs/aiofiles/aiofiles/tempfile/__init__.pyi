@@ -10,8 +10,7 @@ from _typeshed import (
     StrPath,
 )
 from asyncio import AbstractEventLoop
-from typing import AnyStr, TypeVar, overload
-from typing_extensions import Literal
+from typing import AnyStr, Literal, TypeVar, overload
 
 from ..base import AiofilesContextManager
 from ..threadpool.binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
@@ -257,4 +256,4 @@ def TemporaryDirectory(
 ) -> AiofilesContextManagerTempDir[None, None, AsyncTemporaryDirectory]: ...
 
 class AiofilesContextManagerTempDir(AiofilesContextManager[_T_co, _T_contra, _V_co]):
-    async def __aenter__(self) -> Incomplete: ...
+    async def __aenter__(self) -> str: ...  # type: ignore[override]

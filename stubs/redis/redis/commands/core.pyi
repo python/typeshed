@@ -1,9 +1,8 @@
 import builtins
-from _typeshed import Incomplete
+from _typeshed import Incomplete, SupportsItems
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Literal
+from typing import Any, Generic, Literal, TypeVar, overload
 
 from ..asyncio.client import Redis as AsyncRedis
 from ..client import _CommandOptions, _Key, _Value
@@ -863,7 +862,8 @@ class StreamCommands:
     def xadd(
         self,
         name: KeyT,
-        fields: Mapping[bytes | memoryview | str | float, bytes | memoryview | str | float],
+        # Only accepts dict objects, but for variance reasons we use a looser annotation
+        fields: SupportsItems[bytes | memoryview | str | float, Any],
         id: str | int | bytes | memoryview = "*",
         maxlen=None,
         approximate: bool = True,
@@ -929,7 +929,8 @@ class AsyncStreamCommands:
     async def xadd(
         self,
         name: KeyT,
-        fields: Mapping[bytes | memoryview | str | float, bytes | memoryview | str | float],
+        # Only accepts dict objects, but for variance reasons we use a looser annotation
+        fields: SupportsItems[bytes | memoryview | str | float, Any],
         id: str | int | bytes | memoryview = "*",
         maxlen=None,
         approximate: bool = True,

@@ -2,18 +2,24 @@ import dataclasses
 from _typeshed import Incomplete
 from collections.abc import Generator
 from dataclasses import dataclass
+from typing import overload
+from typing_extensions import Self
 
 from .drawing import DeviceGray, DeviceRGB, Number
 from .enums import TextEmphasis
 from .syntax import PDFObject
+
+# Only defined if harfbuzz is installed.
+class HarfBuzzFont(Incomplete):  # derives from uharfbuzz.Font
+    def __deepcopy__(self, _memo: object) -> Self: ...
 
 @dataclass
 class FontFace:
     family: str | None
     emphasis: TextEmphasis | None
     size_pt: int | None
-    color: int | tuple[Number, Number, Number] | DeviceGray | DeviceRGB | None
-    fill_color: int | tuple[Number, Number, Number] | DeviceGray | DeviceRGB | None
+    color: DeviceGray | DeviceRGB | None
+    fill_color: DeviceGray | DeviceRGB | None
 
     def __init__(
         self,
@@ -25,6 +31,13 @@ class FontFace:
     ) -> None: ...
 
     replace = dataclasses.replace
+
+    @overload
+    @staticmethod
+    def combine(default_style: None, override_style: None) -> None: ...  # type: ignore[misc]
+    @overload
+    @staticmethod
+    def combine(default_style: FontFace | None, override_style: FontFace | None) -> FontFace: ...
 
 class _FontMixin:
     i: int
@@ -50,7 +63,7 @@ class TTFFont(_FontMixin):
     glyph_ids: Incomplete
     missing_glyphs: Incomplete
     subset: Incomplete
-    hbfont: Incomplete
+    hbfont: HarfBuzzFont | None  # Not always defined.
     def __init__(self, fpdf, font_file_path, fontkey: str, style: int) -> None: ...
     def close(self) -> None: ...
     def get_text_width(self, text: str, font_size_pt: int, text_shaping_parms): ...
