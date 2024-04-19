@@ -23,6 +23,8 @@ peewee.TimestampField.year
 peewee.Window.as_groups
 peewee.Window.as_range
 peewee.Window.as_rows
+
+# Ignore missing playhouse modules and names we don't currently provide
 playhouse\.\w+?
 playhouse.flask_utils.PaginatedQuery
 playhouse.flask_utils.get_\w+
