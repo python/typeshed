@@ -12,13 +12,14 @@ set -ex -o pipefail
 #
 # Whenever you update PROTOBUF_VERSION here, version should be updated
 # in stubs/protobuf/METADATA.toml and vice-versa.
-PROTOBUF_VERSION=25.3
+PROTOBUF_VERSION=26.1
 MYPY_PROTOBUF_VERSION=3.6.0
 
 if uname -a | grep Darwin; then
   # brew install coreutils wget
   PLAT=osx
 else
+  # sudo apt install -y unzip
   PLAT=linux
 fi
 REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/..)"
@@ -51,19 +52,13 @@ python3 -m pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 find "$REPO_ROOT/stubs/protobuf/" -name '*_pb2.pyi' -delete
 
 # Roughly reproduce the subset of .proto files on the public interface as described
-# by find_package_modules in the protobuf setup.py.
-# The logic (as of 3.20.1) can roughly be described as a allowlist of .proto files
-# further limited to exclude *test* and internal/
-# https://github.com/protocolbuffers/protobuf/blob/master/python/setup.py
-PROTO_FILES=$(grep "GenProto.*google" $PYTHON_PROTOBUF_DIR/python/setup.py | \
-  cut -d\' -f2 | \
-  grep -v "test" | \
-  grep -v google/protobuf/internal/ | \
-  grep -v google/protobuf/pyext/python.proto | \
-  grep -v src/google/protobuf/util/json_format.proto | \
-  grep -v src/google/protobuf/util/json_format_proto3.proto | \
-  sed "s:^:$PYTHON_PROTOBUF_DIR/python/:" | \
-  xargs -L1 realpath --relative-to=. \
+# in py_proto_library calls in
+# https://github.com/protocolbuffers/protobuf/blob/main/python/dist/BUILD.bazel
+PROTO_FILES=$(grep '"//:.*_proto"' $PYTHON_PROTOBUF_DIR/python/dist/BUILD.bazel | \
+    cut -d\" -f2 | \
+    sed "s://\::$PYTHON_PROTOBUF_DIR/src/google/protobuf/:" | \
+    sed "s:_proto:.proto:" | \
+    sed "s:compiler_:compiler/:" \
 )
 
 # And regenerate!
