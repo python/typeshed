@@ -6,6 +6,5 @@ partial_stub = true
 
 [tool.stubtest]
 stubtest_requirements = ["Flask>=2.0.0"]
-# NOT using the following setting because it won't reveal missing new names
-# added in updates
-# ignore_missing_stub = true
+# Using stubtest_allowlist to ignore playhouse modules we don't provide.
+ignore_missing_stub = false
