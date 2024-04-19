@@ -13,6 +13,8 @@ _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
 _csv.Dialect.__init__  # C __init__ signature is inaccurate
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
+_ctypes._SimpleCData.__get__ # Does not exist on runtime object
+_ctypes._SimpleCData.__set__ # Does not exist on runtime object
 _threading_local.local.__new__
 ast.Bytes.__new__
 ast.Ellipsis.__new__
@@ -37,6 +39,8 @@ ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
 ctypes.string_at  # docstring argument name is wrong
 ctypes.wstring_at  # docstring argument name is wrong
+ctypes._SimpleCData.__get__ # Does not exist on runtime object
+ctypes._SimpleCData.__set__ # Does not exist on runtime object
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
