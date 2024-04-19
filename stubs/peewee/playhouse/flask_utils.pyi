@@ -1,3 +1,4 @@
+from _typeshed import Unused
 from collections.abc import Container
 
 from flask import Flask
