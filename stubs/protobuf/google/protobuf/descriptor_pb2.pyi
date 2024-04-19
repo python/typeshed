@@ -47,6 +47,7 @@ class _EditionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTy
     should not be depended on, but they will always be time-ordered for easy
     comparison.
     """
+    EDITION_2024: _Edition.ValueType  # 1001
     EDITION_1_TEST_ONLY: _Edition.ValueType  # 1
     """Placeholder editions for testing feature resolution.  These should not be
     used or relyed on outside of tests.
@@ -55,6 +56,11 @@ class _EditionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTy
     EDITION_99997_TEST_ONLY: _Edition.ValueType  # 99997
     EDITION_99998_TEST_ONLY: _Edition.ValueType  # 99998
     EDITION_99999_TEST_ONLY: _Edition.ValueType  # 99999
+    EDITION_MAX: _Edition.ValueType  # 2147483647
+    """Placeholder for specifying unbounded edition support.  This should only
+    ever be used by plugins that can expect to never require any changes to
+    support a new edition.
+    """
 
 class Edition(_Edition, metaclass=_EditionEnumTypeWrapper):
     """The full set of known editions."""
@@ -73,6 +79,7 @@ EDITION_2023: Edition.ValueType  # 1000
 should not be depended on, but they will always be time-ordered for easy
 comparison.
 """
+EDITION_2024: Edition.ValueType  # 1001
 EDITION_1_TEST_ONLY: Edition.ValueType  # 1
 """Placeholder editions for testing feature resolution.  These should not be
 used or relyed on outside of tests.
@@ -81,6 +88,11 @@ EDITION_2_TEST_ONLY: Edition.ValueType  # 2
 EDITION_99997_TEST_ONLY: Edition.ValueType  # 99997
 EDITION_99998_TEST_ONLY: Edition.ValueType  # 99998
 EDITION_99999_TEST_ONLY: Edition.ValueType  # 99999
+EDITION_MAX: Edition.ValueType  # 2147483647
+"""Placeholder for specifying unbounded edition support.  This should only
+ever be used by plugins that can expect to never require any changes to
+support a new edition.
+"""
 global___Edition = Edition
 
 @typing.final
@@ -557,12 +569,12 @@ class FieldDescriptorProto(google.protobuf.message.Message):
     """If true, this is a proto3 "optional". When a proto3 field is optional, it
     tracks presence regardless of field type.
 
-    When proto3_optional is true, this field must be belong to a oneof to
-    signal to old proto3 clients that presence is tracked for this field. This
-    oneof is known as a "synthetic" oneof, and this field must be its sole
-    member (each proto3 optional field gets its own synthetic oneof). Synthetic
-    oneofs exist in the descriptor only, and do not generate any API. Synthetic
-    oneofs must be ordered after all "real" oneofs.
+    When proto3_optional is true, this field must belong to a oneof to signal
+    to old proto3 clients that presence is tracked for this field. This oneof
+    is known as a "synthetic" oneof, and this field must be its sole member
+    (each proto3 optional field gets its own synthetic oneof). Synthetic oneofs
+    exist in the descriptor only, and do not generate any API. Synthetic oneofs
+    must be ordered after all "real" oneofs.
 
     For message fields, proto3_optional doesn't create any semantic change,
     since non-repeated message fields always track presence. However it still
@@ -851,7 +863,6 @@ class FileOptions(google.protobuf.message.Message):
     CC_GENERIC_SERVICES_FIELD_NUMBER: builtins.int
     JAVA_GENERIC_SERVICES_FIELD_NUMBER: builtins.int
     PY_GENERIC_SERVICES_FIELD_NUMBER: builtins.int
-    PHP_GENERIC_SERVICES_FIELD_NUMBER: builtins.int
     DEPRECATED_FIELD_NUMBER: builtins.int
     CC_ENABLE_ARENAS_FIELD_NUMBER: builtins.int
     OBJC_CLASS_PREFIX_FIELD_NUMBER: builtins.int
@@ -916,7 +927,6 @@ class FileOptions(google.protobuf.message.Message):
     """
     java_generic_services: builtins.bool
     py_generic_services: builtins.bool
-    php_generic_services: builtins.bool
     deprecated: builtins.bool
     """Is this file deprecated?
     Depending on the target platform, this can emit Deprecated annotations
@@ -981,7 +991,6 @@ class FileOptions(google.protobuf.message.Message):
         cc_generic_services: builtins.bool | None = ...,
         java_generic_services: builtins.bool | None = ...,
         py_generic_services: builtins.bool | None = ...,
-        php_generic_services: builtins.bool | None = ...,
         deprecated: builtins.bool | None = ...,
         cc_enable_arenas: builtins.bool | None = ...,
         objc_class_prefix: builtins.str | None = ...,
@@ -994,8 +1003,8 @@ class FileOptions(google.protobuf.message.Message):
         features: global___FeatureSet | None = ...,
         uninterpreted_option: collections.abc.Iterable[global___UninterpretedOption] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["cc_enable_arenas", b"cc_enable_arenas", "cc_generic_services", b"cc_generic_services", "csharp_namespace", b"csharp_namespace", "deprecated", b"deprecated", "features", b"features", "go_package", b"go_package", "java_generate_equals_and_hash", b"java_generate_equals_and_hash", "java_generic_services", b"java_generic_services", "java_multiple_files", b"java_multiple_files", "java_outer_classname", b"java_outer_classname", "java_package", b"java_package", "java_string_check_utf8", b"java_string_check_utf8", "objc_class_prefix", b"objc_class_prefix", "optimize_for", b"optimize_for", "php_class_prefix", b"php_class_prefix", "php_generic_services", b"php_generic_services", "php_metadata_namespace", b"php_metadata_namespace", "php_namespace", b"php_namespace", "py_generic_services", b"py_generic_services", "ruby_package", b"ruby_package", "swift_prefix", b"swift_prefix"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["cc_enable_arenas", b"cc_enable_arenas", "cc_generic_services", b"cc_generic_services", "csharp_namespace", b"csharp_namespace", "deprecated", b"deprecated", "features", b"features", "go_package", b"go_package", "java_generate_equals_and_hash", b"java_generate_equals_and_hash", "java_generic_services", b"java_generic_services", "java_multiple_files", b"java_multiple_files", "java_outer_classname", b"java_outer_classname", "java_package", b"java_package", "java_string_check_utf8", b"java_string_check_utf8", "objc_class_prefix", b"objc_class_prefix", "optimize_for", b"optimize_for", "php_class_prefix", b"php_class_prefix", "php_generic_services", b"php_generic_services", "php_metadata_namespace", b"php_metadata_namespace", "php_namespace", b"php_namespace", "py_generic_services", b"py_generic_services", "ruby_package", b"ruby_package", "swift_prefix", b"swift_prefix", "uninterpreted_option", b"uninterpreted_option"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["cc_enable_arenas", b"cc_enable_arenas", "cc_generic_services", b"cc_generic_services", "csharp_namespace", b"csharp_namespace", "deprecated", b"deprecated", "features", b"features", "go_package", b"go_package", "java_generate_equals_and_hash", b"java_generate_equals_and_hash", "java_generic_services", b"java_generic_services", "java_multiple_files", b"java_multiple_files", "java_outer_classname", b"java_outer_classname", "java_package", b"java_package", "java_string_check_utf8", b"java_string_check_utf8", "objc_class_prefix", b"objc_class_prefix", "optimize_for", b"optimize_for", "php_class_prefix", b"php_class_prefix", "php_metadata_namespace", b"php_metadata_namespace", "php_namespace", b"php_namespace", "py_generic_services", b"py_generic_services", "ruby_package", b"ruby_package", "swift_prefix", b"swift_prefix"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["cc_enable_arenas", b"cc_enable_arenas", "cc_generic_services", b"cc_generic_services", "csharp_namespace", b"csharp_namespace", "deprecated", b"deprecated", "features", b"features", "go_package", b"go_package", "java_generate_equals_and_hash", b"java_generate_equals_and_hash", "java_generic_services", b"java_generic_services", "java_multiple_files", b"java_multiple_files", "java_outer_classname", b"java_outer_classname", "java_package", b"java_package", "java_string_check_utf8", b"java_string_check_utf8", "objc_class_prefix", b"objc_class_prefix", "optimize_for", b"optimize_for", "php_class_prefix", b"php_class_prefix", "php_metadata_namespace", b"php_metadata_namespace", "php_namespace", b"php_namespace", "py_generic_services", b"py_generic_services", "ruby_package", b"ruby_package", "swift_prefix", b"swift_prefix", "uninterpreted_option", b"uninterpreted_option"]) -> None: ...
 
 global___FileOptions = FileOptions
 
@@ -1042,11 +1051,7 @@ class MessageOptions(google.protobuf.message.Message):
     this is a formalization for deprecating messages.
     """
     map_entry: builtins.bool
-    """NOTE: Do not set the option in .proto files. Always use the maps syntax
-    instead. The option should only be implicitly set by the proto compiler
-    parser.
-
-    Whether the message is an automatically generated map entry type for the
+    """Whether the message is an automatically generated map entry type for the
     maps field.
 
     For maps fields:
@@ -1063,6 +1068,10 @@ class MessageOptions(google.protobuf.message.Message):
     use a native map in the target language to hold the keys and values.
     The reflection APIs in such implementations still need to work as
     if the field is a repeated message field.
+
+    NOTE: Do not set the option in .proto files. Always use the maps syntax
+    instead. The option should only be implicitly set by the proto compiler
+    parser.
     """
     deprecated_legacy_json_field_conflicts: builtins.bool
     """Enable the legacy handling of JSON field name conflicts.  This lowercases
@@ -1290,19 +1299,11 @@ class FieldOptions(google.protobuf.message.Message):
     call from multiple threads concurrently, while non-const methods continue
     to require exclusive access.
 
-    Note that implementations may choose not to check required fields within
-    a lazy sub-message.  That is, calling IsInitialized() on the outer message
-    may return true even if the inner message has missing required fields.
-    This is necessary because otherwise the inner message would have to be
-    parsed in order to perform the check, defeating the purpose of lazy
-    parsing.  An implementation which chooses not to check required fields
-    must be consistent about it.  That is, for any particular sub-message, the
-    implementation must either *always* check its required fields, or *never*
-    check its required fields, regardless of whether or not the message has
-    been parsed.
-
-    As of May 2022, lazy verifies the contents of the byte stream during
-    parsing.  An invalid byte stream will cause the overall parsing to fail.
+    Note that lazy message fields are still eagerly verified to check
+    ill-formed wireformat or missing required fields. Calling IsInitialized()
+    on the outer message would fail if the inner message has missing required
+    fields. Failed verification would result in parsing failure (except when
+    uninitialized messages are acceptable).
     """
     unverified_lazy: builtins.bool
     """unverified_lazy does no correctness checks on the byte stream. This should
@@ -1712,13 +1713,13 @@ class FeatureSet(google.protobuf.message.Message):
     class _Utf8ValidationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FeatureSet._Utf8Validation.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UTF8_VALIDATION_UNKNOWN: FeatureSet._Utf8Validation.ValueType  # 0
-        NONE: FeatureSet._Utf8Validation.ValueType  # 1
         VERIFY: FeatureSet._Utf8Validation.ValueType  # 2
+        NONE: FeatureSet._Utf8Validation.ValueType  # 3
 
     class Utf8Validation(_Utf8Validation, metaclass=_Utf8ValidationEnumTypeWrapper): ...
     UTF8_VALIDATION_UNKNOWN: FeatureSet.Utf8Validation.ValueType  # 0
-    NONE: FeatureSet.Utf8Validation.ValueType  # 1
     VERIFY: FeatureSet.Utf8Validation.ValueType  # 2
+    NONE: FeatureSet.Utf8Validation.ValueType  # 3
 
     class _MessageEncoding:
         ValueType = typing.NewType("ValueType", builtins.int)
@@ -1912,7 +1913,7 @@ class SourceCodeInfo(google.protobuf.message.Message):
             location.
 
             Each element is a field number or an index.  They form a path from
-            the root FileDescriptorProto to the place where the definition occurs.
+            the root FileDescriptorProto to the place where the definition appears.
             For example, this path:
               [ 4, 3, 2, 7, 1 ]
             refers to:
