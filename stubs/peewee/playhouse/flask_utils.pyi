@@ -9,7 +9,7 @@ class FlaskDB:
     def __init__(
         self,
         app: Flask | None = None,
-        database: Database | Proxy = None,
+        database: Database | Proxy | None = None,
         model_class: type[Model] = ...,
         excluded_routes: Container[str] | None = None,
     ) -> None: ...
