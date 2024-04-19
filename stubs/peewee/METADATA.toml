@@ -1,7 +1,11 @@
 version = "3.17.0"
 upstream_repository = "https://github.com/coleifer/peewee"
+# We're not providing stubs for all playhouse modules right now
+# https://github.com/python/typeshed/pull/11731#issuecomment-2065729058
 partial_stub = true
 
 [tool.stubtest]
 stubtest_requirements = ["Flask>=2.0.0"]
-ignore_missing_stub = true
+# NOT using the following setting because it won't reveal missing new names
+# added in updates
+# ignore_missing_stub = true
