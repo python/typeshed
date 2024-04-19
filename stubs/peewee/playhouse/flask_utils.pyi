@@ -1,7 +1,7 @@
 from collections.abc import Container
 
 from flask import Flask
-from peewee import Model, Proxy
+from peewee import Database, Model, Proxy
 
 class FlaskDB:
     # Omitting undocumented base_model_class on purpose, use FlaskDB.Model instead
