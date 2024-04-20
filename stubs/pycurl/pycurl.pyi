@@ -30,7 +30,7 @@ class Curl:
     def errstr(self) -> str: ...
     def duphandle(self) -> Self: ...
     def errstr_raw(self) -> bytes: ...
-    if sys.platform != "win32":
+    if sys.platform == "linux":
         def set_ca_certs(self, value: bytes | str, /) -> None: ...
 
 @final
@@ -53,11 +53,6 @@ class CurlShare:
     def close(self) -> None: ...
     def setopt(self, option: int, value): ...
 
-if sys.platform == "win32":
-    MAXAGE_CONN: Final = 288
-    CURL_VERSION_HTTP3: Final = 33554432
-    M_MAX_CONCURRENT_STREAMS: Final = 16
-
 if sys.platform != "linux":
     AWS_SIGV4: Final = 10305
     CAINFO_BLOB: Final = 40309
@@ -65,12 +60,15 @@ if sys.platform != "linux":
     CURL_VERSION_ALTSVC: Final = 16777216
     CURL_VERSION_GSASL: Final = 536870912
     CURL_VERSION_HSTS: Final = 268435456
+    CURL_VERSION_HTTP3: Final = 33554432
     CURL_VERSION_UNICODE: Final = 134217728
     CURL_VERSION_ZSTD: Final = 67108864
     DOH_URL: Final = 10279
     HTTP09_ALLOWED: Final = 285
     ISSUERCERT_BLOB: Final = 40295
     MAXLIFETIME_CONN: Final = 314
+    MAXAGE_CONN: Final = 288
+    M_MAX_CONCURRENT_STREAMS: Final = 16
     PROXY_CAINFO_BLOB: Final = 40310
     PROXY_ISSUERCERT: Final = 10296
     PROXY_ISSUERCERT_BLOB: Final = 40297
@@ -521,7 +519,6 @@ PROXYUSERPWD: Final = 10006
 PROXY_CAINFO: Final = 10246
 PROXY_CAPATH: Final = 10247
 PROXY_CRLFILE: Final = 10260
-
 PROXY_KEYPASSWD: Final = 10258
 PROXY_PINNEDPUBLICKEY: Final = 10263
 PROXY_SERVICE_NAME: Final = 10235
