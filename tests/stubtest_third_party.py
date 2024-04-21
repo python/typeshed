@@ -134,11 +134,11 @@ def run_stubtest(
             print_error("fail\n")
 
             print_divider()
-            print("Commands run:")
+            print("Commands run:", file=sys.stderr)
             print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
 
             print_divider()
-            print("Command output:\n")
+            print("Command output:\n", file=sys.stderr)
             print_command_output(e)
 
             print_divider()

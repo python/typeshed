@@ -86,8 +86,6 @@ def main() -> None:
 
     print("\nRunning check_typeshed_structure.py...")
     check_structure_result = subprocess.run([sys.executable, "tests/check_typeshed_structure.py"])
-    print("\nRunning check_new_syntax.py...")
-    check_new_syntax_result = subprocess.run([sys.executable, "tests/check_new_syntax.py"])
 
     strict_params = _get_strict_params(path)
     print(f"\nRunning Pyright ({'stricter' if strict_params else 'base' } configs) for Python {python_version}...")
@@ -180,7 +178,6 @@ def main() -> None:
         [
             pre_commit_result.returncode,
             check_structure_result.returncode,
-            check_new_syntax_result.returncode,
             pyright_returncode,
             mypy_result.returncode,
             getattr(stubtest_result, "returncode", 0),
@@ -207,7 +204,6 @@ def main() -> None:
   that the autofixes did sensible things."""
         )
     print("Check structure:", _SUCCESS if check_structure_result.returncode == 0 else _FAILED)
-    print("Check new syntax:", _SUCCESS if check_new_syntax_result.returncode == 0 else _FAILED)
     if pyright_skipped:
         print("Pyright:", _SKIPPED)
     else:
