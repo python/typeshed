@@ -1,4 +1,4 @@
-version = "2.1.*"
+version = "3.0.*"
 upstream_repository = "https://github.com/Pylons/waitress"
 
 [tool.stubtest]
