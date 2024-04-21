@@ -41,19 +41,29 @@ def strip_comments(text: str) -> str:
 def print_command(cmd: str | Iterable[str]) -> None:
     if not isinstance(cmd, str):
         cmd = " ".join(cmd)
-    print(colored(f"Running: {cmd}", "blue"))
+    print(colored(f"Running: {cmd}", "blue"), file=sys.stderr)
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
     error_split = error.split("\n")
     old, new = fix_path
     for line in error_split[:-1]:
-        print(colored(line.replace(old, new), "red"))
-    print(colored(error_split[-1], "red"), end=end)
+        print(colored(line.replace(old, new), "red"), file=sys.stderr)
+    print(colored(error_split[-1], "red"), end=end, file=sys.stderr)
 
 
 def print_success_msg() -> None:
-    print(colored("success", "green"))
+    print(colored("success", "green"), file=sys.stderr)
+
+
+def print_divider() -> None:
+    """Print a row of * symbols across the screen.
+
+    This can be useful to divide terminal output into separate sections.
+    """
+    print(file=sys.stderr)
+    print("*" * 70, file=sys.stderr)
+    print(file=sys.stderr)
 
 
 # ====================================================================

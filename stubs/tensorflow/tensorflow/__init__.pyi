@@ -182,7 +182,7 @@ class RaggedTensor(metaclass=ABCMeta):
 class Operation:
     def __init__(
         self,
-        node_def: Incomplete,
+        node_def,
         g: Graph,
         # isinstance is used so can not be Sequence/Iterable.
         inputs: list[Tensor] | None = None,
@@ -190,7 +190,7 @@ class Operation:
         control_inputs: Iterable[Tensor | Operation] | None = None,
         input_types: Iterable[DType] | None = None,
         original_op: Operation | None = None,
-        op_def: Incomplete = None,
+        op_def: Incomplete | None = None,
     ) -> None: ...
     @property
     def inputs(self) -> list[Tensor]: ...
@@ -301,7 +301,7 @@ class TypeSpec(ABC, Generic[_SpecProto]):
     def experimental_type_proto(cls) -> type[_SpecProto]: ...
     def is_compatible_with(self, spec_or_value: Self | TensorCompatible | SparseTensor | RaggedTensor) -> _bool: ...
     # Incomplete as tf.types is not yet covered.
-    def is_subtype_of(self, other: Incomplete) -> _bool: ...
+    def is_subtype_of(self, other) -> _bool: ...
     def most_specific_common_supertype(self, others: Sequence[Incomplete]) -> Self | None: ...
     def most_specific_compatible_type(self, other: Self) -> Self: ...
 

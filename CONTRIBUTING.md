@@ -221,7 +221,7 @@ This has the following keys:
 distribution.
 
 The format of all `METADATA.toml` files can be checked by running
-`python3 ./tests/check_consistent.py`.
+`python3 ./tests/check_typeshed_structure.py`.
 
 
 ## Preparing Changes
