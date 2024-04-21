@@ -61,9 +61,9 @@ def print_divider() -> None:
 
     This can be useful to divide terminal output into separate sections.
     """
-    print(file=sys.stderr)
+    print(file=sys.stderr, flush=True)
     print("*" * 70, file=sys.stderr)
-    print(file=sys.stderr)
+    print(file=sys.stderr, flush=True)
 
 
 # ====================================================================

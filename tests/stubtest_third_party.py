@@ -24,21 +24,23 @@ def run_stubtest(
         metadata = read_metadata(dist_name)
     except NoSuchStubError as e:
         parser.error(str(e))
-    print(f"{dist_name}... ", end="", flush=True)
+    print(f"{dist_name}... ", end="", flush=True, file=sys.stderr)
 
     stubtest_settings = metadata.stubtest_settings
     if stubtest_settings.skipped:
-        print(colored("skipping", "yellow"))
+        print(colored("skipping", "yellow"), file=sys.stderr)
         return True
 
     if sys.platform not in stubtest_settings.platforms:
         if specified_platforms_only:
-            print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
+            print(colored("skipping (platform not specified in METADATA.toml)", "yellow"), file=sys.stderr)
             return True
-        print(colored(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
+        print(
+            colored(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"), file=sys.stderr
+        )
 
     if not metadata.requires_python.contains(PYTHON_VERSION):
-        print(colored(f"skipping (requires Python {metadata.requires_python})", "yellow"))
+        print(colored(f"skipping (requires Python {metadata.requires_python})", "yellow"), file=sys.stderr)
         return True
 
     with tempfile.TemporaryDirectory() as tmp:
@@ -131,7 +133,7 @@ def run_stubtest(
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
-            print_error("fail\n")
+            print_error("fail")
 
             print_divider()
             print("Commands run:", file=sys.stderr)
@@ -142,16 +144,14 @@ def run_stubtest(
             print_command_output(e)
 
             print_divider()
-            print(f"Upstream repository: {metadata.upstream_repository}")
-            print(f"Typeshed source code: https://github.com/python/typeshed/tree/main/stubs/{dist.name}")
-
             print("Python version: ", file=sys.stderr, end="", flush=True)
             ret = subprocess.run([sys.executable, "-VV"], capture_output=True)
             print_command_output(ret)
-            print("Ran with the following environment:", file=sys.stderr)
+            print("\nRan with the following environment:", file=sys.stderr)
             ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
             print_command_output(ret)
 
+            print_divider()
             allowlist_path_relative = allowlist_path.relative_to(Path.cwd())
             if allowlist_path.exists():
                 print(
@@ -166,6 +166,10 @@ def run_stubtest(
                 )
                 ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
                 print_command_output(ret)
+
+            print_divider()
+            print(f"Upstream repository: {metadata.upstream_repository}", file=sys.stderr)
+            print(f"Typeshed source code: https://github.com/python/typeshed/tree/main/stubs/{dist.name}", file=sys.stderr)
 
             print_divider()
 
@@ -341,7 +345,6 @@ def print_commands(dist: Path, pip_cmd: list[str], stubtest_cmd: list[str], mypy
     print(file=sys.stderr)
     print(" ".join(pip_cmd), file=sys.stderr)
     print(f"MYPYPATH={mypypath}", " ".join(stubtest_cmd), file=sys.stderr)
-    print(file=sys.stderr)
 
 
 def print_command_failure(message: str, e: subprocess.CalledProcessError) -> None:
@@ -354,7 +357,6 @@ def print_command_failure(message: str, e: subprocess.CalledProcessError) -> Non
 def print_command_output(e: subprocess.CalledProcessError | subprocess.CompletedProcess[bytes]) -> None:
     print(e.stdout.decode(), end="", file=sys.stderr)
     print(e.stderr.decode(), end="", file=sys.stderr)
-    print(file=sys.stderr)
 
 
 def main() -> NoReturn:
