@@ -10,28 +10,18 @@ set -euxo pipefail
 S2CLIENT_PROTO_VERSION=c04df4adbe274858a4eb8417175ee32ad02fd609
 MYPY_PROTOBUF_VERSION=3.6.0
 
-if uname -a | grep Darwin; then
-  # brew install coreutils wget
-  PLAT=osx
-else
-  # sudo apt install -y unzip
-  PLAT=linux
-fi
 REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/..)"
 TMP_DIR="$(mktemp -d)"
 S2CLIENT_PROTO_FILENAME="$S2CLIENT_PROTO_VERSION.zip"
 S2CLIENT_PROTO_URL="https://github.com/Blizzard/s2client-proto/archive/$S2CLIENT_PROTO_FILENAME"
+S2CLIENT_PROTO_DIR="s2client-proto-$S2CLIENT_PROTO_VERSION"
 
 cd "$TMP_DIR"
 echo "Working in $TMP_DIR"
 
-# s2client works on very old protoc versions, down to 2.6
-protoc --version
-
 # Fetch s2clientprotocol (which contains all the .proto files)
 wget "$S2CLIENT_PROTO_URL"
 unzip "$S2CLIENT_PROTO_FILENAME"
-S2CLIENT_PROTO_DIR="s2client-proto-$S2CLIENT_PROTO_VERSION"
 
 # Prepare virtualenv
 python3 -m venv .venv
@@ -41,6 +31,9 @@ python3 -m pip install pre-commit mypy-protobuf=="$MYPY_PROTOBUF_VERSION"
 # Remove existing pyi
 find "$REPO_ROOT/stubs/s2clientprotocol/" -name "*_pb2.pyi" -delete
 
+# s2client works on very old protoc versions, down to 2.6. So we can use the system's protoc.
+PROTOC_VERSION=$(protoc --version)
+echo $PROTOC_VERSION
 protoc \
   --proto_path="$S2CLIENT_PROTO_DIR" \
   --mypy_out "relax_strict_optional_primitives:$REPO_ROOT/stubs/s2clientprotocol" \
@@ -58,7 +51,10 @@ rm -rf "$TMP_DIR"
 cd "$REPO_ROOT"
 
 sed --in-place="" \
-  "s/extra_description = .*$/extra_description = \"Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) on [s2client-proto $PYTHON_S2CLIENT_PROTO_VERSION](https:\/\/github.com\/Blizzard\/s2client-proto\/tree\/$S2CLIENT_PROTO_VERSION)\"/" \
+  "s/extra_description = .*$/extra_description = \"\
+Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) \
+and $PROTOC_VERSION \
+on [s2client-proto $PYTHON_S2CLIENT_PROTO_VERSION](https:\/\/github.com\/Blizzard\/s2client-proto\/tree\/$S2CLIENT_PROTO_VERSION)\"/" \
   stubs/s2clientprotocol/METADATA.toml
 
 # use `|| true` so the script still continues even if a pre-commit hook

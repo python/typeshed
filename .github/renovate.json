@@ -2,8 +2,11 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "dependencyDashboard": true,
   "suppressNotifications": ["prEditedNotification"],
-  "extends": ["config:base"],
+  "extends": ["config:recommended"],
   "labels": ["bot: dependencies"],
+  "semanticCommits": "disabled",
+  "separateMajorMinor": false,
+  "prHourlyLimit": 10,
   "pre-commit": {
     "enabled": true
   },
@@ -12,7 +15,6 @@
       "groupName": "GitHub Actions",
       "matchManagers": ["github-actions"],
       "description": "Quarterly update of GitHub Action dependencies",
-      "separateMajorMinor": "false",
       "schedule": ["every 3 months on the first day of the month"]
     },
     {
@@ -20,7 +22,6 @@
       "matchManagers": ["pip_requirements", "pre-commit"],
       "excludePackageNames": ["pytype", "pyright"],
       "description": "Quarterly update of most test dependencies",
-      "separateMajorMinor": "false",
       "schedule": ["every 3 months on the first day of the month"]
     },
     {
@@ -28,7 +29,6 @@
       "matchManagers": ["pip_requirements"],
       "matchPackageNames": ["pytype", "pyright"],
       "description": "Daily update of pyright and pytype",
-      "separateMajorMinor": "false",
       "schedule": ["before 4am"]
     }
   ]

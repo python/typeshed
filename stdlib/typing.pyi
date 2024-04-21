@@ -132,9 +132,6 @@ if sys.version_info >= (3, 12):
 ContextManager = AbstractContextManager
 AsyncContextManager = AbstractAsyncContextManager
 
-# This itself is only available during type checking
-def type_check_only(func_or_cls: _F) -> _F: ...
-
 Any = object()
 
 def final(f: _T) -> _T: ...
@@ -182,12 +179,6 @@ class _SpecialForm:
     if sys.version_info >= (3, 10):
         def __or__(self, other: Any) -> _SpecialForm: ...
         def __ror__(self, other: Any) -> _SpecialForm: ...
-
-_F = TypeVar("_F", bound=Callable[..., Any])
-_P = _ParamSpec("_P")
-_T = TypeVar("_T")
-
-def overload(func: _F) -> _F: ...
 
 Union: _SpecialForm
 Generic: _SpecialForm
@@ -295,6 +286,10 @@ if sys.version_info >= (3, 10):
 else:
     def NewType(name: str, tp: Any) -> Any: ...
 
+_F = TypeVar("_F", bound=Callable[..., Any])
+_P = _ParamSpec("_P")
+_T = TypeVar("_T")
+
 # These type variables are used by the container types.
 _S = TypeVar("_S")
 _KT = TypeVar("_KT")  # Key type.
@@ -304,8 +299,12 @@ _KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 _TC = TypeVar("_TC", bound=type[object])
 
+def overload(func: _F) -> _F: ...
 def no_type_check(arg: _F) -> _F: ...
 def no_type_check_decorator(decorator: Callable[_P, _T]) -> Callable[_P, _T]: ...
+
+# This itself is only available during type checking
+def type_check_only(func_or_cls: _F) -> _F: ...
 
 # Type aliases and type constructors
 
@@ -445,7 +444,7 @@ class Coroutine(Awaitable[_ReturnT_co], Generic[_YieldT_co, _SendT_contra, _Retu
     @property
     def cr_code(self) -> CodeType: ...
     @property
-    def cr_frame(self) -> FrameType: ...
+    def cr_frame(self) -> FrameType | None: ...
     @property
     def cr_running(self) -> bool: ...
     @abstractmethod
