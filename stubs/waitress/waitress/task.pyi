@@ -1,9 +1,9 @@
 from _typeshed import Unused
+from _typeshed.wsgi import WSGIEnvironment
 from collections import deque
 from collections.abc import Callable, Mapping, Sequence
 from logging import Logger
 from threading import Condition, Lock
-from typing import Any
 
 from .channel import HTTPChannel
 from .utilities import Error
@@ -47,6 +47,7 @@ class Task:
     def service(self) -> None: ...
     @property
     def has_body(self) -> bool: ...
+    def set_close_on_finish(self) -> None: ...
     def build_response_header(self) -> bytes: ...
     def remove_content_length_header(self) -> None: ...
     def start(self) -> None: ...
@@ -61,12 +62,11 @@ class ErrorTask(Task):
     def execute(self) -> None: ...
 
 class WSGITask(Task):
-    # Environment dict union too complex
-    environ: dict[str, Any] | None
+    environ: WSGIEnvironment | None
     response_headers: Sequence[tuple[str, str]]
     complete: bool
     status: str
     content_length: int | None
     close_on_finish: bool
     def execute(self) -> None: ...
-    def get_environment(self) -> dict[str, Any]: ...
+    def get_environment(self) -> WSGIEnvironment: ...
