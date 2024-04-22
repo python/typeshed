@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
-from numpy.random import RandomState
 
-from networkx.classes.graph import Graph, _Node, _Edge
+from networkx.classes.graph import Graph, _Edge, _Node
 from networkx.utils.backends import _dispatch
+from numpy.random import RandomState
 
 @_dispatch
 def betweenness_centrality(
