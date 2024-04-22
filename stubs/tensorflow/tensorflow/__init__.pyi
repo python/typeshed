@@ -1,3 +1,4 @@
+import abc
 from _typeshed import Incomplete, Unused
 from abc import ABC, ABCMeta, abstractmethod
 from builtins import bool as _bool
@@ -17,6 +18,7 @@ from tensorflow import (
     io as io,
     keras as keras,
     math as math,
+    types as types,
 )
 from tensorflow._aliases import AnyArray, DTypeLike, ShapeLike, Slice, TensorCompatible
 from tensorflow.autodiff import GradientTape as GradientTape
@@ -257,7 +259,7 @@ class IndexedSlices(metaclass=ABCMeta):
     def __neg__(self) -> IndexedSlices: ...
     def consumers(self) -> list[Operation]: ...
 
-class name_scope:
+class name_scope(metaclass=abc.ABCMeta):
     def __init__(self, name: str) -> None: ...
     def __enter__(self) -> str: ...
     def __exit__(self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None) -> None: ...

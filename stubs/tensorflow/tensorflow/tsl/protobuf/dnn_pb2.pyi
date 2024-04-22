@@ -37,6 +37,9 @@ class _DataTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumT
     kBF16: _DataType.ValueType  # 7
     kF8E5M2: _DataType.ValueType  # 8
     kF8E4M3FN: _DataType.ValueType  # 9
+    kF8E5M2FNUZ: _DataType.ValueType  # 10
+    kF8E4M3FNUZ: _DataType.ValueType  # 11
+    kInt64: _DataType.ValueType  # 12
 
 class DataType(_DataType, metaclass=_DataTypeEnumTypeWrapper):
     """Specifies the data type used by an operation."""
@@ -51,6 +54,9 @@ kComplexDouble: DataType.ValueType  # 6
 kBF16: DataType.ValueType  # 7
 kF8E5M2: DataType.ValueType  # 8
 kF8E4M3FN: DataType.ValueType  # 9
+kF8E5M2FNUZ: DataType.ValueType  # 10
+kF8E4M3FNUZ: DataType.ValueType  # 11
+kInt64: DataType.ValueType  # 12
 global___DataType = DataType
 
 class _DataLayout:
@@ -132,6 +138,10 @@ class _FilterLayoutEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._E
     """cuDNN's NCHW_VECT_C layout with 4-elem vectors"""
     kOutputInputYX32: _FilterLayout.ValueType  # 5
     """cuDNN's NCHW_VECT_C layout with 32-elem vectors"""
+    kOutputInputYX32_CudnnReordered: _FilterLayout.ValueType  # 6
+    """cuDNN-specific filter reordering (using `cudnnReorderFilterAndBias`)
+    When the filter is reordered, so is the bias (if present).
+    """
     kInputYXOutput: _FilterLayout.ValueType  # 3
     kYXInputOutput: _FilterLayout.ValueType  # 4
 
@@ -153,6 +163,10 @@ kOutputInputYX4: FilterLayout.ValueType  # 2
 """cuDNN's NCHW_VECT_C layout with 4-elem vectors"""
 kOutputInputYX32: FilterLayout.ValueType  # 5
 """cuDNN's NCHW_VECT_C layout with 32-elem vectors"""
+kOutputInputYX32_CudnnReordered: FilterLayout.ValueType  # 6
+"""cuDNN-specific filter reordering (using `cudnnReorderFilterAndBias`)
+When the filter is reordered, so is the bias (if present).
+"""
 kInputYXOutput: FilterLayout.ValueType  # 3
 kYXInputOutput: FilterLayout.ValueType  # 4
 global___FilterLayout = FilterLayout
@@ -241,6 +255,7 @@ class _ConvolutionKindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper
     BACKWARD_FILTER: _ConvolutionKind.ValueType  # 2
     BACKWARD_DATA: _ConvolutionKind.ValueType  # 3
     FORWARD_BIAS_ACTIVATION: _ConvolutionKind.ValueType  # 4
+    FORWARD_GRAPH: _ConvolutionKind.ValueType  # 5
 
 class ConvolutionKind(_ConvolutionKind, metaclass=_ConvolutionKindEnumTypeWrapper): ...
 
@@ -249,7 +264,26 @@ FORWARD: ConvolutionKind.ValueType  # 1
 BACKWARD_FILTER: ConvolutionKind.ValueType  # 2
 BACKWARD_DATA: ConvolutionKind.ValueType  # 3
 FORWARD_BIAS_ACTIVATION: ConvolutionKind.ValueType  # 4
+FORWARD_GRAPH: ConvolutionKind.ValueType  # 5
 global___ConvolutionKind = ConvolutionKind
+
+class _FusedMHAKind:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _FusedMHAKindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_FusedMHAKind.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    BMM1_OUTPUT_UNKNOWN: _FusedMHAKind.ValueType  # 0
+    BMM1_OUTPUT_INPUT_TYPE: _FusedMHAKind.ValueType  # 1
+    BMM1_OUTPUT_FLOAT: _FusedMHAKind.ValueType  # 2
+
+class FusedMHAKind(_FusedMHAKind, metaclass=_FusedMHAKindEnumTypeWrapper):
+    """FusedMHAKind kind"""
+
+BMM1_OUTPUT_UNKNOWN: FusedMHAKind.ValueType  # 0
+BMM1_OUTPUT_INPUT_TYPE: FusedMHAKind.ValueType  # 1
+BMM1_OUTPUT_FLOAT: FusedMHAKind.ValueType  # 2
+global___FusedMHAKind = FusedMHAKind
 
 @typing.final
 class TensorDescriptorProto(google.protobuf.message.Message):

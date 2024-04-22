@@ -266,6 +266,7 @@ class RewriterConfig(google.protobuf.message.Message):
     AUTO_MIXED_PRECISION_ONEDNN_BFLOAT16_FIELD_NUMBER: builtins.int
     AUTO_MIXED_PRECISION_CPU_FIELD_NUMBER: builtins.int
     DISABLE_META_OPTIMIZER_FIELD_NUMBER: builtins.int
+    DISABLE_TFG_OPTIMIZER_FIELD_NUMBER: builtins.int
     USE_PLUGIN_OPTIMIZERS_FIELD_NUMBER: builtins.int
     EXPERIMENTAL_CONDITIONAL_CODE_MOTION_FIELD_NUMBER: builtins.int
     META_OPTIMIZER_ITERATIONS_FIELD_NUMBER: builtins.int
@@ -359,6 +360,8 @@ class RewriterConfig(google.protobuf.message.Message):
     """
     disable_meta_optimizer: builtins.bool
     """Disable the entire meta optimizer (off by default)."""
+    disable_tfg_optimizer: builtins.bool
+    """Disable the TFG optimizer (off by default)."""
     use_plugin_optimizers: global___RewriterConfig.Toggle.ValueType
     """Optimizers registered by plugin (default is ON)"""
     experimental_conditional_code_motion: global___RewriterConfig.Toggle.ValueType
@@ -471,6 +474,7 @@ class RewriterConfig(google.protobuf.message.Message):
         auto_mixed_precision_onednn_bfloat16: global___RewriterConfig.Toggle.ValueType | None = ...,
         auto_mixed_precision_cpu: global___RewriterConfig.Toggle.ValueType | None = ...,
         disable_meta_optimizer: builtins.bool | None = ...,
+        disable_tfg_optimizer: builtins.bool | None = ...,
         use_plugin_optimizers: global___RewriterConfig.Toggle.ValueType | None = ...,
         experimental_conditional_code_motion: global___RewriterConfig.Toggle.ValueType | None = ...,
         meta_optimizer_iterations: global___RewriterConfig.NumIterationsType.ValueType | None = ...,
@@ -489,6 +493,6 @@ class RewriterConfig(google.protobuf.message.Message):
         post_optimization_verifier_config: tensorflow.core.protobuf.verifier_config_pb2.VerifierConfig | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["auto_parallel", b"auto_parallel", "inter_optimizer_verifier_config", b"inter_optimizer_verifier_config", "post_optimization_verifier_config", b"post_optimization_verifier_config", "scoped_allocator_opts", b"scoped_allocator_opts"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["arithmetic_optimization", b"arithmetic_optimization", "auto_mixed_precision", b"auto_mixed_precision", "auto_mixed_precision_cpu", b"auto_mixed_precision_cpu", "auto_mixed_precision_mkl", b"auto_mixed_precision_mkl", "auto_mixed_precision_onednn_bfloat16", b"auto_mixed_precision_onednn_bfloat16", "auto_parallel", b"auto_parallel", "common_subgraph_elimination", b"common_subgraph_elimination", "constant_folding", b"constant_folding", "cpu_layout_conversion", b"cpu_layout_conversion", "custom_optimizers", b"custom_optimizers", "debug_stripper", b"debug_stripper", "dependency_optimization", b"dependency_optimization", "disable_meta_optimizer", b"disable_meta_optimizer", "disable_model_pruning", b"disable_model_pruning", "experimental_conditional_code_motion", b"experimental_conditional_code_motion", "experimental_disable_compressed_tensor_optimization", b"experimental_disable_compressed_tensor_optimization", "experimental_disable_folding_quantization_emulation", b"experimental_disable_folding_quantization_emulation", "fail_on_optimizer_errors", b"fail_on_optimizer_errors", "function_optimization", b"function_optimization", "implementation_selector", b"implementation_selector", "inter_optimizer_verifier_config", b"inter_optimizer_verifier_config", "layout_optimizer", b"layout_optimizer", "loop_optimization", b"loop_optimization", "memory_optimization", b"memory_optimization", "memory_optimizer_target_node_name_scope", b"memory_optimizer_target_node_name_scope", "meta_optimizer_iterations", b"meta_optimizer_iterations", "meta_optimizer_timeout_ms", b"meta_optimizer_timeout_ms", "min_graph_nodes", b"min_graph_nodes", "optimizers", b"optimizers", "pin_to_host_optimization", b"pin_to_host_optimization", "post_optimization_verifier_config", b"post_optimization_verifier_config", "remapping", b"remapping", "scoped_allocator_optimization", b"scoped_allocator_optimization", "scoped_allocator_opts", b"scoped_allocator_opts", "shape_optimization", b"shape_optimization", "use_plugin_optimizers", b"use_plugin_optimizers"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["arithmetic_optimization", b"arithmetic_optimization", "auto_mixed_precision", b"auto_mixed_precision", "auto_mixed_precision_cpu", b"auto_mixed_precision_cpu", "auto_mixed_precision_mkl", b"auto_mixed_precision_mkl", "auto_mixed_precision_onednn_bfloat16", b"auto_mixed_precision_onednn_bfloat16", "auto_parallel", b"auto_parallel", "common_subgraph_elimination", b"common_subgraph_elimination", "constant_folding", b"constant_folding", "cpu_layout_conversion", b"cpu_layout_conversion", "custom_optimizers", b"custom_optimizers", "debug_stripper", b"debug_stripper", "dependency_optimization", b"dependency_optimization", "disable_meta_optimizer", b"disable_meta_optimizer", "disable_model_pruning", b"disable_model_pruning", "disable_tfg_optimizer", b"disable_tfg_optimizer", "experimental_conditional_code_motion", b"experimental_conditional_code_motion", "experimental_disable_compressed_tensor_optimization", b"experimental_disable_compressed_tensor_optimization", "experimental_disable_folding_quantization_emulation", b"experimental_disable_folding_quantization_emulation", "fail_on_optimizer_errors", b"fail_on_optimizer_errors", "function_optimization", b"function_optimization", "implementation_selector", b"implementation_selector", "inter_optimizer_verifier_config", b"inter_optimizer_verifier_config", "layout_optimizer", b"layout_optimizer", "loop_optimization", b"loop_optimization", "memory_optimization", b"memory_optimization", "memory_optimizer_target_node_name_scope", b"memory_optimizer_target_node_name_scope", "meta_optimizer_iterations", b"meta_optimizer_iterations", "meta_optimizer_timeout_ms", b"meta_optimizer_timeout_ms", "min_graph_nodes", b"min_graph_nodes", "optimizers", b"optimizers", "pin_to_host_optimization", b"pin_to_host_optimization", "post_optimization_verifier_config", b"post_optimization_verifier_config", "remapping", b"remapping", "scoped_allocator_optimization", b"scoped_allocator_optimization", "scoped_allocator_opts", b"scoped_allocator_opts", "shape_optimization", b"shape_optimization", "use_plugin_optimizers", b"use_plugin_optimizers"]) -> None: ...
 
 global___RewriterConfig = RewriterConfig
