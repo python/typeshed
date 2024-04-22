@@ -58,10 +58,10 @@ class UserDict(MutableMapping[_KT, _VT]):
     def __init__(self, dict: SupportsKeysAndGetItem[_KT, _VT], /) -> None: ...
     @overload
     def __init__(
-        self: UserDict[str, _VT],
+        self: UserDict[str, _VT],  # pyright: ignore[reportGeneralTypeIssues]  #11780
         dict: SupportsKeysAndGetItem[str, _VT],
         /,
-        **kwargs: _VT,  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        **kwargs: _VT,
     ) -> None: ...
     @overload
     def __init__(self, iterable: Iterable[tuple[_KT, _VT]], /) -> None: ...
