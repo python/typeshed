@@ -2,6 +2,8 @@ from enum import Enum, Flag, IntEnum, IntFlag
 from typing import Literal
 from typing_extensions import Self
 
+from .syntax import Name
+
 class SignatureFlag(IntEnum):
     SIGNATURES_EXIST = 1
     APPEND_ONLY = 2
@@ -124,44 +126,44 @@ class Angle(CoerciveIntEnum):
     NORTHWEST = 135
 
 class PageLayout(CoerciveEnum):
-    SINGLE_PAGE = "SinglePage"
-    ONE_COLUMN = "OneColumn"
-    TWO_COLUMN_LEFT = "TwoColumnLeft"
-    TWO_COLUMN_RIGHT = "TwoColumnRight"
-    TWO_PAGE_LEFT = "TwoPageLeft"
-    TWO_PAGE_RIGHT = "TwoPageRight"
+    SINGLE_PAGE = Name("SinglePage")
+    ONE_COLUMN = Name("OneColumn")
+    TWO_COLUMN_LEFT = Name("TwoColumnLeft")
+    TWO_COLUMN_RIGHT = Name("TwoColumnRight")
+    TWO_PAGE_LEFT = Name("TwoPageLeft")
+    TWO_PAGE_RIGHT = Name("TwoPageRight")
 
 class PageMode(CoerciveEnum):
-    USE_NONE = "UseNone"
-    USE_OUTLINES = "UseOutlines"
-    USE_THUMBS = "UseThumbs"
-    FULL_SCREEN = "FullScreen"
-    USE_OC = "UseOC"
-    USE_ATTACHMENTS = "UseAttachments"
+    USE_NONE = Name("UseNone")
+    USE_OUTLINES = Name("UseOutlines")
+    USE_THUMBS = Name("UseThumbs")
+    FULL_SCREEN = Name("FullScreen")
+    USE_OC = Name("UseOC")
+    USE_ATTACHMENTS = Name("UseAttachments")
 
 class TextMarkupType(CoerciveEnum):
-    HIGHLIGHT = "Highlight"
-    UNDERLINE = "Underline"
-    SQUIGGLY = "Squiggly"
-    STRIKE_OUT = "StrikeOut"
+    HIGHLIGHT = Name("Highlight")
+    UNDERLINE = Name("Underline")
+    SQUIGGLY = Name("Squiggly")
+    STRIKE_OUT = Name("StrikeOut")
 
 class BlendMode(CoerciveEnum):
-    NORMAL = "Normal"
-    MULTIPLY = "Multiply"
-    SCREEN = "Screen"
-    OVERLAY = "Overlay"
-    DARKEN = "Darken"
-    LIGHTEN = "Lighten"
-    COLOR_DODGE = "ColorDodge"
-    COLOR_BURN = "ColorBurn"
-    HARD_LIGHT = "HardLight"
-    SOFT_LIGHT = "SoftLight"
-    DIFFERENCE = "Difference"
-    EXCLUSION = "Exclusion"
-    HUE = "Hue"
-    SATURATION = "Saturation"
-    COLOR = "Color"
-    LUMINOSITY = "Luminosity"
+    NORMAL = Name("Normal")
+    MULTIPLY = Name("Multiply")
+    SCREEN = Name("Screen")
+    OVERLAY = Name("Overlay")
+    DARKEN = Name("Darken")
+    LIGHTEN = Name("Lighten")
+    COLOR_DODGE = Name("ColorDodge")
+    COLOR_BURN = Name("ColorBurn")
+    HARD_LIGHT = Name("HardLight")
+    SOFT_LIGHT = Name("SoftLight")
+    DIFFERENCE = Name("Difference")
+    EXCLUSION = Name("Exclusion")
+    HUE = Name("Hue")
+    SATURATION = Name("Saturation")
+    COLOR = Name("Color")
+    LUMINOSITY = Name("Luminosity")
 
 class AnnotationFlag(CoerciveIntEnum):
     INVISIBLE = 1
@@ -176,17 +178,17 @@ class AnnotationFlag(CoerciveIntEnum):
     LOCKED_CONTENTS = 512
 
 class AnnotationName(CoerciveEnum):
-    NOTE = "Note"
-    COMMENT = "Comment"
-    HELP = "Help"
-    PARAGRAPH = "Paragraph"
-    NEW_PARAGRAPH = "NewParagraph"
-    INSERT = "Insert"
+    NOTE = Name("Note")
+    COMMENT = Name("Comment")
+    HELP = Name("Help")
+    PARAGRAPH = Name("Paragraph")
+    NEW_PARAGRAPH = Name("NewParagraph")
+    INSERT = Name("Insert")
 
 class FileAttachmentAnnotationName(CoerciveEnum):
-    PUSH_PIN = "PushPin"
-    GRAPH_PUSH_PIN = "GraphPushPin"
-    PAPERCLIP_TAG = "PaperclipTag"
+    PUSH_PIN = Name("PushPin")
+    GRAPH_PUSH_PIN = Name("GraphPushPin")
+    PAPERCLIP_TAG = Name("PaperclipTag")
 
 class IntersectionRule(CoerciveEnum):
     NONZERO = "nonzero"
@@ -216,15 +218,15 @@ class StrokeJoinStyle(CoerciveIntEnum):
     BEVEL = 2
 
 class PDFStyleKeys(Enum):
-    FILL_ALPHA = "ca"
-    BLEND_MODE = "BM"
-    STROKE_ALPHA = "CA"
-    STROKE_ADJUSTMENT = "SA"
-    STROKE_WIDTH = "LW"
-    STROKE_CAP_STYLE = "LC"
-    STROKE_JOIN_STYLE = "LJ"
-    STROKE_MITER_LIMIT = "ML"
-    STROKE_DASH_PATTERN = "D"
+    FILL_ALPHA = Name("ca")
+    BLEND_MODE = Name("BM")
+    STROKE_ALPHA = Name("CA")
+    STROKE_ADJUSTMENT = Name("SA")
+    STROKE_WIDTH = Name("LW")
+    STROKE_CAP_STYLE = Name("LC")
+    STROKE_JOIN_STYLE = Name("LJ")
+    STROKE_MITER_LIMIT = Name("ML")
+    STROKE_DASH_PATTERN = Name("D")
 
 class Corner(CoerciveEnum):
     TOP_RIGHT = "TOP_RIGHT"
