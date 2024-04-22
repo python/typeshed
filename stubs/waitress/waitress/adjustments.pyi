@@ -21,7 +21,6 @@ def as_socket_list(sockets: Sequence[object]) -> list[socket]: ...
 
 class _str_marker(str): ...
 class _int_marker(int): ...
-class _bool_marker: ...
 
 class Adjustments:
     host: _str_marker
@@ -32,7 +31,7 @@ class Adjustments:
     trusted_proxy_count: int | None
     trusted_proxy_headers: set[str]
     log_untrusted_proxy_headers: bool
-    clear_untrusted_proxy_headers: type[_bool_marker] | bool
+    clear_untrusted_proxy_headers: bool
     url_scheme: str
     url_prefix: str
     ident: str
