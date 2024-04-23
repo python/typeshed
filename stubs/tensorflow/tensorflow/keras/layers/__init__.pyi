@@ -291,6 +291,7 @@ class Embedding(Layer[tf.Tensor, tf.Tensor]):
         embeddings_regularizer: _Regularizer = None,
         embeddings_constraint: _Constraint = None,
         mask_zero: bool = False,
+        weights=None,
         lora_rank: int | None = None,
         *,
         input_length: int | None = None,
