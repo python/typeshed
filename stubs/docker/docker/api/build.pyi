@@ -1,6 +1,7 @@
 from collections.abc import Generator
+from io import StringIO
 from logging import Logger
-from typing import IO, Any, TypedDict
+from typing import IO, Any, TypedDict, type_check_only
 
 log: Logger
 
