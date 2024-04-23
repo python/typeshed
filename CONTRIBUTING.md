@@ -568,7 +568,7 @@ class Match:
 This avoid forcing the user to check for `None`:
 
 ```python
-match = re.fullmatch(r"\d+_(.*)", user_id)
+match = re.fullmatch(r"\d+_(.*)", some_string)
 assert match is not None
 name_group = match.group(1)  # The user knows that this will never be None
 return name_group.uper()  # This typo will be flagged by the type checker
