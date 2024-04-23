@@ -5,15 +5,17 @@ from typing_extensions import NotRequired
 
 log: Logger
 
-class _ContainerLimits(TypedDict):
-    memory: NotRequired[int]
-    memswap: NotRequired[int]
-    cpushares: NotRequired[int]
-    cpusetcpus: NotRequired[str]
+@type_check_only
+class _ContainerLimits(TypedDict, total=False):
+    memory: int
+    memswap: int
+    cpushares: int
+    cpusetcpus: str
 
-class _Filers(TypedDict):
-    dangling: NotRequired[bool]
-    until: NotRequired[str]
+@type_check_only
+class _Filers(TypedDict, total=False):
+    dangling: bool
+    until: str
 
 class BuildApiMixin:
     def build(
@@ -21,7 +23,7 @@ class BuildApiMixin:
         path: str | None = None,
         tag: str | None = None,
         quiet: bool = False,
-        fileobj: IO[Any] | None = None,
+        fileobj: StringIO | IO[bytes] | None = None,
         nocache: bool = False,
         rm: bool = False,
         timeout: int | None = None,
@@ -41,7 +43,7 @@ class BuildApiMixin:
         target: str | None = None,
         network_mode: str | None = None,
         squash: bool | None = None,
-        extra_hosts: dict[str, Any] | None = None,
+        extra_hosts: list[str] | dict[str, str] | None = None,
         platform: str | None = None,
         isolation: str | None = None,
         use_config_proxy: bool = True,
