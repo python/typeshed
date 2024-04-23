@@ -19,6 +19,8 @@ def matmul(
     a_is_sparse: _bool = False,
     b_is_sparse: _bool = False,
     output_type: DTypeLike | None = None,
+    grad_a: _bool = False,
+    grad_b: _bool = False,
     name: str | None = None,
 ) -> Tensor: ...
 @overload
@@ -32,6 +34,8 @@ def matmul(
     a_is_sparse: _bool = False,
     b_is_sparse: _bool = False,
     output_type: DTypeLike | None = None,
+    grad_a: _bool = False,
+    grad_b: _bool = False,
     name: str | None = None,
 ) -> RaggedTensor: ...
 def set_diag(

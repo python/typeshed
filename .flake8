@@ -1,22 +1,23 @@
 [flake8]
 # NQA: Ruff won't warn about redundant `# noqa: Y`
 # Y: Flake8 is only used to run flake8-pyi, everything else is in Ruff
-# F821: Until https://github.com/astral-sh/ruff/issues/3011 is fixed, we need flake8-pyi's monkeypatching
+# F821: Typeshed is a testing ground for flake8-pyi, which monkeypatches F821
 select = NQA, Y, F821
 # Ignore rules normally excluded by default
 extend-ignore = Y090
 per-file-ignores =
   # We should only need to noqa Y and F821 codes in .pyi files
   *.py: NQA
-  # TODO: Remove bare "Incomplete"s from stubs (Y065)
-  *.pyi: Y065
+  # Ignore Y052 in this file: there are loads of false positives
+  # due to the fact that flake8-pyi doesn't understand subclasses of `CoerciveEnum`
+  # as being enum classes
+  stubs/fpdf2/fpdf/enums.pyi: Y052
   # Generated protobuf files:
   # Y021: Include docstrings
   # Y023: Alias typing as typing_extensions
   # Y026: Have implicit type aliases
   # Y053: have literals >50 characters long
-  # Y065: bare "Incomplete"s used
-  *_pb2.pyi: Y021, Y023, Y026, Y053, Y065
+  stubs/*_pb2.pyi: Y021, Y023, Y026, Y053
 
 exclude = .venv*,.git
 noqa_require_code = true

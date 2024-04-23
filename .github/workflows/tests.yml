@@ -22,8 +22,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  file-consistency:
-    name: Check file consistency
+  typeshed-structure:
+    name: Check typeshed structure
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,17 +32,7 @@ jobs:
           python-version: "3.12"
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/check_consistent.py
-
-  new-syntax:
-    name: Ensure new syntax usage
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - run: ./tests/check_new_syntax.py
+      - run: python ./tests/check_typeshed_structure.py
 
   pytype:
     name: Run pytype against the stubs
@@ -129,23 +119,17 @@ jobs:
         run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
       - name: List 3rd-party stub dependencies installed
         run: uv pip freeze
-      - name: Get pyright version
-        id: pyright_version
-        run: |
-          PYRIGHT_VERSION=$(grep pyright== requirements-tests.txt | cut -d "#" -f 1 | cut -d \; -f 1 | cut -d = -f 3)
-          echo pyright version: "${PYRIGHT_VERSION}"
-          echo PYRIGHT_VERSION="${PYRIGHT_VERSION}" >> "${GITHUB_OUTPUT}"
       - name: Run pyright with basic settings on all the stubs
         uses: jakebailey/pyright-action@v2
         with:
-          version: ${{ steps.pyright_version.outputs.PYRIGHT_VERSION }}
+          version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           annotate: ${{ matrix.python-version == '3.11' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
       - name: Run pyright with stricter settings on some of the stubs
         uses: jakebailey/pyright-action@v2
         with:
-          version: ${{ steps.pyright_version.outputs.PYRIGHT_VERSION }}
+          version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           annotate: ${{ matrix.python-version == '3.11' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
@@ -153,7 +137,7 @@ jobs:
       - name: Run pyright on the test cases
         uses: jakebailey/pyright-action@v2
         with:
-          version: ${{ steps.pyright_version.outputs.PYRIGHT_VERSION }}
+          version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
           annotate: ${{ matrix.python-version == '3.11' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
