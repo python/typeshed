@@ -1,4 +1,5 @@
 from _typeshed import SupportsGetItem
+
 from networkx.classes.graph import Graph, _Edge, _Node
 from networkx.utils.backends import _dispatch
 
