@@ -554,58 +554,31 @@ It should be used sparingly.
 
 ### "The `Any` trick"
 
+In cases where a function or method can return `None`, but where forcing the
+user to explicitly check for `None` can be detrimental, use
+`_typeshed.MaybeNone` (an alias to `Any`), instead of `None`.
+
 Consider the following (simplified) signature of `re.Match[str].group`:
 
 ```python
 class Match:
-    def group(self, group: str | int, /) -> str | Any: ...
+    def group(self, group: str | int, /) -> str | MaybeNone: ...
 ```
 
-The `str | Any` seems unnecessary and weird at first.
-Because `Any` includes all strings, you would expect `str | Any` to be
-equivalent to `Any`, but it is not. To understand the difference,
-let's look at what happens when type-checking this simplified example:
-
-Suppose you have a legacy system that for historical reasons has two kinds
-of user IDs. Old IDs look like `"legacy_userid_123"` and new IDs look like
-`"456_username"`. The function below is supposed to extract the name
-`"USERNAME"` from a new ID, and return `None` if you give it a legacy ID.
+This avoid forcing the user to check for `None`:
 
 ```python
-import re
-
-def parse_name_from_new_id(user_id: str) -> str | None:
-    match = re.fullmatch(r"\d+_(.*)", user_id)
-    if match is None:
-        return None
-    name_group = match.group(1)
-    return name_group.uper()  # This line is a typo (`uper` --> `upper`)
+match = re.fullmatch(r"\d+_(.*)", user_id)
+assert match is not None
+name_group = match.group(1)  # The user knows that this will never be None
+return name_group.uper()  # This typo will be flagged by the type checker
 ```
 
-The `.group()` method returns `None` when the given group was not a part of the match.
-For example, with a regex like `r"\d+_(.*)|legacy_userid_\d+"`, we would get a match whose `.group(1)` is `None` for the user ID `"legacy_userid_7"`.
-But here the regex is written so that the group always exists, and `match.group(1)` cannot return `None`.
-Match groups are almost always used in this way.
+In this case, the user of `match.group()` must be prepared to handle a `str`,
+but type checkers are happy with `if name_group is None` checks, because we're
+saying it can also be something else than an `str`.
 
-Let's now consider typeshed's `-> str | Any` annotation of the `.group()` method:
-
-* `-> Any` would mean "please do not complain" to type checkers.
-  If `name_group` has type `Any`, you will get no error for this.
-* `-> str` would mean "will always be a `str`", which is wrong, and would
-  cause type checkers to emit errors for code like `if name_group is None`.
-* `-> str | None` means "you must check for None", which is correct but can get
-  annoying for some common patterns. Checks like `assert name_group is not None`
-  would need to be added into various places only to satisfy type checkers,
-  even when it is impossible to actually get a `None` value
-  (type checkers aren't smart enough to know this).
-* `-> str | Any` means "must be prepared to handle a `str`". You will get an
-  error for `name_group.uper`, because it is not valid when `name_group` is a
-  `str`. But type checkers are happy with `if name_group is None` checks,
-  because we're saying it can also be something else than an `str`.
-
-In typeshed we unofficially call returning `Foo | Any` "the Any trick".
-We tend to use it whenever something can be `None`,
-but requiring users to check for `None` would be more painful than helpful.
+This is sometimes called "the Any trick".
 
 ## Submitting Changes
 
