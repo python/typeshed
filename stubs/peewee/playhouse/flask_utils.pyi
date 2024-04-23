@@ -17,7 +17,7 @@ class FlaskDB:
         database: Database | Proxy | None = None,
         # Is actually type[ModelClass] but stubtest likely confuses with Model property
         # https://github.com/python/typeshed/pull/11731#issuecomment-2067694259
-        model_class: Any = ...,
+        model_class = ...,
         excluded_routes: Container[str] | None = None,
     ) -> None: ...
     def init_app(self, app: _Flask) -> None: ...
