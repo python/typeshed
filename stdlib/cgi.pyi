@@ -1,4 +1,4 @@
-from _typeshed import SupportsGetItem, SupportsItemAccess, Unused
+from _typeshed import SupportsGetItemAndContains, SupportsItemAccess, TempSupportsGetItem, Unused
 from builtins import list as _list, type as _type
 from collections.abc import Iterable, Iterator, Mapping
 from email.message import Message
@@ -29,7 +29,7 @@ def parse(
     separator: str = "&",
 ) -> dict[str, list[str]]: ...
 def parse_multipart(
-    fp: IO[Any], pdict: SupportsGetItem[str, bytes], encoding: str = "utf-8", errors: str = "replace", separator: str = "&"
+    fp: IO[Any], pdict: TempSupportsGetItem[str, bytes], encoding: str = "utf-8", errors: str = "replace", separator: str = "&"
 ) -> dict[str, list[Any]]: ...
 
 class _Environ(Protocol):
@@ -85,7 +85,7 @@ class FieldStorage:
         fp: IO[Any] | None = None,
         headers: Mapping[str, str] | Message | None = None,
         outerboundary: bytes = b"",
-        environ: SupportsGetItem[str, str] = ...,
+        environ: SupportsGetItemAndContains[str, str] = ...,
         keep_blank_values: int = 0,
         strict_parsing: int = 0,
         limit: int | None = None,
