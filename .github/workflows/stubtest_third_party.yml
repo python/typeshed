@@ -48,7 +48,6 @@ jobs:
           cache-dependency-path: |
             requirements-tests.txt
             stubs/**/METADATA.toml
-            stubs/**/__init__.pyi
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
       - name: Run stubtest
