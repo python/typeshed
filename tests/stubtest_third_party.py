@@ -27,7 +27,7 @@ def run_stubtest(
     print(f"{dist_name}... ", end="", flush=True)
 
     stubtest_settings = metadata.stubtest_settings
-    if stubtest_settings.skipped:
+    if stubtest_settings.skip:
         print(colored("skipping", "yellow"))
         return True
 
