@@ -20,8 +20,8 @@ assert_type(len({}), int)
 assert_type(set().__len__(), int)
 assert_type(len(set()), int)
 
-assert_type(frozenset().__len__(), int)
-assert_type(len(frozenset()), int)
+assert_type(frozenset[object]().__len__(), int)
+assert_type(len(frozenset[object]()), int)
 
 assert_type(range(0).__len__(), int)
 assert_type(len(range(0)), int)
