@@ -533,6 +533,10 @@ typing(_extensions)?\.TextIO\.errors
 typing(_extensions)?\.TextIO\.line_buffering
 typing(_extensions)?\.TextIO\.newlines
 
+# These are typing._SpecialGenericAlias at runtime, which is not a real type, but it
+# behaves like one in most cases
+typing(_extensions)?\.(Async)?ContextManager
+
 types.MethodType.__closure__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.MethodType.__defaults__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.ModuleType.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.

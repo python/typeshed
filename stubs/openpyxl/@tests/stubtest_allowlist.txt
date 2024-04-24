@@ -46,6 +46,8 @@ openpyxl\.descriptors\.(base\.)?Typed\.allow_none
 # - or, keyword arguments are explicitly specified
 openpyxl.cell.Cell.__init__
 openpyxl.cell.cell.Cell.__init__
+openpyxl.cell.cell.WriteOnlyCell
+openpyxl.cell.WriteOnlyCell
 openpyxl.cell.text.PhoneticProperties.__init__
 openpyxl.cell.text.PhoneticText.__init__
 openpyxl.chart.axis._BaseAxis.__init__

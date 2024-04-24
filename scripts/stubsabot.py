@@ -498,6 +498,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         "Release": f"{pypi_info.pypi_root}/{relevant_version}",
         "Homepage": project_urls.get("Homepage"),
         "Repository": stub_info.upstream_repository,
+        "Typeshed stubs": f"https://github.com/{TYPESHED_OWNER}/typeshed/tree/main/stubs/{stub_info.distribution}",
         "Changelog": project_urls.get("Changelog") or project_urls.get("Changes") or project_urls.get("Change Log"),
     }
     links = {k: v for k, v in maybe_links.items() if v is not None}

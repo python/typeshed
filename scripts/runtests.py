@@ -84,10 +84,8 @@ def main() -> None:
     print("\nRunning pre-commit...")
     pre_commit_result = subprocess.run(["pre-commit", "run", "--all-files"])
 
-    print("\nRunning check_consistent.py...")
-    check_consistent_result = subprocess.run([sys.executable, "tests/check_consistent.py"])
-    print("\nRunning check_new_syntax.py...")
-    check_new_syntax_result = subprocess.run([sys.executable, "tests/check_new_syntax.py"])
+    print("\nRunning check_typeshed_structure.py...")
+    check_structure_result = subprocess.run([sys.executable, "tests/check_typeshed_structure.py"])
 
     strict_params = _get_strict_params(path)
     print(f"\nRunning Pyright ({'stricter' if strict_params else 'base' } configs) for Python {python_version}...")
@@ -179,8 +177,7 @@ def main() -> None:
     any_failure = any(
         [
             pre_commit_result.returncode,
-            check_consistent_result.returncode,
-            check_new_syntax_result.returncode,
+            check_structure_result.returncode,
             pyright_returncode,
             mypy_result.returncode,
             getattr(stubtest_result, "returncode", 0),
@@ -206,8 +203,7 @@ def main() -> None:
   applied some autofixes. If the latter, you may want to check
   that the autofixes did sensible things."""
         )
-    print("Check consistent:", _SUCCESS if check_consistent_result.returncode == 0 else _FAILED)
-    print("Check new syntax:", _SUCCESS if check_new_syntax_result.returncode == 0 else _FAILED)
+    print("Check structure:", _SUCCESS if check_structure_result.returncode == 0 else _FAILED)
     if pyright_skipped:
         print("Pyright:", _SKIPPED)
     else:
