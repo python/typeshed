@@ -1,5 +1,5 @@
 import sys
-from _typeshed import OptExcInfo, ProfileFunction, TraceFunction, structseq
+from _typeshed import MaybeNone, OptExcInfo, ProfileFunction, TraceFunction, structseq
 from builtins import object as _object
 from collections.abc import AsyncGenerator, Callable, Sequence
 from importlib.abc import PathEntryFinder
@@ -61,16 +61,17 @@ ps2: object
 
 # TextIO is used instead of more specific types for the standard streams,
 # since they are often monkeypatched at runtime. At startup, the objects
-# are initialized to instances of TextIOWrapper.
+# are initialized to instances of TextIOWrapper, but can also be None under
+# some circumstances.
 #
 # To use methods from TextIOWrapper, use an isinstance check to ensure that
 # the streams have not been overridden:
 #
 # if isinstance(sys.stdout, io.TextIOWrapper):
 #    sys.stdout.reconfigure(...)
-stdin: TextIO
-stdout: TextIO
-stderr: TextIO
+stdin: TextIO | MaybeNone
+stdout: TextIO | MaybeNone
+stderr: TextIO | MaybeNone
 
 if sys.version_info >= (3, 10):
     stdlib_module_names: frozenset[str]
