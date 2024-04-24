@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing_extensions import Literal, assert_type
 
 # perhaps the `__len__` of these literals can be narrowed to return
