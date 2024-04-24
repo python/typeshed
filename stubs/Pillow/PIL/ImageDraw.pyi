@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Container, Sequence
-from typing import Any, overload
-from typing_extensions import Literal, TypeAlias
+from typing import Any, Literal, overload
+from typing_extensions import TypeAlias
 
 from .Image import Image
 from .ImageColor import _Ink
@@ -99,6 +99,8 @@ class ImageDraw:
         stroke_width: int = 0,
         stroke_fill: _Ink | None = None,
         embedded_color: bool = False,
+        *,
+        font_size: int | None = None,
     ) -> None: ...
     def textlength(
         self,
@@ -108,6 +110,8 @@ class ImageDraw:
         features: Sequence[str] | None = None,
         language: str | None = None,
         embedded_color: bool = False,
+        *,
+        font_size: int | None = None,
     ) -> float: ...
     def textbbox(
         self,
@@ -122,6 +126,8 @@ class ImageDraw:
         language: str | None = None,
         stroke_width: int = 0,
         embedded_color: bool = False,
+        *,
+        font_size: int | None = None,
     ) -> tuple[int, int, int, int]: ...
     def multiline_textbbox(
         self,
@@ -136,6 +142,8 @@ class ImageDraw:
         language: str | None = None,
         stroke_width: int = 0,
         embedded_color: bool = False,
+        *,
+        font_size: int | None = None,
     ) -> tuple[int, int, int, int]: ...
 
 def Draw(im: Image, mode: str | None = None) -> ImageDraw: ...

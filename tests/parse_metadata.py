@@ -10,8 +10,8 @@ import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import NamedTuple
-from typing_extensions import Annotated, Final, TypeGuard, final
+from typing import Final, NamedTuple, final
+from typing_extensions import Annotated, TypeGuard
 
 import tomli
 from packaging.requirements import Requirement
@@ -57,7 +57,7 @@ class StubtestSettings:
     Don't construct instances directly; use the `read_stubtest_settings` function.
     """
 
-    skipped: bool
+    skip: bool
     apt_dependencies: list[str]
     brew_dependencies: list[str]
     choco_dependencies: list[str]
@@ -79,7 +79,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         data: dict[str, object] = tomli.load(f).get("tool", {}).get("stubtest", {})
 
-    skipped: object = data.get("skip", False)
+    skip: object = data.get("skip", False)
     apt_dependencies: object = data.get("apt_dependencies", [])
     brew_dependencies: object = data.get("brew_dependencies", [])
     choco_dependencies: object = data.get("choco_dependencies", [])
@@ -88,7 +88,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     specified_platforms: object = data.get("platforms", ["linux"])
     stubtest_requirements: object = data.get("stubtest_requirements", [])
 
-    assert type(skipped) is bool
+    assert type(skip) is bool
     assert type(ignore_missing_stub) is bool
 
     # It doesn't work for type-narrowing if we use a for loop here...
@@ -110,7 +110,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
             )
 
     return StubtestSettings(
-        skipped=skipped,
+        skip=skip,
         apt_dependencies=apt_dependencies,
         brew_dependencies=brew_dependencies,
         choco_dependencies=choco_dependencies,

@@ -8,14 +8,33 @@ _csv.Writer
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 configparser.LegacyInterpolation.__init__
 configparser.ParsingError.filename
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
 enum.Enum.__init__
 enum.Enum._generate_next_value_
 # Not strictly speaking a staticmethod on 3.11, but it acts like one:
 enum.StrEnum._generate_next_value_
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.Finder.find_module
 tkinter._VersionInfoType.__doc__
-typing.NewType.__call__
 typing.NewType.__mro_entries__
+builtins.ellipsis  # type is not exposed anywhere
+
+xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+
+# Runtime definition of protocol is incorrect
+importlib.metadata._meta.SimplePath.__truediv__
+importlib.metadata._meta.SimplePath.joinpath
+
+# Modules that exist at runtime, but shouldn't be added to typeshed
+ctypes.test
+ctypes\.test\..+
+lib2to3.tests
+lib2to3\.tests\..+
+tkinter.test
+tkinter\.test\..+
+unittest.test
+unittest\.test\..+
 
 # ==========
 # Related to positional-only arguments
@@ -92,6 +111,14 @@ platform.uname_result.processor
 # Runtime has *args, **kwargs, but will error if any are supplied
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
+
+# Problematic protocol signature at runtime, see source code comments.
+importlib.abc.Traversable.open
+importlib.resources.abc.Traversable.open
+
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedList.reverse
+importlib.metadata.DeprecatedList.sort
 
 # Super-special typing primitives
 typing\._SpecialForm.*

@@ -16,7 +16,7 @@ def show_compilers() -> None: ...
 
 class CCompiler:
     src_extensions: ClassVar[list[str] | None]
-    obj_extensions: ClassVar[str | None]
+    obj_extension: ClassVar[str | None]
     static_lib_extension: ClassVar[str | None]
     shared_lib_extension: ClassVar[str | None]
     static_lib_format: ClassVar[str | None]
@@ -65,7 +65,7 @@ class CCompiler:
         self,
         sources: list[str],
         output_dir: str | None = ...,
-        macros: _Macro | None = ...,
+        macros: list[_Macro] | None = ...,
         include_dirs: list[str] | None = ...,
         debug: bool = ...,
         extra_preargs: list[str] | None = ...,
@@ -149,7 +149,7 @@ class CCompiler:
         extra_postargs: list[str] | None = ...,
     ) -> None: ...
     def executable_filename(self, basename: str, strip_dir: int = ..., output_dir: str = ...) -> str: ...
-    def library_filename(self, libname: str, lib_type: str = ..., strip_dir: int = ..., output_dir: str = ...) -> str: ...
+    def library_filename(self, libname: str, lib_type: str = "static", strip_dir: int = 0, output_dir: str = "") -> str: ...
     def object_filenames(self, source_filenames: list[str], strip_dir: int = ..., output_dir: str = ...) -> list[str]: ...
     def shared_object_filename(self, basename: str, strip_dir: int = ..., output_dir: str = ...) -> str: ...
     def execute(self, func: Callable[..., object], args: tuple[Any, ...], msg: str | None = ..., level: int = ...) -> None: ...

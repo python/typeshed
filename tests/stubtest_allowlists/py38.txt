@@ -1,4 +1,13 @@
-_dummy_threading
+_dummy_threading.Condition.acquire
+_dummy_threading.Condition.release
+_dummy_threading.Event.isSet
+_dummy_threading.ExceptHookArgs
+_dummy_threading.Lock
+_dummy_threading.RLock
+_dummy_threading.Thread.native_id
+_dummy_threading._DummyThread.__init__
+_dummy_threading._RLock.__enter__
+_dummy_threading.local.__new__
 asyncio.locks._ContextManagerMixin.__enter__  # Always raises; deliberately omitted from the stub
 asyncio.locks._ContextManagerMixin.__exit__  # Always raises; deliberately omitted from the stub
 asyncio.transports.WriteTransport.get_write_buffer_limits  # Documented. Exists in subclasses, but not in WriteTransport itself
@@ -26,13 +35,13 @@ dummy_threading.Condition.release
 dummy_threading.Event.isSet
 dummy_threading.Thread.native_id
 dummy_threading.local.__new__
+email.contentmanager.typ
 enum.Enum._generate_next_value_
 gettext.install  # codeset default value is ['unspecified'] so can't be specified
 gettext.translation  # codeset default value is ['unspecified'] so can't be specified
 importlib.abc.Finder.find_module
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
-random.Random.randrange  # missing undocumented arg _int
 sched.Event.__doc__  # __slots__ is overridden
 typing.NamedTuple.__new__
 typing.NamedTuple._asdict
@@ -41,6 +50,10 @@ typing.NamedTuple._replace
 typing._SpecialForm.__new__
 xml.etree.ElementTree.TreeBuilder.start  # Discrepancy between Python and C modules, fixed in bpo-39495
 xml.etree.cElementTree.TreeBuilder.start  # bpo-39495
+xxsubtype  # module missing from the stubs
+
+xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
+xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
 
 # Exist at runtime for internal reasons, no need to put them in the stub
 typing_extensions\.TypeAliasType\.__call__
@@ -144,6 +157,9 @@ types.WrapperDescriptorType.__get__
 .*.__buffer__
 .*.__release_buffer__
 
+# A property at runtime that works like a method.
+zipfile.Path.open
+
 # Removed in 3.12
 distutils\..*
 asyncore.dispatcher.addr
@@ -155,3 +171,20 @@ pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
 
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
+
+# Modules that exist at runtime, but shouldn't be added to typeshed
+ctypes.test
+ctypes\.test\..+
+lib2to3.tests
+lib2to3\.tests\..+
+sqlite3.test
+sqlite3\.test\..+
+test
+tkinter.test
+tkinter\.test\..+
+unittest.test
+unittest\.test\..+
+
+# These enums derive from (str, Enum)
+pstats.SortKey.__new__
+tkinter.EventType.__new__

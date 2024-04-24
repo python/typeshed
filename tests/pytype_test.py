@@ -29,8 +29,8 @@ from parse_metadata import read_dependencies
 if sys.platform == "win32":
     print("pytype does not support Windows.", file=sys.stderr)
     sys.exit(1)
-if sys.version_info >= (3, 11):
-    print("pytype does not support Python 3.11+ yet.", file=sys.stderr)
+if sys.version_info >= (3, 12):
+    print("pytype does not support Python 3.12+ yet.", file=sys.stderr)
     sys.exit(1)
 
 # pytype is not py.typed https://github.com/google/pytype/issues/1325
@@ -210,7 +210,7 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
     missing_modules = get_missing_modules(files_to_test)
     print("Testing files with pytype...")
     for i, f in enumerate(files_to_test):
-        python_version = "{0.major}.{0.minor}".format(sys.version_info)
+        python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
         if dry_run:
             stderr = None
         else:

@@ -1,5 +1,4 @@
-# Exists at runtime, but missing from stubs
-msvcrt.GetErrorMode
+tarfile.TarInfo.replace
 
 # pathlib methods that exist on Windows, but always raise NotImplementedError,
 # so are omitted from the stub

@@ -2,8 +2,8 @@ from _typeshed import SupportsItems, SupportsKeysAndGetItem
 from _typeshed.wsgi import WSGIEnvironment
 from cgi import FieldStorage
 from collections.abc import Collection, Iterable, Iterator, MutableMapping
-from typing import Any, TypeVar, overload
-from typing_extensions import Literal, Self
+from typing import Any, Literal, TypeVar, overload
+from typing_extensions import Self
 
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
@@ -11,9 +11,9 @@ _VT = TypeVar("_VT")
 
 class MultiDict(MutableMapping[_KT, _VT]):
     @overload
-    def __init__(self, __m: SupportsItems[_KT, _VT], **kwargs: _VT): ...
+    def __init__(self, m: SupportsItems[_KT, _VT], /, **kwargs: _VT) -> None: ...
     @overload
-    def __init__(self, __m: Iterable[tuple[_KT, _VT]], **kwargs: _VT): ...
+    def __init__(self, m: Iterable[tuple[_KT, _VT]], /, **kwargs: _VT) -> None: ...
     @overload
     def __init__(self, **kwargs: _VT) -> None: ...
     @classmethod
@@ -37,7 +37,7 @@ class MultiDict(MutableMapping[_KT, _VT]):
     def clear(self) -> None: ...
     def copy(self) -> Self: ...
     @overload
-    def setdefault(self, key: _KT, default: None = None) -> _VT | None: ...  # type:ignore[misc]
+    def setdefault(self, key: _KT, default: None = None) -> _VT | None: ...
     @overload
     def setdefault(self, key: _KT, default: _VT) -> _VT: ...
     @overload
@@ -45,8 +45,8 @@ class MultiDict(MutableMapping[_KT, _VT]):
     @overload
     def pop(self, key: _KT, default: _T) -> _VT | _T: ...
     def popitem(self) -> tuple[_KT, _VT]: ...
-    @overload  # type:ignore[override]
-    def update(self, __m: Collection[tuple[_KT, _VT]], **kwargs: _VT) -> None: ...
+    @overload  # type: ignore[override]
+    def update(self, m: Collection[tuple[_KT, _VT]], /, **kwargs: _VT) -> None: ...
     @overload
     def update(self, **kwargs: _VT) -> None: ...
     @overload
@@ -58,10 +58,10 @@ class MultiDict(MutableMapping[_KT, _VT]):
     @overload
     def extend(self, other: None = None, **kwargs: _VT) -> None: ...
     def __len__(self) -> int: ...
-    def keys(self) -> Iterator[_KT]: ...  # type:ignore[override]
+    def keys(self) -> Iterator[_KT]: ...  # type: ignore[override]
     __iter__ = keys
-    def values(self) -> Iterator[_VT]: ...  # type:ignore[override]
-    def items(self) -> Iterator[tuple[_KT, _VT]]: ...  # type:ignore[override]
+    def values(self) -> Iterator[_VT]: ...  # type: ignore[override]
+    def items(self) -> Iterator[tuple[_KT, _VT]]: ...  # type: ignore[override]
 
 class GetDict(MultiDict[str, str]):
     env: WSGIEnvironment
@@ -82,7 +82,7 @@ class NestedMultiDict(MultiDict[_KT, _VT]):
     def pop(self, key: _KT, default: Any = ...) -> Any: ...
     def popitem(self) -> tuple[_KT, _VT]: ...
     def update(self, *args: Any, **kwargs: _VT) -> None: ...
-    def copy(self) -> MultiDict[_KT, _VT]: ...  # type:ignore[override]
+    def copy(self) -> MultiDict[_KT, _VT]: ...  # type: ignore[override]
 
 class NoVars:
     reason: str

@@ -25,8 +25,8 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
-from typing import Any, ClassVar, NamedTuple, Protocol, TypeVar, overload
-from typing_extensions import Literal, ParamSpec, Self, TypeAlias, TypeGuard
+from typing import Any, ClassVar, Literal, NamedTuple, Protocol, TypeVar, overload
+from typing_extensions import ParamSpec, Self, TypeAlias, TypeGuard
 
 if sys.version_info >= (3, 11):
     __all__ = [
@@ -200,63 +200,35 @@ def isfunction(object: object) -> TypeGuard[FunctionType]: ...
 if sys.version_info >= (3, 12):
     def markcoroutinefunction(func: _F) -> _F: ...
 
-if sys.version_info >= (3, 8):
-    @overload
-    def isgeneratorfunction(obj: Callable[..., Generator[Any, Any, Any]]) -> bool: ...
-    @overload
-    def isgeneratorfunction(obj: Callable[_P, Any]) -> TypeGuard[Callable[_P, GeneratorType[Any, Any, Any]]]: ...
-    @overload
-    def isgeneratorfunction(obj: object) -> TypeGuard[Callable[..., GeneratorType[Any, Any, Any]]]: ...
-    @overload
-    def iscoroutinefunction(obj: Callable[..., Coroutine[Any, Any, Any]]) -> bool: ...
-    @overload
-    def iscoroutinefunction(obj: Callable[_P, Awaitable[_T]]) -> TypeGuard[Callable[_P, CoroutineType[Any, Any, _T]]]: ...
-    @overload
-    def iscoroutinefunction(obj: Callable[_P, object]) -> TypeGuard[Callable[_P, CoroutineType[Any, Any, Any]]]: ...
-    @overload
-    def iscoroutinefunction(obj: object) -> TypeGuard[Callable[..., CoroutineType[Any, Any, Any]]]: ...
-
-else:
-    @overload
-    def isgeneratorfunction(object: Callable[..., Generator[Any, Any, Any]]) -> bool: ...
-    @overload
-    def isgeneratorfunction(object: Callable[_P, Any]) -> TypeGuard[Callable[_P, GeneratorType[Any, Any, Any]]]: ...
-    @overload
-    def isgeneratorfunction(object: object) -> TypeGuard[Callable[..., GeneratorType[Any, Any, Any]]]: ...
-    @overload
-    def iscoroutinefunction(object: Callable[..., Coroutine[Any, Any, Any]]) -> bool: ...
-    @overload
-    def iscoroutinefunction(object: Callable[_P, Awaitable[_T]]) -> TypeGuard[Callable[_P, CoroutineType[Any, Any, _T]]]: ...
-    @overload
-    def iscoroutinefunction(object: Callable[_P, Any]) -> TypeGuard[Callable[_P, CoroutineType[Any, Any, Any]]]: ...
-    @overload
-    def iscoroutinefunction(object: object) -> TypeGuard[Callable[..., CoroutineType[Any, Any, Any]]]: ...
-
+@overload
+def isgeneratorfunction(obj: Callable[..., Generator[Any, Any, Any]]) -> bool: ...
+@overload
+def isgeneratorfunction(obj: Callable[_P, Any]) -> TypeGuard[Callable[_P, GeneratorType[Any, Any, Any]]]: ...
+@overload
+def isgeneratorfunction(obj: object) -> TypeGuard[Callable[..., GeneratorType[Any, Any, Any]]]: ...
+@overload
+def iscoroutinefunction(obj: Callable[..., Coroutine[Any, Any, Any]]) -> bool: ...
+@overload
+def iscoroutinefunction(obj: Callable[_P, Awaitable[_T]]) -> TypeGuard[Callable[_P, CoroutineType[Any, Any, _T]]]: ...
+@overload
+def iscoroutinefunction(obj: Callable[_P, object]) -> TypeGuard[Callable[_P, CoroutineType[Any, Any, Any]]]: ...
+@overload
+def iscoroutinefunction(obj: object) -> TypeGuard[Callable[..., CoroutineType[Any, Any, Any]]]: ...
 def isgenerator(object: object) -> TypeGuard[GeneratorType[Any, Any, Any]]: ...
 def iscoroutine(object: object) -> TypeGuard[CoroutineType[Any, Any, Any]]: ...
 def isawaitable(object: object) -> TypeGuard[Awaitable[Any]]: ...
-
-if sys.version_info >= (3, 8):
-    @overload
-    def isasyncgenfunction(obj: Callable[..., AsyncGenerator[Any, Any]]) -> bool: ...
-    @overload
-    def isasyncgenfunction(obj: Callable[_P, Any]) -> TypeGuard[Callable[_P, AsyncGeneratorType[Any, Any]]]: ...
-    @overload
-    def isasyncgenfunction(obj: object) -> TypeGuard[Callable[..., AsyncGeneratorType[Any, Any]]]: ...
-
-else:
-    @overload
-    def isasyncgenfunction(object: Callable[..., AsyncGenerator[Any, Any]]) -> bool: ...
-    @overload
-    def isasyncgenfunction(object: Callable[_P, Any]) -> TypeGuard[Callable[_P, AsyncGeneratorType[Any, Any]]]: ...
-    @overload
-    def isasyncgenfunction(object: object) -> TypeGuard[Callable[..., AsyncGeneratorType[Any, Any]]]: ...
+@overload
+def isasyncgenfunction(obj: Callable[..., AsyncGenerator[Any, Any]]) -> bool: ...
+@overload
+def isasyncgenfunction(obj: Callable[_P, Any]) -> TypeGuard[Callable[_P, AsyncGeneratorType[Any, Any]]]: ...
+@overload
+def isasyncgenfunction(obj: object) -> TypeGuard[Callable[..., AsyncGeneratorType[Any, Any]]]: ...
 
 class _SupportsSet(Protocol[_T_cont, _V_cont]):
-    def __set__(self, __instance: _T_cont, __value: _V_cont) -> None: ...
+    def __set__(self, instance: _T_cont, value: _V_cont, /) -> None: ...
 
 class _SupportsDelete(Protocol[_T_cont]):
-    def __delete__(self, __instance: _T_cont) -> None: ...
+    def __delete__(self, instance: _T_cont, /) -> None: ...
 
 def isasyncgen(object: object) -> TypeGuard[AsyncGeneratorType[Any, Any]]: ...
 def istraceback(object: object) -> TypeGuard[TracebackType]: ...
@@ -294,6 +266,14 @@ _SourceObjectType: TypeAlias = (
 
 def findsource(object: _SourceObjectType) -> tuple[list[str], int]: ...
 def getabsfile(object: _SourceObjectType, _filename: str | None = None) -> str: ...
+
+# Special-case the two most common input types here
+# to avoid the annoyingly vague `Sequence[str]` return type
+@overload
+def getblock(lines: list[str]) -> list[str]: ...
+@overload
+def getblock(lines: tuple[str, ...]) -> tuple[str, ...]: ...
+@overload
 def getblock(lines: Sequence[str]) -> Sequence[str]: ...
 def getdoc(object: object) -> str | None: ...
 def getcomments(object: object) -> str | None: ...
@@ -367,15 +347,14 @@ if sys.version_info >= (3, 10):
 
 # The name is the same as the enum's name in CPython
 class _ParameterKind(enum.IntEnum):
-    POSITIONAL_ONLY: int
-    POSITIONAL_OR_KEYWORD: int
-    VAR_POSITIONAL: int
-    KEYWORD_ONLY: int
-    VAR_KEYWORD: int
+    POSITIONAL_ONLY = 0
+    POSITIONAL_OR_KEYWORD = 1
+    VAR_POSITIONAL = 2
+    KEYWORD_ONLY = 3
+    VAR_KEYWORD = 4
 
-    if sys.version_info >= (3, 8):
-        @property
-        def description(self) -> str: ...
+    @property
+    def description(self) -> str: ...
 
 if sys.version_info >= (3, 12):
     AGEN_CREATED: Literal["AGEN_CREATED"]
@@ -451,6 +430,7 @@ if sys.version_info < (3, 11):
         varargs: str | None
         keywords: str | None
         defaults: tuple[Any, ...]
+
     def getargspec(func: object) -> ArgSpec: ...
 
 class FullArgSpec(NamedTuple):
@@ -502,7 +482,7 @@ def formatargvalues(
     formatvalue: Callable[[Any], str] | None = ...,
 ) -> str: ...
 def getmro(cls: type) -> tuple[type, ...]: ...
-def getcallargs(__func: Callable[_P, Any], *args: _P.args, **kwds: _P.kwargs) -> dict[str, Any]: ...
+def getcallargs(func: Callable[_P, Any], /, *args: _P.args, **kwds: _P.kwargs) -> dict[str, Any]: ...
 
 class ClosureVars(NamedTuple):
     nonlocals: Mapping[str, Any]
@@ -631,22 +611,22 @@ if sys.version_info >= (3, 9):
 
 if sys.version_info >= (3, 12):
     class BufferFlags(enum.IntFlag):
-        SIMPLE: int
-        WRITABLE: int
-        FORMAT: int
-        ND: int
-        STRIDES: int
-        C_CONTIGUOUS: int
-        F_CONTIGUOUS: int
-        ANY_CONTIGUOUS: int
-        INDIRECT: int
-        CONTIG: int
-        CONTIG_RO: int
-        STRIDED: int
-        STRIDED_RO: int
-        RECORDS: int
-        RECORDS_RO: int
-        FULL: int
-        FULL_RO: int
-        READ: int
-        WRITE: int
+        SIMPLE = 0
+        WRITABLE = 1
+        FORMAT = 4
+        ND = 8
+        STRIDES = 24
+        C_CONTIGUOUS = 56
+        F_CONTIGUOUS = 88
+        ANY_CONTIGUOUS = 152
+        INDIRECT = 280
+        CONTIG = 9
+        CONTIG_RO = 8
+        STRIDED = 25
+        STRIDED_RO = 24
+        RECORDS = 29
+        RECORDS_RO = 28
+        FULL = 285
+        FULL_RO = 284
+        READ = 256
+        WRITE = 512
