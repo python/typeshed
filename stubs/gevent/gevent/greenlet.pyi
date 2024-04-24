@@ -20,7 +20,7 @@ class Greenlet(greenlet.greenlet, Generic[_P, _T]):
     value: _T | None
     @overload
     def __init__(
-        self: Greenlet[_P, _T],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: Greenlet[_P, _T],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         run: Callable[_P, _T],
         *args: _P.args,
         **kwargs: _P.kwargs,

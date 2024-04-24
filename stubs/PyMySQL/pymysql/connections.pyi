@@ -125,7 +125,7 @@ class Connection(Generic[_C]):
     @overload
     def __init__(
         # different between overloads:
-        self: Connection[_C],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: Connection[_C],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         *,
         host: str | None = None,
         user: Incomplete | None = None,

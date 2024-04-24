@@ -52,13 +52,13 @@ class WeakValueDictionary(MutableMapping[_KT, _VT]):
     def __init__(self) -> None: ...
     @overload
     def __init__(
-        self: WeakValueDictionary[_KT, _VT],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: WeakValueDictionary[_KT, _VT],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         other: Mapping[_KT, _VT] | Iterable[tuple[_KT, _VT]],
         /,
     ) -> None: ...
     @overload
     def __init__(
-        self: WeakValueDictionary[str, _VT],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: WeakValueDictionary[str, _VT],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         other: Mapping[str, _VT] | Iterable[tuple[str, _VT]] = (),
         /,
         **kwargs: _VT,

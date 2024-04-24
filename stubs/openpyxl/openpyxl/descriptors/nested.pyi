@@ -25,7 +25,7 @@ class Nested(Descriptor[_T]):
     namespace: str | None
     # In usage, "Nested" is closed to "Typed" than "Descriptor", but doesn't use allow_none
     def __init__(
-        self: Nested[_T],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: Nested[_T],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         name: str | None = None,
         *,
         expected_type: _ExpectedTypeParam[_T],
@@ -44,7 +44,7 @@ class Nested(Descriptor[_T]):
 class NestedValue(Nested[_T], Convertible[_T, _N]):  # type: ignore[misc]
     @overload
     def __init__(
-        self: NestedValue[_T, Literal[True]],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: NestedValue[_T, Literal[True]],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         name: str | None = None,
         *,
         expected_type: _ExpectedTypeParam[_T],
@@ -52,7 +52,7 @@ class NestedValue(Nested[_T], Convertible[_T, _N]):  # type: ignore[misc]
     ) -> None: ...
     @overload
     def __init__(
-        self: NestedValue[_T, Literal[False]],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: NestedValue[_T, Literal[False]],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         name: str | None = None,
         *,
         expected_type: _ExpectedTypeParam[_T],
@@ -115,7 +115,7 @@ class NestedValue(Nested[_T], Convertible[_T, _N]):  # type: ignore[misc]
 class NestedText(NestedValue[_T, _N]):
     @overload
     def __init__(
-        self: NestedText[_T, Literal[True]],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: NestedText[_T, Literal[True]],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         name: str | None = None,
         *,
         expected_type: _ExpectedTypeParam[_T],
@@ -123,7 +123,7 @@ class NestedText(NestedValue[_T, _N]):
     ) -> None: ...
     @overload
     def __init__(
-        self: NestedText[_T, Literal[False]],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: NestedText[_T, Literal[False]],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         name: str | None = None,
         *,
         expected_type: _ExpectedTypeParam[_T],

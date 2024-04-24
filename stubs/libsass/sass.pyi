@@ -160,12 +160,12 @@ class SassMap(Mapping[_KT, _VT_co]):
     @overload
     def __init__(self) -> None: ...
     @overload
-    def __init__(self: SassMap[str, _VT_co], **kwargs: _VT_co) -> None: ...  # pyright: ignore[reportGeneralTypeIssues]  #11780
+    def __init__(self: SassMap[str, _VT_co], **kwargs: _VT_co) -> None: ...  # pyright: ignore[reportInvalidTypeVarUse]  #11780
     @overload
     def __init__(self, map: SupportsKeysAndGetItem[_KT, _VT_co], /) -> None: ...
     @overload
     def __init__(
-        self: SassMap[str, _VT_co],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: SassMap[str, _VT_co],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         map: SupportsKeysAndGetItem[str, _VT_co],
         /,
         **kwargs: _VT_co,
@@ -174,7 +174,7 @@ class SassMap(Mapping[_KT, _VT_co]):
     def __init__(self, iterable: Iterable[tuple[_KT, _VT_co]], /) -> None: ...
     @overload
     def __init__(
-        self: SassMap[str, _VT_co],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: SassMap[str, _VT_co],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         iterable: Iterable[tuple[str, _VT_co]],
         /,
         **kwargs: _VT_co,

@@ -1031,12 +1031,12 @@ class dict(MutableMapping[_KT, _VT]):
     @overload
     def __init__(self) -> None: ...
     @overload
-    def __init__(self: dict[str, _VT], **kwargs: _VT) -> None: ...  # pyright: ignore[reportGeneralTypeIssues]  #11780
+    def __init__(self: dict[str, _VT], **kwargs: _VT) -> None: ...  # pyright: ignore[reportInvalidTypeVarUse]  #11780
     @overload
     def __init__(self, map: SupportsKeysAndGetItem[_KT, _VT], /) -> None: ...
     @overload
     def __init__(
-        self: dict[str, _VT],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: dict[str, _VT],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         map: SupportsKeysAndGetItem[str, _VT],
         /,
         **kwargs: _VT,
@@ -1045,7 +1045,7 @@ class dict(MutableMapping[_KT, _VT]):
     def __init__(self, iterable: Iterable[tuple[_KT, _VT]], /) -> None: ...
     @overload
     def __init__(
-        self: dict[str, _VT],  # pyright: ignore[reportGeneralTypeIssues]  #11780
+        self: dict[str, _VT],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         iterable: Iterable[tuple[str, _VT]],
         /,
         **kwargs: _VT,
