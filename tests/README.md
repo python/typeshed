@@ -9,8 +9,6 @@ tests the stubs with [mypy](https://github.com/python/mypy/)
 stubs, guarding against accidental regressions.
 - `tests/check_typeshed_structure.py` checks that typeshed's directory
 structure and metadata files are correct.
-- `tests/check_new_syntax.py` contains linter-like checks to ensure
-that certain code conventions are followed.
 - `tests/stubtest_stdlib.py` checks standard library stubs against the
 objects at runtime.
 - `tests/stubtest_third_party.py` checks third-party stubs against the

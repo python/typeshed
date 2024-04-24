@@ -61,7 +61,9 @@ def print_divider() -> None:
 
     This can be useful to divide terminal output into separate sections.
     """
+    print()
     print("*" * 70)
+    print()
 
 
 # ====================================================================
