@@ -6,4 +6,4 @@ version = "0.2.*"
 # linux and win32 are equivalent
 platforms = ["linux"]
 apt_dependencies = ["portaudio19-dev"]
-brew_dependencies = ["portaudio"]
+# brew_dependencies = ["portaudio"]
