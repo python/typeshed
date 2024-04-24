@@ -153,6 +153,7 @@ class SupportsKeysAndGetItem(Protocol[_KT, _VT_co]):
 
 # This protocol is currently under discussion. Use SupportsGetItemAndContains
 # instead, if you require the __contains__ method.
+# See https://github.com/python/typeshed/issues/11822.
 class SupportsGetItem(Protocol[_KT_contra, _VT_co]):
     def __contains__(self, x: Any, /) -> bool: ...
     def __getitem__(self, key: _KT_contra, /) -> _VT_co: ...
