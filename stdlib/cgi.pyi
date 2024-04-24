@@ -1,4 +1,4 @@
-from _typeshed import SupportsGetItemAndContains, SupportsItemAccess, TempSupportsGetItem, Unused
+from _typeshed import SupportsContainsAndGetItem, SupportsItemAccess, TempSupportsGetItem, Unused
 from builtins import list as _list, type as _type
 from collections.abc import Iterable, Iterator, Mapping
 from email.message import Message
@@ -85,7 +85,7 @@ class FieldStorage:
         fp: IO[Any] | None = None,
         headers: Mapping[str, str] | Message | None = None,
         outerboundary: bytes = b"",
-        environ: SupportsGetItemAndContains[str, str] = ...,
+        environ: SupportsContainsAndGetItem[str, str] = ...,
         keep_blank_values: int = 0,
         strict_parsing: int = 0,
         limit: int | None = None,
