@@ -47,7 +47,7 @@ jobs:
           cache: pip
           cache-dependency-path: |
             requirements-tests.txt
-            stubs/**/METADATA.toml
+            stubs/uWSGI/METADATA.toml
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
       - name: Run stubtest
