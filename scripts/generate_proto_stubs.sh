@@ -16,7 +16,7 @@ PROTOBUF_VERSION=26.1
 MYPY_PROTOBUF_VERSION=3.6.0
 
 # brew install coreutils wget
-# sudo apt install -y unzip
+# sudo apt-get install -y unzip
 REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/..)"
 TMP_DIR="$(mktemp -d)"
 PYTHON_PROTOBUF_FILENAME="protobuf-$PROTOBUF_VERSION.zip"

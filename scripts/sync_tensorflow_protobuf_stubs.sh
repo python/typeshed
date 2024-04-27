@@ -11,7 +11,7 @@ TENSORFLOW_VERSION=2.16.1
 MYPY_PROTOBUF_VERSION=3.6.0
 
 # brew install coreutils wget
-# sudo apt install -y unzip
+# sudo apt-get install -y unzip
 REPO_ROOT="$(realpath "$(dirname "${BASH_SOURCE[0]}")"/..)"
 TMP_DIR="$(mktemp -d)"
 TENSORFLOW_FILENAME="v$TENSORFLOW_VERSION.zip"
