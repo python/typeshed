@@ -162,7 +162,7 @@ EXCEPTION = _tkinter.EXCEPTION
 # Don't trust tkinter's docstrings, because they have been created by copy/pasting from
 # Tk's manual pages more than 10 years ago. Use the latest manual pages instead:
 #
-#    $ sudo apt-get install tk-doc tcl-doc
+#    $ sudo apt install tk-doc tcl-doc
 #    $ man 3tk label        # tkinter.Label
 #    $ man 3tk ttk_label    # tkinter.ttk.Label
 #    $ man 3tcl after       # tkinter.Misc.after
