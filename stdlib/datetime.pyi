@@ -210,7 +210,7 @@ class timedelta:
     def __bool__(self) -> bool: ...
     def __hash__(self) -> int: ...
 
-_TzInfoT = TypeVar("_TzInfoT", bound=tzinfo | None, default=Any)
+_TzInfoT = TypeVar("_TzInfoT", bound=tzinfo | None, default=tzinfo | None, covariant=True)
 
 class datetime(date, Generic[_TzInfoT]):
     min: ClassVar[datetime]
