@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-from datetime import UTC, date, datetime, time, timedelta, tzinfo
-from typing import Never, assert_type
+from datetime import date, datetime, time, timedelta, timezone, tzinfo
+from typing_extensions import Never, assert_type
+
+UTC: timezone
 
 dt_none: datetime[None]
 dt_tz: datetime[tzinfo]
@@ -17,12 +19,12 @@ assert_type(datetime(2000, 1, 1, tzinfo=UTC), datetime[tzinfo])
 assert_type(datetime.fromtimestamp(0), datetime[None])
 assert_type(datetime.fromtimestamp(0, None), datetime[None])
 assert_type(datetime.fromtimestamp(0, UTC), datetime[tzinfo])
-assert_type(datetime.utcfromtimestamp(0), datetime[None])
+assert_type(datetime.utcfromtimestamp(0), datetime[None])  # pyright: ignore[reportDeprecated]
 
 assert_type(datetime.now(), datetime[None])
 assert_type(datetime.now(None), datetime[None])
 assert_type(datetime.now(UTC), datetime[tzinfo])
-assert_type(datetime.utcnow(), datetime[None])
+assert_type(datetime.utcnow(), datetime[None])  # pyright: ignore[reportDeprecated]
 
 assert_type(datetime.fromisoformat("2000-01-01"), datetime[tzinfo | None])
 
