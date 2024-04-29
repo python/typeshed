@@ -1,7 +1,7 @@
 import sys
 from abc import abstractmethod
 from time import struct_time
-from typing import ClassVar, Generic, Literal, NamedTuple, NoReturn, SupportsIndex, TypeVar, final, overload
+from typing import Any, ClassVar, Generic, Literal, NamedTuple, NoReturn, SupportsIndex, TypeVar, final, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.version_info >= (3, 11):
@@ -388,13 +388,37 @@ class datetime(date, Generic[_TzInfoT]):
     def utcoffset(self) -> timedelta | None: ...
     def tzname(self) -> str | None: ...
     def dst(self) -> timedelta | None: ...
-    def __le__(self, value: datetime, /) -> bool: ...  # type: ignore[override]
-    def __lt__(self, value: datetime, /) -> bool: ...  # type: ignore[override]
-    def __ge__(self, value: datetime, /) -> bool: ...  # type: ignore[override]
-    def __gt__(self, value: datetime, /) -> bool: ...  # type: ignore[override]
+    @overload
+    def __le__(self: datetime[_TzInfo], value: datetime[None], /) -> NoReturn: ...  # type: ignore[override]
+    @overload
+    def __le__(self: datetime[None], value: datetime[_TzInfo], /) -> NoReturn: ...  # type: ignore[override]
+    @overload
+    def __le__(self: datetime[Any], value: datetime[Any], /) -> bool: ...  # type: ignore[override]
+    @overload
+    def __lt__(self: datetime[_TzInfo], value: datetime[None], /) -> NoReturn: ...  # type: ignore[override]
+    @overload
+    def __lt__(self: datetime[None], value: datetime[_TzInfo], /) -> NoReturn: ...  # type: ignore[override]
+    @overload
+    def __lt__(self: datetime[Any], value: datetime[Any], /) -> bool: ...  # type: ignore[override]
+    @overload
+    def __ge__(self: datetime[_TzInfo], value: datetime[None], /) -> NoReturn: ...  # type: ignore[override]
+    @overload
+    def __ge__(self: datetime[None], value: datetime[_TzInfo], /) -> NoReturn: ...  # type: ignore[override]
+    @overload
+    def __ge__(self: datetime[Any], value: datetime[Any], /) -> bool: ...  # type: ignore[override]
+    @overload
+    def __gt__(self: datetime[_TzInfo], value: datetime[None], /) -> NoReturn: ...  # type: ignore[override]
+    @overload
+    def __gt__(self: datetime[None], value: datetime[_TzInfo], /) -> NoReturn: ...  # type: ignore[override]
+    @overload
+    def __gt__(self: datetime[Any], value: datetime[Any], /) -> bool: ...  # type: ignore[override]
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
     @overload  # type: ignore[override]
-    def __sub__(self, value: Self, /) -> timedelta: ...
+    def __sub__(self: datetime[_TzInfo], value: datetime[None], /) -> NoReturn: ...
+    @overload  # type: ignore[override]
+    def __sub__(self: datetime[None], value: datetime[_TzInfo], /) -> NoReturn: ...
+    @overload  # type: ignore[override]
+    def __sub__(self: datetime[Any], value: datetime[Any], /) -> timedelta: ...
     @overload
     def __sub__(self, value: timedelta, /) -> Self: ...
