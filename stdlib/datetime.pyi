@@ -1,7 +1,7 @@
 import sys
 from abc import abstractmethod
 from time import struct_time
-from typing import ClassVar, Literal, NamedTuple, NoReturn, SupportsIndex, final, overload
+from typing import ClassVar, Generic, Literal, NamedTuple, NoReturn, SupportsIndex, TypeVar, final, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.version_info >= (3, 11):
@@ -210,9 +210,12 @@ class timedelta:
     def __bool__(self) -> bool: ...
     def __hash__(self) -> int: ...
 
-class datetime(date):
+_TzInfoT = TypeVar("_TzInfoT", bound=tzinfo | None, default=tzinfo | None)
+
+class datetime(date, Generic[_TzInfoT]):
     min: ClassVar[datetime]
     max: ClassVar[datetime]
+    @overload
     def __new__(
         cls,
         year: SupportsIndex,
@@ -222,10 +225,40 @@ class datetime(date):
         minute: SupportsIndex = ...,
         second: SupportsIndex = ...,
         microsecond: SupportsIndex = ...,
-        tzinfo: _TzInfo | None = ...,
+        tzinfo: None = None,
         *,
         fold: int = ...,
-    ) -> Self: ...
+    ) -> datetime[None]: ...
+    @overload
+    def __new__(
+        cls,
+        year: SupportsIndex,
+        month: SupportsIndex,
+        day: SupportsIndex,
+        hour: SupportsIndex = ...,
+        minute: SupportsIndex = ...,
+        second: SupportsIndex = ...,
+        microsecond: SupportsIndex = ...,
+        *,
+        tzinfo: _TzInfo,
+        fold: int = ...,
+    ) -> datetime[_TzInfo]: ...
+    @overload
+    def __new__(
+        cls,
+        year: SupportsIndex,
+        month: SupportsIndex,
+        day: SupportsIndex,
+        hour: SupportsIndex,
+        minute: SupportsIndex,
+        second: SupportsIndex,
+        microsecond: SupportsIndex,
+        tzinfo: _TzInfo,
+        *,
+        fold: int = ...,
+    ) -> datetime[_TzInfo]: ...
+    @classmethod
+    def fromisoformat(cls, date_string: str, /) -> datetime[_TzInfo | None]: ...
     @property
     def hour(self) -> int: ...
     @property
@@ -235,34 +268,51 @@ class datetime(date):
     @property
     def microsecond(self) -> int: ...
     @property
-    def tzinfo(self) -> _TzInfo | None: ...
+    def tzinfo(self) -> _TzInfoT: ...
     @property
     def fold(self) -> int: ...
     # On <3.12, the name of the first parameter in the pure-Python implementation
     # didn't match the name in the C implementation,
     # meaning it is only *safe* to pass it as a keyword argument on 3.12+
     if sys.version_info >= (3, 12):
+        @overload
         @classmethod
-        def fromtimestamp(cls, timestamp: float, tz: _TzInfo | None = ...) -> Self: ...
+        def fromtimestamp(cls, timestamp: float, tz: None = None) -> datetime[None]: ...
+        @overload
+        @classmethod
+        def fromtimestamp(cls, timestamp: float, tz: _TzInfo) -> datetime[_TzInfo]: ...
     else:
+        @overload
         @classmethod
-        def fromtimestamp(cls, timestamp: float, /, tz: _TzInfo | None = ...) -> Self: ...
+        def fromtimestamp(cls, timestamp: float, /, tz: None = None) -> datetime[None]: ...
+        @overload
+        @classmethod
+        def fromtimestamp(cls, timestamp: float, /, tz: _TzInfo) -> datetime[_TzInfo]: ...
 
     @classmethod
     @deprecated("Use timezone-aware objects to represent datetimes in UTC; e.g. by calling .fromtimestamp(datetime.UTC)")
-    def utcfromtimestamp(cls, t: float, /) -> Self: ...
+    def utcfromtimestamp(cls, t: float, /) -> datetime[None]: ...
+    @overload
     @classmethod
-    def now(cls, tz: _TzInfo | None = None) -> Self: ...
+    def now(cls, tz: None = None) -> datetime[None]: ...
+    @overload
+    @classmethod
+    def now(cls, tz: _TzInfo) -> datetime[_TzInfo]: ...
     @classmethod
     @deprecated("Use timezone-aware objects to represent datetimes in UTC; e.g. by calling .now(datetime.UTC)")
-    def utcnow(cls) -> Self: ...
+    def utcnow(cls) -> datetime[None]: ...
+    @overload
     @classmethod
-    def combine(cls, date: _Date, time: _Time, tzinfo: _TzInfo | None = ...) -> Self: ...
+    def combine(cls, date: _Date, time: _Time, tzinfo: None = None) -> datetime[None]: ...
+    @overload
+    @classmethod
+    def combine(cls, date: _Date, time: _Time, tzinfo: _TzInfo) -> datetime[_TzInfo]: ...
     def timestamp(self) -> float: ...
     def utctimetuple(self) -> struct_time: ...
     def date(self) -> _Date: ...
     def time(self) -> _Time: ...
     def timetz(self) -> _Time: ...
+    @overload
     def replace(
         self,
         year: SupportsIndex = ...,
@@ -272,11 +322,66 @@ class datetime(date):
         minute: SupportsIndex = ...,
         second: SupportsIndex = ...,
         microsecond: SupportsIndex = ...,
-        tzinfo: _TzInfo | None = ...,
         *,
         fold: int = ...,
     ) -> Self: ...
-    def astimezone(self, tz: _TzInfo | None = ...) -> Self: ...
+    @overload
+    def replace(
+        self,
+        year: SupportsIndex,
+        month: SupportsIndex,
+        day: SupportsIndex,
+        hour: SupportsIndex,
+        minute: SupportsIndex,
+        second: SupportsIndex,
+        microsecond: SupportsIndex,
+        tzinfo: _TzInfo,
+        *,
+        fold: int = ...,
+    ) -> datetime[_TzInfo]: ...
+    @overload
+    def replace(
+        self,
+        year: SupportsIndex = ...,
+        month: SupportsIndex = ...,
+        day: SupportsIndex = ...,
+        hour: SupportsIndex = ...,
+        minute: SupportsIndex = ...,
+        second: SupportsIndex = ...,
+        microsecond: SupportsIndex = ...,
+        *,
+        tzinfo: _TzInfo,
+        fold: int = ...,
+    ) -> datetime[_TzInfo]: ...
+    @overload
+    def replace(
+        self,
+        year: SupportsIndex,
+        month: SupportsIndex,
+        day: SupportsIndex,
+        hour: SupportsIndex,
+        minute: SupportsIndex,
+        second: SupportsIndex,
+        microsecond: SupportsIndex,
+        tzinfo: None,
+        *,
+        fold: int = ...,
+    ) -> datetime[None]: ...
+    @overload
+    def replace(
+        self,
+        year: SupportsIndex = ...,
+        month: SupportsIndex = ...,
+        day: SupportsIndex = ...,
+        hour: SupportsIndex = ...,
+        minute: SupportsIndex = ...,
+        second: SupportsIndex = ...,
+        microsecond: SupportsIndex = ...,
+        *,
+        tzinfo: None,
+        fold: int = ...,
+    ) -> datetime[None]: ...
+    def astimezone(self, tz: _TzInfo | None = None) -> datetime[_TzInfo]: ...
     def isoformat(self, sep: str = ..., timespec: str = ...) -> str: ...
     @classmethod
     def strptime(cls, date_string: str, format: str, /) -> Self: ...
