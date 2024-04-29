@@ -275,7 +275,7 @@ class datetime(date, Generic[_TzInfoT]):
     # didn't match the name in the C implementation,
     # meaning it is only *safe* to pass it as a keyword argument on 3.12+
     if sys.version_info >= (3, 12):
-        @overload
+        @overload  # type: ignore[override]
         @classmethod
         def fromtimestamp(cls, timestamp: float, tz: None = None) -> datetime[None]: ...
         @overload
