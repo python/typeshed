@@ -391,7 +391,7 @@ class datetime(date, Generic[_TzInfoT]):
     def tzname(self) -> str | None: ...
     def dst(self) -> timedelta | None: ...
     @overload  # type: ignore[override]
-    def __le__(
+    def __le__(  # type: ignore[overload-overlap]
         self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
     ) -> bool: ...  # type: ignore[misc]
     @overload
@@ -399,7 +399,7 @@ class datetime(date, Generic[_TzInfoT]):
     @overload
     def __le__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
     @overload  # type: ignore[override]
-    def __lt__(
+    def __lt__(  # type: ignore[overload-overlap]
         self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
     ) -> bool: ...  # type: ignore[misc]
     @overload
@@ -407,7 +407,7 @@ class datetime(date, Generic[_TzInfoT]):
     @overload
     def __lt__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
     @overload  # type: ignore[override]
-    def __ge__(
+    def __ge__(  # type: ignore[overload-overlap]
         self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
     ) -> bool: ...  # type: ignore[misc]
     @overload
@@ -415,7 +415,7 @@ class datetime(date, Generic[_TzInfoT]):
     @overload
     def __ge__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
     @overload  # type: ignore[override]
-    def __gt__(
+    def __gt__(  # type: ignore[overload-overlap]
         self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
     ) -> bool: ...  # type: ignore[misc]
     @overload
@@ -425,11 +425,11 @@ class datetime(date, Generic[_TzInfoT]):
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
     @overload  # type: ignore[override]
-    def __sub__(
+    def __sub__(  # type: ignore[overload-overlap]
         self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
     ) -> timedelta: ...
     @overload
-    def __sub__(
+    def __sub__(  # type: ignore[overload-overlap]
         self: datetime[None] | datetime[_TzInfo | None], value: datetime[None] | datetime[_TzInfo | None], /
     ) -> timedelta: ...
     @overload
