@@ -299,6 +299,8 @@ class datetime(date, Generic[_TzInfoT]):
     @classmethod
     def now(cls, tz: _TzInfo) -> datetime[_TzInfo]: ...
     @classmethod
+    def today(cls) -> datetime[None]: ...  # type: ignore[override]
+    @classmethod
     @deprecated("Use timezone-aware objects to represent datetimes in UTC; e.g. by calling .now(datetime.UTC)")
     def utcnow(cls) -> datetime[None]: ...
     @overload

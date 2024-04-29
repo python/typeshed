@@ -24,6 +24,7 @@ assert_type(datetime.utcfromtimestamp(0), datetime[None])  # pyright: ignore[rep
 assert_type(datetime.now(), datetime[None])
 assert_type(datetime.now(None), datetime[None])
 assert_type(datetime.now(UTC), datetime[tzinfo])
+assert_type(datetime.today(), datetime[None])
 assert_type(datetime.utcnow(), datetime[None])  # pyright: ignore[reportDeprecated]
 
 assert_type(datetime.fromisoformat("2000-01-01"), datetime[Union[tzinfo, None]])
