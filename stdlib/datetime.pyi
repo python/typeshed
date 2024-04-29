@@ -210,7 +210,7 @@ class timedelta:
     def __bool__(self) -> bool: ...
     def __hash__(self) -> int: ...
 
-_TzInfoT = TypeVar("_TzInfoT", bound=tzinfo | None, default=tzinfo | None, covariant=True)
+_TzInfoT = TypeVar("_TzInfoT", bound=tzinfo | None, default=Any)
 
 class datetime(date, Generic[_TzInfoT]):
     min: ClassVar[datetime]
@@ -391,36 +391,48 @@ class datetime(date, Generic[_TzInfoT]):
     def tzname(self) -> str | None: ...
     def dst(self) -> timedelta | None: ...
     @overload  # type: ignore[override]
-    def __le__(self: datetime[_TzInfo], value: datetime[None], /) -> NoReturn: ...  # type: ignore[misc]
+    def __le__(
+        self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
+    ) -> bool: ...  # type: ignore[misc]
     @overload
-    def __le__(self: datetime[None], value: datetime[_TzInfo], /) -> NoReturn: ...  # type: ignore[misc]
+    def __le__(self: datetime[None] | datetime[_TzInfo | None], value: datetime[None] | datetime[_TzInfo | None], /) -> bool: ...  # type: ignore[misc]
     @overload
-    def __le__(self: datetime[Any], value: datetime[Any], /) -> bool: ...
+    def __le__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
     @overload  # type: ignore[override]
-    def __lt__(self: datetime[_TzInfo], value: datetime[None], /) -> NoReturn: ...  # type: ignore[misc]
+    def __lt__(
+        self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
+    ) -> bool: ...  # type: ignore[misc]
     @overload
-    def __lt__(self: datetime[None], value: datetime[_TzInfo], /) -> NoReturn: ...  # type: ignore[misc]
+    def __lt__(self: datetime[None] | datetime[_TzInfo | None], value: datetime[None] | datetime[_TzInfo | None], /) -> bool: ...  # type: ignore[misc]
     @overload
-    def __lt__(self: datetime[Any], value: datetime[Any], /) -> bool: ...
+    def __lt__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
     @overload  # type: ignore[override]
-    def __ge__(self: datetime[_TzInfo], value: datetime[None], /) -> NoReturn: ...  # type: ignore[misc]
+    def __ge__(
+        self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
+    ) -> bool: ...  # type: ignore[misc]
     @overload
-    def __ge__(self: datetime[None], value: datetime[_TzInfo], /) -> NoReturn: ...  # type: ignore[misc]
+    def __ge__(self: datetime[None] | datetime[_TzInfo | None], value: datetime[None] | datetime[_TzInfo | None], /) -> bool: ...  # type: ignore[misc]
     @overload
-    def __ge__(self: datetime[Any], value: datetime[Any], /) -> bool: ...
+    def __ge__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
     @overload  # type: ignore[override]
-    def __gt__(self: datetime[_TzInfo], value: datetime[None], /) -> NoReturn: ...  # type: ignore[misc]
+    def __gt__(
+        self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
+    ) -> bool: ...  # type: ignore[misc]
     @overload
-    def __gt__(self: datetime[None], value: datetime[_TzInfo], /) -> NoReturn: ...  # type: ignore[misc]
+    def __gt__(self: datetime[None] | datetime[_TzInfo | None], value: datetime[None] | datetime[_TzInfo | None], /) -> bool: ...  # type: ignore[misc]
     @overload
-    def __gt__(self: datetime[Any], value: datetime[Any], /) -> bool: ...
+    def __gt__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
     @overload  # type: ignore[override]
-    def __sub__(self: datetime[_TzInfo], value: datetime[None], /) -> NoReturn: ...
+    def __sub__(
+        self: datetime[_TzInfo] | datetime[_TzInfo | None], value: datetime[_TzInfo] | datetime[_TzInfo | None], /
+    ) -> timedelta: ...
     @overload
-    def __sub__(self: datetime[None], value: datetime[_TzInfo], /) -> NoReturn: ...
+    def __sub__(
+        self: datetime[None] | datetime[_TzInfo | None], value: datetime[None] | datetime[_TzInfo | None], /
+    ) -> timedelta: ...
     @overload
-    def __sub__(self: datetime[Any], value: datetime[Any], /) -> timedelta: ...
+    def __sub__(self: datetime[Any], value: datetime[Any], /) -> NoReturn: ...
     @overload
     def __sub__(self, value: timedelta, /) -> Self: ...
