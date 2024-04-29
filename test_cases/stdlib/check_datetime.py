@@ -1,4 +1,6 @@
-from datetime import date, datetime, time, tzinfo, UTC
+from __future__ import annotations
+
+from datetime import UTC, date, datetime, time, tzinfo
 from typing import assert_type
 
 dt_wo: datetime[None]
