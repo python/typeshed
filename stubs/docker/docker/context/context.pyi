@@ -2,39 +2,39 @@ from collections.abc import Mapping
 from typing import Any, TypedDict, type_check_only
 
 @type_check_only
-class StorageData(TypedDict):
+class _StorageData(TypedDict):
     MetadataPath: str
     TLSPath: str
 
 @type_check_only
-class Storage(TypedDict):
-    Storage: StorageData
+class _Storage(TypedDict):
+    Storage: _StorageData
 
 @type_check_only
-class Endpoint(TypedDict, total=False):
+class _Endpoint(TypedDict, total=False):
     Host: str
     SkipTLSVerify: bool
 
 @type_check_only
-class TLSMaterial:
-    TLSMaterial: Any
+class _TLSMaterial:
+    TLSMaterial: dict[str, list[str]]
 
 @type_check_only
-class MetaMetaData(TypedDict, total=False):
+class _MetaMetaData(TypedDict, total=False):
     StackOrchestrator: str
 
 @type_check_only
-class Metadata(TypedDict):
+class _Metadata(TypedDict):
     Name: str
-    Metadata: MetaMetaData
-    Endpoints: Mapping[str, Endpoint]
+    Metadata: _MetaMetaData
+    Endpoints: Mapping[str, _Endpoint]
 
 class Context:
     name: str
     context_type: str | None
     orchestrator: str | None
-    endpoints: Mapping[str, Endpoint]
-    tls_cfg: Mapping[str, Any]
+    endpoints: dict[str, _Endpoint]
+    tls_cfg: dict[str, Any]
     meta_path: str
     tls_path: str
     def __init__(
@@ -42,7 +42,7 @@ class Context:
         name: str,
         orchestrator: str | None = None,
         host: str | None = None,
-        endpoints: Mapping[str, Endpoint] | None = None,
+        endpoints: Mapping[str, _Endpoint] | None = None,
         tls: bool = False,
     ) -> None: ...
     def set_endpoint(
@@ -67,10 +67,10 @@ class Context:
     @property
     def Orchestrator(self) -> str: ...
     @property
-    def Metadata(self) -> Metadata: ...
+    def Metadata(self) -> _Metadata: ...
     @property
     def TLSConfig(self) -> Any: ...
     @property
-    def TLSMaterial(self) -> TLSMaterial: ...
+    def TLSMaterial(self) -> _TLSMaterial: ...
     @property
-    def Storage(self) -> Storage: ...
+    def Storage(self) -> _Storage: ...
