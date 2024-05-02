@@ -34,6 +34,7 @@ class HTMLFormatter(Formatter):
         entity_substitution: _EntitySubstitution | None = ...,
         void_element_close_prefix: str = ...,
         cdata_containing_tags: list[str] | None = ...,
+        indent: int = 1,
     ) -> None: ...
 
 class XMLFormatter(Formatter):
@@ -43,4 +44,5 @@ class XMLFormatter(Formatter):
         entity_substitution: _EntitySubstitution | None = ...,
         void_element_close_prefix: str = ...,
         cdata_containing_tags: list[str] | None = ...,
+        indent: int = 1,
     ) -> None: ...
