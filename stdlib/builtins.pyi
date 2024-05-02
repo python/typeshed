@@ -166,6 +166,7 @@ class classmethod(Generic[_T, _P, _R_co]):
 
 class type:
     # object.__base__ is None. Otherwise, it would be a type.
+    def __hash__(self) -> int: ...
     @property
     def __base__(self) -> type | None: ...
     __bases__: tuple[type, ...]
