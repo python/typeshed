@@ -1,4 +1,5 @@
-from typing import Any, Generic, NoReturn, Sequence, TypeVar
+from collections.abc import Sequence
+from typing import Any, Generic, NoReturn, TypeVar
 from typing_extensions import Self
 
 from docker import APIClient

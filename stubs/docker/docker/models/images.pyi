@@ -1,4 +1,5 @@
-from typing import Any, Iterator, Literal, Sequence, overload
+from collections.abc import Iterator, Sequence
+from typing import Any, Literal, overload
 
 from .resource import Collection, Model
 
