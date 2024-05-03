@@ -1,5 +1,6 @@
 from typing import Any, Generic, NoReturn, Sequence, TypeVar
 from typing_extensions import Self
+
 from docker import APIClient
 
 _T = TypeVar("_T", bound=Model)

@@ -1,4 +1,5 @@
 from typing import Sequence
+
 from .resource import Collection, Model
 
 class Config(Model):
