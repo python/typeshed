@@ -1,4 +1,3 @@
-from collections.abc import Sequence
 from typing import Any
 
 from .containers import Container
@@ -17,5 +16,5 @@ class NetworkCollection(Collection[Network]):
     model: type[Network]
     def create(self, name: str, *args, **kwargs) -> Network: ...  # type:ignore[override]
     def get(self, network_id: str, *args, **kwargs) -> Network: ...  # type:ignore[override]
-    def list(self, *args, **kwargs) -> Sequence[Network]: ...
+    def list(self, *args, **kwargs) -> list[Network]: ...
     def prune(self, filters: dict[str, Any] | None = None) -> dict[str, Any]: ...
