@@ -54,7 +54,7 @@ class Container(Model):
     def update(self, **kwargs): ...
     def wait(self, **kwargs): ...
 
-class ContainerCollection(Collection):
+class ContainerCollection(Collection[Container]):
     model: type[Container]
     def run(
         self, image, command: Incomplete | None = None, stdout: bool = True, stderr: bool = False, remove: bool = False, **kwargs
