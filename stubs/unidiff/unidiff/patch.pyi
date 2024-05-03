@@ -3,6 +3,14 @@ from collections.abc import Iterable
 from typing import overload
 from typing_extensions import Self
 
+from unidiff.constants import (
+    DEFAULT_ENCODING as DEFAULT_ENCODING,
+    LINE_TYPE_ADDED as LINE_TYPE_ADDED,
+    LINE_TYPE_CONTEXT as LINE_TYPE_CONTEXT,
+    LINE_TYPE_REMOVED as LINE_TYPE_REMOVED,
+)
+from unidiff.errors import UnidiffParseError as UnidiffParseError
+
 class Line:
     source_line_no: int | None
     target_line_no: int | None
@@ -17,7 +25,7 @@ class Line:
         target_line_no: int | None = None,
         diff_line_no: int | None = None,
     ) -> None: ...
-    def __eq__(self, other: Line) -> bool: ...
+    def __eq__(self, other: Line) -> bool: ...  # type: ignore[override]
     @property
     def is_added(self) -> bool: ...
     @property
