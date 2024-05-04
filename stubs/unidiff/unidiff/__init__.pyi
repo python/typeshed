@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from unidiff.patch import (
     DEFAULT_ENCODING as DEFAULT_ENCODING,
     LINE_TYPE_ADDED as LINE_TYPE_ADDED,
@@ -11,4 +9,4 @@ from unidiff.patch import (
     UnidiffParseError as UnidiffParseError,
 )
 
-VERSION: Incomplete
+VERSION: str
