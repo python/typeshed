@@ -1,6 +1,5 @@
+# Aliases for Python 3 compatibility, not part of the API
 unidiff.patch.PY2
-unidiff.patch.PatchSet.__init__
-unidiff.patch.PatchSet.from_string
 unidiff.patch.basestring
 unidiff.patch.implements_to_string
 unidiff.patch.make_str
