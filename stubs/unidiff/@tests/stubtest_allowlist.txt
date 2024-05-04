@@ -1,0 +1,8 @@
+unidiff.patch.PY2
+unidiff.patch.PatchSet.__init__
+unidiff.patch.PatchSet.from_string
+unidiff.patch.basestring
+unidiff.patch.implements_to_string
+unidiff.patch.make_str
+unidiff.patch.open_file
+unidiff.patch.unicode
