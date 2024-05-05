@@ -24,18 +24,18 @@ from typing_extensions import TypeAlias
 from parse_metadata import get_recursive_requirements, read_metadata
 from utils import (
     PYTHON_VERSION,
-    PackageInfo,
+    TEST_CASES_DIR,
+    DistributionTests,
     colored,
+    distribution_info,
     get_all_testcase_directories,
     get_mypy_req,
     print_error,
-    testcase_dir_from_package_name,
     venv_python,
 )
 
 ReturnCode: TypeAlias = int
 
-TEST_CASES = "test_cases"
 VENV_DIR = ".venv"
 TYPESHED = "typeshed"
 
@@ -43,17 +43,13 @@ SUPPORTED_PLATFORMS = ["linux", "darwin", "win32"]
 SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8"]
 
 
-def package_with_test_cases(package_name: str) -> PackageInfo:
-    """Helper function for argument-parsing"""
+def distribution_with_test_cases(distribution_name: str) -> DistributionTests:
+    """Helper function for argument-parsing."""
 
-    if package_name == "stdlib":
-        return PackageInfo("stdlib", Path(TEST_CASES))
-    test_case_dir = testcase_dir_from_package_name(package_name)
-    if test_case_dir.is_dir():
-        if not os.listdir(test_case_dir):
-            raise argparse.ArgumentTypeError(f"{package_name!r} has a 'test_cases' directory but it is empty!")
-        return PackageInfo(package_name, test_case_dir)
-    raise argparse.ArgumentTypeError(f"No test cases found for {package_name!r}!")
+    try:
+        return distribution_info(distribution_name)
+    except RuntimeError as exc:
+        raise argparse.ArgumentTypeError(str(exc)) from exc
 
 
 class Verbosity(IntEnum):
@@ -65,7 +61,7 @@ class Verbosity(IntEnum):
 parser = argparse.ArgumentParser(description="Script to run mypy against various test cases for typeshed's stubs")
 parser.add_argument(
     "packages_to_test",
-    type=package_with_test_cases,
+    type=distribution_with_test_cases,
     nargs="*",
     action="extend",
     help=(
@@ -118,13 +114,13 @@ def verbose_log(msg: str) -> None:
     _PRINT_QUEUE.put(colored(msg, "blue"))
 
 
-def setup_testcase_dir(package: PackageInfo, tempdir: Path, verbosity: Verbosity) -> None:
+def setup_testcase_dir(package: DistributionTests, tempdir: Path, verbosity: Verbosity) -> None:
     if verbosity is verbosity.VERBOSE:
         verbose_log(f"{package.name}: Setting up testcase dir in {tempdir}")
     # --warn-unused-ignores doesn't work for files inside typeshed.
     # SO, to work around this, we copy the test_cases directory into a TemporaryDirectory,
     # and run the test cases inside of that.
-    shutil.copytree(package.test_case_directory, tempdir / TEST_CASES)
+    shutil.copytree(package.test_cases_path, tempdir / TEST_CASES_DIR)
     if package.is_stdlib:
         return
 
@@ -163,10 +159,10 @@ def setup_testcase_dir(package: PackageInfo, tempdir: Path, verbosity: Verbosity
 
 
 def run_testcases(
-    package: PackageInfo, version: str, platform: str, *, tempdir: Path, verbosity: Verbosity
+    package: DistributionTests, version: str, platform: str, *, tempdir: Path, verbosity: Verbosity
 ) -> subprocess.CompletedProcess[str]:
     env_vars = dict(os.environ)
-    new_test_case_dir = tempdir / TEST_CASES
+    new_test_case_dir = tempdir / TEST_CASES_DIR
 
     # "--enable-error-code ignore-without-code" is purposefully omitted.
     # See https://github.com/python/typeshed/pull/8083
@@ -239,14 +235,16 @@ class Result:
         if self.code:
             print(f"{self.command_run}:", end=" ")
             print_error("FAILURE\n")
-            replacements = (str(self.tempdir / TEST_CASES), str(self.test_case_dir))
+            replacements = (str(self.tempdir / TEST_CASES_DIR), str(self.test_case_dir))
             if self.stderr:
                 print_error(self.stderr, fix_path=replacements)
             if self.stdout:
                 print_error(self.stdout, fix_path=replacements)
 
 
-def test_testcase_directory(package: PackageInfo, version: str, platform: str, *, verbosity: Verbosity, tempdir: Path) -> Result:
+def test_testcase_directory(
+    package: DistributionTests, version: str, platform: str, *, verbosity: Verbosity, tempdir: Path
+) -> Result:
     msg = f"mypy --platform {platform} --python-version {version} on the "
     msg += "standard library test cases" if package.is_stdlib else f"test cases for {package.name!r}"
     if verbosity > Verbosity.QUIET:
@@ -258,7 +256,7 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str, *
         command_run=msg,
         stderr=proc_info.stderr,
         stdout=proc_info.stdout,
-        test_case_dir=package.test_case_directory,
+        test_case_dir=package.test_cases_path,
         tempdir=tempdir,
     )
 
@@ -278,13 +276,13 @@ def print_queued_messages(ev: threading.Event) -> None:
 
 def concurrently_run_testcases(
     stack: ExitStack,
-    testcase_directories: list[PackageInfo],
+    testcase_directories: list[DistributionTests],
     verbosity: Verbosity,
     platforms_to_test: list[str],
     versions_to_test: list[str],
 ) -> list[Result]:
     packageinfo_to_tempdir = {
-        package_info: Path(stack.enter_context(tempfile.TemporaryDirectory())) for package_info in testcase_directories
+        distribution_info: Path(stack.enter_context(tempfile.TemporaryDirectory())) for distribution_info in testcase_directories
     }
     to_do: list[Callable[[], Result]] = []
     for testcase_dir, tempdir in packageinfo_to_tempdir.items():
