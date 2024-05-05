@@ -7,6 +7,7 @@
     ],
     "exclude": [
         // test cases use a custom pyrightconfig file
+	    "stdlib/@tests/test_cases",
         "stubs/**/@tests/test_cases",
         "stdlib/distutils/command",
         "stdlib/distutils/dist.pyi",

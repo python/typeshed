@@ -2,7 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/microsoft/pyright/main/packages/vscode-pyright/schemas/pyrightconfig.schema.json",
     "typeshedPath": ".",
     "include": [
-        "test_cases",
+        "stdlib/@tests/test_cases",
         "stubs/**/@tests/test_cases"
     ],
     "typeCheckingMode": "strict",
