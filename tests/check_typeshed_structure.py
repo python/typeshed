@@ -11,6 +11,7 @@ import os
 import re
 import sys
 from pathlib import Path
+from tabnanny import check
 
 from parse_metadata import read_metadata
 from utils import (
@@ -60,6 +61,7 @@ def assert_consistent_filetypes(
 def check_stdlib() -> None:
     """Check that the stdlib directory contains only the correct files."""
     assert_consistent_filetypes(Path("stdlib"), kind=".pyi", allowed={"_typeshed/README.md", "VERSIONS", TESTS_DIR})
+    check_tests_dir(tests_path("stdlib"))
 
 
 def check_stubs() -> None:
