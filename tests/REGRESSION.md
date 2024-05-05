@@ -1,21 +1,16 @@
 ## Regression tests for typeshed
 
-This directory contains code samples that act as a regression test for
-typeshed's stdlib stubs.
+Regression tests for the standard library stubs can be found in the
+`stdlib/@tests/test_cases` directory. Stubs for third-party libraries that do
+have test cases can be found in `@tests/test_cases` subdirectories for each
+stubs package. For example, the test cases for `requests` can be found in the
+`stubs/requests/@tests/test_cases` directory.
 
-**This directory should *only* contain test cases for functions and classes which
+**Regression test cases should only be written for functions and classes which
 are known to have caused problems in the past, where the stubs are difficult to
 get right.** 100% test coverage for typeshed is neither necessary nor
 desirable, as it would lead to code duplication. Moreover, typeshed has
 multiple other mechanisms for spotting errors in the stubs.
-
-### Where are the third-party test cases?
-
-Not all third-party stubs packages in typeshed have test cases, and not all of
-them need test cases. For those that do have test cases, however, the samples
-can be found in `@tests/test_cases` subdirectories for each stubs package. For
-example, the test cases for `requests` can be found in the
-`stubs/requests/@tests/test_cases` directory.
 
 ### The purpose of these tests
 
@@ -123,4 +118,4 @@ is passed on the command line.
 
 However, `if sys.version_info >= (3, target):` is still required for `pyright`
 in the test file itself.
-Example: [`check_exception_group-py311.py`](https://github.com/python/typeshed/blob/main/test_cases/stdlib/builtins/check_exception_group-py311.py)
+Example: [`check_exception_group-py311.py`](../stdlib/@tests/test_cases/stdlib/builtins/check_exception_group-py311.py)

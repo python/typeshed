@@ -102,7 +102,8 @@ the stubs in typeshed (including the standard library).
 ## regr\_test.py
 
 This test runs mypy against the test cases for typeshed's stdlib and third-party
-stubs. See [the README in the `stdlib/@tests/test_cases` directory](../stdlib/@tests/test_cases/README.md)
+stubs. See [the REGRESSION.md document](./REGRESSION.md)
+in this directory
 for more information about what
 these test cases are for and how they work. Run `python tests/regr_test.py --help`
 for information on the various configuration options.
