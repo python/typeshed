@@ -5,3 +5,6 @@ docker.transport.SSHHTTPAdapter
 docker.transport.npipeconn
 docker.transport.npipesocket
 docker.transport.sshconn
+
+# model is always set by child classes
+docker.models.resource.Collection.model
