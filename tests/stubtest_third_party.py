@@ -13,7 +13,7 @@ from textwrap import dedent
 from typing import NoReturn
 
 from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
-from utils import PYTHON_VERSION, colored, get_mypy_req, print_divider, print_error, print_success_msg
+from utils import PYTHON_VERSION, colored, get_mypy_req, print_divider, print_error, print_success_msg, tests_path
 
 
 def run_stubtest(
@@ -112,10 +112,10 @@ def run_stubtest(
         # "bisect" to see which variables are actually needed.
         stubtest_env = os.environ | {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
 
-        allowlist_path = dist / "@tests/stubtest_allowlist.txt"
+        allowlist_path = tests_path(dist_name) / "stubtest_allowlist.txt"
         if allowlist_path.exists():
             stubtest_cmd.extend(["--allowlist", str(allowlist_path)])
-        platform_allowlist = dist / f"@tests/stubtest_allowlist_{sys.platform}.txt"
+        platform_allowlist = tests_path(dist_name) / f"stubtest_allowlist_{sys.platform}.txt"
         if platform_allowlist.exists():
             stubtest_cmd.extend(["--allowlist", str(platform_allowlist)])
 
@@ -271,7 +271,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     so both scripts will be cleaned up after this function
     has been executed.
     """
-    uwsgi_ini = dist / "@tests/uwsgi.ini"
+    uwsgi_ini = tests_path(dist.name) / "uwsgi.ini"
 
     if sys.platform == "win32":
         print_error("uWSGI is not supported on Windows")
