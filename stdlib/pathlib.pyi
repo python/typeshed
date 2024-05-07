@@ -222,7 +222,7 @@ class Path(PurePath):
     else:
         def write_text(self, data: str, encoding: str | None = None, errors: str | None = None) -> int: ...
     if sys.version_info < (3, 12):
-        @deprecated("Deprecated since Python 3.10 and scheduled for removal in Python 3.12. Use hardlink_to() instead.")
+        @deprecated("Deprecated since Python 3.10 and removed in Python 3.12. Use hardlink_to() instead.")
         def link_to(self, target: StrOrBytesPath) -> None: ...
     if sys.version_info >= (3, 12):
         def walk(
