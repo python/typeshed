@@ -191,8 +191,7 @@ if sys.version_info >= (3, 12):
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
         optimize: Literal[-1, 0, 1, 2] = -1,
-    ) -> Module:
-        ...
+    ) -> Module: ...
     @overload
     def parse(
         source: str | ReadableBuffer,
@@ -202,8 +201,7 @@ if sys.version_info >= (3, 12):
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
         optimize: Literal[-1, 0, 1, 2] = -1,
-    ) -> Expression:
-        ...
+    ) -> Expression: ...
     @overload
     def parse(
         source: str | ReadableBuffer,
@@ -213,8 +211,7 @@ if sys.version_info >= (3, 12):
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
         optimize: Literal[-1, 0, 1, 2] = -1,
-    ) -> FunctionType:
-        ...
+    ) -> FunctionType: ...
     @overload
     def parse(
         source: str | ReadableBuffer,
@@ -224,8 +221,7 @@ if sys.version_info >= (3, 12):
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
         optimize: Literal[-1, 0, 1, 2] = -1,
-    ) -> Interactive:
-        ...
+    ) -> Interactive: ...
     @overload
     def parse(
         source: str | ReadableBuffer,
@@ -234,8 +230,7 @@ if sys.version_info >= (3, 12):
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
         optimize: Literal[-1, 0, 1, 2] = -1,
-    ) -> Expression:
-        ...
+    ) -> Expression: ...
     @overload
     def parse(
         source: str | ReadableBuffer,
@@ -244,8 +239,7 @@ if sys.version_info >= (3, 12):
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
         optimize: Literal[-1, 0, 1, 2] = -1,
-    ) -> FunctionType:
-        ...
+    ) -> FunctionType: ...
     @overload
     def parse(
         source: str | ReadableBuffer,
@@ -254,8 +248,7 @@ if sys.version_info >= (3, 12):
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
         optimize: Literal[-1, 0, 1, 2] = -1,
-    ) -> Interactive:
-        ...
+    ) -> Interactive: ...
     @overload
     def parse(
         source: str | ReadableBuffer,
@@ -265,8 +258,7 @@ if sys.version_info >= (3, 12):
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
         optimize: Literal[-1, 0, 1, 2] = -1,
-    ) -> AST:
-        ...
+    ) -> AST: ...
 else:
     @overload
     def parse(
