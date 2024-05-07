@@ -181,7 +181,7 @@ class NodeTransformer(NodeVisitor):
 
 _T = _TypeVar("_T", bound=AST)
 
-if sys.version_info >= (3, 12):
+if sys.version_info >= (3, 13):
     @overload
     def parse(
         source: str | ReadableBuffer,
