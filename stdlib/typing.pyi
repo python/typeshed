@@ -428,17 +428,16 @@ class Generator(Iterator[_YieldT_co], Generic[_YieldT_co, _SendT_contra, _Return
     @property
     def gi_yieldfrom(self) -> Generator[Any, Any, Any] | None: ...
 
-# NOTE: Technically we would like this to be able to accept a second parameter as well, just
-#   like it's counterpart in contextlib, however `typing._SpecialGenericAlias` enforces the
-#   correct number of arguments at runtime, so we would be hiding runtime errors.
-@runtime_checkable
-class ContextManager(AbstractContextManager[_T_co, bool | None], Protocol[_T_co]): ...
+# NOTE: Prior to Python 3.13 these aliases are lacking the second _ExitT_co parameter
+if sys.version_info >= (3, 13):
+    ContextManager = AbstractContextManager
+    AsyncContextManager = AbstractAsyncContextManager
+else:
+    @runtime_checkable
+    class ContextManager(AbstractContextManager[_T_co, bool | None], Protocol[_T_co]): ...
 
-# NOTE: Technically we would like this to be able to accept a second parameter as well, just
-#   like it's counterpart in contextlib, however `typing._SpecialGenericAlias` enforces the
-#   correct number of arguments at runtime, so we would be hiding runtime errors.
-@runtime_checkable
-class AsyncContextManager(AbstractAsyncContextManager[_T_co, bool | None], Protocol[_T_co]): ...
+    @runtime_checkable
+    class AsyncContextManager(AbstractAsyncContextManager[_T_co, bool | None], Protocol[_T_co]): ...
 
 @runtime_checkable
 class Awaitable(Protocol[_T_co]):
