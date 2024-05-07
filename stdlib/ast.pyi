@@ -336,7 +336,11 @@ if sys.version_info >= (3, 9):
 
 def copy_location(new_node: _T, old_node: AST) -> _T: ...
 
-if sys.version_info >= (3, 9):
+if sys.version_info >= (3, 13):
+    def dump(
+        node: AST, annotate_fields: bool = True, include_attributes: bool = False, *, indent: int | str | None = None, show_empty: bool = False
+    ) -> str: ...
+elif sys.version_info >= (3, 9):
     def dump(
         node: AST, annotate_fields: bool = True, include_attributes: bool = False, *, indent: int | str | None = None
     ) -> str: ...
