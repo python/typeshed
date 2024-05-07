@@ -27,11 +27,6 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 if sys.version_info >= (3, 10):
     from types import UnionType
-if sys.version_info >= (3, 13):
-    # NOTE: Starting with Python 3.13 we can just re-export these from contextlib
-    from contextlib import AbstractAsyncContextManager as AsyncContextManager, AbstractContextManager as ContextManager
-else:
-    from contextlib import AbstractAsyncContextManager, AbstractContextManager
 
 __all__ = [
     "AbstractSet",
@@ -433,7 +428,11 @@ class Generator(Iterator[_YieldT_co], Generic[_YieldT_co, _SendT_contra, _Return
     def gi_yieldfrom(self) -> Generator[Any, Any, Any] | None: ...
 
 # NOTE: Prior to Python 3.13 these aliases are lacking the second _ExitT_co parameter
-if sys.version_info < (3, 13):
+if sys.version_info >= (3, 13):
+    from contextlib import AbstractAsyncContextManager as AsyncContextManager, AbstractContextManager as ContextManager
+else:
+    from contextlib import AbstractAsyncContextManager, AbstractContextManager
+
     @runtime_checkable
     class ContextManager(AbstractContextManager[_T_co, bool | None], Protocol[_T_co]): ...
 
