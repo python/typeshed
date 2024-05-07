@@ -259,6 +259,7 @@ if sys.version_info >= (3, 12):
         feature_version: None | int | tuple[int, int] = None,
         optimize: Literal[-1, 0, 1, 2] = -1,
     ) -> AST: ...
+
 else:
     @overload
     def parse(
