@@ -19,10 +19,6 @@ class AST:
     _fields: ClassVar[tuple[str, ...]]
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     # TODO: Not all nodes have all of the following attributes
-    lineno: int
-    col_offset: int
-    end_lineno: int | None
-    end_col_offset: int | None
     type_comment: str | None
 
 class mod(AST): ...
@@ -55,7 +51,11 @@ class Expression(mod):
         __match_args__ = ("body",)
     body: expr
 
-class stmt(AST): ...
+class stmt(AST):
+    lineno: int
+    col_offset: int
+    end_lineno: int | None
+    end_col_offset: int | None
 
 class FunctionDef(stmt):
     if sys.version_info >= (3, 12):
@@ -227,7 +227,12 @@ class Expr(stmt):
 class Pass(stmt): ...
 class Break(stmt): ...
 class Continue(stmt): ...
-class expr(AST): ...
+
+class expr(AST):
+    lineno: int
+    col_offset: int
+    end_lineno: int | None
+    end_col_offset: int | None
 
 class BoolOp(expr):
     if sys.version_info >= (3, 10):
@@ -468,7 +473,11 @@ class comprehension(AST):
     ifs: list[expr]
     is_async: int
 
-class excepthandler(AST): ...
+class excepthandler(AST):
+    lineno: int
+    col_offset: int
+    end_lineno: int | None
+    end_col_offset: int | None
 
 class ExceptHandler(excepthandler):
     if sys.version_info >= (3, 10):
@@ -489,18 +498,30 @@ class arguments(AST):
     defaults: list[expr]
 
 class arg(AST):
+    lineno: int
+    col_offset: int
+    end_lineno: int | None
+    end_col_offset: int | None
     if sys.version_info >= (3, 10):
         __match_args__ = ("arg", "annotation", "type_comment")
     arg: _Identifier
     annotation: expr | None
 
 class keyword(AST):
+    lineno: int
+    col_offset: int
+    end_lineno: int | None
+    end_col_offset: int | None
     if sys.version_info >= (3, 10):
         __match_args__ = ("arg", "value")
     arg: _Identifier | None
     value: expr
 
 class alias(AST):
+    lineno: int
+    col_offset: int
+    end_lineno: int | None
+    end_col_offset: int | None
     if sys.version_info >= (3, 10):
         __match_args__ = ("name", "asname")
     name: str
@@ -518,7 +539,12 @@ if sys.version_info >= (3, 10):
         subject: expr
         cases: list[match_case]
 
-    class pattern(AST): ...
+    class pattern(AST):
+        lineno: int
+        col_offset: int
+        end_lineno: int
+        end_col_offset: int
+
     # Without the alias, Pyright complains variables named pattern are recursively defined
     _Pattern: typing_extensions.TypeAlias = pattern
 
@@ -568,6 +594,8 @@ if sys.version_info >= (3, 10):
 
 if sys.version_info >= (3, 12):
     class type_param(AST):
+        lineno: int
+        col_offset: int
         end_lineno: int
         end_col_offset: int
 
