@@ -15,7 +15,7 @@ x = d - relativedelta(days=1)
 
 d3 = datetime.today()
 x3 = d3 - relativedelta(days=1)
-assert_type(x3, datetime)
+assert_type(x3, datetime[None])
 
 d2 = date.today()
 x2 = d2 - relativedelta(days=1)
