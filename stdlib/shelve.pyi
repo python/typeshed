@@ -3,6 +3,7 @@ from dbm import _TFlags
 from types import TracebackType
 from typing import Any, TypeVar, overload
 from typing_extensions import Self
+from _typeshed import StrOrBytesPath
 
 __all__ = ["Shelf", "BsdDbShelf", "DbfilenameShelf", "open"]
 
@@ -41,6 +42,6 @@ class BsdDbShelf(Shelf[_VT]):
     def last(self) -> tuple[str, _VT]: ...
 
 class DbfilenameShelf(Shelf[_VT]):
-    def __init__(self, filename: str, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False) -> None: ...
+    def __init__(self, filename: StrOrBytesPath, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False) -> None: ...
 
-def open(filename: str, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False) -> Shelf[Any]: ...
+def open(filename: StrOrBytesPath, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False) -> Shelf[Any]: ...
