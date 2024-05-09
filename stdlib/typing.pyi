@@ -129,9 +129,6 @@ if sys.version_info >= (3, 11):
 if sys.version_info >= (3, 12):
     __all__ += ["TypeAliasType", "override"]
 
-ContextManager = AbstractContextManager
-AsyncContextManager = AbstractAsyncContextManager
-
 Any = object()
 
 def final(f: _T) -> _T: ...
@@ -431,10 +428,22 @@ class Generator(Iterator[_YieldT_co], Generic[_YieldT_co, _SendT_contra, _Return
     @property
     def gi_yieldfrom(self) -> Generator[Any, Any, Any] | None: ...
 
+# NOTE: Technically we would like this to be able to accept a second parameter as well, just
+#   like it's counterpart in contextlib, however `typing._SpecialGenericAlias` enforces the
+#   correct number of arguments at runtime, so we would be hiding runtime errors.
+@runtime_checkable
+class ContextManager(AbstractContextManager[_T_co, bool | None], Protocol[_T_co]): ...
+
+# NOTE: Technically we would like this to be able to accept a second parameter as well, just
+#   like it's counterpart in contextlib, however `typing._SpecialGenericAlias` enforces the
+#   correct number of arguments at runtime, so we would be hiding runtime errors.
+@runtime_checkable
+class AsyncContextManager(AbstractAsyncContextManager[_T_co, bool | None], Protocol[_T_co]): ...
+
 @runtime_checkable
 class Awaitable(Protocol[_T_co]):
     @abstractmethod
-    def __await__(self) -> Generator[Any, None, _T_co]: ...
+    def __await__(self) -> Generator[Any, Any, _T_co]: ...
 
 class Coroutine(Awaitable[_ReturnT_co], Generic[_YieldT_co, _SendT_contra, _ReturnT_co]):
     __name__: str
@@ -444,7 +453,7 @@ class Coroutine(Awaitable[_ReturnT_co], Generic[_YieldT_co, _SendT_contra, _Retu
     @property
     def cr_code(self) -> CodeType: ...
     @property
-    def cr_frame(self) -> FrameType: ...
+    def cr_frame(self) -> FrameType | None: ...
     @property
     def cr_running(self) -> bool: ...
     @abstractmethod

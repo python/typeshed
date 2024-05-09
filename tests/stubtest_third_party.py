@@ -13,7 +13,7 @@ from textwrap import dedent
 from typing import NoReturn
 
 from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
-from utils import PYTHON_VERSION, colored, get_mypy_req, print_divider, print_error, print_success_msg
+from utils import PYTHON_VERSION, colored, get_mypy_req, print_divider, print_error, print_success_msg, tests_path
 
 
 def run_stubtest(
@@ -27,7 +27,7 @@ def run_stubtest(
     print(f"{dist_name}... ", end="", flush=True)
 
     stubtest_settings = metadata.stubtest_settings
-    if stubtest_settings.skipped:
+    if stubtest_settings.skip:
         print(colored("skipping", "yellow"))
         return True
 
@@ -112,10 +112,10 @@ def run_stubtest(
         # "bisect" to see which variables are actually needed.
         stubtest_env = os.environ | {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
 
-        allowlist_path = dist / "@tests/stubtest_allowlist.txt"
+        allowlist_path = tests_path(dist_name) / "stubtest_allowlist.txt"
         if allowlist_path.exists():
             stubtest_cmd.extend(["--allowlist", str(allowlist_path)])
-        platform_allowlist = dist / f"@tests/stubtest_allowlist_{sys.platform}.txt"
+        platform_allowlist = tests_path(dist_name) / f"stubtest_allowlist_{sys.platform}.txt"
         if platform_allowlist.exists():
             stubtest_cmd.extend(["--allowlist", str(platform_allowlist)])
 
@@ -131,7 +131,7 @@ def run_stubtest(
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
-            print_error("fail\n")
+            print_error("fail")
 
             print_divider()
             print("Commands run:")
@@ -142,30 +142,26 @@ def run_stubtest(
             print_command_output(e)
 
             print_divider()
-            print(f"Upstream repository: {metadata.upstream_repository}")
-            print(f"Typeshed source code: https://github.com/python/typeshed/tree/main/stubs/{dist.name}")
-
-            print("Python version: ", file=sys.stderr, end="", flush=True)
+            print("Python version: ", end="", flush=True)
             ret = subprocess.run([sys.executable, "-VV"], capture_output=True)
             print_command_output(ret)
-            print("Ran with the following environment:", file=sys.stderr)
+            print("\nRan with the following environment:")
             ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
             print_command_output(ret)
 
+            print_divider()
             allowlist_path_relative = allowlist_path.relative_to(Path.cwd())
             if allowlist_path.exists():
-                print(
-                    f'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_path_relative}',
-                    file=sys.stderr,
-                )
-                print(file=sys.stderr)
+                print(f'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_path_relative}')
+                print()
             else:
-                print(
-                    f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path_relative}:",
-                    file=sys.stderr,
-                )
+                print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path_relative}:")
                 ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
                 print_command_output(ret)
+
+            print_divider()
+            print(f"Upstream repository: {metadata.upstream_repository}")
+            print(f"Typeshed source code: https://github.com/python/typeshed/tree/main/stubs/{dist.name}")
 
             print_divider()
 
@@ -275,7 +271,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     so both scripts will be cleaned up after this function
     has been executed.
     """
-    uwsgi_ini = dist / "@tests/uwsgi.ini"
+    uwsgi_ini = tests_path(dist.name) / "uwsgi.ini"
 
     if sys.platform == "win32":
         print_error("uWSGI is not supported on Windows")
@@ -338,23 +334,21 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
 
 
 def print_commands(dist: Path, pip_cmd: list[str], stubtest_cmd: list[str], mypypath: str) -> None:
-    print(file=sys.stderr)
-    print(" ".join(pip_cmd), file=sys.stderr)
-    print(f"MYPYPATH={mypypath}", " ".join(stubtest_cmd), file=sys.stderr)
-    print(file=sys.stderr)
+    print()
+    print(" ".join(pip_cmd))
+    print(f"MYPYPATH={mypypath}", " ".join(stubtest_cmd))
 
 
 def print_command_failure(message: str, e: subprocess.CalledProcessError) -> None:
     print_error("fail")
-    print(file=sys.stderr)
-    print(message, file=sys.stderr)
+    print()
+    print(message)
     print_command_output(e)
 
 
 def print_command_output(e: subprocess.CalledProcessError | subprocess.CompletedProcess[bytes]) -> None:
-    print(e.stdout.decode(), end="", file=sys.stderr)
-    print(e.stderr.decode(), end="", file=sys.stderr)
-    print(file=sys.stderr)
+    print(e.stdout.decode(), end="")
+    print(e.stderr.decode(), end="")
 
 
 def main() -> NoReturn:

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import os
 import re
 import sys
 from collections.abc import Iterable, Mapping
@@ -22,6 +21,8 @@ except ImportError:
 
 
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
+
+STUBS_PATH = Path("stubs")
 
 
 # A backport of functools.cache for Python <3.9
@@ -61,7 +62,9 @@ def print_divider() -> None:
 
     This can be useful to divide terminal output into separate sections.
     """
+    print()
     print("*" * 70)
+    print()
 
 
 # ====================================================================
@@ -107,30 +110,55 @@ VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d
 
 
 # ====================================================================
-# Getting test-case directories from package names
+# Test Directories
 # ====================================================================
 
 
-class PackageInfo(NamedTuple):
+TESTS_DIR: Final = "@tests"
+TEST_CASES_DIR: Final = "test_cases"
+
+
+class DistributionTests(NamedTuple):
     name: str
-    test_case_directory: Path
+    test_cases_path: Path
 
     @property
     def is_stdlib(self) -> bool:
         return self.name == "stdlib"
 
 
-def testcase_dir_from_package_name(package_name: str) -> Path:
-    return Path("stubs", package_name, "@tests/test_cases")
+def distribution_info(distribution_name: str) -> DistributionTests:
+    if distribution_name == "stdlib":
+        return DistributionTests("stdlib", test_cases_path("stdlib"))
+    test_path = test_cases_path(distribution_name)
+    if test_path.is_dir():
+        if not list(test_path.iterdir()):
+            raise RuntimeError(f"{distribution_name!r} has a '{TEST_CASES_DIR}' directory but it is empty!")
+        return DistributionTests(distribution_name, test_path)
+    raise RuntimeError(f"No test cases found for {distribution_name!r}!")
 
 
-def get_all_testcase_directories() -> list[PackageInfo]:
-    testcase_directories: list[PackageInfo] = []
-    for package_name in os.listdir("stubs"):
-        potential_testcase_dir = testcase_dir_from_package_name(package_name)
-        if potential_testcase_dir.is_dir():
-            testcase_directories.append(PackageInfo(package_name, potential_testcase_dir))
-    return [PackageInfo("stdlib", Path("test_cases")), *sorted(testcase_directories)]
+def tests_path(distribution_name: str) -> Path:
+    assert distribution_name != "stdlib"
+    return STUBS_PATH / distribution_name / TESTS_DIR
+
+
+def test_cases_path(distribution_name: str) -> Path:
+    if distribution_name == "stdlib":
+        return Path(TEST_CASES_DIR)
+    else:
+        return tests_path(distribution_name) / TEST_CASES_DIR
+
+
+def get_all_testcase_directories() -> list[DistributionTests]:
+    testcase_directories: list[DistributionTests] = []
+    for distribution_path in STUBS_PATH.iterdir():
+        try:
+            pkg_info = distribution_info(distribution_path.name)
+        except RuntimeError:
+            continue
+        testcase_directories.append(pkg_info)
+    return [distribution_info("stdlib"), *sorted(testcase_directories)]
 
 
 # ====================================================================

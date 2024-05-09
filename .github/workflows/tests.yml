@@ -34,16 +34,6 @@ jobs:
       - run: uv pip install -r requirements-tests.txt --system
       - run: python ./tests/check_typeshed_structure.py
 
-  new-syntax:
-    name: Ensure new syntax usage
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - run: ./tests/check_new_syntax.py
-
   pytype:
     name: Run pytype against the stubs
     runs-on: ubuntu-latest

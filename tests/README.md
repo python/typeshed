@@ -9,8 +9,6 @@ tests the stubs with [mypy](https://github.com/python/mypy/)
 stubs, guarding against accidental regressions.
 - `tests/check_typeshed_structure.py` checks that typeshed's directory
 structure and metadata files are correct.
-- `tests/check_new_syntax.py` contains linter-like checks to ensure
-that certain code conventions are followed.
 - `tests/stubtest_stdlib.py` checks standard library stubs against the
 objects at runtime.
 - `tests/stubtest_third_party.py` checks third-party stubs against the
@@ -38,7 +36,7 @@ You can list or install all of a stubs package's external dependencies using the
 
 Run using:
 ```bash
-(.venv3)$ python3 scripts/runtests.py <stdlib-or-stubs>/<stub-to-test>
+(.venv3)$ python3 tests/runtests.py <stdlib-or-stubs>/<stub-to-test>
 ```
 
 This script will run all tests below for a specific typeshed directory. If a
@@ -48,7 +46,7 @@ be selected. A summary of the results will be printed to the terminal.
 You must provide a single argument which is a path to the stubs to test, like
 so: `stdlib/os` or `stubs/requests`.
 
-Run `python scripts/runtests.py --help` for information on the various configuration options
+Run `python tests/runtests.py --help` for information on the various configuration options
 for this script. Note that if you use the `--run-stubtest` flag with the stdlib stubs,
 whether or not the test passes will depend on the exact version of Python
 you're using, as well as various other details regarding your local environment.
