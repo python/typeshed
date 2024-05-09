@@ -1,6 +1,7 @@
 import sys
 import typing_extensions
 from typing import Any, ClassVar, Generic, Literal, TypedDict, overload
+from typing_extensions import Unpack
 
 PyCF_ONLY_AST: Literal[1024]
 PyCF_TYPE_COMMENTS: Literal[4096]
@@ -74,7 +75,7 @@ class stmt(AST):
     col_offset: int
     end_lineno: int | None
     end_col_offset: int | None
-    def __init__(self, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class FunctionDef(stmt):
     if sys.version_info >= (3, 12):
@@ -99,7 +100,7 @@ class FunctionDef(stmt):
             returns: expr | None,
             type_comment: str | None,
             type_params: list[type_param],
-            **kwargs: typing_extensions.Unpack[_Attributes],
+            **kwargs: Unpack[_Attributes],
         ) -> None: ...
         @overload
         def __init__(
@@ -112,7 +113,7 @@ class FunctionDef(stmt):
             *,
             type_comment: str | None = None,
             type_params: list[type_param],
-            **kwargs: typing_extensions.Unpack[_Attributes],
+            **kwargs: Unpack[_Attributes],
         ) -> None: ...
     else:
         def __init__(
@@ -123,7 +124,7 @@ class FunctionDef(stmt):
             decorator_list: list[expr],
             returns: expr | None = None,
             type_comment: str | None = None,
-            **kwargs: typing_extensions.Unpack[_Attributes],
+            **kwargs: Unpack[_Attributes],
         ) -> None: ...
 
 class AsyncFunctionDef(stmt):
@@ -149,7 +150,7 @@ class AsyncFunctionDef(stmt):
             returns: expr | None,
             type_comment: str | None,
             type_params: list[type_param],
-            **kwargs: typing_extensions.Unpack[_Attributes],
+            **kwargs: Unpack[_Attributes],
         ) -> None: ...
         @overload
         def __init__(
@@ -162,7 +163,7 @@ class AsyncFunctionDef(stmt):
             *,
             type_comment: str | None = None,
             type_params: list[type_param],
-            **kwargs: typing_extensions.Unpack[_Attributes],
+            **kwargs: Unpack[_Attributes],
         ) -> None: ...
     else:
         def __init__(
@@ -173,7 +174,7 @@ class AsyncFunctionDef(stmt):
             decorator_list: list[expr],
             returns: expr | None = None,
             type_comment: str | None = None,
-            **kwargs: typing_extensions.Unpack[_Attributes],
+            **kwargs: Unpack[_Attributes],
         ) -> None: ...
 
 class ClassDef(stmt):
@@ -196,7 +197,7 @@ class ClassDef(stmt):
             body: list[stmt],
             decorator_list: list[expr],
             type_params: list[type_param],
-            **kwargs: typing_extensions.Unpack[_Attributes],
+            **kwargs: Unpack[_Attributes],
         ) -> None: ...
     else:
         def __init__(
@@ -206,20 +207,20 @@ class ClassDef(stmt):
             keywords: list[keyword],
             body: list[stmt],
             decorator_list: list[expr],
-            **kwargs: typing_extensions.Unpack[_Attributes],
+            **kwargs: Unpack[_Attributes],
         ) -> None: ...
 
 class Return(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value",)
     value: expr | None
-    def __init__(self, value: expr | None = None, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, value: expr | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Delete(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("targets",)
     targets: list[expr]
-    def __init__(self, targets: list[expr], **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, targets: list[expr], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Assign(stmt):
     if sys.version_info >= (3, 10):
@@ -228,7 +229,7 @@ class Assign(stmt):
     value: expr
     type_comment: str | None
     def __init__(
-        self, targets: list[expr], value: expr, type_comment: str | None = None, **kwargs: typing_extensions.Unpack[_Attributes]
+        self, targets: list[expr], value: expr, type_comment: str | None = None, **kwargs: Unpack[_Attributes]
     ) -> None: ...
 
 class AugAssign(stmt):
@@ -238,7 +239,7 @@ class AugAssign(stmt):
     op: operator
     value: expr
     def __init__(
-        self, target: Name | Attribute | Subscript, op: operator, value: expr, **kwargs: typing_extensions.Unpack[_Attributes]
+        self, target: Name | Attribute | Subscript, op: operator, value: expr, **kwargs: Unpack[_Attributes]
     ) -> None: ...
 
 class AnnAssign(stmt):
@@ -255,7 +256,7 @@ class AnnAssign(stmt):
         annotation: expr,
         value: expr | None,
         simple: int,
-        **kwargs: typing_extensions.Unpack[_Attributes],
+        **kwargs: Unpack[_Attributes],
     ) -> None: ...
     @overload
     def __init__(
@@ -265,7 +266,7 @@ class AnnAssign(stmt):
         value: expr | None = None,
         *,
         simple: int,
-        **kwargs: typing_extensions.Unpack[_Attributes],
+        **kwargs: Unpack[_Attributes],
     ) -> None: ...
 
 class For(stmt):
@@ -283,7 +284,7 @@ class For(stmt):
         body: list[stmt],
         orelse: list[stmt],
         type_comment: str | None = None,
-        **kwargs: typing_extensions.Unpack[_Attributes],
+        **kwargs: Unpack[_Attributes],
     ) -> None: ...
 
 class AsyncFor(stmt):
@@ -301,7 +302,7 @@ class AsyncFor(stmt):
         body: list[stmt],
         orelse: list[stmt],
         type_comment: str | None = None,
-        **kwargs: typing_extensions.Unpack[_Attributes],
+        **kwargs: Unpack[_Attributes],
     ) -> None: ...
 
 class While(stmt):
@@ -310,9 +311,7 @@ class While(stmt):
     test: expr
     body: list[stmt]
     orelse: list[stmt]
-    def __init__(
-        self, test: expr, body: list[stmt], orelse: list[stmt], **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, test: expr, body: list[stmt], orelse: list[stmt], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class If(stmt):
     if sys.version_info >= (3, 10):
@@ -320,9 +319,7 @@ class If(stmt):
     test: expr
     body: list[stmt]
     orelse: list[stmt]
-    def __init__(
-        self, test: expr, body: list[stmt], orelse: list[stmt], **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, test: expr, body: list[stmt], orelse: list[stmt], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class With(stmt):
     if sys.version_info >= (3, 10):
@@ -331,11 +328,7 @@ class With(stmt):
     body: list[stmt]
     type_comment: str | None
     def __init__(
-        self,
-        items: list[withitem],
-        body: list[stmt],
-        type_comment: str | None = None,
-        **kwargs: typing_extensions.Unpack[_Attributes],
+        self, items: list[withitem], body: list[stmt], type_comment: str | None = None, **kwargs: Unpack[_Attributes]
     ) -> None: ...
 
 class AsyncWith(stmt):
@@ -345,11 +338,7 @@ class AsyncWith(stmt):
     body: list[stmt]
     type_comment: str | None
     def __init__(
-        self,
-        items: list[withitem],
-        body: list[stmt],
-        type_comment: str | None = None,
-        **kwargs: typing_extensions.Unpack[_Attributes],
+        self, items: list[withitem], body: list[stmt], type_comment: str | None = None, **kwargs: Unpack[_Attributes]
     ) -> None: ...
 
 class Raise(stmt):
@@ -357,9 +346,7 @@ class Raise(stmt):
         __match_args__ = ("exc", "cause")
     exc: expr | None
     cause: expr | None
-    def __init__(
-        self, exc: expr | None = None, cause: expr | None = None, **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, exc: expr | None = None, cause: expr | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Try(stmt):
     if sys.version_info >= (3, 10):
@@ -374,7 +361,7 @@ class Try(stmt):
         handlers: list[ExceptHandler],
         orelse: list[stmt],
         finalbody: list[stmt],
-        **kwargs: typing_extensions.Unpack[_Attributes],
+        **kwargs: Unpack[_Attributes],
     ) -> None: ...
 
 if sys.version_info >= (3, 11):
@@ -390,7 +377,7 @@ if sys.version_info >= (3, 11):
             handlers: list[ExceptHandler],
             orelse: list[stmt],
             finalbody: list[stmt],
-            **kwargs: typing_extensions.Unpack[_Attributes],
+            **kwargs: Unpack[_Attributes],
         ) -> None: ...
 
 class Assert(stmt):
@@ -398,13 +385,13 @@ class Assert(stmt):
         __match_args__ = ("test", "msg")
     test: expr
     msg: expr | None
-    def __init__(self, test: expr, msg: expr | None = None, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, test: expr, msg: expr | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Import(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("names",)
     names: list[alias]
-    def __init__(self, names: list[alias], **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, names: list[alias], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class ImportFrom(stmt):
     if sys.version_info >= (3, 10):
@@ -413,31 +400,27 @@ class ImportFrom(stmt):
     names: list[alias]
     level: int
     @overload
-    def __init__(
-        self, module: str | None, names: list[alias], level: int, **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, module: str | None, names: list[alias], level: int, **kwargs: Unpack[_Attributes]) -> None: ...
     @overload
-    def __init__(
-        self, module: str | None = None, *, names: list[alias], level: int, **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, module: str | None = None, *, names: list[alias], level: int, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Global(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("names",)
     names: list[_Identifier]
-    def __init__(self, names: list[_Identifier], **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, names: list[_Identifier], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Nonlocal(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("names",)
     names: list[_Identifier]
-    def __init__(self, names: list[_Identifier], **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, names: list[_Identifier], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Expr(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value",)
     value: expr
-    def __init__(self, value: expr, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, value: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Pass(stmt): ...
 class Break(stmt): ...
@@ -448,14 +431,14 @@ class expr(AST):
     col_offset: int
     end_lineno: int | None
     end_col_offset: int | None
-    def __init__(self, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class BoolOp(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("op", "values")
     op: boolop
     values: list[expr]
-    def __init__(self, op: boolop, values: list[expr], **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, op: boolop, values: list[expr], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class BinOp(expr):
     if sys.version_info >= (3, 10):
@@ -463,21 +446,21 @@ class BinOp(expr):
     left: expr
     op: operator
     right: expr
-    def __init__(self, left: expr, op: operator, right: expr, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, left: expr, op: operator, right: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class UnaryOp(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("op", "operand")
     op: unaryop
     operand: expr
-    def __init__(self, op: unaryop, operand: expr, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, op: unaryop, operand: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Lambda(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("args", "body")
     args: arguments
     body: expr
-    def __init__(self, args: arguments, body: expr, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, args: arguments, body: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class IfExp(expr):
     if sys.version_info >= (3, 10):
@@ -485,34 +468,34 @@ class IfExp(expr):
     test: expr
     body: expr
     orelse: expr
-    def __init__(self, test: expr, body: expr, orelse: expr, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, test: expr, body: expr, orelse: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Dict(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("keys", "values")
     keys: list[expr | None]
     values: list[expr]
-    def __init__(self, keys: list[expr | None], values: list[expr], **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, keys: list[expr | None], values: list[expr], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Set(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("elts",)
     elts: list[expr]
-    def __init__(self, elts: list[expr], **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, elts: list[expr], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class ListComp(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("elt", "generators")
     elt: expr
     generators: list[comprehension]
-    def __init__(self, elt: expr, generators: list[comprehension], **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, elt: expr, generators: list[comprehension], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class SetComp(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("elt", "generators")
     elt: expr
     generators: list[comprehension]
-    def __init__(self, elt: expr, generators: list[comprehension], **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, elt: expr, generators: list[comprehension], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class DictComp(expr):
     if sys.version_info >= (3, 10):
@@ -520,34 +503,32 @@ class DictComp(expr):
     key: expr
     value: expr
     generators: list[comprehension]
-    def __init__(
-        self, key: expr, value: expr, generators: list[comprehension], **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, key: expr, value: expr, generators: list[comprehension], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class GeneratorExp(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("elt", "generators")
     elt: expr
     generators: list[comprehension]
-    def __init__(self, elt: expr, generators: list[comprehension], **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, elt: expr, generators: list[comprehension], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Await(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value",)
     value: expr
-    def __init__(self, value: expr, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, value: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Yield(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value",)
     value: expr | None
-    def __init__(self, value: expr | None = None, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, value: expr | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class YieldFrom(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value",)
     value: expr
-    def __init__(self, value: expr, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, value: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Compare(expr):
     if sys.version_info >= (3, 10):
@@ -555,9 +536,7 @@ class Compare(expr):
     left: expr
     ops: list[cmpop]
     comparators: list[expr]
-    def __init__(
-        self, left: expr, ops: list[cmpop], comparators: list[expr], **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, left: expr, ops: list[cmpop], comparators: list[expr], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Call(expr):
     if sys.version_info >= (3, 10):
@@ -565,9 +544,7 @@ class Call(expr):
     func: expr
     args: list[expr]
     keywords: list[keyword]
-    def __init__(
-        self, func: expr, args: list[expr], keywords: list[keyword], **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, func: expr, args: list[expr], keywords: list[keyword], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class FormattedValue(expr):
     if sys.version_info >= (3, 10):
@@ -575,15 +552,13 @@ class FormattedValue(expr):
     value: expr
     conversion: int
     format_spec: expr | None
-    def __init__(
-        self, value: expr, conversion: int, format_spec: expr | None = None, **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, value: expr, conversion: int, format_spec: expr | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class JoinedStr(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("values",)
     values: list[expr]
-    def __init__(self, values: list[expr], **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, values: list[expr], **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Constant(expr):
     if sys.version_info >= (3, 10):
@@ -593,14 +568,14 @@ class Constant(expr):
     # Aliases for value, for backwards compatibility
     s: Any
     n: int | float | complex
-    def __init__(self, value: Any, kind: str | None = None, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, value: Any, kind: str | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class NamedExpr(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("target", "value")
     target: Name
     value: expr
-    def __init__(self, target: Name, value: expr, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, target: Name, value: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Attribute(expr):
     if sys.version_info >= (3, 10):
@@ -608,9 +583,7 @@ class Attribute(expr):
     value: expr
     attr: _Identifier
     ctx: expr_context
-    def __init__(
-        self, value: expr, attr: _Identifier, ctx: expr_context, **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, value: expr, attr: _Identifier, ctx: expr_context, **kwargs: Unpack[_Attributes]) -> None: ...
 
 if sys.version_info >= (3, 9):
     _Slice: typing_extensions.TypeAlias = expr
@@ -625,21 +598,17 @@ class Slice(_Slice):
     upper: expr | None
     step: expr | None
     def __init__(
-        self,
-        lower: expr | None = None,
-        upper: expr | None = None,
-        step: expr | None = None,
-        **kwargs: typing_extensions.Unpack[_SliceAttributes],
+        self, lower: expr | None = None, upper: expr | None = None, step: expr | None = None, **kwargs: Unpack[_SliceAttributes]
     ) -> None: ...
 
 if sys.version_info < (3, 9):
     class ExtSlice(slice):
         dims: list[slice]
-        def __init__(self, dims: list[slice], **kwargs: typing_extensions.Unpack[_SliceAttributes]) -> None: ...
+        def __init__(self, dims: list[slice], **kwargs: Unpack[_SliceAttributes]) -> None: ...
 
     class Index(slice):
         value: expr
-        def __init__(self, value: expr, **kwargs: typing_extensions.Unpack[_SliceAttributes]) -> None: ...
+        def __init__(self, value: expr, **kwargs: Unpack[_SliceAttributes]) -> None: ...
 
 class Subscript(expr):
     if sys.version_info >= (3, 10):
@@ -647,30 +616,28 @@ class Subscript(expr):
     value: expr
     slice: _Slice
     ctx: expr_context
-    def __init__(
-        self, value: expr, slice: _Slice, ctx: expr_context, **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, value: expr, slice: _Slice, ctx: expr_context, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Starred(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value", "ctx")
     value: expr
     ctx: expr_context
-    def __init__(self, value: expr, ctx: expr_context, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, value: expr, ctx: expr_context, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Name(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("id", "ctx")
     id: _Identifier
     ctx: expr_context
-    def __init__(self, id: _Identifier, ctx: expr_context, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, id: _Identifier, ctx: expr_context, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class List(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("elts", "ctx")
     elts: list[expr]
     ctx: expr_context
-    def __init__(self, elts: list[expr], ctx: expr_context, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, elts: list[expr], ctx: expr_context, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Tuple(expr):
     if sys.version_info >= (3, 10):
@@ -680,7 +647,7 @@ class Tuple(expr):
     if sys.version_info >= (3, 9):
         dims: list[expr]
 
-    def __init__(self, elts: list[expr], ctx: expr_context, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, elts: list[expr], ctx: expr_context, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class expr_context(AST): ...
 
@@ -744,7 +711,7 @@ class excepthandler(AST):
     col_offset: int
     end_lineno: int | None
     end_col_offset: int | None
-    def __init__(self, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class ExceptHandler(excepthandler):
     if sys.version_info >= (3, 10):
@@ -753,17 +720,10 @@ class ExceptHandler(excepthandler):
     name: _Identifier | None
     body: list[stmt]
     @overload
-    def __init__(
-        self, type: expr | None, name: _Identifier | None, body: list[stmt], **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, type: expr | None, name: _Identifier | None, body: list[stmt], **kwargs: Unpack[_Attributes]) -> None: ...
     @overload
     def __init__(
-        self,
-        type: expr | None = None,
-        name: _Identifier | None = None,
-        *,
-        body: list[stmt],
-        **kwargs: typing_extensions.Unpack[_Attributes],
+        self, type: expr | None = None, name: _Identifier | None = None, *, body: list[stmt], **kwargs: Unpack[_Attributes]
     ) -> None: ...
 
 class arguments(AST):
@@ -823,11 +783,7 @@ class arg(AST):
     annotation: expr | None
     type_comment: str | None
     def __init__(
-        self,
-        arg: _Identifier,
-        annotation: expr | None = None,
-        type_comment: str | None = None,
-        **kwargs: typing_extensions.Unpack[_Attributes],
+        self, arg: _Identifier, annotation: expr | None = None, type_comment: str | None = None, **kwargs: Unpack[_Attributes]
     ) -> None: ...
 
 class keyword(AST):
@@ -840,11 +796,9 @@ class keyword(AST):
     arg: _Identifier | None
     value: expr
     @overload
-    def __init__(self, arg: _Identifier | None, value: expr, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, arg: _Identifier | None, value: expr, **kwargs: Unpack[_Attributes]) -> None: ...
     @overload
-    def __init__(
-        self, arg: _Identifier | None = None, *, value: expr, **kwargs: typing_extensions.Unpack[_Attributes]
-    ) -> None: ...
+    def __init__(self, arg: _Identifier | None = None, *, value: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class alias(AST):
     lineno: int
@@ -855,7 +809,7 @@ class alias(AST):
         __match_args__ = ("name", "asname")
     name: str
     asname: _Identifier | None
-    def __init__(self, name: str, asname: _Identifier | None = None, **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+    def __init__(self, name: str, asname: _Identifier | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
 class withitem(AST):
     if sys.version_info >= (3, 10):
@@ -869,14 +823,14 @@ if sys.version_info >= (3, 10):
         __match_args__ = ("subject", "cases")
         subject: expr
         cases: list[match_case]
-        def __init__(self, subject: expr, cases: list[match_case], **kwargs: typing_extensions.Unpack[_Attributes]) -> None: ...
+        def __init__(self, subject: expr, cases: list[match_case], **kwargs: Unpack[_Attributes]) -> None: ...
 
     class pattern(AST):
         lineno: int
         col_offset: int
         end_lineno: int
         end_col_offset: int
-        def __init__(self, **kwargs: typing_extensions.Unpack[_Attributes[int]]) -> None: ...
+        def __init__(self, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     # Without the alias, Pyright complains variables named pattern are recursively defined
     _Pattern: typing_extensions.TypeAlias = pattern
@@ -894,22 +848,22 @@ if sys.version_info >= (3, 10):
     class MatchValue(pattern):
         __match_args__ = ("value",)
         value: expr
-        def __init__(self, value: expr, **kwargs: typing_extensions.Unpack[_Attributes[int]]) -> None: ...
+        def __init__(self, value: expr, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     class MatchSingleton(pattern):
         __match_args__ = ("value",)
         value: Literal[True, False] | None
-        def __init__(self, value: Literal[True, False] | None, **kwargs: typing_extensions.Unpack[_Attributes[int]]) -> None: ...
+        def __init__(self, value: Literal[True, False] | None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     class MatchSequence(pattern):
         __match_args__ = ("patterns",)
         patterns: list[pattern]
-        def __init__(self, patterns: list[pattern], **kwargs: typing_extensions.Unpack[_Attributes[int]]) -> None: ...
+        def __init__(self, patterns: list[pattern], **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     class MatchStar(pattern):
         __match_args__ = ("name",)
         name: _Identifier | None
-        def __init__(self, name: _Identifier | None, **kwargs: typing_extensions.Unpack[_Attributes[int]]) -> None: ...
+        def __init__(self, name: _Identifier | None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     class MatchMapping(pattern):
         __match_args__ = ("keys", "patterns", "rest")
@@ -917,11 +871,7 @@ if sys.version_info >= (3, 10):
         patterns: list[pattern]
         rest: _Identifier | None
         def __init__(
-            self,
-            keys: list[expr],
-            patterns: list[pattern],
-            rest: _Identifier | None = None,
-            **kwargs: typing_extensions.Unpack[_Attributes[int]],
+            self, keys: list[expr], patterns: list[pattern], rest: _Identifier | None = None, **kwargs: Unpack[_Attributes[int]]
         ) -> None: ...
 
     class MatchClass(pattern):
@@ -936,7 +886,7 @@ if sys.version_info >= (3, 10):
             patterns: list[pattern],
             kwd_attrs: list[_Identifier],
             kwd_patterns: list[pattern],
-            **kwargs: typing_extensions.Unpack[_Attributes[int]],
+            **kwargs: Unpack[_Attributes[int]],
         ) -> None: ...
 
     class MatchAs(pattern):
@@ -944,16 +894,13 @@ if sys.version_info >= (3, 10):
         pattern: _Pattern | None
         name: _Identifier | None
         def __init__(
-            self,
-            pattern: _Pattern | None = None,
-            name: _Identifier | None = None,
-            **kwargs: typing_extensions.Unpack[_Attributes[int]],
+            self, pattern: _Pattern | None = None, name: _Identifier | None = None, **kwargs: Unpack[_Attributes[int]]
         ) -> None: ...
 
     class MatchOr(pattern):
         __match_args__ = ("patterns",)
         patterns: list[pattern]
-        def __init__(self, patterns: list[pattern], **kwargs: typing_extensions.Unpack[_Attributes[int]]) -> None: ...
+        def __init__(self, patterns: list[pattern], **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
 if sys.version_info >= (3, 12):
     class type_param(AST):
@@ -961,25 +908,23 @@ if sys.version_info >= (3, 12):
         col_offset: int
         end_lineno: int
         end_col_offset: int
-        def __init__(self, **kwargs: typing_extensions.Unpack[_Attributes[int]]) -> None: ...
+        def __init__(self, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     class TypeVar(type_param):
         __match_args__ = ("name", "bound")
         name: _Identifier
         bound: expr | None
-        def __init__(
-            self, name: _Identifier, bound: expr | None = None, **kwargs: typing_extensions.Unpack[_Attributes[int]]
-        ) -> None: ...
+        def __init__(self, name: _Identifier, bound: expr | None = None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     class ParamSpec(type_param):
         __match_args__ = ("name",)
         name: _Identifier
-        def __init__(self, name: _Identifier, **kwargs: typing_extensions.Unpack[_Attributes[int]]) -> None: ...
+        def __init__(self, name: _Identifier, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     class TypeVarTuple(type_param):
         __match_args__ = ("name",)
         name: _Identifier
-        def __init__(self, name: _Identifier, **kwargs: typing_extensions.Unpack[_Attributes[int]]) -> None: ...
+        def __init__(self, name: _Identifier, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     class TypeAlias(stmt):
         __match_args__ = ("name", "type_params", "value")
@@ -987,5 +932,5 @@ if sys.version_info >= (3, 12):
         type_params: list[type_param]
         value: expr
         def __init__(
-            self, name: Name, type_params: list[type_param], value: expr, **kwargs: typing_extensions.Unpack[_Attributes[int]]
+            self, name: Name, type_params: list[type_param], value: expr, **kwargs: Unpack[_Attributes[int]]
         ) -> None: ...
