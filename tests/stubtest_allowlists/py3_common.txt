@@ -328,7 +328,6 @@ _ctypes.call_function
 _?ast.AST.__init__
 _?ast.excepthandler.__init__
 _?ast.expr.__init__
-_?ast.pattern.__init__
 _?ast.stmt.__init__
 
 # async at runtime, deliberately not in the stub, see #7491
