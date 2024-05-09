@@ -25,6 +25,7 @@ class type_ignore(AST): ...
 class TypeIgnore(type_ignore):
     if sys.version_info >= (3, 10):
         __match_args__ = ("lineno", "tag")
+    lineno: int
     tag: str
 
 class FunctionType(mod):
