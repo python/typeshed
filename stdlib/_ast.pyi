@@ -18,8 +18,6 @@ class AST:
     _attributes: ClassVar[tuple[str, ...]]
     _fields: ClassVar[tuple[str, ...]]
     def __init__(self, *args: Any, **kwargs: Any) -> None: ...
-    # TODO: Not all nodes have all of the following attributes
-    type_comment: str | None
 
 class mod(AST): ...
 class type_ignore(AST): ...
@@ -67,6 +65,7 @@ class FunctionDef(stmt):
     body: list[stmt]
     decorator_list: list[expr]
     returns: expr | None
+    type_comment: str | None
     if sys.version_info >= (3, 12):
         type_params: list[type_param]
 
@@ -80,6 +79,7 @@ class AsyncFunctionDef(stmt):
     body: list[stmt]
     decorator_list: list[expr]
     returns: expr | None
+    type_comment: str | None
     if sys.version_info >= (3, 12):
         type_params: list[type_param]
 
@@ -111,6 +111,7 @@ class Assign(stmt):
         __match_args__ = ("targets", "value", "type_comment")
     targets: list[expr]
     value: expr
+    type_comment: str | None
 
 class AugAssign(stmt):
     if sys.version_info >= (3, 10):
@@ -134,6 +135,7 @@ class For(stmt):
     iter: expr
     body: list[stmt]
     orelse: list[stmt]
+    type_comment: str | None
 
 class AsyncFor(stmt):
     if sys.version_info >= (3, 10):
@@ -142,6 +144,7 @@ class AsyncFor(stmt):
     iter: expr
     body: list[stmt]
     orelse: list[stmt]
+    type_comment: str | None
 
 class While(stmt):
     if sys.version_info >= (3, 10):
@@ -162,12 +165,14 @@ class With(stmt):
         __match_args__ = ("items", "body", "type_comment")
     items: list[withitem]
     body: list[stmt]
+    type_comment: str | None
 
 class AsyncWith(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("items", "body", "type_comment")
     items: list[withitem]
     body: list[stmt]
+    type_comment: str | None
 
 class Raise(stmt):
     if sys.version_info >= (3, 10):
@@ -506,6 +511,7 @@ class arg(AST):
         __match_args__ = ("arg", "annotation", "type_comment")
     arg: _Identifier
     annotation: expr | None
+    type_comment: str | None
 
 class keyword(AST):
     lineno: int
