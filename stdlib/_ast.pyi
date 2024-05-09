@@ -556,7 +556,7 @@ class Compare(expr):
     ops: list[cmpop]
     comparators: list[expr]
     def __init__(
-        self, left: expr, op: list[cmpop], comparators: list[expr], **kwargs: typing_extensions.Unpack[_Attributes]
+        self, left: expr, ops: list[cmpop], comparators: list[expr], **kwargs: typing_extensions.Unpack[_Attributes]
     ) -> None: ...
 
 class Call(expr):
