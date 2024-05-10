@@ -1161,20 +1161,51 @@ if sys.version_info >= (3, 12):
         def __init__(self, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     class TypeVar(type_param):
-        __match_args__ = ("name", "bound")
+        if sys.version_info >= (3, 13):
+            __match_args__ = ("name", "bound", "default_value")
+        else:
+            __match_args__ = ("name", "bound")
         name: _Identifier
         bound: expr | None
-        def __init__(self, name: _Identifier, bound: expr | None = None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
+        if sys.version_info >= (3, 13):
+            default_value: expr | None
+            def __init__(
+                self,
+                name: _Identifier,
+                bound: expr | None = None,
+                default_value: expr | None = None,
+                **kwargs: Unpack[_Attributes[int]],
+            ) -> None: ...
+        else:
+            def __init__(self, name: _Identifier, bound: expr | None = None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     class ParamSpec(type_param):
-        __match_args__ = ("name",)
+        if sys.version_info >= (3, 13):
+            __match_args__ = ("name", "default_value")
+        else:
+            __match_args__ = ("name",)
         name: _Identifier
-        def __init__(self, name: _Identifier, **kwargs: Unpack[_Attributes[int]]) -> None: ...
+        if sys.version_info >= (3, 13):
+            default_value: expr | None
+            def __init__(
+                self, name: _Identifier, default_value: expr | None = None, **kwargs: Unpack[_Attributes[int]]
+            ) -> None: ...
+        else:
+            def __init__(self, name: _Identifier, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     class TypeVarTuple(type_param):
-        __match_args__ = ("name",)
+        if sys.version_info >= (3, 13):
+            __match_args__ = ("name", "default_value")
+        else:
+            __match_args__ = ("name",)
         name: _Identifier
-        def __init__(self, name: _Identifier, **kwargs: Unpack[_Attributes[int]]) -> None: ...
+        if sys.version_info >= (3, 13):
+            default_value: expr | None
+            def __init__(
+                self, name: _Identifier, default_value: expr | None = None, **kwargs: Unpack[_Attributes[int]]
+            ) -> None: ...
+        else:
+            def __init__(self, name: _Identifier, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
     class TypeAlias(stmt):
         __match_args__ = ("name", "type_params", "value")
