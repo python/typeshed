@@ -773,6 +773,7 @@ if sys.version_info >= (3, 9):
 else:
     class slice(AST): ...
     _Slice: typing_extensions.TypeAlias = slice
+
     class _SliceAttributes(TypedDict): ...
 
 class Slice(_Slice):
