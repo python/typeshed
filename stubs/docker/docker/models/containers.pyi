@@ -58,7 +58,7 @@ class ContainerCollection(Collection[Container]):
     model: type[Container]
     def run(
         self,
-        image,
+        image: str,
         command: str | list[str] | None = None,
         stdout: bool = True,
         stderr: bool = False,
