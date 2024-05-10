@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from re import Pattern
-from typing import Any, TypeVar, overload, Literal
+from typing import Any, Literal, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 from . import BeautifulSoup
@@ -308,12 +308,20 @@ class Tag(PageElement):
     @overload
     def prettify(self, encoding: str, formatter: Literal["html", "html5", "minimal"] | Formatter | None = "minimal") -> bytes: ...
     @overload
-    def prettify(self, encoding: None = None, formatter: Literal["html", "html5", "minimal"] | Formatter | None = "minimal") -> str: ...
+    def prettify(
+        self, encoding: None = None, formatter: Literal["html", "html5", "minimal"] | Formatter | None = "minimal"
+    ) -> str: ...
     def decode_contents(
-        self, indent_level: int | None = None, eventual_encoding: str = "utf-8", formatter: Literal["html", "html5", "minimal"] | Formatter | None = "minimal"
+        self,
+        indent_level: int | None = None,
+        eventual_encoding: str = "utf-8",
+        formatter: Literal["html", "html5", "minimal"] | Formatter | None = "minimal",
     ) -> str: ...
     def encode_contents(
-        self, indent_level: int | None = None, encoding: str = "utf-8", formatter: Literal["html", "html5", "minimal"] | Formatter | None = "minimal"
+        self,
+        indent_level: int | None = None,
+        encoding: str = "utf-8",
+        formatter: Literal["html", "html5", "minimal"] | Formatter | None = "minimal",
     ) -> bytes: ...
     def renderContents(self, encoding: str = "utf-8", prettyPrint: bool = False, indentLevel: int = 0) -> bytes: ...
     def find(
