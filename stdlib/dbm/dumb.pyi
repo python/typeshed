@@ -1,3 +1,4 @@
+import sys
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterator, MutableMapping
 from types import TracebackType
@@ -29,4 +30,7 @@ class _Database(MutableMapping[_KeyType, bytes]):
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
 
-def open(file: StrOrBytesPath, flag: str = "c", mode: int = 0o666) -> _Database: ...
+if sys.version_info >= (3, 11):
+    def open(file: StrOrBytesPath, flag: str = "c", mode: int = 0o666) -> _Database: ...
+else:
+    def open(file: str, flag: str = "c", mode: int = 0o666) -> _Database: ...

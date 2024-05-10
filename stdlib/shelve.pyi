@@ -1,3 +1,4 @@
+import sys
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterator, MutableMapping
 from dbm import _TFlags
@@ -46,4 +47,7 @@ class DbfilenameShelf(Shelf[_VT]):
         self, filename: StrOrBytesPath, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False
     ) -> None: ...
 
-def open(filename: StrOrBytesPath, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False) -> Shelf[Any]: ...
+if sys.version_info >= (3, 11):
+    def open(filename: StrOrBytesPath, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False) -> Shelf[Any]: ...
+else:
+    def open(filename: str, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False) -> Shelf[Any]: ...
