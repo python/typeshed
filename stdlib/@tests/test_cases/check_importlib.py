@@ -44,4 +44,4 @@ class Loader:
 
 sys.meta_path.append(MetaFinder)
 sys.path_hooks.append(PathFinder.path_hook)
-importlib.util.spec_from_loader("tmpfile", Loader)
+importlib.util.spec_from_loader("xxxx42xxxx", Loader)
