@@ -160,6 +160,8 @@ class AsyncFunctionDef(stmt):
     decorator_list: list[expr]
     returns: expr | None
     type_comment: str | None
+    if sys.version_info >= (3, 12):
+        type_params: list[type_param]
     if sys.version_info >= (3, 13):
         def __init__(
             self,
@@ -173,7 +175,6 @@ class AsyncFunctionDef(stmt):
             **kwargs: Unpack[_Attributes],
         ) -> None: ...
     elif sys.version_info >= (3, 12):
-        type_params: list[type_param]
         @overload
         def __init__(
             self,
