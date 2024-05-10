@@ -28,6 +28,8 @@ class AST:
         __match_args__ = ()
     _attributes: ClassVar[tuple[str, ...]]
     _fields: ClassVar[tuple[str, ...]]
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
 
 class mod(AST): ...
 class type_ignore(AST): ...
