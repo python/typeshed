@@ -7,7 +7,7 @@
     ],
     "exclude": [
         // test cases use a custom pyrightconfig file
-        "stubs/**/@tests/test_cases",
+        "**/@tests/test_cases",
         "stdlib/distutils/command",
         "stdlib/distutils/dist.pyi",
         "stdlib/importlib/readers.pyi",
@@ -44,6 +44,7 @@
         "stubs/defusedxml",
         "stubs/docker",
         "stubs/docutils",
+        "stubs/flake8",
         "stubs/Flask-SocketIO",
         "stubs/fpdf2",
         "stubs/google-cloud-ndb",

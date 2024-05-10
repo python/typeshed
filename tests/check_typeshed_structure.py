@@ -15,6 +15,7 @@ from pathlib import Path
 from parse_metadata import read_metadata
 from utils import (
     REQS_FILE,
+    STDLIB_PATH,
     TEST_CASES_DIR,
     TESTS_DIR,
     VERSIONS_RE,
@@ -59,7 +60,8 @@ def assert_consistent_filetypes(
 
 def check_stdlib() -> None:
     """Check that the stdlib directory contains only the correct files."""
-    assert_consistent_filetypes(Path("stdlib"), kind=".pyi", allowed={"_typeshed/README.md", "VERSIONS"})
+    assert_consistent_filetypes(STDLIB_PATH, kind=".pyi", allowed={"_typeshed/README.md", "VERSIONS", TESTS_DIR})
+    check_tests_dir(tests_path("stdlib"))
 
 
 def check_stubs() -> None:
@@ -81,11 +83,13 @@ def check_stubs() -> None:
 
         tests_dir = tests_path(dist.name)
         if tests_dir.exists() and tests_dir.is_dir():
-            py_files_present = any(file.suffix == ".py" for file in tests_dir.iterdir())
-            error_message = (
-                f"Test-case files must be in an `{TESTS_DIR}/{TEST_CASES_DIR}` directory, not in the `{TESTS_DIR}` directory"
-            )
-            assert not py_files_present, error_message
+            check_tests_dir(tests_dir)
+
+
+def check_tests_dir(tests_dir: Path) -> None:
+    py_files_present = any(file.suffix == ".py" for file in tests_dir.iterdir())
+    error_message = f"Test-case files must be in an `{TESTS_DIR}/{TEST_CASES_DIR}` directory, not in the `{TESTS_DIR}` directory"
+    assert not py_files_present, error_message
 
 
 def check_distutils() -> None:
@@ -146,7 +150,7 @@ def check_versions_file() -> None:
 
 def _find_stdlib_modules() -> set[str]:
     modules = set[str]()
-    for path, _, files in os.walk("stdlib"):
+    for path, _, files in os.walk(STDLIB_PATH):
         for filename in files:
             base_module = ".".join(os.path.normpath(path).split(os.sep)[1:])
             if filename == "__init__.pyi":
