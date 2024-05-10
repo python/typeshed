@@ -1,8 +1,9 @@
 from typing import Any, Literal, overload
+
+from hvac.adapters import Adapter
 from hvac.api import AuthMethods, SystemBackend
 from hvac.api.secrets_engines import SecretsEngines
 from requests import Session
-from hvac.adapters import Adapter
 from requests.models import Response
 
 has_hcl_parser: bool
