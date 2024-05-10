@@ -23,11 +23,6 @@ class _Attributes(TypedDict, Generic[_EndPositionT], total=False):
     end_lineno: _EndPositionT
     end_col_offset: _EndPositionT
 
-if sys.version_info >= (3, 9):
-    _SliceAttributes: typing_extensions.TypeAlias = _Attributes
-else:
-    class _SliceAttributes(TypedDict): ...
-
 class AST:
     if sys.version_info >= (3, 10):
         __match_args__ = ()
@@ -774,9 +769,11 @@ class Attribute(expr):
 
 if sys.version_info >= (3, 9):
     _Slice: typing_extensions.TypeAlias = expr
+    _SliceAttributes: typing_extensions.TypeAlias = _Attributes
 else:
     class slice(AST): ...
     _Slice: typing_extensions.TypeAlias = slice
+    class _SliceAttributes(TypedDict): ...
 
 class Slice(_Slice):
     if sys.version_info >= (3, 10):
