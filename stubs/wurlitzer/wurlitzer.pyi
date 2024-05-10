@@ -125,6 +125,9 @@ def pipes(
 ]: ...
 
 class _LogPipe(io.BufferedWriter):
+    logger: logging.Logger
+    stream_name: str
+    level: int
     def __init__(self, logger: logging.Logger, stream_name: str, level: int = 20) -> None: ...
     def write(self, chunk: str) -> None: ...  # type: ignore[override]
     def flush(self) -> None: ...
