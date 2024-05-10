@@ -13,7 +13,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from utils import allowlist_mypy_arguments, allowlists_path
+from utils import allowlist_stubtest_arguments, allowlists_path
 
 
 def run_stubtest(typeshed_dir: Path) -> int:
@@ -33,7 +33,7 @@ def run_stubtest(typeshed_dir: Path) -> int:
         "--check-typeshed",
         "--custom-typeshed-dir",
         str(typeshed_dir),
-        *allowlist_mypy_arguments("stdlib", extra_allowlists),
+        *allowlist_stubtest_arguments("stdlib", extra_allowlists),
     ]
     if sys.version_info < (3, 10):
         # As discussed in https://github.com/python/typeshed/issues/3693, we only aim for

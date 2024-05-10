@@ -15,7 +15,7 @@ from typing import NoReturn
 from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
 from utils import (
     PYTHON_VERSION,
-    allowlist_mypy_arguments,
+    allowlist_stubtest_arguments,
     allowlists_path,
     colored,
     get_mypy_req,
@@ -122,7 +122,7 @@ def run_stubtest(
         # "bisect" to see which variables are actually needed.
         stubtest_env = os.environ | {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
 
-        stubtest_cmd += allowlist_mypy_arguments(dist_name, [])
+        stubtest_cmd += allowlist_stubtest_arguments(dist_name, [])
 
         # Perform some black magic in order to run stubtest inside uWSGI
         if dist_name == "uWSGI":
