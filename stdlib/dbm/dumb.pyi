@@ -32,5 +32,6 @@ class _Database(MutableMapping[_KeyType, bytes]):
 
 if sys.version_info >= (3, 11):
     def open(file: StrOrBytesPath, flag: str = "c", mode: int = 0o666) -> _Database: ...
+
 else:
     def open(file: str, flag: str = "c", mode: int = 0o666) -> _Database: ...
