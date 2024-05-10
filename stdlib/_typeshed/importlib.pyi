@@ -1,5 +1,5 @@
-# Implicit protocols used in importlib
-# We intentionally omit deprecated and optional methods
+# Implicit protocols used in importlib.
+# We intentionally omit deprecated and optional methods.
 
 from collections.abc import Sequence
 from importlib.machinery import ModuleSpec
