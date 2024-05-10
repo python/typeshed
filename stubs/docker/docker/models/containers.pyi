@@ -57,10 +57,16 @@ class Container(Model):
 class ContainerCollection(Collection[Container]):
     model: type[Container]
     def run(
-        self, image, command: Incomplete | None = None, stdout: bool = True, stderr: bool = False, remove: bool = False, **kwargs
+        self,
+        image: str,
+        command: str | list[str] | None = None,
+        stdout: bool = True,
+        stderr: bool = False,
+        remove: bool = False,
+        **kwargs,
     ): ...
-    def create(self, image, command: Incomplete | None = None, **kwargs): ...  # type:ignore[override]
-    def get(self, container_id): ...
+    def create(self, image: str, command: str | list[str] | None = None, **kwargs): ...  # type:ignore[override]
+    def get(self, container_id: str): ...
     def list(
         self,
         all: bool = False,
