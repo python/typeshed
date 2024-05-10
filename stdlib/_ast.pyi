@@ -110,8 +110,8 @@ class FunctionDef(stmt):
             body: list[stmt],
             decorator_list: list[expr],
             returns: expr | None = None,
-            *,
             type_comment: str | None = None,
+            *,
             type_params: list[type_param],
             **kwargs: Unpack[_Attributes],
         ) -> None: ...
@@ -160,8 +160,8 @@ class AsyncFunctionDef(stmt):
             body: list[stmt],
             decorator_list: list[expr],
             returns: expr | None = None,
-            *,
             type_comment: str | None = None,
+            *,
             type_params: list[type_param],
             **kwargs: Unpack[_Attributes],
         ) -> None: ...
