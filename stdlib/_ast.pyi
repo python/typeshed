@@ -582,8 +582,8 @@ class Attribute(expr):
         __match_args__ = ("value", "attr", "ctx")
     value: expr
     attr: _Identifier
-    ctx: expr_context
-    def __init__(self, value: expr, attr: _Identifier, ctx: expr_context, **kwargs: Unpack[_Attributes]) -> None: ...
+    ctx: expr_context  # Not present in Python < 3.13 if not passed to `__init__`
+    def __init__(self, value: expr, attr: _Identifier, ctx: expr_context = ..., **kwargs: Unpack[_Attributes]) -> None: ...
 
 if sys.version_info >= (3, 9):
     _Slice: typing_extensions.TypeAlias = expr
@@ -615,39 +615,39 @@ class Subscript(expr):
         __match_args__ = ("value", "slice", "ctx")
     value: expr
     slice: _Slice
-    ctx: expr_context
-    def __init__(self, value: expr, slice: _Slice, ctx: expr_context, **kwargs: Unpack[_Attributes]) -> None: ...
+    ctx: expr_context  # Not present in Python < 3.13 if not passed to `__init__`
+    def __init__(self, value: expr, slice: _Slice, ctx: expr_context = ..., **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Starred(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value", "ctx")
     value: expr
-    ctx: expr_context
-    def __init__(self, value: expr, ctx: expr_context, **kwargs: Unpack[_Attributes]) -> None: ...
+    ctx: expr_context  # Not present in Python < 3.13 if not passed to `__init__`
+    def __init__(self, value: expr, ctx: expr_context = ..., **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Name(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("id", "ctx")
     id: _Identifier
-    ctx: expr_context
-    def __init__(self, id: _Identifier, ctx: expr_context, **kwargs: Unpack[_Attributes]) -> None: ...
+    ctx: expr_context  # Not present in Python < 3.13 if not passed to `__init__`
+    def __init__(self, id: _Identifier, ctx: expr_context = ..., **kwargs: Unpack[_Attributes]) -> None: ...
 
 class List(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("elts", "ctx")
     elts: list[expr]
-    ctx: expr_context
-    def __init__(self, elts: list[expr], ctx: expr_context, **kwargs: Unpack[_Attributes]) -> None: ...
+    ctx: expr_context  # Not present in Python < 3.13 if not passed to `__init__`
+    def __init__(self, elts: list[expr], ctx: expr_context = ..., **kwargs: Unpack[_Attributes]) -> None: ...
 
 class Tuple(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("elts", "ctx")
     elts: list[expr]
-    ctx: expr_context
+    ctx: expr_context  # Not present in Python < 3.13 if not passed to `__init__`
     if sys.version_info >= (3, 9):
         dims: list[expr]
 
-    def __init__(self, elts: list[expr], ctx: expr_context, **kwargs: Unpack[_Attributes]) -> None: ...
+    def __init__(self, elts: list[expr], ctx: expr_context = ..., **kwargs: Unpack[_Attributes]) -> None: ...
 
 class expr_context(AST): ...
 
