@@ -8,7 +8,6 @@ import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction, ReadableBuffer, SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
-from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from re import Match as Match, Pattern as Pattern
 from types import (
     BuiltinFunctionType,
@@ -24,10 +23,10 @@ from types import (
 )
 from typing_extensions import Never as _Never, ParamSpec as _ParamSpec
 
-if sys.version_info >= (3, 10):
-    from types import UnionType
 if sys.version_info >= (3, 9):
     from types import GenericAlias
+if sys.version_info >= (3, 10):
+    from types import UnionType
 
 __all__ = [
     "AbstractSet",
@@ -428,17 +427,17 @@ class Generator(Iterator[_YieldT_co], Generic[_YieldT_co, _SendT_contra, _Return
     @property
     def gi_yieldfrom(self) -> Generator[Any, Any, Any] | None: ...
 
-# NOTE: Technically we would like this to be able to accept a second parameter as well, just
-#   like it's counterpart in contextlib, however `typing._SpecialGenericAlias` enforces the
-#   correct number of arguments at runtime, so we would be hiding runtime errors.
-@runtime_checkable
-class ContextManager(AbstractContextManager[_T_co, bool | None], Protocol[_T_co]): ...
+# NOTE: Prior to Python 3.13 these aliases are lacking the second _ExitT_co parameter
+if sys.version_info >= (3, 13):
+    from contextlib import AbstractAsyncContextManager as AsyncContextManager, AbstractContextManager as ContextManager
+else:
+    from contextlib import AbstractAsyncContextManager, AbstractContextManager
 
-# NOTE: Technically we would like this to be able to accept a second parameter as well, just
-#   like it's counterpart in contextlib, however `typing._SpecialGenericAlias` enforces the
-#   correct number of arguments at runtime, so we would be hiding runtime errors.
-@runtime_checkable
-class AsyncContextManager(AbstractAsyncContextManager[_T_co, bool | None], Protocol[_T_co]): ...
+    @runtime_checkable
+    class ContextManager(AbstractContextManager[_T_co, bool | None], Protocol[_T_co]): ...
+
+    @runtime_checkable
+    class AsyncContextManager(AbstractAsyncContextManager[_T_co, bool | None], Protocol[_T_co]): ...
 
 @runtime_checkable
 class Awaitable(Protocol[_T_co]):
