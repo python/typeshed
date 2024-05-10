@@ -25,7 +25,14 @@ def run_stubtest(typeshed_dir: Path) -> int:
     # This is fine because we don't care about distutils and allowlist all errors from it
     # https://github.com/python/typeshed/pull/10253#discussion_r1216712404
     # https://github.com/python/typeshed/pull/9734
-    cmd = [sys.executable, "-m", "mypy.stubtest", "--check-typeshed", "--custom-typeshed-dir", str(typeshed_dir)]
+    cmd = [
+        sys.executable,
+        "-m",
+        "mypy.stubtest",
+        "--check-typeshed",
+        "--custom-typeshed-dir",
+        str(typeshed_dir),
+    ]
     cmd += allowlist_mypy_arguments("stdlib", [version_allowlist, combined_allowlist, local_version_allowlist])
     if sys.version_info < (3, 10):
         # As discussed in https://github.com/python/typeshed/issues/3693, we only aim for
