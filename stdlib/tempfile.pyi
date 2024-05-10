@@ -377,7 +377,8 @@ class SpooledTemporaryFile(IO[AnyStr], _SpooledTemporaryFileBase):
     if sys.version_info >= (3, 11):
         def truncate(self, size: int | None = None) -> int: ...
     else:
-        def truncate(self, size: int | None = None) -> None: ... # type: ignore[override]
+        def truncate(self, size: int | None = None) -> None: ...  # type: ignore[override]
+
     @overload
     def write(self: SpooledTemporaryFile[str], s: str) -> int: ...
     @overload
