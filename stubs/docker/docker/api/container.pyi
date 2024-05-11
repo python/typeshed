@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
+
+from docker.types.daemon import CancellableStream
 
 class ContainerApiMixin:
     def attach(
@@ -78,7 +79,7 @@ class ContainerApiMixin:
         since: Incomplete | None = None,
         follow: Incomplete | None = None,
         until: Incomplete | None = None,
-    ) -> Generator[bytes, None, None] | bytes: ...
+    ) -> CancellableStream | bytes: ...
     def pause(self, container) -> None: ...
     def port(self, container, private_port): ...
     def put_archive(self, container, path, data): ...
