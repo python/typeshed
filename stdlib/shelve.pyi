@@ -48,9 +48,7 @@ class DbfilenameShelf(Shelf[_VT]):
             self, filename: StrOrBytesPath, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False
         ) -> None: ...
     else:
-        def __init__(
-            self, filename: str, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False
-        ) -> None: ...
+        def __init__(self, filename: str, flag: _TFlags = "c", protocol: int | None = None, writeback: bool = False) -> None: ...
 
 if sys.version_info >= (3, 11):
     def open(
