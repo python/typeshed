@@ -313,7 +313,7 @@ class SimpleNamespace:
     def __delattr__(self, name: str, /) -> None: ...
 
 # TODO: Remove this symbol and its usages in 3rd-party stubs once mypy has included it in its vendored typeshed
-class _LoaderProtocol(Protocol):
+class _LoaderProtocol(Protocol):  # noqa: Y046
     def load_module(self, fullname: str, /) -> ModuleType: ...
 
 class ModuleType:
