@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from typing import NamedTuple
 
+from .images import Image
 from .resource import Collection, Model
 
 class Container(Model):
@@ -58,7 +59,7 @@ class ContainerCollection(Collection[Container]):
     model: type[Container]
     def run(
         self,
-        image: str,
+        image: str | Image,
         command: str | list[str] | None = None,
         stdout: bool = True,
         stderr: bool = False,
