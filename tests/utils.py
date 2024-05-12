@@ -22,6 +22,7 @@ except ImportError:
 
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
+STDLIB_PATH = Path("stdlib")
 STUBS_PATH = Path("stubs")
 
 
@@ -139,15 +140,14 @@ def distribution_info(distribution_name: str) -> DistributionTests:
 
 
 def tests_path(distribution_name: str) -> Path:
-    assert distribution_name != "stdlib"
-    return STUBS_PATH / distribution_name / TESTS_DIR
+    if distribution_name == "stdlib":
+        return STDLIB_PATH / TESTS_DIR
+    else:
+        return STUBS_PATH / distribution_name / TESTS_DIR
 
 
 def test_cases_path(distribution_name: str) -> Path:
-    if distribution_name == "stdlib":
-        return Path(TEST_CASES_DIR)
-    else:
-        return tests_path(distribution_name) / TEST_CASES_DIR
+    return tests_path(distribution_name) / TEST_CASES_DIR
 
 
 def get_all_testcase_directories() -> list[DistributionTests]:
