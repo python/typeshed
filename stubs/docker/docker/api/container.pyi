@@ -1,3 +1,4 @@
+import datetime
 from _typeshed import Incomplete
 
 class ContainerApiMixin:
@@ -68,15 +69,15 @@ class ContainerApiMixin:
     def kill(self, container, signal: Incomplete | None = None) -> None: ...
     def logs(
         self,
-        container,
+        container: str,
         stdout: bool = True,
         stderr: bool = True,
         stream: bool = False,
         timestamps: bool = False,
         tail: str = "all",
-        since: Incomplete | None = None,
-        follow: Incomplete | None = None,
-        until: Incomplete | None = None,
+        since: datetime.datetime | float | None = None,
+        follow: bool | None = None,
+        until: datetime.datetime | float | None = None,
     ): ...
     def pause(self, container) -> None: ...
     def port(self, container, private_port): ...
