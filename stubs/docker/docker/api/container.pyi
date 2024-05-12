@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
-from typing import Literal
+from typing import Literal, overload
+
+from docker.types.daemon import CancellableStream
 
 class ContainerApiMixin:
     def attach(
@@ -67,18 +69,46 @@ class ContainerApiMixin:
     def get_archive(self, container, path, chunk_size=2097152, encode_stream: bool = False): ...
     def inspect_container(self, container): ...
     def kill(self, container, signal: Incomplete | None = None) -> None: ...
+    @overload
     def logs(
         self,
         container,
         stdout: bool = True,
         stderr: bool = True,
-        stream: bool = False,
+        *,
+        stream: Literal[True],
         timestamps: bool = False,
         tail: Literal["all"] | int = "all",
         since: Incomplete | None = None,
         follow: Incomplete | None = None,
         until: Incomplete | None = None,
-    ): ...
+    ) -> CancellableStream: ...
+    @overload
+    def logs(
+        self,
+        container,
+        stdout: bool,
+        stderr: bool,
+        stream: Literal[True],
+        timestamps: bool = False,
+        tail: Literal["all"] | int = "all",
+        since: Incomplete | None = None,
+        follow: Incomplete | None = None,
+        until: Incomplete | None = None,
+    ) -> CancellableStream: ...
+    @overload
+    def logs(
+        self,
+        container,
+        stdout: bool = True,
+        stderr: bool = True,
+        stream: Literal[False] = False,
+        timestamps: bool = False,
+        tail: Literal["all"] | int = "all",
+        since: Incomplete | None = None,
+        follow: Incomplete | None = None,
+        until: Incomplete | None = None,
+    ) -> bytes: ...
     def pause(self, container) -> None: ...
     def port(self, container, private_port): ...
     def put_archive(self, container, path, data): ...
