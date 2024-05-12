@@ -75,6 +75,33 @@ class ContainerApiMixin:
         container,
         stdout: bool = True,
         stderr: bool = True,
+        *,
+        stream: Literal[True],
+        timestamps: bool = False,
+        tail: Literal["all"] | int = "all",
+        since: Incomplete | None = None,
+        follow: Incomplete | None = None,
+        until: Incomplete | None = None,
+    ) -> CancellableStream: ...
+    @overload
+    def logs(
+        self,
+        container,
+        stdout: bool,
+        stderr: bool,
+        stream: Literal[True],
+        timestamps: bool = False,
+        tail: Literal["all"] | int = "all",
+        since: Incomplete | None = None,
+        follow: Incomplete | None = None,
+        until: Incomplete | None = None,
+    ) -> CancellableStream: ...
+    @overload
+    def logs(
+        self,
+        container,
+        stdout: bool = True,
+        stderr: bool = True,
         stream: Literal[False] = False,
         timestamps: bool = False,
         tail: Literal["all"] | int = "all",
@@ -82,20 +109,6 @@ class ContainerApiMixin:
         follow: Incomplete | None = None,
         until: Incomplete | None = None,
     ) -> bytes: ...
-    @overload
-    def logs(
-        self,
-        container,
-        stdout: bool = True,
-        stderr: bool = True,
-        *,
-        stream: Literal[True],
-        timestamps: bool = False,
-        tail: str = "all",
-        since: Incomplete | None = None,
-        follow: Incomplete | None = None,
-        until: Incomplete | None = None,
-    ) -> CancellableStream: ...
     def pause(self, container) -> None: ...
     def port(self, container, private_port): ...
     def put_archive(self, container, path, data): ...
