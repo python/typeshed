@@ -73,7 +73,7 @@ class ContainerApiMixin:
     @overload
     def logs(
         self,
-        container: str,
+        container: str | dict[Incomplete, Incomplete],
         stdout: bool = True,
         stderr: bool = True,
         *,
@@ -87,7 +87,7 @@ class ContainerApiMixin:
     @overload
     def logs(
         self,
-        container: str,
+        container: str | dict[Incomplete, Incomplete],
         stdout: bool,
         stderr: bool,
         stream: Literal[True],
@@ -100,7 +100,7 @@ class ContainerApiMixin:
     @overload
     def logs(
         self,
-        container: str,
+        container: str | dict[Incomplete, Incomplete],
         stdout: bool = True,
         stderr: bool = True,
         stream: Literal[False] = False,
