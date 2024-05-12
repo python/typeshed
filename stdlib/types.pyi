@@ -17,7 +17,7 @@ from collections.abc import (
 from importlib.machinery import ModuleSpec
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
-from typing import Any, ClassVar, Literal, Mapping, Protocol, TypeVar, final, overload  # noqa: Y022
+from typing import Any, ClassVar, Literal, Mapping, TypeVar, final, overload  # noqa: Y022
 from typing_extensions import ParamSpec, Self, TypeVarTuple, deprecated
 
 __all__ = [
@@ -311,10 +311,6 @@ class SimpleNamespace:
     def __getattribute__(self, name: str, /) -> Any: ...
     def __setattr__(self, name: str, value: Any, /) -> None: ...
     def __delattr__(self, name: str, /) -> None: ...
-
-# TODO: Remove this symbol and its usages in 3rd-party stubs once mypy has included it in its vendored typeshed
-class _LoaderProtocol(Protocol):  # noqa: Y046
-    def load_module(self, fullname: str, /) -> ModuleType: ...
 
 class ModuleType:
     __name__: str
