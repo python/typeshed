@@ -43,8 +43,8 @@ class ContainerApiMixin:
         all: bool = False,
         trunc: bool = False,
         latest: bool = False,
-        since: Incomplete | None = None,
-        before: Incomplete | None = None,
+        since: str | None = None,
+        before: str | None = None,
         limit: int = -1,
         size: bool = False,
         filters: Incomplete | None = None,
@@ -52,30 +52,30 @@ class ContainerApiMixin:
     def create_container(
         self,
         image,
-        command: Incomplete | None = None,
-        hostname: Incomplete | None = None,
-        user: Incomplete | None = None,
+        command: str | list[str] | None = None,
+        hostname: str | None = None,
+        user: str | int | None = None,
         detach: bool = False,
         stdin_open: bool = False,
         tty: bool = False,
-        ports: Incomplete | None = None,
-        environment: Incomplete | None = None,
-        volumes: Incomplete | None = None,
+        ports: list[int] | None = None,
+        environment: dict[str, str] | list[str] | None = None,
+        volumes: str | list[str] | None = None,
         network_disabled: bool = False,
-        name: Incomplete | None = None,
-        entrypoint: Incomplete | None = None,
-        working_dir: Incomplete | None = None,
-        domainname: Incomplete | None = None,
+        name: str | None = None,
+        entrypoint: str | list[str] | None = None,
+        working_dir: str | None = None,
+        domainname: str | None = None,
         host_config: Incomplete | None = None,
-        mac_address: Incomplete | None = None,
-        labels: Incomplete | None = None,
-        stop_signal: Incomplete | None = None,
+        mac_address: str | None = None,
+        labels: dict[str, str] | list[str] | None = None,
+        stop_signal: str | None = None,
         networking_config: Incomplete | None = None,
         healthcheck: Incomplete | None = None,
-        stop_timeout: Incomplete | None = None,
-        runtime: Incomplete | None = None,
+        stop_timeout: int | None = None,
+        runtime: str | None = None,
         use_config_proxy: bool = True,
-        platform: Incomplete | None = None,
+        platform: str | None = None,
     ): ...
     def create_container_config(self, *args, **kwargs): ...
     def create_container_from_config(self, config, name: Incomplete | None = None, platform: Incomplete | None = None): ...
@@ -83,10 +83,10 @@ class ContainerApiMixin:
     def create_networking_config(self, *args, **kwargs): ...
     def create_endpoint_config(self, *args, **kwargs): ...
     def diff(self, container: _Container): ...
-    def export(self, container: _Container, chunk_size=2097152): ...
-    def get_archive(self, container: _Container, path, chunk_size=2097152, encode_stream: bool = False): ...
+    def export(self, container: _Container, chunk_size: int = 2097152): ...
+    def get_archive(self, container: _Container, path, chunk_size: int = 2097152, encode_stream: bool = False): ...
     def inspect_container(self, container: _Container): ...
-    def kill(self, container: _Container, signal: Incomplete | None = None) -> None: ...
+    def kill(self, container: _Container, signal: str | int | None = None) -> None: ...
     @overload
     def logs(
         self,
@@ -128,33 +128,33 @@ class ContainerApiMixin:
         until: datetime.datetime | float | None = None,
     ) -> bytes: ...
     def pause(self, container: _Container) -> None: ...
-    def port(self, container: _Container, private_port): ...
-    def put_archive(self, container: _Container, path, data): ...
+    def port(self, container: _Container, private_port: int): ...
+    def put_archive(self, container: _Container, path: str, data) -> bool: ...
     def prune_containers(self, filters: Incomplete | None = None): ...
     def remove_container(self, container: _Container, v: bool = False, link: bool = False, force: bool = False) -> None: ...
-    def rename(self, container: _Container, name) -> None: ...
-    def resize(self, container: _Container, height, width) -> None: ...
+    def rename(self, container: _Container, name: str) -> None: ...
+    def resize(self, container: _Container, height: int, width: int) -> None: ...
     def restart(self, container: _Container, timeout: int = 10) -> None: ...
     def start(self, container: _Container, *args, **kwargs) -> None: ...
     def stats(
-        self, container: _Container, decode: Incomplete | None = None, stream: bool = True, one_shot: Incomplete | None = None
+        self, container: _Container, decode: bool | None = None, stream: bool = True, one_shot: bool | None = None
     ): ...
-    def stop(self, container: _Container, timeout: Incomplete | None = None) -> None: ...
-    def top(self, container: _Container, ps_args: Incomplete | None = None): ...
+    def stop(self, container: _Container, timeout: int | None = None) -> None: ...
+    def top(self, container: _Container, ps_args: str | None = None): ...
     def unpause(self, container: _Container) -> None: ...
     def update_container(
         self,
         container: _Container,
-        blkio_weight: Incomplete | None = None,
-        cpu_period: Incomplete | None = None,
-        cpu_quota: Incomplete | None = None,
-        cpu_shares: Incomplete | None = None,
-        cpuset_cpus: Incomplete | None = None,
-        cpuset_mems: Incomplete | None = None,
-        mem_limit: Incomplete | None = None,
-        mem_reservation: Incomplete | None = None,
-        memswap_limit: Incomplete | None = None,
-        kernel_memory: Incomplete | None = None,
+        blkio_weight: int | None = None,
+        cpu_period: int | None = None,
+        cpu_quota: int | None = None,
+        cpu_shares: int | None = None,
+        cpuset_cpus: str | None = None,
+        cpuset_mems: str | None = None,
+        mem_limit: float | str | None = None,
+        mem_reservation: float | str | None = None,
+        memswap_limit: int | str | None = None,
+        kernel_memory: int | str | None = None,
         restart_policy: Incomplete | None = None,
     ): ...
-    def wait(self, container: _Container, timeout: Incomplete | None = None, condition: Incomplete | None = None): ...
+    def wait(self, container: _Container, timeout: int | None = None, condition: Literal["not-running"] | Literal["next-exit"] | Literal["removed"] | None = None): ...
