@@ -1,12 +1,12 @@
 import types
 import zipimport
 from _typeshed import Incomplete, StrPath, Unused
-from _typeshed.importlib import LoaderProtocol
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from io import BytesIO
 from itertools import chain
 from pkgutil import get_importer as get_importer
 from re import Pattern
+from types import _LoaderProtocol
 from typing import IO, Any, ClassVar, Final, Literal, NoReturn, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 from zipfile import ZipInfo
@@ -360,7 +360,8 @@ def evaluate_marker(text: str, extra: Incomplete | None = None) -> bool: ...
 class NullProvider:
     egg_name: str | None
     egg_info: str | None
-    loader: LoaderProtocol | None
+    # TODO: Use _typeshed.importlib.LoaderProtocol once mypy has included it in its vendored typeshed
+    loader: _LoaderProtocol | None
     module_path: str | None
 
     def __init__(self, module: _ModuleLike) -> None: ...
