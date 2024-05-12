@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import Literal
 
 class ContainerApiMixin:
     def attach(
@@ -73,7 +74,7 @@ class ContainerApiMixin:
         stderr: bool = True,
         stream: bool = False,
         timestamps: bool = False,
-        tail: str = "all",
+        tail: Literal["all"] | int = "all",
         since: Incomplete | None = None,
         follow: Incomplete | None = None,
         until: Incomplete | None = None,
