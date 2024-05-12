@@ -1,6 +1,7 @@
 import types
 import zipimport
 from _typeshed import Incomplete, StrPath, Unused
+from _typeshed.importlib import LoaderProtocol
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from io import BytesIO
 from itertools import chain
@@ -359,7 +360,7 @@ def evaluate_marker(text: str, extra: Incomplete | None = None) -> bool: ...
 class NullProvider:
     egg_name: str | None
     egg_info: str | None
-    loader: types._LoaderProtocol | None
+    loader: LoaderProtocol | None
     module_path: str | None
 
     def __init__(self, module: _ModuleLike) -> None: ...
