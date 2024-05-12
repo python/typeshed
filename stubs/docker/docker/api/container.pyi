@@ -1,8 +1,19 @@
 import datetime
 from _typeshed import Incomplete
-from typing import Literal, overload
+from typing import Literal, TypedDict, overload, type_check_only
+from typing_extensions import TypeAlias
 
 from docker.types.daemon import CancellableStream
+
+@type_check_only
+class _HasId(TypedDict):
+    Id: str
+
+@type_check_only
+class _HasID(TypedDict):
+    ID: str
+
+_Container: TypeAlias = _HasId | _HasID | str
 
 class ContainerApiMixin:
     def attach(
@@ -73,7 +84,7 @@ class ContainerApiMixin:
     @overload
     def logs(
         self,
-        container: str | dict[Incomplete, Incomplete],
+        container: _Container,
         stdout: bool = True,
         stderr: bool = True,
         *,
@@ -87,7 +98,7 @@ class ContainerApiMixin:
     @overload
     def logs(
         self,
-        container: str | dict[Incomplete, Incomplete],
+        container: _Container,
         stdout: bool,
         stderr: bool,
         stream: Literal[True],
@@ -100,7 +111,7 @@ class ContainerApiMixin:
     @overload
     def logs(
         self,
-        container: str | dict[Incomplete, Incomplete],
+        container: _Container,
         stdout: bool = True,
         stderr: bool = True,
         stream: Literal[False] = False,
