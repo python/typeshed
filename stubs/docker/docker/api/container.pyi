@@ -77,7 +77,7 @@ class ContainerApiMixin:
         stderr: bool = True,
         stream: Literal[False] = False,
         timestamps: bool = False,
-        tail: str = "all",
+        tail: Literal["all"] | int = "all",
         since: Incomplete | None = None,
         follow: Incomplete | None = None,
         until: Incomplete | None = None,

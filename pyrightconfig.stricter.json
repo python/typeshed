@@ -44,7 +44,6 @@
         "stubs/defusedxml",
         "stubs/docker",
         "stubs/docutils",
-        "stubs/flake8",
         "stubs/Flask-SocketIO",
         "stubs/fpdf2",
         "stubs/google-cloud-ndb",

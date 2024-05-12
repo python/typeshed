@@ -1,5 +1,6 @@
 import sys
 from _typeshed import SupportsKeysAndGetItem
+from _typeshed.importlib import LoaderProtocol
 from collections.abc import (
     AsyncGenerator,
     Awaitable,
@@ -16,7 +17,7 @@ from collections.abc import (
 from importlib.machinery import ModuleSpec
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
-from typing import Any, ClassVar, Literal, Mapping, Protocol, TypeVar, final, overload  # noqa: Y022
+from typing import Any, ClassVar, Literal, Mapping, TypeVar, final, overload  # noqa: Y022
 from typing_extensions import ParamSpec, Self, TypeVarTuple, deprecated
 
 __all__ = [
@@ -318,15 +319,12 @@ class SimpleNamespace:
     def __setattr__(self, name: str, value: Any, /) -> None: ...
     def __delattr__(self, name: str, /) -> None: ...
 
-class _LoaderProtocol(Protocol):
-    def load_module(self, fullname: str, /) -> ModuleType: ...
-
 class ModuleType:
     __name__: str
     __file__: str | None
     @property
     def __dict__(self) -> dict[str, Any]: ...  # type: ignore[override]
-    __loader__: _LoaderProtocol | None
+    __loader__: LoaderProtocol | None
     __package__: str | None
     __path__: MutableSequence[str]
     __spec__: ModuleSpec | None
