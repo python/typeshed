@@ -159,5 +159,5 @@ class ContainerApiMixin:
         self,
         container: _Container,
         timeout: int | None = None,
-        condition: Literal["not-running"] | Literal["next-exit"] | Literal["removed"] | None = None,
+        condition: Literal["not-running", "next-exit", "removed"] | None = None,
     ): ...
