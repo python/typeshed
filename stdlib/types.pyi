@@ -64,18 +64,11 @@ _T2 = TypeVar("_T2")
 _KT = TypeVar("_KT")
 _VT_co = TypeVar("_VT_co", covariant=True)
 
-@final
-class _Cell:
-    def __new__(cls, contents: object = ..., /) -> Self: ...
-    def __eq__(self, value: object, /) -> bool: ...
-    __hash__: ClassVar[None]  # type: ignore[assignment]
-    cell_contents: Any
-
 # Make sure this class definition stays roughly in line with `builtins.function`
 @final
 class FunctionType:
     @property
-    def __closure__(self) -> tuple[_Cell, ...] | None: ...
+    def __closure__(self) -> tuple[CellType, ...] | None: ...
     __code__: CodeType
     __defaults__: tuple[Any, ...] | None
     __dict__: dict[str, Any]
@@ -98,7 +91,7 @@ class FunctionType:
         globals: dict[str, Any],
         name: str | None = ...,
         argdefs: tuple[object, ...] | None = ...,
-        closure: tuple[_Cell, ...] | None = ...,
+        closure: tuple[CellType, ...] | None = ...,
     ) -> Self: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
     @overload
@@ -336,6 +329,12 @@ class ModuleType:
     # using `builtins.__import__` or `importlib.import_module` less painful
     def __getattr__(self, name: str) -> Any: ...
 
+@final
+class CellType:
+    def __new__(cls, contents: object = ..., /) -> Self: ...
+    __hash__: ClassVar[None]  # type: ignore[assignment]
+    cell_contents: Any
+
 _YieldT_co = TypeVar("_YieldT_co", covariant=True)
 _SendT_contra = TypeVar("_SendT_contra", contravariant=True)
 _ReturnT_co = TypeVar("_ReturnT_co", covariant=True)
@@ -405,7 +404,7 @@ class CoroutineType(Coroutine[_YieldT_co, _SendT_contra, _ReturnT_co]):
 @final
 class MethodType:
     @property
-    def __closure__(self) -> tuple[_Cell, ...] | None: ...  # inherited from the added function
+    def __closure__(self) -> tuple[CellType, ...] | None: ...  # inherited from the added function
     @property
     def __defaults__(self) -> tuple[Any, ...] | None: ...  # inherited from the added function
     @property
@@ -569,8 +568,6 @@ _P = ParamSpec("_P")
 def coroutine(func: Callable[_P, Generator[Any, Any, _R]]) -> Callable[_P, Awaitable[_R]]: ...  # type: ignore[overload-overlap]
 @overload
 def coroutine(func: _Fn) -> _Fn: ...
-
-CellType = _Cell
 
 if sys.version_info >= (3, 9):
     class GenericAlias:
