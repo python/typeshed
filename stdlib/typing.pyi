@@ -401,8 +401,8 @@ class Reversible(Iterable[_T_co], Protocol[_T_co]):
     def __reversed__(self) -> Iterator[_T_co]: ...
 
 _YieldT_co = TypeVar("_YieldT_co", covariant=True)
-_SendT_contra = TypeVar("_SendT_contra", contravariant=True)
-_ReturnT_co = TypeVar("_ReturnT_co", covariant=True)
+_SendT_contra = TypeVar("_SendT_contra", contravariant=True, default=None)
+_ReturnT_co = TypeVar("_ReturnT_co", covariant=True, default=None)
 
 class Generator(Iterator[_YieldT_co], Generic[_YieldT_co, _SendT_contra, _ReturnT_co]):
     def __next__(self) -> _YieldT_co: ...
@@ -444,7 +444,11 @@ class Awaitable(Protocol[_T_co]):
     @abstractmethod
     def __await__(self) -> Generator[Any, Any, _T_co]: ...
 
-class Coroutine(Awaitable[_ReturnT_co], Generic[_YieldT_co, _SendT_contra, _ReturnT_co]):
+# Non-default variations to accommodate couroutines, and `AwaitableGenerator` having a 4th type parameter.
+_SendT_contra_nd = TypeVar("_SendT_contra_nd", contravariant=True)
+_ReturnT_co_nd = TypeVar("_ReturnT_co_nd", covariant=True)
+
+class Coroutine(Awaitable[_ReturnT_co_nd], Generic[_YieldT_co, _SendT_contra_nd, _ReturnT_co_nd]):
     __name__: str
     __qualname__: str
     @property
@@ -456,7 +460,7 @@ class Coroutine(Awaitable[_ReturnT_co], Generic[_YieldT_co, _SendT_contra, _Retu
     @property
     def cr_running(self) -> bool: ...
     @abstractmethod
-    def send(self, value: _SendT_contra, /) -> _YieldT_co: ...
+    def send(self, value: _SendT_contra_nd, /) -> _YieldT_co: ...
     @overload
     @abstractmethod
     def throw(
@@ -472,9 +476,9 @@ class Coroutine(Awaitable[_ReturnT_co], Generic[_YieldT_co, _SendT_contra, _Retu
 # The parameters correspond to Generator, but the 4th is the original type.
 @type_check_only
 class AwaitableGenerator(
-    Awaitable[_ReturnT_co],
-    Generator[_YieldT_co, _SendT_contra, _ReturnT_co],
-    Generic[_YieldT_co, _SendT_contra, _ReturnT_co, _S],
+    Awaitable[_ReturnT_co_nd],
+    Generator[_YieldT_co, _SendT_contra_nd, _ReturnT_co_nd],
+    Generic[_YieldT_co, _SendT_contra_nd, _ReturnT_co_nd, _S],
     metaclass=ABCMeta,
 ): ...
 
