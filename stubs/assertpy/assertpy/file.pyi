@@ -1,8 +1,8 @@
-from _typeshed import Incomplete, StrPath
+from _typeshed import StrPath
 from typing import IO, AnyStr
 from typing_extensions import Self
 
-str_types: Incomplete
+str_types: tuple[type[str]]
 __tracebackhide__: bool
 
 def contents_of(file: IO[AnyStr] | StrPath, encoding: str = "utf-8") -> str: ...

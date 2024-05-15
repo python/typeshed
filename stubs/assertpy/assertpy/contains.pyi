@@ -1,8 +1,7 @@
-from _typeshed import Incomplete
 from typing import Any
 from typing_extensions import Self
 
-str_types: Incomplete
+str_types: tuple[type[str]]
 xrange = range
 __tracebackhide__: bool
 
