@@ -10,6 +10,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from utils import TEST_CASES_DIR, test_cases_path
+
 try:
     from termcolor import colored  # pyright: ignore[reportAssignmentType]
 except ImportError:
@@ -20,7 +22,6 @@ except ImportError:
 
 _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
 _TESTCASES_CONFIG_FILE = "pyrightconfig.testcases.json"
-_TESTCASES = "test_cases"
 _NPX_ERROR_PATTERN = r"error (runn|find)ing npx"
 _NPX_ERROR_MESSAGE = colored("\nSkipping Pyright tests: npx is not installed or can't be run!", "yellow")
 _SUCCESS = colored("Success", "green")
@@ -132,10 +133,10 @@ def main() -> None:
         print("\nRunning pytype...")
         pytype_result = subprocess.run([sys.executable, "tests/pytype_test.py", path])
 
-    test_cases_path = Path(path) / "@tests" / _TESTCASES if folder == "stubs" else Path(_TESTCASES)
-    if not test_cases_path.exists():
+    cases_path = test_cases_path(stub if folder == "stubs" else "stdlib")
+    if not cases_path.exists():
         # No test means they all ran successfully (0 out of 0). Not all 3rd-party stubs have regression tests.
-        print(colored(f"\nRegression tests: No {_TESTCASES} folder for {stub!r}!", "green"))
+        print(colored(f"\nRegression tests: No {TEST_CASES_DIR} folder for {stub!r}!", "green"))
         pyright_testcases_returncode = 0
         pyright_testcases_skipped = False
         regr_test_returncode = 0
@@ -144,7 +145,7 @@ def main() -> None:
         command = [
             sys.executable,
             "tests/pyright_test.py",
-            str(test_cases_path),
+            str(cases_path),
             "--pythonversion",
             python_version,
             "-p",

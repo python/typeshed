@@ -1,21 +1,16 @@
 ## Regression tests for typeshed
 
-This directory contains code samples that act as a regression test for
-typeshed's stdlib stubs.
+Regression tests for the standard library stubs can be found in the
+`stdlib/@tests/test_cases` directory. Stubs for third-party libraries that do
+have test cases can be found in `@tests/test_cases` subdirectories for each
+stubs package. For example, the test cases for `requests` can be found in the
+`stubs/requests/@tests/test_cases` directory.
 
-**This directory should *only* contain test cases for functions and classes which
+**Regression test cases should only be written for functions and classes which
 are known to have caused problems in the past, where the stubs are difficult to
 get right.** 100% test coverage for typeshed is neither necessary nor
 desirable, as it would lead to code duplication. Moreover, typeshed has
 multiple other mechanisms for spotting errors in the stubs.
-
-### Where are the third-party test cases?
-
-Not all third-party stubs packages in typeshed have test cases, and not all of
-them need test cases. For those that do have test cases, however, the samples
-can be found in `@tests/test_cases` subdirectories for each stubs package. For
-example, the test cases for `requests` can be found in the
-`stubs/requests/@tests/test_cases` directory.
 
 ### The purpose of these tests
 
@@ -23,10 +18,10 @@ Different test cases in this directory serve different purposes. For some stubs 
 typeshed, the type annotations are complex enough that it's useful to have
 sanity checks that test whether a type checker understands the intent of
 the annotations correctly. Examples of tests like these are
-`stdlib/builtins/check_pow.py` and `stdlib/asyncio/check_gather.py`.
+`builtins/check_pow.py` and `asyncio/check_gather.py`.
 
-Other test cases, such as the samples for `ExitStack` in `stdlib/check_contextlib.py`
-and the samples for `LogRecord` in `stdlib/check_logging.py`, do not relate to
+Other test cases, such as the samples for `ExitStack` in `check_contextlib.py`
+and the samples for `LogRecord` in `check_logging.py`, do not relate to
 stubs where the annotations are particularly complex, but they *do* relate to
 stubs where decisions have been taken that might be slightly unusual. These
 test cases serve a different purpose: to check that type checkers do not emit
@@ -74,10 +69,10 @@ Use the same top-level name for the module / package you would like to test.
 Use the `check_${thing}.py` naming pattern for individual test files.
 
 By default, test cases go into a file with the same name as the stub file, prefixed with `check_`.
-For example: `stdlib/check_contextlib.py`.
+For example: `check_contextlib.py`.
 
 If that file becomes too big, we instead create a directory with files named after individual objects being tested.
-For example: `stdlib/builtins/check_dict.py`.
+For example: `builtins/check_dict.py`.
 
 ### Differences to the rest of typeshed
 
@@ -114,7 +109,7 @@ with a specific Python version passed on the command line to the `tests/regr_tes
 To mark a test-case file as being skippable on lower versions of Python,
 append `-py3*` to the filename.
 For example, if `foo` is a stdlib feature that's new in Python 3.11,
-test cases for `foo` should be put in a file named `test_cases/stdlib/check_foo-py311.py`.
+test cases for `foo` should be put in a file named `check_foo-py311.py`.
 This means that mypy will only run the test case
 if `--python-version 3.11`, `--python-version 3.12`, etc.
 is passed on the command line to `tests/regr_test.py`,
@@ -123,4 +118,4 @@ is passed on the command line.
 
 However, `if sys.version_info >= (3, target):` is still required for `pyright`
 in the test file itself.
-Example: [`check_exception_group-py311.py`](https://github.com/python/typeshed/blob/main/test_cases/stdlib/builtins/check_exception_group-py311.py)
+Example: [`check_exception_group-py311.py`](../stdlib/@tests/test_cases/builtins/check_exception_group-py311.py)

@@ -69,7 +69,7 @@ jobs:
             if [ "${{ runner.os }}" = "Linux" ]; then
               if [ -n "$PACKAGES" ]; then
                 echo "Installing apt packages: $PACKAGES"
-                sudo apt update && sudo apt install -y $PACKAGES
+                sudo apt-get update && sudo apt-get install -y $PACKAGES
               fi
 
               PYTHON_EXECUTABLE="xvfb-run python"
