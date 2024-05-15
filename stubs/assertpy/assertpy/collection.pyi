@@ -1,10 +1,8 @@
-from collections.abc import Callable, Iterable as _Iterable
+from collections.abc import Callable
 from typing import Any
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
 
 __tracebackhide__: bool
-
-Iterable: TypeAlias = _Iterable[Any]
 
 class CollectionMixin:
     def is_iterable(self) -> Self: ...

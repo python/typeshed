@@ -1,9 +1,6 @@
-from collections.abc import Iterable as _Iterable
 from typing import Any
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
 
-Iterable: TypeAlias = _Iterable[Any]
-str_types: tuple[type[str]]
 __tracebackhide__: bool
 
 class ExtractingMixin:

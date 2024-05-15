@@ -1,12 +1,8 @@
-from collections.abc import Iterable as _Iterable
 from re import Pattern
-from typing import Any
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
 
-str_types: tuple[type[str]]
 unicode = str
 __tracebackhide__: bool
-Iterable: TypeAlias = _Iterable[Any]
 
 class StringMixin:
     def is_equal_to_ignoring_case(self, other: str) -> Self: ...
