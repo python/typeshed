@@ -128,6 +128,9 @@ if sys.version_info >= (3, 11):
 if sys.version_info >= (3, 12):
     __all__ += ["TypeAliasType", "override"]
 
+if sys.version_info >= (3, 13):
+    __all__ += ["get_protocol_members", "is_protocol", "NoDefault"]
+
 Any = object()
 
 def final(f: _T) -> _T: ...
@@ -985,3 +988,7 @@ if sys.version_info >= (3, 12):
 if sys.version_info >= (3, 13):
     def is_protocol(tp: type, /) -> bool: ...
     def get_protocol_members(tp: type, /) -> frozenset[str]: ...
+    @final
+    class _NoDefaultType: ...
+
+    NoDefault: _NoDefaultType

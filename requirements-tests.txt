@@ -20,5 +20,5 @@ stubdefaulter==0.1.0
 termcolor>=2.3
 tomli==2.0.1
 tomlkit==0.12.4
-typing_extensions>=4.9.0rc1
+typing_extensions>=4.12.0rc1
 uv==0.1.27
