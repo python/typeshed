@@ -150,12 +150,11 @@ def run_stubtest(
             print_command_output(ret)
 
             print_divider()
-            allowlist_path_relative = allowlist_path.relative_to(Path.cwd())
             if allowlist_path.exists():
-                print(f'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_path_relative}')
+                print(f'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_path}')
                 print()
             else:
-                print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path_relative}:")
+                print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path}:")
                 ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
                 print_command_output(ret)
 
