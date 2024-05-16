@@ -54,7 +54,6 @@ _EnumNames: TypeAlias = str | Iterable[str] | Iterable[Iterable[str | Any]] | Ma
 
 if sys.version_info >= (3, 11):
     class nonmember(Generic[_EnumMemberT]):
-        value: _EnumMemberT
         def __init__(self, value: _EnumMemberT) -> None: ...
         def __getattr__(self, name: str) -> _EnumMemberT: ...
 
