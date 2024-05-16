@@ -58,6 +58,9 @@ if sys.version_info >= (3, 10):
 if sys.version_info >= (3, 12):
     __all__ += ["get_original_bases"]
 
+if sys.version_info >= (3, 13):
+    __all__ += ["CapsuleType"]
+
 # Note, all classes "defined" here require special handling.
 
 _T1 = TypeVar("_T1")
@@ -607,3 +610,7 @@ if sys.version_info >= (3, 10):
         def __ror__(self, value: Any, /) -> UnionType: ...
         def __eq__(self, value: object, /) -> bool: ...
         def __hash__(self) -> int: ...
+
+if sys.version_info >= (3, 13):
+    @final
+    class CapsuleType: ...

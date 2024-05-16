@@ -95,6 +95,7 @@ __all__ = [
     "Coroutine",
     "AsyncGenerator",
     "AsyncContextManager",
+    "CapsuleType",
     "ChainMap",
     "ContextManager",
     "Counter",
@@ -166,6 +167,7 @@ __all__ = [
     "MutableMapping",
     "MutableSequence",
     "MutableSet",
+    "NoDefault",
     "Optional",
     "Pattern",
     "Reversible",
@@ -452,13 +454,6 @@ class TypeVarTuple:
     def __init__(self, name: str, *, default: Any | None = None) -> None: ...
     def __iter__(self) -> Any: ...  # Unpack[Self]
 
-class deprecated:
-    message: LiteralString
-    category: type[Warning] | None
-    stacklevel: int
-    def __init__(self, message: LiteralString, /, *, category: type[Warning] | None = ..., stacklevel: int = 1) -> None: ...
-    def __call__(self, arg: _T, /) -> _T: ...
-
 if sys.version_info >= (3, 12):
     from collections.abc import Buffer as Buffer
     from types import get_original_bases as get_original_bases
@@ -494,10 +489,25 @@ else:
         def __buffer__(self, flags: int, /) -> memoryview: ...
 
 if sys.version_info >= (3, 13):
-    from typing import get_protocol_members as get_protocol_members, is_protocol as is_protocol
+    from types import CapsuleType as CapsuleType
+    from typing import NoDefault as NoDefault, get_protocol_members as get_protocol_members, is_protocol as is_protocol
+    from warnings import deprecated as deprecated
 else:
     def is_protocol(tp: type, /) -> bool: ...
     def get_protocol_members(tp: type, /) -> frozenset[str]: ...
+    @final
+    class _NoDefaultType: ...
+
+    NoDefault: _NoDefaultType
+    @final
+    class CapsuleType: ...
+
+    class deprecated:
+        message: LiteralString
+        category: type[Warning] | None
+        stacklevel: int
+        def __init__(self, message: LiteralString, /, *, category: type[Warning] | None = ..., stacklevel: int = 1) -> None: ...
+        def __call__(self, arg: _T, /) -> _T: ...
 
 class Doc:
     documentation: str
