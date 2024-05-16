@@ -30,7 +30,6 @@
         "stdlib/xml/sax",
         "stubs/aiofiles/aiofiles/tempfile/temptypes.pyi",
         "stubs/antlr4-python3-runtime",
-        "stubs/assertpy",
         "stubs/aws-xray-sdk",
         "stubs/beautifulsoup4",
         "stubs/bleach/bleach/sanitizer.pyi",
