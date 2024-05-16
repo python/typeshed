@@ -81,6 +81,8 @@ ast.ImportFrom.level  # None on the class, but never None on instances
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 builtins.property.__set_name__  # Doesn't actually exist
 dataclasses.KW_ONLY  # white lies around defaults
+enum.nonmember.value # Doesn't actually exist
+enum.nonmember.__getattr__
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
