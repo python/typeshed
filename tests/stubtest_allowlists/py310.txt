@@ -156,9 +156,6 @@ ast.ImportFrom.level  # None on the class, but never None on instances
 # White lies around defaults
 dataclasses.KW_ONLY
 
-enum.nonmember.value # Doesn't actually exist
-enum.nonmember.__getattr__
-
 # We pretend it's a read-only property for forward compatibility with 3.12
 typing.ParamSpec(Args|Kwargs).__origin__
 
