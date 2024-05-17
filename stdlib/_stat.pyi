@@ -101,3 +101,14 @@ if sys.platform == "win32":
     FILE_ATTRIBUTE_SYSTEM: Literal[4]
     FILE_ATTRIBUTE_TEMPORARY: Literal[256]
     FILE_ATTRIBUTE_VIRTUAL: Literal[65536]
+
+if sys.version_info >= (3, 13):
+    SF_DATALESS: Literal[1073741824]
+    SF_FIRMLINK: Literal[8388608]
+    SF_RESTRICTED: Literal[524288]
+    SF_SETTABLE: Literal[1073676288]
+    SF_SUPPORTED: Literal[10420224]
+    SF_SYNTHETIC: Literal[3221225472]
+    UF_TRACKED: Literal[64]
+    UF_DATAVAULT: Literal[128]
+    UF_SETTABLE: Literal[65535]
