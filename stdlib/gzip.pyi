@@ -12,8 +12,8 @@ _ReadBinaryMode: TypeAlias = Literal["r", "rb"]
 _WriteBinaryMode: TypeAlias = Literal["a", "ab", "w", "wb", "x", "xb"]
 _OpenTextMode: TypeAlias = Literal["rt", "at", "wt", "xt"]
 
-READ: Literal[1]  # undocumented
-WRITE: Literal[2]  # undocumented
+READ: object  # undocumented
+WRITE: object  # undocumented
 
 FTEXT: int  # actually Literal[1] # undocumented
 FHCRC: int  # actually Literal[2] # undocumented
