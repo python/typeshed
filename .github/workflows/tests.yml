@@ -62,17 +62,36 @@ jobs:
     strategy:
       matrix:
         platform: ["linux", "win32", "darwin"]
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          allow-prereleases: true
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
       - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
+
+  # Run this as a separate job, as the other versions in the matrix are
+  # (and should be) run *using* the Python version we're testing the stubs for,
+  # but we can't install all our non-types dependencies on py313 yet
+  mypy-313:
+    name: Run mypy against the 3.13 stubs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: ["linux", "win32", "darwin"]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+          allow-prereleases: true
+      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - run: uv pip install -r requirements-tests.txt --system
+      - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=3.13
 
   regression-tests:
     name: Run mypy on the test cases
