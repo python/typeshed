@@ -103,14 +103,14 @@ if sys.platform == "win32":
     FILE_ATTRIBUTE_VIRTUAL: Literal[65536]
 
 if sys.version_info >= (3, 13):
-    SF_SETTABLE: Literal[0xffff0000]
+    SF_SETTABLE: Literal[0xFFFF0000]
     SF_RESTRICTED: Literal[0x00080000]
     SF_FIRMLINK: Literal[0x00800000]
     SF_DATALESS: Literal[0x40000000]
 
-    SF_SUPPORTED: Literal[0x9f0000]
-    SF_SYNTHETIC: Literal[0xc0000000]
+    SF_SUPPORTED: Literal[0x9F0000]
+    SF_SYNTHETIC: Literal[0xC0000000]
 
     UF_TRACKED: Literal[0x00000040]
     UF_DATAVAULT: Literal[0x00000080]
-    UF_SETTABLE: Literal[0x0000ffff]
+    UF_SETTABLE: Literal[0x0000FFFF]
