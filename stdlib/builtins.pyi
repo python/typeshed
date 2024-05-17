@@ -1323,11 +1323,18 @@ def divmod(x: _T_contra, y: SupportsRDivMod[_T_contra, _T_co], /) -> _T_co: ...
 # (The `globals` argument has to be a "real dict", rather than any old mapping, unlike the `locals` argument.)
 if sys.version_info >= (3, 13):
     def eval(
-        source: str | ReadableBuffer | CodeType, /, globals: dict[str, Any] | None = None, locals: Mapping[str, object] | None = None
+        source: str | ReadableBuffer | CodeType,
+        /,
+        globals: dict[str, Any] | None = None,
+        locals: Mapping[str, object] | None = None,
     ) -> Any: ...
+
 else:
     def eval(
-        source: str | ReadableBuffer | CodeType, globals: dict[str, Any] | None = None, locals: Mapping[str, object] | None = None, /
+        source: str | ReadableBuffer | CodeType,
+        globals: dict[str, Any] | None = None,
+        locals: Mapping[str, object] | None = None,
+        /,
     ) -> Any: ...
 
 # Comment above regarding `eval` applies to `exec` as well
@@ -1340,6 +1347,7 @@ if sys.version_info >= (3, 13):
         *,
         closure: tuple[CellType, ...] | None = None,
     ) -> None: ...
+
 elif sys.version_info >= (3, 11):
     def exec(
         source: str | ReadableBuffer | CodeType,
