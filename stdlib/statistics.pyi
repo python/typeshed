@@ -28,6 +28,8 @@ __all__ = [
 
 if sys.version_info >= (3, 10):
     __all__ += ["covariance", "correlation", "linear_regression"]
+if sys.version_info >= (3, 13):
+    __all__ += ["kde", "kde_random"]
 
 # Most functions in this module accept homogeneous collections of one of these types
 _Number: TypeAlias = float | Decimal | Fraction
@@ -130,3 +132,7 @@ if sys.version_info >= (3, 11):
 
 elif sys.version_info >= (3, 10):
     def linear_regression(regressor: Sequence[_Number], dependent_variable: Sequence[_Number], /) -> LinearRegression: ...
+
+if sys.version_info >= (3, 13):
+    def kde(data: Sequence[float], h: float, kernel: str = 'normal', *, cumulative: bool = False): ...
+    def kde_random(data: Sequence[float], h: float, kernel: str = 'normal', *, seed: int | float | str | bytes | bytearray | None = None): ...
