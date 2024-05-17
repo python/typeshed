@@ -54,12 +54,9 @@ _DataType: TypeAlias = ReadableBuffer | SupportsRead[bytes] | Iterable[bytes] | 
 
 if sys.version_info >= (3, 13):
     def urlopen(
-        url: str | Request,
-        data: _DataType | None = None,
-        timeout: float | None = ...,
-        *,
-        context: ssl.SSLContext | None = None,
+        url: str | Request, data: _DataType | None = None, timeout: float | None = ..., *, context: ssl.SSLContext | None = None
     ) -> _UrlopenRet: ...
+
 else:
     def urlopen(
         url: str | Request,
@@ -71,6 +68,7 @@ else:
         cadefault: bool = False,
         context: ssl.SSLContext | None = None,
     ) -> _UrlopenRet: ...
+
 def install_opener(opener: OpenerDirector) -> None: ...
 def build_opener(*handlers: BaseHandler | Callable[[], BaseHandler]) -> OpenerDirector: ...
 
