@@ -1,8 +1,8 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from distutils.dist import Distribution
-from typing import Any
+from typing import Any, Literal
 
 class Command:
     distribution: Distribution
@@ -22,27 +22,33 @@ class Command:
     def ensure_dirname(self, option: str) -> None: ...
     def get_command_name(self) -> str: ...
     def set_undefined_options(self, src_cmd: str, *option_pairs: tuple[str, str]) -> None: ...
-    def get_finalized_command(self, command: str, create: int = 1) -> Command: ...
-    def reinitialize_command(self, command: Command | str, reinit_subcommands: int = 0) -> Command: ...
+    def get_finalized_command(self, command: str, create: bool | Literal[0, 1] = 1) -> Command: ...
+    def reinitialize_command(self, command: Command | str, reinit_subcommands: bool | Literal[0, 1] = 0) -> Command: ...
     def run_command(self, command: str) -> None: ...
     def get_sub_commands(self) -> list[str]: ...
     def warn(self, msg: str) -> None: ...
     def execute(self, func: Callable[..., object], args: Iterable[Any], msg: str | None = None, level: int = 1) -> None: ...
     def mkpath(self, name: str, mode: int = 0o777) -> None: ...
     def copy_file(
-        self, infile: str, outfile: str, preserve_mode: int = 1, preserve_times: int = 1, link: str | None = None, level: Any = 1
-    ) -> tuple[str, bool]: ...  # level is not used
+        self,
+        infile: str,
+        outfile: str,
+        preserve_mode: bool | Literal[0, 1] = 1,
+        preserve_times: bool | Literal[0, 1] = 1,
+        link: str | None = None,
+        level: Unused = 1,
+    ) -> tuple[str, bool]: ...
     def copy_tree(
         self,
         infile: str,
         outfile: str,
-        preserve_mode: int = 1,
-        preserve_times: int = 1,
-        preserve_symlinks: int = 0,
-        level: Any = 1,
-    ) -> list[str]: ...  # level is not used
-    def move_file(self, src: str, dst: str, level: Any = 1) -> str: ...  # level is not used
-    def spawn(self, cmd: Iterable[str], search_path: int = 1, level: Any = 1) -> None: ...  # level is not used
+        preserve_mode: bool | Literal[0, 1] = 1,
+        preserve_times: bool | Literal[0, 1] = 1,
+        preserve_symlinks: bool | Literal[0, 1] = 0,
+        level: Unused = 1,
+    ) -> list[str]: ...
+    def move_file(self, src: str, dst: str, level: Unused = 1) -> str: ...
+    def spawn(self, cmd: Iterable[str], search_path: bool | Literal[0, 1] = 1, level: Unused = 1) -> None: ...
     def make_archive(
         self,
         base_name: str,
@@ -60,7 +66,7 @@ class Command:
         args: list[Any],
         exec_msg: str | None = None,
         skip_msg: str | None = None,
-        level: Any = 1,
-    ) -> None: ...  # level is not used
+        level: Unused = 1,
+    ) -> None: ...
     def ensure_finalized(self) -> None: ...
     def dump_options(self, header: Incomplete | None = None, indent: str = "") -> None: ...
