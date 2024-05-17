@@ -149,6 +149,21 @@ class TypeVar:
     if sys.version_info >= (3, 12):
         @property
         def __infer_variance__(self) -> bool: ...
+    if sys.version_info >= (3, 13):
+        @property
+        def __default__(self) -> Any: ...
+    if sys.version_info >= (3, 13):
+        def __init__(
+            self,
+            name: str,
+            *constraints: Any,
+            bound: Any | None = None,
+            contravariant: bool = False,
+            covariant: bool = False,
+            infer_variance: bool = False,
+            default: Any = ...,
+        ) -> None: ...
+    elif sys.version_info >= (3, 12):
         def __init__(
             self,
             name: str,
@@ -167,6 +182,8 @@ class TypeVar:
         def __ror__(self, left: Any) -> _SpecialForm: ...
     if sys.version_info >= (3, 11):
         def __typing_subst__(self, arg: Any) -> Any: ...
+    if sys.version_info >= (3, 13):
+        def has_default(self) -> bool: ...
 
 # Used for an undocumented mypy feature. Does not exist at runtime.
 _promote = object()
@@ -208,7 +225,15 @@ if sys.version_info >= (3, 11):
     class TypeVarTuple:
         @property
         def __name__(self) -> str: ...
-        def __init__(self, name: str) -> None: ...
+        if sys.version_info >= (3, 13):
+            @property
+            def __default__(self) -> Any: ...
+            def has_default(self) -> bool: ...
+        if sys.version_info >= (3, 13):
+            def __init__(self, name: str, *, default: Any = ...) -> None: ...
+        else:
+            def __init__(self, name: str) -> None: ...
+
         def __iter__(self) -> Any: ...
         def __typing_subst__(self, arg: Never) -> Never: ...
         def __typing_prepare_subst__(self, alias: Any, args: Any) -> tuple[Any, ...]: ...
@@ -241,6 +266,21 @@ if sys.version_info >= (3, 10):
         if sys.version_info >= (3, 12):
             @property
             def __infer_variance__(self) -> bool: ...
+        if sys.version_info >= (3, 13):
+            @property
+            def __default__(self) -> Any: ...
+        if sys.version_info >= (3, 13):
+            def __init__(
+                self,
+                name: str,
+                *,
+                bound: Any | None = None,
+                contravariant: bool = False,
+                covariant: bool = False,
+                infer_variance: bool = False,
+                default: Any = ...,
+            ) -> None: ...
+        elif sys.version_info >= (3, 12):
             def __init__(
                 self,
                 name: str,
@@ -265,6 +305,8 @@ if sys.version_info >= (3, 10):
 
         def __or__(self, right: Any) -> _SpecialForm: ...
         def __ror__(self, left: Any) -> _SpecialForm: ...
+        if sys.version_info >= (3, 13):
+            def has_default(self) -> bool: ...
 
     Concatenate: _SpecialForm
     TypeAlias: _SpecialForm
