@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Literal
 from typing_extensions import TypeAlias
 
 _Macro: TypeAlias = tuple[str] | tuple[str, str | None]
@@ -10,7 +10,11 @@ def gen_lib_options(
 def gen_preprocess_options(macros: list[_Macro], include_dirs: list[str]) -> list[str]: ...
 def get_default_compiler(osname: str | None = ..., platform: str | None = ...) -> str: ...
 def new_compiler(
-    plat: str | None = ..., compiler: str | None = ..., verbose: int = ..., dry_run: int = ..., force: int = ...
+    plat: str | None = ...,
+    compiler: str | None = ...,
+    verbose: bool | Literal[0, 1] = 0,
+    dry_run: bool | Literal[0, 1] = 0,
+    force: bool | Literal[0, 1] = 0,
 ) -> CCompiler: ...
 def show_compilers() -> None: ...
 
@@ -34,7 +38,9 @@ class CCompiler:
     library_dirs: list[str]
     runtime_library_dirs: list[str]
     objects: list[str]
-    def __init__(self, verbose: int = ..., dry_run: int = ..., force: int = ...) -> None: ...
+    def __init__(
+        self, verbose: bool | Literal[0, 1] = 0, dry_run: bool | Literal[0, 1] = 0, force: bool | Literal[0, 1] = 0
+    ) -> None: ...
     def add_include_dir(self, dir: str) -> None: ...
     def set_include_dirs(self, dirs: list[str]) -> None: ...
     def add_library(self, libname: str) -> None: ...
@@ -48,7 +54,7 @@ class CCompiler:
     def add_link_object(self, object: str) -> None: ...
     def set_link_objects(self, objects: list[str]) -> None: ...
     def detect_language(self, sources: str | list[str]) -> str | None: ...
-    def find_library_file(self, dirs: list[str], lib: str, debug: bool = ...) -> str | None: ...
+    def find_library_file(self, dirs: list[str], lib: str, debug: bool | Literal[0, 1] = 0) -> str | None: ...
     def has_function(
         self,
         funcname: str,
@@ -67,7 +73,7 @@ class CCompiler:
         output_dir: str | None = ...,
         macros: list[_Macro] | None = ...,
         include_dirs: list[str] | None = ...,
-        debug: bool = ...,
+        debug: bool | Literal[0, 1] = 0,
         extra_preargs: list[str] | None = ...,
         extra_postargs: list[str] | None = ...,
         depends: list[str] | None = ...,
@@ -77,7 +83,7 @@ class CCompiler:
         objects: list[str],
         output_libname: str,
         output_dir: str | None = ...,
-        debug: bool = ...,
+        debug: bool | Literal[0, 1] = 0,
         target_lang: str | None = ...,
     ) -> None: ...
     def link(
@@ -90,7 +96,7 @@ class CCompiler:
         library_dirs: list[str] | None = ...,
         runtime_library_dirs: list[str] | None = ...,
         export_symbols: list[str] | None = ...,
-        debug: bool = ...,
+        debug: bool | Literal[0, 1] = 0,
         extra_preargs: list[str] | None = ...,
         extra_postargs: list[str] | None = ...,
         build_temp: str | None = ...,
@@ -104,7 +110,7 @@ class CCompiler:
         libraries: list[str] | None = ...,
         library_dirs: list[str] | None = ...,
         runtime_library_dirs: list[str] | None = ...,
-        debug: bool = ...,
+        debug: bool | Literal[0, 1] = 0,
         extra_preargs: list[str] | None = ...,
         extra_postargs: list[str] | None = ...,
         target_lang: str | None = ...,
@@ -118,7 +124,7 @@ class CCompiler:
         library_dirs: list[str] | None = ...,
         runtime_library_dirs: list[str] | None = ...,
         export_symbols: list[str] | None = ...,
-        debug: bool = ...,
+        debug: bool | Literal[0, 1] = 0,
         extra_preargs: list[str] | None = ...,
         extra_postargs: list[str] | None = ...,
         build_temp: str | None = ...,
@@ -133,7 +139,7 @@ class CCompiler:
         library_dirs: list[str] | None = ...,
         runtime_library_dirs: list[str] | None = ...,
         export_symbols: list[str] | None = ...,
-        debug: bool = ...,
+        debug: bool | Literal[0, 1] = 0,
         extra_preargs: list[str] | None = ...,
         extra_postargs: list[str] | None = ...,
         build_temp: str | None = ...,
@@ -148,10 +154,14 @@ class CCompiler:
         extra_preargs: list[str] | None = ...,
         extra_postargs: list[str] | None = ...,
     ) -> None: ...
-    def executable_filename(self, basename: str, strip_dir: int = ..., output_dir: str = ...) -> str: ...
-    def library_filename(self, libname: str, lib_type: str = "static", strip_dir: int = 0, output_dir: str = "") -> str: ...
-    def object_filenames(self, source_filenames: list[str], strip_dir: int = ..., output_dir: str = ...) -> list[str]: ...
-    def shared_object_filename(self, basename: str, strip_dir: int = ..., output_dir: str = ...) -> str: ...
+    def executable_filename(self, basename: str, strip_dir: bool | Literal[0, 1] = 0, output_dir: str = ...) -> str: ...
+    def library_filename(
+        self, libname: str, lib_type: str = "static", strip_dir: bool | Literal[0, 1] = 0, output_dir: str = ""
+    ) -> str: ...
+    def object_filenames(
+        self, source_filenames: list[str], strip_dir: bool | Literal[0, 1] = 0, output_dir: str = ...
+    ) -> list[str]: ...
+    def shared_object_filename(self, basename: str, strip_dir: bool | Literal[0, 1] = 0, output_dir: str = ...) -> str: ...
     def execute(self, func: Callable[..., object], args: tuple[Any, ...], msg: str | None = ..., level: int = ...) -> None: ...
     def spawn(self, cmd: list[str]) -> None: ...
     def mkpath(self, name: str, mode: int = ...) -> None: ...
