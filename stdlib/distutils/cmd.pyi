@@ -2,11 +2,12 @@ from _typeshed import Incomplete, Unused
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from distutils.dist import Distribution
-from typing import Any, Literal
+from typing import Any, ClassVar, Literal
 
 class Command:
     distribution: Distribution
-    sub_commands: list[tuple[str, Callable[[Command], bool] | None]]
+    # Any to work around variance issues
+    sub_commands: ClassVar[list[tuple[str, Callable[[Any], bool] | None]]]
     def __init__(self, dist: Distribution) -> None: ...
     @abstractmethod
     def initialize_options(self) -> None: ...
