@@ -2,7 +2,8 @@ from _typeshed import Incomplete, SupportsItemAccess, SupportsKeysAndGetItem, Un
 from collections.abc import Callable, Iterable, Mapping
 from html.parser import HTMLParser
 from logging import Logger
-from typing import ClassVar, Final, Literal, TypeAlias, TypedDict, type_check_only
+from typing import ClassVar, Final, Literal, TypedDict, type_check_only
+from typing_extensions import TypeAlias
 
 from fpdf import FPDF
 
