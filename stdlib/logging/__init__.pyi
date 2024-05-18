@@ -468,16 +468,27 @@ class LoggerAdapter(Generic[_L]):
     def getEffectiveLevel(self) -> int: ...
     def setLevel(self, level: _Level) -> None: ...
     def hasHandlers(self) -> bool: ...
-    def _log(
-        self,
-        level: int,
-        msg: object,
-        args: _ArgsType,
-        *,
-        exc_info: _ExcInfoType | None = None,
-        extra: Mapping[str, object] | None = None,
-        stack_info: bool = False,
-    ) -> None: ...  # undocumented
+    if sys.version_info >= (3, 13):
+        def _log(
+            self,
+            level: int,
+            msg: object,
+            args: _ArgsType,
+            *,
+            exc_info: _ExcInfoType | None = None,
+            extra: Mapping[str, object] | None = None,
+            stack_info: bool = False,
+        ) -> None: ...  # undocumented
+    else:
+        def _log(
+            self,
+            level: int,
+            msg: object,
+            args: _ArgsType,
+            exc_info: _ExcInfoType | None = None,
+            extra: Mapping[str, object] | None = None,
+            stack_info: bool = False,
+        ) -> None: ...  # undocumented
     @property
     def name(self) -> str: ...  # undocumented
     if sys.version_info >= (3, 11):
