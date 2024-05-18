@@ -489,6 +489,7 @@ class LoggerAdapter(Generic[_L]):
             extra: Mapping[str, object] | None = None,
             stack_info: bool = False,
         ) -> None: ...  # undocumented
+
     @property
     def name(self) -> str: ...  # undocumented
     if sys.version_info >= (3, 11):
