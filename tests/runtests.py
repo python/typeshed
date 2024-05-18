@@ -78,7 +78,7 @@ def main() -> None:
     if folder not in {"stdlib", "stubs"}:
         parser.error("Only the 'stdlib' and 'stubs' folders are supported.")
     if not os.path.exists(path):
-        parser.error(rf"{path=} does not exist.")
+        parser.error(f"{path=} does not exist.")
     stubtest_result: subprocess.CompletedProcess[bytes] | None = None
     pytype_result: subprocess.CompletedProcess[bytes] | None = None
 
