@@ -6,7 +6,8 @@ from ..config import PyPIRCCommand
 
 class register(PyPIRCCommand):
     description: str
-    sub_commands: ClassVar[list[tuple[str, Callable[[Self], bool] | None]]]
+    # The callable parameter is self: Self, but using Self still trips up mypy
+    sub_commands: ClassVar[list[tuple[str, Callable[[Self], bool] | None]]]  # type: ignore[assignment]
     list_classifiers: int
     strict: int
     def initialize_options(self) -> None: ...

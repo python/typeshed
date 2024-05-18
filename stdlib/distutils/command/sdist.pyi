@@ -13,7 +13,8 @@ class sdist(Command):
     boolean_options: Any
     help_options: Any
     negative_opt: Any
-    sub_commands: ClassVar[list[tuple[str, Callable[[Self], bool] | None]]]
+    # The callable parameter is self: Self, but using Self still trips up mypy
+    sub_commands: ClassVar[list[tuple[str, Callable[[Self], bool] | None]]]  # type: ignore[assignment]
     READMES: Any
     template: Any
     manifest: Any
