@@ -65,7 +65,6 @@ __all__ = [
     "getatime",
     "getctime",
     "islink",
-    "isreserved",
     "exists",
     "lexists",
     "isdir",
@@ -94,7 +93,7 @@ __all__ = [
 if sys.version_info >= (3, 12):
     __all__ += ["isjunction", "splitroot"]
 if sys.version_info >= (3, 13):
-    __all__ += ["isdevdrive"]
+    __all__ += ["isdevdrive", "isreserved"]
 
 altsep: LiteralString
 
