@@ -166,6 +166,7 @@ class Logger(Filterer):
             stacklevel: int = 1,
             extra: Mapping[str, object] | None = None,
         ) -> None: ...
+
     def error(
         self,
         msg: object,
@@ -421,6 +422,7 @@ class LoggerAdapter(Generic[_L]):
             extra: Mapping[str, object] | None = None,
             **kwargs: object,
         ) -> None: ...
+
     def error(
         self,
         msg: object,
@@ -508,6 +510,7 @@ def warning(
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None,
 ) -> None: ...
+
 if sys.version_info < (3, 13):
     def warn(
         msg: object,
@@ -517,6 +520,7 @@ if sys.version_info < (3, 13):
         stacklevel: int = 1,
         extra: Mapping[str, object] | None = None,
     ) -> None: ...
+
 def error(
     msg: object,
     *args: object,
