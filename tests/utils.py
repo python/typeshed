@@ -199,9 +199,9 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
 
 
 def allowlist_stubtest_arguments(distribution_name: str, additional_allowlists: list[str]) -> list[str]:
-    mypy_arguments: list[str] = []
+    stubtest_arguments: list[str] = []
     for allowlist in common_allowlists(distribution_name) + additional_allowlists:
         path = allowlists_path(distribution_name) / allowlist
         if path.exists():
-            mypy_arguments.extend(["--allowlist", str(path)])
-    return mypy_arguments
+            stubtest_arguments.extend(["--allowlist", str(path)])
+    return stubtest_arguments
