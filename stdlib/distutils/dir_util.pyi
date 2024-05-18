@@ -1,5 +1,6 @@
 from _typeshed import StrOrBytesPath, StrPath
-from typing import Iterable, Literal
+from collections.abc import Iterable
+from typing import Literal
 
 def mkpath(name: str, mode: int = 0o777, verbose: bool | Literal[0, 1] = 1, dry_run: bool | Literal[0, 1] = 0) -> list[str]: ...
 def create_tree(
