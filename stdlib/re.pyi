@@ -1,4 +1,5 @@
 import enum
+import sre_constants
 import sre_compile
 import sys
 from _typeshed import ReadableBuffer
@@ -21,7 +22,6 @@ __all__ = [
     "finditer",
     "compile",
     "purge",
-    "template",
     "escape",
     "error",
     "A",
@@ -41,9 +41,16 @@ __all__ = [
     "Match",
     "Pattern",
 ]
+if sys.version_info < (3, 13):
+    __all__ += ["template"]
 
 if sys.version_info >= (3, 11):
     __all__ += ["NOFLAG", "RegexFlag"]
+
+if sys.version_info >= (3, 13):
+    __all__ += ["PatternError"]
+
+PatternError = sre_constants.error
 
 _T = TypeVar("_T")
 
@@ -198,8 +205,9 @@ class RegexFlag(enum.IntFlag):
     VERBOSE = X
     U = sre_compile.SRE_FLAG_UNICODE
     UNICODE = U
-    T = sre_compile.SRE_FLAG_TEMPLATE
-    TEMPLATE = T
+    if sys.version_info < (3, 13):
+        T = sre_compile.SRE_FLAG_TEMPLATE
+        TEMPLATE = T
     if sys.version_info >= (3, 11):
         NOFLAG = 0
 
@@ -218,8 +226,9 @@ X = RegexFlag.X
 VERBOSE = RegexFlag.VERBOSE
 U = RegexFlag.U
 UNICODE = RegexFlag.UNICODE
-T = RegexFlag.T
-TEMPLATE = RegexFlag.TEMPLATE
+if sys.version_info < (3, 13):
+    T = RegexFlag.T
+    TEMPLATE = RegexFlag.TEMPLATE
 if sys.version_info >= (3, 11):
     NOFLAG = RegexFlag.NOFLAG
 _FlagsType: TypeAlias = int | RegexFlag
@@ -287,4 +296,5 @@ def subn(
 ) -> tuple[bytes, int]: ...
 def escape(pattern: AnyStr) -> AnyStr: ...
 def purge() -> None: ...
-def template(pattern: AnyStr | Pattern[AnyStr], flags: _FlagsType = 0) -> Pattern[AnyStr]: ...
+if sys.version_info < (3, 13):
+    def template(pattern: AnyStr | Pattern[AnyStr], flags: _FlagsType = 0) -> Pattern[AnyStr]: ...
