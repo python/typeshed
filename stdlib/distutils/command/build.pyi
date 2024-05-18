@@ -1,6 +1,5 @@
 from collections.abc import Callable
 from typing import Any, ClassVar
-from typing_extensions import Self
 
 from ..cmd import Command
 
@@ -30,5 +29,5 @@ class build(Command):
     def has_c_libraries(self): ...
     def has_ext_modules(self): ...
     def has_scripts(self): ...
-    # The callable parameter is self: Self, but using Self still trips up mypy
-    sub_commands: ClassVar[list[tuple[str, Callable[[Self], bool] | None]]]  # type: ignore[assignment]
+    # Any to work around variance issues
+    sub_commands: ClassVar[list[tuple[str, Callable[[Any], bool] | None]]]

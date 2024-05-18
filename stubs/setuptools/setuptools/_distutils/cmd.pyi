@@ -1,14 +1,14 @@
 from _typeshed import Incomplete, Unused
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
-from typing import ClassVar, Literal
-from typing_extensions import Self
+from typing import Any, ClassVar, Literal
 
 from .dist import Distribution
 
 class Command:
     distribution: Distribution
-    sub_commands: ClassVar[list[tuple[str, Callable[[Self], bool] | None]]]
+    # Any to work around variance issues
+    sub_commands: ClassVar[list[tuple[str, Callable[[Any], bool] | None]]]
     def __init__(self, dist: Distribution) -> None: ...
     def ensure_finalized(self) -> None: ...
     @abstractmethod
