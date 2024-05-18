@@ -8,13 +8,14 @@ from genericpath import (
     getctime as getctime,
     getmtime as getmtime,
     getsize as getsize,
-    isdevdrive as isdevdrive,
     isdir as isdir,
     isfile as isfile,
     samefile as samefile,
     sameopenfile as sameopenfile,
     samestat as samestat,
 )
+if sys.version_info >= (3, 13):
+    from genericpath import isdevdrive as isdevdrive
 from os import PathLike
 from typing import AnyStr, overload
 from typing_extensions import LiteralString

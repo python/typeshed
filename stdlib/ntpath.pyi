@@ -28,7 +28,6 @@ from posixpath import (
     expandvars as expandvars,
     extsep as extsep,
     isabs as isabs,
-    isdevdrive as isdevdrive,
     islink as islink,
     ismount as ismount,
     lexists as lexists,
@@ -48,6 +47,8 @@ from typing_extensions import LiteralString
 
 if sys.version_info >= (3, 12):
     from posixpath import isjunction as isjunction, splitroot as splitroot
+if sys.version_info >= (3, 13):
+    from genericpath import isdevdrive as isdevdrive
 
 __all__ = [
     "normcase",
