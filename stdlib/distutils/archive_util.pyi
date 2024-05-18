@@ -1,11 +1,11 @@
-from _typeshed import FileDescriptorOrPath, StrPath
+from _typeshed import StrOrBytesPath, StrPath
 from typing import Literal, overload
 
 @overload
 def make_archive(
     base_name: str,
     format: str,
-    root_dir: FileDescriptorOrPath | None = None,
+    root_dir: StrOrBytesPath | None = None,
     base_dir: str | None = None,
     verbose: bool | Literal[0, 1] = 0,
     dry_run: bool | Literal[0, 1] = 0,
@@ -16,7 +16,7 @@ def make_archive(
 def make_archive(
     base_name: StrPath,
     format: str,
-    root_dir: FileDescriptorOrPath,
+    root_dir: StrOrBytesPath,
     base_dir: str | None = None,
     verbose: bool | Literal[0, 1] = 0,
     dry_run: bool | Literal[0, 1] = 0,

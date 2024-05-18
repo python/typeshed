@@ -1,4 +1,4 @@
-from _typeshed import FileDescriptorOrPath, Incomplete, StrPath, SupportsWrite
+from _typeshed import Incomplete, StrOrBytesPath, StrPath, SupportsWrite
 from collections.abc import Iterable, Mapping
 from re import Pattern
 from typing import IO, Any, ClassVar, Literal, TypeVar, overload
@@ -12,7 +12,7 @@ _OptionsList: TypeAlias = list[tuple[str, str | None, str, int] | tuple[str, str
 _CommandT = TypeVar("_CommandT", bound=Command)
 
 class DistributionMetadata:
-    def __init__(self, path: FileDescriptorOrPath | None = None) -> None: ...
+    def __init__(self, path: StrOrBytesPath | None = None) -> None: ...
     name: str | None
     version: str | None
     author: str | None

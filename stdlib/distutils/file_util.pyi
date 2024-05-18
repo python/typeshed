@@ -1,4 +1,4 @@
-from _typeshed import BytesPath, FileDescriptorOrPath, StrPath
+from _typeshed import BytesPath, StrOrBytesPath, StrPath
 from collections.abc import Iterable
 from typing import Literal, TypeVar, overload
 
@@ -35,4 +35,4 @@ def move_file(
 def move_file(
     src: BytesPath, dst: _BytesPathT, verbose: bool | Literal[0, 1] = 0, dry_run: bool | Literal[0, 1] = 0
 ) -> _BytesPathT | bytes: ...
-def write_file(filename: FileDescriptorOrPath, contents: Iterable[str]) -> None: ...
+def write_file(filename: StrOrBytesPath, contents: Iterable[str]) -> None: ...

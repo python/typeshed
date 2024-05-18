@@ -1,4 +1,4 @@
-from _typeshed import FileDescriptorOrPath
+from _typeshed import StrOrBytesPath
 from collections.abc import Sequence
 from re import Pattern
 from typing import Any, Literal
@@ -81,4 +81,4 @@ class config(Command):
         self, header: str, include_dirs: Sequence[str] | None = None, library_dirs: Sequence[str] | None = None, lang: str = "c"
     ) -> bool: ...
 
-def dump_file(filename: FileDescriptorOrPath, head: Any | None = None) -> None: ...
+def dump_file(filename: StrOrBytesPath, head: Any | None = None) -> None: ...

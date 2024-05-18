@@ -1,4 +1,4 @@
-from _typeshed import BytesPath, FileDescriptorOrPath, Incomplete, StrPath, Unused
+from _typeshed import BytesPath, Incomplete, StrOrBytesPath, StrPath, Unused
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from distutils.dist import Distribution
@@ -70,7 +70,7 @@ class Command:
         self,
         base_name: str,
         format: str,
-        root_dir: FileDescriptorOrPath | None = None,
+        root_dir: StrOrBytesPath | None = None,
         base_dir: str | None = None,
         owner: str | None = None,
         group: str | None = None,
@@ -80,7 +80,7 @@ class Command:
         self,
         base_name: StrPath,
         format: str,
-        root_dir: FileDescriptorOrPath,
+        root_dir: StrOrBytesPath,
         base_dir: str | None = None,
         owner: str | None = None,
         group: str | None = None,
@@ -88,7 +88,7 @@ class Command:
     def make_file(
         self,
         infiles: str | list[str] | tuple[str, ...],
-        outfile: FileDescriptorOrPath,
+        outfile: StrOrBytesPath,
         func: Callable[..., object],
         args: list[Any],
         exec_msg: str | None = None,
