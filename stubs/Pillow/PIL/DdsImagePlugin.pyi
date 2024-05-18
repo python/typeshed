@@ -1,6 +1,7 @@
 from enum import IntEnum, IntFlag
 from typing import ClassVar, Final, Literal
 
+from ._binary import i32le as i32
 from .ImageFile import ImageFile, PyDecoder
 
 DDS_MAGIC: Final = 0x20534444
@@ -218,23 +219,23 @@ class D3DFMT(IntEnum):
     A2B10G10R10_XR_BIAS = 119
     BINARYBUFFER = 199
 
-    UYVY: int
-    R8G8_B8G8: int
-    YUY2: int
-    G8R8_G8B8: int
-    DXT1: int
-    DXT2: int
-    DXT3: int
-    DXT4: int
-    DXT5: int
-    DX10: int
-    BC4S: int
-    BC4U: int
-    BC5S: int
-    BC5U: int
-    ATI1: int
-    ATI2: int
-    MULTI2_ARGB8: int
+    UYVY = i32(b"UYVY")
+    R8G8_B8G8 = i32(b"RGBG")
+    YUY2 = i32(b"YUY2")
+    G8R8_G8B8 = i32(b"GRGB")
+    DXT1 = i32(b"DXT1")
+    DXT2 = i32(b"DXT2")
+    DXT3 = i32(b"DXT3")
+    DXT4 = i32(b"DXT4")
+    DXT5 = i32(b"DXT5")
+    DX10 = i32(b"DX10")
+    BC4S = i32(b"BC4S")
+    BC4U = i32(b"BC4U")
+    BC5S = i32(b"BC5S")
+    BC5U = i32(b"BC5U")
+    ATI1 = i32(b"ATI1")
+    ATI2 = i32(b"ATI2")
+    MULTI2_ARGB8 = i32(b"MET1")
 
 DDSD_CAPS: Final = 0x1
 DDSD_HEIGHT: Final = 0x2
