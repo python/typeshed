@@ -50,7 +50,7 @@ if sys.version_info >= (3, 11):
 if sys.version_info >= (3, 13):
     __all__ += ["PatternError"]
 
-PatternError = sre_constants.error
+    PatternError = sre_constants.error
 
 _T = TypeVar("_T")
 
