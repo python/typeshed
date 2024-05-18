@@ -91,7 +91,7 @@ if sys.version_info >= (3, 12):
     __all__ += ["EXCLAMATION", "FSTRING_END", "FSTRING_MIDDLE", "FSTRING_START"]
 
 if sys.version_info >= (3, 13):
-    __all__ += ['TokenError', 'open']
+    __all__ += ["TokenError", "open"]
 
 cookie_re: Pattern[str]
 blank_re: Pattern[bytes]
@@ -113,6 +113,7 @@ class TokenInfo(_TokenInfo):
 _Token: TypeAlias = TokenInfo | Sequence[int | str | _Position]
 
 class TokenError(Exception): ...
+
 if sys.version_info < (3, 13):
     class StopTokenizing(Exception): ...  # undocumented
 
