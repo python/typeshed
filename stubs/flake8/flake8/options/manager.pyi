@@ -3,14 +3,14 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from enum import Enum
 from logging import Logger
-from typing import Any, Final
+from typing import Any
 
 from ..plugins.finder import Plugins
 
 LOG: Logger
 
 class _ARG(Enum):
-    NO: Final = 1
+    NO = 1
 
 class Option:
     short_option_name: Incomplete
