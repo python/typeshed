@@ -161,6 +161,20 @@ def get_all_testcase_directories() -> list[DistributionTests]:
     return [distribution_info("stdlib"), *sorted(testcase_directories)]
 
 
+def allowlists_path(distribution_name: str) -> Path:
+    if distribution_name == "stdlib":
+        return Path("tests", "stubtest_allowlists")
+    else:
+        return tests_path(distribution_name)
+
+
+def common_allowlists(distribution_name: str) -> list[str]:
+    if distribution_name == "stdlib":
+        return ["py3_common.txt", f"{sys.platform}.txt"]
+    else:
+        return ["stubtest_allowlist.txt", f"stubtest_allowlist_{sys.platform}.txt"]
+
+
 # ====================================================================
 # Parsing .gitignore
 # ====================================================================
@@ -177,3 +191,17 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
     if path.is_dir():
         normalized_path += "/"
     return spec.match_file(normalized_path)
+
+
+# ====================================================================
+# mypy call
+# ====================================================================
+
+
+def allowlist_stubtest_arguments(distribution_name: str, additional_allowlists: list[str]) -> list[str]:
+    stubtest_arguments: list[str] = []
+    for allowlist in common_allowlists(distribution_name) + additional_allowlists:
+        path = allowlists_path(distribution_name) / allowlist
+        if path.exists():
+            stubtest_arguments.extend(["--allowlist", str(path)])
+    return stubtest_arguments

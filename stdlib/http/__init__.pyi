@@ -1,6 +1,5 @@
 import sys
 from enum import IntEnum
-from typing import Literal
 
 if sys.version_info >= (3, 11):
     from enum import StrEnum
@@ -75,9 +74,9 @@ class HTTPStatus(IntEnum):
     MISDIRECTED_REQUEST = 421
     UNAVAILABLE_FOR_LEGAL_REASONS = 451
     if sys.version_info >= (3, 9):
-        EARLY_HINTS: Literal[103]
-        IM_A_TEAPOT: Literal[418]
-        TOO_EARLY: Literal[425]
+        EARLY_HINTS = 103
+        IM_A_TEAPOT = 418
+        TOO_EARLY = 425
     if sys.version_info >= (3, 12):
         @property
         def is_informational(self) -> bool: ...

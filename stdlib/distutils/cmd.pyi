@@ -3,11 +3,12 @@ from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from distutils.dist import Distribution
 from distutils.file_util import _BytesPathT, _StrPathT
-from typing import Any, Literal, overload
+from typing import Any, ClassVar, Literal, overload
 
 class Command:
     distribution: Distribution
-    sub_commands: list[tuple[str, Callable[[Command], bool] | None]]
+    # Any to work around variance issues
+    sub_commands: ClassVar[list[tuple[str, Callable[[Any], bool] | None]]]
     def __init__(self, dist: Distribution) -> None: ...
     @abstractmethod
     def initialize_options(self) -> None: ...

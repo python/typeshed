@@ -201,7 +201,7 @@ class RegexFlag(enum.IntFlag):
     T = sre_compile.SRE_FLAG_TEMPLATE
     TEMPLATE = T
     if sys.version_info >= (3, 11):
-        NOFLAG: int
+        NOFLAG = 0
 
 A = RegexFlag.A
 ASCII = RegexFlag.ASCII

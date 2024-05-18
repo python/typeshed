@@ -2,7 +2,7 @@ from _typeshed import FileDescriptorOrPath, Incomplete, StrPath, SupportsWrite
 from collections.abc import Iterable, Mapping
 from distutils.cmd import Command
 from re import Pattern
-from typing import IO, Any, ClassVar, TypeVar, overload
+from typing import IO, Any, ClassVar, Literal, TypeVar, overload
 from typing_extensions import TypeAlias
 
 command_re: Pattern[str]
@@ -63,7 +63,10 @@ class Distribution:
     def __init__(self, attrs: Mapping[str, Any] | None = None) -> None: ...
     def get_option_dict(self, command: str) -> dict[str, tuple[str, str]]: ...
     def parse_config_files(self, filenames: Iterable[str] | None = None) -> None: ...
-    def get_command_obj(self, command: str, create: bool = True) -> Command | None: ...
+    @overload
+    def get_command_obj(self, command: str, create: Literal[1, True] = 1) -> Command: ...
+    @overload
+    def get_command_obj(self, command: str, create: Literal[0, False]) -> Command | None: ...
     global_options: ClassVar[_OptionsList]
     common_usage: ClassVar[str]
     display_options: ClassVar[_OptionsList]
