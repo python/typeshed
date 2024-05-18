@@ -134,13 +134,32 @@ def disk_usage(path: FileDescriptorOrPath) -> _ntuple_diskusage: ...
 # in __all__.
 if sys.version_info >= (3, 13):
     @overload
-    def chown(path: FileDescriptorOrPath, user: str | int, group: None = None, *, dir_fd: int | None = None, follow_symlinks: bool = True) -> None: ...
+    def chown(
+        path: FileDescriptorOrPath,
+        user: str | int,
+        group: None = None,
+        *,
+        dir_fd: int | None = None,
+        follow_symlinks: bool = True,
+    ) -> None: ...
     @overload
-    def chown(path: FileDescriptorOrPath, user: None = None, *, group: str | int, dir_fd: int | None = None, follow_symlinks: bool = True) -> None: ...
+    def chown(
+        path: FileDescriptorOrPath,
+        user: None = None,
+        *,
+        group: str | int,
+        dir_fd: int | None = None,
+        follow_symlinks: bool = True,
+    ) -> None: ...
     @overload
-    def chown(path: FileDescriptorOrPath, user: None, group: str | int, *, dir_fd: int | None = None, follow_symlinks: bool = True) -> None: ...
+    def chown(
+        path: FileDescriptorOrPath, user: None, group: str | int, *, dir_fd: int | None = None, follow_symlinks: bool = True
+    ) -> None: ...
     @overload
-    def chown(path: FileDescriptorOrPath, user: str | int, group: str | int, *, dir_fd: int | None = None, follow_symlinks: bool = True) -> None: ...
+    def chown(
+        path: FileDescriptorOrPath, user: str | int, group: str | int, *, dir_fd: int | None = None, follow_symlinks: bool = True
+    ) -> None: ...
+
 else:
     @overload
     def chown(path: FileDescriptorOrPath, user: str | int, group: None = None) -> None: ...
@@ -150,6 +169,7 @@ else:
     def chown(path: FileDescriptorOrPath, user: None, group: str | int) -> None: ...
     @overload
     def chown(path: FileDescriptorOrPath, user: str | int, group: str | int) -> None: ...
+
 @overload
 def which(cmd: _StrPathT, mode: int = 1, path: StrPath | None = None) -> str | _StrPathT | None: ...
 @overload
