@@ -13,7 +13,17 @@ from textwrap import dedent
 from typing import NoReturn
 
 from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
-from utils import PYTHON_VERSION, colored, get_mypy_req, print_divider, print_error, print_success_msg, tests_path
+from utils import (
+    PYTHON_VERSION,
+    allowlist_stubtest_arguments,
+    allowlists_path,
+    colored,
+    get_mypy_req,
+    print_divider,
+    print_error,
+    print_success_msg,
+    tests_path,
+)
 
 
 def run_stubtest(
@@ -112,12 +122,7 @@ def run_stubtest(
         # "bisect" to see which variables are actually needed.
         stubtest_env = os.environ | {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
 
-        allowlist_path = tests_path(dist_name) / "stubtest_allowlist.txt"
-        if allowlist_path.exists():
-            stubtest_cmd.extend(["--allowlist", str(allowlist_path)])
-        platform_allowlist = tests_path(dist_name) / f"stubtest_allowlist_{sys.platform}.txt"
-        if platform_allowlist.exists():
-            stubtest_cmd.extend(["--allowlist", str(platform_allowlist)])
+        stubtest_cmd += allowlist_stubtest_arguments(dist_name, [])
 
         # Perform some black magic in order to run stubtest inside uWSGI
         if dist_name == "uWSGI":
@@ -150,11 +155,12 @@ def run_stubtest(
             print_command_output(ret)
 
             print_divider()
-            if allowlist_path.exists():
-                print(f'To fix "unused allowlist" errors, remove the corresponding entries from {allowlist_path}')
+            main_allowlist_path = allowlists_path(dist_name) / "stubtest_allowlist.txt"
+            if main_allowlist_path.exists():
+                print(f'To fix "unused allowlist" errors, remove the corresponding entries from {main_allowlist_path}')
                 print()
             else:
-                print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {allowlist_path}:")
+                print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {main_allowlist_path}:")
                 ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
                 print_command_output(ret)
 
