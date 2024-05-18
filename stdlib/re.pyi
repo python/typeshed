@@ -1,6 +1,6 @@
 import enum
-import sre_constants
 import sre_compile
+import sre_constants
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterator, Mapping
@@ -296,5 +296,6 @@ def subn(
 ) -> tuple[bytes, int]: ...
 def escape(pattern: AnyStr) -> AnyStr: ...
 def purge() -> None: ...
+
 if sys.version_info < (3, 13):
     def template(pattern: AnyStr | Pattern[AnyStr], flags: _FlagsType = 0) -> Pattern[AnyStr]: ...
