@@ -26,7 +26,7 @@ __all__ = [
 if sys.version_info >= (3, 10):
     __all__ += ["b32hexencode", "b32hexdecode"]
 if sys.version_info >= (3, 13):
-    __all__ += ['z85decode', 'z85encode']
+    __all__ += ["z85decode", "z85encode"]
 
 def b64encode(s: ReadableBuffer, altchars: ReadableBuffer | None = None) -> bytes: ...
 def b64decode(s: str | ReadableBuffer, altchars: str | ReadableBuffer | None = None, validate: bool = False) -> bytes: ...
