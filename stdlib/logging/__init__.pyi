@@ -156,15 +156,17 @@ class Logger(Filterer):
         stacklevel: int = 1,
         extra: Mapping[str, object] | None = None,
     ) -> None: ...
-    def warn(
-        self,
-        msg: object,
-        *args: object,
-        exc_info: _ExcInfoType = None,
-        stack_info: bool = False,
-        stacklevel: int = 1,
-        extra: Mapping[str, object] | None = None,
-    ) -> None: ...
+    if sys.version_info < (3, 13):
+        def warn(
+            self,
+            msg: object,
+            *args: object,
+            exc_info: _ExcInfoType = None,
+            stack_info: bool = False,
+            stacklevel: int = 1,
+            extra: Mapping[str, object] | None = None,
+        ) -> None: ...
+
     def error(
         self,
         msg: object,
@@ -365,12 +367,18 @@ _L = TypeVar("_L", bound=Logger | LoggerAdapter[Any])
 class LoggerAdapter(Generic[_L]):
     logger: _L
     manager: Manager  # undocumented
-    if sys.version_info >= (3, 10):
-        extra: Mapping[str, object] | None
+
+    if sys.version_info >= (3, 13):
+        def __init__(self, logger: _L, extra: Mapping[str, object] | None = None, merge_extra: bool = False) -> None: ...
+    elif sys.version_info >= (3, 10):
         def __init__(self, logger: _L, extra: Mapping[str, object] | None = None) -> None: ...
     else:
-        extra: Mapping[str, object]
         def __init__(self, logger: _L, extra: Mapping[str, object]) -> None: ...
+
+    if sys.version_info >= (3, 10):
+        extra: Mapping[str, object] | None
+    else:
+        extra: Mapping[str, object]
 
     def process(self, msg: Any, kwargs: MutableMapping[str, Any]) -> tuple[Any, MutableMapping[str, Any]]: ...
     def debug(
@@ -403,16 +411,18 @@ class LoggerAdapter(Generic[_L]):
         extra: Mapping[str, object] | None = None,
         **kwargs: object,
     ) -> None: ...
-    def warn(
-        self,
-        msg: object,
-        *args: object,
-        exc_info: _ExcInfoType = None,
-        stack_info: bool = False,
-        stacklevel: int = 1,
-        extra: Mapping[str, object] | None = None,
-        **kwargs: object,
-    ) -> None: ...
+    if sys.version_info < (3, 13):
+        def warn(
+            self,
+            msg: object,
+            *args: object,
+            exc_info: _ExcInfoType = None,
+            stack_info: bool = False,
+            stacklevel: int = 1,
+            extra: Mapping[str, object] | None = None,
+            **kwargs: object,
+        ) -> None: ...
+
     def error(
         self,
         msg: object,
@@ -458,15 +468,28 @@ class LoggerAdapter(Generic[_L]):
     def getEffectiveLevel(self) -> int: ...
     def setLevel(self, level: _Level) -> None: ...
     def hasHandlers(self) -> bool: ...
-    def _log(
-        self,
-        level: int,
-        msg: object,
-        args: _ArgsType,
-        exc_info: _ExcInfoType | None = None,
-        extra: Mapping[str, object] | None = None,
-        stack_info: bool = False,
-    ) -> None: ...  # undocumented
+    if sys.version_info >= (3, 13):
+        def _log(
+            self,
+            level: int,
+            msg: object,
+            args: _ArgsType,
+            *,
+            exc_info: _ExcInfoType | None = None,
+            extra: Mapping[str, object] | None = None,
+            stack_info: bool = False,
+        ) -> None: ...  # undocumented
+    else:
+        def _log(
+            self,
+            level: int,
+            msg: object,
+            args: _ArgsType,
+            exc_info: _ExcInfoType | None = None,
+            extra: Mapping[str, object] | None = None,
+            stack_info: bool = False,
+        ) -> None: ...  # undocumented
+
     @property
     def name(self) -> str: ...  # undocumented
     if sys.version_info >= (3, 11):
@@ -499,14 +522,17 @@ def warning(
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None,
 ) -> None: ...
-def warn(
-    msg: object,
-    *args: object,
-    exc_info: _ExcInfoType = None,
-    stack_info: bool = False,
-    stacklevel: int = 1,
-    extra: Mapping[str, object] | None = None,
-) -> None: ...
+
+if sys.version_info < (3, 13):
+    def warn(
+        msg: object,
+        *args: object,
+        exc_info: _ExcInfoType = None,
+        stack_info: bool = False,
+        stacklevel: int = 1,
+        extra: Mapping[str, object] | None = None,
+    ) -> None: ...
+
 def error(
     msg: object,
     *args: object,
