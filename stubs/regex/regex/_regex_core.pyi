@@ -1,6 +1,6 @@
 import enum
 from collections.abc import Callable
-from typing import Any, AnyStr, Generic
+from typing import Any, AnyStr, Final, Generic
 from typing_extensions import TypeAlias
 
 from .regex import Pattern
@@ -44,40 +44,40 @@ class RegexFlag(enum.IntFlag):
     X = 0x40
     VERBOSE = X
 
-A = RegexFlag.A
-ASCII = RegexFlag.ASCII
-B = RegexFlag.B
-BESTMATCH = RegexFlag.BESTMATCH
-D = RegexFlag.D
-DEBUG = RegexFlag.DEBUG
-E = RegexFlag.E
-ENHANCEMATCH = RegexFlag.ENHANCEMATCH
-F = RegexFlag.F
-FULLCASE = RegexFlag.FULLCASE
-I = RegexFlag.I
-IGNORECASE = RegexFlag.IGNORECASE
-L = RegexFlag.L
-LOCALE = RegexFlag.LOCALE
-M = RegexFlag.M
-MULTILINE = RegexFlag.MULTILINE
-P = RegexFlag.P
-POSIX = RegexFlag.POSIX
-R = RegexFlag.R
-REVERSE = RegexFlag.REVERSE
-T = RegexFlag.T
-TEMPLATE = RegexFlag.TEMPLATE
-S = RegexFlag.S
-DOTALL = RegexFlag.DOTALL
-U = RegexFlag.U
-UNICODE = RegexFlag.UNICODE
-V0 = RegexFlag.V0
-VERSION0 = RegexFlag.VERSION0
-V1 = RegexFlag.V1
-VERSION1 = RegexFlag.VERSION1
-W = RegexFlag.W
-WORD = RegexFlag.WORD
-X = RegexFlag.X
-VERBOSE = RegexFlag.VERBOSE
+A: Final = RegexFlag.A
+ASCII: Final = RegexFlag.ASCII
+B: Final = RegexFlag.B
+BESTMATCH: Final = RegexFlag.BESTMATCH
+D: Final = RegexFlag.D
+DEBUG: Final = RegexFlag.DEBUG
+E: Final = RegexFlag.E
+ENHANCEMATCH: Final = RegexFlag.ENHANCEMATCH
+F: Final = RegexFlag.F
+FULLCASE: Final = RegexFlag.FULLCASE
+I: Final = RegexFlag.I
+IGNORECASE: Final = RegexFlag.IGNORECASE
+L: Final = RegexFlag.L
+LOCALE: Final = RegexFlag.LOCALE
+M: Final = RegexFlag.M
+MULTILINE: Final = RegexFlag.MULTILINE
+P: Final = RegexFlag.P
+POSIX: Final = RegexFlag.POSIX
+R: Final = RegexFlag.R
+REVERSE: Final = RegexFlag.REVERSE
+T: Final = RegexFlag.T
+TEMPLATE: Final = RegexFlag.TEMPLATE
+S: Final = RegexFlag.S
+DOTALL: Final = RegexFlag.DOTALL
+U: Final = RegexFlag.U
+UNICODE: Final = RegexFlag.UNICODE
+V0: Final = RegexFlag.V0
+VERSION0: Final = RegexFlag.VERSION0
+V1: Final = RegexFlag.V1
+VERSION1: Final = RegexFlag.VERSION1
+W: Final = RegexFlag.W
+WORD: Final = RegexFlag.WORD
+X: Final = RegexFlag.X
+VERBOSE: Final = RegexFlag.VERBOSE
 
 DEFAULT_VERSION: RegexFlag
 
