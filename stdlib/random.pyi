@@ -42,7 +42,7 @@ _T = TypeVar("_T")
 class Random(_random.Random):
     VERSION: ClassVar[int]
     if sys.version_info >= (3, 9):
-        def __init__(self, x: int | float | str | bytes | bytearray | None = None) -> None: ...
+        def __init__(self, x: int | float | str | bytes | bytearray | None = None) -> None: ...  # noqa: Y041
     else:
         def __init__(self, x: Any = None) -> None: ...
     # Using other `seed` types is deprecated since 3.9 and removed in 3.11
