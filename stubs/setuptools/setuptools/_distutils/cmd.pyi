@@ -2,7 +2,6 @@ from _typeshed import BytesPath, FileDescriptorOrPath, Incomplete, StrPath, Unus
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from typing import Any, ClassVar, Literal, TypeVar, overload
-from typing_extensions import Self
 
 from .dist import Distribution
 
