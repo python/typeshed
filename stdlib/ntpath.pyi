@@ -1,5 +1,5 @@
 import sys
-from _typeshed import BytesPath, StrPath, StrOrBytesPath
+from _typeshed import BytesPath, StrOrBytesPath, StrPath
 from genericpath import (
     commonprefix as commonprefix,
     exists as exists,
