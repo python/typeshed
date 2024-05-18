@@ -109,10 +109,9 @@ class Lock:
     def acquire(self, blocking: bool = ..., timeout: float = ...) -> bool: ...
     def release(self) -> None: ...
     def locked(self) -> bool: ...
-    if sys.version_info >= (3, 13):
-        def acquire_lock(self, blocking: bool = ..., timeout: float = ...) -> bool: ...  # undocumented
-        def release_lock(self) -> None: ...  # undocumented
-        def locked_lock(self) -> bool: ...  # undocumented
+    def acquire_lock(self, blocking: bool = ..., timeout: float = ...) -> bool: ...  # undocumented
+    def release_lock(self) -> None: ...  # undocumented
+    def locked_lock(self) -> bool: ...  # undocumented
 
 @final
 class _RLock:
