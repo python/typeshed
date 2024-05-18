@@ -14,6 +14,7 @@ from genericpath import (
     sameopenfile as sameopenfile,
     samestat as samestat,
 )
+
 if sys.version_info >= (3, 13):
     from genericpath import isdevdrive as isdevdrive
 from os import PathLike
