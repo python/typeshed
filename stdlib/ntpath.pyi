@@ -28,6 +28,7 @@ from posixpath import (
     expandvars as expandvars,
     extsep as extsep,
     isabs as isabs,
+    isdevdrive as isdevdrive,
     islink as islink,
     ismount as ismount,
     lexists as lexists,
@@ -62,7 +63,9 @@ __all__ = [
     "getmtime",
     "getatime",
     "getctime",
+    "isdevdrive",
     "islink",
+    "isreserved",
     "exists",
     "lexists",
     "isdir",
@@ -117,3 +120,6 @@ if sys.platform == "win32":
 
 else:
     realpath = abspath
+
+if sys.version_info >= (3, 13):
+    def isreserved(path: StrOrBytesPath) -> bool: ...

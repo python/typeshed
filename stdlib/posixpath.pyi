@@ -8,6 +8,7 @@ from genericpath import (
     getctime as getctime,
     getmtime as getmtime,
     getsize as getsize,
+    isdevdrive as isdevdrive,
     isdir as isdir,
     isfile as isfile,
     samefile as samefile,
@@ -60,6 +61,8 @@ __all__ = [
 ]
 if sys.version_info >= (3, 12):
     __all__ += ["isjunction", "splitroot"]
+if sys.version_info >= (3, 13):
+    __all__ += ["isdevdrive"]
 
 supports_unicode_filenames: bool
 # aliases (also in os)
