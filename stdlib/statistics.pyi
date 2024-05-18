@@ -134,8 +134,24 @@ elif sys.version_info >= (3, 10):
     def linear_regression(regressor: Sequence[_Number], dependent_variable: Sequence[_Number], /) -> LinearRegression: ...
 
 if sys.version_info >= (3, 13):
-    _Kernel: TypeAlias = Literal["normal", "gauss", "logistic", "sigmoid", "rectangular", "uniform", "triangular", "parabolic", "epanechnikov", "quartic", "biweight", "triweight", "cosine"]
-    def kde(data: Sequence[float], h: float, kernel: _Kernel = "normal", *, cumulative: bool = False) -> Callable[[float], float]: ...
+    _Kernel: TypeAlias = Literal[
+        "normal",
+        "gauss",
+        "logistic",
+        "sigmoid",
+        "rectangular",
+        "uniform",
+        "triangular",
+        "parabolic",
+        "epanechnikov",
+        "quartic",
+        "biweight",
+        "triweight",
+        "cosine",
+    ]
+    def kde(
+        data: Sequence[float], h: float, kernel: _Kernel = "normal", *, cumulative: bool = False
+    ) -> Callable[[float], float]: ...
     def kde_random(
         data: Sequence[float],
         h: float,
