@@ -86,7 +86,7 @@ class BadGzipFile(OSError): ...
 
 class GzipFile(_compression.BaseStream):
     myfileobj: FileIO | None
-    mode: Literal[1, 2]
+    mode: object
     name: str
     compress: zlib._Compress
     fileobj: _ReadableFileobj | _WritableFileobj
