@@ -1,6 +1,6 @@
 import sys
 from _typeshed import SupportsRichComparisonT
-from collections.abc import Hashable, Iterable, Sequence
+from collections.abc import Callable, Hashable, Iterable, Sequence
 from decimal import Decimal
 from fractions import Fraction
 from typing import Any, Literal, NamedTuple, SupportsFloat, TypeVar
