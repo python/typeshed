@@ -315,7 +315,7 @@ def concurrently_run_testcases(
 
     @contextmanager
     def cleanup_threads(
-        event: threading.Event, printer_thread: threading.Thread, executor: concurrent.futures.ThreadPoolExecutor,
+        event: threading.Event, printer_thread: threading.Thread, executor: concurrent.futures.ThreadPoolExecutor
     ) -> None:
         try:
             yield
