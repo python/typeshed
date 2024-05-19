@@ -40,7 +40,6 @@ __all__ = [
     "QUOTE_NONE",
     "Error",
     "Dialect",
-    "__doc__",
     "excel",
     "excel_tab",
     "field_size_limit",
@@ -51,13 +50,14 @@ __all__ = [
     "list_dialects",
     "Sniffer",
     "unregister_dialect",
-    "__version__",
     "DictReader",
     "DictWriter",
     "unix_dialect",
 ]
 if sys.version_info >= (3, 12):
     __all__ += ["QUOTE_STRINGS", "QUOTE_NOTNULL"]
+if sys.version_info < (3, 13):
+    __all__ += ["__doc__", "__version__"]
 
 _T = TypeVar("_T")
 
