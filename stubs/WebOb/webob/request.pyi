@@ -39,7 +39,9 @@ class _RequestCacheControlDict(TypedDict, total=False):
     no_transform: bool
     max_age: int
 
-class _FieldStorageWithFile(_FieldStorage):
+# On py313 this subclasses `Any`, hence the type: ignore.
+# This is needed for the regr_test.py script, which uses --disallow-subclassing-any
+class _FieldStorageWithFile(_FieldStorage):  # type: ignore[misc]
     file: IO[bytes]
     filename: str
 
