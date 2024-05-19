@@ -50,7 +50,6 @@ __all__ = [
     "makeLogRecord",
     "setLoggerClass",
     "shutdown",
-    "warn",
     "warning",
     "getLogRecordFactory",
     "setLogRecordFactory",
@@ -58,6 +57,8 @@ __all__ = [
     "raiseExceptions",
 ]
 
+if sys.version_info < (3, 13):
+    __all__ == ["warn"]
 if sys.version_info >= (3, 11):
     __all__ += ["getLevelNamesMapping"]
 if sys.version_info >= (3, 12):
