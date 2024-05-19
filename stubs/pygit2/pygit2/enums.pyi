@@ -73,6 +73,7 @@ class ConfigLevel(IntEnum):
     XDG: int
     GLOBAL: int
     LOCAL: int
+    WORKTREE: int
     APP: int
     HIGHEST_LEVEL: int
 
@@ -306,8 +307,6 @@ class ReferenceType(IntFlag):
     DIRECT: int
     SYMBOLIC: int
     ALL: int
-    OID: int
-    LISTALL: int
 
 class RepositoryInitFlag(IntFlag):
     BARE: int
