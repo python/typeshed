@@ -13,7 +13,7 @@ import subprocess
 import sys
 import tempfile
 import threading
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
 from contextlib import ExitStack, contextmanager, suppress
 from dataclasses import dataclass
 from enum import IntEnum
@@ -316,7 +316,7 @@ def concurrently_run_testcases(
     @contextmanager
     def cleanup_threads(
         event: threading.Event, printer_thread: threading.Thread, executor: concurrent.futures.ThreadPoolExecutor
-    ) -> None:
+    ) -> Iterator[None]:
         try:
             yield
         except:
