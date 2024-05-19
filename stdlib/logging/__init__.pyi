@@ -58,7 +58,7 @@ __all__ = [
 ]
 
 if sys.version_info < (3, 13):
-    __all__ == ["warn"]
+    __all__ += ["warn"]
 if sys.version_info >= (3, 11):
     __all__ += ["getLevelNamesMapping"]
 if sys.version_info >= (3, 12):
