@@ -90,10 +90,7 @@ def count_incompletes_in_file(file: Path) -> tuple[int, int]:
 
 class ModuleCounter:
     def __init__(self, file: Path) -> None:
-        self._init()
         self.file = file
-
-    def _init(self) -> None:
         self.unannotated = 0
         self.incomplete = 0
         self.typing_imports: set[str] = set()
@@ -105,7 +102,6 @@ class ModuleCounter:
         raise NotImplementedError(f"{self.file}:{node.lineno}: {message}")
 
     def count(self, mod: ast.Module) -> tuple[int, int]:
-        self._init()
         self.count_body(mod.body)
         if self.has_incomplete_import and self.incomplete == 0:
             raise RuntimeError(
