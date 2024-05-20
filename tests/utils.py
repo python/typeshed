@@ -163,14 +163,14 @@ def get_all_testcase_directories() -> list[DistributionTests]:
 
 def allowlists_path(distribution_name: str) -> Path:
     if distribution_name == "stdlib":
-        return Path("tests", "stubtest_allowlists")
+        return tests_path("stdlib") / "stubtest_allowlists"
     else:
         return tests_path(distribution_name)
 
 
 def common_allowlists(distribution_name: str) -> list[str]:
     if distribution_name == "stdlib":
-        return ["py3_common.txt", f"{sys.platform}.txt"]
+        return ["common.txt", f"{sys.platform}.txt"]
     else:
         return ["stubtest_allowlist.txt", f"stubtest_allowlist_{sys.platform}.txt"]
 
