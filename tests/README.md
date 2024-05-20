@@ -176,7 +176,9 @@ directly, with
 ```
 
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
-relative to the distribution. Additional packages that are needed to run stubtest for a
+relative to the distribution. Platform specific items can be ignored by listing them
+in a `@tests/stubtest_allowlist_{platform}.txt` file. Additional packages that are needed
+to run stubtest for a
 distribution can be added to `tool.stubtest.stubtest_requirements` in `METADATA.toml`.
 
 ### Using stubtest to find objects missing from the stubs
