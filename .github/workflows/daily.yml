@@ -30,7 +30,6 @@ env:
 jobs:
   stubtest-stdlib:
     name: Check stdlib with stubtest
-    # TODO: run on py313 with other platforms
     if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
     runs-on: ${{ matrix.os }}
     strategy:
