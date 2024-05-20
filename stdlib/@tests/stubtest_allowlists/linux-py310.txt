@@ -1,5 +1,3 @@
-select.epoll.register
-
 # Exists at runtime, but missing from stubs
 spwd.struct_spwd.sp_nam
 spwd.struct_spwd.sp_pwd

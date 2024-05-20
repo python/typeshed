@@ -27,8 +27,6 @@ _ctypes.dlclose
 _ctypes.dlopen
 _ctypes.dlsym
 
-webbrowser.MacOSX.__init__
-
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
@@ -38,13 +36,10 @@ _msi
 _winapi
 asyncio.windows_events
 asyncio.windows_utils
-msilib(.[a-z]+)?
 msvcrt
 nt
 winreg
 winsound
-ossaudiodev
-spwd
 
 # multiprocessing.popen_spawn_win32 exists on Darwin but fail to import
 multiprocessing.popen_spawn_win32
