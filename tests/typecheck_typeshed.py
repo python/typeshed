@@ -67,6 +67,8 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "redundant-self",
         "--custom-typeshed-dir",
         ".",
+        "--exclude",
+        "tests/incomplete.py",  # Requires Python 3.12
     ]
     if directory == "tests" and platform == "win32":
         command.extend(["--exclude", "tests/pytype_test.py"])
