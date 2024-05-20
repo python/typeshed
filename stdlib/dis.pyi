@@ -58,9 +58,9 @@ if sys.version_info >= (3, 13):
         start_offset: int
         starts_line: bool
         line_number: int | None
-        label: int | None
+        label: int | None = None
         positions: Positions | None = None
-        cache_info: list[tuple[str, int, Any]]
+        cache_info: list[tuple[str, int, Any]] | None = None
 
 elif sys.version_info >= (3, 11):
     class _Instruction(NamedTuple):
