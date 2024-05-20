@@ -12,8 +12,6 @@ _ctypes.addressof
 _ctypes.alignment
 _ctypes.pointer
 _ctypes.sizeof
-_curses.A_ITALIC
-_decimal.DecimalTuple.__replace__
 _json.encode_basestring_ascii
 _pyrepl.commands
 _pyrepl.completing_reader
@@ -232,12 +230,6 @@ email.utils.parseaddr
 enum.EnumDict
 enum._EnumDict.member_names
 enum.__all__
-fcntl.F_GETNOSIGPIPE
-fcntl.F_OFD_GETLK
-fcntl.F_OFD_SETLK
-fcntl.F_OFD_SETLKW
-fcntl.F_RDAHEAD
-fcntl.F_SETNOSIGPIPE
 filecmp.dircmp.__class_getitem__
 filecmp.dircmp.__init__
 fileinput.FileInput.__class_getitem__
@@ -294,16 +286,6 @@ mimetypes.MimeTypes.guess_file_type
 mimetypes.__all__
 mimetypes.guess_file_type
 mmap.MAP_32BIT
-mmap.MAP_HASSEMAPHORE
-mmap.MAP_JIT
-mmap.MAP_NOCACHE
-mmap.MAP_NOEXTEND
-mmap.MAP_NORESERVE
-mmap.MAP_RESILIENT_CODESIGN
-mmap.MAP_RESILIENT_MEDIA
-mmap.MAP_TPRO
-mmap.MAP_TRANSLATED_ALLOW_EXECUTE
-mmap.MAP_UNIX03
 mmap.mmap.seekable
 multiprocessing.dummy.Queue.__class_getitem__
 multiprocessing.managers.DictProxy.__class_getitem__
@@ -319,8 +301,6 @@ os.grantpt
 os.posix_openpt
 os.ptsname
 os.unlockpt
-os.waitid
-os.waitid_result
 pathlib.Path.__enter__
 pathlib.Path.__exit__
 pathlib.Path.from_uri
@@ -354,8 +334,6 @@ posix.grantpt
 posix.posix_openpt
 posix.ptsname
 posix.unlockpt
-posix.waitid
-posix.waitid_result
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
 pydoc.HTMLDoc.docdata
@@ -412,8 +390,6 @@ tarfile.TarFile.__init__
 tempfile.SpooledTemporaryFile.__class_getitem__
 tempfile.TemporaryDirectory.__class_getitem__
 threading.stack_size
-time.CLOCK_MONOTONIC_RAW_APPROX
-time.CLOCK_UPTIME_RAW_APPROX
 time.clock_gettime_ns
 time.mktime
 time.sleep
@@ -498,7 +474,6 @@ wave._wave_params.__replace__
 weakref.ReferenceType.__class_getitem__
 weakref.WeakSet.__class_getitem__
 weakref.ref.__class_getitem__
-webbrowser.MacOSX
 zipfile.CompleteDirs.inject
 zipfile.ZipInfo.compress_level
 zipfile._path.CompleteDirs.inject
