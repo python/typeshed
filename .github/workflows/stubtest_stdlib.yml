@@ -31,11 +31,12 @@ jobs:
     strategy:
       matrix:
         # tkinter doesn't import on macOS 12
-        # TODO: Add Windows (currently crashes!)
         os: ["ubuntu-latest", "macos-11"]
         # TODO unpin 3.11 and 3.12 micro versions
-        python-version: ["3.13"]
+        python-version: ["3.8", "3.9", "3.10", "3.11.8", "3.12.2", "3.13"]
       fail-fast: false
+    # TODO: run on py313 with other platforms
+    if: ${{ matrix.os == 'ubuntu-latest' || matrix.python-version != '3.13' }}
 
     steps:
       - uses: actions/checkout@v4

@@ -31,7 +31,6 @@ def run_stubtest(typeshed_dir: Path) -> int:
         "-m",
         "mypy.stubtest",
         "--check-typeshed",
-        "--generate-allowlist",
         "--custom-typeshed-dir",
         str(typeshed_dir),
         *allowlist_stubtest_arguments("stdlib", extra_allowlists),
