@@ -5,10 +5,6 @@ os.plock
 selectors.KqueueSelector
 socket.[A-Z0-9_]+
 
-# Exists at runtime, but missing from stubs
-spwd.struct_spwd.sp_nam
-spwd.struct_spwd.sp_pwd
-
 # Platform differences that cannot be captured by the type system
 (posix.O_[A-Z_]+)?
 (posix.ST_[A-Z]+)?
@@ -27,7 +23,6 @@ _msi
 _winapi
 asyncio.windows_events
 asyncio.windows_utils
-msilib(.[a-z]+)?
 msvcrt
 nt
 winreg

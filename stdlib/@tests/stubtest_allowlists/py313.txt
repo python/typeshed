@@ -287,6 +287,7 @@ mimetypes.__all__
 mimetypes.guess_file_type
 mmap.MAP_32BIT
 mmap.mmap.seekable
+mmap.MAP_NORESERVE
 multiprocessing.dummy.Queue.__class_getitem__
 multiprocessing.managers.DictProxy.__class_getitem__
 multiprocessing.managers.ListProxy.__class_getitem__
