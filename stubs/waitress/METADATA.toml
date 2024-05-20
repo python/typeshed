@@ -1,5 +1,6 @@
 version = "3.0.*"
 upstream_repository = "https://github.com/Pylons/waitress"
+incomplete = true
 
 [tool.stubtest]
 # linux and darwin are equivalent

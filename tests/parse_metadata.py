@@ -18,7 +18,7 @@ from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
 from packaging.version import Version
 
-from utils import cache
+from utils import cache, distribution_path
 
 __all__ = [
     "NoSuchStubError",
@@ -137,6 +137,7 @@ class StubMetadata:
     obsolete_since: Annotated[str, "A string representing a specific version"] | None
     no_longer_updated: bool
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
+    incomplete: Annotated[bool, "Whether there are annotated items"]
     partial_stub: Annotated[bool, "Whether this is a partial type stub package as per PEP 561."]
     stubtest_settings: StubtestSettings
     requires_python: Annotated[Specifier, "Versions of Python supported by the stub package"]
@@ -153,6 +154,7 @@ _KNOWN_METADATA_FIELDS: Final = frozenset(
         "no_longer_updated",
         "upload",
         "tool",
+        "incomplete",
         "partial_stub",
         "requires_python",
     }
@@ -186,7 +188,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     given in the `requires` field, for example.
     """
     try:
-        with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
+        with (distribution_path(distribution) / "METADATA.toml").open("rb") as f:
             data: dict[str, object] = tomli.load(f)
     except FileNotFoundError:
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
@@ -249,6 +251,8 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert type(no_longer_updated) is bool
     uploaded_to_pypi: object = data.get("upload", True)
     assert type(uploaded_to_pypi) is bool
+    incomplete: object = data.get("incomplete", False)
+    assert type(incomplete) is bool
     partial_stub: object = data.get("partial_stub", True)
     assert type(partial_stub) is bool
     requires_python_str: object = data.get("requires_python")
@@ -285,6 +289,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         obsolete_since=obsolete_since,
         no_longer_updated=no_longer_updated,
         uploaded_to_pypi=uploaded_to_pypi,
+        incomplete=incomplete,
         partial_stub=partial_stub,
         stubtest_settings=read_stubtest_settings(distribution),
         requires_python=requires_python,

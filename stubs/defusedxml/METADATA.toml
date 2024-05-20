@@ -1,5 +1,6 @@
 version = "0.7.*"
 upstream_repository = "https://github.com/tiran/defusedxml"
+incomplete = true
 partial_stub = true
 
 [tool.stubtest]

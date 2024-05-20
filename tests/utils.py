@@ -7,9 +7,8 @@ import sys
 from collections.abc import Iterable, Mapping
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Final, NamedTuple
+from typing import TYPE_CHECKING, Any, Final, NamedTuple
 
-import pathspec
 from packaging.requirements import Requirement
 
 try:
@@ -19,6 +18,9 @@ except ImportError:
     def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
         return text
 
+
+if TYPE_CHECKING:
+    import pathspec
 
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
@@ -111,6 +113,15 @@ VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d
 
 
 # ====================================================================
+# Third party stubs
+# ====================================================================
+
+
+def distribution_path(distribution_name: str) -> Path:
+    return STUBS_PATH / distribution_name
+
+
+# ====================================================================
 # Test Directories
 # ====================================================================
 
@@ -182,6 +193,8 @@ def common_allowlists(distribution_name: str) -> list[str]:
 
 @cache
 def get_gitignore_spec() -> pathspec.PathSpec:
+    import pathspec
+
     with open(".gitignore", encoding="UTF-8") as f:
         return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())
 

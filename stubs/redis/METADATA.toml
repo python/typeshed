@@ -2,6 +2,7 @@ version = "4.6.0"
 upstream_repository = "https://github.com/redis/redis-py"
 # Requires a version of cryptography with a `py.typed` file
 requires = ["cryptography>=35.0.0", "types-pyOpenSSL"]
+incomplete = true
 partial_stub = true
 # While upstream added a py.typed file, the upstream annotations are rather
 # incomplete. By using "obsolete_since" we recommend deinstalling this

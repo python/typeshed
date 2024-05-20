@@ -1,5 +1,6 @@
 version = "2.9.*"
 upstream_repository = "https://github.com/dateutil/dateutil"
+incomplete = true
 partial_stub = true
 
 [tool.stubtest]

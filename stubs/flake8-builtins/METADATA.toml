@@ -1,5 +1,6 @@
 version = "2.5.*"
 upstream_repository = "https://github.com/gforcada/flake8-builtins"
+incomplete = true
 partial_stub = true
 
 [tool.stubtest]

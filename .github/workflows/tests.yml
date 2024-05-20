@@ -107,6 +107,31 @@ jobs:
       - run: uv pip install -r requirements-tests.txt --system
       - run: python ./tests/regr_test.py --all --verbosity QUIET
 
+  incomplete:
+    name: Check for incomplete annotations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - run: uv pip install -r requirements-tests.txt --system
+      - run: |
+          function find_changed_stubs {
+            git diff --name-only origin/${{ github.base_ref }} HEAD | \
+            egrep ^stubs/ | cut -d "/" -f 2 | sort -u | \
+            (while read stub; do [ -d "stubs/$stub" ] && echo "$stub" || true; done)
+          }
+          STUBS=$(find_changed_stubs || echo '')
+
+          if [ -n "$STUBS" ]; then
+            echo "Testing $STUBS..."
+            python ./tests/incomplete.py -v $STUBS
+          else
+            echo "No stubs changed, skipping incomplete check."
+          fi
+
   pyright:
     name: Test typeshed with pyright
     runs-on: ubuntu-latest

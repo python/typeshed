@@ -32,6 +32,7 @@ from utils import (
     TESTS_DIR,
     VERSIONS_RE as VERSION_LINE_RE,
     colored,
+    distribution_path,
     get_gitignore_spec,
     get_mypy_req,
     print_error,
@@ -522,9 +523,9 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
     distributions_to_check: dict[str, PackageDependencies] = {}
 
     for distribution in sorted(os.listdir("stubs")):
-        distribution_path = Path("stubs", distribution)
+        dist_path = distribution_path(distribution)
 
-        if spec_matches_path(gitignore_spec, distribution_path):
+        if spec_matches_path(gitignore_spec, dist_path):
             continue
 
         metadata = read_metadata(distribution)
@@ -542,11 +543,7 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
             summary.skip_package()
             continue
 
-        if (
-            distribution_path in args.filter
-            or Path("stubs") in args.filter
-            or any(distribution_path in path.parents for path in args.filter)
-        ):
+        if dist_path in args.filter or Path("stubs") in args.filter or any(dist_path in path.parents for path in args.filter):
             distributions_to_check[distribution] = get_recursive_requirements(distribution)
 
     # Setup the necessary virtual environments for testing the third-party stubs.

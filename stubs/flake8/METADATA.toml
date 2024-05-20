@@ -1,3 +1,4 @@
 version = "7.0.*"
 upstream_repository = "https://github.com/pycqa/flake8"
 requires = ["types-pyflakes"]
+incomplete = true

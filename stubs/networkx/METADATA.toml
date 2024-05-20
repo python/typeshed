@@ -1,6 +1,7 @@
 version = "3.2.1"
 upstream_repository = "https://github.com/networkx/networkx"
 requires = ["numpy"]
+incomplete = true
 partial_stub = true
 
 [tool.stubtest]

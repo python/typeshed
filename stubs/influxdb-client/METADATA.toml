@@ -2,6 +2,7 @@ version = "1.43.*"
 upstream_repository = "https://github.com/influxdata/influxdb-client-python"
 # requires a version of urllib3 with a py.typed file
 requires = ["urllib3>=2"]
+incomplete = true
 
 extra_description = """\
     Note: `types-influxdb-client` has required `urllib3>=2` since v1.37.0.1. \
