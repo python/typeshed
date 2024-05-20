@@ -1,4 +1,7 @@
-webbrowser.MacOSX.__init__
+# TODO: fix
+_curses.unget_wch
+_curses.window.get_wch
+curses.window.get_wch
 
 # These entries looks like a `setup-python` bug:
 (dbm.gnu)?
@@ -8,8 +11,3 @@ webbrowser.MacOSX.__init__
 (_?locale.dgettext)?
 (_?locale.gettext)?
 (_?locale.textdomain)?
-
-# Doesn't exist on macos:
-spwd
-msilib(.[a-z]+)?
-ossaudiodev
