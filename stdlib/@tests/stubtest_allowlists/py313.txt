@@ -186,7 +186,6 @@ ctypes.pointer
 ctypes.sizeof
 ctypes.wintypes.PCHAR.from_param
 ctypes.wintypes.PWCHAR.from_param
-curses.A_ITALIC
 dataclasses.Field.__class_getitem__
 datetime.date.__replace__
 datetime.date.fromisoformat

@@ -22,6 +22,7 @@ time.CLOCK_MONOTONIC_RAW_APPROX
 time.CLOCK_UPTIME_RAW_APPROX
 webbrowser.MacOSX
 _curses.A_ITALIC
+curses.A_ITALIC
 _decimal.DecimalTuple.__replace__
 
 # TODO: fix

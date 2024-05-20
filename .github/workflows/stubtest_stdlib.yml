@@ -52,7 +52,7 @@ jobs:
         run: python tests/stubtest_stdlib.py
 
   stubtest-stdlib-py313:
-    name: Check py313 stdlib with stubtest
+    name: Check py313-linux stdlib with stubtest
     # TODO: get it passing on all platforms and add it to the main matrix
     runs-on: ubuntu-latest
     steps:
