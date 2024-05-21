@@ -25,6 +25,7 @@ class DockerClient:
     @classmethod
     def from_env(
         cls,
+        *,
         version: str | None = None,
         timeout: int | None = None,
         max_pool_size: int | None = None,
