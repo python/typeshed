@@ -1,6 +1,5 @@
 from collections.abc import Iterable
-from typing import NoReturn, Protocol, TypedDict, type_check_only
-from typing_extensions import NotRequired, Unpack
+from typing import NoReturn, Protocol, type_check_only
 
 from docker import APIClient
 from docker.models.configs import ConfigCollection
@@ -19,20 +18,20 @@ class _Environ(Protocol):
     def __getitem__(self, k: str, /) -> str: ...
     def keys(self) -> Iterable[str]: ...
 
-@type_check_only
-class _FromEnvDict(TypedDict):
-    version: NotRequired[str]
-    timeout: NotRequired[int]
-    max_pool_size: NotRequired[int]
-    environment: NotRequired[_Environ]
-    credstore_env: NotRequired[dict[str, str]]
-    use_ssh_client: NotRequired[bool]
 
 class DockerClient:
     api: APIClient
     def __init__(self, *args, **kwargs) -> None: ...
     @classmethod
-    def from_env(cls, **kwargs: Unpack[_FromEnvDict]) -> DockerClient: ...
+    def from_env(
+        cls,
+        version: str | None = None,
+        timeout: int | None = None,
+        max_pool_size: int | None = None,
+        environment: _Environ | None = None,
+        credstore_env: dict[str, str] | None = None,
+        use_ssh_client: bool | None = None,
+    ) -> DockerClient: ...
     @property
     def configs(self) -> ConfigCollection: ...
     @property
