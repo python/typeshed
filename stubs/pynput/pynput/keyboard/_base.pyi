@@ -25,7 +25,8 @@ class KeyCode:
     def from_dead(cls, char: str, **kwargs: Any) -> Self: ...
 
 class Key(enum.Enum):
-    alt = 0
+    _value_: KeyCode
+    alt = ...
     alt_l = alt
     alt_r = alt
     alt_gr = alt
