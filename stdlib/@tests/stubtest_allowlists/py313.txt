@@ -110,9 +110,6 @@ asyncio.tasks.Task.__class_getitem__
 asyncio.unix_events.EventLoop
 asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 asyncio.unix_events.__all__
-base64.__all__
-base64.z85decode
-base64.z85encode
 bdb.Bdb.dispatch_opcode
 bdb.Bdb.set_stepinstr
 bdb.Bdb.user_opcode
