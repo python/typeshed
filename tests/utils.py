@@ -168,11 +168,19 @@ def allowlists_path(distribution_name: str) -> Path:
         return tests_path(distribution_name)
 
 
-def common_allowlists(distribution_name: str) -> list[str]:
+def allowlists(distribution_name: str) -> list[str]:
+    prefix = "" if distribution_name == "stdlib" else "stubtest_allowlist_"
+    version_id = f"py{sys.version_info.major}{sys.version_info.minor}"
+
+    platform_allowlist = f"{prefix}{sys.platform}.txt"
+    version_allowlist = f"{prefix}{version_id}.txt"
+    combined_allowlist = f"{prefix}{sys.platform}-{version_id}.txt"
+    local_version_allowlist = version_allowlist + ".local"
+
     if distribution_name == "stdlib":
-        return ["common.txt", f"{sys.platform}.txt"]
+        return ["common.txt", platform_allowlist, version_allowlist, combined_allowlist, local_version_allowlist]
     else:
-        return ["stubtest_allowlist.txt", f"stubtest_allowlist_{sys.platform}.txt"]
+        return ["stubtest_allowlist.txt", platform_allowlist]
 
 
 # ====================================================================
@@ -194,13 +202,13 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
 
 
 # ====================================================================
-# mypy call
+# mypy/stubtest call
 # ====================================================================
 
 
-def allowlist_stubtest_arguments(distribution_name: str, additional_allowlists: list[str]) -> list[str]:
+def allowlist_stubtest_arguments(distribution_name: str) -> list[str]:
     stubtest_arguments: list[str] = []
-    for allowlist in common_allowlists(distribution_name) + additional_allowlists:
+    for allowlist in allowlists(distribution_name):
         path = allowlists_path(distribution_name) / allowlist
         if path.exists():
             stubtest_arguments.extend(["--allowlist", str(path)])
