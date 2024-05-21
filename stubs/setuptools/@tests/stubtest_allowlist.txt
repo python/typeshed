@@ -119,7 +119,6 @@ distutils\..+
 
 # Is a functools.partial, so stubtest says "is not a function"
 setuptools.dep_util.newer_pairwise_group
-setuptools._distutils.dep_util.newer_pairwise
 setuptools.modified.newer_pairwise_group
 setuptools._distutils._modified.newer_pairwise_group
 

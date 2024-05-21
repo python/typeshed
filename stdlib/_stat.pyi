@@ -103,8 +103,9 @@ if sys.platform == "win32":
     FILE_ATTRIBUTE_VIRTUAL: Literal[65536]
 
 if sys.version_info >= (3, 13):
-    SF_SETTABLE: Literal[0xFFFF0000]
-    SF_RESTRICTED: Literal[0x00080000]
+    SF_SETTABLE: Literal[0x3FFF0000]
+    # https://github.com/python/cpython/issues/114081#issuecomment-2119017790
+    # SF_RESTRICTED: Literal[0x00080000]
     SF_FIRMLINK: Literal[0x00800000]
     SF_DATALESS: Literal[0x40000000]
 

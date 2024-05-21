@@ -1,3 +1,7 @@
+# Modules that exist at runtime, but are missing from typeshed
+zipfile._path.glob
+
+# Errors that also existed on Python 3.11
 _collections_abc.AsyncIterable.__class_getitem__
 _collections_abc.Awaitable.__class_getitem__
 _collections_abc.Container.__class_getitem__
@@ -5,36 +9,44 @@ _collections_abc.Iterable.__class_getitem__
 _collections_abc.MappingView.__class_getitem__
 _csv.Reader
 _csv.Writer
-bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 configparser.LegacyInterpolation.__init__
-configparser.ParsingError.filename
-collections\.UserList\.index  # ignoring pos-or-keyword parameter
 enum.Enum.__init__
-enum.Enum._generate_next_value_
-# Not strictly speaking a staticmethod on 3.11, but it acts like one:
-enum.StrEnum._generate_next_value_
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
-importlib.abc.Finder.find_module
+lib2to3.pygram.pattern_symbols
+lib2to3.pygram.python_symbols
+lib2to3.pytree.Base.__new__
+lib2to3.pytree.Base.children
+lib2to3.pytree.Base.type
+lib2to3.pytree.BasePattern.__new__
+lib2to3.pytree.BasePattern.type
+lib2to3.pytree.NegatedPattern.match
+lib2to3.pytree.NegatedPattern.match_seq
+lib2to3.btm_utils
+lib2to3.fixer_util
+lib2to3.patcomp
+lib2to3.pgen2.grammar.Grammar.loads
 tkinter._VersionInfoType.__doc__
+tkinter.tix.[A-Z_]+
+tkinter.tix.TclVersion
+tkinter.tix.TkVersion
+tkinter.tix.CObjView
+tkinter.tix.DialogShell
+tkinter.tix.ExFileSelectDialog
+tkinter.tix.FileSelectDialog
+tkinter.tix.FileTypeList
+tkinter.tix.Grid
+tkinter.tix.NoteBookFrame
+tkinter.tix.OptionName
+tkinter.tix.ResizeHandle
+tkinter.tix.ScrolledGrid
+tkinter.tix.ScrolledHList
+tkinter.tix.ScrolledListBox
+tkinter.tix.ScrolledTList
+tkinter.tix.ScrolledText
+tkinter.tix.ScrolledWindow
+tkinter.tix.Shell
 typing.NewType.__mro_entries__
 builtins.ellipsis  # type is not exposed anywhere
-
-xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
-xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
-
-# Runtime definition of protocol is incorrect
-importlib.metadata._meta.SimplePath.__truediv__
-importlib.metadata._meta.SimplePath.joinpath
-
-# Modules that exist at runtime, but shouldn't be added to typeshed
-ctypes.test
-ctypes\.test\..+
-lib2to3.tests
-lib2to3\.tests\..+
-tkinter.test
-tkinter\.test\..+
-unittest.test
-unittest\.test\..+
 
 # ==========
 # Related to positional-only arguments
@@ -70,21 +82,52 @@ posixpath.join
 ntpath.join
 os.path.join
 
+# Pos-only parameters had different "names" in different Python versions:
+zoneinfo.ZoneInfo.from_file
+
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
+
+# Factory function at runtime
+# but that wouldn't let us use it in type hints
+threading.Lock
+multiprocessing.dummy.Lock
+
+# more precise signature in the stubs than at runtime
+multiprocessing.managers.DictProxy.clear
+multiprocessing.managers.DictProxy.popitem
+
+# Undocumented implementation details
+cgi.FieldStorage.bufsize
+cgi.FieldStorage.read_binary
+cgi.FieldStorage.read_lines
+cgi.FieldStorage.read_lines_to_eof
+cgi.FieldStorage.read_lines_to_outerboundary
+cgi.FieldStorage.read_multi
+cgi.FieldStorage.read_single
+cgi.FieldStorage.read_urlencoded
+cgi.FieldStorage.skip_lines
+pipes.Template.makepipeline
+pipes.Template.open_r
+pipes.Template.open_w
+sunau.Au_read.initfp
+sunau.Au_write.initfp
+typing_extensions\.Annotated
 
 # Runtime AST node runtime constructor behaviour is too loose.
 # For static typing, the loose behaviour is undesirable (https://github.com/python/typeshed/issues/8378).
 # For the runtime, the loose behaviour is deprecated in Python 3.13 (https://github.com/python/cpython/issues/105858)
 _?ast.pattern.__init__
+_?ast.type_param.__init__
 
 _ast.ImportFrom.level  # None on the class, but never None on instances
 _collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 _weakref.ProxyType.__reversed__  # Doesn't really exist
-ast.ImportFrom.level  # None on the class, but never None on instances
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
+ast.ImportFrom.level  # None on the class, but never None on instances
 builtins.property.__set_name__  # Doesn't actually exist
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
 dataclasses.KW_ONLY  # white lies around defaults
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
@@ -92,11 +135,15 @@ functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
 inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
-poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
+sys._monitoring  # Doesn't really exist. See comments in the stub.
 weakref.ProxyType.__reversed__  # Doesn't really exist
+importlib.metadata._meta.SimplePath.joinpath  # Incorrect runtime definition
+
+# sys attributes that are not always defined
+sys.last_exc
 
 # C signature is broader than what is actually accepted
 ast.ExtSlice.__new__
@@ -122,8 +169,7 @@ importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open
 
 # Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
-importlib.metadata.DeprecatedList.reverse
-importlib.metadata.DeprecatedList.sort
+importlib.metadata.DeprecatedNonAbstract.__new__
 
 # Super-special typing primitives
 typing\._SpecialForm.*
@@ -131,27 +177,16 @@ typing\.NamedTuple
 typing\.LiteralString
 typing\.Annotated
 
-# We pretend it's a read-only property for forward compatibility with 3.12
-typing.ParamSpec(Args|Kwargs).__origin__
-typing\.TypeVar\.__.*__
-typing\.ParamSpec\.__.*__
+# These only exist to give a better error message if you try to subclass an instance
+typing.ParamSpec.__mro_entries__
+typing.ParamSpecArgs.__mro_entries__
+typing.ParamSpecKwargs.__mro_entries__
+typing.TypeVar.__mro_entries__
+typing.TypeVarTuple.__mro_entries__
 
-# Exist at runtime for internal reasons, no need to put them in the stub
-typing_extensions\.TypeAliasType\.__call__
-typing_extensions\.TypeAliasType\.__init_subclass__
-# We call them read-only properties, runtime implementation is slightly different
-typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
-
-# We lie about the existence of these methods
-.*.__buffer__
-.*.__release_buffer__
-
-# Removed in 3.12
-distutils\..*
-asyncore.dispatcher.addr
-asyncore.dispatcher.handle_accepted
-asynchat.async_chat.encoding
-asynchat.async_chat.use_encoding
-asynchat.find_prefix_at_end
-pkgutil.ImpImporter\..*
-pkgutil.ImpLoader\..*
+# TODO: mypy should infer that this attribute is inherited from builtins.type;
+# why doesn't it infer this?
+typing.SupportsAbs.__type_params__
+typing.SupportsRound.__type_params__
+typing_extensions.SupportsAbs.__type_params__
+typing_extensions.SupportsRound.__type_params__

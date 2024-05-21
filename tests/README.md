@@ -137,7 +137,7 @@ on your typeshed fork).
 As a convenience, stubtest\_stdlib.py will look for local-only allowlist files
 and use those if they are present. Only version-specific local allowlists are supported.
 An example local allowlist file is
-`tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
+`stdlib/@tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
 the CI run of stubtest remains canonical.
 
 If you need a specific version of Python to repro a CI failure,
@@ -145,7 +145,7 @@ If you need a specific version of Python to repro a CI failure,
 
 Due to its dynamic nature, you may run into false positives. In this case, you
 can add to the allowlists for each affected Python version in
-`tests/stubtest_allowlists`. Please file issues for stubtest false positives
+`stdlib/@tests/stubtest_allowlists`. Please file issues for stubtest false positives
 at [mypy](https://github.com/python/mypy/issues).
 
 ## stubtest\_third\_party.py
