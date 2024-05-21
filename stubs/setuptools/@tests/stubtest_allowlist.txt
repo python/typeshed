@@ -3,9 +3,6 @@ pkg_resources.PathMetadata.egg_info
 pkg_resources.EggMetadata.loader
 pkg_resources.ZipProvider.loader
 
-# 1 used for True as a default value
-setuptools._distutils.dist.Distribution.get_command_obj
-
 # Dynamically created in __init__
 setuptools._distutils.dist.Distribution.get_name
 setuptools._distutils.dist.Distribution.get_version
@@ -122,7 +119,6 @@ distutils\..+
 
 # Is a functools.partial, so stubtest says "is not a function"
 setuptools.dep_util.newer_pairwise_group
-setuptools._distutils.dep_util.newer_pairwise
 setuptools.modified.newer_pairwise_group
 setuptools._distutils._modified.newer_pairwise_group
 

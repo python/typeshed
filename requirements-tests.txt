@@ -5,9 +5,9 @@ black==24.3.0            # must match .pre-commit-config.yaml
 flake8==7.0.0            # must match .pre-commit-config.yaml
 flake8-noqa==1.4.0       # must match .pre-commit-config.yaml
 flake8-pyi==24.4.1       # must match .pre-commit-config.yaml
-mypy==1.9.0
+mypy==1.10.0
 pre-commit-hooks==4.5.0  # must match .pre-commit-config.yaml
-pyright==1.1.358
+pyright==1.1.363
 pytype==2024.4.11; platform_system != "Windows" and python_version < "3.12"
 ruff==0.3.7              # must match .pre-commit-config.yaml
 
@@ -20,5 +20,5 @@ stubdefaulter==0.1.0
 termcolor>=2.3
 tomli==2.0.1
 tomlkit==0.12.4
-typing_extensions>=4.9.0rc1
+typing_extensions>=4.12.0rc1
 uv==0.1.27

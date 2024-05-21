@@ -29,6 +29,7 @@ import tomli
 from parse_metadata import PackageDependencies, get_recursive_requirements, read_metadata
 from utils import (
     PYTHON_VERSION,
+    TESTS_DIR,
     VERSIONS_RE as VERSION_LINE_RE,
     colored,
     get_gitignore_spec,
@@ -47,7 +48,7 @@ except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
 
-SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8"]
+SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
 
@@ -366,7 +367,7 @@ def test_stdlib(args: TestConfig) -> TestResult:
     stdlib = Path("stdlib")
     supported_versions = parse_versions(stdlib / "VERSIONS")
     for name in os.listdir(stdlib):
-        if name == "VERSIONS" or name.startswith("."):
+        if name in ("VERSIONS", TESTS_DIR) or name.startswith("."):
             continue
         module = Path(name).stem
         module_min_version, module_max_version = supported_versions[module]
