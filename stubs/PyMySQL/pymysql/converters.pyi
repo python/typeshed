@@ -4,12 +4,13 @@ from _typeshed import Unused
 from collections.abc import Callable, Mapping, Sequence
 from decimal import Decimal
 from typing import Any, NoReturn, TypeVar
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, deprecated
 
 _EscaperMapping: TypeAlias = Mapping[type[object], Callable[..., str]] | None
 _T = TypeVar("_T")
 
 def escape_item(val: object, charset: object, mapping: _EscaperMapping = None) -> str: ...
+@deprecated("dict can not be used as parameter. It didn't produce valid SQL and might cause SQL injection.")
 def escape_dict(val: Mapping[str, object], charset: object, mapping: _EscaperMapping = None) -> NoReturn: ...
 def escape_sequence(val: Sequence[object], charset: object, mapping: _EscaperMapping = None) -> str: ...
 def escape_set(val: set[object], charset: object, mapping: _EscaperMapping = None) -> str: ...
