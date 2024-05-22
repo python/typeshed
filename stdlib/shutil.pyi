@@ -1,6 +1,6 @@
 import os
 import sys
-from _typeshed import BytesPath, FileDescriptorOrPath, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
+from _typeshed import BytesPath, ExcInfo, FileDescriptorOrPath, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Sequence
 from tarfile import _TarfileFilter
 from typing import Any, AnyStr, NamedTuple, Protocol, TypeVar, overload
@@ -71,7 +71,7 @@ def copytree(
     dirs_exist_ok: bool = False,
 ) -> _PathReturn: ...
 
-_OnErrorCallback: TypeAlias = Callable[[Callable[..., Any], str, Any], object]
+_OnErrorCallback: TypeAlias = Callable[[Callable[..., Any], str, ExcInfo], object]
 _OnExcCallback: TypeAlias = Callable[[Callable[..., Any], str, BaseException], object]
 
 class _RmtreeType(Protocol):
