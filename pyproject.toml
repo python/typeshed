@@ -147,7 +147,7 @@ extra-standard-library = [
     "opcode",
     "pyexpat",
 ]
-known-first-party = ["parse_metadata", "utils"]
+known-first-party = ["_metadata", "_utils"]
 
 [tool.typeshed]
 oldest_supported_python = "3.8"

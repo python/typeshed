@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Run mypy on the "tests" and "scripts" directories."""
+
 from __future__ import annotations
 
 import argparse
@@ -8,7 +9,7 @@ import sys
 from itertools import product
 from typing_extensions import TypeAlias
 
-from utils import colored, print_error
+from _utils import colored, print_error
 
 ReturnCode: TypeAlias = int
 
