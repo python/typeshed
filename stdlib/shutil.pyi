@@ -72,7 +72,7 @@ def copytree(
 ) -> _PathReturn: ...
 
 _OnErrorCallback: TypeAlias = Callable[[Callable[..., Any], str, Any], object]
-_OnExcCallback: TypeAlias = Callable[[Callable[..., Any], str, Exception], object]
+_OnExcCallback: TypeAlias = Callable[[Callable[..., Any], str, BaseException], object]
 
 class _RmtreeType(Protocol):
     avoids_symlink_attacks: bool
