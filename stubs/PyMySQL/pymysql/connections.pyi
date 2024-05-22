@@ -103,6 +103,7 @@ class Connection(Generic[_C]):
         ssl_cert=None,
         ssl_disabled=None,
         ssl_key=None,
+        ssl_key_password: str | bytes | bytearray | None = None,
         ssl_verify_cert=None,
         ssl_verify_identity=None,
         read_default_group: Incomplete | None = None,
