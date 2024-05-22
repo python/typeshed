@@ -1,6 +1,8 @@
+from _typeshed import Incomplete
 from collections.abc import Mapping
-from typing import Any
+from typing_extensions import deprecated
 
+from urllib3.connectionpool import ConnectionPool
 from urllib3.contrib.socks import SOCKSProxyManager as SOCKSProxyManager
 from urllib3.exceptions import (
     ConnectTimeoutError as ConnectTimeoutError,
@@ -25,6 +27,7 @@ from .models import PreparedRequest, Response as Response
 from .structures import CaseInsensitiveDict as CaseInsensitiveDict
 from .utils import (
     DEFAULT_CA_BUNDLE_PATH as DEFAULT_CA_BUNDLE_PATH,
+    _Uri,
     get_auth_from_url as get_auth_from_url,
     get_encoding_from_headers as get_encoding_from_headers,
     prepend_scheme_if_needed as prepend_scheme_if_needed,
@@ -50,19 +53,27 @@ class BaseAdapter:
     def close(self) -> None: ...
 
 class HTTPAdapter(BaseAdapter):
-    __attrs__: Any
+    __attrs__: Incomplete
     max_retries: Retry
-    config: Any
-    proxy_manager: Any
+    config: Incomplete
+    proxy_manager: Incomplete
     def __init__(
         self, pool_connections: int = 10, pool_maxsize: int = 10, max_retries: Retry | int | None = 0, pool_block: bool = False
     ) -> None: ...
-    poolmanager: Any
+    poolmanager: Incomplete
     def init_poolmanager(self, connections, maxsize, block=False, **pool_kwargs): ...
     def proxy_manager_for(self, proxy, **proxy_kwargs): ...
     def cert_verify(self, conn, url, verify, cert): ...
     def build_response(self, req, resp): ...
-    def get_connection(self, url, proxies=None): ...
+    def get_connection_with_tls_context(
+        self,
+        request: PreparedRequest,
+        verify: bool | str | None,
+        proxies: Mapping[str, str] | None = None,
+        cert: tuple[str, str] | str | None = None,
+    ) -> ConnectionPool: ...
+    @deprecated("Use get_connection_with_tls_context() instead.")
+    def get_connection(self, url: _Uri, proxies: Mapping[str, str] | None = None) -> ConnectionPool: ...
     def close(self): ...
     def request_url(self, request, proxies): ...
     def add_headers(self, request, **kwargs): ...
