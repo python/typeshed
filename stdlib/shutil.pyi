@@ -91,7 +91,12 @@ class _RmtreeType(Protocol):
         ) -> None: ...
         @overload
         def __call__(
-            self, path: StrOrBytesPath, ignore_errors: bool = False, *, onexc: _OnExcCallback, dir_fd: int | None = None
+            self,
+            path: StrOrBytesPath,
+            ignore_errors: bool = False,
+            *,
+            onexc: _OnExcCallback | None = None,
+            dir_fd: int | None = None,
         ) -> None: ...
     elif sys.version_info >= (3, 11):
         def __call__(
