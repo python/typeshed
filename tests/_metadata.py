@@ -2,6 +2,7 @@
 # pyright: reportUnknownVariableType=false, reportUnknownArgumentType=false
 
 """Tools to help parse and validate information stored in METADATA.toml files."""
+
 from __future__ import annotations
 
 import os
@@ -14,11 +15,10 @@ from typing import Final, NamedTuple, final
 from typing_extensions import Annotated, TypeGuard
 
 import tomli
+from _utils import cache
 from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
 from packaging.version import Version
-
-from utils import cache
 
 __all__ = [
     "NoSuchStubError",

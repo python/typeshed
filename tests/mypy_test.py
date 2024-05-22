@@ -26,8 +26,8 @@ from typing_extensions import Annotated, TypeAlias
 
 import tomli
 
-from parse_metadata import PackageDependencies, get_recursive_requirements, read_metadata
-from utils import (
+from _metadata import PackageDependencies, get_recursive_requirements, read_metadata
+from _utils import (
     PYTHON_VERSION,
     TESTS_DIR,
     VERSIONS_RE as VERSION_LINE_RE,
@@ -202,7 +202,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         data = tomli.load(f)
 
-    # TODO: This could be added to parse_metadata.py, but is currently unused
+    # TODO: This could be added to _metadata.py, but is currently unused
     mypy_tests_conf: dict[str, dict[str, Any]] = data.get("mypy-tests", {})
     if not mypy_tests_conf:
         return

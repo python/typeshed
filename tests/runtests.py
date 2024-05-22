@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from utils import TEST_CASES_DIR, test_cases_path
+from _utils import TEST_CASES_DIR, test_cases_path
 
 try:
     from termcolor import colored  # pyright: ignore[reportAssignmentType]

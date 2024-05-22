@@ -12,8 +12,8 @@ from pathlib import Path
 from textwrap import dedent
 from typing import NoReturn
 
-from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
-from utils import (
+from _metadata import NoSuchStubError, get_recursive_requirements, read_metadata
+from _utils import (
     PYTHON_VERSION,
     allowlist_stubtest_arguments,
     allowlists_path,
