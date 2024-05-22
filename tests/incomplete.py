@@ -8,8 +8,8 @@ from argparse import ArgumentParser
 from pathlib import Path
 from typing import NoReturn
 
-from parse_metadata import read_metadata
-from utils import distribution_path
+from _metadata import read_metadata
+from _utils import distribution_path
 
 FIXED_TYPING_NAMES = ("TypeAlias", "TypeVar", "ParamSpec", "TypeVarTuple", "TypedDict", "NewType")
 FIXED_TYPESHED_NAMES = ("Incomplete",)

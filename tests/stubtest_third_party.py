@@ -12,8 +12,8 @@ from pathlib import Path
 from textwrap import dedent
 from typing import NoReturn
 
-from parse_metadata import NoSuchStubError, get_recursive_requirements, read_metadata
-from utils import (
+from _metadata import NoSuchStubError, get_recursive_requirements, read_metadata
+from _utils import (
     PYTHON_VERSION,
     allowlist_stubtest_arguments,
     allowlists_path,
@@ -109,6 +109,7 @@ def run_stubtest(
             *ignore_missing_stub,
             *packages_to_check,
             *modules_to_check,
+            *allowlist_stubtest_arguments(dist_name),
         ]
 
         stubs_dir = dist.parent
@@ -121,8 +122,6 @@ def run_stubtest(
         # because the CI fails if we pass only os.environ["DISPLAY"]. I didn't
         # "bisect" to see which variables are actually needed.
         stubtest_env = os.environ | {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
-
-        stubtest_cmd += allowlist_stubtest_arguments(dist_name, [])
 
         # Perform some black magic in order to run stubtest inside uWSGI
         if dist_name == "uWSGI":

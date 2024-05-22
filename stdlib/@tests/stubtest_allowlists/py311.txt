@@ -15,7 +15,39 @@ enum.Enum._generate_next_value_
 enum.StrEnum._generate_next_value_
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.Finder.find_module
+lib2to3.pygram.pattern_symbols
+lib2to3.pygram.python_symbols
+lib2to3.pytree.Base.__new__
+lib2to3.pytree.Base.children
+lib2to3.pytree.Base.type
+lib2to3.pytree.BasePattern.__new__
+lib2to3.pytree.BasePattern.type
+lib2to3.pytree.NegatedPattern.match
+lib2to3.pytree.NegatedPattern.match_seq
+lib2to3.btm_utils
+lib2to3.fixer_util
+lib2to3.patcomp
+lib2to3.pgen2.grammar.Grammar.loads
 tkinter._VersionInfoType.__doc__
+tkinter.tix.[A-Z_]+
+tkinter.tix.TclVersion
+tkinter.tix.TkVersion
+tkinter.tix.CObjView
+tkinter.tix.DialogShell
+tkinter.tix.ExFileSelectDialog
+tkinter.tix.FileSelectDialog
+tkinter.tix.FileTypeList
+tkinter.tix.Grid
+tkinter.tix.NoteBookFrame
+tkinter.tix.OptionName
+tkinter.tix.ResizeHandle
+tkinter.tix.ScrolledGrid
+tkinter.tix.ScrolledHList
+tkinter.tix.ScrolledListBox
+tkinter.tix.ScrolledTList
+tkinter.tix.ScrolledText
+tkinter.tix.ScrolledWindow
+tkinter.tix.Shell
 typing.NewType.__mro_entries__
 builtins.ellipsis  # type is not exposed anywhere
 
@@ -74,6 +106,15 @@ os.path.join
 # Allowlist entries that cannot or should not be fixed
 # ==========
 
+# Factory function at runtime
+# but that wouldn't let us use it in type hints
+threading.Lock
+multiprocessing.dummy.Lock
+
+# more precise signature in the stubs than at runtime
+multiprocessing.managers.DictProxy.clear
+multiprocessing.managers.DictProxy.popitem
+
 # Runtime AST node runtime constructor behaviour is too loose.
 # For static typing, the loose behaviour is undesirable (https://github.com/python/typeshed/issues/8378).
 # For the runtime, the loose behaviour is deprecated in Python 3.13 (https://github.com/python/cpython/issues/105858)
@@ -102,6 +143,23 @@ weakref.ProxyType.__reversed__  # Doesn't really exist
 ast.ExtSlice.__new__
 ast.Index.__new__
 contextvars.Context.__init__
+
+# Undocumented implementation details
+cgi.FieldStorage.bufsize
+cgi.FieldStorage.read_binary
+cgi.FieldStorage.read_lines
+cgi.FieldStorage.read_lines_to_eof
+cgi.FieldStorage.read_lines_to_outerboundary
+cgi.FieldStorage.read_multi
+cgi.FieldStorage.read_single
+cgi.FieldStorage.read_urlencoded
+cgi.FieldStorage.skip_lines
+pipes.Template.makepipeline
+pipes.Template.open_r
+pipes.Template.open_w
+sunau.Au_read.initfp
+sunau.Au_write.initfp
+typing_extensions\.Annotated
 
 # Treated an alias of a typing class in the stubs,
 # they are generic to type checkers anyway.

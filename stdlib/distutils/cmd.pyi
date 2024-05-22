@@ -1,8 +1,9 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import BytesPath, Incomplete, StrOrBytesPath, StrPath, Unused
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from distutils.dist import Distribution
-from typing import Any, ClassVar, Literal
+from distutils.file_util import _BytesPathT, _StrPathT
+from typing import Any, ClassVar, Literal, overload
 
 class Command:
     distribution: Distribution
@@ -30,31 +31,56 @@ class Command:
     def warn(self, msg: str) -> None: ...
     def execute(self, func: Callable[..., object], args: Iterable[Any], msg: str | None = None, level: int = 1) -> None: ...
     def mkpath(self, name: str, mode: int = 0o777) -> None: ...
+    @overload
     def copy_file(
         self,
-        infile: str,
-        outfile: str,
+        infile: StrPath,
+        outfile: _StrPathT,
         preserve_mode: bool | Literal[0, 1] = 1,
         preserve_times: bool | Literal[0, 1] = 1,
         link: str | None = None,
         level: Unused = 1,
-    ) -> tuple[str, bool]: ...
+    ) -> tuple[_StrPathT | str, bool]: ...
+    @overload
+    def copy_file(
+        self,
+        infile: BytesPath,
+        outfile: _BytesPathT,
+        preserve_mode: bool | Literal[0, 1] = 1,
+        preserve_times: bool | Literal[0, 1] = 1,
+        link: str | None = None,
+        level: Unused = 1,
+    ) -> tuple[_BytesPathT | bytes, bool]: ...
     def copy_tree(
         self,
-        infile: str,
+        infile: StrPath,
         outfile: str,
         preserve_mode: bool | Literal[0, 1] = 1,
         preserve_times: bool | Literal[0, 1] = 1,
         preserve_symlinks: bool | Literal[0, 1] = 0,
         level: Unused = 1,
     ) -> list[str]: ...
-    def move_file(self, src: str, dst: str, level: Unused = 1) -> str: ...
+    @overload
+    def move_file(self, src: StrPath, dst: _StrPathT, level: Unused = 1) -> _StrPathT | str: ...
+    @overload
+    def move_file(self, src: BytesPath, dst: _BytesPathT, level: Unused = 1) -> _BytesPathT | bytes: ...
     def spawn(self, cmd: Iterable[str], search_path: bool | Literal[0, 1] = 1, level: Unused = 1) -> None: ...
+    @overload
     def make_archive(
         self,
         base_name: str,
         format: str,
-        root_dir: str | None = None,
+        root_dir: StrOrBytesPath | None = None,
+        base_dir: str | None = None,
+        owner: str | None = None,
+        group: str | None = None,
+    ) -> str: ...
+    @overload
+    def make_archive(
+        self,
+        base_name: StrPath,
+        format: str,
+        root_dir: StrOrBytesPath,
         base_dir: str | None = None,
         owner: str | None = None,
         group: str | None = None,
@@ -62,7 +88,7 @@ class Command:
     def make_file(
         self,
         infiles: str | list[str] | tuple[str, ...],
-        outfile: str,
+        outfile: StrOrBytesPath,
         func: Callable[..., object],
         args: list[Any],
         exec_msg: str | None = None,

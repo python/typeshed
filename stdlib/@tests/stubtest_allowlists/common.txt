@@ -75,15 +75,6 @@ ipaddress._BaseAddress.is_unspecified
 ipaddress._BaseAddress.max_prefixlen
 ipaddress._BaseAddress.packed
 ipaddress._BaseNetwork.max_prefixlen
-lib2to3.pygram.pattern_symbols
-lib2to3.pygram.python_symbols
-lib2to3.pytree.Base.__new__
-lib2to3.pytree.Base.children
-lib2to3.pytree.Base.type
-lib2to3.pytree.BasePattern.__new__
-lib2to3.pytree.BasePattern.type
-lib2to3.pytree.NegatedPattern.match
-lib2to3.pytree.NegatedPattern.match_seq
 multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
@@ -118,9 +109,6 @@ tarfile.TarFile.errors  # errors is initialized for some reason as None even tho
 tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
-tkinter.tix.[A-Z_]+
-tkinter.tix.TclVersion
-tkinter.tix.TkVersion
 tkinter.Misc.after  # we intentionally don't allow everything that "works" at runtime
 traceback.TracebackException.from_exception  # explicitly expanding arguments going into TracebackException __init__
 typing(_extensions)?\.IO\.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
@@ -186,9 +174,6 @@ encodings.utf_7
 encodings.uu_codec
 encodings.zlib_codec
 json.scanner
-lib2to3.btm_utils
-lib2to3.fixer_util
-lib2to3.patcomp
 sqlite3.dump
 turtledemo
 turtledemo\..+
@@ -217,7 +202,6 @@ ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
 ctypes.util.test
-lib2to3.pgen2.grammar.Grammar.loads
 mimetypes.MimeTypes.add_type
 modulefinder.test
 multiprocessing.managers.Server.accepter
@@ -250,22 +234,6 @@ multiprocessing.pool.ThreadPool.Process
 multiprocessing.synchronize.Semaphore.get_value
 tkinter.Misc.config
 tkinter.font.Font.counter
-tkinter.tix.CObjView
-tkinter.tix.DialogShell
-tkinter.tix.ExFileSelectDialog
-tkinter.tix.FileSelectDialog
-tkinter.tix.FileTypeList
-tkinter.tix.Grid
-tkinter.tix.NoteBookFrame
-tkinter.tix.OptionName
-tkinter.tix.ResizeHandle
-tkinter.tix.ScrolledGrid
-tkinter.tix.ScrolledHList
-tkinter.tix.ScrolledListBox
-tkinter.tix.ScrolledTList
-tkinter.tix.ScrolledText
-tkinter.tix.ScrolledWindow
-tkinter.tix.Shell
 turtle.TNavigator.speed
 
 # Undocumented implementation details of a deprecated class
@@ -285,15 +253,6 @@ profile.Profile.trace_dispatch_i
 profile.Profile.trace_dispatch_l
 profile.Profile.trace_dispatch_mac
 profile.Profile.trace_dispatch_return
-cgi.FieldStorage.bufsize
-cgi.FieldStorage.read_binary
-cgi.FieldStorage.read_lines
-cgi.FieldStorage.read_lines_to_eof
-cgi.FieldStorage.read_lines_to_outerboundary
-cgi.FieldStorage.read_multi
-cgi.FieldStorage.read_single
-cgi.FieldStorage.read_urlencoded
-cgi.FieldStorage.skip_lines
 email.contentmanager.get_and_fixup_unknown_message_content
 email.contentmanager.get_message_content
 email.contentmanager.get_non_text_content
@@ -301,11 +260,6 @@ email.contentmanager.get_text_content
 email.contentmanager.set_bytes_content
 email.contentmanager.set_message_content
 email.contentmanager.set_text_content
-pipes.Template.makepipeline
-pipes.Template.open_r
-pipes.Template.open_w
-sunau.Au_read.initfp
-sunau.Au_write.initfp
 turtle.ScrolledCanvas.adjustScrolls
 turtle.ScrolledCanvas.onResize
 wave.Wave_read.initfp
@@ -442,11 +396,9 @@ multiprocessing.managers.BaseListProxy.reverse
 multiprocessing.managers.BaseListProxy.sort
 multiprocessing.managers.DictProxy.__iter__
 multiprocessing.managers.DictProxy.__len__
-multiprocessing.managers.DictProxy.clear
 multiprocessing.managers.DictProxy.copy
 multiprocessing.managers.DictProxy.items
 multiprocessing.managers.DictProxy.keys
-multiprocessing.managers.DictProxy.popitem
 multiprocessing.managers.DictProxy.values
 
 multiprocessing.(dummy|managers).Namespace.__[gs]etattr__  # Any field can be set on Namespace
@@ -484,7 +436,6 @@ typing\.Protocol
 typing(_extensions)?\._TypedDict
 
 # Special primitives
-typing_extensions\.Annotated
 typing_extensions\.Final
 typing_extensions\.NamedTuple
 typing_extensions\.LiteralString
@@ -564,9 +515,7 @@ sys.implementation  # Actually SimpleNamespace but then you wouldn't have conven
 
 # A factory function that returns 'most efficient lock'.
 # Marking it as a function will make it impossible for users to use the Lock type as an annotation.
-threading.Lock
 threading.RLock
-multiprocessing.dummy.Lock
 multiprocessing.dummy.RLock
 
 # Dynamically created, has unnecessary *args
