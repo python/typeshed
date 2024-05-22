@@ -26,11 +26,10 @@ class DockerClient:
         cls,
         *,
         version: str | None = None,
-        timeout: int | None = None,
-        max_pool_size: int | None = None,
+        timeout: int = ...,
+        max_pool_size: int = ...,
         environment: _Environ | None = None,
-        credstore_env: dict[str, str] | None = None,
-        use_ssh_client: bool | None = None,
+        use_ssh_client: bool = False,
     ) -> DockerClient: ...
     @property
     def configs(self) -> ConfigCollection: ...
