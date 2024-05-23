@@ -2020,7 +2020,7 @@ if sys.version_info >= (3, 11):
         ) -> BaseExceptionGroup[_BaseExceptionT_co] | None: ...
         @overload
         def split(
-            self, condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
+            self, object: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
         ) -> tuple[ExceptionGroup[_ExceptionT] | None, BaseExceptionGroup[_BaseExceptionT_co] | None]: ...
         @overload
         def split(
