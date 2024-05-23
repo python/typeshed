@@ -91,7 +91,6 @@
         "stubs/requests-oauthlib",
         "stubs/seaborn",
         "stubs/setuptools/setuptools",
-        "stubs/stripe",
         "stubs/tensorflow",
         "stubs/tqdm",
         "stubs/ttkthemes",
