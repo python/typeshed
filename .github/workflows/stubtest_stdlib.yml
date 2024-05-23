@@ -30,8 +30,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # various modules aren't available on macos-14 and higher
-        os: ["ubuntu-latest", "windows-latest", "macos-13"]
+        # various modules aren't available on macos-13 and higher
+        os: ["ubuntu-latest", "windows-latest", "macos-12"]
         # TODO unpin 3.11 and 3.12 micro versions
         python-version: ["3.8", "3.9", "3.10", "3.11.8", "3.12.2", "3.13"]
       fail-fast: false
