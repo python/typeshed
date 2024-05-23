@@ -145,8 +145,12 @@ class HTMLDoc(Doc):
             cl: type | None = None,
             homecls: type | None = None,
         ) -> str: ...
-        def docproperty(self, object: object, name: str | None = None, mod: str | None = None, cl: Any | None = None, *ignored: Unused) -> str: ...  # type: ignore[override]
-        def docdata(self, object: object, name: str | None = None, mod: Any | None = None, cl: Any | None = None, *ignored: Unused) -> str: ...  # type: ignore[override]
+        def docproperty(
+            self, object: object, name: str | None = None, mod: str | None = None, cl: Any | None = None, *ignored: Unused
+        ) -> str: ...
+        def docdata(
+            self, object: object, name: str | None = None, mod: Any | None = None, cl: Any | None = None, *ignored: Unused
+        ) -> str: ...
     else:
         def docroutine(  # type: ignore[override]
             self,
@@ -185,11 +189,22 @@ class TextDoc(Doc):
     def docclass(self, object: object, name: str | None = None, mod: str | None = None, *ignored: Unused) -> str: ...
     def formatvalue(self, object: object) -> str: ...
     if sys.version_info >= (3, 11):
-        def docroutine(self, object: object, name: str | None = None, mod: str | None = None, cl: Any | None = None, homecls: Any | None = None) -> str: ...  # type: ignore[override]
-        def docmodule(self, object: object, name: str | None = None, mod: Any | None = None, *ignored: Unused) -> str: ...  # type: ignore[override]
-        def docproperty(self, object: object, name: str | None = None, mod: Any | None = None, cl: Any | None = None, *ignored: Unused) -> str: ...  # type: ignore[override]
-        def docdata(self, object: object, name: str | None = None, mod: str | None = None, cl: Any | None = None, *ignored: Unused) -> str: ...  # type: ignore[override]
-        def docother(  # type: ignore[override]
+        def docroutine(  # type: ignore[override]
+            self,
+            object: object,
+            name: str | None = None,
+            mod: str | None = None,
+            cl: Any | None = None,
+            homecls: Any | None = None,
+        ) -> str: ...
+        def docmodule(self, object: object, name: str | None = None, mod: Any | None = None, *ignored: Unused) -> str: ...
+        def docproperty(
+            self, object: object, name: str | None = None, mod: Any | None = None, cl: Any | None = None, *ignored: Unused
+        ) -> str: ...
+        def docdata(
+            self, object: object, name: str | None = None, mod: str | None = None, cl: Any | None = None, *ignored: Unused
+        ) -> str: ...
+        def docother(
             self,
             object: object,
             name: str | None = None,
