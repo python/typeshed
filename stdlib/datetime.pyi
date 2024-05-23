@@ -81,6 +81,7 @@ class date:
     def toordinal(self) -> int: ...
     if sys.version_info >= (3, 13):
         def __replace__(self, /, *, year: SupportsIndex = ..., month: SupportsIndex = ..., day: SupportsIndex = ...) -> Self: ...
+
     def replace(self, year: SupportsIndex = ..., month: SupportsIndex = ..., day: SupportsIndex = ...) -> Self: ...
     def __le__(self, value: date, /) -> bool: ...
     def __lt__(self, value: date, /) -> bool: ...
@@ -162,6 +163,7 @@ class time:
             tzinfo: _TzInfo | None = ...,
             fold: int = ...,
         ) -> Self: ...
+
     def replace(
         self,
         hour: SupportsIndex = ...,
@@ -292,6 +294,7 @@ class datetime(date):
             tzinfo: _TzInfo | None = ...,
             fold: int = ...,
         ) -> Self: ...
+
     def replace(
         self,
         year: SupportsIndex = ...,
