@@ -518,7 +518,19 @@ class _ExtendAction(_AppendAction): ...
 
 # undocumented
 class _AppendConstAction(Action):
-    if sys.version_info >= (3, 11):
+    if sys.version_info >= (3, 13):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            const: Any | None = None,
+            default: Any = None,
+            required: bool = False,
+            help: str | None = None,
+            metavar: str | tuple[str, ...] | None = None,
+            deprecated: bool = False,
+        ) -> None: ...
+    elif sys.version_info >= (3, 11):
         def __init__(
             self,
             option_strings: Sequence[str],
@@ -543,15 +555,36 @@ class _AppendConstAction(Action):
 
 # undocumented
 class _CountAction(Action):
-    def __init__(
-        self, option_strings: Sequence[str], dest: str, default: Any = None, required: bool = False, help: str | None = None
-    ) -> None: ...
+    if sys.version_info >= (3, 13):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            default: Any = None,
+            required: bool = False,
+            help: str | None = None,
+            deprecated: bool = False,
+        ) -> None: ...
+    else:
+        def __init__(
+            self, option_strings: Sequence[str], dest: str, default: Any = None, required: bool = False, help: str | None = None
+        ) -> None: ...
 
 # undocumented
 class _HelpAction(Action):
-    def __init__(
-        self, option_strings: Sequence[str], dest: str = "==SUPPRESS==", default: str = "==SUPPRESS==", help: str | None = None
-    ) -> None: ...
+    if sys.version_info >= (3, 13):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str = "==SUPPRESS==",
+            default: str = "==SUPPRESS==",
+            help: str | None = None,
+            deprecated: bool = False,
+        ) -> None: ...
+    else:
+        def __init__(
+            self, option_strings: Sequence[str], dest: str = "==SUPPRESS==", default: str = "==SUPPRESS==", help: str | None = None
+        ) -> None: ...
 
 # undocumented
 class _VersionAction(Action):
