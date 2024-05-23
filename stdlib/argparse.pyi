@@ -347,6 +347,7 @@ class Action(_AttributeHolder):
             help: str | None = None,
             metavar: str | tuple[str, ...] | None = None,
         ) -> None: ...
+
     def __call__(
         self, parser: ArgumentParser, namespace: Namespace, values: str | Sequence[Any] | None, option_string: str | None = None
     ) -> None: ...
