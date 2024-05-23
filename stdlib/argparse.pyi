@@ -637,6 +637,15 @@ class _VersionAction(Action):
             help: str | None = None,
             deprecated: bool = False,
         ) -> None: ...
+    elif sys.version_info >= (3, 11):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            version: str | None = None,
+            dest: str = "==SUPPRESS==",
+            default: str = "==SUPPRESS==",
+            help: str | None = None,
+        ) -> None: ...
     else:
         def __init__(
             self,

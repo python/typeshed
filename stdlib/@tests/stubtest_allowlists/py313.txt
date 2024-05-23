@@ -121,7 +121,6 @@ glob.__all__
 glob.translate
 importlib.metadata.DeprecatedTuple
 importlib.metadata.Distribution.origin
-importlib.metadata.MetadataPathFinder.invalidate_caches
 importlib.metadata._meta.SimplePath.exists
 importlib.metadata._meta.SimplePath.read_bytes
 importlib.metadata._meta.SimplePath.read_text
@@ -172,7 +171,6 @@ pdb.Pdb.MAX_CHAINED_EXCEPTION_DEPTH
 pdb.Pdb.completedefault
 pdb.Pdb.completenames
 pdb.Pdb.do_exceptions
-pdb.Pdb.execRcLines
 pdb.Pdb.interaction
 pdb.Pdb.message
 pdb.Pdb.user_opcode
@@ -182,15 +180,6 @@ platform.android_ver
 platform.ios_ver
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
-pydoc.HTMLDoc.docdata
-pydoc.HTMLDoc.docproperty
-pydoc.HTMLDoc.docroutine
-pydoc.HTMLDoc.parentlink
-pydoc.TextDoc.docdata
-pydoc.TextDoc.docmodule
-pydoc.TextDoc.docother
-pydoc.TextDoc.docproperty
-pydoc.TextDoc.docroutine
 pydoc.pager
 pydoc.pipepager
 pydoc.plainpager
