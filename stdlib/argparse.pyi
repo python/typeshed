@@ -318,19 +318,35 @@ class Action(_AttributeHolder):
     required: bool
     help: str | None
     metavar: str | tuple[str, ...] | None
-    def __init__(
-        self,
-        option_strings: Sequence[str],
-        dest: str,
-        nargs: int | str | None = None,
-        const: _T | None = None,
-        default: _T | str | None = None,
-        type: Callable[[str], _T] | FileType | None = None,
-        choices: Iterable[_T] | None = None,
-        required: bool = False,
-        help: str | None = None,
-        metavar: str | tuple[str, ...] | None = None,
-    ) -> None: ...
+    if sys.version_info >= (3, 13):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            nargs: int | str | None = None,
+            const: _T | None = None,
+            default: _T | str | None = None,
+            type: Callable[[str], _T] | FileType | None = None,
+            choices: Iterable[_T] | None = None,
+            required: bool = False,
+            help: str | None = None,
+            metavar: str | tuple[str, ...] | None = None,
+            deprecated: bool = False,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            nargs: int | str | None = None,
+            const: _T | None = None,
+            default: _T | str | None = None,
+            type: Callable[[str], _T] | FileType | None = None,
+            choices: Iterable[_T] | None = None,
+            required: bool = False,
+            help: str | None = None,
+            metavar: str | tuple[str, ...] | None = None,
+        ) -> None: ...
     def __call__(
         self, parser: ArgumentParser, namespace: Namespace, values: str | Sequence[Any] | None, option_string: str | None = None
     ) -> None: ...
@@ -339,29 +355,56 @@ class Action(_AttributeHolder):
 
 if sys.version_info >= (3, 12):
     class BooleanOptionalAction(Action):
-        @overload
-        def __init__(
-            self,
-            option_strings: Sequence[str],
-            dest: str,
-            default: bool | None = None,
-            *,
-            required: bool = False,
-            help: str | None = None,
-        ) -> None: ...
-        @overload
-        @deprecated("The `type`, `choices`, and `metavar` parameters are ignored and will be removed in Python 3.14.")
-        def __init__(
-            self,
-            option_strings: Sequence[str],
-            dest: str,
-            default: _T | bool | None = None,
-            type: Callable[[str], _T] | FileType | None = sentinel,
-            choices: Iterable[_T] | None = sentinel,
-            required: bool = False,
-            help: str | None = None,
-            metavar: str | tuple[str, ...] | None = sentinel,
-        ) -> None: ...
+        if sys.version_info >= (3, 13):
+            @overload
+            def __init__(
+                self,
+                option_strings: Sequence[str],
+                dest: str,
+                default: bool | None = None,
+                *,
+                required: bool = False,
+                help: str | None = None,
+                deprecated: bool = False,
+            ) -> None: ...
+            @overload
+            @deprecated("The `type`, `choices`, and `metavar` parameters are ignored and will be removed in Python 3.14.")
+            def __init__(
+                self,
+                option_strings: Sequence[str],
+                dest: str,
+                default: _T | bool | None = None,
+                type: Callable[[str], _T] | FileType | None = sentinel,
+                choices: Iterable[_T] | None = sentinel,
+                required: bool = False,
+                help: str | None = None,
+                metavar: str | tuple[str, ...] | None = sentinel,
+                deprecated: bool = False,
+            ) -> None: ...
+        else:
+            @overload
+            def __init__(
+                self,
+                option_strings: Sequence[str],
+                dest: str,
+                default: bool | None = None,
+                *,
+                required: bool = False,
+                help: str | None = None,
+            ) -> None: ...
+            @overload
+            @deprecated("The `type`, `choices`, and `metavar` parameters are ignored and will be removed in Python 3.14.")
+            def __init__(
+                self,
+                option_strings: Sequence[str],
+                dest: str,
+                default: _T | bool | None = None,
+                type: Callable[[str], _T] | FileType | None = sentinel,
+                choices: Iterable[_T] | None = sentinel,
+                required: bool = False,
+                help: str | None = None,
+                metavar: str | tuple[str, ...] | None = sentinel,
+            ) -> None: ...
 
 elif sys.version_info >= (3, 9):
     class BooleanOptionalAction(Action):
