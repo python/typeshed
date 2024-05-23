@@ -121,7 +121,6 @@ glob.__all__
 glob.translate
 importlib.metadata.DeprecatedTuple
 importlib.metadata.Distribution.origin
-importlib.metadata.MetadataPathFinder.invalidate_caches
 importlib.metadata._meta.SimplePath.exists
 importlib.metadata._meta.SimplePath.read_bytes
 importlib.metadata._meta.SimplePath.read_text
