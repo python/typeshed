@@ -1,0 +1,3 @@
+__version__: str
+
+def normalizeTRBL(p): ...
