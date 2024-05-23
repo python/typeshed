@@ -583,7 +583,11 @@ class _HelpAction(Action):
         ) -> None: ...
     else:
         def __init__(
-            self, option_strings: Sequence[str], dest: str = "==SUPPRESS==", default: str = "==SUPPRESS==", help: str | None = None
+            self,
+            option_strings: Sequence[str],
+            dest: str = "==SUPPRESS==",
+            default: str = "==SUPPRESS==",
+            help: str | None = None,
         ) -> None: ...
 
 # undocumented
