@@ -1,5 +1,6 @@
 version = "5.9.*"
 upstream_repository = "https://github.com/giampaolo/psutil"
+incomplete = true
 
 [tool.stubtest]
 platforms = ["darwin", "linux", "win32"]

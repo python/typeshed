@@ -1,5 +1,6 @@
 version = "306.*"
 upstream_repository = "https://github.com/mhammond/pywin32"
+incomplete = true
 
 [tool.stubtest]
 platforms = ["win32"]

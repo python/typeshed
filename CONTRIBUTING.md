@@ -189,6 +189,9 @@ supported:
 * `upload` (optional): This field is set to `false` to prevent automatic
   uploads to PyPI. This should only used in special cases, e.g. when the stubs
   break the upload.
+* `incomplete` (optional): This field marks a distribution as incomplete.
+  This is the case if at least one item is either unannotated or uses
+  `_typeshed.Incomplete`.
 * `partial_stub` (optional): This field marks the type stub package as
   [partial](https://peps.python.org/pep-0561/#partial-stub-packages). This is for
   3rd-party stubs that don't cover the entirety of the package's public API.

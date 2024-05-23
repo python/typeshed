@@ -1,2 +1,3 @@
 version = "5.10.*"
 upstream_repository = "https://github.com/ultrajson/ultrajson"
+incomplete = true

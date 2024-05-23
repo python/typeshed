@@ -1,6 +1,7 @@
 version = "2.9.*"
 upstream_repository = "https://github.com/cannatag/ldap3"
 requires = ["types-pyasn1"]
+incomplete = true
 partial_stub = true
 
 [tool.stubtest]

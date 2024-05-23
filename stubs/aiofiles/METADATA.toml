@@ -1,5 +1,6 @@
 version = "23.2.*"
 upstream_repository = "https://github.com/Tinche/aiofiles"
+incomplete = true
 
 [tool.stubtest]
 # linux and darwin are equivalent
