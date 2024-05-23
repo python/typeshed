@@ -431,7 +431,19 @@ class _StoreAction(Action): ...
 
 # undocumented
 class _StoreConstAction(Action):
-    if sys.version_info >= (3, 11):
+    if sys.version_info >= (3, 13):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            const: Any | None = None,
+            default: Any = None,
+            required: bool = False,
+            help: str | None = None,
+            metavar: str | tuple[str, ...] | None = None,
+            deprecated: bool = False,
+        ) -> None: ...
+    elif sys.version_info >= (3, 11):
         def __init__(
             self,
             option_strings: Sequence[str],
@@ -456,15 +468,37 @@ class _StoreConstAction(Action):
 
 # undocumented
 class _StoreTrueAction(_StoreConstAction):
-    def __init__(
-        self, option_strings: Sequence[str], dest: str, default: bool = False, required: bool = False, help: str | None = None
-    ) -> None: ...
+    if sys.version_info >= (3, 13):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            default: bool = False,
+            required: bool = False,
+            help: str | None = None,
+            deprecated: bool = False,
+        ) -> None: ...
+    else:
+        def __init__(
+            self, option_strings: Sequence[str], dest: str, default: bool = False, required: bool = False, help: str | None = None
+        ) -> None: ...
 
 # undocumented
 class _StoreFalseAction(_StoreConstAction):
-    def __init__(
-        self, option_strings: Sequence[str], dest: str, default: bool = True, required: bool = False, help: str | None = None
-    ) -> None: ...
+    if sys.version_info >= (3, 13):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            default: bool = True,
+            required: bool = False,
+            help: str | None = None,
+            deprecated: bool = False,
+        ) -> None: ...
+    else:
+        def __init__(
+            self, option_strings: Sequence[str], dest: str, default: bool = True, required: bool = False, help: str | None = None
+        ) -> None: ...
 
 # undocumented
 class _AppendAction(Action): ...
@@ -474,6 +508,18 @@ class _ExtendAction(_AppendAction): ...
 
 # undocumented
 class _AppendConstAction(Action):
+    if sys.version_info >= (3, 13):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            dest: str,
+            const: Any | None = None,
+            default: Any = None,
+            required: bool = False,
+            help: str | None = None,
+            metavar: str | tuple[str, ...] | None = None,
+            deprecated: bool = False,
+        ) -> None: ...
     if sys.version_info >= (3, 11):
         def __init__(
             self,
@@ -512,14 +558,25 @@ class _HelpAction(Action):
 # undocumented
 class _VersionAction(Action):
     version: str | None
-    def __init__(
-        self,
-        option_strings: Sequence[str],
-        version: str | None = None,
-        dest: str = "==SUPPRESS==",
-        default: str = "==SUPPRESS==",
-        help: str = "show program's version number and exit",
-    ) -> None: ...
+    if sys.version_info >= (3, 13):
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            version: str | None = None,
+            dest: str = "==SUPPRESS==",
+            default: str = "==SUPPRESS==",
+            help: str | None = None,
+            deprecated: bool = False,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            option_strings: Sequence[str],
+            version: str | None = None,
+            dest: str = "==SUPPRESS==",
+            default: str = "==SUPPRESS==",
+            help: str = "show program's version number and exit",
+        ) -> None: ...
 
 # undocumented
 class _SubParsersAction(Action, Generic[_ArgumentParserT]):
@@ -542,7 +599,30 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
 
     # Note: `add_parser` accepts all kwargs of `ArgumentParser.__init__`. It also
     # accepts its own `help` and `aliases` kwargs.
-    if sys.version_info >= (3, 9):
+    if sys.version_info >= (3, 13):
+        def add_parser(
+            self,
+            name: str,
+            *,
+            deprecated: bool = False,
+            help: str | None = ...,
+            aliases: Sequence[str] = ...,
+            # Kwargs from ArgumentParser constructor
+            prog: str | None = ...,
+            usage: str | None = ...,
+            description: str | None = ...,
+            epilog: str | None = ...,
+            parents: Sequence[_ArgumentParserT] = ...,
+            formatter_class: _FormatterClass = ...,
+            prefix_chars: str = ...,
+            fromfile_prefix_chars: str | None = ...,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+            add_help: bool = ...,
+            allow_abbrev: bool = ...,
+            exit_on_error: bool = ...,
+        ) -> _ArgumentParserT: ...
+    elif sys.version_info >= (3, 9):
         def add_parser(
             self,
             name: str,
