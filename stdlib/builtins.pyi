@@ -2008,7 +2008,7 @@ if sys.version_info >= (3, 11):
         def exceptions(self) -> tuple[_BaseExceptionT_co | BaseExceptionGroup[_BaseExceptionT_co], ...]: ...
         @overload
         def subgroup(
-            self, condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
+            self, object: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
         ) -> ExceptionGroup[_ExceptionT] | None: ...
         @overload
         def subgroup(
