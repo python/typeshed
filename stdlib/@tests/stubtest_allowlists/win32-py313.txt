@@ -1,3 +1,44 @@
+# New in py313 (triage these!)
+_msi
+_stat.SF_SETTABLE
+_stat.SF_SUPPORTED
+_stat.SF_SYNTHETIC
+_winapi.BatchedWaitForMultipleObjects
+_winapi.CreateEventW
+_winapi.CreateMutexW
+_winapi.GetLongPathName
+_winapi.GetShortPathName
+_winapi.OpenEventW
+_winapi.OpenMutexW
+_winapi.ReleaseMutex
+_winapi.ResetEvent
+_winapi.STARTF_FORCEOFFFEEDBACK
+_winapi.STARTF_FORCEONFEEDBACK
+_winapi.STARTF_PREVENTPINNING
+_winapi.STARTF_RUNFULLSCREEN
+_winapi.STARTF_TITLEISAPPID
+_winapi.STARTF_TITLEISLINKNAME
+_winapi.STARTF_UNTRUSTEDSOURCE
+_winapi.STARTF_USECOUNTCHARS
+_winapi.STARTF_USEFILLATTRIBUTE
+_winapi.STARTF_USEPOSITION
+_winapi.STARTF_USESIZE
+_winapi.SetEvent
+asyncio.windows_events.__all__
+asyncio.windows_events.EventLoop
+ctypes._endian.oledell
+ctypes._endian.windll
+nt.fchmod
+nt.lchmod
+os.fchmod
+os.lchmod
+stat.SF_SETTABLE
+stat.SF_SUPPORTED
+stat.SF_SYNTHETIC
+subprocess.__all__
+subprocess.STARTF_FORCEOFFFEEDBACK
+subprocess.STARTF_FORCEONFEEDBACK
+
 # Undocumented internal method, not really for public consumption.
 # (Hard to add types for unless we add stubs for the undocumented _overlapped module...)
 asyncio.IocpProactor.finish_socket_func

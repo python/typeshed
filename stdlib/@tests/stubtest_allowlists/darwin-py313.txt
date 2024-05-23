@@ -17,6 +17,26 @@ posix.waitid_result
 time.CLOCK_MONOTONIC_RAW_APPROX
 time.CLOCK_UPTIME_RAW_APPROX
 webbrowser.MacOSX
+_pyrepl.curses
+_pyrepl.fancy_termios
+_pyrepl.readline
+_pyrepl.simple_interact
+_pyrepl.unix_console
+_pyrepl.unix_eventqueue
+asyncio.unix_events.EventLoop
+asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
+asyncio.unix_events.__all__
+mmap.MAP_NORESERVE
+os.grantpt
+os.posix_openpt
+os.ptsname
+os.unlockpt
+posix.grantpt
+posix.posix_openpt
+posix.ptsname
+posix.unlockpt
+readline.backend
+time.clock_gettime_ns
 
 # TODO: fix
 _curses.unget_wch

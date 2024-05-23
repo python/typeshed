@@ -10,3 +10,13 @@ pathlib.Path.is_mount
 pathlib.WindowsPath.group
 pathlib.WindowsPath.owner
 pathlib.WindowsPath.is_mount
+
+# pathlib functions that rely on modules that don't exist on Windows
+pathlib.Path.owner
+pathlib.Path.group
+
+# Modules that don't exist on Windows
+crypt
+nis
+ossaudiodev
+spwd
