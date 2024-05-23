@@ -113,8 +113,6 @@ asyncio.unix_events.__all__
 bdb.Bdb.dispatch_opcode
 bdb.Bdb.set_stepinstr
 bdb.Bdb.user_opcode
-builtins.BaseException.add_note
-builtins.BaseException.with_traceback
 builtins.BaseExceptionGroup.__class_getitem__
 builtins.BaseExceptionGroup.derive
 builtins.BaseExceptionGroup.split
