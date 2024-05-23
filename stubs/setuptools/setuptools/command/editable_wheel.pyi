@@ -1,4 +1,5 @@
 from _typeshed import Incomplete, StrPath
+from collections.abc import Iterator
 from enum import Enum
 from pathlib import Path
 from types import TracebackType
@@ -13,9 +14,9 @@ from ..warnings import SetuptoolsWarning
 _WheelFile: TypeAlias = Incomplete
 
 class _EditableMode(Enum):
-    STRICT: str
-    LENIENT: str
-    COMPAT: str
+    STRICT = "strict"
+    LENIENT = "lenient"
+    COMPAT = "compat"
     @classmethod
     def convert(cls, mode: str | None) -> _EditableMode: ...
 
@@ -63,6 +64,8 @@ class _TopLevelFinder:
     dist: Incomplete
     name: Incomplete
     def __init__(self, dist: Distribution, name: str) -> None: ...
+    def template_vars(self) -> tuple[str, str, dict[str, str], dict[str, list[str]]]: ...
+    def get_implementation(self) -> Iterator[tuple[str, bytes]]: ...
     def __call__(self, wheel: _WheelFile, files: list[str], mapping: dict[str, str]): ...
     def __enter__(self) -> Self: ...
     def __exit__(

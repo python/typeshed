@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Run mypy on the "tests" and "scripts" directories."""
+
 from __future__ import annotations
 
 import argparse
@@ -8,12 +9,12 @@ import sys
 from itertools import product
 from typing_extensions import TypeAlias
 
-from utils import colored, print_error
+from _utils import colored, print_error
 
 ReturnCode: TypeAlias = int
 
 SUPPORTED_PLATFORMS = ("linux", "darwin", "win32")
-SUPPORTED_VERSIONS = ("3.12", "3.11", "3.10", "3.9")
+SUPPORTED_VERSIONS = ("3.13", "3.12", "3.11", "3.10", "3.9")
 LOWEST_SUPPORTED_VERSION = min(SUPPORTED_VERSIONS, key=lambda x: int(x.split(".")[1]))
 DIRECTORIES_TO_TEST = ("scripts", "tests")
 EMPTY: list[str] = []

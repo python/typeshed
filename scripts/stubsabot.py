@@ -33,7 +33,7 @@ from termcolor import colored
 TYPESHED_OWNER = "python"
 TYPESHED_API_URL = f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed"
 
-STUBSABOT_LABEL = "stubsabot"
+STUBSABOT_LABEL = "bot: stubsabot"
 
 
 class ActionLevel(enum.IntEnum):
@@ -177,10 +177,31 @@ def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfil
     all_python_files: list[Path] = []
     py_file_suffixes = {".py", ".pyi"}
 
+    # Obtain an iterator over all files in the zipfile/tarfile.
+    # Filter out empty __init__.py files: this reduces false negatives
+    # in cases like this:
+    #
+    # repo_root/
+    # ├─ src/
+    # |  ├─ pkg/
+    # |  |  ├─ __init__.py          <-- This file is empty
+    # |  |  ├─ subpkg/
+    # |  |  |  ├─ __init__.py
+    # |  |  |  ├─ libraryfile.py
+    # |  |  |  ├─ libraryfile2.py
+    # |  |  |  ├─ py.typed
     if isinstance(source, zipfile.ZipFile):
-        path_iter = (Path(zip_info.filename) for zip_info in source.infolist() if not zip_info.is_dir())
+        path_iter = (
+            Path(zip_info.filename)
+            for zip_info in source.infolist()
+            if ((not zip_info.is_dir()) and not (Path(zip_info.filename).name == "__init__.py" and zip_info.file_size == 0))
+        )
     else:
-        path_iter = (Path(tar_info.path) for tar_info in source if tar_info.isfile())
+        path_iter = (
+            Path(tar_info.path)
+            for tar_info in source
+            if (tar_info.isfile() and not (Path(tar_info.name).name == "__init__.py" and tar_info.size == 0))
+        )
 
     for path in path_iter:
         if path.suffix in py_file_suffixes:
@@ -284,7 +305,7 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubIn
     Else, return None.
     """
     if stub_info.upstream_repository:
-        # We have various sanity checks for the upstream_repository field in tests/parse_metadata.py,
+        # We have various sanity checks for the upstream_repository field in tests/_metadata.py,
         # so no need to repeat all of them here
         split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
         if split_url.netloc == "github.com":
@@ -477,6 +498,7 @@ async def determine_action(stub_path: Path, session: aiohttp.ClientSession) -> U
         "Release": f"{pypi_info.pypi_root}/{relevant_version}",
         "Homepage": project_urls.get("Homepage"),
         "Repository": stub_info.upstream_repository,
+        "Typeshed stubs": f"https://github.com/{TYPESHED_OWNER}/typeshed/tree/main/stubs/{stub_info.distribution}",
         "Changelog": project_urls.get("Changelog") or project_urls.get("Changes") or project_urls.get("Change Log"),
     }
     links = {k: v for k, v in maybe_links.items() if v is not None}

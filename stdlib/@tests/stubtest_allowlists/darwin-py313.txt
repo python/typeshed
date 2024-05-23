@@ -1,0 +1,40 @@
+# new in py313
+fcntl.F_GETNOSIGPIPE
+fcntl.F_OFD_GETLK
+fcntl.F_OFD_SETLK
+fcntl.F_OFD_SETLKW
+fcntl.F_RDAHEAD
+fcntl.F_SETNOSIGPIPE
+mmap.MAP_HASSEMAPHORE
+mmap.MAP_JIT
+mmap.MAP_NOCACHE
+mmap.MAP_NOEXTEND
+mmap.MAP_RESILIENT_CODESIGN
+mmap.MAP_RESILIENT_MEDIA
+mmap.MAP_TPRO
+mmap.MAP_TRANSLATED_ALLOW_EXECUTE
+mmap.MAP_UNIX03
+os.waitid
+os.waitid_result
+posix.waitid
+posix.waitid_result
+time.CLOCK_MONOTONIC_RAW_APPROX
+time.CLOCK_UPTIME_RAW_APPROX
+webbrowser.MacOSX
+_curses.A_ITALIC
+curses.A_ITALIC
+_decimal.DecimalTuple.__replace__
+
+# TODO: fix
+_curses.unget_wch
+_curses.window.get_wch
+curses.window.get_wch
+
+# These entries looks like a `setup-python` bug:
+(dbm.gnu)?
+(_?locale.bind_textdomain_codeset)?
+(_?locale.bindtextdomain)?
+(_?locale.dcgettext)?
+(_?locale.dgettext)?
+(_?locale.gettext)?
+(_?locale.textdomain)?
