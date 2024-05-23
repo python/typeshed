@@ -37,11 +37,9 @@ _thread.start_new_thread
 _tkinter.TkappType.gettrace
 _tkinter.TkappType.settrace
 _tkinter.create
-argparse._AppendAction.__init__
 argparse._AppendConstAction.__init__
 argparse._CountAction.__init__
 argparse._HelpAction.__init__
-argparse._StoreAction.__init__
 argparse._StoreConstAction.__init__
 argparse._StoreFalseAction.__init__
 argparse._StoreTrueAction.__init__
