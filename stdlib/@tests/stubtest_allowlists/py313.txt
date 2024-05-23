@@ -179,11 +179,8 @@ ctypes.wintypes.PCHAR.from_param
 ctypes.wintypes.PWCHAR.from_param
 dataclasses.Field.__class_getitem__
 datetime.date.__replace__
-datetime.date.fromisoformat
 datetime.datetime.__replace__
-datetime.datetime.fromisoformat
 datetime.time.__replace__
-datetime.time.fromisoformat
 datetime.timezone.dst
 datetime.timezone.fromutc
 datetime.timezone.tzname
