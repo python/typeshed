@@ -181,15 +181,6 @@ platform.android_ver
 platform.ios_ver
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
-pydoc.HTMLDoc.docdata
-pydoc.HTMLDoc.docproperty
-pydoc.HTMLDoc.docroutine
-pydoc.HTMLDoc.parentlink
-pydoc.TextDoc.docdata
-pydoc.TextDoc.docmodule
-pydoc.TextDoc.docother
-pydoc.TextDoc.docproperty
-pydoc.TextDoc.docroutine
 pydoc.pager
 pydoc.pipepager
 pydoc.plainpager
