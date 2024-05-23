@@ -172,7 +172,6 @@ pdb.Pdb.MAX_CHAINED_EXCEPTION_DEPTH
 pdb.Pdb.completedefault
 pdb.Pdb.completenames
 pdb.Pdb.do_exceptions
-pdb.Pdb.execRcLines
 pdb.Pdb.interaction
 pdb.Pdb.message
 pdb.Pdb.user_opcode
