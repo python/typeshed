@@ -104,7 +104,8 @@ reportlab.graphics.barcode.eanbc.isEanString
 
 # Error: is not present at runtime
 # ================================
-# PropertySet can have arbitrary attributes, so we add a __getattr_
+# These can have arbitrary attributes, so we add a __getattr__
+reportlab.lib.abag.ABag.__getattr__
 reportlab.lib.styles.PropertySet.__getattr__
 
 # Only exists on renderPM backend
