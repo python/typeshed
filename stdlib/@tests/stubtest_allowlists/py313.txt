@@ -151,8 +151,6 @@ mimetypes.MimeTypes.guess_file_type
 mimetypes.__all__
 mimetypes.guess_file_type
 mmap.mmap.seekable
-multiprocessing.managers.DictProxy.__class_getitem__
-multiprocessing.managers.ListProxy.__class_getitem__
 multiprocessing.shared_memory.SharedMemory.__init__
 pathlib.Path.__enter__
 pathlib.Path.__exit__
@@ -232,8 +230,6 @@ turtle.RawTurtle.settiltangle
 turtle.__all__
 turtle.settiltangle
 types.CodeType.__replace__
-types.CoroutineType.__class_getitem__
-types.GeneratorType.__class_getitem__
 types.MappingProxyType.get
 types.SimpleNamespace.__replace__
 typing.ForwardRef._evaluate
