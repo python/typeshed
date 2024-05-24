@@ -1,10 +1,4 @@
 # new in py313
-_pyrepl.curses
-_pyrepl.fancy_termios
-_pyrepl.readline
-_pyrepl.simple_interact
-_pyrepl.unix_console
-_pyrepl.unix_eventqueue
 asyncio.unix_events.EventLoop
 asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 asyncio.unix_events.__all__
