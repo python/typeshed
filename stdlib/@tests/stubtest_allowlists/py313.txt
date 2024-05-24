@@ -12,17 +12,6 @@ _ctypes.alignment
 _ctypes.pointer
 _ctypes.sizeof
 _json.encode_basestring_ascii
-_pyrepl.commands
-_pyrepl.completing_reader
-_pyrepl.console
-_pyrepl.historical_reader
-_pyrepl.input
-_pyrepl.keymap
-_pyrepl.pager
-_pyrepl.reader
-_pyrepl.trace
-_pyrepl.types
-_pyrepl.utils
 _thread.interrupt_main
 _thread.lock
 _thread.stack_size
@@ -311,6 +300,9 @@ zoneinfo.ZoneInfo.from_file
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
+
+# The internal implementation of the REPL on py313+; not for public consumption
+_pyrepl\..+
 
 # Runtime AST node runtime constructor behaviour is too loose.
 # For static typing, the loose behaviour is undesirable (https://github.com/python/typeshed/issues/8378).
