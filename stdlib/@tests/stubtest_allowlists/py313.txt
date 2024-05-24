@@ -332,6 +332,7 @@ _weakref.ProxyType.__reversed__  # Doesn't really exist
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 ast.ImportFrom.level  # None on the class, but never None on instances
 builtins.property.__set_name__  # Doesn't actually exist
+builtins.str.format_map  # stubtest says `mapping` is pos-or-keyword but in reality it is pos-only
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 dataclasses.KW_ONLY  # white lies around defaults
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
