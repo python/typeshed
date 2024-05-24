@@ -1,10 +1,12 @@
 from _typeshed import Incomplete
+from collections.abc import Sequence
+from typing import Final
 
-__version__: str
-CANNOT_START_LINE: Incomplete
-ALL_CANNOT_START: Incomplete
-CANNOT_END_LINE: Incomplete
-ALL_CANNOT_END: Incomplete
+__version__: Final[str]
+CANNOT_START_LINE: Final[Sequence[str]]
+ALL_CANNOT_START: Final[str]
+CANNOT_END_LINE: Final[Sequence[str]]
+ALL_CANNOT_END: Final[str]
 
 def is_multi_byte(ch): ...
 def getCharWidths(word, fontName, fontSize): ...

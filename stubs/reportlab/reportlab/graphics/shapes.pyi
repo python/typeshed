@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.lib.attrmap import *
 from reportlab.lib.validators import *
@@ -6,11 +7,11 @@ from reportlab.platypus import Flowable
 
 from .transform import *
 
-__version__: str
-isOpacity: Incomplete
-NON_ZERO_WINDING: str
-EVEN_ODD: str
-STATE_DEFAULTS: Incomplete
+__version__: Final[str]
+isOpacity: NoneOr
+NON_ZERO_WINDING: Final[str]
+EVEN_ODD: Final[str]
+STATE_DEFAULTS: Final[Incomplete]
 
 class _DrawTimeResizeable: ...
 

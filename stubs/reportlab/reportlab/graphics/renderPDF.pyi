@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.graphics.renderbase import Renderer
 from reportlab.platypus import Flowable
 
-__version__: str
+__version__: Final[str]
 
 def draw(drawing, canvas, x, y, showBoundary=...) -> None: ...
 

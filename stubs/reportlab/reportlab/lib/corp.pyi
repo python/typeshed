@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.graphics.widgetbase import Widget
 from reportlab.lib.attrmap import *
 from reportlab.lib.validators import *
 
-__version__: str
+__version__: Final[str]
 
 class RL_CorpLogo(Widget):
     fillColor: Incomplete

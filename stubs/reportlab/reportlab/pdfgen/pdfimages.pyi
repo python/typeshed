@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
+from typing import Final
 
-__version__: str
+__version__: Final[str]
 
 class PDFImage:
     image: Incomplete

@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from typing import Final
 
-__version__: str
-RL_DEBUG: Incomplete
+__version__: Final[str]
+RL_DEBUG: Final[bool]  # initalized based on env

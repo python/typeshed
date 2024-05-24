@@ -1,8 +1,9 @@
 import unittest
 from _typeshed import Incomplete
 from configparser import ConfigParser
+from typing import Final
 
-__version__: str
+__version__: Final[str]
 
 def haveRenderPM(): ...
 def isWritable(D): ...

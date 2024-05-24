@@ -15,6 +15,10 @@ _Color: TypeAlias = Color | list[float] | tuple[float, float, float, float] | tu
 # TODO: consider creating a tagged union of all the possible commands, although
 #       this would restrict us to passing cmds to TableStyle.__init__ in a tuple
 #       since a list would not be able to be inferred correctly
+#       All commands are a tuple with a str opcode as the first element, followed
+#       by the arguments for that command. Most commands start with two positions
+#       indicating the cell-range affected by the command, the only exception is
+#       the ROUNDEDCORNERS command which applies to the whole table always.
 _SpecialRow: TypeAlias = Literal["splitfirst", "splitlast", "inrowsplitstart", "inrowsplitend"]
 _TableSectionCommand: TypeAlias = tuple[str, tuple[int | _SpecialRow, int], tuple[int, int], Unpack[tuple[Any, ...]]]
 _CornerRadii: TypeAlias = tuple[float, float, float, float] | list[float]

@@ -1,10 +1,11 @@
 import os
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.pdfbase.pdfdoc import PDFObject
 from reportlab.platypus.flowables import Flowable
 
-__version__: str
+__version__: Final[str]
 
 def xorKey(num, key): ...
 

@@ -1,14 +1,15 @@
 from _typeshed import Incomplete
-from math import cos as cos, sin as sin
+from collections.abc import Sequence
+from math import cos as cos, pi as pi, sin as sin
+from typing import Final
 
 from reportlab.graphics.renderbase import Renderer
 
-pi: Incomplete
-AREA_STYLES: Incomplete
-LINE_STYLES: Incomplete
-TEXT_STYLES: Incomplete
-EXTRA_STROKE_STYLES: Incomplete
-EXTRA_FILL_STYLES: Incomplete
+AREA_STYLES: Final[Sequence[str]]
+LINE_STYLES: Final[Sequence[str]]
+TEXT_STYLES: Final[Sequence[str]]
+EXTRA_STROKE_STYLES: Final[Sequence[str]]
+EXTRA_FILL_STYLES: Final[Sequence[str]]
 
 def drawToString(d, showBoundary=0, **kwds): ...
 def drawToFile(d, fn, showBoundary=0, **kwds) -> None: ...

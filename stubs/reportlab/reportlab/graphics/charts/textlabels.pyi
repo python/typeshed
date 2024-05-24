@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.graphics.charts.utils import CustomDrawChanger
 from reportlab.graphics.widgetbase import PropHolder, Widget
 from reportlab.lib.attrmap import *
 
-__version__: str
+__version__: Final[str]
 
 class Label(Widget):
     def __init__(self, **kw) -> None: ...

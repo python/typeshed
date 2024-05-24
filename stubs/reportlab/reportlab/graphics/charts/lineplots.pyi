@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.graphics.charts.linecharts import AbstractLineChart
 from reportlab.graphics.charts.utils import *
@@ -8,7 +9,7 @@ from reportlab.graphics.widgets.grids import ShadedPolygon
 from reportlab.lib.attrmap import *
 from reportlab.lib.validators import *
 
-__version__: str
+__version__: Final[str]
 
 class LinePlotProperties(PropHolder): ...
 

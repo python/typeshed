@@ -1,6 +1,6 @@
 from typing import Final
 
-__version__: str
+__version__: Final[str]
 inch: Final[float]
 cm: Final[float]
 mm: Final[float]

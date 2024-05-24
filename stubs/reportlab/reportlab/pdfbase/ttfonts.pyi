@@ -1,9 +1,9 @@
 from _typeshed import Incomplete
-from typing import NamedTuple
+from typing import Final, NamedTuple
 
 from reportlab.pdfbase import pdfdoc, pdfmetrics
 
-__version__: str
+__version__: Final[str]
 
 class TTFError(pdfdoc.PDFError): ...
 

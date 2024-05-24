@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
+from typing import Final
 
-__version__: str
+__version__: Final[str]
 
 def makeA85Image(filename, IMG: Incomplete | None = None, detectJpeg: bool = False): ...
 def makeRawImage(filename, IMG: Incomplete | None = None, detectJpeg: bool = False): ...

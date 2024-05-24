@@ -1,8 +1,9 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.graphics.widgetbase import Widget
 
-__version__: str
+__version__: Final[str]
 
 class PlotArea(Widget):
     x: int

@@ -1,6 +1,6 @@
 from typing import Final
 
-__version__: str
+__version__: Final[str]
 A0: Final[tuple[float, float]]
 A1: Final[tuple[float, float]]
 A2: Final[tuple[float, float]]
@@ -41,11 +41,11 @@ JUNIOR_LEGAL: Final[tuple[float, float]]
 HALF_LETTER: Final[tuple[float, float]]
 GOV_LETTER: Final[tuple[float, float]]
 GOV_LEGAL: Final[tuple[float, float]]
-TABLOID: Final = ELEVENSEVENTEEN
-LEDGER: tuple[float, float]
-letter: Final = LETTER
-legal: Final = LEGAL
-elevenSeventeen: Final = ELEVENSEVENTEEN
+TABLOID: Final[tuple[float, float]]
+LEDGER: Final[tuple[float, float]]
+letter: Final[tuple[float, float]]
+legal: Final[tuple[float, float]]
+elevenSeventeen: Final[tuple[float, float]]
 
 def landscape(pagesize: tuple[float, float]) -> tuple[float, float]: ...
 def portrait(pagesize: tuple[float, float]) -> tuple[float, float]: ...

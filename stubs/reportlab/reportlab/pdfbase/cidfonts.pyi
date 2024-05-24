@@ -1,8 +1,9 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.pdfbase import pdfmetrics
 
-__version__: str
+__version__: Final[str]
 DISABLE_CMAP: bool
 
 def findCMapFile(name): ...

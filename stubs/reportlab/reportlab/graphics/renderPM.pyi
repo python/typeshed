@@ -1,8 +1,9 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.graphics.renderbase import Renderer
 
-__version__: str
+__version__: Final[str]
 
 def Color2Hex(c): ...
 def CairoColor(c): ...

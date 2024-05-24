@@ -1,4 +1,6 @@
-__version__: str
+from typing import Final
+
+__version__: Final[str]
 
 def makeEmptySquare(x, y, size, color): ...
 def makeFilledSquare(x, y, size, color): ...

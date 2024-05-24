@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.graphics.widgetbase import Widget
 from reportlab.lib.validators import Validator
 
-__version__: str
+__version__: Final[str]
 
 class Marker(Widget):
     def __init__(self, *args, **kw) -> None: ...

@@ -1,16 +1,18 @@
 from _typeshed import Incomplete
+from collections.abc import Mapping
+from typing import Final
 
-__version__: str
+__version__: Final[str]
 
 class PDFError(Exception): ...
 
-__InternalName__: str
-__RefOnly__: str
-__Comment__: str
-BasicFonts: str
-Pages: str
-PDF_VERSION_DEFAULT: Incomplete
-PDF_SUPPORT_VERSION: Incomplete
+__InternalName__: Final[str]
+__RefOnly__: Final[str]
+__Comment__: Final[str]
+BasicFonts: Final[str]
+Pages: Final[str]
+PDF_VERSION_DEFAULT: Final[tuple[int, int]]
+PDF_SUPPORT_VERSION: Final[Mapping[str, tuple[int, int]]]
 
 def pdfdocEnc(x): ...
 def format(element, document, toplevel: int = 0): ...

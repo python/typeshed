@@ -1,7 +1,7 @@
 import datetime
 from _typeshed import Incomplete, SupportsItems
 from collections.abc import Generator
-from typing import TypeVar
+from typing import Final, Literal, TypeVar
 
 from reportlab.lib.rltempfile import get_rl_tempdir as get_rl_tempdir, get_rl_tempfile as get_rl_tempfile
 
@@ -14,13 +14,13 @@ from .rl_safe_eval import (
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 
-__version__: str
+__version__: Final[str]
 
 class _UNSET_:
     @staticmethod
-    def __bool__() -> bool: ...
+    def __bool__() -> Literal[False]: ...
 
-__UNSET__: _UNSET_
+__UNSET__: Final[_UNSET_]
 
 isPyPy: bool
 

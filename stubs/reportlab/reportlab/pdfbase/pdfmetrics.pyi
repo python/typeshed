@@ -1,8 +1,9 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.lib.rl_accel import unicode2T1 as unicode2T1
 
-__version__: str
+__version__: Final[str]
 standardFonts: Incomplete
 standardEncodings: Incomplete
 

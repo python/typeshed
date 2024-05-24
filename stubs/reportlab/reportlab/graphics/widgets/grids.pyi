@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.graphics.shapes import LineShape
 from reportlab.graphics.widgetbase import Widget
 
-__version__: str
+__version__: Final[str]
 
 def frange(start, end: Incomplete | None = None, inc: Incomplete | None = None): ...
 def makeDistancesList(list): ...

@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.graphics.widgetbase import PropHolder, Widget
 from reportlab.lib.attrmap import *
 
-__version__: str
+__version__: Final[str]
 
 class SubColProperty(PropHolder):
     dividerLines: int

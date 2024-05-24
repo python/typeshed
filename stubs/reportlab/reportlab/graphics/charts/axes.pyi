@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.graphics.charts.textlabels import PMVLabel
 from reportlab.graphics.widgetbase import Widget
 from reportlab.lib.attrmap import *
 from reportlab.lib.validators import Validator
 
-__version__: str
+__version__: Final[str]
 
 class AxisLabelAnnotation:
     def __init__(self, v, **kwds) -> None: ...

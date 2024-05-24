@@ -1,6 +1,6 @@
 from _typeshed import Unused
 from collections.abc import Callable, Iterable, Sequence
-from typing import Any, Literal, TypedDict, TypeVar, overload
+from typing import Any, Final, Literal, TypedDict, TypeVar, overload
 from typing_extensions import TypeAlias, Unpack
 
 from reportlab.lib.styles import ParagraphStyle, PropertySet
@@ -28,7 +28,7 @@ class _SimpleIndexKwargs(TypedDict, total=False):
     format: _SequencerFormat
     offset: int
 
-__version__: str
+__version__: Final[str]
 
 def unquote(txt: str) -> str: ...
 def drawPageNumbers(

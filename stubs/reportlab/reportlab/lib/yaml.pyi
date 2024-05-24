@@ -1,4 +1,6 @@
-__version__: str
+from typing import Final
+
+__version__: Final[str]
 PLAIN: int
 PREFORMATTED: int
 BULLETCHAR: str

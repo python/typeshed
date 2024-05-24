@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
+from typing import Final
 
 from reportlab.graphics.widgets.signsandsymbols import _Symbol
 from reportlab.lib.attrmap import *
 from reportlab.lib.validators import *
 
-__version__: str
+__version__: Final[str]
 validFlag: Incomplete
 
 class Star(_Symbol):

@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Final, Literal
 from typing_extensions import TypeAlias
 
 from reportlab.lib.colors import Color
@@ -7,7 +7,7 @@ from reportlab.pdfgen.canvas import Canvas
 # NOTE: This is slightly different from what toColor accepts and interprets
 _Color: TypeAlias = Color | tuple[float, float, float, float] | tuple[float, float, float] | list[float] | str
 
-__version__: str
+__version__: Final[str]
 log2vis: None
 
 def fribidiText(text: str, direction: str) -> str: ...

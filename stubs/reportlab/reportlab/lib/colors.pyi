@@ -1,5 +1,5 @@
 from collections.abc import Iterable, Iterator
-from typing import Literal, TypeVar, overload
+from typing import Final, Literal, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 _ColorT = TypeVar("_ColorT", bound=Color)
@@ -7,7 +7,7 @@ _ColorT = TypeVar("_ColorT", bound=Color)
 #       used in reportlab.pdfgen.textobject instead, so we pick a different name
 _ConvertibleToColor: TypeAlias = Color | list[float] | tuple[float, float, float, float] | tuple[float, float, float] | str | int
 
-__version__: str
+__version__: Final[str]
 
 class Color:
     red: float
