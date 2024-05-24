@@ -1,27 +1,30 @@
-from _typeshed import Incomplete
-
-from reportlab.platypus.paragraph import Paragraph
+from reportlab.lib.styles import PropertySet
+from reportlab.platypus.paragraph import Paragraph, ParaLines
+from reportlab.platypus.paraparser import ParaFrag
 
 class XPreformatted(Paragraph):
-    caseSensitive: Incomplete
     def __init__(
         self,
-        text,
-        style,
-        bulletText: Incomplete | None = None,
-        frags: Incomplete | None = None,
+        text: str,
+        # NOTE: This should be a ParagraphStyle
+        style: PropertySet,
+        bulletText: str | None = None,
+        frags: list[ParaFrag] | None = None,
         caseSensitive: int = 1,
         dedent: int = 0,
     ) -> None: ...
-    height: int
-    width: Incomplete
-    def breakLines(self, width): ...
-    breakLinesCJK = breakLines  # pyright: ignore[reportAssignmentType]
+    def breakLinesCJK(self, width: float | list[float] | tuple[float, ...]) -> ParaLines | ParaFrag: ...
 
 class PythonPreformatted(XPreformatted):
-    formats: Incomplete
+    formats: dict[str, tuple[str, str]]
     def __init__(
-        self, text, style, bulletText: Incomplete | None = None, dedent: int = 0, frags: Incomplete | None = None
+        self,
+        text: str,
+        # NOTE: This should be a ParagraphStyle
+        style: PropertySet,
+        bulletText: str | None = None,
+        dedent: int = 0,
+        frags: list[ParaFrag] | None = None,
     ) -> None: ...
-    def escapeHtml(self, text): ...
-    def fontify(self, code): ...
+    def escapeHtml(self, text: str) -> str: ...
+    def fontify(self, code: str) -> str: ...
