@@ -12,6 +12,10 @@ reportlab\.platypus\.(doctemplate\.|flowables\.|tableofcontents\.)?[A-Za-z_]+\.s
 reportlab\.platypus\.(doctemplate\.|flowables\.|tableofcontents\.)?[A-Za-z_]+\.wrap
 reportlab.platypus.multicol.MultiCol.split
 reportlab.platypus.multicol.MultiCol.wrap
+reportlab.platypus.para.FastPara.split
+reportlab.platypus.para.FastPara.wrap
+reportlab.platypus.para.Para.split
+reportlab.platypus.para.Para.wrap
 reportlab.platypus.paragraph.Paragraph.split
 reportlab.platypus.paragraph.Paragraph.wrap
 reportlab.platypus.tables.Table.split
