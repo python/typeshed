@@ -58,11 +58,6 @@ asyncio.streams.StreamWriter.__del__
 bdb.Bdb.dispatch_opcode
 bdb.Bdb.set_stepinstr
 bdb.Bdb.user_opcode
-builtins.IncompleteInputError
-builtins.PythonFinalizationError
-builtins.property.__name__
-builtins.str.format_map
-builtins.str.replace
 codecs.backslashreplace_errors
 codecs.ignore_errors
 codecs.namereplace_errors
