@@ -232,15 +232,6 @@ turtle.settiltangle
 types.CodeType.__replace__
 types.MappingProxyType.get
 types.SimpleNamespace.__replace__
-typing.ForwardRef._evaluate
-typing.ReadOnly
-typing.TypeIs
-typing.TypeVar.__typing_prepare_subst__
-typing.__all__
-typing_extensions.ForwardRef._evaluate
-typing_extensions.Protocol
-typing_extensions.ReadOnly
-typing_extensions.TypeIs
 unittest.IsolatedAsyncioTestCase.loop_factory
 unittest.TestProgram.usageExit
 unittest.__all__
@@ -381,6 +372,7 @@ importlib.metadata.DeprecatedNonAbstract.__new__
 typing\._SpecialForm.*
 typing\.NamedTuple
 typing\.LiteralString
+typing_extensions.Protocol
 
 # These only exist to give a better error message if you try to subclass an instance
 typing.ParamSpec.__mro_entries__
