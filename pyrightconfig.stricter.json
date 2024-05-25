@@ -92,6 +92,7 @@
         "stubs/requests-oauthlib",
         "stubs/seaborn",
         "stubs/setuptools/setuptools",
+        "stubs/shapely",
         "stubs/tensorflow",
         "stubs/tqdm",
         "stubs/ttkthemes",
