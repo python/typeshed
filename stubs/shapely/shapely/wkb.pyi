@@ -1,6 +1,6 @@
+from _typeshed import SupportsRead, SupportsWrite
 from typing import Literal, overload
 
-from ._typing import SupportsRead, SupportsWrite
 from .geometry.base import BaseGeometry
 from .lib import Geometry
 

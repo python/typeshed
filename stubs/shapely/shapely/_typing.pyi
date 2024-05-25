@@ -12,8 +12,6 @@ if sys.version_info >= (3, 12):
     from collections.abc import Buffer
 
 _T = TypeVar("_T")
-_T_co = TypeVar("_T_co", covariant=True)
-_T_contra = TypeVar("_T_contra", contravariant=True)
 _DType = TypeVar("_DType", bound=np.dtype[Any])
 _DType_co = TypeVar("_DType_co", covariant=True, bound=np.dtype[Any])
 
@@ -51,11 +49,3 @@ GeoArray: TypeAlias = NDArray[np.object_]
 class SupportsGeoInterface(Protocol):
     @property
     def __geo_interface__(self) -> dict[str, Any]: ...
-
-@type_check_only
-class SupportsRead(Protocol[_T_co]):
-    def read(self) -> _T_co: ...
-
-@type_check_only
-class SupportsWrite(Protocol[_T_contra]):
-    def write(self, s: _T_contra, /) -> object: ...

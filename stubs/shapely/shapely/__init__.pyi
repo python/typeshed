@@ -1,3 +1,5 @@
+from typing import Final
+
 from . import affinity as affinity
 from ._geometry import *
 from .constructive import *
@@ -29,4 +31,4 @@ from .predicates import *
 from .set_operations import *
 from .strtree import *
 
-__version__: str
+__version__: Final[str]
