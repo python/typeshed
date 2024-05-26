@@ -1,4 +1,5 @@
 import sys
+from _typeshed import SupportsWrite as SupportsWrite
 from collections.abc import Sequence
 from typing import Any, Protocol, TypeVar, type_check_only
 from typing_extensions import TypeAlias
@@ -12,6 +13,7 @@ if sys.version_info >= (3, 12):
     from collections.abc import Buffer
 
 _T = TypeVar("_T")
+_T_co = TypeVar("_T_co", covariant=True)
 _DType = TypeVar("_DType", bound=np.dtype[Any])
 _DType_co = TypeVar("_DType_co", covariant=True, bound=np.dtype[Any])
 
@@ -49,3 +51,8 @@ GeoArray: TypeAlias = NDArray[np.object_]
 class SupportsGeoInterface(Protocol):
     @property
     def __geo_interface__(self) -> dict[str, Any]: ...
+
+# Unlike _typeshed.SupportsRead, this protocol does not require a length parameter
+@type_check_only
+class SupportsRead(Protocol[_T_co]):
+    def read(self) -> _T_co: ...
