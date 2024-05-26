@@ -313,7 +313,7 @@ else:
     Concatenate: _SpecialForm
     TypeAlias: _SpecialForm
     TypeGuard: _SpecialForm
-    def is_typeddict(tp: object) -> bool: ...
+    def is_typeddict(tp: object) -> TypeIs[type[_TypedDict]]: ...
 
 # New and changed things in 3.11
 if sys.version_info >= (3, 11):
