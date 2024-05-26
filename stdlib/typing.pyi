@@ -21,7 +21,7 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
-from typing_extensions import Never as _Never, ParamSpec as _ParamSpec
+from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, TypeIs as _TypeIs
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -1013,7 +1013,7 @@ class ForwardRef:
         def __ror__(self, other: Any) -> _SpecialForm: ...
 
 if sys.version_info >= (3, 10):
-    def is_typeddict(tp: object) -> bool: ...
+    def is_typeddict(tp: object) -> _TypeIs[type[_TypedDict]]: ...
 
 def _type_repr(obj: object) -> str: ...
 
