@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import NamedTuple
+from typing import Literal, NamedTuple
 
 from docker.types.daemon import CancellableStream
 
@@ -57,7 +57,12 @@ class Container(Model):
     def top(self, **kwargs): ...
     def unpause(self): ...
     def update(self, **kwargs): ...
-    def wait(self, **kwargs): ...
+    def wait(
+        self,
+        *,
+        timeout: int = ...,
+        condition: Literal["not-running", "next-exit", "removed"] = "not-running",
+    ): ...
 
 class ContainerCollection(Collection[Container]):
     model: type[Container]
