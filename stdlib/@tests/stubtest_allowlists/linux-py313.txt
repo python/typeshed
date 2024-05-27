@@ -159,7 +159,6 @@ syslog.LOG_LAUNCHD
 syslog.LOG_NETINFO
 syslog.LOG_RAS
 syslog.LOG_REMOTEAUTH
-time.clock_gettime_ns
 
 # Exists on some Linux builds, and is documented,
 # but is unavailable in Github Actions on Linux with Python 3.12
