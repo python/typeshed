@@ -1,8 +1,7 @@
 import math
-from typing import Literal, Union
 from decimal import Decimal
+from typing import Literal, Union
 from typing_extensions import assert_type
-
 
 assert_type(math.prod([]), Literal[1])
 assert_type(math.prod([1]), int)
