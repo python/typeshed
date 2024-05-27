@@ -29,9 +29,6 @@ posix.unlockpt
 posix.waitid
 posix.waitid_result
 readline.backend
-time.clock_gettime_ns
-time.CLOCK_MONOTONIC_RAW_APPROX
-time.CLOCK_UPTIME_RAW_APPROX
 webbrowser.MacOSX
 
 # TODO: fix
