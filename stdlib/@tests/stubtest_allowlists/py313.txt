@@ -120,10 +120,6 @@ importlib.resources.path
 importlib.resources.read_binary
 importlib.resources.read_text
 io.IOBase._checkClosed
-ipaddress.IPv4Address.ipv6_mapped
-json.encoder.encode_basestring
-json.encoder.encode_basestring_ascii
-locale.resetlocale
 mailbox.Maildir.add_flag
 mailbox.Maildir.get_flags
 mailbox.Maildir.get_info
