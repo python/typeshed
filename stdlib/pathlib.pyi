@@ -15,7 +15,7 @@ from collections.abc import Callable, Generator, Iterator, Sequence
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike, stat_result
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Literal, overload
+from typing import IO, Any, BinaryIO, ClassVar, Literal, overload
 from typing_extensions import Self, deprecated
 
 if sys.version_info >= (3, 9):
@@ -28,7 +28,7 @@ if sys.version_info >= (3, 13):
 
 class PurePath(PathLike[str]):
     if sys.version_info >= (3, 13):
-        parser: types.ModuleType
+        parser: ClassVar[types.ModuleType]
         def full_match(self, pattern: StrPath, *, case_sensitive: bool | None = None) -> bool: ...
 
     @property
