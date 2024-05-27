@@ -1,9 +1,9 @@
 import sys
 from _typeshed import StrOrBytesPath
-from collections.abc import Iterator, Sequence
+from collections.abc import Iterator
 from typing import AnyStr
 
-__all__ = ["escape", "glob", "iglob", "translate"]
+__all__ = ["escape", "glob", "iglob"]
 
 def glob0(dirname: AnyStr, pattern: AnyStr) -> list[AnyStr]: ...
 def glob1(dirname: AnyStr, pattern: AnyStr) -> list[AnyStr]: ...
@@ -40,8 +40,3 @@ else:
 
 def escape(pathname: AnyStr) -> AnyStr: ...
 def has_magic(s: str | bytes) -> bool: ...  # undocumented
-
-if sys.version_info >= (3, 13):
-    def translate(
-        pat: AnyStr, *, recursive: bool = False, include_hidden: bool = False, seps: Sequence[str] | None = None
-    ) -> str: ...

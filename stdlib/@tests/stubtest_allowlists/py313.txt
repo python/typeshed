@@ -101,6 +101,8 @@ enum.EnumDict
 enum._EnumDict.member_names
 enum.__all__
 filecmp.dircmp.__init__
+glob.__all__
+glob.translate
 importlib.metadata.DeprecatedTuple
 importlib.metadata.Distribution.origin
 importlib.metadata._meta.SimplePath.exists
