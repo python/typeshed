@@ -421,8 +421,8 @@ class _ProtocolMeta(abc.ABCMeta):
 # in the case of narrowing a type to a protocol.
 @type_check_only
 class _Protocol(metaclass=_ProtocolMeta):
-    _is_protocol: Literal[True]
-    _is_runtime_protocol: bool
+    _is_protocol: ClassVar[Literal[True]]
+    _is_runtime_protocol: ClassVar[bool]
 
 if sys.version_info >= (3, 13):
     from types import CapsuleType as CapsuleType

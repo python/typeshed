@@ -1019,8 +1019,8 @@ if sys.version_info >= (3, 10):
 # in the case of narrowing a type to a protocol.
 @type_check_only
 class _Protocol(metaclass=_ProtocolMeta):
-    _is_protocol: Literal[True]
-    _is_runtime_protocol: bool
+    _is_protocol: ClassVar[Literal[True]]
+    _is_runtime_protocol: ClassVar[bool]
 
 def _type_repr(obj: object) -> str: ...
 
