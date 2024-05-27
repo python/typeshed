@@ -27,7 +27,8 @@ if sys.version_info >= (3, 13):
     __all__ += ["UnsupportedOperation"]
 
 class PurePath(PathLike[str]):
-    parser: types.ModuleType
+    if sys.version_info >= (3, 13):
+        parser: types.ModuleType
     @property
     def parts(self) -> tuple[str, ...]: ...
     @property
@@ -96,13 +97,8 @@ class PurePath(PathLike[str]):
     if sys.version_info >= (3, 12):
         def with_segments(self, *args: StrPath) -> Self: ...
 
-class PurePosixPath(PurePath):
-    if sys.version_info >= (3, 13):
-        parser: types.ModuleType
-
-class PureWindowsPath(PurePath):
-    if sys.version_info >= (3, 13):
-        parser: types.ModuleType
+class PurePosixPath(PurePath): ...
+class PureWindowsPath(PurePath): ...
 
 class Path(PurePath):
     def __new__(cls, *args: StrPath, **kwargs: Any) -> Self: ...
