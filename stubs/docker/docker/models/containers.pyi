@@ -1,5 +1,6 @@
+import datetime
 from _typeshed import Incomplete
-from typing import NamedTuple
+from typing import Literal, NamedTuple, overload
 
 from docker.types.daemon import CancellableStream
 
@@ -44,7 +45,43 @@ class Container(Model):
         self, path, chunk_size: int | None = 2097152, encode_stream: bool = False
     ) -> tuple[Incomplete, Incomplete]: ...
     def kill(self, signal: Incomplete | None = None): ...
-    def logs(self, **kwargs) -> CancellableStream | bytes: ...
+    @overload
+    def logs(
+        self,
+        stdout: bool = True,
+        stderr: bool = True,
+        *,
+        stream: Literal[True],
+        timestamps: bool = False,
+        tail: Literal["all"] | int = "all",
+        since: datetime.datetime | float | None = None,
+        follow: bool | None = None,
+        until: datetime.datetime | float | None = None,
+    ) -> CancellableStream: ...
+    @overload
+    def logs(
+        self,
+        stdout: bool,
+        stderr: bool,
+        stream: Literal[True],
+        timestamps: bool = False,
+        tail: Literal["all"] | int = "all",
+        since: datetime.datetime | float | None = None,
+        follow: bool | None = None,
+        until: datetime.datetime | float | None = None,
+    ) -> CancellableStream: ...
+    @overload
+    def logs(
+        self,
+        stdout: bool = True,
+        stderr: bool = True,
+        stream: Literal[False] = False,
+        timestamps: bool = False,
+        tail: Literal["all"] | int = "all",
+        since: datetime.datetime | float | None = None,
+        follow: bool | None = None,
+        until: datetime.datetime | float | None = None,
+    ) -> bytes: ...
     def pause(self): ...
     def put_archive(self, path: str, data) -> bool: ...
     def remove(self, **kwargs) -> None: ...
