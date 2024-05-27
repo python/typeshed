@@ -134,8 +134,6 @@ os.timerfd_gettime_ns
 os.timerfd_settime
 os.timerfd_settime_ns
 os.unlockpt
-pathlib.Path.group
-pathlib.Path.owner
 posix.POSIX_SPAWN_CLOSEFROM
 posix.TFD_CLOEXEC
 posix.TFD_NONBLOCK
