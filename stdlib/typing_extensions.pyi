@@ -61,6 +61,7 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039
     Union as Union,
     ValuesView as ValuesView,
     _Alias,
+    _ProtocolMeta,
     cast as cast,
     no_type_check as no_type_check,
     no_type_check_decorator as no_type_check_decorator,
@@ -414,6 +415,13 @@ else:
         # https://github.com/python/typeshed/issues/10224 for why we're defining it this way
         def __buffer__(self, flags: int, /) -> memoryview: ...
 
+# It's invalid to use `Protocol` in a `TypeIs` context, but we need to define it for type checking
+# in the case of narrowing a type to a protocol.
+@type_check_only
+class _Protocol(metaclass=_ProtocolMeta):
+    _is_protocol: Literal[True]
+    _is_runtime_protocol: bool
+
 if sys.version_info >= (3, 13):
     from types import CapsuleType as CapsuleType
     from typing import (
@@ -428,7 +436,7 @@ if sys.version_info >= (3, 13):
     )
     from warnings import deprecated as deprecated
 else:
-    def is_protocol(tp: type, /) -> bool: ...
+    def is_protocol(tp: type, /) -> TypeIs[type[_Protocol]]: ...
     def get_protocol_members(tp: type, /) -> frozenset[str]: ...
     @final
     class _NoDefaultType: ...
