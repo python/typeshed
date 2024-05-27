@@ -87,16 +87,10 @@ def print_list(extracted_list: Iterable[FrameSummary | _FrameSummaryTuple], file
 
 if sys.version_info >= (3, 13):
     @overload
-    def format_exception_only(exc: BaseExceptionGroup[BaseException], /, *, show_group: bool = False) -> list[str]: ...
+    def format_exception_only(exc: BaseException | None, /, *, show_group: bool = False) -> list[str]: ...
     @overload
     def format_exception_only(
-        exc: Unused, /, value: BaseExceptionGroup[BaseException], *, show_group: bool = False
-    ) -> list[str]: ...
-    @overload
-    def format_exception_only(exc: BaseException | None, /, *, show_group: Literal[False] = False) -> list[str]: ...
-    @overload
-    def format_exception_only(
-        exc: Unused, /, value: BaseException | None, *, show_group: Literal[False] = False
+        exc: Unused, /, value: BaseException | None, *, show_group: bool = False
     ) -> list[str]: ...
 
 elif sys.version_info >= (3, 10):
