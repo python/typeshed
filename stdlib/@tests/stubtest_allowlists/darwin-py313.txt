@@ -20,8 +20,6 @@ os.ptsname
 os.unlockpt
 os.waitid
 os.waitid_result
-pathlib.Path.group
-pathlib.Path.owner
 posix.grantpt
 posix.posix_openpt
 posix.ptsname
