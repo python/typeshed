@@ -1015,16 +1015,12 @@ class ForwardRef:
 if sys.version_info >= (3, 10):
     def is_typeddict(tp: object) -> bool: ...
 
-
-
-
 # It's invalid to use `Protocol` in a `TypeIs` context, but we need to define it for type checking
 # in the case of narrowing a type to a protocol.
 @type_check_only
 class _Protocol(metaclass=_ProtocolMeta):
     _is_protocol: Literal[True]
     _is_runtime_protocol: bool
-
 
 def _type_repr(obj: object) -> str: ...
 
