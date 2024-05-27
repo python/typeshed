@@ -89,9 +89,7 @@ if sys.version_info >= (3, 13):
     @overload
     def format_exception_only(exc: BaseException | None, /, *, show_group: bool = False) -> list[str]: ...
     @overload
-    def format_exception_only(
-        exc: Unused, /, value: BaseException | None, *, show_group: bool = False
-    ) -> list[str]: ...
+    def format_exception_only(exc: Unused, /, value: BaseException | None, *, show_group: bool = False) -> list[str]: ...
 
 elif sys.version_info >= (3, 10):
     @overload
