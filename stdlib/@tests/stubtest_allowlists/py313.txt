@@ -101,8 +101,6 @@ enum.EnumDict
 enum._EnumDict.member_names
 enum.__all__
 filecmp.dircmp.__init__
-glob.__all__
-glob.translate
 importlib.metadata.DeprecatedTuple
 importlib.metadata.Distribution.origin
 importlib.metadata._meta.SimplePath.exists
@@ -120,10 +118,6 @@ importlib.resources.path
 importlib.resources.read_binary
 importlib.resources.read_text
 io.IOBase._checkClosed
-ipaddress.IPv4Address.ipv6_mapped
-json.encoder.encode_basestring
-json.encoder.encode_basestring_ascii
-locale.resetlocale
 mailbox.Maildir.add_flag
 mailbox.Maildir.get_flags
 mailbox.Maildir.get_info
