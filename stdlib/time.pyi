@@ -28,8 +28,8 @@ if sys.platform != "win32":
 if sys.platform == "darwin":
     CLOCK_UPTIME_RAW: int
     if sys.version_info >= (3, 13):
-	    CLOCK_UPTIME_RAW_APPROX: int
-	    CLOCK_MONOTONIC_RAW_APPROX: int
+        CLOCK_UPTIME_RAW_APPROX: int
+        CLOCK_MONOTONIC_RAW_APPROX: int
 
 if sys.version_info >= (3, 9) and sys.platform == "linux":
     CLOCK_TAI: int
