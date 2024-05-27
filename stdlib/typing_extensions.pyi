@@ -415,8 +415,7 @@ else:
         def __buffer__(self, flags: int, /) -> memoryview: ...
 
 class _ProtocolMeta(abc.ABCMeta):
-    if sys.version_info >= (3, 12):
-        def __init__(cls, *args: Any, **kwargs: Any) -> None: ...
+    def __init__(cls, *args: Any, **kwargs: Any) -> None: ...
 
 # It's invalid to use `Protocol` in a `TypeIs` context, but we need to define it for type checking
 # in the case of narrowing a type to a protocol.
