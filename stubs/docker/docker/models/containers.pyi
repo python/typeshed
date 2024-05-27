@@ -48,31 +48,20 @@ class Container(Model):
     @overload
     def logs(
         self,
+        *,
         stdout: bool = True,
         stderr: bool = True,
+        stream: Literal[True],
+        timestamps: bool = False,
+        tail: Literal["all"] | int = "all",
+        since: datetime.datetime | float | None = None,
+        follow: bool | None = None,
+        until: datetime.datetime | float | None = None,
+    ) -> CancellableStream: ...
+    @overload
+    def logs(
+        self,
         *,
-        stream: Literal[True],
-        timestamps: bool = False,
-        tail: Literal["all"] | int = "all",
-        since: datetime.datetime | float | None = None,
-        follow: bool | None = None,
-        until: datetime.datetime | float | None = None,
-    ) -> CancellableStream: ...
-    @overload
-    def logs(
-        self,
-        stdout: bool,
-        stderr: bool,
-        stream: Literal[True],
-        timestamps: bool = False,
-        tail: Literal["all"] | int = "all",
-        since: datetime.datetime | float | None = None,
-        follow: bool | None = None,
-        until: datetime.datetime | float | None = None,
-    ) -> CancellableStream: ...
-    @overload
-    def logs(
-        self,
         stdout: bool = True,
         stderr: bool = True,
         stream: Literal[False] = False,
