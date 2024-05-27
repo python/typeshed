@@ -414,13 +414,10 @@ else:
         # https://github.com/python/typeshed/issues/10224 for why we're defining it this way
         def __buffer__(self, flags: int, /) -> memoryview: ...
 
-class _ProtocolMeta(abc.ABCMeta):
-    def __init__(cls, *args: Any, **kwargs: Any) -> None: ...
-
 # It's invalid to use `Protocol` in a `TypeIs` context, but we need to define it for type checking
 # in the case of narrowing a type to a protocol.
 @type_check_only
-class _Protocol(metaclass=_ProtocolMeta):
+class _Protocol(metaclass=abc.ABCMeta):
     _is_protocol: ClassVar[Literal[True]]
     _is_runtime_protocol: ClassVar[bool]
 
