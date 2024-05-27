@@ -1,4 +1,5 @@
 import sys
+import types
 from _typeshed import (
     OpenBinaryMode,
     OpenBinaryModeReading,
@@ -26,6 +27,7 @@ if sys.version_info >= (3, 13):
     __all__ += ["UnsupportedOperation"]
 
 class PurePath(PathLike[str]):
+    parser: types.ModuleType
     @property
     def parts(self) -> tuple[str, ...]: ...
     @property
@@ -96,11 +98,11 @@ class PurePath(PathLike[str]):
 
 class PurePosixPath(PurePath):
     if sys.version_info >= (3, 13):
-        ...
+        parser: types.ModuleType
 
 class PureWindowsPath(PurePath):
     if sys.version_info >= (3, 13):
-        ...
+        parser: types.ModuleType
 
 class Path(PurePath):
     def __new__(cls, *args: StrPath, **kwargs: Any) -> Self: ...

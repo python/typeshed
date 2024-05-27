@@ -136,9 +136,6 @@ mimetypes.__all__
 mimetypes.guess_file_type
 mmap.mmap.seekable
 multiprocessing.shared_memory.SharedMemory.__init__
-pathlib.PurePath.parser
-pathlib.PurePosixPath.parser
-pathlib.PureWindowsPath.parser
 pdb.Pdb.MAX_CHAINED_EXCEPTION_DEPTH
 pdb.Pdb.completedefault
 pdb.Pdb.completenames
