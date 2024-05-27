@@ -97,9 +97,6 @@ doctest.TestResults.__doc__
 doctest.TestResults.__new__
 email.utils.getaddresses
 email.utils.parseaddr
-enum.EnumDict
-enum._EnumDict.member_names
-enum.__all__
 filecmp.dircmp.__init__
 glob.__all__
 glob.translate
