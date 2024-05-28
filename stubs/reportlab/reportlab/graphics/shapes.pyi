@@ -300,6 +300,9 @@ class Wedge(SolidShape):
     endangledegrees: float
     yradius: float | None
     annular: bool
+    # NOTE: This one is not actually settable on the instance if runtime validation
+    #       is turned on, but it seems bad to disallow it anyways
+    degreedelta: float
     def __init__(
         self,
         centerx: float,

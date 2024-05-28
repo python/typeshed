@@ -8,6 +8,7 @@ reportlab\.platypus\.(doctemplate\.|flowables\.)?[A-Za-z_]+\.drawOn
 
 # similary the wrap/split methods use inconsistent names for their
 # parameters, so we decided to make them positional-only
+reportlab.graphics.shapes.Drawing.wrap
 reportlab\.platypus\.(doctemplate\.|flowables\.|tableofcontents\.)?[A-Za-z_]+\.split
 reportlab\.platypus\.(doctemplate\.|flowables\.|tableofcontents\.)?[A-Za-z_]+\.wrap
 reportlab.platypus.multicol.MultiCol.split
