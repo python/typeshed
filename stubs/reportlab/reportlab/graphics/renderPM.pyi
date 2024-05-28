@@ -1,13 +1,15 @@
 from _typeshed import Incomplete
-from typing import Final
+from typing import IO, Final
 
 from reportlab.graphics.renderbase import Renderer
+from reportlab.graphics.shapes import Drawing
+from reportlab.pdfgen.canvas import Canvas
 
 __version__: Final[str]
 
 def Color2Hex(c): ...
 def CairoColor(c): ...
-def draw(drawing, canvas, x, y, showBoundary=...) -> None: ...
+def draw(drawing: Drawing, canvas: Canvas, x: float, y: float, showBoundary=...) -> None: ...
 
 class _PMRenderer(Renderer):
     def pop(self) -> None: ...
@@ -72,53 +74,53 @@ class PMCanvas:
     def setLineWidth(self, width) -> None: ...
 
 def drawToPMCanvas(
-    d,
-    dpi: int = 72,
-    bg: int = 16777215,
+    d: Drawing,
+    dpi: float = 72,
+    bg: int = 0xFFFFFF,
     configPIL: Incomplete | None = None,
     showBoundary=...,
     backend="rlPyCairo",
     backendFmt: str = "RGB",
 ): ...
 def drawToPIL(
-    d,
-    dpi: int = 72,
-    bg: int = 16777215,
+    d: Drawing,
+    dpi: float = 72,
+    bg: int = 0xFFFFFF,
     configPIL: Incomplete | None = None,
     showBoundary=...,
     backend="rlPyCairo",
     backendFmt: str = "RGB",
 ): ...
 def drawToPILP(
-    d,
-    dpi: int = 72,
-    bg: int = 16777215,
+    d: Drawing,
+    dpi: float = 72,
+    bg: int = 0xFFFFFF,
     configPIL: Incomplete | None = None,
     showBoundary=...,
     backend="rlPyCairo",
     backendFmt: str = "RGB",
 ): ...
 def drawToFile(
-    d,
-    fn,
+    d: Drawing,
+    fn: str | IO[bytes],
     fmt: str = "GIF",
-    dpi: int = 72,
-    bg: int = 16777215,
+    dpi: float = 72,
+    bg: int = 0xFFFFFF,
     configPIL: Incomplete | None = None,
     showBoundary=...,
     backend="rlPyCairo",
     backendFmt: str = "RGB",
 ) -> None: ...
 def drawToString(
-    d,
+    d: Drawing,
     fmt: str = "GIF",
-    dpi: int = 72,
-    bg: int = 16777215,
+    dpi: float = 72,
+    bg: int = 0xFFFFFF,
     configPIL: Incomplete | None = None,
     showBoundary=...,
     backend="rlPyCairo",
     backendFmt: str = "RGB",
-): ...
+) -> str: ...
 
 save = drawToFile
 

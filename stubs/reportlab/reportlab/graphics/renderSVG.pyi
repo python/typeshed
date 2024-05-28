@@ -1,9 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Sequence
 from math import cos as cos, pi as pi, sin as sin
-from typing import Final
+from typing import IO, Final
 
 from reportlab.graphics.renderbase import Renderer
+from reportlab.graphics.shapes import Drawing
+from reportlab.pdfgen.canvas import Canvas
 
 AREA_STYLES: Final[Sequence[str]]
 LINE_STYLES: Final[Sequence[str]]
@@ -11,9 +13,9 @@ TEXT_STYLES: Final[Sequence[str]]
 EXTRA_STROKE_STYLES: Final[Sequence[str]]
 EXTRA_FILL_STYLES: Final[Sequence[str]]
 
-def drawToString(d, showBoundary=0, **kwds): ...
-def drawToFile(d, fn, showBoundary=0, **kwds) -> None: ...
-def draw(drawing, canvas, x: int = 0, y: int = 0, showBoundary=0) -> None: ...
+def drawToString(d: Drawing, showBoundary=0, **kwds) -> str: ...
+def drawToFile(d: Drawing, fn: str | IO[str], showBoundary=0, **kwds) -> None: ...
+def draw(drawing: Drawing, canvas: Canvas, x: float = 0, y: float = 0, showBoundary=0) -> None: ...
 def transformNode(doc, newTag, node: Incomplete | None = None, **attrDict): ...
 
 class EncodedWriter(list[Incomplete]):
