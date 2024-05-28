@@ -111,57 +111,107 @@ class RawConfigParser(_Parser):
 
     BOOLEAN_STATES: ClassVar[Mapping[str, bool]]  # undocumented
     default_section: str
-    @overload
-    def __init__(
-        self,
-        defaults: Mapping[str, str | None] | None = None,
-        dict_type: type[Mapping[str, str]] = ...,
-        *,
-        allow_no_value: Literal[True],
-        delimiters: Sequence[str] = ("=", ":"),
-        comment_prefixes: Sequence[str] = ("#", ";"),
-        inline_comment_prefixes: Sequence[str] | None = None,
-        strict: bool = True,
-        empty_lines_in_values: bool = True,
-        default_section: str = "DEFAULT",
-        interpolation: Interpolation | None = ...,
-        converters: _ConvertersMap = ...,
-        allow_unnamed_section: bool = False,
-    ) -> None: ...
-    @overload
-    def __init__(
-        self,
-        defaults: Mapping[str, str | None] | None,
-        dict_type: type[Mapping[str, str]],
-        allow_no_value: Literal[True],
-        *,
-        delimiters: Sequence[str] = ("=", ":"),
-        comment_prefixes: Sequence[str] = ("#", ";"),
-        inline_comment_prefixes: Sequence[str] | None = None,
-        strict: bool = True,
-        empty_lines_in_values: bool = True,
-        default_section: str = "DEFAULT",
-        interpolation: Interpolation | None = ...,
-        converters: _ConvertersMap = ...,
-        allow_unnamed_section: bool = False,
-    ) -> None: ...
-    @overload
-    def __init__(
-        self,
-        defaults: _Section | None = None,
-        dict_type: type[Mapping[str, str]] = ...,
-        allow_no_value: bool = False,
-        *,
-        delimiters: Sequence[str] = ("=", ":"),
-        comment_prefixes: Sequence[str] = ("#", ";"),
-        inline_comment_prefixes: Sequence[str] | None = None,
-        strict: bool = True,
-        empty_lines_in_values: bool = True,
-        default_section: str = "DEFAULT",
-        interpolation: Interpolation | None = ...,
-        converters: _ConvertersMap = ...,
-        allow_unnamed_section: bool = False,
-    ) -> None: ...
+    if sys.version_info >= (3, 13):
+        @overload
+        def __init__(
+            self,
+            defaults: Mapping[str, str | None] | None = None,
+            dict_type: type[Mapping[str, str]] = ...,
+            *,
+            allow_no_value: Literal[True],
+            delimiters: Sequence[str] = ("=", ":"),
+            comment_prefixes: Sequence[str] = ("#", ";"),
+            inline_comment_prefixes: Sequence[str] | None = None,
+            strict: bool = True,
+            empty_lines_in_values: bool = True,
+            default_section: str = "DEFAULT",
+            interpolation: Interpolation | None = ...,
+            converters: _ConvertersMap = ...,
+            allow_unnamed_section: bool = False,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            defaults: Mapping[str, str | None] | None,
+            dict_type: type[Mapping[str, str]],
+            allow_no_value: Literal[True],
+            *,
+            delimiters: Sequence[str] = ("=", ":"),
+            comment_prefixes: Sequence[str] = ("#", ";"),
+            inline_comment_prefixes: Sequence[str] | None = None,
+            strict: bool = True,
+            empty_lines_in_values: bool = True,
+            default_section: str = "DEFAULT",
+            interpolation: Interpolation | None = ...,
+            converters: _ConvertersMap = ...,
+            allow_unnamed_section: bool = False,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            defaults: _Section | None = None,
+            dict_type: type[Mapping[str, str]] = ...,
+            allow_no_value: bool = False,
+            *,
+            delimiters: Sequence[str] = ("=", ":"),
+            comment_prefixes: Sequence[str] = ("#", ";"),
+            inline_comment_prefixes: Sequence[str] | None = None,
+            strict: bool = True,
+            empty_lines_in_values: bool = True,
+            default_section: str = "DEFAULT",
+            interpolation: Interpolation | None = ...,
+            converters: _ConvertersMap = ...,
+            allow_unnamed_section: bool = False,
+        ) -> None: ...
+    else:
+        @overload
+        def __init__(
+            self,
+            defaults: Mapping[str, str | None] | None = None,
+            dict_type: type[Mapping[str, str]] = ...,
+            *,
+            allow_no_value: Literal[True],
+            delimiters: Sequence[str] = ("=", ":"),
+            comment_prefixes: Sequence[str] = ("#", ";"),
+            inline_comment_prefixes: Sequence[str] | None = None,
+            strict: bool = True,
+            empty_lines_in_values: bool = True,
+            default_section: str = "DEFAULT",
+            interpolation: Interpolation | None = ...,
+            converters: _ConvertersMap = ...,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            defaults: Mapping[str, str | None] | None,
+            dict_type: type[Mapping[str, str]],
+            allow_no_value: Literal[True],
+            *,
+            delimiters: Sequence[str] = ("=", ":"),
+            comment_prefixes: Sequence[str] = ("#", ";"),
+            inline_comment_prefixes: Sequence[str] | None = None,
+            strict: bool = True,
+            empty_lines_in_values: bool = True,
+            default_section: str = "DEFAULT",
+            interpolation: Interpolation | None = ...,
+            converters: _ConvertersMap = ...,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            defaults: _Section | None = None,
+            dict_type: type[Mapping[str, str]] = ...,
+            allow_no_value: bool = False,
+            *,
+            delimiters: Sequence[str] = ("=", ":"),
+            comment_prefixes: Sequence[str] = ("#", ";"),
+            inline_comment_prefixes: Sequence[str] | None = None,
+            strict: bool = True,
+            empty_lines_in_values: bool = True,
+            default_section: str = "DEFAULT",
+            interpolation: Interpolation | None = ...,
+            converters: _ConvertersMap = ...,
+        ) -> None: ...
     def __len__(self) -> int: ...
     def __getitem__(self, key: str) -> SectionProxy: ...
     def __setitem__(self, key: str, value: _Section) -> None: ...
@@ -346,6 +396,7 @@ class MissingSectionHeaderError(ParsingError):
 if sys.version_info >= (3, 13):
     class _UNNAMED_SECTION: ...
     UNNAMED_SECTION: _UNNAMED_SECTION
+
     class MultilineContinuationError(ParsingError):
         lineno: int
         line: str
