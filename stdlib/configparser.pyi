@@ -5,7 +5,31 @@ from re import Pattern
 from typing import Any, ClassVar, Literal, TypeVar, overload
 from typing_extensions import TypeAlias
 
-if sys.version_info >= (3, 12):
+if sys.version_info >= (3, 13):
+    __all__ = (
+        "NoSectionError",
+        "DuplicateOptionError",
+        "DuplicateSectionError",
+        "NoOptionError",
+        "InterpolationError",
+        "InterpolationDepthError",
+        "InterpolationMissingOptionError",
+        "InterpolationSyntaxError",
+        "ParsingError",
+        "MissingSectionHeaderError",
+        "ConfigParser",
+        "RawConfigParser",
+        "Interpolation",
+        "BasicInterpolation",
+        "ExtendedInterpolation",
+        "SectionProxy",
+        "ConverterMapping",
+        "DEFAULTSECT",
+        "MAX_INTERPOLATION_DEPTH",
+        "UNNAMED_SECTION",
+        "MultilineContinuationError",
+    )
+elif sys.version_info >= (3, 12):
     __all__ = (
         "NoSectionError",
         "DuplicateOptionError",
@@ -71,8 +95,9 @@ class Interpolation:
 class BasicInterpolation(Interpolation): ...
 class ExtendedInterpolation(Interpolation): ...
 
-class LegacyInterpolation(Interpolation):
-    def before_get(self, parser: _Parser, section: str, option: str, value: str, vars: _Section) -> str: ...
+if sys.version_info < (3, 13):
+    class LegacyInterpolation(Interpolation):
+        def before_get(self, parser: _Parser, section: str, option: str, value: str, vars: _Section) -> str: ...
 
 class RawConfigParser(_Parser):
     _SECT_TMPL: ClassVar[str]  # undocumented
@@ -101,6 +126,7 @@ class RawConfigParser(_Parser):
         default_section: str = "DEFAULT",
         interpolation: Interpolation | None = ...,
         converters: _ConvertersMap = ...,
+        allow_unnamed_section: bool = False,
     ) -> None: ...
     @overload
     def __init__(
@@ -117,6 +143,7 @@ class RawConfigParser(_Parser):
         default_section: str = "DEFAULT",
         interpolation: Interpolation | None = ...,
         converters: _ConvertersMap = ...,
+        allow_unnamed_section: bool = False,
     ) -> None: ...
     @overload
     def __init__(
@@ -133,6 +160,7 @@ class RawConfigParser(_Parser):
         default_section: str = "DEFAULT",
         interpolation: Interpolation | None = ...,
         converters: _ConvertersMap = ...,
+        allow_unnamed_section: bool = False,
     ) -> None: ...
     def __len__(self) -> int: ...
     def __getitem__(self, key: str) -> SectionProxy: ...
@@ -300,7 +328,10 @@ class InterpolationSyntaxError(InterpolationError): ...
 class ParsingError(Error):
     source: str
     errors: list[tuple[int, str]]
-    if sys.version_info >= (3, 12):
+    if sys.version_info >= (3, 13):
+        def __init__(self, source: str, *args: object) -> None: ...
+        def combine(self, others: Sequence[ParsingError]) -> ParsingError: ...
+    elif sys.version_info >= (3, 12):
         def __init__(self, source: str) -> None: ...
     else:
         def __init__(self, source: str | None = None, filename: str | None = None) -> None: ...
@@ -311,3 +342,11 @@ class MissingSectionHeaderError(ParsingError):
     lineno: int
     line: str
     def __init__(self, filename: str, lineno: int, line: str) -> None: ...
+
+if sys.version_info >= (3, 13):
+    class _UNNAMED_SECTION: ...
+    UNNAMED_SECTION: _UNNAMED_SECTION
+    class MultilineContinuationError(ParsingError):
+        lineno: int
+        line: str
+        def __init__(self, filename: str, lineno: int, line: str) -> None: ...
