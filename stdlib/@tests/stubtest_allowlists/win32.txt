@@ -20,18 +20,14 @@ _winapi.VirtualQuerySize
 _curses
 _posixsubprocess
 asyncio.unix_events
-crypt
 dbm.gnu
 dbm.ndbm
 fcntl
 grp
-nis
-ossaudiodev
 posix
 pwd
 readline
 resource
-spwd
 syslog
 termios
 xxlimited
@@ -51,10 +47,6 @@ curses.textpad
 # Modules that rely on termios
 pty
 tty
-
-# pathlib functions that rely on modules that don't exist on Windows
-pathlib.Path.owner
-pathlib.Path.group
 
 # Added in a patch release, backported to all security branches,
 # but have yet to find their way to all GitHub Actions images
