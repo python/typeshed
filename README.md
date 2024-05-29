@@ -122,3 +122,19 @@ For less formal discussion, try the typing chat room on
 are almost always present; feel free to find us there and we're happy
 to chat.  Substantive technical discussion will be directed to the
 issue tracker.
+>>> import pandas as pd
+>>> frame = pd.DataFrame({("A", "a"): range(3), ("A", "b"): range(3, 6)})
+>>> frame
+   A   
+   a  b
+0  0  3
+1  1  4
+2  2  5
+>>> frame.melt(var_name=["upper", "lower"])
+  upper lower  value
+0     A     a      0
+1     A     a      1
+2     A     a      2
+3     A     b      3
+4     A     b      4
+5     A     b      5git remote add origin <REMOTE_URL>gh repo clone pandas-dev/pandas
