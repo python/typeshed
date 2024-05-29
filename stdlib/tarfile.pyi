@@ -177,6 +177,7 @@ class TarFile:
             errorlevel: int | None = None,
             copybufsize: int | None = None,  # undocumented
         ) -> None: ...
+
     def __enter__(self) -> Self: ...
     def __exit__(
         self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
