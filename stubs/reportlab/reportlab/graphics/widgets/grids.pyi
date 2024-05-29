@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Final
+from typing import Final, NoReturn
 
 from reportlab.graphics.shapes import LineShape
 from reportlab.graphics.widgetbase import Widget
@@ -72,3 +72,5 @@ class ShadedPolygon(Widget, LineShape):
     points: Incomplete
     def __init__(self, **kw) -> None: ...
     def draw(self): ...
+    # NOTE: widgets don't implement this, only actual shapes
+    def copy(self) -> NoReturn: ...
