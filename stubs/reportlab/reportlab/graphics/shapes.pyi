@@ -11,7 +11,7 @@ from reportlab.platypus import Flowable
 from reportlab.platypus.flowables import _HAlignment, _VAlignment
 
 _IntBool: TypeAlias = Literal[0, 1]
-_AnyBool: TypeAlias = _IntBool | bool
+_BoolLike: TypeAlias = _IntBool | bool
 _PathOp: TypeAlias = (
     tuple[Literal["moveTo"], float, float]
     | tuple[Literal["lineTo"], float, float]
@@ -31,9 +31,9 @@ class _GroupKwArgs(TypedDict, total=False):
     #       it's mostly useful for circumventing validation logic and
     #       reusing the list, rather than populating a new list
     contents: list[Shape]
-    strokeOverprint: _AnyBool
-    fillOverprint: _AnyBool
-    overprintMask: _AnyBool
+    strokeOverprint: _BoolLike
+    fillOverprint: _BoolLike
+    overprintMask: _BoolLike
 
 class _DrawingKwArgs(_GroupKwArgs, total=False):
     # TODO: Restrict to supported formats?
@@ -58,18 +58,18 @@ class _LineShapeKwArgs(TypedDict, total=False):
     strokeMiterLimit: float
     strokeDashArray: Sequence[float] | tuple[float, Sequence[float]]
     strokeOpacity: float | None
-    strokeOverprint: _AnyBool
-    overprintMask: _AnyBool
+    strokeOverprint: _BoolLike
+    overprintMask: _BoolLike
 
 class _PathKwArgs(_LineShapeKwArgs, total=False):
     fillColor: Color | None
     fillOpacity: float
-    fillOverprint: _AnyBool
+    fillOverprint: _BoolLike
 
 class _AllPathKwArgs(_PathKwArgs, total=False):
     points: list[float] | None
     operators: list[float] | None
-    isClipPath: _AnyBool
+    isClipPath: _BoolLike
     autoclose: Literal["svg", "pdf"] | None
     fillMode: Literal[0, 1]
 
@@ -202,14 +202,14 @@ class SolidShape(LineShape):
 class Path(SolidShape):
     points: list[float]
     operators: list[float]
-    isClipPath: _AnyBool
+    isClipPath: _BoolLike
     autoclose: Literal["svg", "pdf"] | None
     fillMode: Literal[0, 1]
     def __init__(
         self,
         points: list[float] | None = None,
         operators: list[float] | None = None,
-        isClipPath: _AnyBool = 0,
+        isClipPath: _BoolLike = 0,
         autoclose: Literal["svg", "pdf"] | None = None,
         fillMode: Literal[0, 1] = 0,
         **kw: Unpack[_PathKwArgs],
@@ -231,7 +231,7 @@ def getArcPoints(
     endangledegrees: float,
     yradius: float | None = None,
     degreedelta: float | None = None,
-    reverse: _AnyBool | None = None,
+    reverse: _BoolLike | None = None,
 ) -> list[float]: ...
 
 class ArcPath(Path):
@@ -244,12 +244,12 @@ class ArcPath(Path):
         endangledegrees: float,
         yradius: float | None = None,
         degreedelta: float | None = None,
-        moveTo: _AnyBool | None = None,
-        reverse: _AnyBool | None = None,
+        moveTo: _BoolLike | None = None,
+        reverse: _BoolLike | None = None,
     ) -> None: ...
 
 def definePath(
-    pathSegs: Iterable[_PathOp] = [], isClipPath: _AnyBool = 0, dx: float = 0, dy: float = 0, **kw: Unpack[_DefinePathKwArgs]
+    pathSegs: Iterable[_PathOp] = [], isClipPath: _BoolLike = 0, dx: float = 0, dy: float = 0, **kw: Unpack[_DefinePathKwArgs]
 ) -> Path: ...
 
 class Rect(SolidShape):
