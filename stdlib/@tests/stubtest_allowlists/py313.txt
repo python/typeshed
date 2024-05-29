@@ -119,7 +119,6 @@ importlib.resources.open_text
 importlib.resources.path
 importlib.resources.read_binary
 importlib.resources.read_text
-io.IOBase._checkClosed
 mailbox.Maildir.add_flag
 mailbox.Maildir.get_flags
 mailbox.Maildir.get_info
@@ -139,10 +138,6 @@ pdb.Pdb.do_exceptions
 pdb.Pdb.interaction
 pdb.Pdb.message
 pdb.Pdb.user_opcode
-platform.AndroidVer
-platform.IOSVersionInfo
-platform.android_ver
-platform.ios_ver
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
 pydoc.pager
@@ -157,7 +152,6 @@ sqlite3.dbapi2.Connection.iterdump
 sre_compile.SRE_FLAG_TEMPLATE
 sre_constants.SRE_FLAG_TEMPLATE
 sre_parse.SRE_FLAG_TEMPLATE
-tarfile.TarFile.__init__
 threading.stack_size
 tkinter.Misc.after_info
 tkinter.Misc.busy
