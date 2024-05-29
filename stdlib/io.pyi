@@ -75,7 +75,10 @@ class IOBase(metaclass=abc.ABCMeta):
     def __del__(self) -> None: ...
     @property
     def closed(self) -> bool: ...
-    def _checkClosed(self, msg: str | None = ...) -> None: ...  # undocumented
+    if sys.version_info >= (3, 13):
+        def _checkClosed(self) -> None: ...  # undocumented
+    else:
+        def _checkClosed(self, msg: str | None = ...) -> None: ...  # undocumented
 
 class RawIOBase(IOBase):
     def readall(self) -> bytes: ...
