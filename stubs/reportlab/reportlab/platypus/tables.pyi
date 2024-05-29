@@ -65,7 +65,7 @@ class Table(Flowable):
         self,
         # NOTE: Technically only list or tuple works but lack of covariance
         #       on list makes this too annoying
-        data: Sequence[Sequence[Any]],
+        data: Sequence[list[Any] | tuple[Any, ...]],
         colWidths: Sequence[float | str | None] | float | str | None = None,
         rowHeights: Sequence[float | None] | float | None = None,
         style: TableStyle | Iterable[_TableCommand] | None = None,
