@@ -190,3 +190,10 @@ Table(
         ("ROUNDEDCORNERS", [0, 0, 5, 5]),
     ],
 )
+
+
+# Testing the various possible data layouts
+Table([["foo"]])
+Table([("foo",)])
+Table((["foo"],))
+Table((("foo",),))
