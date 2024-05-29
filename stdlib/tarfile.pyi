@@ -143,6 +143,7 @@ class TarFile:
     offset: int  # undocumented
     extraction_filter: _FilterFunction | None
     if sys.version_info >= (3, 13):
+        stream: bool
         def __init__(
             self,
             name: StrOrBytesPath | None = None,
