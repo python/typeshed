@@ -2,6 +2,7 @@ import datetime
 from _typeshed import Incomplete, Unused
 from collections.abc import Callable, Iterator
 from json import JSONDecoder
+from typing import Any
 from typing_extensions import Self
 
 from urllib3 import exceptions as urllib3_exceptions, fields, filepost, util
@@ -150,13 +151,13 @@ class Response:
         self,
         *,
         cls: type[JSONDecoder] | None = ...,
-        object_hook: Callable[[dict[Incomplete, Incomplete]], Incomplete] | None = ...,
-        parse_float: Callable[[str], Incomplete] | None = ...,
-        parse_int: Callable[[str], Incomplete] | None = ...,
-        parse_constant: Callable[[str], Incomplete] | None = ...,
-        object_pairs_hook: Callable[[list[tuple[Incomplete, Incomplete]]], Incomplete] | None = ...,
-        **kwds: Incomplete,
-    ) -> Incomplete: ...
+        object_hook: Callable[[dict[Any, Any]], Any] | None = ...,
+        parse_float: Callable[[str], Any] | None = ...,
+        parse_int: Callable[[str], Any] | None = ...,
+        parse_constant: Callable[[str], Any] | None = ...,
+        object_pairs_hook: Callable[[list[tuple[Any, Any]]], Any] | None = ...,
+        **kwds: Any,
+    ) -> Any: ...
     @property
     def links(self) -> dict[Incomplete, Incomplete]: ...
     def raise_for_status(self) -> None: ...
