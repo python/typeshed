@@ -125,12 +125,6 @@ mailbox.Maildir.get_info
 mailbox.Maildir.remove_flag
 mailbox.Maildir.set_flags
 mailbox.Maildir.set_info
-math.fma
-mimetypes.MimeTypes.guess_file_type
-mimetypes.__all__
-mimetypes.guess_file_type
-mmap.mmap.seekable
-multiprocessing.shared_memory.SharedMemory.__init__
 pdb.Pdb.MAX_CHAINED_EXCEPTION_DEPTH
 pdb.Pdb.completedefault
 pdb.Pdb.completenames
@@ -147,8 +141,6 @@ pydoc.tempfilepager
 pydoc.ttypager
 site.gethistoryfile
 site.register_readline
-sqlite3.Connection.iterdump
-sqlite3.dbapi2.Connection.iterdump
 sre_compile.SRE_FLAG_TEMPLATE
 sre_constants.SRE_FLAG_TEMPLATE
 sre_parse.SRE_FLAG_TEMPLATE
