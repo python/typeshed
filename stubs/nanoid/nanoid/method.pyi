@@ -1,0 +1,3 @@
+from collections.abc import Callable
+
+def method(algorithm: Callable[[int], bytearray | list[int]], alphabet: str, size: int) -> str: ...

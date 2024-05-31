@@ -1,0 +1,3 @@
+def non_secure_generate(
+    alphabet="_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", size=21  # noqa: Y053
+) -> str: ...
