@@ -1,6 +1,7 @@
 import http.server
 import pydoc
 import socketserver
+from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterable, Mapping
 from re import Pattern
 from typing import Any, ClassVar, Protocol
@@ -48,7 +49,7 @@ class SimpleXMLRPCDispatcher:  # undocumented
     def register_multicall_functions(self) -> None: ...
     def _marshaled_dispatch(
         self,
-        data: str,
+        data: str | ReadableBuffer,
         dispatch_method: Callable[[str | None, tuple[_Marshallable, ...]], Fault | tuple[_Marshallable, ...]] | None = None,
         path: Any | None = None,
     ) -> str: ...  # undocumented
