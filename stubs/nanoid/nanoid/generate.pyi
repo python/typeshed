@@ -1,1 +1,4 @@
-def generate(alphabet="_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", size=21) -> str: ...  # noqa: Y053
+def generate(
+    alphabet: str = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",  # noqa: Y053
+    size: int = 21,
+) -> str: ...
