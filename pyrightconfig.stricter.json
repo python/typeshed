@@ -59,7 +59,6 @@
         "stubs/ldap3",
         "stubs/Markdown",
         "stubs/mysqlclient",
-        "stubs/nanoid",
         "stubs/netaddr/netaddr/core.pyi",
         "stubs/netaddr/netaddr/ip/__init__.pyi",
         "stubs/netaddr/netaddr/ip/iana.pyi",
