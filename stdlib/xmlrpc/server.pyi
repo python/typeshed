@@ -48,10 +48,10 @@ class SimpleXMLRPCDispatcher:  # undocumented
     def register_multicall_functions(self) -> None: ...
     def _marshaled_dispatch(
         self,
-        data: str,
+        data: str | bytes,
         dispatch_method: Callable[[str | None, tuple[_Marshallable, ...]], Fault | tuple[_Marshallable, ...]] | None = None,
         path: Any | None = None,
-    ) -> str: ...  # undocumented
+    ) -> bytes: ...  # undocumented
     def system_listMethods(self) -> list[str]: ...  # undocumented
     def system_methodSignature(self, method_name: str) -> str: ...  # undocumented
     def system_methodHelp(self, method_name: str) -> str: ...  # undocumented
