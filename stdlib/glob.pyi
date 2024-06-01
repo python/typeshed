@@ -46,5 +46,5 @@ def has_magic(s: str | bytes) -> bool: ...  # undocumented
 
 if sys.version_info >= (3, 13):
     def translate(
-        pat: AnyStr, *, recursive: bool = False, include_hidden: bool = False, seps: Sequence[str] | None = None
-    ) -> AnyStr: ...
+        pat: str, *, recursive: bool = False, include_hidden: bool = False, seps: Sequence[str] | None = None
+    ) -> str: ...
