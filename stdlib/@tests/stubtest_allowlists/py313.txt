@@ -179,9 +179,6 @@ unittest.makeSuite
 unittest.mock.NonCallableMock._calls_repr
 unittest.mock.ThreadingMock
 unittest.mock.__all__
-zipfile.CompleteDirs.inject
-zipfile.ZipInfo.compress_level
-zipfile._path.CompleteDirs.inject
 
 # ======================================
 # Pre-existing errors from Python <=3.12
