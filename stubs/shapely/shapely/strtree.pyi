@@ -15,15 +15,15 @@ _BinaryPredicate: TypeAlias = Literal[
 ]
 
 class BinaryPredicate(ParamEnum):
-    intersects: int
-    within: int
-    contains: int
-    overlaps: int
-    crosses: int
-    touches: int
-    covers: int
-    covered_by: int
-    contains_properly: int
+    intersects = 1  # noqa: Y052
+    within = 2  # noqa: Y052
+    contains = 3  # noqa: Y052
+    overlaps = 4  # noqa: Y052
+    crosses = 5  # noqa: Y052
+    touches = 6  # noqa: Y052
+    covers = 7  # noqa: Y052
+    covered_by = 8  # noqa: Y052
+    contains_properly = 9  # noqa: Y052
 
 class STRtree:
     def __init__(self, geoms: GeoArrayLikeSeq, node_capacity: SupportsIndex = 10) -> None: ...
