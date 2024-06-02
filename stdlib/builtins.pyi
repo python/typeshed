@@ -91,9 +91,9 @@ _SupportsAnextT = TypeVar("_SupportsAnextT", bound=SupportsAnext[Any], covariant
 _AwaitableT = TypeVar("_AwaitableT", bound=Awaitable[Any])
 _AwaitableT_co = TypeVar("_AwaitableT_co", bound=Awaitable[Any], covariant=True)
 _P = ParamSpec("_P")
-_StartT = TypeVar("_StartT", default=int)
-_StopT = TypeVar("_StopT", default=_StartT)
-_StepT = TypeVar("_StepT", default=int | None)
+_StartT = TypeVar("_StartT", default=None)
+_StopT = TypeVar("_StopT", default=int)
+_StepT = TypeVar("_StepT", default=None)
 
 class object:
     __doc__: str | None
