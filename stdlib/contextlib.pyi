@@ -5,7 +5,7 @@ from abc import abstractmethod
 from collections.abc import AsyncGenerator, AsyncIterator, Awaitable, Callable, Generator, Iterator
 from types import TracebackType
 from typing import IO, Any, Generic, Protocol, TypeVar, overload, runtime_checkable
-from typing_extensions import ParamSpec, Self, TypeAlias
+from typing_extensions import ParamSpec, Self, TypeAlias, deprecated
 
 __all__ = [
     "contextmanager",
@@ -74,6 +74,14 @@ class _GeneratorContextManager(AbstractContextManager[_T_co, bool | None], Conte
             self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
         ) -> bool | None: ...
 
+
+@overload
+def contextmanager(func: Callable[_P, Generator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
+@overload
+@deprecated(
+    "Returning only an 'Iterator' from a function decorated with 'contextmanager' is deprecated. Use generator functions and "
+    "'Generator' instead."
+)
 def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
 
 if sys.version_info >= (3, 10):
