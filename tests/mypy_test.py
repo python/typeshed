@@ -527,26 +527,26 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
         if spec_matches_path(gitignore_spec, distribution_path):
             continue
 
-        metadata = read_metadata(distribution)
-        if not metadata.requires_python.contains(PYTHON_VERSION):
-            msg = (
-                f"skipping {distribution!r} (requires Python {metadata.requires_python}; "
-                f"test is being run using Python {PYTHON_VERSION})"
-            )
-            print(colored(msg, "yellow"))
-            summary.skip_package()
-            continue
-        if not metadata.requires_python.contains(args.version):
-            msg = f"skipping {distribution!r} for target Python {args.version} (requires Python {metadata.requires_python})"
-            print(colored(msg, "yellow"))
-            summary.skip_package()
-            continue
-
         if (
             distribution_path in args.filter
             or Path("stubs") in args.filter
             or any(distribution_path in path.parents for path in args.filter)
         ):
+            metadata = read_metadata(distribution)
+            if not metadata.requires_python.contains(PYTHON_VERSION):
+                msg = (
+                    f"skipping {distribution!r} (requires Python {metadata.requires_python}; "
+                    f"test is being run using Python {PYTHON_VERSION})"
+                )
+                print(colored(msg, "yellow"))
+                summary.skip_package()
+                continue
+            if not metadata.requires_python.contains(args.version):
+                msg = f"skipping {distribution!r} for target Python {args.version} (requires Python {metadata.requires_python})"
+                print(colored(msg, "yellow"))
+                summary.skip_package()
+                continue
+
             distributions_to_check[distribution] = get_recursive_requirements(distribution)
 
     # Setup the necessary virtual environments for testing the third-party stubs.
