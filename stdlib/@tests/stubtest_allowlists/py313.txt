@@ -3,7 +3,6 @@
 # =========================
 
 # TODO: triage these new errors
-_ast.PyCF_OPTIMIZED_AST
 _collections_abc.dict_items.isdisjoint
 _collections_abc.dict_keys.isdisjoint
 _ctypes.POINTER
@@ -11,7 +10,6 @@ _ctypes.addressof
 _ctypes.alignment
 _ctypes.pointer
 _ctypes.sizeof
-_json.encode_basestring_ascii
 _thread.interrupt_main
 _thread.lock
 _thread.stack_size
@@ -20,7 +18,6 @@ _thread.start_new_thread
 _tkinter.TkappType.gettrace
 _tkinter.TkappType.settrace
 _tkinter.create
-ast.PyCF_OPTIMIZED_AST
 asyncio.AbstractEventLoop.create_server
 asyncio.AbstractServer.abort_clients
 asyncio.AbstractServer.close_clients
@@ -53,13 +50,6 @@ codecs.namereplace_errors
 codecs.replace_errors
 codecs.strict_errors
 codecs.xmlcharrefreplace_errors
-configparser.LegacyInterpolation
-configparser.MultilineContinuationError
-configparser.ParsingError.__init__
-configparser.ParsingError.combine
-configparser.RawConfigParser.__init__
-configparser.UNNAMED_SECTION
-configparser.__all__
 ctypes.POINTER
 ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
@@ -97,12 +87,7 @@ doctest.TestResults.__doc__
 doctest.TestResults.__new__
 email.utils.getaddresses
 email.utils.parseaddr
-enum.EnumDict
-enum._EnumDict.member_names
-enum.__all__
 filecmp.dircmp.__init__
-glob.__all__
-glob.translate
 importlib.metadata.DeprecatedTuple
 importlib.metadata.Distribution.origin
 importlib.metadata._meta.SimplePath.exists
