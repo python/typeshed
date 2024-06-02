@@ -1005,6 +1005,7 @@ if sys.version_info >= (3, 11):
         pass_fds: Collection[int] = ...,
         timeout: float | None = ...,
         *,
+        encoding: str | None = None,
         text: bool | None = None,
         user: str | int | None = None,
         group: str | int | None = None,
@@ -1036,6 +1037,7 @@ elif sys.version_info >= (3, 10):
         pass_fds: Collection[int] = ...,
         timeout: float | None = ...,
         *,
+        encoding: str | None = None,
         text: bool | None = None,
         user: str | int | None = None,
         group: str | int | None = None,
@@ -1066,6 +1068,7 @@ elif sys.version_info >= (3, 9):
         pass_fds: Collection[int] = ...,
         timeout: float | None = ...,
         *,
+        encoding: str | None = None,
         text: bool | None = None,
         user: str | int | None = None,
         group: str | int | None = None,
@@ -1094,6 +1097,7 @@ else:
         pass_fds: Collection[int] = ...,
         timeout: float | None = ...,
         *,
+        encoding: str | None = None,
         text: bool | None = None,
     ) -> int: ...
 
