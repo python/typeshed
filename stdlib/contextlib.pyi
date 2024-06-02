@@ -74,7 +74,6 @@ class _GeneratorContextManager(AbstractContextManager[_T_co, bool | None], Conte
             self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
         ) -> bool | None: ...
 
-
 @overload
 def contextmanager(func: Callable[_P, Generator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
 @overload
