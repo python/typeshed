@@ -305,7 +305,7 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubIn
     Else, return None.
     """
     if stub_info.upstream_repository:
-        # We have various sanity checks for the upstream_repository field in tests/parse_metadata.py,
+        # We have various sanity checks for the upstream_repository field in tests/_metadata.py,
         # so no need to repeat all of them here
         split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
         if split_url.netloc == "github.com":

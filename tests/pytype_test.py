@@ -24,7 +24,7 @@ from collections.abc import Iterable, Sequence
 
 from packaging.requirements import Requirement
 
-from parse_metadata import read_dependencies
+from _metadata import read_dependencies
 
 if sys.platform == "win32":
     print("pytype does not support Windows.", file=sys.stderr)

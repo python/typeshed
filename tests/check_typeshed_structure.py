@@ -12,15 +12,19 @@ import re
 import sys
 from pathlib import Path
 
-from parse_metadata import read_metadata
-from utils import (
+from _metadata import read_metadata
+from _utils import (
     REQS_FILE,
+    STDLIB_PATH,
+    TEST_CASES_DIR,
+    TESTS_DIR,
     VERSIONS_RE,
     get_all_testcase_directories,
     get_gitignore_spec,
     parse_requirements,
     spec_matches_path,
     strip_comments,
+    tests_path,
 )
 
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
@@ -56,7 +60,8 @@ def assert_consistent_filetypes(
 
 def check_stdlib() -> None:
     """Check that the stdlib directory contains only the correct files."""
-    assert_consistent_filetypes(Path("stdlib"), kind=".pyi", allowed={"_typeshed/README.md", "VERSIONS"})
+    assert_consistent_filetypes(STDLIB_PATH, kind=".pyi", allowed={"_typeshed/README.md", "VERSIONS", TESTS_DIR})
+    check_tests_dir(tests_path("stdlib"))
 
 
 def check_stubs() -> None:
@@ -73,14 +78,18 @@ def check_stubs() -> None:
         ), f"Directory name must be a valid distribution name: {dist}"
         assert not dist.name.startswith("types-"), f"Directory name not allowed to start with 'types-': {dist}"
 
-        allowed = {"METADATA.toml", "README", "README.md", "README.rst", "@tests"}
+        allowed = {"METADATA.toml", "README", "README.md", "README.rst", TESTS_DIR}
         assert_consistent_filetypes(dist, kind=".pyi", allowed=allowed)
 
-        tests_dir = dist / "@tests"
+        tests_dir = tests_path(dist.name)
         if tests_dir.exists() and tests_dir.is_dir():
-            py_files_present = any(file.suffix == ".py" for file in tests_dir.iterdir())
-            error_message = "Test-case files must be in an `@tests/test_cases/` directory, not in the `@tests/` directory"
-            assert not py_files_present, error_message
+            check_tests_dir(tests_dir)
+
+
+def check_tests_dir(tests_dir: Path) -> None:
+    py_files_present = any(file.suffix == ".py" for file in tests_dir.iterdir())
+    error_message = f"Test-case files must be in an `{TESTS_DIR}/{TEST_CASES_DIR}` directory, not in the `{TESTS_DIR}` directory"
+    assert not py_files_present, error_message
 
 
 def check_distutils() -> None:
@@ -101,7 +110,7 @@ def check_test_cases() -> None:
     """Check that the test_cases directory contains only the correct files."""
     for _, testcase_dir in get_all_testcase_directories():
         assert_consistent_filetypes(testcase_dir, kind=".py", allowed={"README.md"}, allow_nonidentifier_filenames=True)
-        bad_test_case_filename = 'Files in a `test_cases` directory must have names starting with "check_"; got "{}"'
+        bad_test_case_filename = f'Files in a `{TEST_CASES_DIR}` directory must have names starting with "check_"; got "{{}}"'
         for file in testcase_dir.rglob("*.py"):
             assert file.stem.startswith("check_"), bad_test_case_filename.format(file)
 
@@ -141,7 +150,7 @@ def check_versions_file() -> None:
 
 def _find_stdlib_modules() -> set[str]:
     modules = set[str]()
-    for path, _, files in os.walk("stdlib"):
+    for path, _, files in os.walk(STDLIB_PATH):
         for filename in files:
             base_module = ".".join(os.path.normpath(path).split(os.sep)[1:])
             if filename == "__init__.pyi":

@@ -1,0 +1,326 @@
+# =========================
+# New errors in Python 3.13
+# =========================
+
+# TODO: triage these new errors
+_collections_abc.dict_items.isdisjoint
+_collections_abc.dict_keys.isdisjoint
+_ctypes.POINTER
+_ctypes.addressof
+_ctypes.alignment
+_ctypes.pointer
+_ctypes.sizeof
+_thread.interrupt_main
+_thread.lock
+_thread.stack_size
+_thread.start_joinable_thread
+_thread.start_new_thread
+_tkinter.TkappType.gettrace
+_tkinter.TkappType.settrace
+_tkinter.create
+asyncio.AbstractEventLoop.create_server
+asyncio.AbstractServer.abort_clients
+asyncio.AbstractServer.close_clients
+asyncio.BaseEventLoop.create_server
+asyncio.EventLoop
+asyncio.Queue.shutdown
+asyncio.QueueShutDown
+asyncio.Server.abort_clients
+asyncio.Server.close_clients
+asyncio.StreamWriter.__del__
+asyncio.base_events.BaseEventLoop.create_server
+asyncio.base_events.Server.abort_clients
+asyncio.base_events.Server.close_clients
+asyncio.events.AbstractEventLoop.create_server
+asyncio.events.AbstractServer.abort_clients
+asyncio.events.AbstractServer.close_clients
+asyncio.format_helpers._format_args_and_kwargs
+asyncio.format_helpers._format_callback
+asyncio.format_helpers._format_callback_source
+asyncio.queues.Queue.shutdown
+asyncio.queues.QueueShutDown
+asyncio.queues.__all__
+asyncio.streams.StreamWriter.__del__
+bdb.Bdb.dispatch_opcode
+bdb.Bdb.set_stepinstr
+bdb.Bdb.user_opcode
+codecs.backslashreplace_errors
+codecs.ignore_errors
+codecs.namereplace_errors
+codecs.replace_errors
+codecs.strict_errors
+codecs.xmlcharrefreplace_errors
+ctypes.POINTER
+ctypes._endian.DEFAULT_MODE
+ctypes._endian.RTLD_GLOBAL
+ctypes._endian.RTLD_LOCAL
+ctypes._endian.SIZEOF_TIME_T
+ctypes._endian.cdll
+ctypes._endian.pydll
+ctypes._endian.pythonapi
+ctypes.addressof
+ctypes.alignment
+ctypes.c_char_p.from_param
+ctypes.c_void_p.from_param
+ctypes.c_wchar_p.from_param
+ctypes.pointer
+ctypes.sizeof
+ctypes.wintypes.PCHAR.from_param
+ctypes.wintypes.PWCHAR.from_param
+dbm.sqlite3
+dis.Bytecode.__init__
+dis.Instruction._disassemble
+dis.Instruction.baseopcode
+dis.Instruction.baseopname
+dis.Instruction.cache_offset
+dis.Instruction.end_offset
+dis.Instruction.is_jump_target
+dis.Instruction.jump_target
+dis.Instruction.oparg
+dis.__all__
+dis.dis
+dis.disassemble
+dis.disco
+dis.distb
+dis.get_instructions
+doctest.TestResults.__doc__
+doctest.TestResults.__new__
+email.utils.getaddresses
+email.utils.parseaddr
+filecmp.dircmp.__init__
+importlib.metadata.DeprecatedTuple
+importlib.metadata.Distribution.origin
+importlib.metadata._meta.SimplePath.exists
+importlib.metadata._meta.SimplePath.read_bytes
+importlib.metadata._meta.SimplePath.read_text
+importlib.metadata.diagnose
+importlib.resources.Anchor
+importlib.resources.Resource
+importlib.resources.__all__
+importlib.resources.contents
+importlib.resources.is_resource
+importlib.resources.open_binary
+importlib.resources.open_text
+importlib.resources.path
+importlib.resources.read_binary
+importlib.resources.read_text
+mailbox.Maildir.add_flag
+mailbox.Maildir.get_flags
+mailbox.Maildir.get_info
+mailbox.Maildir.remove_flag
+mailbox.Maildir.set_flags
+mailbox.Maildir.set_info
+pdb.Pdb.MAX_CHAINED_EXCEPTION_DEPTH
+pdb.Pdb.completedefault
+pdb.Pdb.completenames
+pdb.Pdb.do_exceptions
+pdb.Pdb.interaction
+pdb.Pdb.message
+pdb.Pdb.user_opcode
+pstats.FunctionProfile.__replace__
+pstats.StatsProfile.__replace__
+pydoc.pager
+pydoc.pipepager
+pydoc.plainpager
+pydoc.tempfilepager
+pydoc.ttypager
+site.gethistoryfile
+site.register_readline
+sre_compile.SRE_FLAG_TEMPLATE
+sre_constants.SRE_FLAG_TEMPLATE
+sre_parse.SRE_FLAG_TEMPLATE
+threading.stack_size
+tkinter.Misc.after_info
+tkinter.Misc.busy
+tkinter.Misc.busy_cget
+tkinter.Misc.busy_config
+tkinter.Misc.busy_configure
+tkinter.Misc.busy_current
+tkinter.Misc.busy_forget
+tkinter.Misc.busy_hold
+tkinter.Misc.busy_status
+tkinter.Misc.tk_busy
+tkinter.Misc.tk_busy_cget
+tkinter.Misc.tk_busy_config
+tkinter.Misc.tk_busy_configure
+tkinter.Misc.tk_busy_current
+tkinter.Misc.tk_busy_forget
+tkinter.Misc.tk_busy_hold
+tkinter.Misc.tk_busy_status
+tkinter.PhotoImage.copy
+tkinter.PhotoImage.copy_replace
+tkinter.PhotoImage.data
+tkinter.PhotoImage.read
+tkinter.PhotoImage.subsample
+tkinter.PhotoImage.write
+tkinter.PhotoImage.zoom
+tkinter.Text.count
+tkinter.Wm.wm_attributes
+tkinter.tix
+trace.CoverageResults.write_results
+traceback.StackSummary.should_show_carets  # https://github.com/python/cpython/pull/112670#discussion_r1613952301
+turtle.RawTurtle.settiltangle
+turtle.__all__
+turtle.settiltangle
+types.CodeType.__replace__
+types.MappingProxyType.get
+types.SimpleNamespace.__replace__
+unittest.IsolatedAsyncioTestCase.loop_factory
+unittest.TestProgram.usageExit
+unittest.__all__
+unittest.async_case.IsolatedAsyncioTestCase.loop_factory
+unittest.findTestCases
+unittest.getTestCaseNames
+unittest.loader.findTestCases
+unittest.loader.getTestCaseNames
+unittest.loader.makeSuite
+unittest.main.TestProgram.usageExit
+unittest.makeSuite
+unittest.mock.NonCallableMock._calls_repr
+unittest.mock.ThreadingMock
+unittest.mock.__all__
+zipfile.CompleteDirs.inject
+zipfile.ZipInfo.compress_level
+zipfile._path.CompleteDirs.inject
+
+# ======================================
+# Pre-existing errors from Python <=3.12
+# ======================================
+
+# Modules that exist at runtime, but are missing from typeshed
+zipfile._path.glob
+
+# Errors that also existed on Python 3.11
+_collections_abc.AsyncIterable.__class_getitem__
+_collections_abc.Awaitable.__class_getitem__
+_collections_abc.Container.__class_getitem__
+_collections_abc.Iterable.__class_getitem__
+_collections_abc.MappingView.__class_getitem__
+_csv.Reader
+_csv.Writer
+enum.Enum.__init__
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
+tkinter._VersionInfoType.__doc__
+typing.NewType.__mro_entries__
+builtins.ellipsis  # type is not exposed anywhere
+
+# ==========
+# Related to positional-only arguments
+# ==========
+
+# These are not positional-only at runtime, but we treat them
+# as positional-only to match dict.
+_collections_abc.MutableMapping.pop
+_collections_abc.MutableMapping.setdefault
+
+# typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
+# to mark these as positional-only for compatibility with existing sub-classes.
+typing(_extensions)?\.BinaryIO\.write
+typing(_extensions)?\.IO\.read
+typing(_extensions)?\.IO\.readline
+typing(_extensions)?\.IO\.readlines
+typing(_extensions)?\.IO\.seek
+typing(_extensions)?\.IO\.truncate
+typing(_extensions)?\.IO\.write
+typing(_extensions)?\.IO\.writelines
+
+# positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
+_collections_abc.Coroutine.send
+_collections_abc.Coroutine.throw
+_collections_abc.Generator.send
+_collections_abc.Generator.throw
+
+# typing.SupportsRound.__round__  # pos-or-kw at runtime, but we pretend it's pos-only in the stub so that e.g. float.__round__ satisfies the interface
+types.DynamicClassAttribute..*  # In the stub we pretend it's an alias for property, but it has positional-only differences
+
+# These three have a pos-or-keyword first parameter at runtime, but deliberately have a pos-only first parameter in the stub. #6812
+posixpath.join
+ntpath.join
+os.path.join
+
+# Pos-only parameters had different "names" in different Python versions:
+zoneinfo.ZoneInfo.from_file
+
+# ==========
+# Allowlist entries that cannot or should not be fixed
+# ==========
+
+# The internal implementation of the REPL on py313+; not for public consumption
+_pyrepl\..+
+
+# Runtime AST node runtime constructor behaviour is too loose.
+# For static typing, the loose behaviour is undesirable (https://github.com/python/typeshed/issues/8378).
+# For the runtime, the loose behaviour is deprecated in Python 3.13 (https://github.com/python/cpython/issues/105858)
+_?ast.pattern.__init__
+_?ast.type_param.__init__
+
+_ast.ImportFrom.level  # None on the class, but never None on instances
+_collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
+_weakref.ProxyType.__reversed__  # Doesn't really exist
+argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
+ast.ImportFrom.level  # None on the class, but never None on instances
+builtins.property.__set_name__  # Doesn't actually exist
+builtins.str.format_map  # stubtest says `mapping` is pos-or-keyword but in reality it is pos-only
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
+dataclasses.KW_ONLY  # white lies around defaults
+enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
+enum.auto.value  # The stub for enum.auto is nothing like the implementation
+functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
+http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
+inspect._ParameterKind.description  # Still exists, but stubtest can't see it
+os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
+types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
+types.GenericAlias.__getattr__
+types.GenericAlias.__mro_entries__
+sys._monitoring  # Doesn't really exist. See comments in the stub.
+weakref.ProxyType.__reversed__  # Doesn't really exist
+importlib.metadata._meta.SimplePath.joinpath  # Incorrect runtime definition
+
+# sys attributes that are not always defined
+sys.last_exc
+
+# C signature is broader than what is actually accepted
+ast.ExtSlice.__new__
+ast.Index.__new__
+contextvars.Context.__init__
+
+# Treated an alias of a typing class in the stubs,
+# they are generic to type checkers anyway.
+contextlib.AbstractAsyncContextManager.__class_getitem__
+contextlib.AbstractContextManager.__class_getitem__
+
+# platform.uname_result's processor field is now dynamically made to exist
+platform.uname_result.__match_args__
+platform.uname_result.__new__
+platform.uname_result.processor
+
+# Runtime has *args, **kwargs, but will error if any are supplied
+unittest.TestCase.__init_subclass__
+unittest.case.TestCase.__init_subclass__
+
+# Problematic protocol signature at runtime, see source code comments.
+importlib.abc.Traversable.open
+importlib.resources.abc.Traversable.open
+
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedNonAbstract.__new__
+
+# Super-special typing primitives
+typing\._SpecialForm.*
+typing\.NamedTuple
+typing\.LiteralString
+typing_extensions.Protocol
+
+# These only exist to give a better error message if you try to subclass an instance
+typing.ParamSpec.__mro_entries__
+typing.ParamSpecArgs.__mro_entries__
+typing.ParamSpecKwargs.__mro_entries__
+typing.TypeVar.__mro_entries__
+typing.TypeVarTuple.__mro_entries__
+
+# TODO: mypy should infer that this attribute is inherited from builtins.type;
+# why doesn't it infer this?
+typing.SupportsAbs.__type_params__
+typing.SupportsRound.__type_params__
+typing_extensions.SupportsAbs.__type_params__
+typing_extensions.SupportsRound.__type_params__

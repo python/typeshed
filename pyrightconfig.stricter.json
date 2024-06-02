@@ -7,7 +7,7 @@
     ],
     "exclude": [
         // test cases use a custom pyrightconfig file
-        "stubs/**/@tests/test_cases",
+        "**/@tests/test_cases",
         "stdlib/distutils/command",
         "stdlib/distutils/dist.pyi",
         "stdlib/importlib/readers.pyi",
@@ -87,11 +87,12 @@
         "stubs/PyYAML",
         "stubs/qrcode",
         "stubs/redis",
+        "stubs/reportlab",
         "stubs/requests",
         "stubs/requests-oauthlib",
         "stubs/seaborn",
         "stubs/setuptools/setuptools",
-        "stubs/stripe",
+        "stubs/shapely",
         "stubs/tensorflow",
         "stubs/tqdm",
         "stubs/ttkthemes",

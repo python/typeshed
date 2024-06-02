@@ -36,7 +36,7 @@ You can list or install all of a stubs package's external dependencies using the
 
 Run using:
 ```bash
-(.venv3)$ python3 scripts/runtests.py <stdlib-or-stubs>/<stub-to-test>
+(.venv3)$ python3 tests/runtests.py <stdlib-or-stubs>/<stub-to-test>
 ```
 
 This script will run all tests below for a specific typeshed directory. If a
@@ -46,7 +46,7 @@ be selected. A summary of the results will be printed to the terminal.
 You must provide a single argument which is a path to the stubs to test, like
 so: `stdlib/os` or `stubs/requests`.
 
-Run `python scripts/runtests.py --help` for information on the various configuration options
+Run `python tests/runtests.py --help` for information on the various configuration options
 for this script. Note that if you use the `--run-stubtest` flag with the stdlib stubs,
 whether or not the test passes will depend on the exact version of Python
 you're using, as well as various other details regarding your local environment.
@@ -102,7 +102,8 @@ the stubs in typeshed (including the standard library).
 ## regr\_test.py
 
 This test runs mypy against the test cases for typeshed's stdlib and third-party
-stubs. See [the README in the `test_cases` directory](../test_cases/README.md)
+stubs. See [the REGRESSION.md document](./REGRESSION.md)
+in this directory
 for more information about what
 these test cases are for and how they work. Run `python tests/regr_test.py --help`
 for information on the various configuration options.
@@ -136,7 +137,7 @@ on your typeshed fork).
 As a convenience, stubtest\_stdlib.py will look for local-only allowlist files
 and use those if they are present. Only version-specific local allowlists are supported.
 An example local allowlist file is
-`tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
+`stdlib/@tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
 the CI run of stubtest remains canonical.
 
 If you need a specific version of Python to repro a CI failure,
@@ -144,7 +145,7 @@ If you need a specific version of Python to repro a CI failure,
 
 Due to its dynamic nature, you may run into false positives. In this case, you
 can add to the allowlists for each affected Python version in
-`tests/stubtest_allowlists`. Please file issues for stubtest false positives
+`stdlib/@tests/stubtest_allowlists`. Please file issues for stubtest false positives
 at [mypy](https://github.com/python/mypy/issues).
 
 ## stubtest\_third\_party.py
@@ -175,7 +176,9 @@ directly, with
 ```
 
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
-relative to the distribution. Additional packages that are needed to run stubtest for a
+relative to the distribution. Platform specific items can be ignored by listing them
+in a `@tests/stubtest_allowlist_{platform}.txt` file. Additional packages that are needed
+to run stubtest for a
 distribution can be added to `tool.stubtest.stubtest_requirements` in `METADATA.toml`.
 
 ### Using stubtest to find objects missing from the stubs
