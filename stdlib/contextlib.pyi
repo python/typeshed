@@ -77,10 +77,7 @@ class _GeneratorContextManager(AbstractContextManager[_T_co, bool | None], Conte
 @overload
 def contextmanager(func: Callable[_P, Generator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
 @overload
-@deprecated(
-    "Returning only an 'Iterator' from a function decorated with 'contextmanager' is deprecated. Use generator functions and "
-    "'Generator' instead."
-)
+@deprecated("Returning only an 'Iterator' from a function decorated with 'contextmanager' is deprecated. Use generator functions and 'Generator' instead.")
 def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
 
 if sys.version_info >= (3, 10):
@@ -112,7 +109,12 @@ else:
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
         ) -> bool | None: ...
 
+@overload
+def asynccontextmanager(func: Callable[_P, AsyncGenerator[_T_co]]) -> Callable[_P, _AsyncGeneratorContextManager[_T_co]]: ...
+@overload
+@deprecated("Returning only an 'AsyncIterator' from a function decorated with 'asynccontextmanager' is deprecated. Use async generator functions and 'AsyncGenerator' instead.")
 def asynccontextmanager(func: Callable[_P, AsyncIterator[_T_co]]) -> Callable[_P, _AsyncGeneratorContextManager[_T_co]]: ...
+
 
 class _SupportsClose(Protocol):
     def close(self) -> object: ...
