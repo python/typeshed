@@ -159,6 +159,7 @@ class OleStream(io.BytesIO):
 class OleDirectoryEntry:
     STRUCT_DIRENTRY: str
     DIRENTRY_SIZE: int
+    clsid: str
 
     def __init__(self, entry: bytes, sid: int, ole_file: OleFileIO) -> None: ...
     def build_sect_chain(self, ole_file: OleFileIO) -> None: ...
@@ -173,6 +174,8 @@ class OleDirectoryEntry:
     def getctime(self) -> datetime.datetime | None: ...
 
 class OleFileIO:
+    root: OleDirectoryEntry | None
+
     def __init__(
         self,
         filename: IO[bytes] | bytes | str | None = None,
@@ -222,10 +225,10 @@ class OleFileIO:
     def get_rootentry_name(self) -> bytes: ...
     def getproperties(
         self, filename: str | Sequence[str], convert_time: bool = False, no_conversion: list[int] | None = None
-    ) -> dict[int, list[int | str | bytes | bool | None]]: ...
+    ) -> dict[int, list[int | str | bytes | bool | None] | int | str | bytes | bool | None]: ...
     def _parse_property(
         self, s: bytes, offset: int, property_id: int, property_type: int, convert_time: bool, no_conversion: list[int]
-    ) -> list[int | str | bytes | bool | None] | None: ...
+    ) -> list[int | str | bytes | bool | None] | int | str | bytes | bool | None: ...
     def _parse_property_basic(
         self, s: bytes, offset: int, property_id: int, property_type: int, convert_time: bool, no_conversion: list[int]
     ) -> tuple[int | str | bytes | bool | None, int]: ...
