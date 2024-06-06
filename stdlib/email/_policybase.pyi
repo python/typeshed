@@ -3,14 +3,16 @@ from collections.abc import Callable
 from email.errors import MessageDefect
 from email.header import Header
 from email.message import Message
-from typing import Any
+from typing import Any, Generic, TypeVar
 from typing_extensions import Self
+
+_M = TypeVar("_M", bound=Message, default=Message)
 
 class _PolicyBase:
     def __add__(self, other: Any) -> Self: ...
     def clone(self, **kw: Any) -> Self: ...
 
-class Policy(_PolicyBase, metaclass=ABCMeta):
+class Policy(_PolicyBase, Generic[_M], metaclass=ABCMeta):
     max_line_length: int | None
     linesep: str
     cte_type: str
@@ -41,7 +43,7 @@ class Policy(_PolicyBase, metaclass=ABCMeta):
     @abstractmethod
     def fold_binary(self, name: str, value: str) -> bytes: ...
 
-class Compat32(Policy):
+class Compat32(Policy[Message]):
     def header_source_parse(self, sourcelines: list[str]) -> tuple[str, str]: ...
     def header_store_parse(self, name: str, value: str) -> tuple[str, str]: ...
     def header_fetch_parse(self, name: str, value: str) -> str | Header: ...  # type: ignore[override]
