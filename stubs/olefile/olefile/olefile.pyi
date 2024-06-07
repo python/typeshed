@@ -5,7 +5,7 @@ import logging
 import traceback
 from collections.abc import Sequence
 from typing import IO
-from typing_extensions import Self
+from typing_extensions import Self, TypeAlias
 
 __date__: str
 __version__: str
@@ -173,6 +173,8 @@ class OleDirectoryEntry:
     def getmtime(self) -> datetime.datetime | None: ...
     def getctime(self) -> datetime.datetime | None: ...
 
+_Property: TypeAlias = int | str | bytes | bool | None
+
 class OleFileIO:
     root: OleDirectoryEntry | None
 
@@ -225,13 +227,13 @@ class OleFileIO:
     def get_rootentry_name(self) -> bytes: ...
     def getproperties(
         self, filename: str | Sequence[str], convert_time: bool = False, no_conversion: list[int] | None = None
-    ) -> dict[int, list[int | str | bytes | bool | None] | int | str | bytes | bool | None]: ...
+    ) -> dict[int, list[_Property] | _Property]: ...
     def _parse_property(
         self, s: bytes, offset: int, property_id: int, property_type: int, convert_time: bool, no_conversion: list[int]
-    ) -> list[int | str | bytes | bool | None] | int | str | bytes | bool | None: ...
+    ) -> list[_Property] | _Property: ...
     def _parse_property_basic(
         self, s: bytes, offset: int, property_id: int, property_type: int, convert_time: bool, no_conversion: list[int]
-    ) -> tuple[int | str | bytes | bool | None, int]: ...
+    ) -> tuple[_Property, int]: ...
     def get_metadata(self) -> OleMetadata: ...
     def get_userdefined_properties(
         self, filename: str | Sequence[str], convert_time: bool = False, no_conversion: list[int] | None = None
