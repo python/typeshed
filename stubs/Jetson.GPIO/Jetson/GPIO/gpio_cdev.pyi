@@ -1,5 +1,5 @@
 import ctypes
-from typing import Any, Final, Literal
+from typing import Final, Literal
 
 from .gpio_pin_data import ChannelInfo
 
@@ -20,25 +20,43 @@ GPIOHANDLE_SET_LINE_VALUES_IOCTL: Final = 0xC040B409
 GPIO_GET_LINEEVENT_IOCTL: Final = 0xC030B404
 
 class gpiochip_info(ctypes.Structure):
-    _fields_: list[tuple[str, Any]] = ...
+    name: str
+    label: str
+    lines: int
 
 class gpiohandle_request(ctypes.Structure):
-    _fields_: list[tuple[str, Any]] = ...
+    lineoffsets: list[int]
+    flags: int
+    default_values: list[int]
+    consumer_label: str
+    lines: int
+    fd: int
 
 class gpiohandle_data(ctypes.Structure):
-    _fields_: list[tuple[str, Any]] = ...
+    values: list[int]
 
 class gpioline_info(ctypes.Structure):
-    _fields_: list[tuple[str, Any]] = ...
+    line_offset: int
+    flags: int
+    name: str
+    consumer: str
 
 class gpioline_info_changed(ctypes.Structure):
-    _fields_: list[tuple[str, Any]] = ...
+    line_info: gpioline_info
+    timestamp: int
+    event_type: int
+    padding: list[int]
 
 class gpioevent_request(ctypes.Structure):
-    _fields_: list[tuple[str, Any]] = ...
+    lineoffset: int
+    handleflags: int
+    eventflags: int
+    consumer_label: str
+    fd: int
 
 class gpioevent_data(ctypes.Structure):
-    _fields_: list[tuple[str, Any]] = ...
+    timestamp: int
+    id: int
 
 class GPIOError(IOError): ...
 
