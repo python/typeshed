@@ -1,4 +1,5 @@
-from typing import Any, Final, Sequence
+from collections.abc import Sequence
+from typing import Any, Final
 
 CLARA_AGX_XAVIER: Final = "CLARA_AGX_XAVIER"
 JETSON_NX: Final = "JETSON_NX"

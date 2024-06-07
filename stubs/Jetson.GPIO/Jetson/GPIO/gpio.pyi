@@ -1,4 +1,5 @@
-from typing import Callable, Final, Literal, Sequence
+from collections.abc import Callable, Sequence
+from typing import Final, Literal
 
 BOARD: Final = 10
 BCM: Final = 11

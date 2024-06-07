@@ -1,4 +1,5 @@
-from typing import Any, Callable, Final, Literal
+from collections.abc import Callable
+from typing import Any, Final, Literal
 
 NO_EDGE: Final = 0
 RISING_EDGE: Final = 1
