@@ -81,7 +81,7 @@ class FunctionType:
     __name__: str
     __qualname__: str
     __annotations__: dict[str, Any]
-    __kwdefaults__: dict[str, Any]
+    __kwdefaults__: dict[str, Any] | None
     if sys.version_info >= (3, 10):
         @property
         def __builtins__(self) -> dict[str, Any]: ...
