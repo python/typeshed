@@ -22,6 +22,62 @@ _T_co = TypeVar("_T_co", covariant=True)
 _V_co = TypeVar("_V_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
 
+# Text mode: always returns AsyncTextIOWrapper
+@overload
+def TemporaryFile(
+    mode: OpenTextMode,
+    buffering: int = -1,
+    encoding: str | None = None,
+    newline: str | None = None,
+    suffix: AnyStr | None = None,
+    prefix: AnyStr | None = None,
+    dir: StrOrBytesPath | None = None,
+    loop: AbstractEventLoop | None = None,
+    executor: Incomplete | None = None,
+) -> AiofilesContextManager[None, None, AsyncTextIOWrapper]: ...
+
+# Unbuffered binary: returns a FileIO
+@overload
+def TemporaryFile(
+    mode: OpenBinaryMode,
+    buffering: Literal[0],
+    encoding: None = None,
+    newline: None = None,
+    suffix: AnyStr | None = None,
+    prefix: AnyStr | None = None,
+    dir: StrOrBytesPath | None = None,
+    loop: AbstractEventLoop | None = None,
+    executor: Incomplete | None = None,
+) -> AiofilesContextManager[None, None, AsyncFileIO]: ...
+
+# Buffered binary reading/updating: AsyncBufferedReader
+@overload
+def TemporaryFile(
+    mode: OpenBinaryModeReading | OpenBinaryModeUpdating = "w+b",
+    buffering: Literal[-1, 1] = -1,
+    encoding: None = None,
+    newline: None = None,
+    suffix: AnyStr | None = None,
+    prefix: AnyStr | None = None,
+    dir: StrOrBytesPath | None = None,
+    loop: AbstractEventLoop | None = None,
+    executor: Incomplete | None = None,
+) -> AiofilesContextManager[None, None, AsyncBufferedReader]: ...
+
+# Buffered binary writing: AsyncBufferedIOBase
+@overload
+def TemporaryFile(
+    mode: OpenBinaryModeWriting,
+    buffering: Literal[-1, 1] = -1,
+    encoding: None = None,
+    newline: None = None,
+    suffix: AnyStr | None = None,
+    prefix: AnyStr | None = None,
+    dir: StrOrBytesPath | None = None,
+    loop: AbstractEventLoop | None = None,
+    executor: Incomplete | None = None,
+) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
+
 # 3.12 added `delete_on_close`
 if sys.version_info >= (3, 12):
     # Text mode: always returns AsyncTextIOWrapper
@@ -88,62 +144,6 @@ if sys.version_info >= (3, 12):
         executor: Incomplete | None = None,
     ) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
 
-    # Text mode: always returns AsyncTextIOWrapper
-    @overload
-    def TemporaryFile(
-        mode: OpenTextMode,
-        buffering: int = -1,
-        encoding: str | None = None,
-        newline: str | None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
-        dir: StrOrBytesPath | None = None,
-        loop: AbstractEventLoop | None = None,
-        executor: Incomplete | None = None,
-    ) -> AiofilesContextManager[None, None, AsyncTextIOWrapper]: ...
-
-    # Unbuffered binary: returns a FileIO
-    @overload
-    def TemporaryFile(
-        mode: OpenBinaryMode,
-        buffering: Literal[0],
-        encoding: None = None,
-        newline: None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
-        dir: StrOrBytesPath | None = None,
-        loop: AbstractEventLoop | None = None,
-        executor: Incomplete | None = None,
-    ) -> AiofilesContextManager[None, None, AsyncFileIO]: ...
-
-    # Buffered binary reading/updating: AsyncBufferedReader
-    @overload
-    def TemporaryFile(
-        mode: OpenBinaryModeReading | OpenBinaryModeUpdating = "w+b",
-        buffering: Literal[-1, 1] = -1,
-        encoding: None = None,
-        newline: None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
-        dir: StrOrBytesPath | None = None,
-        loop: AbstractEventLoop | None = None,
-        executor: Incomplete | None = None,
-    ) -> AiofilesContextManager[None, None, AsyncBufferedReader]: ...
-
-    # Buffered binary writing: AsyncBufferedIOBase
-    @overload
-    def TemporaryFile(
-        mode: OpenBinaryModeWriting,
-        buffering: Literal[-1, 1] = -1,
-        encoding: None = None,
-        newline: None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
-        dir: StrOrBytesPath | None = None,
-        loop: AbstractEventLoop | None = None,
-        executor: Incomplete | None = None,
-    ) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
-
 else:
     # Text mode: always returns AsyncTextIOWrapper
     @overload
@@ -201,62 +201,6 @@ else:
         prefix: AnyStr | None = None,
         dir: StrOrBytesPath | None = None,
         delete: bool = True,
-        loop: AbstractEventLoop | None = None,
-        executor: Incomplete | None = None,
-    ) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
-
-    # Text mode: always returns AsyncTextIOWrapper
-    @overload
-    def TemporaryFile(
-        mode: OpenTextMode,
-        buffering: int = -1,
-        encoding: str | None = None,
-        newline: str | None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
-        dir: StrOrBytesPath | None = None,
-        loop: AbstractEventLoop | None = None,
-        executor: Incomplete | None = None,
-    ) -> AiofilesContextManager[None, None, AsyncTextIOWrapper]: ...
-
-    # Unbuffered binary: returns a FileIO
-    @overload
-    def TemporaryFile(
-        mode: OpenBinaryMode,
-        buffering: Literal[0],
-        encoding: None = None,
-        newline: None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
-        dir: StrOrBytesPath | None = None,
-        loop: AbstractEventLoop | None = None,
-        executor: Incomplete | None = None,
-    ) -> AiofilesContextManager[None, None, AsyncFileIO]: ...
-
-    # Buffered binary reading/updating: AsyncBufferedReader
-    @overload
-    def TemporaryFile(
-        mode: OpenBinaryModeReading | OpenBinaryModeUpdating = "w+b",
-        buffering: Literal[-1, 1] = -1,
-        encoding: None = None,
-        newline: None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
-        dir: StrOrBytesPath | None = None,
-        loop: AbstractEventLoop | None = None,
-        executor: Incomplete | None = None,
-    ) -> AiofilesContextManager[None, None, AsyncBufferedReader]: ...
-
-    # Buffered binary writing: AsyncBufferedIOBase
-    @overload
-    def TemporaryFile(
-        mode: OpenBinaryModeWriting,
-        buffering: Literal[-1, 1] = -1,
-        encoding: None = None,
-        newline: None = None,
-        suffix: AnyStr | None = None,
-        prefix: AnyStr | None = None,
-        dir: StrOrBytesPath | None = None,
         loop: AbstractEventLoop | None = None,
         executor: Incomplete | None = None,
     ) -> AiofilesContextManager[None, None, AsyncBufferedIOBase]: ...
