@@ -31,7 +31,7 @@ def getmode() -> Literal[10, 11, 1000, 1001]: ...
 def setup(
     channels: int | Sequence[int],
     direction: Literal[0, 1],
-    pull_up_down=Literal[20, 21, 22],
+    pull_up_down: Literal[20, 21, 22] = ...,
     initial: Literal[0, 1] = ...,
     consumer: str = ...,
 ) -> None: ...
