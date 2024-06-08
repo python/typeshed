@@ -122,6 +122,18 @@ class ZipFile:
     pwd: bytes | None  # undocumented
     # metadata_encoding is new in 3.11
     if sys.version_info >= (3, 11):
+        @overload
+        def __init__(
+            self,
+            file: StrPath | IO[bytes],
+            mode: _ZipFileMode = "r",
+            compression: int = 0,
+            allowZip64: bool = True,
+            compresslevel: int | None = None,
+            *,
+            strict_timestamps: bool = True,
+            metadata_encoding: str | None = None,
+        ) -> None: ...
         # metadata_encoding is only allowed for read mode
         @overload
         def __init__(
@@ -160,6 +172,17 @@ class ZipFile:
             metadata_encoding: None = None,
         ) -> None: ...
     else:
+        @overload
+        def __init__(
+            self,
+            file: StrPath | IO[bytes],
+            mode: _ZipFileMode = "r",
+            compression: int = 0,
+            allowZip64: bool = True,
+            compresslevel: int | None = None,
+            *,
+            strict_timestamps: bool = True,
+        ) -> None: ...
         @overload
         def __init__(
             self,
