@@ -103,10 +103,37 @@ PAX_NAME_FIELDS: set[str]
 
 ENCODING: str
 
+_ReadModes: TypeAlias = Literal["r", "r:"]
+_CompressionModes: TypeAlias = Literal[
+    "r:", "r:gz", "r:bz2", "r:xz", "w:", "w:gz", "w:bz2", "w:xz", "x:", "x:gz", "x:bz2", "x:xz"
+]
+_StreamModes: TypeAlias = Literal["r|*", "r|", "r|gz", "r|bz2", "r|xz", "w|", "w|gz", "w|bz2", "w|xz"]
+_FileCreationModes: TypeAlias = Literal["a", "w", "x"]
+
+@overload
 def open(
     name: StrOrBytesPath | None = None,
-    mode: str = "r",
-    fileobj: IO[bytes] | None = None,  # depends on mode
+    mode: _ReadModes | _CompressionModes | _StreamModes = "r",
+    fileobj: IO[bytes] | None = None,
+    bufsize: int = 10240,
+    *,
+    format: int | None = ...,
+    tarinfo: type[TarInfo] | None = ...,
+    dereference: bool | None = ...,
+    ignore_zeros: bool | None = ...,
+    encoding: str | None = ...,
+    errors: str = ...,
+    pax_headers: Mapping[str, str] | None = ...,
+    debug: int | None = ...,
+    errorlevel: int | None = ...,
+    compresslevel: int | None = ...,
+    preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
+) -> TarFile: ...
+@overload
+def open(
+    name: StrOrBytesPath | None = None,
+    mode: _FileCreationModes = ...,
+    fileobj: _Fileobj | None = None,
     bufsize: int = 10240,
     *,
     format: int | None = ...,
