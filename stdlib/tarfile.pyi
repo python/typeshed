@@ -103,17 +103,12 @@ PAX_NAME_FIELDS: set[str]
 
 ENCODING: str
 
-_ReadModes: TypeAlias = Literal["r", "r:"]
-_CompressionModes: TypeAlias = Literal[
-    "r:", "r:gz", "r:bz2", "r:xz", "w:", "w:gz", "w:bz2", "w:xz", "x:", "x:gz", "x:bz2", "x:xz"
-]
-_StreamModes: TypeAlias = Literal["r|*", "r|", "r|gz", "r|bz2", "r|xz", "w|", "w|gz", "w|bz2", "w|xz"]
 _FileCreationModes: TypeAlias = Literal["a", "w", "x"]
 
 @overload
 def open(
     name: StrOrBytesPath | None = None,
-    mode: _ReadModes | _CompressionModes | _StreamModes = "r",
+    mode: str = "r",
     fileobj: IO[bytes] | None = None,
     bufsize: int = 10240,
     *,
