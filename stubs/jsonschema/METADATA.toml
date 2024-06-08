@@ -6,3 +6,4 @@ partial_stub = true
 [tool.stubtest]
 ignore_missing_stub = true
 extras = ["format"]
+stubtest_requirements = ["webcolors<24.6.0"]
