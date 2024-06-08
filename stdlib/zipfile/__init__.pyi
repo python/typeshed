@@ -94,7 +94,7 @@ class ZipExtFile(io.BufferedIOBase):
 class _Writer(Protocol):
     def write(self, s: str, /) -> object: ...
 
-class _ZipReadFile(Protocol):
+class _ZipReadable(Protocol):
     def seek(self, offset: int, whence: int = 0) -> int: ...
     def read(self, n: int | None = -1) -> bytes: ...
 
@@ -138,7 +138,7 @@ class ZipFile:
         @overload
         def __init__(
             self,
-            file: StrPath | _ZipReadFile,
+            file: StrPath | _ZipReadable,
             mode: Literal["r"] = "r",
             compression: int = 0,
             allowZip64: bool = True,
@@ -162,7 +162,7 @@ class ZipFile:
         @overload
         def __init__(
             self,
-            file: StrPath | _ZipReadFile | _ZipSeekTellable,
+            file: StrPath | _ZipReadable | _ZipSeekTellable,
             mode: Literal["a"] = ...,
             compression: int = 0,
             allowZip64: bool = True,
@@ -186,7 +186,7 @@ class ZipFile:
         @overload
         def __init__(
             self,
-            file: StrPath | _ZipReadFile,
+            file: StrPath | _ZipReadable,
             mode: Literal["r"] = "r",
             compression: int = 0,
             allowZip64: bool = True,
@@ -208,7 +208,7 @@ class ZipFile:
         @overload
         def __init__(
             self,
-            file: StrPath | _ZipReadFile | _ZipSeekTellable,
+            file: StrPath | _ZipReadable | _ZipSeekTellable,
             mode: Literal["a"] = ...,
             compression: int = 0,
             allowZip64: bool = True,
