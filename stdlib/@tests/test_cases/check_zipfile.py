@@ -8,7 +8,12 @@ from typing import Literal
 p = pathlib.Path("test.zip")
 
 
-class _CustomPathObj:
+###
+# Tests for `zipfile.ZipFile`
+###
+
+
+class CustomPathObj:
     def __init__(self, path: str):
         self.path = path
 
@@ -63,7 +68,7 @@ def write_zip(mode: Literal["r", "w", "x", "a"]):
         z.writestr("test.txt", "test")
 
     # Test any mode with `os.PathLike` object
-    with zipfile.ZipFile(_CustomPathObj("test.zip"), mode) as z:
+    with zipfile.ZipFile(CustomPathObj("test.zip"), mode) as z:
         z.writestr("test.txt", "test")
 
     # Non-PathLike object should raise an error
