@@ -5,7 +5,6 @@ import pathlib
 import zipfile
 from typing import Literal
 
-
 ###
 # Tests for `zipfile.ZipFile`
 ###
