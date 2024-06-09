@@ -1,8 +1,9 @@
-from typing import Literal
-import zipfile
-import pathlib
+from __future__ import annotations
 
 import io
+import pathlib
+import zipfile
+from typing import Literal
 
 p = pathlib.Path("test.zip")
 
