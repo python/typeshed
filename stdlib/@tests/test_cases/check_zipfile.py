@@ -5,24 +5,24 @@ import pathlib
 import zipfile
 from typing import Literal
 
-p = pathlib.Path("test.zip")
-
 
 ###
 # Tests for `zipfile.ZipFile`
 ###
 
+p = pathlib.Path("test.zip")
+
 
 class CustomPathObj:
-    def __init__(self, path: str):
+    def __init__(self, path: str) -> None:
         self.path = path
 
-    def __fspath__(self):
+    def __fspath__(self) -> str:
         return self.path
 
 
 class NonPathObj:
-    def __init__(self, path: str):
+    def __init__(self, path: str) -> None:
         self.path = path
 
 
