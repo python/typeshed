@@ -58,7 +58,7 @@ class SeekTellObj:
         return 0
 
 
-def write_zip(mode: Literal["r", "w", "x", "a"]):
+def write_zip(mode: Literal["r", "w", "x", "a"]) -> None:
     # Test any mode with `pathlib.Path`
     with zipfile.ZipFile(p, mode) as z:
         z.writestr("test.txt", "test")
