@@ -101,12 +101,14 @@ class _ZipReadable(Protocol):
 class _ZipTellable(Protocol):
     def tell(self) -> int: ...
 
-class _ZipSeekTellable(_ZipTellable):
+class _ZipSeekTellable(Protocol):
     def seek(self, offset: int, whence: int = 0) -> int: ...
+    def tell(self) -> int: ...
 
-class _ZipWritable(_Writer):
+class _ZipWritable(Protocol):
     def flush(self) -> None: ...
     def close(self) -> None: ...
+    def write(self, b: bytes) -> int: ...
 
 class ZipFile:
     filename: str | None
@@ -145,7 +147,7 @@ class ZipFile:
             compresslevel: int | None = None,
             *,
             strict_timestamps: bool = True,
-            metadata_encoding: str | None,
+            metadata_encoding: str | None = None,
         ) -> None: ...
         @overload
         def __init__(
