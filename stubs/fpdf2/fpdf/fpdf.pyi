@@ -25,20 +25,19 @@ from .enums import (
     RenderStyle,
     TableBordersLayout,
     TableCellFillMode,
+    TableHeadingsDisplay,
     TextDirection,
     TextMarkupType,
     TextMode as TextMode,
+    VAlign,
     WrapMode as WrapMode,
     XPos as XPos,
     YPos as YPos,
-    VAlign,
-    TableHeadingsDisplay,
 )
 from .errors import FPDFException as FPDFException
 from .fonts import FontFace
 from .graphics_state import GraphicsStateMixin
 from .html import HTML2FPDF
-from .util import Padding
 from .image_datastructures import (
     ImageCache,
     ImageInfo as ImageInfo,
@@ -51,7 +50,7 @@ from .recorder import FPDFRecorder
 from .structure_tree import StructureTreeBuilder
 from .syntax import DestinationXYZ
 from .table import Table
-from .util import _Unit
+from .util import Padding, _Unit
 
 __all__ = [
     "FPDF",

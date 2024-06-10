@@ -8,9 +8,9 @@ from PIL import Image
 
 from .drawing import DeviceGray, DeviceRGB
 from .enums import Align, TableBordersLayout, TableCellFillMode, TableHeadingsDisplay, TableSpan, VAlign, WrapMode
-from .image_datastructures import _TextAlign
 from .fonts import FontFace
 from .fpdf import FPDF
+from .image_datastructures import _TextAlign
 from .util import Padding
 
 DEFAULT_HEADINGS_STYLE: FontFace
