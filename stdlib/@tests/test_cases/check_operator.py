@@ -25,5 +25,5 @@ def supports_item_get_slice(my_seq: Sequence[MyClass], key: slice) -> Sequence[M
     return operator.getitem(my_seq, key)
 
 
-def supports_item_get_sequence_with_any(my_seq: Sequence[MyClass], key: SupportsIndex) -> MyClass:
+def sequence_no_supports_get_item(my_seq: Sequence[MyClass], key: SupportsIndex) -> MyClass:
     return operator.getitem(my_seq, key)
