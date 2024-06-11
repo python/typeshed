@@ -102,6 +102,6 @@ class SynchronizedArray(SynchronizedBase[ctypes.Array[_CT]], Generic[_CT]):
     def __getslice__(self, start: int, stop: int) -> list[_CT]: ...
     def __setslice__(self, start: int, stop: int, values: Iterable[_CT]) -> None: ...
 
-class SynchronizedString(SynchronizedArray[c_char]):
+class SynchronizedString(SynchronizedArray[int]):
     value: bytes
     raw: bytes
