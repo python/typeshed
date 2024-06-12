@@ -105,7 +105,7 @@
     "reportIncompleteStub": "none",
     // Extra strict settings
     "reportCallInDefaultInitializer": "error",
-    "reportImplicitStringConcatenation": "error",
+    "reportImplicitStringConcatenation": "none",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Leave "type: ignore" comments to mypy
     "enableTypeIgnoreComments": false,

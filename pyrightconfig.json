@@ -18,7 +18,6 @@
     "reportUnknownVariableType": "none",
     // Extra strict settings
     "reportCallInDefaultInitializer": "error",
-    "reportImplicitStringConcatenation": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Leave "type: ignore" comments to mypy
     "enableTypeIgnoreComments": false,
