@@ -3,6 +3,9 @@ asyncio.unix_events.EventLoop
 asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 asyncio.unix_events.__all__
 fcntl.F_GETNOSIGPIPE
+fcntl.F_OFD_GETLK
+fcntl.F_OFD_SETLK
+fcntl.F_OFD_SETLKW
 fcntl.F_RDAHEAD
 fcntl.F_SETNOSIGPIPE
 mmap.MAP_HASSEMAPHORE
@@ -33,6 +36,9 @@ webbrowser.MacOSX
 _curses.unget_wch
 _curses.window.get_wch
 curses.window.get_wch
+
+# Exists locally on MacOS but not on GitHub
+(mmap.MAP_32BIT)?
 
 # These entries looks like a `setup-python` bug:
 (dbm.gnu)?
