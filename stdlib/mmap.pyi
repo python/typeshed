@@ -114,6 +114,8 @@ if sys.version_info >= (3, 10) and sys.platform == "darwin":
     MADV_FREE_REUSABLE: int
     MADV_FREE_REUSE: int
 
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 13) and sys.platform != "win32":
     MAP_32BIT: Final = 32768
+
+if sys.version_info >= (3, 13) and sys.platform == "darwin":
     MAP_TPRO: Final = 524288

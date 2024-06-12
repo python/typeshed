@@ -108,6 +108,7 @@ mailbox.Maildir.get_info
 mailbox.Maildir.remove_flag
 mailbox.Maildir.set_flags
 mailbox.Maildir.set_info
+os.path.splitroot
 pdb.Pdb.MAX_CHAINED_EXCEPTION_DEPTH
 pdb.Pdb.completedefault
 pdb.Pdb.completenames
@@ -115,6 +116,7 @@ pdb.Pdb.do_exceptions
 pdb.Pdb.interaction
 pdb.Pdb.message
 pdb.Pdb.user_opcode
+posixpath.splitroot
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
 pydoc.pager
