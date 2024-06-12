@@ -105,6 +105,7 @@
     "reportIncompleteStub": "none",
     // Extra strict settings
     "reportCallInDefaultInitializer": "error",
+    // implicit string concatenation is useful for long deprecation messages
     "reportImplicitStringConcatenation": "none",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Leave "type: ignore" comments to mypy

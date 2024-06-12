@@ -1,5 +1,7 @@
 _winapi.GetLongPathName
 _winapi.GetShortPathName
+ntpath.exists
+os.path.exists
 
 # Undocumented internal method, not really for public consumption.
 # (Hard to add types for unless we add stubs for the undocumented _overlapped module...)
