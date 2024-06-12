@@ -94,7 +94,7 @@ class BaseContext:
     @overload
     def Array(
         self, typecode_or_type: type[_CT], size_or_initializer: int | Sequence[Any], *, lock: Literal[False]
-    ) -> SynchronizedArray[_CT, _CT, list[_CT], Iterable[_CT]]: ...
+    ) -> SynchronizedArray[_CT]: ...
     @overload
     def Array(
         self, typecode_or_type: type[c_char], size_or_initializer: int | Sequence[Any], *, lock: Literal[True] | _LockLike = True
@@ -102,11 +102,11 @@ class BaseContext:
     @overload
     def Array(
         self, typecode_or_type: type[_CT], size_or_initializer: int | Sequence[Any], *, lock: Literal[True] | _LockLike = True
-    ) -> SynchronizedArray[_CT, _CT, list[_CT], Iterable[_CT]]: ...
+    ) -> SynchronizedArray[_CT]: ...
     @overload
     def Array(
         self, typecode_or_type: str, size_or_initializer: int | Sequence[Any], *, lock: Literal[True] | _LockLike = True
-    ) -> SynchronizedArray[Any, Any, Any, Any]: ...
+    ) -> SynchronizedArray[Any]: ...
     @overload
     def Array(
         self, typecode_or_type: str | type[_CData], size_or_initializer: int | Sequence[Any], *, lock: bool | _LockLike = True
