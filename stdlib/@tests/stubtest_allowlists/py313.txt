@@ -116,7 +116,6 @@ pdb.Pdb.do_exceptions
 pdb.Pdb.interaction
 pdb.Pdb.message
 pdb.Pdb.user_opcode
-posixpath.splitroot
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
 pydoc.pager

@@ -44,6 +44,7 @@ posix.TFD_TIMER_CANCEL_ON_SET
 posix.grantpt
 posix.posix_openpt
 posix.ptsname
+posixpath.splitroot
 posix.timerfd_create
 posix.timerfd_gettime
 posix.timerfd_gettime_ns

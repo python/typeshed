@@ -26,6 +26,7 @@ os.waitid_result
 posix.grantpt
 posix.posix_openpt
 posix.ptsname
+posixpath.splitroot
 posix.unlockpt
 posix.waitid
 posix.waitid_result
