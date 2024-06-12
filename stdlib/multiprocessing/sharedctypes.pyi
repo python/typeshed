@@ -9,9 +9,6 @@ from typing import Any, Generic, Literal, Protocol, TypeVar, overload
 __all__ = ["RawValue", "RawArray", "Value", "Array", "copy", "synchronized"]
 
 _T = TypeVar("_T")
-_SingleT = TypeVar("_SingleT")
-_MultiGetT = TypeVar("_MultiGetT")
-_MultiSetT = TypeVar("_MultiSetT")
 _CT = TypeVar("_CT", bound=_CData)
 
 @overload
