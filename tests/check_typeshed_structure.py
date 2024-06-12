@@ -127,7 +127,7 @@ def check_no_symlinks() -> None:
 
 def check_versions_file() -> None:
     """Check that the stdlib/VERSIONS file has the correct format."""
-    versions = set[str]()
+    versions = list[str]()
     with open("stdlib/VERSIONS", encoding="UTF-8") as f:
         data = f.read().splitlines()
     for line in data:
@@ -139,12 +139,18 @@ def check_versions_file() -> None:
             raise AssertionError(f"Bad line in VERSIONS: {line}")
         module = m.group(1)
         assert module not in versions, f"Duplicate module {module} in VERSIONS"
-        versions.add(module)
+        versions.append(module)
+
+    deduped_versions = set(versions)
+    assert len(versions) == len(deduped_versions)
+    sorted_versions = sorted(versions)
+    assert versions == sorted_versions, f"{versions=}\n\n{sorted_versions=}"
+
     modules = _find_stdlib_modules()
     # Sub-modules don't need to be listed in VERSIONS.
-    extra = {m.split(".")[0] for m in modules} - versions
+    extra = {m.split(".")[0] for m in modules} - deduped_versions
     assert not extra, f"Modules not in versions: {extra}"
-    extra = versions - modules
+    extra = deduped_versions - modules
     assert not extra, f"Versions not in modules: {extra}"
 
 

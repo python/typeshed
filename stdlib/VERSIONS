@@ -65,9 +65,9 @@ array: 3.0-
 ast: 3.0-
 asynchat: 3.0-3.11
 asyncio: 3.4-
-asyncio.mixins: 3.10-
 asyncio.exceptions: 3.8-
 asyncio.format_helpers: 3.7-
+asyncio.mixins: 3.10-
 asyncio.runners: 3.7-
 asyncio.staggered: 3.8-
 asyncio.taskgroups: 3.11-
