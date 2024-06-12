@@ -1,7 +1,7 @@
 from array import array
 from collections.abc import Iterator
 from typing import Any, Generic, Literal, NoReturn, overload
-from typing_extensions import Self, TypeVar, deprecated  # noqa: Y023
+from typing_extensions import Self, TypeVar, deprecated
 
 import numpy as np
 from numpy.typing import NDArray
