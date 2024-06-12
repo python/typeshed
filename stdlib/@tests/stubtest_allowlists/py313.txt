@@ -155,7 +155,6 @@ tkinter.PhotoImage.write
 tkinter.PhotoImage.zoom
 tkinter.Text.count
 tkinter.Wm.wm_attributes
-tkinter.tix
 trace.CoverageResults.write_results
 turtle.RawTurtle.settiltangle
 turtle.__all__
