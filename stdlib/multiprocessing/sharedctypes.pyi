@@ -1,5 +1,5 @@
 import ctypes
-from collections.abc import Callable, Iterable, Sequence
+from collections.abc import Callable, Sequence
 from ctypes import _CData, _SimpleCData, c_char
 from multiprocessing.context import BaseContext
 from multiprocessing.synchronize import _LockLike
@@ -78,9 +78,7 @@ def synchronized(obj: _SimpleCData[_T], lock: _LockLike | None = None, ctx: Any 
 @overload
 def synchronized(obj: ctypes.Array[c_char], lock: _LockLike | None = None, ctx: Any | None = None) -> SynchronizedString: ...
 @overload
-def synchronized(
-    obj: ctypes.Array[_CT], lock: _LockLike | None = None, ctx: Any | None = None
-) -> SynchronizedArray[_CT]: ...
+def synchronized(obj: ctypes.Array[_CT], lock: _LockLike | None = None, ctx: Any | None = None) -> SynchronizedArray[_CT]: ...
 @overload
 def synchronized(obj: _CT, lock: _LockLike | None = None, ctx: Any | None = None) -> SynchronizedBase[_CT]: ...
 
