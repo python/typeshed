@@ -20,7 +20,7 @@ class ModuleSpec:
     name: str
     loader: importlib.abc.Loader | None
     origin: str | None
-    submodule_search_locations: list[str] | None
+    submodule_search_locations: MutableSequence[str] | None
     loader_state: Any
     cached: str | None
     @property
