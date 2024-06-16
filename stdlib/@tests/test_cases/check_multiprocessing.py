@@ -10,7 +10,7 @@ assert_type(string, SynchronizedString)
 assert_type(string.value, bytes)
 
 numbers = Array(c_int, 3)
-assert_type(numbers, Synchronized[int])
+assert_type(numbers, SynchronizedArray[c_int])
 numbers[0] = 3
 numbers[:] = [0, 1, 2]
 
