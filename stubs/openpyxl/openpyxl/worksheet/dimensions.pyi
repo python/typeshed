@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
 from collections.abc import Callable, Iterator
-from typing import ClassVar, Generic, Literal, TypeVar
+from typing import ClassVar, Literal, TypeVar
 from typing_extensions import Self
 
 from openpyxl.descriptors import Strict
@@ -104,7 +104,7 @@ class ColumnDimension(Dimension):
     def reindex(self) -> None: ...
     def to_tree(self) -> Element | None: ...
 
-class DimensionHolder(BoundDictionary[_DimKeyT, _DimT], Generic[_DimKeyT, _DimT]):
+class DimensionHolder(BoundDictionary[_DimKeyT, _DimT]):
     worksheet: Worksheet
     max_outline: int | None
     default_factory: Callable[[], _DimT] | None
