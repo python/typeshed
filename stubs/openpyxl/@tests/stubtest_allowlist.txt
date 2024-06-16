@@ -17,7 +17,14 @@ openpyxl.xml.functions.tostring
 openpyxl.utils.dataframe
 
 # Fake getters
-openpyxl\.descriptors\..*\.__get__
+openpyxl.descriptors.(base.)?Descriptor.__get__
+openpyxl.descriptors.(base.)?MatchPattern.__get__
+openpyxl.descriptors.(base.)?Typed.__get__
+openpyxl.descriptors.nested.EmptyTag.__get__
+openpyxl.descriptors.nested.Nested.__get__
+openpyxl.descriptors.nested.NestedMinMax.__get__
+openpyxl.descriptors.nested.NestedText.__get__
+openpyxl.descriptors.nested.NestedValue.__get__
 
 # Stubtest sees <class T> and type[T] as different: https://github.com/python/mypy/issues/13316
 openpyxl.chart.descriptors.NumberFormatDescriptor.expected_type
