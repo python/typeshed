@@ -32,6 +32,7 @@ openpyxl.chart.title.TitleDescriptor.expected_type
 openpyxl.drawing.colors.ColorChoiceDescriptor.expected_type
 openpyxl.packaging.relationship.RelationshipList.expected_type
 openpyxl.styles.colors.ColorDescriptor.expected_type
+openpyxl.styles.fills.StopList.expected_type
 
 # Stubtest doesn't like generics here
 openpyxl\.descriptors\.(base\.)?Bool\.allow_none
