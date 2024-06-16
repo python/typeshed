@@ -1,4 +1,4 @@
-from typing import Generic, TypeVar
+from typing import TypeVar
 from typing_extensions import Self
 
 from openpyxl.descriptors.serialisable import Serialisable
@@ -7,7 +7,7 @@ from openpyxl.xml.functions import Element
 _T = TypeVar("_T", bound=Serialisable)
 
 # Abstract base class.
-class ElementList(list[_T], Generic[_T]):
+class ElementList(list[_T]):
     @property
     def tagname(self) -> str: ...  # abstract
     @property
