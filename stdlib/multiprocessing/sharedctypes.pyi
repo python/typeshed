@@ -1,5 +1,5 @@
 import ctypes
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Iterable, Sequence
 from ctypes import _CData, _SimpleCData, c_char
 from multiprocessing.context import BaseContext
 from multiprocessing.synchronize import _LockLike
@@ -112,7 +112,7 @@ class SynchronizedArray(SynchronizedBase[ctypes.Array[_SimpleCData[_T]]], Generi
     def __getslice__(self, start: int, stop: int) -> list[_T]: ...
     def __setslice__(self, start: int, stop: int, values: Iterable[_T]) -> None: ...
 
-class SynchronizedString(SynchronizedArray[c_char]):
+class SynchronizedString(SynchronizedArray[bytes]):
     @overload
     def __getitem__(self, i: slice) -> bytes: ...  # type: ignore
     @overload
@@ -121,6 +121,8 @@ class SynchronizedString(SynchronizedArray[c_char]):
     def __setitem__(self, i: slice, value: bytes) -> None: ...  # type: ignore
     @overload
     def __setitem__(self, i: int, value: bytes) -> None: ...  # type: ignore
+    def __getslice__(self, start: int, stop: int) -> bytes: ...  # type: ignore
+    def __setslice__(self, start: int, stop: int, values: bytes) -> None: ...  # type: ignore
 
     value: bytes
     raw: bytes
