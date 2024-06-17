@@ -9,6 +9,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from shutil import rmtree
 from textwrap import dedent
 from typing import NoReturn
 
@@ -57,8 +58,9 @@ def run_stubtest(
         print(colored(f"skipping (requires Python {metadata.requires_python})", "yellow"))
         return True
 
-    with tempfile.TemporaryDirectory(prefix="stubtest-", delete=not keep_tmp_dir) as tmp:
-        venv_dir = Path(tmp)
+    tmp = tempfile.mkdtemp(prefix="stubtest-")  # TODO: Python 3.12: Use TemporaryDirectory
+    venv_dir = Path(tmp)
+    try:
         try:
             subprocess.run(["uv", "venv", venv_dir, "--seed"], capture_output=True, check=True)
         except subprocess.CalledProcessError as e:
@@ -181,6 +183,9 @@ def run_stubtest(
             print_success_msg()
             if keep_tmp_dir:
                 print_info(f"Virtual environment kept at: {venv_dir}")
+    finally:
+        if not keep_tmp_dir:
+            rmtree(venv_dir)
 
     if verbose:
         print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
