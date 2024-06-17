@@ -101,7 +101,11 @@ class BaseContext:
     ) -> SynchronizedString: ...
     @overload
     def Array(
-        self, typecode_or_type: type[_SimpleCData[_T]], size_or_initializer: int | Sequence[Any], *, lock: Literal[True] | _LockLike = True
+        self,
+        typecode_or_type: type[_SimpleCData[_T]],
+        size_or_initializer: int | Sequence[Any],
+        *,
+        lock: Literal[True] | _LockLike = True,
     ) -> SynchronizedArray[_T]: ...
     @overload
     def Array(
