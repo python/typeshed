@@ -157,10 +157,12 @@ def run_stubtest(
             print("Python version: ", end="", flush=True)
             ret = subprocess.run([sys.executable, "-VV"], capture_output=True)
             print_command_output(ret)
+
             print("\nRan with the following environment:")
             ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
             print_command_output(ret)
-            print("Virtual environment: ", venv_dir, flush=True)
+            if keep_tmp_dir:
+                print("Path to virtual environment:", venv_dir, flush=True)
 
             print_divider()
             main_allowlist_path = allowlists_path(dist_name) / "stubtest_allowlist.txt"
