@@ -43,9 +43,7 @@ ProxyTypes: tuple[type[Any], ...]
 class WeakMethod(ref[_CallableT]):
     # `ref` is implemented in `C` so positional-only arguments are enforced, but not in `WeakMethod`.
     def __new__(  # pyright: ignore[reportInconsistentConstructor]
-        cls,
-        meth: _CallableT,
-        callback: Callable[[Self], Any] | None = None,
+        cls, meth: _CallableT, callback: Callable[[Self], Any] | None = None
     ) -> Self: ...
     def __call__(self) -> _CallableT | None: ...
     def __eq__(self, other: object) -> bool: ...
