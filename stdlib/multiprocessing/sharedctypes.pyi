@@ -113,16 +113,16 @@ class SynchronizedArray(SynchronizedBase[ctypes.Array[_SimpleCData[_T]]], Generi
     def __setslice__(self, start: int, stop: int, values: Iterable[_T]) -> None: ...
 
 class SynchronizedString(SynchronizedArray[bytes]):
-    @overload
-    def __getitem__(self, i: slice) -> bytes: ...  # type: ignore
-    @overload
-    def __getitem__(self, i: int) -> bytes: ...  # type: ignore
-    @overload
-    def __setitem__(self, i: slice, value: bytes) -> None: ...  # type: ignore
-    @overload
-    def __setitem__(self, i: int, value: bytes) -> None: ...  # type: ignore
-    def __getslice__(self, start: int, stop: int) -> bytes: ...  # type: ignore
-    def __setslice__(self, start: int, stop: int, values: bytes) -> None: ...  # type: ignore
+    @overload  # type: ignore[override]
+    def __getitem__(self, i: slice) -> bytes: ...
+    @overload  # type: ignore[override]
+    def __getitem__(self, i: int) -> bytes: ...
+    @overload  # type: ignore[override]
+    def __setitem__(self, i: slice, value: bytes) -> None: ...
+    @overload  # type: ignore[override]
+    def __setitem__(self, i: int, value: bytes) -> None: ...  # type: ignore[override]
+    def __getslice__(self, start: int, stop: int) -> bytes: ...  # type: ignore[override]
+    def __setslice__(self, start: int, stop: int, values: bytes) -> None: ...  # type: ignore[override]
 
     value: bytes
     raw: bytes
