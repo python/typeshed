@@ -21,13 +21,19 @@ from _utils import (
     get_mypy_req,
     print_divider,
     print_error,
+    print_info,
     print_success_msg,
     tests_path,
 )
 
 
 def run_stubtest(
-    dist: Path, *, parser: argparse.ArgumentParser, verbose: bool = False, specified_platforms_only: bool = False
+    dist: Path,
+    *,
+    parser: argparse.ArgumentParser,
+    verbose: bool = False,
+    specified_platforms_only: bool = False,
+    keep_tmp_dir: bool = False,
 ) -> bool:
     dist_name = dist.name
     try:
@@ -51,7 +57,7 @@ def run_stubtest(
         print(colored(f"skipping (requires Python {metadata.requires_python})", "yellow"))
         return True
 
-    with tempfile.TemporaryDirectory() as tmp:
+    with tempfile.TemporaryDirectory(prefix="stubtest-", delete=not keep_tmp_dir) as tmp:
         venv_dir = Path(tmp)
         try:
             subprocess.run(["uv", "venv", venv_dir, "--seed"], capture_output=True, check=True)
@@ -152,6 +158,7 @@ def run_stubtest(
             print("\nRan with the following environment:")
             ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
             print_command_output(ret)
+            print("Virtual environment: ", venv_dir, flush=True)
 
             print_divider()
             main_allowlist_path = allowlists_path(dist_name) / "stubtest_allowlist.txt"
@@ -172,6 +179,8 @@ def run_stubtest(
             return False
         else:
             print_success_msg()
+            if keep_tmp_dir:
+                print_info(f"Virtual environment kept at: {venv_dir}")
 
     if verbose:
         print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
@@ -365,6 +374,7 @@ def main() -> NoReturn:
         action="store_true",
         help="skip the test if the current platform is not specified in METADATA.toml/tool.stubtest.platforms",
     )
+    parser.add_argument("--keep-tmp-dir", action="store_true", help="keep the temporary virtualenv")
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
     args = parser.parse_args()
 
@@ -378,7 +388,13 @@ def main() -> NoReturn:
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if not run_stubtest(dist, parser=parser, verbose=args.verbose, specified_platforms_only=args.specified_platforms_only):
+        if not run_stubtest(
+            dist,
+            parser=parser,
+            verbose=args.verbose,
+            specified_platforms_only=args.specified_platforms_only,
+            keep_tmp_dir=args.keep_tmp_dir,
+        ):
             result = 1
     sys.exit(result)
 
