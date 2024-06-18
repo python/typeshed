@@ -5,7 +5,6 @@
 _socket.*
 _posixsubprocess.cloexec_pipe
 curses.has_key
-os.plock
 selectors.KqueueSelector
 socket.[A-Z0-9_]+
 
