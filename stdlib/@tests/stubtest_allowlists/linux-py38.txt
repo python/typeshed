@@ -2,9 +2,5 @@
 # while being inspected by stubtest. Fixed in Python 3.10.
 select.epoll.register
 
-# Exists at runtime, but missing from stubs
-spwd.struct_spwd.sp_nam
-spwd.struct_spwd.sp_pwd
-
 # doesn't exist on linux
 msilib(.[a-z]+)?
