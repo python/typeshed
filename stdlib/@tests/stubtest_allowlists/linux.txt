@@ -34,10 +34,10 @@ multiprocessing.popen_spawn_win32
 fcntl.I_[A-Z0-9_]+
 os.SCHED_[A-Z_]+
 posix.SCHED_[A-Z_]+
+((os|posix).CLONE_[A-Z]+)?  # Python 3.12+
 (posix.O_[A-Z_]+)?
 (posix.ST_[A-Z]+)?
 (termios.[A-Z0-9_]+)?
-((os|posix).CLONE_[A-Z]+)?
 
 # Some of these exist on non-windows, but they are useless and this is not intended
 stat.FILE_ATTRIBUTE_[A-Z_]+
