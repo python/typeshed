@@ -45,7 +45,7 @@ class Cell(StyleableObject):
         worksheet: _WorkbookChild | ReadOnlyWorksheet,
         row: int,
         column: int,
-        value: str | float | datetime | None = None,
+        value: _CellValue | bytes | None = None,
         style_array: StyleArray | None = None,
     ) -> None: ...
     @property
@@ -94,6 +94,6 @@ class MergedCell(StyleableObject):
     # https://github.com/python/mypy/issues/6700
     @property
     def coordinate(self) -> str: ...
-    value: str | float | int | datetime | None
+    value: _CellValue | bytes | None
 
 def WriteOnlyCell(ws: _WorkbookChild | ReadOnlyWorksheet, value: str | float | datetime | None = None) -> Cell: ...
