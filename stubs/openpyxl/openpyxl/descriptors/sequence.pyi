@@ -10,8 +10,8 @@ from openpyxl.xml.functions import Element
 
 from .base import Alias, Descriptor
 
-_C = TypeVar("_C")
 _T = TypeVar("_T")
+_ContainerT = TypeVar("_ContainerT")
 
 class _SupportsFromTree(Protocol):
     @classmethod
@@ -20,9 +20,9 @@ class _SupportsFromTree(Protocol):
 class _SupportsToTree(Protocol):
     def to_tree(self) -> Element: ...
 
-# `_C` is the internal container type (which defaults to `list`), or
+# `_ContainerT` is the internal container type (which defaults to `list`), or
 # `IndexedList` if unique is `True`.
-class Sequence(Descriptor[_C]):
+class Sequence(Descriptor[_ContainerT]):
     expected_type: type[Any]  # expected type of the sequence elements
     seq_types: tuple[type, ...]  # allowed settable sequence types, defaults to `list`, `tuple`
     idx_base: int
@@ -39,18 +39,21 @@ class UniqueSequence(Sequence[set[_T]]):
     seq_types: tuple[type[list[_T]], type[tuple[_T, ...]], type[set[_T]]]
     container: type[set[_T]]
 
-# See `Sequence` for the meaning of `_C`.
-class ValueSequence(Sequence[_C]):
+# See `Sequence` for the meaning of `_ContainerT`.
+class ValueSequence(Sequence[_ContainerT]):
     attribute: str
     def to_tree(
-        self, tagname: str, obj: Iterable[object], namespace: str | None = None  # type: ignore[override]
+        self,
+        tagname: str,
+        obj: Iterable[object],
+        namespace: str | None = None,  # type: ignore[override]
     ) -> Generator[Element, None, None]: ...
     def from_tree(self, node: _HasGet[_T]) -> _T: ...
 
 class _NestedSequenceToTreeObj(Sized, Iterable[_SupportsToTree], Protocol): ...
 
-# See `Sequence` for the meaning of `_C`.
-class NestedSequence(Sequence[_C]):
+# See `Sequence` for the meaning of `_ContainerT`.
+class NestedSequence(Sequence[_ContainerT]):
     count: bool
     expected_type: type[_SupportsFromTree]
     def to_tree(  # type: ignore[override]
@@ -64,7 +67,10 @@ class NestedSequence(Sequence[_C]):
 class MultiSequence(Sequence[list[_T]]):
     def __set__(self, instance: Serialisable | Strict, seq: tuple[_T, ...] | list[_T]) -> None: ...
     def to_tree(
-        self, tagname: Unused, obj: Iterable[_SupportsToTree], namespace: str | None = None  # type: ignore[override]
+        self,
+        tagname: Unused,
+        obj: Iterable[_SupportsToTree],
+        namespace: str | None = None,  # type: ignore[override]
     ) -> Generator[Element, None, None]: ...
 
 class MultiSequencePart(Alias):
