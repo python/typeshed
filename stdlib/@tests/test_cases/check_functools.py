@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from functools import cached_property, wraps
-from tkinter.constants import W
 from typing import Callable, TypeVar
 from typing_extensions import ParamSpec, assert_type
 
@@ -41,7 +40,7 @@ def check_wraps_method() -> None:
         @wraps(wrapped)
         def wrapper(self, x: int) -> None: ...
 
-    class Wrapper:
+    class Wrapper:  # pyright: ignore[reportUnusedClass]
         @wraps(Wrapped.wrapped)
         def method(self, x: int) -> None: ...
 
