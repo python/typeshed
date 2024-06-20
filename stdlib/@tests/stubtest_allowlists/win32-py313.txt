@@ -33,7 +33,6 @@ nt.fchmod
 nt.lchmod
 ntpath.exists
 ntpath.lexists
-ntpath.splitroot
 os.fchmod
 os.lchmod
 os.path.exists
