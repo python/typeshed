@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from functools import cached_property, wraps
+from tkinter.constants import W
 from typing import Callable, TypeVar
 from typing_extensions import ParamSpec, assert_type
 
@@ -21,6 +22,37 @@ def my_decorator(func: Callable[P, T_co]) -> Callable[P, T_co]:
     wrapper.__name__ = func.__name__
     wrapper.__qualname__ = func.__qualname__
     return wrapper
+
+
+def check_wraps_function() -> None:
+    def wrapped(x: int) -> None: ...
+    @wraps(wrapped)
+    def identical_wrapper(x: int) -> None: ...
+    @wraps(wrapped)
+    def other_signature_wrapper(x: str, y: float) -> None: ...
+
+    identical_wrapper(3)
+    other_signature_wrapper("parrot", 42.0)
+
+
+def check_wraps_method() -> None:
+    class Wrapped:
+        def wrapped(self, x: int) -> None: ...
+        @wraps(wrapped)
+        def wrapper(self, x: int) -> None: ...
+
+    class Wrapper:
+        @wraps(Wrapped.wrapped)
+        def method(self, x: int) -> None: ...
+
+    @wraps(Wrapped.wrapped)
+    def func_wrapper(x: int) -> None: ...
+
+    # TODO: The following should work, but currently don't.
+    # https://github.com/python/typeshed/issues/10653
+    # Wrapped().wrapper(3)
+    # Wrapper().method(3)
+    func_wrapper(3)
 
 
 class A:
