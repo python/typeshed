@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import Literal
 
 from .. import Command
 
@@ -48,10 +47,5 @@ def can_scan(): ...
 INSTALL_DIRECTORY_ATTRS: Incomplete
 
 def make_zipfile(
-    zip_filename,
-    base_dir,
-    verbose: bool = False,
-    dry_run: bool = False,
-    compress: bool = True,
-    mode: str = "w",
+    zip_filename, base_dir, verbose: bool = False, dry_run: bool = False, compress: bool = True, mode: str = "w"
 ): ...

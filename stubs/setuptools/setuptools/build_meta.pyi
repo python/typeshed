@@ -37,10 +37,7 @@ class _BuildMetaBackend:
         self, metadata_directory: str, config_settings: Mapping[str, Any] | None = None
     ) -> str: ...
     def build_wheel(
-        self,
-        wheel_directory: StrPath,
-        config_settings: _ConfigSettings | None = None,
-        metadata_directory: StrPath | None = None,
+        self, wheel_directory: StrPath, config_settings: _ConfigSettings | None = None, metadata_directory: StrPath | None = None
     ) -> str: ...
     def build_sdist(self, sdist_directory: StrPath, config_settings: _ConfigSettings | None = None) -> str: ...
     def build_editable(
