@@ -51,8 +51,8 @@ class Worksheet(_WorkbookChild):
     ORIENTATION_PORTRAIT: Final = "portrait"
     ORIENTATION_LANDSCAPE: Final = "landscape"
 
-    row_dimensions: DimensionHolder[RowDimension]
-    column_dimensions: DimensionHolder[ColumnDimension]
+    row_dimensions: DimensionHolder[int, RowDimension]
+    column_dimensions: DimensionHolder[str, ColumnDimension]
     row_breaks: RowBreak
     col_breaks: ColBreak
     merged_cells: MultiCellRange
