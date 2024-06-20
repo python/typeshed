@@ -2,7 +2,7 @@ import sys
 from _typeshed import SupportsRichComparisonT
 from collections.abc import Callable, Hashable, Iterable, Sequence
 from decimal import Decimal
-from fractions import Fraction
+from numbers import Real
 from typing import Any, Literal, NamedTuple, SupportsFloat, TypeVar
 from typing_extensions import Self, TypeAlias
 
@@ -32,8 +32,8 @@ if sys.version_info >= (3, 13):
     __all__ += ["kde", "kde_random"]
 
 # Most functions in this module accept homogeneous collections of one of these types
-_Number: TypeAlias = float | Decimal | Fraction
-_NumberT = TypeVar("_NumberT", float, Decimal, Fraction)
+_Number: TypeAlias = Real | Decimal
+_NumberT = TypeVar("_NumberT", Real, Decimal)
 
 # Used in mode, multimode
 _HashableT = TypeVar("_HashableT", bound=Hashable)
