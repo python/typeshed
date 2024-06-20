@@ -36,7 +36,7 @@ class Table:
         headings_style: FontFace = ...,
         line_height: int | None = None,
         markdown: bool = False,
-        text_align: str | _TextAlign | tuple[str | _TextAlign] = "JUSTIFY",
+        text_align: str | _TextAlign | tuple[str | _TextAlign, ...] = "JUSTIFY",
         width: int | None = None,
         wrapmode: WrapMode = ...,
         padding: float | Padding | None = None,
