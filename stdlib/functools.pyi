@@ -85,7 +85,7 @@ WRAPPER_UPDATES: tuple[Literal["__dict__"]]
 
 class _Wrapped(Generic[_PWrapped, _RWrapped, _PWrapper, _RWrapper]):
     __wrapped__: Callable[_PWrapped, _RWrapped]
-    def __call__(self, *args: _PWrapped.args, **kwargs: _PWrapped.kwargs) -> _RWrapped: ...
+    def __call__(self, *args: _PWrapper.args, **kwargs: _PWrapper.kwargs) -> _RWrapped: ...
     # as with ``Callable``, we'll assume that these attributes exist
     __name__: str
     __qualname__: str
