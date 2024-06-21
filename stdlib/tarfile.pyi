@@ -103,12 +103,10 @@ PAX_NAME_FIELDS: set[str]
 
 ENCODING: str
 
-_FileCreationModes: TypeAlias = Literal["a", "w", "x"]
-
 @overload
 def open(
     name: StrOrBytesPath | None = None,
-    mode: str = "r",
+    mode: Literal["r", "r:*", "r:", "r:gz", "r:bz2", "r:xz"] = "r",
     fileobj: IO[bytes] | None = None,
     bufsize: int = 10240,
     *,
@@ -121,13 +119,11 @@ def open(
     pax_headers: Mapping[str, str] | None = ...,
     debug: int | None = ...,
     errorlevel: int | None = ...,
-    compresslevel: int | None = ...,
-    preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
 ) -> TarFile: ...
 @overload
 def open(
-    name: StrOrBytesPath | None = None,
-    mode: _FileCreationModes = ...,
+    name: StrOrBytesPath | None,
+    mode: Literal["x", "x:", "a", "a:", "w", "w:"],
     fileobj: _Fileobj | None = None,
     bufsize: int = 10240,
     *,
@@ -140,7 +136,94 @@ def open(
     pax_headers: Mapping[str, str] | None = ...,
     debug: int | None = ...,
     errorlevel: int | None = ...,
-    compresslevel: int | None = ...,
+) -> TarFile: ...
+@overload
+def open(
+    name: StrOrBytesPath | None = None,
+    *,
+    mode: Literal["x", "x:", "a", "a:", "w", "w:"],
+    fileobj: _Fileobj | None = None,
+    bufsize: int = 10240,
+    format: int | None = ...,
+    tarinfo: type[TarInfo] | None = ...,
+    dereference: bool | None = ...,
+    ignore_zeros: bool | None = ...,
+    encoding: str | None = ...,
+    errors: str = ...,
+    pax_headers: Mapping[str, str] | None = ...,
+    debug: int | None = ...,
+    errorlevel: int | None = ...,
+) -> TarFile: ...
+@overload
+def open(
+    name: StrOrBytesPath | None,
+    mode: Literal["x:gz", "x:bz2", "w:gz", "w:bz2"],
+    fileobj: _Fileobj | None = None,
+    bufsize: int = 10240,
+    *,
+    format: int | None = ...,
+    tarinfo: type[TarInfo] | None = ...,
+    dereference: bool | None = ...,
+    ignore_zeros: bool | None = ...,
+    encoding: str | None = ...,
+    errors: str = ...,
+    pax_headers: Mapping[str, str] | None = ...,
+    debug: int | None = ...,
+    errorlevel: int | None = ...,
+    compresslevel: int = 9,
+) -> TarFile: ...
+@overload
+def open(
+    name: StrOrBytesPath | None = None,
+    *,
+    mode: Literal["x:gz", "x:bz2", "w:gz", "w:bz2"],
+    fileobj: _Fileobj | None = None,
+    bufsize: int = 10240,
+    format: int | None = ...,
+    tarinfo: type[TarInfo] | None = ...,
+    dereference: bool | None = ...,
+    ignore_zeros: bool | None = ...,
+    encoding: str | None = ...,
+    errors: str = ...,
+    pax_headers: Mapping[str, str] | None = ...,
+    debug: int | None = ...,
+    errorlevel: int | None = ...,
+    compresslevel: int = 9,
+) -> TarFile: ...
+@overload
+def open(
+    name: StrOrBytesPath | None,
+    mode: Literal["x:xz", "w:xz"],
+    fileobj: _Fileobj | None = None,
+    bufsize: int = 10240,
+    *,
+    format: int | None = ...,
+    tarinfo: type[TarInfo] | None = ...,
+    dereference: bool | None = ...,
+    ignore_zeros: bool | None = ...,
+    encoding: str | None = ...,
+    errors: str = ...,
+    pax_headers: Mapping[str, str] | None = ...,
+    debug: int | None = ...,
+    errorlevel: int | None = ...,
+    preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
+) -> TarFile: ...
+@overload
+def open(
+    name: StrOrBytesPath | None = None,
+    *,
+    mode: Literal["x:xz", "w:xz"],
+    fileobj: _Fileobj | None = None,
+    bufsize: int = 10240,
+    format: int | None = ...,
+    tarinfo: type[TarInfo] | None = ...,
+    dereference: bool | None = ...,
+    ignore_zeros: bool | None = ...,
+    encoding: str | None = ...,
+    errors: str = ...,
+    pax_headers: Mapping[str, str] | None = ...,
+    debug: int | None = ...,
+    errorlevel: int | None = ...,
     preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
 ) -> TarFile: ...
 
