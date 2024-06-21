@@ -106,7 +106,7 @@ ENCODING: str
 @overload
 def open(
     name: StrOrBytesPath | None = None,
-    mode: Literal["r", "r:*", "r:", "r:gz", "r:bz2", "r:xz"] = "r",
+    mode: Literal["r", "r:*", "r:", "r:gz", "r:bz2", "r:xz", "r|*", "r|", "r|gz", "r|bz2", "r|xz"] = "r",
     fileobj: IO[bytes] | None = None,
     bufsize: int = 10240,
     *,
@@ -123,7 +123,7 @@ def open(
 @overload
 def open(
     name: StrOrBytesPath | None,
-    mode: Literal["x", "x:", "a", "a:", "w", "w:"],
+    mode: Literal["x", "x:", "a", "a:", "w", "w:", "w|"],
     fileobj: _Fileobj | None = None,
     bufsize: int = 10240,
     *,
@@ -141,7 +141,7 @@ def open(
 def open(
     name: StrOrBytesPath | None = None,
     *,
-    mode: Literal["x", "x:", "a", "a:", "w", "w:"],
+    mode: Literal["x", "x:", "a", "a:", "w", "w:", "w|gz"],
     fileobj: _Fileobj | None = None,
     bufsize: int = 10240,
     format: int | None = ...,
@@ -157,7 +157,7 @@ def open(
 @overload
 def open(
     name: StrOrBytesPath | None,
-    mode: Literal["x:gz", "x:bz2", "w:gz", "w:bz2"],
+    mode: Literal["x:gz", "x:bz2", "w:gz", "w:bz2", "w|bz2"],
     fileobj: _Fileobj | None = None,
     bufsize: int = 10240,
     *,
@@ -176,7 +176,7 @@ def open(
 def open(
     name: StrOrBytesPath | None = None,
     *,
-    mode: Literal["x:gz", "x:bz2", "w:gz", "w:bz2"],
+    mode: Literal["x:gz", "x:bz2", "w:gz", "w:bz2", "w|xz"],
     fileobj: _Fileobj | None = None,
     bufsize: int = 10240,
     format: int | None = ...,
