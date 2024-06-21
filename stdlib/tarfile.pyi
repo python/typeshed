@@ -227,7 +227,7 @@ def open(
     preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
 ) -> TarFile: ...
 
-# TODO: Temporary workaround for modes containing pipe characters. These don't
+# TODO: Temporary fallback for modes containing pipe characters. These don't
 # work with mypy 1.10, but this should be fixed with mypy 1.11.
 # https://github.com/python/typeshed/issues/12182
 @overload
