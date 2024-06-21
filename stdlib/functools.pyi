@@ -112,8 +112,7 @@ if sys.version_info >= (3, 12):
     ) -> _Wrapped[_PWrapped, _RWrapped, _PWrapper, _RWrapper]: ...
     def wraps(
         wrapped: Callable[Concatenate[Self, _PWrapped], _RWrapped],
-        assigned: Sequence[str] = (
-            "__module__", "__name__", "__qualname__", "__doc__", "__annotations__", "__type_params__"),
+        assigned: Sequence[str] = ("__module__", "__name__", "__qualname__", "__doc__", "__annotations__", "__type_params__"),
         updated: Sequence[str] = ("__dict__",),
     ) -> _MethodWrapper[_PWrapped, _RWrapped]: ...
     def wraps(
@@ -131,8 +130,7 @@ else:
     ) -> _Wrapped[_PWrapped, _RWrapped, _PWrapper, _RWrapper]: ...
     def wraps(
         wrapped: Callable[Concatenate[Self, _PWrapped], _RWrapped],
-        assigned: Sequence[str] = (
-            "__module__", "__name__", "__qualname__", "__doc__", "__annotations__", "__type_params__"),
+        assigned: Sequence[str] = ("__module__", "__name__", "__qualname__", "__doc__", "__annotations__", "__type_params__"),
         updated: Sequence[str] = ("__dict__",),
     ) -> _MethodWrapper[_PWrapped, _RWrapped]: ...
     def wraps(
