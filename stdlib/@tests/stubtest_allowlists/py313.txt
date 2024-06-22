@@ -15,8 +15,6 @@ _thread.lock
 _thread.stack_size
 _thread.start_joinable_thread
 _thread.start_new_thread
-_tkinter.TkappType.gettrace
-_tkinter.TkappType.settrace
 _tkinter.create
 asyncio.AbstractEventLoop.create_server
 asyncio.AbstractServer.abort_clients
@@ -110,6 +108,7 @@ mailbox.Maildir.get_info
 mailbox.Maildir.remove_flag
 mailbox.Maildir.set_flags
 mailbox.Maildir.set_info
+os.path.splitroot
 pdb.Pdb.MAX_CHAINED_EXCEPTION_DEPTH
 pdb.Pdb.completedefault
 pdb.Pdb.completenames
@@ -156,9 +155,7 @@ tkinter.PhotoImage.write
 tkinter.PhotoImage.zoom
 tkinter.Text.count
 tkinter.Wm.wm_attributes
-tkinter.tix
 trace.CoverageResults.write_results
-traceback.StackSummary.should_show_carets  # https://github.com/python/cpython/pull/112670#discussion_r1613952301
 turtle.RawTurtle.settiltangle
 turtle.__all__
 turtle.settiltangle
@@ -260,7 +257,6 @@ _weakref.ProxyType.__reversed__  # Doesn't really exist
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 ast.ImportFrom.level  # None on the class, but never None on instances
 builtins.property.__set_name__  # Doesn't actually exist
-builtins.str.format_map  # stubtest says `mapping` is pos-or-keyword but in reality it is pos-only
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 dataclasses.KW_ONLY  # white lies around defaults
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation

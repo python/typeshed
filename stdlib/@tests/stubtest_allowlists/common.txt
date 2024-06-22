@@ -540,7 +540,6 @@ wsgiref.handlers.BaseHandler.result
 wsgiref.handlers.BaseHandler.status
 
 (_?weakref.ref|_?weakref.ReferenceType).__call__  # C function default annotation is wrong
-(_?weakref.ref|_?weakref.ReferenceType).__init__  # Runtime defines __new__ but stubtest thinks __init__ is also defined.
 _?weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _?weakref.ProxyType.__bytes__  # Doesn't actually exist
 _?weakref.ProxyType.__getattr__  # Should have all attributes of proxy

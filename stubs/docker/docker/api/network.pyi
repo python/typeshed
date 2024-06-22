@@ -1,21 +1,24 @@
 from _typeshed import Incomplete
+from typing import Literal
+
+from docker.types import IPAMConfig
 
 class NetworkApiMixin:
     def networks(self, names: Incomplete | None = None, ids: Incomplete | None = None, filters: Incomplete | None = None): ...
     def create_network(
         self,
-        name,
-        driver: Incomplete | None = None,
-        options: Incomplete | None = None,
-        ipam: Incomplete | None = None,
-        check_duplicate: Incomplete | None = None,
+        name: str,
+        driver: str | None = None,
+        options: dict[Incomplete, Incomplete] | None = None,
+        ipam: IPAMConfig | None = None,
+        check_duplicate: bool | None = None,
         internal: bool = False,
-        labels: Incomplete | None = None,
+        labels: dict[Incomplete, Incomplete] | None = None,
         enable_ipv6: bool = False,
-        attachable: Incomplete | None = None,
-        scope: Incomplete | None = None,
-        ingress: Incomplete | None = None,
-    ): ...
+        attachable: bool | None = None,
+        scope: Literal["local", "global", "swarm"] | None = None,
+        ingress: bool | None = None,
+    ) -> dict[Incomplete, Incomplete]: ...
     def prune_networks(self, filters: Incomplete | None = None): ...
     def remove_network(self, net_id) -> None: ...
     def inspect_network(self, net_id, verbose: Incomplete | None = None, scope: Incomplete | None = None): ...
