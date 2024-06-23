@@ -68,3 +68,42 @@ con.create_aggregate("sumint", 1, WindowSumIntMultiArgs)
 
 con.create_window_function("sumint", 2, WindowSumIntMultiArgs)
 con.create_aggregate("sumint", 2, WindowSumIntMultiArgs)
+
+
+class WindowSumIntMismatchedArgs:
+    def __init__(self) -> None:
+        self.count = 0
+
+    def step(self, *args: str) -> None:
+        self.count += 34
+
+    def value(self) -> int:
+        return self.count
+
+    def inverse(self, *args: int) -> None:
+        self.count -= 34
+
+    def finalize(self) -> str:
+        return str(self.count)
+    
+
+# Since the types for `inverse`, `step`, `finalize`, and `value` are not compatible, the following should fail.
+con.create_window_function("sumint", 1, WindowSumIntMismatchedArgs)  # type: ignore
+con.create_window_function("sumint", 2, WindowSumIntMismatchedArgs)  # type: ignore
+
+
+
+class AggMismatchedArgs:
+    def __init__(self) -> None:
+        self.count = 0
+
+    def step(self, *args: str) -> None:
+        self.count += 34
+
+    def finalize(self) -> int:
+        return self.count
+    
+
+# Since the types for `step` and `finalize` are not compatible, the following should fail.
+con.create_aggregate("sumint", 1, AggMismatchedArgs)  # type: ignore
+con.create_aggregate("sumint", 2, AggMismatchedArgs)  # type: ignore
