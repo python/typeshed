@@ -2,7 +2,7 @@ import sys
 from _typeshed import sentinel
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
-from typing import IO, Any, Generic, Literal, NewType, NoReturn, Protocol, TypeVar, overload
+from typing import IO, Any, Generic, Literal, NewType, NoReturn, Protocol, TypeVar, overload, Callable, Union, Type
 from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
