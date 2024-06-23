@@ -1,6 +1,2 @@
-# Exists at runtime, but missing from stubs
-spwd.struct_spwd.sp_nam
-spwd.struct_spwd.sp_pwd
-
 # doesn't exist on linux
 msilib(.[a-z]+)?
