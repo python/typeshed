@@ -122,7 +122,7 @@ def open(
     debug: int | None = ...,
     errorlevel: int | None = ...,
     compresslevel: int | None = ...,
-    preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
+    preset: int | None = ...,
 ) -> TarFile: ...
 @overload
 def open(
@@ -141,7 +141,7 @@ def open(
     debug: int | None = ...,
     errorlevel: int | None = ...,
     compresslevel: int | None = ...,
-    preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
+    preset: int | None = ...,
 ) -> TarFile: ...
 
 class ExFileObject(io.BufferedReader):
