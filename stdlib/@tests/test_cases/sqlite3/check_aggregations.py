@@ -1,6 +1,7 @@
 import sqlite3
 import sys
 
+
 class WindowSumInt:
     def __init__(self) -> None:
         self.count = 0
