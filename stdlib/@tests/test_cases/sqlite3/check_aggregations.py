@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class WindowSumInt:
     def __init__(self) -> None:
         self.count = 0
@@ -19,22 +20,18 @@ class WindowSumInt:
 
 con = sqlite3.connect(":memory:")
 cur = con.execute("CREATE TABLE test(x, y)")
-values = [
-    ("a", 4),
-    ("b", 5),
-    ("c", 3),
-    ("d", 8),
-    ("e", 1),
-]
+values = [("a", 4), ("b", 5), ("c", 3), ("d", 8), ("e", 1)]
 cur.executemany("INSERT INTO test VALUES(?, ?)", values)
 con.create_window_function("sumint", 1, WindowSumInt)
 con.create_aggregate("sumint", 1, WindowSumInt)
-cur.execute("""
+cur.execute(
+    """
     SELECT x, sumint(y) OVER (
         ORDER BY x ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING
     ) AS sum_y
     FROM test ORDER BY x
-""")
+"""
+)
 con.close()
 
 
@@ -47,6 +44,7 @@ con.create_window_function("sumint", 1, create_window_function)
 con.create_aggregate("sumint", 1, create_window_function)
 
 # With num_args set to 1, the callable should not be called with more than one.
+
 
 class WindowSumIntMultiArgs:
     def __init__(self) -> None:
@@ -66,8 +64,8 @@ class WindowSumIntMultiArgs:
 
 
 # This should fail because the callable is called with more than one argument.
-con.create_window_function("sumint", 1, WindowSumIntMultiArgs) # type: ignore
-con.create_aggregate("sumint", 1, WindowSumIntMultiArgs) # type: ignore
+con.create_window_function("sumint", 1, WindowSumIntMultiArgs)  # type: ignore
+con.create_aggregate("sumint", 1, WindowSumIntMultiArgs)  # type: ignore
 
 # With num_args set to -1, this should work.
 con.create_window_function("sumint", 2, WindowSumIntMultiArgs)

@@ -4,7 +4,7 @@ from _typeshed import ReadableBuffer, StrOrBytesPath, SupportsLenAndGetItem, Unu
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from datetime import date, datetime, time
 from types import TracebackType
-from typing import Any, Literal, Protocol, SupportsIndex, final, overload, TypeVar
+from typing import Any, Literal, Protocol, SupportsIndex, TypeVar, final, overload
 from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
@@ -333,7 +333,6 @@ class _AnyParamWindowAggregateClass(Protocol[_SQLType]):
     def value(self) -> _SQLType: ...
     def finalize(self) -> _SQLType: ...
 
-
 class Connection:
     @property
     def DataError(self) -> type[sqlite3.DataError]: ...
@@ -398,18 +397,25 @@ class Connection:
         def blobopen(self, table: str, column: str, row: int, /, *, readonly: bool = False, name: str = "main") -> Blob: ...
 
     def commit(self) -> None: ...
+    @overload
+    def create_aggregate(
+        self, name: str, n_arg: Literal[1], aggregate_class: Callable[[], _SingleParamAggregateProtocol[_SQLType]]
+    ) -> None: ...
+    @overload
+    def create_aggregate(
+        self, name: str, n_arg: int, aggregate_class: Callable[[], _AnyParamAggregateProtocol[_SQLType]]
+    ) -> None: ...
 
-    @overload
-    def create_aggregate(self, name: str, n_arg: Literal[1], aggregate_class: Callable[[], _SingleParamAggregateProtocol[_SQLType]]) -> None: ...
-    @overload
-    def create_aggregate(self, name: str, n_arg: int, aggregate_class: Callable[[], _AnyParamAggregateProtocol[_SQLType]]) -> None: ...
-    
     if sys.version_info >= (3, 11):
         # num_params determines how many params will be passed to the aggregate class. We provide an overload
         # for the case where num_params = 1, which is expected to be the common case.
         @overload
         def create_window_function(
-            self, name: str, num_params: Literal[1], aggregate_class: Callable[[], _SingleParamWindowAggregateClass[_SQLType]] | None, /
+            self,
+            name: str,
+            num_params: Literal[1],
+            aggregate_class: Callable[[], _SingleParamWindowAggregateClass[_SQLType]] | None,
+            /,
         ) -> None: ...
         # And for num_params = -1, which means the aggregate must accept any number of parameters.
         @overload
