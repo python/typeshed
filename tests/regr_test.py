@@ -292,14 +292,14 @@ def concurrently_run_testcases(
     for testcase_dir, tempdir in packageinfo_to_tempdir.items():
         pkg = testcase_dir.name
         requires_python = None
-        if not testcase_dir.is_stdlib:  # type: ignore[misc]  # mypy bug, already fixed on master
+        if not testcase_dir.is_stdlib:
             requires_python = read_metadata(pkg).requires_python
             if not requires_python.contains(PYTHON_VERSION):
                 msg = f"skipping {pkg!r} (requires Python {requires_python}; test is being run using Python {PYTHON_VERSION})"
                 print(colored(msg, "yellow"))
                 continue
         for version in versions_to_test:
-            if not testcase_dir.is_stdlib:  # type: ignore[misc]  # mypy bug, already fixed on master
+            if not testcase_dir.is_stdlib:
                 assert requires_python is not None
                 if not requires_python.contains(version):
                     msg = f"skipping {pkg!r} for target Python {version} (requires Python {requires_python})"

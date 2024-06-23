@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
-from typing import TypedDict, type_check_only
+from typing import Any, Literal, TypedDict, type_check_only
 from typing_extensions import TypeAlias
+
+from docker.types import IPAMConfig
 
 @type_check_only
 class _HasId(TypedDict):
@@ -17,18 +19,18 @@ class NetworkApiMixin:
     def networks(self, names: Incomplete | None = None, ids: Incomplete | None = None, filters: Incomplete | None = None): ...
     def create_network(
         self,
-        name,
-        driver: Incomplete | None = None,
-        options: Incomplete | None = None,
-        ipam: Incomplete | None = None,
-        check_duplicate: Incomplete | None = None,
+        name: str,
+        driver: str | None = None,
+        options: dict[str, Any] | None = None,
+        ipam: IPAMConfig | None = None,
+        check_duplicate: bool | None = None,
         internal: bool = False,
-        labels: Incomplete | None = None,
+        labels: dict[str, Any] | None = None,
         enable_ipv6: bool = False,
-        attachable: Incomplete | None = None,
-        scope: Incomplete | None = None,
-        ingress: Incomplete | None = None,
-    ): ...
+        attachable: bool | None = None,
+        scope: Literal["local", "global", "swarm"] | None = None,
+        ingress: bool | None = None,
+    ) -> dict[str, str]: ...
     def prune_networks(self, filters: Incomplete | None = None): ...
     def remove_network(self, net_id: _Network) -> None: ...
     def inspect_network(self, net_id: _Network, verbose: Incomplete | None = None, scope: Incomplete | None = None): ...

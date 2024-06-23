@@ -87,11 +87,12 @@
         "stubs/PyYAML",
         "stubs/qrcode",
         "stubs/redis",
+        "stubs/reportlab",
         "stubs/requests",
         "stubs/requests-oauthlib",
         "stubs/seaborn",
         "stubs/setuptools/setuptools",
-        "stubs/stripe",
+        "stubs/shapely",
         "stubs/tensorflow",
         "stubs/tqdm",
         "stubs/ttkthemes",
@@ -104,7 +105,8 @@
     "reportIncompleteStub": "none",
     // Extra strict settings
     "reportCallInDefaultInitializer": "error",
-    "reportImplicitStringConcatenation": "error",
+    // implicit string concatenation is useful for long deprecation messages
+    "reportImplicitStringConcatenation": "none",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Leave "type: ignore" comments to mypy
     "enableTypeIgnoreComments": false,
