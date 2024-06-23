@@ -62,7 +62,8 @@ class WindowSumIntMultiArgs:
     def finalize(self) -> int:
         return self.count
 
-con.create_window_function("sumint", 1, WindowSumIntMultiArgs) 
+
+con.create_window_function("sumint", 1, WindowSumIntMultiArgs)
 con.create_aggregate("sumint", 1, WindowSumIntMultiArgs)
 
 con.create_window_function("sumint", 2, WindowSumIntMultiArgs)
