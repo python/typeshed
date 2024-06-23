@@ -60,10 +60,7 @@ else:
 
 if sys.platform != "win32":
     if sys.version_info >= (3, 14):
-        __all__ = (
-            "SelectorEventLoop",
-            "DefaultEventLoopPolicy",
-        )
+        __all__ = ("SelectorEventLoop", "DefaultEventLoopPolicy")
     elif sys.version_info >= (3, 9):
         __all__ = (
             "SelectorEventLoop",
@@ -85,7 +82,6 @@ if sys.platform != "win32":
             "ThreadedChildWatcher",
             "DefaultEventLoopPolicy",
         )
-
 
     if sys.version_info >= (3, 14):
         pass
@@ -187,6 +183,7 @@ if sys.platform != "win32":
             ) -> None: ...
             def remove_child_handler(self, pid: int) -> bool: ...
             def attach_loop(self, loop: AbstractEventLoop | None) -> None: ...
+
     if sys.version_info < (3, 14):
         class ThreadedChildWatcher(AbstractChildWatcher):
             def is_active(self) -> Literal[True]: ...
