@@ -35,13 +35,13 @@ cur.execute(
 con.close()
 
 
-def create_window_function() -> WindowSumInt:
+def _create_window_function() -> WindowSumInt:
     return WindowSumInt()
 
 
 # A callable should work as well.
-con.create_window_function("sumint", 1, create_window_function)
-con.create_aggregate("sumint", 1, create_window_function)
+con.create_window_function("sumint", 1, _create_window_function)
+con.create_aggregate("sumint", 1, _create_window_function)
 
 # With num_args set to 1, the callable should not be called with more than one.
 
