@@ -1,5 +1,5 @@
 import sqlite3
-
+import sys
 
 class WindowSumInt:
     def __init__(self) -> None:
@@ -22,7 +22,10 @@ con = sqlite3.connect(":memory:")
 cur = con.execute("CREATE TABLE test(x, y)")
 values = [("a", 4), ("b", 5), ("c", 3), ("d", 8), ("e", 1)]
 cur.executemany("INSERT INTO test VALUES(?, ?)", values)
-con.create_window_function("sumint", 1, WindowSumInt)
+
+if sys.version_info >= (3, 11):
+    con.create_window_function("sumint", 1, WindowSumInt)
+
 con.create_aggregate("sumint", 1, WindowSumInt)
 cur.execute(
     """
@@ -40,8 +43,9 @@ def _create_window_function() -> WindowSumInt:
 
 
 # A callable should work as well.
-con.create_window_function("sumint", 1, _create_window_function)
-con.create_aggregate("sumint", 1, _create_window_function)
+if sys.version_info >= (3, 11):
+    con.create_window_function("sumint", 1, _create_window_function)
+    con.create_aggregate("sumint", 1, _create_window_function)
 
 # With num_args set to 1, the callable should not be called with more than one.
 
@@ -63,10 +67,11 @@ class WindowSumIntMultiArgs:
         return self.count
 
 
-con.create_window_function("sumint", 1, WindowSumIntMultiArgs)
-con.create_aggregate("sumint", 1, WindowSumIntMultiArgs)
+if sys.version_info >= (3, 11):
+    con.create_window_function("sumint", 1, WindowSumIntMultiArgs)
+    con.create_window_function("sumint", 2, WindowSumIntMultiArgs)
 
-con.create_window_function("sumint", 2, WindowSumIntMultiArgs)
+con.create_aggregate("sumint", 1, WindowSumIntMultiArgs)
 con.create_aggregate("sumint", 2, WindowSumIntMultiArgs)
 
 
@@ -88,8 +93,9 @@ class WindowSumIntMismatchedArgs:
 
 
 # Since the types for `inverse`, `step`, `finalize`, and `value` are not compatible, the following should fail.
-con.create_window_function("sumint", 1, WindowSumIntMismatchedArgs)  # type: ignore
-con.create_window_function("sumint", 2, WindowSumIntMismatchedArgs)  # type: ignore
+if sys.version_info >= (3, 11):
+    con.create_window_function("sumint", 1, WindowSumIntMismatchedArgs)  # type: ignore
+    con.create_window_function("sumint", 2, WindowSumIntMismatchedArgs)  # type: ignore
 
 
 class AggMismatchedArgs:
