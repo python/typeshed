@@ -2,7 +2,7 @@ import sys
 from _typeshed import sentinel
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
-from typing import IO, Any, Generic, Literal, NewType, NoReturn, Protocol, TypeVar, overload, Callable, Union, Type
+from typing import IO, Any, Generic, Literal, NewType, NoReturn, Protocol, TypeVar, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
@@ -32,7 +32,7 @@ _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)
 _ArgumentParserT = TypeVar("_ArgumentParserT", bound=ArgumentParser)
 _N = TypeVar("_N")
-_ActionType = Union[Callable[[str], Any], Type[FileNotFoundError]]
+_ActionType: TypeAlias = Callable[[str], Any] | type[FileType]
 # more precisely, Literal["store", "store_const", "store_true",
 # "store_false", "append", "append_const", "count", "help", "version",
 # "extend"], but using this would make it hard to annotate callers
