@@ -541,7 +541,9 @@ class AbstractEventLoopPolicy:
     @abstractmethod
     def new_event_loop(self) -> AbstractEventLoop: ...
     # Child processes handling (Unix only).
-    if sys.version_info >= (3, 12):
+    if sys.version_info >= (3, 14):
+        pass
+    elif sys.version_info >= (3, 12):
         @abstractmethod
         @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
         def get_child_watcher(self) -> AbstractChildWatcher: ...
@@ -565,7 +567,9 @@ def get_event_loop() -> AbstractEventLoop: ...
 def set_event_loop(loop: AbstractEventLoop | None) -> None: ...
 def new_event_loop() -> AbstractEventLoop: ...
 
-if sys.version_info >= (3, 12):
+if sys.version_info >= (3, 14):
+    pass
+elif sys.version_info >= (3, 12):
     @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
     def get_child_watcher() -> AbstractChildWatcher: ...
     @deprecated("Deprecated as of Python 3.12; will be removed in Python 3.14")
