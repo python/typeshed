@@ -4,14 +4,14 @@ from _typeshed import ReadableBuffer, StrOrBytesPath, SupportsLenAndGetItem, Unu
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from datetime import date, datetime, time
 from types import TracebackType
-from typing import Any, Literal, Protocol, SupportsIndex, final, overload
-from typing_extensions import Self, TypeAlias, TypeVar
+from typing import Any, Literal, Protocol, SupportsIndex, TypeVar, final, overload
+from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
 _ConnectionT = TypeVar("_ConnectionT", bound=Connection)
 _CursorT = TypeVar("_CursorT", bound=Cursor)
 _SqliteData: TypeAlias = str | ReadableBuffer | int | float | None
-_SQLType = TypeVar("_SQLType", bound=_SqliteData, default=_SqliteData, covariant=True)
+_SQLType = TypeVar("_SQLType", bound=_SqliteData, covariant=True)
 # Data that is passed through adapters can be of any type accepted by an adapter.
 _AdaptedInputData: TypeAlias = _SqliteData | Any
 # The Mapping must really be a dict, but making it invariant is too annoying.
