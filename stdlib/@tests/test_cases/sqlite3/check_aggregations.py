@@ -85,12 +85,11 @@ class WindowSumIntMismatchedArgs:
 
     def finalize(self) -> str:
         return str(self.count)
-    
+
 
 # Since the types for `inverse`, `step`, `finalize`, and `value` are not compatible, the following should fail.
 con.create_window_function("sumint", 1, WindowSumIntMismatchedArgs)  # type: ignore
 con.create_window_function("sumint", 2, WindowSumIntMismatchedArgs)  # type: ignore
-
 
 
 class AggMismatchedArgs:
@@ -102,7 +101,7 @@ class AggMismatchedArgs:
 
     def finalize(self) -> int:
         return self.count
-    
+
 
 # Since the types for `step` and `finalize` are not compatible, the following should fail.
 con.create_aggregate("sumint", 1, AggMismatchedArgs)  # type: ignore
