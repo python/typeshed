@@ -50,23 +50,20 @@ class WindowSumIntMultiArgs:
     def __init__(self) -> None:
         self.count = 0
 
-    def step(self, arg_1: int, arg_2: int) -> None:
-        self.count += arg_1 + arg_2
+    def step(self, *args: int) -> None:
+        self.count += sum(args)
 
     def value(self) -> int:
         return self.count
 
-    def inverse(self, arg_1: int, arg_2: int) -> None:
-        self.count -= arg_1 + arg_2
+    def inverse(self, *args: int) -> None:
+        self.count -= sum(args)
 
     def finalize(self) -> int:
         return self.count
 
+con.create_window_function("sumint", 1, WindowSumIntMultiArgs) 
+con.create_aggregate("sumint", 1, WindowSumIntMultiArgs)
 
-# This should fail because the callable is called with more than one argument.
-con.create_window_function("sumint", 1, WindowSumIntMultiArgs)  # type: ignore
-con.create_aggregate("sumint", 1, WindowSumIntMultiArgs)  # type: ignore
-
-# With num_args set to -1, this should work.
 con.create_window_function("sumint", 2, WindowSumIntMultiArgs)
 con.create_aggregate("sumint", 2, WindowSumIntMultiArgs)
