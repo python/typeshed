@@ -16,23 +16,40 @@ from .tasks import Task
 from .transports import BaseTransport, DatagramTransport, ReadTransport, SubprocessTransport, Transport, WriteTransport
 from .unix_events import AbstractChildWatcher
 
-__all__ = (
-    "AbstractEventLoopPolicy",
-    "AbstractEventLoop",
-    "AbstractServer",
-    "Handle",
-    "TimerHandle",
-    "get_event_loop_policy",
-    "set_event_loop_policy",
-    "get_event_loop",
-    "set_event_loop",
-    "new_event_loop",
-    "get_child_watcher",
-    "set_child_watcher",
-    "_set_running_loop",
-    "get_running_loop",
-    "_get_running_loop",
-)
+if sys.version_info >= (3, 14):
+    __all__ = (
+        "AbstractEventLoopPolicy",
+        "AbstractEventLoop",
+        "AbstractServer",
+        "Handle",
+        "TimerHandle",
+        "get_event_loop_policy",
+        "set_event_loop_policy",
+        "get_event_loop",
+        "set_event_loop",
+        "new_event_loop",
+        "_set_running_loop",
+        "get_running_loop",
+        "_get_running_loop",
+    )
+else:
+    __all__ = (
+        "AbstractEventLoopPolicy",
+        "AbstractEventLoop",
+        "AbstractServer",
+        "Handle",
+        "TimerHandle",
+        "get_event_loop_policy",
+        "set_event_loop_policy",
+        "get_event_loop",
+        "set_event_loop",
+        "new_event_loop",
+        "get_child_watcher",
+        "set_child_watcher",
+        "_set_running_loop",
+        "get_running_loop",
+        "_get_running_loop",
+    )
 
 _T = TypeVar("_T")
 _Ts = TypeVarTuple("_Ts")
