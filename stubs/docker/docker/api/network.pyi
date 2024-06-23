@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Literal
+from typing import Any, Literal
 
 from docker.types import IPAMConfig
 
@@ -9,16 +9,16 @@ class NetworkApiMixin:
         self,
         name: str,
         driver: str | None = None,
-        options: dict[Incomplete, Incomplete] | None = None,
+        options: dict[str, Any] | None = None,
         ipam: IPAMConfig | None = None,
         check_duplicate: bool | None = None,
         internal: bool = False,
-        labels: dict[Incomplete, Incomplete] | None = None,
+        labels: dict[str, Any] | None = None,
         enable_ipv6: bool = False,
         attachable: bool | None = None,
         scope: Literal["local", "global", "swarm"] | None = None,
         ingress: bool | None = None,
-    ) -> dict[Incomplete, Incomplete]: ...
+    ) -> dict[str, str]: ...
     def prune_networks(self, filters: Incomplete | None = None): ...
     def remove_network(self, net_id) -> None: ...
     def inspect_network(self, net_id, verbose: Incomplete | None = None, scope: Incomplete | None = None): ...
