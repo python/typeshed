@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from _typeshed import structseq
-from typing import Any, Final, Literal, Self, TypeAlias, TypeVar, final
+from typing import Any, Final, Literal, TypeVar, final
+from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
 _SendTypes: TypeAlias = Literal["send", "recv", "both"]
