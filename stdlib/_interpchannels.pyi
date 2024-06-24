@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from _typeshed import structseq
 from typing import Any, Final, Literal, TypeVar, final
 from typing_extensions import Self, TypeAlias
