@@ -30,6 +30,8 @@ class NetworkCollection(Collection[Network]):
         scope: Literal["local", "global", "swarm"] | None = None,
         ingress: bool | None = None,
     ) -> Network: ...
-    def get(self, network_id: str, *args, **kwargs) -> Network: ...  # type:ignore[override]
+    def get(
+        self, network_id: str, verbose: bool | None = None, scope: Literal["local", "global", "swarm"] | None = None
+    ) -> Network: ...  # type:ignore[override]
     def list(self, *args, **kwargs) -> list[Network]: ...
     def prune(self, filters: dict[str, Any] | None = None) -> dict[str, Any]: ...
