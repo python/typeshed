@@ -32,7 +32,7 @@ _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)
 _ArgumentParserT = TypeVar("_ArgumentParserT", bound=ArgumentParser)
 _N = TypeVar("_N")
-_ActionType: TypeAlias = Callable[[str], Any] | type[FileType]
+_ActionType: TypeAlias = Callable[[str], Any] | str
 # more precisely, Literal["store", "store_const", "store_true",
 # "store_false", "append", "append_const", "count", "help", "version",
 # "extend"], but using this would make it hard to annotate callers
