@@ -7,7 +7,6 @@ from typing_extensions import Self
 
 from ..dist import Distribution
 
-chain_iter: Incomplete
 _K = TypeVar("_K")
 _VCo = TypeVar("_VCo", covariant=True)
 
@@ -16,7 +15,7 @@ class StaticModule:
     def __getattr__(self, attr): ...
 
 def glob_relative(patterns: Iterable[str], root_dir: StrPath | None = None) -> list[str]: ...
-def read_files(filepaths: str | bytes | Iterable[StrPath], root_dir: Incomplete | None = None) -> str: ...
+def read_files(filepaths: StrPath | Iterable[StrPath], root_dir: StrPath | None = None) -> str: ...
 def read_attr(attr_desc: str, package_dir: Mapping[str, str] | None = None, root_dir: StrPath | None = None): ...
 def resolve_class(
     qualified_class_name: str, package_dir: Mapping[str, str] | None = None, root_dir: StrPath | None = None

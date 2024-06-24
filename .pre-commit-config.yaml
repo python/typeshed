@@ -30,14 +30,13 @@ repos:
     rev: 24.3.0 # must match requirements-tests.txt
     hooks:
       - id: black
-        language_version: python3.10
   - repo: https://github.com/pycqa/flake8
     rev: 7.0.0 # must match requirements-tests.txt
     hooks:
       - id: flake8
         additional_dependencies:
           - "flake8-noqa==1.4.0" # must match requirements-tests.txt
-          - "flake8-pyi==24.4.1" # must match requirements-tests.txt
+          - "flake8-pyi==24.6.0" # must match requirements-tests.txt
         types: [file]
         types_or: [python, pyi]
   - repo: meta

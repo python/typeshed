@@ -70,7 +70,10 @@ _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
 _T6 = TypeVar("_T6")
 _FT = TypeVar("_FT", bound=Future[Any])
-_FutureLike: TypeAlias = Future[_T] | Generator[Any, None, _T] | Awaitable[_T]
+if sys.version_info >= (3, 12):
+    _FutureLike: TypeAlias = Future[_T] | Awaitable[_T]
+else:
+    _FutureLike: TypeAlias = Future[_T] | Generator[Any, None, _T] | Awaitable[_T]
 _TaskYieldType: TypeAlias = Future[object] | None
 
 FIRST_COMPLETED = concurrent.futures.FIRST_COMPLETED
@@ -443,7 +446,7 @@ class Task(Future[_T_co]):  # type: ignore[type-var]  # pyright: ignore[reportIn
         @classmethod
         def all_tasks(cls, loop: AbstractEventLoop | None = None) -> set[Task[Any]]: ...
     if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
+        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 def all_tasks(loop: AbstractEventLoop | None = None) -> set[Task[Any]]: ...
 

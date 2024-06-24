@@ -3,8 +3,12 @@ pkg_resources.PathMetadata.egg_info
 pkg_resources.EggMetadata.loader
 pkg_resources.ZipProvider.loader
 
-# 1 used for True as a default value
-setuptools._distutils.dist.Distribution.get_command_obj
+# @classmethod alias not handled correctly by stubtest
+pkg_resources.ZipManifests.load
+
+# Is a functools.partial, so stubtest says "is not a function"
+setuptools.modified.newer_pairwise_group
+setuptools._distutils._modified.newer_pairwise_group
 
 # Dynamically created in __init__
 setuptools._distutils.dist.Distribution.get_name
@@ -120,18 +124,9 @@ setuptools._distutils.zosccompiler
 # Reexported from setuptools._distutils; problems should be fixed there
 distutils\..+
 
-# Is a functools.partial, so stubtest says "is not a function"
-setuptools.dep_util.newer_pairwise_group
-setuptools._distutils.dep_util.newer_pairwise
-setuptools.modified.newer_pairwise_group
-setuptools._distutils._modified.newer_pairwise_group
-
-# Private modules
+# Private APIs
 setuptools.config._validate_pyproject.*
 setuptools.command.build_py.build_py.existing_egg_info_dir
-
-# Loop variable leak
-setuptools.sandbox.AbstractSandbox.name
 
 # Other vendored code
 setuptools._vendor.*
