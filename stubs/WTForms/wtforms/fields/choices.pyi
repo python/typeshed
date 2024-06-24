@@ -7,7 +7,7 @@ from wtforms.form import BaseForm
 from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 
 # technically this allows a list, but we're more strict for type safety
-_Choice: TypeAlias = tuple[Any, str] | tuple[Any, str, dict[str, Any]]
+_Choice: TypeAlias = tuple[Any, str] | tuple[Any, str, dict[str, Any]] | str
 # it's too difficult to get type safety here due to to nested partially invariant collections
 _GroupedChoices: TypeAlias = dict[str, Any]  # Any should be Collection[_Choice]
 _FullChoice: TypeAlias = tuple[Any, str, bool, dict[str, Any]]  # value, label, selected, render_kw
