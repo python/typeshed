@@ -1,7 +1,6 @@
-from _collections_abc import Buffer
 from _typeshed import structseq
 from typing import Any, Final, Literal, TypeVar, final
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Buffer, Self, TypeAlias
 
 _T = TypeVar("_T")
 _SendType: TypeAlias = Literal["send", "recv", "both"]
