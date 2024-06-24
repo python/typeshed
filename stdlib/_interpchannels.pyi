@@ -5,12 +5,12 @@ from typing import Any, Final, Literal, TypeVar, final
 from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
-_SendTypes: TypeAlias = Literal["send", "recv", "both"]
+_SendType: TypeAlias = Literal["send", "recv", "both"]
 
 @final
 class ChannelID:
     @property
-    def end(self) -> _SendTypes: ...
+    def end(self) -> _SendType: ...
     @property
     def send(self) -> Self: ...
     @property
