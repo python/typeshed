@@ -1,5 +1,5 @@
 from _typeshed import structseq
-from typing import Any, Final, Literal, TypeVar, final, overload
+from typing import Any, Final, Literal, TypeVar, final
 from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
