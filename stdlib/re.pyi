@@ -233,11 +233,6 @@ if sys.version_info >= (3, 11):
     NOFLAG = RegexFlag.NOFLAG
 _FlagsType: TypeAlias = int | RegexFlag
 
-# Type-wise the compile() overloads are unnecessary, they could also be modeled using
-# unions in the parameter types. However mypy has a bug regarding TypeVar
-# constraints (https://github.com/python/mypy/issues/11880),
-# which limits us here because AnyStr is a constrained TypeVar.
-
 # pattern arguments do *not* accept arbitrary buffers such as bytearray,
 # because the pattern must be hashable.
 def compile(pattern: AnyStr | Pattern[AnyStr], flags: _FlagsType = 0) -> Pattern[AnyStr]: ...
