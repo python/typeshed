@@ -11,14 +11,12 @@ from _typeshed import (
     StrPath,
 )
 from asyncio import AbstractEventLoop
-from typing import AnyStr, Literal, TypeVar, overload
+from typing import AnyStr, Literal, overload
 
 from ..base import AiofilesContextManager
 from ..threadpool.binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
 from ..threadpool.text import AsyncTextIOWrapper
 from .temptypes import AsyncTemporaryDirectory
-
-_V_co = TypeVar("_V_co", covariant=True)
 
 # Text mode: always returns AsyncTextIOWrapper
 @overload
