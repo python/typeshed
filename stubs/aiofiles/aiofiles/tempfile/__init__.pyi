@@ -311,7 +311,7 @@ def TemporaryDirectory(
     dir: StrPath | None = None,
     loop: AbstractEventLoop | None = None,
     executor: Incomplete | None = None,
-) -> AiofilesContextManagerTempDir[AsyncTemporaryDirectory]: ...
+) -> AiofilesContextManagerTempDir: ...
 @overload
 def TemporaryDirectory(
     suffix: bytes | None = None,
@@ -319,7 +319,7 @@ def TemporaryDirectory(
     dir: BytesPath | None = None,
     loop: AbstractEventLoop | None = None,
     executor: Incomplete | None = None,
-) -> AiofilesContextManagerTempDir[AsyncTemporaryDirectory]: ...
+) -> AiofilesContextManagerTempDir: ...
 
-class AiofilesContextManagerTempDir(AiofilesContextManager[_V_co]):
+class AiofilesContextManagerTempDir(AiofilesContextManager[AsyncTemporaryDirectory]):
     async def __aenter__(self) -> str: ...  # type: ignore[override]
