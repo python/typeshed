@@ -83,25 +83,10 @@ class _ActionsContainer:
     def _registry_get(self, registry_name: str, value: Any, default: Any = None) -> Any: ...
     def set_defaults(self, **kwargs: Any) -> None: ...
     def get_default(self, dest: str) -> Any: ...
-    # If `type` is not supplied, `choices` must be strings.
-    @overload
-    def add_argument(
-        self,
-        *name_or_flags: str,
-        action: _ActionStr | type[Action] = ...,
-        nargs: int | _NArgsStr | _SUPPRESS_T | None = None,
-        const: Any = ...,
-        default: Any = ...,
-        type: Never = ...,
-        choices: Iterable[str] = ...,
-        required: bool = ...,
-        help: str | None = ...,
-        metavar: str | tuple[str, ...] | None = ...,
-        dest: str | None = ...,
-        version: str = ...,
-        **kwargs: Any,
-    ) -> Action: ...
     # If `type` is `FileType`, supplying `choices` makes no sense.
+    # (This overload is provided for documentation's sake, as the next overload
+    # will match if `type` is `FileType` and `choices` is provided, although
+    # the possible choices are `IO[Any]`.)
     @overload
     def add_argument(
         self,
@@ -148,6 +133,24 @@ class _ActionsContainer:
         default: Any = ...,
         type: str,
         choices: Iterable[Any] = ...,
+        required: bool = ...,
+        help: str | None = ...,
+        metavar: str | tuple[str, ...] | None = ...,
+        dest: str | None = ...,
+        version: str = ...,
+        **kwargs: Any,
+    ) -> Action: ...
+    # If `type` is not supplied, `choices` must be strings.
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: _ActionStr | type[Action] = ...,
+        nargs: int | _NArgsStr | _SUPPRESS_T | None = None,
+        const: Any = ...,
+        default: Any = ...,
+        type: Never = ...,
+        choices: Iterable[str] = ...,
         required: bool = ...,
         help: str | None = ...,
         metavar: str | tuple[str, ...] | None = ...,
