@@ -1,3 +1,6 @@
+# Internal-use module for types shared by multiple modules.
+# This does not match a module in docker-py.
+
 from typing_extensions import TypeAlias
 
 # Type alias for JSON, explained at:
