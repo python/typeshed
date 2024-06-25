@@ -1,13 +1,11 @@
-from collections.abc import Awaitable, Callable, Coroutine, Generator
+from collections.abc import Awaitable, Callable, Generator
 from contextlib import AbstractAsyncContextManager
 from types import TracebackType
 from typing import Any, BinaryIO, Generic, TextIO, TypeVar
 from typing_extensions import Self
 
 _T = TypeVar("_T")
-_T_co = TypeVar("_T_co", covariant=True)
 _V_co = TypeVar("_V_co", covariant=True)
-_T_contra = TypeVar("_T_contra", contravariant=True)
 
 class AsyncBase(Generic[_T]):
     def __init__(self, file: str, loop: Any, executor: Any) -> None: ...
@@ -17,10 +15,10 @@ class AsyncBase(Generic[_T]):
 class AsyncIndirectBase(AsyncBase[_T]):
     def __init__(self, name: str, loop: Any, executor: Any, indirect: Callable[[], TextIO | BinaryIO]) -> None: ...
 
-class AiofilesContextManager(Awaitable[_V_co], AbstractAsyncContextManager[Any, None], Generic[_T_co, _T_contra, _V_co]):
-    def __init__(self, coro: Coroutine[_T_co, _T_contra, _V_co]) -> None: ...
-    def __await__(self) -> Generator[_T_co, None, _V_co]: ...
-    async def __aenter__(self) -> Self: ...
+class AiofilesContextManager(Awaitable[_V_co], AbstractAsyncContextManager[Any], Generic[_V_co]):
+    def __init__(self, coro: Awaitable[_V_co]) -> None: ...
+    def __await__(self) -> Generator[Any, Any, _V_co]: ...
+    async def __aenter__(self) -> _V_co: ...
     async def __aexit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
