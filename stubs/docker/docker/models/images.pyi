@@ -3,12 +3,11 @@ from io import StringIO
 from typing import IO, Any, Literal, TypedDict, overload, type_check_only
 from typing_extensions import TypeAlias
 
+from docker._types import JSON
+
 from .resource import Collection, Model
 
 _ImageList: TypeAlias = list[Image]  # To resolve conflicts with a method called "list"
-# Type alias for JSON, explained at:
-# https://github.com/python/typing/issues/182#issuecomment-1320974824.
-_JSON: TypeAlias = dict[str, _JSON] | list[_JSON] | str | int | float | bool | None
 
 @type_check_only
 class _ContainerLimits(TypedDict, total=False):
@@ -70,7 +69,7 @@ class ImageCollection(Collection[Image]):
         platform: str | None = None,
         isolation: str | None = None,
         use_config_proxy: bool = True,
-    ) -> tuple[Image, Iterator[_JSON]]: ...
+    ) -> tuple[Image, Iterator[JSON]]: ...
     def get(self, name: str) -> Image: ...
     def get_registry_data(self, name, auth_config: dict[str, Any] | None = None) -> RegistryData: ...
     def list(self, name: str | None = None, all: bool = False, filters: dict[str, Any] | None = None) -> _ImageList: ...
