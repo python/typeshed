@@ -2,8 +2,8 @@ import sys
 from _typeshed import sentinel
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
-from typing import IO, Any, Generic, Literal, Never, NewType, NoReturn, Protocol, TypeVar, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing import IO, Any, Generic, Literal, NewType, NoReturn, Protocol, TypeVar, overload
+from typing_extensions import Never, Self, TypeAlias, deprecated
 
 __all__ = [
     "ArgumentParser",
