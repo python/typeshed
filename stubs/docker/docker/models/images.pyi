@@ -75,11 +75,35 @@ class ImageCollection(Collection[Image]):
     def list(self, name: str | None = None, all: bool = False, filters: dict[str, Any] | None = None) -> _ImageList: ...
     def load(self, data: bytes) -> _ImageList: ...
     @overload
-    def pull(self, repository: str, tag: str | None = None, all_tags: Literal[False] = False, **kwargs) -> Image: ...
+    def pull(
+        self,
+        repository: str,
+        tag: str | None = None,
+        all_tags: Literal[False] = False,
+        *,
+        platform: str | None = None,
+        auth_config: dict[str, Any] | None = None,
+    ) -> Image: ...
     @overload
-    def pull(self, repository: str, tag: str | None = None, *, all_tags: Literal[True], **kwargs) -> _ImageList: ...
+    def pull(
+        self,
+        repository: str,
+        tag: str | None = None,
+        *,
+        all_tags: Literal[True],
+        auth_config: dict[str, Any] | None = None,
+        platform: str | None = None,
+    ) -> _ImageList: ...
     @overload
-    def pull(self, repository: str, tag: str | None, all_tags: Literal[True], **kwargs) -> _ImageList: ...
+    def pull(
+        self,
+        repository: str,
+        tag: str | None,
+        all_tags: Literal[True],
+        *,
+        auth_config: dict[str, Any] | None = None,
+        platform: str | None = None,
+    ) -> _ImageList: ...
     def push(self, repository: str, tag: str | None = None, **kwargs): ...
     def remove(self, *args, **kwargs) -> None: ...
     def search(self, *args, **kwargs): ...
