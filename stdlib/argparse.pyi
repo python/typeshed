@@ -83,24 +83,6 @@ class _ActionsContainer:
     def _registry_get(self, registry_name: str, value: Any, default: Any = None) -> Any: ...
     def set_defaults(self, **kwargs: Any) -> None: ...
     def get_default(self, dest: str) -> Any: ...
-    # If `choices` is not supplied (or `None`), `type` is unrestrained.
-    @overload
-    def add_argument(
-        self,
-        *name_or_flags: str,
-        action: _ActionStr | type[Action] = ...,
-        nargs: int | _NArgsStr | _SUPPRESS_T | None = None,
-        const: Any = ...,
-        default: Any = ...,
-        type: _ActionType = ...,
-        choices: None = None,
-        required: bool = ...,
-        help: str | None = ...,
-        metavar: str | tuple[str, ...] | None = ...,
-        dest: str | None = ...,
-        version: str = ...,
-        **kwargs: Any,
-    ) -> Action: ...
     # If `type` is not supplied, `choices` must be strings.
     @overload
     def add_argument(
@@ -111,7 +93,7 @@ class _ActionsContainer:
         const: Any = ...,
         default: Any = ...,
         type: Never = ...,
-        choices: Iterable[str],
+        choices: Iterable[str] = ...,
         required: bool = ...,
         help: str | None = ...,
         metavar: str | tuple[str, ...] | None = ...,
@@ -137,24 +119,6 @@ class _ActionsContainer:
         version: str = ...,
         **kwargs: Any,
     ) -> Action: ...
-    # If `type` is a string, the possible `choices` depend on `type`.
-    @overload
-    def add_argument(
-        self,
-        *name_or_flags: str,
-        action: _ActionStr | type[Action] = ...,
-        nargs: int | _NArgsStr | _SUPPRESS_T | None = None,
-        const: Any = ...,
-        default: Any = ...,
-        type: str,
-        choices: Iterable[Any],
-        required: bool = ...,
-        help: str | None = ...,
-        metavar: str | tuple[str, ...] | None = ...,
-        dest: str | None = ...,
-        version: str = ...,
-        **kwargs: Any,
-    ) -> Action: ...
     # If `type` is a callable, its return type is supplied to `choices`.
     @overload
     def add_argument(
@@ -165,7 +129,25 @@ class _ActionsContainer:
         const: Any = ...,
         default: Any = ...,
         type: Callable[[str], _T],
-        choices: Iterable[_T],
+        choices: Iterable[_T] = ...,
+        required: bool = ...,
+        help: str | None = ...,
+        metavar: str | tuple[str, ...] | None = ...,
+        dest: str | None = ...,
+        version: str = ...,
+        **kwargs: Any,
+    ) -> Action: ...
+    # If `type` is a string, the possible `choices` depend on `type`.
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: _ActionStr | type[Action] = ...,
+        nargs: int | _NArgsStr | _SUPPRESS_T | None = None,
+        const: Any = ...,
+        default: Any = ...,
+        type: str,
+        choices: Iterable[Any] = ...,
         required: bool = ...,
         help: str | None = ...,
         metavar: str | tuple[str, ...] | None = ...,
