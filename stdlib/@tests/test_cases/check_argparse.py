@@ -1,4 +1,4 @@
-from argparse import _ActionsContainer, FileType
+from argparse import FileType, _ActionsContainer
 
 container = _ActionsContainer("", "", "", "")
 
