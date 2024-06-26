@@ -1,22 +1,18 @@
-import sys
 import types
 import zipimport
-from _typeshed import BytesPath, Incomplete, StrOrBytesPath, StrPath
+from _typeshed import BytesPath, Incomplete, StrOrBytesPath, StrPath, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from io import BytesIO
 from itertools import chain
 from pkgutil import get_importer as get_importer
 from re import Pattern
-from typing import IO, Any, ClassVar, Final, Literal, NoReturn, Protocol, TypeVar, overload
+from typing import IO, Any, ClassVar, Final, Literal, NamedTuple, NoReturn, Protocol, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 from zipfile import ZipInfo
 
 from ._vendored_packaging import requirements as packaging_requirements, version as packaging_version
 
-# TODO: Use _typeshed.importlib.LoaderProtocol once mypy has included it in its vendored typeshed
-class _LoaderProtocol(Protocol):
-    def load_module(self, fullname: str, /) -> types.ModuleType: ...
-
+# defined in setuptools
 _T = TypeVar("_T")
 _DistributionT = TypeVar("_DistributionT", bound=Distribution)
 _NestedStr: TypeAlias = str | Iterable[_NestedStr]
@@ -32,6 +28,10 @@ _ModuleLike: TypeAlias = object | types.ModuleType  # Any object that optionally
 _ProviderFactoryType: TypeAlias = Callable[[Any], IResourceProvider]
 _DistFinderType: TypeAlias = Callable[[_T, str, bool], Iterable[Distribution]]
 _NSHandlerType: TypeAlias = Callable[[_T, str, str, types.ModuleType], str | None]
+
+# TODO: Use _typeshed.importlib.LoaderProtocol after mypy 1.11 is released
+class _LoaderProtocol(Protocol):
+    def load_module(self, fullname: str, /) -> types.ModuleType: ...
 
 __all__ = [
     "require",
@@ -268,6 +268,15 @@ class EntryPoint:
     ) -> dict[str, dict[str, Self]]: ...
 
 def find_distributions(path_item: str, only: bool = False) -> Generator[Distribution, None, None]: ...
+def find_eggs_in_zip(importer: zipimport.zipimporter, path_item: str, only: bool = False) -> Iterator[Distribution]: ...
+def find_nothing(importer: object | None, path_item: str | None, only: bool | None = False) -> tuple[Distribution, ...]: ...
+def find_on_path(importer: object | None, path_item: str, only: bool = False) -> Generator[Distribution, None, None]: ...
+def dist_factory(path_item: StrPath, entry: str, only: bool) -> Callable[[str], Iterable[Distribution]]: ...
+
+class NoDists:
+    def __bool__(self) -> Literal[False]: ...
+    def __call__(self, fullpath: Unused) -> Iterator[Distribution]: ...
+
 @overload
 def get_distribution(dist: _DistributionT) -> _DistributionT: ...
 @overload
@@ -291,7 +300,7 @@ class ResourceManager:
     def resource_listdir(self, package_or_requirement: _PkgReqType, resource_name: str) -> list[str]: ...
     def extraction_error(self) -> NoReturn: ...
     def get_cache_path(self, archive_name: str, names: Iterable[StrPath] = ()) -> str: ...
-    def postprocess(self, tempname: StrOrBytesPath, filename: str) -> None: ...
+    def postprocess(self, tempname: StrOrBytesPath, filename: StrOrBytesPath) -> None: ...
     def set_extraction_path(self, path: str) -> None: ...
     def cleanup_resources(self, force: bool = False) -> list[str]: ...
 
@@ -310,16 +319,6 @@ class IMetadataProvider(Protocol):
 
 class ResolutionError(Exception): ...
 
-class DistributionNotFound(ResolutionError):
-    def __init__(self, req: Requirement, requirers: set[str] | None, /, *args: object) -> None: ...
-    @property
-    def req(self) -> Requirement: ...
-    @property
-    def requirers(self) -> set[str] | None: ...
-    @property
-    def requirers_str(self) -> str: ...
-    def report(self) -> str: ...
-
 class VersionConflict(ResolutionError):
     def __init__(self, dist: Distribution, req: Requirement, /, *args: object) -> None: ...
     @property
@@ -334,6 +333,16 @@ class ContextualVersionConflict(VersionConflict):
     @property
     def required_by(self) -> set[str]: ...
 
+class DistributionNotFound(ResolutionError):
+    def __init__(self, req: Requirement, requirers: set[str] | None, /, *args: object) -> None: ...
+    @property
+    def req(self) -> Requirement: ...
+    @property
+    def requirers(self) -> set[str] | None: ...
+    @property
+    def requirers_str(self) -> str: ...
+    def report(self) -> str: ...
+
 class UnknownExtra(ResolutionError): ...
 
 class ExtractionError(Exception):
@@ -343,6 +352,7 @@ class ExtractionError(Exception):
 
 def register_finder(importer_type: type[_T], distribution_finder: _DistFinderType[_T]) -> None: ...
 def register_loader_type(loader_type: type[_ModuleLike], provider_factory: _ProviderFactoryType) -> None: ...
+def resolve_egg_link(path: str) -> Iterable[Distribution]: ...
 def register_namespace_handler(importer_type: type[_T], namespace_handler: _NSHandlerType[_T]) -> None: ...
 
 class IResourceProvider(IMetadataProvider, Protocol):
@@ -466,6 +476,18 @@ class EmptyProvider(NullProvider):
 
 empty_provider: EmptyProvider
 
+class ZipManifests(dict[str, MemoizedZipManifests.manifest_mod]):
+    @classmethod
+    def build(cls, path: str) -> dict[str, ZipInfo]: ...
+    load = build
+
+class MemoizedZipManifests(ZipManifests):
+    class manifest_mod(NamedTuple):
+        manifest: dict[str, ZipInfo]
+        mtime: float
+
+    def load(self, path: str) -> dict[str, ZipInfo]: ...  # type: ignore[override]
+
 class FileMetadata(EmptyProvider):
     path: StrPath
     def __init__(self, path: StrPath) -> None: ...
@@ -511,8 +533,3 @@ iter_entry_points = working_set.iter_entry_points
 add_activation_listener = working_set.subscribe
 run_script = working_set.run_script
 run_main = run_script
-
-if sys.version_info >= (3, 10):
-    LOCALE_ENCODING: Final = "locale"
-else:
-    LOCALE_ENCODING: Final = None

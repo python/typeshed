@@ -31,8 +31,13 @@ ctypes._endian.oledll
 ctypes._endian.windll
 nt.fchmod
 nt.lchmod
+ntpath.exists
+ntpath.lexists
+ntpath.splitroot
 os.fchmod
 os.lchmod
+os.path.exists
+os.path.lexists
 stat.SF_SETTABLE
 stat.SF_SUPPORTED
 stat.SF_SYNTHETIC

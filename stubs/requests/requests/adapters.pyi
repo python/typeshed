@@ -1,7 +1,10 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
-from typing_extensions import deprecated
+from ssl import SSLContext
+from typing import Literal, TypedDict
+from typing_extensions import NotRequired, deprecated
 
+import urllib3
 from urllib3.connectionpool import ConnectionPool
 from urllib3.contrib.socks import SOCKSProxyManager as SOCKSProxyManager
 from urllib3.exceptions import (
@@ -34,6 +37,20 @@ from .utils import (
     urldefragauth as urldefragauth,
 )
 
+# Arguments to urllib3 connection_from_host() functions (except pool_kwargs).
+class _HostParams(TypedDict):
+    host: str
+    scheme: str
+    port: int
+
+class _PoolKwargs(TypedDict):
+    ssl_context: NotRequired[SSLContext]
+    ca_certs: NotRequired[str]
+    ca_cert_dir: NotRequired[str]
+    cert_reqs: Literal["CERT_REQUIRED", "CERT_NONE"]
+    cert_file: NotRequired[str]
+    key_file: NotRequired[str]
+
 DEFAULT_POOLBLOCK: bool
 DEFAULT_POOLSIZE: int
 DEFAULT_RETRIES: int
@@ -64,7 +81,10 @@ class HTTPAdapter(BaseAdapter):
     def init_poolmanager(self, connections, maxsize, block=False, **pool_kwargs): ...
     def proxy_manager_for(self, proxy, **proxy_kwargs): ...
     def cert_verify(self, conn, url, verify, cert): ...
-    def build_response(self, req, resp): ...
+    def build_response(self, req: PreparedRequest, resp: urllib3.BaseHTTPResponse) -> Response: ...
+    def build_connection_pool_key_attributes(
+        self, request: PreparedRequest, verify: bool | str, cert: str | tuple[str, str] | None = None
+    ) -> tuple[_HostParams, _PoolKwargs]: ...
     def get_connection_with_tls_context(
         self,
         request: PreparedRequest,

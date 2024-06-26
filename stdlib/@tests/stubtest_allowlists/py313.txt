@@ -3,7 +3,6 @@
 # =========================
 
 # TODO: triage these new errors
-_ast.PyCF_OPTIMIZED_AST
 _collections_abc.dict_items.isdisjoint
 _collections_abc.dict_keys.isdisjoint
 _ctypes.POINTER
@@ -11,16 +10,12 @@ _ctypes.addressof
 _ctypes.alignment
 _ctypes.pointer
 _ctypes.sizeof
-_json.encode_basestring_ascii
 _thread.interrupt_main
 _thread.lock
 _thread.stack_size
 _thread.start_joinable_thread
 _thread.start_new_thread
-_tkinter.TkappType.gettrace
-_tkinter.TkappType.settrace
 _tkinter.create
-ast.PyCF_OPTIMIZED_AST
 asyncio.AbstractEventLoop.create_server
 asyncio.AbstractServer.abort_clients
 asyncio.AbstractServer.close_clients
@@ -53,13 +48,6 @@ codecs.namereplace_errors
 codecs.replace_errors
 codecs.strict_errors
 codecs.xmlcharrefreplace_errors
-configparser.LegacyInterpolation
-configparser.MultilineContinuationError
-configparser.ParsingError.__init__
-configparser.ParsingError.combine
-configparser.RawConfigParser.__init__
-configparser.UNNAMED_SECTION
-configparser.__all__
 ctypes.POINTER
 ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
@@ -97,12 +85,7 @@ doctest.TestResults.__doc__
 doctest.TestResults.__new__
 email.utils.getaddresses
 email.utils.parseaddr
-enum.EnumDict
-enum._EnumDict.member_names
-enum.__all__
 filecmp.dircmp.__init__
-glob.__all__
-glob.translate
 importlib.metadata.DeprecatedTuple
 importlib.metadata.Distribution.origin
 importlib.metadata._meta.SimplePath.exists
@@ -125,6 +108,7 @@ mailbox.Maildir.get_info
 mailbox.Maildir.remove_flag
 mailbox.Maildir.set_flags
 mailbox.Maildir.set_info
+os.path.splitroot
 pdb.Pdb.MAX_CHAINED_EXCEPTION_DEPTH
 pdb.Pdb.completedefault
 pdb.Pdb.completenames
@@ -171,9 +155,7 @@ tkinter.PhotoImage.write
 tkinter.PhotoImage.zoom
 tkinter.Text.count
 tkinter.Wm.wm_attributes
-tkinter.tix
 trace.CoverageResults.write_results
-traceback.StackSummary.should_show_carets  # https://github.com/python/cpython/pull/112670#discussion_r1613952301
 turtle.RawTurtle.settiltangle
 turtle.__all__
 turtle.settiltangle
@@ -275,7 +257,6 @@ _weakref.ProxyType.__reversed__  # Doesn't really exist
 argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 ast.ImportFrom.level  # None on the class, but never None on instances
 builtins.property.__set_name__  # Doesn't actually exist
-builtins.str.format_map  # stubtest says `mapping` is pos-or-keyword but in reality it is pos-only
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 dataclasses.KW_ONLY  # white lies around defaults
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
