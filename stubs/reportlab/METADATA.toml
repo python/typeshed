@@ -1,4 +1,4 @@
-version = "4.2.*"
+version = "4.2.0"
 # NOTE: There is no public upstream repository
 
 [tool.stubtest]

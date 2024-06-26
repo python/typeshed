@@ -12,7 +12,7 @@ set -ex -o pipefail
 #
 # Whenever you update PROTOBUF_VERSION here, version should be updated
 # in stubs/protobuf/METADATA.toml and vice-versa.
-PROTOBUF_VERSION=26.1
+PROTOBUF_VERSION=27.1
 MYPY_PROTOBUF_VERSION=3.6.0
 
 # brew install coreutils wget

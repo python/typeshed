@@ -11,3 +11,6 @@ docker.models.resource.Collection.model
 
 # keyword arguments are now unsupported
 docker.api.container.ContainerApiMixin.start
+
+# Internal-use module for types shared by multiple modules.
+docker._types
