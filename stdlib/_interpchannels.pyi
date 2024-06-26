@@ -1,8 +1,6 @@
 from _typeshed import structseq
-from typing import Final, Literal, SupportsIndex, TypeVar, final
+from typing import Final, Literal, SupportsIndex, final
 from typing_extensions import Buffer, Self
-
-_T = TypeVar("_T")
 
 class ChannelError(RuntimeError): ...
 class ChannelClosedError(ChannelError): ...
