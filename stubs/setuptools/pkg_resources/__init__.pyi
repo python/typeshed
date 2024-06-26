@@ -133,7 +133,7 @@ class WorkingSet:
         extras: tuple[str, ...] | None = None,
     ) -> list[_DistributionT]: ...
     @overload
-    def resolve(
+    def resolve(  # type: ignore[overload-overlap]
         self,
         requirements: Iterable[Requirement],
         env: Environment | None = None,
@@ -143,7 +143,7 @@ class WorkingSet:
         extras: tuple[str, ...] | None = None,
     ) -> list[_DistributionT]: ...
     @overload
-    def resolve(
+    def resolve(  # type: ignore[overload-overlap]
         self,
         requirements: Iterable[Requirement],
         env: Environment | None = None,
@@ -160,7 +160,7 @@ class WorkingSet:
         fallback: bool = True,
     ) -> tuple[list[_DistributionT], dict[Distribution, Exception]]: ...
     @overload
-    def find_plugins(
+    def find_plugins(  # type: ignore[overload-overlap]
         self,
         plugin_env: Environment,
         full_env: Environment | None = None,
@@ -471,7 +471,8 @@ class EggMetadata(ZipProvider):
     def __init__(self, importer: zipimport.zipimporter) -> None: ...
 
 class EmptyProvider(NullProvider):
-    module_path: str | None
+    # A special case, we don't want all Providers inheriting from NullProvider to have a potentially None module_path
+    module_path: str | None  # type:ignore[assignment]
     def __init__(self) -> None: ...
 
 empty_provider: EmptyProvider
