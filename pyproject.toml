@@ -1,7 +1,7 @@
 [tool.black]
-line_length = 130
-target_version = ["py310"]
-skip_magic_trailing_comma = true
+line-length = 130
+target-version = ["py310"]
+skip-magic-trailing-comma = true
 # Exclude protobuf files because they have long line lengths
 # Ideally, we could configure Black to allow longer line lengths
 # for just these files, but doesn't seem possible yet.
