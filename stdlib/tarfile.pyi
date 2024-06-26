@@ -246,7 +246,7 @@ def open(
     pax_headers: Mapping[str, str] | None = ...,
     debug: int | None = ...,
     errorlevel: int | None = ...,
-    preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
+    preset: int | None = ...,
 ) -> TarFile: ...
 
 class ExFileObject(io.BufferedReader):

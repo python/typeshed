@@ -91,7 +91,7 @@ jobs:
             PYTHON_EXECUTABLE="xvfb-run python"
           else
             if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
-              brew install $PACKAGES
+              brew install -q $PACKAGES
             fi
 
             if [ "${{ runner.os }}" = "Windows" ] && [ -n "$PACKAGES" ]; then
