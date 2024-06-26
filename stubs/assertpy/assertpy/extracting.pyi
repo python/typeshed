@@ -1,4 +1,4 @@
-from collections.abc import Callable, Iterable, Mapping
+from collections.abc import Callable, _Iterable, Mapping
 from typing import Any
 from typing_extensions import Self
 
@@ -9,5 +9,5 @@ class ExtractingMixin:
         self,
         *names: str,
         filter: str | Mapping[str, Any] | Callable[[Any], bool],
-        sort: str | Iterable[str] | Callable[[Any], Any],
+        sort: str | _Iterable[str] | Callable[[Any], Any],
     ) -> Self: ...
