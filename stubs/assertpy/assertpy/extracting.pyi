@@ -1,4 +1,4 @@
-from collections.abc import Callable, _Iterable, Mapping
+from collections.abc import Callable, Mapping, _Iterable
 from typing import Any
 from typing_extensions import Self
 
