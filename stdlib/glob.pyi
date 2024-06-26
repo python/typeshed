@@ -4,6 +4,8 @@ from collections.abc import Iterator, Sequence
 from typing import AnyStr
 
 __all__ = ["escape", "glob", "iglob"]
+if sys.version_info >= (3, 13):
+    __all__ += ["translate"]
 
 if sys.version_info >= (3, 13):
     __all__ += ["translate"]
