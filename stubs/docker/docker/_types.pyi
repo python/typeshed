@@ -13,6 +13,7 @@ JSON: TypeAlias = dict[str, JSON] | list[JSON] | str | int | float | bool | None
 class _WaitErrorDetails(TypedDict):
     Message: str
 
+@type_check_only
 class WaitContainerResponse(TypedDict):
     StatusCode: int
     Error: NotRequired[_WaitErrorDetails]
