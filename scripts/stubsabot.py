@@ -292,12 +292,12 @@ def get_github_api_headers() -> Mapping[str, str]:
 
 
 @dataclass
-class GithubInfo:
+class GitHubInfo:
     repo_path: str
     tags: list[dict[str, Any]] = field(repr=False)
 
 
-async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubInfo) -> GithubInfo | None:
+async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubInfo) -> GitHubInfo | None:
     """
     If the project represented by `stub_info` is hosted on GitHub,
     return information regarding the project as it exists on GitHub.
@@ -316,11 +316,11 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubIn
                 if response.status == 200:
                     tags: list[dict[str, Any]] = await response.json()
                     assert isinstance(tags, list)
-                    return GithubInfo(repo_path=url_path, tags=tags)
+                    return GitHubInfo(repo_path=url_path, tags=tags)
     return None
 
 
-class GithubDiffInfo(NamedTuple):
+class GitHubDiffInfo(NamedTuple):
     repo_path: str
     old_tag: str
     new_tag: str
@@ -329,7 +329,7 @@ class GithubDiffInfo(NamedTuple):
 
 async def get_diff_info(
     session: aiohttp.ClientSession, stub_info: StubInfo, pypi_version: packaging.version.Version
-) -> GithubDiffInfo | None:
+) -> GitHubDiffInfo | None:
     """Return a tuple giving info about the diff between two releases, if possible.
 
     Return `None` if the project isn't hosted on GitHub,
@@ -363,7 +363,7 @@ async def get_diff_info(
         old_tag = versions_to_tags[old_version]
 
     diff_url = f"https://github.com/{github_info.repo_path}/compare/{old_tag}...{new_tag}"
-    return GithubDiffInfo(repo_path=github_info.repo_path, old_tag=old_tag, new_tag=new_tag, diff_url=diff_url)
+    return GitHubDiffInfo(repo_path=github_info.repo_path, old_tag=old_tag, new_tag=new_tag, diff_url=diff_url)
 
 
 FileInfo: TypeAlias = dict[str, Any]
