@@ -5,11 +5,92 @@ from types import ModuleType
 from typing import Any
 from typing_extensions import TypeAlias
 
-from docutils import nodes
-from docutils.utils import Reporter
+from docutils import (
+    ApplicationError as ApplicationError,
+    DataError as DataError,
+    nodes as nodes,
+    statemachine as statemachine,
+    utils as utils,
+)
+from docutils.nodes import unescape as unescape, whitespace_normalize_name as whitespace_normalize_name
+from docutils.parsers.rst import directives as directives, languages as languages, roles as roles, tableparser as tableparser
+from docutils.statemachine import StateMachineWS as StateMachineWS, StateWS as StateWS
+from docutils.utils import (
+    Reporter,
+    column_width as column_width,
+    escape2null as escape2null,
+    punctuation_chars as punctuation_chars,
+    roman as roman,
+    split_escaped_whitespace as split_escaped_whitespace,
+    urischemes as urischemes,
+)
 
 class Struct:
     def __init__(self, **keywordargs) -> None: ...
+
+class RSTStateMachine(StateMachineWS):
+    language: Incomplete
+    match_titles: Incomplete
+    memo: Incomplete
+    document: Incomplete
+    reporter: Incomplete
+    node: Incomplete
+    def run(self, input_lines, document, input_offset: int = 0, match_titles: bool = True, inliner: Incomplete | None = None) -> None: ...  # type: ignore[override]
+
+class NestedStateMachine(StateMachineWS):
+    match_titles: Incomplete
+    memo: Incomplete
+    document: Incomplete
+    reporter: Incomplete
+    language: Incomplete
+    node: Incomplete
+    def run(self, input_lines, input_offset, memo, node, match_titles: bool = True): ...
+
+class RSTState(StateWS):
+    nested_sm = NestedStateMachine
+    nested_sm_cache: Incomplete
+    nested_sm_kwargs: Incomplete
+    def __init__(self, state_machine, debug: bool = False) -> None: ...
+    memo: Incomplete
+    reporter: Incomplete
+    inliner: Incomplete
+    document: Incomplete
+    parent: Incomplete
+    def runtime_init(self) -> None: ...
+    def goto_line(self, abs_line_offset) -> None: ...
+    def no_match(self, context, transitions): ...
+    def bof(self, context): ...
+    def nested_parse(
+        self,
+        block,
+        input_offset,
+        node,
+        match_titles: bool = False,
+        state_machine_class: Incomplete | None = None,
+        state_machine_kwargs: Incomplete | None = None,
+    ): ...
+    def nested_list_parse(
+        self,
+        block,
+        input_offset,
+        node,
+        initial_state,
+        blank_finish,
+        blank_finish_state: Incomplete | None = None,
+        extra_settings={},
+        match_titles: bool = False,
+        state_machine_class: Incomplete | None = None,
+        state_machine_kwargs: Incomplete | None = None,
+    ): ...
+    def section(self, title, source, style, lineno, messages) -> None: ...
+    def check_subsection(self, source, style, lineno): ...
+    def title_inconsistent(self, sourcetext, lineno): ...
+    def new_subsection(self, title, lineno, messages) -> None: ...
+    def paragraph(self, lines, lineno): ...
+    def inline_text(self, text, lineno): ...
+    def unindent_warning(self, node_name): ...
+
+def build_regexp(definition, compile: bool = True): ...
 
 _BasicDefinition: TypeAlias = tuple[str, str, str, list[Pattern[str]]]
 _DefinitionParts: TypeAlias = tuple[str, str, str, list[Pattern[str] | _BasicDefinition]]
