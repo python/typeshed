@@ -28,7 +28,7 @@ class NestedStateMachine(StateMachineWS):
     reporter: Incomplete
     language: Incomplete
     node: Incomplete
-    def run(
+    def run(  # type: ignore[override]
         self, input_lines: Sequence[str] | StringList, input_offset: int, memo, node, match_titles: bool = True
     ) -> list[str]: ...
 
