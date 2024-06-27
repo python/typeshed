@@ -2,6 +2,7 @@ import datetime
 from _typeshed import Incomplete
 from typing import Literal, NamedTuple, overload
 
+from docker._types import WaitContainerResponse
 from docker.types.daemon import CancellableStream
 
 from .images import Image
@@ -97,7 +98,9 @@ class Container(Model):
         kernel_memory: int | str | None = None,
         restart_policy: Incomplete | None = None,
     ): ...
-    def wait(self, *, timeout: float | None = None, condition: Literal["not-running", "next-exit", "removed"] | None = None): ...
+    def wait(
+        self, *, timeout: float | None = None, condition: Literal["not-running", "next-exit", "removed"] | None = None
+    ) -> WaitContainerResponse: ...
 
 class ContainerCollection(Collection[Container]):
     model: type[Container]
