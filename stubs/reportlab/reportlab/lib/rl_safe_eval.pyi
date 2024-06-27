@@ -1,7 +1,7 @@
 import ast
 import math
-import time
 import re
+import time
 from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import NoReturn
@@ -177,7 +177,12 @@ class __RL_SAFE_ENV__:
     real_bi: Incomplete
     bi_replace: Incomplete
     __rl_builtins__: Incomplete
-    def __init__(self, timeout: Incomplete | None = None, allowed_magic_methods: Incomplete | None = None, allowed_magic_names: Incomplete | None = None) -> None: ...
+    def __init__(
+        self,
+        timeout: Incomplete | None = None,
+        allowed_magic_methods: Incomplete | None = None,
+        allowed_magic_names: Incomplete | None = None,
+    ) -> None: ...
     def __rl_type__(self, *args): ...
     def __rl_check__(self) -> None: ...
     def __rl_sd__(self, obj): ...
