@@ -14,17 +14,8 @@ _Context = TypeVar("_Context")
 class Struct:
     def __init__(self, **keywordargs) -> None: ...
 
-class NestedStateMachine(StateMachineWS[_Context]):
-    match_titles: Incomplete
-    memo: Incomplete
-    document: Incomplete
-    reporter: Incomplete
-    language: Incomplete
-    node: Incomplete
-    def run(self, input_lines, input_offset, memo, node, match_titles: bool = True): ...  # type: ignore[override]
-
 class RSTState(Generic[_Context]):
-    nested_sm: NestedStateMachine[_Context]
+    nested_sm: type[StateMachineWS[_Context]]
     nested_sm_cache: Incomplete
     nested_sm_kwargs: Incomplete
     def __init__(self, state_machine, debug: bool = False) -> None: ...
