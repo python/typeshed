@@ -5,25 +5,9 @@ from types import ModuleType
 from typing import Any
 from typing_extensions import TypeAlias
 
-from docutils import (
-    ApplicationError as ApplicationError,
-    DataError as DataError,
-    nodes as nodes,
-    statemachine as statemachine,
-    utils as utils,
-)
-from docutils.nodes import unescape as unescape, whitespace_normalize_name as whitespace_normalize_name
-from docutils.parsers.rst import directives as directives, languages as languages, roles as roles, tableparser as tableparser
-from docutils.statemachine import StateMachineWS as StateMachineWS, StateWS as StateWS
-from docutils.utils import (
-    Reporter,
-    column_width as column_width,
-    escape2null as escape2null,
-    punctuation_chars as punctuation_chars,
-    roman as roman,
-    split_escaped_whitespace as split_escaped_whitespace,
-    urischemes as urischemes,
-)
+from docutils import nodes
+from docutils.statemachine import StateMachineWS, StateWS
+from docutils.utils import Reporter
 
 class Struct:
     def __init__(self, **keywordargs) -> None: ...
