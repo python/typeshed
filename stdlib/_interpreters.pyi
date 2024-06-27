@@ -1,5 +1,6 @@
 import types
-from typing import Callable, Final, Literal, Mapping, SupportsIndex, final
+from collections.abc import Callable, Mapping
+from typing import Final, Literal, SupportsIndex, final
 
 class InterpreterError(Exception): ...
 class InterpreterNotFoundError(InterpreterError): ...
@@ -40,9 +41,9 @@ def decref(id: SupportsIndex, *, restrict: bool = False) -> None: ...
 def is_shareable(obj: object) -> bool: ...
 def capture_exception(exc: BaseException | None = None) -> types.SimpleNamespace: ...
 
-WHENCE_UNKNOWN: Final[Literal[0]]
-WHENCE_RUNTIME: Final[Literal[1]]
-WHENCE_LEGACY_CAPI: Final[Literal[2]]
-WHENCE_CAPI: Final[Literal[3]]
-WHENCE_XI: Final[Literal[4]]
-WHENCE_STDLIB: Final[Literal[5]]
+WHENCE_UNKNOWN: Final = 0
+WHENCE_RUNTIME: Final = 1
+WHENCE_LEGACY_CAPI: Final = 2
+WHENCE_CAPI: Final = 3
+WHENCE_XI: Final = 4
+WHENCE_STDLIB: Final = 5
