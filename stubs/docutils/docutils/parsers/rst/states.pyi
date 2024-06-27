@@ -9,10 +9,10 @@ from docutils import nodes
 from docutils.statemachine import StateMachine, StateWS
 from docutils.utils import Reporter
 
+_Context = TypeVar("_Context")
+
 class Struct:
     def __init__(self, **keywordargs) -> None: ...
-
-_Context = TypeVar("_Context")
 
 class RSTState(StateWS[_Context]):
     nested_sm: type[StateMachine[_Context]]

@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
-from typing import Any, ClassVar, Literal
+from typing import Any, ClassVar, Literal, TypeVar
 from typing_extensions import TypeAlias
 
 from docutils import nodes, parsers
@@ -8,11 +8,13 @@ from docutils.parsers.rst.states import Inliner, RSTState, RSTStateMachine
 from docutils.statemachine import StringList
 from docutils.transforms import Transform
 
+_Context = TypeVar("_Context")
+
 class Parser(parsers.Parser):
     settings_spec: ClassVar[Incomplete]
     config_section_dependencies: ClassVar[tuple[str, ...]]
     initial_state: Literal["Body", "RFC2822Body"]
-    state_classes: Sequence[type[RSTState]]
+    state_classes: Sequence[type[RSTState[_Context]]]
     inliner: Inliner | None
     def __init__(self, rfc2822: bool = False, inliner: Inliner | None = None) -> None: ...
     def get_transforms(self) -> list[type[Transform]]: ...
@@ -36,7 +38,7 @@ class Directive:
     lineno: int
     content_offset: int
     block_text: str
-    state: RSTState
+    state: RSTState[_Context]
     state_machine: RSTStateMachine = ...
     def __init__(
         self,
@@ -47,7 +49,7 @@ class Directive:
         lineno: int,
         content_offset: int,
         block_text: str,
-        state: RSTState,
+        state: RSTState[_Context],
         state_machine: RSTStateMachine,
     ) -> None: ...
     def run(self) -> Sequence[nodes.Node]: ...
@@ -61,7 +63,7 @@ class Directive:
     def add_name(self, node: nodes.Node) -> None: ...
 
 _DirectiveFn: TypeAlias = Callable[
-    [str, list[str], dict[str, Any], StringList, int, int, str, RSTState, RSTStateMachine], Directive
+    [str, list[str], dict[str, Any], StringList, int, int, str, RSTState[_Context], RSTStateMachine], Directive
 ]
 
 def convert_directive_function(directive_fn: _DirectiveFn) -> type[Directive]: ...
