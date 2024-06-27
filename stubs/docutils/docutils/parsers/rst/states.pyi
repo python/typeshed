@@ -6,34 +6,14 @@ from typing import Any
 from typing_extensions import TypeAlias
 
 from docutils import nodes
-from docutils.statemachine import StateMachineWS, StateWS, StringList
+from docutils.statemachine import StateWS
 from docutils.utils import Reporter
 
 class Struct:
     def __init__(self, **keywordargs) -> None: ...
 
-class RSTStateMachine(StateMachineWS):
-    language: Incomplete
-    match_titles: Incomplete
-    memo: Incomplete
-    document: Incomplete
-    reporter: Incomplete
-    node: Incomplete
-    def run(self, input_lines: Sequence[str] | StringList, document, input_offset: int = 0, match_titles: bool = True, inliner: Incomplete | None = None) -> None: ...  # type: ignore[override]
-
-class NestedStateMachine(StateMachineWS):
-    match_titles: Incomplete
-    memo: Incomplete
-    document: Incomplete
-    reporter: Incomplete
-    language: Incomplete
-    node: Incomplete
-    def run(  # type: ignore[override]
-        self, input_lines: Sequence[str] | StringList, input_offset: int, memo, node, match_titles: bool = True
-    ) -> list[str]: ...
-
 class RSTState(StateWS):
-    nested_sm = NestedStateMachine
+    nested_sm = Incomplete
     nested_sm_cache: Incomplete
     nested_sm_kwargs: Incomplete
     def __init__(self, state_machine, debug: bool = False) -> None: ...
