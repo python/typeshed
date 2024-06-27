@@ -2,11 +2,11 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from re import Match, Pattern
 from types import ModuleType
-from typing import Any, Generic, TypeVar
+from typing import Any, TypeVar
 from typing_extensions import TypeAlias
 
 from docutils import nodes
-from docutils.statemachine import StateMachineWS
+from docutils.statemachine import StateMachineWS, StateWS
 from docutils.utils import Reporter
 
 _Context = TypeVar("_Context")
@@ -14,7 +14,7 @@ _Context = TypeVar("_Context")
 class Struct:
     def __init__(self, **keywordargs) -> None: ...
 
-class RSTState(Generic[_Context]):
+class RSTState(StateWS[_Context]):
     nested_sm: type[StateMachineWS[_Context]]
     nested_sm_cache: Incomplete
     nested_sm_kwargs: Incomplete
