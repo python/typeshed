@@ -1,3 +1,5 @@
+from typing import TypeVar
+
 from docutils.parsers.rst import Directive
 
 MODULEDOC: str
@@ -5,7 +7,9 @@ LEXERDOC: str
 FMTERDOC: str
 FILTERDOC: str
 
-class PygmentsDoc(Directive):
+_Context = TypeVar("_Context")
+
+class PygmentsDoc(Directive[_Context]):
     filenames: set[str]
     def document_lexers(self) -> str: ...
     def document_formatters(self) -> str: ...
