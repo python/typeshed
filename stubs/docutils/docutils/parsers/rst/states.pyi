@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from re import Match, Pattern
 from types import ModuleType
-from typing import Any
+from typing import Any, TypeVar
 from typing_extensions import TypeAlias
 
 from docutils import nodes
@@ -12,8 +12,10 @@ from docutils.utils import Reporter
 class Struct:
     def __init__(self, **keywordargs) -> None: ...
 
-class RSTState(StateWS):
-    nested_sm: type[StateMachine]
+_Context = TypeVar("_Context")
+
+class RSTState(StateWS[_Context]):
+    nested_sm: type[StateMachine[_Context]]
     nested_sm_cache: Incomplete
     nested_sm_kwargs: Incomplete
     def __init__(self, state_machine, debug: bool = False) -> None: ...
