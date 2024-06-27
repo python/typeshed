@@ -20,7 +20,7 @@ class RSTState(StateWS):
     memo: Incomplete
     reporter: Incomplete
     inliner: Incomplete
-    document: Incomplete
+    document: nodes.document
     parent: Incomplete
     def runtime_init(self) -> None: ...
     def goto_line(self, abs_line_offset) -> None: ...
