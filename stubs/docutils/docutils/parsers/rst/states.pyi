@@ -6,14 +6,14 @@ from typing import Any
 from typing_extensions import TypeAlias
 
 from docutils import nodes
-from docutils.statemachine import StateWS
+from docutils.statemachine import StateMachine, StateWS
 from docutils.utils import Reporter
 
 class Struct:
     def __init__(self, **keywordargs) -> None: ...
 
 class RSTState(StateWS):
-    nested_sm = Incomplete
+    nested_sm: type[StateMachine]
     nested_sm_cache: Incomplete
     nested_sm_kwargs: Incomplete
     def __init__(self, state_machine, debug: bool = False) -> None: ...
