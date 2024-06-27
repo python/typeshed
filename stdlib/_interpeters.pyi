@@ -7,7 +7,8 @@ class InterpreterNotShareableError(InterpreterError): ...
 
 # Not-instantiable, so mark as final.
 @final
-class CrossInterpreterBufferView: ...
+class CrossInterpreterBufferView:
+    def __buffer__(self, flags: int, /) -> memoryview: ...
 
 def new_config(
     name: Literal["default", "isolated", "legacy", "empty"] = "isolated",
