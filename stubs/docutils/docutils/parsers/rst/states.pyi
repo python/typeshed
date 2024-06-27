@@ -6,7 +6,7 @@ from typing import Any
 from typing_extensions import TypeAlias
 
 from docutils import nodes
-from docutils.statemachine import StateMachineWS, StateWS
+from docutils.statemachine import StateMachineWS, StateWS, StringList
 from docutils.utils import Reporter
 
 class Struct:
@@ -19,7 +19,7 @@ class RSTStateMachine(StateMachineWS):
     document: Incomplete
     reporter: Incomplete
     node: Incomplete
-    def run(self, input_lines, document, input_offset: int = 0, match_titles: bool = True, inliner: Incomplete | None = None) -> None: ...  # type: ignore[override]
+    def run(self, input_lines: Sequence[str] | StringList, document, input_offset: int = 0, match_titles: bool = True, inliner: Incomplete | None = None) -> None: ...  # type: ignore[override]
 
 class NestedStateMachine(StateMachineWS):
     match_titles: Incomplete
@@ -28,7 +28,9 @@ class NestedStateMachine(StateMachineWS):
     reporter: Incomplete
     language: Incomplete
     node: Incomplete
-    def run(self, input_lines, input_offset, memo, node, match_titles: bool = True) -> list[str]: ...
+    def run(
+        self, input_lines: Sequence[str] | StringList, input_offset: int, memo, node, match_titles: bool = True
+    ) -> list[str]: ...
 
 class RSTState(StateWS):
     nested_sm = NestedStateMachine
