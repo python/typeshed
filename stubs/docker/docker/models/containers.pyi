@@ -2,7 +2,7 @@ import datetime
 from _typeshed import Incomplete
 from typing import Literal, NamedTuple, overload
 
-from docker._types import ContainerWeightDevice
+from docker._types import ContainerWeightDevice, WaitContainerResponse
 from docker.types import EndpointConfig
 from docker.types.containers import DeviceRequest, LogConfig, Ulimit
 from docker.types.daemon import CancellableStream
@@ -101,7 +101,9 @@ class Container(Model):
         kernel_memory: int | str | None = None,
         restart_policy: Incomplete | None = None,
     ): ...
-    def wait(self, *, timeout: float | None = None, condition: Literal["not-running", "next-exit", "removed"] | None = None): ...
+    def wait(
+        self, *, timeout: float | None = None, condition: Literal["not-running", "next-exit", "removed"] | None = None
+    ) -> WaitContainerResponse: ...
 
 class ContainerCollection(Collection[Container]):
     model: type[Container]
