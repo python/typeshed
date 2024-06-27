@@ -11,14 +11,10 @@ class CrossInterpreterBufferView:
     def __buffer__(self, flags: int, /) -> memoryview: ...
 
 def new_config(
-    name: Literal["default", "isolated", "legacy", "empty"] = "isolated",
-    /,
-    **overides: object,
+    name: Literal["default", "isolated", "legacy", "empty"] = "isolated", /, **overides: object
 ) -> types.SimpleNamespace: ...
 def create(
-    config: types.SimpleNamespace | Literal["isolated", "legacy"] | None = "isolated",
-    *,
-    reqrefs: bool = False,
+    config: types.SimpleNamespace | Literal["isolated", "legacy"] | None = "isolated", *, reqrefs: bool = False
 ) -> int: ...
 def destroy(id: SupportsIndex, *, restrict: bool = False) -> None: ...
 def list_all(*, require_ready: bool) -> list[tuple[int, int]]: ...
