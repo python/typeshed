@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
-from typing import Any, ClassVar, Literal, TypeVar
+from typing import Any, ClassVar, Generic, Literal, TypeVar
 from typing_extensions import TypeAlias
 
 from docutils import nodes, parsers
@@ -14,7 +14,7 @@ class Parser(parsers.Parser):
     settings_spec: ClassVar[Incomplete]
     config_section_dependencies: ClassVar[tuple[str, ...]]
     initial_state: Literal["Body", "RFC2822Body"]
-    state_classes: Sequence[type[RSTState[_Context]]]
+    state_classes: Sequence[type[RSTState[Generic[_Context]]]]
     inliner: Inliner | None
     def __init__(self, rfc2822: bool = False, inliner: Inliner | None = None) -> None: ...
     def get_transforms(self) -> list[type[Transform]]: ...
@@ -38,7 +38,7 @@ class Directive:
     lineno: int
     content_offset: int
     block_text: str
-    state: RSTState[_Context]
+    state: RSTState[Generic[_Context]]
     state_machine: RSTStateMachine = ...
     def __init__(
         self,
