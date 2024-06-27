@@ -44,7 +44,7 @@ class NestedStateMachine(StateMachineWS):
     reporter: Incomplete
     language: Incomplete
     node: Incomplete
-    def run(self, input_lines, input_offset, memo, node, match_titles: bool = True): ...
+    def run(self, input_lines, input_offset, memo, node, match_titles: bool = True) -> list[str]: ...
 
 class RSTState(StateWS):
     nested_sm = NestedStateMachine
