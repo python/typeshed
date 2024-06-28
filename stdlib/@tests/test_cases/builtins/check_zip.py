@@ -1,6 +1,5 @@
-from typing_extensions import assert_type
-
 from typing import Tuple
+from typing_extensions import assert_type
 
 assert_type(zip((1, 2)), zip[Tuple[int]])
 assert_type(zip([1, 2], ("3", "4")), zip[Tuple[int, str]])
