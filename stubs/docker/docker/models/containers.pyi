@@ -382,6 +382,7 @@ class ContainerCollection(Collection[Container]):
         user: str | int | None = None,
         userns_mode: str | None = None,
         uts_mode: str | None = None,
+        version: str | None = None,
         volume_driver: str | None = None,
         volumes: dict[str, str] | list[str] | None = None,
         volumes_from: list[str] | None = None,
