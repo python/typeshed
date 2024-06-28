@@ -4,7 +4,7 @@ from typing_extensions import assert_type
 ints: Sequence[int] = [1, 2, 3]
 strs: Sequence[str] = ["one", "two", "three"]
 floats: Sequence[float] = [1.0, 2.0, 3.0]
-str_tuples: Sequence[Tuple[str]] = [("one",), ("two",), ("three",)]
+str_tuples: Sequence[Tuple[str]] = list((x,) for x in strs)
 
 assert_type(zip(ints), zip[Tuple[int]])
 assert_type(zip(ints, strs), zip[Tuple[int, str]])
