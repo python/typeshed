@@ -1,5 +1,5 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
-from collections.abc import Iterator, Iterable
+from collections.abc import Iterable, Iterator
 from typing import ClassVar, Literal
 
 from openpyxl.descriptors.base import Bool, Integer, String, Typed, _ConvertibleToBool
