@@ -152,10 +152,10 @@ class _HashableSource:
     def __hash__(self) -> int: ...
     def __eq__(self, other) -> Expression | bool: ...
     def __ne__(self, other) -> Expression | bool: ...
-    __lt__: Expression
-    __le__: Expression
-    __gt__: Expression
-    __ge__: Expression
+    __lt__: Callable[[Any], Expression]
+    __le__: Callable[[Any], Expression]
+    __gt__: Callable[[Any], Expression]
+    __ge__: Callable[[Any], Expression]
 
 class BaseTable(Source):
     __and__: Incomplete
@@ -237,40 +237,40 @@ class ColumnBase(Node):
     def desc(self, collation: Incomplete | None = ..., nulls: Incomplete | None = ...): ...
     __neg__: Incomplete
     def __invert__(self): ...
-    __and__: Expression
-    __or__: Expression
-    __add__: Expression
-    __sub__: Expression
-    __mul__: Expression
-    __div__: Expression
-    __truediv__: Expression
-    __xor__: Expression
-    __radd__: Expression
-    __rsub__: Expression
-    __rmul__: Expression
-    __rdiv__: Expression
-    __rtruediv__: Expression
-    __rand__: Expression
-    __ror__: Expression
-    __rxor__: Expression
+    __and__: Callable[[Any], Expression]
+    __or__: Callable[[Any], Expression]
+    __add__: Callable[[Any], Expression]
+    __sub__: Callable[[Any], Expression]
+    __mul__: Callable[[Any], Expression]
+    __div__: Callable[[Any], Expression]
+    __truediv__: Callable[[Any], Expression]
+    __xor__: Callable[[Any], Expression]
+    __radd__: Callable[[Any], Expression]
+    __rsub__: Callable[[Any], Expression]
+    __rmul__: Callable[[Any], Expression]
+    __rdiv__: Callable[[Any], Expression]
+    __rtruediv__: Callable[[Any], Expression]
+    __rand__: Callable[[Any], Expression]
+    __ror__: Callable[[Any], Expression]
+    __rxor__: Callable[[Any], Expression]
     def __eq__(self, rhs) -> Expression: ...
     def __ne__(self, rhs) -> Expression: ...
-    __lt__: Expression
-    __le__: Expression
-    __gt__: Expression
-    __ge__: Expression
-    __lshift__: Expression
-    __rshift__: Expression
-    __mod__: Expression
-    __pow__: Expression
-    like: Expression
-    ilike: Expression
-    bin_and: Expression
-    bin_or: Expression
-    in_: Expression
-    not_in: Expression
-    regexp: Expression
-    iregexp: Expression
+    __lt__: Callable[[Any], Expression]
+    __le__: Callable[[Any], Expression]
+    __gt__: Callable[[Any], Expression]
+    __ge__: Callable[[Any], Expression]
+    __lshift__: Callable[[Any], Expression]
+    __rshift__: Callable[[Any], Expression]
+    __mod__: Callable[[Any], Expression]
+    __pow__: Callable[[Any], Expression]
+    like: Callable[[Any], Expression]
+    ilike: Callable[[Any], Expression]
+    bin_and: Callable[[Any], Expression]
+    bin_or: Callable[[Any], Expression]
+    in_: Callable[[Any], Expression]
+    not_in: Callable[[Any], Expression]
+    regexp: Callable[[Any], Expression]
+    iregexp: Callable[[Any], Expression]
     def is_null(self, is_null: bool = ...) -> Expression: ...
     def contains(self, rhs) -> Expression: ...
     def startswith(self, rhs) -> Expression: ...
