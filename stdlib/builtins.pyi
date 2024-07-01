@@ -847,10 +847,6 @@ _IntegerFormats: TypeAlias = Literal[
     "@Q",
     "P",
     "@P",
-    "q",
-    "Q",
-    "@q",
-    "@Q",
 ]
 _FloatFormats: TypeAlias = Literal["f", "F", "@f", "@F", "d", "D", "@d"]
 
@@ -892,7 +888,7 @@ class memoryview(Sequence[_I]):
     @overload
     def cast(self, format: Literal["?"], shape: list[int] | tuple[int, ...] = ...) -> memoryview[bool]: ...
     @overload
-    def cast(self, format: _IntegerFormats, shape: list[int] | tuple[int, ...] = ...) -> memoryview[int]: ...
+    def cast(self, format: _IntegerFormats, shape: list[int] | tuple[int, ...] = ...) -> memoryview: ...
     @overload
     def __getitem__(self, key: SupportsIndex | tuple[SupportsIndex, ...], /) -> _I: ...
     @overload
