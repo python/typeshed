@@ -1,24 +1,24 @@
 # Type checkers and other linters that we test our stubs against. These should always
 # be pinned to a specific version to make failure reproducible. See also the
 # "tool.typeshed" section in pyproject.toml for additional type checkers.
-black==24.3.0            # must match .pre-commit-config.yaml
-flake8==7.0.0            # must match .pre-commit-config.yaml
+black==24.4.2            # must match .pre-commit-config.yaml
+flake8==7.1.0            # must match .pre-commit-config.yaml
 flake8-noqa==1.4.0       # must match .pre-commit-config.yaml
 flake8-pyi==24.6.0       # must match .pre-commit-config.yaml
-mypy==1.10.0
-pre-commit-hooks==4.5.0  # must match .pre-commit-config.yaml
-pyright==1.1.367
+mypy==1.10.1
+pre-commit-hooks==4.6.0  # must match .pre-commit-config.yaml
+pyright==1.1.369
 pytype==2024.4.11; platform_system != "Windows" and python_version < "3.12"
-ruff==0.3.7              # must match .pre-commit-config.yaml
+ruff==0.5.0              # must match .pre-commit-config.yaml
 
 # Libraries used by our various scripts.
-aiohttp==3.9.4
-packaging==24.0
+aiohttp==3.9.5
+packaging==24.1
 pathspec>=0.11.1
 pre-commit
 stubdefaulter==0.1.0
 termcolor>=2.3
 tomli==2.0.1
-tomlkit==0.12.4
+tomlkit==0.12.5
 typing_extensions>=4.12.0rc1
-uv==0.1.27
+uv==0.2.18

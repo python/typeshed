@@ -10,4 +10,5 @@ partial_stub = true
 
 [tool.stubtest]
 ignore_missing_stub = true
-stubtest_requirements = ["keras>=3.3.3"]
+# TODO: Support/update to keras 3.4
+stubtest_requirements = ["keras>=3.3.3,<3.4"]
