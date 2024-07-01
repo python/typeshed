@@ -827,7 +827,6 @@ class bytearray(MutableSequence[int]):
 _IntegerFormats: TypeAlias = Literal[
     "b", "B", "@b", "@B", "h", "H", "@h", "@H", "i", "I", "@i", "@I", "l", "L", "@l", "@L", "q", "Q", "@q", "@Q", "P", "@P"
 ]
-_FloatFormats: TypeAlias = Literal["f", "F", "@f", "@F", "d", "D", "@d"]
 
 @final
 class memoryview(Sequence[_I]):
@@ -863,7 +862,7 @@ class memoryview(Sequence[_I]):
     @overload
     def cast(self, format: Literal["c", "@c"], shape: list[int] | tuple[int, ...] = ...) -> memoryview[bytes]: ...
     @overload
-    def cast(self, format: _FloatFormats, shape: list[int] | tuple[int, ...] = ...) -> memoryview[float]: ...
+    def cast(self, format: Literal["f", "@f", "d", "@d"], shape: list[int] | tuple[int, ...] = ...) -> memoryview[float]: ...
     @overload
     def cast(self, format: Literal["?"], shape: list[int] | tuple[int, ...] = ...) -> memoryview[bool]: ...
     @overload
