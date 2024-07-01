@@ -108,7 +108,6 @@ mailbox.Maildir.get_info
 mailbox.Maildir.remove_flag
 mailbox.Maildir.set_flags
 mailbox.Maildir.set_info
-os.path.splitroot
 pdb.Pdb.MAX_CHAINED_EXCEPTION_DEPTH
 pdb.Pdb.completedefault
 pdb.Pdb.completenames
