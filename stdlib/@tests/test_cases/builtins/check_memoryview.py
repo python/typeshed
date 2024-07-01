@@ -1,7 +1,7 @@
 from __future__ import annotations
+
 import array
 from typing_extensions import assert_type
-
 
 # Castying to bytes.
 buf = b"abcdefg"
