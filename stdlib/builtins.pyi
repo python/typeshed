@@ -51,6 +51,7 @@ from typing import (  # noqa: Y022
     SupportsComplex,
     SupportsFloat,
     SupportsIndex,
+    TypeVar,
     final,
     overload,
     type_check_only,
@@ -66,7 +67,6 @@ from typing_extensions import (  # noqa: Y023
     TypeAlias,
     TypeGuard,
     TypeIs,
-    TypeVar,
     TypeVarTuple,
     deprecated,
 )
