@@ -825,28 +825,7 @@ class bytearray(MutableSequence[int]):
     def __release_buffer__(self, buffer: memoryview, /) -> None: ...
 
 _IntegerFormats: TypeAlias = Literal[
-    "b",
-    "B",
-    "@b",
-    "@B",
-    "h",
-    "H",
-    "@h",
-    "@H",
-    "i",
-    "I",
-    "@i",
-    "@I",
-    "l",
-    "L",
-    "@l",
-    "@L",
-    "q",
-    "Q",
-    "@q",
-    "@Q",
-    "P",
-    "@P",
+    "b", "B", "@b", "@B", "h", "H", "@h", "@H", "i", "I", "@i", "@I", "l", "L", "@l", "@L", "q", "Q", "@q", "@Q", "P", "@P"
 ]
 _FloatFormats: TypeAlias = Literal["f", "F", "@f", "@F", "d", "D", "@d"]
 
