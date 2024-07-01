@@ -51,7 +51,6 @@ from typing import (  # noqa: Y022
     SupportsComplex,
     SupportsFloat,
     SupportsIndex,
-    TypeVar,
     final,
     overload,
     type_check_only,
@@ -67,6 +66,7 @@ from typing_extensions import (  # noqa: Y023
     TypeAlias,
     TypeGuard,
     TypeIs,
+    TypeVar,
     TypeVarTuple,
     deprecated,
 )
@@ -75,6 +75,7 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 _T = TypeVar("_T")
+_I = TypeVar("_I", default=int)
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
 _R_co = TypeVar("_R_co", covariant=True)
@@ -823,8 +824,38 @@ class bytearray(MutableSequence[int]):
     def __buffer__(self, flags: int, /) -> memoryview: ...
     def __release_buffer__(self, buffer: memoryview, /) -> None: ...
 
+_IntegerFormats: TypeAlias = Literal[
+    "b",
+    "B",
+    "@b",
+    "@B",
+    "h",
+    "H",
+    "@h",
+    "@H",
+    "i",
+    "I",
+    "@i",
+    "@I",
+    "l",
+    "L",
+    "@l",
+    "@L",
+    "q",
+    "Q",
+    "@q",
+    "@Q",
+    "P",
+    "@P",
+    "q",
+    "Q",
+    "@q",
+    "@Q",
+]
+_FloatFormats: TypeAlias = Literal["f", "F", "@f", "@F", "d", "D", "@d"]
+
 @final
-class memoryview(Sequence[int]):
+class memoryview(Sequence[_I]):
     @property
     def format(self) -> str: ...
     @property
@@ -854,13 +885,23 @@ class memoryview(Sequence[int]):
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None, /
     ) -> None: ...
+    @overload
+    def cast(self, format: Literal["c", "@c"], shape: list[int] | tuple[int, ...] = ...) -> memoryview[bytes]: ...
+    @overload
+    def cast(self, format: _FloatFormats, shape: list[int] | tuple[int, ...] = ...) -> memoryview[float]: ...
+    @overload
+    def cast(self, format: Literal["?"], shape: list[int] | tuple[int, ...] = ...) -> memoryview[bool]: ...
+    @overload
+    def cast(self, format: _IntegerFormats, shape: list[int] | tuple[int, ...] = ...) -> memoryview: ...
+    # Fallback to ensure backwards compatability.
+    @overload
     def cast(self, format: str, shape: list[int] | tuple[int, ...] = ...) -> memoryview: ...
     @overload
-    def __getitem__(self, key: SupportsIndex | tuple[SupportsIndex, ...], /) -> int: ...
+    def __getitem__(self, key: SupportsIndex | tuple[SupportsIndex, ...], /) -> _I: ...
     @overload
-    def __getitem__(self, key: slice, /) -> memoryview: ...
+    def __getitem__(self, key: slice, /) -> memoryview[_I]: ...
     def __contains__(self, x: object, /) -> bool: ...
-    def __iter__(self) -> Iterator[int]: ...
+    def __iter__(self) -> Iterator[_I]: ...
     def __len__(self) -> int: ...
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
