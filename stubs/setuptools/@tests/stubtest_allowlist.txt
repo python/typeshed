@@ -103,6 +103,7 @@ setuptools._distutils.command.install_data
 setuptools._distutils.command.install_egg_info
 setuptools._distutils.command.install_headers
 setuptools._distutils.compat.py38
+setuptools._distutils.compat.py39
 setuptools._distutils.core
 setuptools._distutils.cygwinccompiler
 setuptools._distutils.debug
@@ -112,8 +113,6 @@ setuptools._distutils.file_util
 setuptools._distutils.log
 setuptools._distutils.msvc9compiler
 setuptools._distutils.msvccompiler
-setuptools._distutils.py38compat
-setuptools._distutils.py39compat
 setuptools._distutils.spawn
 setuptools._distutils.text_file
 setuptools._distutils.unixccompiler
@@ -125,9 +124,10 @@ setuptools._distutils.zosccompiler
 distutils\..+
 
 # Private APIs
-setuptools.config._validate_pyproject.*
+setuptools\.config\._validate_pyproject.*
 setuptools.command.build_py.build_py.existing_egg_info_dir
 
 # Other vendored code
-setuptools._vendor.*
-pkg_resources._vendor.*
+pkg_resources\._vendor.*
+setuptools\._distutils\._vendor.*
+setuptools\._vendor.*
