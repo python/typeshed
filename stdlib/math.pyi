@@ -1,12 +1,13 @@
 import sys
 from collections.abc import Iterable
-from typing import Protocol, SupportsFloat, SupportsIndex, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import Literal, Protocol, SupportsFloat, SupportsIndex, TypeVar, overload
+from typing_extensions import Never, TypeAlias
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 
 _SupportsFloatOrIndex: TypeAlias = SupportsFloat | SupportsIndex
+_T_SupportsFloatOrIndex = TypeVar("_T_SupportsFloatOrIndex", bound=_SupportsFloatOrIndex)
 
 e: float
 pi: float
@@ -100,9 +101,11 @@ elif sys.version_info >= (3, 9):
 def perm(n: SupportsIndex, k: SupportsIndex | None = None, /) -> int: ...
 def pow(x: _SupportsFloatOrIndex, y: _SupportsFloatOrIndex, /) -> float: ...
 @overload
-def prod(iterable: Iterable[SupportsIndex], /, *, start: SupportsIndex = 1) -> int: ...  # type: ignore[overload-overlap]
+def prod(iterable: Iterable[Never], /, *, start: Literal[1] = 1) -> Literal[1]: ...  # type: ignore[overload-overlap]
 @overload
-def prod(iterable: Iterable[_SupportsFloatOrIndex], /, *, start: _SupportsFloatOrIndex = 1) -> float: ...
+def prod(iterable: Iterable[_T_SupportsFloatOrIndex], /, *, start: Literal[1] = 1) -> _T_SupportsFloatOrIndex | Literal[1]: ...
+@overload
+def prod(iterable: Iterable[_T_SupportsFloatOrIndex], /, *, start: _T_SupportsFloatOrIndex = ...) -> _T_SupportsFloatOrIndex: ...
 def radians(x: _SupportsFloatOrIndex, /) -> float: ...
 def remainder(x: _SupportsFloatOrIndex, y: _SupportsFloatOrIndex, /) -> float: ...
 def sin(x: _SupportsFloatOrIndex, /) -> float: ...
