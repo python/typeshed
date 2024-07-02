@@ -2007,12 +2007,12 @@ if sys.version_info >= (3, 10):
 
 if sys.version_info >= (3, 11):
     _BaseExceptionT_co = TypeVar("_BaseExceptionT_co", bound=BaseException, covariant=True)
-    _BaseExceptionT = TypeVar("_BaseExceptionT", bound=BaseException)
+    _BaseExceptionT = TypeVar("_BaseExceptionT", bound=BaseException, default=Exception)
     _ExceptionT_co = TypeVar("_ExceptionT_co", bound=Exception, covariant=True)
     _ExceptionT = TypeVar("_ExceptionT", bound=Exception)
 
     # See `check_exception_group.py` for use-cases and comments.
-    class BaseExceptionGroup(BaseException, Generic[_BaseExceptionT_co]):
+    class BaseExceptionGroup(BaseException, Generic[_BaseExceptionT]):
         def __new__(cls, message: str, exceptions: Sequence[_BaseExceptionT_co], /) -> Self: ...
         def __init__(self, message: str, exceptions: Sequence[_BaseExceptionT_co], /) -> None: ...
         @property
