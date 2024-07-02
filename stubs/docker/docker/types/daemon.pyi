@@ -1,7 +1,7 @@
 from collections.abc import Iterator
 from typing import Generic, TypeVar
 
-_T = TypeVar("_T")
+_T_co = TypeVar("_T_co", covariant=True)
 
 class CancellableStream(Generic[_T]):
     def __init__(self, stream, response) -> None: ...
