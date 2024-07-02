@@ -700,6 +700,7 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             add_help: bool = ...,
             allow_abbrev: bool = ...,
             exit_on_error: bool = ...,
+            **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
         ) -> _ArgumentParserT: ...
     elif sys.version_info >= (3, 9):
         def add_parser(
@@ -722,6 +723,7 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             add_help: bool = ...,
             allow_abbrev: bool = ...,
             exit_on_error: bool = ...,
+            **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
         ) -> _ArgumentParserT: ...
     else:
         def add_parser(
@@ -743,6 +745,7 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             conflict_handler: str = ...,
             add_help: bool = ...,
             allow_abbrev: bool = ...,
+            **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
         ) -> _ArgumentParserT: ...
 
     def _get_subactions(self) -> list[Action]: ...
