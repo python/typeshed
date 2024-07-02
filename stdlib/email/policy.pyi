@@ -1,12 +1,12 @@
 from collections.abc import Callable
 from email._policybase import Compat32 as Compat32, Policy as Policy, compat32 as compat32
 from email.contentmanager import ContentManager
-from email.message import Message
+from email.message import EmailMessage
 from typing import Any
 
 __all__ = ["Compat32", "compat32", "Policy", "EmailPolicy", "default", "strict", "SMTP", "HTTP"]
 
-class EmailPolicy(Policy):
+class EmailPolicy(Policy[EmailMessage]):
     utf8: bool
     refold_source: str
     header_factory: Callable[[str, Any], Any]
@@ -19,7 +19,7 @@ class EmailPolicy(Policy):
         cte_type: str = ...,
         raise_on_defect: bool = ...,
         mangle_from_: bool = ...,
-        message_factory: Callable[[Policy], Message] | None = ...,
+        message_factory: Callable[[Policy], EmailMessage] | None = ...,
         utf8: bool = ...,
         refold_source: str = ...,
         header_factory: Callable[[str, str], str] = ...,
