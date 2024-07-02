@@ -20,6 +20,7 @@ __all__ = (
     "ALL_COMPLETED",
     "CancelledError",
     "TimeoutError",
+    "InvalidStateError",
     "BrokenExecutor",
     "Future",
     "Executor",

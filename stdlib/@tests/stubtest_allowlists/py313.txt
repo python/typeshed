@@ -350,7 +350,6 @@ unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
 # Problematic protocol signature at runtime, see source code comments.
-importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open
 
 # Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
