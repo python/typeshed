@@ -102,7 +102,6 @@ importlib.resources.open_text
 importlib.resources.path
 importlib.resources.read_binary
 importlib.resources.read_text
-itertools.batched
 mailbox.Maildir.add_flag
 mailbox.Maildir.get_flags
 mailbox.Maildir.get_info
