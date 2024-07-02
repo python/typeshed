@@ -61,7 +61,7 @@ class Container(Model):
         since: datetime.datetime | float | None = None,
         follow: bool | None = None,
         until: datetime.datetime | float | None = None,
-    ) -> CancellableStream: ...
+    ) -> CancellableStream[bytes]: ...
     @overload
     def logs(
         self,
