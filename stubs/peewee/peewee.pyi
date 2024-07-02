@@ -150,12 +150,12 @@ class _HashableSource:
     def __init__(self, *args, **kwargs) -> None: ...
     def alias(self, name) -> None: ...
     def __hash__(self) -> int: ...
-    def __eq__(self, other) -> bool: ...
-    def __ne__(self, other) -> bool: ...
-    __lt__: Incomplete
-    __le__: Incomplete
-    __gt__: Incomplete
-    __ge__: Incomplete
+    def __eq__(self, other) -> Expression | bool: ...
+    def __ne__(self, other) -> Expression | bool: ...
+    __lt__: Callable[[Any], Expression]
+    __le__: Callable[[Any], Expression]
+    __gt__: Callable[[Any], Expression]
+    __ge__: Callable[[Any], Expression]
 
 class BaseTable(Source):
     __and__: Incomplete
@@ -237,46 +237,46 @@ class ColumnBase(Node):
     def desc(self, collation: Incomplete | None = ..., nulls: Incomplete | None = ...): ...
     __neg__: Incomplete
     def __invert__(self): ...
-    __and__: Incomplete
-    __or__: Incomplete
-    __add__: Incomplete
-    __sub__: Incomplete
-    __mul__: Incomplete
-    __div__: Incomplete
-    __truediv__: Incomplete
-    __xor__: Incomplete
-    __radd__: Incomplete
-    __rsub__: Incomplete
-    __rmul__: Incomplete
-    __rdiv__: Incomplete
-    __rtruediv__: Incomplete
-    __rand__: Incomplete
-    __ror__: Incomplete
-    __rxor__: Incomplete
-    def __eq__(self, rhs) -> bool: ...
-    def __ne__(self, rhs) -> bool: ...
-    __lt__: Incomplete
-    __le__: Incomplete
-    __gt__: Incomplete
-    __ge__: Incomplete
-    __lshift__: Incomplete
-    __rshift__: Incomplete
-    __mod__: Incomplete
-    __pow__: Incomplete
-    like: Incomplete
-    ilike: Incomplete
-    bin_and: Incomplete
-    bin_or: Incomplete
-    in_: Incomplete
-    not_in: Incomplete
-    def is_null(self, is_null: bool = ...): ...
-    def contains(self, rhs): ...
-    def startswith(self, rhs): ...
-    def endswith(self, rhs): ...
-    def between(self, lo, hi): ...
+    __and__: Callable[[Any], Expression]
+    __or__: Callable[[Any], Expression]
+    __add__: Callable[[Any], Expression]
+    __sub__: Callable[[Any], Expression]
+    __mul__: Callable[[Any], Expression]
+    __div__: Callable[[Any], Expression]
+    __truediv__: Callable[[Any], Expression]
+    __xor__: Callable[[Any], Expression]
+    __radd__: Callable[[Any], Expression]
+    __rsub__: Callable[[Any], Expression]
+    __rmul__: Callable[[Any], Expression]
+    __rdiv__: Callable[[Any], Expression]
+    __rtruediv__: Callable[[Any], Expression]
+    __rand__: Callable[[Any], Expression]
+    __ror__: Callable[[Any], Expression]
+    __rxor__: Callable[[Any], Expression]
+    def __eq__(self, rhs) -> Expression: ...
+    def __ne__(self, rhs) -> Expression: ...
+    __lt__: Callable[[Any], Expression]
+    __le__: Callable[[Any], Expression]
+    __gt__: Callable[[Any], Expression]
+    __ge__: Callable[[Any], Expression]
+    __lshift__: Callable[[Any], Expression]
+    __rshift__: Callable[[Any], Expression]
+    __mod__: Callable[[Any], Expression]
+    __pow__: Callable[[Any], Expression]
+    like: Callable[[Any], Expression]
+    ilike: Callable[[Any], Expression]
+    bin_and: Callable[[Any], Expression]
+    bin_or: Callable[[Any], Expression]
+    in_: Callable[[Any], Expression]
+    not_in: Callable[[Any], Expression]
+    regexp: Callable[[Any], Expression]
+    iregexp: Callable[[Any], Expression]
+    def is_null(self, is_null: bool = ...) -> Expression: ...
+    def contains(self, rhs) -> Expression: ...
+    def startswith(self, rhs) -> Expression: ...
+    def endswith(self, rhs) -> Expression: ...
+    def between(self, lo, hi) -> Expression: ...
     def concat(self, rhs): ...
-    def regexp(self, rhs): ...
-    def iregexp(self, rhs): ...
     def __getitem__(self, item): ...
     __iter__: Incomplete
     def distinct(self): ...
