@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import copy
 import sys
-from typing_extensions import assert_type, Self
+from typing_extensions import Self, assert_type
 
 
 class ReplaceableClass:
