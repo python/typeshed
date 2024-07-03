@@ -116,6 +116,7 @@ pdb.Pdb.do_exceptions
 pdb.Pdb.interaction
 pdb.Pdb.message
 pdb.Pdb.user_opcode
+# `__replace__` to be special cased in dataclasses
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
 pydoc.pager
