@@ -1,7 +1,8 @@
+from __future__ import annotations
+
 import copy
 import sys
-from typing import Self
-from typing_extensions import assert_type
+from typing_extensions import assert_type, Self
 
 
 class ReplaceableClass:
