@@ -561,14 +561,21 @@ class AsyncGenerator(AsyncIterator[_YieldT_co], Generic[_YieldT_co, _SendT_contr
     @property
     def ag_running(self) -> bool: ...
 
+# type ignores for variance here involve __contains__
+# fully sound use would require expressible contravariant typevariable, with a covariant lower bound
+# without making the collection itself invariant.
 @runtime_checkable
-class Container(Protocol[_T_co]):
+class Container(Protocol[_T_co]):  # type: ignore  # pyright: ignore[reportInvalidTypeVarUse]
     # This is generic more on vibes than anything else
     @abstractmethod
-    def __contains__(self, x: object, /) -> bool: ...
+    def __contains__(self, x: _T_co, /) -> bool: ...  # type: ignore  # pyright: ignore[reportGeneralTypeIssues]
 
+
+# type ignores for variance here involve __contains__
+# fully sound use would require expressible contravariant typevariable, with a covariant lower bound
+# without making the collection itself invariant.
 @runtime_checkable
-class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):
+class Collection(Iterable[_T_co], Container[_T_co], Protocol[_T_co]):  # type: ignore  # pyright: ignore[reportInvalidTypeVarUse]
     # Implement Sized (but don't have it as a base class).
     @abstractmethod
     def __len__(self) -> int: ...
@@ -583,7 +590,9 @@ class Sequence(Collection[_T_co], Reversible[_T_co]):
     # Mixin methods
     def index(self, value: Any, start: int = 0, stop: int = ...) -> int: ...
     def count(self, value: Any) -> int: ...
-    def __contains__(self, value: object) -> bool: ...
+    # fully sound use would require expressible contravariant typevariable, with a covariant lower bound
+    # without making the collection itself invariant.
+    def __contains__(self, value: _T_co) -> bool: ... # type: ignore  # pyright: ignore[reportGeneralTypeIssues]
     def __iter__(self) -> Iterator[_T_co]: ...
     def __reversed__(self) -> Iterator[_T_co]: ...
 
