@@ -290,7 +290,10 @@ class CodeType:
         ) -> Self: ...
 
     if sys.version_info >= (3, 13):
+        # Same as replace, but positional for `self`.
         def __replace__(
+            self,
+            /,
             *,
             co_argcount: int = -1,
             co_posonlyargcount: int = -1,
