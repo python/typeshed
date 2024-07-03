@@ -1,15 +1,16 @@
 import sys
-from collections.abc import Callable
 from typing import Any, Protocol, TypeVar
-from typing_extensions import Self
+from typing_extensions import ParamSpec, Self
 
 __all__ = ["Error", "copy", "deepcopy"]
 
 _T = TypeVar("_T")
-_SR = TypeVar("_SR", bound=_SupportsReplace)
+_SR = TypeVar("_SR", bound=_SupportsReplace[Any])
+_P = ParamSpec("_P")
 
-class _SupportsReplace(Protocol):
-    __replace__: Callable[..., Self]
+class _SupportsReplace(Protocol[_P]):
+    # In reality doesn't support args, but there's no other great way to express this.
+    def __replace__(self: Self, *args: _P.args, **kwargs: _P.kwargs) -> Self: ...
 
 # None in CPython but non-None in Jython
 PyStringMap: Any
