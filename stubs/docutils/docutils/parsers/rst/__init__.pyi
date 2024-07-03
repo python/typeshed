@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
-from typing import Any, ClassVar, Generic, Literal, TypeVar
+from typing import Any, ClassVar, Literal, TypeVar
 from typing_extensions import TypeAlias
 
 from docutils import nodes, parsers
@@ -10,11 +10,11 @@ from docutils.transforms import Transform
 
 _Context = TypeVar("_Context")
 
-class Parser(parsers.Parser, Generic[_Context]):
+class Parser(parsers.Parser):
     settings_spec: ClassVar[Incomplete]
     config_section_dependencies: ClassVar[tuple[str, ...]]
     initial_state: Literal["Body", "RFC2822Body"]
-    state_classes: Sequence[type[RSTState[_Context]]]
+    state_classes: Sequence[type[RSTState[Incomplete]]]
     inliner: Inliner | None
     def __init__(self, rfc2822: bool = False, inliner: Inliner | None = None) -> None: ...
     def get_transforms(self) -> list[type[Transform]]: ...
@@ -66,4 +66,4 @@ _DirectiveFn: TypeAlias = Callable[
     [str, list[str], dict[str, Any], StringList, int, int, str, RSTState[_Context], RSTStateMachine], Directive
 ]
 
-def convert_directive_function(directive_fn: _DirectiveFn[_Context]) -> type[Directive]: ...
+def convert_directive_function(directive_fn: _DirectiveFn) -> type[Directive]: ...
