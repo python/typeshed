@@ -1,6 +1,6 @@
-from typing import Self
 import copy
 import sys
+from typing import Self
 from typing_extensions import assert_type
 
 
