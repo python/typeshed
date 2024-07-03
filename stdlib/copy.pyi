@@ -5,7 +5,7 @@ from typing_extensions import ParamSpec, Self
 __all__ = ["Error", "copy", "deepcopy"]
 
 _T = TypeVar("_T")
-_SR = TypeVar("_SR", bound=_SupportsReplace[Any])
+_SR = TypeVar("_SR", bound=_SupportsReplace[...])
 _P = ParamSpec("_P")
 
 class _SupportsReplace(Protocol[_P]):
