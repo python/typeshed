@@ -245,7 +245,7 @@ class CodeType:
             co_qualname: str = ...,
             co_linetable: bytes = ...,
             co_exceptiontable: bytes = ...,
-        ) -> CodeType: ...
+        ) -> Self: ...
     elif sys.version_info >= (3, 10):
         def replace(
             self,
@@ -266,7 +266,7 @@ class CodeType:
             co_filename: str = ...,
             co_name: str = ...,
             co_linetable: bytes = ...,
-        ) -> CodeType: ...
+        ) -> Self: ...
     else:
         def replace(
             self,
@@ -287,7 +287,30 @@ class CodeType:
             co_filename: str = ...,
             co_name: str = ...,
             co_lnotab: bytes = ...,
-        ) -> CodeType: ...
+        ) -> Self: ...
+
+    if sys.version_info >= (3, 13):
+        def __replace__(
+            *,
+            co_argcount: int = -1,
+            co_posonlyargcount: int = -1,
+            co_kwonlyargcount: int = -1,
+            co_nlocals: int = -1,
+            co_stacksize: int = -1,
+            co_flags: int = -1,
+            co_firstlineno: int = -1,
+            co_code: bytes = ...,
+            co_consts: tuple[object, ...] = ...,
+            co_names: tuple[str, ...] = ...,
+            co_varnames: tuple[str, ...] = ...,
+            co_freevars: tuple[str, ...] = ...,
+            co_cellvars: tuple[str, ...] = ...,
+            co_filename: str = ...,
+            co_name: str = ...,
+            co_qualname: str = ...,
+            co_linetable: bytes = ...,
+            co_exceptiontable: bytes = ...,
+        ) -> Self: ...
 
 @final
 class MappingProxyType(Mapping[_KT, _VT_co]):
@@ -314,6 +337,8 @@ class SimpleNamespace:
     def __getattribute__(self, name: str, /) -> Any: ...
     def __setattr__(self, name: str, value: Any, /) -> None: ...
     def __delattr__(self, name: str, /) -> None: ...
+    if sys.version_info >= (3, 13):
+        def __replace__(self, **kwargs: Any) -> Self: ...
 
 class ModuleType:
     __name__: str

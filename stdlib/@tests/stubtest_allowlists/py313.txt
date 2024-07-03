@@ -159,9 +159,7 @@ trace.CoverageResults.write_results
 turtle.RawTurtle.settiltangle
 turtle.__all__
 turtle.settiltangle
-types.CodeType.__replace__
 types.MappingProxyType.get
-types.SimpleNamespace.__replace__
 unittest.IsolatedAsyncioTestCase.loop_factory
 unittest.TestProgram.usageExit
 unittest.__all__
