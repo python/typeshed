@@ -290,30 +290,7 @@ class CodeType:
         ) -> Self: ...
 
     if sys.version_info >= (3, 13):
-        # Same as replace, but positional for `self`.
-        def __replace__(
-            self,
-            /,
-            *,
-            co_argcount: int = -1,
-            co_posonlyargcount: int = -1,
-            co_kwonlyargcount: int = -1,
-            co_nlocals: int = -1,
-            co_stacksize: int = -1,
-            co_flags: int = -1,
-            co_firstlineno: int = -1,
-            co_code: bytes = ...,
-            co_consts: tuple[object, ...] = ...,
-            co_names: tuple[str, ...] = ...,
-            co_varnames: tuple[str, ...] = ...,
-            co_freevars: tuple[str, ...] = ...,
-            co_cellvars: tuple[str, ...] = ...,
-            co_filename: str = ...,
-            co_name: str = ...,
-            co_qualname: str = ...,
-            co_linetable: bytes = ...,
-            co_exceptiontable: bytes = ...,
-        ) -> Self: ...
+        __replace__ = replace
 
 @final
 class MappingProxyType(Mapping[_KT, _VT_co]):
