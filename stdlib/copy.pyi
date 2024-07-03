@@ -1,5 +1,6 @@
 import sys
-from typing import Any, Callable, Protocol, TypeVar
+from collections.abc import Callable
+from typing import Any, Protocol, TypeVar
 from typing_extensions import Self
 
 __all__ = ["Error", "copy", "deepcopy"]
