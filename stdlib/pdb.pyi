@@ -29,9 +29,6 @@ def pm() -> None: ...
 class Pdb(Bdb, Cmd):
     # Everything here is undocumented, except for __init__
 
-    if sys.version_info >= (3, 13):
-        MAX_CHAINED_EXCEPTION_DEPTH: Final = 999
-
     commands_resuming: ClassVar[list[str]]
 
     aliases: dict[str, str]
@@ -171,6 +168,8 @@ class Pdb(Bdb, Cmd):
         def _runmodule(self, module_name: str) -> None: ...
 
     if sys.version_info >= (3, 13):
+        MAX_CHAINED_EXCEPTION_DEPTH: Final = 999
+
         def completedefault(self, text: str, line: str, begidx: int, endidx: int) -> list[str]: ...
         def completenames(self, text: str, line: str, begidx: int, endidx: int) -> list[str]: ...
         def do_exceptions(self, arg: int) -> bool | None: ...
