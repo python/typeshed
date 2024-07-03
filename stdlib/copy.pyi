@@ -1,5 +1,6 @@
 import sys
-from typing import Any, Callable, Protocol, Self, TypeVar
+from typing import Any, Callable, Protocol, TypeVar
+from typing_extensions import Self
 
 __all__ = ["Error", "copy", "deepcopy"]
 
