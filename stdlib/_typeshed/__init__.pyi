@@ -3,6 +3,7 @@
 # See the README.md file in this directory for more information.
 
 import sys
+import typing_extensions as ts
 from collections.abc import Awaitable, Callable, Iterable, Sequence, Set as AbstractSet, Sized
 from dataclasses import Field
 from os import PathLike
@@ -348,6 +349,8 @@ TraceFunction: TypeAlias = Callable[[FrameType, str, Any], TraceFunction | None]
 #   https://github.com/microsoft/pyright/issues/4339
 class DataclassInstance(Protocol):
     __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
+    if sys.version_info >= (3, 13):
+        def __replace__(self, **kwargs: Any) -> ts.Self: ...
 
 # Anything that can be passed to the int/float constructors
 ConvertibleToInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
