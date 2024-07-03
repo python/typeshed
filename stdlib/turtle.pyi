@@ -131,7 +131,7 @@ __all__ = [
 if sys.version_info >= (3, 12):
     __all__ += ["teleport"]
 
-if sys.version_info <= (3, 12):
+if sys.version_info < (3, 13):
     __all__ += ["settiltangle"]
 
 # Note: '_Color' is the alias we use for arguments and _AnyColor is the
@@ -402,7 +402,7 @@ class RawTurtle(TPen, TNavigator):
     ) -> None: ...
     def get_shapepoly(self) -> _PolygonCoords | None: ...
 
-    if sys.version_info <= (3, 12):
+    if sys.version_info < (3, 13):
         def settiltangle(self, angle: float) -> None: ...
 
     @overload
@@ -678,7 +678,7 @@ def shapetransform(
 ) -> None: ...
 def get_shapepoly() -> _PolygonCoords | None: ...
 
-if sys.version_info <= (3, 12):
+if sys.version_info < (3, 13):
     def settiltangle(angle: float) -> None: ...
 
 @overload
