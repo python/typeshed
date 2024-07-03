@@ -404,6 +404,7 @@ class RawTurtle(TPen, TNavigator):
 
     if sys.version_info <= (3, 12):
         def settiltangle(self, angle: float) -> None: ...
+
     @overload
     def tiltangle(self, angle: None = None) -> float: ...
     @overload
