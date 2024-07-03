@@ -1,6 +1,5 @@
 import signal
 import sys
-from _typeshed import ConvertibleToInt
 from bdb import Bdb
 from cmd import Cmd
 from collections.abc import Callable, Iterable, Mapping, Sequence
