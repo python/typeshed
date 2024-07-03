@@ -1,7 +1,7 @@
 import sys
 from typing import Any, TypeVar
 
-__all__ = ["Error", "copy", "deepcopy"]
+__all__ = ["Error", "copy", "deepcopy", "replace"]
 
 _T = TypeVar("_T")
 
