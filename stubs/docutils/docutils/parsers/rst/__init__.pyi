@@ -1,14 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
-from typing import Any, ClassVar, Literal, TypeVar
+from typing import Any, ClassVar, Literal
 from typing_extensions import TypeAlias
 
 from docutils import nodes, parsers
 from docutils.parsers.rst.states import Inliner, RSTState, RSTStateMachine
 from docutils.statemachine import StringList
 from docutils.transforms import Transform
-
-_Context = TypeVar("_Context")
 
 class Parser(parsers.Parser):
     settings_spec: ClassVar[Incomplete]
@@ -49,7 +47,7 @@ class Directive:
         lineno: int,
         content_offset: int,
         block_text: str,
-        state: RSTState[_Context],
+        state: RSTState[Incomplete],
         state_machine: RSTStateMachine,
     ) -> None: ...
     def run(self) -> Sequence[nodes.Node]: ...
@@ -63,7 +61,7 @@ class Directive:
     def add_name(self, node: nodes.Node) -> None: ...
 
 _DirectiveFn: TypeAlias = Callable[
-    [str, list[str], dict[str, Any], StringList, int, int, str, RSTState[_Context], RSTStateMachine], Directive
+    [str, list[str], dict[str, Any], StringList, int, int, str, RSTState[Incomplete], RSTStateMachine], Directive
 ]
 
 def convert_directive_function(directive_fn: _DirectiveFn) -> type[Directive]: ...
