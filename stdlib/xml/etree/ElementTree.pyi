@@ -1,3 +1,4 @@
+import abc
 import sys
 from _collections_abc import dict_keys
 from _typeshed import FileDescriptorOrPath, ReadableBuffer, SupportsRead, SupportsWrite
@@ -240,7 +241,7 @@ if sys.version_info >= (3, 9):
 
 def parse(source: _FileRead, parser: XMLParser | None = None) -> ElementTree: ...
 
-class _IterParseIterator(Iterator[tuple[str, Any]]):
+class _IterParseIterator(Iterator[tuple[str, Any]], abc.ABC):
     if sys.version_info >= (3, 13):
         def close(self) -> None: ...
     if sys.version_info >= (3, 11):
