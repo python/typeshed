@@ -12,7 +12,7 @@ class Parser(parsers.Parser):
     settings_spec: ClassVar[Incomplete]
     config_section_dependencies: ClassVar[tuple[str, ...]]
     initial_state: Literal["Body", "RFC2822Body"]
-    state_classes: Sequence[type[RSTState]]
+    state_classes: Sequence[type[RSTState[Incomplete]]]
     inliner: Inliner | None
     def __init__(self, rfc2822: bool = False, inliner: Inliner | None = None) -> None: ...
     def get_transforms(self) -> list[type[Transform]]: ...
@@ -36,7 +36,7 @@ class Directive:
     lineno: int
     content_offset: int
     block_text: str
-    state: RSTState
+    state: RSTState[Incomplete]
     state_machine: RSTStateMachine = ...
     def __init__(
         self,
@@ -47,7 +47,7 @@ class Directive:
         lineno: int,
         content_offset: int,
         block_text: str,
-        state: RSTState,
+        state: RSTState[Incomplete],
         state_machine: RSTStateMachine,
     ) -> None: ...
     def run(self) -> Sequence[nodes.Node]: ...
@@ -61,7 +61,7 @@ class Directive:
     def add_name(self, node: nodes.Node) -> None: ...
 
 _DirectiveFn: TypeAlias = Callable[
-    [str, list[str], dict[str, Any], StringList, int, int, str, RSTState, RSTStateMachine], Directive
+    [str, list[str], dict[str, Any], StringList, int, int, str, RSTState[Incomplete], RSTStateMachine], Directive
 ]
 
 def convert_directive_function(directive_fn: _DirectiveFn) -> type[Directive]: ...

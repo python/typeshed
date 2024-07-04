@@ -230,7 +230,9 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
         with zipfile.ZipFile(body) as zf:
             return all_py_files_in_source_are_in_py_typed_dirs(zf)
     elif packagetype == "sdist":
-        assert release_to_download.filename.endswith(".tar.gz")
+        assert release_to_download.filename.endswith(
+            ".tar.gz"
+        ), f"Package file {release_to_download.filename!r} does not end with '.tar.gz'"
         with tarfile.open(fileobj=body, mode="r:gz") as zf:
             return all_py_files_in_source_are_in_py_typed_dirs(zf)
     else:
