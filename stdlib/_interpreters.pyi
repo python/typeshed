@@ -1,6 +1,6 @@
 import types
 from collections.abc import Callable, Mapping
-from typing import Final, Literal, SupportsIndex, final
+from typing import Final, Literal, SupportsIndex
 from typing_extensions import TypeAlias
 
 _Configs: TypeAlias = Literal["default", "isolated", "legacy", "empty", ""]
@@ -9,8 +9,6 @@ class InterpreterError(Exception): ...
 class InterpreterNotFoundError(InterpreterError): ...
 class NotShareableError(Exception): ...
 
-# Not-instantiable, so we don't see a reason to allow subclassing.
-@final
 class CrossInterpreterBufferView:
     def __buffer__(self, flags: int, /) -> memoryview: ...
 
