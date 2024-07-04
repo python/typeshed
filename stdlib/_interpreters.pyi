@@ -3,7 +3,7 @@ from collections.abc import Callable, Mapping
 from typing import Final, Literal, SupportsIndex, final
 from typing_extensions import TypeAlias
 
-_Configs: TypeAlias = Literal["default", "isolated", "legacy", "empty"]
+_Configs: TypeAlias = Literal["default", "isolated", "legacy", "empty", ""]
 
 class InterpreterError(Exception): ...
 class InterpreterNotFoundError(InterpreterError): ...
