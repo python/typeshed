@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import sys
 from pathlib import Path, PureWindowsPath
 from typing_extensions import assert_type
