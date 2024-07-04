@@ -1,6 +1,7 @@
 from __future__ import annotations
-
+import sys
 from pathlib import Path, PureWindowsPath
+from typing_extensions import assert_type
 
 if Path("asdf") == Path("asdf"):
     ...
@@ -18,3 +19,11 @@ if Path("asdf") == "asdf":  # type: ignore
 # where they can never hold true.
 if PureWindowsPath("asdf") == Path("asdf"):  # type: ignore
     ...
+
+
+if sys.version_info >= (3, 13):
+
+    class MyCustomPath(Path): ...
+
+    pth = MyCustomPath.from_uri("file:///tmp/abc.txt")
+    assert_type(pth, MyCustomPath)
