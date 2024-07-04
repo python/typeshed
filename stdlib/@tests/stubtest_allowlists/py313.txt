@@ -157,9 +157,6 @@ tkinter.PhotoImage.zoom
 tkinter.Text.count
 tkinter.Wm.wm_attributes
 trace.CoverageResults.write_results
-turtle.RawTurtle.settiltangle
-turtle.__all__
-turtle.settiltangle
 types.MappingProxyType.get
 unittest.IsolatedAsyncioTestCase.loop_factory
 unittest.TestProgram.usageExit
