@@ -33,18 +33,10 @@ def call(
     restrict: bool = False,
 ) -> object: ...
 def run_string(
-    id: SupportsIndex,
-    script: str | types.CodeType | Callable[[], object],
-    shared: bool | None = None,
-    *,
-    restrict: bool = False,
+    id: SupportsIndex, script: str | types.CodeType | Callable[[], object], shared: bool | None = None, *, restrict: bool = False
 ) -> None: ...
 def run_func(
-    id: SupportsIndex,
-    func: types.CodeType | Callable[[], object],
-    shared: bool | None = None,
-    *,
-    restrict: bool = False,
+    id: SupportsIndex, func: types.CodeType | Callable[[], object], shared: bool | None = None, *, restrict: bool = False
 ) -> None: ...
 def set___main___attrs(id: SupportsIndex, updates: Mapping[str, object], *, restrict: bool = False) -> None: ...
 def incref(id: SupportsIndex, *, implieslink: bool = False, restrict: bool = False) -> None: ...
