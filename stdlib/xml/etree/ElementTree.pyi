@@ -1,4 +1,3 @@
-import abc
 import sys
 from _collections_abc import dict_keys
 from _typeshed import FileDescriptorOrPath, ReadableBuffer, SupportsRead, SupportsWrite
