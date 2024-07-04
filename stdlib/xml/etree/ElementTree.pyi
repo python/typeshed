@@ -241,7 +241,8 @@ if sys.version_info >= (3, 9):
 
 def parse(source: _FileRead, parser: XMLParser | None = None) -> ElementTree: ...
 
-class _IterParseIterator(Iterator[tuple[str, Any]], abc.ABC):
+class _IterParseIterator(Iterator[tuple[str, Any]]):
+    def __next__(self) -> tuple[str, Any]: ...
     if sys.version_info >= (3, 13):
         def close(self) -> None: ...
     if sys.version_info >= (3, 11):
