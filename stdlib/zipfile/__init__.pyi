@@ -101,9 +101,7 @@ class _ZipReadable(Protocol):
 class _ZipTellable(Protocol):
     def tell(self) -> int: ...
 
-class _ZipSeekTellable(Protocol):
-    def seek(self, offset: int, whence: int = 0, /) -> int: ...
-    def tell(self) -> int: ...
+class _ZipReadableSeekableTellable(_ZipReadable, _ZipTellable, Protocol): ...
 
 class _ZipWritable(Protocol):
     def flush(self) -> None: ...
@@ -164,7 +162,7 @@ class ZipFile:
         @overload
         def __init__(
             self,
-            file: StrPath | _ZipReadable | _ZipSeekTellable,
+            file: StrPath | _ZipReadableSeekableTellable,
             mode: Literal["a"] = ...,
             compression: int = 0,
             allowZip64: bool = True,
@@ -210,7 +208,7 @@ class ZipFile:
         @overload
         def __init__(
             self,
-            file: StrPath | _ZipReadable | _ZipSeekTellable,
+            file: StrPath | _ZipReadableSeekableTellable,
             mode: Literal["a"] = ...,
             compression: int = 0,
             allowZip64: bool = True,
