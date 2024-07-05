@@ -10,6 +10,7 @@ from urllib3 import exceptions as urllib3_exceptions, fields, filepost, util
 from . import auth, cookies, exceptions, hooks, status_codes, utils
 from .cookies import RequestsCookieJar
 from .structures import CaseInsensitiveDict as CaseInsensitiveDict
+from .adapters import HTTPAdapter
 
 default_hooks = hooks.default_hooks
 HTTPBasicAuth = auth.HTTPBasicAuth
@@ -123,6 +124,7 @@ class Response:
     cookies: RequestsCookieJar
     elapsed: datetime.timedelta
     request: PreparedRequest
+    connection: HTTPAdapter
     def __init__(self) -> None: ...
     def __bool__(self) -> bool: ...
     def __nonzero__(self) -> bool: ...
