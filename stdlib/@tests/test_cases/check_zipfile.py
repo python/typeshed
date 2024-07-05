@@ -49,6 +49,11 @@ class WriteableObj:
         pass
 
 
+class ReadTellableObj(ReadableObj):
+    def tell(self) -> int:
+        return 0
+
+
 class SeekTellObj:
     def seek(self, offset: int, whence: int = 0) -> int:
         return 0
@@ -87,8 +92,12 @@ def write_zip(mode: Literal["r", "w", "x", "a"]) -> None:
     with zipfile.ZipFile(ReadableObj(), "r") as z:
         z.writestr("test.txt", "test")
 
-    # Readable object should work for "a" mode.
-    with zipfile.ZipFile(ReadableObj(), "a") as z:
+    # Readable/tellable object should work for "a" mode.
+    with zipfile.ZipFile(ReadTellableObj(), "a") as z:
+        z.writestr("test.txt", "test")
+
+    # If it doesn't have 'tell' method, it should raise an error.
+    with zipfile.ZipFile(ReadableObj(), "a") as z:  # type: ignore
         z.writestr("test.txt", "test")
 
     # Readable object should not work for "w" mode.
@@ -117,8 +126,4 @@ def write_zip(mode: Literal["r", "w", "x", "a"]) -> None:
 
     # Seekable and Tellable object should work for "w" mode.
     with zipfile.ZipFile(SeekTellObj(), "w") as z:
-        z.writestr("test.txt", "test")
-
-    # Seekable and Tellable object should work for "a" mode.
-    with zipfile.ZipFile(SeekTellObj(), "a") as z:
         z.writestr("test.txt", "test")
