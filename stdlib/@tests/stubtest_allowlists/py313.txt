@@ -109,6 +109,7 @@ mailbox.Maildir.remove_flag
 mailbox.Maildir.set_flags
 mailbox.Maildir.set_info
 os.path.splitroot
+# `__replace__` to be special cased in dataclasses
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
 pydoc.pager
@@ -149,12 +150,7 @@ tkinter.PhotoImage.zoom
 tkinter.Text.count
 tkinter.Wm.wm_attributes
 trace.CoverageResults.write_results
-turtle.RawTurtle.settiltangle
-turtle.__all__
-turtle.settiltangle
-types.CodeType.__replace__
 types.MappingProxyType.get
-types.SimpleNamespace.__replace__
 unittest.IsolatedAsyncioTestCase.loop_factory
 unittest.TestProgram.usageExit
 unittest.__all__
