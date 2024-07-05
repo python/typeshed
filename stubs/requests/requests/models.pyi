@@ -1,8 +1,9 @@
 import datetime
+import typing_extensions
 from _typeshed import Incomplete, MaybeNone, Unused
 from collections.abc import Callable, Iterator
 from json import JSONDecoder
-from typing import Any
+from typing import Any, Generic
 from typing_extensions import Self
 
 from urllib3 import exceptions as urllib3_exceptions, fields, filepost, util
@@ -80,11 +81,13 @@ class Request(RequestHooksMixin):
     ) -> None: ...
     def prepare(self) -> PreparedRequest: ...
 
-class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
+_BodyType = typing_extensions.TypeVar("_BodyType", bytes, str, None, bytes | str | None, default=bytes | str | None)
+
+class PreparedRequest(RequestEncodingMixin, RequestHooksMixin, Generic[_BodyType]):
     method: str | None
     url: str | None
     headers: CaseInsensitiveDict[str]
-    body: bytes | str | None
+    body: _BodyType
     hooks: Incomplete
     def __init__(self) -> None: ...
     def prepare(
@@ -100,7 +103,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
         hooks=None,
         json=None,
     ) -> None: ...
-    def copy(self) -> PreparedRequest: ...
+    def copy(self) -> PreparedRequest[_BodyType]: ...
     def prepare_method(self, method) -> None: ...
     def prepare_url(self, url, params) -> None: ...
     def prepare_headers(self, headers) -> None: ...
