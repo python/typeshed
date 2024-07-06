@@ -187,7 +187,7 @@ class TextIOWrapper(TextIOBase, TextIO, Generic[_BufferT]):  # type: ignore[misc
     ) -> None: ...
     # Equals the "buffer" argument passed in to the constructor.
     @property
-    def buffer(self) -> _BufferT: ...
+    def buffer(self) -> _BufferT: ...  # type: ignore[override]
     @property
     def closed(self) -> bool: ...
     @property
@@ -211,7 +211,7 @@ class TextIOWrapper(TextIOBase, TextIO, Generic[_BufferT]):  # type: ignore[misc
     def readline(self, size: int = -1, /) -> str: ...  # type: ignore[override]
     def readlines(self, hint: int = -1, /) -> list[str]: ...  # type: ignore[override]
     # Equals the "buffer" argument passed in to the constructor.
-    def detach(self) -> _BufferT: ...
+    def detach(self) -> _BufferT: ...  # type: ignore[override]
     # TextIOWrapper's version of seek only supports a limited subset of
     # operations.
     def seek(self, cookie: int, whence: int = 0, /) -> int: ...
