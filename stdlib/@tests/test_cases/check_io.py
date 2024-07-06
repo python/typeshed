@@ -1,6 +1,7 @@
 from gzip import GzipFile
 from io import FileIO, TextIOWrapper
+from typing import assert_type
 
-TextIOWrapper(FileIO(""))
-TextIOWrapper(FileIO(13))
-TextIOWrapper(GzipFile(""))
+assert_type(TextIOWrapper(FileIO("")).buffer, FileIO)
+assert_type(TextIOWrapper(FileIO(13)).detach(), FileIO)
+assert_type(TextIOWrapper(GzipFile("")).buffer, GzipFile)
