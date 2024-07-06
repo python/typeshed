@@ -173,12 +173,12 @@ class _WrappedBuffer(Protocol):
     # def seek(self, offset: Literal[0], whence: Literal[2]) -> int: ...
     # def tell(self) -> int: ...
 
-_BufferT = TypeVar("_BufferT", bound=_WrappedBuffer, default=_WrappedBuffer)
+_BufferT_co = TypeVar("_BufferT_co", bound=_WrappedBuffer, default=_WrappedBuffer, covariant=True)
 
-class TextIOWrapper(TextIOBase, TextIO, Generic[_BufferT]):  # type: ignore[misc]  # incompatible definitions of write in the base classes
+class TextIOWrapper(TextIOBase, TextIO, Generic[_BufferT_co]):  # type: ignore[misc]  # incompatible definitions of write in the base classes
     def __init__(
         self,
-        buffer: _BufferT,
+        buffer: _BufferT_co,
         encoding: str | None = None,
         errors: str | None = None,
         newline: str | None = None,
@@ -187,7 +187,7 @@ class TextIOWrapper(TextIOBase, TextIO, Generic[_BufferT]):  # type: ignore[misc
     ) -> None: ...
     # Equals the "buffer" argument passed in to the constructor.
     @property
-    def buffer(self) -> _BufferT: ...  # type: ignore[override]
+    def buffer(self) -> _BufferT_co: ...  # type: ignore[override]
     @property
     def closed(self) -> bool: ...
     @property
@@ -211,7 +211,7 @@ class TextIOWrapper(TextIOBase, TextIO, Generic[_BufferT]):  # type: ignore[misc
     def readline(self, size: int = -1, /) -> str: ...  # type: ignore[override]
     def readlines(self, hint: int = -1, /) -> list[str]: ...  # type: ignore[override]
     # Equals the "buffer" argument passed in to the constructor.
-    def detach(self) -> _BufferT: ...  # type: ignore[override]
+    def detach(self) -> _BufferT_co: ...  # type: ignore[override]
     # TextIOWrapper's version of seek only supports a limited subset of
     # operations.
     def seek(self, cookie: int, whence: int = 0, /) -> int: ...
