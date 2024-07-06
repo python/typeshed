@@ -8,7 +8,7 @@ from networkx.classes.coreviews import AdjacencyView, AtlasView
 from networkx.classes.digraph import DiGraph
 from networkx.classes.reportviews import DiDegreeView, NodeView, OutEdgeView
 
-_Node = TypeVar("_Node", bound=Hashable)
+_Node = TypeVar("_Node", bound=Hashable, covariant=True)
 _NodeWithData: TypeAlias = tuple[_Node, dict[str, Any]]
 _NodePlus: TypeAlias = _Node | _NodeWithData[_Node]
 _Edge: TypeAlias = tuple[_Node, _Node]
@@ -26,12 +26,12 @@ _Data: TypeAlias = (
 )
 
 class Graph(Collection[_Node]):
-    node_dict_factory: ClassVar[_MapFactory] = ...
-    node_attr_dict_factory: ClassVar[_MapFactory] = ...
-    adjlist_outer_dict_factory: ClassVar[_MapFactory] = ...
-    adjlist_inner_dict_factory: ClassVar[_MapFactory] = ...
-    edge_attr_dict_factory: ClassVar[_MapFactory] = ...
-    graph_attr_dict_factory: ClassVar[_MapFactory] = ...
+    node_dict_factory: ClassVar[_MapFactory]
+    node_attr_dict_factory: ClassVar[_MapFactory]
+    adjlist_outer_dict_factory: ClassVar[_MapFactory]
+    adjlist_inner_dict_factory: ClassVar[_MapFactory]
+    edge_attr_dict_factory: ClassVar[_MapFactory]
+    graph_attr_dict_factory: ClassVar[_MapFactory]
 
     def to_directed_class(self) -> type[DiGraph[_Node]]: ...
     def to_undirected_class(self) -> type[Graph[_Node]]: ...
