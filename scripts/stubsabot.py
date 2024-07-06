@@ -239,7 +239,7 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
             with zipfile.ZipFile(body) as zf:
                 return all_py_files_in_source_are_in_py_typed_dirs(zf)
         else:
-            assert False, f"Package file {release_to_download.filename!r} does not end with '.tar.gz' or '.zip'"
+            raise AssertionError(f"Package file {release_to_download.filename!r} does not end with '.tar.gz' or '.zip'")
     else:
         raise AssertionError(f"Unknown package type for {release_to_download.distribution}: {packagetype!r}")
 
