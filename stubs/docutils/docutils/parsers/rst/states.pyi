@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Iterable, Sequence
 from re import Match, Pattern
 from types import ModuleType
-from typing import Any, Iterable
+from typing import Any
 from typing_extensions import TypeAlias
 
 from docutils import nodes
