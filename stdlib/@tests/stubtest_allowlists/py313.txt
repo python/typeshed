@@ -92,16 +92,6 @@ importlib.metadata._meta.SimplePath.exists
 importlib.metadata._meta.SimplePath.read_bytes
 importlib.metadata._meta.SimplePath.read_text
 importlib.metadata.diagnose
-importlib.resources.Anchor
-importlib.resources.Resource
-importlib.resources.__all__
-importlib.resources.contents
-importlib.resources.is_resource
-importlib.resources.open_binary
-importlib.resources.open_text
-importlib.resources.path
-importlib.resources.read_binary
-importlib.resources.read_text
 mailbox.Maildir.add_flag
 mailbox.Maildir.get_flags
 mailbox.Maildir.get_info
