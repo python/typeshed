@@ -178,40 +178,21 @@ if sys.version_info >= (3, 13):
     ) -> None: ...
     # 3.13 made `show_cache` `None` by default
     def get_instructions(
-        x: _HaveCodeType,
-        *,
-        first_line: int | None = None,
-        show_caches: bool | None = None,
-        adaptive: bool = False,
+        x: _HaveCodeType, *, first_line: int | None = None, show_caches: bool | None = None, adaptive: bool = False
     ) -> Iterator[Instruction]: ...
+
 elif sys.version_info >= (3, 11):
     def dis(
-        x: _HaveCodeType | str | bytes | bytearray | None = None,
-        *,
-        file: IO[str] | None = None,
-        depth: int | None = None,
+        x: _HaveCodeType | str | bytes | bytearray | None = None, *, file: IO[str] | None = None, depth: int | None = None
     ) -> None: ...
     def disassemble(
-        co: _HaveCodeType,
-        lasti: int = -1,
-        *,
-        file: IO[str] | None = None,
-        show_caches: bool = False,
-        adaptive: bool = False,
+        co: _HaveCodeType, lasti: int = -1, *, file: IO[str] | None = None, show_caches: bool = False, adaptive: bool = False
     ) -> None: ...
     def distb(
-        tb: types.TracebackType | None = None,
-        *,
-        file: IO[str] | None = None,
-        show_caches: bool = False,
-        adaptive: bool = False,
+        tb: types.TracebackType | None = None, *, file: IO[str] | None = None, show_caches: bool = False, adaptive: bool = False
     ) -> None: ...
     def get_instructions(
-        x: _HaveCodeType,
-        *,
-        first_line: int | None = None,
-        show_caches: bool = False,
-        adaptive: bool = False,
+        x: _HaveCodeType, *, first_line: int | None = None, show_caches: bool = False, adaptive: bool = False
     ) -> Iterator[Instruction]: ...
 
 else:
