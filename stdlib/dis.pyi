@@ -181,7 +181,7 @@ if sys.version_info >= (3, 13):
         file: IO[str] | None = None,
         show_caches: bool = False,
         adaptive: bool = False,
-        show_offsets=False,
+        show_offsets: bool = False,
     ) -> None: ...
     # 3.13 made `show_cache` `None` by default
     def get_instructions(
@@ -210,7 +210,10 @@ elif sys.version_info >= (3, 11):
 
 else:
     def dis(
-        x: _HaveCodeType | str | bytes | bytearray | None = None, *, file: IO[str] | None = None, depth: int | None = None
+        x: _HaveCodeType | str | bytes | bytearray | None = None,
+        *,
+        file: IO[str] | None = None,
+        depth: int | None = None,
     ) -> None: ...
     def disassemble(co: _HaveCodeType, lasti: int = -1, *, file: IO[str] | None = None) -> None: ...
     def distb(tb: types.TracebackType | None = None, *, file: IO[str] | None = None) -> None: ...
