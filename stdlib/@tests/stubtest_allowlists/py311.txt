@@ -96,7 +96,6 @@ _collections_abc.Generator.throw
 
 # typing.SupportsRound.__round__  # pos-or-kw at runtime, but we pretend it's pos-only in the stub so that e.g. float.__round__ satisfies the interface
 types.DynamicClassAttribute..*  # In the stub we pretend it's an alias for property, but it has positional-only differences
-types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 
 # These three have a pos-or-keyword first parameter at runtime, but deliberately have a pos-only first parameter in the stub. #6812
 posixpath.join
@@ -136,6 +135,7 @@ inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
 poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
+types.SimpleNamespace.__init__ # class doesn't accept positional arguments but has default C signature
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist

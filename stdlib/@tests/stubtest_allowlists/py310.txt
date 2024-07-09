@@ -52,7 +52,6 @@ tkinter.tix.Shell
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
-types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 typing._SpecialForm.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
 builtins.ellipsis  # type is not exposed anywhere
@@ -250,6 +249,7 @@ pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
 
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
+types.SimpleNamespace.__init__ # class doesn't accept positional arguments but has default C signature
 
 # These enums derive from (str, Enum)
 pstats.SortKey.__new__
