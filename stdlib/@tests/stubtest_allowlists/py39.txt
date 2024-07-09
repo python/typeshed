@@ -66,6 +66,7 @@ tkinter.tix.ScrolledWindow
 tkinter.tix.Shell
 types.GenericAlias.__getattr__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
+types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 weakref.ProxyType.__reversed__  # Doesn't really exist
 xxsubtype  # module missing from the stubs
 

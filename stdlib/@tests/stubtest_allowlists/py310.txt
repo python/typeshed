@@ -52,6 +52,7 @@ tkinter.tix.Shell
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
+types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 typing._SpecialForm.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
 builtins.ellipsis  # type is not exposed anywhere
