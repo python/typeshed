@@ -21,10 +21,10 @@ class _Error(Exception):
     relative_schema_path: deque[str | int]
     context: list[ValidationError] | None
     cause: Exception | None
-    validator: Validator | None
-    validator_value: Incomplete
-    instance: Incomplete
-    schema: Incomplete
+    validator: Validator | Unset
+    validator_value: Any | Unset
+    instance: Any | Unset
+    schema: Mapping[str, Any] | bool | Unset
     parent: _Error | None
     def __init__(
         self,
