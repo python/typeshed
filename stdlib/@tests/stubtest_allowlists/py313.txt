@@ -9,16 +9,6 @@ _thread.start_joinable_thread
 _tkinter.create
 doctest.TestResults.__doc__
 doctest.TestResults.__new__
-importlib.resources.Anchor
-importlib.resources.Resource
-importlib.resources.__all__
-importlib.resources.contents
-importlib.resources.is_resource
-importlib.resources.open_binary
-importlib.resources.open_text
-importlib.resources.path
-importlib.resources.read_binary
-importlib.resources.read_text
 os.path.splitroot
 # `__replace__` to be special cased in dataclasses
 pstats.FunctionProfile.__replace__
