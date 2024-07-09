@@ -136,6 +136,7 @@ class DocTestRunner:
     original_optionflags: int
     tries: int
     failures: int
+    skips: int
     test: DocTest
     def __init__(self, checker: OutputChecker | None = None, verbose: bool | None = None, optionflags: int = 0) -> None: ...
     def report_start(self, out: _Out, test: DocTest, example: Example) -> None: ...
