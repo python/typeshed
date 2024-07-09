@@ -210,10 +210,7 @@ elif sys.version_info >= (3, 11):
 
 else:
     def dis(
-        x: _HaveCodeType | str | bytes | bytearray | None = None,
-        *,
-        file: IO[str] | None = None,
-        depth: int | None = None,
+        x: _HaveCodeType | str | bytes | bytearray | None = None, *, file: IO[str] | None = None, depth: int | None = None
     ) -> None: ...
     def disassemble(co: _HaveCodeType, lasti: int = -1, *, file: IO[str] | None = None) -> None: ...
     def distb(tb: types.TracebackType | None = None, *, file: IO[str] | None = None) -> None: ...
