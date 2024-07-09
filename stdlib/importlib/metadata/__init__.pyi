@@ -1,6 +1,7 @@
 import abc
 import pathlib
 import sys
+import types
 from _collections_abc import dict_keys, dict_values
 from _typeshed import StrPath
 from collections.abc import Iterable, Iterator, Mapping
@@ -36,7 +37,7 @@ if sys.version_info >= (3, 10):
     from importlib.metadata._meta import PackageMetadata as PackageMetadata, SimplePath
     def packages_distributions() -> Mapping[str, list[str]]: ...
 
-    if sys.version_info >= (3, 12):
+    if sys.version_info == (3, 12):
         # It's generic but shouldn't be
         _SimplePath: TypeAlias = SimplePath[Any]
     else:
@@ -48,12 +49,12 @@ class PackageNotFoundError(ModuleNotFoundError):
     @property
     def name(self) -> str: ...  # type: ignore[override]
 
-if sys.version_info >= (3, 11):
+if (3, 13) > sys.version_info >= (3, 11):
     class DeprecatedTuple:
         def __getitem__(self, item: int) -> str: ...
 
     _EntryPointBase = DeprecatedTuple
-else:
+elif sys.version_info < (3, 11):
     class _EntryPointBase(NamedTuple):
         name: str
         value: str
@@ -226,6 +227,9 @@ class Distribution(_distribution_parent):
     if sys.version_info >= (3, 10):
         @property
         def name(self) -> str: ...
+    if sys.version_info >= (3, 13):
+        @property
+        def origin(self) -> types.SimpleNamespace: ...
 
 class DistributionFinder(MetaPathFinder):
     class Context:
