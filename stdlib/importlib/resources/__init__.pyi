@@ -26,7 +26,7 @@ else:
 
 Package: TypeAlias = str | ModuleType
 
-if sys.version_info >= (3, 12):
+if sys.version_info >= (3, 13):
     Anchor: TypeAlias = Package
 
 if sys.version_info >= (3, 11):
