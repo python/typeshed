@@ -22,6 +22,7 @@ if sys.version_info >= (3, 10):
     if sys.version_info < (3, 12) or sys.version_info >= (3, 13):
 
         def takes_simple_path(p: SimplePath) -> None: ...
+
     else:
 
         def takes_simple_path(p: SimplePath[Any]) -> None: ...
