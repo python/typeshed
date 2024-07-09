@@ -76,6 +76,7 @@ _collections_abc.Generator.throw
 
 # typing.SupportsRound.__round__  # pos-or-kw at runtime, but we pretend it's pos-only in the stub so that e.g. float.__round__ satisfies the interface
 types.DynamicClassAttribute..*  # In the stub we pretend it's an alias for property, but it has positional-only differences
+types.SimpleNamespace.__init__ # class doesn't accept positional arguments but has default C signature
 
 # These three have a pos-or-keyword first parameter at runtime, but deliberately have a pos-only first parameter in the stub. #6812
 posixpath.join
