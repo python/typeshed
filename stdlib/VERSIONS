@@ -156,6 +156,7 @@ imp: 3.0-3.11
 importlib: 3.0-
 importlib._abc: 3.10-
 importlib.metadata: 3.8-
+importlib.metadata.diagnose: 3.13-
 importlib.metadata._meta: 3.10-
 importlib.readers: 3.10-
 importlib.resources: 3.7-
