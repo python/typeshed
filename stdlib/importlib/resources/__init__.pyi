@@ -30,10 +30,10 @@ Package: TypeAlias = str | ModuleType
 if sys.version_info >= (3, 13):
     Anchor: TypeAlias = Package
 
-if sys.version_info < (3, 13):
-    Resource: TypeAlias = str
-elif sys.version_info < (3, 11):
+if sys.version_info < (3, 11):
     Resource: TypeAlias = str | os.PathLike[Any]
+elif sys.version_info < (3, 13):
+    Resource: TypeAlias = str
 
 if sys.version_info >= (3, 13):
     def open_binary(anchor: Anchor, *path_names: StrPath) -> BinaryIO: ...
