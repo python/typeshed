@@ -1,3 +1,4 @@
+from io import TextIOWrapper
 import os
 import sys
 from _typeshed import StrPath
@@ -39,7 +40,7 @@ if sys.version_info >= (3, 13):
     @overload
     def open_text(
         anchor: Anchor, *path_names: Unpack[tuple[StrPath]], encoding: str | None = "utf-8", errors: str | None = "strict"
-    ) -> TextIO: ...
+    ) -> TextIOWrapper: ...
     @overload
     def open_text(anchor: Anchor, *path_names: StrPath, encoding: str | None, errors: str | None = "strict") -> TextIO: ...
     def read_binary(anchor: Anchor, *path_names: StrPath) -> bytes: ...
