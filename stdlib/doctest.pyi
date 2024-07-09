@@ -1,3 +1,4 @@
+import sys
 import types
 import unittest
 from _typeshed import ExcInfo
@@ -42,10 +43,11 @@ __all__ = [
 ]
 
 class TestResults(NamedTuple):
-    def __new__(cls, failed: int, attempted: int, *, skipped: int = 0) -> None: ...
+    if sys.version_info >= (3, 13):
+        def __new__(cls, failed: int, attempted: int, *, skipped: int = 0) -> None: ...
+        skipped: int
     failed: int
     attempted: int
-    skipped: int
 
 OPTIONFLAGS_BY_NAME: dict[str, int]
 
@@ -136,7 +138,8 @@ class DocTestRunner:
     original_optionflags: int
     tries: int
     failures: int
-    skips: int
+    if sys.version_info >= (3, 13):
+        skips: int
     test: DocTest
     def __init__(self, checker: OutputChecker | None = None, verbose: bool | None = None, optionflags: int = 0) -> None: ...
     def report_start(self, out: _Out, test: DocTest, example: Example) -> None: ...
