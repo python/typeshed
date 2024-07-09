@@ -234,6 +234,7 @@ class TextDoc(Doc):
 
 if sys.version_info >= (3, 13):
     def pager(text: str, title: str = "") -> None: ...
+
 else:
     def pager(text: str) -> None: ...
 
