@@ -102,12 +102,6 @@ importlib.resources.open_text
 importlib.resources.path
 importlib.resources.read_binary
 importlib.resources.read_text
-mailbox.Maildir.add_flag
-mailbox.Maildir.get_flags
-mailbox.Maildir.get_info
-mailbox.Maildir.remove_flag
-mailbox.Maildir.set_flags
-mailbox.Maildir.set_info
 os.path.splitroot
 pdb.Pdb.MAX_CHAINED_EXCEPTION_DEPTH
 pdb.Pdb.completedefault
