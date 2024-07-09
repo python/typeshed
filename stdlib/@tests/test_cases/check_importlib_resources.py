@@ -1,6 +1,8 @@
-import sys
+from __future__ import annotations
+
 import importlib.resources
 import pathlib
+import sys
 
 
 class _CustomPathLike:
