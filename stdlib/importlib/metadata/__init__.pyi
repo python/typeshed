@@ -49,12 +49,14 @@ class PackageNotFoundError(ModuleNotFoundError):
     @property
     def name(self) -> str: ...  # type: ignore[override]
 
-if sys.version_info >= (3, 11) and sys.version_info < (3, 13):
+if sys.version_info >= (3, 13):
+    _EntryPointBase = object
+elif sys.version_info >= (3, 11):
     class DeprecatedTuple:
         def __getitem__(self, item: int) -> str: ...
 
     _EntryPointBase = DeprecatedTuple
-elif sys.version_info < (3, 11):
+else:
     class _EntryPointBase(NamedTuple):
         name: str
         value: str
