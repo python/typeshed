@@ -37,11 +37,11 @@ if sys.version_info >= (3, 10):
     from importlib.metadata._meta import PackageMetadata as PackageMetadata, SimplePath
     def packages_distributions() -> Mapping[str, list[str]]: ...
 
-    if sys.version_info == (3, 12):
+    if sys.version_info < (3, 12) or sys.version_info >= (3, 13):
+        _SimplePath: TypeAlias = SimplePath
+    else:
         # It's generic but shouldn't be
         _SimplePath: TypeAlias = SimplePath[Any]
-    else:
-        _SimplePath: TypeAlias = SimplePath
 else:
     _SimplePath: TypeAlias = Path
 
