@@ -260,6 +260,7 @@ types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 sys._monitoring  # Doesn't really exist. See comments in the stub.
 weakref.ProxyType.__reversed__  # Doesn't really exist
+importlib.metadata._meta.SimplePath.joinpath  # Incorrect runtime definition
 
 # sys attributes that are not always defined
 sys.last_exc
