@@ -81,8 +81,6 @@ dis.disassemble
 dis.disco
 dis.distb
 dis.get_instructions
-doctest.TestResults.__doc__
-doctest.TestResults.__new__
 email.utils.getaddresses
 email.utils.parseaddr
 filecmp.dircmp.__init__

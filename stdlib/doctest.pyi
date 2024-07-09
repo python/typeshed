@@ -42,8 +42,10 @@ __all__ = [
 ]
 
 class TestResults(NamedTuple):
+    def __new__(cls, failed: int, attempted: int, *, skipped: int = 0) -> None: ...
     failed: int
     attempted: int
+    skipped: int
 
 OPTIONFLAGS_BY_NAME: dict[str, int]
 
