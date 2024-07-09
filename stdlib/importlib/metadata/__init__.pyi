@@ -49,7 +49,7 @@ class PackageNotFoundError(ModuleNotFoundError):
     @property
     def name(self) -> str: ...  # type: ignore[override]
 
-if (3, 13) > sys.version_info >= (3, 11):
+if sys.version_info >= (3, 11) and sys.version_info < (3, 13):
     class DeprecatedTuple:
         def __getitem__(self, item: int) -> str: ...
 
