@@ -1,6 +1,6 @@
 from _typeshed import ReadableBuffer, StrOrBytesPath, Unused
-from collections.abc import MutableMapping
-from typing import Final, Generator, Literal
+from collections.abc import Generator, MutableMapping
+from typing import Final, Literal
 from typing_extensions import LiteralString, Self, TypeAlias
 
 BUILD_TABLE: Final[LiteralString]
