@@ -184,8 +184,14 @@ if sys.version_info >= (3, 13):
     ) -> Iterator[Instruction]: ...
 
 elif sys.version_info >= (3, 11):
+    # 3.11 added `show_caches` and `adaptive`
     def dis(
-        x: _HaveCodeType | str | bytes | bytearray | None = None, *, file: IO[str] | None = None, depth: int | None = None
+        x: _HaveCodeType | str | bytes | bytearray | None = None,
+        *,
+        file: IO[str] | None = None,
+        depth: int | None = None,
+        show_caches: bool = False,
+        adaptive: bool = False,
     ) -> None: ...
     def disassemble(
         co: _HaveCodeType, lasti: int = -1, *, file: IO[str] | None = None, show_caches: bool = False, adaptive: bool = False
@@ -198,6 +204,9 @@ elif sys.version_info >= (3, 11):
     ) -> Iterator[Instruction]: ...
 
 else:
+    def dis(
+        x: _HaveCodeType | str | bytes | bytearray | None = None, *, file: IO[str] | None = None, depth: int | None = None
+    ) -> None: ...
     def disassemble(co: _HaveCodeType, lasti: int = -1, *, file: IO[str] | None = None) -> None: ...
     def distb(tb: types.TracebackType | None = None, *, file: IO[str] | None = None) -> None: ...
     def get_instructions(x: _HaveCodeType, *, first_line: int | None = None) -> Iterator[Instruction]: ...
