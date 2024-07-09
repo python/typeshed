@@ -3,7 +3,6 @@ import types
 from collections.abc import Callable, Iterator
 from opcode import *  # `dis` re-exports it as a part of public API
 from typing import IO, Any, NamedTuple
-from wsgiref.simple_server import sys_version
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
