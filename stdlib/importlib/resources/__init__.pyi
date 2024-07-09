@@ -1,9 +1,9 @@
-from io import TextIOWrapper
 import os
 import sys
 from _typeshed import StrPath
 from collections.abc import Iterator
 from contextlib import AbstractContextManager
+from io import TextIOWrapper
 from pathlib import Path
 from types import ModuleType
 from typing import Any, BinaryIO, TextIO, overload
@@ -42,7 +42,7 @@ if sys.version_info >= (3, 13):
         anchor: Anchor, *path_names: Unpack[tuple[StrPath]], encoding: str | None = "utf-8", errors: str | None = "strict"
     ) -> TextIOWrapper: ...
     @overload
-    def open_text(anchor: Anchor, *path_names: StrPath, encoding: str | None, errors: str | None = "strict") -> TextIO: ...
+    def open_text(anchor: Anchor, *path_names: StrPath, encoding: str | None, errors: str | None = "strict") -> TextIOWrapper: ...
     def read_binary(anchor: Anchor, *path_names: StrPath) -> bytes: ...
     @overload
     def read_text(
