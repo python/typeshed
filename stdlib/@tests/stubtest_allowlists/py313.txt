@@ -65,7 +65,6 @@ ctypes.pointer
 ctypes.sizeof
 ctypes.wintypes.PCHAR.from_param
 ctypes.wintypes.PWCHAR.from_param
-dbm.sqlite3
 dis.Bytecode.__init__
 dis.Instruction._disassemble
 dis.Instruction.baseopcode
