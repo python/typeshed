@@ -164,7 +164,7 @@ if sys.version_info >= (3, 13):
         depth: int | None = None,
         show_caches: bool = False,
         adaptive: bool = False,
-        show_offsets=False,
+        show_offsets: bool = False,
     ) -> None: ...
     def disassemble(
         co: _HaveCodeType,
@@ -173,7 +173,7 @@ if sys.version_info >= (3, 13):
         file: IO[str] | None = None,
         show_caches: bool = False,
         adaptive: bool = False,
-        show_offsets=False,
+        show_offsets: bool = False,
     ) -> None: ...
     def distb(
         tb: types.TracebackType | None = None,
