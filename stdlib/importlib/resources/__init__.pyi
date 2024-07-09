@@ -29,9 +29,9 @@ Package: TypeAlias = str | ModuleType
 if sys.version_info >= (3, 13):
     Anchor: TypeAlias = Package
 
-if sys.version_info >= (3, 11):
+if sys.version_info < (3, 13):
     Resource: TypeAlias = str
-else:
+elif sys.version_info < (3, 11):
     Resource: TypeAlias = str | os.PathLike[Any]
 
 if sys.version_info >= (3, 13):
