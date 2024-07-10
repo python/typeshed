@@ -144,7 +144,6 @@ tkinter.PhotoImage.zoom
 tkinter.Text.count
 tkinter.Wm.wm_attributes
 trace.CoverageResults.write_results
-types.MappingProxyType.get
 unittest.IsolatedAsyncioTestCase.loop_factory
 unittest.TestProgram.usageExit
 unittest.__all__
