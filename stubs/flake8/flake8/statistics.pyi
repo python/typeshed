@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import NamedTuple
 
