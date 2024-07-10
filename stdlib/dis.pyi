@@ -111,6 +111,7 @@ class Bytecode:
     codeobj: types.CodeType
     first_line: int
     if sys.version_info >= (3, 13):
+        show_offsets: bool
         # 3.13 added `show_offsets`
         def __init__(
             self,
