@@ -34,18 +34,20 @@ class TestLoader:
 
 defaultTestLoader: TestLoader
 
-def getTestCaseNames(
-    testCaseClass: type[unittest.case.TestCase],
-    prefix: str,
-    sortUsing: _SortComparisonMethod = ...,
-    testNamePatterns: list[str] | None = None,
-) -> Sequence[str]: ...
-def makeSuite(
-    testCaseClass: type[unittest.case.TestCase],
-    prefix: str = "test",
-    sortUsing: _SortComparisonMethod = ...,
-    suiteClass: _SuiteClass = ...,
-) -> unittest.suite.TestSuite: ...
-def findTestCases(
-    module: ModuleType, prefix: str = "test", sortUsing: _SortComparisonMethod = ..., suiteClass: _SuiteClass = ...
-) -> unittest.suite.TestSuite: ...
+if sys.version_info < (3, 13):
+    # Deprecated in 3.11, removed in 3.13
+    def getTestCaseNames(
+        testCaseClass: type[unittest.case.TestCase],
+        prefix: str,
+        sortUsing: _SortComparisonMethod = ...,
+        testNamePatterns: list[str] | None = None,
+    ) -> Sequence[str]: ...
+    def makeSuite(
+        testCaseClass: type[unittest.case.TestCase],
+        prefix: str = "test",
+        sortUsing: _SortComparisonMethod = ...,
+        suiteClass: _SuiteClass = ...,
+    ) -> unittest.suite.TestSuite: ...
+    def findTestCases(
+        module: ModuleType, prefix: str = "test", sortUsing: _SortComparisonMethod = ..., suiteClass: _SuiteClass = ...
+    ) -> unittest.suite.TestSuite: ...
