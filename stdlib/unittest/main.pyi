@@ -6,6 +6,7 @@ import unittest.suite
 from collections.abc import Iterable
 from types import ModuleType
 from typing import Any, Protocol
+from typing_extensions import deprecated
 
 MAIN_EXAMPLES: str
 MODULE_EXAMPLES: str
@@ -63,6 +64,7 @@ class TestProgram:
 
     if sys.version_info < (3, 13):
         # Deprecated in 3.11, removed in 3.13
+        @deprecated("Deprecated in Python 3.11; removal scheduled for Python 3.13")
         def usageExit(self, msg: Any = None) -> None: ...
 
     def parseArgs(self, argv: list[str]) -> None: ...
