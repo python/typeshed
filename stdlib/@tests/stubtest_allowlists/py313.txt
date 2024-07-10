@@ -106,11 +106,6 @@ os.path.splitroot
 # `__replace__` to be special cased in dataclasses
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
-pydoc.pager
-pydoc.pipepager
-pydoc.plainpager
-pydoc.tempfilepager
-pydoc.ttypager
 site.gethistoryfile
 site.register_readline
 sre_compile.SRE_FLAG_TEMPLATE
