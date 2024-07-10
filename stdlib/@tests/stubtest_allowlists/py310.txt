@@ -249,6 +249,7 @@ pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
 
 types.CodeType.replace  # stubtest thinks default values are None but None doesn't work at runtime
+types.SimpleNamespace.__init__ # class doesn't accept positional arguments but has default C signature
 
 # These enums derive from (str, Enum)
 pstats.SortKey.__new__

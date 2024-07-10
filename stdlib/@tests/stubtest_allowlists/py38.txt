@@ -206,6 +206,7 @@ types.GetSetDescriptorType.__get__
 types.MemberDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
+types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 multiprocessing.managers.DictProxy.clear
 multiprocessing.managers.DictProxy.popitem
 
