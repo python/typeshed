@@ -61,7 +61,7 @@ class Container(Model):
         since: datetime.datetime | float | None = None,
         follow: bool | None = None,
         until: datetime.datetime | float | None = None,
-    ) -> CancellableStream: ...
+    ) -> CancellableStream[bytes]: ...
     @overload
     def logs(
         self,
@@ -176,7 +176,7 @@ class ContainerCollection(Collection[Container]):
         pid_mode: str | None = None,
         pids_limit: int | None = None,
         platform: str | None = None,
-        ports: dict[str, int | None] | None = None,
+        ports: dict[str, int | list[int] | tuple[str, int] | None] | None = None,
         privileged: bool = False,
         publish_all_ports: bool = False,
         read_only: bool | None = None,
@@ -271,7 +271,7 @@ class ContainerCollection(Collection[Container]):
         pid_mode: str | None = None,
         pids_limit: int | None = None,
         platform: str | None = None,
-        ports: dict[str, int | None] | None = None,
+        ports: dict[str, int | list[int] | tuple[str, int] | None] | None = None,
         privileged: bool = False,
         publish_all_ports: bool = False,
         read_only: bool | None = None,
@@ -362,7 +362,7 @@ class ContainerCollection(Collection[Container]):
         pid_mode: str | None = None,
         pids_limit: int | None = None,
         platform: str | None = None,
-        ports: dict[str, int | None] | None = None,
+        ports: dict[str, int | list[int] | tuple[str, int] | None] | None = None,
         privileged: bool = False,
         publish_all_ports: bool = False,
         read_only: bool | None = None,

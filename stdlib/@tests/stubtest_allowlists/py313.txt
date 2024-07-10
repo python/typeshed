@@ -12,9 +12,7 @@ _ctypes.pointer
 _ctypes.sizeof
 _thread.interrupt_main
 _thread.lock
-_thread.stack_size
 _thread.start_joinable_thread
-_thread.start_new_thread
 _tkinter.create
 asyncio.AbstractEventLoop.create_server
 asyncio.AbstractServer.abort_clients
@@ -102,33 +100,15 @@ importlib.resources.open_text
 importlib.resources.path
 importlib.resources.read_binary
 importlib.resources.read_text
-mailbox.Maildir.add_flag
-mailbox.Maildir.get_flags
-mailbox.Maildir.get_info
-mailbox.Maildir.remove_flag
-mailbox.Maildir.set_flags
-mailbox.Maildir.set_info
 os.path.splitroot
-pdb.Pdb.MAX_CHAINED_EXCEPTION_DEPTH
-pdb.Pdb.completedefault
-pdb.Pdb.completenames
-pdb.Pdb.do_exceptions
-pdb.Pdb.interaction
-pdb.Pdb.message
-pdb.Pdb.user_opcode
+# `__replace__` to be special cased in dataclasses
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
-pydoc.pager
-pydoc.pipepager
-pydoc.plainpager
-pydoc.tempfilepager
-pydoc.ttypager
 site.gethistoryfile
 site.register_readline
 sre_compile.SRE_FLAG_TEMPLATE
 sre_constants.SRE_FLAG_TEMPLATE
 sre_parse.SRE_FLAG_TEMPLATE
-threading.stack_size
 tkinter.Misc.after_info
 tkinter.Misc.busy
 tkinter.Misc.busy_cget
@@ -156,26 +136,7 @@ tkinter.PhotoImage.zoom
 tkinter.Text.count
 tkinter.Wm.wm_attributes
 trace.CoverageResults.write_results
-turtle.RawTurtle.settiltangle
-turtle.__all__
-turtle.settiltangle
-types.CodeType.__replace__
 types.MappingProxyType.get
-types.SimpleNamespace.__replace__
-unittest.IsolatedAsyncioTestCase.loop_factory
-unittest.TestProgram.usageExit
-unittest.__all__
-unittest.async_case.IsolatedAsyncioTestCase.loop_factory
-unittest.findTestCases
-unittest.getTestCaseNames
-unittest.loader.findTestCases
-unittest.loader.getTestCaseNames
-unittest.loader.makeSuite
-unittest.main.TestProgram.usageExit
-unittest.makeSuite
-unittest.mock.NonCallableMock._calls_repr
-unittest.mock.ThreadingMock
-unittest.mock.__all__
 zipfile.CompleteDirs.inject
 zipfile.ZipInfo.compress_level
 zipfile._path.CompleteDirs.inject
@@ -295,7 +256,6 @@ unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
 # Problematic protocol signature at runtime, see source code comments.
-importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open
 
 # Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.

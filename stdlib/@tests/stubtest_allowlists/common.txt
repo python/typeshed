@@ -500,7 +500,6 @@ types.MethodType.__closure__  # read-only but not actually a property; stubtest 
 types.MethodType.__defaults__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.ModuleType.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
 types.ModuleType.__getattr__  # this doesn't exist at runtime
-types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 
 # sys attributes that are not always defined
 sys.gettotalrefcount  # Available on python debug builds
