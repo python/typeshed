@@ -2,7 +2,7 @@ import sys
 from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import _GeneratorContextManager
 from types import TracebackType
-from typing import Any, Final, Generic, Literal, TypeVar, overload
+from typing import Any, ClassVar, Final, Generic, Literal, TypeVar, overload
 from typing_extensions import ParamSpec, Self, TypeAlias
 
 _T = TypeVar("_T")
@@ -453,6 +453,8 @@ class PropertyMock(Mock):
 
 if sys.version_info >= (3, 13):
     class ThreadingMixin(Base):
+        DEFAULT_TIMEOUT: ClassVar[float | None] = None
+
         def __init__(self, /, *args: Any, timeout: float | None | _SentinelObject = ..., **kwargs: Any) -> None: ...
         # Same as `NonCallableMock.reset_mock.`
         def reset_mock(self, visited: Any = None, *, return_value: bool = False, side_effect: bool = False) -> None: ...
