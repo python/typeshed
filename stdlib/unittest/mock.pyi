@@ -453,7 +453,7 @@ class PropertyMock(Mock):
 
 if sys.version_info >= (3, 13):
     class ThreadingMixin(Base):
-        DEFAULT_TIMEOUT: ClassVar[float | None] = None
+        DEFAULT_TIMEOUT: Final[float | None] = None
 
         def __init__(self, /, *args: Any, timeout: float | None | _SentinelObject = ..., **kwargs: Any) -> None: ...
         # Same as `NonCallableMock.reset_mock.`
