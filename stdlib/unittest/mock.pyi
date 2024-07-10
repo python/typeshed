@@ -12,24 +12,6 @@ _F = TypeVar("_F", bound=Callable[..., Any])
 _AF = TypeVar("_AF", bound=Callable[..., Coroutine[Any, Any, Any]])
 _P = ParamSpec("_P")
 
-__all__ = (
-    "Mock",
-    "MagicMock",
-    "patch",
-    "sentinel",
-    "DEFAULT",
-    "ANY",
-    "call",
-    "create_autospec",
-    "AsyncMock",
-    "FILTER_DIR",
-    "NonCallableMock",
-    "NonCallableMagicMock",
-    "mock_open",
-    "PropertyMock",
-    "seal",
-)
-
 if sys.version_info >= (3, 13):
     # ThreadingMock added in 3.13
     __all__ = (
@@ -42,6 +24,24 @@ if sys.version_info >= (3, 13):
         "call",
         "create_autospec",
         "ThreadingMock",
+        "AsyncMock",
+        "FILTER_DIR",
+        "NonCallableMock",
+        "NonCallableMagicMock",
+        "mock_open",
+        "PropertyMock",
+        "seal",
+    )
+else:
+    __all__ = (
+        "Mock",
+        "MagicMock",
+        "patch",
+        "sentinel",
+        "DEFAULT",
+        "ANY",
+        "call",
+        "create_autospec",
         "AsyncMock",
         "FILTER_DIR",
         "NonCallableMock",
