@@ -12,9 +12,7 @@ _ctypes.pointer
 _ctypes.sizeof
 _thread.interrupt_main
 _thread.lock
-_thread.stack_size
 _thread.start_joinable_thread
-_thread.start_new_thread
 _tkinter.create
 asyncio.AbstractEventLoop.create_server
 asyncio.AbstractServer.abort_clients
@@ -111,7 +109,6 @@ site.register_readline
 sre_compile.SRE_FLAG_TEMPLATE
 sre_constants.SRE_FLAG_TEMPLATE
 sre_parse.SRE_FLAG_TEMPLATE
-threading.stack_size
 tkinter.Misc.after_info
 tkinter.Misc.busy
 tkinter.Misc.busy_cget
