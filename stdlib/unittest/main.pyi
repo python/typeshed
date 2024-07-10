@@ -63,7 +63,6 @@ class TestProgram:
         ) -> None: ...
 
     if sys.version_info < (3, 13):
-        # Deprecated in 3.11, removed in 3.13
         @deprecated("Deprecated in Python 3.11; removal scheduled for Python 3.13")
         def usageExit(self, msg: Any = None) -> None: ...
 
