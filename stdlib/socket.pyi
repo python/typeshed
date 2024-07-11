@@ -646,9 +646,9 @@ MSG_TRUNC: Final = MsgFlag.MSG_TRUNC
 MSG_WAITALL: Final = MsgFlag.MSG_WAITALL
 
 if sys.platform != "darwin":
-    MSG_BCAST: Final = MsgFlag.MSG_BCASTMsgFlag.MSG_BCAST
-    MSG_MCAST: Final = MsgFlag.MSG_MCASTMsgFlag.MSG_MCAST
-    MSG_ERRQUEUE: Final = MsgFlag.MSG_ERRQUEUEMsgFlag.MSG_ERRQUEUE
+    MSG_BCAST: Final = MsgFlag.MSG_BCAST
+    MSG_MCAST: Final = MsgFlag.MSG_MCAST
+    MSG_ERRQUEUE: Final = MsgFlag.MSG_ERRQUEUE
 
 if sys.platform != "win32":
     MSG_DONTWAIT: Final = MsgFlag.MSG_DONTWAIT
@@ -657,13 +657,13 @@ if sys.platform != "win32":
     MSG_NOSIGNAL: Final = MsgFlag.MSG_NOSIGNAL  # Sometimes this exists on darwin, sometimes not
 
 if sys.platform != "win32" and sys.platform != "darwin":
-    MSG_BTAG: Final = MsgFlag.MSG_BTAGMsgFlag.MSG_BTAG
-    MSG_CMSG_CLOEXEC: Final = MsgFlag.MSG_CMSG_CLOEXECMsgFlag.MSG_CMSG_CLOEXEC
-    MSG_CONFIRM: Final = MsgFlag.MSG_CONFIRMMsgFlag.MSG_CONFIRM
-    MSG_ETAG: Final = MsgFlag.MSG_ETAGMsgFlag.MSG_ETAG
-    MSG_FASTOPEN: Final = MsgFlag.MSG_FASTOPENMsgFlag.MSG_FASTOPEN
-    MSG_MORE: Final = MsgFlag.MSG_MOREMsgFlag.MSG_MORE
-    MSG_NOTIFICATION: Final = MsgFlag.MSG_NOTIFICATIONMsgFlag.MSG_NOTIFICATION
+    MSG_BTAG: Final = MsgFlag.MSG_BTAG
+    MSG_CMSG_CLOEXEC: Final = MsgFlag.MSG_CMSG_CLOEXEC
+    MSG_CONFIRM: Final = MsgFlag.MSG_CONFIRM
+    MSG_ETAG: Final = MsgFlag.MSG_ETAG
+    MSG_FASTOPEN: Final = MsgFlag.MSG_FASTOPEN
+    MSG_MORE: Final = MsgFlag.MSG_MORE
+    MSG_NOTIFICATION: Final = MsgFlag.MSG_NOTIFICATION
 
 class AddressInfo(IntFlag):
     AI_ADDRCONFIG = 32

@@ -14,8 +14,8 @@ class PlistFormat(Enum):
     FMT_XML = 1
     FMT_BINARY = 2
 
-FMT_XML: Final = PlistFormat.FMT_XMLPlistFormat.FMT_XML
-FMT_BINARY: Final = PlistFormat.FMT_BINARYPlistFormat.FMT_BINARY
+FMT_XML: Final = PlistFormat.FMT_XML
+FMT_BINARY: Final = PlistFormat.FMT_BINARY
 if sys.version_info >= (3, 13):
     def load(
         fp: IO[bytes],
