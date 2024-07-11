@@ -3,13 +3,11 @@ import sys
 from _typeshed import StrPath
 from collections.abc import Iterator
 from contextlib import AbstractContextManager
+from importlib.resources._common import Package
 from io import TextIOWrapper
 from pathlib import Path
-from types import ModuleType
 from typing import Any, BinaryIO, TextIO, overload
 from typing_extensions import TypeAlias, Unpack
-
-Package: TypeAlias = str | ModuleType
 
 if sys.version_info >= (3, 9):
     from importlib.abc import Traversable
