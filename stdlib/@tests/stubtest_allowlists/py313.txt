@@ -117,7 +117,6 @@ tkinter.PhotoImage.write
 tkinter.PhotoImage.zoom
 tkinter.Text.count
 tkinter.Wm.wm_attributes
-trace.CoverageResults.write_results
 types.MappingProxyType.get
 
 # ======================================
