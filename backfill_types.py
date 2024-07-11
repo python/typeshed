@@ -37,27 +37,17 @@ def _should_skip(value: cst.BaseExpression) -> bool:
     return False
 
 
-def _build_final_annotation(
-    existing_annotation: cst.Annotation | None = None,
-) -> cst.Annotation | None:
+def _build_final_annotation(existing_annotation: cst.Annotation | None = None) -> cst.Annotation | None:
     if existing_annotation is None:
         return cst.Annotation(annotation=cst.Name(value="Final"))
 
     if isinstance(existing_annotation.annotation, cst.Name):
-        if existing_annotation.annotation.value in (
-            "Final",
-            "typing.Final",
-            "TypeAlias",
-            "typing.TypeAlias",
-        ):
+        if existing_annotation.annotation.value in ("Final", "typing.Final", "TypeAlias", "typing.TypeAlias"):
             return existing_annotation
 
         return cst.Annotation(
             annotation=cst.Subscript(
-                value=cst.Name(value="Final"),
-                slice=[
-                    cst.SubscriptElement(slice=cst.Index(value=existing_annotation.annotation)),
-                ],
+                value=cst.Name(value="Final"), slice=[cst.SubscriptElement(slice=cst.Index(value=existing_annotation.annotation))]
             )
         )
 
@@ -85,12 +75,7 @@ class FinalTransformer(cst.CSTTransformer):
     def leave_Module(self, original_node: cst.Module, updated_node: cst.Module) -> cst.Module:
         if not self.final_imported:
             new_import = cst.SimpleStatementLine(
-                body=[
-                    cst.ImportFrom(
-                        module=cst.Name(value="typing"),
-                        names=[cst.ImportAlias(name=cst.Name(value="Final"))],
-                    )
-                ]
+                body=[cst.ImportFrom(module=cst.Name(value="typing"), names=[cst.ImportAlias(name=cst.Name(value="Final"))])]
             )
             return updated_node.with_changes(body=[new_import] + list(updated_node.body))
         return updated_node
@@ -116,9 +101,7 @@ class FinalTransformer(cst.CSTTransformer):
                 return updated_node
 
             return cst.AnnAssign(
-                target=original_node.targets[0].target,
-                annotation=new_annotation,
-                value=original_node.value,
+                target=original_node.targets[0].target, annotation=new_annotation, value=original_node.value
             )  # type: ignore
         return updated_node
 
@@ -148,11 +131,7 @@ def _update_module(module: pathlib.Path, include_class_defs: bool) -> None:
         print(f"Error processing {module}: {e}. Skipping.")
 
 
-def add_final_annotations(
-    file_path: str | pathlib.Path,
-    include_class_defs: bool = True,
-    stubs: bool = False,
-) -> None:
+def add_final_annotations(file_path: str | pathlib.Path, include_class_defs: bool = True, stubs: bool = False) -> None:
     pth = pathlib.Path(file_path)
     is_dir = pth.is_dir()
     pattern = "*.pyi" if stubs else "*.py"
@@ -165,25 +144,9 @@ def add_final_annotations(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Add Final annotations to all uppercase variables in Python files.")
-    parser.add_argument(
-        "path",
-        type=str,
-        help="Path to the file or directory to process, `.` for current directory.",
-    )
-    parser.add_argument(
-        "-c",
-        "--include-classes",
-        action="store_true",
-        help="Include class level assignments",
-        default=False,
-    )
-    parser.add_argument(
-        "-s",
-        "--stubs",
-        action="store_true",
-        help="Add Final annotations to stub files",
-        default=False,
-    )
+    parser.add_argument("path", type=str, help="Path to the file or directory to process, `.` for current directory.")
+    parser.add_argument("-c", "--include-classes", action="store_true", help="Include class level assignments", default=False)
+    parser.add_argument("-s", "--stubs", action="store_true", help="Add Final annotations to stub files", default=False)
 
     args = parser.parse_args()
 

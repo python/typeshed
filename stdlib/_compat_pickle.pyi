@@ -1,4 +1,3 @@
-
 IMPORT_MAPPING: dict[str, str]
 NAME_MAPPING: dict[tuple[str, str], tuple[str, str]]
 PYTHON2_EXCEPTIONS: tuple[str, ...]
