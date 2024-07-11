@@ -114,6 +114,7 @@ curses: 3.0-
 dataclasses: 3.7-
 datetime: 3.0-
 dbm: 3.0-
+dbm.sqlite3: 3.13-
 decimal: 3.0-
 difflib: 3.0-
 dis: 3.0-

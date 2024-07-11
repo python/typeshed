@@ -63,7 +63,6 @@ ctypes.pointer
 ctypes.sizeof
 ctypes.wintypes.PCHAR.from_param
 ctypes.wintypes.PWCHAR.from_param
-dbm.sqlite3
 doctest.TestResults.__doc__
 doctest.TestResults.__new__
 email.utils.getaddresses
