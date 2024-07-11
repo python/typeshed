@@ -329,7 +329,7 @@ else:
     def NewType(name: str, tp: Any) -> Any: ...
 
 _F = TypeVar("_F", bound=Callable[..., Any])
-_P: Final = _ParamSpec("_P")
+_P: = _ParamSpec("_P")
 _T = TypeVar("_T")
 
 # These type variables are used by the container types.
