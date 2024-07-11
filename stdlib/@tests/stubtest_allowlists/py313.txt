@@ -122,9 +122,6 @@ tkinter.Text.count
 tkinter.Wm.wm_attributes
 trace.CoverageResults.write_results
 types.MappingProxyType.get
-zipfile.CompleteDirs.inject
-zipfile.ZipInfo.compress_level
-zipfile._path.CompleteDirs.inject
 
 # ======================================
 # Pre-existing errors from Python <=3.12
