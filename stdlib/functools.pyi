@@ -69,18 +69,20 @@ def lru_cache(maxsize: int | None = 128, typed: bool = False) -> Callable[[Calla
 def lru_cache(maxsize: Callable[..., _T], typed: bool = False) -> _lru_cache_wrapper[_T]: ...
 
 if sys.version_info >= (3, 12):
-    WRAPPER_ASSIGNMENTS: Final[tuple[
-        Literal["__module__"],
-        Literal["__name__"],
-        Literal["__qualname__"],
-        Literal["__doc__"],
-        Literal["__annotations__"],
-        Literal["__type_params__"],
-    ]]
+    WRAPPER_ASSIGNMENTS: Final[
+        tuple[
+            Literal["__module__"],
+            Literal["__name__"],
+            Literal["__qualname__"],
+            Literal["__doc__"],
+            Literal["__annotations__"],
+            Literal["__type_params__"],
+        ]
+    ]
 else:
-    WRAPPER_ASSIGNMENTS: Final[tuple[
-        Literal["__module__"], Literal["__name__"], Literal["__qualname__"], Literal["__doc__"], Literal["__annotations__"]
-    ]]
+    WRAPPER_ASSIGNMENTS: Final[
+        tuple[Literal["__module__"], Literal["__name__"], Literal["__qualname__"], Literal["__doc__"], Literal["__annotations__"]]
+    ]
 WRAPPER_UPDATES: Final[tuple[Literal["__dict__"]]]
 
 class _Wrapped(Generic[_PWrapped, _RWrapped, _PWrapper, _RWrapper]):
