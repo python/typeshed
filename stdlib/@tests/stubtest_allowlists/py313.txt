@@ -90,9 +90,6 @@ pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
 site.gethistoryfile
 site.register_readline
-sre_compile.SRE_FLAG_TEMPLATE
-sre_constants.SRE_FLAG_TEMPLATE
-sre_parse.SRE_FLAG_TEMPLATE
 tkinter.Misc.after_info
 tkinter.Misc.busy
 tkinter.Misc.busy_cget
