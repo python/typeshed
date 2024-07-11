@@ -158,10 +158,7 @@ class Pattern(Generic[AnyStr]):
     def finditer(self: Pattern[str], string: str, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[str]]: ...
     @overload
     def finditer(  # type: ignore[overload-overlap]
-        self: Pattern[bytes],
-        string: ReadableBuffer,
-        pos: int = 0,
-        endpos: int = sys.maxsize,
+        self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize
     ) -> Iterator[Match[bytes]]: ...
     def finditer(self, string: AnyStr, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[AnyStr]]: ...
     @overload
