@@ -2,10 +2,11 @@ import sys
 from _typeshed import StrPath
 from collections.abc import Iterator
 from os import PathLike
-from typing import Any, Protocol, TypeVar, overload
+from typing import Any, Protocol, overload
+from typing_extensions import TypeVar
 
 _T = TypeVar("_T")
-_T_co = TypeVar("_T_co", covariant=True)
+_T_co = TypeVar("_T_co", covariant=True, default=Any)
 
 class PackageMetadata(Protocol):
     def __len__(self) -> int: ...
