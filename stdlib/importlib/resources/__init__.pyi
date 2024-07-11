@@ -22,11 +22,7 @@ if sys.version_info >= (3, 9):
 if sys.version_info >= (3, 10):
     __all__ += ["ResourceReader"]
 
-if sys.version_info >= (3, 13):
-    from importlib.resources._common import Anchor
-
-    __all__ += ["Anchor"]
-else:
+if sys.version_info < (3, 13):
     __all__ += ["Resource"]
 
 if sys.version_info < (3, 11):
@@ -35,6 +31,10 @@ elif sys.version_info < (3, 13):
     Resource: TypeAlias = str
 
 if sys.version_info >= (3, 13):
+    from importlib.resources._common import Anchor
+
+    __all__ += ["Anchor"]
+
     def open_binary(anchor: Anchor, *path_names: StrPath) -> BinaryIO: ...
     @overload
     def open_text(
