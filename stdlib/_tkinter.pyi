@@ -95,7 +95,7 @@ class TkappType:
         def settrace(self, func: _TkinterTraceFunc | None, /) -> None: ...
 
 # These should be kept in sync with tkinter.tix constants, except ALL_EVENTS which doesn't match TCL_ALL_EVENTS
-ALL_EVENTS: Final[Literal[-3]]
+ALL_EVENTS: Final = -3
 FILE_EVENTS: Final = 8
 IDLE_EVENTS: Final = 32
 TIMER_EVENTS: Final = 16
