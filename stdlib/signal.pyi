@@ -127,9 +127,9 @@ else:
         SIG_UNBLOCK = 1
         SIG_SETMASK = 2
 
-    SIG_BLOCK: Final = Sigmasks.SIG_BLOCK
-    SIG_UNBLOCK: Final = Sigmasks.SIG_UNBLOCK
-    SIG_SETMASK: Final = Sigmasks.SIG_SETMASK
+    SIG_BLOCK = Sigmasks.SIG_BLOCK
+    SIG_UNBLOCK = Sigmasks.SIG_UNBLOCK
+    SIG_SETMASK = Sigmasks.SIG_SETMASK
     def alarm(seconds: int, /) -> int: ...
     def getitimer(which: int, /) -> tuple[float, float]: ...
     def pause() -> None: ...
