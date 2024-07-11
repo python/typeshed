@@ -3,9 +3,9 @@ import sys
 from _typeshed import StrPath
 from collections.abc import Iterator
 from contextlib import AbstractContextManager
+from importlib.resources._common import Package
 from io import TextIOWrapper
 from pathlib import Path
-from types import ModuleType
 from typing import Any, BinaryIO, TextIO, overload
 from typing_extensions import TypeAlias, Unpack
 
@@ -21,14 +21,11 @@ if sys.version_info >= (3, 10):
     __all__ += ["ResourceReader"]
 
 if sys.version_info >= (3, 13):
+    from importlib.resources._common import Anchor
+
     __all__ += ["Anchor"]
 else:
     __all__ += ["Resource"]
-
-Package: TypeAlias = str | ModuleType
-
-if sys.version_info >= (3, 13):
-    Anchor: TypeAlias = Package
 
 if sys.version_info < (3, 11):
     Resource: TypeAlias = str | os.PathLike[Any]
