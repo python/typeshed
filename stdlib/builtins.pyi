@@ -2006,9 +2006,9 @@ if sys.version_info >= (3, 10):
     class EncodingWarning(Warning): ...
 
 if sys.version_info >= (3, 11):
-    _BaseExceptionT_co = TypeVar("_BaseExceptionT_co", bound=BaseException, covariant=True)
+    _BaseExceptionT_co = TypeVar("_BaseExceptionT_co", bound=BaseException, covariant=True, default=BaseException)
     _BaseExceptionT = TypeVar("_BaseExceptionT", bound=BaseException)
-    _ExceptionT_co = TypeVar("_ExceptionT_co", bound=Exception, covariant=True)
+    _ExceptionT_co = TypeVar("_ExceptionT_co", bound=Exception, covariant=True, default=Exception)
     _ExceptionT = TypeVar("_ExceptionT", bound=Exception)
 
     # See `check_exception_group.py` for use-cases and comments.
