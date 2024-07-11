@@ -26,6 +26,7 @@ if sys.version_info >= (3, 12):
         @classmethod
         def make(cls, source: StrPath | IO[bytes]) -> Self: ...
         if sys.version_info >= (3, 13):
+            @classmethod
             def inject(cls, zf: _ZF) -> _ZF: ...
 
     class Path:
