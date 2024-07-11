@@ -1,5 +1,5 @@
 import sys
-from typing import Literal
+from typing import Final, Literal
 
 __all__ = [
     "cmp_op",
@@ -57,7 +57,7 @@ if sys.version_info >= (3, 13):
 opname: list[str]
 
 opmap: dict[str, int]
-HAVE_ARGUMENT: int
-EXTENDED_ARG: int
+HAVE_ARGUMENT: Final[int]
+EXTENDED_ARG: Final[int]
 
 def stack_effect(opcode: int, oparg: int | None = None, /, *, jump: bool | None = None) -> int: ...

@@ -3,7 +3,7 @@ from _thread import _excepthook, _ExceptHookArgs
 from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
 from types import TracebackType
-from typing import Any, TypeVar
+from typing import Any, Final, TypeVar
 
 _T = TypeVar("_T")
 
@@ -43,7 +43,7 @@ def settrace(func: TraceFunction) -> None: ...
 def setprofile(func: ProfileFunction | None) -> None: ...
 def stack_size(size: int | None = None) -> int: ...
 
-TIMEOUT_MAX: float
+TIMEOUT_MAX: Final[float]
 
 class ThreadError(Exception): ...
 

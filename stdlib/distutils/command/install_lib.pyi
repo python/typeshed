@@ -1,8 +1,8 @@
-from typing import Any
+from typing import Any, Final
 
 from ..cmd import Command
 
-PYTHON_SOURCE_EXTENSION: str
+PYTHON_SOURCE_EXTENSION: Final[str]
 
 class install_lib(Command):
     description: str

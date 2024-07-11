@@ -2,6 +2,7 @@ import builtins
 import sys
 from _typeshed import Unused
 from enum import Enum
+from typing import Final
 from typing_extensions import TypeAlias
 
 _FieldsType: TypeAlias = tuple[int, int, int, int, int, int]
@@ -87,14 +88,14 @@ if sys.version_info >= (3, 12):
 else:
     def uuid5(namespace: UUID, name: str) -> UUID: ...
 
-NAMESPACE_DNS: UUID
-NAMESPACE_URL: UUID
-NAMESPACE_OID: UUID
-NAMESPACE_X500: UUID
-RESERVED_NCS: str
-RFC_4122: str
-RESERVED_MICROSOFT: str
-RESERVED_FUTURE: str
+NAMESPACE_DNS: Final[UUID]
+NAMESPACE_URL: Final[UUID]
+NAMESPACE_OID: Final[UUID]
+NAMESPACE_X500: Final[UUID]
+RESERVED_NCS: Final[str]
+RFC_4122: Final[str]
+RESERVED_MICROSOFT: Final[str]
+RESERVED_FUTURE: Final[str]
 
 if sys.version_info >= (3, 12):
     def main() -> None: ...

@@ -3,11 +3,12 @@ import sys
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterable, Sequence
 from types import SimpleNamespace
+from typing import Final
 
 logger: logging.Logger
 
 if sys.version_info >= (3, 9):
-    CORE_VENV_DEPS: tuple[str, ...]
+    CORE_VENV_DEPS: Final[tuple[str, ...]]
 
 class EnvBuilder:
     system_site_packages: bool

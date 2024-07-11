@@ -1,6 +1,6 @@
 from _typeshed import ReadableBuffer, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping
-from typing import Any, ClassVar, Protocol, SupportsBytes, SupportsIndex, final
+from typing import Any, ClassVar, Final, Protocol, SupportsBytes, SupportsIndex, final
 from typing_extensions import TypeAlias
 
 __all__ = [
@@ -88,8 +88,8 @@ __all__ = [
     "UNICODE",
 ]
 
-HIGHEST_PROTOCOL: int
-DEFAULT_PROTOCOL: int
+HIGHEST_PROTOCOL: Final[int]
+DEFAULT_PROTOCOL: Final[int]
 
 bytes_types: tuple[type[Any], ...]  # undocumented
 
@@ -183,85 +183,85 @@ class Unpickler:
     def find_class(self, module_name: str, global_name: str, /) -> Any: ...
     def persistent_load(self, pid: Any) -> Any: ...
 
-MARK: bytes
-STOP: bytes
-POP: bytes
-POP_MARK: bytes
-DUP: bytes
-FLOAT: bytes
-INT: bytes
-BININT: bytes
-BININT1: bytes
-LONG: bytes
-BININT2: bytes
-NONE: bytes
-PERSID: bytes
-BINPERSID: bytes
-REDUCE: bytes
-STRING: bytes
-BINSTRING: bytes
-SHORT_BINSTRING: bytes
-UNICODE: bytes
-BINUNICODE: bytes
-APPEND: bytes
-BUILD: bytes
-GLOBAL: bytes
-DICT: bytes
-EMPTY_DICT: bytes
-APPENDS: bytes
-GET: bytes
-BINGET: bytes
-INST: bytes
-LONG_BINGET: bytes
-LIST: bytes
-EMPTY_LIST: bytes
-OBJ: bytes
-PUT: bytes
-BINPUT: bytes
-LONG_BINPUT: bytes
-SETITEM: bytes
-TUPLE: bytes
-EMPTY_TUPLE: bytes
-SETITEMS: bytes
-BINFLOAT: bytes
+MARK: Final[bytes]
+STOP: Final[bytes]
+POP: Final[bytes]
+POP_MARK: Final[bytes]
+DUP: Final[bytes]
+FLOAT: Final[bytes]
+INT: Final[bytes]
+BININT: Final[bytes]
+BININT1: Final[bytes]
+LONG: Final[bytes]
+BININT2: Final[bytes]
+NONE: Final[bytes]
+PERSID: Final[bytes]
+BINPERSID: Final[bytes]
+REDUCE: Final[bytes]
+STRING: Final[bytes]
+BINSTRING: Final[bytes]
+SHORT_BINSTRING: Final[bytes]
+UNICODE: Final[bytes]
+BINUNICODE: Final[bytes]
+APPEND: Final[bytes]
+BUILD: Final[bytes]
+GLOBAL: Final[bytes]
+DICT: Final[bytes]
+EMPTY_DICT: Final[bytes]
+APPENDS: Final[bytes]
+GET: Final[bytes]
+BINGET: Final[bytes]
+INST: Final[bytes]
+LONG_BINGET: Final[bytes]
+LIST: Final[bytes]
+EMPTY_LIST: Final[bytes]
+OBJ: Final[bytes]
+PUT: Final[bytes]
+BINPUT: Final[bytes]
+LONG_BINPUT: Final[bytes]
+SETITEM: Final[bytes]
+TUPLE: Final[bytes]
+EMPTY_TUPLE: Final[bytes]
+SETITEMS: Final[bytes]
+BINFLOAT: Final[bytes]
 
-TRUE: bytes
-FALSE: bytes
+TRUE: Final[bytes]
+FALSE: Final[bytes]
 
 # protocol 2
-PROTO: bytes
-NEWOBJ: bytes
-EXT1: bytes
-EXT2: bytes
-EXT4: bytes
-TUPLE1: bytes
-TUPLE2: bytes
-TUPLE3: bytes
-NEWTRUE: bytes
-NEWFALSE: bytes
-LONG1: bytes
-LONG4: bytes
+PROTO: Final[bytes]
+NEWOBJ: Final[bytes]
+EXT1: Final[bytes]
+EXT2: Final[bytes]
+EXT4: Final[bytes]
+TUPLE1: Final[bytes]
+TUPLE2: Final[bytes]
+TUPLE3: Final[bytes]
+NEWTRUE: Final[bytes]
+NEWFALSE: Final[bytes]
+LONG1: Final[bytes]
+LONG4: Final[bytes]
 
 # protocol 3
-BINBYTES: bytes
-SHORT_BINBYTES: bytes
+BINBYTES: Final[bytes]
+SHORT_BINBYTES: Final[bytes]
 
 # protocol 4
-SHORT_BINUNICODE: bytes
-BINUNICODE8: bytes
-BINBYTES8: bytes
-EMPTY_SET: bytes
-ADDITEMS: bytes
-FROZENSET: bytes
-NEWOBJ_EX: bytes
-STACK_GLOBAL: bytes
-MEMOIZE: bytes
-FRAME: bytes
+SHORT_BINUNICODE: Final[bytes]
+BINUNICODE8: Final[bytes]
+BINBYTES8: Final[bytes]
+EMPTY_SET: Final[bytes]
+ADDITEMS: Final[bytes]
+FROZENSET: Final[bytes]
+NEWOBJ_EX: Final[bytes]
+STACK_GLOBAL: Final[bytes]
+MEMOIZE: Final[bytes]
+FRAME: Final[bytes]
 
 # protocol 5
-BYTEARRAY8: bytes
-NEXT_BUFFER: bytes
-READONLY_BUFFER: bytes
+BYTEARRAY8: Final[bytes]
+NEXT_BUFFER: Final[bytes]
+READONLY_BUFFER: Final[bytes]
 
 def encode_long(x: int) -> bytes: ...  # undocumented
 def decode_long(data: Iterable[SupportsIndex] | SupportsBytes | ReadableBuffer) -> int: ...  # undocumented

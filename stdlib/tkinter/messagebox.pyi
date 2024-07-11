@@ -1,6 +1,6 @@
 import sys
 from tkinter.commondialog import Dialog
-from typing import ClassVar
+from typing import ClassVar, Final
 
 if sys.version_info >= (3, 9):
     __all__ = [
@@ -14,22 +14,22 @@ if sys.version_info >= (3, 9):
         "askretrycancel",
     ]
 
-ERROR: str
-INFO: str
-QUESTION: str
-WARNING: str
-ABORTRETRYIGNORE: str
-OK: str
-OKCANCEL: str
-RETRYCANCEL: str
-YESNO: str
-YESNOCANCEL: str
-ABORT: str
-RETRY: str
-IGNORE: str
-CANCEL: str
-YES: str
-NO: str
+ERROR: Final[str]
+INFO: Final[str]
+QUESTION: Final[str]
+WARNING: Final[str]
+ABORTRETRYIGNORE: Final[str]
+OK: Final[str]
+OKCANCEL: Final[str]
+RETRYCANCEL: Final[str]
+YESNO: Final[str]
+YESNOCANCEL: Final[str]
+ABORT: Final[str]
+RETRY: Final[str]
+IGNORE: Final[str]
+CANCEL: Final[str]
+YES: Final[str]
+NO: Final[str]
 
 class Message(Dialog):
     command: ClassVar[str]

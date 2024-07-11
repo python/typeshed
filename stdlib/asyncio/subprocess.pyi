@@ -3,13 +3,13 @@ import sys
 from _typeshed import StrOrBytesPath
 from asyncio import events, protocols, streams, transports
 from collections.abc import Callable, Collection
-from typing import IO, Any, Literal
+from typing import IO, Any, Final, Literal
 
 __all__ = ("create_subprocess_exec", "create_subprocess_shell")
 
-PIPE: int
-STDOUT: int
-DEVNULL: int
+PIPE: Final[int]
+STDOUT: Final[int]
+DEVNULL: Final[int]
 
 class SubprocessStreamProtocol(streams.FlowControlMixin, protocols.SubprocessProtocol):
     stdin: streams.StreamWriter | None

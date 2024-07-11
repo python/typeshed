@@ -1,26 +1,26 @@
 import sys
 from _typeshed import Unused
-from typing import IO, Any, Literal, NamedTuple, NoReturn, overload
+from typing import IO, Any, Final, Literal, NamedTuple, NoReturn, overload
 from typing_extensions import Self, TypeAlias
 
 _File: TypeAlias = str | IO[bytes]
 
 class Error(Exception): ...
 
-AUDIO_FILE_MAGIC: int
-AUDIO_FILE_ENCODING_MULAW_8: int
-AUDIO_FILE_ENCODING_LINEAR_8: int
-AUDIO_FILE_ENCODING_LINEAR_16: int
-AUDIO_FILE_ENCODING_LINEAR_24: int
-AUDIO_FILE_ENCODING_LINEAR_32: int
-AUDIO_FILE_ENCODING_FLOAT: int
-AUDIO_FILE_ENCODING_DOUBLE: int
-AUDIO_FILE_ENCODING_ADPCM_G721: int
-AUDIO_FILE_ENCODING_ADPCM_G722: int
-AUDIO_FILE_ENCODING_ADPCM_G723_3: int
-AUDIO_FILE_ENCODING_ADPCM_G723_5: int
-AUDIO_FILE_ENCODING_ALAW_8: int
-AUDIO_UNKNOWN_SIZE: int
+AUDIO_FILE_MAGIC: Final[int]
+AUDIO_FILE_ENCODING_MULAW_8: Final[int]
+AUDIO_FILE_ENCODING_LINEAR_8: Final[int]
+AUDIO_FILE_ENCODING_LINEAR_16: Final[int]
+AUDIO_FILE_ENCODING_LINEAR_24: Final[int]
+AUDIO_FILE_ENCODING_LINEAR_32: Final[int]
+AUDIO_FILE_ENCODING_FLOAT: Final[int]
+AUDIO_FILE_ENCODING_DOUBLE: Final[int]
+AUDIO_FILE_ENCODING_ADPCM_G721: Final[int]
+AUDIO_FILE_ENCODING_ADPCM_G722: Final[int]
+AUDIO_FILE_ENCODING_ADPCM_G723_3: Final[int]
+AUDIO_FILE_ENCODING_ADPCM_G723_5: Final[int]
+AUDIO_FILE_ENCODING_ALAW_8: Final[int]
+AUDIO_UNKNOWN_SIZE: Final[int]
 
 class _sunau_params(NamedTuple):
     nchannels: int

@@ -1,5 +1,5 @@
 from collections.abc import Callable, Iterator, MutableMapping
-from typing import IO, Any
+from typing import IO, Any, Final
 from typing_extensions import TypeAlias
 
 __all__ = ["dis", "genops", "optimize"]
@@ -7,11 +7,11 @@ __all__ = ["dis", "genops", "optimize"]
 _Reader: TypeAlias = Callable[[IO[bytes]], Any]
 bytes_types: tuple[type[Any], ...]
 
-UP_TO_NEWLINE: int
-TAKEN_FROM_ARGUMENT1: int
-TAKEN_FROM_ARGUMENT4: int
-TAKEN_FROM_ARGUMENT4U: int
-TAKEN_FROM_ARGUMENT8U: int
+UP_TO_NEWLINE: Final[int]
+TAKEN_FROM_ARGUMENT1: Final[int]
+TAKEN_FROM_ARGUMENT4: Final[int]
+TAKEN_FROM_ARGUMENT4U: Final[int]
+TAKEN_FROM_ARGUMENT8U: Final[int]
 
 class ArgumentDescriptor:
     name: str

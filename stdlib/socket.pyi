@@ -140,7 +140,7 @@ from _typeshed import ReadableBuffer, Unused, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import BufferedReader, BufferedRWPair, BufferedWriter, IOBase, RawIOBase, TextIOWrapper
-from typing import Any, Literal, Protocol, SupportsIndex, overload
+from typing import Any, Final, Literal, Protocol, SupportsIndex, overload
 from typing_extensions import Self
 
 if sys.platform == "win32":
@@ -482,9 +482,9 @@ if sys.version_info >= (3, 12):
         from _socket import PF_DIVERT as PF_DIVERT
 
 # Re-exported from errno
-EBADF: int
-EAGAIN: int
-EWOULDBLOCK: int
+EBADF: Final[int]
+EAGAIN: Final[int]
+EWOULDBLOCK: Final[int]
 
 class AddressFamily(IntEnum):
     AF_INET = 2

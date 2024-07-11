@@ -1,43 +1,43 @@
-from typing import TypeVar
+from typing import Final, TypeVar
 
 _CharT = TypeVar("_CharT", str, int)
 
-NUL: int
-SOH: int
-STX: int
-ETX: int
-EOT: int
-ENQ: int
-ACK: int
-BEL: int
-BS: int
-TAB: int
-HT: int
-LF: int
-NL: int
-VT: int
-FF: int
-CR: int
-SO: int
-SI: int
-DLE: int
-DC1: int
-DC2: int
-DC3: int
-DC4: int
-NAK: int
-SYN: int
-ETB: int
-CAN: int
-EM: int
-SUB: int
-ESC: int
-FS: int
-GS: int
-RS: int
-US: int
-SP: int
-DEL: int
+NUL: Final[int]
+SOH: Final[int]
+STX: Final[int]
+ETX: Final[int]
+EOT: Final[int]
+ENQ: Final[int]
+ACK: Final[int]
+BEL: Final[int]
+BS: Final[int]
+TAB: Final[int]
+HT: Final[int]
+LF: Final[int]
+NL: Final[int]
+VT: Final[int]
+FF: Final[int]
+CR: Final[int]
+SO: Final[int]
+SI: Final[int]
+DLE: Final[int]
+DC1: Final[int]
+DC2: Final[int]
+DC3: Final[int]
+DC4: Final[int]
+NAK: Final[int]
+SYN: Final[int]
+ETB: Final[int]
+CAN: Final[int]
+EM: Final[int]
+SUB: Final[int]
+ESC: Final[int]
+FS: Final[int]
+GS: Final[int]
+RS: Final[int]
+US: Final[int]
+SP: Final[int]
+DEL: Final[int]
 
 controlnames: list[int]
 

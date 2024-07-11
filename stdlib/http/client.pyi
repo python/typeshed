@@ -6,7 +6,7 @@ import types
 from _typeshed import ReadableBuffer, SupportsRead, SupportsReadline, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from socket import socket
-from typing import Any, BinaryIO, TypeVar, overload
+from typing import Any, BinaryIO, Final, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -35,66 +35,66 @@ _DataType: TypeAlias = SupportsRead[bytes] | Iterable[ReadableBuffer] | Readable
 _T = TypeVar("_T")
 _MessageT = TypeVar("_MessageT", bound=email.message.Message)
 
-HTTP_PORT: int
-HTTPS_PORT: int
+HTTP_PORT: Final[int]
+HTTPS_PORT: Final[int]
 
-CONTINUE: int
-SWITCHING_PROTOCOLS: int
-PROCESSING: int
+CONTINUE: Final[int]
+SWITCHING_PROTOCOLS: Final[int]
+PROCESSING: Final[int]
 
-OK: int
-CREATED: int
-ACCEPTED: int
-NON_AUTHORITATIVE_INFORMATION: int
-NO_CONTENT: int
-RESET_CONTENT: int
-PARTIAL_CONTENT: int
-MULTI_STATUS: int
-IM_USED: int
+OK: Final[int]
+CREATED: Final[int]
+ACCEPTED: Final[int]
+NON_AUTHORITATIVE_INFORMATION: Final[int]
+NO_CONTENT: Final[int]
+RESET_CONTENT: Final[int]
+PARTIAL_CONTENT: Final[int]
+MULTI_STATUS: Final[int]
+IM_USED: Final[int]
 
-MULTIPLE_CHOICES: int
-MOVED_PERMANENTLY: int
-FOUND: int
-SEE_OTHER: int
-NOT_MODIFIED: int
-USE_PROXY: int
-TEMPORARY_REDIRECT: int
+MULTIPLE_CHOICES: Final[int]
+MOVED_PERMANENTLY: Final[int]
+FOUND: Final[int]
+SEE_OTHER: Final[int]
+NOT_MODIFIED: Final[int]
+USE_PROXY: Final[int]
+TEMPORARY_REDIRECT: Final[int]
 
-BAD_REQUEST: int
-UNAUTHORIZED: int
-PAYMENT_REQUIRED: int
-FORBIDDEN: int
-NOT_FOUND: int
-METHOD_NOT_ALLOWED: int
-NOT_ACCEPTABLE: int
-PROXY_AUTHENTICATION_REQUIRED: int
-REQUEST_TIMEOUT: int
-CONFLICT: int
-GONE: int
-LENGTH_REQUIRED: int
-PRECONDITION_FAILED: int
-REQUEST_ENTITY_TOO_LARGE: int
-REQUEST_URI_TOO_LONG: int
-UNSUPPORTED_MEDIA_TYPE: int
-REQUESTED_RANGE_NOT_SATISFIABLE: int
-EXPECTATION_FAILED: int
-UNPROCESSABLE_ENTITY: int
-LOCKED: int
-FAILED_DEPENDENCY: int
-UPGRADE_REQUIRED: int
-PRECONDITION_REQUIRED: int
-TOO_MANY_REQUESTS: int
-REQUEST_HEADER_FIELDS_TOO_LARGE: int
+BAD_REQUEST: Final[int]
+UNAUTHORIZED: Final[int]
+PAYMENT_REQUIRED: Final[int]
+FORBIDDEN: Final[int]
+NOT_FOUND: Final[int]
+METHOD_NOT_ALLOWED: Final[int]
+NOT_ACCEPTABLE: Final[int]
+PROXY_AUTHENTICATION_REQUIRED: Final[int]
+REQUEST_TIMEOUT: Final[int]
+CONFLICT: Final[int]
+GONE: Final[int]
+LENGTH_REQUIRED: Final[int]
+PRECONDITION_FAILED: Final[int]
+REQUEST_ENTITY_TOO_LARGE: Final[int]
+REQUEST_URI_TOO_LONG: Final[int]
+UNSUPPORTED_MEDIA_TYPE: Final[int]
+REQUESTED_RANGE_NOT_SATISFIABLE: Final[int]
+EXPECTATION_FAILED: Final[int]
+UNPROCESSABLE_ENTITY: Final[int]
+LOCKED: Final[int]
+FAILED_DEPENDENCY: Final[int]
+UPGRADE_REQUIRED: Final[int]
+PRECONDITION_REQUIRED: Final[int]
+TOO_MANY_REQUESTS: Final[int]
+REQUEST_HEADER_FIELDS_TOO_LARGE: Final[int]
 
-INTERNAL_SERVER_ERROR: int
-NOT_IMPLEMENTED: int
-BAD_GATEWAY: int
-SERVICE_UNAVAILABLE: int
-GATEWAY_TIMEOUT: int
-HTTP_VERSION_NOT_SUPPORTED: int
-INSUFFICIENT_STORAGE: int
-NOT_EXTENDED: int
-NETWORK_AUTHENTICATION_REQUIRED: int
+INTERNAL_SERVER_ERROR: Final[int]
+NOT_IMPLEMENTED: Final[int]
+BAD_GATEWAY: Final[int]
+SERVICE_UNAVAILABLE: Final[int]
+GATEWAY_TIMEOUT: Final[int]
+HTTP_VERSION_NOT_SUPPORTED: Final[int]
+INSUFFICIENT_STORAGE: Final[int]
+NOT_EXTENDED: Final[int]
+NETWORK_AUTHENTICATION_REQUIRED: Final[int]
 
 responses: dict[int, str]
 
