@@ -545,7 +545,7 @@ AF_SNA: Final = AddressFamily.AF_SNA
 AF_UNSPEC: Final = AddressFamily.AF_UNSPEC
 
 if sys.platform != "darwin":
-    AF_IRDA: Final = AddressFamily.AF_IRDAAddressFamily.AF_IRDA
+    AF_IRDA: Final = AddressFamily.AF_IRDA
 
 if sys.platform != "win32":
     AF_ROUTE: Final = AddressFamily.AF_ROUTE
@@ -583,13 +583,13 @@ if sys.platform == "linux":
 if sys.platform != "win32" or sys.version_info >= (3, 9):
     AF_LINK: Final = AddressFamily.AF_LINK
     if sys.platform != "darwin":
-        AF_BLUETOOTH: Final = AddressFamily.AF_BLUETOOTHAddressFamily.AF_BLUETOOTH
+        AF_BLUETOOTH: Final = AddressFamily.AF_BLUETOOTH
 
 if sys.platform == "win32" and sys.version_info >= (3, 12):
-    AF_HYPERV: Final = AddressFamily.AF_HYPERVAddressFamily.AF_HYPERV
+    AF_HYPERV: Final = AddressFamily.AF_HYPERV
 if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darwin" and sys.version_info >= (3, 12):
     # FreeBSD >= 14.0
-    AF_DIVERT: Final = AddressFamily.AF_DIVERTAddressFamily.AF_DIVERT
+    AF_DIVERT: Final = AddressFamily.AF_DIVERT
 
 class SocketKind(IntEnum):
     SOCK_STREAM = 1
