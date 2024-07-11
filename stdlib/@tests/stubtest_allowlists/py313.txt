@@ -88,8 +88,6 @@ os.path.splitroot
 # `__replace__` to be special cased in dataclasses
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
-site.gethistoryfile
-site.register_readline
 sre_compile.SRE_FLAG_TEMPLATE
 sre_constants.SRE_FLAG_TEMPLATE
 sre_parse.SRE_FLAG_TEMPLATE
