@@ -2,15 +2,15 @@ import subprocess
 import sys
 from collections.abc import Callable
 from types import TracebackType
-from typing import Any, AnyStr, Literal
+from typing import Any, AnyStr, Final, Literal
 from typing_extensions import Self
 
 if sys.platform == "win32":
     __all__ = ("pipe", "Popen", "PIPE", "PipeHandle")
 
     BUFSIZE: Literal[8192]
-    PIPE = subprocess.PIPE
-    STDOUT = subprocess.STDOUT
+    PIPE: Final = subprocess.PIPEsubprocess.PIPE
+    STDOUT: Final = subprocess.STDOUTsubprocess.STDOUT
     def pipe(*, duplex: bool = False, overlapped: tuple[bool, bool] = (True, True), bufsize: int = 8192) -> tuple[int, int]: ...
 
     class PipeHandle:

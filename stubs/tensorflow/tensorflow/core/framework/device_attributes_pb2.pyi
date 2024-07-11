@@ -30,7 +30,9 @@ class InterconnectLink(google.protobuf.message.Message):
         type: builtins.str | None = ...,
         strength: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["device_id", b"device_id", "strength", b"strength", "type", b"type"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["device_id", b"device_id", "strength", b"strength", "type", b"type"]
+    ) -> None: ...
 
 global___InterconnectLink = InterconnectLink
 
@@ -75,7 +77,9 @@ class DeviceLocality(google.protobuf.message.Message):
         links: global___LocalLinks | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["links", b"links"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["bus_id", b"bus_id", "links", b"links", "numa_node", b"numa_node"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["bus_id", b"bus_id", "links", b"links", "numa_node", b"numa_node"]
+    ) -> None: ...
 
 global___DeviceLocality = DeviceLocality
 
@@ -125,6 +129,24 @@ class DeviceAttributes(google.protobuf.message.Message):
         xla_global_id: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["locality", b"locality"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["device_type", b"device_type", "incarnation", b"incarnation", "locality", b"locality", "memory_limit", b"memory_limit", "name", b"name", "physical_device_desc", b"physical_device_desc", "xla_global_id", b"xla_global_id"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "device_type",
+            b"device_type",
+            "incarnation",
+            b"incarnation",
+            "locality",
+            b"locality",
+            "memory_limit",
+            b"memory_limit",
+            "name",
+            b"name",
+            "physical_device_desc",
+            b"physical_device_desc",
+            "xla_global_id",
+            b"xla_global_id",
+        ],
+    ) -> None: ...
 
 global___DeviceAttributes = DeviceAttributes

@@ -1,7 +1,7 @@
 import sys
 from abc import abstractmethod
 from time import struct_time
-from typing import ClassVar, Literal, NamedTuple, NoReturn, SupportsIndex, final, overload
+from typing import ClassVar, Final, Literal, NamedTuple, NoReturn, SupportsIndex, final, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.version_info >= (3, 11):
@@ -37,7 +37,7 @@ class timezone(tzinfo):
     def __eq__(self, value: object, /) -> bool: ...
 
 if sys.version_info >= (3, 11):
-    UTC: timezone
+    UTC: Final[timezone]
 
 if sys.version_info >= (3, 9):
     class _IsoCalendarDate(NamedTuple):

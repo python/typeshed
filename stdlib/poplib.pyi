@@ -3,7 +3,7 @@ import ssl
 import sys
 from builtins import list as _list  # conflicts with a method named "list"
 from re import Pattern
-from typing import Any, BinaryIO, Literal, NoReturn, overload
+from typing import Any, BinaryIO, Final, Literal, NoReturn, overload
 from typing_extensions import TypeAlias
 
 __all__ = ["POP3", "error_proto", "POP3_SSL"]
@@ -17,7 +17,7 @@ POP3_SSL_PORT: Literal[995]
 CR: Literal[b"\r"]
 LF: Literal[b"\n"]
 CRLF: Literal[b"\r\n"]
-HAVE_SSL: bool
+HAVE_SSL: Final[bool]
 
 class POP3:
     encoding: str

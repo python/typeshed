@@ -1,6 +1,6 @@
 import sys
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import Any, AnyStr, Generic, Literal, NamedTuple, TypeVar, overload
+from typing import Any, AnyStr, Final, Generic, Literal, NamedTuple, TypeVar, overload
 from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -38,7 +38,7 @@ uses_query: list[str]
 uses_fragment: list[str]
 scheme_chars: str
 if sys.version_info < (3, 11):
-    MAX_CACHE_SIZE: int
+    MAX_CACHE_SIZE: Final[int]
 
 class _ResultMixinStr:
     def encode(self, encoding: str = "ascii", errors: str = "strict") -> _ResultMixinBytes: ...

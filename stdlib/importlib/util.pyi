@@ -5,7 +5,7 @@ import types
 from _typeshed import ReadableBuffer, StrOrBytesPath
 from _typeshed.importlib import LoaderProtocol
 from collections.abc import Callable
-from typing import Any
+from typing import Any, Final
 from typing_extensions import ParamSpec
 
 _P = ParamSpec("_P")
@@ -17,7 +17,7 @@ if sys.version_info < (3, 12):
 
 def resolve_name(name: str, package: str | None) -> str: ...
 
-MAGIC_NUMBER: bytes
+MAGIC_NUMBER: Final[bytes]
 
 def cache_from_source(path: str, debug_override: bool | None = None, *, optimization: Any | None = None) -> str: ...
 def source_from_cache(path: str) -> str: ...

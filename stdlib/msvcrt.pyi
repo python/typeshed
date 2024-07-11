@@ -9,10 +9,10 @@ if sys.platform == "win32":
     LK_NBLCK: Literal[2]
     LK_RLCK: Literal[3]
     LK_NBRLCK: Literal[4]
-    SEM_FAILCRITICALERRORS: int
-    SEM_NOALIGNMENTFAULTEXCEPT: int
-    SEM_NOGPFAULTERRORBOX: int
-    SEM_NOOPENFILEERRORBOX: int
+    SEM_FAILCRITICALERRORS: Final[int]
+    SEM_NOALIGNMENTFAULTEXCEPT: Final[int]
+    SEM_NOGPFAULTERRORBOX: Final[int]
+    SEM_NOOPENFILEERRORBOX: Final[int]
     def locking(fd: int, mode: int, nbytes: int, /) -> None: ...
     def setmode(fd: int, mode: int, /) -> int: ...
     def open_osfhandle(handle: int, flags: int, /) -> int: ...

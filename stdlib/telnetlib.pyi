@@ -2,89 +2,89 @@ import socket
 from collections.abc import Callable, Sequence
 from re import Match, Pattern
 from types import TracebackType
-from typing import Any
+from typing import Any, Final
 from typing_extensions import Self
 
 __all__ = ["Telnet"]
 
-DEBUGLEVEL: int
-TELNET_PORT: int
+DEBUGLEVEL: Final[int]
+TELNET_PORT: Final[int]
 
-IAC: bytes
-DONT: bytes
-DO: bytes
-WONT: bytes
-WILL: bytes
+IAC: Final[bytes]
+DONT: Final[bytes]
+DO: Final[bytes]
+WONT: Final[bytes]
+WILL: Final[bytes]
 theNULL: bytes
 
-SE: bytes
-NOP: bytes
-DM: bytes
-BRK: bytes
-IP: bytes
-AO: bytes
-AYT: bytes
-EC: bytes
-EL: bytes
-GA: bytes
-SB: bytes
+SE: Final[bytes]
+NOP: Final[bytes]
+DM: Final[bytes]
+BRK: Final[bytes]
+IP: Final[bytes]
+AO: Final[bytes]
+AYT: Final[bytes]
+EC: Final[bytes]
+EL: Final[bytes]
+GA: Final[bytes]
+SB: Final[bytes]
 
-BINARY: bytes
-ECHO: bytes
-RCP: bytes
-SGA: bytes
-NAMS: bytes
-STATUS: bytes
-TM: bytes
-RCTE: bytes
-NAOL: bytes
-NAOP: bytes
-NAOCRD: bytes
-NAOHTS: bytes
-NAOHTD: bytes
-NAOFFD: bytes
-NAOVTS: bytes
-NAOVTD: bytes
-NAOLFD: bytes
-XASCII: bytes
-LOGOUT: bytes
-BM: bytes
-DET: bytes
-SUPDUP: bytes
-SUPDUPOUTPUT: bytes
-SNDLOC: bytes
-TTYPE: bytes
-EOR: bytes
-TUID: bytes
-OUTMRK: bytes
-TTYLOC: bytes
-VT3270REGIME: bytes
-X3PAD: bytes
-NAWS: bytes
-TSPEED: bytes
-LFLOW: bytes
-LINEMODE: bytes
-XDISPLOC: bytes
-OLD_ENVIRON: bytes
-AUTHENTICATION: bytes
-ENCRYPT: bytes
-NEW_ENVIRON: bytes
+BINARY: Final[bytes]
+ECHO: Final[bytes]
+RCP: Final[bytes]
+SGA: Final[bytes]
+NAMS: Final[bytes]
+STATUS: Final[bytes]
+TM: Final[bytes]
+RCTE: Final[bytes]
+NAOL: Final[bytes]
+NAOP: Final[bytes]
+NAOCRD: Final[bytes]
+NAOHTS: Final[bytes]
+NAOHTD: Final[bytes]
+NAOFFD: Final[bytes]
+NAOVTS: Final[bytes]
+NAOVTD: Final[bytes]
+NAOLFD: Final[bytes]
+XASCII: Final[bytes]
+LOGOUT: Final[bytes]
+BM: Final[bytes]
+DET: Final[bytes]
+SUPDUP: Final[bytes]
+SUPDUPOUTPUT: Final[bytes]
+SNDLOC: Final[bytes]
+TTYPE: Final[bytes]
+EOR: Final[bytes]
+TUID: Final[bytes]
+OUTMRK: Final[bytes]
+TTYLOC: Final[bytes]
+VT3270REGIME: Final[bytes]
+X3PAD: Final[bytes]
+NAWS: Final[bytes]
+TSPEED: Final[bytes]
+LFLOW: Final[bytes]
+LINEMODE: Final[bytes]
+XDISPLOC: Final[bytes]
+OLD_ENVIRON: Final[bytes]
+AUTHENTICATION: Final[bytes]
+ENCRYPT: Final[bytes]
+NEW_ENVIRON: Final[bytes]
 
-TN3270E: bytes
-XAUTH: bytes
-CHARSET: bytes
-RSP: bytes
-COM_PORT_OPTION: bytes
-SUPPRESS_LOCAL_ECHO: bytes
-TLS: bytes
-KERMIT: bytes
-SEND_URL: bytes
-FORWARD_X: bytes
-PRAGMA_LOGON: bytes
-SSPI_LOGON: bytes
-PRAGMA_HEARTBEAT: bytes
-EXOPL: bytes
-NOOPT: bytes
+TN3270E: Final[bytes]
+XAUTH: Final[bytes]
+CHARSET: Final[bytes]
+RSP: Final[bytes]
+COM_PORT_OPTION: Final[bytes]
+SUPPRESS_LOCAL_ECHO: Final[bytes]
+TLS: Final[bytes]
+KERMIT: Final[bytes]
+SEND_URL: Final[bytes]
+FORWARD_X: Final[bytes]
+PRAGMA_LOGON: Final[bytes]
+SSPI_LOGON: Final[bytes]
+PRAGMA_HEARTBEAT: Final[bytes]
+EXOPL: Final[bytes]
+NOOPT: Final[bytes]
 
 class Telnet:
     host: str | None  # undocumented

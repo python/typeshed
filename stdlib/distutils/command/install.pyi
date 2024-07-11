@@ -1,9 +1,9 @@
 from collections.abc import Callable
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Final
 
 from ..cmd import Command
 
-HAS_USER_SITE: bool
+HAS_USER_SITE: Final[bool]
 SCHEME_KEYS: tuple[str, ...]
 INSTALL_SCHEMES: dict[str, dict[Any, Any]]
 

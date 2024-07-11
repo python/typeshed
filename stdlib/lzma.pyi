@@ -1,7 +1,7 @@
 from _compression import BaseStream
 from _typeshed import ReadableBuffer, StrOrBytesPath
 from collections.abc import Mapping, Sequence
-from typing import IO, Any, Literal, TextIO, final, overload
+from typing import IO, Any, Final, Literal, TextIO, final, overload
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -60,7 +60,7 @@ CHECK_CRC64: Literal[4]
 CHECK_SHA256: Literal[10]
 CHECK_ID_MAX: Literal[15]
 CHECK_UNKNOWN: Literal[16]
-FILTER_LZMA1: int  # v big number
+FILTER_LZMA1: Final[int]  # v big number
 FILTER_LZMA2: Literal[33]
 FILTER_DELTA: Literal[3]
 FILTER_X86: Literal[4]
@@ -77,7 +77,7 @@ MF_BT4: Literal[20]
 MODE_FAST: Literal[1]
 MODE_NORMAL: Literal[2]
 PRESET_DEFAULT: Literal[6]
-PRESET_EXTREME: int  # v big number
+PRESET_EXTREME: Final[int]  # v big number
 
 # from _lzma.c
 @final

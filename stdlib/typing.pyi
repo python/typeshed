@@ -21,6 +21,7 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
+from typing import Final
 from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, deprecated
 
 if sys.version_info >= (3, 9):
@@ -755,7 +756,7 @@ class MutableMapping(Mapping[_KT, _VT]):
 
 Text = str
 
-TYPE_CHECKING: bool
+TYPE_CHECKING: Final[bool]
 
 # In stubs, the arguments of the IO class are marked as positional-only.
 # This differs from runtime, but better reflects the fact that in reality

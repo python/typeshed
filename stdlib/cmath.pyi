@@ -1,4 +1,4 @@
-from typing import SupportsComplex, SupportsFloat, SupportsIndex
+from typing import Final, SupportsComplex, SupportsFloat, SupportsIndex
 from typing_extensions import TypeAlias
 
 e: float
@@ -9,7 +9,7 @@ nan: float
 nanj: complex
 tau: float
 
-_C: TypeAlias = SupportsFloat | SupportsComplex | SupportsIndex | complex
+_C: Final[TypeAlias] = SupportsFloat | SupportsComplex | SupportsIndex | complex
 
 def acos(z: _C, /) -> complex: ...
 def acosh(z: _C, /) -> complex: ...

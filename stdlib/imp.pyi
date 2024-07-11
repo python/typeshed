@@ -13,18 +13,18 @@ from _imp import (
 from _typeshed import StrPath
 from os import PathLike
 from types import TracebackType
-from typing import IO, Any, Protocol
+from typing import IO, Any, Final, Protocol
 
-SEARCH_ERROR: int
-PY_SOURCE: int
-PY_COMPILED: int
-C_EXTENSION: int
-PY_RESOURCE: int
-PKG_DIRECTORY: int
-C_BUILTIN: int
-PY_FROZEN: int
-PY_CODERESOURCE: int
-IMP_HOOK: int
+SEARCH_ERROR: Final[int]
+PY_SOURCE: Final[int]
+PY_COMPILED: Final[int]
+C_EXTENSION: Final[int]
+PY_RESOURCE: Final[int]
+PKG_DIRECTORY: Final[int]
+C_BUILTIN: Final[int]
+PY_FROZEN: Final[int]
+PY_CODERESOURCE: Final[int]
+IMP_HOOK: Final[int]
 
 def new_module(name: str) -> types.ModuleType: ...
 def get_magic() -> bytes: ...

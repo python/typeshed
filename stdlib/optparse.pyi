@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import IO, Any, AnyStr, Literal, overload
+from typing import IO, Any, AnyStr, Final, Literal, overload
 
 __all__ = [
     "Option",
@@ -24,8 +24,8 @@ __all__ = [
 ]
 
 NO_DEFAULT: tuple[str, ...]
-SUPPRESS_HELP: str
-SUPPRESS_USAGE: str
+SUPPRESS_HELP: Final[str]
+SUPPRESS_USAGE: Final[str]
 
 def check_builtin(option: Option, opt, value: str): ...
 def check_choice(option: Option, opt, value: str) -> str: ...

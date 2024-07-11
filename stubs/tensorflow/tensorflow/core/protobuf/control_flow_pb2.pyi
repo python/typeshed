@@ -78,8 +78,12 @@ class ControlFlowContextDef(google.protobuf.message.Message):
         cond_ctxt: global___CondContextDef | None = ...,
         while_ctxt: global___WhileContextDef | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["cond_ctxt", b"cond_ctxt", "ctxt", b"ctxt", "while_ctxt", b"while_ctxt"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["cond_ctxt", b"cond_ctxt", "ctxt", b"ctxt", "while_ctxt", b"while_ctxt"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["cond_ctxt", b"cond_ctxt", "ctxt", b"ctxt", "while_ctxt", b"while_ctxt"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["cond_ctxt", b"cond_ctxt", "ctxt", b"ctxt", "while_ctxt", b"while_ctxt"]
+    ) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["ctxt", b"ctxt"]) -> typing.Literal["cond_ctxt", "while_ctxt"] | None: ...
 
 global___ControlFlowContextDef = ControlFlowContextDef
@@ -109,7 +113,9 @@ class CondContextDef(google.protobuf.message.Message):
         """Values and external values in control flow context."""
 
     @property
-    def nested_contexts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ControlFlowContextDef]:
+    def nested_contexts(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ControlFlowContextDef]:
         """Contexts contained inside this context (e.g. nested conds)."""
 
     def __init__(
@@ -123,7 +129,23 @@ class CondContextDef(google.protobuf.message.Message):
         nested_contexts: collections.abc.Iterable[global___ControlFlowContextDef] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["values_def", b"values_def"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["branch", b"branch", "context_name", b"context_name", "nested_contexts", b"nested_contexts", "pivot_name", b"pivot_name", "pred_name", b"pred_name", "values_def", b"values_def"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "branch",
+            b"branch",
+            "context_name",
+            b"context_name",
+            "nested_contexts",
+            b"nested_contexts",
+            "pivot_name",
+            b"pivot_name",
+            "pred_name",
+            b"pred_name",
+            "values_def",
+            b"values_def",
+        ],
+    ) -> None: ...
 
 global___CondContextDef = CondContextDef
 
@@ -174,7 +196,9 @@ class WhileContextDef(google.protobuf.message.Message):
         """Values and external values in control flow context."""
 
     @property
-    def nested_contexts(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ControlFlowContextDef]:
+    def nested_contexts(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ControlFlowContextDef]:
         """Contexts contained inside this context (e.g. nested whiles)."""
 
     def __init__(
@@ -194,6 +218,34 @@ class WhileContextDef(google.protobuf.message.Message):
         nested_contexts: collections.abc.Iterable[global___ControlFlowContextDef] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["values_def", b"values_def"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["back_prop", b"back_prop", "context_name", b"context_name", "loop_enter_names", b"loop_enter_names", "loop_exit_names", b"loop_exit_names", "maximum_iterations_name", b"maximum_iterations_name", "nested_contexts", b"nested_contexts", "parallel_iterations", b"parallel_iterations", "pivot_for_body_name", b"pivot_for_body_name", "pivot_for_pred_name", b"pivot_for_pred_name", "pivot_name", b"pivot_name", "swap_memory", b"swap_memory", "values_def", b"values_def"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "back_prop",
+            b"back_prop",
+            "context_name",
+            b"context_name",
+            "loop_enter_names",
+            b"loop_enter_names",
+            "loop_exit_names",
+            b"loop_exit_names",
+            "maximum_iterations_name",
+            b"maximum_iterations_name",
+            "nested_contexts",
+            b"nested_contexts",
+            "parallel_iterations",
+            b"parallel_iterations",
+            "pivot_for_body_name",
+            b"pivot_for_body_name",
+            "pivot_for_pred_name",
+            b"pivot_for_pred_name",
+            "pivot_name",
+            b"pivot_name",
+            "swap_memory",
+            b"swap_memory",
+            "values_def",
+            b"values_def",
+        ],
+    ) -> None: ...
 
 global___WhileContextDef = WhileContextDef

@@ -57,7 +57,9 @@ class MemoryLogTensorAllocation(google.protobuf.message.Message):
         tensor: tensorflow.core.framework.tensor_description_pb2.TensorDescription | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["tensor", b"tensor"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["kernel_name", b"kernel_name", "step_id", b"step_id", "tensor", b"tensor"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["kernel_name", b"kernel_name", "step_id", b"step_id", "tensor", b"tensor"]
+    ) -> None: ...
 
 global___MemoryLogTensorAllocation = MemoryLogTensorAllocation
 
@@ -79,7 +81,9 @@ class MemoryLogTensorDeallocation(google.protobuf.message.Message):
         allocation_id: builtins.int | None = ...,
         allocator_name: builtins.str | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["allocation_id", b"allocation_id", "allocator_name", b"allocator_name"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["allocation_id", b"allocation_id", "allocator_name", b"allocator_name"]
+    ) -> None: ...
 
 global___MemoryLogTensorDeallocation = MemoryLogTensorDeallocation
 
@@ -112,7 +116,10 @@ class MemoryLogTensorOutput(google.protobuf.message.Message):
         tensor: tensorflow.core.framework.tensor_description_pb2.TensorDescription | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["tensor", b"tensor"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["index", b"index", "kernel_name", b"kernel_name", "step_id", b"step_id", "tensor", b"tensor"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal["index", b"index", "kernel_name", b"kernel_name", "step_id", b"step_id", "tensor", b"tensor"],
+    ) -> None: ...
 
 global___MemoryLogTensorOutput = MemoryLogTensorOutput
 
@@ -150,7 +157,23 @@ class MemoryLogRawAllocation(google.protobuf.message.Message):
         allocation_id: builtins.int | None = ...,
         allocator_name: builtins.str | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["allocation_id", b"allocation_id", "allocator_name", b"allocator_name", "num_bytes", b"num_bytes", "operation", b"operation", "ptr", b"ptr", "step_id", b"step_id"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "allocation_id",
+            b"allocation_id",
+            "allocator_name",
+            b"allocator_name",
+            "num_bytes",
+            b"num_bytes",
+            "operation",
+            b"operation",
+            "ptr",
+            b"ptr",
+            "step_id",
+            b"step_id",
+        ],
+    ) -> None: ...
 
 global___MemoryLogRawAllocation = MemoryLogRawAllocation
 
@@ -186,6 +209,20 @@ class MemoryLogRawDeallocation(google.protobuf.message.Message):
         allocator_name: builtins.str | None = ...,
         deferred: builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["allocation_id", b"allocation_id", "allocator_name", b"allocator_name", "deferred", b"deferred", "operation", b"operation", "step_id", b"step_id"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "allocation_id",
+            b"allocation_id",
+            "allocator_name",
+            b"allocator_name",
+            "deferred",
+            b"deferred",
+            "operation",
+            b"operation",
+            "step_id",
+            b"step_id",
+        ],
+    ) -> None: ...
 
 global___MemoryLogRawDeallocation = MemoryLogRawDeallocation

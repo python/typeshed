@@ -25,7 +25,9 @@ class _DebugGameState:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _DebugGameStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DebugGameState.ValueType], builtins.type):
+class _DebugGameStateEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DebugGameState.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     show_map: _DebugGameState.ValueType  # 1
     control_enemy: _DebugGameState.ValueType  # 2
@@ -99,9 +101,57 @@ class DebugCommand(google.protobuf.message.Message):
         end_game: global___DebugEndGame | None = ...,
         unit_value: global___DebugSetUnitValue | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["command", b"command", "create_unit", b"create_unit", "draw", b"draw", "end_game", b"end_game", "game_state", b"game_state", "kill_unit", b"kill_unit", "score", b"score", "test_process", b"test_process", "unit_value", b"unit_value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["command", b"command", "create_unit", b"create_unit", "draw", b"draw", "end_game", b"end_game", "game_state", b"game_state", "kill_unit", b"kill_unit", "score", b"score", "test_process", b"test_process", "unit_value", b"unit_value"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["command", b"command"]) -> typing.Literal["draw", "game_state", "create_unit", "kill_unit", "test_process", "score", "end_game", "unit_value"] | None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "command",
+            b"command",
+            "create_unit",
+            b"create_unit",
+            "draw",
+            b"draw",
+            "end_game",
+            b"end_game",
+            "game_state",
+            b"game_state",
+            "kill_unit",
+            b"kill_unit",
+            "score",
+            b"score",
+            "test_process",
+            b"test_process",
+            "unit_value",
+            b"unit_value",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "command",
+            b"command",
+            "create_unit",
+            b"create_unit",
+            "draw",
+            b"draw",
+            "end_game",
+            b"end_game",
+            "game_state",
+            b"game_state",
+            "kill_unit",
+            b"kill_unit",
+            "score",
+            b"score",
+            "test_process",
+            b"test_process",
+            "unit_value",
+            b"unit_value",
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing.Literal["command", b"command"]
+    ) -> (
+        typing.Literal["draw", "game_state", "create_unit", "kill_unit", "test_process", "score", "end_game", "unit_value"] | None
+    ): ...
 
 global___DebugCommand = DebugCommand
 
@@ -129,7 +179,9 @@ class DebugDraw(google.protobuf.message.Message):
         boxes: collections.abc.Iterable[global___DebugBox] | None = ...,
         spheres: collections.abc.Iterable[global___DebugSphere] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["boxes", b"boxes", "lines", b"lines", "spheres", b"spheres", "text", b"text"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["boxes", b"boxes", "lines", b"lines", "spheres", b"spheres", "text", b"text"]
+    ) -> None: ...
 
 global___DebugDraw = DebugDraw
 
@@ -210,8 +262,18 @@ class DebugText(google.protobuf.message.Message):
         world_pos: s2clientprotocol.common_pb2.Point | None = ...,
         size: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["color", b"color", "size", b"size", "text", b"text", "virtual_pos", b"virtual_pos", "world_pos", b"world_pos"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["color", b"color", "size", b"size", "text", b"text", "virtual_pos", b"virtual_pos", "world_pos", b"world_pos"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "color", b"color", "size", b"size", "text", b"text", "virtual_pos", b"virtual_pos", "world_pos", b"world_pos"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "color", b"color", "size", b"size", "text", b"text", "virtual_pos", b"virtual_pos", "world_pos", b"world_pos"
+        ],
+    ) -> None: ...
 
 global___DebugText = DebugText
 
@@ -314,8 +376,12 @@ class DebugCreateUnit(google.protobuf.message.Message):
         pos: s2clientprotocol.common_pb2.Point2D | None = ...,
         quantity: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["owner", b"owner", "pos", b"pos", "quantity", b"quantity", "unit_type", b"unit_type"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["owner", b"owner", "pos", b"pos", "quantity", b"quantity", "unit_type", b"unit_type"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["owner", b"owner", "pos", b"pos", "quantity", b"quantity", "unit_type", b"unit_type"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["owner", b"owner", "pos", b"pos", "quantity", b"quantity", "unit_type", b"unit_type"]
+    ) -> None: ...
 
 global___DebugCreateUnit = DebugCreateUnit
 
@@ -343,7 +409,9 @@ class DebugTestProcess(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TestEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugTestProcess._Test.ValueType], builtins.type):
+    class _TestEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugTestProcess._Test.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         hang: DebugTestProcess._Test.ValueType  # 1
         crash: DebugTestProcess._Test.ValueType  # 2
@@ -393,7 +461,9 @@ class DebugEndGame(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _EndResultEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugEndGame._EndResult.ValueType], builtins.type):
+    class _EndResultEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugEndGame._EndResult.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         Surrender: DebugEndGame._EndResult.ValueType  # 1
         """Default if nothing is set. The current player admits defeat."""
@@ -424,7 +494,9 @@ class DebugSetUnitValue(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _UnitValueEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugSetUnitValue._UnitValue.ValueType], builtins.type):
+    class _UnitValueEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugSetUnitValue._UnitValue.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         Energy: DebugSetUnitValue._UnitValue.ValueType  # 1
         Life: DebugSetUnitValue._UnitValue.ValueType  # 2
@@ -448,7 +520,11 @@ class DebugSetUnitValue(google.protobuf.message.Message):
         value: builtins.float | None = ...,
         unit_tag: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["unit_tag", b"unit_tag", "unit_value", b"unit_value", "value", b"value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["unit_tag", b"unit_tag", "unit_value", b"unit_value", "value", b"value"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["unit_tag", b"unit_tag", "unit_value", b"unit_value", "value", b"value"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["unit_tag", b"unit_tag", "unit_value", b"unit_value", "value", b"value"]
+    ) -> None: ...
 
 global___DebugSetUnitValue = DebugSetUnitValue

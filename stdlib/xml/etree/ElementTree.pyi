@@ -2,7 +2,7 @@ import sys
 from _collections_abc import dict_keys
 from _typeshed import FileDescriptorOrPath, ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Callable, Generator, ItemsView, Iterable, Iterator, Mapping, Sequence
-from typing import Any, Literal, SupportsIndex, TypeVar, overload
+from typing import Any, Final, Literal, SupportsIndex, TypeVar, overload
 from typing_extensions import TypeAlias, TypeGuard, deprecated
 
 __all__ = [
@@ -41,7 +41,7 @@ _FileRead: TypeAlias = FileDescriptorOrPath | SupportsRead[bytes] | SupportsRead
 _FileWriteC14N: TypeAlias = FileDescriptorOrPath | SupportsWrite[bytes]
 _FileWrite: TypeAlias = _FileWriteC14N | SupportsWrite[str]
 
-VERSION: str
+VERSION: Final[str]
 
 class ParseError(SyntaxError):
     code: int
@@ -133,7 +133,7 @@ def SubElement(parent: Element, tag: str, attrib: dict[str, str] = ..., **extra:
 def Comment(text: str | None = None) -> Element: ...
 def ProcessingInstruction(target: str, text: str | None = None) -> Element: ...
 
-PI = ProcessingInstruction
+PI: Final = ProcessingInstructionProcessingInstruction
 
 class QName:
     text: str

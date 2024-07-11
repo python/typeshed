@@ -4,7 +4,7 @@ from _typeshed import Unused
 from collections.abc import Callable, Collection, Iterable, Iterator
 from logging import Logger
 from types import TracebackType
-from typing import Any, Generic, Literal, NamedTuple, Protocol, TypeVar
+from typing import Any, Final, Generic, Literal, NamedTuple, Protocol, TypeVar
 from typing_extensions import ParamSpec, Self
 
 if sys.version_info >= (3, 9):
@@ -20,7 +20,7 @@ CANCELLED_AND_NOTIFIED: Literal["CANCELLED_AND_NOTIFIED"]
 FINISHED: Literal["FINISHED"]
 _FUTURE_STATES: list[str]
 _STATE_TO_DESCRIPTION_MAP: dict[str, str]
-LOGGER: Logger
+LOGGER: Final[Logger]
 
 class Error(Exception): ...
 class CancelledError(Error): ...

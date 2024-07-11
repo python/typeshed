@@ -3,7 +3,7 @@ import sys
 from _typeshed import Unused
 from email import _ParamType
 from email.charset import Charset
-from typing import overload
+from typing import Final, overload
 from typing_extensions import TypeAlias, deprecated
 
 __all__ = [
@@ -24,7 +24,7 @@ __all__ = [
     "unquote",
 ]
 
-_PDTZ: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int | None]
+_PDTZ: Final[TypeAlias] = tuple[int, int, int, int, int, int, int, int, int, int | None]
 
 def quote(str: str) -> str: ...
 def unquote(str: str) -> str: ...

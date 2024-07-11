@@ -7,7 +7,7 @@ from re import Pattern
 from socket import socket
 from ssl import SSLContext
 from types import TracebackType
-from typing import Any, Protocol, overload
+from typing import Any, Final, Protocol, overload
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -30,9 +30,9 @@ __all__ = [
 _Reply: TypeAlias = tuple[int, bytes]
 _SendErrs: TypeAlias = dict[str, _Reply]
 
-SMTP_PORT: int
-SMTP_SSL_PORT: int
-CRLF: str
+SMTP_PORT: Final[int]
+SMTP_SSL_PORT: Final[int]
+CRLF: Final[str]
 bCRLF: bytes
 
 OLDSTYLE_AUTH: Pattern[str]
@@ -182,7 +182,7 @@ class SMTP_SSL(SMTP):
             context: SSLContext | None = None,
         ) -> None: ...
 
-LMTP_PORT: int
+LMTP_PORT: Final[int]
 
 class LMTP(SMTP):
     if sys.version_info >= (3, 9):

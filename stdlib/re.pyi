@@ -5,7 +5,7 @@ import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterator, Mapping
 from sre_constants import error as error
-from typing import Any, AnyStr, Generic, Literal, TypeVar, final, overload
+from typing import Any, AnyStr, Final, Generic, Literal, TypeVar, final, overload
 from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -136,7 +136,9 @@ class Pattern(Generic[AnyStr]):
     @overload
     def fullmatch(self: Pattern[str], string: str, pos: int = 0, endpos: int = sys.maxsize) -> Match[str] | None: ...
     @overload
-    def fullmatch(self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize) -> Match[bytes] | None: ...  # type: ignore[overload-overlap]
+    def fullmatch(
+        self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize
+    ) -> Match[bytes] | None: ...  # type: ignore[overload-overlap]
     @overload
     def fullmatch(self, string: AnyStr, pos: int = 0, endpos: int = sys.maxsize) -> Match[AnyStr] | None: ...
     @overload
@@ -155,7 +157,9 @@ class Pattern(Generic[AnyStr]):
     @overload
     def finditer(self: Pattern[str], string: str, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[str]]: ...
     @overload
-    def finditer(self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[bytes]]: ...  # type: ignore[overload-overlap]
+    def finditer(
+        self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize
+    ) -> Iterator[Match[bytes]]: ...  # type: ignore[overload-overlap]
     @overload
     def finditer(self, string: AnyStr, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[AnyStr]]: ...
     @overload
@@ -211,26 +215,26 @@ class RegexFlag(enum.IntFlag):
     if sys.version_info >= (3, 11):
         NOFLAG = 0
 
-A = RegexFlag.A
-ASCII = RegexFlag.ASCII
-DEBUG = RegexFlag.DEBUG
-I = RegexFlag.I
-IGNORECASE = RegexFlag.IGNORECASE
-L = RegexFlag.L
-LOCALE = RegexFlag.LOCALE
-M = RegexFlag.M
-MULTILINE = RegexFlag.MULTILINE
-S = RegexFlag.S
-DOTALL = RegexFlag.DOTALL
-X = RegexFlag.X
-VERBOSE = RegexFlag.VERBOSE
-U = RegexFlag.U
-UNICODE = RegexFlag.UNICODE
+A: Final = RegexFlag.ARegexFlag.A
+ASCII: Final = RegexFlag.ASCIIRegexFlag.ASCII
+DEBUG: Final = RegexFlag.DEBUGRegexFlag.DEBUG
+I: Final = RegexFlag.IRegexFlag.I
+IGNORECASE: Final = RegexFlag.IGNORECASERegexFlag.IGNORECASE
+L: Final = RegexFlag.LRegexFlag.L
+LOCALE: Final = RegexFlag.LOCALERegexFlag.LOCALE
+M: Final = RegexFlag.MRegexFlag.M
+MULTILINE: Final = RegexFlag.MULTILINERegexFlag.MULTILINE
+S: Final = RegexFlag.SRegexFlag.S
+DOTALL: Final = RegexFlag.DOTALLRegexFlag.DOTALL
+X: Final = RegexFlag.XRegexFlag.X
+VERBOSE: Final = RegexFlag.VERBOSERegexFlag.VERBOSE
+U: Final = RegexFlag.URegexFlag.U
+UNICODE: Final = RegexFlag.UNICODERegexFlag.UNICODE
 if sys.version_info < (3, 13):
-    T = RegexFlag.T
-    TEMPLATE = RegexFlag.TEMPLATE
+    T: Final = RegexFlag.TRegexFlag.T
+    TEMPLATE: Final = RegexFlag.TEMPLATERegexFlag.TEMPLATE
 if sys.version_info >= (3, 11):
-    NOFLAG = RegexFlag.NOFLAG
+    NOFLAG: Final = RegexFlag.NOFLAGRegexFlag.NOFLAG
 _FlagsType: TypeAlias = int | RegexFlag
 
 # Type-wise the compile() overloads are unnecessary, they could also be modeled using

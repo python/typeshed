@@ -1,9 +1,10 @@
 from _typeshed import StrPath
+from typing import Final
 from typing_extensions import Self, TypeAlias
 
 _Label: TypeAlias = tuple[int, str | None]
-_DFA: TypeAlias = list[list[tuple[int, int]]]
-_DFAS: TypeAlias = tuple[_DFA, dict[int, int]]
+_DFA: Final[TypeAlias] = list[list[tuple[int, int]]]
+_DFAS: Final[TypeAlias] = tuple[_DFA, dict[int, int]]
 
 class Grammar:
     symbol2number: dict[str, int]

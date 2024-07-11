@@ -88,7 +88,12 @@ class GPUOptions(google.protobuf.message.Message):
                 priority: collections.abc.Iterable[builtins.int] | None = ...,
                 device_ordinal: collections.abc.Iterable[builtins.int] | None = ...,
             ) -> None: ...
-            def ClearField(self, field_name: typing.Literal["device_ordinal", b"device_ordinal", "memory_limit_mb", b"memory_limit_mb", "priority", b"priority"]) -> None: ...
+            def ClearField(
+                self,
+                field_name: typing.Literal[
+                    "device_ordinal", b"device_ordinal", "memory_limit_mb", b"memory_limit_mb", "priority", b"priority"
+                ],
+            ) -> None: ...
 
         VIRTUAL_DEVICES_FIELD_NUMBER: builtins.int
         NUM_VIRTUAL_DEVICES_PER_GPU_FIELD_NUMBER: builtins.int
@@ -201,7 +206,9 @@ class GPUOptions(google.protobuf.message.Message):
         gpu with multiple model) use case.
         """
         @property
-        def virtual_devices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GPUOptions.Experimental.VirtualDevices]:
+        def virtual_devices(
+            self,
+        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GPUOptions.Experimental.VirtualDevices]:
             """The multi virtual device settings. If empty (not set), it will create
             single virtual device on each visible GPU, according to the settings
             in "visible_device_list" above. Otherwise, the number of elements in the
@@ -261,7 +268,41 @@ class GPUOptions(google.protobuf.message.Message):
             gpu_host_mem_disallow_growth: builtins.bool | None = ...,
             gpu_system_memory_size_in_mb: builtins.int | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["collective_ring_order", b"collective_ring_order", "disallow_retry_on_allocation_failure", b"disallow_retry_on_allocation_failure", "gpu_host_mem_disallow_growth", b"gpu_host_mem_disallow_growth", "gpu_host_mem_limit_in_mb", b"gpu_host_mem_limit_in_mb", "gpu_system_memory_size_in_mb", b"gpu_system_memory_size_in_mb", "internal_fragmentation_fraction", b"internal_fragmentation_fraction", "kernel_tracker_max_bytes", b"kernel_tracker_max_bytes", "kernel_tracker_max_interval", b"kernel_tracker_max_interval", "kernel_tracker_max_pending", b"kernel_tracker_max_pending", "num_dev_to_dev_copy_streams", b"num_dev_to_dev_copy_streams", "num_virtual_devices_per_gpu", b"num_virtual_devices_per_gpu", "timestamped_allocator", b"timestamped_allocator", "use_cuda_malloc_async", b"use_cuda_malloc_async", "use_unified_memory", b"use_unified_memory", "virtual_devices", b"virtual_devices"]) -> None: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "collective_ring_order",
+                b"collective_ring_order",
+                "disallow_retry_on_allocation_failure",
+                b"disallow_retry_on_allocation_failure",
+                "gpu_host_mem_disallow_growth",
+                b"gpu_host_mem_disallow_growth",
+                "gpu_host_mem_limit_in_mb",
+                b"gpu_host_mem_limit_in_mb",
+                "gpu_system_memory_size_in_mb",
+                b"gpu_system_memory_size_in_mb",
+                "internal_fragmentation_fraction",
+                b"internal_fragmentation_fraction",
+                "kernel_tracker_max_bytes",
+                b"kernel_tracker_max_bytes",
+                "kernel_tracker_max_interval",
+                b"kernel_tracker_max_interval",
+                "kernel_tracker_max_pending",
+                b"kernel_tracker_max_pending",
+                "num_dev_to_dev_copy_streams",
+                b"num_dev_to_dev_copy_streams",
+                "num_virtual_devices_per_gpu",
+                b"num_virtual_devices_per_gpu",
+                "timestamped_allocator",
+                b"timestamped_allocator",
+                "use_cuda_malloc_async",
+                b"use_cuda_malloc_async",
+                "use_unified_memory",
+                b"use_unified_memory",
+                "virtual_devices",
+                b"virtual_devices",
+            ],
+        ) -> None: ...
 
     PER_PROCESS_GPU_MEMORY_FRACTION_FIELD_NUMBER: builtins.int
     ALLOW_GROWTH_FIELD_NUMBER: builtins.int
@@ -373,7 +414,29 @@ class GPUOptions(google.protobuf.message.Message):
         experimental: global___GPUOptions.Experimental | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["experimental", b"experimental"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["allocator_type", b"allocator_type", "allow_growth", b"allow_growth", "deferred_deletion_bytes", b"deferred_deletion_bytes", "experimental", b"experimental", "force_gpu_compatible", b"force_gpu_compatible", "per_process_gpu_memory_fraction", b"per_process_gpu_memory_fraction", "polling_active_delay_usecs", b"polling_active_delay_usecs", "polling_inactive_delay_msecs", b"polling_inactive_delay_msecs", "visible_device_list", b"visible_device_list"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "allocator_type",
+            b"allocator_type",
+            "allow_growth",
+            b"allow_growth",
+            "deferred_deletion_bytes",
+            b"deferred_deletion_bytes",
+            "experimental",
+            b"experimental",
+            "force_gpu_compatible",
+            b"force_gpu_compatible",
+            "per_process_gpu_memory_fraction",
+            b"per_process_gpu_memory_fraction",
+            "polling_active_delay_usecs",
+            b"polling_active_delay_usecs",
+            "polling_inactive_delay_msecs",
+            b"polling_inactive_delay_msecs",
+            "visible_device_list",
+            b"visible_device_list",
+        ],
+    ) -> None: ...
 
 global___GPUOptions = GPUOptions
 
@@ -387,7 +450,9 @@ class OptimizerOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _LevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._Level.ValueType], builtins.type):
+    class _LevelEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._Level.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         L1: OptimizerOptions._Level.ValueType  # 0
         """L1 is the default level.
@@ -414,7 +479,9 @@ class OptimizerOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _GlobalJitLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._GlobalJitLevel.ValueType], builtins.type):
+    class _GlobalJitLevelEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OptimizerOptions._GlobalJitLevel.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT: OptimizerOptions._GlobalJitLevel.ValueType  # 0
         """Default setting ("off" now, but later expected to be "on")"""
@@ -489,7 +556,25 @@ class OptimizerOptions(google.protobuf.message.Message):
         global_jit_level: global___OptimizerOptions.GlobalJitLevel.ValueType | None = ...,
         cpu_global_jit: builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["cpu_global_jit", b"cpu_global_jit", "do_common_subexpression_elimination", b"do_common_subexpression_elimination", "do_constant_folding", b"do_constant_folding", "do_function_inlining", b"do_function_inlining", "global_jit_level", b"global_jit_level", "max_folded_constant_in_bytes", b"max_folded_constant_in_bytes", "opt_level", b"opt_level"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "cpu_global_jit",
+            b"cpu_global_jit",
+            "do_common_subexpression_elimination",
+            b"do_common_subexpression_elimination",
+            "do_constant_folding",
+            b"do_constant_folding",
+            "do_function_inlining",
+            b"do_function_inlining",
+            "global_jit_level",
+            b"global_jit_level",
+            "max_folded_constant_in_bytes",
+            b"max_folded_constant_in_bytes",
+            "opt_level",
+            b"opt_level",
+        ],
+    ) -> None: ...
 
 global___OptimizerOptions = OptimizerOptions
 
@@ -562,8 +647,32 @@ class GraphOptions(google.protobuf.message.Message):
         timeline_step: builtins.int | None = ...,
         rewrite_options: tensorflow.core.protobuf.rewriter_config_pb2.RewriterConfig | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["optimizer_options", b"optimizer_options", "rewrite_options", b"rewrite_options"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["build_cost_model", b"build_cost_model", "build_cost_model_after", b"build_cost_model_after", "enable_bfloat16_sendrecv", b"enable_bfloat16_sendrecv", "enable_recv_scheduling", b"enable_recv_scheduling", "infer_shapes", b"infer_shapes", "optimizer_options", b"optimizer_options", "place_pruned_graph", b"place_pruned_graph", "rewrite_options", b"rewrite_options", "timeline_step", b"timeline_step"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["optimizer_options", b"optimizer_options", "rewrite_options", b"rewrite_options"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "build_cost_model",
+            b"build_cost_model",
+            "build_cost_model_after",
+            b"build_cost_model_after",
+            "enable_bfloat16_sendrecv",
+            b"enable_bfloat16_sendrecv",
+            "enable_recv_scheduling",
+            b"enable_recv_scheduling",
+            "infer_shapes",
+            b"infer_shapes",
+            "optimizer_options",
+            b"optimizer_options",
+            "place_pruned_graph",
+            b"place_pruned_graph",
+            "rewrite_options",
+            b"rewrite_options",
+            "timeline_step",
+            b"timeline_step",
+        ],
+    ) -> None: ...
 
 global___GraphOptions = GraphOptions
 
@@ -672,7 +781,10 @@ class ConfigProto(google.protobuf.message.Message):
             ValueType = typing.NewType("ValueType", builtins.int)
             V: typing_extensions.TypeAlias = ValueType
 
-        class _MlirBridgeRolloutEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConfigProto.Experimental._MlirBridgeRollout.ValueType], builtins.type):
+        class _MlirBridgeRolloutEnumTypeWrapper(
+            google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ConfigProto.Experimental._MlirBridgeRollout.ValueType],
+            builtins.type,
+        ):
             DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
             MLIR_BRIDGE_ROLLOUT_UNSPECIFIED: ConfigProto.Experimental._MlirBridgeRollout.ValueType  # 0
             """If this field is left unspecified, the MLIR bridge may be selectively
@@ -912,8 +1024,69 @@ class ConfigProto(google.protobuf.message.Message):
             disable_optimize_for_static_graph: builtins.bool | None = ...,
             disable_eager_executor_streaming_enqueue: builtins.bool | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["coordination_config", b"coordination_config", "session_metadata", b"session_metadata"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["backend_server_port", b"backend_server_port", "collective_deterministic_sequential_execution", b"collective_deterministic_sequential_execution", "collective_group_leader", b"collective_group_leader", "collective_nccl", b"collective_nccl", "coordination_config", b"coordination_config", "disable_eager_executor_streaming_enqueue", b"disable_eager_executor_streaming_enqueue", "disable_functional_ops_lowering", b"disable_functional_ops_lowering", "disable_optimize_for_static_graph", b"disable_optimize_for_static_graph", "disable_output_partition_graphs", b"disable_output_partition_graphs", "disable_thread_spinning", b"disable_thread_spinning", "enable_mlir_bridge", b"enable_mlir_bridge", "enable_mlir_graph_optimization", b"enable_mlir_graph_optimization", "enable_multi_host", b"enable_multi_host", "executor_type", b"executor_type", "mlir_bridge_rollout", b"mlir_bridge_rollout", "optimize_for_static_graph", b"optimize_for_static_graph", "recv_buf_max_chunk", b"recv_buf_max_chunk", "session_metadata", b"session_metadata", "share_cluster_devices_in_session", b"share_cluster_devices_in_session", "share_session_state_in_clusterspec_propagation", b"share_session_state_in_clusterspec_propagation", "stream_merge_threshold", b"stream_merge_threshold", "target_gpu", b"target_gpu", "target_tpu", b"target_tpu", "use_numa_affinity", b"use_numa_affinity", "use_tfrt", b"use_tfrt", "xla_fusion_autotuner_thresh", b"xla_fusion_autotuner_thresh", "xla_prefer_single_graph_cluster", b"xla_prefer_single_graph_cluster"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal["coordination_config", b"coordination_config", "session_metadata", b"session_metadata"],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "backend_server_port",
+                b"backend_server_port",
+                "collective_deterministic_sequential_execution",
+                b"collective_deterministic_sequential_execution",
+                "collective_group_leader",
+                b"collective_group_leader",
+                "collective_nccl",
+                b"collective_nccl",
+                "coordination_config",
+                b"coordination_config",
+                "disable_eager_executor_streaming_enqueue",
+                b"disable_eager_executor_streaming_enqueue",
+                "disable_functional_ops_lowering",
+                b"disable_functional_ops_lowering",
+                "disable_optimize_for_static_graph",
+                b"disable_optimize_for_static_graph",
+                "disable_output_partition_graphs",
+                b"disable_output_partition_graphs",
+                "disable_thread_spinning",
+                b"disable_thread_spinning",
+                "enable_mlir_bridge",
+                b"enable_mlir_bridge",
+                "enable_mlir_graph_optimization",
+                b"enable_mlir_graph_optimization",
+                "enable_multi_host",
+                b"enable_multi_host",
+                "executor_type",
+                b"executor_type",
+                "mlir_bridge_rollout",
+                b"mlir_bridge_rollout",
+                "optimize_for_static_graph",
+                b"optimize_for_static_graph",
+                "recv_buf_max_chunk",
+                b"recv_buf_max_chunk",
+                "session_metadata",
+                b"session_metadata",
+                "share_cluster_devices_in_session",
+                b"share_cluster_devices_in_session",
+                "share_session_state_in_clusterspec_propagation",
+                b"share_session_state_in_clusterspec_propagation",
+                "stream_merge_threshold",
+                b"stream_merge_threshold",
+                "target_gpu",
+                b"target_gpu",
+                "target_tpu",
+                b"target_tpu",
+                "use_numa_affinity",
+                b"use_numa_affinity",
+                "use_tfrt",
+                b"use_tfrt",
+                "xla_fusion_autotuner_thresh",
+                b"xla_fusion_autotuner_thresh",
+                "xla_prefer_single_graph_cluster",
+                b"xla_prefer_single_graph_cluster",
+            ],
+        ) -> None: ...
 
     DEVICE_COUNT_FIELD_NUMBER: builtins.int
     INTRA_OP_PARALLELISM_THREADS_FIELD_NUMBER: builtins.int
@@ -1011,7 +1184,9 @@ class ConfigProto(google.protobuf.message.Message):
         """
 
     @property
-    def session_inter_op_thread_pool(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ThreadPoolOptionProto]:
+    def session_inter_op_thread_pool(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ThreadPoolOptionProto]:
         """This option is experimental - it may be replaced with a different mechanism
         in the future.
 
@@ -1079,8 +1254,60 @@ class ConfigProto(google.protobuf.message.Message):
         share_cluster_devices_in_session: builtins.bool | None = ...,
         experimental: global___ConfigProto.Experimental | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["cluster_def", b"cluster_def", "experimental", b"experimental", "gpu_options", b"gpu_options", "graph_options", b"graph_options", "rpc_options", b"rpc_options"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["allow_soft_placement", b"allow_soft_placement", "cluster_def", b"cluster_def", "device_count", b"device_count", "device_filters", b"device_filters", "experimental", b"experimental", "gpu_options", b"gpu_options", "graph_options", b"graph_options", "inter_op_parallelism_threads", b"inter_op_parallelism_threads", "intra_op_parallelism_threads", b"intra_op_parallelism_threads", "isolate_session_state", b"isolate_session_state", "log_device_placement", b"log_device_placement", "operation_timeout_in_ms", b"operation_timeout_in_ms", "placement_period", b"placement_period", "rpc_options", b"rpc_options", "session_inter_op_thread_pool", b"session_inter_op_thread_pool", "share_cluster_devices_in_session", b"share_cluster_devices_in_session", "use_per_session_threads", b"use_per_session_threads"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "cluster_def",
+            b"cluster_def",
+            "experimental",
+            b"experimental",
+            "gpu_options",
+            b"gpu_options",
+            "graph_options",
+            b"graph_options",
+            "rpc_options",
+            b"rpc_options",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "allow_soft_placement",
+            b"allow_soft_placement",
+            "cluster_def",
+            b"cluster_def",
+            "device_count",
+            b"device_count",
+            "device_filters",
+            b"device_filters",
+            "experimental",
+            b"experimental",
+            "gpu_options",
+            b"gpu_options",
+            "graph_options",
+            b"graph_options",
+            "inter_op_parallelism_threads",
+            b"inter_op_parallelism_threads",
+            "intra_op_parallelism_threads",
+            b"intra_op_parallelism_threads",
+            "isolate_session_state",
+            b"isolate_session_state",
+            "log_device_placement",
+            b"log_device_placement",
+            "operation_timeout_in_ms",
+            b"operation_timeout_in_ms",
+            "placement_period",
+            b"placement_period",
+            "rpc_options",
+            b"rpc_options",
+            "session_inter_op_thread_pool",
+            b"session_inter_op_thread_pool",
+            "share_cluster_devices_in_session",
+            b"share_cluster_devices_in_session",
+            "use_per_session_threads",
+            b"use_per_session_threads",
+        ],
+    ) -> None: ...
 
 global___ConfigProto = ConfigProto
 
@@ -1094,7 +1321,9 @@ class RunOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TraceLevelEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RunOptions._TraceLevel.ValueType], builtins.type):
+    class _TraceLevelEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[RunOptions._TraceLevel.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         NO_TRACE: RunOptions._TraceLevel.ValueType  # 0
         SOFTWARE_TRACE: RunOptions._TraceLevel.ValueType  # 1
@@ -1162,8 +1391,20 @@ class RunOptions(google.protobuf.message.Message):
             use_run_handler_pool: builtins.bool | None = ...,
             run_handler_pool_options: global___RunOptions.Experimental.RunHandlerPoolOptions | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["run_handler_pool_options", b"run_handler_pool_options"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["collective_graph_key", b"collective_graph_key", "run_handler_pool_options", b"run_handler_pool_options", "use_run_handler_pool", b"use_run_handler_pool"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["run_handler_pool_options", b"run_handler_pool_options"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "collective_graph_key",
+                b"collective_graph_key",
+                "run_handler_pool_options",
+                b"run_handler_pool_options",
+                "use_run_handler_pool",
+                b"use_run_handler_pool",
+            ],
+        ) -> None: ...
 
     TRACE_LEVEL_FIELD_NUMBER: builtins.int
     TIMEOUT_IN_MS_FIELD_NUMBER: builtins.int
@@ -1211,8 +1452,28 @@ class RunOptions(google.protobuf.message.Message):
         report_tensor_allocations_upon_oom: builtins.bool | None = ...,
         experimental: global___RunOptions.Experimental | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["debug_options", b"debug_options", "experimental", b"experimental"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["debug_options", b"debug_options", "experimental", b"experimental", "inter_op_thread_pool", b"inter_op_thread_pool", "output_partition_graphs", b"output_partition_graphs", "report_tensor_allocations_upon_oom", b"report_tensor_allocations_upon_oom", "timeout_in_ms", b"timeout_in_ms", "trace_level", b"trace_level"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["debug_options", b"debug_options", "experimental", b"experimental"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "debug_options",
+            b"debug_options",
+            "experimental",
+            b"experimental",
+            "inter_op_thread_pool",
+            b"inter_op_thread_pool",
+            "output_partition_graphs",
+            b"output_partition_graphs",
+            "report_tensor_allocations_upon_oom",
+            b"report_tensor_allocations_upon_oom",
+            "timeout_in_ms",
+            b"timeout_in_ms",
+            "trace_level",
+            b"trace_level",
+        ],
+    ) -> None: ...
 
 global___RunOptions = RunOptions
 
@@ -1230,7 +1491,9 @@ class RunMetadata(google.protobuf.message.Message):
         PRE_OPTIMIZATION_GRAPH_FIELD_NUMBER: builtins.int
         POST_OPTIMIZATION_GRAPH_FIELD_NUMBER: builtins.int
         @property
-        def partition_graphs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.graph_pb2.GraphDef]:
+        def partition_graphs(
+            self,
+        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.graph_pb2.GraphDef]:
             """TODO(nareshmodi): Include some sort of function/cache-key identifier?"""
 
         @property
@@ -1244,8 +1507,23 @@ class RunMetadata(google.protobuf.message.Message):
             pre_optimization_graph: tensorflow.core.framework.graph_pb2.GraphDef | None = ...,
             post_optimization_graph: tensorflow.core.framework.graph_pb2.GraphDef | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["post_optimization_graph", b"post_optimization_graph", "pre_optimization_graph", b"pre_optimization_graph"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["partition_graphs", b"partition_graphs", "post_optimization_graph", b"post_optimization_graph", "pre_optimization_graph", b"pre_optimization_graph"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "post_optimization_graph", b"post_optimization_graph", "pre_optimization_graph", b"pre_optimization_graph"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "partition_graphs",
+                b"partition_graphs",
+                "post_optimization_graph",
+                b"post_optimization_graph",
+                "pre_optimization_graph",
+                b"pre_optimization_graph",
+            ],
+        ) -> None: ...
 
     STEP_STATS_FIELD_NUMBER: builtins.int
     COST_GRAPH_FIELD_NUMBER: builtins.int
@@ -1264,11 +1542,15 @@ class RunMetadata(google.protobuf.message.Message):
         """The cost graph for the computation defined by the run call."""
 
     @property
-    def partition_graphs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.graph_pb2.GraphDef]:
+    def partition_graphs(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.graph_pb2.GraphDef]:
         """Graphs of the partitions executed by executors."""
 
     @property
-    def function_graphs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RunMetadata.FunctionGraphs]:
+    def function_graphs(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RunMetadata.FunctionGraphs]:
         """This is only populated for graphs that are run as functions in TensorFlow
         V2. There will be an entry below for each function that is traced.
         The main use cases of the post_optimization_graph and the partition_graphs
@@ -1294,8 +1576,27 @@ class RunMetadata(google.protobuf.message.Message):
         function_graphs: collections.abc.Iterable[global___RunMetadata.FunctionGraphs] | None = ...,
         session_metadata: global___SessionMetadata | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["cost_graph", b"cost_graph", "session_metadata", b"session_metadata", "step_stats", b"step_stats"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["cost_graph", b"cost_graph", "function_graphs", b"function_graphs", "partition_graphs", b"partition_graphs", "session_metadata", b"session_metadata", "step_stats", b"step_stats"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "cost_graph", b"cost_graph", "session_metadata", b"session_metadata", "step_stats", b"step_stats"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "cost_graph",
+            b"cost_graph",
+            "function_graphs",
+            b"function_graphs",
+            "partition_graphs",
+            b"partition_graphs",
+            "session_metadata",
+            b"session_metadata",
+            "step_stats",
+            b"step_stats",
+        ],
+    ) -> None: ...
 
 global___RunMetadata = RunMetadata
 
@@ -1481,6 +1782,26 @@ class CallableOptions(google.protobuf.message.Message):
         fetch_skip_sync: builtins.bool | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["run_options", b"run_options"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["feed", b"feed", "feed_devices", b"feed_devices", "fetch", b"fetch", "fetch_devices", b"fetch_devices", "fetch_skip_sync", b"fetch_skip_sync", "run_options", b"run_options", "target", b"target", "tensor_connection", b"tensor_connection"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "feed",
+            b"feed",
+            "feed_devices",
+            b"feed_devices",
+            "fetch",
+            b"fetch",
+            "fetch_devices",
+            b"fetch_devices",
+            "fetch_skip_sync",
+            b"fetch_skip_sync",
+            "run_options",
+            b"run_options",
+            "target",
+            b"target",
+            "tensor_connection",
+            b"tensor_connection",
+        ],
+    ) -> None: ...
 
 global___CallableOptions = CallableOptions

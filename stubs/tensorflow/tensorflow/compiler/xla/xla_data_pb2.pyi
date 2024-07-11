@@ -38,7 +38,9 @@ class _PrimitiveType:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _PrimitiveTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PrimitiveType.ValueType], builtins.type):
+class _PrimitiveTypeEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PrimitiveType.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     PRIMITIVE_TYPE_INVALID: _PrimitiveType.ValueType  # 0
     """Invalid primitive type to serve as default."""
@@ -247,7 +249,9 @@ class _DimLevelType:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _DimLevelTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DimLevelType.ValueType], builtins.type):
+class _DimLevelTypeEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DimLevelType.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     DIM_DENSE: _DimLevelType.ValueType  # 0
     """The corresponding dimension is Dense, every entry is stored."""
@@ -290,7 +294,9 @@ class _ProfileType:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _ProfileTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ProfileType.ValueType], builtins.type):
+class _ProfileTypeEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ProfileType.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     INVALID: _ProfileType.ValueType  # 0
     WINDOW: _ProfileType.ValueType  # 1
@@ -310,7 +316,9 @@ class _ProfileSource:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _ProfileSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ProfileSource.ValueType], builtins.type):
+class _ProfileSourceEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_ProfileSource.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     PROFILE_SOURCE_UNKNOWN_SOURCE: _ProfileSource.ValueType  # 0
     PROFILE_SOURCE_EMBEDDED: _ProfileSource.ValueType  # 1
@@ -328,7 +336,9 @@ class _CompilationEvent:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _CompilationEventEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CompilationEvent.ValueType], builtins.type):
+class _CompilationEventEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CompilationEvent.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     COMPILATION_EVENT_UNKNOWN_EVENT: _CompilationEvent.ValueType  # 0
     COMPILATION_EVENT_FIRST_COMPILATION: _CompilationEvent.ValueType  # 1
@@ -346,7 +356,9 @@ class _PaddingType:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _PaddingTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PaddingType.ValueType], builtins.type):
+class _PaddingTypeEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_PaddingType.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     PADDING_INVALID: _PaddingType.ValueType  # 0
     PADDING_VALID: _PaddingType.ValueType  # 1
@@ -394,7 +406,9 @@ class _SparsityType:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _SparsityTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SparsityType.ValueType], builtins.type):
+class _SparsityTypeEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_SparsityType.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     SPARSITY_INVALID: _SparsityType.ValueType  # 0
     SPARSITY_STRUCTURED_N_M: _SparsityType.ValueType  # 1
@@ -411,7 +425,9 @@ class _RandomDistribution:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _RandomDistributionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_RandomDistribution.ValueType], builtins.type):
+class _RandomDistributionEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_RandomDistribution.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     RNG_INVALID: _RandomDistribution.ValueType  # 0
     RNG_UNIFORM: _RandomDistribution.ValueType  # 1
@@ -440,7 +456,9 @@ class _RandomAlgorithm:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _RandomAlgorithmEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_RandomAlgorithm.ValueType], builtins.type):
+class _RandomAlgorithmEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_RandomAlgorithm.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     RNG_DEFAULT: _RandomAlgorithm.ValueType  # 0
     """Backend dependent default algorithm."""
@@ -489,11 +507,23 @@ class PaddingConfig(google.protobuf.message.Message):
             edge_padding_high: builtins.int | None = ...,
             interior_padding: builtins.int | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["edge_padding_high", b"edge_padding_high", "edge_padding_low", b"edge_padding_low", "interior_padding", b"interior_padding"]) -> None: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "edge_padding_high",
+                b"edge_padding_high",
+                "edge_padding_low",
+                b"edge_padding_low",
+                "interior_padding",
+                b"interior_padding",
+            ],
+        ) -> None: ...
 
     DIMENSIONS_FIELD_NUMBER: builtins.int
     @property
-    def dimensions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PaddingConfig.PaddingConfigDimension]:
+    def dimensions(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PaddingConfig.PaddingConfigDimension]:
         """The padding configuration for all dimensions."""
 
     def __init__(
@@ -592,7 +622,9 @@ class LayoutProto(google.protobuf.message.Message):
     dynamic shape, e.g. a result of SliceToDynamic.
     """
     @property
-    def dim_level_types(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___DimLevelType.ValueType]:
+    def dim_level_types(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___DimLevelType.ValueType]:
         """The dimension level type list for this array, specifying the way in which
         each array dimension is represented in memory. If this list is empty, the
         array is assumed to be dense.
@@ -649,7 +681,35 @@ class LayoutProto(google.protobuf.message.Message):
         dynamic_shape_metadata_prefix_bytes: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["physical_shape", b"physical_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["dim_level_types", b"dim_level_types", "dim_ordered", b"dim_ordered", "dim_unique", b"dim_unique", "dynamic_shape_metadata_prefix_bytes", b"dynamic_shape_metadata_prefix_bytes", "element_size_in_bits", b"element_size_in_bits", "index_primitive_type", b"index_primitive_type", "memory_space", b"memory_space", "minor_to_major", b"minor_to_major", "physical_shape", b"physical_shape", "pointer_primitive_type", b"pointer_primitive_type", "tail_padding_alignment_in_elements", b"tail_padding_alignment_in_elements", "tiles", b"tiles"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "dim_level_types",
+            b"dim_level_types",
+            "dim_ordered",
+            b"dim_ordered",
+            "dim_unique",
+            b"dim_unique",
+            "dynamic_shape_metadata_prefix_bytes",
+            b"dynamic_shape_metadata_prefix_bytes",
+            "element_size_in_bits",
+            b"element_size_in_bits",
+            "index_primitive_type",
+            b"index_primitive_type",
+            "memory_space",
+            b"memory_space",
+            "minor_to_major",
+            b"minor_to_major",
+            "physical_shape",
+            b"physical_shape",
+            "pointer_primitive_type",
+            b"pointer_primitive_type",
+            "tail_padding_alignment_in_elements",
+            b"tail_padding_alignment_in_elements",
+            "tiles",
+            b"tiles",
+        ],
+    ) -> None: ...
 
 global___LayoutProto = LayoutProto
 
@@ -713,7 +773,21 @@ class ShapeProto(google.protobuf.message.Message):
         is_dynamic_dimension: collections.abc.Iterable[builtins.bool] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["layout", b"layout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["dimensions", b"dimensions", "element_type", b"element_type", "is_dynamic_dimension", b"is_dynamic_dimension", "layout", b"layout", "tuple_shapes", b"tuple_shapes"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "dimensions",
+            b"dimensions",
+            "element_type",
+            b"element_type",
+            "is_dynamic_dimension",
+            b"is_dynamic_dimension",
+            "layout",
+            b"layout",
+            "tuple_shapes",
+            b"tuple_shapes",
+        ],
+    ) -> None: ...
 
 global___ShapeProto = ShapeProto
 
@@ -742,7 +816,9 @@ class ProgramShapeProto(google.protobuf.message.Message):
         parameter_names: collections.abc.Iterable[builtins.str] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["result", b"result"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["parameter_names", b"parameter_names", "parameters", b"parameters", "result", b"result"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["parameter_names", b"parameter_names", "parameters", b"parameters", "result", b"result"]
+    ) -> None: ...
 
 global___ProgramShapeProto = ProgramShapeProto
 
@@ -764,7 +840,9 @@ class ComputationStats(google.protobuf.message.Message):
         flop_count: builtins.float | None = ...,
         transcendental_count: builtins.float | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["flop_count", b"flop_count", "transcendental_count", b"transcendental_count"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["flop_count", b"flop_count", "transcendental_count", b"transcendental_count"]
+    ) -> None: ...
 
 global___ComputationStats = ComputationStats
 
@@ -797,7 +875,9 @@ class OpMetadata(google.protobuf.message.Message):
         compilation_event: global___CompilationEvent.ValueType
         """The compilation event that triggered the use of the profiles."""
         @property
-        def profile_type(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___ProfileType.ValueType]:
+        def profile_type(
+            self,
+        ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___ProfileType.ValueType]:
             """The type of optimization profiles that this operation contains."""
 
         def __init__(
@@ -808,7 +888,19 @@ class OpMetadata(google.protobuf.message.Message):
             profile_source: global___ProfileSource.ValueType | None = ...,
             compilation_event: global___CompilationEvent.ValueType | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["compilation_event", b"compilation_event", "profile_source", b"profile_source", "profile_type", b"profile_type", "relative_speedup", b"relative_speedup"]) -> None: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "compilation_event",
+                b"compilation_event",
+                "profile_source",
+                b"profile_source",
+                "profile_type",
+                b"profile_type",
+                "relative_speedup",
+                b"relative_speedup",
+            ],
+        ) -> None: ...
 
     OP_TYPE_FIELD_NUMBER: builtins.int
     OP_NAME_FIELD_NUMBER: builtins.int
@@ -901,7 +993,37 @@ class OpMetadata(google.protobuf.message.Message):
         stack_frame_id: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["profile_info", b"profile_info"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["creation_pass_id", b"creation_pass_id", "deduplicated_name", b"deduplicated_name", "logical_creation_pass_id", b"logical_creation_pass_id", "op_name", b"op_name", "op_type", b"op_type", "preserve_layout", b"preserve_layout", "profile_info", b"profile_info", "profile_type", b"profile_type", "size_of_generated_code_in_bytes", b"size_of_generated_code_in_bytes", "size_of_memory_working_set_in_bytes", b"size_of_memory_working_set_in_bytes", "source_file", b"source_file", "source_line", b"source_line", "stack_frame_id", b"stack_frame_id"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "creation_pass_id",
+            b"creation_pass_id",
+            "deduplicated_name",
+            b"deduplicated_name",
+            "logical_creation_pass_id",
+            b"logical_creation_pass_id",
+            "op_name",
+            b"op_name",
+            "op_type",
+            b"op_type",
+            "preserve_layout",
+            b"preserve_layout",
+            "profile_info",
+            b"profile_info",
+            "profile_type",
+            b"profile_type",
+            "size_of_generated_code_in_bytes",
+            b"size_of_generated_code_in_bytes",
+            "size_of_memory_working_set_in_bytes",
+            b"size_of_memory_working_set_in_bytes",
+            "source_file",
+            b"source_file",
+            "source_line",
+            b"source_line",
+            "stack_frame_id",
+            b"stack_frame_id",
+        ],
+    ) -> None: ...
 
 global___OpMetadata = OpMetadata
 
@@ -955,7 +1077,25 @@ class ExecutionProfile(google.protobuf.message.Message):
         executable_size_in_bytes: builtins.int | None = ...,
         profile_cache_hit: builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["compilation_cache_hit", b"compilation_cache_hit", "compile_time_ms", b"compile_time_ms", "compute_and_transfer_time_ns", b"compute_and_transfer_time_ns", "compute_cycle_count", b"compute_cycle_count", "compute_time_ns", b"compute_time_ns", "executable_size_in_bytes", b"executable_size_in_bytes", "profile_cache_hit", b"profile_cache_hit"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "compilation_cache_hit",
+            b"compilation_cache_hit",
+            "compile_time_ms",
+            b"compile_time_ms",
+            "compute_and_transfer_time_ns",
+            b"compute_and_transfer_time_ns",
+            "compute_cycle_count",
+            b"compute_cycle_count",
+            "compute_time_ns",
+            b"compute_time_ns",
+            "executable_size_in_bytes",
+            b"executable_size_in_bytes",
+            "profile_cache_hit",
+            b"profile_cache_hit",
+        ],
+    ) -> None: ...
 
 global___ExecutionProfile = ExecutionProfile
 
@@ -1037,7 +1177,9 @@ class ChannelHandle(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ChannelTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ChannelHandle._ChannelType.ValueType], builtins.type):
+    class _ChannelTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ChannelHandle._ChannelType.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         CHANNEL_TYPE_INVALID: ChannelHandle._ChannelType.ValueType  # 0
         """Invalid primitive type to serve as default."""
@@ -1113,7 +1255,11 @@ class DeviceAssignmentProto(google.protobuf.message.Message):
     replica_count: builtins.int
     computation_count: builtins.int
     @property
-    def computation_devices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___DeviceAssignmentProto.ComputationDevice]: ...
+    def computation_devices(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        global___DeviceAssignmentProto.ComputationDevice
+    ]: ...
     def __init__(
         self,
         *,
@@ -1121,7 +1267,17 @@ class DeviceAssignmentProto(google.protobuf.message.Message):
         computation_count: builtins.int | None = ...,
         computation_devices: collections.abc.Iterable[global___DeviceAssignmentProto.ComputationDevice] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["computation_count", b"computation_count", "computation_devices", b"computation_devices", "replica_count", b"replica_count"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "computation_count",
+            b"computation_count",
+            "computation_devices",
+            b"computation_devices",
+            "replica_count",
+            b"replica_count",
+        ],
+    ) -> None: ...
 
 global___DeviceAssignmentProto = DeviceAssignmentProto
 
@@ -1236,7 +1392,61 @@ class LiteralProto(google.protobuf.message.Message):
         sparse_indices: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["bf16s", b"bf16s", "c128s", b"c128s", "c64s", b"c64s", "f16s", b"f16s", "f32s", b"f32s", "f64s", b"f64s", "f8e4m3b11fnuzs", b"f8e4m3b11fnuzs", "f8e4m3fns", b"f8e4m3fns", "f8e4m3fnuzs", b"f8e4m3fnuzs", "f8e5m2fnuzs", b"f8e5m2fnuzs", "f8e5m2s", b"f8e5m2s", "preds", b"preds", "s16s", b"s16s", "s32s", b"s32s", "s4s", b"s4s", "s64s", b"s64s", "s8s", b"s8s", "shape", b"shape", "sparse_indices", b"sparse_indices", "tuple_literals", b"tuple_literals", "u16s", b"u16s", "u32s", b"u32s", "u4s", b"u4s", "u64s", b"u64s", "u8s", b"u8s"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "bf16s",
+            b"bf16s",
+            "c128s",
+            b"c128s",
+            "c64s",
+            b"c64s",
+            "f16s",
+            b"f16s",
+            "f32s",
+            b"f32s",
+            "f64s",
+            b"f64s",
+            "f8e4m3b11fnuzs",
+            b"f8e4m3b11fnuzs",
+            "f8e4m3fns",
+            b"f8e4m3fns",
+            "f8e4m3fnuzs",
+            b"f8e4m3fnuzs",
+            "f8e5m2fnuzs",
+            b"f8e5m2fnuzs",
+            "f8e5m2s",
+            b"f8e5m2s",
+            "preds",
+            b"preds",
+            "s16s",
+            b"s16s",
+            "s32s",
+            b"s32s",
+            "s4s",
+            b"s4s",
+            "s64s",
+            b"s64s",
+            "s8s",
+            b"s8s",
+            "shape",
+            b"shape",
+            "sparse_indices",
+            b"sparse_indices",
+            "tuple_literals",
+            b"tuple_literals",
+            "u16s",
+            b"u16s",
+            "u32s",
+            b"u32s",
+            "u4s",
+            b"u4s",
+            "u64s",
+            b"u64s",
+            "u8s",
+            b"u8s",
+        ],
+    ) -> None: ...
 
 global___LiteralProto = LiteralProto
 
@@ -1302,7 +1512,25 @@ class WindowDimension(google.protobuf.message.Message):
         base_dilation: builtins.int | None = ...,
         window_reversal: builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["base_dilation", b"base_dilation", "padding_high", b"padding_high", "padding_low", b"padding_low", "size", b"size", "stride", b"stride", "window_dilation", b"window_dilation", "window_reversal", b"window_reversal"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "base_dilation",
+            b"base_dilation",
+            "padding_high",
+            b"padding_high",
+            "padding_low",
+            b"padding_low",
+            "size",
+            b"size",
+            "stride",
+            b"stride",
+            "window_dilation",
+            b"window_dilation",
+            "window_reversal",
+            b"window_reversal",
+        ],
+    ) -> None: ...
 
 global___WindowDimension = WindowDimension
 
@@ -1349,7 +1577,7 @@ class GatherDimensionNumbers(google.protobuf.message.Message):
     """
     @property
     def offset_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """"Window indices" is a term for a set of indices that index into the
+        """ "Window indices" is a term for a set of indices that index into the
         interior of a dynamic-slice from the input tensor, the starting indices for
         which were computed from output_gather_dims (see the operation semantic for
         how this is defined) and the start_indices tensor.
@@ -1381,7 +1609,19 @@ class GatherDimensionNumbers(google.protobuf.message.Message):
         start_index_map: collections.abc.Iterable[builtins.int] | None = ...,
         index_vector_dim: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["collapsed_slice_dims", b"collapsed_slice_dims", "index_vector_dim", b"index_vector_dim", "offset_dims", b"offset_dims", "start_index_map", b"start_index_map"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "collapsed_slice_dims",
+            b"collapsed_slice_dims",
+            "index_vector_dim",
+            b"index_vector_dim",
+            "offset_dims",
+            b"offset_dims",
+            "start_index_map",
+            b"start_index_map",
+        ],
+    ) -> None: ...
 
 global___GatherDimensionNumbers = GatherDimensionNumbers
 
@@ -1418,7 +1658,19 @@ class ScatterDimensionNumbers(google.protobuf.message.Message):
         scatter_dims_to_operand_dims: collections.abc.Iterable[builtins.int] | None = ...,
         index_vector_dim: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["index_vector_dim", b"index_vector_dim", "inserted_window_dims", b"inserted_window_dims", "scatter_dims_to_operand_dims", b"scatter_dims_to_operand_dims", "update_window_dims", b"update_window_dims"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "index_vector_dim",
+            b"index_vector_dim",
+            "inserted_window_dims",
+            b"inserted_window_dims",
+            "scatter_dims_to_operand_dims",
+            b"scatter_dims_to_operand_dims",
+            "update_window_dims",
+            b"update_window_dims",
+        ],
+    ) -> None: ...
 
 global___ScatterDimensionNumbers = ScatterDimensionNumbers
 
@@ -1483,7 +1735,29 @@ class ConvolutionDimensionNumbers(google.protobuf.message.Message):
         output_feature_dimension: builtins.int | None = ...,
         output_spatial_dimensions: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["input_batch_dimension", b"input_batch_dimension", "input_feature_dimension", b"input_feature_dimension", "input_spatial_dimensions", b"input_spatial_dimensions", "kernel_input_feature_dimension", b"kernel_input_feature_dimension", "kernel_output_feature_dimension", b"kernel_output_feature_dimension", "kernel_spatial_dimensions", b"kernel_spatial_dimensions", "output_batch_dimension", b"output_batch_dimension", "output_feature_dimension", b"output_feature_dimension", "output_spatial_dimensions", b"output_spatial_dimensions"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "input_batch_dimension",
+            b"input_batch_dimension",
+            "input_feature_dimension",
+            b"input_feature_dimension",
+            "input_spatial_dimensions",
+            b"input_spatial_dimensions",
+            "kernel_input_feature_dimension",
+            b"kernel_input_feature_dimension",
+            "kernel_output_feature_dimension",
+            b"kernel_output_feature_dimension",
+            "kernel_spatial_dimensions",
+            b"kernel_spatial_dimensions",
+            "output_batch_dimension",
+            b"output_batch_dimension",
+            "output_feature_dimension",
+            b"output_feature_dimension",
+            "output_spatial_dimensions",
+            b"output_spatial_dimensions",
+        ],
+    ) -> None: ...
 
 global___ConvolutionDimensionNumbers = ConvolutionDimensionNumbers
 
@@ -1519,7 +1793,19 @@ class DotDimensionNumbers(google.protobuf.message.Message):
         lhs_batch_dimensions: collections.abc.Iterable[builtins.int] | None = ...,
         rhs_batch_dimensions: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["lhs_batch_dimensions", b"lhs_batch_dimensions", "lhs_contracting_dimensions", b"lhs_contracting_dimensions", "rhs_batch_dimensions", b"rhs_batch_dimensions", "rhs_contracting_dimensions", b"rhs_contracting_dimensions"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "lhs_batch_dimensions",
+            b"lhs_batch_dimensions",
+            "lhs_contracting_dimensions",
+            b"lhs_contracting_dimensions",
+            "rhs_batch_dimensions",
+            b"rhs_batch_dimensions",
+            "rhs_contracting_dimensions",
+            b"rhs_contracting_dimensions",
+        ],
+    ) -> None: ...
 
 global___DotDimensionNumbers = DotDimensionNumbers
 
@@ -1557,7 +1843,9 @@ class SparsityDescriptor(google.protobuf.message.Message):
         n: builtins.int | None = ...,
         m: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["dimension", b"dimension", "index", b"index", "m", b"m", "n", b"n", "type", b"type"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["dimension", b"dimension", "index", b"index", "m", b"m", "n", b"n", "type", b"type"]
+    ) -> None: ...
 
 global___SparsityDescriptor = SparsityDescriptor
 
@@ -1569,7 +1857,9 @@ class TriangularSolveOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TransposeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TriangularSolveOptions._Transpose.ValueType], builtins.type):
+    class _TransposeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[TriangularSolveOptions._Transpose.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         TRANSPOSE_INVALID: TriangularSolveOptions._Transpose.ValueType  # 0
         NO_TRANSPOSE: TriangularSolveOptions._Transpose.ValueType  # 1
@@ -1609,7 +1899,12 @@ class TriangularSolveOptions(google.protobuf.message.Message):
         unit_diagonal: builtins.bool | None = ...,
         transpose_a: global___TriangularSolveOptions.Transpose.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["left_side", b"left_side", "lower", b"lower", "transpose_a", b"transpose_a", "unit_diagonal", b"unit_diagonal"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "left_side", b"left_side", "lower", b"lower", "transpose_a", b"transpose_a", "unit_diagonal", b"unit_diagonal"
+        ],
+    ) -> None: ...
 
 global___TriangularSolveOptions = TriangularSolveOptions
 
@@ -1728,7 +2023,9 @@ class StatisticsViz(google.protobuf.message.Message):
         stat_index_to_visualize: builtins.int | None = ...,
         statistics: collections.abc.Iterable[global___Statistic] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["stat_index_to_visualize", b"stat_index_to_visualize", "statistics", b"statistics"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["stat_index_to_visualize", b"stat_index_to_visualize", "statistics", b"statistics"]
+    ) -> None: ...
 
 global___StatisticsViz = StatisticsViz
 
@@ -1742,7 +2039,9 @@ class OpSharding(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _TypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OpSharding._Type.ValueType], builtins.type):
+    class _TypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OpSharding._Type.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         REPLICATED: OpSharding._Type.ValueType  # 0
         """This sharding is replicated across all devices (implies maximal,
@@ -1787,7 +2086,9 @@ class OpSharding(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ShardGroupTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OpSharding._ShardGroupType.ValueType], builtins.type):
+    class _ShardGroupTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[OpSharding._ShardGroupType.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         AS: OpSharding._ShardGroupType.ValueType  # 0
         """This op will be sharded exactly the same as the other op. (hard
@@ -1878,7 +2179,9 @@ class OpSharding(google.protobuf.message.Message):
         """
 
     @property
-    def last_tile_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___OpSharding.Type.ValueType]:
+    def last_tile_dims(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___OpSharding.Type.ValueType]:
         """This field is used to represented the sharding type of each subgroup.
         For example, sharding={devices=[2,2,2,2]0,1,2,...,15 last_tile_dims={
         replicate, manual, unreduced}} means that each of the last 3 dimensions
@@ -1917,7 +2220,37 @@ class OpSharding(google.protobuf.message.Message):
         shard_group_type: global___OpSharding.ShardGroupType.ValueType | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["tile_shape", b"tile_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["iota_reshape_dims", b"iota_reshape_dims", "iota_transpose_perm", b"iota_transpose_perm", "is_shard_group", b"is_shard_group", "last_tile_dims", b"last_tile_dims", "metadata", b"metadata", "replicate_on_last_tile_dim", b"replicate_on_last_tile_dim", "shard_group_id", b"shard_group_id", "shard_group_type", b"shard_group_type", "tile_assignment_devices", b"tile_assignment_devices", "tile_assignment_dimensions", b"tile_assignment_dimensions", "tile_shape", b"tile_shape", "tuple_shardings", b"tuple_shardings", "type", b"type"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "iota_reshape_dims",
+            b"iota_reshape_dims",
+            "iota_transpose_perm",
+            b"iota_transpose_perm",
+            "is_shard_group",
+            b"is_shard_group",
+            "last_tile_dims",
+            b"last_tile_dims",
+            "metadata",
+            b"metadata",
+            "replicate_on_last_tile_dim",
+            b"replicate_on_last_tile_dim",
+            "shard_group_id",
+            b"shard_group_id",
+            "shard_group_type",
+            b"shard_group_type",
+            "tile_assignment_devices",
+            b"tile_assignment_devices",
+            "tile_assignment_dimensions",
+            b"tile_assignment_dimensions",
+            "tile_shape",
+            b"tile_shape",
+            "tuple_shardings",
+            b"tuple_shardings",
+            "type",
+            b"type",
+        ],
+    ) -> None: ...
 
 global___OpSharding = OpSharding
 
@@ -1977,7 +2310,9 @@ class PrecisionConfig(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _PrecisionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PrecisionConfig._Precision.ValueType], builtins.type):
+    class _PrecisionEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PrecisionConfig._Precision.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT: PrecisionConfig._Precision.ValueType  # 0
         HIGH: PrecisionConfig._Precision.ValueType  # 1
@@ -1994,7 +2329,9 @@ class PrecisionConfig(google.protobuf.message.Message):
 
     OPERAND_PRECISION_FIELD_NUMBER: builtins.int
     @property
-    def operand_precision(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___PrecisionConfig.Precision.ValueType]: ...
+    def operand_precision(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___PrecisionConfig.Precision.ValueType]: ...
     def __init__(
         self,
         *,
@@ -2099,6 +2436,16 @@ class OutputOperandAliasing(google.protobuf.message.Message):
         operand_index: builtins.int | None = ...,
         operand_shape_index: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["operand_index", b"operand_index", "operand_shape_index", b"operand_shape_index", "output_shape_index", b"output_shape_index"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "operand_index",
+            b"operand_index",
+            "operand_shape_index",
+            b"operand_shape_index",
+            "output_shape_index",
+            b"output_shape_index",
+        ],
+    ) -> None: ...
 
 global___OutputOperandAliasing = OutputOperandAliasing

@@ -45,7 +45,9 @@ class CompilationEnvironmentsProto(google.protobuf.message.Message):
 
     ENVIRONMENTS_FIELD_NUMBER: builtins.int
     @property
-    def environments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.any_pb2.Any]: ...
+    def environments(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.any_pb2.Any]: ...
     def __init__(
         self,
         *,
@@ -67,7 +69,9 @@ class DebugOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ShapeChecksEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugOptions._ShapeChecks.ValueType], builtins.type):
+    class _ShapeChecksEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugOptions._ShapeChecks.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         IGNORE: DebugOptions._ShapeChecks.ValueType  # 0
         """Do not insert any shape checks for dynamically shaped operations; output
@@ -100,7 +104,9 @@ class DebugOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _StepMarkerLocationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugOptions._StepMarkerLocation.ValueType], builtins.type):
+    class _StepMarkerLocationEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugOptions._StepMarkerLocation.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         STEP_MARK_AT_ENTRY: DebugOptions._StepMarkerLocation.ValueType  # 0
         """Generate a step marker at the program entry. This handles the case where
@@ -141,7 +147,9 @@ class DebugOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _CommandBufferCmdTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugOptions._CommandBufferCmdType.ValueType], builtins.type):
+    class _CommandBufferCmdTypeEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugOptions._CommandBufferCmdType.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         INVALID: DebugOptions._CommandBufferCmdType.ValueType  # 0
         FUSION: DebugOptions._CommandBufferCmdType.ValueType  # 1
@@ -170,7 +178,9 @@ class DebugOptions(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _PartitioningAlgorithmEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugOptions._PartitioningAlgorithm.ValueType], builtins.type):
+    class _PartitioningAlgorithmEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugOptions._PartitioningAlgorithm.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         PARTITIONING_ALGORITHM_NOOP: DebugOptions._PartitioningAlgorithm.ValueType  # 0
         PARTITIONING_ALGORITHM_EXP0: DebugOptions._PartitioningAlgorithm.ValueType  # 1
@@ -867,7 +877,9 @@ class DebugOptions(google.protobuf.message.Message):
         """Paths to files with LLVM code."""
 
     @property
-    def xla_gpu_enable_command_buffer(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___DebugOptions.CommandBufferCmdType.ValueType]:
+    def xla_gpu_enable_command_buffer(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___DebugOptions.CommandBufferCmdType.ValueType]:
         """Determine the types of commands that are recorded into command buffers."""
 
     @property
@@ -981,7 +993,8 @@ class DebugOptions(google.protobuf.message.Message):
         xla_gpu_nccl_termination_timeout_seconds: builtins.int | None = ...,
         xla_gpu_enable_shared_constants: builtins.bool | None = ...,
         xla_gpu_enable_cublaslt: builtins.bool | None = ...,
-        xla_gpu_enable_command_buffer: collections.abc.Iterable[global___DebugOptions.CommandBufferCmdType.ValueType] | None = ...,
+        xla_gpu_enable_command_buffer: collections.abc.Iterable[global___DebugOptions.CommandBufferCmdType.ValueType]
+        | None = ...,
         xla_gpu_graph_num_runs_to_instantiate: builtins.int | None = ...,
         xla_gpu_graph_min_graph_size: builtins.int | None = ...,
         xla_gpu_graph_enable_concurrent_region: builtins.bool | None = ...,
@@ -1048,7 +1061,343 @@ class DebugOptions(google.protobuf.message.Message):
         xla_gpu_enable_dot_strength_reduction: builtins.bool | None = ...,
         xla_backend_extra_options: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["xla_allow_excess_precision", b"xla_allow_excess_precision", "xla_allow_scalar_index_dynamic_ops", b"xla_allow_scalar_index_dynamic_ops", "xla_backend_extra_options", b"xla_backend_extra_options", "xla_backend_optimization_level", b"xla_backend_optimization_level", "xla_cpu_enable_custom_matmul_tiling", b"xla_cpu_enable_custom_matmul_tiling", "xla_cpu_enable_experimental_deallocation", b"xla_cpu_enable_experimental_deallocation", "xla_cpu_enable_fast_math", b"xla_cpu_enable_fast_math", "xla_cpu_enable_fast_min_max", b"xla_cpu_enable_fast_min_max", "xla_cpu_enable_mlir_fusion_outlining", b"xla_cpu_enable_mlir_fusion_outlining", "xla_cpu_enable_mlir_tiling_and_fusion", b"xla_cpu_enable_mlir_tiling_and_fusion", "xla_cpu_enable_xprof_traceme", b"xla_cpu_enable_xprof_traceme", "xla_cpu_fast_math_honor_division", b"xla_cpu_fast_math_honor_division", "xla_cpu_fast_math_honor_functions", b"xla_cpu_fast_math_honor_functions", "xla_cpu_fast_math_honor_infs", b"xla_cpu_fast_math_honor_infs", "xla_cpu_fast_math_honor_nans", b"xla_cpu_fast_math_honor_nans", "xla_cpu_matmul_tiling_k_dim", b"xla_cpu_matmul_tiling_k_dim", "xla_cpu_matmul_tiling_m_dim", b"xla_cpu_matmul_tiling_m_dim", "xla_cpu_matmul_tiling_n_dim", b"xla_cpu_matmul_tiling_n_dim", "xla_cpu_multi_thread_eigen", b"xla_cpu_multi_thread_eigen", "xla_cpu_sparse_cuda_threads", b"xla_cpu_sparse_cuda_threads", "xla_cpu_strict_dot_conv_math", b"xla_cpu_strict_dot_conv_math", "xla_cpu_use_acl", b"xla_cpu_use_acl", "xla_cpu_use_mkl_dnn", b"xla_cpu_use_mkl_dnn", "xla_cpu_use_xla_runtime", b"xla_cpu_use_xla_runtime", "xla_debug_buffer_assignment_show_max", b"xla_debug_buffer_assignment_show_max", "xla_detailed_logging", b"xla_detailed_logging", "xla_disable_all_hlo_passes", b"xla_disable_all_hlo_passes", "xla_disable_hlo_passes", b"xla_disable_hlo_passes", "xla_dump_compress_protos", b"xla_dump_compress_protos", "xla_dump_disable_metadata", b"xla_dump_disable_metadata", "xla_dump_enable_mlir_pretty_form", b"xla_dump_enable_mlir_pretty_form", "xla_dump_fusion_visualization", b"xla_dump_fusion_visualization", "xla_dump_hlo_as_dot", b"xla_dump_hlo_as_dot", "xla_dump_hlo_as_html", b"xla_dump_hlo_as_html", "xla_dump_hlo_as_long_text", b"xla_dump_hlo_as_long_text", "xla_dump_hlo_as_proto", b"xla_dump_hlo_as_proto", "xla_dump_hlo_as_text", b"xla_dump_hlo_as_text", "xla_dump_hlo_as_url", b"xla_dump_hlo_as_url", "xla_dump_hlo_module_re", b"xla_dump_hlo_module_re", "xla_dump_hlo_pass_re", b"xla_dump_hlo_pass_re", "xla_dump_hlo_pipeline_re", b"xla_dump_hlo_pipeline_re", "xla_dump_hlo_snapshots", b"xla_dump_hlo_snapshots", "xla_dump_include_timestamp", b"xla_dump_include_timestamp", "xla_dump_latency_hiding_schedule", b"xla_dump_latency_hiding_schedule", "xla_dump_max_hlo_modules", b"xla_dump_max_hlo_modules", "xla_dump_module_metadata", b"xla_dump_module_metadata", "xla_dump_to", b"xla_dump_to", "xla_eliminate_hlo_implicit_broadcast", b"xla_eliminate_hlo_implicit_broadcast", "xla_embed_ir_in_executable", b"xla_embed_ir_in_executable", "xla_enable_dumping", b"xla_enable_dumping", "xla_enable_hlo_passes_only", b"xla_enable_hlo_passes_only", "xla_force_host_platform_device_count", b"xla_force_host_platform_device_count", "xla_gpu_algorithm_denylist_path", b"xla_gpu_algorithm_denylist_path", "xla_gpu_all_gather_combine_threshold_bytes", b"xla_gpu_all_gather_combine_threshold_bytes", "xla_gpu_all_reduce_blueconnect_num_devices_per_host", b"xla_gpu_all_reduce_blueconnect_num_devices_per_host", "xla_gpu_all_reduce_combine_threshold_bytes", b"xla_gpu_all_reduce_combine_threshold_bytes", "xla_gpu_all_reduce_contiguous", b"xla_gpu_all_reduce_contiguous", "xla_gpu_asm_extra_flags", b"xla_gpu_asm_extra_flags", "xla_gpu_auto_spmd_partitioning_memory_budget_gb", b"xla_gpu_auto_spmd_partitioning_memory_budget_gb", "xla_gpu_auto_spmd_partitioning_memory_budget_ratio", b"xla_gpu_auto_spmd_partitioning_memory_budget_ratio", "xla_gpu_autotune_level", b"xla_gpu_autotune_level", "xla_gpu_collect_cost_model_stats", b"xla_gpu_collect_cost_model_stats", "xla_gpu_collective_inflation_factor", b"xla_gpu_collective_inflation_factor", "xla_gpu_collective_permute_decomposer_threshold", b"xla_gpu_collective_permute_decomposer_threshold", "xla_gpu_copy_insertion_use_region_analysis", b"xla_gpu_copy_insertion_use_region_analysis", "xla_gpu_crash_on_verification_failures", b"xla_gpu_crash_on_verification_failures", "xla_gpu_cublas_fallback", b"xla_gpu_cublas_fallback", "xla_gpu_cuda_data_dir", b"xla_gpu_cuda_data_dir", "xla_gpu_deterministic_ops", b"xla_gpu_deterministic_ops", "xla_gpu_disable_gpuasm_optimizations", b"xla_gpu_disable_gpuasm_optimizations", "xla_gpu_dump_autotune_results_to", b"xla_gpu_dump_autotune_results_to", "xla_gpu_dump_autotuned_triton_fusions", b"xla_gpu_dump_autotuned_triton_fusions", "xla_gpu_dump_llvmir", b"xla_gpu_dump_llvmir", "xla_gpu_enable_address_computation_fusion", b"xla_gpu_enable_address_computation_fusion", "xla_gpu_enable_all_gather_combine_by_dim", b"xla_gpu_enable_all_gather_combine_by_dim", "xla_gpu_enable_analytical_latency_estimator", b"xla_gpu_enable_analytical_latency_estimator", "xla_gpu_enable_async_all_gather", b"xla_gpu_enable_async_all_gather", "xla_gpu_enable_async_all_reduce", b"xla_gpu_enable_async_all_reduce", "xla_gpu_enable_async_all_to_all", b"xla_gpu_enable_async_all_to_all", "xla_gpu_enable_async_collective_permute", b"xla_gpu_enable_async_collective_permute", "xla_gpu_enable_async_collectives", b"xla_gpu_enable_async_collectives", "xla_gpu_enable_async_reduce_scatter", b"xla_gpu_enable_async_reduce_scatter", "xla_gpu_enable_command_buffer", b"xla_gpu_enable_command_buffer", "xla_gpu_enable_cub_radix_sort", b"xla_gpu_enable_cub_radix_sort", "xla_gpu_enable_cublaslt", b"xla_gpu_enable_cublaslt", "xla_gpu_enable_cudnn_fmha", b"xla_gpu_enable_cudnn_fmha", "xla_gpu_enable_cudnn_frontend", b"xla_gpu_enable_cudnn_frontend", "xla_gpu_enable_cudnn_int8x32_convolution_reordering", b"xla_gpu_enable_cudnn_int8x32_convolution_reordering", "xla_gpu_enable_cudnn_layer_norm", b"xla_gpu_enable_cudnn_layer_norm", "xla_gpu_enable_custom_fusions", b"xla_gpu_enable_custom_fusions", "xla_gpu_enable_custom_fusions_re", b"xla_gpu_enable_custom_fusions_re", "xla_gpu_enable_dot_strength_reduction", b"xla_gpu_enable_dot_strength_reduction", "xla_gpu_enable_fast_min_max", b"xla_gpu_enable_fast_min_max", "xla_gpu_enable_highest_priority_async_stream", b"xla_gpu_enable_highest_priority_async_stream", "xla_gpu_enable_latency_hiding_scheduler", b"xla_gpu_enable_latency_hiding_scheduler", "xla_gpu_enable_libnvptxcompiler", b"xla_gpu_enable_libnvptxcompiler", "xla_gpu_enable_llvm_module_compilation_parallelism", b"xla_gpu_enable_llvm_module_compilation_parallelism", "xla_gpu_enable_nccl_clique_optimization", b"xla_gpu_enable_nccl_clique_optimization", "xla_gpu_enable_nccl_user_buffers", b"xla_gpu_enable_nccl_user_buffers", "xla_gpu_enable_pipelined_all_gather", b"xla_gpu_enable_pipelined_all_gather", "xla_gpu_enable_pipelined_all_reduce", b"xla_gpu_enable_pipelined_all_reduce", "xla_gpu_enable_pipelined_collectives", b"xla_gpu_enable_pipelined_collectives", "xla_gpu_enable_pipelined_p2p", b"xla_gpu_enable_pipelined_p2p", "xla_gpu_enable_pipelined_reduce_scatter", b"xla_gpu_enable_pipelined_reduce_scatter", "xla_gpu_enable_priority_fusion", b"xla_gpu_enable_priority_fusion", "xla_gpu_enable_reassociation_for_converted_ar", b"xla_gpu_enable_reassociation_for_converted_ar", "xla_gpu_enable_reduce_scatter_combine_by_dim", b"xla_gpu_enable_reduce_scatter_combine_by_dim", "xla_gpu_enable_reduction_epilogue_fusion", b"xla_gpu_enable_reduction_epilogue_fusion", "xla_gpu_enable_shared_constants", b"xla_gpu_enable_shared_constants", "xla_gpu_enable_split_k_autotuning", b"xla_gpu_enable_split_k_autotuning", "xla_gpu_enable_triton_gemm", b"xla_gpu_enable_triton_gemm", "xla_gpu_enable_triton_hopper", b"xla_gpu_enable_triton_hopper", "xla_gpu_enable_triton_softmax_fusion", b"xla_gpu_enable_triton_softmax_fusion", "xla_gpu_enable_while_loop_double_buffering", b"xla_gpu_enable_while_loop_double_buffering", "xla_gpu_enable_while_loop_reduce_scatter_code_motion", b"xla_gpu_enable_while_loop_reduce_scatter_code_motion", "xla_gpu_enable_xla_runtime_executable", b"xla_gpu_enable_xla_runtime_executable", "xla_gpu_ensure_minor_dot_contraction_dims", b"xla_gpu_ensure_minor_dot_contraction_dims", "xla_gpu_exhaustive_tiling_search", b"xla_gpu_exhaustive_tiling_search", "xla_gpu_filter_kernels_spilling_registers_on_autotuning", b"xla_gpu_filter_kernels_spilling_registers_on_autotuning", "xla_gpu_force_compilation_parallelism", b"xla_gpu_force_compilation_parallelism", "xla_gpu_force_conv_nchw", b"xla_gpu_force_conv_nchw", "xla_gpu_force_conv_nhwc", b"xla_gpu_force_conv_nhwc", "xla_gpu_ftz", b"xla_gpu_ftz", "xla_gpu_fused_attention_use_cudnn_rng", b"xla_gpu_fused_attention_use_cudnn_rng", "xla_gpu_graph_enable_concurrent_region", b"xla_gpu_graph_enable_concurrent_region", "xla_gpu_graph_eviction_timeout_seconds", b"xla_gpu_graph_eviction_timeout_seconds", "xla_gpu_graph_min_graph_size", b"xla_gpu_graph_min_graph_size", "xla_gpu_graph_num_runs_to_instantiate", b"xla_gpu_graph_num_runs_to_instantiate", "xla_gpu_lhs_enable_gpu_async_tracker", b"xla_gpu_lhs_enable_gpu_async_tracker", "xla_gpu_llvm_ir_file", b"xla_gpu_llvm_ir_file", "xla_gpu_llvm_verification_level", b"xla_gpu_llvm_verification_level", "xla_gpu_load_autotune_results_from", b"xla_gpu_load_autotune_results_from", "xla_gpu_memory_limit_slop_factor", b"xla_gpu_memory_limit_slop_factor", "xla_gpu_mock_custom_calls", b"xla_gpu_mock_custom_calls", "xla_gpu_nccl_termination_timeout_seconds", b"xla_gpu_nccl_termination_timeout_seconds", "xla_gpu_normalize_layouts", b"xla_gpu_normalize_layouts", "xla_gpu_pgle_profile_file_or_directory_path", b"xla_gpu_pgle_profile_file_or_directory_path", "xla_gpu_ptx_file", b"xla_gpu_ptx_file", "xla_gpu_reduce_scatter_combine_threshold_bytes", b"xla_gpu_reduce_scatter_combine_threshold_bytes", "xla_gpu_redzone_padding_bytes", b"xla_gpu_redzone_padding_bytes", "xla_gpu_redzone_scratch_max_megabytes", b"xla_gpu_redzone_scratch_max_megabytes", "xla_gpu_shape_checks", b"xla_gpu_shape_checks", "xla_gpu_simplify_all_fp_conversions", b"xla_gpu_simplify_all_fp_conversions", "xla_gpu_strict_conv_algorithm_picker", b"xla_gpu_strict_conv_algorithm_picker", "xla_gpu_target_config_filename", b"xla_gpu_target_config_filename", "xla_gpu_threshold_for_windowed_einsum_mib", b"xla_gpu_threshold_for_windowed_einsum_mib", "xla_gpu_triton_fusion_level", b"xla_gpu_triton_fusion_level", "xla_gpu_triton_gemm_any", b"xla_gpu_triton_gemm_any", "xla_gpu_triton_gemm_disable_reduced_precision_reduction", b"xla_gpu_triton_gemm_disable_reduced_precision_reduction", "xla_gpu_unsafe_fallback_to_driver_on_ptxas_not_found", b"xla_gpu_unsafe_fallback_to_driver_on_ptxas_not_found", "xla_gpu_use_runtime_fusion", b"xla_gpu_use_runtime_fusion", "xla_hlo_evaluator_use_fast_path", b"xla_hlo_evaluator_use_fast_path", "xla_hlo_graph_addresses", b"xla_hlo_graph_addresses", "xla_hlo_graph_sharding_color", b"xla_hlo_graph_sharding_color", "xla_hlo_profile", b"xla_hlo_profile", "xla_llvm_disable_expensive_passes", b"xla_llvm_disable_expensive_passes", "xla_llvm_enable_alias_scope_metadata", b"xla_llvm_enable_alias_scope_metadata", "xla_llvm_enable_invariant_load_metadata", b"xla_llvm_enable_invariant_load_metadata", "xla_llvm_enable_noalias_metadata", b"xla_llvm_enable_noalias_metadata", "xla_multiheap_size_constraint_per_heap", b"xla_multiheap_size_constraint_per_heap", "xla_partitioning_algorithm", b"xla_partitioning_algorithm", "xla_step_marker_location", b"xla_step_marker_location", "xla_test_all_input_layouts", b"xla_test_all_input_layouts", "xla_test_all_output_layouts", b"xla_test_all_output_layouts", "xla_tpu_detect_inf", b"xla_tpu_detect_inf", "xla_tpu_detect_nan", b"xla_tpu_detect_nan"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "xla_allow_excess_precision",
+            b"xla_allow_excess_precision",
+            "xla_allow_scalar_index_dynamic_ops",
+            b"xla_allow_scalar_index_dynamic_ops",
+            "xla_backend_extra_options",
+            b"xla_backend_extra_options",
+            "xla_backend_optimization_level",
+            b"xla_backend_optimization_level",
+            "xla_cpu_enable_custom_matmul_tiling",
+            b"xla_cpu_enable_custom_matmul_tiling",
+            "xla_cpu_enable_experimental_deallocation",
+            b"xla_cpu_enable_experimental_deallocation",
+            "xla_cpu_enable_fast_math",
+            b"xla_cpu_enable_fast_math",
+            "xla_cpu_enable_fast_min_max",
+            b"xla_cpu_enable_fast_min_max",
+            "xla_cpu_enable_mlir_fusion_outlining",
+            b"xla_cpu_enable_mlir_fusion_outlining",
+            "xla_cpu_enable_mlir_tiling_and_fusion",
+            b"xla_cpu_enable_mlir_tiling_and_fusion",
+            "xla_cpu_enable_xprof_traceme",
+            b"xla_cpu_enable_xprof_traceme",
+            "xla_cpu_fast_math_honor_division",
+            b"xla_cpu_fast_math_honor_division",
+            "xla_cpu_fast_math_honor_functions",
+            b"xla_cpu_fast_math_honor_functions",
+            "xla_cpu_fast_math_honor_infs",
+            b"xla_cpu_fast_math_honor_infs",
+            "xla_cpu_fast_math_honor_nans",
+            b"xla_cpu_fast_math_honor_nans",
+            "xla_cpu_matmul_tiling_k_dim",
+            b"xla_cpu_matmul_tiling_k_dim",
+            "xla_cpu_matmul_tiling_m_dim",
+            b"xla_cpu_matmul_tiling_m_dim",
+            "xla_cpu_matmul_tiling_n_dim",
+            b"xla_cpu_matmul_tiling_n_dim",
+            "xla_cpu_multi_thread_eigen",
+            b"xla_cpu_multi_thread_eigen",
+            "xla_cpu_sparse_cuda_threads",
+            b"xla_cpu_sparse_cuda_threads",
+            "xla_cpu_strict_dot_conv_math",
+            b"xla_cpu_strict_dot_conv_math",
+            "xla_cpu_use_acl",
+            b"xla_cpu_use_acl",
+            "xla_cpu_use_mkl_dnn",
+            b"xla_cpu_use_mkl_dnn",
+            "xla_cpu_use_xla_runtime",
+            b"xla_cpu_use_xla_runtime",
+            "xla_debug_buffer_assignment_show_max",
+            b"xla_debug_buffer_assignment_show_max",
+            "xla_detailed_logging",
+            b"xla_detailed_logging",
+            "xla_disable_all_hlo_passes",
+            b"xla_disable_all_hlo_passes",
+            "xla_disable_hlo_passes",
+            b"xla_disable_hlo_passes",
+            "xla_dump_compress_protos",
+            b"xla_dump_compress_protos",
+            "xla_dump_disable_metadata",
+            b"xla_dump_disable_metadata",
+            "xla_dump_enable_mlir_pretty_form",
+            b"xla_dump_enable_mlir_pretty_form",
+            "xla_dump_fusion_visualization",
+            b"xla_dump_fusion_visualization",
+            "xla_dump_hlo_as_dot",
+            b"xla_dump_hlo_as_dot",
+            "xla_dump_hlo_as_html",
+            b"xla_dump_hlo_as_html",
+            "xla_dump_hlo_as_long_text",
+            b"xla_dump_hlo_as_long_text",
+            "xla_dump_hlo_as_proto",
+            b"xla_dump_hlo_as_proto",
+            "xla_dump_hlo_as_text",
+            b"xla_dump_hlo_as_text",
+            "xla_dump_hlo_as_url",
+            b"xla_dump_hlo_as_url",
+            "xla_dump_hlo_module_re",
+            b"xla_dump_hlo_module_re",
+            "xla_dump_hlo_pass_re",
+            b"xla_dump_hlo_pass_re",
+            "xla_dump_hlo_pipeline_re",
+            b"xla_dump_hlo_pipeline_re",
+            "xla_dump_hlo_snapshots",
+            b"xla_dump_hlo_snapshots",
+            "xla_dump_include_timestamp",
+            b"xla_dump_include_timestamp",
+            "xla_dump_latency_hiding_schedule",
+            b"xla_dump_latency_hiding_schedule",
+            "xla_dump_max_hlo_modules",
+            b"xla_dump_max_hlo_modules",
+            "xla_dump_module_metadata",
+            b"xla_dump_module_metadata",
+            "xla_dump_to",
+            b"xla_dump_to",
+            "xla_eliminate_hlo_implicit_broadcast",
+            b"xla_eliminate_hlo_implicit_broadcast",
+            "xla_embed_ir_in_executable",
+            b"xla_embed_ir_in_executable",
+            "xla_enable_dumping",
+            b"xla_enable_dumping",
+            "xla_enable_hlo_passes_only",
+            b"xla_enable_hlo_passes_only",
+            "xla_force_host_platform_device_count",
+            b"xla_force_host_platform_device_count",
+            "xla_gpu_algorithm_denylist_path",
+            b"xla_gpu_algorithm_denylist_path",
+            "xla_gpu_all_gather_combine_threshold_bytes",
+            b"xla_gpu_all_gather_combine_threshold_bytes",
+            "xla_gpu_all_reduce_blueconnect_num_devices_per_host",
+            b"xla_gpu_all_reduce_blueconnect_num_devices_per_host",
+            "xla_gpu_all_reduce_combine_threshold_bytes",
+            b"xla_gpu_all_reduce_combine_threshold_bytes",
+            "xla_gpu_all_reduce_contiguous",
+            b"xla_gpu_all_reduce_contiguous",
+            "xla_gpu_asm_extra_flags",
+            b"xla_gpu_asm_extra_flags",
+            "xla_gpu_auto_spmd_partitioning_memory_budget_gb",
+            b"xla_gpu_auto_spmd_partitioning_memory_budget_gb",
+            "xla_gpu_auto_spmd_partitioning_memory_budget_ratio",
+            b"xla_gpu_auto_spmd_partitioning_memory_budget_ratio",
+            "xla_gpu_autotune_level",
+            b"xla_gpu_autotune_level",
+            "xla_gpu_collect_cost_model_stats",
+            b"xla_gpu_collect_cost_model_stats",
+            "xla_gpu_collective_inflation_factor",
+            b"xla_gpu_collective_inflation_factor",
+            "xla_gpu_collective_permute_decomposer_threshold",
+            b"xla_gpu_collective_permute_decomposer_threshold",
+            "xla_gpu_copy_insertion_use_region_analysis",
+            b"xla_gpu_copy_insertion_use_region_analysis",
+            "xla_gpu_crash_on_verification_failures",
+            b"xla_gpu_crash_on_verification_failures",
+            "xla_gpu_cublas_fallback",
+            b"xla_gpu_cublas_fallback",
+            "xla_gpu_cuda_data_dir",
+            b"xla_gpu_cuda_data_dir",
+            "xla_gpu_deterministic_ops",
+            b"xla_gpu_deterministic_ops",
+            "xla_gpu_disable_gpuasm_optimizations",
+            b"xla_gpu_disable_gpuasm_optimizations",
+            "xla_gpu_dump_autotune_results_to",
+            b"xla_gpu_dump_autotune_results_to",
+            "xla_gpu_dump_autotuned_triton_fusions",
+            b"xla_gpu_dump_autotuned_triton_fusions",
+            "xla_gpu_dump_llvmir",
+            b"xla_gpu_dump_llvmir",
+            "xla_gpu_enable_address_computation_fusion",
+            b"xla_gpu_enable_address_computation_fusion",
+            "xla_gpu_enable_all_gather_combine_by_dim",
+            b"xla_gpu_enable_all_gather_combine_by_dim",
+            "xla_gpu_enable_analytical_latency_estimator",
+            b"xla_gpu_enable_analytical_latency_estimator",
+            "xla_gpu_enable_async_all_gather",
+            b"xla_gpu_enable_async_all_gather",
+            "xla_gpu_enable_async_all_reduce",
+            b"xla_gpu_enable_async_all_reduce",
+            "xla_gpu_enable_async_all_to_all",
+            b"xla_gpu_enable_async_all_to_all",
+            "xla_gpu_enable_async_collective_permute",
+            b"xla_gpu_enable_async_collective_permute",
+            "xla_gpu_enable_async_collectives",
+            b"xla_gpu_enable_async_collectives",
+            "xla_gpu_enable_async_reduce_scatter",
+            b"xla_gpu_enable_async_reduce_scatter",
+            "xla_gpu_enable_command_buffer",
+            b"xla_gpu_enable_command_buffer",
+            "xla_gpu_enable_cub_radix_sort",
+            b"xla_gpu_enable_cub_radix_sort",
+            "xla_gpu_enable_cublaslt",
+            b"xla_gpu_enable_cublaslt",
+            "xla_gpu_enable_cudnn_fmha",
+            b"xla_gpu_enable_cudnn_fmha",
+            "xla_gpu_enable_cudnn_frontend",
+            b"xla_gpu_enable_cudnn_frontend",
+            "xla_gpu_enable_cudnn_int8x32_convolution_reordering",
+            b"xla_gpu_enable_cudnn_int8x32_convolution_reordering",
+            "xla_gpu_enable_cudnn_layer_norm",
+            b"xla_gpu_enable_cudnn_layer_norm",
+            "xla_gpu_enable_custom_fusions",
+            b"xla_gpu_enable_custom_fusions",
+            "xla_gpu_enable_custom_fusions_re",
+            b"xla_gpu_enable_custom_fusions_re",
+            "xla_gpu_enable_dot_strength_reduction",
+            b"xla_gpu_enable_dot_strength_reduction",
+            "xla_gpu_enable_fast_min_max",
+            b"xla_gpu_enable_fast_min_max",
+            "xla_gpu_enable_highest_priority_async_stream",
+            b"xla_gpu_enable_highest_priority_async_stream",
+            "xla_gpu_enable_latency_hiding_scheduler",
+            b"xla_gpu_enable_latency_hiding_scheduler",
+            "xla_gpu_enable_libnvptxcompiler",
+            b"xla_gpu_enable_libnvptxcompiler",
+            "xla_gpu_enable_llvm_module_compilation_parallelism",
+            b"xla_gpu_enable_llvm_module_compilation_parallelism",
+            "xla_gpu_enable_nccl_clique_optimization",
+            b"xla_gpu_enable_nccl_clique_optimization",
+            "xla_gpu_enable_nccl_user_buffers",
+            b"xla_gpu_enable_nccl_user_buffers",
+            "xla_gpu_enable_pipelined_all_gather",
+            b"xla_gpu_enable_pipelined_all_gather",
+            "xla_gpu_enable_pipelined_all_reduce",
+            b"xla_gpu_enable_pipelined_all_reduce",
+            "xla_gpu_enable_pipelined_collectives",
+            b"xla_gpu_enable_pipelined_collectives",
+            "xla_gpu_enable_pipelined_p2p",
+            b"xla_gpu_enable_pipelined_p2p",
+            "xla_gpu_enable_pipelined_reduce_scatter",
+            b"xla_gpu_enable_pipelined_reduce_scatter",
+            "xla_gpu_enable_priority_fusion",
+            b"xla_gpu_enable_priority_fusion",
+            "xla_gpu_enable_reassociation_for_converted_ar",
+            b"xla_gpu_enable_reassociation_for_converted_ar",
+            "xla_gpu_enable_reduce_scatter_combine_by_dim",
+            b"xla_gpu_enable_reduce_scatter_combine_by_dim",
+            "xla_gpu_enable_reduction_epilogue_fusion",
+            b"xla_gpu_enable_reduction_epilogue_fusion",
+            "xla_gpu_enable_shared_constants",
+            b"xla_gpu_enable_shared_constants",
+            "xla_gpu_enable_split_k_autotuning",
+            b"xla_gpu_enable_split_k_autotuning",
+            "xla_gpu_enable_triton_gemm",
+            b"xla_gpu_enable_triton_gemm",
+            "xla_gpu_enable_triton_hopper",
+            b"xla_gpu_enable_triton_hopper",
+            "xla_gpu_enable_triton_softmax_fusion",
+            b"xla_gpu_enable_triton_softmax_fusion",
+            "xla_gpu_enable_while_loop_double_buffering",
+            b"xla_gpu_enable_while_loop_double_buffering",
+            "xla_gpu_enable_while_loop_reduce_scatter_code_motion",
+            b"xla_gpu_enable_while_loop_reduce_scatter_code_motion",
+            "xla_gpu_enable_xla_runtime_executable",
+            b"xla_gpu_enable_xla_runtime_executable",
+            "xla_gpu_ensure_minor_dot_contraction_dims",
+            b"xla_gpu_ensure_minor_dot_contraction_dims",
+            "xla_gpu_exhaustive_tiling_search",
+            b"xla_gpu_exhaustive_tiling_search",
+            "xla_gpu_filter_kernels_spilling_registers_on_autotuning",
+            b"xla_gpu_filter_kernels_spilling_registers_on_autotuning",
+            "xla_gpu_force_compilation_parallelism",
+            b"xla_gpu_force_compilation_parallelism",
+            "xla_gpu_force_conv_nchw",
+            b"xla_gpu_force_conv_nchw",
+            "xla_gpu_force_conv_nhwc",
+            b"xla_gpu_force_conv_nhwc",
+            "xla_gpu_ftz",
+            b"xla_gpu_ftz",
+            "xla_gpu_fused_attention_use_cudnn_rng",
+            b"xla_gpu_fused_attention_use_cudnn_rng",
+            "xla_gpu_graph_enable_concurrent_region",
+            b"xla_gpu_graph_enable_concurrent_region",
+            "xla_gpu_graph_eviction_timeout_seconds",
+            b"xla_gpu_graph_eviction_timeout_seconds",
+            "xla_gpu_graph_min_graph_size",
+            b"xla_gpu_graph_min_graph_size",
+            "xla_gpu_graph_num_runs_to_instantiate",
+            b"xla_gpu_graph_num_runs_to_instantiate",
+            "xla_gpu_lhs_enable_gpu_async_tracker",
+            b"xla_gpu_lhs_enable_gpu_async_tracker",
+            "xla_gpu_llvm_ir_file",
+            b"xla_gpu_llvm_ir_file",
+            "xla_gpu_llvm_verification_level",
+            b"xla_gpu_llvm_verification_level",
+            "xla_gpu_load_autotune_results_from",
+            b"xla_gpu_load_autotune_results_from",
+            "xla_gpu_memory_limit_slop_factor",
+            b"xla_gpu_memory_limit_slop_factor",
+            "xla_gpu_mock_custom_calls",
+            b"xla_gpu_mock_custom_calls",
+            "xla_gpu_nccl_termination_timeout_seconds",
+            b"xla_gpu_nccl_termination_timeout_seconds",
+            "xla_gpu_normalize_layouts",
+            b"xla_gpu_normalize_layouts",
+            "xla_gpu_pgle_profile_file_or_directory_path",
+            b"xla_gpu_pgle_profile_file_or_directory_path",
+            "xla_gpu_ptx_file",
+            b"xla_gpu_ptx_file",
+            "xla_gpu_reduce_scatter_combine_threshold_bytes",
+            b"xla_gpu_reduce_scatter_combine_threshold_bytes",
+            "xla_gpu_redzone_padding_bytes",
+            b"xla_gpu_redzone_padding_bytes",
+            "xla_gpu_redzone_scratch_max_megabytes",
+            b"xla_gpu_redzone_scratch_max_megabytes",
+            "xla_gpu_shape_checks",
+            b"xla_gpu_shape_checks",
+            "xla_gpu_simplify_all_fp_conversions",
+            b"xla_gpu_simplify_all_fp_conversions",
+            "xla_gpu_strict_conv_algorithm_picker",
+            b"xla_gpu_strict_conv_algorithm_picker",
+            "xla_gpu_target_config_filename",
+            b"xla_gpu_target_config_filename",
+            "xla_gpu_threshold_for_windowed_einsum_mib",
+            b"xla_gpu_threshold_for_windowed_einsum_mib",
+            "xla_gpu_triton_fusion_level",
+            b"xla_gpu_triton_fusion_level",
+            "xla_gpu_triton_gemm_any",
+            b"xla_gpu_triton_gemm_any",
+            "xla_gpu_triton_gemm_disable_reduced_precision_reduction",
+            b"xla_gpu_triton_gemm_disable_reduced_precision_reduction",
+            "xla_gpu_unsafe_fallback_to_driver_on_ptxas_not_found",
+            b"xla_gpu_unsafe_fallback_to_driver_on_ptxas_not_found",
+            "xla_gpu_use_runtime_fusion",
+            b"xla_gpu_use_runtime_fusion",
+            "xla_hlo_evaluator_use_fast_path",
+            b"xla_hlo_evaluator_use_fast_path",
+            "xla_hlo_graph_addresses",
+            b"xla_hlo_graph_addresses",
+            "xla_hlo_graph_sharding_color",
+            b"xla_hlo_graph_sharding_color",
+            "xla_hlo_profile",
+            b"xla_hlo_profile",
+            "xla_llvm_disable_expensive_passes",
+            b"xla_llvm_disable_expensive_passes",
+            "xla_llvm_enable_alias_scope_metadata",
+            b"xla_llvm_enable_alias_scope_metadata",
+            "xla_llvm_enable_invariant_load_metadata",
+            b"xla_llvm_enable_invariant_load_metadata",
+            "xla_llvm_enable_noalias_metadata",
+            b"xla_llvm_enable_noalias_metadata",
+            "xla_multiheap_size_constraint_per_heap",
+            b"xla_multiheap_size_constraint_per_heap",
+            "xla_partitioning_algorithm",
+            b"xla_partitioning_algorithm",
+            "xla_step_marker_location",
+            b"xla_step_marker_location",
+            "xla_test_all_input_layouts",
+            b"xla_test_all_input_layouts",
+            "xla_test_all_output_layouts",
+            b"xla_test_all_output_layouts",
+            "xla_tpu_detect_inf",
+            b"xla_tpu_detect_inf",
+            "xla_tpu_detect_nan",
+            b"xla_tpu_detect_nan",
+        ],
+    ) -> None: ...
 
 global___DebugOptions = DebugOptions
 
@@ -1094,7 +1443,17 @@ class ShardableValueUpdatePairProto(google.protobuf.message.Message):
         parameter_shape_index: collections.abc.Iterable[builtins.int] | None = ...,
         output_shape_index: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["input_parameter_number", b"input_parameter_number", "output_shape_index", b"output_shape_index", "parameter_shape_index", b"parameter_shape_index"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "input_parameter_number",
+            b"input_parameter_number",
+            "output_shape_index",
+            b"output_shape_index",
+            "parameter_shape_index",
+            b"parameter_shape_index",
+        ],
+    ) -> None: ...
 
 global___ShardableValueUpdatePairProto = ShardableValueUpdatePairProto
 
@@ -1183,7 +1542,9 @@ class ExecutionOptions(google.protobuf.message.Message):
     @property
     def debug_options(self) -> global___DebugOptions: ...
     @property
-    def device_handles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.DeviceHandle]:
+    def device_handles(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.DeviceHandle]:
         """This optional field specifies a particular set of devices to run the
         computation on. The computation will be partitioned across these devices.
         If not provided, the default device will be chosen.
@@ -1208,7 +1569,9 @@ class ExecutionOptions(google.protobuf.message.Message):
         """
 
     @property
-    def allow_spmd_sharding_propagation_to_output(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
+    def allow_spmd_sharding_propagation_to_output(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
         """Allows sharding propagation to propagate to the outputs. This changes the
         output shape of the computation (which is undesirable), but it can be used
         to allow to run partial compilation to determine what would be the output
@@ -1225,11 +1588,15 @@ class ExecutionOptions(google.protobuf.message.Message):
         """
 
     @property
-    def param_requires_broadcast_via_collectives(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
+    def param_requires_broadcast_via_collectives(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
         """Whether to broadcast args across all replicas. One entry per arg."""
 
     @property
-    def shardable_value_update_pairs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ShardableValueUpdatePairProto]:
+    def shardable_value_update_pairs(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ShardableValueUpdatePairProto]:
         """The list of input/output pairs in the main program that could be sharded."""
 
     def __init__(
@@ -1256,8 +1623,62 @@ class ExecutionOptions(google.protobuf.message.Message):
         fdo_profile: builtins.bytes | None = ...,
         device_memory_size: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["debug_options", b"debug_options", "device_assignment", b"device_assignment", "shape_with_output_layout", b"shape_with_output_layout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["alias_passthrough_params", b"alias_passthrough_params", "allow_separate_sharding_programs", b"allow_separate_sharding_programs", "allow_spmd_sharding_propagation_to_output", b"allow_spmd_sharding_propagation_to_output", "auto_spmd_partitioning_mesh_ids", b"auto_spmd_partitioning_mesh_ids", "auto_spmd_partitioning_mesh_shape", b"auto_spmd_partitioning_mesh_shape", "debug_options", b"debug_options", "deduplicate_hlo", b"deduplicate_hlo", "device_assignment", b"device_assignment", "device_handles", b"device_handles", "device_memory_size", b"device_memory_size", "fdo_profile", b"fdo_profile", "launch_id", b"launch_id", "num_partitions", b"num_partitions", "num_replicas", b"num_replicas", "param_requires_broadcast_via_collectives", b"param_requires_broadcast_via_collectives", "seed", b"seed", "shape_with_output_layout", b"shape_with_output_layout", "shardable_value_update_pairs", b"shardable_value_update_pairs", "use_auto_spmd_partitioning", b"use_auto_spmd_partitioning", "use_spmd_partitioning", b"use_spmd_partitioning"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "debug_options",
+            b"debug_options",
+            "device_assignment",
+            b"device_assignment",
+            "shape_with_output_layout",
+            b"shape_with_output_layout",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "alias_passthrough_params",
+            b"alias_passthrough_params",
+            "allow_separate_sharding_programs",
+            b"allow_separate_sharding_programs",
+            "allow_spmd_sharding_propagation_to_output",
+            b"allow_spmd_sharding_propagation_to_output",
+            "auto_spmd_partitioning_mesh_ids",
+            b"auto_spmd_partitioning_mesh_ids",
+            "auto_spmd_partitioning_mesh_shape",
+            b"auto_spmd_partitioning_mesh_shape",
+            "debug_options",
+            b"debug_options",
+            "deduplicate_hlo",
+            b"deduplicate_hlo",
+            "device_assignment",
+            b"device_assignment",
+            "device_handles",
+            b"device_handles",
+            "device_memory_size",
+            b"device_memory_size",
+            "fdo_profile",
+            b"fdo_profile",
+            "launch_id",
+            b"launch_id",
+            "num_partitions",
+            b"num_partitions",
+            "num_replicas",
+            b"num_replicas",
+            "param_requires_broadcast_via_collectives",
+            b"param_requires_broadcast_via_collectives",
+            "seed",
+            b"seed",
+            "shape_with_output_layout",
+            b"shape_with_output_layout",
+            "shardable_value_update_pairs",
+            b"shardable_value_update_pairs",
+            "use_auto_spmd_partitioning",
+            b"use_auto_spmd_partitioning",
+            "use_spmd_partitioning",
+            b"use_spmd_partitioning",
+        ],
+    ) -> None: ...
 
 global___ExecutionOptions = ExecutionOptions
 
@@ -1275,7 +1696,10 @@ class HloModuleConfigProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _FusionConfigCollectionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HloModuleConfigProto._FusionConfigCollection.ValueType], builtins.type):
+    class _FusionConfigCollectionEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[HloModuleConfigProto._FusionConfigCollection.ValueType],
+        builtins.type,
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         OFF: HloModuleConfigProto._FusionConfigCollection.ValueType  # 0
         """Do not collect configuration."""
@@ -1326,7 +1750,9 @@ class HloModuleConfigProto(google.protobuf.message.Message):
 
         LISTS_FIELD_NUMBER: builtins.int
         @property
-        def lists(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloModuleConfigProto.Int64List]: ...
+        def lists(
+            self,
+        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloModuleConfigProto.Int64List]: ...
         def __init__(
             self,
             *,
@@ -1419,29 +1845,49 @@ class HloModuleConfigProto(google.protobuf.message.Message):
     @property
     def entry_computation_layout(self) -> tensorflow.compiler.xla.xla_data_pb2.ProgramShapeProto: ...
     @property
-    def param_requires_broadcast_via_collectives(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
+    def param_requires_broadcast_via_collectives(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
     @property
-    def auto_spmd_partitioning_mesh_shape(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def auto_spmd_partitioning_mesh_shape(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
-    def auto_spmd_partitioning_mesh_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def auto_spmd_partitioning_mesh_ids(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
     def debug_options(self) -> global___DebugOptions: ...
     @property
     def static_device_assignment(self) -> tensorflow.compiler.xla.xla_data_pb2.DeviceAssignmentProto: ...
     @property
-    def shardable_value_update_pairs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ShardableValueUpdatePairProto]: ...
+    def shardable_value_update_pairs(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ShardableValueUpdatePairProto]: ...
     @property
-    def fusion_config(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloModuleConfigProto.BoolList]: ...
+    def fusion_config(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloModuleConfigProto.BoolList]: ...
     @property
-    def dot_config(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___HloModuleConfigProto.Int64List]: ...
+    def dot_config(
+        self,
+    ) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___HloModuleConfigProto.Int64List]: ...
     @property
-    def layout_config(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloModuleConfigProto.Int64ListList]: ...
+    def layout_config(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloModuleConfigProto.Int64ListList]: ...
     @property
-    def memory_space_assignment_config(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def memory_space_assignment_config(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
-    def phase_ordering_config(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloModuleConfigProto.BoolList]: ...
+    def phase_ordering_config(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloModuleConfigProto.BoolList]: ...
     @property
-    def allow_spmd_sharding_propagation_to_output(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
+    def allow_spmd_sharding_propagation_to_output(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
     @property
     def analysis_allowance_map(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]: ...
     def __init__(
@@ -1479,8 +1925,84 @@ class HloModuleConfigProto(google.protobuf.message.Message):
         fdo_profile: builtins.bytes | None = ...,
         device_memory_size: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["debug_options", b"debug_options", "entry_computation_layout", b"entry_computation_layout", "static_device_assignment", b"static_device_assignment"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["alias_passthrough_params", b"alias_passthrough_params", "allow_separate_sharding_programs", b"allow_separate_sharding_programs", "allow_spmd_sharding_propagation_to_output", b"allow_spmd_sharding_propagation_to_output", "analysis_allowance_map", b"analysis_allowance_map", "auto_spmd_partitioning_mesh_ids", b"auto_spmd_partitioning_mesh_ids", "auto_spmd_partitioning_mesh_shape", b"auto_spmd_partitioning_mesh_shape", "content_aware_computation_sorting", b"content_aware_computation_sorting", "debug_options", b"debug_options", "deduplicate_hlo", b"deduplicate_hlo", "device_memory_size", b"device_memory_size", "device_type", b"device_type", "dot_config", b"dot_config", "entry_computation_layout", b"entry_computation_layout", "fdo_profile", b"fdo_profile", "fusion_config", b"fusion_config", "fusion_config_collection", b"fusion_config_collection", "intra_op_parallelism_threads", b"intra_op_parallelism_threads", "launch_id", b"launch_id", "layout_config", b"layout_config", "matrix_unit_operand_precision", b"matrix_unit_operand_precision", "memory_space_assignment_config", b"memory_space_assignment_config", "num_partitions", b"num_partitions", "param_requires_broadcast_via_collectives", b"param_requires_broadcast_via_collectives", "phase_index", b"phase_index", "phase_ordering_config", b"phase_ordering_config", "replica_count", b"replica_count", "seed", b"seed", "shardable_value_update_pairs", b"shardable_value_update_pairs", "static_device_assignment", b"static_device_assignment", "use_auto_spmd_partitioning", b"use_auto_spmd_partitioning", "use_spmd_partitioning", b"use_spmd_partitioning"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "debug_options",
+            b"debug_options",
+            "entry_computation_layout",
+            b"entry_computation_layout",
+            "static_device_assignment",
+            b"static_device_assignment",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "alias_passthrough_params",
+            b"alias_passthrough_params",
+            "allow_separate_sharding_programs",
+            b"allow_separate_sharding_programs",
+            "allow_spmd_sharding_propagation_to_output",
+            b"allow_spmd_sharding_propagation_to_output",
+            "analysis_allowance_map",
+            b"analysis_allowance_map",
+            "auto_spmd_partitioning_mesh_ids",
+            b"auto_spmd_partitioning_mesh_ids",
+            "auto_spmd_partitioning_mesh_shape",
+            b"auto_spmd_partitioning_mesh_shape",
+            "content_aware_computation_sorting",
+            b"content_aware_computation_sorting",
+            "debug_options",
+            b"debug_options",
+            "deduplicate_hlo",
+            b"deduplicate_hlo",
+            "device_memory_size",
+            b"device_memory_size",
+            "device_type",
+            b"device_type",
+            "dot_config",
+            b"dot_config",
+            "entry_computation_layout",
+            b"entry_computation_layout",
+            "fdo_profile",
+            b"fdo_profile",
+            "fusion_config",
+            b"fusion_config",
+            "fusion_config_collection",
+            b"fusion_config_collection",
+            "intra_op_parallelism_threads",
+            b"intra_op_parallelism_threads",
+            "launch_id",
+            b"launch_id",
+            "layout_config",
+            b"layout_config",
+            "matrix_unit_operand_precision",
+            b"matrix_unit_operand_precision",
+            "memory_space_assignment_config",
+            b"memory_space_assignment_config",
+            "num_partitions",
+            b"num_partitions",
+            "param_requires_broadcast_via_collectives",
+            b"param_requires_broadcast_via_collectives",
+            "phase_index",
+            b"phase_index",
+            "phase_ordering_config",
+            b"phase_ordering_config",
+            "replica_count",
+            b"replica_count",
+            "seed",
+            b"seed",
+            "shardable_value_update_pairs",
+            b"shardable_value_update_pairs",
+            "static_device_assignment",
+            b"static_device_assignment",
+            "use_auto_spmd_partitioning",
+            b"use_auto_spmd_partitioning",
+            "use_spmd_partitioning",
+            b"use_spmd_partitioning",
+        ],
+    ) -> None: ...
 
 global___HloModuleConfigProto = HloModuleConfigProto
 
@@ -1526,7 +2048,11 @@ class GetDeviceHandlesResponse(google.protobuf.message.Message):
 
     DEVICE_HANDLES_FIELD_NUMBER: builtins.int
     @property
-    def device_handles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.DeviceHandle]: ...
+    def device_handles(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        tensorflow.compiler.xla.xla_data_pb2.DeviceHandle
+    ]: ...
     def __init__(
         self,
         *,
@@ -1556,7 +2082,9 @@ class TransferToClientRequest(google.protobuf.message.Message):
         data: tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle | None = ...,
         shape_with_layout: tensorflow.compiler.xla.xla_data_pb2.ShapeProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["data", b"data", "shape_with_layout", b"shape_with_layout"]) -> builtins.bool: ...
+    def HasField(
+        self, field_name: typing.Literal["data", b"data", "shape_with_layout", b"shape_with_layout"]
+    ) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["data", b"data", "shape_with_layout", b"shape_with_layout"]) -> None: ...
 
 global___TransferToClientRequest = TransferToClientRequest
@@ -1636,7 +2164,9 @@ class TransferToInfeedRequest(google.protobuf.message.Message):
         device_handle: tensorflow.compiler.xla.xla_data_pb2.DeviceHandle | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["device_handle", b"device_handle", "literal", b"literal"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["device_handle", b"device_handle", "literal", b"literal", "replica_id", b"replica_id"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["device_handle", b"device_handle", "literal", b"literal", "replica_id", b"replica_id"]
+    ) -> None: ...
 
 global___TransferToInfeedRequest = TransferToInfeedRequest
 
@@ -1673,8 +2203,15 @@ class TransferFromOutfeedRequest(google.protobuf.message.Message):
         replica_id: builtins.int | None = ...,
         device_handle: tensorflow.compiler.xla.xla_data_pb2.DeviceHandle | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["device_handle", b"device_handle", "shape_with_layout", b"shape_with_layout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["device_handle", b"device_handle", "replica_id", b"replica_id", "shape_with_layout", b"shape_with_layout"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["device_handle", b"device_handle", "shape_with_layout", b"shape_with_layout"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "device_handle", b"device_handle", "replica_id", b"replica_id", "shape_with_layout", b"shape_with_layout"
+        ],
+    ) -> None: ...
 
 global___TransferFromOutfeedRequest = TransferFromOutfeedRequest
 
@@ -1738,8 +2275,12 @@ class ComputationGraphStatsRequest(google.protobuf.message.Message):
         computation: tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto | None = ...,
         debug_options: global___DebugOptions | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["computation", b"computation", "debug_options", b"debug_options"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["computation", b"computation", "debug_options", b"debug_options"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["computation", b"computation", "debug_options", b"debug_options"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["computation", b"computation", "debug_options", b"debug_options"]
+    ) -> None: ...
 
 global___ComputationGraphStatsRequest = ComputationGraphStatsRequest
 
@@ -1798,7 +2339,11 @@ class UnregisterRequest(google.protobuf.message.Message):
 
     DATA_FIELD_NUMBER: builtins.int
     @property
-    def data(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle]: ...
+    def data(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle
+    ]: ...
     def __init__(
         self,
         *,
@@ -1834,7 +2379,9 @@ class CompileRequest(google.protobuf.message.Message):
         """Options that affect how XLA compiles code to service this request."""
 
     @property
-    def input_shape_with_layout(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.ShapeProto]:
+    def input_shape_with_layout(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.ShapeProto]:
         """The layouts of the input arguments. If not set, the default layout will be
         used. Although the real arguments are not needed in compilation, the
         layouts of the arguments can affect the compilation.
@@ -1847,8 +2394,20 @@ class CompileRequest(google.protobuf.message.Message):
         execution_options: global___ExecutionOptions | None = ...,
         input_shape_with_layout: collections.abc.Iterable[tensorflow.compiler.xla.xla_data_pb2.ShapeProto] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["computation", b"computation", "execution_options", b"execution_options"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["computation", b"computation", "execution_options", b"execution_options", "input_shape_with_layout", b"input_shape_with_layout"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["computation", b"computation", "execution_options", b"execution_options"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "computation",
+            b"computation",
+            "execution_options",
+            b"execution_options",
+            "input_shape_with_layout",
+            b"input_shape_with_layout",
+        ],
+    ) -> None: ...
 
 global___CompileRequest = CompileRequest
 
@@ -1880,7 +2439,11 @@ class ExecuteRequest(google.protobuf.message.Message):
     @property
     def handle(self) -> tensorflow.compiler.xla.xla_data_pb2.ExecutionHandle: ...
     @property
-    def arguments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle]:
+    def arguments(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle
+    ]:
         """The shape and layout of the arguments must be the same as the those of the
         executable's parameters.
         """
@@ -1910,7 +2473,11 @@ class ExecuteGraphRequest(google.protobuf.message.Message):
     @property
     def computation(self) -> tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto: ...
     @property
-    def arguments(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle]: ...
+    def arguments(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle
+    ]: ...
     @property
     def execution_options(self) -> global___ExecutionOptions:
         """Options that affect how XLA compiles and runs code to service this request."""
@@ -1922,8 +2489,15 @@ class ExecuteGraphRequest(google.protobuf.message.Message):
         arguments: collections.abc.Iterable[tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle] | None = ...,
         execution_options: global___ExecutionOptions | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["computation", b"computation", "execution_options", b"execution_options"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["arguments", b"arguments", "computation", b"computation", "execution_options", b"execution_options"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["computation", b"computation", "execution_options", b"execution_options"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "arguments", b"arguments", "computation", b"computation", "execution_options", b"execution_options"
+        ],
+    ) -> None: ...
 
 global___ExecuteGraphRequest = ExecuteGraphRequest
 
@@ -1996,8 +2570,12 @@ class ComputeConstantGraphRequest(google.protobuf.message.Message):
         computation: tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto | None = ...,
         output_layout: tensorflow.compiler.xla.xla_data_pb2.LayoutProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["computation", b"computation", "output_layout", b"output_layout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["computation", b"computation", "output_layout", b"output_layout"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["computation", b"computation", "output_layout", b"output_layout"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self, field_name: typing.Literal["computation", b"computation", "output_layout", b"output_layout"]
+    ) -> None: ...
 
 global___ComputeConstantGraphRequest = ComputeConstantGraphRequest
 
@@ -2043,7 +2621,11 @@ class DeconstructTupleResponse(google.protobuf.message.Message):
 
     ELEMENT_HANDLES_FIELD_NUMBER: builtins.int
     @property
-    def element_handles(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle]: ...
+    def element_handles(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle
+    ]: ...
     def __init__(
         self,
         *,
@@ -2092,7 +2674,23 @@ class LoadDataRequest(google.protobuf.message.Message):
         zip: builtins.bool | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["element_shape", b"element_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["columnio_field", b"columnio_field", "columnio_tablet_path", b"columnio_tablet_path", "element_shape", b"element_shape", "limit", b"limit", "offset", b"offset", "zip", b"zip"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "columnio_field",
+            b"columnio_field",
+            "columnio_tablet_path",
+            b"columnio_tablet_path",
+            "element_shape",
+            b"element_shape",
+            "limit",
+            b"limit",
+            "offset",
+            b"offset",
+            "zip",
+            b"zip",
+        ],
+    ) -> None: ...
 
 global___LoadDataRequest = LoadDataRequest
 
@@ -2122,7 +2720,21 @@ class LoadDataResponse(google.protobuf.message.Message):
         nanoseconds: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["data", b"data", "data_shape", b"data_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["available_rows", b"available_rows", "data", b"data", "data_shape", b"data_shape", "nanoseconds", b"nanoseconds", "rows_loaded", b"rows_loaded"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "available_rows",
+            b"available_rows",
+            "data",
+            b"data",
+            "data_shape",
+            b"data_shape",
+            "nanoseconds",
+            b"nanoseconds",
+            "rows_loaded",
+            b"rows_loaded",
+        ],
+    ) -> None: ...
 
 global___LoadDataResponse = LoadDataResponse
 
@@ -2183,7 +2795,11 @@ class UnpackResponse(google.protobuf.message.Message):
 
     TIED_DATA_FIELD_NUMBER: builtins.int
     @property
-    def tied_data(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle]: ...
+    def tied_data(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        tensorflow.compiler.xla.xla_data_pb2.GlobalDataHandle
+    ]: ...
     def __init__(
         self,
         *,
@@ -2218,7 +2834,12 @@ class ScheduleProto(google.protobuf.message.Message):
             start_timestamp_cycles: builtins.float | None = ...,
             end_timestamp_cycles: builtins.float | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["end_timestamp_cycles", b"end_timestamp_cycles", "id", b"id", "start_timestamp_cycles", b"start_timestamp_cycles"]) -> None: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "end_timestamp_cycles", b"end_timestamp_cycles", "id", b"id", "start_timestamp_cycles", b"start_timestamp_cycles"
+            ],
+        ) -> None: ...
 
     INSTRUCTIONS_FIELD_NUMBER: builtins.int
     COMPUTATION_ID_FIELD_NUMBER: builtins.int
@@ -2228,7 +2849,9 @@ class ScheduleProto(google.protobuf.message.Message):
     """Computation id (matches the id in HloComputationProto)."""
     cycles_per_microsecond: builtins.int
     @property
-    def instructions(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ScheduleProto.Instruction]: ...
+    def instructions(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ScheduleProto.Instruction]: ...
     @property
     def hlo_module(self) -> tensorflow.compiler.xla.service.hlo_pb2.HloModuleProto: ...
     def __init__(
@@ -2240,6 +2863,18 @@ class ScheduleProto(google.protobuf.message.Message):
         cycles_per_microsecond: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["hlo_module", b"hlo_module"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["computation_id", b"computation_id", "cycles_per_microsecond", b"cycles_per_microsecond", "hlo_module", b"hlo_module", "instructions", b"instructions"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "computation_id",
+            b"computation_id",
+            "cycles_per_microsecond",
+            b"cycles_per_microsecond",
+            "hlo_module",
+            b"hlo_module",
+            "instructions",
+            b"instructions",
+        ],
+    ) -> None: ...
 
 global___ScheduleProto = ScheduleProto

@@ -27,7 +27,7 @@ from _ctypes import (
     sizeof as sizeof,
 )
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
-from typing import Any, ClassVar, Generic, TypeVar
+from typing import Any, ClassVar, Final, Generic, TypeVar
 from typing_extensions import TypeAlias
 
 if sys.platform == "win32":
@@ -42,7 +42,7 @@ if sys.version_info >= (3, 9):
 _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)
 
-DEFAULT_MODE: int
+DEFAULT_MODE: Final[int]
 
 class ArgumentError(Exception): ...
 

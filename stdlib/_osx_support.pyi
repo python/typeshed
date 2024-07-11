@@ -1,5 +1,5 @@
 from collections.abc import Iterable, Sequence
-from typing import TypeVar
+from typing import Final, TypeVar
 
 _T = TypeVar("_T")
 _K = TypeVar("_K")
@@ -9,7 +9,7 @@ __all__ = ["compiler_fixup", "customize_config_vars", "customize_compiler", "get
 
 _UNIVERSAL_CONFIG_VARS: tuple[str, ...]  # undocumented
 _COMPILER_CONFIG_VARS: tuple[str, ...]  # undocumented
-_INITPRE: str  # undocumented
+_INITPRE: Final[str]  # undocumented
 
 def _find_executable(executable: str, path: str | None = None) -> str | None: ...  # undocumented
 def _read_output(commandstring: str, capture_stderr: bool = False) -> str | None: ...  # undocumented

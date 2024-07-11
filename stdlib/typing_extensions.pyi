@@ -25,6 +25,7 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039
     DefaultDict as DefaultDict,
     Deque as Deque,
     Dict as Dict,
+    Final,
     ForwardRef as ForwardRef,
     FrozenSet as FrozenSet,
     Generator as Generator,

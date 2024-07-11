@@ -31,7 +31,9 @@ class ErrorSourceProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ErrorSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ErrorSourceProto._ErrorSource.ValueType], builtins.type):
+    class _ErrorSourceEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ErrorSourceProto._ErrorSource.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: ErrorSourceProto._ErrorSource.ValueType  # 0
         TPU_COMPILE_OP: ErrorSourceProto._ErrorSource.ValueType  # 1

@@ -95,7 +95,9 @@ class HasSalt(GenericHandler):
     default_salt_chars: ClassVar[str | None]
     salt: str | bytes | None
     @classmethod
-    def using(cls, default_salt_size: int | None = None, salt_size: int | None = None, salt: str | bytes | None = None, **kwds): ...  # type: ignore[override]
+    def using(
+        cls, default_salt_size: int | None = None, salt_size: int | None = None, salt: str | bytes | None = None, **kwds
+    ): ...  # type: ignore[override]
     def __init__(self, salt: str | bytes | None = None, **kwds) -> None: ...
     @classmethod
     def bitsize(cls, salt_size: int | None = None, **kwds): ...

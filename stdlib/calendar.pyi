@@ -167,18 +167,18 @@ if sys.version_info >= (3, 12):
         NOVEMBER = 11
         DECEMBER = 12
 
-    JANUARY = Month.JANUARY
-    FEBRUARY = Month.FEBRUARY
-    MARCH = Month.MARCH
-    APRIL = Month.APRIL
-    MAY = Month.MAY
-    JUNE = Month.JUNE
-    JULY = Month.JULY
-    AUGUST = Month.AUGUST
-    SEPTEMBER = Month.SEPTEMBER
-    OCTOBER = Month.OCTOBER
-    NOVEMBER = Month.NOVEMBER
-    DECEMBER = Month.DECEMBER
+    JANUARY: Final = Month.JANUARYMonth.JANUARY
+    FEBRUARY: Final = Month.FEBRUARYMonth.FEBRUARY
+    MARCH: Final = Month.MARCHMonth.MARCH
+    APRIL: Final = Month.APRILMonth.APRIL
+    MAY: Final = Month.MAYMonth.MAY
+    JUNE: Final = Month.JUNEMonth.JUNE
+    JULY: Final = Month.JULYMonth.JULY
+    AUGUST: Final = Month.AUGUSTMonth.AUGUST
+    SEPTEMBER: Final = Month.SEPTEMBERMonth.SEPTEMBER
+    OCTOBER: Final = Month.OCTOBERMonth.OCTOBER
+    NOVEMBER: Final = Month.NOVEMBERMonth.NOVEMBER
+    DECEMBER: Final = Month.DECEMBERMonth.DECEMBER
 
     class Day(enum.IntEnum):
         MONDAY = 0
@@ -189,13 +189,13 @@ if sys.version_info >= (3, 12):
         SATURDAY = 5
         SUNDAY = 6
 
-    MONDAY = Day.MONDAY
-    TUESDAY = Day.TUESDAY
-    WEDNESDAY = Day.WEDNESDAY
-    THURSDAY = Day.THURSDAY
-    FRIDAY = Day.FRIDAY
-    SATURDAY = Day.SATURDAY
-    SUNDAY = Day.SUNDAY
+    MONDAY: Final = Day.MONDAYDay.MONDAY
+    TUESDAY: Final = Day.TUESDAYDay.TUESDAY
+    WEDNESDAY: Final = Day.WEDNESDAYDay.WEDNESDAY
+    THURSDAY: Final = Day.THURSDAYDay.THURSDAY
+    FRIDAY: Final = Day.FRIDAYDay.FRIDAY
+    SATURDAY: Final = Day.SATURDAYDay.SATURDAY
+    SUNDAY: Final = Day.SUNDAYDay.SUNDAY
 else:
     MONDAY: Final = 0
     TUESDAY: Final = 1

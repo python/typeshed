@@ -1,3 +1,4 @@
+
 class NodeFilter:
     FILTER_ACCEPT: int
     FILTER_REJECT: int

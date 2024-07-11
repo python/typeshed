@@ -4,7 +4,7 @@ import types
 from _typeshed import DataclassInstance
 from builtins import type as Type  # alias to avoid name clashes with fields named "type"
 from collections.abc import Callable, Iterable, Mapping
-from typing import Any, Generic, Literal, Protocol, TypeVar, overload
+from typing import Any, Final, Generic, Literal, Protocol, TypeVar, overload
 from typing_extensions import TypeAlias, TypeIs
 
 if sys.version_info >= (3, 9):
@@ -41,7 +41,7 @@ _DataclassT = TypeVar("_DataclassT", bound=DataclassInstance)
 class _MISSING_TYPE(enum.Enum):
     MISSING = enum.auto()
 
-MISSING = _MISSING_TYPE.MISSING
+MISSING: Final = _MISSING_TYPE.MISSING_MISSING_TYPE.MISSING
 
 if sys.version_info >= (3, 10):
     class KW_ONLY: ...

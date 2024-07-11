@@ -4,13 +4,13 @@ from collections.abc import Callable, Hashable, Iterable, Sequence
 from configparser import RawConfigParser
 from re import Pattern
 from threading import Thread
-from typing import IO, Any, Literal, SupportsIndex, TypedDict, overload
+from typing import IO, Any, Final, Literal, SupportsIndex, TypedDict, overload
 from typing_extensions import Required, TypeAlias
 
 from . import Filter, Filterer, Formatter, Handler, Logger, _FilterType, _FormatStyle, _Level
 
-DEFAULT_LOGGING_CONFIG_PORT: int
-RESET_ERROR: int  # undocumented
+DEFAULT_LOGGING_CONFIG_PORT: Final[int]
+RESET_ERROR: Final[int]  # undocumented
 IDENTIFIER: Pattern[str]  # undocumented
 
 if sys.version_info >= (3, 11):

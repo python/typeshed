@@ -2,7 +2,7 @@ import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable, Collection, Iterable, Mapping, Sequence
 from types import TracebackType
-from typing import IO, Any, AnyStr, Generic, Literal, TypeVar, overload
+from typing import IO, Any, AnyStr, Final, Generic, Literal, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -62,20 +62,20 @@ if sys.platform == "win32":
 #    reveal_type(x)  # bytes, based on the overloads
 # except TimeoutError as e:
 #    reveal_type(e.cmd)  # Any, but morally is _CMD
-_FILE: TypeAlias = None | int | IO[Any]
+_FILE: Final[TypeAlias] = None | int | IO[Any]
 _InputString: TypeAlias = ReadableBuffer | str
-_CMD: TypeAlias = StrOrBytesPath | Sequence[StrOrBytesPath]
+_CMD: Final[TypeAlias] = StrOrBytesPath | Sequence[StrOrBytesPath]
 if sys.platform == "win32":
-    _ENV: TypeAlias = Mapping[str, str]
+    _ENV: Final[TypeAlias] = Mapping[str, str]
 else:
-    _ENV: TypeAlias = Mapping[bytes, StrOrBytesPath] | Mapping[str, StrOrBytesPath]
+    _ENV: Final[TypeAlias] = Mapping[bytes, StrOrBytesPath] | Mapping[str, StrOrBytesPath]
 
 _T = TypeVar("_T")
 
 # These two are private but documented
 if sys.version_info >= (3, 11):
-    _USE_VFORK: bool
-_USE_POSIX_SPAWN: bool
+    _USE_VFORK: Final[bool]
+_USE_POSIX_SPAWN: Final[bool]
 
 class CompletedProcess(Generic[_T]):
     # morally: _CMD
@@ -1810,9 +1810,9 @@ else:
         text: bool | None = None,
     ) -> Any: ...  # morally: -> str | bytes
 
-PIPE: int
-STDOUT: int
-DEVNULL: int
+PIPE: Final[int]
+STDOUT: Final[int]
+DEVNULL: Final[int]
 
 class SubprocessError(Exception): ...
 

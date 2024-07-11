@@ -52,7 +52,10 @@ class UserDict(MutableMapping[_KT, _VT]):
     def __init__(self, dict: None = None, /) -> None: ...
     @overload
     def __init__(
-        self: UserDict[str, _VT], dict: None = None, /, **kwargs: _VT  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        self: UserDict[str, _VT],
+        dict: None = None,
+        /,
+        **kwargs: _VT,  # pyright: ignore[reportInvalidTypeVarUse]  #11780
     ) -> None: ...
     @overload
     def __init__(self, dict: SupportsKeysAndGetItem[_KT, _VT], /) -> None: ...

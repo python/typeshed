@@ -1,6 +1,6 @@
 import sys
 import termios
-from typing import IO
+from typing import IO, Final
 from typing_extensions import TypeAlias
 
 if sys.platform != "win32":
@@ -12,16 +12,16 @@ if sys.platform != "win32":
     else:
         _ModeSetterReturn: TypeAlias = None
 
-    _FD: TypeAlias = int | IO[str]
+    _FD: Final[TypeAlias] = int | IO[str]
 
     # XXX: Undocumented integer constants
-    IFLAG: int
-    OFLAG: int
-    CFLAG: int
-    LFLAG: int
-    ISPEED: int
-    OSPEED: int
-    CC: int
+    IFLAG: Final[int]
+    OFLAG: Final[int]
+    CFLAG: Final[int]
+    LFLAG: Final[int]
+    ISPEED: Final[int]
+    OSPEED: Final[int]
+    CC: Final[int]
     def setraw(fd: _FD, when: int = 2) -> _ModeSetterReturn: ...
     def setcbreak(fd: _FD, when: int = 2) -> _ModeSetterReturn: ...
 

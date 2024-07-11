@@ -8,14 +8,14 @@ from copyreg import _DispatchTableType
 from multiprocessing import connection
 from pickle import _ReducedType
 from socket import socket
-from typing import Any, Literal
+from typing import Any, Final, Literal
 
 if sys.platform == "win32":
     __all__ = ["send_handle", "recv_handle", "ForkingPickler", "register", "dump", "DupHandle", "duplicate", "steal_handle"]
 else:
     __all__ = ["send_handle", "recv_handle", "ForkingPickler", "register", "dump", "DupFd", "sendfds", "recvfds"]
 
-HAVE_SEND_HANDLE: bool
+HAVE_SEND_HANDLE: Final[bool]
 
 class ForkingPickler(pickle.Pickler):
     dispatch_table: _DispatchTableType

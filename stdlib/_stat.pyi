@@ -1,5 +1,5 @@
 import sys
-from typing import Literal
+from typing import Final, Literal
 
 SF_APPEND: Literal[0x00040000]
 SF_ARCHIVED: Literal[0x00010000]
@@ -28,9 +28,9 @@ S_IFDIR: Literal[0o040000]
 
 # These are 0 on systems that don't support the specific kind of file.
 # Example: Linux doesn't support door files, so S_IFDOOR is 0 on linux.
-S_IFDOOR: int
-S_IFPORT: int
-S_IFWHT: int
+S_IFDOOR: Final[int]
+S_IFPORT: Final[int]
+S_IFWHT: Final[int]
 
 S_ISUID: Literal[0o4000]
 S_ISGID: Literal[0o2000]
@@ -79,9 +79,9 @@ def S_ISWHT(mode: int, /) -> bool: ...
 def filemode(mode: int, /) -> str: ...
 
 if sys.platform == "win32":
-    IO_REPARSE_TAG_SYMLINK: int
-    IO_REPARSE_TAG_MOUNT_POINT: int
-    IO_REPARSE_TAG_APPEXECLINK: int
+    IO_REPARSE_TAG_SYMLINK: Final[int]
+    IO_REPARSE_TAG_MOUNT_POINT: Final[int]
+    IO_REPARSE_TAG_APPEXECLINK: Final[int]
 
 if sys.platform == "win32":
     FILE_ATTRIBUTE_ARCHIVE: Literal[32]

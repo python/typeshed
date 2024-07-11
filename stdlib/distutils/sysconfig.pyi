@@ -1,13 +1,13 @@
 import sys
 from collections.abc import Mapping
 from distutils.ccompiler import CCompiler
-from typing import Literal, overload
+from typing import Final, Literal, overload
 from typing_extensions import deprecated
 
-PREFIX: str
-EXEC_PREFIX: str
-BASE_PREFIX: str
-BASE_EXEC_PREFIX: str
+PREFIX: Final[str]
+EXEC_PREFIX: Final[str]
+BASE_PREFIX: Final[str]
+BASE_EXEC_PREFIX: Final[str]
 project_base: str
 python_build: bool
 
