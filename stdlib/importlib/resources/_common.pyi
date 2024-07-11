@@ -1,6 +1,6 @@
 import sys
 from types import ModuleType
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 Package: TypeAlias = str | ModuleType
 
