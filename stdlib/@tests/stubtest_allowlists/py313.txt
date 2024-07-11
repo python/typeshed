@@ -88,8 +88,6 @@ os.path.splitroot
 # `__replace__` to be special cased in dataclasses
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
-site.gethistoryfile
-site.register_readline
 tkinter.Misc.after_info
 tkinter.Misc.busy
 tkinter.Misc.busy_cget
@@ -118,9 +116,6 @@ tkinter.Text.count
 tkinter.Wm.wm_attributes
 trace.CoverageResults.write_results
 types.MappingProxyType.get
-zipfile.CompleteDirs.inject
-zipfile.ZipInfo.compress_level
-zipfile._path.CompleteDirs.inject
 
 # ======================================
 # Pre-existing errors from Python <=3.12
