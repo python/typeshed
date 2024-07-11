@@ -186,9 +186,9 @@ __all__ = [
     "TypeIs",
 ]
 
-_T: Final = typing.TypeVar("_T")
-_F: Final = typing.TypeVar("_F", bound=Callable[..., Any])
-_TC: Final = typing.TypeVar("_TC", bound=type[object])
+_T = typing.TypeVar("_T")
+_F = typing.TypeVar("_F", bound=Callable[..., Any])
+_TC = typing.TypeVar("_TC", bound=type[object])
 
 # unfortunately we have to duplicate this class definition from typing.pyi or we break pytype
 class _SpecialForm:
