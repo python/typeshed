@@ -37,9 +37,6 @@ asyncio.queues.Queue.shutdown
 asyncio.queues.QueueShutDown
 asyncio.queues.__all__
 asyncio.streams.StreamWriter.__del__
-bdb.Bdb.dispatch_opcode
-bdb.Bdb.set_stepinstr
-bdb.Bdb.user_opcode
 codecs.backslashreplace_errors
 codecs.ignore_errors
 codecs.namereplace_errors
