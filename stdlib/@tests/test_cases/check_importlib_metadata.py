@@ -4,7 +4,6 @@ import sys
 from _typeshed import StrPath
 from os import PathLike
 from pathlib import Path
-from typing import Any
 from zipfile import Path as ZipPath
 
 if sys.version_info >= (3, 10):
