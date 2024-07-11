@@ -1,2 +1,1 @@
-
 topics: dict[str, str]

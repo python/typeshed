@@ -26,21 +26,11 @@ __all__ = [
 
 @overload
 def points(
-    coords: float,
-    y: float,
-    z: float | None = None,
-    indices: None = None,
-    out: None = None,
-    **kwargs,  # acts as x
+    coords: float, y: float, z: float | None = None, indices: None = None, out: None = None, **kwargs  # acts as x
 ) -> Point: ...
 @overload
 def points(
-    coords: Sequence[float],
-    y: None = None,
-    z: None = None,
-    indices: None = None,
-    out: None = None,
-    **kwargs,  # acts as x, y[, z]
+    coords: Sequence[float], y: None = None, z: None = None, indices: None = None, out: None = None, **kwargs  # acts as x, y[, z]
 ) -> Point: ...
 @overload
 def points(

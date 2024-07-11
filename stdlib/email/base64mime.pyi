@@ -1,4 +1,3 @@
-
 __all__ = ["body_decode", "body_encode", "decode", "decodestring", "header_encode", "header_length"]
 
 from _typeshed import ReadableBuffer

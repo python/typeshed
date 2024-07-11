@@ -12,7 +12,6 @@ if sys.platform != "win32":
     open_flags: str
 
     class error(OSError): ...
-
     # Actual typename gdbm, not exposed by the implementation
     class _gdbm:
         def firstkey(self) -> bytes | None: ...

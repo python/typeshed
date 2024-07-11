@@ -1,4 +1,3 @@
-
 __all__ = ["html5", "name2codepoint", "codepoint2name", "entitydefs"]
 
 name2codepoint: dict[str, int]

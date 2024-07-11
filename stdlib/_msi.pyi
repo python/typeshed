@@ -3,7 +3,6 @@ from typing import Final
 
 if sys.platform == "win32":
     class MSIError(Exception): ...
-
     # Actual typename View, not exposed by the implementation
     class _View:
         def Execute(self, params: _Record | None = ...) -> None: ...
