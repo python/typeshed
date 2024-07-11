@@ -571,8 +571,8 @@ if sys.platform != "win32" and sys.platform != "darwin":
     AF_X25: Final = AddressFamily.AF_X25
 
 if sys.platform == "linux":
-    AF_CAN: Final = AddressFamily.AF_CANAddressFamily.AF_CAN
-    AF_PACKET: Final = AddressFamily
+    AF_CAN: Final = AddressFamily.AF_CAN
+    AF_PACKET: Final = AddressFamily.AF_PACKET
     AF_RDS: Final = AddressFamily.AF_RDS
     AF_TIPC: Final = AddressFamily.AF_TIPC
     AF_ALG: Final = AddressFamily.AF_ALG
@@ -607,8 +607,8 @@ SOCK_RAW: Final = SocketKind.SOCK_RAW
 SOCK_RDM: Final = SocketKind.SOCK_RDM
 SOCK_SEQPACKET: Final = SocketKind.SOCK_SEQPACKET
 if sys.platform == "linux":
-    SOCK_CLOEXEC: Final = SocketKind.SOCK_CLOEXECSocketKind.SOCK_CLOEXEC
-    SOCK_NONBLOCK: Final = SocketKind.SOCK_NONBLOCKSocketKind.SOCK_NONBLOCK
+    SOCK_CLOEXEC: Final = SocketKind.SOCK_CLOEXEC
+    SOCK_NONBLOCK: Final = SocketKind.SOCK_NONBLOCK
 
 class MsgFlag(IntFlag):
     MSG_CTRUNC = 8
