@@ -179,7 +179,7 @@ class NodeTransformer(NodeVisitor):
     #       The usual return type is AST | None, but Iterable[AST]
     #       is also allowed in some cases -- this needs to be mapped.
 
-_T: Final = _TypeVar("_T", bound=AST)
+_T = _TypeVar("_T", bound=AST)
 
 if sys.version_info >= (3, 13):
     @overload
