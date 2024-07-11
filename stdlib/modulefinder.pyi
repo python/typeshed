@@ -8,7 +8,7 @@ if sys.version_info < (3, 11):
     IMPORT_NAME: Final[int]  # undocumented
     STORE_NAME: Final[int]  # undocumented
     STORE_GLOBAL: Final[int]  # undocumented
-    STORE_OPS: tuple[int, int]  # undocumented
+    STORE_OPS: Final[tuple[int, int]]  # undocumented
     EXTENDED_ARG: Final[int]  # undocumented
 
 packagePathMap: dict[str, list[str]]  # undocumented

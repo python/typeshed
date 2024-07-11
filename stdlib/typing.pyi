@@ -21,6 +21,7 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
+from typing import Final
 from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, deprecated
 
 if sys.version_info >= (3, 9):
@@ -329,7 +330,7 @@ else:
     def NewType(name: str, tp: Any) -> Any: ...
 
 _F = TypeVar("_F", bound=Callable[..., Any])
-_P = _ParamSpec("_P")
+_P: Final = _ParamSpec("_P")
 _T = TypeVar("_T")
 
 # These type variables are used by the container types.

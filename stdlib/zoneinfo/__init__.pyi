@@ -1,7 +1,7 @@
 from _typeshed import StrPath
 from collections.abc import Iterable, Sequence
 from datetime import datetime, timedelta, tzinfo
-from typing import Any, Protocol
+from typing import Any, Final, Protocol
 from typing_extensions import Self
 
 __all__ = ["ZoneInfo", "reset_tzpath", "available_timezones", "TZPATH", "ZoneInfoNotFoundError", "InvalidTZPathWarning"]
@@ -30,7 +30,7 @@ class ZoneInfo(tzinfo):
 def reset_tzpath(to: Sequence[StrPath] | None = None) -> None: ...
 def available_timezones() -> set[str]: ...
 
-TZPATH: tuple[str, ...]
+TZPATH: Final[tuple[str, ...]]
 
 class ZoneInfoNotFoundError(KeyError): ...
 class InvalidTZPathWarning(RuntimeWarning): ...

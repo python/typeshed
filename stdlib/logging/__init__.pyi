@@ -684,6 +684,6 @@ class StrFormatStyle(PercentStyle):  # undocumented
 class StringTemplateStyle(PercentStyle):  # undocumented
     _tpl: Template
 
-_STYLES: dict[str, tuple[PercentStyle, str]]
+_STYLES: Final[dict[str, tuple[PercentStyle, str]]]
 
 BASIC_FORMAT: Final[str]

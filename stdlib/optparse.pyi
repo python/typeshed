@@ -23,7 +23,7 @@ __all__ = [
     "check_choice",
 ]
 
-NO_DEFAULT: tuple[str, ...]
+NO_DEFAULT: Final[tuple[str, ...]]
 SUPPRESS_HELP: Final[str]
 SUPPRESS_USAGE: Final[str]
 

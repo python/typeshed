@@ -239,10 +239,10 @@ HAS_ALPN: Final[bool]
 HAS_ECDH: Final[bool]
 HAS_SNI: Final[bool]
 HAS_NPN: Final[bool]
-CHANNEL_BINDING_TYPES: list[str]
+CHANNEL_BINDING_TYPES: Final[list[str]]
 
 OPENSSL_VERSION: Final[str]
-OPENSSL_VERSION_INFO: tuple[int, int, int, int, int]
+OPENSSL_VERSION_INFO: Final[tuple[int, int, int, int, int]]
 OPENSSL_VERSION_NUMBER: Final[int]
 
 class AlertDescription(enum.IntEnum):

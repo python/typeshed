@@ -11,7 +11,7 @@ from . import Filter, Filterer, Formatter, Handler, Logger, _FilterType, _Format
 
 DEFAULT_LOGGING_CONFIG_PORT: Final[int]
 RESET_ERROR: Final[int]  # undocumented
-IDENTIFIER: Pattern[str]  # undocumented
+IDENTIFIER: Final[Pattern[str]]  # undocumented
 
 if sys.version_info >= (3, 11):
     class _RootLoggerConfiguration(TypedDict, total=False):

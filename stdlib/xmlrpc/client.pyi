@@ -98,7 +98,7 @@ class Binary:
 
 def _binary(data: ReadableBuffer) -> Binary: ...  # undocumented
 
-WRAPPERS: tuple[type[DateTime], type[Binary]]  # undocumented
+WRAPPERS: Final[tuple[type[DateTime], type[Binary]]]  # undocumented
 
 class ExpatParser:  # undocumented
     def __init__(self, target: Unmarshaller) -> None: ...

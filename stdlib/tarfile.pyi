@@ -94,12 +94,12 @@ DEFAULT_FORMAT: Final[int]
 
 # tarfile constants
 
-SUPPORTED_TYPES: tuple[bytes, ...]
-REGULAR_TYPES: tuple[bytes, ...]
-GNU_TYPES: tuple[bytes, ...]
-PAX_FIELDS: tuple[str, ...]
-PAX_NUMBER_FIELDS: dict[str, type]
-PAX_NAME_FIELDS: set[str]
+SUPPORTED_TYPES: Final[tuple[bytes, ...]]
+REGULAR_TYPES: Final[tuple[bytes, ...]]
+GNU_TYPES: Final[tuple[bytes, ...]]
+PAX_FIELDS: Final[tuple[str, ...]]
+PAX_NUMBER_FIELDS: Final[dict[str, type]]
+PAX_NAME_FIELDS: Final[set[str]]
 
 ENCODING: Final[str]
 

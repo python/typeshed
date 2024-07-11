@@ -45,7 +45,7 @@ class TestResults(NamedTuple):
     failed: int
     attempted: int
 
-OPTIONFLAGS_BY_NAME: dict[str, int]
+OPTIONFLAGS_BY_NAME: Final[dict[str, int]]
 
 def register_optionflag(name: str) -> int: ...
 

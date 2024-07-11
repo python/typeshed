@@ -35,7 +35,7 @@ SMTP_SSL_PORT: Final[int]
 CRLF: Final[str]
 bCRLF: bytes
 
-OLDSTYLE_AUTH: Pattern[str]
+OLDSTYLE_AUTH: Final[Pattern[str]]
 
 class SMTPException(OSError): ...
 class SMTPNotSupportedError(SMTPException): ...

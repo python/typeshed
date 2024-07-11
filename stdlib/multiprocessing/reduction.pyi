@@ -8,7 +8,7 @@ from copyreg import _DispatchTableType
 from multiprocessing import connection
 from pickle import _ReducedType
 from socket import socket
-from typing import Any, Final, Literal
+from typing import Any, Final
 
 if sys.platform == "win32":
     __all__ = ["send_handle", "recv_handle", "ForkingPickler", "register", "dump", "DupHandle", "duplicate", "steal_handle"]
@@ -44,9 +44,9 @@ if sys.platform == "win32":
 
 else:
     if sys.platform == "darwin":
-        ACKNOWLEDGE: Literal[True]
+        ACKNOWLEDGE: Final = True
     else:
-        ACKNOWLEDGE: Literal[False]
+        ACKNOWLEDGE: Final = False
 
     def recvfds(sock: socket, size: int) -> list[int]: ...
     def send_handle(conn: HasFileno, handle: int, destination_pid: Unused) -> None: ...

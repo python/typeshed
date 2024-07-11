@@ -146,7 +146,7 @@ ENCODING: Final[int]
 TYPE_COMMENT: Final[int]
 TYPE_IGNORE: Final[int]
 COLONEQUAL: Final[int]
-EXACT_TOKEN_TYPES: dict[str, int]
+EXACT_TOKEN_TYPES: Final[dict[str, int]]
 if sys.version_info >= (3, 10):
     SOFT_KEYWORD: Final[int]
 

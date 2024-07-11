@@ -4,8 +4,8 @@ from typing import Any, ClassVar, Final
 from ..cmd import Command
 
 HAS_USER_SITE: Final[bool]
-SCHEME_KEYS: tuple[str, ...]
-INSTALL_SCHEMES: dict[str, dict[Any, Any]]
+SCHEME_KEYS: Final[tuple[str, ...]]
+INSTALL_SCHEMES: Final[dict[str, dict[Any, Any]]]
 
 class install(Command):
     description: str

@@ -4,7 +4,7 @@ import types
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterable, MutableSequence, Sequence
 from importlib.metadata import DistributionFinder, PathDistribution
-from typing import Any, Literal
+from typing import Any, Final, Literal
 from typing_extensions import deprecated
 
 class ModuleSpec:
@@ -127,11 +127,11 @@ class PathFinder:
         @classmethod
         def find_module(cls, fullname: str, path: Sequence[str] | None = None) -> importlib.abc.Loader | None: ...
 
-SOURCE_SUFFIXES: list[str]
-DEBUG_BYTECODE_SUFFIXES: list[str]
-OPTIMIZED_BYTECODE_SUFFIXES: list[str]
-BYTECODE_SUFFIXES: list[str]
-EXTENSION_SUFFIXES: list[str]
+SOURCE_SUFFIXES: Final[list[str]]
+DEBUG_BYTECODE_SUFFIXES: Final[list[str]]
+OPTIMIZED_BYTECODE_SUFFIXES: Final[list[str]]
+BYTECODE_SUFFIXES: Final[list[str]]
+EXTENSION_SUFFIXES: Final[list[str]]
 
 def all_suffixes() -> list[str]: ...
 
