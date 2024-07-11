@@ -4,7 +4,7 @@ from collections.abc import Iterable
 from typing import Any, Final, SupportsIndex, overload
 from typing_extensions import TypeAlias
 
-_CMSG: Final[TypeAlias] = tuple[int, int, bytes]
+_CMSG: TypeAlias = tuple[int, int, bytes]
 _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]
 
 # Addresses can be either tuples of varying lengths (AF_INET, AF_INET6,

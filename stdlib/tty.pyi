@@ -12,7 +12,7 @@ if sys.platform != "win32":
     else:
         _ModeSetterReturn: TypeAlias = None
 
-    _FD: Final[TypeAlias] = int | IO[str]
+    _FD: TypeAlias = int | IO[str]
 
     # XXX: Undocumented integer constants
     IFLAG: Final[int]

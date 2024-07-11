@@ -7,7 +7,7 @@ from typing_extensions import Self, TypeAlias
 from .fixer_base import BaseFix
 from .pgen2.grammar import Grammar
 
-_NL: Final[TypeAlias] = Node | Leaf
+_NL: TypeAlias = Node | Leaf
 _Context: TypeAlias = tuple[str, int, int]
 _Results: TypeAlias = dict[str, _NL]
 _RawNode: TypeAlias = tuple[int, str, _Context, list[_NL] | None]

@@ -106,8 +106,8 @@ class _CArgObject: ...
 
 def byref(obj: _CData, offset: int = ...) -> _CArgObject: ...
 
-_ECT: Final[TypeAlias] = Callable[[_CData | None, CFuncPtr, tuple[_CData, ...]], _CData]
-_PF: Final[TypeAlias] = tuple[int] | tuple[int, str | None] | tuple[int, str | None, Any]
+_ECT: TypeAlias = Callable[[_CData | None, CFuncPtr, tuple[_CData, ...]], _CData]
+_PF: TypeAlias = tuple[int] | tuple[int, str | None] | tuple[int, str | None, Any]
 
 class CFuncPtr(_PointerLike, _CData):
     restype: type[_CData] | Callable[[int], Any] | None

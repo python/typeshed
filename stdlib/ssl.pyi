@@ -6,8 +6,8 @@ from collections.abc import Callable, Iterable
 from typing import Any, Final, Literal, NamedTuple, TypedDict, final, overload
 from typing_extensions import Never, Self, TypeAlias
 
-_PCTRTT: Final[TypeAlias] = tuple[tuple[str, str], ...]
-_PCTRTTT: Final[TypeAlias] = tuple[_PCTRTT, ...]
+_PCTRTT: TypeAlias = tuple[tuple[str, str], ...]
+_PCTRTTT: TypeAlias = tuple[_PCTRTT, ...]
 _PeerCertRetDictType: TypeAlias = dict[str, str | _PCTRTTT | _PCTRTT]
 _PeerCertRetType: TypeAlias = _PeerCertRetDictType | bytes | None
 _EnumRetType: TypeAlias = list[tuple[bytes, str, set[str] | bool]]

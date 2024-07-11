@@ -1,10 +1,10 @@
 from collections.abc import Iterable, Mapping
 from re import Pattern
-from typing import Any, Final, overload
+from typing import Any, overload
 from typing_extensions import TypeAlias
 
 _Option: TypeAlias = tuple[str, str | None, str]
-_GR: Final[TypeAlias] = tuple[list[str], OptionDummy]
+_GR: TypeAlias = tuple[list[str], OptionDummy]
 
 longopt_pat: str
 longopt_re: Pattern[str]

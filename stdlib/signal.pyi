@@ -64,8 +64,8 @@ class Handlers(IntEnum):
 SIG_DFL: Final[Handlers]
 SIG_IGN: Final[Handlers]
 
-_SIGNUM: Final[TypeAlias] = int | Signals
-_HANDLER: Final[TypeAlias] = Callable[[int, FrameType | None], Any] | int | Handlers | None
+_SIGNUM: TypeAlias = int | Signals
+_HANDLER: TypeAlias = Callable[[int, FrameType | None], Any] | int | Handlers | None
 
 def default_int_handler(signalnum: int, frame: FrameType | None, /) -> Never: ...
 
