@@ -133,7 +133,7 @@ def SubElement(parent: Element, tag: str, attrib: dict[str, str] = ..., **extra:
 def Comment(text: str | None = None) -> Element: ...
 def ProcessingInstruction(target: str, text: str | None = None) -> Element: ...
 
-PI: Final = ProcessingInstructionProcessingInstruction
+PI: Final = ProcessingInstruction
 
 class QName:
     text: str

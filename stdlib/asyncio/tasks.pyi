@@ -76,9 +76,9 @@ else:
     _FutureLike: TypeAlias = Future[_T] | Generator[Any, None, _T] | Awaitable[_T]
 _TaskYieldType: TypeAlias = Future[object] | None
 
-FIRST_COMPLETED: Final = concurrent.futures.FIRST_COMPLETEDconcurrent.futures.FIRST_COMPLETED
-FIRST_EXCEPTION: Final = concurrent.futures.FIRST_EXCEPTIONconcurrent.futures.FIRST_EXCEPTION
-ALL_COMPLETED: Final = concurrent.futures.ALL_COMPLETEDconcurrent.futures.ALL_COMPLETED
+FIRST_COMPLETED: Final = concurrent.futures.FIRST_COMPLETED
+FIRST_EXCEPTION: Final = concurrent.futures.FIRST_EXCEPTION
+ALL_COMPLETED: Final = concurrent.futures.ALL_COMPLETED
 
 if sys.version_info >= (3, 10):
     def as_completed(fs: Iterable[_FutureLike[_T]], *, timeout: float | None = None) -> Iterator[Future[_T]]: ...

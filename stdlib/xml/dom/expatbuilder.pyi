@@ -3,13 +3,13 @@ from typing import Any, Final, NoReturn
 from xml.dom.minidom import Document, DOMImplementation, Node, TypeInfo
 from xml.dom.xmlbuilder import DOMBuilderFilter, Options
 
-TEXT_NODE: Final = Node.TEXT_NODENode.TEXT_NODE
-CDATA_SECTION_NODE: Final = Node.CDATA_SECTION_NODENode.CDATA_SECTION_NODE
-DOCUMENT_NODE: Final = Node.DOCUMENT_NODENode.DOCUMENT_NODE
-FILTER_ACCEPT: Final = DOMBuilderFilter.FILTER_ACCEPTDOMBuilderFilter.FILTER_ACCEPT
-FILTER_REJECT: Final = DOMBuilderFilter.FILTER_REJECTDOMBuilderFilter.FILTER_REJECT
-FILTER_SKIP: Final = DOMBuilderFilter.FILTER_SKIPDOMBuilderFilter.FILTER_SKIP
-FILTER_INTERRUPT: Final = DOMBuilderFilter.FILTER_INTERRUPTDOMBuilderFilter.FILTER_INTERRUPT
+TEXT_NODE: Final = Node.TEXT_NODE
+CDATA_SECTION_NODE: Final = Node.CDATA_SECTION_NODE
+DOCUMENT_NODE: Final = Node.DOCUMENT_NODE
+FILTER_ACCEPT: Final = DOMBuilderFilter.FILTER_ACCEPT
+FILTER_REJECT: Final = DOMBuilderFilter.FILTER_REJECT
+FILTER_SKIP: Final = DOMBuilderFilter.FILTER_SKIP
+FILTER_INTERRUPT: Final = DOMBuilderFilter.FILTER_INTERRUPT
 theDOMImplementation: DOMImplementation | None
 
 class ElementInfo:

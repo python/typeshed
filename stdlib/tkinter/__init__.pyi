@@ -151,9 +151,9 @@ TclError = _tkinter.TclError
 wantobjects: int
 TkVersion: float
 TclVersion: float
-READABLE: Final = _tkinter.READABLE_tkinter.READABLE
-WRITABLE: Final = _tkinter.WRITABLE_tkinter.WRITABLE
-EXCEPTION: Final = _tkinter.EXCEPTION_tkinter.EXCEPTION
+READABLE: Final = _tkinter.READABLE
+WRITABLE: Final = _tkinter.WRITABLE
+EXCEPTION: Final = _tkinter.EXCEPTION
 
 # Quick guide for figuring out which widget class to choose:
 #   - Misc: any widget (don't use BaseWidget because Tk doesn't inherit from BaseWidget)

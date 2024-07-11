@@ -215,26 +215,26 @@ class RegexFlag(enum.IntFlag):
     if sys.version_info >= (3, 11):
         NOFLAG = 0
 
-A: Final = RegexFlag.ARegexFlag.A
-ASCII: Final = RegexFlag.ASCIIRegexFlag.ASCII
-DEBUG: Final = RegexFlag.DEBUGRegexFlag.DEBUG
-I: Final = RegexFlag.IRegexFlag.I
-IGNORECASE: Final = RegexFlag.IGNORECASERegexFlag.IGNORECASE
-L: Final = RegexFlag.LRegexFlag.L
-LOCALE: Final = RegexFlag.LOCALERegexFlag.LOCALE
-M: Final = RegexFlag.MRegexFlag.M
-MULTILINE: Final = RegexFlag.MULTILINERegexFlag.MULTILINE
-S: Final = RegexFlag.SRegexFlag.S
-DOTALL: Final = RegexFlag.DOTALLRegexFlag.DOTALL
-X: Final = RegexFlag.XRegexFlag.X
-VERBOSE: Final = RegexFlag.VERBOSERegexFlag.VERBOSE
-U: Final = RegexFlag.URegexFlag.U
-UNICODE: Final = RegexFlag.UNICODERegexFlag.UNICODE
+A: Final = RegexFlag.A
+ASCII: Final = RegexFlag.ASCII
+DEBUG: Final = RegexFlag.DEBUG
+I: Final = RegexFlag.I
+IGNORECASE: Final = RegexFlag.IGNORECASE
+L: Final = RegexFlag.L
+LOCALE: Final = RegexFlag.LOCALE
+M: Final = RegexFlag.M
+MULTILINE: Final = RegexFlag.MULTILINE
+S: Final = RegexFlag.S
+DOTALL: Final = RegexFlag.DOTALL
+X: Final = RegexFlag.X
+VERBOSE: Final = RegexFlag.VERBOSE
+U: Final = RegexFlag.U
+UNICODE: Final = RegexFlag.UNICODE
 if sys.version_info < (3, 13):
     T: Final = RegexFlag.TRegexFlag.T
     TEMPLATE: Final = RegexFlag.TEMPLATERegexFlag.TEMPLATE
 if sys.version_info >= (3, 11):
-    NOFLAG: Final = RegexFlag.NOFLAGRegexFlag.NOFLAG
+    NOFLAG: Final = RegexFlag.NOFLAG
 _FlagsType: TypeAlias = int | RegexFlag
 
 # Type-wise the compile() overloads are unnecessary, they could also be modeled using
