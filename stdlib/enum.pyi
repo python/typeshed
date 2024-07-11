@@ -271,9 +271,9 @@ if sys.version_info >= (3, 11):
         NAMED_FLAGS = "multi-flag aliases may not contain unnamed flags"
         UNIQUE = "one name per value"
 
-    CONTINUOUS: Final = EnumCheck.CONTINUOUSEnumCheck.CONTINUOUS
-    NAMED_FLAGS: Final = EnumCheck.NAMED_FLAGSEnumCheck.NAMED_FLAGS
-    UNIQUE: Final = EnumCheck.UNIQUEEnumCheck.UNIQUE
+    CONTINUOUS: Final = EnumCheck.CONTINUOUS
+    NAMED_FLAGS: Final = EnumCheck.NAMED_FLAGS
+    UNIQUE: Final = EnumCheck.UNIQUE
 
     class verify:
         def __init__(self, *checks: EnumCheck) -> None: ...
@@ -285,10 +285,10 @@ if sys.version_info >= (3, 11):
         EJECT = "eject"
         KEEP = "keep"
 
-    STRICT: Final = FlagBoundary.STRICTFlagBoundary.STRICT
-    CONFORM: Final = FlagBoundary.CONFORMFlagBoundary.CONFORM
-    EJECT: Final = FlagBoundary.EJECTFlagBoundary.EJECT
-    KEEP: Final = FlagBoundary.KEEPFlagBoundary.KEEP
+    STRICT: Final = FlagBoundary.STRICT
+    CONFORM: Final = FlagBoundary.CONFORM
+    EJECT: Final = FlagBoundary.EJECT
+    KEEP: Final = FlagBoundary.KEEP
 
     def global_str(self: Enum) -> str: ...
     def global_enum(cls: _EnumerationT, update_str: bool = False) -> _EnumerationT: ...

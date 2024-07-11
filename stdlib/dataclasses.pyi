@@ -41,7 +41,7 @@ _DataclassT = TypeVar("_DataclassT", bound=DataclassInstance)
 class _MISSING_TYPE(enum.Enum):
     MISSING = enum.auto()
 
-MISSING: Final = _MISSING_TYPE.MISSING_MISSING_TYPE.MISSING
+MISSING: Final = _MISSING_TYPE.MISSING
 
 if sys.version_info >= (3, 10):
     class KW_ONLY: ...
