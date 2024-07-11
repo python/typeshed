@@ -3,7 +3,7 @@ import socket
 import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Callable, Iterable
-from typing import Any, Literal, NamedTuple, TypedDict, final, overload
+from typing import Any, Final, Literal, NamedTuple, TypedDict, final, overload
 from typing_extensions import Never, Self, TypeAlias
 
 _PCTRTT: TypeAlias = tuple[tuple[str, str], ...]
@@ -142,9 +142,9 @@ class VerifyMode(enum.IntEnum):
     CERT_OPTIONAL = 1
     CERT_REQUIRED = 2
 
-CERT_NONE: VerifyMode
-CERT_OPTIONAL: VerifyMode
-CERT_REQUIRED: VerifyMode
+CERT_NONE: Final[VerifyMode]
+CERT_OPTIONAL: Final[VerifyMode]
+CERT_REQUIRED: Final[VerifyMode]
 
 class VerifyFlags(enum.IntFlag):
     VERIFY_DEFAULT = 0
@@ -156,15 +156,15 @@ class VerifyFlags(enum.IntFlag):
         VERIFY_ALLOW_PROXY_CERTS = 64
         VERIFY_X509_PARTIAL_CHAIN = 524288
 
-VERIFY_DEFAULT: VerifyFlags
-VERIFY_CRL_CHECK_LEAF: VerifyFlags
-VERIFY_CRL_CHECK_CHAIN: VerifyFlags
-VERIFY_X509_STRICT: VerifyFlags
-VERIFY_X509_TRUSTED_FIRST: VerifyFlags
+VERIFY_DEFAULT: Final[VerifyFlags]
+VERIFY_CRL_CHECK_LEAF: Final[VerifyFlags]
+VERIFY_CRL_CHECK_CHAIN: Final[VerifyFlags]
+VERIFY_X509_STRICT: Final[VerifyFlags]
+VERIFY_X509_TRUSTED_FIRST: Final[VerifyFlags]
 
 if sys.version_info >= (3, 10):
-    VERIFY_ALLOW_PROXY_CERTS: VerifyFlags
-    VERIFY_X509_PARTIAL_CHAIN: VerifyFlags
+    VERIFY_ALLOW_PROXY_CERTS: Final[VerifyFlags]
+    VERIFY_X509_PARTIAL_CHAIN: Final[VerifyFlags]
 
 class _SSLMethod(enum.IntEnum):
     PROTOCOL_SSLv23 = 2
@@ -183,9 +183,9 @@ PROTOCOL_SSLv3: _SSLMethod
 PROTOCOL_TLSv1: _SSLMethod
 PROTOCOL_TLSv1_1: _SSLMethod
 PROTOCOL_TLSv1_2: _SSLMethod
-PROTOCOL_TLS: _SSLMethod
-PROTOCOL_TLS_CLIENT: _SSLMethod
-PROTOCOL_TLS_SERVER: _SSLMethod
+PROTOCOL_TLS: Final[_SSLMethod]
+PROTOCOL_TLS_CLIENT: Final[_SSLMethod]
+PROTOCOL_TLS_SERVER: Final[_SSLMethod]
 
 class Options(enum.IntFlag):
     OP_ALL = 2147483728
@@ -208,42 +208,42 @@ class Options(enum.IntFlag):
     if sys.version_info >= (3, 11) or sys.platform == "linux":
         OP_IGNORE_UNEXPECTED_EOF = 128
 
-OP_ALL: Options
+OP_ALL: Final[Options]
 OP_NO_SSLv2: Options
 OP_NO_SSLv3: Options
 OP_NO_TLSv1: Options
 OP_NO_TLSv1_1: Options
 OP_NO_TLSv1_2: Options
 OP_NO_TLSv1_3: Options
-OP_CIPHER_SERVER_PREFERENCE: Options
-OP_SINGLE_DH_USE: Options
-OP_SINGLE_ECDH_USE: Options
-OP_NO_COMPRESSION: Options
-OP_NO_TICKET: Options
-OP_NO_RENEGOTIATION: Options
-OP_ENABLE_MIDDLEBOX_COMPAT: Options
+OP_CIPHER_SERVER_PREFERENCE: Final[Options]
+OP_SINGLE_DH_USE: Final[Options]
+OP_SINGLE_ECDH_USE: Final[Options]
+OP_NO_COMPRESSION: Final[Options]
+OP_NO_TICKET: Final[Options]
+OP_NO_RENEGOTIATION: Final[Options]
+OP_ENABLE_MIDDLEBOX_COMPAT: Final[Options]
 if sys.version_info >= (3, 12):
-    OP_LEGACY_SERVER_CONNECT: Options
-    OP_ENABLE_KTLS: Options
+    OP_LEGACY_SERVER_CONNECT: Final[Options]
+    OP_ENABLE_KTLS: Final[Options]
 if sys.version_info >= (3, 11) or sys.platform == "linux":
-    OP_IGNORE_UNEXPECTED_EOF: Options
+    OP_IGNORE_UNEXPECTED_EOF: Final[Options]
 
-HAS_NEVER_CHECK_COMMON_NAME: bool
+HAS_NEVER_CHECK_COMMON_NAME: Final[bool]
 HAS_SSLv2: bool
 HAS_SSLv3: bool
 HAS_TLSv1: bool
 HAS_TLSv1_1: bool
 HAS_TLSv1_2: bool
 HAS_TLSv1_3: bool
-HAS_ALPN: bool
-HAS_ECDH: bool
-HAS_SNI: bool
-HAS_NPN: bool
+HAS_ALPN: Final[bool]
+HAS_ECDH: Final[bool]
+HAS_SNI: Final[bool]
+HAS_NPN: Final[bool]
 CHANNEL_BINDING_TYPES: list[str]
 
-OPENSSL_VERSION: str
+OPENSSL_VERSION: Final[str]
 OPENSSL_VERSION_INFO: tuple[int, int, int, int, int]
-OPENSSL_VERSION_NUMBER: int
+OPENSSL_VERSION_NUMBER: Final[int]
 
 class AlertDescription(enum.IntEnum):
     ALERT_DESCRIPTION_ACCESS_DENIED = 49
@@ -274,33 +274,33 @@ class AlertDescription(enum.IntEnum):
     ALERT_DESCRIPTION_UNSUPPORTED_EXTENSION = 110
     ALERT_DESCRIPTION_USER_CANCELLED = 90
 
-ALERT_DESCRIPTION_HANDSHAKE_FAILURE: AlertDescription
-ALERT_DESCRIPTION_INTERNAL_ERROR: AlertDescription
-ALERT_DESCRIPTION_ACCESS_DENIED: AlertDescription
-ALERT_DESCRIPTION_BAD_CERTIFICATE: AlertDescription
-ALERT_DESCRIPTION_BAD_CERTIFICATE_HASH_VALUE: AlertDescription
-ALERT_DESCRIPTION_BAD_CERTIFICATE_STATUS_RESPONSE: AlertDescription
-ALERT_DESCRIPTION_BAD_RECORD_MAC: AlertDescription
-ALERT_DESCRIPTION_CERTIFICATE_EXPIRED: AlertDescription
-ALERT_DESCRIPTION_CERTIFICATE_REVOKED: AlertDescription
-ALERT_DESCRIPTION_CERTIFICATE_UNKNOWN: AlertDescription
-ALERT_DESCRIPTION_CERTIFICATE_UNOBTAINABLE: AlertDescription
-ALERT_DESCRIPTION_CLOSE_NOTIFY: AlertDescription
-ALERT_DESCRIPTION_DECODE_ERROR: AlertDescription
-ALERT_DESCRIPTION_DECOMPRESSION_FAILURE: AlertDescription
-ALERT_DESCRIPTION_DECRYPT_ERROR: AlertDescription
-ALERT_DESCRIPTION_ILLEGAL_PARAMETER: AlertDescription
-ALERT_DESCRIPTION_INSUFFICIENT_SECURITY: AlertDescription
-ALERT_DESCRIPTION_NO_RENEGOTIATION: AlertDescription
-ALERT_DESCRIPTION_PROTOCOL_VERSION: AlertDescription
-ALERT_DESCRIPTION_RECORD_OVERFLOW: AlertDescription
-ALERT_DESCRIPTION_UNEXPECTED_MESSAGE: AlertDescription
-ALERT_DESCRIPTION_UNKNOWN_CA: AlertDescription
-ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY: AlertDescription
-ALERT_DESCRIPTION_UNRECOGNIZED_NAME: AlertDescription
-ALERT_DESCRIPTION_UNSUPPORTED_CERTIFICATE: AlertDescription
-ALERT_DESCRIPTION_UNSUPPORTED_EXTENSION: AlertDescription
-ALERT_DESCRIPTION_USER_CANCELLED: AlertDescription
+ALERT_DESCRIPTION_HANDSHAKE_FAILURE: Final[AlertDescription]
+ALERT_DESCRIPTION_INTERNAL_ERROR: Final[AlertDescription]
+ALERT_DESCRIPTION_ACCESS_DENIED: Final[AlertDescription]
+ALERT_DESCRIPTION_BAD_CERTIFICATE: Final[AlertDescription]
+ALERT_DESCRIPTION_BAD_CERTIFICATE_HASH_VALUE: Final[AlertDescription]
+ALERT_DESCRIPTION_BAD_CERTIFICATE_STATUS_RESPONSE: Final[AlertDescription]
+ALERT_DESCRIPTION_BAD_RECORD_MAC: Final[AlertDescription]
+ALERT_DESCRIPTION_CERTIFICATE_EXPIRED: Final[AlertDescription]
+ALERT_DESCRIPTION_CERTIFICATE_REVOKED: Final[AlertDescription]
+ALERT_DESCRIPTION_CERTIFICATE_UNKNOWN: Final[AlertDescription]
+ALERT_DESCRIPTION_CERTIFICATE_UNOBTAINABLE: Final[AlertDescription]
+ALERT_DESCRIPTION_CLOSE_NOTIFY: Final[AlertDescription]
+ALERT_DESCRIPTION_DECODE_ERROR: Final[AlertDescription]
+ALERT_DESCRIPTION_DECOMPRESSION_FAILURE: Final[AlertDescription]
+ALERT_DESCRIPTION_DECRYPT_ERROR: Final[AlertDescription]
+ALERT_DESCRIPTION_ILLEGAL_PARAMETER: Final[AlertDescription]
+ALERT_DESCRIPTION_INSUFFICIENT_SECURITY: Final[AlertDescription]
+ALERT_DESCRIPTION_NO_RENEGOTIATION: Final[AlertDescription]
+ALERT_DESCRIPTION_PROTOCOL_VERSION: Final[AlertDescription]
+ALERT_DESCRIPTION_RECORD_OVERFLOW: Final[AlertDescription]
+ALERT_DESCRIPTION_UNEXPECTED_MESSAGE: Final[AlertDescription]
+ALERT_DESCRIPTION_UNKNOWN_CA: Final[AlertDescription]
+ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY: Final[AlertDescription]
+ALERT_DESCRIPTION_UNRECOGNIZED_NAME: Final[AlertDescription]
+ALERT_DESCRIPTION_UNSUPPORTED_CERTIFICATE: Final[AlertDescription]
+ALERT_DESCRIPTION_UNSUPPORTED_EXTENSION: Final[AlertDescription]
+ALERT_DESCRIPTION_USER_CANCELLED: Final[AlertDescription]
 
 class _ASN1ObjectBase(NamedTuple):
     nid: int
@@ -516,22 +516,22 @@ class SSLErrorNumber(enum.IntEnum):
     SSL_ERROR_WANT_X509_LOOKUP = 4
     SSL_ERROR_ZERO_RETURN = 6
 
-SSL_ERROR_EOF: SSLErrorNumber  # undocumented
-SSL_ERROR_INVALID_ERROR_CODE: SSLErrorNumber  # undocumented
-SSL_ERROR_SSL: SSLErrorNumber  # undocumented
-SSL_ERROR_SYSCALL: SSLErrorNumber  # undocumented
-SSL_ERROR_WANT_CONNECT: SSLErrorNumber  # undocumented
-SSL_ERROR_WANT_READ: SSLErrorNumber  # undocumented
-SSL_ERROR_WANT_WRITE: SSLErrorNumber  # undocumented
-SSL_ERROR_WANT_X509_LOOKUP: SSLErrorNumber  # undocumented
-SSL_ERROR_ZERO_RETURN: SSLErrorNumber  # undocumented
+SSL_ERROR_EOF: Final[SSLErrorNumber]  # undocumented
+SSL_ERROR_INVALID_ERROR_CODE: Final[SSLErrorNumber]  # undocumented
+SSL_ERROR_SSL: Final[SSLErrorNumber]  # undocumented
+SSL_ERROR_SYSCALL: Final[SSLErrorNumber]  # undocumented
+SSL_ERROR_WANT_CONNECT: Final[SSLErrorNumber]  # undocumented
+SSL_ERROR_WANT_READ: Final[SSLErrorNumber]  # undocumented
+SSL_ERROR_WANT_WRITE: Final[SSLErrorNumber]  # undocumented
+SSL_ERROR_WANT_X509_LOOKUP: Final[SSLErrorNumber]  # undocumented
+SSL_ERROR_ZERO_RETURN: Final[SSLErrorNumber]  # undocumented
 
 def get_protocol_name(protocol_code: int) -> str: ...
 
 if sys.version_info < (3, 9):
-    AF_INET: int
-PEM_FOOTER: str
-PEM_HEADER: str
-SOCK_STREAM: int
-SOL_SOCKET: int
-SO_TYPE: int
+    AF_INET: Final[int]
+PEM_FOOTER: Final[str]
+PEM_HEADER: Final[str]
+SOCK_STREAM: Final[int]
+SOL_SOCKET: Final[int]
+SO_TYPE: Final[int]

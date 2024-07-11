@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from ctypes import CDLL, ArgumentError as ArgumentError
-from typing import Any, ClassVar, Generic, TypeVar, overload
+from typing import Any, ClassVar, Final, Generic, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -12,18 +12,18 @@ if sys.version_info >= (3, 9):
 _T = TypeVar("_T")
 _CT = TypeVar("_CT", bound=_CData)
 
-FUNCFLAG_CDECL: int
-FUNCFLAG_PYTHONAPI: int
-FUNCFLAG_USE_ERRNO: int
-FUNCFLAG_USE_LASTERROR: int
-RTLD_GLOBAL: int
-RTLD_LOCAL: int
+FUNCFLAG_CDECL: Final[int]
+FUNCFLAG_PYTHONAPI: Final[int]
+FUNCFLAG_USE_ERRNO: Final[int]
+FUNCFLAG_USE_LASTERROR: Final[int]
+RTLD_GLOBAL: Final[int]
+RTLD_LOCAL: Final[int]
 
 if sys.version_info >= (3, 11):
-    CTYPES_MAX_ARGCOUNT: int
+    CTYPES_MAX_ARGCOUNT: Final[int]
 
 if sys.version_info >= (3, 12):
-    SIZEOF_TIME_T: int
+    SIZEOF_TIME_T: Final[int]
 
 if sys.platform == "win32":
     # Description, Source, HelpFile, HelpContext, scode
@@ -38,8 +38,8 @@ if sys.platform == "win32":
 
     def CopyComPointer(src: _PointerLike, dst: _PointerLike | _CArgObject) -> int: ...
 
-    FUNCFLAG_HRESULT: int
-    FUNCFLAG_STDCALL: int
+    FUNCFLAG_HRESULT: Final[int]
+    FUNCFLAG_STDCALL: Final[int]
 
     def FormatError(code: int = ...) -> str: ...
     def get_last_error() -> int: ...

@@ -1,13 +1,13 @@
 import sys
 from _typeshed import ReadableBuffer
-from typing import Literal
+from typing import Final, Literal
 
 DEFLATED: Literal[8]
-DEF_MEM_LEVEL: int  # can change
+DEF_MEM_LEVEL: Final[int]  # can change
 DEF_BUF_SIZE: Literal[16384]
-MAX_WBITS: int
-ZLIB_VERSION: str  # can change
-ZLIB_RUNTIME_VERSION: str  # can change
+MAX_WBITS: Final[int]
+ZLIB_VERSION: Final[str]  # can change
+ZLIB_RUNTIME_VERSION: Final[str]  # can change
 Z_NO_COMPRESSION: Literal[0]
 Z_PARTIAL_FLUSH: Literal[1]
 Z_BEST_COMPRESSION: Literal[9]

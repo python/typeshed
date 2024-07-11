@@ -9,7 +9,7 @@ from re import Pattern
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
-from typing import IO, Any, Literal, SupportsAbs, SupportsInt
+from typing import IO, Any, Final, Literal, SupportsAbs, SupportsInt
 from typing_extensions import Self, TypeAlias
 
 __all__ = ["IMAP4", "IMAP4_stream", "Internaldate2tuple", "Int2AP", "ParseFlags", "Time2Internaldate", "IMAP4_SSL"]
@@ -39,7 +39,7 @@ class IMAP4:
     tagre: Pattern[str]
     welcome: bytes
     capabilities: tuple[str, ...]
-    PROTOCOL_VERSION: str
+    PROTOCOL_VERSION: Final[str]
     if sys.version_info >= (3, 9):
         def __init__(self, host: str = "", port: int = 143, timeout: float | None = None) -> None: ...
         def open(self, host: str = "", port: int = 143, timeout: float | None = None) -> None: ...

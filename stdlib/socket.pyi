@@ -140,7 +140,7 @@ from _typeshed import ReadableBuffer, Unused, WriteableBuffer
 from collections.abc import Iterable
 from enum import IntEnum, IntFlag
 from io import BufferedReader, BufferedRWPair, BufferedWriter, IOBase, RawIOBase, TextIOWrapper
-from typing import Any, Literal, Protocol, SupportsIndex, overload
+from typing import Any, Final, Literal, Protocol, SupportsIndex, overload
 from typing_extensions import Self
 
 if sys.platform == "win32":
@@ -482,9 +482,9 @@ if sys.version_info >= (3, 12):
         from _socket import PF_DIVERT as PF_DIVERT
 
 # Re-exported from errno
-EBADF: int
-EAGAIN: int
-EWOULDBLOCK: int
+EBADF: Final[int]
+EAGAIN: Final[int]
+EWOULDBLOCK: Final[int]
 
 class AddressFamily(IntEnum):
     AF_INET = 2
@@ -536,60 +536,60 @@ class AddressFamily(IntEnum):
         # FreeBSD >= 14.0
         AF_DIVERT = 44
 
-AF_INET = AddressFamily.AF_INET
-AF_INET6 = AddressFamily.AF_INET6
-AF_APPLETALK = AddressFamily.AF_APPLETALK
+AF_INET: Final = AddressFamily.AF_INET
+AF_INET6: Final = AddressFamily.AF_INET6
+AF_APPLETALK: Final = AddressFamily.AF_APPLETALK
 AF_DECnet = AddressFamily.AF_DECnet
-AF_IPX = AddressFamily.AF_IPX
-AF_SNA = AddressFamily.AF_SNA
-AF_UNSPEC = AddressFamily.AF_UNSPEC
+AF_IPX: Final = AddressFamily.AF_IPX
+AF_SNA: Final = AddressFamily.AF_SNA
+AF_UNSPEC: Final = AddressFamily.AF_UNSPEC
 
 if sys.platform != "darwin":
-    AF_IRDA = AddressFamily.AF_IRDA
+    AF_IRDA: Final = AddressFamily.AF_IRDA
 
 if sys.platform != "win32":
-    AF_ROUTE = AddressFamily.AF_ROUTE
-    AF_SYSTEM = AddressFamily.AF_SYSTEM
-    AF_UNIX = AddressFamily.AF_UNIX
+    AF_ROUTE: Final = AddressFamily.AF_ROUTE
+    AF_SYSTEM: Final = AddressFamily.AF_SYSTEM
+    AF_UNIX: Final = AddressFamily.AF_UNIX
 
 if sys.platform != "win32" and sys.platform != "darwin":
-    AF_AAL5 = AddressFamily.AF_AAL5
-    AF_ASH = AddressFamily.AF_ASH
-    AF_ATMPVC = AddressFamily.AF_ATMPVC
-    AF_ATMSVC = AddressFamily.AF_ATMSVC
-    AF_AX25 = AddressFamily.AF_AX25
-    AF_BRIDGE = AddressFamily.AF_BRIDGE
-    AF_ECONET = AddressFamily.AF_ECONET
-    AF_KEY = AddressFamily.AF_KEY
-    AF_LLC = AddressFamily.AF_LLC
-    AF_NETBEUI = AddressFamily.AF_NETBEUI
-    AF_NETROM = AddressFamily.AF_NETROM
-    AF_PPPOX = AddressFamily.AF_PPPOX
-    AF_ROSE = AddressFamily.AF_ROSE
-    AF_SECURITY = AddressFamily.AF_SECURITY
-    AF_WANPIPE = AddressFamily.AF_WANPIPE
-    AF_X25 = AddressFamily.AF_X25
+    AF_AAL5: Final = AddressFamily.AF_AAL5
+    AF_ASH: Final = AddressFamily.AF_ASH
+    AF_ATMPVC: Final = AddressFamily.AF_ATMPVC
+    AF_ATMSVC: Final = AddressFamily.AF_ATMSVC
+    AF_AX25: Final = AddressFamily.AF_AX25
+    AF_BRIDGE: Final = AddressFamily.AF_BRIDGE
+    AF_ECONET: Final = AddressFamily.AF_ECONET
+    AF_KEY: Final = AddressFamily.AF_KEY
+    AF_LLC: Final = AddressFamily.AF_LLC
+    AF_NETBEUI: Final = AddressFamily.AF_NETBEUI
+    AF_NETROM: Final = AddressFamily.AF_NETROM
+    AF_PPPOX: Final = AddressFamily.AF_PPPOX
+    AF_ROSE: Final = AddressFamily.AF_ROSE
+    AF_SECURITY: Final = AddressFamily.AF_SECURITY
+    AF_WANPIPE: Final = AddressFamily.AF_WANPIPE
+    AF_X25: Final = AddressFamily.AF_X25
 
 if sys.platform == "linux":
-    AF_CAN = AddressFamily.AF_CAN
-    AF_PACKET = AddressFamily.AF_PACKET
-    AF_RDS = AddressFamily.AF_RDS
-    AF_TIPC = AddressFamily.AF_TIPC
-    AF_ALG = AddressFamily.AF_ALG
-    AF_NETLINK = AddressFamily.AF_NETLINK
-    AF_VSOCK = AddressFamily.AF_VSOCK
-    AF_QIPCRTR = AddressFamily.AF_QIPCRTR
+    AF_CAN: Final = AddressFamily.AF_CAN
+    AF_PACKET: Final = AddressFamily.AF_PACKET
+    AF_RDS: Final = AddressFamily.AF_RDS
+    AF_TIPC: Final = AddressFamily.AF_TIPC
+    AF_ALG: Final = AddressFamily.AF_ALG
+    AF_NETLINK: Final = AddressFamily.AF_NETLINK
+    AF_VSOCK: Final = AddressFamily.AF_VSOCK
+    AF_QIPCRTR: Final = AddressFamily.AF_QIPCRTR
 
 if sys.platform != "win32" or sys.version_info >= (3, 9):
-    AF_LINK = AddressFamily.AF_LINK
+    AF_LINK: Final = AddressFamily.AF_LINK
     if sys.platform != "darwin":
-        AF_BLUETOOTH = AddressFamily.AF_BLUETOOTH
+        AF_BLUETOOTH: Final = AddressFamily.AF_BLUETOOTH
 
 if sys.platform == "win32" and sys.version_info >= (3, 12):
-    AF_HYPERV = AddressFamily.AF_HYPERV
+    AF_HYPERV: Final = AddressFamily.AF_HYPERV
 if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darwin" and sys.version_info >= (3, 12):
     # FreeBSD >= 14.0
-    AF_DIVERT = AddressFamily.AF_DIVERT
+    AF_DIVERT: Final = AddressFamily.AF_DIVERT
 
 class SocketKind(IntEnum):
     SOCK_STREAM = 1
@@ -601,14 +601,14 @@ class SocketKind(IntEnum):
         SOCK_CLOEXEC = 524288
         SOCK_NONBLOCK = 2048
 
-SOCK_STREAM = SocketKind.SOCK_STREAM
-SOCK_DGRAM = SocketKind.SOCK_DGRAM
-SOCK_RAW = SocketKind.SOCK_RAW
-SOCK_RDM = SocketKind.SOCK_RDM
-SOCK_SEQPACKET = SocketKind.SOCK_SEQPACKET
+SOCK_STREAM: Final = SocketKind.SOCK_STREAM
+SOCK_DGRAM: Final = SocketKind.SOCK_DGRAM
+SOCK_RAW: Final = SocketKind.SOCK_RAW
+SOCK_RDM: Final = SocketKind.SOCK_RDM
+SOCK_SEQPACKET: Final = SocketKind.SOCK_SEQPACKET
 if sys.platform == "linux":
-    SOCK_CLOEXEC = SocketKind.SOCK_CLOEXEC
-    SOCK_NONBLOCK = SocketKind.SOCK_NONBLOCK
+    SOCK_CLOEXEC: Final = SocketKind.SOCK_CLOEXEC
+    SOCK_NONBLOCK: Final = SocketKind.SOCK_NONBLOCK
 
 class MsgFlag(IntFlag):
     MSG_CTRUNC = 8
@@ -638,32 +638,32 @@ class MsgFlag(IntFlag):
         MSG_EOR = 128
         MSG_NOSIGNAL = 16384  # sometimes this exists on darwin, sometimes not
 
-MSG_CTRUNC = MsgFlag.MSG_CTRUNC
-MSG_DONTROUTE = MsgFlag.MSG_DONTROUTE
-MSG_OOB = MsgFlag.MSG_OOB
-MSG_PEEK = MsgFlag.MSG_PEEK
-MSG_TRUNC = MsgFlag.MSG_TRUNC
-MSG_WAITALL = MsgFlag.MSG_WAITALL
+MSG_CTRUNC: Final = MsgFlag.MSG_CTRUNC
+MSG_DONTROUTE: Final = MsgFlag.MSG_DONTROUTE
+MSG_OOB: Final = MsgFlag.MSG_OOB
+MSG_PEEK: Final = MsgFlag.MSG_PEEK
+MSG_TRUNC: Final = MsgFlag.MSG_TRUNC
+MSG_WAITALL: Final = MsgFlag.MSG_WAITALL
 
 if sys.platform != "darwin":
-    MSG_BCAST = MsgFlag.MSG_BCAST
-    MSG_MCAST = MsgFlag.MSG_MCAST
-    MSG_ERRQUEUE = MsgFlag.MSG_ERRQUEUE
+    MSG_BCAST: Final = MsgFlag.MSG_BCAST
+    MSG_MCAST: Final = MsgFlag.MSG_MCAST
+    MSG_ERRQUEUE: Final = MsgFlag.MSG_ERRQUEUE
 
 if sys.platform != "win32":
-    MSG_DONTWAIT = MsgFlag.MSG_DONTWAIT
-    MSG_EOF = MsgFlag.MSG_EOF
-    MSG_EOR = MsgFlag.MSG_EOR
-    MSG_NOSIGNAL = MsgFlag.MSG_NOSIGNAL  # Sometimes this exists on darwin, sometimes not
+    MSG_DONTWAIT: Final = MsgFlag.MSG_DONTWAIT
+    MSG_EOF: Final = MsgFlag.MSG_EOF
+    MSG_EOR: Final = MsgFlag.MSG_EOR
+    MSG_NOSIGNAL: Final = MsgFlag.MSG_NOSIGNAL  # Sometimes this exists on darwin, sometimes not
 
 if sys.platform != "win32" and sys.platform != "darwin":
-    MSG_BTAG = MsgFlag.MSG_BTAG
-    MSG_CMSG_CLOEXEC = MsgFlag.MSG_CMSG_CLOEXEC
-    MSG_CONFIRM = MsgFlag.MSG_CONFIRM
-    MSG_ETAG = MsgFlag.MSG_ETAG
-    MSG_FASTOPEN = MsgFlag.MSG_FASTOPEN
-    MSG_MORE = MsgFlag.MSG_MORE
-    MSG_NOTIFICATION = MsgFlag.MSG_NOTIFICATION
+    MSG_BTAG: Final = MsgFlag.MSG_BTAG
+    MSG_CMSG_CLOEXEC: Final = MsgFlag.MSG_CMSG_CLOEXEC
+    MSG_CONFIRM: Final = MsgFlag.MSG_CONFIRM
+    MSG_ETAG: Final = MsgFlag.MSG_ETAG
+    MSG_FASTOPEN: Final = MsgFlag.MSG_FASTOPEN
+    MSG_MORE: Final = MsgFlag.MSG_MORE
+    MSG_NOTIFICATION: Final = MsgFlag.MSG_NOTIFICATION
 
 class AddressInfo(IntFlag):
     AI_ADDRCONFIG = 32
@@ -678,18 +678,18 @@ class AddressInfo(IntFlag):
         AI_MASK = 5127
         AI_V4MAPPED_CFG = 512
 
-AI_ADDRCONFIG = AddressInfo.AI_ADDRCONFIG
-AI_ALL = AddressInfo.AI_ALL
-AI_CANONNAME = AddressInfo.AI_CANONNAME
-AI_NUMERICHOST = AddressInfo.AI_NUMERICHOST
-AI_NUMERICSERV = AddressInfo.AI_NUMERICSERV
-AI_PASSIVE = AddressInfo.AI_PASSIVE
-AI_V4MAPPED = AddressInfo.AI_V4MAPPED
+AI_ADDRCONFIG: Final = AddressInfo.AI_ADDRCONFIG
+AI_ALL: Final = AddressInfo.AI_ALL
+AI_CANONNAME: Final = AddressInfo.AI_CANONNAME
+AI_NUMERICHOST: Final = AddressInfo.AI_NUMERICHOST
+AI_NUMERICSERV: Final = AddressInfo.AI_NUMERICSERV
+AI_PASSIVE: Final = AddressInfo.AI_PASSIVE
+AI_V4MAPPED: Final = AddressInfo.AI_V4MAPPED
 
 if sys.platform != "win32":
-    AI_DEFAULT = AddressInfo.AI_DEFAULT
-    AI_MASK = AddressInfo.AI_MASK
-    AI_V4MAPPED_CFG = AddressInfo.AI_V4MAPPED_CFG
+    AI_DEFAULT: Final = AddressInfo.AI_DEFAULT
+    AI_MASK: Final = AddressInfo.AI_MASK
+    AI_V4MAPPED_CFG: Final = AddressInfo.AI_V4MAPPED_CFG
 
 if sys.platform == "win32":
     errorTab: dict[int, str]  # undocumented

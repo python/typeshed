@@ -25,6 +25,7 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039
     DefaultDict as DefaultDict,
     Deque as Deque,
     Dict as Dict,
+    Final,
     ForwardRef as ForwardRef,
     FrozenSet as FrozenSet,
     Generator as Generator,
@@ -186,9 +187,9 @@ __all__ = [
     "TypeIs",
 ]
 
-_T = typing.TypeVar("_T")
-_F = typing.TypeVar("_F", bound=Callable[..., Any])
-_TC = typing.TypeVar("_TC", bound=type[object])
+_T: Final = typing.TypeVar("_T")
+_F: Final = typing.TypeVar("_F", bound=Callable[..., Any])
+_TC: Final = typing.TypeVar("_TC", bound=type[object])
 
 # unfortunately we have to duplicate this class definition from typing.pyi or we break pytype
 class _SpecialForm:

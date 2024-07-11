@@ -6,7 +6,7 @@ from builtins import list as _list  # aliases to avoid name clashes with fields 
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
-from typing import IO, ClassVar, Literal, Protocol, overload
+from typing import IO, ClassVar, Final, Literal, Protocol, overload
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -59,38 +59,38 @@ class _Bz2WritableFileobj(bz2._WritableFileobj):
     def close(self) -> object: ...
 
 # tar constants
-NUL: bytes
-BLOCKSIZE: int
-RECORDSIZE: int
-GNU_MAGIC: bytes
-POSIX_MAGIC: bytes
+NUL: Final[bytes]
+BLOCKSIZE: Final[int]
+RECORDSIZE: Final[int]
+GNU_MAGIC: Final[bytes]
+POSIX_MAGIC: Final[bytes]
 
-LENGTH_NAME: int
-LENGTH_LINK: int
-LENGTH_PREFIX: int
+LENGTH_NAME: Final[int]
+LENGTH_LINK: Final[int]
+LENGTH_PREFIX: Final[int]
 
-REGTYPE: bytes
-AREGTYPE: bytes
-LNKTYPE: bytes
-SYMTYPE: bytes
-CONTTYPE: bytes
-BLKTYPE: bytes
-DIRTYPE: bytes
-FIFOTYPE: bytes
-CHRTYPE: bytes
+REGTYPE: Final[bytes]
+AREGTYPE: Final[bytes]
+LNKTYPE: Final[bytes]
+SYMTYPE: Final[bytes]
+CONTTYPE: Final[bytes]
+BLKTYPE: Final[bytes]
+DIRTYPE: Final[bytes]
+FIFOTYPE: Final[bytes]
+CHRTYPE: Final[bytes]
 
-GNUTYPE_LONGNAME: bytes
-GNUTYPE_LONGLINK: bytes
-GNUTYPE_SPARSE: bytes
+GNUTYPE_LONGNAME: Final[bytes]
+GNUTYPE_LONGLINK: Final[bytes]
+GNUTYPE_SPARSE: Final[bytes]
 
-XHDTYPE: bytes
-XGLTYPE: bytes
-SOLARIS_XHDTYPE: bytes
+XHDTYPE: Final[bytes]
+XGLTYPE: Final[bytes]
+SOLARIS_XHDTYPE: Final[bytes]
 
-USTAR_FORMAT: int
-GNU_FORMAT: int
-PAX_FORMAT: int
-DEFAULT_FORMAT: int
+USTAR_FORMAT: Final[int]
+GNU_FORMAT: Final[int]
+PAX_FORMAT: Final[int]
+DEFAULT_FORMAT: Final[int]
 
 # tarfile constants
 
@@ -101,7 +101,7 @@ PAX_FIELDS: tuple[str, ...]
 PAX_NUMBER_FIELDS: dict[str, type]
 PAX_NAME_FIELDS: set[str]
 
-ENCODING: str
+ENCODING: Final[str]
 
 _FileCreationModes: TypeAlias = Literal["a", "w", "x"]
 

@@ -2,7 +2,7 @@ import sys
 from _typeshed import StrOrBytesPath, SupportsWrite
 from collections.abc import Callable, ItemsView, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from re import Pattern
-from typing import Any, ClassVar, Literal, TypeVar, overload
+from typing import Any, ClassVar, Final, Literal, TypeVar, overload
 from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 13):
@@ -396,7 +396,7 @@ class MissingSectionHeaderError(ParsingError):
 
 if sys.version_info >= (3, 13):
     class _UNNAMED_SECTION: ...
-    UNNAMED_SECTION: _UNNAMED_SECTION
+    UNNAMED_SECTION: Final[_UNNAMED_SECTION]
 
     class MultilineContinuationError(ParsingError):
         lineno: int

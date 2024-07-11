@@ -3,11 +3,11 @@ from collections.abc import Iterable
 from re import Match, Pattern as _Pattern
 from sre_constants import *
 from sre_constants import _NamedIntConstant as _NIC, error as _Error
-from typing import Any, overload
+from typing import Any, Final, overload
 from typing_extensions import TypeAlias
 
-SPECIAL_CHARS: str
-REPEAT_CHARS: str
+SPECIAL_CHARS: Final[str]
+REPEAT_CHARS: Final[str]
 DIGITS: frozenset[str]
 OCTDIGITS: frozenset[str]
 HEXDIGITS: frozenset[str]
@@ -16,11 +16,11 @@ WHITESPACE: frozenset[str]
 ESCAPES: dict[str, tuple[_NIC, int]]
 CATEGORIES: dict[str, tuple[_NIC, _NIC] | tuple[_NIC, list[tuple[_NIC, _NIC]]]]
 FLAGS: dict[str, int]
-TYPE_FLAGS: int
-GLOBAL_FLAGS: int
+TYPE_FLAGS: Final[int]
+GLOBAL_FLAGS: Final[int]
 
 if sys.version_info >= (3, 11):
-    MAXWIDTH: int
+    MAXWIDTH: Final[int]
 
 if sys.version_info < (3, 11):
     class Verbose(Exception): ...

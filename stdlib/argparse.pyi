@@ -2,7 +2,7 @@ import sys
 from _typeshed import sentinel
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
-from typing import IO, Any, Generic, Literal, NewType, NoReturn, Protocol, TypeVar, overload
+from typing import IO, Any, Final, Generic, Literal, NewType, NoReturn, Protocol, TypeVar, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
@@ -51,7 +51,7 @@ _SUPPRESS_T = NewType("_SUPPRESS_T", str)
 SUPPRESS: _SUPPRESS_T | str  # not using Literal because argparse sometimes compares SUPPRESS with is
 # the | str is there so that foo = argparse.SUPPRESS; foo = "test" checks out in mypy
 ZERO_OR_MORE: Literal["*"]
-_UNRECOGNIZED_ARGS_ATTR: str  # undocumented
+_UNRECOGNIZED_ARGS_ATTR: Final[str]  # undocumented
 
 class ArgumentError(Exception):
     argument_name: str | None

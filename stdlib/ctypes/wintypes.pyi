@@ -21,41 +21,41 @@ from ctypes import (
     c_wchar,
     c_wchar_p,
 )
-from typing import TypeVar
+from typing import Final, TypeVar
 from typing_extensions import TypeAlias
 
-BYTE = c_byte
-WORD = c_ushort
-DWORD = c_ulong
-CHAR = c_char
-WCHAR = c_wchar
-UINT = c_uint
-INT = c_int
-DOUBLE = c_double
-FLOAT = c_float
-BOOLEAN = BYTE
-BOOL = c_long
+BYTE: Final = c_byte
+WORD: Final = c_ushort
+DWORD: Final = c_ulong
+CHAR: Final = c_char
+WCHAR: Final = c_wchar
+UINT: Final = c_uint
+INT: Final = c_int
+DOUBLE: Final = c_double
+FLOAT: Final = c_float
+BOOLEAN: Final = BYTE
+BOOL: Final = c_long
 
 class VARIANT_BOOL(_SimpleCData[bool]): ...
 
-ULONG = c_ulong
-LONG = c_long
-USHORT = c_ushort
-SHORT = c_short
-LARGE_INTEGER = c_longlong
-_LARGE_INTEGER = c_longlong
-ULARGE_INTEGER = c_ulonglong
-_ULARGE_INTEGER = c_ulonglong
+ULONG: Final = c_ulong
+LONG: Final = c_long
+USHORT: Final = c_ushort
+SHORT: Final = c_short
+LARGE_INTEGER: Final = c_longlong
+_LARGE_INTEGER: Final = c_longlong
+ULARGE_INTEGER: Final = c_ulonglong
+_ULARGE_INTEGER: Final = c_ulonglong
 
-OLESTR = c_wchar_p
-LPOLESTR = c_wchar_p
-LPCOLESTR = c_wchar_p
-LPWSTR = c_wchar_p
-LPCWSTR = c_wchar_p
-LPSTR = c_char_p
-LPCSTR = c_char_p
-LPVOID = c_void_p
-LPCVOID = c_void_p
+OLESTR: Final = c_wchar_p
+LPOLESTR: Final = c_wchar_p
+LPCOLESTR: Final = c_wchar_p
+LPWSTR: Final = c_wchar_p
+LPCWSTR: Final = c_wchar_p
+LPSTR: Final = c_char_p
+LPCSTR: Final = c_char_p
+LPVOID: Final = c_void_p
+LPCVOID: Final = c_void_p
 
 # These two types are pointer-sized unsigned and signed ints, respectively.
 # At runtime, they are either c_[u]long or c_[u]longlong, depending on the host's pointer size
@@ -63,45 +63,45 @@ LPCVOID = c_void_p
 class WPARAM(_SimpleCData[int]): ...
 class LPARAM(_SimpleCData[int]): ...
 
-ATOM = WORD
-LANGID = WORD
-COLORREF = DWORD
-LGRPID = DWORD
-LCTYPE = DWORD
-LCID = DWORD
+ATOM: Final = WORD
+LANGID: Final = WORD
+COLORREF: Final = DWORD
+LGRPID: Final = DWORD
+LCTYPE: Final = DWORD
+LCID: Final = DWORD
 
-HANDLE = c_void_p
-HACCEL = HANDLE
-HBITMAP = HANDLE
-HBRUSH = HANDLE
-HCOLORSPACE = HANDLE
-HDC = HANDLE
-HDESK = HANDLE
-HDWP = HANDLE
-HENHMETAFILE = HANDLE
-HFONT = HANDLE
-HGDIOBJ = HANDLE
-HGLOBAL = HANDLE
-HHOOK = HANDLE
-HICON = HANDLE
-HINSTANCE = HANDLE
-HKEY = HANDLE
-HKL = HANDLE
-HLOCAL = HANDLE
-HMENU = HANDLE
-HMETAFILE = HANDLE
-HMODULE = HANDLE
-HMONITOR = HANDLE
-HPALETTE = HANDLE
-HPEN = HANDLE
-HRGN = HANDLE
-HRSRC = HANDLE
-HSTR = HANDLE
-HTASK = HANDLE
-HWINSTA = HANDLE
-HWND = HANDLE
-SC_HANDLE = HANDLE
-SERVICE_STATUS_HANDLE = HANDLE
+HANDLE: Final = c_void_p
+HACCEL: Final = HANDLE
+HBITMAP: Final = HANDLE
+HBRUSH: Final = HANDLE
+HCOLORSPACE: Final = HANDLE
+HDC: Final = HANDLE
+HDESK: Final = HANDLE
+HDWP: Final = HANDLE
+HENHMETAFILE: Final = HANDLE
+HFONT: Final = HANDLE
+HGDIOBJ: Final = HANDLE
+HGLOBAL: Final = HANDLE
+HHOOK: Final = HANDLE
+HICON: Final = HANDLE
+HINSTANCE: Final = HANDLE
+HKEY: Final = HANDLE
+HKL: Final = HANDLE
+HLOCAL: Final = HANDLE
+HMENU: Final = HANDLE
+HMETAFILE: Final = HANDLE
+HMODULE: Final = HANDLE
+HMONITOR: Final = HANDLE
+HPALETTE: Final = HANDLE
+HPEN: Final = HANDLE
+HRGN: Final = HANDLE
+HRSRC: Final = HANDLE
+HSTR: Final = HANDLE
+HTASK: Final = HANDLE
+HWINSTA: Final = HANDLE
+HWND: Final = HANDLE
+SC_HANDLE: Final = HANDLE
+SERVICE_STATUS_HANDLE: Final = HANDLE
 
 _CIntLikeT = TypeVar("_CIntLikeT", bound=_SimpleCData[int])
 _CIntLikeField: TypeAlias = _CField[_CIntLikeT, int, _CIntLikeT | int]
@@ -112,8 +112,8 @@ class RECT(Structure):
     right: _CIntLikeField[LONG]
     bottom: _CIntLikeField[LONG]
 
-RECTL = RECT
-_RECTL = RECT
+RECTL: Final = RECT
+_RECTL: Final = RECT
 tagRECT = RECT
 
 class _SMALL_RECT(Structure):
@@ -122,7 +122,7 @@ class _SMALL_RECT(Structure):
     Right: _CIntLikeField[SHORT]
     Bottom: _CIntLikeField[SHORT]
 
-SMALL_RECT = _SMALL_RECT
+SMALL_RECT: Final = _SMALL_RECT
 
 class _COORD(Structure):
     X: _CIntLikeField[SHORT]
@@ -132,15 +132,15 @@ class POINT(Structure):
     x: _CIntLikeField[LONG]
     y: _CIntLikeField[LONG]
 
-POINTL = POINT
-_POINTL = POINT
+POINTL: Final = POINT
+_POINTL: Final = POINT
 tagPOINT = POINT
 
 class SIZE(Structure):
     cx: _CIntLikeField[LONG]
     cy: _CIntLikeField[LONG]
 
-SIZEL = SIZE
+SIZEL: Final = SIZE
 tagSIZE = SIZE
 
 def RGB(red: int, green: int, blue: int) -> int: ...
@@ -149,7 +149,7 @@ class FILETIME(Structure):
     dwLowDateTime: _CIntLikeField[DWORD]
     dwHighDateTime: _CIntLikeField[DWORD]
 
-_FILETIME = FILETIME
+_FILETIME: Final = FILETIME
 
 class MSG(Structure):
     hWnd: _CField[HWND, int | None, HWND | int | None]
@@ -160,7 +160,7 @@ class MSG(Structure):
     pt: _CField[POINT, POINT, POINT]
 
 tagMSG = MSG
-MAX_PATH: int
+MAX_PATH: Final[int]
 
 class WIN32_FIND_DATAA(Structure):
     dwFileAttributes: _CIntLikeField[DWORD]
@@ -197,33 +197,33 @@ class PSHORT(_Pointer[SHORT]): ...
 # LP_c_ushort
 class PUSHORT(_Pointer[USHORT]): ...
 
-PWORD = PUSHORT
-LPWORD = PUSHORT
+PWORD: Final = PUSHORT
+LPWORD: Final = PUSHORT
 
 # LP_c_long
 class PLONG(_Pointer[LONG]): ...
 
-LPLONG = PLONG
-PBOOL = PLONG
-LPBOOL = PLONG
+LPLONG: Final = PLONG
+PBOOL: Final = PLONG
+LPBOOL: Final = PLONG
 
 # LP_c_ulong
 class PULONG(_Pointer[ULONG]): ...
 
-PDWORD = PULONG
-LPDWORD = PDWORD
-LPCOLORREF = PDWORD
-PLCID = PDWORD
+PDWORD: Final = PULONG
+LPDWORD: Final = PDWORD
+LPCOLORREF: Final = PDWORD
+PLCID: Final = PDWORD
 
 # LP_c_int (or LP_c_long if int and long have the same size)
 class PINT(_Pointer[INT]): ...
 
-LPINT = PINT
+LPINT: Final = PINT
 
 # LP_c_uint (or LP_c_ulong if int and long have the same size)
 class PUINT(_Pointer[UINT]): ...
 
-LPUINT = PUINT
+LPUINT: Final = PUINT
 
 # LP_c_float
 class PFLOAT(_Pointer[FLOAT]): ...
@@ -237,8 +237,8 @@ class PULARGE_INTEGER(_Pointer[ULARGE_INTEGER]): ...
 # LP_c_byte types
 class PBYTE(_Pointer[BYTE]): ...
 
-LPBYTE = PBYTE
-PBOOLEAN = PBYTE
+LPBYTE: Final = PBYTE
+PBOOLEAN: Final = PBYTE
 
 # LP_c_char
 class PCHAR(_Pointer[CHAR]): ...
@@ -249,40 +249,40 @@ class PWCHAR(_Pointer[WCHAR]): ...
 # LP_c_void_p
 class PHANDLE(_Pointer[HANDLE]): ...
 
-LPHANDLE = PHANDLE
-PHKEY = PHANDLE
-LPHKL = PHANDLE
-LPSC_HANDLE = PHANDLE
+LPHANDLE: Final = PHANDLE
+PHKEY: Final = PHANDLE
+LPHKL: Final = PHANDLE
+LPSC_HANDLE: Final = PHANDLE
 
 # LP_FILETIME
 class PFILETIME(_Pointer[FILETIME]): ...
 
-LPFILETIME = PFILETIME
+LPFILETIME: Final = PFILETIME
 
 # LP_MSG
 class PMSG(_Pointer[MSG]): ...
 
-LPMSG = PMSG
+LPMSG: Final = PMSG
 
 # LP_POINT
 class PPOINT(_Pointer[POINT]): ...
 
-LPPOINT = PPOINT
-PPOINTL = PPOINT
+LPPOINT: Final = PPOINT
+PPOINTL: Final = PPOINT
 
 # LP_RECT
 class PRECT(_Pointer[RECT]): ...
 
-LPRECT = PRECT
-PRECTL = PRECT
-LPRECTL = PRECT
+LPRECT: Final = PRECT
+PRECTL: Final = PRECT
+LPRECTL: Final = PRECT
 
 # LP_SIZE
 class PSIZE(_Pointer[SIZE]): ...
 
-LPSIZE = PSIZE
-PSIZEL = PSIZE
-LPSIZEL = PSIZE
+LPSIZE: Final = PSIZE
+PSIZEL: Final = PSIZE
+LPSIZEL: Final = PSIZE
 
 # LP__SMALL_RECT
 class PSMALL_RECT(_Pointer[SMALL_RECT]): ...
@@ -290,9 +290,9 @@ class PSMALL_RECT(_Pointer[SMALL_RECT]): ...
 # LP_WIN32_FIND_DATAA
 class PWIN32_FIND_DATAA(_Pointer[WIN32_FIND_DATAA]): ...
 
-LPWIN32_FIND_DATAA = PWIN32_FIND_DATAA
+LPWIN32_FIND_DATAA: Final = PWIN32_FIND_DATAA
 
 # LP_WIN32_FIND_DATAW
 class PWIN32_FIND_DATAW(_Pointer[WIN32_FIND_DATAW]): ...
 
-LPWIN32_FIND_DATAW = PWIN32_FIND_DATAW
+LPWIN32_FIND_DATAW: Final = PWIN32_FIND_DATAW

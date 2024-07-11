@@ -7,12 +7,12 @@
 
 from collections.abc import Callable
 from types import CodeType
-from typing import Any
+from typing import Any, Final
 
-DEBUGGER_ID: int
-COVERAGE_ID: int
-PROFILER_ID: int
-OPTIMIZER_ID: int
+DEBUGGER_ID: Final[int]
+COVERAGE_ID: Final[int]
+PROFILER_ID: Final[int]
+OPTIMIZER_ID: Final[int]
 
 def use_tool_id(tool_id: int, name: str, /) -> None: ...
 def free_tool_id(tool_id: int, /) -> None: ...
@@ -46,7 +46,7 @@ def get_local_events(tool_id: int, code: CodeType, /) -> int: ...
 def set_local_events(tool_id: int, code: CodeType, event_set: int, /) -> int: ...
 def restart_events() -> None: ...
 
-DISABLE: object
-MISSING: object
+DISABLE: Final[object]
+MISSING: Final[object]
 
 def register_callback(tool_id: int, event: int, func: Callable[..., Any] | None, /) -> Callable[..., Any] | None: ...

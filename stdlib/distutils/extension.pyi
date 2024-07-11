@@ -1,3 +1,4 @@
+
 class Extension:
     name: str
     sources: list[str]

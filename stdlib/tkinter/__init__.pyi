@@ -5,7 +5,7 @@ from collections.abc import Callable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
+from typing import Any, Final, Generic, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
 
 if sys.version_info >= (3, 9):
@@ -151,9 +151,9 @@ TclError = _tkinter.TclError
 wantobjects: int
 TkVersion: float
 TclVersion: float
-READABLE = _tkinter.READABLE
-WRITABLE = _tkinter.WRITABLE
-EXCEPTION = _tkinter.EXCEPTION
+READABLE: Final = _tkinter.READABLE
+WRITABLE: Final = _tkinter.WRITABLE
+EXCEPTION: Final = _tkinter.EXCEPTION
 
 # Quick guide for figuring out which widget class to choose:
 #   - Misc: any widget (don't use BaseWidget because Tk doesn't inherit from BaseWidget)

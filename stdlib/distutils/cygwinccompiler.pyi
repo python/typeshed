@@ -1,16 +1,16 @@
 from distutils.unixccompiler import UnixCCompiler
 from distutils.version import LooseVersion
 from re import Pattern
-from typing import Literal
+from typing import Final, Literal
 
 def get_msvcr() -> list[str] | None: ...
 
 class CygwinCCompiler(UnixCCompiler): ...
 class Mingw32CCompiler(CygwinCCompiler): ...
 
-CONFIG_H_OK: str
-CONFIG_H_NOTOK: str
-CONFIG_H_UNCERTAIN: str
+CONFIG_H_OK: Final[str]
+CONFIG_H_NOTOK: Final[str]
+CONFIG_H_UNCERTAIN: Final[str]
 
 def check_config_h() -> tuple[Literal["ok", "not ok", "uncertain"], str]: ...
 

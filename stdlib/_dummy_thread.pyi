@@ -1,13 +1,13 @@
 from collections.abc import Callable
 from types import TracebackType
-from typing import Any, NoReturn, overload
+from typing import Any, Final, NoReturn, overload
 from typing_extensions import TypeVarTuple, Unpack
 
 __all__ = ["error", "start_new_thread", "exit", "get_ident", "allocate_lock", "interrupt_main", "LockType", "RLock"]
 
 _Ts = TypeVarTuple("_Ts")
 
-TIMEOUT_MAX: int
+TIMEOUT_MAX: Final[int]
 error = RuntimeError
 
 @overload

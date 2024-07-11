@@ -2,7 +2,7 @@ import types
 import unittest
 from _typeshed import ExcInfo
 from collections.abc import Callable
-from typing import Any, NamedTuple
+from typing import Any, Final, NamedTuple
 from typing_extensions import TypeAlias
 
 __all__ = [
@@ -49,25 +49,25 @@ OPTIONFLAGS_BY_NAME: dict[str, int]
 
 def register_optionflag(name: str) -> int: ...
 
-DONT_ACCEPT_TRUE_FOR_1: int
-DONT_ACCEPT_BLANKLINE: int
-NORMALIZE_WHITESPACE: int
-ELLIPSIS: int
-SKIP: int
-IGNORE_EXCEPTION_DETAIL: int
+DONT_ACCEPT_TRUE_FOR_1: Final[int]
+DONT_ACCEPT_BLANKLINE: Final[int]
+NORMALIZE_WHITESPACE: Final[int]
+ELLIPSIS: Final[int]
+SKIP: Final[int]
+IGNORE_EXCEPTION_DETAIL: Final[int]
 
-COMPARISON_FLAGS: int
+COMPARISON_FLAGS: Final[int]
 
-REPORT_UDIFF: int
-REPORT_CDIFF: int
-REPORT_NDIFF: int
-REPORT_ONLY_FIRST_FAILURE: int
-FAIL_FAST: int
+REPORT_UDIFF: Final[int]
+REPORT_CDIFF: Final[int]
+REPORT_NDIFF: Final[int]
+REPORT_ONLY_FIRST_FAILURE: Final[int]
+FAIL_FAST: Final[int]
 
-REPORTING_FLAGS: int
+REPORTING_FLAGS: Final[int]
 
-BLANKLINE_MARKER: str
-ELLIPSIS_MARKER: str
+BLANKLINE_MARKER: Final[str]
+ELLIPSIS_MARKER: Final[str]
 
 class Example:
     source: str

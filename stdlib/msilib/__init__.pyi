@@ -1,13 +1,13 @@
 import sys
 from collections.abc import Container, Iterable, Sequence
 from types import ModuleType
-from typing import Any, Literal
+from typing import Any, Final, Literal
 
 if sys.platform == "win32":
     from _msi import *
     from _msi import _Database
 
-    AMD64: bool
+    AMD64: Final[bool]
     Win64: bool
 
     datasizemask: Literal[0x00FF]

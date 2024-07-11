@@ -1,3 +1,4 @@
+
 from .pgen2.grammar import Grammar
 
 class Symbols:
