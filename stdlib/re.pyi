@@ -230,7 +230,7 @@ if sys.version_info < (3, 13):
     T: Final = RegexFlag.T
     TEMPLATE: Final = RegexFlag.TEMPLATE
 if sys.version_info >= (3, 11):
-    NOFLAG: Final = RegexFlag.NOFLAG
+    NOFLAG = RegexFlag.NOFLAG
 _FlagsType: TypeAlias = int | RegexFlag
 
 # Type-wise the compile() overloads are unnecessary, they could also be modeled using
