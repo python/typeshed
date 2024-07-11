@@ -553,32 +553,32 @@ if sys.platform != "win32":
     AF_UNIX: Final = AddressFamily.AF_UNIX
 
 if sys.platform != "win32" and sys.platform != "darwin":
-    AF_AAL5: Final = AddressFamily.AF_AAL5AddressFamily.AF_AAL5
-    AF_ASH: Final = AddressFamily.AF_ASHAddressFamily.AF_ASH
-    AF_ATMPVC: Final = AddressFamily.AF_ATMPVCAddressFamily.AF_ATMPVC
-    AF_ATMSVC: Final = AddressFamily.AF_ATMSVCAddressFamily.AF_ATMSVC
-    AF_AX25: Final = AddressFamily.AF_AX25AddressFamily.AF_AX25
-    AF_BRIDGE: Final = AddressFamily.AF_BRIDGEAddressFamily.AF_BRIDGE
-    AF_ECONET: Final = AddressFamily.AF_ECONETAddressFamily.AF_ECONET
-    AF_KEY: Final = AddressFamily.AF_KEYAddressFamily.AF_KEY
-    AF_LLC: Final = AddressFamily.AF_LLCAddressFamily.AF_LLC
-    AF_NETBEUI: Final = AddressFamily.AF_NETBEUIAddressFamily.AF_NETBEUI
-    AF_NETROM: Final = AddressFamily.AF_NETROMAddressFamily.AF_NETROM
-    AF_PPPOX: Final = AddressFamily.AF_PPPOXAddressFamily.AF_PPPOX
-    AF_ROSE: Final = AddressFamily.AF_ROSEAddressFamily.AF_ROSE
-    AF_SECURITY: Final = AddressFamily.AF_SECURITYAddressFamily.AF_SECURITY
-    AF_WANPIPE: Final = AddressFamily.AF_WANPIPEAddressFamily.AF_WANPIPE
-    AF_X25: Final = AddressFamily.AF_X25AddressFamily.AF_X25
+    AF_AAL5: Final = AddressFamily.AF_AAL5
+    AF_ASH: Final = AddressFamily.AF_ASH
+    AF_ATMPVC: Final = AddressFamily.AF_ATMPVC
+    AF_ATMSVC: Final = AddressFamily.AF_ATMSVC
+    AF_AX25: Final = AddressFamily.AF_AX25
+    AF_BRIDGE: Final = AddressFamily.AF_BRIDGE
+    AF_ECONET: Final = AddressFamily.AF_ECONET
+    AF_KEY: Final = AddressFamily.AF_KEY
+    AF_LLC: Final = AddressFamily.AF_LLC
+    AF_NETBEUI: Final = AddressFamily.AF_NETBEUI
+    AF_NETROM: Final = AddressFamily.AF_NETROM
+    AF_PPPOX: Final = AddressFamily.AF_PPPOX
+    AF_ROSE: Final = AddressFamily.AF_ROSE
+    AF_SECURITY: Final = AddressFamily.AF_SECURITY
+    AF_WANPIPE: Final = AddressFamily.AF_WANPIPE
+    AF_X25: Final = AddressFamily.AF_X25
 
 if sys.platform == "linux":
     AF_CAN: Final = AddressFamily.AF_CANAddressFamily.AF_CAN
-    AF_PACKET: Final = AddressFamily.AF_PACKETAddressFamily.AF_PACKET
-    AF_RDS: Final = AddressFamily.AF_RDSAddressFamily.AF_RDS
-    AF_TIPC: Final = AddressFamily.AF_TIPCAddressFamily.AF_TIPC
-    AF_ALG: Final = AddressFamily.AF_ALGAddressFamily.AF_ALG
-    AF_NETLINK: Final = AddressFamily.AF_NETLINKAddressFamily.AF_NETLINK
-    AF_VSOCK: Final = AddressFamily.AF_VSOCKAddressFamily.AF_VSOCK
-    AF_QIPCRTR: Final = AddressFamily.AF_QIPCRTRAddressFamily.AF_QIPCRTR
+    AF_PACKET: Final = AddressFamily
+    AF_RDS: Final = AddressFamily.AF_RDS
+    AF_TIPC: Final = AddressFamily.AF_TIPC
+    AF_ALG: Final = AddressFamily.AF_ALG
+    AF_NETLINK: Final = AddressFamily.AF_NETLINK
+    AF_VSOCK: Final = AddressFamily.AF_VSOCK
+    AF_QIPCRTR: Final = AddressFamily.AF_QIPCRTR
 
 if sys.platform != "win32" or sys.version_info >= (3, 9):
     AF_LINK: Final = AddressFamily.AF_LINK

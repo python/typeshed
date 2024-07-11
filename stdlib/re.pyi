@@ -231,8 +231,8 @@ VERBOSE: Final = RegexFlag.VERBOSE
 U: Final = RegexFlag.U
 UNICODE: Final = RegexFlag.UNICODE
 if sys.version_info < (3, 13):
-    T: Final = RegexFlag.TRegexFlag.T
-    TEMPLATE: Final = RegexFlag.TEMPLATERegexFlag.TEMPLATE
+    T: Final = RegexFlag.T
+    TEMPLATE: Final = RegexFlag.TEMPLATE
 if sys.version_info >= (3, 11):
     NOFLAG: Final = RegexFlag.NOFLAG
 _FlagsType: TypeAlias = int | RegexFlag
