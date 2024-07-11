@@ -29,7 +29,7 @@ class Dialect:
     lineterminator: str
     quoting: _QuotingType
     strict: bool
-    def __init__(self) -> None: ...
+    def __init__(self, dialect: Any = ..., delimiter: str = ',', doublequote: bool = True, escapechar: str | None = None, lineterminator: str = '\r\n', quotechar: str | None = '"', quoting: _QuotingType = 0, skipinitialspace: bool = False, strict: bool = False) -> None: ...
 
 _DialectLike: TypeAlias = str | Dialect | type[Dialect]
 
