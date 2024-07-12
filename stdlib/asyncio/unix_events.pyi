@@ -1,12 +1,19 @@
+import ssl
 import sys
 import types
+from _typeshed import StrPath
 from abc import ABCMeta, abstractmethod
+from asyncio import BaseProtocol, Server
 from collections.abc import Callable
-from typing import Literal
+from socket import socket
+from typing import Literal, TypeAlias
 from typing_extensions import Self, TypeVarTuple, Unpack, deprecated
 
 from .events import AbstractEventLoop, BaseDefaultEventLoopPolicy
 from .selector_events import BaseSelectorEventLoop
+
+_ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
+_SSLContext: TypeAlias = bool | None | ssl.SSLContext
 
 _Ts = TypeVarTuple("_Ts")
 
@@ -153,7 +160,46 @@ if sys.platform != "win32":
                 ) -> None: ...
                 def remove_child_handler(self, pid: int) -> bool: ...
 
-    class _UnixSelectorEventLoop(BaseSelectorEventLoop): ...
+    class _UnixSelectorEventLoop(BaseSelectorEventLoop):
+        if sys.version_info >= (3, 13):
+            async def create_unix_server(  # type: ignore[override]
+                self,
+                protocol_factory: _ProtocolFactory,
+                path: StrPath | None = None,
+                *,
+                sock: socket | None = None,
+                backlog: int = 100,
+                ssl: _SSLContext = None,
+                ssl_handshake_timeout: float | None = None,
+                ssl_shutdown_timeout: float | None = None,
+                start_serving: bool = True,
+                cleanup_socket: bool = True,
+            ) -> Server: ...
+        elif sys.version_info >= (3, 11):
+            async def create_unix_server(
+                self,
+                protocol_factory: _ProtocolFactory,
+                path: StrPath | None = None,
+                *,
+                sock: socket | None = None,
+                backlog: int = 100,
+                ssl: _SSLContext = None,
+                ssl_handshake_timeout: float | None = None,
+                ssl_shutdown_timeout: float | None = None,
+                start_serving: bool = True,
+            ) -> Server: ...
+        else:
+            async def create_unix_server(
+                self,
+                protocol_factory: _ProtocolFactory,
+                path: StrPath | None = None,
+                *,
+                sock: socket | None = None,
+                backlog: int = 100,
+                ssl: _SSLContext = None,
+                ssl_handshake_timeout: float | None = None,
+                start_serving: bool = True,
+            ) -> Server: ...
 
     class _UnixDefaultEventLoopPolicy(BaseDefaultEventLoopPolicy):
         if sys.version_info < (3, 14):

@@ -2,7 +2,6 @@
 _stat.SF_SETTABLE
 _stat.SF_SUPPORTED
 _stat.SF_SYNTHETIC
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
 fcntl.F_GETOWN_EX
 fcntl.F_GET_FILE_RW_HINT
 fcntl.F_GET_RW_HINT
