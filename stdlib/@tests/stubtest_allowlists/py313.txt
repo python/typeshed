@@ -3,8 +3,6 @@
 # =========================
 
 # TODO: triage these new errors
-_collections_abc.dict_items.isdisjoint
-_collections_abc.dict_keys.isdisjoint
 _ctypes.POINTER
 _ctypes.addressof
 _ctypes.alignment
