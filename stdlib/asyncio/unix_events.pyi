@@ -1,19 +1,15 @@
-import ssl
 import sys
 import types
 from _typeshed import StrPath
 from abc import ABCMeta, abstractmethod
-from asyncio import BaseProtocol, Server
 from collections.abc import Callable
 from socket import socket
-from typing import Literal, TypeAlias
+from typing import Literal
 from typing_extensions import Self, TypeVarTuple, Unpack, deprecated
 
+from .base_events import Server, _ProtocolFactory, _SSLContext
 from .events import AbstractEventLoop, BaseDefaultEventLoopPolicy
 from .selector_events import BaseSelectorEventLoop
-
-_ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
-_SSLContext: TypeAlias = bool | None | ssl.SSLContext
 
 _Ts = TypeVarTuple("_Ts")
 
