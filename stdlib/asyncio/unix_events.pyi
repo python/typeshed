@@ -175,31 +175,6 @@ if sys.platform != "win32":
                 start_serving: bool = True,
                 cleanup_socket: bool = True,
             ) -> Server: ...
-        elif sys.version_info >= (3, 11):
-            async def create_unix_server(
-                self,
-                protocol_factory: _ProtocolFactory,
-                path: StrPath | None = None,
-                *,
-                sock: socket | None = None,
-                backlog: int = 100,
-                ssl: _SSLContext = None,
-                ssl_handshake_timeout: float | None = None,
-                ssl_shutdown_timeout: float | None = None,
-                start_serving: bool = True,
-            ) -> Server: ...
-        else:
-            async def create_unix_server(
-                self,
-                protocol_factory: _ProtocolFactory,
-                path: StrPath | None = None,
-                *,
-                sock: socket | None = None,
-                backlog: int = 100,
-                ssl: _SSLContext = None,
-                ssl_handshake_timeout: float | None = None,
-                start_serving: bool = True,
-            ) -> Server: ...
 
     class _UnixDefaultEventLoopPolicy(BaseDefaultEventLoopPolicy):
         if sys.version_info < (3, 14):
