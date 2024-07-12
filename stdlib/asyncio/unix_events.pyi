@@ -58,8 +58,8 @@ if sys.version_info < (3, 14):
             def is_active(self) -> bool: ...
 
 if sys.platform != "win32":
-    if sys.version_info >= (3, 14):
-        __all__ = ("SelectorEventLoop", "DefaultEventLoopPolicy")
+    if sys.version_info >= (3, 13):
+        __all__ = ("SelectorEventLoop", "DefaultEventLoopPolicy", "EventLoop")
     elif sys.version_info >= (3, 9):
         __all__ = (
             "SelectorEventLoop",
@@ -157,6 +157,9 @@ if sys.platform != "win32":
     SelectorEventLoop = _UnixSelectorEventLoop
 
     DefaultEventLoopPolicy = _UnixDefaultEventLoopPolicy
+
+    if sys.version_info >= (3, 13):
+        EventLoop = SelectorEventLoop
 
     if sys.version_info < (3, 14):
         if sys.version_info >= (3, 12):
