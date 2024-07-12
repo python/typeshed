@@ -228,6 +228,7 @@ class BaseEventLoop(AbstractEventLoop):
         ) -> tuple[Transport, _ProtocolT]: ...
 
     if sys.version_info >= (3, 13):
+        # 3.13 added `keep_alive`.
         @overload
         async def create_server(
             self,
