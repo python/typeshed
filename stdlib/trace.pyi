@@ -37,12 +37,8 @@ class CoverageResults:
             ignore_missing_files: bool = False,
         ) -> None: ...
     else:
-        def write_results(
-            self,
-            show_missing: bool = True,
-            summary: bool = False,
-            coverdir: StrPath | None = None,
-        ) -> None: ...
+        def write_results(self, show_missing: bool = True, summary: bool = False, coverdir: StrPath | None = None) -> None: ...
+
     def write_results_file(
         self, path: StrPath, lines: Sequence[str], lnotab: Any, lines_hit: Mapping[int, int], encoding: str | None = None
     ) -> tuple[int, int]: ...
