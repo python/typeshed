@@ -58,8 +58,20 @@ if sys.version_info < (3, 14):
             def is_active(self) -> bool: ...
 
 if sys.platform != "win32":
-    if sys.version_info >= (3, 13):
+    if sys.version_info >= (3, 14):
         __all__ = ("SelectorEventLoop", "DefaultEventLoopPolicy", "EventLoop")
+    elif sys.version_info >= (3, 13):
+        __all__ = (
+            "SelectorEventLoop",
+            "AbstractChildWatcher",
+            "SafeChildWatcher",
+            "FastChildWatcher",
+            "PidfdChildWatcher",
+            "MultiLoopChildWatcher",
+            "ThreadedChildWatcher",
+            "DefaultEventLoopPolicy",
+            "EventLoop",
+        )
     elif sys.version_info >= (3, 9):
         __all__ = (
             "SelectorEventLoop",
