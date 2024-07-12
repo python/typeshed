@@ -15,7 +15,6 @@ class QueueFull(Exception): ...
 
 if sys.version_info >= (3, 13):
     class QueueShutDown(Exception): ...
-
     __all__ = ("Queue", "PriorityQueue", "LifoQueue", "QueueFull", "QueueEmpty", "QueueShutDown")
 
 else:
