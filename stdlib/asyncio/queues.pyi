@@ -10,10 +10,16 @@ if sys.version_info >= (3, 10):
 else:
     _LoopBoundMixin = object
 
-__all__ = ("Queue", "PriorityQueue", "LifoQueue", "QueueFull", "QueueEmpty")
-
 class QueueEmpty(Exception): ...
 class QueueFull(Exception): ...
+
+if sys.version_info >= (3, 13):
+    class QueueShutDown(Exception): ...
+
+    __all__ = ("Queue", "PriorityQueue", "LifoQueue", "QueueFull", "QueueEmpty", "QueueShutDown")
+
+else:
+    __all__ = ("Queue", "PriorityQueue", "LifoQueue", "QueueFull", "QueueEmpty")
 
 _T = TypeVar("_T")
 
@@ -42,6 +48,8 @@ class Queue(Generic[_T], _LoopBoundMixin):  # noqa: Y059
     def task_done(self) -> None: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, type: Any, /) -> GenericAlias: ...
+    if sys.version_info >= (3, 13):
+        def shutdown(self, immediate: bool = False) -> None: ...
 
 class PriorityQueue(Queue[_T]): ...
 class LifoQueue(Queue[_T]): ...
