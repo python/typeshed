@@ -3,7 +3,6 @@ from abc import abstractmethod
 from types import MappingProxyType
 from typing import (  # noqa: Y022,Y038,Y057
     AbstractSet as Set,
-    Any,
     AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
     AsyncIterator as AsyncIterator,
