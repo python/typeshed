@@ -82,9 +82,6 @@ os.path.splitroot
 # `__replace__` to be special cased in dataclasses
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
-sre_compile.SRE_FLAG_TEMPLATE
-sre_constants.SRE_FLAG_TEMPLATE
-sre_parse.SRE_FLAG_TEMPLATE
 tkinter.Misc.after_info
 tkinter.Misc.busy
 tkinter.Misc.busy_cget
