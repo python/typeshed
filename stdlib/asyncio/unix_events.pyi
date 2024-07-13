@@ -13,6 +13,43 @@ from .selector_events import BaseSelectorEventLoop
 
 _Ts = TypeVarTuple("_Ts")
 
+if sys.platform != "win32":
+    if sys.version_info >= (3, 14):
+        __all__ = ("SelectorEventLoop", "DefaultEventLoopPolicy", "EventLoop")
+    elif sys.version_info >= (3, 13):
+        __all__ = (
+            "SelectorEventLoop",
+            "AbstractChildWatcher",
+            "SafeChildWatcher",
+            "FastChildWatcher",
+            "PidfdChildWatcher",
+            "MultiLoopChildWatcher",
+            "ThreadedChildWatcher",
+            "DefaultEventLoopPolicy",
+            "EventLoop",
+        )
+    elif sys.version_info >= (3, 9):
+        __all__ = (
+            "SelectorEventLoop",
+            "AbstractChildWatcher",
+            "SafeChildWatcher",
+            "FastChildWatcher",
+            "PidfdChildWatcher",
+            "MultiLoopChildWatcher",
+            "ThreadedChildWatcher",
+            "DefaultEventLoopPolicy",
+        )
+    else:
+        __all__ = (
+            "SelectorEventLoop",
+            "AbstractChildWatcher",
+            "SafeChildWatcher",
+            "FastChildWatcher",
+            "MultiLoopChildWatcher",
+            "ThreadedChildWatcher",
+            "DefaultEventLoopPolicy",
+        )
+
 # This is also technically not available on Win,
 # but other parts of typeshed need this definition.
 # So, it is special cased.
@@ -61,42 +98,6 @@ if sys.version_info < (3, 14):
             def is_active(self) -> bool: ...
 
 if sys.platform != "win32":
-    if sys.version_info >= (3, 14):
-        __all__ = ("SelectorEventLoop", "DefaultEventLoopPolicy", "EventLoop")
-    elif sys.version_info >= (3, 13):
-        __all__ = (
-            "SelectorEventLoop",
-            "AbstractChildWatcher",
-            "SafeChildWatcher",
-            "FastChildWatcher",
-            "PidfdChildWatcher",
-            "MultiLoopChildWatcher",
-            "ThreadedChildWatcher",
-            "DefaultEventLoopPolicy",
-            "EventLoop",
-        )
-    elif sys.version_info >= (3, 9):
-        __all__ = (
-            "SelectorEventLoop",
-            "AbstractChildWatcher",
-            "SafeChildWatcher",
-            "FastChildWatcher",
-            "PidfdChildWatcher",
-            "MultiLoopChildWatcher",
-            "ThreadedChildWatcher",
-            "DefaultEventLoopPolicy",
-        )
-    else:
-        __all__ = (
-            "SelectorEventLoop",
-            "AbstractChildWatcher",
-            "SafeChildWatcher",
-            "FastChildWatcher",
-            "MultiLoopChildWatcher",
-            "ThreadedChildWatcher",
-            "DefaultEventLoopPolicy",
-        )
-
     if sys.version_info < (3, 14):
         if sys.version_info >= (3, 12):
             # Doesn't actually have ABCMeta metaclass at runtime, but mypy complains if we don't have it in the stub.

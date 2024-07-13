@@ -14,13 +14,15 @@ class QueueEmpty(Exception): ...
 class QueueFull(Exception): ...
 
 if sys.version_info >= (3, 13):
-    class QueueShutDown(Exception): ...
     __all__ = ("Queue", "PriorityQueue", "LifoQueue", "QueueFull", "QueueEmpty", "QueueShutDown")
 
 else:
     __all__ = ("Queue", "PriorityQueue", "LifoQueue", "QueueFull", "QueueEmpty")
 
 _T = TypeVar("_T")
+
+if sys.version_info >= (3, 13):
+    class QueueShutDown(Exception): ...
 
 # If Generic[_T] is last and _LoopBoundMixin is object, pyright is unhappy.
 # We can remove the noqa pragma when dropping 3.9 support.
