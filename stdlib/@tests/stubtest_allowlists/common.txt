@@ -202,7 +202,6 @@ ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
 ctypes.util.test
-mimetypes.MimeTypes.add_type
 modulefinder.test
 multiprocessing.managers.Server.accepter
 multiprocessing.managers.Server.create

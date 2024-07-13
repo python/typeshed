@@ -1,7 +1,4 @@
 # new in py313
-asyncio.unix_events.EventLoop
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
-asyncio.unix_events.__all__
 fcntl.F_GETNOSIGPIPE
 fcntl.F_OFD_GETLK
 fcntl.F_OFD_SETLK
