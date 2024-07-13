@@ -21,6 +21,7 @@ from types import (
     TracebackType,
     WrapperDescriptorType,
 )
+from typing import Final
 from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, deprecated
 
 if sys.version_info >= (3, 9):

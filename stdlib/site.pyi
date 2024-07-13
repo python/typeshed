@@ -1,11 +1,12 @@
 import sys
 from _typeshed import StrPath
 from collections.abc import Iterable
+from typing import Final
 
 PREFIXES: list[str]
-ENABLE_USER_SITE: bool | None
-USER_SITE: str | None
-USER_BASE: str | None
+ENABLE_USER_SITE: Final[bool | None]
+USER_SITE: Final[str | None]
+USER_BASE: Final[str | None]
 
 def main() -> None: ...
 def abs_paths() -> None: ...  # undocumented
