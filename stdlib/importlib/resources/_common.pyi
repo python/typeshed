@@ -4,8 +4,7 @@ from contextlib import AbstractContextManager
 from importlib.abc import ResourceReader, Traversable
 from pathlib import Path
 from typing import Callable, overload
-from typing_extensions import TypeAlias
-from warnings import deprecated
+from typing_extensions import TypeAlias, deprecated
 
 Package: TypeAlias = str | types.ModuleType
 
@@ -14,7 +13,7 @@ if sys.version_info >= (3, 12):
 
 if sys.version_info >= (3, 12):
     def package_to_anchor(
-        package_to_anchor: Callable[[Anchor | None], Traversable]
+        package_to_anchor: Callable[[Anchor | None], Traversable],
     ) -> Callable[[Anchor | None, Anchor | None], Traversable]: ...
 
 if sys.version_info >= (3, 12):
