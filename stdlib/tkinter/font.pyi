@@ -16,7 +16,7 @@ _FontDescription: TypeAlias = (
     str  # "Helvetica 12"
     | Font  # A font object constructed in Python
     | list[Any]  # ["Helvetica", 12, BOLD]
-    | tuple[str]  # ("Liberation Sans",) needs wrapping in tuple/list to handle spaces
+    | tuple[str]  # ("Liberation Sans", ) needs wrapping in tuple/list to handle spaces
     | tuple[str, int]  # ("Liberation Sans", 12)
     | tuple[str, int, str]  # ("Liberation Sans", 12, "bold")
     | tuple[str, int, list[str] | tuple[str, ...]]  # e.g. bold and italic
@@ -43,7 +43,7 @@ class Font:
     def __init__(
         self,
         # In tkinter, 'root' refers to tkinter.Tk by convention, but the code
-        # actually works with any tkinter widget so we use tkinter.Misc.
+        # actually works with any tkinter widget, so we use tkinter.Misc.
         root: tkinter.Misc | None = None,
         font: _FontDescription | None = None,
         name: str | None = None,
@@ -84,6 +84,7 @@ class Font:
     def actual(self, option: None, displayof: tkinter.Misc | None = None) -> _FontDict: ...
     @overload
     def actual(self, *, displayof: tkinter.Misc | None = None) -> _FontDict: ...
+    @overload
     def config(
         self,
         *,
