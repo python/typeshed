@@ -9,7 +9,10 @@ from types import ModuleType
 from typing import Any, BinaryIO, TextIO, overload
 from typing_extensions import TypeAlias, Unpack
 
-Package: TypeAlias = str | ModuleType
+if sys.version_info >= (3, 11):
+    from importlib.resources._common import Package
+else:
+    Package: TypeAlias = str | ModuleType
 
 if sys.version_info >= (3, 9):
     from importlib.abc import Traversable
@@ -62,11 +65,13 @@ else:
     def is_resource(package: Package, name: str) -> bool: ...
     def contents(package: Package) -> Iterator[str]: ...
 
-if sys.version_info >= (3, 9):
+if sys.version_info >= (3, 11):
+    from importlib.resources._common import as_file
+elif sys.version_info >= (3, 9):
     def as_file(path: Traversable) -> AbstractContextManager[Path]: ...
 
-if sys.version_info >= (3, 12):
-    def files(anchor: Package | None = ...) -> Traversable: ...
+if sys.version_info >= (3, 11):
+    from importlib.resources._common import files
 
 elif sys.version_info >= (3, 9):
     def files(package: Package) -> Traversable: ...
