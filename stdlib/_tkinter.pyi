@@ -1,6 +1,6 @@
 import sys
 from collections.abc import Callable
-from typing import Any, ClassVar, Final, Literal, final
+from typing import Any, ClassVar, Final, final
 from typing_extensions import TypeAlias
 
 # _tkinter is meant to be only used internally by tkinter, but some tkinter

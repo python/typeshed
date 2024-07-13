@@ -6,19 +6,7 @@ from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Se
 from contextlib import AbstractContextManager
 from re import Pattern
 from types import TracebackType
-from typing import (
-    Any,
-    AnyStr,
-    ClassVar,
-    Generic,
-    NamedTuple,
-    NoReturn,
-    Protocol,
-    SupportsAbs,
-    SupportsRound,
-    TypeVar,
-    overload,
-)
+from typing import Any, AnyStr, ClassVar, Generic, NamedTuple, NoReturn, Protocol, SupportsAbs, SupportsRound, TypeVar, overload
 from typing_extensions import ParamSpec, Self, TypeAlias
 from warnings import WarningMessage
 
