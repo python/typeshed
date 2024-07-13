@@ -25,8 +25,6 @@ _winapi.STARTF_USEHOTKEY
 _winapi.STARTF_USEPOSITION
 _winapi.STARTF_USESIZE
 _winapi.SetEvent
-asyncio.windows_events.__all__
-asyncio.windows_events.EventLoop
 ctypes._endian.oledll
 ctypes._endian.windll
 nt.fchmod
