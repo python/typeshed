@@ -1,14 +1,14 @@
 from _typeshed import StrPath
 from collections.abc import Iterable, Sequence
 from datetime import datetime, timedelta, tzinfo
-from typing import Any, Protocol
+from typing import Any, Literal, Protocol
 from typing_extensions import Self
 
 __all__ = ["ZoneInfo", "reset_tzpath", "available_timezones", "TZPATH", "ZoneInfoNotFoundError", "InvalidTZPathWarning"]
 
 class _IOBytes(Protocol):
     def read(self, size: int, /) -> bytes: ...
-    def seek(self, size: int, whence: int = ..., /) -> Any: ...
+    def seek(self, size: int, whence: Literal[0, 1, 2] = ..., /) -> Any: ...
 
 class ZoneInfo(tzinfo):
     @property
