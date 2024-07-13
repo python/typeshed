@@ -1,13 +1,11 @@
 import os
 import sys
-from _typeshed import StrPath
 from collections.abc import Iterator
 from contextlib import AbstractContextManager
-from io import TextIOWrapper
 from pathlib import Path
 from types import ModuleType
-from typing import Any, BinaryIO, TextIO, overload
-from typing_extensions import TypeAlias, Unpack
+from typing import Any, BinaryIO, TextIO
+from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 11):
     from importlib.resources._common import Package
