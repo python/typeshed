@@ -1,6 +1,7 @@
 import datetime
 import sys
 from _typeshed import Unused
+from collections.abc import Iterable
 from email import _ParamType
 from email.charset import Charset
 from typing import overload
@@ -30,8 +31,7 @@ def quote(str: str) -> str: ...
 def unquote(str: str) -> str: ...
 
 if sys.version_info >= (3, 13):
-    def parseaddr(addr: str, *, strict: bool = True) -> tuple[str, str]: ...
-
+    def parseaddr(addr: str | list[str], *, strict: bool = True) -> tuple[str, str]: ...
 else:
     def parseaddr(addr: str) -> tuple[str, str]: ...
 
