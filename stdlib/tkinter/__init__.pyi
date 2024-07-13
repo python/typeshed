@@ -8,6 +8,7 @@ from types import TracebackType
 from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
 
+
 if sys.version_info >= (3, 9):
     __all__ = [
         "TclError",
