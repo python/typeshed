@@ -39,7 +39,6 @@ doctest.TestResults.__doc__
 doctest.TestResults.__new__
 email.utils.getaddresses
 email.utils.parseaddr
-filecmp.dircmp.__init__
 importlib.resources.Anchor
 importlib.resources.Resource
 importlib.resources.__all__
