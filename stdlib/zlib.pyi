@@ -1,6 +1,6 @@
 import sys
 from _typeshed import ReadableBuffer
-from typing import Final, Literal
+from typing import Final
 
 DEFLATED: Final = 8
 DEF_MEM_LEVEL: int  # can change
@@ -13,7 +13,7 @@ Z_PARTIAL_FLUSH: Final = 1
 Z_BEST_COMPRESSION: Final = 9
 Z_BEST_SPEED: Final = 1
 Z_BLOCK: Final = 5
-Z_DEFAULT_COMPRESSION: Final[Literal[-1]]
+Z_DEFAULT_COMPRESSION: Final = -1
 Z_DEFAULT_STRATEGY: Final = 0
 Z_FILTERED: Final = 1
 Z_FINISH: Final = 4
