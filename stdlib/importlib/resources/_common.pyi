@@ -12,7 +12,7 @@ if sys.version_info >= (3, 12):
     Anchor: TypeAlias = Package
 
     def package_to_anchor(
-        package_to_anchor: Callable[[Anchor | None], Traversable],
+        package_to_anchor: Callable[[Anchor | None], Traversable]
     ) -> Callable[[Anchor | None, Anchor | None], Traversable]: ...
     @overload
     def files(anchor: Anchor | None = None) -> Traversable: ...
