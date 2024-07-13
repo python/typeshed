@@ -11,12 +11,9 @@ Package: TypeAlias = str | types.ModuleType
 if sys.version_info >= (3, 12):
     Anchor: TypeAlias = Package
 
-if sys.version_info >= (3, 12):
     def package_to_anchor(
-        package_to_anchor: Callable[[Anchor | None], Traversable]
+        package_to_anchor: Callable[[Anchor | None], Traversable],
     ) -> Callable[[Anchor | None, Anchor | None], Traversable]: ...
-
-if sys.version_info >= (3, 12):
     @overload
     def files(anchor: Anchor | None = None) -> Traversable: ...
     @overload
