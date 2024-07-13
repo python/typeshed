@@ -263,9 +263,8 @@ def NoDefaultRoot() -> None: ...
 
 class Variable:
     def __init__(self, master: Misc | None = None, value: Incomplete | None = None, name: str | None = None) -> None: ...
-    @overload
     def set(self, value) -> None: ...
-    initialize = set
+    initialize = Variable.set
     def get(self): ...
     def trace_add(self, mode: Literal["array", "read", "write", "unset"], callback: Callable[[str, str, str], object]) -> str: ...
     def trace_remove(self, mode: Literal["array", "read", "write", "unset"], cbname: str) -> None: ...
@@ -283,30 +282,26 @@ class Variable:
 
 class StringVar(Variable):
     def __init__(self, master: Misc | None = None, value: str | None = None, name: str | None = None) -> None: ...
-    @overload
     def set(self, value: str) -> None: ...
-    initialize = set
+    initialize = StringVar.set
     def get(self) -> str: ...
 
 class IntVar(Variable):
     def __init__(self, master: Misc | None = None, value: int | None = None, name: str | None = None) -> None: ...
-    @overload
     def set(self, value: int) -> None: ...
-    initialize = set
+    initialize = IntVar.set
     def get(self) -> int: ...
 
 class DoubleVar(Variable):
     def __init__(self, master: Misc | None = None, value: float | None = None, name: str | None = None) -> None: ...
-    @overload
     def set(self, value: float) -> None: ...
-    initialize = set
+    initialize = DoubleVar.set
     def get(self) -> float: ...
 
 class BooleanVar(Variable):
     def __init__(self, master: Misc | None = None, value: bool | None = None, name: str | None = None) -> None: ...
-    @overload
     def set(self, value: bool) -> None: ...
-    initialize = set
+    initialize = BooleanVar.set
     def get(self) -> bool: ...
 
 def mainloop(n: int = 0) -> None: ...
@@ -333,9 +328,8 @@ class Misc:
     def tk_strictMotif(self, boolean: Incomplete | None = None): ...
     def tk_bisque(self) -> None: ...
     def tk_setPalette(self, *args, **kw) -> None: ...
-    @overload
     def wait_variable(self, name: str | Variable = "PY_VAR") -> None: ...
-    waitvar = wait_variable
+    waitvar = Misc.wait_variable
     def wait_window(self, window: Misc | None = None) -> None: ...
     def wait_visibility(self, window: Misc | None = None) -> None: ...
     def setvar(self, name: str = "PY_VAR", value: str = "1") -> None: ...
@@ -343,9 +337,8 @@ class Misc:
     def getint(self, s): ...
     def getdouble(self, s): ...
     def getboolean(self, s): ...
-    @overload
     def focus_set(self) -> None: ...
-    focus = focus_set
+    focus = Misc.focus_set
     def focus_force(self) -> None: ...
     def focus_get(self) -> Misc | None: ...
     def focus_displayof(self) -> Misc | None: ...
@@ -381,9 +374,8 @@ class Misc:
     def selection_own_get(self, **kw): ...
     def send(self, interp, cmd, *args): ...
     def lower(self, belowThis: Incomplete | None = None) -> None: ...
-    @overload
     def tkraise(self, aboveThis: Incomplete | None = None) -> None: ...
-    lift = tkraise
+    lift = Misc.tkraise
     if sys.version_info >= (3, 11):
         def info_patchlevel(self) -> _VersionInfoType: ...
 
@@ -497,9 +489,8 @@ class Misc:
     @overload
     def pack_propagate(self) -> None: ...
     propagate = pack_propagate
-    @overload
     def grid_anchor(self, anchor: _Anchor | None = None) -> None: ...
-    anchor = grid_anchor
+    anchor = Misc.grid_anchor
     @overload
     def grid_bbox(
         self, column: None = None, row: None = None, col2: None = None, row2: None = None
@@ -509,7 +500,6 @@ class Misc:
     @overload
     def grid_bbox(self, column: int, row: int, col2: int, row2: int) -> tuple[int, int, int, int] | None: ...
     bbox = grid_bbox
-    @overload
     def grid_columnconfigure(
         self,
         index: int | str | list[int] | tuple[int, ...],
@@ -520,7 +510,6 @@ class Misc:
         uniform: str = ...,
         weight: int = ...,
     ) -> _GridIndexInfo | Any: ...  # can be None but annoying to check
-    @overload
     def grid_rowconfigure(
         self,
         index: int | str | list[int] | tuple[int, ...],
@@ -531,22 +520,20 @@ class Misc:
         uniform: str = ...,
         weight: int = ...,
     ) -> _GridIndexInfo | Any: ...  # can be None but annoying to check
-    columnconfigure = grid_columnconfigure
-    rowconfigure = grid_rowconfigure
+    columnconfigure = Misc.grid_columnconfigure
+    rowconfigure = Misc.grid_rowconfigure
     def grid_location(self, x: _ScreenUnits, y: _ScreenUnits) -> tuple[int, int]: ...
     @overload
     def grid_propagate(self, flag: bool) -> None: ...
     @overload
     def grid_propagate(self) -> bool: ...
-    @overload
     def grid_size(self) -> tuple[int, int]: ...
-    size = grid_size
+    size = Misc.grid_size
     # Widget because Toplevel or Tk is never a slave
-    @overload
     def pack_slaves(self) -> list[Widget]: ...
     def grid_slaves(self, row: int | None = None, column: int | None = None) -> list[Widget]: ...
     def place_slaves(self) -> list[Widget]: ...
-    slaves = pack_slaves
+    slaves = Misc.pack_slaves
     def event_add(self, virtual: str, *sequences: str) -> None: ...
     def event_delete(self, virtual: str, *sequences: str) -> None: ...
     def event_generate(
@@ -635,9 +622,8 @@ class Wm:
     @overload
     def wm_attributes(self, option: str, value, /, *__other_option_value_pairs: Any) -> None: ...
     attributes = wm_attributes
-    @overload
     def wm_client(self, name: str | None = None) -> str: ...
-    client = wm_client
+    client = Wm.wm_client
     @overload
     def wm_colormapwindows(self) -> list[Misc]: ...
     @overload
@@ -645,28 +631,22 @@ class Wm:
     @overload
     def wm_colormapwindows(self, first_wlist_item: Misc, /, *other_wlist_items: Misc) -> None: ...
     colormapwindows = wm_colormapwindows
-    @overload
     def wm_command(self, value: str | None = None) -> str: ...
-    command = wm_command
+    command = Wm.wm_command
     # Some of these always return empty string, but return type is set to None to prevent accidentally using it
-    @overload
     def wm_deiconify(self) -> None: ...
-    deiconify = wm_deiconify
-    @overload
+    deiconify = Wm.wm_deiconify
     def wm_focusmodel(self, model: Literal["active", "passive"] | None = None) -> Literal["active", "passive", ""]: ...
-    focusmodel = wm_focusmodel
-    @overload
+    focusmodel = Wm.wm_focusmodel
     def wm_forget(self, window: Wm) -> None: ...
-    forget = wm_forget
-    @overload
+    forget = Wm.wm_forget
     def wm_frame(self) -> str: ...
-    frame = wm_frame
+    frame = Wm.wm_frame
     @overload
     def wm_geometry(self, newGeometry: None = None) -> str: ...
     @overload
     def wm_geometry(self, newGeometry: str) -> None: ...
     geometry = wm_geometry
-    @overload
     def wm_grid(
         self,
         baseWidth: Incomplete | None = None,
@@ -674,34 +654,25 @@ class Wm:
         widthInc: Incomplete | None = None,
         heightInc: Incomplete | None = None,
     ): ...
-    grid = wm_grid
-    @overload
+    grid = Wm.wm_grid
     def wm_group(self, pathName: Incomplete | None = None): ...
-    group = wm_group
-    @overload
+    group = Wm.wm_group
     def wm_iconbitmap(self, bitmap: Incomplete | None = None, default: Incomplete | None = None): ...
-    iconbitmap = wm_iconbitmap
-    @overload
+    iconbitmap = Wm.wm_iconbitmap
     def wm_iconify(self) -> None: ...
-    iconify = wm_iconify
-    @overload
+    iconify = Wm.wm_iconify
     def wm_iconmask(self, bitmap: Incomplete | None = None): ...
-    iconmask = wm_iconmask
-    @overload
+    iconmask = Wm.wm_iconmask
     def wm_iconname(self, newName: Incomplete | None = None) -> str: ...
-    iconname = wm_iconname
-    @overload
+    iconname = Wm.wm_iconname
     def wm_iconphoto(self, default: bool, image1: _PhotoImageLike | str, /, *args: _PhotoImageLike | str) -> None: ...
-    iconphoto = wm_iconphoto
-    @overload
+    iconphoto = Wm.wm_iconphoto
     def wm_iconposition(self, x: int | None = None, y: int | None = None) -> tuple[int, int] | None: ...
-    iconposition = wm_iconposition
-    @overload
+    iconposition = Wm.wm_iconposition
     def wm_iconwindow(self, pathName: Incomplete | None = None): ...
-    iconwindow = wm_iconwindow
-    @overload
+    iconwindow = Wm.wm_iconwindow
     def wm_manage(self, widget) -> None: ...
-    manage = wm_manage
+    manage = Wm.wm_manage
     @overload
     def wm_maxsize(self, width: None = None, height: None = None) -> tuple[int, int]: ...
     @overload
@@ -717,9 +688,8 @@ class Wm:
     @overload
     def wm_overrideredirect(self, boolean: bool) -> None: ...
     overrideredirect = wm_overrideredirect
-    @overload
     def wm_positionfrom(self, who: Literal["program", "user"] | None = None) -> Literal["", "program", "user"]: ...
-    positionfrom = wm_positionfrom
+    positionfrom = Wm.wm_positionfrom
     @overload
     def wm_protocol(self, name: str, func: Callable[[], object] | str) -> None: ...
     @overload
@@ -732,9 +702,8 @@ class Wm:
     @overload
     def wm_resizable(self, width: bool, height: bool) -> None: ...
     resizable = wm_resizable
-    @overload
     def wm_sizefrom(self, who: Literal["program", "user"] | None = None) -> Literal["", "program", "user"]: ...
-    sizefrom = wm_sizefrom
+    sizefrom = Wm.wm_sizefrom
     @overload
     def wm_state(self, newstate: None = None) -> str: ...
     @overload
@@ -750,9 +719,8 @@ class Wm:
     @overload
     def wm_transient(self, master: Wm | _tkinter.Tcl_Obj) -> None: ...
     transient = wm_transient
-    @overload
     def wm_withdraw(self) -> None: ...
-    withdraw = wm_withdraw
+    withdraw = Wm.wm_withdraw
 
 class Tk(Misc, Wm):
     master: None
@@ -851,7 +819,6 @@ class Pack:
     # _ScreenUnits instead of int only. I didn't bother to create another
     # TypedDict for cnf because it appears to be a legacy thing that was
     # replaced by **kwargs.
-    @overload
     def pack_configure(
         self,
         cnf: Mapping[str, Any] | None = {},
@@ -869,11 +836,10 @@ class Pack:
         in_: Misc = ...,
         **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
-    @overload
     def pack_forget(self) -> None: ...
     def pack_info(self) -> _PackInfo: ...  # errors if widget hasn't been packed
-    pack = pack_configure
-    forget = pack_forget
+    pack = Pack.pack_configure
+    forget = Pack.pack_forget
     propagate = Misc.pack_propagate
 
 class _PlaceInfo(_InMiscNonTotal):  # empty dict if widget hasn't been placed
@@ -889,7 +855,6 @@ class _PlaceInfo(_InMiscNonTotal):  # empty dict if widget hasn't been placed
     rely: str  # can be float()ed if not empty string
 
 class Place:
-    @overload
     def place_configure(
         self,
         cnf: Mapping[str, Any] | None = {},
@@ -909,10 +874,9 @@ class Place:
         **kw: Any,  # allow keyword argument named 'in', see #4836
     ) -> None: ...
     def place_forget(self) -> None: ...
-    @overload
     def place_info(self) -> _PlaceInfo: ...
-    place = place_configure
-    info = place_info
+    place = Place.place_configure
+    info = Place.place_info
 
 class _GridInfo(_InMiscNonTotal):  # empty dict if widget hasn't been gridded
     column: int
@@ -926,7 +890,6 @@ class _GridInfo(_InMiscNonTotal):  # empty dict if widget hasn't been gridded
     sticky: str  # consists of letters 'n', 's', 'w', 'e', no repeats, may be empty
 
 class Grid:
-    @overload
     def grid_configure(
         self,
         cnf: Mapping[str, Any] | None = {},
@@ -946,7 +909,7 @@ class Grid:
     def grid_forget(self) -> None: ...
     def grid_remove(self) -> None: ...
     def grid_info(self) -> _GridInfo: ...
-    grid = grid_configure
+    grid = Grid.grid_configure
     location = Misc.grid_location
     size = Misc.grid_size
 
@@ -1757,11 +1720,10 @@ class Canvas(Widget, XView, YView):
     def insert(self, *args) -> None: ...
     def itemcget(self, tagOrId, option): ...
     # itemconfigure kwargs depend on item type, which is not known when type checking
-    @overload
     def itemconfigure(
         self, tagOrId: str | int, cnf: dict[str, Any] | None = None, **kw: Any
     ) -> dict[str, tuple[str, str, str, str, str]] | None: ...
-    itemconfig = itemconfigure
+    itemconfig = Canvas.itemconfigure
     def move(self, *args) -> None: ...
     def moveto(self, tagOrId: str | int, x: Literal[""] | float = "", y: Literal[""] | float = "") -> None: ...
     def postscript(self, cnf={}, **kw): ...
@@ -2002,24 +1964,18 @@ class Entry(Widget, XView):
     def insert(self, index: str | int, string: str) -> None: ...
     def scan_mark(self, x) -> None: ...
     def scan_dragto(self, x) -> None: ...
-    @overload
     def selection_adjust(self, index: str | int) -> None: ...
-    @overload
     def selection_clear(self) -> None: ...  # type: ignore[override]
-    @overload
     def selection_from(self, index: str | int) -> None: ...
-    @overload
     def selection_present(self) -> bool: ...
-    @overload
     def selection_range(self, start: str | int, end: str | int) -> None: ...
-    @overload
     def selection_to(self, index: str | int) -> None: ...
-    select_adjust = selection_adjust
-    select_clear = selection_clear
-    select_from = selection_from
-    select_present = selection_present
-    select_range = selection_range
-    select_to = selection_to
+    select_adjust = Entry.selection_adjust
+    select_clear = Entry.selection_clear
+    select_from = Entry.selection_from
+    select_present = Entry.selection_present
+    select_range = Entry.selection_range
+    select_to = Entry.selection_to
 
 class Frame(Widget):
     def __init__(
@@ -2253,23 +2209,18 @@ class Listbox(Widget, XView, YView):
     def scan_mark(self, x, y) -> None: ...
     def scan_dragto(self, x, y) -> None: ...
     def see(self, index: str | int) -> None: ...
-    @overload
     def selection_anchor(self, index: str | int) -> None: ...
-    select_anchor = selection_anchor
-    @overload
+    select_anchor = Listbox.selection_anchor
     def selection_clear(self, first: str | int, last: str | int | None = None) -> None: ...  # type: ignore[override]
-    select_clear = selection_clear
-    @overload
+    select_clear = Listbox.selection_clear
     def selection_includes(self, index: str | int): ...
-    select_includes = selection_includes
-    @overload
+    select_includes = Listbox.selection_includes
     def selection_set(self, first: str | int, last: str | int | None = None) -> None: ...
-    select_set = selection_set
+    select_set = Listbox.selection_set
     def size(self) -> int: ...  # type: ignore[override]
     def itemcget(self, index: str | int, option): ...
-    @overload
     def itemconfigure(self, index: str | int, cnf: Incomplete | None = None, **kw): ...
-    itemconfig = itemconfigure
+    itemconfig = Listbox.itemconfigure
 
 class Menu(Widget):
     def __init__(
@@ -2529,11 +2480,10 @@ class Menu(Widget):
     def insert_separator(self, index: str | int, cnf: dict[str, Any] | None = {}, *, background: str = ...) -> None: ...
     def delete(self, index1: str | int, index2: str | int | None = None) -> None: ...
     def entrycget(self, index: str | int, option: str) -> Any: ...
-    @overload
     def entryconfigure(
         self, index: str | int, cnf: dict[str, Any] | None = None, **kw: Any
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
-    entryconfig = entryconfigure
+    entryconfig = Menu.entryconfigure
     def index(self, index: str | int) -> int | None: ...
     def invoke(self, index: str | int) -> Any: ...
     def post(self, x: int, y: int) -> None: ...
@@ -3366,7 +3316,6 @@ class PhotoImage(Image, _PhotoImageLike):
         palette: int | str = ...,
         width: int = ...,
     ) -> None: ...
-    @overload
     def configure(
         self,
         *,
@@ -3378,7 +3327,7 @@ class PhotoImage(Image, _PhotoImageLike):
         palette: int | str = ...,
         width: int = ...,
     ) -> None: ...
-    config = configure
+    config = PhotoImage.configure
     def blank(self) -> None: ...
     def cget(self, option: str) -> str: ...
     def __getitem__(self, key: str) -> str: ...  # always string: image['height'] can be '0'
