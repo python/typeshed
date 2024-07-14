@@ -3343,7 +3343,7 @@ class PhotoImage(Image, _PhotoImageLike):
         def zoom(self, x: int, y: Literal[""] = "", *, from_coords: Iterable[int] | None = None) -> PhotoImage: ...
         def copy_replace(
             self,
-            sourceImage: _ImageSpec,
+            sourceImage: PhotoImage | str,
             *,
             from_coords: Iterable[int] | None = None,
             to: Iterable[int] | None = None,
