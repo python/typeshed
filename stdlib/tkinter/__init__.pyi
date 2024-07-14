@@ -3403,15 +3403,6 @@ class PhotoImage(Image, _PhotoImageLike):
             background: str | None = None,
             grayscale: bool = False,
         ) -> None: ...
-
-    else:
-        def write(
-            self,
-            filename: StrOrBytesPath,
-            format: str | None = None,
-            from_coords: tuple[int, int] | None = None,
-        ) -> None: ...
-    if sys.version_info >= (3, 13):
         def data(
             self,
             format: str | None = None,
@@ -3420,6 +3411,14 @@ class PhotoImage(Image, _PhotoImageLike):
             background: str | None = None,
             grayscale: bool = False,
         ) -> str: ...
+
+    else:
+        def write(
+            self,
+            filename: StrOrBytesPath,
+            format: str | None = None,
+            from_coords: tuple[int, int] | None = None,
+        ) -> None: ...
 
     def transparency_get(self, x: int, y: int) -> bool: ...
     def transparency_set(self, x: int, y: int, boolean: bool) -> None: ...
