@@ -204,7 +204,7 @@ typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
 
-# Incorrectly bound at runtime
+# Runtime incorrectly has `self`
 codecs.backslashreplace_errors
 codecs.ignore_errors
 codecs.namereplace_errors
