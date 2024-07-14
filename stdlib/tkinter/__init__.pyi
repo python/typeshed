@@ -3393,12 +3393,7 @@ class PhotoImage(Image, _PhotoImageLike):
         ) -> None: ...
         @overload
         def data(
-            self,
-            format: str,
-            *,
-            from_coords: Iterable[int] | None = None,
-            background: str | None = None,
-            grayscale: bool = False,
+            self, format: str, *, from_coords: Iterable[int] | None = None, background: str | None = None, grayscale: bool = False
         ) -> bytes: ...
         @overload
         def data(
