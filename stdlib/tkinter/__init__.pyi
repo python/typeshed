@@ -3391,14 +3391,24 @@ class PhotoImage(Image, _PhotoImageLike):
             background: str | None = None,
             grayscale: bool = False,
         ) -> None: ...
+        @overload
         def data(
             self,
-            format: str | None = None,
+            format: Literal["gif", "png"],
             *,
             from_coords: Iterable[int] | None = None,
             background: str | None = None,
             grayscale: bool = False,
-        ) -> str: ...
+        ) -> bytes: ...
+        @overload
+        def data(
+            self,
+            format: None = None,
+            *,
+            from_coords: Iterable[int] | None = None,
+            background: str | None = None,
+            grayscale: bool = False,
+        ) -> tuple[str, ...]: ...
 
     else:
         def write(
