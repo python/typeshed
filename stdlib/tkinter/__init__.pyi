@@ -7,6 +7,7 @@ from tkinter.font import _FontDescription
 from types import TracebackType
 from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
+from collections.abc import Iterable
 
 if sys.version_info >= (3, 9):
     __all__ = [
@@ -3331,9 +3332,44 @@ class PhotoImage(Image, _PhotoImageLike):
     def blank(self) -> None: ...
     def cget(self, option: str) -> str: ...
     def __getitem__(self, key: str) -> str: ...  # always string: image['height'] can be '0'
-    def copy(self) -> PhotoImage: ...
-    def zoom(self, x: int, y: int | Literal[""] = "") -> PhotoImage: ...
-    def subsample(self, x: int, y: int | Literal[""] = "") -> PhotoImage: ...
+    if sys.version_info >= (3, 13):
+        def copy(
+            self,
+            *,
+            from_coords: Iterable[int] | None = None,
+            zoom: int | tuple[int, int] | None = None,
+            subsample: int | tuple[int, int] | None = None,
+        ) -> PhotoImage: ...
+        def subsample(
+            self,
+            x: int,
+            y: Literal[""] = "",
+            *,
+            from_coords: Iterable[int] | None = None,
+        ) -> PhotoImage: ...
+        def zoom(
+            self,
+            x: int,
+            y: Literal[""] = "",
+            *,
+            from_coords: Iterable[int] | None = None,
+        ) -> PhotoImage: ...
+        def copy_replace(
+            self,
+            sourceImage: PhotoImage,
+            *,
+            from_coords: Iterable[int] | None = None,
+            to: Iterable[int] | None = None,
+            shrink: bool = False,
+            zoom: int | tuple[int, int] | None = None,
+            subsample: int | tuple[int, int] | None = None,
+            compositingrule: str | None = None,
+        ) -> None: ...
+    else:
+        def copy(self) -> PhotoImage: ...
+        def zoom(self, x: int, y: int | Literal[""] = "") -> PhotoImage: ...
+        def subsample(self, x: int, y: int | Literal[""] = "") -> PhotoImage: ...
+
     def get(self, x: int, y: int) -> tuple[int, int, int]: ...
     def put(
         self,
@@ -3348,7 +3384,43 @@ class PhotoImage(Image, _PhotoImageLike):
         ),
         to: tuple[int, int] | None = None,
     ) -> None: ...
-    def write(self, filename: StrOrBytesPath, format: str | None = None, from_coords: tuple[int, int] | None = None) -> None: ...
+    if sys.version_info >= (3, 13):
+        def read(
+            self,
+            filename: StrOrBytesPath,
+            format: str | None = None,
+            *,
+            from_coords: Iterable[int] | None = None,
+            to: Iterable[int] | None = None,
+            shrink: bool = False,
+        ) -> None: ...
+        def write(
+            self,
+            filename: StrOrBytesPath,
+            format: str | None = None,
+            from_coords: tuple[int, int] | None = None,
+            *,
+            background: str | None = None,
+            grayscale: bool = False,
+        ) -> None: ...
+
+    else:
+        def write(
+            self,
+            filename: StrOrBytesPath,
+            format: str | None = None,
+            from_coords: tuple[int, int] | None = None,
+        ) -> None: ...
+    if sys.version_info >= (3, 13):
+        def data(
+            self,
+            format: str | None = None,
+            *,
+            from_coords: Iterable[int] | None = None,
+            background: str | None = None,
+            grayscale: bool = False,
+        ) -> str: ...
+
     def transparency_get(self, x: int, y: int) -> bool: ...
     def transparency_set(self, x: int, y: int, boolean: bool) -> None: ...
 
