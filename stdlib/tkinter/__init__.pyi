@@ -1,13 +1,12 @@
 import _tkinter
 import sys
 from _typeshed import Incomplete, StrEnum, StrOrBytesPath
-from collections.abc import Callable, Mapping, Sequence
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
 from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
-from collections.abc import Iterable
 
 if sys.version_info >= (3, 9):
     __all__ = [
@@ -3340,20 +3339,8 @@ class PhotoImage(Image, _PhotoImageLike):
             zoom: int | tuple[int, int] | None = None,
             subsample: int | tuple[int, int] | None = None,
         ) -> PhotoImage: ...
-        def subsample(
-            self,
-            x: int,
-            y: Literal[""] = "",
-            *,
-            from_coords: Iterable[int] | None = None,
-        ) -> PhotoImage: ...
-        def zoom(
-            self,
-            x: int,
-            y: Literal[""] = "",
-            *,
-            from_coords: Iterable[int] | None = None,
-        ) -> PhotoImage: ...
+        def subsample(self, x: int, y: Literal[""] = "", *, from_coords: Iterable[int] | None = None) -> PhotoImage: ...
+        def zoom(self, x: int, y: Literal[""] = "", *, from_coords: Iterable[int] | None = None) -> PhotoImage: ...
         def copy_replace(
             self,
             sourceImage: PhotoImage,
@@ -3414,10 +3401,7 @@ class PhotoImage(Image, _PhotoImageLike):
 
     else:
         def write(
-            self,
-            filename: StrOrBytesPath,
-            format: str | None = None,
-            from_coords: tuple[int, int] | None = None,
+            self, filename: StrOrBytesPath, format: str | None = None, from_coords: tuple[int, int] | None = None
         ) -> None: ...
 
     def transparency_get(self, x: int, y: int) -> bool: ...
