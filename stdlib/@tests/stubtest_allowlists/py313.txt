@@ -59,13 +59,6 @@ tkinter.Misc.tk_busy_current
 tkinter.Misc.tk_busy_forget
 tkinter.Misc.tk_busy_hold
 tkinter.Misc.tk_busy_status
-tkinter.PhotoImage.copy
-tkinter.PhotoImage.copy_replace
-tkinter.PhotoImage.data
-tkinter.PhotoImage.read
-tkinter.PhotoImage.subsample
-tkinter.PhotoImage.write
-tkinter.PhotoImage.zoom
 tkinter.Text.count
 tkinter.Wm.wm_attributes
 types.MappingProxyType.get
