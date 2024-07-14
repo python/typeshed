@@ -3394,7 +3394,7 @@ class PhotoImage(Image, _PhotoImageLike):
         @overload
         def data(
             self,
-            format: Literal["gif", "png"],
+            format: str,
             *,
             from_coords: Iterable[int] | None = None,
             background: str | None = None,
