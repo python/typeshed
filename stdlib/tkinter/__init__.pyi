@@ -3385,7 +3385,7 @@ class PhotoImage(Image, _PhotoImageLike):
             self,
             filename: StrOrBytesPath,
             format: str | None = None,
-            from_coords: tuple[int, int] | None = None,
+            from_coords: Iterable[int] | None = None,
             *,
             background: str | None = None,
             grayscale: bool = False,
