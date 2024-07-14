@@ -3336,8 +3336,8 @@ class PhotoImage(Image, _PhotoImageLike):
             self,
             *,
             from_coords: Iterable[int] | None = None,
-            zoom: int | tuple[int, int] | None = None,
-            subsample: int | tuple[int, int] | None = None,
+            zoom: int | tuple[int, int] | list[int] | None = None,
+            subsample: int | tuple[int, int] | list[int] | None = None,
         ) -> PhotoImage: ...
         def subsample(self, x: int, y: Literal[""] = "", *, from_coords: Iterable[int] | None = None) -> PhotoImage: ...
         def zoom(self, x: int, y: Literal[""] = "", *, from_coords: Iterable[int] | None = None) -> PhotoImage: ...
@@ -3348,9 +3348,10 @@ class PhotoImage(Image, _PhotoImageLike):
             from_coords: Iterable[int] | None = None,
             to: Iterable[int] | None = None,
             shrink: bool = False,
-            zoom: int | tuple[int, int] | None = None,
-            subsample: int | tuple[int, int] | None = None,
-            compositingrule: str | None = None,
+            zoom: int | tuple[int, int] | list[int] | None = None,
+            subsample: int | tuple[int, int] | list[int] | None = None,
+            # `None` defaults to overlay.
+            compositingrule: Literal["overlay", "set"] | None = None,
         ) -> None: ...
     else:
         def copy(self) -> PhotoImage: ...
