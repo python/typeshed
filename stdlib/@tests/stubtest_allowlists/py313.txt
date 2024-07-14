@@ -203,3 +203,11 @@ typing.SupportsAbs.__type_params__
 typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
+
+# Incorrectly bound at runtime
+codecs.backslashreplace_errors
+codecs.ignore_errors
+codecs.namereplace_errors
+codecs.replace_errors
+codecs.strict_errors
+codecs.xmlcharrefreplace_errors
