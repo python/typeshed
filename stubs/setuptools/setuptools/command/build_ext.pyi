@@ -40,7 +40,7 @@ def link_shared_object(
     library_dirs: Incomplete | None = None,
     runtime_library_dirs: Incomplete | None = None,
     export_symbols: Incomplete | None = None,
-    debug: int = 0,
+    debug: bool = False,
     extra_preargs: Incomplete | None = None,
     extra_postargs: Incomplete | None = None,
     build_temp: Incomplete | None = None,

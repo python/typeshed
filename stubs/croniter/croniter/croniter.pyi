@@ -3,8 +3,8 @@ from _typeshed import Unused
 from collections import OrderedDict
 from collections.abc import Iterator
 from re import Match, Pattern
-from typing import Any, overload
-from typing_extensions import Final, Literal, Never, Self, TypeAlias
+from typing import Any, Final, Literal, overload
+from typing_extensions import Never, Self, TypeAlias
 
 _RetType: TypeAlias = type[float | datetime.datetime]
 _Expressions: TypeAlias = list[str]  # fixed-length list of 5 or 6 strings
@@ -36,7 +36,7 @@ class CroniterNotAlphaError(CroniterError): ...
 def datetime_to_timestamp(d: datetime.datetime) -> float: ...
 
 class croniter(Iterator[Any]):
-    MONTHS_IN_YEAR: Final[Literal[12]]
+    MONTHS_IN_YEAR: Final = 12
     RANGES: Final[tuple[tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int]]]
     DAYS: Final[
         tuple[
@@ -103,9 +103,13 @@ class croniter(Iterator[Any]):
     @classmethod
     def expand(cls, expr_format: str, hash_id: bytes | None = None) -> tuple[list[list[str]], dict[str, set[int]]]: ...
     @classmethod
-    def is_valid(cls, expression: str, hash_id: bytes | None = None) -> bool: ...
+    def is_valid(cls, expression: str, hash_id: bytes | None = None, encoding: str = "UTF-8") -> bool: ...
     @classmethod
     def match(cls, cron_expression: str, testdate: float | datetime.datetime | None, day_or: bool = True) -> bool: ...
+    @classmethod
+    def match_range(
+        cls, cron_expression: str, from_datetime: datetime.datetime, to_datetime: datetime.datetime, day_or: bool = True
+    ) -> bool: ...
 
 def croniter_range(
     start: float | datetime.datetime,

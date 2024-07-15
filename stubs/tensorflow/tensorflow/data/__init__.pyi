@@ -1,13 +1,13 @@
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
-from collections.abc import Callable, Iterator as _Iterator, Sequence
+from collections.abc import Callable, Collection, Iterator as _Iterator, Sequence
 from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Self
+from typing_extensions import Self, Unpack
 
 import numpy as np
 import tensorflow as tf
-from tensorflow import TypeSpec, _ScalarTensorCompatible, _TensorCompatible
-from tensorflow._aliases import ContainerGeneric
+from tensorflow import TypeSpec
+from tensorflow._aliases import ContainerGeneric, ScalarTensorCompatible, TensorCompatible
 from tensorflow.data import experimental as experimental
 from tensorflow.data.experimental import AUTOTUNE as AUTOTUNE
 from tensorflow.dtypes import DType
@@ -32,7 +32,7 @@ class Dataset(ABC, Generic[_T1]):
     def as_numpy_iterator(self) -> Iterator[np.ndarray[Any, Any]]: ...
     def batch(
         self,
-        batch_size: _ScalarTensorCompatible,
+        batch_size: ScalarTensorCompatible,
         drop_remainder: bool = False,
         num_parallel_calls: int | None = None,
         deterministic: bool | None = None,
@@ -40,11 +40,11 @@ class Dataset(ABC, Generic[_T1]):
     ) -> Dataset[_T1]: ...
     def bucket_by_sequence_length(
         self,
-        element_length_func: Callable[[_T1], _ScalarTensorCompatible],
+        element_length_func: Callable[[_T1], ScalarTensorCompatible],
         bucket_boundaries: Sequence[int],
         bucket_batch_sizes: Sequence[int],
-        padded_shapes: ContainerGeneric[tf.TensorShape | _TensorCompatible] | None = None,
-        padding_values: ContainerGeneric[_ScalarTensorCompatible] | None = None,
+        padded_shapes: ContainerGeneric[tf.TensorShape | TensorCompatible] | None = None,
+        padding_values: ContainerGeneric[ScalarTensorCompatible] | None = None,
         pad_to_bucket_boundary: bool = False,
         no_padding: bool = False,
         drop_remainder: bool = False,
@@ -59,12 +59,12 @@ class Dataset(ABC, Generic[_T1]):
     def concatenate(self, dataset: Dataset[_T1], name: str | None = None) -> Dataset[_T1]: ...
     @staticmethod
     def counter(
-        start: _ScalarTensorCompatible = 0, step: _ScalarTensorCompatible = 1, dtype: DType = ..., name: str | None = None
+        start: ScalarTensorCompatible = 0, step: ScalarTensorCompatible = 1, dtype: DType = ..., name: str | None = None
     ) -> Dataset[tf.Tensor]: ...
     @property
     @abstractmethod
     def element_spec(self) -> ContainerGeneric[TypeSpec[Any]]: ...
-    def enumerate(self, start: _ScalarTensorCompatible = 0, name: str | None = None) -> Dataset[tuple[int, _T1]]: ...
+    def enumerate(self, start: ScalarTensorCompatible = 0, name: str | None = None) -> Dataset[tuple[int, _T1]]: ...
     def filter(self, predicate: Callable[[_T1], bool | tf.Tensor], name: str | None = None) -> Dataset[_T1]: ...
     def flat_map(self, map_func: Callable[[_T1], Dataset[_T2]], name: str | None = None) -> Dataset[_T2]: ...
     # PEP 646 can be used here for a more precise type when better supported.
@@ -80,13 +80,13 @@ class Dataset(ABC, Generic[_T1]):
     @staticmethod
     def from_tensors(tensors: Any, name: str | None = None) -> Dataset[Any]: ...
     @staticmethod
-    def from_tensor_slices(tensors: _TensorCompatible, name: str | None = None) -> Dataset[Any]: ...
+    def from_tensor_slices(tensors: TensorCompatible, name: str | None = None) -> Dataset[Any]: ...
     def get_single_element(self, name: str | None = None) -> _T1: ...
     def group_by_window(
         self,
         key_func: Callable[[_T1], tf.Tensor],
         reduce_func: Callable[[tf.Tensor, Dataset[_T1]], Dataset[_T2]],
-        window_size: _ScalarTensorCompatible | None = None,
+        window_size: ScalarTensorCompatible | None = None,
         window_size_func: Callable[[tf.Tensor], tf.Tensor] | None = None,
         name: str | None = None,
     ) -> Dataset[_T2]: ...
@@ -103,7 +103,7 @@ class Dataset(ABC, Generic[_T1]):
     def __iter__(self) -> Iterator[_T1]: ...
     @staticmethod
     def list_files(
-        file_pattern: str | Sequence[str] | _TensorCompatible,
+        file_pattern: str | Sequence[str] | TensorCompatible,
         shuffle: bool | None = None,
         seed: int | None = None,
         name: str | None = None,
@@ -126,16 +126,16 @@ class Dataset(ABC, Generic[_T1]):
     def options(self) -> Options: ...
     def padded_batch(
         self,
-        batch_size: _ScalarTensorCompatible,
-        padded_shapes: ContainerGeneric[tf.TensorShape | _TensorCompatible] | None = None,
-        padding_values: ContainerGeneric[_ScalarTensorCompatible] | None = None,
+        batch_size: ScalarTensorCompatible,
+        padded_shapes: ContainerGeneric[tf.TensorShape | TensorCompatible] | None = None,
+        padding_values: ContainerGeneric[ScalarTensorCompatible] | None = None,
         drop_remainder: bool = False,
         name: str | None = None,
     ) -> Dataset[_T1]: ...
-    def prefetch(self, buffer_size: _ScalarTensorCompatible, name: str | None = None) -> Dataset[_T1]: ...
+    def prefetch(self, buffer_size: ScalarTensorCompatible, name: str | None = None) -> Dataset[_T1]: ...
     def ragged_batch(
         self,
-        batch_size: _ScalarTensorCompatible,
+        batch_size: ScalarTensorCompatible,
         drop_remainder: bool = False,
         row_splits_dtype: DType = ...,
         name: str | None = None,
@@ -146,33 +146,34 @@ class Dataset(ABC, Generic[_T1]):
     ) -> Dataset[tf.Tensor]: ...
     @staticmethod
     @overload
-    def range(__stop: _ScalarTensorCompatible, output_type: DType = ..., name: str | None = None) -> Dataset[tf.Tensor]: ...
+    def range(stop: ScalarTensorCompatible, /, output_type: DType = ..., name: str | None = None) -> Dataset[tf.Tensor]: ...
     @staticmethod
     @overload
     def range(
-        __start: _ScalarTensorCompatible,
-        __stop: _ScalarTensorCompatible,
-        __step: _ScalarTensorCompatible = 1,
+        start: ScalarTensorCompatible,
+        stop: ScalarTensorCompatible,
+        step: ScalarTensorCompatible = 1,
+        /,
         output_type: DType = ...,
         name: str | None = None,
     ) -> Dataset[tf.Tensor]: ...
     def rebatch(
-        self, batch_size: _ScalarTensorCompatible, drop_remainder: bool = False, name: str | None = None
+        self, batch_size: ScalarTensorCompatible, drop_remainder: bool = False, name: str | None = None
     ) -> Dataset[_T1]: ...
     def reduce(self, initial_state: _T2, reduce_func: Callable[[_T2, _T1], _T2], name: str | None = None) -> _T2: ...
     def rejection_resample(
         self,
-        class_func: Callable[[_T1], _ScalarTensorCompatible],
-        target_dist: _TensorCompatible,
-        initial_dist: _TensorCompatible | None = None,
+        class_func: Callable[[_T1], ScalarTensorCompatible],
+        target_dist: TensorCompatible,
+        initial_dist: TensorCompatible | None = None,
         seed: int | None = None,
         name: str | None = None,
     ) -> Dataset[_T1]: ...
-    def repeat(self, count: _ScalarTensorCompatible | None = None, name: str | None = None) -> Dataset[_T1]: ...
+    def repeat(self, count: ScalarTensorCompatible | None = None, name: str | None = None) -> Dataset[_T1]: ...
     @staticmethod
     def sample_from_datasets(
         datasets: Sequence[Dataset[_T1]],
-        weights: _TensorCompatible | None = None,
+        weights: TensorCompatible | None = None,
         seed: int | None = None,
         stop_on_empty_dataset: bool = False,
         rerandomize_each_iteration: bool | None = None,
@@ -189,42 +190,53 @@ class Dataset(ABC, Generic[_T1]):
         self, initial_state: _T2, scan_func: Callable[[_T2, _T1], tuple[_T2, _T3]], name: str | None = None
     ) -> Dataset[_T3]: ...
     def shard(
-        self, num_shards: _ScalarTensorCompatible, index: _ScalarTensorCompatible, name: str | None = None
+        self, num_shards: ScalarTensorCompatible, index: ScalarTensorCompatible, name: str | None = None
     ) -> Dataset[_T1]: ...
     def shuffle(
         self,
-        buffer_size: _ScalarTensorCompatible,
+        buffer_size: ScalarTensorCompatible,
         seed: int | None = None,
         reshuffle_each_iteration: bool | None = None,
         name: str | None = None,
     ) -> Dataset[_T1]: ...
-    def skip(self, count: _ScalarTensorCompatible, name: str | None = None) -> Dataset[_T1]: ...
+    def skip(self, count: ScalarTensorCompatible, name: str | None = None) -> Dataset[_T1]: ...
     def snapshot(
         self,
         path: str,
         compression: _CompressionTypes = "AUTO",
         reader_func: Callable[[Dataset[Dataset[_T1]]], Dataset[_T1]] | None = None,
-        shard_func: Callable[[_T1], _ScalarTensorCompatible] | None = None,
+        shard_func: Callable[[_T1], ScalarTensorCompatible] | None = None,
         name: str | None = None,
     ) -> Dataset[_T1]: ...
     def sparse_batch(
-        self, batch_size: _ScalarTensorCompatible, row_shape: tf.TensorShape | _TensorCompatible, name: str | None = None
+        self, batch_size: ScalarTensorCompatible, row_shape: tf.TensorShape | TensorCompatible, name: str | None = None
     ) -> Dataset[tf.SparseTensor]: ...
-    def take(self, count: _ScalarTensorCompatible, name: str | None = None) -> Dataset[_T1]: ...
-    def take_while(self, predicate: Callable[[_T1], _ScalarTensorCompatible], name: str | None = None) -> Dataset[_T1]: ...
+    def take(self, count: ScalarTensorCompatible, name: str | None = None) -> Dataset[_T1]: ...
+    def take_while(self, predicate: Callable[[_T1], ScalarTensorCompatible], name: str | None = None) -> Dataset[_T1]: ...
     def unbatch(self, name: str | None = None) -> Dataset[_T1]: ...
     def unique(self, name: str | None = None) -> Dataset[_T1]: ...
     def window(
         self,
-        size: _ScalarTensorCompatible,
-        shift: _ScalarTensorCompatible | None = None,
-        stride: _ScalarTensorCompatible = 1,
+        size: ScalarTensorCompatible,
+        shift: ScalarTensorCompatible | None = None,
+        stride: ScalarTensorCompatible = 1,
         drop_remainder: bool = False,
         name: str | None = None,
     ) -> Dataset[Dataset[_T1]]: ...
     def with_options(self, options: Options, name: str | None = None) -> Dataset[_T1]: ...
+    @overload
     @staticmethod
-    def zip(datasets: tuple[Dataset[_T2], Dataset[_T3]], name: str | None = None) -> Dataset[tuple[_T2, _T3]]: ...
+    def zip(
+        *args: Dataset[Any] | Collection[Dataset[Any]] | ContainerGeneric[Dataset[Any]], name: str | None = None
+    ) -> Dataset[tuple[Any, ...]]: ...
+    @overload
+    @staticmethod
+    def zip(*args: Unpack[tuple[Dataset[_T2], Dataset[_T3]]], name: str | None = None) -> Dataset[tuple[_T2, _T3]]: ...
+    @overload
+    @staticmethod
+    def zip(
+        *, datasets: tuple[Dataset[_T2], Dataset[_T3]] | None = None, name: str | None = None
+    ) -> Dataset[tuple[_T2, _T3]]: ...
     def __len__(self) -> int: ...
     def __nonzero__(self) -> bool: ...
     def __getattr__(self, name: str) -> Incomplete: ...
@@ -245,7 +257,7 @@ class Options:
 class TFRecordDataset(Dataset[tf.Tensor]):
     def __init__(
         self,
-        filenames: _TensorCompatible | Dataset[str],
+        filenames: TensorCompatible | Dataset[str],
         compression_type: _CompressionTypes = None,
         buffer_size: int | None = None,
         num_parallel_reads: int | None = None,

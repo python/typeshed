@@ -46,7 +46,7 @@ class BaseRotatingHandler(FileHandler):
     def rotate(self, source: str, dest: str) -> None: ...
 
 class RotatingFileHandler(BaseRotatingHandler):
-    maxBytes: str  # undocumented
+    maxBytes: int  # undocumented
     backupCount: int  # undocumented
     if sys.version_info >= (3, 9):
         def __init__(
@@ -253,7 +253,7 @@ class HTTPHandler(Handler):
 
 class _QueueLike(Protocol[_T]):
     def get(self) -> _T: ...
-    def put_nowait(self, __item: _T) -> None: ...
+    def put_nowait(self, item: _T, /) -> None: ...
 
 class QueueHandler(Handler):
     queue: _QueueLike[Any]
