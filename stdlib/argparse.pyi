@@ -48,7 +48,7 @@ OPTIONAL: Final = "?"
 PARSER: Final = "A..."
 REMAINDER: Final = "..."
 _SUPPRESS_T = NewType("_SUPPRESS_T", str)
-SUPPRESS: Final[_SUPPRESS_T | str]  # not using Literal because argparse sometimes compares SUPPRESS with is
+SUPPRESS: _SUPPRESS_T | str  # not using Literal because argparse sometimes compares SUPPRESS with is
 # the | str is there so that foo = argparse.SUPPRESS; foo = "test" checks out in mypy
 ZERO_OR_MORE: Final = "*"
 _UNRECOGNIZED_ARGS_ATTR: str  # undocumented
