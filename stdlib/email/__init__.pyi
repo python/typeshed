@@ -6,7 +6,7 @@ from email.policy import Policy
 from typing import IO, TypeVar
 from typing_extensions import TypeAlias
 
-_M = TypeVar("_M", bound=Message, default=Message)
+_M = TypeVar("_M", bound=Message[str, str], default=Message[str, str])
 
 # Definitions imported by multiple submodules in typeshed
 _ParamType: TypeAlias = str | tuple[str | None, str | None, str]  # noqa: Y047
