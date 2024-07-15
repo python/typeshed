@@ -7,12 +7,6 @@ _thread.interrupt_main
 _thread.lock
 _thread.start_joinable_thread
 _tkinter.create
-codecs.backslashreplace_errors
-codecs.ignore_errors
-codecs.namereplace_errors
-codecs.replace_errors
-codecs.strict_errors
-codecs.xmlcharrefreplace_errors
 ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
 ctypes._endian.RTLD_LOCAL
@@ -202,3 +196,11 @@ typing.SupportsAbs.__type_params__
 typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
+
+# Runtime incorrectly has `self`
+codecs.backslashreplace_errors
+codecs.ignore_errors
+codecs.namereplace_errors
+codecs.replace_errors
+codecs.strict_errors
+codecs.xmlcharrefreplace_errors
