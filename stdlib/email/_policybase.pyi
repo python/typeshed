@@ -6,7 +6,7 @@ from email.message import Message
 from typing import Any, Generic, TypeVar
 from typing_extensions import Self
 
-_M = TypeVar("_M", bound=Message, default=Message)
+_M = TypeVar("_M", bound=Message[str, str], default=Message[str, str])
 
 class _PolicyBase:
     def __add__(self, other: Any) -> Self: ...
