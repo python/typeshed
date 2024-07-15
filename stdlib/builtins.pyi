@@ -28,6 +28,7 @@ from _typeshed import (
     SupportsRichComparison,
     SupportsRichComparisonT,
     SupportsWrite,
+    Unused,
 )
 from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
@@ -1868,7 +1869,7 @@ class BaseException:
     __suppress_context__: bool
     __traceback__: TracebackType | None
     def __init__(self, *args: object) -> None: ...
-    def __new__(cls, *args: object) -> Self: ...
+    def __new__(cls, *args: object, **kwds: Unused) -> Self: ...
     def __setstate__(self, state: dict[str, Any] | None, /) -> None: ...
     def with_traceback(self, tb: TracebackType | None, /) -> Self: ...
     if sys.version_info >= (3, 11):
