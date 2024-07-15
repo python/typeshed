@@ -147,7 +147,8 @@ if sys.version_info >= (3, 10) and sys.version_info < (3, 12):
         def keys(self) -> dict_keys[_KT, _VT]: ...
         def values(self) -> dict_values[_KT, _VT]: ...
 
-    class SelectableGroups(Deprecated[str, EntryPoints], dict[str, EntryPoints]):  # use as dict is deprecated since 3.10
+    # use as dict is deprecated since 3.10
+    class SelectableGroups(Deprecated[str, EntryPoints], dict[str, EntryPoints]):  # type: ignore[misc]
         @classmethod
         def load(cls, eps: Iterable[EntryPoint]) -> Self: ...
         @property
