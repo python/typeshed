@@ -10,7 +10,10 @@ __all__ = ["BdbQuit", "Bdb", "Breakpoint"]
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
 
-GENERATOR_AND_COROUTINE_FLAGS: Final = 672
+# A union of code-object flags at runtime.
+# The exact values of code-object flags are implementation details,
+# so we don't include the value of this constant in the stubs.
+GENERATOR_AND_COROUTINE_FLAGS: Final[int]
 
 class BdbQuit(Exception): ...
 
