@@ -43,10 +43,7 @@ if sys.platform == "win32":
         def detach(self) -> int: ...
 
 else:
-    if sys.platform == "darwin":
-        ACKNOWLEDGE: Final = True
-    else:
-        ACKNOWLEDGE: Final = False
+    ACKNOWLEDGE: Final[bool]
 
     def recvfds(sock: socket, size: int) -> list[int]: ...
     def send_handle(conn: HasFileno, handle: int, destination_pid: Unused) -> None: ...
