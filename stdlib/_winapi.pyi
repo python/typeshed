@@ -117,7 +117,7 @@ if sys.platform == "win32":
         LOCALE_NAME_INVARIANT: str
         LOCALE_NAME_MAX_LENGTH: int
         LOCALE_NAME_SYSTEM_DEFAULT: str
-        LOCALE_NAME_USER_DEFAULT: Final[str | None]
+        LOCALE_NAME_USER_DEFAULT: str | None
 
         LCMAP_FULLWIDTH: int
         LCMAP_HALFWIDTH: int
