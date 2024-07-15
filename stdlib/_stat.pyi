@@ -103,7 +103,8 @@ if sys.platform == "win32":
     FILE_ATTRIBUTE_VIRTUAL: Final = 65536
 
 if sys.version_info >= (3, 13):
-    SF_SETTABLE: Final = 0x3FFF0000
+    # Varies by platform.
+    SF_SETTABLE: Final[int]
     # https://github.com/python/cpython/issues/114081#issuecomment-2119017790
     # SF_RESTRICTED: Literal[0x00080000]
     SF_FIRMLINK: Final = 0x00800000
