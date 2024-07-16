@@ -4,7 +4,6 @@ from collections import Counter
 from decimal import Decimal
 from typing_extensions import assert_type
 
-
 # Initialize a Counter for strings with integer values
 word_counts: Counter[str] = Counter()
 word_counts["foo"] += 3
