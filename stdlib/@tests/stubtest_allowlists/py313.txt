@@ -211,3 +211,6 @@ typing.SupportsAbs.__type_params__
 typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
+
+# Runtime dynamically renames kwargs
+importlib.resources._common.files
