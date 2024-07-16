@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 from decimal import Decimal
+from typing import Union
 from typing_extensions import assert_type
 
 # Initialize a Counter for strings with integer values
@@ -20,9 +21,9 @@ decimal_counts: Counter[str, Decimal] = Counter()
 decimal_counts["foo"] += Decimal("3.0")
 decimal_counts["bar"] += Decimal("5.0")
 # Each key defualts to an int.
-assert_type(decimal_counts["test"], Decimal | int)
-assert_type(decimal_counts.get("test"), Decimal | int | None)
-assert_type(decimal_counts.pop("test"), Decimal | int)
+assert_type(decimal_counts["test"], Union[Decimal, int])
+assert_type(decimal_counts.get("test"), Union[Decimal, int, None])
+assert_type(decimal_counts.pop("test"), Union[Decimal, int])
 
 # Using kwargs for `__init__`
 word_counts = Counter(foo=3, bar=2)
