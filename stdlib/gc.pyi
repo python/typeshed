@@ -1,13 +1,13 @@
 import sys
 from collections.abc import Callable
-from typing import Any, Literal
+from typing import Any, Final, Literal
 from typing_extensions import TypeAlias
 
-DEBUG_COLLECTABLE: Literal[2]
-DEBUG_LEAK: Literal[38]
-DEBUG_SAVEALL: Literal[32]
-DEBUG_STATS: Literal[1]
-DEBUG_UNCOLLECTABLE: Literal[4]
+DEBUG_COLLECTABLE: Final = 2
+DEBUG_LEAK: Final = 38
+DEBUG_SAVEALL: Final = 32
+DEBUG_STATS: Final = 1
+DEBUG_UNCOLLECTABLE: Final = 4
 
 _CallbackType: TypeAlias = Callable[[Literal["start", "stop"], dict[str, int]], object]
 

@@ -1,6 +1,5 @@
 # New in py313 (triage these!)
 _msi
-_stat.SF_SETTABLE
 _stat.SF_SUPPORTED
 _stat.SF_SYNTHETIC
 _winapi.BatchedWaitForMultipleObjects
@@ -36,7 +35,6 @@ os.fchmod
 os.lchmod
 os.path.exists
 os.path.lexists
-stat.SF_SETTABLE
 stat.SF_SUPPORTED
 stat.SF_SYNTHETIC
 subprocess.__all__
