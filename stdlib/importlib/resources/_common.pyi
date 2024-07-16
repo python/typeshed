@@ -1,8 +1,7 @@
 import sys
 import types
 from contextlib import AbstractContextManager
-from importlib.abc import ResourceReader
-from importlib.resources.abc import Traversable as Traversable
+from importlib.abc import ResourceReader, Traversable as Traversable
 from pathlib import Path
 from typing import Callable, overload
 from typing_extensions import TypeAlias, deprecated
@@ -13,7 +12,7 @@ if sys.version_info >= (3, 12):
     Anchor: TypeAlias = Package
 
     def package_to_anchor(
-        func: Callable[[Anchor | None], Traversable]
+        func: Callable[[Anchor | None], Traversable],
     ) -> Callable[[Anchor | None, Anchor | None], Traversable]: ...
     @overload
     def files(anchor: Anchor | None = None) -> Traversable: ...
