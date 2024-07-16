@@ -1,7 +1,8 @@
 import sys
 import types
 from contextlib import AbstractContextManager
-from importlib.abc import ResourceReader, Traversable as Traversable
+from importlib.abc import ResourceReader
+from importlib.resources.abc import Traversable
 from pathlib import Path
 from typing import Callable, overload
 from typing_extensions import TypeAlias, deprecated
