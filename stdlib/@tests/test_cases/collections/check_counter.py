@@ -19,6 +19,10 @@ floating_point_counts["bar"] += 5.0
 decimal_counts: Counter[str, Decimal] = Counter()
 decimal_counts["foo"] += Decimal("3.0")
 decimal_counts["bar"] += Decimal("5.0")
+# Each key defualts to an int.
+assert_type(decimal_counts["test"], Decimal | int)
+assert_type(decimal_counts.get("test"), Decimal | int | None)
+assert_type(decimal_counts.pop("test"), Decimal | int)
 
 # Counter combining integers and floats
 mixed_type_counter = Counter({"foo": 3, "bar": 2.5})
