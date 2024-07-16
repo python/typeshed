@@ -23,7 +23,7 @@ decimal_counts["bar"] += Decimal("5.0")
 # Counter combining integers and floats
 mixed_type_counter = Counter({"foo": 3, "bar": 2.5})
 mixed_type_counter["baz"] += 1.5
-assert_type(mixed_type_counter, "Counter[str, int | float]")
+mixed_type_counter  # pyright: ignore[reportUnusedExpression] # mypy: `"Counter[str, float]"`; pyright: `Counter[str, int | float]`
 
 # Check ORing and ANDing Counters with different value types
 # MyPy and Pyright infer the types differently for these, so we can't use assert_type.
