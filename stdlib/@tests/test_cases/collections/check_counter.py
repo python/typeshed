@@ -23,12 +23,12 @@ decimal_counts["bar"] += Decimal("5.0")
 # Counter combining integers and floats
 mixed_type_counter = Counter({"foo": 3, "bar": 2.5})
 mixed_type_counter["baz"] += 1.5
-assert_type(mixed_type_counter, "Counter[str, int | float]")
+assert_type(mixed_type_counter, "Counter[str, float]")
 
 # Check ORing and ANDing Counters with different value types
-assert_type(mixed_type_counter or decimal_counts, "Counter[str, int | float] | Counter[str, Decimal]")
+assert_type(mixed_type_counter or decimal_counts, "Counter[str, float] | Counter[str, Decimal]")
 assert_type(decimal_counts or mixed_type_counter, "Counter[str, Decimal] | Counter[str, int | float]")
-assert_type(mixed_type_counter and decimal_counts, "Counter[str, int | float] | Counter[str, Decimal]")
+assert_type(mixed_type_counter and decimal_counts, "Counter[str, float] | Counter[str, Decimal]")
 assert_type(decimal_counts and mixed_type_counter, "Counter[str, Decimal] | Counter[str, int | float]")
 
 # We shouldn't be able to add Counters with incompatible value types
