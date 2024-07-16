@@ -1,5 +1,4 @@
 # TODO: triage these (new in py313)
-_stat.SF_SETTABLE
 _stat.SF_SUPPORTED
 _stat.SF_SYNTHETIC
 fcntl.F_GETOWN_EX
@@ -49,7 +48,6 @@ posix.timerfd_settime
 posix.timerfd_settime_ns
 posix.unlockpt
 readline.backend
-stat.SF_SETTABLE
 stat.SF_SUPPORTED
 stat.SF_SYNTHETIC
 syslog.LOG_INSTALL

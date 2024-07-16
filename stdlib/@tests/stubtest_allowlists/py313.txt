@@ -7,12 +7,6 @@ _thread.interrupt_main
 _thread.lock
 _thread.start_joinable_thread
 _tkinter.create
-codecs.backslashreplace_errors
-codecs.ignore_errors
-codecs.namereplace_errors
-codecs.replace_errors
-codecs.strict_errors
-codecs.xmlcharrefreplace_errors
 ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
 ctypes._endian.RTLD_LOCAL
@@ -59,13 +53,6 @@ tkinter.Misc.tk_busy_current
 tkinter.Misc.tk_busy_forget
 tkinter.Misc.tk_busy_hold
 tkinter.Misc.tk_busy_status
-tkinter.PhotoImage.copy
-tkinter.PhotoImage.copy_replace
-tkinter.PhotoImage.data
-tkinter.PhotoImage.read
-tkinter.PhotoImage.subsample
-tkinter.PhotoImage.write
-tkinter.PhotoImage.zoom
 tkinter.Text.count
 tkinter.Wm.wm_attributes
 types.MappingProxyType.get
@@ -209,3 +196,11 @@ typing.SupportsAbs.__type_params__
 typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
+
+# Runtime incorrectly has `self`
+codecs.backslashreplace_errors
+codecs.ignore_errors
+codecs.namereplace_errors
+codecs.replace_errors
+codecs.strict_errors
+codecs.xmlcharrefreplace_errors
