@@ -24,7 +24,10 @@ import tomli
 from _metadata import PackageDependencies, get_recursive_requirements, read_metadata
 from _utils import (
     PYTHON_VERSION,
+    STDLIB_PATH,
     TESTS_DIR,
+    SupportedVersionsDict,
+    VersionTuple,
     colored,
     get_gitignore_spec,
     get_mypy_req,
@@ -332,15 +335,12 @@ def test_third_party_distribution(
 
 def test_stdlib(args: TestConfig) -> TestResult:
     files: list[Path] = []
-    stdlib = Path("stdlib")
-    supported_versions = parse_stdlib_versions_file()
-    for name in os.listdir(stdlib):
-        if name in ("VERSIONS", TESTS_DIR) or name.startswith("."):
+    for file in STDLIB_PATH.iterdir():
+        if file.name in ("VERSIONS", TESTS_DIR) or file.name.startswith("."):
             continue
-        module = Path(name).stem
-        module_min_version, module_max_version = supported_versions[module]
-        if module_min_version <= tuple(map(int, args.version.split("."))) <= module_max_version:
-            add_files(files, (stdlib / name), args)
+        add_files(files, file, args)
+
+    files = remove_modules_not_in_python_version(files, args.version)
 
     if not files:
         return TestResult(MypyResult.SUCCESS, 0)
@@ -349,6 +349,37 @@ def test_stdlib(args: TestConfig) -> TestResult:
     # We don't actually need to install anything for the stdlib testing
     result = run_mypy(args, [], files, venv_dir=None, testing_stdlib=True, non_types_dependencies=False)
     return TestResult(result, len(files))
+
+
+def remove_modules_not_in_python_version(paths: list[Path], py_version: VersionString) -> list[Path]:
+    py_version_tuple = tuple(map(int, py_version.split(".")))
+    module_versions = parse_stdlib_versions_file()
+    new_paths = []
+    for path in paths:
+        if path.parts[0] != "stdlib" or path.suffix != ".pyi":
+            continue
+        module_name = stdlib_module_name_from_path(path)
+        min_version, max_version = supported_versions_for_module(module_versions, module_name)
+        if min_version <= py_version_tuple <= max_version:
+            new_paths.append(path)
+    return new_paths
+
+
+def stdlib_module_name_from_path(path: Path) -> str:
+    assert path.parts[0] == "stdlib"
+    assert path.suffix == ".pyi"
+    parts = list(path.parts[1:-1])
+    if path.parts[-1] != "__init__.pyi":
+        parts.append(path.parts[-1].removesuffix(".pyi"))
+    return ".".join(parts)
+
+
+def supported_versions_for_module(module_versions: SupportedVersionsDict, module_name: str) -> tuple[VersionTuple, VersionTuple]:
+    while "." in module_name:
+        if module_name in module_versions:
+            return module_versions[module_name]
+        module_name = ".".join(module_name.split(".")[:-1])
+    return module_versions[module_name]
 
 
 @dataclass
