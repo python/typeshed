@@ -4,6 +4,7 @@ from collections import Counter
 from decimal import Decimal
 from typing_extensions import assert_type
 
+
 # Initialize a Counter for strings with integer values
 word_counts: Counter[str] = Counter()
 word_counts["foo"] += 3
@@ -36,10 +37,10 @@ _ = mixed_type_counter + decimal_counts  # type: ignore
 mixed_type_counter += decimal_counts  # type: ignore
 
 # Adding Counters with compatible types
-_ = word_counts + Counter[str]()
-word_counts += Counter[str]()
+_ = word_counts + Counter({"foo": 2, "baz": 1})
+word_counts += Counter({"foo": 2, "baz": 1})
 
 # Combining Counters of different key types
-integer_key_counter = Counter[int]()
+integer_key_counter = Counter({1: 2, 2: 3})
 combined_word_and_integer_keys = word_counts + integer_key_counter
 assert_type(combined_word_and_integer_keys, "Counter[str | int, int]")
