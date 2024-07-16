@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import os
-import re
 import subprocess
 import sys
 import tempfile
@@ -17,11 +16,7 @@ from enum import Enum
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import TYPE_CHECKING, Any, NamedTuple, Tuple
-
-if TYPE_CHECKING:
-    from _typeshed import StrPath
-
+from typing import Any, NamedTuple
 from typing_extensions import Annotated, TypeAlias
 
 import tomli
@@ -30,14 +25,13 @@ from _metadata import PackageDependencies, get_recursive_requirements, read_meta
 from _utils import (
     PYTHON_VERSION,
     TESTS_DIR,
-    VERSIONS_RE as VERSION_LINE_RE,
     colored,
     get_gitignore_spec,
     get_mypy_req,
+    parse_stdlib_versions_file,
     print_error,
     print_success_msg,
     spec_matches_path,
-    strip_comments,
     venv_python,
 )
 
@@ -53,7 +47,6 @@ SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
 
 VersionString: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_VERSIONS"]
-VersionTuple: TypeAlias = Tuple[int, int]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
 
 
@@ -148,31 +141,6 @@ def match(path: Path, args: TestConfig) -> bool:
     )
     log(args, path, log_msg)
     return False
-
-
-def parse_versions(fname: StrPath) -> dict[str, tuple[VersionTuple, VersionTuple]]:
-    result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
-    with open(fname, encoding="UTF-8") as f:
-        for line in f:
-            line = strip_comments(line)
-            if line == "":
-                continue
-            m = VERSION_LINE_RE.match(line)
-            assert m, f"invalid VERSIONS line: {line}"
-            mod: str = m.group(1)
-            min_version = parse_version(m.group(2))
-            max_version = parse_version(m.group(3)) if m.group(3) else (99, 99)
-            result[mod] = min_version, max_version
-    return result
-
-
-_VERSION_RE = re.compile(r"^([23])\.(\d+)$")
-
-
-def parse_version(v_str: str) -> tuple[int, int]:
-    m = _VERSION_RE.match(v_str)
-    assert m, f"invalid version: {v_str}"
-    return int(m.group(1)), int(m.group(2))
 
 
 def add_files(files: list[Path], module: Path, args: TestConfig) -> None:
@@ -365,7 +333,7 @@ def test_third_party_distribution(
 def test_stdlib(args: TestConfig) -> TestResult:
     files: list[Path] = []
     stdlib = Path("stdlib")
-    supported_versions = parse_versions(stdlib / "VERSIONS")
+    supported_versions = parse_stdlib_versions_file()
     for name in os.listdir(stdlib):
         if name in ("VERSIONS", TESTS_DIR) or name.startswith("."):
             continue
