@@ -370,7 +370,8 @@ def stdlib_module_name_from_path(path: Path) -> str:
     assert path.suffix == ".pyi"
     parts = list(path.parts[1:-1])
     if path.parts[-1] != "__init__.pyi":
-        parts.append(path.parts[-1].removesuffix(".pyi"))
+        # TODO: Python 3.9+: Use removesuffix.
+        parts.append(path.parts[-1][:-4])
     return ".".join(parts)
 
 
