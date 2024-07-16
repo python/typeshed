@@ -275,7 +275,7 @@ class deque(MutableSequence[_T]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
-class Counter(dict[_T, _V_I], Generic[_T, _V_I]):
+class Counter(dict[_T, _V_I]):
     @overload
     def __init__(self, iterable: None = None, /) -> None: ...
     @overload
