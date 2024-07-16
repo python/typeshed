@@ -45,7 +45,7 @@ _ = mixed_type_counter + decimal_counts  # type: ignore
 mixed_type_counter += decimal_counts  # type: ignore
 
 # Adding Counters with compatible types
-_ = word_counts + Counter({"foo": 2, "baz": 1})
+_wc = word_counts + Counter({"foo": 2, "baz": 1})
 word_counts += Counter({"foo": 2, "baz": 1})
 
 # Combining Counters of different key types
