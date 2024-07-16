@@ -24,6 +24,14 @@ assert_type(decimal_counts["test"], Decimal | int)
 assert_type(decimal_counts.get("test"), Decimal | int | None)
 assert_type(decimal_counts.pop("test"), Decimal | int)
 
+# Using kwargs for `__init__`
+word_counts = Counter(foo=3, bar=2)
+assert_type(word_counts, "Counter[str, int]")
+floating_point_counts = Counter(foo=3.0, bar=5.0)
+assert_type(floating_point_counts, "Counter[str, float]")
+decimal_counts = Counter(foo=Decimal("3.0"), bar=Decimal("5.0"))
+assert_type(decimal_counts, "Counter[str, Decimal]")
+
 # Counter combining integers and floats
 mixed_type_counter = Counter({"foo": 3, "bar": 2.5})
 mixed_type_counter["baz"] += 1.5
