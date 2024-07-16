@@ -197,3 +197,4 @@ codecs.xmlcharrefreplace_errors
 
 # Runtime dynamically renames kwargs
 importlib.resources._common.files
+importlib.resources.files
