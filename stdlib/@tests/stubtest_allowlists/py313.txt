@@ -187,9 +187,6 @@ typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
 
-# Runtime dynamically renames kwargs
-importlib.resources._common.files
-
 # Runtime incorrectly has `self`
 codecs.backslashreplace_errors
 codecs.ignore_errors
