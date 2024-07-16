@@ -7,7 +7,7 @@ import sys
 from collections.abc import Iterable, Mapping
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Final, NamedTuple, Tuple
+from typing import Any, Dict, Final, NamedTuple, Tuple
 from typing_extensions import TypeAlias
 
 import pathspec
@@ -108,14 +108,14 @@ def get_mypy_req() -> str:
 # ====================================================================
 
 VersionTuple: TypeAlias = Tuple[int, int]
-
+SupportedVersionsDict: TypeAlias = Dict[str, Tuple[VersionTuple, VersionTuple]]
 
 VERSIONS_PATH = STDLIB_PATH / "VERSIONS"
 VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
 VERSION_RE = re.compile(r"^([23])\.(\d+)$")
 
 
-def parse_stdlib_versions_file() -> dict[str, tuple[VersionTuple, VersionTuple]]:
+def parse_stdlib_versions_file() -> SupportedVersionsDict:
     result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
     with VERSIONS_PATH.open(encoding="UTF-8") as f:
         for line in f:
