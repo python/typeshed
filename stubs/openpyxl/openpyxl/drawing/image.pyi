@@ -14,6 +14,8 @@ PILImage: ModuleType | Literal[False]
 class Image:
     anchor: str
     ref: _PILImageImage | _PILImageFilePath
+    width: int
+    height: int
     format: str
     def __init__(self, img: _PILImageImage | _PILImageFilePath) -> None: ...
     @property
