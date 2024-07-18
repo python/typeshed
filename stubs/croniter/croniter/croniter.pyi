@@ -103,14 +103,33 @@ class croniter(Iterator[Any]):
     def iter(self, ret_type: _RetType | None = ...) -> Iterator[Any]: ...
     def is_leap(self, year: int) -> bool: ...
     @classmethod
-    def expand(cls, expr_format: str, hash_id: bytes | None = None, second_at_beginning: bool  = False, from_timestamp: float | None = None) -> tuple[list[list[str]], dict[str, set[int]]]: ...
+    def expand(
+        cls,
+        expr_format: str,
+        hash_id: bytes | None = None,
+        second_at_beginning: bool = False,
+        from_timestamp: float | None = None,
+    ) -> tuple[list[list[str]], dict[str, set[int]]]: ...
     @classmethod
-    def is_valid(cls, expression: str, hash_id: bytes | None = None, encoding: str = "UTF-8", second_at_beginning: bool = False) -> bool: ...
+    def is_valid(
+        cls, expression: str, hash_id: bytes | None = None, encoding: str = "UTF-8", second_at_beginning: bool = False
+    ) -> bool: ...
     @classmethod
-    def match(cls, cron_expression: str, testdate: float | datetime.datetime | None, day_or: bool = True, second_at_beginning: bool = False) -> bool: ...
+    def match(
+        cls,
+        cron_expression: str,
+        testdate: float | datetime.datetime | None,
+        day_or: bool = True,
+        second_at_beginning: bool = False,
+    ) -> bool: ...
     @classmethod
     def match_range(
-        cls, cron_expression: str, from_datetime: datetime.datetime, to_datetime: datetime.datetime, day_or: bool = True, second_at_beginning: bool = False,
+        cls,
+        cron_expression: str,
+        from_datetime: datetime.datetime,
+        to_datetime: datetime.datetime,
+        day_or: bool = True,
+        second_at_beginning: bool = False,
     ) -> bool: ...
 
 def croniter_range(
