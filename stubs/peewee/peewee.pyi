@@ -5,7 +5,7 @@ from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import Callable, Generator, Iterable, Iterator
 from types import TracebackType
 from typing import Any, ClassVar, Literal, NamedTuple, TypeVar
-from typing_extensions import Self
+from typing_extensions import Self, override
 
 class NullHandler(logging.Handler):
     def emit(self, record) -> None: ...
@@ -150,7 +150,9 @@ class _HashableSource:
     def __init__(self, *args, **kwargs) -> None: ...
     def alias(self, name) -> None: ...
     def __hash__(self) -> int: ...
+    @override
     def __eq__(self, other) -> Expression | bool: ...
+    @override
     def __ne__(self, other) -> Expression | bool: ...
     __lt__: Callable[[Any], Expression]
     __le__: Callable[[Any], Expression]
@@ -253,7 +255,9 @@ class ColumnBase(Node):
     __rand__: Callable[[Any], Expression]
     __ror__: Callable[[Any], Expression]
     __rxor__: Callable[[Any], Expression]
+    @override
     def __eq__(self, rhs) -> Expression: ...
+    @override
     def __ne__(self, rhs) -> Expression: ...
     __lt__: Callable[[Any], Expression]
     __le__: Callable[[Any], Expression]
