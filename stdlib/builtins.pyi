@@ -940,6 +940,7 @@ class slice:
     def __eq__(self, value: object, /) -> bool: ...
     if sys.version < (3, 12):
         __hash__: ClassVar[None]  # type: ignore[assignment]
+
     def indices(self, len: SupportsIndex, /) -> tuple[int, int, int]: ...
 
 class tuple(Sequence[_T_co]):
