@@ -184,6 +184,9 @@ typing.ParamSpecKwargs.__mro_entries__
 typing.TypeVar.__mro_entries__
 typing.TypeVarTuple.__mro_entries__
 
+# class doesn't accept positional arguments but has default C signature
+types.SimpleNamespace.__init__
+
 # TODO: mypy should infer that this attribute is inherited from builtins.type;
 # why doesn't it infer this?
 typing.SupportsAbs.__type_params__

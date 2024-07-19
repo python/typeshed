@@ -1,10 +1,6 @@
 # TODO: triage these (new in py313)
-_stat.SF_SETTABLE
 _stat.SF_SUPPORTED
 _stat.SF_SYNTHETIC
-asyncio.unix_events.EventLoop
-asyncio.unix_events._UnixSelectorEventLoop.create_unix_server
-asyncio.unix_events.__all__
 fcntl.F_GETOWN_EX
 fcntl.F_GET_FILE_RW_HINT
 fcntl.F_GET_RW_HINT
@@ -52,7 +48,6 @@ posix.timerfd_settime
 posix.timerfd_settime_ns
 posix.unlockpt
 readline.backend
-stat.SF_SETTABLE
 stat.SF_SUPPORTED
 stat.SF_SYNTHETIC
 syslog.LOG_INSTALL
