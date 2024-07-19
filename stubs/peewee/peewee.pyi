@@ -152,10 +152,10 @@ class _HashableSource:
     def __hash__(self) -> int: ...
     def __eq__(self, other) -> Expression | bool: ...  # type: ignore[override]
     def __ne__(self, other) -> Expression | bool: ...  # type: ignore[override]
-    __lt__: Callable[[Any, Any], Expression]
-    __le__: Callable[[Any, Any], Expression]
-    __gt__: Callable[[Any, Any], Expression]
-    __ge__: Callable[[Any, Any], Expression]
+    __lt__: Callable[[Self, Any], Expression]
+    __le__: Callable[[Self, Any], Expression]
+    __gt__: Callable[[Self, Any], Expression]
+    __ge__: Callable[[Self, Any], Expression]
 
 class BaseTable(Source):
     __and__: Incomplete
@@ -237,40 +237,40 @@ class ColumnBase(Node):
     def desc(self, collation: Incomplete | None = ..., nulls: Incomplete | None = ...): ...
     __neg__: Incomplete
     def __invert__(self): ...
-    __and__: Callable[[Any, Any], Expression]
-    __or__: Callable[[Any, Any], Expression]
-    __add__: Callable[[Any, Any], Expression]
-    __sub__: Callable[[Any, Any], Expression]
-    __mul__: Callable[[Any, Any], Expression]
-    __div__: Callable[[Any, Any], Expression]
-    __truediv__: Callable[[Any, Any], Expression]
-    __xor__: Callable[[Any, Any], Expression]
-    __radd__: Callable[[Any, Any], Expression]
-    __rsub__: Callable[[Any, Any], Expression]
-    __rmul__: Callable[[Any, Any], Expression]
-    __rdiv__: Callable[[Any, Any], Expression]
-    __rtruediv__: Callable[[Any, Any], Expression]
-    __rand__: Callable[[Any, Any], Expression]
-    __ror__: Callable[[Any, Any], Expression]
-    __rxor__: Callable[[Any, Any], Expression]
+    __and__: Callable[[Self, Any], Expression]
+    __or__: Callable[[Self, Any], Expression]
+    __add__: Callable[[Self, Any], Expression]
+    __sub__: Callable[[Self, Any], Expression]
+    __mul__: Callable[[Self, Any], Expression]
+    __div__: Callable[[Self, Any], Expression]
+    __truediv__: Callable[[Self, Any], Expression]
+    __xor__: Callable[[Self, Any], Expression]
+    __radd__: Callable[[Self, Any], Expression]
+    __rsub__: Callable[[Self, Any], Expression]
+    __rmul__: Callable[[Self, Any], Expression]
+    __rdiv__: Callable[[Self, Any], Expression]
+    __rtruediv__: Callable[[Self, Any], Expression]
+    __rand__: Callable[[Self, Any], Expression]
+    __ror__: Callable[[Self, Any], Expression]
+    __rxor__: Callable[[Self, Any], Expression]
     def __eq__(self, rhs) -> Expression: ...  # type: ignore[override]
     def __ne__(self, rhs) -> Expression: ...  # type: ignore[override]
-    __lt__: Callable[[Any, Any], Expression]
-    __le__: Callable[[Any, Any], Expression]
-    __gt__: Callable[[Any, Any], Expression]
-    __ge__: Callable[[Any, Any], Expression]
-    __lshift__: Callable[[Any, Any], Expression]
-    __rshift__: Callable[[Any, Any], Expression]
-    __mod__: Callable[[Any, Any], Expression]
-    __pow__: Callable[[Any, Any], Expression]
-    like: Callable[[Any, Any], Expression]
-    ilike: Callable[[Any, Any], Expression]
-    bin_and: Callable[[Any, Any], Expression]
-    bin_or: Callable[[Any, Any], Expression]
-    in_: Callable[[Any, Any], Expression]
-    not_in: Callable[[Any, Any], Expression]
-    regexp: Callable[[Any, Any], Expression]
-    iregexp: Callable[[Any, Any], Expression]
+    __lt__: Callable[[Self, Any], Expression]
+    __le__: Callable[[Self, Any], Expression]
+    __gt__: Callable[[Self, Any], Expression]
+    __ge__: Callable[[Self, Any], Expression]
+    __lshift__: Callable[[Self, Any], Expression]
+    __rshift__: Callable[[Self, Any], Expression]
+    __mod__: Callable[[Self, Any], Expression]
+    __pow__: Callable[[Self, Any], Expression]
+    like: Callable[[Self, Any], Expression]
+    ilike: Callable[[Self, Any], Expression]
+    bin_and: Callable[[Self, Any], Expression]
+    bin_or: Callable[[Self, Any], Expression]
+    in_: Callable[[Self, Any], Expression]
+    not_in: Callable[[Self, Any], Expression]
+    regexp: Callable[[Self, Any], Expression]
+    iregexp: Callable[[Self, Any], Expression]
     def is_null(self, is_null: bool = ...) -> Expression: ...
     def contains(self, rhs) -> Expression: ...
     def startswith(self, rhs) -> Expression: ...
@@ -328,10 +328,10 @@ class Negated(WrappedNode):
     def __sql__(self, ctx): ...
 
 class BitwiseMixin:
-    def __and__(self, other): ...
-    def __or__(self, other): ...
-    def __sub__(self, other): ...
-    def __invert__(self): ...
+    def __and__(self, other) -> Expression: ...
+    def __or__(self, other) -> Expression: ...
+    def __sub__(self, other) -> Expression: ...
+    def __invert__(self) -> BitwiseNegated: ...
 
 class BitwiseNegated(BitwiseMixin, WrappedNode):
     def __invert__(self): ...
