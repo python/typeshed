@@ -938,7 +938,8 @@ class slice:
     @overload
     def __new__(cls, start: Any, stop: Any, step: Any = ..., /) -> Self: ...
     def __eq__(self, value: object, /) -> bool: ...
-    __hash__: ClassVar[None]  # type: ignore[assignment]
+    if sys.version < (3, 12):
+        __hash__: ClassVar[None]  # type: ignore[assignment]
     def indices(self, len: SupportsIndex, /) -> tuple[int, int, int]: ...
 
 class tuple(Sequence[_T_co]):
