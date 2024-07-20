@@ -4,7 +4,7 @@ import sys
 import tkinter
 import traceback
 import types
-from typing import assert_type
+from typing_extensions import assert_type
 
 
 def custom_handler(exc: type[BaseException], val: BaseException, tb: types.TracebackType | None) -> None:
