@@ -14,8 +14,6 @@ mmap.MAP_RESILIENT_CODESIGN
 mmap.MAP_RESILIENT_MEDIA
 mmap.MAP_TRANSLATED_ALLOW_EXECUTE
 mmap.MAP_UNIX03
-os.waitid
-os.waitid_result
 posixpath.splitroot
 posix.waitid
 posix.waitid_result
