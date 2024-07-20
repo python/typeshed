@@ -1170,6 +1170,14 @@ if sys.version_info >= (3, 13) and sys.platform == "linux":
     TFD_TIMER_CANCEL_ON_SET: Final[int]
 
     def timerfd_create(clockid: int, /, *, flags: int = 0) -> int: ...
+    def timerfd_settime(
+        fd: FileDescriptor,
+        /,
+        *,
+        flags: int = 0,
+        initial: float = 0,
+        interval: float = 0,
+    ) -> tuple[float, float]: ...
     def timerfd_settime_ns(
         fd: FileDescriptor, /, *, flags: int = 0, initial: float = 0, interval: float = 0
     ) -> tuple[float, float]: ...
