@@ -50,7 +50,6 @@ tkinter.Misc.tk_busy_hold
 tkinter.Misc.tk_busy_status
 tkinter.Text.count
 tkinter.Wm.wm_attributes
-types.MappingProxyType.get
 
 # ======================================
 # Pre-existing errors from Python <=3.12
@@ -199,3 +198,6 @@ codecs.namereplace_errors
 codecs.replace_errors
 codecs.strict_errors
 codecs.xmlcharrefreplace_errors
+
+# To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
+types.MappingProxyType.get
