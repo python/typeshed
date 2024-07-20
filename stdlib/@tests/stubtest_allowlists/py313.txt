@@ -197,7 +197,3 @@ codecs.namereplace_errors
 codecs.replace_errors
 codecs.strict_errors
 codecs.xmlcharrefreplace_errors
-
-# Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
-# These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
-ctypes._endian.Array.__iter__
