@@ -1,6 +1,6 @@
 import re
 import sys
-from typing import Iterator
+from collections.abc import Iterator
 
 if sys.version_info >= (3, 13):
     class Translator:
