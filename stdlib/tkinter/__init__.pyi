@@ -5,7 +5,7 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
+from typing import Any, Generic, Literal, LiteralString, NamedTuple, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
 
 if sys.version_info >= (3, 9):
@@ -360,7 +360,7 @@ class Misc:
 
     def bell(self, displayof: Literal[0] | Misc | None = 0) -> None: ...
     if sys.version_info >= (3, 13):
-        def tk_busy_cget(self, option: str) -> Any: ...
+        def tk_busy_cget(self, option: Literal["cursor"]) -> Any: ...
         busy_cget = tk_busy_cget
         def tk_busy_configure(self, cnf: Any = None, **kw: Any) -> Any: ...
         busy_config = busy_configure = tk_busy_config = tk_busy_configure
