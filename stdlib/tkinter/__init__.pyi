@@ -3027,11 +3027,7 @@ class Text(Widget, XView, YView):
     if sys.version_info >= (3, 13):
         @overload
         def count(
-            self,
-            index1: _TextIndex,
-            index2: _TextIndex,
-            *options: Unpack[tuple[_CountOptions]],
-            return_ints: Literal[True],
+            self, index1: _TextIndex, index2: _TextIndex, *options: Unpack[tuple[_CountOptions]], return_ints: Literal[True]
         ) -> int: ...
         # If there are 2+ options, then a tuple of ints is returned.
         @overload
@@ -3044,11 +3040,7 @@ class Text(Widget, XView, YView):
         ) -> tuple[int, ...]: ...
         @overload
         def count(
-            self,
-            index1: _TextIndex,
-            index2: _TextIndex,
-            *options: _CountOptions,
-            return_ints: bool = False,
+            self, index1: _TextIndex, index2: _TextIndex, *options: _CountOptions, return_ints: bool = False
         ) -> tuple[int, ...]: ...
 
     else:
