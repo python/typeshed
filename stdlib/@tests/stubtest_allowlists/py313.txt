@@ -201,3 +201,7 @@ codecs.namereplace_errors
 codecs.replace_errors
 codecs.strict_errors
 codecs.xmlcharrefreplace_errors
+
+# Special cased by type-checkers
+pstats.FunctionProfile.__replace__
+pstats.StatsProfile.__replace__
