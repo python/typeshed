@@ -20,8 +20,4 @@ os.POSIX_SPAWN_CLOSEFROM
 posix.POSIX_SPAWN_CLOSEFROM
 posixpath.splitroot
 readline.backend
-syslog.LOG_INSTALL
-syslog.LOG_LAUNCHD
-syslog.LOG_NETINFO
-syslog.LOG_RAS
-syslog.LOG_REMOTEAUTH
+
