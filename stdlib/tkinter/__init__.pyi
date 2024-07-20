@@ -6,7 +6,7 @@ from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
 from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias, TypeVarTuple, Unpack, deprecated
+from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
 
 if sys.version_info >= (3, 9):
     __all__ = [
