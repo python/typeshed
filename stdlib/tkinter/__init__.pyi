@@ -319,6 +319,9 @@ class _GridIndexInfo(TypedDict, total=False):
     uniform: str | None
     weight: int
 
+class _BusyInfo(TypedDict):
+    cursor: _Cursor
+
 class Misc:
     master: Misc | None
     tk: _tkinter.TkappType
@@ -365,7 +368,7 @@ class Misc:
         busy_current = tk_busy_current
         def tk_busy_forget(self) -> None: ...
         busy_forget = tk_busy_forget
-        def tk_busy_hold(self, cursor: _Cursor) -> None: ...
+        def tk_busy_hold(self, **kw: Unpack[_BusyInfo]) -> None: ...
         busy = busy_hold = tk_busy = tk_busy_hold
         def tk_busy_status(self) -> bool: ...
         busy_status = tk_busy_status
