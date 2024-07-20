@@ -364,13 +364,17 @@ class Misc:
         def tk_busy_cget(self, option: Literal["cursor"]) -> _Cursor: ...
         busy_cget = tk_busy_cget
         def tk_busy_configure(self, cnf: Any = None, **kw: Any) -> Any: ...
-        busy_config = busy_configure = tk_busy_config = tk_busy_configure
+        tk_busy_config = tk_busy_configure
+        busy_configure = tk_busy_configure
+        busy_config = tk_busy_configure
         def tk_busy_current(self, pattern: str | None = None) -> list[Widget]: ...
         busy_current = tk_busy_current
         def tk_busy_forget(self) -> None: ...
         busy_forget = tk_busy_forget
         def tk_busy_hold(self, **kw: Unpack[_BusyInfo]) -> None: ...
-        busy = busy_hold = tk_busy = tk_busy_hold
+        tk_busy = tk_busy_hold
+        busy_hold = tk_busy_hold
+        busy = tk_busy_hold
         def tk_busy_status(self) -> bool: ...
         busy_status = tk_busy_status
 
