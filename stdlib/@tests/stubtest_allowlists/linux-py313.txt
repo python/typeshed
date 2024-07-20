@@ -42,8 +42,4 @@ posix.timerfd_settime_ns
 readline.backend
 stat.SF_SUPPORTED
 stat.SF_SYNTHETIC
-syslog.LOG_INSTALL
-syslog.LOG_LAUNCHD
-syslog.LOG_NETINFO
-syslog.LOG_RAS
-syslog.LOG_REMOTEAUTH
+
