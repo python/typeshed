@@ -41,14 +41,14 @@ if sys.version_info >= (3, 13):
     end_index = "end"
 
     word_to_count = "Python"
-    result = text_widget.count(start_index, end_index, "chars", "displaychars")
-    assert_type(result, tuple[int, ...])
+    result_1 = text_widget.count(start_index, end_index, "chars", "displaychars")
+    assert_type(result_1, tuple[int, ...])
 
-    result = text_widget.count(start_index, end_index, "chars")
-    assert_type(result, tuple[int, ...] | None)
+    result_2 = text_widget.count(start_index, end_index, "chars")
+    assert_type(result_2, tuple[int, ...] | None)
 
-    result = text_widget.count(start_index, end_index, "chars", "displaychars", return_ints=True)
-    assert_type(result, tuple[int, ...])
+    result_3 = text_widget.count(start_index, end_index, "chars", "displaychars", return_ints=True)
+    assert_type(result_3, tuple[int, ...])
 
-    result = text_widget.count(start_index, end_index, "chars", return_ints=True)
-    assert_type(result, int)
+    result_4 = text_widget.count(start_index, end_index, "chars", return_ints=True)
+    assert_type(result_4, int)
