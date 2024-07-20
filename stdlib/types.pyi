@@ -17,8 +17,8 @@ from collections.abc import (
 from importlib.machinery import ModuleSpec
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
-from typing import Any, ClassVar, Literal, Mapping, final, overload  # noqa: Y022
-from typing_extensions import ParamSpec, Self, TypeVar, TypeVarTuple, deprecated
+from typing import Any, ClassVar, Literal, Mapping, TypeVar, final, overload  # noqa: Y022
+from typing_extensions import ParamSpec, Self, TypeVarTuple, deprecated
 
 __all__ = [
     "FunctionType",
@@ -65,7 +65,6 @@ if sys.version_info >= (3, 13):
 
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
-_T_N = TypeVar("_T_N", default=None)
 _KT = TypeVar("_KT")
 _VT_co = TypeVar("_VT_co", covariant=True)
 
@@ -305,7 +304,10 @@ class MappingProxyType(Mapping[_KT, _VT_co]):
     def keys(self) -> KeysView[_KT]: ...
     def values(self) -> ValuesView[_VT_co]: ...
     def items(self) -> ItemsView[_KT, _VT_co]: ...
-    def get(self, key: _KT, default: _T_N = None, /) -> _VT_co | _T_N: ...  # type: ignore[override]
+    @overload
+    def get(self, key: _KT, /) -> _VT_co | None: ...  # type: ignore[override]
+    @overload
+    def get(self, key: _KT, default: _VT_co | _T2, /) -> _VT_co | _T2: ...  # type: ignore[override]
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
         def __reversed__(self) -> Iterator[_KT]: ...
