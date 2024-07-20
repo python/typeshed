@@ -236,6 +236,9 @@ if sys.platform != "win32":
     if sys.version_info >= (3, 11):
         from os import login_tty as login_tty
 
+    if sys.version_info >= (3, 13):
+        from os import grantpt as grantpt, posix_openpt as posix_openpt, ptsname as ptsname, unlockpt as unlockpt
+
     if sys.platform != "linux":
         from os import chflags as chflags, lchflags as lchflags, lchmod as lchmod
 

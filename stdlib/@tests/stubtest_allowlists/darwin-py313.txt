@@ -5,15 +5,7 @@ fcntl.F_OFD_SETLK
 fcntl.F_OFD_SETLKW
 fcntl.F_RDAHEAD
 fcntl.F_SETNOSIGPIPE
-os.grantpt
-os.posix_openpt
-os.ptsname
-os.unlockpt
-posix.grantpt
-posix.posix_openpt
-posix.ptsname
 posixpath.splitroot
-posix.unlockpt
 posix.waitid
 posix.waitid_result
 readline.backend
