@@ -17,16 +17,6 @@ ctypes._endian.pythonapi
 doctest.TestResults.__doc__
 doctest.TestResults.__new__
 filecmp.dircmp.__init__
-importlib.resources.Anchor
-importlib.resources.Resource
-importlib.resources.__all__
-importlib.resources.contents
-importlib.resources.is_resource
-importlib.resources.open_binary
-importlib.resources.open_text
-importlib.resources.path
-importlib.resources.read_binary
-importlib.resources.read_text
 os.path.splitroot
 # `__replace__` to be special cased in dataclasses
 pstats.FunctionProfile.__replace__
@@ -199,3 +189,7 @@ codecs.namereplace_errors
 codecs.replace_errors
 codecs.strict_errors
 codecs.xmlcharrefreplace_errors
+
+# Runtime dynamically renames kwargs
+importlib.resources._common.files
+importlib.resources.files
