@@ -971,7 +971,8 @@ else:
     def spawnvp(mode: int, file: StrOrBytesPath, args: _ExecVArgs) -> int: ...
     def spawnvpe(mode: int, file: StrOrBytesPath, args: _ExecVArgs, env: _ExecEnv) -> int: ...
     def wait() -> tuple[int, int]: ...  # Unix only
-    if sys.platform != "darwin":
+    # Added to MacOS in 3.13
+    if sys.platform != "darwin" or sys.version_info >= (3, 13):
         @final
         class waitid_result(structseq[int], tuple[int, int, int, int, int]):
             if sys.version_info >= (3, 10):

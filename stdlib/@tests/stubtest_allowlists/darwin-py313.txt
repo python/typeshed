@@ -18,8 +18,6 @@ os.grantpt
 os.posix_openpt
 os.ptsname
 os.unlockpt
-os.waitid
-os.waitid_result
 posix.grantpt
 posix.posix_openpt
 posix.ptsname
