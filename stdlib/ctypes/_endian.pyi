@@ -1,6 +1,10 @@
 import sys
-from _ctypes import RTLD_GLOBAL as RTLD_GLOBAL, RTLD_LOCAL as RTLD_LOCAL, Structure, Union
-from ctypes import DEFAULT_MODE as DEFAULT_MODE, cdll as cdll, pydll as pydll, pythonapi as pythonapi
+
+if sys.version_info >= (3, 13):
+    from ctypes import Array as Array, Structure, Union
+else:
+    from _ctypes import RTLD_GLOBAL as RTLD_GLOBAL, RTLD_LOCAL as RTLD_LOCAL, Structure, Union
+    from ctypes import DEFAULT_MODE as DEFAULT_MODE, cdll as cdll, pydll as pydll, pythonapi as pythonapi
 
 if sys.version_info >= (3, 12):
     from _ctypes import SIZEOF_TIME_T as SIZEOF_TIME_T
