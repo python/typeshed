@@ -307,7 +307,7 @@ class MappingProxyType(Mapping[_KT, _VT_co]):
     @overload
     def get(self, key: _KT, /) -> _VT_co | None: ...  # type: ignore[override]
     @overload
-    def get(self, key: _KT, default: _T2, /) -> _VT_co | _T2: ...  # type: ignore[override]
+    def get(self, key: _KT, default: _VT_co | _T2, /) -> _VT_co | _T2: ...  # type: ignore[override]
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
         def __reversed__(self) -> Iterator[_KT]: ...
