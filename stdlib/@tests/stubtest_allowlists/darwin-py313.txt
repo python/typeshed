@@ -5,15 +5,6 @@ fcntl.F_OFD_SETLK
 fcntl.F_OFD_SETLKW
 fcntl.F_RDAHEAD
 fcntl.F_SETNOSIGPIPE
-mmap.MAP_HASSEMAPHORE
-mmap.MAP_JIT
-mmap.MAP_NOCACHE
-mmap.MAP_NOEXTEND
-mmap.MAP_NORESERVE
-mmap.MAP_RESILIENT_CODESIGN
-mmap.MAP_RESILIENT_MEDIA
-mmap.MAP_TRANSLATED_ALLOW_EXECUTE
-mmap.MAP_UNIX03
 posixpath.splitroot
 posix.waitid
 posix.waitid_result
