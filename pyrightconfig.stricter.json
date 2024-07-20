@@ -32,6 +32,7 @@
         "stubs/antlr4-python3-runtime",
         "stubs/aws-xray-sdk",
         "stubs/beautifulsoup4",
+        "stubs/biopandas",
         "stubs/bleach/bleach/sanitizer.pyi",
         "stubs/boltons",
         "stubs/boto",
