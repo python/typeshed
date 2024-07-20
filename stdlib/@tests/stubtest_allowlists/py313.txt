@@ -36,23 +36,6 @@ os.path.splitroot
 # `__replace__` to be special cased in dataclasses
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__
-tkinter.Misc.after_info
-tkinter.Misc.busy
-tkinter.Misc.busy_cget
-tkinter.Misc.busy_config
-tkinter.Misc.busy_configure
-tkinter.Misc.busy_current
-tkinter.Misc.busy_forget
-tkinter.Misc.busy_hold
-tkinter.Misc.busy_status
-tkinter.Misc.tk_busy
-tkinter.Misc.tk_busy_cget
-tkinter.Misc.tk_busy_config
-tkinter.Misc.tk_busy_configure
-tkinter.Misc.tk_busy_current
-tkinter.Misc.tk_busy_forget
-tkinter.Misc.tk_busy_hold
-tkinter.Misc.tk_busy_status
 tkinter.Text.count
 tkinter.Wm.wm_attributes
 types.MappingProxyType.get
