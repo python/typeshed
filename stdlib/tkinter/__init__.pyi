@@ -6,7 +6,7 @@ from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
 from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
+from typing_extensions import Self, TypeAlias, TypeVarTuple, Unpack, deprecated
 
 if sys.version_info >= (3, 9):
     __all__ = [
@@ -365,7 +365,7 @@ class Misc:
         busy_cget = tk_busy_cget
         def tk_busy_configure(self, cnf: Any = None, **kw: Any) -> Any: ...
         busy_config = busy_configure = tk_busy_config = tk_busy_configure
-        def tk_busy_current(self, pattern: str | None = None) -> str: ...
+        def tk_busy_current(self, pattern: str | None = None) -> list[Self]: ...
         busy_current = tk_busy_current
         def tk_busy_forget(self) -> None: ...
         busy_forget = tk_busy_forget
