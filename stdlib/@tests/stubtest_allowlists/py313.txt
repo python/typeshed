@@ -203,3 +203,6 @@ codecs.namereplace_errors
 codecs.replace_errors
 codecs.strict_errors
 codecs.xmlcharrefreplace_errors
+
+# To match `dict`, we lie about the runtime with overloads
+types.MappingProxyType.get
