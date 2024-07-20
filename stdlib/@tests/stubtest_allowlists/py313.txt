@@ -53,7 +53,6 @@ tkinter.Misc.tk_busy_current
 tkinter.Misc.tk_busy_forget
 tkinter.Misc.tk_busy_hold
 tkinter.Misc.tk_busy_status
-tkinter.Text.count
 tkinter.Wm.wm_attributes
 types.MappingProxyType.get
 

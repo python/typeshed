@@ -2907,6 +2907,9 @@ class Scrollbar(Widget):
     def set(self, first: float | str, last: float | str) -> None: ...
 
 _TextIndex: TypeAlias = _tkinter.Tcl_Obj | str | float | Misc
+_CountOptions: TypeAlias = Literal[
+    "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels", "update"
+]
 
 class Text(Widget, XView, YView):
     def __init__(
@@ -3021,7 +3024,36 @@ class Text(Widget, XView, YView):
     config = configure
     def bbox(self, index: _TextIndex) -> tuple[int, int, int, int] | None: ...  # type: ignore[override]
     def compare(self, index1: _TextIndex, op: Literal["<", "<=", "==", ">=", ">", "!="], index2: _TextIndex) -> bool: ...
-    def count(self, index1, index2, *args): ...  # TODO
+    if sys.version_info >= (3, 13):
+        @overload
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            *options: Unpack[tuple[_CountOptions]],
+            return_ints: Literal[True],
+        ) -> int: ...
+        # If there are 2+ options, then a tuple of ints is returned.
+        @overload
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            *options: Unpack[tuple[_CountOptions, _CountOptions, Unpack[tuple[_CountOptions, ...]]]],
+            return_ints: bool = False,
+        ) -> tuple[int, ...]: ...
+        @overload
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            *options: _CountOptions,
+            return_ints: bool = False,
+        ) -> tuple[int, ...]: ...
+
+    else:
+        def count(self, index1: _TextIndex, index2: _TextIndex, *options: _CountOptions) -> tuple[int, ...]: ...
+
     @overload
     def debug(self, boolean: None = None) -> bool: ...
     @overload
