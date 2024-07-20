@@ -49,7 +49,7 @@ if sys.version_info >= (3, 13):
     assert_type(result, tuple[int, ...] | None)
 
     result = text_widget.count(start_index, end_index, "chars", "displaychars", return_ints=True)
-    assert_type(result, int)
+    assert_type(result, tuple[int, ...])
 
     result = text_widget.count(start_index, end_index, "chars", return_ints=True)
     assert_type(result, int)
