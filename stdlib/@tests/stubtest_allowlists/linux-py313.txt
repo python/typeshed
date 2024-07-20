@@ -42,4 +42,3 @@ posix.timerfd_settime_ns
 readline.backend
 stat.SF_SUPPORTED
 stat.SF_SYNTHETIC
-
