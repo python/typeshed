@@ -3040,7 +3040,11 @@ class Text(Widget, XView, YView):
         ) -> tuple[int, ...]: ...
         @overload
         def count(
-            self, index1: _TextIndex, index2: _TextIndex, *options: _CountOptions, return_ints: bool = False
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            *options: _CountOptions,
+            return_ints: Literal[False] = False,
         ) -> tuple[int, ...] | None: ...
 
     else:
