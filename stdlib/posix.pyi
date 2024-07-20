@@ -239,6 +239,19 @@ if sys.platform != "win32":
     if sys.version_info >= (3, 13):
         from os import grantpt as grantpt, posix_openpt as posix_openpt, ptsname as ptsname, unlockpt as unlockpt
 
+    if sys.version_info >= (3, 13) and sys.platform == "linux":
+        from os import (
+            TFD_CLOEXEC as TFD_CLOEXEC,
+            TFD_NONBLOCK as TFD_NONBLOCK,
+            TFD_TIMER_ABSTIME as TFD_TIMER_ABSTIME,
+            TFD_TIMER_CANCEL_ON_SET as TFD_TIMER_CANCEL_ON_SET,
+            timerfd_create as timerfd_create,
+            timerfd_gettime as timerfd_gettime,
+            timerfd_gettime_ns as timerfd_gettime_ns,
+            timerfd_settime as timerfd_settime,
+            timerfd_settime_ns as timerfd_settime_ns,
+        )
+
     if sys.platform != "linux":
         from os import chflags as chflags, lchflags as lchflags, lchmod as lchmod
 
