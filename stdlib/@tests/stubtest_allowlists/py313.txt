@@ -33,9 +33,6 @@ importlib.resources.path
 importlib.resources.read_binary
 importlib.resources.read_text
 os.path.splitroot
-# `__replace__` to be special cased in dataclasses
-pstats.FunctionProfile.__replace__
-pstats.StatsProfile.__replace__
 tkinter.Misc.after_info
 tkinter.Misc.busy
 tkinter.Misc.busy_cget
