@@ -5,7 +5,7 @@ black==24.4.2            # must match .pre-commit-config.yaml
 flake8==7.1.0            # must match .pre-commit-config.yaml
 flake8-noqa==1.4.0       # must match .pre-commit-config.yaml
 flake8-pyi==24.6.0       # must match .pre-commit-config.yaml
-mypy==1.11.0
+mypy==1.10.1
 pre-commit-hooks==4.6.0  # must match .pre-commit-config.yaml
 pyright==1.1.372
 pytype==2024.4.11; platform_system != "Windows" and python_version < "3.12"
