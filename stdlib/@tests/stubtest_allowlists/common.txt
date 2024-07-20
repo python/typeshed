@@ -638,6 +638,7 @@ tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runti
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 _ctypes.Array.__iter__
 ctypes.Array.__iter__
+ctypes._endian.Array.__iter__
 mmap.mmap.__iter__
 mmap.mmap.__contains__
 xml.etree.ElementTree.Element.__iter__

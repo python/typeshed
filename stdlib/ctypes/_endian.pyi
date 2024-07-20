@@ -1,7 +1,7 @@
 import sys
 
 if sys.version_info >= (3, 13):
-    from _ctypes import Array as Array, Structure, Union
+    from ctypes import Array as Array, Structure, Union
 else:
     from _ctypes import RTLD_GLOBAL as RTLD_GLOBAL, RTLD_LOCAL as RTLD_LOCAL, Structure, Union
     from ctypes import DEFAULT_MODE as DEFAULT_MODE, cdll as cdll, pydll as pydll, pythonapi as pythonapi
