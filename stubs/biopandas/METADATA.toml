@@ -1,3 +1,4 @@
 version = "0.4.*"
 upstream_repository = "https://github.com/rasbt/biopandas"
 requires = ["numpy>=1.20,<2", "pandas-stubs"]
+partial_stub = true
