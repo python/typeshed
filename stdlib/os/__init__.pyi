@@ -1164,10 +1164,10 @@ if sys.version_info >= (3, 13) and sys.platform != "win32":
     def ptsname(fd: FileDescriptorLike, /) -> str: ...
 
 if sys.version_info >= (3, 13) and sys.platform == "linux":
-    TFD_NONBLOCK: Final[int]
-    TFD_CLOEXEC: Final[int]
-    TFD_TIMER_ABSTIME: Final[int]
-    TFD_TIMER_CANCEL_ON_SET: Final[int]
+    TFD_TIMER_ABSTIME: Final = 1
+    TFD_TIMER_CANCEL_ON_SET: Final = 2
+    TFD_NONBLOCK: Final = 2048
+    TFD_CLOEXEC: Final = 524288
 
     def timerfd_create(clockid: int, /, *, flags: int = 0) -> int: ...
     def timerfd_settime(
