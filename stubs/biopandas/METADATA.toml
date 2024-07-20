@@ -2,7 +2,7 @@ version = "0.4.*"
 upstream_repository = "https://github.com/rasbt/biopandas"
 # requires a version of numpy with a `py.typed` file
 # TODO: Lots of stubtest errors when using numpy 2
-requires = ["numpy>=1.20,<2"]
+requires = ["numpy>=1.20,<2", "pandas"]
 partial_stub = true
 
 [tool.stubtest]
