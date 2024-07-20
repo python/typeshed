@@ -14,17 +14,9 @@ mmap.MAP_RESILIENT_CODESIGN
 mmap.MAP_RESILIENT_MEDIA
 mmap.MAP_TRANSLATED_ALLOW_EXECUTE
 mmap.MAP_UNIX03
-os.grantpt
-os.posix_openpt
-os.ptsname
-os.unlockpt
 os.waitid
 os.waitid_result
-posix.grantpt
-posix.posix_openpt
-posix.ptsname
 posixpath.splitroot
-posix.unlockpt
 posix.waitid
 posix.waitid_result
 readline.backend
