@@ -310,9 +310,9 @@ _collections_abc.Set.__rxor__
 
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 
-_?ctypes.*.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
-_?ctypes.*.Array._type_  # _type_ is abstract, https://github.com/python/typeshed/pull/6361
-_?ctypes.*.Array._length_ # _length_ is abstract, https://github.com/python/typeshed/pull/6361
+_?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
+_?ctypes.Array._type_  # _type_ is abstract, https://github.com/python/typeshed/pull/6361
+_?ctypes.Array._length_ # _length_ is abstract, https://github.com/python/typeshed/pull/6361
 _pydecimal.*  # See comments in file
 argparse.ArgumentParser.__init__  # stubtest doesn't recognise the runtime default (a class) as being compatible with a callback protocol (the stub annotation)
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
@@ -636,8 +636,8 @@ tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runti
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
-_ctypes.*.Array.__iter__
-ctypes.*.Array.__iter__
+_ctypes.Array.__iter__
+ctypes.Array.__iter__
 mmap.mmap.__iter__
 mmap.mmap.__contains__
 xml.etree.ElementTree.Element.__iter__
