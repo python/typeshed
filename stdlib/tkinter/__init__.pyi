@@ -3035,11 +3035,16 @@ class Text(Widget, XView, YView):
     @overload
     def count(self, index1: _TextIndex, index2: _TextIndex, /, arg1: _WhatToCount, arg2: _WhatToCount) -> tuple[int, int]: ...
     @overload
-    def count(self, index1: _TextIndex, index2: _TextIndex, /,
-    arg1: _WhatToCount | Literal["update"],
-    arg2: _WhatToCount | Literal["update"],
-    arg3: _WhatToCount | Literal["update"],
-    *args: _WhatToCount | Literal["update"]) -> tuple[int, ...]: ...
+    def count(
+        self,
+        index1: _TextIndex,
+        index2: _TextIndex,
+        /,
+        arg1: _WhatToCount | Literal["update"],
+        arg2: _WhatToCount | Literal["update"],
+        arg3: _WhatToCount | Literal["update"],
+        *args: _WhatToCount | Literal["update"],
+    ) -> tuple[int, ...]: ...
     @overload
     def debug(self, boolean: None = None) -> bool: ...
     @overload
