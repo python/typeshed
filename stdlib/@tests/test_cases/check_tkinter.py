@@ -3,6 +3,7 @@ from __future__ import annotations
 import tkinter
 import traceback
 import types
+from typing import Tuple, Optional
 from typing_extensions import assert_type
 
 
@@ -35,13 +36,13 @@ label.config(font=("", 12.34, "bold"))  # type: ignore
 t = tkinter.Text()
 t.insert("end", "asd asd asd\nasd asd")
 
-assert_type(t.count("1.0", "2.3"), tuple[int] | None)  # (15,)
-assert_type(t.count("2.3", "2.3"), tuple[int] | None)  # None
-assert_type(t.count("1.0", "2.3", "indices"), tuple[int] | None)  # (15,)
-assert_type(t.count("2.3", "2.3", "indices"), tuple[int] | None)  # None
-assert_type(t.count("1.0", "2.3", "indices", "update"), int | None)  # 15
-assert_type(t.count("2.3", "2.3", "indices", "update"), int | None)  # None
-assert_type(t.count("1.0", "2.3", "indices", "lines"), tuple[int, int])  # (15, 1)
-assert_type(t.count("2.3", "2.3", "indices", "lines"), tuple[int, int])  # (0, 0)
-assert_type(t.count("1.0", "2.3", "indices", "lines", "chars", "ypixels"), tuple[int, ...])  # (15, 1, 15, 19)
-assert_type(t.count("2.3", "2.3", "indices", "lines", "chars", "ypixels"), tuple[int, ...])  # (0, 0, 0, 0)
+assert_type(t.count("1.0", "2.3"), Optional[Tuple[int]])  # (15,)
+assert_type(t.count("2.3", "2.3"), Optional[Tuple[int]])  # None
+assert_type(t.count("1.0", "2.3", "indices"), Optional[Tuple[int]])  # (15,)
+assert_type(t.count("2.3", "2.3", "indices"), Optional[Tuple[int]])  # None
+assert_type(t.count("1.0", "2.3", "indices", "update"), Optional[int])  # 15
+assert_type(t.count("2.3", "2.3", "indices", "update"), Optional[int])  # None
+assert_type(t.count("1.0", "2.3", "indices", "lines"), Tuple[int, int])  # (15, 1)
+assert_type(t.count("2.3", "2.3", "indices", "lines"), Tuple[int, int])  # (0, 0)
+assert_type(t.count("1.0", "2.3", "indices", "lines", "chars", "ypixels"), Tuple[int, ...])  # (15, 1, 15, 19)
+assert_type(t.count("2.3", "2.3", "indices", "lines", "chars", "ypixels"), Tuple[int, ...])  # (0, 0, 0, 0)
