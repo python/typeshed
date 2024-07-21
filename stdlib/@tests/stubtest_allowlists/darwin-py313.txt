@@ -6,7 +6,6 @@ fcntl.F_OFD_SETLKW
 fcntl.F_RDAHEAD
 fcntl.F_SETNOSIGPIPE
 posixpath.splitroot
-readline.backend
 webbrowser.MacOSX
 
 # TODO: fix
