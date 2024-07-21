@@ -1168,6 +1168,7 @@ if sys.version_info >= (3, 13) and sys.platform == "linux":
     TFD_TIMER_CANCEL_ON_SET: Final = 2
     TFD_NONBLOCK: Final[int]
     TFD_CLOEXEC: Final[int]
+    POSIX_SPAWN_CLOSEFROM: Final[int]
 
     def timerfd_create(clockid: int, /, *, flags: int = 0) -> int: ...
     def timerfd_settime(

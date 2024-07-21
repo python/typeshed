@@ -1,24 +1,6 @@
 # TODO: triage these (new in py313)
 _stat.SF_SUPPORTED
 _stat.SF_SYNTHETIC
-fcntl.F_GETOWN_EX
-fcntl.F_GET_FILE_RW_HINT
-fcntl.F_GET_RW_HINT
-fcntl.F_OWNER_PGRP
-fcntl.F_OWNER_PID
-fcntl.F_OWNER_TID
-fcntl.F_SEAL_FUTURE_WRITE
-fcntl.F_SETOWN_EX
-fcntl.F_SET_FILE_RW_HINT
-fcntl.F_SET_RW_HINT
-fcntl.RWH_WRITE_LIFE_EXTREME
-fcntl.RWH_WRITE_LIFE_LONG
-fcntl.RWH_WRITE_LIFE_MEDIUM
-fcntl.RWH_WRITE_LIFE_NONE
-fcntl.RWH_WRITE_LIFE_NOT_SET
-fcntl.RWH_WRITE_LIFE_SHORT
-os.POSIX_SPAWN_CLOSEFROM
-posix.POSIX_SPAWN_CLOSEFROM
 posixpath.splitroot
 readline.backend
 stat.SF_SUPPORTED
