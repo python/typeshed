@@ -1,7 +1,3 @@
 # TODO: triage these (new in py313)
-_stat.SF_SUPPORTED
-_stat.SF_SYNTHETIC
 mmap.MAP_NORESERVE
 posixpath.splitroot
-stat.SF_SUPPORTED
-stat.SF_SYNTHETIC
