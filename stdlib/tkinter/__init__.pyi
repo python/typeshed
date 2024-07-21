@@ -2907,8 +2907,9 @@ class Scrollbar(Widget):
     def set(self, first: float | str, last: float | str) -> None: ...
 
 _TextIndex: TypeAlias = _tkinter.Tcl_Obj | str | float | Misc
-_WhatToCount: TypeAlias = Literal["chars", "displaychars",
-              "displayindices", "displaylines", "indices", "lines",  "xpixels", "ypixels"]
+_WhatToCount: TypeAlias = Literal[
+    "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"
+]
 
 class Text(Widget, XView, YView):
     def __init__(
@@ -3026,7 +3027,9 @@ class Text(Widget, XView, YView):
     @overload
     def count(self, index1: _TextIndex, index2: _TextIndex) -> tuple[int] | None: ...
     @overload
-    def count(self, index1: _TextIndex, index2: _TextIndex, /, arg: _WhatToCount | Literal["update"] = "chars") -> tuple[int] | None: ...
+    def count(
+        self, index1: _TextIndex, index2: _TextIndex, /, arg: _WhatToCount | Literal["update"] = "chars"
+    ) -> tuple[int] | None: ...
     @overload
     def count(self, index1: _TextIndex, index2: _TextIndex, /, arg1: Literal["update"], arg2: _WhatToCount) -> int | None: ...
     @overload

@@ -32,15 +32,15 @@ label.config(font=("", 12.34, "bold"))  # type: ignore
 
 # Test the `.count()` method. Comments show values that are returned at runtime.
 t = tkinter.Text()
-t.insert('end', 'asd asd asd\nasd asd')
+t.insert("end", "asd asd asd\nasd asd")
 
-assert_type(t.count('1.0', '2.3'), tuple[int] | None)  # (15,)
-assert_type(t.count('2.3', '2.3'), tuple[int] | None)  # None
-assert_type(t.count('1.0', '2.3', 'indices'), tuple[int] | None)  # (15,)
-assert_type(t.count('2.3', '2.3', 'indices'), tuple[int] | None)  # None
-assert_type(t.count('1.0', '2.3', 'indices', 'update'), int | None)  # 15
-assert_type(t.count('2.3', '2.3', 'indices', 'update'), int | None)  # None
-assert_type(t.count('1.0', '2.3', 'indices', 'lines'), tuple[int, int])  # (15, 1)
-assert_type(t.count('2.3', '2.3', 'indices', 'lines'), tuple[int, int])  # (0, 0)
-assert_type(t.count('1.0', '2.3', 'indices', 'lines', 'chars', 'ypixels'), tuple[int, ...])  # (15, 1, 15, 19)
-assert_type(t.count('2.3', '2.3', 'indices', 'lines', 'chars', 'ypixels'), tuple[int, ...])  # (0, 0, 0, 0)
+assert_type(t.count("1.0", "2.3"), tuple[int] | None)  # (15,)
+assert_type(t.count("2.3", "2.3"), tuple[int] | None)  # None
+assert_type(t.count("1.0", "2.3", "indices"), tuple[int] | None)  # (15,)
+assert_type(t.count("2.3", "2.3", "indices"), tuple[int] | None)  # None
+assert_type(t.count("1.0", "2.3", "indices", "update"), int | None)  # 15
+assert_type(t.count("2.3", "2.3", "indices", "update"), int | None)  # None
+assert_type(t.count("1.0", "2.3", "indices", "lines"), tuple[int, int])  # (15, 1)
+assert_type(t.count("2.3", "2.3", "indices", "lines"), tuple[int, int])  # (0, 0)
+assert_type(t.count("1.0", "2.3", "indices", "lines", "chars", "ypixels"), tuple[int, ...])  # (15, 1, 15, 19)
+assert_type(t.count("2.3", "2.3", "indices", "lines", "chars", "ypixels"), tuple[int, ...])  # (0, 0, 0, 0)
