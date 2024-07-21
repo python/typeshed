@@ -10,7 +10,7 @@ docutils.nodes.GenericNodeVisitor.__getattr__
 # these methods take a rawsource parameter that has been deprecated and is completely ignored, so we omit it from the stub
 docutils.nodes.Text.__new__
 docutils.parsers.recommonmark_wrapper
-docutils.parsers.rst.directives.admonitions.BaseAdmonition.node_class
+docutils.parsers.rst.directives.admonitions.BaseAdmonition.node_class  # must be overridden by base classes (pseudo-abstract)
 docutils.parsers.rst.directives.misc.MetaBody.__getattr__
 docutils.statemachine.State.nested_sm  # is initialised in __init__
 docutils.statemachine.State.nested_sm_kwargs  # is initialised in __init__
