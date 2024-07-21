@@ -8,7 +8,6 @@ fcntl.F_SETNOSIGPIPE
 posixpath.splitroot
 posix.waitid
 posix.waitid_result
-readline.backend
 webbrowser.MacOSX
 
 # TODO: fix

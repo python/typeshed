@@ -3,6 +3,5 @@ _stat.SF_SUPPORTED
 _stat.SF_SYNTHETIC
 mmap.MAP_NORESERVE
 posixpath.splitroot
-readline.backend
 stat.SF_SUPPORTED
 stat.SF_SYNTHETIC
