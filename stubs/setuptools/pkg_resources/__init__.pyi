@@ -11,7 +11,7 @@ from typing import IO, Any, ClassVar, Final, Literal, NamedTuple, NoReturn, Prot
 from typing_extensions import Self, TypeAlias
 from zipfile import ZipInfo
 
-from _vendored_packaging import requirements as _packaging_requirements, version as _packaging_version
+from ._vendored_packaging import requirements as _packaging_requirements, version as _packaging_version
 
 # defined in setuptools
 _T = TypeVar("_T")
