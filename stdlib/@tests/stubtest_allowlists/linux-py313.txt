@@ -2,8 +2,6 @@
 _stat.SF_SUPPORTED
 _stat.SF_SYNTHETIC
 mmap.MAP_NORESERVE
-os.POSIX_SPAWN_CLOSEFROM
-posix.POSIX_SPAWN_CLOSEFROM
 posixpath.splitroot
 readline.backend
 stat.SF_SUPPORTED
