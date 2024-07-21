@@ -3,7 +3,7 @@ from __future__ import annotations
 import tkinter
 import traceback
 import types
-from typing import Tuple, Optional
+from typing import Optional, Tuple
 from typing_extensions import assert_type
 
 
