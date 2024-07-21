@@ -286,12 +286,13 @@ if sys.platform != "win32":
             sched_setscheduler as sched_setscheduler,
             setresgid as setresgid,
             setresuid as setresuid,
-            waitid as waitid,
-            waitid_result as waitid_result,
         )
 
         if sys.version_info >= (3, 10):
             from os import RWF_APPEND as RWF_APPEND
+
+    if sys.platform != "darwin" or sys.version_info >= (3, 13):
+        from os import waitid as waitid, waitid_result as waitid_result
 
     if sys.platform == "linux":
         from os import (
