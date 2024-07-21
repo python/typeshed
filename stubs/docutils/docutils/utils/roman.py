@@ -1,6 +1,5 @@
 import re
 
-# Define digit mapping
 romanNumeralMap: tuple[tuple[str, int],...]
 
 def toRoman(n: int) -> str: ...
