@@ -1,3 +1,6 @@
+# `pkg_resources` package of `types-setuptools` is now obsolete.
+# Changes here should be mirrored to https://github.com/pypa/setuptools/tree/main/pkg_resources
+
 import types
 import zipimport
 from _typeshed import BytesPath, Incomplete, StrOrBytesPath, StrPath, Unused
