@@ -2,7 +2,7 @@ from docutils import nodes
 from docutils.parsers.rst import Directive
 
 class BaseAdmonition(Directive):
-    node_class: type[nodes.Node]  # Subclasses must set this to the appropriate admonition node class.
+    node_class: type[nodes.Admonition]  # Subclasses must set this to the appropriate admonition node class.
 
 class Admonition(BaseAdmonition): ...
 class Attention(BaseAdmonition): ...
