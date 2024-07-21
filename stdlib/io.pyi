@@ -6,7 +6,7 @@ from _typeshed import FileDescriptorOrPath, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from os import _Opener
 from types import TracebackType
-from typing import IO, Any, BinaryIO, Generic, Literal, Protocol, TextIO, TypeVar, overload, type_check_only
+from typing import IO, Any, BinaryIO, Final, Generic, Literal, Protocol, TextIO, TypeVar, overload, type_check_only
 from typing_extensions import Self
 
 __all__ = [
@@ -36,11 +36,11 @@ if sys.version_info >= (3, 11):
 
 _T = TypeVar("_T")
 
-DEFAULT_BUFFER_SIZE: Literal[8192]
+DEFAULT_BUFFER_SIZE: Final = 8192
 
-SEEK_SET: Literal[0]
-SEEK_CUR: Literal[1]
-SEEK_END: Literal[2]
+SEEK_SET: Final = 0
+SEEK_CUR: Final = 1
+SEEK_END: Final = 2
 
 open = builtins.open
 

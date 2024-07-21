@@ -17,7 +17,11 @@ assert_type(pow(1, 0, None), Literal[1])
 # assert_type(pow(2, 4, 0), NoReturn)
 
 assert_type(pow(2, 4), int)
-assert_type(2**4, int)
+# pyright infers a literal type here, but mypy does not. Unfortunately,
+# there is no way to ignore an error only for mypy, so we can't check
+# pyright's handling (https://github.com/python/mypy/issues/12358).
+assert_type(2**4, int)  # pyright: ignore
+# pyright version: assert_type(2**4, Literal[16])
 assert_type(pow(4, 6, None), int)
 
 assert_type(pow(5, -7), float)

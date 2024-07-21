@@ -3,22 +3,10 @@
 # =========================
 
 # TODO: triage these new errors
-_ctypes.POINTER
-_ctypes.addressof
-_ctypes.alignment
-_ctypes.pointer
-_ctypes.sizeof
 _thread.interrupt_main
 _thread.lock
 _thread.start_joinable_thread
 _tkinter.create
-codecs.backslashreplace_errors
-codecs.ignore_errors
-codecs.namereplace_errors
-codecs.replace_errors
-codecs.strict_errors
-codecs.xmlcharrefreplace_errors
-ctypes.POINTER
 ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
 ctypes._endian.RTLD_LOCAL
@@ -26,19 +14,8 @@ ctypes._endian.SIZEOF_TIME_T
 ctypes._endian.cdll
 ctypes._endian.pydll
 ctypes._endian.pythonapi
-ctypes.addressof
-ctypes.alignment
-ctypes.c_char_p.from_param
-ctypes.c_void_p.from_param
-ctypes.c_wchar_p.from_param
-ctypes.pointer
-ctypes.sizeof
-ctypes.wintypes.PCHAR.from_param
-ctypes.wintypes.PWCHAR.from_param
 doctest.TestResults.__doc__
 doctest.TestResults.__new__
-email.utils.getaddresses
-email.utils.parseaddr
 importlib.resources.Anchor
 importlib.resources.Resource
 importlib.resources.__all__
@@ -70,16 +47,8 @@ tkinter.Misc.tk_busy_current
 tkinter.Misc.tk_busy_forget
 tkinter.Misc.tk_busy_hold
 tkinter.Misc.tk_busy_status
-tkinter.PhotoImage.copy
-tkinter.PhotoImage.copy_replace
-tkinter.PhotoImage.data
-tkinter.PhotoImage.read
-tkinter.PhotoImage.subsample
-tkinter.PhotoImage.write
-tkinter.PhotoImage.zoom
 tkinter.Text.count
 tkinter.Wm.wm_attributes
-types.MappingProxyType.get
 
 # ======================================
 # Pre-existing errors from Python <=3.12
@@ -220,3 +189,14 @@ typing.SupportsAbs.__type_params__
 typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
+
+# Runtime incorrectly has `self`
+codecs.backslashreplace_errors
+codecs.ignore_errors
+codecs.namereplace_errors
+codecs.replace_errors
+codecs.strict_errors
+codecs.xmlcharrefreplace_errors
+
+# To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
+types.MappingProxyType.get
