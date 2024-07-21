@@ -241,6 +241,7 @@ if sys.platform != "win32":
 
     if sys.version_info >= (3, 13) and sys.platform == "linux":
         from os import (
+            POSIX_SPAWN_CLOSEFROM as POSIX_SPAWN_CLOSEFROM,
             TFD_CLOEXEC as TFD_CLOEXEC,
             TFD_NONBLOCK as TFD_NONBLOCK,
             TFD_TIMER_ABSTIME as TFD_TIMER_ABSTIME,
