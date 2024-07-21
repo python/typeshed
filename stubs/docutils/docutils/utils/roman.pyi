@@ -1,6 +1,6 @@
 import re
 
-romanNumeralMap: tuple[tuple[str, int],...]
+romanNumeralMap: tuple[tuple[str, int], ...]
 
 def toRoman(n: int) -> str: ...
 
