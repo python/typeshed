@@ -128,3 +128,6 @@ if sys.version_info >= (3, 13) and sys.platform == "darwin":
     MAP_TRANSLATED_ALLOW_EXECUTE: Final = 131072
     MAP_UNIX03: Final = 262144
     MAP_TPRO: Final = 524288
+
+if sys.version_info >= (3, 13) and sys.platform == "linux":
+    MAP_NORESERVE: Final = 16384
