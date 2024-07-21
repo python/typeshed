@@ -27,7 +27,6 @@ importlib.resources.open_text
 importlib.resources.path
 importlib.resources.read_binary
 importlib.resources.read_text
-os.path.splitroot
 # `__replace__` to be special cased in dataclasses
 pstats.FunctionProfile.__replace__
 pstats.StatsProfile.__replace__

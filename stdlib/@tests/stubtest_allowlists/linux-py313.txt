@@ -20,7 +20,6 @@ fcntl.RWH_WRITE_LIFE_SHORT
 mmap.MAP_NORESERVE
 os.POSIX_SPAWN_CLOSEFROM
 posix.POSIX_SPAWN_CLOSEFROM
-posixpath.splitroot
 readline.backend
 stat.SF_SUPPORTED
 stat.SF_SYNTHETIC
