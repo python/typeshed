@@ -64,14 +64,9 @@ if sys.platform == "win32":
 
 if sys.platform == "darwin":
     if sys.version_info < (3, 13):
-        if sys.version_info >= (3, 11):
-            @deprecated("Deprecated in 3.11, to be removed in 3.13.")
-            class MacOSX(BaseBrowser):
-                def open(self, url: str, new: int = 0, autoraise: bool = True) -> bool: ...
-
-        else:
-            class MacOSX(BaseBrowser):
-                def open(self, url: str, new: int = 0, autoraise: bool = True) -> bool: ...
+        @deprecated("Deprecated in 3.11, to be removed in 3.13.")
+        class MacOSX(BaseBrowser):
+            def open(self, url: str, new: int = 0, autoraise: bool = True) -> bool: ...
 
     class MacOSXOSAScript(BaseBrowser):  # In runtime this class does not have `name` and `basename`
         if sys.version_info >= (3, 11):
