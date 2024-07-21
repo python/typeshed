@@ -44,5 +44,11 @@ assert_type(t.count("1.0", "2.3", "indices", "update"), Optional[int])  # 15
 assert_type(t.count("2.3", "2.3", "indices", "update"), Optional[int])  # None
 assert_type(t.count("1.0", "2.3", "indices", "lines"), Tuple[int, int])  # (15, 1)
 assert_type(t.count("2.3", "2.3", "indices", "lines"), Tuple[int, int])  # (0, 0)
+assert_type(t.count("1.0", "2.3", "indices", "lines", "update"), Tuple[int, ...])  # (15, 1)
+assert_type(t.count("2.3", "2.3", "indices", "lines", "update"), Tuple[int, ...])  # (0, 0)
+assert_type(t.count("1.0", "2.3", "indices", "lines", "chars"), Tuple[int, ...])  # (15, 1, 15)
+assert_type(t.count("2.3", "2.3", "indices", "lines", "chars"), Tuple[int, ...])  # (0, 0, 0)
+assert_type(t.count("1.0", "2.3", "indices", "lines", "chars", "update"), Tuple[int, ...])  # (15, 1, 15)
+assert_type(t.count("2.3", "2.3", "indices", "lines", "chars", "update"), Tuple[int, ...])  # (0, 0, 0)
 assert_type(t.count("1.0", "2.3", "indices", "lines", "chars", "ypixels"), Tuple[int, ...])  # (15, 1, 15, 19)
 assert_type(t.count("2.3", "2.3", "indices", "lines", "chars", "ypixels"), Tuple[int, ...])  # (0, 0, 0, 0)
