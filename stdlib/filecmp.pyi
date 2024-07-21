@@ -24,6 +24,7 @@ class dircmp(Generic[AnyStr]):
             b: GenericPath[AnyStr],
             ignore: Sequence[AnyStr] | None = None,
             hide: Sequence[AnyStr] | None = None,
+            *,
             shallow: bool = True,
         ) -> None: ...
     else:
