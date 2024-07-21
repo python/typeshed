@@ -9,7 +9,6 @@ posixpath.splitroot
 posix.waitid
 posix.waitid_result
 readline.backend
-webbrowser.MacOSX
 
 # TODO: fix
 _curses.unget_wch
