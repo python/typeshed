@@ -3,6 +3,7 @@ from __future__ import annotations
 import tkinter
 import traceback
 import types
+from typing_extensions import assert_type
 
 
 def custom_handler(exc: type[BaseException], val: BaseException, tb: types.TracebackType | None) -> None:
