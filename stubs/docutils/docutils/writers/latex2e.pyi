@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
+from collections.abc import Mapping
 
 from docutils.utils import Reporter
 
 class Babel:
-    language_codes: dict[str, str]
+    language_codes: Mapping[str, str]
     warn_msg: str
-    active_chars: dict[str, str]
+    active_chars: Mapping[str, str]
 
     def __init__(self, language_code: str, reporter: Reporter | None = None) -> None: ...
     def __call__(self) -> str: ...
