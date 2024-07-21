@@ -28,7 +28,6 @@ from _typeshed import (
     SupportsRichComparison,
     SupportsRichComparisonT,
     SupportsWrite,
-    Unused,
 )
 from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
