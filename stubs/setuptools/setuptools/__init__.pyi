@@ -9,7 +9,7 @@ from .dist import Distribution as Distribution
 from .extension import Extension as Extension
 from .warnings import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
 
-_CommandT = TypeVar("_CommandT", bound=Command)
+_CommandT = TypeVar("_CommandT", bound=_Command)
 
 __all__ = [
     "setup",
@@ -78,8 +78,8 @@ class Command(_Command):
     distribution: Distribution
     def __init__(self, dist: Distribution, **kw: Any) -> None: ...
     def ensure_string_list(self, option: str) -> None: ...
-    @overload  # type:ignore[override] # Extra **kw param
-    def reinitialize_command(self, command: str, reinit_subcommands: bool = False, **kw) -> Command: ...
+    @overload  # type: ignore[override] # Extra **kw param
+    def reinitialize_command(self, command: str, reinit_subcommands: bool = False, **kw) -> _Command: ...
     @overload
     def reinitialize_command(self, command: _CommandT, reinit_subcommands: bool = False, **kw) -> _CommandT: ...
     @abstractmethod
