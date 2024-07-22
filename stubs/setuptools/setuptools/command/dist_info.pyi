@@ -4,7 +4,7 @@ from .._distutils.cmd import Command
 
 class dist_info(Command):
     description: str
-    user_options: Any
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
     boolean_options: ClassVar[list[str]]
     negative_opt: ClassVar[dict[str, str]]
     egg_base: Any

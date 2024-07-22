@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from .. import Command
 
 class rotate(Command):
     description: str
-    user_options: Any
-    boolean_options: list[str]
+    user_options: ClassVar[list[tuple[str, str, str]]]
+    boolean_options: ClassVar[list[str]]
     match: Any
     dist_dir: Any
     keep: Any
