@@ -1,6 +1,6 @@
 import sys
 from _typeshed import Incomplete
-from typing import ClassVar, Final
+from typing import Final
 
 PLAT_SPEC_TO_RUNTIME: Final[dict[str, str]]
 
@@ -20,9 +20,9 @@ class PlatformInfo:
 
 class RegistryInfo:
     if sys.platform == "win32":
-        HKEYS: ClassVar[tuple[int, int, int, int]]
+        HKEYS: Final[tuple[int, int, int, int]]
     else:
-        HKEYS: ClassVar[tuple[None, None, None, None]]
+        HKEYS: Final[tuple[None, None, None, None]]
 
     pi: Incomplete
     def __init__(self, platform_info) -> None: ...
