@@ -2,12 +2,17 @@ import sys
 import unittest.case
 import unittest.result
 import unittest.suite
-from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
-from typing import TextIO
+from typing import Any, TextIO
 from typing_extensions import TypeAlias
 
 _ResultClassType: TypeAlias = Callable[[TextIO, bool, int], unittest.result.TestResult]
+
+# Note: doesn't actually inherit TextIO, but re-exposes all methods of the stream passed to __init__
+class _WritelnDecorator(TextIO):
+    def __init__(self, stream: TextIO) -> None: ...
+    def __getattr__(self, attr: str) -> Any: ...  # Any attribute from the stream type passed to __init__
+    def writeln(self, arg: str | None = None) -> str: ...
 
 class TextTestResult(unittest.result.TestResult):
     descriptions: bool  # undocumented
@@ -29,9 +34,7 @@ class TextTestResult(unittest.result.TestResult):
 
 class TextTestRunner:
     resultclass: _ResultClassType
-    # TODO: add `_WritelnDecorator` type
-    # stream: _WritelnDecorator
-    stream: Incomplete
+    stream: _WritelnDecorator
     descriptions: bool
     verbosity: int
     failfast: bool
