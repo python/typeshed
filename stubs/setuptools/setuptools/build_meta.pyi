@@ -1,4 +1,5 @@
 from _typeshed import StrPath
+from collections.abc import Mapping
 from typing import Any
 from typing_extensions import TypeAlias
 
@@ -17,7 +18,7 @@ __all__ = [
     "SetupRequirementsError",
 ]
 
-_ConfigSettings: TypeAlias = dict[str, str | list[str] | None] | None
+_ConfigSettings: TypeAlias = Mapping[str, str | list[str] | None] | None
 
 class SetupRequirementsError(BaseException):
     specifiers: Any
