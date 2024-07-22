@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..cmd import Command
 
@@ -6,8 +7,8 @@ def show_compilers() -> None: ...
 
 class build(Command):
     description: str
-    user_options: Incomplete
-    boolean_options: Incomplete
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
     help_options: Incomplete
     build_base: str
     build_purelib: Incomplete

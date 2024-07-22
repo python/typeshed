@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..cmd import Command
 from ..extension import Extension
@@ -6,8 +7,8 @@ from ..extension import Extension
 class build_ext(Command):
     description: str
     sep_by: Incomplete
-    user_options: Incomplete
-    boolean_options: Incomplete
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
     help_options: Incomplete
     extensions: Incomplete
     build_lib: Incomplete

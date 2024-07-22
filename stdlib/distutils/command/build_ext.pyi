@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from ..cmd import Command
 
@@ -9,8 +9,8 @@ def show_compilers() -> None: ...
 class build_ext(Command):
     description: str
     sep_by: Any
-    user_options: Any
-    boolean_options: Any
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
     help_options: Any
     extensions: Any
     build_lib: Any

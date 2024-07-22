@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from ..cmd import Command
 
@@ -6,8 +6,8 @@ def show_compilers() -> None: ...
 
 class build_clib(Command):
     description: str
-    user_options: Any
-    boolean_options: Any
+    user_options: ClassVar[list[tuple[str, str, str]]]
+    boolean_options: ClassVar[list[str]]
     help_options: Any
     build_clib: Any
     build_temp: Any

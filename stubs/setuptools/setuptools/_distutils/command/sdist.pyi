@@ -11,11 +11,11 @@ class sdist(Command):
 
     def checking_metadata(self): ...
 
-    user_options: Incomplete
-    boolean_options: Incomplete
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
     help_options: Incomplete
-    negative_opt: Incomplete
-    READMES: Incomplete
+    negative_opt: ClassVar[dict[str, str]]
+    READMES: ClassVar[tuple[str, ...]]
     template: Incomplete
     manifest: Incomplete
     use_defaults: int

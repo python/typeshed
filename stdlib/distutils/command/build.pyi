@@ -7,8 +7,8 @@ def show_compilers() -> None: ...
 
 class build(Command):
     description: str
-    user_options: Any
-    boolean_options: Any
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
     help_options: Any
     build_base: str
     build_purelib: Any

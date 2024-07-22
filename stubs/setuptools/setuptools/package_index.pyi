@@ -1,6 +1,8 @@
 import configparser
 from _typeshed import Incomplete
-from typing import Any
+from hashlib import _Hash
+from re import Pattern
+from urllib.request import urlopen
 
 from pkg_resources import Environment
 
@@ -18,10 +20,10 @@ class ContentChecker:
     def report(self, reporter, template) -> None: ...
 
 class HashChecker(ContentChecker):
-    pattern: Any
-    hash_name: Any
-    hash: Any
-    expected: Any
+    pattern: Pattern[str]
+    hash_name: Incomplete
+    hash: _Hash
+    expected: Incomplete
     def __init__(self, hash_name, expected) -> None: ...
     @classmethod
     def from_url(cls, url): ...
@@ -30,13 +32,13 @@ class HashChecker(ContentChecker):
     def report(self, reporter, template): ...
 
 class PackageIndex(Environment):
-    index_url: Any
-    scanned_urls: Any
-    fetched_urls: Any
-    package_pages: Any
-    allows: Any
-    to_scan: Any
-    opener: Any
+    index_url: str
+    scanned_urls: dict[Incomplete, Incomplete]
+    fetched_urls: dict[Incomplete, Incomplete]
+    package_pages: dict[Incomplete, Incomplete]
+    allows = Pattern().match
+    to_scan: list[Incomplete]
+    opener = urlopen
     def __init__(
         self,
         index_url: str = "https://pypi.org/simple/",
@@ -81,8 +83,8 @@ class PackageIndex(Environment):
     def warn(self, msg, *args) -> None: ...
 
 class Credential:
-    username: Any
-    password: Any
+    username: Incomplete
+    password: Incomplete
     def __init__(self, username, password) -> None: ...
     def __iter__(self): ...
 

@@ -1,13 +1,15 @@
 from _typeshed import StrPath
 from abc import abstractmethod
 from collections.abc import Iterable, Mapping, Sequence
-from typing import Any
+from typing import Any, TypeVar, overload
 
 from ._distutils.cmd import Command as _Command
 from .depends import Require as Require
 from .dist import Distribution as Distribution
 from .extension import Extension as Extension
 from .warnings import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
+
+_CommandT = TypeVar("_CommandT", bound=Command)
 
 __all__ = [
     "setup",
@@ -75,8 +77,11 @@ class Command(_Command):
     command_consumes_arguments: bool
     distribution: Distribution
     def __init__(self, dist: Distribution, **kw: Any) -> None: ...
-    def ensure_string_list(self, option: str | list[str]) -> None: ...
-    def reinitialize_command(self, command: _Command | str, reinit_subcommands: bool = False, **kw: Any) -> _Command: ...  # type: ignore[override]
+    def ensure_string_list(self, option: str) -> None: ...
+    @overload  # type:ignore[override] # Extra **kw param
+    def reinitialize_command(self, command: str, reinit_subcommands: bool = False, **kw) -> Command: ...
+    @overload
+    def reinitialize_command(self, command: _CommandT, reinit_subcommands: bool = False, **kw) -> _CommandT: ...
     @abstractmethod
     def initialize_options(self) -> None: ...
     @abstractmethod

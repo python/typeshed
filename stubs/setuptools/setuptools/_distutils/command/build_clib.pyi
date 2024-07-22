@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 from ..cmd import Command
 
 class build_clib(Command):
     description: str
-    user_options: Incomplete
-    boolean_options: Incomplete
+    user_options: ClassVar[list[tuple[str, str, str]]]
+    boolean_options: ClassVar[list[str]]
     help_options: Incomplete
     build_clib: Incomplete
     build_temp: Incomplete
