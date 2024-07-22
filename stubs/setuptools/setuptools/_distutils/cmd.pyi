@@ -1,4 +1,4 @@
-from _typeshed import BytesPath, Incomplete, StrOrBytesPath, StrPath, Unused
+from _typeshed import BytesPath, StrOrBytesPath, StrPath, Unused
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from typing import Any, ClassVar, TypeVar, overload
@@ -97,8 +97,8 @@ class Command:
         self,
         infiles: str | list[str] | tuple[str, ...],
         outfile: StrOrBytesPath,
-        func: Callable[..., object],
-        args: list[Incomplete],
+        func: Callable[[Unpack[_Ts]], Unused],
+        args: tuple[Unpack[_Ts]],
         exec_msg: str | None = None,
         skip_msg: str | None = None,
         level: Unused = 1,
