@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from re import Pattern
 
-WHEEL_NAME = Pattern().match
+WHEEL_NAME: Incomplete
 NAMESPACE_PACKAGE_INIT: str
 
 def unpack(src_dir, dst_dir) -> None: ...

@@ -36,7 +36,7 @@ class PackageIndex(Environment):
     scanned_urls: dict[Incomplete, Incomplete]
     fetched_urls: dict[Incomplete, Incomplete]
     package_pages: dict[Incomplete, Incomplete]
-    allows = Pattern().match
+    allows: Incomplete
     to_scan: list[Incomplete]
     opener = urlopen
     def __init__(
