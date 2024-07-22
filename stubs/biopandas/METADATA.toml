@@ -7,5 +7,3 @@ partial_stub = true
 
 [tool.stubtest]
 ignore_missing_stub = true
-# stub_uploader won't allow pandas-stubs in the requires field https://github.com/typeshed-internal/stub_uploader/issues/90
-stubtest_requirements = ["pandas"]
