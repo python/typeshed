@@ -2,11 +2,13 @@ from _typeshed import BytesPath, Incomplete, StrOrBytesPath, StrPath, Unused
 from abc import abstractmethod
 from collections.abc import Callable, Iterable
 from typing import Any, ClassVar, TypeVar, overload
+from typing_extensions import TypeVarTuple, Unpack
 
 from .dist import Distribution
 
 _StrPathT = TypeVar("_StrPathT", bound=StrPath)
 _BytesPathT = TypeVar("_BytesPathT", bound=BytesPath)
+_Ts = TypeVarTuple("_Ts")
 
 class Command:
     distribution: Distribution
@@ -34,7 +36,7 @@ class Command:
     def get_sub_commands(self) -> list[str]: ...
     def warn(self, msg: str) -> None: ...
     def execute(
-        self, func: Callable[..., object], args: Iterable[Incomplete], msg: str | None = ..., level: int = ...
+        self, func: Callable[[Unpack[_Ts]], Unused], args: tuple[Unpack[_Ts]], msg: str | None = ..., level: int = ...
     ) -> None: ...
     def mkpath(self, name: str, mode: int = ...) -> None: ...
     @overload
