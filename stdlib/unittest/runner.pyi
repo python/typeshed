@@ -4,15 +4,18 @@ import unittest.result
 import unittest.suite
 from collections.abc import Callable, Iterable
 from typing import Any, TextIO
-from typing_extensions import TypeAlias
+from typing_extensions import Never, TypeAlias
 
 _ResultClassType: TypeAlias = Callable[[TextIO, bool, int], unittest.result.TestResult]
 
 # Note: doesn't actually inherit TextIO, but re-exposes all methods of the stream passed to __init__
-class _WritelnDecorator(TextIO):
+class _WritelnDecorator(TextIO):  # type: ignore[misc] # Is not abstract
     def __init__(self, stream: TextIO) -> None: ...
     def __getattr__(self, attr: str) -> Any: ...  # Any attribute from the stream type passed to __init__
     def writeln(self, arg: str | None = None) -> str: ...
+    # This attributes are prevented by __getattr__
+    stream: Never
+    __getstate__: Never
 
 class TextTestResult(unittest.result.TestResult):
     descriptions: bool  # undocumented
