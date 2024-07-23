@@ -13,7 +13,7 @@ class _WritelnDecorator(TextIO):  # type: ignore[misc] # Is not abstract
     def __init__(self, stream: TextIO) -> None: ...
     def __getattr__(self, attr: str) -> Any: ...  # Any attribute from the stream type passed to __init__
     def writeln(self, arg: str | None = None) -> str: ...
-    # This attributes are prevented by __getattr__
+    # These attributes are prevented by __getattr__
     stream: Never
     __getstate__: Never
 
