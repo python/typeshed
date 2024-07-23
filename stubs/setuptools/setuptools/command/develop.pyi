@@ -1,7 +1,4 @@
-from _typeshed import Incomplete
-from typing import ClassVar
-
-from pkg_resources import Distribution
+from typing import Any, ClassVar
 
 from .. import namespaces
 from .easy_install import easy_install
@@ -13,15 +10,15 @@ class develop(namespaces.DevelopInstaller, easy_install):
     command_consumes_arguments: bool
     multi_version: bool
     def run(self) -> None: ...  # type: ignore[override]
-    uninstall: Incomplete
-    egg_path: Incomplete
-    setup_path: Incomplete
+    uninstall: Any
+    egg_path: Any
+    setup_path: Any
     always_copy_from: str
     def initialize_options(self) -> None: ...
-    args: list[Incomplete]
-    egg_link: Incomplete
-    egg_base: Incomplete
-    dist: Distribution
+    args: Any
+    egg_link: Any
+    egg_base: Any
+    dist: Any
     def finalize_options(self) -> None: ...
     def install_for_development(self) -> None: ...
     def uninstall_link(self) -> None: ...
