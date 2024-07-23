@@ -10,7 +10,7 @@ _P = ParamSpec("_P")
 
 class _SupportsReplace(Protocol[_P]):
     # In reality doesn't support args, but there's no other great way to express this.
-    def __replace__(self: Self, *args: _P.args, **kwargs: _P.kwargs) -> Self: ...
+    def __replace__(self, *args: _P.args, **kwargs: _P.kwargs) -> Self: ...
 
 # None in CPython but non-None in Jython
 PyStringMap: Any
