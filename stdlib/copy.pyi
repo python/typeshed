@@ -1,15 +1,16 @@
 import sys
 from typing import Any, Protocol, TypeVar
-from typing_extensions import Self
+from typing_extensions import ParamSpec, Self
 
-__all__ = ["Error", "copy", "deepcopy", "replace"]
+__all__ = ["Error", "copy", "deepcopy"]
 
 _T = TypeVar("_T")
-_SR = TypeVar("_SR", bound=_SupportsReplace)
+_SR = TypeVar("_SR", bound=_SupportsReplace[Any])
+_P = ParamSpec("_P")
 
-class _SupportsReplace(Protocol):
+class _SupportsReplace(Protocol[_P]):
     # In reality doesn't support args, but there's no other great way to express this.
-    def __replace__(self, *args: Any, **kwargs: Any) -> Self: ...
+    def __replace__(self: Self, *args: _P.args, **kwargs: _P.kwargs) -> Self: ...
 
 # None in CPython but non-None in Jython
 PyStringMap: Any
@@ -20,7 +21,6 @@ def copy(x: _T) -> _T: ...
 
 if sys.version_info >= (3, 13):
     def replace(obj: _SR, /, **changes: Any) -> _SR: ...
-    __all__ += ["replace"]
 
 class Error(Exception): ...
 
