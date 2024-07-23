@@ -1,11 +1,11 @@
 from collections.abc import Callable
-from typing import Any
+from typing import Any, ClassVar
 
 from .._distutils.command import install as orig
 
 class install(orig.install):
-    user_options: Any
-    boolean_options: Any
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
     # Any to work around variance issues
     new_commands: list[tuple[str, Callable[[Any], bool]] | None]
     old_and_unmanageable: Any

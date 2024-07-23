@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, StrPath
-from typing import Generic, TypeVar
+from typing import ClassVar, Generic, TypeVar
 
 from .._distutils.dist import DistributionMetadata
 from ..dist import Distribution
@@ -22,7 +22,7 @@ def parse_configuration(
 
 class ConfigHandler(Generic[Target]):
     section_prefix: str
-    aliases: dict[str, str]
+    aliases: ClassVar[dict[str, str]]
     ignore_option_errors: Incomplete
     target_obj: Incomplete
     sections: Incomplete
@@ -43,7 +43,7 @@ class ConfigHandler(Generic[Target]):
 
 class ConfigMetadataHandler(ConfigHandler[DistributionMetadata]):
     section_prefix: str
-    aliases: Incomplete
+    aliases: ClassVar[dict[str, str]]
     strict_mode: bool
     package_dir: Incomplete
     root_dir: Incomplete
