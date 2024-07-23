@@ -12,9 +12,9 @@ __all__ = ["easy_install", "PthDistributions", "extract_wininst_cfg", "get_exe_p
 class easy_install(Command):
     description: str
     command_consumes_arguments: bool
-    user_options: Incomplete
-    boolean_options: Incomplete
-    negative_opt: Incomplete
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
+    negative_opt: ClassVar[dict[str, str]]
     create_index: Incomplete
     user: bool
     zip_ok: Incomplete
@@ -89,8 +89,8 @@ class easy_install(Command):
     def unpack_and_compile(self, egg_path, destination): ...
     def byte_compile(self, to_compile) -> None: ...
     def create_home_path(self) -> None: ...
-    INSTALL_SCHEMES: Incomplete
-    DEFAULT_SCHEME: Incomplete
+    INSTALL_SCHEMES: ClassVar[dict[str, dict[str, str]]]
+    DEFAULT_SCHEME: ClassVar[dict[str, str]]
 
 def extract_wininst_cfg(dist_filename): ...
 def get_exe_prefixes(exe_filename): ...

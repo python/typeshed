@@ -1,7 +1,6 @@
 import sys
-from _typeshed import Incomplete
 from types import TracebackType
-from typing import Literal
+from typing import ClassVar, Literal
 from typing_extensions import Self
 
 from ._distutils.errors import DistutilsError
@@ -57,7 +56,7 @@ class AbstractSandbox:
     def utime(self, path, *args, **kw): ...
 
 class DirectorySandbox(AbstractSandbox):
-    write_ops: Incomplete
+    write_ops: ClassVar[dict[str, None]]
     def __init__(self, sandbox, exceptions=...) -> None: ...
     def tmpnam(self) -> None: ...
     def open(self, file, flags, mode: int = 511, *args, **kw): ...  # type: ignore[override]

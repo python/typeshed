@@ -3,7 +3,7 @@ from collections.abc import Iterator
 from enum import Enum
 from pathlib import Path
 from types import TracebackType
-from typing import Protocol
+from typing import ClassVar, Protocol
 from typing_extensions import Self, TypeAlias
 
 from .. import Command, errors, namespaces
@@ -22,7 +22,7 @@ class _EditableMode(Enum):
 
 class editable_wheel(Command):
     description: str
-    user_options: Incomplete
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
     dist_dir: Incomplete
     dist_info_dir: Incomplete
     project_dir: Incomplete

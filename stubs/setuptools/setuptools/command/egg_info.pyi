@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Final
+from typing import ClassVar, Final
 
 from .. import Command, SetuptoolsDeprecationWarning
 from .._distutils.filelist import FileList as _FileList
@@ -21,9 +21,9 @@ class InfoCommon:
 
 class egg_info(InfoCommon, Command):
     description: str
-    user_options: Incomplete
-    boolean_options: Incomplete
-    negative_opt: Incomplete
+    user_options: ClassVar[list[tuple[str, str, str]]]
+    boolean_options: ClassVar[list[str]]
+    negative_opt: ClassVar[dict[str, str]]
     egg_base: Incomplete
     egg_name: Incomplete
     egg_info: Incomplete
