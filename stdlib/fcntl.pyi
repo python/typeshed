@@ -43,6 +43,11 @@ if sys.platform != "win32":
         F_SEAL_SEAL: int
         F_SEAL_SHRINK: int
         F_SEAL_WRITE: int
+        if sys.version_info >= (3, 9):
+            F_OFD_GETLK: Final[int]
+            F_OFD_SETLK: Final[int]
+            F_OFD_SETLKW: Final[int]
+
         if sys.version_info >= (3, 10):
             F_GETPIPE_SZ: int
             F_SETPIPE_SZ: int
@@ -119,7 +124,7 @@ if sys.platform != "win32":
         RWH_WRITE_LIFE_LONG: Final = 4
         RWH_WRITE_LIFE_EXTREME: Final = 5
 
-    if (sys.version_info >= (3, 9) and sys.platform == "linux") or (sys.version_info >= (3, 13) and sys.platform == "darwin"):
+    if sys.version_info >= (3, 13) and sys.platform == "darwin":
         F_OFD_GETLK: Final[int]
         F_OFD_SETLK: Final[int]
         F_OFD_SETLKW: Final[int]
