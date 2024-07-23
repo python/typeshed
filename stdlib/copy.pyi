@@ -5,7 +5,7 @@ from typing_extensions import Self
 __all__ = ["Error", "copy", "deepcopy"]
 
 _T = TypeVar("_T")
-_SR = TypeVar("_SR", bound=_SupportsReplace[Any])
+_SR = TypeVar("_SR", bound=_SupportsReplace)
 
 class _SupportsReplace(Protocol):
     # In reality doesn't support args, but there's no other great way to express this.
