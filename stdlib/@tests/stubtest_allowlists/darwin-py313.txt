@@ -1,10 +1,4 @@
 # new in py313
-fcntl.F_GETNOSIGPIPE
-fcntl.F_OFD_GETLK
-fcntl.F_OFD_SETLK
-fcntl.F_OFD_SETLKW
-fcntl.F_RDAHEAD
-fcntl.F_SETNOSIGPIPE
 posixpath.splitroot
 
 # TODO: fix
