@@ -2,7 +2,7 @@ import sys
 from typing import Any, Protocol, TypeVar
 from typing_extensions import Self
 
-__all__ = ["Error", "copy", "deepcopy"]
+__all__ = ["Error", "copy", "deepcopy", "replace"]
 
 _T = TypeVar("_T")
 _SR = TypeVar("_SR", bound=_SupportsReplace)
