@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Any
+from typing import Any, ClassVar
 
 from .. import Command
 
@@ -9,8 +9,8 @@ def config_file(kind: str = "local"): ...
 def edit_config(filename, settings, dry_run: bool = False) -> None: ...
 
 class option_base(Command):
-    user_options: Any
-    boolean_options: Any
+    user_options: ClassVar[list[tuple[str, str, str]]]
+    boolean_options: ClassVar[list[str]]
     global_config: Any
     user_config: Any
     filename: Any
@@ -21,8 +21,8 @@ class option_base(Command):
 
 class setopt(option_base):
     description: str
-    user_options: Any
-    boolean_options: Any
+    user_options: ClassVar[list[tuple[str, str, str]]]
+    boolean_options: ClassVar[list[str]]
     command: Any
     option: Any
     set_value: Any

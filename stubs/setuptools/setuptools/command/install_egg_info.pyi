@@ -1,10 +1,10 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from .. import Command, namespaces
 
 class install_egg_info(namespaces.Installer, Command):
     description: str
-    user_options: Any
+    user_options: ClassVar[list[tuple[str, str, str]]]
     install_dir: Any
     def initialize_options(self) -> None: ...
     source: Any

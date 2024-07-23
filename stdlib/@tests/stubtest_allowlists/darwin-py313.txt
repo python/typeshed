@@ -7,11 +7,6 @@ fcntl.F_RDAHEAD
 fcntl.F_SETNOSIGPIPE
 posixpath.splitroot
 
-# TODO: fix
-_curses.unget_wch
-_curses.window.get_wch
-curses.window.get_wch
-
 # Exists locally on MacOS but not on GitHub
 (mmap.MAP_32BIT)?
 

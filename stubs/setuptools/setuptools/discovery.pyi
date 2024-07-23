@@ -1,5 +1,6 @@
 from _typeshed import Incomplete, StrPath
 from collections.abc import Iterable, Iterator, Mapping
+from typing import ClassVar
 from typing_extensions import TypeAlias
 
 from . import Distribution
@@ -13,22 +14,22 @@ class _Filter:
     def __contains__(self, item: str) -> bool: ...
 
 class _Finder:
-    ALWAYS_EXCLUDE: tuple[str, ...]
-    DEFAULT_EXCLUDE: tuple[str, ...]
+    ALWAYS_EXCLUDE: ClassVar[tuple[str, ...]]
+    DEFAULT_EXCLUDE: ClassVar[tuple[str, ...]]
     @classmethod
     def find(cls, where: StrPath = ".", exclude: Iterable[str] = (), include: Iterable[str] = ("*",)) -> list[str]: ...
 
 class PackageFinder(_Finder):
-    ALWAYS_EXCLUDE: Incomplete
+    ALWAYS_EXCLUDE: ClassVar[tuple[str, ...]]
 
 class PEP420PackageFinder(PackageFinder): ...
 class ModuleFinder(_Finder): ...
 
 class FlatLayoutPackageFinder(PEP420PackageFinder):
-    DEFAULT_EXCLUDE: Incomplete
+    DEFAULT_EXCLUDE: ClassVar[tuple[str, ...]]
 
 class FlatLayoutModuleFinder(ModuleFinder):
-    DEFAULT_EXCLUDE: Incomplete
+    DEFAULT_EXCLUDE: ClassVar[tuple[str, ...]]
 
 class ConfigDiscovery:
     dist: Incomplete
