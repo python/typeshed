@@ -1,4 +1,5 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from collections.abc import Callable
 from typing import ClassVar
 
 from ..cmd import Command
@@ -9,7 +10,7 @@ class build(Command):
     description: str
     user_options: ClassVar[list[tuple[str, str | None, str]]]
     boolean_options: ClassVar[list[str]]
-    help_options: Incomplete
+    help_options: ClassVar[list[tuple[str, str | None, str, Callable[[], Unused]]]]
     build_base: str
     build_purelib: Incomplete
     build_platlib: Incomplete

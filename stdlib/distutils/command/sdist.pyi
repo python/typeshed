@@ -1,3 +1,4 @@
+from _typeshed import Unused
 from collections.abc import Callable
 from typing import Any, ClassVar
 
@@ -10,11 +11,11 @@ class sdist(Command):
     def checking_metadata(self): ...
     user_options: ClassVar[list[tuple[str, str | None, str]]]
     boolean_options: ClassVar[list[str]]
-    help_options: Any
+    help_options: ClassVar[list[tuple[str, str | None, str, Callable[[], Unused]]]]
     negative_opt: ClassVar[dict[str, str]]
     # Any to work around variance issues
     sub_commands: ClassVar[list[tuple[str, Callable[[Any], bool] | None]]]
-    READMES: Any
+    READMES: ClassVar[tuple[str, ...]]
     template: Any
     manifest: Any
     use_defaults: int

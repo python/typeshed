@@ -4,8 +4,10 @@ from collections.abc import Callable, Iterable
 from distutils.dist import Distribution
 from distutils.file_util import _BytesPathT, _StrPathT
 from typing import Any, ClassVar, Literal, TypeVar, overload
+from typing_extensions import TypeVarTuple, Unpack
 
 _CommandT = TypeVar("_CommandT", bound=Command)
+_Ts = TypeVarTuple("_Ts")
 
 class Command:
     distribution: Distribution
@@ -34,7 +36,9 @@ class Command:
     def run_command(self, command: str) -> None: ...
     def get_sub_commands(self) -> list[str]: ...
     def warn(self, msg: str) -> None: ...
-    def execute(self, func: Callable[..., object], args: Iterable[Any], msg: str | None = None, level: int = 1) -> None: ...
+    def execute(
+        self, func: Callable[[Unpack[_Ts]], Unused], args: tuple[Unpack[_Ts]], msg: str | None = None, level: int = 1
+    ) -> None: ...
     def mkpath(self, name: str, mode: int = 0o777) -> None: ...
     @overload
     def copy_file(
@@ -94,8 +98,8 @@ class Command:
         self,
         infiles: str | list[str] | tuple[str, ...],
         outfile: StrOrBytesPath,
-        func: Callable[..., object],
-        args: list[Any],
+        func: Callable[[Unpack[_Ts]], Unused],
+        args: tuple[Unpack[_Ts]],
         exec_msg: str | None = None,
         skip_msg: str | None = None,
         level: Unused = 1,

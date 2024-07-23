@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import ClassVar
+from typing import ClassVar, Final
 
 from .. import Command
 
@@ -33,7 +33,7 @@ class bdist_egg(Command):
     def copy_metadata_to(self, target_dir) -> None: ...
     def get_ext_outputs(self): ...
 
-NATIVE_EXTENSIONS: dict[str, None]
+NATIVE_EXTENSIONS: Final[dict[str, None]]
 
 def walk_egg(egg_dir) -> Generator[Incomplete, None, None]: ...
 def analyze_egg(egg_dir, stubs): ...
@@ -45,7 +45,7 @@ def scan_module(egg_dir, base, name, stubs): ...
 def iter_symbols(code) -> Generator[Incomplete, None, None]: ...
 def can_scan(): ...
 
-INSTALL_DIRECTORY_ATTRS: list[str]
+INSTALL_DIRECTORY_ATTRS: Final[list[str]]
 
 def make_zipfile(
     zip_filename, base_dir, verbose: bool = False, dry_run: bool = False, compress: bool = True, mode: str = "w"

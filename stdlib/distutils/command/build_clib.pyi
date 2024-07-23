@@ -1,3 +1,5 @@
+from _typeshed import Unused
+from collections.abc import Callable
 from typing import Any, ClassVar
 
 from ..cmd import Command
@@ -8,7 +10,7 @@ class build_clib(Command):
     description: str
     user_options: ClassVar[list[tuple[str, str, str]]]
     boolean_options: ClassVar[list[str]]
-    help_options: Any
+    help_options: ClassVar[list[tuple[str, str | None, str, Callable[[], Unused]]]]
     build_clib: Any
     build_temp: Any
     libraries: Any

@@ -1,4 +1,5 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from collections.abc import Callable
 from typing import ClassVar
 from typing_extensions import deprecated
 
@@ -13,7 +14,7 @@ class sdist(Command):
 
     user_options: ClassVar[list[tuple[str, str | None, str]]]
     boolean_options: ClassVar[list[str]]
-    help_options: Incomplete
+    help_options: ClassVar[list[tuple[str, str | None, str, Callable[[], Unused]]]]
     negative_opt: ClassVar[dict[str, str]]
     READMES: ClassVar[tuple[str, ...]]
     template: Incomplete
