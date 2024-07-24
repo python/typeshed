@@ -21,7 +21,18 @@ star_or_int_re: Final[Pattern[str]]
 special_dow_re: Final[Pattern[str]]
 re_star: Final[Pattern[str]]
 hash_expression_re: Final[Pattern[str]]
-VALID_LEN_EXPRESSION: Final[list[int]]
+MINUTE_FIELD: Final = 0
+HOUR_FIELD: Final = 1
+DAY_FIELD: Final = 2
+MONTH_FIELD: Final = 3
+DOW_FIELD: Final = 4
+SECOND_FIELD: Final = 5
+YEAR_FIELD: Final = 6
+SECOND_FIELDS: Final[tuple[int, int, int, int, int]]
+UNIX_FIELDS: Final[tuple[int, int, int, int, int]]
+YEAR_FIELDS: Final[tuple[int, int, int, int, int, int, int]]
+CRON_FIELDS: Final[dict[str | int, tuple[int, ...]]]
+VALID_LEN_EXPRESSION: Final[set[int]]
 EXPRESSIONS: dict[tuple[str, bytes], _Expressions]
 
 def timedelta_to_seconds(td: datetime.timedelta) -> float: ...
@@ -37,7 +48,7 @@ def datetime_to_timestamp(d: datetime.datetime) -> float: ...
 
 class croniter(Iterator[Any]):
     MONTHS_IN_YEAR: Final = 12
-    RANGES: Final[tuple[tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int]]]
+    RANGES: Final[tuple[tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int]]]
     DAYS: Final[
         tuple[
             Literal[31],
@@ -55,12 +66,12 @@ class croniter(Iterator[Any]):
         ]
     ]
     ALPHACONV: Final[
-        tuple[dict[Never, Never], dict[Never, Never], dict[str, str], dict[str, int], dict[str, int], dict[Never, Never]]
+        tuple[dict[Never, Never], dict[Never, Never], dict[str, str], dict[str, int], dict[str, int], dict[Never, Never], dict[Never, Never]]
     ]
     LOWMAP: Final[
-        tuple[dict[Never, Never], dict[Never, Never], dict[int, int], dict[int, int], dict[int, int], dict[Never, Never]]
+        tuple[dict[Never, Never], dict[Never, Never], dict[int, int], dict[int, int], dict[int, int], dict[Never, Never], dict[Never, Never]]
     ]
-    LEN_MEANS_ALL: Final[tuple[int, int, int, int, int, int]]
+    LEN_MEANS_ALL: Final[tuple[int, int, int, int, int, int, int]]
     bad_length: Final[str]
 
     tzinfo: datetime.tzinfo | None
