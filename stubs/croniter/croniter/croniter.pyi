@@ -27,8 +27,11 @@ DAY_FIELD: Final = 2
 MONTH_FIELD: Final = 3
 DOW_FIELD: Final = 4
 SECOND_FIELD: Final = 5
+UNIX_CRON_LEN: Final = 5
 YEAR_FIELD: Final = 6
-SECOND_FIELDS: Final[tuple[int, int, int, int, int]]
+SECOND_CRON_LEN: Final = 6
+YEAR_CRON_LEN: Final = 7
+SECOND_FIELDS: Final[tuple[int, int, int, int, int, int]]
 UNIX_FIELDS: Final[tuple[int, int, int, int, int]]
 YEAR_FIELDS: Final[tuple[int, int, int, int, int, int, int]]
 CRON_FIELDS: Final[dict[str | int, tuple[int, ...]]]
