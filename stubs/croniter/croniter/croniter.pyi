@@ -51,7 +51,11 @@ def datetime_to_timestamp(d: datetime.datetime) -> float: ...
 
 class croniter(Iterator[Any]):
     MONTHS_IN_YEAR: Final = 12
-    RANGES: Final[tuple[tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int]]]
+    RANGES: Final[
+        tuple[
+            tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int], tuple[int, int]
+        ]
+    ]
     DAYS: Final[
         tuple[
             Literal[31],
@@ -69,10 +73,26 @@ class croniter(Iterator[Any]):
         ]
     ]
     ALPHACONV: Final[
-        tuple[dict[Never, Never], dict[Never, Never], dict[str, str], dict[str, int], dict[str, int], dict[Never, Never], dict[Never, Never]]
+        tuple[
+            dict[Never, Never],
+            dict[Never, Never],
+            dict[str, str],
+            dict[str, int],
+            dict[str, int],
+            dict[Never, Never],
+            dict[Never, Never],
+        ]
     ]
     LOWMAP: Final[
-        tuple[dict[Never, Never], dict[Never, Never], dict[int, int], dict[int, int], dict[int, int], dict[Never, Never], dict[Never, Never]]
+        tuple[
+            dict[Never, Never],
+            dict[Never, Never],
+            dict[int, int],
+            dict[int, int],
+            dict[int, int],
+            dict[Never, Never],
+            dict[Never, Never],
+        ]
     ]
     LEN_MEANS_ALL: Final[tuple[int, int, int, int, int, int, int]]
     bad_length: Final[str]
