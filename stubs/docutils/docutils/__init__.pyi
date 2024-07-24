@@ -1,7 +1,6 @@
 from typing import Any, ClassVar, NamedTuple
 from typing_extensions import Self
 
-from docutils import nodes
 from docutils.transforms import Transform
 
 __docformat__: str
