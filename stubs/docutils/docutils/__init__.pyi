@@ -35,7 +35,7 @@ class SettingsSpec:
     config_section_dependencies: ClassVar[tuple[str, ...] | None]
 
 class TransformSpec:
-    def get_transforms(self) -> list[tuple[str, type[Transform], nodes.Node | None, dict[str, Any]]]: ...
+    def get_transforms(self) -> list[type[Transform]]: ...
     default_transforms: ClassVar[tuple[Any, ...]]
     unknown_reference_resolvers: ClassVar[list[Any]]
 
