@@ -6,7 +6,7 @@ from docutils.io import Input
 from docutils.parsers import Parser
 from docutils.transforms import Transform
 
-_S = TypeVar("_S")
+_S = TypeVar("_S", bound=str | bytes)
 
 class Reader(Component, Generic[_S]):
     component_type: ClassVar[str]
