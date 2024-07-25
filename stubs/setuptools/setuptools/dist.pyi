@@ -1,6 +1,5 @@
-from _typeshed import StrPath
+from _typeshed import Incomplete, StrPath
 from collections.abc import Iterable, Iterator, MutableMapping
-from typing import Any
 
 from . import Command, SetuptoolsDeprecationWarning
 from ._distutils.dist import Distribution as _Distribution
@@ -11,7 +10,7 @@ class Distribution(_Distribution):
     src_root: str | None
     dependency_links: list[str]
     setup_requires: list[str]
-    def __init__(self, attrs: MutableMapping[str, Any] | None = None) -> None: ...
+    def __init__(self, attrs: MutableMapping[str, Incomplete] | None = None) -> None: ...
     def warn_dash_deprecation(self, opt: str, section: str) -> str: ...
     def make_option_lowercase(self, opt: str, section: str) -> str: ...
     def parse_config_files(self, filenames: Iterable[StrPath] | None = None, ignore_option_errors: bool = False) -> None: ...

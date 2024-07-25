@@ -1,6 +1,5 @@
-from _typeshed import StrPath
+from _typeshed import Incomplete, StrPath
 from collections.abc import Mapping
-from typing import Any
 from typing_extensions import TypeAlias
 
 from . import dist
@@ -21,7 +20,7 @@ __all__ = [
 _ConfigSettings: TypeAlias = Mapping[str, str | list[str] | None] | None
 
 class SetupRequirementsError(BaseException):
-    specifiers: Any
+    specifiers: Incomplete
     def __init__(self, specifiers) -> None: ...
 
 class Distribution(dist.Distribution):
