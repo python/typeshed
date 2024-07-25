@@ -460,6 +460,14 @@ unless:
 * they use the form ``from library import *`` which means all names
   from that library are exported.
 
+Stub files support forward references natively.  In other words, the
+order of class declarations and type aliases does not matter in
+a stub file.  You can also use the name of the class within its own
+body.  Focus on making your stubs clear to the reader.  Avoid using
+string literals in type annotations.
+
+### Using `Any` and `object`
+
 When adding type hints, avoid using the `Any` type when possible. Reserve
 the use of `Any` for when:
 * the correct type cannot be expressed in the current type system; and
@@ -469,11 +477,11 @@ Note that `Any` is not the correct type to use if you want to indicate
 that some function can accept literally anything: in those cases use
 `object` instead.
 
-Stub files support forward references natively.  In other words, the
-order of class declarations and type aliases does not matter in
-a stub file.  You can also use the name of the class within its own
-body.  Focus on making your stubs clear to the reader.  Avoid using
-string literals in type annotations.
+When using `Any`, document the reason for using it in a comment. Ideally,
+document what types could be used. The `_typeshed` module also provides
+a few aliases to `Any` — like `Incomplete` and `MaybeNone` (see below) —
+that should be used instead of `Any` in appropriate situations and double
+as documentation.
 
 ### Context managers
 
