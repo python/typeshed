@@ -1,4 +1,5 @@
-from typing import Any, ClassVar
+from _typeshed import Incomplete
+from typing import ClassVar
 
 from .._distutils.command import sdist as orig
 
@@ -9,7 +10,7 @@ class sdist(orig.sdist):
     negative_opt: ClassVar[dict[str, str]]
     README_EXTENSIONS: ClassVar[list[str]]
     READMES: ClassVar[tuple[str, ...]]
-    filelist: Any
+    filelist: Incomplete
     def run(self) -> None: ...
     def initialize_options(self) -> None: ...
     def make_distribution(self) -> None: ...

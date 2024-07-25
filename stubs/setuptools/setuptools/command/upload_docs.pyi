@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import Any, ClassVar
 
@@ -11,8 +12,8 @@ class upload_docs(upload):
     def has_sphinx(self): ...
     # Any to work around variance issues
     sub_commands: ClassVar[list[tuple[str, Callable[[Any], bool] | None]]]
-    upload_dir: Any
-    target_dir: Any
+    upload_dir: Incomplete
+    target_dir: Incomplete
     def initialize_options(self) -> None: ...
     def finalize_options(self) -> None: ...
     def create_zipfile(self, filename) -> None: ...

@@ -1,4 +1,4 @@
-from _typeshed import StrPath
+from _typeshed import Incomplete, StrPath
 from abc import abstractmethod
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Any
@@ -48,7 +48,7 @@ def setup(
     distclass: type[Distribution] = ...,
     script_name: str = ...,
     script_args: list[str] = ...,
-    options: Mapping[str, Any] = ...,
+    options: Mapping[str, Incomplete] = ...,
     license: str = ...,
     keywords: list[str] | str = ...,
     platforms: list[str] | str = ...,
@@ -59,7 +59,7 @@ def setup(
     provides: list[str] = ...,
     requires: list[str] = ...,
     command_packages: list[str] = ...,
-    command_options: Mapping[str, Mapping[str, tuple[Any, Any]]] = ...,
+    command_options: Mapping[str, Mapping[str, tuple[Incomplete, Incomplete]]] = ...,
     package_data: Mapping[str, list[str]] = ...,
     include_package_data: bool = ...,
     libraries: list[str] = ...,
@@ -68,12 +68,13 @@ def setup(
     include_dirs: list[str] = ...,
     password: str = ...,
     fullname: str = ...,
-    **attrs: Any,
+    **attrs,
 ) -> Distribution: ...
 
 class Command(_Command):
     command_consumes_arguments: bool
     distribution: Distribution
+    # Any: Dynamic command subclass attributes
     def __init__(self, dist: Distribution, **kw: Any) -> None: ...
     def ensure_string_list(self, option: str | list[str]) -> None: ...
     def reinitialize_command(self, command: _Command | str, reinit_subcommands: bool = False, **kw: Any) -> _Command: ...  # type: ignore[override]
