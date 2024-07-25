@@ -10,7 +10,7 @@ class install(orig.install):
     # Any to work around variance issues
     new_commands: list[tuple[str, Callable[[Any], bool]] | None]
     old_and_unmanageable: Incomplete
-    single_version_externally_managed: Incomplete
+    single_version_externally_managed: bool | None
     def initialize_options(self) -> None: ...
     def finalize_options(self) -> None: ...
     path_file: Incomplete

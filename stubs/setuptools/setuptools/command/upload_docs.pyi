@@ -8,7 +8,7 @@ class upload_docs(upload):
     DEFAULT_REPOSITORY: ClassVar[str]
     description: ClassVar[str]
     user_options: ClassVar[list[tuple[str, str | None, str]]]
-    boolean_options: ClassVar[list[str]]
+    boolean_options = upload.boolean_options
     def has_sphinx(self): ...
     # Any to work around variance issues
     sub_commands: ClassVar[list[tuple[str, Callable[[Any], bool] | None]]]
