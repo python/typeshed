@@ -104,6 +104,7 @@ class Path(PurePath):
         def __new__(cls, *args: StrPath, **kwargs: Unused) -> Self: ...  # pyright: ignore[reportInconsistentConstructor]
     else:
         def __new__(cls, *args: StrPath, **kwargs: Unused) -> Self: ...
+
     @classmethod
     def cwd(cls) -> Self: ...
     if sys.version_info >= (3, 10):
