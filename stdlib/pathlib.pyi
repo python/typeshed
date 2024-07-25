@@ -9,7 +9,6 @@ from _typeshed import (
     ReadableBuffer,
     StrOrBytesPath,
     StrPath,
-    Unused,
 )
 from collections.abc import Callable, Generator, Iterator, Sequence
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
