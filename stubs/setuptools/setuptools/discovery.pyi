@@ -1,3 +1,4 @@
+import itertools
 from _typeshed import Incomplete, StrPath
 from collections.abc import Iterable, Iterator, Mapping
 from typing import ClassVar
@@ -6,7 +7,7 @@ from typing_extensions import TypeAlias
 from . import Distribution
 
 StrIter: TypeAlias = Iterator[str]
-chain_iter: Incomplete
+chain_iter = itertools.chain.from_iterable
 
 class _Filter:
     def __init__(self, *patterns: str) -> None: ...
