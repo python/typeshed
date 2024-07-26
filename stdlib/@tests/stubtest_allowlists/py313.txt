@@ -3,9 +3,7 @@
 # =========================
 
 # TODO: triage these new errors
-_thread.interrupt_main
 _thread.lock
-_thread.start_joinable_thread
 _tkinter.create
 ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
