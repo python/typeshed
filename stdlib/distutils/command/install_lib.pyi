@@ -1,5 +1,4 @@
-from typing import Final
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Final
 
 from ..cmd import Command
 

@@ -1,8 +1,7 @@
-from typing import Final
 import sys
 from collections.abc import Mapping
 from distutils.ccompiler import CCompiler
-from typing import Literal, overload
+from typing import Final, Literal, overload
 from typing_extensions import deprecated
 
 PREFIX: Final[str]

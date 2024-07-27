@@ -1,7 +1,6 @@
-from typing import Final
 from collections.abc import Iterable, Mapping
 from re import Pattern
-from typing import Any, overload
+from typing import Any, Final, overload
 from typing_extensions import TypeAlias
 
 _Option: TypeAlias = tuple[str, str | None, str]

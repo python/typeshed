@@ -1,6 +1,5 @@
-from typing import Final
 from collections.abc import Callable
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Final
 
 from ..cmd import Command
 
