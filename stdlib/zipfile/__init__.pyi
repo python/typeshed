@@ -1,3 +1,4 @@
+from typing import Final
 import io
 import sys
 from _typeshed import SizedBuffer, StrOrBytesPath, StrPath
@@ -300,10 +301,10 @@ else:
 
 def is_zipfile(filename: StrOrBytesPath | _SupportsReadSeekTell) -> bool: ...
 
-ZIP_STORED: int
-ZIP_DEFLATED: int
-ZIP64_LIMIT: int
-ZIP_FILECOUNT_LIMIT: int
-ZIP_MAX_COMMENT: int
-ZIP_BZIP2: int
-ZIP_LZMA: int
+ZIP_STORED: Final[int]
+ZIP_DEFLATED: Final[int]
+ZIP64_LIMIT: Final[int]
+ZIP_FILECOUNT_LIMIT: Final[int]
+ZIP_MAX_COMMENT: Final[int]
+ZIP_BZIP2: Final[int]
+ZIP_LZMA: Final[int]
