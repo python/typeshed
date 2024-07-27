@@ -4,7 +4,7 @@ from collections.abc import Callable
 from threading import Thread
 from types import TracebackType
 from typing import Any, Final, NoReturn, final, overload
-from typing_extensions import TypeAlias, TypeVarTuple, Unpack
+from typing_extensions import TypeVarTuple, Unpack
 
 _Ts = TypeVarTuple("_Ts")
 
