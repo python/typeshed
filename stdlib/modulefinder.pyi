@@ -1,8 +1,7 @@
-from typing import Final
 import sys
 from collections.abc import Container, Iterable, Iterator, Sequence
 from types import CodeType
-from typing import IO, Any
+from typing import IO, Any, Final
 
 if sys.version_info < (3, 11):
     LOAD_CONST: Final[int]  # undocumented

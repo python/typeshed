@@ -1,7 +1,6 @@
-from typing import Final
 import sys
 import termios
-from typing import IO
+from typing import IO, Final
 from typing_extensions import TypeAlias
 
 if sys.platform != "win32":
