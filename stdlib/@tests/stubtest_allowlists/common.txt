@@ -183,9 +183,6 @@ xml.sax.expatreader
 # Module members that exist at runtime, but are missing from stubs
 # ==========
 _json.encode_basestring
-_thread.LockType.acquire_lock
-_thread.LockType.locked_lock
-_thread.LockType.release_lock
 _thread.RLock
 _thread.allocate
 _thread.exit_thread
