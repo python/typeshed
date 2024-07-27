@@ -1,8 +1,9 @@
+from typing import Final
 from typing import Any, ClassVar
 
 from ..cmd import Command
 
-PYTHON_SOURCE_EXTENSION: str
+PYTHON_SOURCE_EXTENSION: Final[str]
 
 class install_lib(Command):
     description: str

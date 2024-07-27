@@ -1,11 +1,12 @@
+from typing import Final
 from collections.abc import Callable
 from typing import Any, ClassVar
 
 from ..cmd import Command
 
-HAS_USER_SITE: bool
-SCHEME_KEYS: tuple[str, ...]
-INSTALL_SCHEMES: dict[str, dict[Any, Any]]
+HAS_USER_SITE: Final[bool]
+SCHEME_KEYS: Final[tuple[str, ...]]
+INSTALL_SCHEMES: Final[dict[str, dict[Any, Any]]]
 
 class install(Command):
     description: str

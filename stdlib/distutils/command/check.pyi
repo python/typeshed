@@ -1,3 +1,4 @@
+from typing import Final
 from typing import Any, ClassVar, Literal
 from typing_extensions import TypeAlias
 
@@ -22,7 +23,7 @@ class SilentReporter(_Reporter):
     ) -> None: ...
     def system_message(self, level, message, *children, **kwargs): ...
 
-HAS_DOCUTILS: bool
+HAS_DOCUTILS: Final[bool]
 
 class check(Command):
     description: str

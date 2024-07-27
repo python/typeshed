@@ -1,3 +1,4 @@
+from typing import Final
 from collections.abc import Iterable, Mapping
 from re import Pattern
 from typing import Any, overload
@@ -25,7 +26,7 @@ def fancy_getopt(
     options: list[_Option], negative_opt: Mapping[_Option, _Option], object: Any, args: list[str] | None
 ) -> list[str] | _GR: ...
 
-WS_TRANS: dict[int, str]
+WS_TRANS: Final[dict[int, str]]
 
 def wrap_text(text: str, width: int) -> list[str]: ...
 def translate_longopt(opt: str) -> str: ...
