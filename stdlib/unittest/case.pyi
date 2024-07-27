@@ -1,3 +1,4 @@
+from typing import Final
 import logging
 import sys
 import unittest.result
@@ -22,7 +23,7 @@ _E = TypeVar("_E", bound=BaseException)
 _FT = TypeVar("_FT", bound=Callable[..., Any])
 _P = ParamSpec("_P")
 
-DIFF_OMITTED: str
+DIFF_OMITTED: Final[str]
 
 class _BaseTestCaseContext:
     test_case: TestCase

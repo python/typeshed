@@ -1,3 +1,4 @@
+from typing import Final
 import sys
 import unittest.case
 import unittest.loader
@@ -8,8 +9,8 @@ from types import ModuleType
 from typing import Any, Protocol
 from typing_extensions import deprecated
 
-MAIN_EXAMPLES: str
-MODULE_EXAMPLES: str
+MAIN_EXAMPLES: Final[str]
+MODULE_EXAMPLES: Final[str]
 
 class _TestRunner(Protocol):
     def run(self, test: unittest.suite.TestSuite | unittest.case.TestCase, /) -> unittest.result.TestResult: ...

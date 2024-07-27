@@ -1,3 +1,4 @@
+from typing import Final
 import sys
 import unittest.case
 import unittest.suite
@@ -10,7 +11,7 @@ from typing_extensions import TypeAlias, deprecated
 _SortComparisonMethod: TypeAlias = Callable[[str, str], int]
 _SuiteClass: TypeAlias = Callable[[list[unittest.case.TestCase]], unittest.suite.TestSuite]
 
-VALID_MODULE_NAME: Pattern[str]
+VALID_MODULE_NAME: Final[Pattern[str]]
 
 class TestLoader:
     errors: list[type[BaseException]]
