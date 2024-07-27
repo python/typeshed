@@ -1,9 +1,8 @@
-from typing import Final
 import threading
 from _typeshed import ConvertibleToInt, Incomplete, Unused
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from logging import Logger, _Level as _LoggingLevel
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, Final, Generic, TypeVar, overload
 
 __all__ = [
     "sub_debug",

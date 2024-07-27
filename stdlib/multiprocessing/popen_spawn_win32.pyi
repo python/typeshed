@@ -1,7 +1,6 @@
-from typing import Final
 import sys
 from multiprocessing.process import BaseProcess
-from typing import ClassVar
+from typing import ClassVar, Final
 
 from .util import Finalize
 
