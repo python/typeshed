@@ -1,6 +1,5 @@
-from typing import Final
 from collections.abc import Generator
-from typing import Literal
+from typing import Final, Literal
 
 from .fix_imports import FixImports
 

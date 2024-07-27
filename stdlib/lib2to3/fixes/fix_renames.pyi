@@ -1,6 +1,5 @@
-from typing import Final
 from collections.abc import Generator
-from typing import ClassVar, Literal
+from typing import ClassVar, Final, Literal
 
 from .. import fixer_base
 

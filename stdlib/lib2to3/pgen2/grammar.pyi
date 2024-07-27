@@ -1,4 +1,3 @@
-from typing import Final
 from _typeshed import StrPath
 from typing_extensions import Self, TypeAlias
 

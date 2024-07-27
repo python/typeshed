@@ -1,4 +1,5 @@
 from typing import Final
+
 ENDMARKER: Final[int]
 NAME: Final[int]
 NUMBER: Final[int]

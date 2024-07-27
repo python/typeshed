@@ -1,5 +1,4 @@
-from typing import Final
-from typing import ClassVar, Literal
+from typing import ClassVar, Final, Literal
 
 from .. import fixer_base
 
