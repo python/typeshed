@@ -1,4 +1,3 @@
-from typing import Final
 import datetime
 import http.client
 import ssl
@@ -9,7 +8,7 @@ from logging import FileHandler, Handler, LogRecord
 from re import Pattern
 from socket import SocketKind, socket
 from threading import Thread
-from typing import Any, ClassVar, Protocol, TypeVar
+from typing import Any, ClassVar, Final, Protocol, TypeVar
 
 _T = TypeVar("_T")
 
