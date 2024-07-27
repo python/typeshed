@@ -1,4 +1,3 @@
-from typing import Final
 import io
 import sys
 from _typeshed import SizedBuffer, StrOrBytesPath, StrPath
@@ -6,7 +5,7 @@ from collections.abc import Callable, Iterable, Iterator
 from io import TextIOWrapper
 from os import PathLike
 from types import TracebackType
-from typing import IO, Literal, Protocol, overload
+from typing import IO, Final, Literal, Protocol, overload
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
