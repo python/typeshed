@@ -24,7 +24,8 @@ class LockType:
         self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
 
-lock: TypeAlias = LockType  # noqa: Y042
+if sys.version_info >= (3, 13):
+    lock = LockType
 
 @overload
 def start_new_thread(function: Callable[[Unpack[_Ts]], object], args: tuple[Unpack[_Ts]], /) -> int: ...
