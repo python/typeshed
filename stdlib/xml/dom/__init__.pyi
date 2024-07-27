@@ -1,5 +1,4 @@
-from typing import Final
-from typing import Any
+from typing import Any, Final
 
 from .domreg import getDOMImplementation as getDOMImplementation, registerDOMImplementation as registerDOMImplementation
 

@@ -1,6 +1,5 @@
-from typing import Final
 from _typeshed import Incomplete, ReadableBuffer, SupportsRead
-from typing import Any, NoReturn
+from typing import Any, Final, NoReturn
 from xml.dom.minidom import Document, DOMImplementation, Node, TypeInfo
 from xml.dom.xmlbuilder import DOMBuilderFilter, Options
 
