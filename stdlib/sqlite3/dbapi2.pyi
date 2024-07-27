@@ -1,11 +1,10 @@
-from typing import Final
 import sqlite3
 import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath, SupportsLenAndGetItem, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from datetime import date, datetime, time
 from types import TracebackType
-from typing import Any, Literal, Protocol, SupportsIndex, TypeVar, final, overload
+from typing import Any, Final, Literal, Protocol, SupportsIndex, TypeVar, final, overload
 from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
