@@ -1,9 +1,8 @@
-from typing import Final
 import sys
 import unittest.case
 from _typeshed import OptExcInfo
 from collections.abc import Callable
-from typing import Any, TextIO, TypeVar
+from typing import Any, Final, TextIO, TypeVar
 from typing_extensions import TypeAlias
 
 _F = TypeVar("_F", bound=Callable[..., Any])

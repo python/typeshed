@@ -1,11 +1,10 @@
-from typing import Final
 import sys
 import unittest.case
 import unittest.suite
 from collections.abc import Callable, Sequence
 from re import Pattern
 from types import ModuleType
-from typing import Any
+from typing import Any, Final
 from typing_extensions import TypeAlias, deprecated
 
 _SortComparisonMethod: TypeAlias = Callable[[str, str], int]

@@ -1,6 +1,5 @@
-from typing import Final
 from collections.abc import MutableSequence, Sequence
-from typing import Any, TypeVar
+from typing import Any, Final, TypeVar
 from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")

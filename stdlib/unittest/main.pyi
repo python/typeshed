@@ -1,4 +1,3 @@
-from typing import Final
 import sys
 import unittest.case
 import unittest.loader
@@ -6,7 +5,7 @@ import unittest.result
 import unittest.suite
 from collections.abc import Iterable
 from types import ModuleType
-from typing import Any, Protocol
+from typing import Any, Final, Protocol
 from typing_extensions import deprecated
 
 MAIN_EXAMPLES: Final[str]
