@@ -1,20 +1,20 @@
-from typing import Any, ClassVar, Generic, TypeVar
+from typing import Any, Generic, TypeVar
 
 from docutils import Component, nodes
 from docutils.io import Output
 from docutils.languages import LanguageImporter
 
-_S = TypeVar("_S", bound=str | bytes)
+_S = TypeVar("_S")
 
 class Writer(Component, Generic[_S]):
 
-    document: ClassVar[nodes.document | None] = None
+    document: nodes.document | None = None
 
     output: _S | None = None
 
-    language: ClassVar[LanguageImporter | None] = None
+    language: LanguageImporter | None = None
 
-    destination: ClassVar[Output | None] = None
+    destination: Output | None = None
 
     parts: dict[str, Any]
 
@@ -25,4 +25,4 @@ class Writer(Component, Generic[_S]):
 
 class UnfilteredWriter(Writer[_S]): ...
 
-def get_writer_class(writer_name: str) -> type[Writer[str | bytes]]: ...
+def get_writer_class(writer_name: str) -> type[Writer[Any]]: ...
