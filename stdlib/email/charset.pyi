@@ -1,12 +1,13 @@
+from typing import Final
 from collections.abc import Callable, Iterator
 from email.message import Message
 from typing import overload
 
 __all__ = ["Charset", "add_alias", "add_charset", "add_codec"]
 
-QP: int  # undocumented
-BASE64: int  # undocumented
-SHORTEST: int  # undocumented
+QP: Final[int]  # undocumented
+BASE64: Final[int]  # undocumented
+SHORTEST: Final[int]  # undocumented
 
 class Charset:
     input_charset: str

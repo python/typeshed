@@ -1,3 +1,4 @@
+from typing import Final
 import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable, Collection, Iterable, Mapping, Sequence
@@ -74,8 +75,8 @@ _T = TypeVar("_T")
 
 # These two are private but documented
 if sys.version_info >= (3, 11):
-    _USE_VFORK: bool
-_USE_POSIX_SPAWN: bool
+    _USE_VFORK: Final[bool]
+_USE_POSIX_SPAWN: Final[bool]
 
 class CompletedProcess(Generic[_T]):
     # morally: _CMD
@@ -1810,9 +1811,9 @@ else:
         text: bool | None = None,
     ) -> Any: ...  # morally: -> str | bytes
 
-PIPE: int
-STDOUT: int
-DEVNULL: int
+PIPE: Final[int]
+STDOUT: Final[int]
+DEVNULL: Final[int]
 
 class SubprocessError(Exception): ...
 
