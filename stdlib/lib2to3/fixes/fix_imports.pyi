@@ -1,3 +1,4 @@
+from typing import Final
 from _typeshed import StrPath
 from collections.abc import Generator
 from typing import ClassVar, Literal
@@ -5,7 +6,7 @@ from typing import ClassVar, Literal
 from .. import fixer_base
 from ..pytree import Node
 
-MAPPING: dict[str, str]
+MAPPING: Final[dict[str, str]]
 
 def alternates(members): ...
 def build_pattern(mapping=...) -> Generator[str, None, None]: ...

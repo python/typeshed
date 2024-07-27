@@ -1,9 +1,10 @@
+from typing import Final
 from typing import ClassVar, Literal
 
 from .. import fixer_base
 
-CMP: str
-TYPE: str
+CMP: Final[str]
+TYPE: Final[str]
 
 class FixIdioms(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[False]]
