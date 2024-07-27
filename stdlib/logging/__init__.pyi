@@ -1,3 +1,4 @@
+from typing import Final
 import sys
 import threading
 from _typeshed import StrPath, SupportsWrite
@@ -236,14 +237,14 @@ class Logger(Filterer):
     def hasHandlers(self) -> bool: ...
     def callHandlers(self, record: LogRecord) -> None: ...  # undocumented
 
-CRITICAL: int
-FATAL: int
-ERROR: int
-WARNING: int
-WARN: int
-INFO: int
-DEBUG: int
-NOTSET: int
+CRITICAL: Final[int]
+FATAL: Final[int]
+ERROR: Final[int]
+WARNING: Final[int]
+WARN: Final[int]
+INFO: Final[int]
+DEBUG: Final[int]
+NOTSET: Final[int]
 
 class Handler(Filterer):
     level: int  # undocumented
@@ -684,6 +685,6 @@ class StrFormatStyle(PercentStyle):  # undocumented
 class StringTemplateStyle(PercentStyle):  # undocumented
     _tpl: Template
 
-_STYLES: dict[str, tuple[PercentStyle, str]]
+_STYLES: Final[dict[str, tuple[PercentStyle, str]]]
 
-BASIC_FORMAT: str
+BASIC_FORMAT: Final[str]

@@ -1,3 +1,4 @@
+from typing import Final
 import datetime
 import http.client
 import ssl
@@ -12,12 +13,12 @@ from typing import Any, ClassVar, Protocol, TypeVar
 
 _T = TypeVar("_T")
 
-DEFAULT_TCP_LOGGING_PORT: int
-DEFAULT_UDP_LOGGING_PORT: int
-DEFAULT_HTTP_LOGGING_PORT: int
-DEFAULT_SOAP_LOGGING_PORT: int
-SYSLOG_UDP_PORT: int
-SYSLOG_TCP_PORT: int
+DEFAULT_TCP_LOGGING_PORT: Final[int]
+DEFAULT_UDP_LOGGING_PORT: Final[int]
+DEFAULT_HTTP_LOGGING_PORT: Final[int]
+DEFAULT_SOAP_LOGGING_PORT: Final[int]
+SYSLOG_UDP_PORT: Final[int]
+SYSLOG_TCP_PORT: Final[int]
 
 class WatchedFileHandler(FileHandler):
     dev: int  # undocumented
