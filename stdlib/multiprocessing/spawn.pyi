@@ -1,3 +1,4 @@
+from typing import Final
 from collections.abc import Mapping, Sequence
 from types import ModuleType
 from typing import Any
@@ -12,8 +13,8 @@ __all__ = [
     "import_main_path",
 ]
 
-WINEXE: bool
-WINSERVICE: bool
+WINEXE: Final[bool]
+WINSERVICE: Final[bool]
 
 def set_executable(exe: str) -> None: ...
 def get_executable() -> str: ...
