@@ -4,7 +4,10 @@ from typing_extensions import deprecated
 from .. import Command
 
 @deprecated(
-    "The test command is disabled and references to it are deprecated. Please remove any references to `setuptools.command.test` in all supported versions of the affected package."
+    """\
+The test command is disabled and references to it are deprecated. \
+Please remove any references to `setuptools.command.test` in all supported versions of the affected package.\
+"""
 )
 class _test(Command):
     description: ClassVar[str]
