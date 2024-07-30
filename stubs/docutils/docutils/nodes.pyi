@@ -419,7 +419,7 @@ class pending(Special, Invisible, Element):
     transform: Transform
     details: Mapping[str, Any]
     def __init__(
-        self, transform: Transform, details: Mapping[str, Any] | None = None, rawsource: str = "", *children: Node, **attributes
+        self, transform: type[Transform], details: Mapping[str, Any] | None = None, rawsource: str = "", *children: Node, **attributes
     ) -> None: ...
 
 class raw(Special, Inline, PreBibliographic, FixedTextElement): ...
