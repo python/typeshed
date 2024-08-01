@@ -1685,9 +1685,9 @@ def pow(base: float, exp: complex | _SupportsSomeKindOfPow, mod: None = None) ->
 @overload
 def pow(base: complex, exp: complex | _SupportsSomeKindOfPow, mod: None = None) -> complex: ...
 @overload
-def pow(base: _SupportsPow2[_E, _T_co], exp: _E, mod: None = None) -> _T_co: ...  # type: ignore[overload-overlap]
+def pow(base: _SupportsPow2[_E, _T_co], exp: _E, mod: None = None) -> _T_co: ...
 @overload
-def pow(base: _SupportsPow3NoneOnly[_E, _T_co], exp: _E, mod: None = None) -> _T_co: ...  # type: ignore[overload-overlap]
+def pow(base: _SupportsPow3NoneOnly[_E, _T_co], exp: _E, mod: None = None) -> _T_co: ...
 @overload
 def pow(base: _SupportsPow3[_E, _M, _T_co], exp: _E, mod: _M) -> _T_co: ...
 @overload
@@ -1744,7 +1744,7 @@ _SupportsSumNoDefaultT = TypeVar("_SupportsSumNoDefaultT", bound=_SupportsSumWit
 # without creating many false-positive errors (see #7578).
 # Instead, we special-case the most common examples of this: bool and literal integers.
 @overload
-def sum(iterable: Iterable[bool | _LiteralInteger], /, start: int = 0) -> int: ...  # type: ignore[overload-overlap]
+def sum(iterable: Iterable[bool | _LiteralInteger], /, start: int = 0) -> int: ...
 @overload
 def sum(iterable: Iterable[_SupportsSumNoDefaultT], /) -> _SupportsSumNoDefaultT | Literal[0]: ...
 @overload
@@ -1754,7 +1754,7 @@ def sum(iterable: Iterable[_AddableT1], /, start: _AddableT2) -> _AddableT1 | _A
 # (A "SupportsDunderDict" protocol doesn't work)
 # Use a type: ignore to make complaints about overlapping overloads go away
 @overload
-def vars(object: type, /) -> types.MappingProxyType[str, Any]: ...  # type: ignore[overload-overlap]
+def vars(object: type, /) -> types.MappingProxyType[str, Any]: ...
 @overload
 def vars(object: Any = ..., /) -> dict[str, Any]: ...
 

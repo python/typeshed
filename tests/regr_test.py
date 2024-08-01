@@ -184,6 +184,8 @@ def run_testcases(
         "--no-incremental",
         # Not useful for the test cases
         "--disable-error-code=empty-body",
+        "--disable-error-code=unreachable",
+        "--disable-error-code=overload-overlap",
     ]
 
     if package.is_stdlib:

@@ -31,9 +31,9 @@ __all__ = [
 
 class CollectionOperator:
     @overload
-    def shapeup(self, ob: GeoT) -> GeoT: ...  # type: ignore[overload-overlap]
+    def shapeup(self, ob: GeoT) -> GeoT: ...
     @overload
-    def shapeup(self, ob: dict[str, Any] | SupportsGeoInterface) -> BaseGeometry: ...  # type: ignore[overload-overlap]
+    def shapeup(self, ob: dict[str, Any] | SupportsGeoInterface) -> BaseGeometry: ...
     @overload
     def shapeup(self, ob: _ConvertibleToLineString) -> LineString: ...
     def polygonize(
