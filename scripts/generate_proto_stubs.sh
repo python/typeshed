@@ -12,7 +12,7 @@ set -ex -o pipefail
 #
 # Whenever you update PROTOBUF_VERSION here, version should be updated
 # in stubs/protobuf/METADATA.toml and vice-versa.
-PROTOBUF_VERSION=26.1
+PROTOBUF_VERSION=27.1
 MYPY_PROTOBUF_VERSION=3.6.0
 
 # brew install coreutils wget
@@ -63,7 +63,7 @@ rm -rf "$TMP_DIR"
 # Must be in a git repository to run pre-commit
 cd "$REPO_ROOT"
 
-sed --in-place="" \
+sed -i "" \
   "s/extra_description = .*$/extra_description = \"\
 Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) \
 and $PROTOC_VERSION \

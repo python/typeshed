@@ -84,7 +84,7 @@ class Model(Layer[_InputT, _OutputT]):
         validation_data: TensorCompatible | tf.data.Dataset[Any] | None = None,
         shuffle: bool = True,
         class_weight: dict[int, float] | None = None,
-        sample_weight: npt.NDArray[np.float_] | None = None,
+        sample_weight: npt.NDArray[np.float64] | None = None,
         initial_epoch: int = 0,
         steps_per_epoch: int | None = None,
         validation_steps: int | None = None,
@@ -99,7 +99,7 @@ class Model(Layer[_InputT, _OutputT]):
         y: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
         batch_size: int | None = None,
         verbose: Literal["auto", 0, 1, 2] = "auto",
-        sample_weight: npt.NDArray[np.float_] | None = None,
+        sample_weight: npt.NDArray[np.float64] | None = None,
         steps: int | None = None,
         callbacks: list[tf.keras.callbacks.Callback] | None = None,
         return_dict: bool = False,
@@ -120,7 +120,7 @@ class Model(Layer[_InputT, _OutputT]):
         self,
         x: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete],
         y: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
-        sample_weight: npt.NDArray[np.float_] | None = None,
+        sample_weight: npt.NDArray[np.float64] | None = None,
         class_weight: dict[int, float] | None = None,
         return_dict: bool = False,
     ) -> float | list[float]: ...
@@ -128,7 +128,7 @@ class Model(Layer[_InputT, _OutputT]):
         self,
         x: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete],
         y: TensorCompatible | dict[str, TensorCompatible] | tf.data.Dataset[Incomplete] | None = None,
-        sample_weight: npt.NDArray[np.float_] | None = None,
+        sample_weight: npt.NDArray[np.float64] | None = None,
         return_dict: bool = False,
     ) -> float | list[float]: ...
     def predict_on_batch(self, x: Iterator[_InputT]) -> npt.NDArray[Incomplete]: ...
