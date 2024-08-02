@@ -1,6 +1,7 @@
 from _typeshed import SupportsWrite
 from email.message import Message
 from email.policy import Policy
+from typing import Any
 from typing_extensions import Self
 
 __all__ = ["Generator", "DecodedGenerator", "BytesGenerator"]
@@ -14,7 +15,7 @@ class Generator:
         mangle_from_: bool | None = None,
         maxheaderlen: int | None = None,
         *,
-        policy: Policy | None = None,
+        policy: Policy[Any] | None = None,
     ) -> None: ...
     def flatten(self, msg: Message, unixfrom: bool = False, linesep: str | None = None) -> None: ...
 
@@ -25,7 +26,7 @@ class BytesGenerator(Generator):
         mangle_from_: bool | None = None,
         maxheaderlen: int | None = None,
         *,
-        policy: Policy | None = None,
+        policy: Policy[Any] | None = None,
     ) -> None: ...
 
 class DecodedGenerator(Generator):
@@ -36,5 +37,5 @@ class DecodedGenerator(Generator):
         maxheaderlen: int | None = None,
         fmt: str | None = None,
         *,
-        policy: Policy | None = None,
+        policy: Policy[Any] | None = None,
     ) -> None: ...
