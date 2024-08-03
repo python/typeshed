@@ -81,6 +81,7 @@ if sys.version_info >= (3, 10):
     _AF = TypeVar("_AF", bound=Callable[..., Awaitable[Any]])
 
     class AsyncContextDecorator:
+        def _recreate_cm(self) -> Self: ...
         def __call__(self, func: _AF) -> _AF: ...
 
     class _AsyncGeneratorContextManager(AbstractAsyncContextManager[_T_co, bool | None], AsyncContextDecorator):
