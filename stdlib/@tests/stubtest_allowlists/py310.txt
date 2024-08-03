@@ -254,3 +254,8 @@ types.SimpleNamespace.__init__ # class doesn't accept positional arguments but h
 # These enums derive from (str, Enum)
 pstats.SortKey.__new__
 tkinter.EventType.__new__
+
+# Incorrectly star import.
+ctypes._endian.DEFAULT_MODE
+ctypes._endian.RTLD_GLOBAL
+ctypes._endian.RTLD_LOCAL 

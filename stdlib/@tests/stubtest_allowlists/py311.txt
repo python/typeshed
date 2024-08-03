@@ -214,3 +214,8 @@ asynchat.async_chat.use_encoding
 asynchat.find_prefix_at_end
 pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
+
+# Incorrectly star import.
+ctypes._endian.DEFAULT_MODE
+ctypes._endian.RTLD_GLOBAL
+ctypes._endian.RTLD_LOCAL 
