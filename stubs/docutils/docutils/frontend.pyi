@@ -4,8 +4,7 @@ from collections.abc import Iterable, Mapping
 from configparser import RawConfigParser
 from typing import Any, ClassVar
 
-from docutils import SettingsSpec
-from docutils.parsers import Parser
+from docutils import Component, SettingsSpec
 from docutils.utils import DependencyList
 
 __docformat__: str
@@ -113,7 +112,7 @@ class OptionParser(optparse.OptionParser, SettingsSpec):
     version_template: ClassVar[str]
     def __init__(
         self,
-        components: Iterable[type[Parser]] = (),
+        components: Iterable[Component] = (),
         defaults: Mapping[str, Any] | None = None,
         read_config_files: bool | None = False,
         *args,
