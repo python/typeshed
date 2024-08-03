@@ -1,7 +1,7 @@
-from typing import Final
 import sys
 from _typeshed import FileDescriptorOrPath
 from collections.abc import Callable
+from typing import Final
 from xml.etree.ElementTree import Element
 
 XINCLUDE: Final[str]
@@ -9,7 +9,7 @@ XINCLUDE_INCLUDE: Final[str]
 XINCLUDE_FALLBACK: Final[str]
 
 if sys.version_info >= (3, 9):
-    DEFAULT_MAX_INCLUSION_DEPTH: Final[int]
+    DEFAULT_MAX_INCLUSION_DEPTH: Final = 6
 
 class FatalIncludeError(SyntaxError): ...
 
