@@ -1,4 +1,4 @@
-version = "3.2.1"
+version = "3.3"
 upstream_repository = "https://github.com/networkx/networkx"
 # requires a version of numpy with a `py.typed` file
 # TODO: Lots of stubtest errors when using numpy 2
