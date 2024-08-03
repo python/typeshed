@@ -38,11 +38,13 @@ if sys.platform != "win32":
 
     if sys.version_info >= (3, 13):
         LOG_FTP: Final = 88
-        LOG_INSTALL: Final = 112
-        LOG_LAUNCHD: Final = 192
-        LOG_NETINFO: Final = 96
-        LOG_RAS: Final = 120
-        LOG_REMOTEAUTH: Final = 104
+
+        if sys.platform == "darwin":
+            LOG_INSTALL: Final = 112
+            LOG_LAUNCHD: Final = 192
+            LOG_NETINFO: Final = 96
+            LOG_RAS: Final = 120
+            LOG_REMOTEAUTH: Final = 104
 
     def LOG_MASK(pri: int, /) -> int: ...
     def LOG_UPTO(pri: int, /) -> int: ...

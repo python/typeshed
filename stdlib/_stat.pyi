@@ -110,8 +110,9 @@ if sys.version_info >= (3, 13):
     SF_FIRMLINK: Final = 0x00800000
     SF_DATALESS: Final = 0x40000000
 
-    SF_SUPPORTED: Final = 0x9F0000
-    SF_SYNTHETIC: Final = 0xC0000000
+    if sys.platform == "darwin":
+        SF_SUPPORTED: Final = 0x9F0000
+        SF_SYNTHETIC: Final = 0xC0000000
 
     UF_TRACKED: Final = 0x00000040
     UF_DATAVAULT: Final = 0x00000080
