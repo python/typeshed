@@ -76,7 +76,7 @@ jobs:
             else
               if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
                 echo "Installing Homebrew packages: $PACKAGES"
-                brew install $PACKAGES
+                brew install -q $PACKAGES
               fi
 
               if [ "${{ runner.os }}" = "Windows" ] && [ -n "$PACKAGES" ]; then

@@ -1,8 +1,5 @@
 # New in py313 (triage these!)
 _msi
-_stat.SF_SETTABLE
-_stat.SF_SUPPORTED
-_stat.SF_SYNTHETIC
 _winapi.BatchedWaitForMultipleObjects
 _winapi.CreateEventW
 _winapi.CreateMutexW
@@ -25,8 +22,6 @@ _winapi.STARTF_USEHOTKEY
 _winapi.STARTF_USEPOSITION
 _winapi.STARTF_USESIZE
 _winapi.SetEvent
-asyncio.windows_events.__all__
-asyncio.windows_events.EventLoop
 ctypes._endian.oledll
 ctypes._endian.windll
 nt.fchmod
@@ -38,9 +33,6 @@ os.fchmod
 os.lchmod
 os.path.exists
 os.path.lexists
-stat.SF_SETTABLE
-stat.SF_SUPPORTED
-stat.SF_SYNTHETIC
 subprocess.__all__
 subprocess.STARTF_FORCEOFFFEEDBACK
 subprocess.STARTF_FORCEONFEEDBACK
