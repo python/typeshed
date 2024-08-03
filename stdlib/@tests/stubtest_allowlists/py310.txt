@@ -258,4 +258,4 @@ tkinter.EventType.__new__
 # Incorrectly star import.
 ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
-ctypes._endian.RTLD_LOCAL 
+ctypes._endian.RTLD_LOCAL
