@@ -124,7 +124,7 @@ class WorkingSet:
     def __iter__(self) -> Iterator[Distribution]: ...
     def add(self, dist: Distribution, entry: str | None = None, insert: bool = True, replace: bool = False) -> None: ...
     @overload
-    def resolve(  # type: ignore[overload-overlap]
+    def resolve(
         self,
         requirements: Iterable[Requirement],
         env: Environment | None,
@@ -133,7 +133,7 @@ class WorkingSet:
         extras: tuple[str, ...] | None = None,
     ) -> list[_DistributionT]: ...
     @overload
-    def resolve(  # type: ignore[overload-overlap]
+    def resolve(
         self,
         requirements: Iterable[Requirement],
         env: Environment | None = None,
@@ -143,7 +143,7 @@ class WorkingSet:
         extras: tuple[str, ...] | None = None,
     ) -> list[_DistributionT]: ...
     @overload
-    def resolve(  # type: ignore[overload-overlap]
+    def resolve(
         self,
         requirements: Iterable[Requirement],
         env: Environment | None = None,
@@ -152,7 +152,7 @@ class WorkingSet:
         extras: tuple[str, ...] | None = None,
     ) -> list[Distribution]: ...
     @overload
-    def find_plugins(  # type: ignore[overload-overlap]
+    def find_plugins(
         self,
         plugin_env: Environment,
         full_env: Environment | None,
@@ -160,7 +160,7 @@ class WorkingSet:
         fallback: bool = True,
     ) -> tuple[list[_DistributionT], dict[Distribution, Exception]]: ...
     @overload
-    def find_plugins(  # type: ignore[overload-overlap]
+    def find_plugins(
         self,
         plugin_env: Environment,
         full_env: Environment | None = None,
@@ -205,7 +205,7 @@ class Environment:
         replace_conflicting: bool = False,
     ) -> Distribution | None: ...
     @overload
-    def obtain(self, requirement: Requirement, installer: _InstallerTypeT[_DistributionT]) -> _DistributionT: ...  # type: ignore[overload-overlap]
+    def obtain(self, requirement: Requirement, installer: _InstallerTypeT[_DistributionT]) -> _DistributionT: ...  
     @overload
     def obtain(self, requirement: Requirement, installer: Callable[[Requirement], None] | None = None) -> None: ...
     @overload
