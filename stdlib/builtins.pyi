@@ -1651,9 +1651,7 @@ class _SupportsPow3NoneOnly(Protocol[_E, _T_co]):
 class _SupportsPow3(Protocol[_E, _M, _T_co]):
     def __pow__(self, other: _E, modulo: _M, /) -> _T_co: ...
 
-_SupportsSomeKindOfPow: TypeAlias = (
-    _SupportsPow2[Any, Any] | _SupportsPow3NoneOnly[Any, Any] | _SupportsPow3[Any, Any, Any]
-)
+_SupportsSomeKindOfPow: TypeAlias = _SupportsPow2[Any, Any] | _SupportsPow3NoneOnly[Any, Any] | _SupportsPow3[Any, Any, Any]
 
 # TODO: `pow(int, int, Literal[0])` fails at runtime,
 # but adding a `NoReturn` overload isn't a good solution for expressing that (see #8566).
