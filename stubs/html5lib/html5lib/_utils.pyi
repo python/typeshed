@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
-from typing import Any, overload
+from typing import Any
 
 supports_lone_surrogates: bool
 
