@@ -189,7 +189,7 @@ if sys.version_info >= (3, 10):
         tuple[_T1 | BaseException, _T2 | BaseException, _T3 | BaseException, _T4 | BaseException, _T5 | BaseException]
     ]: ...
     @overload
-    def gather(  
+    def gather(
         coro_or_future1: _FutureLike[_T1],
         coro_or_future2: _FutureLike[_T2],
         coro_or_future3: _FutureLike[_T3],

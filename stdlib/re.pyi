@@ -136,7 +136,9 @@ class Pattern(Generic[AnyStr]):
     @overload
     def fullmatch(self: Pattern[str], string: str, pos: int = 0, endpos: int = sys.maxsize) -> Match[str] | None: ...
     @overload
-    def fullmatch(self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize) -> Match[bytes] | None: ...
+    def fullmatch(
+        self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize
+    ) -> Match[bytes] | None: ...
     @overload
     def fullmatch(self, string: AnyStr, pos: int = 0, endpos: int = sys.maxsize) -> Match[AnyStr] | None: ...
     @overload
@@ -155,7 +157,9 @@ class Pattern(Generic[AnyStr]):
     @overload
     def finditer(self: Pattern[str], string: str, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[str]]: ...
     @overload
-    def finditer(self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[bytes]]: ...
+    def finditer(
+        self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize
+    ) -> Iterator[Match[bytes]]: ...
     @overload
     def finditer(self, string: AnyStr, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[AnyStr]]: ...
     @overload
@@ -172,7 +176,7 @@ class Pattern(Generic[AnyStr]):
     @overload
     def subn(self: Pattern[str], repl: str | Callable[[Match[str]], str], string: str, count: int = 0) -> tuple[str, int]: ...
     @overload
-    def subn(  
+    def subn(
         self: Pattern[bytes],
         repl: ReadableBuffer | Callable[[Match[bytes]], ReadableBuffer],
         string: ReadableBuffer,

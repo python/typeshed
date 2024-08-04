@@ -77,7 +77,7 @@ def fromstring(text: str | ReadableBuffer, parser: XMLParser | None = None) -> E
 # from lxml.etree import fromstring
 # But made partial, removing parser arg
 @overload
-def fromstring(text: str | bytes, *, base_url: str | bytes = ...) -> _lxml_Element: ...  
+def fromstring(text: str | bytes, *, base_url: str | bytes = ...) -> _lxml_Element: ...
 
 # from defusedxml.ElementTree import fromstring
 @overload
