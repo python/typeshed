@@ -1,5 +1,5 @@
 import sys
-from _typeshed import MaybeNone, OptExcInfo, ProfileFunction, TraceFunction, structseq
+from _typeshed import OptExcInfo, ProfileFunction, TraceFunction, structseq
 from _typeshed.importlib import MetaPathFinderProtocol, PathEntryFinderProtocol
 from builtins import object as _object
 from collections.abc import AsyncGenerator, Callable, Sequence
@@ -64,9 +64,9 @@ ps2: object
 #
 # if isinstance(sys.stdout, io.TextIOWrapper):
 #    sys.stdout.reconfigure(...)
-stdin: TextIO | MaybeNone
-stdout: TextIO | MaybeNone
-stderr: TextIO | MaybeNone
+stdin: TextIO | None
+stdout: TextIO | None
+stderr: TextIO | None
 
 if sys.version_info >= (3, 10):
     stdlib_module_names: frozenset[str]
