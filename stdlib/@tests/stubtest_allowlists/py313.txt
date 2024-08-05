@@ -9,7 +9,6 @@ _thread.start_joinable_thread
 _tkinter.create
 doctest.TestResults.__doc__
 doctest.TestResults.__new__
-filecmp.dircmp.__init__
 importlib.resources.Anchor
 importlib.resources.Resource
 importlib.resources.__all__
