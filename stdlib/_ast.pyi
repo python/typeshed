@@ -1,7 +1,7 @@
 import sys
 import typing_extensions
-from typing import Any, ClassVar, Generic, Literal, Self, TypedDict, overload
-from typing_extensions import Unpack
+from typing import Any, ClassVar, Generic, Literal, TypedDict, overload
+from typing_extensions import Unpack, Self
 
 PyCF_ONLY_AST: Literal[1024]
 PyCF_TYPE_COMMENTS: Literal[4096]
@@ -1068,7 +1068,7 @@ class Await(expr):
     if sys.version_info >= (3, 14):
         def __replace__(
             self,
-            *
+            *,
             value: expr = ...,
             **kwargs: Unpack[_Attributes],
         ) -> Self: ...
