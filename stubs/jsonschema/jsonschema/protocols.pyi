@@ -3,12 +3,12 @@ from collections.abc import Iterator, Mapping, Sequence
 from typing import ClassVar, Protocol
 from typing_extensions import TypeAlias
 
-import referencing
 from jsonschema import _typing
 from jsonschema._format import FormatChecker
 from jsonschema._types import TypeChecker
 from jsonschema.exceptions import ValidationError
 from jsonschema.validators import RefResolver
+from referencing.jsonschema import SchemaRegistry
 
 _JsonParameter: TypeAlias = str | int | float | bool | None | Mapping[str, _JsonParameter] | Sequence[_JsonParameter]
 
@@ -22,7 +22,7 @@ class Validator(Protocol):
     def __init__(
         self,
         schema: Mapping[Incomplete, Incomplete] | bool,
-        registry: referencing.jsonschema.SchemaRegistry,
+        registry: SchemaRegistry,
         resolver: RefResolver | None = None,
         format_checker: FormatChecker | None = None,
     ) -> None: ...
