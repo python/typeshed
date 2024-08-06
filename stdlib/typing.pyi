@@ -4,7 +4,6 @@
 # https://github.com/python/mypy/issues/16744
 import collections  # noqa: F401  # pyright: ignore
 import sys
-from wsgiref.simple_server import sys_version
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction, ReadableBuffer, SupportsKeysAndGetItem
