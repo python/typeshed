@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterator, Mapping, Sequence
 from typing import ClassVar, Protocol
-from typing_extensions import TypeAlias, deprecated
+from typing_extensions import TypeAlias
 
 from jsonschema import _typing
 from jsonschema._format import FormatChecker
@@ -23,7 +23,6 @@ class Validator(Protocol):
         self,
         schema: Mapping[Incomplete, Incomplete] | bool,
         registry: referencing.jsonschema.SchemaRegistry,
-        @deprecated("'RefResolver' has been deprecated in favor of 'referencing'")
         resolver: RefResolver | None = None,
         format_checker: FormatChecker | None = None,
     ) -> None: ...
