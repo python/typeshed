@@ -14,7 +14,7 @@ _JsonParameter: TypeAlias = str | int | float | bool | None | Mapping[str, _Json
 
 class Validator(Protocol):
     META_SCHEMA: ClassVar[Mapping[Incomplete, Incomplete]]
-    VALIDATORS: ClassVar[Mapping[Incomplete, Incomplete]g]
+    VALIDATORS: ClassVar[Mapping[Incomplete, Incomplete]]
     TYPE_CHECKER: ClassVar[TypeChecker]
     FORMAT_CHECKER: ClassVar[FormatChecker]
     ID_OF: _typing.id_of
