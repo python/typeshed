@@ -3,12 +3,12 @@ from collections.abc import Iterator, Mapping, Sequence
 from typing import ClassVar, Protocol
 from typing_extensions import TypeAlias
 
+import referencing
 from jsonschema import _typing
 from jsonschema._format import FormatChecker
 from jsonschema._types import TypeChecker
 from jsonschema.exceptions import ValidationError
 from jsonschema.validators import RefResolver
-import referencing
 
 _JsonParameter: TypeAlias = str | int | float | bool | None | Mapping[str, _JsonParameter] | Sequence[_JsonParameter]
 
