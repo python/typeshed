@@ -42,6 +42,7 @@
         "stubs/commonmark",
         "stubs/dateparser",
         "stubs/defusedxml",
+        "stubs/django-filter",
         "stubs/docker",
         "stubs/docutils",
         "stubs/Flask-SocketIO",
