@@ -2153,7 +2153,7 @@ class Listbox(Widget, XView, YView):
         #
         # I have never seen anyone setting this to something else than what
         # "the default bindings expect", but let's support it anyway.
-        selectmode: str | Literal["single", "browse", "multiple", "extended"] = "browse", # noqa: Y051
+        selectmode: str | Literal["single", "browse", "multiple", "extended"] = "browse",  # noqa: Y051
         setgrid: bool = False,
         state: Literal["normal", "disabled"] = "normal",
         takefocus: _TakeFocusValue = "",
@@ -2188,7 +2188,7 @@ class Listbox(Widget, XView, YView):
         selectbackground: str = ...,
         selectborderwidth: _ScreenUnits = ...,
         selectforeground: str = ...,
-        selectmode: str | Literal["single", "browse", "multiple", "extended"] | str = ..., # noqa: Y051
+        selectmode: str | Literal["single", "browse", "multiple", "extended"] = ...,  # noqa: Y051
         setgrid: bool = ...,
         state: Literal["normal", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
