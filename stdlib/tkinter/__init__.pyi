@@ -5,7 +5,7 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
+from typing import Any, Generic, List, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
 
 if sys.version_info >= (3, 9):
@@ -281,8 +281,8 @@ class Variable:
     def __del__(self) -> None: ...
 
 class StringVar(Variable):
-    def __init__(self, master: Misc | None = None, value: str | None = None, name: str | None = None) -> None: ...
-    def set(self, value: str) -> None: ...
+    def __init__(self, master: Misc | None = None, value: str | None | List[str] = None, name: str | None = None) -> None: ...
+    def set(self, value: str | List[str]) -> None: ...
     initialize = set
     def get(self) -> str: ...
 
