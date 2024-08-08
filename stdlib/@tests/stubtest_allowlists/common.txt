@@ -110,6 +110,7 @@ tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
 tkinter.Misc.after  # we intentionally don't allow everything that "works" at runtime
+tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
 traceback.TracebackException.from_exception  # explicitly expanding arguments going into TracebackException __init__
 typing(_extensions)?\.IO\.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing.type_check_only  # typing decorator that is not available at runtime
