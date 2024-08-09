@@ -2148,11 +2148,12 @@ class Listbox(Widget, XView, YView):
         selectborderwidth: _ScreenUnits = 0,
         selectforeground: str = ...,
         # from listbox man page: "The value of the [selectmode] option may be
-        # arbitrary, but the default bindings expect it to be ..."
+        # arbitrary, but the default bindings expect it to be either single,
+        # browse, multiple, or extended"
         #
         # I have never seen anyone setting this to something else than what
         # "the default bindings expect", but let's support it anyway.
-        selectmode: str = "browse",
+        selectmode: str | Literal["single", "browse", "multiple", "extended"] = "browse",  # noqa: Y051
         setgrid: bool = False,
         state: Literal["normal", "disabled"] = "normal",
         takefocus: _TakeFocusValue = "",
@@ -2187,7 +2188,7 @@ class Listbox(Widget, XView, YView):
         selectbackground: str = ...,
         selectborderwidth: _ScreenUnits = ...,
         selectforeground: str = ...,
-        selectmode: str = ...,
+        selectmode: str | Literal["single", "browse", "multiple", "extended"] = ...,  # noqa: Y051
         setgrid: bool = ...,
         state: Literal["normal", "disabled"] = ...,
         takefocus: _TakeFocusValue = ...,
