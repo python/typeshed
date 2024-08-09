@@ -39,6 +39,7 @@ class Graph(Collection[_Node]):
 
     adj: AdjacencyView[_Node, _Node, dict[str, Incomplete]]
     name: str
+    graph: dict[str, Any]
 
     def __getitem__(self, n: _Node) -> AtlasView[_Node, _Node, dict[str, Incomplete]]: ...
     def __iter__(self) -> Iterator[_Node]: ...
