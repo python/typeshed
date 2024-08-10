@@ -1,8 +1,9 @@
+import sys
+
 from . import (
     bdist,
     bdist_dumb,
     bdist_rpm,
-    bdist_wininst,
     build,
     build_clib,
     build_ext,
@@ -37,7 +38,11 @@ __all__ = [
     "bdist",
     "bdist_dumb",
     "bdist_rpm",
-    "bdist_wininst",
     "check",
     "upload",
 ]
+
+if sys.version_info < (3, 10):
+    from . import bdist_wininst
+
+    __all__ += ["bdist_wininst"]
