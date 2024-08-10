@@ -55,7 +55,7 @@ __all__ = [
     "setLogRecordFactory",
     "lastResort",
     "raiseExceptions",
-    "warn"
+    "warn",
 ]
 
 if sys.version_info >= (3, 11):
@@ -520,7 +520,6 @@ def warning(
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None,
 ) -> None: ...
-
 @deprecated("Deprecated; use warning() instead.")
 def warn(
     msg: object,
@@ -530,7 +529,6 @@ def warn(
     stacklevel: int = 1,
     extra: Mapping[str, object] | None = None,
 ) -> None: ...
-
 def error(
     msg: object,
     *args: object,
