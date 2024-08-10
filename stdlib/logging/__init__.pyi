@@ -156,6 +156,7 @@ class Logger(Filterer):
         stacklevel: int = 1,
         extra: Mapping[str, object] | None = None,
     ) -> None: ...
+    @deprecated("Deprecated; use warning() instead.")
     def warn(
         self,
         msg: object,
@@ -165,7 +166,6 @@ class Logger(Filterer):
         stacklevel: int = 1,
         extra: Mapping[str, object] | None = None,
     ) -> None: ...
-
     def error(
         self,
         msg: object,
@@ -410,6 +410,7 @@ class LoggerAdapter(Generic[_L]):
         extra: Mapping[str, object] | None = None,
         **kwargs: object,
     ) -> None: ...
+    @deprecated("Deprecated; use warning() instead.")
     def warn(
         self,
         msg: object,
@@ -420,7 +421,6 @@ class LoggerAdapter(Generic[_L]):
         extra: Mapping[str, object] | None = None,
         **kwargs: object,
     ) -> None: ...
-
     def error(
         self,
         msg: object,
@@ -521,6 +521,7 @@ def warning(
     extra: Mapping[str, object] | None = None,
 ) -> None: ...
 
+@deprecated("Deprecated; use warning() instead.")
 def warn(
     msg: object,
     *args: object,
