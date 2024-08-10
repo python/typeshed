@@ -144,8 +144,6 @@ class Distribution(_Distribution):
     @overload
     def get_command_class(self, command: Literal["setopt"]) -> type[setopt]: ...
     @overload
-    def get_command_class(self, command: Literal["test"]) -> type[test]: ...
-    @overload
     def get_command_class(self, command: Literal["upload"]) -> type[upload]: ...  # type: ignore[overload-overlap]
     @overload
     def get_command_class(self, command: Literal["upload_docs"]) -> type[upload_docs]: ...  # type: ignore[overload-overlap]
@@ -197,8 +195,6 @@ class Distribution(_Distribution):
     def reinitialize_command(self, command: Literal["sdist"], reinit_subcommands: bool = False) -> sdist: ...  # type: ignore[overload-overlap]
     @overload
     def reinitialize_command(self, command: Literal["setopt"], reinit_subcommands: bool = False) -> setopt: ...
-    @overload
-    def reinitialize_command(self, command: Literal["test"], reinit_subcommands: bool = False) -> test: ...
     @overload
     def reinitialize_command(self, command: Literal["upload"], reinit_subcommands: bool = False) -> upload: ...  # type: ignore[overload-overlap]
     @overload
