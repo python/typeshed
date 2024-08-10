@@ -363,7 +363,6 @@ if sys.version_info >= (3, 12):
                 option_strings: Sequence[str],
                 dest: str,
                 default: bool | None = None,
-                *,
                 required: bool = False,
                 help: str | None = None,
                 deprecated: bool = False,
