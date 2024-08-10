@@ -26,7 +26,6 @@ from .command.rotate import rotate
 from .command.saveopts import saveopts
 from .command.sdist import sdist
 from .command.setopt import setopt
-from .command.test import test
 from .command.upload import upload
 from .command.upload_docs import upload_docs
 from .depends import Require as Require
@@ -105,8 +104,8 @@ class Command(_Command):
     def __init__(self, dist: Distribution, **kw: Any) -> None: ...
     def ensure_string_list(self, option: str) -> None: ...
     # Note: Commands that setuptools doesn't re-expose are considered deprecated (they must be imported from distutils directly)
-    # So we're not listing them here. This list comes directly from the setuptools/command folder.
-    @overload  # type: ignore[override] # Extra **kw param
+    # So we're not listing them here. This list comes directly from the setuptools/command folder. Minus the test command.
+    @overload  # type: ignore[override]
     def get_finalized_command(self, command: Literal["alias"], create: bool | Literal[0, 1] = 1) -> alias: ...
     @overload
     def get_finalized_command(self, command: Literal["bdist_egg"], create: bool | Literal[0, 1] = 1) -> bdist_egg: ...
@@ -152,8 +151,6 @@ class Command(_Command):
     def get_finalized_command(self, command: Literal["sdist"], create: bool | Literal[0, 1] = 1) -> sdist: ...  # type: ignore[overload-overlap]
     @overload
     def get_finalized_command(self, command: Literal["setopt"], create: bool | Literal[0, 1] = 1) -> setopt: ...
-    @overload
-    def get_finalized_command(self, command: Literal["test"], create: bool | Literal[0, 1] = 1) -> test: ...
     @overload
     def get_finalized_command(self, command: Literal["upload"], create: bool | Literal[0, 1] = 1) -> upload: ...  # type: ignore[overload-overlap]
     @overload
