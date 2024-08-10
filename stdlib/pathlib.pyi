@@ -164,7 +164,7 @@ class Path(PurePath):
         def copy(self, target: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> None: ...
         def copytree(
             self,
-            target: StrOrBytesPath,
+            target: StrPath,
             *,
             follow_symlinks: bool = True,
             preserve_metadata: bool = False,
