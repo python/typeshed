@@ -2908,6 +2908,9 @@ class Scrollbar(Widget):
     def set(self, first: float | str, last: float | str) -> None: ...
 
 _TextIndex: TypeAlias = _tkinter.Tcl_Obj | str | float | Misc
+_WhatToCount: TypeAlias = Literal[
+    "chars", "displaychars", "displayindices", "displaylines", "indices", "lines", "xpixels", "ypixels"
+]
 
 class Text(Widget, XView, YView):
     def __init__(
@@ -3022,7 +3025,27 @@ class Text(Widget, XView, YView):
     config = configure
     def bbox(self, index: _TextIndex) -> tuple[int, int, int, int] | None: ...  # type: ignore[override]
     def compare(self, index1: _TextIndex, op: Literal["<", "<=", "==", ">=", ">", "!="], index2: _TextIndex) -> bool: ...
-    def count(self, index1, index2, *args): ...  # TODO
+    @overload
+    def count(self, index1: _TextIndex, index2: _TextIndex) -> tuple[int] | None: ...
+    @overload
+    def count(self, index1: _TextIndex, index2: _TextIndex, arg: _WhatToCount | Literal["update"], /) -> tuple[int] | None: ...
+    @overload
+    def count(self, index1: _TextIndex, index2: _TextIndex, arg1: Literal["update"], arg2: _WhatToCount, /) -> int | None: ...
+    @overload
+    def count(self, index1: _TextIndex, index2: _TextIndex, arg1: _WhatToCount, arg2: Literal["update"], /) -> int | None: ...
+    @overload
+    def count(self, index1: _TextIndex, index2: _TextIndex, arg1: _WhatToCount, arg2: _WhatToCount, /) -> tuple[int, int]: ...
+    @overload
+    def count(
+        self,
+        index1: _TextIndex,
+        index2: _TextIndex,
+        arg1: _WhatToCount | Literal["update"],
+        arg2: _WhatToCount | Literal["update"],
+        arg3: _WhatToCount | Literal["update"],
+        /,
+        *args: _WhatToCount | Literal["update"],
+    ) -> tuple[int, ...]: ...
     @overload
     def debug(self, boolean: None = None) -> bool: ...
     @overload
