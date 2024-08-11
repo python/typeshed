@@ -150,7 +150,7 @@ class ZipFile:
         @overload
         def __init__(
             self,
-            file: StrPath | _ZipTellable | _ZipWritable,
+            file: StrPath | _ZipWritable,
             mode: Literal["w", "x"] = ...,
             compression: int = 0,
             allowZip64: bool = True,
@@ -197,7 +197,7 @@ class ZipFile:
         @overload
         def __init__(
             self,
-            file: StrPath | _ZipTellable | _ZipWritable,
+            file: StrPath | _ZipWritable,
             mode: Literal["w", "x"] = ...,
             compression: int = 0,
             allowZip64: bool = True,

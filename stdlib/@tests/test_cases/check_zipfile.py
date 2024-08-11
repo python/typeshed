@@ -108,8 +108,9 @@ def write_zip(mode: Literal["r", "w", "x", "a"]) -> None:
     with zipfile.ZipFile(TellableObj(), mode) as z:  # type: ignore
         z.writestr("test.txt", "test")
 
-    # Tellable object should work for "w" mode.
-    with zipfile.ZipFile(TellableObj(), "w") as z:
+    # Tellable object shouldn't work for "w" mode.
+    # As `__del__` will call close.
+    with zipfile.ZipFile(TellableObj(), "w") as z:  # type: ignore
         z.writestr("test.txt", "test")
 
     # Writeable object should not work for any mode.
