@@ -125,6 +125,7 @@ def write_zip(mode: Literal["r", "w", "x", "a"]) -> None:
     with zipfile.ZipFile(SeekTellObj(), mode) as z:  # type: ignore
         z.writestr("test.txt", "test")
 
-    # Seekable and Tellable object should work for "w" mode.
-    with zipfile.ZipFile(SeekTellObj(), "w") as z:
+    # Seekable and Tellable object shouldn't work for "w" mode.
+    # Cause `__del__` will call close.
+    with zipfile.ZipFile(SeekTellObj(), "w") as z:  # type: ignore
         z.writestr("test.txt", "test")
