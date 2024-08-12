@@ -93,7 +93,7 @@ global___ExternalStatePolicy = ExternalStatePolicy
 
 @typing.final
 class AutotuneOptions(google.protobuf.message.Message):
-    """next: 5"""
+    """next: 6"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -101,10 +101,12 @@ class AutotuneOptions(google.protobuf.message.Message):
     CPU_BUDGET_FIELD_NUMBER: builtins.int
     RAM_BUDGET_FIELD_NUMBER: builtins.int
     AUTOTUNE_ALGORITHM_FIELD_NUMBER: builtins.int
+    INITIAL_PARALLELISM_FIELD_NUMBER: builtins.int
     enabled: builtins.bool
     cpu_budget: builtins.int
     ram_budget: builtins.int
     autotune_algorithm: tensorflow.core.framework.model_pb2.AutotuneAlgorithm.ValueType
+    initial_parallelism: builtins.int
     def __init__(
         self,
         *,
@@ -112,15 +114,18 @@ class AutotuneOptions(google.protobuf.message.Message):
         cpu_budget: builtins.int | None = ...,
         ram_budget: builtins.int | None = ...,
         autotune_algorithm: tensorflow.core.framework.model_pb2.AutotuneAlgorithm.ValueType | None = ...,
+        initial_parallelism: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["autotune_algorithm", b"autotune_algorithm", "cpu_budget", b"cpu_budget", "enabled", b"enabled", "optional_autotune_algorithm", b"optional_autotune_algorithm", "optional_cpu_budget", b"optional_cpu_budget", "optional_enabled", b"optional_enabled", "optional_ram_budget", b"optional_ram_budget", "ram_budget", b"ram_budget"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["autotune_algorithm", b"autotune_algorithm", "cpu_budget", b"cpu_budget", "enabled", b"enabled", "optional_autotune_algorithm", b"optional_autotune_algorithm", "optional_cpu_budget", b"optional_cpu_budget", "optional_enabled", b"optional_enabled", "optional_ram_budget", b"optional_ram_budget", "ram_budget", b"ram_budget"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["autotune_algorithm", b"autotune_algorithm", "cpu_budget", b"cpu_budget", "enabled", b"enabled", "initial_parallelism", b"initial_parallelism", "optional_autotune_algorithm", b"optional_autotune_algorithm", "optional_cpu_budget", b"optional_cpu_budget", "optional_enabled", b"optional_enabled", "optional_initial_parallelism", b"optional_initial_parallelism", "optional_ram_budget", b"optional_ram_budget", "ram_budget", b"ram_budget"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["autotune_algorithm", b"autotune_algorithm", "cpu_budget", b"cpu_budget", "enabled", b"enabled", "initial_parallelism", b"initial_parallelism", "optional_autotune_algorithm", b"optional_autotune_algorithm", "optional_cpu_budget", b"optional_cpu_budget", "optional_enabled", b"optional_enabled", "optional_initial_parallelism", b"optional_initial_parallelism", "optional_ram_budget", b"optional_ram_budget", "ram_budget", b"ram_budget"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["optional_autotune_algorithm", b"optional_autotune_algorithm"]) -> typing.Literal["autotune_algorithm"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["optional_cpu_budget", b"optional_cpu_budget"]) -> typing.Literal["cpu_budget"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["optional_enabled", b"optional_enabled"]) -> typing.Literal["enabled"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["optional_initial_parallelism", b"optional_initial_parallelism"]) -> typing.Literal["initial_parallelism"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["optional_ram_budget", b"optional_ram_budget"]) -> typing.Literal["ram_budget"] | None: ...
 
