@@ -41,6 +41,21 @@ if dc.is_dataclass(f):
     assert_type(f, Foo)
 
 
+def is_dataclass_any(arg: Any) -> None:
+    if dc.is_dataclass(arg):
+        assert_type(arg, DataclassInstance | type[DataclassInstance])
+
+
+def is_dataclass_object(arg: object) -> None:
+    if dc.is_dataclass(arg):
+        assert_type(arg, DataclassInstance | type[DataclassInstance])
+
+
+def is_dataclass_type(arg: type) -> None:
+    if dc.is_dataclass(arg):
+        assert_type(arg, type[DataclassInstance])
+
+
 def check_other_isdataclass_overloads(x: type, y: object) -> None:
     # TODO: pyright correctly emits an error on this, but mypy does not -- why?
     # dc.fields(x)
