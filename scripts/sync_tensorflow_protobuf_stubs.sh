@@ -7,7 +7,7 @@ set -euxo pipefail
 
 # Whenever you update TENSORFLOW_VERSION here, version should be updated
 # in stubs/tensorflow/METADATA.toml and vice-versa.
-TENSORFLOW_VERSION=2.16.1
+TENSORFLOW_VERSION=2.17.0
 MYPY_PROTOBUF_VERSION=3.6.0
 
 # brew install coreutils wget
