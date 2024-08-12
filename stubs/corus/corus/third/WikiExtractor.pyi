@@ -1,3 +1,4 @@
+import typing
 from _typeshed import Incomplete
 from collections.abc import Generator
 from math import (
@@ -51,7 +52,9 @@ quote_quote: Incomplete
 spaces: Incomplete
 dots: Incomplete
 
-class Template(list):
+_T = typing.TypeVar("_T")
+
+class Template(list[_T]):
     @classmethod
     def parse(cls, body): ...
     def subst(self, params, extractor, depth: int = 0): ...
