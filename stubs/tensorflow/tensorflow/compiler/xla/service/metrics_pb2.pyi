@@ -93,6 +93,7 @@ class CompilationLogEntry(google.protobuf.message.Message):
     DURATION_FIELD_NUMBER: builtins.int
     TASK_INDEX_FIELD_NUMBER: builtins.int
     PASS_METRICS_FIELD_NUMBER: builtins.int
+    MODULE_IDS_FIELD_NUMBER: builtins.int
     stage: global___CompilationLogEntry.CompilationStage.ValueType
     """Compilation stage recorded by this log entry."""
     task_index: builtins.int
@@ -111,6 +112,10 @@ class CompilationLogEntry(google.protobuf.message.Message):
     def pass_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___PassMetrics]:
         """Pass specific metrics."""
 
+    @property
+    def module_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """IDs of modules on which the compilation stage was run."""
+
     def __init__(
         self,
         *,
@@ -119,8 +124,9 @@ class CompilationLogEntry(google.protobuf.message.Message):
         duration: google.protobuf.duration_pb2.Duration | None = ...,
         task_index: builtins.int | None = ...,
         pass_metrics: collections.abc.Iterable[global___PassMetrics] | None = ...,
+        module_ids: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["duration", b"duration", "timestamp", b"timestamp"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["duration", b"duration", "pass_metrics", b"pass_metrics", "stage", b"stage", "task_index", b"task_index", "timestamp", b"timestamp"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["duration", b"duration", "module_ids", b"module_ids", "pass_metrics", b"pass_metrics", "stage", b"stage", "task_index", b"task_index", "timestamp", b"timestamp"]) -> None: ...
 
 global___CompilationLogEntry = CompilationLogEntry

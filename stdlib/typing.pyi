@@ -846,7 +846,8 @@ class TextIO(IO[str]):
     @abstractmethod
     def __enter__(self) -> TextIO: ...
 
-ByteString: typing_extensions.TypeAlias = bytes | bytearray | memoryview
+if sys.version_info < (3, 14):
+    ByteString: typing_extensions.TypeAlias = bytes | bytearray | memoryview
 
 # Functions
 
@@ -1056,7 +1057,7 @@ if sys.version_info >= (3, 12):
         # It's writable on types, but not on instances of TypeAliasType.
         @property
         def __module__(self) -> str | None: ...  # type: ignore[override]
-        def __getitem__(self, parameters: Any) -> Any: ...
+        def __getitem__(self, parameters: Any) -> GenericAlias: ...
         def __or__(self, right: Any) -> _SpecialForm: ...
         def __ror__(self, left: Any) -> _SpecialForm: ...
 

@@ -44,14 +44,16 @@ class _PrimitiveTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._
     """Invalid primitive type to serve as default."""
     PRED: _PrimitiveType.ValueType  # 1
     """Predicates are two-state booleans."""
-    S4: _PrimitiveType.ValueType  # 21
+    S2: _PrimitiveType.ValueType  # 26
     """Signed integral values of fixed width."""
+    S4: _PrimitiveType.ValueType  # 21
     S8: _PrimitiveType.ValueType  # 2
     S16: _PrimitiveType.ValueType  # 3
     S32: _PrimitiveType.ValueType  # 4
     S64: _PrimitiveType.ValueType  # 5
-    U4: _PrimitiveType.ValueType  # 22
+    U2: _PrimitiveType.ValueType  # 27
     """Unsigned integral values of fixed width."""
+    U4: _PrimitiveType.ValueType  # 22
     U8: _PrimitiveType.ValueType  # 6
     U16: _PrimitiveType.ValueType  # 7
     U32: _PrimitiveType.ValueType  # 8
@@ -149,14 +151,16 @@ PRIMITIVE_TYPE_INVALID: PrimitiveType.ValueType  # 0
 """Invalid primitive type to serve as default."""
 PRED: PrimitiveType.ValueType  # 1
 """Predicates are two-state booleans."""
-S4: PrimitiveType.ValueType  # 21
+S2: PrimitiveType.ValueType  # 26
 """Signed integral values of fixed width."""
+S4: PrimitiveType.ValueType  # 21
 S8: PrimitiveType.ValueType  # 2
 S16: PrimitiveType.ValueType  # 3
 S32: PrimitiveType.ValueType  # 4
 S64: PrimitiveType.ValueType  # 5
-U4: PrimitiveType.ValueType  # 22
+U2: PrimitiveType.ValueType  # 27
 """Unsigned integral values of fixed width."""
+U4: PrimitiveType.ValueType  # 22
 U8: PrimitiveType.ValueType  # 6
 U16: PrimitiveType.ValueType  # 7
 U32: PrimitiveType.ValueType  # 8
@@ -508,8 +512,8 @@ global___PaddingConfig = PaddingConfig
 @typing.final
 class TileProto(google.protobuf.message.Message):
     """Describes a tile used in tiling-based layout. Refer to
-    g3doc/third_party/tensorflow/compiler/xla/g3doc/tiled_layout.md for
-    details about tiling-based layout.
+    g3doc/third_party/xla/docs/tiled_layout.md for details about tiling-based
+    layout.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -531,6 +535,33 @@ class TileProto(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["dimensions", b"dimensions"]) -> None: ...
 
 global___TileProto = TileProto
+
+@typing.final
+class SplitConfigProto(google.protobuf.message.Message):
+    """Describes how data should be split between different memories."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DIMENSION_FIELD_NUMBER: builtins.int
+    SPLIT_INDICES_FIELD_NUMBER: builtins.int
+    dimension: builtins.int
+    """The dimension that is split."""
+    @property
+    def split_indices(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """The indices where each split point occurs. For example, if the dimension
+        size is 1024, a split_indices value of {512} indicates a two-way split of
+        data through the middle.
+        """
+
+    def __init__(
+        self,
+        *,
+        dimension: builtins.int | None = ...,
+        split_indices: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["dimension", b"dimension", "split_indices", b"split_indices"]) -> None: ...
+
+global___SplitConfigProto = SplitConfigProto
 
 @typing.final
 class LayoutProto(google.protobuf.message.Message):
@@ -560,6 +591,7 @@ class LayoutProto(google.protobuf.message.Message):
     POINTER_PRIMITIVE_TYPE_FIELD_NUMBER: builtins.int
     PHYSICAL_SHAPE_FIELD_NUMBER: builtins.int
     DYNAMIC_SHAPE_METADATA_PREFIX_BYTES_FIELD_NUMBER: builtins.int
+    SPLIT_CONFIGS_FIELD_NUMBER: builtins.int
     tail_padding_alignment_in_elements: builtins.int
     """The shape is padded at the end to multiple of, in terms of number of
     elements. This is useful when tiling does not bring the shape to certain
@@ -632,6 +664,12 @@ class LayoutProto(google.protobuf.message.Message):
         a physical shape.
         """
 
+    @property
+    def split_configs(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SplitConfigProto]:
+        """The split configurations which describe if/how the data is split between
+        different memories.
+        """
+
     def __init__(
         self,
         *,
@@ -647,9 +685,10 @@ class LayoutProto(google.protobuf.message.Message):
         pointer_primitive_type: global___PrimitiveType.ValueType | None = ...,
         physical_shape: global___ShapeProto | None = ...,
         dynamic_shape_metadata_prefix_bytes: builtins.int | None = ...,
+        split_configs: collections.abc.Iterable[global___SplitConfigProto] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["physical_shape", b"physical_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["dim_level_types", b"dim_level_types", "dim_ordered", b"dim_ordered", "dim_unique", b"dim_unique", "dynamic_shape_metadata_prefix_bytes", b"dynamic_shape_metadata_prefix_bytes", "element_size_in_bits", b"element_size_in_bits", "index_primitive_type", b"index_primitive_type", "memory_space", b"memory_space", "minor_to_major", b"minor_to_major", "physical_shape", b"physical_shape", "pointer_primitive_type", b"pointer_primitive_type", "tail_padding_alignment_in_elements", b"tail_padding_alignment_in_elements", "tiles", b"tiles"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["dim_level_types", b"dim_level_types", "dim_ordered", b"dim_ordered", "dim_unique", b"dim_unique", "dynamic_shape_metadata_prefix_bytes", b"dynamic_shape_metadata_prefix_bytes", "element_size_in_bits", b"element_size_in_bits", "index_primitive_type", b"index_primitive_type", "memory_space", b"memory_space", "minor_to_major", b"minor_to_major", "physical_shape", b"physical_shape", "pointer_primitive_type", b"pointer_primitive_type", "split_configs", b"split_configs", "tail_padding_alignment_in_elements", b"tail_padding_alignment_in_elements", "tiles", b"tiles"]) -> None: ...
 
 global___LayoutProto = LayoutProto
 
@@ -815,8 +854,6 @@ class OpMetadata(google.protobuf.message.Message):
     SOURCE_FILE_FIELD_NUMBER: builtins.int
     SOURCE_LINE_FIELD_NUMBER: builtins.int
     PROFILE_TYPE_FIELD_NUMBER: builtins.int
-    CREATION_PASS_ID_FIELD_NUMBER: builtins.int
-    LOGICAL_CREATION_PASS_ID_FIELD_NUMBER: builtins.int
     SIZE_OF_GENERATED_CODE_IN_BYTES_FIELD_NUMBER: builtins.int
     SIZE_OF_MEMORY_WORKING_SET_IN_BYTES_FIELD_NUMBER: builtins.int
     PROFILE_INFO_FIELD_NUMBER: builtins.int
@@ -844,17 +881,6 @@ class OpMetadata(google.protobuf.message.Message):
     e.g. it could be the file and line of user code that generated the op.
     """
     source_line: builtins.int
-    creation_pass_id: builtins.int
-    """HloPassMetadata.pass_id of the pass that created this HLO instruction
-    object. Should never be copied between HLO instructions. Zero if unset and
-    -1 if the instruction was created before HLO passes began.
-    """
-    logical_creation_pass_id: builtins.int
-    """HloPassMetadata.pass_id of the pass that created the logical functionality
-    that this HLO instruction represents. Should be copied between HLO
-    instructions that correspond across compilation passes. Zero if unset and
-    -1 if the instruction was created before HLO passes began.
-    """
     size_of_generated_code_in_bytes: builtins.int
     """The footprint of the generated code for the instruction."""
     size_of_memory_working_set_in_bytes: builtins.int
@@ -891,8 +917,6 @@ class OpMetadata(google.protobuf.message.Message):
         source_file: builtins.str | None = ...,
         source_line: builtins.int | None = ...,
         profile_type: collections.abc.Iterable[global___ProfileType.ValueType] | None = ...,
-        creation_pass_id: builtins.int | None = ...,
-        logical_creation_pass_id: builtins.int | None = ...,
         size_of_generated_code_in_bytes: builtins.int | None = ...,
         size_of_memory_working_set_in_bytes: builtins.int | None = ...,
         profile_info: global___OpMetadata.ProfileInfo | None = ...,
@@ -901,7 +925,7 @@ class OpMetadata(google.protobuf.message.Message):
         stack_frame_id: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["profile_info", b"profile_info"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["creation_pass_id", b"creation_pass_id", "deduplicated_name", b"deduplicated_name", "logical_creation_pass_id", b"logical_creation_pass_id", "op_name", b"op_name", "op_type", b"op_type", "preserve_layout", b"preserve_layout", "profile_info", b"profile_info", "profile_type", b"profile_type", "size_of_generated_code_in_bytes", b"size_of_generated_code_in_bytes", "size_of_memory_working_set_in_bytes", b"size_of_memory_working_set_in_bytes", "source_file", b"source_file", "source_line", b"source_line", "stack_frame_id", b"stack_frame_id"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["deduplicated_name", b"deduplicated_name", "op_name", b"op_name", "op_type", b"op_type", "preserve_layout", b"preserve_layout", "profile_info", b"profile_info", "profile_type", b"profile_type", "size_of_generated_code_in_bytes", b"size_of_generated_code_in_bytes", "size_of_memory_working_set_in_bytes", b"size_of_memory_working_set_in_bytes", "source_file", b"source_file", "source_line", b"source_line", "stack_frame_id", b"stack_frame_id"]) -> None: ...
 
 global___OpMetadata = OpMetadata
 
@@ -918,6 +942,7 @@ class ExecutionProfile(google.protobuf.message.Message):
     COMPUTE_AND_TRANSFER_TIME_NS_FIELD_NUMBER: builtins.int
     EXECUTABLE_SIZE_IN_BYTES_FIELD_NUMBER: builtins.int
     PROFILE_CACHE_HIT_FIELD_NUMBER: builtins.int
+    WARMUP_RUN_EXECUTED_FIELD_NUMBER: builtins.int
     compilation_cache_hit: builtins.bool
     """Whether the executable was read from the compilation cache."""
     compile_time_ms: builtins.int
@@ -944,6 +969,10 @@ class ExecutionProfile(google.protobuf.message.Message):
     """Whether this profile was drawn from a cache of profiles instead of from
     execution on the hardware.
     """
+    warmup_run_executed: builtins.bool
+    """Whether a warm-up run of the computation was executed before the
+    measured execution.
+    """
     def __init__(
         self,
         *,
@@ -954,8 +983,9 @@ class ExecutionProfile(google.protobuf.message.Message):
         compute_and_transfer_time_ns: builtins.int | None = ...,
         executable_size_in_bytes: builtins.int | None = ...,
         profile_cache_hit: builtins.bool | None = ...,
+        warmup_run_executed: builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["compilation_cache_hit", b"compilation_cache_hit", "compile_time_ms", b"compile_time_ms", "compute_and_transfer_time_ns", b"compute_and_transfer_time_ns", "compute_cycle_count", b"compute_cycle_count", "compute_time_ns", b"compute_time_ns", "executable_size_in_bytes", b"executable_size_in_bytes", "profile_cache_hit", b"profile_cache_hit"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["compilation_cache_hit", b"compilation_cache_hit", "compile_time_ms", b"compile_time_ms", "compute_and_transfer_time_ns", b"compute_and_transfer_time_ns", "compute_cycle_count", b"compute_cycle_count", "compute_time_ns", b"compute_time_ns", "executable_size_in_bytes", b"executable_size_in_bytes", "profile_cache_hit", b"profile_cache_hit", "warmup_run_executed", b"warmup_run_executed"]) -> None: ...
 
 global___ExecutionProfile = ExecutionProfile
 
@@ -1139,9 +1169,11 @@ class LiteralProto(google.protobuf.message.Message):
 
     SHAPE_FIELD_NUMBER: builtins.int
     PREDS_FIELD_NUMBER: builtins.int
+    S2S_FIELD_NUMBER: builtins.int
     S4S_FIELD_NUMBER: builtins.int
-    U4S_FIELD_NUMBER: builtins.int
     S8S_FIELD_NUMBER: builtins.int
+    U2S_FIELD_NUMBER: builtins.int
+    U4S_FIELD_NUMBER: builtins.int
     U8S_FIELD_NUMBER: builtins.int
     S32S_FIELD_NUMBER: builtins.int
     S64S_FIELD_NUMBER: builtins.int
@@ -1162,9 +1194,11 @@ class LiteralProto(google.protobuf.message.Message):
     F8E5M2FNUZS_FIELD_NUMBER: builtins.int
     F8E4M3FNUZS_FIELD_NUMBER: builtins.int
     SPARSE_INDICES_FIELD_NUMBER: builtins.int
+    s2s: builtins.bytes
     s4s: builtins.bytes
-    u4s: builtins.bytes
     s8s: builtins.bytes
+    u2s: builtins.bytes
+    u4s: builtins.bytes
     u8s: builtins.bytes
     f16s: builtins.bytes
     """The F16s, BF16s, U16s and S16s are encoded in little endian byte order"""
@@ -1204,16 +1238,18 @@ class LiteralProto(google.protobuf.message.Message):
     def tuple_literals(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___LiteralProto]: ...
     @property
     def sparse_indices(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
-        """Next = 26"""
+        """Next = 28"""
 
     def __init__(
         self,
         *,
         shape: global___ShapeProto | None = ...,
         preds: collections.abc.Iterable[builtins.bool] | None = ...,
+        s2s: builtins.bytes | None = ...,
         s4s: builtins.bytes | None = ...,
-        u4s: builtins.bytes | None = ...,
         s8s: builtins.bytes | None = ...,
+        u2s: builtins.bytes | None = ...,
+        u4s: builtins.bytes | None = ...,
         u8s: builtins.bytes | None = ...,
         s32s: collections.abc.Iterable[builtins.int] | None = ...,
         s64s: collections.abc.Iterable[builtins.int] | None = ...,
@@ -1236,7 +1272,7 @@ class LiteralProto(google.protobuf.message.Message):
         sparse_indices: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["bf16s", b"bf16s", "c128s", b"c128s", "c64s", b"c64s", "f16s", b"f16s", "f32s", b"f32s", "f64s", b"f64s", "f8e4m3b11fnuzs", b"f8e4m3b11fnuzs", "f8e4m3fns", b"f8e4m3fns", "f8e4m3fnuzs", b"f8e4m3fnuzs", "f8e5m2fnuzs", b"f8e5m2fnuzs", "f8e5m2s", b"f8e5m2s", "preds", b"preds", "s16s", b"s16s", "s32s", b"s32s", "s4s", b"s4s", "s64s", b"s64s", "s8s", b"s8s", "shape", b"shape", "sparse_indices", b"sparse_indices", "tuple_literals", b"tuple_literals", "u16s", b"u16s", "u32s", b"u32s", "u4s", b"u4s", "u64s", b"u64s", "u8s", b"u8s"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["bf16s", b"bf16s", "c128s", b"c128s", "c64s", b"c64s", "f16s", b"f16s", "f32s", b"f32s", "f64s", b"f64s", "f8e4m3b11fnuzs", b"f8e4m3b11fnuzs", "f8e4m3fns", b"f8e4m3fns", "f8e4m3fnuzs", b"f8e4m3fnuzs", "f8e5m2fnuzs", b"f8e5m2fnuzs", "f8e5m2s", b"f8e5m2s", "preds", b"preds", "s16s", b"s16s", "s2s", b"s2s", "s32s", b"s32s", "s4s", b"s4s", "s64s", b"s64s", "s8s", b"s8s", "shape", b"shape", "sparse_indices", b"sparse_indices", "tuple_literals", b"tuple_literals", "u16s", b"u16s", "u2s", b"u2s", "u32s", b"u32s", "u4s", b"u4s", "u64s", b"u64s", "u8s", b"u8s"]) -> None: ...
 
 global___LiteralProto = LiteralProto
 
@@ -1992,15 +2028,113 @@ class PrecisionConfig(google.protobuf.message.Message):
     PACKED_NIBBLE: PrecisionConfig.Precision.ValueType  # 3
     """Each U8/S8 value in a tensor actually represents 2 nibble values."""
 
+    class _Algorithm:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _AlgorithmEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[PrecisionConfig._Algorithm.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        ALG_UNSET: PrecisionConfig._Algorithm.ValueType  # 0
+        """If the algorithm is `ALG_UNSET`, we will decide the algorithm based on
+        the operand_precision values (for now).
+        """
+        ALG_DOT_ANY_F8_ANY_F8_F32: PrecisionConfig._Algorithm.ValueType  # 1
+        """The storage type can be any 8-bit floating point type."""
+        ALG_DOT_ANY_F8_ANY_F8_F32_FAST_ACCUM: PrecisionConfig._Algorithm.ValueType  # 2
+        """The storage type can be any 8-bit floating point type. Intermediate
+        results will not periodically be promoted to a higher precision. This
+        corresponds to CUBLASLT_MATMUL_DESC_FAST_ACCUM. Triton's
+        maxNumImpreciseAcc=32 setting may be similar.
+        """
+        ALG_DOT_F16_F16_F16: PrecisionConfig._Algorithm.ValueType  # 3
+        ALG_DOT_F16_F16_F32: PrecisionConfig._Algorithm.ValueType  # 4
+        ALG_DOT_BF16_BF16_BF16: PrecisionConfig._Algorithm.ValueType  # 5
+        ALG_DOT_BF16_BF16_F32: PrecisionConfig._Algorithm.ValueType  # 6
+        ALG_DOT_BF16_BF16_F32_X3: PrecisionConfig._Algorithm.ValueType  # 7
+        """An algorithm which uses 3 BF16_BF16_F32 matmuls to achieve better
+        precision.
+        """
+        ALG_DOT_BF16_BF16_F32_X6: PrecisionConfig._Algorithm.ValueType  # 8
+        """An algorithm which uses 6 BF16_BF16_F32 matmuls to achieve better
+        precision (similar to F32).
+        """
+        ALG_DOT_TF32_TF32_F32: PrecisionConfig._Algorithm.ValueType  # 9
+        ALG_DOT_TF32_TF32_F32_X3: PrecisionConfig._Algorithm.ValueType  # 10
+        """An algorithm which uses 3 TF32_TF32_F32 matmuls to achieve better
+        precision (similar to F32).
+        """
+        ALG_DOT_F32_F32_F32: PrecisionConfig._Algorithm.ValueType  # 11
+        ALG_DOT_F64_F64_F64: PrecisionConfig._Algorithm.ValueType  # 12
+
+    class Algorithm(_Algorithm, metaclass=_AlgorithmEnumTypeWrapper):
+        """The algorithm used to evaluate the instruction.
+
+        The naming convention for the dot instruction is
+        ALG_DOT_{A_TYPE}_{B_TYPE}_{ACCUM_TYPE}[_X{NUM_OPS}] where A_TYPE, B_TYPE
+        and ACCUM_TYPE correspond to the types in the "primitive dot operations"
+        (such as TensorCore operations) and NUM_OPS is the number of such
+        operations used per "primitive tile". When the NUM_OPS
+        field is skipped, it is assumed to be 1. The types mentioned in the name
+        are independent of the storage types.
+
+        In general ATYPE and BTYPE are the precisions that the LHS and RHS of the
+        operation are rounded to and ACCUMTYPE is the accumulation type. If a
+        backend does not support the given algorithm, an error is raised. The
+        Algorithm enum is intended to eventually replace the Precision enum.
+        """
+
+    ALG_UNSET: PrecisionConfig.Algorithm.ValueType  # 0
+    """If the algorithm is `ALG_UNSET`, we will decide the algorithm based on
+    the operand_precision values (for now).
+    """
+    ALG_DOT_ANY_F8_ANY_F8_F32: PrecisionConfig.Algorithm.ValueType  # 1
+    """The storage type can be any 8-bit floating point type."""
+    ALG_DOT_ANY_F8_ANY_F8_F32_FAST_ACCUM: PrecisionConfig.Algorithm.ValueType  # 2
+    """The storage type can be any 8-bit floating point type. Intermediate
+    results will not periodically be promoted to a higher precision. This
+    corresponds to CUBLASLT_MATMUL_DESC_FAST_ACCUM. Triton's
+    maxNumImpreciseAcc=32 setting may be similar.
+    """
+    ALG_DOT_F16_F16_F16: PrecisionConfig.Algorithm.ValueType  # 3
+    ALG_DOT_F16_F16_F32: PrecisionConfig.Algorithm.ValueType  # 4
+    ALG_DOT_BF16_BF16_BF16: PrecisionConfig.Algorithm.ValueType  # 5
+    ALG_DOT_BF16_BF16_F32: PrecisionConfig.Algorithm.ValueType  # 6
+    ALG_DOT_BF16_BF16_F32_X3: PrecisionConfig.Algorithm.ValueType  # 7
+    """An algorithm which uses 3 BF16_BF16_F32 matmuls to achieve better
+    precision.
+    """
+    ALG_DOT_BF16_BF16_F32_X6: PrecisionConfig.Algorithm.ValueType  # 8
+    """An algorithm which uses 6 BF16_BF16_F32 matmuls to achieve better
+    precision (similar to F32).
+    """
+    ALG_DOT_TF32_TF32_F32: PrecisionConfig.Algorithm.ValueType  # 9
+    ALG_DOT_TF32_TF32_F32_X3: PrecisionConfig.Algorithm.ValueType  # 10
+    """An algorithm which uses 3 TF32_TF32_F32 matmuls to achieve better
+    precision (similar to F32).
+    """
+    ALG_DOT_F32_F32_F32: PrecisionConfig.Algorithm.ValueType  # 11
+    ALG_DOT_F64_F64_F64: PrecisionConfig.Algorithm.ValueType  # 12
+
     OPERAND_PRECISION_FIELD_NUMBER: builtins.int
+    ALGORITHM_FIELD_NUMBER: builtins.int
+    algorithm: global___PrecisionConfig.Algorithm.ValueType
+    """Currently doesn't do anything, but we plan to support it for dot and
+    possibly more instructions.
+
+    TODO(b/316147294): Support this on GPU and add this to StableHLO as well.
+
+    If this is set, then `operand_precision` should be set to DEFAULT and it
+    will be ignored.
+    """
     @property
     def operand_precision(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___PrecisionConfig.Precision.ValueType]: ...
     def __init__(
         self,
         *,
         operand_precision: collections.abc.Iterable[global___PrecisionConfig.Precision.ValueType] | None = ...,
+        algorithm: global___PrecisionConfig.Algorithm.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["operand_precision", b"operand_precision"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["algorithm", b"algorithm", "operand_precision", b"operand_precision"]) -> None: ...
 
 global___PrecisionConfig = PrecisionConfig
 
