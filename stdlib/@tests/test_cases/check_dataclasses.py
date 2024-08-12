@@ -43,17 +43,17 @@ if dc.is_dataclass(f):
 
 def is_dataclass_any(arg: Any) -> None:
     if dc.is_dataclass(arg):
-        assert_type(arg, DataclassInstance | type[DataclassInstance])
+        assert_type(arg, Union["DataclassInstance", Type["DataclassInstance"]])
 
 
 def is_dataclass_object(arg: object) -> None:
     if dc.is_dataclass(arg):
-        assert_type(arg, DataclassInstance | type[DataclassInstance])
+        assert_type(arg, Union["DataclassInstance", Type["DataclassInstance"]])
 
 
 def is_dataclass_type(arg: type) -> None:
     if dc.is_dataclass(arg):
-        assert_type(arg, type[DataclassInstance])
+        assert_type(arg, Type["DataclassInstance"])
 
 
 def check_other_isdataclass_overloads(x: type, y: object) -> None:
