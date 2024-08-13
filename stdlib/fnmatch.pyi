@@ -1,3 +1,4 @@
+from _typeshed import GenericPath
 from collections.abc import Iterable
 from typing import AnyStr
 
