@@ -1,6 +1,5 @@
 from collections.abc import Iterable
-from pathlib import Path
-from typing import AnyStr, Union
+from typing import AnyStr
 
 __all__ = ["filter", "fnmatch", "fnmatchcase", "translate"]
 
