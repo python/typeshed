@@ -123,11 +123,8 @@ setuptools._distutils.zosccompiler
 # Reexported from setuptools._distutils; problems should be fixed there
 distutils\..+
 
-# Private APIs
-setuptools\.config\._validate_pyproject.*
+# Private APIs, tests and other vendored code
+setuptools.config._validate_pyproject.*
 setuptools.command.build_py.build_py.existing_egg_info_dir
-
-# Other vendored code
-pkg_resources\._vendor.*
-setuptools\._distutils\._vendor.*
-setuptools\._vendor.*
+.+?\.tests.*
+.+?\._vendor.*

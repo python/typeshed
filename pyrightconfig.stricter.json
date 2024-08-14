@@ -41,6 +41,7 @@
         "stubs/cffi",
         "stubs/click-default-group",
         "stubs/commonmark",
+        "stubs/corus",
         "stubs/dateparser",
         "stubs/defusedxml",
         "stubs/docker",
