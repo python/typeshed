@@ -3,6 +3,7 @@ from __future__ import annotations
 import subprocess
 import sys
 import zipfile
+from pathlib import Path
 from typing import TYPE_CHECKING, Iterable
 
 import requests
@@ -10,6 +11,8 @@ import tomlkit
 
 if TYPE_CHECKING:
     from _typeshed import FileDescriptorOrPath, StrOrBytesPath, StrPath
+
+REPO_ROOT = Path(__file__).absolute().parent.parent.parent
 
 
 def download_file(url: str | bytes, destination: FileDescriptorOrPath) -> None:
@@ -27,7 +30,8 @@ def extract_archive(archive_path: StrPath, destination: StrPath) -> None:
         file_in.extractall(destination)
 
 
-def update_metadata(metadata_path: FileDescriptorOrPath, new_extra_description: str) -> None:
+def update_metadata(metadata_folder: StrPath, new_extra_description: str) -> None:
+    metadata_path = Path(metadata_folder) / "METADATA.toml"
     with open(metadata_path) as file:
         metadata = tomlkit.load(file)
     metadata["extra_description"] = new_extra_description
@@ -37,7 +41,7 @@ def update_metadata(metadata_path: FileDescriptorOrPath, new_extra_description: 
 
 
 def run_protoc(
-    proto_paths: Iterable[StrPath], proto_globs: Iterable[str], stubs_folder: StrPath, cwd: StrOrBytesPath | None = None
+    proto_paths: Iterable[StrPath], stubs_folder: StrPath, proto_globs: Iterable[str], cwd: StrOrBytesPath | None = None
 ) -> str:
     """TODO: Describe parameters and return"""
     protoc_version = (
