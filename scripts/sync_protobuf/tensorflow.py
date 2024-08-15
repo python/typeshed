@@ -13,8 +13,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from _helpers import REPO_ROOT, download_file, extract_archive, run_protoc, update_metadata
-from mypy_protobuf.main import __version__ as MYPY_PROTOBUF_VERSION  # pyright: ignore[reportMissingTypeStubs]
+from _helpers import MYPY_PROTOBUF_VERSION, REPO_ROOT, download_file, extract_archive, run_protoc, update_metadata
 
 # Whenever you update PACKAGE_VERSION here, version should be updated
 # in stubs/tensorflow/METADATA.toml and vice-versa.
@@ -98,13 +97,13 @@ def main() -> None:
         old_stub.unlink()
 
     PROTOC_VERSION = run_protoc(
-        proto_paths=[
+        proto_paths=(
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/third_party/tsl",
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla",
             f"{EXTRACTED_PACKAGE_DIR}",
-        ],
-        stubs_folder=STUBS_FOLDER,
-        proto_globs=[
+        ),
+        mypy_out=STUBS_FOLDER,
+        proto_globs=(
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/*.proto",
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/service/*.proto",
             f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/example/*.proto",
@@ -114,7 +113,7 @@ def main() -> None:
             f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/util/*.proto",
             f"{EXTRACTED_PACKAGE_DIR}/tensorflow/python/keras/protobuf/*.proto",
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/third_party/tsl/tsl/protobuf/*.proto",
-        ],
+        ),
         cwd=temp_dir,
     )
 
@@ -131,7 +130,7 @@ and {PROTOC_VERSION} on `tensorflow=={PACKAGE_VERSION}`.)""",
     )
 
     # Run pre-commit to cleanup the stubs
-    subprocess.run([sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")])
+    subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")))
 
 
 if __name__ == "__main__":

@@ -12,8 +12,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from _helpers import REPO_ROOT, download_file, extract_archive, run_protoc, update_metadata
-from mypy_protobuf.main import __version__ as MYPY_PROTOBUF_VERSION  # pyright: ignore[reportMissingTypeStubs]
+from _helpers import MYPY_PROTOBUF_VERSION, REPO_ROOT, download_file, extract_archive, run_protoc, update_metadata
 
 # Whenever you update PACKAGE_VERSION here, version should be updated
 # in stubs/s2clientprotocol/METADATA.toml and vice-versa.
@@ -45,9 +44,9 @@ def main() -> None:
         old_stub.unlink()
 
     PROTOC_VERSION = run_protoc(
-        proto_paths=[EXTRACTED_PACKAGE_DIR],
-        stubs_folder=STUBS_FOLDER,
-        proto_globs=[f"{EXTRACTED_PACKAGE_DIR}/s2clientprotocol/*.proto"],
+        proto_paths=(EXTRACTED_PACKAGE_DIR,),
+        mypy_out=STUBS_FOLDER,
+        proto_globs=(f"{EXTRACTED_PACKAGE_DIR}/s2clientprotocol/*.proto",),
         cwd=temp_dir,
     )
 
@@ -65,7 +64,7 @@ and {PROTOC_VERSION} on \
     )
 
     # Run pre-commit to cleanup the stubs
-    subprocess.run([sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")])
+    subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")))
 
 
 if __name__ == "__main__":

@@ -18,7 +18,6 @@ mypy-protobuf==3.6.0
 packaging==24.1
 pathspec>=0.11.1
 pre-commit
-requests
 stubdefaulter==0.1.0
 termcolor>=2.3
 tomli==2.0.1

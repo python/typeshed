@@ -3,25 +3,30 @@ from __future__ import annotations
 import subprocess
 import sys
 import zipfile
+from http.client import HTTPResponse
 from pathlib import Path
 from typing import TYPE_CHECKING, Iterable
+from urllib.request import urlopen
 
-import requests
 import tomlkit
+from mypy_protobuf.main import (  # type: ignore[import-untyped]  # pyright: ignore[reportMissingTypeStubs]
+    __version__ as mypy_protobuf__version__,
+)
 
 if TYPE_CHECKING:
     from _typeshed import FileDescriptorOrPath, StrOrBytesPath, StrPath
 
 REPO_ROOT = Path(__file__).absolute().parent.parent.parent
+MYPY_PROTOBUF_VERSION = mypy_protobuf__version__
 
 
-def download_file(url: str | bytes, destination: FileDescriptorOrPath) -> None:
+def download_file(url: str, destination: FileDescriptorOrPath) -> None:
     print(f"Downloading {url!r} to '{destination}'")
-    resp = requests.get(url, stream=True)
-    if resp.status_code != 200:
+    resp: HTTPResponse = urlopen(url)
+    if resp.getcode() != 200:
         raise RuntimeError(f"Error downloading {url}")
     with open(destination, "wb") as file:
-        file.write(resp.raw.read())
+        file.write(resp.read())
 
 
 def extract_archive(archive_path: StrPath, destination: StrPath) -> None:
@@ -36,12 +41,13 @@ def update_metadata(metadata_folder: StrPath, new_extra_description: str) -> Non
         metadata = tomlkit.load(file)
     metadata["extra_description"] = new_extra_description
     with open(metadata_path, "w") as file:
-        tomlkit.dump(metadata, file)
+        # tomlkit.dump has partially unknown IO type
+        tomlkit.dump(metadata, file)  # pyright: ignore[reportUnknownMemberType]
     print(f"Updated {metadata_path}")
 
 
 def run_protoc(
-    proto_paths: Iterable[StrPath], stubs_folder: StrPath, proto_globs: Iterable[str], cwd: StrOrBytesPath | None = None
+    proto_paths: Iterable[StrPath], mypy_out: StrPath, proto_globs: Iterable[str], cwd: StrOrBytesPath | None = None
 ) -> str:
     """TODO: Describe parameters and return"""
     protoc_version = (
@@ -51,9 +57,9 @@ def run_protoc(
     protoc_args = [
         *[f"--proto_path={proto_path}" for proto_path in proto_paths],
         "--mypy_out",
-        f"relax_strict_optional_primitives:{stubs_folder}",
+        f"relax_strict_optional_primitives:{mypy_out}",
         *proto_globs,
     ]
     print("Running: protoc\n    " + "\n    ".join(protoc_args) + "\n")
-    subprocess.run([sys.executable, "-m", "grpc_tools.protoc", *protoc_args], cwd=cwd, check=True)
+    subprocess.run((sys.executable, "-m", "grpc_tools.protoc", *protoc_args), cwd=cwd, check=True)
     return protoc_version
