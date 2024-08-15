@@ -2,7 +2,6 @@ import sys
 from abc import abstractmethod
 from time import struct_time
 from typing import ClassVar, Final, NamedTuple, NoReturn, SupportsIndex, final, overload
-
 from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.version_info >= (3, 11):
