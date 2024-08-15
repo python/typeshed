@@ -13,9 +13,12 @@ ruff==0.5.4              # must match .pre-commit-config.yaml
 
 # Libraries used by our various scripts.
 aiohttp==3.10.2
+grpcio-tools
+mypy-protobuf==3.6.0
 packaging==24.1
 pathspec>=0.11.1
 pre-commit
+requests
 stubdefaulter==0.1.0
 termcolor>=2.3
 tomli==2.0.1
