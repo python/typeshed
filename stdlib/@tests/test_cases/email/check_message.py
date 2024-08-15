@@ -1,6 +1,5 @@
 from email.headerregistry import Address
 from email.message import EmailMessage
-
 from typing_extensions import assert_type
 
 msg = EmailMessage()
