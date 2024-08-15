@@ -7,6 +7,5 @@ msg = EmailMessage()
 msg["To"] = "receiver@example.com"
 msg["From"] = Address("Sender Name", "sender", "example.com")
 
-msg = EmailMessage()
 for a in msg.iter_attachments():
     assert_type(a, EmailMessage)
