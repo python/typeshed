@@ -201,7 +201,7 @@ ctypes._endian.RTLD_LOCAL
 ctypes._endian.SIZEOF_TIME_T
 
 # Incompatible changes introduced in Python 3.12.5
-concurrent.futures.__all__.InvalidStateError
+concurrent.futures.__all__
 email._header_value_parser.NLSET
 email._header_value_parser.SPECIALSNL
 email._policybase.Policy.verify_generated_headers
