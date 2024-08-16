@@ -13,7 +13,9 @@ ruff==0.5.4              # must match .pre-commit-config.yaml
 
 # Libraries used by our various scripts.
 aiohttp==3.10.2
-grpcio-tools
+# grpc install only fails on Windows, but let's avoid building sdist on other platforms
+# https://github.com/grpc/grpc/issues/36201
+grpcio-tools; python_version < "3.13"
 mypy-protobuf==3.6.0
 packaging==24.1
 pathspec>=0.11.1
