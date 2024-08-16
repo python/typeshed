@@ -26,7 +26,8 @@ EXTRACTED_PACKAGE_DIR = f"s2client-proto-{PACKAGE_VERSION}"
 VERSION_PATTERN = re.compile(r'def game_version\(\):\n    return "(.+?)"')
 
 
-def extract_version(file_path: Path) -> str:
+def extract_python_version(file_path: Path) -> str:
+    """Extract Python version from s2clientprotocol's build file"""
     match = re.search(VERSION_PATTERN, file_path.read_text())
     assert match
     return match.group(1)
@@ -50,7 +51,7 @@ def main() -> None:
         cwd=temp_dir,
     )
 
-    PYTHON_S2_CLIENT_PROTO_VERSION = extract_version(temp_dir / EXTRACTED_PACKAGE_DIR / "s2clientprotocol" / "build.py")
+    PYTHON_S2_CLIENT_PROTO_VERSION = extract_python_version(temp_dir / EXTRACTED_PACKAGE_DIR / "s2clientprotocol" / "build.py")
 
     # Cleanup after ourselves, this is a temp dir, but it can still grow fast if run multiple times
     shutil.rmtree(temp_dir)

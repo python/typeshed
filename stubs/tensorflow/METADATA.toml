@@ -1,5 +1,5 @@
-# Whenever you update version here, TENSORFLOW_VERSION should be updated
-# in scripts/sync_tensorflow_protobuf_stubs.sh and vice-versa.
+# Whenever you update version here, PACKAGE_VERSION should be updated
+# in scripts/sync_proto/tensorflow.py and vice-versa.
 version = "2.17.*"
 upstream_repository = "https://github.com/tensorflow/tensorflow"
 # requires a version of numpy with a `py.typed` file

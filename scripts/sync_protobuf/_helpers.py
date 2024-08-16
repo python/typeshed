@@ -2,11 +2,11 @@ from __future__ import annotations
 
 import subprocess
 import sys
-import zipfile
 from http.client import HTTPResponse
 from pathlib import Path
 from typing import TYPE_CHECKING, Iterable
 from urllib.request import urlopen
+from zipfile import ZipFile
 
 import tomlkit
 from mypy_protobuf.main import (  # type: ignore[import-untyped]  # pyright: ignore[reportMissingTypeStubs]
@@ -14,14 +14,14 @@ from mypy_protobuf.main import (  # type: ignore[import-untyped]  # pyright: ign
 )
 
 if TYPE_CHECKING:
-    from _typeshed import FileDescriptorOrPath, StrOrBytesPath, StrPath
+    from _typeshed import StrOrBytesPath, StrPath
 
 REPO_ROOT = Path(__file__).absolute().parent.parent.parent
 MYPY_PROTOBUF_VERSION = mypy_protobuf__version__
 
 
-def download_file(url: str, destination: FileDescriptorOrPath) -> None:
-    print(f"Downloading {url!r} to '{destination}'")
+def download_file(url: str, destination: StrPath) -> None:
+    print(f"Downloading '{url}' to '{destination}'")
     resp: HTTPResponse = urlopen(url)
     if resp.getcode() != 200:
         raise RuntimeError(f"Error downloading {url}")
@@ -31,7 +31,7 @@ def download_file(url: str, destination: FileDescriptorOrPath) -> None:
 
 def extract_archive(archive_path: StrPath, destination: StrPath) -> None:
     print(f"Extracting '{archive_path}' to '{destination}'")
-    with zipfile.ZipFile(archive_path) as file_in:
+    with ZipFile(archive_path) as file_in:
         file_in.extractall(destination)
 
 
@@ -53,6 +53,7 @@ def run_protoc(
     protoc_version = (
         subprocess.run([sys.executable, "-m", "grpc_tools.protoc", "--version"], capture_output=True).stdout.decode().strip()
     )
+    print()
     print(protoc_version)
     protoc_args = [
         *[f"--proto_path={proto_path}" for proto_path in proto_paths],
