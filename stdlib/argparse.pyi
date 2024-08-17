@@ -51,7 +51,7 @@ _SUPPRESS_T = NewType("_SUPPRESS_T", str)
 SUPPRESS: _SUPPRESS_T | str  # not using Literal because argparse sometimes compares SUPPRESS with is
 # the | str is there so that foo = argparse.SUPPRESS; foo = "test" checks out in mypy
 ZERO_OR_MORE: Final = "*"
-_UNRECOGNIZED_ARGS_ATTR: str  # undocumented
+_UNRECOGNIZED_ARGS_ATTR: Final[str]  # undocumented
 
 class ArgumentError(Exception):
     argument_name: str | None
@@ -357,7 +357,17 @@ class Action(_AttributeHolder):
 
 if sys.version_info >= (3, 12):
     class BooleanOptionalAction(Action):
-        if sys.version_info >= (3, 13):
+        if sys.version_info >= (3, 14):
+            def __init__(
+                self,
+                option_strings: Sequence[str],
+                dest: str,
+                default: bool | None = None,
+                required: bool = False,
+                help: str | None = None,
+                deprecated: bool = False,
+            ) -> None: ...
+        elif sys.version_info >= (3, 13):
             @overload
             def __init__(
                 self,
