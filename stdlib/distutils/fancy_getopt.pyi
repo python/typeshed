@@ -6,10 +6,10 @@ from typing_extensions import TypeAlias
 _Option: TypeAlias = tuple[str, str | None, str]
 _GR: TypeAlias = tuple[list[str], OptionDummy]
 
-longopt_pat: str
-longopt_re: Pattern[str]
-neg_alias_re: Pattern[str]
-longopt_xlate: dict[int, int]
+longopt_pat: Final = r"[a-zA-Z](?:[a-zA-Z0-9-]*)"
+longopt_re: Final[Pattern[str]]
+neg_alias_re: Final[Pattern[str]]
+longopt_xlate: Final[dict[int, int]]
 
 class FancyGetopt:
     def __init__(self, option_table: list[_Option] | None = None) -> None: ...

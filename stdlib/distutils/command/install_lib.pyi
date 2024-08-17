@@ -2,7 +2,7 @@ from typing import Any, ClassVar, Final
 
 from ..cmd import Command
 
-PYTHON_SOURCE_EXTENSION: Final[str]
+PYTHON_SOURCE_EXTENSION: Final = ".py"
 
 class install_lib(Command):
     description: str

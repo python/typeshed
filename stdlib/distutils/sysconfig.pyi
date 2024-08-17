@@ -8,8 +8,8 @@ PREFIX: Final[str]
 EXEC_PREFIX: Final[str]
 BASE_PREFIX: Final[str]
 BASE_EXEC_PREFIX: Final[str]
-project_base: str
-python_build: bool
+project_base: Final[str]
+python_build: Final[bool]
 
 def expand_makefile_vars(s: str, vars: Mapping[str, str]) -> str: ...
 @overload
