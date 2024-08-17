@@ -9,5 +9,5 @@ XML_CTYPE_SEQ: Final = 6
 
 XML_CQUANT_NONE: Final = 0
 XML_CQUANT_OPT: Final = 1
-XML_CQUANT_PLUS: Final = 3
 XML_CQUANT_REP: Final = 2
+XML_CQUANT_PLUS: Final = 3
