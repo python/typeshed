@@ -1,11 +1,15 @@
+import sys
 from collections.abc import Callable
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Final
 
 from ..cmd import Command
 
 HAS_USER_SITE: bool
 SCHEME_KEYS: tuple[str, ...]
-INSTALL_SCHEMES: dict[str, dict[Any, Any]]
+INSTALL_SCHEMES: Final[dict[str, dict[str, str]]]
+
+if sys.version_info < (3, 10):
+    WINDOWS_SCHEME: Final[dict[str, str]]
 
 class install(Command):
     description: str
