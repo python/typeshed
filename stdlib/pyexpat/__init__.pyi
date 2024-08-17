@@ -15,9 +15,9 @@ class ExpatError(Exception):
     offset: int
 
 error = ExpatError
-XML_PARAM_ENTITY_PARSING_NEVER = 0
-XML_PARAM_ENTITY_PARSING_UNLESS_STANDALONE = 1
-XML_PARAM_ENTITY_PARSING_ALWAYS = 2
+XML_PARAM_ENTITY_PARSING_NEVER: Final = 0
+XML_PARAM_ENTITY_PARSING_UNLESS_STANDALONE: Final = 1
+XML_PARAM_ENTITY_PARSING_ALWAYS: Final = 2
 
 _Model: TypeAlias = tuple[int, int, str | None, tuple[Any, ...]]
 
