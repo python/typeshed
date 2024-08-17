@@ -1,11 +1,11 @@
 import sys
 from collections.abc import Callable
-from typing import Any, ClassVar, Final
+from typing import Any, ClassVar, Final, Literal
 
 from ..cmd import Command
 
 HAS_USER_SITE: Final[bool]
-from typing import Literal
+
 SCHEME_KEYS: Final[tuple[Literal["purelib"], Literal["platlib"], Literal["headers"], Literal["scripts"], Literal["data"]]]
 INSTALL_SCHEMES: Final[dict[str, dict[str, str]]]
 
