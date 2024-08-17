@@ -5,7 +5,7 @@ from typing import Any, ClassVar, Final
 from ..cmd import Command
 
 HAS_USER_SITE: Final[bool]
-SCHEME_KEYS: Final = ("purelib", "platlib", "headers", "scripts", "data")
+SCHEME_KEYS: Final[tuple["purelib", "platlib", "headers", "scripts", "data"]]
 INSTALL_SCHEMES: Final[dict[str, dict[str, str]]]
 
 if sys.version_info < (3, 10):
