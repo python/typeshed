@@ -1,5 +1,7 @@
 # flake8-2020 has type annotations, but PEP 561 states:
-# This PEP does not support distributing typing information as part of module-only distributions or single-file modules within namespace packages.
+# https://peps.python.org/pep-0561/#packaging-type-information
+# > This PEP does not support distributing typing information as part of
+# > module-only distributions or single-file modules within namespace packages.
 # Therefore typeshed is the best place.
 
 import ast
