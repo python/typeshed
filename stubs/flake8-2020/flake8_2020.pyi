@@ -4,18 +4,19 @@
 
 import ast
 from collections.abc import Generator
-from typing import Any, ClassVar
+from typing import ClassVar, Final
+from typing_extensions import Self
 
-YTT101: str
-YTT102: str
-YTT103: str
-YTT201: str
-YTT202: str
-YTT203: str
-YTT204: str
-YTT301: str
-YTT302: str
-YTT303: str
+YTT101: Final[str]
+YTT102: Final[str]
+YTT103: Final[str]
+YTT201: Final[str]
+YTT202: Final[str]
+YTT203: Final[str]
+YTT204: Final[str]
+YTT301: Final[str]
+YTT302: Final[str]
+YTT303: Final[str]
 
 class Visitor(ast.NodeVisitor): ...
 
@@ -23,4 +24,4 @@ class Plugin:
     name: ClassVar[str]
     version: ClassVar[str]
     def __init__(self, tree: ast.AST) -> None: ...
-    def run(self) -> Generator[tuple[int, int, str, type[Any]], None, None]: ...
+    def run(self) -> Generator[tuple[int, int, str, type[Self]], None, None]: ...
