@@ -2,7 +2,7 @@ import sys
 from _typeshed import SupportsGetItem
 from collections.abc import Callable, Container, Iterable, MutableMapping, MutableSequence, Sequence
 from typing import Any, AnyStr, Generic, Protocol, SupportsAbs, SupportsIndex, TypeVar, final, overload
-from typing_extensions import ParamSpec, TypeAlias, TypeVarTuple, Unpack, TypeIs
+from typing_extensions import ParamSpec, TypeAlias, TypeIs, TypeVarTuple, Unpack
 
 _R = TypeVar("_R")
 _T = TypeVar("_T")
