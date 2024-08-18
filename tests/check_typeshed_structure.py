@@ -168,8 +168,9 @@ def check_requirement_pins() -> None:
         spec = requirements[package].specifier
         if package != "pytype":  # Temporarily allow complex specification for pytype
             assert len(spec) == 1, f"type checker/linter '{package}' has complex specifier in {REQS_FILE}"
+        url = requirements[package].url
         msg = f"type checker/linter '{package}' is not pinned to an exact version in {REQS_FILE}"
-        assert str(spec).startswith("=="), msg
+        assert str(spec).startswith("==") or "@" in str(url), msg
 
 
 if __name__ == "__main__":
