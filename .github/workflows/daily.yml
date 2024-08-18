@@ -34,10 +34,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # tkinter doesn't import on macOS-12
-        os: ["ubuntu-latest", "windows-latest", "macos-11"]
-        # TODO unpin the 3.11 and 3.12 micro versions
-        python-version: ["3.8", "3.9", "3.10", "3.11.8", "3.12.2"]
+        # various modules aren't available on macos-13 and higher
+        os: ["ubuntu-latest", "windows-latest", "macos-12"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
       fail-fast: false
 
     steps:
@@ -84,13 +83,13 @@ jobs:
 
           if [ "${{ runner.os }}" = "Linux" ]; then
             if [ -n "$PACKAGES" ]; then
-              sudo apt update && sudo apt install -y $PACKAGES
+              sudo apt-get update && sudo apt-get install -y $PACKAGES
             fi
 
             PYTHON_EXECUTABLE="xvfb-run python"
           else
             if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
-              brew install $PACKAGES
+              brew install -q $PACKAGES
             fi
 
             if [ "${{ runner.os }}" = "Windows" ] && [ -n "$PACKAGES" ]; then
@@ -132,7 +131,7 @@ jobs:
     name: Create an issue if daily tests failed
     runs-on: ubuntu-latest
     needs: [stubtest-stdlib, stubtest-third-party, stub-uploader]
-    if: ${{ github.repository == 'python/typeshed' && always() && github.event_name != 'pull_request' && (needs.stubtest-stdlib.result == 'failure' || needs.stubtest-third-party.result == 'failure' || needs.stub-uploader.result == 'failure') }}
+    if: ${{ github.repository == 'python/typeshed' && always() && github.event_name == 'schedule' && (needs.stubtest-stdlib.result == 'failure' || needs.stubtest-third-party.result == 'failure' || needs.stub-uploader.result == 'failure') }}
     permissions:
       issues: write
     steps:

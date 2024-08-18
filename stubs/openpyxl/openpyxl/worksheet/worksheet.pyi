@@ -53,8 +53,8 @@ class Worksheet(_WorkbookChild):
     ORIENTATION_LANDSCAPE: Final = "landscape"
 
     _cells: dict[tuple[int, int], _Cell]
-    row_dimensions: DimensionHolder[RowDimension]
-    column_dimensions: DimensionHolder[ColumnDimension]
+    row_dimensions: DimensionHolder[int, RowDimension]
+    column_dimensions: DimensionHolder[str, ColumnDimension]
     row_breaks: RowBreak
     col_breaks: ColBreak
     merged_cells: MultiCellRange
@@ -98,7 +98,7 @@ class Worksheet(_WorkbookChild):
     # A str could be an individual cell, row, column or full range
     @overload
     def __getitem__(self, key: str) -> Any: ...  # AnyOf[Cell, tuple[Cell, ...], tuple[tuple[Cell, ...], ...]]
-    def __setitem__(self, key: str, value: str) -> None: ...
+    def __setitem__(self, key: str, value: _CellValue) -> None: ...
     def __iter__(self) -> Iterator[tuple[Cell, ...]]: ...
     def __delitem__(self, key: str) -> None: ...
     @property
@@ -192,6 +192,8 @@ class Worksheet(_WorkbookChild):
     ) -> Generator[tuple[_Cell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
     @property
     def columns(self) -> Generator[tuple[_Cell, ...], None, None]: ...
+    @property
+    def column_groups(self) -> list[str]: ...
     def set_printer_settings(
         self, paper_size: int | None, orientation: Literal["default", "portrait", "landscape"] | None
     ) -> None: ...

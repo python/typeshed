@@ -1,22 +1,6 @@
-# These names exist in __all__, but have no definition:
-boltons.strutils.int_list_complement
-boltons.strutils.int_list_to_int_tuples
-
 # Internal compatibility aliases
-boltons.cacheutils.basestring
-boltons.funcutils.basestring
 boltons.funcutils.make_method
-boltons.iterutils.basestring
-
-boltons.cacheutils.bytes
-boltons.cacheutils.str
-boltons.cacheutils.unicode
-boltons.cacheutils.xrange
 boltons.deprutils.ModuleType.__dict__
 boltons.deprutils.ModuleType.__getattr__
-boltons.iterutils.unicode
-boltons.iterutils.xrange
 boltons.mathutils.unicode
-boltons.urlutils.OMD
-boltons.urlutils.unichr
 boltons.urlutils.unicode
