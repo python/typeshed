@@ -71,11 +71,6 @@ for this script.
 
 ## pytype\_test.py
 
-Note: this test cannot be run on Windows
-systems unless you are using Windows Subsystem for Linux.
-It also requires a Python version < 3.11 as pytype does not yet support
-Python 3.11 and above.
-
 Run using:
 ```bash
 (.venv3)$ python3 tests/pytype_test.py

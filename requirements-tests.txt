@@ -9,6 +9,7 @@ mypy==1.11.1
 pre-commit-hooks==4.6.0  # must match .pre-commit-config.yaml
 pyright==1.1.376
 pytype==2024.4.11; platform_system != "Windows" and python_version < "3.12"
+git+https://github.com/google/pytype.git@bd2e0b3 ; platform_system == "Windows" or python_version >= "3.12"
 ruff==0.5.4              # must match .pre-commit-config.yaml
 
 # Libraries used by our various scripts.

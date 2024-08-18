@@ -127,11 +127,8 @@ def main() -> None:
     else:
         print(colored("\nSkipping stubtest since mypy failed.", "yellow"))
 
-    if sys.platform == "win32":
-        print(colored("\nSkipping pytype on Windows. You can run the test with WSL.", "yellow"))
-    else:
-        print("\nRunning pytype...")
-        pytype_result = subprocess.run([sys.executable, "tests/pytype_test.py", path])
+    print("\nRunning pytype...")
+    pytype_result = subprocess.run([sys.executable, "tests/pytype_test.py", path])
 
     cases_path = test_cases_path(stub if folder == "stubs" else "stdlib")
     if not cases_path.exists():
@@ -214,10 +211,7 @@ def main() -> None:
         print("stubtest:", _SKIPPED)
     else:
         print("stubtest:", _SUCCESS if stubtest_result.returncode == 0 else _FAILED)
-    if not pytype_result:
-        print("pytype:", _SKIPPED)
-    else:
-        print("pytype:", _SUCCESS if pytype_result.returncode == 0 else _FAILED)
+    print("pytype:", _SUCCESS if pytype_result.returncode == 0 else _FAILED)
     if pyright_testcases_skipped:
         print("Pyright regression tests:", _SKIPPED)
     else:
