@@ -9,6 +9,7 @@ stdlib/typing.pyi
 stdlib/asynchat.pyi
 stdlib/distutils/cmd.pyi
 stdlib/distutils/command/__init__.pyi
+stdlib/distutils/command/build_py.pyi
 stdlib/distutils/command/build_scripts.pyi
 stdlib/distutils/cygwinccompiler.pyi
 stdlib/smtpd.pyi
