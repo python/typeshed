@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Awaitable, Callable, Coroutine
 from typing import Any, TypeVar, overload
-from typing_extensions import ParamSpec, TypeGuard, TypeIs
+from typing_extensions import ParamSpec, TypeGuard, TypeIs, deprecated
 
 if sys.version_info >= (3, 11):
     __all__ = ("iscoroutinefunction", "iscoroutine")
@@ -15,12 +15,18 @@ _P = ParamSpec("_P")
 if sys.version_info < (3, 11):
     def coroutine(func: _FunctionT) -> _FunctionT: ...
 
-@overload
-def iscoroutinefunction(func: Callable[..., Coroutine[Any, Any, Any]]) -> bool: ...
-@overload
-def iscoroutinefunction(func: Callable[_P, Awaitable[_T]]) -> TypeGuard[Callable[_P, Coroutine[Any, Any, _T]]]: ...
-@overload
-def iscoroutinefunction(func: Callable[_P, object]) -> TypeGuard[Callable[_P, Coroutine[Any, Any, Any]]]: ...
-@overload
-def iscoroutinefunction(func: object) -> TypeGuard[Callable[..., Coroutine[Any, Any, Any]]]: ...
+if sys.version_info < (3, 16):
+    @overload
+    @deprecated("Use inspect.iscoroutinefunction instead")
+    def iscoroutinefunction(func: Callable[..., Coroutine[Any, Any, Any]]) -> bool: ...
+    @overload
+    @deprecated("Use inspect.iscoroutinefunction instead")
+    def iscoroutinefunction(func: Callable[_P, Awaitable[_T]]) -> TypeGuard[Callable[_P, Coroutine[Any, Any, _T]]]: ...
+    @overload
+    @deprecated("Use inspect.iscoroutinefunction instead")
+    def iscoroutinefunction(func: Callable[_P, object]) -> TypeGuard[Callable[_P, Coroutine[Any, Any, Any]]]: ...
+    @overload
+    @deprecated("Use inspect.iscoroutinefunction instead")
+    def iscoroutinefunction(func: object) -> TypeGuard[Callable[..., Coroutine[Any, Any, Any]]]: ...
+
 def iscoroutine(obj: object) -> TypeIs[Coroutine[Any, Any, Any]]: ...
