@@ -13,7 +13,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from _helpers import MYPY_PROTOBUF_VERSION, REPO_ROOT, download_file, extract_archive, run_protoc, update_metadata
+from _utils import MYPY_PROTOBUF_VERSION, REPO_ROOT, download_file, extract_archive, run_protoc, update_metadata
 
 # Whenever you update PACKAGE_VERSION here, version should be updated
 # in stubs/protobuf/METADATA.toml and vice-versa.

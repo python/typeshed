@@ -13,7 +13,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from _helpers import MYPY_PROTOBUF_VERSION, REPO_ROOT, download_file, extract_archive, run_protoc, update_metadata
+from _utils import MYPY_PROTOBUF_VERSION, REPO_ROOT, download_file, extract_archive, run_protoc, update_metadata
 
 # Whenever you update PACKAGE_VERSION here, version should be updated
 # in stubs/tensorflow/METADATA.toml and vice-versa.
@@ -126,7 +126,7 @@ def main() -> None:
         STUBS_FOLDER,
         f"""Partially generated using \
 [mypy-protobuf=={MYPY_PROTOBUF_VERSION}](https://github.com/nipunn1313/mypy-protobuf/tree/v{MYPY_PROTOBUF_VERSION}) \
-and {PROTOC_VERSION} on `tensorflow=={PACKAGE_VERSION}`.)""",
+and {PROTOC_VERSION} on `tensorflow=={PACKAGE_VERSION}`.""",
     )
 
     # Run pre-commit to cleanup the stubs
