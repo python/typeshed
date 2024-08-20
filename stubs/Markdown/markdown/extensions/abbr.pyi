@@ -1,14 +1,14 @@
 from re import Pattern
 from typing import ClassVar
-from xml.etree.ElementTree import Element
 from typing_extensions import deprecated
+from xml.etree.ElementTree import Element
 
+from markdown.blockparser import BlockParser
 from markdown.blockprocessors import BlockProcessor
+from markdown.core import Markdown
 from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.treeprocessors import Treeprocessor
-from markdown.core import Markdown
-from markdown.blockparser import BlockParser
 
 class AbbrExtension(Extension):
     def reset(self) -> None: ...
