@@ -8,6 +8,7 @@ from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
 from markdown.treeprocessors import Treeprocessor
 from markdown.core import Markdown
+from markdown.blockparser import BlockParser
 
 class AbbrExtension(Extension):
     def reset(self) -> None: ...
