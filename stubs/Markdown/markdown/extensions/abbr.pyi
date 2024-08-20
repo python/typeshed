@@ -28,10 +28,7 @@ class AbbrBlockprocessor(BlockProcessor):
     def __init__(self, parser: BlockParser, abbrs: dict[str, str]) -> None: ...
 
 @deprecated("This class will be removed in the future; use `AbbrTreeprocessor` instead.")
-class AbbrPreprocessor(BlockProcessor):
-    RE: ClassVar[Pattern[str]]
-    abbrs: dict[str, str]
-    def __init__(self, parser: BlockParser, abbrs: dict[str, str]) -> None: ...
+class AbbrPreprocessor(AbbrBlockprocessor): ...
 
 @deprecated("This class will be removed in the future; use `AbbrTreeprocessor` instead.")
 class AbbrInlineProcessor(InlineProcessor):
