@@ -162,7 +162,7 @@ class StreamRequestHandler(BaseRequestHandler):
     wfile: BinaryIO
 
 class DatagramRequestHandler(BaseRequestHandler):
-    packet: _socket  # undocumented
+    packet: bytes  # undocumented
     socket: _socket  # undocumented
     rfile: BinaryIO
     wfile: BinaryIO
