@@ -1,15 +1,34 @@
 from re import Pattern
 from typing import ClassVar
+from xml.etree.ElementTree import Element
+from typing_extensions import deprecated
 
 from markdown.blockprocessors import BlockProcessor
 from markdown.extensions import Extension
 from markdown.inlinepatterns import InlineProcessor
+from markdown.treeprocessors import Treeprocessor
+from markdown.core import Markdown
 
-class AbbrExtension(Extension): ...
+class AbbrExtension(Extension):
+    def reset(self) -> None: ...
+    def reset_glossary(self) -> None: ...
+    def load_glossary(self, dictionary: dict[str, str]) -> None: ...
 
+# Techinically it is the same type as `AbbrPreprocessor` just not deprecated.
+class AbbrBlockprocessor(BlockProcessor):
+    RE: ClassVar[Pattern[str]]
+
+class AbbrTreeprocessor(Treeprocessor):
+    RE: Pattern[str]
+    abbrs: dict[str, str]
+    def __init__(self, md: Markdown | None = None, abbrs: dict[str, str] | None = None) -> None: ...
+    def iter_element(self, el: Element, parent: Element | None = None) -> None: ...
+
+@deprecated("This class will be removed in the future; use `AbbrTreeprocessor` instead.")
 class AbbrPreprocessor(BlockProcessor):
     RE: ClassVar[Pattern[str]]
 
+@deprecated("This class will be removed in the future; use `AbbrTreeprocessor` instead.")
 class AbbrInlineProcessor(InlineProcessor):
     title: str
     def __init__(self, pattern: str, title: str) -> None: ...
