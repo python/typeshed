@@ -237,10 +237,9 @@ def run_mypy(
             # See https://github.com/python/typeshed/pull/9491#issuecomment-1381574946
             # for discussion and reasoning to keep "--allow-subclassing-any"
             "--allow-subclassing-any",
-            "--enable-error-code",
-            "ignore-without-code",
-            "--enable-error-code",
-            "redundant-self",
+            "--enable-error-code=ignore-without-code",
+            "--enable-error-code=redundant-self",
+            "--disable-error-code=overload-overlap",
             "--config-file",
             temp.name,
         ]

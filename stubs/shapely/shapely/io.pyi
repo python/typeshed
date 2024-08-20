@@ -117,7 +117,7 @@ def to_geojson(geometry: OptGeoArrayLikeSeq, indent: int | None = None, **kwargs
 @overload
 def from_wkt(geometry: None, on_invalid: Literal["raise", "warn", "ignore"] = "raise", **kwargs) -> None: ...
 @overload
-def from_wkt(geometry: str, on_invalid: Literal["raise", "warn", "ignore"] = "raise", **kwargs) -> BaseGeometry: ...  # type: ignore[overload-overlap]
+def from_wkt(geometry: str, on_invalid: Literal["raise", "warn", "ignore"] = "raise", **kwargs) -> BaseGeometry: ...
 @overload
 def from_wkt(
     geometry: ArrayLikeSeq[str | None], on_invalid: Literal["raise", "warn", "ignore"] = "raise", **kwargs
@@ -125,7 +125,7 @@ def from_wkt(
 @overload
 def from_wkb(geometry: None, on_invalid: Literal["raise", "warn", "ignore"] = "raise", **kwargs) -> None: ...
 @overload
-def from_wkb(geometry: str | bytes, on_invalid: Literal["raise", "warn", "ignore"] = "raise", **kwargs) -> BaseGeometry: ...  # type: ignore[overload-overlap]
+def from_wkb(geometry: str | bytes, on_invalid: Literal["raise", "warn", "ignore"] = "raise", **kwargs) -> BaseGeometry: ...
 @overload
 def from_wkb(
     geometry: ArrayLikeSeq[str | bytes | None], on_invalid: Literal["raise", "warn", "ignore"] = "raise", **kwargs
@@ -133,7 +133,7 @@ def from_wkb(
 @overload
 def from_geojson(geometry: None, on_invalid: Literal["raise", "warn", "ignore"] = "raise", **kwargs) -> None: ...
 @overload
-def from_geojson(geometry: str | bytes, on_invalid: Literal["raise", "warn", "ignore"] = "raise", **kwargs) -> BaseGeometry: ...  # type: ignore[overload-overlap]
+def from_geojson(geometry: str | bytes, on_invalid: Literal["raise", "warn", "ignore"] = "raise", **kwargs) -> BaseGeometry: ...
 @overload
 def from_geojson(
     geometry: ArrayLikeSeq[str | bytes | None], on_invalid: Literal["raise", "warn", "ignore"] = "raise", **kwargs

@@ -594,7 +594,7 @@ class FPDF(GraphicsStateMixin):
         repeat_headings: TableHeadingsDisplay | int = 1,
     ) -> _GeneratorContextManager[Table]: ...
     @overload
-    def output(  # type: ignore[overload-overlap]
+    def output(
         self,
         name: Literal[""] | None = "",
         dest: Unused = "",
