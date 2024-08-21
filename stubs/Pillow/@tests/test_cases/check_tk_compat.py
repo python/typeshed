@@ -6,7 +6,6 @@ from __future__ import annotations
 # Pillow package.
 # https://github.com/python/typeshed/issues/11688
 # pyright: reportArgumentType=false
-
 import tkinter
 
 from PIL import ImageTk
