@@ -1,30 +1,20 @@
 import datetime
 from _typeshed import Incomplete
+from collections.abc import Generator
 from typing import Any, Callable
 
 from .compat import StreamTextType as StreamTextType
 
 class LazyEval:
-    def __init__(self, func: Callable[..., Any], *args: Any, **kwargs: Any) -> None: ...
-    def __getattribute__(self, name: str) -> Any: ...
-    def __setattr__(self, name: str, value: Any) -> None: ...
+    def __init__(self, func: Callable[..., Any], *args, **kwargs) -> None: ...
+    def __getattribute__(self, name: str): ...
+    def __setattr__(self, name: str, value) -> None: ...
 
 RegExp: Incomplete
 timestamp_regexp: Incomplete
 
 def create_timestamp(
-    year: Any,
-    month: Any,
-    day: Any,
-    t: Any,
-    hour: Any,
-    minute: Any,
-    second: Any,
-    fraction: Any,
-    tz: Any,
-    tz_sign: Any,
-    tz_hour: Any,
-    tz_minute: Any,
+    year, month, day, t, hour, minute, second, fraction, tz, tz_sign, tz_hour, tz_minute
 ) -> datetime.datetime | datetime.date: ...
-def load_yaml_guess_indent(stream: StreamTextType, **kw: Any) -> Any: ...
-def configobj_walker(cfg: Any) -> Any: ...
+def load_yaml_guess_indent(stream: StreamTextType, **kw): ...
+def configobj_walker(cfg) -> Generator[Incomplete, None, None]: ...

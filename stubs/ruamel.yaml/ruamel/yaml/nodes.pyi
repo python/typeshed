@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 class Node:
     ctag: Incomplete
@@ -8,11 +7,13 @@ class Node:
     end_mark: Incomplete
     comment: Incomplete
     anchor: Incomplete
-    def __init__(self, tag: Any, value: Any, start_mark: Any, end_mark: Any, comment: Any = None, anchor: Any = None) -> None: ...
+    def __init__(
+        self, tag, value, start_mark, end_mark, comment: Incomplete | None = None, anchor: Incomplete | None = None
+    ) -> None: ...
     @property
     def tag(self) -> str | None: ...
     @tag.setter
-    def tag(self, val: Any) -> None: ...
+    def tag(self, val) -> None: ...
     def dump(self, indent: int = 0) -> None: ...
 
 class ScalarNode(Node):
@@ -20,13 +21,13 @@ class ScalarNode(Node):
     style: Incomplete
     def __init__(
         self,
-        tag: Any,
-        value: Any,
-        start_mark: Any = None,
-        end_mark: Any = None,
-        style: Any = None,
-        comment: Any = None,
-        anchor: Any = None,
+        tag,
+        value,
+        start_mark: Incomplete | None = None,
+        end_mark: Incomplete | None = None,
+        style: Incomplete | None = None,
+        comment: Incomplete | None = None,
+        anchor: Incomplete | None = None,
     ) -> None: ...
 
 class CollectionNode(Node):
@@ -34,13 +35,13 @@ class CollectionNode(Node):
     anchor: Incomplete
     def __init__(
         self,
-        tag: Any,
-        value: Any,
-        start_mark: Any = None,
-        end_mark: Any = None,
-        flow_style: Any = None,
-        comment: Any = None,
-        anchor: Any = None,
+        tag,
+        value,
+        start_mark: Incomplete | None = None,
+        end_mark: Incomplete | None = None,
+        flow_style: Incomplete | None = None,
+        comment: Incomplete | None = None,
+        anchor: Incomplete | None = None,
     ) -> None: ...
 
 class SequenceNode(CollectionNode):
@@ -51,11 +52,11 @@ class MappingNode(CollectionNode):
     merge: Incomplete
     def __init__(
         self,
-        tag: Any,
-        value: Any,
-        start_mark: Any = None,
-        end_mark: Any = None,
-        flow_style: Any = None,
-        comment: Any = None,
-        anchor: Any = None,
+        tag,
+        value,
+        start_mark: Incomplete | None = None,
+        end_mark: Incomplete | None = None,
+        flow_style: Incomplete | None = None,
+        comment: Incomplete | None = None,
+        anchor: Incomplete | None = None,
     ) -> None: ...

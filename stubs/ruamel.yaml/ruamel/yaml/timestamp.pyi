@@ -1,19 +1,19 @@
 import datetime
-from typing import Any
+from _typeshed import Incomplete
 
 class TimeStamp(datetime.datetime):
-    def __init__(self, *args: Any, **kw: Any) -> None: ...
-    def __new__(cls, *args: Any, **kw: Any) -> Any: ...
-    def __deepcopy__(self, memo: Any) -> Any: ...
+    def __init__(self, *args, **kw) -> None: ...
+    def __new__(cls, *args, **kw): ...
+    def __deepcopy__(self, memo): ...
     def replace(
         self,
-        year: Any = None,
-        month: Any = None,
-        day: Any = None,
-        hour: Any = None,
-        minute: Any = None,
-        second: Any = None,
-        microsecond: Any = None,
-        tzinfo: Any = True,
-        fold: Any = None,
-    ) -> Any: ...
+        year: Incomplete | None = None,
+        month: Incomplete | None = None,
+        day: Incomplete | None = None,
+        hour: Incomplete | None = None,
+        minute: Incomplete | None = None,
+        second: Incomplete | None = None,
+        microsecond: Incomplete | None = None,
+        tzinfo: bool = True,
+        fold: Incomplete | None = None,
+    ): ...
