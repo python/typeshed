@@ -5,7 +5,6 @@ from __future__ import annotations
 # confused by the existence of these stubs and annotations in the actual
 # Pillow package.
 # https://github.com/python/typeshed/issues/11688
-
 import tkinter
 
 from PIL import ImageTk
