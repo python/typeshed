@@ -20,7 +20,7 @@ from ._vendored_packaging import requirements as _packaging_requirements, versio
 _T = TypeVar("_T")
 _DistributionT = TypeVar("_DistributionT", bound=Distribution)
 _NestedStr: TypeAlias = str | Iterable[_NestedStr]
-_InstallerTypeT: TypeAlias = Callable[[Requirement], _DistributionT]  # noqa: Y043
+_StrictInstallerType: TypeAlias = Callable[[Requirement], _DistributionT]
 _InstallerType: TypeAlias = Callable[[Requirement], Distribution | None]
 _PkgReqType: TypeAlias = str | Requirement
 _EPDistType: TypeAlias = Distribution | _PkgReqType
@@ -124,26 +124,26 @@ class WorkingSet:
     def __iter__(self) -> Iterator[Distribution]: ...
     def add(self, dist: Distribution, entry: str | None = None, insert: bool = True, replace: bool = False) -> None: ...
     @overload
-    def resolve(  # type: ignore[overload-overlap]
+    def resolve(
         self,
         requirements: Iterable[Requirement],
         env: Environment | None,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         replace_conflicting: bool = False,
         extras: tuple[str, ...] | None = None,
     ) -> list[_DistributionT]: ...
     @overload
-    def resolve(  # type: ignore[overload-overlap]
+    def resolve(
         self,
         requirements: Iterable[Requirement],
         env: Environment | None = None,
         *,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         replace_conflicting: bool = False,
         extras: tuple[str, ...] | None = None,
     ) -> list[_DistributionT]: ...
     @overload
-    def resolve(  # type: ignore[overload-overlap]
+    def resolve(
         self,
         requirements: Iterable[Requirement],
         env: Environment | None = None,
@@ -152,20 +152,20 @@ class WorkingSet:
         extras: tuple[str, ...] | None = None,
     ) -> list[Distribution]: ...
     @overload
-    def find_plugins(  # type: ignore[overload-overlap]
+    def find_plugins(
         self,
         plugin_env: Environment,
         full_env: Environment | None,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         fallback: bool = True,
     ) -> tuple[list[_DistributionT], dict[Distribution, Exception]]: ...
     @overload
-    def find_plugins(  # type: ignore[overload-overlap]
+    def find_plugins(
         self,
         plugin_env: Environment,
         full_env: Environment | None = None,
         *,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         fallback: bool = True,
     ) -> tuple[list[_DistributionT], dict[Distribution, Exception]]: ...
     @overload
@@ -177,7 +177,7 @@ class WorkingSet:
         fallback: bool = True,
     ) -> tuple[list[Distribution], dict[Distribution, Exception]]: ...
     def require(self, *requirements: _NestedStr) -> Sequence[Distribution]: ...
-    def subscribe(self, callback: Callable[[Distribution], object], existing: bool = True) -> None: ...
+    def subscribe(self, callback: Callable[[Distribution], Unused], existing: bool = True) -> None: ...
 
 class Environment:
     def __init__(
@@ -193,7 +193,7 @@ class Environment:
         self,
         req: Requirement,
         working_set: WorkingSet,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         replace_conflicting: bool = False,
     ) -> _DistributionT: ...
     @overload
@@ -205,7 +205,7 @@ class Environment:
         replace_conflicting: bool = False,
     ) -> Distribution | None: ...
     @overload
-    def obtain(self, requirement: Requirement, installer: _InstallerTypeT[_DistributionT]) -> _DistributionT: ...  # type: ignore[overload-overlap]
+    def obtain(self, requirement: Requirement, installer: _StrictInstallerType[_DistributionT]) -> _DistributionT: ...
     @overload
     def obtain(self, requirement: Requirement, installer: Callable[[Requirement], None] | None = None) -> None: ...
     @overload
@@ -254,7 +254,9 @@ class EntryPoint:
         self, require: Literal[True] = True, env: Environment | None = None, installer: _InstallerType | None = None
     ) -> _ResolvedEntryPoint: ...
     @overload
-    def load(self, require: Literal[False], *args: Any, **kwargs: Any) -> _ResolvedEntryPoint: ...
+    def load(
+        self, require: Literal[False], *args: Environment | _InstallerType | None, **kwargs: Environment | _InstallerType | None
+    ) -> _ResolvedEntryPoint: ...
     def resolve(self) -> _ResolvedEntryPoint: ...
     def require(self, env: Environment | None = None, installer: _InstallerType | None = None) -> None: ...
     pattern: ClassVar[Pattern[str]]

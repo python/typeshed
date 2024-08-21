@@ -800,16 +800,10 @@ class IO(Iterator[AnyStr]):
     def writable(self) -> bool: ...
     @abstractmethod
     @overload
-    def write(self: IO[str], s: str, /) -> int: ...
-    @abstractmethod
-    @overload
     def write(self: IO[bytes], s: ReadableBuffer, /) -> int: ...
     @abstractmethod
     @overload
     def write(self, s: AnyStr, /) -> int: ...
-    @abstractmethod
-    @overload
-    def writelines(self: IO[str], lines: Iterable[str], /) -> None: ...
     @abstractmethod
     @overload
     def writelines(self: IO[bytes], lines: Iterable[ReadableBuffer], /) -> None: ...
@@ -846,7 +840,8 @@ class TextIO(IO[str]):
     @abstractmethod
     def __enter__(self) -> TextIO: ...
 
-ByteString: typing_extensions.TypeAlias = bytes | bytearray | memoryview
+if sys.version_info < (3, 14):
+    ByteString: typing_extensions.TypeAlias = bytes | bytearray | memoryview
 
 # Functions
 

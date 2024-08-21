@@ -1,11 +1,10 @@
 # new in py313
-fcntl.F_GETNOSIGPIPE
-fcntl.F_OFD_GETLK
-fcntl.F_OFD_SETLK
-fcntl.F_OFD_SETLKW
-fcntl.F_RDAHEAD
-fcntl.F_SETNOSIGPIPE
 posixpath.splitroot
+
+# Depends on HAVE_NCURSESW and how we install CPython,
+# should be removed when 3.13 will be officially released:
+_?curses.unget_wch
+_?curses.window.get_wch
 
 # Exists locally on MacOS but not on GitHub
 (mmap.MAP_32BIT)?

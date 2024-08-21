@@ -33,8 +33,11 @@ class ResourceHandleProto(google.protobuf.message.Message):
         DTYPE_FIELD_NUMBER: builtins.int
         SHAPE_FIELD_NUMBER: builtins.int
         dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
+        """Data type of the tensor."""
         @property
-        def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto: ...
+        def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto:
+            """Shape of the tensor."""
+
         def __init__(
             self,
             *,
