@@ -2,7 +2,7 @@ import abc
 import builtins
 import codecs
 import sys
-from _typeshed import FileDescriptorOrPath, ReadableBuffer, SupportsFlush, SupportsRead, SupportsWrite, WriteableBuffer
+from _typeshed import FileDescriptorOrPath, HasFileno, ReadableBuffer, SupportsFlush, SupportsRead, SupportsWrite, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from os import _Opener
 from types import TracebackType
@@ -150,7 +150,7 @@ class TextIOBase(IOBase):
     def read(self, size: int | None = ..., /) -> str: ...
 
 @type_check_only
-class _WrappedBuffer(SupportsRead[ReadableBuffer], SupportsWrite[bytes], SupportsFlush, Protocol):
+class _WrappedBuffer(SupportsRead[ReadableBuffer], SupportsWrite[bytes], SupportsFlush, HasFileno, Protocol):
     # "name" is wrapped by TextIOWrapper. Its type is inconsistent between
     # the various I/O types, see the comments on TextIOWrapper.name and
     # TextIO.name.
@@ -164,7 +164,6 @@ class _WrappedBuffer(SupportsRead[ReadableBuffer], SupportsWrite[bytes], Support
     def readable(self) -> bool: ...
     def writable(self) -> bool: ...
     def truncate(self, size: int, /) -> int: ...
-    def fileno(self) -> int: ...
     def isatty(self) -> bool: ...
     # Optional: Only needs to be present if seekable() returns True.
     # def seek(self, offset: Literal[0], whence: Literal[2]) -> int: ...

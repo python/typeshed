@@ -1,5 +1,5 @@
 import sys
-from _typeshed import AnyStr_co, StrOrBytesPath, SupportsNoArgReadline
+from _typeshed import AnyStr_co, HasFileno, StrOrBytesPath, SupportsNoArgReadline
 from collections.abc import Callable, Iterable, Iterator
 from types import TracebackType
 from typing import IO, Any, AnyStr, Literal, Protocol, overload, type_check_only
@@ -29,8 +29,7 @@ else:
     _TextMode: TypeAlias = Literal["r", "rU", "U"]
 
 @type_check_only
-class _HasReadlineAndFileno(SupportsNoArgReadline[AnyStr_co], Protocol[AnyStr_co]):
-    def fileno(self) -> int: ...
+class _HasReadlineAndFileno(SupportsNoArgReadline[AnyStr_co], HasFileno, Protocol[AnyStr_co]): ...
 
 if sys.version_info >= (3, 10):
     # encoding and errors are added
