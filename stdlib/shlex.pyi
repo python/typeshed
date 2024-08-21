@@ -1,4 +1,5 @@
 import sys
+from _typeshed import SupportsNoArgReadline
 from collections import deque
 from collections.abc import Iterable
 from io import TextIOWrapper
@@ -8,9 +9,8 @@ from typing_extensions import Self, deprecated
 __all__ = ["shlex", "split", "quote", "join"]
 
 @type_check_only
-class _ShlexInstream(Protocol):
+class _ShlexInstream(SupportsNoArgReadline[object], Protocol):
     def read(self, size: Literal[1], /) -> str: ...
-    def readline(self) -> object: ...
     def close(self) -> object: ...
 
 if sys.version_info >= (3, 12):

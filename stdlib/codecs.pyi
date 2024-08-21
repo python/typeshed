@@ -1,9 +1,9 @@
 import types
 from _codecs import *
-from _typeshed import ReadableBuffer
+from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
 from abc import abstractmethod
 from collections.abc import Callable, Generator, Iterable
-from typing import Any, BinaryIO, Final, Literal, Protocol, TextIO
+from typing import Any, BinaryIO, Final, Literal, Protocol, TextIO, type_check_only
 from typing_extensions import Self
 
 __all__ = [
@@ -58,16 +58,17 @@ BOM32_LE: Final = b"\xff\xfe"
 BOM64_BE: Final = b"\x00\x00\xfe\xff"
 BOM64_LE: Final = b"\xff\xfe\x00\x00"
 
-class _WritableStream(Protocol):
-    def write(self, data: bytes, /) -> object: ...
+@type_check_only
+class _WritableStream(SupportsWrite[bytes], Protocol):
     def seek(self, offset: int, whence: int, /) -> object: ...
     def close(self) -> object: ...
 
-class _ReadableStream(Protocol):
-    def read(self, size: int = ..., /) -> bytes: ...
+@type_check_only
+class _ReadableStream(SupportsRead[bytes], Protocol):
     def seek(self, offset: int, whence: int, /) -> object: ...
     def close(self) -> object: ...
 
+@type_check_only
 class _Stream(_WritableStream, _ReadableStream, Protocol): ...
 
 # TODO: this only satisfies the most common interface, where

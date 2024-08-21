@@ -1,12 +1,12 @@
 import bz2
 import io
 import sys
-from _typeshed import StrOrBytesPath, StrPath
+from _typeshed import StrOrBytesPath, StrPath, SupportsWrite
 from builtins import list as _list  # aliases to avoid name clashes with fields named "type" or "list"
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
-from typing import IO, ClassVar, Literal, Protocol, overload
+from typing import IO, ClassVar, Literal, Protocol, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -42,9 +42,9 @@ if sys.version_info >= (3, 12):
 _FilterFunction: TypeAlias = Callable[[TarInfo, str], TarInfo | None]
 _TarfileFilter: TypeAlias = Literal["fully_trusted", "tar", "data"] | _FilterFunction
 
-class _Fileobj(Protocol):
+@type_check_only
+class _Fileobj(SupportsWrite[bytes], Protocol):
     def read(self, size: int, /) -> bytes: ...
-    def write(self, b: bytes, /) -> object: ...
     def tell(self) -> int: ...
     def seek(self, pos: int, /) -> object: ...
     def close(self) -> object: ...

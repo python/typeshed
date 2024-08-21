@@ -1,14 +1,15 @@
 import threading
+from _typeshed import SupportsFlush
 from collections.abc import Iterator
 from types import TracebackType
-from typing import Literal, Protocol
+from typing import Literal, Protocol, type_check_only
 from typing_extensions import Self
 
 __version__: str
 
-class _Stream(Protocol):
+@type_check_only
+class _Stream(SupportsFlush, Protocol):
     def isatty(self) -> bool: ...
-    def flush(self) -> None: ...
     def write(self, s: str, /) -> int: ...
 
 class Spinner:

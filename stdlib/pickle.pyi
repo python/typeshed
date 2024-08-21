@@ -1,6 +1,6 @@
-from _typeshed import ReadableBuffer, SupportsWrite
+from _typeshed import ReadableBuffer, SupportsNoArgReadline, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping
-from typing import Any, ClassVar, Protocol, SupportsBytes, SupportsIndex, final
+from typing import Any, ClassVar, Protocol, SupportsBytes, SupportsIndex, final, type_check_only
 from typing_extensions import TypeAlias
 
 __all__ = [
@@ -93,9 +93,9 @@ DEFAULT_PROTOCOL: int
 
 bytes_types: tuple[type[Any], ...]  # undocumented
 
-class _ReadableFileobj(Protocol):
+@type_check_only
+class _ReadableFileobj(SupportsNoArgReadline[bytes], Protocol):
     def read(self, n: int, /) -> bytes: ...
-    def readline(self) -> bytes: ...
 
 @final
 class PickleBuffer:
