@@ -1,0 +1,3 @@
+from typing import Any
+
+def configobj_walker(cfg: Any) -> Any: ...
