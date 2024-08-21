@@ -3,16 +3,29 @@ import sys
 import threading
 from _typeshed import Unused
 from collections.abc import Iterable
-from typing import Any, BinaryIO, TextIO
+from typing import Any, Generic, Protocol, TypeVar, type_check_only
 from typing_extensions import Self
 
 from serial import Serial
 
+_AnyStr_T = TypeVar("_AnyStr_T", contravariant=True)
+
+@type_check_only
+class _Writer(Protocol, Generic[_AnyStr_T]):
+    def write(self, s: _AnyStr_T, /) -> Unused: ...
+    def flush(self) -> Unused: ...
+
+
+@type_check_only
+class _Reader(Protocol):
+    def read(self, n: int, /) -> str: ...
+
+
 def key_description(character: str) -> str: ...
 
 class ConsoleBase:
-    byte_output: BinaryIO
-    output: codecs.StreamWriter | TextIO
+    byte_output: _Writer[bytes]
+    output: _Writer[str]
     def __init__(self) -> None: ...
     def setup(self) -> None: ...
     def cleanup(self) -> None: ...
@@ -39,7 +52,7 @@ else:
     class Console(ConsoleBase):
         fd: int
         old: list[Any]  # return type of termios.tcgetattr()
-        enc_stdin: TextIO
+        enc_stdin: _Reader
 
 class Transform:
     def rx(self, text: str) -> str: ...
