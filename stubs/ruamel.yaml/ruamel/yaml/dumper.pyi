@@ -1,10 +1,10 @@
 from _typeshed import Incomplete
 
-from ruamel.yaml.compat import StreamType
-from ruamel.yaml.emitter import Emitter
-from ruamel.yaml.representer import BaseRepresenter, Representer, RoundTripRepresenter, SafeRepresenter
-from ruamel.yaml.resolver import BaseResolver, Resolver, VersionedResolver
-from ruamel.yaml.serializer import Serializer
+from .compat import StreamType
+from .emitter import Emitter
+from .representer import BaseRepresenter, Representer, RoundTripRepresenter, SafeRepresenter
+from .resolver import BaseResolver, Resolver, VersionedResolver
+from .serializer import Serializer
 
 __all__ = ["BaseDumper", "SafeDumper", "Dumper", "RoundTripDumper"]
 

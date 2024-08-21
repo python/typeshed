@@ -3,10 +3,10 @@ import collections.abc
 import io
 from _typeshed import Incomplete
 from abc import abstractmethod
+from collections import OrderedDict
 from typing import Any
 
-from ordereddict import OrderedDict
-from ruamel.yaml.docinfo import Version
+from .docinfo import Version
 
 SupportsIndex = int
 StreamType = Any

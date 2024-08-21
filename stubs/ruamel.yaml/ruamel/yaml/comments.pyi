@@ -2,8 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Generator, Mapping, MutableSet, Set as AbstractSet, Sized
 from typing import Any, Iterator
 
-from ruamel.yaml.compat import MutableSliceableSequence, ordereddict
-from ruamel.yaml.tag import Tag
+from .compat import MutableSliceableSequence, ordereddict
+from .tag import Tag
 
 __all__ = [
     "CommentedSeq",

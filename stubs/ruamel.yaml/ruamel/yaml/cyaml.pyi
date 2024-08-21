@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
 
 from _ruamel_yaml import CEmitter, CParser
-from ruamel.yaml.compat import StreamTextType, VersionType
-from ruamel.yaml.constructor import BaseConstructor, Constructor, SafeConstructor
-from ruamel.yaml.representer import BaseRepresenter, Representer, SafeRepresenter
-from ruamel.yaml.resolver import BaseResolver, Resolver
+
+from .compat import StreamTextType, VersionType
+from .constructor import BaseConstructor, Constructor, SafeConstructor
+from .representer import BaseRepresenter, Representer, SafeRepresenter
+from .resolver import BaseResolver, Resolver
 
 __all__ = ["CBaseLoader", "CSafeLoader", "CLoader", "CBaseDumper", "CSafeDumper", "CDumper"]
 

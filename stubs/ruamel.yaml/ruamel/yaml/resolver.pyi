@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 
-from ruamel.yaml.compat import VersionType
-from ruamel.yaml.error import *
+from .compat import VersionType
+from .error import *
 
 __all__ = ["BaseResolver", "Resolver", "VersionedResolver"]
 

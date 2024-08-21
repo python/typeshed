@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
 
-from ruamel.yaml.compat import StreamType
-from ruamel.yaml.error import YAMLError
-from ruamel.yaml.events import *
+from .compat import StreamType
+from .error import YAMLError
+from .events import *
 
 __all__ = ["Emitter", "EmitterError"]
 

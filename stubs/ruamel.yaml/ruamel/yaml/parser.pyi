@@ -1,9 +1,9 @@
 from _typeshed import Incomplete
 
-from ruamel.yaml.error import MarkedYAMLError
-from ruamel.yaml.events import *
-from ruamel.yaml.tag import Tag
-from ruamel.yaml.tokens import *
+from .error import MarkedYAMLError
+from .events import *
+from .tag import Tag
+from .tokens import *
 
 __all__ = ["Parser", "RoundTripParser", "ParserError"]
 

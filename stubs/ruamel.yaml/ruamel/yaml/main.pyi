@@ -2,19 +2,14 @@ from _typeshed import Incomplete
 from pathlib import Path
 from types import TracebackType
 
-from ruamel.yaml.compat import (
-    StreamTextType as StreamTextType,
-    StreamType as StreamType,
-    VersionType as VersionType,
-    nprintf as nprintf,
-)
-from ruamel.yaml.constructor import Constructor
-from ruamel.yaml.error import UnsafeLoaderWarning as UnsafeLoaderWarning
-from ruamel.yaml.events import *
-from ruamel.yaml.nodes import *
-from ruamel.yaml.representer import Representer
-from ruamel.yaml.resolver import VersionedResolver as VersionedResolver
-from ruamel.yaml.tokens import *
+from .compat import StreamTextType as StreamTextType, StreamType as StreamType, VersionType as VersionType, nprintf as nprintf
+from .constructor import Constructor
+from .error import UnsafeLoaderWarning as UnsafeLoaderWarning
+from .events import *
+from .nodes import *
+from .representer import Representer
+from .resolver import VersionedResolver as VersionedResolver
+from .tokens import *
 
 class YAML:
     typ: Incomplete

@@ -1,12 +1,12 @@
 from _typeshed import Incomplete
 
-from ruamel.yaml.compat import StreamTextType, VersionType
-from ruamel.yaml.composer import Composer
-from ruamel.yaml.constructor import BaseConstructor, Constructor, RoundTripConstructor, SafeConstructor
-from ruamel.yaml.parser import Parser, RoundTripParser
-from ruamel.yaml.reader import Reader
-from ruamel.yaml.resolver import VersionedResolver
-from ruamel.yaml.scanner import RoundTripScanner, Scanner
+from .compat import StreamTextType, VersionType
+from .composer import Composer
+from .constructor import BaseConstructor, Constructor, RoundTripConstructor, SafeConstructor
+from .parser import Parser, RoundTripParser
+from .reader import Reader
+from .resolver import VersionedResolver
+from .scanner import RoundTripScanner, Scanner
 
 __all__ = ["BaseLoader", "SafeLoader", "Loader", "RoundTripLoader"]
 

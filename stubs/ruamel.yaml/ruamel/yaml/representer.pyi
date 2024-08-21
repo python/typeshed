@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 
-from ruamel.yaml.error import *
-from ruamel.yaml.nodes import *
+from .error import *
+from .nodes import *
 
 __all__ = ["BaseRepresenter", "SafeRepresenter", "Representer", "RepresenterError", "RoundTripRepresenter"]
 

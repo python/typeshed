@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from ruamel.yaml.error import YAMLError
+from .error import YAMLError
 
 __all__ = ["Reader", "ReaderError"]
 

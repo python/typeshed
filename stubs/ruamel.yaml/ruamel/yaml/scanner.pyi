@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
-from ruamel.yaml.error import MarkedYAMLError
-from ruamel.yaml.tokens import *
+from .error import MarkedYAMLError
+from .tokens import *
 
 __all__ = ["Scanner", "RoundTripScanner", "ScannerError"]
 

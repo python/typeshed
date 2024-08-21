@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 
-from ruamel.yaml.compat import nprintf as nprintf
-
+from .compat import nprintf as nprintf
 from .error import StreamMark
 
 SHOW_LINES: bool

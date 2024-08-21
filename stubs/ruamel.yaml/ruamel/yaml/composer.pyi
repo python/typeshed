@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from ruamel.yaml.error import MarkedYAMLError
+from .error import MarkedYAMLError
 
 __all__ = ["Composer", "ComposerError"]
 

@@ -3,13 +3,12 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import Iterator
 
-from ruamel.yaml.comments import *
-from ruamel.yaml.comments import CommentedMap, CommentedOrderedMap, CommentedSeq, CommentedSet, TaggedScalar
-from ruamel.yaml.error import MarkedYAMLError, MarkedYAMLFutureWarning
-from ruamel.yaml.nodes import *
-from ruamel.yaml.scalarbool import ScalarBoolean
-from ruamel.yaml.timestamp import TimeStamp
-from ruamel.yaml.util import timestamp_regexp
+from .comments import *
+from .comments import CommentedMap, CommentedOrderedMap, CommentedSeq, CommentedSet, TaggedScalar
+from .error import MarkedYAMLError, MarkedYAMLFutureWarning
+from .nodes import *
+from .scalarbool import ScalarBoolean
+from .timestamp import TimeStamp
 
 __all__ = ["BaseConstructor", "SafeConstructor", "Constructor", "ConstructorError", "RoundTripConstructor"]
 

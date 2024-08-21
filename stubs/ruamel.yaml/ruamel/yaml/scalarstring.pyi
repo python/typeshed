@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from ruamel.yaml.compat import SupportsIndex
+from .compat import SupportsIndex
 
 __all__ = [
     "ScalarString",
