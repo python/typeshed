@@ -20,7 +20,7 @@ from ._vendored_packaging import requirements as _packaging_requirements, versio
 _T = TypeVar("_T")
 _DistributionT = TypeVar("_DistributionT", bound=Distribution)
 _NestedStr: TypeAlias = str | Iterable[_NestedStr]
-_InstallerTypeT: TypeAlias = Callable[[Requirement], _DistributionT]  # noqa: Y043
+_StrictInstallerType: TypeAlias = Callable[[Requirement], _DistributionT]
 _InstallerType: TypeAlias = Callable[[Requirement], Distribution | None]
 _PkgReqType: TypeAlias = str | Requirement
 _EPDistType: TypeAlias = Distribution | _PkgReqType
@@ -128,7 +128,7 @@ class WorkingSet:
         self,
         requirements: Iterable[Requirement],
         env: Environment | None,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         replace_conflicting: bool = False,
         extras: tuple[str, ...] | None = None,
     ) -> list[_DistributionT]: ...
@@ -138,7 +138,7 @@ class WorkingSet:
         requirements: Iterable[Requirement],
         env: Environment | None = None,
         *,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         replace_conflicting: bool = False,
         extras: tuple[str, ...] | None = None,
     ) -> list[_DistributionT]: ...
@@ -156,7 +156,7 @@ class WorkingSet:
         self,
         plugin_env: Environment,
         full_env: Environment | None,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         fallback: bool = True,
     ) -> tuple[list[_DistributionT], dict[Distribution, Exception]]: ...
     @overload
@@ -165,7 +165,7 @@ class WorkingSet:
         plugin_env: Environment,
         full_env: Environment | None = None,
         *,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         fallback: bool = True,
     ) -> tuple[list[_DistributionT], dict[Distribution, Exception]]: ...
     @overload
@@ -193,7 +193,7 @@ class Environment:
         self,
         req: Requirement,
         working_set: WorkingSet,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         replace_conflicting: bool = False,
     ) -> _DistributionT: ...
     @overload
@@ -205,7 +205,7 @@ class Environment:
         replace_conflicting: bool = False,
     ) -> Distribution | None: ...
     @overload
-    def obtain(self, requirement: Requirement, installer: _InstallerTypeT[_DistributionT]) -> _DistributionT: ...
+    def obtain(self, requirement: Requirement, installer: _StrictInstallerType[_DistributionT]) -> _DistributionT: ...
     @overload
     def obtain(self, requirement: Requirement, installer: Callable[[Requirement], None] | None = None) -> None: ...
     @overload
