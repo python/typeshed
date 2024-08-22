@@ -11,9 +11,7 @@ from serial import Serial
 _AnyStr_T = TypeVar("_AnyStr_T", contravariant=True)
 
 @type_check_only
-class _Writer(Protocol, Generic[_AnyStr_T]):
-    def write(self, s: _AnyStr_T, /) -> Unused: ...
-    def flush(self) -> Unused: ...
+class _Writer(SupportsWrite[_AnyStr_T], SupportsFlush, Protocol): ...
 
 @type_check_only
 class _Reader(Protocol):
