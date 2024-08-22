@@ -991,6 +991,7 @@ class function:
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
 
     __module__: str
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
     # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
     def __get__(self, instance: object, owner: type | None = None, /) -> Any: ...
 
