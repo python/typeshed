@@ -3,7 +3,7 @@ import sys
 import threading
 from _typeshed import Unused
 from collections.abc import Iterable
-from typing import Any, Generic, Protocol, TypeVar, type_check_only
+from typing import Any, Protocol, TypeVar, type_check_only
 from typing_extensions import Self
 
 from serial import Serial
