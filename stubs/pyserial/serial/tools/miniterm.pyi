@@ -1,7 +1,7 @@
 import codecs
 import sys
 import threading
-from _typeshed import SupportsWrite, Unused
+from _typeshed import SupportsFlush, SupportsWrite, Unused
 from collections.abc import Iterable
 from typing import Any, Protocol, TypeVar, type_check_only
 from typing_extensions import Self
