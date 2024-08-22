@@ -7,6 +7,7 @@ from typing_extensions import assert_type
 # mypy and pyright have different opinions about this one:
 # mypy raises: 'Need type annotation for "bad"'
 # pyright is fine with it.
+# https://github.com/python/mypy/issues/12358
 # bad = dict()
 good: dict[str, str] = dict()
 assert_type(good, Dict[str, str])
