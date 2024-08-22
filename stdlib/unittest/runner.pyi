@@ -2,26 +2,30 @@ import sys
 import unittest.case
 import unittest.result
 import unittest.suite
+from _typeshed import SupportsFlush, SupportsWrite
 from collections.abc import Callable, Iterable
-from typing import Any, Generic, Protocol, TextIO, TypeVar, type_check_only
+from typing import Any, Generic, Protocol, TypeVar
 from typing_extensions import Never, TypeAlias
 
-# Build a Protocol from TextIO's methods.
-# `TextTestRunner.stream` defaults to `sys.stderr` which is typed as `TextIO`
-@type_check_only
-class _TextIOLike(TextIO, Protocol): ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+_ResultClassType: TypeAlias = Callable[[_TextTestStream, bool, int], TextTestResult]
 
-_ResultClassType: TypeAlias = Callable[[_TextIOLike, bool, int], unittest.result.TestResult]
-_StreamT = TypeVar("_StreamT", bound=_TextIOLike, default=_TextIOLike)
+class _SupportsWriteAndFlush(SupportsWrite[str], SupportsFlush, Protocol): ...
 
-# Note: doesn't actually inherit TextIO, but re-exposes all methods of the stream passed to __init__
-class _WritelnDecorator(_TextIOLike):  # type: ignore[misc] # Is not abstract
-    def __init__(self, stream: _TextIOLike) -> None: ...
-    def __getattr__(self, attr: str) -> Any: ...  # Any attribute from the stream type passed to __init__
+# All methods used by unittest.runner.TextTestResult's stream
+class _TextTestStream(_SupportsWriteAndFlush, Protocol):
     def writeln(self, arg: str | None = None) -> str: ...
+
+# _WritelnDecorator should have all the same attrs as its stream param.
+# But that's not feasible to do Generically
+# We can expand the attributes if requested
+class _WritelnDecorator(_TextTestStream):
+    def __init__(self, stream: _TextTestStream) -> None: ...
+    def __getattr__(self, attr: str) -> Any: ...  # Any attribute from the stream type passed to __init__
     # These attributes are prevented by __getattr__
     stream: Never
     __getstate__: Never
+
+_StreamT = TypeVar("_StreamT", bound=_TextTestStream, default=_WritelnDecorator)
 
 class TextTestResult(unittest.result.TestResult, Generic[_StreamT]):
     descriptions: bool  # undocumented
@@ -55,7 +59,7 @@ class TextTestRunner:
         durations: unittest.result._DurationsType | None
         def __init__(
             self,
-            stream: _TextIOLike | None = None,
+            stream: _SupportsWriteAndFlush | None = None,
             descriptions: bool = True,
             verbosity: int = 1,
             failfast: bool = False,
@@ -69,7 +73,7 @@ class TextTestRunner:
     else:
         def __init__(
             self,
-            stream: _TextIOLike | None = None,
+            stream: _SupportsWriteAndFlush | None = None,
             descriptions: bool = True,
             verbosity: int = 1,
             failfast: bool = False,
@@ -80,5 +84,5 @@ class TextTestRunner:
             tb_locals: bool = False,
         ) -> None: ...
 
-    def _makeResult(self) -> unittest.result.TestResult: ...
-    def run(self, test: unittest.suite.TestSuite | unittest.case.TestCase) -> unittest.result.TestResult: ...
+    def _makeResult(self) -> TextTestResult: ...
+    def run(self, test: unittest.suite.TestSuite | unittest.case.TestCase) -> TextTestResult: ...
