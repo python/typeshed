@@ -82,6 +82,7 @@
         "stubs/PyMySQL",
         "stubs/python-crontab",
         "stubs/python-dateutil",
+        "stubs/python-jenkins",
         "stubs/python-jose",
         "stubs/pywin32",
         "stubs/pyxdg",
