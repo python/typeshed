@@ -88,7 +88,7 @@ class WrappedSession(requests.Session):
         stream: bool | None,
         verify: bool | str | None,
         cert: str | tuple[str, str] | None,
-    ) -> dict[str, Any]: ...
+    ) -> Any: ...
 
 class Jenkins:
     server: str
