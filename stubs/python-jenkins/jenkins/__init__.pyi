@@ -87,8 +87,7 @@ class WrappedSession(requests.Session):
         proxies: MutableMapping[str, str] | None,
         stream: bool | None,
         verify: bool | str | None,
-        *args: Any,
-        **kwargs: Any,
+        cert: str | tuple[str, str] | None,
     ) -> dict[str, Any]: ...
 
 class Jenkins:
