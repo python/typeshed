@@ -5,7 +5,7 @@ from typing import Any
 from typing_extensions import ParamSpecKwargs
 
 from .models.segment import SegmentContextManager
-from .models.subsegment import SubsegmentContextManager, subsegment_decorator
+from .models.subsegment import SubsegmentContextManager
 from .recorder import AWSXRayRecorder
 
 class AsyncSegmentContextManager(SegmentContextManager):
@@ -15,7 +15,6 @@ class AsyncSegmentContextManager(SegmentContextManager):
     ) -> None: ...
 
 class AsyncSubsegmentContextManager(SubsegmentContextManager):
-    @subsegment_decorator
     async def __call__(self, wrapped: Callable, instance, args: list[Any], kwargs: dict[str, Any]): ...
     async def __aenter__(self): ...
     async def __aexit__(
