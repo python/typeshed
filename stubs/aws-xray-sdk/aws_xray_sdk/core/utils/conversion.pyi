@@ -1,5 +1,5 @@
-from typing import Any
+from logging import Logger
 
-log: Any
+log: Logger
 
-def metadata_to_dict(obj): ...
+def metadata_to_dict(obj) -> dict: ...

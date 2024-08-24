@@ -1,7 +1,8 @@
-from typing import Any
+from logging import Logger
 
-log: Any
+log: Logger
 SERVICE_NAME: str
 ORIGIN: str
+runtime_context: dict | None
 
 def initialize() -> None: ...
