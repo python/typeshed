@@ -5,7 +5,6 @@
 # TODO: triage these new errors
 _thread.interrupt_main
 _thread.lock
-_thread.start_joinable_thread
 _tkinter.create
 doctest.TestResults.__doc__
 doctest.TestResults.__new__

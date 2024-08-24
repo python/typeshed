@@ -21,6 +21,9 @@ class LockType:
         self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
 
+if sys.version_info >= (3, 13):
+    def start_joinable_thread(function: Callable[[], object], handle: int, daemon: bool = True) -> None: ...
+
 @overload
 def start_new_thread(function: Callable[[Unpack[_Ts]], object], args: tuple[Unpack[_Ts]], /) -> int: ...
 @overload
