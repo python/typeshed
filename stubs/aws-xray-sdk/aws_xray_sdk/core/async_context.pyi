@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from asyncio.events import AbstractEventLoop
 from asyncio.tasks import Task
-from typing import ParamSpecArgs, ParamSpecKwargs
+from typing_extensions import ParamSpecArgs, ParamSpecKwargs
 
 from .context import Context as _Context
 

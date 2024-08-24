@@ -4,7 +4,6 @@ log: Logger
 SERVICE_NAME: str
 ORIGIN: str
 IMDS_URL: str
-runtime_context: dict
 
 def initialize() -> None: ...
 def get_token() -> str | None: ...

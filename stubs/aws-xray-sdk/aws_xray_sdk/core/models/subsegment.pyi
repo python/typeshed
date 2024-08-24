@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
 from types import TracebackType
-from typing import Any, ParamSpecKwargs
+from typing import Any
+from typing_extensions import ParamSpecKwargs
 
 from ...core import AWSXRayRecorder
 from .entity import Entity

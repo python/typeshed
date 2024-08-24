@@ -1,6 +1,6 @@
 from collections.abc import Callable
 
-annotation_value_types: tuple[int, float, bool, str]
+annotation_value_types: tuple[type, type, type, type]
 
 def is_classmethod(func: Callable) -> bool: ...
 def is_instance_method(parent_class: type, func_name: str, func: Callable) -> bool: ...

@@ -1,5 +1,6 @@
 from types import TracebackType
-from typing import Any, ParamSpecKwargs
+from typing import Any
+from typing_extensions import ParamSpecKwargs
 
 from ..recorder import AWSXRayRecorder
 from ..utils.atomic_counter import AtomicCounter

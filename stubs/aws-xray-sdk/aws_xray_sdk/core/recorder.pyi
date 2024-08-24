@@ -1,7 +1,8 @@
 import time
 from collections.abc import Callable, Iterable
 from logging import Logger
-from typing import Any, ParamSpecKwargs
+from typing import Any
+from typing_extensions import ParamSpecKwargs
 
 from .context import Context
 from .emitters.udp_emitter import UDPEmitter
