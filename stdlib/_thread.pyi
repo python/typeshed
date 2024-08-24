@@ -29,6 +29,7 @@ def start_new_thread(function: Callable[..., object], args: tuple[Any, ...], kwa
 
 if sys.version_info >= (3, 10):
     def interrupt_main(signum: signal.Signals = signal.SIGINT, /) -> None: ...
+
 else:
     def interrupt_main() -> None: ...
 
