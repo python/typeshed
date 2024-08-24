@@ -1,4 +1,5 @@
 import time
+from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
 from logging import Logger
 from typing import Any
@@ -18,8 +19,8 @@ log: Logger
 TRACING_NAME_KEY: str
 DAEMON_ADDR_KEY: str
 CONTEXT_MISSING_KEY: str
-XRAY_META: dict
-SERVICE_INFO: dict
+XRAY_META: Incomplete
+SERVICE_INFO: Incomplete
 
 class AWSXRayRecorder:
     def __init__(self) -> None: ...

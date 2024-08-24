@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from collections.abc import Callable
 from types import TracebackType
 from typing import Any
 from typing_extensions import ParamSpecKwargs
@@ -15,7 +14,7 @@ class AsyncSegmentContextManager(SegmentContextManager):
     ) -> None: ...
 
 class AsyncSubsegmentContextManager(SubsegmentContextManager):
-    async def __call__(self, wrapped: Callable, instance, args: list[Any], kwargs: dict[str, Any]): ...
+    async def __call__(self, wrapped, instance, args: list[Any], kwargs: dict[str, Any]): ...
     async def __aenter__(self): ...
     async def __aexit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
@@ -26,12 +25,5 @@ class AsyncAWSXRayRecorder(AWSXRayRecorder):
     def in_segment_async(self, name: str | None = None, **segment_kwargs: ParamSpecKwargs): ...
     def in_subsegment_async(self, name: Incomplete | None = None, **subsegment_kwargs: ParamSpecKwargs): ...
     async def record_subsegment_async(
-        self,
-        wrapped: Callable,
-        instance,
-        args: list[Any],
-        kwargs: dict[str, Any],
-        name: str,
-        namespace,
-        meta_processor: Callable | Incomplete,
+        self, wrapped, instance, args: list[Any], kwargs: dict[str, Any], name: str, namespace, meta_processor
     ): ...

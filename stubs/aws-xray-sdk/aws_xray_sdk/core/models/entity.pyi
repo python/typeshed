@@ -14,12 +14,12 @@ class Entity:
     parent_id: Incomplete | None
     sampled: bool
     in_progress: bool
-    http: dict
-    annotations: dict
-    metadata: dict
-    aws: dict
-    cause: dict
-    subsegments: list
+    http: Incomplete
+    annotations: Incomplete
+    metadata: Incomplete
+    aws: Incomplete
+    cause: Incomplete
+    subsegments: Incomplete
     end_time: float
     def __init__(self, name: str, entity_id: Incomplete | None = None) -> None: ...
     def close(self, end_time: float | None = None) -> None: ...
