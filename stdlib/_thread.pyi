@@ -33,7 +33,7 @@ if sys.version_info >= (3, 13):
     def start_joinable_thread(
         function: Callable[[], object], handle: _ThreadHandle | None = None, daemon: bool = True
     ) -> _ThreadHandle: ...
-    lock = LockType
+    lock: type[LockType]
 
 @overload
 def start_new_thread(function: Callable[[Unpack[_Ts]], object], args: tuple[Unpack[_Ts]], /) -> int: ...
