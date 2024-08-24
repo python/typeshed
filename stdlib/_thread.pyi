@@ -22,7 +22,16 @@ class LockType:
     ) -> None: ...
 
 if sys.version_info >= (3, 13):
-    def start_joinable_thread(function: Callable[[], object], handle: int, daemon: bool = True) -> int: ...
+    class _ThreadHandle:
+        indent: int
+
+        def join(self, timeout: float | None = None) -> None: ...
+
+    def start_joinable_thread(
+        function: Callable[[], object],
+        handle: _ThreadHandle | None = None,
+        daemon: bool = True,
+    ) -> _ThreadHandle: ...
 
 @overload
 def start_new_thread(function: Callable[[Unpack[_Ts]], object], args: tuple[Unpack[_Ts]], /) -> int: ...
