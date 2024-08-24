@@ -22,6 +22,7 @@ class LockType:
     ) -> None: ...
 
 if sys.version_info >= (3, 13):
+    @final
     class _ThreadHandle:
         ident: int
 
