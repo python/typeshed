@@ -23,9 +23,11 @@ class LockType:
 
 if sys.version_info >= (3, 13):
     class _ThreadHandle:
-        indent: int
+        ident: int
 
         def join(self, timeout: float | None = None) -> None: ...
+        def is_done(self) -> bool: ...
+        def _set_done(self) -> None: ...
 
     def start_joinable_thread(
         function: Callable[[], object],
