@@ -3,7 +3,7 @@ from _typeshed import structseq
 from collections.abc import Callable
 from threading import Thread
 from types import TracebackType
-from typing import Any, Final, NoReturn, TypeAlias, final, overload
+from typing import Any, Final, NoReturn, final, overload
 from typing_extensions import TypeVarTuple, Unpack
 
 _Ts = TypeVarTuple("_Ts")
