@@ -3,7 +3,7 @@ from _typeshed import structseq
 from collections.abc import Callable
 from threading import Thread
 from types import TracebackType
-from typing import Any, Final, NoReturn, final, overload
+from typing import Any, Final, NoReturn, TypeAlias, final, overload
 from typing_extensions import TypeVarTuple, Unpack
 
 _Ts = TypeVarTuple("_Ts")
@@ -33,7 +33,7 @@ if sys.version_info >= (3, 13):
     def start_joinable_thread(
         function: Callable[[], object], handle: _ThreadHandle | None = None, daemon: bool = True
     ) -> _ThreadHandle: ...
-    lock: type[LockType]
+    lock = LockType
 
 @overload
 def start_new_thread(function: Callable[[Unpack[_Ts]], object], args: tuple[Unpack[_Ts]], /) -> int: ...
