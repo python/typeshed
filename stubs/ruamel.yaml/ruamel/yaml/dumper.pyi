@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing_extensions import TypeAlias
 
 from .compat import StreamType
 from .emitter import Emitter
@@ -7,6 +8,9 @@ from .resolver import BaseResolver, Resolver, VersionedResolver
 from .serializer import Serializer
 
 __all__ = ["BaseDumper", "SafeDumper", "Dumper", "RoundTripDumper"]
+
+# https://github.com/python/typeshed/pull/8973
+_Inf: TypeAlias = float
 
 class BaseDumper(Emitter, Serializer, BaseRepresenter, BaseResolver):
     def __init__(

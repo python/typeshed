@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
+from typing import Literal
 
-anchor_attrib: str
+anchor_attrib: Literal["_yaml_anchor"]
 
 class Anchor:
     attrib = anchor_attrib

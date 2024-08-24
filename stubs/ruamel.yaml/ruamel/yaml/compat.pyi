@@ -1,17 +1,17 @@
 import abc
 import collections.abc
 import io
-from _typeshed import Incomplete
+from _typeshed import Incomplete, SupportsRead
 from abc import abstractmethod
 from collections import OrderedDict
-from typing import Any
+from typing_extensions import TypeAlias
 
 from .docinfo import Version
 
-SupportsIndex = int
-StreamType = Any
-StreamTextType = StreamType
-VersionType = str | tuple[int, int] | list[int] | Version | None
+SupportsIndex: TypeAlias = int
+StreamType: TypeAlias = str | bytes | SupportsRead[str | bytes]
+StreamTextType: TypeAlias = StreamType
+VersionType: TypeAlias = str | tuple[int, int] | list[int] | Version | None
 
 class ordereddict(OrderedDict):
     def insert(self, pos: int, key, value) -> None: ...

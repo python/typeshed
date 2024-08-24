@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, Mapping, MutableSet, Set as AbstractSet, Sized
-from typing import Any, Iterator
+from typing import Any, Iterator, Literal, NoReturn
 
 from .compat import MutableSliceableSequence, ordereddict
 from .tag import Tag
@@ -29,8 +29,10 @@ class IDX:
     def __init__(self) -> None: ...
     def __call__(self): ...
 
-comment_attrib: str
-merge_attrib: str
+comment_attrib: Literal["_yaml_comment"]
+format_attrib: Literal["_yaml_format"]
+line_col_attrib: Literal["_yaml_line_col"]
+merge_attrib: Literal["_yaml_merge"]
 
 class Comment:
     attrib = comment_attrib
@@ -156,6 +158,9 @@ class CommentedMap(ordereddict, CommentedBase):
     def add_yaml_merge(self, value) -> None: ...
     def update_key_value(self, key) -> None: ...
     def __deepcopy__(self, memo): ...
+
+@classmethod
+def raise_immutable(cls, *args, **kwargs) -> NoReturn: ...
 
 class CommentedKeyMap(CommentedBase, Mapping):
     def __init__(self, *args, **kw) -> None: ...

@@ -1,81 +1,143 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, SupportsWrite
 from pathlib import Path
-from types import TracebackType
+from types import ModuleType, TracebackType
+from typing import Callable, Final, Literal, NoReturn, Protocol, overload
+from typing_extensions import Never, Self, TypeAlias, deprecated
 
+from .comments import CommentedMap, CommentedSeq
 from .compat import StreamTextType as StreamTextType, StreamType as StreamType, VersionType as VersionType, nprintf as nprintf
-from .constructor import Constructor
+from .composer import Composer
+from .constructor import BaseConstructor, Constructor, RoundTripConstructor
+from .docinfo import DocInfo
+from .dumper import _Inf
+from .emitter import Emitter, RoundTripEmitter
 from .error import UnsafeLoaderWarning as UnsafeLoaderWarning
 from .events import *
 from .nodes import *
-from .representer import Representer
-from .resolver import VersionedResolver as VersionedResolver
+from .parser import Parser, RoundTripParser
+from .reader import Reader
+from .representer import BaseRepresenter, Representer, RoundTripRepresenter
+from .resolver import BaseResolver, VersionedResolver as VersionedResolver
+from .scanner import RoundTripScanner, Scanner
+from .serializer import Serializer
 from .tokens import *
 
+_YAMLType: TypeAlias = str | Literal["rt", "safe", "unsafe", "full", "base"]
+
 class YAML:
-    typ: Incomplete
-    pure: Incomplete
-    plug_ins: Incomplete
-    Resolver: Incomplete
+    typ: list[_YAMLType]
+    pure: Final[bool]
+    plug_ins: list[ModuleType]
+    Resolver: type[BaseResolver]
     allow_unicode: bool
-    Reader: Incomplete
-    Representer: Incomplete
-    Constructor: Incomplete
-    Scanner: Incomplete
-    Serializer: Incomplete
-    default_flow_style: Incomplete
-    comment_handling: Incomplete
-    Emitter: Incomplete
-    Parser: Incomplete
-    Composer: Incomplete
-    stream: Incomplete
-    canonical: Incomplete
-    old_indent: Incomplete
-    width: Incomplete
-    line_break: Incomplete
-    map_indent: Incomplete
-    sequence_indent: Incomplete
+    Reader: type[Reader] | None
+    Representer: type[BaseRepresenter]
+    Constructor: type[BaseConstructor]
+    Scanner: type[Scanner] | None
+    Serializer: type[Serializer] | None
+    default_flow_style: bool | None
+    comment_handling: None
+    Emitter: type[Emitter]  # TODO: CEmitter
+    Parser: type[Parser]  # TODO: CParser
+    Composer: type[Composer]
+    stream: None
+    canonical: bool | None
+    old_indent: int | None
+    width: int | _Inf | None
+    line_break: str | None
+    map_indent: int | None
+    sequence_indent: int | None
     sequence_dash_offset: int
-    compact_seq_seq: Incomplete
-    compact_seq_map: Incomplete
-    sort_base_mapping_type_on_output: Incomplete
-    top_level_colon_align: Incomplete
-    prefix_colon: Incomplete
-    preserve_quotes: Incomplete
+    compact_seq_seq: bool | None
+    compact_seq_map: bool | None
+    sort_base_mapping_type_on_output: bool | None
+    top_level_colon_align: bool | None
+    prefix_colon: str | None
+    preserve_quotes: bool | None
     allow_duplicate_keys: bool
     encoding: str
-    explicit_start: Incomplete
-    explicit_end: Incomplete
-    doc_infos: Incomplete
-    default_style: Incomplete
+    explicit_start: bool | None
+    explicit_end: bool | None
+    doc_infos: list[DocInfo]
+    default_style: str | None
     top_level_block_style_scalar_no_indent_error_1_1: bool
-    scalar_after_indicator: Incomplete
+    scalar_after_indicator: bool | None
     brace_single_entry_mapping_in_flow_sequence: bool
+    @overload
+    def __new__(
+        cls,
+        *,
+        typ: Literal["rt"] | list[Literal["rt"]] | None = None,
+        pure: bool = False,
+        output: Path | SupportsWrite[str] | None = None,
+        plug_ins: list[str] | None = None,
+    ) -> _RoundTripYAML: ...
+    @overload
+    def __new__(
+        cls,
+        *,
+        typ: Literal["full"] | list[Literal["full"]],
+        pure: bool = False,
+        output: Path | SupportsWrite[str] | None = None,
+        plug_ins: list[str] | None = None,
+    ) -> _FullYAML: ...
+    @overload
+    def __new__(
+        cls,
+        *,
+        typ: _YAMLType | list[_YAMLType],
+        pure: bool = False,
+        output: Path | SupportsWrite[str] | None = None,
+        plug_ins: list[str] | None = None,
+    ) -> Self: ...
+    # This redundant overload prevents type checkers from matching the deprecated "unsafe" overload
+    # when users are typing `YAML(typ=)`.
+    @overload
     def __init__(
         self,
         *,
-        typ: list[str] | str | None = None,
+        typ: Literal["rt"] | list[Literal["rt"]] | None = None,
         pure: bool = False,
-        output: Incomplete | None = None,
-        plug_ins: Incomplete | None = None,
+        output: Path | SupportsWrite[str] | None = None,
+        plug_ins: list[str] | None = None,
+    ) -> None: ...
+    @overload
+    @deprecated("For **dumping only** use YAML(typ='full')", category=PendingDeprecationWarning)
+    def __init__(
+        self,
+        *,
+        typ: Literal["unsafe"] | list[Literal["unsafe"]],
+        pure: bool = False,
+        output: Path | SupportsWrite[str] | None = None,
+        plug_ins: list[str] | None = None,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        *,
+        typ: _YAMLType | list[_YAMLType],
+        pure: bool = False,
+        output: Path | SupportsWrite[str] | None = None,
+        plug_ins: list[str] | None = None,
     ) -> None: ...
     @property
-    def reader(self): ...
+    def reader(self) -> Reader: ...
     @property
-    def scanner(self): ...
+    def scanner(self) -> Scanner: ...
     @property
-    def parser(self): ...
+    def parser(self) -> Parser | None: ...  # TODO: CParser
     @property
-    def composer(self): ...
+    def composer(self) -> Composer: ...
     @property
-    def constructor(self): ...
+    def constructor(self) -> Constructor: ...
     @property
-    def resolver(self): ...
+    def resolver(self) -> BaseResolver: ...
     @property
-    def emitter(self): ...
+    def emitter(self) -> Emitter | None: ...  # TODO: CEmitter
     @property
-    def serializer(self): ...
+    def serializer(self) -> Serializer: ...
     @property
-    def representer(self): ...
+    def representer(self) -> BaseRepresenter: ...
     def scan(self, stream: StreamTextType): ...
     def parse(self, stream: StreamTextType): ...
     def compose(self, stream: Path | StreamTextType): ...
@@ -90,11 +152,11 @@ class YAML:
     def dump_all(self, documents, stream: Path | StreamType, *, transform: Incomplete | None = None): ...
     def Xdump_all(self, documents, stream, *, transform: Incomplete | None = None): ...
     def get_serializer_representer_emitter(self, stream: StreamType, tlca): ...
-    def map(self, **kw): ...
-    def seq(self, *args): ...
-    def official_plug_ins(self): ...
-    def register_class(self, cls): ...
-    def __enter__(self): ...
+    def map(self, **kw) -> dict: ...
+    def seq(self, *args) -> list: ...
+    def official_plug_ins(self) -> list[str]: ...
+    def register_class(self, cls: _RegistrableClass) -> _RegistrableClass: ...
+    def __enter__(self) -> _YAMLContext: ...
     def __exit__(self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None) -> None: ...
     @property
     def version(self) -> tuple[int, int] | None: ...
@@ -105,14 +167,57 @@ class YAML:
     @tags.setter
     def tags(self, val) -> None: ...
     @property
-    def indent(self): ...
+    def indent(self) -> _IndentSetter: ...
     @indent.setter
-    def indent(self, val) -> None: ...
+    def indent(self, val: int | None) -> None: ...
     @property
-    def block_seq_indent(self): ...
+    def block_seq_indent(self) -> int: ...
     @block_seq_indent.setter
-    def block_seq_indent(self, val) -> None: ...
-    def compact(self, seq_seq: Incomplete | None = None, seq_map: Incomplete | None = None) -> None: ...
+    def block_seq_indent(self, val: int) -> None: ...
+    def compact(self, seq_seq: bool | None = None, seq_map: bool | None = None) -> None: ...
+
+class _IndentSetter(Protocol):
+    def __call__(self, mapping: int | None = None, sequence: int | None = None, offset: int | None = None) -> None: ...
+
+class _RoundTripYAML(YAML):
+    typ: list[Literal["rt"]]
+    Representer: type[RoundTripRepresenter]
+    Constructor: type[RoundTripConstructor]
+    Scanner: type[RoundTripScanner]
+    Emitter: type[RoundTripEmitter]
+    Parser: type[RoundTripParser]
+    def map(self, **kw) -> CommentedMap: ...
+    def seq(self, *args) -> CommentedSeq: ...
+    def __enter__(self) -> _RoundTripYAMLContext: ...
+
+class _FullYAML(YAML):
+    typ: list[Literal["full"]]
+    Composer: None
+    Constructor: Never
+    @property
+    def composer(self) -> NoReturn: ...
+    @property
+    def constructor(self) -> NoReturn: ...
+    @deprecated("You can only use YAML(typ='full') for dumping")
+    def scan(self, stream: Incomplete) -> NoReturn: ...
+    @deprecated("You can only use YAML(typ='full') for dumping")
+    def parse(self, stream: Incomplete) -> NoReturn: ...
+    @deprecated("You can only use YAML(typ='full') for dumping")
+    def compose(self, stream: Path | Incomplete) -> NoReturn: ...
+    @deprecated("You can only use YAML(typ='full') for dumping")
+    def compose_all(self, stream: Path | Incomplete) -> NoReturn: ...
+    @deprecated("You can only use YAML(typ='full') for dumping")
+    def load(self, stream: Path | Incomplete) -> NoReturn: ...
+    @deprecated("You can only use YAML(typ='full') for dumping")
+    def load_all(self, stream: Path | Incomplete) -> NoReturn: ...
+    def get_constructor_parser(self, stream: StreamTextType) -> NoReturn: ...
+    def __enter__(self) -> _FullYAMLContext: ...
+
+class _YAMLContext(YAML):
+    def dump_all(self, documents, stream: Path | Incomplete, *, transform: Incomplete | None = ...) -> NoReturn: ...
+
+class _RoundTripYAMLContext(_YAMLContext, _RoundTripYAML): ...
+class _FullYAMLContext(_YAMLContext, _FullYAML): ...
 
 class YAMLContextManager:
     def __init__(self, yaml, transform: Incomplete | None = None) -> None: ...
@@ -120,23 +225,45 @@ class YAMLContextManager:
     def init_output(self, first_data) -> None: ...
     def dump(self, data) -> None: ...
 
-def yaml_object(yml): ...
-def warn_deprecation(fun, method, arg: str = "") -> None: ...
-def error_deprecation(fun, method, arg: str = "", comment: str = "instead of") -> None: ...
-def scan(stream: StreamTextType, Loader=...): ...
-def parse(stream: StreamTextType, Loader=...): ...
-def compose(stream: StreamTextType, Loader=...): ...
-def compose_all(stream: StreamTextType, Loader=...): ...
-def load(
-    stream, Loader: Incomplete | None = None, version: Incomplete | None = None, preserve_quotes: Incomplete | None = None
-) -> None: ...
-def load_all(
-    stream, Loader: Incomplete | None = None, version: Incomplete | None = None, preserve_quotes: Incomplete | None = None
-) -> None: ...
-def safe_load(stream: StreamTextType, version: VersionType | None = None): ...
-def safe_load_all(stream: StreamTextType, version: VersionType | None = None): ...
-def round_trip_load(stream: StreamTextType, version: VersionType | None = None, preserve_quotes: bool | None = None): ...
-def round_trip_load_all(stream: StreamTextType, version: VersionType | None = None, preserve_quotes: bool | None = None): ...
+# This is because we can't mark protocol fields as not required
+# See https://github.com/python/typing/issues/601
+_RegistrableClass: TypeAlias = type[_RegistrableObject | object]
+
+class _RegistrableObject(Protocol):
+    yaml_tag: str
+    @classmethod
+    def to_yaml(cls, representer: BaseRepresenter, data: Self, /) -> Node: ...
+    @classmethod
+    def from_yaml(cls, constructor: BaseConstructor, node: Node, /) -> Self: ...
+
+def yaml_object(yml: YAML) -> Callable[[_RegistrableClass], _RegistrableClass]: ...
+def warn_deprecation(fun: str, method: str, arg: str = "") -> None: ...
+def error_deprecation(fun: str, method: str, arg: str = "", comment: str = "instead of") -> NoReturn: ...
+@deprecated("Use YAML().scan() instead")
+def scan(stream: StreamTextType, Loader=...) -> NoReturn: ...
+@deprecated("Use YAML().parse() instead")
+def parse(stream: StreamTextType, Loader=...) -> NoReturn: ...
+@deprecated("Use YAML().compose() instead")
+def compose(stream: StreamTextType, Loader=...) -> NoReturn: ...
+@deprecated("Use YAML().compose_all() instead")
+def compose_all(stream: StreamTextType, Loader=...) -> NoReturn: ...
+@deprecated("Use YAML().load() instead")
+def load(stream, Loader=None, version=None, preserve_quotes=None) -> NoReturn: ...
+@deprecated("Use YAML().load_all() instead")
+def load_all(stream, Loader=None, version=None, preserve_quotes=None) -> NoReturn: ...
+@deprecated("Use YAML(typ='safe', pure=True).load() instead")
+def safe_load(stream: StreamTextType, version: VersionType | None = None) -> NoReturn: ...
+@deprecated("Use YAML(typ='safe', pure=True).load_all() instead")
+def safe_load_all(stream: StreamTextType, version: VersionType | None = None) -> NoReturn: ...
+@deprecated("Use YAML().load() instead")
+def round_trip_load(
+    stream: StreamTextType, version: VersionType | None = None, preserve_quotes: bool | None = None
+) -> NoReturn: ...
+@deprecated("Use YAML().load_all() instead")
+def round_trip_load_all(
+    stream: StreamTextType, version: VersionType | None = None, preserve_quotes: bool | None = None
+) -> NoReturn: ...
+@deprecated("Use YAML(typ='safe', pure=True).emit() instead")
 def emit(
     events,
     stream: StreamType | None = None,
@@ -145,86 +272,92 @@ def emit(
     indent: int | None = None,
     width: int | None = None,
     allow_unicode: bool | None = None,
-    line_break: Incomplete | None = None,
-): ...
+    line_break=None,
+) -> NoReturn: ...
 
-enc: Incomplete
+enc: None
 
+@deprecated("Use YAML(typ='safe', pure=True).serialize_all() instead")
 def serialize_all(
     nodes,
     stream: StreamType | None = None,
     Dumper=...,
-    canonical: Incomplete | None = None,
+    canonical=None,
     indent: int | None = None,
     width: int | None = None,
     allow_unicode: bool | None = None,
-    line_break: Incomplete | None = None,
+    line_break=None,
     encoding=None,
     explicit_start: bool | None = None,
     explicit_end: bool | None = None,
     version: VersionType | None = None,
-    tags: Incomplete | None = None,
-): ...
-def serialize(node, stream: StreamType | None = None, Dumper=..., **kwds): ...
+    tags=None,
+) -> NoReturn: ...
+@deprecated("Use YAML(typ='safe', pure=True).serialize() instead")
+def serialize(node, stream: StreamType | None = None, Dumper=..., **kwds) -> NoReturn: ...
+@deprecated("Use YAML(typ='unsafe', pure=True).dump_all() instead")
 def dump_all(
     documents,
     stream: StreamType | None = None,
     Dumper=...,
-    default_style: Incomplete | None = None,
-    default_flow_style: Incomplete | None = None,
+    default_style=None,
+    default_flow_style=None,
     canonical: bool | None = None,
     indent: int | None = None,
     width: int | None = None,
     allow_unicode: bool | None = None,
-    line_break: Incomplete | None = None,
+    line_break=None,
     encoding=None,
     explicit_start: bool | None = None,
     explicit_end: bool | None = None,
-    version: Incomplete | None = None,
-    tags: Incomplete | None = None,
-    block_seq_indent: Incomplete | None = None,
-    top_level_colon_align: Incomplete | None = None,
-    prefix_colon: Incomplete | None = None,
-): ...
+    version=None,
+    tags=None,
+    block_seq_indent=None,
+    top_level_colon_align=None,
+    prefix_colon=None,
+) -> NoReturn: ...
+@deprecated("Use YAML(typ='unsafe', pure=True).dump() instead")
 def dump(
     data,
     stream: StreamType | None = None,
     Dumper=...,
-    default_style: Incomplete | None = None,
-    default_flow_style: Incomplete | None = None,
+    default_style=None,
+    default_flow_style=None,
     canonical: bool | None = None,
     indent: int | None = None,
     width: int | None = None,
     allow_unicode: bool | None = None,
-    line_break: Incomplete | None = None,
+    line_break=None,
     encoding=None,
     explicit_start: bool | None = None,
     explicit_end: bool | None = None,
     version: VersionType | None = None,
-    tags: Incomplete | None = None,
-    block_seq_indent: Incomplete | None = None,
-): ...
-def safe_dump(data, stream: StreamType | None = None, **kwds): ...
+    tags=None,
+    block_seq_indent=None,
+) -> NoReturn: ...
+@deprecated("Use YAML(typ='safe', pure=True).dump() instead")
+def safe_dump(data, stream: StreamType | None = None, **kwds) -> NoReturn: ...
+@deprecated("Use YAML().dump() instead")
 def round_trip_dump(
     data,
     stream: StreamType | None = None,
     Dumper=...,
-    default_style: Incomplete | None = None,
-    default_flow_style: Incomplete | None = None,
+    default_style=None,
+    default_flow_style=None,
     canonical: bool | None = None,
     indent: int | None = None,
     width: int | None = None,
     allow_unicode: bool | None = None,
-    line_break: Incomplete | None = None,
+    line_break=None,
     encoding=None,
     explicit_start: bool | None = None,
     explicit_end: bool | None = None,
     version: VersionType | None = None,
-    tags: Incomplete | None = None,
-    block_seq_indent: Incomplete | None = None,
-    top_level_colon_align: Incomplete | None = None,
-    prefix_colon: Incomplete | None = None,
-): ...
+    tags=None,
+    block_seq_indent=None,
+    top_level_colon_align=None,
+    prefix_colon=None,
+) -> NoReturn: ...
 def add_implicit_resolver(
     tag, regexp, first: Incomplete | None = None, Loader: Incomplete | None = None, Dumper: Incomplete | None = None, resolver=...
 ) -> None: ...
