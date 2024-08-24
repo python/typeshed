@@ -1,5 +1,3 @@
-import signal
-import sys
 from collections.abc import Callable
 from types import TracebackType
 from typing import Any, NoReturn, overload
@@ -32,7 +30,4 @@ class LockType:
 class RLock(LockType):
     def release(self) -> None: ...  # type: ignore[override]
 
-if sys.version_info >= (3, 10):
-    def interrupt_main(signum: signal.Signals = signal.SIGINT, /) -> None: ...
-else:
-    def interrupt_main() -> None: ...
+def interrupt_main() -> None: ...
