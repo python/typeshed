@@ -30,9 +30,7 @@ if sys.version_info >= (3, 13):
         def _set_done(self) -> None: ...
 
     def start_joinable_thread(
-        function: Callable[[], object],
-        handle: _ThreadHandle | None = None,
-        daemon: bool = True,
+        function: Callable[[], object], handle: _ThreadHandle | None = None, daemon: bool = True
     ) -> _ThreadHandle: ...
 
 @overload
