@@ -1,10 +1,9 @@
 from _typeshed import Incomplete
-from functools import partial
 from typing import Final
 
 DEBUG: Final[bool]
 SCRAMBLE_LENGTH: Final[int]
-sha1_new: partial
+sha1_new: Incomplete
 
 def scramble_native_password(password: str | bytes | None, message: str | bytes | None) -> bytes: ...
 def _my_crypt(message1: str | bytes, message2: str | bytes) -> bytes: ...
