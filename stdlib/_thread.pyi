@@ -20,10 +20,10 @@ class LockType:
     def __exit__(
         self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
-    if sys.version_info >= (3, 13):
-        acquire_lock = acquire
-        release_lock = release
-        locked_lock = locked
+
+    acquire_lock = acquire
+    release_lock = release
+    locked_lock = locked
 
 if sys.version_info >= (3, 13):
     @final
