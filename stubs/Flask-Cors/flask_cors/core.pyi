@@ -37,7 +37,7 @@ ACL_RESPONSE_PRIVATE_NETWORK: Final[str] = "Access-Control-Allow-Private-Network
 ACL_REQUEST_METHOD: Final[str] = "Access-Control-Request-Method"
 ACL_REQUEST_HEADERS: Final[str] = "Access-Control-Request-Headers"
 ACL_REQUEST_HEADER_PRIVATE_NETWORK: Final[str] = "Access-Control-Request-Private-Network"
-ALL_METHODS: Final[list[str]] = ["GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"]
+ALL_METHODS: Final[list[str]]
 CONFIG_OPTIONS: Final[list[str]]
 FLASK_CORS_EVALUATED: Final[str] = "_FLASK_CORS_EVALUATED"
 RegexObject: Final[type[Pattern[str]]]
