@@ -119,6 +119,9 @@ includes pure Python modules, dynamically loaded extension modules,
 hard-linked extension modules, and the builtins. The `VERSIONS` file lists
 the versions of Python where the module is available.
 
+We accept changes for future versions of Python after the first beta for that
+version was released.
+
 ### Third-party library stubs
 
 We accept stubs for third-party packages into typeshed as long as:
