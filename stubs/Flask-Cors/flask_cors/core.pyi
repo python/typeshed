@@ -27,19 +27,19 @@ class _Options(TypedDict, total=False):
 
 LOG: Logger
 
-ACL_ORIGIN: Final[str] = "Access-Control-Allow-Origin"
-ACL_METHODS: Final[str] = "Access-Control-Allow-Methods"
-ACL_ALLOW_HEADERS: Final[str] = "Access-Control-Allow-Headers"
-ACL_EXPOSE_HEADERS: Final[str] = "Access-Control-Expose-Headers"
-ACL_CREDENTIALS: Final[str] = "Access-Control-Allow-Credentials"
-ACL_MAX_AGE: Final[str] = "Access-Control-Max-Age"
-ACL_RESPONSE_PRIVATE_NETWORK: Final[str] = "Access-Control-Allow-Private-Network"
-ACL_REQUEST_METHOD: Final[str] = "Access-Control-Request-Method"
-ACL_REQUEST_HEADERS: Final[str] = "Access-Control-Request-Headers"
-ACL_REQUEST_HEADER_PRIVATE_NETWORK: Final[str] = "Access-Control-Request-Private-Network"
+ACL_ORIGIN: Final = "Access-Control-Allow-Origin"
+ACL_METHODS: Final = "Access-Control-Allow-Methods"
+ACL_ALLOW_HEADERS: Final = "Access-Control-Allow-Headers"
+ACL_EXPOSE_HEADERS: Final = "Access-Control-Expose-Headers"
+ACL_CREDENTIALS: Final = "Access-Control-Allow-Credentials"
+ACL_MAX_AGE: Final = "Access-Control-Max-Age"
+ACL_RESPONSE_PRIVATE_NETWORK: Final = "Access-Control-Allow-Private-Network"
+ACL_REQUEST_METHOD: Final = "Access-Control-Request-Method"
+ACL_REQUEST_HEADERS: Final = "Access-Control-Request-Headers"
+ACL_REQUEST_HEADER_PRIVATE_NETWORK: Final = "Access-Control-Request-Private-Network"
 ALL_METHODS: Final[list[str]]
 CONFIG_OPTIONS: Final[list[str]]
-FLASK_CORS_EVALUATED: Final[str] = "_FLASK_CORS_EVALUATED"
+FLASK_CORS_EVALUATED: Final = "_FLASK_CORS_EVALUATED"
 RegexObject: Final[type[Pattern[str]]]
 DEFAULT_OPTIONS: Final[_Options]
 
