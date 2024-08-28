@@ -1,11 +1,14 @@
 from _typeshed import Incomplete
 from typing import ClassVar
 
+from setuptools.dist import Distribution
+
 from .._distutils.command import sdist as orig
 
 def walk_revctrl(dirname: str = "") -> None: ...
 
 class sdist(orig.sdist):
+    distribution: Distribution  # override distutils.dist.Distribution with setuptools.dist.Distribution
     user_options: ClassVar[list[tuple[str, str | None, str]]]
     negative_opt: ClassVar[dict[str, str]]
     README_EXTENSIONS: ClassVar[list[str]]

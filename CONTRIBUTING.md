@@ -119,6 +119,9 @@ includes pure Python modules, dynamically loaded extension modules,
 hard-linked extension modules, and the builtins. The `VERSIONS` file lists
 the versions of Python where the module is available.
 
+We accept changes for future versions of Python after the first beta for that
+version was released.
+
 ### Third-party library stubs
 
 We accept stubs for third-party packages into typeshed as long as:
@@ -636,7 +639,7 @@ If a package ships its own `py.typed` file, please follow these steps:
 
 1. Open an issue with the earliest month of removal in the subject.
 2. A maintainer will add the
-   ["removal" label](https://github.com/python/typeshed/labels/removal).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
 3. Open a PR that sets the `obsolete_since` field in the `METADATA.toml`
    file to the first version of the package that shipped `py.typed`.
 4. After at least six months, open a PR to remove the stubs.
@@ -646,11 +649,11 @@ steps:
 
 1. Open an issue explaining why the stubs should be removed.
 2. A maintainer will add the
-   ["removal" label](https://github.com/python/typeshed/labels/removal).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
 3. Open a PR that sets the `no_longer_updated` field in the `METADATA.toml`
    file to `true`.
 4. When a new version of the package was automatically uploaded to PyPI
-   (which usually takes up to 3 hours), open a PR to remove the stubs.
+   (which can take up to a day), open a PR to remove the stubs.
 
 If feeling kindly, please update [mypy](https://github.com/python/mypy/blob/master/mypy/stubinfo.py)
 for any stub obsoletions or removals.
@@ -684,7 +687,7 @@ When merging pull requests, follow these guidelines:
 
 ### Marking PRs as "deferred"
 
-We sometimes use the ["deferred" label](https://github.com/python/typeshed/labels/deferred)
+We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/status%3A%20deferred)
 to mark PRs and issues that we'd like to accept, but that are blocked by some
 external factor. Blockers can include:
 
