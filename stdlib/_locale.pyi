@@ -23,7 +23,6 @@ class _LocaleConv(TypedDict):
     p_sign_posn: Literal[0, 1, 2, 3, 4, 127]
     n_sign_posn: Literal[0, 1, 2, 3, 4, 127]
 
-
 LC_CTYPE: Final[int]
 LC_COLLATE: Final[int]
 LC_TIME: Final[int]
