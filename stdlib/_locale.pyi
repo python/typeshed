@@ -9,10 +9,10 @@ class _LocaleConv(TypedDict):
     thousands_sep: str
     int_curr_symbol: str
     currency_symbol: str
-    p_cs_precedes: Literal[0, 1]
-    n_cs_precedes: Literal[0, 1]
-    p_sep_by_space: Literal[0, 1]
-    n_sep_by_space: Literal[0, 1]
+    p_cs_precedes: Literal[0, 1, 127]
+    n_cs_precedes: Literal[0, 1, 127]
+    p_sep_by_space: Literal[0, 1, 127]
+    n_sep_by_space: Literal[0, 1, 127]
     mon_decimal_point: str
     frac_digits: int
     int_frac_digits: int
