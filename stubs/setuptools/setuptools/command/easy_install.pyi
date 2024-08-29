@@ -114,6 +114,7 @@ class RewritePthDistributions(PthDistributions):
     prelude: str
     postlude: str
 
+# Must match shutil._OnExcCallback
 def auto_chmod(func: Callable[..., _T], arg: str, exc: BaseException) -> _T: ...
 @type_check_only
 class _SplitArgs(TypedDict, total=False):
