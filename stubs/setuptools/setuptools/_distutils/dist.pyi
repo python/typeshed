@@ -69,9 +69,9 @@ class Distribution:
     display_options: ClassVar[_OptionsList]
     display_option_names: ClassVar[list[str]]
     negative_opt: ClassVar[dict[str, str]]
-    verbose: int
-    dry_run: int
-    help: int
+    verbose: bool
+    dry_run: bool
+    help: bool
     command_packages: list[str] | None
     script_name: str | None
     script_args: list[str] | None
