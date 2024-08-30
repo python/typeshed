@@ -1,16 +1,17 @@
 import types
+from typing import Final
 
-PYTHON_VERSION: tuple[int, int]
-CONDITIONAL_JUMPS: list[str]
-UNCONDITIONAL_JUMPS: list[str]
-ENDS_FUNCTION: list[str]
-HAVE_REL_REFERENCE: list[str]
-HAVE_ABS_REFERENCE: list[str]
-REL_REFERENCE_IS_INVERTED: list[str]
+PYTHON_VERSION: Final[tuple[int, int]]
+CONDITIONAL_JUMPS: Final[list[str]]
+UNCONDITIONAL_JUMPS: Final[list[str]]
+ENDS_FUNCTION: Final[list[str]]
+HAVE_REL_REFERENCE: Final[list[str]]
+HAVE_ABS_REFERENCE: Final[list[str]]
+REL_REFERENCE_IS_INVERTED: Final[list[str]]
 
 def rel_reference_scale(opname: str) -> int: ...
 
-REVERSE_CMP_OP: list[int]
+REVERSE_CMP_OP: Final[list[int]]
 
 def jump_arg_bytes(arg: int) -> int: ...
 def add_bytes_to_jump_arg(arg: int, size: int) -> int: ...
