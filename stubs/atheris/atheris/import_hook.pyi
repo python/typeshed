@@ -1,10 +1,9 @@
 import types
 from collections.abc import Sequence
 from importlib import abc, machinery
-from typing import Any
 from typing_extensions import Self
 
-def _should_skip(loader: Any) -> bool: ...
+def _should_skip(loader: abc.Loader) -> bool: ...
 
 class AtherisMetaPathFinder(abc.MetaPathFinder):
     def __init__(
@@ -23,7 +22,7 @@ class AtherisSourcelessFileLoader:
     def __init__(self, name: str, path: str, trace_dataflow: bool) -> None: ...
     def get_code(self, fullname: str) -> types.CodeType | None: ...
 
-def make_dynamic_atheris_loader(loader: Any, trace_dataflow: bool) -> Any: ...
+def make_dynamic_atheris_loader(loader: abc.Loader | type[abc.Loader], trace_dataflow: bool) -> abc.Loader: ...
 
 class HookManager:
     def __init__(
