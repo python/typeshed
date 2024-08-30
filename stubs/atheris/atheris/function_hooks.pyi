@@ -9,4 +9,6 @@ class EnabledHooks:
 
 enabled_hooks: EnabledHooks
 
+# args[1] is an arbitrary string method that is called
+# with the subsequent arguments, so they will vary
 def _hook_str(*args: Any, **kwargs: Any) -> bool: ...
