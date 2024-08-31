@@ -1,7 +1,7 @@
 from collections import defaultdict
 from collections.abc import Callable, Container, Iterable
 from types import ModuleType
-from typing import Final, Literal, TextIO, TypedDict
+from typing import Final, Literal, TextIO, TypeAlias, TypedDict
 from typing_extensions import NotRequired, TypeGuard, Unpack
 
 import graphviz
@@ -14,7 +14,7 @@ __license__: Final[str]
 __version__: Final[str]
 __date__: Final[str]
 
-type _Filter = Callable[[object], bool]
+_Filter: TypeAlias = Callable[[object], bool]
 
 class _StateDict(TypedDict):
     old: defaultdict[str, set[int]]
