@@ -85,7 +85,7 @@ def show_backrefs(
     extra_node_attrs: Callable[[object], dict[str, str]] | None = None,
 ) -> None | _GraphvizSource: ...
 def show_refs(
-    objs: object | list[object] | tuple[object],
+    objs: object | list[object] | tuple[object, ...],
     max_depth: int = 3,
     extra_ignore: Iterable[int] = (),
     filter: _Filter | None = None,
