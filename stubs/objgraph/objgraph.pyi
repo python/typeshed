@@ -1,8 +1,8 @@
 from collections import defaultdict
 from collections.abc import Callable, Container, Iterable
 from types import ModuleType
-from typing import Final, Literal, TextIO, TypeAlias, TypedDict
-from typing_extensions import NotRequired, TypeGuard, Unpack
+from typing import Final, Literal, TextIO, TypedDict
+from typing_extensions import NotRequired, TypeAlias, TypeGuard, Unpack
 
 import graphviz
 
