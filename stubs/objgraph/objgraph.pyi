@@ -1,10 +1,9 @@
+from _typeshed import Incomplete
 from collections import defaultdict
 from collections.abc import Callable, Container, Iterable
 from types import ModuleType
 from typing import Final, Literal, TextIO, TypedDict
 from typing_extensions import NotRequired, TypeAlias, TypeGuard, Unpack
-
-import graphviz
 
 IS_INTERACTIVE: bool
 
@@ -14,6 +13,9 @@ __license__: Final[str]
 __version__: Final[str]
 __date__: Final[str]
 
+# GraphViz has types, but does not include the py.typed file.
+# See https://github.com/xflr6/graphviz/pull/180
+_GraphvizSource: TypeAlias = Incomplete
 _Filter: TypeAlias = Callable[[object], bool]
 
 class _StateDict(TypedDict):
@@ -81,7 +83,7 @@ def show_backrefs(
     shortnames: bool = True,
     output: TextIO | None = None,
     extra_node_attrs: Callable[[object], dict[str, str]] | None = None,
-) -> None | graphviz.Source: ...
+) -> None | _GraphvizSource: ...
 def show_refs(
     objs: object | list[object] | tuple[object],
     max_depth: int = 3,
@@ -95,6 +97,6 @@ def show_refs(
     shortnames: bool = True,
     output: TextIO | None = None,
     extra_node_attrs: Callable[[object], dict[str, str]] | None = None,
-) -> None | graphviz.Source: ...
+) -> None | _GraphvizSource: ...
 def show_chain(*chains: list[object], **kw: Unpack[_ChainKeywords]) -> None: ...
 def is_proper_module(obj: object) -> TypeGuard[ModuleType]: ...
