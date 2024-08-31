@@ -71,7 +71,7 @@ def find_backref_chain(
     obj: object, predicate: _Filter, max_depth: int = 20, extra_ignore: Iterable[int] = ()
 ) -> list[object]: ...
 def show_backrefs(
-    objs: object | list[object] | tuple[object, ...],
+    objs: object,
     max_depth: int = 3,
     extra_ignore: Iterable[int] = (),
     filter: _Filter | None = None,
