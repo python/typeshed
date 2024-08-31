@@ -64,7 +64,7 @@ def get_new_ids(
 ) -> defaultdict[str, set[int]]: ...
 def get_leaking_objects(objects: Iterable[object] | None = None) -> list[object]: ...
 def by_type(typename: str, objects: Iterable[object] | None = None) -> list[object]: ...
-def at(addr: int) -> object | None: ...
+def at(addr: int) -> object: ...
 def at_addrs(address_set: Container[int]) -> list[object]: ...
 def find_ref_chain(obj: object, predicate: _Filter, max_depth: int = 20, extra_ignore: Iterable[int] = ()) -> list[object]: ...
 def find_backref_chain(
@@ -76,7 +76,7 @@ def show_backrefs(
     extra_ignore: Iterable[int] = (),
     filter: _Filter | None = None,
     too_many: int = 10,
-    highlight: object | None = None,
+    highlight: object = None,
     filename: str | None = None,
     extra_info: Callable[[object], str] | None = None,
     refcounts: bool = False,
@@ -85,12 +85,12 @@ def show_backrefs(
     extra_node_attrs: Callable[[object], dict[str, str]] | None = None,
 ) -> None | _GraphvizSource: ...
 def show_refs(
-    objs: object | list[object] | tuple[object, ...],
+    objs: object,
     max_depth: int = 3,
     extra_ignore: Iterable[int] = (),
     filter: _Filter | None = None,
     too_many: int = 10,
-    highlight: object | None = None,
+    highlight: object = None,
     filename: str | None = None,
     extra_info: Callable[[object], str] | None = None,
     refcounts: bool = False,
