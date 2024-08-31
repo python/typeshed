@@ -19,10 +19,10 @@ _GraphvizSource: TypeAlias = Incomplete
 _Filter: TypeAlias = Callable[[object], bool]
 
 class _StateDict(TypedDict):
-    old: defaultdict[str, set[int]]
-    current: defaultdict[str, set[int]]
-    new: defaultdict[str, set[int]]
-    shortnames: bool
+    old: NotRequired[defaultdict[str, set[int]]]
+    current: NotRequired[defaultdict[str, set[int]]]
+    new: NotRequired[defaultdict[str, set[int]]]
+    shortnames: NotRequired[bool]
 
 class _ChainKeywords(TypedDict):
     obj: NotRequired[object]
@@ -45,7 +45,7 @@ def show_most_common_types(
     filter: _Filter | None = None,
 ) -> None: ...
 def growth(
-    limit: int = 10, peak_stats: dict[str, int] = {}, shortnames: bool = True, filter: _Filter | None = None
+    limit: int = 10, peak_stats: dict[str, int] | None = None, shortnames: bool = True, filter: _Filter | None = None
 ) -> list[tuple[str, int]]: ...
 def show_growth(
     limit: int = 10,
@@ -60,7 +60,7 @@ def get_new_ids(
     sortby: Literal["old", "current", "new", "deltas"] = "deltas",
     shortnames: bool | None = None,
     file: TextIO | None = None,
-    _state: _StateDict | None = None,
+    _state: _StateDict = {},
 ) -> defaultdict[str, set[int]]: ...
 def get_leaking_objects(objects: Iterable[object] | None = None) -> list[object]: ...
 def by_type(typename: str, objects: Iterable[object] | None = None) -> list[object]: ...
