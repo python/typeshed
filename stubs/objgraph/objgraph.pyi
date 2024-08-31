@@ -1,9 +1,10 @@
-from _typeshed import Incomplete
 from collections import defaultdict
 from collections.abc import Callable, Container, Iterable
 from types import ModuleType
 from typing import Final, Literal, TextIO, TypedDict
 from typing_extensions import NotRequired, TypeGuard, Unpack
+
+import graphviz
 
 IS_INTERACTIVE: bool
 
@@ -80,7 +81,7 @@ def show_backrefs(
     shortnames: bool = True,
     output: TextIO | None = None,
     extra_node_attrs: Callable[[object], dict[str, str]] | None = None,
-) -> None | Incomplete: ...  # Can return graphviz.Source, but we don't have stubs for that
+) -> None | graphviz.Source: ...
 def show_refs(
     objs: object | list[object] | tuple[object],
     max_depth: int = 3,
@@ -94,6 +95,6 @@ def show_refs(
     shortnames: bool = True,
     output: TextIO | None = None,
     extra_node_attrs: Callable[[object], dict[str, str]] | None = None,
-) -> None | Incomplete: ...  # Same story here
+) -> None | graphviz.Source: ...
 def show_chain(*chains: list[object], **kw: Unpack[_ChainKeywords]) -> None: ...
 def is_proper_module(obj: object) -> TypeGuard[ModuleType]: ...
