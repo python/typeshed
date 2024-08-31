@@ -45,11 +45,11 @@ def show_most_common_types(
     filter: _Filter | None = None,
 ) -> None: ...
 def growth(
-    limit: int = 10, peak_stats: dict[str, int] | None = None, shortnames: bool = True, filter: _Filter | None = None
+    limit: int = 10, peak_stats: dict[str, int] = {}, shortnames: bool = True, filter: _Filter | None = None
 ) -> list[tuple[str, int]]: ...
 def show_growth(
     limit: int = 10,
-    peak_stats: dict[str, int] = {},
+    peak_stats: dict[str, int] | None = None,
     shortnames: bool = True,
     file: TextIO | None = None,
     filter: _Filter | None = None,
