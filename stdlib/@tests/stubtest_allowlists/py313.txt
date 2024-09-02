@@ -3,9 +3,6 @@
 # =========================
 
 # TODO: triage these new errors
-_thread.interrupt_main
-_thread.lock
-_thread.start_joinable_thread
 _tkinter.create
 doctest.TestResults.__doc__
 doctest.TestResults.__new__
@@ -194,3 +191,9 @@ codecs.xmlcharrefreplace_errors
 
 # To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
 types.MappingProxyType.get
+
+# logging.warn() was restored after the 3.13 release candidate, which is what CI is using
+logging.__all__
+logging.Logger.warn
+logging.LoggerAdapter.warn
+logging.warn
