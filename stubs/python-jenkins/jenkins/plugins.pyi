@@ -1,7 +1,7 @@
 from typing import Any
 
 class Plugin(dict[str, Any]):
-    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
+    # __init__ wraps dict.__init__  w/o changing the type signature
     def __setitem__(self, key: str, value: Any) -> None: ...
 
 class PluginVersion(str):

@@ -5,74 +5,76 @@ from typing import Any
 import requests
 from requests.models import Request, Response
 
-LAUNCHER_SSH: str
-LAUNCHER_COMMAND: str
-LAUNCHER_JNLP: str
-LAUNCHER_WINDOWS_SERVICE: str
-DEFAULT_HEADERS: dict[str, str]
-DEFAULT_TIMEOUT: float
-INFO: str
-PLUGIN_INFO: str
-CRUMB_URL: str
-WHOAMI_URL: str
-JOBS_QUERY: str
-JOBS_QUERY_TREE: str
-JOB_INFO: str
-JOB_NAME: str
-ALL_BUILDS: str
-Q_INFO: str
-Q_ITEM: str
-CANCEL_QUEUE: str
-CREATE_JOB: str
-CONFIG_JOB: str
-DELETE_JOB: str
-ENABLE_JOB: str
-DISABLE_JOB: str
-CHECK_JENKINSFILE_SYNTAX: str
-SET_JOB_BUILD_NUMBER: str
-COPY_JOB: str
-RENAME_JOB: str
-BUILD_JOB: str
-STOP_BUILD: str
-BUILD_WITH_PARAMS_JOB: str
-BUILD_INFO: str
-BUILD_CONSOLE_OUTPUT: str
-BUILD_ENV_VARS: str
-BUILD_TEST_REPORT: str
-BUILD_ARTIFACT: str
-BUILD_STAGES: str
-DELETE_BUILD: str
-WIPEOUT_JOB_WORKSPACE: str
-NODE_LIST: str
-CREATE_NODE: str
-DELETE_NODE: str
-NODE_INFO: str
-NODE_TYPE: str
-TOGGLE_OFFLINE: str
-CONFIG_NODE: str
-VIEW_NAME: str
-VIEW_JOBS: str
-CREATE_VIEW: str
-CONFIG_VIEW: str
-DELETE_VIEW: str
-SCRIPT_TEXT: str
-NODE_SCRIPT_TEXT: str
-PROMOTION_NAME: str
-PROMOTION_INFO: str
-DELETE_PROMOTION: str
-CREATE_PROMOTION: str
-CONFIG_PROMOTION: str
-LIST_CREDENTIALS: str
-CREATE_CREDENTIAL: str
-CONFIG_CREDENTIAL: str
-CREDENTIAL_INFO: str
-QUIET_DOWN: str
-EMPTY_CONFIG_XML: str
-EMPTY_FOLDER_XML: str
-RECONFIG_XML: str
-EMPTY_VIEW_CONFIG_XML: str
-EMPTY_PROMO_CONFIG_XML: str
-PROMO_RECONFIG_XML: str
+from typing import Final
+
+LAUNCHER_SSH: Final[str]
+LAUNCHER_COMMAND: Final[str]
+LAUNCHER_JNLP: Final[str]
+LAUNCHER_WINDOWS_SERVICE: Final[str]
+DEFAULT_HEADERS: Final[dict[str, str]]
+DEFAULT_TIMEOUT: Final[float]
+INFO: Final[str]
+PLUGIN_INFO: Final[str]
+CRUMB_URL: Final[str]
+WHOAMI_URL: Final[str]
+JOBS_QUERY: Final[str]
+JOBS_QUERY_TREE: Final[str]
+JOB_INFO: Final[str]
+JOB_NAME: Final[str]
+ALL_BUILDS: Final[str]
+Q_INFO: Final[str]
+Q_ITEM: Final[str]
+CANCEL_QUEUE: Final[str]
+CREATE_JOB: Final[str]
+CONFIG_JOB: Final[str]
+DELETE_JOB: Final[str]
+ENABLE_JOB: Final[str]
+DISABLE_JOB: Final[str]
+CHECK_JENKINSFILE_SYNTAX: Final[str]
+SET_JOB_BUILD_NUMBER: Final[str]
+COPY_JOB: Final[str]
+RENAME_JOB: Final[str]
+BUILD_JOB: Final[str]
+STOP_BUILD: Final[str]
+BUILD_WITH_PARAMS_JOB: Final[str]
+BUILD_INFO: Final[str]
+BUILD_CONSOLE_OUTPUT: Final[str]
+BUILD_ENV_VARS: Final[str]
+BUILD_TEST_REPORT: Final[str]
+BUILD_ARTIFACT: Final[str]
+BUILD_STAGES: Final[str]
+DELETE_BUILD: Final[str]
+WIPEOUT_JOB_WORKSPACE: Final[str]
+NODE_LIST: Final[str]
+CREATE_NODE: Final[str]
+DELETE_NODE: Final[str]
+NODE_INFO: Final[str]
+NODE_TYPE: Final[str]
+TOGGLE_OFFLINE: Final[str]
+CONFIG_NODE: Final[str]
+VIEW_NAME: Final[str]
+VIEW_JOBS: Final[str]
+CREATE_VIEW: Final[str]
+CONFIG_VIEW: Final[str]
+DELETE_VIEW: Final[str]
+SCRIPT_TEXT: Final[str]
+NODE_SCRIPT_TEXT: Final[str]
+PROMOTION_NAME: Final[str]
+PROMOTION_INFO: Final[str]
+DELETE_PROMOTION: Final[str]
+CREATE_PROMOTION: Final[str]
+CONFIG_PROMOTION: Final[str]
+LIST_CREDENTIALS: Final[str]
+CREATE_CREDENTIAL: Final[str]
+CONFIG_CREDENTIAL: Final[str]
+CREDENTIAL_INFO: Final[str]
+QUIET_DOWN: Final[str]
+EMPTY_CONFIG_XML: Final[str]
+EMPTY_FOLDER_XML: Final[str]
+RECONFIG_XML: Final[str]
+EMPTY_VIEW_CONFIG_XML: Final[str]
+EMPTY_PROMO_CONFIG_XML: Final[str]
+PROMO_RECONFIG_XML: Final[str]
 
 class JenkinsException(Exception): ...
 class NotFoundException(JenkinsException): ...
@@ -81,25 +83,20 @@ class BadHTTPException(JenkinsException): ...
 class TimeoutException(JenkinsException): ...
 
 class WrappedSession(requests.Session):
-    def merge_environment_settings(
-        self,
-        url: str | bytes | None,
-        proxies: MutableMapping[str, str] | None,
-        stream: bool | None,
-        verify: bool | str | None,
-        cert: str | tuple[str, str] | None,
-    ) -> Any: ...
+    # merge_environment_settings wraps requests.Session.merge_environment_settings w/o changing the type signature
+    ...
 
 class Jenkins:
     server: str
-    auth: Incomplete
+    auth: _Auth | None
     crumb: Mapping[str, Any] | bool | Any
-    timeout: float
+    timeout: int
     def __init__(self, url: str, username: str | None = None, password: str | None = None, timeout: int = ...) -> None: ...
+
     def maybe_add_crumb(self, req: Request) -> None: ...
     def get_job_info(self, name: str, depth: int = 0, fetch_all_builds: bool = False) -> Mapping[Any, Any]: ...
     def get_job_info_regex(
-        self, pattern: str, depth: int = 0, folder_depth: int = 0, folder_depth_per_request: int = 10
+        self, pattern: str | Pattern[str], depth: int = 0, folder_depth: int = 0, folder_depth_per_request: int = 10
     ) -> Sequence[Mapping[Any, Any]]: ...
     def get_job_name(self, name: str) -> str | None: ...
     def debug_job_info(self, job_name: str) -> None: ...
@@ -144,13 +141,23 @@ class Jenkins:
     def create_job(self, name: str, config_xml: str) -> None: ...
     def get_job_config(self, name: str) -> str: ...
     def reconfig_job(self, name: str, config_xml: str) -> None: ...
+	@overload
     def build_job_url(
-        self, name: str, parameters: Mapping[str, Any] | Sequence[tuple[str, Any]] | None = None, token: str | None = None
+        self, name: str, parameters: Mapping[str, Any] | Sequence[tuple[str, Any]] | None = None, token: Literal[''] | None = None
     ) -> str: ...
+	@overload
+    def build_job_url(
+        self, name: str, parameters: dict[str, Any] | list[tuple[str, Any]] | None = None, token: str
+    ) -> str: ...
+	@overload
     def build_job(
-        self, name: str, parameters: Mapping[str, Any] | Sequence[tuple[str, Any]] | None = None, token: str | None = None
+        self, name: str, parameters: Mapping[str, Any] | Sequence[tuple[str, Any]] | None = None, token: Literal[''] | None = None
     ) -> int: ...
-    def run_script(self, script, node: str | None = None) -> str: ...
+	@overload
+    def build_job(
+        self, name: str, parameters: dict[str, Any] | list[tuple[str, Any]] | None = None, token: str
+    ) -> int: ...
+    def run_script(self, script: str, node: str | None = None) -> str: ...
     def install_plugin(self, name: str, include_dependencies: bool = True) -> bool: ...
     def stop_build(self, name: str, number: int) -> None: ...
     def delete_build(self, name: str, number: int) -> None: ...
@@ -172,9 +179,9 @@ class Jenkins:
         labels: str | None = None,
         exclusive: bool = False,
         launcher: str = "hudson.slaves.CommandLauncher",
-        launcher_params: Mapping[str, Any] = {},
+        launcher_params: MutableMapping[str, Any] = {},
     ) -> None: ...
-    def get_node_config(self, name: str): ...
+    def get_node_config(self, name: str) -> str: ...
     def reconfig_node(self, name: str, config_xml: str) -> None: ...
     def get_build_console_output(self, name: str, number: int) -> str: ...
     def get_view_name(self, name: str) -> str | None: ...
