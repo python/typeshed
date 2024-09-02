@@ -1,11 +1,10 @@
-from _typeshed import Incomplete
 from collections.abc import Mapping, MutableMapping, Sequence
-from typing import Any
+from re import Pattern
+from typing import Any, Final, Literal, overload
 
 import requests
 from requests.models import Request, Response
-
-from typing import Final
+from requests.sessions import _Auth
 
 LAUNCHER_SSH: Final[str]
 LAUNCHER_COMMAND: Final[str]
@@ -83,7 +82,8 @@ class BadHTTPException(JenkinsException): ...
 class TimeoutException(JenkinsException): ...
 
 class WrappedSession(requests.Session):
-    # merge_environment_settings wraps requests.Session.merge_environment_settings w/o changing the type signature
+    # merge_environment_settings wraps requests.Session.merge_environment_settings
+    # w/o changing the type signature
     ...
 
 class Jenkins:
@@ -92,7 +92,6 @@ class Jenkins:
     crumb: Mapping[str, Any] | bool | Any
     timeout: int
     def __init__(self, url: str, username: str | None = None, password: str | None = None, timeout: int = ...) -> None: ...
-
     def maybe_add_crumb(self, req: Request) -> None: ...
     def get_job_info(self, name: str, depth: int = 0, fetch_all_builds: bool = False) -> Mapping[Any, Any]: ...
     def get_job_info_regex(
@@ -141,22 +140,20 @@ class Jenkins:
     def create_job(self, name: str, config_xml: str) -> None: ...
     def get_job_config(self, name: str) -> str: ...
     def reconfig_job(self, name: str, config_xml: str) -> None: ...
-	@overload
+    @overload
     def build_job_url(
-        self, name: str, parameters: Mapping[str, Any] | Sequence[tuple[str, Any]] | None = None, token: Literal[''] | None = None
+        self, name: str, parameters: Mapping[str, Any] | Sequence[tuple[str, Any]] | None = None, token: Literal[""] | None = None
     ) -> str: ...
-	@overload
+    @overload
     def build_job_url(
-        self, name: str, parameters: dict[str, Any] | list[tuple[str, Any]] | None = None, token: str
+        self, name: str, parameters: dict[str, Any] | list[tuple[str, Any]] | None = None, token: str = ...
     ) -> str: ...
-	@overload
+    @overload
     def build_job(
-        self, name: str, parameters: Mapping[str, Any] | Sequence[tuple[str, Any]] | None = None, token: Literal[''] | None = None
+        self, name: str, parameters: Mapping[str, Any] | Sequence[tuple[str, Any]] | None = None, token: Literal[""] | None = None
     ) -> int: ...
-	@overload
-    def build_job(
-        self, name: str, parameters: dict[str, Any] | list[tuple[str, Any]] | None = None, token: str
-    ) -> int: ...
+    @overload
+    def build_job(self, name: str, parameters: dict[str, Any] | list[tuple[str, Any]] | None = None, token: str = ...) -> int: ...
     def run_script(self, script: str, node: str | None = None) -> str: ...
     def install_plugin(self, name: str, include_dependencies: bool = True) -> bool: ...
     def stop_build(self, name: str, number: int) -> None: ...
