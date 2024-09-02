@@ -110,6 +110,7 @@ tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
 tkinter.Misc.after  # we intentionally don't allow everything that "works" at runtime
+tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
 traceback.TracebackException.from_exception  # explicitly expanding arguments going into TracebackException __init__
 typing(_extensions)?\.IO\.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing.type_check_only  # typing decorator that is not available at runtime
@@ -183,9 +184,6 @@ xml.sax.expatreader
 # Module members that exist at runtime, but are missing from stubs
 # ==========
 _json.encode_basestring
-_thread.LockType.acquire_lock
-_thread.LockType.locked_lock
-_thread.LockType.release_lock
 _thread.RLock
 _thread.allocate
 _thread.exit_thread
@@ -202,7 +200,6 @@ ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
 ctypes.util.test
-mimetypes.MimeTypes.add_type
 modulefinder.test
 multiprocessing.managers.Server.accepter
 multiprocessing.managers.Server.create
@@ -500,7 +497,6 @@ types.MethodType.__closure__  # read-only but not actually a property; stubtest 
 types.MethodType.__defaults__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.ModuleType.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
 types.ModuleType.__getattr__  # this doesn't exist at runtime
-types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 
 # sys attributes that are not always defined
 sys.gettotalrefcount  # Available on python debug builds
@@ -540,7 +536,6 @@ wsgiref.handlers.BaseHandler.result
 wsgiref.handlers.BaseHandler.status
 
 (_?weakref.ref|_?weakref.ReferenceType).__call__  # C function default annotation is wrong
-(_?weakref.ref|_?weakref.ReferenceType).__init__  # Runtime defines __new__ but stubtest thinks __init__ is also defined.
 _?weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
 _?weakref.ProxyType.__bytes__  # Doesn't actually exist
 _?weakref.ProxyType.__getattr__  # Should have all attributes of proxy

@@ -1,18 +1,20 @@
 from _typeshed import StrPath, Unused
-from typing import Literal
+
+from setuptools.dist import Distribution
 
 from .._distutils.command import install_lib as orig
 
 class install_lib(orig.install_lib):
+    distribution: Distribution  # override distutils.dist.Distribution with setuptools.dist.Distribution
     def run(self) -> None: ...
     def get_exclusions(self): ...
     def copy_tree(
         self,
         infile: StrPath,
         outfile: str,
-        preserve_mode: bool | Literal[0, 1] = 1,
-        preserve_times: bool | Literal[0, 1] = 1,
-        preserve_symlinks: bool | Literal[0, 1] = 0,
+        preserve_mode: bool = True,
+        preserve_times: bool = True,
+        preserve_symlinks: bool = False,
         level: Unused = 1,
     ): ...
     def get_outputs(self): ...

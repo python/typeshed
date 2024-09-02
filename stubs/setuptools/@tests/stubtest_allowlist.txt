@@ -3,6 +3,9 @@ pkg_resources.PathMetadata.egg_info
 pkg_resources.EggMetadata.loader
 pkg_resources.ZipProvider.loader
 
+# @classmethod alias not handled correctly by stubtest
+pkg_resources.ZipManifests.load
+
 # Is a functools.partial, so stubtest says "is not a function"
 setuptools.modified.newer_pairwise_group
 setuptools._distutils._modified.newer_pairwise_group
@@ -100,6 +103,7 @@ setuptools._distutils.command.install_data
 setuptools._distutils.command.install_egg_info
 setuptools._distutils.command.install_headers
 setuptools._distutils.compat.py38
+setuptools._distutils.compat.py39
 setuptools._distutils.core
 setuptools._distutils.cygwinccompiler
 setuptools._distutils.debug
@@ -107,10 +111,6 @@ setuptools._distutils.dir_util
 setuptools._distutils.fancy_getopt
 setuptools._distutils.file_util
 setuptools._distutils.log
-setuptools._distutils.msvc9compiler
-setuptools._distutils.msvccompiler
-setuptools._distutils.py38compat
-setuptools._distutils.py39compat
 setuptools._distutils.spawn
 setuptools._distutils.text_file
 setuptools._distutils.unixccompiler
@@ -121,10 +121,8 @@ setuptools._distutils.zosccompiler
 # Reexported from setuptools._distutils; problems should be fixed there
 distutils\..+
 
-# Private APIs
+# Private APIs, tests and other vendored code
 setuptools.config._validate_pyproject.*
 setuptools.command.build_py.build_py.existing_egg_info_dir
-
-# Other vendored code
-setuptools._vendor.*
-pkg_resources._vendor.*
+.+?\.tests.*
+.+?\._vendor.*

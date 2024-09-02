@@ -40,6 +40,7 @@
         "stubs/cffi",
         "stubs/click-default-group",
         "stubs/commonmark",
+        "stubs/corus",
         "stubs/dateparser",
         "stubs/defusedxml",
         "stubs/docker",
@@ -105,7 +106,8 @@
     "reportIncompleteStub": "none",
     // Extra strict settings
     "reportCallInDefaultInitializer": "error",
-    "reportImplicitStringConcatenation": "error",
+    // implicit string concatenation is useful for long deprecation messages
+    "reportImplicitStringConcatenation": "none",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Leave "type: ignore" comments to mypy
     "enableTypeIgnoreComments": false,
