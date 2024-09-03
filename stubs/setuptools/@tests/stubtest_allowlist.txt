@@ -6,6 +6,13 @@ pkg_resources.ZipProvider.loader
 # @classmethod alias not handled correctly by stubtest
 pkg_resources.ZipManifests.load
 
+# More precise type in typeshed (TypedDict vs os._Environ)
+(setuptools.msvc.environ)?
+
+# At runtime, this is a module on Windows, while it's a class on other
+# platforms and in typeshed
+(setuptools.msvc.winreg)?
+
 # Is a functools.partial, so stubtest says "is not a function"
 setuptools.modified.newer_pairwise_group
 setuptools._distutils._modified.newer_pairwise_group
