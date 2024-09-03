@@ -56,7 +56,7 @@ class RegistryInfo:
 class SystemInfo:
     WinDir: ClassVar[str]
     ProgramFiles: ClassVar[str]
-    ProgramFilesx86 = ClassVar[str]
+    ProgramFilesx86: ClassVar[str]
 
     ri: RegistryInfo
     pi: PlatformInfo
