@@ -107,23 +107,6 @@ class _EnvironmentDict(TypedDict):
     py_vcruntime_redist: NotRequired[str | None]
 
 class EnvironmentInfo:
-    """
-    Return environment variables for specified Microsoft Visual C++ version
-    and platform : Lib, Include, Path and libpath.
-    This function is compatible with Microsoft Visual C++ 9.0 to 14.X.
-    Script created by analysing Microsoft environment configuration files like
-    "vcvars[...].bat", "SetEnv.Cmd", "vcbuildtools.bat", ...
-    Parameters
-    ----------
-    arch: str
-        Target architecture.
-    vc_ver: float
-        Required Microsoft Visual C++ version. If not set, autodetect the last
-        version.
-    vc_min_ver: float
-        Minimum Microsoft Visual C++ version.
-    """
-
     pi: PlatformInfo
     ri: RegistryInfo
     si: SystemInfo
