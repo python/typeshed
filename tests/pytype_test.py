@@ -198,7 +198,7 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
                 # Skips comments, empty lines, and stdlib files, which are in
                 # the exclude list because pytype has its own version.
                 continue
-            unused_stubs_prefix, unused_pkg, mod_path = fi.split("/", 2)  # pyright: ignore [reportUnusedVariable]
+            unused_stubs_prefix, unused_pkg, mod_path = fi.split("/", 2)  # pyright: ignore[reportUnusedVariable]
             missing_modules.add(os.path.splitext(mod_path)[0])
     return missing_modules
 
