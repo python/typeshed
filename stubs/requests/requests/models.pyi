@@ -117,7 +117,7 @@ class Response:
     _content: bytes | None  # undocumented
     status_code: int
     headers: CaseInsensitiveDict[str]
-    raw: HTTPResponse | None
+    raw: HTTPResponse | MaybeNone
     url: str
     encoding: str | None
     history: list[Response]
