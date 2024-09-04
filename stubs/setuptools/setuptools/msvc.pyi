@@ -1,11 +1,18 @@
+import sys
 from typing import ClassVar, Final, TypedDict, overload, type_check_only
 from typing_extensions import LiteralString, NotRequired
 
 class winreg:
-    HKEY_USERS: Final[int | None]
-    HKEY_CURRENT_USER: Final[int | None]
-    HKEY_LOCAL_MACHINE: Final[int | None]
-    HKEY_CLASSES_ROOT: Final[int | None]
+    if sys.platform == "win32":
+        HKEY_USERS: Final[int]
+        HKEY_CURRENT_USER: Final[int]
+        HKEY_LOCAL_MACHINE: Final[int]
+        HKEY_CLASSES_ROOT: Final[int]
+    else:
+        HKEY_USERS: Final[None]
+        HKEY_CURRENT_USER: Final[None]
+        HKEY_LOCAL_MACHINE: Final[None]
+        HKEY_CLASSES_ROOT: Final[None]
 
 environ: dict[str, str]
 
@@ -24,7 +31,10 @@ class PlatformInfo:
     def cross_dir(self, forcex86: bool = False) -> str: ...
 
 class RegistryInfo:
-    HKEYS: Final[tuple[int | None, ...]]
+    if sys.platform == "win32":
+        HKEYS: Final[tuple[int, int, int, int]]
+    else:
+        HKEYS: Final[tuple[None, None, None, None]]
 
     pi: PlatformInfo
 
