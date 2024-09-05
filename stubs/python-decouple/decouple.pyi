@@ -5,7 +5,7 @@ from configparser import ConfigParser
 from typing import Any, Generic, Protocol, TypeVar, overload
 
 _T = TypeVar("_T")
-_T_contra = TypeVar("_T_contra", contravariant=True)
+_T_co = TypeVar("_T_co", covariant=True)
 _TCsv = TypeVar("_TCsv")
 _TCsv_co = TypeVar("_TCsv_co", covariant=True)
 
@@ -88,11 +88,11 @@ class AutoConfig:
 
 config: AutoConfig
 
-class _PostProcess(Protocol[_T_contra, _TCsv_co]):  # undocumented
+class _PostProcess(Protocol[_T_co, _TCsv_co]):  # undocumented
     @overload
     def __call__(self) -> _TCsv_co: ...
     @overload
-    def __call__(self, /, __value: Iterable[_T_contra]) -> _TCsv_co: ...
+    def __call__(self, /, __value: Iterable[_T_co]) -> _TCsv_co: ...
     @overload
     def __call__(self, /, __value: Iterable[Any]) -> _TCsv_co: ...
 
