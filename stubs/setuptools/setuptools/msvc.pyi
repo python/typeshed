@@ -15,7 +15,7 @@ else:
     environ: dict[str, str]
 
 class PlatformInfo:
-    curren_cpu: Final[str]
+    current_cpu: Final[str]
 
     arch: str
 
