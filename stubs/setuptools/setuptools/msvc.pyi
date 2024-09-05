@@ -2,22 +2,20 @@ import sys
 from typing import ClassVar, Final, TypedDict, overload, type_check_only
 from typing_extensions import LiteralString, NotRequired
 
-class winreg:
-    if sys.platform == "win32":
-        HKEY_USERS: Final[int]
-        HKEY_CURRENT_USER: Final[int]
-        HKEY_LOCAL_MACHINE: Final[int]
-        HKEY_CLASSES_ROOT: Final[int]
-    else:
+if sys.platform == "win32":
+    import winreg as winreg 
+    from os import environ as environ
+else:
+    class winreg:
         HKEY_USERS: Final[None]
         HKEY_CURRENT_USER: Final[None]
         HKEY_LOCAL_MACHINE: Final[None]
         HKEY_CLASSES_ROOT: Final[None]
 
-environ: dict[str, str]
+   environ: dict[str, str]
 
 class PlatformInfo:
-    current_cpu: ClassVar[str]
+    curren_cpu: Final[str]
 
     arch: str
 
@@ -64,9 +62,9 @@ class RegistryInfo:
     def lookup(self, key: str, name: str) -> str: ...
 
 class SystemInfo:
-    WinDir: ClassVar[str]
-    ProgramFiles: ClassVar[str]
-    ProgramFilesx86: ClassVar[str]
+    WinDir: Final[str]
+    ProgramFiles: Final[str]
+    ProgramFilesx86: Final[str]
 
     ri: RegistryInfo
     pi: PlatformInfo
