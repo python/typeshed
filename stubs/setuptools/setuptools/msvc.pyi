@@ -1,5 +1,5 @@
 import sys
-from typing import ClassVar, Final, TypedDict, overload, type_check_only
+from typing import Final, TypedDict, overload, type_check_only
 from typing_extensions import LiteralString, NotRequired
 
 if sys.platform == "win32":
@@ -12,7 +12,7 @@ else:
         HKEY_LOCAL_MACHINE: Final[None]
         HKEY_CLASSES_ROOT: Final[None]
 
-   environ: dict[str, str]
+    environ: dict[str, str]
 
 class PlatformInfo:
     curren_cpu: Final[str]
