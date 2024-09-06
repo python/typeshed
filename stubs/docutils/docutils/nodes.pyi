@@ -416,7 +416,7 @@ class system_message(Special, BackLinkable, PreBibliographic, Element):
     def __init__(self, message: str | None = None, *children: Node, **attributes) -> None: ...
 
 class pending(Special, Invisible, Element):
-    transform: Transform
+    transform: type[Transform]
     details: Mapping[str, Any]
     def __init__(
         self,
