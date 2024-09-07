@@ -3,7 +3,7 @@ import types
 import unittest
 from _typeshed import ExcInfo
 from collections.abc import Callable
-from typing import Any, ClassVar, NamedTuple
+from typing import Any, NamedTuple
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
