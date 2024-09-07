@@ -3,7 +3,7 @@ import types
 import unittest
 from _typeshed import ExcInfo
 from collections.abc import Callable
-from typing import Any, NamedTuple
+from typing import Any, Literal, NamedTuple
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -46,6 +46,7 @@ __all__ = [
 
 if sys.version_info >= (3, 13):
     class TestResults(NamedTuple):
+        __match_args__ = ("failed", "attempted")  # type: ignore[misc]
         __doc__: None  # type: ignore[misc]
         def __new__(cls, failed: int, attempted: int, *, skipped: int = 0) -> Self: ...  # type: ignore[misc]
         skipped: int
