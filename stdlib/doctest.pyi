@@ -46,7 +46,7 @@ __all__ = [
 
 if sys.version_info >= (3, 13):
     class TestResults(NamedTuple):
-        def __new__(cls, failed: int, attempted: int, *, skipped: int = 0) -> Self: ...
+        def __new__(cls, failed: int, attempted: int, *, skipped: int = 0) -> Self: ...  # type: ignore[misc]
         skipped: int
         failed: int
         attempted: int
