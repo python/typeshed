@@ -1,9 +1,10 @@
+import sys
 import types
 import unittest
 from _typeshed import ExcInfo
 from collections.abc import Callable
 from typing import Any, NamedTuple
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "register_optionflag",
@@ -41,9 +42,19 @@ __all__ = [
     "debug",
 ]
 
-class TestResults(NamedTuple):
-    failed: int
-    attempted: int
+# MyPy errors on conditionals within named tuples.
+
+if sys.version_info >= (3, 13):
+    class TestResults(NamedTuple):
+        def __new__(cls, failed: int, attempted: int, *, skipped: int = 0) -> Self: ...
+        skipped: int
+        failed: int
+        attempted: int
+
+else:
+    class TestResults(NamedTuple):
+        failed: int
+        attempted: int
 
 OPTIONFLAGS_BY_NAME: dict[str, int]
 
@@ -134,6 +145,8 @@ class DocTestRunner:
     original_optionflags: int
     tries: int
     failures: int
+    if sys.version_info >= (3, 13):
+        skips: int
     test: DocTest
     def __init__(self, checker: OutputChecker | None = None, verbose: bool | None = None, optionflags: int = 0) -> None: ...
     def report_start(self, out: _Out, test: DocTest, example: Example) -> None: ...
