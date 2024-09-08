@@ -1,3 +1,5 @@
+from typing import Final
+
 from .client import Client as Client
 from .exceptions import (
     BadRequestsError as BadRequestsError,
@@ -14,5 +16,5 @@ from .exceptions import (
     UnsupportedMediaTypeError as UnsupportedMediaTypeError,
 )
 
-dir_path: str
-__version__: str
+dir_path: Final[str]
+__version__: Final[str]

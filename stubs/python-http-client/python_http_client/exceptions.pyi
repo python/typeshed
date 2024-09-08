@@ -1,4 +1,5 @@
 from email.message import Message
+from typing import Final
 
 class HTTPError(Exception):
     status_code: int
@@ -22,6 +23,6 @@ class InternalServerError(HTTPError): ...
 class ServiceUnavailableError(HTTPError): ...
 class GatewayTimeoutError(HTTPError): ...
 
-err_dict: dict[int, type[HTTPError]]
+err_dict: Final[dict[int, type[HTTPError]]]
 
 def handle_error(error) -> HTTPError: ...

@@ -1,4 +1,5 @@
 from email.message import Message
+from typing import Final
 
 class Response:
     def __init__(self, response) -> None: ...
@@ -12,7 +13,7 @@ class Response:
     def to_dict(self): ...
 
 class Client:
-    methods: set[str]
+    methods: Final[set[str]]
     host: str
     request_headers: dict[str, str]
     append_slash: bool
