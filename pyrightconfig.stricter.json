@@ -101,6 +101,7 @@
         "stubs/vobject",
         "stubs/workalendar",
         "stubs/wurlitzer",
+        "stubs/xdgenvpy"
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
