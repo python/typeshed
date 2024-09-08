@@ -110,7 +110,21 @@ class Instruction(_Instruction):
 class Bytecode:
     codeobj: types.CodeType
     first_line: int
-    if sys.version_info >= (3, 13):
+    if sys.version_info >= (3, 14):
+        show_positions: bool
+        # 3.14 added `show_positions`
+        def __init__(
+            self,
+            x: _HaveCodeType | str,
+            *,
+            first_line: int | None = None,
+            current_offset: int | None = None,
+            show_caches: bool = False,
+            adaptive: bool = False,
+            show_offsets: bool = False,
+            show_positions: bool = False,
+        ) -> None: ...
+    elif sys.version_info >= (3, 13):
         show_offsets: bool
         # 3.13 added `show_offsets`
         def __init__(
@@ -156,7 +170,39 @@ def findlinestarts(code: _HaveCodeType) -> Iterator[tuple[int, int]]: ...
 def pretty_flags(flags: int) -> str: ...
 def code_info(x: _HaveCodeType | str) -> str: ...
 
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 14):
+    # 3.14 added `show_positions`
+    def dis(
+        x: _HaveCodeType | str | bytes | bytearray | None = None,
+        *,
+        file: IO[str] | None = None,
+        depth: int | None = None,
+        show_caches: bool = False,
+        adaptive: bool = False,
+        show_offsets: bool = False,
+        show_positions: bool = False,
+    ) -> None: ...
+    def disassemble(
+        co: _HaveCodeType,
+        lasti: int = -1,
+        *,
+        file: IO[str] | None = None,
+        show_caches: bool = False,
+        adaptive: bool = False,
+        show_offsets: bool = False,
+        show_positions: bool = False,
+    ) -> None: ...
+    def distb(
+        tb: types.TracebackType | None = None,
+        *,
+        file: IO[str] | None = None,
+        show_caches: bool = False,
+        adaptive: bool = False,
+        show_offsets: bool = False,
+        show_positions: bool = False,
+    ) -> None: ...
+
+elif sys.version_info >= (3, 13):
     # 3.13 added `show_offsets`
     def dis(
         x: _HaveCodeType | str | bytes | bytearray | None = None,
