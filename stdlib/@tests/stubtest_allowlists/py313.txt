@@ -4,8 +4,6 @@
 
 # TODO: triage these new errors
 _tkinter.create
-doctest.TestResults.__doc__
-doctest.TestResults.__new__
 importlib.resources.Anchor
 importlib.resources.Resource
 importlib.resources.__all__
@@ -119,6 +117,8 @@ ast.ImportFrom.level  # None on the class, but never None on instances
 builtins.property.__set_name__  # Doesn't actually exist
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 dataclasses.KW_ONLY  # white lies around defaults
+doctest.TestResults.__match_args__ # Stubtest doesn't pick up override
+doctest.TestResults._fields # Stubtest doesn't pick up override
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
