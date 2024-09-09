@@ -1,2 +1,2 @@
-# The default value might include a token from urllib3 which is private and should not be used by end-users
+# The default value for the timeout parameter is a token from urllib3 which is private and should not be used by end-users
 jenkins.Jenkins.__init__
