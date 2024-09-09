@@ -3027,6 +3027,50 @@ class Text(Widget, XView, YView):
     def compare(self, index1: _TextIndex, op: Literal["<", "<=", "==", ">=", ">", "!="], index2: _TextIndex) -> bool: ...
     if sys.version_info >= (3, 13):
         @overload
+        def count(self, index1: _TextIndex, index2: _TextIndex, *, return_ints: Literal[True]) -> int: ...
+        @overload
+        def count(
+            self, index1: _TextIndex, index2: _TextIndex, arg: _WhatToCount | Literal["update"], /, *, return_ints: Literal[True]
+        ) -> int: ...
+        @overload
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg1: Literal["update"],
+            arg2: _WhatToCount,
+            /,
+            *,
+            return_ints: Literal[True],
+        ) -> int: ...
+        @overload
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg1: _WhatToCount,
+            arg2: Literal["update"],
+            /,
+            *,
+            return_ints: Literal[True],
+        ) -> int: ...
+        @overload
+        def count(
+            self, index1: _TextIndex, index2: _TextIndex, arg1: _WhatToCount, arg2: _WhatToCount, /, *, return_ints: Literal[True]
+        ) -> tuple[int, int]: ...
+        @overload
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg1: _WhatToCount | Literal["update"],
+            arg2: _WhatToCount | Literal["update"],
+            arg3: _WhatToCount | Literal["update"],
+            /,
+            *args: _WhatToCount | Literal["update"],
+            return_ints: Literal[True],
+        ) -> tuple[int, ...]: ...
+        @overload
         def count(self, index1: _TextIndex, index2: _TextIndex, *, return_ints: Literal[False] = False) -> tuple[int] | None: ...
         @overload
         def count(
@@ -3082,50 +3126,6 @@ class Text(Widget, XView, YView):
             /,
             *args: _WhatToCount | Literal["update"],
             return_ints: Literal[False] = False,
-        ) -> tuple[int, ...]: ...
-        @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, *, return_ints: Literal[True]) -> int: ...
-        @overload
-        def count(
-            self, index1: _TextIndex, index2: _TextIndex, arg: _WhatToCount | Literal["update"], /, *, return_ints: Literal[True]
-        ) -> int: ...
-        @overload
-        def count(
-            self,
-            index1: _TextIndex,
-            index2: _TextIndex,
-            arg1: Literal["update"],
-            arg2: _WhatToCount,
-            /,
-            *,
-            return_ints: Literal[True],
-        ) -> int: ...
-        @overload
-        def count(
-            self,
-            index1: _TextIndex,
-            index2: _TextIndex,
-            arg1: _WhatToCount,
-            arg2: Literal["update"],
-            /,
-            *,
-            return_ints: Literal[True],
-        ) -> int: ...
-        @overload
-        def count(
-            self, index1: _TextIndex, index2: _TextIndex, arg1: _WhatToCount, arg2: _WhatToCount, /, *, return_ints: Literal[True]
-        ) -> tuple[int, int]: ...
-        @overload
-        def count(
-            self,
-            index1: _TextIndex,
-            index2: _TextIndex,
-            arg1: _WhatToCount | Literal["update"],
-            arg2: _WhatToCount | Literal["update"],
-            arg3: _WhatToCount | Literal["update"],
-            /,
-            *args: _WhatToCount | Literal["update"],
-            return_ints: Literal[True],
         ) -> tuple[int, ...]: ...
     else:
         @overload
