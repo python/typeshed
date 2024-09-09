@@ -146,6 +146,7 @@ if sys.version_info >= (3, 9):
 # Using anything from tkinter.font in this file means that 'import tkinter'
 # seems to also load tkinter.font. That's not how it actually works, but
 # unfortunately not much can be done about it. https://github.com/python/typeshed/pull/4346
+# Test
 
 TclError = _tkinter.TclError
 wantobjects: int
