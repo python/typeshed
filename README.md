@@ -6,7 +6,7 @@
 
 ## About
 
-Typeshed contains external type annotations for the Python standard library
+Typeshed contains external type annotations for the Python standard library 
 and Python builtins, as well as third party packages as contributed by
 people external to those projects.
 
