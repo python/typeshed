@@ -3029,13 +3029,48 @@ class Text(Widget, XView, YView):
         @overload
         def count(self, index1: _TextIndex, index2: _TextIndex, *, return_ints: Literal[False] = False) -> tuple[int] | None: ...
         @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, arg: _WhatToCount | Literal["update"], /, *, return_ints: Literal[False] = False) -> tuple[int] | None: ...
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg: _WhatToCount | Literal["update"],
+            /,
+            *,
+            return_ints: Literal[False] = False,
+        ) -> tuple[int] | None: ...
         @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, arg1: Literal["update"], arg2: _WhatToCount, /, *, return_ints: Literal[False] = False) -> int | None: ...
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg1: Literal["update"],
+            arg2: _WhatToCount,
+            /,
+            *,
+            return_ints: Literal[False] = False,
+        ) -> int | None: ...
         @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, arg1: _WhatToCount, arg2: Literal["update"], /, *, return_ints: Literal[False] = False) -> int | None: ...
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg1: _WhatToCount,
+            arg2: Literal["update"],
+            /,
+            *,
+            return_ints: Literal[False] = False,
+        ) -> int | None: ...
         @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, arg1: _WhatToCount, arg2: _WhatToCount, /, *, return_ints: Literal[False] = False) -> tuple[int, int]: ...
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg1: _WhatToCount,
+            arg2: _WhatToCount,
+            /,
+            *,
+            return_ints: Literal[False] = False,
+        ) -> tuple[int, int]: ...
         @overload
         def count(
             self,
@@ -3046,18 +3081,40 @@ class Text(Widget, XView, YView):
             arg3: _WhatToCount | Literal["update"],
             /,
             *args: _WhatToCount | Literal["update"],
-            return_ints: Literal[False] = False
+            return_ints: Literal[False] = False,
         ) -> tuple[int, ...]: ...
         @overload
         def count(self, index1: _TextIndex, index2: _TextIndex, *, return_ints: Literal[True]) -> int: ...
         @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, arg: _WhatToCount | Literal["update"], /, *, return_ints: Literal[True]) -> int: ...
+        def count(
+            self, index1: _TextIndex, index2: _TextIndex, arg: _WhatToCount | Literal["update"], /, *, return_ints: Literal[True]
+        ) -> int: ...
         @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, arg1: Literal["update"], arg2: _WhatToCount, /, *, return_ints: Literal[True]) -> int: ...
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg1: Literal["update"],
+            arg2: _WhatToCount,
+            /,
+            *,
+            return_ints: Literal[True],
+        ) -> int: ...
         @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, arg1: _WhatToCount, arg2: Literal["update"], /, *, return_ints: Literal[True]) -> int: ...
+        def count(
+            self,
+            index1: _TextIndex,
+            index2: _TextIndex,
+            arg1: _WhatToCount,
+            arg2: Literal["update"],
+            /,
+            *,
+            return_ints: Literal[True],
+        ) -> int: ...
         @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, arg1: _WhatToCount, arg2: _WhatToCount, /, *, return_ints: Literal[True]) -> tuple[int, int]: ...
+        def count(
+            self, index1: _TextIndex, index2: _TextIndex, arg1: _WhatToCount, arg2: _WhatToCount, /, *, return_ints: Literal[True]
+        ) -> tuple[int, int]: ...
         @overload
         def count(
             self,
@@ -3068,13 +3125,15 @@ class Text(Widget, XView, YView):
             arg3: _WhatToCount | Literal["update"],
             /,
             *args: _WhatToCount | Literal["update"],
-            return_ints: Literal[True]
+            return_ints: Literal[True],
         ) -> tuple[int, ...]: ...
     else:
         @overload
         def count(self, index1: _TextIndex, index2: _TextIndex) -> tuple[int] | None: ...
         @overload
-        def count(self, index1: _TextIndex, index2: _TextIndex, arg: _WhatToCount | Literal["update"], /) -> tuple[int] | None: ...
+        def count(
+            self, index1: _TextIndex, index2: _TextIndex, arg: _WhatToCount | Literal["update"], /
+        ) -> tuple[int] | None: ...
         @overload
         def count(self, index1: _TextIndex, index2: _TextIndex, arg1: Literal["update"], arg2: _WhatToCount, /) -> int | None: ...
         @overload
@@ -3092,6 +3151,7 @@ class Text(Widget, XView, YView):
             /,
             *args: _WhatToCount | Literal["update"],
         ) -> tuple[int, ...]: ...
+
     @overload
     def debug(self, boolean: None = None) -> bool: ...
     @overload
