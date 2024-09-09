@@ -69,5 +69,7 @@ if sys.version_info >= (3, 13):
     assert_type(t.count("2.3", "2.3", "indices", "lines", "chars", return_ints=True), Tuple[int, ...])  # (0, 0, 0)
     assert_type(t.count("1.0", "2.3", "indices", "lines", "chars", "update", return_ints=True), Tuple[int, ...])  # (15, 1, 15)
     assert_type(t.count("2.3", "2.3", "indices", "lines", "chars", "update", return_ints=True), Tuple[int, ...])  # (0, 0, 0)
-    assert_type(t.count("1.0", "2.3", "indices", "lines", "chars", "ypixels", return_ints=True), Tuple[int, ...])  # (15, 1, 15, 19)
+    assert_type(
+        t.count("1.0", "2.3", "indices", "lines", "chars", "ypixels", return_ints=True), Tuple[int, ...]
+    )  # (15, 1, 15, 19)
     assert_type(t.count("2.3", "2.3", "indices", "lines", "chars", "ypixels", return_ints=True), Tuple[int, ...])  # (0, 0, 0, 0)
