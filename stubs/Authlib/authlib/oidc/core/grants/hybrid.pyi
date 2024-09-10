@@ -2,8 +2,6 @@ from _typeshed import Incomplete
 
 from .implicit import OpenIDImplicitGrant
 
-log: Incomplete
-
 class OpenIDHybridGrant(OpenIDImplicitGrant):
     AUTHORIZATION_CODE_LENGTH: int
     RESPONSE_TYPES: Incomplete

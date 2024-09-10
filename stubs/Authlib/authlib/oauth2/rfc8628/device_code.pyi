@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 
 from ..rfc6749 import BaseGrant, TokenEndpointMixin
 
-log: Incomplete
 DEVICE_CODE_GRANT_TYPE: str
 
 class DeviceCodeGrant(BaseGrant, TokenEndpointMixin):

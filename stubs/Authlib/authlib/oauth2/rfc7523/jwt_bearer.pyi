@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 
 from ..rfc6749 import BaseGrant, TokenEndpointMixin
 
-log: Incomplete
 JWT_BEARER_GRANT_TYPE: str
 
 class JWTBearerGrant(BaseGrant, TokenEndpointMixin):

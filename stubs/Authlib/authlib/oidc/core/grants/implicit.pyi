@@ -2,8 +2,6 @@ from _typeshed import Incomplete
 
 from authlib.oauth2.rfc6749 import ImplicitGrant
 
-log: Incomplete
-
 class OpenIDImplicitGrant(ImplicitGrant):
     RESPONSE_TYPES: Incomplete
     DEFAULT_RESPONSE_MODE: str

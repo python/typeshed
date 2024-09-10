@@ -2,8 +2,6 @@ from _typeshed import Incomplete
 
 from .base import AuthorizationEndpointMixin, BaseGrant
 
-log: Incomplete
-
 class ImplicitGrant(BaseGrant, AuthorizationEndpointMixin):
     AUTHORIZATION_ENDPOINT: bool
     TOKEN_ENDPOINT_AUTH_METHODS: Incomplete

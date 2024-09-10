@@ -2,8 +2,6 @@ from _typeshed import Incomplete
 
 from authlib.oauth1 import AuthorizationServer as _AuthorizationServer
 
-log: Incomplete
-
 class BaseServer(_AuthorizationServer):
     client_model: Incomplete
     token_model: Incomplete

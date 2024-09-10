@@ -1,8 +1,4 @@
-from _typeshed import Incomplete
-
 from .base import BaseGrant, TokenEndpointMixin
-
-log: Incomplete
 
 class ClientCredentialsGrant(BaseGrant, TokenEndpointMixin):
     GRANT_TYPE: str

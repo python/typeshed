@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 
 ASSERTION_TYPE: str
-log: Incomplete
 
 class JWTBearerClientAssertion:
     CLIENT_ASSERTION_TYPE = ASSERTION_TYPE
