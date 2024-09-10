@@ -1,34 +1,39 @@
-from _typeshed import Incomplete
+from collections.abc import Callable
+from typing_extensions import TypeAlias
+
+from ..rfc6749 import ClientMixin
+
+_TOKEN_GENERATOR: TypeAlias = Callable[[ClientMixin, str, object, str], str]
 
 class BearerTokenGenerator:
     DEFAULT_EXPIRES_IN: int
-    GRANT_TYPES_EXPIRES_IN: Incomplete
-    access_token_generator: Incomplete
-    refresh_token_generator: Incomplete
-    expires_generator: Incomplete
+    GRANT_TYPES_EXPIRES_IN: dict[str, int]
+    access_token_generator: _TOKEN_GENERATOR
+    refresh_token_generator: _TOKEN_GENERATOR
+    expires_generator: Callable[[ClientMixin, str], int]
     def __init__(
         self,
-        access_token_generator,
-        refresh_token_generator: Incomplete | None = None,
-        expires_generator: Incomplete | None = None,
+        access_token_generator: _TOKEN_GENERATOR,
+        refresh_token_generator: _TOKEN_GENERATOR | None = None,
+        expires_generator: Callable[[ClientMixin, str], int] | None = None,
     ) -> None: ...
     @staticmethod
-    def get_allowed_scope(client, scope): ...
+    def get_allowed_scope(client: ClientMixin, scope: str) -> str: ...
     def generate(
         self,
-        grant_type,
-        client,
-        user: Incomplete | None = None,
-        scope: Incomplete | None = None,
-        expires_in: Incomplete | None = None,
+        grant_type: str,
+        client: ClientMixin,
+        user: object | None = None,
+        scope: str | None = None,
+        expires_in: int | None = None,
         include_refresh_token: bool = True,
-    ): ...
+    ) -> dict[str, str | int]: ...
     def __call__(
         self,
-        grant_type,
-        client,
-        user: Incomplete | None = None,
-        scope: Incomplete | None = None,
-        expires_in: Incomplete | None = None,
+        grant_type: str,
+        client: ClientMixin,
+        user: object | None = None,
+        scope: str | None = None,
+        expires_in: int | None = None,
         include_refresh_token: bool = True,
-    ): ...
+    ) -> dict[str, str | int]: ...
