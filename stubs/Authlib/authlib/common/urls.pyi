@@ -4,7 +4,7 @@ from typing_extensions import TypeAlias
 
 always_safe: str
 urlencoded: Collection[str]
-INVALID_HEX_PATTERN: Pattern
+INVALID_HEX_PATTERN: Pattern[str]
 
 _EXPLODED_QUERY_STRING: TypeAlias = list[tuple[str, str]]
 

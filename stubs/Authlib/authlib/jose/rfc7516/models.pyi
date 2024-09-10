@@ -41,7 +41,7 @@ class JWEZipAlgorithm:
     def compress(self, s) -> None: ...
     def decompress(self, s) -> None: ...
 
-class JWESharedHeader(dict):
+class JWESharedHeader(dict[str, object]):
     protected: Incomplete
     unprotected: Incomplete
     def __init__(self, protected, unprotected) -> None: ...
@@ -49,7 +49,7 @@ class JWESharedHeader(dict):
     @classmethod
     def from_dict(cls, obj): ...
 
-class JWEHeader(dict):
+class JWEHeader(dict[str, object]):
     protected: Incomplete
     unprotected: Incomplete
     header: Incomplete

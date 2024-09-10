@@ -9,14 +9,14 @@ class JWSAlgorithm:
     def sign(self, msg, key) -> None: ...
     def verify(self, msg, sig, key) -> None: ...
 
-class JWSHeader(dict):
+class JWSHeader(dict[str, object]):
     protected: Incomplete
     header: Incomplete
     def __init__(self, protected, header) -> None: ...
     @classmethod
     def from_dict(cls, obj): ...
 
-class JWSObject(dict):
+class JWSObject(dict[str, object]):
     header: Incomplete
     payload: Incomplete
     type: Incomplete

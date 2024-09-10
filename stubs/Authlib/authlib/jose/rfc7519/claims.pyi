@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-class BaseClaims(dict):
+class BaseClaims(dict[str, object]):
     REGISTERED_CLAIMS: Incomplete
     header: Incomplete
     options: Incomplete

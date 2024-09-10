@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-class AuthorizationServerMetadata(dict):
+class AuthorizationServerMetadata(dict[str, object]):
     REGISTRY_KEYS: Incomplete
     def validate_issuer(self) -> None: ...
     def validate_authorization_endpoint(self) -> None: ...
