@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Coroutine, Generator
-from contextlib import asynccontextmanager
+from collections.abc import Generator
 
 import httpx
 from authlib.oauth2 import OAuth2Error
@@ -40,8 +39,7 @@ class AsyncOAuth2Client(_OAuth2Client, httpx.AsyncClient):
         **kwargs,
     ) -> None: ...
     async def request(self, method, url, withhold_token: bool = False, auth=..., **kwargs): ...
-    @asynccontextmanager
-    async def stream(self, *args, **kwargs) -> Coroutine[Incomplete, Incomplete, Incomplete]: ...
+    async def stream(self, *args, **kwargs): ...  # ignore
     async def ensure_active_token(self, token=None): ...
 
 class OAuth2Client(_OAuth2Client, httpx.Client):
