@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
+from typing import Any
 
 from . import ClientMixin
 
@@ -10,10 +11,10 @@ class OAuth2Request:
     headers: Mapping[str, str] | None
     client: ClientMixin | None
     auth_method: str | None
-    user: object | None
-    authorization_code: object | None
-    refresh_token: object | None
-    credential: object | None
+    user: Any | None
+    authorization_code: Any | None
+    refresh_token: Any | None
+    credential: Any | None
     def __init__(
         self, method: str, uri: str, body: Mapping[str, str] | None = None, headers: Mapping[str, str] | None = None
     ) -> None: ...

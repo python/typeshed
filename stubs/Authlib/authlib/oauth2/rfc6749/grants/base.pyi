@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Collection
+from typing import Any
 from typing_extensions import TypeAlias
 
 from .. import ClientMixin
@@ -14,13 +15,13 @@ class BaseGrant:
     prompt: Incomplete
     redirect_uri: Incomplete
     request: OAuth2Request
-    server: object
-    def __init__(self, request: OAuth2Request, server: object) -> None: ...
+    server: Any
+    def __init__(self, request: OAuth2Request, server: Any) -> None: ...
     @property
     def client(self): ...
     def generate_token(
         self,
-        user: object | None = None,
+        user: Any | None = None,
         scope: str | None = None,
         grant_type: str | None = None,
         expires_in: int | None = None,
@@ -52,4 +53,4 @@ class AuthorizationEndpointMixin:
     redirect_uri: Incomplete
     def validate_consent_request(self) -> None: ...
     def validate_authorization_request(self) -> str: ...
-    def create_authorization_response(self, redirect_uri: str, grant_user: object) -> _SERVER_RESPONSE: ...
+    def create_authorization_response(self, redirect_uri: str, grant_user: Any) -> _SERVER_RESPONSE: ...

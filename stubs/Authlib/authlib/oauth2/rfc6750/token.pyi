@@ -1,9 +1,10 @@
 from collections.abc import Callable
+from typing import Any
 from typing_extensions import TypeAlias
 
 from ..rfc6749 import ClientMixin
 
-_TOKEN_GENERATOR: TypeAlias = Callable[[ClientMixin, str, object, str], str]
+_TOKEN_GENERATOR: TypeAlias = Callable[[ClientMixin, str, Any, str], str]
 
 class BearerTokenGenerator:
     DEFAULT_EXPIRES_IN: int
@@ -23,7 +24,7 @@ class BearerTokenGenerator:
         self,
         grant_type: str,
         client: ClientMixin,
-        user: object | None = None,
+        user: Any | None = None,
         scope: str | None = None,
         expires_in: int | None = None,
         include_refresh_token: bool = True,
@@ -32,7 +33,7 @@ class BearerTokenGenerator:
         self,
         grant_type: str,
         client: ClientMixin,
-        user: object | None = None,
+        user: Any | None = None,
         scope: str | None = None,
         expires_in: int | None = None,
         include_refresh_token: bool = True,
