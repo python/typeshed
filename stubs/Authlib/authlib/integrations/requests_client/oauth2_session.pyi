@@ -5,9 +5,9 @@ from authlib.oauth2.client import OAuth2Client
 from requests import Session
 from requests.auth import AuthBase
 
-from ..base_client import OAuthError
-
 __all__ = ["OAuth2Session", "OAuth2Auth"]
+
+from ...oauth2 import OAuth2Error
 
 class OAuth2Auth(AuthBase, TokenAuth):
     def ensure_active_token(self) -> None: ...
@@ -19,7 +19,7 @@ class OAuth2ClientAuth(AuthBase, ClientAuth):
 class OAuth2Session(OAuth2Client, Session):
     client_auth_class = OAuth2ClientAuth
     token_auth_class = OAuth2Auth
-    oauth_error_class = OAuthError
+    oauth_error_class = OAuth2Error
     SESSION_REQUEST_PARAMS: Incomplete
     default_timeout: Incomplete
     def __init__(
@@ -39,4 +39,23 @@ class OAuth2Session(OAuth2Client, Session):
         **kwargs,
     ) -> None: ...
     def fetch_access_token(self, url: Incomplete | None = None, **kwargs): ...
-    def request(self, method, url, withhold_token: bool = False, auth: Incomplete | None = None, **kwargs): ...
+    def request(
+        self,
+        method,
+        url,
+        params=None,
+        data=None,
+        headers=None,
+        cookies=None,
+        files=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=True,
+        proxies=None,
+        hooks=None,
+        stream=None,
+        verify=None,
+        cert=None,
+        json=None,
+        withhold_token: bool = False,
+    ): ...

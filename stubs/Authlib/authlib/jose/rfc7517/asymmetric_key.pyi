@@ -5,8 +5,8 @@ from .base_key import Key
 class AsymmetricKey(Key):
     PUBLIC_KEY_FIELDS: Incomplete
     PRIVATE_KEY_FIELDS: Incomplete
-    PRIVATE_KEY_CLS = bytes
-    PUBLIC_KEY_CLS = bytes
+    PRIVATE_KEY_CLS = Incomplete
+    PUBLIC_KEY_CLS = Incomplete
     SSH_PUBLIC_PREFIX: bytes
     private_key: Incomplete
     public_key: Incomplete
@@ -36,4 +36,4 @@ class AsymmetricKey(Key):
     @classmethod
     def validate_raw_key(cls, key): ...
     @classmethod
-    def generate_key(cls, crv_or_size, options: Incomplete | None = None, is_private: bool = False) -> None: ...
+    def generate_key(cls, crv_or_size, options: Incomplete | None = None, is_private: bool = False) -> AsymmetricKey: ...

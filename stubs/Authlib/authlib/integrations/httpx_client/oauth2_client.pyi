@@ -1,12 +1,13 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from contextlib import asynccontextmanager
 
 import httpx
+from authlib.oauth2 import OAuth2Error
 from authlib.oauth2.auth import ClientAuth, TokenAuth
 from authlib.oauth2.client import OAuth2Client as _OAuth2Client
 from httpx import Auth, Request, Response
 
-from ..base_client import OAuthError
 from .utils import HTTPX_CLIENT_KWARGS
 
 __all__ = ["OAuth2Auth", "OAuth2ClientAuth", "AsyncOAuth2Client", "OAuth2Client"]
@@ -23,7 +24,7 @@ class AsyncOAuth2Client(_OAuth2Client, httpx.AsyncClient):
     SESSION_REQUEST_PARAMS = HTTPX_CLIENT_KWARGS
     client_auth_class = OAuth2ClientAuth
     token_auth_class = OAuth2Auth
-    oauth_error_class = OAuthError
+    oauth_error_class = OAuth2Error
     def __init__(
         self,
         client_id: Incomplete | None = None,
@@ -39,16 +40,15 @@ class AsyncOAuth2Client(_OAuth2Client, httpx.AsyncClient):
         **kwargs,
     ) -> None: ...
     async def request(self, method, url, withhold_token: bool = False, auth=..., **kwargs): ...
-    async def stream(
-        self, method, url, withhold_token: bool = False, auth=..., **kwargs
-    ) -> Generator[Incomplete, None, None]: ...
-    async def ensure_active_token(self, token) -> None: ...
+    @asynccontextmanager
+    async def stream(self, *args, **kwargs): ...
+    async def ensure_active_token(self, token=None): ...
 
 class OAuth2Client(_OAuth2Client, httpx.Client):
     SESSION_REQUEST_PARAMS = HTTPX_CLIENT_KWARGS
     client_auth_class = OAuth2ClientAuth
     token_auth_class = OAuth2Auth
-    oauth_error_class = OAuthError
+    oauth_error_class = OAuth2Error
     def __init__(
         self,
         client_id: Incomplete | None = None,

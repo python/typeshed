@@ -4,14 +4,15 @@ import httpx
 from authlib.oauth2.rfc7521 import AssertionClient as _AssertionClient
 from httpx import Response
 
-from ..base_client import OAuthError
 from .oauth2_client import OAuth2Auth
 
 __all__ = ["AsyncAssertionClient"]
 
+from ...oauth2 import OAuth2Error
+
 class AsyncAssertionClient(_AssertionClient, httpx.AsyncClient):
     token_auth_class = OAuth2Auth
-    oauth_error_class = OAuthError
+    oauth_error_class = OAuth2Error
     JWT_BEARER_GRANT_TYPE: Incomplete
     ASSERTION_METHODS: Incomplete
     DEFAULT_GRANT_TYPE = JWT_BEARER_GRANT_TYPE
@@ -31,7 +32,7 @@ class AsyncAssertionClient(_AssertionClient, httpx.AsyncClient):
 
 class AssertionClient(_AssertionClient, httpx.Client):
     token_auth_class = OAuth2Auth
-    oauth_error_class = OAuthError
+    oauth_error_class = OAuth2Error
     JWT_BEARER_GRANT_TYPE: Incomplete
     ASSERTION_METHODS: Incomplete
     DEFAULT_GRANT_TYPE = JWT_BEARER_GRANT_TYPE

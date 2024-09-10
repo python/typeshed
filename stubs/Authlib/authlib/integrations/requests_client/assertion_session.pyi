@@ -28,4 +28,23 @@ class AssertionSession(AssertionClient, Session):
         leeway: int = 60,
         **kwargs,
     ) -> None: ...
-    def request(self, method, url, withhold_token: bool = False, auth: Incomplete | None = None, **kwargs): ...
+    def request(
+        self,
+        method,
+        url,
+        params=None,
+        data=None,
+        headers=None,
+        cookies=None,
+        files=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=True,
+        proxies=None,
+        hooks=None,
+        stream=None,
+        verify=None,
+        cert=None,
+        json=None,
+        withhold_token: bool = False,
+    ): ...

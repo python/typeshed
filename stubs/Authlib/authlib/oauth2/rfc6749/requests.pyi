@@ -1,26 +1,30 @@
 from _typeshed import Incomplete
-from collections import defaultdict
+from collections.abc import Mapping
+
+from . import ClientMixin
 
 class OAuth2Request:
-    method: Incomplete
-    uri: Incomplete
-    body: Incomplete
-    headers: Incomplete
-    client: Incomplete
-    auth_method: Incomplete
-    user: Incomplete
-    authorization_code: Incomplete
-    refresh_token: Incomplete
-    credential: Incomplete
-    def __init__(self, method: str, uri: str, body: Incomplete | None = None, headers: Incomplete | None = None) -> None: ...
+    method: str
+    uri: str
+    body: Mapping[str, str] | None
+    headers: Mapping[str, str] | None
+    client: ClientMixin | None
+    auth_method: str | None
+    user: object | None
+    authorization_code: object | None
+    refresh_token: object | None
+    credential: object | None
+    def __init__(
+        self, method: str, uri: str, body: Mapping[str, str] | None = None, headers: Mapping[str, str] | None = None
+    ) -> None: ...
     @property
-    def args(self): ...
+    def args(self) -> dict[str, str | None]: ...
     @property
-    def form(self): ...
+    def form(self) -> dict[str, str]: ...
     @property
-    def data(self): ...
+    def data(self) -> dict[str, str]: ...
     @property
-    def datalist(self) -> defaultdict[str, list]: ...
+    def datalist(self) -> dict[str, list]: ...
     @property
     def client_id(self) -> str: ...
     @property
@@ -28,11 +32,11 @@ class OAuth2Request:
     @property
     def grant_type(self) -> str: ...
     @property
-    def redirect_uri(self): ...
+    def redirect_uri(self) -> str: ...
     @property
     def scope(self) -> str: ...
     @property
-    def state(self): ...
+    def state(self) -> str | None: ...
 
 class JsonRequest:
     method: Incomplete
