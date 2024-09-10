@@ -1,0 +1,6 @@
+from _typeshed import Incomplete
+
+UNICODE_ASCII_CHARACTER_SET: Incomplete
+
+def generate_token(length: int = 30, chars=...): ...
+def is_secure_transport(uri): ...
