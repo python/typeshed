@@ -1,5 +1,3 @@
 version = "1.3.*"
 upstream_repository = "https://github.com/lepture/authlib"
-
-[tool.stubtest]
-stubtest_requirements = ["cryptography", "django-stubs", "flask", "Flask-SQLAlchemy", "httpx", "pycryptodomex>=3.10,<4", "types-requests", "starlette", "werkzeug"]
+requires = ["cryptography", "django-stubs", "flask", "Flask-SQLAlchemy", "httpx", "pycryptodomex>=3.10,<4", "types-requests", "starlette", "werkzeug"]
