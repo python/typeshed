@@ -259,3 +259,11 @@ tkinter.EventType.__new__
 ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
 ctypes._endian.RTLD_LOCAL
+
+# Incompatible changes introduced in Python 3.10.15
+# (Remove once 3.10.15 becomes available for all platforms)
+(email._header_value_parser.NLSET)?
+(email._header_value_parser.SPECIALSNL)?
+(email.errors.HeaderWriteError)?
+(email.utils.getaddresses)?
+(email.utils.parseaddr)?

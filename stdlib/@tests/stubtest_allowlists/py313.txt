@@ -191,9 +191,3 @@ codecs.xmlcharrefreplace_errors
 
 # To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
 types.MappingProxyType.get
-
-# logging.warn() was restored after the 3.13 release candidate, which is what CI is using
-logging.__all__
-logging.Logger.warn
-logging.LoggerAdapter.warn
-logging.warn
