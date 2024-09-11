@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 
 from authlib.jose.rfc7516 import JWEAlgorithm
-
-from .ec_key import ECKey
+from authlib.jose.rfc7518 import ECKey
 
 class DirectAlgorithm(JWEAlgorithm):
     name: str

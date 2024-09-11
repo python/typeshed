@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Mapping
 from typing import Any
 
-from . import ClientMixin
+from authlib.oauth2.rfc6749 import ClientMixin
 
 class OAuth2Request:
     method: str

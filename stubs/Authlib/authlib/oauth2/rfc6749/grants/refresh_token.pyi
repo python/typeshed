@@ -1,8 +1,7 @@
 from typing import Any
 from typing_extensions import TypeAlias
 
-from .. import TokenMixin
-from .base import BaseGrant, TokenEndpointMixin
+from authlib.oauth2.rfc6749 import BaseGrant, TokenEndpointMixin, TokenMixin
 
 _SERVER_RESPONSE: TypeAlias = tuple[int, str, list[tuple[str, str]]]
 

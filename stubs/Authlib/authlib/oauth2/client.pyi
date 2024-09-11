@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 
-from .auth import ClientAuth, TokenAuth
-from .base import OAuth2Error
+from authlib.oauth2 import ClientAuth, OAuth2Error, TokenAuth
 
 DEFAULT_HEADERS: Incomplete
 

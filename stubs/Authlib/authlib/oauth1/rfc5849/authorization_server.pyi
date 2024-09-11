@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from .base_server import BaseServer
+from authlib.oauth1.rfc5849.base_server import BaseServer
 
 class AuthorizationServer(BaseServer):
     TOKEN_RESPONSE_HEADER: Incomplete

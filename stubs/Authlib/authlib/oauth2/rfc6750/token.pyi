@@ -2,7 +2,7 @@ from collections.abc import Callable
 from typing import Any
 from typing_extensions import TypeAlias
 
-from ..rfc6749 import ClientMixin
+from authlib.oauth2.rfc6749 import ClientMixin
 
 _TOKEN_GENERATOR: TypeAlias = Callable[[ClientMixin, str, Any, str], str]
 

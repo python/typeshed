@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from ..rfc7517 import Key
+from authlib.jose.rfc7517 import Key
 
 POSSIBLE_UNSAFE_KEYS: Incomplete
 

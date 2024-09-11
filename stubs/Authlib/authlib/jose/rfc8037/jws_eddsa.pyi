@@ -1,4 +1,4 @@
-from ..rfc7515 import JWSAlgorithm
+from authlib.jose.rfc7515 import JWSAlgorithm
 
 class EdDSAAlgorithm(JWSAlgorithm):
     name: str

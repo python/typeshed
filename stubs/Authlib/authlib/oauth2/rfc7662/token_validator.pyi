@@ -1,4 +1,4 @@
-from ..rfc6749 import TokenValidator
+from authlib.oauth2.rfc6749 import TokenValidator
 
 class IntrospectTokenValidator(TokenValidator):
     TOKEN_TYPE: str

@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Collection, Mapping
 
-from .. import Key
-from .key_set import KeySet
+from authlib.jose.rfc7517 import Key, KeySet
 
 class JsonWebKey:
     JWK_KEY_CLS: Incomplete

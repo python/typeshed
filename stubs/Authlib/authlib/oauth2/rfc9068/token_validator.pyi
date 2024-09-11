@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from authlib.oauth2.rfc6750.validator import BearerTokenValidator
+from authlib.oauth2.rfc6750 import BearerTokenValidator
 
 class JWTBearerTokenValidator(BearerTokenValidator):
     issuer: Incomplete

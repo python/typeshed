@@ -1,9 +1,8 @@
 from _typeshed import Incomplete
 
 from authlib.jose import JWTClaims
-
-from ..rfc6749 import TokenMixin
-from ..rfc6750 import BearerTokenValidator
+from authlib.oauth2.rfc6749 import TokenMixin
+from authlib.oauth2.rfc6750 import BearerTokenValidator
 
 logger: Incomplete
 

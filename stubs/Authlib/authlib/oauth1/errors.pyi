@@ -1,1 +1,1 @@
-from .rfc5849.errors import *
+from authlib.oauth1.rfc5849.errors import *

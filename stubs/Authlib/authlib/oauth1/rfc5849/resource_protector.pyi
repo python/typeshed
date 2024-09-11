@@ -1,4 +1,4 @@
-from .base_server import BaseServer
+from authlib.oauth1.rfc5849.base_server import BaseServer
 
 class ResourceProtector(BaseServer):
     def validate_request(self, method, uri, body, headers): ...

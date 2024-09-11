@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from ..rfc7009 import RevocationEndpoint
+from authlib.oauth2.rfc7009 import RevocationEndpoint
 
 class JWTRevocationEndpoint(RevocationEndpoint):
     issuer: Incomplete

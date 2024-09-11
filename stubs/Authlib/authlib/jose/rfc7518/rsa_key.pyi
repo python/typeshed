@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 
+from authlib.jose.rfc7517 import AsymmetricKey
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPrivateKeyWithSerialization, RSAPublicKey
-
-from ..rfc7517 import AsymmetricKey
 
 class RSAKey(AsymmetricKey):
     kty: str

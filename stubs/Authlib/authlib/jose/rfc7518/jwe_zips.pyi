@@ -1,4 +1,4 @@
-from ..rfc7516 import JWEZipAlgorithm
+from authlib.jose.rfc7516 import JWEZipAlgorithm
 
 class DeflateZipAlgorithm(JWEZipAlgorithm):
     name: str

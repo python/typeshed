@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from ..rfc7516 import JWEEncAlgorithm
+from authlib.jose.rfc7516 import JWEEncAlgorithm
 
 class CBCHS2EncAlgorithm(JWEEncAlgorithm):
     IV_SIZE: int

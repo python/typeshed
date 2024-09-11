@@ -1,7 +1,7 @@
 from collections.abc import Callable, Collection
 
-from .. import OAuth2Request
-from . import ClientMixin
+from authlib.oauth2 import OAuth2Request
+from authlib.oauth2.rfc6749 import ClientMixin
 
 __all__ = ["ClientAuthentication"]
 

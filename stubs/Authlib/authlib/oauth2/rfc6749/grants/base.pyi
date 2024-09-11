@@ -3,8 +3,8 @@ from collections.abc import Callable, Collection
 from typing import Any
 from typing_extensions import TypeAlias
 
-from .. import ClientMixin
-from ..requests import OAuth2Request
+from authlib.oauth2 import OAuth2Request
+from authlib.oauth2.rfc6749 import ClientMixin
 
 _SERVER_RESPONSE: TypeAlias = tuple[int, str, list[tuple[str, str]]]
 

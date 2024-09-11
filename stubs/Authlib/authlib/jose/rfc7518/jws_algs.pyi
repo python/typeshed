@@ -1,7 +1,7 @@
 import hashlib
 from _typeshed import Incomplete
 
-from ..rfc7515 import JWSAlgorithm
+from authlib.jose.rfc7515 import JWSAlgorithm
 
 class NoneAlgorithm(JWSAlgorithm):
     name: str

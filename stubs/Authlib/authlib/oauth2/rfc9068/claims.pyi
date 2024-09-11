@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from authlib.jose.rfc7519 import JWTClaims
+from authlib.jose import JWTClaims
 
 class JWTAccessTokenClaims(JWTClaims):
     REGISTERED_CLAIMS: Incomplete

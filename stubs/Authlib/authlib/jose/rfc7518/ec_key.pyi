@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 
+from authlib.jose.rfc7517 import AsymmetricKey
 from cryptography.hazmat.primitives.asymmetric.ec import EllipticCurvePrivateKeyWithSerialization, EllipticCurvePublicKey
-
-from ..rfc7517 import AsymmetricKey
 
 class ECKey(AsymmetricKey):
     kty: str

@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from ..rfc7517 import AsymmetricKey
+from authlib.jose.rfc7517 import AsymmetricKey
 
 PUBLIC_KEYS_MAP: Incomplete
 PRIVATE_KEYS_MAP: Incomplete

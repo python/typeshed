@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from .base import AuthorizationEndpointMixin, BaseGrant
+from authlib.oauth2.rfc6749 import AuthorizationEndpointMixin, BaseGrant
 
 class ImplicitGrant(BaseGrant, AuthorizationEndpointMixin):
     AUTHORIZATION_ENDPOINT: bool

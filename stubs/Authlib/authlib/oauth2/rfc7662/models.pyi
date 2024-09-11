@@ -1,4 +1,4 @@
-from ..rfc6749 import TokenMixin
+from authlib.oauth2.rfc6749 import TokenMixin
 
 class IntrospectionToken(dict[str, object], TokenMixin):
     def get_client_id(self): ...

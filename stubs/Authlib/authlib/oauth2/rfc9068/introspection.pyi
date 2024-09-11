@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from ..rfc7662 import IntrospectionEndpoint
+from authlib.oauth2.rfc7662 import IntrospectionEndpoint
 
 class JWTIntrospectionEndpoint(IntrospectionEndpoint):
     ENDPOINT_NAME: str

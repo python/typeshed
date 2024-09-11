@@ -1,4 +1,4 @@
-from ..rfc6749 import TokenEndpoint
+from authlib.oauth2.rfc6749 import TokenEndpoint
 
 class RevocationEndpoint(TokenEndpoint):
     ENDPOINT_NAME: str

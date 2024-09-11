@@ -3,10 +3,9 @@ from collections.abc import Callable, Collection, Mapping
 from typing import Any
 from typing_extensions import TypeAlias
 
-from ..rfc6750 import BearerTokenGenerator
-from . import BaseGrant, ClientMixin
-from .errors import OAuth2Error
-from .requests import JsonRequest, OAuth2Request
+from authlib.oauth2 import JsonRequest, OAuth2Error, OAuth2Request
+from authlib.oauth2.rfc6749 import BaseGrant, ClientMixin
+from authlib.oauth2.rfc6750 import BearerTokenGenerator
 
 _SERVER_RESPONSE: TypeAlias = tuple[int, str, list[tuple[str, str]]]
 

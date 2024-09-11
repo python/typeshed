@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from .framework_integration import FrameworkIntegration
+from authlib.integrations.base_client import FrameworkIntegration
 
 __all__ = ["BaseOAuth"]
 

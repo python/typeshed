@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from ..rfc7591.claims import ClientMetadataClaims
+from authlib.oauth2.rfc7591 import ClientMetadataClaims
 
 class ClientConfigurationEndpoint:
     ENDPOINT_NAME: str

@@ -1,4 +1,4 @@
-from ..rfc6749 import OAuth2Error
+from authlib.oauth2 import OAuth2Error
 
 class InvalidRedirectURIError(OAuth2Error):
     error: str

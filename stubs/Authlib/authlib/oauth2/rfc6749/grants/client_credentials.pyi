@@ -1,4 +1,4 @@
-from .base import BaseGrant, TokenEndpointMixin
+from authlib.oauth2.rfc6749 import BaseGrant, TokenEndpointMixin
 
 class ClientCredentialsGrant(BaseGrant, TokenEndpointMixin):
     GRANT_TYPE: str

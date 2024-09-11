@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from .base_key import Key
+from authlib.jose.rfc7517 import Key
 
 class AsymmetricKey(Key):
     PUBLIC_KEY_FIELDS: Incomplete

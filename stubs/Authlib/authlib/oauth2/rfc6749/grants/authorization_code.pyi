@@ -2,9 +2,8 @@ from collections.abc import Collection
 from typing import Any
 from typing_extensions import TypeAlias
 
-from ... import OAuth2Request
-from .. import ClientMixin
-from .base import AuthorizationEndpointMixin, BaseGrant, TokenEndpointMixin
+from authlib.oauth2 import OAuth2Request
+from authlib.oauth2.rfc6749 import AuthorizationEndpointMixin, BaseGrant, ClientMixin, TokenEndpointMixin
 
 _SERVER_RESPONSE: TypeAlias = tuple[int, str, list[tuple[str, str]]]
 

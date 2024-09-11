@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from authlib.oauth2.base import OAuth2Error as OAuth2Error
+from authlib.oauth2 import OAuth2Error as OAuth2Error
 
 __all__ = [
     "OAuth2Error",

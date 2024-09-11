@@ -1,8 +1,8 @@
 from typing import Any
 
-from authlib.oauth2.rfc6749 import BaseGrant, OAuth2Request
-
-from .. import UserInfo
+from authlib.oauth2 import OAuth2Request
+from authlib.oauth2.rfc6749 import BaseGrant
+from authlib.oidc.core import UserInfo
 
 class OpenIDToken:
     def get_jwt_config(self, grant: BaseGrant) -> dict[str, str | int]: ...

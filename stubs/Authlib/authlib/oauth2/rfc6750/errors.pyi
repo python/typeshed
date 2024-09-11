@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from ..base import OAuth2Error
+from authlib.oauth2 import OAuth2Error
 
 __all__ = ["InvalidTokenError", "InsufficientScopeError"]
 

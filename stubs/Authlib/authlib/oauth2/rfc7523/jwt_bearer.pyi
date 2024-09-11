@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from ..rfc6749 import BaseGrant, TokenEndpointMixin
+from authlib.oauth2.rfc6749 import BaseGrant, TokenEndpointMixin
 
 JWT_BEARER_GRANT_TYPE: str
 

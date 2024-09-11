@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from .rfc5849 import ClientAuth
+from authlib.oauth1 import ClientAuth
 
 class OAuth1Client:
     auth_class = ClientAuth
