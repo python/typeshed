@@ -3,7 +3,6 @@ from collections.abc import Callable
 from email.errors import MessageDefect
 from email.header import Header
 from email.message import Message
-from typing import Any
 from typing_extensions import Self
 
 class _PolicyBase:
