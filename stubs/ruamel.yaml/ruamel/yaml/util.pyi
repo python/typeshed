@@ -3,7 +3,7 @@ from collections.abc import Callable, Iterator
 from datetime import date, datetime
 from typing import Any, Final
 
-from configobj import ConfigObj
+from configobj import ConfigObj  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
 
 from .compat import StreamTextType
 

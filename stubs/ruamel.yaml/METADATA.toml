@@ -1,3 +1,2 @@
 version = "0.18.*"
-requires = ["configobj"]
 upstream_repository = "https://sourceforge.net/p/ruamel-yaml/code/"
