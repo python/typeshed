@@ -25,6 +25,7 @@ from collections.abc import Iterable, Sequence
 from packaging.requirements import Requirement
 
 from _metadata import read_dependencies
+from _utils import SupportedVersionsDict, parse_stdlib_versions_file, supported_versions_for_module
 
 if sys.platform == "win32":
     print("pytype does not support Windows.", file=sys.stderr)
@@ -123,16 +124,19 @@ def check_subdirs_discoverable(subdir_paths: list[str]) -> None:
 
 
 def determine_files_to_test(*, paths: Sequence[str]) -> list[str]:
-    """Determine all files to test, checking if it's in the exclude list and which Python versions to use.
+    """Determine all files to test.
 
-    Returns a list of pairs of the file path and Python version as an int."""
+    Checks for files in the pytype exclude list and for the stdlib VERSIONS file.
+    """
     filenames = find_stubs_in_paths(paths)
     ts = typeshed.Typeshed()
-    skipped = set(ts.read_blacklist())
+    exclude_list = set(ts.read_blacklist())
+    stdlib_module_versions = parse_stdlib_versions_file()
     files = []
     for f in sorted(filenames):
-        rel = _get_relative(f)
-        if rel in skipped:
+        if _get_relative(f) in exclude_list:
+            continue
+        if not _is_supported_stdlib_version(stdlib_module_versions, f):
             continue
         files.append(f)
     return files
@@ -147,6 +151,15 @@ def find_stubs_in_paths(paths: Sequence[str]) -> list[str]:
         else:
             filenames.append(path)
     return filenames
+
+
+def _is_supported_stdlib_version(module_versions: SupportedVersionsDict, filename: str) -> bool:
+    parts = _get_relative(filename).split(os.path.sep)
+    if parts[0] != "stdlib":
+        return True
+    module_name = _get_module_name(filename)
+    min_version, max_version = supported_versions_for_module(module_versions, module_name)
+    return min_version <= sys.version_info <= max_version
 
 
 def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
@@ -208,9 +221,9 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
     errors = 0
     total_tests = len(files_to_test)
     missing_modules = get_missing_modules(files_to_test)
+    python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
     print("Testing files with pytype...")
     for i, f in enumerate(files_to_test):
-        python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
         if dry_run:
             stderr = None
         else:

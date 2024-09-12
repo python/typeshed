@@ -26,8 +26,6 @@ from _utils import (
     PYTHON_VERSION,
     STDLIB_PATH,
     TESTS_DIR,
-    SupportedVersionsDict,
-    VersionTuple,
     colored,
     get_gitignore_spec,
     get_mypy_req,
@@ -35,6 +33,7 @@ from _utils import (
     print_error,
     print_success_msg,
     spec_matches_path,
+    supported_versions_for_module,
     venv_python,
 )
 
@@ -373,14 +372,6 @@ def stdlib_module_name_from_path(path: Path) -> str:
         # TODO: Python 3.9+: Use removesuffix.
         parts.append(path.parts[-1][:-4])
     return ".".join(parts)
-
-
-def supported_versions_for_module(module_versions: SupportedVersionsDict, module_name: str) -> tuple[VersionTuple, VersionTuple]:
-    while "." in module_name:
-        if module_name in module_versions:
-            return module_versions[module_name]
-        module_name = ".".join(module_name.split(".")[:-1])
-    return module_versions[module_name]
 
 
 @dataclass
