@@ -1,10 +1,9 @@
-from _typeshed import Incomplete
-from typing import Literal
+from typing import Final
 
-anchor_attrib: Literal["_yaml_anchor"]
+anchor_attrib: Final = "_yaml_anchor"
 
 class Anchor:
-    attrib = anchor_attrib
-    value: Incomplete
+    attrib: Final = anchor_attrib
+    value: str | None
     always_dump: bool
     def __init__(self) -> None: ...

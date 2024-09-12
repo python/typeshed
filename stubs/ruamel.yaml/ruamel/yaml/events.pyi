@@ -1,37 +1,46 @@
-from _typeshed import Incomplete
+from _typeshed import sentinel
+from typing import ClassVar, Final, Literal
+
+from .error import _Mark
+from .tag import Tag, _TagHandleToPrefix
+from .tokens import _CommentGroup, _ScalarStyle, _VersionTuple
 
 SHOW_LINES: bool
 
-def CommentCheck() -> None: ...
-
 class Event:
-    crepr: str
-    start_mark: Incomplete
-    end_mark: Incomplete
-    comment: Incomplete
-    def __init__(self, start_mark: Incomplete | None = None, end_mark: Incomplete | None = None, comment=...) -> None: ...
+    crepr: ClassVar[str]
+    start_mark: _Mark | None
+    end_mark: _Mark | None
+    comment: _CommentGroup | None
+    def __init__(
+        self, start_mark: _Mark | None = None, end_mark: _Mark | None = None, comment: _CommentGroup | None = sentinel
+    ) -> None: ...
     def compact_repr(self) -> str: ...
 
 class NodeEvent(Event):
-    anchor: Incomplete
+    anchor: str | None
     def __init__(
-        self, anchor, start_mark: Incomplete | None = None, end_mark: Incomplete | None = None, comment: Incomplete | None = None
+        self,
+        anchor: str | None,
+        start_mark: _Mark | None = None,
+        end_mark: _Mark | None = None,
+        comment: _CommentGroup | None = None,
     ) -> None: ...
 
 class CollectionStartEvent(NodeEvent):
-    ctag: Incomplete
-    implicit: Incomplete
-    flow_style: Incomplete
-    nr_items: Incomplete
+    ctag: Tag | str | None
+    implicit: bool
+    flow_style: bool | None
+    nr_items: int | None
     def __init__(
         self,
-        anchor,
-        tag,
-        implicit,
-        start_mark: Incomplete | None = None,
-        end_mark: Incomplete | None = None,
-        flow_style: Incomplete | None = None,
-        comment: Incomplete | None = None,
+        anchor: str | None,
+        tag: Tag | str | None,
+        implicit: bool,
+        start_mark: _Mark | None = None,
+        end_mark: _Mark | None = None,
+        flow_style: bool | None = None,
+        comment: _CommentGroup | None = None,
         nr_items: int | None = None,
     ) -> None: ...
     @property
@@ -39,94 +48,96 @@ class CollectionStartEvent(NodeEvent):
 
 class CollectionEndEvent(Event): ...
 
+# Implementations.
+
 class StreamStartEvent(Event):
-    crepr: str
-    encoding: Incomplete
+    crepr: Final = "+STR"
+    encoding: str | None
     def __init__(
         self,
-        start_mark: Incomplete | None = None,
-        end_mark: Incomplete | None = None,
-        encoding: Incomplete | None = None,
-        comment: Incomplete | None = None,
+        start_mark: _Mark | None = None,
+        end_mark: _Mark | None = None,
+        encoding: str | None = None,
+        comment: _CommentGroup | None = None,
     ) -> None: ...
 
 class StreamEndEvent(Event):
-    crepr: str
+    crepr: Final = "-STR"
 
 class DocumentStartEvent(Event):
-    crepr: str
-    explicit: Incomplete
-    version: Incomplete
-    tags: Incomplete
+    crepr: Final = "+DOC"
+    explicit: bool | None
+    version: _VersionTuple | None
+    tags: _TagHandleToPrefix | None
     def __init__(
         self,
-        start_mark: Incomplete | None = None,
-        end_mark: Incomplete | None = None,
-        explicit: Incomplete | None = None,
-        version: Incomplete | None = None,
-        tags: Incomplete | None = None,
-        comment: Incomplete | None = None,
+        start_mark: _Mark | None = None,
+        end_mark: _Mark | None = None,
+        explicit: bool | None = None,
+        version: _VersionTuple | None = None,
+        tags: _TagHandleToPrefix | None = None,
+        comment: _CommentGroup | None = None,
     ) -> None: ...
     def compact_repr(self) -> str: ...
 
 class DocumentEndEvent(Event):
-    crepr: str
-    explicit: Incomplete
+    crepr: Final = "-DOC"
+    explicit: bool | None
     def __init__(
         self,
-        start_mark: Incomplete | None = None,
-        end_mark: Incomplete | None = None,
-        explicit: Incomplete | None = None,
-        comment: Incomplete | None = None,
+        start_mark: _Mark | None = None,
+        end_mark: _Mark | None = None,
+        explicit: bool | None = None,
+        comment: _CommentGroup | None = None,
     ) -> None: ...
     def compact_repr(self) -> str: ...
 
 class AliasEvent(NodeEvent):
-    crepr: str
-    style: Incomplete
+    crepr: Final = "=ALI"
+    style: Literal["?"] | None
     def __init__(
         self,
-        anchor,
-        start_mark: Incomplete | None = None,
-        end_mark: Incomplete | None = None,
-        style: Incomplete | None = None,
-        comment: Incomplete | None = None,
+        anchor: str,
+        start_mark: _Mark | None = None,
+        end_mark: _Mark | None = None,
+        style: Literal["?"] | None = None,
+        comment: _CommentGroup | None = None,
     ) -> None: ...
     def compact_repr(self) -> str: ...
 
 class ScalarEvent(NodeEvent):
-    crepr: str
-    ctag: Incomplete
-    implicit: Incomplete
-    value: Incomplete
-    style: Incomplete
+    crepr: Final = "=VAL"
+    ctag: Tag | None
+    implicit: tuple[bool, bool]
+    value: str
+    style: _ScalarStyle | None
     def __init__(
         self,
-        anchor,
-        tag,
-        implicit,
-        value,
-        start_mark: Incomplete | None = None,
-        end_mark: Incomplete | None = None,
-        style: Incomplete | None = None,
-        comment: Incomplete | None = None,
+        anchor: str | None,
+        tag: Tag | None,
+        implicit: tuple[bool, bool],
+        value: str,
+        start_mark: _Mark | None = None,
+        end_mark: _Mark | None = None,
+        style: _ScalarStyle | None = None,
+        comment: _CommentGroup | None = None,
     ) -> None: ...
     @property
     def tag(self) -> str | None: ...
     @tag.setter
-    def tag(self, val) -> None: ...
+    def tag(self, val: Tag | str) -> None: ...
     def compact_repr(self) -> str: ...
 
 class SequenceStartEvent(CollectionStartEvent):
-    crepr: str
+    crepr: Final = "+SEQ"
     def compact_repr(self) -> str: ...
 
 class SequenceEndEvent(CollectionEndEvent):
-    crepr: str
+    crepr: Final = "-SEQ"
 
 class MappingStartEvent(CollectionStartEvent):
-    crepr: str
+    crepr: Final = "+MAP"
     def compact_repr(self) -> str: ...
 
 class MappingEndEvent(CollectionEndEvent):
-    crepr: str
+    crepr: Final = "-MAP"
