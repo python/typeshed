@@ -1,6 +1,3 @@
-from collections.abc import Iterator
-from contextlib import contextmanager as _contextmanager
-
 from .lua54 import *
 
 __all__ = [
