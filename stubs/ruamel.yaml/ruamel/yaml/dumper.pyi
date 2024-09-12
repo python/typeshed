@@ -1,4 +1,5 @@
 from _typeshed import Unused
+from typing import TypeAlias
 
 from .compat import StreamType, VersionType
 from .emitter import Emitter, _LineBreak
@@ -10,6 +11,9 @@ from .tokens import _ScalarStyle
 
 __all__ = ["BaseDumper", "SafeDumper", "Dumper", "RoundTripDumper"]
 
+# https://github.com/python/typeshed/pull/8973
+_Inf: TypeAlias = float
+
 class BaseDumper(Emitter, Serializer, BaseRepresenter, BaseResolver):
     def __init__(
         self,
@@ -18,7 +22,7 @@ class BaseDumper(Emitter, Serializer, BaseRepresenter, BaseResolver):
         default_flow_style: bool | None = None,
         canonical: bool | None = None,
         indent: int | None = None,
-        width: int | None = None,
+        width: int | _Inf | None = None,
         allow_unicode: bool | None = None,
         line_break: _LineBreak | None = None,
         encoding: str | None = None,
@@ -39,7 +43,7 @@ class SafeDumper(Emitter, Serializer, SafeRepresenter, Resolver):
         default_flow_style: bool | None = None,
         canonical: bool | None = None,
         indent: int | None = None,
-        width: int | None = None,
+        width: int | _Inf | None = None,
         allow_unicode: bool | None = None,
         line_break: _LineBreak | None = None,
         encoding: str | None = None,
@@ -60,7 +64,7 @@ class Dumper(Emitter, Serializer, Representer, Resolver):
         default_flow_style: bool | None = None,
         canonical: bool | None = None,
         indent: int | None = None,
-        width: int | None = None,
+        width: int | _Inf | None = None,
         allow_unicode: bool | None = None,
         line_break: _LineBreak | None = None,
         encoding: str | None = None,
@@ -81,7 +85,7 @@ class RoundTripDumper(Emitter, Serializer, RoundTripRepresenter, VersionedResolv
         default_flow_style: bool | None = None,
         canonical: bool | None = None,
         indent: int | None = None,
-        width: int | None = None,
+        width: int | _Inf | None = None,
         allow_unicode: bool | None = None,
         line_break: _LineBreak | None = None,
         encoding: str | None = None,

@@ -30,11 +30,12 @@ class ScalarFloat(float):
         underscore: _Underscore | None = None,
         anchor: str | None = None,
     ) -> Self: ...
-    def __iadd__(self, a: float, /) -> float: ...  # noqa: Y034  # Explicitly returns float
-    def __ifloordiv__(self, a: float, /) -> float: ...  # noqa: Y034  # Explicitly returns float
-    def __imul__(self, a: float, /) -> float: ...  # noqa: Y034  # Explicitly returns float
-    def __ipow__(self, a: float, /) -> float: ...  # noqa: Y034  # Explicitly returns float
-    def __isub__(self, a: float, /) -> float: ...  # noqa: Y034  # Explicitly returns float
+    # The following methods explicitly return floats
+    def __iadd__(self, a: float, /) -> float: ...  # noqa: Y034
+    def __ifloordiv__(self, a: float, /) -> float: ...  # noqa: Y034
+    def __imul__(self, a: float, /) -> float: ...  # noqa: Y034
+    def __ipow__(self, a: float, /) -> float: ...  # noqa: Y034
+    def __isub__(self, a: float, /) -> float: ...  # noqa: Y034
     @property
     def anchor(self) -> Anchor: ...
     def yaml_anchor(self, *, any: bool = False) -> Anchor: ...
