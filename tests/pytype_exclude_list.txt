@@ -5,15 +5,6 @@
 stdlib/builtins.pyi
 stdlib/typing.pyi
 
-# References modules not available on Python 3.12 (distutils and asyncore)
-stdlib/asynchat.pyi
-stdlib/distutils/cmd.pyi
-stdlib/distutils/command/__init__.pyi
-stdlib/distutils/command/build_py.pyi
-stdlib/distutils/command/build_scripts.pyi
-stdlib/distutils/cygwinccompiler.pyi
-stdlib/smtpd.pyi
-
 # errors about import statements
 stubs/mysqlclient/MySQLdb/__init__.pyi
 stubs/mysqlclient/MySQLdb/connections.pyi
