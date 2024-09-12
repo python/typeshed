@@ -132,6 +132,14 @@ def parse_stdlib_versions_file() -> SupportedVersionsDict:
     return result
 
 
+def supported_versions_for_module(module_versions: SupportedVersionsDict, module_name: str) -> tuple[VersionTuple, VersionTuple]:
+    while "." in module_name:
+        if module_name in module_versions:
+            return module_versions[module_name]
+        module_name = ".".join(module_name.split(".")[:-1])
+    return module_versions[module_name]
+
+
 def _parse_version(v_str: str) -> tuple[int, int]:
     m = VERSION_RE.match(v_str)
     assert m, f"invalid version: {v_str}"

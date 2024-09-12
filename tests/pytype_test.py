@@ -25,7 +25,7 @@ from collections.abc import Iterable, Sequence
 from packaging.requirements import Requirement
 
 from _metadata import read_dependencies
-from _utils import SupportedVersionsDict, VersionTuple, parse_stdlib_versions_file
+from _utils import SupportedVersionsDict, parse_stdlib_versions_file, supported_versions_for_module
 
 if sys.platform == "win32":
     print("pytype does not support Windows.", file=sys.stderr)
@@ -158,16 +158,8 @@ def _is_supported_stdlib_version(module_versions: SupportedVersionsDict, filenam
     if parts[0] != "stdlib":
         return True
     module_name = _get_module_name(filename)
-    min_version, max_version = _supported_versions_for_module(module_versions, module_name)
+    min_version, max_version = supported_versions_for_module(module_versions, module_name)
     return min_version <= sys.version_info <= max_version
-
-
-def _supported_versions_for_module(module_versions: SupportedVersionsDict, module_name: str) -> tuple[VersionTuple, VersionTuple]:
-    while "." in module_name:
-        if module_name in module_versions:
-            return module_versions[module_name]
-        module_name = ".".join(module_name.split(".")[:-1])
-    return module_versions[module_name]
 
 
 def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
