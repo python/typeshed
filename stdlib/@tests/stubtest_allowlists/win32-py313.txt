@@ -1,14 +1,4 @@
 # New in py313 (triage these!)
-_winapi.BatchedWaitForMultipleObjects
-_winapi.CreateEventW
-_winapi.CreateMutexW
-_winapi.GetLongPathName
-_winapi.GetShortPathName
-_winapi.OpenEventW
-_winapi.OpenMutexW
-_winapi.ReleaseMutex
-_winapi.ResetEvent
-_winapi.SetEvent
 nt.fchmod
 nt.lchmod
 ntpath.exists
