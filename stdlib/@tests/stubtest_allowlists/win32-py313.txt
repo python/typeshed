@@ -12,7 +12,6 @@ _winapi.STARTF_USEFILLATTRIBUTE
 _winapi.STARTF_USEHOTKEY
 _winapi.STARTF_USEPOSITION
 _winapi.STARTF_USESIZE
-_winapi.SetEvent
 nt.fchmod
 nt.lchmod
 ntpath.exists
