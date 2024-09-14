@@ -15,9 +15,6 @@ importlib.resources.path
 importlib.resources.read_binary
 importlib.resources.read_text
 os.path.splitroot
-# `__replace__` to be special cased in dataclasses
-pstats.FunctionProfile.__replace__
-pstats.StatsProfile.__replace__
 tkinter.Misc.after_info
 tkinter.Misc.busy
 tkinter.Misc.busy_cget
@@ -191,3 +188,7 @@ codecs.xmlcharrefreplace_errors
 
 # To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
 types.MappingProxyType.get
+
+# `__replace__` needs to be special cased on dataclasses
+pstats.FunctionProfile.__replace__
+pstats.StatsProfile.__replace__
