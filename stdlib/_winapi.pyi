@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer
 from collections.abc import Sequence
 from typing import Any, Final, Literal, NoReturn, final, overload
 
-if sys.platform == "darwin":
+if sys.platform == "win32":
     ABOVE_NORMAL_PRIORITY_CLASS: Final = 0x8000
     BELOW_NORMAL_PRIORITY_CLASS: Final = 0x4000
 
