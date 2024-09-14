@@ -1,5 +1,4 @@
 # New in py313 (triage these!)
-_msi
 _winapi.BatchedWaitForMultipleObjects
 _winapi.CreateEventW
 _winapi.CreateMutexW
