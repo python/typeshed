@@ -22,15 +22,6 @@ _winapi.STARTF_USEHOTKEY
 _winapi.STARTF_USEPOSITION
 _winapi.STARTF_USESIZE
 _winapi.SetEvent
-nt.fchmod
-nt.lchmod
-ntpath.exists
-ntpath.lexists
-ntpath.splitroot
-os.fchmod
-os.lchmod
-os.path.exists
-os.path.lexists
 subprocess.__all__
 subprocess.STARTF_FORCEOFFFEEDBACK
 subprocess.STARTF_FORCEONFEEDBACK
