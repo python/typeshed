@@ -99,6 +99,20 @@ if sys.platform == "win32":
     SEC_RESERVE: Final = 0x4000000
     SEC_WRITECOMBINE: Final = 0x40000000
 
+    if sys.version_info >= (3, 13):
+        STARTF_FORCEOFFFEEDBACK: Final = 0x80
+        STARTF_FORCEONFEEDBACK: Final = 0x40
+        STARTF_PREVENTPINNING: Final = 0x2000
+        STARTF_RUNFULLSCREEN: Final = 0x20
+        STARTF_TITLEISAPPID: Final = 0x1000
+        STARTF_TITLEISLINKNAME: Final = 0x800
+        STARTF_UNTRUSTEDSOURCE: Final = 0x8000
+        STARTF_USECOUNTCHARS: Final = 0x8
+        STARTF_USEFILLATTRIBUTE: Final = 0x10
+        STARTF_USEHOTKEY: Final = 0x200
+        STARTF_USEPOSITION: Final = 0x4
+        STARTF_USESIZE: Final = 0x2
+
     STARTF_USESHOWWINDOW: Final = 0x1
     STARTF_USESTDHANDLES: Final = 0x100
 
