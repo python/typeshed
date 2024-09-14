@@ -12,6 +12,7 @@ _CommandT = TypeVar("_CommandT", bound=Command)
 _Ts = TypeVarTuple("_Ts")
 
 class Command:
+    dry_run: bool  # Exposed from __getattr_. Same as Distribution.dry_run
     distribution: Distribution
     # Any to work around variance issues
     sub_commands: ClassVar[list[tuple[str, Callable[[Any], bool] | None]]]
@@ -31,6 +32,8 @@ class Command:
     def ensure_dirname(self, option: str) -> None: ...
     def get_command_name(self) -> str: ...
     def set_undefined_options(self, src_cmd: str, *option_pairs: tuple[str, str]) -> None: ...
+    # NOTE: Because this is private setuptools implementation and we don't re-expose all commands here,
+    # we're not overloading each and every command possibility.
     def get_finalized_command(self, command: str, create: bool = True) -> Command: ...
     @overload
     def reinitialize_command(self, command: str, reinit_subcommands: bool = False) -> Command: ...

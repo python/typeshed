@@ -193,3 +193,12 @@ typing.SupportsAbs.__type_params__
 typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
+
+# Incorrectly star import.
+ctypes._endian.DEFAULT_MODE
+ctypes._endian.RTLD_GLOBAL
+ctypes._endian.RTLD_LOCAL
+ctypes._endian.SIZEOF_TIME_T
+
+# Incompatible changes introduced in Python 3.12.5
+concurrent.futures.__all__
