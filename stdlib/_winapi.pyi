@@ -102,6 +102,7 @@ if sys.platform == "win32":
     if sys.version_info >= (3, 13):
         STARTF_FORCEOFFFEEDBACK: Final = 0x80
         STARTF_FORCEONFEEDBACK: Final = 0x40
+        STARTF_PREVENTPINNING: Final = 0x2000
         STARTF_RUNFULLSCREEN: Final = 0x20
         STARTF_TITLEISAPPID: Final = 0x1000
         STARTF_TITLEISLINKNAME: Final = 0x800
