@@ -1,14 +1,5 @@
 # New in py313 (triage these!)
 _msi
-_winapi.BatchedWaitForMultipleObjects
-_winapi.CreateEventW
-_winapi.CreateMutexW
-_winapi.GetLongPathName
-_winapi.GetShortPathName
-_winapi.OpenEventW
-_winapi.OpenMutexW
-_winapi.ReleaseMutex
-_winapi.ResetEvent
 _winapi.STARTF_FORCEOFFFEEDBACK
 _winapi.STARTF_FORCEONFEEDBACK
 _winapi.STARTF_PREVENTPINNING
