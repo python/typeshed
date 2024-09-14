@@ -199,3 +199,6 @@ ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
 ctypes._endian.RTLD_LOCAL
 ctypes._endian.SIZEOF_TIME_T
+
+# Incompatible changes introduced in Python 3.12.5
+concurrent.futures.__all__
