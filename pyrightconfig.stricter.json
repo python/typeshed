@@ -82,6 +82,7 @@
         "stubs/PyMySQL",
         "stubs/python-crontab",
         "stubs/python-dateutil",
+        "stubs/python-http-client",
         "stubs/python-jose",
         "stubs/pywin32",
         "stubs/pyxdg",
@@ -101,6 +102,7 @@
         "stubs/vobject",
         "stubs/workalendar",
         "stubs/wurlitzer",
+        "stubs/xdgenvpy"
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
