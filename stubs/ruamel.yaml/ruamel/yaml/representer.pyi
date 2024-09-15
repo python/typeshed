@@ -7,7 +7,7 @@ from typing import Any, ClassVar, Final, NoReturn, Protocol, TypeVar
 from typing_extensions import Self
 
 from .anchor import Anchor
-from .comments import CommentedMap, CommentedSeq, CommentedSet, TaggedScalar
+from .comments import CommentedSet, TaggedScalar
 from .dumper import _Dumper
 from .error import YAMLError
 from .main import YAML
@@ -140,8 +140,8 @@ class RoundTripRepresenter(SafeRepresenter):
         self, tag: Tag | str | None, omap: OrderedDict[Any, Any], flow_style: bool | None = None
     ) -> SequenceNode: ...
     def represent_set(self, setting: CommentedSet[Any]) -> MappingNode: ...  # type: ignore[override]
-    def represent_dict(self, data: CommentedMap[Any, Any]) -> MappingNode: ...  # type: ignore[override]
-    def represent_list(self, data: CommentedSeq[Any]) -> SequenceNode: ...  # type: ignore[override]
+    def represent_dict(self, data: Mapping[Any, Any]) -> MappingNode: ...  # type: ignore[override]
+    def represent_list(self, data: Collection[Any]) -> SequenceNode: ...  # type: ignore[override]
     def represent_datetime(self, data: TimeStamp) -> ScalarNode: ...  # type: ignore[override]
     def represent_tagged_scalar(self, data: TaggedScalar) -> ScalarNode: ...
     def represent_scalar_bool(self, data: ScalarBoolean) -> ScalarNode: ...

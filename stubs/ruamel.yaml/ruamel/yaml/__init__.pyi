@@ -2,6 +2,7 @@ from .comments import CommentedMap as CommentedMap, CommentedSeq as CommentedSeq
 from .constructor import *
 from .cyaml import *
 from .dumper import *
+from .error import YAMLError as YAMLError
 from .events import *
 from .loader import *
 from .main import *
