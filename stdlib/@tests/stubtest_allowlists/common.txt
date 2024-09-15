@@ -238,6 +238,13 @@ importlib.machinery.WindowsRegistryFinder.DEBUG_BUILD
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
 
+# Deprecated argument is supported at runtime by renaming it through a decorator.
+importlib.resources._common.Traversable.files
+# The documentation and runtime protocol allows *args, **kwargs arguments,
+# but this would mean that all implementers would have to support them,
+# which is not the case.
+importlib.resources._common.Traversable.open
+
 # Undocumented implementation details
 profile.Profile.dispatch
 profile.Profile.fake_code
