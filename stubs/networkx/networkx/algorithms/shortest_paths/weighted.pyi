@@ -1,10 +1,11 @@
-from typing import Union, Callable, Any
+from typing import Callable, Any
+from typing_extensions import TypeAlias
 from _typeshed import Incomplete
 from collections.abc import Generator
 from networkx.utils.backends import _dispatch
 
-_Node = Any  # NetworkX allows various types as node identifiers
-WeightType = Union[str, Callable[[_Node, _Node, dict[str, Any]], float | None]]
+_Node: TypeAlias = Any  # NetworkX allows various types as node identifiers
+WeightType: TypeAlias = str | Callable[[_Node, _Node, dict[str, Any]], float | None]
 
 @_dispatch
 def dijkstra_path(G, source, target, weight: WeightType = "weight"): ...
