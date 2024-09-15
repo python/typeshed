@@ -1,6 +1,7 @@
 from collections.abc import Iterable
 from re import Pattern
-from typing import Any, Final, TypeAlias, overload
+from typing import Any, Final, overload
+from typing_extensions import TypeAlias
 
 from .compat import VersionType
 from .dumper import _Dumper
@@ -49,7 +50,7 @@ class BaseResolver:
     @overload
     def resolve(self, kind: type[MappingNode], value: list[tuple[Node, Node]] | None, implicit: bool) -> Tag: ...
     @property
-    def processing_version(self) -> None: ...
+    def processing_version(self) -> _VersionTuple | None: ...
 
 class Resolver(BaseResolver): ...
 

@@ -1,5 +1,6 @@
 from collections.abc import Callable
-from typing import Final, Literal, TypeAlias
+from typing import Final, Literal
+from typing_extensions import TypeAlias
 
 from .compat import _WriteStream
 from .dumper import _Dumper

@@ -1,5 +1,6 @@
 from collections.abc import Callable, Mapping
-from typing import Any, Final, Self, SupportsIndex
+from typing import Any, Final, SupportsIndex
+from typing_extensions import Self
 
 from .anchor import Anchor
 from .comments import CommentedMap, CommentedSeq

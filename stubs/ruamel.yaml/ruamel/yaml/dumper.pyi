@@ -1,5 +1,5 @@
 from _typeshed import Unused
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from .compat import VersionType, _WriteStream
 from .emitter import Emitter, _Inf, _LineBreak

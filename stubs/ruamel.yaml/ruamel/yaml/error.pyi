@@ -1,4 +1,5 @@
-from typing import ClassVar, Self, TypeAlias
+from typing import ClassVar
+from typing_extensions import Self, TypeAlias
 
 from _ruamel_yaml import Mark
 
@@ -24,8 +25,8 @@ class StreamMark:
     line: int
     column: int
     def __init__(self, name: str | None, index: int, line: int, column: int) -> None: ...
-    def __eq__(self, other: Self, /) -> bool: ...
-    def __ne__(self, other: Self, /) -> bool: ...
+    def __eq__(self, other: Self, /) -> bool: ...  # type: ignore[override]
+    def __ne__(self, other: Self, /) -> bool: ...  # type: ignore[override]
 
 class FileMark(StreamMark): ...
 

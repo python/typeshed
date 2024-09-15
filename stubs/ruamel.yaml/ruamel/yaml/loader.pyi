@@ -1,5 +1,5 @@
 from _typeshed import Unused
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from .compat import VersionType, _ReadStream
 from .composer import Composer
@@ -13,18 +13,18 @@ __all__ = ["BaseLoader", "SafeLoader", "Loader", "RoundTripLoader"]
 
 _Loader: TypeAlias = Loader | BaseLoader | SafeLoader | RoundTripLoader  # noqa: Y047
 
-class BaseLoader(Reader, Scanner, Parser, Composer, BaseConstructor, VersionedResolver):
+class BaseLoader(Reader, Scanner, Parser, Composer, BaseConstructor, VersionedResolver):  # type: ignore[misc]
     comment_handling: int | None
     def __init__(self, stream: _ReadStream, version: VersionType | None = None, preserve_quotes: Unused = None) -> None: ...
 
-class SafeLoader(Reader, Scanner, Parser, Composer, SafeConstructor, VersionedResolver):
+class SafeLoader(Reader, Scanner, Parser, Composer, SafeConstructor, VersionedResolver):  # type: ignore[misc]
     comment_handling: int | None
     def __init__(self, stream: _ReadStream, version: VersionType | None = None, preserve_quotes: Unused = None) -> None: ...
 
-class Loader(Reader, Scanner, Parser, Composer, Constructor, VersionedResolver):
+class Loader(Reader, Scanner, Parser, Composer, Constructor, VersionedResolver):  # type: ignore[misc]
     comment_handling: int | None
     def __init__(self, stream: _ReadStream, version: VersionType | None = None, preserve_quotes: Unused = None) -> None: ...
 
-class RoundTripLoader(Reader, RoundTripScanner, RoundTripParser, Composer, RoundTripConstructor, VersionedResolver):
+class RoundTripLoader(Reader, RoundTripScanner, RoundTripParser, Composer, RoundTripConstructor, VersionedResolver):  # type: ignore[misc]
     comment_handling: int | None
     def __init__(self, stream: _ReadStream, version: VersionType | None = None, preserve_quotes: bool | None = None) -> None: ...

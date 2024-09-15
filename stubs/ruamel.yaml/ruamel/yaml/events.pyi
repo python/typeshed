@@ -1,5 +1,5 @@
 from _typeshed import sentinel
-from typing import ClassVar, Final, Literal
+from typing import ClassVar, Literal
 
 from .error import _Mark
 from .tag import Tag, _TagHandleToPrefix
@@ -51,7 +51,7 @@ class CollectionEndEvent(Event): ...
 # Implementations.
 
 class StreamStartEvent(Event):
-    crepr: Final = "+STR"
+    crepr: ClassVar[Literal["+STR"]]
     encoding: str | None
     def __init__(
         self,
@@ -62,10 +62,10 @@ class StreamStartEvent(Event):
     ) -> None: ...
 
 class StreamEndEvent(Event):
-    crepr: Final = "-STR"
+    crepr: ClassVar[Literal["-STR"]]
 
 class DocumentStartEvent(Event):
-    crepr: Final = "+DOC"
+    crepr: ClassVar[Literal["+DOC"]]
     explicit: bool | None
     version: _VersionTuple | None
     tags: _TagHandleToPrefix | None
@@ -81,7 +81,7 @@ class DocumentStartEvent(Event):
     def compact_repr(self) -> str: ...
 
 class DocumentEndEvent(Event):
-    crepr: Final = "-DOC"
+    crepr: ClassVar[Literal["-DOC"]]
     explicit: bool | None
     def __init__(
         self,
@@ -93,7 +93,7 @@ class DocumentEndEvent(Event):
     def compact_repr(self) -> str: ...
 
 class AliasEvent(NodeEvent):
-    crepr: Final = "=ALI"
+    crepr: ClassVar[Literal["=ALI"]]
     style: Literal["?"] | None
     def __init__(
         self,
@@ -106,7 +106,7 @@ class AliasEvent(NodeEvent):
     def compact_repr(self) -> str: ...
 
 class ScalarEvent(NodeEvent):
-    crepr: Final = "=VAL"
+    crepr: ClassVar[Literal["=VAL"]]
     ctag: Tag | None
     implicit: tuple[bool, bool]
     value: str
@@ -129,15 +129,15 @@ class ScalarEvent(NodeEvent):
     def compact_repr(self) -> str: ...
 
 class SequenceStartEvent(CollectionStartEvent):
-    crepr: Final = "+SEQ"
+    crepr: ClassVar[Literal["+SEQ"]]
     def compact_repr(self) -> str: ...
 
 class SequenceEndEvent(CollectionEndEvent):
-    crepr: Final = "-SEQ"
+    crepr: ClassVar[Literal["-SEQ"]]
 
 class MappingStartEvent(CollectionStartEvent):
-    crepr: Final = "+MAP"
+    crepr: ClassVar[Literal["+MAP"]]
     def compact_repr(self) -> str: ...
 
 class MappingEndEvent(CollectionEndEvent):
-    crepr: Final = "-MAP"
+    crepr: ClassVar[Literal["-MAP"]]

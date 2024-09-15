@@ -2,8 +2,8 @@ from _typeshed import SupportsRead, SupportsWrite
 from abc import ABCMeta, abstractmethod
 from collections import OrderedDict
 from collections.abc import Iterable, MutableSequence
-from typing import IO, Any, Final, Self, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import IO, Any, Final, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 
 from .docinfo import Version
 

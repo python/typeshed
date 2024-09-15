@@ -1,4 +1,4 @@
-from typing import Any, Final, Generic, Literal, TypeVar
+from typing import Any, ClassVar, Generic, Literal, TypeVar
 from typing_extensions import TypeAlias
 
 from .anchor import Anchor
@@ -34,7 +34,7 @@ class Node:
     def dump(self, *, indent: int = 0) -> None: ...
 
 class ScalarNode(Node):
-    id: Final = "scalar"
+    id: ClassVar[Literal["scalar"]]
     value: str
     style: _ScalarNodeStyle | None
     def __init__(
@@ -69,8 +69,8 @@ class _SequenceNode(_CollectionNode[Node]): ...
 class _MappingNode(_CollectionNode[tuple[Node, Node]]): ...
 
 class SequenceNode(_SequenceNode, CollectionNode):
-    id: Final = "sequence"
+    id: ClassVar[Literal["sequence"]]
 
 class MappingNode(_MappingNode, CollectionNode):
-    id: Final = "mapping"
+    id: ClassVar[Literal["mapping"]]
     merge: list[tuple[Node, Node]] | None

@@ -1,5 +1,6 @@
 from _typeshed import SupportsWrite
-from typing import Literal, Self
+from typing import Literal
+from typing_extensions import Self
 
 from .anchor import Anchor
 from .scalarint import _Underscore
@@ -34,7 +35,7 @@ class ScalarFloat(float):
     def __iadd__(self, a: float, /) -> float: ...  # noqa: Y034
     def __ifloordiv__(self, a: float, /) -> float: ...  # noqa: Y034
     def __imul__(self, a: float, /) -> float: ...  # noqa: Y034
-    def __ipow__(self, a: float, /) -> float: ...  # noqa: Y034
+    def __ipow__(self, a: float, /) -> float: ...  # type: ignore[override, misc]  # noqa: Y034
     def __isub__(self, a: float, /) -> float: ...  # noqa: Y034
     @property
     def anchor(self) -> Anchor: ...

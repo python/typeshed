@@ -3,7 +3,8 @@ from collections import OrderedDict
 from collections.abc import Collection, Mapping, Set as AbstractSet
 from datetime import date, datetime
 from types import ModuleType
-from typing import Any, ClassVar, Final, NoReturn, Protocol, Self, TypeVar
+from typing import Any, ClassVar, Final, NoReturn, Protocol, TypeVar
+from typing_extensions import Self
 
 from .anchor import Anchor
 from .comments import CommentedMap, CommentedSeq, CommentedSet, TaggedScalar
@@ -138,10 +139,10 @@ class RoundTripRepresenter(SafeRepresenter):
     def represent_omap(
         self, tag: Tag | str | None, omap: OrderedDict[Any, Any], flow_style: bool | None = None
     ) -> SequenceNode: ...
-    def represent_set(self, setting: CommentedSet[Any]) -> MappingNode: ...
-    def represent_dict(self, data: CommentedMap[Any, Any]) -> MappingNode: ...
-    def represent_list(self, data: CommentedSeq[Any]) -> SequenceNode: ...
-    def represent_datetime(self, data: TimeStamp) -> ScalarNode: ...
+    def represent_set(self, setting: CommentedSet[Any]) -> MappingNode: ...  # type: ignore[override]
+    def represent_dict(self, data: CommentedMap[Any, Any]) -> MappingNode: ...  # type: ignore[override]
+    def represent_list(self, data: CommentedSeq[Any]) -> SequenceNode: ...  # type: ignore[override]
+    def represent_datetime(self, data: TimeStamp) -> ScalarNode: ...  # type: ignore[override]
     def represent_tagged_scalar(self, data: TaggedScalar) -> ScalarNode: ...
     def represent_scalar_bool(self, data: ScalarBoolean) -> ScalarNode: ...
     def represent_yaml_object(
