@@ -1,7 +1,7 @@
-from typing import Union, Callable, Any
+from typing import Callable, Any
+from typing_extensions import TypeAlias
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import Any, Callable, Union
 
 from networkx.utils.backends import _dispatch
 
