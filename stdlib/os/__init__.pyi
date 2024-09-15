@@ -1182,6 +1182,7 @@ if sys.version_info >= (3, 13) or sys.platform != "win32":
     # Added to Windows in 3.13.
     def fchmod(fd: int, mode: int) -> None: ...
 
-if sys.platform != "linux" and (sys.version_info >= (3, 13) or sys.platform != "win32"):
-    # Added to Windows in 3.13.
-    def lchmod(path: StrOrBytesPath, mode: int) -> None: ...
+if sys.platform != "linux":
+    if sys.version_info >= (3, 13) or sys.platform != "win32":
+        # Added to Windows in 3.13.
+        def lchmod(path: StrOrBytesPath, mode: int) -> None: ...
