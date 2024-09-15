@@ -1,3 +1,6 @@
+# Pyright doesn't recognize _common is always present in 3.13+
+# pyright: reportMissingTypeStubs=false
+
 from _typeshed import StrPath
 from collections.abc import Iterator
 from contextlib import AbstractContextManager

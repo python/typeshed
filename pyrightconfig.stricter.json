@@ -6,8 +6,6 @@
         "stubs",
     ],
     "exclude": [
-        // Pyright doesn't recognize imports that don't exist in older versions of Python, even when conditionally nested.
-        "stdlib/importlib/resources/_functional.pyi",
         // test cases use a custom pyrightconfig file
         "**/@tests/test_cases",
         "stdlib/distutils/command",
