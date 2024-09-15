@@ -12,8 +12,6 @@ _FlowScalarStyle: TypeAlias = Literal['"', "'"]
 _BlockScalarStyle: TypeAlias = Literal["|", ">"]
 _ScalarStyle: TypeAlias = _FlowScalarStyle | _BlockScalarStyle | Literal[""]
 
-SHOW_LINES: bool
-
 class Token:
     id: ClassVar[str]
     start_mark: _Mark

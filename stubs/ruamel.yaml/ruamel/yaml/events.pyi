@@ -5,8 +5,6 @@ from .error import _Mark
 from .tag import Tag, _TagHandleToPrefix
 from .tokens import _CommentGroup, _ScalarStyle, _VersionTuple
 
-SHOW_LINES: bool
-
 class Event:
     crepr: ClassVar[str]
     start_mark: _Mark | None
