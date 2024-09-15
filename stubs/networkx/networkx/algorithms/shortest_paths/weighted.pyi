@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
-from typing import Any, Callable
+from collections.abc import Generator, Callable
+from typing import Any
 from typing_extensions import TypeAlias
 
 from networkx.utils.backends import _dispatch
