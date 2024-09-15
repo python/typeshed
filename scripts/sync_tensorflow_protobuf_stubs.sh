@@ -7,7 +7,7 @@ set -euxo pipefail
 
 # Whenever you update TENSORFLOW_VERSION here, version should be updated
 # in stubs/tensorflow/METADATA.toml and vice-versa.
-TENSORFLOW_VERSION=2.16.1
+TENSORFLOW_VERSION=2.17.0
 MYPY_PROTOBUF_VERSION=3.6.0
 
 # brew install coreutils wget
@@ -63,9 +63,9 @@ cd "$REPO_ROOT"
 
 # Move third-party and fix imports
 mv stubs/tensorflow/tsl/ stubs/tensorflow/tensorflow/
-find stubs/tensorflow/ -name '*_pb2.pyi' | xargs sed --in-place="" -r "s/(\[|\s)tsl\./\1tensorflow\.tsl\./"
+find stubs/tensorflow/ -name '*_pb2.pyi' | xargs sed -i "" -r "s/(\[|\s)tsl\./\1tensorflow\.tsl\./"
 mv stubs/tensorflow/xla/ stubs/tensorflow/tensorflow/compiler/
-find stubs/tensorflow/ -name '*_pb2.pyi' | xargs sed --in-place="" -r "s/(\[|\s)xla\./\1tensorflow\.compiler\.xla\./"
+find stubs/tensorflow/ -name '*_pb2.pyi' | xargs sed -i "" -r "s/(\[|\s)xla\./\1tensorflow\.compiler\.xla\./"
 
 # These protos exist in a folder with protos used in python,
 # but are not included in the python wheel.
@@ -89,7 +89,7 @@ rm -r \
   stubs/tensorflow/tensorflow/core/protobuf/worker_service_pb2.pyi \
   stubs/tensorflow/tensorflow/core/util/example_proto_fast_parsing_test_pb2.pyi \
 
-sed --in-place="" \
+sed -i "" \
   "s/extra_description = .*$/extra_description = \"\
 Partially generated using [mypy-protobuf==$MYPY_PROTOBUF_VERSION](https:\/\/github.com\/nipunn1313\/mypy-protobuf\/tree\/v$MYPY_PROTOBUF_VERSION) \
 and $PROTOC_VERSION \

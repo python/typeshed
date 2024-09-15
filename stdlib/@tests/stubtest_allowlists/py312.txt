@@ -184,9 +184,21 @@ typing.ParamSpecKwargs.__mro_entries__
 typing.TypeVar.__mro_entries__
 typing.TypeVarTuple.__mro_entries__
 
+# class doesn't accept positional arguments but has default C signature
+types.SimpleNamespace.__init__
+
 # TODO: mypy should infer that this attribute is inherited from builtins.type;
 # why doesn't it infer this?
 typing.SupportsAbs.__type_params__
 typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
+
+# Incorrectly star import.
+ctypes._endian.DEFAULT_MODE
+ctypes._endian.RTLD_GLOBAL
+ctypes._endian.RTLD_LOCAL
+ctypes._endian.SIZEOF_TIME_T
+
+# Incompatible changes introduced in Python 3.12.5
+concurrent.futures.__all__
