@@ -1,6 +1,6 @@
 from _typeshed import MaybeNone
 from collections.abc import Callable, Iterator
-from typing import Any
+from typing import Any, Final, type_check_only
 
 __all__ = [
     "LUA_VERSION",
@@ -17,9 +17,9 @@ __all__ = [
     "unpacks_lua_table_method",
 ]
 
-LUA_MAXINTEGER: int
-LUA_MININTEGER: int
-LUA_VERSION: tuple[int, int]
+LUA_MAXINTEGER: Final[int]
+LUA_MININTEGER: Final[int]
+LUA_VERSION: Final[tuple[int, int]]
 
 # cyfunction object
 as_attrgetter: Callable[[object], object]
@@ -34,15 +34,19 @@ unpacks_lua_table_method: Callable[[Callable[..., Any]], Callable[..., Any]]
 
 # inner classes
 
+@type_check_only
 class _LuaIter:
     def __iter__(self) -> Iterator[object]: ...
 
+@type_check_only
 class _LuaTable:
     def keys(self) -> _LuaIter: ...
     def values(self) -> _LuaIter: ...
     def items(self) -> _LuaIter: ...
 
+@type_check_only
 class _LuaNoGC: ...
+@type_check_only
 class _LuaObject: ...
 
 # classes
