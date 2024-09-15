@@ -1,10 +1,9 @@
 # Pyright doesn't recognize _common is always present in 3.13+
 # pyright: reportMissingTypeStubs=false
-
 from _typeshed import StrPath
 from collections.abc import Iterator
 from contextlib import AbstractContextManager
-from importlib.resources._common import Anchor as Anchor
+from importlib.resources._common import Anchor
 from io import TextIOWrapper
 from pathlib import Path
 from typing import BinaryIO, overload
