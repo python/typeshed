@@ -9,6 +9,7 @@ from .tokens import _CommentGroup, _ScalarStyle
 _ScalarNodeStyle: TypeAlias = Literal["?", "-"] | _ScalarStyle
 
 class Node:
+    id: ClassVar[str]
     ctag: Tag
     value: Any
     start_mark: _Mark | None

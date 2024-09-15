@@ -19,7 +19,7 @@ from .nodes import Node
 from .parser import Parser, RoundTripParser
 from .reader import Reader
 from .representer import BaseRepresenter, Representer, RoundTripRepresenter, _RepresenterFunction
-from .resolver import BaseResolver, _First, _TagStr
+from .resolver import BaseResolver
 from .scanner import RoundTripScanner, Scanner
 from .serializer import Serializer
 from .tag import Tag, _TagHandleToPrefix
@@ -305,15 +305,15 @@ def safe_dump(*args, **kwargs) -> NoReturn: ...
 @deprecated("Use YAML().dump() instead")
 def round_trip_dump(*args, **kwargs) -> NoReturn: ...
 def add_implicit_resolver(
-    tag: _TagStr,
+    tag: str,
     regexp: Pattern[str],
-    first: list[_First] | None = None,
+    first: list[str] | None = None,
     Loader: type[BaseResolver] | None = None,
     Dumper: type[BaseResolver] | None = None,
     resolver: type[BaseResolver] = ...,
 ) -> None: ...
 def add_path_resolver(
-    tag: _TagStr,
+    tag: str,
     path: Iterable[Any],
     kind: type | None = None,
     Loader: type[BaseResolver] | None = None,
