@@ -147,7 +147,6 @@ importlib.resources.files
 # Problematic protocol signature at runtime, see source code comments.
 importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open
-importlib.resources._common.Traversable.open
 
 # Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
 importlib.metadata.DeprecatedNonAbstract.__new__
