@@ -1,6 +1,7 @@
-from typing import Union, Callable, Any
 from _typeshed import Incomplete
 from collections.abc import Generator
+from typing import Any, Callable, Union
+
 from networkx.utils.backends import _dispatch
 
 _Node = Any  # NetworkX allows various types as node identifiers
