@@ -46,6 +46,7 @@ class _LuaTable:
 
 @type_check_only
 class _LuaNoGC: ...
+
 @type_check_only
 class _LuaObject: ...
 
