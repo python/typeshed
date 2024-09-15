@@ -141,9 +141,12 @@ platform.uname_result.processor
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
+# Deprecated argument is supported at runtime by renaming it through a decorator.
+importlib.resources._common.Traversable.files
 # Problematic protocol signature at runtime, see source code comments.
 importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open
+importlib.resources._common.Traversable.open
 
 # Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
 importlib.metadata.DeprecatedNonAbstract.__new__
