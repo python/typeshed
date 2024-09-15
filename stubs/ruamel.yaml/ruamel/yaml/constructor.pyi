@@ -1,10 +1,10 @@
 from collections.abc import Generator, Iterable, Iterator, Mapping, Set as AbstractSet
 from datetime import date, datetime
+from re import Pattern
 from types import ModuleType
 from typing import Any, ClassVar, Final, NoReturn, Protocol, TypeVar, overload
 from typing_extensions import Self
 
-from . import util
 from .comments import CommentedMap, CommentedOrderedMap, CommentedSeq, CommentedSet, TaggedScalar
 from .compat import ordereddict
 from .composer import Composer
@@ -85,7 +85,7 @@ class SafeConstructor(BaseConstructor):
     nan_value: Final[float]
     def construct_yaml_float(self, node: ScalarNode) -> float: ...
     def construct_yaml_binary(self, node: ScalarNode) -> bytes: ...
-    timestamp_regexp: Final = util.timestamp_regexp
+    timestamp_regexp: Final[Pattern[str]]
     def construct_yaml_timestamp(self, node: ScalarNode, values: dict[str, str | None] | None = None) -> date | datetime: ...
     def construct_yaml_omap(self, node: SequenceNode) -> Iterator[ordereddict[Any, Any]]: ...
     def construct_yaml_pairs(self, node: SequenceNode) -> Iterator[list[tuple[Any, Any]]]: ...

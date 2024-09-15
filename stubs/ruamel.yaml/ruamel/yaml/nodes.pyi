@@ -1,12 +1,10 @@
-from typing import Any, ClassVar, Generic, Literal, TypeVar
+from typing import Any, ClassVar, Literal
 from typing_extensions import TypeAlias
 
 from .anchor import Anchor
 from .error import _Mark
 from .tag import Tag
 from .tokens import _CommentGroup, _ScalarStyle
-
-_T = TypeVar("_T")
 
 _ScalarNodeStyle: TypeAlias = Literal["?", "-"] | _ScalarStyle
 
@@ -49,13 +47,13 @@ class ScalarNode(Node):
         anchor: Anchor | str | None = None,
     ) -> None: ...
 
-class _CollectionNode(Generic[_T]):
-    value: list[_T]
+class CollectionNode(Node):
+    value: list[Any]
     flow_style: bool | None
     def __init__(
         self,
         tag: Tag | str | None,
-        value: list[_T],
+        value: list[Any],
         start_mark: _Mark | None = None,
         end_mark: _Mark | None = None,
         *,
@@ -64,13 +62,33 @@ class _CollectionNode(Generic[_T]):
         anchor: Anchor | str | None = None,
     ) -> None: ...
 
-class CollectionNode(_CollectionNode[Any], Node): ...
-class _SequenceNode(_CollectionNode[Node]): ...
-class _MappingNode(_CollectionNode[tuple[Node, Node]]): ...
-
-class SequenceNode(_SequenceNode, CollectionNode):
+class SequenceNode(CollectionNode):
     id: ClassVar[Literal["sequence"]]
+    value: list[Node]
+    def __init__(
+        self,
+        tag: Tag | str | None,
+        value: list[Node],
+        start_mark: _Mark | None = None,
+        end_mark: _Mark | None = None,
+        *,
+        flow_style: bool | None = None,
+        comment: _CommentGroup | None = None,
+        anchor: Anchor | str | None = None,
+    ) -> None: ...
 
-class MappingNode(_MappingNode, CollectionNode):
+class MappingNode(CollectionNode):
     id: ClassVar[Literal["mapping"]]
+    value: list[tuple[Node, Node]]
     merge: list[tuple[Node, Node]] | None
+    def __init__(
+        self,
+        tag: Tag | str | None,
+        value: list[tuple[Node, Node]],
+        start_mark: _Mark | None = None,
+        end_mark: _Mark | None = None,
+        *,
+        flow_style: bool | None = None,
+        comment: _CommentGroup | None = None,
+        anchor: Anchor | str | None = None,
+    ) -> None: ...
