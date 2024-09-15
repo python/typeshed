@@ -143,6 +143,7 @@ unittest.case.TestCase.__init_subclass__
 
 # Deprecated argument is supported at runtime by renaming it through a decorator.
 importlib.resources._common.files
+importlib.resources.files
 # Problematic protocol signature at runtime, see source code comments.
 importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open
