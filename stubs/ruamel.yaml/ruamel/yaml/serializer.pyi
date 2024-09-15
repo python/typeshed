@@ -2,6 +2,7 @@ from re import Pattern
 from typing import Final, Literal
 
 from .compat import VersionType
+from .dumper import _Dumper
 from .emitter import Emitter
 from .error import YAMLError
 from .main import YAML
@@ -17,7 +18,7 @@ class SerializerError(YAMLError): ...
 class Serializer:
     ANCHOR_TEMPLATE: Final[str]
     ANCHOR_RE: Final[Pattern[str]]
-    dumper: YAML | None
+    dumper: YAML | _Dumper | None
     use_encoding: str | None
     use_explicit_start: bool | None
     use_explicit_end: bool | None
@@ -34,7 +35,7 @@ class Serializer:
         explicit_end: bool | None = None,
         version: VersionType | None = None,
         tags: _TagHandleToPrefix | None = None,
-        dumper: YAML | None = None,
+        dumper: YAML | _Dumper | None = None,
     ) -> None: ...
     @property
     def emitter(self) -> Emitter: ...

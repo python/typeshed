@@ -8,6 +8,7 @@ from .comments import CommentedMap, CommentedOrderedMap, CommentedSeq, Commented
 from .compat import ordereddict
 from .composer import Composer
 from .error import MarkedYAMLError, MarkedYAMLFutureWarning, _Mark
+from .loader import _Loader
 from .main import YAML
 from .nodes import MappingNode, Node, ScalarNode, SequenceNode
 from .resolver import BaseResolver
@@ -16,6 +17,8 @@ from .scalarfloat import ScalarFloat
 from .scanner import ScannedComments, Scanner
 from .tag import Tag
 from .timestamp import TimeStamp
+
+__all__ = ["BaseConstructor", "SafeConstructor", "Constructor", "ConstructorError", "RoundTripConstructor"]
 
 _T = TypeVar("_T")
 _Constructor = TypeVar("_Constructor", bound=BaseConstructor, contravariant=True)
@@ -26,8 +29,6 @@ class _ConstructorFunction(Protocol[_Constructor]):
 class _MultiConstructorFunction(Protocol[_Constructor]):
     def __call__(self, loader: _Constructor, tag_suffix: str, node: Node, /) -> Any: ...
 
-__all__ = ["BaseConstructor", "SafeConstructor", "Constructor", "ConstructorError", "RoundTripConstructor"]
-
 class ConstructorError(MarkedYAMLError): ...
 class DuplicateKeyFutureWarning(MarkedYAMLFutureWarning): ...
 class DuplicateKeyError(MarkedYAMLError): ...
@@ -35,7 +36,7 @@ class DuplicateKeyError(MarkedYAMLError): ...
 class BaseConstructor:
     yaml_constructors: ClassVar[dict[str | None, _ConstructorFunction[Self]]]
     yaml_multi_constructors: ClassVar[dict[str | None, _MultiConstructorFunction[Self]]]
-    loader: YAML | None
+    loader: YAML | _Loader | None
     yaml_base_dict_type: type[dict[Any, Any]]
     yaml_base_list_type: type[list[Any]]
     constructed_objects: dict[Node, Any]
@@ -43,7 +44,7 @@ class BaseConstructor:
     state_generators: list[Generator[Any, Any, Any]]
     deep_construct: bool
     allow_duplicate_keys: bool | None
-    def __init__(self, preserve_quotes: bool | None = None, loader: YAML | None = None) -> None: ...
+    def __init__(self, preserve_quotes: bool | None = None, loader: YAML | _Loader | None = None) -> None: ...
     @property
     def composer(self) -> Composer: ...
     @property
@@ -67,7 +68,7 @@ class BaseConstructor:
         cls, tag: Tag | str | None, constructor: _ConstructorFunction[Self]
     ) -> _ConstructorFunction[Self] | None: ...
     @classmethod
-    def add_multi_constructor(cls, tag_prefix: str, multi_constructor: _MultiConstructorFunction[Self]) -> None: ...
+    def add_multi_constructor(cls, tag_prefix: str | None, multi_constructor: _MultiConstructorFunction[Self]) -> None: ...
     @classmethod
     def add_default_constructor(cls, tag: str, method: str | None = None, tag_base: str = "tag:yaml.org,2002:") -> None: ...
 

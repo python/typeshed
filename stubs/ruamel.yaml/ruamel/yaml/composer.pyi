@@ -1,5 +1,6 @@
 from .error import MarkedYAMLError
 from .events import MappingEndEvent, SequenceEndEvent
+from .loader import _Loader
 from .main import YAML
 from .nodes import CollectionNode, MappingNode, Node, ScalarNode, SequenceNode
 from .parser import Parser
@@ -10,10 +11,10 @@ __all__ = ["Composer", "ComposerError"]
 class ComposerError(MarkedYAMLError): ...
 
 class Composer:
-    loader: YAML | None
+    loader: YAML | _Loader | None
     anchors: dict[str, Node]
     warn_double_anchors: bool
-    def __init__(self, loader: YAML | None = None) -> None: ...
+    def __init__(self, loader: YAML | _Loader | None = None) -> None: ...
     @property
     def parser(self) -> Parser: ...
     @property

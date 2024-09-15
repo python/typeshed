@@ -3,17 +3,19 @@ from re import Pattern
 from typing import Any, Final, TypeAlias, overload
 
 from .compat import VersionType
+from .dumper import _Dumper
 from .error import YAMLError
+from .loader import _Loader
 from .main import YAML
 from .nodes import CollectionNode, MappingNode, Node, ScalarNode, SequenceNode
 from .parser import Parser
 from .tag import Tag
 from .tokens import _VersionTuple
 
+__all__ = ["BaseResolver", "Resolver", "VersionedResolver"]
+
 _TagStr: TypeAlias = str
 _First: TypeAlias = str | None
-
-__all__ = ["BaseResolver", "Resolver", "VersionedResolver"]
 
 implicit_resolvers: list[tuple[list[_VersionTuple], _TagStr, Pattern[str], list[_First]]]
 
@@ -25,10 +27,10 @@ class BaseResolver:
     DEFAULT_MAPPING_TAG: Final[Tag]
     yaml_implicit_resolvers: dict[_First, list[tuple[_TagStr, Pattern[str]]]]
     yaml_path_resolvers: dict[Any, _TagStr]
-    loadumper: YAML | None
+    loadumper: YAML | _Loader | _Dumper | None
     resolver_exact_paths: list[Any]
     resolver_prefix_paths: list[Any]
-    def __init__(self, loadumper: YAML | None = None) -> None: ...
+    def __init__(self, loadumper: YAML | _Loader | _Dumper | None = None) -> None: ...
     @property
     def parser(self) -> Parser | None: ...
     @classmethod
@@ -52,7 +54,12 @@ class BaseResolver:
 class Resolver(BaseResolver): ...
 
 class VersionedResolver(BaseResolver):
-    def __init__(self, version: VersionType | None = None, loader: YAML | None = None, loadumper: YAML | None = None) -> None: ...
+    def __init__(
+        self,
+        version: VersionType | None = None,
+        loader: YAML | _Loader | _Dumper | None = None,
+        loadumper: YAML | _Loader | _Dumper | None = None,
+    ) -> None: ...
     def add_version_implicit_resolver(
         self, version: VersionType, tag: _TagStr, regexp: Pattern[str], first: list[_First] | None
     ) -> None: ...

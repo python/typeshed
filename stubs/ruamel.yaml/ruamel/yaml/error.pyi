@@ -4,8 +4,6 @@ from _ruamel_yaml import Mark
 
 from .nodes import ScalarNode
 
-_Mark: TypeAlias = Mark | StreamMark
-
 __all__ = [
     "FileMark",
     "StringMark",
@@ -17,6 +15,8 @@ __all__ = [
     "MarkedYAMLWarning",
     "MarkedYAMLFutureWarning",
 ]
+
+_Mark: TypeAlias = Mark | StreamMark
 
 class StreamMark:
     name: str | None

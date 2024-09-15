@@ -2,7 +2,7 @@ from _typeshed import Unused
 
 from _ruamel_yaml import CEmitter, CParser
 
-from .compat import StreamTextType, StreamType
+from .compat import _ReadStream, _WriteStream
 from .constructor import BaseConstructor, Constructor, SafeConstructor
 from .emitter import _LineBreak
 from .representer import BaseRepresenter, Representer, SafeRepresenter
@@ -13,18 +13,18 @@ from .tokens import _ScalarStyle, _VersionTuple
 __all__ = ["CBaseLoader", "CSafeLoader", "CLoader", "CBaseDumper", "CSafeDumper", "CDumper"]
 
 class CBaseLoader(CParser, BaseConstructor, BaseResolver):
-    def __init__(self, stream: StreamTextType, version: Unused = None, preserve_quotes: Unused = None) -> None: ...
+    def __init__(self, stream: _ReadStream, version: Unused = None, preserve_quotes: Unused = None) -> None: ...
 
 class CSafeLoader(CParser, SafeConstructor, Resolver):
-    def __init__(self, stream: StreamTextType, version: Unused = None, preserve_quotes: Unused = None) -> None: ...
+    def __init__(self, stream: _ReadStream, version: Unused = None, preserve_quotes: Unused = None) -> None: ...
 
 class CLoader(CParser, Constructor, Resolver):
-    def __init__(self, stream: StreamTextType, version: Unused = None, preserve_quotes: Unused = None) -> None: ...
+    def __init__(self, stream: _ReadStream, version: Unused = None, preserve_quotes: Unused = None) -> None: ...
 
 class CBaseDumper(CEmitter, BaseRepresenter, BaseResolver):
     def __init__(
         self,
-        stream: StreamType,
+        stream: _WriteStream,
         default_style: _ScalarStyle | None = None,
         default_flow_style: bool | None = None,
         canonical: bool | None = None,
@@ -45,7 +45,7 @@ class CBaseDumper(CEmitter, BaseRepresenter, BaseResolver):
 class CSafeDumper(CEmitter, SafeRepresenter, Resolver):
     def __init__(
         self,
-        stream: StreamType,
+        stream: _WriteStream,
         default_style: _ScalarStyle | None = None,
         default_flow_style: bool | None = None,
         canonical: bool | None = None,
@@ -66,7 +66,7 @@ class CSafeDumper(CEmitter, SafeRepresenter, Resolver):
 class CDumper(CEmitter, Representer, Resolver):
     def __init__(
         self,
-        stream: StreamType,
+        stream: _WriteStream,
         default_style: _ScalarStyle | None = None,
         default_flow_style: bool | None = None,
         canonical: bool | None = None,

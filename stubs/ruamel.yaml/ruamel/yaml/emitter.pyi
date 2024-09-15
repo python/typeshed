@@ -1,7 +1,8 @@
 from collections.abc import Callable
 from typing import Final, Literal, TypeAlias
 
-from .compat import StreamType
+from .compat import _WriteStream
+from .dumper import _Dumper
 from .error import YAMLError
 from .events import Event
 from .main import YAML
@@ -9,9 +10,12 @@ from .serializer import Serializer
 from .tag import Tag, _TagHandleToPrefix
 from .tokens import CommentToken, _ScalarStyle, _VersionTuple
 
-_LineBreak: TypeAlias = Literal["\r", "\n", "\r\n"]
-
 __all__ = ["Emitter", "EmitterError"]
+
+# https://github.com/python/typeshed/pull/8973
+_Inf: TypeAlias = float
+
+_LineBreak: TypeAlias = Literal["\r", "\n", "\r\n"]
 
 class EmitterError(YAMLError): ...
 
@@ -55,7 +59,7 @@ class Emitter:
     flow_map_start: Final = "{"
     flow_map_end: Final = "}"
     flow_map_separator: Final = ","
-    dumper: YAML | None
+    dumper: YAML | _Dumper | None
     encoding: str | None
     allow_space_break: bool | None
     states: list[Callable[[], None]]
@@ -84,11 +88,11 @@ class Emitter:
     allow_unicode: bool | None
     unicode_supplementary: bool
     sequence_dash_offset: int
-    top_level_colon_align: bool | None
+    top_level_colon_align: int | None
     best_sequence_indent: int
     requested_indent: int | None
     best_map_indent: int
-    best_width: int
+    best_width: int | _Inf
     best_line_break: _LineBreak
     tag_prefixes: _TagHandleToPrefix | None
     prepared_anchor: str | None
@@ -99,22 +103,22 @@ class Emitter:
     alt_null: str
     def __init__(
         self,
-        stream: StreamType,
+        stream: _WriteStream,
         canonical: bool | None = None,
         indent: int | None = None,
-        width: int | None = None,
+        width: int | _Inf | None = None,
         allow_unicode: bool | None = None,
         line_break: _LineBreak | None = None,
         block_seq_indent: int | None = None,
-        top_level_colon_align: bool | None = None,
+        top_level_colon_align: int | None = None,
         prefix_colon: str | None = None,
         brace_single_entry_mapping_in_flow_sequence: bool | None = None,
-        dumper: YAML | None = None,
+        dumper: YAML | _Dumper | None = None,
     ) -> None: ...
     @property
-    def stream(self) -> StreamType: ...
+    def stream(self) -> _WriteStream: ...
     @stream.setter
-    def stream(self, val: StreamType) -> None: ...
+    def stream(self, val: _WriteStream) -> None: ...
     @property
     def serializer(self) -> Serializer: ...
     @property

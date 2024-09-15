@@ -1,8 +1,8 @@
 from _typeshed import Unused
 from typing import TypeAlias
 
-from .compat import StreamType, VersionType
-from .emitter import Emitter, _LineBreak
+from .compat import VersionType, _WriteStream
+from .emitter import Emitter, _Inf, _LineBreak
 from .representer import BaseRepresenter, Representer, RoundTripRepresenter, SafeRepresenter
 from .resolver import BaseResolver, Resolver, VersionedResolver
 from .serializer import Serializer
@@ -11,13 +11,12 @@ from .tokens import _ScalarStyle
 
 __all__ = ["BaseDumper", "SafeDumper", "Dumper", "RoundTripDumper"]
 
-# https://github.com/python/typeshed/pull/8973
-_Inf: TypeAlias = float
+_Dumper: TypeAlias = BaseDumper | SafeDumper | Dumper | RoundTripDumper  # noqa: Y047
 
 class BaseDumper(Emitter, Serializer, BaseRepresenter, BaseResolver):
     def __init__(
         self,
-        stream: StreamType,
+        stream: _WriteStream,
         default_style: _ScalarStyle | None = None,
         default_flow_style: bool | None = None,
         canonical: bool | None = None,
@@ -38,7 +37,7 @@ class BaseDumper(Emitter, Serializer, BaseRepresenter, BaseResolver):
 class SafeDumper(Emitter, Serializer, SafeRepresenter, Resolver):
     def __init__(
         self,
-        stream: StreamType,
+        stream: _WriteStream,
         default_style: _ScalarStyle | None = None,
         default_flow_style: bool | None = None,
         canonical: bool | None = None,
@@ -59,7 +58,7 @@ class SafeDumper(Emitter, Serializer, SafeRepresenter, Resolver):
 class Dumper(Emitter, Serializer, Representer, Resolver):
     def __init__(
         self,
-        stream: StreamType,
+        stream: _WriteStream,
         default_style: _ScalarStyle | None = None,
         default_flow_style: bool | None = None,
         canonical: bool | None = None,
@@ -80,7 +79,7 @@ class Dumper(Emitter, Serializer, Representer, Resolver):
 class RoundTripDumper(Emitter, Serializer, RoundTripRepresenter, VersionedResolver):
     def __init__(
         self,
-        stream: StreamType,
+        stream: _WriteStream,
         default_style: _ScalarStyle | None = None,
         default_flow_style: bool | None = None,
         canonical: bool | None = None,
@@ -94,6 +93,6 @@ class RoundTripDumper(Emitter, Serializer, RoundTripRepresenter, VersionedResolv
         version: VersionType | None = None,
         tags: _TagHandleToPrefix | None = None,
         block_seq_indent: int | None = None,
-        top_level_colon_align: bool | None = None,
+        top_level_colon_align: int | None = None,
         prefix_colon: str | None = None,
     ) -> None: ...

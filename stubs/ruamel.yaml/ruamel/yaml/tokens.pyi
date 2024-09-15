@@ -3,8 +3,6 @@ from typing_extensions import TypeAlias
 
 from .error import CommentMark, StreamMark, _Mark
 
-SHOW_LINES: bool
-
 _PostComment: TypeAlias = CommentToken
 _PreComments: TypeAlias = list[CommentToken] | list[str]
 _CommentGroup: TypeAlias = list[_PostComment | _PreComments | None]
@@ -13,6 +11,8 @@ _TagDirective: TypeAlias = tuple[str, str]
 _FlowScalarStyle: TypeAlias = Literal['"', "'"]
 _BlockScalarStyle: TypeAlias = Literal["|", ">"]
 _ScalarStyle: TypeAlias = _FlowScalarStyle | _BlockScalarStyle | Literal[""]
+
+SHOW_LINES: bool
 
 class Token:
     id: ClassVar[str]

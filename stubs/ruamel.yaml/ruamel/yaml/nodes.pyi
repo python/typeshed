@@ -54,7 +54,7 @@ class _CollectionNode(Generic[_T]):
     flow_style: bool | None
     def __init__(
         self,
-        tag: Tag | str,
+        tag: Tag | str | None,
         value: list[_T],
         start_mark: _Mark | None = None,
         end_mark: _Mark | None = None,

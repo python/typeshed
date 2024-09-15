@@ -9,16 +9,6 @@ from .nodes import _ScalarNodeStyle
 from .tag import Tag
 from .tokens import CommentToken, _CommentGroup
 
-_Index: TypeAlias = int
-_Key: TypeAlias = Hashable
-
-_T = TypeVar("_T")
-_KT = TypeVar("_KT")
-_VT = TypeVar("_VT")
-_KT_co = TypeVar("_KT_co", covariant=True)
-_VT_co = TypeVar("_VT_co", covariant=True)
-_Commented = TypeVar("_Commented", bound=CommentedBase)
-
 __all__ = [
     "CommentedSeq",
     "CommentedKeySeq",
@@ -33,6 +23,16 @@ __all__ = [
     "C_SPLIT_ON_FIRST_BLANK",
     "C_BLANK_LINE_PRESERVE_SPACE",
 ]
+
+_Index: TypeAlias = int
+_Key: TypeAlias = Hashable
+
+_T = TypeVar("_T")
+_KT = TypeVar("_KT")
+_VT = TypeVar("_VT")
+_KT_co = TypeVar("_KT_co", covariant=True)
+_VT_co = TypeVar("_VT_co", covariant=True)
+_Commented = TypeVar("_Commented", bound=CommentedBase)
 
 C_POST: Final = 0b00
 C_PRE: Final = 0b01
@@ -108,7 +108,7 @@ class CommentedBase:
 class CommentedSeq(MutableSliceableSequence[_T], list[_T], CommentedBase):
     def __getsingleitem__(self, idx: int) -> _T: ...
     def __setsingleitem__(self, idx: int, value: _T) -> None: ...
-    def __delsingleitem__(self, idx: int): ...
+    def __delsingleitem__(self, idx: int) -> None: ...
     def __deepcopy__(self, memo: dict[int, Any]) -> Self: ...
 
 class CommentedKeySeq(tuple[_T, ...], CommentedBase): ...

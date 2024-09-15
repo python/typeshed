@@ -3,6 +3,7 @@ from typing import Final
 
 from .error import MarkedYAMLError, _Mark
 from .events import Event
+from .loader import _Loader
 from .main import YAML
 from .resolver import BaseResolver
 from .scanner import Scanner
@@ -15,8 +16,8 @@ class ParserError(MarkedYAMLError): ...
 
 class Parser:
     DEFAULT_TAGS: Final[_TagHandleToPrefix]
-    loader: YAML
-    def __init__(self, loader: YAML) -> None: ...
+    loader: YAML | _Loader
+    def __init__(self, loader: YAML | _Loader) -> None: ...
     current_event: Event | None
     last_event: Event | None
     tag_handles: _TagHandleToPrefix

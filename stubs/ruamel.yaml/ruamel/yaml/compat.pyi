@@ -2,7 +2,7 @@ from _typeshed import SupportsRead, SupportsWrite
 from abc import ABCMeta, abstractmethod
 from collections import OrderedDict
 from collections.abc import Iterable, MutableSequence
-from typing import Final, Self, TypeVar, overload
+from typing import IO, Any, Final, Self, TypeVar, overload
 from typing_extensions import TypeAlias
 
 from .docinfo import Version
@@ -11,8 +11,11 @@ _T = TypeVar("_T")
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 
-StreamType: TypeAlias = SupportsWrite[str | bytes]
-StreamTextType: TypeAlias = str | bytes | SupportsRead[str | bytes]
+_ReadStream: TypeAlias = str | bytes | SupportsRead[str] | SupportsRead[bytes]
+_WriteStream: TypeAlias = SupportsWrite[str] | SupportsWrite[bytes]
+
+StreamType: TypeAlias = _WriteStream
+StreamTextType: TypeAlias = _ReadStream
 VersionType: TypeAlias = str | tuple[int, int] | list[int] | Version | None
 
 class ordereddict(OrderedDict[_KT, _VT]):
@@ -32,14 +35,14 @@ class Nprint:
     def __init__(self, file_name: str | None = None) -> None: ...
     def __call__(self, *args, **kw) -> None: ...
     def set_max_print(self, i: int) -> None: ...
-    def fp(self, mode: str = "a"): ...
+    def fp(self, mode: str = "a") -> IO[Any]: ...
 
 nprint: Nprint
 nprintf: Nprint
 
 def check_namespace_char(ch: str) -> bool: ...
 def check_anchorname_char(ch: str) -> bool: ...
-def version_tnf(t1: tuple[int, ...], t2: tuple[int, ...] | None = None): ...
+def version_tnf(t1: tuple[int, ...], t2: tuple[int, ...] | None = None) -> bool | None: ...
 
 class MutableSliceableSequence(MutableSequence[_T], metaclass=ABCMeta):
     @overload
