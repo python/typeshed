@@ -53,7 +53,7 @@ elif sys.version_info >= (3, 9):
     def as_file(path: Traversable) -> AbstractContextManager[Path]: ...
 
 if sys.version_info >= (3, 11):
-    from importlib.resources._common import files
+    from importlib.resources._common import files as files
 
 elif sys.version_info >= (3, 9):
     def files(package: Package) -> Traversable: ...
