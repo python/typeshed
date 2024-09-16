@@ -71,6 +71,9 @@ for this script.
 
 ## pytype\_test.py
 
+Note: This test cannot be run on Python version < 3.13 as pytype does not yet support
+Python 3.13 and above.
+
 Run using:
 ```bash
 (.venv3)$ python3 tests/pytype_test.py
