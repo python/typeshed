@@ -18,7 +18,9 @@ from distutils.command.install_egg_info import install_egg_info
 from distutils.command.install_headers import install_headers
 from distutils.command.install_lib import install_lib
 from distutils.command.install_scripts import install_scripts
+from distutils.command.register import register
 from distutils.command.sdist import sdist
+from distutils.command.upload import upload
 from distutils.dist import Distribution
 from distutils.file_util import _BytesPathT, _StrPathT
 from typing import Any, ClassVar, Literal, TypeVar, overload
@@ -85,7 +87,11 @@ class Command:
     @overload
     def get_finalized_command(self, command: Literal["install_scripts"], create: bool | Literal[0, 1] = 1) -> install_scripts: ...
     @overload
+    def get_finalized_command(self, command: Literal["register"], create: bool | Literal[0, 1] = 1) -> register: ...
+    @overload
     def get_finalized_command(self, command: Literal["sdist"], create: bool | Literal[0, 1] = 1) -> sdist: ...
+    @overload
+    def get_finalized_command(self, command: Literal["upload"], create: bool | Literal[0, 1] = 1) -> upload: ...
     @overload
     def get_finalized_command(self, command: str, create: bool | Literal[0, 1] = 1) -> Command: ...
     @overload
@@ -139,7 +145,11 @@ class Command:
         self, command: Literal["install_scripts"], reinit_subcommands: bool | Literal[0, 1] = 0
     ) -> install_scripts: ...
     @overload
+    def reinitialize_command(self, command: Literal["register"], reinit_subcommands: bool | Literal[0, 1] = 0) -> register: ...
+    @overload
     def reinitialize_command(self, command: Literal["sdist"], reinit_subcommands: bool | Literal[0, 1] = 0) -> sdist: ...
+    @overload
+    def reinitialize_command(self, command: Literal["upload"], reinit_subcommands: bool | Literal[0, 1] = 0) -> upload: ...
     @overload
     def reinitialize_command(self, command: str, reinit_subcommands: bool | Literal[0, 1] = 0) -> Command: ...
     @overload
