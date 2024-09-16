@@ -7,6 +7,7 @@ import os
 import re
 import subprocess
 import sys
+from importlib.util import find_spec
 from pathlib import Path
 from typing import Any
 
@@ -127,11 +128,11 @@ def main() -> None:
     else:
         print(colored("\nSkipping stubtest since mypy failed.", "yellow"))
 
-    if sys.platform == "win32":
-        print(colored("\nSkipping pytype on Windows. You can run the test with WSL.", "yellow"))
-    else:
+    if find_spec("pytype"):
         print("\nRunning pytype...")
         pytype_result = subprocess.run([sys.executable, "tests/pytype_test.py", path])
+    else:
+        print(colored("\nSkipping pytype on Windows. You need to install it first: `pip install pytype`", "yellow"))
 
     cases_path = test_cases_path(stub if folder == "stubs" else "stdlib")
     if not cases_path.exists():
