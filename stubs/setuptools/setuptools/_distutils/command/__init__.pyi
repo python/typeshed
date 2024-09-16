@@ -17,6 +17,8 @@ from . import (
 )
 
 # Commented out commands are not stubbed.
+# (Many of these may be implementation details, 
+# but they can be added if people ask for them)
 __all__ = [
     "build",
     "build_py",
