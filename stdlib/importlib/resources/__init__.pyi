@@ -36,7 +36,15 @@ if sys.version_info >= (3, 13):
 
     __all__ += ["Anchor"]
 
-    from importlib.resources._functional import contents as contents, is_resource as is_resource, open_binary as open_binary, open_text as open_text, path as path, read_binary as read_binary, read_text as read_text
+    from importlib.resources._functional import (
+        contents as contents,
+        is_resource as is_resource,
+        open_binary as open_binary,
+        open_text as open_text,
+        path as path,
+        read_binary as read_binary,
+        read_text as read_text,
+    )
 
 else:
     def open_binary(package: Package, resource: Resource) -> BinaryIO: ...
