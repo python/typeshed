@@ -8,7 +8,7 @@ from typing import Any, BinaryIO, TextIO
 from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 11):
-    from importlib.resources._common import Package
+    from importlib.resources._common import Package as Package
 else:
     Package: TypeAlias = str | ModuleType
 
