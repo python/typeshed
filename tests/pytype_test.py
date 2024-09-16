@@ -26,7 +26,6 @@ if sys.version_info >= (3, 13):
 
 import argparse
 import importlib.metadata
-import importlib.util
 import inspect
 import os
 import traceback
