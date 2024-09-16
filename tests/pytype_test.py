@@ -14,12 +14,18 @@ will also discover incorrect usage of imported modules.
 
 from __future__ import annotations
 
+import sys
+
+if sys.version_info >= (3, 13):
+    print("pytype does not support Python 3.13+ yet.", file=sys.stderr)
+    sys.exit(1)
+
+
 import argparse
 import importlib.metadata
 import importlib.util
 import inspect
 import os
-import sys
 import traceback
 from collections.abc import Iterable, Sequence
 
