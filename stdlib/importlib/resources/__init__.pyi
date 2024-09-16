@@ -48,7 +48,7 @@ else:
     def contents(package: Package) -> Iterator[str]: ...
 
 if sys.version_info >= (3, 11):
-    from importlib.resources._common import as_file
+    from importlib.resources._common import as_file as as_file
 elif sys.version_info >= (3, 9):
     def as_file(path: Traversable) -> AbstractContextManager[Path]: ...
 
