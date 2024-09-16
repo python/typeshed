@@ -6,11 +6,8 @@ import sys
 
 
 class _CustomPathLike:
-    def __init__(self, path: str) -> None:
-        self.path = path
-
     def __fspath__(self) -> str:
-        return self.path
+        return ""
 
 
 if sys.version_info >= (3, 13):
