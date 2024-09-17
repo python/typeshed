@@ -1,11 +1,14 @@
-from _typeshed import Incomplete
+from typing import IO, Any, Literal
 
-import qrcode.image.base
+from PIL import Image
 
-class PilImage(qrcode.image.base.BaseImage):
-    kind: str
-    fill_color: Incomplete
-    def new_image(self, **kwargs): ...
-    def drawrect(self, row, col) -> None: ...
-    def save(self, stream, format: Incomplete | None = None, **kwargs) -> None: ...  # type: ignore[override]
-    def __getattr__(self, name): ...
+from . import base
+
+class PilImage(base.BaseImage):
+    kind: Literal["PNG"]
+    fill_color: str
+    def new_image(self, *, back_color: str = "white", fill_color: str = "black", **kwargs: Any) -> Image.Image: ...
+    def get_image(self, **kwargs: Any) -> Image.Image: ...
+    def drawrect(self, row: int, col: int) -> None: ...
+    def save(self, stream: IO[bytes], format: str | None = None, *, kind: str | None = None, **kwargs: Any) -> None: ...  # type: ignore[override]
+    def __getattr__(self, name: str) -> Any: ...

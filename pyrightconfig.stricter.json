@@ -87,7 +87,6 @@
         "stubs/pywin32",
         "stubs/pyxdg",
         "stubs/PyYAML",
-        "stubs/qrcode",
         "stubs/redis",
         "stubs/reportlab",
         "stubs/requests",

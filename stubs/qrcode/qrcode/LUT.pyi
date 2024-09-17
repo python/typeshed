@@ -1,3 +1,1 @@
-from _typeshed import Incomplete
-
-rsPoly_LUT: Incomplete
+rsPoly_LUT: dict[int, list[int]]
