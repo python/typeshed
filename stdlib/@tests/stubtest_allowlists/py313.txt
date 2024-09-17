@@ -4,16 +4,6 @@
 
 # TODO: triage these new errors
 _tkinter.create
-importlib.resources.Anchor
-importlib.resources.Resource
-importlib.resources.__all__
-importlib.resources.contents
-importlib.resources.is_resource
-importlib.resources.open_binary
-importlib.resources.open_text
-importlib.resources.path
-importlib.resources.read_binary
-importlib.resources.read_text
 os.path.splitroot
 tkinter.Misc.after_info
 tkinter.Misc.busy
@@ -151,6 +141,9 @@ platform.uname_result.processor
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
+# Deprecated argument is supported at runtime by renaming it through a decorator.
+importlib.resources._common.files
+importlib.resources.files
 # Problematic protocol signature at runtime, see source code comments.
 importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open

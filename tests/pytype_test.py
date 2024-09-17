@@ -14,29 +14,31 @@ will also discover incorrect usage of imported modules.
 
 from __future__ import annotations
 
+import sys
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    assert sys.platform != "win32", "pytype isn't yet installed in CI, but wheels can be built on Windows"
+if sys.version_info >= (3, 13):
+    print("pytype does not support Python 3.13+ yet.", file=sys.stderr)
+    sys.exit(1)
+
+
 import argparse
 import importlib.metadata
 import inspect
 import os
-import sys
 import traceback
 from collections.abc import Iterable, Sequence
 
 from packaging.requirements import Requirement
 
-from _metadata import read_dependencies
-from _utils import SupportedVersionsDict, parse_stdlib_versions_file, supported_versions_for_module
-
-if sys.platform == "win32":
-    print("pytype does not support Windows.", file=sys.stderr)
-    sys.exit(1)
-if sys.version_info >= (3, 13):
-    print("pytype does not support Python 3.13+ yet.", file=sys.stderr)
-    sys.exit(1)
-
 # pytype is not py.typed https://github.com/google/pytype/issues/1325
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]
 from pytype.imports import typeshed  # type: ignore[import]
+
+from _metadata import read_dependencies
+from _utils import SupportedVersionsDict, parse_stdlib_versions_file, supported_versions_for_module
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"
