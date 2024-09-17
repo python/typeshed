@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Generator
 from typing import Any
+from typing_extensions import TypeAlias
 
 from networkx.utils.backends import _dispatch
 
 # type alias for the weight function
-_WeightFunction = Callable[[Any, Any, dict[str, Any]], float | None]
+_WeightFunction: TypeAlias = Callable[[Any, Any, dict[str, Any]], float | None]
 
 @_dispatch
 def dijkstra_path(G, source, target, weight: str | _WeightFunction = "weight"): ...
