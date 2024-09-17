@@ -71,9 +71,7 @@ for this script.
 
 ## pytype\_test.py
 
-Note: this test cannot be run on Windows
-systems unless you are using Windows Subsystem for Linux.
-It also requires a Python version < 3.13 as pytype does not yet support
+Note: This test cannot be run on Python version < 3.13 as pytype does not yet support
 Python 3.13 and above.
 
 Run using:
