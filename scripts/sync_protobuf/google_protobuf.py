@@ -12,6 +12,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from typing import Any
 
 from _utils import MYPY_PROTOBUF_VERSION, REPO_ROOT, download_file, extract_archive, run_protoc, update_metadata
 
@@ -31,9 +32,11 @@ PROTO_FILE_PATTERN = re.compile(r'"//:(.*)_proto"')
 def extract_python_version(file_path: Path) -> str:
     """Extract the Python version from https://github.com/protocolbuffers/protobuf/blob/main/version.json"""
     with open(file_path) as file:
-        data: dict[str, dict[str, dict[str, str]]] = json.load(file)
+        data: dict[str, Any] = json.load(file)
     # The root key will be the protobuf source code version
-    return next(iter(data.values()))["languages"]["python"]
+    version = next(iter(data.values()))["languages"]["python"]
+    assert isinstance(version, str)
+    return version
 
 
 def extract_proto_file_paths(temp_dir: Path) -> list[str]:
