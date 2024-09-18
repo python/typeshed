@@ -20,6 +20,7 @@ class Coords(NamedTuple):
 class BaseSvgQRModuleDrawer(QRModuleDrawer, metaclass=abc.ABCMeta):
     img: SvgFragmentImage
     size_ratio: Decimal
+    # kwargs are used to allow for subclasses with additional keyword arguments
     def __init__(self, *, size_ratio: Decimal = ..., **kwargs: Any) -> None: ...
     box_delta: float
     box_size: Decimal

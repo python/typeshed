@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, StrOrBytesPath
-from typing import IO, Any
+from typing import IO
 
 from PIL import Image
 
@@ -10,7 +10,8 @@ class QRColorMask:
     back_color: Ink
     has_transparency: bool
     paint_color: Ink
-    def initialize(self, styledPilImage: StyledPilImage, image: Any) -> None: ...
+    # image is not actually used by any of the initialize implementations in this project.
+    def initialize(self, styledPilImage: StyledPilImage, image: Image.Image) -> None: ...
     def apply_mask(self, image: Image.Image) -> None: ...
     def get_fg_pixel(self, image: Image.Image, x: int, y: int) -> Ink: ...
     def get_bg_pixel(self, image: Image.Image, x: int, y: int) -> Ink: ...
