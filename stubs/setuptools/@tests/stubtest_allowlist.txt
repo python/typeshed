@@ -44,32 +44,19 @@ setuptools._distutils.ccompiler.CCompiler.out_extensions
 setuptools._distutils.ccompiler.CCompiler.set_executable
 setuptools._distutils.ccompiler.compiler_class
 setuptools._distutils.cmd.Command.dump_options
-setuptools._distutils.command.bdist
-setuptools._distutils.command.bdist_rpm
-setuptools._distutils.command.build
-setuptools._distutils.command.build_clib
 setuptools._distutils.command.build_clib.show_compilers
 setuptools._distutils.command.build_ext.extension_name_re
 setuptools._distutils.command.build_ext.show_compilers
-setuptools._distutils.command.build_ext
-setuptools._distutils.command.build_py
 setuptools._distutils.command.build_scripts
 setuptools._distutils.command.check
 setuptools._distutils.command.clean
-setuptools._distutils.command.install
 setuptools._distutils.command.install_data
 setuptools._distutils.command.install_headers
-setuptools._distutils.command.install_lib
-setuptools._distutils.command.install_scripts
 setuptools._distutils.command.install.HAS_USER_SITE
 setuptools._distutils.command.install.INSTALL_SCHEMES
 setuptools._distutils.command.install.SCHEME_KEYS
 setuptools._distutils.command.install.WINDOWS_SCHEME
 setuptools._distutils.command.install_lib.PYTHON_SOURCE_EXTENSION
-setuptools._distutils.command.sdist
-setuptools._distutils.command.register
-setuptools._distutils.command.upload
-setuptools._distutils.config.DEFAULT_PYPIRC
 setuptools._distutils.dist.DistributionMetadata.set_classifiers
 setuptools._distutils.dist.DistributionMetadata.set_keywords
 setuptools._distutils.dist.DistributionMetadata.set_platforms
@@ -93,7 +80,7 @@ setuptools._distutils.util.MACOSX_VERSION_VAR
 # Missing submodules from setuptools._distutils
 # (Many of these may be implementation details,
 # but they can be added if people ask for them)
-setuptools._distutils.bcppcompiler
+setuptools._distutils.command.__all__
 setuptools._distutils.command.bdist_dumb
 setuptools._distutils.command.build_scripts
 setuptools._distutils.command.check
