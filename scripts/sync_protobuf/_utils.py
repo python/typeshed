@@ -22,11 +22,12 @@ MYPY_PROTOBUF_VERSION = mypy_protobuf__version__
 
 def download_file(url: str, destination: StrPath) -> None:
     print(f"Downloading '{url}' to '{destination}'")
-    resp: HTTPResponse = urlopen(url)
-    if resp.getcode() != 200:
-        raise RuntimeError(f"Error downloading {url}")
-    with open(destination, "wb") as file:
-        file.write(resp.read())
+    resp: HTTPResponse
+    with urlopen(url) as resp:
+        if resp.getcode() != 200:
+            raise RuntimeError(f"Error downloading {url}")
+        with open(destination, "wb") as file:
+            file.write(resp.read())
 
 
 def extract_archive(archive_path: StrPath, destination: StrPath) -> None:
