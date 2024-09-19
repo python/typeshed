@@ -7,7 +7,7 @@ flake8-noqa==1.4.0       # must match .pre-commit-config.yaml
 flake8-pyi==24.6.0       # must match .pre-commit-config.yaml
 mypy==1.11.1
 pre-commit-hooks==4.6.0  # must match .pre-commit-config.yaml
-pyright==1.1.379
+pyright==1.1.381
 # pytype can be installed on Windows, but requires building wheels, let's not do that on the CI
 pytype==2024.9.13; platform_system != "Windows" and python_version < "3.13"
 ruff==0.5.4              # must match .pre-commit-config.yaml
