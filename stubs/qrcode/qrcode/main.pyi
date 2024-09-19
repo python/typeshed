@@ -83,7 +83,7 @@ class QRCode(Generic[GenericImage]):
     ) -> None: ...
     @overload
     def __init__(
-        self: QRCode[BaseImage],
+        self: QRCode[_DefaultImage],
         version: ConvertibleToInt | None = None,
         error_correction: ErrorCorrect = 0,
         box_size: ConvertibleToInt = 10,
