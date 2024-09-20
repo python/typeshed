@@ -6,27 +6,27 @@ from typing_extensions import TypeAlias
 from ._types import ErrorCorrect, MaskPattern
 from .base import RSBlock as RSBlock
 
-MODE_NUMBER: Final = 1
-MODE_ALPHA_NUM: Final = 2
-MODE_8BIT_BYTE: Final = 4
-MODE_KANJI: Final = 8
+MODE_NUMBER: Final[int] = 1
+MODE_ALPHA_NUM: Final[int] = 2
+MODE_8BIT_BYTE: Final[int] = 4
+MODE_KANJI: Final[int] = 8
 
 _MODE: TypeAlias = Literal[1, 2, 4, 8]
 
-MODE_SIZE_SMALL: dict[_MODE, int]
-MODE_SIZE_MEDIUM: dict[_MODE, int]
-MODE_SIZE_LARGE: dict[_MODE, int]
+MODE_SIZE_SMALL: Final[dict[_MODE, int]]
+MODE_SIZE_MEDIUM: Final[dict[_MODE, int]]
+MODE_SIZE_LARGE: Final[dict[_MODE, int]]
 
-ALPHA_NUM: bytes
-RE_ALPHA_NUM: Pattern[bytes]
-NUMBER_LENGTH: dict[int, int]
-PATTERN_POSITION_TABLE: list[list[int]]
-G15: int
-G18: int
-G15_MASK: int
-PAD0: int
-PAD1: int
-BIT_LIMIT_TABLE: list[list[int]]
+ALPHA_NUM: Final[bytes]
+RE_ALPHA_NUM: Final[Pattern[bytes]]
+NUMBER_LENGTH: Final[dict[int, int]]
+PATTERN_POSITION_TABLE: Final[list[list[int]]]
+G15: Final[int]
+G18: Final[int]
+G15_MASK: Final[int]
+PAD0: Final[int]
+PAD1: Final[int]
+BIT_LIMIT_TABLE: Final[list[list[int]]]
 
 # In the implementation, MODE_KANJI is not accepted in all places
 _SupportedMode: TypeAlias = Literal[1, 2, 4]

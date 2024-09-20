@@ -1,5 +1,6 @@
-from _typeshed import StrOrBytesPath
-from typing import IO, Any, Literal
+from _typeshed import SupportsRead
+from pathlib import Path
+from typing import Any, Literal
 
 from PIL import Image
 
@@ -30,7 +31,7 @@ class StyledPilImage(base.BaseImageWithDrawer):
         module_drawer: QRModuleDrawer | str | None = None,
         eye_drawer: QRModuleDrawer | str | None = None,
         color_mask: QRColorMask = ...,
-        embeded_image_path: StrOrBytesPath | IO[bytes] | None = None,
+        embeded_image_path: str | bytes | Path | SupportsRead[bytes] | None = None,
         embeded_image: Image.Image | None = None,
         embeded_image_resample: Image.Resampling = ...,
         **kwargs: Any,
@@ -42,7 +43,7 @@ class StyledPilImage(base.BaseImageWithDrawer):
     # kwargs are passed on to PIL.Image.save, which also accepts arbitrary keyword arguments.
     def save(  # type: ignore[override]
         self,
-        stream: IO[bytes],
+        stream: str | bytes | Path | Image._Writeable,
         format: str | None = None,
         *,
         kind: str | None = None,

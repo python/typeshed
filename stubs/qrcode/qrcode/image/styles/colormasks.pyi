@@ -1,5 +1,5 @@
-from _typeshed import Incomplete, StrOrBytesPath
-from typing import IO
+from _typeshed import SupportsRead
+from pathlib import Path
 
 from PIL import Image
 
@@ -46,18 +46,18 @@ class HorizontalGradiantColorMask(QRColorMask):
     ) -> None: ...
 
 class VerticalGradiantColorMask(QRColorMask):
-    top_color: Incomplete
-    bottom_color: Incomplete
+    top_color: Ink
+    bottom_color: Ink
     def __init__(
         self, back_color: Ink = (255, 255, 255), top_color: Ink = (0, 0, 0), bottom_color: Ink = (0, 0, 255)
     ) -> None: ...
 
 class ImageColorMask(QRColorMask):
-    color_img: Incomplete
+    color_img: Ink
     def __init__(
         self,
         back_color: Ink = (255, 255, 255),
-        color_mask_path: StrOrBytesPath | IO[bytes] | None = None,
+        color_mask_path: str | bytes | Path | SupportsRead[bytes] | None = None,
         color_mask_image: Image.Image | None = None,
     ) -> None: ...
     paint_color: Ink

@@ -1,4 +1,5 @@
-from typing import IO, Any, Literal
+from pathlib import Path
+from typing import Any, Literal
 
 from PIL import Image
 
@@ -15,7 +16,7 @@ class PilImage(base.BaseImage):
     # kwargs are passed on to PIL.Image.save, which also accepts arbitrary keyword arguments.
     def save(  # type: ignore[override]
         self,
-        stream: IO[bytes],
+        stream: str | bytes | Path | Image._Writeable,
         format: str | None = None,
         *,
         kind: str | None = None,
