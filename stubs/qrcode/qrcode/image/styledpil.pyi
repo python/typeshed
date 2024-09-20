@@ -4,7 +4,7 @@ from typing import Any, Literal
 
 from PIL import Image
 
-from .._types import Ink
+from .._types import Ink, Writeable
 from ..main import ModulesType
 from . import base
 from .styles.colormasks import QRColorMask
@@ -43,7 +43,7 @@ class StyledPilImage(base.BaseImageWithDrawer):
     # kwargs are passed on to PIL.Image.save, which also accepts arbitrary keyword arguments.
     def save(  # type: ignore[override]
         self,
-        stream: str | bytes | Path | Image._Writeable,
+        stream: str | bytes | Path | Writeable,
         format: str | None = None,
         *,
         kind: str | None = None,

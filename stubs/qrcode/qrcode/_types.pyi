@@ -1,4 +1,6 @@
 # Type aliases used in this stub package
+from _typeshed import SupportsWrite
+from typing import Any, Protocol
 from typing_extensions import TypeAlias
 
 Box: TypeAlias = tuple[tuple[int, int], tuple[int, int]]
@@ -8,3 +10,6 @@ Ink: TypeAlias = tuple[int, int, int] | tuple[int, int, int, int]
 # havoc with overloads in mypy.
 ErrorCorrect: TypeAlias = int
 MaskPattern: TypeAlias = int
+
+class Writeable(SupportsWrite[bytes], Protocol):
+    def seek(self, offset: int, /) -> Any: ...
