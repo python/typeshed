@@ -37,11 +37,11 @@ exclude = ["**/test_cases/**/*.py"]
 # tell ruff not to flag these as e.g. "unused noqa comments"
 external = ["F821", "NQA", "Y"]
 select = [
-    "B", # flake8-bugbear
-    "FA", # flake8-future-annotations
-    "I", # isort
+    "B",   # flake8-bugbear
+    "FA",  # flake8-future-annotations
+    "I",   # isort
     "RUF", # Ruff-specific and unused-noqa
-    "UP", # pyupgrade
+    "UP",  # pyupgrade
     # Flake8 base rules
     "E", # pycodestyle Error
     "F", # Pyflakes
