@@ -18,7 +18,7 @@ from _utils import MYPY_PROTOBUF_VERSION, REPO_ROOT, download_file, extract_arch
 
 # Whenever you update PACKAGE_VERSION here, version should be updated
 # in stubs/protobuf/METADATA.toml and vice-versa.
-PACKAGE_VERSION = "27.1"
+PACKAGE_VERSION = "28.2"
 
 STUBS_FOLDER = REPO_ROOT / "stubs" / "protobuf"
 ARCHIVE_FILENAME = f"protobuf-{PACKAGE_VERSION}.zip"
