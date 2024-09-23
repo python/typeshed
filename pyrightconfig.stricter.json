@@ -57,6 +57,7 @@
         "stubs/influxdb-client",
         "stubs/jmespath",
         "stubs/jsonschema",
+        "stubs/jwcrypto",
         "stubs/ldap3",
         "stubs/Markdown",
         "stubs/mysqlclient",
@@ -100,7 +101,7 @@
         "stubs/vobject",
         "stubs/workalendar",
         "stubs/wurlitzer",
-        "stubs/xdgenvpy"
+        "stubs/xdgenvpy",
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
