@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
+from typing_extensions import deprecated
 
 from jwcrypto.common import JWException, JWKeyNotFound
 from jwcrypto.jwk import JWK, JWKSet
@@ -22,6 +23,7 @@ class JWTInvalidClaimValue(JWException):
 class JWTInvalidClaimFormat(JWException):
     def __init__(self, message: str | None = None, exception: BaseException | None = None) -> None: ...
 
+@deprecated("")
 class JWTMissingKeyID(JWException):
     def __init__(self, message: str | None = None, exception: BaseException | None = None) -> None: ...
 
