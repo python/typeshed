@@ -145,6 +145,7 @@ jobs:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
+          extra-args: --threads
           annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
       - name: Run pyright with stricter settings on some of the stubs
         uses: jakebailey/pyright-action@v2
@@ -152,6 +153,7 @@ jobs:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
+          extra-args: --threads
           annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.stricter.json
       - name: Run pyright on the test cases
@@ -160,6 +162,7 @@ jobs:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
+          extra-args: --threads
           annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.testcases.json
 

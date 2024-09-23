@@ -61,6 +61,7 @@ jobs:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: "3.9" # Oldest version supported for running scripts and tests
+          extra-args: --threads
           project: ./pyrightconfig.scripts_and_tests.json
   stubsabot-dry-run:
     name: Stubsabot dry run
