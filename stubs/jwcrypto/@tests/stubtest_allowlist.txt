@@ -1,0 +1,3 @@
+# test code does not need type hints
+jwcrypto.tests
+jwcrypto.tests-cookbook
