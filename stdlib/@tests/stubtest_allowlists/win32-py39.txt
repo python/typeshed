@@ -14,3 +14,11 @@ crypt
 nis
 ossaudiodev
 spwd
+
+# Incompatible changes introduced in Python 3.9.20
+# (Remove once 3.9.20 becomes available for Windows)
+email._header_value_parser.NLSET
+email._header_value_parser.SPECIALSNL
+email.errors.HeaderWriteError
+email.utils.getaddresses
+email.utils.parseaddr
