@@ -9,7 +9,7 @@ from m3u8.mixins import BasePathMixin, GroupedBasePathMixin
 from m3u8.protocol import ext_x_map, ext_x_session_key
 
 _T = TypeVar("_T")
-CustomTagsParser: TypeAlias = Callable[[str, int, dict[str, Any], dict[str, Any]], object]
+_CustomTagsParser: TypeAlias = Callable[[str, int, dict[str, Any], dict[str, Any]], object]
 
 @type_check_only
 class _PlaylistProtocol(BasePathMixin, metaclass=ABCMeta):
@@ -61,7 +61,7 @@ class M3U8:
         base_path: str | None = None,
         base_uri: str | None = None,
         strict: bool = False,
-        custom_tags_parser: CustomTagsParser | None = None,
+        custom_tags_parser: _CustomTagsParser | None = None,
     ) -> None: ...
     @property
     def base_uri(self) -> str | None: ...

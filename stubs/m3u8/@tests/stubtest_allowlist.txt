@@ -1,9 +1,6 @@
 # type check only
 m3u8.__all__
-m3u8.CustomTagsParser
 m3u8.httpclient.HTTPSHandler.__new__
-m3u8.model.CustomTagsParser
-m3u8.parser.CustomTagsParser
 # internal functions and attributes
 m3u8.M3U8.simple_attributes
 m3u8.model.M3U8.simple_attributes
