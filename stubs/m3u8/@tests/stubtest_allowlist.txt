@@ -1,5 +1,4 @@
 # type check only
-m3u8.__all__
 m3u8.httpclient.HTTPSHandler.__new__
 # internal functions and attributes
 m3u8.M3U8.simple_attributes
