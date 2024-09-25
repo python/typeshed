@@ -7,12 +7,17 @@ flake8-noqa==1.4.0       # must match .pre-commit-config.yaml
 flake8-pyi==24.6.0       # must match .pre-commit-config.yaml
 mypy==1.11.1
 pre-commit-hooks==4.6.0  # must match .pre-commit-config.yaml
-pyright==1.1.379
-pytype==2024.4.11; platform_system != "Windows" and python_version < "3.12"
+pyright==1.1.381
+# pytype can be installed on Windows, but requires building wheels, let's not do that on the CI
+pytype==2024.9.13; platform_system != "Windows" and python_version < "3.13"
 ruff==0.5.4              # must match .pre-commit-config.yaml
 
 # Libraries used by our various scripts.
 aiohttp==3.10.2
+# grpc install only fails on Windows, but let's avoid building sdist on other platforms
+# https://github.com/grpc/grpc/issues/36201
+grpcio-tools; python_version < "3.13" # For grpc_tools.protoc
+mypy-protobuf==3.6.0
 packaging==24.1
 pathspec>=0.11.1
 pre-commit

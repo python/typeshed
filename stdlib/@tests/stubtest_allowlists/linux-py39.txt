@@ -3,4 +3,5 @@
 select.epoll.register
 
 # doesn't exist on linux
+_msi
 msilib(.[a-z]+)?

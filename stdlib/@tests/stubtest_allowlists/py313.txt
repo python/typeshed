@@ -4,20 +4,7 @@
 
 # TODO: triage these new errors
 _tkinter.create
-importlib.resources.Anchor
-importlib.resources.Resource
-importlib.resources.__all__
-importlib.resources.contents
-importlib.resources.is_resource
-importlib.resources.open_binary
-importlib.resources.open_text
-importlib.resources.path
-importlib.resources.read_binary
-importlib.resources.read_text
 os.path.splitroot
-# `__replace__` to be special cased in dataclasses
-pstats.FunctionProfile.__replace__
-pstats.StatsProfile.__replace__
 tkinter.Misc.after_info
 tkinter.Misc.busy
 tkinter.Misc.busy_cget
@@ -154,6 +141,9 @@ platform.uname_result.processor
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
+# Deprecated argument is supported at runtime by renaming it through a decorator.
+importlib.resources._common.files
+importlib.resources.files
 # Problematic protocol signature at runtime, see source code comments.
 importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open
@@ -192,8 +182,6 @@ codecs.xmlcharrefreplace_errors
 # To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
 types.MappingProxyType.get
 
-# logging.warn() was restored after the 3.13 release candidate, which is what CI is using
-logging.__all__
-logging.Logger.warn
-logging.LoggerAdapter.warn
-logging.warn
+# `__replace__` is dynamically generated, and special-cased by type-checkers
+pstats.FunctionProfile.__replace__
+pstats.StatsProfile.__replace__

@@ -57,6 +57,7 @@
         "stubs/influxdb-client",
         "stubs/jmespath",
         "stubs/jsonschema",
+        "stubs/jwcrypto",
         "stubs/ldap3",
         "stubs/Markdown",
         "stubs/mysqlclient",
@@ -87,7 +88,6 @@
         "stubs/pywin32",
         "stubs/pyxdg",
         "stubs/PyYAML",
-        "stubs/qrcode",
         "stubs/redis",
         "stubs/reportlab",
         "stubs/requests",
@@ -101,7 +101,6 @@
         "stubs/vobject",
         "stubs/workalendar",
         "stubs/wurlitzer",
-        "stubs/xdgenvpy"
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
