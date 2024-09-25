@@ -31,7 +31,7 @@ from m3u8.model import (
 )
 from m3u8.parser import ParseError, parse
 
-__all__ = [
+__all__ = (
     "M3U8",
     "Segment",
     "SegmentList",
@@ -59,7 +59,7 @@ __all__ = [
     "load",
     "parse",
     "ParseError",
-]
+)
 
 _CustomTagsParser: TypeAlias = Callable[[str, int, dict[str, Any], dict[str, Any]], object]
 
