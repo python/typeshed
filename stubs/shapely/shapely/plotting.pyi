@@ -1,9 +1,9 @@
 from typing import Any, Literal, overload
 
-from matplotlib.axes import Axes  # type: ignore[import-not-found]  # pyright: ignore[reportMissingTypeStubs]
-from matplotlib.lines import Line2D  # type: ignore[import-not-found]  # pyright: ignore[reportMissingTypeStubs]
-from matplotlib.patches import PathPatch  # type: ignore[import-not-found]  # pyright: ignore[reportMissingTypeStubs]
-from matplotlib.typing import ColorType  # type: ignore[import-not-found]  # pyright: ignore[reportMissingTypeStubs]
+from matplotlib.axes import Axes  # type: ignore[import-not-found]
+from matplotlib.lines import Line2D  # type: ignore[import-not-found]
+from matplotlib.patches import PathPatch  # type: ignore[import-not-found]
+from matplotlib.typing import ColorType  # type: ignore[import-not-found]
 
 from .geometry import LinearRing, LineString, MultiLineString, MultiPolygon, Polygon
 from .lib import Geometry

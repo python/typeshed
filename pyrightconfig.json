@@ -8,6 +8,7 @@
     "exclude": [
         // Stubs that don't work in all Python versions
         "stubs/seaborn",
+        "stubs/shapely",
         // test cases use a custom config file
         "**/@tests/test_cases",
     ],
