@@ -2,14 +2,7 @@ from typing import Any, Final, TypeAlias, TypeVar, overload
 
 _T = TypeVar("_T")
 
-__all__ = [
-    "DEFAULT_ENCODING",
-    "SEQUENCE_TYPES",
-    "ICAL_TYPE",
-    "data_encode",
-    "from_unicode",
-    "to_unicode",
-]
+__all__ = ["DEFAULT_ENCODING", "SEQUENCE_TYPES", "ICAL_TYPE", "data_encode", "from_unicode", "to_unicode"]
 
 SEQUENCE_TYPES: Final[tuple[type[Any], ...]]
 DEFAULT_ENCODING: str
