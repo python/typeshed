@@ -3,6 +3,7 @@ import io
 import ssl
 import sys
 import types
+from typing import Protocol
 from _typeshed import ReadableBuffer, SupportsRead, SupportsReadline, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from socket import socket
@@ -34,6 +35,11 @@ __all__ = [
 _DataType: TypeAlias = SupportsRead[bytes] | Iterable[ReadableBuffer] | ReadableBuffer
 _T = TypeVar("_T")
 _MessageT = TypeVar("_MessageT", bound=email.message.Message)
+
+class _HasEncode(Protocol):
+    def encode(encoding: str) -> bytes: ...
+
+_HeaderValue = ReadableBuffer | _HasEncode | int
 
 HTTP_PORT: int
 HTTPS_PORT: int
@@ -167,7 +173,7 @@ class HTTPConnection:
         method: str,
         url: str,
         body: _DataType | str | None = None,
-        headers: Mapping[str, str] = {},
+        headers: Mapping[str, _HeaderValue] = {},
         *,
         encode_chunked: bool = False,
     ) -> None: ...
@@ -180,7 +186,7 @@ class HTTPConnection:
     def connect(self) -> None: ...
     def close(self) -> None: ...
     def putrequest(self, method: str, url: str, skip_host: bool = False, skip_accept_encoding: bool = False) -> None: ...
-    def putheader(self, header: str | bytes, *argument: str | bytes) -> None: ...
+    def putheader(self, header: str | bytes, *argument: _HeaderValue) -> None: ...
     def endheaders(self, message_body: _DataType | None = None, *, encode_chunked: bool = False) -> None: ...
     def send(self, data: _DataType | str) -> None: ...
 
