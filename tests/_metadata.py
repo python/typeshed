@@ -289,6 +289,8 @@ def read_metadata(distribution: str) -> StubMetadata:
 
 def parse_requires(distribution: str, req: object) -> Requirement:
     assert isinstance(req, str), f"Invalid requirement {req!r} for {distribution!r}"
+    for space in " \t\n":
+        assert space not in req, f"For consistency, requirement should not have whitespace: {req!r}"
     return Requirement(req)
 
 
