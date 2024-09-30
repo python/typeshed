@@ -320,9 +320,8 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     typeshed: list[Requirement] = []
     external: list[Requirement] = []
     for dependency in read_metadata(distribution).requires:
-        maybe_typeshed_dependency = dependency.name
-        if maybe_typeshed_dependency in pypi_name_to_typeshed_name_mapping:
-            req = Requirement(pypi_name_to_typeshed_name_mapping[maybe_typeshed_dependency])
+        if dependency.name in pypi_name_to_typeshed_name_mapping:
+            req = Requirement(pypi_name_to_typeshed_name_mapping[dependency.name])
             typeshed.append(req)
         else:
             # convert to Requirement and then back to str
@@ -348,7 +347,7 @@ def get_recursive_requirements(package_name: str) -> PackageDependencies:
     typeshed.update(non_recursive_requirements.typeshed_pkgs)
     external.update(non_recursive_requirements.external_pkgs)
     for pkg in non_recursive_requirements.typeshed_pkgs:
-        reqs = get_recursive_requirements(pkg)
+        reqs = get_recursive_requirements(pkg.name)
         typeshed.update(reqs.typeshed_pkgs)
         external.update(reqs.external_pkgs)
     return PackageDependencies(tuple(typeshed), tuple(external))
