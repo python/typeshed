@@ -48,10 +48,11 @@ jobs:
       - run: uv pip install -r requirements-tests.txt --system
       - name: Install external dependencies for 3rd-party stubs
         run: |
-          DEPENDENCIES=$(python tests/get_external_stub_requirements.py)
+          mapfile -t DEPENDENCIES < <( python tests/get_external_stub_requirements.py )
           if [ -n "$DEPENDENCIES" ]; then
-            echo "Installing packages: $DEPENDENCIES"
-            uv pip install $DEPENDENCIES --system
+              echo "Installing packages:"
+              for DEP in "${DEPENDENCIES[@]}"; do echo "  ${DEP}"; done
+              uv pip install "${DEPENDENCIES[@]}" --system
           fi
       - run: uv pip freeze
       - run: ./tests/pytype_test.py --print-stderr
@@ -129,11 +130,14 @@ jobs:
         run: uv venv .venv
       - name: Install 3rd-party stub dependencies
         run: |
-          DEPENDENCIES=$(python tests/get_external_stub_requirements.py)
+          mapfile -t DEPENDENCIES < <( python tests/get_external_stub_requirements.py )
           if [ -n "$DEPENDENCIES" ]; then
-            source .venv/bin/activate
-            echo "Installing packages: $DEPENDENCIES"
-            uv pip install $DEPENDENCIES
+              echo "Installing packages:"
+              for DEP in "${DEPENDENCIES[@]}"; do echo "  ${DEP}"; done
+              # TODO: We need to specify the platform here, but the platforms
+              # strings supported by uv are different from the ones supported by
+              # pyright.
+              uv pip install --python-version ${{ matrix.python-version }} "${DEPENDENCIES[@]}"
           fi
       - name: Activate the isolated venv for the rest of the job
         run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
