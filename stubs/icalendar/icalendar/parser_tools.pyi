@@ -1,4 +1,5 @@
-from typing import Any, Final, TypeAlias, TypeVar, overload
+from typing import Any, Final, TypeVar, overload
+from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")
 

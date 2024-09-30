@@ -3,8 +3,8 @@ from _typeshed import Incomplete, Unused
 from collections.abc import Iterator
 from enum import Enum
 from re import Pattern
-from typing import Any, ClassVar, Final, Self, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import Any, ClassVar, Final, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 
 from .caselessdict import CaselessDict
 from .parser import Parameters
