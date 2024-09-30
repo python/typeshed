@@ -205,6 +205,9 @@ This has the following keys:
   `--ignore_missing_stub` option to the stubtest call. See
   [tests/README.md](./tests/README.md) for more information. In most cases,
   this field should be identical to `partial_stub`.
+* `stubtest_requirements` (default: `[]`): A list of Python packages that need
+  to be installed for stubtest to run successfully. These packages are installed
+  in addition to the requirements in the `requires` field.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully.
 * `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
