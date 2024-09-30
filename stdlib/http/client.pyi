@@ -3,11 +3,10 @@ import io
 import ssl
 import sys
 import types
-from typing import Protocol
 from _typeshed import ReadableBuffer, SupportsRead, SupportsReadline, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from socket import socket
-from typing import Any, BinaryIO, TypeVar, overload
+from typing import Any, BinaryIO, Protocol, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
