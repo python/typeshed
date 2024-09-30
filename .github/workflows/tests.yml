@@ -113,7 +113,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-platform: ["linux", "windows", "darwin"]
+        python-platform: ["Linux", "Windows", "Darwin"]
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
       fail-fast: false
     steps:
@@ -134,7 +134,10 @@ jobs:
           if [ -n "$DEPENDENCIES" ]; then
               echo "Installing packages:"
               for DEP in "${DEPENDENCIES[@]}"; do echo "  ${DEP}"; done
-              uv pip install --python-platform ${{ matrix.python-platform }} --python-version ${{ matrix.python-version }} "${DEPENDENCIES[@]}"
+              # TODO: We need to specify the platform here, but the platforms
+              # strings supported by uv are different from the ones supported by
+              # pyright.
+              uv pip install --python-version ${{ matrix.python-version }} "${DEPENDENCIES[@]}"
           fi
       - name: Activate the isolated venv for the rest of the job
         run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
@@ -146,14 +149,14 @@ jobs:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'linux' }} # Having each job create the same comment is too noisy.
+          annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
       - name: Run pyright with stricter settings on some of the stubs
         uses: jakebailey/pyright-action@v2
         with:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'linux' }} # Having each job create the same comment is too noisy.
+          annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.stricter.json
       - name: Run pyright on the test cases
         uses: jakebailey/pyright-action@v2
@@ -161,7 +164,7 @@ jobs:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'linux' }} # Having each job create the same comment is too noisy.
+          annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.testcases.json
 
   stub-uploader:
