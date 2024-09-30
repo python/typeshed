@@ -321,7 +321,8 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     external: list[Requirement] = []
     for dependency in read_metadata(distribution).requires:
         if dependency.name in pypi_name_to_typeshed_name_mapping:
-            req = Requirement(pypi_name_to_typeshed_name_mapping[dependency.name])
+            req = Requirement(str(dependency))  # copy the requirement
+            req.name = pypi_name_to_typeshed_name_mapping[dependency.name]
             typeshed.append(req)
         else:
             # convert to Requirement and then back to str
