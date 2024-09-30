@@ -17,5 +17,5 @@ requirements = set[Requirement]()
 for distribution in distributions:
     requirements.update(read_dependencies(distribution).external_pkgs)
 
-for requirement in sorted(requirements, key=lambda r: str(r)):
+for requirement in sorted(requirements, key=str):
     print(requirement)
