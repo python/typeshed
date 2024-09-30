@@ -134,7 +134,7 @@ jobs:
           if [ -n "$DEPENDENCIES" ]; then
               echo "Installing packages:"
               for DEP in "${DEPENDENCIES[@]}"; do echo "  ${DEP}"; done
-              uv pip install "${DEPENDENCIES[@]}" --system
+              uv pip install "${DEPENDENCIES[@]}"
           fi
       - name: Activate the isolated venv for the rest of the job
         run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
