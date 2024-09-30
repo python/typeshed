@@ -131,7 +131,7 @@ class StubMetadata:
     """
 
     version: str
-    requires: Annotated[list[str], "The raw requirements as listed in METADATA.toml"]
+    requires: Annotated[list[Requirement], "The parsed requirements as listed in METADATA.toml"]
     extra_description: str | None
     stub_distribution: Annotated[str, "The name under which the distribution is uploaded to PyPI"]
     upstream_repository: Annotated[str, "The URL of the upstream repository"] | None
@@ -201,14 +201,9 @@ def read_metadata(distribution: str) -> StubMetadata:
     # Check that the version parses
     Version(version[:-2] if version.endswith(".*") else version)
 
-    requires: object = data.get("requires", [])
-    assert isinstance(requires, list)
-    for req in requires:
-        assert isinstance(req, str), f"Invalid requirement {req!r} for {distribution!r}"
-        for space in " \t\n":
-            assert space not in req, f"For consistency, requirement should not have whitespace: {req!r}"
-        # Check that the requirement parses
-        Requirement(req)
+    requires_s: object = data.get("requires", [])
+    assert isinstance(requires_s, list)
+    requires = [parse_requires(distribution, req) for req in requires_s]
 
     extra_description: object = data.get("extra_description")
     assert isinstance(extra_description, (str, type(None)))
@@ -272,7 +267,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert isinstance(tools_settings, dict)
     assert tools_settings.keys() <= _KNOWN_METADATA_TOOL_FIELDS.keys(), f"Unrecognised tool for {distribution!r}"
     for tool, tk in _KNOWN_METADATA_TOOL_FIELDS.items():
-        settings_for_tool: object = tools_settings.get(tool, {})  # pyright: ignore[reportUnknownMemberType]
+        settings_for_tool: object = tools_settings.get(tool, {})
         assert isinstance(settings_for_tool, dict)
         for key in settings_for_tool:
             assert key in tk, f"Unrecognised {tool} key {key!r} for {distribution!r}"
@@ -292,9 +287,14 @@ def read_metadata(distribution: str) -> StubMetadata:
     )
 
 
+def parse_requires(distribution: str, req: object) -> Requirement:
+    assert isinstance(req, str), f"Invalid requirement {req!r} for {distribution!r}"
+    return Requirement(req)
+
+
 class PackageDependencies(NamedTuple):
-    typeshed_pkgs: tuple[str, ...]
-    external_pkgs: tuple[str, ...]
+    typeshed_pkgs: tuple[Requirement, ...]
+    external_pkgs: tuple[Requirement, ...]
 
 
 @cache
@@ -317,17 +317,18 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     If a typeshed stub is removed, this function will consider it to be an external dependency.
     """
     pypi_name_to_typeshed_name_mapping = get_pypi_name_to_typeshed_name_mapping()
-    typeshed: list[str] = []
-    external: list[str] = []
+    typeshed: list[Requirement] = []
+    external: list[Requirement] = []
     for dependency in read_metadata(distribution).requires:
-        maybe_typeshed_dependency = Requirement(dependency).name
+        maybe_typeshed_dependency = dependency.name
         if maybe_typeshed_dependency in pypi_name_to_typeshed_name_mapping:
-            typeshed.append(pypi_name_to_typeshed_name_mapping[maybe_typeshed_dependency])
+            req = Requirement(pypi_name_to_typeshed_name_mapping[maybe_typeshed_dependency])
+            typeshed.append(req)
         else:
             # convert to Requirement and then back to str
             # to make sure that the requirements all have a normalised string representation
             # (This will also catch any malformed requirements early)
-            external.append(str(Requirement(dependency)))
+            external.append(dependency)
     return PackageDependencies(tuple(typeshed), tuple(external))
 
 
@@ -341,8 +342,8 @@ def get_recursive_requirements(package_name: str) -> PackageDependencies:
     `get_recursive_requirements("caldav")` will determine that the stubs for `caldav`
     have both `requests` and `urllib3` as typeshed-internal dependencies.
     """
-    typeshed: set[str] = set()
-    external: set[str] = set()
+    typeshed: set[Requirement] = set()
+    external: set[Requirement] = set()
     non_recursive_requirements = read_dependencies(package_name)
     typeshed.update(non_recursive_requirements.typeshed_pkgs)
     external.update(non_recursive_requirements.external_pkgs)
@@ -350,4 +351,4 @@ def get_recursive_requirements(package_name: str) -> PackageDependencies:
         reqs = get_recursive_requirements(pkg)
         typeshed.update(reqs.typeshed_pkgs)
         external.update(reqs.external_pkgs)
-    return PackageDependencies(tuple(sorted(typeshed)), tuple(sorted(external)))
+    return PackageDependencies(tuple(typeshed), tuple(external))
