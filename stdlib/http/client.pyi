@@ -37,7 +37,7 @@ _T = TypeVar("_T")
 _MessageT = TypeVar("_MessageT", bound=email.message.Message)
 
 class _HasEncode(Protocol):
-    def encode(encoding: str) -> bytes: ...
+    def encode(self, encoding: str) -> bytes: ...
 
 _HeaderValue = ReadableBuffer | _HasEncode | int
 
