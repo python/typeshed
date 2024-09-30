@@ -8,8 +8,6 @@ from dateutil.rrule import rrule
 from ..prop import vRecur
 
 class TZProvider(ABC):
-    """Interface for timezone implementations."""
-
     @property
     @abstractmethod
     def name(self) -> str: ...
