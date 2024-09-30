@@ -31,8 +31,6 @@ import os
 import traceback
 from collections.abc import Iterable, Sequence
 
-from packaging.requirements import Requirement
-
 # pytype is not py.typed https://github.com/google/pytype/issues/1325
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]
 from pytype.imports import typeshed  # type: ignore[import]
@@ -200,8 +198,7 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
     missing_modules = set()
     for distribution in stub_distributions:
         for external_req in read_dependencies(distribution).external_pkgs:
-            req_name = Requirement(external_req).name
-            associated_packages = _get_pkgs_associated_with_requirement(req_name)
+            associated_packages = _get_pkgs_associated_with_requirement(external_req.name)
             missing_modules.update(associated_packages)
 
     test_dir = os.path.dirname(__file__)
