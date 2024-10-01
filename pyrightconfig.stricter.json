@@ -59,6 +59,7 @@
         "stubs/jsonschema",
         "stubs/jwcrypto",
         "stubs/ldap3",
+        "stubs/m3u8",
         "stubs/Markdown",
         "stubs/mysqlclient",
         "stubs/netaddr/netaddr/core.pyi",
