@@ -6,7 +6,7 @@ import types
 from _typeshed import ReadableBuffer, SupportsRead, SupportsReadline, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from socket import socket
-from typing import Any, BinaryIO, Protocol, TypeVar, overload
+from typing import Any, BinaryIO, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -34,11 +34,7 @@ __all__ = [
 _DataType: TypeAlias = SupportsRead[bytes] | Iterable[ReadableBuffer] | ReadableBuffer
 _T = TypeVar("_T")
 _MessageT = TypeVar("_MessageT", bound=email.message.Message)
-
-class _HasEncode(Protocol):
-    def encode(self, encoding: str) -> bytes: ...
-
-_HeaderValue = ReadableBuffer | _HasEncode | int
+_HeaderValue: TypeAlias = ReadableBuffer | str | int
 
 HTTP_PORT: int
 HTTPS_PORT: int
@@ -185,7 +181,7 @@ class HTTPConnection:
     def connect(self) -> None: ...
     def close(self) -> None: ...
     def putrequest(self, method: str, url: str, skip_host: bool = False, skip_accept_encoding: bool = False) -> None: ...
-    def putheader(self, header: str | bytes, *argument: _HeaderValue) -> None: ...
+    def putheader(self, header: str | bytes, *values: _HeaderValue) -> None: ...
     def endheaders(self, message_body: _DataType | None = None, *, encode_chunked: bool = False) -> None: ...
     def send(self, data: _DataType | str) -> None: ...
 
