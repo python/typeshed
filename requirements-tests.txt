@@ -4,7 +4,7 @@
 black==24.8.0            # must match .pre-commit-config.yaml
 flake8==7.1.1            # must match .pre-commit-config.yaml
 flake8-noqa==1.4.0       # must match .pre-commit-config.yaml
-flake8-pyi==24.9.0       # must match .pre-commit-config.yaml
+flake8-pyi==24.6.0       # must match .pre-commit-config.yaml
 mypy==1.11.2
 pre-commit-hooks==4.6.0  # must match .pre-commit-config.yaml
 pyright==1.1.382.post1
