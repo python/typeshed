@@ -51,8 +51,6 @@ jobs:
           check-latest: true
       - name: Install dependencies
         run: pip install -r requirements-tests.txt
-      - name: Install mypy from git
-        run: pip install git+https://github.com/python/mypy@e8a26308d5d06925cf769b62f41ef2e4bc546ada
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
 
@@ -133,7 +131,7 @@ jobs:
     name: Create an issue if daily tests failed
     runs-on: ubuntu-latest
     needs: [stubtest-stdlib, stubtest-third-party, stub-uploader]
-    if: ${{ github.repository == 'python/typeshed' && always() && github.event_name != 'pull_request' && (needs.stubtest-stdlib.result == 'failure' || needs.stubtest-third-party.result == 'failure' || needs.stub-uploader.result == 'failure') }}
+    if: ${{ github.repository == 'python/typeshed' && always() && github.event_name == 'schedule' && (needs.stubtest-stdlib.result == 'failure' || needs.stubtest-third-party.result == 'failure' || needs.stub-uploader.result == 'failure') }}
     permissions:
       issues: write
     steps:

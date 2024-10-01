@@ -1,7 +1,6 @@
-from _typeshed import Incomplete
+from _typeshed import ExcInfo, Incomplete, Unused
 from collections.abc import Callable, Iterable
-from types import TracebackType
-from typing import Any, ClassVar, Final, Literal
+from typing import ClassVar, Final, Literal
 
 from setuptools import Command
 
@@ -18,32 +17,30 @@ def get_flag(var: str, fallback: bool, expected: bool = True, warn: bool = True)
 def get_abi_tag() -> str | None: ...
 def safer_name(name: str) -> str: ...
 def safer_version(version: str) -> str: ...
-def remove_readonly(
-    func: Callable[..., object], path: str, excinfo: tuple[type[Exception], Exception, TracebackType]
-) -> None: ...
-def remove_readonly_exc(func: Callable[..., object], path: str, exc: Exception) -> None: ...
+def remove_readonly(func: Callable[[str], Unused], path: str, excinfo: ExcInfo) -> None: ...
+def remove_readonly_exc(func: Callable[[str], Unused], path: str, exc: BaseException) -> None: ...
 
 class bdist_wheel(Command):
     description: ClassVar[str]
     supported_compressions: ClassVar[dict[str, int]]
-    user_options: ClassVar[list[tuple[Any, ...]]]
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
     boolean_options: ClassVar[list[str]]
 
     bdist_dir: str | None
-    data_dir: Incomplete | None
+    data_dir: str | None
     plat_name: str | None
-    plat_tag: Incomplete | None
+    plat_tag: str | None
     format: str
     keep_temp: bool
     dist_dir: str | None
-    egginfo_dir: Incomplete | None
+    egginfo_dir: str | None
     root_is_pure: bool | None
-    skip_build: Incomplete | None
+    skip_build: bool
     relative: bool
     owner: Incomplete | None
     group: Incomplete | None
     universal: bool
-    compression: str | int
+    compression: int | str
     python_tag: str
     build_number: str | None
     py_limited_api: str | Literal[False]

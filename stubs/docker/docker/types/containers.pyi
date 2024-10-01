@@ -1,14 +1,10 @@
 from _typeshed import Incomplete
-from pathlib import Path
-from typing import Literal, TypedDict, type_check_only
+from typing import Literal
+
+from docker._types import ContainerWeightDevice
 
 from .base import DictType
 from .services import Mount
-
-@type_check_only
-class ContainerWeightDevice(TypedDict):
-    Path: Path
-    Weight: int
 
 class LogConfigTypesEnum:
     JSON: Incomplete
@@ -154,7 +150,7 @@ class ContainerConfig(dict[str, Incomplete]):
         detach: bool = False,
         stdin_open: bool = False,
         tty: bool = False,
-        ports: dict[str, int | None] | None = None,
+        ports: dict[str, int | list[int] | tuple[str, int] | None] | None = None,
         environment: dict[str, str] | list[str] | None = None,
         volumes: str | list[str] | None = None,
         network_disabled: bool = False,
