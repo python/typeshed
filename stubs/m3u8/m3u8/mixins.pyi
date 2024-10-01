@@ -1,12 +1,10 @@
-# mypy: disable-error-code="attr-defined"
-
 from abc import ABCMeta
 from collections.abc import Iterable
-from typing import Protocol, TypeVar
+from typing import TypeVar
 
 _T = TypeVar("_T")
 
-class BasePathMixin(Protocol):
+class BasePathMixin:
     uri: str | None
     @property
     def absolute_uri(self) -> str: ...
