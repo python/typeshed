@@ -12,7 +12,6 @@ class Splash(Target):
     name: Incomplete
     script_name: Incomplete
     minify_script: Incomplete
-    rundir: Incomplete
     max_img_size: Incomplete
     text_pos: Incomplete
     text_size: Incomplete
@@ -37,12 +36,10 @@ class Splash(Target):
         text_default: str = "Initializing",
         full_tk: bool = False,
         minify_script: bool = True,
-        rundir: str = "__splash",
         name: str = ...,
         script_name: str = ...,
         max_img_size: tuple[int, int] | None = (760, 480),
         always_on_top: bool = True,
     ) -> None: ...
     def assemble(self) -> None: ...
-    def test_tk_version(self) -> None: ...
     def generate_script(self) -> str: ...

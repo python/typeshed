@@ -71,10 +71,8 @@ for this script.
 
 ## pytype\_test.py
 
-Note: this test cannot be run on Windows
-systems unless you are using Windows Subsystem for Linux.
-It also requires a Python version < 3.11 as pytype does not yet support
-Python 3.11 and above.
+Note: This test cannot be run on Python version < 3.13 as pytype does not yet support
+Python 3.13 and above.
 
 Run using:
 ```bash
@@ -137,7 +135,7 @@ on your typeshed fork).
 As a convenience, stubtest\_stdlib.py will look for local-only allowlist files
 and use those if they are present. Only version-specific local allowlists are supported.
 An example local allowlist file is
-`tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
+`stdlib/@tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
 the CI run of stubtest remains canonical.
 
 If you need a specific version of Python to repro a CI failure,
@@ -145,7 +143,7 @@ If you need a specific version of Python to repro a CI failure,
 
 Due to its dynamic nature, you may run into false positives. In this case, you
 can add to the allowlists for each affected Python version in
-`tests/stubtest_allowlists`. Please file issues for stubtest false positives
+`stdlib/@tests/stubtest_allowlists`. Please file issues for stubtest false positives
 at [mypy](https://github.com/python/mypy/issues).
 
 ## stubtest\_third\_party.py
@@ -176,8 +174,10 @@ directly, with
 ```
 
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
-relative to the distribution. Additional packages that are needed to run stubtest for a
-distribution can be added to `tool.stubtest.stubtest_requirements` in `METADATA.toml`.
+relative to the distribution. Platform specific items can be ignored by listing them
+in a `@tests/stubtest_allowlist_{platform}.txt` file. Additional configuration
+can be found in the `tool.stubtest` section of the `METADATA.toml` file. See
+[CONTRIBUTING.md](../CONTRIBUTING.md#the-metadatatoml-file) for more information.
 
 ### Using stubtest to find objects missing from the stubs
 

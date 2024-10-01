@@ -9,16 +9,16 @@ from .statistics import Statistics
 __all__ = ("StyleGuide",)
 
 class Selected(enum.Enum):
-    Explicitly: str
-    Implicitly: str
+    Explicitly = "explicitly selected"
+    Implicitly = "implicitly selected"
 
 class Ignored(enum.Enum):
-    Explicitly: str
-    Implicitly: str
+    Explicitly = "explicitly ignored"
+    Implicitly = "implicitly ignored"
 
 class Decision(enum.Enum):
-    Ignored: str
-    Selected: str
+    Ignored = "ignored error"
+    Selected = "selected error"
 
 class DecisionEngine:
     cache: Incomplete

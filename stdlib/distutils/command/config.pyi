@@ -1,16 +1,17 @@
+from _typeshed import StrOrBytesPath
 from collections.abc import Sequence
 from re import Pattern
-from typing import Any, Literal
+from typing import Any, ClassVar, Final, Literal
 
 from ..ccompiler import CCompiler
 from ..cmd import Command
 
-LANG_EXT: dict[str, str]
+LANG_EXT: Final[dict[str, str]]
 
 class config(Command):
     description: str
     # Tuple is full name, short name, description
-    user_options: Sequence[tuple[str, str | None, str]]
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
     compiler: str | CCompiler
     cc: str | None
     include_dirs: Sequence[str] | None
@@ -80,4 +81,4 @@ class config(Command):
         self, header: str, include_dirs: Sequence[str] | None = None, library_dirs: Sequence[str] | None = None, lang: str = "c"
     ) -> bool: ...
 
-def dump_file(filename: str, head: Any | None = None) -> None: ...
+def dump_file(filename: StrOrBytesPath, head: Any | None = None) -> None: ...

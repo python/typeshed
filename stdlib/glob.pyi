@@ -7,6 +7,9 @@ __all__ = ["escape", "glob", "iglob"]
 if sys.version_info >= (3, 13):
     __all__ += ["translate"]
 
+if sys.version_info >= (3, 13):
+    __all__ += ["translate"]
+
 def glob0(dirname: AnyStr, pattern: AnyStr) -> list[AnyStr]: ...
 def glob1(dirname: AnyStr, pattern: AnyStr) -> list[AnyStr]: ...
 

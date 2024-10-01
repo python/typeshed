@@ -7,10 +7,11 @@ import os
 import re
 import subprocess
 import sys
+from importlib.util import find_spec
 from pathlib import Path
 from typing import Any
 
-from utils import TEST_CASES_DIR, test_cases_path
+from _utils import TEST_CASES_DIR, test_cases_path
 
 try:
     from termcolor import colored  # pyright: ignore[reportAssignmentType]
@@ -62,7 +63,7 @@ def main() -> None:
     parser.add_argument(
         "--python-version",
         default=_PYTHON_VERSION,
-        choices=("3.8", "3.9", "3.10", "3.11", "3.12"),
+        choices=("3.8", "3.9", "3.10", "3.11", "3.12", "3.13"),
         help="Target Python version for the test (default: %(default)s).",
     )
     parser.add_argument("path", help="Path of the stub to test in format <folder>/<stub>, from the root of the project.")
@@ -78,12 +79,12 @@ def main() -> None:
     if folder not in {"stdlib", "stubs"}:
         parser.error("Only the 'stdlib' and 'stubs' folders are supported.")
     if not os.path.exists(path):
-        parser.error(rf"'path' {path} does not exist.")
+        parser.error(f"{path=} does not exist.")
     stubtest_result: subprocess.CompletedProcess[bytes] | None = None
     pytype_result: subprocess.CompletedProcess[bytes] | None = None
 
     print("\nRunning pre-commit...")
-    pre_commit_result = subprocess.run(["pre-commit", "run", "--all-files"])
+    pre_commit_result = subprocess.run(["pre-commit", "run", "--files", *Path(path).rglob("*")])
 
     print("\nRunning check_typeshed_structure.py...")
     check_structure_result = subprocess.run([sys.executable, "tests/check_typeshed_structure.py"])
@@ -127,11 +128,11 @@ def main() -> None:
     else:
         print(colored("\nSkipping stubtest since mypy failed.", "yellow"))
 
-    if sys.platform == "win32":
-        print(colored("\nSkipping pytype on Windows. You can run the test with WSL.", "yellow"))
-    else:
+    if find_spec("pytype"):
         print("\nRunning pytype...")
         pytype_result = subprocess.run([sys.executable, "tests/pytype_test.py", path])
+    else:
+        print(colored("\nSkipping pytype on Windows. You need to install it first: `pip install pytype`.", "yellow"))
 
     cases_path = test_cases_path(stub if folder == "stubs" else "stdlib")
     if not cases_path.exists():
