@@ -1,5 +1,6 @@
 import enum
 import sre_compile
+import sre_constants
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterator, Mapping
@@ -21,7 +22,6 @@ __all__ = [
     "finditer",
     "compile",
     "purge",
-    "template",
     "escape",
     "error",
     "A",
@@ -41,9 +41,16 @@ __all__ = [
     "Match",
     "Pattern",
 ]
+if sys.version_info < (3, 13):
+    __all__ += ["template"]
 
 if sys.version_info >= (3, 11):
     __all__ += ["NOFLAG", "RegexFlag"]
+
+if sys.version_info >= (3, 13):
+    __all__ += ["PatternError"]
+
+    PatternError = sre_constants.error
 
 _T = TypeVar("_T")
 
@@ -67,7 +74,7 @@ class Match(Generic[AnyStr]):
     @overload
     def expand(self: Match[str], template: str) -> str: ...
     @overload
-    def expand(self: Match[bytes], template: ReadableBuffer) -> bytes: ...  # type: ignore[overload-overlap]
+    def expand(self: Match[bytes], template: ReadableBuffer) -> bytes: ...
     @overload
     def expand(self, template: AnyStr) -> AnyStr: ...
     # group() returns "AnyStr" or "AnyStr | None", depending on the pattern.
@@ -102,7 +109,7 @@ class Match(Generic[AnyStr]):
     def __copy__(self) -> Match[AnyStr]: ...
     def __deepcopy__(self, memo: Any, /) -> Match[AnyStr]: ...
     if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
+        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 @final
 class Pattern(Generic[AnyStr]):
@@ -117,19 +124,21 @@ class Pattern(Generic[AnyStr]):
     @overload
     def search(self: Pattern[str], string: str, pos: int = 0, endpos: int = sys.maxsize) -> Match[str] | None: ...
     @overload
-    def search(self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize) -> Match[bytes] | None: ...  # type: ignore[overload-overlap]
+    def search(self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize) -> Match[bytes] | None: ...
     @overload
     def search(self, string: AnyStr, pos: int = 0, endpos: int = sys.maxsize) -> Match[AnyStr] | None: ...
     @overload
     def match(self: Pattern[str], string: str, pos: int = 0, endpos: int = sys.maxsize) -> Match[str] | None: ...
     @overload
-    def match(self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize) -> Match[bytes] | None: ...  # type: ignore[overload-overlap]
+    def match(self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize) -> Match[bytes] | None: ...
     @overload
     def match(self, string: AnyStr, pos: int = 0, endpos: int = sys.maxsize) -> Match[AnyStr] | None: ...
     @overload
     def fullmatch(self: Pattern[str], string: str, pos: int = 0, endpos: int = sys.maxsize) -> Match[str] | None: ...
     @overload
-    def fullmatch(self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize) -> Match[bytes] | None: ...  # type: ignore[overload-overlap]
+    def fullmatch(
+        self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize
+    ) -> Match[bytes] | None: ...
     @overload
     def fullmatch(self, string: AnyStr, pos: int = 0, endpos: int = sys.maxsize) -> Match[AnyStr] | None: ...
     @overload
@@ -148,13 +157,15 @@ class Pattern(Generic[AnyStr]):
     @overload
     def finditer(self: Pattern[str], string: str, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[str]]: ...
     @overload
-    def finditer(self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[bytes]]: ...  # type: ignore[overload-overlap]
+    def finditer(
+        self: Pattern[bytes], string: ReadableBuffer, pos: int = 0, endpos: int = sys.maxsize
+    ) -> Iterator[Match[bytes]]: ...
     @overload
     def finditer(self, string: AnyStr, pos: int = 0, endpos: int = sys.maxsize) -> Iterator[Match[AnyStr]]: ...
     @overload
     def sub(self: Pattern[str], repl: str | Callable[[Match[str]], str], string: str, count: int = 0) -> str: ...
     @overload
-    def sub(  # type: ignore[overload-overlap]
+    def sub(
         self: Pattern[bytes],
         repl: ReadableBuffer | Callable[[Match[bytes]], ReadableBuffer],
         string: ReadableBuffer,
@@ -165,7 +176,7 @@ class Pattern(Generic[AnyStr]):
     @overload
     def subn(self: Pattern[str], repl: str | Callable[[Match[str]], str], string: str, count: int = 0) -> tuple[str, int]: ...
     @overload
-    def subn(  # type: ignore[overload-overlap]
+    def subn(
         self: Pattern[bytes],
         repl: ReadableBuffer | Callable[[Match[bytes]], ReadableBuffer],
         string: ReadableBuffer,
@@ -178,7 +189,7 @@ class Pattern(Generic[AnyStr]):
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
     if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
+        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 # ----- re variables and constants -----
 
@@ -198,10 +209,11 @@ class RegexFlag(enum.IntFlag):
     VERBOSE = X
     U = sre_compile.SRE_FLAG_UNICODE
     UNICODE = U
-    T = sre_compile.SRE_FLAG_TEMPLATE
-    TEMPLATE = T
+    if sys.version_info < (3, 13):
+        T = sre_compile.SRE_FLAG_TEMPLATE
+        TEMPLATE = T
     if sys.version_info >= (3, 11):
-        NOFLAG: int
+        NOFLAG = 0
 
 A = RegexFlag.A
 ASCII = RegexFlag.ASCII
@@ -218,8 +230,9 @@ X = RegexFlag.X
 VERBOSE = RegexFlag.VERBOSE
 U = RegexFlag.U
 UNICODE = RegexFlag.UNICODE
-T = RegexFlag.T
-TEMPLATE = RegexFlag.TEMPLATE
+if sys.version_info < (3, 13):
+    T = RegexFlag.T
+    TEMPLATE = RegexFlag.TEMPLATE
 if sys.version_info >= (3, 11):
     NOFLAG = RegexFlag.NOFLAG
 _FlagsType: TypeAlias = int | RegexFlag
@@ -287,4 +300,6 @@ def subn(
 ) -> tuple[bytes, int]: ...
 def escape(pattern: AnyStr) -> AnyStr: ...
 def purge() -> None: ...
-def template(pattern: AnyStr | Pattern[AnyStr], flags: _FlagsType = 0) -> Pattern[AnyStr]: ...
+
+if sys.version_info < (3, 13):
+    def template(pattern: AnyStr | Pattern[AnyStr], flags: _FlagsType = 0) -> Pattern[AnyStr]: ...

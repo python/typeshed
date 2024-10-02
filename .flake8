@@ -1,7 +1,7 @@
 [flake8]
 # NQA: Ruff won't warn about redundant `# noqa: Y`
 # Y: Flake8 is only used to run flake8-pyi, everything else is in Ruff
-# F821: Until https://github.com/astral-sh/ruff/issues/3011 is fixed, we need flake8-pyi's monkeypatching
+# F821: Typeshed is a testing ground for flake8-pyi, which monkeypatches F821
 select = NQA, Y, F821
 # Ignore rules normally excluded by default
 extend-ignore = Y090
@@ -14,8 +14,6 @@ per-file-ignores =
   # Y026: Have implicit type aliases
   # Y053: have literals >50 characters long
   stubs/*_pb2.pyi: Y021, Y023, Y026, Y053
-  # TODO: Remove bare "Incomplete"s from stubs (Y065)
-  stubs/*.pyi: Y065
 
 exclude = .venv*,.git
 noqa_require_code = true

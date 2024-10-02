@@ -51,15 +51,27 @@ class UserDict(MutableMapping[_KT, _VT]):
     @overload
     def __init__(self, dict: None = None, /) -> None: ...
     @overload
-    def __init__(self: UserDict[str, _VT], dict: None = None, /, **kwargs: _VT) -> None: ...
+    def __init__(
+        self: UserDict[str, _VT], dict: None = None, /, **kwargs: _VT  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+    ) -> None: ...
     @overload
     def __init__(self, dict: SupportsKeysAndGetItem[_KT, _VT], /) -> None: ...
     @overload
-    def __init__(self: UserDict[str, _VT], dict: SupportsKeysAndGetItem[str, _VT], /, **kwargs: _VT) -> None: ...
+    def __init__(
+        self: UserDict[str, _VT],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        dict: SupportsKeysAndGetItem[str, _VT],
+        /,
+        **kwargs: _VT,
+    ) -> None: ...
     @overload
     def __init__(self, iterable: Iterable[tuple[_KT, _VT]], /) -> None: ...
     @overload
-    def __init__(self: UserDict[str, _VT], iterable: Iterable[tuple[str, _VT]], /, **kwargs: _VT) -> None: ...
+    def __init__(
+        self: UserDict[str, _VT],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        iterable: Iterable[tuple[str, _VT]],
+        /,
+        **kwargs: _VT,
+    ) -> None: ...
     @overload
     def __init__(self: UserDict[str, str], iterable: Iterable[list[str]], /) -> None: ...
     @overload
@@ -333,15 +345,15 @@ class _OrderedDictValuesView(ValuesView[_VT_co], Reversible[_VT_co]):
 # but they are not exposed anywhere)
 # pyright doesn't have a specific error code for subclassing error!
 @final
-class _odict_keys(dict_keys[_KT_co, _VT_co], Reversible[_KT_co]):  # type: ignore[misc]  # pyright: ignore
+class _odict_keys(dict_keys[_KT_co, _VT_co], Reversible[_KT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     def __reversed__(self) -> Iterator[_KT_co]: ...
 
 @final
-class _odict_items(dict_items[_KT_co, _VT_co], Reversible[tuple[_KT_co, _VT_co]]):  # type: ignore[misc]  # pyright: ignore
+class _odict_items(dict_items[_KT_co, _VT_co], Reversible[tuple[_KT_co, _VT_co]]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     def __reversed__(self) -> Iterator[tuple[_KT_co, _VT_co]]: ...
 
 @final
-class _odict_values(dict_values[_KT_co, _VT_co], Reversible[_VT_co], Generic[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore
+class _odict_values(dict_values[_KT_co, _VT_co], Reversible[_VT_co], Generic[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     def __reversed__(self) -> Iterator[_VT_co]: ...
 
 class OrderedDict(dict[_KT, _VT], Reversible[_KT], Generic[_KT, _VT]):
@@ -389,16 +401,21 @@ class defaultdict(dict[_KT, _VT]):
     @overload
     def __init__(self) -> None: ...
     @overload
-    def __init__(self: defaultdict[str, _VT], **kwargs: _VT) -> None: ...
+    def __init__(self: defaultdict[str, _VT], **kwargs: _VT) -> None: ...  # pyright: ignore[reportInvalidTypeVarUse]  #11780
     @overload
     def __init__(self, default_factory: Callable[[], _VT] | None, /) -> None: ...
     @overload
-    def __init__(self: defaultdict[str, _VT], default_factory: Callable[[], _VT] | None, /, **kwargs: _VT) -> None: ...
+    def __init__(
+        self: defaultdict[str, _VT],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        default_factory: Callable[[], _VT] | None,
+        /,
+        **kwargs: _VT,
+    ) -> None: ...
     @overload
     def __init__(self, default_factory: Callable[[], _VT] | None, map: SupportsKeysAndGetItem[_KT, _VT], /) -> None: ...
     @overload
     def __init__(
-        self: defaultdict[str, _VT],
+        self: defaultdict[str, _VT],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         default_factory: Callable[[], _VT] | None,
         map: SupportsKeysAndGetItem[str, _VT],
         /,
@@ -408,7 +425,7 @@ class defaultdict(dict[_KT, _VT]):
     def __init__(self, default_factory: Callable[[], _VT] | None, iterable: Iterable[tuple[_KT, _VT]], /) -> None: ...
     @overload
     def __init__(
-        self: defaultdict[str, _VT],
+        self: defaultdict[str, _VT],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         default_factory: Callable[[], _VT] | None,
         iterable: Iterable[tuple[str, _VT]],
         /,
@@ -458,7 +475,8 @@ class ChainMap(MutableMapping[_KT, _VT]):
     def pop(self, key: _KT, default: _T) -> _VT | _T: ...
     def copy(self) -> Self: ...
     __copy__ = copy
-    # All arguments to `fromkeys` are passed to `dict.fromkeys` at runtime, so the signature should be kept in line with `dict.fromkeys`.
+    # All arguments to `fromkeys` are passed to `dict.fromkeys` at runtime,
+    # so the signature should be kept in line with `dict.fromkeys`.
     @classmethod
     @overload
     def fromkeys(cls, iterable: Iterable[_T]) -> ChainMap[_T, Any | None]: ...

@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from utils import parse_requirements, print_command
+from _utils import parse_requirements, print_command
 
 _WELL_KNOWN_FILE = Path("tests", "pyright_test.py")
 

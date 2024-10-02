@@ -61,8 +61,6 @@ class Descriptor(_NestedDescriptorBase):
     extension_ranges: Any
     oneofs: Any
     oneofs_by_name: Any
-    @property
-    def syntax(self): ...
     def __init__(
         self,
         name: str,
@@ -156,7 +154,8 @@ class FieldDescriptor(DescriptorBase):
     number: Any
     type: Any
     cpp_type: Any
-    label: Any
+    @property
+    def label(self): ...
     has_default_value: Any
     default_value: Any
     containing_type: Any
@@ -319,6 +318,7 @@ class FileDescriptor(DescriptorBase):
         dependencies=None,
         public_dependencies=None,
         syntax=None,
+        edition=None,
         pool=None,
         create_key=None,
     ): ...
@@ -327,8 +327,6 @@ class FileDescriptor(DescriptorBase):
     message_types_by_name: Any
     name: Any
     package: Any
-    @property
-    def syntax(self): ...
     serialized_pb: Any
     enum_types_by_name: Any
     extensions_by_name: Any
@@ -345,11 +343,12 @@ class FileDescriptor(DescriptorBase):
         dependencies=None,
         public_dependencies=None,
         syntax=None,
+        edition=None,
         pool=None,
         create_key=None,
     ) -> None: ...
     def CopyToProto(self, proto): ...
     def GetOptions(self) -> FileOptions: ...
 
-def MakeDescriptor(desc_proto, package="", build_file_if_cpp=True, syntax=None): ...
+def MakeDescriptor(desc_proto, package="", build_file_if_cpp=True, syntax=None, edition=None, file_desc=None): ...
 def _ParseOptions(message: Message, string: bytes) -> Message: ...
