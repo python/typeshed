@@ -1,14 +1,15 @@
 import datetime
 from _typeshed import Incomplete
-from collections.abc import Iterable, Iterator, Mapping, Sequence
-from typing import TypeVar, overload
-from typing_extensions import Literal, Self, TypeAlias
+from collections import defaultdict
+from collections.abc import Callable, Container, Iterable, Iterator, Mapping, Sequence
+from typing import Any, Literal, TypeVar, overload
+from typing_extensions import Self, TypeAlias
 from urllib.parse import ParseResult, SplitResult
 
 from vobject.base import VBase
 
 from .davclient import DAVClient
-from .elements.cdav import CalendarQuery, CompFilter, ScheduleInboxURL, ScheduleOutboxURL
+from .elements.cdav import CalendarData, CalendarQuery, CompFilter, ScheduleInboxURL, ScheduleOutboxURL
 from .lib.url import URL
 
 _CC = TypeVar("_CC", bound=CalendarObjectResource)
@@ -32,7 +33,7 @@ class DAVObject:
         name: str | None = None,
         id: str | None = None,
         props: Mapping[Incomplete, Incomplete] | None = None,
-        **extra: Incomplete,
+        **extra,
     ) -> None: ...
     @property
     def canonical_url(self) -> str: ...
@@ -69,14 +70,10 @@ class Principal(DAVObject):
 class Calendar(DAVObject):
     def get_supported_components(self) -> list[Incomplete]: ...
     def save_with_invites(self, ical: str, attendees, **attendeeoptions) -> None: ...
-    def save_event(
-        self, ical: str | None = None, no_overwrite: bool = False, no_create: bool = False, **ical_data: Incomplete
-    ) -> Event: ...
-    def save_todo(
-        self, ical: str | None = None, no_overwrite: bool = False, no_create: bool = False, **ical_data: Incomplete
-    ) -> Todo: ...
+    def save_event(self, ical: str | None = None, no_overwrite: bool = False, no_create: bool = False, **ical_data) -> Event: ...
+    def save_todo(self, ical: str | None = None, no_overwrite: bool = False, no_create: bool = False, **ical_data) -> Todo: ...
     def save_journal(
-        self, ical: str | None = None, no_overwrite: bool = False, no_create: bool = False, **ical_data: Incomplete
+        self, ical: str | None = None, no_overwrite: bool = False, no_create: bool = False, **ical_data
     ) -> Journal: ...
     add_event = save_event
     add_todo = save_todo
@@ -125,6 +122,7 @@ class Calendar(DAVObject):
         include_completed: bool = False,
         sort_keys: Sequence[str] = (),
         split_expanded: bool = True,
+        props: list[CalendarData] | None = None,
         **kwargs,
     ) -> list[CalendarObjectResource]: ...
     @overload
@@ -136,6 +134,7 @@ class Calendar(DAVObject):
         include_completed: bool = False,
         sort_keys: Sequence[str] = (),
         split_expanded: bool = True,
+        props: list[CalendarData] | None = None,
         **kwargs,
     ) -> list[_CC]: ...
     @overload
@@ -147,6 +146,7 @@ class Calendar(DAVObject):
         include_completed: bool = False,
         sort_keys: Sequence[str] = (),
         split_expanded: bool = True,
+        props: list[CalendarData] | None = None,
         **kwargs,
     ) -> list[_CC]: ...
     def build_search_xml_query(
@@ -161,6 +161,7 @@ class Calendar(DAVObject):
         expand: bool | None = None,
         start: datetime.datetime | None = None,
         end: datetime.datetime | None = None,
+        props: list[CalendarData] | None = None,
         *,
         uid=...,
         summary=...,
@@ -168,6 +169,7 @@ class Calendar(DAVObject):
         description=...,
         location=...,
         status=...,
+        **kwargs: str,
     ) -> tuple[CalendarQuery, _CompClass]: ...
     def freebusy_request(self, start: datetime.datetime, end: datetime.datetime) -> FreeBusy: ...
     def todos(
@@ -221,6 +223,13 @@ class CalendarObjectResource(DAVObject):
     def add_organizer(self) -> None: ...
     def split_expanded(self) -> list[Self]: ...
     def expand_rrule(self, start: datetime.datetime, end: datetime.datetime) -> None: ...
+    def get_relatives(
+        self,
+        reltypes: Container[str] | None = None,
+        relfilter: Callable[[Any], bool] | None = None,
+        fetch_objects: bool = True,
+        ignore_missing: bool = True,
+    ) -> defaultdict[str, set[str]]: ...
     def add_attendee(self, attendee, no_default_parameters: bool = False, **parameters) -> None: ...
     def is_invite_request(self) -> bool: ...
     def accept_invite(self, calendar: Incomplete | None = None) -> None: ...

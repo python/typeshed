@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Generator
 from contextlib import contextmanager
 from typing import ClassVar
 
@@ -14,12 +14,14 @@ class Client:
     client_info: Incomplete
     secure: bool
     stub: Incomplete
+    database: str | None
     def __init__(
         self,
         project: str | None = ...,
         namespace: str | None = ...,
         credentials: Incomplete | None = ...,
         client_options: Incomplete | None = ...,
+        database: str | None = None,
     ) -> None: ...
     @contextmanager
     def context(
@@ -30,4 +32,4 @@ class Client:
         global_cache_policy: Callable[[key.Key], bool] | None = ...,
         global_cache_timeout_policy: Callable[[key.Key], int] | None = ...,
         legacy_data: bool = ...,
-    ) -> Iterator[context_module.Context]: ...
+    ) -> Generator[context_module.Context]: ...

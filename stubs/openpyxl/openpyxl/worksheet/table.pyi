@@ -1,12 +1,14 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar, overload
-from typing_extensions import Final, Literal, TypeAlias
+from _typeshed import ConvertibleToInt, Incomplete, Unused
+from collections.abc import Iterator
+from typing import ClassVar, Final, Literal, overload
+from typing_extensions import Self, TypeAlias
 
 from openpyxl.descriptors import Strict, String
-from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Alias, Bool, Integer, NoneSet, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
-from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.descriptors.serialisable import Serialisable, _ChildSerialisableTreeElement
 from openpyxl.worksheet.filters import AutoFilter, SortState
+from openpyxl.xml.functions import Element
 
 _TableColumnTotalsRowFunction: TypeAlias = Literal[
     "sum", "min", "max", "average", "count", "countNums", "stdDev", "var", "custom"
@@ -43,7 +45,7 @@ class XMLColumnProps(Serialisable):
     @overload
     def __init__(
         self,
-        mapId: _ConvertibleToInt,
+        mapId: ConvertibleToInt,
         xpath: str,
         denormalized: _ConvertibleToBool | None = None,
         *,
@@ -53,7 +55,7 @@ class XMLColumnProps(Serialisable):
     @overload
     def __init__(
         self,
-        mapId: _ConvertibleToInt,
+        mapId: ConvertibleToInt,
         xpath: str,
         denormalized: _ConvertibleToBool | None,
         xmlDataType: str,
@@ -89,16 +91,16 @@ class TableColumn(Serialisable):
     @overload
     def __init__(
         self,
-        id: _ConvertibleToInt,
+        id: ConvertibleToInt,
         uniqueName: str | None = None,
         *,
         name: str,
         totalsRowFunction: _TableColumnTotalsRowFunction | Literal["none"] | None = None,
         totalsRowLabel: str | None = None,
-        queryTableFieldId: _ConvertibleToInt | None = None,
-        headerRowDxfId: _ConvertibleToInt | None = None,
-        dataDxfId: _ConvertibleToInt | None = None,
-        totalsRowDxfId: _ConvertibleToInt | None = None,
+        queryTableFieldId: ConvertibleToInt | None = None,
+        headerRowDxfId: ConvertibleToInt | None = None,
+        dataDxfId: ConvertibleToInt | None = None,
+        totalsRowDxfId: ConvertibleToInt | None = None,
         headerRowCellStyle: str | None = None,
         dataCellStyle: str | None = None,
         totalsRowCellStyle: str | None = None,
@@ -110,15 +112,15 @@ class TableColumn(Serialisable):
     @overload
     def __init__(
         self,
-        id: _ConvertibleToInt,
+        id: ConvertibleToInt,
         uniqueName: str | None,
         name: str,
         totalsRowFunction: _TableColumnTotalsRowFunction | Literal["none"] | None = None,
         totalsRowLabel: str | None = None,
-        queryTableFieldId: _ConvertibleToInt | None = None,
-        headerRowDxfId: _ConvertibleToInt | None = None,
-        dataDxfId: _ConvertibleToInt | None = None,
-        totalsRowDxfId: _ConvertibleToInt | None = None,
+        queryTableFieldId: ConvertibleToInt | None = None,
+        headerRowDxfId: ConvertibleToInt | None = None,
+        dataDxfId: ConvertibleToInt | None = None,
+        totalsRowDxfId: ConvertibleToInt | None = None,
         headerRowCellStyle: str | None = None,
         dataCellStyle: str | None = None,
         totalsRowCellStyle: str | None = None,
@@ -127,9 +129,9 @@ class TableColumn(Serialisable):
         xmlColumnPr: XMLColumnProps | None = None,
         extLst: ExtensionList | None = None,
     ) -> None: ...
-    def __iter__(self): ...
+    def __iter__(self) -> Iterator[tuple[str, str]]: ...
     @classmethod
-    def from_tree(cls, node): ...
+    def from_tree(cls, node: _ChildSerialisableTreeElement) -> Self: ...
 
 class TableNameDescriptor(String[Incomplete]):
     def __set__(self, instance: Serialisable | Strict, value) -> None: ...
@@ -167,39 +169,39 @@ class Table(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        id: _ConvertibleToInt = 1,
+        id: ConvertibleToInt = 1,
         displayName: Incomplete | None = None,
         ref: Incomplete | None = None,
         name: str | None = None,
         comment: str | None = None,
         tableType: _TableTableType | Literal["none"] | None = None,
-        headerRowCount: _ConvertibleToInt | None = 1,
+        headerRowCount: ConvertibleToInt | None = 1,
         insertRow: _ConvertibleToBool | None = None,
         insertRowShift: _ConvertibleToBool | None = None,
-        totalsRowCount: _ConvertibleToInt | None = None,
+        totalsRowCount: ConvertibleToInt | None = None,
         totalsRowShown: _ConvertibleToBool | None = None,
         published: _ConvertibleToBool | None = None,
-        headerRowDxfId: _ConvertibleToInt | None = None,
-        dataDxfId: _ConvertibleToInt | None = None,
-        totalsRowDxfId: _ConvertibleToInt | None = None,
-        headerRowBorderDxfId: _ConvertibleToInt | None = None,
-        tableBorderDxfId: _ConvertibleToInt | None = None,
-        totalsRowBorderDxfId: _ConvertibleToInt | None = None,
+        headerRowDxfId: ConvertibleToInt | None = None,
+        dataDxfId: ConvertibleToInt | None = None,
+        totalsRowDxfId: ConvertibleToInt | None = None,
+        headerRowBorderDxfId: ConvertibleToInt | None = None,
+        tableBorderDxfId: ConvertibleToInt | None = None,
+        totalsRowBorderDxfId: ConvertibleToInt | None = None,
         headerRowCellStyle: str | None = None,
         dataCellStyle: str | None = None,
         totalsRowCellStyle: str | None = None,
-        connectionId: _ConvertibleToInt | None = None,
+        connectionId: ConvertibleToInt | None = None,
         autoFilter: AutoFilter | None = None,
         sortState: SortState | None = None,
         tableColumns=(),
         tableStyleInfo: TableStyleInfo | None = None,
         extLst: Unused = None,
     ) -> None: ...
-    def to_tree(self): ...
+    def to_tree(self) -> Element: ...  # type: ignore[override]
     @property
-    def path(self): ...
+    def path(self) -> str: ...
     @property
-    def column_names(self): ...
+    def column_names(self) -> list[str]: ...
 
 class TablePartList(Serialisable):
     tagname: ClassVar[str]
@@ -211,7 +213,7 @@ class TablePartList(Serialisable):
     def __init__(self, count: Unused = None, tablePart=()) -> None: ...
     def append(self, part) -> None: ...
     @property
-    def count(self): ...
+    def count(self) -> int: ...
     def __bool__(self) -> bool: ...
 
 class TableList(dict[Incomplete, Incomplete]):

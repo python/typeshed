@@ -1,6 +1,6 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from _typeshed import ConvertibleToInt, Incomplete, Unused
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
 from openpyxl.chart.data_source import AxDataSource, NumDataSource, StrRef
 from openpyxl.chart.error_bar import ErrorBars
@@ -9,10 +9,11 @@ from openpyxl.chart.marker import Marker
 from openpyxl.chart.picture import PictureOptions
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.trendline import Trendline
-from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool, _ConvertibleToInt
+from openpyxl.descriptors.base import Alias, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedBool, NestedInteger, NestedNoneSet, NestedText, _NestedNoneSetParam
 from openpyxl.descriptors.serialisable import Serialisable
+from openpyxl.xml.functions import Element
 
 from ..xml._functions_overloads import _HasTagAndGet
 
@@ -60,8 +61,8 @@ class Series(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
         self,
-        idx: _HasTagAndGet[_ConvertibleToInt] | _ConvertibleToInt = 0,
-        order: _HasTagAndGet[_ConvertibleToInt] | _ConvertibleToInt = 0,
+        idx: _HasTagAndGet[ConvertibleToInt] | ConvertibleToInt = 0,
+        order: _HasTagAndGet[ConvertibleToInt] | ConvertibleToInt = 0,
         tx: SeriesLabel | None = None,
         spPr: GraphicalProperties | None = None,
         pictureOptions: PictureOptions | None = None,
@@ -79,24 +80,28 @@ class Series(Serialisable):
         bubble3D: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
         marker: Marker | None = None,
         smooth: _HasTagAndGet[_ConvertibleToBool | None] | _ConvertibleToBool | None = None,
-        explosion: _HasTagAndGet[_ConvertibleToInt | None] | _ConvertibleToInt | None = None,
+        explosion: _HasTagAndGet[ConvertibleToInt | None] | ConvertibleToInt | None = None,
         extLst: Unused = None,
     ) -> None: ...
-    def to_tree(self, tagname: str | None = None, idx: Incomplete | None = None): ...  # type: ignore[override]
+    def to_tree(  # type: ignore[override]
+        self, tagname: str | None = None, idx: _HasTagAndGet[ConvertibleToInt] | ConvertibleToInt | None = None
+    ) -> Element: ...
 
 class XYSeries(Series):
-    idx: Incomplete
-    order: Incomplete
-    tx: Incomplete
-    spPr: Incomplete
-    dPt: Incomplete
-    dLbls: Incomplete
-    trendline: Incomplete
-    errBars: Incomplete
-    xVal: Incomplete
-    yVal: Incomplete
-    invertIfNegative: Incomplete
-    bubbleSize: Incomplete
-    bubble3D: Incomplete
-    marker: Incomplete
-    smooth: Incomplete
+    # Same as parent
+    # idx = Series.idx
+    # order = Series.order
+    # tx = Series.tx
+    # spPr = Series.spPr
+    # dPt = Series.dPt
+    # dLbls = Series.dLbls
+    # trendline = Series.trendline
+    # errBars = Series.errBars
+    # xVal = Series.xVal
+    # yVal = Series.yVal
+    # invertIfNegative = Series.invertIfNegative
+    # bubbleSize = Series.bubbleSize
+    # bubble3D = Series.bubble3D
+    # marker = Series.marker
+    # smooth = Series.smooth
+    ...

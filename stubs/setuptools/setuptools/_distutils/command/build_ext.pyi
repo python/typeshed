@@ -1,13 +1,16 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from collections.abc import Callable
+from typing import ClassVar
 
 from ..cmd import Command
+from ..extension import Extension
 
 class build_ext(Command):
     description: str
     sep_by: Incomplete
-    user_options: Incomplete
-    boolean_options: Incomplete
-    help_options: Incomplete
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
+    boolean_options: ClassVar[list[str]]
+    help_options: ClassVar[list[tuple[str, str | None, str, Callable[[], Unused]]]]
     extensions: Incomplete
     build_lib: Incomplete
     plat_name: Incomplete
@@ -42,5 +45,5 @@ class build_ext(Command):
     def get_ext_fullpath(self, ext_name: str) -> str: ...
     def get_ext_fullname(self, ext_name: str) -> str: ...
     def get_ext_filename(self, ext_name: str) -> str: ...
-    def get_export_symbols(self, ext): ...
-    def get_libraries(self, ext): ...
+    def get_export_symbols(self, ext: Extension) -> list[str]: ...
+    def get_libraries(self, ext: Extension) -> list[str]: ...

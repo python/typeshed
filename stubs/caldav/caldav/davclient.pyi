@@ -20,7 +20,8 @@ class DAVResponse:
     status: int
     headers: CaseInsensitiveDict[str]
     objects: dict[str, dict[str, str]]  # only defined after call to find_objects_and_props()
-    def __init__(self, response: Response) -> None: ...
+    huge_tree: bool
+    def __init__(self, response: Response, davclient: DAVClient | None = None) -> None: ...
     @property
     def raw(self) -> str: ...
     def validate_status(self, status: str) -> None: ...
@@ -39,6 +40,7 @@ class DAVClient:
     timeout: _Timeout | None
     ssl_verify_cert: bool | str
     ssl_cert: str | tuple[str, str] | None
+    huge_tree: bool
     def __init__(
         self,
         url: str,
@@ -50,20 +52,22 @@ class DAVClient:
         ssl_verify_cert: bool | str = True,
         ssl_cert: str | tuple[str, str] | None = None,
         headers: dict[str, str] = {},
+        huge_tree: bool = False,
     ) -> None: ...
     def __enter__(self) -> Self: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
-    def principal(self, *, url: str | ParseResult | SplitResult | URL | None = ...) -> Principal: ...
+    def principal(self, *, url: str | ParseResult | SplitResult | URL | None = None) -> Principal: ...
     def calendar(
         self,
+        *,
         url: str | ParseResult | SplitResult | URL | None = ...,
         parent: DAVObject | None = ...,
         name: str | None = ...,
         id: str | None = ...,
         props: Mapping[Incomplete, Incomplete] = ...,
-        **extra: Incomplete,
+        **extra,
     ) -> Calendar: ...
     def check_dav_support(self) -> str | None: ...
     def check_cdav_support(self) -> bool: ...

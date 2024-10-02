@@ -1,8 +1,8 @@
 import sys
 from _typeshed import Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
-from typing import Any, NoReturn, overload
-from typing_extensions import Literal, Self
+from typing import Any, Literal, NoReturn, overload
+from typing_extensions import Self
 
 import numpy
 from _cffi_backend import _CDataBase
@@ -12,7 +12,7 @@ from numpy.typing import NDArray
 # Actual type: _cffi_backend.__CDataOwn <cdata 'struct _jack_position *'>
 # This is not a real subclassing. Just ensuring type-checkers sees this type as compatible with _CDataBase
 # pyright has no error code for subclassing final
-class _JackPositionT(_CDataBase):  # type: ignore[misc]  # pyright: ignore
+class _JackPositionT(_CDataBase):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     audio_frames_per_video_frame: float
     bar: int
     bar_start_tick: float
@@ -82,6 +82,7 @@ class Client:
     ) -> None: ...
     def __enter__(self) -> Self: ...
     def __exit__(self, *args: Unused) -> None: ...
+    def __del__(self) -> None: ...
     @property
     def name(self) -> str: ...
     @property

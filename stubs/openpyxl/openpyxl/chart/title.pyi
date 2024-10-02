@@ -1,6 +1,5 @@
-from _typeshed import Incomplete, Unused
-from typing import ClassVar
-from typing_extensions import Literal
+from _typeshed import Unused
+from typing import ClassVar, Literal
 
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.shapes import GraphicalProperties
@@ -35,9 +34,9 @@ class Title(Serialisable):
         extLst: Unused = None,
     ) -> None: ...
 
-def title_maker(text): ...
+def title_maker(text) -> Title: ...
 
-class TitleDescriptor(Typed[Title, Incomplete]):
+class TitleDescriptor(Typed[Title, Literal[True]]):
     expected_type: type[Title]
     allow_none: Literal[True]
-    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value: str | Title | None) -> None: ...

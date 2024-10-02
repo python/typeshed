@@ -1,2 +1,2 @@
 version = "0.33.*"
-requires = ["types-Pillow"]
+upstream_repository = "https://github.com/python-xlib/python-xlib"

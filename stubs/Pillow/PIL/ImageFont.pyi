@@ -1,18 +1,18 @@
 from _typeshed import FileDescriptorOrPath, Incomplete, SupportsRead
 from enum import IntEnum
-from typing import Protocol
-from typing_extensions import Final, Literal
+from pathlib import Path
+from typing import Final, Literal, Protocol
 
 from PIL.Image import Transpose
 
 class Layout(IntEnum):
-    BASIC: Literal[0]
-    RAQM: Literal[1]
+    BASIC = 0
+    RAQM = 1
 
 MAX_STRING_LENGTH: Final[int] = 1_000_000
 
 class _Font(Protocol):
-    def getmask(self, text: str | bytes, mode: str = ..., direction=..., features=...): ...
+    def getmask(self, text: str | bytes, mode: str = ..., /, direction=..., features=...): ...
 
 class ImageFont:
     def getmask(self, text: str | bytes, mode: str = "", direction=..., features=...): ...
@@ -20,7 +20,7 @@ class ImageFont:
     def getlength(self, text, *args, **kwargs): ...
 
 class FreeTypeFont:
-    path: str | bytes | SupportsRead[bytes] | None
+    path: str | bytes | Path | SupportsRead[bytes] | None
     size: int
     index: int
     encoding: str
@@ -29,7 +29,7 @@ class FreeTypeFont:
     font: Incomplete
     def __init__(
         self,
-        font: str | bytes | SupportsRead[bytes] | None = None,
+        font: str | bytes | Path | SupportsRead[bytes] | None = None,
         size: int = 10,
         index: int = 0,
         encoding: str = "",
@@ -44,7 +44,7 @@ class FreeTypeFont:
         direction: Literal["ltr", "rtl", "ttb"] | None = None,
         features: Incomplete | None = None,
         language: str | None = None,
-    ) -> int: ...
+    ) -> float: ...
     def getbbox(
         self,
         text: str | bytes,
@@ -83,7 +83,7 @@ class FreeTypeFont:
     ): ...
     def font_variant(
         self,
-        font: str | bytes | SupportsRead[bytes] | None = None,
+        font: str | bytes | Path | SupportsRead[bytes] | None = None,
         size: int | None = None,
         index: int | None = None,
         encoding: str | None = None,
@@ -111,4 +111,4 @@ def truetype(
     layout_engine: Layout | None = None,
 ) -> FreeTypeFont: ...
 def load_path(filename: str | bytes) -> ImageFont: ...
-def load_default() -> ImageFont: ...
+def load_default(size: int | None = None) -> ImageFont: ...

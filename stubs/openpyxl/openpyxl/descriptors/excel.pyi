@@ -1,12 +1,9 @@
 from _typeshed import Incomplete
-from typing import ClassVar, TypeVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from . import Integer, MatchPattern, MinMax, Strict, String
+from .base import _M, _N
 from .serialisable import Serialisable
-
-_N = TypeVar("_N", bound=bool)
-_M = TypeVar("_M", int, float)
 
 class HexBinary(MatchPattern[str, Incomplete]):
     pattern: str
@@ -25,7 +22,7 @@ class Percentage(MinMax[float, Incomplete]):
     pattern: str
     min: float
     max: float
-    def __set__(self, instance: Serialisable | Strict, value: Incomplete) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
 
 class Extension(Serialisable):
     uri: String[Literal[False]]
