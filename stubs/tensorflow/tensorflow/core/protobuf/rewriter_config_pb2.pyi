@@ -333,8 +333,8 @@ class RewriterConfig(google.protobuf.message.Message):
     (default is ON).
     """
     auto_mixed_precision: global___RewriterConfig.Toggle.ValueType
-    """Optimize data types for CUDA (default is OFF).
-    This will try to use float16 on GPU which is faster.
+    """Optimize data types for CUDA/oneDNN (default is OFF).
+    This will try to use float16 on GPU/CPU which is faster.
     Note that this can change the numerical stability of the graph and may
     require the use of loss scaling to maintain model convergence.
     """

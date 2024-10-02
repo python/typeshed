@@ -267,6 +267,24 @@ FORWARD_BIAS_ACTIVATION: ConvolutionKind.ValueType  # 4
 FORWARD_GRAPH: ConvolutionKind.ValueType  # 5
 global___ConvolutionKind = ConvolutionKind
 
+class _NormKind:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _NormKindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_NormKind.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    LAYER_FWD_INFER: _NormKind.ValueType  # 0
+    LAYER_FWD_TRAIN: _NormKind.ValueType  # 1
+    LAYER_BWD: _NormKind.ValueType  # 2
+
+class NormKind(_NormKind, metaclass=_NormKindEnumTypeWrapper):
+    """NormKind kind"""
+
+LAYER_FWD_INFER: NormKind.ValueType  # 0
+LAYER_FWD_TRAIN: NormKind.ValueType  # 1
+LAYER_BWD: NormKind.ValueType  # 2
+global___NormKind = NormKind
+
 class _FusedMHAKind:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
@@ -284,6 +302,28 @@ BMM1_OUTPUT_UNKNOWN: FusedMHAKind.ValueType  # 0
 BMM1_OUTPUT_INPUT_TYPE: FusedMHAKind.ValueType  # 1
 BMM1_OUTPUT_FLOAT: FusedMHAKind.ValueType  # 2
 global___FusedMHAKind = FusedMHAKind
+
+class _FMHAMaskKind:
+    ValueType = typing.NewType("ValueType", builtins.int)
+    V: typing_extensions.TypeAlias = ValueType
+
+class _FMHAMaskKindEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_FMHAMaskKind.ValueType], builtins.type):
+    DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+    NO_MASK: _FMHAMaskKind.ValueType  # 0
+    PADDING: _FMHAMaskKind.ValueType  # 1
+    CAUSAL: _FMHAMaskKind.ValueType  # 2
+    PADDING_CAUSAL: _FMHAMaskKind.ValueType  # 3
+    ALIBI: _FMHAMaskKind.ValueType  # 4
+
+class FMHAMaskKind(_FMHAMaskKind, metaclass=_FMHAMaskKindEnumTypeWrapper):
+    """FusedMHAMaskKind kind"""
+
+NO_MASK: FMHAMaskKind.ValueType  # 0
+PADDING: FMHAMaskKind.ValueType  # 1
+CAUSAL: FMHAMaskKind.ValueType  # 2
+PADDING_CAUSAL: FMHAMaskKind.ValueType  # 3
+ALIBI: FMHAMaskKind.ValueType  # 4
+global___FMHAMaskKind = FMHAMaskKind
 
 @typing.final
 class TensorDescriptorProto(google.protobuf.message.Message):

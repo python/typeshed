@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, StrOrBytesPath, StrPath, SupportsWrite
-from collections.abc import Iterable, Mapping
+from collections.abc import Iterable, MutableMapping
 from re import Pattern
-from typing import IO, Any, ClassVar, Literal, TypeVar, overload
+from typing import IO, ClassVar, Literal, TypeVar, overload
 from typing_extensions import TypeAlias
 
 from .cmd import Command
@@ -61,21 +61,17 @@ class DistributionMetadata:
 class Distribution:
     cmdclass: dict[str, type[Command]]
     metadata: DistributionMetadata
-    def __init__(self, attrs: Mapping[str, Any] | None = None) -> None: ...
+    def __init__(self, attrs: MutableMapping[str, Incomplete] | None = None) -> None: ...
     def get_option_dict(self, command: str) -> dict[str, tuple[str, str]]: ...
     def parse_config_files(self, filenames: Iterable[str] | None = None) -> None: ...
-    @overload
-    def get_command_obj(self, command: str, create: Literal[1, True] = 1) -> Command: ...
-    @overload
-    def get_command_obj(self, command: str, create: Literal[0, False]) -> Command | None: ...
     global_options: ClassVar[_OptionsList]
     common_usage: ClassVar[str]
     display_options: ClassVar[_OptionsList]
     display_option_names: ClassVar[list[str]]
     negative_opt: ClassVar[dict[str, str]]
-    verbose: int
-    dry_run: int
-    help: int
+    verbose: bool
+    dry_run: bool
+    help: bool
     command_packages: list[str] | None
     script_name: str | None
     script_args: list[str] | None
@@ -109,6 +105,12 @@ class Distribution:
     def print_commands(self) -> None: ...
     def get_command_list(self): ...
     def get_command_packages(self): ...
+    # NOTE: Because this is private setuptools implementation and we don't re-expose all commands here,
+    # we're not overloading each and every command possibility.
+    @overload
+    def get_command_obj(self, command: str, create: Literal[1, True] = 1) -> Command: ...
+    @overload
+    def get_command_obj(self, command: str, create: Literal[0, False]) -> Command | None: ...
     def get_command_class(self, command: str) -> type[Command]: ...
     @overload
     def reinitialize_command(self, command: str, reinit_subcommands: bool = False) -> Command: ...
@@ -126,7 +128,7 @@ class Distribution:
     def has_data_files(self) -> bool: ...
     def is_pure(self) -> bool: ...
 
-    # Getter methods generated in __init__
+    # Default getter methods generated in __init__ from self.metadata._METHOD_BASENAMES
     def get_name(self) -> str: ...
     def get_version(self) -> str: ...
     def get_fullname(self) -> str: ...
@@ -148,3 +150,26 @@ class Distribution:
     def get_requires(self) -> list[str]: ...
     def get_provides(self) -> list[str]: ...
     def get_obsoletes(self) -> list[str]: ...
+
+    # Default attributes generated in __init__ from self.display_option_names
+    help_commands: bool | Literal[0]
+    name: str | Literal[0]
+    version: str | Literal[0]
+    fullname: str | Literal[0]
+    author: str | Literal[0]
+    author_email: str | Literal[0]
+    maintainer: str | Literal[0]
+    maintainer_email: str | Literal[0]
+    contact: str | Literal[0]
+    contact_email: str | Literal[0]
+    url: str | Literal[0]
+    license: str | Literal[0]
+    licence: str | Literal[0]
+    description: str | Literal[0]
+    long_description: str | Literal[0]
+    platforms: str | list[str] | Literal[0]
+    classifiers: str | list[str] | Literal[0]
+    keywords: str | list[str] | Literal[0]
+    provides: list[str] | Literal[0]
+    requires: list[str] | Literal[0]
+    obsoletes: list[str] | Literal[0]

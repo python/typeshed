@@ -60,10 +60,13 @@ if sys.version_info >= (3, 9):
         assert_type(os.environ | c, dict[str, str])
         assert_type(e | c, dict[str, str])
 
+        # store "untainted" `CustomMappingWithDunderOr[str, str]` to test `__ior__` against ` defaultdict[str, str]` later
+        # Invalid `e |= a` causes pyright to join `Unknown` to `e`'s type
+        f = e
+
         e |= c
         e |= a  # type: ignore
 
-        # TODO: this test passes mypy, but fails pyright for some reason:
-        # c |= e
+        c |= f
 
         c |= a  # type: ignore

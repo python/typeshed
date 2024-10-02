@@ -82,7 +82,8 @@ def run_stubtest(
         # Hopefully mypy continues to not need too many dependencies
         # TODO: Maybe find a way to cache these in CI
         dists_to_install = [dist_req, get_mypy_req()]
-        dists_to_install.extend(requirements.external_pkgs)  # Internal requirements are added to MYPYPATH
+        # Internal requirements are added to MYPYPATH
+        dists_to_install.extend(str(r) for r in requirements.external_pkgs)
 
         # Since the "gdb" Python package is available only inside GDB, it is not
         # possible to install it through pip, so stub tests cannot install it.
@@ -113,7 +114,7 @@ def run_stubtest(
         ]
 
         stubs_dir = dist.parent
-        mypypath_items = [str(dist)] + [str(stubs_dir / pkg) for pkg in requirements.typeshed_pkgs]
+        mypypath_items = [str(dist)] + [str(stubs_dir / pkg.name) for pkg in requirements.typeshed_pkgs]
         mypypath = os.pathsep.join(mypypath_items)
         # For packages that need a display, we need to pass at least $DISPLAY
         # to stubtest. $DISPLAY is set by xvfb-run in CI.

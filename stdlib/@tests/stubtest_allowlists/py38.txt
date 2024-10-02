@@ -245,3 +245,16 @@ unittest\.test\..+
 # These enums derive from (str, Enum)
 pstats.SortKey.__new__
 tkinter.EventType.__new__
+
+# Incorrectly star import.
+ctypes._endian.DEFAULT_MODE
+ctypes._endian.RTLD_GLOBAL
+ctypes._endian.RTLD_LOCAL
+
+# Incompatible changes introduced in Python 3.8.20
+# (Remove once 3.8.20 becomes available for GitHub Actions)
+email._header_value_parser.NLSET
+email._header_value_parser.SPECIALSNL
+email.errors.HeaderWriteError
+email.utils.getaddresses
+email.utils.parseaddr

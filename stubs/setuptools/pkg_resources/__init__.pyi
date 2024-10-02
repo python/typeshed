@@ -1,6 +1,10 @@
+# `pkg_resources` package of `types-setuptools` is now obsolete.
+# Changes here should be mirrored to https://github.com/pypa/setuptools/tree/main/pkg_resources
+
 import types
 import zipimport
 from _typeshed import BytesPath, Incomplete, StrOrBytesPath, StrPath, Unused
+from _typeshed.importlib import LoaderProtocol
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from io import BytesIO
 from itertools import chain
@@ -10,13 +14,13 @@ from typing import IO, Any, ClassVar, Final, Literal, NamedTuple, NoReturn, Prot
 from typing_extensions import Self, TypeAlias
 from zipfile import ZipInfo
 
-from ._vendored_packaging import requirements as packaging_requirements, version as packaging_version
+from ._vendored_packaging import requirements as _packaging_requirements, version as _packaging_version
 
 # defined in setuptools
 _T = TypeVar("_T")
 _DistributionT = TypeVar("_DistributionT", bound=Distribution)
 _NestedStr: TypeAlias = str | Iterable[_NestedStr]
-_InstallerTypeT: TypeAlias = Callable[[Requirement], _DistributionT]  # noqa: Y043
+_StrictInstallerType: TypeAlias = Callable[[Requirement], _DistributionT]
 _InstallerType: TypeAlias = Callable[[Requirement], Distribution | None]
 _PkgReqType: TypeAlias = str | Requirement
 _EPDistType: TypeAlias = Distribution | _PkgReqType
@@ -28,10 +32,6 @@ _ModuleLike: TypeAlias = object | types.ModuleType  # Any object that optionally
 _ProviderFactoryType: TypeAlias = Callable[[Any], IResourceProvider]
 _DistFinderType: TypeAlias = Callable[[_T, str, bool], Iterable[Distribution]]
 _NSHandlerType: TypeAlias = Callable[[_T, str, str, types.ModuleType], str | None]
-
-# TODO: Use _typeshed.importlib.LoaderProtocol after mypy 1.11 is released
-class _LoaderProtocol(Protocol):
-    def load_module(self, fullname: str, /) -> types.ModuleType: ...
 
 __all__ = [
     "require",
@@ -115,6 +115,10 @@ def fixup_namespace_packages(path_item: str, parent: str | None = None) -> None:
 
 class WorkingSet:
     entries: list[str]
+    entry_keys: dict[str | None, list[str]]
+    by_key: dict[str, Distribution]
+    normalized_to_canonical_keys: dict[str, str]
+    callbacks: list[Callable[[Distribution], object]]
     def __init__(self, entries: Iterable[str] | None = None) -> None: ...
     def add_entry(self, entry: str) -> None: ...
     def __contains__(self, dist: Distribution) -> bool: ...
@@ -124,26 +128,26 @@ class WorkingSet:
     def __iter__(self) -> Iterator[Distribution]: ...
     def add(self, dist: Distribution, entry: str | None = None, insert: bool = True, replace: bool = False) -> None: ...
     @overload
-    def resolve(  # type: ignore[overload-overlap]
+    def resolve(
         self,
         requirements: Iterable[Requirement],
         env: Environment | None,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         replace_conflicting: bool = False,
         extras: tuple[str, ...] | None = None,
     ) -> list[_DistributionT]: ...
     @overload
-    def resolve(  # type: ignore[overload-overlap]
+    def resolve(
         self,
         requirements: Iterable[Requirement],
         env: Environment | None = None,
         *,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         replace_conflicting: bool = False,
         extras: tuple[str, ...] | None = None,
     ) -> list[_DistributionT]: ...
     @overload
-    def resolve(  # type: ignore[overload-overlap]
+    def resolve(
         self,
         requirements: Iterable[Requirement],
         env: Environment | None = None,
@@ -152,20 +156,20 @@ class WorkingSet:
         extras: tuple[str, ...] | None = None,
     ) -> list[Distribution]: ...
     @overload
-    def find_plugins(  # type: ignore[overload-overlap]
+    def find_plugins(
         self,
         plugin_env: Environment,
         full_env: Environment | None,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         fallback: bool = True,
     ) -> tuple[list[_DistributionT], dict[Distribution, Exception]]: ...
     @overload
-    def find_plugins(  # type: ignore[overload-overlap]
+    def find_plugins(
         self,
         plugin_env: Environment,
         full_env: Environment | None = None,
         *,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         fallback: bool = True,
     ) -> tuple[list[_DistributionT], dict[Distribution, Exception]]: ...
     @overload
@@ -177,7 +181,7 @@ class WorkingSet:
         fallback: bool = True,
     ) -> tuple[list[Distribution], dict[Distribution, Exception]]: ...
     def require(self, *requirements: _NestedStr) -> Sequence[Distribution]: ...
-    def subscribe(self, callback: Callable[[Distribution], object], existing: bool = True) -> None: ...
+    def subscribe(self, callback: Callable[[Distribution], Unused], existing: bool = True) -> None: ...
 
 class Environment:
     def __init__(
@@ -193,7 +197,7 @@ class Environment:
         self,
         req: Requirement,
         working_set: WorkingSet,
-        installer: _InstallerTypeT[_DistributionT],
+        installer: _StrictInstallerType[_DistributionT],
         replace_conflicting: bool = False,
     ) -> _DistributionT: ...
     @overload
@@ -205,7 +209,7 @@ class Environment:
         replace_conflicting: bool = False,
     ) -> Distribution | None: ...
     @overload
-    def obtain(self, requirement: Requirement, installer: _InstallerTypeT[_DistributionT]) -> _DistributionT: ...  # type: ignore[overload-overlap]
+    def obtain(self, requirement: Requirement, installer: _StrictInstallerType[_DistributionT]) -> _DistributionT: ...
     @overload
     def obtain(self, requirement: Requirement, installer: Callable[[Requirement], None] | None = None) -> None: ...
     @overload
@@ -218,9 +222,9 @@ AvailableDistributions = Environment
 
 def parse_requirements(strs: _NestedStr) -> Iterator[Requirement]: ...
 
-class RequirementParseError(packaging_requirements.InvalidRequirement): ...
+class RequirementParseError(_packaging_requirements.InvalidRequirement): ...
 
-class Requirement(packaging_requirements.Requirement):
+class Requirement(_packaging_requirements.Requirement):
     unsafe_name: str
     project_name: str
     key: str
@@ -254,7 +258,9 @@ class EntryPoint:
         self, require: Literal[True] = True, env: Environment | None = None, installer: _InstallerType | None = None
     ) -> _ResolvedEntryPoint: ...
     @overload
-    def load(self, require: Literal[False], *args: Any, **kwargs: Any) -> _ResolvedEntryPoint: ...
+    def load(
+        self, require: Literal[False], *args: Environment | _InstallerType | None, **kwargs: Environment | _InstallerType | None
+    ) -> _ResolvedEntryPoint: ...
     def resolve(self) -> _ResolvedEntryPoint: ...
     def require(self, env: Environment | None = None, installer: _InstallerType | None = None) -> None: ...
     pattern: ClassVar[Pattern[str]]
@@ -369,7 +375,7 @@ def evaluate_marker(text: str, extra: Incomplete | None = None) -> bool: ...
 class NullProvider:
     egg_name: str | None
     egg_info: str | None
-    loader: _LoaderProtocol | None
+    loader: LoaderProtocol | None
     module_path: str
 
     def __init__(self, module: _ModuleLike) -> None: ...
@@ -420,12 +426,13 @@ class Distribution(NullProvider):
     @property
     def key(self) -> str: ...
     @property
-    def parsed_version(self) -> packaging_version.Version: ...
+    def parsed_version(self) -> _packaging_version.Version: ...
     @property
     def version(self) -> str: ...
     def requires(self, extras: Iterable[str] = ()) -> list[Requirement]: ...
     def activate(self, path: list[str] | None = None, replace: bool = False) -> None: ...
     def egg_name(self) -> str: ...  # type: ignore[override]  # supertype's egg_name is a variable, not a method
+    def __getattr__(self, attr: str) -> Any: ...  # Delegate all unrecognized public attributes to .metadata provider
     @classmethod
     def from_filename(cls, filename: StrPath, metadata: _MetadataType = None, *, precedence: int = 3) -> Distribution: ...
     def as_requirement(self) -> Requirement: ...
@@ -495,7 +502,7 @@ class FileMetadata(EmptyProvider):
 
 class PEP440Warning(RuntimeWarning): ...
 
-parse_version = packaging_version.Version
+parse_version = _packaging_version.Version
 
 def yield_lines(iterable: _NestedStr) -> chain[str]: ...
 def split_sections(s: _NestedStr) -> Generator[tuple[str | None, list[str]], None, None]: ...

@@ -18,12 +18,11 @@ from _utils import (
     STDLIB_PATH,
     TEST_CASES_DIR,
     TESTS_DIR,
-    VERSIONS_RE,
     get_all_testcase_directories,
     get_gitignore_spec,
     parse_requirements,
+    parse_stdlib_versions_file,
     spec_matches_path,
-    strip_comments,
     tests_path,
 )
 
@@ -127,30 +126,17 @@ def check_no_symlinks() -> None:
 
 def check_versions_file() -> None:
     """Check that the stdlib/VERSIONS file has the correct format."""
-    versions = list[str]()
-    with open("stdlib/VERSIONS", encoding="UTF-8") as f:
-        data = f.read().splitlines()
-    for line in data:
-        line = strip_comments(line)
-        if line == "":
-            continue
-        m = VERSIONS_RE.match(line)
-        if not m:
-            raise AssertionError(f"Bad line in VERSIONS: {line}")
-        module = m.group(1)
-        assert module not in versions, f"Duplicate module {module} in VERSIONS"
-        versions.append(module)
+    version_map = parse_stdlib_versions_file()
+    versions = list(version_map.keys())
 
-    deduped_versions = set(versions)
-    assert len(versions) == len(deduped_versions)
     sorted_versions = sorted(versions)
     assert versions == sorted_versions, f"{versions=}\n\n{sorted_versions=}"
 
     modules = _find_stdlib_modules()
     # Sub-modules don't need to be listed in VERSIONS.
-    extra = {m.split(".")[0] for m in modules} - deduped_versions
+    extra = {m.split(".")[0] for m in modules} - version_map.keys()
     assert not extra, f"Modules not in versions: {extra}"
-    extra = deduped_versions - modules
+    extra = version_map.keys() - modules
     assert not extra, f"Versions not in modules: {extra}"
 
 

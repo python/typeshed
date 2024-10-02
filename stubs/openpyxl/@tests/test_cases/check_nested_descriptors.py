@@ -1,4 +1,4 @@
-# Needed until mypy issues are solved
+# Needed until mypy issues are solved or https://github.com/python/mypy/issues/12358
 # pyright: reportUnnecessaryTypeIgnoreComment=false
 
 # These tests are essentially a mirror of check_base_descriptors

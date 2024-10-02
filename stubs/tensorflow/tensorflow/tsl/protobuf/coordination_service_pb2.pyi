@@ -473,15 +473,18 @@ class InsertKeyValueRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     KV_FIELD_NUMBER: builtins.int
+    ALLOW_OVERWRITE_FIELD_NUMBER: builtins.int
+    allow_overwrite: builtins.bool
     @property
     def kv(self) -> global___KeyValueEntry: ...
     def __init__(
         self,
         *,
         kv: global___KeyValueEntry | None = ...,
+        allow_overwrite: builtins.bool | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["kv", b"kv"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["kv", b"kv"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["allow_overwrite", b"allow_overwrite", "kv", b"kv"]) -> None: ...
 
 global___InsertKeyValueRequest = InsertKeyValueRequest
 

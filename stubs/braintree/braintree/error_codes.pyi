@@ -32,6 +32,9 @@ class ErrorCodes:
         StreetAddressIsTooLong: Final = "81812"
         TooManyAddressesPerCustomer: Final = "91818"
 
+    class AndroidPay:
+        AndroidPayCardsAreNotAccepted: Final = "83708"
+
     class ApplePay:
         ApplePayCardsAreNotAccepted: Final = "83501"
         CustomerIdIsRequiredForVaulting: Final = "83502"
@@ -100,6 +103,7 @@ class ErrorCodes:
         ExpirationYearIsInvalid: Final = "81713"
         InvalidParamsForCreditCardUpdate: Final = "91745"
         InvalidVenmoSDKPaymentMethodCode: Final = "91727"
+        NetworkTokenizationAttributeCryptogramIsRequired: Final = "81762"
         NumberHasInvalidLength: Final = "81716"
         NumberLengthIsInvalid: Final = "81716"
         NumberIsInvalid: Final = "81715"

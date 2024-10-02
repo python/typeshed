@@ -90,6 +90,49 @@ class GPUOptions(google.protobuf.message.Message):
             ) -> None: ...
             def ClearField(self, field_name: typing.Literal["device_ordinal", b"device_ordinal", "memory_limit_mb", b"memory_limit_mb", "priority", b"priority"]) -> None: ...
 
+        @typing.final
+        class StreamMergeOptions(google.protobuf.message.Message):
+            """Whether to merge data transfer streams into the compute stream in the
+            same stream group. Stream merging helps reduce the overhead caused by
+            stream synchronization, especially when data transfers are frequent. For
+            example, setting "merge_host_to_device_stream = true" will make the
+            compute stream responsible for both computation and host to device memory
+            copy.
+            """
+
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+            MERGE_HOST_TO_DEVICE_STREAM_FIELD_NUMBER: builtins.int
+            MERGE_DEVICE_TO_HOST_STREAM_FIELD_NUMBER: builtins.int
+            MERGE_DEVICE_TO_DEVICE_STREAM_FIELD_NUMBER: builtins.int
+            merge_host_to_device_stream: builtins.bool
+            """If true, the compute stream will be used for host_to_device copy as
+            well. It's no longer necessary to record an event before the copy to
+            let the copy stream wait for the compute stream to finish. There is
+            also no need to wait for the copy to complete before executing the
+            callback function.
+            """
+            merge_device_to_host_stream: builtins.bool
+            """If true, the compute stream will be used for device_to_host copy as
+            well. It's no longer necessary to record an event before the copy to
+            let the copy stream wait for the compute stream to finish.
+            """
+            merge_device_to_device_stream: builtins.bool
+            """If true, the compute stream will be used for device_to_device copy as
+            well. It's no longer necessary to record an event before the copy to
+            let the copy stream wait for the compute stream of the sending device
+            to finish. There is also no need to wait for the compute stream of the
+            receiving device to finish if the copy is within the same device.
+            """
+            def __init__(
+                self,
+                *,
+                merge_host_to_device_stream: builtins.bool | None = ...,
+                merge_device_to_host_stream: builtins.bool | None = ...,
+                merge_device_to_device_stream: builtins.bool | None = ...,
+            ) -> None: ...
+            def ClearField(self, field_name: typing.Literal["merge_device_to_device_stream", b"merge_device_to_device_stream", "merge_device_to_host_stream", b"merge_device_to_host_stream", "merge_host_to_device_stream", b"merge_host_to_device_stream"]) -> None: ...
+
         VIRTUAL_DEVICES_FIELD_NUMBER: builtins.int
         NUM_VIRTUAL_DEVICES_PER_GPU_FIELD_NUMBER: builtins.int
         USE_UNIFIED_MEMORY_FIELD_NUMBER: builtins.int
@@ -105,6 +148,9 @@ class GPUOptions(google.protobuf.message.Message):
         GPU_HOST_MEM_LIMIT_IN_MB_FIELD_NUMBER: builtins.int
         GPU_HOST_MEM_DISALLOW_GROWTH_FIELD_NUMBER: builtins.int
         GPU_SYSTEM_MEMORY_SIZE_IN_MB_FIELD_NUMBER: builtins.int
+        POPULATE_PJRT_GPU_CLIENT_CREATION_INFO_FIELD_NUMBER: builtins.int
+        NODE_ID_FIELD_NUMBER: builtins.int
+        STREAM_MERGE_OPTIONS_FIELD_NUMBER: builtins.int
         num_virtual_devices_per_gpu: builtins.int
         """The number of virtual devices to create on each visible GPU. The
         available memory will be split equally among all virtual devices. If the
@@ -200,6 +246,14 @@ class GPUOptions(google.protobuf.message.Message):
         system memory size for better resource estimation of multi-tenancy(one
         gpu with multiple model) use case.
         """
+        populate_pjrt_gpu_client_creation_info: builtins.bool
+        """If true, save information needed for created a PjRt GPU client for
+        creating a client with remote devices.
+        """
+        node_id: builtins.int
+        """node_id for use when creating a PjRt GPU client with remote devices,
+        which enumerates jobs*tasks from a ServerDef.
+        """
         @property
         def virtual_devices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GPUOptions.Experimental.VirtualDevices]:
             """The multi virtual device settings. If empty (not set), it will create
@@ -242,6 +296,8 @@ class GPUOptions(google.protobuf.message.Message):
                result in undefined behavior.
             """
 
+        @property
+        def stream_merge_options(self) -> global___GPUOptions.Experimental.StreamMergeOptions: ...
         def __init__(
             self,
             *,
@@ -260,8 +316,12 @@ class GPUOptions(google.protobuf.message.Message):
             gpu_host_mem_limit_in_mb: builtins.float | None = ...,
             gpu_host_mem_disallow_growth: builtins.bool | None = ...,
             gpu_system_memory_size_in_mb: builtins.int | None = ...,
+            populate_pjrt_gpu_client_creation_info: builtins.bool | None = ...,
+            node_id: builtins.int | None = ...,
+            stream_merge_options: global___GPUOptions.Experimental.StreamMergeOptions | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["collective_ring_order", b"collective_ring_order", "disallow_retry_on_allocation_failure", b"disallow_retry_on_allocation_failure", "gpu_host_mem_disallow_growth", b"gpu_host_mem_disallow_growth", "gpu_host_mem_limit_in_mb", b"gpu_host_mem_limit_in_mb", "gpu_system_memory_size_in_mb", b"gpu_system_memory_size_in_mb", "internal_fragmentation_fraction", b"internal_fragmentation_fraction", "kernel_tracker_max_bytes", b"kernel_tracker_max_bytes", "kernel_tracker_max_interval", b"kernel_tracker_max_interval", "kernel_tracker_max_pending", b"kernel_tracker_max_pending", "num_dev_to_dev_copy_streams", b"num_dev_to_dev_copy_streams", "num_virtual_devices_per_gpu", b"num_virtual_devices_per_gpu", "timestamped_allocator", b"timestamped_allocator", "use_cuda_malloc_async", b"use_cuda_malloc_async", "use_unified_memory", b"use_unified_memory", "virtual_devices", b"virtual_devices"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["stream_merge_options", b"stream_merge_options"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["collective_ring_order", b"collective_ring_order", "disallow_retry_on_allocation_failure", b"disallow_retry_on_allocation_failure", "gpu_host_mem_disallow_growth", b"gpu_host_mem_disallow_growth", "gpu_host_mem_limit_in_mb", b"gpu_host_mem_limit_in_mb", "gpu_system_memory_size_in_mb", b"gpu_system_memory_size_in_mb", "internal_fragmentation_fraction", b"internal_fragmentation_fraction", "kernel_tracker_max_bytes", b"kernel_tracker_max_bytes", "kernel_tracker_max_interval", b"kernel_tracker_max_interval", "kernel_tracker_max_pending", b"kernel_tracker_max_pending", "node_id", b"node_id", "num_dev_to_dev_copy_streams", b"num_dev_to_dev_copy_streams", "num_virtual_devices_per_gpu", b"num_virtual_devices_per_gpu", "populate_pjrt_gpu_client_creation_info", b"populate_pjrt_gpu_client_creation_info", "stream_merge_options", b"stream_merge_options", "timestamped_allocator", b"timestamped_allocator", "use_cuda_malloc_async", b"use_cuda_malloc_async", "use_unified_memory", b"use_unified_memory", "virtual_devices", b"virtual_devices"]) -> None: ...
 
     PER_PROCESS_GPU_MEMORY_FRACTION_FIELD_NUMBER: builtins.int
     ALLOW_GROWTH_FIELD_NUMBER: builtins.int

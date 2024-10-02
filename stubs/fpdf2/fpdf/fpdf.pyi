@@ -67,7 +67,7 @@ __all__ = [
 
 _Orientation: TypeAlias = Literal["", "portrait", "p", "P", "landscape", "l", "L"]
 _Format: TypeAlias = Literal["", "a3", "A3", "a4", "A4", "a5", "A5", "letter", "Letter", "legal", "Legal"]
-_FontStyle: TypeAlias = Literal["", "B", "I"]
+_FontStyle: TypeAlias = Literal["", "B", "I", "BI"]
 _FontStyles: TypeAlias = Literal["", "B", "I", "U", "BU", "UB", "BI", "IB", "IU", "UI", "BIU", "BUI", "IBU", "IUB", "UBI", "UIB"]
 
 FPDF_VERSION: Final[str]
@@ -426,7 +426,7 @@ class FPDF(GraphicsStateMixin):
     def skew(
         self, ax: float = 0, ay: float = 0, x: float | None = None, y: float | None = None
     ) -> _GeneratorContextManager[None]: ...
-    def mirror(self, origin, angle) -> Generator[None, None, None]: ...
+    def mirror(self, origin, angle) -> Generator[None]: ...
     def local_context(
         self,
         font_family: Incomplete | None = None,
@@ -450,7 +450,7 @@ class FPDF(GraphicsStateMixin):
         ln: int | Literal["DEPRECATED"] = "DEPRECATED",
         align: str | Align = ...,
         fill: bool = False,
-        link: str = "",
+        link: str | int = "",
         center: bool = False,
         markdown: bool = False,
         new_x: XPos | str = ...,
@@ -467,7 +467,7 @@ class FPDF(GraphicsStateMixin):
         align: str | Align = ...,
         fill: bool = False,
         split_only: bool = False,
-        link: str = "",
+        link: str | int = "",
         ln: int | Literal["DEPRECATED"] = "DEPRECATED",
         max_line_height: float | None = None,
         markdown: bool = False,
@@ -481,7 +481,7 @@ class FPDF(GraphicsStateMixin):
         padding: int = 0,
     ): ...
     def write(
-        self, h: float | None = None, text: str = "", link: str = "", print_sh: bool = False, wrapmode: WrapMode = ...
+        self, h: float | None = None, text: str = "", link: str | int = "", print_sh: bool = False, wrapmode: WrapMode = ...
     ) -> bool: ...
     def text_columns(
         self,
@@ -507,7 +507,7 @@ class FPDF(GraphicsStateMixin):
         w: float = 0,
         h: float = 0,
         type: str = "",
-        link: str = "",
+        link: str | int = "",
         title: str | None = None,
         alt_text: str | None = None,
         dims: tuple[float, float] | None = None,

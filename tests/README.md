@@ -71,10 +71,8 @@ for this script.
 
 ## pytype\_test.py
 
-Note: this test cannot be run on Windows
-systems unless you are using Windows Subsystem for Linux.
-It also requires a Python version < 3.11 as pytype does not yet support
-Python 3.11 and above.
+Note: This test cannot be run on Python version < 3.13 as pytype does not yet support
+Python 3.13 and above.
 
 Run using:
 ```bash
@@ -177,9 +175,9 @@ directly, with
 
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
 relative to the distribution. Platform specific items can be ignored by listing them
-in a `@tests/stubtest_allowlist_{platform}.txt` file. Additional packages that are needed
-to run stubtest for a
-distribution can be added to `tool.stubtest.stubtest_requirements` in `METADATA.toml`.
+in a `@tests/stubtest_allowlist_{platform}.txt` file. Additional configuration
+can be found in the `tool.stubtest` section of the `METADATA.toml` file. See
+[CONTRIBUTING.md](../CONTRIBUTING.md#the-metadatatoml-file) for more information.
 
 ### Using stubtest to find objects missing from the stubs
 

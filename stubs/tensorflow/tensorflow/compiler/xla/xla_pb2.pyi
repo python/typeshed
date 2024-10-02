@@ -137,6 +137,33 @@ class DebugOptions(google.protobuf.message.Message):
     STEP_MARK_NONE: DebugOptions.StepMarkerLocation.ValueType  # 2
     """No step marker generated."""
 
+    class _CollectiveOpType:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _CollectiveOpTypeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugOptions._CollectiveOpType.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        NOOP: DebugOptions._CollectiveOpType.ValueType  # 0
+        ALLREDUCE: DebugOptions._CollectiveOpType.ValueType  # 1
+        ALLGATHER: DebugOptions._CollectiveOpType.ValueType  # 2
+        REDUCESCATTER: DebugOptions._CollectiveOpType.ValueType  # 3
+        COLLECTIVEBROADCAST: DebugOptions._CollectiveOpType.ValueType  # 4
+        ALLTOALL: DebugOptions._CollectiveOpType.ValueType  # 5
+        COLLECTIVEPERMUTE: DebugOptions._CollectiveOpType.ValueType  # 6
+
+    class CollectiveOpType(_CollectiveOpType, metaclass=_CollectiveOpTypeEnumTypeWrapper):
+        """Enum to define all collective ops
+        that xla supports.
+        """
+
+    NOOP: DebugOptions.CollectiveOpType.ValueType  # 0
+    ALLREDUCE: DebugOptions.CollectiveOpType.ValueType  # 1
+    ALLGATHER: DebugOptions.CollectiveOpType.ValueType  # 2
+    REDUCESCATTER: DebugOptions.CollectiveOpType.ValueType  # 3
+    COLLECTIVEBROADCAST: DebugOptions.CollectiveOpType.ValueType  # 4
+    ALLTOALL: DebugOptions.CollectiveOpType.ValueType  # 5
+    COLLECTIVEPERMUTE: DebugOptions.CollectiveOpType.ValueType  # 6
+
     class _CommandBufferCmdType:
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
@@ -150,11 +177,12 @@ class DebugOptions(google.protobuf.message.Message):
         COLLECTIVES: DebugOptions._CommandBufferCmdType.ValueType  # 4
         CONDITIONALS: DebugOptions._CommandBufferCmdType.ValueType  # 5
         CUSTOM_CALL: DebugOptions._CommandBufferCmdType.ValueType  # 6
+        CUBLASLT: DebugOptions._CommandBufferCmdType.ValueType  # 7
 
     class CommandBufferCmdType(_CommandBufferCmdType, metaclass=_CommandBufferCmdTypeEnumTypeWrapper):
         """Commands are categorized into 5 types:
         FUSION represents regular fusion kernels.
-        CUBLAS, CUDNN, and COLLECTIVES represent library calls.
+        CUBLAS/CUBLASLT, CUDNN, and COLLECTIVES represent library calls.
         CONDITIONALS represents control flow.
         """
 
@@ -165,6 +193,7 @@ class DebugOptions(google.protobuf.message.Message):
     COLLECTIVES: DebugOptions.CommandBufferCmdType.ValueType  # 4
     CONDITIONALS: DebugOptions.CommandBufferCmdType.ValueType  # 5
     CUSTOM_CALL: DebugOptions.CommandBufferCmdType.ValueType  # 6
+    CUBLASLT: DebugOptions.CommandBufferCmdType.ValueType  # 7
 
     class _PartitioningAlgorithm:
         ValueType = typing.NewType("ValueType", builtins.int)
@@ -182,6 +211,29 @@ class DebugOptions(google.protobuf.message.Message):
     PARTITIONING_ALGORITHM_EXP0: DebugOptions.PartitioningAlgorithm.ValueType  # 1
     PARTITIONING_ALGORITHM_EXP1: DebugOptions.PartitioningAlgorithm.ValueType  # 2
     PARTITIONING_ALGORITHM_EXP2: DebugOptions.PartitioningAlgorithm.ValueType  # 3
+
+    class _WhileLoopUnrolling:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _WhileLoopUnrollingEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DebugOptions._WhileLoopUnrolling.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        WHILE_LOOP_UNROLLING_NO_UNROLL: DebugOptions._WhileLoopUnrolling.ValueType  # 0
+        WHILE_LOOP_UNROLLING_DOUBLE_BUFFER: DebugOptions._WhileLoopUnrolling.ValueType  # 1
+        """Has the same effect as setting
+        `xla_gpu_enable_while_loop_double_buffering`.
+        """
+        WHILE_LOOP_UNROLLING_FULL_UNROLL: DebugOptions._WhileLoopUnrolling.ValueType  # 2
+        """Enables full loop unrolling using the same strategy as `DOUBLE_BUFFER`."""
+
+    class WhileLoopUnrolling(_WhileLoopUnrolling, metaclass=_WhileLoopUnrollingEnumTypeWrapper): ...
+    WHILE_LOOP_UNROLLING_NO_UNROLL: DebugOptions.WhileLoopUnrolling.ValueType  # 0
+    WHILE_LOOP_UNROLLING_DOUBLE_BUFFER: DebugOptions.WhileLoopUnrolling.ValueType  # 1
+    """Has the same effect as setting
+    `xla_gpu_enable_while_loop_double_buffering`.
+    """
+    WHILE_LOOP_UNROLLING_FULL_UNROLL: DebugOptions.WhileLoopUnrolling.ValueType  # 2
+    """Enables full loop unrolling using the same strategy as `DOUBLE_BUFFER`."""
 
     @typing.final
     class XlaBackendExtraOptionsEntry(google.protobuf.message.Message):
@@ -218,7 +270,7 @@ class DebugOptions(google.protobuf.message.Message):
     XLA_TEST_ALL_INPUT_LAYOUTS_FIELD_NUMBER: builtins.int
     XLA_HLO_GRAPH_SHARDING_COLOR_FIELD_NUMBER: builtins.int
     XLA_CPU_USE_MKL_DNN_FIELD_NUMBER: builtins.int
-    XLA_CPU_USE_XLA_RUNTIME_FIELD_NUMBER: builtins.int
+    XLA_CPU_USE_THUNK_RUNTIME_FIELD_NUMBER: builtins.int
     XLA_CPU_ENABLE_FAST_MATH_FIELD_NUMBER: builtins.int
     XLA_CPU_FAST_MATH_HONOR_NANS_FIELD_NUMBER: builtins.int
     XLA_CPU_FAST_MATH_HONOR_INFS_FIELD_NUMBER: builtins.int
@@ -226,7 +278,6 @@ class DebugOptions(google.protobuf.message.Message):
     XLA_CPU_FAST_MATH_HONOR_FUNCTIONS_FIELD_NUMBER: builtins.int
     XLA_CPU_ENABLE_FAST_MIN_MAX_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_FAST_MIN_MAX_FIELD_NUMBER: builtins.int
-    XLA_CPU_SPARSE_CUDA_THREADS_FIELD_NUMBER: builtins.int
     XLA_ALLOW_EXCESS_PRECISION_FIELD_NUMBER: builtins.int
     XLA_GPU_CRASH_ON_VERIFICATION_FAILURES_FIELD_NUMBER: builtins.int
     XLA_GPU_AUTOTUNE_LEVEL_FIELD_NUMBER: builtins.int
@@ -269,22 +320,19 @@ class DebugOptions(google.protobuf.message.Message):
     XLA_GPU_ENABLE_LLVM_MODULE_COMPILATION_PARALLELISM_FIELD_NUMBER: builtins.int
     XLA_GPU_DETERMINISTIC_OPS_FIELD_NUMBER: builtins.int
     XLA_GPU_LLVM_IR_FILE_FIELD_NUMBER: builtins.int
-    XLA_GPU_ENABLE_ASYNC_COLLECTIVES_FIELD_NUMBER: builtins.int
-    XLA_GPU_ENABLE_ASYNC_ALL_REDUCE_FIELD_NUMBER: builtins.int
-    XLA_GPU_ENABLE_ASYNC_COLLECTIVE_PERMUTE_FIELD_NUMBER: builtins.int
-    XLA_GPU_ENABLE_ASYNC_ALL_GATHER_FIELD_NUMBER: builtins.int
-    XLA_GPU_ENABLE_ASYNC_REDUCE_SCATTER_FIELD_NUMBER: builtins.int
-    XLA_GPU_ENABLE_ASYNC_ALL_TO_ALL_FIELD_NUMBER: builtins.int
+    XLA_GPU_DISABLE_ASYNC_COLLECTIVES_FIELD_NUMBER: builtins.int
     XLA_GPU_ALL_REDUCE_COMBINE_THRESHOLD_BYTES_FIELD_NUMBER: builtins.int
     XLA_GPU_ALL_GATHER_COMBINE_THRESHOLD_BYTES_FIELD_NUMBER: builtins.int
     XLA_GPU_REDUCE_SCATTER_COMBINE_THRESHOLD_BYTES_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_ALL_GATHER_COMBINE_BY_DIM_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_REDUCE_SCATTER_COMBINE_BY_DIM_FIELD_NUMBER: builtins.int
     XLA_GPU_ALL_REDUCE_CONTIGUOUS_FIELD_NUMBER: builtins.int
+    XLA_GPU_ENABLE_ALL_REDUCE_SPLITTER_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_REASSOCIATION_FOR_CONVERTED_AR_FIELD_NUMBER: builtins.int
     XLA_GPU_ALL_REDUCE_BLUECONNECT_NUM_DEVICES_PER_HOST_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_WHILE_LOOP_REDUCE_SCATTER_CODE_MOTION_FIELD_NUMBER: builtins.int
     XLA_GPU_COLLECTIVE_INFLATION_FACTOR_FIELD_NUMBER: builtins.int
+    XLA_LLVM_FORCE_INLINE_BEFORE_SPLIT_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_CUDNN_FRONTEND_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_CUDNN_FMHA_FIELD_NUMBER: builtins.int
     XLA_GPU_FUSED_ATTENTION_USE_CUDNN_RNG_FIELD_NUMBER: builtins.int
@@ -292,7 +340,6 @@ class DebugOptions(google.protobuf.message.Message):
     XLA_DUMP_DISABLE_METADATA_FIELD_NUMBER: builtins.int
     XLA_DUMP_HLO_PIPELINE_RE_FIELD_NUMBER: builtins.int
     XLA_GPU_STRICT_CONV_ALGORITHM_PICKER_FIELD_NUMBER: builtins.int
-    XLA_GPU_ENABLE_XLA_RUNTIME_EXECUTABLE_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_CUSTOM_FUSIONS_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_CUSTOM_FUSIONS_RE_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_ADDRESS_COMPUTATION_FUSION_FIELD_NUMBER: builtins.int
@@ -300,14 +347,10 @@ class DebugOptions(google.protobuf.message.Message):
     XLA_GPU_ENABLE_SHARED_CONSTANTS_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_CUBLASLT_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_COMMAND_BUFFER_FIELD_NUMBER: builtins.int
-    XLA_GPU_GRAPH_NUM_RUNS_TO_INSTANTIATE_FIELD_NUMBER: builtins.int
     XLA_GPU_GRAPH_MIN_GRAPH_SIZE_FIELD_NUMBER: builtins.int
     XLA_GPU_GRAPH_ENABLE_CONCURRENT_REGION_FIELD_NUMBER: builtins.int
-    XLA_GPU_GRAPH_EVICTION_TIMEOUT_SECONDS_FIELD_NUMBER: builtins.int
     XLA_GPU_REDZONE_SCRATCH_MAX_MEGABYTES_FIELD_NUMBER: builtins.int
     XLA_GPU_REDZONE_PADDING_BYTES_FIELD_NUMBER: builtins.int
-    XLA_GPU_SIMPLIFY_ALL_FP_CONVERSIONS_FIELD_NUMBER: builtins.int
-    XLA_GPU_NORMALIZE_LAYOUTS_FIELD_NUMBER: builtins.int
     XLA_CPU_USE_ACL_FIELD_NUMBER: builtins.int
     XLA_CPU_STRICT_DOT_CONV_MATH_FIELD_NUMBER: builtins.int
     XLA_GPU_USE_RUNTIME_FUSION_FIELD_NUMBER: builtins.int
@@ -338,6 +381,7 @@ class DebugOptions(google.protobuf.message.Message):
     XLA_GPU_EXHAUSTIVE_TILING_SEARCH_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_TRITON_SOFTMAX_FUSION_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_PRIORITY_FUSION_FIELD_NUMBER: builtins.int
+    XLA_GPU_ENABLE_TRITON_SOFTMAX_PRIORITY_FUSION_FIELD_NUMBER: builtins.int
     XLA_GPU_DUMP_AUTOTUNE_RESULTS_TO_FIELD_NUMBER: builtins.int
     XLA_GPU_LOAD_AUTOTUNE_RESULTS_FROM_FIELD_NUMBER: builtins.int
     XLA_GPU_TARGET_CONFIG_FILENAME_FIELD_NUMBER: builtins.int
@@ -345,7 +389,8 @@ class DebugOptions(google.protobuf.message.Message):
     XLA_GPU_AUTO_SPMD_PARTITIONING_MEMORY_BUDGET_RATIO_FIELD_NUMBER: builtins.int
     XLA_GPU_TRITON_GEMM_DISABLE_REDUCED_PRECISION_REDUCTION_FIELD_NUMBER: builtins.int
     XLA_GPU_TRITON_FUSION_LEVEL_FIELD_NUMBER: builtins.int
-    XLA_GPU_DUMP_AUTOTUNED_TRITON_FUSIONS_FIELD_NUMBER: builtins.int
+    XLA_GPU_DUMP_AUTOTUNED_GEMM_FUSIONS_FIELD_NUMBER: builtins.int
+    XLA_GPU_OVERRIDE_GEMM_AUTOTUNER_FIELD_NUMBER: builtins.int
     XLA_GPU_COPY_INSERTION_USE_REGION_ANALYSIS_FIELD_NUMBER: builtins.int
     XLA_GPU_COLLECT_COST_MODEL_STATS_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_SPLIT_K_AUTOTUNING_FIELD_NUMBER: builtins.int
@@ -354,6 +399,7 @@ class DebugOptions(google.protobuf.message.Message):
     XLA_GPU_MOCK_CUSTOM_CALLS_FIELD_NUMBER: builtins.int
     XLA_GPU_CUBLAS_FALLBACK_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_WHILE_LOOP_DOUBLE_BUFFERING_FIELD_NUMBER: builtins.int
+    XLA_GPU_ENABLE_WHILE_LOOP_UNROLLING_FIELD_NUMBER: builtins.int
     XLA_GPU_ENSURE_MINOR_DOT_CONTRACTION_DIMS_FIELD_NUMBER: builtins.int
     XLA_GPU_FILTER_KERNELS_SPILLING_REGISTERS_ON_AUTOTUNING_FIELD_NUMBER: builtins.int
     XLA_DEBUG_BUFFER_ASSIGNMENT_SHOW_MAX_FIELD_NUMBER: builtins.int
@@ -362,8 +408,29 @@ class DebugOptions(google.protobuf.message.Message):
     XLA_GPU_THRESHOLD_FOR_WINDOWED_EINSUM_MIB_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_TRITON_HOPPER_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_NCCL_USER_BUFFERS_FIELD_NUMBER: builtins.int
+    XLA_GPU_ENABLE_NCCL_COMM_SPLITTING_FIELD_NUMBER: builtins.int
+    XLA_GPU_ENABLE_NCCL_PER_STREAM_COMMS_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_LIBNVPTXCOMPILER_FIELD_NUMBER: builtins.int
     XLA_GPU_ENABLE_DOT_STRENGTH_REDUCTION_FIELD_NUMBER: builtins.int
+    XLA_GPU_MULTI_STREAMED_WINDOWED_EINSUM_FIELD_NUMBER: builtins.int
+    XLA_GPU_ENABLE_BF16_6WAY_GEMM_FIELD_NUMBER: builtins.int
+    XLA_GPU_ENABLE_BF16_3WAY_GEMM_FIELD_NUMBER: builtins.int
+    XLA_GPU_NCCL_COLLECTIVE_MAX_NCHANNELS_FIELD_NUMBER: builtins.int
+    XLA_GPU_NCCL_P2P_MAX_NCHANNELS_FIELD_NUMBER: builtins.int
+    XLA_GPU_ENABLE_MLIR_EMITTERS_FIELD_NUMBER: builtins.int
+    XLA_GPU_MAX_MLIR_KERNELS_FIELD_NUMBER: builtins.int
+    XLA_GPU_SKIP_MLIR_KERNELS_FIELD_NUMBER: builtins.int
+    XLA_GPU_GEMM_REWRITE_SIZE_THRESHOLD_FIELD_NUMBER: builtins.int
+    XLA_GPU_REQUIRE_COMPLETE_AOT_AUTOTUNE_RESULTS_FIELD_NUMBER: builtins.int
+    XLA_GPU_CUDNN_GEMM_FUSION_LEVEL_FIELD_NUMBER: builtins.int
+    XLA_GPU_USE_MEMCPY_LOCAL_P2P_FIELD_NUMBER: builtins.int
+    XLA_GPU_AUTOTUNE_MAX_SOLUTIONS_FIELD_NUMBER: builtins.int
+    XLA_DUMP_LARGE_CONSTANTS_FIELD_NUMBER: builtins.int
+    XLA_GPU_VERIFY_TRITON_FUSION_NUMERICS_FIELD_NUMBER: builtins.int
+    XLA_GPU_DUMP_AUTOTUNE_LOGS_TO_FIELD_NUMBER: builtins.int
+    XLA_REDUCE_WINDOW_REWRITE_BASE_LENGTH_FIELD_NUMBER: builtins.int
+    XLA_GPU_ENABLE_HOST_MEMORY_OFFLOADING_FIELD_NUMBER: builtins.int
+    XLA_GPU_EXCLUDE_NONDETERMINISTIC_OPS_FIELD_NUMBER: builtins.int
     XLA_BACKEND_EXTRA_OPTIONS_FIELD_NUMBER: builtins.int
     xla_hlo_graph_addresses: builtins.bool
     """Show addresses of HLO ops in graph dump."""
@@ -427,8 +494,7 @@ class DebugOptions(google.protobuf.message.Message):
     """
     xla_cpu_use_mkl_dnn: builtins.bool
     """Generate calls to MKL-DNN in the CPU backend."""
-    xla_cpu_use_xla_runtime: builtins.bool
-    """Enable XLA Runtime in the CPU backend."""
+    xla_cpu_use_thunk_runtime: builtins.bool
     xla_cpu_enable_fast_math: builtins.bool
     """When true, "unsafe" mathematical optimizations are enabled. These
     transformations include but are not limited to:
@@ -475,15 +541,14 @@ class DebugOptions(google.protobuf.message.Message):
     Note, this does not correspond to the exact same behavior as the cpu flag
     above!
     """
-    xla_cpu_sparse_cuda_threads: builtins.int
-    """Defines the number of CUDA threads that can be used to accelerate
-    a sparse computation compiled for the XLA Runtime and CPU backend.
-    By default (value 0), no acceleration is used. Otherwise, this
-    many threads may be used to accelerate sparse operations, typically
-    useful when accelerating structured sparsity.
-    """
     xla_allow_excess_precision: builtins.bool
-    """Allows xla to increase the output precision of floating point operations."""
+    """Allows xla to increase the output precision of floating point operations
+    and all floating-point conversions to be simplified, including those
+    that affect the numerics. The `FloatNormalization` pass inserts many
+    `f32 -> bf16 -> f32` conversion pairs. These are not removed by the
+    `AlgebraicSimplifier`, as that will only simplify conversions that are
+    no-ops, e.g. `bf16 -> f32 -> bf16`. Removing these improves accuracy.
+    """
     xla_gpu_crash_on_verification_failures: builtins.bool
     """Crashes the program when any kind of verification fails, instead of just
     logging the failures. One example is cross checking of convolution results
@@ -612,17 +677,10 @@ class DebugOptions(google.protobuf.message.Message):
     """
     xla_gpu_enable_llvm_module_compilation_parallelism: builtins.bool
     xla_gpu_deterministic_ops: builtins.bool
-    """Guarantees run-to-run determinism. At present, the HLO ops Scatter and
-    SelectAndScatter do not have deterministic XLA:GPU implementations.
-    Compilation errors out if these ops are encountered.
+    """Guarantees run-to-run determinism.
+    This flag implies --xla_gpu_exclude_nondeterministic_ops and in addition
+    disables autotuning.
     """
-    xla_gpu_enable_async_collectives: builtins.bool
-    """Convert synchronous collective ops into asynchronous."""
-    xla_gpu_enable_async_all_reduce: builtins.bool
-    xla_gpu_enable_async_collective_permute: builtins.bool
-    xla_gpu_enable_async_all_gather: builtins.bool
-    xla_gpu_enable_async_reduce_scatter: builtins.bool
-    xla_gpu_enable_async_all_to_all: builtins.bool
     xla_gpu_all_reduce_combine_threshold_bytes: builtins.int
     """Size threshold (in bytes) for the GPU collective combiners."""
     xla_gpu_all_gather_combine_threshold_bytes: builtins.int
@@ -634,6 +692,8 @@ class DebugOptions(google.protobuf.message.Message):
     xla_gpu_enable_reduce_scatter_combine_by_dim: builtins.bool
     xla_gpu_all_reduce_contiguous: builtins.bool
     """Combine GPU all-reduces into a single operation over a contiguous buffer."""
+    xla_gpu_enable_all_reduce_splitter: builtins.bool
+    """Split AR across all partitions into logical RS followed by AR."""
     xla_gpu_enable_reassociation_for_converted_ar: builtins.bool
     """Enable allreduce reassociation on allreduces that are converted to a wider
     type. The resulting allreduce will be promoted to a wider-typed allreduce.
@@ -649,6 +709,10 @@ class DebugOptions(google.protobuf.message.Message):
     """Enable hoisting of reduce-scatter out of while loops."""
     xla_gpu_collective_inflation_factor: builtins.int
     """Inflate collective cost by running each collective multiple times."""
+    xla_llvm_force_inline_before_split: builtins.bool
+    """Whether to force inline before llvm module split to get a more balanced
+    splits for parallel compilation.
+    """
     xla_gpu_enable_cudnn_frontend: builtins.bool
     """Whether to use the cuDNN frontend API for convolutions when possible."""
     xla_gpu_enable_cudnn_fmha: builtins.bool
@@ -666,8 +730,6 @@ class DebugOptions(google.protobuf.message.Message):
     """If true, abort immediately when conv algorithm picker fails, rather than
     logging a warning and proceeding with fallback.
     """
-    xla_gpu_enable_xla_runtime_executable: builtins.bool
-    """If true, use XLA runtime for XLA:GPU backend."""
     xla_gpu_enable_custom_fusions: builtins.bool
     """If true, XLA will try to pattern match subgraphs of HLO operations into
     custom fusions registered in the current process (pre-compiled hand written
@@ -678,7 +740,9 @@ class DebugOptions(google.protobuf.message.Message):
     if `xla_gpu_enable_custom_fusion` set to true.
     """
     xla_gpu_enable_address_computation_fusion: builtins.bool
-    """If true, use XLA runtime for XLA:GPU backend."""
+    """Enables address computation fusion to optimize dynamic-slice and
+    dynamic-update-slice operations around library calls.
+    """
     xla_gpu_nccl_termination_timeout_seconds: builtins.int
     """Timeout in seconds before terminating jobs that are stuck in a NCCL
     Rendezvous. Negative value disables the timeout and will not terminate.
@@ -689,11 +753,6 @@ class DebugOptions(google.protobuf.message.Message):
     """
     xla_gpu_enable_cublaslt: builtins.bool
     """Whether to use cuBLASLt for GEMMs on GPUs."""
-    xla_gpu_graph_num_runs_to_instantiate: builtins.int
-    """Only instantiates a GPU graph after the captured function execution count
-    reaches the threshold. This constant is a heuristic to avoid creating a
-    large number of CUDA graph instances in memory.
-    """
     xla_gpu_graph_min_graph_size: builtins.int
     """This number determines how many moved instructions like fusion kernels are
     required for a region to be captured as a function to be launched as a GPU
@@ -701,11 +760,6 @@ class DebugOptions(google.protobuf.message.Message):
     """
     xla_gpu_graph_enable_concurrent_region: builtins.bool
     """Identify concurrent regions in GPU graphs and execute them concurrently."""
-    xla_gpu_graph_eviction_timeout_seconds: builtins.int
-    """Timeout in seconds to evict instantiated Gpu graphs from device. When XLA
-    instantiates new Gpu graphs, it evicts graphs that were not recently
-    executed to free space on device.
-    """
     xla_gpu_redzone_scratch_max_megabytes: builtins.int
     """Size threshold (in megabytes) for the GPU redzone scratch allocator."""
     xla_gpu_redzone_padding_bytes: builtins.int
@@ -717,19 +771,6 @@ class DebugOptions(google.protobuf.message.Message):
     write.  Smaller values consume less memory during autotuning.  Note that a
     fused cudnn conv has up to 6 total buffers (4 inputs, 1 output, and 1
     scratch), so this can be multiplied by quite a lot.
-    """
-    xla_gpu_simplify_all_fp_conversions: builtins.bool
-    """Allows all floating-point conversions to be simplified, including those
-    that affect the numerics. The `FloatNormalization` pass inserts many
-    `f32 -> bf16 -> f32` conversion pairs. These are not removed by the
-    `AlgebraicSimplifier`, as that will only simplify conversions that are
-    no-ops, e.g. `bf16 -> f32 -> bf16`. Removing these improves accuracy.
-    """
-    xla_gpu_normalize_layouts: builtins.bool
-    """An experimental option to force all layouts present in the
-    after-optimizations HLO to be descending, e.g.
-    ShapeUtil::MakeShapeWithDescendingLayout is an identity on all
-    instructions.
     """
     xla_cpu_use_acl: builtins.bool
     """Generate calls to Arm Compute Library in the CPU backend."""
@@ -782,6 +823,7 @@ class DebugOptions(google.protobuf.message.Message):
     xla_gpu_exhaustive_tiling_search: builtins.bool
     xla_gpu_enable_triton_softmax_fusion: builtins.bool
     xla_gpu_enable_priority_fusion: builtins.bool
+    xla_gpu_enable_triton_softmax_priority_fusion: builtins.bool
     xla_gpu_dump_autotune_results_to: builtins.str
     """File to write autotune results to. It will be a binary file unless the name
     ends with .txt or .textproto. Warning: The results are written at every
@@ -808,7 +850,8 @@ class DebugOptions(google.protobuf.message.Message):
     """
     xla_gpu_triton_gemm_disable_reduced_precision_reduction: builtins.bool
     xla_gpu_triton_fusion_level: builtins.int
-    xla_gpu_dump_autotuned_triton_fusions: builtins.bool
+    xla_gpu_dump_autotuned_gemm_fusions: builtins.bool
+    xla_gpu_override_gemm_autotuner: builtins.str
     xla_gpu_copy_insertion_use_region_analysis: builtins.bool
     xla_gpu_collect_cost_model_stats: builtins.bool
     """If true, each fusion instruction will have a cost model runtime estimate in
@@ -827,6 +870,8 @@ class DebugOptions(google.protobuf.message.Message):
     """
     xla_gpu_enable_while_loop_double_buffering: builtins.bool
     """Enable double buffering for loops."""
+    xla_gpu_enable_while_loop_unrolling: global___DebugOptions.WhileLoopUnrolling.ValueType
+    """Determine the while loop unrolling scheme."""
     xla_gpu_ensure_minor_dot_contraction_dims: builtins.bool
     """Change the layout of the second triton dot operand to be column major.
     Only works for (bf16 x bf16) -> bf16.
@@ -844,9 +889,84 @@ class DebugOptions(google.protobuf.message.Message):
     """Enables currently disabled features within Triton for Hopper."""
     xla_gpu_enable_nccl_user_buffers: builtins.bool
     """Enable NCCL user buffers."""
+    xla_gpu_enable_nccl_comm_splitting: builtins.bool
+    """Enable NCCL communicator splitting."""
+    xla_gpu_enable_nccl_per_stream_comms: builtins.bool
+    """Enable NCCL per stream communicators."""
     xla_gpu_enable_libnvptxcompiler: builtins.bool
     """If enabled, uses the libnvptxcompiler library to compile PTX to cuBIN."""
     xla_gpu_enable_dot_strength_reduction: builtins.bool
+    xla_gpu_multi_streamed_windowed_einsum: builtins.bool
+    """Whether to use multiple compute streams to run windowed einsum."""
+    xla_gpu_enable_bf16_6way_gemm: builtins.bool
+    """If enabled, uses bf16_6way gemm to compute F32 gemm."""
+    xla_gpu_enable_bf16_3way_gemm: builtins.bool
+    """If enabled, uses bf16_3way gemm to compute F32 gemm."""
+    xla_gpu_nccl_collective_max_nchannels: builtins.int
+    """Specify the maximum number of channels(SMs) NCCL
+    will use for collective operations.
+    """
+    xla_gpu_nccl_p2p_max_nchannels: builtins.int
+    """Specify the maximum number of channels(SMs) NCCL
+    will use for p2p operations.
+    """
+    xla_gpu_enable_mlir_emitters: builtins.bool
+    xla_gpu_max_mlir_kernels: builtins.int
+    """The maximum number of kernels to emit with MLIR. Unlimited if 0."""
+    xla_gpu_skip_mlir_kernels: builtins.int
+    """The number of initial kernels to not emit with MLIR. Only supported kernels
+    are counted.
+    """
+    xla_gpu_gemm_rewrite_size_threshold: builtins.int
+    """Threshold to rewrite matmul to cuBLAS or Triton (minumum combined number of
+    elements of both matrices in non-batch dimensions to be considered for a
+    rewrite).
+    """
+    xla_gpu_require_complete_aot_autotune_results: builtins.bool
+    """If true, will require complete AOT autotuning results; in the case of
+    missing AOT result, the model will not be compiled or executed, a
+    `NotFound` error will be returned.
+    """
+    xla_gpu_cudnn_gemm_fusion_level: builtins.int
+    """Let GEMM fusion autotuning probe cuDNN as a backend.
+    Current levels:
+    0: Disabled.
+    1: Fusions of GEMM, elementwise, transpose/reshape operations.
+    2: + Broadcasts.
+    3: + Nontrivial noncontracting dimension reshapes/transposes.
+    """
+    xla_gpu_use_memcpy_local_p2p: builtins.bool
+    """This instructs the runtime whether to use
+    memcpy for p2p communication when source and
+    target are located within a node(nvlink).
+    """
+    xla_gpu_autotune_max_solutions: builtins.int
+    """If non-zero, limits the number of solutions to be used by GEMM autotuner.
+    This might be useful if underlying math library returns too many GEMM
+    solutions.
+    """
+    xla_dump_large_constants: builtins.bool
+    """If true, large constants will be printed out when dumping HLOs."""
+    xla_gpu_verify_triton_fusion_numerics: builtins.bool
+    """If true, will verify that the numerical results of Triton fusions match
+    the results of regular emitters.
+    """
+    xla_gpu_dump_autotune_logs_to: builtins.str
+    """File to write autotune logs to. It will stored in txt format."""
+    xla_reduce_window_rewrite_base_length: builtins.int
+    """Base length to rewrite the reduce window to, no rewrite if set to 0."""
+    xla_gpu_enable_host_memory_offloading: builtins.bool
+    """If true, will enable host memory offloading on a device."""
+    xla_gpu_exclude_nondeterministic_ops: builtins.bool
+    """Excludes non-deterministic ops from compiled executables.
+    Unlike --xla_gpu_deterministic_ops does not disable autotuning - the
+    compilation itself can be non-deterministic.
+    At present, the HLO op SelectAndScatter does not have a
+    deterministic XLA:GPU implementation.
+    Compilation errors out if SelectAndScatter is encountered.
+    Scatter ops can non-deterministic by default; these get converted to
+    a deterministic implementation.
+    """
     @property
     def xla_disable_hlo_passes(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """List of HLO passes to disable/enable. These names must exactly match the
@@ -867,12 +987,14 @@ class DebugOptions(google.protobuf.message.Message):
         """Paths to files with LLVM code."""
 
     @property
+    def xla_gpu_disable_async_collectives(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___DebugOptions.CollectiveOpType.ValueType]: ...
+    @property
     def xla_gpu_enable_command_buffer(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___DebugOptions.CommandBufferCmdType.ValueType]:
         """Determine the types of commands that are recorded into command buffers."""
 
     @property
     def xla_backend_extra_options(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.str]:
-        """Next id: 271
+        """Next id: 300
 
         Extra options to pass to the compilation backend (e.g. LLVM); specific
         interpretation of these values is left to the backend.
@@ -900,7 +1022,7 @@ class DebugOptions(google.protobuf.message.Message):
         xla_test_all_input_layouts: builtins.bool | None = ...,
         xla_hlo_graph_sharding_color: builtins.bool | None = ...,
         xla_cpu_use_mkl_dnn: builtins.bool | None = ...,
-        xla_cpu_use_xla_runtime: builtins.bool | None = ...,
+        xla_cpu_use_thunk_runtime: builtins.bool | None = ...,
         xla_cpu_enable_fast_math: builtins.bool | None = ...,
         xla_cpu_fast_math_honor_nans: builtins.bool | None = ...,
         xla_cpu_fast_math_honor_infs: builtins.bool | None = ...,
@@ -908,7 +1030,6 @@ class DebugOptions(google.protobuf.message.Message):
         xla_cpu_fast_math_honor_functions: builtins.bool | None = ...,
         xla_cpu_enable_fast_min_max: builtins.bool | None = ...,
         xla_gpu_enable_fast_min_max: builtins.bool | None = ...,
-        xla_cpu_sparse_cuda_threads: builtins.int | None = ...,
         xla_allow_excess_precision: builtins.bool | None = ...,
         xla_gpu_crash_on_verification_failures: builtins.bool | None = ...,
         xla_gpu_autotune_level: builtins.int | None = ...,
@@ -951,22 +1072,19 @@ class DebugOptions(google.protobuf.message.Message):
         xla_gpu_enable_llvm_module_compilation_parallelism: builtins.bool | None = ...,
         xla_gpu_deterministic_ops: builtins.bool | None = ...,
         xla_gpu_llvm_ir_file: collections.abc.Iterable[builtins.str] | None = ...,
-        xla_gpu_enable_async_collectives: builtins.bool | None = ...,
-        xla_gpu_enable_async_all_reduce: builtins.bool | None = ...,
-        xla_gpu_enable_async_collective_permute: builtins.bool | None = ...,
-        xla_gpu_enable_async_all_gather: builtins.bool | None = ...,
-        xla_gpu_enable_async_reduce_scatter: builtins.bool | None = ...,
-        xla_gpu_enable_async_all_to_all: builtins.bool | None = ...,
+        xla_gpu_disable_async_collectives: collections.abc.Iterable[global___DebugOptions.CollectiveOpType.ValueType] | None = ...,
         xla_gpu_all_reduce_combine_threshold_bytes: builtins.int | None = ...,
         xla_gpu_all_gather_combine_threshold_bytes: builtins.int | None = ...,
         xla_gpu_reduce_scatter_combine_threshold_bytes: builtins.int | None = ...,
         xla_gpu_enable_all_gather_combine_by_dim: builtins.bool | None = ...,
         xla_gpu_enable_reduce_scatter_combine_by_dim: builtins.bool | None = ...,
         xla_gpu_all_reduce_contiguous: builtins.bool | None = ...,
+        xla_gpu_enable_all_reduce_splitter: builtins.bool | None = ...,
         xla_gpu_enable_reassociation_for_converted_ar: builtins.bool | None = ...,
         xla_gpu_all_reduce_blueconnect_num_devices_per_host: builtins.int | None = ...,
         xla_gpu_enable_while_loop_reduce_scatter_code_motion: builtins.bool | None = ...,
         xla_gpu_collective_inflation_factor: builtins.int | None = ...,
+        xla_llvm_force_inline_before_split: builtins.bool | None = ...,
         xla_gpu_enable_cudnn_frontend: builtins.bool | None = ...,
         xla_gpu_enable_cudnn_fmha: builtins.bool | None = ...,
         xla_gpu_fused_attention_use_cudnn_rng: builtins.bool | None = ...,
@@ -974,7 +1092,6 @@ class DebugOptions(google.protobuf.message.Message):
         xla_dump_disable_metadata: builtins.bool | None = ...,
         xla_dump_hlo_pipeline_re: builtins.str | None = ...,
         xla_gpu_strict_conv_algorithm_picker: builtins.bool | None = ...,
-        xla_gpu_enable_xla_runtime_executable: builtins.bool | None = ...,
         xla_gpu_enable_custom_fusions: builtins.bool | None = ...,
         xla_gpu_enable_custom_fusions_re: builtins.str | None = ...,
         xla_gpu_enable_address_computation_fusion: builtins.bool | None = ...,
@@ -982,14 +1099,10 @@ class DebugOptions(google.protobuf.message.Message):
         xla_gpu_enable_shared_constants: builtins.bool | None = ...,
         xla_gpu_enable_cublaslt: builtins.bool | None = ...,
         xla_gpu_enable_command_buffer: collections.abc.Iterable[global___DebugOptions.CommandBufferCmdType.ValueType] | None = ...,
-        xla_gpu_graph_num_runs_to_instantiate: builtins.int | None = ...,
         xla_gpu_graph_min_graph_size: builtins.int | None = ...,
         xla_gpu_graph_enable_concurrent_region: builtins.bool | None = ...,
-        xla_gpu_graph_eviction_timeout_seconds: builtins.int | None = ...,
         xla_gpu_redzone_scratch_max_megabytes: builtins.int | None = ...,
         xla_gpu_redzone_padding_bytes: builtins.int | None = ...,
-        xla_gpu_simplify_all_fp_conversions: builtins.bool | None = ...,
-        xla_gpu_normalize_layouts: builtins.bool | None = ...,
         xla_cpu_use_acl: builtins.bool | None = ...,
         xla_cpu_strict_dot_conv_math: builtins.bool | None = ...,
         xla_gpu_use_runtime_fusion: builtins.bool | None = ...,
@@ -1020,6 +1133,7 @@ class DebugOptions(google.protobuf.message.Message):
         xla_gpu_exhaustive_tiling_search: builtins.bool | None = ...,
         xla_gpu_enable_triton_softmax_fusion: builtins.bool | None = ...,
         xla_gpu_enable_priority_fusion: builtins.bool | None = ...,
+        xla_gpu_enable_triton_softmax_priority_fusion: builtins.bool | None = ...,
         xla_gpu_dump_autotune_results_to: builtins.str | None = ...,
         xla_gpu_load_autotune_results_from: builtins.str | None = ...,
         xla_gpu_target_config_filename: builtins.str | None = ...,
@@ -1027,7 +1141,8 @@ class DebugOptions(google.protobuf.message.Message):
         xla_gpu_auto_spmd_partitioning_memory_budget_ratio: builtins.float | None = ...,
         xla_gpu_triton_gemm_disable_reduced_precision_reduction: builtins.bool | None = ...,
         xla_gpu_triton_fusion_level: builtins.int | None = ...,
-        xla_gpu_dump_autotuned_triton_fusions: builtins.bool | None = ...,
+        xla_gpu_dump_autotuned_gemm_fusions: builtins.bool | None = ...,
+        xla_gpu_override_gemm_autotuner: builtins.str | None = ...,
         xla_gpu_copy_insertion_use_region_analysis: builtins.bool | None = ...,
         xla_gpu_collect_cost_model_stats: builtins.bool | None = ...,
         xla_gpu_enable_split_k_autotuning: builtins.bool | None = ...,
@@ -1036,6 +1151,7 @@ class DebugOptions(google.protobuf.message.Message):
         xla_gpu_mock_custom_calls: builtins.bool | None = ...,
         xla_gpu_cublas_fallback: builtins.bool | None = ...,
         xla_gpu_enable_while_loop_double_buffering: builtins.bool | None = ...,
+        xla_gpu_enable_while_loop_unrolling: global___DebugOptions.WhileLoopUnrolling.ValueType | None = ...,
         xla_gpu_ensure_minor_dot_contraction_dims: builtins.bool | None = ...,
         xla_gpu_filter_kernels_spilling_registers_on_autotuning: builtins.bool | None = ...,
         xla_debug_buffer_assignment_show_max: builtins.int | None = ...,
@@ -1044,11 +1160,32 @@ class DebugOptions(google.protobuf.message.Message):
         xla_gpu_threshold_for_windowed_einsum_mib: builtins.int | None = ...,
         xla_gpu_enable_triton_hopper: builtins.bool | None = ...,
         xla_gpu_enable_nccl_user_buffers: builtins.bool | None = ...,
+        xla_gpu_enable_nccl_comm_splitting: builtins.bool | None = ...,
+        xla_gpu_enable_nccl_per_stream_comms: builtins.bool | None = ...,
         xla_gpu_enable_libnvptxcompiler: builtins.bool | None = ...,
         xla_gpu_enable_dot_strength_reduction: builtins.bool | None = ...,
+        xla_gpu_multi_streamed_windowed_einsum: builtins.bool | None = ...,
+        xla_gpu_enable_bf16_6way_gemm: builtins.bool | None = ...,
+        xla_gpu_enable_bf16_3way_gemm: builtins.bool | None = ...,
+        xla_gpu_nccl_collective_max_nchannels: builtins.int | None = ...,
+        xla_gpu_nccl_p2p_max_nchannels: builtins.int | None = ...,
+        xla_gpu_enable_mlir_emitters: builtins.bool | None = ...,
+        xla_gpu_max_mlir_kernels: builtins.int | None = ...,
+        xla_gpu_skip_mlir_kernels: builtins.int | None = ...,
+        xla_gpu_gemm_rewrite_size_threshold: builtins.int | None = ...,
+        xla_gpu_require_complete_aot_autotune_results: builtins.bool | None = ...,
+        xla_gpu_cudnn_gemm_fusion_level: builtins.int | None = ...,
+        xla_gpu_use_memcpy_local_p2p: builtins.bool | None = ...,
+        xla_gpu_autotune_max_solutions: builtins.int | None = ...,
+        xla_dump_large_constants: builtins.bool | None = ...,
+        xla_gpu_verify_triton_fusion_numerics: builtins.bool | None = ...,
+        xla_gpu_dump_autotune_logs_to: builtins.str | None = ...,
+        xla_reduce_window_rewrite_base_length: builtins.int | None = ...,
+        xla_gpu_enable_host_memory_offloading: builtins.bool | None = ...,
+        xla_gpu_exclude_nondeterministic_ops: builtins.bool | None = ...,
         xla_backend_extra_options: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["xla_allow_excess_precision", b"xla_allow_excess_precision", "xla_allow_scalar_index_dynamic_ops", b"xla_allow_scalar_index_dynamic_ops", "xla_backend_extra_options", b"xla_backend_extra_options", "xla_backend_optimization_level", b"xla_backend_optimization_level", "xla_cpu_enable_custom_matmul_tiling", b"xla_cpu_enable_custom_matmul_tiling", "xla_cpu_enable_experimental_deallocation", b"xla_cpu_enable_experimental_deallocation", "xla_cpu_enable_fast_math", b"xla_cpu_enable_fast_math", "xla_cpu_enable_fast_min_max", b"xla_cpu_enable_fast_min_max", "xla_cpu_enable_mlir_fusion_outlining", b"xla_cpu_enable_mlir_fusion_outlining", "xla_cpu_enable_mlir_tiling_and_fusion", b"xla_cpu_enable_mlir_tiling_and_fusion", "xla_cpu_enable_xprof_traceme", b"xla_cpu_enable_xprof_traceme", "xla_cpu_fast_math_honor_division", b"xla_cpu_fast_math_honor_division", "xla_cpu_fast_math_honor_functions", b"xla_cpu_fast_math_honor_functions", "xla_cpu_fast_math_honor_infs", b"xla_cpu_fast_math_honor_infs", "xla_cpu_fast_math_honor_nans", b"xla_cpu_fast_math_honor_nans", "xla_cpu_matmul_tiling_k_dim", b"xla_cpu_matmul_tiling_k_dim", "xla_cpu_matmul_tiling_m_dim", b"xla_cpu_matmul_tiling_m_dim", "xla_cpu_matmul_tiling_n_dim", b"xla_cpu_matmul_tiling_n_dim", "xla_cpu_multi_thread_eigen", b"xla_cpu_multi_thread_eigen", "xla_cpu_sparse_cuda_threads", b"xla_cpu_sparse_cuda_threads", "xla_cpu_strict_dot_conv_math", b"xla_cpu_strict_dot_conv_math", "xla_cpu_use_acl", b"xla_cpu_use_acl", "xla_cpu_use_mkl_dnn", b"xla_cpu_use_mkl_dnn", "xla_cpu_use_xla_runtime", b"xla_cpu_use_xla_runtime", "xla_debug_buffer_assignment_show_max", b"xla_debug_buffer_assignment_show_max", "xla_detailed_logging", b"xla_detailed_logging", "xla_disable_all_hlo_passes", b"xla_disable_all_hlo_passes", "xla_disable_hlo_passes", b"xla_disable_hlo_passes", "xla_dump_compress_protos", b"xla_dump_compress_protos", "xla_dump_disable_metadata", b"xla_dump_disable_metadata", "xla_dump_enable_mlir_pretty_form", b"xla_dump_enable_mlir_pretty_form", "xla_dump_fusion_visualization", b"xla_dump_fusion_visualization", "xla_dump_hlo_as_dot", b"xla_dump_hlo_as_dot", "xla_dump_hlo_as_html", b"xla_dump_hlo_as_html", "xla_dump_hlo_as_long_text", b"xla_dump_hlo_as_long_text", "xla_dump_hlo_as_proto", b"xla_dump_hlo_as_proto", "xla_dump_hlo_as_text", b"xla_dump_hlo_as_text", "xla_dump_hlo_as_url", b"xla_dump_hlo_as_url", "xla_dump_hlo_module_re", b"xla_dump_hlo_module_re", "xla_dump_hlo_pass_re", b"xla_dump_hlo_pass_re", "xla_dump_hlo_pipeline_re", b"xla_dump_hlo_pipeline_re", "xla_dump_hlo_snapshots", b"xla_dump_hlo_snapshots", "xla_dump_include_timestamp", b"xla_dump_include_timestamp", "xla_dump_latency_hiding_schedule", b"xla_dump_latency_hiding_schedule", "xla_dump_max_hlo_modules", b"xla_dump_max_hlo_modules", "xla_dump_module_metadata", b"xla_dump_module_metadata", "xla_dump_to", b"xla_dump_to", "xla_eliminate_hlo_implicit_broadcast", b"xla_eliminate_hlo_implicit_broadcast", "xla_embed_ir_in_executable", b"xla_embed_ir_in_executable", "xla_enable_dumping", b"xla_enable_dumping", "xla_enable_hlo_passes_only", b"xla_enable_hlo_passes_only", "xla_force_host_platform_device_count", b"xla_force_host_platform_device_count", "xla_gpu_algorithm_denylist_path", b"xla_gpu_algorithm_denylist_path", "xla_gpu_all_gather_combine_threshold_bytes", b"xla_gpu_all_gather_combine_threshold_bytes", "xla_gpu_all_reduce_blueconnect_num_devices_per_host", b"xla_gpu_all_reduce_blueconnect_num_devices_per_host", "xla_gpu_all_reduce_combine_threshold_bytes", b"xla_gpu_all_reduce_combine_threshold_bytes", "xla_gpu_all_reduce_contiguous", b"xla_gpu_all_reduce_contiguous", "xla_gpu_asm_extra_flags", b"xla_gpu_asm_extra_flags", "xla_gpu_auto_spmd_partitioning_memory_budget_gb", b"xla_gpu_auto_spmd_partitioning_memory_budget_gb", "xla_gpu_auto_spmd_partitioning_memory_budget_ratio", b"xla_gpu_auto_spmd_partitioning_memory_budget_ratio", "xla_gpu_autotune_level", b"xla_gpu_autotune_level", "xla_gpu_collect_cost_model_stats", b"xla_gpu_collect_cost_model_stats", "xla_gpu_collective_inflation_factor", b"xla_gpu_collective_inflation_factor", "xla_gpu_collective_permute_decomposer_threshold", b"xla_gpu_collective_permute_decomposer_threshold", "xla_gpu_copy_insertion_use_region_analysis", b"xla_gpu_copy_insertion_use_region_analysis", "xla_gpu_crash_on_verification_failures", b"xla_gpu_crash_on_verification_failures", "xla_gpu_cublas_fallback", b"xla_gpu_cublas_fallback", "xla_gpu_cuda_data_dir", b"xla_gpu_cuda_data_dir", "xla_gpu_deterministic_ops", b"xla_gpu_deterministic_ops", "xla_gpu_disable_gpuasm_optimizations", b"xla_gpu_disable_gpuasm_optimizations", "xla_gpu_dump_autotune_results_to", b"xla_gpu_dump_autotune_results_to", "xla_gpu_dump_autotuned_triton_fusions", b"xla_gpu_dump_autotuned_triton_fusions", "xla_gpu_dump_llvmir", b"xla_gpu_dump_llvmir", "xla_gpu_enable_address_computation_fusion", b"xla_gpu_enable_address_computation_fusion", "xla_gpu_enable_all_gather_combine_by_dim", b"xla_gpu_enable_all_gather_combine_by_dim", "xla_gpu_enable_analytical_latency_estimator", b"xla_gpu_enable_analytical_latency_estimator", "xla_gpu_enable_async_all_gather", b"xla_gpu_enable_async_all_gather", "xla_gpu_enable_async_all_reduce", b"xla_gpu_enable_async_all_reduce", "xla_gpu_enable_async_all_to_all", b"xla_gpu_enable_async_all_to_all", "xla_gpu_enable_async_collective_permute", b"xla_gpu_enable_async_collective_permute", "xla_gpu_enable_async_collectives", b"xla_gpu_enable_async_collectives", "xla_gpu_enable_async_reduce_scatter", b"xla_gpu_enable_async_reduce_scatter", "xla_gpu_enable_command_buffer", b"xla_gpu_enable_command_buffer", "xla_gpu_enable_cub_radix_sort", b"xla_gpu_enable_cub_radix_sort", "xla_gpu_enable_cublaslt", b"xla_gpu_enable_cublaslt", "xla_gpu_enable_cudnn_fmha", b"xla_gpu_enable_cudnn_fmha", "xla_gpu_enable_cudnn_frontend", b"xla_gpu_enable_cudnn_frontend", "xla_gpu_enable_cudnn_int8x32_convolution_reordering", b"xla_gpu_enable_cudnn_int8x32_convolution_reordering", "xla_gpu_enable_cudnn_layer_norm", b"xla_gpu_enable_cudnn_layer_norm", "xla_gpu_enable_custom_fusions", b"xla_gpu_enable_custom_fusions", "xla_gpu_enable_custom_fusions_re", b"xla_gpu_enable_custom_fusions_re", "xla_gpu_enable_dot_strength_reduction", b"xla_gpu_enable_dot_strength_reduction", "xla_gpu_enable_fast_min_max", b"xla_gpu_enable_fast_min_max", "xla_gpu_enable_highest_priority_async_stream", b"xla_gpu_enable_highest_priority_async_stream", "xla_gpu_enable_latency_hiding_scheduler", b"xla_gpu_enable_latency_hiding_scheduler", "xla_gpu_enable_libnvptxcompiler", b"xla_gpu_enable_libnvptxcompiler", "xla_gpu_enable_llvm_module_compilation_parallelism", b"xla_gpu_enable_llvm_module_compilation_parallelism", "xla_gpu_enable_nccl_clique_optimization", b"xla_gpu_enable_nccl_clique_optimization", "xla_gpu_enable_nccl_user_buffers", b"xla_gpu_enable_nccl_user_buffers", "xla_gpu_enable_pipelined_all_gather", b"xla_gpu_enable_pipelined_all_gather", "xla_gpu_enable_pipelined_all_reduce", b"xla_gpu_enable_pipelined_all_reduce", "xla_gpu_enable_pipelined_collectives", b"xla_gpu_enable_pipelined_collectives", "xla_gpu_enable_pipelined_p2p", b"xla_gpu_enable_pipelined_p2p", "xla_gpu_enable_pipelined_reduce_scatter", b"xla_gpu_enable_pipelined_reduce_scatter", "xla_gpu_enable_priority_fusion", b"xla_gpu_enable_priority_fusion", "xla_gpu_enable_reassociation_for_converted_ar", b"xla_gpu_enable_reassociation_for_converted_ar", "xla_gpu_enable_reduce_scatter_combine_by_dim", b"xla_gpu_enable_reduce_scatter_combine_by_dim", "xla_gpu_enable_reduction_epilogue_fusion", b"xla_gpu_enable_reduction_epilogue_fusion", "xla_gpu_enable_shared_constants", b"xla_gpu_enable_shared_constants", "xla_gpu_enable_split_k_autotuning", b"xla_gpu_enable_split_k_autotuning", "xla_gpu_enable_triton_gemm", b"xla_gpu_enable_triton_gemm", "xla_gpu_enable_triton_hopper", b"xla_gpu_enable_triton_hopper", "xla_gpu_enable_triton_softmax_fusion", b"xla_gpu_enable_triton_softmax_fusion", "xla_gpu_enable_while_loop_double_buffering", b"xla_gpu_enable_while_loop_double_buffering", "xla_gpu_enable_while_loop_reduce_scatter_code_motion", b"xla_gpu_enable_while_loop_reduce_scatter_code_motion", "xla_gpu_enable_xla_runtime_executable", b"xla_gpu_enable_xla_runtime_executable", "xla_gpu_ensure_minor_dot_contraction_dims", b"xla_gpu_ensure_minor_dot_contraction_dims", "xla_gpu_exhaustive_tiling_search", b"xla_gpu_exhaustive_tiling_search", "xla_gpu_filter_kernels_spilling_registers_on_autotuning", b"xla_gpu_filter_kernels_spilling_registers_on_autotuning", "xla_gpu_force_compilation_parallelism", b"xla_gpu_force_compilation_parallelism", "xla_gpu_force_conv_nchw", b"xla_gpu_force_conv_nchw", "xla_gpu_force_conv_nhwc", b"xla_gpu_force_conv_nhwc", "xla_gpu_ftz", b"xla_gpu_ftz", "xla_gpu_fused_attention_use_cudnn_rng", b"xla_gpu_fused_attention_use_cudnn_rng", "xla_gpu_graph_enable_concurrent_region", b"xla_gpu_graph_enable_concurrent_region", "xla_gpu_graph_eviction_timeout_seconds", b"xla_gpu_graph_eviction_timeout_seconds", "xla_gpu_graph_min_graph_size", b"xla_gpu_graph_min_graph_size", "xla_gpu_graph_num_runs_to_instantiate", b"xla_gpu_graph_num_runs_to_instantiate", "xla_gpu_lhs_enable_gpu_async_tracker", b"xla_gpu_lhs_enable_gpu_async_tracker", "xla_gpu_llvm_ir_file", b"xla_gpu_llvm_ir_file", "xla_gpu_llvm_verification_level", b"xla_gpu_llvm_verification_level", "xla_gpu_load_autotune_results_from", b"xla_gpu_load_autotune_results_from", "xla_gpu_memory_limit_slop_factor", b"xla_gpu_memory_limit_slop_factor", "xla_gpu_mock_custom_calls", b"xla_gpu_mock_custom_calls", "xla_gpu_nccl_termination_timeout_seconds", b"xla_gpu_nccl_termination_timeout_seconds", "xla_gpu_normalize_layouts", b"xla_gpu_normalize_layouts", "xla_gpu_pgle_profile_file_or_directory_path", b"xla_gpu_pgle_profile_file_or_directory_path", "xla_gpu_ptx_file", b"xla_gpu_ptx_file", "xla_gpu_reduce_scatter_combine_threshold_bytes", b"xla_gpu_reduce_scatter_combine_threshold_bytes", "xla_gpu_redzone_padding_bytes", b"xla_gpu_redzone_padding_bytes", "xla_gpu_redzone_scratch_max_megabytes", b"xla_gpu_redzone_scratch_max_megabytes", "xla_gpu_shape_checks", b"xla_gpu_shape_checks", "xla_gpu_simplify_all_fp_conversions", b"xla_gpu_simplify_all_fp_conversions", "xla_gpu_strict_conv_algorithm_picker", b"xla_gpu_strict_conv_algorithm_picker", "xla_gpu_target_config_filename", b"xla_gpu_target_config_filename", "xla_gpu_threshold_for_windowed_einsum_mib", b"xla_gpu_threshold_for_windowed_einsum_mib", "xla_gpu_triton_fusion_level", b"xla_gpu_triton_fusion_level", "xla_gpu_triton_gemm_any", b"xla_gpu_triton_gemm_any", "xla_gpu_triton_gemm_disable_reduced_precision_reduction", b"xla_gpu_triton_gemm_disable_reduced_precision_reduction", "xla_gpu_unsafe_fallback_to_driver_on_ptxas_not_found", b"xla_gpu_unsafe_fallback_to_driver_on_ptxas_not_found", "xla_gpu_use_runtime_fusion", b"xla_gpu_use_runtime_fusion", "xla_hlo_evaluator_use_fast_path", b"xla_hlo_evaluator_use_fast_path", "xla_hlo_graph_addresses", b"xla_hlo_graph_addresses", "xla_hlo_graph_sharding_color", b"xla_hlo_graph_sharding_color", "xla_hlo_profile", b"xla_hlo_profile", "xla_llvm_disable_expensive_passes", b"xla_llvm_disable_expensive_passes", "xla_llvm_enable_alias_scope_metadata", b"xla_llvm_enable_alias_scope_metadata", "xla_llvm_enable_invariant_load_metadata", b"xla_llvm_enable_invariant_load_metadata", "xla_llvm_enable_noalias_metadata", b"xla_llvm_enable_noalias_metadata", "xla_multiheap_size_constraint_per_heap", b"xla_multiheap_size_constraint_per_heap", "xla_partitioning_algorithm", b"xla_partitioning_algorithm", "xla_step_marker_location", b"xla_step_marker_location", "xla_test_all_input_layouts", b"xla_test_all_input_layouts", "xla_test_all_output_layouts", b"xla_test_all_output_layouts", "xla_tpu_detect_inf", b"xla_tpu_detect_inf", "xla_tpu_detect_nan", b"xla_tpu_detect_nan"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["xla_allow_excess_precision", b"xla_allow_excess_precision", "xla_allow_scalar_index_dynamic_ops", b"xla_allow_scalar_index_dynamic_ops", "xla_backend_extra_options", b"xla_backend_extra_options", "xla_backend_optimization_level", b"xla_backend_optimization_level", "xla_cpu_enable_custom_matmul_tiling", b"xla_cpu_enable_custom_matmul_tiling", "xla_cpu_enable_experimental_deallocation", b"xla_cpu_enable_experimental_deallocation", "xla_cpu_enable_fast_math", b"xla_cpu_enable_fast_math", "xla_cpu_enable_fast_min_max", b"xla_cpu_enable_fast_min_max", "xla_cpu_enable_mlir_fusion_outlining", b"xla_cpu_enable_mlir_fusion_outlining", "xla_cpu_enable_mlir_tiling_and_fusion", b"xla_cpu_enable_mlir_tiling_and_fusion", "xla_cpu_enable_xprof_traceme", b"xla_cpu_enable_xprof_traceme", "xla_cpu_fast_math_honor_division", b"xla_cpu_fast_math_honor_division", "xla_cpu_fast_math_honor_functions", b"xla_cpu_fast_math_honor_functions", "xla_cpu_fast_math_honor_infs", b"xla_cpu_fast_math_honor_infs", "xla_cpu_fast_math_honor_nans", b"xla_cpu_fast_math_honor_nans", "xla_cpu_matmul_tiling_k_dim", b"xla_cpu_matmul_tiling_k_dim", "xla_cpu_matmul_tiling_m_dim", b"xla_cpu_matmul_tiling_m_dim", "xla_cpu_matmul_tiling_n_dim", b"xla_cpu_matmul_tiling_n_dim", "xla_cpu_multi_thread_eigen", b"xla_cpu_multi_thread_eigen", "xla_cpu_strict_dot_conv_math", b"xla_cpu_strict_dot_conv_math", "xla_cpu_use_acl", b"xla_cpu_use_acl", "xla_cpu_use_mkl_dnn", b"xla_cpu_use_mkl_dnn", "xla_cpu_use_thunk_runtime", b"xla_cpu_use_thunk_runtime", "xla_debug_buffer_assignment_show_max", b"xla_debug_buffer_assignment_show_max", "xla_detailed_logging", b"xla_detailed_logging", "xla_disable_all_hlo_passes", b"xla_disable_all_hlo_passes", "xla_disable_hlo_passes", b"xla_disable_hlo_passes", "xla_dump_compress_protos", b"xla_dump_compress_protos", "xla_dump_disable_metadata", b"xla_dump_disable_metadata", "xla_dump_enable_mlir_pretty_form", b"xla_dump_enable_mlir_pretty_form", "xla_dump_fusion_visualization", b"xla_dump_fusion_visualization", "xla_dump_hlo_as_dot", b"xla_dump_hlo_as_dot", "xla_dump_hlo_as_html", b"xla_dump_hlo_as_html", "xla_dump_hlo_as_long_text", b"xla_dump_hlo_as_long_text", "xla_dump_hlo_as_proto", b"xla_dump_hlo_as_proto", "xla_dump_hlo_as_text", b"xla_dump_hlo_as_text", "xla_dump_hlo_as_url", b"xla_dump_hlo_as_url", "xla_dump_hlo_module_re", b"xla_dump_hlo_module_re", "xla_dump_hlo_pass_re", b"xla_dump_hlo_pass_re", "xla_dump_hlo_pipeline_re", b"xla_dump_hlo_pipeline_re", "xla_dump_hlo_snapshots", b"xla_dump_hlo_snapshots", "xla_dump_include_timestamp", b"xla_dump_include_timestamp", "xla_dump_large_constants", b"xla_dump_large_constants", "xla_dump_latency_hiding_schedule", b"xla_dump_latency_hiding_schedule", "xla_dump_max_hlo_modules", b"xla_dump_max_hlo_modules", "xla_dump_module_metadata", b"xla_dump_module_metadata", "xla_dump_to", b"xla_dump_to", "xla_eliminate_hlo_implicit_broadcast", b"xla_eliminate_hlo_implicit_broadcast", "xla_embed_ir_in_executable", b"xla_embed_ir_in_executable", "xla_enable_dumping", b"xla_enable_dumping", "xla_enable_hlo_passes_only", b"xla_enable_hlo_passes_only", "xla_force_host_platform_device_count", b"xla_force_host_platform_device_count", "xla_gpu_algorithm_denylist_path", b"xla_gpu_algorithm_denylist_path", "xla_gpu_all_gather_combine_threshold_bytes", b"xla_gpu_all_gather_combine_threshold_bytes", "xla_gpu_all_reduce_blueconnect_num_devices_per_host", b"xla_gpu_all_reduce_blueconnect_num_devices_per_host", "xla_gpu_all_reduce_combine_threshold_bytes", b"xla_gpu_all_reduce_combine_threshold_bytes", "xla_gpu_all_reduce_contiguous", b"xla_gpu_all_reduce_contiguous", "xla_gpu_asm_extra_flags", b"xla_gpu_asm_extra_flags", "xla_gpu_auto_spmd_partitioning_memory_budget_gb", b"xla_gpu_auto_spmd_partitioning_memory_budget_gb", "xla_gpu_auto_spmd_partitioning_memory_budget_ratio", b"xla_gpu_auto_spmd_partitioning_memory_budget_ratio", "xla_gpu_autotune_level", b"xla_gpu_autotune_level", "xla_gpu_autotune_max_solutions", b"xla_gpu_autotune_max_solutions", "xla_gpu_collect_cost_model_stats", b"xla_gpu_collect_cost_model_stats", "xla_gpu_collective_inflation_factor", b"xla_gpu_collective_inflation_factor", "xla_gpu_collective_permute_decomposer_threshold", b"xla_gpu_collective_permute_decomposer_threshold", "xla_gpu_copy_insertion_use_region_analysis", b"xla_gpu_copy_insertion_use_region_analysis", "xla_gpu_crash_on_verification_failures", b"xla_gpu_crash_on_verification_failures", "xla_gpu_cublas_fallback", b"xla_gpu_cublas_fallback", "xla_gpu_cuda_data_dir", b"xla_gpu_cuda_data_dir", "xla_gpu_cudnn_gemm_fusion_level", b"xla_gpu_cudnn_gemm_fusion_level", "xla_gpu_deterministic_ops", b"xla_gpu_deterministic_ops", "xla_gpu_disable_async_collectives", b"xla_gpu_disable_async_collectives", "xla_gpu_disable_gpuasm_optimizations", b"xla_gpu_disable_gpuasm_optimizations", "xla_gpu_dump_autotune_logs_to", b"xla_gpu_dump_autotune_logs_to", "xla_gpu_dump_autotune_results_to", b"xla_gpu_dump_autotune_results_to", "xla_gpu_dump_autotuned_gemm_fusions", b"xla_gpu_dump_autotuned_gemm_fusions", "xla_gpu_dump_llvmir", b"xla_gpu_dump_llvmir", "xla_gpu_enable_address_computation_fusion", b"xla_gpu_enable_address_computation_fusion", "xla_gpu_enable_all_gather_combine_by_dim", b"xla_gpu_enable_all_gather_combine_by_dim", "xla_gpu_enable_all_reduce_splitter", b"xla_gpu_enable_all_reduce_splitter", "xla_gpu_enable_analytical_latency_estimator", b"xla_gpu_enable_analytical_latency_estimator", "xla_gpu_enable_bf16_3way_gemm", b"xla_gpu_enable_bf16_3way_gemm", "xla_gpu_enable_bf16_6way_gemm", b"xla_gpu_enable_bf16_6way_gemm", "xla_gpu_enable_command_buffer", b"xla_gpu_enable_command_buffer", "xla_gpu_enable_cub_radix_sort", b"xla_gpu_enable_cub_radix_sort", "xla_gpu_enable_cublaslt", b"xla_gpu_enable_cublaslt", "xla_gpu_enable_cudnn_fmha", b"xla_gpu_enable_cudnn_fmha", "xla_gpu_enable_cudnn_frontend", b"xla_gpu_enable_cudnn_frontend", "xla_gpu_enable_cudnn_int8x32_convolution_reordering", b"xla_gpu_enable_cudnn_int8x32_convolution_reordering", "xla_gpu_enable_cudnn_layer_norm", b"xla_gpu_enable_cudnn_layer_norm", "xla_gpu_enable_custom_fusions", b"xla_gpu_enable_custom_fusions", "xla_gpu_enable_custom_fusions_re", b"xla_gpu_enable_custom_fusions_re", "xla_gpu_enable_dot_strength_reduction", b"xla_gpu_enable_dot_strength_reduction", "xla_gpu_enable_fast_min_max", b"xla_gpu_enable_fast_min_max", "xla_gpu_enable_highest_priority_async_stream", b"xla_gpu_enable_highest_priority_async_stream", "xla_gpu_enable_host_memory_offloading", b"xla_gpu_enable_host_memory_offloading", "xla_gpu_enable_latency_hiding_scheduler", b"xla_gpu_enable_latency_hiding_scheduler", "xla_gpu_enable_libnvptxcompiler", b"xla_gpu_enable_libnvptxcompiler", "xla_gpu_enable_llvm_module_compilation_parallelism", b"xla_gpu_enable_llvm_module_compilation_parallelism", "xla_gpu_enable_mlir_emitters", b"xla_gpu_enable_mlir_emitters", "xla_gpu_enable_nccl_clique_optimization", b"xla_gpu_enable_nccl_clique_optimization", "xla_gpu_enable_nccl_comm_splitting", b"xla_gpu_enable_nccl_comm_splitting", "xla_gpu_enable_nccl_per_stream_comms", b"xla_gpu_enable_nccl_per_stream_comms", "xla_gpu_enable_nccl_user_buffers", b"xla_gpu_enable_nccl_user_buffers", "xla_gpu_enable_pipelined_all_gather", b"xla_gpu_enable_pipelined_all_gather", "xla_gpu_enable_pipelined_all_reduce", b"xla_gpu_enable_pipelined_all_reduce", "xla_gpu_enable_pipelined_collectives", b"xla_gpu_enable_pipelined_collectives", "xla_gpu_enable_pipelined_p2p", b"xla_gpu_enable_pipelined_p2p", "xla_gpu_enable_pipelined_reduce_scatter", b"xla_gpu_enable_pipelined_reduce_scatter", "xla_gpu_enable_priority_fusion", b"xla_gpu_enable_priority_fusion", "xla_gpu_enable_reassociation_for_converted_ar", b"xla_gpu_enable_reassociation_for_converted_ar", "xla_gpu_enable_reduce_scatter_combine_by_dim", b"xla_gpu_enable_reduce_scatter_combine_by_dim", "xla_gpu_enable_reduction_epilogue_fusion", b"xla_gpu_enable_reduction_epilogue_fusion", "xla_gpu_enable_shared_constants", b"xla_gpu_enable_shared_constants", "xla_gpu_enable_split_k_autotuning", b"xla_gpu_enable_split_k_autotuning", "xla_gpu_enable_triton_gemm", b"xla_gpu_enable_triton_gemm", "xla_gpu_enable_triton_hopper", b"xla_gpu_enable_triton_hopper", "xla_gpu_enable_triton_softmax_fusion", b"xla_gpu_enable_triton_softmax_fusion", "xla_gpu_enable_triton_softmax_priority_fusion", b"xla_gpu_enable_triton_softmax_priority_fusion", "xla_gpu_enable_while_loop_double_buffering", b"xla_gpu_enable_while_loop_double_buffering", "xla_gpu_enable_while_loop_reduce_scatter_code_motion", b"xla_gpu_enable_while_loop_reduce_scatter_code_motion", "xla_gpu_enable_while_loop_unrolling", b"xla_gpu_enable_while_loop_unrolling", "xla_gpu_ensure_minor_dot_contraction_dims", b"xla_gpu_ensure_minor_dot_contraction_dims", "xla_gpu_exclude_nondeterministic_ops", b"xla_gpu_exclude_nondeterministic_ops", "xla_gpu_exhaustive_tiling_search", b"xla_gpu_exhaustive_tiling_search", "xla_gpu_filter_kernels_spilling_registers_on_autotuning", b"xla_gpu_filter_kernels_spilling_registers_on_autotuning", "xla_gpu_force_compilation_parallelism", b"xla_gpu_force_compilation_parallelism", "xla_gpu_force_conv_nchw", b"xla_gpu_force_conv_nchw", "xla_gpu_force_conv_nhwc", b"xla_gpu_force_conv_nhwc", "xla_gpu_ftz", b"xla_gpu_ftz", "xla_gpu_fused_attention_use_cudnn_rng", b"xla_gpu_fused_attention_use_cudnn_rng", "xla_gpu_gemm_rewrite_size_threshold", b"xla_gpu_gemm_rewrite_size_threshold", "xla_gpu_graph_enable_concurrent_region", b"xla_gpu_graph_enable_concurrent_region", "xla_gpu_graph_min_graph_size", b"xla_gpu_graph_min_graph_size", "xla_gpu_lhs_enable_gpu_async_tracker", b"xla_gpu_lhs_enable_gpu_async_tracker", "xla_gpu_llvm_ir_file", b"xla_gpu_llvm_ir_file", "xla_gpu_llvm_verification_level", b"xla_gpu_llvm_verification_level", "xla_gpu_load_autotune_results_from", b"xla_gpu_load_autotune_results_from", "xla_gpu_max_mlir_kernels", b"xla_gpu_max_mlir_kernels", "xla_gpu_memory_limit_slop_factor", b"xla_gpu_memory_limit_slop_factor", "xla_gpu_mock_custom_calls", b"xla_gpu_mock_custom_calls", "xla_gpu_multi_streamed_windowed_einsum", b"xla_gpu_multi_streamed_windowed_einsum", "xla_gpu_nccl_collective_max_nchannels", b"xla_gpu_nccl_collective_max_nchannels", "xla_gpu_nccl_p2p_max_nchannels", b"xla_gpu_nccl_p2p_max_nchannels", "xla_gpu_nccl_termination_timeout_seconds", b"xla_gpu_nccl_termination_timeout_seconds", "xla_gpu_override_gemm_autotuner", b"xla_gpu_override_gemm_autotuner", "xla_gpu_pgle_profile_file_or_directory_path", b"xla_gpu_pgle_profile_file_or_directory_path", "xla_gpu_ptx_file", b"xla_gpu_ptx_file", "xla_gpu_reduce_scatter_combine_threshold_bytes", b"xla_gpu_reduce_scatter_combine_threshold_bytes", "xla_gpu_redzone_padding_bytes", b"xla_gpu_redzone_padding_bytes", "xla_gpu_redzone_scratch_max_megabytes", b"xla_gpu_redzone_scratch_max_megabytes", "xla_gpu_require_complete_aot_autotune_results", b"xla_gpu_require_complete_aot_autotune_results", "xla_gpu_shape_checks", b"xla_gpu_shape_checks", "xla_gpu_skip_mlir_kernels", b"xla_gpu_skip_mlir_kernels", "xla_gpu_strict_conv_algorithm_picker", b"xla_gpu_strict_conv_algorithm_picker", "xla_gpu_target_config_filename", b"xla_gpu_target_config_filename", "xla_gpu_threshold_for_windowed_einsum_mib", b"xla_gpu_threshold_for_windowed_einsum_mib", "xla_gpu_triton_fusion_level", b"xla_gpu_triton_fusion_level", "xla_gpu_triton_gemm_any", b"xla_gpu_triton_gemm_any", "xla_gpu_triton_gemm_disable_reduced_precision_reduction", b"xla_gpu_triton_gemm_disable_reduced_precision_reduction", "xla_gpu_unsafe_fallback_to_driver_on_ptxas_not_found", b"xla_gpu_unsafe_fallback_to_driver_on_ptxas_not_found", "xla_gpu_use_memcpy_local_p2p", b"xla_gpu_use_memcpy_local_p2p", "xla_gpu_use_runtime_fusion", b"xla_gpu_use_runtime_fusion", "xla_gpu_verify_triton_fusion_numerics", b"xla_gpu_verify_triton_fusion_numerics", "xla_hlo_evaluator_use_fast_path", b"xla_hlo_evaluator_use_fast_path", "xla_hlo_graph_addresses", b"xla_hlo_graph_addresses", "xla_hlo_graph_sharding_color", b"xla_hlo_graph_sharding_color", "xla_hlo_profile", b"xla_hlo_profile", "xla_llvm_disable_expensive_passes", b"xla_llvm_disable_expensive_passes", "xla_llvm_enable_alias_scope_metadata", b"xla_llvm_enable_alias_scope_metadata", "xla_llvm_enable_invariant_load_metadata", b"xla_llvm_enable_invariant_load_metadata", "xla_llvm_enable_noalias_metadata", b"xla_llvm_enable_noalias_metadata", "xla_llvm_force_inline_before_split", b"xla_llvm_force_inline_before_split", "xla_multiheap_size_constraint_per_heap", b"xla_multiheap_size_constraint_per_heap", "xla_partitioning_algorithm", b"xla_partitioning_algorithm", "xla_reduce_window_rewrite_base_length", b"xla_reduce_window_rewrite_base_length", "xla_step_marker_location", b"xla_step_marker_location", "xla_test_all_input_layouts", b"xla_test_all_input_layouts", "xla_test_all_output_layouts", b"xla_test_all_output_layouts", "xla_tpu_detect_inf", b"xla_tpu_detect_inf", "xla_tpu_detect_nan", b"xla_tpu_detect_nan"]) -> None: ...
 
 global___DebugOptions = DebugOptions
 
@@ -1104,7 +1241,7 @@ class ExecutionOptions(google.protobuf.message.Message):
     will have an effect on every platform.
 
     When adding new fields, keep in mind that boolean fields default to false.
-    Next id: 23.
+    Next id: 24.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -1123,6 +1260,7 @@ class ExecutionOptions(google.protobuf.message.Message):
     AUTO_SPMD_PARTITIONING_MESH_SHAPE_FIELD_NUMBER: builtins.int
     AUTO_SPMD_PARTITIONING_MESH_IDS_FIELD_NUMBER: builtins.int
     DEDUPLICATE_HLO_FIELD_NUMBER: builtins.int
+    ALLOW_SPMD_SHARDING_PROPAGATION_TO_PARAMETERS_FIELD_NUMBER: builtins.int
     ALLOW_SPMD_SHARDING_PROPAGATION_TO_OUTPUT_FIELD_NUMBER: builtins.int
     PARAM_REQUIRES_BROADCAST_VIA_COLLECTIVES_FIELD_NUMBER: builtins.int
     ALLOW_SEPARATE_SHARDING_PROGRAMS_FIELD_NUMBER: builtins.int
@@ -1208,6 +1346,20 @@ class ExecutionOptions(google.protobuf.message.Message):
         """
 
     @property
+    def allow_spmd_sharding_propagation_to_parameters(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
+        """Allows sharding propagation to propagate to the parameters. This changes
+        the input shape of the computation (which is undesirable), but it can be
+        used to allow to run partial compilation to determine what would be the
+        input sharding of a computation if XLA would be allowed to propagate the
+        sharding which can be used by higher level framework as a way to query
+        intermediate sharding of operations when multiple computation would be
+        chained and merged together.
+        This is a vector of bool, because the user can control which parameters can
+        have the sharding substituted. If only one boolean value is passed in the
+        vector that is interpreted as the value to be applied for every parameter.
+        """
+
+    @property
     def allow_spmd_sharding_propagation_to_output(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]:
         """Allows sharding propagation to propagate to the outputs. This changes the
         output shape of the computation (which is undesirable), but it can be used
@@ -1249,6 +1401,7 @@ class ExecutionOptions(google.protobuf.message.Message):
         auto_spmd_partitioning_mesh_shape: collections.abc.Iterable[builtins.int] | None = ...,
         auto_spmd_partitioning_mesh_ids: collections.abc.Iterable[builtins.int] | None = ...,
         deduplicate_hlo: builtins.bool | None = ...,
+        allow_spmd_sharding_propagation_to_parameters: collections.abc.Iterable[builtins.bool] | None = ...,
         allow_spmd_sharding_propagation_to_output: collections.abc.Iterable[builtins.bool] | None = ...,
         param_requires_broadcast_via_collectives: collections.abc.Iterable[builtins.bool] | None = ...,
         allow_separate_sharding_programs: builtins.bool | None = ...,
@@ -1257,7 +1410,7 @@ class ExecutionOptions(google.protobuf.message.Message):
         device_memory_size: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["debug_options", b"debug_options", "device_assignment", b"device_assignment", "shape_with_output_layout", b"shape_with_output_layout"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["alias_passthrough_params", b"alias_passthrough_params", "allow_separate_sharding_programs", b"allow_separate_sharding_programs", "allow_spmd_sharding_propagation_to_output", b"allow_spmd_sharding_propagation_to_output", "auto_spmd_partitioning_mesh_ids", b"auto_spmd_partitioning_mesh_ids", "auto_spmd_partitioning_mesh_shape", b"auto_spmd_partitioning_mesh_shape", "debug_options", b"debug_options", "deduplicate_hlo", b"deduplicate_hlo", "device_assignment", b"device_assignment", "device_handles", b"device_handles", "device_memory_size", b"device_memory_size", "fdo_profile", b"fdo_profile", "launch_id", b"launch_id", "num_partitions", b"num_partitions", "num_replicas", b"num_replicas", "param_requires_broadcast_via_collectives", b"param_requires_broadcast_via_collectives", "seed", b"seed", "shape_with_output_layout", b"shape_with_output_layout", "shardable_value_update_pairs", b"shardable_value_update_pairs", "use_auto_spmd_partitioning", b"use_auto_spmd_partitioning", "use_spmd_partitioning", b"use_spmd_partitioning"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["alias_passthrough_params", b"alias_passthrough_params", "allow_separate_sharding_programs", b"allow_separate_sharding_programs", "allow_spmd_sharding_propagation_to_output", b"allow_spmd_sharding_propagation_to_output", "allow_spmd_sharding_propagation_to_parameters", b"allow_spmd_sharding_propagation_to_parameters", "auto_spmd_partitioning_mesh_ids", b"auto_spmd_partitioning_mesh_ids", "auto_spmd_partitioning_mesh_shape", b"auto_spmd_partitioning_mesh_shape", "debug_options", b"debug_options", "deduplicate_hlo", b"deduplicate_hlo", "device_assignment", b"device_assignment", "device_handles", b"device_handles", "device_memory_size", b"device_memory_size", "fdo_profile", b"fdo_profile", "launch_id", b"launch_id", "num_partitions", b"num_partitions", "num_replicas", b"num_replicas", "param_requires_broadcast_via_collectives", b"param_requires_broadcast_via_collectives", "seed", b"seed", "shape_with_output_layout", b"shape_with_output_layout", "shardable_value_update_pairs", b"shardable_value_update_pairs", "use_auto_spmd_partitioning", b"use_auto_spmd_partitioning", "use_spmd_partitioning", b"use_spmd_partitioning"]) -> None: ...
 
 global___ExecutionOptions = ExecutionOptions
 
@@ -1266,7 +1419,7 @@ class HloModuleConfigProto(google.protobuf.message.Message):
     """Serialization of HloModuleConfig. See the C++ class definition for
     descriptions of each field.
     There are no guarantees of backwards or forwards compatibility.
-    Next id: 33.
+    Next id: 34.
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -1394,6 +1547,7 @@ class HloModuleConfigProto(google.protobuf.message.Message):
     MEMORY_SPACE_ASSIGNMENT_CONFIG_FIELD_NUMBER: builtins.int
     PHASE_ORDERING_CONFIG_FIELD_NUMBER: builtins.int
     PHASE_INDEX_FIELD_NUMBER: builtins.int
+    ALLOW_SPMD_SHARDING_PROPAGATION_TO_PARAMETERS_FIELD_NUMBER: builtins.int
     ALLOW_SPMD_SHARDING_PROPAGATION_TO_OUTPUT_FIELD_NUMBER: builtins.int
     ANALYSIS_ALLOWANCE_MAP_FIELD_NUMBER: builtins.int
     MATRIX_UNIT_OPERAND_PRECISION_FIELD_NUMBER: builtins.int
@@ -1441,6 +1595,8 @@ class HloModuleConfigProto(google.protobuf.message.Message):
     @property
     def phase_ordering_config(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___HloModuleConfigProto.BoolList]: ...
     @property
+    def allow_spmd_sharding_propagation_to_parameters(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
+    @property
     def allow_spmd_sharding_propagation_to_output(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
     @property
     def analysis_allowance_map(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]: ...
@@ -1473,6 +1629,7 @@ class HloModuleConfigProto(google.protobuf.message.Message):
         memory_space_assignment_config: collections.abc.Iterable[builtins.int] | None = ...,
         phase_ordering_config: collections.abc.Iterable[global___HloModuleConfigProto.BoolList] | None = ...,
         phase_index: builtins.int | None = ...,
+        allow_spmd_sharding_propagation_to_parameters: collections.abc.Iterable[builtins.bool] | None = ...,
         allow_spmd_sharding_propagation_to_output: collections.abc.Iterable[builtins.bool] | None = ...,
         analysis_allowance_map: collections.abc.Mapping[builtins.str, builtins.int] | None = ...,
         matrix_unit_operand_precision: tensorflow.compiler.xla.xla_data_pb2.PrecisionConfig.Precision.ValueType | None = ...,
@@ -1480,7 +1637,7 @@ class HloModuleConfigProto(google.protobuf.message.Message):
         device_memory_size: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["debug_options", b"debug_options", "entry_computation_layout", b"entry_computation_layout", "static_device_assignment", b"static_device_assignment"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["alias_passthrough_params", b"alias_passthrough_params", "allow_separate_sharding_programs", b"allow_separate_sharding_programs", "allow_spmd_sharding_propagation_to_output", b"allow_spmd_sharding_propagation_to_output", "analysis_allowance_map", b"analysis_allowance_map", "auto_spmd_partitioning_mesh_ids", b"auto_spmd_partitioning_mesh_ids", "auto_spmd_partitioning_mesh_shape", b"auto_spmd_partitioning_mesh_shape", "content_aware_computation_sorting", b"content_aware_computation_sorting", "debug_options", b"debug_options", "deduplicate_hlo", b"deduplicate_hlo", "device_memory_size", b"device_memory_size", "device_type", b"device_type", "dot_config", b"dot_config", "entry_computation_layout", b"entry_computation_layout", "fdo_profile", b"fdo_profile", "fusion_config", b"fusion_config", "fusion_config_collection", b"fusion_config_collection", "intra_op_parallelism_threads", b"intra_op_parallelism_threads", "launch_id", b"launch_id", "layout_config", b"layout_config", "matrix_unit_operand_precision", b"matrix_unit_operand_precision", "memory_space_assignment_config", b"memory_space_assignment_config", "num_partitions", b"num_partitions", "param_requires_broadcast_via_collectives", b"param_requires_broadcast_via_collectives", "phase_index", b"phase_index", "phase_ordering_config", b"phase_ordering_config", "replica_count", b"replica_count", "seed", b"seed", "shardable_value_update_pairs", b"shardable_value_update_pairs", "static_device_assignment", b"static_device_assignment", "use_auto_spmd_partitioning", b"use_auto_spmd_partitioning", "use_spmd_partitioning", b"use_spmd_partitioning"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["alias_passthrough_params", b"alias_passthrough_params", "allow_separate_sharding_programs", b"allow_separate_sharding_programs", "allow_spmd_sharding_propagation_to_output", b"allow_spmd_sharding_propagation_to_output", "allow_spmd_sharding_propagation_to_parameters", b"allow_spmd_sharding_propagation_to_parameters", "analysis_allowance_map", b"analysis_allowance_map", "auto_spmd_partitioning_mesh_ids", b"auto_spmd_partitioning_mesh_ids", "auto_spmd_partitioning_mesh_shape", b"auto_spmd_partitioning_mesh_shape", "content_aware_computation_sorting", b"content_aware_computation_sorting", "debug_options", b"debug_options", "deduplicate_hlo", b"deduplicate_hlo", "device_memory_size", b"device_memory_size", "device_type", b"device_type", "dot_config", b"dot_config", "entry_computation_layout", b"entry_computation_layout", "fdo_profile", b"fdo_profile", "fusion_config", b"fusion_config", "fusion_config_collection", b"fusion_config_collection", "intra_op_parallelism_threads", b"intra_op_parallelism_threads", "launch_id", b"launch_id", "layout_config", b"layout_config", "matrix_unit_operand_precision", b"matrix_unit_operand_precision", "memory_space_assignment_config", b"memory_space_assignment_config", "num_partitions", b"num_partitions", "param_requires_broadcast_via_collectives", b"param_requires_broadcast_via_collectives", "phase_index", b"phase_index", "phase_ordering_config", b"phase_ordering_config", "replica_count", b"replica_count", "seed", b"seed", "shardable_value_update_pairs", b"shardable_value_update_pairs", "static_device_assignment", b"static_device_assignment", "use_auto_spmd_partitioning", b"use_auto_spmd_partitioning", "use_spmd_partitioning", b"use_spmd_partitioning"]) -> None: ...
 
 global___HloModuleConfigProto = HloModuleConfigProto
 
