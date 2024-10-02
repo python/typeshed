@@ -19,5 +19,7 @@ assert_type(Csv[int, Set[int], Callable[[Iterable[int]], Set[int]]](cast=int, po
 assert_type(Csv[int, Set[int], Callable[[Iterable[int]], Set[int]]](int, ",", "", set)(""), Set[int])
 
 assert_type(Csv[str, Tuple[str, ...], Callable[[Iterable[int]], Tuple[str, ...]]](post_process=tuple)(""), Tuple[str, ...])
-assert_type(Csv[int, Tuple[int, ...], Callable[[Iterable[int]], Tuple[int, ...]]](cast=int, post_process=tuple)(""), Tuple[int, ...])
+assert_type(
+    Csv[int, Tuple[int, ...], Callable[[Iterable[int]], Tuple[int, ...]]](cast=int, post_process=tuple)(""), Tuple[int, ...]
+)
 assert_type(Csv[int, Tuple[int, ...], Callable[[Iterable[int]], Tuple[int, ...]]](int, ",", "", tuple)(""), Tuple[int, ...])
