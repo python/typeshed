@@ -1,7 +1,8 @@
+import abc
 from _typeshed import Incomplete, Unused
 from abc import ABC, ABCMeta, abstractmethod
 from builtins import bool as _bool
-from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
+from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from enum import Enum
 from types import TracebackType
@@ -17,25 +18,12 @@ from tensorflow import (
     io as io,
     keras as keras,
     math as math,
+    types as types,
 )
-from tensorflow._aliases import (
-    AnyArray,
-    ContainerGradients,
-    ContainerTensors,
-    ContainerTensorsLike,
-    DTypeLike,
-    Gradients,
-    ShapeLike,
-    Slice,
-    TensorCompatible,
-    TensorLike,
-)
+from tensorflow._aliases import AnyArray, DTypeLike, ShapeLike, Slice, TensorCompatible
+from tensorflow.autodiff import GradientTape as GradientTape
 from tensorflow.core.protobuf import struct_pb2
-
-# Explicit import of DType is covered by the wildcard, but
-# is necessary to avoid a crash in pytype.
 from tensorflow.dtypes import *
-from tensorflow.dtypes import DType as DType
 from tensorflow.experimental.dtensor import Layout
 from tensorflow.keras import losses as losses
 from tensorflow.linalg import eye as eye
@@ -196,7 +184,7 @@ class RaggedTensor(metaclass=ABCMeta):
 class Operation:
     def __init__(
         self,
-        node_def: Incomplete,
+        node_def,
         g: Graph,
         # isinstance is used so can not be Sequence/Iterable.
         inputs: list[Tensor] | None = None,
@@ -204,7 +192,7 @@ class Operation:
         control_inputs: Iterable[Tensor | Operation] | None = None,
         input_types: Iterable[DType] | None = None,
         original_op: Operation | None = None,
-        op_def: Incomplete = None,
+        op_def: Incomplete | None = None,
     ) -> None: ...
     @property
     def inputs(self) -> list[Tensor]: ...
@@ -240,7 +228,7 @@ class Graph:
     def add_to_collection(self, name: str, value: object) -> None: ...
     def add_to_collections(self, names: Iterable[str] | str, value: object) -> None: ...
     @contextmanager
-    def as_default(self) -> Iterator[Self]: ...
+    def as_default(self) -> Generator[Self]: ...
     def finalize(self) -> None: ...
     def get_tensor_by_name(self, name: str) -> Tensor: ...
     def get_operation_by_name(self, name: str) -> Operation: ...
@@ -271,7 +259,7 @@ class IndexedSlices(metaclass=ABCMeta):
     def __neg__(self) -> IndexedSlices: ...
     def consumers(self) -> list[Operation]: ...
 
-class name_scope:
+class name_scope(metaclass=abc.ABCMeta):
     def __init__(self, name: str) -> None: ...
     def __enter__(self) -> str: ...
     def __exit__(self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None) -> None: ...
@@ -302,50 +290,6 @@ class UnconnectedGradients(Enum):
     NONE = "none"
     ZERO = "zero"
 
-class GradientTape:
-    def __init__(self, persistent: _bool = False, watch_accessed_variables: _bool = True) -> None: ...
-    def __enter__(self) -> Self: ...
-    def __exit__(self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None) -> None: ...
-    # Higher kinded types would be nice here and these overloads are a way to simulate some of them.
-    @overload
-    def gradient(
-        self,
-        target: ContainerTensors,
-        sources: TensorLike,
-        output_gradients: list[Tensor] | None = None,
-        unconnected_gradients: UnconnectedGradients = ...,
-    ) -> Gradients: ...
-    @overload
-    def gradient(
-        self,
-        target: ContainerTensors,
-        sources: Sequence[Tensor],
-        output_gradients: list[Tensor] | None = None,
-        unconnected_gradients: UnconnectedGradients = ...,
-    ) -> list[Gradients]: ...
-    @overload
-    def gradient(
-        self,
-        target: ContainerTensors,
-        sources: Mapping[str, Tensor],
-        output_gradients: list[Tensor] | None = None,
-        unconnected_gradients: UnconnectedGradients = ...,
-    ) -> dict[str, Gradients]: ...
-    @overload
-    def gradient(
-        self,
-        target: ContainerTensors,
-        sources: ContainerTensors,
-        output_gradients: list[Tensor] | None = None,
-        unconnected_gradients: UnconnectedGradients = ...,
-    ) -> ContainerGradients: ...
-    @contextmanager
-    def stop_recording(self) -> Generator[None, None, None]: ...
-    def reset(self) -> None: ...
-    def watch(self, tensor: ContainerTensorsLike) -> None: ...
-    def watched_variables(self) -> tuple[Variable, ...]: ...
-    def __getattr__(self, name: str) -> Incomplete: ...
-
 _SpecProto = TypeVar("_SpecProto", bound=Message)
 
 class TypeSpec(ABC, Generic[_SpecProto]):
@@ -359,7 +303,7 @@ class TypeSpec(ABC, Generic[_SpecProto]):
     def experimental_type_proto(cls) -> type[_SpecProto]: ...
     def is_compatible_with(self, spec_or_value: Self | TensorCompatible | SparseTensor | RaggedTensor) -> _bool: ...
     # Incomplete as tf.types is not yet covered.
-    def is_subtype_of(self, other: Incomplete) -> _bool: ...
+    def is_subtype_of(self, other) -> _bool: ...
     def most_specific_common_supertype(self, others: Sequence[Incomplete]) -> Self | None: ...
     def most_specific_compatible_type(self, other: Self) -> Self: ...
 

@@ -114,6 +114,7 @@ class Dataset(ABC, Generic[_T1]):
         element_spec: ContainerGeneric[tf.TypeSpec[Any]] | None = None,
         compression: _CompressionTypes = None,
         reader_func: Callable[[Dataset[Dataset[Any]]], Dataset[Any]] | None = None,
+        wait: bool = False,
     ) -> Dataset[Any]: ...
     # PEP 646 could be used here for a more precise type when better supported.
     def map(
@@ -146,13 +147,14 @@ class Dataset(ABC, Generic[_T1]):
     ) -> Dataset[tf.Tensor]: ...
     @staticmethod
     @overload
-    def range(__stop: ScalarTensorCompatible, output_type: DType = ..., name: str | None = None) -> Dataset[tf.Tensor]: ...
+    def range(stop: ScalarTensorCompatible, /, output_type: DType = ..., name: str | None = None) -> Dataset[tf.Tensor]: ...
     @staticmethod
     @overload
     def range(
-        __start: ScalarTensorCompatible,
-        __stop: ScalarTensorCompatible,
-        __step: ScalarTensorCompatible = 1,
+        start: ScalarTensorCompatible,
+        stop: ScalarTensorCompatible,
+        step: ScalarTensorCompatible = 1,
+        /,
         output_type: DType = ...,
         name: str | None = None,
     ) -> Dataset[tf.Tensor]: ...
@@ -195,7 +197,7 @@ class Dataset(ABC, Generic[_T1]):
         self,
         buffer_size: ScalarTensorCompatible,
         seed: int | None = None,
-        reshuffle_each_iteration: bool | None = None,
+        reshuffle_each_iteration: bool = True,
         name: str | None = None,
     ) -> Dataset[_T1]: ...
     def skip(self, count: ScalarTensorCompatible, name: str | None = None) -> Dataset[_T1]: ...

@@ -1,5 +1,5 @@
 import builtins
-from _typeshed import Incomplete
+from _typeshed import Incomplete, SupportsItems
 from collections.abc import AsyncIterator, Awaitable, Callable, Iterable, Iterator, Mapping, Sequence
 from datetime import datetime, timedelta
 from typing import Any, Generic, Literal, TypeVar, overload
@@ -862,7 +862,8 @@ class StreamCommands:
     def xadd(
         self,
         name: KeyT,
-        fields: Mapping[bytes | memoryview | str | float, bytes | memoryview | str | float],
+        # Only accepts dict objects, but for variance reasons we use a looser annotation
+        fields: SupportsItems[bytes | memoryview | str | float, Any],
         id: str | int | bytes | memoryview = "*",
         maxlen=None,
         approximate: bool = True,
@@ -928,7 +929,8 @@ class AsyncStreamCommands:
     async def xadd(
         self,
         name: KeyT,
-        fields: Mapping[bytes | memoryview | str | float, bytes | memoryview | str | float],
+        # Only accepts dict objects, but for variance reasons we use a looser annotation
+        fields: SupportsItems[bytes | memoryview | str | float, Any],
         id: str | int | bytes | memoryview = "*",
         maxlen=None,
         approximate: bool = True,
@@ -1021,7 +1023,7 @@ class SortedSetCommands(Generic[_StrType]):
     @overload
     def bzpopmin(self, keys: _Key | Iterable[_Key], timeout: float) -> tuple[_StrType, _StrType, float] | None: ...
     @overload
-    def zrange(
+    def zrange(  # type: ignore[overload-overlap]
         self,
         name: _Key,
         start: int,
@@ -1035,7 +1037,7 @@ class SortedSetCommands(Generic[_StrType]):
         num: int | None = None,
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
-    def zrange(
+    def zrange(  # type: ignore[overload-overlap]
         self,
         name: _Key,
         start: int,
@@ -1049,7 +1051,7 @@ class SortedSetCommands(Generic[_StrType]):
         num: int | None = None,
     ) -> list[tuple[_StrType, float]]: ...
     @overload
-    def zrange(
+    def zrange(  # type: ignore[overload-overlap]
         self,
         name: _Key,
         start: int,
@@ -1063,7 +1065,7 @@ class SortedSetCommands(Generic[_StrType]):
         num: int | None = None,
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
-    def zrange(
+    def zrange(  # type: ignore[overload-overlap]
         self,
         name: _Key,
         start: int,
@@ -1100,7 +1102,9 @@ class SortedSetCommands(Generic[_StrType]):
         score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn],
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
-    def zrevrange(self, name: _Key, start: int, end: int, withscores: Literal[True]) -> list[tuple[_StrType, float]]: ...
+    def zrevrange(  # type: ignore[overload-overlap]
+        self, name: _Key, start: int, end: int, withscores: Literal[True]
+    ) -> list[tuple[_StrType, float]]: ...
     @overload
     def zrevrange(
         self, name: _Key, start: int, end: int, withscores: bool = False, score_cast_func: Callable[[Any], Any] = ...
@@ -1124,7 +1128,7 @@ class SortedSetCommands(Generic[_StrType]):
         self, name: _Key, max: _Value, min: _Value, start: int | None = None, num: int | None = None
     ) -> list[_StrType]: ...
     @overload
-    def zrangebyscore(
+    def zrangebyscore(  # type: ignore[overload-overlap]
         self,
         name: _Key,
         min: _Value,
@@ -1136,7 +1140,7 @@ class SortedSetCommands(Generic[_StrType]):
         score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn],
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
-    def zrangebyscore(
+    def zrangebyscore(  # type: ignore[overload-overlap]
         self, name: _Key, min: _Value, max: _Value, start: int | None = None, num: int | None = None, *, withscores: Literal[True]
     ) -> list[tuple[_StrType, float]]: ...
     @overload
@@ -1151,7 +1155,7 @@ class SortedSetCommands(Generic[_StrType]):
         score_cast_func: Callable[[_StrType], Any] = ...,
     ) -> list[_StrType]: ...
     @overload
-    def zrevrangebyscore(
+    def zrevrangebyscore(  # type: ignore[overload-overlap]
         self,
         name: _Key,
         max: _Value,
@@ -1163,7 +1167,7 @@ class SortedSetCommands(Generic[_StrType]):
         score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn],
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
-    def zrevrangebyscore(
+    def zrevrangebyscore(  # type: ignore[overload-overlap]
         self, name: _Key, max: _Value, min: _Value, start: int | None = None, num: int | None = None, *, withscores: Literal[True]
     ) -> list[tuple[_StrType, float]]: ...
     @overload
@@ -1222,7 +1226,7 @@ class AsyncSortedSetCommands(Generic[_StrType]):
     @overload
     async def bzpopmin(self, keys: _Key | Iterable[_Key], timeout: float) -> tuple[_StrType, _StrType, float] | None: ...
     @overload
-    async def zrange(
+    async def zrange(  # type: ignore[overload-overlap]
         self,
         name: _Key,
         start: int,
@@ -1236,7 +1240,7 @@ class AsyncSortedSetCommands(Generic[_StrType]):
         num: int | None = None,
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
-    async def zrange(
+    async def zrange(  # type: ignore[overload-overlap]
         self,
         name: _Key,
         start: int,
@@ -1250,7 +1254,7 @@ class AsyncSortedSetCommands(Generic[_StrType]):
         num: int | None = None,
     ) -> list[tuple[_StrType, float]]: ...
     @overload
-    async def zrange(
+    async def zrange(  # type: ignore[overload-overlap]
         self,
         name: _Key,
         start: int,
@@ -1265,7 +1269,7 @@ class AsyncSortedSetCommands(Generic[_StrType]):
         num: int | None = None,
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
-    async def zrange(
+    async def zrange(  # type: ignore[overload-overlap]
         self,
         name: _Key,
         start: int,
@@ -1303,7 +1307,9 @@ class AsyncSortedSetCommands(Generic[_StrType]):
         score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn],
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
-    async def zrevrange(self, name: _Key, start: int, end: int, withscores: Literal[True]) -> list[tuple[_StrType, float]]: ...
+    async def zrevrange(  # type: ignore[overload-overlap]
+        self, name: _Key, start: int, end: int, withscores: Literal[True]
+    ) -> list[tuple[_StrType, float]]: ...
     @overload
     async def zrevrange(
         self, name: _Key, start: int, end: int, withscores: bool = False, score_cast_func: Callable[[Any], Any] = ...
@@ -1327,7 +1333,7 @@ class AsyncSortedSetCommands(Generic[_StrType]):
         self, name: _Key, max: _Value, min: _Value, start: int | None = None, num: int | None = None
     ) -> list[_StrType]: ...
     @overload
-    async def zrangebyscore(
+    async def zrangebyscore(  # type: ignore[overload-overlap]
         self,
         name: _Key,
         min: _Value,
@@ -1339,7 +1345,7 @@ class AsyncSortedSetCommands(Generic[_StrType]):
         score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn],
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
-    async def zrangebyscore(
+    async def zrangebyscore(  # type: ignore[overload-overlap]
         self, name: _Key, min: _Value, max: _Value, start: int | None = None, num: int | None = None, *, withscores: Literal[True]
     ) -> list[tuple[_StrType, float]]: ...
     @overload
@@ -1354,7 +1360,7 @@ class AsyncSortedSetCommands(Generic[_StrType]):
         score_cast_func: Callable[[_StrType], Any] = ...,
     ) -> list[_StrType]: ...
     @overload
-    async def zrevrangebyscore(
+    async def zrevrangebyscore(  # type: ignore[overload-overlap]
         self,
         name: _Key,
         max: _Value,
@@ -1366,7 +1372,7 @@ class AsyncSortedSetCommands(Generic[_StrType]):
         score_cast_func: Callable[[_StrType], _ScoreCastFuncReturn],
     ) -> list[tuple[_StrType, _ScoreCastFuncReturn]]: ...
     @overload
-    async def zrevrangebyscore(
+    async def zrevrangebyscore(  # type: ignore[overload-overlap]
         self, name: _Key, max: _Value, min: _Value, start: int | None = None, num: int | None = None, *, withscores: Literal[True]
     ) -> list[tuple[_StrType, float]]: ...
     @overload

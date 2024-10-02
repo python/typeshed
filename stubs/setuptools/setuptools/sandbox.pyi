@@ -1,6 +1,7 @@
 import sys
+from _typeshed import Unused
 from types import TracebackType
-from typing import Any, Literal
+from typing import ClassVar, Literal
 from typing_extensions import Self
 
 from ._distutils.errors import DistutilsError
@@ -22,9 +23,7 @@ def run_setup(setup_script, args): ...
 
 class AbstractSandbox:
     def __enter__(self) -> None: ...
-    def __exit__(
-        self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
-    ) -> None: ...
+    def __exit__(self, exc_type: Unused, exc_value: Unused, traceback: Unused) -> None: ...
     def run(self, func): ...
     # Dynamically created
     if sys.platform == "win32":
@@ -56,10 +55,10 @@ class AbstractSandbox:
     def utime(self, path, *args, **kw): ...
 
 class DirectorySandbox(AbstractSandbox):
-    write_ops: Any
+    write_ops: ClassVar[dict[str, None]]
     def __init__(self, sandbox, exceptions=...) -> None: ...
     def tmpnam(self) -> None: ...
-    def open(self, file, flags, mode: int = 511, *args, **kw): ...  # type:ignore[override]
+    def open(self, file, flags, mode: int = 511, *args, **kw): ...  # type: ignore[override]
 
 class SandboxViolation(DistutilsError):
-    tmpl: Any
+    tmpl: str

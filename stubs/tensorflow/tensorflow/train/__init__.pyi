@@ -16,6 +16,7 @@ from tensorflow.core.example.feature_pb2 import (
 from tensorflow.core.protobuf.cluster_pb2 import ClusterDef as ClusterDef
 from tensorflow.core.protobuf.tensorflow_server_pb2 import ServerDef as ServerDef
 from tensorflow.python.trackable.base import Trackable
+from tensorflow.python.training.tracking.autotrackable import AutoTrackable
 
 class CheckpointOptions:
     experimental_io_device: None | str
@@ -29,6 +30,8 @@ class CheckpointOptions:
         experimental_enable_async_checkpoint: bool = False,
         experimental_write_callbacks: None | list[Callable[[str], object] | Callable[[], object]] = None,
         enable_async: bool = False,
+        experimental_skip_slot_variables: bool = False,
+        experimental_sharding_callback: Incomplete | None = None,
     ) -> None: ...
 
 _T = TypeVar("_T", bound=list[str] | tuple[str] | dict[int, str])
@@ -44,7 +47,7 @@ class _CheckpointLoadStatus:
     def assert_nontrivial_match(self) -> Self: ...
     def expect_partial(self) -> Self: ...
 
-class Checkpoint:
+class Checkpoint(AutoTrackable):
     def __init__(self, root: Trackable | None = None, **kwargs: Trackable) -> None: ...
     def read(self, save_path: str, options: CheckpointOptions | None = None) -> _CheckpointLoadStatus: ...
     def restore(self, save_path: str, options: CheckpointOptions | None = None) -> _CheckpointLoadStatus: ...
