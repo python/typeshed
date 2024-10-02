@@ -1,13 +1,13 @@
 from collections.abc import Callable, Sequence
 from typing import Any, ClassVar, Literal, NamedTuple
-from typing_extensions import Self
+from typing_extensions import Self, TypeAlias
 
 from docutils.nodes import Node
 
 __docformat__: str
 __version__: str
 
-_ComponentType = Literal["reader", "parser", "writer"]
+_ComponentType: TypeAlias = Literal["reader", "parser", "writer"]
 
 class _VersionInfo(NamedTuple):
     major: int
