@@ -568,6 +568,7 @@ class vtkChartMatrix(vtkmodules.vtkRenderingContext2D.vtkAbstractContextItem):
     class StretchType(int):
         CUSTOM: StretchType
         SCENE: StretchType
+
     def Allocate(self) -> None: ...
     def ClearSpecificResizes(self) -> None: ...
     def ComputeCurrentElementSceneRect(

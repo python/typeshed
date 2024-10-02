@@ -2249,6 +2249,7 @@ class vtkImplicitProjectOnPlaneDistance(vtkmodules.vtkCommonDataModel.vtkImplici
     class NormType(int):
         L0: NormType
         L2: NormType
+
     @overload
     def EvaluateFunction(self, x: MutableSequence[float]) -> float: ...
     @overload

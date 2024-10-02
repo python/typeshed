@@ -247,6 +247,7 @@ class vtkGLTFDocumentLoader(vtkmodules.vtkCommonCore.vtkObject):
     class Target(int):
         ARRAY_BUFFER: Target
         ELEMENT_ARRAY_BUFFER: Target
+
     def ApplyAnimation(self, t: float, animationId: int, forceStep: bool = False) -> bool: ...
     @overload
     def BuildGlobalTransforms(self, nodeIndex: int, parentTransform: vtkmodules.vtkCommonMath.vtkMatrix4x4) -> None: ...

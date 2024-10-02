@@ -6321,6 +6321,7 @@ class vtkMath(vtkObject):
         FULL: ConvolutionMode
         SAME: ConvolutionMode
         VALID: ConvolutionMode
+
     @staticmethod
     def Add(a: Sequence[float], b: Sequence[float], c: MutableSequence[float]) -> None: ...
     @staticmethod
