@@ -1,2 +1,8 @@
 # Runtime has a default of its internal Undefined class, but ultimately it is a string
 decouple.Config.get
+
+# Python 2 compatibility cruft
+decouple.text_type
+
+# Issue with the default for `post_process`; a type at runtime and a callback protocol in the stub
+decouple.Csv.__init__
