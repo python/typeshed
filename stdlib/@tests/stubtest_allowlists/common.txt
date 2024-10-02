@@ -4,10 +4,6 @@
 
 # Please keep sorted alphabetically
 
-_collections_abc.AsyncGenerator.ag_await
-_collections_abc.AsyncGenerator.ag_code
-_collections_abc.AsyncGenerator.ag_frame
-_collections_abc.AsyncGenerator.ag_running
 _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
@@ -288,14 +284,6 @@ _collections_abc.AsyncGenerator.aclose
 _collections_abc.AsyncIterator.__anext__
 
 # Coroutine and Generator properties are added programmatically
-_collections_abc.Coroutine.cr_await
-_collections_abc.Coroutine.cr_code
-_collections_abc.Coroutine.cr_frame
-_collections_abc.Coroutine.cr_running
-_collections_abc.Generator.gi_code
-_collections_abc.Generator.gi_frame
-_collections_abc.Generator.gi_running
-_collections_abc.Generator.gi_yieldfrom
 _collections_abc.Mapping.__reversed__  # set to None at runtime for a better error message
 _collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
