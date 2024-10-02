@@ -30,6 +30,9 @@ from collections.abc import Callable, Iterable
 from typing import Any, Literal, NamedTuple, overload
 from typing_extensions import Never, Self, TypeAlias, TypedDict
 
+if sys.version_info >= (3, 13):
+    from _ssl import HAS_PSK as HAS_PSK
+
 if sys.version_info < (3, 12):
     from _ssl import RAND_pseudo_bytes as RAND_pseudo_bytes
 
@@ -446,6 +449,13 @@ class SSLContext(_SSLContext):
         server_hostname: str | bytes | None = None,
         session: SSLSession | None = None,
     ) -> SSLObject: ...
+    if sys.version_info >= (3, 13):
+        def set_psk_client_callback(
+            self, psk_client_callback: Callable[[str | None], tuple[str | None, bytes]] | None
+        ) -> None: ...
+        def set_psk_server_callback(
+            self, psk_server_callback: Callable[[str | None], tuple[str | None, bytes]] | None, identity_hint: str | None = None
+        ) -> None: ...
 
 class SSLObject:
     context: SSLContext

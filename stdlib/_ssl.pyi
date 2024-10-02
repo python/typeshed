@@ -272,6 +272,8 @@ HAS_SNI: bool
 HAS_TLS_UNIQUE: bool
 HAS_ECDH: bool
 HAS_NPN: bool
+if sys.version_info >= (3, 13):
+    HAS_PSK: bool
 HAS_ALPN: bool
 HAS_SSLv2: bool
 HAS_SSLv3: bool
