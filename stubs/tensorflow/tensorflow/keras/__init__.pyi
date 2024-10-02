@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 
 from tensorflow.keras import (
     activations as activations,
+    callbacks as callbacks,
     constraints as constraints,
     initializers as initializers,
     layers as layers,

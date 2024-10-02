@@ -36,6 +36,7 @@ get_auth_from_url = utils.get_auth_from_url
 codes = status_codes.codes
 REDIRECT_STATI = models.REDIRECT_STATI
 
+def preferred_clock() -> float: ...
 def merge_setting(request_setting, session_setting, dict_class=...): ...
 def merge_hooks(request_hooks, session_hooks, dict_class=...): ...
 
@@ -130,7 +131,7 @@ class Session(SessionRedirectMixin):
     max_redirects: int
     trust_env: bool
     cookies: RequestsCookieJar
-    adapters: MutableMapping[Any, Any]
+    adapters: MutableMapping[str, adapters.BaseAdapter]
     redirect_cache: RecentlyUsedContainer[Any, Any]
     def __init__(self) -> None: ...
     def __enter__(self) -> Self: ...

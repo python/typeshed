@@ -5,7 +5,6 @@ range of Python users and Python codebases. If you're trying a type
 checker on your Python code, your experience and what you can contribute
 are important to the project's success.
 
-
 ## The contribution process at a glance
 
 1. [Prepare your environment](#preparing-the-environment).
@@ -18,6 +17,7 @@ are important to the project's success.
 4. Optionally [format and check your stubs](#code-formatting).
 5. Optionally [run the tests](tests/README.md).
 6. [Submit your changes](#submitting-changes) by opening a pull request.
+7. Make sure that all tests in CI are passing.
 
 You can expect a reply within a few days, but please be patient when
 it takes a bit longer. For more details, read below.
@@ -38,7 +38,7 @@ need fixing.
 
 ### ... Or create a local development environment
 
-If you prefer to run the tests & formatting locally, it's
+If you prefer to run the tests and formatting locally, it's
 possible too. Follow platform-specific instructions below.
 For more information about our available tests, see
 [tests/README.md](tests/README.md).
@@ -50,10 +50,10 @@ please refer to this
 
 Note that some tests require extra setup steps to install the required dependencies.
 
-### Linux/Mac OS
+### Linux/Mac OS/WSL
 
 On Linux and Mac OS, you will be able to run the full test suite on Python
-3.9 or 3.10.
+3.9-3.12.
 To install the necessary requirements, run the following commands from a
 terminal window:
 
@@ -66,56 +66,44 @@ $ source .venv/bin/activate
 
 ### Windows
 
-If you are using a Windows operating system, you will not be able to run the pytype
-tests, as pytype
-[does not currently support running on Windows](https://github.com/google/pytype#requirements).
-One option is to install
-[Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/faq),
-which will allow you to run the full suite of tests. If you choose to install
-WSL, follow the Linux/Mac OS instructions above.
-
-If you do not wish to install WSL, run the following commands from a Windows
-terminal to install all non-pytype requirements:
+Run the following commands from a Windows terminal to install all requirements:
 
 ```powershell
 > python -m venv .venv
-> .venv\scripts\activate
+> .venv\Scripts\activate
 (.venv) > pip install -U pip
 (.venv) > pip install -r "requirements-tests.txt"
+```
+
+To be able to run pytype tests, you'll also need to install it manually
+as it's currently excluded from the requirements file:
+
+```powershell
+(.venv) > pip install -U pytype
 ```
 
 ## Code formatting
 
 The code is formatted using [`Black`](https://github.com/psf/black).
-Various other autofixes are
-also performed by [`Ruff`](https://github.com/astral-sh/ruff).
-
-The repository is equipped with a [`pre-commit.ci`](https://pre-commit.ci/)
-configuration file. This means that you don't *need* to do anything yourself to
-run the code formatters. When you push a commit, a bot will run those for you
-right away and add a commit to your PR.
-
-That being said, if you *want* to run the checks locally when you commit,
-you're free to do so. Either run the following manually...
-
-```bash
-(.venv)$ ruff check .
-(.venv)$ black .
-```
-
-...Or install the pre-commit hooks: please refer to the
-[pre-commit](https://pre-commit.com/) documentation.
-
-Our code is also linted using [`Flake8`](https://github.com/pycqa/flake8),
+Various other autofixes and lint rules are
+also performed by [`Ruff`](https://github.com/astral-sh/ruff) and
+[`Flake8`](https://github.com/pycqa/flake8),
 with plugins [`flake8-pyi`](https://github.com/pycqa/flake8-pyi),
-[`flake8-bugbear`](https://github.com/PyCQA/flake8-bugbear),
 and [`flake8-noqa`](https://github.com/plinss/flake8-noqa).
-As with our other checks, running
-Flake8 before filing a PR is not required. However, if you wish to run Flake8
-locally, install the test dependencies as outlined above, and then run:
+
+The repository is equipped with a [pre-commit.ci](https://pre-commit.ci/)
+configuration file. This means that you don't *need* to do anything yourself to
+run the code formatters or linters. When you push a commit, a bot will run
+those for you right away and add any autofixes to your PR. Anything
+that can't be autofixed will show up as a CI failure, hopefully with an error
+message that will make it clear what's gone wrong.
+
+That being said, if you *want* to run the formatters and linters locally
+when you commit, you're free to do so. To use the same configuration as we use
+in CI, we recommend doing this via pre-commit:
 
 ```bash
-(.venv)$ flake8 .
+(.venv)$ pre-commit run --all-files
 ```
 
 ## Where to make changes
@@ -128,6 +116,9 @@ includes pure Python modules, dynamically loaded extension modules,
 hard-linked extension modules, and the builtins. The `VERSIONS` file lists
 the versions of Python where the module is available.
 
+We accept changes for future versions of Python after the first beta for that
+version was released.
+
 ### Third-party library stubs
 
 We accept stubs for third-party packages into typeshed as long as:
@@ -137,9 +128,8 @@ We accept stubs for third-party packages into typeshed as long as:
 
 The fastest way to generate new stubs is to use `scripts/create_baseline_stubs.py` (see below).
 
-Stubs for third-party packages
-go into `stubs`. Each subdirectory there represents a PyPI distribution, and
-contains the following:
+Stubs for third-party packages go into the `stubs` directory. Each subdirectory
+there represents a PyPI distribution, and contains the following:
 * `METADATA.toml`, describing the package. See below for details.
 * Stubs (i.e. `*.pyi` files) for packages and modules that are shipped in the
   source distribution.
@@ -202,13 +192,22 @@ supported:
 * `partial_stub` (optional): This field marks the type stub package as
   [partial](https://peps.python.org/pep-0561/#partial-stub-packages). This is for
   3rd-party stubs that don't cover the entirety of the package's public API.
-  In most cases, this field is identical to `ignore_missing_stub`.
+* `requires_python` (optional): The minimum version of Python required to install
+  the type stub package. It must be in the form `>=3.*`. If omitted, the oldest
+  Python version supported by typeshed is used.
 
 In addition, we specify configuration for stubtest in the `tool.stubtest` table.
 This has the following keys:
 * `skip` (default: `false`): Whether stubtest should be run against this
   package. Please avoid setting this to `true`, and add a comment if you have
   to.
+* `ignore_missing_stub`: When set to `true`, this will add the
+  `--ignore_missing_stub` option to the stubtest call. See
+  [tests/README.md](./tests/README.md) for more information. In most cases,
+  this field should be identical to `partial_stub`.
+* `stubtest_requirements` (default: `[]`): A list of Python packages that need
+  to be installed for stubtest to run successfully. These packages are installed
+  in addition to the requirements in the `requires` field.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully.
 * `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
@@ -225,7 +224,7 @@ This has the following keys:
 distribution.
 
 The format of all `METADATA.toml` files can be checked by running
-`python3 ./tests/check_consistent.py`.
+`python3 ./tests/check_typeshed_structure.py`.
 
 
 ## Preparing Changes
@@ -241,7 +240,7 @@ with what you'd like to do or have ideas that will help you do it.
 
 Each Python module is represented by a `.pyi` "stub file".  This is a
 syntactically valid Python file, although it usually cannot be run by
-Python 3 (since forward references don't require string quotes).  All
+Python (since forward references don't require string quotes).  All
 the methods are empty.
 
 Python function annotations ([PEP 3107](https://www.python.org/dev/peps/pep-3107/))
@@ -295,7 +294,7 @@ Supported features include:
 - [PEP 702](https://peps.python.org/pep-0702/) (`@deprecated()`)
 
 Features from the `typing` module that are not present in all
-supported Python 3 versions must be imported from `typing_extensions`
+supported Python versions must be imported from `typing_extensions`
 instead in typeshed stubs. This currently affects:
 
 - `TypeAlias` (new in Python 3.10)
@@ -385,16 +384,16 @@ MAXYEAR: int
 MINYEAR: int
 
 class date:
-    def __new__(cls: Type[_S], year: int, month: int, day: int) -> _S: ...
+    def __new__(cls, year: SupportsIndex, month: SupportsIndex, day: SupportsIndex) -> Self: ...
     @classmethod
-    def fromtimestamp(cls: Type[_S], __timestamp: float) -> _S: ...
+    def fromtimestamp(cls, timestamp: float, /) -> Self: ...
     @classmethod
-    def today(cls: Type[_S]) -> _S: ...
+    def today(cls) -> Self: ...
     @classmethod
-    def fromordinal(cls: Type[_S], __n: int) -> _S: ...
+    def fromordinal(cls, n: int, /) -> Self: ...
     @property
     def year(self) -> int: ...
-    def replace(self, year: int = ..., month: int = ..., day: int = ...) -> date: ...
+    def replace(self, year: SupportsIndex = ..., month: SupportsIndex = ..., day: SupportsIndex = ...) -> Self: ...
     def ctime(self) -> str: ...
     def weekday(self) -> int: ...
 ```
@@ -444,8 +443,8 @@ Some further tips for good type hints:
   `Optional[X]`;
 * import collections (`Mapping`, `Iterable`, etc.)
   from `collections.abc` instead of `typing`;
-* avoid invariant collection types (`list`, `dict`) in argument
-  positions, in favor of covariant types like `Mapping` or `Sequence`;
+* avoid invariant collection types (`list`, `dict`) for function
+  parameters, in favor of covariant types like `Mapping` or `Sequence`;
 * avoid union return types: https://github.com/python/mypy/issues/1693;
 * use platform checks like `if sys.platform == 'win32'` to denote
   platform-dependent APIs;
@@ -464,6 +463,14 @@ unless:
 * they use the form ``from library import *`` which means all names
   from that library are exported.
 
+Stub files support forward references natively.  In other words, the
+order of class declarations and type aliases does not matter in
+a stub file.  You can also use the name of the class within its own
+body.  Focus on making your stubs clear to the reader.  Avoid using
+string literals in type annotations.
+
+### Using `Any` and `object`
+
 When adding type hints, avoid using the `Any` type when possible. Reserve
 the use of `Any` for when:
 * the correct type cannot be expressed in the current type system; and
@@ -473,11 +480,11 @@ Note that `Any` is not the correct type to use if you want to indicate
 that some function can accept literally anything: in those cases use
 `object` instead.
 
-Stub files support forward references natively.  In other words, the
-order of class declarations and type aliases does not matter in
-a stub file.  You can also use the name of the class within its own
-body.  Focus on making your stubs clear to the reader.  Avoid using
-string literals in type annotations.
+When using `Any`, document the reason for using it in a comment. Ideally,
+document what types could be used. The `_typeshed` module also provides
+a few aliases to `Any` — like `Incomplete` and `MaybeNone` (see below) —
+that should be used instead of `Any` in appropriate situations and double
+as documentation.
 
 ### Context managers
 
@@ -491,8 +498,8 @@ context manager is meant to be subclassed, pick `bool | None`.
 See https://github.com/python/mypy/issues/7214 for more details.
 
 `__enter__` methods and other methods that return instances of the
-current class should be annotated with the `_typeshed.Self` type
-variable ([example](https://github.com/python/typeshed/pull/5698)).
+current class should be annotated with `typing_extensions.Self`
+([example](https://github.com/python/typeshed/blob/3581846/stdlib/contextlib.pyi#L151)).
 
 ### Naming
 
@@ -558,58 +565,31 @@ It should be used sparingly.
 
 ### "The `Any` trick"
 
+In cases where a function or method can return `None`, but where forcing the
+user to explicitly check for `None` can be detrimental, use
+`_typeshed.MaybeNone` (an alias to `Any`), instead of `None`.
+
 Consider the following (simplified) signature of `re.Match[str].group`:
 
 ```python
 class Match:
-    def group(self, __group: str | int) -> str | Any: ...
+    def group(self, group: str | int, /) -> str | MaybeNone: ...
 ```
 
-The `str | Any` seems unnecessary and weird at first.
-Because `Any` includes all strings, you would expect `str | Any` to be
-equivalent to `Any`, but it is not. To understand the difference,
-let's look at what happens when type-checking this simplified example:
-
-Suppose you have a legacy system that for historical reasons has two kinds
-of user IDs. Old IDs look like `"legacy_userid_123"` and new IDs look like
-`"456_username"`. The function below is supposed to extract the name
-`"USERNAME"` from a new ID, and return `None` if you give it a legacy ID.
+This avoid forcing the user to check for `None`:
 
 ```python
-import re
-
-def parse_name_from_new_id(user_id: str) -> str | None:
-    match = re.fullmatch(r"\d+_(.*)", user_id)
-    if match is None:
-        return None
-    name_group = match.group(1)
-    return name_group.uper()  # This line is a typo (`uper` --> `upper`)
+match = re.fullmatch(r"\d+_(.*)", some_string)
+assert match is not None
+name_group = match.group(1)  # The user knows that this will never be None
+return name_group.uper()  # This typo will be flagged by the type checker
 ```
 
-The `.group()` method returns `None` when the given group was not a part of the match.
-For example, with a regex like `r"\d+_(.*)|legacy_userid_\d+"`, we would get a match whose `.group(1)` is `None` for the user ID `"legacy_userid_7"`.
-But here the regex is written so that the group always exists, and `match.group(1)` cannot return `None`.
-Match groups are almost always used in this way.
+In this case, the user of `match.group()` must be prepared to handle a `str`,
+but type checkers are happy with `if name_group is None` checks, because we're
+saying it can also be something else than an `str`.
 
-Let's now consider typeshed's `-> str | Any` annotation of the `.group()` method:
-
-* `-> Any` would mean "please do not complain" to type checkers.
-  If `name_group` has type `Any`, you will get no error for this.
-* `-> str` would mean "will always be a `str`", which is wrong, and would
-  cause type checkers to emit errors for code like `if name_group is None`.
-* `-> str | None` means "you must check for None", which is correct but can get
-  annoying for some common patterns. Checks like `assert name_group is not None`
-  would need to be added into various places only to satisfy type checkers,
-  even when it is impossible to actually get a `None` value
-  (type checkers aren't smart enough to know this).
-* `-> str | Any` means "must be prepared to handle a `str`". You will get an
-  error for `name_group.uper`, because it is not valid when `name_group` is a
-  `str`. But type checkers are happy with `if name_group is None` checks,
-  because we're saying it can also be something else than an `str`.
-
-In typeshed we unofficially call returning `Foo | Any` "the Any trick".
-We tend to use it whenever something can be `None`,
-but requiring users to check for `None` would be more painful than helpful.
+This is sometimes called "the Any trick".
 
 ## Submitting Changes
 
@@ -634,6 +614,13 @@ processed incorrectly by a type checker. It is also helpful to add
 links to online documentation or to the implementation of the code
 you are changing.
 
+As the author of the pull request, it is your responsibility to make
+sure all CI tests pass and that any feedback is addressed. The typeshed
+maintainers will probably provide some help and may even push changes
+to your PR to fix any minor issues, but this is not always possible.
+If a PR lingers with unresolved problems for too long, we may close it
+([see below](#closing-stale-prs)).
+
 Also, do not squash your commits or use `git commit --amend` after you have submitted a pull request, as this
 erases context during review. We will squash commits when the pull request is merged.
 This way, your pull request will appear as a single commit in our git history, even
@@ -644,7 +631,9 @@ if it consisted of several smaller commits.
 Third-party stubs are generally removed from typeshed when one of the
 following criteria is met:
 
-* The upstream package ships a `py.typed` file for at least six months, or
+* The upstream package ships a `py.typed` file for at least six months,
+  and the upstream type annotations are of a comparable standard to those in
+  typeshed, or
 * the package does not support any of the Python versions supported by
   typeshed.
 
@@ -652,7 +641,7 @@ If a package ships its own `py.typed` file, please follow these steps:
 
 1. Open an issue with the earliest month of removal in the subject.
 2. A maintainer will add the
-   ["removal" label](https://github.com/python/typeshed/labels/removal).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
 3. Open a PR that sets the `obsolete_since` field in the `METADATA.toml`
    file to the first version of the package that shipped `py.typed`.
 4. After at least six months, open a PR to remove the stubs.
@@ -662,11 +651,11 @@ steps:
 
 1. Open an issue explaining why the stubs should be removed.
 2. A maintainer will add the
-   ["removal" label](https://github.com/python/typeshed/labels/removal).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
 3. Open a PR that sets the `no_longer_updated` field in the `METADATA.toml`
    file to `true`.
 4. When a new version of the package was automatically uploaded to PyPI
-   (which usually takes up to 3 hours), open a PR to remove the stubs.
+   (which can take up to a day), open a PR to remove the stubs.
 
 If feeling kindly, please update [mypy](https://github.com/python/mypy/blob/master/mypy/stubinfo.py)
 for any stub obsoletions or removals.
@@ -697,3 +686,37 @@ When merging pull requests, follow these guidelines:
   It should be valid Markdown, be comprehensive, read like a changelog entry,
   and assume that the reader has no access to the diff.
 * Delete branches for merged PRs (by maintainers pushing to the main repo).
+
+### Marking PRs as "deferred"
+
+We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/status%3A%20deferred)
+to mark PRs and issues that we'd like to accept, but that are blocked by some
+external factor. Blockers can include:
+
+- An unambiguous bug in a type checker (i.e., a case where the
+  type checker is not implementing [the typing spec](https://typing.readthedocs.io/en/latest/spec/index.html)).
+- A dependency on a typing PEP that is still under consideration.
+- A pending change in a related project, such as stub-uploader.
+
+PRs should only be marked as "deferred" if there is a clear path towards getting
+the blocking issue resolved within a reasonable time frame. If a PR depends on
+a more amorphous change, such as a type system change that has not yet reached
+the PEP stage, it should instead be closed.
+
+Maintainers who add the "deferred" label should state clearly what exactly the
+blocker is, usually with a link to an open issue in another project.
+
+### Closing stale PRs
+
+To keep the number of open PRs manageable, we may close PRs when they have been
+open for too long. Specifically, we close open PRs that either have failures in CI,
+serious merge conflicts or unaddressed feedback, and that have not seen any
+activity in three months.
+
+We want to maintain a welcoming atmosphere for contributors, so use a friendly
+message when closing the PR. Example message:
+
+    Thanks for contributing! I'm closing this PR for now, because it still
+    <fails some tests OR has unresolved review feedback OR has a merge conflict>
+    after three months of inactivity. If you are still interested, please feel free to open
+    a new PR (or ping us to reopen this one).
