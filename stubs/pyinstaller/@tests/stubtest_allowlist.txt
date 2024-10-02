@@ -35,7 +35,6 @@ PyInstaller\.hooks(\.[\w-]+)*  # weird hyphens in runtime module names
 PyInstaller.lib.modulegraph.__main__
 PyInstaller.lib.modulegraph.find_modules
 PyInstaller.lib.modulegraph.util
-PyInstaller.lib.modulegraph.zipio
 PyInstaller\.loader(\.\w+)*
 PyInstaller.log
 PyInstaller\.utils\.cliutils(\.\w+)*
@@ -44,6 +43,7 @@ PyInstaller.utils.git
 PyInstaller.utils.hooks.django
 PyInstaller.utils.hooks.gi
 PyInstaller.utils.hooks.qt
+PyInstaller.utils.hooks.setuptools
 PyInstaller.utils.hooks.tcl_tk
 PyInstaller.utils.misc
 PyInstaller.utils.osx
@@ -53,6 +53,3 @@ PyInstaller.utils.win32.icon
 PyInstaller.utils.win32.winmanifest
 PyInstaller.utils.win32.winresource
 PyInstaller.utils.win32.winutils
-
-# Module can't be imported at runtime on non-win32 platforms
-PyInstaller.utils.win32.versioninfo

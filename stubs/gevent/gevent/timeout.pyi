@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from types import TracebackType
-from typing import Any, TypeVar, overload
-from typing_extensions import Literal, ParamSpec, Self
+from typing import Any, Literal, TypeVar, overload
+from typing_extensions import ParamSpec, Self
 
 from gevent._types import _TimerWatcher
 
@@ -43,6 +43,8 @@ class Timeout(BaseException):
 # when timeout_value is provided we unfortunately get no type checking on *args, **kwargs, because
 # ParamSpec does not allow mixing in additional keyword arguments
 @overload
-def with_timeout(seconds: float | None, function: Callable[..., _T1], *args: Any, timeout_value: _T2, **kwds: Any) -> _T1 | _T2: ...  # type: ignore[misc]
+def with_timeout(
+    seconds: float | None, function: Callable[..., _T1], *args: Any, timeout_value: _T2, **kwds: Any
+) -> _T1 | _T2: ...
 @overload
 def with_timeout(seconds: float | None, function: Callable[_P, _T], *args: _P.args, **kwds: _P.kwargs) -> _T: ...
