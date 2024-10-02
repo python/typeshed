@@ -1,25 +1,24 @@
-from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
-from typing import Any
-from typing_extensions import Literal
+from typing import Any, Literal
 
 from matplotlib.axes import Axes
-from matplotlib.typing import ColorType
+from matplotlib.typing import ColorType, LineStyleType, MarkerType
 
-from ._core.typing import Default
+from ._core.typing import ColumnName, DataSource, Default, NormSpec
 from .axisgrid import FacetGrid
-from .utils import _ErrorBar, _Estimator, _Legend, _LogScale, _Palette, _Seed
+from .external.kde import _BwMethodType
+from .utils import _DataSourceWideForm, _ErrorBar, _Estimator, _Legend, _LogScale, _Palette, _Seed, _Vector
 
 __all__ = ["catplot", "stripplot", "swarmplot", "boxplot", "violinplot", "boxenplot", "pointplot", "barplot", "countplot"]
 
 def boxplot(
-    data: Incomplete | None = None,
+    data: DataSource | _DataSourceWideForm | None = None,
     *,
-    x: Incomplete | None = None,
-    y: Incomplete | None = None,
-    hue: Incomplete | None = None,
-    order: Incomplete | None = None,
-    hue_order: Incomplete | None = None,
+    x: ColumnName | _Vector | None = None,
+    y: ColumnName | _Vector | None = None,
+    hue: ColumnName | _Vector | None = None,
+    order: Iterable[ColumnName] | None = None,
+    hue_order: Iterable[ColumnName] | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
     palette: _Palette | None = None,
@@ -32,28 +31,28 @@ def boxplot(
     linecolor: ColorType = "auto",
     linewidth: float | None = None,
     fliersize: float | None = None,
-    ax: Axes | None = None,
-    hue_norm: Incomplete | None = None,
+    hue_norm: NormSpec = None,
     native_scale: bool = False,
     log_scale: _LogScale | None = None,
     formatter: Callable[[Any], str] | None = None,
     legend: _Legend = "auto",
+    ax: Axes | None = None,
     **kwargs: Any,
 ) -> Axes: ...
 def violinplot(
-    data: Incomplete | None = None,
+    data: DataSource | _DataSourceWideForm | None = None,
     *,
-    x: Incomplete | None = None,
-    y: Incomplete | None = None,
-    hue: Incomplete | None = None,
-    order: Incomplete | None = None,
-    hue_order: Incomplete | None = None,
+    x: ColumnName | _Vector | None = None,
+    y: ColumnName | _Vector | None = None,
+    hue: ColumnName | _Vector | None = None,
+    order: Iterable[ColumnName] | None = None,
+    hue_order: Iterable[ColumnName] | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
     palette: _Palette | None = None,
     saturation: float = 0.75,
     fill: bool = True,
-    inner: str = "box",
+    inner: str | None = "box",
     split: bool = False,
     width: float = 0.8,
     dodge: bool | Literal["auto"] = "auto",
@@ -62,30 +61,30 @@ def violinplot(
     linecolor: ColorType = "auto",
     cut: float = 2,
     gridsize: int = 100,
-    bw_method: str | float = "scott",
+    bw_method: _BwMethodType = "scott",
     bw_adjust: float = 1,
     density_norm: Literal["area", "count", "width"] = "area",
     common_norm: bool | None = False,
-    hue_norm: Incomplete | None = None,
+    hue_norm: NormSpec = None,
     formatter: Callable[[Any], str] | None = None,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
     legend: _Legend = "auto",
-    scale: Incomplete = ...,  # deprecated
-    scale_hue: Incomplete = ...,  # deprecated
-    bw: Incomplete = ...,  # deprecated
+    scale=...,  # deprecated
+    scale_hue=...,  # deprecated
+    bw=...,  # deprecated
     inner_kws: dict[str, Any] | None = None,
     ax: Axes | None = None,
     **kwargs: Any,
 ) -> Axes: ...
 def boxenplot(
-    data: Incomplete | None = None,
+    data: DataSource | _DataSourceWideForm | None = None,
     *,
-    x: Incomplete | None = None,
-    y: Incomplete | None = None,
-    hue: Incomplete | None = None,
-    order: Incomplete | None = None,
-    hue_order: Incomplete | None = None,
+    x: ColumnName | _Vector | None = None,
+    y: ColumnName | _Vector | None = None,
+    hue: ColumnName | _Vector | None = None,
+    order: Iterable[ColumnName] | None = None,
+    hue_order: Iterable[ColumnName] | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
     palette: _Palette | None = None,
@@ -101,12 +100,12 @@ def boxenplot(
     outlier_prop: float = 0.007,
     trust_alpha: float = 0.05,
     showfliers: bool = True,
-    hue_norm: Incomplete | None = None,
+    hue_norm: NormSpec = None,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
     formatter: Callable[[Any], str] | None = None,
     legend: _Legend = "auto",
-    scale: Incomplete = ...,  # deprecated
+    scale=...,  # deprecated
     box_kws: dict[str, Any] | None = None,
     flier_kws: dict[str, Any] | None = None,
     line_kws: dict[str, Any] | None = None,
@@ -114,14 +113,14 @@ def boxenplot(
     **kwargs: Any,
 ) -> Axes: ...
 def stripplot(
-    data: Incomplete | None = None,
+    data: DataSource | _DataSourceWideForm | None = None,
     *,
-    x: Incomplete | None = None,
-    y: Incomplete | None = None,
-    hue: Incomplete | None = None,
-    order: Incomplete | None = None,
-    hue_order: Incomplete | None = None,
-    jitter: bool = True,
+    x: ColumnName | _Vector | None = None,
+    y: ColumnName | _Vector | None = None,
+    hue: ColumnName | _Vector | None = None,
+    order: Iterable[ColumnName] | None = None,
+    hue_order: Iterable[ColumnName] | None = None,
+    jitter: float | Literal[True] = True,
     dodge: bool = False,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
@@ -129,7 +128,7 @@ def stripplot(
     size: float = 5,
     edgecolor: ColorType | Default = ...,
     linewidth: float = 0,
-    hue_norm: Incomplete | None = None,
+    hue_norm: NormSpec = None,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
     formatter: Callable[[Any], str] | None = None,
@@ -138,13 +137,13 @@ def stripplot(
     **kwargs: Any,
 ) -> Axes: ...
 def swarmplot(
-    data: Incomplete | None = None,
+    data: DataSource | _DataSourceWideForm | None = None,
     *,
-    x: Incomplete | None = None,
-    y: Incomplete | None = None,
-    hue: Incomplete | None = None,
-    order: Incomplete | None = None,
-    hue_order: Incomplete | None = None,
+    x: ColumnName | _Vector | None = None,
+    y: ColumnName | _Vector | None = None,
+    hue: ColumnName | _Vector | None = None,
+    order: Iterable[ColumnName] | None = None,
+    hue_order: Iterable[ColumnName] | None = None,
     dodge: bool = False,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
@@ -152,7 +151,7 @@ def swarmplot(
     size: float = 5,
     edgecolor: ColorType | None = None,
     linewidth: float = 0,
-    hue_norm: Incomplete | None = None,
+    hue_norm: NormSpec = None,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
     formatter: Callable[[Any], str] | None = None,
@@ -162,24 +161,25 @@ def swarmplot(
     **kwargs: Any,
 ) -> Axes: ...
 def barplot(
-    data: Incomplete | None = None,
+    data: DataSource | _DataSourceWideForm | None = None,
     *,
-    x: Incomplete | None = None,
-    y: Incomplete | None = None,
-    hue: Incomplete | None = None,
-    order: Iterable[str] | None = None,
-    hue_order: Iterable[str] | None = None,
+    x: ColumnName | _Vector | None = None,
+    y: ColumnName | _Vector | None = None,
+    hue: ColumnName | _Vector | None = None,
+    order: Iterable[ColumnName] | None = None,
+    hue_order: Iterable[ColumnName] | None = None,
     estimator: _Estimator = "mean",
     errorbar: _ErrorBar | None = ("ci", 95),
     n_boot: int = 1000,
-    units: Incomplete | None = None,
+    units: ColumnName | _Vector | None = None,
+    weights: ColumnName | _Vector | None = None,
     seed: _Seed | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
     palette: _Palette | None = None,
     saturation: float = 0.75,
     fill: bool = True,
-    hue_norm: Incomplete | None = None,
+    hue_norm: NormSpec = None,
     width: float = 0.8,
     dodge: bool | Literal["auto"] = "auto",
     gap: float = 0,
@@ -189,30 +189,31 @@ def barplot(
     legend: _Legend = "auto",
     capsize: float = 0,
     err_kws: dict[str, Any] | None = None,
-    ci: Incomplete = ...,  # deprecated
-    errcolor: Incomplete = ...,  # deprecated
-    errwidth: Incomplete = ...,  # deprecated
+    ci=...,  # deprecated
+    errcolor=...,  # deprecated
+    errwidth=...,  # deprecated
     ax: Axes | None = None,
     **kwargs: Any,
 ) -> Axes: ...
 def pointplot(
-    data: Incomplete | None = None,
+    data: DataSource | _DataSourceWideForm | None = None,
     *,
-    x: Incomplete | None = None,
-    y: Incomplete | None = None,
-    hue: Incomplete | None = None,
-    order: Incomplete | None = None,
-    hue_order: Incomplete | None = None,
+    x: ColumnName | _Vector | None = None,
+    y: ColumnName | _Vector | None = None,
+    hue: ColumnName | _Vector | None = None,
+    order: Iterable[ColumnName] | None = None,
+    hue_order: Iterable[ColumnName] | None = None,
     estimator: _Estimator = "mean",
     errorbar: _ErrorBar | None = ("ci", 95),
     n_boot: int = 1000,
-    units: Incomplete | None = None,
+    units: ColumnName | _Vector | None = None,
+    weights: ColumnName | _Vector | None = None,
     seed: _Seed | None = None,
     color: ColorType | None = None,
     palette: _Palette | None = None,
-    hue_norm: Incomplete | None = None,
-    markers: str | Incomplete = ...,  # string or list of strings
-    linestyles: str | Incomplete = ...,  # string or list of strings
+    hue_norm: NormSpec = None,
+    markers: MarkerType | list[MarkerType] | Default = ...,
+    linestyles: LineStyleType | list[LineStyleType] | Default = ...,
     dodge: bool = False,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
@@ -221,27 +222,27 @@ def pointplot(
     formatter: Callable[[Any], str] | None = None,
     legend: _Legend = "auto",
     err_kws: dict[str, Any] | None = None,
-    ci: Incomplete = ...,  # deprecated
-    errwidth: Incomplete = ...,  # deprecated
-    join: Incomplete = ...,  # deprecated
-    scale: Incomplete = ...,  # deprecated
+    ci=...,  # deprecated
+    errwidth=...,  # deprecated
+    join=...,  # deprecated
+    scale=...,  # deprecated
     ax: Axes | None = None,
     **kwargs: Any,
 ) -> Axes: ...
 def countplot(
-    data: Incomplete | None = None,
+    data: DataSource | _DataSourceWideForm | None = None,
     *,
-    x: Incomplete | None = None,
-    y: Incomplete | None = None,
-    hue: Incomplete | None = None,
-    order: Incomplete | None = None,
-    hue_order: Incomplete | None = None,
+    x: ColumnName | _Vector | None = None,
+    y: ColumnName | _Vector | None = None,
+    hue: ColumnName | _Vector | None = None,
+    order: Iterable[ColumnName] | None = None,
+    hue_order: Iterable[ColumnName] | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
     palette: _Palette | None = None,
     saturation: float = 0.75,
     fill: bool = True,
-    hue_norm: Incomplete | None = None,
+    hue_norm: NormSpec = None,
     stat: Literal["count", "percent", "proportion", "probability"] = "count",
     width: float = 0.8,
     dodge: bool | Literal["auto"] = "auto",
@@ -254,23 +255,24 @@ def countplot(
     **kwargs: Any,
 ) -> Axes: ...
 def catplot(
-    data: Incomplete | None = None,
+    data: DataSource | _DataSourceWideForm | None = None,
     *,
-    x: Incomplete | None = None,
-    y: Incomplete | None = None,
-    hue: Incomplete | None = None,
-    row: Incomplete | None = None,
-    col: Incomplete | None = None,
+    x: ColumnName | _Vector | None = None,
+    y: ColumnName | _Vector | None = None,
+    hue: ColumnName | _Vector | None = None,
+    row: ColumnName | _Vector | None = None,
+    col: ColumnName | _Vector | None = None,
     kind: Literal["strip", "swarm", "box", "violin", "boxen", "point", "bar", "count"] = "strip",
     estimator: _Estimator = "mean",
     errorbar: _ErrorBar | None = ("ci", 95),
     n_boot: int = 1000,
-    units: Incomplete | None = None,
+    units: ColumnName | _Vector | None = None,
+    weights: ColumnName | _Vector | None = None,
     seed: _Seed | None = None,
-    order: Iterable[str] | None = None,
-    hue_order: Iterable[str] | None = None,
-    row_order: Iterable[str] | None = None,
-    col_order: Iterable[str] | None = None,
+    order: Iterable[ColumnName] | None = None,
+    hue_order: Iterable[ColumnName] | None = None,
+    row_order: Iterable[ColumnName] | None = None,
+    col_order: Iterable[ColumnName] | None = None,
     col_wrap: int | None = None,
     height: float = 5,
     aspect: float = 1,
@@ -280,13 +282,13 @@ def catplot(
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
     palette: _Palette | None = None,
-    hue_norm: Incomplete | None = None,
+    hue_norm: NormSpec = None,
     legend: _Legend = "auto",
     legend_out: bool = True,
     sharex: bool = True,
     sharey: bool = True,
     margin_titles: bool = False,
     facet_kws: dict[str, Any] | None = None,
-    ci: Incomplete = ...,  # deprecated
+    ci=...,  # deprecated
     **kwargs: Any,
 ) -> FacetGrid: ...

@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Hashable, Iterable, Mapping, Sequence
-from typing_extensions import Literal, Self, TypeAlias
+from typing import Literal
+from typing_extensions import Self, TypeAlias
 
 import numpy as np
 from matplotlib.axes import Axes
@@ -39,7 +40,7 @@ def heatmap(
     yticklabels: Literal["auto"] | bool | int | Sequence[str] = "auto",
     mask: NDArray[np.bool_] | DataFrame | None = None,
     ax: Axes | None = None,
-    **kwargs: Incomplete,
+    **kwargs,
 ) -> Axes: ...
 
 class _DendrogramPlotter:
@@ -105,11 +106,13 @@ class ClusterGrid(Grid):
     dendrogram_col: _DendrogramPlotter | None
     def __init__(
         self,
-        data: _ListLikeU
-        | DataFrame
-        | dict[Incomplete, Incomplete]
-        | Iterable[_ListLikeU | tuple[Hashable, _ListLikeU] | dict[Incomplete, Incomplete]]
-        | None,
+        data: (
+            _ListLikeU
+            | DataFrame
+            | dict[Incomplete, Incomplete]
+            | Iterable[_ListLikeU | tuple[Hashable, _ListLikeU] | dict[Incomplete, Incomplete]]
+            | None
+        ),
         pivot_kws: Mapping[str, Incomplete] | None = None,
         z_score: int | None = None,
         standard_scale: int | None = None,
@@ -147,10 +150,8 @@ class ClusterGrid(Grid):
         col_linkage: NDArray[Incomplete] | None,
         tree_kws: dict[str, Incomplete] | None,
     ) -> None: ...
-    def plot_colors(self, xind: _ArrayLikeInt_co, yind: _ArrayLikeInt_co, **kws: Incomplete) -> None: ...
-    def plot_matrix(
-        self, colorbar_kws: dict[str, Incomplete], xind: _ArrayLikeInt_co, yind: _ArrayLikeInt_co, **kws: Incomplete
-    ) -> None: ...
+    def plot_colors(self, xind: _ArrayLikeInt_co, yind: _ArrayLikeInt_co, **kws) -> None: ...
+    def plot_matrix(self, colorbar_kws: dict[str, Incomplete], xind: _ArrayLikeInt_co, yind: _ArrayLikeInt_co, **kws) -> None: ...
     def plot(
         self,
         metric: str,
@@ -161,15 +162,17 @@ class ClusterGrid(Grid):
         row_linkage: NDArray[Incomplete] | None,
         col_linkage: NDArray[Incomplete] | None,
         tree_kws: dict[str, Incomplete] | None,
-        **kws: Incomplete,
+        **kws,
     ) -> Self: ...
 
 def clustermap(
-    data: _ListLikeU
-    | DataFrame
-    | dict[Incomplete, Incomplete]
-    | Iterable[_ListLikeU | tuple[Hashable, _ListLikeU] | dict[Incomplete, Incomplete]]
-    | None,
+    data: (
+        _ListLikeU
+        | DataFrame
+        | dict[Incomplete, Incomplete]
+        | Iterable[_ListLikeU | tuple[Hashable, _ListLikeU] | dict[Incomplete, Incomplete]]
+        | None
+    ),
     *,
     pivot_kws: dict[str, Incomplete] | None = None,
     method: str = "average",
@@ -189,5 +192,5 @@ def clustermap(
     colors_ratio: float | tuple[float, float] = 0.03,
     cbar_pos: tuple[float, float, float, float] | None = (0.02, 0.8, 0.05, 0.18),
     tree_kws: dict[str, Incomplete] | None = None,
-    **kwargs: Incomplete,
+    **kwargs,
 ) -> ClusterGrid: ...

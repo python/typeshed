@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, Unused
-from typing import ClassVar, TypeVar
-from typing_extensions import Literal, Self
+from typing import ClassVar, Literal, TypeVar
+from typing_extensions import Self
 from zipfile import ZipFile
 
 from openpyxl.descriptors.base import Typed
@@ -56,4 +56,4 @@ class Stylesheet(Serialisable):
     def to_tree(self, tagname: str | None = None, idx: Unused = None, namespace: str | None = None) -> Element: ...
 
 def apply_stylesheet(archive: ZipFile, wb: _WorkbookT) -> _WorkbookT | None: ...
-def write_stylesheet(wb): ...
+def write_stylesheet(wb: Workbook): ...

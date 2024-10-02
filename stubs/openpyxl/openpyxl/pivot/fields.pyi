@@ -1,7 +1,6 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
 from datetime import datetime
-from typing import ClassVar, overload
-from typing_extensions import Literal
+from typing import ClassVar, Literal, overload
 
 from openpyxl.descriptors.base import Bool, DateTime, Float, Integer, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable
@@ -12,8 +11,8 @@ class Index(Serialisable):
     def __init__(self, v: ConvertibleToInt | None = 0) -> None: ...
 
 class Tuple(Serialisable):
-    fld: Integer[Literal[False]]
-    hier: Integer[Literal[False]]
+    fld: Integer[Literal[True]]
+    hier: Integer[Literal[True]]
     item: Integer[Literal[False]]
     def __init__(self, fld: ConvertibleToInt, hier: ConvertibleToInt, item: ConvertibleToInt) -> None: ...
 

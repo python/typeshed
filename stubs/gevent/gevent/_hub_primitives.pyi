@@ -2,7 +2,7 @@ from _typeshed import FileDescriptor
 from collections.abc import Callable, Collection, Iterable
 from types import TracebackType
 from typing import Any, Generic, Protocol, TypeVar, overload
-from typing_extensions import ParamSpec, Self
+from typing_extensions import Self, TypeVarTuple, Unpack
 
 from gevent._greenlet_primitives import SwitchOutGreenletWithLoop
 from gevent._types import _Loop, _Watcher
@@ -12,24 +12,22 @@ from gevent.socket import socket
 __all__ = ["WaitOperationsGreenlet", "iwait_on_objects", "wait_on_objects", "wait_read", "wait_write", "wait_readwrite"]
 
 _T = TypeVar("_T")
+_Ts = TypeVarTuple("_Ts")
 _WaitableT = TypeVar("_WaitableT", bound=_Waitable)
-_P = ParamSpec("_P")
 
 class _Waitable(Protocol):
-    def rawlink(self, __callback: Callable[[Any], object]) -> object: ...
-    def unlink(self, __callback: Callable[[Any], object]) -> object: ...
+    def rawlink(self, callback: Callable[[Any], object], /) -> object: ...
+    def unlink(self, callback: Callable[[Any], object], /) -> object: ...
 
 class WaitOperationsGreenlet(SwitchOutGreenletWithLoop):
     loop: _Loop
     def wait(self, watcher: _Watcher) -> None: ...
-    # These then doesn't allow keyword arguments, but ParamSpec doesn't allow for that
     def cancel_waits_close_and_then(
         self,
         watchers: Iterable[_Watcher],
         exc_kind: type[BaseException] | BaseException,
-        then: Callable[_P, object],
-        *then_args: _P.args,
-        **_: _P.kwargs,
+        then: Callable[[Unpack[_Ts]], object],
+        *then_args: Unpack[_Ts],
     ) -> None: ...
     def cancel_wait(self, watcher: _Watcher, error: type[BaseException] | BaseException, close_watcher: bool = False) -> None: ...
 
