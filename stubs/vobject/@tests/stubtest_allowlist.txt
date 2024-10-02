@@ -6,11 +6,7 @@ vobject.base.VBase.__init__
 # See: https://github.com/eventable/vobject/pull/187
 vobject.win32tz
 
-# dependencies
-vobject.icalendar.Pytz
-
 # python2 compat
-vobject.base.basestring
 vobject.base.str_
 vobject.base.to_unicode
 vobject.base.to_basestring
