@@ -6,13 +6,13 @@ from typing import Final, Literal, Protocol
 from PIL.Image import Transpose
 
 class Layout(IntEnum):
-    BASIC: Literal[0]
-    RAQM: Literal[1]
+    BASIC = 0
+    RAQM = 1
 
 MAX_STRING_LENGTH: Final[int] = 1_000_000
 
 class _Font(Protocol):
-    def getmask(self, __text: str | bytes, __mode: str = ..., direction=..., features=...): ...
+    def getmask(self, text: str | bytes, mode: str = ..., /, direction=..., features=...): ...
 
 class ImageFont:
     def getmask(self, text: str | bytes, mode: str = "", direction=..., features=...): ...

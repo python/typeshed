@@ -43,10 +43,10 @@ _FilterFunction: TypeAlias = Callable[[TarInfo, str], TarInfo | None]
 _TarfileFilter: TypeAlias = Literal["fully_trusted", "tar", "data"] | _FilterFunction
 
 class _Fileobj(Protocol):
-    def read(self, __size: int) -> bytes: ...
-    def write(self, __b: bytes) -> object: ...
+    def read(self, size: int, /) -> bytes: ...
+    def write(self, b: bytes, /) -> object: ...
     def tell(self) -> int: ...
-    def seek(self, __pos: int) -> object: ...
+    def seek(self, pos: int, /) -> object: ...
     def close(self) -> object: ...
     # Optional fields:
     # name: str | bytes
@@ -103,10 +103,13 @@ PAX_NAME_FIELDS: set[str]
 
 ENCODING: str
 
+_FileCreationModes: TypeAlias = Literal["a", "w", "x"]
+
+@overload
 def open(
     name: StrOrBytesPath | None = None,
     mode: str = "r",
-    fileobj: IO[bytes] | None = None,  # depends on mode
+    fileobj: IO[bytes] | None = None,
     bufsize: int = 10240,
     *,
     format: int | None = ...,
@@ -119,6 +122,26 @@ def open(
     debug: int | None = ...,
     errorlevel: int | None = ...,
     compresslevel: int | None = ...,
+    preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
+) -> TarFile: ...
+@overload
+def open(
+    name: StrOrBytesPath | None = None,
+    mode: _FileCreationModes = ...,
+    fileobj: _Fileobj | None = None,
+    bufsize: int = 10240,
+    *,
+    format: int | None = ...,
+    tarinfo: type[TarInfo] | None = ...,
+    dereference: bool | None = ...,
+    ignore_zeros: bool | None = ...,
+    encoding: str | None = ...,
+    errors: str = ...,
+    pax_headers: Mapping[str, str] | None = ...,
+    debug: int | None = ...,
+    errorlevel: int | None = ...,
+    compresslevel: int | None = ...,
+    preset: int | None = ...,
 ) -> TarFile: ...
 
 class ExFileObject(io.BufferedReader):
@@ -141,22 +164,43 @@ class TarFile:
     errorlevel: int | None
     offset: int  # undocumented
     extraction_filter: _FilterFunction | None
-    def __init__(
-        self,
-        name: StrOrBytesPath | None = None,
-        mode: Literal["r", "a", "w", "x"] = "r",
-        fileobj: _Fileobj | None = None,
-        format: int | None = None,
-        tarinfo: type[TarInfo] | None = None,
-        dereference: bool | None = None,
-        ignore_zeros: bool | None = None,
-        encoding: str | None = None,
-        errors: str = "surrogateescape",
-        pax_headers: Mapping[str, str] | None = None,
-        debug: int | None = None,
-        errorlevel: int | None = None,
-        copybufsize: int | None = None,  # undocumented
-    ) -> None: ...
+    if sys.version_info >= (3, 13):
+        stream: bool
+        def __init__(
+            self,
+            name: StrOrBytesPath | None = None,
+            mode: Literal["r", "a", "w", "x"] = "r",
+            fileobj: _Fileobj | None = None,
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: int | None = None,
+            errorlevel: int | None = None,
+            copybufsize: int | None = None,  # undocumented
+            stream: bool = False,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            name: StrOrBytesPath | None = None,
+            mode: Literal["r", "a", "w", "x"] = "r",
+            fileobj: _Fileobj | None = None,
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: int | None = None,
+            errorlevel: int | None = None,
+            copybufsize: int | None = None,  # undocumented
+        ) -> None: ...
+
     def __enter__(self) -> Self: ...
     def __exit__(
         self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
@@ -291,6 +335,8 @@ class TarFile:
     def getnames(self) -> _list[str]: ...
     def list(self, verbose: bool = True, *, members: _list[TarInfo] | None = None) -> None: ...
     def next(self) -> TarInfo | None: ...
+    # Calling this method without `filter` is deprecated, but it may be set either on the class or in an
+    # individual call, so we can't mark it as @deprecated here.
     def extractall(
         self,
         path: StrOrBytesPath = ".",
@@ -299,6 +345,7 @@ class TarFile:
         numeric_owner: bool = False,
         filter: _TarfileFilter | None = ...,
     ) -> None: ...
+    # Same situation as for `extractall`.
     def extract(
         self,
         member: str | TarInfo,
@@ -376,7 +423,7 @@ class TarInfo:
     name: str
     path: str
     size: int
-    mtime: int
+    mtime: int | float
     chksum: int
     devmajor: int
     devminor: int

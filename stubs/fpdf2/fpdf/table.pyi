@@ -1,15 +1,16 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, SupportsItems
 from collections.abc import Iterable
 from dataclasses import dataclass
 from io import BytesIO
-from typing import Literal
+from typing import Literal, overload
 
 from PIL import Image
 
 from .drawing import DeviceGray, DeviceRGB
-from .enums import Align, TableBordersLayout, TableCellFillMode, VAlign, WrapMode
+from .enums import Align, TableBordersLayout, TableCellFillMode, TableHeadingsDisplay, TableSpan, VAlign, WrapMode
 from .fonts import FontFace
 from .fpdf import FPDF
+from .image_datastructures import _TextAlign
 from .util import Padding
 
 DEFAULT_HEADINGS_STYLE: FontFace
@@ -22,7 +23,8 @@ class Table:
         fpdf: FPDF,
         rows: Iterable[str] = (),
         *,
-        align: str | Align = "CENTER",
+        # Keep in sync with `fpdf.fpdf.FPDF.table`:
+        align: str | _TextAlign = "CENTER",
         v_align: str | VAlign = "MIDDLE",
         borders_layout: str | TableBordersLayout = ...,
         cell_fill_color: int | tuple[Incomplete, ...] | DeviceGray | DeviceRGB | None = None,
@@ -34,16 +36,17 @@ class Table:
         headings_style: FontFace = ...,
         line_height: int | None = None,
         markdown: bool = False,
-        text_align: str | Align = "JUSTIFY",
+        text_align: str | _TextAlign | tuple[str | _TextAlign, ...] = "JUSTIFY",
         width: int | None = None,
         wrapmode: WrapMode = ...,
         padding: float | Padding | None = None,
         outer_border_width: float | None = None,
         num_heading_rows: int = 1,
+        repeat_headings: TableHeadingsDisplay | int = 1,
     ) -> None: ...
     def row(self, cells: Iterable[str] = (), style: FontFace | None = None) -> Row: ...
     def render(self) -> None: ...
-    def get_cell_border(self, i, j) -> str | Literal[0, 1]: ...
+    def get_cell_border(self, i: int, j: int, cell: Cell) -> str | Literal[0, 1]: ...
 
 class Row:
     cells: list[Cell]
@@ -52,7 +55,9 @@ class Row:
     @property
     def cols_count(self) -> int: ...
     @property
-    def column_indices(self): ...
+    def max_rowspan(self) -> int: ...
+    def convert_spans(self, active_rowspans: SupportsItems[int, int]) -> tuple[dict[int, int], list[int]]: ...
+    @overload
     def cell(
         self,
         text: str = "",
@@ -62,9 +67,24 @@ class Row:
         img: str | Image.Image | BytesIO | None = None,
         img_fill_width: bool = False,
         colspan: int = 1,
+        rowspan: int = 1,
         padding: tuple[float, ...] | None = None,
         link: str | int | None = None,
-    ) -> Cell: ...
+    ) -> str: ...
+    @overload
+    def cell(
+        self,
+        text: TableSpan,
+        align: str | Align | None = None,
+        v_align: str | VAlign | None = None,
+        style: FontFace | None = None,
+        img: str | Image.Image | BytesIO | None = None,
+        img_fill_width: bool = False,
+        colspan: int = 1,
+        rowspan: int = 1,
+        padding: tuple[float, ...] | None = None,
+        link: str | int | None = None,
+    ) -> TableSpan: ...
 
 @dataclass
 class Cell:
@@ -75,6 +95,7 @@ class Cell:
     img: str | None
     img_fill_width: bool
     colspan: int
+    rowspan: int
     padding: int | tuple[float, ...] | None
     link: str | int | None
 
@@ -83,7 +104,17 @@ class Cell:
 @dataclass(frozen=True)
 class RowLayoutInfo:
     height: int
-    triggers_page_jump: bool
+    pagebreak_height: float
     rendered_height: dict[Incomplete, Incomplete]
+    merged_heights: list[Incomplete]
+
+@dataclass(frozen=True)
+class RowSpanLayoutInfo:
+    column: int
+    start: int
+    length: int
+    contents_height: float
+
+    def row_range(self) -> range: ...
 
 def draw_box_borders(pdf: FPDF, x1, y1, x2, y2, border: str | Literal[0, 1], fill_color: Incomplete | None = None) -> None: ...

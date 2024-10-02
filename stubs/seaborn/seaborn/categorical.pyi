@@ -1,12 +1,10 @@
-from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
 from typing import Any, Literal
 
 from matplotlib.axes import Axes
-from matplotlib.colors import Normalize
 from matplotlib.typing import ColorType, LineStyleType, MarkerType
 
-from ._core.typing import ColumnName, DataSource, Default
+from ._core.typing import ColumnName, DataSource, Default, NormSpec
 from .axisgrid import FacetGrid
 from .external.kde import _BwMethodType
 from .utils import _DataSourceWideForm, _ErrorBar, _Estimator, _Legend, _LogScale, _Palette, _Seed, _Vector
@@ -33,7 +31,7 @@ def boxplot(
     linecolor: ColorType = "auto",
     linewidth: float | None = None,
     fliersize: float | None = None,
-    hue_norm: tuple[float, float] | Normalize | None = None,
+    hue_norm: NormSpec = None,
     native_scale: bool = False,
     log_scale: _LogScale | None = None,
     formatter: Callable[[Any], str] | None = None,
@@ -67,14 +65,14 @@ def violinplot(
     bw_adjust: float = 1,
     density_norm: Literal["area", "count", "width"] = "area",
     common_norm: bool | None = False,
-    hue_norm: tuple[float, float] | Normalize | None = None,
+    hue_norm: NormSpec = None,
     formatter: Callable[[Any], str] | None = None,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
     legend: _Legend = "auto",
-    scale: Incomplete = ...,  # deprecated
-    scale_hue: Incomplete = ...,  # deprecated
-    bw: Incomplete = ...,  # deprecated
+    scale=...,  # deprecated
+    scale_hue=...,  # deprecated
+    bw=...,  # deprecated
     inner_kws: dict[str, Any] | None = None,
     ax: Axes | None = None,
     **kwargs: Any,
@@ -102,12 +100,12 @@ def boxenplot(
     outlier_prop: float = 0.007,
     trust_alpha: float = 0.05,
     showfliers: bool = True,
-    hue_norm: tuple[float, float] | Normalize | None = None,
+    hue_norm: NormSpec = None,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
     formatter: Callable[[Any], str] | None = None,
     legend: _Legend = "auto",
-    scale: Incomplete = ...,  # deprecated
+    scale=...,  # deprecated
     box_kws: dict[str, Any] | None = None,
     flier_kws: dict[str, Any] | None = None,
     line_kws: dict[str, Any] | None = None,
@@ -130,7 +128,7 @@ def stripplot(
     size: float = 5,
     edgecolor: ColorType | Default = ...,
     linewidth: float = 0,
-    hue_norm: tuple[float, float] | Normalize | None = None,
+    hue_norm: NormSpec = None,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
     formatter: Callable[[Any], str] | None = None,
@@ -153,7 +151,7 @@ def swarmplot(
     size: float = 5,
     edgecolor: ColorType | None = None,
     linewidth: float = 0,
-    hue_norm: tuple[float, float] | Normalize | None = None,
+    hue_norm: NormSpec = None,
     log_scale: _LogScale | None = None,
     native_scale: bool = False,
     formatter: Callable[[Any], str] | None = None,
@@ -174,13 +172,14 @@ def barplot(
     errorbar: _ErrorBar | None = ("ci", 95),
     n_boot: int = 1000,
     units: ColumnName | _Vector | None = None,
+    weights: ColumnName | _Vector | None = None,
     seed: _Seed | None = None,
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
     palette: _Palette | None = None,
     saturation: float = 0.75,
     fill: bool = True,
-    hue_norm: tuple[float, float] | Normalize | None = None,
+    hue_norm: NormSpec = None,
     width: float = 0.8,
     dodge: bool | Literal["auto"] = "auto",
     gap: float = 0,
@@ -190,9 +189,9 @@ def barplot(
     legend: _Legend = "auto",
     capsize: float = 0,
     err_kws: dict[str, Any] | None = None,
-    ci: Incomplete = ...,  # deprecated
-    errcolor: Incomplete = ...,  # deprecated
-    errwidth: Incomplete = ...,  # deprecated
+    ci=...,  # deprecated
+    errcolor=...,  # deprecated
+    errwidth=...,  # deprecated
     ax: Axes | None = None,
     **kwargs: Any,
 ) -> Axes: ...
@@ -208,10 +207,11 @@ def pointplot(
     errorbar: _ErrorBar | None = ("ci", 95),
     n_boot: int = 1000,
     units: ColumnName | _Vector | None = None,
+    weights: ColumnName | _Vector | None = None,
     seed: _Seed | None = None,
     color: ColorType | None = None,
     palette: _Palette | None = None,
-    hue_norm: tuple[float, float] | Normalize | None = None,
+    hue_norm: NormSpec = None,
     markers: MarkerType | list[MarkerType] | Default = ...,
     linestyles: LineStyleType | list[LineStyleType] | Default = ...,
     dodge: bool = False,
@@ -222,10 +222,10 @@ def pointplot(
     formatter: Callable[[Any], str] | None = None,
     legend: _Legend = "auto",
     err_kws: dict[str, Any] | None = None,
-    ci: Incomplete = ...,  # deprecated
-    errwidth: Incomplete = ...,  # deprecated
-    join: Incomplete = ...,  # deprecated
-    scale: Incomplete = ...,  # deprecated
+    ci=...,  # deprecated
+    errwidth=...,  # deprecated
+    join=...,  # deprecated
+    scale=...,  # deprecated
     ax: Axes | None = None,
     **kwargs: Any,
 ) -> Axes: ...
@@ -242,7 +242,7 @@ def countplot(
     palette: _Palette | None = None,
     saturation: float = 0.75,
     fill: bool = True,
-    hue_norm: tuple[float, float] | Normalize | None = None,
+    hue_norm: NormSpec = None,
     stat: Literal["count", "percent", "proportion", "probability"] = "count",
     width: float = 0.8,
     dodge: bool | Literal["auto"] = "auto",
@@ -267,6 +267,7 @@ def catplot(
     errorbar: _ErrorBar | None = ("ci", 95),
     n_boot: int = 1000,
     units: ColumnName | _Vector | None = None,
+    weights: ColumnName | _Vector | None = None,
     seed: _Seed | None = None,
     order: Iterable[ColumnName] | None = None,
     hue_order: Iterable[ColumnName] | None = None,
@@ -281,13 +282,13 @@ def catplot(
     orient: Literal["v", "h", "x", "y"] | None = None,
     color: ColorType | None = None,
     palette: _Palette | None = None,
-    hue_norm: tuple[float, float] | Normalize | None = None,
+    hue_norm: NormSpec = None,
     legend: _Legend = "auto",
     legend_out: bool = True,
     sharex: bool = True,
     sharey: bool = True,
     margin_titles: bool = False,
     facet_kws: dict[str, Any] | None = None,
-    ci: Incomplete = ...,  # deprecated
+    ci=...,  # deprecated
     **kwargs: Any,
 ) -> FacetGrid: ...
