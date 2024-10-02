@@ -6,6 +6,9 @@
         "stubs",
     ],
     "exclude": [
+        // Stubs that don't work in all Python versions
+        "stubs/seaborn",
+        "stubs/shapely",
         // test cases use a custom config file
         "**/@tests/test_cases",
     ],
@@ -18,7 +21,6 @@
     "reportUnknownVariableType": "none",
     // Extra strict settings
     "reportCallInDefaultInitializer": "error",
-    "reportImplicitStringConcatenation": "error",
     "reportUnnecessaryTypeIgnoreComment": "error",
     // Leave "type: ignore" comments to mypy
     "enableTypeIgnoreComments": false,

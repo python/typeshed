@@ -7,8 +7,8 @@ def make_archive(
     format: str,
     root_dir: StrOrBytesPath | None = None,
     base_dir: str | None = None,
-    verbose: bool | Literal[0, 1] = 0,
-    dry_run: bool | Literal[0, 1] = 0,
+    verbose: bool = False,
+    dry_run: bool = False,
     owner: str | None = None,
     group: str | None = None,
 ) -> str: ...
@@ -18,18 +18,18 @@ def make_archive(
     format: str,
     root_dir: StrOrBytesPath,
     base_dir: str | None = None,
-    verbose: bool | Literal[0, 1] = 0,
-    dry_run: bool | Literal[0, 1] = 0,
+    verbose: bool = False,
+    dry_run: bool = False,
     owner: str | None = None,
     group: str | None = None,
 ) -> str: ...
 def make_tarball(
     base_name: str,
     base_dir: StrPath,
-    compress: str | None = ...,
-    verbose: bool | Literal[0, 1] = 0,
-    dry_run: bool | Literal[0, 1] = 0,
-    owner: str | None = ...,
-    group: str | None = ...,
+    compress: Literal["gzip", "bzip2", "xz"] | None = "gzip",
+    verbose: bool = False,
+    dry_run: bool = False,
+    owner: str | None = None,
+    group: str | None = None,
 ) -> str: ...
-def make_zipfile(base_name: str, base_dir: str, verbose: bool | Literal[0, 1] = 0, dry_run: bool | Literal[0, 1] = 0) -> str: ...
+def make_zipfile(base_name: str, base_dir: str, verbose: bool = False, dry_run: bool = False) -> str: ...
