@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
+from typing import Any
 
 log: Incomplete
 
 class ImageApiMixin:
-    def get_image(self, image: str, chunk_size: int = 2097152): ...
+    def get_image(self, image: str, chunk_size: int | None = 2097152): ...
     def history(self, image): ...
     def images(self, name: str | None = None, quiet: bool = False, all: bool = False, filters: Incomplete | None = None): ...
     def import_image(
@@ -39,9 +40,9 @@ class ImageApiMixin:
         repository: str,
         tag: str | None = None,
         stream: bool = False,
-        auth_config: Incomplete | None = None,
+        auth_config: dict[str, Any] | None = None,
         decode: bool = False,
-        platform: Incomplete | None = None,
+        platform: str | None = None,
         all_tags: bool = False,
     ): ...
     def push(

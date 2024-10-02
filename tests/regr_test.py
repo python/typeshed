@@ -13,7 +13,7 @@ import subprocess
 import sys
 import tempfile
 import threading
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Generator
 from contextlib import ExitStack, contextmanager, suppress
 from dataclasses import dataclass
 from enum import IntEnum
@@ -139,13 +139,15 @@ def setup_testcase_dir(package: DistributionTests, tempdir: Path, verbosity: Ver
     # mypy refuses to consider a directory a "valid typeshed directory"
     # unless there's a stubs/mypy-extensions path inside it,
     # so add that to the list of stubs to copy over to the new directory
-    for requirement in {package.name, *requirements.typeshed_pkgs, "mypy-extensions"}:
+    typeshed_requirements = [r.name for r in requirements.typeshed_pkgs]
+    for requirement in {package.name, *typeshed_requirements, "mypy-extensions"}:
         shutil.copytree(Path("stubs", requirement), new_typeshed / "stubs" / requirement)
 
     if requirements.external_pkgs:
         venv_location = str(tempdir / VENV_DIR)
         subprocess.run(["uv", "venv", venv_location], check=True, capture_output=True)
-        uv_command = ["uv", "pip", "install", get_mypy_req(), *requirements.external_pkgs]
+        ext_requirements = [str(r) for r in requirements.external_pkgs]
+        uv_command = ["uv", "pip", "install", get_mypy_req(), *ext_requirements]
         if sys.platform == "win32":
             # Reads/writes to the cache are threadsafe with uv generally...
             # but not on old Windows versions
@@ -292,14 +294,14 @@ def concurrently_run_testcases(
     for testcase_dir, tempdir in packageinfo_to_tempdir.items():
         pkg = testcase_dir.name
         requires_python = None
-        if not testcase_dir.is_stdlib:  # type: ignore[misc]  # mypy bug, already fixed on master
+        if not testcase_dir.is_stdlib:
             requires_python = read_metadata(pkg).requires_python
             if not requires_python.contains(PYTHON_VERSION):
                 msg = f"skipping {pkg!r} (requires Python {requires_python}; test is being run using Python {PYTHON_VERSION})"
                 print(colored(msg, "yellow"))
                 continue
         for version in versions_to_test:
-            if not testcase_dir.is_stdlib:  # type: ignore[misc]  # mypy bug, already fixed on master
+            if not testcase_dir.is_stdlib:
                 assert requires_python is not None
                 if not requires_python.contains(version):
                     msg = f"skipping {pkg!r} for target Python {version} (requires Python {requires_python})"
@@ -316,7 +318,7 @@ def concurrently_run_testcases(
     @contextmanager
     def cleanup_threads(
         event: threading.Event, printer_thread: threading.Thread, executor: concurrent.futures.ThreadPoolExecutor
-    ) -> Iterator[None]:
+    ) -> Generator[None]:
         try:
             yield
         except:

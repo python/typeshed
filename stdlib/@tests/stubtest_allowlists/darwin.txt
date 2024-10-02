@@ -6,6 +6,8 @@ select.kqueue.__init__  # default C signature is wrong
 select.POLLMSG   # system dependent
 
 # Sometimes these seem to exist on darwin, sometimes not
+(_curses.A_ITALIC)?
+(curses.A_ITALIC)?
 (_socket.MSG_NOSIGNAL)?
 (socket.MsgFlag.MSG_NOSIGNAL)?
 (socket.MSG_NOSIGNAL)?
@@ -32,7 +34,6 @@ _ctypes.dlsym
 # ==========
 
 # Modules that do not exist on macos systems
-_msi
 _winapi
 asyncio.windows_events
 asyncio.windows_utils

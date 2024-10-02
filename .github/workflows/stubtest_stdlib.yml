@@ -30,10 +30,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # tkinter doesn't import on macOS 12
-        os: ["ubuntu-latest", "windows-latest", "macos-11"]
-        # TODO unpin 3.11 and 3.12 micro versions
-        python-version: ["3.8", "3.9", "3.10", "3.11.8", "3.12.2"]
+        # various modules aren't available on macos-13 and higher
+        os: ["ubuntu-latest", "windows-latest", "macos-12"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
       fail-fast: false
 
     steps:
@@ -50,21 +49,3 @@ jobs:
         run: pip install -r requirements-tests.txt
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
-
-  stubtest-stdlib-py313:
-    name: Check py313-linux stdlib with stubtest
-    # TODO: get it passing on all platforms and add it to the main matrix
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: 3.13
-        cache: pip
-        cache-dependency-path: requirements-tests.txt
-        allow-prereleases: true
-        check-latest: true
-    - name: Install dependencies
-      run: pip install -r requirements-tests.txt
-    - name: Run stubtest
-      run: python tests/stubtest_stdlib.py
