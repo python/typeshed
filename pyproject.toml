@@ -146,6 +146,7 @@ extra-standard-library = [
     "_random",
     "_sitebuiltins",
     "_socket",
+    "_ssl",
     "_stat",
     "_thread",
     "_threading_local",
