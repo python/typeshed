@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Unused
-from typing import ClassVar
-from typing_extensions import Literal, TypeAlias
+from typing import ClassVar, Literal
+from typing_extensions import TypeAlias
 
 from openpyxl.chart.data_source import NumFmt
 from openpyxl.chart.layout import Layout
@@ -10,8 +10,7 @@ from openpyxl.descriptors.base import Alias, String, Typed, _ConvertibleToBool
 from openpyxl.descriptors.excel import ExtensionList
 from openpyxl.descriptors.nested import NestedBool, NestedFloat, NestedInteger, NestedSet
 from openpyxl.descriptors.serialisable import Serialisable
-
-from ..xml._functions_overloads import _HasTagAndGet
+from openpyxl.xml._functions_overloads import _HasTagAndGet
 
 _TrendlineTrendlineType: TypeAlias = Literal["exp", "linear", "log", "movingAvg", "poly", "power"]
 

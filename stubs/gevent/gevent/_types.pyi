@@ -2,8 +2,8 @@ import sys
 from _typeshed import FileDescriptor, StrOrBytesPath
 from collections.abc import Callable
 from types import TracebackType
-from typing import Any, Protocol, overload
-from typing_extensions import Literal, TypeAlias, TypeVarTuple, Unpack
+from typing import Any, Literal, Protocol, overload
+from typing_extensions import TypeAlias, TypeVarTuple, Unpack
 
 _Ts = TypeVarTuple("_Ts")
 
@@ -107,7 +107,7 @@ class _ChildWatcher(_Watcher, Protocol):
 # this matches Intersection[_Watcher, AsyncMixin]
 class _AsyncWatcher(_Watcher, Protocol):
     def send(self) -> None: ...
-    def send_ignoring_arg(self, __ignored: object) -> None: ...
+    def send_ignoring_arg(self, ignored: object, /) -> None: ...
     @property
     def pending(self) -> bool: ...
 
