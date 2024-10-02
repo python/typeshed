@@ -37,9 +37,6 @@ posix.SCHED_[A-Z_]+
 (posix.ST_[A-Z]+)?
 (termios.[A-Z0-9_]+)?
 
-# Some of these exist on non-windows, but they are useless and this is not intended
-stat.FILE_ATTRIBUTE_[A-Z_]+
-
 # Methods that come from __getattr__() at runtime
 tkinter.Tk.createfilehandler
 tkinter.Tk.deletefilehandler
