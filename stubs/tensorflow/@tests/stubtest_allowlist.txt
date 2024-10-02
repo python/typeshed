@@ -49,14 +49,8 @@ tensorflow._aliases
 # tf.initializers at runtime is <module 'keras.api._v2.keras.initializers' from '...'>
 tensorflow.initializers
 # Other cursed import magic similar to the one above.
-tensorflow.keras.layers.preprocessing
-tensorflow.keras.layers.preprocessing.index_lookup
-# Another cursed import magic similar to the one above.
+tensorflow.distribute.coordinator
 tensorflow.distribute.experimental.coordinator
-
-# Layer constructor's always have **kwargs, but only allow a few specific values. PEP 692
-# would allow us to specify this with **kwargs and remove the need for these exceptions.
-tensorflow.keras.layers.*.__init__
 
 # __call__ in tensorflow classes often allow keyword usage, but
 # when you subclass those classes it is not expected to handle keyword case. As an example,

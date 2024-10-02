@@ -1,31 +1,37 @@
+# `pkg_resources` package of `types-setuptools` is now obsolete.
+# Changes here should be mirrored to https://github.com/pypa/setuptools/tree/main/pkg_resources
+
 import types
 import zipimport
-from _typeshed import Incomplete, StrPath, Unused
+from _typeshed import BytesPath, Incomplete, StrOrBytesPath, StrPath, Unused
+from _typeshed.importlib import LoaderProtocol
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from io import BytesIO
 from itertools import chain
 from pkgutil import get_importer as get_importer
 from re import Pattern
-from typing import IO, Any, ClassVar, Final, Literal, NoReturn, Protocol, TypeVar, overload, type_check_only
+from typing import IO, Any, ClassVar, Final, Literal, NamedTuple, NoReturn, Protocol, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 from zipfile import ZipInfo
 
-from ._vendored_packaging import requirements as packaging_requirements, version as packaging_version
+from ._vendored_packaging import requirements as _packaging_requirements, version as _packaging_version
 
+# defined in setuptools
 _T = TypeVar("_T")
-_D = TypeVar("_D", bound=Distribution)
+_DistributionT = TypeVar("_DistributionT", bound=Distribution)
 _NestedStr: TypeAlias = str | Iterable[_NestedStr]
-_StrictInstallerType: TypeAlias = Callable[[Requirement], _D]
-_InstallerType: TypeAlias = Callable[[Requirement], Distribution | None] | None
+_StrictInstallerType: TypeAlias = Callable[[Requirement], _DistributionT]
+_InstallerType: TypeAlias = Callable[[Requirement], Distribution | None]
 _PkgReqType: TypeAlias = str | Requirement
 _EPDistType: TypeAlias = Distribution | _PkgReqType
 _MetadataType: TypeAlias = IResourceProvider | None
 _ResolvedEntryPoint: TypeAlias = Any  # Can be any attribute in the module
+_ResourceStream: TypeAlias = Incomplete  # A readable file-like object
 _ModuleLike: TypeAlias = object | types.ModuleType  # Any object that optionally has __loader__ or __file__, usually a module
-_ProviderFactoryType: TypeAlias = Callable[[_ModuleLike], IResourceProvider]
+# Any: Should be _ModuleLike but we end up with issues where _ModuleLike doesn't have _ZipLoaderModule's __loader__
+_ProviderFactoryType: TypeAlias = Callable[[Any], IResourceProvider]
 _DistFinderType: TypeAlias = Callable[[_T, str, bool], Iterable[Distribution]]
 _NSHandlerType: TypeAlias = Callable[[_T, str, str, types.ModuleType], str | None]
-_ResourceStream: TypeAlias = Incomplete  # A readable file-like object
 
 __all__ = [
     "require",
@@ -101,7 +107,6 @@ __all__ = [
     "AvailableDistributions",
 ]
 
-@type_check_only
 class _ZipLoaderModule(Protocol):
     __loader__: zipimport.zipimporter
 
@@ -110,6 +115,10 @@ def fixup_namespace_packages(path_item: str, parent: str | None = None) -> None:
 
 class WorkingSet:
     entries: list[str]
+    entry_keys: dict[str | None, list[str]]
+    by_key: dict[str, Distribution]
+    normalized_to_canonical_keys: dict[str, str]
+    callbacks: list[Callable[[Distribution], object]]
     def __init__(self, entries: Iterable[str] | None = None) -> None: ...
     def add_entry(self, entry: str) -> None: ...
     def __contains__(self, dist: Distribution) -> bool: ...
@@ -119,87 +128,92 @@ class WorkingSet:
     def __iter__(self) -> Iterator[Distribution]: ...
     def add(self, dist: Distribution, entry: str | None = None, insert: bool = True, replace: bool = False) -> None: ...
     @overload
-    def resolve(  # type: ignore[overload-overlap]
+    def resolve(
         self,
         requirements: Iterable[Requirement],
         env: Environment | None,
-        installer: _StrictInstallerType[_D],
+        installer: _StrictInstallerType[_DistributionT],
         replace_conflicting: bool = False,
         extras: tuple[str, ...] | None = None,
-    ) -> list[_D]: ...
-    @overload
-    def resolve(  # type: ignore[overload-overlap]
-        self,
-        requirements: Iterable[Requirement],
-        env: Environment | None = None,
-        *,
-        installer: _StrictInstallerType[_D],
-        replace_conflicting: bool = False,
-        extras: tuple[str, ...] | None = None,
-    ) -> list[_D]: ...
+    ) -> list[_DistributionT]: ...
     @overload
     def resolve(
         self,
         requirements: Iterable[Requirement],
         env: Environment | None = None,
-        installer: _InstallerType = None,
+        *,
+        installer: _StrictInstallerType[_DistributionT],
+        replace_conflicting: bool = False,
+        extras: tuple[str, ...] | None = None,
+    ) -> list[_DistributionT]: ...
+    @overload
+    def resolve(
+        self,
+        requirements: Iterable[Requirement],
+        env: Environment | None = None,
+        installer: _InstallerType | None = None,
         replace_conflicting: bool = False,
         extras: tuple[str, ...] | None = None,
     ) -> list[Distribution]: ...
     @overload
-    def find_plugins(  # type: ignore[overload-overlap]
-        self, plugin_env: Environment, full_env: Environment | None, installer: _StrictInstallerType[_D], fallback: bool = True
-    ) -> tuple[list[_D], dict[Distribution, Exception]]: ...
-    @overload
-    def find_plugins(  # type: ignore[overload-overlap]
+    def find_plugins(
         self,
         plugin_env: Environment,
-        full_env: Environment | None = None,
-        *,
-        installer: _StrictInstallerType[_D],
+        full_env: Environment | None,
+        installer: _StrictInstallerType[_DistributionT],
         fallback: bool = True,
-    ) -> tuple[list[_D], dict[Distribution, Exception]]: ...
+    ) -> tuple[list[_DistributionT], dict[Distribution, Exception]]: ...
     @overload
     def find_plugins(
         self,
         plugin_env: Environment,
         full_env: Environment | None = None,
-        installer: _InstallerType = None,
+        *,
+        installer: _StrictInstallerType[_DistributionT],
+        fallback: bool = True,
+    ) -> tuple[list[_DistributionT], dict[Distribution, Exception]]: ...
+    @overload
+    def find_plugins(
+        self,
+        plugin_env: Environment,
+        full_env: Environment | None = None,
+        installer: _InstallerType | None = None,
         fallback: bool = True,
     ) -> tuple[list[Distribution], dict[Distribution, Exception]]: ...
     def require(self, *requirements: _NestedStr) -> Sequence[Distribution]: ...
-    def subscribe(self, callback: Callable[[Distribution], object], existing: bool = True) -> None: ...
-
-working_set: WorkingSet
-require = working_set.require
-iter_entry_points = working_set.iter_entry_points
-add_activation_listener = working_set.subscribe
-run_script = working_set.run_script
-run_main = run_script
+    def subscribe(self, callback: Callable[[Distribution], Unused], existing: bool = True) -> None: ...
 
 class Environment:
     def __init__(
-        self, search_path: Sequence[str] | None = None, platform: str | None = ..., python: str | None = ...
+        self, search_path: Iterable[str] | None = None, platform: str | None = ..., python: str | None = ...
     ) -> None: ...
     def can_add(self, dist: Distribution) -> bool: ...
     def remove(self, dist: Distribution) -> None: ...
-    def scan(self, search_path: Sequence[str] | None = None) -> None: ...
+    def scan(self, search_path: Iterable[str] | None = None) -> None: ...
     def __getitem__(self, project_name: str) -> list[Distribution]: ...
     def add(self, dist: Distribution) -> None: ...
     @overload
     def best_match(
-        self, req: Requirement, working_set: WorkingSet, installer: _StrictInstallerType[_D], replace_conflicting: bool = False
-    ) -> _D: ...
+        self,
+        req: Requirement,
+        working_set: WorkingSet,
+        installer: _StrictInstallerType[_DistributionT],
+        replace_conflicting: bool = False,
+    ) -> _DistributionT: ...
     @overload
     def best_match(
-        self, req: Requirement, working_set: WorkingSet, installer: _InstallerType = None, replace_conflicting: bool = False
+        self,
+        req: Requirement,
+        working_set: WorkingSet,
+        installer: _InstallerType | None = None,
+        replace_conflicting: bool = False,
     ) -> Distribution | None: ...
     @overload
-    def obtain(self, requirement: Requirement, installer: _StrictInstallerType[_D]) -> _D: ...  # type: ignore[overload-overlap]
+    def obtain(self, requirement: Requirement, installer: _StrictInstallerType[_DistributionT]) -> _DistributionT: ...
     @overload
     def obtain(self, requirement: Requirement, installer: Callable[[Requirement], None] | None = None) -> None: ...
     @overload
-    def obtain(self, requirement: Requirement, installer: _InstallerType = None) -> Distribution | None: ...
+    def obtain(self, requirement: Requirement, installer: _InstallerType | None = None) -> Distribution | None: ...
     def __iter__(self) -> Iterator[str]: ...
     def __iadd__(self, other: Distribution | Environment) -> Self: ...
     def __add__(self, other: Distribution | Environment) -> Self: ...
@@ -208,9 +222,9 @@ AvailableDistributions = Environment
 
 def parse_requirements(strs: _NestedStr) -> Iterator[Requirement]: ...
 
-class RequirementParseError(packaging_requirements.InvalidRequirement): ...
+class RequirementParseError(_packaging_requirements.InvalidRequirement): ...
 
-class Requirement(packaging_requirements.Requirement):
+class Requirement(_packaging_requirements.Requirement):
     unsafe_name: str
     project_name: str
     key: str
@@ -241,12 +255,14 @@ class EntryPoint:
     ) -> None: ...
     @overload
     def load(
-        self, require: Literal[True] = True, env: Environment | None = None, installer: _InstallerType = None
+        self, require: Literal[True] = True, env: Environment | None = None, installer: _InstallerType | None = None
     ) -> _ResolvedEntryPoint: ...
     @overload
-    def load(self, require: Literal[False], *args: Unused, **kwargs: Unused) -> _ResolvedEntryPoint: ...
+    def load(
+        self, require: Literal[False], *args: Environment | _InstallerType | None, **kwargs: Environment | _InstallerType | None
+    ) -> _ResolvedEntryPoint: ...
     def resolve(self) -> _ResolvedEntryPoint: ...
-    def require(self, env: Environment | None = None, installer: _InstallerType = None) -> None: ...
+    def require(self, env: Environment | None = None, installer: _InstallerType | None = None) -> None: ...
     pattern: ClassVar[Pattern[str]]
     @classmethod
     def parse(cls, src: str, dist: Distribution | None = None) -> Self: ...
@@ -258,8 +274,17 @@ class EntryPoint:
     ) -> dict[str, dict[str, Self]]: ...
 
 def find_distributions(path_item: str, only: bool = False) -> Generator[Distribution, None, None]: ...
+def find_eggs_in_zip(importer: zipimport.zipimporter, path_item: str, only: bool = False) -> Iterator[Distribution]: ...
+def find_nothing(importer: object | None, path_item: str | None, only: bool | None = False) -> tuple[Distribution, ...]: ...
+def find_on_path(importer: object | None, path_item: str, only: bool = False) -> Generator[Distribution, None, None]: ...
+def dist_factory(path_item: StrPath, entry: str, only: bool) -> Callable[[str], Iterable[Distribution]]: ...
+
+class NoDists:
+    def __bool__(self) -> Literal[False]: ...
+    def __call__(self, fullpath: Unused) -> Iterator[Distribution]: ...
+
 @overload
-def get_distribution(dist: _D) -> _D: ...
+def get_distribution(dist: _DistributionT) -> _DistributionT: ...
 @overload
 def get_distribution(dist: _PkgReqType) -> Distribution: ...
 
@@ -280,20 +305,10 @@ class ResourceManager:
     def resource_string(self, package_or_requirement: _PkgReqType, resource_name: str) -> bytes: ...
     def resource_listdir(self, package_or_requirement: _PkgReqType, resource_name: str) -> list[str]: ...
     def extraction_error(self) -> NoReturn: ...
-    def get_cache_path(self, archive_name: str, names: Iterable[str] = ()) -> str: ...
-    def postprocess(self, tempname: str, filename: str) -> None: ...
+    def get_cache_path(self, archive_name: str, names: Iterable[StrPath] = ()) -> str: ...
+    def postprocess(self, tempname: StrOrBytesPath, filename: StrOrBytesPath) -> None: ...
     def set_extraction_path(self, path: str) -> None: ...
     def cleanup_resources(self, force: bool = False) -> list[str]: ...
-
-__resource_manager: ResourceManager  # Doesn't exist at runtime
-resource_exists = __resource_manager.resource_exists
-resource_isdir = __resource_manager.resource_isdir
-resource_filename = __resource_manager.resource_filename
-resource_stream = __resource_manager.resource_stream
-resource_string = __resource_manager.resource_string
-resource_listdir = __resource_manager.resource_listdir
-set_extraction_path = __resource_manager.set_extraction_path
-cleanup_resources = __resource_manager.cleanup_resources
 
 @overload
 def get_provider(moduleOrReq: str) -> IResourceProvider: ...
@@ -310,16 +325,6 @@ class IMetadataProvider(Protocol):
 
 class ResolutionError(Exception): ...
 
-class DistributionNotFound(ResolutionError):
-    def __init__(self, req: Requirement, requirers: set[str] | None, /, *args: object) -> None: ...
-    @property
-    def req(self) -> Requirement: ...
-    @property
-    def requirers(self) -> set[str] | None: ...
-    @property
-    def requirers_str(self) -> str: ...
-    def report(self) -> str: ...
-
 class VersionConflict(ResolutionError):
     def __init__(self, dist: Distribution, req: Requirement, /, *args: object) -> None: ...
     @property
@@ -334,6 +339,16 @@ class ContextualVersionConflict(VersionConflict):
     @property
     def required_by(self) -> set[str]: ...
 
+class DistributionNotFound(ResolutionError):
+    def __init__(self, req: Requirement, requirers: set[str] | None, /, *args: object) -> None: ...
+    @property
+    def req(self) -> Requirement: ...
+    @property
+    def requirers(self) -> set[str] | None: ...
+    @property
+    def requirers_str(self) -> str: ...
+    def report(self) -> str: ...
+
 class UnknownExtra(ResolutionError): ...
 
 class ExtractionError(Exception):
@@ -343,6 +358,7 @@ class ExtractionError(Exception):
 
 def register_finder(importer_type: type[_T], distribution_finder: _DistFinderType[_T]) -> None: ...
 def register_loader_type(loader_type: type[_ModuleLike], provider_factory: _ProviderFactoryType) -> None: ...
+def resolve_egg_link(path: str) -> Iterable[Distribution]: ...
 def register_namespace_handler(importer_type: type[_T], namespace_handler: _NSHandlerType[_T]) -> None: ...
 
 class IResourceProvider(IMetadataProvider, Protocol):
@@ -359,8 +375,8 @@ def evaluate_marker(text: str, extra: Incomplete | None = None) -> bool: ...
 class NullProvider:
     egg_name: str | None
     egg_info: str | None
-    loader: types._LoaderProtocol | None
-    module_path: str | None
+    loader: LoaderProtocol | None
+    module_path: str
 
     def __init__(self, module: _ModuleLike) -> None: ...
     def get_resource_filename(self, manager: ResourceManager, resource_name: str) -> str: ...
@@ -396,7 +412,7 @@ class Distribution(NullProvider):
     ) -> None: ...
     @classmethod
     def from_location(
-        cls, location: str, basename: str, metadata: _MetadataType = None, *, precedence: int = 3
+        cls, location: str, basename: StrPath, metadata: _MetadataType = None, *, precedence: int = 3
     ) -> Distribution: ...
     @property
     def hashcmp(self) -> tuple[parse_version, int, str, str | None, str, str]: ...
@@ -410,14 +426,15 @@ class Distribution(NullProvider):
     @property
     def key(self) -> str: ...
     @property
-    def parsed_version(self) -> packaging_version.Version: ...
+    def parsed_version(self) -> _packaging_version.Version: ...
     @property
     def version(self) -> str: ...
     def requires(self, extras: Iterable[str] = ()) -> list[Requirement]: ...
     def activate(self, path: list[str] | None = None, replace: bool = False) -> None: ...
     def egg_name(self) -> str: ...  # type: ignore[override]  # supertype's egg_name is a variable, not a method
+    def __getattr__(self, attr: str) -> Any: ...  # Delegate all unrecognized public attributes to .metadata provider
     @classmethod
-    def from_filename(cls, filename: str, metadata: _MetadataType = None, *, precedence: int = 3) -> Distribution: ...
+    def from_filename(cls, filename: StrPath, metadata: _MetadataType = None, *, precedence: int = 3) -> Distribution: ...
     def as_requirement(self) -> Requirement: ...
     def load_entry_point(self, group: str, name: str) -> _ResolvedEntryPoint: ...
     @overload
@@ -461,10 +478,23 @@ class EggMetadata(ZipProvider):
     def __init__(self, importer: zipimport.zipimporter) -> None: ...
 
 class EmptyProvider(NullProvider):
-    module_path: None
+    # A special case, we don't want all Providers inheriting from NullProvider to have a potentially None module_path
+    module_path: str | None  # type:ignore[assignment]
     def __init__(self) -> None: ...
 
 empty_provider: EmptyProvider
+
+class ZipManifests(dict[str, MemoizedZipManifests.manifest_mod]):
+    @classmethod
+    def build(cls, path: str) -> dict[str, ZipInfo]: ...
+    load = build
+
+class MemoizedZipManifests(ZipManifests):
+    class manifest_mod(NamedTuple):
+        manifest: dict[str, ZipInfo]
+        mtime: float
+
+    def load(self, path: str) -> dict[str, ZipInfo]: ...  # type: ignore[override]
 
 class FileMetadata(EmptyProvider):
     path: StrPath
@@ -472,7 +502,7 @@ class FileMetadata(EmptyProvider):
 
 class PEP440Warning(RuntimeWarning): ...
 
-parse_version = packaging_version.Version
+parse_version = _packaging_version.Version
 
 def yield_lines(iterable: _NestedStr) -> chain[str]: ...
 def split_sections(s: _NestedStr) -> Generator[tuple[str | None, list[str]], None, None]: ...
@@ -487,7 +517,27 @@ get_platform = get_build_platform
 def get_supported_platform() -> str: ...
 def compatible_platforms(provided: str | None, required: str | None) -> bool: ...
 def get_default_cache() -> str: ...
-def ensure_directory(path: str) -> None: ...
-def normalize_path(filename: str) -> str: ...
+def ensure_directory(path: StrOrBytesPath) -> None: ...
+@overload
+def normalize_path(filename: StrPath) -> str: ...
+@overload
+def normalize_path(filename: BytesPath) -> bytes: ...
 
 class PkgResourcesDeprecationWarning(Warning): ...
+
+__resource_manager: ResourceManager  # Doesn't exist at runtime
+resource_exists = __resource_manager.resource_exists
+resource_isdir = __resource_manager.resource_isdir
+resource_filename = __resource_manager.resource_filename
+resource_stream = __resource_manager.resource_stream
+resource_string = __resource_manager.resource_string
+resource_listdir = __resource_manager.resource_listdir
+set_extraction_path = __resource_manager.set_extraction_path
+cleanup_resources = __resource_manager.cleanup_resources
+
+working_set: WorkingSet
+require = working_set.require
+iter_entry_points = working_set.iter_entry_points
+add_activation_listener = working_set.subscribe
+run_script = working_set.run_script
+run_main = run_script

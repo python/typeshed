@@ -55,9 +55,10 @@ Example Features for a movie recommendation application:
     }}
   }
 """
+
 import builtins
 import collections.abc
-import typing as typing_extensions
+import typing
 
 import google.protobuf.descriptor
 import google.protobuf.internal.containers
@@ -65,7 +66,7 @@ import google.protobuf.message
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
-@typing_extensions.final
+@typing.final
 class BytesList(google.protobuf.message.Message):
     """LINT.IfChange
     Containers to hold repeated fundamental values.
@@ -81,11 +82,11 @@ class BytesList(google.protobuf.message.Message):
         *,
         value: collections.abc.Iterable[builtins.bytes] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["value", b"value"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
 global___BytesList = BytesList
 
-@typing_extensions.final
+@typing.final
 class FloatList(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -97,11 +98,11 @@ class FloatList(google.protobuf.message.Message):
         *,
         value: collections.abc.Iterable[builtins.float] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["value", b"value"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
 global___FloatList = FloatList
 
-@typing_extensions.final
+@typing.final
 class Int64List(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -113,11 +114,11 @@ class Int64List(google.protobuf.message.Message):
         *,
         value: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["value", b"value"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
 global___Int64List = Int64List
 
-@typing_extensions.final
+@typing.final
 class Feature(google.protobuf.message.Message):
     """Containers for non-sequential data."""
 
@@ -139,17 +140,17 @@ class Feature(google.protobuf.message.Message):
         float_list: global___FloatList | None = ...,
         int64_list: global___Int64List | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing_extensions.Literal["kind", b"kind"]) -> typing_extensions.Literal["bytes_list", "float_list", "int64_list"] | None: ...
+    def HasField(self, field_name: typing.Literal["bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["kind", b"kind"]) -> typing.Literal["bytes_list", "float_list", "int64_list"] | None: ...
 
 global___Feature = Feature
 
-@typing_extensions.final
+@typing.final
 class Features(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class FeatureEntry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -164,23 +165,24 @@ class Features(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: global___Feature | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
     FEATURE_FIELD_NUMBER: builtins.int
     @property
     def feature(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___Feature]:
         """Map from feature name to feature."""
+
     def __init__(
         self,
         *,
         feature: collections.abc.Mapping[builtins.str, global___Feature] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["feature", b"feature"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["feature", b"feature"]) -> None: ...
 
 global___Features = Features
 
-@typing_extensions.final
+@typing.final
 class FeatureList(google.protobuf.message.Message):
     """Containers for sequential data.
 
@@ -201,15 +203,15 @@ class FeatureList(google.protobuf.message.Message):
         *,
         feature: collections.abc.Iterable[global___Feature] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["feature", b"feature"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["feature", b"feature"]) -> None: ...
 
 global___FeatureList = FeatureList
 
-@typing_extensions.final
+@typing.final
 class FeatureLists(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    @typing_extensions.final
+    @typing.final
     class FeatureListEntry(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -224,18 +226,19 @@ class FeatureLists(google.protobuf.message.Message):
             key: builtins.str | None = ...,
             value: global___FeatureList | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing_extensions.Literal["value", b"value"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing_extensions.Literal["key", b"key", "value", b"value"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
     FEATURE_LIST_FIELD_NUMBER: builtins.int
     @property
     def feature_list(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___FeatureList]:
         """Map from feature name to feature list."""
+
     def __init__(
         self,
         *,
         feature_list: collections.abc.Mapping[builtins.str, global___FeatureList] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["feature_list", b"feature_list"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["feature_list", b"feature_list"]) -> None: ...
 
 global___FeatureLists = FeatureLists

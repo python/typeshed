@@ -1,8 +1,8 @@
 # https://pyinstaller.org/en/stable/hooks.html#module-PyInstaller.compat
-from _typeshed import FileDescriptorOrPath, GenericPath
+from _typeshed import FileDescriptorOrPath
 from collections.abc import Iterable
 from types import ModuleType
-from typing import AnyStr, Final, Literal, overload
+from typing import Final, Literal, overload
 
 strict_collect_mode: bool
 is_64bits: Final[bool]
@@ -14,6 +14,7 @@ is_py39: Final[bool]
 is_py310: Final[bool]
 is_py311: Final[bool]
 is_py312: Final[bool]
+is_py313: Final[bool]
 is_win: Final[bool]
 is_win_10: Final[bool]
 is_win_11: Final[bool]
@@ -31,6 +32,7 @@ is_musl: Final[bool]
 is_macos_11_compat: Final[bool]
 is_macos_11_native: Final[bool]
 is_macos_11: Final[bool]
+is_nogil: Final[bool]
 PYDYLIB_NAMES: Final[set[str]]
 base_prefix: Final[str]
 is_venv: Final[bool]
@@ -65,7 +67,6 @@ def exec_command_all(
 ) -> tuple[int, str, str]: ...
 def exec_python(*args: str, **kwargs: str | None) -> str: ...
 def exec_python_rc(*args: str, **kwargs: str | None) -> int: ...
-def expand_path(path: GenericPath[AnyStr]) -> AnyStr: ...
 def getsitepackages(prefixes: Iterable[str] | None = None) -> list[str]: ...
 def importlib_load_source(name: str, pathname: str) -> ModuleType: ...
 

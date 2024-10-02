@@ -1,7 +1,5 @@
-# **kwargs replaced with actual arguments in stubs
-caldav.DAVClient.calendar
+# Passes its *args after a kwarg, which is a SyntaxError, so we allow kwargs only
 caldav.DAVClient.principal
-caldav.davclient.DAVClient.calendar
 caldav.davclient.DAVClient.principal
 
 # Initialized in class, but immediately overwritten in __init__

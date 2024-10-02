@@ -5,7 +5,6 @@ range of Python users and Python codebases. If you're trying a type
 checker on your Python code, your experience and what you can contribute
 are important to the project's success.
 
-
 ## The contribution process at a glance
 
 1. [Prepare your environment](#preparing-the-environment).
@@ -51,10 +50,10 @@ please refer to this
 
 Note that some tests require extra setup steps to install the required dependencies.
 
-### Linux/Mac OS
+### Linux/Mac OS/WSL
 
 On Linux and Mac OS, you will be able to run the full test suite on Python
-3.9, 3.10, or 3.11.
+3.9-3.12.
 To install the necessary requirements, run the following commands from a
 terminal window:
 
@@ -67,22 +66,20 @@ $ source .venv/bin/activate
 
 ### Windows
 
-If you are using a Windows operating system, you will not be able to run the pytype
-tests, as pytype
-[does not currently support running on Windows](https://github.com/google/pytype#requirements).
-One option is to install
-[Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/faq),
-which will allow you to run the full suite of tests. If you choose to install
-WSL, follow the Linux/Mac OS instructions above.
-
-If you do not wish to install WSL, run the following commands from a Windows
-terminal to install all non-pytype requirements:
+Run the following commands from a Windows terminal to install all requirements:
 
 ```powershell
 > python -m venv .venv
-> .venv\scripts\activate
+> .venv\Scripts\activate
 (.venv) > pip install -U pip
 (.venv) > pip install -r "requirements-tests.txt"
+```
+
+To be able to run pytype tests, you'll also need to install it manually
+as it's currently excluded from the requirements file:
+
+```powershell
+(.venv) > pip install -U pytype
 ```
 
 ## Code formatting
@@ -118,6 +115,9 @@ Python standard library — which
 includes pure Python modules, dynamically loaded extension modules,
 hard-linked extension modules, and the builtins. The `VERSIONS` file lists
 the versions of Python where the module is available.
+
+We accept changes for future versions of Python after the first beta for that
+version was released.
 
 ### Third-party library stubs
 
@@ -205,6 +205,9 @@ This has the following keys:
   `--ignore_missing_stub` option to the stubtest call. See
   [tests/README.md](./tests/README.md) for more information. In most cases,
   this field should be identical to `partial_stub`.
+* `stubtest_requirements` (default: `[]`): A list of Python packages that need
+  to be installed for stubtest to run successfully. These packages are installed
+  in addition to the requirements in the `requires` field.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully.
 * `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
@@ -221,7 +224,7 @@ This has the following keys:
 distribution.
 
 The format of all `METADATA.toml` files can be checked by running
-`python3 ./tests/check_consistent.py`.
+`python3 ./tests/check_typeshed_structure.py`.
 
 
 ## Preparing Changes
@@ -460,6 +463,14 @@ unless:
 * they use the form ``from library import *`` which means all names
   from that library are exported.
 
+Stub files support forward references natively.  In other words, the
+order of class declarations and type aliases does not matter in
+a stub file.  You can also use the name of the class within its own
+body.  Focus on making your stubs clear to the reader.  Avoid using
+string literals in type annotations.
+
+### Using `Any` and `object`
+
 When adding type hints, avoid using the `Any` type when possible. Reserve
 the use of `Any` for when:
 * the correct type cannot be expressed in the current type system; and
@@ -469,11 +480,11 @@ Note that `Any` is not the correct type to use if you want to indicate
 that some function can accept literally anything: in those cases use
 `object` instead.
 
-Stub files support forward references natively.  In other words, the
-order of class declarations and type aliases does not matter in
-a stub file.  You can also use the name of the class within its own
-body.  Focus on making your stubs clear to the reader.  Avoid using
-string literals in type annotations.
+When using `Any`, document the reason for using it in a comment. Ideally,
+document what types could be used. The `_typeshed` module also provides
+a few aliases to `Any` — like `Incomplete` and `MaybeNone` (see below) —
+that should be used instead of `Any` in appropriate situations and double
+as documentation.
 
 ### Context managers
 
@@ -554,58 +565,31 @@ It should be used sparingly.
 
 ### "The `Any` trick"
 
+In cases where a function or method can return `None`, but where forcing the
+user to explicitly check for `None` can be detrimental, use
+`_typeshed.MaybeNone` (an alias to `Any`), instead of `None`.
+
 Consider the following (simplified) signature of `re.Match[str].group`:
 
 ```python
 class Match:
-    def group(self, group: str | int, /) -> str | Any: ...
+    def group(self, group: str | int, /) -> str | MaybeNone: ...
 ```
 
-The `str | Any` seems unnecessary and weird at first.
-Because `Any` includes all strings, you would expect `str | Any` to be
-equivalent to `Any`, but it is not. To understand the difference,
-let's look at what happens when type-checking this simplified example:
-
-Suppose you have a legacy system that for historical reasons has two kinds
-of user IDs. Old IDs look like `"legacy_userid_123"` and new IDs look like
-`"456_username"`. The function below is supposed to extract the name
-`"USERNAME"` from a new ID, and return `None` if you give it a legacy ID.
+This avoid forcing the user to check for `None`:
 
 ```python
-import re
-
-def parse_name_from_new_id(user_id: str) -> str | None:
-    match = re.fullmatch(r"\d+_(.*)", user_id)
-    if match is None:
-        return None
-    name_group = match.group(1)
-    return name_group.uper()  # This line is a typo (`uper` --> `upper`)
+match = re.fullmatch(r"\d+_(.*)", some_string)
+assert match is not None
+name_group = match.group(1)  # The user knows that this will never be None
+return name_group.uper()  # This typo will be flagged by the type checker
 ```
 
-The `.group()` method returns `None` when the given group was not a part of the match.
-For example, with a regex like `r"\d+_(.*)|legacy_userid_\d+"`, we would get a match whose `.group(1)` is `None` for the user ID `"legacy_userid_7"`.
-But here the regex is written so that the group always exists, and `match.group(1)` cannot return `None`.
-Match groups are almost always used in this way.
+In this case, the user of `match.group()` must be prepared to handle a `str`,
+but type checkers are happy with `if name_group is None` checks, because we're
+saying it can also be something else than an `str`.
 
-Let's now consider typeshed's `-> str | Any` annotation of the `.group()` method:
-
-* `-> Any` would mean "please do not complain" to type checkers.
-  If `name_group` has type `Any`, you will get no error for this.
-* `-> str` would mean "will always be a `str`", which is wrong, and would
-  cause type checkers to emit errors for code like `if name_group is None`.
-* `-> str | None` means "you must check for None", which is correct but can get
-  annoying for some common patterns. Checks like `assert name_group is not None`
-  would need to be added into various places only to satisfy type checkers,
-  even when it is impossible to actually get a `None` value
-  (type checkers aren't smart enough to know this).
-* `-> str | Any` means "must be prepared to handle a `str`". You will get an
-  error for `name_group.uper`, because it is not valid when `name_group` is a
-  `str`. But type checkers are happy with `if name_group is None` checks,
-  because we're saying it can also be something else than an `str`.
-
-In typeshed we unofficially call returning `Foo | Any` "the Any trick".
-We tend to use it whenever something can be `None`,
-but requiring users to check for `None` would be more painful than helpful.
+This is sometimes called "the Any trick".
 
 ## Submitting Changes
 
@@ -647,7 +631,9 @@ if it consisted of several smaller commits.
 Third-party stubs are generally removed from typeshed when one of the
 following criteria is met:
 
-* The upstream package ships a `py.typed` file for at least six months, or
+* The upstream package ships a `py.typed` file for at least six months,
+  and the upstream type annotations are of a comparable standard to those in
+  typeshed, or
 * the package does not support any of the Python versions supported by
   typeshed.
 
@@ -655,7 +641,7 @@ If a package ships its own `py.typed` file, please follow these steps:
 
 1. Open an issue with the earliest month of removal in the subject.
 2. A maintainer will add the
-   ["removal" label](https://github.com/python/typeshed/labels/removal).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
 3. Open a PR that sets the `obsolete_since` field in the `METADATA.toml`
    file to the first version of the package that shipped `py.typed`.
 4. After at least six months, open a PR to remove the stubs.
@@ -665,11 +651,11 @@ steps:
 
 1. Open an issue explaining why the stubs should be removed.
 2. A maintainer will add the
-   ["removal" label](https://github.com/python/typeshed/labels/removal).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
 3. Open a PR that sets the `no_longer_updated` field in the `METADATA.toml`
    file to `true`.
 4. When a new version of the package was automatically uploaded to PyPI
-   (which usually takes up to 3 hours), open a PR to remove the stubs.
+   (which can take up to a day), open a PR to remove the stubs.
 
 If feeling kindly, please update [mypy](https://github.com/python/mypy/blob/master/mypy/stubinfo.py)
 for any stub obsoletions or removals.
@@ -703,7 +689,7 @@ When merging pull requests, follow these guidelines:
 
 ### Marking PRs as "deferred"
 
-We sometimes use the ["deferred" label](https://github.com/python/typeshed/labels/deferred)
+We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/status%3A%20deferred)
 to mark PRs and issues that we'd like to accept, but that are blocked by some
 external factor. Blockers can include:
 
