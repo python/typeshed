@@ -5,7 +5,6 @@ from configparser import ConfigParser
 from typing import Any, Generic, Protocol, TypeVar, overload
 
 _T = TypeVar("_T")
-_T_co = TypeVar("_T_co", covariant=True)
 _TCsv = TypeVar("_TCsv")
 _TCsv_co = TypeVar("_TCsv_co", covariant=True)
 
