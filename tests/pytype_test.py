@@ -163,7 +163,12 @@ def _is_supported_stdlib_version(module_versions: SupportedVersionsDict, filenam
 
 
 def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
-    dist = importlib.metadata.distribution(req_name)
+    try:
+        dist = importlib.metadata.distribution(req_name)
+    except importlib.metadata.PackageNotFoundError:
+        # The package wasn't installed, probably because an environment
+        # marker excluded it.
+        return []
     toplevel_txt_contents = dist.read_text("top_level.txt")
     if toplevel_txt_contents is None:
         if dist.files is None:
