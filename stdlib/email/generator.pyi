@@ -37,11 +37,10 @@ class Generator(Generic[_MessageT]):
 class BytesGenerator(Generator[_MessageT]):
     @overload
     def __init__(
-        self: DecodedGenerator[Any],  # The Policy of the message is used.
+        self: BytesGenerator[Any],  # The Policy of the message is used.
         outfp: SupportsWrite[bytes],
         mangle_from_: bool | None = None,
         maxheaderlen: int | None = None,
-        fmt: str | None = None,
         *,
         policy: None = None,
     ) -> None: ...
@@ -51,7 +50,6 @@ class BytesGenerator(Generator[_MessageT]):
         outfp: SupportsWrite[bytes],
         mangle_from_: bool | None = None,
         maxheaderlen: int | None = None,
-        fmt: str | None = None,
         *,
         policy: Policy[_MessageT],
     ) -> None: ...
