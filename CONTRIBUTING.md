@@ -5,7 +5,6 @@ range of Python users and Python codebases. If you're trying a type
 checker on your Python code, your experience and what you can contribute
 are important to the project's success.
 
-
 ## The contribution process at a glance
 
 1. [Prepare your environment](#preparing-the-environment).
@@ -51,10 +50,10 @@ please refer to this
 
 Note that some tests require extra setup steps to install the required dependencies.
 
-### Linux/Mac OS
+### Linux/Mac OS/WSL
 
 On Linux and Mac OS, you will be able to run the full test suite on Python
-3.9, 3.10, or 3.11.
+3.9-3.12.
 To install the necessary requirements, run the following commands from a
 terminal window:
 
@@ -67,22 +66,20 @@ $ source .venv/bin/activate
 
 ### Windows
 
-If you are using a Windows operating system, you will not be able to run the pytype
-tests, as pytype
-[does not currently support running on Windows](https://github.com/google/pytype#requirements).
-One option is to install
-[Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/faq),
-which will allow you to run the full suite of tests. If you choose to install
-WSL, follow the Linux/Mac OS instructions above.
-
-If you do not wish to install WSL, run the following commands from a Windows
-terminal to install all non-pytype requirements:
+Run the following commands from a Windows terminal to install all requirements:
 
 ```powershell
 > python -m venv .venv
-> .venv\scripts\activate
+> .venv\Scripts\activate
 (.venv) > pip install -U pip
 (.venv) > pip install -r "requirements-tests.txt"
+```
+
+To be able to run pytype tests, you'll also need to install it manually
+as it's currently excluded from the requirements file:
+
+```powershell
+(.venv) > pip install -U pytype
 ```
 
 ## Code formatting
@@ -208,6 +205,9 @@ This has the following keys:
   `--ignore_missing_stub` option to the stubtest call. See
   [tests/README.md](./tests/README.md) for more information. In most cases,
   this field should be identical to `partial_stub`.
+* `stubtest_requirements` (default: `[]`): A list of Python packages that need
+  to be installed for stubtest to run successfully. These packages are installed
+  in addition to the requirements in the `requires` field.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully.
 * `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
@@ -631,7 +631,9 @@ if it consisted of several smaller commits.
 Third-party stubs are generally removed from typeshed when one of the
 following criteria is met:
 
-* The upstream package ships a `py.typed` file for at least six months, or
+* The upstream package ships a `py.typed` file for at least six months,
+  and the upstream type annotations are of a comparable standard to those in
+  typeshed, or
 * the package does not support any of the Python versions supported by
   typeshed.
 

@@ -20,14 +20,13 @@ from typing import Any, NamedTuple
 from typing_extensions import Annotated, TypeAlias
 
 import tomli
+from packaging.requirements import Requirement
 
 from _metadata import PackageDependencies, get_recursive_requirements, read_metadata
 from _utils import (
     PYTHON_VERSION,
     STDLIB_PATH,
     TESTS_DIR,
-    SupportedVersionsDict,
-    VersionTuple,
     colored,
     get_gitignore_spec,
     get_mypy_req,
@@ -35,6 +34,7 @@ from _utils import (
     print_error,
     print_success_msg,
     spec_matches_path,
+    supported_versions_for_module,
     venv_python,
 )
 
@@ -278,10 +278,11 @@ def run_mypy(
 def add_third_party_files(
     distribution: str, files: list[Path], args: TestConfig, configurations: list[MypyDistConf], seen_dists: set[str]
 ) -> None:
+    typeshed_reqs = get_recursive_requirements(distribution).typeshed_pkgs
     if distribution in seen_dists:
         return
     seen_dists.add(distribution)
-    seen_dists.update(get_recursive_requirements(distribution).typeshed_pkgs)
+    seen_dists.update(r.name for r in typeshed_reqs)
     root = Path("stubs", distribution)
     for name in os.listdir(root):
         if name.startswith("."):
@@ -375,14 +376,6 @@ def stdlib_module_name_from_path(path: Path) -> str:
     return ".".join(parts)
 
 
-def supported_versions_for_module(module_versions: SupportedVersionsDict, module_name: str) -> tuple[VersionTuple, VersionTuple]:
-    while "." in module_name:
-        if module_name in module_versions:
-            return module_versions[module_name]
-        module_name = ".".join(module_name.split(".")[:-1])
-    return module_versions[module_name]
-
-
 @dataclass
 class TestSummary:
     mypy_result: MypyResult = MypyResult.SUCCESS
@@ -413,8 +406,8 @@ _DISTRIBUTION_TO_VENV_MAPPING: dict[str, Path | None] = {}
 
 
 def setup_venv_for_external_requirements_set(
-    requirements_set: frozenset[str], tempdir: Path, args: TestConfig
-) -> tuple[frozenset[str], Path]:
+    requirements_set: frozenset[Requirement], tempdir: Path, args: TestConfig
+) -> tuple[frozenset[Requirement], Path]:
     venv_dir = tempdir / f".venv-{hash(requirements_set)}"
     uv_command = ["uv", "venv", str(venv_dir)]
     if not args.verbose:
@@ -423,9 +416,10 @@ def setup_venv_for_external_requirements_set(
     return requirements_set, venv_dir
 
 
-def install_requirements_for_venv(venv_dir: Path, args: TestConfig, external_requirements: frozenset[str]) -> None:
+def install_requirements_for_venv(venv_dir: Path, args: TestConfig, external_requirements: frozenset[Requirement]) -> None:
+    req_args = sorted(str(req) for req in external_requirements)
     # Use --no-cache-dir to avoid issues with concurrent read/writes to the cache
-    uv_command = ["uv", "pip", "install", get_mypy_req(), *sorted(external_requirements), "--no-cache-dir"]
+    uv_command = ["uv", "pip", "install", get_mypy_req(), *req_args, "--no-cache-dir"]
     if args.verbose:
         with _PRINT_LOCK:
             print(colored(f"Running {uv_command}", "blue"))
@@ -445,7 +439,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
 
     # STAGE 1: Determine which (if any) stubs packages require virtual environments.
     # Group stubs packages according to their external-requirements sets
-    external_requirements_to_distributions: defaultdict[frozenset[str], list[str]] = defaultdict(list)
+    external_requirements_to_distributions: defaultdict[frozenset[Requirement], list[str]] = defaultdict(list)
     num_pkgs_with_external_reqs = 0
 
     for distribution_name, requirements in distributions.items():
@@ -463,7 +457,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
         return
 
     # STAGE 2: Setup a virtual environment for each unique set of external requirements
-    requirements_sets_to_venvs: dict[frozenset[str], Path] = {}
+    requirements_sets_to_venvs: dict[frozenset[Requirement], Path] = {}
 
     if args.verbose:
         num_venvs = len(external_requirements_to_distributions)
