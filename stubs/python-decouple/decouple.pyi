@@ -88,11 +88,9 @@ class AutoConfig:
 
 config: AutoConfig
 
-class _PostProcess(Protocol[_T_co, _TCsv_co]):  # undocumented
+class _PostProcess(Protocol[_TCsv_co]):  # undocumented
     @overload
     def __call__(self) -> _TCsv_co: ...
-    @overload
-    def __call__(self, /, __value: Iterable[_T_co]) -> _TCsv_co: ...
     @overload
     def __call__(self, /, __value: Iterable[Any]) -> _TCsv_co: ...
 
@@ -106,32 +104,32 @@ class Csv(Generic[_T, _TCsv, _TPostProcess]):
     def __call__(self, value: str | None) -> _TCsv: ...
     @overload
     def __init__(
-        self: Csv[str, list[str], _PostProcess[str, list[str]]],
+        self: Csv[str, list[str], _PostProcess[list[str]]],
         cast: Callable[[str], str] = ...,
         delimiter: str = ...,
         strip: str = ...,
-        post_process: _PostProcess[str, list[str]] = ...,
+        post_process: _PostProcess[list[str]] = ...,
     ) -> None: ...
     @overload
     def __init__(
-        self: Csv[_T, list[_T], _PostProcess[_T, list[_T]]],
+        self: Csv[_T, list[_T], _PostProcess[list[_T]]],
         cast: Callable[[str], _T],
         delimiter: str = ...,
         strip: str = ...,
-        post_process: _PostProcess[_T, list[_T]] = ...,
+        post_process: _PostProcess[list[_T]] = ...,
     ) -> None: ...
     @overload
     def __init__(
-        self: Csv[str, _TCsv, _PostProcess[str, _TCsv]],
+        self: Csv[str, _TCsv, _PostProcess[_TCsv]],
         cast: Callable[[str], str] = ...,
         delimiter: str = ...,
         strip: str = ...,
         *,
-        post_process: _PostProcess[str, _TCsv],
+        post_process: _PostProcess[_TCsv],
     ) -> None: ...
     @overload
     def __init__(
-        self: Csv[_T, _TCsv, _PostProcess[_T, _TCsv]],
+        self: Csv[_T, _TCsv, _PostProcess[_TCsv]],
         cast: Callable[[str], _T],
         delimiter: str = ",",
         strip: str = ...,
@@ -140,11 +138,11 @@ class Csv(Generic[_T, _TCsv, _TPostProcess]):
     ) -> None: ...
     @overload
     def __init__(
-        self: Csv[_T, _TCsv, _PostProcess[_T, _TCsv]],
+        self: Csv[_T, _TCsv, _PostProcess[_TCsv]],
         cast: Callable[[str], _T],
         delimiter: str,
         strip: str,
-        post_process: _PostProcess[_T, _TCsv],
+        post_process: _PostProcess[_TCsv],
     ) -> None: ...
 
 class Choices(Generic[_T]):
