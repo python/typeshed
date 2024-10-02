@@ -413,7 +413,6 @@ queue.SimpleQueue.__init__
 imaplib.IMAP4_SSL.ssl
 ssl.PROTOCOL_SSLv2
 ssl.PROTOCOL_SSLv3
-ssl.RAND_egd
 
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
@@ -535,10 +534,11 @@ wsgiref.handlers.BaseHandler.headers_sent
 wsgiref.handlers.BaseHandler.result
 wsgiref.handlers.BaseHandler.status
 
-(_?weakref.ref|_?weakref.ReferenceType).__call__  # C function default annotation is wrong
-_?weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
-_?weakref.ProxyType.__bytes__  # Doesn't actually exist
-_?weakref.ProxyType.__getattr__  # Should have all attributes of proxy
+_?weakref\.(ref|ReferenceType)\.__init__  # C implementation has incorrect signature
+_?weakref\.(ref|ReferenceType)\.__call__  # C function default annotation is wrong
+_?weakref\.CallableProxyType\.__getattr__  # Should have all attributes of proxy
+_?weakref\.ProxyType\.__bytes__  # Doesn't actually exist
+_?weakref\.ProxyType\.__getattr__  # Should have all attributes of proxy
 weakref.WeakValueDictionary.setdefault  # has a default value for the "default" argument, but always errors out if no value is supplied for the parameter by the user
 xml.dom.minidom.StringTypes  # Unnecessary re-export
 

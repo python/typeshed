@@ -631,7 +631,9 @@ if it consisted of several smaller commits.
 Third-party stubs are generally removed from typeshed when one of the
 following criteria is met:
 
-* The upstream package ships a `py.typed` file for at least six months, or
+* The upstream package ships a `py.typed` file for at least six months,
+  and the upstream type annotations are of a comparable standard to those in
+  typeshed, or
 * the package does not support any of the Python versions supported by
   typeshed.
 

@@ -1,4 +1,4 @@
-version = "7.4.*"
+version = "8.0.*"
 upstream_repository = "https://github.com/lincolnloop/python-qrcode"
 requires = ["types-Pillow>=9.1.0"]
 

@@ -246,6 +246,10 @@ unittest\.test\..+
 pstats.SortKey.__new__
 tkinter.EventType.__new__
 
+# Items that depend on the existence and flags of SSL
+ssl.RAND_egd
+_ssl.RAND_egd
+
 # Incorrectly star import.
 ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
