@@ -360,6 +360,8 @@ codecs.CodecInfo.incrementalencoder
 codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
 
+contextvars.Context.__init__  # C signature is broader than what is actually accepted
+
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter
 csv.Dialect.doublequote
@@ -370,8 +372,8 @@ csv.Dialect.skipinitialspace
 csv.DictReader.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 
-contextvars.Context.__init__  # C signature is broader than what is actually accepted
 dataclasses.field  # White lies around defaults
+email.policy.EmailPolicy.message_factory  # "type" at runtime, but protocol in stubs
 hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
 hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
