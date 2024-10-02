@@ -131,7 +131,7 @@ class Csv(Generic[_T, _TCsv, _TPostProcess]):
         delimiter: str = ",",
         strip: str = ...,
         *,
-        post_process: _PostProcess[_T, _TCsv],
+        post_process: _PostProcess[_TCsv],
     ) -> None: ...
     @overload
     def __init__(
