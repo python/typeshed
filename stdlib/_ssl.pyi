@@ -67,14 +67,12 @@ def nid2obj(__nid: int) -> tuple[int, str, str, str]: ...
 
 class _SSLContext:
     check_hostname: bool
-    if sys.version_info >= (3, 8):
-        keylog_filename: str | None
+    keylog_filename: str | None
     maximum_version: int
     minimum_version: int
     num_tickets: int
     options: int
-    if sys.version_info >= (3, 8):
-        post_handshake_auth: bool
+    post_handshake_auth: bool
     protocol: int
     if sys.version_info >= (3, 10):
         security_level: int
