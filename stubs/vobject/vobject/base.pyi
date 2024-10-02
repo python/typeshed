@@ -34,10 +34,18 @@ class VBase:
     # Use Any because args and kwargs are passed to the behavior object
     @overload
     def serialize(
-        self, buf: None = None, lineLength: int = 75, validate: bool = True, behavior: Incomplete | None = None, *args: Any, **kwargs: Any
+        self,
+        buf: None = None,
+        lineLength: int = 75,
+        validate: bool = True,
+        behavior: Incomplete | None = None,
+        *args: Any,
+        **kwargs: Any,
     ) -> str: ...
     @overload
-    def serialize(self, buf: _W, lineLength: int = 75, validate: bool = True, behavior: Incomplete | None = None, *args: Any, **kwargs: Any) -> _W: ...
+    def serialize(
+        self, buf: _W, lineLength: int = 75, validate: bool = True, behavior: Incomplete | None = None, *args: Any, **kwargs: Any
+    ) -> _W: ...
 
 def toVName(name, stripNum: int = 0, upper: bool = False): ...
 
