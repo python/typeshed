@@ -1,14 +1,14 @@
-from _typeshed import Incomplete, ReadableBuffer, StrPath, Unused
+from _typeshed import Incomplete, ReadableBuffer, StrPath, SupportsWrite, Unused
 from collections.abc import Generator
-from typing import Protocol
+from typing import Protocol, type_check_only
 from typing_extensions import TypeAlias
 
 from openpyxl.worksheet._write_only import WriteOnlyWorksheet
 from openpyxl.worksheet.worksheet import Worksheet
 
 # WorksheetWriter.read has an explicit BytesIO branch. Let's make sure this protocol is viable for BytesIO too.
-class _SupportsCloseAndWrite(Protocol):
-    def write(self, buffer: ReadableBuffer, /) -> Unused: ...
+@type_check_only
+class _SupportsCloseAndWrite(SupportsWrite[ReadableBuffer], Protocol):
     def close(self) -> Unused: ...
 
 # et_xmlfile.xmlfile accepts a str | _SupportsCloseAndWrite

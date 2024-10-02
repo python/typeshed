@@ -1,11 +1,11 @@
 import io
 import sys
-from _typeshed import SizedBuffer, StrOrBytesPath, StrPath
+from _typeshed import SizedBuffer, StrOrBytesPath, StrPath, SupportsFlush, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator
 from io import TextIOWrapper
 from os import PathLike
 from types import TracebackType
-from typing import IO, Final, Literal, Protocol, overload
+from typing import IO, Final, Literal, Protocol, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -47,8 +47,8 @@ class _ZipStream(Protocol):
     # def seek(self, n: int, /) -> object: ...
 
 # Stream shape as required by _EndRecData() and _EndRecData64().
-class _SupportsReadSeekTell(Protocol):
-    def read(self, n: int = ..., /) -> bytes: ...
+@type_check_only
+class _SupportsReadSeekTell(SupportsRead[bytes], Protocol):
     def seek(self, cookie: int, whence: int, /) -> object: ...
     def tell(self) -> int: ...
 
@@ -91,22 +91,23 @@ class ZipExtFile(io.BufferedIOBase):
     def read1(self, n: int | None) -> bytes: ...  # type: ignore[override]
     def seek(self, offset: int, whence: int = 0) -> int: ...
 
-class _Writer(Protocol):
-    def write(self, s: str, /) -> object: ...
+@type_check_only
+class _Writer(SupportsWrite[str], Protocol): ...
 
-class _ZipReadable(Protocol):
+@type_check_only
+class _ZipReadable(SupportsRead[bytes], Protocol):
     def seek(self, offset: int, whence: int = 0, /) -> int: ...
-    def read(self, n: int = -1, /) -> bytes: ...
 
+@type_check_only
 class _ZipTellable(Protocol):
     def tell(self) -> int: ...
 
+@type_check_only
 class _ZipReadableTellable(_ZipReadable, _ZipTellable, Protocol): ...
 
-class _ZipWritable(Protocol):
-    def flush(self) -> None: ...
+@type_check_only
+class _ZipWritable(SupportsWrite[bytes], SupportsFlush, Protocol):
     def close(self) -> None: ...
-    def write(self, b: bytes, /) -> int: ...
 
 class ZipFile:
     filename: str | None

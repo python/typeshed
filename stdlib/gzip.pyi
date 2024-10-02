@@ -1,9 +1,9 @@
 import _compression
 import sys
 import zlib
-from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath
+from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath, SupportsFlush, SupportsWrite
 from io import FileIO
-from typing import Final, Literal, Protocol, TextIO, overload
+from typing import Final, Literal, Protocol, TextIO, overload, type_check_only
 from typing_extensions import TypeAlias
 
 __all__ = ["BadGzipFile", "GzipFile", "open", "compress", "decompress"]
@@ -21,6 +21,7 @@ FEXTRA: Final[int]  # actually Literal[4] # undocumented
 FNAME: Final[int]  # actually Literal[8] # undocumented
 FCOMMENT: Final[int]  # actually Literal[16] # undocumented
 
+@type_check_only
 class _ReadableFileobj(Protocol):
     def read(self, n: int, /) -> bytes: ...
     def seek(self, n: int, /) -> object: ...
@@ -29,13 +30,13 @@ class _ReadableFileobj(Protocol):
     # mode: str
     # def fileno() -> int: ...
 
-class _WritableFileobj(Protocol):
-    def write(self, b: bytes, /) -> object: ...
-    def flush(self) -> object: ...
+@type_check_only
+class _WritableFileobj(SupportsWrite[bytes], SupportsFlush, Protocol):
     # The following attributes and methods are optional:
     # name: str
     # mode: str
     # def fileno() -> int: ...
+    ...
 
 @overload
 def open(
