@@ -1,8 +1,8 @@
 from _socket import _Address as _StrictAddress
 from _typeshed import ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable
-from typing import Any, ClassVar, overload
-from typing_extensions import TypeAlias, TypedDict
+from typing import Any, ClassVar, TypedDict, overload
+from typing_extensions import TypeAlias
 
 from gevent.baseserver import BaseServer, _Spawner
 from gevent.socket import socket as _GeventSocket
@@ -79,6 +79,6 @@ class DatagramServer(BaseServer[_GeventSocket, _Address]):
     def get_listener(cls, address: _StrictAddress, family: int | None = None) -> _GeventSocket: ...
     def do_read(self) -> tuple[_GeventSocket, _Address]: ...
     @overload
-    def sendto(self, __data: ReadableBuffer, __address: _StrictAddress) -> int: ...
+    def sendto(self, data: ReadableBuffer, address: _StrictAddress, /) -> int: ...
     @overload
-    def sendto(self, __data: ReadableBuffer, __flags: int, __address: _StrictAddress) -> int: ...
+    def sendto(self, data: ReadableBuffer, flags: int, address: _StrictAddress, /) -> int: ...

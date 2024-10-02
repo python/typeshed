@@ -1,8 +1,8 @@
 from abc import abstractmethod
 from collections.abc import Iterable
 from threading import Lock
-from typing import Any, ClassVar, Protocol, TypeVar
-from typing_extensions import Literal, Self
+from typing import Any, ClassVar, Literal, Protocol, TypeVar
+from typing_extensions import Self
 
 from fanstatic.compiler import Compiler, Minifier
 from fanstatic.core import Library
@@ -21,7 +21,7 @@ class Registry(dict[str, _NamedT]):
     @property
     @abstractmethod
     def ENTRY_POINT(self) -> str: ...
-    def __init__(self, items: Iterable[_NamedT] = ()) -> None: ...  # noqaY011
+    def __init__(self, items: Iterable[_NamedT] = ()) -> None: ...
     def add(self, item: _NamedT) -> None: ...
     def load_items_from_entry_points(self) -> None: ...
     def make_item_from_entry_point(self, entry_point: EntryPoint) -> Any: ...
