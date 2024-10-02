@@ -1,6 +1,6 @@
 from collections.abc import Callable, Container
 from types import TracebackType
-from typing import Any, Generic, Literal, Protocol
+from typing import Generic, Literal, Protocol
 from typing_extensions import ParamSpec, Self, TypeAlias, TypeVarTuple, Unpack
 
 from gevent._types import _Loop
