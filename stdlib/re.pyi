@@ -4,8 +4,8 @@ import sre_constants
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterator, Mapping
-from typing import Any, AnyStr, Generic, TypeVar, overload
-from typing_extensions import Literal, TypeAlias, final
+from typing import Any, AnyStr, Generic, Literal, TypeVar, final, overload
+from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
