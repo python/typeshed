@@ -118,11 +118,16 @@ class MemoryBIO:
 
 @final
 class SSLSession:
-    has_ticket: bool
-    id: bytes
-    ticket_lifetime_hint: int
-    time: int
-    timeout: int
+    @property
+    def has_ticket(self) -> bool: ...
+    @property
+    def id(self) -> bytes: ...
+    @property
+    def ticket_lifetime_hint(self) -> int: ...
+    @property
+    def time(self) -> int: ...
+    @property
+    def timeout(self) -> int: ...
 
 # _ssl.Certificate is weird: it can't be instantiated or subclassed.
 # Instances can only be created via methods of the private _ssl._SSLSocket class,

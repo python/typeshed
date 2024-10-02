@@ -236,12 +236,31 @@ if sys.platform != "win32":
     if sys.version_info >= (3, 11):
         from os import login_tty as login_tty
 
+    if sys.version_info >= (3, 13):
+        from os import grantpt as grantpt, posix_openpt as posix_openpt, ptsname as ptsname, unlockpt as unlockpt
+
+    if sys.version_info >= (3, 13) and sys.platform == "linux":
+        from os import (
+            POSIX_SPAWN_CLOSEFROM as POSIX_SPAWN_CLOSEFROM,
+            TFD_CLOEXEC as TFD_CLOEXEC,
+            TFD_NONBLOCK as TFD_NONBLOCK,
+            TFD_TIMER_ABSTIME as TFD_TIMER_ABSTIME,
+            TFD_TIMER_CANCEL_ON_SET as TFD_TIMER_CANCEL_ON_SET,
+            timerfd_create as timerfd_create,
+            timerfd_gettime as timerfd_gettime,
+            timerfd_gettime_ns as timerfd_gettime_ns,
+            timerfd_settime as timerfd_settime,
+            timerfd_settime_ns as timerfd_settime_ns,
+        )
+
     if sys.platform != "linux":
         from os import chflags as chflags, lchflags as lchflags, lchmod as lchmod
 
+    if sys.platform != "linux" and sys.platform != "darwin":
+        from os import EX_NOTFOUND as EX_NOTFOUND
+
     if sys.platform != "darwin":
         from os import (
-            EX_NOTFOUND as EX_NOTFOUND,
             POSIX_FADV_DONTNEED as POSIX_FADV_DONTNEED,
             POSIX_FADV_NOREUSE as POSIX_FADV_NOREUSE,
             POSIX_FADV_NORMAL as POSIX_FADV_NORMAL,
@@ -267,12 +286,13 @@ if sys.platform != "win32":
             sched_setscheduler as sched_setscheduler,
             setresgid as setresgid,
             setresuid as setresuid,
-            waitid as waitid,
-            waitid_result as waitid_result,
         )
 
         if sys.version_info >= (3, 10):
             from os import RWF_APPEND as RWF_APPEND
+
+    if sys.platform != "darwin" or sys.version_info >= (3, 13):
+        from os import waitid as waitid, waitid_result as waitid_result
 
     if sys.platform == "linux":
         from os import (

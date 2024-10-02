@@ -25,8 +25,11 @@ from .enums import (
     RenderStyle,
     TableBordersLayout,
     TableCellFillMode,
+    TableHeadingsDisplay,
+    TextDirection,
     TextMarkupType,
     TextMode as TextMode,
+    VAlign,
     WrapMode as WrapMode,
     XPos as XPos,
     YPos as YPos,
@@ -40,14 +43,14 @@ from .image_datastructures import (
     ImageInfo as ImageInfo,
     RasterImageInfo as RasterImageInfo,
     VectorImageInfo as VectorImageInfo,
-    _AlignLiteral,
+    _TextAlign,
 )
 from .output import OutputProducer, PDFPage
 from .recorder import FPDFRecorder
 from .structure_tree import StructureTreeBuilder
 from .syntax import DestinationXYZ
 from .table import Table
-from .util import _Unit
+from .util import Padding, _Unit
 
 __all__ = [
     "FPDF",
@@ -64,7 +67,7 @@ __all__ = [
 
 _Orientation: TypeAlias = Literal["", "portrait", "p", "P", "landscape", "l", "L"]
 _Format: TypeAlias = Literal["", "a3", "A3", "a4", "A4", "a5", "A5", "letter", "Letter", "legal", "Legal"]
-_FontStyle: TypeAlias = Literal["", "B", "I"]
+_FontStyle: TypeAlias = Literal["", "B", "I", "BI"]
 _FontStyles: TypeAlias = Literal["", "B", "I", "U", "BU", "UB", "BI", "IB", "IU", "UI", "BIU", "BUI", "IBU", "IUB", "UBI", "UIB"]
 
 FPDF_VERSION: Final[str]
@@ -207,7 +210,7 @@ class FPDF(GraphicsStateMixin):
         self,
         use_shaping_engine: bool = True,
         features: dict[str, bool] | None = None,
-        direction: Literal["ltr", "rtl"] | None = None,
+        direction: Literal["ltr", "rtl"] | TextDirection | None = None,
         script: str | None = None,
         language: str | None = None,
     ) -> None: ...
@@ -423,7 +426,7 @@ class FPDF(GraphicsStateMixin):
     def skew(
         self, ax: float = 0, ay: float = 0, x: float | None = None, y: float | None = None
     ) -> _GeneratorContextManager[None]: ...
-    def mirror(self, origin, angle) -> Generator[None, None, None]: ...
+    def mirror(self, origin, angle) -> Generator[None]: ...
     def local_context(
         self,
         font_family: Incomplete | None = None,
@@ -447,7 +450,7 @@ class FPDF(GraphicsStateMixin):
         ln: int | Literal["DEPRECATED"] = "DEPRECATED",
         align: str | Align = ...,
         fill: bool = False,
-        link: str = "",
+        link: str | int = "",
         center: bool = False,
         markdown: bool = False,
         new_x: XPos | str = ...,
@@ -464,7 +467,7 @@ class FPDF(GraphicsStateMixin):
         align: str | Align = ...,
         fill: bool = False,
         split_only: bool = False,
-        link: str = "",
+        link: str | int = "",
         ln: int | Literal["DEPRECATED"] = "DEPRECATED",
         max_line_height: float | None = None,
         markdown: bool = False,
@@ -478,7 +481,7 @@ class FPDF(GraphicsStateMixin):
         padding: int = 0,
     ): ...
     def write(
-        self, h: float | None = None, text: str = "", link: str = "", print_sh: bool = False, wrapmode: WrapMode = ...
+        self, h: float | None = None, text: str = "", link: str | int = "", print_sh: bool = False, wrapmode: WrapMode = ...
     ) -> bool: ...
     def text_columns(
         self,
@@ -488,7 +491,7 @@ class FPDF(GraphicsStateMixin):
         ncols: int = 1,
         gutter: float = 10,
         balance: bool = False,
-        text_align: Align | _AlignLiteral = "LEFT",
+        text_align: str | _TextAlign | tuple[_TextAlign | str, ...] = "LEFT",
         line_height: float = 1,
         l_margin: float | None = None,
         r_margin: float | None = None,
@@ -504,7 +507,7 @@ class FPDF(GraphicsStateMixin):
         w: float = 0,
         h: float = 0,
         type: str = "",
-        link: str = "",
+        link: str | int = "",
         title: str | None = None,
         alt_text: str | None = None,
         dims: tuple[float, float] | None = None,
@@ -569,17 +572,26 @@ class FPDF(GraphicsStateMixin):
         self,
         rows: Iterable[Incomplete] = (),
         *,
-        align: str | Align = "CENTER",
+        # Keep in sync with `fpdf.table.Table`:
+        align: str | _TextAlign = "CENTER",
+        v_align: str | VAlign = "MIDDLE",
         borders_layout: str | TableBordersLayout = ...,
         cell_fill_color: int | tuple[Incomplete, ...] | DeviceGray | DeviceRGB | None = None,
         cell_fill_mode: str | TableCellFillMode = ...,
         col_widths: int | tuple[int, ...] | None = None,
         first_row_as_headings: bool = True,
+        gutter_height: float = 0,
+        gutter_width: float = 0,
         headings_style: FontFace = ...,
         line_height: int | None = None,
         markdown: bool = False,
-        text_align: str | Align = "JUSTIFY",
+        text_align: str | _TextAlign | tuple[str | _TextAlign, ...] = "JUSTIFY",
         width: int | None = None,
+        wrapmode: WrapMode = ...,
+        padding: float | Padding | None = None,
+        outer_border_width: float | None = None,
+        num_heading_rows: int = 1,
+        repeat_headings: TableHeadingsDisplay | int = 1,
     ) -> _GeneratorContextManager[Table]: ...
     @overload
     def output(  # type: ignore[overload-overlap]
