@@ -89,10 +89,7 @@ class AutoConfig:
 config: AutoConfig
 
 class _PostProcess(Protocol[_TCsv_co]):  # undocumented
-    @overload
-    def __call__(self) -> _TCsv_co: ...
-    @overload
-    def __call__(self, /, __value: Iterable[Any]) -> _TCsv_co: ...
+    def __call__(self, value: Iterable[Any] = ..., /) -> _TCsv_co: ...
 
 _TPostProcess = TypeVar("_TPostProcess")
 
