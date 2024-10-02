@@ -149,11 +149,11 @@ if sys.version_info >= (3, 10):
         @overload
         def public_bytes(self) -> str: ...
         @overload
-        def public_bytes(self, format: Literal[1], /) -> str: ...  # ENCODING_PEM
+        def public_bytes(self, format: Literal[1] = 1, /) -> str: ...  # ENCODING_PEM
         @overload
         def public_bytes(self, format: Literal[2], /) -> bytes: ...  # ENCODING_DER
         @overload
-        def public_bytes(self, format: int = 1, /) -> str | bytes: ...
+        def public_bytes(self, format: int, /) -> str | bytes: ...
 
 if sys.version_info < (3, 12):
     err_codes_to_names: dict[tuple[int, int], str]
