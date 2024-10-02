@@ -2,8 +2,7 @@ from _typeshed import ConvertibleToInt, Incomplete
 from collections import defaultdict
 from collections.abc import Generator, Iterator
 from re import Pattern
-from typing import ClassVar
-from typing_extensions import Final, Literal
+from typing import ClassVar, Final, Literal
 
 from openpyxl.descriptors import Sequence
 from openpyxl.descriptors.base import Alias, Bool, Integer, String, _ConvertibleToBool
@@ -66,7 +65,7 @@ class DefinedNameDict(dict[str, DefinedName]):
 
 class DefinedNameList(Serialisable):
     tagname: ClassVar[str]
-    definedName: Sequence
-    def __init__(self, definedName=()) -> None: ...
+    definedName: Sequence[list[DefinedName]]
+    def __init__(self, definedName: list[DefinedName] | tuple[DefinedName, ...] = ()) -> None: ...
     def by_sheet(self) -> defaultdict[int, DefinedNameDict]: ...
     def __len__(self) -> int: ...
