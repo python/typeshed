@@ -1,6 +1,0 @@
-(os|posix).sendfile
-select.epoll.register
-
-# ==========
-# Allowlist entries that cannot or should not be fixed
-# ==========

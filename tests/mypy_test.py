@@ -6,38 +6,36 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import os
-import re
 import subprocess
 import sys
 import tempfile
 import time
 from collections import defaultdict
 from dataclasses import dataclass
+from enum import Enum
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import TYPE_CHECKING, Any, NamedTuple, Tuple
-
-if TYPE_CHECKING:
-    from _typeshed import StrPath
-
+from typing import Any, NamedTuple
 from typing_extensions import Annotated, TypeAlias
 
 import tomli
+from packaging.requirements import Requirement
 
-from parse_metadata import PackageDependencies, get_recursive_requirements, read_metadata
-from utils import (
+from _metadata import PackageDependencies, get_recursive_requirements, read_metadata
+from _utils import (
     PYTHON_VERSION,
-    VERSIONS_RE as VERSION_LINE_RE,
-    VenvInfo,
+    STDLIB_PATH,
+    TESTS_DIR,
     colored,
     get_gitignore_spec,
     get_mypy_req,
-    make_venv,
+    parse_stdlib_versions_file,
     print_error,
     print_success_msg,
     spec_matches_path,
-    strip_comments,
+    supported_versions_for_module,
+    venv_python,
 )
 
 # Fail early if mypy isn't installed
@@ -47,13 +45,11 @@ except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
 
-SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8"]
+SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
 
-ReturnCode: TypeAlias = int
 VersionString: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_VERSIONS"]
-VersionTuple: TypeAlias = Tuple[int, int]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
 
 
@@ -150,31 +146,6 @@ def match(path: Path, args: TestConfig) -> bool:
     return False
 
 
-def parse_versions(fname: StrPath) -> dict[str, tuple[VersionTuple, VersionTuple]]:
-    result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
-    with open(fname, encoding="UTF-8") as f:
-        for line in f:
-            line = strip_comments(line)
-            if line == "":
-                continue
-            m = VERSION_LINE_RE.match(line)
-            assert m, f"invalid VERSIONS line: {line}"
-            mod: str = m.group(1)
-            min_version = parse_version(m.group(2))
-            max_version = parse_version(m.group(3)) if m.group(3) else (99, 99)
-            result[mod] = min_version, max_version
-    return result
-
-
-_VERSION_RE = re.compile(r"^([23])\.(\d+)$")
-
-
-def parse_version(v_str: str) -> tuple[int, int]:
-    m = _VERSION_RE.match(v_str)
-    assert m, f"invalid version: {v_str}"
-    return int(m.group(1)), int(m.group(2))
-
-
 def add_files(files: list[Path], module: Path, args: TestConfig) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
     if module.is_file() and module.suffix == ".pyi":
@@ -202,7 +173,7 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
     with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
         data = tomli.load(f)
 
-    # TODO: This could be added to parse_metadata.py, but is currently unused
+    # TODO: This could be added to _metadata.py, but is currently unused
     mypy_tests_conf: dict[str, dict[str, Any]] = data.get("mypy-tests", {})
     if not mypy_tests_conf:
         return
@@ -222,6 +193,12 @@ def add_configuration(configurations: list[MypyDistConf], distribution: str) -> 
         configurations.append(MypyDistConf(module_name, values.copy()))
 
 
+class MypyResult(Enum):
+    SUCCESS = 0
+    FAILURE = 1
+    CRASH = 2
+
+
 def run_mypy(
     args: TestConfig,
     configurations: list[MypyDistConf],
@@ -229,9 +206,9 @@ def run_mypy(
     *,
     testing_stdlib: bool,
     non_types_dependencies: bool,
-    venv_info: VenvInfo,
+    venv_dir: Path | None,
     mypypath: str | None = None,
-) -> ReturnCode:
+) -> MypyResult:
     env_vars = dict(os.environ)
     if mypypath is not None:
         env_vars["MYPYPATH"] = mypypath
@@ -262,6 +239,8 @@ def run_mypy(
             "--allow-subclassing-any",
             "--enable-error-code",
             "ignore-without-code",
+            "--enable-error-code",
+            "redundant-self",
             "--config-file",
             temp.name,
         ]
@@ -271,32 +250,39 @@ def run_mypy(
             flags.append("--no-site-packages")
 
         mypy_args = [*flags, *map(str, files)]
-        mypy_command = [venv_info.python_exe, "-m", "mypy"] + mypy_args
+        python_path = sys.executable if venv_dir is None else str(venv_python(venv_dir))
+        mypy_command = [python_path, "-m", "mypy", *mypy_args]
         if args.verbose:
             print(colored(f"running {' '.join(mypy_command)}", "blue"))
         result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
         if result.returncode:
-            print_error("failure\n")
+            print_error(f"failure (exit code {result.returncode})\n")
             if result.stdout:
                 print_error(result.stdout)
             if result.stderr:
                 print_error(result.stderr)
             if non_types_dependencies and args.verbose:
                 print("Ran with the following environment:")
-                subprocess.run([venv_info.pip_exe, "freeze", "--all"])
+                subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
                 print()
         else:
             print_success_msg()
-        return result.returncode
+        if result.returncode == 0:
+            return MypyResult.SUCCESS
+        elif result.returncode == 1:
+            return MypyResult.FAILURE
+        else:
+            return MypyResult.CRASH
 
 
 def add_third_party_files(
     distribution: str, files: list[Path], args: TestConfig, configurations: list[MypyDistConf], seen_dists: set[str]
 ) -> None:
+    typeshed_reqs = get_recursive_requirements(distribution).typeshed_pkgs
     if distribution in seen_dists:
         return
     seen_dists.add(distribution)
-    seen_dists.update(get_recursive_requirements(distribution).typeshed_pkgs)
+    seen_dists.update(r.name for r in typeshed_reqs)
     root = Path("stubs", distribution)
     for name in os.listdir(root):
         if name.startswith("."):
@@ -305,15 +291,14 @@ def add_third_party_files(
         add_configuration(configurations, distribution)
 
 
-class TestResults(NamedTuple):
-    exit_code: int
+class TestResult(NamedTuple):
+    mypy_result: MypyResult
     files_checked: int
-    packages_skipped: int = 0
 
 
 def test_third_party_distribution(
-    distribution: str, args: TestConfig, venv_info: VenvInfo, *, non_types_dependencies: bool
-) -> TestResults:
+    distribution: str, args: TestConfig, venv_dir: Path | None, *, non_types_dependencies: bool
+) -> TestResult:
     """Test the stubs of a third-party distribution.
 
     Return a tuple, where the first element indicates mypy's return code
@@ -326,7 +311,7 @@ def test_third_party_distribution(
     add_third_party_files(distribution, files, args, configurations, seen_dists)
 
     if not files and args.filter:
-        return TestResults(0, 0)
+        return TestResult(MypyResult.SUCCESS, 0)
 
     print(f"testing {distribution} ({len(files)} files)... ", end="", flush=True)
 
@@ -337,57 +322,111 @@ def test_third_party_distribution(
     mypypath = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
     if args.verbose:
         print(colored(f"\nMYPYPATH={mypypath}", "blue"))
-    code = run_mypy(
+    result = run_mypy(
         args,
         configurations,
         files,
-        venv_info=venv_info,
+        venv_dir=venv_dir,
         mypypath=mypypath,
         testing_stdlib=False,
         non_types_dependencies=non_types_dependencies,
     )
-    return TestResults(code, len(files))
+    return TestResult(result, len(files))
 
 
-def test_stdlib(code: int, args: TestConfig) -> TestResults:
+def test_stdlib(args: TestConfig) -> TestResult:
     files: list[Path] = []
-    stdlib = Path("stdlib")
-    supported_versions = parse_versions(stdlib / "VERSIONS")
-    for name in os.listdir(stdlib):
-        if name == "VERSIONS" or name.startswith("."):
+    for file in STDLIB_PATH.iterdir():
+        if file.name in ("VERSIONS", TESTS_DIR) or file.name.startswith("."):
             continue
-        module = Path(name).stem
-        module_min_version, module_max_version = supported_versions[module]
-        if module_min_version <= tuple(map(int, args.version.split("."))) <= module_max_version:
-            add_files(files, (stdlib / name), args)
+        add_files(files, file, args)
 
-    if files:
-        print(f"Testing stdlib ({len(files)} files)...", end="", flush=True)
-        # We don't actually need pip for the stdlib testing
-        venv_info = VenvInfo(pip_exe="", python_exe=sys.executable)
-        this_code = run_mypy(args, [], files, venv_info=venv_info, testing_stdlib=True, non_types_dependencies=False)
-        code = max(code, this_code)
+    files = remove_modules_not_in_python_version(files, args.version)
 
-    return TestResults(code, len(files))
+    if not files:
+        return TestResult(MypyResult.SUCCESS, 0)
+
+    print(f"Testing stdlib ({len(files)} files)... ", end="", flush=True)
+    # We don't actually need to install anything for the stdlib testing
+    result = run_mypy(args, [], files, venv_dir=None, testing_stdlib=True, non_types_dependencies=False)
+    return TestResult(result, len(files))
+
+
+def remove_modules_not_in_python_version(paths: list[Path], py_version: VersionString) -> list[Path]:
+    py_version_tuple = tuple(map(int, py_version.split(".")))
+    module_versions = parse_stdlib_versions_file()
+    new_paths: list[Path] = []
+    for path in paths:
+        if path.parts[0] != "stdlib" or path.suffix != ".pyi":
+            continue
+        module_name = stdlib_module_name_from_path(path)
+        min_version, max_version = supported_versions_for_module(module_versions, module_name)
+        if min_version <= py_version_tuple <= max_version:
+            new_paths.append(path)
+    return new_paths
+
+
+def stdlib_module_name_from_path(path: Path) -> str:
+    assert path.parts[0] == "stdlib"
+    assert path.suffix == ".pyi"
+    parts = list(path.parts[1:-1])
+    if path.parts[-1] != "__init__.pyi":
+        # TODO: Python 3.9+: Use removesuffix.
+        parts.append(path.parts[-1][:-4])
+    return ".".join(parts)
+
+
+@dataclass
+class TestSummary:
+    mypy_result: MypyResult = MypyResult.SUCCESS
+    files_checked: int = 0
+    packages_skipped: int = 0
+    packages_with_errors: int = 0
+
+    def register_result(self, mypy_result: MypyResult, files_checked: int) -> None:
+        if mypy_result.value > self.mypy_result.value:
+            self.mypy_result = mypy_result
+        if mypy_result != MypyResult.SUCCESS:
+            self.packages_with_errors += 1
+        self.files_checked += files_checked
+
+    def skip_package(self) -> None:
+        self.packages_skipped += 1
+
+    def merge(self, other: TestSummary) -> None:
+        if other.mypy_result.value > self.mypy_result.value:
+            self.mypy_result = other.mypy_result
+        self.files_checked += other.files_checked
+        self.packages_skipped += other.packages_skipped
+        self.packages_with_errors += other.packages_with_errors
 
 
 _PRINT_LOCK = Lock()
-_DISTRIBUTION_TO_VENV_MAPPING: dict[str, VenvInfo] = {}
+_DISTRIBUTION_TO_VENV_MAPPING: dict[str, Path | None] = {}
 
 
-def setup_venv_for_external_requirements_set(requirements_set: frozenset[str], tempdir: Path) -> tuple[frozenset[str], VenvInfo]:
+def setup_venv_for_external_requirements_set(
+    requirements_set: frozenset[Requirement], tempdir: Path, args: TestConfig
+) -> tuple[frozenset[Requirement], Path]:
     venv_dir = tempdir / f".venv-{hash(requirements_set)}"
-    return requirements_set, make_venv(venv_dir)
+    uv_command = ["uv", "venv", str(venv_dir)]
+    if not args.verbose:
+        uv_command.append("--quiet")
+    subprocess.run(uv_command, check=True)
+    return requirements_set, venv_dir
 
 
-def install_requirements_for_venv(venv_info: VenvInfo, args: TestConfig, external_requirements: frozenset[str]) -> None:
+def install_requirements_for_venv(venv_dir: Path, args: TestConfig, external_requirements: frozenset[Requirement]) -> None:
+    req_args = sorted(str(req) for req in external_requirements)
     # Use --no-cache-dir to avoid issues with concurrent read/writes to the cache
-    pip_command = [venv_info.pip_exe, "install", get_mypy_req(), *sorted(external_requirements), "--no-cache-dir"]
+    uv_command = ["uv", "pip", "install", get_mypy_req(), *req_args, "--no-cache-dir"]
     if args.verbose:
         with _PRINT_LOCK:
-            print(colored(f"Running {pip_command}", "blue"))
+            print(colored(f"Running {uv_command}", "blue"))
+    else:
+        uv_command.append("--quiet")
     try:
-        subprocess.run(pip_command, check=True, capture_output=True, text=True)
+        subprocess.run(uv_command, check=True, text=True, env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
     except subprocess.CalledProcessError as e:
         print(e.stderr)
         raise
@@ -400,10 +439,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
 
     # STAGE 1: Determine which (if any) stubs packages require virtual environments.
     # Group stubs packages according to their external-requirements sets
-
-    # We don't actually need pip if there aren't any external dependencies
-    no_external_dependencies_venv = VenvInfo(pip_exe="", python_exe=sys.executable)
-    external_requirements_to_distributions: defaultdict[frozenset[str], list[str]] = defaultdict(list)
+    external_requirements_to_distributions: defaultdict[frozenset[Requirement], list[str]] = defaultdict(list)
     num_pkgs_with_external_reqs = 0
 
     for distribution_name, requirements in distributions.items():
@@ -412,7 +448,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
             external_requirements = frozenset(requirements.external_pkgs)
             external_requirements_to_distributions[external_requirements].append(distribution_name)
         else:
-            _DISTRIBUTION_TO_VENV_MAPPING[distribution_name] = no_external_dependencies_venv
+            _DISTRIBUTION_TO_VENV_MAPPING[distribution_name] = None
 
     # Exit early if there are no stubs packages that have non-types dependencies
     if num_pkgs_with_external_reqs == 0:
@@ -421,7 +457,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
         return
 
     # STAGE 2: Setup a virtual environment for each unique set of external requirements
-    requirements_sets_to_venvs: dict[frozenset[str], VenvInfo] = {}
+    requirements_sets_to_venvs: dict[frozenset[Requirement], Path] = {}
 
     if args.verbose:
         num_venvs = len(external_requirements_to_distributions)
@@ -435,13 +471,13 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
     venv_start_time = time.perf_counter()
 
     with concurrent.futures.ProcessPoolExecutor() as executor:
-        venv_info_futures = [
-            executor.submit(setup_venv_for_external_requirements_set, requirements_set, tempdir)
+        venv_futures = [
+            executor.submit(setup_venv_for_external_requirements_set, requirements_set, tempdir, args)
             for requirements_set in external_requirements_to_distributions
         ]
-        for venv_info_future in concurrent.futures.as_completed(venv_info_futures):
-            requirements_set, venv_info = venv_info_future.result()
-            requirements_sets_to_venvs[requirements_set] = venv_info
+        for venv_future in concurrent.futures.as_completed(venv_futures):
+            requirements_set, venv_dir = venv_future.result()
+            requirements_sets_to_venvs[requirements_set] = venv_dir
 
     venv_elapsed_time = time.perf_counter() - venv_start_time
 
@@ -455,8 +491,8 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
     # Limit workers to 10 at a time, since this makes network requests
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
         pip_install_futures = [
-            executor.submit(install_requirements_for_venv, venv_info, args, requirements_set)
-            for requirements_set, venv_info in requirements_sets_to_venvs.items()
+            executor.submit(install_requirements_for_venv, venv_dir, args, requirements_set)
+            for requirements_set, venv_dir in requirements_sets_to_venvs.items()
         ]
         concurrent.futures.wait(pip_install_futures)
 
@@ -473,10 +509,9 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
         _DISTRIBUTION_TO_VENV_MAPPING.update(dict.fromkeys(distribution_list, venv_to_use))
 
 
-def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestResults:
+def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
     print("Testing third-party packages...")
-    files_checked = 0
-    packages_skipped = 0
+    summary = TestSummary()
     gitignore_spec = get_gitignore_spec()
     distributions_to_check: dict[str, PackageDependencies] = {}
 
@@ -486,26 +521,26 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
         if spec_matches_path(gitignore_spec, distribution_path):
             continue
 
-        metadata = read_metadata(distribution)
-        if not metadata.requires_python.contains(PYTHON_VERSION):
-            msg = (
-                f"skipping {distribution!r} (requires Python {metadata.requires_python}; "
-                f"test is being run using Python {PYTHON_VERSION})"
-            )
-            print(colored(msg, "yellow"))
-            packages_skipped += 1
-            continue
-        if not metadata.requires_python.contains(args.version):
-            msg = f"skipping {distribution!r} for target Python {args.version} (requires Python {metadata.requires_python})"
-            print(colored(msg, "yellow"))
-            packages_skipped += 1
-            continue
-
         if (
             distribution_path in args.filter
             or Path("stubs") in args.filter
             or any(distribution_path in path.parents for path in args.filter)
         ):
+            metadata = read_metadata(distribution)
+            if not metadata.requires_python.contains(PYTHON_VERSION):
+                msg = (
+                    f"skipping {distribution!r} (requires Python {metadata.requires_python}; "
+                    f"test is being run using Python {PYTHON_VERSION})"
+                )
+                print(colored(msg, "yellow"))
+                summary.skip_package()
+                continue
+            if not metadata.requires_python.contains(args.version):
+                msg = f"skipping {distribution!r} for target Python {args.version} (requires Python {metadata.requires_python})"
+                print(colored(msg, "yellow"))
+                summary.skip_package()
+                continue
+
             distributions_to_check[distribution] = get_recursive_requirements(distribution)
 
     # Setup the necessary virtual environments for testing the third-party stubs.
@@ -525,34 +560,32 @@ def test_third_party_stubs(code: int, args: TestConfig, tempdir: Path) -> TestRe
     assert _DISTRIBUTION_TO_VENV_MAPPING.keys() >= distributions_to_check.keys()
 
     for distribution in distributions_to_check:
-        venv_info = _DISTRIBUTION_TO_VENV_MAPPING[distribution]
-        non_types_dependencies = venv_info.python_exe != sys.executable
-        this_code, checked, _ = test_third_party_distribution(
-            distribution, args, venv_info=venv_info, non_types_dependencies=non_types_dependencies
+        venv_dir = _DISTRIBUTION_TO_VENV_MAPPING[distribution]
+        non_types_dependencies = venv_dir is not None
+        mypy_result, files_checked = test_third_party_distribution(
+            distribution, args, venv_dir=venv_dir, non_types_dependencies=non_types_dependencies
         )
-        code = max(code, this_code)
-        files_checked += checked
+        summary.register_result(mypy_result, files_checked)
 
-    return TestResults(code, files_checked, packages_skipped)
+    return summary
 
 
-def test_typeshed(code: int, args: TestConfig, tempdir: Path) -> TestResults:
+def test_typeshed(args: TestConfig, tempdir: Path) -> TestSummary:
     print(f"*** Testing Python {args.version} on {args.platform}")
-    files_checked_this_version = 0
-    packages_skipped_this_version = 0
     stdlib_dir, stubs_dir = Path("stdlib"), Path("stubs")
+    summary = TestSummary()
+
     if stdlib_dir in args.filter or any(stdlib_dir in path.parents for path in args.filter):
-        code, stdlib_files_checked, _ = test_stdlib(code, args)
-        files_checked_this_version += stdlib_files_checked
+        mypy_result, files_checked = test_stdlib(args)
+        summary.register_result(mypy_result, files_checked)
         print()
 
     if stubs_dir in args.filter or any(stubs_dir in path.parents for path in args.filter):
-        code, third_party_files_checked, third_party_packages_skipped = test_third_party_stubs(code, args, tempdir)
-        files_checked_this_version += third_party_files_checked
-        packages_skipped_this_version = third_party_packages_skipped
+        tp_results = test_third_party_stubs(args, tempdir)
+        summary.merge(tp_results)
         print()
 
-    return TestResults(code, files_checked_this_version, packages_skipped_this_version)
+    return summary
 
 
 def main() -> None:
@@ -561,26 +594,31 @@ def main() -> None:
     platforms = args.platform or [sys.platform]
     filter = args.filter or DIRECTORIES_TO_TEST
     exclude = args.exclude or []
-    code = 0
-    total_files_checked = 0
-    total_packages_skipped = 0
+    summary = TestSummary()
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
         for version, platform in product(versions, platforms):
             config = TestConfig(args.verbose, filter, exclude, version, platform)
-            code, files_checked_this_version, packages_skipped_this_version = test_typeshed(code, args=config, tempdir=td_path)
-            total_files_checked += files_checked_this_version
-            total_packages_skipped += packages_skipped_this_version
-    if code:
-        plural = "" if total_files_checked == 1 else "s"
-        print_error(f"--- exit status {code}, {total_files_checked} file{plural} checked ---")
-        sys.exit(code)
-    if total_packages_skipped:
-        plural = "" if total_packages_skipped == 1 else "s"
-        print(colored(f"--- {total_packages_skipped} package{plural} skipped ---", "yellow"))
-    if total_files_checked:
-        plural = "" if total_files_checked == 1 else "s"
-        print(colored(f"--- success, {total_files_checked} file{plural} checked ---", "green"))
+            version_summary = test_typeshed(args=config, tempdir=td_path)
+            summary.merge(version_summary)
+
+    if summary.mypy_result == MypyResult.FAILURE:
+        plural1 = "" if summary.packages_with_errors == 1 else "s"
+        plural2 = "" if summary.files_checked == 1 else "s"
+        print_error(
+            f"--- {summary.packages_with_errors} package{plural1} with errors, {summary.files_checked} file{plural2} checked ---"
+        )
+        sys.exit(1)
+    if summary.mypy_result == MypyResult.CRASH:
+        plural = "" if summary.files_checked == 1 else "s"
+        print_error(f"--- mypy crashed, {summary.files_checked} file{plural} checked ---")
+        sys.exit(2)
+    if summary.packages_skipped:
+        plural = "" if summary.packages_skipped == 1 else "s"
+        print(colored(f"--- {summary.packages_skipped} package{plural} skipped ---", "yellow"))
+    if summary.files_checked:
+        plural = "" if summary.files_checked == 1 else "s"
+        print(colored(f"--- success, {summary.files_checked} file{plural} checked ---", "green"))
     else:
         print_error("--- nothing to do; exit 1 ---")
         sys.exit(1)

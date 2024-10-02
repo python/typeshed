@@ -1,6 +1,8 @@
-version = "4.24.*"
+# Whenever you update version here, PACKAGE_VERSION should be updated
+# in scripts/sync_proto/google_protobuf.py and vice-versa.
+version = "5.28.*"
 upstream_repository = "https://github.com/protocolbuffers/protobuf"
-extra_description = "Generated with aid from [mypy-protobuf](https://github.com/nipunn1313/mypy-protobuf) v3.4.0"
+extra_description = "Partially generated using [mypy-protobuf==3.6.0](https://github.com/nipunn1313/mypy-protobuf/tree/v3.6.0) and libprotoc 26.1 on [protobuf v28.2](https://github.com/protocolbuffers/protobuf/releases/tag/v28.2) (python `protobuf==5.28.2`)."
 partial_stub = true
 
 [tool.stubtest]
