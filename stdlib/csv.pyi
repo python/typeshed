@@ -1,6 +1,5 @@
 import sys
 
-# actually csv.Dialect is a different class to _csv.Dialect at runtime, but for typing purposes, they're identical
 from _csv import (
     QUOTE_ALL as QUOTE_ALL,
     QUOTE_MINIMAL as QUOTE_MINIMAL,
