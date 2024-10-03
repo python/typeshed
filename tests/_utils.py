@@ -7,7 +7,8 @@ import sys
 from collections.abc import Iterable, Mapping
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Final, NamedTuple
+from typing import Any, Dict, Final, NamedTuple, Tuple
+from typing_extensions import TypeAlias
 
 import pathspec
 from packaging.requirements import Requirement
@@ -44,6 +45,10 @@ def print_command(cmd: str | Iterable[str]) -> None:
     if not isinstance(cmd, str):
         cmd = " ".join(cmd)
     print(colored(f"Running: {cmd}", "blue"))
+
+
+def print_info(message: str) -> None:
+    print(colored(message, "blue"))
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
@@ -106,8 +111,43 @@ def get_mypy_req() -> str:
 # Parsing the stdlib/VERSIONS file
 # ====================================================================
 
+VersionTuple: TypeAlias = Tuple[int, int]
+SupportedVersionsDict: TypeAlias = Dict[str, Tuple[VersionTuple, VersionTuple]]
 
-VERSIONS_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
+VERSIONS_PATH = STDLIB_PATH / "VERSIONS"
+VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
+VERSION_RE = re.compile(r"^([23])\.(\d+)$")
+
+
+def parse_stdlib_versions_file() -> SupportedVersionsDict:
+    result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
+    with VERSIONS_PATH.open(encoding="UTF-8") as f:
+        for line in f:
+            line = strip_comments(line)
+            if line == "":
+                continue
+            m = VERSION_LINE_RE.match(line)
+            assert m, f"invalid VERSIONS line: {line}"
+            mod: str = m.group(1)
+            assert mod not in result, f"Duplicate module {mod} in VERSIONS"
+            min_version = _parse_version(m.group(2))
+            max_version = _parse_version(m.group(3)) if m.group(3) else (99, 99)
+            result[mod] = min_version, max_version
+    return result
+
+
+def supported_versions_for_module(module_versions: SupportedVersionsDict, module_name: str) -> tuple[VersionTuple, VersionTuple]:
+    while "." in module_name:
+        if module_name in module_versions:
+            return module_versions[module_name]
+        module_name = ".".join(module_name.split(".")[:-1])
+    return module_versions[module_name]
+
+
+def _parse_version(v_str: str) -> tuple[int, int]:
+    m = VERSION_RE.match(v_str)
+    assert m, f"invalid version: {v_str}"
+    return int(m.group(1)), int(m.group(2))
 
 
 # ====================================================================

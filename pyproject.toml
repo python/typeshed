@@ -3,6 +3,7 @@ line-length = 130
 target-version = ["py310"]
 skip-magic-trailing-comma = true
 # Exclude protobuf files because they have long line lengths
+# that can't be autofixed. Like docstrings and import aliases.
 # Ideally, we could configure Black to allow longer line lengths
 # for just these files, but doesn't seem possible yet.
 force-exclude = ".*_pb2.pyi"
@@ -45,18 +46,26 @@ select = [
     "E", # pycodestyle Error
     "F", # Pyflakes
     "W", # pycodestyle Warning
-    # PYI: only enable rules that always autofix, avoids duplicate # noqa with flake8-pyi
+    # PYI: only enable rules that have autofixes and that we always want to fix (even manually),
+    # avoids duplicate # noqa with flake8-pyi and flake8-noqa flagging `PYI` codes
     # See https://github.com/plinss/flake8-noqa/issues/22
-    "PYI009", # use `...`, not `pass`, in empty class bodies
-    "PYI010", # function bodies must be empty
-    "PYI012", # class bodies must not contain `pass`
-    "PYI013", # non-empty class bodies must not contain `...`
-    "PYI016", # duplicate union member
-    "PYI020", # quoted annotations are always unnecessary in stubs
-    "PYI025", # always alias `collections.abc.Set` as `AbstractSet` when importing it
-    "PYI032", # use `object`, not `Any`, as the second parameter to `__eq__`
-    "PYI055", # multiple `type[T]` usages in a union
-    "PYI058", # use `Iterator` as the return type for `__iter__` methods
+    "PYI009", # Empty body should contain `...`, not pass
+    "PYI010", # Function body must contain only `...`
+    "PYI012", # Class bodies must not contain `pass`
+    "PYI013", # Non-empty class bodies must not contain `...`
+    "PYI014", # Only simple default values allowed for arguments
+    "PYI015", # Only simple default values allowed for assignments
+    "PYI016", # Duplicate union member `{}`
+    "PYI020", # Quoted annotations should not be included in stubs
+    "PYI025", # Use `from collections.abc import Set as AbstractSet` to avoid confusion with the `set` builtin
+    # "PYI026", Waiting for this mypy bug to be fixed: https://github.com/python/mypy/issues/16581
+    "PYI030", # Multiple literal members in a union. Use a single literal, e.g. `Literal[{}]`
+    "PYI032", # Prefer `object` to `Any` for the second parameter to `{method_name}`
+    "PYI036", # Star-args in `{method_name}` should be annotated with `object`
+    "PYI044", # `from __future__ import annotations` has no effect in stub files, since type checkers automatically treat stubs as having those semantics
+    "PYI055", # Multiple `type[T]` usages in a union. Combine them into one, e.g., `type[{union_str}]`.
+    "PYI058", # Use `{return_type}` as the return value for simple `{method}` methods
+    "PYI062", # Duplicate literal member `{}`
 ]
 extend-safe-fixes = [
     "UP036", # Remove unnecessary `sys.version_info` blocks
@@ -91,12 +100,15 @@ ignore = [
     # B033 could be slightly useful but Ruff doesn't have per-file select
     "B", # flake8-bugbear
     # Rules that are out of the control of stub authors:
-    "E501", # Line too long
     "E741", # ambiguous variable name
     "F403", # `from . import *` used; unable to detect undefined names
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.
     "F405", # may be undefined, or defined from star imports
+]
+# See comment on black's force-exclude config above
+"*_pb2.pyi" = [
+    "E501", # Line too long
 ]
 
 [tool.ruff.lint.isort]
@@ -134,6 +146,7 @@ extra-standard-library = [
     "_random",
     "_sitebuiltins",
     "_socket",
+    "_ssl",
     "_stat",
     "_thread",
     "_threading_local",
@@ -146,6 +159,7 @@ extra-standard-library = [
     "genericpath",
     "opcode",
     "pyexpat",
+    "zoneinfo",
 ]
 known-first-party = ["_metadata", "_utils"]
 
