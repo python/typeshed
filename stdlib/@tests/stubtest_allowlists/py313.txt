@@ -4,7 +4,6 @@
 
 # TODO: triage these new errors
 _tkinter.create
-os.path.splitroot
 tkinter.Misc.after_info
 tkinter.Misc.busy
 tkinter.Misc.busy_cget
