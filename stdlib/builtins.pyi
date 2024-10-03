@@ -1,3 +1,4 @@
+# ruff: noqa: PYI036 # This is the module declaring BaseException
 import _ast
 import _typeshed
 import sys
@@ -588,7 +589,10 @@ class str(Sequence[str]):
     def __contains__(self, key: str, /) -> bool: ...  # type: ignore[override]
     def __eq__(self, value: object, /) -> bool: ...
     def __ge__(self, value: str, /) -> bool: ...
-    def __getitem__(self, key: SupportsIndex | slice, /) -> str: ...
+    @overload
+    def __getitem__(self: LiteralString, key: SupportsIndex | slice, /) -> LiteralString: ...
+    @overload
+    def __getitem__(self, key: SupportsIndex | slice, /) -> str: ...  # type: ignore[misc]
     def __gt__(self, value: str, /) -> bool: ...
     def __hash__(self) -> int: ...
     @overload
@@ -968,7 +972,9 @@ class tuple(Sequence[_T_co]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
-# Doesn't exist at runtime, but deleting this breaks mypy. See #2999
+# Doesn't exist at runtime, but deleting this breaks mypy and pyright. See:
+# https://github.com/python/typeshed/issues/7580
+# https://github.com/python/mypy/issues/8240
 @final
 @type_check_only
 class function:

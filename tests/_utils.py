@@ -47,6 +47,10 @@ def print_command(cmd: str | Iterable[str]) -> None:
     print(colored(f"Running: {cmd}", "blue"))
 
 
+def print_info(message: str) -> None:
+    print(colored(message, "blue"))
+
+
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
     error_split = error.split("\n")
     old, new = fix_path
@@ -130,6 +134,14 @@ def parse_stdlib_versions_file() -> SupportedVersionsDict:
             max_version = _parse_version(m.group(3)) if m.group(3) else (99, 99)
             result[mod] = min_version, max_version
     return result
+
+
+def supported_versions_for_module(module_versions: SupportedVersionsDict, module_name: str) -> tuple[VersionTuple, VersionTuple]:
+    while "." in module_name:
+        if module_name in module_versions:
+            return module_versions[module_name]
+        module_name = ".".join(module_name.split(".")[:-1])
+    return module_versions[module_name]
 
 
 def _parse_version(v_str: str) -> tuple[int, int]:
