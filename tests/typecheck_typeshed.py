@@ -60,8 +60,9 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "--no-error-summary",
         "--enable-error-code",
         "ignore-without-code",
-        "--enable-error-code",
-        "possibly-undefined",
+        # https://github.com/python/mypy/issues/14309
+        # "--enable-error-code",
+        # "possibly-undefined",
         "--enable-error-code",
         "redundant-expr",
         "--enable-error-code",
