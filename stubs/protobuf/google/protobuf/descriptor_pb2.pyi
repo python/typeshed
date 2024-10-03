@@ -35,6 +35,10 @@ class _EditionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTy
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     EDITION_UNKNOWN: _Edition.ValueType  # 0
     """A placeholder for an unknown edition value."""
+    EDITION_LEGACY: _Edition.ValueType  # 900
+    """A placeholder edition for specifying default behaviors *before* a feature
+    was first introduced.  This is effectively an "infinite past".
+    """
     EDITION_PROTO2: _Edition.ValueType  # 998
     """Legacy syntax "editions".  These pre-date editions, but behave much like
     distinct editions.  These can't be used to specify the edition of proto
@@ -47,6 +51,7 @@ class _EditionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTy
     should not be depended on, but they will always be time-ordered for easy
     comparison.
     """
+    EDITION_2024: _Edition.ValueType  # 1001
     EDITION_1_TEST_ONLY: _Edition.ValueType  # 1
     """Placeholder editions for testing feature resolution.  These should not be
     used or relyed on outside of tests.
@@ -55,12 +60,21 @@ class _EditionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTy
     EDITION_99997_TEST_ONLY: _Edition.ValueType  # 99997
     EDITION_99998_TEST_ONLY: _Edition.ValueType  # 99998
     EDITION_99999_TEST_ONLY: _Edition.ValueType  # 99999
+    EDITION_MAX: _Edition.ValueType  # 2147483647
+    """Placeholder for specifying unbounded edition support.  This should only
+    ever be used by plugins that can expect to never require any changes to
+    support a new edition.
+    """
 
 class Edition(_Edition, metaclass=_EditionEnumTypeWrapper):
     """The full set of known editions."""
 
 EDITION_UNKNOWN: Edition.ValueType  # 0
 """A placeholder for an unknown edition value."""
+EDITION_LEGACY: Edition.ValueType  # 900
+"""A placeholder edition for specifying default behaviors *before* a feature
+was first introduced.  This is effectively an "infinite past".
+"""
 EDITION_PROTO2: Edition.ValueType  # 998
 """Legacy syntax "editions".  These pre-date editions, but behave much like
 distinct editions.  These can't be used to specify the edition of proto
@@ -73,6 +87,7 @@ EDITION_2023: Edition.ValueType  # 1000
 should not be depended on, but they will always be time-ordered for easy
 comparison.
 """
+EDITION_2024: Edition.ValueType  # 1001
 EDITION_1_TEST_ONLY: Edition.ValueType  # 1
 """Placeholder editions for testing feature resolution.  These should not be
 used or relyed on outside of tests.
@@ -81,6 +96,11 @@ EDITION_2_TEST_ONLY: Edition.ValueType  # 2
 EDITION_99997_TEST_ONLY: Edition.ValueType  # 99997
 EDITION_99998_TEST_ONLY: Edition.ValueType  # 99998
 EDITION_99999_TEST_ONLY: Edition.ValueType  # 99999
+EDITION_MAX: Edition.ValueType  # 2147483647
+"""Placeholder for specifying unbounded edition support.  This should only
+ever be used by plugins that can expect to never require any changes to
+support a new edition.
+"""
 global___Edition = Edition
 
 @typing.final
@@ -557,12 +577,12 @@ class FieldDescriptorProto(google.protobuf.message.Message):
     """If true, this is a proto3 "optional". When a proto3 field is optional, it
     tracks presence regardless of field type.
 
-    When proto3_optional is true, this field must be belong to a oneof to
-    signal to old proto3 clients that presence is tracked for this field. This
-    oneof is known as a "synthetic" oneof, and this field must be its sole
-    member (each proto3 optional field gets its own synthetic oneof). Synthetic
-    oneofs exist in the descriptor only, and do not generate any API. Synthetic
-    oneofs must be ordered after all "real" oneofs.
+    When proto3_optional is true, this field must belong to a oneof to signal
+    to old proto3 clients that presence is tracked for this field. This oneof
+    is known as a "synthetic" oneof, and this field must be its sole member
+    (each proto3 optional field gets its own synthetic oneof). Synthetic oneofs
+    exist in the descriptor only, and do not generate any API. Synthetic oneofs
+    must be ordered after all "real" oneofs.
 
     For message fields, proto3_optional doesn't create any semantic change,
     since non-repeated message fields always track presence. However it still
@@ -851,7 +871,6 @@ class FileOptions(google.protobuf.message.Message):
     CC_GENERIC_SERVICES_FIELD_NUMBER: builtins.int
     JAVA_GENERIC_SERVICES_FIELD_NUMBER: builtins.int
     PY_GENERIC_SERVICES_FIELD_NUMBER: builtins.int
-    PHP_GENERIC_SERVICES_FIELD_NUMBER: builtins.int
     DEPRECATED_FIELD_NUMBER: builtins.int
     CC_ENABLE_ARENAS_FIELD_NUMBER: builtins.int
     OBJC_CLASS_PREFIX_FIELD_NUMBER: builtins.int
@@ -887,12 +906,16 @@ class FileOptions(google.protobuf.message.Message):
     java_generate_equals_and_hash: builtins.bool
     """This option does nothing."""
     java_string_check_utf8: builtins.bool
-    """If set true, then the Java2 code generator will generate code that
-    throws an exception whenever an attempt is made to assign a non-UTF-8
-    byte sequence to a string field.
-    Message reflection will do the same.
-    However, an extension field still accepts non-UTF-8 byte sequences.
-    This option has no effect on when used with the lite runtime.
+    """A proto2 file can set this to true to opt in to UTF-8 checking for Java,
+    which will throw an exception if invalid UTF-8 is parsed from the wire or
+    assigned to a string field.
+
+    TODO: clarify exactly what kinds of field types this option
+    applies to, and update these docs accordingly.
+
+    Proto3 files already perform these checks. Setting the option explicitly to
+    false has no effect: it cannot be used to opt proto3 files out of UTF-8
+    checks.
     """
     optimize_for: global___FileOptions.OptimizeMode.ValueType
     go_package: builtins.str
@@ -916,7 +939,6 @@ class FileOptions(google.protobuf.message.Message):
     """
     java_generic_services: builtins.bool
     py_generic_services: builtins.bool
-    php_generic_services: builtins.bool
     deprecated: builtins.bool
     """Is this file deprecated?
     Depending on the target platform, this can emit Deprecated annotations
@@ -981,7 +1003,6 @@ class FileOptions(google.protobuf.message.Message):
         cc_generic_services: builtins.bool | None = ...,
         java_generic_services: builtins.bool | None = ...,
         py_generic_services: builtins.bool | None = ...,
-        php_generic_services: builtins.bool | None = ...,
         deprecated: builtins.bool | None = ...,
         cc_enable_arenas: builtins.bool | None = ...,
         objc_class_prefix: builtins.str | None = ...,
@@ -994,8 +1015,8 @@ class FileOptions(google.protobuf.message.Message):
         features: global___FeatureSet | None = ...,
         uninterpreted_option: collections.abc.Iterable[global___UninterpretedOption] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["cc_enable_arenas", b"cc_enable_arenas", "cc_generic_services", b"cc_generic_services", "csharp_namespace", b"csharp_namespace", "deprecated", b"deprecated", "features", b"features", "go_package", b"go_package", "java_generate_equals_and_hash", b"java_generate_equals_and_hash", "java_generic_services", b"java_generic_services", "java_multiple_files", b"java_multiple_files", "java_outer_classname", b"java_outer_classname", "java_package", b"java_package", "java_string_check_utf8", b"java_string_check_utf8", "objc_class_prefix", b"objc_class_prefix", "optimize_for", b"optimize_for", "php_class_prefix", b"php_class_prefix", "php_generic_services", b"php_generic_services", "php_metadata_namespace", b"php_metadata_namespace", "php_namespace", b"php_namespace", "py_generic_services", b"py_generic_services", "ruby_package", b"ruby_package", "swift_prefix", b"swift_prefix"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["cc_enable_arenas", b"cc_enable_arenas", "cc_generic_services", b"cc_generic_services", "csharp_namespace", b"csharp_namespace", "deprecated", b"deprecated", "features", b"features", "go_package", b"go_package", "java_generate_equals_and_hash", b"java_generate_equals_and_hash", "java_generic_services", b"java_generic_services", "java_multiple_files", b"java_multiple_files", "java_outer_classname", b"java_outer_classname", "java_package", b"java_package", "java_string_check_utf8", b"java_string_check_utf8", "objc_class_prefix", b"objc_class_prefix", "optimize_for", b"optimize_for", "php_class_prefix", b"php_class_prefix", "php_generic_services", b"php_generic_services", "php_metadata_namespace", b"php_metadata_namespace", "php_namespace", b"php_namespace", "py_generic_services", b"py_generic_services", "ruby_package", b"ruby_package", "swift_prefix", b"swift_prefix", "uninterpreted_option", b"uninterpreted_option"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["cc_enable_arenas", b"cc_enable_arenas", "cc_generic_services", b"cc_generic_services", "csharp_namespace", b"csharp_namespace", "deprecated", b"deprecated", "features", b"features", "go_package", b"go_package", "java_generate_equals_and_hash", b"java_generate_equals_and_hash", "java_generic_services", b"java_generic_services", "java_multiple_files", b"java_multiple_files", "java_outer_classname", b"java_outer_classname", "java_package", b"java_package", "java_string_check_utf8", b"java_string_check_utf8", "objc_class_prefix", b"objc_class_prefix", "optimize_for", b"optimize_for", "php_class_prefix", b"php_class_prefix", "php_metadata_namespace", b"php_metadata_namespace", "php_namespace", b"php_namespace", "py_generic_services", b"py_generic_services", "ruby_package", b"ruby_package", "swift_prefix", b"swift_prefix"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["cc_enable_arenas", b"cc_enable_arenas", "cc_generic_services", b"cc_generic_services", "csharp_namespace", b"csharp_namespace", "deprecated", b"deprecated", "features", b"features", "go_package", b"go_package", "java_generate_equals_and_hash", b"java_generate_equals_and_hash", "java_generic_services", b"java_generic_services", "java_multiple_files", b"java_multiple_files", "java_outer_classname", b"java_outer_classname", "java_package", b"java_package", "java_string_check_utf8", b"java_string_check_utf8", "objc_class_prefix", b"objc_class_prefix", "optimize_for", b"optimize_for", "php_class_prefix", b"php_class_prefix", "php_metadata_namespace", b"php_metadata_namespace", "php_namespace", b"php_namespace", "py_generic_services", b"py_generic_services", "ruby_package", b"ruby_package", "swift_prefix", b"swift_prefix", "uninterpreted_option", b"uninterpreted_option"]) -> None: ...
 
 global___FileOptions = FileOptions
 
@@ -1042,11 +1063,7 @@ class MessageOptions(google.protobuf.message.Message):
     this is a formalization for deprecating messages.
     """
     map_entry: builtins.bool
-    """NOTE: Do not set the option in .proto files. Always use the maps syntax
-    instead. The option should only be implicitly set by the proto compiler
-    parser.
-
-    Whether the message is an automatically generated map entry type for the
+    """Whether the message is an automatically generated map entry type for the
     maps field.
 
     For maps fields:
@@ -1063,6 +1080,10 @@ class MessageOptions(google.protobuf.message.Message):
     use a native map in the target language to hold the keys and values.
     The reflection APIs in such implementations still need to work as
     if the field is a repeated message field.
+
+    NOTE: Do not set the option in .proto files. Always use the maps syntax
+    instead. The option should only be implicitly set by the proto compiler
+    parser.
     """
     deprecated_legacy_json_field_conflicts: builtins.bool
     """Enable the legacy handling of JSON field name conflicts.  This lowercases
@@ -1229,6 +1250,45 @@ class FieldOptions(google.protobuf.message.Message):
         def HasField(self, field_name: typing.Literal["edition", b"edition", "value", b"value"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["edition", b"edition", "value", b"value"]) -> None: ...
 
+    @typing.final
+    class FeatureSupport(google.protobuf.message.Message):
+        """Information about the support window of a feature."""
+
+        DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+        EDITION_INTRODUCED_FIELD_NUMBER: builtins.int
+        EDITION_DEPRECATED_FIELD_NUMBER: builtins.int
+        DEPRECATION_WARNING_FIELD_NUMBER: builtins.int
+        EDITION_REMOVED_FIELD_NUMBER: builtins.int
+        edition_introduced: global___Edition.ValueType
+        """The edition that this feature was first available in.  In editions
+        earlier than this one, the default assigned to EDITION_LEGACY will be
+        used, and proto files will not be able to override it.
+        """
+        edition_deprecated: global___Edition.ValueType
+        """The edition this feature becomes deprecated in.  Using this after this
+        edition may trigger warnings.
+        """
+        deprecation_warning: builtins.str
+        """The deprecation warning text if this feature is used after the edition it
+        was marked deprecated in.
+        """
+        edition_removed: global___Edition.ValueType
+        """The edition this feature is no longer available in.  In editions after
+        this one, the last default assigned will be used, and proto files will
+        not be able to override it.
+        """
+        def __init__(
+            self,
+            *,
+            edition_introduced: global___Edition.ValueType | None = ...,
+            edition_deprecated: global___Edition.ValueType | None = ...,
+            deprecation_warning: builtins.str | None = ...,
+            edition_removed: global___Edition.ValueType | None = ...,
+        ) -> None: ...
+        def HasField(self, field_name: typing.Literal["deprecation_warning", b"deprecation_warning", "edition_deprecated", b"edition_deprecated", "edition_introduced", b"edition_introduced", "edition_removed", b"edition_removed"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["deprecation_warning", b"deprecation_warning", "edition_deprecated", b"edition_deprecated", "edition_introduced", b"edition_introduced", "edition_removed", b"edition_removed"]) -> None: ...
+
     CTYPE_FIELD_NUMBER: builtins.int
     PACKED_FIELD_NUMBER: builtins.int
     JSTYPE_FIELD_NUMBER: builtins.int
@@ -1241,14 +1301,16 @@ class FieldOptions(google.protobuf.message.Message):
     TARGETS_FIELD_NUMBER: builtins.int
     EDITION_DEFAULTS_FIELD_NUMBER: builtins.int
     FEATURES_FIELD_NUMBER: builtins.int
+    FEATURE_SUPPORT_FIELD_NUMBER: builtins.int
     UNINTERPRETED_OPTION_FIELD_NUMBER: builtins.int
     ctype: global___FieldOptions.CType.ValueType
-    """The ctype option instructs the C++ code generator to use a different
+    """NOTE: ctype is deprecated. Use `features.(pb.cpp).string_type` instead.
+    The ctype option instructs the C++ code generator to use a different
     representation of the field than it normally would.  See the specific
     options below.  This option is only implemented to support use of
     [ctype=CORD] and [ctype=STRING] (the default) on non-repeated fields of
-    type "bytes" in the open source release -- sorry, we'll try to include
-    other types in a future version!
+    type "bytes" in the open source release.
+    TODO: make ctype actually deprecated.
     """
     packed: builtins.bool
     """The packed option can be enabled for repeated primitive fields to enable
@@ -1290,19 +1352,11 @@ class FieldOptions(google.protobuf.message.Message):
     call from multiple threads concurrently, while non-const methods continue
     to require exclusive access.
 
-    Note that implementations may choose not to check required fields within
-    a lazy sub-message.  That is, calling IsInitialized() on the outer message
-    may return true even if the inner message has missing required fields.
-    This is necessary because otherwise the inner message would have to be
-    parsed in order to perform the check, defeating the purpose of lazy
-    parsing.  An implementation which chooses not to check required fields
-    must be consistent about it.  That is, for any particular sub-message, the
-    implementation must either *always* check its required fields, or *never*
-    check its required fields, regardless of whether or not the message has
-    been parsed.
-
-    As of May 2022, lazy verifies the contents of the byte stream during
-    parsing.  An invalid byte stream will cause the overall parsing to fail.
+    Note that lazy message fields are still eagerly verified to check
+    ill-formed wireformat or missing required fields. Calling IsInitialized()
+    on the outer message would fail if the inner message has missing required
+    fields. Failed verification would result in parsing failure (except when
+    uninitialized messages are acceptable).
     """
     unverified_lazy: builtins.bool
     """unverified_lazy does no correctness checks on the byte stream. This should
@@ -1331,6 +1385,8 @@ class FieldOptions(google.protobuf.message.Message):
         """Any features defined in the specific edition."""
 
     @property
+    def feature_support(self) -> global___FieldOptions.FeatureSupport: ...
+    @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
         """The parser stores options it doesn't recognize here. See above."""
 
@@ -1349,10 +1405,11 @@ class FieldOptions(google.protobuf.message.Message):
         targets: collections.abc.Iterable[global___FieldOptions.OptionTargetType.ValueType] | None = ...,
         edition_defaults: collections.abc.Iterable[global___FieldOptions.EditionDefault] | None = ...,
         features: global___FeatureSet | None = ...,
+        feature_support: global___FieldOptions.FeatureSupport | None = ...,
         uninterpreted_option: collections.abc.Iterable[global___UninterpretedOption] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["ctype", b"ctype", "debug_redact", b"debug_redact", "deprecated", b"deprecated", "features", b"features", "jstype", b"jstype", "lazy", b"lazy", "packed", b"packed", "retention", b"retention", "unverified_lazy", b"unverified_lazy", "weak", b"weak"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["ctype", b"ctype", "debug_redact", b"debug_redact", "deprecated", b"deprecated", "edition_defaults", b"edition_defaults", "features", b"features", "jstype", b"jstype", "lazy", b"lazy", "packed", b"packed", "retention", b"retention", "targets", b"targets", "uninterpreted_option", b"uninterpreted_option", "unverified_lazy", b"unverified_lazy", "weak", b"weak"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["ctype", b"ctype", "debug_redact", b"debug_redact", "deprecated", b"deprecated", "feature_support", b"feature_support", "features", b"features", "jstype", b"jstype", "lazy", b"lazy", "packed", b"packed", "retention", b"retention", "unverified_lazy", b"unverified_lazy", "weak", b"weak"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["ctype", b"ctype", "debug_redact", b"debug_redact", "deprecated", b"deprecated", "edition_defaults", b"edition_defaults", "feature_support", b"feature_support", "features", b"features", "jstype", b"jstype", "lazy", b"lazy", "packed", b"packed", "retention", b"retention", "targets", b"targets", "uninterpreted_option", b"uninterpreted_option", "unverified_lazy", b"unverified_lazy", "weak", b"weak"]) -> None: ...
 
 global___FieldOptions = FieldOptions
 
@@ -1437,6 +1494,7 @@ class EnumValueOptions(google.protobuf.message.Message):
     DEPRECATED_FIELD_NUMBER: builtins.int
     FEATURES_FIELD_NUMBER: builtins.int
     DEBUG_REDACT_FIELD_NUMBER: builtins.int
+    FEATURE_SUPPORT_FIELD_NUMBER: builtins.int
     UNINTERPRETED_OPTION_FIELD_NUMBER: builtins.int
     deprecated: builtins.bool
     """Is this enum value deprecated?
@@ -1454,6 +1512,10 @@ class EnumValueOptions(google.protobuf.message.Message):
         """Any features defined in the specific edition."""
 
     @property
+    def feature_support(self) -> global___FieldOptions.FeatureSupport:
+        """Information about the support window of a feature value."""
+
+    @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
         """The parser stores options it doesn't recognize here. See above."""
 
@@ -1463,10 +1525,11 @@ class EnumValueOptions(google.protobuf.message.Message):
         deprecated: builtins.bool | None = ...,
         features: global___FeatureSet | None = ...,
         debug_redact: builtins.bool | None = ...,
+        feature_support: global___FieldOptions.FeatureSupport | None = ...,
         uninterpreted_option: collections.abc.Iterable[global___UninterpretedOption] | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["debug_redact", b"debug_redact", "deprecated", b"deprecated", "features", b"features"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["debug_redact", b"debug_redact", "deprecated", b"deprecated", "features", b"features", "uninterpreted_option", b"uninterpreted_option"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["debug_redact", b"debug_redact", "deprecated", b"deprecated", "feature_support", b"feature_support", "features", b"features"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["debug_redact", b"debug_redact", "deprecated", b"deprecated", "feature_support", b"feature_support", "features", b"features", "uninterpreted_option", b"uninterpreted_option"]) -> None: ...
 
 global___EnumValueOptions = EnumValueOptions
 
@@ -1712,13 +1775,13 @@ class FeatureSet(google.protobuf.message.Message):
     class _Utf8ValidationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FeatureSet._Utf8Validation.ValueType], builtins.type):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UTF8_VALIDATION_UNKNOWN: FeatureSet._Utf8Validation.ValueType  # 0
-        NONE: FeatureSet._Utf8Validation.ValueType  # 1
         VERIFY: FeatureSet._Utf8Validation.ValueType  # 2
+        NONE: FeatureSet._Utf8Validation.ValueType  # 3
 
     class Utf8Validation(_Utf8Validation, metaclass=_Utf8ValidationEnumTypeWrapper): ...
     UTF8_VALIDATION_UNKNOWN: FeatureSet.Utf8Validation.ValueType  # 0
-    NONE: FeatureSet.Utf8Validation.ValueType  # 1
     VERIFY: FeatureSet.Utf8Validation.ValueType  # 2
+    NONE: FeatureSet.Utf8Validation.ValueType  # 3
 
     class _MessageEncoding:
         ValueType = typing.NewType("ValueType", builtins.int)
@@ -1798,18 +1861,26 @@ class FeatureSetDefaults(google.protobuf.message.Message):
         DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
         EDITION_FIELD_NUMBER: builtins.int
-        FEATURES_FIELD_NUMBER: builtins.int
+        OVERRIDABLE_FEATURES_FIELD_NUMBER: builtins.int
+        FIXED_FEATURES_FIELD_NUMBER: builtins.int
         edition: global___Edition.ValueType
         @property
-        def features(self) -> global___FeatureSet: ...
+        def overridable_features(self) -> global___FeatureSet:
+            """Defaults of features that can be overridden in this edition."""
+
+        @property
+        def fixed_features(self) -> global___FeatureSet:
+            """Defaults of features that can't be overridden in this edition."""
+
         def __init__(
             self,
             *,
             edition: global___Edition.ValueType | None = ...,
-            features: global___FeatureSet | None = ...,
+            overridable_features: global___FeatureSet | None = ...,
+            fixed_features: global___FeatureSet | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["edition", b"edition", "features", b"features"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["edition", b"edition", "features", b"features"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["edition", b"edition", "fixed_features", b"fixed_features", "overridable_features", b"overridable_features"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["edition", b"edition", "fixed_features", b"fixed_features", "overridable_features", b"overridable_features"]) -> None: ...
 
     DEFAULTS_FIELD_NUMBER: builtins.int
     MINIMUM_EDITION_FIELD_NUMBER: builtins.int
@@ -1912,7 +1983,7 @@ class SourceCodeInfo(google.protobuf.message.Message):
             location.
 
             Each element is a field number or an index.  They form a path from
-            the root FileDescriptorProto to the place where the definition occurs.
+            the root FileDescriptorProto to the place where the definition appears.
             For example, this path:
               [ 4, 3, 2, 7, 1 ]
             refers to:

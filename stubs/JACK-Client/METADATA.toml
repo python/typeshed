@@ -1,12 +1,14 @@
 version = "0.5.*"
 upstream_repository = "https://github.com/spatialaudio/jackclient-python"
 # Requires a version of numpy with a `py.typed` file
-requires = ["numpy>=1.20", "types-cffi"]
+# see https://github.com/python/typeshed/issues/12551
+# on why we need the upper bound for numpy
+requires = ["numpy>=1.20,<2.1.0", "types-cffi"]
 
 [tool.stubtest]
 # darwin and win32 are equivalent
-platforms = ["darwin", "linux"]
+platforms = ["linux"]
 apt_dependencies = ["libjack-dev"]
-brew_dependencies = ["jack"]
+# brew_dependencies = ["jack"]
 # No need to install on the CI. Leaving here as information for Windows contributors.
 # choco_dependencies = ["jack"]

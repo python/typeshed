@@ -22,8 +22,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  file-consistency:
-    name: Check file consistency
+  typeshed-structure:
+    name: Check typeshed structure
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,17 +32,7 @@ jobs:
           python-version: "3.12"
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/check_consistent.py
-
-  new-syntax:
-    name: Ensure new syntax usage
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - run: ./tests/check_new_syntax.py
+      - run: python ./tests/check_typeshed_structure.py
 
   pytype:
     name: Run pytype against the stubs
@@ -51,17 +41,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          # Max supported Python version as of pytype 2024.2.27.
-          python-version: "3.11"
+          # Max supported Python version as of pytype 2024.9.13
+          python-version: "3.12"
       - name: Install uv
         run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
       - name: Install external dependencies for 3rd-party stubs
         run: |
-          DEPENDENCIES=$(python tests/get_external_stub_requirements.py)
+          mapfile -t DEPENDENCIES < <( python tests/get_external_stub_requirements.py )
           if [ -n "$DEPENDENCIES" ]; then
-            echo "Installing packages: $DEPENDENCIES"
-            uv pip install $DEPENDENCIES --system
+              echo "Installing packages:"
+              for DEP in "${DEPENDENCIES[@]}"; do echo "  ${DEP}"; done
+              uv pip install "${DEPENDENCIES[@]}" --system
           fi
       - run: uv pip freeze
       - run: ./tests/pytype_test.py --print-stderr
@@ -83,6 +74,26 @@ jobs:
       - run: uv pip install -r requirements-tests.txt --system
       - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
+  # Run this as a separate job, as the other versions in the matrix are
+  # (and should be) run *using* the Python version we're testing the stubs for,
+  # but we can't install all our non-types dependencies on py313 yet
+  mypy-313:
+    name: Run mypy against the 3.13 stubs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform: ["linux", "win32", "darwin"]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+          allow-prereleases: true
+      - run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - run: uv pip install -r requirements-tests.txt --system
+      - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=3.13
+
   regression-tests:
     name: Run mypy on the test cases
     runs-on: ubuntu-latest
@@ -103,7 +114,7 @@ jobs:
     strategy:
       matrix:
         python-platform: ["Linux", "Windows", "Darwin"]
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
@@ -119,11 +130,14 @@ jobs:
         run: uv venv .venv
       - name: Install 3rd-party stub dependencies
         run: |
-          DEPENDENCIES=$(python tests/get_external_stub_requirements.py)
+          mapfile -t DEPENDENCIES < <( python tests/get_external_stub_requirements.py )
           if [ -n "$DEPENDENCIES" ]; then
-            source .venv/bin/activate
-            echo "Installing packages: $DEPENDENCIES"
-            uv pip install $DEPENDENCIES
+              echo "Installing packages:"
+              for DEP in "${DEPENDENCIES[@]}"; do echo "  ${DEP}"; done
+              # TODO: We need to specify the platform here, but the platforms
+              # strings supported by uv are different from the ones supported by
+              # pyright.
+              uv pip install --python-version ${{ matrix.python-version }} "${DEPENDENCIES[@]}"
           fi
       - name: Activate the isolated venv for the rest of the job
         run: echo "$PWD/.venv/bin" >> $GITHUB_PATH
@@ -135,14 +149,14 @@ jobs:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          annotate: ${{ matrix.python-version == '3.11' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
+          annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
       - name: Run pyright with stricter settings on some of the stubs
         uses: jakebailey/pyright-action@v2
         with:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          annotate: ${{ matrix.python-version == '3.11' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
+          annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.stricter.json
       - name: Run pyright on the test cases
         uses: jakebailey/pyright-action@v2
@@ -150,7 +164,7 @@ jobs:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          annotate: ${{ matrix.python-version == '3.11' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
+          annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.testcases.json
 
   stub-uploader:

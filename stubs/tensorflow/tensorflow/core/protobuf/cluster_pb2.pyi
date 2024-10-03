@@ -102,6 +102,9 @@ class JobDef(google.protobuf.message.Message):
         If the `name` field contains "worker", and the `tasks` map contains a
         mapping from 7 to "example.org:2222", then the device prefix
         "/job:worker/task:7" will be assigned to "example.org:2222".
+
+        If a job has multiple replicas, host-ports will be comma-delimited, with
+        one entry for each replica.
         """
 
     def __init__(

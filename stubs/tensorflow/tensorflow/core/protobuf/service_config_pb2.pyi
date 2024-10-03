@@ -17,7 +17,7 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 @typing.final
 class DispatcherConfig(google.protobuf.message.Message):
     """Configuration for a tf.data service DispatchServer.
-    Next id: 11
+    Next id: 13
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -30,8 +30,10 @@ class DispatcherConfig(google.protobuf.message.Message):
     DEPLOYMENT_MODE_FIELD_NUMBER: builtins.int
     JOB_GC_CHECK_INTERVAL_MS_FIELD_NUMBER: builtins.int
     JOB_GC_TIMEOUT_MS_FIELD_NUMBER: builtins.int
+    GC_DYNAMIC_SHARDING_JOBS_FIELD_NUMBER: builtins.int
     CLIENT_TIMEOUT_MS_FIELD_NUMBER: builtins.int
     WORKER_TIMEOUT_MS_FIELD_NUMBER: builtins.int
+    WORKER_MAX_CONCURRENT_SNAPSHOTS_FIELD_NUMBER: builtins.int
     port: builtins.int
     """The port for the dispatcher to bind to. A value of 0 indicates that the
     dispatcher may bind to any available port.
@@ -59,7 +61,15 @@ class DispatcherConfig(google.protobuf.message.Message):
     """How long a job needs to be unused before it becomes a candidate for garbage
     collection. A value of -1 indicates that jobs should never be garbage
     collected. A value of 0 indicates that the decision should be left up to
-    the runtime.
+    the runtime. Note: This does not apply to dynamic sharding unless users
+    explicitly opt-in by enabling `gc_dynamic_sharding_jobs` below.
+    """
+    gc_dynamic_sharding_jobs: builtins.bool
+    """Whether dynamically sharded jobs should be eligible for garbage collection.
+    These jobs are not garbage collected by default, since if a job is garbage
+    collected and then re-created, it will revisit all data from the start. If
+    revisiting data is acceptible and you want automatic reclamation of
+    iterator memory, set `gc_dynamic_sharding_jobs` to `true`.
     """
     client_timeout_ms: builtins.int
     """How long to wait before garbage-collecting a client that hasn't
@@ -69,6 +79,12 @@ class DispatcherConfig(google.protobuf.message.Message):
     worker_timeout_ms: builtins.int
     """How long to wait for a worker to heartbeat before considering it missing.
     A value of 0 indicates that the timeout should be left to the runtime.
+    """
+    worker_max_concurrent_snapshots: builtins.int
+    """The maximum number of snapshots that a worker can concurrently process at a
+    given point in time. This is a tradeoff between worker resource usage and
+    snapshot wall time. A value of 0 indicates that the decision should be left
+    up to the runtime.
     """
     @property
     def worker_addresses(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
@@ -89,17 +105,19 @@ class DispatcherConfig(google.protobuf.message.Message):
         deployment_mode: tensorflow.core.protobuf.data_service_pb2.DeploymentMode.ValueType | None = ...,
         job_gc_check_interval_ms: builtins.int | None = ...,
         job_gc_timeout_ms: builtins.int | None = ...,
+        gc_dynamic_sharding_jobs: builtins.bool | None = ...,
         client_timeout_ms: builtins.int | None = ...,
         worker_timeout_ms: builtins.int | None = ...,
+        worker_max_concurrent_snapshots: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["client_timeout_ms", b"client_timeout_ms", "deployment_mode", b"deployment_mode", "fault_tolerant_mode", b"fault_tolerant_mode", "job_gc_check_interval_ms", b"job_gc_check_interval_ms", "job_gc_timeout_ms", b"job_gc_timeout_ms", "port", b"port", "protocol", b"protocol", "work_dir", b"work_dir", "worker_addresses", b"worker_addresses", "worker_timeout_ms", b"worker_timeout_ms"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["client_timeout_ms", b"client_timeout_ms", "deployment_mode", b"deployment_mode", "fault_tolerant_mode", b"fault_tolerant_mode", "gc_dynamic_sharding_jobs", b"gc_dynamic_sharding_jobs", "job_gc_check_interval_ms", b"job_gc_check_interval_ms", "job_gc_timeout_ms", b"job_gc_timeout_ms", "port", b"port", "protocol", b"protocol", "work_dir", b"work_dir", "worker_addresses", b"worker_addresses", "worker_max_concurrent_snapshots", b"worker_max_concurrent_snapshots", "worker_timeout_ms", b"worker_timeout_ms"]) -> None: ...
 
 global___DispatcherConfig = DispatcherConfig
 
 @typing.final
 class WorkerConfig(google.protobuf.message.Message):
     """Configuration for a tf.data service WorkerServer.
-    Next id: 12
+    Next id: 13
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -114,6 +132,7 @@ class WorkerConfig(google.protobuf.message.Message):
     DATA_TRANSFER_PROTOCOL_FIELD_NUMBER: builtins.int
     DATA_TRANSFER_ADDRESS_FIELD_NUMBER: builtins.int
     CROSS_TRAINER_CACHE_SIZE_BYTES_FIELD_NUMBER: builtins.int
+    SNAPSHOT_MAX_CHUNK_SIZE_BYTES_FIELD_NUMBER: builtins.int
     SHUTDOWN_QUIET_PERIOD_MS_FIELD_NUMBER: builtins.int
     port: builtins.int
     """The port for the worker to bind to. A value of 0 indicates that the
@@ -148,6 +167,10 @@ class WorkerConfig(google.protobuf.message.Message):
     """Maximum size of the cross-trainer cache in bytes. If enabled, make sure
     your training job provides sufficient memory resources.
     """
+    snapshot_max_chunk_size_bytes: builtins.int
+    """The maximum size of a distributed snapshot chunk file. A value of 0
+    indicates that the decision should be left up to the runtime.
+    """
     shutdown_quiet_period_ms: builtins.int
     """When shutting down a worker, how long to wait for the gRPC server to
     process the final requests. This is used to achieve clean shutdown in unit
@@ -174,8 +197,9 @@ class WorkerConfig(google.protobuf.message.Message):
         data_transfer_protocol: builtins.str | None = ...,
         data_transfer_address: builtins.str | None = ...,
         cross_trainer_cache_size_bytes: builtins.int | None = ...,
+        snapshot_max_chunk_size_bytes: builtins.int | None = ...,
         shutdown_quiet_period_ms: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["cross_trainer_cache_size_bytes", b"cross_trainer_cache_size_bytes", "data_transfer_address", b"data_transfer_address", "data_transfer_protocol", b"data_transfer_protocol", "dispatcher_address", b"dispatcher_address", "dispatcher_timeout_ms", b"dispatcher_timeout_ms", "heartbeat_interval_ms", b"heartbeat_interval_ms", "port", b"port", "protocol", b"protocol", "shutdown_quiet_period_ms", b"shutdown_quiet_period_ms", "worker_address", b"worker_address", "worker_tags", b"worker_tags"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["cross_trainer_cache_size_bytes", b"cross_trainer_cache_size_bytes", "data_transfer_address", b"data_transfer_address", "data_transfer_protocol", b"data_transfer_protocol", "dispatcher_address", b"dispatcher_address", "dispatcher_timeout_ms", b"dispatcher_timeout_ms", "heartbeat_interval_ms", b"heartbeat_interval_ms", "port", b"port", "protocol", b"protocol", "shutdown_quiet_period_ms", b"shutdown_quiet_period_ms", "snapshot_max_chunk_size_bytes", b"snapshot_max_chunk_size_bytes", "worker_address", b"worker_address", "worker_tags", b"worker_tags"]) -> None: ...
 
 global___WorkerConfig = WorkerConfig

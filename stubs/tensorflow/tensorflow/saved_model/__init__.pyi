@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any, Generic, Literal, TypeVar
@@ -6,7 +7,7 @@ from typing_extensions import ParamSpec, TypeAlias
 import tensorflow as tf
 from tensorflow.python.training.tracking.autotrackable import AutoTrackable
 from tensorflow.saved_model.experimental import VariablePolicy
-from tensorflow.types.experimental import ConcreteFunction, GenericFunction
+from tensorflow.types.experimental import ConcreteFunction, PolymorphicFunction
 
 _P = ParamSpec("_P")
 _R = TypeVar("_R", covariant=True)
@@ -39,30 +40,39 @@ class SaveOptions:
         "namespace_whitelist",
         "save_debug_info",
         "function_aliases",
+        "experimental_debug_stripper",
         "experimental_io_device",
         "experimental_variable_policy",
         "experimental_custom_gradients",
         "experimental_image_format",
         "experimental_skip_saver",
+        "experimental_sharding_callback",
+        "extra_tags",
     )
     namespace_whitelist: list[str]
     save_debug_info: bool
-    function_aliases: dict[str, tf.types.experimental.GenericFunction[..., object]]
+    function_aliases: dict[str, PolymorphicFunction[..., object]]
+    experimental_debug_stripper: bool
     experimental_io_device: str
     experimental_variable_policy: VariablePolicy
     experimental_custom_gradients: bool
     experimental_image_format: bool
     experimental_skip_saver: bool
+    experimental_sharding_callback: Incomplete | None
+    extra_tags: Incomplete | None
     def __init__(
         self,
         namespace_whitelist: list[str] | None = None,
         save_debug_info: bool = False,
-        function_aliases: Mapping[str, tf.types.experimental.GenericFunction[..., object]] | None = None,
+        function_aliases: Mapping[str, PolymorphicFunction[..., object]] | None = None,
+        experimental_debug_stripper: bool = False,
         experimental_io_device: str | None = None,
         experimental_variable_policy: str | VariablePolicy | None = None,
         experimental_custom_gradients: bool = True,
         experimental_image_format: bool = False,
         experimental_skip_saver: bool = False,
+        experimental_sharding_callback: Incomplete | None = None,
+        extra_tags: Incomplete | None = None,
     ) -> None: ...
 
 def contains_saved_model(export_dir: str | Path) -> bool: ...
@@ -80,7 +90,7 @@ def load(
     export_dir: str, tags: str | Sequence[str] | None = None, options: LoadOptions | None = None
 ) -> _LoadedModel[..., Any]: ...
 
-_TF_Function: TypeAlias = ConcreteFunction[..., object] | GenericFunction[..., object]
+_TF_Function: TypeAlias = ConcreteFunction[..., object] | PolymorphicFunction[..., object]
 
 def save(
     obj: tf.Module,
