@@ -164,6 +164,9 @@ platform.uname_result.processor
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
 
+# Deprecated argument is supported at runtime by renaming it through a decorator.
+importlib.resources._common.files
+importlib.resources.files
 # Problematic protocol signature at runtime, see source code comments.
 importlib.abc.Traversable.open
 importlib.resources.abc.Traversable.open
@@ -199,3 +202,6 @@ ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
 ctypes._endian.RTLD_LOCAL
 ctypes._endian.SIZEOF_TIME_T
+
+# Incompatible changes introduced in Python 3.12.5
+concurrent.futures.__all__
