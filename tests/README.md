@@ -28,8 +28,8 @@ You can list or install all of a stubs package's external dependencies using the
 (.venv3)$ python tests/get_external_stub_requirements.py <third_party_stub1> <third_party_stub2>  # List external dependencies for <third_party_stub1> and <third_party_stub2>
 (.venv3)$ python tests/get_external_stub_requirements.py  # List external dependencies for all third-party stubs in typeshed
 # Install external dependencies for all third-party stubs in typeshed
-(.venv3)$ DEPENDENCIES=$(python tests/get_external_stub_requirements.py)
-(.venv3)$ if [ -n "$DEPENDENCIES" ]; then pip install $DEPENDENCIES; fi
+(.venv3)$ mapfile -t DEPENDENCIES < <( python tests/get_external_stub_requirements.py )
+(.venv3)$ if [ -n "$DEPENDENCIES" ]; then pip install "${DEPENDENCIES[@]}"; fi
 ```
 
 ## Run all tests for a specific stub
@@ -71,10 +71,8 @@ for this script.
 
 ## pytype\_test.py
 
-Note: this test cannot be run on Windows
-systems unless you are using Windows Subsystem for Linux.
-It also requires a Python version < 3.11 as pytype does not yet support
-Python 3.11 and above.
+Note: This test cannot be run on Python version < 3.13 as pytype does not yet support
+Python 3.13 and above.
 
 Run using:
 ```bash
@@ -177,9 +175,9 @@ directly, with
 
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
 relative to the distribution. Platform specific items can be ignored by listing them
-in a `@tests/stubtest_allowlist_{platform}.txt` file. Additional packages that are needed
-to run stubtest for a
-distribution can be added to `tool.stubtest.stubtest_requirements` in `METADATA.toml`.
+in a `@tests/stubtest_allowlist_{platform}.txt` file. Additional configuration
+can be found in the `tool.stubtest` section of the `METADATA.toml` file. See
+[CONTRIBUTING.md](../CONTRIBUTING.md#the-metadatatoml-file) for more information.
 
 ### Using stubtest to find objects missing from the stubs
 
