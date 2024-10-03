@@ -24,6 +24,11 @@ tkinter.Misc.tk_busy_status
 tkinter.Text.count
 tkinter.Wm.wm_attributes
 
+# Name of the "p" parameter changed to "path", but is
+# expected to get changed back in 3.13.1:
+# https://github.com/python/cpython/pull/124097
+(os\.path|ntpath|posixpath)\.splitroot
+
 # ======================================
 # Pre-existing errors from Python <=3.12
 # ======================================
