@@ -7,21 +7,15 @@ from docutils.languages import LanguageImporter
 _S = TypeVar("_S")
 
 class Writer(Component, Generic[_S]):
-
-    document: nodes.document | None = None
-
-    output: _S | None = None
-
-    language: LanguageImporter | None = None
-
-    destination: Output | None = None
-
     parts: dict[str, Any]
-
+    language: LanguageImporter | None = None
     def __init__(self) -> None: ...
-    def write(self, document: nodes.document, destination: Output) -> str | bytes | None: ...
+    document: nodes.document | None = None
+    destination: Output | None = None
+    output: _S | None = None
+    def assemble_parts(self) -> None: ...a
     def translate(self) -> None: ...
-    def assemble_parts(self) -> None: ...
+    def write(self, document: nodes.document, destination: Output) -> str | bytes | None: ...
 
 class UnfilteredWriter(Writer[_S]): ...
 
