@@ -33,7 +33,7 @@ class Dialect:
     strict: bool
     def __init__(
         self,
-        dialect: _DialectLike = ...,
+        dialect: _DialectLike | None = ...,
         delimiter: str = ",",
         doublequote: bool = True,
         escapechar: str | None = None,
