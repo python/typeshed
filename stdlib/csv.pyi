@@ -6,7 +6,7 @@ from _csv import (
     QUOTE_MINIMAL as QUOTE_MINIMAL,
     QUOTE_NONE as QUOTE_NONE,
     QUOTE_NONNUMERIC as QUOTE_NONNUMERIC,
-    Dialect as Dialect,
+    Dialect as _Dialect,
     Error as Error,
     __version__ as __version__,
     _DialectLike,
@@ -60,6 +60,9 @@ if sys.version_info < (3, 13):
     __all__ += ["__doc__", "__version__"]
 
 _T = TypeVar("_T")
+
+class Dialect(_Dialect):
+    def __init__(self) -> None: ...
 
 class excel(Dialect): ...
 class excel_tab(excel): ...
