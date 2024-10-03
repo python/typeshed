@@ -2,3 +2,7 @@
 # (Hard to add types for unless we add stubs for the undocumented _overlapped module...)
 asyncio.IocpProactor.finish_socket_func
 asyncio.windows_events.IocpProactor.finish_socket_func
+
+# Argument was made keyword-only, may be fixed in 3.13.1
+# https://github.com/python/cpython/issues/124917
+(os\.path|ntpath)\.l?exists
