@@ -1,5 +1,4 @@
 import sys
-
 from _csv import (
     QUOTE_ALL as QUOTE_ALL,
     QUOTE_MINIMAL as QUOTE_MINIMAL,
