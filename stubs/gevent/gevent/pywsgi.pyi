@@ -5,8 +5,8 @@ from http.client import HTTPMessage
 from io import BufferedIOBase, BufferedReader
 from logging import Logger
 from types import TracebackType
-from typing import Any, ClassVar, Protocol, TypeVar, overload
-from typing_extensions import Literal, Self
+from typing import Any, ClassVar, Literal, Protocol, TypeVar, overload
+from typing_extensions import Self
 
 from gevent.baseserver import _Spawner
 from gevent.server import StreamServer
@@ -18,7 +18,7 @@ __all__ = ["WSGIServer", "WSGIHandler", "LoggingLogAdapter", "Environ", "SecureE
 _T = TypeVar("_T")
 
 class _LogOutputStream(SupportsWrite[str], Protocol):
-    def writelines(self, __lines: Iterable[str]) -> None: ...
+    def writelines(self, lines: Iterable[str], /) -> None: ...
     def flush(self) -> None: ...
 
 class Input:

@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
-from typing import ClassVar, overload
-from typing_extensions import Literal, Self, TypeAlias
+from typing import ClassVar, Literal, overload
+from typing_extensions import Self, TypeAlias
 
 from openpyxl.chart.layout import Layout
 from openpyxl.chart.shapes import GraphicalProperties
@@ -155,10 +155,9 @@ class DisplayUnitsLabelList(Serialisable):
     def __init__(
         self,
         custUnit: _HasTagAndGet[ConvertibleToFloat | None] | ConvertibleToFloat | None = None,
-        builtInUnit: _HasTagAndGet[_DisplayUnitsLabelListBuiltInUnit]
-        | _DisplayUnitsLabelListBuiltInUnit
-        | Literal["none"]
-        | None = None,
+        builtInUnit: (
+            _HasTagAndGet[_DisplayUnitsLabelListBuiltInUnit] | _DisplayUnitsLabelListBuiltInUnit | Literal["none"] | None
+        ) = None,
         dispUnitsLbl: DisplayUnitsLabel | None = None,
         extLst: Unused = None,
     ) -> None: ...

@@ -220,9 +220,6 @@ if sys.version_info < (3, 12):
 if sys.version_info < (3, 10):
     from _sqlite3 import OptimizedUnicode as OptimizedUnicode
 
-if sys.version_info < (3, 8):
-    from sqlite3 import Cache as Cache, Statement as Statement
-
 paramstyle: str
 threadsafety: int
 apilevel: str
@@ -234,6 +231,9 @@ def DateFromTicks(ticks: float) -> Date: ...
 def TimeFromTicks(ticks: float) -> Time: ...
 def TimestampFromTicks(ticks: float) -> Timestamp: ...
 
-version_info: tuple[int, int, int]
+if sys.version_info < (3, 14):
+    # Deprecated in 3.12, removed in 3.14.
+    version_info: tuple[int, int, int]
+
 sqlite_version_info: tuple[int, int, int]
 Binary = memoryview

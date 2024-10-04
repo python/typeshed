@@ -1,13 +1,10 @@
 from _typeshed import ConvertibleToInt, Unused
-from typing import ClassVar
-from typing_extensions import Literal
+from typing import ClassVar, Literal
 
 from openpyxl.descriptors.base import Typed
 from openpyxl.descriptors.nested import NestedText
 from openpyxl.descriptors.serialisable import Serialisable
 from openpyxl.xml.functions import Element
-
-def get_version(): ...
 
 class DigSigBlob(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
@@ -77,8 +74,8 @@ class ExtendedProperties(Serialisable):
         HLinks: Unused = None,
         HyperlinksChanged: object = None,
         DigSig: Unused = None,
-        Application: object = "Microsoft Excel",
-        AppVersion: object = None,
+        Application: Unused = None,
+        AppVersion: str | None = None,
         DocSecurity: ConvertibleToInt | None = None,
     ) -> None: ...
     def to_tree(self) -> Element: ...  # type: ignore[override]
