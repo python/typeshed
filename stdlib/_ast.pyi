@@ -141,9 +141,9 @@ if sys.version_info < (3, 9):
         slice as slice,
     )
 
+PyCF_ALLOW_TOP_LEVEL_AWAIT: Literal[8192]
 PyCF_ONLY_AST: Literal[1024]
 PyCF_TYPE_COMMENTS: Literal[4096]
-PyCF_ALLOW_TOP_LEVEL_AWAIT: Literal[8192]
 
 if sys.version_info >= (3, 13):
     PyCF_OPTIMIZED_AST: Literal[33792]
