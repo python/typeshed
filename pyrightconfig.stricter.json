@@ -73,7 +73,6 @@
         "stubs/peewee",
         "stubs/pexpect",
         "stubs/pika",
-        "stubs/Pillow",
         "stubs/protobuf",
         "stubs/psutil",
         "stubs/psycopg2",

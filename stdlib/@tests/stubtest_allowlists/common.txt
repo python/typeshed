@@ -11,7 +11,6 @@ _collections_abc.AsyncGenerator.ag_running
 _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
-_csv.Dialect.__init__  # C __init__ signature is inaccurate
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
 _threading_local.local.__new__
 ast.Bytes.__new__
