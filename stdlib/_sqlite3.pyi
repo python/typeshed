@@ -72,8 +72,7 @@ adapters: dict[tuple[type[Any], type[Any]], _Adapter[Any]]
 converters: dict[str, _Converter]
 sqlite_version: str
 
-if sys.version_info < (3, 14):
-    # Deprecated in 3.12, removed in 3.14.
+if sys.version_info < (3, 12):
     version: str
 
 if sys.version_info >= (3, 12):

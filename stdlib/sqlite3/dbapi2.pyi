@@ -208,9 +208,11 @@ if sys.version_info >= (3, 11):
     )
     from sqlite3 import Blob as Blob
 
-if sys.version_info < (3, 12):
-    from _sqlite3 import version as version
+if sys.version_info < (3, 14):
+    # Deprecated and removed from _sqlite3 in 3.12, but removed from here in 3.14.
+    version: str
 
+if sys.version_info < (3, 12):
     if sys.version_info >= (3, 10):
         # deprecation wrapper that has a different name for the argument...
         def enable_shared_cache(enable: int) -> None: ...
