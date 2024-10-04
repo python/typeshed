@@ -7,10 +7,8 @@ tests the stubs with [mypy](https://github.com/python/mypy/)
 [pyright](https://github.com/microsoft/pyright).
 - `tests/regr_test.py` runs mypy against the test cases for typeshed's
 stubs, guarding against accidental regressions.
-- `tests/check_consistent.py` checks that typeshed's directory
+- `tests/check_typeshed_structure.py` checks that typeshed's directory
 structure and metadata files are correct.
-- `tests/check_new_syntax.py` contains linter-like checks to ensure
-that certain code conventions are followed.
 - `tests/stubtest_stdlib.py` checks standard library stubs against the
 objects at runtime.
 - `tests/stubtest_third_party.py` checks third-party stubs against the
@@ -30,15 +28,15 @@ You can list or install all of a stubs package's external dependencies using the
 (.venv3)$ python tests/get_external_stub_requirements.py <third_party_stub1> <third_party_stub2>  # List external dependencies for <third_party_stub1> and <third_party_stub2>
 (.venv3)$ python tests/get_external_stub_requirements.py  # List external dependencies for all third-party stubs in typeshed
 # Install external dependencies for all third-party stubs in typeshed
-(.venv3)$ DEPENDENCIES=$(python tests/get_external_stub_requirements.py)
-(.venv3)$ if [ -n "$DEPENDENCIES" ]; then pip install $DEPENDENCIES; fi
+(.venv3)$ mapfile -t DEPENDENCIES < <( python tests/get_external_stub_requirements.py )
+(.venv3)$ if [ -n "$DEPENDENCIES" ]; then pip install "${DEPENDENCIES[@]}"; fi
 ```
 
 ## Run all tests for a specific stub
 
 Run using:
 ```bash
-(.venv3)$ python3 scripts/runtests.py <stdlib-or-stubs>/<stub-to-test>
+(.venv3)$ python3 tests/runtests.py <stdlib-or-stubs>/<stub-to-test>
 ```
 
 This script will run all tests below for a specific typeshed directory. If a
@@ -48,7 +46,7 @@ be selected. A summary of the results will be printed to the terminal.
 You must provide a single argument which is a path to the stubs to test, like
 so: `stdlib/os` or `stubs/requests`.
 
-Run `python scripts/runtests.py --help` for information on the various configuration options
+Run `python tests/runtests.py --help` for information on the various configuration options
 for this script. Note that if you use the `--run-stubtest` flag with the stdlib stubs,
 whether or not the test passes will depend on the exact version of Python
 you're using, as well as various other details regarding your local environment.
@@ -73,10 +71,8 @@ for this script.
 
 ## pytype\_test.py
 
-Note: this test cannot be run on Windows
-systems unless you are using Windows Subsystem for Linux.
-It also requires a Python version < 3.11 as pytype does not yet support
-Python 3.11 and above.
+Note: This test cannot be run on Python version < 3.13 as pytype does not yet support
+Python 3.13 and above.
 
 Run using:
 ```bash
@@ -104,16 +100,19 @@ the stubs in typeshed (including the standard library).
 ## regr\_test.py
 
 This test runs mypy against the test cases for typeshed's stdlib and third-party
-stubs. See [the README in the `test_cases` directory](../test_cases/README.md)
+stubs. See [the REGRESSION.md document](./REGRESSION.md)
+in this directory
 for more information about what
 these test cases are for and how they work. Run `python tests/regr_test.py --help`
 for information on the various configuration options.
 
-## check\_consistent.py
+## check\_typeshed\_structure.py
+
+This checks that typeshed's directory structure and metadata files are correct.
 
 Run using:
 ```bash
-$ python3 tests/check_consistent.py
+$ python3 tests/check_typeshed_structure.py
 ```
 
 ## stubtest\_stdlib.py
@@ -133,12 +132,18 @@ test it automatically (or
 [running the test via Github Actions](https://docs.github.com/en/actions/managing-workflow-runs/manually-running-a-workflow#running-a-workflow)
 on your typeshed fork).
 
+As a convenience, stubtest\_stdlib.py will look for local-only allowlist files
+and use those if they are present. Only version-specific local allowlists are supported.
+An example local allowlist file is
+`stdlib/@tests/stubtest_allowlists/py312.txt.local`. Use caution when taking advantage of this feature;
+the CI run of stubtest remains canonical.
+
 If you need a specific version of Python to repro a CI failure,
 [pyenv](https://github.com/pyenv/pyenv) can also help.
 
 Due to its dynamic nature, you may run into false positives. In this case, you
 can add to the allowlists for each affected Python version in
-`tests/stubtest_allowlists`. Please file issues for stubtest false positives
+`stdlib/@tests/stubtest_allowlists`. Please file issues for stubtest false positives
 at [mypy](https://github.com/python/mypy/issues).
 
 ## stubtest\_third\_party.py
@@ -157,7 +162,7 @@ it checks all third-party stubs, but you can provide the distributions to
 check on the command line:
 
 ```bash
-(.venv3)$ python3 tests/stubtest_third_party.py Pillow toml  # check stubs/Pillow and stubs/toml
+(.venv3)$ python3 tests/stubtest_third_party.py requests toml  # check stubs/requests and stubs/toml
 ```
 
 If you have the runtime package installed in your local virtual environment, you can also run stubtest
@@ -169,8 +174,10 @@ directly, with
 ```
 
 For each distribution, stubtest ignores definitions listed in a `@tests/stubtest_allowlist.txt` file,
-relative to the distribution. Additional packages that are needed to run stubtest for a
-distribution can be added to `tool.stubtest.stubtest_requirements` in `METADATA.toml`.
+relative to the distribution. Platform specific items can be ignored by listing them
+in a `@tests/stubtest_allowlist_{platform}.txt` file. Additional configuration
+can be found in the `tool.stubtest` section of the `METADATA.toml` file. See
+[CONTRIBUTING.md](../CONTRIBUTING.md#the-metadatatoml-file) for more information.
 
 ### Using stubtest to find objects missing from the stubs
 
@@ -180,7 +187,7 @@ but missing from the stub. However, this behaviour can be disabled using the
 
 If a distribution has `ignore_missing_stub = true` in the `[tool.stubtest]` section of its
 `tests/METADATA.toml` file, `stubtest_third_party.py` will test that distribution with the
-`--ignore-missing-stub option`. This indicates that the stubs for this distribution are
+`--ignore-missing-stub` option. This indicates that the stubs for this distribution are
 considered "incomplete".
 
 You can help make typeshed's stubs more complete by removing

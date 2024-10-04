@@ -36,6 +36,7 @@ from ast import (
     For as For,
     FormattedValue as FormattedValue,
     FunctionDef as FunctionDef,
+    FunctionType as FunctionType,
     GeneratorExp as GeneratorExp,
     Global as Global,
     Gt as Gt,
@@ -62,6 +63,7 @@ from ast import (
     Module as Module,
     Mult as Mult,
     Name as Name,
+    NamedExpr as NamedExpr,
     Nonlocal as Nonlocal,
     Not as Not,
     NotEq as NotEq,
@@ -81,6 +83,7 @@ from ast import (
     Subscript as Subscript,
     Try as Try,
     Tuple as Tuple,
+    TypeIgnore as TypeIgnore,
     UAdd as UAdd,
     UnaryOp as UnaryOp,
     USub as USub,
@@ -101,10 +104,11 @@ from ast import (
     mod as mod,
     operator as operator,
     stmt as stmt,
+    type_ignore as type_ignore,
     unaryop as unaryop,
     withitem as withitem,
 )
-from typing_extensions import Literal
+from typing import Literal
 
 if sys.version_info >= (3, 12):
     from ast import ParamSpec as ParamSpec, TypeVar as TypeVar, TypeVarTuple as TypeVarTuple, type_param as type_param
@@ -126,9 +130,6 @@ if sys.version_info >= (3, 10):
         pattern as pattern,
     )
 
-if sys.version_info >= (3, 8):
-    from ast import FunctionType as FunctionType, NamedExpr as NamedExpr, TypeIgnore as TypeIgnore, type_ignore as type_ignore
-
 if sys.version_info < (3, 9):
     from ast import (
         AugLoad as AugLoad,
@@ -140,10 +141,9 @@ if sys.version_info < (3, 9):
         slice as slice,
     )
 
-if sys.version_info < (3, 8):
-    from ast import Bytes as Bytes, Ellipsis as Ellipsis, NameConstant as NameConstant, Num as Num, Str as Str
-
 PyCF_ONLY_AST: Literal[1024]
-if sys.version_info >= (3, 8):
-    PyCF_ALLOW_TOP_LEVEL_AWAIT: Literal[8192]
-    PyCF_TYPE_COMMENTS: Literal[4096]
+PyCF_TYPE_COMMENTS: Literal[4096]
+PyCF_ALLOW_TOP_LEVEL_AWAIT: Literal[8192]
+
+if sys.version_info >= (3, 13):
+    PyCF_OPTIMIZED_AST: Literal[33792]

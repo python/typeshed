@@ -1,14 +1,15 @@
 import os
 import sys
 import typing_extensions
-from _ast import PyCF_ONLY_AST as PyCF_ONLY_AST
+from _ast import (
+    PyCF_ALLOW_TOP_LEVEL_AWAIT as PyCF_ALLOW_TOP_LEVEL_AWAIT,
+    PyCF_ONLY_AST as PyCF_ONLY_AST,
+    PyCF_TYPE_COMMENTS as PyCF_TYPE_COMMENTS,
+)
 from _typeshed import ReadableBuffer, Unused
 from collections.abc import Iterator
-from typing import Any, ClassVar, TypeVar as _TypeVar, overload
-from typing_extensions import Literal, deprecated
-
-if sys.version_info >= (3, 8):
-    from _ast import PyCF_ALLOW_TOP_LEVEL_AWAIT as PyCF_ALLOW_TOP_LEVEL_AWAIT, PyCF_TYPE_COMMENTS as PyCF_TYPE_COMMENTS
+from typing import Any, ClassVar, Literal, TypeVar as _TypeVar, overload
+from typing_extensions import deprecated
 
 _Identifier: typing_extensions.TypeAlias = str
 
@@ -25,10 +26,9 @@ class AST:
     # TODO: Not all nodes have all of the following attributes
     lineno: int
     col_offset: int
-    if sys.version_info >= (3, 8):
-        end_lineno: int | None
-        end_col_offset: int | None
-        type_comment: str | None
+    end_lineno: int | None
+    end_col_offset: int | None
+    type_comment: str | None
 
 class mod(AST): ...
 
@@ -36,8 +36,7 @@ class Module(mod):
     if sys.version_info >= (3, 10):
         __match_args__ = ("body", "type_ignores")
     body: list[stmt]
-    if sys.version_info >= (3, 8):
-        type_ignores: list[TypeIgnore]
+    type_ignores: list[TypeIgnore]
 
 class Interactive(mod):
     if sys.version_info >= (3, 10):
@@ -49,12 +48,11 @@ class Expression(mod):
         __match_args__ = ("body",)
     body: expr
 
-if sys.version_info >= (3, 8):
-    class FunctionType(mod):
-        if sys.version_info >= (3, 10):
-            __match_args__ = ("argtypes", "returns")
-        argtypes: list[expr]
-        returns: expr
+class FunctionType(mod):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("argtypes", "returns")
+    argtypes: list[expr]
+    returns: expr
 
 class stmt(AST): ...
 
@@ -249,12 +247,11 @@ class BoolOp(expr):
     op: boolop
     values: list[expr]
 
-if sys.version_info >= (3, 8):
-    class NamedExpr(expr):
-        if sys.version_info >= (3, 10):
-            __match_args__ = ("target", "value")
-        target: Name
-        value: expr
+class NamedExpr(expr):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("target", "value")
+    target: Name
+    value: expr
 
 class BinOp(expr):
     if sys.version_info >= (3, 10):
@@ -505,8 +502,7 @@ class ExceptHandler(excepthandler):
 class arguments(AST):
     if sys.version_info >= (3, 10):
         __match_args__ = ("posonlyargs", "args", "vararg", "kwonlyargs", "kw_defaults", "kwarg", "defaults")
-    if sys.version_info >= (3, 8):
-        posonlyargs: list[arg]
+    posonlyargs: list[arg]
     args: list[arg]
     vararg: arg | None
     kwonlyargs: list[arg]
@@ -587,13 +583,12 @@ if sys.version_info >= (3, 10):
         __match_args__ = ("patterns",)
         patterns: list[pattern]
 
-if sys.version_info >= (3, 8):
-    class type_ignore(AST): ...
+class type_ignore(AST): ...
 
-    class TypeIgnore(type_ignore):
-        if sys.version_info >= (3, 10):
-            __match_args__ = ("lineno", "tag")
-        tag: str
+class TypeIgnore(type_ignore):
+    if sys.version_info >= (3, 10):
+        __match_args__ = ("lineno", "tag")
+    tag: str
 
 if sys.version_info >= (3, 12):
     class type_param(AST): ...
@@ -611,51 +606,117 @@ if sys.version_info >= (3, 12):
         __match_args__ = ("name",)
         name: _Identifier
 
-if sys.version_info >= (3, 8):
-    class _ABC(type):
-        if sys.version_info >= (3, 9):
-            def __init__(cls, *args: Unused) -> None: ...
+class _ABC(type):
+    if sys.version_info >= (3, 9):
+        def __init__(cls, *args: Unused) -> None: ...
 
-    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")
+if sys.version_info < (3, 14):
+    @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Num(Constant, metaclass=_ABC):
         value: int | float | complex
-    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")
+
+    @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Str(Constant, metaclass=_ABC):
         value: str
         # Aliases for value, for backwards compatibility
         s: str
-    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")
+
+    @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Bytes(Constant, metaclass=_ABC):
         value: bytes
         # Aliases for value, for backwards compatibility
         s: bytes
-    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")
+
+    @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class NameConstant(Constant, metaclass=_ABC): ...
 
-    @deprecated("Replaced by ast.Constant; removal scheduled for Python 3.14")
+    @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Ellipsis(Constant, metaclass=_ABC): ...
-
-else:
-    # C implementation prior to 3.8
-    class Num(expr):  # Deprecated in 3.8; use Constant
-        n: int | float | complex
-
-    class Str(expr):  # Deprecated in 3.8; use Constant
-        s: str
-
-    class Bytes(expr):  # Deprecated in 3.8; use Constant
-        s: bytes
-
-    class NameConstant(expr):  # Deprecated in 3.8; use Constant
-        value: Any
-
-    class Ellipsis(expr): ...  # Deprecated in 3.8; use Constant
 
 # everything below here is defined in ast.py
 
 _T = _TypeVar("_T", bound=AST)
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 13):
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        mode: Literal["exec"] = "exec",
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+    ) -> Module: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer | os.PathLike[Any],
+        mode: Literal["eval"],
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+    ) -> Expression: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer | os.PathLike[Any],
+        mode: Literal["func_type"],
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+    ) -> FunctionType: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer | os.PathLike[Any],
+        mode: Literal["single"],
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+    ) -> Interactive: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        *,
+        mode: Literal["eval"],
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+    ) -> Expression: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        *,
+        mode: Literal["func_type"],
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+    ) -> FunctionType: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        *,
+        mode: Literal["single"],
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+    ) -> Interactive: ...
+    @overload
+    def parse(
+        source: str | ReadableBuffer,
+        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
+        mode: str = "exec",
+        *,
+        type_comments: bool = False,
+        feature_version: None | int | tuple[int, int] = None,
+        optimize: Literal[-1, 0, 1, 2] = -1,
+    ) -> AST: ...
+
+else:
     @overload
     def parse(
         source: str | ReadableBuffer,
@@ -726,33 +787,19 @@ if sys.version_info >= (3, 8):
         feature_version: None | int | tuple[int, int] = None,
     ) -> AST: ...
 
-else:
-    @overload
-    def parse(
-        source: str | ReadableBuffer,
-        filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>",
-        mode: Literal["exec"] = "exec",
-    ) -> Module: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer, filename: str | ReadableBuffer | os.PathLike[Any], mode: Literal["eval"]
-    ) -> Expression: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer, filename: str | ReadableBuffer | os.PathLike[Any], mode: Literal["single"]
-    ) -> Interactive: ...
-    @overload
-    def parse(source: str | ReadableBuffer, *, mode: Literal["eval"]) -> Expression: ...
-    @overload
-    def parse(source: str | ReadableBuffer, *, mode: Literal["single"]) -> Interactive: ...
-    @overload
-    def parse(
-        source: str | ReadableBuffer, filename: str | ReadableBuffer | os.PathLike[Any] = "<unknown>", mode: str = "exec"
-    ) -> AST: ...
-
 def literal_eval(node_or_string: str | AST) -> Any: ...
 
-if sys.version_info >= (3, 9):
+if sys.version_info >= (3, 13):
+    def dump(
+        node: AST,
+        annotate_fields: bool = True,
+        include_attributes: bool = False,
+        *,
+        indent: int | str | None = None,
+        show_empty: bool = False,
+    ) -> str: ...
+
+elif sys.version_info >= (3, 9):
     def dump(
         node: AST, annotate_fields: bool = True, include_attributes: bool = False, *, indent: int | str | None = None
     ) -> str: ...
@@ -766,10 +813,7 @@ def increment_lineno(node: _T, n: int = 1) -> _T: ...
 def iter_fields(node: AST) -> Iterator[tuple[str, Any]]: ...
 def iter_child_nodes(node: AST) -> Iterator[AST]: ...
 def get_docstring(node: AsyncFunctionDef | FunctionDef | ClassDef | Module, clean: bool = True) -> str | None: ...
-
-if sys.version_info >= (3, 8):
-    def get_source_segment(source: str, node: AST, *, padded: bool = False) -> str | None: ...
-
+def get_source_segment(source: str, node: AST, *, padded: bool = False) -> str | None: ...
 def walk(node: AST) -> Iterator[AST]: ...
 
 class NodeVisitor:
@@ -823,10 +867,8 @@ class NodeVisitor:
     def visit_FormattedValue(self, node: FormattedValue) -> Any: ...
     def visit_JoinedStr(self, node: JoinedStr) -> Any: ...
     def visit_Constant(self, node: Constant) -> Any: ...
-    if sys.version_info >= (3, 8):
-        def visit_NamedExpr(self, node: NamedExpr) -> Any: ...
-        def visit_TypeIgnore(self, node: TypeIgnore) -> Any: ...
-
+    def visit_NamedExpr(self, node: NamedExpr) -> Any: ...
+    def visit_TypeIgnore(self, node: TypeIgnore) -> Any: ...
     def visit_Attribute(self, node: Attribute) -> Any: ...
     def visit_Subscript(self, node: Subscript) -> Any: ...
     def visit_Starred(self, node: Starred) -> Any: ...
@@ -917,3 +959,6 @@ if sys.version_info >= (3, 9):
 
 if sys.version_info >= (3, 9):
     def main() -> None: ...
+
+if sys.version_info >= (3, 14):
+    def compare(left: AST, right: AST, /, *, compare_attributes: bool = False) -> bool: ...

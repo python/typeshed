@@ -14,28 +14,29 @@ will also discover incorrect usage of imported modules.
 
 from __future__ import annotations
 
+import sys
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    assert sys.platform != "win32", "pytype isn't yet installed in CI, but wheels can be built on Windows"
+if sys.version_info >= (3, 13):
+    print("pytype does not support Python 3.13+ yet.", file=sys.stderr)
+    sys.exit(1)
+
+
 import argparse
 import importlib.metadata
 import inspect
 import os
-import sys
 import traceback
 from collections.abc import Iterable, Sequence
-
-from packaging.requirements import Requirement
-
-from parse_metadata import read_dependencies
-
-if sys.platform == "win32":
-    print("pytype does not support Windows.", file=sys.stderr)
-    sys.exit(1)
-if sys.version_info >= (3, 12):
-    print("pytype does not support Python 3.12+ yet.", file=sys.stderr)
-    sys.exit(1)
 
 # pytype is not py.typed https://github.com/google/pytype/issues/1325
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]
 from pytype.imports import typeshed  # type: ignore[import]
+
+from _metadata import read_dependencies
+from _utils import SupportedVersionsDict, parse_stdlib_versions_file, supported_versions_for_module
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"
@@ -123,16 +124,19 @@ def check_subdirs_discoverable(subdir_paths: list[str]) -> None:
 
 
 def determine_files_to_test(*, paths: Sequence[str]) -> list[str]:
-    """Determine all files to test, checking if it's in the exclude list and which Python versions to use.
+    """Determine all files to test.
 
-    Returns a list of pairs of the file path and Python version as an int."""
+    Checks for files in the pytype exclude list and for the stdlib VERSIONS file.
+    """
     filenames = find_stubs_in_paths(paths)
     ts = typeshed.Typeshed()
-    skipped = set(ts.read_blacklist())
+    exclude_list = set(ts.read_blacklist())
+    stdlib_module_versions = parse_stdlib_versions_file()
     files = []
     for f in sorted(filenames):
-        rel = _get_relative(f)
-        if rel in skipped:
+        if _get_relative(f) in exclude_list:
+            continue
+        if not _is_supported_stdlib_version(stdlib_module_versions, f):
             continue
         files.append(f)
     return files
@@ -149,8 +153,22 @@ def find_stubs_in_paths(paths: Sequence[str]) -> list[str]:
     return filenames
 
 
+def _is_supported_stdlib_version(module_versions: SupportedVersionsDict, filename: str) -> bool:
+    parts = _get_relative(filename).split(os.path.sep)
+    if parts[0] != "stdlib":
+        return True
+    module_name = _get_module_name(filename)
+    min_version, max_version = supported_versions_for_module(module_versions, module_name)
+    return min_version <= sys.version_info <= max_version
+
+
 def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
-    dist = importlib.metadata.distribution(req_name)
+    try:
+        dist = importlib.metadata.distribution(req_name)
+    except importlib.metadata.PackageNotFoundError:
+        # The package wasn't installed, probably because an environment
+        # marker excluded it.
+        return []
     toplevel_txt_contents = dist.read_text("top_level.txt")
     if toplevel_txt_contents is None:
         if dist.files is None:
@@ -185,8 +203,7 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
     missing_modules = set()
     for distribution in stub_distributions:
         for external_req in read_dependencies(distribution).external_pkgs:
-            req_name = Requirement(external_req).name
-            associated_packages = _get_pkgs_associated_with_requirement(req_name)
+            associated_packages = _get_pkgs_associated_with_requirement(external_req.name)
             missing_modules.update(associated_packages)
 
     test_dir = os.path.dirname(__file__)
@@ -198,7 +215,7 @@ def get_missing_modules(files_to_test: Sequence[str]) -> Iterable[str]:
                 # Skips comments, empty lines, and stdlib files, which are in
                 # the exclude list because pytype has its own version.
                 continue
-            unused_stubs_prefix, unused_pkg, mod_path = fi.split("/", 2)  # pyright: ignore [reportUnusedVariable]
+            unused_stubs_prefix, unused_pkg, mod_path = fi.split("/", 2)  # pyright: ignore[reportUnusedVariable]
             missing_modules.add(os.path.splitext(mod_path)[0])
     return missing_modules
 
@@ -208,9 +225,9 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
     errors = 0
     total_tests = len(files_to_test)
     missing_modules = get_missing_modules(files_to_test)
+    python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
     print("Testing files with pytype...")
     for i, f in enumerate(files_to_test):
-        python_version = "{0.major}.{0.minor}".format(sys.version_info)
         if dry_run:
             stderr = None
         else:

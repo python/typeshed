@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Run mypy on the "tests" and "scripts" directories."""
+
 from __future__ import annotations
 
 import argparse
@@ -8,12 +9,12 @@ import sys
 from itertools import product
 from typing_extensions import TypeAlias
 
-from utils import colored, print_error
+from _utils import colored, print_error
 
 ReturnCode: TypeAlias = int
 
 SUPPORTED_PLATFORMS = ("linux", "darwin", "win32")
-SUPPORTED_VERSIONS = ("3.12", "3.11", "3.10", "3.9")
+SUPPORTED_VERSIONS = ("3.13", "3.12", "3.11", "3.10", "3.9")
 LOWEST_SUPPORTED_VERSION = min(SUPPORTED_VERSIONS, key=lambda x: int(x.split(".")[1]))
 DIRECTORIES_TO_TEST = ("scripts", "tests")
 EMPTY: list[str] = []
@@ -21,7 +22,7 @@ EMPTY: list[str] = []
 parser = argparse.ArgumentParser(description="Run mypy on typeshed's own code in the `scripts` and `tests` directories.")
 parser.add_argument(
     "dir",
-    choices=DIRECTORIES_TO_TEST + (EMPTY,),
+    choices=(*DIRECTORIES_TO_TEST, EMPTY),
     nargs="*",
     action="extend",
     help=f"Test only these top-level typeshed directories (defaults to {DIRECTORIES_TO_TEST!r})",
@@ -59,8 +60,9 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "--no-error-summary",
         "--enable-error-code",
         "ignore-without-code",
-        "--enable-error-code",
-        "possibly-undefined",
+        # https://github.com/python/mypy/issues/14309
+        # "--enable-error-code",
+        # "possibly-undefined",
         "--enable-error-code",
         "redundant-expr",
         "--enable-error-code",
@@ -68,8 +70,6 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "--custom-typeshed-dir",
         ".",
     ]
-    if directory == "tests" and platform == "win32":
-        command.extend(["--exclude", "tests/pytype_test.py"])
     result = subprocess.run(command, capture_output=True, text=True)
     if result.stderr:
         print_error(result.stderr)

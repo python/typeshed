@@ -1,8 +1,8 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
 from collections.abc import Iterator
 from datetime import datetime
-from typing import Any, Generic, TypeVar
-from typing_extensions import Final, Literal, Self, TypeAlias
+from typing import Any, Final, Generic, Literal, TypeVar
+from typing_extensions import Self, TypeAlias
 
 from openpyxl.descriptors import Sequence, Strict
 from openpyxl.descriptors.base import Bool, DateTime, Float, Integer, String, _ConvertibleToBool
@@ -18,9 +18,14 @@ class NestedBoolText(Bool[Incomplete], NestedText[Incomplete, Incomplete]): ... 
 class _TypedProperty(Strict, Generic[_T]):
     name: String[Literal[False]]
     # Since this is internal, just list all possible values
-    value: Integer[Literal[False]] | Float[Literal[False]] | String[Literal[True]] | DateTime[Literal[False]] | Bool[
-        Literal[False]
-    ] | String[Literal[False]]
+    value: (
+        Integer[Literal[False]]
+        | Float[Literal[False]]
+        | String[Literal[True]]
+        | DateTime[Literal[False]]
+        | Bool[Literal[False]]
+        | String[Literal[False]]
+    )
     def __init__(self, name: str, value: _T) -> None: ...
     def __eq__(self, other: _TypedProperty[Any]) -> bool: ...  # type: ignore[override]
 
@@ -47,7 +52,7 @@ CLASS_MAPPING: Final[dict[type[_MappingPropertyType], str]]
 XML_MAPPING: Final[dict[str, type[_MappingPropertyType]]]
 
 class CustomPropertyList(Strict, Generic[_T]):
-    props: Sequence
+    props: Sequence[list[_TypedProperty[_T]]]
     def __init__(self) -> None: ...
     @classmethod
     def from_tree(cls, tree: _ChildSerialisableTreeElement) -> Self: ...
