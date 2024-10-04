@@ -11,6 +11,9 @@ from collections.abc import Iterator
 from typing import Any, ClassVar, Generic, Literal, TypedDict, TypeVar as _TypeVar, overload
 from typing_extensions import Self, Unpack, deprecated
 
+if sys.version_info >= (3, 13):
+    from _ast import PyCF_OPTIMIZED_AST as PyCF_OPTIMIZED_AST
+
 # Alias used for fields that must always be valid identifiers
 # A string `x` counts as a valid identifier if both the following are True
 # (1) `x.isidentifier()` evaluates to `True`
