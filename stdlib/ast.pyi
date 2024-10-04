@@ -8,8 +8,8 @@ from _ast import (
 )
 from _typeshed import ReadableBuffer, Unused
 from collections.abc import Iterator
-from typing import Any, ClassVar, Generic, Literal, Self, TypedDict, TypeVar as _TypeVar, overload
-from typing_extensions import Unpack, deprecated
+from typing import Any, ClassVar, Generic, Literal, TypedDict, TypeVar as _TypeVar, overload
+from typing_extensions import Self, Unpack, deprecated
 
 # Alias used for fields that must always be valid identifiers
 # A string `x` counts as a valid identifier if both the following are True
