@@ -6,7 +6,7 @@ pyright==1.1.383
 pytype==2024.9.13; platform_system != "Windows" and python_version < "3.13"
 
 # Libraries used by our various scripts.
-aiohttp==3.10.8
+aiohttp==3.10.9
 # grpc install only fails on Windows, but let's avoid building sdist on other platforms
 # https://github.com/grpc/grpc/issues/36201
 grpcio-tools; python_version < "3.13" # For grpc_tools.protoc
@@ -15,10 +15,10 @@ packaging==24.1
 pathspec>=0.11.1
 pre-commit
 # Required by create_baseline_stubs.py. Must match .pre-commit-config.yaml.
-ruff==0.6.8
+ruff==0.6.9
 stubdefaulter==0.1.0
 termcolor>=2.3
-tomli==2.0.1
+tomli==2.0.2
 tomlkit==0.13.2
 typing_extensions>=4.12.0rc1
-uv==0.4.17
+uv==0.4.18
