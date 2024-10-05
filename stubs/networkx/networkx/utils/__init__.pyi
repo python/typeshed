@@ -1,4 +1,4 @@
-from networkx.utils.backends import *
+from networkx.utils.backends import _dispatchable as _dispatchable
 from networkx.utils.configs import *
 from networkx.utils.decorators import *
 from networkx.utils.heaps import *
