@@ -8,3 +8,4 @@ from networkx.algorithms.community.louvain import *
 from networkx.algorithms.community.lukes import *
 from networkx.algorithms.community.modularity_max import *
 from networkx.algorithms.community.quality import *
+from networkx.algorithms.community.divisive import *
