@@ -32,8 +32,7 @@ win32com.server.register
 win32com.servers.*
 # Active X Scripts
 win32com(ext)?.axscript.client.pyscript_rexec
-# "pyscript.pyi" is necessary for mypy to not fail due to missing stub
-win32com(ext)?.axscript.client.pyscript.*
+win32com(ext)?.axscript.client.pyscript
 win32com(ext)?.axscript.client.scriptdispatch
 # Other scripts
 isapi.install
