@@ -19,3 +19,7 @@ ossaudiodev
 fcntl.F_OFD_GETLK
 fcntl.F_OFD_SETLK
 fcntl.F_OFD_SETLKW
+
+# not available on python distributions compiled without sqlite3 loadable extension support
+_sqlite3.Connection.load_extension
+_sqlite3.Connection.enable_load_extension
