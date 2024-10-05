@@ -1,16 +1,9 @@
-# Type checkers and other linters that we test our stubs against. These should always
-# be pinned to a specific version to make failure reproducible. See also the
-# "tool.typeshed" section in pyproject.toml for additional type checkers.
-black==24.8.0            # must match .pre-commit-config.yaml
-flake8==7.1.1            # must match .pre-commit-config.yaml
-flake8-noqa==1.4.0       # must match .pre-commit-config.yaml
-flake8-pyi==24.6.0       # must match .pre-commit-config.yaml
+# Type checkers that we test our stubs against. These should always
+# be pinned to a specific version to make failure reproducible.
 mypy==1.11.2
-pre-commit-hooks==4.6.0  # must match .pre-commit-config.yaml
 pyright==1.1.383
 # pytype can be installed on Windows, but requires building wheels, let's not do that on the CI
 pytype==2024.9.13; platform_system != "Windows" and python_version < "3.13"
-ruff==0.6.8              # must match .pre-commit-config.yaml
 
 # Libraries used by our various scripts.
 aiohttp==3.10.8
@@ -21,6 +14,8 @@ mypy-protobuf==3.6.0
 packaging==24.1
 pathspec>=0.11.1
 pre-commit
+# Required by create_baseline_stubs.py. Must match .pre-commit-config.yaml.
+ruff==0.6.8
 stubdefaulter==0.1.0
 termcolor>=2.3
 tomli==2.0.1
