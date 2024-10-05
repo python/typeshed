@@ -11,7 +11,6 @@ _collections_abc.AsyncGenerator.ag_running
 _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
-_csv.Dialect.__init__  # C __init__ signature is inaccurate
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
 _threading_local.local.__new__
 ast.Bytes.__new__
@@ -184,9 +183,6 @@ xml.sax.expatreader
 # Module members that exist at runtime, but are missing from stubs
 # ==========
 _json.encode_basestring
-_thread.LockType.acquire_lock
-_thread.LockType.locked_lock
-_thread.LockType.release_lock
 _thread.RLock
 _thread.allocate
 _thread.exit_thread
@@ -363,6 +359,8 @@ codecs.CodecInfo.incrementalencoder
 codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
 
+contextvars.Context.__init__  # C signature is broader than what is actually accepted
+
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter
 csv.Dialect.doublequote
@@ -373,8 +371,8 @@ csv.Dialect.skipinitialspace
 csv.DictReader.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 
-contextvars.Context.__init__  # C signature is broader than what is actually accepted
 dataclasses.field  # White lies around defaults
+email.policy.EmailPolicy.message_factory  # "type" at runtime, but protocol in stubs
 hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
 hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
@@ -416,7 +414,6 @@ queue.SimpleQueue.__init__
 imaplib.IMAP4_SSL.ssl
 ssl.PROTOCOL_SSLv2
 ssl.PROTOCOL_SSLv3
-ssl.RAND_egd
 
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
@@ -538,10 +535,11 @@ wsgiref.handlers.BaseHandler.headers_sent
 wsgiref.handlers.BaseHandler.result
 wsgiref.handlers.BaseHandler.status
 
-(_?weakref.ref|_?weakref.ReferenceType).__call__  # C function default annotation is wrong
-_?weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
-_?weakref.ProxyType.__bytes__  # Doesn't actually exist
-_?weakref.ProxyType.__getattr__  # Should have all attributes of proxy
+_?weakref\.(ref|ReferenceType)\.__init__  # C implementation has incorrect signature
+_?weakref\.(ref|ReferenceType)\.__call__  # C function default annotation is wrong
+_?weakref\.CallableProxyType\.__getattr__  # Should have all attributes of proxy
+_?weakref\.ProxyType\.__bytes__  # Doesn't actually exist
+_?weakref\.ProxyType\.__getattr__  # Should have all attributes of proxy
 weakref.WeakValueDictionary.setdefault  # has a default value for the "default" argument, but always errors out if no value is supplied for the parameter by the user
 xml.dom.minidom.StringTypes  # Unnecessary re-export
 
