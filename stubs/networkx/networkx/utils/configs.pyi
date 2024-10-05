@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import ItemsView, Iterable, Iterator, KeysView, Mapping, ValuesView
-from typing import Self
-
-from boto import config
+from typing_extensions import Self
 
 __all__ = ["Config", "config"]
 
@@ -28,5 +26,7 @@ class NetworkXConfig(Config):
     backend_priority: list[str]
     backends: Config
     cache_converted_graphs: bool
+    def __init__(self, *, backend_priority: list[str], backends: Config, cache_converted_graphs: bool) -> None: ...
+    def __new__(cls, *, backend_priority: list[str], backends: Config, cache_converted_graphs: bool) -> Self: ...
 
 config: NetworkXConfig
