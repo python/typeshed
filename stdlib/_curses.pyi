@@ -555,8 +555,3 @@ class _ncurses_version(NamedTuple):
     patch: int
 
 ncurses_version: _ncurses_version
-
-# typeshed used the name _CursesWindow for the underlying C class before
-# it was mapped to the name 'window' in 3.8.
-# Kept here as a legacy alias in case any third-party code is relying on it.
-_CursesWindow = window
