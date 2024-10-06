@@ -71,3 +71,4 @@ win32com(ext)?.axdebug.stackframe
 # failed to import, ImportError: cannot import name 'axdebug' from 'win32com(ext).axdebug'
 win32com(ext)?.axdebug.gateways
 win32com(ext)?.axscript.client.debug
+win32comext.axscript.client.framework
