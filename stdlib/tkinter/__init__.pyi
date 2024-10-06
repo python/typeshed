@@ -2,6 +2,7 @@ import _tkinter
 import sys
 from _typeshed import Incomplete, StrEnum, StrOrBytesPath
 from collections.abc import Callable, Iterable, Mapping, Sequence
+from tkinter import tix
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
@@ -920,7 +921,8 @@ class BaseWidget(Misc):
     def destroy(self) -> None: ...
 
 # This class represents any widget except Toplevel or Tk.
-class Widget(BaseWidget, Pack, Place, Grid):
+# At runtime, tix.Form is added to __bases__ dynamically.
+class Widget(BaseWidget, Pack, Place, Grid, tix.Form):
     # Allow bind callbacks to take e.g. Event[Label] instead of Event[Misc].
     # Tk and Toplevel get notified for their child widgets' events, but other
     # widgets don't.
