@@ -3,7 +3,6 @@ from _operator import (
     abs as abs,
     add as add,
     and_ as and_,
-    call as call,
     concat as concat,
     contains as contains,
     countOf as countOf,
