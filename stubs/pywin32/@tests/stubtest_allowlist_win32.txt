@@ -68,7 +68,8 @@ win32com(ext)?.axdebug.documents
 win32com(ext)?.axdebug.expressions
 # failed to import, ModuleNotFoundError: No module named 'expressions'
 win32com(ext)?.axdebug.stackframe
-# failed to import, ImportError: cannot import name 'axdebug' from 'win32com(ext).axdebug'
+# failed to import, ImportError: cannot import name 'axdebug' from 'win32com.axdebug'
 win32com(ext)?.axdebug.gateways
 win32com(ext)?.axscript.client.debug
+win32com(ext)?.axscript.client.error
 win32com(ext)?.axscript.client.framework
