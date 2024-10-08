@@ -38,7 +38,7 @@ class Align(CoerciveEnum):
     R = "RIGHT"
     J = "JUSTIFY"
 
-_Align: TypeAlias = Align | Literal["CENTER", "X_CENTER", "LEFT", "RIGHT", "JUSTIFY"]
+_Align: TypeAlias = Align | Literal["CENTER", "X_CENTER", "LEFT", "RIGHT", "JUSTIFY"]  # noqa: Y047
 
 class VAlign(CoerciveEnum):
     M = "MIDDLE"

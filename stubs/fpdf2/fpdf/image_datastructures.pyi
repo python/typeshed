@@ -30,7 +30,7 @@ _AlignLiteral: TypeAlias = Literal[
     "r",
     "j",
 ]
-_TextAlign: TypeAlias = Align | _AlignLiteral
+_TextAlign: TypeAlias = Align | _AlignLiteral  # noqa: Y047
 
 class ImageInfo(dict[str, Any]):
     @property
