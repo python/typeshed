@@ -2,7 +2,7 @@ from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import Callable, Iterable, Mapping
 from html.parser import HTMLParser
 from logging import Logger
-from typing import ClassVar, Final, Literal, TypedDict, type_check_only
+from typing import ClassVar, Final, Literal
 from typing_extensions import TypeAlias
 
 from fpdf import FPDF
@@ -28,11 +28,6 @@ COLOR_DICT: Final[dict[str, str]]
 
 def color_as_decimal(color: str | None = "#000000") -> tuple[int, int, int] | None: ...
 def parse_css_style(style_attr: str) -> dict[str, str]: ...
-@type_check_only
-class _Emphasis(TypedDict):
-    b: bool
-    i: bool
-    u: bool
 
 class HTML2FPDF(HTMLParser):
     HTML_UNCLOSED_TAGS: ClassVar[tuple[str, ...]]
