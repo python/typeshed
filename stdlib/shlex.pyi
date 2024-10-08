@@ -1,6 +1,6 @@
 import sys
 from collections import deque
-from collections.abc import Iterable
+from collections.abc import Iterable, Iterator
 from io import TextIOWrapper
 from typing import Literal, Protocol, overload, type_check_only
 from typing_extensions import Self, deprecated
@@ -27,7 +27,7 @@ def join(split_command: Iterable[str]) -> str: ...
 def quote(s: str) -> str: ...
 
 # TODO: Make generic over infile once PEP 696 is implemented.
-class shlex(Iterable[str]):
+class shlex(Iterator[str]):
     commenters: str
     wordchars: str
     whitespace: str
