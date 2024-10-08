@@ -186,7 +186,7 @@ class TextIOWrapper(TextIOBase, _TextIOBase, TextIO, Generic[_BufferT_co]):  # t
     # operations.
     def seek(self, cookie: int, whence: int = 0, /) -> int: ...
 
-class StringIO(TextIOWrapper, TextIOBase, _TextIOBase):
+class StringIO(TextIOWrapper, TextIOBase, _TextIOBase):  # type: ignore[misc]  # incompatible definitions of write in the base classes
     def __init__(self, initial_value: str | None = ..., newline: str | None = ...) -> None: ...
     # StringIO does not contain a "name" field. This workaround is necessary
     # to allow StringIO sub-classes to add this field, as it is defined
