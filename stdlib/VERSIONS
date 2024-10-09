@@ -37,6 +37,7 @@ _imp: 3.0-
 _interpchannels: 3.13-
 _interpqueues: 3.13-
 _interpreters: 3.13-
+_io: 3.0-
 _json: 3.0-
 _locale: 3.0-
 _lsprof: 3.0-
