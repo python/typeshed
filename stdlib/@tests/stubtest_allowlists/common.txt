@@ -672,5 +672,6 @@ typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/com
 (xml.parsers.expat.XMLParserType.SetReparseDeferralEnabled)?
 
 # enum.auto is magic, see comments
+enum.auto.__or__
 enum.auto.__and__
 enum.auto.__xor__
