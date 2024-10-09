@@ -1,6 +1,6 @@
 import sys
 from collections import deque
-from collections.abc import Iterable, Iterator
+from collections.abc import Iterable
 from io import TextIOWrapper
 from typing import Literal, Protocol, overload, type_check_only
 from typing_extensions import Self, deprecated
