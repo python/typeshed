@@ -316,8 +316,7 @@ else:
         __rand__ = __and__
         __rxor__ = __xor__
 
-# subclassing IntFlag so it picks up all implemented base functions, best modeling behavior of enum.auto()
-class auto(IntFlag):
+class auto:
     _value_: Any
     @_magic_enum_attr
     def value(self) -> Any: ...
