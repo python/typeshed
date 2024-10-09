@@ -576,8 +576,25 @@ def prepare_class(
 if sys.version_info >= (3, 12):
     def get_original_bases(cls: type, /) -> tuple[Any, ...]: ...
 
-# Actually a different type, but `property` is special and we want that too.
-DynamicClassAttribute = property
+class DynamicClassAttribute:
+    fget: Callable[[Any], Any] | None
+    fset: Callable[[Any, Any], None] | None
+    fdel: Callable[[Any], None] | None
+    overwrite_doc: bool
+    __isabstractmethod__: bool
+    def __init__(
+        self,
+        fget: Callable[[Any], Any] | None = ...,
+        fset: Callable[[Any, Any], None] | None = ...,
+        fdel: Callable[[Any], None] | None = ...,
+        doc: str | None = ...,
+    ) -> None: ...
+    def __get__(self, instance: Any, ownerclass: type | None = None) -> Any: ...
+    def __set__(self, instance: Any, value: Any) -> None: ...
+    def __delete__(self, instance: Any) -> None: ...
+    def getter(self, fget: Callable[[Any], Any]) -> property: ...
+    def setter(self, fset: Callable[[Any, Any], None]) -> property: ...
+    def deleter(self, fdel: Callable[[Any], None]) -> property: ...
 
 _Fn = TypeVar("_Fn", bound=Callable[..., object])
 _R = TypeVar("_R")
