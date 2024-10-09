@@ -8,10 +8,6 @@ collections.AsyncGenerator.asend  # async at runtime, deliberately not in the st
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncIterator.__anext__  # async at runtime, deliberately not in the stub, see #7491
-collections.AsyncGenerator.ag_await
-collections.AsyncGenerator.ag_code
-collections.AsyncGenerator.ag_frame
-collections.AsyncGenerator.ag_running
 collections.ByteString  # see comments in py3_common.txt
 collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
@@ -78,14 +74,6 @@ typing_extensions\.TypeAliasType\.__init_subclass__
 # We call them read-only properties, runtime implementation is slightly different
 typing_extensions\.TypeAliasType\.__(parameters|type_params|name|module|value)__
 
-collections.Coroutine.cr_await
-collections.Coroutine.cr_code
-collections.Coroutine.cr_frame
-collections.Coroutine.cr_running
-collections.Generator.gi_code
-collections.Generator.gi_frame
-collections.Generator.gi_running
-collections.Generator.gi_yieldfrom
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 
