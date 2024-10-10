@@ -1,8 +1,12 @@
 #!/usr/bin/env python3
+
 import os
 import sys
 
-from _metadata import read_stubtest_settings
+sys.path += ["lib"]
+
+
+from ts_utils.metadata import read_stubtest_settings  # noqa: E402
 
 platform = sys.platform
 distributions = sys.argv[1:]

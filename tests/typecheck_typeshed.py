@@ -4,12 +4,16 @@
 from __future__ import annotations
 
 import argparse
+import os
 import subprocess
 import sys
 from itertools import product
 from typing_extensions import TypeAlias
 
-from _utils import colored, print_error
+sys.path += ["lib"]
+
+
+from ts_utils.utils import colored, print_error  # noqa: E402
 
 ReturnCode: TypeAlias = int
 
@@ -70,7 +74,8 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "--custom-typeshed-dir",
         ".",
     ]
-    result = subprocess.run(command, capture_output=True, text=True)
+    env = {**os.environ, "PYTHONPATH": "lib"}
+    result = subprocess.run(command, capture_output=True, text=True, env=env)
     if result.stderr:
         print_error(result.stderr)
     if result.stdout:

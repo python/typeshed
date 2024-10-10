@@ -9,17 +9,11 @@ import subprocess
 import sys
 from importlib.util import find_spec
 from pathlib import Path
-from typing import Any
 
-from _utils import TEST_CASES_DIR, test_cases_path
+sys.path += ["lib"]
 
-try:
-    from termcolor import colored  # pyright: ignore[reportAssignmentType]
-except ImportError:
 
-    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
-        return text
-
+from ts_utils.utils import TEST_CASES_DIR, colored, test_cases_path  # noqa: E402
 
 _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
 _TESTCASES_CONFIG_FILE = "pyrightconfig.testcases.json"
