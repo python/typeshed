@@ -1,8 +1,8 @@
 import concurrent.futures
 import sys
+from _asyncio import Task as Task
 from collections.abc import Awaitable, Coroutine, Generator, Iterable, Iterator
-from types import FrameType
-from typing import Any, Literal, Protocol, TextIO, TypeVar, overload
+from typing import Any, Literal, Protocol, TypeVar, overload
 from typing_extensions import TypeAlias
 
 from . import _CoroutineLike
@@ -10,7 +10,7 @@ from .events import AbstractEventLoop
 from .futures import Future
 
 if sys.version_info >= (3, 9):
-    from types import GenericAlias
+    pass
 if sys.version_info >= (3, 11):
     from contextvars import Context
 
@@ -399,58 +399,6 @@ elif sys.version_info >= (3, 9):
     _TaskCompatibleCoro: TypeAlias = Generator[_TaskYieldType, None, _T_co] | Coroutine[Any, Any, _T_co]
 else:
     _TaskCompatibleCoro: TypeAlias = Generator[_TaskYieldType, None, _T_co] | Awaitable[_T_co]
-
-# mypy and pyright complain that a subclass of an invariant class shouldn't be covariant.
-# While this is true in general, here it's sort-of okay to have a covariant subclass,
-# since the only reason why `asyncio.Future` is invariant is the `set_result()` method,
-# and `asyncio.Task.set_result()` always raises.
-class Task(Future[_T_co]):  # type: ignore[type-var]  # pyright: ignore[reportInvalidTypeArguments]
-    if sys.version_info >= (3, 12):
-        def __init__(
-            self,
-            coro: _TaskCompatibleCoro[_T_co],
-            *,
-            loop: AbstractEventLoop = ...,
-            name: str | None = ...,
-            context: Context | None = None,
-            eager_start: bool = False,
-        ) -> None: ...
-    elif sys.version_info >= (3, 11):
-        def __init__(
-            self,
-            coro: _TaskCompatibleCoro[_T_co],
-            *,
-            loop: AbstractEventLoop = ...,
-            name: str | None = ...,
-            context: Context | None = None,
-        ) -> None: ...
-    else:
-        def __init__(
-            self, coro: _TaskCompatibleCoro[_T_co], *, loop: AbstractEventLoop = ..., name: str | None = ...
-        ) -> None: ...
-
-    if sys.version_info >= (3, 12):
-        def get_coro(self) -> _TaskCompatibleCoro[_T_co] | None: ...
-    else:
-        def get_coro(self) -> _TaskCompatibleCoro[_T_co]: ...
-
-    def get_name(self) -> str: ...
-    def set_name(self, value: object, /) -> None: ...
-    if sys.version_info >= (3, 12):
-        def get_context(self) -> Context: ...
-
-    def get_stack(self, *, limit: int | None = None) -> list[FrameType]: ...
-    def print_stack(self, *, limit: int | None = None, file: TextIO | None = None) -> None: ...
-    if sys.version_info >= (3, 11):
-        def cancelling(self) -> int: ...
-        def uncancel(self) -> int: ...
-    if sys.version_info < (3, 9):
-        @classmethod
-        def current_task(cls, loop: AbstractEventLoop | None = None) -> Task[Any] | None: ...
-        @classmethod
-        def all_tasks(cls, loop: AbstractEventLoop | None = None) -> set[Task[Any]]: ...
-    if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 def all_tasks(loop: AbstractEventLoop | None = None) -> set[Task[Any]]: ...
 
