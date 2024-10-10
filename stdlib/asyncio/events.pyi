@@ -1,6 +1,11 @@
 import ssl
 import sys
-from _asyncio import get_event_loop as get_event_loop, get_running_loop as get_running_loop
+from _asyncio import (
+    _get_running_loop as _get_running_loop,
+    _set_running_loop as _set_running_loop,
+    get_event_loop as get_event_loop,
+    get_running_loop as get_running_loop,
+)
 from _typeshed import FileDescriptorLike, ReadableBuffer, StrPath, Unused, WriteableBuffer
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Sequence
@@ -646,6 +651,3 @@ if sys.version_info < (3, 14):
     else:
         def get_child_watcher() -> AbstractChildWatcher: ...
         def set_child_watcher(watcher: AbstractChildWatcher) -> None: ...
-
-def _set_running_loop(loop: AbstractEventLoop | None, /) -> None: ...
-def _get_running_loop() -> AbstractEventLoop: ...

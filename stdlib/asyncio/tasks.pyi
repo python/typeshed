@@ -1,6 +1,12 @@
 import concurrent.futures
 import sys
-from _asyncio import Task as Task
+from _asyncio import (
+    Task as Task,
+    _enter_task as _enter_task,
+    _leave_task as _leave_task,
+    _register_task as _register_task,
+    _unregister_task as _unregister_task,
+)
 from collections.abc import Awaitable, Coroutine, Generator, Iterable, Iterator
 from typing import Any, Literal, Protocol, TypeVar, overload
 from typing_extensions import TypeAlias
@@ -406,9 +412,10 @@ if sys.version_info >= (3, 11):
 else:
     def create_task(coro: _CoroutineLike[_T], *, name: str | None = None) -> Task[_T]: ...
 
-def current_task(loop: AbstractEventLoop | None = None) -> Task[Any] | None: ...
-def _enter_task(loop: AbstractEventLoop, task: Task[Any]) -> None: ...
-def _leave_task(loop: AbstractEventLoop, task: Task[Any]) -> None: ...
+if sys.version_info >= (3, 12):
+    from _asyncio import current_task as current_task
+else:
+    def current_task(loop: AbstractEventLoop | None = None) -> Task[Any] | None: ...
 
 if sys.version_info >= (3, 12):
     _TaskT_co = TypeVar("_TaskT_co", bound=Task[Any], covariant=True)
@@ -445,6 +452,3 @@ if sys.version_info >= (3, 12):
         name: str | None = None,
         context: Context | None = None,
     ) -> Task[_T_co]: ...
-
-def _register_task(task: Task[Any]) -> None: ...
-def _unregister_task(task: Task[Any]) -> None: ...
