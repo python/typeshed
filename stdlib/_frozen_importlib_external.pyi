@@ -1,11 +1,12 @@
 import _ast
+import _io
 import importlib.abc
 import importlib.machinery
 import sys
 import types
 from _typeshed import Incomplete, ReadableBuffer, StrOrBytesPath, StrPath
 from _typeshed.importlib import LoaderProtocol
-from collections.abc import Callable, Iterable, Mapping, MutableSequence, Sequence
+from collections.abc import Callable, Iterable, Iterator, Mapping, MutableSequence, Sequence
 from importlib.machinery import ModuleSpec
 from importlib.metadata import DistributionFinder, PathDistribution
 from typing import Any, Literal
@@ -104,6 +105,10 @@ class FileLoader:
         def get_resource_reader(self, module: types.ModuleType) -> importlib.readers.FileReader: ...
     else:
         def get_resource_reader(self, module: types.ModuleType) -> Self | None: ...
+        def open_resource(self, resource: str) -> _io.FileIO: ...
+        def resource_path(self, resource: str) -> str: ...
+        def is_resource(self, name: str) -> bool: ...
+        def contents(self) -> Iterator[str]: ...
 
 class SourceFileLoader(FileLoader, SourceLoader, importlib.abc.FileLoader, importlib.abc.SourceLoader):  # type: ignore[misc]  # Cannot determine consistent method resolution order - ABCs create circular inheritance
     def set_data(self, path: str, data: ReadableBuffer, *, _mode: int = 0o666) -> None: ...
