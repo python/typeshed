@@ -12,8 +12,11 @@ import re
 import sys
 from pathlib import Path
 
-from _metadata import read_metadata
-from _utils import (
+sys.path += ["lib"]
+
+
+from ts_utils.metadata import read_metadata  # noqa: E402
+from ts_utils.utils import (  # noqa: E402
     REQS_FILE,
     STDLIB_PATH,
     TEST_CASES_DIR,

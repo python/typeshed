@@ -6,7 +6,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-from _utils import parse_requirements, print_command
+sys.path += ["lib"]
+
+
+from ts_utils.utils import parse_requirements, print_command  # noqa: E402
 
 _WELL_KNOWN_FILE = Path("tests", "pyright_test.py")
 

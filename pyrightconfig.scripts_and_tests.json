@@ -5,6 +5,9 @@
         "scripts",
         "tests",
     ],
+    "extraPaths": [
+        "lib",
+    ],
     "typeCheckingMode": "strict",
     // More of a lint. Unwanted for typeshed's own code.
     "reportImplicitStringConcatenation": "none",

@@ -9,7 +9,10 @@ import sys
 from itertools import product
 from typing_extensions import TypeAlias
 
-from _utils import colored, print_error
+sys.path += ["lib"]
+
+
+from ts_utils.utils import colored, print_error  # noqa: E402
 
 ReturnCode: TypeAlias = int
 
