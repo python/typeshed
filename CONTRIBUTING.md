@@ -117,9 +117,11 @@ hard-linked extension modules, and the builtins. The `VERSIONS` file lists
 the versions of Python where the module is available.
 
 We accept changes for future versions of Python after the first beta for that
-version was released. We will drop active support for a Python version three
-months after it reaches [end-of-life](https://devguide.python.org/versions/).
-After six months, we will remove the stubs for that version.
+version was released. We drop support for a Python version two to three months
+after it reaches [end-of-life](https://devguide.python.org/versions/). This
+means that we will no longer actively test the stubs against that version.
+After five to six months, we will remove the stubs for that version and start
+to use features not supported by that version.
 
 ### Third-party library stubs
 
