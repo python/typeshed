@@ -173,8 +173,6 @@ class TextIOWrapper(TextIOBase, _TextIOBase, TextIO, Generic[_BufferT_co]):  # t
     # operations.
     def seek(self, cookie: int, whence: int = 0, /) -> int: ...
 
-# The C implementation is not a subclass of TextIOWrapper at runtime,
-# but the implementation in _pyio is
 class StringIO(TextIOWrapper, TextIOBase, _TextIOBase):  # type: ignore[misc]  # incompatible definitions of write in the base classes
     def __init__(self, initial_value: str | None = ..., newline: str | None = ...) -> None: ...
     # StringIO does not contain a "name" field. This workaround is necessary
@@ -183,8 +181,6 @@ class StringIO(TextIOWrapper, TextIOBase, _TextIOBase):  # type: ignore[misc]  #
     name: Any
     def getvalue(self) -> str: ...
 
-# The C implementation is not a subclass of codecs.IncrementalDecoder at runtime
-# but the implementation in _pyio is
 class IncrementalNewlineDecoder(codecs.IncrementalDecoder):
     def __init__(self, decoder: codecs.IncrementalDecoder | None, translate: bool, errors: str = ...) -> None: ...
     def decode(self, input: ReadableBuffer | str, final: bool = False) -> str: ...
