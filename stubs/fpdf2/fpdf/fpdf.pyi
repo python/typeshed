@@ -94,7 +94,7 @@ class ToCPlaceholder(NamedTuple):
     render_function: Callable[[FPDF, Any], object]
     start_page: int
     y: int
-    pages: int = ...
+    pages: int = 1
 
 def get_page_format(format: _Format | tuple[float, float], k: float | None = None) -> tuple[float, float]: ...
 
