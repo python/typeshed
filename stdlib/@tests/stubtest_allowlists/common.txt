@@ -4,6 +4,7 @@
 
 # Please keep sorted alphabetically
 
+_asyncio.Future.__init__  # Usually initialized from c object
 _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
