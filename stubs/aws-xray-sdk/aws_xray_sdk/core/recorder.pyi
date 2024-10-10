@@ -1,7 +1,9 @@
 import time
+from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
 from logging import Logger
 from typing import Any
+from typing_extensions import ParamSpecKwargs
 
 from .context import Context
 from .emitters.udp_emitter import UDPEmitter
@@ -17,8 +19,8 @@ log: Logger
 TRACING_NAME_KEY: str
 DAEMON_ADDR_KEY: str
 CONTEXT_MISSING_KEY: str
-XRAY_META: Any
-SERVICE_INFO: Any
+XRAY_META: Incomplete
+SERVICE_INFO: Incomplete
 
 class AWSXRayRecorder:
     def __init__(self) -> None: ...
@@ -39,8 +41,8 @@ class AWSXRayRecorder:
         sampler: LocalSampler | DefaultSampler | None = None,
         stream_sql: bool | None = True,
     ) -> None: ...
-    def in_segment(self, name: str | None = None, **segment_kwargs) -> SegmentContextManager: ...
-    def in_subsegment(self, name: str | None = None, **subsegment_kwargs) -> SubsegmentContextManager: ...
+    def in_segment(self, name: str | None = None, **segment_kwargs: ParamSpecKwargs) -> SegmentContextManager: ...
+    def in_subsegment(self, name: str | None = None, **subsegment_kwargs: ParamSpecKwargs) -> SubsegmentContextManager: ...
     def begin_segment(
         self, name: str | None = None, traceid: str | None = None, parent_id: str | None = None, sampling: bool | None = None
     ) -> Segment | DummySegment: ...
