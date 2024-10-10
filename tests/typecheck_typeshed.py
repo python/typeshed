@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import subprocess
 import sys
 from itertools import product
@@ -73,7 +74,8 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "--custom-typeshed-dir",
         ".",
     ]
-    result = subprocess.run(command, capture_output=True, text=True)
+    env = {**os.environ, "PYTHONPATH": "lib"}
+    result = subprocess.run(command, capture_output=True, text=True, env=env)
     if result.stderr:
         print_error(result.stderr)
     if result.stdout:
