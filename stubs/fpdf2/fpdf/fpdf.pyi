@@ -437,7 +437,7 @@ class FPDF(GraphicsStateMixin):
         fill_color: Incomplete | None = None,
         text_color: Incomplete | None = None,
         dash_pattern: Incomplete | None = None,
-        font_size=...,
+        font_size=...,  # semi-deprecated, prefer font_size_pt
         char_vpos=...,
         char_spacing=...,
         current_font=...,
@@ -457,7 +457,6 @@ class FPDF(GraphicsStateMixin):
         allow_transparency=...,
         auto_close=...,
         intersection_rule=...,
-        fill_color=...,
         fill_opacity=...,
         stroke_color=...,
         stroke_opacity=...,
