@@ -426,7 +426,49 @@ class FPDF(GraphicsStateMixin):
         self, ax: float = 0, ay: float = 0, x: float | None = None, y: float | None = None
     ) -> _GeneratorContextManager[None]: ...
     def mirror(self, origin, angle) -> Generator[None]: ...
-    def local_context(self, **kwargs) -> _GeneratorContextManager[None]: ...
+    def local_context(
+        self,
+        *,
+        font_family: Incomplete | None = None,
+        font_style: Incomplete | None = None,
+        font_size_pt: Incomplete | None = None,
+        line_width: Incomplete | None = None,
+        draw_color: Incomplete | None = None,
+        fill_color: Incomplete | None = None,
+        text_color: Incomplete | None = None,
+        dash_pattern: Incomplete | None = None,
+        font_size=...,
+        char_vpos=...,
+        char_spacing=...,
+        current_font=...,
+        denom_lift=...,
+        denom_scale=...,
+        font_stretching=...,
+        nom_lift=...,
+        nom_scale=...,
+        sub_lift=...,
+        sub_scale=...,
+        sup_lift=...,
+        sup_scale=...,
+        text_mode=...,
+        text_shaping=...,
+        underline=...,
+        paint_rule=...,
+        allow_transparency=...,
+        auto_close=...,
+        intersection_rule=...,
+        fill_color=...,
+        fill_opacity=...,
+        stroke_color=...,
+        stroke_opacity=...,
+        blend_mode=...,
+        stroke_width=...,
+        stroke_cap_style=...,
+        stroke_join_style=...,
+        stroke_miter_limit=...,
+        stroke_dash_pattern=...,
+        stroke_dash_phase=...,
+    ) -> _GeneratorContextManager[None]: ...
     @property
     def accept_page_break(self) -> bool: ...
     def cell(
