@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies
         run: uv pip install -r requirements-tests.txt --system
       - name: Run stubsabot
-        run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} python scripts/stubsabot.py --action-level everything
+        run: GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} PYTHONPATH=tests python scripts/stubsabot.py --action-level everything
 
   # https://github.community/t/run-github-actions-job-only-if-previous-job-has-failed/174786/2
   create-issue-on-failure:

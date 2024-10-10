@@ -76,4 +76,4 @@ jobs:
           git config --global user.name stubsabot
           git config --global user.email '<>'
       - run: uv pip install -r requirements-tests.txt --system
-      - run: python scripts/stubsabot.py --action-level local
+      - run: PYTHONPATH=tests python scripts/stubsabot.py --action-level local
