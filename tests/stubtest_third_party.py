@@ -73,7 +73,7 @@ def run_stubtest(
             pip_exe = str(venv_dir / "bin" / "pip")
             python_exe = str(venv_dir / "bin" / "python")
         dist_extras = ", ".join(stubtest_settings.extras)
-        dist_req = f"{dist_name}[{dist_extras}]=={metadata.version}"
+        dist_req = f"{dist_name}[{dist_extras}]{metadata.version_spec}"
 
         # If tool.stubtest.stubtest_requirements exists, run "pip install" on it.
         if stubtest_settings.stubtest_requirements:

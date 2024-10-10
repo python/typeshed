@@ -17,7 +17,6 @@ from typing_extensions import Annotated, TypeGuard
 import tomli
 from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
-from packaging.version import Version
 
 from _utils import cache
 
@@ -130,7 +129,7 @@ class StubMetadata:
     Don't construct instances directly; use the `read_metadata` function.
     """
 
-    version: str
+    version_spec: Annotated[Specifier, "Upstream versions that the stubs are compatible with"]
     requires: Annotated[list[Requirement], "The parsed requirements as listed in METADATA.toml"]
     extra_description: str | None
     stub_distribution: Annotated[str, "The name under which the distribution is uploaded to PyPI"]
@@ -197,9 +196,12 @@ def read_metadata(distribution: str) -> StubMetadata:
 
     assert "version" in data, f"Missing 'version' field in METADATA.toml for {distribution!r}"
     version = data["version"]
-    assert isinstance(version, str)
-    # Check that the version parses
-    Version(version[:-2] if version.endswith(".*") else version)
+    assert isinstance(version, str) and len(version) > 0, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
+    # Check that the version spec parses
+    if version[0].isdigit():
+        version = f"=={version}"
+    version_spec = Specifier(version)
+    assert version_spec.operator in {"==", "~="}, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
 
     requires_s: object = data.get("requires", [])
     assert isinstance(requires_s, list)
@@ -273,7 +275,7 @@ def read_metadata(distribution: str) -> StubMetadata:
             assert key in tk, f"Unrecognised {tool} key {key!r} for {distribution!r}"
 
     return StubMetadata(
-        version=version,
+        version_spec=version_spec,
         requires=requires,
         extra_description=extra_description,
         stub_distribution=stub_distribution,
