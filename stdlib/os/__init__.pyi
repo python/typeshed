@@ -25,6 +25,7 @@ from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMappin
 from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper, _WrappedBuffer
 from subprocess import Popen
+from types import TracebackType
 from typing import (
     IO,
     Any,
@@ -922,7 +923,9 @@ class _wrap_close(Generic[_BufferT_co]):
     def __init__(self, stream: TextIOWrapper, proc: Popen[str]) -> None: ...
     def close(self) -> int | None: ...  # type: ignore[override]
     def __enter__(self) -> Self: ...
-    def __exit__(self, *args) -> None: ...
+    def __exit__(
+        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
+    ) -> None: ...
     def __iter__(self) -> Iterator[str]: ...
     # Methods below here don't exist directly on the _wrap_close object, but
     # are copied from the wrapped TextIOWrapper object via __getattr__.
