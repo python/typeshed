@@ -1,13 +1,9 @@
-import sys
 from _asyncio import Future as Future
 from concurrent.futures._base import Future as _ConcurrentFuture
 from typing import Any, TypeVar
 from typing_extensions import TypeIs
 
 from .events import AbstractEventLoop
-
-if sys.version_info >= (3, 9):
-    pass
 
 __all__ = ("Future", "wrap_future", "isfuture")
 

@@ -9,8 +9,6 @@ from . import _CoroutineLike
 from .events import AbstractEventLoop
 from .futures import Future
 
-if sys.version_info >= (3, 9):
-    pass
 if sys.version_info >= (3, 11):
     from contextvars import Context
 
