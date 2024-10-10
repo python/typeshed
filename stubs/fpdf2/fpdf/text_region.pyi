@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Iterable, Sequence
+from collections.abc import Sequence
 from typing import NamedTuple
 from typing_extensions import Self
 
@@ -24,11 +24,11 @@ class LineWrapper(NamedTuple):
     last_line: bool = False
 
 class Bullet:
-    fragments: Iterable[Fragment]
+    fragments: Sequence[Fragment]
     text_line: TextLine
     r_margin: float
     rendered_flag: bool
-    def __init__(self, bullet_fragments: Iterable[Fragment], text_line: TextLine, bullet_r_margin: float) -> None: ...
+    def __init__(self, bullet_fragments: Sequence[Fragment], text_line: TextLine, bullet_r_margin: float) -> None: ...
     def get_fragments_width(self) -> float: ...
 
 class Paragraph:
