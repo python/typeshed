@@ -671,6 +671,29 @@ xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
 typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 
+# Added or modified in a patch release, backported to all security branches,
+# but have yet to find their way to all GitHub Actions images
+(tarfile.tar_filter)?
+(tarfile.fully_trusted_filter)?
+(tarfile.data_filter)?
+(tarfile.TarFile.extractall)?
+(tarfile.TarFile.extract)?
+(tarfile.SpecialFileError)?
+(tarfile.OutsideDestinationError)?
+(tarfile.LinkOutsideDestinationError)?
+(tarfile.FilterError)?
+(tarfile.AbsolutePathError)?
+(tarfile.AbsoluteLinkError)?
+(shutil.unpack_archive)?
+(pyexpat.XMLParserType.GetReparseDeferralEnabled)?
+(pyexpat.XMLParserType.SetReparseDeferralEnabled)?
+(xml.etree.ElementTree.XMLParser.flush)?
+(xml.etree.ElementTree.XMLPullParser.flush)?
+(xml.etree.cElementTree.XMLParser.flush)?
+(xml.etree.cElementTree.XMLPullParser.flush)?
+(xml.parsers.expat.XMLParserType.GetReparseDeferralEnabled)?
+(xml.parsers.expat.XMLParserType.SetReparseDeferralEnabled)?
+
 # enum.auto is magic, see comments
 enum.auto.__or__
 enum.auto.__and__
