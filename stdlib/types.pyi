@@ -576,7 +576,7 @@ def prepare_class(
 if sys.version_info >= (3, 12):
     def get_original_bases(cls: type, /) -> tuple[Any, ...]: ...
 
-class DynamicClassAttribute:
+class DynamicClassAttribute(property):
     fget: Callable[[Any], Any] | None
     fset: Callable[[Any, Any], None] | None
     fdel: Callable[[Any], None] | None
