@@ -13,6 +13,10 @@ _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
+_frozen_importlib_external.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+_frozen_importlib_external.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+_frozen_importlib_external.FileLoader.get_resource_reader  # Wrapped with _check_name decorator which changes runtime signature
+_frozen_importlib_external.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 _threading_local.local.__new__
 ast.Bytes.__new__
 ast.Ellipsis.__new__
@@ -44,6 +48,10 @@ hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
+importlib._bootstrap_external.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+importlib._bootstrap_external.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+importlib._bootstrap_external.FileLoader.get_resource_reader  # Wrapped with _check_name decorator which changes runtime signature
+importlib._bootstrap_external.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
@@ -262,6 +270,12 @@ idlelib
 importlib.machinery.WindowsRegistryFinder.DEBUG_BUILD
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
+_frozen_importlib_external.WindowsRegistryFinder.DEBUG_BUILD
+_frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY
+_frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
+importlib._bootstrap_external.WindowsRegistryFinder.DEBUG_BUILD
+importlib._bootstrap_external.WindowsRegistryFinder.REGISTRY_KEY
+importlib._bootstrap_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
 
 # Undocumented implementation details
 profile.Profile.dispatch
