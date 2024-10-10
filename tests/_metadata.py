@@ -50,6 +50,16 @@ def _get_oldest_supported_python() -> str:
     return val
 
 
+def stubs_path(distribution: str) -> Path:
+    """Return the path to the directory of a third-party distribution."""
+    return Path("stubs", distribution)
+
+
+def metadata_path(distribution: str) -> Path:
+    """Return the path to the METADATA.toml file of a third-party distribution."""
+    return stubs_path(distribution) / "METADATA.toml"
+
+
 @final
 @dataclass(frozen=True)
 class StubtestSettings:
@@ -77,7 +87,7 @@ class StubtestSettings:
 @cache
 def read_stubtest_settings(distribution: str) -> StubtestSettings:
     """Return an object describing the stubtest settings for a single stubs distribution."""
-    with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
+    with metadata_path(distribution).open("rb") as f:
         data: dict[str, object] = tomli.load(f).get("tool", {}).get("stubtest", {})
 
     skip: object = data.get("skip", False)
@@ -130,6 +140,7 @@ class StubMetadata:
     Don't construct instances directly; use the `read_metadata` function.
     """
 
+    distribution: Annotated[str, "The name of the distribution on PyPI"]
     version: str
     requires: Annotated[list[Requirement], "The parsed requirements as listed in METADATA.toml"]
     extra_description: str | None
@@ -141,6 +152,10 @@ class StubMetadata:
     partial_stub: Annotated[bool, "Whether this is a partial type stub package as per PEP 561."]
     stubtest_settings: StubtestSettings
     requires_python: Annotated[Specifier, "Versions of Python supported by the stub package"]
+
+    @property
+    def is_obsolete(self) -> bool:
+        return self.obsolete_since is not None
 
 
 _KNOWN_METADATA_FIELDS: Final = frozenset(
@@ -187,7 +202,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     given in the `requires` field, for example.
     """
     try:
-        with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
+        with metadata_path(distribution).open("rb") as f:
             data: dict[str, object] = tomli.load(f)
     except FileNotFoundError:
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
@@ -273,6 +288,7 @@ def read_metadata(distribution: str) -> StubMetadata:
             assert key in tk, f"Unrecognised {tool} key {key!r} for {distribution!r}"
 
     return StubMetadata(
+        distribution=distribution,
         version=version,
         requires=requires,
         extra_description=extra_description,
