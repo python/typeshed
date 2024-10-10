@@ -29,7 +29,7 @@ import packaging.version
 import tomlkit
 from termcolor import colored
 
-from _metadata import StubMetadata, metadata_path, read_metadata, stubs_path
+from _metadata import StubMetadata, metadata_path, read_metadata, stubs_path  # type: ignore[import-untyped]
 
 TYPESHED_OWNER = "python"
 TYPESHED_API_URL = f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed"
