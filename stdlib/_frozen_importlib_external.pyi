@@ -148,7 +148,7 @@ if sys.version_info >= (3, 11):
 
     _NamespaceLoader = NamespaceLoader
 else:
-    class _NamespaceLoader(importlib.abc.InspectLoader):
+    class _NamespaceLoader:
         def __init__(
             self, name: str, path: MutableSequence[str], path_finder: Callable[[str, tuple[str, ...]], ModuleSpec]
         ) -> None: ...
