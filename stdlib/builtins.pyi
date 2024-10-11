@@ -41,7 +41,6 @@ from typing import (  # noqa: Y022
     Any,
     BinaryIO,
     ClassVar,
-    Collection,
     Generic,
     Mapping,
     MutableMapping,
@@ -835,7 +834,7 @@ _IntegerFormats: TypeAlias = Literal[
 ]
 
 @final
-class memoryview(Collection[_T_co], Reversible[_T_co]):
+class memoryview(Generic[_I]):
     @property
     def format(self) -> str: ...
     @property
