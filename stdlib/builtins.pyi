@@ -30,7 +30,6 @@ from _typeshed import (
     SupportsRichComparisonT,
     SupportsWrite,
 )
-from abc import abstractmethod
 from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from types import CellType, CodeType, TracebackType
@@ -835,20 +834,8 @@ _IntegerFormats: TypeAlias = Literal[
     "b", "B", "@b", "@B", "h", "H", "@h", "@H", "i", "I", "@i", "@I", "l", "L", "@l", "@L", "q", "Q", "@q", "@Q", "P", "@P"
 ]
 
-# Sequence[T] without index and count
-class __memory_view(Collection[_T_co], Reversible[_T_co]):
-    @overload
-    @abstractmethod
-    def __getitem__(self, index: int) -> _T_co: ...
-    @overload
-    @abstractmethod
-    def __getitem__(self, index: slice) -> __memory_view[_T_co]: ...
-    def __contains__(self, value: object) -> bool: ...
-    def __iter__(self) -> Iterator[_T_co]: ...
-    def __reversed__(self) -> Iterator[_T_co]: ...
-
 @final
-class memoryview(__memory_view[_I]):
+class memoryview(Collection[_T_co], Reversible[_T_co]):
     @property
     def format(self) -> str: ...
     @property
