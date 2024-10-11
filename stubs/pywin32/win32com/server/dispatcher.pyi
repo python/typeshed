@@ -1,9 +1,6 @@
 from _typeshed import Incomplete
 from typing_extensions import TypeAlias, deprecated
 
-from win32com.server.exception import IsCOMServerException as IsCOMServerException
-from win32com.util import IIDToInterfaceName as IIDToInterfaceName
-
 class DispatcherBase:
     policy: Incomplete
     logger: Incomplete

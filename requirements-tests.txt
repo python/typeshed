@@ -3,7 +3,7 @@
 mypy==1.11.2
 pyright==1.1.383
 # pytype can be installed on Windows, but requires building wheels, let's not do that on the CI
-pytype==2024.9.13; platform_system != "Windows" and python_version < "3.13"
+pytype==2024.10.11; platform_system != "Windows" and python_version >= "3.10" and python_version < "3.13"
 
 # Libraries used by our various scripts.
 aiohttp==3.10.9
@@ -16,7 +16,7 @@ pathspec>=0.11.1
 pre-commit
 # Required by create_baseline_stubs.py. Must match .pre-commit-config.yaml.
 ruff==0.6.9
-stubdefaulter==0.1.0
+stubdefaulter==0.1.0; python_version < "3.13" # Requires libcst which doesn't have 3.13 wheels yet and requires a Rust compiler
 termcolor>=2.3
 tomli==2.0.2
 tomlkit==0.13.2

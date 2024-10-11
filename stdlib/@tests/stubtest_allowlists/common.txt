@@ -1,9 +1,10 @@
 # ==========
-# Allowlist entries that should be fixed
+# TODO: Allowlist entries that should be fixed
 # ==========
 
 # Please keep sorted alphabetically
 
+_asyncio.Future.__init__  # Usually initialized from c object
 _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
@@ -60,6 +61,17 @@ io.FileIO.seek
 io.StringIO.seek
 io.StringIO.truncate
 io.TextIOWrapper.truncate
+_io.BufferedRandom.truncate
+_io.BufferedReader.seek
+_io.BufferedReader.truncate
+_io.BufferedWriter.seek
+_io.BufferedWriter.truncate
+_io.BytesIO.readlines
+_io.BytesIO.seek  # Parameter name for a positional-only param differs from its name in the inherited method
+_io.FileIO.seek
+_io.StringIO.seek
+_io.StringIO.truncate
+_io.TextIOWrapper.truncate
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
 ipaddress._BaseNetwork.broadcast_address
@@ -121,11 +133,8 @@ xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signatur
 xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.parsers.expat.expat_CAPI
 
-# Modules that exist at runtime, but shouldn't be added to typeshed
-idlelib
-
 # ==========
-# Modules that exist at runtime, but are missing from stubs
+# TODO: Modules that exist at runtime, but are missing from stubs
 # ==========
 ctypes.macholib
 ctypes.macholib.dyld
@@ -180,7 +189,7 @@ turtledemo\..+
 xml.sax.expatreader
 
 # ==========
-# Module members that exist at runtime, but are missing from stubs
+# TODO: Module members that exist at runtime, but are missing from stubs
 # ==========
 _json.encode_basestring
 _thread.RLock
@@ -232,6 +241,23 @@ tkinter.Misc.config
 tkinter.font.Font.counter
 turtle.TNavigator.speed
 
+_ctypes.PyObj_FromPtr
+_ctypes.Py_DECREF
+_ctypes.Py_INCREF
+_ctypes.buffer_info
+_ctypes.call_cdeclfunction
+_ctypes.call_function
+
+# ==========
+# Modules that exist at runtime, but are deliberately missing from stubs
+# ==========
+
+idlelib
+
+# ==========
+# Module members that exist at runtime, but are deliberately missing from stubs
+# ==========
+
 # Undocumented implementation details of a deprecated class
 importlib.machinery.WindowsRegistryFinder.DEBUG_BUILD
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY
@@ -261,15 +287,33 @@ turtle.ScrolledCanvas.onResize
 wave.Wave_read.initfp
 wave.Wave_write.initfp
 
-_ctypes.PyObj_FromPtr
-_ctypes.Py_DECREF
-_ctypes.Py_INCREF
-_ctypes.buffer_info
-_ctypes.call_cdeclfunction
-_ctypes.call_function
+# ==========
+# Platform and installation differences
+# ==========
+
+# Platform differences that cannot be captured by the type system
+os.O_[A-Z_]+
+socket.AF_DECnet
+
+# sys attributes that are not always defined
+sys.gettotalrefcount  # Available on python debug builds
+sys.last_traceback
+sys.last_type
+sys.last_value
+sys.ps1
+sys.ps2
+sys.tracebacklimit
+
+# LC_MESSAGES is sometimes present in __all__, sometimes not,
+# so stubtest will sometimes complain about exported names being different at runtime to the exported names in the stub
+(locale.__all__)?
+
+# Loadable SQLite extensions are disabled on GitHub runners
+(sqlite3(.dbapi2)?.Connection.enable_load_extension)?
+(sqlite3(.dbapi2)?.Connection.load_extension)?
 
 # ==========
-# Allowlist entries that cannot or should not be fixed
+# Other allowlist entries that cannot or should not be fixed
 # ==========
 
 # Runtime AST node runtime constructor behaviour is too loose.
@@ -494,18 +538,10 @@ typing(_extensions)?\.TextIO\.newlines
 typing(_extensions)?\.(Async)?ContextManager
 
 types.MethodType.__closure__  # read-only but not actually a property; stubtest thinks it doesn't exist.
+types.MethodType.__code__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.MethodType.__defaults__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.ModuleType.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
 types.ModuleType.__getattr__  # this doesn't exist at runtime
-
-# sys attributes that are not always defined
-sys.gettotalrefcount  # Available on python debug builds
-sys.last_traceback
-sys.last_type
-sys.last_value
-sys.ps1
-sys.ps2
-sys.tracebacklimit
 
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
 
@@ -566,14 +602,6 @@ email.utils
 xml.dom
 xml.etree
 xml.sax
-
-# Platform differences that cannot be captured by the type system
-os.O_[A-Z_]+
-socket.AF_DECnet
-
-# Loadable SQLite extensions are disabled on GitHub runners
-(sqlite3(.dbapi2)?.Connection.enable_load_extension)?
-(sqlite3(.dbapi2)?.Connection.load_extension)?
 
 # Missing aliases to existing methods that not many people seem to use.
 # Complicated multiple inheritance, confuses type checkers.
@@ -643,10 +671,6 @@ xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
 typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 
-# LC_MESSAGES is sometimes present in __all__, sometimes not,
-# so stubtest will sometimes complain about exported names being different at runtime to the exported names in the stub
-(locale.__all__)?
-
 # Added or modified in a patch release, backported to all security branches,
 # but have yet to find their way to all GitHub Actions images
 (tarfile.tar_filter)?
@@ -669,3 +693,8 @@ typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/com
 (xml.etree.cElementTree.XMLPullParser.flush)?
 (xml.parsers.expat.XMLParserType.GetReparseDeferralEnabled)?
 (xml.parsers.expat.XMLParserType.SetReparseDeferralEnabled)?
+
+# enum.auto is magic, see comments
+enum.auto.__or__
+enum.auto.__and__
+enum.auto.__xor__
