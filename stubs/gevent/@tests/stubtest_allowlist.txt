@@ -221,3 +221,7 @@ gevent._types
 # useful way to use it as a keyword argument; we mark it positional-only.
 gevent.pool.GroupMappingMixin.imap
 gevent.pool.GroupMappingMixin.imap_unordered
+
+# Importing gevent.monkey.__main__ leads to issues in stubtest, since gevent will
+# try to monkeypatch stubtest
+gevent.monkey.__main__
