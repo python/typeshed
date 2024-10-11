@@ -19,6 +19,9 @@ def spec_from_loader(
     name: str, loader: LoaderProtocol | None, *, origin: str | None = None, is_package: bool | None = None
 ) -> importlib.machinery.ModuleSpec | None: ...
 def module_from_spec(spec: importlib.machinery.ModuleSpec) -> types.ModuleType: ...
+def _init_module_attrs(
+    spec: importlib.machinery.ModuleSpec, module: types.ModuleType, *, override: bool = False
+) -> types.ModuleType: ...
 
 class ModuleSpec:
     def __init__(
