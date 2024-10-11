@@ -3,7 +3,7 @@
 mypy==1.11.2
 pyright==1.1.383
 # pytype can be installed on Windows, but requires building wheels, let's not do that on the CI
-pytype==2024.9.13; platform_system != "Windows" and python_version < "3.13"
+pytype==2024.10.11; platform_system != "Windows" and python_version < "3.13"
 
 # Libraries used by our various scripts.
 aiohttp==3.10.9
