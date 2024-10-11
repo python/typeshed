@@ -834,7 +834,7 @@ _IntegerFormats: TypeAlias = Literal[
 ]
 
 @final
-class memoryview(Sequence[_I]):
+class memoryview(Generic[_I]):
     @property
     def format(self) -> str: ...
     @property
