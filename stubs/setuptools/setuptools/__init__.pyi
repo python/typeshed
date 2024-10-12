@@ -94,6 +94,7 @@ def setup(
     command_options: Mapping[str, Mapping[str, tuple[Incomplete, Incomplete]]] = ...,
     package_data: Mapping[str, list[str]] = ...,
     include_package_data: bool = ...,
+    # libraries for `Distribution` or `build_clib`, not `Extension`, `build_ext` or `CCompiler`
     libraries: list[tuple[str, _BuildInfo]] = ...,
     headers: list[str] = ...,
     ext_package: str = ...,
