@@ -1,7 +1,8 @@
 from _typeshed import Incomplete, StrPath
 from abc import abstractmethod
 from collections.abc import Iterable, Mapping, Sequence
-from typing import Any, Literal, NotRequired, TypedDict, TypeVar, overload
+from typing import Any, Literal, TypedDict, TypeVar, overload
+from typing_extensions import NotRequired
 
 from ._distutils.cmd import Command as _Command
 from .command.alias import alias
