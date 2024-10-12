@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, StrPath
 from abc import abstractmethod
 from collections.abc import Iterable, Mapping, Sequence
-from typing import Any, Literal, TypeVar, overload
+from typing import Any, Literal, NotRequired, TypedDict, TypeVar, overload
 
 from ._distutils.cmd import Command as _Command
 from .command.alias import alias
@@ -45,6 +45,13 @@ __all__ = [
 
 __version__: str
 
+class _Library(TypedDict):
+    sources: list[str] | tuple[str]
+    obj_deps: NotRequired[dict[str, list[str] | tuple[str]]]
+    macros: NotRequired[list[tuple[str, str] | tuple[str]]]
+    include_dirs: NotRequired[list[str]]
+    cflags: NotRequired[list[str]]
+
 # Pytype fails with the following:
 # find_packages = PackageFinder.find
 # find_namespace_packages = PEP420PackageFinder.find
@@ -85,7 +92,7 @@ def setup(
     command_options: Mapping[str, Mapping[str, tuple[Incomplete, Incomplete]]] = ...,
     package_data: Mapping[str, list[str]] = ...,
     include_package_data: bool = ...,
-    libraries: list[str] = ...,
+    libraries: list[tuple[str, _Library]] = ...,
     headers: list[str] = ...,
     ext_package: str = ...,
     include_dirs: list[str] = ...,
