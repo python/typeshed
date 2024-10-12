@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, StrPath
 from abc import abstractmethod
 from collections.abc import Iterable, Mapping, Sequence
-from typing import Any, Literal, TypedDict, TypeVar, overload
+from typing import Any, Literal, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import NotRequired
 
 from ._distutils.cmd import Command as _Command
@@ -46,7 +46,8 @@ __all__ = [
 
 __version__: str
 
-class _Library(TypedDict):
+@type_check_only
+class _BuildInfo(TypedDict):
     sources: list[str] | tuple[str]
     obj_deps: NotRequired[dict[str, list[str] | tuple[str]]]
     macros: NotRequired[list[tuple[str, str] | tuple[str]]]
@@ -93,7 +94,7 @@ def setup(
     command_options: Mapping[str, Mapping[str, tuple[Incomplete, Incomplete]]] = ...,
     package_data: Mapping[str, list[str]] = ...,
     include_package_data: bool = ...,
-    libraries: list[tuple[str, _Library]] = ...,
+    libraries: list[tuple[str, _BuildInfo]] = ...,
     headers: list[str] = ...,
     ext_package: str = ...,
     include_dirs: list[str] = ...,
