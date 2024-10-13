@@ -48,8 +48,8 @@ __version__: str
 
 @type_check_only
 class _BuildInfo(TypedDict):
-    sources: list[str] | tuple[str]
-    obj_deps: NotRequired[dict[str, list[str] | tuple[str]]]
+    sources: list[str] | tuple[str, ...]
+    obj_deps: NotRequired[dict[str, list[str] | tuple[str, ...]]]
     macros: NotRequired[list[tuple[str, str] | tuple[str]]]
     include_dirs: NotRequired[list[str]]
     cflags: NotRequired[list[str]]
