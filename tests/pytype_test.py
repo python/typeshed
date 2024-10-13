@@ -35,11 +35,8 @@ from collections.abc import Iterable, Sequence
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]
 from pytype.imports import typeshed  # type: ignore[import]
 
-sys.path += ["lib"]
-
-
-from ts_utils.metadata import read_dependencies  # noqa: E402
-from ts_utils.utils import SupportedVersionsDict, parse_stdlib_versions_file, supported_versions_for_module  # noqa: E402
+from ts_utils.metadata import read_dependencies
+from ts_utils.utils import SupportedVersionsDict, parse_stdlib_versions_file, supported_versions_for_module
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"

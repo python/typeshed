@@ -11,10 +11,7 @@ import sys
 
 from packaging.requirements import Requirement
 
-sys.path += ["lib"]
-
-
-from ts_utils.metadata import read_dependencies  # noqa: E402
+from ts_utils.metadata import read_dependencies
 
 distributions = sys.argv[1:]
 if not distributions:

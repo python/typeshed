@@ -13,11 +13,8 @@ from shutil import rmtree
 from textwrap import dedent
 from typing import NoReturn
 
-sys.path += ["lib"]
-
-
-from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata  # noqa: E402
-from ts_utils.utils import (  # noqa: E402
+from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata
+from ts_utils.utils import (
     PYTHON_VERSION,
     allowlist_stubtest_arguments,
     allowlists_path,

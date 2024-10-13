@@ -10,10 +10,7 @@ import sys
 from importlib.util import find_spec
 from pathlib import Path
 
-sys.path += ["lib"]
-
-
-from ts_utils.utils import TEST_CASES_DIR, colored, test_cases_path  # noqa: E402
+from ts_utils.utils import TEST_CASES_DIR, colored, test_cases_path
 
 _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
 _TESTCASES_CONFIG_FILE = "pyrightconfig.testcases.json"

@@ -13,9 +13,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-sys.path += ["lib"]
-
-from ts_utils.utils import allowlist_stubtest_arguments, allowlists_path  # noqa: E402
+from ts_utils.utils import allowlist_stubtest_arguments, allowlists_path
 
 
 def run_stubtest(typeshed_dir: Path) -> int:

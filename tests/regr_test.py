@@ -21,11 +21,8 @@ from functools import partial
 from pathlib import Path
 from typing_extensions import TypeAlias
 
-sys.path += ["lib"]
-
-
-from ts_utils.metadata import get_recursive_requirements, read_metadata  # noqa: E402
-from ts_utils.utils import (  # noqa: E402
+from ts_utils.metadata import get_recursive_requirements, read_metadata
+from ts_utils.utils import (
     PYTHON_VERSION,
     TEST_CASES_DIR,
     DistributionTests,

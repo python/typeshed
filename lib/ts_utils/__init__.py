@@ -1,1 +1,1 @@
-"""Utility functions for typeshed infrastructure scripts."""
+"""Utilities for typeshed infrastructure scripts."""

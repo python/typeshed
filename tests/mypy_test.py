@@ -22,11 +22,8 @@ from typing_extensions import Annotated, TypeAlias
 import tomli
 from packaging.requirements import Requirement
 
-sys.path += ["lib"]
-
-
-from ts_utils.metadata import PackageDependencies, get_recursive_requirements, read_metadata  # noqa: E402
-from ts_utils.utils import (  # noqa: E402
+from ts_utils.metadata import PackageDependencies, get_recursive_requirements, read_metadata
+from ts_utils.utils import (
     PYTHON_VERSION,
     STDLIB_PATH,
     TESTS_DIR,

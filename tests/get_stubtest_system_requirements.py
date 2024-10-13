@@ -3,10 +3,7 @@
 import os
 import sys
 
-sys.path += ["lib"]
-
-
-from ts_utils.metadata import read_stubtest_settings  # noqa: E402
+from ts_utils.metadata import read_stubtest_settings
 
 platform = sys.platform
 distributions = sys.argv[1:]
