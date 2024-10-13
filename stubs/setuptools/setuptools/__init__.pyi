@@ -50,7 +50,7 @@ __version__: str
 class _BuildInfo(TypedDict):
     sources: list[str] | tuple[str, ...]
     obj_deps: NotRequired[dict[str, list[str] | tuple[str, ...]]]
-    macros: NotRequired[list[tuple[str, str] | tuple[str]]]
+    macros: NotRequired[list[tuple[str] | tuple[str, str | None]]]
     include_dirs: NotRequired[list[str]]
     cflags: NotRequired[list[str]]
 
