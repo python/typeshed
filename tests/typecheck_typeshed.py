@@ -71,8 +71,7 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "--custom-typeshed-dir",
         ".",
     ]
-    env = {**os.environ, "PYTHONPATH": "lib"}
-    result = subprocess.run(command, capture_output=True, text=True, env=env)
+    result = subprocess.run(command, capture_output=True, text=True)
     if result.stderr:
         print_error(result.stderr)
     if result.stdout:
