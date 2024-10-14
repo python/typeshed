@@ -23,7 +23,6 @@ class Validator(Protocol):
         self,
         schema: Mapping[Incomplete, Incomplete] | bool,
         registry: SchemaRegistry,
-        resolver: RefResolver | None = None,
         format_checker: FormatChecker | None = None,
     ) -> None: ...
     @classmethod
