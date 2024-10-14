@@ -7,7 +7,6 @@ from jsonschema import _typing
 from jsonschema._format import FormatChecker
 from jsonschema._types import TypeChecker
 from jsonschema.exceptions import ValidationError
-from jsonschema.validators import RefResolver
 from referencing.jsonschema import SchemaRegistry
 
 _JsonParameter: TypeAlias = str | int | float | bool | None | Mapping[str, _JsonParameter] | Sequence[_JsonParameter]
