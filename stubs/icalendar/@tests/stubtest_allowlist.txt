@@ -10,14 +10,5 @@ icalendar.Component.set_inline
 icalendar.cal.Component.get_inline
 icalendar.cal.Component.set_inline
 
-# Runtime __all__ has extra items that don't exist.
-icalendar.__all__
-icalendar.vTypesFactory
-icalendar.parser.__all__
-icalendar.parser.tzid_from_dt
-# Runtime __all__ is missing a comma, leading to incorrect items.
-icalendar.parser_tools.__all__
-icalendar.parser_tools.ICAL_TYPEdata_encode
-
 # Stubtest gets confused by multiple inheritance.
 icalendar.prop.vSkip.__new__

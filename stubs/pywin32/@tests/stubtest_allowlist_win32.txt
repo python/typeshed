@@ -1,9 +1,5 @@
 # Not available at runtime. Contains type definitions that are otherwise not exposed
 _win32typing
-# The exchdapi hasn't been built in years https://github.com/mhammond/pywin32/pull/2374
-win32com(ext)?.mapi._exchdapi
-# Internal variable for deprecation message https://github.com/mhammond/pywin32/pull/2380
-win32com.server.dispatcher.DispatcherWin32dbg_deprecation_message
 
 # PyWin tool / debugger
 pythonwin.start_pythonwin
@@ -51,10 +47,6 @@ win32com(ext)?.directsound.test.*
 # It's safer to not even expose this method as deprecated.
 (win32.)?win32gui.PyMakeBuffer
 
-# failed to import, ImportError: circular import https://github.com/mhammond/pywin32/pull/2381
-win32com.axscript.client.error
-win32com.axscript.client.framework
-
 # Axdebug is not built on Python 3.11 anyway: https://github.com/mhammond/pywin32/blob/main/setup.py#L398-L402
 #
 # failed to import, ImportError: DLL load failed while importing axdebug: The specified module could not be found.
@@ -71,5 +63,3 @@ win32com(ext)?.axdebug.stackframe
 # failed to import, ImportError: cannot import name 'axdebug' from 'win32com.axdebug'
 win32com(ext)?.axdebug.gateways
 win32com(ext)?.axscript.client.debug
-win32com(ext)?.axscript.client.error
-win32com(ext)?.axscript.client.framework

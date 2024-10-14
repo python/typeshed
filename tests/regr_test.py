@@ -21,8 +21,8 @@ from functools import partial
 from pathlib import Path
 from typing_extensions import TypeAlias
 
-from _metadata import get_recursive_requirements, read_metadata
-from _utils import (
+from ts_utils.metadata import get_recursive_requirements, read_metadata
+from ts_utils.utils import (
     PYTHON_VERSION,
     TEST_CASES_DIR,
     DistributionTests,
