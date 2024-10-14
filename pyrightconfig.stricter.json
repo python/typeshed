@@ -47,6 +47,7 @@
         "stubs/docutils",
         "stubs/Flask-SocketIO",
         "stubs/fpdf2",
+        "stubs/gdb",
         "stubs/google-cloud-ndb",
         "stubs/hdbcli/hdbcli/dbapi.pyi",
         "stubs/html5lib",

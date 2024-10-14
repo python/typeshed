@@ -634,6 +634,13 @@ tkinter.Place.place_slaves
 tkinter.Place.slaves
 
 # Methods that come from __getattr__() at runtime
+os._wrap_close.read
+os._wrap_close.readable
+os._wrap_close.readline
+os._wrap_close.readlines
+os._wrap_close.writable
+os._wrap_close.write
+os._wrap_close.writelines
 tkinter.Tk.adderrorinfo
 tkinter.Tk.call
 tkinter.Tk.createcommand
