@@ -15,9 +15,14 @@ from typing_extensions import Self, deprecated
 if sys.version_info >= (3, 10):
     import importlib.readers
 
-path_separators: str
-path_sep: str
-path_sep_tuple: tuple[str]
+if sys.platform == "win32":
+    path_separators: Literal["\\/"]
+    path_sep: Literal["\\"]
+    path_sep_tuple: tuple[Literal["\\"], Literal["/"]]
+else:
+    path_separators: Literal["/"]
+    path_sep: Literal["/"]
+    path_sep_tuple: tuple[Literal["/"]]
 
 MAGIC_NUMBER: bytes
 
