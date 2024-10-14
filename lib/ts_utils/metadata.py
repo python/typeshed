@@ -18,7 +18,7 @@ from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
 from packaging.version import Version
 
-from .paths import PYPROJECT_PATH, STUBS_PATH, TS_BASE_PATH, distribution_path
+from .paths import PYPROJECT_PATH, STUBS_PATH, distribution_path
 from .utils import cache
 
 __all__ = [
