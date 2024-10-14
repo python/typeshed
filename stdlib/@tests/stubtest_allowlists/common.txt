@@ -619,30 +619,12 @@ tkinter.Place.place_slaves
 tkinter.Place.slaves
 
 # Methods that come from __getattr__() at runtime
-os._wrap_close.__del__
-os._wrap_close.buffer
-os._wrap_close.closed
-os._wrap_close.detach
-os._wrap_close.encoding
-os._wrap_close.errors
-os._wrap_close.fileno
-os._wrap_close.flush
-os._wrap_close.isatty
-os._wrap_close.line_buffering
-os._wrap_close.name
-os._wrap_close.newlines
 os._wrap_close.read
 os._wrap_close.readable
 os._wrap_close.readline
 os._wrap_close.readlines
-os._wrap_close.reconfigure
-os._wrap_close.seek
-os._wrap_close.seekable
-os._wrap_close.tell
-os._wrap_close.truncate
 os._wrap_close.writable
 os._wrap_close.write
-os._wrap_close.write_through
 os._wrap_close.writelines
 tkinter.Tk.adderrorinfo
 tkinter.Tk.call
