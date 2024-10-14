@@ -272,7 +272,7 @@ def get_updated_version_spec(spec: Specifier, version: packaging.version.Version
         updated_spec = Specifier(f"~={version}")
     else:
         raise ValueError(f"Unsupported version operator: {spec.operator}")
-    assert version in spec, f"{version} not in {updated_spec}"
+    assert version in updated_spec, f"{version} not in {updated_spec}"
     return updated_spec
 
 
