@@ -231,7 +231,7 @@ class TracebackException:
     if sys.version_info >= (3, 11):
         def print(self, *, file: SupportsWrite[str] | None = None, chain: bool = True) -> None: ...
 
-class FrameSummary(Iterable[Any]):
+class FrameSummary:
     if sys.version_info >= (3, 11):
         def __init__(
             self,
