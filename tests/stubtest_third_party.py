@@ -14,17 +14,16 @@ from textwrap import dedent
 from typing import NoReturn
 
 from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata
+from ts_utils.paths import STUBS_PATH, allowlists_path, tests_path
 from ts_utils.utils import (
     PYTHON_VERSION,
     allowlist_stubtest_arguments,
-    allowlists_path,
     colored,
     get_mypy_req,
     print_divider,
     print_error,
     print_info,
     print_success_msg,
-    tests_path,
 )
 
 
@@ -386,11 +385,10 @@ def main() -> NoReturn:
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
     args = parser.parse_args()
 
-    typeshed_dir = Path(".").resolve()
     if len(args.dists) == 0:
-        dists = sorted((typeshed_dir / "stubs").iterdir())
+        dists = sorted(STUBS_PATH.iterdir())
     else:
-        dists = [typeshed_dir / "stubs" / d for d in args.dists]
+        dists = [STUBS_PATH / d for d in args.dists]
 
     result = 0
     for i, dist in enumerate(dists):

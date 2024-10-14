@@ -29,7 +29,8 @@ import packaging.version
 import tomlkit
 from termcolor import colored
 
-from ts_utils.metadata import StubMetadata, metadata_path, read_metadata, stubs_path
+from ts_utils.metadata import StubMetadata, metadata_path, read_metadata
+from ts_utils.paths import STUBS_PATH, distribution_path
 
 TYPESHED_OWNER = "python"
 TYPESHED_API_URL = f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed"
@@ -456,7 +457,7 @@ async def analyze_diff(
         assert isinstance(json_resp, dict)
     # https://docs.github.com/en/rest/commits/commits#compare-two-commits
     py_files: list[FileInfo] = [file for file in json_resp["files"] if Path(file["filename"]).suffix == ".py"]
-    stub_path = stubs_path(distribution)
+    stub_path = distribution_path(distribution)
     files_in_typeshed = set(stub_path.rglob("*.pyi"))
     py_files_stubbed_in_typeshed = [file for file in py_files if (stub_path / f"{file['filename']}i") in files_in_typeshed]
     return DiffAnalysis(py_files=py_files, py_files_stubbed_in_typeshed=py_files_stubbed_in_typeshed)
@@ -753,7 +754,7 @@ async def main() -> None:
     if args.distributions:
         dists_to_update = args.distributions
     else:
-        dists_to_update = [path.name for path in Path("stubs").iterdir()]
+        dists_to_update = [path.name for path in STUBS_PATH.iterdir()]
 
     if args.action_level > ActionLevel.nothing:
         subprocess.run(["git", "update-index", "--refresh"], capture_output=True)
