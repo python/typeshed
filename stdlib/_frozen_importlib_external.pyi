@@ -4,7 +4,7 @@ import importlib.abc
 import importlib.machinery
 import sys
 import types
-from _typeshed import Incomplete, ReadableBuffer, StrOrBytesPath, StrPath
+from _typeshed import ReadableBuffer, StrOrBytesPath, StrPath
 from _typeshed.importlib import LoaderProtocol
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableSequence, Sequence
 from importlib.machinery import ModuleSpec
@@ -15,9 +15,9 @@ from typing_extensions import Self, deprecated
 if sys.version_info >= (3, 10):
     import importlib.readers
 
-path_separators: Incomplete
-path_sep: Incomplete
-path_sep_tuple: Incomplete
+path_separators: str
+path_sep: str
+path_sep_tuple: tuple[str]
 
 MAGIC_NUMBER: bytes
 
