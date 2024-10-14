@@ -14,7 +14,6 @@ import gdb.FrameDecorator
 import gdb.types
 import gdb.unwinder
 import gdb.xmethod
-from influxdb_client.domain import source
 
 # The following submodules are automatically imported
 from . import events as events, printing as printing, prompt as prompt, types as types
