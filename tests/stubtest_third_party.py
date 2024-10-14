@@ -13,8 +13,8 @@ from shutil import rmtree
 from textwrap import dedent
 from typing import NoReturn
 
-from _metadata import NoSuchStubError, get_recursive_requirements, read_metadata
-from _utils import (
+from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata
+from ts_utils.utils import (
     PYTHON_VERSION,
     allowlist_stubtest_arguments,
     allowlists_path,

@@ -12,8 +12,8 @@ import re
 import sys
 from pathlib import Path
 
-from _metadata import read_metadata
-from _utils import (
+from ts_utils.metadata import read_metadata
+from ts_utils.utils import (
     REQS_FILE,
     STDLIB_PATH,
     TEST_CASES_DIR,

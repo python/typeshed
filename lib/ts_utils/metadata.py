@@ -19,7 +19,7 @@ from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
 from packaging.version import Version
 
-from _utils import cache
+from .utils import cache
 
 __all__ = [
     "NoSuchStubError",
