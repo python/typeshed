@@ -10,7 +10,7 @@ import sys
 from itertools import product
 from typing_extensions import TypeAlias
 
-from _utils import colored, print_error
+from ts_utils.utils import colored, print_error
 
 ReturnCode: TypeAlias = int
 
