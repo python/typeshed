@@ -1,7 +1,11 @@
+import sys
 from pathlib import Path
 from typing import Final
 
-TS_BASE_PATH: Final = Path(__file__).parent.parent.parent.relative_to(Path.cwd(), walk_up=True)
+if sys.version_info >= (3, 12):
+    TS_BASE_PATH: Final = Path(__file__).parent.parent.parent.relative_to(Path.cwd(), walk_up=True)
+else:
+    TS_BASE_PATH: Final = Path(__file__).parent.parent.parent.relative_to(Path.cwd())
 STDLIB_PATH: Final = TS_BASE_PATH / "stdlib"
 STUBS_PATH: Final = TS_BASE_PATH / "stubs"
 
