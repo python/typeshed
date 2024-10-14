@@ -102,7 +102,6 @@ else:
         # Not defined on the actual class, but expected to exist.
         def find_spec(self, fullname: str, target: types.ModuleType | None = ...) -> ModuleSpec | None: ...
 
-# ,
 class FileLoader(_bootstrap_external.FileLoader, ResourceLoader, ExecutionLoader, metaclass=ABCMeta):
     name: str
     path: str
