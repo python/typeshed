@@ -24,4 +24,4 @@ typing_extensions>=4.12.0rc1
 uv==0.4.18
 
 # Utilities for typeshed infrastructure scripts.
--e lib
+ts_utils @ file:lib

@@ -2,10 +2,11 @@ import sys
 from pathlib import Path
 from typing import Final
 
-if sys.version_info >= (3, 12):
-    TS_BASE_PATH: Final = Path(__file__).parent.parent.parent.relative_to(Path.cwd(), walk_up=True)
-else:
-    TS_BASE_PATH: Final = Path(__file__).parent.parent.parent.relative_to(Path.cwd())
+# TODO: Use base path relative to this file. Currently, ts_utils gets
+# installed into the user's virtual env, so we can't determine the path
+# to typeshed. Installing ts_utils editable would solve that, see
+# https://github.com/python/typeshed/pull/12806.
+TS_BASE_PATH: Final = Path("")
 STDLIB_PATH: Final = TS_BASE_PATH / "stdlib"
 STUBS_PATH: Final = TS_BASE_PATH / "stubs"
 
