@@ -39,9 +39,9 @@ the [CONTRIBUTING.md](../CONTRIBUTING.md) document.
 
 For third-party-library stubs, pass the name of the runtime library the stubs
 are for. For example, to run the tests for our `requests` stubs, run
-`python regr_test.py requests`.
+`python tests/regr_test.py requests`.
 
-Run `python regr_test.py -h` for the full range of CLI options this script
+Run `python tests/regr_test.py -h` for the full range of CLI options this script
 supports. There is no equivalent script for pyright currently; for pyright, the
 tests are checked in CI using a GitHub Action.
 
@@ -66,7 +66,7 @@ mypy's
 setting and pyright's
 [`reportUnnecessaryTypeIgnoreComment`](https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings)
 setting) to test instances where a type checker *should* emit some kind of
-error, if the stubs are correct. Both settings are enabled by default for the
+error, if the stubs are correct. Both settings are enabled by default for
 all `@tests/test_cases/` subdirectories in typeshed.
 
 For more information on using `assert_type` and
