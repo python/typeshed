@@ -13,7 +13,7 @@ _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _TaskYieldType: TypeAlias = Future[object] | None
 
-class Future(Awaitable[_T], Iterable[_T]):
+class Future(Iterable[_T]):
     _state: str
     @property
     def _exception(self) -> BaseException | None: ...
