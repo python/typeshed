@@ -834,7 +834,7 @@ _IntegerFormats: TypeAlias = Literal[
 ]
 
 @final
-class memoryview(Generic[_I]):
+class memoryview(Sequence[_I]):
     @property
     def format(self) -> str: ...
     @property
@@ -896,6 +896,11 @@ class memoryview(Generic[_I]):
     def hex(self, sep: str | bytes = ..., bytes_per_sep: SupportsIndex = ...) -> str: ...
     def __buffer__(self, flags: int, /) -> memoryview: ...
     def __release_buffer__(self, buffer: memoryview, /) -> None: ...
+
+    # These are inherited from the Sequence ABC, but don't actually exist on memoryview.
+    # See https://github.com/python/cpython/issues/125420
+    index: ClassVar[None]  # type: ignore[assignment]
+    count: ClassVar[None]  # type: ignore[assignment]
 
 @final
 class bool(int):
