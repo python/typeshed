@@ -77,7 +77,7 @@ provides a useful guide.
 
 ### Naming convention
 
-Use the same top-level name for the module/package you would like to test.
+Use the same top-level name for the module or package you would like to test.
 Use the `check_${thing}.py` naming pattern for individual test files.
 
 By default, test cases go into a file with the same name as the stub file, prefixed with `check_`.
