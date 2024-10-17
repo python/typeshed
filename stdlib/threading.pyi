@@ -4,8 +4,8 @@ from _thread import _excepthook, _ExceptHookArgs, get_native_id as get_native_id
 from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
 from types import TracebackType
-from typing import Any, TypeVar, Unpack, final, overload
-from typing_extensions import TypeVarTuple
+from typing import Any, TypeVar, final, overload
+from typing_extensions import TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
 _Ts = TypeVarTuple("_Ts")
