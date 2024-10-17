@@ -4,9 +4,11 @@ from _thread import _excepthook, _ExceptHookArgs, get_native_id as get_native_id
 from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
 from types import TracebackType
-from typing import Any, TypeVar, final
+from typing import Any, TypeVar, Unpack, final, overload
+from typing_extensions import TypeVarTuple
 
 _T = TypeVar("_T")
+_Ts = TypeVarTuple("_Ts")
 
 __all__ = [
     "get_ident",
@@ -73,14 +75,36 @@ class Thread:
     @property
     def ident(self) -> int | None: ...
     daemon: bool
+    @overload
+    def __init__(
+        self,
+        group: None = None,
+        target: Callable[[Unpack[_Ts]], object] | None = None,
+        name: str | None = None,
+        args: tuple[Unpack[_Ts]] = (),
+        *,
+        daemon: bool | None = None,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        group: None,
+        target: Callable[..., object] | None,
+        name: str | None,
+        args: Iterable[Any],
+        kwargs: Mapping[str, Any],
+        *,
+        daemon: bool | None = None,
+    ) -> None: ...
+    @overload
     def __init__(
         self,
         group: None = None,
         target: Callable[..., object] | None = None,
         name: str | None = None,
         args: Iterable[Any] = (),
-        kwargs: Mapping[str, Any] | None = None,
         *,
+        kwargs: Mapping[str, Any],
         daemon: bool | None = None,
     ) -> None: ...
     def start(self) -> None: ...
