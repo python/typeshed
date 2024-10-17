@@ -22,6 +22,9 @@ def my_func(a: int, b: int) -> int: ...
 def no_arguements() -> None: ...
 
 
+def key_word_only_arguments(*, a: int, b: int) -> int: ...
+
+
 # Fine
 threading.Thread(target=my_func, args=(1, 1)).start()
 # Incorrect
@@ -36,3 +39,8 @@ threading.Thread(None, my_func, None, (), {"a": 1, "b": 1}).start()
 
 # With no arguments, the type errors should go away.
 threading.Thread(target=no_arguements).start()
+
+# With key-word only arguments, we should get an error trying to pass in args.
+threading.Thread(target=key_word_only_arguments, args=(1, 1)).start()  # type: ignore
+# We should not get an error when passing in kwargs.
+threading.Thread(target=key_word_only_arguments, kwargs={"a": 1, "b": 1}).start()
