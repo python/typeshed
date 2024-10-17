@@ -52,6 +52,7 @@ def setup(
     include_dirs: list[str] = ...,
     password: str = ...,
     fullname: str = ...,
-    **attrs,
+    # Custom Distributions could accept more params
+    **attrs: object,
 ) -> Distribution: ...
 def run_setup(script_name: str, script_args: list[str] | None = None, stop_after: str = "run") -> Distribution: ...
