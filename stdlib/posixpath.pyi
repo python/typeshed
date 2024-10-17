@@ -77,7 +77,7 @@ pathsep: LiteralString
 defpath: LiteralString
 devnull: LiteralString
 
-# Overloads were necessary to work around python/mypy#17952 & python/mypy#11880
+# Overloads are necessary to work around python/mypy#17952 & python/mypy#11880
 @overload
 def abspath(path: PathLike[AnyStr]) -> AnyStr: ...
 @overload
