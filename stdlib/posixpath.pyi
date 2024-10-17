@@ -77,7 +77,8 @@ pathsep: LiteralString
 defpath: LiteralString
 devnull: LiteralString
 
-# Overloads are necessary to work around python/mypy#3644.
+# Overloads were necessary to work around python/mypy#3644.
+# See python/typeshed#12837 as to why they're still needed.
 @overload
 def abspath(path: PathLike[AnyStr]) -> AnyStr: ...
 @overload
