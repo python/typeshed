@@ -8,7 +8,7 @@ from typing import Any, TypeVar, final, overload
 from typing_extensions import TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
-_Ts = TypeVarTuple("_Ts", default=Unpack[tuple[Any, ...]])
+_Ts = TypeVarTuple("_Ts")
 
 __all__ = [
     "get_ident",
@@ -81,6 +81,7 @@ class Thread:
         group: None = None,
         target: Callable[[Unpack[_Ts]], object] | None = None,
         name: str | None = None,
+        args: tuple[Unpack[_Ts]] = (),  # type: ignore[arg-type] - MyPy false positive
         *,
         daemon: bool | None = None,
     ) -> None: ...
