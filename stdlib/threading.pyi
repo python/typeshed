@@ -8,7 +8,7 @@ from typing import Any, TypeVar, final, overload
 from typing_extensions import TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
-_Ts = TypeVarTuple("_Ts")
+_Ts = TypeVarTuple("_Ts", default=Unpack[tuple[()]])
 
 __all__ = [
     "get_ident",
