@@ -81,7 +81,8 @@ class Thread:
         group: None = None,
         target: Callable[[Unpack[_Ts]], object] | None = None,
         name: str | None = None,
-        args: tuple[Unpack[_Ts]] = (),  # type: ignore[arg-type] - MyPy false positive
+        # MyPy false positive
+        args: tuple[Unpack[_Ts]] = (),  # type: ignore[arg-type]
         *,
         daemon: bool | None = None,
     ) -> None: ...
