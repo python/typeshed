@@ -7,16 +7,15 @@ from typing import AnyStr, Union
 
 
 def test_str_path(str_path: StrOrBytesPath) -> None:
-    # Ensures that these methods still work with a StrOrBytesPath
-    # They were overloaded to work around python/mypy#3644
-    # But removing the overloads workaround still breaks usage
+    # These methods are currently overloaded to work around python/mypy#17952 & python/mypy#11880
+    # Let's ensure that they'll still work with a StrOrBytesPath if the workaround is removed
 
     assert_type(abspath(str_path), Union[str, bytes])
     assert_type(expanduser(str_path), Union[str, bytes])
     assert_type(expandvars(str_path), Union[str, bytes])
 
 
-# See https://github.com/python/mypy/issues/17952
+# See python/mypy#17952
 class MyPathMissingGeneric(PathLike):  # type: ignore # Explicitly testing w/ missing type argument
     def __init__(self, path: str | bytes) -> None:
         super().__init__()
