@@ -24,9 +24,9 @@ from typing import Annotated, Any, ClassVar, NamedTuple
 from typing_extensions import Self, TypeAlias
 
 import aiohttp
-import packaging.specifiers
 import packaging.version
 import tomlkit
+from packaging.specifiers import Specifier
 from termcolor import colored
 
 from ts_utils.metadata import StubMetadata, metadata_path, read_metadata, stubs_path
@@ -121,13 +121,20 @@ async def fetch_pypi_info(distribution: str, session: aiohttp.ClientSession) -> 
 @dataclass
 class Update:
     distribution: str
-    old_version_spec: str
-    new_version_spec: str
+    old_version_spec: Specifier
+    new_version_spec: Specifier
     links: dict[str, str]
     diff_analysis: DiffAnalysis | None
 
     def __str__(self) -> str:
         return f"Updating {self.distribution} from {self.old_version_spec!r} to {self.new_version_spec!r}"
+
+    @property
+    def new_version(self) -> str:
+        if self.new_version_spec.operator == "==":
+            return str(self.new_version_spec)[2:]
+        else:
+            return str(self.new_version_spec)
 
 
 @dataclass
@@ -239,12 +246,7 @@ async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aioh
     return first_release_with_py_typed
 
 
-def _check_spec(updated_spec: str, version: packaging.version.Version) -> str:
-    assert version in packaging.specifiers.SpecifierSet(f"=={updated_spec}"), f"{version} not in {updated_spec}"
-    return updated_spec
-
-
-def get_updated_version_spec(spec: str, version: packaging.version.Version) -> str:
+def get_updated_version_spec(spec: Specifier, version: packaging.version.Version) -> Specifier:
     """
     Given the old specifier and an updated version, returns an updated specifier that has the
     specificity of the old specifier, but matches the updated version.
@@ -256,15 +258,22 @@ def get_updated_version_spec(spec: str, version: packaging.version.Version) -> s
     spec="1.*", version="2.3.4" -> "2.*"
     spec="1.1.*", version="1.2.3" -> "1.2.*"
     spec="1.1.1.*", version="1.2.3" -> "1.2.3.*"
+    spec="~=1.0.1", version="1.0.3" -> "~=1.0.3"
+    spec="~=1.0.1", version="1.1.0" -> "~=1.1.0"
     """
-    if not spec.endswith(".*"):
-        return _check_spec(str(version), version)
-
-    specificity = spec.count(".") if spec.removesuffix(".*") else 0
-    rounded_version = version.base_version.split(".")[:specificity]
-    rounded_version.extend(["0"] * (specificity - len(rounded_version)))
-
-    return _check_spec(".".join(rounded_version) + ".*", version)
+    if spec.operator == "==" and spec.version.endswith(".*"):
+        specificity = spec.version.count(".") if spec.version.removesuffix(".*") else 0
+        rounded_version = version.base_version.split(".")[:specificity]
+        rounded_version.extend(["0"] * (specificity - len(rounded_version)))
+        updated_spec = Specifier("==" + ".".join(rounded_version) + ".*")
+    elif spec.operator == "==":
+        updated_spec = Specifier(f"=={version}")
+    elif spec.operator == "~=":
+        updated_spec = Specifier(f"~={version}")
+    else:
+        raise ValueError(f"Unsupported version operator: {spec.operator}")
+    assert version in updated_spec, f"{version} not in {updated_spec}"
+    return updated_spec
 
 
 @functools.cache
@@ -333,15 +342,13 @@ async def get_diff_info(
         with contextlib.suppress(packaging.version.InvalidVersion):
             versions_to_tags[packaging.version.Version(tag_name)] = tag_name
 
-    curr_specifier = packaging.specifiers.SpecifierSet(f"=={stub_info.version}")
-
     try:
         new_tag = versions_to_tags[pypi_version]
     except KeyError:
         return None
 
     try:
-        old_version = max(version for version in versions_to_tags if version in curr_specifier and version < pypi_version)
+        old_version = max(version for version in versions_to_tags if version in stub_info.version_spec and version < pypi_version)
     except ValueError:
         return None
     else:
@@ -472,9 +479,8 @@ async def determine_action(distribution: str, session: aiohttp.ClientSession) ->
     pypi_info = await fetch_pypi_info(stub_info.distribution, session)
     latest_release = pypi_info.get_latest_release()
     latest_version = latest_release.version
-    spec = packaging.specifiers.SpecifierSet(f"=={stub_info.version}")
     obsolete_since = await find_first_release_with_py_typed(pypi_info, session=session)
-    if obsolete_since is None and latest_version in spec:
+    if obsolete_since is None and latest_version in stub_info.version_spec:
         return NoUpdate(stub_info.distribution, "up to date")
 
     relevant_version = obsolete_since.version if obsolete_since else latest_version
@@ -514,8 +520,8 @@ async def determine_action(distribution: str, session: aiohttp.ClientSession) ->
 
     return Update(
         distribution=stub_info.distribution,
-        old_version_spec=stub_info.version,
-        new_version_spec=get_updated_version_spec(stub_info.version, latest_version),
+        old_version_spec=stub_info.version_spec,
+        new_version_spec=get_updated_version_spec(stub_info.version_spec, latest_version),
         links=links,
         diff_analysis=diff_analysis,
     )
@@ -678,13 +684,13 @@ def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
 async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
     if action_level <= ActionLevel.nothing:
         return
-    title = f"[stubsabot] Bump {update.distribution} to {update.new_version_spec}"
+    title = f"[stubsabot] Bump {update.distribution} to {update.new_version}"
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(update.distribution)}"
         subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
         with metadata_path(update.distribution).open("rb") as f:
             meta = tomlkit.load(f)
-        meta["version"] = update.new_version_spec
+        meta["version"] = update.new_version
         with metadata_path(update.distribution).open("w", encoding="UTF-8") as f:
             # tomlkit.dump has partially unknown IO type
             tomlkit.dump(meta, f)  # pyright: ignore[reportUnknownMemberType]
