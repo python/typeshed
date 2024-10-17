@@ -1,11 +1,12 @@
-from typing import Final
-
 from .cal import (
     Alarm as Alarm,
     Calendar as Calendar,
+    Component as Component,
     ComponentFactory as ComponentFactory,
     Event as Event,
     FreeBusy as FreeBusy,
+    IncompleteComponent as IncompleteComponent,
+    InvalidCalendar as InvalidCalendar,
     Journal as Journal,
     Timezone as Timezone,
     TimezoneDaylight as TimezoneDaylight,
@@ -14,8 +15,6 @@ from .cal import (
 )
 from .parser import Parameters as Parameters, q_join as q_join, q_split as q_split
 from .prop import (
-    FixedOffset as FixedOffset,
-    LocalTimezone as LocalTimezone,
     TypesFactory as TypesFactory,
     vBinary as vBinary,
     vBoolean as vBoolean,
@@ -28,6 +27,7 @@ from .prop import (
     vFrequency as vFrequency,
     vGeo as vGeo,
     vInt as vInt,
+    vMonth as vMonth,
     vPeriod as vPeriod,
     vRecur as vRecur,
     vText as vText,
@@ -36,5 +36,55 @@ from .prop import (
     vUTCOffset as vUTCOffset,
     vWeekday as vWeekday,
 )
+from .timezone import use_pytz, use_zoneinfo
+from .version import (
+    __version__ as __version__,
+    __version_tuple__ as __version_tuple__,
+    version as version,
+    version_tuple as version_tuple,
+)
 
-__version__: Final[str]
+__all__ = [
+    "Calendar",
+    "Event",
+    "Todo",
+    "Journal",
+    "Timezone",
+    "TimezoneStandard",
+    "TimezoneDaylight",
+    "FreeBusy",
+    "Alarm",
+    "ComponentFactory",
+    "vBinary",
+    "vBoolean",
+    "vCalAddress",
+    "vDatetime",
+    "vDate",
+    "vDDDTypes",
+    "vDuration",
+    "vFloat",
+    "vInt",
+    "vPeriod",
+    "vWeekday",
+    "vFrequency",
+    "vRecur",
+    "vText",
+    "vTime",
+    "vUri",
+    "vGeo",
+    "vUTCOffset",
+    "Parameters",
+    "q_split",
+    "q_join",
+    "use_pytz",
+    "use_zoneinfo",
+    "__version__",
+    "version",
+    "__version_tuple__",
+    "version_tuple",
+    "TypesFactory",
+    "Component",
+    "vMonth",
+    "IncompleteComponent",
+    "InvalidCalendar",
+]

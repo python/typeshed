@@ -1,19 +1,12 @@
-# Type checkers and other linters that we test our stubs against. These should always
-# be pinned to a specific version to make failure reproducible. See also the
-# "tool.typeshed" section in pyproject.toml for additional type checkers.
-black==24.8.0            # must match .pre-commit-config.yaml
-flake8==7.1.1            # must match .pre-commit-config.yaml
-flake8-noqa==1.4.0       # must match .pre-commit-config.yaml
-flake8-pyi==24.6.0       # must match .pre-commit-config.yaml
+# Type checkers that we test our stubs against. These should always
+# be pinned to a specific version to make failure reproducible.
 mypy==1.11.2
-pre-commit-hooks==4.6.0  # must match .pre-commit-config.yaml
-pyright==1.1.382.post1
+pyright==1.1.385
 # pytype can be installed on Windows, but requires building wheels, let's not do that on the CI
-pytype==2024.9.13; platform_system != "Windows" and python_version < "3.13"
-ruff==0.6.8              # must match .pre-commit-config.yaml
+pytype==2024.10.11; platform_system != "Windows" and python_version >= "3.10" and python_version < "3.13"
 
 # Libraries used by our various scripts.
-aiohttp==3.10.8
+aiohttp==3.10.9
 # grpc install only fails on Windows, but let's avoid building sdist on other platforms
 # https://github.com/grpc/grpc/issues/36201
 grpcio-tools; python_version < "3.13" # For grpc_tools.protoc
@@ -21,9 +14,14 @@ mypy-protobuf==3.6.0
 packaging==24.1
 pathspec>=0.11.1
 pre-commit
-stubdefaulter==0.1.0
+# Required by create_baseline_stubs.py. Must match .pre-commit-config.yaml.
+ruff==0.6.9
+stubdefaulter==0.1.0; python_version < "3.13" # Requires libcst which doesn't have 3.13 wheels yet and requires a Rust compiler
 termcolor>=2.3
-tomli==2.0.1
+tomli==2.0.2
 tomlkit==0.13.2
 typing_extensions>=4.12.0rc1
-uv==0.4.17
+uv==0.4.18
+
+# Utilities for typeshed infrastructure scripts.
+ts_utils @ file:lib

@@ -17,3 +17,7 @@ _?curses.window.get_wch
 (_?locale.dgettext)?
 (_?locale.gettext)?
 (_?locale.textdomain)?
+
+# not available on python distributions compiled without sqlite3 loadable extension support
+_sqlite3.Connection.load_extension
+_sqlite3.Connection.enable_load_extension

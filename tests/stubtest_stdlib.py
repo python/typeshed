@@ -13,7 +13,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from _utils import allowlist_stubtest_arguments, allowlists_path
+from ts_utils.utils import allowlist_stubtest_arguments, allowlists_path
 
 
 def run_stubtest(typeshed_dir: Path) -> int:

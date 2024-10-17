@@ -12,8 +12,8 @@ import re
 import sys
 from pathlib import Path
 
-from _metadata import read_metadata
-from _utils import (
+from ts_utils.metadata import read_metadata
+from ts_utils.utils import (
     REQS_FILE,
     STDLIB_PATH,
     TEST_CASES_DIR,
@@ -30,7 +30,7 @@ extension_descriptions = {".pyi": "stub", ".py": ".py"}
 
 # These type checkers and linters must have exact versions in the requirements file to ensure
 # consistent CI runs.
-linters = {"black", "flake8", "flake8-noqa", "flake8-pyi", "mypy", "pyright", "pytype", "ruff"}
+linters = {"mypy", "pyright", "pytype", "ruff"}
 
 
 def assert_consistent_filetypes(

@@ -27,3 +27,7 @@ email._header_value_parser.SPECIALSNL
 email.errors.HeaderWriteError
 email.utils.getaddresses
 email.utils.parseaddr
+
+# not available on python distributions compiled without sqlite3 loadable extension support
+_sqlite3.Connection.load_extension
+_sqlite3.Connection.enable_load_extension
