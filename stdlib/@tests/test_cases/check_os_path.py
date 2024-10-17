@@ -3,7 +3,7 @@ from _typeshed import StrOrBytesPath
 from os import PathLike
 from os.path import abspath, expanduser, expandvars
 from typing_extensions import assert_type
-from typing import Union
+from typing import AnyStr, Union
 
 
 def test_str_path(str_path: StrOrBytesPath) -> None:
@@ -16,8 +16,9 @@ def test_str_path(str_path: StrOrBytesPath) -> None:
     assert_type(expandvars(str_path), Union[str, bytes])
 
 
-class MyPath(PathLike):
-    def __init__(self, path: str | bytes):
+# See https://github.com/python/mypy/issues/17952
+class MyPathMissingGeneric(PathLike):  # pyright: ignore[reportMissingTypeArgument] # Explicitly testing w/ missing type argument
+    def __init__(self, path: str | bytes) -> None:
         super().__init__()
         self.path = path
 
@@ -25,4 +26,33 @@ class MyPath(PathLike):
         return self.path
 
 
-abspath(MyPath("."))
+# MyPathMissingGeneric could also be fixed by users by adding the missing generic annotation
+class MyPathGeneric(PathLike[AnyStr]):
+    def __init__(self, path: AnyStr) -> None:
+        super().__init__()
+        self.path: AnyStr = path
+
+    def __fspath__(self) -> AnyStr:
+        return self.path
+
+
+class MyPathStr(PathLike[str]):
+    def __init__(self, path: str) -> None:
+        super().__init__()
+        self.path = path
+
+    def __fspath__(self) -> str:
+        return self.path
+
+
+abspath(MyPathMissingGeneric("."))
+expanduser(MyPathMissingGeneric("."))
+expandvars(MyPathMissingGeneric("."))
+
+abspath(MyPathGeneric("."))
+expanduser(MyPathGeneric("."))
+expandvars(MyPathGeneric("."))
+
+abspath(MyPathStr("."))
+expanduser(MyPathStr("."))
+expandvars(MyPathStr("."))
