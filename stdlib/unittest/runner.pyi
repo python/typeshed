@@ -20,6 +20,7 @@ class _TextTestStream(_SupportsWriteAndFlush, Protocol):
 # We can expand the attributes if requested
 class _WritelnDecorator(_TextTestStream):
     def __init__(self, stream: _TextTestStream) -> None: ...
+    def writeln(self, arg: str | None = None) -> str: ...
     def __getattr__(self, attr: str) -> Any: ...  # Any attribute from the stream type passed to __init__
     # These attributes are prevented by __getattr__
     stream: Never
