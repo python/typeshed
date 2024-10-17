@@ -13,17 +13,13 @@ import sys
 from pathlib import Path
 
 from ts_utils.metadata import read_metadata
+from ts_utils.paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, TESTS_DIR, tests_path
 from ts_utils.utils import (
-    REQS_FILE,
-    STDLIB_PATH,
-    TEST_CASES_DIR,
-    TESTS_DIR,
     get_all_testcase_directories,
     get_gitignore_spec,
     parse_requirements,
     parse_stdlib_versions_file,
     spec_matches_path,
-    tests_path,
 )
 
 extension_descriptions = {".pyi": "stub", ".py": ".py"}
@@ -66,7 +62,7 @@ def check_stdlib() -> None:
 def check_stubs() -> None:
     """Check that the stubs directory contains only the correct files."""
     gitignore_spec = get_gitignore_spec()
-    for dist in Path("stubs").iterdir():
+    for dist in STUBS_PATH.iterdir():
         if spec_matches_path(gitignore_spec, dist):
             continue
         assert dist.is_dir(), f"Only directories allowed in stubs, got {dist}"
@@ -97,8 +93,8 @@ def check_distutils() -> None:
     def all_relative_paths_in_directory(path: Path) -> set[Path]:
         return {pyi.relative_to(path) for pyi in path.rglob("*.pyi")}
 
-    all_setuptools_files = all_relative_paths_in_directory(Path("stubs", "setuptools", "setuptools", "_distutils"))
-    all_distutils_files = all_relative_paths_in_directory(Path("stubs", "setuptools", "distutils"))
+    all_setuptools_files = all_relative_paths_in_directory(STUBS_PATH / "setuptools" / "setuptools" / "_distutils")
+    all_distutils_files = all_relative_paths_in_directory(STUBS_PATH / "setuptools" / "distutils")
     assert all_setuptools_files and all_distutils_files, "Looks like this test might be out of date!"
     extra_files = all_setuptools_files - all_distutils_files
     joined = "\n".join(f"  * {f}" for f in extra_files)
@@ -164,10 +160,10 @@ def check_requirement_pins() -> None:
     """Check that type checkers and linters are pinned to an exact version."""
     requirements = parse_requirements()
     for package in linters:
-        assert package in requirements, f"type checker/linter '{package}' not found in {REQS_FILE}"
+        assert package in requirements, f"type checker/linter '{package}' not found in {REQUIREMENTS_PATH.name}"
         spec = requirements[package].specifier
-        assert len(spec) == 1, f"type checker/linter '{package}' has complex specifier in {REQS_FILE}"
-        msg = f"type checker/linter '{package}' is not pinned to an exact version in {REQS_FILE}"
+        assert len(spec) == 1, f"type checker/linter '{package}' has complex specifier in {REQUIREMENTS_PATH.name}"
+        msg = f"type checker/linter '{package}' is not pinned to an exact version in {REQUIREMENTS_PATH.name}"
         assert str(spec).startswith("=="), msg
 
 

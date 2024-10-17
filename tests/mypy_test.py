@@ -22,11 +22,10 @@ from typing_extensions import Annotated, TypeAlias
 import tomli
 from packaging.requirements import Requirement
 
-from ts_utils.metadata import PackageDependencies, get_recursive_requirements, read_metadata
+from ts_utils.metadata import PackageDependencies, get_recursive_requirements, metadata_path, read_metadata
+from ts_utils.paths import STDLIB_PATH, STUBS_PATH, TESTS_DIR, TS_BASE_PATH, distribution_path
 from ts_utils.utils import (
     PYTHON_VERSION,
-    STDLIB_PATH,
-    TESTS_DIR,
     colored,
     get_gitignore_spec,
     get_mypy_req,
@@ -47,7 +46,7 @@ except ImportError:
 
 SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
-DIRECTORIES_TO_TEST = [Path("stdlib"), Path("stubs")]
+DIRECTORIES_TO_TEST = [STDLIB_PATH, STUBS_PATH]
 
 VersionString: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_VERSIONS"]
 Platform: TypeAlias = Annotated[str, "Must be one of the entries in SUPPORTED_PLATFORMS"]
@@ -170,7 +169,7 @@ class MypyDistConf(NamedTuple):
 
 
 def add_configuration(configurations: list[MypyDistConf], distribution: str) -> None:
-    with Path("stubs", distribution, "METADATA.toml").open("rb") as f:
+    with metadata_path(distribution).open("rb") as f:
         data = tomli.load(f)
 
     # TODO: This could be added to ts_utils.metadata, but is currently unused
@@ -229,7 +228,7 @@ def run_mypy(
             "--platform",
             args.platform,
             "--custom-typeshed-dir",
-            str(Path(__file__).parent.parent),
+            str(TS_BASE_PATH),
             "--strict",
             # Stub completion is checked by pyright (--allow-*-defs)
             "--allow-untyped-defs",
@@ -283,7 +282,7 @@ def add_third_party_files(
         return
     seen_dists.add(distribution)
     seen_dists.update(r.name for r in typeshed_reqs)
-    root = Path("stubs", distribution)
+    root = distribution_path(distribution)
     for name in os.listdir(root):
         if name.startswith("."):
             continue
@@ -319,7 +318,7 @@ def test_third_party_distribution(
         print_error("no files found")
         sys.exit(1)
 
-    mypypath = os.pathsep.join(str(Path("stubs", dist)) for dist in seen_dists)
+    mypypath = os.pathsep.join(str(distribution_path(dist)) for dist in seen_dists)
     if args.verbose:
         print(colored(f"\nMYPYPATH={mypypath}", "blue"))
     result = run_mypy(
@@ -516,16 +515,12 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
     distributions_to_check: dict[str, PackageDependencies] = {}
 
     for distribution in sorted(os.listdir("stubs")):
-        distribution_path = Path("stubs", distribution)
+        dist_path = distribution_path(distribution)
 
-        if spec_matches_path(gitignore_spec, distribution_path):
+        if spec_matches_path(gitignore_spec, dist_path):
             continue
 
-        if (
-            distribution_path in args.filter
-            or Path("stubs") in args.filter
-            or any(distribution_path in path.parents for path in args.filter)
-        ):
+        if dist_path in args.filter or STUBS_PATH in args.filter or any(dist_path in path.parents for path in args.filter):
             metadata = read_metadata(distribution)
             if not metadata.requires_python.contains(PYTHON_VERSION):
                 msg = (
