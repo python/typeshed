@@ -1,4 +1,4 @@
-from typing import Any, ClassVar, Generic, TypeVar
+from typing import Any, ClassVar, Generic, Literal, TypeVar
 
 from docutils import Component, nodes
 from docutils.frontend import Values
@@ -9,7 +9,7 @@ from docutils.transforms import Transform
 _S = TypeVar("_S")
 
 class Reader(Component, Generic[_S]):
-    component_type: ClassVar[str]
+    component_type: ClassVar[Literal["reader"]]
     config_section: ClassVar[str]
     def get_transforms(self) -> list[type[Transform]]: ...
     def __init__(self, parser: Parser | None = None, parser_name: str | None = None) -> None: ...
