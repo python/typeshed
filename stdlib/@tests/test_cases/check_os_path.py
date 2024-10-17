@@ -17,7 +17,7 @@ def test_str_path(str_path: StrOrBytesPath) -> None:
 
 
 # See https://github.com/python/mypy/issues/17952
-class MyPathMissingGeneric(PathLike):  # pyright: ignore[reportMissingTypeArgument] # Explicitly testing w/ missing type argument
+class MyPathMissingGeneric(PathLike):  # type: ignore # Explicitly testing w/ missing type argument
     def __init__(self, path: str | bytes) -> None:
         super().__init__()
         self.path = path
