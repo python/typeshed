@@ -1,4 +1,4 @@
-from typing import Final
+from typing import Any, Final
 
 DEBUG: Final = 1
 INFO: Final = 2
