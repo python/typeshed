@@ -5,3 +5,5 @@ partial_stub = true
 
 [tool.stubtest]
 ignore_missing_stub = true
+# TODO: Does not import with Python 3.12 as of 2024-10-18 (release 2.49.0).
+skip = true

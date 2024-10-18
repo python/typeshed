@@ -2,6 +2,3 @@
 requests.packages.mod
 requests.packages.package
 requests.packages.target
-
-# Alias for builtins.bytes
-requests.compat.bytes.__buffer__
