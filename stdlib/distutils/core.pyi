@@ -53,6 +53,6 @@ def setup(
     password: str = ...,
     fullname: str = ...,
     # Custom Distributions could accept more params
-    **attrs: object,
+    **attrs: Any,
 ) -> Distribution: ...
 def run_setup(script_name: str, script_args: list[str] | None = None, stop_after: str = "run") -> Distribution: ...

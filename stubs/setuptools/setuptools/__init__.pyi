@@ -102,7 +102,7 @@ def setup(
     password: str = ...,
     fullname: str = ...,
     # Custom Distributions could accept more params
-    **attrs: object,
+    **attrs: Any,
 ) -> Distribution: ...
 
 class Command(_Command):
