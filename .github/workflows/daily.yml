@@ -60,7 +60,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        # As of 2024-10-18, ubuntu-latest can refer to different Ubuntu versions,
+        # which causes problems when testing gdb.
+        os: ["ubuntu-24.04", "windows-latest", "macos-latest"]
         shard-index: [0, 1, 2, 3]
       fail-fast: false
     steps:
