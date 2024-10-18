@@ -101,7 +101,8 @@ def setup(
     include_dirs: list[str] = ...,
     password: str = ...,
     fullname: str = ...,
-    **attrs,
+    # Custom Distributions could accept more params
+    **attrs: Any,
 ) -> Distribution: ...
 
 class Command(_Command):
