@@ -41,9 +41,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
-          # TODO: Use Python 3.12. As of 2024-03-08, several third-party
-          # packages fail to install with Python 3.12.
-          python-version: "3.11"
+          python-version: "3.12"
           cache: pip
           cache-dependency-path: |
             requirements-tests.txt
