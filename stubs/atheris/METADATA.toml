@@ -5,4 +5,5 @@ partial_stub = true
 [tool.stubtest]
 ignore_missing_stub = true
 # TODO: Does not compile with Python 3.12 as of 2024-10-18 (release 2.3.0).
+# https://github.com/google/atheris/pull/60
 skip = true
