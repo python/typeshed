@@ -27,6 +27,7 @@ class ContentMetaAttributeValue(AttributeValueWithCharsetSubstitution):
     def __new__(cls, original_value): ...
     def encode(self, encoding: str) -> str: ...  # type: ignore[override]  # incompatible with str
 
+_T = TypeVar("_T")
 _PageElementT = TypeVar("_PageElementT", bound=PageElement)
 _SimpleStrainable: TypeAlias = str | bool | None | bytes | Pattern[str] | Callable[[str], bool] | Callable[[Tag], bool]
 _Strainable: TypeAlias = _SimpleStrainable | Iterable[_SimpleStrainable]
