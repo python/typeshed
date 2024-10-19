@@ -638,8 +638,8 @@ following criteria is met:
 * The upstream package ships a `py.typed` file for at least six months,
   and the upstream type annotations are of a comparable standard to those in
   typeshed, or
-* the package does not support any of the Python versions supported by
-  typeshed.
+* the upstream package was declared or appears to be unmaintained, and
+  it causes maintenance issues in typeshed.
 
 If a package ships its own `py.typed` file, please follow these steps:
 
