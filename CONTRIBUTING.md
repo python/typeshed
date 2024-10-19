@@ -639,7 +639,7 @@ following criteria is met:
   and the upstream type annotations are of a comparable standard to those in
   typeshed, or
 * the upstream package was declared or appears to be unmaintained, and
-  it causes maintenance issues in typeshed.
+  retaining the stubs causes maintenance issues in typeshed.
 
 If a package ships its own `py.typed` file, please follow these steps:
 
