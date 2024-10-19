@@ -1,8 +1,0 @@
-version = "2.49.*"
-upstream_repository = "https://github.com/boto/boto"
-requires = []
-partial_stub = true
-no_longer_updated = true
-
-[tool.stubtest]
-ignore_missing_stub = true
