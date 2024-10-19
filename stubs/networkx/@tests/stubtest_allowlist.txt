@@ -30,10 +30,3 @@ networkx\.algorithms\.bipartite\.(cluster\.)?clustering
 #   failing to account for explicitly passing in the default value."
 # Which is true, but would require some way of concatenating `backend` to ParamSpec.kwargs
 networkx\.(utils\.)?(backends\.)?_dispatchable\.__call__
-
-# TODO: stubtest does not like @cached_property https://github.com/python/mypy/issues/17625
-# "is inconsistent, cannot reconcile @property on stub with runtime object"
-networkx(\.classes(\.graph)?)?\.Graph\.(adj|degree|edges|nodes)
-networkx(\.classes(\.multigraph)?)?\.MultiGraph\.(adj|degree|edges)
-networkx(\.classes(\.digraph)?)?\.DiGraph\.(adj|degree|edges|in_degree|in_edges|out_degree|out_edges|pred|succ)
-networkx(\.classes(\.multidigraph)?)?\.MultiDiGraph\.(adj|degree|edges|in_degree|in_edges|out_degree|out_edges|pred|succ)
