@@ -181,7 +181,3 @@ codecs.xmlcharrefreplace_errors
 
 # To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
 types.MappingProxyType.get
-
-# `__replace__` is dynamically generated, and special-cased by type-checkers
-pstats.FunctionProfile.__replace__
-pstats.StatsProfile.__replace__

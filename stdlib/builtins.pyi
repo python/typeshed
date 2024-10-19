@@ -834,7 +834,7 @@ _IntegerFormats: TypeAlias = Literal[
 ]
 
 @final
-class memoryview(Generic[_I]):
+class memoryview(Sequence[_I]):
     @property
     def format(self) -> str: ...
     @property
@@ -897,6 +897,11 @@ class memoryview(Generic[_I]):
     def __buffer__(self, flags: int, /) -> memoryview: ...
     def __release_buffer__(self, buffer: memoryview, /) -> None: ...
 
+    # These are inherited from the Sequence ABC, but don't actually exist on memoryview.
+    # See https://github.com/python/cpython/issues/125420
+    index: ClassVar[None]  # type: ignore[assignment]
+    count: ClassVar[None]  # type: ignore[assignment]
+
 @final
 class bool(int):
     def __new__(cls, o: object = ..., /) -> Self: ...
@@ -943,7 +948,10 @@ class slice:
     @overload
     def __new__(cls, start: Any, stop: Any, step: Any = ..., /) -> Self: ...
     def __eq__(self, value: object, /) -> bool: ...
-    __hash__: ClassVar[None]  # type: ignore[assignment]
+    if sys.version_info >= (3, 12):
+        def __hash__(self) -> int: ...
+    else:
+        __hash__: ClassVar[None]  # type: ignore[assignment]
     def indices(self, len: SupportsIndex, /) -> tuple[int, int, int]: ...
 
 class tuple(Sequence[_T_co]):
