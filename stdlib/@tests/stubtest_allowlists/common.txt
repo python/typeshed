@@ -74,8 +74,6 @@ _io.StringIO.truncate
 _io.TextIOWrapper.truncate
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
-ipaddress._BaseNetwork.broadcast_address
-ipaddress._BaseNetwork.hostmask
 ipaddress._BaseAddress.is_global
 ipaddress._BaseAddress.is_link_local
 ipaddress._BaseAddress.is_loopback

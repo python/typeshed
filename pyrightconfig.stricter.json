@@ -34,7 +34,6 @@
         "stubs/beautifulsoup4",
         "stubs/bleach/bleach/sanitizer.pyi",
         "stubs/boltons",
-        "stubs/boto",
         "stubs/braintree",
         "stubs/caldav",
         "stubs/cffi",
