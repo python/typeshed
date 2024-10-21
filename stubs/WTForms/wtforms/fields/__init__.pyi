@@ -1,6 +1,7 @@
 from wtforms.fields.choices import (
     RadioField as RadioField,
     SelectField as SelectField,
+    SelectFieldBase as SelectFieldBase,
     SelectMultipleField as SelectMultipleField,
 )
 from wtforms.fields.core import Field as Field, Flags as Flags, Label as Label
@@ -43,6 +44,7 @@ __all__ = [
     "Flags",
     "Label",
     "SelectField",
+    "SelectFieldBase",
     "SelectMultipleField",
     "RadioField",
     "DateTimeField",
