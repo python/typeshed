@@ -5,6 +5,8 @@ from wtforms.fields.core import Field, UnboundField, _FormT, _Validator, _Widget
 from wtforms.form import BaseForm
 from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 
+__all__ = ("FieldList",)
+
 _BoundFieldT = TypeVar("_BoundFieldT", bound=Field)
 
 class FieldList(Field, Generic[_BoundFieldT]):
