@@ -1,3 +1,5 @@
+from typing import Final
+
 from wtforms import validators as validators, widgets as widgets
 from wtforms.fields.choices import (
     RadioField as RadioField,
@@ -39,3 +41,43 @@ from wtforms.fields.simple import (
 )
 from wtforms.form import Form as Form
 from wtforms.validators import ValidationError as ValidationError
+
+__version__: Final[str]
+__all__ = [
+    "validators",
+    "widgets",
+    "Form",
+    "ValidationError",
+    "SelectField",
+    "SelectMultipleField",
+    "RadioField",
+    "Field",
+    "Flags",
+    "Label",
+    "DateTimeField",
+    "DateField",
+    "TimeField",
+    "MonthField",
+    "DateTimeLocalField",
+    "WeekField",
+    "FormField",
+    "FieldList",
+    "IntegerField",
+    "DecimalField",
+    "FloatField",
+    "IntegerRangeField",
+    "DecimalRangeField",
+    "BooleanField",
+    "TextAreaField",
+    "PasswordField",
+    "FileField",
+    "MultipleFileField",
+    "HiddenField",
+    "SearchField",
+    "SubmitField",
+    "StringField",
+    "TelField",
+    "URLField",
+    "EmailField",
+    "ColorField",
+]
