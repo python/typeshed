@@ -4,6 +4,7 @@ from wtforms import validators as validators, widgets as widgets
 from wtforms.fields.choices import (
     RadioField as RadioField,
     SelectField as SelectField,
+    SelectFieldBase as SelectFieldBase,
     SelectMultipleField as SelectMultipleField,
 )
 from wtforms.fields.core import Field as Field, Flags as Flags, Label as Label
@@ -49,6 +50,7 @@ __all__ = [
     "Form",
     "ValidationError",
     "SelectField",
+    "SelectFieldBase",
     "SelectMultipleField",
     "RadioField",
     "Field",
