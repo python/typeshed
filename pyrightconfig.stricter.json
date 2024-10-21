@@ -65,6 +65,7 @@
         "stubs/netaddr/netaddr/core.pyi",
         "stubs/netaddr/netaddr/ip/__init__.pyi",
         "stubs/netaddr/netaddr/ip/iana.pyi",
+        "stubs/netifaces",
         "stubs/networkx",
         "stubs/oauthlib",
         "stubs/openpyxl",
