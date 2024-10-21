@@ -5,6 +5,8 @@ from wtforms.fields.core import Field, _Widget
 from wtforms.form import BaseForm
 from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 
+__all__ = ("FormField",)
+
 _BoundFormT = TypeVar("_BoundFormT", bound=BaseForm)
 
 class FormField(Field, Generic[_BoundFormT]):
