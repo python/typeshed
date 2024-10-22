@@ -760,7 +760,7 @@ TYPE_CHECKING: bool
 # In stubs, the arguments of the IO class are marked as positional-only.
 # This differs from runtime, but better reflects the fact that in reality
 # classes deriving from IO use different names for the arguments.
-class IO(Iterator[AnyStr]):
+class IO(Generic[AnyStr]):
     # At runtime these are all abstract properties,
     # but making them abstract in the stub is hugely disruptive, for not much gain.
     # See #8726
