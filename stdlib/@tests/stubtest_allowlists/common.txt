@@ -31,6 +31,7 @@ configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attribu
 configparser.SectionProxy.getboolean
 configparser.SectionProxy.getfloat
 configparser.SectionProxy.getint
+contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favor of its child classes
 copy.PyStringMap  # defined only in Jython
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 ctypes.memmove  # CFunctionType
