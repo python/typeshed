@@ -94,7 +94,7 @@ class BufferedWriter(BufferedIOBase, _BufferedIOBase, BinaryIO):  # type: ignore
     def __init__(self, raw: RawIOBase, buffer_size: int = 8192) -> None: ...
     def write(self, buffer: ReadableBuffer, /) -> int: ...
 
-class BufferedRandom(BufferedIOBase, _BufferedIOBase):  # type: ignore[misc]  # incompatible definitions of methods in the base classes
+class BufferedRandom(BufferedIOBase, _BufferedIOBase, BinaryIO):  # type: ignore[misc]  # incompatible definitions of methods in the base classes
     mode: str
     name: Any
     raw: RawIOBase
