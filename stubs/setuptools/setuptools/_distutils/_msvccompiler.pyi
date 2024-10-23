@@ -10,5 +10,6 @@ class MSVCCompiler(CCompiler):
     executables: ClassVar[dict[Incomplete, Incomplete]]
     res_extension: ClassVar[str]
     initialized: bool
+    def initialize(self, plat_name: str | None = None) -> None: ...
     @property
     def out_extensions(self) -> dict[str, str]: ...
