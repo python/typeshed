@@ -660,6 +660,8 @@ tkinter.Tk.splitlist
 tkinter.Tk.unsetvar
 tkinter.Tk.wantobjects
 tkinter.Tk.willdispatch
+unittest.runner._WritelnDecorator.flush
+unittest.runner._WritelnDecorator.write
 
 tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
 tkinter.Misc.grid_propagate  # The noarg placeholder is a set value list
