@@ -24,6 +24,8 @@ class EmailPolicy(Policy[_MessageT]):
         raise_on_defect: bool = ...,
         mangle_from_: bool = ...,
         message_factory: None = None,
+        # Added in Python 3.8.20, 3.9.20, 3.10.15, 3.11.10, 3.12.5
+        verify_generated_headers: bool = ...,
         utf8: bool = ...,
         refold_source: str = ...,
         header_factory: Callable[[str, str], str] = ...,
@@ -39,6 +41,8 @@ class EmailPolicy(Policy[_MessageT]):
         raise_on_defect: bool = ...,
         mangle_from_: bool = ...,
         message_factory: _MessageFactory[_MessageT] | None = ...,
+        # Added in Python 3.8.20, 3.9.20, 3.10.15, 3.11.10, 3.12.5
+        verify_generated_headers: bool = ...,
         utf8: bool = ...,
         refold_source: str = ...,
         header_factory: Callable[[str, str], str] = ...,
