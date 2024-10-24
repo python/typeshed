@@ -7,7 +7,7 @@ from wtforms.fields.core import Field, UnboundField
 from wtforms.meta import DefaultMeta, _MultiDictLike
 
 _T = TypeVar("_T")
-_FormErrors: TypeAlias = dict[str | None, Sequence[str] | _FormErrors]
+_FormErrors: TypeAlias = dict[str, Sequence[str] | _FormErrors]
 
 # _unbound_fields will always be a list on an instance, but on a
 # class it might be None, if it never has been instantiated, or
