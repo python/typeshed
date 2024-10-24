@@ -1,7 +1,7 @@
 # Type checkers that we test our stubs against. These should always
 # be pinned to a specific version to make failure reproducible.
 mypy==1.12.0
-pyright==1.1.385
+pyright==1.1.386
 # pytype can be installed on Windows, but requires building wheels, let's not do that on the CI
 pytype==2024.10.11; platform_system != "Windows" and python_version >= "3.10" and python_version < "3.13"
 
