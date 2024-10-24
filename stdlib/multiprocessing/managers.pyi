@@ -98,7 +98,7 @@ if sys.version_info >= (3, 13):
         @overload
         def update(self, **kwargs: _VT) -> None: ...
 
-    class DictProxy(_BaseDictProxy):
+    class DictProxy(_BaseDictProxy[_KT, _VT]):
         def __class_getitem__(cls, args: Any, /) -> Any: ...
 
 else:
