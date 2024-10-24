@@ -1,4 +1,4 @@
-from typing import Literal, Final
+from typing import Final, Literal
 
 AF_12844: Final[int]
 AF_APPLETALK: Final[int]

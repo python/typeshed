@@ -2036,7 +2036,6 @@ class NodeVisitor:
         @deprecated("Replaced by visit_Constant; removed in Python 3.14")
         def visit_Ellipsis(self, node: Ellipsis) -> Any: ...  # type: ignore[deprecated]
 
-
 class NodeTransformer(NodeVisitor):
     def generic_visit(self, node: AST) -> AST: ...
     # TODO: Override the visit_* methods with better return types.

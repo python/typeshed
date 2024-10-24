@@ -1,9 +1,10 @@
 from __future__ import annotations
+
 from _typeshed import StrOrBytesPath
 from os import PathLike
 from os.path import abspath, expanduser, expandvars
-from typing_extensions import assert_type
 from typing import AnyStr, Union
+from typing_extensions import assert_type
 
 
 def test_str_path(str_path: StrOrBytesPath) -> None:
