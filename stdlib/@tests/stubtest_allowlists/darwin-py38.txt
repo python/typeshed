@@ -5,3 +5,10 @@ spwd
 _msi
 msilib(.[a-z]+)?
 ossaudiodev
+
+# Added in Python 3.8.14
+def set_int_max_str_digits(maxdigits: int) -> None: ...
+def get_int_max_str_digits() -> int: ...
+
+# Added in Python 3.8.17
+tarfile.TarInfo.replace

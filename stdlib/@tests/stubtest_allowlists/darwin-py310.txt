@@ -5,3 +5,6 @@ spwd
 _msi
 msilib(.[a-z]+)?
 ossaudiodev
+
+# Added in Python 3.10.12
+tarfile.TarInfo.replace
