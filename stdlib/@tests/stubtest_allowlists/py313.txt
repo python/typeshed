@@ -153,14 +153,14 @@ importlib.metadata.DeprecatedNonAbstract.__new__
 
 # These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
 # But have more precise (accurate) signatures in the stub
+multiprocessing.managers._BaseDictProxy.__iter__
+multiprocessing.managers._BaseDictProxy.__len__
 multiprocessing.managers._BaseDictProxy.clear
 multiprocessing.managers._BaseDictProxy.copy
 multiprocessing.managers._BaseDictProxy.items
 multiprocessing.managers._BaseDictProxy.keys
 multiprocessing.managers._BaseDictProxy.popitem
 multiprocessing.managers._BaseDictProxy.values
-multiprocessing.managers._BaseDictProxy.__iter__
-multiprocessing.managers._BaseDictProxy.__len__
 
 
 # Super-special typing primitives
