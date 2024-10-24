@@ -206,6 +206,7 @@ types.GetSetDescriptorType.__get__
 types.MemberDescriptorType.__get__
 types.MethodDescriptorType.__get__
 types.WrapperDescriptorType.__get__
+types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 multiprocessing.managers.DictProxy.clear
 multiprocessing.managers.DictProxy.popitem
 
@@ -244,3 +245,20 @@ unittest\.test\..+
 # These enums derive from (str, Enum)
 pstats.SortKey.__new__
 tkinter.EventType.__new__
+
+# Items that depend on the existence and flags of SSL
+ssl.RAND_egd
+_ssl.RAND_egd
+
+# Incorrectly star import.
+ctypes._endian.DEFAULT_MODE
+ctypes._endian.RTLD_GLOBAL
+ctypes._endian.RTLD_LOCAL
+
+# Incompatible changes introduced in Python 3.8.20
+# (Remove once 3.8.20 becomes available for GitHub Actions)
+email._header_value_parser.NLSET
+email._header_value_parser.SPECIALSNL
+email.errors.HeaderWriteError
+email.utils.getaddresses
+email.utils.parseaddr

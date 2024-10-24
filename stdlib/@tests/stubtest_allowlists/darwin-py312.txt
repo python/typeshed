@@ -1,10 +1,5 @@
 webbrowser.MacOSX.__init__
 
-# TODO: fix
-_curses.unget_wch
-_curses.window.get_wch
-curses.window.get_wch
-
 # These entries looks like a `setup-python` bug:
 (dbm.gnu)?
 (_?locale.bind_textdomain_codeset)?
@@ -16,5 +11,15 @@ curses.window.get_wch
 
 # Doesn't exist on macos:
 spwd
+_msi
 msilib(.[a-z]+)?
 ossaudiodev
+
+# Not present on all MacOS versions
+fcntl.F_OFD_GETLK
+fcntl.F_OFD_SETLK
+fcntl.F_OFD_SETLKW
+
+# not available on python distributions compiled without sqlite3 loadable extension support
+_sqlite3.Connection.load_extension
+_sqlite3.Connection.enable_load_extension

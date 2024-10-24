@@ -120,18 +120,31 @@ class pio(NamedTuple):
     write_chars: Any
 
 class pcputimes(NamedTuple):
-    user: Any
-    system: Any
-    children_user: Any
-    children_system: Any
-    iowait: Any
+    user: float
+    system: float
+    children_user: float
+    children_system: float
+    iowait: float
 
 def readlink(path): ...
 def file_flags_to_mode(flags): ...
 def is_storage_device(name): ...
 def set_scputimes_ntuple(procfs_path) -> None: ...
 
-scputimes: Any
+class scputimes(NamedTuple):
+    # Note: scputimes has different fields depending on exactly how Linux
+    # is setup, but we'll include the "complete" set of fields
+    user: float
+    nice: float
+    system: float
+    idle: float
+    iowait: float
+    irq: float
+    softirq: float
+    steal: float
+    guest: float
+    guest_nice: float
+
 prlimit: Any
 
 def calculate_avail_vmem(mems): ...
@@ -148,7 +161,7 @@ net_if_addrs: Any
 
 class _Ipv6UnsupportedError(Exception): ...
 
-class Connections:
+class NetConnections:
     tmap: Any
     def __init__(self) -> None: ...
     def get_proc_inodes(self, pid): ...
@@ -220,7 +233,7 @@ class Process:
     def rlimit(self, resource_, limits: Incomplete | None = ...): ...
     def status(self): ...
     def open_files(self): ...
-    def connections(self, kind: str = ...): ...
+    def net_connections(self, kind: str = ...): ...
     def num_fds(self): ...
     def ppid(self): ...
     def uids(self, _uids_re=...): ...

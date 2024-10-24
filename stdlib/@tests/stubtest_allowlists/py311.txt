@@ -135,6 +135,7 @@ inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
 poplib.POP3_SSL.stls  # bad declaration of inherited function. See poplib.pyi
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
+types.SimpleNamespace.__init__ # class doesn't accept positional arguments but has default C signature
 types.GenericAlias.__getattr__
 types.GenericAlias.__mro_entries__
 weakref.ProxyType.__reversed__  # Doesn't really exist
@@ -213,3 +214,8 @@ asynchat.async_chat.use_encoding
 asynchat.find_prefix_at_end
 pkgutil.ImpImporter\..*
 pkgutil.ImpLoader\..*
+
+# Incorrectly star import.
+ctypes._endian.DEFAULT_MODE
+ctypes._endian.RTLD_GLOBAL
+ctypes._endian.RTLD_LOCAL

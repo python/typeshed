@@ -321,3 +321,34 @@ if sys.version_info >= (3, 11):
     # Note, that `Self` type is not preserved in runtime.
     assert_type(cg1.derive([ValueError()]), ExceptionGroup[ValueError])
     assert_type(cg1.derive([KeyboardInterrupt()]), BaseExceptionGroup[KeyboardInterrupt])
+
+    # Additional tests
+    # ==============================
+
+    def test_exception_group_default_type() -> None:
+        try:
+            ex: ExceptionGroup = ExceptionGroup("", [ValueError("a"), ValueError("b")])
+            raise ex
+        except ExceptionGroup as e:
+            assert all(isinstance(exc, ValueError) for exc in e.exceptions)
+
+    def test_exception_group_with_specific_type() -> None:
+        try:
+            ex: ExceptionGroup[ValueError] = ExceptionGroup("", [ValueError("a"), ValueError("b")])
+            raise ex
+        except ExceptionGroup as e:
+            assert all(isinstance(exc, ValueError) for exc in e.exceptions)
+
+    def test_base_exception_group_default_type() -> None:
+        try:
+            ex: BaseExceptionGroup = BaseExceptionGroup("", [SystemExit("a"), SystemExit("b")])
+            raise ex
+        except BaseExceptionGroup as e:
+            assert all(isinstance(exc, SystemExit) for exc in e.exceptions)
+
+    def test_base_exception_group_with_specific_type() -> None:
+        try:
+            ex: BaseExceptionGroup[SystemExit] = BaseExceptionGroup("", [SystemExit("a"), SystemExit("b")])
+            raise ex
+        except BaseExceptionGroup as e:
+            assert all(isinstance(exc, SystemExit) for exc in e.exceptions)

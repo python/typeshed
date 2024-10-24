@@ -1,7 +1,8 @@
 import sys
+from _blake2 import blake2b as blake2b, blake2s as blake2s
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Set as AbstractSet
-from typing import Protocol, final
+from typing import Protocol
 from typing_extensions import Self
 
 if sys.version_info >= (3, 11):
@@ -106,53 +107,6 @@ shake_256 = _VarLenHash
 def scrypt(
     password: ReadableBuffer, *, salt: ReadableBuffer, n: int, r: int, p: int, maxmem: int = 0, dklen: int = 64
 ) -> bytes: ...
-@final
-class _BlakeHash(_Hash):
-    MAX_DIGEST_SIZE: int
-    MAX_KEY_SIZE: int
-    PERSON_SIZE: int
-    SALT_SIZE: int
-
-    if sys.version_info >= (3, 9):
-        def __init__(
-            self,
-            data: ReadableBuffer = ...,
-            /,
-            *,
-            digest_size: int = ...,
-            key: ReadableBuffer = ...,
-            salt: ReadableBuffer = ...,
-            person: ReadableBuffer = ...,
-            fanout: int = ...,
-            depth: int = ...,
-            leaf_size: int = ...,
-            node_offset: int = ...,
-            node_depth: int = ...,
-            inner_size: int = ...,
-            last_node: bool = ...,
-            usedforsecurity: bool = ...,
-        ) -> None: ...
-    else:
-        def __init__(
-            self,
-            data: ReadableBuffer = ...,
-            /,
-            *,
-            digest_size: int = ...,
-            key: ReadableBuffer = ...,
-            salt: ReadableBuffer = ...,
-            person: ReadableBuffer = ...,
-            fanout: int = ...,
-            depth: int = ...,
-            leaf_size: int = ...,
-            node_offset: int = ...,
-            node_depth: int = ...,
-            inner_size: int = ...,
-            last_node: bool = ...,
-        ) -> None: ...
-
-blake2b = _BlakeHash
-blake2s = _BlakeHash
 
 if sys.version_info >= (3, 11):
     class _BytesIOLike(Protocol):

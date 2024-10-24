@@ -1,4 +1,4 @@
-# Needed until mypy issues are solved
+# Needed until mypy issues are solved or https://github.com/python/mypy/issues/12358
 # pyright: reportUnnecessaryTypeIgnoreComment=false
 
 # These tests are essentially a mirror of check_base_descriptors
@@ -154,23 +154,23 @@ assert_type(with_descriptors.set_tuple_none, Union[Literal["a", 1, None], float]
 assert_type(with_descriptors.noneset_tuple, Union[Literal["a", 1], float, None])  # type: ignore[assert-type]  # False-positive in mypy
 assert_type(with_descriptors.noneset_list, Union[str, float, None])  # type: ignore[assert-type]  # False-positive in mypy  # int and float are merged in generic unions
 
-assert_type(with_descriptors.convertible_not_none, int)  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.convertible_not_none, int)
 assert_type(with_descriptors.convertible_none, Union[int, None])
 
-assert_type(with_descriptors.text_str_not_none, str)  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.text_str_not_none, str)
 assert_type(with_descriptors.text_str_none, Union[str, None])
-assert_type(with_descriptors.text_int_not_none, int)  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.text_int_not_none, int)
 assert_type(with_descriptors.text_int_none, Union[int, None])
 
-assert_type(with_descriptors.minmax_float, float)  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.minmax_float, float)
 assert_type(with_descriptors.minmax_float_none, Union[float, None])
-assert_type(with_descriptors.minmax_int, int)  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.minmax_int, int)
 assert_type(with_descriptors.minmax_int_none, Union[int, None])
 
 assert_type(with_descriptors.bool_not_none, bool)  # type: ignore[assert-type]  # False-positive in mypy
 assert_type(with_descriptors.bool_none, Union[bool, None])
 
-assert_type(with_descriptors.emptytag_not_none, bool)  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.emptytag_not_none, bool)
 assert_type(with_descriptors.emptytag_none, Union[bool, None])
 
 assert_type(with_descriptors.string_not_none, str)  # type: ignore[assert-type]  # False-positive in mypy
@@ -301,16 +301,16 @@ with_descriptors.text_str_none = cast(_HasTagAndGet[object], _)
 
 with_descriptors.text_int_not_none = 0
 with_descriptors.text_int_not_none = "0"
-with_descriptors.text_int_not_none = None  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-with_descriptors.text_int_not_none = object()  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+with_descriptors.text_int_not_none = None  # type: ignore
+with_descriptors.text_int_not_none = object()  # type: ignore
 # If expected type (_T) is not str, it's impossible to use an Element as the value
-with_descriptors.text_int_not_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+with_descriptors.text_int_not_none = cast(  # type: ignore
     _HasTagAndGet[int], _
 )
-with_descriptors.text_int_not_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+with_descriptors.text_int_not_none = cast(  # type: ignore
     _HasTagAndGet[None], _
 )
-with_descriptors.text_int_not_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+with_descriptors.text_int_not_none = cast(  # type: ignore
     _HasTagAndGet[str], _
 )
 
@@ -333,10 +333,10 @@ with_descriptors.text_int_none = cast(  # pyright: ignore[reportAttributeAccessI
 with_descriptors.minmax_float = 0
 with_descriptors.minmax_float = "0"
 with_descriptors.minmax_float = 0.0
-with_descriptors.minmax_float = None  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+with_descriptors.minmax_float = None  # type: ignore
 with_descriptors.minmax_float = object()  # type: ignore
 with_descriptors.minmax_float = cast(_HasTagAndGet[float], _)
-with_descriptors.minmax_float = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+with_descriptors.minmax_float = cast(  # type: ignore
     _HasTagAndGet[None], _
 )
 with_descriptors.minmax_float = cast(_HasTagAndGet[object], _)  # type: ignore
@@ -353,10 +353,10 @@ with_descriptors.minmax_float_none = cast(_HasTagAndGet[object], _)  # type: ign
 with_descriptors.minmax_int = 0
 with_descriptors.minmax_int = "0"
 with_descriptors.minmax_int = 0.0
-with_descriptors.minmax_int = None  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+with_descriptors.minmax_int = None  # type: ignore
 with_descriptors.minmax_int = object()  # type: ignore
 with_descriptors.minmax_int = cast(_HasTagAndGet[int], _)
-with_descriptors.minmax_int = cast(_HasTagAndGet[None], _)  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+with_descriptors.minmax_int = cast(_HasTagAndGet[None], _)  # type: ignore
 with_descriptors.minmax_int = cast(_HasTagAndGet[object], _)  # type: ignore
 
 with_descriptors.minmax_int_none = 0

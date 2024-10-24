@@ -32,7 +32,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        # As of 2024-10-18, ubuntu-latest can refer to different Ubuntu versions,
+        # which causes problems when testing gdb.
+        os: ["ubuntu-24.04", "windows-latest", "macos-latest"]
       fail-fast: false
 
     steps:
@@ -76,7 +78,7 @@ jobs:
             else
               if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
                 echo "Installing Homebrew packages: $PACKAGES"
-                brew install $PACKAGES
+                brew install -q $PACKAGES
               fi
 
               if [ "${{ runner.os }}" = "Windows" ] && [ -n "$PACKAGES" ]; then
