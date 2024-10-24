@@ -262,3 +262,8 @@ email._header_value_parser.SPECIALSNL
 email.errors.HeaderWriteError
 email.utils.getaddresses
 email.utils.parseaddr
+
+# These don't exist at runtime
+builtins.complex.__complex__
+builtins.float.__ceil__
+builtins.float.__floor__

@@ -9,7 +9,8 @@
 
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
-from typing import Literal, Protocol, Self, overload
+from typing import Literal, Protocol, overload
+from typing_extensions import Self
 
 __all__ = ["Number", "Complex", "Real", "Rational", "Integral"]
 
@@ -35,10 +36,6 @@ class _RealLike(_ComplexLike, Protocol):
     def __floor__(self) -> _IntegralLike: ...
     def __ceil__(self) -> _IntegralLike: ...
     def __float__(self) -> float: ...
-    # Overridden from `_ComplexLike`
-    # for a more precise return type:
-    # def __neg__(self) -> Self: ...
-    # def __pos__(self) -> Self: ...
 
 # _IntegralLike is a structural-typing approximation
 # of the `Integral` ABC, which is not (and cannot be) a protocol
@@ -49,10 +46,6 @@ class _IntegralLike(_RealLike, Protocol):
     # Overridden from `_ComplexLike`
     # for a more precise return type:
     def __abs__(self) -> _IntegralLike: ...
-    # Overridden from `RealLike`
-    # for a more precise return type:
-    # def __neg__(self) -> _IntegralLike: ...
-    # def __pos__(self) -> _IntegralLike: ...
 
 #################
 # Module "proper"
@@ -140,12 +133,6 @@ class Real(Complex, _RealLike):
     @property
     def imag(self) -> Literal[0]: ...
     def conjugate(self) -> _RealLike: ...
-    # Not actually overridden at runtime,
-    # but we override these in the stub to give them more precise return types:
-    # @abstractmethod
-    # def __pos__(self) -> _RealLike: ...
-    # @abstractmethod
-    # def __neg__(self) -> _RealLike: ...
 
 # See comment at the top of the file
 # for why some of these return types are purposefully vague
@@ -195,10 +182,6 @@ class Integral(Rational, _IntegralLike):
     def denominator(self) -> Literal[1]: ...
     # Not actually overridden at runtime,
     # but we override these in the stub to give them more precise return types:
-    @abstractmethod
-    def __pos__(self) -> Self: ...
-    @abstractmethod
-    def __neg__(self) -> Self: ...
     @abstractmethod
     def __abs__(self) -> _IntegralLike: ...
     @abstractmethod
