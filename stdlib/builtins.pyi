@@ -95,9 +95,9 @@ _SupportsAnextT = TypeVar("_SupportsAnextT", bound=SupportsAnext[Any], covariant
 _AwaitableT = TypeVar("_AwaitableT", bound=Awaitable[Any])
 _AwaitableT_co = TypeVar("_AwaitableT_co", bound=Awaitable[Any], covariant=True)
 _P = ParamSpec("_P")
-_StartT = TypeVar("_StartT", covariant=True, default=MaybeNone)
-_StopT = TypeVar("_StopT", covariant=True, default=MaybeNone)
-_StepT = TypeVar("_StepT", covariant=True, default=MaybeNone)
+_StartT = TypeVar("_StartT", covariant=True, default=int | MaybeNone)
+_StopT = TypeVar("_StopT", covariant=True, default=int | MaybeNone)
+_StepT = TypeVar("_StepT", covariant=True, default=int | MaybeNone)
 
 class object:
     __doc__: str | None
@@ -948,9 +948,15 @@ class slice(Generic[_StartT, _StopT, _StepT]):
     @property
     def stop(self) -> _StopT: ...
     @overload
-    def __new__(cls, stop: _T2, /) -> slice[MaybeNone, _T2, MaybeNone]: ...
+    def __new__(cls, stop: int | None) -> slice[int | MaybeNone, int | MaybeNone, int | MaybeNone]: ...
     @overload
-    def __new__(cls, start: _T1, stop: _T2, /) -> slice[_T1, _T2, MaybeNone]: ...
+    def __new__(
+        cls, start: int | None, stop: int | None, step: int | None = None
+    ) -> slice[int | MaybeNone, int | MaybeNone, int | MaybeNone]: ...
+    @overload
+    def __new__(cls, stop: _T2, /) -> slice[Any, _T2, Any]: ...
+    @overload
+    def __new__(cls, start: _T1, stop: _T2, /) -> slice[_T1, _T2, Any]: ...
     @overload
     def __new__(cls, start: _T1, stop: _T2, step: _T3, /) -> slice[_T1, _T2, _T3]: ...
     def __eq__(self, value: object, /) -> bool: ...
