@@ -24,6 +24,7 @@ from _decimal import (
     setcontext as setcontext,
 )
 from collections.abc import Container, Sequence
+from numbers import Number
 from typing import Any, ClassVar, Literal, NamedTuple, overload
 from typing_extensions import Self, TypeAlias
 
@@ -55,7 +56,7 @@ class Overflow(Inexact, Rounded): ...
 class Underflow(Inexact, Rounded, Subnormal): ...
 class FloatOperation(DecimalException, TypeError): ...
 
-class Decimal:
+class Decimal(Number):
     def __new__(cls, value: _DecimalNew = ..., context: Context | None = ...) -> Self: ...
     @classmethod
     def from_float(cls, f: float, /) -> Self: ...
