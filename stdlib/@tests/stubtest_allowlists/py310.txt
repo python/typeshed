@@ -260,5 +260,5 @@ ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
 ctypes._endian.RTLD_LOCAL
 
-# This don't exist at runtime
+# This doesn't exist at runtime
 builtins.complex.__complex__
