@@ -22,7 +22,7 @@
     - `slice(x, y, z)`  (⟿ `slice[X, Y, Z]`)
 """
 
-from typing import Any
+from typing import Any, Union
 from typing_extensions import assert_type
 
 # region Tests for slice constructor overloads -----------------------------------------
@@ -30,12 +30,12 @@ assert_type(slice(None), "slice[Any, Any, Any]")
 assert_type(slice(None, None), "slice[Any, Any, Any]")
 assert_type(slice(None, None, None), "slice[Any, Any, Any]")
 
-assert_type(slice(1), "slice[Any, int, Any]")
-assert_type(slice(None, 1), "slice[Any, int, Any]")
-assert_type(slice(None, 1, None), "slice[Any, int, Any]")
+assert_type(slice(1), "slice[Union[int, Any], int, Any]")
+assert_type(slice(None, 1), "slice[Union[int, Any], int, Any]")
+assert_type(slice(None, 1, None), "slice[Union[int, Any], int, Any]")
 
-assert_type(slice(1, None), "slice[int, Any, Any]")
-assert_type(slice(1, None, None), "slice[int, Any, Any]")
+assert_type(slice(1, None), "slice[int, Union[int, Any], Any]")
+assert_type(slice(1, None, None), "slice[int, Union[int, Any], Any]")
 
 assert_type(slice(1, 1), "slice[int, int, Any]")
 assert_type(slice(1, 1, None), "slice[int, int, Any]")
@@ -62,7 +62,6 @@ s11: "slice[int]" = slice(1, 1)
 s12: "slice[int]" = slice(1, 1, None)
 s13: "slice[int]" = slice(1, 1, "foo")
 # endregion Tests for slice[T] assignments ---------------------------------------------
-
 
 # region Tests for slice[X, Y] assignments ---------------------------------------------
 t0: "slice[int, int]" = slice(None)
