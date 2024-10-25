@@ -1,6 +1,3 @@
-from typing import Any
-from typing_extensions import assert_type
-
 """
 - Type hint `slice` should be compatible with the **"all-slices"**:
     - `slice(None)`, `slice(None, None)` and `slice(None, None, None)`. (⟿ `slice[?, ?, ?]`)
@@ -25,6 +22,8 @@ from typing_extensions import assert_type
     - `slice(x, y, z)`  (⟿ `slice[X, Y, Z]`)
 """
 
+from typing import Any
+from typing_extensions import assert_type
 
 # region check slice constructors ------------------------------------------------------
 assert_type(slice(None), "slice[Any, Any, Any]")
