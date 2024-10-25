@@ -25,7 +25,6 @@ from typing_extensions import assert_type
     - `slice(x, y, z)`  (⟿ `slice[X, Y, Z]`)
 """
 
-assert_type(1, str)  # intentional error (temporarily addded).
 
 # region check slice constructors ------------------------------------------------------
 assert_type(slice(None), "slice[Any, Any, Any]")
@@ -86,7 +85,7 @@ t12: "slice[int, int]" = slice(1, 1, None)
 t13: "slice[int, int]" = slice(1, 1, "foo")
 # endregion slice[X, Y] assignments ----------------------------------------------------
 
-# region slice[X, Y, Z] assignments -----------------------------------------------------
+# region slice[X, Y, Z] assignments ----------------------------------------------------
 u0: "slice[int, int, int]" = slice(None)
 u1: "slice[int, int, int]" = slice(None, None)
 u2: "slice[int, int, int]" = slice(None, None, None)
@@ -104,4 +103,15 @@ u10: "slice[int, int, int]" = slice(1, None, 1)
 u11: "slice[int, int, int]" = slice(1, 1)
 u12: "slice[int, int, int]" = slice(1, 1, None)
 u13: "slice[int, int, int]" = slice(1, 1, 1)
-# endregion slice[X, Y, Z] assignments ---------------------------------------------------
+# endregion slice[X, Y, Z] assignments -------------------------------------------------
+
+# region check slice properties --------------------------------------------------------
+assert_type(slice(1).stop, int)
+assert_type(slice(None, 1).stop, int)
+assert_type(slice(None, 1, None).stop, int)
+
+assert_type(slice(1, None).start, int)
+assert_type(slice(1, None, None).start, int)
+
+assert_type(slice(None, None, 1).step, int)
+# endregion check slice properties -----------------------------------------------------
