@@ -25,7 +25,7 @@
 from typing import Any
 from typing_extensions import assert_type
 
-# region check slice constructors ------------------------------------------------------
+# region Tests for slice constructor overloads -----------------------------------------
 assert_type(slice(None), "slice[Any, Any, Any]")
 assert_type(slice(None, None), "slice[Any, Any, Any]")
 assert_type(slice(None, None, None), "slice[Any, Any, Any]")
@@ -41,9 +41,9 @@ assert_type(slice(1, 1), "slice[int, int, Any]")
 assert_type(slice(1, 1, None), "slice[int, int, Any]")
 
 assert_type(slice(1, 1, 1), "slice[int, int, int]")
-# endregion check slice constructors ---------------------------------------------------
+# endregion Tests for slice constructor overloads --------------------------------------
 
-# region check slice[T] assignments ----------------------------------------------------
+# region Tests for slice[T] assignments ------------------------------------------------
 s0: "slice[int]" = slice(None)
 s1: "slice[int]" = slice(None, None)
 s2: "slice[int]" = slice(None, None, None)
@@ -61,10 +61,10 @@ s10: "slice[int]" = slice(1, None, "foo")
 s11: "slice[int]" = slice(1, 1)
 s12: "slice[int]" = slice(1, 1, None)
 s13: "slice[int]" = slice(1, 1, "foo")
-# endregion check slice[T] assignments -------------------------------------------------
+# endregion Tests for slice[T] assignments ---------------------------------------------
 
 
-# region slice[X, Y] assignments -------------------------------------------------------
+# region Tests for slice[X, Y] assignments ---------------------------------------------
 t0: "slice[int, int]" = slice(None)
 t1: "slice[int, int]" = slice(None, None)
 t2: "slice[int, int]" = slice(None, None, None)
@@ -82,9 +82,9 @@ t10: "slice[int, int]" = slice(1, None, "foo")
 t11: "slice[int, int]" = slice(1, 1)
 t12: "slice[int, int]" = slice(1, 1, None)
 t13: "slice[int, int]" = slice(1, 1, "foo")
-# endregion slice[X, Y] assignments ----------------------------------------------------
+# endregion Tests for slice[X, Y] assignments ------------------------------------------
 
-# region slice[X, Y, Z] assignments ----------------------------------------------------
+# region Tests for slice[X, Y, Z] assignments ------------------------------------------
 u0: "slice[int, int, int]" = slice(None)
 u1: "slice[int, int, int]" = slice(None, None)
 u2: "slice[int, int, int]" = slice(None, None, None)
@@ -102,9 +102,9 @@ u10: "slice[int, int, int]" = slice(1, None, 1)
 u11: "slice[int, int, int]" = slice(1, 1)
 u12: "slice[int, int, int]" = slice(1, 1, None)
 u13: "slice[int, int, int]" = slice(1, 1, 1)
-# endregion slice[X, Y, Z] assignments -------------------------------------------------
+# endregion Tests for slice[X, Y, Z] assignments ---------------------------------------
 
-# region check slice properties --------------------------------------------------------
+# region Tests for slice properties ----------------------------------------------------
 assert_type(slice(1).stop, int)
 assert_type(slice(None, 1).stop, int)
 assert_type(slice(None, 1, None).stop, int)
@@ -113,4 +113,4 @@ assert_type(slice(1, None).start, int)
 assert_type(slice(1, None, None).start, int)
 
 assert_type(slice(None, None, 1).step, int)
-# endregion check slice properties -----------------------------------------------------
+# endregion Tests for slice properties -------------------------------------------------
