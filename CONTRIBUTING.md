@@ -724,26 +724,3 @@ message when closing the PR. Example message:
     <fails some tests OR has unresolved review feedback OR has a merge conflict>
     after three months of inactivity. If you are still interested, please feel free to open
     a new PR (or ping us to reopen this one).
-
-
-- Type hint `slice` should be compatible with the **"all-slices"**:
-    - `slice(None)`, `slice(None, None)` and `slice(None, None, None)`.
-- Type hint `slice[X]` should be compatible with:
-    - `slice(None)`, `slice(None, None)` and `slice(None, None, None)`
-    - `slice(x)`, `slice(None, x)` and `slice(None, x, None)`.
-    - `slice(x, None)` and `slice(x, None, None)`.
-    - `slice(x, x)` and `slice(x, x, None)`.
-- Type hint `slice[X, Y]` should be compatible with:
-    - `slice(None)`, `slice(None, None)` and `slice(None, None, None)`
-    - `slice(y)`, `slice(None, y)` and `slice(None, y, None)`.
-    - `slice(x, None)` and `slice(x, None, None)`
-    - `slice(x, y)` and `slice(x, y, None)`.
--  Type hint `slice[X, Y, Z]` should be compatible with:
-    - `slice(None)`, `slice(None, None)` and `slice(None, None, None)`.
-    - `slice(y)`, `slice(None, y)` and `slice(None, y, None)`.
-    - `slice(x, None)` and `slice(x, None, None)`
-    - `slice(x, y)` and `slice(x, y, None)`.
-    - `slice(None, None, z)`
-    - `slice(None, y, z)`
-    - `slice(x, None, z)`
-    - `slice(x, y, z)`
