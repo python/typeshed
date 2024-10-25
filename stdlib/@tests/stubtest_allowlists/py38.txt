@@ -262,3 +262,7 @@ email._header_value_parser.SPECIALSNL
 email.errors.HeaderWriteError
 email.utils.getaddresses
 email.utils.parseaddr
+
+# Weird special builtins that are typed as functions, but aren't functions
+hashlib.sha3_\d+  # Class in 3.8, can't be subclassed at runtime, built-in function 3.9+
+hashlib.shake_\d+  # Class in 3.8, can't be subclassed at runtime, built-in function 3.9+
