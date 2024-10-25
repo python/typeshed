@@ -1,7 +1,7 @@
 """
 - The type hint `slice` should be compatible with the **all slices**:
     - `slice(None)`, `slice(None, None)` and `slice(None, None, None)`. (⟿ `slice[?, ?, ?]`)
-- Type hint `slice[T]` should be compatible with:
+- The type hint `slice[T]` should be compatible with:
     - `slice(None)`, `slice(None, None)` and `slice(None, None, None)` (⟿ `slice[?, ?, ?]`)
     - `slice(t)`, `slice(None, t)` and `slice(None, t, None)`.  (⟿ `slice[?, T, ?]`)
     - `slice(t, None)` and `slice(t, None, None)`.  (⟿ `slice[T, ?, ?]`)
