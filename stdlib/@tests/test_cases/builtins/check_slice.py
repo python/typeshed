@@ -11,7 +11,7 @@
     - `slice(y)`, `slice(None, y)` and `slice(None, y, None)`.  (⟿ `slice[?, Y, ?]`)
     - `slice(x, None)` and `slice(x, None, None)` (⟿ `slice[X, ?, ?]`)
     - `slice(x, y)` and `slice(x, y, None)`.  (⟿ `slice[X, Y, ?]`)
--  Type hint `slice[X, Y, Z]` should be compatible with:
+-  The type hint `slice[X, Y, Z]` should be compatible with:
     - `slice(None)`, `slice(None, None)` and `slice(None, None, None)`. (⟿ `slice[?, ?, ?]`)
     - `slice(y)`, `slice(None, y)` and `slice(None, y, None)`.   (⟿ `slice[?, Y, ?]`)
     - `slice(x, None)` and `slice(x, None, None)` (⟿ `slice[X, ?, ?]`)
