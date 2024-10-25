@@ -174,6 +174,15 @@ importlib.resources.abc.Traversable.open
 # Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
 importlib.metadata.DeprecatedNonAbstract.__new__
 
+# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
+# But have more precise (accurate) signatures in the stub
+multiprocessing.managers.DictProxy.__iter__
+multiprocessing.managers.DictProxy.__len__
+multiprocessing.managers.DictProxy.copy
+multiprocessing.managers.DictProxy.items
+multiprocessing.managers.DictProxy.keys
+multiprocessing.managers.DictProxy.values
+
 # Super-special typing primitives
 typing\._SpecialForm.*
 typing\.NamedTuple
