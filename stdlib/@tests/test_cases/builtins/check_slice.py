@@ -1,5 +1,5 @@
 """
-- Type hint `slice` should be compatible with the **"all-slices"**:
+- The type hint `slice` should be compatible with the **all slices**:
     - `slice(None)`, `slice(None, None)` and `slice(None, None, None)`. (⟿ `slice[?, ?, ?]`)
 - Type hint `slice[T]` should be compatible with:
     - `slice(None)`, `slice(None, None)` and `slice(None, None, None)` (⟿ `slice[?, ?, ?]`)
