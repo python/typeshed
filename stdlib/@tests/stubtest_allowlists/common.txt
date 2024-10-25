@@ -417,8 +417,6 @@ csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 p
 dataclasses.field  # White lies around defaults
 email.policy.EmailPolicy.message_factory  # "type" at runtime, but protocol in stubs
 hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
-hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
-hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hmac.HMAC.blocksize  # use block_size instead
 
 # We can't distinguish not having a default value from having a default value of inspect.Parameter.empty
