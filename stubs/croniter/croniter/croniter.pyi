@@ -13,6 +13,7 @@ def is_32bit() -> bool: ...
 
 OVERFLOW32B_MODE: Final[bool]
 
+EPOCH: Final[datetime.datetime]
 M_ALPHAS: Final[dict[str, int]]
 DOW_ALPHAS: Final[dict[str, int]]
 ALPHAS: Final[dict[str, int]]
