@@ -311,10 +311,9 @@ def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocu
             data = tomlkit.load(file)
     except FileNotFoundError:
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
-    data.update(new_values)
+    data.update(new_values)  # pyright: ignore[reportUnknownMemberType] # tomlkit.TOMLDocument.update is partially typed
     with path.open("w", encoding="UTF-8") as file:
-        # tomlkit.dump has partially unknown Mapping type
-        tomlkit.dump(data, file)  # pyright: ignore[reportUnknownMemberType]
+        tomlkit.dump(data, file)  # pyright: ignore[reportUnknownMemberType] # tomlkit.dump has partially unknown Mapping type
     return data
 
 
