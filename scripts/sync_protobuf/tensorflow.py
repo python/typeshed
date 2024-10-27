@@ -13,13 +13,13 @@ import sys
 import tempfile
 from pathlib import Path
 
-from _utils import MYPY_PROTOBUF_VERSION, REPO_ROOT, download_file, extract_archive, run_protoc, update_metadata
+from _utils import MYPY_PROTOBUF_VERSION, download_file, extract_archive, run_protoc
+from ts_utils.metadata import read_metadata, update_metadata
+from ts_utils.paths import distribution_path
 
-# Whenever you update PACKAGE_VERSION here, version should be updated
-# in stubs/tensorflow/METADATA.toml and vice-versa.
-PACKAGE_VERSION = "2.17.0"
+PACKAGE_VERSION = read_metadata("tensorflow").version_spec.version
 
-STUBS_FOLDER = REPO_ROOT / "stubs" / "tensorflow"
+STUBS_FOLDER = distribution_path("tensorflow").absolute()
 ARCHIVE_FILENAME = f"v{PACKAGE_VERSION}.zip"
 ARCHIVE_URL = f"https://github.com/tensorflow/tensorflow/archive/refs/tags/{ARCHIVE_FILENAME}"
 EXTRACTED_PACKAGE_DIR = f"tensorflow-{PACKAGE_VERSION}"
@@ -123,11 +123,12 @@ def main() -> None:
     post_creation()
 
     update_metadata(
-        STUBS_FOLDER,
-        f"""Partially generated using \
+        "tensorflow",
+        extra_description=f"""Partially generated using \
 [mypy-protobuf=={MYPY_PROTOBUF_VERSION}](https://github.com/nipunn1313/mypy-protobuf/tree/v{MYPY_PROTOBUF_VERSION}) \
 and {PROTOC_VERSION} on `tensorflow=={PACKAGE_VERSION}`.""",
     )
+    print("Updated tensorflow/METADATA.toml")
 
     # Run pre-commit to cleanup the stubs
     subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")))

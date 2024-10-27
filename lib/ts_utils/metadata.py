@@ -14,6 +14,7 @@ from typing import Final, NamedTuple, final
 from typing_extensions import Annotated, TypeGuard
 
 import tomli
+import tomlkit
 from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
 
@@ -298,6 +299,23 @@ def read_metadata(distribution: str) -> StubMetadata:
         stubtest_settings=read_stubtest_settings(distribution),
         requires_python=requires_python,
     )
+
+
+def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocument:
+    """Updates a distribution's METADATA.toml.
+
+    Return the updated TOML dictionary for use without having to open the file separately."""
+    path = metadata_path(distribution)
+    try:
+        with path.open("rb") as file:
+            data = tomlkit.load(file)
+    except FileNotFoundError:
+        raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
+    data.update(new_values)
+    with path.open("w", encoding="UTF-8") as file:
+        # tomlkit.dump has partially unknown Mapping type
+        tomlkit.dump(data, file)  # pyright: ignore[reportUnknownMemberType]
+    return data
 
 
 def parse_requires(distribution: str, req: object) -> Requirement:
