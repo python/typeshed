@@ -12,10 +12,14 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from _utils import MYPY_PROTOBUF_VERSION, download_file, extract_archive, run_protoc
 from ts_utils.metadata import read_metadata, update_metadata
 from ts_utils.paths import distribution_path
+
+if TYPE_CHECKING:
+    from _typeshed import StrPath
 
 PACKAGE_VERSION = read_metadata("tensorflow").version_spec.version
 
@@ -53,17 +57,20 @@ TSL_IMPORT_PATTERN = re.compile(r"(\[|\s)tsl\.")
 XLA_IMPORT_PATTERN = re.compile(r"(\[|\s)xla\.")
 
 
+def move_tree(source: StrPath, destination: StrPath, /):
+    """Move directory and merge if destination already exists.
+
+    Can't use shutil.move because it can't merge existing directories."""
+    print(f"Moving '{source}' to '{destination}'")
+    shutil.copytree(source, destination, dirs_exist_ok=True)
+    shutil.rmtree(source)
+
+
 def post_creation() -> None:
     """Move third-party and fix imports"""
-    # Can't use shutil.move because it can't merge existing directories.
     print()
-    print(f"Moving '{STUBS_FOLDER}/tsl' to '{STUBS_FOLDER}/tensorflow/tsl'")
-    shutil.copytree(f"{STUBS_FOLDER}/tsl", f"{STUBS_FOLDER}/tensorflow/tsl", dirs_exist_ok=True)
-    shutil.rmtree(f"{STUBS_FOLDER}/tsl")
-
-    print(f"Moving '{STUBS_FOLDER}/xla' to '{STUBS_FOLDER}/tensorflow/compiler/xla'")
-    shutil.copytree(f"{STUBS_FOLDER}/xla", f"{STUBS_FOLDER}/tensorflow/compiler/xla", dirs_exist_ok=True)
-    shutil.rmtree(f"{STUBS_FOLDER}/xla")
+    move_tree(STUBS_FOLDER / "tsl", STUBS_FOLDER / "tensorflow" / "tsl")
+    move_tree(STUBS_FOLDER / "xla", STUBS_FOLDER / "tensorflow" / "compiler" / "xla")
 
     for path in STUBS_FOLDER.rglob("*_pb2.pyi"):
         print(f"Fixing imports in '{path}'")
@@ -106,6 +113,7 @@ def main() -> None:
         proto_globs=(
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/*.proto",
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/service/*.proto",
+            f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/tsl/protobuf/*.proto",
             f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/example/*.proto",
             f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/framework/*.proto",
             f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/protobuf/*.proto",
