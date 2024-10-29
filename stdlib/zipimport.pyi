@@ -6,7 +6,7 @@ from types import CodeType, ModuleType
 from typing_extensions import deprecated
 
 if sys.version_info >= (3, 10):
-    from importlib._bootstrap_external import _LoaderBasics
+    from _frozen_importlib_external import _LoaderBasics
 else:
     _LoaderBasics = object
 
