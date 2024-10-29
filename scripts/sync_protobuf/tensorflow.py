@@ -12,14 +12,10 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from typing import TYPE_CHECKING
 
 from _utils import MYPY_PROTOBUF_VERSION, download_file, extract_archive, run_protoc
 from ts_utils.metadata import read_metadata, update_metadata
 from ts_utils.paths import distribution_path
-
-if TYPE_CHECKING:
-    from _typeshed import StrPath
 
 PACKAGE_VERSION = read_metadata("tensorflow").version_spec.version
 
@@ -57,7 +53,7 @@ TSL_IMPORT_PATTERN = re.compile(r"(\[|\s)tsl\.")
 XLA_IMPORT_PATTERN = re.compile(r"(\[|\s)xla\.")
 
 
-def move_tree(source: StrPath, destination: StrPath, /):
+def move_tree(source: Path, destination: Path) -> None:
     """Move directory and merge if destination already exists.
 
     Can't use shutil.move because it can't merge existing directories."""
