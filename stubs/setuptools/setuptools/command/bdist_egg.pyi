@@ -1,8 +1,10 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, StrPath
 from collections.abc import Generator
-from typing import ClassVar, Final
+from typing import ClassVar, Final, TypeVar
 
 from .. import Command
+
+_StrPathT = TypeVar("_StrPathT", bound=StrPath)
 
 def strip_module(filename): ...
 def sorted_walk(dir) -> Generator[Incomplete, None, None]: ...
@@ -48,5 +50,5 @@ def can_scan(): ...
 INSTALL_DIRECTORY_ATTRS: Final[list[str]]
 
 def make_zipfile(
-    zip_filename, base_dir, verbose: bool = False, dry_run: bool = False, compress: bool = True, mode: str = "w"
-): ...
+    zip_filename: _StrPathT, base_dir, verbose: bool = False, dry_run: bool = False, compress: bool = True, mode: str = "w"
+) -> _StrPathT: ...
