@@ -1,9 +1,10 @@
 # ==========
-# Allowlist entries that should be fixed
+# TODO: Allowlist entries that should be fixed
 # ==========
 
 # Please keep sorted alphabetically
 
+_asyncio.Future.__init__  # Usually initialized from c object
 _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
@@ -11,8 +12,11 @@ _collections_abc.AsyncGenerator.ag_running
 _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
-_csv.Dialect.__init__  # C __init__ signature is inaccurate
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
+_frozen_importlib_external.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+_frozen_importlib_external.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+_frozen_importlib_external.FileLoader.get_resource_reader  # Wrapped with _check_name decorator which changes runtime signature
+_frozen_importlib_external.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 _threading_local.local.__new__
 ast.Bytes.__new__
 ast.Ellipsis.__new__
@@ -31,6 +35,7 @@ configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attribu
 configparser.SectionProxy.getboolean
 configparser.SectionProxy.getfloat
 configparser.SectionProxy.getint
+contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favor of its child classes
 copy.PyStringMap  # defined only in Jython
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 ctypes.memmove  # CFunctionType
@@ -44,6 +49,10 @@ hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
+importlib._bootstrap_external.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+importlib._bootstrap_external.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+importlib._bootstrap_external.FileLoader.get_resource_reader  # Wrapped with _check_name decorator which changes runtime signature
+importlib._bootstrap_external.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
@@ -61,10 +70,19 @@ io.FileIO.seek
 io.StringIO.seek
 io.StringIO.truncate
 io.TextIOWrapper.truncate
+_io.BufferedRandom.truncate
+_io.BufferedReader.seek
+_io.BufferedReader.truncate
+_io.BufferedWriter.seek
+_io.BufferedWriter.truncate
+_io.BytesIO.readlines
+_io.BytesIO.seek  # Parameter name for a positional-only param differs from its name in the inherited method
+_io.FileIO.seek
+_io.StringIO.seek
+_io.StringIO.truncate
+_io.TextIOWrapper.truncate
 ipaddress.IPv4Interface.hostmask
 ipaddress.IPv6Interface.hostmask
-ipaddress._BaseNetwork.broadcast_address
-ipaddress._BaseNetwork.hostmask
 ipaddress._BaseAddress.is_global
 ipaddress._BaseAddress.is_link_local
 ipaddress._BaseAddress.is_loopback
@@ -122,11 +140,8 @@ xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signatur
 xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.parsers.expat.expat_CAPI
 
-# Modules that exist at runtime, but shouldn't be added to typeshed
-idlelib
-
 # ==========
-# Modules that exist at runtime, but are missing from stubs
+# TODO: Modules that exist at runtime, but are missing from stubs
 # ==========
 ctypes.macholib
 ctypes.macholib.dyld
@@ -181,7 +196,7 @@ turtledemo\..+
 xml.sax.expatreader
 
 # ==========
-# Module members that exist at runtime, but are missing from stubs
+# TODO: Module members that exist at runtime, but are missing from stubs
 # ==========
 _json.encode_basestring
 _thread.RLock
@@ -233,10 +248,33 @@ tkinter.Misc.config
 tkinter.font.Font.counter
 turtle.TNavigator.speed
 
+_ctypes.PyObj_FromPtr
+_ctypes.Py_DECREF
+_ctypes.Py_INCREF
+_ctypes.buffer_info
+_ctypes.call_cdeclfunction
+_ctypes.call_function
+
+# ==========
+# Modules that exist at runtime, but are deliberately missing from stubs
+# ==========
+
+idlelib
+
+# ==========
+# Module members that exist at runtime, but are deliberately missing from stubs
+# ==========
+
 # Undocumented implementation details of a deprecated class
 importlib.machinery.WindowsRegistryFinder.DEBUG_BUILD
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
+_frozen_importlib_external.WindowsRegistryFinder.DEBUG_BUILD
+_frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY
+_frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
+importlib._bootstrap_external.WindowsRegistryFinder.DEBUG_BUILD
+importlib._bootstrap_external.WindowsRegistryFinder.REGISTRY_KEY
+importlib._bootstrap_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
 
 # Undocumented implementation details
 profile.Profile.dispatch
@@ -262,15 +300,33 @@ turtle.ScrolledCanvas.onResize
 wave.Wave_read.initfp
 wave.Wave_write.initfp
 
-_ctypes.PyObj_FromPtr
-_ctypes.Py_DECREF
-_ctypes.Py_INCREF
-_ctypes.buffer_info
-_ctypes.call_cdeclfunction
-_ctypes.call_function
+# ==========
+# Platform and installation differences
+# ==========
+
+# Platform differences that cannot be captured by the type system
+os.O_[A-Z_]+
+socket.AF_DECnet
+
+# sys attributes that are not always defined
+sys.gettotalrefcount  # Available on python debug builds
+sys.last_traceback
+sys.last_type
+sys.last_value
+sys.ps1
+sys.ps2
+sys.tracebacklimit
+
+# LC_MESSAGES is sometimes present in __all__, sometimes not,
+# so stubtest will sometimes complain about exported names being different at runtime to the exported names in the stub
+(locale.__all__)?
+
+# Loadable SQLite extensions are disabled on GitHub runners
+(sqlite3(.dbapi2)?.Connection.enable_load_extension)?
+(sqlite3(.dbapi2)?.Connection.load_extension)?
 
 # ==========
-# Allowlist entries that cannot or should not be fixed
+# Other allowlist entries that cannot or should not be fixed
 # ==========
 
 # Runtime AST node runtime constructor behaviour is too loose.
@@ -360,6 +416,8 @@ codecs.CodecInfo.incrementalencoder
 codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
 
+contextvars.Context.__init__  # C signature is broader than what is actually accepted
+
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter
 csv.Dialect.doublequote
@@ -370,11 +428,9 @@ csv.Dialect.skipinitialspace
 csv.DictReader.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 
-contextvars.Context.__init__  # C signature is broader than what is actually accepted
 dataclasses.field  # White lies around defaults
+email.policy.EmailPolicy.message_factory  # "type" at runtime, but protocol in stubs
 hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
-hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
-hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hmac.HMAC.blocksize  # use block_size instead
 
 # We can't distinguish not having a default value from having a default value of inspect.Parameter.empty
@@ -413,7 +469,6 @@ queue.SimpleQueue.__init__
 imaplib.IMAP4_SSL.ssl
 ssl.PROTOCOL_SSLv2
 ssl.PROTOCOL_SSLv3
-ssl.RAND_egd
 
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
@@ -494,18 +549,10 @@ typing(_extensions)?\.TextIO\.newlines
 typing(_extensions)?\.(Async)?ContextManager
 
 types.MethodType.__closure__  # read-only but not actually a property; stubtest thinks it doesn't exist.
+types.MethodType.__code__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.MethodType.__defaults__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.ModuleType.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
 types.ModuleType.__getattr__  # this doesn't exist at runtime
-
-# sys attributes that are not always defined
-sys.gettotalrefcount  # Available on python debug builds
-sys.last_traceback
-sys.last_type
-sys.last_value
-sys.ps1
-sys.ps2
-sys.tracebacklimit
 
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
 
@@ -535,10 +582,11 @@ wsgiref.handlers.BaseHandler.headers_sent
 wsgiref.handlers.BaseHandler.result
 wsgiref.handlers.BaseHandler.status
 
-(_?weakref.ref|_?weakref.ReferenceType).__call__  # C function default annotation is wrong
-_?weakref.CallableProxyType.__getattr__  # Should have all attributes of proxy
-_?weakref.ProxyType.__bytes__  # Doesn't actually exist
-_?weakref.ProxyType.__getattr__  # Should have all attributes of proxy
+_?weakref\.(ref|ReferenceType)\.__init__  # C implementation has incorrect signature
+_?weakref\.(ref|ReferenceType)\.__call__  # C function default annotation is wrong
+_?weakref\.CallableProxyType\.__getattr__  # Should have all attributes of proxy
+_?weakref\.ProxyType\.__bytes__  # Doesn't actually exist
+_?weakref\.ProxyType\.__getattr__  # Should have all attributes of proxy
 weakref.WeakValueDictionary.setdefault  # has a default value for the "default" argument, but always errors out if no value is supplied for the parameter by the user
 xml.dom.minidom.StringTypes  # Unnecessary re-export
 
@@ -565,14 +613,6 @@ email.utils
 xml.dom
 xml.etree
 xml.sax
-
-# Platform differences that cannot be captured by the type system
-os.O_[A-Z_]+
-socket.AF_DECnet
-
-# Loadable SQLite extensions are disabled on GitHub runners
-(sqlite3(.dbapi2)?.Connection.enable_load_extension)?
-(sqlite3(.dbapi2)?.Connection.load_extension)?
 
 # Missing aliases to existing methods that not many people seem to use.
 # Complicated multiple inheritance, confuses type checkers.
@@ -605,6 +645,13 @@ tkinter.Place.place_slaves
 tkinter.Place.slaves
 
 # Methods that come from __getattr__() at runtime
+os._wrap_close.read
+os._wrap_close.readable
+os._wrap_close.readline
+os._wrap_close.readlines
+os._wrap_close.writable
+os._wrap_close.write
+os._wrap_close.writelines
 tkinter.Tk.adderrorinfo
 tkinter.Tk.call
 tkinter.Tk.createcommand
@@ -625,6 +672,8 @@ tkinter.Tk.splitlist
 tkinter.Tk.unsetvar
 tkinter.Tk.wantobjects
 tkinter.Tk.willdispatch
+unittest.runner._WritelnDecorator.flush
+unittest.runner._WritelnDecorator.write
 
 tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
 tkinter.Misc.grid_propagate  # The noarg placeholder is a set value list
@@ -641,10 +690,6 @@ mmap.mmap.__contains__
 xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
 typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
-
-# LC_MESSAGES is sometimes present in __all__, sometimes not,
-# so stubtest will sometimes complain about exported names being different at runtime to the exported names in the stub
-(locale.__all__)?
 
 # Added or modified in a patch release, backported to all security branches,
 # but have yet to find their way to all GitHub Actions images
@@ -668,3 +713,8 @@ typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/com
 (xml.etree.cElementTree.XMLPullParser.flush)?
 (xml.parsers.expat.XMLParserType.GetReparseDeferralEnabled)?
 (xml.parsers.expat.XMLParserType.SetReparseDeferralEnabled)?
+
+# enum.auto is magic, see comments
+enum.auto.__or__
+enum.auto.__and__
+enum.auto.__xor__

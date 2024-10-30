@@ -246,7 +246,23 @@ unittest\.test\..+
 pstats.SortKey.__new__
 tkinter.EventType.__new__
 
+# Items that depend on the existence and flags of SSL
+ssl.RAND_egd
+_ssl.RAND_egd
+
 # Incorrectly star import.
 ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
 ctypes._endian.RTLD_LOCAL
+
+# Incompatible changes introduced in Python 3.8.20
+# (Remove once 3.8.20 becomes available for GitHub Actions)
+email._header_value_parser.NLSET
+email._header_value_parser.SPECIALSNL
+email.errors.HeaderWriteError
+email.utils.getaddresses
+email.utils.parseaddr
+
+# Weird special builtins that are typed as functions, but aren't functions
+hashlib.sha3_\d+  # Class in 3.8, can't be subclassed at runtime, built-in function 3.9+
+hashlib.shake_\d+  # Class in 3.8, can't be subclassed at runtime, built-in function 3.9+

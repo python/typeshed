@@ -146,6 +146,8 @@ extra-standard-library = [
     "_random",
     "_sitebuiltins",
     "_socket",
+    "_sqlite3",
+    "_ssl",
     "_stat",
     "_thread",
     "_threading_local",
@@ -158,8 +160,9 @@ extra-standard-library = [
     "genericpath",
     "opcode",
     "pyexpat",
+    "zoneinfo",
 ]
-known-first-party = ["_metadata", "_utils"]
+known-first-party = ["ts_utils", "_utils"]
 
 [tool.typeshed]
 oldest_supported_python = "3.8"

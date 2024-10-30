@@ -115,7 +115,7 @@ class CompilationResult(google.protobuf.message.Message):
 
     @property
     def status(self) -> tensorflow.tsl.protobuf.status_pb2.StatusProto:
-        """Always set when compilation fails; never set when compilation succeeds."""
+        """Always set even when compilation succeeds."""
 
     @property
     def counters(self) -> google.protobuf.internal.containers.ScalarMap[builtins.str, builtins.int]:

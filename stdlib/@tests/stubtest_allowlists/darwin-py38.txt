@@ -2,5 +2,13 @@ webbrowser.MacOSX.__init__
 
 # Doesn't exist on macos:
 spwd
+_msi
 msilib(.[a-z]+)?
 ossaudiodev
+
+# Added in Python 3.8.14
+sys.set_int_max_str_digits
+sys.get_int_max_str_digits
+
+# Added in Python 3.8.17
+tarfile.TarInfo.replace
