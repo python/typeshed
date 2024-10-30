@@ -1,6 +1,7 @@
 from _typeshed import Incomplete, StrPath
 from collections.abc import Generator
 from typing import ClassVar, Final, TypeVar
+from zipfile import _ZipFileMode
 
 from .. import Command
 
@@ -50,5 +51,10 @@ def can_scan(): ...
 INSTALL_DIRECTORY_ATTRS: Final[list[str]]
 
 def make_zipfile(
-    zip_filename: _StrPathT, base_dir, verbose: bool = False, dry_run: bool = False, compress: bool = True, mode: str = "w"
+    zip_filename: _StrPathT,
+    base_dir,
+    verbose: bool = False,
+    dry_run: bool = False,
+    compress: bool = True,
+    mode: _ZipFileMode = "w",
 ) -> _StrPathT: ...

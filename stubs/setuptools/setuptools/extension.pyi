@@ -1,3 +1,5 @@
+from _typeshed import StrPath
+
 from ._distutils.extension import Extension as _Extension
 
 def have_pyrex() -> bool: ...
@@ -7,7 +9,7 @@ class Extension(_Extension):
     def __init__(
         self,
         name: str,
-        sources: list[str],
+        sources: list[StrPath],
         include_dirs: list[str] | None = None,
         define_macros: list[tuple[str, str | None]] | None = None,
         undef_macros: list[str] | None = None,
