@@ -1,7 +1,8 @@
 from _typeshed import Incomplete, StrPath
 from abc import abstractmethod
 from collections.abc import Iterable, Mapping, Sequence
-from typing import Any, Literal, TypeVar, overload
+from typing import Any, Literal, TypedDict, TypeVar, overload, type_check_only
+from typing_extensions import NotRequired
 
 from ._distutils.cmd import Command as _Command
 from .command.alias import alias
@@ -21,13 +22,10 @@ from .command.install import install
 from .command.install_egg_info import install_egg_info
 from .command.install_lib import install_lib
 from .command.install_scripts import install_scripts
-from .command.register import register
 from .command.rotate import rotate
 from .command.saveopts import saveopts
 from .command.sdist import sdist
 from .command.setopt import setopt
-from .command.upload import upload
-from .command.upload_docs import upload_docs
 from .depends import Require as Require
 from .dist import Distribution as Distribution
 from .extension import Extension as Extension
@@ -47,6 +45,14 @@ __all__ = [
 ]
 
 __version__: str
+
+@type_check_only
+class _BuildInfo(TypedDict):
+    sources: list[str] | tuple[str, ...]
+    obj_deps: NotRequired[dict[str, list[str] | tuple[str, ...]]]
+    macros: NotRequired[list[tuple[str] | tuple[str, str | None]]]
+    include_dirs: NotRequired[list[str]]
+    cflags: NotRequired[list[str]]
 
 # Pytype fails with the following:
 # find_packages = PackageFinder.find
@@ -88,13 +94,15 @@ def setup(
     command_options: Mapping[str, Mapping[str, tuple[Incomplete, Incomplete]]] = ...,
     package_data: Mapping[str, list[str]] = ...,
     include_package_data: bool = ...,
-    libraries: list[str] = ...,
+    # libraries for `Distribution` or `build_clib`, not `Extension`, `build_ext` or `CCompiler`
+    libraries: list[tuple[str, _BuildInfo]] = ...,
     headers: list[str] = ...,
     ext_package: str = ...,
     include_dirs: list[str] = ...,
     password: str = ...,
     fullname: str = ...,
-    **attrs,
+    # Custom Distributions could accept more params
+    **attrs: Any,
 ) -> Distribution: ...
 
 class Command(_Command):
@@ -142,8 +150,6 @@ class Command(_Command):
     @overload
     def get_finalized_command(self, command: Literal["install_scripts"], create: bool | Literal[0, 1] = 1) -> install_scripts: ...  # type: ignore[overload-overlap]
     @overload
-    def get_finalized_command(self, command: Literal["register"], create: bool | Literal[0, 1] = 1) -> register: ...  # type: ignore[overload-overlap]
-    @overload
     def get_finalized_command(self, command: Literal["rotate"], create: bool | Literal[0, 1] = 1) -> rotate: ...
     @overload
     def get_finalized_command(self, command: Literal["saveopts"], create: bool | Literal[0, 1] = 1) -> saveopts: ...
@@ -151,10 +157,6 @@ class Command(_Command):
     def get_finalized_command(self, command: Literal["sdist"], create: bool | Literal[0, 1] = 1) -> sdist: ...  # type: ignore[overload-overlap]
     @overload
     def get_finalized_command(self, command: Literal["setopt"], create: bool | Literal[0, 1] = 1) -> setopt: ...
-    @overload
-    def get_finalized_command(self, command: Literal["upload"], create: bool | Literal[0, 1] = 1) -> upload: ...  # type: ignore[overload-overlap]
-    @overload
-    def get_finalized_command(self, command: Literal["upload_docs"], create: bool | Literal[0, 1] = 1) -> upload_docs: ...  # type: ignore[overload-overlap]
     @overload
     def get_finalized_command(self, command: str, create: bool | Literal[0, 1] = 1) -> Command: ...
     @overload  # type: ignore[override] # Extra **kw param
@@ -198,8 +200,6 @@ class Command(_Command):
         self, command: Literal["install_scripts"], reinit_subcommands: bool = False, **kw
     ) -> install_scripts: ...
     @overload
-    def reinitialize_command(self, command: Literal["register"], reinit_subcommands: bool = False, **kw) -> register: ...
-    @overload
     def reinitialize_command(self, command: Literal["rotate"], reinit_subcommands: bool = False, **kw) -> rotate: ...
     @overload
     def reinitialize_command(self, command: Literal["saveopts"], reinit_subcommands: bool = False, **kw) -> saveopts: ...
@@ -207,10 +207,6 @@ class Command(_Command):
     def reinitialize_command(self, command: Literal["sdist"], reinit_subcommands: bool = False, **kw) -> sdist: ...
     @overload
     def reinitialize_command(self, command: Literal["setopt"], reinit_subcommands: bool = False, **kw) -> setopt: ...
-    @overload
-    def reinitialize_command(self, command: Literal["upload"], reinit_subcommands: bool = False, **kw) -> upload: ...
-    @overload
-    def reinitialize_command(self, command: Literal["upload_docs"], reinit_subcommands: bool = False, **kw) -> upload_docs: ...
     @overload
     def reinitialize_command(self, command: str, reinit_subcommands: bool = False, **kw) -> Command: ...
     @overload

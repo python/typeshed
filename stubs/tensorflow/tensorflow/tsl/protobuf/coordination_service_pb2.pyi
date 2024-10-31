@@ -235,6 +235,33 @@ class HeartbeatResponse(google.protobuf.message.Message):
 global___HeartbeatResponse = HeartbeatResponse
 
 @typing.final
+class PollForErrorRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SOURCE_TASK_FIELD_NUMBER: builtins.int
+    @property
+    def source_task(self) -> global___CoordinatedTask: ...
+    def __init__(
+        self,
+        *,
+        source_task: global___CoordinatedTask | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["source_task", b"source_task"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["source_task", b"source_task"]) -> None: ...
+
+global___PollForErrorRequest = PollForErrorRequest
+
+@typing.final
+class PollForErrorResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___PollForErrorResponse = PollForErrorResponse
+
+@typing.final
 class WaitForAllTasksRequest(google.protobuf.message.Message):
     """Request and response messages for waiting for all tasks."""
 
