@@ -106,6 +106,8 @@ class PurePath(PathLike[str], _PurePathBase):
 class PurePosixPath(PurePath): ...
 class PureWindowsPath(PurePath): ...
 
+# This should be Path(_PathBase, PurePath), but _PathBase has to be at the end for the
+# _Pathbase = object trick to work.
 class Path(PurePath, _PathBase):
     if sys.version_info >= (3, 12):
         def __new__(cls, *args: StrPath, **kwargs: Unused) -> Self: ...  # pyright: ignore[reportInconsistentConstructor]
