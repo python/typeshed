@@ -10,6 +10,7 @@ from braintree.apple_pay_gateway import ApplePayGateway as ApplePayGateway
 from braintree.braintree_gateway import BraintreeGateway as BraintreeGateway
 from braintree.client_token import ClientToken as ClientToken
 from braintree.configuration import Configuration as Configuration
+from braintree.blik_alias import BlikAlias as BlickAlias
 from braintree.connected_merchant_paypal_status_changed import (
     ConnectedMerchantPayPalStatusChanged as ConnectedMerchantPayPalStatusChanged,
 )
