@@ -30,6 +30,8 @@ if sys.version_info >= (3, 9):
 __all__ = ["PurePath", "PurePosixPath", "PureWindowsPath", "Path", "PosixPath", "WindowsPath"]
 
 if sys.version_info >= (3, 13):
+    from pathlib._abc import UnsupportedOperation as UnsupportedOperation
+
     __all__ += ["UnsupportedOperation"]
 
 class PurePath(PathLike[str], _PurePathBase):
@@ -301,6 +303,3 @@ class Path(PurePath, _PathBase):
 
 class PosixPath(Path, PurePosixPath): ...
 class WindowsPath(Path, PureWindowsPath): ...
-
-if sys.version_info >= (3, 13):
-    class UnsupportedOperation(NotImplementedError): ...
