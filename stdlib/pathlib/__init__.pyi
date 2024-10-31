@@ -18,6 +18,12 @@ from types import TracebackType
 from typing import IO, Any, BinaryIO, ClassVar, Literal, overload
 from typing_extensions import Self, deprecated
 
+if sys.version_info >= (3, 13):
+    from pathlib._abc import PathBase, PurePathBase
+else:
+    PathBase = object
+    PurePathBase = object
+
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
@@ -26,7 +32,7 @@ __all__ = ["PurePath", "PurePosixPath", "PureWindowsPath", "Path", "PosixPath", 
 if sys.version_info >= (3, 13):
     __all__ += ["UnsupportedOperation"]
 
-class PurePath(PathLike[str]):
+class PurePath(PathLike[str], PurePathBase):
     if sys.version_info >= (3, 13):
         parser: ClassVar[types.ModuleType]
         def full_match(self, pattern: StrPath, *, case_sensitive: bool | None = None) -> bool: ...
@@ -100,7 +106,7 @@ class PurePath(PathLike[str]):
 class PurePosixPath(PurePath): ...
 class PureWindowsPath(PurePath): ...
 
-class Path(PurePath):
+class Path(PathBase, PurePath):
     if sys.version_info >= (3, 12):
         def __new__(cls, *args: StrPath, **kwargs: Unused) -> Self: ...  # pyright: ignore[reportInconsistentConstructor]
     else:

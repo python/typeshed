@@ -213,6 +213,7 @@ os: 3.0-
 ossaudiodev: 3.0-3.12
 parser: 3.0-3.9
 pathlib: 3.4-
+pathlib._abc: 3.13-
 pdb: 3.0-
 pickle: 3.0-
 pickletools: 3.0-
