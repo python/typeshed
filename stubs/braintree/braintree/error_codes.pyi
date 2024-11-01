@@ -73,11 +73,11 @@ class ErrorCodes:
     class ClientToken:
         CustomerDoesNotExist: Final = "92804"
         FailOnDuplicatePaymentMethodRequiresCustomerId: Final = "92803"
+        FailOnDuplicatePaymentMethodForCustomerRequiresCustomerId: Final = "92805"
         InvalidDomainFormat: Final = "92011"
         MakeDefaultRequiresCustomerId: Final = "92801"
         MerchantAccountDoesNotExist: Final = "92807"
         ProxyMerchantDoesNotExist: Final = "92805"
-        FailOnDuplicatePaymentMethodForCustomerRequiresCustomerId: Final = "92805"
         TooManyDomains: Final = "92810"
         UnsupportedVersion: Final = "92806"
         VerifyCardRequiresCustomerId: Final = "92802"
