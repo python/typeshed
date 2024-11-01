@@ -19,6 +19,7 @@ from _typeshed import (
     SupportsAdd,
     SupportsAiter,
     SupportsAnext,
+    SupportsBool,
     SupportsDivMod,
     SupportsFlush,
     SupportsIter,
@@ -908,7 +909,12 @@ class memoryview(Sequence[_I]):
 
 @final
 class bool(int):
-    def __new__(cls, o: object = ..., /) -> Self: ...
+    @overload
+    def __new__(cls) -> Literal[False]: ...
+    @overload
+    def __new__(cls, o: SupportsBool | Sized, /) -> bool: ...
+    @overload
+    def __new__(cls, o: object, /) -> Literal[True]: ...
     # The following overloads could be represented more elegantly with a TypeVar("_B", bool, int),
     # however mypy has a bug regarding TypeVar constraints (https://github.com/python/mypy/issues/11880).
     @overload
