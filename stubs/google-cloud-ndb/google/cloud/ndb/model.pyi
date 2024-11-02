@@ -482,7 +482,7 @@ def put_multi(
     _options: object = None,
 ) -> list[key_module.Key]: ...
 def delete_multi_async(
-    keys: list[key_module.Key],
+    keys: Sequence[key_module.Key],
     retries: int | None = ...,
     timeout: float | None = ...,
     deadline: float | None = ...,
