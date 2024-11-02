@@ -236,7 +236,12 @@ class Path(PurePath, _PathBase):
     # Fallback if mode is not specified
     @overload
     def open(
-        self, mode: str, buffering: int = -1, encoding: str | None = None, errors: str | None = None, newline: str | None = None
+        self,
+        mode: str = "r",
+        buffering: int = -1,
+        encoding: str | None = None,
+        errors: str | None = None,
+        newline: str | None = None,
     ) -> IO[Any]: ...
     if sys.platform != "win32":
         # These methods do "exist" on Windows, but they always raise NotImplementedError,
