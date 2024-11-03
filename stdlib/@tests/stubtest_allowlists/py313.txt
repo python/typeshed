@@ -108,6 +108,7 @@ doctest.TestResults.__match_args__ # Stubtest doesn't pick up override
 doctest.TestResults._fields # Stubtest doesn't pick up override
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
+functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
 inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
