@@ -13,10 +13,6 @@ _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
-_frozen_importlib_external.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
-_frozen_importlib_external.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
-_frozen_importlib_external.FileLoader.get_resource_reader  # Wrapped with _check_name decorator which changes runtime signature
-_frozen_importlib_external.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 _threading_local.local.__new__
 ast.Bytes.__new__
 ast.Ellipsis.__new__
@@ -49,16 +45,9 @@ hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
-importlib._bootstrap_external.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
-importlib._bootstrap_external.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
-importlib._bootstrap_external.FileLoader.get_resource_reader  # Wrapped with _check_name decorator which changes runtime signature
-importlib._bootstrap_external.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
-importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
-importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
-importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 io.BufferedRandom.truncate
 io.BufferedReader.seek
 io.BufferedReader.truncate
@@ -718,3 +707,17 @@ typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/com
 enum.auto.__or__
 enum.auto.__and__
 enum.auto.__xor__
+
+# wrapped with _check_name decorator which adds *args, **kwargs
+# we have more accurate signatures in the stubs
+_frozen_importlib_external.ExtensionFileLoader.get_filename
+_frozen_importlib_external.FileLoader.get_filename
+_frozen_importlib_external.FileLoader.get_resource_reader
+_frozen_importlib_external.FileLoader.load_module
+importlib._bootstrap_external.ExtensionFileLoader.get_filename
+importlib._bootstrap_external.FileLoader.get_filename
+importlib._bootstrap_external.FileLoader.get_resource_reader
+importlib._bootstrap_external.FileLoader.load_module
+importlib.abc.FileLoader.get_filename
+importlib.abc.FileLoader.load_module
+importlib.machinery.ExtensionFileLoader.get_filename
