@@ -68,10 +68,6 @@ weakref.WeakValueDictionary.update
 # ==========
 # TODO: Modules that exist at runtime, but are missing from stubs
 # ==========
-ctypes.macholib
-ctypes.macholib.dyld
-ctypes.macholib.dylib
-ctypes.macholib.framework
 encodings.aliases
 encodings.ascii
 encodings.base64_codec
