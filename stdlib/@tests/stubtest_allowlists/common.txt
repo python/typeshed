@@ -48,30 +48,6 @@ http.client.HTTPConnection.response_class  # the actual type at runtime is abc.A
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
-io.BufferedRandom.truncate
-io.BufferedReader.seek
-io.BufferedReader.truncate
-io.BufferedWriter.seek
-io.BufferedWriter.truncate
-io.BytesIO.readlines
-io.BytesIO.seek  # Parameter name for a positional-only param differs from its name in the inherited method
-io.FileIO.seek
-io.StringIO.seek
-io.StringIO.truncate
-io.TextIOWrapper.truncate
-_io.BufferedRandom.truncate
-_io.BufferedReader.seek
-_io.BufferedReader.truncate
-_io.BufferedWriter.seek
-_io.BufferedWriter.truncate
-_io.BytesIO.readlines
-_io.BytesIO.seek  # Parameter name for a positional-only param differs from its name in the inherited method
-_io.FileIO.seek
-_io.StringIO.seek
-_io.StringIO.truncate
-_io.TextIOWrapper.truncate
-ipaddress.IPv4Interface.hostmask
-ipaddress.IPv6Interface.hostmask
 ipaddress._BaseAddress.is_global
 ipaddress._BaseAddress.is_link_local
 ipaddress._BaseAddress.is_loopback
@@ -85,7 +61,6 @@ ipaddress._BaseNetwork.max_prefixlen
 multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
-multiprocessing.managers.BaseManager.shutdown
 multiprocessing.managers.SyncManager.Event
 multiprocessing.managers.SyncManager.Lock
 multiprocessing.managers.SyncManager.Namespace
@@ -93,7 +68,6 @@ multiprocessing.managers.SyncManager.RLock
 multiprocessing.queues.JoinableQueue.__init__
 multiprocessing.queues.Queue.__init__
 multiprocessing.queues.SimpleQueue.__init__
-multiprocessing.spawn._main
 multiprocessing.synchronize.Barrier.__init__
 multiprocessing.synchronize.Condition.acquire
 multiprocessing.synchronize.Condition.release
