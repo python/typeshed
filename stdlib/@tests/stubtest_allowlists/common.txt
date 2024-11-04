@@ -410,12 +410,6 @@ multiprocessing.managers.BaseListProxy.__len__
 multiprocessing.managers.BaseListProxy.__reversed__
 multiprocessing.managers.BaseListProxy.reverse
 multiprocessing.managers.BaseListProxy.sort
-multiprocessing.managers.DictProxy.__iter__
-multiprocessing.managers.DictProxy.__len__
-multiprocessing.managers.DictProxy.copy
-multiprocessing.managers.DictProxy.items
-multiprocessing.managers.DictProxy.keys
-multiprocessing.managers.DictProxy.values
 
 multiprocessing.(dummy|managers).Namespace.__[gs]etattr__  # Any field can be set on Namespace
 # alias for a class defined elsewhere,
