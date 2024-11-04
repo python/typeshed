@@ -81,8 +81,6 @@ _io.FileIO.seek
 _io.StringIO.seek
 _io.StringIO.truncate
 _io.TextIOWrapper.truncate
-ipaddress.IPv4Interface.hostmask
-ipaddress.IPv6Interface.hostmask
 ipaddress._BaseAddress.is_global
 ipaddress._BaseAddress.is_link_local
 ipaddress._BaseAddress.is_loopback
