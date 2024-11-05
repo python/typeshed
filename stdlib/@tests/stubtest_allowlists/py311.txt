@@ -6,7 +6,6 @@ _collections_abc.MappingView.__class_getitem__
 _csv.Reader
 _csv.Writer
 bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
-configparser.LegacyInterpolation.__init__
 configparser.ParsingError.filename
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 enum.Enum.__init__
@@ -105,6 +104,8 @@ os.path.join
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
+
+configparser.LegacyInterpolation.__init__  # runtime is *args, **kwargs, but it's just a passthrough
 
 # Factory function at runtime
 # but that wouldn't let us use it in type hints
