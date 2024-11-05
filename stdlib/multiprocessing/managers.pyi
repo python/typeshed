@@ -87,7 +87,7 @@ if sys.version_info >= (3, 13):
         def values(self) -> list[_VT]: ...  # type: ignore[override]
 
     class DictProxy(_BaseDictProxy[_KT, _VT]):
-        def __class_getitem__(cls, args: Any, /) -> Any: ...
+        def __class_getitem__(cls, args: Any, /) -> GenericAlias: ...
 
 else:
     class DictProxy(BaseProxy, MutableMapping[_KT, _VT]):
