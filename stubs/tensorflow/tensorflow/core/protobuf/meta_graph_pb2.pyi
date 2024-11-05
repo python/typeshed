@@ -527,61 +527,6 @@ global___TensorInfo = TensorInfo
 class SignatureDef(google.protobuf.message.Message):
     """SignatureDef defines the signature of a computation supported by a TensorFlow
     graph.
-
-    For example, a model with two loss computations, sharing a single input,
-    might have the following signature_def map, in a MetaGraphDef message.
-
-    Note that across the two SignatureDefs "loss_A" and "loss_B", the input key,
-    output key, and method_name are identical, and will be used by system(s) that
-    implement or rely upon this particular loss method. The output tensor names
-    differ, demonstrating how different outputs can exist for the same method.
-
-    signature_def {
-      key: "loss_A"
-      value {
-        inputs {
-          key: "input"
-          value {
-            name: "input:0"
-            dtype: DT_STRING
-            tensor_shape: ...
-          }
-        }
-        outputs {
-          key: "loss_output"
-          value {
-            name: "loss_output_A:0"
-            dtype: DT_FLOAT
-            tensor_shape: ...
-          }
-        }
-        method_name: "some/package/compute_loss"
-      }
-      ...
-    }
-    signature_def {
-      key: "loss_B"
-      value {
-        inputs {
-          key: "input"
-          value {
-            name: "input:0"
-            dtype: DT_STRING
-            tensor_shape: ...
-          }
-        }
-        outputs {
-          key: "loss_output"
-          value {
-            name: "loss_output_B:0"
-            dtype: DT_FLOAT
-            tensor_shape: ...
-          }
-        }
-        method_name: "some/package/compute_loss"
-      }
-      ...
-    }
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -645,14 +590,13 @@ class SignatureDef(google.protobuf.message.Message):
     METHOD_NAME_FIELD_NUMBER: builtins.int
     DEFAULTS_FIELD_NUMBER: builtins.int
     method_name: builtins.str
-    """Extensible method_name information enabling third-party users to mark a
-    SignatureDef as supporting a particular method. This enables producers and
-    consumers of SignatureDefs, e.g. a model definition library and a serving
-    library to have a clear hand-off regarding the semantics of a computation.
+    """Deprecated: TensorFlow 2 always sets this to a fixed value;
+    open-source TF Serving stopped checking by default since release 2.4.
 
-    Note that multiple SignatureDefs in a single MetaGraphDef may have the same
-    method_name. This is commonly used to support multi-headed computation,
-    where a single graph computation may return multiple results.
+    In TensorFlow 1, the method_name enabled users to mark a SignatureDef as
+    supporting a particular method. Multiple SignatureDefs in a single
+    MetaGraphDef could have the same method_name (e.g., to support multi-headed
+    computation).
     """
     @property
     def inputs(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___TensorInfo]:

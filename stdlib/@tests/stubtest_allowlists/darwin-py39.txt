@@ -5,3 +5,17 @@ spwd
 _msi
 msilib(.[a-z]+)?
 ossaudiodev
+
+# Added in Python 3.9.14
+sys.set_int_max_str_digits
+sys.get_int_max_str_digits
+
+# Added in Python 3.9.17
+tarfile.TarInfo.replace
+
+# Added in Python 3.9.20
+email._header_value_parser.NLSET
+email._header_value_parser.SPECIALSNL
+email.errors.HeaderWriteError
+email.utils.getaddresses
+email.utils.parseaddr

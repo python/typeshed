@@ -9,7 +9,6 @@ _collections_abc.Iterable.__class_getitem__
 _collections_abc.MappingView.__class_getitem__
 _csv.Reader
 _csv.Writer
-configparser.LegacyInterpolation.__init__
 enum.Enum.__init__
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 lib2to3.pygram.pattern_symbols
@@ -88,6 +87,8 @@ zoneinfo.ZoneInfo.from_file
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
+
+configparser.LegacyInterpolation.__init__  # runtime is *args, **kwargs, but it's just a passthrough
 
 # Factory function at runtime
 # but that wouldn't let us use it in type hints

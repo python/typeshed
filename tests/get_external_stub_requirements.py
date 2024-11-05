@@ -11,7 +11,7 @@ import sys
 
 from packaging.requirements import Requirement
 
-from _metadata import read_dependencies
+from ts_utils.metadata import read_dependencies
 
 distributions = sys.argv[1:]
 if not distributions:
