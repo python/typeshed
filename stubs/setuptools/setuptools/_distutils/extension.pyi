@@ -1,9 +1,8 @@
 from _typeshed import StrPath
-from collections.abc import Sequence
 
 class Extension:
     name: str
-    sources: Sequence[StrPath]
+    sources: list[StrPath]
     include_dirs: list[str]
     define_macros: list[tuple[str, str | None]]
     undef_macros: list[str]
@@ -21,7 +20,7 @@ class Extension:
     def __init__(
         self,
         name: str,
-        sources: Sequence[StrPath],
+        sources: list[StrPath],
         include_dirs: list[str] | None = None,
         define_macros: list[tuple[str, str | None]] | None = None,
         undef_macros: list[str] | None = None,
