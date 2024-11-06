@@ -1,2 +1,10 @@
 version = "0.6.*"
 upstream_repository = "https://github.com/docopt/docopt"
+no_longer_updated = true
+obsolete_since = "0.8.1"
+extra_description = """\
+`docopt`'s last release was in 2014 and the repository hasn't been updated since 2018. \
+Even `docopt` organization members encourage switching to [`docopt-ng`](https://pypi.org/project/docopt-ng/) \
+(see <https://github.com/docopt/docopt/issues/502#issuecomment-1289347288>), \
+which is typed as of `0.8.1` and more recently maintained. \
+"""
