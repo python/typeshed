@@ -100,10 +100,8 @@ class Thread:
 class _DummyThread(Thread):
     def __init__(self) -> None: ...
 
-if sys.version_info >= (3, 13):
-    Lock = _thread.lock
-else:
-    Lock = _thread.allocate_lock
+# This is actually the function _thread.allocate_lock for <= 3.12
+Lock = _thread.LockType
 
 @final
 class _RLock:
