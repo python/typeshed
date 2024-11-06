@@ -2,7 +2,7 @@ from _typeshed import StrPath
 
 class Extension:
     name: str
-    sources: list[StrPath]
+    sources: list[str] | list[StrPath]
     include_dirs: list[str]
     define_macros: list[tuple[str, str | None]]
     undef_macros: list[str]
@@ -20,7 +20,7 @@ class Extension:
     def __init__(
         self,
         name: str,
-        sources: list[StrPath],
+        sources: list[str] | list[StrPath],
         include_dirs: list[str] | None = None,
         define_macros: list[tuple[str, str | None]] | None = None,
         undef_macros: list[str] | None = None,
