@@ -4,7 +4,7 @@ from pathlib import Path
 
 class Extension:
     name: str
-    sources: list[str] | list[PathLike[str]] | list[Path] | list[StrPath]
+    sources: list[str] | list[StrPath]
     include_dirs: list[str]
     define_macros: list[tuple[str, str | None]]
     undef_macros: list[str]
