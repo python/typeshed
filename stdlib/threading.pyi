@@ -100,18 +100,10 @@ class Thread:
 class _DummyThread(Thread):
     def __init__(self) -> None: ...
 
-@final
-class Lock:
-    def __enter__(self) -> bool: ...
-    def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
-    ) -> None: ...
-    def acquire(self, blocking: bool = ..., timeout: float = ...) -> bool: ...
-    def release(self) -> None: ...
-    def locked(self) -> bool: ...
-    def acquire_lock(self, blocking: bool = ..., timeout: float = ...) -> bool: ...  # undocumented
-    def release_lock(self) -> None: ...  # undocumented
-    def locked_lock(self) -> bool: ...  # undocumented
+if sys.version_info >= (3, 13):
+    Lock = _thread.lock
+else:
+    Lock = _thread.allocate_lock
 
 @final
 class _RLock:
