@@ -67,7 +67,7 @@ class CCompiler:
     def set_executables(self, **args: str) -> None: ...
     def compile(
         self,
-        sources: list[str],
+        sources: list[str] | list[StrPath],
         output_dir: str | None = None,
         macros: list[_Macro] | None = None,
         include_dirs: list[str] | None = None,
