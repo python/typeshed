@@ -1,1 +1,4 @@
-from _gdbm import *
+import sys
+
+if sys.platform != "win32":
+    from _gdbm import *
