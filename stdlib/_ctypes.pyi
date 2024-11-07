@@ -47,14 +47,8 @@ if sys.platform == "win32":
     def LoadLibrary(name: str, load_flags: int = 0, /) -> int: ...
     def FreeLibrary(handle: int, /) -> None: ...
 
-class _CDataMeta(type):
-    # By default mypy complains about the following two methods, because strictly speaking cls
-    # might not be a Type[_CT]. However this can never actually happen, because the only class that
-    # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
-    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
-    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
-
-class _CData(metaclass=_CDataMeta):
+# Not exposed
+class _CData:
     _b_base_: int
     _b_needsfree_: bool
     _objects: Mapping[Any, int] | None
@@ -77,7 +71,15 @@ class _CData(metaclass=_CDataMeta):
     def __buffer__(self, flags: int, /) -> memoryview: ...
     def __release_buffer__(self, buffer: memoryview, /) -> None: ...
 
-class _SimpleCData(_CData, Generic[_T]):
+# Actually named PyCSimpleType, not exposed
+class _PyCSimpleType(type):
+    # By default mypy complains about the following two methods, because strictly speaking cls
+    # might not be a Type[_CT]. However this can never actually happen, because the only class that
+    # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
+    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+
+class _SimpleCData(_CData, Generic[_T], metaclass=_PyCSimpleType):
     value: _T
     # The TypeVar can be unsolved here,
     # but we can't use overloads without creating many, many mypy false-positive errors
@@ -86,7 +88,15 @@ class _SimpleCData(_CData, Generic[_T]):
 class _CanCastTo(_CData): ...
 class _PointerLike(_CanCastTo): ...
 
-class _Pointer(_PointerLike, _CData, Generic[_CT]):
+# actually named PyCPointerType, not exposed
+class _PyCPointerType(type):
+    # By default mypy complains about the following two methods, because strictly speaking cls
+    # might not be a Type[_CT]. However this can never actually happen, because the only class that
+    # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
+    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+
+class _Pointer(_PointerLike, _CData, Generic[_CT], metaclass=_PyCPointerType):
     _type_: type[_CT]
     contents: _CT
     @overload
@@ -146,21 +156,49 @@ class _CField(Generic[_CT, _GetT, _SetT]):
     def __get__(self, instance: Any, owner: type[Any] | None, /) -> _GetT: ...
     def __set__(self, instance: Any, value: _SetT, /) -> None: ...
 
-class _StructUnionMeta(_CDataMeta):
+# actually named UnionType, not exposed
+class _UnionType(type):
     _fields_: Sequence[tuple[str, type[_CData]] | tuple[str, type[_CData], int]]
     _pack_: int
     _anonymous_: Sequence[str]
     def __getattr__(self, name: str) -> _CField[Any, Any, Any]: ...
+    # By default mypy complains about the following two methods, because strictly speaking cls
+    # might not be a Type[_CT]. However this can never actually happen, because the only class that
+    # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
+    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
 
-class _StructUnionBase(_CData, metaclass=_StructUnionMeta):
+class Union(_CData, metaclass=_UnionType):
     def __init__(self, *args: Any, **kw: Any) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     def __setattr__(self, name: str, value: Any) -> None: ...
 
-class Union(_StructUnionBase): ...
-class Structure(_StructUnionBase): ...
+# actually named PyCStructType, not exposed
+class _PyCStructType(type):
+    _fields_: Sequence[tuple[str, type[_CData]] | tuple[str, type[_CData], int]]
+    _pack_: int
+    _anonymous_: Sequence[str]
+    def __getattr__(self, name: str) -> _CField[Any, Any, Any]: ...
+    # By default mypy complains about the following two methods, because strictly speaking cls
+    # might not be a Type[_CT]. However this can never actually happen, because the only class that
+    # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
+    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
 
-class Array(_CData, Generic[_CT]):
+class Structure(_CData, metaclass=_PyCStructType):
+    def __init__(self, *args: Any, **kw: Any) -> None: ...
+    def __getattr__(self, name: str) -> Any: ...
+    def __setattr__(self, name: str, value: Any) -> None: ...
+
+# actually named PyCArrayType, not exposed
+class _PyCArrayType(type):
+    # By default mypy complains about the following two methods, because strictly speaking cls
+    # might not be a Type[_CT]. However this can never actually happen, because the only class that
+    # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
+    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+
+class Array(_CData, Generic[_CT], metaclass=_PyCArrayType):
     @property
     @abstractmethod
     def _length_(self) -> int: ...

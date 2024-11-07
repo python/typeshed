@@ -1,7 +1,7 @@
+from _ctypes import _CField
 from ctypes import (
     Array,
     Structure,
-    _CField,
     _Pointer,
     _SimpleCData,
     c_byte,
