@@ -62,7 +62,6 @@ multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
-pickle.Pickler.reducer_override  # implemented in C pickler
 pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
@@ -452,12 +451,8 @@ imaplib.IMAP4_SSL.ssl
 ssl.PROTOCOL_SSLv2
 ssl.PROTOCOL_SSLv3
 
-pickle._Pickler\..*  # Best effort typing for undocumented internals
-pickle._Unpickler\..*  # Best effort typing for undocumented internals
-pickle.Pickler.memo  # undocumented implementation detail, has different type in C/Python implementations
-pickle.Pickler.persistent_id  # C pickler persistent_id is an attribute
-pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
-pickle.Unpickler.persistent_load  # C unpickler persistent_load is an attribute
+pickle._Pickler\..* # Best effort typing for undocumented internals
+pickle._Unpickler\..* # Best effort typing for undocumented internals
 re.Pattern.scanner  # Undocumented and not useful. #6405
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
 
