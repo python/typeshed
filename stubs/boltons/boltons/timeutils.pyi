@@ -30,7 +30,6 @@ class ConstantTZInfo(tzinfo):
 
 UTC: ConstantTZInfo
 EPOCH_AWARE: datetime
-EPOCH_NAIVE: datetime
 
 class LocalTZInfo(tzinfo):
     def is_dst(self, dt: datetime) -> bool: ...
