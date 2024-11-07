@@ -24,6 +24,7 @@ _asyncio: 3.0-
 _bisect: 3.0-
 _blake2: 3.6-
 _bootlocale: 3.4-3.9
+_bz2: 3.3-
 _codecs: 3.0-
 _collections_abc: 3.3-
 _compat_pickle: 3.1-
