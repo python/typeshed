@@ -445,7 +445,7 @@ multiprocessing.reduction.AbstractReducer.ForkingPickler
 multiprocessing.pool.Pool.__del__
 
 # C signature is broader than what is actually accepted
-queue.SimpleQueue.__init__
+_?queue.SimpleQueue.__init__
 
 # Items that depend on the existence and flags of SSL
 imaplib.IMAP4_SSL.ssl

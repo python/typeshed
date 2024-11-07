@@ -52,6 +52,7 @@ _osx_support: 3.0-
 _posixsubprocess: 3.2-
 _py_abc: 3.7-
 _pydecimal: 3.5-
+_queue: 3.7-
 _random: 3.0-
 _sitebuiltins: 3.4-
 _socket: 3.0-  # present in 3.0 at runtime, but not in typeshed
