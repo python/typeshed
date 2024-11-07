@@ -1917,7 +1917,7 @@ class StopIteration(Exception):
 
 class OSError(Exception):
     errno: int | None
-    strerror: str
+    strerror: str | None
     # filename, filename2 are actually str | bytes | None
     filename: Any
     filename2: Any
