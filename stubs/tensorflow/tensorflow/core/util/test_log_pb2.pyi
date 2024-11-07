@@ -4,7 +4,7 @@ isort:skip_file
 Protocol messages for describing the results of benchmarks and unit tests."""
 
 import google.protobuf.descriptor
-from tensorflow.tsl.protobuf.test_log_pb2 import (
+from tensorflow.compiler.xla.tsl.protobuf.test_log_pb2 import (
     AvailableDeviceInfo as AvailableDeviceInfo,
     BenchmarkEntries as BenchmarkEntries,
     BenchmarkEntry as BenchmarkEntry,

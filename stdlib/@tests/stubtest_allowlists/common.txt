@@ -13,6 +13,10 @@ _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
+_frozen_importlib_external.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+_frozen_importlib_external.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+_frozen_importlib_external.FileLoader.get_resource_reader  # Wrapped with _check_name decorator which changes runtime signature
+_frozen_importlib_external.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 _threading_local.local.__new__
 ast.Bytes.__new__
 ast.Ellipsis.__new__
@@ -31,6 +35,7 @@ configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attribu
 configparser.SectionProxy.getboolean
 configparser.SectionProxy.getfloat
 configparser.SectionProxy.getint
+contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favor of its child classes
 copy.PyStringMap  # defined only in Jython
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 ctypes.memmove  # CFunctionType
@@ -44,6 +49,10 @@ hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
+importlib._bootstrap_external.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+importlib._bootstrap_external.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
+importlib._bootstrap_external.FileLoader.get_resource_reader  # Wrapped with _check_name decorator which changes runtime signature
+importlib._bootstrap_external.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
@@ -260,6 +269,12 @@ idlelib
 importlib.machinery.WindowsRegistryFinder.DEBUG_BUILD
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
+_frozen_importlib_external.WindowsRegistryFinder.DEBUG_BUILD
+_frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY
+_frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
+importlib._bootstrap_external.WindowsRegistryFinder.DEBUG_BUILD
+importlib._bootstrap_external.WindowsRegistryFinder.REGISTRY_KEY
+importlib._bootstrap_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
 
 # Undocumented implementation details
 profile.Profile.dispatch
@@ -416,8 +431,6 @@ csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 p
 dataclasses.field  # White lies around defaults
 email.policy.EmailPolicy.message_factory  # "type" at runtime, but protocol in stubs
 hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
-hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
-hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hmac.HMAC.blocksize  # use block_size instead
 
 # We can't distinguish not having a default value from having a default value of inspect.Parameter.empty
@@ -659,6 +672,8 @@ tkinter.Tk.splitlist
 tkinter.Tk.unsetvar
 tkinter.Tk.wantobjects
 tkinter.Tk.willdispatch
+unittest.runner._WritelnDecorator.flush
+unittest.runner._WritelnDecorator.write
 
 tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
 tkinter.Misc.grid_propagate  # The noarg placeholder is a set value list

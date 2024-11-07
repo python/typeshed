@@ -8,16 +8,3 @@ _?curses.window.get_wch
 
 # Exists locally on MacOS but not on GitHub
 (mmap.MAP_32BIT)?
-
-# These entries looks like a `setup-python` bug:
-(dbm.gnu)?
-(_?locale.bind_textdomain_codeset)?
-(_?locale.bindtextdomain)?
-(_?locale.dcgettext)?
-(_?locale.dgettext)?
-(_?locale.gettext)?
-(_?locale.textdomain)?
-
-# not available on python distributions compiled without sqlite3 loadable extension support
-_sqlite3.Connection.load_extension
-_sqlite3.Connection.enable_load_extension

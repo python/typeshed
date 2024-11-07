@@ -14,13 +14,14 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from _utils import MYPY_PROTOBUF_VERSION, REPO_ROOT, download_file, extract_archive, run_protoc, update_metadata
+from _utils import MYPY_PROTOBUF_VERSION, download_file, extract_archive, run_protoc
+from ts_utils.metadata import read_metadata, update_metadata
+from ts_utils.paths import distribution_path
 
-# Whenever you update PACKAGE_VERSION here, version should be updated
-# in stubs/protobuf/METADATA.toml and vice-versa.
-PACKAGE_VERSION = "28.2"
+# PyPi version has an extra "major" number that the Git version doesn't have
+PACKAGE_VERSION = read_metadata("protobuf").version_spec.version[2:]
 
-STUBS_FOLDER = REPO_ROOT / "stubs" / "protobuf"
+STUBS_FOLDER = distribution_path("protobuf").absolute()
 ARCHIVE_FILENAME = f"protobuf-{PACKAGE_VERSION}.zip"
 ARCHIVE_URL = f"https://github.com/protocolbuffers/protobuf/releases/download/v{PACKAGE_VERSION}/{ARCHIVE_FILENAME}"
 EXTRACTED_PACKAGE_DIR = f"protobuf-{PACKAGE_VERSION}"
@@ -78,13 +79,14 @@ def main() -> None:
     shutil.rmtree(temp_dir)
 
     update_metadata(
-        STUBS_FOLDER,
-        f"""Partially generated using \
+        "protobuf",
+        extra_description=f"""Partially generated using \
 [mypy-protobuf=={MYPY_PROTOBUF_VERSION}](https://github.com/nipunn1313/mypy-protobuf/tree/v{MYPY_PROTOBUF_VERSION}) \
 and {PROTOC_VERSION} on \
 [protobuf v{PACKAGE_VERSION}](https://github.com/protocolbuffers/protobuf/releases/tag/v{PACKAGE_VERSION}) \
 (python `protobuf=={PYTHON_PROTOBUF_VERSION}`).""",
     )
+    print("Updated protobuf/METADATA.toml")
 
     # Run pre-commit to cleanup the stubs
     subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")))

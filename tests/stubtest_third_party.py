@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -204,13 +205,7 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         print_error("gdb is not supported on Windows")
         return False
 
-    try:
-        gdb_version = subprocess.check_output(["gdb", "--version"], text=True, stderr=subprocess.STDOUT)
-    except FileNotFoundError:
-        print_error("gdb is not installed")
-        return False
-    if "Python scripting is not supported in this copy of GDB" in gdb_version:
-        print_error("Python scripting is not supported in this copy of GDB")
+    if not gdb_version_check():
         return False
 
     gdb_script = venv_dir / "gdb_stubtest.py"
@@ -274,6 +269,24 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
     # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script
     assert stubtest_cmd[1:3] == ["-m", "mypy.stubtest"]
     stubtest_cmd[1:3] = [str(wrapper_script)]
+    return True
+
+
+def gdb_version_check() -> bool:
+    try:
+        gdb_version_output = subprocess.check_output(["gdb", "--version"], text=True, stderr=subprocess.STDOUT)
+    except FileNotFoundError:
+        print_error("gdb is not installed")
+        return False
+    if "Python scripting is not supported in this copy of GDB" in gdb_version_output:
+        print_error("Python scripting is not supported in this copy of GDB")
+        return False
+    m = re.search(r"GNU gdb\s+.*?(\d+\.\d+(\.[\da-z-]+)+)", gdb_version_output)
+    if m is None:
+        print_error("Failed to determine gdb version:\n" + gdb_version_output)
+        return False
+    gdb_version = m.group(1)
+    print(f"({gdb_version}) ", end="", flush=True)
     return True
 
 
