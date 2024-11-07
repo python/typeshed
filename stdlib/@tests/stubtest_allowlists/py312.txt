@@ -149,7 +149,6 @@ sys.last_exc
 # C signature is broader than what is actually accepted
 ast.ExtSlice.__new__
 ast.Index.__new__
-contextvars.Context.__init__
 
 # Treated an alias of a typing class in the stubs,
 # they are generic to type checkers anyway.

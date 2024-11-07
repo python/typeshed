@@ -382,7 +382,7 @@ codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
 
 collections.UserList.sort  # Runtime has *args but will error if any are supplied
-contextvars.Context.__init__  # C signature is broader than what is actually accepted
+_?contextvars.Context.__init__  # C signature is broader than what is actually accepted
 
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter

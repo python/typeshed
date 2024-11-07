@@ -144,7 +144,6 @@ weakref.ProxyType.__reversed__  # Doesn't really exist
 # C signature is broader than what is actually accepted
 ast.ExtSlice.__new__
 ast.Index.__new__
-contextvars.Context.__init__
 
 # Undocumented implementation details
 cgi.FieldStorage.bufsize
