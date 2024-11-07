@@ -5,7 +5,7 @@ _collections_abc.Iterable.__class_getitem__
 _collections_abc.MappingView.__class_getitem__
 _csv.Reader
 _csv.Writer
-bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
+_?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 configparser.ParsingError.filename
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 enum.Enum.__init__
