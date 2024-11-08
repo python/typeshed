@@ -113,7 +113,7 @@ tkinter.Tcl
 tkinter.Tk.__init__
 
 # Exists at runtime, but missing from stubs
-contextvars.ContextVar.__class_getitem__
+_?contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
 dummy_threading.ExceptHookArgs
 dummy_threading.Lock
