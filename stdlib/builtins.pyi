@@ -98,6 +98,7 @@ _P = ParamSpec("_P")
 _StartT = TypeVar("_StartT", covariant=True, default=Any)
 _StopT = TypeVar("_StopT", covariant=True, default=Any)
 _StepT = TypeVar("_StepT", covariant=True, default=Any)
+_TypeT = TypeVar('_TypeT', default=Any)
 
 class object:
     __doc__: str | None
@@ -167,7 +168,7 @@ class classmethod(Generic[_T, _P, _R_co]):
         @property
         def __wrapped__(self) -> Callable[Concatenate[type[_T], _P], _R_co]: ...
 
-class type(Generic[_T]):
+class type(Generic[_TypeT]):
     # object.__base__ is None. Otherwise, it would be a type.
     @property
     def __base__(self) -> type | None: ...
