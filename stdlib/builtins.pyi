@@ -98,7 +98,7 @@ _P = ParamSpec("_P")
 _StartT = TypeVar("_StartT", covariant=True, default=Any)
 _StopT = TypeVar("_StopT", covariant=True, default=Any)
 _StepT = TypeVar("_StepT", covariant=True, default=Any)
-_TypeT = TypeVar('_TypeT', default=Any)
+_TypeT = TypeVar("_TypeT", default=Any)
 
 class object:
     __doc__: str | None
