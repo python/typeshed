@@ -42,7 +42,6 @@ _csv.Reader
 _csv.Writer
 enum.Enum.__init__
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
-tkinter._VersionInfoType.__doc__
 typing.NewType.__mro_entries__
 builtins.ellipsis  # type is not exposed anywhere
 
