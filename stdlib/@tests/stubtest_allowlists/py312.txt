@@ -155,11 +155,6 @@ ast.Index.__new__
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
 
-# platform.uname_result's processor field is now dynamically made to exist
-platform.uname_result.__match_args__
-platform.uname_result.__new__
-platform.uname_result.processor
-
 # Runtime has *args, **kwargs, but will error if any are supplied
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__

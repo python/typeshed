@@ -48,7 +48,7 @@ if sys.version_info >= (3, 13):
         attempted: int
 
     class TestResults(_TestResultsBase):
-        def __new__(cls, failed: int, attempted: int, *, skipped: int = 0) -> Self: ...  # type: ignore[misc]
+        def __new__(cls, failed: int, attempted: int, *, skipped: int = 0) -> Self: ...
         skipped: int
 
 else:

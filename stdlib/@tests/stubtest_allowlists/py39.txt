@@ -39,10 +39,6 @@ lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
 lib2to3.pgen2.grammar.Grammar.loads
-# platform.uname_result's processor field is now dynamically made to exist
-platform.uname_result.__new__
-platform.uname_result._fields
-platform.uname_result.processor
 sched.Event.__doc__  # __slots__ is overridden
 tkinter.Tk.split
 tkinter.tix.[A-Z_]+
