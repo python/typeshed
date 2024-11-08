@@ -58,6 +58,7 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039
     TextIO as TextIO,
     Tuple as Tuple,
     Type as Type,
+    TypedDict as TypedDict,
     Union as Union,
     ValuesView as ValuesView,
     _Alias,
@@ -192,7 +193,6 @@ _TC = typing.TypeVar("_TC", bound=type[object])
 
 # unfortunately we have to duplicate this class definition from typing.pyi or we break pytype
 class _SpecialForm:
-    def __getitem__(self, parameters: Any) -> object: ...
     if sys.version_info >= (3, 10):
         def __or__(self, other: Any) -> _SpecialForm: ...
         def __ror__(self, other: Any) -> _SpecialForm: ...
@@ -252,8 +252,6 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
         def __ror__(self, value: dict[str, Any], /) -> dict[str, object]: ...
         # supposedly incompatible definitions of `__ior__` and `__or__`:
         def __ior__(self, value: Self, /) -> Self: ...  # type: ignore[misc]
-
-TypedDict: _SpecialForm
 
 OrderedDict = _Alias()
 
