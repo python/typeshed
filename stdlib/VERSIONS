@@ -61,6 +61,7 @@ _socket: 3.0-  # present in 3.0 at runtime, but not in typeshed
 _sqlite3: 3.0-
 _ssl: 3.0-
 _stat: 3.4-
+_struct: 3.0-
 _thread: 3.0-
 _threading_local: 3.0-
 _tkinter: 3.0-
