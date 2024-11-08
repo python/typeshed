@@ -25,7 +25,7 @@ from _ctypes import (
 )
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
 from typing import Any, ClassVar, Generic, TypeVar
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 if sys.platform == "win32":
     from _ctypes import FormatError as FormatError, get_last_error as get_last_error, set_last_error as set_last_error
@@ -137,6 +137,8 @@ class c_char(_SimpleCData[bytes]):
 
 class c_char_p(_PointerLike, _SimpleCData[bytes | None]):
     def __init__(self, value: int | bytes | None = ...) -> None: ...
+    @classmethod
+    def from_param(cls, value: Any, /) -> Self | _CArgObject: ...
 
 class c_double(_SimpleCData[float]): ...
 class c_longdouble(_SimpleCData[float]): ...  # can be an alias for c_double
@@ -152,7 +154,11 @@ class c_uint(_SimpleCData[int]): ...  # can be an alias for c_ulong
 class c_ulong(_SimpleCData[int]): ...
 class c_ulonglong(_SimpleCData[int]): ...  # can be an alias for c_ulong
 class c_ushort(_SimpleCData[int]): ...
-class c_void_p(_PointerLike, _SimpleCData[int | None]): ...
+
+class c_void_p(_PointerLike, _SimpleCData[int | None]):
+    @classmethod
+    def from_param(cls, value: Any, /) -> Self | _CArgObject: ...
+
 class c_wchar(_SimpleCData[str]): ...
 
 c_int8 = c_byte
@@ -171,6 +177,8 @@ class c_uint64(_SimpleCData[int]): ...
 
 class c_wchar_p(_PointerLike, _SimpleCData[str | None]):
     def __init__(self, value: int | str | None = ...) -> None: ...
+    @classmethod
+    def from_param(cls, value: Any, /) -> Self | _CArgObject: ...
 
 class c_bool(_SimpleCData[bool]):
     def __init__(self, value: bool = ...) -> None: ...

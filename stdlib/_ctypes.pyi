@@ -1,3 +1,4 @@
+import _typeshed
 import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
@@ -47,37 +48,38 @@ if sys.platform == "win32":
     def LoadLibrary(name: str, load_flags: int = 0, /) -> int: ...
     def FreeLibrary(handle: int, /) -> None: ...
 
+if sys.version_info >= (3, 13):
+    # actually named CType_Type; not exposed
+    class _CType_Type(type):
+        # By default mypy complains about the following two methods, because strictly speaking cls
+        # might not be a Type[_CT]. However this doesn't happen because this is only a
+        # metaclass for subclasses of _CData.
+        def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+        def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+
+    _CTypeBaseType = _CType_Type
+
+else:
+    _CTypeBaseType = type
+
 # Not exposed
 class _CData:
     _b_base_: int
     _b_needsfree_: bool
     _objects: Mapping[Any, int] | None
-    # At runtime the following classmethods are available only on classes, not
-    # on instances. This can't be reflected properly in the type system:
-    #
-    # Structure.from_buffer(...)  # valid at runtime
-    # Structure(...).from_buffer(...)  # invalid at runtime
-    #
-    @classmethod
-    def from_buffer(cls, source: WriteableBuffer, offset: int = ...) -> Self: ...
-    @classmethod
-    def from_buffer_copy(cls, source: ReadableBuffer, offset: int = ...) -> Self: ...
-    @classmethod
-    def from_address(cls, address: int) -> Self: ...
-    @classmethod
-    def from_param(cls, value: Any, /) -> Self | _CArgObject: ...
-    @classmethod
-    def in_dll(cls, library: CDLL, name: str) -> Self: ...
     def __buffer__(self, flags: int, /) -> memoryview: ...
-    def __release_buffer__(self, buffer: memoryview, /) -> None: ...
 
 # Actually named PyCSimpleType, not exposed
-class _PyCSimpleType(type):
-    # By default mypy complains about the following two methods, because strictly speaking cls
-    # might not be a Type[_CT]. However this can never actually happen, because the only class that
-    # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
-    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
-    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+class _PyCSimpleType(_CTypeBaseType):
+    def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
+    def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
+    def from_buffer_copy(self: type[_typeshed.Self], buffer: ReadableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
+    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | _CArgObject: ...
+    def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
+    if sys.version_info < (3, 13):
+        # Inherited from _CType_Type starting on 3.13
+        def __mul__(self: type[_CT], value: int, /) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+        def __rmul__(self: type[_CT], value: int, /) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class _SimpleCData(_CData, Generic[_T], metaclass=_PyCSimpleType):
     value: _T
@@ -88,13 +90,18 @@ class _SimpleCData(_CData, Generic[_T], metaclass=_PyCSimpleType):
 class _CanCastTo(_CData): ...
 class _PointerLike(_CanCastTo): ...
 
-# actually named PyCPointerType, not exposed
-class _PyCPointerType(type):
-    # By default mypy complains about the following two methods, because strictly speaking cls
-    # might not be a Type[_CT]. However this can never actually happen, because the only class that
-    # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
-    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
-    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+# actually named PyCPointerType; not exposed
+class _PyCPointerType(_CTypeBaseType):
+    def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
+    def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
+    def from_buffer_copy(self: type[_typeshed.Self], buffer: ReadableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
+    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | _CArgObject: ...
+    def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
+    def set_type(self, type: Any, /) -> None: ...
+    if sys.version_info < (3, 13):
+        # Inherited from _CType_Type starting on 3.13
+        def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+        def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class _Pointer(_PointerLike, _CData, Generic[_CT], metaclass=_PyCPointerType):
     _type_: type[_CT]
@@ -113,8 +120,11 @@ class _Pointer(_PointerLike, _CData, Generic[_CT], metaclass=_PyCPointerType):
 def POINTER(type: None, /) -> type[c_void_p]: ...
 @overload
 def POINTER(type: type[_CT], /) -> type[_Pointer[_CT]]: ...
+@overload
+def POINTER(type: str, /) -> type[_Pointer[Any]]: ...
 def pointer(obj: _CT, /) -> _Pointer[_CT]: ...
 
+# Actual name is CArgObject; not exposed.
 class _CArgObject: ...
 
 def byref(obj: _CData, offset: int = ...) -> _CArgObject: ...
@@ -122,7 +132,18 @@ def byref(obj: _CData, offset: int = ...) -> _CArgObject: ...
 _ECT: TypeAlias = Callable[[_CData | None, CFuncPtr, tuple[_CData, ...]], _CData]
 _PF: TypeAlias = tuple[int] | tuple[int, str | None] | tuple[int, str | None, Any]
 
-class CFuncPtr(_PointerLike, _CData):
+class _PyCFuncPtrType(_CTypeBaseType):
+    def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
+    def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
+    def from_buffer_copy(self: type[_typeshed.Self], buffer: ReadableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
+    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | _CArgObject: ...
+    def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
+    if sys.version_info < (3, 13):
+        # Inherited from _CType_Type starting on 3.13
+        def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+        def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+
+class CFuncPtr(_PointerLike, _CData, metaclass=_PyCFuncPtrType):
     restype: type[_CData] | Callable[[int], Any] | None
     argtypes: Sequence[type[_CData]]
     errcheck: _ECT
@@ -147,6 +168,7 @@ class CFuncPtr(_PointerLike, _CData):
 _GetT = TypeVar("_GetT")
 _SetT = TypeVar("_SetT")
 
+# actually named CField; not exposed
 class _CField(Generic[_CT, _GetT, _SetT]):
     offset: int
     size: int
@@ -156,47 +178,65 @@ class _CField(Generic[_CT, _GetT, _SetT]):
     def __get__(self, instance: Any, owner: type[Any] | None, /) -> _GetT: ...
     def __set__(self, instance: Any, value: _SetT, /) -> None: ...
 
-# actually named UnionType, not exposed
-class _UnionType(type):
+# actually named UnionType; not exposed
+class _UnionType(_CTypeBaseType):
+    def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
+    def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
+    def from_buffer_copy(self: type[_typeshed.Self], buffer: ReadableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
+    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | _CArgObject: ...
+    def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
+    def __getattr__(self, name: str) -> _CField[Any, Any, Any]: ...
+    if sys.version_info < (3, 13):
+        # Inherited from _CType_Type starting on 3.13
+        def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+        def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+
+class Union(_CData, metaclass=_UnionType):
     _fields_: Sequence[tuple[str, type[_CData]] | tuple[str, type[_CData], int]]
     _pack_: int
     _anonymous_: Sequence[str]
-    def __getattr__(self, name: str) -> _CField[Any, Any, Any]: ...
-    # By default mypy complains about the following two methods, because strictly speaking cls
-    # might not be a Type[_CT]. However this can never actually happen, because the only class that
-    # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
-    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
-    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    if sys.version_info >= (3, 13):
+        _align_: int
 
-class Union(_CData, metaclass=_UnionType):
     def __init__(self, *args: Any, **kw: Any) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     def __setattr__(self, name: str, value: Any) -> None: ...
 
 # actually named PyCStructType, not exposed
-class _PyCStructType(type):
+class _PyCStructType(_CTypeBaseType):
+    def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
+    def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
+    def from_buffer_copy(self: type[_typeshed.Self], buffer: ReadableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
+    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | _CArgObject: ...
+    def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
+    def __getattr__(self, name: str) -> _CField[Any, Any, Any]: ...
+    if sys.version_info < (3, 13):
+        # Inherited from _CType_Type starting on 3.13
+        def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+        def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+
+class Structure(_CData, metaclass=_PyCStructType):
     _fields_: Sequence[tuple[str, type[_CData]] | tuple[str, type[_CData], int]]
     _pack_: int
     _anonymous_: Sequence[str]
-    def __getattr__(self, name: str) -> _CField[Any, Any, Any]: ...
-    # By default mypy complains about the following two methods, because strictly speaking cls
-    # might not be a Type[_CT]. However this can never actually happen, because the only class that
-    # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
-    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
-    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    if sys.version_info >= (3, 13):
+        _align_: int
 
-class Structure(_CData, metaclass=_PyCStructType):
     def __init__(self, *args: Any, **kw: Any) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
     def __setattr__(self, name: str, value: Any) -> None: ...
 
 # actually named PyCArrayType, not exposed
-class _PyCArrayType(type):
-    # By default mypy complains about the following two methods, because strictly speaking cls
-    # might not be a Type[_CT]. However this can never actually happen, because the only class that
-    # uses _CDataMeta as its metaclass is _CData. So it's safe to ignore the errors here.
-    def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
-    def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+class _PyCArrayType(_CTypeBaseType):
+    def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
+    def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
+    def from_buffer_copy(self: type[_typeshed.Self], buffer: ReadableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
+    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | _CArgObject: ...
+    def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
+    if sys.version_info < (3, 13):
+        # Inherited from _CType_Type starting on 3.13
+        def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+        def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class Array(_CData, Generic[_CT], metaclass=_PyCArrayType):
     @property

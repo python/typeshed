@@ -1,4 +1,4 @@
-from _ctypes import _CField
+from _ctypes import _CArgObject, _CField
 from ctypes import (
     Array,
     Structure,
@@ -21,7 +21,7 @@ from ctypes import (
     c_wchar,
     c_wchar_p,
 )
-from typing import TypeVar
+from typing import Any, Self, TypeVar
 from typing_extensions import TypeAlias
 
 BYTE = c_byte
@@ -241,10 +241,16 @@ LPBYTE = PBYTE
 PBOOLEAN = PBYTE
 
 # LP_c_char
-class PCHAR(_Pointer[CHAR]): ...
+class PCHAR(_Pointer[CHAR]):
+    # this is inherited from ctypes.c_char_p, kind of.
+    @classmethod
+    def from_param(cls, value: Any, /) -> Self | _CArgObject: ...
 
 # LP_c_wchar
-class PWCHAR(_Pointer[WCHAR]): ...
+class PWCHAR(_Pointer[WCHAR]):
+    # inherited from ctypes.c_wchar_p, kind of
+    @classmethod
+    def from_param(cls, value: Any, /) -> Self | _CArgObject: ...
 
 # LP_c_void_p
 class PHANDLE(_Pointer[HANDLE]): ...
