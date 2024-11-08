@@ -261,7 +261,7 @@ class QueueHandler(Handler):
     def prepare(self, record: LogRecord) -> Any: ...
     def enqueue(self, record: LogRecord) -> None: ...
     if sys.version_info >= (3, 12):
-        listener: QueueListener
+        listener: QueueListener | None
 
 class QueueListener:
     handlers: tuple[Handler, ...]  # undocumented
