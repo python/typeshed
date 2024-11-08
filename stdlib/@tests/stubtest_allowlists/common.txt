@@ -12,6 +12,8 @@ _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
+_?ctypes.Structure.__getattr__  # doesn't exist, but makes things easy if we pretend it does
+_?ctypes.Union.__getattr__  # doesn't exist, but makes things easy if we pretend it does
 asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 builtins.dict.get
@@ -312,8 +314,6 @@ collections.abc.*  # Types are re-exported from _collections_abc, so errors shou
 _?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
 _?ctypes.Array._type_  # _type_ is abstract, https://github.com/python/typeshed/pull/6361
 _?ctypes.Array._length_ # _length_ is abstract, https://github.com/python/typeshed/pull/6361
-_?ctypes.Structure.__getattr__
-_?ctypes.Union.__getattr__
 
 # runtime is *args, **kwargs due to a wrapper
 # we have more accurate signatures in the stubs
