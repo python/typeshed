@@ -253,8 +253,7 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
         # supposedly incompatible definitions of `__ior__` and `__or__`:
         def __ior__(self, value: Self, /) -> Self: ...  # type: ignore[misc]
 
-# TypedDict is a (non-subscriptable) special form.
-TypedDict: object
+TypedDict: _SpecialForm
 
 OrderedDict = _Alias()
 
