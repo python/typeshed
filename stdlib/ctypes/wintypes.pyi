@@ -21,8 +21,8 @@ from ctypes import (
     c_wchar,
     c_wchar_p,
 )
-from typing import Any, Self, TypeVar
-from typing_extensions import TypeAlias
+from typing import Any, TypeVar
+from typing_extensions import Self, TypeAlias
 
 BYTE = c_byte
 WORD = c_ushort
