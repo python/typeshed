@@ -168,7 +168,7 @@ class classmethod(Generic[_T, _P, _R_co]):
         @property
         def __wrapped__(self) -> Callable[Concatenate[type[_T], _P], _R_co]: ...
 
-class type(Generic[_TypeT]):
+class type(Generic[_TypeT_co]):
     # object.__base__ is None. Otherwise, it would be a type.
     @property
     def __base__(self) -> type | None: ...
