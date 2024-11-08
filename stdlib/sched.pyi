@@ -17,12 +17,14 @@ if sys.version_info >= (3, 10):
         kwargs: dict[str, Any]
 
 else:
-    class Event(NamedTuple):
+    class _EventBase(NamedTuple):
         time: float
         priority: Any
         action: _ActionCallback
         argument: tuple[Any, ...]
         kwargs: dict[str, Any]
+
+    class Event(_EventBase): ...
 
 class scheduler:
     timefunc: Callable[[], float]

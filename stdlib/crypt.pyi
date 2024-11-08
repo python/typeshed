@@ -1,8 +1,14 @@
 import sys
-from typing import Final
+from typing import Final, NamedTuple
 
 if sys.platform != "win32":
-    class _Method: ...
+    class _MethodBase(NamedTuple):
+        name: str
+        ident: str
+        salt_chars: int
+        total_size: int
+
+    class _Method(_MethodBase): ...
     METHOD_CRYPT: Final[_Method]
     METHOD_MD5: Final[_Method]
     METHOD_SHA256: Final[_Method]
