@@ -18,6 +18,8 @@ _winapi.VirtualQuerySize
 
 # Modules that do not exist on Windows systems
 _curses
+_dbm
+_gdbm
 _posixsubprocess
 asyncio.unix_events
 dbm.gnu
