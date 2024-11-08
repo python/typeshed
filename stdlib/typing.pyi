@@ -211,8 +211,7 @@ Tuple: _SpecialForm
 Final: _SpecialForm
 
 Literal: _SpecialForm
-# TypedDict is a (non-subscriptable) special form.
-TypedDict: object
+TypedDict: _SpecialForm
 
 if sys.version_info >= (3, 11):
     Self: _SpecialForm
