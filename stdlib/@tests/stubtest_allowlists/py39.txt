@@ -39,7 +39,6 @@ lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
 lib2to3.pgen2.grammar.Grammar.loads
-sched.Event.__doc__  # __slots__ is overridden
 tkinter.Tk.split
 tkinter.tix.[A-Z_]+
 tkinter.tix.TclVersion

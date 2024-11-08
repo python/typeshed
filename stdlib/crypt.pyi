@@ -4,7 +4,7 @@ from typing import Final, NamedTuple
 if sys.platform != "win32":
     class _MethodBase(NamedTuple):
         name: str
-        ident: str
+        ident: str | None
         salt_chars: int
         total_size: int
 
