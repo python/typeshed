@@ -132,6 +132,7 @@ def byref(obj: _CData, offset: int = ...) -> _CArgObject: ...
 _ECT: TypeAlias = Callable[[_CData | None, CFuncPtr, tuple[_CData, ...]], _CData]
 _PF: TypeAlias = tuple[int] | tuple[int, str | None] | tuple[int, str | None, Any]
 
+# actually named PyCFuncPtrType; not exposed
 class _PyCFuncPtrType(_CTypeBaseType):
     def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
     def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
@@ -192,11 +193,11 @@ class _UnionType(_CTypeBaseType):
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class Union(_CData, metaclass=_UnionType):
-    _fields_: Sequence[tuple[str, type[_CData]] | tuple[str, type[_CData], int]]
-    _pack_: int
-    _anonymous_: Sequence[str]
+    _fields_: ClassVar[Sequence[tuple[str, type[_CData]] | tuple[str, type[_CData], int]]]
+    _pack_: ClassVar[int]
+    _anonymous_: ClassVar[Sequence[str]]
     if sys.version_info >= (3, 13):
-        _align_: int
+        _align_: ClassVar[int]
 
     def __init__(self, *args: Any, **kw: Any) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
@@ -216,11 +217,11 @@ class _PyCStructType(_CTypeBaseType):
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class Structure(_CData, metaclass=_PyCStructType):
-    _fields_: Sequence[tuple[str, type[_CData]] | tuple[str, type[_CData], int]]
-    _pack_: int
-    _anonymous_: Sequence[str]
+    _fields_: ClassVar[Sequence[tuple[str, type[_CData]] | tuple[str, type[_CData], int]]]
+    _pack_: ClassVar[int]
+    _anonymous_: ClassVar[Sequence[str]]
     if sys.version_info >= (3, 13):
-        _align_: int
+        _align_: ClassVar[int]
 
     def __init__(self, *args: Any, **kw: Any) -> None: ...
     def __getattr__(self, name: str) -> Any: ...
