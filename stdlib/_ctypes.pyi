@@ -126,6 +126,8 @@ def pointer(obj: _CT, /) -> _Pointer[_CT]: ...
 @type_check_only
 class CArgObject: ...
 
+_CArgObject = CArgObject  # legacy alias used by existing stubs elsewhere
+
 def byref(obj: _CData, offset: int = ...) -> CArgObject: ...
 
 _ECT: TypeAlias = Callable[[_CData | None, CFuncPtr, tuple[_CData, ...]], _CData]
@@ -178,7 +180,7 @@ class CField(Generic[_CT, _GetT, _SetT]):
     def __get__(self, instance: Any, owner: type[Any] | None, /) -> _GetT: ...
     def __set__(self, instance: Any, value: _SetT, /) -> None: ...
 
-_CField = CField  # legacy name used by existing stubs elsewhere
+_CField = CField  # legacy alias used by existing stubs elsewhere
 
 @type_check_only
 class UnionType(_CTypeBaseType):
