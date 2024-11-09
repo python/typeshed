@@ -1,4 +1,4 @@
-from .cluster import RedisClusterCommands as RedisClusterCommands, AsyncRedisClusterCommands as AsyncRedisClusterCommands
+from .cluster import AsyncRedisClusterCommands as AsyncRedisClusterCommands, RedisClusterCommands as RedisClusterCommands
 from .core import AsyncCoreCommands as AsyncCoreCommands, CoreCommands as CoreCommands
 from .helpers import list_or_args as list_or_args
 from .parser import CommandsParser as CommandsParser
