@@ -10,6 +10,7 @@ from _ctypes import (
     Union as Union,
     _CanCastTo as _CanCastTo,
     _CData as _CData,
+    _CField as _CField,
     _Pointer as _Pointer,
     _PointerLike as _PointerLike,
     _SimpleCData as _SimpleCData,
