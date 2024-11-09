@@ -10,8 +10,7 @@ from redis.asyncio.parser import CommandsParser
 from redis.client import AbstractRedis
 from redis.cluster import AbstractRedisCluster, LoadBalancer
 
-# TODO: add  AsyncRedisClusterCommands stubs
-# from redis.commands import AsyncRedisClusterCommands
+from redis.commands import AsyncRedisClusterCommands
 from redis.commands.core import _StrType
 from redis.credentials import CredentialProvider
 from redis.exceptions import ResponseError
@@ -27,7 +26,7 @@ class ClusterParser(BaseParser):
     async def can_read_destructive(self) -> bool: ...
     async def read_response(self, disable_decoding: bool = False) -> EncodableT | ResponseError | list[EncodableT] | None: ...
 
-class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
+class RedisCluster(AbstractRedis, AbstractRedisCluster, AsyncRedisClusterCommands):
     @classmethod
     def from_url(
         cls,

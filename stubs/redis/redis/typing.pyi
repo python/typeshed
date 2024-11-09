@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from datetime import datetime, timedelta
-from typing import Any, Protocol, TypeVar
+from typing import Any, Protocol, TypeVar, Union, Awaitable
 from typing_extensions import TypeAlias
 
 from redis.asyncio.connection import ConnectionPool as AsyncConnectionPool
@@ -24,6 +24,7 @@ GroupT: TypeAlias = _StringLikeT
 ConsumerT: TypeAlias = _StringLikeT
 StreamIdT: TypeAlias = int | _StringLikeT
 ScriptTextT: TypeAlias = _StringLikeT
+ResponseT: TypeAlias = Union[Awaitable[Any], Any]
 TimeoutSecT: TypeAlias = int | float | _StringLikeT
 AnyKeyT = TypeVar("AnyKeyT", bytes, str, memoryview)  # noqa: Y001
 AnyFieldT = TypeVar("AnyFieldT", bytes, str, memoryview)  # noqa: Y001

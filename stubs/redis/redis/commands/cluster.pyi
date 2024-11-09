@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 from typing import NoReturn
 
-from .core import ACLCommands, DataAccessCommands, ManagementCommands, PubSubCommands, _StrType
+from .core import ACLCommands, DataAccessCommands, ManagementCommands, PubSubCommands, _StrType, FunctionCommands, GearsCommands, ModuleCommands, AsyncManagementCommands, AsyncScriptCommands, AsyncDataAccessCommands
+from .redismodules import AsyncRedisModuleCommands
 
 class ClusterMultiKeyCommands:
     def mget_nonatomic(self, keys, *args): ...
@@ -58,3 +59,34 @@ class RedisClusterCommands(
     read_from_replicas: bool
     def readonly(self, target_nodes: Incomplete | None = None): ...
     def readwrite(self, target_nodes: Incomplete | None = None): ...
+
+class AsyncClusterMultiKeyCommands(ClusterMultiKeyCommands):
+    async def mget_nonatomic(self, keys, *args): ...
+    async def mset_nonatomic(self, mapping): ...
+
+class AsyncClusterManagementCommands(ClusterManagementCommands, AsyncManagementCommands):
+    async def cluster_delslots(self, *slots): ...
+
+class AsyncClusterDataAccessCommands(ClusterDataAccessCommands[_StrType], AsyncDataAccessCommands[_StrType]):
+    async def scan_iter(self, match, count, _type, **kwargs): ...
+
+AsyncACLCommands = ACLCommands
+
+AsyncFunctionCommands = FunctionCommands
+
+AsyncGearsCommands = GearsCommands
+
+class AsyncModuleCommands(ModuleCommands):
+    async def command_info(self) -> None: ...
+
+class AsyncRedisClusterCommands(
+    AsyncClusterMultiKeyCommands,
+    AsyncClusterManagementCommands,
+    AsyncACLCommands,
+    AsyncClusterDataAccessCommands[_StrType],
+    AsyncScriptCommands[_StrType],
+    AsyncFunctionCommands,
+    AsyncGearsCommands,
+    AsyncModuleCommands,
+    AsyncRedisModuleCommands,
+): ...
