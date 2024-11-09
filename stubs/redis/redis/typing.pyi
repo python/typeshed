@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from datetime import datetime, timedelta
-from typing import Any, Protocol, TypeVar, Union, Awaitable
+from typing import Any, Awaitable, Protocol, TypeVar, Union
 from typing_extensions import TypeAlias
 
 from redis.asyncio.connection import ConnectionPool as AsyncConnectionPool

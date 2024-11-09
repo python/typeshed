@@ -1,6 +1,6 @@
-from .json import JSON
-from .search import Search, AsyncSearch
 from .graph import AsyncGraph
+from .json import JSON
+from .search import AsyncSearch, Search
 from .timeseries import TimeSeries
 
 class RedisModuleCommands:
@@ -15,5 +15,5 @@ class RedisModuleCommands:
     def graph(self, index_name: str = "idx"): ...
 
 class AsyncRedisModuleCommands(RedisModuleCommands):
-    def ft(self, index_name:str = "idx") -> AsyncSearch: ...
+    def ft(self, index_name: str = "idx") -> AsyncSearch: ...
     def graph(self, index_name: str = "idx") -> AsyncGraph: ...

@@ -25,12 +25,13 @@ class GraphCommands:
     def list_keys(self): ...
 
 class AsyncGraphCommands(GraphCommands):
-    async def query(self,
+    async def query(
+        self,
         q,
         params: Incomplete | None = None,
         timeout: Incomplete | None = None,
         read_only: bool = False,
-        profile: bool = False
+        profile: bool = False,
     ): ...
     async def execution_plan(self, query, params: Incomplete | None = None): ...
     async def explain(self, query, params: Incomplete | None = None): ...

@@ -2,9 +2,8 @@ from _typeshed import Incomplete
 
 from ...asyncio.client import Pipeline as AsyncioPipeline
 from ...client import Pipeline as SyncPipeline
-
-from .commands import SearchCommands, AsyncSearchCommands
 from ...commands.core import _StrType
+from .commands import AsyncSearchCommands, SearchCommands
 
 class Search(SearchCommands):
     class BatchIndexer:
@@ -26,7 +25,6 @@ class Search(SearchCommands):
     def __init__(self, client, index_name: str = "idx") -> None: ...
 
 class Pipeline(SearchCommands, SyncPipeline[_StrType]): ...
-
 class AsyncPipeline(AsyncSearchCommands, AsyncioPipeline[_StrType], Pipeline[_StrType]): ...
 
 class AsyncSearch(Search, AsyncSearchCommands):
@@ -43,4 +41,5 @@ class AsyncSearch(Search, AsyncSearchCommands):
             **fields,
         ): ...
         async def commit(self): ...
+
     def pipeline(self, transaction: bool = True, shard_hint: Incomplete | None = None): ...

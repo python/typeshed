@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
-from typing import Any, Literal, Union, Optional, Dict
+from typing import Any, Literal
 from typing_extensions import TypeAlias
 
 from .aggregation import AggregateRequest, AggregateResult, Cursor
@@ -120,11 +120,5 @@ class AsyncSearchCommands(SearchCommands):
     async def load_document(self, id): ...
     async def sugadd(self, key, *suggestions, increment): ...
     async def sugget(
-        self,
-        key,
-        prefix,
-        fuzzy: bool = False,
-        num: int = 10,
-        with_scores: bool = False,
-        with_payloads: bool = False,
+        self, key, prefix, fuzzy: bool = False, num: int = 10, with_scores: bool = False, with_payloads: bool = False
     ): ...

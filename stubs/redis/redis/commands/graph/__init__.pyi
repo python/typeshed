@@ -1,6 +1,6 @@
 from typing import Any
 
-from .commands import GraphCommands as GraphCommands, AsyncGraphCommands as AsyncGraphCommands
+from .commands import AsyncGraphCommands as AsyncGraphCommands, GraphCommands as GraphCommands
 from .edge import Edge as Edge
 from .node import Node as Node
 from .path import Path as Path
