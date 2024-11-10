@@ -20,5 +20,5 @@ stubs/openpyxl/openpyxl/descriptors/nested.pyi
 stubs/shapely/shapely/plotting.pyi
 
 # matplotlib et al not installed during tests
-stubs/shapely/shapely/plotting.pyi
-stubs/shapely/shapely/explore.pyi
+stubs/geopandas/geopandas/plotting.pyi
+stubs/geopandas/geopandas/explore.pyi
