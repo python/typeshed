@@ -2,8 +2,8 @@ import abc
 import pathlib
 import sys
 import types
-from _collections_abc import dict_keys, dict_values
 from _typeshed import StrPath
+from builtins import dict_keys, dict_values
 from collections.abc import Iterable, Iterator, Mapping
 from email.message import Message
 from importlib.abc import MetaPathFinder

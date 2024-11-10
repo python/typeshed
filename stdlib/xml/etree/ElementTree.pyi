@@ -1,6 +1,6 @@
 import sys
-from _collections_abc import dict_keys
 from _typeshed import FileDescriptorOrPath, ReadableBuffer, SupportsRead, SupportsWrite
+from builtins import dict_keys
 from collections.abc import Callable, Generator, ItemsView, Iterable, Iterator, Mapping, Sequence
 from typing import Any, Final, Literal, SupportsIndex, TypeVar, overload
 from typing_extensions import TypeAlias, TypeGuard, deprecated

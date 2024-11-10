@@ -1,5 +1,5 @@
-from _collections_abc import dict_keys
 from _typeshed import Incomplete
+from builtins import dict_keys
 from collections.abc import Iterable
 from re import Pattern
 from typing import AnyStr, Final, overload

@@ -5,9 +5,9 @@
 import collections  # noqa: F401  # pyright: ignore[reportUnusedImport]
 import sys
 import typing_extensions
-from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction, ReadableBuffer, SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
+from builtins import dict_items, dict_keys, dict_values
 from re import Match as Match, Pattern as Pattern
 from types import (
     BuiltinFunctionType,

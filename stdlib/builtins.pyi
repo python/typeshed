@@ -3,7 +3,6 @@ import _ast
 import _typeshed
 import sys
 import types
-from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
     AnyStr_co,
     ConvertibleToFloat,
@@ -31,9 +30,21 @@ from _typeshed import (
     SupportsRichComparisonT,
     SupportsWrite,
 )
-from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
+from collections.abc import (
+    Awaitable,
+    Callable,
+    ItemsView,
+    Iterable,
+    Iterator,
+    KeysView,
+    MutableSet,
+    Reversible,
+    Set as AbstractSet,
+    Sized,
+    ValuesView,
+)
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from types import CellType, CodeType, TracebackType
+from types import CellType, CodeType, MappingProxyType, TracebackType
 
 # mypy crashes if any of {ByteString, Sequence, MutableSequence, Mapping, MutableMapping}
 # are imported from collections.abc in builtins.pyi
@@ -84,6 +95,8 @@ _T_contra = TypeVar("_T_contra", contravariant=True)
 _R_co = TypeVar("_R_co", covariant=True)
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
+_KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
+_VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 _S = TypeVar("_S")
 _T1 = TypeVar("_T1")
 _T2 = TypeVar("_T2")
@@ -1075,6 +1088,33 @@ class list(MutableSequence[_T]):
     def __eq__(self, value: object, /) -> bool: ...
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+
+@final
+@type_check_only
+class dict_keys(KeysView[_KT_co], Generic[_KT_co, _VT_co]):
+    def __eq__(self, value: object, /) -> bool: ...
+    if sys.version_info >= (3, 13):
+        def isdisjoint(self, other: Iterable[_KT_co], /) -> bool: ...
+    if sys.version_info >= (3, 10):
+        @property
+        def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
+
+@final
+@type_check_only
+class dict_values(ValuesView[_VT_co], Generic[_KT_co, _VT_co]):
+    if sys.version_info >= (3, 10):
+        @property
+        def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
+
+@final
+@type_check_only
+class dict_items(ItemsView[_KT_co, _VT_co]):
+    def __eq__(self, value: object, /) -> bool: ...
+    if sys.version_info >= (3, 13):
+        def isdisjoint(self, other: Iterable[tuple[_KT_co, _VT_co]], /) -> bool: ...
+    if sys.version_info >= (3, 10):
+        @property
+        def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
 
 class dict(MutableMapping[_KT, _VT]):
     # __init__ should be kept roughly in line with `collections.UserDict.__init__`, which has similar semantics

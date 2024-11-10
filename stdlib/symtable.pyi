@@ -1,5 +1,5 @@
 import sys
-from _collections_abc import dict_keys
+from builtins import dict_keys
 from collections.abc import Sequence
 from typing import Any
 from typing_extensions import deprecated

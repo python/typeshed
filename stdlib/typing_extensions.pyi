@@ -1,8 +1,8 @@
 import abc
 import sys
 import typing
-from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction
+from builtins import dict_items, dict_keys, dict_values
 from contextlib import AbstractAsyncContextManager as AsyncContextManager, AbstractContextManager as ContextManager
 from typing import (  # noqa: Y022,Y037,Y038,Y039
     IO as IO,

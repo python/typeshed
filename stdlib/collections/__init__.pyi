@@ -1,6 +1,6 @@
 import sys
-from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import SupportsItems, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
+from builtins import dict_items, dict_keys, dict_values
 from typing import Any, Generic, NoReturn, SupportsIndex, TypeVar, final, overload
 from typing_extensions import Self
 
@@ -340,19 +340,20 @@ class _OrderedDictValuesView(ValuesView[_VT_co]):
     def __reversed__(self) -> Iterator[_VT_co]: ...
 
 # The C implementations of the "views" classes
-# (At runtime, these are called `odict_keys`, `odict_items` and `odict_values`,
-# but they are not exposed anywhere)
 # pyright doesn't have a specific error code for subclassing error!
 @final
-class _odict_keys(dict_keys[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+@type_check_only
+class odict_keys(dict_keys[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     def __reversed__(self) -> Iterator[_KT_co]: ...
 
 @final
-class _odict_items(dict_items[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+@type_check_only
+class odict_items(dict_items[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     def __reversed__(self) -> Iterator[tuple[_KT_co, _VT_co]]: ...
 
 @final
-class _odict_values(dict_values[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+@type_check_only
+class odict_values(dict_values[_KT_co, _VT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     def __reversed__(self) -> Iterator[_VT_co]: ...
 
 class OrderedDict(dict[_KT, _VT]):
@@ -360,9 +361,9 @@ class OrderedDict(dict[_KT, _VT]):
     def move_to_end(self, key: _KT, last: bool = True) -> None: ...
     def copy(self) -> Self: ...
     def __reversed__(self) -> Iterator[_KT]: ...
-    def keys(self) -> _odict_keys[_KT, _VT]: ...
-    def items(self) -> _odict_items[_KT, _VT]: ...
-    def values(self) -> _odict_values[_KT, _VT]: ...
+    def keys(self) -> odict_keys[_KT, _VT]: ...
+    def items(self) -> odict_items[_KT, _VT]: ...
+    def values(self) -> odict_values[_KT, _VT]: ...
     # The signature of OrderedDict.fromkeys should be kept in line with `dict.fromkeys`, modulo positional-only differences.
     # Like dict.fromkeys, its true signature is not expressible in the current type system.
     # See #3800 & https://github.com/python/typing/issues/548#issuecomment-683336963.

@@ -1,5 +1,6 @@
-from _collections_abc import Generator, dict_keys
+from _collections_abc import Generator
 from _typeshed import Incomplete, ReadableBuffer
+from builtins import dict_keys
 from types import TracebackType
 from typing import Literal
 from typing_extensions import Self, TypeAlias

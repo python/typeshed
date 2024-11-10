@@ -1,7 +1,7 @@
 import abc
 import sys
-from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction, Unused
+from builtins import dict_items, dict_keys, dict_values
 from collections.abc import Mapping
 from typing import Any, ClassVar, Generic, TypeVar, overload, type_check_only
 from typing_extensions import Never, Self
