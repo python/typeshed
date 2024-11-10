@@ -156,9 +156,9 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
     # *** TODO: `fillna` annotation in pandas-stubs is NOT compatible; must `-> Self` ***
     # def fillna(self, value=None, method: FillnaOptions | None = None, inplace: bool = False, **kwargs): ...
     def __contains__(self, other: object) -> bool: ...
-    @doc(plot_series)
+    @doc(plot_series)  # pyright: ignore[reportUnknownArgumentType]
     def plot(self, *args, **kwargs): ...  # signature of `plot_series` copied in `@doc`
-    @doc(_explore_geoseries)
+    @doc(_explore_geoseries)  # pyright: ignore[reportUnknownArgumentType]
     def explore(self, *args, **kwargs): ...  # signature of `_explore_geoseries` copied in `@doc`
     def explode(self, ignore_index: bool = False, index_parts: bool = False) -> GeoSeries: ...
     @overload

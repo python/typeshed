@@ -319,7 +319,7 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
     ) -> None: ...
     @property
     def plot(self) -> GeoplotAccessor: ...
-    @doc(_explore)
+    @doc(_explore)  # pyright: ignore[reportUnknownArgumentType]
     def explore(self, *args, **kwargs): ...  # signature of `_explore` copied in `@doc`
     def sjoin(
         self,
