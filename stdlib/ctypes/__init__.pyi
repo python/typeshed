@@ -10,6 +10,7 @@ from _ctypes import (
     _CanCastTo as _CanCastTo,
     _CArgObject as _CArgObject,
     _CData as _CData,
+    _CDataType as _CDataType,
     _CField as _CField,
     _Pointer as _Pointer,
     _PointerLike as _PointerLike,
@@ -45,7 +46,7 @@ class ArgumentError(Exception): ...
 
 class CDLL:
     _func_flags_: ClassVar[int]
-    _func_restype_: ClassVar[_CData]
+    _func_restype_: ClassVar[_CDataType]
     _name: str
     _handle: int
     _FuncPtr: type[_FuncPointer]
@@ -88,15 +89,15 @@ class _NamedFuncPointer(_FuncPointer):
     __name__: str
 
 def CFUNCTYPE(
-    restype: type[_CData] | None, *argtypes: type[_CData], use_errno: bool = ..., use_last_error: bool = ...
+    restype: type[_CDataType] | None, *argtypes: type[_CDataType], use_errno: bool = ..., use_last_error: bool = ...
 ) -> type[_FuncPointer]: ...
 
 if sys.platform == "win32":
     def WINFUNCTYPE(
-        restype: type[_CData] | None, *argtypes: type[_CData], use_errno: bool = ..., use_last_error: bool = ...
+        restype: type[_CDataType] | None, *argtypes: type[_CDataType], use_errno: bool = ..., use_last_error: bool = ...
     ) -> type[_FuncPointer]: ...
 
-def PYFUNCTYPE(restype: type[_CData] | None, *argtypes: type[_CData]) -> type[_FuncPointer]: ...
+def PYFUNCTYPE(restype: type[_CDataType] | None, *argtypes: type[_CDataType]) -> type[_FuncPointer]: ...
 
 # Any type that can be implicitly converted to c_void_p when passed as a C function argument.
 # (bytes is not included here, see below.)
@@ -109,7 +110,7 @@ _CVoidConstPLike: TypeAlias = _CVoidPLike | bytes
 
 _CastT = TypeVar("_CastT", bound=_CanCastTo)
 
-def cast(obj: _CData | _CArgObject | int, typ: type[_CastT]) -> _CastT: ...
+def cast(obj: _CDataType | _CArgObject | int, typ: type[_CastT]) -> _CastT: ...
 def create_string_buffer(init: int | bytes, size: int | None = None) -> Array[c_char]: ...
 
 c_buffer = create_string_buffer

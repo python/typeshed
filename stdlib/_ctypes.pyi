@@ -68,6 +68,12 @@ class _CData:
     _b_needsfree_: bool
     _objects: Mapping[Any, int] | None
     def __buffer__(self, flags: int, /) -> memoryview: ...
+    def __ctypes_from_outparam__(self, /) -> Self: ...
+
+# this is a union of all the subclasses of _CData, which is useful because of
+# the methods that are present on each of those subclasses which are not present
+# on _CData itself.
+_CDataType: TypeAlias = _SimpleCData | _Pointer | CFuncPtr | Union | Structure | Array
 
 @type_check_only
 class PyCSimpleType(_CTypeBaseType):
@@ -77,7 +83,7 @@ class PyCSimpleType(_CTypeBaseType):
     def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | CArgObject: ...
     def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
     if sys.version_info < (3, 13):
-        # Inherited from _CType_Type starting on 3.13
+        # Inherited from CType_Type starting on 3.13
         def __mul__(self: type[_CT], value: int, /) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(self: type[_CT], value: int, /) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
@@ -86,6 +92,7 @@ class _SimpleCData(_CData, Generic[_T], metaclass=PyCSimpleType):
     # The TypeVar can be unsolved here,
     # but we can't use overloads without creating many, many mypy false-positive errors
     def __init__(self, value: _T = ...) -> None: ...  # pyright: ignore[reportInvalidTypeVarUse]
+    def __ctypes_from_outparam__(self, /) -> _T: ...  # type: ignore[override]
 
 class _CanCastTo(_CData): ...
 class _PointerLike(_CanCastTo): ...
@@ -99,7 +106,7 @@ class PyCPointerType(_CTypeBaseType):
     def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
     def set_type(self, type: Any, /) -> None: ...
     if sys.version_info < (3, 13):
-        # Inherited from _CType_Type starting on 3.13
+        # Inherited from CType_Type starting on 3.13
         def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
@@ -126,9 +133,9 @@ class CArgObject: ...
 
 _CArgObject = CArgObject  # legacy alias used by existing stubs elsewhere
 
-def byref(obj: _CData, offset: int = ...) -> CArgObject: ...
+def byref(obj: _CDataType, offset: int = ...) -> CArgObject: ...
 
-_ECT: TypeAlias = Callable[[_CData | None, CFuncPtr, tuple[_CData, ...]], _CData]
+_ECT: TypeAlias = Callable[[_CDataType | None, CFuncPtr, tuple[_CDataType, ...]], _CDataType]
 _PF: TypeAlias = tuple[int] | tuple[int, str | None] | tuple[int, str | None, Any]
 
 @type_check_only
@@ -139,13 +146,13 @@ class PyCFuncPtrType(_CTypeBaseType):
     def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | CArgObject: ...
     def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
     if sys.version_info < (3, 13):
-        # Inherited from _CType_Type starting on 3.13
+        # Inherited from CType_Type starting on 3.13
         def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class CFuncPtr(_PointerLike, _CData, metaclass=PyCFuncPtrType):
-    restype: type[_CData] | Callable[[int], Any] | None
-    argtypes: Sequence[type[_CData]]
+    restype: type[_CDataType] | Callable[[int], Any] | None
+    argtypes: Sequence[type[_CDataType]]
     errcheck: _ECT
     # Abstract attribute that must be defined on subclasses
     _flags_: ClassVar[int]
@@ -160,7 +167,7 @@ class CFuncPtr(_PointerLike, _CData, metaclass=PyCFuncPtrType):
     if sys.platform == "win32":
         @overload
         def __init__(
-            self, vtbl_index: int, name: str, paramflags: tuple[_PF, ...] | None = ..., iid: _CData | None = ..., /
+            self, vtbl_index: int, name: str, paramflags: tuple[_PF, ...] | None = ..., iid: _CDataType | None = ..., /
         ) -> None: ...
 
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
@@ -189,12 +196,12 @@ class UnionType(_CTypeBaseType):
     def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
     def __getattr__(self, name: str) -> CField[Any, Any, Any]: ...
     if sys.version_info < (3, 13):
-        # Inherited from _CType_Type starting on 3.13
+        # Inherited from CType_Type starting on 3.13
         def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class Union(_CData, metaclass=UnionType):
-    _fields_: ClassVar[Sequence[tuple[str, type[_CData]] | tuple[str, type[_CData], int]]]
+    _fields_: ClassVar[Sequence[tuple[str, type[_CDataType]] | tuple[str, type[_CDataType], int]]]
     _pack_: ClassVar[int]
     _anonymous_: ClassVar[Sequence[str]]
     if sys.version_info >= (3, 13):
@@ -213,12 +220,12 @@ class PyCStructType(_CTypeBaseType):
     def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
     def __getattr__(self, name: str) -> CField[Any, Any, Any]: ...
     if sys.version_info < (3, 13):
-        # Inherited from _CType_Type starting on 3.13
+        # Inherited from CType_Type starting on 3.13
         def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
 class Structure(_CData, metaclass=PyCStructType):
-    _fields_: ClassVar[Sequence[tuple[str, type[_CData]] | tuple[str, type[_CData], int]]]
+    _fields_: ClassVar[Sequence[tuple[str, type[_CDataType]] | tuple[str, type[_CDataType], int]]]
     _pack_: ClassVar[int]
     _anonymous_: ClassVar[Sequence[str]]
     if sys.version_info >= (3, 13):
@@ -236,7 +243,7 @@ class PyCArrayType(_CTypeBaseType):
     def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | CArgObject: ...
     def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
     if sys.version_info < (3, 13):
-        # Inherited from _CType_Type starting on 3.13
+        # Inherited from CType_Type starting on 3.13
         def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
@@ -285,9 +292,9 @@ class Array(_CData, Generic[_CT], metaclass=PyCArrayType):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
-def addressof(obj: _CData, /) -> int: ...
-def alignment(obj_or_type: _CData | type[_CData], /) -> int: ...
+def addressof(obj: _CDataType, /) -> int: ...
+def alignment(obj_or_type: _CDataType | type[_CDataType], /) -> int: ...
 def get_errno() -> int: ...
-def resize(obj: _CData, size: int, /) -> None: ...
+def resize(obj: _CDataType, size: int, /) -> None: ...
 def set_errno(value: int, /) -> int: ...
-def sizeof(obj_or_type: _CData | type[_CData], /) -> int: ...
+def sizeof(obj_or_type: _CDataType | type[_CDataType], /) -> int: ...
