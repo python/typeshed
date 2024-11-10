@@ -1,7 +1,7 @@
 import sys
 from _typeshed import SupportsItems, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
 from builtins import dict_items, dict_keys, dict_values
-from typing import Any, Generic, NoReturn, SupportsIndex, TypeVar, final, overload
+from typing import Any, Generic, NoReturn, SupportsIndex, TypeVar, final, overload, type_check_only
 from typing_extensions import Self
 
 if sys.version_info >= (3, 9):
