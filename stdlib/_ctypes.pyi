@@ -73,7 +73,7 @@ class _CData:
 # this is a union of all the subclasses of _CData, which is useful because of
 # the methods that are present on each of those subclasses which are not present
 # on _CData itself.
-_CDataType: TypeAlias = _SimpleCData | _Pointer | CFuncPtr | Union | Structure | Array
+_CDataType: TypeAlias = _SimpleCData[Any] | _Pointer[Any] | CFuncPtr | Union | Structure | Array[Any]
 
 @type_check_only
 class PyCSimpleType(_CTypeBaseType):
