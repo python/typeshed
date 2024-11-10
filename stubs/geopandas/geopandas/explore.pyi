@@ -1,10 +1,10 @@
 from collections.abc import Callable, Hashable, MutableMapping, Sequence
 from typing import Any
 
-import branca  # type: ignore[import-not-found]
-import folium  # type: ignore[import-not-found]
+import branca  # type: ignore[import-not-found] # pyright: ignore[reportMissingImports]
+import folium  # type: ignore[import-not-found] # pyright: ignore[reportMissingImports]
 import pandas as pd
-import xyzservices  # type: ignore[import-not-found]
+import xyzservices  # type: ignore[import-not-found] # pyright: ignore[reportMissingImports]
 from matplotlib.colors import Colormap  # type: ignore[import-not-found]
 from numpy.typing import ArrayLike, NDArray
 
