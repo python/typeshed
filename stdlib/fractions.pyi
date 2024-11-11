@@ -1,8 +1,8 @@
 import sys
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from decimal import Decimal
 from numbers import Integral, Rational, Real
-from typing import Any, Literal, SupportsIndex, overload
+from typing import Any, Literal, Protocol, SupportsIndex, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 _ComparableNum: TypeAlias = int | float | Decimal | Real
@@ -20,11 +20,22 @@ else:
     @overload
     def gcd(a: Integral, b: Integral) -> Integral: ...
 
+_IR = TypeVar("_IR", covariant=True)
+
+class ConvertibleToIntegerRatio(Protocol[_IR]):
+    def as_integer_ratio(self) -> _IR: ...
+
 class Fraction(Rational):
     @overload
     def __new__(cls, numerator: int | Rational = 0, denominator: int | Rational | None = None) -> Self: ...
     @overload
     def __new__(cls, value: float | Decimal | str, /) -> Self: ...
+
+    if sys.version_info >= (3, 14):
+        @overload
+        def __new__(cls, value: ConvertibleToIntegerRatio[tuple[int | Rational, int | Rational]]) -> Self: ...
+        @overload
+        def __new__(cls, value: ConvertibleToIntegerRatio[Iterable[int | Rational]]) -> Self: ...
     @classmethod
     def from_float(cls, f: float) -> Self: ...
     @classmethod
