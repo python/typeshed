@@ -32,9 +32,7 @@ PAGESIZE: int
 
 class mmap:
     if sys.platform == "win32":
-        def __init__(
-            self, fileno: int, length: int, tagname: str | None = ..., access: int = ..., offset: int = ...
-        ) -> None: ...
+        def __init__(self, fileno: int, length: int, tagname: str | None = ..., access: int = ..., offset: int = ...) -> None: ...
     else:
         if sys.version_info >= (3, 13):
             def __init__(
