@@ -479,8 +479,13 @@ else:
         if sys.version_info >= (3, 11):
             def __typing_subst__(self, arg: Any) -> Any: ...
 
+    if sys.version_info >= (3, 10):
+        _ParamSpecBase = object
+    else:
+        _ParamSpecBase = list
+
     @final
-    class ParamSpec:
+    class ParamSpec(_ParamSpecBase):
         @property
         def __name__(self) -> str: ...
         @property
