@@ -43,7 +43,8 @@ class mmap:
                 prot: int = ...,
                 access: int = ...,
                 offset: int = ...,
-                trackfd: bool = ...,
+                *,
+                trackfd: bool = True,
             ) -> None: ...
         else:
             def __init__(
