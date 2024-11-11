@@ -22,7 +22,7 @@ else:
 
 _IR = TypeVar("_IR", covariant=True)
 
-class ConvertibleToIntegerRatio(Protocol[_IR]):
+class _ConvertibleToIntegerRatio(Protocol[_IR]):
     def as_integer_ratio(self) -> _IR: ...
 
 class Fraction(Rational):
