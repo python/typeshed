@@ -89,15 +89,21 @@ class _NamedFuncPointer(_FuncPointer):
     __name__: str
 
 def CFUNCTYPE(
-    restype: type[_CDataType] | None, *argtypes: type[_CDataType], use_errno: bool = ..., use_last_error: bool = ...
+    restype: type[_CData | _CDataType] | None,
+    *argtypes: type[_CData | _CDataType],
+    use_errno: bool = ...,
+    use_last_error: bool = ...,
 ) -> type[_FuncPointer]: ...
 
 if sys.platform == "win32":
     def WINFUNCTYPE(
-        restype: type[_CDataType] | None, *argtypes: type[_CDataType], use_errno: bool = ..., use_last_error: bool = ...
+        restype: type[_CData | _CDataType] | None,
+        *argtypes: type[_CData | _CDataType],
+        use_errno: bool = ...,
+        use_last_error: bool = ...,
     ) -> type[_FuncPointer]: ...
 
-def PYFUNCTYPE(restype: type[_CDataType] | None, *argtypes: type[_CDataType]) -> type[_FuncPointer]: ...
+def PYFUNCTYPE(restype: type[_CData | _CDataType] | None, *argtypes: type[_CData | _CDataType]) -> type[_FuncPointer]: ...
 
 # Any type that can be implicitly converted to c_void_p when passed as a C function argument.
 # (bytes is not included here, see below.)
@@ -110,7 +116,7 @@ _CVoidConstPLike: TypeAlias = _CVoidPLike | bytes
 
 _CastT = TypeVar("_CastT", bound=_CanCastTo)
 
-def cast(obj: _CDataType | _CArgObject | int, typ: type[_CastT]) -> _CastT: ...
+def cast(obj: _CData | _CDataType | _CArgObject | int, typ: type[_CastT]) -> _CastT: ...
 def create_string_buffer(init: int | bytes, size: int | None = None) -> Array[c_char]: ...
 
 c_buffer = create_string_buffer
