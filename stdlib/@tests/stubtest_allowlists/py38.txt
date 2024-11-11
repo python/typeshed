@@ -14,7 +14,7 @@ asyncio.transports.WriteTransport.get_write_buffer_limits  # Documented. Exists 
 asyncio.WriteTransport.get_write_buffer_limits  # Documented. Exists in subclasses, but not in WriteTransport itself
 builtins.float.__set_format__  # Internal method for CPython test suite
 builtins.input  # Incorrect default value in text signature, fixed in 3.10
-bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
+_?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
@@ -113,7 +113,7 @@ tkinter.Tcl
 tkinter.Tk.__init__
 
 # Exists at runtime, but missing from stubs
-contextvars.ContextVar.__class_getitem__
+_?contextvars.ContextVar.__class_getitem__
 datetime.datetime_CAPI
 dummy_threading.ExceptHookArgs
 dummy_threading.Lock
@@ -262,3 +262,7 @@ email._header_value_parser.SPECIALSNL
 email.errors.HeaderWriteError
 email.utils.getaddresses
 email.utils.parseaddr
+
+# Weird special builtins that are typed as functions, but aren't functions
+hashlib.sha3_\d+  # Class in 3.8, can't be subclassed at runtime, built-in function 3.9+
+hashlib.shake_\d+  # Class in 3.8, can't be subclassed at runtime, built-in function 3.9+

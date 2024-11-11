@@ -31,6 +31,7 @@ class InputSpec:
         axes: dict[int, int | None] | None = None,
         allow_last_axis_squeeze: bool = False,
         name: str | None = None,
+        optional: bool = False,
     ) -> None: ...
     def get_config(self) -> dict[str, Any]: ...
     @classmethod
@@ -384,6 +385,7 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
         activity_regularizer: _Regularizer | None = None,
         kernel_constraint: _Constraint | None = None,
         bias_constraint: _Constraint | None = None,
+        seed: int | None = None,
         *,
         # **kwargs passed to Layer
         trainable: bool = True,
