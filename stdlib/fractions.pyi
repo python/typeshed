@@ -20,10 +20,10 @@ else:
     @overload
     def gcd(a: Integral, b: Integral) -> Integral: ...
 
-_IR = TypeVar("_IR", covariant=True)
+_R_co = TypeVar("_R_co", covariant=True)
 
-class _ConvertibleToIntegerRatio(Protocol[_IR]):
-    def as_integer_ratio(self) -> _IR: ...
+class _ConvertibleToIntegerRatio(Protocol[_R_co]):
+    def as_integer_ratio(self) -> _R_co: ...
 
 class Fraction(Rational):
     @overload
