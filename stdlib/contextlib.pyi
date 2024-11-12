@@ -38,22 +38,22 @@ _P = ParamSpec("_P")
 _ExitFunc: TypeAlias = Callable[[type[BaseException] | None, BaseException | None, TracebackType | None], bool | None]
 _CM_EF = TypeVar("_CM_EF", bound=AbstractContextManager[Any, Any] | _ExitFunc)
 
-# mypy objects to this being both ABC and Protocol.
+# mypy and pyright object to this being both ABC and Protocol.
 # At runtime it inherits from ABC and is not a Protocol, but it is on the
 # allowlist for use as a Protocol.
 @runtime_checkable
-class AbstractContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ignore[misc]
+class AbstractContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     def __enter__(self) -> _T_co: ...
     @abstractmethod
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None, /
     ) -> _ExitT_co: ...
 
-# mypy objects to this being both ABC and Protocol.
+# mypy and pyright object to this being both ABC and Protocol.
 # At runtime it inherits from ABC and is not a Protocol, but it is on the
 # allowlist for use as a Protocol.
 @runtime_checkable
-class AbstractAsyncContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ignore[misc]
+class AbstractAsyncContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     async def __aenter__(self) -> _T_co: ...
     @abstractmethod
     async def __aexit__(
