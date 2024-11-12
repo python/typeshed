@@ -19,7 +19,7 @@ from _typeshed import (
     WriteableBuffer,
     structseq,
 )
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from builtins import OSError
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from contextlib import AbstractContextManager
@@ -413,8 +413,11 @@ In the future, this property will contain the last metadata change time."""
     # Attributes documented as sometimes appearing, but deliberately omitted from the stub: `st_creator`, `st_rsize`, `st_type`.
     # See https://github.com/python/typeshed/pull/6560#issuecomment-991253327
 
+# mypy objects to this being both ABC and Protocol.
+# At runtime it inherits from ABC and is not a Protocol, but it will be
+# on the allowlist for use as a Protocol starting in 3.14.
 @runtime_checkable
-class PathLike(Protocol[AnyStr_co]):
+class PathLike(ABC, Protocol[AnyStr_co]):  # type: ignore[misc]
     @abstractmethod
     def __fspath__(self) -> AnyStr_co: ...
 
