@@ -423,12 +423,6 @@ multiprocessing.managers.BaseListProxy.__len__
 multiprocessing.managers.BaseListProxy.__reversed__
 multiprocessing.managers.BaseListProxy.reverse
 multiprocessing.managers.BaseListProxy.sort
-multiprocessing.managers.DictProxy.__iter__
-multiprocessing.managers.DictProxy.__len__
-multiprocessing.managers.DictProxy.copy
-multiprocessing.managers.DictProxy.items
-multiprocessing.managers.DictProxy.keys
-multiprocessing.managers.DictProxy.values
 
 # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
 multiprocessing.managers.SyncManager.Event
