@@ -20,10 +20,8 @@ else:
     @overload
     def gcd(a: Integral, b: Integral) -> Integral: ...
 
-_R_co = TypeVar("_R_co", covariant=True)
-
-class _ConvertibleToIntegerRatio(Protocol[_R_co]):
-    def as_integer_ratio(self) -> _R_co: ...
+class _ConvertibleToIntegerRatio(Protocol):
+    def as_integer_ratio(self) -> tuple[int | Rational, int | Rational]: ...
 
 class Fraction(Rational):
     @overload
@@ -33,9 +31,7 @@ class Fraction(Rational):
 
     if sys.version_info >= (3, 14):
         @overload
-        def __new__(cls, value: _ConvertibleToIntegerRatio[tuple[int | Rational, int | Rational]]) -> Self: ...
-        @overload
-        def __new__(cls, value: _ConvertibleToIntegerRatio[Iterable[int | Rational]]) -> Self: ...
+        def __new__(cls, value: _ConvertibleToIntegerRatio) -> Self: ...
 
     @classmethod
     def from_float(cls, f: float) -> Self: ...
