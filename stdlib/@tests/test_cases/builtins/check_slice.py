@@ -1,5 +1,5 @@
 """
-- The type hint `slice` should be compatible with the **all slices**:
+- The type hint `slice` should be compatible with the *all slices*:
     - `slice(None)`, `slice(None, None)` and `slice(None, None, None)`. (⟿ `slice[?, ?, ?]`)
 - The type hint `slice[T]` should be compatible with:
     - `slice(None)`, `slice(None, None)` and `slice(None, None, None)` (⟿ `slice[?, ?, ?]`)
@@ -22,6 +22,7 @@
     - `slice(x, y, z)`  (⟿ `slice[X, Y, Z]`)
 """
 
+from datetime import datetime as DT, timedelta as TD
 from typing import Any, Union
 from typing_extensions import assert_type
 
@@ -113,3 +114,32 @@ assert_type(slice(1, None, None).start, int)
 
 assert_type(slice(None, None, 1).step, int)
 # endregion Tests for slice properties -------------------------------------------------
+
+# region Integration tests for slices with datetimes -----------------------------------
+start = DT(2021, 1, 1)
+stop = DT(2021, 1, 10)
+step = TD(days=1)
+
+
+class TimeSeries:  # similar to pandas.Series with datetime index
+    def __getitem__(self, key: "slice[DT | str | None, DT | str | None]") -> Any:
+        """Subsample the time series at the given dates."""
+        ...
+
+
+# see: https://pandas.pydata.org/docs/user_guide/timeseries.html#partial-string-indexing
+series = TimeSeries()
+_ = series["2022-01-01":"2022-01-10"]
+_ = series[start:stop]
+
+
+class TimeSeriesInterpolator:  # similar to pandas.Series with datetime index
+    def __getitem__(self, key: "slice[DT, DT, TD | None]") -> Any:
+        """Subsample the time series at the given dates."""
+        ...
+
+
+model = TimeSeriesInterpolator()
+_ = model[start:stop]
+_ = model[start:stop:step]
+# endregion Integration tests for slices with datetimes --------------------------------
