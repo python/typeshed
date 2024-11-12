@@ -1,4 +1,6 @@
 """
+Assuming X, Y and Z are types other than None, the following rules apply to the slice type:
+
 - The type hint `slice` should be compatible with the *all slices*:
     - `slice(None)`, `slice(None, None)` and `slice(None, None, None)`. (⟿ `slice[?, ?, ?]`)
 - The type hint `slice[T]` should be compatible with:
@@ -20,10 +22,16 @@
     - `slice(None, y, z)`   (⟿ `slice[?, Y, Z]`)
     - `slice(x, None, z)`   (⟿ `slice[X, ?, Z]`)
     - `slice(x, y, z)`  (⟿ `slice[X, Y, Z]`)
+
+Consistency criterion: Assuming now X, Y, Z can potentially be None, the following rules apply:
+
+- `slice(x)` must be compatible with `slice[None, X, None]`, even if X is None.
+- `slice(x, y)` must be compatible with `slice[X,Y,None]`, even if X is None or Y is None.
+- `slice(x, y, z)` must be compatible with `slice[X, Y, Z]`, even if X, Y, or Z are `None`.
 """
 
 from datetime import datetime as DT, timedelta as TD
-from typing import Any, Union
+from typing import Any
 from typing_extensions import assert_type
 
 # region Tests for slice constructor overloads -----------------------------------------
@@ -31,12 +39,12 @@ assert_type(slice(None), "slice[Any, Any, Any]")
 assert_type(slice(None, None), "slice[Any, Any, Any]")
 assert_type(slice(None, None, None), "slice[Any, Any, Any]")
 
-assert_type(slice(1), "slice[Union[int, Any], int, Any]")
-assert_type(slice(None, 1), "slice[Union[int, Any], int, Any]")
-assert_type(slice(None, 1, None), "slice[Union[int, Any], int, Any]")
+assert_type(slice(1), "slice[Any, int, Any]")
+assert_type(slice(None, 1), "slice[Any, int, Any]")
+assert_type(slice(None, 1, None), "slice[Any, int, Any]")
 
-assert_type(slice(1, None), "slice[int, Union[int, Any], Any]")
-assert_type(slice(1, None, None), "slice[int, Union[int, Any], Any]")
+assert_type(slice(1, None), "slice[int, Any, Any]")
+assert_type(slice(1, None, None), "slice[int, Any, Any]")
 
 assert_type(slice(1, 1), "slice[int, int, Any]")
 assert_type(slice(1, 1, None), "slice[int, int, Any]")
@@ -104,6 +112,27 @@ u12: "slice[int, int, int]" = slice(1, 1, None)
 u13: "slice[int, int, int]" = slice(1, 1, 1)
 # endregion Tests for slice[X, Y, Z] assignments ---------------------------------------
 
+# region Test for slice consistency criterion ------------------------------------------
+v0: "slice[None, None, None]" = slice(None)
+v1: "slice[None, None, None]" = slice(None, None)
+v2: "slice[None, None, None]" = slice(None, None, None)
+v3: "slice[None, None, int]" = slice(None, None, 1)
+
+v4: "slice[None, int, None]" = slice(1)
+v5: "slice[None, int, None]" = slice(None, 1)
+v6: "slice[None, int, None]" = slice(None, 1, None)
+v7: "slice[None, int, int]" = slice(None, 1, 1)
+
+v8: "slice[int, None, None]" = slice(1, None)
+v9: "slice[int, None, None]" = slice(1, None, None)
+v10: "slice[int, None, int]" = slice(1, None, 1)
+
+v11: "slice[int, int, None]" = slice(1, 1)
+v12: "slice[int, int, None]" = slice(1, 1, None)
+v13: "slice[int, int, int]" = slice(1, 1, 1)
+# endregion Test for slice consistency criterion ---------------------------------------
+
+
 # region Tests for slice properties ----------------------------------------------------
 assert_type(slice(1).stop, int)
 assert_type(slice(None, 1).stop, int)
@@ -134,19 +163,20 @@ start = DT(2021, 1, 1)
 stop = DT(2021, 1, 10)
 step = TD(days=1)
 # see: https://pandas.pydata.org/docs/user_guide/timeseries.html#partial-string-indexing
+# FIXME: https://github.com/python/mypy/issues/2410 (use literal slices)
 series = TimeSeries()
-series[slice(None, "2022-01-10")]
-series[slice("2022-01-01", None)]
-series[slice("2022-01-01", "2022-01-10")]
-series[slice(None, stop)]
-series[slice(start, None)]
-series[slice(start, stop)]
-series[slice()]
+_ = series[slice(None, "2022-01-10")]
+_ = series[slice("2022-01-01", None)]
+_ = series[slice("2022-01-01", "2022-01-10")]
+_ = series[slice(None, stop)]
+_ = series[slice(start, None)]
+_ = series[slice(start, stop)]
+_ = series[slice(None)]
 
 model = TimeSeriesInterpolator()
-model[slice(start, stop)]
-model[slice(start, stop, step)]
-model[slice(start, stop, None)]
+_ = model[slice(start, stop)]
+_ = model[slice(start, stop, step)]
+_ = model[slice(start, stop, None)]
 
 
 # test slices as a return type
