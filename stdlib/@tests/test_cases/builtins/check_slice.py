@@ -1,7 +1,7 @@
 """
 Assuming X, Y and Z are types other than None, the following rules apply to the slice type:
 
-- The type hint `slice` should be compatible with the *all slices*:
+- The type hint `slice` should be compatible with all slices, including:
     - `slice(None)`, `slice(None, None)` and `slice(None, None, None)`. (⟿ `slice[?, ?, ?]`)
 - The type hint `slice[T]` should be compatible with:
     - `slice(None)`, `slice(None, None)` and `slice(None, None, None)` (⟿ `slice[?, ?, ?]`)
@@ -52,88 +52,138 @@ assert_type(slice(1, 1, None), "slice[int, int, Any]")
 assert_type(slice(1, 1, 1), "slice[int, int, int]")
 # endregion Tests for slice constructor overloads --------------------------------------
 
+# region Test for slice assignments ----------------------------------------------------
+# exhaustively test all possible assignments: miss (X), None (N), int (I), and str (S)
+rXNX: slice = slice(None)
+rXIX: slice = slice(1)
+rXSX: slice = slice("1970-01-01")
+
+rNNX: slice = slice(None, None)
+rINX: slice = slice(1, None)
+rSNX: slice = slice("1970-01-01", None)
+
+rNIX: slice = slice(None, 2)
+rIIX: slice = slice(1, 2)
+rSIX: slice = slice("1970-01-01", 2)
+
+rNSX: slice = slice(None, "1971-01-01")
+rISX: slice = slice(1, "1971-01-01")
+rSSX: slice = slice("1970-01-01", "1971-01-01")
+
+rNNN: slice = slice(None, None, None)
+rINN: slice = slice(1, None, None)
+rSNN: slice = slice("1970-01-01", None, None)
+rNIN: slice = slice(None, 2, None)
+rIIN: slice = slice(1, 2, None)
+rSIN: slice = slice("1970-01-01", 2, None)
+rNSN: slice = slice(None, "1971-01-01", None)
+rISN: slice = slice(1, "1971-01-01", None)
+rSSN: slice = slice("1970-01-01", "1971-01-01", None)
+
+rNNI: slice = slice(None, None, 3)
+rINI: slice = slice(1, None, 3)
+rSNI: slice = slice("1970-01-01", None, 3)
+rNII: slice = slice(None, 2, 3)
+rIII: slice = slice(1, 2, 3)
+rSII: slice = slice("1970-01-01", 2, 3)
+rNSI: slice = slice(None, "1971-01-01", 3)
+rISI: slice = slice(1, "1971-01-01", 3)
+rSSI: slice = slice("1970-01-01", "1971-01-01", 3)
+
+rNNS: slice = slice(None, None, "1d")
+rINS: slice = slice(1, None, "1d")
+rSNS: slice = slice("1970-01-01", None, "1d")
+rNIS: slice = slice(None, 2, "1d")
+rIIS: slice = slice(1, 2, "1d")
+rSIS: slice = slice("1970-01-01", 2, "1d")
+rNSS: slice = slice(None, "1971-01-01", "1d")
+rISS: slice = slice(1, "1971-01-01", "1d")
+rSSS: slice = slice("1970-01-01", "1971-01-01", "1d")
+# endregion Test for slice assignments -------------------------------------------------
+
+
 # region Tests for slice[T] assignments ------------------------------------------------
-s0: "slice[int]" = slice(None)
-s1: "slice[int]" = slice(None, None)
-s2: "slice[int]" = slice(None, None, None)
-s3: "slice[int]" = slice(None, None, "foo")
+sXNX: "slice[int]" = slice(None)
+sXIX: "slice[int]" = slice(1)
 
-s4: "slice[int]" = slice(1)
-s5: "slice[int]" = slice(None, 1)
-s6: "slice[int]" = slice(None, 1, None)
-s7: "slice[int]" = slice(1, None, "foo")
+sNNX: "slice[int]" = slice(None, None)
+sNIX: "slice[int]" = slice(None, 2)
+sINX: "slice[int]" = slice(1, None)
+sIIX: "slice[int]" = slice(1, 2)
 
-s8: "slice[int]" = slice(1, None)
-s9: "slice[int]" = slice(1, None, None)
-s10: "slice[int]" = slice(1, None, "foo")
-
-s11: "slice[int]" = slice(1, 1)
-s12: "slice[int]" = slice(1, 1, None)
-s13: "slice[int]" = slice(1, 1, "foo")
+sNNN: "slice[int]" = slice(None, None, None)
+sNIN: "slice[int]" = slice(None, 2, None)
+sNNS: "slice[int]" = slice(None, None, "1d")
+sINN: "slice[int]" = slice(1, None, None)
+sINS: "slice[int]" = slice(1, None, "1d")
+sIIN: "slice[int]" = slice(1, 2, None)
+sIIS: "slice[int]" = slice(1, 2, "1d")
 # endregion Tests for slice[T] assignments ---------------------------------------------
 
+
 # region Tests for slice[X, Y] assignments ---------------------------------------------
-t0: "slice[int, int]" = slice(None)
-t1: "slice[int, int]" = slice(None, None)
-t2: "slice[int, int]" = slice(None, None, None)
-t3: "slice[int, int]" = slice(None, None, "foo")
+# Note: start=int is illegal and hence we add an explicit "type: ignore" comment.
+tXNX: "slice[None, int]" = slice(None)  # since slice(None) is slice[Any, Any, Any]
+tXIX: "slice[None, int]" = slice(1)
 
-t4: "slice[int, int]" = slice(1)
-t5: "slice[int, int]" = slice(None, 1)
-t6: "slice[int, int]" = slice(None, 1, None)
-t7: "slice[int, int]" = slice(1, None, "foo")
+tNNX: "slice[None, int]" = slice(None, None)
+tNIX: "slice[None, int]" = slice(None, 2)
+tINX: "slice[None, int]" = slice(1, None)  # type: ignore
+tIIX: "slice[None, int]" = slice(1, 2)  # type: ignore
 
-t8: "slice[int, int]" = slice(1, None)
-t9: "slice[int, int]" = slice(1, None, None)
-t10: "slice[int, int]" = slice(1, None, "foo")
-
-t11: "slice[int, int]" = slice(1, 1)
-t12: "slice[int, int]" = slice(1, 1, None)
-t13: "slice[int, int]" = slice(1, 1, "foo")
+tNNN: "slice[None, int]" = slice(None, None, None)
+tNIN: "slice[None, int]" = slice(None, 2, None)
+tINN: "slice[None, int]" = slice(1, None, None)  # type: ignore
+tIIN: "slice[None, int]" = slice(1, 2, None)  # type: ignore
+tNNS: "slice[None, int]" = slice(None, None, "1d")
+tINS: "slice[None, int]" = slice(None, 2, "1d")
+tNIS: "slice[None, int]" = slice(1, None, "1d")  # type: ignore
+tIIS: "slice[None, int]" = slice(1, 2, "1d")  # type: ignore
 # endregion Tests for slice[X, Y] assignments ------------------------------------------
 
+
 # region Tests for slice[X, Y, Z] assignments ------------------------------------------
-u0: "slice[int, int, int]" = slice(None)
-u1: "slice[int, int, int]" = slice(None, None)
-u2: "slice[int, int, int]" = slice(None, None, None)
-u3: "slice[int, int, int]" = slice(None, None, 1)
+uXNX: "slice[int, int, int]" = slice(None)
+uXIX: "slice[int, int, int]" = slice(1)
 
-u4: "slice[int, int, int]" = slice(1)
-u5: "slice[int, int, int]" = slice(None, 1)
-u6: "slice[int, int, int]" = slice(None, 1, None)
-u7: "slice[int, int, int]" = slice(None, 1, 1)
+uNNX: "slice[int, int, int]" = slice(None, None)
+uNIX: "slice[int, int, int]" = slice(None, 2)
+uINX: "slice[int, int, int]" = slice(1, None)
+uIIX: "slice[int, int, int]" = slice(1, 2)
 
-u8: "slice[int, int, int]" = slice(1, None)
-u9: "slice[int, int, int]" = slice(1, None, None)
-u10: "slice[int, int, int]" = slice(1, None, 1)
-
-u11: "slice[int, int, int]" = slice(1, 1)
-u12: "slice[int, int, int]" = slice(1, 1, None)
-u13: "slice[int, int, int]" = slice(1, 1, 1)
+uNNN: "slice[int, int, int]" = slice(None, None, None)
+uNNI: "slice[int, int, int]" = slice(None, None, 3)
+uNIN: "slice[int, int, int]" = slice(None, 2, None)
+uNII: "slice[int, int, int]" = slice(None, 2, 3)
+uINN: "slice[int, int, int]" = slice(1, None, None)
+uINI: "slice[int, int, int]" = slice(1, None, 3)
+uIIN: "slice[int, int, int]" = slice(1, 2, None)
+uIII: "slice[int, int, int]" = slice(1, 2, 3)
 # endregion Tests for slice[X, Y, Z] assignments ---------------------------------------
 
+
 # region Test for slice consistency criterion ------------------------------------------
-v0: "slice[None, None, None]" = slice(None)
-v1: "slice[None, None, None]" = slice(None, None)
-v2: "slice[None, None, None]" = slice(None, None, None)
-v3: "slice[None, None, int]" = slice(None, None, 1)
+vXNX: "slice[None, None, None]" = slice(None)
+vXIX: "slice[None, int, None]" = slice(1)
 
-v4: "slice[None, int, None]" = slice(1)
-v5: "slice[None, int, None]" = slice(None, 1)
-v6: "slice[None, int, None]" = slice(None, 1, None)
-v7: "slice[None, int, int]" = slice(None, 1, 1)
+vNNX: "slice[None, None, None]" = slice(None, None)
+vNIX: "slice[None, int, None]" = slice(None, 2)
+vINX: "slice[int, None, None]" = slice(1, None)
+vIIX: "slice[int, int, None]" = slice(1, 2)
 
-v8: "slice[int, None, None]" = slice(1, None)
-v9: "slice[int, None, None]" = slice(1, None, None)
-v10: "slice[int, None, int]" = slice(1, None, 1)
-
-v11: "slice[int, int, None]" = slice(1, 1)
-v12: "slice[int, int, None]" = slice(1, 1, None)
-v13: "slice[int, int, int]" = slice(1, 1, 1)
+vNNN: "slice[None, None, None]" = slice(None, None, None)
+vNNI: "slice[None, None, int]" = slice(None, None, 3)
+vNIN: "slice[None, int, None]" = slice(None, 2, None)
+vNII: "slice[None, int, int]" = slice(None, 2, 3)
+vINN: "slice[int, None, None]" = slice(1, None, None)
+vINI: "slice[int, None, int]" = slice(1, None, 3)
+vIIN: "slice[int, int, None]" = slice(1, 2, None)
+vIII: "slice[int, int, int]" = slice(1, 2, 3)
 # endregion Test for slice consistency criterion ---------------------------------------
 
 
 # region Tests for slice properties ----------------------------------------------------
+# Note: if an argument is not None, we should get precisely the same type back
 assert_type(slice(1).stop, int)
 assert_type(slice(None, 1).stop, int)
 assert_type(slice(None, 1, None).stop, int)
@@ -159,15 +209,15 @@ class TimeSeriesInterpolator:  # similar to pandas.Series with datetime index
 
 
 # tests slices as an argument
-start = DT(2021, 1, 1)
-stop = DT(2021, 1, 10)
+start = DT(1970, 1, 1)
+stop = DT(1971, 1, 10)
 step = TD(days=1)
 # see: https://pandas.pydata.org/docs/user_guide/timeseries.html#partial-string-indexing
 # FIXME: https://github.com/python/mypy/issues/2410 (use literal slices)
 series = TimeSeries()
-_ = series[slice(None, "2022-01-10")]
-_ = series[slice("2022-01-01", None)]
-_ = series[slice("2022-01-01", "2022-01-10")]
+_ = series[slice(None, "1970-01-10")]
+_ = series[slice("1970-01-01", None)]
+_ = series[slice("1970-01-01", "1971-01-10")]
 _ = series[slice(None, stop)]
 _ = series[slice(start, None)]
 _ = series[slice(start, stop)]
