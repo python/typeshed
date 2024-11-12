@@ -115,22 +115,12 @@ assert_type(slice(1, None, None).start, int)
 assert_type(slice(None, None, 1).step, int)
 # endregion Tests for slice properties -------------------------------------------------
 
+
 # region Integration tests for slices with datetimes -----------------------------------
-start = DT(2021, 1, 1)
-stop = DT(2021, 1, 10)
-step = TD(days=1)
-
-
 class TimeSeries:  # similar to pandas.Series with datetime index
     def __getitem__(self, key: "slice[DT | str | None, DT | str | None]") -> Any:
         """Subsample the time series at the given dates."""
         ...
-
-
-# see: https://pandas.pydata.org/docs/user_guide/timeseries.html#partial-string-indexing
-series = TimeSeries()
-_ = series["2022-01-01":"2022-01-10"]
-_ = series[start:stop]
 
 
 class TimeSeriesInterpolator:  # similar to pandas.Series with datetime index
@@ -139,7 +129,31 @@ class TimeSeriesInterpolator:  # similar to pandas.Series with datetime index
         ...
 
 
+# tests slices as an argument
+start = DT(2021, 1, 1)
+stop = DT(2021, 1, 10)
+step = TD(days=1)
+# see: https://pandas.pydata.org/docs/user_guide/timeseries.html#partial-string-indexing
+series = TimeSeries()
+_ = series[None:"2022-01-10"]
+_ = series["2022-01-01":None]
+_ = series["2022-01-01":"2022-01-10"]
+_ = series[None:stop]
+_ = series[start:None]
+_ = series[start:stop]
+_ = series[:]
 model = TimeSeriesInterpolator()
 _ = model[start:stop]
 _ = model[start:stop:step]
+_ = model[start:stop:None]
+
+
+# test slices as a return type
+def foo(flag: bool, value: DT) -> "slice[DT, None] | slice[None, DT]":
+    if flag:
+        return slice(value, None)  # slice[DT, DT|Any, Any] incompatible
+    else:
+        return slice(None, value)  # slice[DT|Any, DT, Any] incompatible
+
+
 # endregion Integration tests for slices with datetimes --------------------------------
