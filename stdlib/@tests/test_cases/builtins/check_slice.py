@@ -135,17 +135,18 @@ stop = DT(2021, 1, 10)
 step = TD(days=1)
 # see: https://pandas.pydata.org/docs/user_guide/timeseries.html#partial-string-indexing
 series = TimeSeries()
-_ = series[None:"2022-01-10"]
-_ = series["2022-01-01":None]
-_ = series["2022-01-01":"2022-01-10"]
-_ = series[None:stop]
-_ = series[start:None]
-_ = series[start:stop]
-_ = series[:]
+series[slice(None, "2022-01-10")]
+series[slice("2022-01-01", None)]
+series[slice("2022-01-01", "2022-01-10")]
+series[slice(None, stop)]
+series[slice(start, None)]
+series[slice(start, stop)]
+series[slice()]
+
 model = TimeSeriesInterpolator()
-_ = model[start:stop]
-_ = model[start:stop:step]
-_ = model[start:stop:None]
+model[slice(start, stop)]
+model[slice(start, stop, step)]
+model[slice(start, stop, None)]
 
 
 # test slices as a return type
