@@ -13,13 +13,13 @@ import sys
 import tempfile
 from pathlib import Path
 
-from _utils import MYPY_PROTOBUF_VERSION, REPO_ROOT, download_file, extract_archive, run_protoc, update_metadata
+from _utils import MYPY_PROTOBUF_VERSION, download_file, extract_archive, run_protoc
+from ts_utils.metadata import read_metadata, update_metadata
+from ts_utils.paths import distribution_path
 
-# Whenever you update PACKAGE_VERSION here, version should be updated
-# in stubs/tensorflow/METADATA.toml and vice-versa.
-PACKAGE_VERSION = "2.17.0"
+PACKAGE_VERSION = read_metadata("tensorflow").version_spec.version
 
-STUBS_FOLDER = REPO_ROOT / "stubs" / "tensorflow"
+STUBS_FOLDER = distribution_path("tensorflow").absolute()
 ARCHIVE_FILENAME = f"v{PACKAGE_VERSION}.zip"
 ARCHIVE_URL = f"https://github.com/tensorflow/tensorflow/archive/refs/tags/{ARCHIVE_FILENAME}"
 EXTRACTED_PACKAGE_DIR = f"tensorflow-{PACKAGE_VERSION}"
@@ -53,17 +53,20 @@ TSL_IMPORT_PATTERN = re.compile(r"(\[|\s)tsl\.")
 XLA_IMPORT_PATTERN = re.compile(r"(\[|\s)xla\.")
 
 
+def move_tree(source: Path, destination: Path) -> None:
+    """Move directory and merge if destination already exists.
+
+    Can't use shutil.move because it can't merge existing directories."""
+    print(f"Moving '{source}' to '{destination}'")
+    shutil.copytree(source, destination, dirs_exist_ok=True)
+    shutil.rmtree(source)
+
+
 def post_creation() -> None:
     """Move third-party and fix imports"""
-    # Can't use shutil.move because it can't merge existing directories.
     print()
-    print(f"Moving '{STUBS_FOLDER}/tsl' to '{STUBS_FOLDER}/tensorflow/tsl'")
-    shutil.copytree(f"{STUBS_FOLDER}/tsl", f"{STUBS_FOLDER}/tensorflow/tsl", dirs_exist_ok=True)
-    shutil.rmtree(f"{STUBS_FOLDER}/tsl")
-
-    print(f"Moving '{STUBS_FOLDER}/xla' to '{STUBS_FOLDER}/tensorflow/compiler/xla'")
-    shutil.copytree(f"{STUBS_FOLDER}/xla", f"{STUBS_FOLDER}/tensorflow/compiler/xla", dirs_exist_ok=True)
-    shutil.rmtree(f"{STUBS_FOLDER}/xla")
+    move_tree(STUBS_FOLDER / "tsl", STUBS_FOLDER / "tensorflow" / "tsl")
+    move_tree(STUBS_FOLDER / "xla", STUBS_FOLDER / "tensorflow" / "compiler" / "xla")
 
     for path in STUBS_FOLDER.rglob("*_pb2.pyi"):
         print(f"Fixing imports in '{path}'")
@@ -106,6 +109,7 @@ def main() -> None:
         proto_globs=(
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/*.proto",
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/service/*.proto",
+            f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/xla/tsl/protobuf/*.proto",
             f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/example/*.proto",
             f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/framework/*.proto",
             f"{EXTRACTED_PACKAGE_DIR}/tensorflow/core/protobuf/*.proto",
@@ -123,11 +127,12 @@ def main() -> None:
     post_creation()
 
     update_metadata(
-        STUBS_FOLDER,
-        f"""Partially generated using \
+        "tensorflow",
+        extra_description=f"""Partially generated using \
 [mypy-protobuf=={MYPY_PROTOBUF_VERSION}](https://github.com/nipunn1313/mypy-protobuf/tree/v{MYPY_PROTOBUF_VERSION}) \
 and {PROTOC_VERSION} on `tensorflow=={PACKAGE_VERSION}`.""",
     )
+    print("Updated tensorflow/METADATA.toml")
 
     # Run pre-commit to cleanup the stubs
     subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")))

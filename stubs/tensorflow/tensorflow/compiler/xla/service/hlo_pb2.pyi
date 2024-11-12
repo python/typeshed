@@ -219,7 +219,7 @@ global___Kind = Kind
 @typing.final
 class HloInstructionProto(google.protobuf.message.Message):
     """Serialization of HloInstruction.
-    Next ID: 87
+    Next ID: 90
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -316,6 +316,9 @@ class HloInstructionProto(google.protobuf.message.Message):
     LARGEST_FIELD_NUMBER: builtins.int
     STATISTICS_VIZ_FIELD_NUMBER: builtins.int
     DOT_SPARSITY_FIELD_NUMBER: builtins.int
+    COLLECTIVE_DEVICE_LIST_FIELD_NUMBER: builtins.int
+    ORIGINAL_VALUE_FIELD_NUMBER: builtins.int
+    IS_COMPOSITE_FIELD_NUMBER: builtins.int
     name: builtins.str
     opcode: builtins.str
     parameter_number: builtins.int
@@ -433,6 +436,8 @@ class HloInstructionProto(google.protobuf.message.Message):
     """Represents the K value for top-k."""
     largest: builtins.bool
     """Represents the largest flag for top-k."""
+    is_composite: builtins.bool
+    """Specifies if a call instruction is a composite."""
     @property
     def shape(self) -> tensorflow.compiler.xla.xla_data_pb2.ShapeProto: ...
     @property
@@ -497,7 +502,9 @@ class HloInstructionProto(google.protobuf.message.Message):
     def sharding(self) -> tensorflow.compiler.xla.xla_data_pb2.OpSharding: ...
     @property
     def replica_groups(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.ReplicaGroup]:
-        """Cross replica op fields."""
+        """Deprecated, but keeping for backward compatibility.
+        Use collective_device_list. Cross replica op fields.
+        """
 
     @property
     def scatter_dimension_numbers(self) -> tensorflow.compiler.xla.xla_data_pb2.ScatterDimensionNumbers: ...
@@ -548,6 +555,14 @@ class HloInstructionProto(google.protobuf.message.Message):
     @property
     def dot_sparsity(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.compiler.xla.xla_data_pb2.SparsityDescriptor]:
         """Sparsity descriptor for dot operation."""
+
+    @property
+    def collective_device_list(self) -> tensorflow.compiler.xla.xla_data_pb2.CollectiveDeviceListProto:
+        """Represents the list of devices that participate in a collective operation."""
+
+    @property
+    def original_value(self) -> tensorflow.compiler.xla.xla_data_pb2.OriginalValueProto:
+        """For HLO value tracking."""
 
     def __init__(
         self,
@@ -623,9 +638,12 @@ class HloInstructionProto(google.protobuf.message.Message):
         largest: builtins.bool | None = ...,
         statistics_viz: tensorflow.compiler.xla.xla_data_pb2.StatisticsViz | None = ...,
         dot_sparsity: collections.abc.Iterable[tensorflow.compiler.xla.xla_data_pb2.SparsityDescriptor] | None = ...,
+        collective_device_list: tensorflow.compiler.xla.xla_data_pb2.CollectiveDeviceListProto | None = ...,
+        original_value: tensorflow.compiler.xla.xla_data_pb2.OriginalValueProto | None = ...,
+        is_composite: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["cholesky_options", b"cholesky_options", "convolution_dimension_numbers", b"convolution_dimension_numbers", "cross_program_prefetch_index", b"cross_program_prefetch_index", "domain_entry_sharding", b"domain_entry_sharding", "domain_exit_sharding", b"domain_exit_sharding", "dot_dimension_numbers", b"dot_dimension_numbers", "frontend_attributes", b"frontend_attributes", "gather_dimension_numbers", b"gather_dimension_numbers", "literal", b"literal", "metadata", b"metadata", "optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index", "outfeed_shape", b"outfeed_shape", "padding_config", b"padding_config", "parameter_replication", b"parameter_replication", "precision_config", b"precision_config", "scatter_dimension_numbers", b"scatter_dimension_numbers", "shape", b"shape", "sharding", b"sharding", "statistics_viz", b"statistics_viz", "triangular_solve_options", b"triangular_solve_options", "window", b"window"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["all_reduce_id", b"all_reduce_id", "async_execution_thread", b"async_execution_thread", "backend_config", b"backend_config", "batch_group_count", b"batch_group_count", "called_computation_ids", b"called_computation_ids", "channel_id", b"channel_id", "cholesky_options", b"cholesky_options", "comparison_direction", b"comparison_direction", "comparison_type", b"comparison_type", "constrain_layout", b"constrain_layout", "control_predecessor_ids", b"control_predecessor_ids", "convolution_dimension_numbers", b"convolution_dimension_numbers", "cross_program_prefetch_index", b"cross_program_prefetch_index", "custom_call_api_version", b"custom_call_api_version", "custom_call_has_side_effect", b"custom_call_has_side_effect", "custom_call_schedule", b"custom_call_schedule", "custom_call_target", b"custom_call_target", "delta", b"delta", "dimensions", b"dimensions", "distribution", b"distribution", "domain_entry_sharding", b"domain_entry_sharding", "domain_exit_sharding", b"domain_exit_sharding", "dot_dimension_numbers", b"dot_dimension_numbers", "dot_sparsity", b"dot_sparsity", "dynamic_slice_sizes", b"dynamic_slice_sizes", "epsilon", b"epsilon", "exponent_bits", b"exponent_bits", "feature_group_count", b"feature_group_count", "feature_index", b"feature_index", "fft_length", b"fft_length", "fft_type", b"fft_type", "frontend_attributes", b"frontend_attributes", "fusion_kind", b"fusion_kind", "gather_dimension_numbers", b"gather_dimension_numbers", "gather_slice_sizes", b"gather_slice_sizes", "id", b"id", "indices_are_sorted", b"indices_are_sorted", "infeed_config", b"infeed_config", "is_cross_program_prefetch", b"is_cross_program_prefetch", "is_host_transfer", b"is_host_transfer", "is_stable", b"is_stable", "k", b"k", "largest", b"largest", "literal", b"literal", "mantissa_bits", b"mantissa_bits", "metadata", b"metadata", "name", b"name", "opcode", b"opcode", "operand_ids", b"operand_ids", "operand_shapes_with_layout", b"operand_shapes_with_layout", "optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index", "outfeed_config", b"outfeed_config", "outfeed_shape", b"outfeed_shape", "output_operand_aliasing", b"output_operand_aliasing", "padding_config", b"padding_config", "padding_type", b"padding_type", "parameter_number", b"parameter_number", "parameter_replication", b"parameter_replication", "precision_config", b"precision_config", "replica_groups", b"replica_groups", "rng_algorithm", b"rng_algorithm", "scatter_dimension_numbers", b"scatter_dimension_numbers", "shape", b"shape", "sharding", b"sharding", "slice_dimensions", b"slice_dimensions", "source_target_pairs", b"source_target_pairs", "statistics_viz", b"statistics_viz", "triangular_solve_options", b"triangular_solve_options", "tuple_index", b"tuple_index", "unique_indices", b"unique_indices", "use_global_device_ids", b"use_global_device_ids", "window", b"window"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["cholesky_options", b"cholesky_options", "collective_device_list", b"collective_device_list", "convolution_dimension_numbers", b"convolution_dimension_numbers", "cross_program_prefetch_index", b"cross_program_prefetch_index", "domain_entry_sharding", b"domain_entry_sharding", "domain_exit_sharding", b"domain_exit_sharding", "dot_dimension_numbers", b"dot_dimension_numbers", "frontend_attributes", b"frontend_attributes", "gather_dimension_numbers", b"gather_dimension_numbers", "literal", b"literal", "metadata", b"metadata", "optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index", "original_value", b"original_value", "outfeed_shape", b"outfeed_shape", "padding_config", b"padding_config", "parameter_replication", b"parameter_replication", "precision_config", b"precision_config", "scatter_dimension_numbers", b"scatter_dimension_numbers", "shape", b"shape", "sharding", b"sharding", "statistics_viz", b"statistics_viz", "triangular_solve_options", b"triangular_solve_options", "window", b"window"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["all_reduce_id", b"all_reduce_id", "async_execution_thread", b"async_execution_thread", "backend_config", b"backend_config", "batch_group_count", b"batch_group_count", "called_computation_ids", b"called_computation_ids", "channel_id", b"channel_id", "cholesky_options", b"cholesky_options", "collective_device_list", b"collective_device_list", "comparison_direction", b"comparison_direction", "comparison_type", b"comparison_type", "constrain_layout", b"constrain_layout", "control_predecessor_ids", b"control_predecessor_ids", "convolution_dimension_numbers", b"convolution_dimension_numbers", "cross_program_prefetch_index", b"cross_program_prefetch_index", "custom_call_api_version", b"custom_call_api_version", "custom_call_has_side_effect", b"custom_call_has_side_effect", "custom_call_schedule", b"custom_call_schedule", "custom_call_target", b"custom_call_target", "delta", b"delta", "dimensions", b"dimensions", "distribution", b"distribution", "domain_entry_sharding", b"domain_entry_sharding", "domain_exit_sharding", b"domain_exit_sharding", "dot_dimension_numbers", b"dot_dimension_numbers", "dot_sparsity", b"dot_sparsity", "dynamic_slice_sizes", b"dynamic_slice_sizes", "epsilon", b"epsilon", "exponent_bits", b"exponent_bits", "feature_group_count", b"feature_group_count", "feature_index", b"feature_index", "fft_length", b"fft_length", "fft_type", b"fft_type", "frontend_attributes", b"frontend_attributes", "fusion_kind", b"fusion_kind", "gather_dimension_numbers", b"gather_dimension_numbers", "gather_slice_sizes", b"gather_slice_sizes", "id", b"id", "indices_are_sorted", b"indices_are_sorted", "infeed_config", b"infeed_config", "is_composite", b"is_composite", "is_cross_program_prefetch", b"is_cross_program_prefetch", "is_host_transfer", b"is_host_transfer", "is_stable", b"is_stable", "k", b"k", "largest", b"largest", "literal", b"literal", "mantissa_bits", b"mantissa_bits", "metadata", b"metadata", "name", b"name", "opcode", b"opcode", "operand_ids", b"operand_ids", "operand_shapes_with_layout", b"operand_shapes_with_layout", "optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index", "original_value", b"original_value", "outfeed_config", b"outfeed_config", "outfeed_shape", b"outfeed_shape", "output_operand_aliasing", b"output_operand_aliasing", "padding_config", b"padding_config", "padding_type", b"padding_type", "parameter_number", b"parameter_number", "parameter_replication", b"parameter_replication", "precision_config", b"precision_config", "replica_groups", b"replica_groups", "rng_algorithm", b"rng_algorithm", "scatter_dimension_numbers", b"scatter_dimension_numbers", "shape", b"shape", "sharding", b"sharding", "slice_dimensions", b"slice_dimensions", "source_target_pairs", b"source_target_pairs", "statistics_viz", b"statistics_viz", "triangular_solve_options", b"triangular_solve_options", "tuple_index", b"tuple_index", "unique_indices", b"unique_indices", "use_global_device_ids", b"use_global_device_ids", "window", b"window"]) -> None: ...
     def WhichOneof(self, oneof_group: typing.Literal["optional_cross_program_prefetch_index", b"optional_cross_program_prefetch_index"]) -> typing.Literal["cross_program_prefetch_index"] | None: ...
 
 global___HloInstructionProto = HloInstructionProto
@@ -980,6 +998,7 @@ class HloModuleProto(google.protobuf.message.Message):
         FUSION: HloModuleProto._ProfileType.ValueType  # 2
         LAYOUT: HloModuleProto._ProfileType.ValueType  # 3
         DOT: HloModuleProto._ProfileType.ValueType  # 4
+        FLAGNET: HloModuleProto._ProfileType.ValueType  # 5
 
     class ProfileType(_ProfileType, metaclass=_ProfileTypeEnumTypeWrapper):
         """The type of optimization profile in use for module-level optimizations."""
@@ -989,6 +1008,7 @@ class HloModuleProto(google.protobuf.message.Message):
     FUSION: HloModuleProto.ProfileType.ValueType  # 2
     LAYOUT: HloModuleProto.ProfileType.ValueType  # 3
     DOT: HloModuleProto.ProfileType.ValueType  # 4
+    FLAGNET: HloModuleProto.ProfileType.ValueType  # 5
 
     @typing.final
     class ProfileInfo(google.protobuf.message.Message):
@@ -1604,35 +1624,3 @@ class HloPassMetadata(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["custom_metadata", b"custom_metadata", "dump_filenames", b"dump_filenames", "end_timestamp_usec", b"end_timestamp_usec", "module_changed", b"module_changed", "module_group_module_ids", b"module_group_module_ids", "module_id", b"module_id", "pass_id", b"pass_id", "pass_name", b"pass_name", "pipeline_name", b"pipeline_name", "start_timestamp_usec", b"start_timestamp_usec"]) -> None: ...
 
 global___HloPassMetadata = HloPassMetadata
-
-@typing.final
-class XlaRuntimeExecutableProto(google.protobuf.message.Message):
-    """Encodes the underlying Xla runtime executable compiled from the XLA module."""
-
-    DESCRIPTOR: google.protobuf.descriptor.Descriptor
-
-    HLO_MODULE_PROTO_FIELD_NUMBER: builtins.int
-    OBJ_FILE_FIELD_NUMBER: builtins.int
-    MLIR_MODULE_FIELD_NUMBER: builtins.int
-    obj_file: builtins.bytes
-    """TODO(b/232263665)): Serialized executable has to know what APIs it has to
-    be linked with, including the version. For example Gpu executable must be
-    linked with a runtime layer that abstracts over CUDA.
-
-    Serialized object file compiled from the XLA module.
-    """
-    mlir_module: builtins.str
-    """Serialized MLIR module corresponding to compiled object file."""
-    @property
-    def hlo_module_proto(self) -> global___HloModuleProto: ...
-    def __init__(
-        self,
-        *,
-        hlo_module_proto: global___HloModuleProto | None = ...,
-        obj_file: builtins.bytes | None = ...,
-        mlir_module: builtins.str | None = ...,
-    ) -> None: ...
-    def HasField(self, field_name: typing.Literal["hlo_module_proto", b"hlo_module_proto"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["hlo_module_proto", b"hlo_module_proto", "mlir_module", b"mlir_module", "obj_file", b"obj_file"]) -> None: ...
-
-global___XlaRuntimeExecutableProto = XlaRuntimeExecutableProto

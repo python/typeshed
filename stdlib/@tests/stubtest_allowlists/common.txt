@@ -4,7 +4,6 @@
 
 # Please keep sorted alphabetically
 
-_asyncio.Future.__init__  # Usually initialized from c object
 _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
@@ -13,19 +12,10 @@ _collections_abc.ItemsView.__reversed__
 _collections_abc.KeysView.__reversed__
 _collections_abc.ValuesView.__reversed__
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
-_threading_local.local.__new__
-ast.Bytes.__new__
-ast.Ellipsis.__new__
-ast.NameConstant.__new__
-ast.Num.__new__
-ast.Str.__new__
 asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
-asyncio.Future.__init__  # Usually initialized from c object
-asyncio.futures.Future.__init__  # Usually initialized from c object
 builtins.dict.get
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
-collections\.UserList\.sort  # Runtime has *args but will error if any are supplied
 configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
 # SectionProxy get functions are set in __init__
 configparser.SectionProxy.getboolean
@@ -45,36 +35,9 @@ hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPStatus.description  # set in __new__
 http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
-importlib.abc.FileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
-importlib.abc.FileLoader.load_module  # Wrapped with _check_name decorator which changes runtime signature
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
-importlib.machinery.ExtensionFileLoader.get_filename  # Wrapped with _check_name decorator which changes runtime signature
-io.BufferedRandom.truncate
-io.BufferedReader.seek
-io.BufferedReader.truncate
-io.BufferedWriter.seek
-io.BufferedWriter.truncate
-io.BytesIO.readlines
-io.BytesIO.seek  # Parameter name for a positional-only param differs from its name in the inherited method
-io.FileIO.seek
-io.StringIO.seek
-io.StringIO.truncate
-io.TextIOWrapper.truncate
-_io.BufferedRandom.truncate
-_io.BufferedReader.seek
-_io.BufferedReader.truncate
-_io.BufferedWriter.seek
-_io.BufferedWriter.truncate
-_io.BytesIO.readlines
-_io.BytesIO.seek  # Parameter name for a positional-only param differs from its name in the inherited method
-_io.FileIO.seek
-_io.StringIO.seek
-_io.StringIO.truncate
-_io.TextIOWrapper.truncate
-ipaddress.IPv4Interface.hostmask
-ipaddress.IPv6Interface.hostmask
 ipaddress._BaseAddress.is_global
 ipaddress._BaseAddress.is_link_local
 ipaddress._BaseAddress.is_loopback
@@ -88,15 +51,9 @@ ipaddress._BaseNetwork.max_prefixlen
 multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
-multiprocessing.managers.BaseManager.shutdown
-multiprocessing.managers.SyncManager.Event
-multiprocessing.managers.SyncManager.Lock
-multiprocessing.managers.SyncManager.Namespace
-multiprocessing.managers.SyncManager.RLock
 multiprocessing.queues.JoinableQueue.__init__
 multiprocessing.queues.Queue.__init__
 multiprocessing.queues.SimpleQueue.__init__
-multiprocessing.spawn._main
 multiprocessing.synchronize.Barrier.__init__
 multiprocessing.synchronize.Condition.acquire
 multiprocessing.synchronize.Condition.release
@@ -121,15 +78,11 @@ tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
 tkinter.Misc.after  # we intentionally don't allow everything that "works" at runtime
 tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
-traceback.TracebackException.from_exception  # explicitly expanding arguments going into TracebackException __init__
 typing(_extensions)?\.IO\.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
-urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
 weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.update
-xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
-xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 xml.parsers.expat.expat_CAPI
 
 # ==========
@@ -261,6 +214,12 @@ idlelib
 importlib.machinery.WindowsRegistryFinder.DEBUG_BUILD
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY
 importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
+_frozen_importlib_external.WindowsRegistryFinder.DEBUG_BUILD
+_frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY
+_frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
+importlib._bootstrap_external.WindowsRegistryFinder.DEBUG_BUILD
+importlib._bootstrap_external.WindowsRegistryFinder.REGISTRY_KEY
+importlib._bootstrap_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
 
 # Undocumented implementation details
 profile.Profile.dispatch
@@ -353,12 +312,32 @@ collections.abc.*  # Types are re-exported from _collections_abc, so errors shou
 _?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
 _?ctypes.Array._type_  # _type_ is abstract, https://github.com/python/typeshed/pull/6361
 _?ctypes.Array._length_ # _length_ is abstract, https://github.com/python/typeshed/pull/6361
+
+# runtime is *args, **kwargs due to a wrapper
+# we have more accurate signatures in the stubs
+_frozen_importlib_external.ExtensionFileLoader.get_filename
+_frozen_importlib_external.FileLoader.get_filename
+_frozen_importlib_external.FileLoader.get_resource_reader
+_frozen_importlib_external.FileLoader.load_module
+
 _pydecimal.*  # See comments in file
 argparse.ArgumentParser.__init__  # stubtest doesn't recognise the runtime default (a class) as being compatible with a callback protocol (the stub annotation)
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
+
+# runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
+ast.Bytes.__new__
+ast.Ellipsis.__new__
+ast.NameConstant.__new__
+ast.Num.__new__
+ast.Str.__new__
+
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
 asyncio.selector_events.BaseSelectorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
+
+_asyncio.Future.__init__  # Usually initialized from c object
+asyncio.Future.__init__  # Usually initialized from c object
+asyncio.futures.Future.__init__  # Usually initialized from c object
 
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
@@ -402,7 +381,8 @@ codecs.CodecInfo.incrementalencoder
 codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
 
-contextvars.Context.__init__  # C signature is broader than what is actually accepted
+collections.UserList.sort  # Runtime has *args but will error if any are supplied
+_?contextvars.Context.__init__  # C signature is broader than what is actually accepted
 
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter
@@ -417,9 +397,17 @@ csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 p
 dataclasses.field  # White lies around defaults
 email.policy.EmailPolicy.message_factory  # "type" at runtime, but protocol in stubs
 hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
-hashlib.sha3_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
-hashlib.shake_\d+  # Can be a class or a built-in function, can't be subclassed at runtime
 hmac.HMAC.blocksize  # use block_size instead
+
+# runtime is *args, **kwargs due to a wrapper
+# we have more accurate signatures in the stubs
+importlib._bootstrap_external.ExtensionFileLoader.get_filename
+importlib._bootstrap_external.FileLoader.get_filename
+importlib._bootstrap_external.FileLoader.get_resource_reader
+importlib._bootstrap_external.FileLoader.load_module
+importlib.abc.FileLoader.get_filename
+importlib.abc.FileLoader.load_module
+importlib.machinery.ExtensionFileLoader.get_filename
 
 # We can't distinguish not having a default value from having a default value of inspect.Parameter.empty
 inspect.Parameter.__init__
@@ -435,12 +423,12 @@ multiprocessing.managers.BaseListProxy.__len__
 multiprocessing.managers.BaseListProxy.__reversed__
 multiprocessing.managers.BaseListProxy.reverse
 multiprocessing.managers.BaseListProxy.sort
-multiprocessing.managers.DictProxy.__iter__
-multiprocessing.managers.DictProxy.__len__
-multiprocessing.managers.DictProxy.copy
-multiprocessing.managers.DictProxy.items
-multiprocessing.managers.DictProxy.keys
-multiprocessing.managers.DictProxy.values
+
+# runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
+multiprocessing.managers.SyncManager.Event
+multiprocessing.managers.SyncManager.Lock
+multiprocessing.managers.SyncManager.Namespace
+multiprocessing.managers.SyncManager.RLock
 
 multiprocessing.(dummy|managers).Namespace.__[gs]etattr__  # Any field can be set on Namespace
 # alias for a class defined elsewhere,
@@ -451,7 +439,7 @@ multiprocessing.reduction.AbstractReducer.ForkingPickler
 multiprocessing.pool.Pool.__del__
 
 # C signature is broader than what is actually accepted
-queue.SimpleQueue.__init__
+_?queue.SimpleQueue.__init__
 
 # Items that depend on the existence and flags of SSL
 imaplib.IMAP4_SSL.ssl
@@ -669,6 +657,9 @@ tkinter.Misc.pack_propagate  # The noarg placeholder is a set value list
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
 
+traceback.TracebackException.from_exception  # explicitly expanding arguments going into TracebackException __init__
+urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
+
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 _ctypes.Array.__iter__
@@ -678,6 +669,9 @@ mmap.mmap.__contains__
 xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
 typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
+
+xml.etree.ElementTree.XMLParser.__init__  # Defined in C so has general signature
+xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signature
 
 # Added or modified in a patch release, backported to all security branches,
 # but have yet to find their way to all GitHub Actions images

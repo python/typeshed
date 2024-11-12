@@ -18,6 +18,7 @@ select.POLLMSG   # system dependent
 (readline.append_history_file)?
 (fcntl.F_GETLEASE)?
 (fcntl.F_SETLEASE)?
+(_gdbm)?
 
 # Platform differences that cannot be captured by the type system
 (posix.O_[A-Z_]+)?

@@ -3,7 +3,7 @@ ast.ExtSlice.__new__
 ast.Index.__new__
 builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.input  # Incorrect default value in text signature, fixed in 3.10
-bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
+_?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
@@ -203,6 +203,15 @@ multiprocessing.managers.DictProxy.popitem
 
 # Problematic protocol signature at runtime, see source code comments.
 importlib.abc.Traversable.open
+
+# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
+# But have more precise (accurate) signatures in the stub
+multiprocessing.managers.DictProxy.__iter__
+multiprocessing.managers.DictProxy.__len__
+multiprocessing.managers.DictProxy.copy
+multiprocessing.managers.DictProxy.items
+multiprocessing.managers.DictProxy.keys
+multiprocessing.managers.DictProxy.values
 
 # Super-special typing primitives
 typing\.NamedTuple
