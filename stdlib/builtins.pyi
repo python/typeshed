@@ -98,8 +98,10 @@ _P = ParamSpec("_P")
 # Type variables for slice
 _StartT_co = TypeVar("_StartT_co", covariant=True, default=Any)  # slice -> slice[Any, Any, Any]
 _StopT_co = TypeVar("_StopT_co", covariant=True, default=_StartT_co)  #  slice[A] -> slice[A, A, A]
-_StepT_co = TypeVar("_StepT_co", covariant=True, default=_StartT_co | _StopT_co)  #  slice[A,B] -> slice[A, B, A|B]
+# NOTE: step could differ from start and stop, (e.g. datetime/timedelta)l
+#   the default (start|stop) is chosen to cater to the most common case of int/index slices.
 # FIXME: https://github.com/python/typing/issues/213 (replace step=start|stop with step=start&stop)
+_StepT_co = TypeVar("_StepT_co", covariant=True, default=_StartT_co | _StopT_co)  #  slice[A,B] -> slice[A, B, A|B]
 
 class object:
     __doc__: str | None
