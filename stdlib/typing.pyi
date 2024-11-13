@@ -135,46 +135,20 @@ Any = object()
 
 class _Final: ...
 
-if sys.version_info >= (3, 12):
-    _BoundVarianceMixin = object
-    _PickleUsingNameMixin = object
-elif sys.version_info >= (3, 11):
-    class _BoundVarianceMixin: ...
+if sys.version_info >= (3, 11) and sys.version_info < (3, 13):
     class _PickleUsingNameMixin: ...
 
-else:
-    _BoundVarianceMixin = object
-    _PickleUsingNameMixin = object
+elif sys.version_info >= (3, 11) and sys.version_info < (3, 12):
+    class _BoundVarianceMixin: ...
 
 if sys.version_info >= (3, 11):
     class _NotIterable: ...
 
-else:
-    _NotIterable = object
-
-if sys.version_info >= (3, 12):
-    _Immutable = object
-
-else:
+if sys.version_info < (3, 12):
     class _Immutable: ...
 
-if sys.version_info >= (3, 11):
-    _TypeVarLike = object
-elif sys.version_info >= (3, 10):
+elif sys.version_info >= (3, 10) and sys.version_info < (3, 11):
     class _TypeVarLike: ...
-
-else:
-    _TypeVarLike = object
-
-if sys.version_info >= (3, 12):
-    _Final311 = object
-else:
-    _Final311 = _Final
-
-if sys.version_info >= (3, 9):
-    _Immutable38 = object
-else:
-    _Immutable38 = _Immutable
 
 def final(f: _T) -> _T: ...
 
@@ -305,16 +279,21 @@ if sys.version_info >= (3, 11):
     NotRequired: _SpecialForm
     LiteralString: _SpecialForm
 
-    # Base classes are from version_info conditionals:
-    # 3.11: _Final, _Immutable, _PickleUsingNameMixin
-    # 3.12+: None of these
+    if sys.version_info >= (3, 12):
+        _TypeVarTupleBase1 = object
+        _TypeVarTupleBase2 = object
+        _TypeVarTupleBase3 = object
+    else:
+        _TypeVarTupleBase1 = _Final
+        _TypeVarTupleBase2 = _Immutable
+        _TypeVarTupleBase3 = _PickleUsingNameMixin
     # ignore[misc] because of `Duplicate base class "object"`
     # Spurious extra inheritance from object makes sure that pyright doesn't
     # complain about an unecessary ignore on 3.11.
     _TypeVarTupleBase4 = object
     _TypeVarTupleBase5 = object
     @final
-    class TypeVarTuple(_Final311, _Immutable, _PickleUsingNameMixin, _TypeVarTupleBase4, _TypeVarTupleBase5):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    class TypeVarTuple(_TypeVarTupleBase1, _TypeVarTupleBase2, _TypeVarTupleBase3, _TypeVarTupleBase4, _TypeVarTupleBase5):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
         @property
         def __name__(self) -> str: ...
         if sys.version_info >= (3, 13):
@@ -331,31 +310,39 @@ if sys.version_info >= (3, 11):
         def __typing_prepare_subst__(self, alias: Any, args: Any) -> tuple[Any, ...]: ...
 
 if sys.version_info >= (3, 10):
-    # Base classes are from version_info conditionals:
-    # 3.10-3.11: _Final, _Immutable
-    # 3.12+: None of these
+    if sys.version_info >= (3, 12):
+        _ParamSpecArgsBase1 = object
+        _ParamSpecArgsBase2 = object
+    else:
+        _ParamSpecArgsBase1 = _Final
+        _ParamSpecArgsBase2 = _Immutable
+
     # ignore[misc] because of `Duplicate base class "object"`
     # Spurious extra inheritance from object makes sure that pyright doesn't
     # complain about an unecessary ignore on 3.10-3.11.
     _ParamSpecArgsBase3 = object
     _ParamSpecArgsBase4 = object
     @final
-    class ParamSpecArgs(_Final311, _Immutable, _ParamSpecArgsBase3, _ParamSpecArgsBase4):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    class ParamSpecArgs(_ParamSpecArgsBase1, _ParamSpecArgsBase2, _ParamSpecArgsBase3, _ParamSpecArgsBase4):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
         @property
         def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
         def __eq__(self, other: object) -> bool: ...
 
-    # Base classes are from version_info conditionals:
-    # 3.10-3.11: _Final, _Immutable
-    # 3.12+: None of these
+    if sys.version_info >= (3, 12):
+        _ParamSpecKwargsBase1 = object
+        _ParamSpecKwargsBase2 = object
+    else:
+        _ParamSpecKwargsBase1 = _Final
+        _ParamSpecKwargsBase2 = _Immutable
+
     # ignore[misc] because of `Duplicate base class "object"`
     # Spurious extra inheritance from object makes sure that pyright doesn't
     # complain about an unecessary ignore on 3.10-3.11.
     _ParamSpecKwargsBase3 = object
     _ParamSpecKwargsBase4 = object
     @final
-    class ParamSpecKwargs(_Final311, _Immutable, _ParamSpecKwargsBase3, _ParamSpecKwargsBase4):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    class ParamSpecKwargs(_ParamSpecKwargsBase1, _ParamSpecKwargsBase2, _ParamSpecKwargsBase3, _ParamSpecKwargsBase4):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
         @property
         def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...

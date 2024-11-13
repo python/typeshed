@@ -485,12 +485,12 @@ else:
             def __typing_subst__(self, arg: Any) -> Any: ...
 
     if sys.version_info >= (3, 10):
-        _DefaultMixin39 = object
+        _ParamSpecBase = object
     else:
-        _DefaultMixin39 = _DefaultMixin
+        _ParamSpecBase = _DefaultMixin
 
     @final
-    class ParamSpec(_DefaultMixin39):
+    class ParamSpec(_ParamSpecBase):
         @property
         def __name__(self) -> str: ...
         @property
@@ -523,12 +523,12 @@ else:
             def __ror__(self, left: Any) -> _SpecialForm: ...
 
     if sys.version_info >= (3, 11):
-        _DefaultMixin310 = object
+        _TypeVarTupleBase = object
     else:
-        _DefaultMixin310 = _DefaultMixin
+        _TypeVarTupleBase = _DefaultMixin
 
     @final
-    class TypeVarTuple(_DefaultMixin310):
+    class TypeVarTuple(_TypeVarTupleBase):
         @property
         def __name__(self) -> str: ...
         @property
