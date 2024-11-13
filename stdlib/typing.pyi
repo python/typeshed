@@ -133,9 +133,59 @@ if sys.version_info >= (3, 13):
 
 Any = object()
 
+class _Final: ...
+
+if sys.version_info >= (3, 12):
+    _BoundVarianceMixin = object
+    _PickleUsingNameMixin = object
+elif sys.version_info >= (3, 11):
+    class _BoundVarianceMixin: ...
+    class _PickleUsingNameMixin: ...
+
+else:
+    _BoundVarianceMixin = object
+    _PickleUsingNameMixin = object
+
+if sys.version_info >= (3, 11):
+    class _NotIterable: ...
+
+else:
+    _NotIterable = object
+
+if sys.version_info >= (3, 12):
+    _Immutable = object
+
+else:
+    class _Immutable: ...
+
+if sys.version_info >= (3, 11):
+    _TypeVarLike = object
+elif sys.version_info >= (3, 10):
+    class _TypeVarLike: ...
+
+else:
+    _TypeVarLike = object
+
+if sys.version_info >= (3, 12):
+    _Final311 = object
+else:
+    _Final311 = _Final
+
+if sys.version_info >= (3, 9):
+    _Immutable38 = object
+else:
+    _Immutable38 = _Immutable
+
 def final(f: _T) -> _T: ...
+
+# Base classes are from version_info conditionals:
+# 3.8-3.9: _Final, _Immutable
+# 3.10: _Final, _Immutable, _TypeVarLike
+# 3.11: _Final, _Immutable, _BoundVarianceMixin, _PickleUsingNameMixin
+# 3.12+ none of these
+# ignore[misc] because of `Duplicate base class "object"`
 @final
-class TypeVar:
+class TypeVar(_Final311, _Immutable, _BoundVarianceMixin, _PickleUsingNameMixin, _TypeVarLike):  # type: ignore[misc]
     @property
     def __name__(self) -> str: ...
     @property
@@ -189,9 +239,14 @@ class TypeVar:
 # Used for an undocumented mypy feature. Does not exist at runtime.
 _promote = object()
 
+# Base classes are from version_info conditionals:
+# 3.8: _Final, _Immutable
+# 3.9-3.10: _Final
+# 3.11+: _Final, _NotIterable
+# ignore[misc] because of `Duplicate base class "object"`
 # N.B. Keep this definition in sync with typing_extensions._SpecialForm
 @final
-class _SpecialForm:
+class _SpecialForm(_Final, _Immutable38, _NotIterable):  # type: ignore[misc]
     def __getitem__(self, parameters: Any) -> object: ...
     if sys.version_info >= (3, 10):
         def __or__(self, other: Any) -> _SpecialForm: ...
@@ -222,8 +277,12 @@ if sys.version_info >= (3, 11):
     NotRequired: _SpecialForm
     LiteralString: _SpecialForm
 
+    # Base classes are from version_info conditionals:
+    # 3.11: _Final, _Immutable, _PickleUsingNameMixin
+    # 3.12+: None of these
+    # ignore[misc] because of `Duplicate base class "object"`
     @final
-    class TypeVarTuple:
+    class TypeVarTuple(_Final311, _Immutable, _PickleUsingNameMixin):  # type: ignore[misc]
         @property
         def __name__(self) -> str: ...
         if sys.version_info >= (3, 13):
@@ -240,22 +299,35 @@ if sys.version_info >= (3, 11):
         def __typing_prepare_subst__(self, alias: Any, args: Any) -> tuple[Any, ...]: ...
 
 if sys.version_info >= (3, 10):
+    # Base classes are from version_info conditionals:
+    # 3.10-3.11: _Final, _Immutable
+    # 3.12+: None of these
+    # ignore[misc] because of `Duplicate base class "object"`
     @final
-    class ParamSpecArgs:
+    class ParamSpecArgs(_Final311, _Immutable):  # type: ignore[misc]
         @property
         def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
         def __eq__(self, other: object) -> bool: ...
 
+    # Base classes are from version_info conditionals:
+    # 3.10-3.11: _Final, _Immutable
+    # 3.12+: None of these
+    # ignore[misc] because of `Duplicate base class "object"`
     @final
-    class ParamSpecKwargs:
+    class ParamSpecKwargs(_Final311, _Immutable):  # type: ignore[misc]
         @property
         def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
         def __eq__(self, other: object) -> bool: ...
 
+    # Base classes are from version_info conditionals:
+    # 3.10: _Final, _Immutable, _TypeVarLike
+    # 3.11: _Final, _Immutable, _BoundVarianceMixin, _PickleUsingNameMixin
+    # 3.12+: None of these
+    # ignore[misc] because of `Duplicate base class "object"`
     @final
-    class ParamSpec:
+    class ParamSpec(_Final311, _Immutable, _BoundVarianceMixin, _PickleUsingNameMixin, _TypeVarLike):  # type: ignore[misc]
         @property
         def __name__(self) -> str: ...
         @property
@@ -973,7 +1045,7 @@ class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
         def __ior__(self, value: typing_extensions.Self, /) -> typing_extensions.Self: ...  # type: ignore[misc]
 
 @final
-class ForwardRef:
+class ForwardRef(_Final):
     __forward_arg__: str
     __forward_code__: CodeType
     __forward_evaluated__: bool

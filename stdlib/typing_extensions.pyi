@@ -61,6 +61,7 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039
     Union as Union,
     ValuesView as ValuesView,
     _Alias,
+    _Final,
     cast as cast,
     no_type_check as no_type_check,
     no_type_check_decorator as no_type_check_decorator,
@@ -190,8 +191,10 @@ _T = typing.TypeVar("_T")
 _F = typing.TypeVar("_F", bound=Callable[..., Any])
 _TC = typing.TypeVar("_TC", bound=type[object])
 
+class _DefaultMixin: ...
+
 # unfortunately we have to duplicate this class definition from typing.pyi or we break pytype
-class _SpecialForm:
+class _SpecialForm(_Final):
     def __getitem__(self, parameters: Any) -> object: ...
     if sys.version_info >= (3, 10):
         def __or__(self, other: Any) -> _SpecialForm: ...
@@ -298,14 +301,16 @@ if sys.version_info >= (3, 10):
         is_typeddict as is_typeddict,
     )
 else:
+    class _Immutable: ...
+
     @final
-    class ParamSpecArgs:
+    class ParamSpecArgs(_Immutable):
         @property
         def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
 
     @final
-    class ParamSpecKwargs:
+    class ParamSpecKwargs(_Immutable):
         @property
         def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
@@ -479,8 +484,13 @@ else:
         if sys.version_info >= (3, 11):
             def __typing_subst__(self, arg: Any) -> Any: ...
 
+    if sys.version_info >= (3, 10):
+        _DefaultMixin39 = object
+    else:
+        _DefaultMixin39 = _DefaultMixin
+
     @final
-    class ParamSpec:
+    class ParamSpec(_DefaultMixin39):
         @property
         def __name__(self) -> str: ...
         @property
@@ -512,8 +522,13 @@ else:
             def __or__(self, right: Any) -> _SpecialForm: ...
             def __ror__(self, left: Any) -> _SpecialForm: ...
 
+    if sys.version_info >= (3, 11):
+        _DefaultMixin310 = object
+    else:
+        _DefaultMixin310 = _DefaultMixin
+
     @final
-    class TypeVarTuple:
+    class TypeVarTuple(_DefaultMixin310):
         @property
         def __name__(self) -> str: ...
         @property
