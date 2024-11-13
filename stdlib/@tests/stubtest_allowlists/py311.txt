@@ -194,6 +194,12 @@ multiprocessing.managers.DictProxy.keys
 multiprocessing.managers.DictProxy.values
 
 # Super-special typing primitives
+typing._BoundVarianceMixin.__init__
+typing._BoundVarianceMixin.__or__
+typing._BoundVarianceMixin.__ror__
+typing._NotIterable.__iter__
+typing._Immutable.__copy__
+typing._Immutable.__deepcopy__
 typing\._SpecialForm.*
 typing\.NamedTuple
 typing\.LiteralString

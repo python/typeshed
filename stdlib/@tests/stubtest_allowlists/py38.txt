@@ -85,6 +85,10 @@ xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in 
 xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
 
 # Exist at runtime for internal reasons, no need to put them in the stub
+typing_extensions._Immutable.__copy__
+typing_extensions._Immutable.__deepcopy__
+typing._Immutable.__copy__
+typing._Immutable.__deepcopy__
 typing_extensions\.TypeAliasType\.__call__
 typing_extensions\.TypeAliasType\.__init_subclass__
 # We call them read-only properties, runtime implementation is slightly different

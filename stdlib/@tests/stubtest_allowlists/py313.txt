@@ -162,6 +162,7 @@ multiprocessing.managers._BaseDictProxy.popitem
 multiprocessing.managers._BaseDictProxy.values
 
 # Super-special typing primitives
+typing._NotIterable.__iter__
 typing\._SpecialForm.*
 typing\.NamedTuple
 typing\.LiteralString

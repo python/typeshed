@@ -658,6 +658,11 @@ tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a me
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
 
 traceback.TracebackException.from_exception  # explicitly expanding arguments going into TracebackException __init__
+
+typing._Final
+typing._Final.__init_subclass__
+typing_extensions._DefaultMixin.__init__
+
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)

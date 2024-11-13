@@ -240,6 +240,11 @@ multiprocessing.managers.DictProxy.keys
 multiprocessing.managers.DictProxy.values
 
 # Super-special typing primitives
+typing._Immutable.__copy__
+typing._Immutable.__deepcopy__
+typing._TypeVarLike.__init__
+typing._TypeVarLike.__or__
+typing._TypeVarLike.__ror__
 typing\.NamedTuple
 typing\.Annotated
 
