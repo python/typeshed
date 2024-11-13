@@ -185,7 +185,6 @@ multiprocessing.managers.DictProxy.values
 
 # Super-special typing primitives
 typing._NotIterable.__iter__
-typing._PickleUsingNameMixin.__init__
 typing\._SpecialForm.*
 typing\.NamedTuple
 typing\.LiteralString
