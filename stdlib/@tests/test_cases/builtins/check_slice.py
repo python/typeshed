@@ -125,11 +125,11 @@ sIIX: "slice[int]" = slice(1234, 5678)
 
 sNNN: "slice[int]" = slice(None, None, None)
 sNIN: "slice[int]" = slice(None, 5678, None)
-sNNS: "slice[int]" = slice(None, None, "1d")
+sNNS: "slice[int]" = slice(None, None, 9012)
 sINN: "slice[int]" = slice(1234, None, None)
-sINS: "slice[int]" = slice(1234, None, "1d")
+sINS: "slice[int]" = slice(1234, None, 9012)
 sIIN: "slice[int]" = slice(1234, 5678, None)
-sIIS: "slice[int]" = slice(1234, 5678, "1d")
+sIIS: "slice[int]" = slice(1234, 5678, 9012)
 # endregion Tests for slice[T] assignments ---------------------------------------------
 
 
@@ -147,10 +147,10 @@ tNNN: "slice[None, int]" = slice(None, None, None)
 tNIN: "slice[None, int]" = slice(None, 5678, None)
 tINN: "slice[None, int]" = slice(1234, None, None)  # type: ignore
 tIIN: "slice[None, int]" = slice(1234, 5678, None)  # type: ignore
-tNNS: "slice[None, int]" = slice(None, None, "1d")
-tINS: "slice[None, int]" = slice(None, 5678, "1d")
-tNIS: "slice[None, int]" = slice(1234, None, "1d")  # type: ignore
-tIIS: "slice[None, int]" = slice(1234, 5678, "1d")  # type: ignore
+tNNS: "slice[None, int]" = slice(None, None, 9012)
+tINS: "slice[None, int]" = slice(None, 5678, 9012)
+tNIS: "slice[None, int]" = slice(1234, None, 9012)  # type: ignore
+tIIS: "slice[None, int]" = slice(1234, 5678, 9012)  # type: ignore
 # endregion Tests for slice[X, Y] assignments ------------------------------------------
 
 

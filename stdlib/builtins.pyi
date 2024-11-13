@@ -96,7 +96,7 @@ _AwaitableT_co = TypeVar("_AwaitableT_co", bound=Awaitable[Any], covariant=True)
 _P = ParamSpec("_P")
 _StartT_co = TypeVar("_StartT_co", covariant=True, default=Any)  # slice -> slice[Any, Any, Any]
 _StopT_co = TypeVar("_StopT_co", covariant=True, default=_StartT_co)  #  slice[A] -> slice[A, A, Any]
-_StepT_co = TypeVar("_StepT_co", covariant=True, default=Any)  #  slice[A,B] -> slice[A, B, Any]
+_StepT_co = TypeVar("_StepT_co", covariant=True, default=_StartT_co | _StopT_co)  #  slice[A,B] -> slice[A, B, Any]
 
 class object:
     __doc__: str | None
