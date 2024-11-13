@@ -30,8 +30,10 @@ Consistency criterion: Assuming now X, Y, Z can potentially be None, the followi
 - `slice(x, y, z)` must be compatible with `slice[X, Y, Z]`, even if X, Y, or Z are `None`.
 """
 
+from __future__ import annotations
+
 from datetime import date, datetime as DT, timedelta as TD
-from typing import Any
+from typing import Any, SupportsIndex, cast
 from typing_extensions import assert_type
 
 # region Tests for slice constructor overloads -----------------------------------------
@@ -50,6 +52,15 @@ assert_type(slice(1234, 5678, None), "slice[int, int, Any]")
 assert_type(slice(1234, 5678, 9012), "slice[int, int, int]")
 # endregion Tests for slice constructor overloads --------------------------------------
 
+# region Test parameter defaults for slice constructor ---------------------------------
+# Note: need to cast, because pyright specializes regardless of type annotations
+slc1 = cast("slice[SupportsIndex | None]", slice(1))
+slc2 = cast("slice[int | None, int | None]", slice(1, 2))
+fake_key_val = cast("slice[str, int]", slice("1", 2))
+assert_type(slc1, "slice[SupportsIndex | None, SupportsIndex | None, SupportsIndex | None]")
+assert_type(slc2, "slice[int | None, int | None, int | None]")
+assert_type(fake_key_val, "slice[str, int, str | int]")
+# endregion Test parameter defaults for slice constructor ------------------------------
 
 # region Tests for slice properties ----------------------------------------------------
 # Note: if an argument is not None, we should get precisely the same type back
