@@ -45,8 +45,6 @@ posixpath.join
 ntpath.join
 os.path.join
 
-types.DynamicClassAttribute..*  # In the stub we pretend it's an alias for property, but it has positional-only differences
-
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
 typing(_extensions)?\.BinaryIO\.write
