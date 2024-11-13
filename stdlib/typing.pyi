@@ -203,8 +203,11 @@ else:
 # ignore[misc] because of `Duplicate base class "object"`
 # Spurious extra inheritence from object makes sure that pyright doesn't
 # complain about an unecessary ignore on 3.11.
+_TypeVarBase5 = object
+_TypeVarBase6 = object
+
 @final
-class TypeVar(_TypeVarBase1, _TypeVarBase2, _TypeVarBase3, _TypeVarBase4):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+class TypeVar(_TypeVarBase1, _TypeVarBase2, _TypeVarBase3, _TypeVarBase4, _TypeVarBase5, _TypeVarBase6):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     @property
     def __name__(self) -> str: ...
     @property
@@ -309,8 +312,10 @@ if sys.version_info >= (3, 11):
     # ignore[misc] because of `Duplicate base class "object"`
     # Spurious extra inheritence from object makes sure that pyright doesn't
     # complain about an unecessary ignore on 3.11.
+    _TypeVarTupleBase4 = object
+    _TypeVarTupleBase5 = object
     @final
-    class TypeVarTuple(_Final311, _Immutable, _PickleUsingNameMixin):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    class TypeVarTuple(_Final311, _Immutable, _PickleUsingNameMixin, _TypeVarTupleBase4, _TypeVarTupleBase5):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
         @property
         def __name__(self) -> str: ...
         if sys.version_info >= (3, 13):
@@ -333,8 +338,10 @@ if sys.version_info >= (3, 10):
     # ignore[misc] because of `Duplicate base class "object"`
     # Spurious extra inheritence from object makes sure that pyright doesn't
     # complain about an unecessary ignore on 3.10-3.11.
+    _ParamSpecArgsBase3 = object
+    _ParamSpecArgsBase4 = object
     @final
-    class ParamSpecArgs(_Final311, _Immutable):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    class ParamSpecArgs(_Final311, _Immutable, _ParamSpecArgsBase3, _ParamSpecArgsBase4):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
         @property
         def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
@@ -346,8 +353,10 @@ if sys.version_info >= (3, 10):
     # ignore[misc] because of `Duplicate base class "object"`
     # Spurious extra inheritence from object makes sure that pyright doesn't
     # complain about an unecessary ignore on 3.10-3.11.
+    _ParamSpecKwargsBase3 = object
+    _ParamSpecKwargsBase4 = object
     @final
-    class ParamSpecKwargs(_Final311, _Immutable):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    class ParamSpecKwargs(_Final311, _Immutable, _ParamSpecKwargsBase3, _ParamSpecKwargsBase4):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
         @property
         def __origin__(self) -> ParamSpec: ...
         def __init__(self, origin: ParamSpec) -> None: ...
@@ -373,8 +382,10 @@ if sys.version_info >= (3, 10):
     # ignore[misc] because of `Duplicate base class "object"`.
     # Spurious extra inheritence from object makes sure that pyright doesn't
     # complain about an unecessary ignore on 3.11.
+    _ParamSpecBase5 = object
+    _ParamSpecBase6 = object
     @final
-    class ParamSpec(_ParamSpecBase1, _ParamSpecBase2, _ParamSpecBase3, _ParamSpecBase4):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
+    class ParamSpec(_ParamSpecBase1, _ParamSpecBase2, _ParamSpecBase3, _ParamSpecBase4, _ParamSpecBase5, _ParamSpecBase6):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
         @property
         def __name__(self) -> str: ...
         @property
