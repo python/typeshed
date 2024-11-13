@@ -5,7 +5,7 @@ from typing import Any, Final, type_check_only
 from typing_extensions import TypeAlias, deprecated
 from zipfile import ZipFile
 
-from openpyxl import _Decodable, _ZipFileFileProtocol, _ZipFileFileWriteProtocol
+from openpyxl import _Decodable, _ZipFileFileWriteProtocol
 from openpyxl.chartsheet.chartsheet import Chartsheet
 from openpyxl.styles.named_styles import NamedStyle
 from openpyxl.utils.indexed_list import IndexedList
