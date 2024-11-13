@@ -201,7 +201,7 @@ else:
     _TypeVarBase4 = object
 
 # ignore[misc] because of `Duplicate base class "object"`
-# Spurious extra inheritence from object makes sure that pyright doesn't
+# Spurious extra inheritance from object makes sure that pyright doesn't
 # complain about an unecessary ignore on 3.11.
 _TypeVarBase5 = object
 _TypeVarBase6 = object
@@ -309,7 +309,7 @@ if sys.version_info >= (3, 11):
     # 3.11: _Final, _Immutable, _PickleUsingNameMixin
     # 3.12+: None of these
     # ignore[misc] because of `Duplicate base class "object"`
-    # Spurious extra inheritence from object makes sure that pyright doesn't
+    # Spurious extra inheritance from object makes sure that pyright doesn't
     # complain about an unecessary ignore on 3.11.
     _TypeVarTupleBase4 = object
     _TypeVarTupleBase5 = object
@@ -335,7 +335,7 @@ if sys.version_info >= (3, 10):
     # 3.10-3.11: _Final, _Immutable
     # 3.12+: None of these
     # ignore[misc] because of `Duplicate base class "object"`
-    # Spurious extra inheritence from object makes sure that pyright doesn't
+    # Spurious extra inheritance from object makes sure that pyright doesn't
     # complain about an unecessary ignore on 3.10-3.11.
     _ParamSpecArgsBase3 = object
     _ParamSpecArgsBase4 = object
@@ -350,7 +350,7 @@ if sys.version_info >= (3, 10):
     # 3.10-3.11: _Final, _Immutable
     # 3.12+: None of these
     # ignore[misc] because of `Duplicate base class "object"`
-    # Spurious extra inheritence from object makes sure that pyright doesn't
+    # Spurious extra inheritance from object makes sure that pyright doesn't
     # complain about an unecessary ignore on 3.10-3.11.
     _ParamSpecKwargsBase3 = object
     _ParamSpecKwargsBase4 = object
@@ -379,7 +379,7 @@ if sys.version_info >= (3, 10):
         _ParamSpecBase4 = object
 
     # ignore[misc] because of `Duplicate base class "object"`.
-    # Spurious extra inheritence from object makes sure that pyright doesn't
+    # Spurious extra inheritance from object makes sure that pyright doesn't
     # complain about an unecessary ignore on 3.11.
     _ParamSpecBase5 = object
     _ParamSpecBase6 = object
