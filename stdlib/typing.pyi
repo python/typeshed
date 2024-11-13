@@ -272,7 +272,6 @@ else:
     _SpecialFormBase1 = _Final
     _SpecialFormBase2 = _Immutable
 
-# ignore[misc] because of `Duplicate base class "object"`
 # N.B. Keep this definition in sync with typing_extensions._SpecialForm
 @final
 class _SpecialForm(_SpecialFormBase1, _SpecialFormBase2):
