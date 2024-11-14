@@ -61,7 +61,6 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039
     Union as Union,
     ValuesView as ValuesView,
     _Alias,
-    _Final,
     cast as cast,
     no_type_check as no_type_check,
     no_type_check_decorator as no_type_check_decorator,
@@ -192,6 +191,7 @@ _F = typing.TypeVar("_F", bound=Callable[..., Any])
 _TC = typing.TypeVar("_TC", bound=type[object])
 
 class _DefaultMixin: ...
+class _Final: ...  # This should be imported from typing, but that breaks pytype
 
 # unfortunately we have to duplicate this class definition from typing.pyi or we break pytype
 class _SpecialForm(_Final):
