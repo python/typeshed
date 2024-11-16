@@ -33,6 +33,9 @@ _CursesWindow = window
 @final
 @type_check_only
 class _ncurses_version(structseq[int], tuple[int, int, int]):
-    major: int
-    minor: int
-    patch: int
+    @property
+    def major(self) -> int: ...
+    @property
+    def minor(self) -> int: ...
+    @property
+    def patch(self) -> int: ...
