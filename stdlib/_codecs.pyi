@@ -6,12 +6,13 @@ from typing import Literal, final, overload, type_check_only
 from typing_extensions import TypeAlias
 
 # This type is not exposed; it is defined in unicodeobject.c
+# At runtime it calls itself builtins.EncodingMap
 @final
 @type_check_only
-class EncodingMap:
+class _EncodingMap:
     def size(self) -> int: ...
 
-_CharMap: TypeAlias = dict[int, int] | EncodingMap
+_CharMap: TypeAlias = dict[int, int] | _EncodingMap
 _Handler: TypeAlias = Callable[[UnicodeError], tuple[str | bytes, int]]
 _SearchFunction: TypeAlias = Callable[[str], codecs.CodecInfo | None]
 
