@@ -3,6 +3,8 @@ from collections.abc import Iterable, Mapping
 from concurrent.futures import Future
 from typing import NoReturn, TypeVar, overload
 
+from requests import Session
+
 from ..auto import tqdm as tqdm_auto
 from .utils_worker import MonoWorker
 
@@ -11,8 +13,11 @@ __all__ = ["DiscordIO", "tqdm_discord", "tdrange", "tqdm", "trange"]
 class DiscordIO(MonoWorker):
     API: str = "https://discord.com/api/v10"
     UA: str = ...
-    text: Incomplete
+    channel_id: Incomplete
     message: Incomplete
+    session: Session
+    text: Incomplete
+    token: Incomplete
     def __init__(self, token, channel_id) -> None: ...
     def write(self, s): ...
     def delete(self) -> Future[Incomplete]: ...
