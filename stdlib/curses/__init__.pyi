@@ -1,5 +1,6 @@
 from _curses import *
 from _curses import window as window
+from _typeshed import structseq
 from collections.abc import Callable
 from typing import TypeVar, final, type_check_only
 from typing_extensions import Concatenate, ParamSpec
