@@ -2,14 +2,16 @@ import codecs
 import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable
-from typing import Literal, overload
+from typing import Literal, final, overload, type_check_only
 from typing_extensions import TypeAlias
 
 # This type is not exposed; it is defined in unicodeobject.c
-class _EncodingMap:
+@final
+@type_check_only
+class EncodingMap:
     def size(self) -> int: ...
 
-_CharMap: TypeAlias = dict[int, int] | _EncodingMap
+_CharMap: TypeAlias = dict[int, int] | EncodingMap
 _Handler: TypeAlias = Callable[[UnicodeError], tuple[str | bytes, int]]
 _SearchFunction: TypeAlias = Callable[[str], codecs.CodecInfo | None]
 
