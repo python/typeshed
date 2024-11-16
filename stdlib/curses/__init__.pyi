@@ -1,7 +1,7 @@
 from _curses import *
 from _curses import window as window
 from collections.abc import Callable
-from typing import TypeVar
+from typing import TypeVar, final, type_check_only
 from typing_extensions import Concatenate, ParamSpec
 
 # NOTE: The _curses module is ordinarily only available on Unix, but the
@@ -25,3 +25,13 @@ def wrapper(func: Callable[Concatenate[window, _P], _T], /, *arg: _P.args, **kwd
 # it was mapped to the name 'window' in 3.8.
 # Kept here as a legacy alias in case any third-party code is relying on it.
 _CursesWindow = window
+
+# At runtime this class is unexposed and calls itself curses.ncurses_version.
+# That name would conflict with the actual curses.ncurses_version, which is
+# an instance of this class.
+@final
+@type_check_only
+class _ncurses_version(structseq[int], tuple[int, int, int]):
+    major: int
+    minor: int
+    patch: int
