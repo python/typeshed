@@ -190,8 +190,10 @@ _T = typing.TypeVar("_T")
 _F = typing.TypeVar("_F", bound=Callable[..., Any])
 _TC = typing.TypeVar("_TC", bound=type[object])
 
+class _Final: ...  # This should be imported from typing but that breaks pytype
+
 # unfortunately we have to duplicate this class definition from typing.pyi or we break pytype
-class _SpecialForm:
+class _SpecialForm(_Final):
     def __getitem__(self, parameters: Any) -> object: ...
     if sys.version_info >= (3, 10):
         def __or__(self, other: Any) -> _SpecialForm: ...
