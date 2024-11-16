@@ -462,6 +462,8 @@ typing_extensions\.ParamSpec.*
 typing(_extensions)?\.Generic
 typing\.Protocol
 typing(_extensions)?\._TypedDict
+typing._Final
+typing._Final.__init_subclass__
 
 # Special primitives
 typing_extensions\.Final
