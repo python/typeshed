@@ -1,10 +1,12 @@
 from _curses import window
+from typing import final
 
 __version__: str
 version: str
 
 class error(Exception): ...
 
+@final
 class panel:
     def above(self) -> panel: ...
     def below(self) -> panel: ...
