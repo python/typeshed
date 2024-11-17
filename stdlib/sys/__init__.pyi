@@ -93,7 +93,7 @@ flags: _flags
 if sys.version_info >= (3, 11):
     # 18-tuple
     _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int, int, bool, int]
-if sys.version_info >= (3, 10):
+elif sys.version_info >= (3, 10):
     # 17-tuple
     _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int, int, int]
 else:
