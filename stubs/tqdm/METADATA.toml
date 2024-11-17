@@ -3,4 +3,4 @@ upstream_repository = "https://github.com/tqdm/tqdm"
 
 [tool.stubtest]
 extras = ["slack", "telegram"]
-stubtest_requirements = ["dask", "pandas", "rich", "tensorflow"]
+stubtest_requirements = ["dask", "pandas", "requests", "rich", "tensorflow"]
