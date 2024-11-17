@@ -40,6 +40,7 @@ _dummy_threading: 3.0-3.8
 _frozen_importlib: 3.0-
 _frozen_importlib_external: 3.5-
 _gdbm: 3.0-
+_hashlib: 3.0-
 _heapq: 3.0-
 _imp: 3.0-
 _interpchannels: 3.13-
