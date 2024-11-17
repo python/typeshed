@@ -2,8 +2,8 @@ from collections.abc import Callable, Sequence
 from typing import Any, ClassVar, Literal, NamedTuple
 from typing_extensions import Self
 
-from docutils.transforms import Transform
 from docutils.nodes import Node
+from docutils.transforms import Transform
 
 __docformat__: str
 __version__: str
