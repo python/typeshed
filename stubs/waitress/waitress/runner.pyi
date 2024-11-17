@@ -1,8 +1,7 @@
 from _typeshed import Unused
 from collections.abc import Callable, Sequence
 from io import TextIOWrapper
-from re import Pattern
-from typing import Any, Final
+from typing import Final
 
 HELP: Final[str]
 
