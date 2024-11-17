@@ -45,6 +45,7 @@ curses.ascii
 curses.has_key
 curses.panel
 curses.textpad
+_curses_panel
 
 # Modules that rely on termios
 pty
