@@ -20,7 +20,7 @@ class Transform:
 class Transformer(TransformSpec):
     transforms: list[tuple[str, type[Transform], nodes.pending | None]]
     document: nodes.document
-    applied: list[tuple[int, type[Transform], nodes.pending, Any]]
+    applied: list[tuple[int, type[Transform], nodes.pending | None, Any]]
     sorted: bool
     components: dict[_ComponentType, Component]
     serialno: int
