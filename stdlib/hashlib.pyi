@@ -99,3 +99,6 @@ if sys.version_info >= (3, 11):
     def file_digest(
         fileobj: _BytesIOLike | _FileDigestFileObj, digest: str | Callable[[], HASH], /, *, _bufsize: int = 262144
     ) -> HASH: ...
+
+# Legacy typing-only alias
+_Hash = HASH
