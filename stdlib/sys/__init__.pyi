@@ -5,7 +5,7 @@ from builtins import object as _object
 from collections.abc import AsyncGenerator, Callable, Sequence
 from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
-from typing import Any, Final, Literal, NoReturn, Protocol, TextIO, TypeVar, final
+from typing import Any, Final, Literal, NoReturn, Protocol, TextIO, TypeVar, final, type_check_only
 from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")
@@ -90,13 +90,62 @@ _UninstantiableStructseq: TypeAlias = structseq[Any]
 
 flags: _flags
 
+if sys.version_info >= (3, 11):
+    # 18-tuple
+    _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int, int, bool, int]
 if sys.version_info >= (3, 10):
-    _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int, int]
+    # 17-tuple
+    _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int, int, int]
 else:
+    # 15-tuple
     _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int]
 
+# This class is not exposed at runtime. It calls itself sys.flags.
 @final
+@type_check_only
 class _flags(_UninstantiableStructseq, _FlagTuple):
+    if sys.version_info >= (3, 11):
+        __match_args__: Final = (
+            "debug",
+            "inspect",
+            "interactive",
+            "optimize",
+            "dont_write_bytecode",
+            "no_user_site",
+            "no_site",
+            "ignore_environment",
+            "verbose",
+            "bytes_warning",
+            "quiet",
+            "hash_randomization",
+            "isolated",
+            "dev_mode",
+            "utf8_mode",
+            "warn_default_encoding",
+            "safe_path",
+            "int_max_str_digits",
+        )
+    elif sys.version_info >= (3, 10):
+        __match_args__: Final = (
+            "debug",
+            "inspect",
+            "interactive",
+            "optimize",
+            "dont_write_bytecode",
+            "no_user_site",
+            "no_site",
+            "ignore_environment",
+            "verbose",
+            "bytes_warning",
+            "quiet",
+            "hash_randomization",
+            "isolated",
+            "dev_mode",
+            "utf8_mode",
+            "warn_default_encoding",
+            "int_max_str_digits",
+        )
+
     @property
     def debug(self) -> int: ...
     @property
@@ -129,15 +178,35 @@ class _flags(_UninstantiableStructseq, _FlagTuple):
     def utf8_mode(self) -> int: ...
     if sys.version_info >= (3, 10):
         @property
-        def warn_default_encoding(self) -> int: ...  # undocumented
+        def warn_default_encoding(self) -> int: ...
     if sys.version_info >= (3, 11):
         @property
         def safe_path(self) -> bool: ...
+    if sys.version_info >= (3, 10):
+        @property
+        def int_max_str_digits(self) -> int: ...
 
 float_info: _float_info
 
+# This class is not exposed at runtime. It calls itself sys.float_info.
 @final
+@type_check_only
 class _float_info(structseq[float], tuple[float, int, int, float, int, int, int, int, float, int, int]):
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = (
+            "max",
+            "max_exp",
+            "max_10_exp",
+            "min",
+            "min_exp",
+            "min_10_exp",
+            "dig",
+            "mant_dig",
+            "epsilon",
+            "radix",
+            "rounds",
+        )
+
     @property
     def max(self) -> float: ...  # DBL_MAX
     @property
@@ -163,8 +232,13 @@ class _float_info(structseq[float], tuple[float, int, int, float, int, int, int,
 
 hash_info: _hash_info
 
+# This class is not exposed at runtime. It calls itself sys.hash_info.
 @final
+@type_check_only
 class _hash_info(structseq[Any | int], tuple[int, int, int, int, int, str, int, int, int]):
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = ("width", "modulus", "inf", "nan", "imag", "algorithm", "hash_bits", "seed_bits", "cutoff")
+
     @property
     def width(self) -> int: ...
     @property
@@ -186,6 +260,9 @@ class _hash_info(structseq[Any | int], tuple[int, int, int, int, int, str, int, 
 
 implementation: _implementation
 
+# This class isn't really a thing. At runtime, implementation is an instance
+# of types.SimpleNamespace. This allows for better typing.
+@type_check_only
 class _implementation:
     name: str
     version: _version_info
@@ -198,8 +275,13 @@ class _implementation:
 
 int_info: _int_info
 
+# This class is not exposed at runtime. It calls itself sys.int_info.
 @final
+@type_check_only
 class _int_info(structseq[int], tuple[int, int, int, int]):
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = ("bits_per_digit", "sizeof_digit", "default_max_str_digits", "str_digits_check_threshold")
+
     @property
     def bits_per_digit(self) -> int: ...
     @property
@@ -212,8 +294,13 @@ class _int_info(structseq[int], tuple[int, int, int, int]):
 _ThreadInfoName: TypeAlias = Literal["nt", "pthread", "pthread-stubs", "solaris"]
 _ThreadInfoLock: TypeAlias = Literal["semaphore", "mutex+cond"] | None
 
+# This class is not exposed at runtime. It calls itself sys.thread_info.
 @final
+@type_check_only
 class _thread_info(_UninstantiableStructseq, tuple[_ThreadInfoName, _ThreadInfoLock, str | None]):
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = ("name", "lock", "version")
+
     @property
     def name(self) -> _ThreadInfoName: ...
     @property
@@ -224,8 +311,13 @@ class _thread_info(_UninstantiableStructseq, tuple[_ThreadInfoName, _ThreadInfoL
 thread_info: _thread_info
 _ReleaseLevel: TypeAlias = Literal["alpha", "beta", "candidate", "final"]
 
+# This class is not exposed at runtime. It calls itself sys.version_info.
 @final
+@type_check_only
 class _version_info(_UninstantiableStructseq, tuple[int, int, int, _ReleaseLevel, int]):
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = ("major", "minor", "micro", "releaselevel", "serial")
+
     @property
     def major(self) -> int: ...
     @property
@@ -333,8 +425,13 @@ def audit(event: str, /, *args: Any) -> None: ...
 
 _AsyncgenHook: TypeAlias = Callable[[AsyncGenerator[Any, Any]], None] | None
 
+# This class is not exposed at runtime. It calls itself builtins.asyncgen_hooks.
 @final
+@type_check_only
 class _asyncgen_hooks(structseq[_AsyncgenHook], tuple[_AsyncgenHook, _AsyncgenHook]):
+    if sys.version_info >= (3, 10):
+        __match_args__: Final = ("firstiter", "finalizer")
+
     @property
     def firstiter(self) -> _AsyncgenHook: ...
     @property
