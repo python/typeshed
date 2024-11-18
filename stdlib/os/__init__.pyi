@@ -19,10 +19,9 @@ from _typeshed import (
     WriteableBuffer,
     structseq,
 )
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from builtins import OSError
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, Sequence
-from contextlib import AbstractContextManager
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from subprocess import Popen
 from types import TracebackType
@@ -413,8 +412,11 @@ In the future, this property will contain the last metadata change time."""
     # Attributes documented as sometimes appearing, but deliberately omitted from the stub: `st_creator`, `st_rsize`, `st_type`.
     # See https://github.com/python/typeshed/pull/6560#issuecomment-991253327
 
+# mypy and pyright object to this being both ABC and Protocol.
+# At runtime it inherits from ABC and is not a Protocol, but it will be
+# on the allowlist for use as a Protocol starting in 3.14.
 @runtime_checkable
-class PathLike(Protocol[AnyStr_co]):
+class PathLike(ABC, Protocol[AnyStr_co]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     @abstractmethod
     def __fspath__(self) -> AnyStr_co: ...
 
@@ -794,9 +796,12 @@ def replace(
     src: StrOrBytesPath, dst: StrOrBytesPath, *, src_dir_fd: int | None = None, dst_dir_fd: int | None = None
 ) -> None: ...
 def rmdir(path: StrOrBytesPath, *, dir_fd: int | None = None) -> None: ...
-
-class _ScandirIterator(Iterator[DirEntry[AnyStr]], AbstractContextManager[_ScandirIterator[AnyStr], None]):
+@final
+class _ScandirIterator(Generic[AnyStr]):
+    def __del__(self) -> None: ...
+    def __iter__(self) -> Self: ...
     def __next__(self) -> DirEntry[AnyStr]: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, *args: Unused) -> None: ...
     def close(self) -> None: ...
 
