@@ -1,5 +1,5 @@
 import sys
-from typing import Final, TypedDict, overload, type_check_only
+from typing import Final, TypedDict, overload
 from typing_extensions import LiteralString, NotRequired
 
 if sys.platform == "win32":
@@ -106,7 +106,6 @@ class SystemInfo:
     @property
     def FrameworkVersion64(self) -> tuple[str, ...] | None: ...
 
-@type_check_only
 class _EnvironmentDict(TypedDict):
     include: str
     lib: str

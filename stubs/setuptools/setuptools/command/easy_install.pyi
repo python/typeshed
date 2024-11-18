@@ -1,14 +1,12 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterable, Iterator
-from typing import Any, ClassVar, Literal, NoReturn, TypedDict, TypeVar, type_check_only
+from collections.abc import Iterable, Iterator
+from typing import Any, ClassVar, Literal, NoReturn, TypedDict
 from typing_extensions import Self
 
 from pkg_resources import Distribution, Environment
 from setuptools.package_index import PackageIndex
 
 from .. import Command, SetuptoolsDeprecationWarning
-
-_T = TypeVar("_T")
 
 __all__ = ["easy_install", "PthDistributions", "extract_wininst_cfg", "get_exe_prefixes"]
 
@@ -114,9 +112,6 @@ class RewritePthDistributions(PthDistributions):
     prelude: str
     postlude: str
 
-# Must match shutil._OnExcCallback
-def auto_chmod(func: Callable[..., _T], arg: str, exc: BaseException) -> _T: ...
-@type_check_only
 class _SplitArgs(TypedDict, total=False):
     comments: bool
     posix: bool

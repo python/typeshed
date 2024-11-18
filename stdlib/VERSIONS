@@ -33,6 +33,7 @@ _contextvars: 3.7-
 _csv: 3.0-
 _ctypes: 3.0-
 _curses: 3.0-
+_curses_panel: 3.0-
 _dbm: 3.0-
 _decimal: 3.3-
 _dummy_thread: 3.0-3.8
