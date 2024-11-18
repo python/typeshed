@@ -2,7 +2,7 @@ import sys
 import types
 from _typeshed import SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sequence, Sized
-from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, final, overload, Protocol
+from typing import Any, Generic, Literal, NamedTuple, Protocol, TypedDict, TypeVar, final, overload
 from typing_extensions import ParamSpec, Self, TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -72,38 +72,15 @@ class _lru_cache_wrapper(Generic[_C]):
     __wrapped__: _C
 
     @overload
-    def __call__(
-        _self: _CacheMethod[_T, _P, _R],
-        *args: _P.args,
-        **kwargs: _P.kwargs
-    ) -> _R: ...
+    def __call__(_self: _CacheMethod[_T, _P, _R], *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
     @overload
-    def __call__(
-        _self: _CacheMethod[_T, _P, _R],
-        self: _T,
-        *args: _P.args,
-        **kwargs: _P.kwargs
-    ) -> _R: ...
+    def __call__(_self: _CacheMethod[_T, _P, _R], self: _T, *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
     @overload
-    def __call__(
-        _self: _CacheClassmethod[_T, _P, _R],
-        *args: _P.args,
-        **kwargs: _P.kwargs
-    ) -> _R: ...
+    def __call__(_self: _CacheClassmethod[_T, _P, _R], *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
     @overload
-    def __call__(
-        _self: _CacheClassmethod[_T, _P, _R],
-        cls: type[_T],
-        *args: _P.args,
-        **kwargs: _P.kwargs
-    ) -> _R: ...
+    def __call__(_self: _CacheClassmethod[_T, _P, _R], cls: type[_T], *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
     @overload
-    def __call__(
-        _self: _CacheFn[_P, _R],
-        *args: _P.args,
-        **kwargs: _P.kwargs
-    ) -> _R: ...
-
+    def __call__(_self: _CacheFn[_P, _R], *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
     def cache_info(self) -> _CacheInfo: ...
     def cache_clear(self) -> None: ...
     if sys.version_info >= (3, 9):
