@@ -97,8 +97,10 @@ elif sys.version_info >= (3, 10):
     # 17-tuple
     _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int, int, int]
 else:
-    # 15-tuple
-    _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int]
+    # 16-tuple
+    # int_max_str_digits was backported as a security fix, so this may be a 15-tuple instead depending
+    # on patch version.
+    _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int, int]
 
 # This class is not exposed at runtime. It calls itself sys.flags.
 @final
