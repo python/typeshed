@@ -1,5 +1,5 @@
+from collections.abc import MutableSequence
 from subprocess import _ENV
-from typing import MutableSequence
 
 def spawn(
     cmd: MutableSequence[str], search_path: bool = True, verbose: bool = False, dry_run: bool = False, env: _ENV | None = None
