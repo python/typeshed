@@ -312,6 +312,8 @@ collections.abc.*  # Types are re-exported from _collections_abc, so errors shou
 _?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
 _?ctypes.Array._type_  # _type_ is abstract, https://github.com/python/typeshed/pull/6361
 _?ctypes.Array._length_ # _length_ is abstract, https://github.com/python/typeshed/pull/6361
+_?ctypes.Structure.__getattr__  # doesn't exist, but makes things easy if we pretend it does
+_?ctypes.Union.__getattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # runtime is *args, **kwargs due to a wrapper
 # we have more accurate signatures in the stubs
