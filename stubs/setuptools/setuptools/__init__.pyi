@@ -27,7 +27,7 @@ from .command.saveopts import saveopts
 from .command.sdist import sdist
 from .command.setopt import setopt
 from .depends import Require as Require
-from .discovery import PackageFinder, PEP420PackageFinder
+from .discovery import _Finder
 from .dist import Distribution as Distribution
 from .extension import Extension as Extension
 from .warnings import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarning
@@ -55,8 +55,8 @@ class _BuildInfo(TypedDict):
     include_dirs: NotRequired[list[str]]
     cflags: NotRequired[list[str]]
 
-find_packages = PackageFinder.find
-find_namespace_packages = PEP420PackageFinder.find
+find_packages = _Finder.find
+find_namespace_packages = _Finder.find
 
 def setup(
     *,
