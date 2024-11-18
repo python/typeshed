@@ -29,8 +29,6 @@ tkinter.Wm.wm_attributes
 # Pre-existing errors from Python <=3.12
 # ======================================
 
-ctypes.c_time_t  # Union in the stubs, runtime is dynamic
-
 # Modules that exist at runtime, but are missing from typeshed
 zipfile._path.glob
 

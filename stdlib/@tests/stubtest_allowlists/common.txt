@@ -24,7 +24,6 @@ configparser.SectionProxy.getint
 contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favor of its child classes
 copy.PyStringMap  # defined only in Jython
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
-ctypes.CDLL._func_restype_
 ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
 ctypes.string_at  # docstring argument name is wrong
