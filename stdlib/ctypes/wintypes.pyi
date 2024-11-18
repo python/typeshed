@@ -1,4 +1,4 @@
-from _ctypes import CArgObject as _CArgObject, CField as _CField
+from _ctypes import _CArgObject, _CField
 from ctypes import (
     Array,
     Structure,

@@ -4,7 +4,7 @@ from _typeshed import ReadableBuffer, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from ctypes import CDLL, ArgumentError as ArgumentError, c_void_p
-from typing import Any, ClassVar, Generic, TypeVar, overload, type_check_only
+from typing import Any, ClassVar, Generic, TypeVar, final, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -37,7 +37,7 @@ if sys.platform == "win32":
 
         def __init__(self, hresult: int, text: str | None, details: _COMError_Details) -> None: ...
 
-    def CopyComPointer(src: _PointerLike, dst: _PointerLike | CArgObject) -> int: ...
+    def CopyComPointer(src: _PointerLike, dst: _PointerLike | _CArgObject) -> int: ...
 
     FUNCFLAG_HRESULT: int
     FUNCFLAG_STDCALL: int
@@ -49,19 +49,21 @@ if sys.platform == "win32":
     def FreeLibrary(handle: int, /) -> None: ...
 
 if sys.version_info >= (3, 13):
+    # This class is not exposed. It calls itself _ctypes.CType_Type.
     @type_check_only
-    class CType_Type(type):
+    class _CType_Type(type):
         # By default mypy complains about the following two methods, because strictly speaking cls
         # might not be a Type[_CT]. However this doesn't happen because this is only a
         # metaclass for subclasses of _CData.
         def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
-    _CTypeBaseType = CType_Type
+    _CTypeBaseType = _CType_Type
 
 else:
     _CTypeBaseType = type
 
+# This class is not exposed.
 @type_check_only
 class _CData:
     _b_base_: int
@@ -75,19 +77,20 @@ class _CData:
 # on _CData itself.
 _CDataType: TypeAlias = _SimpleCData[Any] | _Pointer[Any] | CFuncPtr | Union | Structure | Array[Any]
 
+# This class is not exposed. It calls itself _ctypes.PyCSimpleType.
 @type_check_only
-class PyCSimpleType(_CTypeBaseType):
+class _PyCSimpleType(_CTypeBaseType):
     def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
     def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
     def from_buffer_copy(self: type[_typeshed.Self], buffer: ReadableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
-    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | CArgObject: ...
+    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | _CArgObject: ...
     def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
     if sys.version_info < (3, 13):
         # Inherited from CType_Type starting on 3.13
         def __mul__(self: type[_CT], value: int, /) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(self: type[_CT], value: int, /) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
-class _SimpleCData(_CData, Generic[_T], metaclass=PyCSimpleType):
+class _SimpleCData(_CData, Generic[_T], metaclass=_PyCSimpleType):
     value: _T
     # The TypeVar can be unsolved here,
     # but we can't use overloads without creating many, many mypy false-positive errors
@@ -97,12 +100,13 @@ class _SimpleCData(_CData, Generic[_T], metaclass=PyCSimpleType):
 class _CanCastTo(_CData): ...
 class _PointerLike(_CanCastTo): ...
 
+# This type is not exposed. It calls itself _ctypes.PyCPointerType.
 @type_check_only
-class PyCPointerType(_CTypeBaseType):
+class _PyCPointerType(_CTypeBaseType):
     def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
     def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
     def from_buffer_copy(self: type[_typeshed.Self], buffer: ReadableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
-    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | CArgObject: ...
+    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | _CArgObject: ...
     def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
     def set_type(self, type: Any, /) -> None: ...
     if sys.version_info < (3, 13):
@@ -110,7 +114,7 @@ class PyCPointerType(_CTypeBaseType):
         def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
-class _Pointer(_PointerLike, _CData, Generic[_CT], metaclass=PyCPointerType):
+class _Pointer(_PointerLike, _CData, Generic[_CT], metaclass=_PyCPointerType):
     _type_: type[_CT]
     contents: _CT
     @overload
@@ -128,29 +132,31 @@ def POINTER(type: None, /) -> type[c_void_p]: ...
 @overload
 def POINTER(type: type[_CT], /) -> type[_Pointer[_CT]]: ...
 def pointer(obj: _CT, /) -> _Pointer[_CT]: ...
+
+# This class is not exposed. It calls itself _ctypes.CArgObject.
+@final
 @type_check_only
-class CArgObject: ...
+class _CArgObject: ...
 
-_CArgObject = CArgObject  # legacy alias used by existing stubs elsewhere
-
-def byref(obj: _CData | _CDataType, offset: int = ...) -> CArgObject: ...
+def byref(obj: _CData | _CDataType, offset: int = ...) -> _CArgObject: ...
 
 _ECT: TypeAlias = Callable[[_CData | _CDataType | None, CFuncPtr, tuple[_CData | _CDataType, ...]], _CDataType]
 _PF: TypeAlias = tuple[int] | tuple[int, str | None] | tuple[int, str | None, Any]
 
+# This class is not exposed. It calls itself _ctypes.PyCFuncPtrType.
 @type_check_only
-class PyCFuncPtrType(_CTypeBaseType):
+class _PyCFuncPtrType(_CTypeBaseType):
     def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
     def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
     def from_buffer_copy(self: type[_typeshed.Self], buffer: ReadableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
-    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | CArgObject: ...
+    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | _CArgObject: ...
     def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
     if sys.version_info < (3, 13):
         # Inherited from CType_Type starting on 3.13
         def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
-class CFuncPtr(_PointerLike, _CData, metaclass=PyCFuncPtrType):
+class CFuncPtr(_PointerLike, _CData, metaclass=_PyCFuncPtrType):
     restype: type[_CDataType] | Callable[[int], Any] | None
     argtypes: Sequence[type[_CDataType]]
     errcheck: _ECT
@@ -175,32 +181,43 @@ class CFuncPtr(_PointerLike, _CData, metaclass=PyCFuncPtrType):
 _GetT = TypeVar("_GetT")
 _SetT = TypeVar("_SetT")
 
+# This class is not exposed. It calls itself _ctypes.CField.
+@final
 @type_check_only
-class CField(Generic[_CT, _GetT, _SetT]):
+class _CField(Generic[_CT, _GetT, _SetT]):
     offset: int
     size: int
-    @overload
-    def __get__(self, instance: None, owner: type[Any] | None, /) -> Self: ...
-    @overload
-    def __get__(self, instance: Any, owner: type[Any] | None, /) -> _GetT: ...
+    if sys.version_info >= (3, 10):
+        @overload
+        def __get__(self, instance: None, owner: type[Any] | None = None, /) -> Self: ...
+        @overload
+        def __get__(self, instance: Any, owner: type[Any] | None = None, /) -> _GetT: ...
+    else:
+        @overload
+        def __get__(self, instance: None, owner: type[Any] | None, /) -> Self: ...
+        @overload
+        def __get__(self, instance: Any, owner: type[Any] | None, /) -> _GetT: ...
+
     def __set__(self, instance: Any, value: _SetT, /) -> None: ...
 
-_CField = CField  # legacy alias used by existing stubs elsewhere
-
+# This class is not exposed. It calls itself _ctypes.UnionType.
 @type_check_only
-class UnionType(_CTypeBaseType):
+class _UnionType(_CTypeBaseType):
     def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
     def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
     def from_buffer_copy(self: type[_typeshed.Self], buffer: ReadableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
-    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | CArgObject: ...
+    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | _CArgObject: ...
     def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
-    def __getattr__(self, name: str) -> CField[Any, Any, Any]: ...
+    # At runtime, various attributes are created on a Union subclass based
+    # on its _fields_. This method doesn't exist, but represents those
+    # dynamically created attributes.
+    def __getattr__(self, name: str) -> _CField[Any, Any, Any]: ...
     if sys.version_info < (3, 13):
         # Inherited from CType_Type starting on 3.13
         def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
-class Union(_CData, metaclass=UnionType):
+class Union(_CData, metaclass=_UnionType):
     _fields_: ClassVar[Sequence[tuple[str, type[_CDataType]] | tuple[str, type[_CDataType], int]]]
     _pack_: ClassVar[int]
     _anonymous_: ClassVar[Sequence[str]]
@@ -211,20 +228,24 @@ class Union(_CData, metaclass=UnionType):
     def __getattr__(self, name: str) -> Any: ...
     def __setattr__(self, name: str, value: Any) -> None: ...
 
+# This class is not exposed. It calls itself _ctypes.PyCStructType.
 @type_check_only
-class PyCStructType(_CTypeBaseType):
+class _PyCStructType(_CTypeBaseType):
     def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
     def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
     def from_buffer_copy(self: type[_typeshed.Self], buffer: ReadableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
-    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | CArgObject: ...
+    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | _CArgObject: ...
     def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
-    def __getattr__(self, name: str) -> CField[Any, Any, Any]: ...
+    # At runtime, various attributes are created on a Structure subclass based
+    # on its _fields_. This method doesn't exist, but represents those
+    # dynamically created attributes.
+    def __getattr__(self, name: str) -> _CField[Any, Any, Any]: ...
     if sys.version_info < (3, 13):
         # Inherited from CType_Type starting on 3.13
         def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
-class Structure(_CData, metaclass=PyCStructType):
+class Structure(_CData, metaclass=_PyCStructType):
     _fields_: ClassVar[Sequence[tuple[str, type[_CDataType]] | tuple[str, type[_CDataType], int]]]
     _pack_: ClassVar[int]
     _anonymous_: ClassVar[Sequence[str]]
@@ -235,19 +256,20 @@ class Structure(_CData, metaclass=PyCStructType):
     def __getattr__(self, name: str) -> Any: ...
     def __setattr__(self, name: str, value: Any) -> None: ...
 
+# This class is not exposed. It calls itself _ctypes.PyCArrayType.
 @type_check_only
-class PyCArrayType(_CTypeBaseType):
+class _PyCArrayType(_CTypeBaseType):
     def from_address(self: type[_typeshed.Self], value: int, /) -> _typeshed.Self: ...
     def from_buffer(self: type[_typeshed.Self], obj: WriteableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
     def from_buffer_copy(self: type[_typeshed.Self], buffer: ReadableBuffer, offset: int = 0, /) -> _typeshed.Self: ...
-    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | CArgObject: ...
+    def from_param(self: type[_typeshed.Self], value: Any, /) -> _typeshed.Self | _CArgObject: ...
     def in_dll(self: type[_typeshed.Self], dll: CDLL, name: str, /) -> _typeshed.Self: ...
     if sys.version_info < (3, 13):
         # Inherited from CType_Type starting on 3.13
         def __mul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         def __rmul__(cls: type[_CT], other: int) -> type[Array[_CT]]: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
 
-class Array(_CData, Generic[_CT], metaclass=PyCArrayType):
+class Array(_CData, Generic[_CT], metaclass=_PyCArrayType):
     @property
     @abstractmethod
     def _length_(self) -> int: ...
