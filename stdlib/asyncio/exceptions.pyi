@@ -1,5 +1,6 @@
 import sys
 
+# Keep aysyncio.__all__ updated with any changes to __all__ here
 if sys.version_info >= (3, 11):
     __all__ = (
         "BrokenBarrierError",
