@@ -33,6 +33,7 @@ _contextvars: 3.7-
 _csv: 3.0-
 _ctypes: 3.0-
 _curses: 3.0-
+_curses_panel: 3.0-
 _dbm: 3.0-
 _decimal: 3.3-
 _dummy_thread: 3.0-3.8
@@ -40,6 +41,7 @@ _dummy_threading: 3.0-3.8
 _frozen_importlib: 3.0-
 _frozen_importlib_external: 3.5-
 _gdbm: 3.0-
+_hashlib: 3.0-
 _heapq: 3.0-
 _imp: 3.0-
 _interpchannels: 3.13-
