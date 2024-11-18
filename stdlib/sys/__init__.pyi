@@ -90,22 +90,20 @@ _UninstantiableStructseq: TypeAlias = structseq[Any]
 
 flags: _flags
 
-if sys.version_info >= (3, 11):
-    # 18-tuple
-    _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int, int, bool, int]
-elif sys.version_info >= (3, 10):
-    # 17-tuple
-    _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int, int, int]
-else:
-    # 16-tuple
-    # int_max_str_digits was backported as a security fix, so this may be a 15-tuple instead depending
-    # on patch version.
-    _FlagTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, bool, int, int]
-
 # This class is not exposed at runtime. It calls itself sys.flags.
+# As a tuple, it can have a length between 15 and 18. We don't model
+# the exact length here because that varies by patch version due to
+# the backported security fix int_max_str_digits. The exact length shouldn't
+# be relied upon. See #13031
+# This can be re-visited when typeshed drops support for 3.10,
+# at which point all supported versions will include int_max_str_digits
+# in all patch versions.
+# 3.8 and 3.9 are 15 or 16-tuple
+# 3.10 is 16 or 17-tuple
+# 3.11+ is an 18-tuple.
 @final
 @type_check_only
-class _flags(_UninstantiableStructseq, _FlagTuple):
+class _flags(_UninstantiableStructseq, tuple[int, ...]):
     # `safe_path` was added in py311
     if sys.version_info >= (3, 11):
         __match_args__: Final = (
@@ -188,6 +186,8 @@ class _flags(_UninstantiableStructseq, _FlagTuple):
     # Whether or not this exists on lower versions of Python
     # may depend on which patch release you're using
     # (it was backported to all Python versions on 3.8+ as a security fix)
+    # Added in: 3.8.14, 3.9.14, 3.10.7
+    # and present in all versions of 3.11 and later.
     @property
     def int_max_str_digits(self) -> int: ...
 
