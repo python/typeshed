@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Awaitable, Coroutine, Generator
 from typing import Any, TypeVar
-from typing_extensions import TypeAlias
+from typing_extensions import LiteralString, TypeAlias
 
 # As at runtime, this depends on all submodules defining __all__ accurately.
 from .base_events import *
@@ -18,7 +18,7 @@ from .subprocess import *
 from .tasks import *
 from .transports import *
 
-__all__: tuple[str, ...] = (
+__all__: tuple[LiteralString, ...] = (
     "BaseEventLoop",  # from base_events
     "iscoroutinefunction",  # from coroutines
     "iscoroutine",  # from coroutines
