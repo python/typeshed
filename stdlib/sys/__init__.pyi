@@ -104,6 +104,7 @@ else:
 @final
 @type_check_only
 class _flags(_UninstantiableStructseq, _FlagTuple):
+    # `safe_path` was added in py311
     if sys.version_info >= (3, 11):
         __match_args__: Final = (
             "debug",
@@ -182,9 +183,11 @@ class _flags(_UninstantiableStructseq, _FlagTuple):
     if sys.version_info >= (3, 11):
         @property
         def safe_path(self) -> bool: ...
-    if sys.version_info >= (3, 10):
-        @property
-        def int_max_str_digits(self) -> int: ...
+    # Whether or not this exists on lower versions of Python
+    # may depend on which patch release you're using
+    # (it was backported to all Python versions on 3.8+ as a security fix)
+    @property
+    def int_max_str_digits(self) -> int: ...
 
 float_info: _float_info
 
