@@ -1,5 +1,5 @@
 import sys
-from _typeshed import AnyOrLiteralStr, BytesPath, StrOrBytesPath, StrPath
+from _typeshed import BytesPath, StrOrBytesPath, StrPath
 from genericpath import (
     commonprefix as commonprefix,
     exists as exists,
@@ -46,7 +46,7 @@ from typing import AnyStr, overload
 from typing_extensions import LiteralString
 
 if sys.version_info >= (3, 12):
-    from posixpath import isjunction as isjunction
+    from posixpath import isjunction as isjunction, splitroot as splitroot
 if sys.version_info >= (3, 13):
     from genericpath import isdevdrive as isdevdrive
 
@@ -121,12 +121,6 @@ if sys.platform == "win32":
 
 else:
     realpath = abspath
-
-if sys.version_info >= (3, 12):
-    @overload
-    def splitroot(p: AnyOrLiteralStr) -> tuple[AnyOrLiteralStr, AnyOrLiteralStr, AnyOrLiteralStr]: ...
-    @overload
-    def splitroot(p: PathLike[AnyStr]) -> tuple[AnyStr, AnyStr, AnyStr]: ...
 
 if sys.version_info >= (3, 13):
     def isreserved(path: StrOrBytesPath) -> bool: ...
