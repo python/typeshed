@@ -398,7 +398,7 @@ csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 p
 
 dataclasses.field  # White lies around defaults
 email.policy.EmailPolicy.message_factory  # "type" at runtime, but protocol in stubs
-hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
+_?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
 hmac.HMAC.blocksize  # use block_size instead
 
 # runtime is *args, **kwargs due to a wrapper
