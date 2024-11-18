@@ -1,32 +1,25 @@
 from __future__ import annotations
-# pyright: reportUnnecessaryTypeIgnoreComment=true
 
-from functools import cache
 from collections.abc import Callable
-from typing import (
-    final,
-    assert_type,
-    TYPE_CHECKING,
-    overload,
-    override,
-    Any,
-    Self,
-    TypeVar,
-    ParamSpec,
-    Generic,
-)
 from dataclasses import dataclass
+
+# pyright: reportUnnecessaryTypeIgnoreComment=true
+from functools import cache
+from typing import TYPE_CHECKING, Any, Generic, ParamSpec, Self, TypeVar, assert_type, final, overload, override
 
 P = ParamSpec("P")
 R = TypeVar("R")
+
 
 @cache
 def cached_fn(arg: int, arg2: str) -> int:
     return arg
 
+
 @dataclass
 class MemberVarCached(Generic[P, R]):
     member_callable: Callable[P, R]
+
 
 @cache
 def cached_fn_takes_t(arg: MemberVarCached[..., Any], arg2: str) -> int:
@@ -42,10 +35,11 @@ vc_t.member_callable(vc_t, "")
 
 if TYPE_CHECKING:
     # type errors - correct
-    vc_t.member_callable("") # type: ignore[call-arg,arg-type] # pyright: ignore[reportCallIssue]
-    vc.member_callable(1, 1) # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
+    vc_t.member_callable("")  # type: ignore[call-arg,arg-type] # pyright: ignore[reportCallIssue]
+    vc.member_callable(1, 1)  # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
     vc.member_callable(1)  # type: ignore[call-arg]  # pyright: ignore[reportCallIssue]
-    vc.member_callable("1") # type: ignore[call-arg,arg-type] # pyright: ignore[reportCallIssue]
+    vc.member_callable("1")  # type: ignore[call-arg,arg-type] # pyright: ignore[reportCallIssue]
+
 
 class CFnCls:
     @cache
@@ -82,7 +76,6 @@ class CFnCls:
         print("class fn called")
         return arg
 
-
     @staticmethod
     @cache
     def st_fn(arg: int) -> int:
@@ -113,8 +106,10 @@ class CFnCls:
         print("property fn called")
         return 1
 
+
 class CFnSubCls(CFnCls):
     pass
+
 
 cfn_inst = CFnCls()
 cfn_inst.fn(1)
@@ -157,45 +152,51 @@ CFnCls.st_fn.cache_clear()
 CFnCls.cls_fn.cache_clear()
 if TYPE_CHECKING:
     # type errors - correct
-    CFnCls().fn(1, 1) # type: ignore[call-arg,misc] # pyright: ignore[reportCallIssue]
-    CFnCls().fn.__wrapped__(CFnCls(), 1, 1) # type: ignore[call-arg] # pyright: ignore[reportCallIssue]
-    CFnCls.fn(arg=1) # type: ignore[call-arg] # pyright: ignore[reportCallIssue]
-    CFnCls.st_fn(1, 1) # type: ignore[call-arg,arg-type,misc] # pyright: ignore[reportCallIssue]
-    CFnCls.cls_fn(1, 1) # type: ignore[arg-type,call-arg] # pyright: ignore[reportCallIssue]
-    CFnCls.cls_fn_positional_only(CFnCls, 1) # type: ignore[arg-type,call-arg] # pyright: ignore[reportCallIssue]
-    CFnCls().cls_fn_positional_only(CFnCls, 1) # type: ignore[call-arg,arg-type,misc] # pyright: ignore[reportCallIssue]
-    CFnCls.cls_fn_explicit_positional_only(CFnCls, 1) # type: ignore[arg-type,call-arg] # pyright: ignore[reportCallIssue]
-    CFnCls().cls_fn_explicit_positional_only(CFnCls, 1) # type: ignore[call-arg,arg-type,misc] # pyright: ignore[reportCallIssue]
+    CFnCls().fn(1, 1)  # type: ignore[call-arg,misc] # pyright: ignore[reportCallIssue]
+    CFnCls().fn.__wrapped__(CFnCls(), 1, 1)  # type: ignore[call-arg] # pyright: ignore[reportCallIssue]
+    CFnCls.fn(arg=1)  # type: ignore[call-arg] # pyright: ignore[reportCallIssue]
+    CFnCls.st_fn(1, 1)  # type: ignore[call-arg,arg-type,misc] # pyright: ignore[reportCallIssue]
+    CFnCls.cls_fn(1, 1)  # type: ignore[arg-type,call-arg] # pyright: ignore[reportCallIssue]
+    CFnCls.cls_fn_positional_only(CFnCls, 1)  # type: ignore[arg-type,call-arg] # pyright: ignore[reportCallIssue]
+    CFnCls().cls_fn_positional_only(CFnCls, 1)  # type: ignore[call-arg,arg-type,misc] # pyright: ignore[reportCallIssue]
+    CFnCls.cls_fn_explicit_positional_only(CFnCls, 1)  # type: ignore[arg-type,call-arg] # pyright: ignore[reportCallIssue]
+    CFnCls().cls_fn_explicit_positional_only(CFnCls, 1)  # type: ignore[call-arg,arg-type,misc] # pyright: ignore[reportCallIssue]
+
 
 @cache
 def fn(arg: int) -> int:
     return arg
 
+
 @cache
 def df_fn(arg: int, darg: str = "default"):
     print("default fn called")
     return darg
+
+
 df_fn(1)
 
 fn(1)
 assert_type(fn(1), int)
 if TYPE_CHECKING:
     # type error - correct
-    fn(1, 2) # type: ignore[call-arg] # pyright: ignore[reportCallIssue]
+    fn(1, 2)  # type: ignore[call-arg] # pyright: ignore[reportCallIssue]
 fn.cache_clear()
+
 
 @overload
 @cache
-def fn_overload(arg: int) -> int:
-    ...
+def fn_overload(arg: int) -> int: ...
 @overload
 @cache
 def fn_overload(arg: str) -> str:
     return arg
 
+
 @cache
 def fn_overload(arg: int | str) -> int | str:
     return arg
+
 
 fn_overload(1)
 fn_overload("1")
@@ -205,7 +206,7 @@ assert_type(fn_overload("1"), str)
 fn_overload.cache_clear()
 if TYPE_CHECKING:
     # type error - correct
-    fn_overload(frozenset({1,2})) # type: ignore[call-overload] # pyright: ignore[reportArgumentType]
+    fn_overload(frozenset({1, 2}))  # type: ignore[call-overload] # pyright: ignore[reportArgumentType]
 
 
 class Unhashable:
@@ -213,34 +214,41 @@ class Unhashable:
     def __eq__(self, value: object) -> bool:
         return False
 
+
 @cache
 def no_cache(arg: Unhashable, arg2: int) -> None:
     pass
 
+
 if TYPE_CHECKING:
     # This is not correctly rejected.
-    no_cache(Unhashable(), 2) # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
+    no_cache(Unhashable(), 2)  # type: ignore[arg-type] # pyright: ignore[reportArgumentType]
+
 
 class MemberVarBound(Generic[P, R]):
     @cache
     def equals(self, other: Self) -> bool:
         return False
+
     member_fn: Callable[P, R]
+
 
 def set_member(lhs: MemberVarBound[..., Any], rhs: MemberVarBound[..., Any]) -> None:
     lhs.member_fn = rhs.equals
     lhs.member_fn(rhs)
 
     if TYPE_CHECKING:
-        lhs.member_fn() # type: ignore[call-arg] # pyright: ignore[reportCallIssue]
+        lhs.member_fn()  # type: ignore[call-arg] # pyright: ignore[reportCallIssue]
+
 
 from abc import ABCMeta, abstractmethod
+
 
 class CustomABC(metaclass=ABCMeta):
 
     @abstractmethod
-    def foo(self, arg: int) -> int:
-        ...
+    def foo(self, arg: int) -> int: ...
+
 
 @final
 class ABCConcrete(CustomABC):
@@ -256,6 +264,7 @@ class ABCConcrete(CustomABC):
     @cache
     def abc_cm(cls, arg: str) -> str:
         return arg
+
 
 ABCConcrete().abc_fn("1")
 ABCConcrete.abc_fn(ABCConcrete(), "1")
