@@ -88,6 +88,8 @@ if sys.platform != "win32" and sys.platform != "darwin":
     SO_PRIORITY: int
     SO_PROTOCOL: int
     SO_SETFIB: int
+if sys.platform == "linux" and sys.version_info >= (3, 13):
+    SO_BINDTOIFINDEX: int
 
 SOMAXCONN: int
 
@@ -205,8 +207,6 @@ IP_OPTIONS: int
 IP_RECVDSTADDR: int
 if sys.version_info >= (3, 10):
     IP_RECVTOS: int
-elif sys.platform != "win32" and sys.platform != "darwin":
-    IP_RECVTOS: int
 IP_TOS: int
 IP_TTL: int
 if sys.platform != "win32":
@@ -218,6 +218,7 @@ if sys.platform != "win32":
     IP_RETOPTS: int
 if sys.platform != "win32" and sys.platform != "darwin":
     IP_TRANSPARENT: int
+if sys.platform != "win32" and sys.platform != "darwin" and sys.version_info >= (3, 11):
     IP_BIND_ADDRESS_NO_PORT: int
 if sys.version_info >= (3, 12):
     IP_ADD_SOURCE_MEMBERSHIP: int
@@ -293,6 +294,8 @@ NI_NAMEREQD: int
 NI_NOFQDN: int
 NI_NUMERICHOST: int
 NI_NUMERICSERV: int
+if sys.platform == "linux" and sys.version_info >= (3, 13):
+    NI_IDN: int
 
 TCP_FASTOPEN: int
 TCP_KEEPCNT: int
@@ -318,6 +321,27 @@ if sys.platform != "win32" and sys.platform != "darwin":
     TCP_SYNCNT: int
     TCP_USER_TIMEOUT: int
     TCP_WINDOW_CLAMP: int
+if sys.platform == "linux" and sys.version_info >= (3, 12):
+    TCP_CC_INFO: int
+    TCP_FASTOPEN_CONNECT: int
+    TCP_FASTOPEN_KEY: int
+    TCP_FASTOPEN_NO_COOKIE: int
+    TCP_INQ: int
+    TCP_MD5SIG: int
+    TCP_MD5SIG_EXT: int
+    TCP_QUEUE_SEQ: int
+    TCP_REPAIR: int
+    TCP_REPAIR_OPTIONS: int
+    TCP_REPAIR_QUEUE: int
+    TCP_REPAIR_WINDOW: int
+    TCP_SAVED_SYN: int
+    TCP_SAVE_SYN: int
+    TCP_THIN_DUPACK: int
+    TCP_THIN_LINEAR_TIMEOUTS: int
+    TCP_TIMESTAMP: int
+    TCP_TX_DELAY: int
+    TCP_ULP: int
+    TCP_ZEROCOPY_RECEIVE: int
 
 # --------------------
 # Specifically documented constants
@@ -334,12 +358,13 @@ if sys.platform == "linux":
     CAN_ERR_FLAG: int
     CAN_ERR_MASK: int
     CAN_RAW: int
-    CAN_RAW_ERR_FILTER: int
     CAN_RAW_FILTER: int
     CAN_RAW_LOOPBACK: int
     CAN_RAW_RECV_OWN_MSGS: int
     CAN_RTR_FLAG: int
     CAN_SFF_MASK: int
+    if sys.version_info < (3, 11):
+        CAN_RAW_ERR_FILTER: int
 
 if sys.platform == "linux":
     # Availability: Linux >= 2.6.25

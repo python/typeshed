@@ -379,14 +379,9 @@ if sys.version_info >= (3, 10):
     from _socket import IP_RECVTOS as IP_RECVTOS
 
     __all__ += ["IP_RECVTOS"]
-elif sys.platform != "win32" and sys.platform != "darwin":
-    from _socket import IP_RECVTOS as IP_RECVTOS
-
-    __all__ += ["IP_RECVTOS"]
 
 if sys.platform != "win32" and sys.platform != "darwin":
     from _socket import (
-        IP_BIND_ADDRESS_NO_PORT as IP_BIND_ADDRESS_NO_PORT,
         IP_TRANSPARENT as IP_TRANSPARENT,
         IPPROTO_BIP as IPPROTO_BIP,
         IPPROTO_MOBILE as IPPROTO_MOBILE,
@@ -421,7 +416,6 @@ if sys.platform != "win32" and sys.platform != "darwin":
     )
 
     __all__ += [
-        "IP_BIND_ADDRESS_NO_PORT",
         "IP_TRANSPARENT",
         "IPPROTO_BIP",
         "IPPROTO_MOBILE",
@@ -474,6 +468,11 @@ if sys.platform != "win32" and sys.platform != "darwin":
         "MSG_FASTOPEN",
         "MSG_MORE",
     ]
+
+if sys.platform != "win32" and sys.platform != "darwin" and sys.version_info >= (3, 11):
+    from _socket import IP_BIND_ADDRESS_NO_PORT as IP_BIND_ADDRESS_NO_PORT
+
+    __all__ += ["IP_BIND_ADDRESS_NO_PORT"]
 
 if sys.platform != "win32":
     from _socket import (
@@ -636,7 +635,6 @@ if sys.platform == "linux":
         CAN_ERR_MASK as CAN_ERR_MASK,
         CAN_ISOTP as CAN_ISOTP,
         CAN_RAW as CAN_RAW,
-        CAN_RAW_ERR_FILTER as CAN_RAW_ERR_FILTER,
         CAN_RAW_FD_FRAMES as CAN_RAW_FD_FRAMES,
         CAN_RAW_FILTER as CAN_RAW_FILTER,
         CAN_RAW_LOOPBACK as CAN_RAW_LOOPBACK,
@@ -765,7 +763,6 @@ if sys.platform == "linux":
         "CAN_ERR_MASK",
         "CAN_ISOTP",
         "CAN_RAW",
-        "CAN_RAW_ERR_FILTER",
         "CAN_RAW_FD_FRAMES",
         "CAN_RAW_FILTER",
         "CAN_RAW_LOOPBACK",
@@ -862,6 +859,11 @@ if sys.platform == "linux":
         "SOCK_NONBLOCK",
     ]
 
+    if sys.version_info < (3, 11):
+        from _socket import CAN_RAW_ERR_FILTER as CAN_RAW_ERR_FILTER
+
+        __all__ += ["CAN_RAW_ERR_FILTER"]
+
 if sys.platform == "linux" and sys.version_info >= (3, 9):
     from _socket import (
         CAN_J1939 as CAN_J1939,
@@ -932,6 +934,57 @@ if sys.platform == "linux" and sys.version_info >= (3, 11):
     from _socket import SO_INCOMING_CPU as SO_INCOMING_CPU
 
     __all__ += ["SO_INCOMING_CPU"]
+if sys.platform == "linux" and sys.version_info >= (3, 12):
+    from _socket import (
+        TCP_CC_INFO as TCP_CC_INFO,
+        TCP_FASTOPEN_CONNECT as TCP_FASTOPEN_CONNECT,
+        TCP_FASTOPEN_KEY as TCP_FASTOPEN_KEY,
+        TCP_FASTOPEN_NO_COOKIE as TCP_FASTOPEN_NO_COOKIE,
+        TCP_INQ as TCP_INQ,
+        TCP_MD5SIG as TCP_MD5SIG,
+        TCP_MD5SIG_EXT as TCP_MD5SIG_EXT,
+        TCP_QUEUE_SEQ as TCP_QUEUE_SEQ,
+        TCP_REPAIR as TCP_REPAIR,
+        TCP_REPAIR_OPTIONS as TCP_REPAIR_OPTIONS,
+        TCP_REPAIR_QUEUE as TCP_REPAIR_QUEUE,
+        TCP_REPAIR_WINDOW as TCP_REPAIR_WINDOW,
+        TCP_SAVE_SYN as TCP_SAVE_SYN,
+        TCP_SAVED_SYN as TCP_SAVED_SYN,
+        TCP_THIN_DUPACK as TCP_THIN_DUPACK,
+        TCP_THIN_LINEAR_TIMEOUTS as TCP_THIN_LINEAR_TIMEOUTS,
+        TCP_TIMESTAMP as TCP_TIMESTAMP,
+        TCP_TX_DELAY as TCP_TX_DELAY,
+        TCP_ULP as TCP_ULP,
+        TCP_ZEROCOPY_RECEIVE as TCP_ZEROCOPY_RECEIVE,
+    )
+
+    __all__ += [
+        "TCP_CC_INFO",
+        "TCP_FASTOPEN_CONNECT",
+        "TCP_FASTOPEN_KEY",
+        "TCP_FASTOPEN_NO_COOKIE",
+        "TCP_INQ",
+        "TCP_MD5SIG",
+        "TCP_MD5SIG_EXT",
+        "TCP_QUEUE_SEQ",
+        "TCP_REPAIR",
+        "TCP_REPAIR_OPTIONS",
+        "TCP_REPAIR_QUEUE",
+        "TCP_REPAIR_WINDOW",
+        "TCP_SAVED_SYN",
+        "TCP_SAVE_SYN",
+        "TCP_THIN_DUPACK",
+        "TCP_THIN_LINEAR_TIMEOUTS",
+        "TCP_TIMESTAMP",
+        "TCP_TX_DELAY",
+        "TCP_ULP",
+        "TCP_ZEROCOPY_RECEIVE",
+    ]
+
+if sys.platform == "linux" and sys.version_info >= (3, 13):
+    from _socket import NI_IDN as NI_IDN, SO_BINDTOIFINDEX as SO_BINDTOIFINDEX
+
+    __all__ += ["NI_IDN", "SO_BINDTOIFINDEX"]
 
 if sys.version_info >= (3, 12):
     from _socket import (
