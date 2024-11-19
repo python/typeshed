@@ -2,11 +2,9 @@
 # TODO: Review the following
 # ==========
 
-_socket.*
 _posixsubprocess.cloexec_pipe
 curses.has_key
 selectors.KqueueSelector
-socket.[A-Z0-9_]+
 
 _ctypes.dlclose
 _ctypes.dlopen
