@@ -312,6 +312,8 @@ collections.abc.*  # Types are re-exported from _collections_abc, so errors shou
 _?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
 _?ctypes.Array._type_  # _type_ is abstract, https://github.com/python/typeshed/pull/6361
 _?ctypes.Array._length_ # _length_ is abstract, https://github.com/python/typeshed/pull/6361
+_?ctypes.Structure.__getattr__  # doesn't exist, but makes things easy if we pretend it does
+_?ctypes.Union.__getattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # runtime is *args, **kwargs due to a wrapper
 # we have more accurate signatures in the stubs
@@ -382,7 +384,7 @@ codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
 
 collections.UserList.sort  # Runtime has *args but will error if any are supplied
-contextvars.Context.__init__  # C signature is broader than what is actually accepted
+_?contextvars.Context.__init__  # C signature is broader than what is actually accepted
 
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter
@@ -396,7 +398,7 @@ csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 p
 
 dataclasses.field  # White lies around defaults
 email.policy.EmailPolicy.message_factory  # "type" at runtime, but protocol in stubs
-hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
+_?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
 hmac.HMAC.blocksize  # use block_size instead
 
 # runtime is *args, **kwargs due to a wrapper
@@ -423,12 +425,6 @@ multiprocessing.managers.BaseListProxy.__len__
 multiprocessing.managers.BaseListProxy.__reversed__
 multiprocessing.managers.BaseListProxy.reverse
 multiprocessing.managers.BaseListProxy.sort
-multiprocessing.managers.DictProxy.__iter__
-multiprocessing.managers.DictProxy.__len__
-multiprocessing.managers.DictProxy.copy
-multiprocessing.managers.DictProxy.items
-multiprocessing.managers.DictProxy.keys
-multiprocessing.managers.DictProxy.values
 
 # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
 multiprocessing.managers.SyncManager.Event
@@ -445,7 +441,7 @@ multiprocessing.reduction.AbstractReducer.ForkingPickler
 multiprocessing.pool.Pool.__del__
 
 # C signature is broader than what is actually accepted
-queue.SimpleQueue.__init__
+_?queue.SimpleQueue.__init__
 
 # Items that depend on the existence and flags of SSL
 imaplib.IMAP4_SSL.ssl
@@ -468,6 +464,8 @@ typing_extensions\.ParamSpec.*
 typing(_extensions)?\.Generic
 typing\.Protocol
 typing(_extensions)?\._TypedDict
+typing._Final
+typing._Final.__init_subclass__
 
 # Special primitives
 typing_extensions\.Final

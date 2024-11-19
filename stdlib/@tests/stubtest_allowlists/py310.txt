@@ -3,7 +3,7 @@ _weakref.ProxyType.__reversed__  # Doesn't really exist
 asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.property.__set_name__  # Doesn't actually exist
-bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
+_?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 configparser.ParsingError.filename
 contextlib.AbstractAsyncContextManager.__class_getitem__
@@ -229,6 +229,15 @@ importlib.abc.Traversable.open
 # Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
 importlib.metadata.DeprecatedList.reverse
 importlib.metadata.DeprecatedList.sort
+
+# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
+# But have more precise (accurate) signatures in the stub
+multiprocessing.managers.DictProxy.__iter__
+multiprocessing.managers.DictProxy.__len__
+multiprocessing.managers.DictProxy.copy
+multiprocessing.managers.DictProxy.items
+multiprocessing.managers.DictProxy.keys
+multiprocessing.managers.DictProxy.values
 
 # Super-special typing primitives
 typing\.NamedTuple
