@@ -565,7 +565,7 @@ if sys.platform != "win32" or sys.version_info >= (3, 9):
 
 has_ipv6: bool
 
-if sys.platform != "darwin":
+if sys.platform != "darwin" and sys.platform != "linux":
     if sys.platform != "win32" or sys.version_info >= (3, 9):
         BDADDR_ANY: str
         BDADDR_LOCAL: str
@@ -638,7 +638,7 @@ if sys.platform == "darwin":
     PF_SYSTEM: int
     SYSPROTO_CONTROL: int
 
-if sys.platform != "darwin":
+if sys.platform != "darwin" and sys.platform != "linux":
     if sys.version_info >= (3, 9) or sys.platform != "win32":
         AF_BLUETOOTH: int
 
@@ -648,7 +648,7 @@ if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "lin
     BTPROTO_HCI: int
     BTPROTO_L2CAP: int
     BTPROTO_SCO: int  # not in FreeBSD
-if sys.platform != "darwin":
+if sys.platform != "darwin" and sys.platform != "linux":
     if sys.version_info >= (3, 9) or sys.platform != "win32":
         BTPROTO_RFCOMM: int
 

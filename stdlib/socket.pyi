@@ -510,7 +510,7 @@ if sys.platform != "win32":
             "IPV6_RTHDRDSTOPTS",
         ]
 
-if sys.platform != "darwin":
+if sys.platform != "darwin" and sys.platform != "linux":
     if sys.platform != "win32" or sys.version_info >= (3, 9):
         from _socket import BDADDR_ANY as BDADDR_ANY, BDADDR_LOCAL as BDADDR_LOCAL, BTPROTO_RFCOMM as BTPROTO_RFCOMM
 
@@ -938,7 +938,7 @@ if sys.platform != "win32" and sys.version_info >= (3, 9):
 if sys.platform != "win32" or sys.version_info >= (3, 9):
     if sys.platform != "linux":
         __all__ += ["AF_LINK"]
-    if sys.platform != "darwin":
+    if sys.platform != "darwin" and sys.platform != "linux":
         __all__ += ["AF_BLUETOOTH"]
 
 if sys.platform == "win32" and sys.version_info >= (3, 12):
