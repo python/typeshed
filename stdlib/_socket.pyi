@@ -72,7 +72,8 @@ SO_SNDBUF: int
 SO_SNDLOWAT: int
 SO_SNDTIMEO: int
 SO_TYPE: int
-SO_USELOOPBACK: int
+if sys.platform != "linux":
+    SO_USELOOPBACK: int
 if sys.platform == "win32":
     SO_EXCLUSIVEADDRUSE: int
 if sys.platform != "win32":
@@ -154,10 +155,7 @@ IPPROTO_HOPOPTS: int
 IPPROTO_ICMPV6: int
 IPPROTO_IDP: int
 IPPROTO_IGMP: int
-IPPROTO_IPV4: int
 IPPROTO_IPV6: int
-IPPROTO_MAX: int
-IPPROTO_ND: int
 IPPROTO_NONE: int
 IPPROTO_PIM: int
 IPPROTO_PUP: int
@@ -165,6 +163,9 @@ IPPROTO_ROUTING: int
 IPPROTO_SCTP: int
 if sys.platform != "linux":
     IPPROTO_GGP: int
+    IPPROTO_IPV4: int
+    IPPROTO_MAX: int
+    IPPROTO_ND: int
 if sys.platform == "win32":
     IPPROTO_CBT: int
     IPPROTO_ICLFXBM: int
@@ -211,7 +212,8 @@ IP_MULTICAST_IF: int
 IP_MULTICAST_LOOP: int
 IP_MULTICAST_TTL: int
 IP_OPTIONS: int
-IP_RECVDSTADDR: int
+if sys.platform != "linux":
+    IP_RECVDSTADDR: int
 if sys.version_info >= (3, 10):
     IP_RECVTOS: int
 IP_TOS: int
@@ -263,6 +265,9 @@ if sys.platform != "win32":
         IPV6_RECVPATHMTU: int
         IPV6_RECVPKTINFO: int
         IPV6_RTHDRDSTOPTS: int
+
+if sys.platform != "win32" and sys.platform != "linux":
+    if sys.version_info >= (3, 9) or sys.platform != "darwin":
         IPV6_USE_MIN_MTU: int
 
 EAI_AGAIN: int
@@ -470,24 +475,24 @@ if sys.platform == "linux":
     AF_RDS: int
     PF_RDS: int
     SOL_RDS: int
-    RDS_CANCEL_SENT_TO: int
-    RDS_CMSG_RDMA_ARGS: int
-    RDS_CMSG_RDMA_DEST: int
-    RDS_CMSG_RDMA_MAP: int
-    RDS_CMSG_RDMA_STATUS: int
-    RDS_CMSG_RDMA_UPDATE: int
-    RDS_CONG_MONITOR: int
-    RDS_FREE_MR: int
-    RDS_GET_MR: int
-    RDS_GET_MR_FOR_DEST: int
-    RDS_RDMA_DONTWAIT: int
-    RDS_RDMA_FENCE: int
-    RDS_RDMA_INVALIDATE: int
-    RDS_RDMA_NOTIFY_ME: int
-    RDS_RDMA_READWRITE: int
-    RDS_RDMA_SILENT: int
-    RDS_RDMA_USE_ONCE: int
-    RDS_RECVERR: int
+    # RDS_CANCEL_SENT_TO: int  # Availability?
+    # RDS_CMSG_RDMA_ARGS: int  # Availability?
+    # RDS_CMSG_RDMA_DEST: int  # Availability?
+    # RDS_CMSG_RDMA_MAP: int  # Availability?
+    # RDS_CMSG_RDMA_STATUS: int  # Availability?
+    # RDS_CMSG_RDMA_UPDATE: int  # Availability?
+    # RDS_CONG_MONITOR: int  # Availability?
+    # RDS_FREE_MR: int  # Availability?
+    # RDS_GET_MR: int  # Availability?
+    # RDS_GET_MR_FOR_DEST: int  # Availability?
+    # RDS_RDMA_DONTWAIT: int  # Availability?
+    # RDS_RDMA_FENCE: int  # Availability?
+    # RDS_RDMA_INVALIDATE: int  # Availability?
+    # RDS_RDMA_NOTIFY_ME: int  # Availability?
+    # RDS_RDMA_READWRITE: int  # Availability?
+    # RDS_RDMA_SILENT: int  # Availability?
+    # RDS_RDMA_USE_ONCE: int  # Availability?
+    # RDS_RECVERR: int  # Availability?
 
 if sys.platform == "win32":
     SIO_RCVALL: int
@@ -565,7 +570,7 @@ if sys.platform != "darwin":
         BDADDR_ANY: str
         BDADDR_LOCAL: str
 
-if sys.platform != "win32" and sys.platform != "darwin":
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
     HCI_FILTER: int  # not in NetBSD or DragonFlyBSD
     HCI_TIME_STAMP: int  # not in FreeBSD, NetBSD, or DragonFlyBSD
     HCI_DATA_DIR: int  # not in FreeBSD, NetBSD, or DragonFlyBSD
@@ -614,19 +619,19 @@ if sys.version_info >= (3, 12):
 if sys.platform == "linux":
     # Netlink is defined by Linux
     AF_NETLINK: int
-    NETLINK_ARPD: int
+    # NETLINK_ARPD: int  # Availability?
     NETLINK_CRYPTO: int
     NETLINK_DNRTMSG: int
     NETLINK_FIREWALL: int
     NETLINK_IP6_FW: int
     NETLINK_NFLOG: int
-    NETLINK_ROUTE6: int
+    # NETLINK_ROUTE6: int  # Availability?
     NETLINK_ROUTE: int
-    NETLINK_SKIP: int
-    NETLINK_TAPBASE: int
-    NETLINK_TCPDIAG: int
+    # NETLINK_SKIP: int  # Availability?
+    # NETLINK_TAPBASE: int  # Availability?
+    # NETLINK_TCPDIAG: int  # Availability?
     NETLINK_USERSOCK: int
-    NETLINK_W1: int
+    # NETLINK_W1: int  # Availability?
     NETLINK_XFRM: int
 
 if sys.platform == "darwin":
@@ -637,7 +642,7 @@ if sys.platform != "darwin":
     if sys.version_info >= (3, 9) or sys.platform != "win32":
         AF_BLUETOOTH: int
 
-if sys.platform != "win32" and sys.platform != "darwin":
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
     # Linux and some BSD support is explicit in the docs
     # Windows and macOS do not support in practice
     BTPROTO_HCI: int

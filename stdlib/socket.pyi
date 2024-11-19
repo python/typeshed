@@ -28,7 +28,6 @@ from _socket import (
     IP_MULTICAST_LOOP as IP_MULTICAST_LOOP,
     IP_MULTICAST_TTL as IP_MULTICAST_TTL,
     IP_OPTIONS as IP_OPTIONS,
-    IP_RECVDSTADDR as IP_RECVDSTADDR,
     IP_TOS as IP_TOS,
     IP_TTL as IP_TTL,
     IPPORT_RESERVED as IPPORT_RESERVED,
@@ -44,10 +43,7 @@ from _socket import (
     IPPROTO_IDP as IPPROTO_IDP,
     IPPROTO_IGMP as IPPROTO_IGMP,
     IPPROTO_IP as IPPROTO_IP,
-    IPPROTO_IPV4 as IPPROTO_IPV4,
     IPPROTO_IPV6 as IPPROTO_IPV6,
-    IPPROTO_MAX as IPPROTO_MAX,
-    IPPROTO_ND as IPPROTO_ND,
     IPPROTO_NONE as IPPROTO_NONE,
     IPPROTO_PIM as IPPROTO_PIM,
     IPPROTO_PUP as IPPROTO_PUP,
@@ -92,7 +88,6 @@ from _socket import (
     SO_SNDLOWAT as SO_SNDLOWAT,
     SO_SNDTIMEO as SO_SNDTIMEO,
     SO_TYPE as SO_TYPE,
-    SO_USELOOPBACK as SO_USELOOPBACK,
     SOL_IP as SOL_IP,
     SOL_SOCKET as SOL_SOCKET,
     SOL_TCP as SOL_TCP,
@@ -190,10 +185,7 @@ __all__ = [
     "IPPROTO_IDP",
     "IPPROTO_IGMP",
     "IPPROTO_IP",
-    "IPPROTO_IPV4",
     "IPPROTO_IPV6",
-    "IPPROTO_MAX",
-    "IPPROTO_ND",
     "IPPROTO_NONE",
     "IPPROTO_PIM",
     "IPPROTO_PUP",
@@ -219,7 +211,6 @@ __all__ = [
     "IP_MULTICAST_LOOP",
     "IP_MULTICAST_TTL",
     "IP_OPTIONS",
-    "IP_RECVDSTADDR",
     "IP_TOS",
     "IP_TTL",
     "MSG_CTRUNC",
@@ -264,7 +255,6 @@ __all__ = [
     "SO_SNDLOWAT",
     "SO_SNDTIMEO",
     "SO_TYPE",
-    "SO_USELOOPBACK",
     "SocketType",
     "TCP_FASTOPEN",
     "TCP_KEEPCNT",
@@ -506,7 +496,6 @@ if sys.platform != "win32":
             IPV6_RECVPATHMTU as IPV6_RECVPATHMTU,
             IPV6_RECVPKTINFO as IPV6_RECVPKTINFO,
             IPV6_RTHDRDSTOPTS as IPV6_RTHDRDSTOPTS,
-            IPV6_USE_MIN_MTU as IPV6_USE_MIN_MTU,
         )
 
         __all__ += [
@@ -519,7 +508,6 @@ if sys.platform != "win32":
             "IPV6_RECVPATHMTU",
             "IPV6_RECVPKTINFO",
             "IPV6_RTHDRDSTOPTS",
-            "IPV6_USE_MIN_MTU",
         ]
 
 if sys.platform != "darwin":
@@ -588,19 +576,13 @@ if sys.platform == "linux":
         CAN_RTR_FLAG as CAN_RTR_FLAG,
         CAN_SFF_MASK as CAN_SFF_MASK,
         IOCTL_VM_SOCKETS_GET_LOCAL_CID as IOCTL_VM_SOCKETS_GET_LOCAL_CID,
-        NETLINK_ARPD as NETLINK_ARPD,
         NETLINK_CRYPTO as NETLINK_CRYPTO,
         NETLINK_DNRTMSG as NETLINK_DNRTMSG,
         NETLINK_FIREWALL as NETLINK_FIREWALL,
         NETLINK_IP6_FW as NETLINK_IP6_FW,
         NETLINK_NFLOG as NETLINK_NFLOG,
         NETLINK_ROUTE as NETLINK_ROUTE,
-        NETLINK_ROUTE6 as NETLINK_ROUTE6,
-        NETLINK_SKIP as NETLINK_SKIP,
-        NETLINK_TAPBASE as NETLINK_TAPBASE,
-        NETLINK_TCPDIAG as NETLINK_TCPDIAG,
         NETLINK_USERSOCK as NETLINK_USERSOCK,
-        NETLINK_W1 as NETLINK_W1,
         NETLINK_XFRM as NETLINK_XFRM,
         PACKET_BROADCAST as PACKET_BROADCAST,
         PACKET_FASTROUTE as PACKET_FASTROUTE,
@@ -612,24 +594,6 @@ if sys.platform == "linux":
         PF_CAN as PF_CAN,
         PF_PACKET as PF_PACKET,
         PF_RDS as PF_RDS,
-        RDS_CANCEL_SENT_TO as RDS_CANCEL_SENT_TO,
-        RDS_CMSG_RDMA_ARGS as RDS_CMSG_RDMA_ARGS,
-        RDS_CMSG_RDMA_DEST as RDS_CMSG_RDMA_DEST,
-        RDS_CMSG_RDMA_MAP as RDS_CMSG_RDMA_MAP,
-        RDS_CMSG_RDMA_STATUS as RDS_CMSG_RDMA_STATUS,
-        RDS_CMSG_RDMA_UPDATE as RDS_CMSG_RDMA_UPDATE,
-        RDS_CONG_MONITOR as RDS_CONG_MONITOR,
-        RDS_FREE_MR as RDS_FREE_MR,
-        RDS_GET_MR as RDS_GET_MR,
-        RDS_GET_MR_FOR_DEST as RDS_GET_MR_FOR_DEST,
-        RDS_RDMA_DONTWAIT as RDS_RDMA_DONTWAIT,
-        RDS_RDMA_FENCE as RDS_RDMA_FENCE,
-        RDS_RDMA_INVALIDATE as RDS_RDMA_INVALIDATE,
-        RDS_RDMA_NOTIFY_ME as RDS_RDMA_NOTIFY_ME,
-        RDS_RDMA_READWRITE as RDS_RDMA_READWRITE,
-        RDS_RDMA_SILENT as RDS_RDMA_SILENT,
-        RDS_RDMA_USE_ONCE as RDS_RDMA_USE_ONCE,
-        RDS_RECVERR as RDS_RECVERR,
         SO_VM_SOCKETS_BUFFER_MAX_SIZE as SO_VM_SOCKETS_BUFFER_MAX_SIZE,
         SO_VM_SOCKETS_BUFFER_MIN_SIZE as SO_VM_SOCKETS_BUFFER_MIN_SIZE,
         SO_VM_SOCKETS_BUFFER_SIZE as SO_VM_SOCKETS_BUFFER_SIZE,
@@ -716,19 +680,13 @@ if sys.platform == "linux":
         "CAN_RTR_FLAG",
         "CAN_SFF_MASK",
         "IOCTL_VM_SOCKETS_GET_LOCAL_CID",
-        "NETLINK_ARPD",
         "NETLINK_CRYPTO",
         "NETLINK_DNRTMSG",
         "NETLINK_FIREWALL",
         "NETLINK_IP6_FW",
         "NETLINK_NFLOG",
         "NETLINK_ROUTE",
-        "NETLINK_ROUTE6",
-        "NETLINK_SKIP",
-        "NETLINK_TAPBASE",
-        "NETLINK_TCPDIAG",
         "NETLINK_USERSOCK",
-        "NETLINK_W1",
         "NETLINK_XFRM",
         "PACKET_BROADCAST",
         "PACKET_FASTROUTE",
@@ -740,24 +698,6 @@ if sys.platform == "linux":
         "PF_CAN",
         "PF_PACKET",
         "PF_RDS",
-        "RDS_CANCEL_SENT_TO",
-        "RDS_CMSG_RDMA_ARGS",
-        "RDS_CMSG_RDMA_DEST",
-        "RDS_CMSG_RDMA_MAP",
-        "RDS_CMSG_RDMA_STATUS",
-        "RDS_CMSG_RDMA_UPDATE",
-        "RDS_CONG_MONITOR",
-        "RDS_FREE_MR",
-        "RDS_GET_MR",
-        "RDS_GET_MR_FOR_DEST",
-        "RDS_RDMA_DONTWAIT",
-        "RDS_RDMA_FENCE",
-        "RDS_RDMA_INVALIDATE",
-        "RDS_RDMA_NOTIFY_ME",
-        "RDS_RDMA_READWRITE",
-        "RDS_RDMA_SILENT",
-        "RDS_RDMA_USE_ONCE",
-        "RDS_RECVERR",
         "SO_VM_SOCKETS_BUFFER_MAX_SIZE",
         "SO_VM_SOCKETS_BUFFER_MIN_SIZE",
         "SO_VM_SOCKETS_BUFFER_SIZE",
@@ -1032,15 +972,27 @@ if sys.platform != "win32" and sys.platform != "linux":
         "AI_V4MAPPED_CFG",
         "MSG_EOF",
     ]
+    if sys.platform != "darwin" or sys.version_info >= (3, 9):
+        from _socket import IPV6_USE_MIN_MTU as IPV6_USE_MIN_MTU
+
+        __all__ += ["IPV6_USE_MIN_MTU"]
+
 if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
     from _socket import SO_SETFIB as SO_SETFIB
 
     __all__ += ["SO_SETFIB", "MSG_NOTIFICATION"]
 
 if sys.platform != "linux":
-    from _socket import IPPROTO_GGP as IPPROTO_GGP
+    from _socket import (
+        IP_RECVDSTADDR as IP_RECVDSTADDR,
+        IPPROTO_GGP as IPPROTO_GGP,
+        IPPROTO_IPV4 as IPPROTO_IPV4,
+        IPPROTO_MAX as IPPROTO_MAX,
+        IPPROTO_ND as IPPROTO_ND,
+        SO_USELOOPBACK as SO_USELOOPBACK,
+    )
 
-    __all__ += ["IPPROTO_GGP"]
+    __all__ += ["IPPROTO_GGP", "IPPROTO_IPV4", "IPPROTO_MAX", "IPPROTO_ND", "IP_RECVDSTADDR", "SO_USELOOPBACK"]
 
 # Re-exported from errno
 EBADF: int
