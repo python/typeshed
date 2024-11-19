@@ -471,9 +471,7 @@ if sys.platform != "win32":
         "CMSG_LEN",
         "CMSG_SPACE",
         "EAI_ADDRFAMILY",
-        "EAI_MAX",
         "EAI_OVERFLOW",
-        "EAI_PROTOCOL",
         "EAI_SYSTEM",
         "IP_DEFAULT_MULTICAST_LOOP",
         "IP_DEFAULT_MULTICAST_TTL",
@@ -481,14 +479,11 @@ if sys.platform != "win32":
         "IP_RECVOPTS",
         "IP_RECVRETOPTS",
         "IP_RETOPTS",
-        "IPPROTO_EON",
         "IPPROTO_GRE",
         "IPPROTO_IPIP",
         "IPPROTO_RSVP",
         "IPPROTO_TP",
-        "IPPROTO_XTP",
         "IPV6_RTHDR_TYPE_0",
-        "LOCAL_PEERCRED",
         "SCM_RIGHTS",
         "SO_REUSEPORT",
         "TCP_NOTSENT_LOWAT",
@@ -1001,7 +996,8 @@ if sys.platform != "win32" and sys.version_info >= (3, 9):
     __all__ += ["send_fds", "recv_fds"]
 
 if sys.platform != "win32" or sys.version_info >= (3, 9):
-    __all__ += ["AF_LINK"]
+    if sys.platform != "linux":
+        __all__ += ["AF_LINK"]
     if sys.platform != "darwin":
         __all__ += ["AF_BLUETOOTH"]
 
@@ -1242,7 +1238,6 @@ if sys.platform != "win32":
 if sys.platform != "win32" and sys.platform != "darwin":
     MSG_CMSG_CLOEXEC = MsgFlag.MSG_CMSG_CLOEXEC
     MSG_CONFIRM = MsgFlag.MSG_CONFIRM
-    MSG_ETAG = MsgFlag.MSG_ETAG
     MSG_FASTOPEN = MsgFlag.MSG_FASTOPEN
     MSG_MORE = MsgFlag.MSG_MORE
 
