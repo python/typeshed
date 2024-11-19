@@ -38,7 +38,6 @@ from _socket import (
     IPPROTO_EGP as IPPROTO_EGP,
     IPPROTO_ESP as IPPROTO_ESP,
     IPPROTO_FRAGMENT as IPPROTO_FRAGMENT,
-    IPPROTO_GGP as IPPROTO_GGP,
     IPPROTO_HOPOPTS as IPPROTO_HOPOPTS,
     IPPROTO_ICMP as IPPROTO_ICMP,
     IPPROTO_ICMPV6 as IPPROTO_ICMPV6,
@@ -185,7 +184,6 @@ __all__ = [
     "IPPROTO_EGP",
     "IPPROTO_ESP",
     "IPPROTO_FRAGMENT",
-    "IPPROTO_GGP",
     "IPPROTO_HOPOPTS",
     "IPPROTO_ICMP",
     "IPPROTO_ICMPV6",
@@ -308,6 +306,13 @@ __all__ = [
 
 if sys.platform == "win32":
     from _socket import (
+        IPPROTO_CBT as IPPROTO_CBT,
+        IPPROTO_ICLFXBM as IPPROTO_ICLFXBM,
+        IPPROTO_IGP as IPPROTO_IGP,
+        IPPROTO_L2TP as IPPROTO_L2TP,
+        IPPROTO_PGM as IPPROTO_PGM,
+        IPPROTO_RDP as IPPROTO_RDP,
+        IPPROTO_ST as IPPROTO_ST,
         RCVALL_MAX as RCVALL_MAX,
         RCVALL_OFF as RCVALL_OFF,
         RCVALL_ON as RCVALL_ON,
@@ -319,6 +324,13 @@ if sys.platform == "win32":
     )
 
     __all__ += [
+        "IPPROTO_CBT",
+        "IPPROTO_ICLFXBM",
+        "IPPROTO_IGP",
+        "IPPROTO_L2TP",
+        "IPPROTO_PGM",
+        "IPPROTO_RDP",
+        "IPPROTO_ST",
         "RCVALL_MAX",
         "RCVALL_OFF",
         "RCVALL_ON",
@@ -329,6 +341,8 @@ if sys.platform == "win32":
         "SO_EXCLUSIVEADDRUSE",
         "fromshare",
         "errorTab",
+        "MSG_BCAST",
+        "MSG_MCAST",
     ]
 
 if sys.platform != "darwin" or sys.version_info >= (3, 9):
@@ -346,34 +360,12 @@ if sys.platform != "darwin" or sys.version_info >= (3, 9):
 if sys.platform == "darwin":
     from _socket import PF_SYSTEM as PF_SYSTEM, SYSPROTO_CONTROL as SYSPROTO_CONTROL
 
-    __all__ += ["PF_SYSTEM", "SYSPROTO_CONTROL"]
+    __all__ += ["PF_SYSTEM", "SYSPROTO_CONTROL", "AF_SYSTEM"]
 
 if sys.platform != "darwin":
-    from _socket import (
-        IPPROTO_CBT as IPPROTO_CBT,
-        IPPROTO_ICLFXBM as IPPROTO_ICLFXBM,
-        IPPROTO_IGP as IPPROTO_IGP,
-        IPPROTO_L2TP as IPPROTO_L2TP,
-        IPPROTO_PGM as IPPROTO_PGM,
-        IPPROTO_RDP as IPPROTO_RDP,
-        IPPROTO_ST as IPPROTO_ST,
-        TCP_KEEPIDLE as TCP_KEEPIDLE,
-    )
+    from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE
 
-    __all__ += [
-        "IPPROTO_CBT",
-        "IPPROTO_ICLFXBM",
-        "IPPROTO_IGP",
-        "IPPROTO_L2TP",
-        "IPPROTO_PGM",
-        "IPPROTO_RDP",
-        "IPPROTO_ST",
-        "TCP_KEEPIDLE",
-        "AF_IRDA",
-        "MSG_ERRQUEUE",
-        "MSG_BCAST",
-        "MSG_MCAST",
-    ]
+    __all__ += ["TCP_KEEPIDLE", "AF_IRDA", "MSG_ERRQUEUE"]
 
 if sys.version_info >= (3, 10):
     from _socket import IP_RECVTOS as IP_RECVTOS
@@ -383,10 +375,6 @@ if sys.version_info >= (3, 10):
 if sys.platform != "win32" and sys.platform != "darwin":
     from _socket import (
         IP_TRANSPARENT as IP_TRANSPARENT,
-        IPPROTO_BIP as IPPROTO_BIP,
-        IPPROTO_MOBILE as IPPROTO_MOBILE,
-        IPPROTO_VRRP as IPPROTO_VRRP,
-        IPX_TYPE as IPX_TYPE,
         SCM_CREDENTIALS as SCM_CREDENTIALS,
         SO_BINDTODEVICE as SO_BINDTODEVICE,
         SO_DOMAIN as SO_DOMAIN,
@@ -397,13 +385,6 @@ if sys.platform != "win32" and sys.platform != "darwin":
         SO_PEERSEC as SO_PEERSEC,
         SO_PRIORITY as SO_PRIORITY,
         SO_PROTOCOL as SO_PROTOCOL,
-        SO_SETFIB as SO_SETFIB,
-        SOL_ATALK as SOL_ATALK,
-        SOL_AX25 as SOL_AX25,
-        SOL_HCI as SOL_HCI,
-        SOL_IPX as SOL_IPX,
-        SOL_NETROM as SOL_NETROM,
-        SOL_ROSE as SOL_ROSE,
         TCP_CONGESTION as TCP_CONGESTION,
         TCP_CORK as TCP_CORK,
         TCP_DEFER_ACCEPT as TCP_DEFER_ACCEPT,
@@ -417,10 +398,6 @@ if sys.platform != "win32" and sys.platform != "darwin":
 
     __all__ += [
         "IP_TRANSPARENT",
-        "IPPROTO_BIP",
-        "IPPROTO_MOBILE",
-        "IPPROTO_VRRP",
-        "IPX_TYPE",
         "SCM_CREDENTIALS",
         "SO_BINDTODEVICE",
         "SO_DOMAIN",
@@ -431,13 +408,6 @@ if sys.platform != "win32" and sys.platform != "darwin":
         "SO_PEERSEC",
         "SO_PRIORITY",
         "SO_PROTOCOL",
-        "SO_SETFIB",
-        "SOL_ATALK",
-        "SOL_AX25",
-        "SOL_HCI",
-        "SOL_IPX",
-        "SOL_NETROM",
-        "SOL_ROSE",
         "TCP_CONGESTION",
         "TCP_CORK",
         "TCP_DEFER_ACCEPT",
@@ -447,7 +417,6 @@ if sys.platform != "win32" and sys.platform != "darwin":
         "TCP_SYNCNT",
         "TCP_USER_TIMEOUT",
         "TCP_WINDOW_CLAMP",
-        "AF_AAL5",
         "AF_ASH",
         "AF_ATMPVC",
         "AF_ATMSVC",
@@ -479,10 +448,7 @@ if sys.platform != "win32":
         CMSG_LEN as CMSG_LEN,
         CMSG_SPACE as CMSG_SPACE,
         EAI_ADDRFAMILY as EAI_ADDRFAMILY,
-        EAI_BADHINTS as EAI_BADHINTS,
-        EAI_MAX as EAI_MAX,
         EAI_OVERFLOW as EAI_OVERFLOW,
-        EAI_PROTOCOL as EAI_PROTOCOL,
         EAI_SYSTEM as EAI_SYSTEM,
         IP_DEFAULT_MULTICAST_LOOP as IP_DEFAULT_MULTICAST_LOOP,
         IP_DEFAULT_MULTICAST_TTL as IP_DEFAULT_MULTICAST_TTL,
@@ -490,17 +456,11 @@ if sys.platform != "win32":
         IP_RECVOPTS as IP_RECVOPTS,
         IP_RECVRETOPTS as IP_RECVRETOPTS,
         IP_RETOPTS as IP_RETOPTS,
-        IPPROTO_EON as IPPROTO_EON,
         IPPROTO_GRE as IPPROTO_GRE,
-        IPPROTO_HELLO as IPPROTO_HELLO,
-        IPPROTO_IPCOMP as IPPROTO_IPCOMP,
         IPPROTO_IPIP as IPPROTO_IPIP,
         IPPROTO_RSVP as IPPROTO_RSVP,
         IPPROTO_TP as IPPROTO_TP,
-        IPPROTO_XTP as IPPROTO_XTP,
         IPV6_RTHDR_TYPE_0 as IPV6_RTHDR_TYPE_0,
-        LOCAL_PEERCRED as LOCAL_PEERCRED,
-        SCM_CREDS as SCM_CREDS,
         SCM_RIGHTS as SCM_RIGHTS,
         SO_REUSEPORT as SO_REUSEPORT,
         TCP_NOTSENT_LOWAT as TCP_NOTSENT_LOWAT,
@@ -511,7 +471,6 @@ if sys.platform != "win32":
         "CMSG_LEN",
         "CMSG_SPACE",
         "EAI_ADDRFAMILY",
-        "EAI_BADHINTS",
         "EAI_MAX",
         "EAI_OVERFLOW",
         "EAI_PROTOCOL",
@@ -524,27 +483,19 @@ if sys.platform != "win32":
         "IP_RETOPTS",
         "IPPROTO_EON",
         "IPPROTO_GRE",
-        "IPPROTO_HELLO",
-        "IPPROTO_IPCOMP",
         "IPPROTO_IPIP",
         "IPPROTO_RSVP",
         "IPPROTO_TP",
         "IPPROTO_XTP",
         "IPV6_RTHDR_TYPE_0",
         "LOCAL_PEERCRED",
-        "SCM_CREDS",
         "SCM_RIGHTS",
         "SO_REUSEPORT",
         "TCP_NOTSENT_LOWAT",
         "sethostname",
         "AF_ROUTE",
-        "AF_SYSTEM",
         "AF_UNIX",
-        "AI_DEFAULT",
-        "AI_MASK",
-        "AI_V4MAPPED_CFG",
         "MSG_DONTWAIT",
-        "MSG_EOF",
         "MSG_EOR",
         "MSG_NOSIGNAL",
     ]
@@ -1057,6 +1008,44 @@ if sys.platform != "win32" or sys.version_info >= (3, 9):
 if sys.platform == "win32" and sys.version_info >= (3, 12):
     __all__ += ["AF_HYPERV"]
 
+if sys.platform != "win32" and sys.platform != "linux":
+    from _socket import (
+        EAI_BADHINTS as EAI_BADHINTS,
+        EAI_MAX as EAI_MAX,
+        EAI_PROTOCOL as EAI_PROTOCOL,
+        IPPROTO_EON as IPPROTO_EON,
+        IPPROTO_HELLO as IPPROTO_HELLO,
+        IPPROTO_IPCOMP as IPPROTO_IPCOMP,
+        IPPROTO_XTP as IPPROTO_XTP,
+        LOCAL_PEERCRED as LOCAL_PEERCRED,
+        SCM_CREDS as SCM_CREDS,
+    )
+
+    __all__ += [
+        "EAI_BADHINTS",
+        "EAI_MAX",
+        "EAI_PROTOCOL",
+        "IPPROTO_EON",
+        "IPPROTO_HELLO",
+        "IPPROTO_IPCOMP",
+        "IPPROTO_XTP",
+        "LOCAL_PEERCRED",
+        "SCM_CREDS",
+        "AI_DEFAULT",
+        "AI_MASK",
+        "AI_V4MAPPED_CFG",
+        "MSG_EOF",
+    ]
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
+    from _socket import SO_SETFIB as SO_SETFIB
+
+    __all__ += ["SO_SETFIB", "MSG_NOTIFICATION"]
+
+if sys.platform != "linux":
+    from _socket import IPPROTO_GGP as IPPROTO_GGP
+
+    __all__ += ["IPPROTO_GGP"]
+
 # Re-exported from errno
 EBADF: int
 EAGAIN: int
@@ -1086,10 +1075,10 @@ class AddressFamily(IntEnum):
         AF_IRDA = 23
     if sys.platform != "win32":
         AF_ROUTE = 16
-        AF_SYSTEM = 32
         AF_UNIX = 1
+    if sys.platform == "darwin":
+        AF_SYSTEM = 32
     if sys.platform != "win32" and sys.platform != "darwin":
-        AF_AAL5 = ...
         AF_ASH = 18
         AF_ATMPVC = 8
         AF_ATMSVC = 20
@@ -1115,7 +1104,8 @@ class AddressFamily(IntEnum):
         AF_VSOCK = 40
         AF_QIPCRTR = 42
     if sys.platform != "win32" or sys.version_info >= (3, 9):
-        AF_LINK = 33
+        if sys.platform != "linux":
+            AF_LINK = 33
         if sys.platform != "darwin":
             AF_BLUETOOTH = 32
     if sys.platform == "win32" and sys.version_info >= (3, 12):
@@ -1137,11 +1127,12 @@ if sys.platform != "darwin":
 
 if sys.platform != "win32":
     AF_ROUTE = AddressFamily.AF_ROUTE
-    AF_SYSTEM = AddressFamily.AF_SYSTEM
     AF_UNIX = AddressFamily.AF_UNIX
 
+if sys.platform == "darwin":
+    AF_SYSTEM = AddressFamily.AF_SYSTEM
+
 if sys.platform != "win32" and sys.platform != "darwin":
-    AF_AAL5 = AddressFamily.AF_AAL5
     AF_ASH = AddressFamily.AF_ASH
     AF_ATMPVC = AddressFamily.AF_ATMPVC
     AF_ATMSVC = AddressFamily.AF_ATMSVC
@@ -1169,7 +1160,8 @@ if sys.platform == "linux":
     AF_QIPCRTR = AddressFamily.AF_QIPCRTR
 
 if sys.platform != "win32" or sys.version_info >= (3, 9):
-    AF_LINK = AddressFamily.AF_LINK
+    if sys.platform != "linux":
+        AF_LINK = AddressFamily.AF_LINK
     if sys.platform != "darwin":
         AF_BLUETOOTH = AddressFamily.AF_BLUETOOTH
 
@@ -1205,26 +1197,28 @@ class MsgFlag(IntFlag):
     MSG_PEEK = 2
     MSG_TRUNC = 32
     MSG_WAITALL = 256
-
-    if sys.platform != "darwin":
+    if sys.platform == "win32":
         MSG_BCAST = 1024
         MSG_MCAST = 2048
+
+    if sys.platform != "darwin":
         MSG_ERRQUEUE = 8192
 
     if sys.platform != "win32" and sys.platform != "darwin":
-        MSG_BTAG = ...
         MSG_CMSG_CLOEXEC = 1073741821
         MSG_CONFIRM = 2048
-        MSG_ETAG = ...
         MSG_FASTOPEN = 536870912
         MSG_MORE = 32768
-        MSG_NOTIFICATION = ...
+
+    if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
+        MSG_NOTIFICATION = 8192
 
     if sys.platform != "win32":
         MSG_DONTWAIT = 64
-        MSG_EOF = 256
         MSG_EOR = 128
         MSG_NOSIGNAL = 16384  # sometimes this exists on darwin, sometimes not
+    if sys.platform != "win32" and sys.platform != "linux":
+        MSG_EOF = 256
 
 MSG_CTRUNC = MsgFlag.MSG_CTRUNC
 MSG_DONTROUTE = MsgFlag.MSG_DONTROUTE
@@ -1233,25 +1227,30 @@ MSG_PEEK = MsgFlag.MSG_PEEK
 MSG_TRUNC = MsgFlag.MSG_TRUNC
 MSG_WAITALL = MsgFlag.MSG_WAITALL
 
-if sys.platform != "darwin":
+if sys.platform == "win32":
     MSG_BCAST = MsgFlag.MSG_BCAST
     MSG_MCAST = MsgFlag.MSG_MCAST
+
+if sys.platform != "darwin":
     MSG_ERRQUEUE = MsgFlag.MSG_ERRQUEUE
 
 if sys.platform != "win32":
     MSG_DONTWAIT = MsgFlag.MSG_DONTWAIT
-    MSG_EOF = MsgFlag.MSG_EOF
     MSG_EOR = MsgFlag.MSG_EOR
     MSG_NOSIGNAL = MsgFlag.MSG_NOSIGNAL  # Sometimes this exists on darwin, sometimes not
 
 if sys.platform != "win32" and sys.platform != "darwin":
-    MSG_BTAG = MsgFlag.MSG_BTAG
     MSG_CMSG_CLOEXEC = MsgFlag.MSG_CMSG_CLOEXEC
     MSG_CONFIRM = MsgFlag.MSG_CONFIRM
     MSG_ETAG = MsgFlag.MSG_ETAG
     MSG_FASTOPEN = MsgFlag.MSG_FASTOPEN
     MSG_MORE = MsgFlag.MSG_MORE
+
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
     MSG_NOTIFICATION = MsgFlag.MSG_NOTIFICATION
+
+if sys.platform != "win32" and sys.platform != "linux":
+    MSG_EOF = MsgFlag.MSG_EOF
 
 class AddressInfo(IntFlag):
     AI_ADDRCONFIG = 32
@@ -1261,7 +1260,7 @@ class AddressInfo(IntFlag):
     AI_NUMERICSERV = 1024
     AI_PASSIVE = 1
     AI_V4MAPPED = 8
-    if sys.platform != "win32":
+    if sys.platform != "win32" and sys.platform != "linux":
         AI_DEFAULT = 1536
         AI_MASK = 5127
         AI_V4MAPPED_CFG = 512
@@ -1274,7 +1273,7 @@ AI_NUMERICSERV = AddressInfo.AI_NUMERICSERV
 AI_PASSIVE = AddressInfo.AI_PASSIVE
 AI_V4MAPPED = AddressInfo.AI_V4MAPPED
 
-if sys.platform != "win32":
+if sys.platform != "win32" and sys.platform != "linux":
     AI_DEFAULT = AddressInfo.AI_DEFAULT
     AI_MASK = AddressInfo.AI_MASK
     AI_V4MAPPED_CFG = AddressInfo.AI_V4MAPPED_CFG

@@ -87,6 +87,7 @@ if sys.platform != "win32" and sys.platform != "darwin":
     SO_PEERSEC: int
     SO_PRIORITY: int
     SO_PROTOCOL: int
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
     SO_SETFIB: int
 if sys.platform == "linux" and sys.version_info >= (3, 13):
     SO_BINDTOIFINDEX: int
@@ -101,39 +102,43 @@ MSG_TRUNC: int
 MSG_WAITALL: int
 if sys.platform != "win32":
     MSG_DONTWAIT: int
-    MSG_EOF: int
     MSG_EOR: int
     MSG_NOSIGNAL: int  # Sometimes this exists on darwin, sometimes not
 if sys.platform != "darwin":
-    MSG_BCAST: int
     MSG_ERRQUEUE: int
+if sys.platform == "win32":
+    MSG_BCAST: int
     MSG_MCAST: int
 if sys.platform != "win32" and sys.platform != "darwin":
-    MSG_BTAG: int
+    # MSG_BTAG: int  # Availability?
     MSG_CMSG_CLOEXEC: int
     MSG_CONFIRM: int
-    MSG_ETAG: int
+    # MSG_ETAG: int  # Availability?
     MSG_FASTOPEN: int
     MSG_MORE: int
+if sys.platform != "win32" and sys.platform != "linux":
+    MSG_EOF: int
+if sys.platform != "win32" and sys.platform != "linux" and sys.platform != "darwin":
     MSG_NOTIFICATION: int
 
 SOL_IP: int
 SOL_SOCKET: int
 SOL_TCP: int
 SOL_UDP: int
-if sys.platform != "win32" and sys.platform != "darwin":
-    SOL_ATALK: int
-    SOL_AX25: int
-    SOL_HCI: int
-    SOL_IPX: int
-    SOL_NETROM: int
-    SOL_ROSE: int
+# if sys.platform != "win32" and sys.platform != "darwin":
+#     SOL_ATALK: int  # Availability?
+#     SOL_AX25: int  # Availability?
+#     SOL_HCI: int  # Availability?
+#     SOL_IPX: int  # Availability?
+#     SOL_NETROM: int  # Availability?
+#     SOL_ROSE: int  # Availability?
 
 if sys.platform != "win32":
-    SCM_CREDS: int
     SCM_RIGHTS: int
 if sys.platform != "win32" and sys.platform != "darwin":
     SCM_CREDENTIALS: int
+if sys.platform != "win32" and sys.platform != "linux":
+    SCM_CREDS: int
 
 IPPROTO_ICMP: int
 IPPROTO_IP: int
@@ -145,7 +150,6 @@ IPPROTO_DSTOPTS: int
 IPPROTO_EGP: int
 IPPROTO_ESP: int
 IPPROTO_FRAGMENT: int
-IPPROTO_GGP: int
 IPPROTO_HOPOPTS: int
 IPPROTO_ICMPV6: int
 IPPROTO_IDP: int
@@ -159,7 +163,9 @@ IPPROTO_PIM: int
 IPPROTO_PUP: int
 IPPROTO_ROUTING: int
 IPPROTO_SCTP: int
-if sys.platform != "darwin":
+if sys.platform != "linux":
+    IPPROTO_GGP: int
+if sys.platform == "win32":
     IPPROTO_CBT: int
     IPPROTO_ICLFXBM: int
     IPPROTO_IGP: int
@@ -168,18 +174,19 @@ if sys.platform != "darwin":
     IPPROTO_RDP: int
     IPPROTO_ST: int
 if sys.platform != "win32":
-    IPPROTO_EON: int
     IPPROTO_GRE: int
-    IPPROTO_HELLO: int
-    IPPROTO_IPCOMP: int
     IPPROTO_IPIP: int
     IPPROTO_RSVP: int
     IPPROTO_TP: int
+if sys.platform != "win32" and sys.platform != "linux":
+    IPPROTO_EON: int
+    IPPROTO_HELLO: int
+    IPPROTO_IPCOMP: int
     IPPROTO_XTP: int
-if sys.platform != "win32" and sys.platform != "darwin":
-    IPPROTO_BIP: int
-    IPPROTO_MOBILE: int
-    IPPROTO_VRRP: int
+# if sys.platform != "win32" and sys.platform != "darwin":
+#     IPPROTO_BIP: int   # Availability?
+#     IPPROTO_MOBILE: int  # Availability?
+#     IPPROTO_VRRP: int  # Availability?
 if sys.version_info >= (3, 9) and sys.platform == "linux":
     # Availability: Linux >= 2.6.20, FreeBSD >= 10.1
     IPPROTO_UDPLITE: int
@@ -269,11 +276,12 @@ EAI_SERVICE: int
 EAI_SOCKTYPE: int
 if sys.platform != "win32":
     EAI_ADDRFAMILY: int
+    EAI_OVERFLOW: int
+    EAI_SYSTEM: int
+if sys.platform != "win32" and sys.platform != "linux":
     EAI_BADHINTS: int
     EAI_MAX: int
-    EAI_OVERFLOW: int
     EAI_PROTOCOL: int
-    EAI_SYSTEM: int
 
 AI_ADDRCONFIG: int
 AI_ALL: int
@@ -282,7 +290,7 @@ AI_NUMERICHOST: int
 AI_NUMERICSERV: int
 AI_PASSIVE: int
 AI_V4MAPPED: int
-if sys.platform != "win32":
+if sys.platform != "win32" and sys.platform != "linux":
     AI_DEFAULT: int
     AI_MASK: int
     AI_V4MAPPED_CFG: int
@@ -547,7 +555,8 @@ if sys.platform == "linux":
 if sys.platform != "win32" or sys.version_info >= (3, 9):
     # Documented as only available on BSD, macOS, but empirically sometimes
     # available on Windows
-    AF_LINK: int
+    if sys.platform != "linux":
+        AF_LINK: int
 
 has_ipv6: bool
 
@@ -661,13 +670,14 @@ AF_SNA: int
 
 if sys.platform != "win32":
     AF_ROUTE: int
+
+if sys.platform == "darwin":
     AF_SYSTEM: int
 
 if sys.platform != "darwin":
     AF_IRDA: int
 
 if sys.platform != "win32" and sys.platform != "darwin":
-    AF_AAL5: int
     AF_ASH: int
     AF_ATMPVC: int
     AF_ATMSVC: int
@@ -686,11 +696,11 @@ if sys.platform != "win32" and sys.platform != "darwin":
 
 # Miscellaneous undocumented
 
-if sys.platform != "win32":
+if sys.platform != "win32" and sys.platform != "linux":
     LOCAL_PEERCRED: int
 
-if sys.platform != "win32" and sys.platform != "darwin":
-    IPX_TYPE: int
+# if sys.platform != "win32" and sys.platform != "darwin":
+#     IPX_TYPE: int  # availability?
 
 # ===== Classes =====
 
