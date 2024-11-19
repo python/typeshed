@@ -1054,7 +1054,7 @@ class AddressFamily(IntEnum):
     if sys.platform != "win32" or sys.version_info >= (3, 9):
         if sys.platform != "linux":
             AF_LINK = 33
-        if sys.platform != "darwin":
+        if sys.platform != "darwin" and sys.platform != "linux":
             AF_BLUETOOTH = 32
     if sys.platform == "win32" and sys.version_info >= (3, 12):
         AF_HYPERV = 34
@@ -1110,7 +1110,7 @@ if sys.platform == "linux":
 if sys.platform != "win32" or sys.version_info >= (3, 9):
     if sys.platform != "linux":
         AF_LINK = AddressFamily.AF_LINK
-    if sys.platform != "darwin":
+    if sys.platform != "darwin" and sys.platform != "linux":
         AF_BLUETOOTH = AddressFamily.AF_BLUETOOTH
 
 if sys.platform == "win32" and sys.version_info >= (3, 12):
