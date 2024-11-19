@@ -782,7 +782,7 @@ if sys.platform == "linux" and sys.version_info >= (3, 9):
         UDPLITE_SEND_CSCOV as UDPLITE_SEND_CSCOV,
     )
 
-    __all__ = [
+    __all__ += [
         "CAN_J1939",
         "CAN_RAW_JOIN_FILTERS",
         "IPPROTO_UDPLITE",
