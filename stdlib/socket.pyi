@@ -370,6 +370,9 @@ if sys.platform != "darwin":
         "IPPROTO_ST",
         "TCP_KEEPIDLE",
         "AF_IRDA",
+        "MSG_ERRQUEUE",
+        "MSG_BCAST",
+        "MSG_MCAST",
     ]
 
 if sys.version_info >= (3, 10):
@@ -466,6 +469,10 @@ if sys.platform != "win32" and sys.platform != "darwin":
         "AF_SECURITY",
         "AF_WANPIPE",
         "AF_X25",
+        "MSG_CMSG_CLOEXEC",
+        "MSG_CONFIRM",
+        "MSG_FASTOPEN",
+        "MSG_MORE",
     ]
 
 if sys.platform != "win32":
@@ -851,6 +858,8 @@ if sys.platform == "linux":
         "AF_NETLINK",
         "AF_VSOCK",
         "AF_QIPCRTR",
+        "SOCK_CLOEXEC",
+        "SOCK_NONBLOCK",
     ]
 
 if sys.platform == "linux" and sys.version_info >= (3, 9):
