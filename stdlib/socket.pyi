@@ -365,6 +365,7 @@ if sys.version_info >= (3, 10):
 if sys.platform != "win32" and sys.platform != "darwin":
     from _socket import (
         IP_TRANSPARENT as IP_TRANSPARENT,
+        IPX_TYPE as IPX_TYPE,
         SCM_CREDENTIALS as SCM_CREDENTIALS,
         SO_BINDTODEVICE as SO_BINDTODEVICE,
         SO_DOMAIN as SO_DOMAIN,
@@ -375,6 +376,12 @@ if sys.platform != "win32" and sys.platform != "darwin":
         SO_PEERSEC as SO_PEERSEC,
         SO_PRIORITY as SO_PRIORITY,
         SO_PROTOCOL as SO_PROTOCOL,
+        SOL_ATALK as SOL_ATALK,
+        SOL_AX25 as SOL_AX25,
+        SOL_HCI as SOL_HCI,
+        SOL_IPX as SOL_IPX,
+        SOL_NETROM as SOL_NETROM,
+        SOL_ROSE as SOL_ROSE,
         TCP_CONGESTION as TCP_CONGESTION,
         TCP_CORK as TCP_CORK,
         TCP_DEFER_ACCEPT as TCP_DEFER_ACCEPT,
@@ -594,6 +601,23 @@ if sys.platform == "linux":
         PF_CAN as PF_CAN,
         PF_PACKET as PF_PACKET,
         PF_RDS as PF_RDS,
+        RDS_CANCEL_SENT_TO as RDS_CANCEL_SENT_TO,
+        RDS_CMSG_RDMA_ARGS as RDS_CMSG_RDMA_ARGS,
+        RDS_CMSG_RDMA_DEST as RDS_CMSG_RDMA_DEST,
+        RDS_CMSG_RDMA_MAP as RDS_CMSG_RDMA_MAP,
+        RDS_CMSG_RDMA_STATUS as RDS_CMSG_RDMA_STATUS,
+        RDS_CONG_MONITOR as RDS_CONG_MONITOR,
+        RDS_FREE_MR as RDS_FREE_MR,
+        RDS_GET_MR as RDS_GET_MR,
+        RDS_GET_MR_FOR_DEST as RDS_GET_MR_FOR_DEST,
+        RDS_RDMA_DONTWAIT as RDS_RDMA_DONTWAIT,
+        RDS_RDMA_FENCE as RDS_RDMA_FENCE,
+        RDS_RDMA_INVALIDATE as RDS_RDMA_INVALIDATE,
+        RDS_RDMA_NOTIFY_ME as RDS_RDMA_NOTIFY_ME,
+        RDS_RDMA_READWRITE as RDS_RDMA_READWRITE,
+        RDS_RDMA_SILENT as RDS_RDMA_SILENT,
+        RDS_RDMA_USE_ONCE as RDS_RDMA_USE_ONCE,
+        RDS_RECVERR as RDS_RECVERR,
         SO_VM_SOCKETS_BUFFER_MAX_SIZE as SO_VM_SOCKETS_BUFFER_MAX_SIZE,
         SO_VM_SOCKETS_BUFFER_MIN_SIZE as SO_VM_SOCKETS_BUFFER_MIN_SIZE,
         SO_VM_SOCKETS_BUFFER_SIZE as SO_VM_SOCKETS_BUFFER_SIZE,
@@ -978,9 +1002,16 @@ if sys.platform != "win32" and sys.platform != "linux":
         __all__ += ["IPV6_USE_MIN_MTU"]
 
 if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
-    from _socket import SO_SETFIB as SO_SETFIB
+    from _socket import (
+        IPPROTO_BIP as IPPROTO_BIP,
+        IPPROTO_MOBILE as IPPROTO_MOBILE,
+        IPPROTO_VRRP as IPPROTO_VRRP,
+        MSG_BTAG as MSG_BTAG,
+        MSG_ETAG as MSG_ETAG,
+        SO_SETFIB as SO_SETFIB,
+    )
 
-    __all__ += ["SO_SETFIB", "MSG_NOTIFICATION"]
+    __all__ += ["SO_SETFIB", "MSG_BTAG", "MSG_ETAG", "IPPROTO_BIP", "IPPROTO_MOBILE", "IPPROTO_VRRP", "MSG_NOTIFICATION"]
 
 if sys.platform != "linux":
     from _socket import (

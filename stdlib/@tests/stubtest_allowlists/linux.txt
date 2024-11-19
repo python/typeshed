@@ -47,3 +47,30 @@ curses.COLORS  # Initialized after start_color
 curses.COLOR_PAIRS  # Initialized after start_color
 curses.COLS  # Initialized only after initscr call
 curses.LINES  # Initialized only after initscr call
+
+# These seem like they should be available on Linux, but they're not
+# in the gitlab pipline for some reason.
+_?socket.IPX_TYPE
+_?socket.RDS_CANCEL_SENT_TO
+_?socket.RDS_CMSG_RDMA_ARGS
+_?socket.RDS_CMSG_RDMA_DEST
+_?socket.RDS_CMSG_RDMA_MAP
+_?socket.RDS_CMSG_RDMA_STATUS
+_?socket.RDS_CONG_MONITOR
+_?socket.RDS_FREE_MR
+_?socket.RDS_GET_MR
+_?socket.RDS_GET_MR_FOR_DEST
+_?socket.RDS_RDMA_DONTWAIT
+_?socket.RDS_RDMA_FENCE
+_?socket.RDS_RDMA_INVALIDATE
+_?socket.RDS_RDMA_NOTIFY_ME
+_?socket.RDS_RDMA_READWRITE
+_?socket.RDS_RDMA_SILENT
+_?socket.RDS_RDMA_USE_ONCE
+_?socket.RDS_RECVERR
+_?socket.SOL_ATALK
+_?socket.SOL_AX25
+_?socket.SOL_HCI
+_?socket.SOL_IPX
+_?socket.SOL_NETROM
+_?socket.SOL_ROSE

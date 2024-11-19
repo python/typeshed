@@ -111,28 +111,30 @@ if sys.platform == "win32":
     MSG_BCAST: int
     MSG_MCAST: int
 if sys.platform != "win32" and sys.platform != "darwin":
-    # MSG_BTAG: int  # Availability?
     MSG_CMSG_CLOEXEC: int
     MSG_CONFIRM: int
-    # MSG_ETAG: int  # Availability?
     MSG_FASTOPEN: int
     MSG_MORE: int
 if sys.platform != "win32" and sys.platform != "linux":
     MSG_EOF: int
 if sys.platform != "win32" and sys.platform != "linux" and sys.platform != "darwin":
     MSG_NOTIFICATION: int
+    MSG_BTAG: int  # Not FreeBSD either
+    MSG_ETAG: int  # Not FreeBSD either
 
 SOL_IP: int
 SOL_SOCKET: int
 SOL_TCP: int
 SOL_UDP: int
-# if sys.platform != "win32" and sys.platform != "darwin":
-#     SOL_ATALK: int  # Availability?
-#     SOL_AX25: int  # Availability?
-#     SOL_HCI: int  # Availability?
-#     SOL_IPX: int  # Availability?
-#     SOL_NETROM: int  # Availability?
-#     SOL_ROSE: int  # Availability?
+if sys.platform != "win32" and sys.platform != "darwin":
+    # Defined in socket.h for Linux, but these aren't always present for
+    # some reason.
+    SOL_ATALK: int
+    SOL_AX25: int
+    SOL_HCI: int
+    SOL_IPX: int
+    SOL_NETROM: int
+    SOL_ROSE: int
 
 if sys.platform != "win32":
     SCM_RIGHTS: int
@@ -184,10 +186,10 @@ if sys.platform != "win32" and sys.platform != "linux":
     IPPROTO_HELLO: int
     IPPROTO_IPCOMP: int
     IPPROTO_XTP: int
-# if sys.platform != "win32" and sys.platform != "darwin":
-#     IPPROTO_BIP: int   # Availability?
-#     IPPROTO_MOBILE: int  # Availability?
-#     IPPROTO_VRRP: int  # Availability?
+if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "linux":
+    IPPROTO_BIP: int  # Not FreeBSD either
+    IPPROTO_MOBILE: int  # Not FreeBSD either
+    IPPROTO_VRRP: int  # Not FreeBSD either
 if sys.version_info >= (3, 9) and sys.platform == "linux":
     # Availability: Linux >= 2.6.20, FreeBSD >= 10.1
     IPPROTO_UDPLITE: int
@@ -475,24 +477,29 @@ if sys.platform == "linux":
     AF_RDS: int
     PF_RDS: int
     SOL_RDS: int
-    # RDS_CANCEL_SENT_TO: int  # Availability?
-    # RDS_CMSG_RDMA_ARGS: int  # Availability?
-    # RDS_CMSG_RDMA_DEST: int  # Availability?
-    # RDS_CMSG_RDMA_MAP: int  # Availability?
-    # RDS_CMSG_RDMA_STATUS: int  # Availability?
-    # RDS_CMSG_RDMA_UPDATE: int  # Availability?
-    # RDS_CONG_MONITOR: int  # Availability?
-    # RDS_FREE_MR: int  # Availability?
-    # RDS_GET_MR: int  # Availability?
-    # RDS_GET_MR_FOR_DEST: int  # Availability?
-    # RDS_RDMA_DONTWAIT: int  # Availability?
-    # RDS_RDMA_FENCE: int  # Availability?
-    # RDS_RDMA_INVALIDATE: int  # Availability?
-    # RDS_RDMA_NOTIFY_ME: int  # Availability?
-    # RDS_RDMA_READWRITE: int  # Availability?
-    # RDS_RDMA_SILENT: int  # Availability?
-    # RDS_RDMA_USE_ONCE: int  # Availability?
-    # RDS_RECVERR: int  # Availability?
+    # These are present in include/linux/rds.h but don't always show up
+    # here.
+    RDS_CANCEL_SENT_TO: int
+    RDS_CMSG_RDMA_ARGS: int
+    RDS_CMSG_RDMA_DEST: int
+    RDS_CMSG_RDMA_MAP: int
+    RDS_CMSG_RDMA_STATUS: int
+    RDS_CONG_MONITOR: int
+    RDS_FREE_MR: int
+    RDS_GET_MR: int
+    RDS_GET_MR_FOR_DEST: int
+    RDS_RDMA_DONTWAIT: int
+    RDS_RDMA_FENCE: int
+    RDS_RDMA_INVALIDATE: int
+    RDS_RDMA_NOTIFY_ME: int
+    RDS_RDMA_READWRITE: int
+    RDS_RDMA_SILENT: int
+    RDS_RDMA_USE_ONCE: int
+    RDS_RECVERR: int
+
+    # This is supported by cpython but doesn't seem to be a real thing.
+    # The closest existing constant in rds.h is RDS_CMSG_CONG_UPDATE
+    # RDS_CMSG_RDMA_UPDATE: int
 
 if sys.platform == "win32":
     SIO_RCVALL: int
@@ -619,20 +626,21 @@ if sys.version_info >= (3, 12):
 if sys.platform == "linux":
     # Netlink is defined by Linux
     AF_NETLINK: int
-    # NETLINK_ARPD: int  # Availability?
     NETLINK_CRYPTO: int
     NETLINK_DNRTMSG: int
     NETLINK_FIREWALL: int
     NETLINK_IP6_FW: int
     NETLINK_NFLOG: int
-    # NETLINK_ROUTE6: int  # Availability?
     NETLINK_ROUTE: int
-    # NETLINK_SKIP: int  # Availability?
-    # NETLINK_TAPBASE: int  # Availability?
-    # NETLINK_TCPDIAG: int  # Availability?
     NETLINK_USERSOCK: int
-    # NETLINK_W1: int  # Availability?
     NETLINK_XFRM: int
+    # Technically still supported by cpython
+    # NETLINK_ARPD: int  # linux 2.0 to 2.6.12 (EOL August 2005)
+    # NETLINK_ROUTE6: int  # linux 2.2 to 2.6.12 (EOL August 2005)
+    # NETLINK_SKIP: int  # linux 2.0 to 2.6.12 (EOL August 2005)
+    # NETLINK_TAPBASE: int  # linux 2.2 to 2.6.12 (EOL August 2005)
+    # NETLINK_TCPDIAG: int  # linux 2.6.0 to 2.6.13 (EOL December 2005)
+    # NETLINK_W1: int  # linux 2.6.13 to 2.6.17 (EOL October 2006)
 
 if sys.platform == "darwin":
     PF_SYSTEM: int
@@ -704,8 +712,10 @@ if sys.platform != "win32" and sys.platform != "darwin":
 if sys.platform != "win32" and sys.platform != "linux":
     LOCAL_PEERCRED: int
 
-# if sys.platform != "win32" and sys.platform != "darwin":
-#     IPX_TYPE: int  # availability?
+if sys.platform != "win32" and sys.platform != "darwin":
+    # Defined in linux socket.h, but this isn't always present for
+    # some reason.
+    IPX_TYPE: int
 
 # ===== Classes =====
 
