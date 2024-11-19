@@ -152,22 +152,15 @@ __all__ = [
     "AF_INET",
     "AF_INET6",
     "AF_IPX",
-    "AF_LINK",
-    "AF_ROUTE",
     "AF_SNA",
-    "AF_SYSTEM",
-    "AF_UNIX",
     "AF_UNSPEC",
     "AI_ADDRCONFIG",
     "AI_ALL",
     "AI_CANONNAME",
-    "AI_DEFAULT",
-    "AI_MASK",
     "AI_NUMERICHOST",
     "AI_NUMERICSERV",
     "AI_PASSIVE",
     "AI_V4MAPPED",
-    "AI_V4MAPPED_CFG",
     "CAPI",
     "EAI_AGAIN",
     "EAI_BADFLAGS",
@@ -233,10 +226,6 @@ __all__ = [
     "IP_TTL",
     "MSG_CTRUNC",
     "MSG_DONTROUTE",
-    "MSG_DONTWAIT",
-    "MSG_EOF",
-    "MSG_EOR",
-    "MSG_NOSIGNAL",
     "MSG_OOB",
     "MSG_PEEK",
     "MSG_TRUNC",
@@ -339,6 +328,7 @@ if sys.platform == "win32":
         "SIO_RCVALL",
         "SO_EXCLUSIVEADDRUSE",
         "fromshare",
+        "errorTab",
     ]
 
 if sys.platform != "darwin" or sys.version_info >= (3, 9):
@@ -379,6 +369,7 @@ if sys.platform != "darwin":
         "IPPROTO_RDP",
         "IPPROTO_ST",
         "TCP_KEEPIDLE",
+        "AF_IRDA",
     ]
 
 if sys.version_info >= (3, 10):
@@ -459,6 +450,22 @@ if sys.platform != "win32" and sys.platform != "darwin":
         "TCP_SYNCNT",
         "TCP_USER_TIMEOUT",
         "TCP_WINDOW_CLAMP",
+        "AF_AAL5",
+        "AF_ASH",
+        "AF_ATMPVC",
+        "AF_ATMSVC",
+        "AF_AX25",
+        "AF_BRIDGE",
+        "AF_ECONET",
+        "AF_KEY",
+        "AF_LLC",
+        "AF_NETBEUI",
+        "AF_NETROM",
+        "AF_PPPOX",
+        "AF_ROSE",
+        "AF_SECURITY",
+        "AF_WANPIPE",
+        "AF_X25",
     ]
 
 if sys.platform != "win32":
@@ -524,6 +531,16 @@ if sys.platform != "win32":
         "SO_REUSEPORT",
         "TCP_NOTSENT_LOWAT",
         "sethostname",
+        "AF_ROUTE",
+        "AF_SYSTEM",
+        "AF_UNIX",
+        "AI_DEFAULT",
+        "AI_MASK",
+        "AI_V4MAPPED_CFG",
+        "MSG_DONTWAIT",
+        "MSG_EOF",
+        "MSG_EOR",
+        "MSG_NOSIGNAL",
     ]
 
     if sys.platform != "darwin" or sys.version_info >= (3, 9):
@@ -826,6 +843,14 @@ if sys.platform == "linux":
         "VMADDR_CID_ANY",
         "VMADDR_CID_HOST",
         "VMADDR_PORT_ANY",
+        "AF_CAN",
+        "AF_PACKET",
+        "AF_RDS",
+        "AF_TIPC",
+        "AF_ALG",
+        "AF_NETLINK",
+        "AF_VSOCK",
+        "AF_QIPCRTR",
     ]
 
 if sys.platform == "linux" and sys.version_info >= (3, 9):
@@ -955,10 +980,18 @@ if sys.version_info >= (3, 12):
         # FreeBSD >= 14.0
         from _socket import PF_DIVERT as PF_DIVERT
 
-        __all__ += ["PF_DIVERT"]
+        __all__ += ["PF_DIVERT", "AF_DIVERT"]
 
 if sys.platform != "win32" and sys.version_info >= (3, 9):
     __all__ += ["send_fds", "recv_fds"]
+
+if sys.platform != "win32" or sys.version_info >= (3, 9):
+    __all__ += ["AF_LINK"]
+    if sys.platform != "darwin":
+        __all__ += ["AF_BLUETOOTH"]
+
+if sys.platform == "win32" and sys.version_info >= (3, 12):
+    __all__ += ["AF_HYPERV"]
 
 # Re-exported from errno
 EBADF: int
@@ -1184,7 +1217,6 @@ if sys.platform != "win32":
 
 if sys.platform == "win32":
     errorTab: dict[int, str]  # undocumented
-    __all__ += ["errorTab"]
 
 class _SendableFile(Protocol):
     def read(self, size: int, /) -> bytes: ...
