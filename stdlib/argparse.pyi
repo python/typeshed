@@ -171,6 +171,25 @@ class _ActionsContainer:
     def add_argument(
         self,
         *name_or_flags: str,
+        action: Literal["help"],
+        dest: str | None = ...,
+        default: Any = ...,
+        help: str | None = ...,
+    ) -> Action: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: Literal["version"],
+        version: str = ...,
+        dest: str | None = ...,
+        default: Any = ...,
+        help: str | None = ...,
+    ) -> Action: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
         action: _ActionStr | type[Action] = ...,
         nargs: int | _NArgsStr | _SUPPRESS_T | None = None,
         const: Any = ...,
