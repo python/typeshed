@@ -95,21 +95,11 @@ __all__ = [
     "F_TLOCK",
     "F_ULOCK",
     "NGROUPS_MAX",
-    "O_ACCMODE",
     "O_APPEND",
-    "O_ASYNC",
-    "O_CLOEXEC",
     "O_CREAT",
-    "O_DIRECTORY",
-    "O_DSYNC",
     "O_EXCL",
-    "O_NDELAY",
-    "O_NOCTTY",
-    "O_NOFOLLOW",
-    "O_NONBLOCK",
     "O_RDONLY",
     "O_RDWR",
-    "O_SYNC",
     "O_TRUNC",
     "O_WRONLY",
     "POSIX_SPAWN_CLOSE",
@@ -325,7 +315,7 @@ if sys.version_info >= (3, 9):
 if sys.platform == "darwin" and sys.version_info >= (3, 12):
     __all__ += ["PRIO_DARWIN_BG", "PRIO_DARWIN_NONUI", "PRIO_DARWIN_PROCESS", "PRIO_DARWIN_THREAD"]
 if sys.platform == "darwin" and sys.version_info >= (3, 10):
-    __all__ += ["O_EVTONLY", "O_FSYNC", "O_NOFOLLOW_ANY", "O_SYMLINK"]
+    __all__ += ["O_EVTONLY", "O_NOFOLLOW_ANY", "O_SYMLINK"]
 if sys.platform == "linux":
     __all__ += [
         "GRND_NONBLOCK",
@@ -416,6 +406,21 @@ if sys.platform == "linux" and sys.version_info >= (3, 10):
     ]
 if sys.platform == "linux" and sys.version_info >= (3, 9):
     __all__ += ["P_PIDFD", "pidfd_open"]
+if sys.platform == "win32":
+    __all__ += [
+        "O_BINARY",
+        "O_NOINHERIT",
+        "O_RANDOM",
+        "O_SEQUENTIAL",
+        "O_SHORT_LIVED",
+        "O_TEMPORARY",
+        "O_TEXT",
+        "P_DETACH",
+        "P_OVERLAY",
+        "get_handle_inheritable",
+        "set_handle_inheritable",
+        "startfile",
+    ]
 if sys.platform == "win32" and sys.version_info >= (3, 12):
     __all__ += ["listdrives", "listmounts", "listvolumes"]
 if sys.platform != "win32":
@@ -433,6 +438,8 @@ if sys.platform != "win32":
     ]
     if sys.platform != "darwin" or sys.version_info >= (3, 13):
         __all__ += ["waitid", "waitid_result"]
+if sys.platform != "win32" and sys.version_info >= (3, 10):
+    __all__ += ["O_FSYNC"]
 if sys.platform != "darwin" and sys.platform != "win32":
     __all__ += [
         "POSIX_FADV_DONTNEED",
@@ -626,9 +633,11 @@ O_LARGEFILE: int  # Gnu extension if in C library
 O_ACCMODE: int  # TODO: when does this exist?
 if sys.platform == "darwin" and sys.version_info >= (3, 10):
     O_EVTONLY: int
-    O_FSYNC: int
     O_NOFOLLOW_ANY: int
     O_SYMLINK: int
+
+if sys.platform != "win32" and sys.version_info >= (3, 10):
+    O_FSYNC: int
 
 if sys.platform != "win32" and sys.version_info >= (3, 13):
     O_EXEC: int
