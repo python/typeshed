@@ -577,6 +577,20 @@ codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
 
 # __all__-related weirdness (see #6523)
+email.__all__
+email.base64mime
+email.charset
+email.encoders
+email.errors
+email.feedparser
+email.generator
+email.header
+email.iterators
+email.message
+email.mime
+email.parser
+email.quoprimime
+email.utils
 xml.dom
 xml.etree
 xml.sax
