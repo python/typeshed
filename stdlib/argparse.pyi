@@ -169,12 +169,7 @@ class _ActionsContainer:
     ) -> Action: ...
     @overload
     def add_argument(
-        self,
-        *name_or_flags: str,
-        action: Literal["help"],
-        dest: str | None = ...,
-        default: Any = ...,
-        help: str | None = ...,
+        self, *name_or_flags: str, action: Literal["help"], dest: str | None = ..., default: Any = ..., help: str | None = ...
     ) -> Action: ...
     @overload
     def add_argument(
