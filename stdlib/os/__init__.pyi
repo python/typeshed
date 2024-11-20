@@ -274,9 +274,6 @@ if sys.platform == "win32":
     ]
 if sys.platform == "win32" and sys.version_info >= (3, 12):
     __all__ += ["listdrives", "listmounts", "listvolumes"]
-if sys.platform != "linux":
-    if sys.version_info >= (3, 13) or sys.platform != "win32":
-        __all__ += ["lchmod"]
 if sys.platform != "win32":
     __all__ += [
         "CLD_CONTINUED",
@@ -363,7 +360,6 @@ if sys.platform != "win32":
         "fpathconf",
         "fstatvfs",
         "fwalk",
-        "get_blocking",
         "getegid",
         "getenvb",
         "geteuid",
@@ -401,7 +397,6 @@ if sys.platform != "win32":
         "sched_get_priority_min",
         "sched_yield",
         "sendfile",
-        "set_blocking",
         "setegid",
         "seteuid",
         "setgid",
@@ -483,6 +478,11 @@ if sys.platform != "linux" and sys.platform != "win32" and sys.version_info >= (
 if sys.platform != "darwin" or sys.version_info >= (3, 13):
     if sys.platform != "win32":
         __all__ += ["waitid", "waitid_result"]
+if sys.platform != "win32" or sys.version_info >= (3, 13):
+    if sys.platform != "linux":
+        __all__ += ["lchmod"]
+if sys.platform != "win32" or sys.version_info >= (3, 12):
+    __all__ += ["get_blocking", "set_blocking"]
 if sys.platform != "win32" or sys.version_info >= (3, 11):
     __all__ += ["EX_OK"]
 if sys.platform != "win32" or sys.version_info >= (3, 9):
