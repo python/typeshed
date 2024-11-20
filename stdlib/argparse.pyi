@@ -2,7 +2,7 @@ import sys
 from _typeshed import sentinel
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
-from typing import IO, Any, Final, Generic, NewType, NoReturn, Protocol, TypeVar, overload
+from typing import IO, Any, Final, Generic, Literal, NewType, NoReturn, Protocol, TypeVar, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
@@ -83,6 +83,22 @@ class _ActionsContainer:
     def _registry_get(self, registry_name: str, value: Any, default: Any = None) -> Any: ...
     def set_defaults(self, **kwargs: Any) -> None: ...
     def get_default(self, dest: str) -> Any: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: Literal["store"],
+        dest: str | None = ...,
+        nargs: int | _NArgsStr | _SUPPRESS_T | None = None,
+        const: Any = ...,
+        default: Any = ...,
+        type: _ActionType = ...,
+        choices: Iterable[_T] | None = ...,
+        required: bool = ...,
+        help: str | None = ...,
+        metavar: str | tuple[str, ...] | None = ...,
+    ) -> _StoreAction: ...
+    @overload
     def add_argument(
         self,
         *name_or_flags: str,
