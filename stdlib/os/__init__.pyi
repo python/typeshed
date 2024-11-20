@@ -245,7 +245,6 @@ if sys.platform == "linux" and sys.version_info >= (3, 10):
         "EFD_CLOEXEC",
         "EFD_NONBLOCK",
         "EFD_SEMAPHORE",
-        "O_FSYNC",
         "RWF_APPEND",
         "SPLICE_F_MORE",
         "SPLICE_F_MOVE",
@@ -644,7 +643,7 @@ if sys.platform == "darwin" and sys.version_info >= (3, 10):
 if sys.platform != "win32" and sys.version_info >= (3, 10):
     O_FSYNC: int
 
-if sys.platform != "win32" and sys.version_info >= (3, 13):
+if sys.platform != "linux" and sys.platform != "win32" and sys.version_info >= (3, 13):
     O_EXEC: int
     O_SEARCH: int
 
