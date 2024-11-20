@@ -114,6 +114,26 @@ class _ActionsContainer:
     def add_argument(
         self,
         *name_or_flags: str,
+        action: Literal["store_true"],
+        dest: str | None = ...,
+        default: bool = False,
+        required: bool = False,
+        help: str | None = None,
+    ) -> _StoreTrueAction: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: Literal["store_false"],
+        dest: str | None = ...,
+        default: bool = True,
+        required: bool = False,
+        help: str | None = None,
+    ) -> _StoreFalseAction: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
         action: _ActionStr | type[Action] = ...,
         nargs: int | _NArgsStr | _SUPPRESS_T | None = None,
         const: Any = ...,
