@@ -591,8 +591,10 @@ email.mime
 email.parser
 email.quoprimime
 email.utils
+xml.__all__
 xml.dom
 xml.etree
+xml.parsers
 xml.sax
 
 # Missing aliases to existing methods that not many people seem to use.
