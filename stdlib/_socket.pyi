@@ -497,7 +497,7 @@ if sys.platform == "linux":
     RDS_RDMA_USE_ONCE: int
     RDS_RECVERR: int
 
-    # This is supported by cpython but doesn't seem to be a real thing.
+    # This is supported by CPython but doesn't seem to be a real thing.
     # The closest existing constant in rds.h is RDS_CMSG_CONG_UPDATE
     # RDS_CMSG_RDMA_UPDATE: int
 
@@ -634,7 +634,7 @@ if sys.platform == "linux":
     NETLINK_ROUTE: int
     NETLINK_USERSOCK: int
     NETLINK_XFRM: int
-    # Technically still supported by cpython
+    # Technically still supported by CPython
     # NETLINK_ARPD: int  # linux 2.0 to 2.6.12 (EOL August 2005)
     # NETLINK_ROUTE6: int  # linux 2.2 to 2.6.12 (EOL August 2005)
     # NETLINK_SKIP: int  # linux 2.0 to 2.6.12 (EOL August 2005)
