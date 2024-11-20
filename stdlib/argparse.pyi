@@ -102,6 +102,18 @@ class _ActionsContainer:
     def add_argument(
         self,
         *name_or_flags: str,
+        action: Literal["store_const"],
+        dest: str | None = ...,
+        const: Any = ...,
+        default: Any = ...,
+        required: bool = ...,
+        help: str | None = ...,
+        metavar: str | tuple[str, ...] | None = ...,
+    ) -> _StoreConstAction: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
         action: _ActionStr | type[Action] = ...,
         nargs: int | _NArgsStr | _SUPPRESS_T | None = None,
         const: Any = ...,
