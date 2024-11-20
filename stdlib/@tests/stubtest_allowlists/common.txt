@@ -578,6 +578,7 @@ codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
 
 # __all__-related weirdness (see #6523)
+email.__all__
 email.base64mime
 email.charset
 email.encoders
