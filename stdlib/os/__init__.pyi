@@ -353,7 +353,6 @@ if sys.platform != "win32":
         "ctermid",
         "environb",
         "fchdir",
-        "fchmod",
         "fchown",
         "fork",
         "forkpty",
@@ -479,6 +478,7 @@ if sys.platform != "darwin" or sys.version_info >= (3, 13):
     if sys.platform != "win32":
         __all__ += ["waitid", "waitid_result"]
 if sys.platform != "win32" or sys.version_info >= (3, 13):
+    __all__ += ["fchmod"]
     if sys.platform != "linux":
         __all__ += ["lchmod"]
 if sys.platform != "win32" or sys.version_info >= (3, 12):
