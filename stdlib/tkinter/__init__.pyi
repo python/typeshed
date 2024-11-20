@@ -178,7 +178,7 @@ _Compound: TypeAlias = Literal["top", "left", "center", "right", "bottom", "none
 _Cursor: TypeAlias = str | tuple[str] | tuple[str, str] | tuple[str, str, str] | tuple[str, str, str, str]
 # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
 _EntryValidateCommand: TypeAlias = str | list[str] | tuple[str, ...] | Callable[[], bool]
-_ImageSpec: TypeAlias = _Image | str  # str can be from e.g. tkinter.image_names()
+_ImageSpec: Any
 _Relief: TypeAlias = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
 _ScreenUnits: TypeAlias = str | float  # Often the right type instead of int. Manual page: Tk_GetPixels
 # -xscrollcommand and -yscrollcommand in 'options' manual page
