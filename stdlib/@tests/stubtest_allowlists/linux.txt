@@ -49,7 +49,7 @@ curses.COLS  # Initialized only after initscr call
 curses.LINES  # Initialized only after initscr call
 
 # These seem like they should be available on Linux, but they're not
-# in the gitlab pipline for some reason.
+# on GitHub Actions runners for some reason.
 _?socket.IPX_TYPE
 _?socket.RDS_CANCEL_SENT_TO
 _?socket.RDS_CMSG_RDMA_ARGS
