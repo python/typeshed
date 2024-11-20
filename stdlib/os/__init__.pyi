@@ -103,14 +103,12 @@ __all__ = [
     "O_DIRECTORY",
     "O_DSYNC",
     "O_EXCL",
-    "O_EXLOCK",
     "O_NDELAY",
     "O_NOCTTY",
     "O_NOFOLLOW",
     "O_NONBLOCK",
     "O_RDONLY",
     "O_RDWR",
-    "O_SHLOCK",
     "O_SYNC",
     "O_TRUNC",
     "O_WRONLY",
@@ -318,21 +316,165 @@ __all__ = [
     "spawnlp",
     "spawnlpe",
 ]
-
 if sys.version_info >= (3, 13):
-    __all__ += ["O_EXEC", "O_SEARCH", "grantpt", "posix_openpt", "ptsname", "unlockpt", "waitid", "waitid_result"]
-
-if sys.platform == "darwin" and sys.version_info >= (3, 12):
-    __all__ += ["PRIO_DARWIN_BG", "PRIO_DARWIN_NONUI", "PRIO_DARWIN_PROCESS", "PRIO_DARWIN_THREAD"]
-
+    __all__ += ["grantpt", "posix_openpt", "ptsname", "unlockpt"]
 if sys.version_info >= (3, 11):
     __all__ += ["login_tty"]
-
-if sys.platform == "darwin" and sys.version_info >= (3, 10):
-    __all__ += ["O_EVTONLY", "O_FSYNC", "O_NOFOLLOW_ANY", "O_SYMLINK"]
-
 if sys.version_info >= (3, 9):
     __all__ += ["CLD_KILLED", "CLD_STOPPED", "waitstatus_to_exitcode"]
+if sys.platform == "darwin" and sys.version_info >= (3, 12):
+    __all__ += ["PRIO_DARWIN_BG", "PRIO_DARWIN_NONUI", "PRIO_DARWIN_PROCESS", "PRIO_DARWIN_THREAD"]
+if sys.platform == "darwin" and sys.version_info >= (3, 10):
+    __all__ += ["O_EVTONLY", "O_FSYNC", "O_NOFOLLOW_ANY", "O_SYMLINK"]
+if sys.platform == "linux":
+    __all__ += [
+        "GRND_NONBLOCK",
+        "GRND_RANDOM",
+        "RTLD_DEEPBIND",
+        "MFD_ALLOW_SEALING",
+        "MFD_CLOEXEC",
+        "MFD_HUGETLB",
+        "MFD_HUGE_16GB",
+        "MFD_HUGE_16MB",
+        "MFD_HUGE_1GB",
+        "MFD_HUGE_1MB",
+        "MFD_HUGE_256MB",
+        "MFD_HUGE_2GB",
+        "MFD_HUGE_2MB",
+        "MFD_HUGE_32MB",
+        "MFD_HUGE_512KB",
+        "MFD_HUGE_512MB",
+        "MFD_HUGE_64KB",
+        "MFD_HUGE_8MB",
+        "MFD_HUGE_MASK",
+        "MFD_HUGE_SHIFT",
+        "O_DIRECT",
+        "O_LARGEFILE",
+        "O_NOATIME",
+        "O_PATH",
+        "O_RSYNC",
+        "O_TMPFILE",
+        "SCHED_BATCH",
+        "SCHED_IDLE",
+        "SCHED_RESET_ON_FORK",
+        "XATTR_CREATE",
+        "XATTR_REPLACE",
+        "XATTR_SIZE_MAX",
+        "copy_file_range",
+        "memfd_create",
+        "getrandom",
+        "getxattr",
+        "listxattr",
+        "removexattr",
+        "setxattr",
+    ]
+if sys.platform == "linux" and sys.version_info >= (3, 13):
+    __all__ += [
+        "POSIX_SPAWN_CLOSEFROM",
+        "TFD_TIMER_ABSTIME",
+        "TFD_TIMER_CANCEL_ON_SET",
+        "TFD_NONBLOCK",
+        "TFD_CLOEXEC",
+        "timerfd_create",
+        "timerfd_settime",
+        "timerfd_settime_ns",
+        "timerfd_gettime",
+        "timerfd_gettime_ns",
+    ]
+if sys.platform == "linux" and sys.version_info >= (3, 12):
+    __all__ += [
+        "CLONE_FILES",
+        "CLONE_FS",
+        "CLONE_NEWCGROUP",
+        "CLONE_NEWIPC",
+        "CLONE_NEWNET",
+        "CLONE_NEWNS",
+        "CLONE_NEWPID",
+        "CLONE_NEWUSER",
+        "CLONE_NEWUTS",
+        "CLONE_SIGHAND",
+        "CLONE_SYSVSEM",
+        "CLONE_THREAD",
+        "CLONE_VM",
+        "setns",
+        "unshare",
+    ]
+if sys.platform == "linux" and sys.version_info >= (3, 10):
+    __all__ += [
+        "EFD_CLOEXEC",
+        "EFD_NONBLOCK",
+        "EFD_SEMAPHORE",
+        "O_FSYNC",
+        "RWF_APPEND",
+        "SPLICE_F_MORE",
+        "SPLICE_F_MOVE",
+        "SPLICE_F_NONBLOCK",
+        "eventfd",
+        "eventfd_read",
+        "eventfd_write",
+        "splice",
+    ]
+if sys.platform == "linux" and sys.version_info >= (3, 9):
+    __all__ += ["P_PIDFD", "pidfd_open"]
+if sys.platform == "win32" and sys.version_info >= (3, 12):
+    __all__ += ["listdrives", "listmounts", "listvolumes"]
+if sys.platform != "win32":
+    __all__ += [
+        "O_ACCMODE",
+        "O_ASYNC",
+        "O_CLOEXEC",
+        "O_DIRECTORY",
+        "O_DSYNC",
+        "O_NDELAY",
+        "O_NOCTTY",
+        "O_NOFOLLOW",
+        "O_NONBLOCK",
+        "O_SYNC",
+    ]
+    if sys.platform != "darwin" or sys.version_info >= (3, 13):
+        __all__ += ["waitid", "waitid_result"]
+if sys.platform != "darwin" and sys.platform != "win32":
+    __all__ += [
+        "POSIX_FADV_DONTNEED",
+        "POSIX_FADV_NOREUSE",
+        "POSIX_FADV_NORMAL",
+        "POSIX_FADV_RANDOM",
+        "POSIX_FADV_SEQUENTIAL",
+        "POSIX_FADV_WILLNEED",
+        "RWF_DSYNC",
+        "RWF_HIPRI",
+        "RWF_NOWAIT",
+        "RWF_SYNC",
+        "ST_APPEND",
+        "ST_MANDLOCK",
+        "ST_NOATIME",
+        "ST_NODEV",
+        "ST_NODIRATIME",
+        "ST_NOEXEC",
+        "ST_RELATIME",
+        "ST_SYNCHRONOUS",
+        "ST_WRITE",
+        "fdatasync",
+        "pipe2",
+        "posix_fallocate",
+        "posix_fadvise",
+        "getresgid",
+        "getresuid",
+        "sched_getaffinity",
+        "sched_getparam",
+        "sched_getscheduler",
+        "sched_param",
+        "sched_rr_get_interval",
+        "sched_setaffinity",
+        "sched_setparam",
+        "sched_setscheduler",
+        "setresgid",
+        "setresuid",
+    ]
+if sys.platform != "linux" and sys.platform != "win32":
+    __all__ += ["O_SHLOCK", "O_EXLOCK"]
+if sys.platform != "linux" and sys.platform != "win32" and sys.version_info >= (3, 13):
+    __all__ += ["O_EXEC", "O_SEARCH"]
 
 # This unnecessary alias is to work around various errors
 path = _path
