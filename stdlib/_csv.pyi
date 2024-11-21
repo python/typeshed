@@ -65,6 +65,10 @@ if sys.version_info >= (3, 10):
             def writerow(self, row: Iterable[Any]) -> Any: ...
             def writerows(self, rows: Iterable[Iterable[Any]]) -> None: ...
 
+    # For the return types below.
+    # These aliases can be removed when typeshed drops support for 3.9.
+    _reader = Reader
+    _writer = Writer
 else:
     # This class is not exposed. It calls itself _csv.reader.
     @type_check_only
