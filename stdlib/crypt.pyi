@@ -1,7 +1,8 @@
 import sys
-from typing import Final, NamedTuple
+from typing import Final, NamedTuple, type_check_only
 
 if sys.platform != "win32":
+    @type_check_only
     class _MethodBase(NamedTuple):
         name: str
         ident: str | None

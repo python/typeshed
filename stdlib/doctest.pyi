@@ -3,7 +3,7 @@ import types
 import unittest
 from _typeshed import ExcInfo
 from collections.abc import Callable
-from typing import Any, NamedTuple
+from typing import Any, NamedTuple, type_check_only
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -43,6 +43,7 @@ __all__ = [
 ]
 
 if sys.version_info >= (3, 13):
+    @type_check_only
     class _TestResultsBase(NamedTuple):
         failed: int
         attempted: int

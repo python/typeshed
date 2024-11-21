@@ -186,6 +186,7 @@ _XYScrollCommand: TypeAlias = str | Callable[[float, float], object]
 _TakeFocusValue: TypeAlias = bool | Literal[0, 1, ""] | Callable[[str], bool | None]  # -takefocus in manual page named 'options'
 
 if sys.version_info >= (3, 11):
+    @type_check_only
     class _VersionInfoTypeBase(NamedTuple):
         major: int
         minor: int

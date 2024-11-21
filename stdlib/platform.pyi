@@ -16,14 +16,14 @@ def architecture(executable: str = sys.executable, bits: str = "", linkage: str 
 
 if sys.version_info >= (3, 9):
     @type_check_only
-    class uname_result_base(NamedTuple):
+    class _uname_result_base(NamedTuple):
         system: str
         node: str
         release: str
         version: str
         machine: str
 
-    class uname_result(uname_result_base):
+    class uname_result(_uname_result_base):
         @property
         def processor(self) -> str: ...
 
