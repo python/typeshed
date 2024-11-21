@@ -38,8 +38,6 @@ _collections_abc.Awaitable.__class_getitem__
 _collections_abc.Container.__class_getitem__
 _collections_abc.Iterable.__class_getitem__
 _collections_abc.MappingView.__class_getitem__
-_csv.Reader
-_csv.Writer
 enum.Enum.__init__
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 typing.NewType.__mro_entries__
