@@ -1,12 +1,17 @@
 import _tkinter
 import sys
-from _typeshed import Incomplete, MaybeNone, StrEnum, StrOrBytesPath
+from _typeshed import Incomplete, MaybeNone, StrOrBytesPath
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
 from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
+
+if sys.version_info >= (3, 11):
+    from enum import StrEnum
+else:
+    from enum import Enum
 
 if sys.version_info >= (3, 9):
     __all__ = [
@@ -196,46 +201,89 @@ if sys.version_info >= (3, 11):
 
     class _VersionInfoType(_VersionInfoTypeBase): ...
 
-class EventType(StrEnum):
-    Activate = "36"
-    ButtonPress = "4"
-    Button = ButtonPress
-    ButtonRelease = "5"
-    Circulate = "26"
-    CirculateRequest = "27"
-    ClientMessage = "33"
-    Colormap = "32"
-    Configure = "22"
-    ConfigureRequest = "23"
-    Create = "16"
-    Deactivate = "37"
-    Destroy = "17"
-    Enter = "7"
-    Expose = "12"
-    FocusIn = "9"
-    FocusOut = "10"
-    GraphicsExpose = "13"
-    Gravity = "24"
-    KeyPress = "2"
-    Key = "2"
-    KeyRelease = "3"
-    Keymap = "11"
-    Leave = "8"
-    Map = "19"
-    MapRequest = "20"
-    Mapping = "34"
-    Motion = "6"
-    MouseWheel = "38"
-    NoExpose = "14"
-    Property = "28"
-    Reparent = "21"
-    ResizeRequest = "25"
-    Selection = "31"
-    SelectionClear = "29"
-    SelectionRequest = "30"
-    Unmap = "18"
-    VirtualEvent = "35"
-    Visibility = "15"
+if sys.version_info >= (3, 11):
+    class EventType(StrEnum):
+        Activate = "36"
+        ButtonPress = "4"
+        Button = ButtonPress
+        ButtonRelease = "5"
+        Circulate = "26"
+        CirculateRequest = "27"
+        ClientMessage = "33"
+        Colormap = "32"
+        Configure = "22"
+        ConfigureRequest = "23"
+        Create = "16"
+        Deactivate = "37"
+        Destroy = "17"
+        Enter = "7"
+        Expose = "12"
+        FocusIn = "9"
+        FocusOut = "10"
+        GraphicsExpose = "13"
+        Gravity = "24"
+        KeyPress = "2"
+        Key = "2"
+        KeyRelease = "3"
+        Keymap = "11"
+        Leave = "8"
+        Map = "19"
+        MapRequest = "20"
+        Mapping = "34"
+        Motion = "6"
+        MouseWheel = "38"
+        NoExpose = "14"
+        Property = "28"
+        Reparent = "21"
+        ResizeRequest = "25"
+        Selection = "31"
+        SelectionClear = "29"
+        SelectionRequest = "30"
+        Unmap = "18"
+        VirtualEvent = "35"
+        Visibility = "15"
+
+else:
+    class EventType(str, Enum):
+        Activate = "36"
+        ButtonPress = "4"
+        Button = ButtonPress
+        ButtonRelease = "5"
+        Circulate = "26"
+        CirculateRequest = "27"
+        ClientMessage = "33"
+        Colormap = "32"
+        Configure = "22"
+        ConfigureRequest = "23"
+        Create = "16"
+        Deactivate = "37"
+        Destroy = "17"
+        Enter = "7"
+        Expose = "12"
+        FocusIn = "9"
+        FocusOut = "10"
+        GraphicsExpose = "13"
+        Gravity = "24"
+        KeyPress = "2"
+        Key = "2"
+        KeyRelease = "3"
+        Keymap = "11"
+        Leave = "8"
+        Map = "19"
+        MapRequest = "20"
+        Mapping = "34"
+        Motion = "6"
+        MouseWheel = "38"
+        NoExpose = "14"
+        Property = "28"
+        Reparent = "21"
+        ResizeRequest = "25"
+        Selection = "31"
+        SelectionClear = "29"
+        SelectionRequest = "30"
+        Unmap = "18"
+        VirtualEvent = "35"
+        Visibility = "15"
 
 _W = TypeVar("_W", bound=Misc)
 # Events considered covariant because you should never assign to event.widget.
