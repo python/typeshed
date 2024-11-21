@@ -464,6 +464,7 @@ typing_extensions\.ParamSpec.*
 typing(_extensions)?\.Generic
 typing\.Protocol
 typing(_extensions)?\._TypedDict
+typing(_extensions)?\.TypedDict
 typing._Final
 typing._Final.__init_subclass__
 
@@ -577,6 +578,7 @@ codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
 
 # __all__-related weirdness (see #6523)
+email.__all__
 email.base64mime
 email.charset
 email.encoders
@@ -590,8 +592,10 @@ email.mime
 email.parser
 email.quoprimime
 email.utils
+xml.__all__
 xml.dom
 xml.etree
+xml.parsers
 xml.sax
 
 # Missing aliases to existing methods that not many people seem to use.

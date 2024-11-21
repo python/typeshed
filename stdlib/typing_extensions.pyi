@@ -58,6 +58,7 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039
     TextIO as TextIO,
     Tuple as Tuple,
     Type as Type,
+    TypedDict as TypedDict,
     Union as Union,
     ValuesView as ValuesView,
     _Alias,
@@ -254,9 +255,6 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
         def __ror__(self, value: dict[str, Any], /) -> dict[str, object]: ...
         # supposedly incompatible definitions of `__ior__` and `__or__`:
         def __ior__(self, value: Self, /) -> Self: ...  # type: ignore[misc]
-
-# TypedDict is a (non-subscriptable) special form.
-TypedDict: object
 
 OrderedDict = _Alias()
 
