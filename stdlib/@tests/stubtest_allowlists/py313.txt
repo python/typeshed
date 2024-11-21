@@ -38,11 +38,8 @@ _collections_abc.Awaitable.__class_getitem__
 _collections_abc.Container.__class_getitem__
 _collections_abc.Iterable.__class_getitem__
 _collections_abc.MappingView.__class_getitem__
-_csv.Reader
-_csv.Writer
 enum.Enum.__init__
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
-tkinter._VersionInfoType.__doc__
 typing.NewType.__mro_entries__
 builtins.ellipsis  # type is not exposed anywhere
 
@@ -104,8 +101,6 @@ ast.ImportFrom.level  # None on the class, but never None on instances
 builtins.property.__set_name__  # Doesn't actually exist
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 dataclasses.KW_ONLY  # white lies around defaults
-doctest.TestResults.__match_args__ # Stubtest doesn't pick up override
-doctest.TestResults._fields # Stubtest doesn't pick up override
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
@@ -125,17 +120,11 @@ sys.last_exc
 # C signature is broader than what is actually accepted
 ast.ExtSlice.__new__
 ast.Index.__new__
-contextvars.Context.__init__
 
 # Treated an alias of a typing class in the stubs,
 # they are generic to type checkers anyway.
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
-
-# platform.uname_result's processor field is now dynamically made to exist
-platform.uname_result.__match_args__
-platform.uname_result.__new__
-platform.uname_result.processor
 
 # Runtime has *args, **kwargs, but will error if any are supplied
 unittest.TestCase.__init_subclass__
@@ -150,6 +139,17 @@ importlib.resources.abc.Traversable.open
 
 # Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
 importlib.metadata.DeprecatedNonAbstract.__new__
+
+# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
+# But have more precise (accurate) signatures in the stub
+multiprocessing.managers._BaseDictProxy.__iter__
+multiprocessing.managers._BaseDictProxy.__len__
+multiprocessing.managers._BaseDictProxy.clear
+multiprocessing.managers._BaseDictProxy.copy
+multiprocessing.managers._BaseDictProxy.items
+multiprocessing.managers._BaseDictProxy.keys
+multiprocessing.managers._BaseDictProxy.popitem
+multiprocessing.managers._BaseDictProxy.values
 
 # Super-special typing primitives
 typing\._SpecialForm.*

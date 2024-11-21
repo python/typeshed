@@ -3,7 +3,7 @@ _weakref.ProxyType.__reversed__  # Doesn't really exist
 asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.property.__set_name__  # Doesn't actually exist
-bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
+_?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 configparser.ParsingError.filename
 contextlib.AbstractAsyncContextManager.__class_getitem__
@@ -25,10 +25,6 @@ lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
 lib2to3.pgen2.grammar.Grammar.loads
-# platform.uname_result's processor field is now dynamically made to exist
-platform.uname_result.__match_args__
-platform.uname_result.__new__
-platform.uname_result.processor
 tkinter.Tk.split
 tkinter.tix.[A-Z_]+
 tkinter.tix.TclVersion
@@ -114,8 +110,6 @@ _collections_abc.Awaitable.__class_getitem__
 _collections_abc.Container.__class_getitem__
 _collections_abc.Iterable.__class_getitem__
 _collections_abc.MappingView.__class_getitem__
-_csv.Reader
-_csv.Writer
 bdb.Breakpoint.clearBreakpoints
 inspect.Signature.from_builtin  # Removed in 3.11, can add if someone needs this
 inspect.Signature.from_function  # Removed in 3.11, can add if someone needs this
@@ -229,6 +223,15 @@ importlib.abc.Traversable.open
 # Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
 importlib.metadata.DeprecatedList.reverse
 importlib.metadata.DeprecatedList.sort
+
+# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
+# But have more precise (accurate) signatures in the stub
+multiprocessing.managers.DictProxy.__iter__
+multiprocessing.managers.DictProxy.__len__
+multiprocessing.managers.DictProxy.copy
+multiprocessing.managers.DictProxy.items
+multiprocessing.managers.DictProxy.keys
+multiprocessing.managers.DictProxy.values
 
 # Super-special typing primitives
 typing\.NamedTuple
