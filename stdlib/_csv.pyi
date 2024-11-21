@@ -2,7 +2,7 @@ import csv
 import sys
 from _typeshed import SupportsWrite
 from collections.abc import Iterable
-from typing import Any, Final
+from typing import Any, Final, type_check_only
 from typing_extensions import Self, TypeAlias
 
 __version__: Final[str]
@@ -65,12 +65,9 @@ if sys.version_info >= (3, 10):
             def writerow(self, row: Iterable[Any]) -> Any: ...
             def writerows(self, rows: Iterable[Iterable[Any]]) -> None: ...
 
-    # These aliases can be removed when typeshed drops support for 3.9.
-    _reader = Reader
-    _writer = Writer
-
 else:
     # This class is not exposed. It calls itself _csv.reader.
+    @type_check_only
     class _reader:
         @property
         def dialect(self) -> Dialect: ...
@@ -79,6 +76,7 @@ else:
         def __next__(self) -> list[str]: ...
 
     # This class is not exposed. It calls itself _csv.writer.
+    @type_check_only
     class _writer:
         @property
         def dialect(self) -> Dialect: ...
