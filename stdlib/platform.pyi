@@ -1,5 +1,5 @@
 import sys
-from typing import NamedTuple
+from typing import NamedTuple, type_check_only
 
 def libc_ver(executable: str | None = None, lib: str = "", version: str = "", chunksize: int = 16384) -> tuple[str, str]: ...
 def win32_ver(release: str = "", version: str = "", csd: str = "", ptype: str = "") -> tuple[str, str, str, str]: ...
@@ -14,13 +14,27 @@ def java_ver(
 def system_alias(system: str, release: str, version: str) -> tuple[str, str, str]: ...
 def architecture(executable: str = sys.executable, bits: str = "", linkage: str = "") -> tuple[str, str]: ...
 
-class uname_result(NamedTuple):
-    system: str
-    node: str
-    release: str
-    version: str
-    machine: str
-    processor: str
+if sys.version_info >= (3, 9):
+    @type_check_only
+    class _uname_result_base(NamedTuple):
+        system: str
+        node: str
+        release: str
+        version: str
+        machine: str
+
+    class uname_result(_uname_result_base):
+        @property
+        def processor(self) -> str: ...
+
+else:
+    class uname_result(NamedTuple):
+        system: str
+        node: str
+        release: str
+        version: str
+        machine: str
+        processor: str
 
 def uname() -> uname_result: ...
 def system() -> str: ...
