@@ -1,6 +1,6 @@
+import sys
 from _typeshed import SupportsRead
 from collections.abc import Callable
-import sys
 from typing import Any
 
 __all__ = ("loads", "load", "TOMLDecodeError")
@@ -13,6 +13,7 @@ if sys.version_info >= (3, 14):
         lineno: int
         colno: int
         def __init__(self, msg: str, doc: str, pos: int) -> None: ...
+
 else:
     class TOMLDecodeError(ValueError): ...
 
