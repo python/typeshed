@@ -23,7 +23,7 @@ if sys.version_info >= (3, 9):
         version: str
         machine: str
 
-    class uname_result(_uname_result_base):
+    class uname_result(_uname_result_base, tuple[str, str, str, str, str, str]):
         @property
         def processor(self) -> str: ...
 
