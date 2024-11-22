@@ -5,7 +5,7 @@ from io import TextIOWrapper
 from os import PathLike
 from typing import IO, Literal, TypeVar, overload
 from typing_extensions import Self, TypeAlias
-from zipfile import _ZipWriteFile, ZipExtFile, ZipFile
+from zipfile import ZipExtFile, ZipFile, _ZipWriteFile
 
 _ReadWriteMode: TypeAlias = Literal["r", "w"]
 
@@ -69,17 +69,11 @@ if sys.version_info >= (3, 12):
             def open(self, mode: Literal["wb"], *, pwd: bytes | None = None) -> _ZipWriteFile: ...
         else:
             @overload
-            def open(
-                self, mode: Literal["r"] = "r", pwd: bytes | None = None, *, force_zip64: bool = False
-            ) -> ZipExtFile: ...
+            def open(self, mode: Literal["r"] = "r", pwd: bytes | None = None, *, force_zip64: bool = False) -> ZipExtFile: ...
             @overload
-            def open(
-                self, mode: Literal["w"] = ..., pwd: bytes | None = None, *, force_zip64: bool = False
-            ) -> _ZipWriteFile: ...
+            def open(self, mode: Literal["w"] = ..., pwd: bytes | None = None, *, force_zip64: bool = False) -> _ZipWriteFile: ...
             @overload
-            def open(
-                self, mode: _ReadWriteMode, pwd: bytes | None = None, *, force_zip64: bool = False
-            ) -> IO[bytes]: ...
+            def open(self, mode: _ReadWriteMode, pwd: bytes | None = None, *, force_zip64: bool = False) -> IO[bytes]: ...
 
         if sys.version_info >= (3, 10):
             def iterdir(self) -> Iterator[Self]: ...
