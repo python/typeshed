@@ -52,7 +52,6 @@ lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
 lib2to3.pgen2.grammar.Grammar.loads
-sched.Event.__doc__  # __slots__ is overridden
 tkinter.tix.[A-Z_]+
 tkinter.tix.TclVersion
 tkinter.tix.TkVersion
@@ -266,3 +265,12 @@ email.utils.parseaddr
 # Weird special builtins that are typed as functions, but aren't functions
 hashlib.sha3_\d+  # Class in 3.8, can't be subclassed at runtime, built-in function 3.9+
 hashlib.shake_\d+  # Class in 3.8, can't be subclassed at runtime, built-in function 3.9+
+
+# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
+# But have more precise (accurate) signatures in the stub
+multiprocessing.managers.DictProxy.__iter__
+multiprocessing.managers.DictProxy.__len__
+multiprocessing.managers.DictProxy.copy
+multiprocessing.managers.DictProxy.items
+multiprocessing.managers.DictProxy.keys
+multiprocessing.managers.DictProxy.values

@@ -3,8 +3,6 @@ _collections_abc.Awaitable.__class_getitem__
 _collections_abc.Container.__class_getitem__
 _collections_abc.Iterable.__class_getitem__
 _collections_abc.MappingView.__class_getitem__
-_csv.Reader
-_csv.Writer
 _?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 configparser.ParsingError.filename
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
@@ -27,7 +25,6 @@ lib2to3.btm_utils
 lib2to3.fixer_util
 lib2to3.patcomp
 lib2to3.pgen2.grammar.Grammar.loads
-tkinter._VersionInfoType.__doc__
 tkinter.tix.[A-Z_]+
 tkinter.tix.TclVersion
 tkinter.tix.TkVersion
@@ -167,11 +164,6 @@ typing_extensions\.Annotated
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
 
-# platform.uname_result's processor field is now dynamically made to exist
-platform.uname_result.__match_args__
-platform.uname_result.__new__
-platform.uname_result.processor
-
 # Runtime has *args, **kwargs, but will error if any are supplied
 unittest.TestCase.__init_subclass__
 unittest.case.TestCase.__init_subclass__
@@ -183,6 +175,15 @@ importlib.resources.abc.Traversable.open
 # Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
 importlib.metadata.DeprecatedList.reverse
 importlib.metadata.DeprecatedList.sort
+
+# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
+# But have more precise (accurate) signatures in the stub
+multiprocessing.managers.DictProxy.__iter__
+multiprocessing.managers.DictProxy.__len__
+multiprocessing.managers.DictProxy.copy
+multiprocessing.managers.DictProxy.items
+multiprocessing.managers.DictProxy.keys
+multiprocessing.managers.DictProxy.values
 
 # Super-special typing primitives
 typing\._SpecialForm.*
