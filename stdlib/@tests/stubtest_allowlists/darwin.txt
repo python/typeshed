@@ -25,11 +25,6 @@ select.POLLMSG   # system dependent
 (posix.ST_[A-Z]+)?
 (termios.[A-Z0-9_]+)?
 
-# Exists at runtime, but missing from stubs
-_ctypes.dlclose
-_ctypes.dlopen
-_ctypes.dlsym
-
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========

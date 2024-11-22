@@ -6,10 +6,6 @@ _posixsubprocess.cloexec_pipe
 curses.has_key
 selectors.KqueueSelector
 
-_ctypes.dlclose
-_ctypes.dlopen
-_ctypes.dlsym
-
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
