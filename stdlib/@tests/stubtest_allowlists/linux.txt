@@ -2,7 +2,6 @@
 # TODO: Review the following
 # ==========
 
-_posixsubprocess.cloexec_pipe
 curses.has_key
 selectors.KqueueSelector
 
