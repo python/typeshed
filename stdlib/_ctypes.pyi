@@ -1,6 +1,6 @@
 import _typeshed
 import sys
-from _typeshed import ReadableBuffer, WriteableBuffer
+from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from ctypes import CDLL, ArgumentError as ArgumentError, c_void_p
@@ -47,6 +47,12 @@ if sys.platform == "win32":
     def set_last_error(value: int) -> int: ...
     def LoadLibrary(name: str, load_flags: int = 0, /) -> int: ...
     def FreeLibrary(handle: int, /) -> None: ...
+
+else:
+    def dlclose(handle: int, /) -> None: ...
+    # The default for flag is RTLD_GLOBAL|RTLD_LOCAL, which is platform dependent.
+    def dlopen(name: StrOrBytesPath, flag: int = ..., /) -> int: ...
+    def dlsym(handle: int, name: str, /) -> int: ...
 
 if sys.version_info >= (3, 13):
     # This class is not exposed. It calls itself _ctypes.CType_Type.
