@@ -15,6 +15,8 @@ def system_alias(system: str, release: str, version: str) -> tuple[str, str, str
 def architecture(executable: str = sys.executable, bits: str = "", linkage: str = "") -> tuple[str, str]: ...
 
 if sys.version_info >= (3, 9):
+    # uname_result emulates a 6-field named tuple, but the processor field
+    # is lazily evaluated rather than being passed in to the constructor.
     @type_check_only
     class _uname_result_base(NamedTuple):
         system: str
