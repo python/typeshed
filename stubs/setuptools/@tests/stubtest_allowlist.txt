@@ -98,7 +98,6 @@ setuptools._distutils.dir_util
 setuptools._distutils.fancy_getopt
 setuptools._distutils.file_util
 setuptools._distutils.log
-setuptools._distutils.spawn
 setuptools._distutils.text_file
 setuptools._distutils.unixccompiler
 setuptools._distutils.version
