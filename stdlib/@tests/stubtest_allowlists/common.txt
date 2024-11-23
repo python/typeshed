@@ -33,16 +33,6 @@ http.client.HTTPConnection.response_class  # the actual type at runtime is abc.A
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
-ipaddress._BaseAddress.is_global
-ipaddress._BaseAddress.is_link_local
-ipaddress._BaseAddress.is_loopback
-ipaddress._BaseAddress.is_multicast
-ipaddress._BaseAddress.is_private
-ipaddress._BaseAddress.is_reserved
-ipaddress._BaseAddress.is_unspecified
-ipaddress._BaseAddress.max_prefixlen
-ipaddress._BaseAddress.packed
-ipaddress._BaseNetwork.max_prefixlen
 multiprocessing.JoinableQueue
 multiprocessing.Queue
 multiprocessing.SimpleQueue
