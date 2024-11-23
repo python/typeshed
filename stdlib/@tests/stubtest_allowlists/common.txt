@@ -23,8 +23,6 @@ copy.PyStringMap  # defined only in Jython
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
-ctypes.string_at  # docstring argument name is wrong
-ctypes.wstring_at  # docstring argument name is wrong
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
