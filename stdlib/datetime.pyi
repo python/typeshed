@@ -4,6 +4,9 @@ from time import struct_time
 from typing import ClassVar, Final, NoReturn, SupportsIndex, final, overload, type_check_only
 from typing_extensions import Self, TypeAlias, deprecated
 
+if sys.version_info >= (3, 13):
+    from types import CapsuleType
+
 if sys.version_info >= (3, 11):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")
 elif sys.version_info >= (3, 9):
@@ -332,3 +335,8 @@ class datetime(date):
     def __sub__(self, value: Self, /) -> timedelta: ...
     @overload
     def __sub__(self, value: timedelta, /) -> Self: ...
+
+if sys.version_info >= (3, 13):
+    datetime_CAPI: CapsuleType
+else:
+    datetime_CAPI: object

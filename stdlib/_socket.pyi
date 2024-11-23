@@ -5,6 +5,9 @@ from socket import error as error, gaierror as gaierror, herror as herror, timeo
 from typing import Any, SupportsIndex, overload
 from typing_extensions import TypeAlias
 
+if sys.version_info >= (3, 13):
+    from types import CapsuleType
+
 _CMSG: TypeAlias = tuple[int, int, bytes]
 _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]
 
@@ -842,4 +845,7 @@ def if_nameindex() -> list[tuple[int, str]]: ...
 def if_nametoindex(oname: str, /) -> int: ...
 def if_indextoname(index: int, /) -> str: ...
 
-CAPI: object
+if sys.version_info >= (3, 13):
+    CAPI: CapsuleType
+else:
+    CAPI: object

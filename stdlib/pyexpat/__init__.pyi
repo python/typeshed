@@ -1,9 +1,13 @@
+import sys
 from _typeshed import ReadableBuffer, SupportsRead
 from collections.abc import Callable
 from pyexpat import errors as errors, model as model
 from typing import Any, Final, final
 from typing_extensions import TypeAlias
 from xml.parsers.expat import ExpatError as ExpatError
+
+if sys.version_info >= (3, 13):
+    from types import CapsuleType
 
 EXPAT_VERSION: Final[str]  # undocumented
 version_info: tuple[int, int, int]  # undocumented
@@ -78,3 +82,8 @@ def ErrorString(code: int, /) -> str: ...
 def ParserCreate(
     encoding: str | None = None, namespace_separator: str | None = None, intern: dict[str, Any] | None = None
 ) -> XMLParserType: ...
+
+if sys.version_info >= (3, 13):
+    expat_CAPI: CapsuleType
+else:
+    expat_CAPI: object
