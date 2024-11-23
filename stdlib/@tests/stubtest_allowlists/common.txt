@@ -8,9 +8,6 @@ _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
-_collections_abc.ItemsView.__reversed__
-_collections_abc.KeysView.__reversed__
-_collections_abc.ValuesView.__reversed__
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
 asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
