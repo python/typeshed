@@ -43,18 +43,6 @@ ipaddress._BaseAddress.is_unspecified
 ipaddress._BaseAddress.max_prefixlen
 ipaddress._BaseAddress.packed
 ipaddress._BaseNetwork.max_prefixlen
-multiprocessing.JoinableQueue
-multiprocessing.Queue
-multiprocessing.SimpleQueue
-multiprocessing.queues.JoinableQueue.__init__
-multiprocessing.queues.Queue.__init__
-multiprocessing.queues.SimpleQueue.__init__
-multiprocessing.synchronize.Barrier.__init__
-multiprocessing.synchronize.Condition.acquire
-multiprocessing.synchronize.Condition.release
-multiprocessing.synchronize.SemLock.__init__
-multiprocessing.synchronize.SemLock.acquire
-multiprocessing.synchronize.SemLock.release
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 pickle.Pickler.reducer_override  # implemented in C pickler
@@ -412,6 +400,13 @@ inspect.Signature.__init__
 inspect.Parameter.empty  # set as private marker _empty
 inspect.Signature.empty  # set as private marker _empty
 
+# At runtime, these are functions from multiprocessing.context._default_context.
+# Typeshed makes them classes instead, which matches CPython documentation.
+# This has been heavily discussed, see #4266 for the primary issue about it.
+multiprocessing.JoinableQueue
+multiprocessing.Queue
+multiprocessing.SimpleQueue
+
 # These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
 # But have more precise (accurate) signatures in the stub
 multiprocessing.managers.BaseListProxy.__imul__
@@ -433,6 +428,22 @@ multiprocessing.(dummy|managers).Namespace.__[gs]etattr__  # Any field can be se
 multiprocessing.reduction.AbstractReducer.ForkingPickler
 # Non-private parameter on __del__
 multiprocessing.pool.Pool.__del__
+
+# These are because the ctx argument has a default value in the stubs but not
+# at runtime. This is a compromise between the runtime signatures of (for example)
+# multiprocessing.Queue and multiprocessing.queues.Queue, which typeshed
+# treats as the same object.
+multiprocessing.queues.JoinableQueue.__init__
+multiprocessing.queues.Queue.__init__
+multiprocessing.queues.SimpleQueue.__init__
+
+# These methods are dynamically created after object initialization,
+# copied from a wrapped lock object. Stubtest doesn't think they exist
+# because of that.
+multiprocessing.synchronize.Condition.acquire
+multiprocessing.synchronize.Condition.release
+multiprocessing.synchronize.SemLock.acquire
+multiprocessing.synchronize.SemLock.release
 
 # C signature is broader than what is actually accepted
 _?queue.SimpleQueue.__init__
