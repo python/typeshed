@@ -81,8 +81,7 @@ class OpenDescriptor(Generic[_IOT]):
 
 class FileObjectBase(Generic[_IOT, AnyStr]):
     def __init__(
-        self: FileObjectBase[_IOT, AnyStr],
-        descriptor: OpenDescriptor[_IOT],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        self: FileObjectBase[_IOT, AnyStr], descriptor: OpenDescriptor[_IOT]  # pyright: ignore[reportInvalidTypeVarUse]  #11780
     ) -> None: ...
     io: _IOT
     @property

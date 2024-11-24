@@ -138,9 +138,7 @@ class NestedText(NestedValue[_T, _N]):
     # str
     @overload
     def __set__(  # type: ignore[overload-overlap]
-        self: NestedText[str, _N],
-        instance: Serialisable | Strict,
-        value: object,  # Not[None] when _N = False
+        self: NestedText[str, _N], instance: Serialisable | Strict, value: object  # Not[None] when _N = False
     ) -> None: ...
     # int
     @overload
