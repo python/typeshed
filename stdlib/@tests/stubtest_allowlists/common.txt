@@ -115,7 +115,6 @@ encodings.utf_7
 encodings.uu_codec
 encodings.zlib_codec
 json.scanner
-sqlite3.dump
 turtledemo
 turtledemo\..+
 xml.sax.expatreader
