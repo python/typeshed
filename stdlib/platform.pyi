@@ -25,9 +25,14 @@ if sys.version_info >= (3, 9):
         version: str
         machine: str
 
-    class uname_result(_uname_result_base, tuple[str, str, str, str, str, str]):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
-        @property
-        def processor(self) -> str: ...
+    class uname_result(_uname_result_base, NamedTuple):  # pyright: ignore[reportGeneralTypeIssues]
+        system: str
+        node: str
+        release: str
+        version: str
+        machine: str
+        processor: str
+        def __init__(self, system: str, node: str, release: str, version: str, machine: str) -> None: ...
 
 else:
     class uname_result(NamedTuple):
