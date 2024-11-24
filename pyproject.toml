@@ -100,7 +100,6 @@ ignore = [
     # B033 could be slightly useful but Ruff doesn't have per-file select
     "B", # flake8-bugbear
     # Rules that are out of the control of stub authors:
-    "E741", # ambiguous variable name
     "F403", # `from . import *` used; unable to detect undefined names
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.
