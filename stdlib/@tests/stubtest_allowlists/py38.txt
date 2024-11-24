@@ -110,7 +110,6 @@ tkinter.Tk.__init__
 
 # Exists at runtime, but missing from stubs
 _?contextvars.ContextVar.__class_getitem__
-datetime.datetime_CAPI
 dummy_threading.ExceptHookArgs
 dummy_threading.Lock
 dummy_threading.RLock
