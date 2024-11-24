@@ -5,7 +5,7 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
+from typing import Any, Generic, Literal, NamedTuple, Protocol, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
 
 if sys.version_info >= (3, 9):
@@ -178,7 +178,7 @@ _Compound: TypeAlias = Literal["top", "left", "center", "right", "bottom", "none
 _Cursor: TypeAlias = str | tuple[str] | tuple[str, str] | tuple[str, str, str] | tuple[str, str, str, str]
 # example when it's sequence:  entry['invalidcommand'] = [entry.register(print), '%P']
 _EntryValidateCommand: TypeAlias = str | list[str] | tuple[str, ...] | Callable[[], bool]
-_ImageSpec: TypeAlias = Any
+_ImageSpec: TypeAlias = _Image | str  # str can be from e.g. tkinter.image_names()
 _Relief: TypeAlias = Literal["raised", "sunken", "flat", "ridge", "solid", "groove"]  # manual page: Tk_GetRelief
 _ScreenUnits: TypeAlias = str | float  # Often the right type instead of int. Manual page: Tk_GetPixels
 # -xscrollcommand and -yscrollcommand in 'options' manual page
@@ -3403,11 +3403,14 @@ class OptionMenu(Menubutton):
     # configure, config, cget are inherited from Menubutton
     # destroy and __getitem__ are overridden, signature does not change
 
-# Marker to indicate that it is a valid bitmap/photo image. PIL implements compatible versions
-# which don't share a class hierarchy. The actual API is a __str__() which returns a valid name,
-# not something that type checkers can detect.
+# This matches tkinter's image classes (PhotoImage and BitmapImage)
+# and PIL's tkinter-compatible class (PIL.ImageTk.PhotoImage),
+# but not a plain PIL image that isn't tkinter compatible.
+# The reason is that PIL has width and height attributes, not methods.
 @type_check_only
-class _Image: ...
+class _Image(Protocol):
+    def width(self) -> int: ...
+    def height(self) -> int: ...
 
 @type_check_only
 class _BitmapImageLike(_Image): ...
@@ -3426,9 +3429,7 @@ class Image(_Image):
     def __getitem__(self, key): ...
     configure: Incomplete
     config: Incomplete
-    def height(self) -> int: ...
     def type(self): ...
-    def width(self) -> int: ...
 
 class PhotoImage(Image, _PhotoImageLike):
     # This should be kept in sync with PIL.ImageTK.PhotoImage.__init__()
