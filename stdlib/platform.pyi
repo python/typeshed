@@ -1,5 +1,5 @@
 import sys
-from typing import Literal, NamedTuple, type_check_only
+from typing import Literal, NamedTuple
 from typing_extensions import Self
 
 def libc_ver(executable: str | None = None, lib: str = "", version: str = "", chunksize: int = 16384) -> tuple[str, str]: ...
@@ -18,16 +18,8 @@ def architecture(executable: str = sys.executable, bits: str = "", linkage: str 
 if sys.version_info >= (3, 9):
     # uname_result emulates a 6-field named tuple, but the processor field
     # is lazily evaluated rather than being passed in to the constructor.
-    @type_check_only
-    class _uname_result_base(NamedTuple):
-        system: str
-        node: str
-        release: str
-        version: str
-        machine: str
-
     if sys.version_info >= (3, 10):
-        class uname_result(NamedTuple, _uname_result_base):  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+        class uname_result(NamedTuple):
             system: str
             node: str
             release: str
@@ -42,7 +34,7 @@ if sys.version_info >= (3, 9):
             ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
 
     else:
-        class uname_result(NamedTuple, _uname_result_base):  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+        class uname_result(NamedTuple):
             system: str
             node: str
             release: str
