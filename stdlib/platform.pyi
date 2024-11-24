@@ -33,14 +33,13 @@ if sys.version_info >= (3, 9):
             release: str
             version: str
             machine: str
-            extra: str
+            processor: str  # actually a property
+            def __init__(self, system: str, node: str, release: str, version: str, machine: str) -> None: ...  # type: ignore[misc]
             def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...  # type: ignore[misc]
             @property
             def __match_args__(
                 self,
             ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
-            @property
-            def processor(self) -> str: ...
 
     else:
         class uname_result(_uname_result_base, NamedTuple):  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
@@ -49,14 +48,13 @@ if sys.version_info >= (3, 9):
             release: str
             version: str
             machine: str
-            extra: str
+            processor: str  # actually a property
+            def __init__(self, system: str, node: str, release: str, version: str, machine: str) -> None: ...  # type: ignore[misc]
             def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...  # type: ignore[misc]
             @property  # type: ignore[misc]
             def _fields(
                 self,
             ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
-            @property
-            def processor(self) -> str: ...
 
 else:
     class uname_result(NamedTuple):

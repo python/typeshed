@@ -42,6 +42,7 @@ enum.Enum.__init__
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 typing.NewType.__mro_entries__
 builtins.ellipsis  # type is not exposed anywhere
+platform.uname_result.processor
 
 # ==========
 # Related to positional-only arguments
