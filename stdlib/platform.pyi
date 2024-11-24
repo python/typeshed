@@ -15,40 +15,46 @@ def java_ver(
 def system_alias(system: str, release: str, version: str) -> tuple[str, str, str]: ...
 def architecture(executable: str = sys.executable, bits: str = "", linkage: str = "") -> tuple[str, str]: ...
 
-if sys.version_info >= (3, 9):
+if sys.version_info >= (3, 10):
     # uname_result emulates a 6-field named tuple, but the processor field
     # is lazily evaluated rather than being passed in to the constructor.
-    if sys.version_info >= (3, 10):
-        class uname_result(NamedTuple):
-            system: str
-            node: str
-            release: str
-            version: str
-            machine: str
-            processor: str  # actually a property
-            def __init__(self, system: str, node: str, release: str, version: str, machine: str) -> None: ...  # type: ignore[misc]
-            def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...  # type: ignore[misc]
-            @property
-            def __match_args__(
-                self,
-            ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
+    # At runtime, it inherits from a 5-field NamedTuple instead of being a
+    # NamedTuple itself, but that's too hacky to represent in the stubs.
+    class uname_result(NamedTuple):
+        system: str
+        node: str
+        release: str
+        version: str
+        machine: str
+        processor: str  # actually a property
+        def __init__(self, system: str, node: str, release: str, version: str, machine: str) -> None: ...  # type: ignore[misc]
+        def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...  # type: ignore[misc]
+        @property
+        def __match_args__(
+            self,
+        ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
 
-    else:
-        class uname_result(NamedTuple):
-            system: str
-            node: str
-            release: str
-            version: str
-            machine: str
-            processor: str  # actually a property
-            def __init__(self, system: str, node: str, release: str, version: str, machine: str) -> None: ...  # type: ignore[misc]
-            def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...  # type: ignore[misc]
-            @property  # type: ignore[misc]
-            def _fields(
-                self,
-            ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
+elif sys.version_info >= (3, 9):
+    # uname_result emulates a 6-field named tuple, but the processor field
+    # is lazily evaluated rather than being passed in to the constructor.
+    # At runtime, it inherits from a 5-field NamedTuple instead of being a
+    # NamedTuple itself, but that's too hacky to represent in the stubs.
+    class uname_result(NamedTuple):
+        system: str
+        node: str
+        release: str
+        version: str
+        machine: str
+        processor: str  # actually a property
+        def __init__(self, system: str, node: str, release: str, version: str, machine: str) -> None: ...  # type: ignore[misc]
+        def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...  # type: ignore[misc]
+        @property  # type: ignore[misc]
+        def _fields(
+            self,
+        ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
 
 else:
+    # On 3.8, uname_result is actually just a regular NamedTuple.
     class uname_result(NamedTuple):
         system: str
         node: str
