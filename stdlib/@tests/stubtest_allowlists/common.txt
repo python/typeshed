@@ -80,7 +80,6 @@ encodings.idna
 encodings\.iso2022_.*
 encodings.johab
 encodings.latin_1
-encodings\.mac_.+
 encodings.punycode
 encodings.quopri_codec
 encodings.raw_unicode_escape
