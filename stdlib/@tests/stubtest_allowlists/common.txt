@@ -61,9 +61,6 @@ pickle.Pickler.reducer_override  # implemented in C pickler
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
 shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
-socketserver.BaseServer.fileno  # implemented in derived classes
-socketserver.BaseServer.get_request  # implemented in derived classes
-socketserver.BaseServer.server_bind  # implemented in derived classes
 ssl.Purpose.__new__  # the multiple inheritance confuses mypy
 tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 tkinter.simpledialog.[A-Z_]+
@@ -434,6 +431,9 @@ multiprocessing.pool.Pool.__del__
 
 # C signature is broader than what is actually accepted
 _?queue.SimpleQueue.__init__
+
+# Not implemented, but expected to exist on subclasses.
+socketserver.BaseServer.get_request
 
 # Items that depend on the existence and flags of SSL
 imaplib.IMAP4_SSL.ssl
