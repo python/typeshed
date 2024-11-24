@@ -34,10 +34,17 @@ if sys.version_info >= (3, 9):
         machine: str
         extra: str
         def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...  # type: ignore[misc]
-        @property
-        def __match_args__(
-            self,
-        ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
+        if sys.version_info >= (3, 10):
+            @property
+            def __match_args__(
+                self,
+            ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
+        else:
+            @property
+            def _fields(
+                self,
+            ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
+
         @property
         def processor(self) -> str: ...
 
