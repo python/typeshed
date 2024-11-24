@@ -58,7 +58,6 @@ multiprocessing.synchronize.SemLock.release
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 pickle.Pickler.reducer_override  # implemented in C pickler
-pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
 shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
@@ -77,7 +76,6 @@ typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.update
-xml.parsers.expat.expat_CAPI
 
 # ==========
 # TODO: Modules that exist at runtime, but are missing from stubs
