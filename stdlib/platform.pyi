@@ -26,27 +26,37 @@ if sys.version_info >= (3, 9):
         version: str
         machine: str
 
-    class uname_result(_uname_result_base, NamedTuple):  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
-        system: str
-        node: str
-        release: str
-        version: str
-        machine: str
-        extra: str
-        def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...  # type: ignore[misc]
-        if sys.version_info >= (3, 10):
+    if sys.version_info >= (3, 10):
+        class uname_result(_uname_result_base, NamedTuple):  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+            system: str
+            node: str
+            release: str
+            version: str
+            machine: str
+            extra: str
+            def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...  # type: ignore[misc]
             @property
             def __match_args__(
                 self,
             ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
-        else:
             @property
+            def processor(self) -> str: ...
+
+    else:
+        class uname_result(_uname_result_base, NamedTuple):  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+            system: str
+            node: str
+            release: str
+            version: str
+            machine: str
+            extra: str
+            def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...  # type: ignore[misc]
+            @property  # type: ignore[misc]
             def _fields(
                 self,
             ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
-
-        @property
-        def processor(self) -> str: ...
+            @property
+            def processor(self) -> str: ...
 
 else:
     class uname_result(NamedTuple):
