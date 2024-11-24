@@ -27,7 +27,7 @@ if sys.version_info >= (3, 9):
         machine: str
 
     if sys.version_info >= (3, 10):
-        class uname_result(_uname_result_base, NamedTuple):  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+        class uname_result(NamedTuple, _uname_result_base):  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
             system: str
             node: str
             release: str
@@ -42,7 +42,7 @@ if sys.version_info >= (3, 9):
             ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
 
     else:
-        class uname_result(_uname_result_base, NamedTuple):  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
+        class uname_result(NamedTuple, _uname_result_base):  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
             system: str
             node: str
             release: str
