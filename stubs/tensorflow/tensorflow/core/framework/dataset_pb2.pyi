@@ -51,12 +51,7 @@ class CompressedComponentMetadata(google.protobuf.message.Message):
         uncompressed_bytes: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["tensor_shape", b"tensor_shape"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "dtype", b"dtype", "tensor_shape", b"tensor_shape", "uncompressed_bytes", b"uncompressed_bytes"
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["dtype", b"dtype", "tensor_shape", b"tensor_shape", "uncompressed_bytes", b"uncompressed_bytes"]) -> None: ...
 
 global___CompressedComponentMetadata = CompressedComponentMetadata
 
@@ -77,9 +72,7 @@ class CompressedElement(google.protobuf.message.Message):
     tensorflow/core/data/compression_utils.cc.
     """
     @property
-    def component_metadata(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CompressedComponentMetadata]:
+    def component_metadata(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CompressedComponentMetadata]:
         """Metadata for the components of the element."""
 
     def __init__(
@@ -89,9 +82,7 @@ class CompressedElement(google.protobuf.message.Message):
         component_metadata: collections.abc.Iterable[global___CompressedComponentMetadata] | None = ...,
         version: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(
-        self, field_name: typing.Literal["component_metadata", b"component_metadata", "data", b"data", "version", b"version"]
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["component_metadata", b"component_metadata", "data", b"data", "version", b"version"]) -> None: ...
 
 global___CompressedElement = CompressedElement
 
@@ -103,11 +94,7 @@ class UncompressedElement(google.protobuf.message.Message):
 
     COMPONENTS_FIELD_NUMBER: builtins.int
     @property
-    def components(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
-        tensorflow.core.framework.tensor_pb2.TensorProto
-    ]: ...
+    def components(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.tensor_pb2.TensorProto]: ...
     def __init__(
         self,
         *,

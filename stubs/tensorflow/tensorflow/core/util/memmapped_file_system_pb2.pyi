@@ -58,9 +58,7 @@ class MemmappedFileSystemDirectory(google.protobuf.message.Message):
 
     ELEMENT_FIELD_NUMBER: builtins.int
     @property
-    def element(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___MemmappedFileSystemDirectoryElement]: ...
+    def element(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___MemmappedFileSystemDirectoryElement]: ...
     def __init__(
         self,
         *,

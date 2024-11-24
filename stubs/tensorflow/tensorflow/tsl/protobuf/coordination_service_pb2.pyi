@@ -25,9 +25,7 @@ class _CoordinatedTaskState:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _CoordinatedTaskStateEnumTypeWrapper(
-    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CoordinatedTaskState.ValueType], builtins.type
-):
+class _CoordinatedTaskStateEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_CoordinatedTaskState.ValueType], builtins.type):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     TASKSTATE_UNSPECIFIED: _CoordinatedTaskState.ValueType  # 0
     """TASKSTATE_UNSPECIFIED is an invalid state such that indicates a bug."""
@@ -103,9 +101,7 @@ class CoordinationServiceError(google.protobuf.message.Message):
         source_task: global___CoordinatedTask | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["source_task", b"source_task"]) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["is_reported_error", b"is_reported_error", "source_task", b"source_task"]
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["is_reported_error", b"is_reported_error", "source_task", b"source_task"]) -> None: ...
 
 global___CoordinationServiceError = CoordinationServiceError
 
@@ -135,21 +131,7 @@ class CoordinatedTaskStateInfo(google.protobuf.message.Message):
         error_payload: global___CoordinationServiceError | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["error_payload", b"error_payload", "task", b"task"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "error_code",
-            b"error_code",
-            "error_message",
-            b"error_message",
-            "error_payload",
-            b"error_payload",
-            "state",
-            b"state",
-            "task",
-            b"task",
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["error_code", b"error_code", "error_message", b"error_message", "error_payload", b"error_payload", "state", b"state", "task", b"task"]) -> None: ...
 
 global___CoordinatedTaskStateInfo = CoordinatedTaskStateInfo
 
@@ -299,9 +281,7 @@ class WaitForAllTasksRequest(google.protobuf.message.Message):
         source_task: global___CoordinatedTask | None = ...,
         device_info: global___DeviceInfo | None = ...,
     ) -> None: ...
-    def HasField(
-        self, field_name: typing.Literal["device_info", b"device_info", "source_task", b"source_task"]
-    ) -> builtins.bool: ...
+    def HasField(self, field_name: typing.Literal["device_info", b"device_info", "source_task", b"source_task"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["device_info", b"device_info", "source_task", b"source_task"]) -> None: ...
 
 global___WaitForAllTasksRequest = WaitForAllTasksRequest
@@ -324,9 +304,7 @@ class WaitForAllTasksResponse(google.protobuf.message.Message):
         device_info: global___DeviceInfo | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["device_info", b"device_info"]) -> builtins.bool: ...
-    def ClearField(
-        self, field_name: typing.Literal["device_info", b"device_info", "leader_incarnation", b"leader_incarnation"]
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["device_info", b"device_info", "leader_incarnation", b"leader_incarnation"]) -> None: ...
 
 global___WaitForAllTasksResponse = WaitForAllTasksResponse
 
@@ -409,12 +387,7 @@ class ReportErrorToTaskRequest(google.protobuf.message.Message):
         error_payload: global___CoordinationServiceError | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["error_payload", b"error_payload"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "error_code", b"error_code", "error_message", b"error_message", "error_payload", b"error_payload"
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["error_code", b"error_code", "error_message", b"error_message", "error_payload", b"error_payload"]) -> None: ...
 
 global___ReportErrorToTaskRequest = ReportErrorToTaskRequest
 
@@ -449,12 +422,7 @@ class ReportErrorToServiceRequest(google.protobuf.message.Message):
         error_origin: global___CoordinatedTask | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["error_origin", b"error_origin"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "error_code", b"error_code", "error_message", b"error_message", "error_origin", b"error_origin"
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["error_code", b"error_code", "error_message", b"error_message", "error_origin", b"error_origin"]) -> None: ...
 
 global___ReportErrorToServiceRequest = ReportErrorToServiceRequest
 
@@ -492,9 +460,7 @@ class GetTaskStateResponse(google.protobuf.message.Message):
 
     TASK_STATE_FIELD_NUMBER: builtins.int
     @property
-    def task_state(
-        self,
-    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CoordinatedTaskStateInfo]: ...
+    def task_state(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CoordinatedTaskStateInfo]: ...
     def __init__(
         self,
         *,
@@ -722,19 +688,7 @@ class BarrierRequest(google.protobuf.message.Message):
         source_task: global___CoordinatedTask | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["source_task", b"source_task"]) -> builtins.bool: ...
-    def ClearField(
-        self,
-        field_name: typing.Literal[
-            "barrier_id",
-            b"barrier_id",
-            "barrier_timeout_in_ms",
-            b"barrier_timeout_in_ms",
-            "source_task",
-            b"source_task",
-            "tasks",
-            b"tasks",
-        ],
-    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["barrier_id", b"barrier_id", "barrier_timeout_in_ms", b"barrier_timeout_in_ms", "source_task", b"source_task", "tasks", b"tasks"]) -> None: ...
 
 global___BarrierRequest = BarrierRequest
 
