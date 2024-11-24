@@ -2,7 +2,7 @@ from pyasn1.codec.ber.decoder import AbstractPayloadDecoder
 from pyasn1.codec.cer import decoder
 from pyasn1.type.tag import TagSet
 
-__all__ = ["decode", "StreamingDecoder"]
+__all__ = ["StreamingDecoder", "decode"]
 
 class BitStringPayloadDecoder(decoder.BitStringPayloadDecoder):
     supportConstructedForm: bool

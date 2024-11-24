@@ -1,4 +1,4 @@
-__all__ = ["STDOUT", "PIPE", "Wurlitzer", "pipes", "sys_pipes", "sys_pipes_forever", "stop_sys_pipes"]
+__all__ = ["PIPE", "STDOUT", "Wurlitzer", "pipes", "stop_sys_pipes", "sys_pipes", "sys_pipes_forever"]
 
 import contextlib
 import io

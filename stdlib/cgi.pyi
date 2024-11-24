@@ -7,18 +7,18 @@ from typing import IO, Any, Protocol
 from typing_extensions import Self
 
 __all__ = [
-    "MiniFieldStorage",
     "FieldStorage",
+    "MiniFieldStorage",
     "parse",
-    "parse_multipart",
     "parse_header",
-    "test",
-    "print_exception",
-    "print_environ",
-    "print_form",
-    "print_directory",
+    "parse_multipart",
     "print_arguments",
+    "print_directory",
+    "print_environ",
     "print_environ_usage",
+    "print_exception",
+    "print_form",
+    "test",
 ]
 
 def parse(

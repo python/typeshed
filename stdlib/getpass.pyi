@@ -1,6 +1,6 @@
 from typing import TextIO
 
-__all__ = ["getpass", "getuser", "GetPassWarning"]
+__all__ = ["GetPassWarning", "getpass", "getuser"]
 
 def getpass(prompt: str = "Password: ", stream: TextIO | None = None) -> str: ...
 def getuser() -> str: ...

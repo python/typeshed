@@ -9,6 +9,6 @@ from Xlib import (
     rdb as rdb,
 )
 
-__all__ = ["X", "XK", "Xatom", "Xcursorfont", "Xutil", "display", "error", "rdb"]
+__all__ = ["XK", "X", "Xatom", "Xcursorfont", "Xutil", "display", "error", "rdb"]
 
 # Shared types throughout the stub

@@ -7,7 +7,7 @@ from types import TracebackType
 from typing import Any, Final, Literal, TextIO
 from typing_extensions import Self
 
-__all__ = ["FTP", "error_reply", "error_temp", "error_perm", "error_proto", "all_errors", "FTP_TLS"]
+__all__ = ["FTP", "FTP_TLS", "all_errors", "error_perm", "error_proto", "error_reply", "error_temp"]
 
 MSG_OOB: Final = 1
 FTP_PORT: Final = 21

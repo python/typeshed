@@ -5,7 +5,7 @@ from email.message import Message
 from typing import Generic, Protocol, TypeVar, type_check_only
 from typing_extensions import Self
 
-__all__ = ["Policy", "Compat32", "compat32"]
+__all__ = ["Compat32", "Policy", "compat32"]
 
 _MessageT = TypeVar("_MessageT", bound=Message, default=Message)
 

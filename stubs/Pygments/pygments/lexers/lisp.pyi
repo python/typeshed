@@ -6,16 +6,16 @@ from ..lexer import RegexLexer
 from ..token import _TokenType
 
 __all__ = [
-    "SchemeLexer",
-    "CommonLispLexer",
-    "HyLexer",
-    "RacketLexer",
-    "NewLispLexer",
-    "EmacsLispLexer",
-    "ShenLexer",
     "CPSALexer",
-    "XtlangLexer",
+    "CommonLispLexer",
+    "EmacsLispLexer",
     "FennelLexer",
+    "HyLexer",
+    "NewLispLexer",
+    "RacketLexer",
+    "SchemeLexer",
+    "ShenLexer",
+    "XtlangLexer",
 ]
 
 class SchemeLexer(RegexLexer):

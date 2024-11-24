@@ -9,19 +9,19 @@ from typing import IO, Final, Literal, Protocol, overload
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
+    "ZIP_BZIP2",
+    "ZIP_DEFLATED",
+    "ZIP_LZMA",
+    "ZIP_STORED",
     "BadZipFile",
     "BadZipfile",
-    "Path",
-    "error",
-    "ZIP_STORED",
-    "ZIP_DEFLATED",
-    "ZIP_BZIP2",
-    "ZIP_LZMA",
-    "is_zipfile",
-    "ZipInfo",
-    "ZipFile",
-    "PyZipFile",
     "LargeZipFile",
+    "Path",
+    "PyZipFile",
+    "ZipFile",
+    "ZipInfo",
+    "error",
+    "is_zipfile",
 ]
 
 # TODO: use TypeAlias for these two when mypy bugs are fixed

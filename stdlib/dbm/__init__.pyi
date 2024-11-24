@@ -5,7 +5,7 @@ from types import TracebackType
 from typing import Literal, type_check_only
 from typing_extensions import Self, TypeAlias
 
-__all__ = ["open", "whichdb", "error"]
+__all__ = ["error", "open", "whichdb"]
 
 _KeyType: TypeAlias = str | bytes
 _ValueType: TypeAlias = str | bytes | bytearray

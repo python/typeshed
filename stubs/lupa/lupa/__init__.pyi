@@ -1,16 +1,16 @@
 from .lua54 import *
 
 __all__ = [
-    # from lua54 (newest lib)
-    "LUA_VERSION",
     "LUA_MAXINTEGER",
     "LUA_MININTEGER",
-    "LuaRuntime",
+    # from lua54 (newest lib)
+    "LUA_VERSION",
     "LuaError",
-    "LuaSyntaxError",
     "LuaMemoryError",
-    "as_itemgetter",
+    "LuaRuntime",
+    "LuaSyntaxError",
     "as_attrgetter",
+    "as_itemgetter",
     "lua_type",
     "unpacks_lua_table",
     "unpacks_lua_table_method",

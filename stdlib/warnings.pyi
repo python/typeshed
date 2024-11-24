@@ -7,14 +7,14 @@ from typing import Any, Generic, Literal, TextIO, TypeVar, overload
 from typing_extensions import LiteralString, TypeAlias
 
 __all__ = [
+    "catch_warnings",
+    "filterwarnings",
+    "formatwarning",
+    "resetwarnings",
+    "showwarning",
+    "simplefilter",
     "warn",
     "warn_explicit",
-    "showwarning",
-    "formatwarning",
-    "filterwarnings",
-    "simplefilter",
-    "resetwarnings",
-    "catch_warnings",
 ]
 
 if sys.version_info >= (3, 13):

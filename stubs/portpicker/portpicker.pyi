@@ -3,7 +3,7 @@ from typing_extensions import TypeAlias
 
 _Port: TypeAlias = int
 
-__all__ = ("bind", "is_port_free", "pick_unused_port", "return_port", "add_reserved_port", "get_port_from_port_server")
+__all__ = ("add_reserved_port", "bind", "get_port_from_port_server", "is_port_free", "pick_unused_port", "return_port")
 
 class NoFreePortFoundError(Exception): ...
 

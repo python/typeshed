@@ -9,7 +9,7 @@ from pygments.token import _TokenType
 _T = TypeVar("_T", str, bytes)
 
 __version__: str
-__all__ = ["lex", "format", "highlight"]
+__all__ = ["format", "highlight", "lex"]
 
 def lex(code: str, lexer: Lexer) -> Iterator[tuple[_TokenType, str]]: ...
 @overload

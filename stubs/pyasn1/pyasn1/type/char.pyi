@@ -2,19 +2,19 @@ from pyasn1.type import univ
 from pyasn1.type.tag import TagSet
 
 __all__ = [
+    "BMPString",
+    "GeneralString",
+    "GraphicString",
+    "IA5String",
+    "ISO646String",
     "NumericString",
     "PrintableString",
-    "TeletexString",
     "T61String",
-    "VideotexString",
-    "IA5String",
-    "GraphicString",
-    "VisibleString",
-    "ISO646String",
-    "GeneralString",
-    "UniversalString",
-    "BMPString",
+    "TeletexString",
     "UTF8String",
+    "UniversalString",
+    "VideotexString",
+    "VisibleString",
 ]
 
 class AbstractCharacterString(univ.OctetString):

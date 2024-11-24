@@ -16,7 +16,7 @@ if sys.version_info >= (3, 9):
         reset_tzpath as reset_tzpath,
     )
 
-    __all__ = ["ZoneInfo", "reset_tzpath", "available_timezones", "TZPATH", "ZoneInfoNotFoundError", "InvalidTZPathWarning"]
+    __all__ = ["TZPATH", "InvalidTZPathWarning", "ZoneInfo", "ZoneInfoNotFoundError", "available_timezones", "reset_tzpath"]
 
     class ZoneInfo(tzinfo):
         @property

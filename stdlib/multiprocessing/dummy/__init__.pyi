@@ -17,22 +17,22 @@ from typing import Any, Literal
 from .connection import Pipe as Pipe
 
 __all__ = [
-    "Process",
-    "current_process",
-    "active_children",
-    "freeze_support",
-    "Lock",
-    "RLock",
-    "Semaphore",
+    "Barrier",
     "BoundedSemaphore",
     "Condition",
     "Event",
-    "Barrier",
-    "Queue",
+    "JoinableQueue",
+    "Lock",
     "Manager",
     "Pipe",
     "Pool",
-    "JoinableQueue",
+    "Process",
+    "Queue",
+    "RLock",
+    "Semaphore",
+    "active_children",
+    "current_process",
+    "freeze_support",
 ]
 
 JoinableQueue = Queue

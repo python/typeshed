@@ -1,15 +1,15 @@
 __all__ = [
-    "tagClassUniversal",
+    "Tag",
+    "TagSet",
+    "tagCategoryExplicit",
+    "tagCategoryImplicit",
+    "tagCategoryUntagged",
     "tagClassApplication",
     "tagClassContext",
     "tagClassPrivate",
-    "tagFormatSimple",
+    "tagClassUniversal",
     "tagFormatConstructed",
-    "tagCategoryImplicit",
-    "tagCategoryExplicit",
-    "tagCategoryUntagged",
-    "Tag",
-    "TagSet",
+    "tagFormatSimple",
 ]
 tagClassUniversal: int
 tagClassApplication: int

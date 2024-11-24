@@ -4,7 +4,7 @@ from collections.abc import Iterable, Mapping
 from typing import ClassVar, TypeVar, overload
 from typing_extensions import Self
 
-__all__ = ["canonsort_keys", "canonsort_items", "CaselessDict"]
+__all__ = ["CaselessDict", "canonsort_items", "canonsort_keys"]
 
 _T = TypeVar("_T")
 _VT = TypeVar("_VT")

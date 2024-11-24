@@ -11,20 +11,20 @@ from typing import Any, Protocol, overload
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
-    "SMTPException",
-    "SMTPServerDisconnected",
-    "SMTPResponseException",
-    "SMTPSenderRefused",
-    "SMTPRecipientsRefused",
-    "SMTPDataError",
-    "SMTPConnectError",
-    "SMTPHeloError",
-    "SMTPAuthenticationError",
-    "quoteaddr",
-    "quotedata",
     "SMTP",
     "SMTP_SSL",
+    "SMTPAuthenticationError",
+    "SMTPConnectError",
+    "SMTPDataError",
+    "SMTPException",
+    "SMTPHeloError",
     "SMTPNotSupportedError",
+    "SMTPRecipientsRefused",
+    "SMTPResponseException",
+    "SMTPSenderRefused",
+    "SMTPServerDisconnected",
+    "quoteaddr",
+    "quotedata",
 ]
 
 _Reply: TypeAlias = tuple[int, bytes]

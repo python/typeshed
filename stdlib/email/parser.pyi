@@ -6,7 +6,7 @@ from email.policy import Policy
 from io import _WrappedBuffer
 from typing import Generic, TypeVar, overload
 
-__all__ = ["Parser", "HeaderParser", "BytesParser", "BytesHeaderParser", "FeedParser", "BytesFeedParser"]
+__all__ = ["BytesFeedParser", "BytesHeaderParser", "BytesParser", "FeedParser", "HeaderParser", "Parser"]
 
 _MessageT = TypeVar("_MessageT", bound=Message, default=Message)
 

@@ -4,14 +4,14 @@ from typing import ClassVar, Final
 
 if sys.version_info >= (3, 9):
     __all__ = [
-        "showinfo",
-        "showwarning",
-        "showerror",
-        "askquestion",
         "askokcancel",
+        "askquestion",
+        "askretrycancel",
         "askyesno",
         "askyesnocancel",
-        "askretrycancel",
+        "showerror",
+        "showinfo",
+        "showwarning",
     ]
 
 ERROR: Final = "error"

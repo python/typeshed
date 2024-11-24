@@ -6,15 +6,15 @@ from typing_extensions import deprecated
 from matplotlib.typing import ColorType
 
 __all__ = [
-    "set_theme",
-    "set",
+    "axes_style",
+    "plotting_context",
     "reset_defaults",
     "reset_orig",
-    "axes_style",
-    "set_style",
-    "plotting_context",
+    "set",
     "set_context",
     "set_palette",
+    "set_style",
+    "set_theme",
 ]
 
 _KT = TypeVar("_KT")

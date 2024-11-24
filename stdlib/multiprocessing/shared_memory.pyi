@@ -6,7 +6,7 @@ from typing_extensions import Self
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-__all__ = ["SharedMemory", "ShareableList"]
+__all__ = ["ShareableList", "SharedMemory"]
 
 _SLT = TypeVar("_SLT", int, float, bool, str, bytes, None)
 

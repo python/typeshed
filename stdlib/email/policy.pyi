@@ -5,7 +5,7 @@ from email.message import EmailMessage, Message
 from typing import Any, TypeVar, overload
 from typing_extensions import Self
 
-__all__ = ["Compat32", "compat32", "Policy", "EmailPolicy", "default", "strict", "SMTP", "HTTP"]
+__all__ = ["HTTP", "SMTP", "Compat32", "EmailPolicy", "Policy", "compat32", "default", "strict"]
 
 _MessageT = TypeVar("_MessageT", bound=Message, default=Message)
 

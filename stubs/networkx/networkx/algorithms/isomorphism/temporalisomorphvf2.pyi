@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 
 from .isomorphvf2 import DiGraphMatcher, GraphMatcher
 
-__all__ = ["TimeRespectingGraphMatcher", "TimeRespectingDiGraphMatcher"]
+__all__ = ["TimeRespectingDiGraphMatcher", "TimeRespectingGraphMatcher"]
 
 class TimeRespectingGraphMatcher(GraphMatcher):
     temporal_attribute_name: Incomplete

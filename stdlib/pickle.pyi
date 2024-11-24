@@ -4,16 +4,6 @@ from typing import Any, ClassVar, Protocol, SupportsBytes, SupportsIndex, final
 from typing_extensions import TypeAlias
 
 __all__ = [
-    "PickleBuffer",
-    "PickleError",
-    "PicklingError",
-    "UnpicklingError",
-    "Pickler",
-    "Unpickler",
-    "dump",
-    "dumps",
-    "load",
-    "loads",
     "ADDITEMS",
     "APPEND",
     "APPENDS",
@@ -86,6 +76,16 @@ __all__ = [
     "TUPLE2",
     "TUPLE3",
     "UNICODE",
+    "PickleBuffer",
+    "PickleError",
+    "Pickler",
+    "PicklingError",
+    "Unpickler",
+    "UnpicklingError",
+    "dump",
+    "dumps",
+    "load",
+    "loads",
 ]
 
 HIGHEST_PROTOCOL: int

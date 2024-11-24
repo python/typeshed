@@ -6,18 +6,18 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 __all__ = [
+    "IS_CHARACTER_JUNK",
+    "IS_LINE_JUNK",
+    "Differ",
+    "HtmlDiff",
+    "Match",
+    "SequenceMatcher",
+    "context_diff",
+    "diff_bytes",
     "get_close_matches",
     "ndiff",
     "restore",
-    "SequenceMatcher",
-    "Differ",
-    "IS_CHARACTER_JUNK",
-    "IS_LINE_JUNK",
-    "context_diff",
     "unified_diff",
-    "diff_bytes",
-    "HtmlDiff",
-    "Match",
 ]
 
 _T = TypeVar("_T")

@@ -1,6 +1,6 @@
 from types import CodeType
 
-__all__ = ["compile_command", "Compile", "CommandCompiler"]
+__all__ = ["CommandCompiler", "Compile", "compile_command"]
 
 def compile_command(source: str, filename: str = "<input>", symbol: str = "single") -> CodeType | None: ...
 

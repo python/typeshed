@@ -8,7 +8,7 @@ from requests import Session
 from ..auto import tqdm as tqdm_auto
 from .utils_worker import MonoWorker
 
-__all__ = ["DiscordIO", "tqdm_discord", "tdrange", "tqdm", "trange"]
+__all__ = ["DiscordIO", "tdrange", "tqdm", "tqdm_discord", "trange"]
 
 class DiscordIO(MonoWorker):
     API: str = "https://discord.com/api/v10"

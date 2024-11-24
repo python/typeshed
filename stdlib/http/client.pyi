@@ -10,25 +10,25 @@ from typing import BinaryIO, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
-    "HTTPResponse",
+    "BadStatusLine",
+    "CannotSendHeader",
+    "CannotSendRequest",
     "HTTPConnection",
     "HTTPException",
-    "NotConnected",
-    "UnknownProtocol",
-    "UnknownTransferEncoding",
-    "UnimplementedFileMode",
+    "HTTPResponse",
+    "HTTPSConnection",
+    "ImproperConnectionState",
     "IncompleteRead",
     "InvalidURL",
-    "ImproperConnectionState",
-    "CannotSendRequest",
-    "CannotSendHeader",
-    "ResponseNotReady",
-    "BadStatusLine",
     "LineTooLong",
+    "NotConnected",
     "RemoteDisconnected",
+    "ResponseNotReady",
+    "UnimplementedFileMode",
+    "UnknownProtocol",
+    "UnknownTransferEncoding",
     "error",
     "responses",
-    "HTTPSConnection",
 ]
 
 _DataType: TypeAlias = SupportsRead[bytes] | Iterable[ReadableBuffer] | ReadableBuffer

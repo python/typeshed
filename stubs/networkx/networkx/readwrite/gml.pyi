@@ -7,7 +7,7 @@ from networkx.utils.backends import _dispatchable
 
 _T = TypeVar("_T")
 
-__all__ = ["read_gml", "parse_gml", "generate_gml", "write_gml"]
+__all__ = ["generate_gml", "parse_gml", "read_gml", "write_gml"]
 
 @_dispatchable
 def read_gml(path, label: str = "label", destringizer: Incomplete | None = None): ...
