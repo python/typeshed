@@ -1,5 +1,6 @@
 import sys
-from typing import NamedTuple, type_check_only
+from typing import Literal, NamedTuple, type_check_only
+from typing_extensions import Self
 
 def libc_ver(executable: str | None = None, lib: str = "", version: str = "", chunksize: int = 16384) -> tuple[str, str]: ...
 def win32_ver(release: str = "", version: str = "", csd: str = "", ptype: str = "") -> tuple[str, str, str, str]: ...
@@ -25,14 +26,20 @@ if sys.version_info >= (3, 9):
         version: str
         machine: str
 
-    class uname_result(_uname_result_base, NamedTuple):  # pyright: ignore[reportGeneralTypeIssues]
+    class uname_result(_uname_result_base, NamedTuple):  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues]
         system: str
         node: str
         release: str
         version: str
         machine: str
-        processor: str
-        def __init__(self, system: str, node: str, release: str, version: str, machine: str) -> None: ...
+        extra: str
+        def __new__(_cls, system: str, node: str, release: str, version: str, machine: str) -> Self: ...  # type: ignore[misc]
+        @property
+        def __match_args__(
+            self,
+        ) -> tuple[Literal["system"], Literal["node"], Literal["release"], Literal["version"], Literal["machine"]]: ...
+        @property
+        def processor(self) -> str: ...
 
 else:
     class uname_result(NamedTuple):
