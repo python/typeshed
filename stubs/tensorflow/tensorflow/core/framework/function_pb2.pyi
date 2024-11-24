@@ -30,7 +30,9 @@ class FunctionDefLibrary(google.protobuf.message.Message):
     @property
     def gradient(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GradientDef]: ...
     @property
-    def registered_gradients(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RegisteredGradient]: ...
+    def registered_gradients(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___RegisteredGradient]: ...
     def __init__(
         self,
         *,
@@ -38,7 +40,12 @@ class FunctionDefLibrary(google.protobuf.message.Message):
         gradient: collections.abc.Iterable[global___GradientDef] | None = ...,
         registered_gradients: collections.abc.Iterable[global___RegisteredGradient] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["function", b"function", "gradient", b"gradient", "registered_gradients", b"registered_gradients"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "function", b"function", "gradient", b"gradient", "registered_gradients", b"registered_gradients"
+        ],
+    ) -> None: ...
 
 global___FunctionDefLibrary = FunctionDefLibrary
 
@@ -100,7 +107,9 @@ class FunctionDef(google.protobuf.message.Message):
 
         ATTR_FIELD_NUMBER: builtins.int
         @property
-        def attr(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, tensorflow.core.framework.attr_value_pb2.AttrValue]: ...
+        def attr(
+            self,
+        ) -> google.protobuf.internal.containers.MessageMap[builtins.str, tensorflow.core.framework.attr_value_pb2.AttrValue]: ...
         def __init__(
             self,
             *,
@@ -188,7 +197,9 @@ class FunctionDef(google.protobuf.message.Message):
         """
 
     @property
-    def attr(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, tensorflow.core.framework.attr_value_pb2.AttrValue]:
+    def attr(
+        self,
+    ) -> google.protobuf.internal.containers.MessageMap[builtins.str, tensorflow.core.framework.attr_value_pb2.AttrValue]:
         """Attributes specific to this function definition."""
 
     @property
@@ -207,7 +218,9 @@ class FunctionDef(google.protobuf.message.Message):
         """
 
     @property
-    def node_def(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.node_def_pb2.NodeDef]:
+    def node_def(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.node_def_pb2.NodeDef]:
         """The body of the function.  Unlike the NodeDefs in a GraphDef, attrs
         may have values of type `placeholder` and the `input` field uses
         the "output" format above.
@@ -241,7 +254,25 @@ class FunctionDef(google.protobuf.message.Message):
         control_ret: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["signature", b"signature"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["arg_attr", b"arg_attr", "attr", b"attr", "control_ret", b"control_ret", "node_def", b"node_def", "resource_arg_unique_id", b"resource_arg_unique_id", "ret", b"ret", "signature", b"signature"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "arg_attr",
+            b"arg_attr",
+            "attr",
+            b"attr",
+            "control_ret",
+            b"control_ret",
+            "node_def",
+            b"node_def",
+            "resource_arg_unique_id",
+            b"resource_arg_unique_id",
+            "ret",
+            b"ret",
+            "signature",
+            b"signature",
+        ],
+    ) -> None: ...
 
 global___FunctionDef = FunctionDef
 
@@ -281,7 +312,9 @@ class GradientDef(google.protobuf.message.Message):
         function_name: builtins.str | None = ...,
         gradient_func: builtins.str | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["function_name", b"function_name", "gradient_func", b"gradient_func"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["function_name", b"function_name", "gradient_func", b"gradient_func"]
+    ) -> None: ...
 
 global___GradientDef = GradientDef
 
@@ -307,6 +340,8 @@ class RegisteredGradient(google.protobuf.message.Message):
         gradient_func: builtins.str | None = ...,
         registered_op_type: builtins.str | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["gradient_func", b"gradient_func", "registered_op_type", b"registered_op_type"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["gradient_func", b"gradient_func", "registered_op_type", b"registered_op_type"]
+    ) -> None: ...
 
 global___RegisteredGradient = RegisteredGradient

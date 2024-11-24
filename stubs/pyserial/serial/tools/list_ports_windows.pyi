@@ -7,7 +7,6 @@ from ctypes.wintypes import DWORD
 from serial.tools.list_ports_common import ListPortInfo
 
 if sys.platform == "win32":
-
     def ValidHandle(
         value: type[ctypes._CData] | None, func: ctypes._FuncPointer, arguments: tuple[ctypes._CData, ...]
     ) -> ctypes._CData: ...

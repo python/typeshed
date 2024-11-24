@@ -22,7 +22,9 @@ class _DeploymentMode:
     ValueType = typing.NewType("ValueType", builtins.int)
     V: typing_extensions.TypeAlias = ValueType
 
-class _DeploymentModeEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DeploymentMode.ValueType], builtins.type):
+class _DeploymentModeEnumTypeWrapper(
+    google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[_DeploymentMode.ValueType], builtins.type
+):
     DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
     DEPLOYMENT_MODE_UNSPECIFIED: _DeploymentMode.ValueType  # 0
     DEPLOYMENT_MODE_COLOCATED: _DeploymentMode.ValueType  # 1
@@ -58,7 +60,9 @@ class ProcessingModeDef(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ShardingPolicyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ProcessingModeDef._ShardingPolicy.ValueType], builtins.type):
+    class _ShardingPolicyEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ProcessingModeDef._ShardingPolicy.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         OFF: ProcessingModeDef._ShardingPolicy.ValueType  # 0
         """No sharding will be performed. Each worker produces the entire dataset
@@ -162,7 +166,9 @@ class DataServiceMetadata(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _CompressionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DataServiceMetadata._Compression.ValueType], builtins.type):
+    class _CompressionEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[DataServiceMetadata._Compression.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         COMPRESSION_UNSPECIFIED: DataServiceMetadata._Compression.ValueType  # 0
         COMPRESSION_OFF: DataServiceMetadata._Compression.ValueType  # 1
@@ -192,9 +198,25 @@ class DataServiceMetadata(google.protobuf.message.Message):
         compression: global___DataServiceMetadata.Compression.ValueType | None = ...,
         cardinality: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["element_spec", b"element_spec", "optional_element_spec", b"optional_element_spec"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["cardinality", b"cardinality", "compression", b"compression", "element_spec", b"element_spec", "optional_element_spec", b"optional_element_spec"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["optional_element_spec", b"optional_element_spec"]) -> typing.Literal["element_spec"] | None: ...
+    def HasField(
+        self, field_name: typing.Literal["element_spec", b"element_spec", "optional_element_spec", b"optional_element_spec"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "cardinality",
+            b"cardinality",
+            "compression",
+            b"compression",
+            "element_spec",
+            b"element_spec",
+            "optional_element_spec",
+            b"optional_element_spec",
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing.Literal["optional_element_spec", b"optional_element_spec"]
+    ) -> typing.Literal["element_spec"] | None: ...
 
 global___DataServiceMetadata = DataServiceMetadata
 

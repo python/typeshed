@@ -49,8 +49,18 @@ class GraphDebugInfo(google.protobuf.message.Message):
             func: builtins.str | None = ...,
             code: builtins.str | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["code", b"code", "col", b"col", "file_index", b"file_index", "func", b"func", "line", b"line"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["code", b"code", "col", b"col", "file_index", b"file_index", "func", b"func", "line", b"line"]) -> None: ...
+        def HasField(
+            self,
+            field_name: typing.Literal[
+                "code", b"code", "col", b"col", "file_index", b"file_index", "func", b"func", "line", b"line"
+            ],
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "code", b"code", "col", b"col", "file_index", b"file_index", "func", b"func", "line", b"line"
+            ],
+        ) -> None: ...
 
     @typing.final
     class StackTrace(google.protobuf.message.Message):
@@ -61,7 +71,9 @@ class GraphDebugInfo(google.protobuf.message.Message):
         FILE_LINE_COLS_FIELD_NUMBER: builtins.int
         FRAME_ID_FIELD_NUMBER: builtins.int
         @property
-        def file_line_cols(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphDebugInfo.FileLineCol]:
+        def file_line_cols(
+            self,
+        ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphDebugInfo.FileLineCol]:
             """Deprecated."""
 
         @property
@@ -72,7 +84,9 @@ class GraphDebugInfo(google.protobuf.message.Message):
             file_line_cols: collections.abc.Iterable[global___GraphDebugInfo.FileLineCol] | None = ...,
             frame_id: collections.abc.Iterable[builtins.int] | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["file_line_cols", b"file_line_cols", "frame_id", b"frame_id"]) -> None: ...
+        def ClearField(
+            self, field_name: typing.Literal["file_line_cols", b"file_line_cols", "frame_id", b"frame_id"]
+        ) -> None: ...
 
     @typing.final
     class FramesByIdEntry(google.protobuf.message.Message):
@@ -163,7 +177,9 @@ class GraphDebugInfo(google.protobuf.message.Message):
         """
 
     @property
-    def traces_by_id(self) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___GraphDebugInfo.StackTrace]: ...
+    def traces_by_id(
+        self,
+    ) -> google.protobuf.internal.containers.MessageMap[builtins.int, global___GraphDebugInfo.StackTrace]: ...
     @property
     def traces(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___GraphDebugInfo.StackTrace]:
         """Deprecated."""
@@ -193,6 +209,20 @@ class GraphDebugInfo(google.protobuf.message.Message):
         traces: collections.abc.Mapping[builtins.str, global___GraphDebugInfo.StackTrace] | None = ...,
         name_to_trace_id: collections.abc.Mapping[builtins.str, builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["files", b"files", "frames_by_id", b"frames_by_id", "name_to_trace_id", b"name_to_trace_id", "traces", b"traces", "traces_by_id", b"traces_by_id"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "files",
+            b"files",
+            "frames_by_id",
+            b"frames_by_id",
+            "name_to_trace_id",
+            b"name_to_trace_id",
+            "traces",
+            b"traces",
+            "traces_by_id",
+            b"traces_by_id",
+        ],
+    ) -> None: ...
 
 global___GraphDebugInfo = GraphDebugInfo

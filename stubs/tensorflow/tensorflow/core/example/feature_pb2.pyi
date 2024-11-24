@@ -140,9 +140,21 @@ class Feature(google.protobuf.message.Message):
         float_list: global___FloatList | None = ...,
         int64_list: global___Int64List | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["kind", b"kind"]) -> typing.Literal["bytes_list", "float_list", "int64_list"] | None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind"
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing.Literal["kind", b"kind"]
+    ) -> typing.Literal["bytes_list", "float_list", "int64_list"] | None: ...
 
 global___Feature = Feature
 

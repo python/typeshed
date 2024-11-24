@@ -160,9 +160,47 @@ class Value(google.protobuf.message.Message):
         struct_value: global___Struct | None = ...,
         list_value: global___ListValue | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["bool_value", b"bool_value", "kind", b"kind", "list_value", b"list_value", "null_value", b"null_value", "number_value", b"number_value", "string_value", b"string_value", "struct_value", b"struct_value"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["bool_value", b"bool_value", "kind", b"kind", "list_value", b"list_value", "null_value", b"null_value", "number_value", b"number_value", "string_value", b"string_value", "struct_value", b"struct_value"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["kind", b"kind"]) -> typing.Literal["null_value", "number_value", "string_value", "bool_value", "struct_value", "list_value"] | None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "bool_value",
+            b"bool_value",
+            "kind",
+            b"kind",
+            "list_value",
+            b"list_value",
+            "null_value",
+            b"null_value",
+            "number_value",
+            b"number_value",
+            "string_value",
+            b"string_value",
+            "struct_value",
+            b"struct_value",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "bool_value",
+            b"bool_value",
+            "kind",
+            b"kind",
+            "list_value",
+            b"list_value",
+            "null_value",
+            b"null_value",
+            "number_value",
+            b"number_value",
+            "string_value",
+            b"string_value",
+            "struct_value",
+            b"struct_value",
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing.Literal["kind", b"kind"]
+    ) -> typing.Literal["null_value", "number_value", "string_value", "bool_value", "struct_value", "list_value"] | None: ...
 
 global___Value = Value
 

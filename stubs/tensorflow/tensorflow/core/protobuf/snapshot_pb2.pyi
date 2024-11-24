@@ -27,7 +27,11 @@ class SnapshotRecord(google.protobuf.message.Message):
 
     TENSOR_FIELD_NUMBER: builtins.int
     @property
-    def tensor(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.tensor_pb2.TensorProto]: ...
+    def tensor(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        tensorflow.core.framework.tensor_pb2.TensorProto
+    ]: ...
     def __init__(
         self,
         *,
@@ -64,7 +68,9 @@ class SnapshotMetadataRecord(google.protobuf.message.Message):
     """The number of elements in the snapshot."""
     finalized: builtins.bool
     @property
-    def dtype(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[tensorflow.core.framework.types_pb2.DataType.ValueType]:
+    def dtype(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[tensorflow.core.framework.types_pb2.DataType.ValueType]:
         """A list of tensor dtype corresponding to each element of the snapshot."""
 
     def __init__(
@@ -78,7 +84,25 @@ class SnapshotMetadataRecord(google.protobuf.message.Message):
         num_elements: builtins.int | None = ...,
         finalized: builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["creation_timestamp", b"creation_timestamp", "dtype", b"dtype", "finalized", b"finalized", "graph_hash", b"graph_hash", "num_elements", b"num_elements", "run_id", b"run_id", "version", b"version"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "creation_timestamp",
+            b"creation_timestamp",
+            "dtype",
+            b"dtype",
+            "finalized",
+            b"finalized",
+            "graph_hash",
+            b"graph_hash",
+            "num_elements",
+            b"num_elements",
+            "run_id",
+            b"run_id",
+            "version",
+            b"version",
+        ],
+    ) -> None: ...
 
 global___SnapshotMetadataRecord = SnapshotMetadataRecord
 
@@ -101,7 +125,9 @@ class TensorMetadata(google.protobuf.message.Message):
         tensor_size_bytes: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["tensor_shape", b"tensor_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["tensor_shape", b"tensor_shape", "tensor_size_bytes", b"tensor_size_bytes"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["tensor_shape", b"tensor_shape", "tensor_size_bytes", b"tensor_size_bytes"]
+    ) -> None: ...
 
 global___TensorMetadata = TensorMetadata
 

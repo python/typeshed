@@ -68,7 +68,25 @@ class GraphTransferNodeInfo(google.protobuf.message.Message):
         input_count: builtins.int | None = ...,
         output_count: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["input_count", b"input_count", "name", b"name", "node_id", b"node_id", "output_count", b"output_count", "padding_id", b"padding_id", "soc_op_id", b"soc_op_id", "type_name", b"type_name"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "input_count",
+            b"input_count",
+            "name",
+            b"name",
+            "node_id",
+            b"node_id",
+            "output_count",
+            b"output_count",
+            "padding_id",
+            b"padding_id",
+            "soc_op_id",
+            b"soc_op_id",
+            "type_name",
+            b"type_name",
+        ],
+    ) -> None: ...
 
 global___GraphTransferNodeInfo = GraphTransferNodeInfo
 
@@ -96,7 +114,10 @@ class GraphTransferConstNodeInfo(google.protobuf.message.Message):
         data: builtins.bytes | None = ...,
         dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["data", b"data", "dtype", b"dtype", "name", b"name", "node_id", b"node_id", "shape", b"shape"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal["data", b"data", "dtype", b"dtype", "name", b"name", "node_id", b"node_id", "shape", b"shape"],
+    ) -> None: ...
 
 global___GraphTransferConstNodeInfo = GraphTransferConstNodeInfo
 
@@ -108,7 +129,9 @@ class GraphTransferNodeInputInfo(google.protobuf.message.Message):
     NODE_INPUT_FIELD_NUMBER: builtins.int
     node_id: builtins.int
     @property
-    def node_input(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferNodeInput]: ...
+    def node_input(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferNodeInput]: ...
     def __init__(
         self,
         *,
@@ -195,7 +218,9 @@ class GraphTransferInfo(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _DestinationEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GraphTransferInfo._Destination.ValueType], builtins.type):
+    class _DestinationEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[GraphTransferInfo._Destination.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         NOP: GraphTransferInfo._Destination.ValueType  # 0
         HEXAGON: GraphTransferInfo._Destination.ValueType  # 1
@@ -214,19 +239,31 @@ class GraphTransferInfo(google.protobuf.message.Message):
     destination: global___GraphTransferInfo.Destination.ValueType
     """Destination of graph transfer"""
     @property
-    def node_info(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferNodeInfo]: ...
+    def node_info(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferNodeInfo]: ...
     @property
-    def const_node_info(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferConstNodeInfo]: ...
+    def const_node_info(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferConstNodeInfo]: ...
     @property
-    def node_input_info(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferNodeInputInfo]: ...
+    def node_input_info(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferNodeInputInfo]: ...
     @property
-    def node_output_info(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferNodeOutputInfo]: ...
+    def node_output_info(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferNodeOutputInfo]: ...
     @property
-    def graph_input_node_info(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferGraphInputNodeInfo]:
+    def graph_input_node_info(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferGraphInputNodeInfo]:
         """Input Node parameters of transferred graph"""
 
     @property
-    def graph_output_node_info(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferGraphOutputNodeInfo]: ...
+    def graph_output_node_info(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GraphTransferGraphOutputNodeInfo]: ...
     def __init__(
         self,
         *,
@@ -238,6 +275,24 @@ class GraphTransferInfo(google.protobuf.message.Message):
         graph_output_node_info: collections.abc.Iterable[global___GraphTransferGraphOutputNodeInfo] | None = ...,
         destination: global___GraphTransferInfo.Destination.ValueType | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["const_node_info", b"const_node_info", "destination", b"destination", "graph_input_node_info", b"graph_input_node_info", "graph_output_node_info", b"graph_output_node_info", "node_info", b"node_info", "node_input_info", b"node_input_info", "node_output_info", b"node_output_info"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "const_node_info",
+            b"const_node_info",
+            "destination",
+            b"destination",
+            "graph_input_node_info",
+            b"graph_input_node_info",
+            "graph_output_node_info",
+            b"graph_output_node_info",
+            "node_info",
+            b"node_info",
+            "node_input_info",
+            b"node_input_info",
+            "node_output_info",
+            b"node_output_info",
+        ],
+    ) -> None: ...
 
 global___GraphTransferInfo = GraphTransferInfo

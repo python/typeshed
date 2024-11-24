@@ -58,7 +58,9 @@ class AllocatorMemoryUsed(google.protobuf.message.Message):
     The number of live bytes currently allocated by the allocator.
     """
     @property
-    def allocation_records(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AllocationRecord]:
+    def allocation_records(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___AllocationRecord]:
         """The allocation and deallocation timeline."""
 
     def __init__(
@@ -71,7 +73,23 @@ class AllocatorMemoryUsed(google.protobuf.message.Message):
         allocation_records: collections.abc.Iterable[global___AllocationRecord] | None = ...,
         allocator_bytes_in_use: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["allocation_records", b"allocation_records", "allocator_bytes_in_use", b"allocator_bytes_in_use", "allocator_name", b"allocator_name", "live_bytes", b"live_bytes", "peak_bytes", b"peak_bytes", "total_bytes", b"total_bytes"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "allocation_records",
+            b"allocation_records",
+            "allocator_bytes_in_use",
+            b"allocator_bytes_in_use",
+            "allocator_name",
+            b"allocator_name",
+            "live_bytes",
+            b"live_bytes",
+            "peak_bytes",
+            b"peak_bytes",
+            "total_bytes",
+            b"total_bytes",
+        ],
+    ) -> None: ...
 
 global___AllocatorMemoryUsed = AllocatorMemoryUsed
 
@@ -116,7 +134,9 @@ class MemoryStats(google.protobuf.message.Message):
     @property
     def persistent_tensor_alloc_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     @property
-    def device_persistent_tensor_alloc_ids(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def device_persistent_tensor_alloc_ids(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
     def __init__(
         self,
         *,
@@ -127,7 +147,23 @@ class MemoryStats(google.protobuf.message.Message):
         device_persistent_memory_size: builtins.int | None = ...,
         device_persistent_tensor_alloc_ids: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["device_persistent_memory_size", b"device_persistent_memory_size", "device_persistent_tensor_alloc_ids", b"device_persistent_tensor_alloc_ids", "device_temp_memory_size", b"device_temp_memory_size", "persistent_memory_size", b"persistent_memory_size", "persistent_tensor_alloc_ids", b"persistent_tensor_alloc_ids", "temp_memory_size", b"temp_memory_size"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "device_persistent_memory_size",
+            b"device_persistent_memory_size",
+            "device_persistent_tensor_alloc_ids",
+            b"device_persistent_tensor_alloc_ids",
+            "device_temp_memory_size",
+            b"device_temp_memory_size",
+            "persistent_memory_size",
+            b"persistent_memory_size",
+            "persistent_tensor_alloc_ids",
+            b"persistent_tensor_alloc_ids",
+            "temp_memory_size",
+            b"temp_memory_size",
+        ],
+    ) -> None: ...
 
 global___MemoryStats = MemoryStats
 
@@ -177,7 +213,11 @@ class NodeExecStats(google.protobuf.message.Message):
     @property
     def output(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___NodeOutput]: ...
     @property
-    def referenced_tensor(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.allocation_description_pb2.AllocationDescription]: ...
+    def referenced_tensor(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        tensorflow.core.framework.allocation_description_pb2.AllocationDescription
+    ]: ...
     @property
     def memory_stats(self) -> global___MemoryStats: ...
     def __init__(
@@ -193,7 +233,8 @@ class NodeExecStats(google.protobuf.message.Message):
         timeline_label: builtins.str | None = ...,
         scheduled_micros: builtins.int | None = ...,
         thread_id: builtins.int | None = ...,
-        referenced_tensor: collections.abc.Iterable[tensorflow.core.framework.allocation_description_pb2.AllocationDescription] | None = ...,
+        referenced_tensor: collections.abc.Iterable[tensorflow.core.framework.allocation_description_pb2.AllocationDescription]
+        | None = ...,
         memory_stats: global___MemoryStats | None = ...,
         all_start_nanos: builtins.int | None = ...,
         op_start_rel_nanos: builtins.int | None = ...,
@@ -202,7 +243,45 @@ class NodeExecStats(google.protobuf.message.Message):
         scheduled_nanos: builtins.int | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["memory_stats", b"memory_stats"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["all_end_rel_micros", b"all_end_rel_micros", "all_end_rel_nanos", b"all_end_rel_nanos", "all_start_micros", b"all_start_micros", "all_start_nanos", b"all_start_nanos", "memory", b"memory", "memory_stats", b"memory_stats", "node_name", b"node_name", "op_end_rel_micros", b"op_end_rel_micros", "op_end_rel_nanos", b"op_end_rel_nanos", "op_start_rel_micros", b"op_start_rel_micros", "op_start_rel_nanos", b"op_start_rel_nanos", "output", b"output", "referenced_tensor", b"referenced_tensor", "scheduled_micros", b"scheduled_micros", "scheduled_nanos", b"scheduled_nanos", "thread_id", b"thread_id", "timeline_label", b"timeline_label"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "all_end_rel_micros",
+            b"all_end_rel_micros",
+            "all_end_rel_nanos",
+            b"all_end_rel_nanos",
+            "all_start_micros",
+            b"all_start_micros",
+            "all_start_nanos",
+            b"all_start_nanos",
+            "memory",
+            b"memory",
+            "memory_stats",
+            b"memory_stats",
+            "node_name",
+            b"node_name",
+            "op_end_rel_micros",
+            b"op_end_rel_micros",
+            "op_end_rel_nanos",
+            b"op_end_rel_nanos",
+            "op_start_rel_micros",
+            b"op_start_rel_micros",
+            "op_start_rel_nanos",
+            b"op_start_rel_nanos",
+            "output",
+            b"output",
+            "referenced_tensor",
+            b"referenced_tensor",
+            "scheduled_micros",
+            b"scheduled_micros",
+            "scheduled_nanos",
+            b"scheduled_nanos",
+            "thread_id",
+            b"thread_id",
+            "timeline_label",
+            b"timeline_label",
+        ],
+    ) -> None: ...
 
 global___NodeExecStats = NodeExecStats
 
@@ -243,7 +322,9 @@ class DeviceStepStats(google.protobuf.message.Message):
         node_stats: collections.abc.Iterable[global___NodeExecStats] | None = ...,
         thread_names: collections.abc.Mapping[builtins.int, builtins.str] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["device", b"device", "node_stats", b"node_stats", "thread_names", b"thread_names"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["device", b"device", "node_stats", b"node_stats", "thread_names", b"thread_names"]
+    ) -> None: ...
 
 global___DeviceStepStats = DeviceStepStats
 

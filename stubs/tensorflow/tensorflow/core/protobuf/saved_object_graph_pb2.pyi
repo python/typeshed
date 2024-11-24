@@ -141,7 +141,11 @@ class SavedObject(google.protobuf.message.Message):
     `registered_saver` is defined for each SavedObject.
     """
     @property
-    def children(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference]:
+    def children(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference
+    ]:
         """Objects which this object depends on: named edges in the dependency
         graph.
 
@@ -150,14 +154,22 @@ class SavedObject(google.protobuf.message.Message):
         """
 
     @property
-    def dependencies(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference]:
+    def dependencies(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference
+    ]:
         """Ordered list of dependencies that must be loaded before this object.
         SavedModel loads with the bottom-up approach, by first creating all objects
         (in the order defined by the dependencies), then connecting the edges.
         """
 
     @property
-    def slot_variables(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.SlotVariableReference]:
+    def slot_variables(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.SlotVariableReference
+    ]:
         """Slot variables owned by this object. This describes the three-way
         (optimizer, variable, slot variable) relationship; none of the three
         depend on the others directly.
@@ -199,9 +211,18 @@ class SavedObject(google.protobuf.message.Message):
     def __init__(
         self,
         *,
-        children: collections.abc.Iterable[tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference] | None = ...,
-        dependencies: collections.abc.Iterable[tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference] | None = ...,
-        slot_variables: collections.abc.Iterable[tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.SlotVariableReference] | None = ...,
+        children: collections.abc.Iterable[
+            tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference
+        ]
+        | None = ...,
+        dependencies: collections.abc.Iterable[
+            tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.ObjectReference
+        ]
+        | None = ...,
+        slot_variables: collections.abc.Iterable[
+            tensorflow.core.protobuf.trackable_object_graph_pb2.TrackableObjectGraph.TrackableObject.SlotVariableReference
+        ]
+        | None = ...,
         user_object: global___SavedUserObject | None = ...,
         asset: global___SavedAsset | None = ...,
         function: global___SavedFunction | None = ...,
@@ -215,9 +236,76 @@ class SavedObject(google.protobuf.message.Message):
         serialized_user_proto: google.protobuf.any_pb2.Any | None = ...,
         registered_saver: builtins.str | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["asset", b"asset", "bare_concrete_function", b"bare_concrete_function", "captured_tensor", b"captured_tensor", "constant", b"constant", "function", b"function", "kind", b"kind", "resource", b"resource", "serialized_user_proto", b"serialized_user_proto", "user_object", b"user_object", "variable", b"variable"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["asset", b"asset", "bare_concrete_function", b"bare_concrete_function", "captured_tensor", b"captured_tensor", "children", b"children", "constant", b"constant", "dependencies", b"dependencies", "function", b"function", "kind", b"kind", "registered_name", b"registered_name", "registered_saver", b"registered_saver", "resource", b"resource", "saveable_objects", b"saveable_objects", "serialized_user_proto", b"serialized_user_proto", "slot_variables", b"slot_variables", "user_object", b"user_object", "variable", b"variable"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["kind", b"kind"]) -> typing.Literal["user_object", "asset", "function", "variable", "bare_concrete_function", "constant", "resource", "captured_tensor"] | None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "asset",
+            b"asset",
+            "bare_concrete_function",
+            b"bare_concrete_function",
+            "captured_tensor",
+            b"captured_tensor",
+            "constant",
+            b"constant",
+            "function",
+            b"function",
+            "kind",
+            b"kind",
+            "resource",
+            b"resource",
+            "serialized_user_proto",
+            b"serialized_user_proto",
+            "user_object",
+            b"user_object",
+            "variable",
+            b"variable",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "asset",
+            b"asset",
+            "bare_concrete_function",
+            b"bare_concrete_function",
+            "captured_tensor",
+            b"captured_tensor",
+            "children",
+            b"children",
+            "constant",
+            b"constant",
+            "dependencies",
+            b"dependencies",
+            "function",
+            b"function",
+            "kind",
+            b"kind",
+            "registered_name",
+            b"registered_name",
+            "registered_saver",
+            b"registered_saver",
+            "resource",
+            b"resource",
+            "saveable_objects",
+            b"saveable_objects",
+            "serialized_user_proto",
+            b"serialized_user_proto",
+            "slot_variables",
+            b"slot_variables",
+            "user_object",
+            b"user_object",
+            "variable",
+            b"variable",
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing.Literal["kind", b"kind"]
+    ) -> (
+        typing.Literal[
+            "user_object", "asset", "function", "variable", "bare_concrete_function", "constant", "resource", "captured_tensor"
+        ]
+        | None
+    ): ...
 
 global___SavedObject = SavedObject
 
@@ -257,7 +345,9 @@ class SavedUserObject(google.protobuf.message.Message):
         metadata: builtins.str | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["version", b"version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["identifier", b"identifier", "metadata", b"metadata", "version", b"version"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["identifier", b"identifier", "metadata", b"metadata", "version", b"version"]
+    ) -> None: ...
 
 global___SavedUserObject = SavedUserObject
 
@@ -307,7 +397,9 @@ class SavedFunction(google.protobuf.message.Message):
         function_spec: global___FunctionSpec | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["function_spec", b"function_spec"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["concrete_functions", b"concrete_functions", "function_spec", b"function_spec"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["concrete_functions", b"concrete_functions", "function_spec", b"function_spec"]
+    ) -> None: ...
 
 global___SavedFunction = SavedFunction
 
@@ -364,8 +456,23 @@ class SavedConcreteFunction(google.protobuf.message.Message):
         canonicalized_input_signature: tensorflow.core.protobuf.struct_pb2.StructuredValue | None = ...,
         output_signature: tensorflow.core.protobuf.struct_pb2.StructuredValue | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["canonicalized_input_signature", b"canonicalized_input_signature", "output_signature", b"output_signature"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["bound_inputs", b"bound_inputs", "canonicalized_input_signature", b"canonicalized_input_signature", "output_signature", b"output_signature"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "canonicalized_input_signature", b"canonicalized_input_signature", "output_signature", b"output_signature"
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "bound_inputs",
+            b"bound_inputs",
+            "canonicalized_input_signature",
+            b"canonicalized_input_signature",
+            "output_signature",
+            b"output_signature",
+        ],
+    ) -> None: ...
 
 global___SavedConcreteFunction = SavedConcreteFunction
 
@@ -404,7 +511,19 @@ class SavedBareConcreteFunction(google.protobuf.message.Message):
         function_spec: global___FunctionSpec | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["function_spec", b"function_spec"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["allowed_positional_arguments", b"allowed_positional_arguments", "argument_keywords", b"argument_keywords", "concrete_function_name", b"concrete_function_name", "function_spec", b"function_spec"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "allowed_positional_arguments",
+            b"allowed_positional_arguments",
+            "argument_keywords",
+            b"argument_keywords",
+            "concrete_function_name",
+            b"concrete_function_name",
+            "function_spec",
+            b"function_spec",
+        ],
+    ) -> None: ...
 
 global___SavedBareConcreteFunction = SavedBareConcreteFunction
 
@@ -449,7 +568,9 @@ class SavedVariable(google.protobuf.message.Message):
     @property
     def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto: ...
     @property
-    def experimental_distributed_variable_components(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SavedVariable]:
+    def experimental_distributed_variable_components(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SavedVariable]:
         """List of component variables for a distributed variable.
 
         When this field is non-empty, the SavedVariable will be assumed
@@ -471,7 +592,27 @@ class SavedVariable(google.protobuf.message.Message):
         experimental_distributed_variable_components: collections.abc.Iterable[global___SavedVariable] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["aggregation", b"aggregation", "device", b"device", "dtype", b"dtype", "experimental_distributed_variable_components", b"experimental_distributed_variable_components", "name", b"name", "shape", b"shape", "synchronization", b"synchronization", "trainable", b"trainable"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "aggregation",
+            b"aggregation",
+            "device",
+            b"device",
+            "dtype",
+            b"dtype",
+            "experimental_distributed_variable_components",
+            b"experimental_distributed_variable_components",
+            "name",
+            b"name",
+            "shape",
+            b"shape",
+            "synchronization",
+            b"synchronization",
+            "trainable",
+            b"trainable",
+        ],
+    ) -> None: ...
 
 global___SavedVariable = SavedVariable
 
@@ -487,7 +628,9 @@ class FunctionSpec(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _JitCompileEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FunctionSpec._JitCompile.ValueType], builtins.type):
+    class _JitCompileEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FunctionSpec._JitCompile.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         DEFAULT: FunctionSpec._JitCompile.ValueType  # 0
         ON: FunctionSpec._JitCompile.ValueType  # 1
@@ -531,8 +674,22 @@ class FunctionSpec(google.protobuf.message.Message):
         input_signature: tensorflow.core.protobuf.struct_pb2.StructuredValue | None = ...,
         jit_compile: global___FunctionSpec.JitCompile.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["fullargspec", b"fullargspec", "input_signature", b"input_signature"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["fullargspec", b"fullargspec", "input_signature", b"input_signature", "is_method", b"is_method", "jit_compile", b"jit_compile"]) -> None: ...
+    def HasField(
+        self, field_name: typing.Literal["fullargspec", b"fullargspec", "input_signature", b"input_signature"]
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "fullargspec",
+            b"fullargspec",
+            "input_signature",
+            b"input_signature",
+            "is_method",
+            b"is_method",
+            "jit_compile",
+            b"jit_compile",
+        ],
+    ) -> None: ...
 
 global___FunctionSpec = FunctionSpec
 
@@ -577,6 +734,8 @@ class SaveableObject(google.protobuf.message.Message):
         save_function: builtins.int | None = ...,
         restore_function: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["restore_function", b"restore_function", "save_function", b"save_function"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["restore_function", b"restore_function", "save_function", b"save_function"]
+    ) -> None: ...
 
 global___SaveableObject = SaveableObject

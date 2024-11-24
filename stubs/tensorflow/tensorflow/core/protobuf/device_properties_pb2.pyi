@@ -109,7 +109,37 @@ class DeviceProperties(google.protobuf.message.Message):
         memory_size: builtins.int | None = ...,
         bandwidth: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["bandwidth", b"bandwidth", "environment", b"environment", "frequency", b"frequency", "l1_cache_size", b"l1_cache_size", "l2_cache_size", b"l2_cache_size", "l3_cache_size", b"l3_cache_size", "memory_size", b"memory_size", "model", b"model", "num_cores", b"num_cores", "num_registers", b"num_registers", "shared_memory_size_per_multiprocessor", b"shared_memory_size_per_multiprocessor", "type", b"type", "vendor", b"vendor"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "bandwidth",
+            b"bandwidth",
+            "environment",
+            b"environment",
+            "frequency",
+            b"frequency",
+            "l1_cache_size",
+            b"l1_cache_size",
+            "l2_cache_size",
+            b"l2_cache_size",
+            "l3_cache_size",
+            b"l3_cache_size",
+            "memory_size",
+            b"memory_size",
+            "model",
+            b"model",
+            "num_cores",
+            b"num_cores",
+            "num_registers",
+            b"num_registers",
+            "shared_memory_size_per_multiprocessor",
+            b"shared_memory_size_per_multiprocessor",
+            "type",
+            b"type",
+            "vendor",
+            b"vendor",
+        ],
+    ) -> None: ...
 
 global___DeviceProperties = DeviceProperties
 
