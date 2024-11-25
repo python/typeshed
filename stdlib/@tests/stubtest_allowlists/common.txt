@@ -63,7 +63,6 @@ encodings.ascii
 encodings.base64_codec
 encodings.bz2_codec
 encodings.charmap
-encodings\.cp\d+
 encodings.hex_codec
 encodings.idna
 encodings.latin_1
