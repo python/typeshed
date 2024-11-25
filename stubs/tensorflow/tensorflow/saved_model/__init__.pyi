@@ -37,17 +37,17 @@ class LoadOptions:
 
 class SaveOptions:
     __slots__ = (
+        "experimental_custom_gradients",
+        "experimental_debug_stripper",
+        "experimental_image_format",
+        "experimental_io_device",
+        "experimental_sharding_callback",
+        "experimental_skip_saver",
+        "experimental_variable_policy",
+        "extra_tags",
+        "function_aliases",
         "namespace_whitelist",
         "save_debug_info",
-        "function_aliases",
-        "experimental_debug_stripper",
-        "experimental_io_device",
-        "experimental_variable_policy",
-        "experimental_custom_gradients",
-        "experimental_image_format",
-        "experimental_skip_saver",
-        "experimental_sharding_callback",
-        "extra_tags",
     )
     namespace_whitelist: list[str]
     save_debug_info: bool
