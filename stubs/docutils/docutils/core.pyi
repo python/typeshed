@@ -1,16 +1,6 @@
 from _typeshed import Incomplete
 
-from docutils import (
-    SettingsSpec as SettingsSpec,
-    __version__ as __version__,
-    __version_details__ as __version_details__,
-    io as io,
-    readers as readers,
-    utils as utils,
-    writers as writers,
-)
-from docutils.frontend import OptionParser as OptionParser
-from docutils.readers import doctree as doctree
+from docutils.writers import _WriterParts
 
 __docformat__: str
 
@@ -152,7 +142,7 @@ def publish_parts(
     settings_overrides: Incomplete | None = None,
     config_section: Incomplete | None = None,
     enable_exit_status: bool = False,
-): ...
+) -> _WriterParts: ...
 def publish_doctree(
     source,
     source_path: Incomplete | None = None,
