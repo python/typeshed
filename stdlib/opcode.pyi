@@ -2,18 +2,18 @@ import sys
 from typing import Literal
 
 __all__ = [
-    "EXTENDED_ARG",
-    "HAVE_ARGUMENT",
     "cmp_op",
-    "hascompare",
     "hasconst",
-    "hasfree",
-    "hasjabs",
-    "hasjrel",
-    "haslocal",
     "hasname",
-    "opmap",
+    "hasjrel",
+    "hasjabs",
+    "haslocal",
+    "hascompare",
+    "hasfree",
     "opname",
+    "opmap",
+    "HAVE_ARGUMENT",
+    "EXTENDED_ARG",
     "stack_effect",
 ]
 if sys.version_info >= (3, 12):

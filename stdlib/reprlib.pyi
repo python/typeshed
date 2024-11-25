@@ -5,7 +5,7 @@ from collections.abc import Callable
 from typing import Any
 from typing_extensions import TypeAlias
 
-__all__ = ["Repr", "recursive_repr", "repr"]
+__all__ = ["Repr", "repr", "recursive_repr"]
 
 _ReprFunc: TypeAlias = Callable[[Any], str]
 

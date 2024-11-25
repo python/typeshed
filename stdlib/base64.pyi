@@ -3,28 +3,28 @@ from _typeshed import ReadableBuffer
 from typing import IO
 
 __all__ = [
-    "a85decode",
-    "a85encode",
-    "b16decode",
-    "b16encode",
-    "b32decode",
-    "b32encode",
-    "b64decode",
-    "b64encode",
-    "b85decode",
-    "b85encode",
-    "decode",
-    "decodebytes",
     "encode",
+    "decode",
     "encodebytes",
-    "standard_b64decode",
+    "decodebytes",
+    "b64encode",
+    "b64decode",
+    "b32encode",
+    "b32decode",
+    "b16encode",
+    "b16decode",
+    "b85encode",
+    "b85decode",
+    "a85encode",
+    "a85decode",
     "standard_b64encode",
-    "urlsafe_b64decode",
+    "standard_b64decode",
     "urlsafe_b64encode",
+    "urlsafe_b64decode",
 ]
 
 if sys.version_info >= (3, 10):
-    __all__ += ["b32hexdecode", "b32hexencode"]
+    __all__ += ["b32hexencode", "b32hexdecode"]
 if sys.version_info >= (3, 13):
     __all__ += ["z85decode", "z85encode"]
 

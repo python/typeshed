@@ -5,7 +5,7 @@ from typing import Any
 from .decoder import JSONDecodeError as JSONDecodeError, JSONDecoder as JSONDecoder
 from .encoder import JSONEncoder as JSONEncoder
 
-__all__ = ["JSONDecodeError", "JSONDecoder", "JSONEncoder", "dump", "dumps", "load", "loads"]
+__all__ = ["dump", "dumps", "load", "loads", "JSONDecoder", "JSONDecodeError", "JSONEncoder"]
 
 def dumps(
     obj: Any,

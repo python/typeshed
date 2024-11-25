@@ -4,7 +4,7 @@ from typing import NoReturn, final, type_check_only
 from pyasn1.type import constraint, namedtype
 from pyasn1.type.tag import TagSet
 
-__all__ = ["Asn1Item", "Asn1Type", "ConstructedAsn1Type", "SimpleAsn1Type"]
+__all__ = ["Asn1Item", "Asn1Type", "SimpleAsn1Type", "ConstructedAsn1Type"]
 
 class Asn1Item:
     @classmethod

@@ -5,7 +5,7 @@ from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import _Node
 from networkx.utils.backends import _dispatchable
 
-__all__ = ["PlanarEmbedding", "check_planarity", "is_planar"]
+__all__ = ["check_planarity", "is_planar", "PlanarEmbedding"]
 
 @_dispatchable
 def is_planar(G) -> bool: ...

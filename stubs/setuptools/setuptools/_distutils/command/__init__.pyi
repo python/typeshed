@@ -20,13 +20,10 @@ from . import (
 # (Many of these may be implementation details,
 # but they can be added if people ask for them)
 __all__ = [
-    "bdist",
-    # "bdist_dumb",
-    "bdist_rpm",
     "build",
-    "build_clib",
-    "build_ext",
     "build_py",
+    "build_ext",
+    "build_clib",
     # "build_scripts",
     # "clean",
     "install",
@@ -35,5 +32,8 @@ __all__ = [
     "install_scripts",
     # "install_data",
     "sdist",
+    "bdist",
+    # "bdist_dumb",
+    "bdist_rpm",
     # "check",
 ]

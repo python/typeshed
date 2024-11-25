@@ -8,4 +8,4 @@ if sys.version_info >= (3, 11):
         TraversableReader as TraversableReader,
     )
 
-    __all__ = ["ResourceContainer", "ResourceHandle", "SimpleReader", "TraversableReader"]
+    __all__ = ["SimpleReader", "ResourceHandle", "ResourceContainer", "TraversableReader"]

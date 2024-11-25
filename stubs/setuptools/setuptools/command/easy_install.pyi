@@ -8,7 +8,7 @@ from setuptools.package_index import PackageIndex
 
 from .. import Command, SetuptoolsDeprecationWarning
 
-__all__ = ["PthDistributions", "easy_install", "extract_wininst_cfg", "get_exe_prefixes"]
+__all__ = ["easy_install", "PthDistributions", "extract_wininst_cfg", "get_exe_prefixes"]
 
 class easy_install(Command):
     description: str

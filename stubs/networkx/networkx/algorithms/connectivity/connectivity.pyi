@@ -4,12 +4,12 @@ from networkx.algorithms.flow import edmonds_karp
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
-    "all_pairs_node_connectivity",
     "average_node_connectivity",
-    "edge_connectivity",
-    "local_edge_connectivity",
     "local_node_connectivity",
     "node_connectivity",
+    "local_edge_connectivity",
+    "edge_connectivity",
+    "all_pairs_node_connectivity",
 ]
 
 default_flow_func = edmonds_karp

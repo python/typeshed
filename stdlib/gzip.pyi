@@ -6,7 +6,7 @@ from io import FileIO
 from typing import Final, Literal, Protocol, TextIO, overload
 from typing_extensions import TypeAlias
 
-__all__ = ["BadGzipFile", "GzipFile", "compress", "decompress", "open"]
+__all__ = ["BadGzipFile", "GzipFile", "open", "compress", "decompress"]
 
 _ReadBinaryMode: TypeAlias = Literal["r", "rb"]
 _WriteBinaryMode: TypeAlias = Literal["a", "ab", "w", "wb", "x", "xb"]

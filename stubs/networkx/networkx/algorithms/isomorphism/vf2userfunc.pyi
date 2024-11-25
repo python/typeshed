@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 
 from . import isomorphvf2 as vf2
 
-__all__ = ["DiGraphMatcher", "GraphMatcher", "MultiDiGraphMatcher", "MultiGraphMatcher"]
+__all__ = ["GraphMatcher", "DiGraphMatcher", "MultiGraphMatcher", "MultiDiGraphMatcher"]
 
 class GraphMatcher(vf2.GraphMatcher):
     node_match: Incomplete

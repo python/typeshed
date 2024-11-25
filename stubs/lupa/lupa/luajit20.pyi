@@ -3,15 +3,15 @@ from collections.abc import Callable, Iterator
 from typing import Any, Final, Generic, TypeVar, type_check_only
 
 __all__ = [
+    "LUA_VERSION",
     "LUA_MAXINTEGER",
     "LUA_MININTEGER",
-    "LUA_VERSION",
-    "LuaError",
-    "LuaMemoryError",
     "LuaRuntime",
+    "LuaError",
     "LuaSyntaxError",
-    "as_attrgetter",
+    "LuaMemoryError",
     "as_itemgetter",
+    "as_attrgetter",
     "lua_type",
     "unpacks_lua_table",
     "unpacks_lua_table_method",

@@ -21,7 +21,7 @@ __all__ = [
 if sys.version_info >= (3, 12):
     __all__ += ["islink"]
 if sys.version_info >= (3, 13):
-    __all__ += ["isdevdrive", "isjunction", "lexists"]
+    __all__ += ["isjunction", "isdevdrive", "lexists"]
 
 # All overloads can return empty string. Ideally, Literal[""] would be a valid
 # Iterable[T], so that list[T] | Literal[""] could be used as a return

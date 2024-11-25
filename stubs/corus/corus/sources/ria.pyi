@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 
 from corus.record import Record
 
-__all__ = ["load_ria", "load_ria_raw"]
+__all__ = ["load_ria_raw", "load_ria"]
 
 class RiaRawRecord(Record):
     __attributes__: Incomplete

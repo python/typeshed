@@ -35,14 +35,14 @@ from .warnings import SetuptoolsDeprecationWarning as SetuptoolsDeprecationWarni
 _CommandT = TypeVar("_CommandT", bound=_Command)
 
 __all__ = [
-    "Command",
+    "setup",
     "Distribution",
+    "Command",
     "Extension",
     "Require",
     "SetuptoolsDeprecationWarning",
-    "find_namespace_packages",
     "find_packages",
-    "setup",
+    "find_namespace_packages",
 ]
 
 __version__: str

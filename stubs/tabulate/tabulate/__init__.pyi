@@ -4,7 +4,7 @@ from typing_extensions import Self, TypeAlias
 
 from .version import __version__ as __version__
 
-__all__ = ["simple_separated_format", "tabulate", "tabulate_formats"]
+__all__ = ["tabulate", "tabulate_formats", "simple_separated_format"]
 
 # These constants are meant to be configurable
 # https://github.com/astanin/python-tabulate#text-formatting

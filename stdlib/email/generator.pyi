@@ -4,7 +4,7 @@ from email.policy import Policy
 from typing import Any, Generic, TypeVar, overload
 from typing_extensions import Self
 
-__all__ = ["BytesGenerator", "DecodedGenerator", "Generator"]
+__all__ = ["Generator", "DecodedGenerator", "BytesGenerator"]
 
 # By default, generators do not have a message policy.
 _MessageT = TypeVar("_MessageT", bound=Message, default=Any)

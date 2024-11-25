@@ -1,7 +1,7 @@
 from _thread import LockType, allocate_lock as Lock
 from typing import Generic, NewType, TypeVar
 
-__all__ = ["EmptyTimeout", "Lock", "Queue"]
+__all__ = ["Lock", "Queue", "EmptyTimeout"]
 
 _T = TypeVar("_T")
 _Cookie = NewType("_Cookie", LockType)

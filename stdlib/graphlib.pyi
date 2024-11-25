@@ -3,7 +3,7 @@ from _typeshed import SupportsItems
 from collections.abc import Iterable
 from typing import Any, Generic, TypeVar, overload
 
-__all__ = ["CycleError", "TopologicalSorter"]
+__all__ = ["TopologicalSorter", "CycleError"]
 
 _T = TypeVar("_T")
 

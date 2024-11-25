@@ -1,7 +1,7 @@
 from _typeshed import ReadableBuffer, SupportsNoArgReadline, SupportsRead, SupportsWrite
 from typing import Protocol
 
-__all__ = ["decode", "decodestring", "encode", "encodestring"]
+__all__ = ["encode", "decode", "encodestring", "decodestring"]
 
 class _Input(SupportsRead[bytes], SupportsNoArgReadline[bytes], Protocol): ...
 

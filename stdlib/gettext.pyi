@@ -5,22 +5,22 @@ from collections.abc import Callable, Container, Iterable, Sequence
 from typing import Any, Final, Literal, Protocol, TypeVar, overload
 
 __all__ = [
-    "Catalog",
-    "GNUTranslations",
     "NullTranslations",
+    "GNUTranslations",
+    "Catalog",
+    "find",
+    "translation",
+    "install",
+    "textdomain",
     "bindtextdomain",
     "dgettext",
     "dngettext",
+    "gettext",
+    "ngettext",
     "dnpgettext",
     "dpgettext",
-    "find",
-    "gettext",
-    "install",
-    "ngettext",
     "npgettext",
     "pgettext",
-    "textdomain",
-    "translation",
 ]
 
 if sys.version_info < (3, 11):

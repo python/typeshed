@@ -10,4 +10,4 @@ from .ElementTree import (
     tostring as tostring,
 )
 
-__all__ = ["XML", "ParseError", "XMLParse", "XMLParser", "XMLTreeBuilder", "fromstring", "iterparse", "parse", "tostring"]
+__all__ = ["ParseError", "XML", "XMLParse", "XMLParser", "XMLTreeBuilder", "fromstring", "iterparse", "parse", "tostring"]

@@ -5,7 +5,7 @@ from io import TextIOWrapper
 from typing import Literal, Protocol, overload, type_check_only
 from typing_extensions import Self, deprecated
 
-__all__ = ["join", "quote", "shlex", "split"]
+__all__ = ["shlex", "split", "quote", "join"]
 
 @type_check_only
 class _ShlexInstream(Protocol):

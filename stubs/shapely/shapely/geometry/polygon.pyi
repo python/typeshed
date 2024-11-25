@@ -6,7 +6,7 @@ from .base import BaseGeometry
 from .linestring import LineString, _ConvertibleToLineString
 from .multilinestring import MultiLineString
 
-__all__ = ["LinearRing", "Polygon", "orient"]
+__all__ = ["orient", "Polygon", "LinearRing"]
 
 _ConvertibleToLinearRing: TypeAlias = _ConvertibleToLineString  # same alias but with better name for doc purposes
 _PolygonShellLike: TypeAlias = Polygon | _ConvertibleToLinearRing | None

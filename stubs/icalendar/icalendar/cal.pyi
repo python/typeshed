@@ -9,15 +9,13 @@ from .parser import Contentline, Contentlines
 from .prop import TypesFactory
 
 __all__ = [
-    "INLINE",
     "Alarm",
     "Calendar",
     "Component",
     "ComponentFactory",
     "Event",
     "FreeBusy",
-    "IncompleteComponent",
-    "InvalidCalendar",
+    "INLINE",
     "Journal",
     "Timezone",
     "TimezoneDaylight",
@@ -25,6 +23,8 @@ __all__ = [
     "Todo",
     "component_factory",
     "get_example",
+    "IncompleteComponent",
+    "InvalidCalendar",
 ]
 
 def get_example(component_directory: str, example_name: str) -> bytes: ...

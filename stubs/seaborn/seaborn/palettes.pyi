@@ -6,18 +6,18 @@ from matplotlib.colors import Colormap, LinearSegmentedColormap, ListedColormap
 from matplotlib.typing import ColorType
 
 __all__ = [
-    "blend_palette",
     "color_palette",
-    "crayon_palette",
-    "cubehelix_palette",
-    "dark_palette",
-    "diverging_palette",
     "hls_palette",
     "husl_palette",
-    "light_palette",
     "mpl_palette",
-    "set_color_codes",
+    "dark_palette",
+    "light_palette",
+    "diverging_palette",
+    "blend_palette",
     "xkcd_palette",
+    "crayon_palette",
+    "cubehelix_palette",
+    "set_color_codes",
 ]
 
 _ColorT = TypeVar("_ColorT", bound=ColorType)

@@ -4,23 +4,23 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import IO, Any, AnyStr, Literal, NoReturn, overload
 
 __all__ = [
+    "Option",
+    "make_option",
     "SUPPRESS_HELP",
     "SUPPRESS_USAGE",
-    "BadOptionError",
-    "HelpFormatter",
-    "IndentedHelpFormatter",
-    "OptParseError",
-    "Option",
-    "OptionConflictError",
+    "Values",
     "OptionContainer",
-    "OptionError",
     "OptionGroup",
     "OptionParser",
-    "OptionValueError",
+    "HelpFormatter",
+    "IndentedHelpFormatter",
     "TitledHelpFormatter",
-    "Values",
+    "OptParseError",
+    "OptionError",
+    "OptionConflictError",
+    "OptionValueError",
+    "BadOptionError",
     "check_choice",
-    "make_option",
 ]
 
 NO_DEFAULT: tuple[str, ...]

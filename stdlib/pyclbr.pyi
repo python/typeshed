@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Mapping, Sequence
 
-__all__ = ["Class", "Function", "readmodule", "readmodule_ex"]
+__all__ = ["readmodule", "readmodule_ex", "Class", "Function"]
 
 class _Object:
     module: str

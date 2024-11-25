@@ -4,19 +4,19 @@ from collections.abc import Sequence
 from typing import IO
 
 __all__ = [
+    "knownfiles",
+    "inited",
     "MimeTypes",
-    "add_type",
-    "common_types",
-    "encodings_map",
+    "guess_type",
     "guess_all_extensions",
     "guess_extension",
-    "guess_type",
+    "add_type",
     "init",
-    "inited",
-    "knownfiles",
     "read_mime_types",
     "suffix_map",
+    "encodings_map",
     "types_map",
+    "common_types",
 ]
 
 if sys.version_info >= (3, 13):

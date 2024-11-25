@@ -10,7 +10,6 @@ __all__ = [
     "COLON",
     "COLONEQUAL",
     "COMMA",
-    "COMMENT",
     "DEDENT",
     "DOT",
     "DOUBLESLASH",
@@ -18,7 +17,6 @@ __all__ = [
     "DOUBLESTAR",
     "DOUBLESTAREQUAL",
     "ELLIPSIS",
-    "ENCODING",
     "ENDMARKER",
     "EQEQUAL",
     "EQUAL",
@@ -40,7 +38,6 @@ __all__ = [
     "MINUS",
     "NAME",
     "NEWLINE",
-    "NL",
     "NOTEQUAL",
     "NT_OFFSET",
     "NUMBER",
@@ -68,6 +65,9 @@ __all__ = [
     "VBAR",
     "VBAREQUAL",
     "tok_name",
+    "ENCODING",
+    "NL",
+    "COMMENT",
 ]
 if sys.version_info < (3, 13):
     __all__ += ["ASYNC", "AWAIT"]

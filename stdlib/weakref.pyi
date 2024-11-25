@@ -10,19 +10,19 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 __all__ = [
-    "CallableProxyType",
-    "ProxyType",
-    "ProxyTypes",
-    "ReferenceType",
-    "WeakKeyDictionary",
-    "WeakMethod",
-    "WeakSet",
-    "WeakValueDictionary",
-    "finalize",
+    "ref",
+    "proxy",
     "getweakrefcount",
     "getweakrefs",
-    "proxy",
-    "ref",
+    "WeakKeyDictionary",
+    "ReferenceType",
+    "ProxyType",
+    "CallableProxyType",
+    "ProxyTypes",
+    "WeakValueDictionary",
+    "WeakSet",
+    "WeakMethod",
+    "finalize",
 ]
 
 _T = TypeVar("_T")

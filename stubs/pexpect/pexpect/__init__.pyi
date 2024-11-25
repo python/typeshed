@@ -6,15 +6,15 @@ from .utils import split_command_line as split_command_line, which as which
 __version__: str
 __revision__: str
 __all__ = [
+    "ExceptionPexpect",
     "EOF",
     "TIMEOUT",
-    "ExceptionPexpect",
-    "__revision__",
-    "__version__",
-    "run",
-    "runu",
     "spawn",
     "spawnu",
-    "split_command_line",
+    "run",
+    "runu",
     "which",
+    "split_command_line",
+    "__version__",
+    "__revision__",
 ]

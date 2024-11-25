@@ -7,32 +7,32 @@ from collections.abc import Callable, Iterable, Iterator, Mapping
 from typing import Any, Generic, Literal, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
-__all__ = ["Enum", "EnumMeta", "Flag", "IntEnum", "IntFlag", "auto", "unique"]
+__all__ = ["EnumMeta", "Enum", "IntEnum", "Flag", "IntFlag", "auto", "unique"]
 
 if sys.version_info >= (3, 11):
     __all__ += [
         "CONFORM",
         "CONTINUOUS",
         "EJECT",
-        "KEEP",
-        "NAMED_FLAGS",
-        "STRICT",
-        "UNIQUE",
         "EnumCheck",
         "EnumType",
         "FlagBoundary",
+        "KEEP",
+        "NAMED_FLAGS",
         "ReprEnum",
+        "STRICT",
         "StrEnum",
+        "UNIQUE",
         "global_enum",
         "global_enum_repr",
         "global_flag_repr",
         "global_str",
         "member",
         "nonmember",
-        "pickle_by_enum_name",
-        "pickle_by_global_name",
         "property",
         "verify",
+        "pickle_by_enum_name",
+        "pickle_by_global_name",
     ]
 
 if sys.version_info >= (3, 13):

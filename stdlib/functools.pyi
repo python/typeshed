@@ -9,19 +9,19 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 __all__ = [
-    "WRAPPER_ASSIGNMENTS",
-    "WRAPPER_UPDATES",
-    "cached_property",
-    "cmp_to_key",
-    "lru_cache",
-    "partial",
-    "partialmethod",
-    "reduce",
-    "singledispatch",
-    "singledispatchmethod",
-    "total_ordering",
     "update_wrapper",
     "wraps",
+    "WRAPPER_ASSIGNMENTS",
+    "WRAPPER_UPDATES",
+    "total_ordering",
+    "cmp_to_key",
+    "lru_cache",
+    "reduce",
+    "partial",
+    "partialmethod",
+    "singledispatch",
+    "cached_property",
+    "singledispatchmethod",
 ]
 
 if sys.version_info >= (3, 9):

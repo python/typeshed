@@ -4,7 +4,7 @@ from collections.abc import Callable, Mapping
 from types import CodeType
 from typing import Any
 
-__all__ = ["InteractiveConsole", "InteractiveInterpreter", "compile_command", "interact"]
+__all__ = ["InteractiveInterpreter", "InteractiveConsole", "interact", "compile_command"]
 
 class InteractiveInterpreter:
     locals: Mapping[str, Any]  # undocumented

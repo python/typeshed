@@ -1,4 +1,4 @@
-__all__ = ["codepoint2name", "entitydefs", "html5", "name2codepoint"]
+__all__ = ["html5", "name2codepoint", "codepoint2name", "entitydefs"]
 
 name2codepoint: dict[str, int]
 html5: dict[str, str]

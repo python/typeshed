@@ -2,7 +2,7 @@ from email.message import Message
 from typing import IO
 from urllib.response import addinfourl
 
-__all__ = ["ContentTooShortError", "HTTPError", "URLError"]
+__all__ = ["URLError", "HTTPError", "ContentTooShortError"]
 
 class URLError(OSError):
     reason: str | BaseException

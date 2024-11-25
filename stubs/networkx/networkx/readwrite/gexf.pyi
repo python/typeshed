@@ -3,7 +3,7 @@ from collections.abc import Generator
 
 from networkx.utils.backends import _dispatchable
 
-__all__ = ["generate_gexf", "read_gexf", "relabel_gexf_graph", "write_gexf"]
+__all__ = ["write_gexf", "read_gexf", "relabel_gexf_graph", "generate_gexf"]
 
 def write_gexf(G, path, encoding: str = "utf-8", prettyprint: bool = True, version: str = "1.2draft") -> None: ...
 def generate_gexf(

@@ -9,17 +9,17 @@ from .point import Point as Point
 from .polygon import LinearRing as LinearRing, Polygon as Polygon
 
 __all__ = [
+    "box",
+    "shape",
+    "mapping",
+    "Point",
+    "LineString",
+    "Polygon",
+    "MultiPoint",
+    "MultiLineString",
+    "MultiPolygon",
+    "GeometryCollection",
+    "LinearRing",
     "CAP_STYLE",
     "JOIN_STYLE",
-    "GeometryCollection",
-    "LineString",
-    "LinearRing",
-    "MultiLineString",
-    "MultiPoint",
-    "MultiPolygon",
-    "Point",
-    "Polygon",
-    "box",
-    "mapping",
-    "shape",
 ]

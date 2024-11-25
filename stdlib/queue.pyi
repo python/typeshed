@@ -6,7 +6,7 @@ from typing import Any, Generic, TypeVar
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-__all__ = ["Empty", "Full", "LifoQueue", "PriorityQueue", "Queue", "SimpleQueue"]
+__all__ = ["Empty", "Full", "Queue", "PriorityQueue", "LifoQueue", "SimpleQueue"]
 if sys.version_info >= (3, 13):
     __all__ += ["ShutDown"]
 

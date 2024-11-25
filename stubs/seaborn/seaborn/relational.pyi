@@ -10,7 +10,7 @@ from ._core.typing import ColumnName, DataSource, NormSpec
 from .axisgrid import FacetGrid
 from .utils import _DataSourceWideForm, _ErrorBar, _Estimator, _Legend, _Palette, _Seed, _Vector
 
-__all__ = ["lineplot", "relplot", "scatterplot"]
+__all__ = ["relplot", "scatterplot", "lineplot"]
 
 _Sizes: TypeAlias = list[int] | list[float] | dict[str, int] | dict[str, float] | tuple[float, float]
 _DashType: TypeAlias = tuple[None, None] | Sequence[float]  # See matplotlib.lines.Line2D.set_dashes

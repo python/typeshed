@@ -7,7 +7,7 @@ from collections.abc import Iterable
 from typing import IO, Any, Literal, Protocol, SupportsIndex, TextIO, overload
 from typing_extensions import Self, TypeAlias
 
-__all__ = ["BZ2Compressor", "BZ2Decompressor", "BZ2File", "compress", "decompress", "open"]
+__all__ = ["BZ2File", "BZ2Compressor", "BZ2Decompressor", "open", "compress", "decompress"]
 
 # The following attributes and methods are optional:
 # def fileno(self) -> int: ...

@@ -5,7 +5,7 @@ from typing import Any, Literal
 from gevent._abstract_linkable import AbstractLinkable
 from gevent.hub import Hub
 
-__all__ = ["BoundedSemaphore", "DummySemaphore", "RLock", "Semaphore"]
+__all__ = ["Semaphore", "BoundedSemaphore", "DummySemaphore", "RLock"]
 
 class Semaphore(AbstractLinkable):
     counter: int

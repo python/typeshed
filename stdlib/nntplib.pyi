@@ -10,14 +10,14 @@ from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "NNTP",
-    "NNTP_SSL",
-    "NNTPDataError",
     "NNTPError",
-    "NNTPPermanentError",
-    "NNTPProtocolError",
     "NNTPReplyError",
     "NNTPTemporaryError",
+    "NNTPPermanentError",
+    "NNTPProtocolError",
+    "NNTPDataError",
     "decode_header",
+    "NNTP_SSL",
 ]
 
 _File: TypeAlias = IO[bytes] | bytes | str | None

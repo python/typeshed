@@ -12,7 +12,7 @@ from .axisgrid import FacetGrid
 from .external.kde import _BwMethodType
 from .utils import _DataSourceWideForm, _LogScale, _Palette, _Vector
 
-__all__ = ["displot", "distplot", "ecdfplot", "histplot", "kdeplot", "rugplot"]
+__all__ = ["displot", "histplot", "kdeplot", "ecdfplot", "rugplot", "distplot"]
 
 _T = TypeVar("_T")
 _OneOrPair: TypeAlias = _T | tuple[_T, _T]

@@ -12,16 +12,16 @@ __all__ = [
     "decode_params",
     "decode_rfc2231",
     "encode_rfc2231",
-    "format_datetime",
     "formataddr",
     "formatdate",
+    "format_datetime",
     "getaddresses",
     "make_msgid",
     "mktime_tz",
     "parseaddr",
     "parsedate",
-    "parsedate_to_datetime",
     "parsedate_tz",
+    "parsedate_to_datetime",
     "unquote",
 ]
 

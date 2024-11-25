@@ -4,9 +4,9 @@ from typing import Any, TypeVar, overload
 from typing_extensions import ParamSpec, TypeGuard, TypeIs
 
 if sys.version_info >= (3, 11):
-    __all__ = ("iscoroutine", "iscoroutinefunction")
+    __all__ = ("iscoroutinefunction", "iscoroutine")
 else:
-    __all__ = ("coroutine", "iscoroutine", "iscoroutinefunction")
+    __all__ = ("coroutine", "iscoroutinefunction", "iscoroutine")
 
 _T = TypeVar("_T")
 _FunctionT = TypeVar("_FunctionT", bound=Callable[..., Any])

@@ -5,7 +5,7 @@ if sys.version_info >= (3, 11):
     from enum import StrEnum
 
 if sys.version_info >= (3, 11):
-    __all__ = ["HTTPMethod", "HTTPStatus"]
+    __all__ = ["HTTPStatus", "HTTPMethod"]
 else:
     __all__ = ["HTTPStatus"]
 

@@ -7,9 +7,9 @@ from typing import IO, Any, Literal, overload
 from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 9):
-    __all__ = ["FunctionProfile", "SortKey", "Stats", "StatsProfile"]
+    __all__ = ["Stats", "SortKey", "FunctionProfile", "StatsProfile"]
 else:
-    __all__ = ["SortKey", "Stats"]
+    __all__ = ["Stats", "SortKey"]
 
 _Selector: TypeAlias = str | float | int
 

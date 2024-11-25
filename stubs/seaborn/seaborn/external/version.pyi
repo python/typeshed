@@ -1,4 +1,4 @@
-__all__ = ["VERSION_PATTERN", "InvalidVersion", "Version"]
+__all__ = ["Version", "InvalidVersion", "VERSION_PATTERN"]
 
 class InvalidVersion(ValueError): ...
 

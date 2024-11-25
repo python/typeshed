@@ -5,7 +5,7 @@ from typing_extensions import TypeIs
 
 from .events import AbstractEventLoop
 
-__all__ = ("Future", "isfuture", "wrap_future")
+__all__ = ("Future", "wrap_future", "isfuture")
 
 _T = TypeVar("_T")
 

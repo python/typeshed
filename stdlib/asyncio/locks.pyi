@@ -16,9 +16,9 @@ else:
     _LoopBoundMixin = object
 
 if sys.version_info >= (3, 11):
-    __all__ = ("Barrier", "BoundedSemaphore", "Condition", "Event", "Lock", "Semaphore")
+    __all__ = ("Lock", "Event", "Condition", "Semaphore", "BoundedSemaphore", "Barrier")
 else:
-    __all__ = ("BoundedSemaphore", "Condition", "Event", "Lock", "Semaphore")
+    __all__ = ("Lock", "Event", "Condition", "Semaphore", "BoundedSemaphore")
 
 _T = TypeVar("_T")
 

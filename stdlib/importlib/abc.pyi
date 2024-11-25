@@ -11,13 +11,13 @@ from typing import IO, Any, Literal, Protocol, overload, runtime_checkable
 
 if sys.version_info >= (3, 11):
     __all__ = [
-        "ExecutionLoader",
-        "FileLoader",
-        "InspectLoader",
         "Loader",
         "MetaPathFinder",
         "PathEntryFinder",
         "ResourceLoader",
+        "InspectLoader",
+        "ExecutionLoader",
+        "FileLoader",
         "SourceLoader",
     ]
 

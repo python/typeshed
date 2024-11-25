@@ -14,7 +14,6 @@ __all__ = [
     "CIRCUMFLEX",
     "CIRCUMFLEXEQUAL",
     "COLON",
-    "COLONEQUAL",
     "COMMA",
     "COMMENT",
     "DEDENT",
@@ -69,10 +68,11 @@ __all__ = [
     "TILDE",
     "VBAR",
     "VBAREQUAL",
-    "generate_tokens",
     "tok_name",
     "tokenize",
+    "generate_tokens",
     "untokenize",
+    "COLONEQUAL",
 ]
 
 _Coord: TypeAlias = tuple[int, int]

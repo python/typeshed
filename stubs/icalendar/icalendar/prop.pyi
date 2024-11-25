@@ -12,9 +12,9 @@ from .parser_tools import ICAL_TYPE
 
 __all__ = [
     "DURATION_REGEX",
-    "WEEKDAY_RULE",
     "TimeBase",
     "TypesFactory",
+    "WEEKDAY_RULE",
     "tzid_from_dt",
     "vBinary",
     "vBoolean",

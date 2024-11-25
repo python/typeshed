@@ -6,7 +6,7 @@ from pyasn1.type import base, char, univ, useful
 from pyasn1.type.base import Asn1Type
 from pyasn1.type.tag import TagSet
 
-__all__ = ["Decoder", "StreamingDecoder", "decode"]
+__all__ = ["StreamingDecoder", "Decoder", "decode"]
 
 class AbstractPayloadDecoder:
     protoComponent: Asn1Type | None

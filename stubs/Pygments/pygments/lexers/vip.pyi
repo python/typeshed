@@ -2,7 +2,7 @@ from typing import ClassVar
 
 from ..lexer import RegexLexer
 
-__all__ = ["VisualPrologGrammarLexer", "VisualPrologLexer"]
+__all__ = ["VisualPrologLexer", "VisualPrologGrammarLexer"]
 
 class VisualPrologBaseLexer(RegexLexer):
     minorendkw: ClassVar[tuple[str, ...]]

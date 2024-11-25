@@ -24,37 +24,37 @@ from .unix_events import AbstractChildWatcher
 
 if sys.version_info >= (3, 14):
     __all__ = (
-        "AbstractEventLoop",
         "AbstractEventLoopPolicy",
+        "AbstractEventLoop",
         "AbstractServer",
         "Handle",
         "TimerHandle",
-        "_get_running_loop",
-        "_set_running_loop",
-        "get_event_loop",
         "get_event_loop_policy",
-        "get_running_loop",
-        "new_event_loop",
-        "set_event_loop",
         "set_event_loop_policy",
+        "get_event_loop",
+        "set_event_loop",
+        "new_event_loop",
+        "_set_running_loop",
+        "get_running_loop",
+        "_get_running_loop",
     )
 else:
     __all__ = (
-        "AbstractEventLoop",
         "AbstractEventLoopPolicy",
+        "AbstractEventLoop",
         "AbstractServer",
         "Handle",
         "TimerHandle",
-        "_get_running_loop",
-        "_set_running_loop",
-        "get_child_watcher",
-        "get_event_loop",
         "get_event_loop_policy",
-        "get_running_loop",
-        "new_event_loop",
-        "set_child_watcher",
-        "set_event_loop",
         "set_event_loop_policy",
+        "get_event_loop",
+        "set_event_loop",
+        "new_event_loop",
+        "get_child_watcher",
+        "set_child_watcher",
+        "_set_running_loop",
+        "get_running_loop",
+        "_get_running_loop",
     )
 
 _T = TypeVar("_T")

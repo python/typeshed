@@ -5,7 +5,7 @@ from typing import Any, Final, Literal, TypedDict, overload
 from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 9):
-    __all__ = ["BOLD", "ITALIC", "NORMAL", "ROMAN", "Font", "families", "names", "nametofont"]
+    __all__ = ["NORMAL", "ROMAN", "BOLD", "ITALIC", "nametofont", "Font", "families", "names"]
 
 NORMAL: Final = "normal"
 ROMAN: Final = "roman"

@@ -9,15 +9,15 @@ from typing import Any, ClassVar
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
-    "BaseRequestHandler",
     "BaseServer",
-    "DatagramRequestHandler",
-    "StreamRequestHandler",
     "TCPServer",
-    "ThreadingMixIn",
-    "ThreadingTCPServer",
-    "ThreadingUDPServer",
     "UDPServer",
+    "ThreadingUDPServer",
+    "ThreadingTCPServer",
+    "BaseRequestHandler",
+    "StreamRequestHandler",
+    "DatagramRequestHandler",
+    "ThreadingMixIn",
 ]
 if sys.platform != "win32":
     __all__ += [
@@ -30,7 +30,7 @@ if sys.platform != "win32":
         "UnixStreamServer",
     ]
     if sys.version_info >= (3, 12):
-        __all__ += ["ForkingUnixDatagramServer", "ForkingUnixStreamServer"]
+        __all__ += ["ForkingUnixStreamServer", "ForkingUnixDatagramServer"]
 
 _RequestType: TypeAlias = _socket | tuple[bytes, _socket]
 _AfUnixAddress: TypeAlias = str | ReadableBuffer  # address acceptable for an AF_UNIX socket

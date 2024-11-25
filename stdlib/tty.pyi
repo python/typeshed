@@ -4,9 +4,9 @@ from typing import IO, Final
 from typing_extensions import TypeAlias
 
 if sys.platform != "win32":
-    __all__ = ["setcbreak", "setraw"]
+    __all__ = ["setraw", "setcbreak"]
     if sys.version_info >= (3, 12):
-        __all__ += ["cfmakecbreak", "cfmakeraw"]
+        __all__ += ["cfmakeraw", "cfmakecbreak"]
 
         _ModeSetterReturn: TypeAlias = termios._AttrReturn
     else:

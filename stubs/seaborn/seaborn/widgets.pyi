@@ -6,8 +6,8 @@ __all__ = [
     "choose_colorbrewer_palette",
     "choose_cubehelix_palette",
     "choose_dark_palette",
-    "choose_diverging_palette",
     "choose_light_palette",
+    "choose_diverging_palette",
 ]
 
 @overload

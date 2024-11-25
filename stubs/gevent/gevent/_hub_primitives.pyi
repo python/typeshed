@@ -9,7 +9,7 @@ from gevent._types import _Loop, _Watcher
 from gevent.hub import Hub
 from gevent.socket import socket
 
-__all__ = ["WaitOperationsGreenlet", "iwait_on_objects", "wait_on_objects", "wait_read", "wait_readwrite", "wait_write"]
+__all__ = ["WaitOperationsGreenlet", "iwait_on_objects", "wait_on_objects", "wait_read", "wait_write", "wait_readwrite"]
 
 _T = TypeVar("_T")
 _Ts = TypeVarTuple("_Ts")

@@ -3,7 +3,7 @@ from typing_extensions import TypeAlias
 
 _Cap: TypeAlias = dict[str, str | int]
 
-__all__ = ["findmatch", "getcaps"]
+__all__ = ["getcaps", "findmatch"]
 
 def findmatch(
     caps: Mapping[str, list[_Cap]], MIMEtype: str, key: str = "view", filename: str = "/dev/null", plist: Sequence[str] = []

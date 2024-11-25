@@ -29,7 +29,6 @@ if sys.version_info >= (3, 10):
     from types import UnionType
 
 __all__ = [
-    "TYPE_CHECKING",
     "AbstractSet",
     "Any",
     "AnyStr",
@@ -51,7 +50,6 @@ __all__ = [
     "Deque",
     "Dict",
     "Final",
-    "ForwardRef",
     "FrozenSet",
     "Generator",
     "Generic",
@@ -69,9 +67,7 @@ __all__ = [
     "MutableSet",
     "NamedTuple",
     "NewType",
-    "NoReturn",
     "Optional",
-    "OrderedDict",
     "Protocol",
     "Reversible",
     "Sequence",
@@ -91,6 +87,7 @@ __all__ = [
     "TypedDict",
     "Union",
     "ValuesView",
+    "TYPE_CHECKING",
     "cast",
     "final",
     "get_args",
@@ -100,10 +97,13 @@ __all__ = [
     "no_type_check_decorator",
     "overload",
     "runtime_checkable",
+    "ForwardRef",
+    "NoReturn",
+    "OrderedDict",
 ]
 
 if sys.version_info >= (3, 9):
-    __all__ += ["IO", "Annotated", "BinaryIO", "Match", "Pattern", "TextIO"]
+    __all__ += ["Annotated", "BinaryIO", "IO", "Match", "Pattern", "TextIO"]
 
 if sys.version_info >= (3, 10):
     __all__ += ["Concatenate", "ParamSpec", "ParamSpecArgs", "ParamSpecKwargs", "TypeAlias", "TypeGuard", "is_typeddict"]
@@ -129,7 +129,7 @@ if sys.version_info >= (3, 12):
     __all__ += ["TypeAliasType", "override"]
 
 if sys.version_info >= (3, 13):
-    __all__ += ["NoDefault", "ReadOnly", "TypeIs", "get_protocol_members", "is_protocol"]
+    __all__ += ["get_protocol_members", "is_protocol", "NoDefault", "TypeIs", "ReadOnly"]
 
 Any = object()
 

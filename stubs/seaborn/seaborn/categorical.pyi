@@ -9,7 +9,7 @@ from .axisgrid import FacetGrid
 from .external.kde import _BwMethodType
 from .utils import _DataSourceWideForm, _ErrorBar, _Estimator, _Legend, _LogScale, _Palette, _Seed, _Vector
 
-__all__ = ["barplot", "boxenplot", "boxplot", "catplot", "countplot", "pointplot", "stripplot", "swarmplot", "violinplot"]
+__all__ = ["catplot", "stripplot", "swarmplot", "boxplot", "violinplot", "boxenplot", "pointplot", "barplot", "countplot"]
 
 def boxplot(
     data: DataSource | _DataSourceWideForm | None = None,

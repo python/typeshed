@@ -11,22 +11,22 @@ from .lib import Geometry
 
 __all__ = [
     "cascaded_union",
-    "clip_by_rect",
     "linemerge",
-    "nearest_points",
     "operator",
-    "orient",
     "polygonize",
     "polygonize_full",
-    "shared_paths",
-    "snap",
-    "split",
-    "substring",
     "transform",
-    "triangulate",
     "unary_union",
-    "validate",
+    "triangulate",
     "voronoi_diagram",
+    "split",
+    "nearest_points",
+    "validate",
+    "snap",
+    "shared_paths",
+    "clip_by_rect",
+    "orient",
+    "substring",
 ]
 
 class CollectionOperator:

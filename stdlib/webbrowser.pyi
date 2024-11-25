@@ -4,7 +4,7 @@ from collections.abc import Callable, Sequence
 from typing import Literal
 from typing_extensions import deprecated
 
-__all__ = ["Error", "get", "open", "open_new", "open_new_tab", "register"]
+__all__ = ["Error", "open", "open_new", "open_new_tab", "get", "register"]
 
 class Error(Exception): ...
 

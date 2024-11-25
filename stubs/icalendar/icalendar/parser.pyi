@@ -8,15 +8,15 @@ from typing_extensions import Self
 from .caselessdict import CaselessDict
 
 __all__ = [
+    "Contentline",
+    "Contentlines",
     "FOLD",
     "NAME",
     "NEWLINE",
+    "Parameters",
     "QUNSAFE_CHAR",
     "QUOTABLE",
     "UNSAFE_CHAR",
-    "Contentline",
-    "Contentlines",
-    "Parameters",
     "dquote",
     "escape_char",
     "escape_string",

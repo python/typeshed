@@ -7,27 +7,27 @@ from typing import Any, Literal, NamedTuple, SupportsFloat, TypeVar
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
-    "NormalDist",
     "StatisticsError",
     "fmean",
     "geometric_mean",
-    "harmonic_mean",
     "mean",
-    "median",
-    "median_grouped",
-    "median_high",
-    "median_low",
-    "mode",
-    "multimode",
+    "harmonic_mean",
     "pstdev",
     "pvariance",
-    "quantiles",
     "stdev",
     "variance",
+    "median",
+    "median_low",
+    "median_high",
+    "median_grouped",
+    "mode",
+    "multimode",
+    "NormalDist",
+    "quantiles",
 ]
 
 if sys.version_info >= (3, 10):
-    __all__ += ["correlation", "covariance", "linear_regression"]
+    __all__ += ["covariance", "correlation", "linear_regression"]
 if sys.version_info >= (3, 13):
     __all__ += ["kde", "kde_random"]
 

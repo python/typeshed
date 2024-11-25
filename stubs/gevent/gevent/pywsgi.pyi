@@ -13,7 +13,7 @@ from gevent.server import StreamServer
 from gevent.socket import socket as _GeventSocket
 from gevent.ssl import SSLContext
 
-__all__ = ["Environ", "LoggingLogAdapter", "SecureEnviron", "WSGIHandler", "WSGISecureEnviron", "WSGIServer"]
+__all__ = ["WSGIServer", "WSGIHandler", "LoggingLogAdapter", "Environ", "SecureEnviron", "WSGISecureEnviron"]
 
 _T = TypeVar("_T")
 

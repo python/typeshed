@@ -9,7 +9,7 @@ from reportlab.lib.styles import PropertySet
 from reportlab.lib.utils import _UNSET_
 from reportlab.platypus.flowables import Flowable, _HAlignment, _VAlignment
 
-__all__ = ("CellStyle", "LongTable", "Table", "TableStyle")
+__all__ = ("Table", "TableStyle", "CellStyle", "LongTable")
 
 _Color: TypeAlias = Color | list[float] | tuple[float, float, float, float] | tuple[float, float, float] | str | int
 # TODO: consider creating a tagged union of all the possible commands, although

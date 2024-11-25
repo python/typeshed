@@ -3,7 +3,7 @@ from _typeshed import SupportsRichComparison
 from collections.abc import Callable, Iterable
 from typing import Any, Final, TypeVar
 
-__all__ = ["heapify", "heappop", "heappush", "heappushpop", "heapreplace", "merge", "nlargest", "nsmallest"]
+__all__ = ["heappush", "heappop", "heapify", "heapreplace", "merge", "nlargest", "nsmallest", "heappushpop"]
 
 _S = TypeVar("_S")
 

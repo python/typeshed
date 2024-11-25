@@ -17,10 +17,10 @@ __all__ = [  # noqa: F822  # Undefined names in __all__
     "header",  # pyright: ignore[reportUnsupportedDunderAll]
     "iterators",  # pyright: ignore[reportUnsupportedDunderAll]
     "message",  # pyright: ignore[reportUnsupportedDunderAll]
-    "message_from_binary_file",
-    "message_from_bytes",
     "message_from_file",
+    "message_from_binary_file",
     "message_from_string",
+    "message_from_bytes",
     "mime",  # pyright: ignore[reportUnsupportedDunderAll]
     "parser",  # pyright: ignore[reportUnsupportedDunderAll]
     "quoprimime",  # pyright: ignore[reportUnsupportedDunderAll]

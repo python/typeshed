@@ -5,7 +5,7 @@ from typing_extensions import Self
 
 from .std import tqdm as std_tqdm
 
-__all__ = ["tarange", "tqdm", "tqdm_asyncio", "trange"]
+__all__ = ["tqdm_asyncio", "tarange", "tqdm", "trange"]
 
 _T = TypeVar("_T")
 

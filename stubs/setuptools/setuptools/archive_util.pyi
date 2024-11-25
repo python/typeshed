@@ -4,13 +4,13 @@ from collections.abc import Callable
 from ._distutils.errors import DistutilsError
 
 __all__ = [
-    "UnrecognizedFormat",
-    "default_filter",
-    "extraction_drivers",
     "unpack_archive",
-    "unpack_directory",
-    "unpack_tarfile",
     "unpack_zipfile",
+    "unpack_tarfile",
+    "default_filter",
+    "UnrecognizedFormat",
+    "extraction_drivers",
+    "unpack_directory",
 ]
 
 class UnrecognizedFormat(DistutilsError): ...

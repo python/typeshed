@@ -10,33 +10,33 @@ from typing import IO, ClassVar, Literal, Protocol, overload
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
-    "DEFAULT_FORMAT",
-    "ENCODING",
-    "GNU_FORMAT",
-    "PAX_FORMAT",
-    "USTAR_FORMAT",
-    "CompressionError",
-    "ExtractError",
-    "HeaderError",
-    "ReadError",
-    "StreamError",
-    "TarError",
     "TarFile",
     "TarInfo",
     "is_tarfile",
+    "TarError",
+    "ReadError",
+    "CompressionError",
+    "StreamError",
+    "ExtractError",
+    "HeaderError",
+    "ENCODING",
+    "USTAR_FORMAT",
+    "GNU_FORMAT",
+    "PAX_FORMAT",
+    "DEFAULT_FORMAT",
     "open",
 ]
 if sys.version_info >= (3, 12):
     __all__ += [
-        "AbsoluteLinkError",
-        "AbsolutePathError",
+        "fully_trusted_filter",
+        "data_filter",
+        "tar_filter",
         "FilterError",
-        "LinkOutsideDestinationError",
+        "AbsoluteLinkError",
         "OutsideDestinationError",
         "SpecialFileError",
-        "data_filter",
-        "fully_trusted_filter",
-        "tar_filter",
+        "AbsolutePathError",
+        "LinkOutsideDestinationError",
     ]
 
 _FilterFunction: TypeAlias = Callable[[TarInfo, str], TarInfo | None]

@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 
 from corus.record import Record
 
-__all__ = ["load_morphoru_corpora", "load_morphoru_gicrya", "load_morphoru_rnc"]
+__all__ = ["load_morphoru_gicrya", "load_morphoru_rnc", "load_morphoru_corpora"]
 
 class MorphoSent(Record):
     __attributes__: Incomplete

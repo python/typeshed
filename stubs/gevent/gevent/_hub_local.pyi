@@ -1,7 +1,7 @@
 from gevent._types import _Loop
 from gevent.hub import Hub as _Hub
 
-__all__ = ["get_hub", "get_hub_if_exists", "get_hub_noargs"]
+__all__ = ["get_hub", "get_hub_noargs", "get_hub_if_exists"]
 
 Hub: type[_Hub] | None
 

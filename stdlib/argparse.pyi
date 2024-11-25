@@ -6,23 +6,23 @@ from typing import IO, Any, Final, Generic, NewType, NoReturn, Protocol, TypeVar
 from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
+    "ArgumentParser",
+    "ArgumentError",
+    "ArgumentTypeError",
+    "FileType",
+    "HelpFormatter",
+    "ArgumentDefaultsHelpFormatter",
+    "RawDescriptionHelpFormatter",
+    "RawTextHelpFormatter",
+    "MetavarTypeHelpFormatter",
+    "Namespace",
+    "Action",
     "ONE_OR_MORE",
     "OPTIONAL",
     "PARSER",
     "REMAINDER",
     "SUPPRESS",
     "ZERO_OR_MORE",
-    "Action",
-    "ArgumentDefaultsHelpFormatter",
-    "ArgumentError",
-    "ArgumentParser",
-    "ArgumentTypeError",
-    "FileType",
-    "HelpFormatter",
-    "MetavarTypeHelpFormatter",
-    "Namespace",
-    "RawDescriptionHelpFormatter",
-    "RawTextHelpFormatter",
 ]
 
 if sys.version_info >= (3, 9):

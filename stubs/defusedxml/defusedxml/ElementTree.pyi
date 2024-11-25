@@ -43,4 +43,4 @@ def fromstring(text, forbid_dtd: bool = False, forbid_entities: bool = True, for
 
 XML = fromstring
 
-__all__ = ["XML", "ParseError", "XMLParse", "XMLParser", "XMLTreeBuilder", "fromstring", "iterparse", "parse", "tostring"]
+__all__ = ["ParseError", "XML", "XMLParse", "XMLParser", "XMLTreeBuilder", "fromstring", "iterparse", "parse", "tostring"]

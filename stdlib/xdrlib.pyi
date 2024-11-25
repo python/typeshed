@@ -1,7 +1,7 @@
 from collections.abc import Callable, Sequence
 from typing import TypeVar
 
-__all__ = ["ConversionError", "Error", "Packer", "Unpacker"]
+__all__ = ["Error", "Packer", "Unpacker", "ConversionError"]
 
 _T = TypeVar("_T")
 

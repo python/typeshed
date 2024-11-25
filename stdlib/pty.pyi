@@ -4,7 +4,7 @@ from typing import Final
 from typing_extensions import TypeAlias, deprecated
 
 if sys.platform != "win32":
-    __all__ = ["fork", "openpty", "spawn"]
+    __all__ = ["openpty", "fork", "spawn"]
     _Reader: TypeAlias = Callable[[int], bytes]
 
     STDIN_FILENO: Final = 0

@@ -3,7 +3,7 @@ from _typeshed.wsgi import WSGIEnvironment
 from collections.abc import Callable
 from typing import IO, Any
 
-__all__ = ["FileWrapper", "application_uri", "guess_scheme", "request_uri", "setup_testing_defaults", "shift_path_info"]
+__all__ = ["FileWrapper", "guess_scheme", "application_uri", "request_uri", "shift_path_info", "setup_testing_defaults"]
 if sys.version_info >= (3, 13):
     __all__ += ["is_hop_by_hop"]
 

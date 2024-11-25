@@ -27,35 +27,35 @@ if sys.version_info >= (3, 11):
     from .case import doModuleCleanups as doModuleCleanups, enterModuleContext as enterModuleContext
 
 __all__ = [
-    "FunctionTestCase",
     "IsolatedAsyncioTestCase",
-    "SkipTest",
-    "TestCase",
-    "TestLoader",
     "TestResult",
+    "TestCase",
     "TestSuite",
-    "TextTestResult",
     "TextTestRunner",
-    "addModuleCleanup",
-    "defaultTestLoader",
-    "expectedFailure",
-    "installHandler",
+    "TestLoader",
+    "FunctionTestCase",
     "main",
-    "registerResult",
-    "removeHandler",
-    "removeResult",
+    "defaultTestLoader",
+    "SkipTest",
     "skip",
     "skipIf",
     "skipUnless",
+    "expectedFailure",
+    "TextTestResult",
+    "installHandler",
+    "registerResult",
+    "removeResult",
+    "removeHandler",
+    "addModuleCleanup",
 ]
 
 if sys.version_info < (3, 13):
     from .loader import findTestCases as findTestCases, getTestCaseNames as getTestCaseNames, makeSuite as makeSuite
 
-    __all__ += ["findTestCases", "getTestCaseNames", "makeSuite"]
+    __all__ += ["getTestCaseNames", "makeSuite", "findTestCases"]
 
 if sys.version_info >= (3, 11):
-    __all__ += ["doModuleCleanups", "enterModuleContext"]
+    __all__ += ["enterModuleContext", "doModuleCleanups"]
 
 if sys.version_info < (3, 12):
     def load_tests(loader: TestLoader, tests: TestSuite, pattern: str | None) -> TestSuite: ...

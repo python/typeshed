@@ -5,13 +5,13 @@ from dataclasses import dataclass
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
-    "ArborescenceIterator",
     "branching_weight",
     "greedy_branching",
     "maximum_branching",
-    "maximum_spanning_arborescence",
     "minimum_branching",
+    "maximum_spanning_arborescence",
     "minimum_spanning_arborescence",
+    "ArborescenceIterator",
 ]
 
 @_dispatchable

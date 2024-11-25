@@ -5,18 +5,18 @@ from ..lexer import Lexer, RegexLexer
 from ..token import _TokenType
 
 __all__ = [
-    "CoffeeScriptLexer",
-    "DartLexer",
-    "EarlGreyLexer",
     "JavascriptLexer",
-    "JuttleLexer",
     "KalLexer",
-    "LassoLexer",
     "LiveScriptLexer",
-    "MaskLexer",
-    "NodeConsoleLexer",
-    "ObjectiveJLexer",
+    "DartLexer",
     "TypeScriptLexer",
+    "LassoLexer",
+    "ObjectiveJLexer",
+    "CoffeeScriptLexer",
+    "MaskLexer",
+    "EarlGreyLexer",
+    "JuttleLexer",
+    "NodeConsoleLexer",
 ]
 
 JS_IDENT_START: Final[str]

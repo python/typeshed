@@ -21,7 +21,7 @@ from typing_extensions import Self, deprecated
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-__all__ = ["Path", "PosixPath", "PurePath", "PurePosixPath", "PureWindowsPath", "WindowsPath"]
+__all__ = ["PurePath", "PurePosixPath", "PureWindowsPath", "Path", "PosixPath", "WindowsPath"]
 
 if sys.version_info >= (3, 13):
     __all__ += ["UnsupportedOperation"]

@@ -7,7 +7,7 @@ from _typeshed import StrPath, SupportsRead, SupportsWrite
 from collections.abc import Mapping, Sequence
 from typing import Any, AnyStr, BinaryIO, ClassVar
 
-__all__ = ["BaseHTTPRequestHandler", "CGIHTTPRequestHandler", "HTTPServer", "SimpleHTTPRequestHandler", "ThreadingHTTPServer"]
+__all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler", "CGIHTTPRequestHandler"]
 
 class HTTPServer(socketserver.TCPServer):
     server_name: str

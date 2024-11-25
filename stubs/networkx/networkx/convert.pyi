@@ -5,13 +5,13 @@ from networkx.classes.graph import Graph, _Data, _Node
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
-    "from_dict_of_dicts",
-    "from_dict_of_lists",
-    "from_edgelist",
-    "to_dict_of_dicts",
-    "to_dict_of_lists",
-    "to_edgelist",
     "to_networkx_graph",
+    "from_dict_of_dicts",
+    "to_dict_of_dicts",
+    "from_dict_of_lists",
+    "to_dict_of_lists",
+    "from_edgelist",
+    "to_edgelist",
 ]
 
 def to_networkx_graph(

@@ -6,8 +6,6 @@ from typing import Any, ClassVar, overload
 from typing_extensions import LiteralString, TypeAlias
 
 __all__ = [
-    "Formatter",
-    "Template",
     "ascii_letters",
     "ascii_lowercase",
     "ascii_uppercase",
@@ -18,6 +16,8 @@ __all__ = [
     "printable",
     "punctuation",
     "whitespace",
+    "Formatter",
+    "Template",
 ]
 
 ascii_letters: LiteralString

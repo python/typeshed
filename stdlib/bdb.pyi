@@ -5,7 +5,7 @@ from types import CodeType, FrameType, TracebackType
 from typing import IO, Any, Final, SupportsInt, TypeVar
 from typing_extensions import ParamSpec
 
-__all__ = ["Bdb", "BdbQuit", "Breakpoint"]
+__all__ = ["BdbQuit", "Bdb", "Breakpoint"]
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")

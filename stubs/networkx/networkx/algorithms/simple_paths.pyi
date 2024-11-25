@@ -4,7 +4,7 @@ from collections.abc import Generator, Sequence
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
-__all__ = ["all_simple_edge_paths", "all_simple_paths", "is_simple_path", "shortest_simple_paths"]
+__all__ = ["all_simple_paths", "is_simple_path", "shortest_simple_paths", "all_simple_edge_paths"]
 
 @_dispatchable
 def is_simple_path(G: Graph[_Node], nodes: Sequence[_Node]): ...

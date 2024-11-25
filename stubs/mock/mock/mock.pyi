@@ -13,22 +13,22 @@ _R = TypeVar("_R")
 _P = ParamSpec("_P")
 
 __all__ = (
-    "ANY",
-    "DEFAULT",
-    "FILTER_DIR",
-    "AsyncMock",
-    "MagicMock",
     "Mock",
-    "NonCallableMagicMock",
-    "NonCallableMock",
-    "PropertyMock",
-    "ThreadingMock",
+    "MagicMock",
+    "patch",
+    "sentinel",
+    "DEFAULT",
+    "ANY",
     "call",
     "create_autospec",
+    "AsyncMock",
+    "ThreadingMock",
+    "FILTER_DIR",
+    "NonCallableMock",
+    "NonCallableMagicMock",
     "mock_open",
-    "patch",
+    "PropertyMock",
     "seal",
-    "sentinel",
 )
 
 class InvalidSpecError(Exception): ...

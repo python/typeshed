@@ -4,7 +4,7 @@ from pyasn1.codec.ber import decoder
 from pyasn1.type import univ
 from pyasn1.type.tag import TagSet
 
-__all__ = ["StreamingDecoder", "decode"]
+__all__ = ["decode", "StreamingDecoder"]
 
 class BooleanPayloadDecoder(decoder.AbstractSimplePayloadDecoder):
     protoComponent: univ.Boolean

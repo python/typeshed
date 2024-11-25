@@ -1,7 +1,7 @@
 import logging
 from typing import TextIO
 
-__all__ = ["Debug", "hexdump", "setLogger"]
+__all__ = ["Debug", "setLogger", "hexdump"]
 
 class Printer:
     def __init__(

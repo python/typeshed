@@ -2,7 +2,7 @@ from _typeshed import ReadableBuffer
 from asyncio import transports
 from typing import Any
 
-__all__ = ("BaseProtocol", "BufferedProtocol", "DatagramProtocol", "Protocol", "SubprocessProtocol")
+__all__ = ("BaseProtocol", "Protocol", "DatagramProtocol", "SubprocessProtocol", "BufferedProtocol")
 
 class BaseProtocol:
     def connection_made(self, transport: transports.BaseTransport) -> None: ...

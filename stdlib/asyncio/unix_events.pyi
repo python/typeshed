@@ -15,39 +15,39 @@ _Ts = TypeVarTuple("_Ts")
 
 if sys.platform != "win32":
     if sys.version_info >= (3, 14):
-        __all__ = ("DefaultEventLoopPolicy", "EventLoop", "SelectorEventLoop")
+        __all__ = ("SelectorEventLoop", "DefaultEventLoopPolicy", "EventLoop")
     elif sys.version_info >= (3, 13):
         __all__ = (
+            "SelectorEventLoop",
             "AbstractChildWatcher",
+            "SafeChildWatcher",
+            "FastChildWatcher",
+            "PidfdChildWatcher",
+            "MultiLoopChildWatcher",
+            "ThreadedChildWatcher",
             "DefaultEventLoopPolicy",
             "EventLoop",
-            "FastChildWatcher",
-            "MultiLoopChildWatcher",
-            "PidfdChildWatcher",
-            "SafeChildWatcher",
-            "SelectorEventLoop",
-            "ThreadedChildWatcher",
         )
     elif sys.version_info >= (3, 9):
         __all__ = (
-            "AbstractChildWatcher",
-            "DefaultEventLoopPolicy",
-            "FastChildWatcher",
-            "MultiLoopChildWatcher",
-            "PidfdChildWatcher",
-            "SafeChildWatcher",
             "SelectorEventLoop",
+            "AbstractChildWatcher",
+            "SafeChildWatcher",
+            "FastChildWatcher",
+            "PidfdChildWatcher",
+            "MultiLoopChildWatcher",
             "ThreadedChildWatcher",
+            "DefaultEventLoopPolicy",
         )
     else:
         __all__ = (
+            "SelectorEventLoop",
             "AbstractChildWatcher",
-            "DefaultEventLoopPolicy",
+            "SafeChildWatcher",
             "FastChildWatcher",
             "MultiLoopChildWatcher",
-            "SafeChildWatcher",
-            "SelectorEventLoop",
             "ThreadedChildWatcher",
+            "DefaultEventLoopPolicy",
         )
 
 # This is also technically not available on Win,

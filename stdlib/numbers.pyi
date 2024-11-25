@@ -11,7 +11,7 @@ from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from typing import Literal, Protocol, overload
 
-__all__ = ["Complex", "Integral", "Number", "Rational", "Real"]
+__all__ = ["Number", "Complex", "Real", "Rational", "Integral"]
 
 ############################
 # Protocols for return types

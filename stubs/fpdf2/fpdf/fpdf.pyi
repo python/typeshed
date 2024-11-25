@@ -59,15 +59,15 @@ from .util import Padding, _Unit
 
 __all__ = [
     "FPDF",
-    "PAGE_FORMATS",
-    "ImageInfo",
-    "RasterImageInfo",
-    "TextMode",
-    "TitleStyle",
-    "VectorImageInfo",
     "XPos",
     "YPos",
     "get_page_format",
+    "ImageInfo",
+    "RasterImageInfo",
+    "VectorImageInfo",
+    "TextMode",
+    "TitleStyle",
+    "PAGE_FORMATS",
 ]
 
 _Orientation: TypeAlias = Literal["", "portrait", "p", "P", "landscape", "l", "L"]

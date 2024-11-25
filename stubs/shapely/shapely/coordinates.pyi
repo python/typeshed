@@ -6,7 +6,7 @@ from numpy.typing import NDArray
 
 from ._typing import ArrayLikeSeq, GeoArray, GeoT, OptGeoArrayLike, OptGeoArrayLikeSeq, OptGeoT
 
-__all__ = ["count_coordinates", "get_coordinates", "set_coordinates", "transform"]
+__all__ = ["transform", "count_coordinates", "get_coordinates", "set_coordinates"]
 
 @overload
 def transform(

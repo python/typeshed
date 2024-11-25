@@ -17,7 +17,7 @@ from .axisgrid import Grid
 # pandas._typing.ListLikeU is partially Unknown
 _ListLikeU: TypeAlias = Sequence[Incomplete] | np.ndarray[Incomplete, Incomplete] | Series[Incomplete] | Index[Incomplete]
 
-__all__ = ["clustermap", "heatmap"]
+__all__ = ["heatmap", "clustermap"]
 
 def heatmap(
     data: DataFrame | _ArrayLike[Incomplete],

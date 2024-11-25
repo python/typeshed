@@ -7,9 +7,9 @@ from typing import Any
 from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 11):
-    __all__ = ["DebuggingServer", "PureProxy", "SMTPChannel", "SMTPServer"]
+    __all__ = ["SMTPChannel", "SMTPServer", "DebuggingServer", "PureProxy"]
 else:
-    __all__ = ["DebuggingServer", "MailmanProxy", "PureProxy", "SMTPChannel", "SMTPServer"]
+    __all__ = ["SMTPChannel", "SMTPServer", "DebuggingServer", "PureProxy", "MailmanProxy"]
 
 _Address: TypeAlias = tuple[str, int]  # (host, port)
 

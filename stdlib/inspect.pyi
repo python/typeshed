@@ -30,6 +30,11 @@ from typing_extensions import ParamSpec, Self, TypeAlias, TypeGuard, TypeIs
 
 if sys.version_info >= (3, 11):
     __all__ = [
+        "ArgInfo",
+        "Arguments",
+        "Attribute",
+        "BlockFinder",
+        "BoundArguments",
         "CORO_CLOSED",
         "CORO_CREATED",
         "CORO_RUNNING",
@@ -44,23 +49,18 @@ if sys.version_info >= (3, 11):
         "CO_OPTIMIZED",
         "CO_VARARGS",
         "CO_VARKEYWORDS",
-        "GEN_CLOSED",
-        "GEN_CREATED",
-        "GEN_RUNNING",
-        "GEN_SUSPENDED",
-        "TPFLAGS_IS_ABSTRACT",
-        "ArgInfo",
-        "Arguments",
-        "Attribute",
-        "BlockFinder",
-        "BoundArguments",
         "ClassFoundException",
         "ClosureVars",
         "EndOfBlock",
         "FrameInfo",
         "FullArgSpec",
+        "GEN_CLOSED",
+        "GEN_CREATED",
+        "GEN_RUNNING",
+        "GEN_SUSPENDED",
         "Parameter",
         "Signature",
+        "TPFLAGS_IS_ABSTRACT",
         "Traceback",
         "classify_class_attrs",
         "cleandoc",
@@ -130,14 +130,14 @@ if sys.version_info >= (3, 11):
 
     if sys.version_info >= (3, 12):
         __all__ += [
+            "markcoroutinefunction",
             "AGEN_CLOSED",
             "AGEN_CREATED",
             "AGEN_RUNNING",
             "AGEN_SUSPENDED",
-            "BufferFlags",
             "getasyncgenlocals",
             "getasyncgenstate",
-            "markcoroutinefunction",
+            "BufferFlags",
         ]
 
 _P = ParamSpec("_P")

@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from re import Pattern
 
-__all__ = ["TextWrapper", "dedent", "fill", "indent", "shorten", "wrap"]
+__all__ = ["TextWrapper", "wrap", "fill", "dedent", "indent", "shorten"]
 
 class TextWrapper:
     width: int

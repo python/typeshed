@@ -8,18 +8,18 @@ from typing import IO, Any, Generic, Protocol, TypeVar, overload, runtime_checka
 from typing_extensions import ParamSpec, Self, TypeAlias
 
 __all__ = [
-    "AbstractAsyncContextManager",
+    "contextmanager",
+    "closing",
     "AbstractContextManager",
-    "AsyncExitStack",
     "ContextDecorator",
     "ExitStack",
-    "asynccontextmanager",
-    "closing",
-    "contextmanager",
-    "nullcontext",
-    "redirect_stderr",
     "redirect_stdout",
+    "redirect_stderr",
     "suppress",
+    "AbstractAsyncContextManager",
+    "AsyncExitStack",
+    "asynccontextmanager",
+    "nullcontext",
 ]
 
 if sys.version_info >= (3, 10):
