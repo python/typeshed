@@ -54,6 +54,7 @@ _lsprof: 3.0-
 _lzma: 3.3-
 _markupbase: 3.0-
 _msi: 3.0-3.12
+_multibytecodec: 3.0-
 _operator: 3.4-
 _osx_support: 3.0-
 _posixsubprocess: 3.2-
