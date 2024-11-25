@@ -2,11 +2,11 @@ from _typeshed import ConvertibleToInt, Incomplete
 from collections.abc import Generator, Iterable, Iterator
 from types import GeneratorType
 from typing import Any, Final, Literal, NoReturn, overload
-from typing_extensions import TypeAlias, deprecated
+from typing_extensions import deprecated
 
 from openpyxl import _Decodable, _VisibilityType
-from openpyxl.cell import _CellValue
-from openpyxl.cell.cell import Cell, MergedCell
+from openpyxl.cell import _CellOrMergedCell, _CellValue
+from openpyxl.cell.cell import Cell
 from openpyxl.chart._chart import ChartBase
 from openpyxl.drawing.image import Image
 from openpyxl.formatting.formatting import ConditionalFormattingList
@@ -24,8 +24,6 @@ from openpyxl.worksheet.protection import SheetProtection
 from openpyxl.worksheet.scenario import ScenarioList
 from openpyxl.worksheet.table import Table, TableList
 from openpyxl.worksheet.views import SheetView, SheetViewList
-
-_Cell: TypeAlias = Cell | MergedCell
 
 class Worksheet(_WorkbookChild):
     mime_type: str
@@ -52,7 +50,7 @@ class Worksheet(_WorkbookChild):
     ORIENTATION_PORTRAIT: Final = "portrait"
     ORIENTATION_LANDSCAPE: Final = "landscape"
 
-    _cells: dict[tuple[int, int], _Cell]
+    _cells: dict[tuple[int, int], _CellOrMergedCell]
     row_dimensions: DimensionHolder[int, RowDimension]
     column_dimensions: DimensionHolder[str, ColumnDimension]
     row_breaks: RowBreak
@@ -134,11 +132,11 @@ class Worksheet(_WorkbookChild):
         min_col: int | None = None,
         max_col: int | None = None,
         values_only: Literal[False] = False,
-    ) -> Generator[tuple[_Cell, ...], None, None]: ...
+    ) -> Generator[tuple[_CellOrMergedCell, ...], None, None]: ...
     @overload
     def iter_rows(
         self, min_row: int | None, max_row: int | None, min_col: int | None, max_col: int | None, values_only: bool
-    ) -> Generator[tuple[_Cell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
+    ) -> Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
     @overload
     def iter_rows(
         self,
@@ -148,7 +146,7 @@ class Worksheet(_WorkbookChild):
         max_col: int | None = None,
         *,
         values_only: bool,
-    ) -> Generator[tuple[_Cell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
+    ) -> Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
     @property
     def rows(self) -> Generator[tuple[Cell, ...], None, None]: ...
     @property
@@ -175,11 +173,11 @@ class Worksheet(_WorkbookChild):
         min_row: int | None = None,
         max_row: int | None = None,
         values_only: Literal[False] = False,
-    ) -> Generator[tuple[_Cell, ...], None, None]: ...
+    ) -> Generator[tuple[_CellOrMergedCell, ...], None, None]: ...
     @overload
     def iter_cols(
         self, min_col: int | None, max_col: int | None, min_row: int | None, max_row: int | None, values_only: bool
-    ) -> Generator[tuple[_Cell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
+    ) -> Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
     @overload
     def iter_cols(
         self,
@@ -189,9 +187,9 @@ class Worksheet(_WorkbookChild):
         max_row: int | None = None,
         *,
         values_only: bool,
-    ) -> Generator[tuple[_Cell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
+    ) -> Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
     @property
-    def columns(self) -> Generator[tuple[_Cell, ...], None, None]: ...
+    def columns(self) -> Generator[tuple[_CellOrMergedCell, ...], None, None]: ...
     @property
     def column_groups(self) -> list[str]: ...
     def set_printer_settings(
