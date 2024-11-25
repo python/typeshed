@@ -81,7 +81,6 @@ encodings.utf_32_le
 encodings.utf_7
 encodings.uu_codec
 encodings.zlib_codec
-sqlite3.dump
 turtledemo
 turtledemo\..+
 xml.sax.expatreader
