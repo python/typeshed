@@ -16,8 +16,6 @@ def system_alias(system: str, release: str, version: str) -> tuple[str, str, str
 def architecture(executable: str = sys.executable, bits: str = "", linkage: str = "") -> tuple[str, str]: ...
 
 if sys.version_info >= (3, 9):
-    # uname_result emulates a 6-field named tuple, but the processor field
-    # is lazily evaluated rather than being passed in to the constructor.
     # This class is not exposed. It calls itself platform.uname_result_base.
     # At runtime it only has 5 fields.
     @type_check_only
@@ -32,6 +30,8 @@ if sys.version_info >= (3, 9):
         # sees this class anyway.
         processor: str
 
+    # uname_result emulates a 6-field named tuple, but the processor field
+    # is lazily evaluated rather than being passed in to the constructor.
     class uname_result(_uname_result_base):
         if sys.version_info >= (3, 10):
             __match_args__ = ("system", "node", "release", "version", "machine")  # pyright: ignore[reportAssignmentType]
