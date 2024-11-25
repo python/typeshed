@@ -33,16 +33,6 @@ http.client.HTTPConnection.response_class  # the actual type at runtime is abc.A
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
-ipaddress._BaseAddress.is_global
-ipaddress._BaseAddress.is_link_local
-ipaddress._BaseAddress.is_loopback
-ipaddress._BaseAddress.is_multicast
-ipaddress._BaseAddress.is_private
-ipaddress._BaseAddress.is_reserved
-ipaddress._BaseAddress.is_unspecified
-ipaddress._BaseAddress.max_prefixlen
-ipaddress._BaseAddress.packed
-ipaddress._BaseNetwork.max_prefixlen
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 pickle.Pickler.reducer_override  # implemented in C pickler
@@ -68,41 +58,19 @@ weakref.WeakValueDictionary.update
 # ==========
 # TODO: Modules that exist at runtime, but are missing from stubs
 # ==========
-ctypes.macholib
-ctypes.macholib.dyld
-ctypes.macholib.dylib
-ctypes.macholib.framework
 encodings.aliases
 encodings.ascii
 encodings.base64_codec
-encodings.big5
-encodings.big5hkscs
 encodings.bz2_codec
 encodings.charmap
 encodings\.cp\d+
-encodings\.euc_.+
-encodings.gb18030
-encodings.gb2312
-encodings.gbk
 encodings.hex_codec
-encodings.hp_roman8
-encodings.hz
 encodings.idna
-encodings\.iso2022_.*
-encodings\.iso8859_\d+
-encodings.johab
-encodings\.koi8_\w
-encodings.kz1048
 encodings.latin_1
-encodings\.mac_.+
-encodings.palmos
-encodings.ptcp154
 encodings.punycode
 encodings.quopri_codec
 encodings.raw_unicode_escape
 encodings.rot_13
-encodings\.shift_jis.*
-encodings.tis_620
 encodings.undefined
 encodings.unicode_escape
 encodings.utf_16
@@ -114,7 +82,6 @@ encodings.utf_32_le
 encodings.utf_7
 encodings.uu_codec
 encodings.zlib_codec
-json.scanner
 turtledemo
 turtledemo\..+
 xml.sax.expatreader
