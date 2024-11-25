@@ -1,7 +1,23 @@
 from _typeshed import Incomplete
-from typing import NoReturn
+from collections.abc import AsyncIterator
+from typing import Any, NoReturn
 
-from .core import ACLCommands, DataAccessCommands, ManagementCommands, PubSubCommands, _StrType
+from redis.commands.redismodules import RedisModuleCommands
+
+from .core import (
+    ACLCommands,
+    AsyncACLCommands,
+    AsyncDataAccessCommands,
+    AsyncFunctionCommands,
+    AsyncGeoCommands,
+    AsyncManagementCommands,
+    AsyncModuleCommands,
+    AsyncScriptCommands,
+    DataAccessCommands,
+    ManagementCommands,
+    PubSubCommands,
+    _StrType,
+)
 
 class ClusterMultiKeyCommands:
     def mget_nonatomic(self, keys, *args): ...
@@ -29,6 +45,11 @@ class ClusterDataAccessCommands(DataAccessCommands[_StrType]):
         withmatchlen: bool = False,
         **kwargs,
     ): ...
+
+class AsyncClusterDataAccessCommands(ClusterDataAccessCommands[_StrType], AsyncDataAccessCommands[_StrType]):
+    async def scan_iter(
+        self, match: str | bytes | None = None, count: int | None = None, _type: str | None = None, **kwargs
+    ) -> AsyncIterator[_StrType]: ...
 
 class RedisClusterCommands(
     ClusterMultiKeyCommands, ClusterManagementCommands, ACLCommands[_StrType], PubSubCommands, ClusterDataAccessCommands[_StrType]
@@ -58,3 +79,22 @@ class RedisClusterCommands(
     read_from_replicas: bool
     def readonly(self, target_nodes: Incomplete | None = None): ...
     def readwrite(self, target_nodes: Incomplete | None = None): ...
+
+class AsyncClusterMultiKeyCommands(ClusterMultiKeyCommands):
+    async def mget_nonatomic(self, keys, *args) -> list[Any]: ...
+    async def mset_nonatomic(self, mapping): ...
+
+class AsyncClusterManagementCommands(ClusterManagementCommands, AsyncManagementCommands):
+    async def cluster_delslots(self, *slots): ...
+
+class AsyncRedisClusterCommands(
+    AsyncClusterMultiKeyCommands,
+    AsyncClusterManagementCommands,
+    AsyncACLCommands[_StrType],
+    AsyncClusterDataAccessCommands[_StrType],
+    AsyncScriptCommands[_StrType],
+    AsyncFunctionCommands,
+    AsyncGeoCommands,
+    AsyncModuleCommands,
+    RedisModuleCommands,
+): ...

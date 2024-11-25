@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Awaitable, Callable, Mapping
 from types import TracebackType
-from typing import Any, Generic, TypeVar
+from typing import Any, TypeVar
 from typing_extensions import Self
 
 from redis.asyncio.client import ResponseCallbackT
@@ -9,9 +9,7 @@ from redis.asyncio.connection import AbstractConnection, BaseParser, Connection,
 from redis.asyncio.parser import CommandsParser
 from redis.client import AbstractRedis
 from redis.cluster import AbstractRedisCluster, LoadBalancer
-
-# TODO: add  AsyncRedisClusterCommands stubs
-# from redis.commands import AsyncRedisClusterCommands
+from redis.commands.cluster import AsyncRedisClusterCommands
 from redis.commands.core import _StrType
 from redis.credentials import CredentialProvider
 from redis.exceptions import ResponseError
@@ -27,7 +25,7 @@ class ClusterParser(BaseParser):
     async def can_read_destructive(self) -> bool: ...
     async def read_response(self, disable_decoding: bool = False) -> EncodableT | ResponseError | list[EncodableT] | None: ...
 
-class RedisCluster(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
+class RedisCluster(AbstractRedis, AbstractRedisCluster, AsyncRedisClusterCommands[_StrType]):
     @classmethod
     def from_url(
         cls,
@@ -203,7 +201,7 @@ class NodesManager:
     async def close(self, attr: str = "nodes_cache") -> None: ...
     def remap_host_port(self, host: str, port: int) -> tuple[str, int]: ...
 
-class ClusterPipeline(AbstractRedis, AbstractRedisCluster, Generic[_StrType]):  # TODO: AsyncRedisClusterCommands
+class ClusterPipeline(AbstractRedis, AbstractRedisCluster, AsyncRedisClusterCommands[_StrType]):
     def __init__(self, client: RedisCluster[_StrType]) -> None: ...
     async def initialize(self) -> Self: ...
     async def __aenter__(self) -> Self: ...
