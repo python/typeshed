@@ -8,7 +8,7 @@ from setuptools.package_index import PackageIndex
 
 from .. import Command, SetuptoolsDeprecationWarning
 
-__all__ = ["easy_install", "PthDistributions", "extract_wininst_cfg", "get_exe_prefixes"]
+__all__ = ["PthDistributions", "easy_install", "extract_wininst_cfg", "get_exe_prefixes"]
 
 class easy_install(Command):
     description: str
@@ -52,7 +52,7 @@ class easy_install(Command):
     all_site_dirs: list[str]
     shadow_path: list[str]
     local_index: Environment
-    outputs: list[Incomplete]
+    outputs: list[str]
     def finalize_options(self) -> None: ...
     def expand_basedirs(self) -> None: ...
     def expand_dirs(self) -> None: ...
