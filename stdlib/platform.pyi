@@ -27,7 +27,7 @@ if sys.version_info >= (3, 9):
         machine: str
         # This base class doesn't have this field at runtime, but claiming it
         # does is the least bad way to handle the situation. Nobody really
-        # sees this class anyway.
+        # sees this class anyway. See #13068
         processor: str
 
     # uname_result emulates a 6-field named tuple, but the processor field
