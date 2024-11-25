@@ -304,7 +304,7 @@ class SectionProxy(MutableMapping[str, str]):
     @overload  # type: ignore[override]
     def get(
         self, option: str, *, raw: bool = False, vars: _Section | None = None, _impl: Any | None = None, **kwargs: Any
-    ) -> str | MaybeNone: ...  # can be None in RawConfigParser's sections
+    ) -> str | None: ...
     @overload
     def get(
         self,
