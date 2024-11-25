@@ -1,12 +1,20 @@
 from _typeshed import Incomplete
-from typing import Callable, Final, ParamSpec, TypeVar, overload
+from typing import Callable, Final, overload
 from wsgiref.types import WSGIEnvironment
 
 default_logger: Incomplete
 
-HandlerParams = ParamSpec("HandlerParams")
-HandlerReturn = TypeVar("HandlerReturn")
-EventHandler = Callable[HandlerParams, HandlerReturn]
+type SidParam = str
+type EventName = str
+type DataParam = dict[str, str]
+type HandlerResponse = list | None
+
+type ConnectHandler = Callable[[SidParam, WSGIEnvironment, DataParam], bool | None]
+type DisconnectHandler = Callable[[SidParam], HandlerResponse]
+type TypicalEventHandler = Callable[[SidParam, DataParam], HandlerResponse]
+type CatchAllEventHandler = Callable[[EventName, SidParam, DataParam], HandlerResponse]
+
+type EventHandler = ConnectHandler | DisconnectHandler | TypicalEventHandler | CatchAllEventHandler
 
 class BaseServer:
     handlers: dict[str, dict[str, Callable[..., Incomplete]]]
@@ -38,17 +46,19 @@ class BaseServer:
     ) -> None: ...
     def is_asyncio_based(self): ...
     @overload
-    def on(self, event: str, handler: None = None, namespace: str | None = None) -> Callable[[EventHandler], EventHandler]: ...
+    def on(
+        self, event: EventName, handler: None = None, namespace: str | None = None
+    ) -> Callable[[EventHandler], EventHandler]: ...
     @overload
     def on(
         self,
-        event: str,
+        event: EventName,
         handler: EventHandler,
         namespace: str | None = None,
     ) -> None: ...
     def on(
         self,
-        event: str,
+        event: EventName,
         handler: EventHandler | None = None,
         namespace: str | None = None,
     ) -> Callable[[EventHandler], EventHandler] | None: ...
