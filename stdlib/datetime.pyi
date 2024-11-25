@@ -2,7 +2,7 @@ import sys
 from abc import abstractmethod
 from time import struct_time
 from typing import ClassVar, Final, NoReturn, SupportsIndex, final, overload, type_check_only
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import CapsuleType, Self, TypeAlias, deprecated
 
 if sys.version_info >= (3, 11):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")
@@ -332,3 +332,5 @@ class datetime(date):
     def __sub__(self, value: Self, /) -> timedelta: ...
     @overload
     def __sub__(self, value: timedelta, /) -> Self: ...
+
+datetime_CAPI: CapsuleType
