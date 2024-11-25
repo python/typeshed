@@ -8,7 +8,7 @@ from email.policy import Policy
 from typing import Any, Generic, Literal, Protocol, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
-__all__ = ["Message", "EmailMessage"]
+__all__ = ["EmailMessage", "Message"]
 
 _T = TypeVar("_T")
 # Type returned by Policy.header_fetch_parse, often str or Header.

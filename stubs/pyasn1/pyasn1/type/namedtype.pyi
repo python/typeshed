@@ -1,4 +1,4 @@
-__all__ = ["NamedType", "OptionalNamedType", "DefaultedNamedType", "NamedTypes"]
+__all__ = ["DefaultedNamedType", "NamedType", "NamedTypes", "OptionalNamedType"]
 
 class NamedType:
     isOptional: bool

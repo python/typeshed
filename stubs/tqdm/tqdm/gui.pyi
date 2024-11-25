@@ -4,7 +4,7 @@ from typing import NoReturn, TypeVar, overload
 
 from .std import tqdm as std_tqdm
 
-__all__ = ["tqdm_gui", "tgrange", "tqdm", "trange"]
+__all__ = ["tgrange", "tqdm", "tqdm_gui", "trange"]
 
 _T = TypeVar("_T")
 

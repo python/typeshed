@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 
 from networkx.utils.backends import _dispatchable
 
-__all__ = ["load_centrality", "edge_load_centrality"]
+__all__ = ["edge_load_centrality", "load_centrality"]
 
 @_dispatchable
 def newman_betweenness_centrality(

@@ -4,7 +4,7 @@ from multiprocessing.context import BaseContext
 from types import TracebackType
 from typing_extensions import TypeAlias
 
-__all__ = ["Lock", "RLock", "Semaphore", "BoundedSemaphore", "Condition", "Event"]
+__all__ = ["BoundedSemaphore", "Condition", "Event", "Lock", "RLock", "Semaphore"]
 
 _LockLike: TypeAlias = Lock | RLock
 

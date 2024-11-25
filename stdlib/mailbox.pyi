@@ -12,23 +12,23 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 __all__ = [
-    "Mailbox",
-    "Maildir",
-    "mbox",
     "MH",
-    "Babyl",
     "MMDF",
-    "Message",
-    "MaildirMessage",
-    "mboxMessage",
-    "MHMessage",
+    "Babyl",
     "BabylMessage",
-    "MMDFMessage",
     "Error",
-    "NoSuchMailboxError",
-    "NotEmptyError",
     "ExternalClashError",
     "FormatError",
+    "MHMessage",
+    "MMDFMessage",
+    "Mailbox",
+    "Maildir",
+    "MaildirMessage",
+    "Message",
+    "NoSuchMailboxError",
+    "NotEmptyError",
+    "mbox",
+    "mboxMessage",
 ]
 
 _T = TypeVar("_T")

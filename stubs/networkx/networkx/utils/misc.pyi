@@ -6,20 +6,20 @@ from typing_extensions import TypeAlias
 import numpy
 
 __all__ = [
-    "flatten",
-    "make_list_of_ints",
-    "dict_to_numpy_array",
-    "arbitrary_element",
-    "pairwise",
-    "groups",
-    "create_random_state",
-    "create_py_random_state",
     "PythonRandomInterface",
     "PythonRandomViaNumpyBits",
-    "nodes_equal",
-    "edges_equal",
-    "graphs_equal",
     "_clear_cache",
+    "arbitrary_element",
+    "create_py_random_state",
+    "create_random_state",
+    "dict_to_numpy_array",
+    "edges_equal",
+    "flatten",
+    "graphs_equal",
+    "groups",
+    "make_list_of_ints",
+    "nodes_equal",
+    "pairwise",
 ]
 
 _RandomNumberGenerator: TypeAlias = (

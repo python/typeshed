@@ -18,7 +18,7 @@ else:
 
 if sys.version_info >= (3, 10):
     if sys.version_info >= (3, 11):
-        __all__ = ["FileReader", "ZipReader", "MultiplexedPath", "NamespaceReader"]
+        __all__ = ["FileReader", "MultiplexedPath", "NamespaceReader", "ZipReader"]
 
     if sys.version_info < (3, 11):
         _T = TypeVar("_T")

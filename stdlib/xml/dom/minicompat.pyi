@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 from typing import Any, Literal, TypeVar
 
-__all__ = ["NodeList", "EmptyNodeList", "StringTypes", "defproperty"]
+__all__ = ["EmptyNodeList", "NodeList", "StringTypes", "defproperty"]
 
 _T = TypeVar("_T")
 

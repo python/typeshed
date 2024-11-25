@@ -6,16 +6,16 @@ from typing import IO, Any, NamedTuple, TypeVar
 from typing_extensions import deprecated
 
 __all__ = [
-    "get_importer",
-    "iter_importers",
-    "get_loader",
-    "find_loader",
-    "walk_packages",
-    "iter_modules",
-    "get_data",
-    "read_code",
-    "extend_path",
     "ModuleInfo",
+    "extend_path",
+    "find_loader",
+    "get_data",
+    "get_importer",
+    "get_loader",
+    "iter_importers",
+    "iter_modules",
+    "read_code",
+    "walk_packages",
 ]
 if sys.version_info < (3, 12):
     __all__ += ["ImpImporter", "ImpLoader"]

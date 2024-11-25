@@ -134,15 +134,7 @@ from typing import Any, Literal, Protocol, SupportsIndex, overload
 from typing_extensions import Self
 
 __all__ = [
-    "fromfd",
-    "getfqdn",
-    "create_connection",
-    "create_server",
-    "has_dualstack_ipv6",
-    "AddressFamily",
-    "SocketKind",
     "AF_APPLETALK",
-    "AF_DECnet",
     "AF_INET",
     "AF_INET6",
     "AF_IPX",
@@ -255,18 +247,25 @@ __all__ = [
     "SO_SNDLOWAT",
     "SO_SNDTIMEO",
     "SO_TYPE",
-    "SocketType",
     "TCP_FASTOPEN",
     "TCP_KEEPCNT",
     "TCP_KEEPINTVL",
     "TCP_MAXSEG",
     "TCP_NODELAY",
+    "AF_DECnet",
+    "AddressFamily",
+    "SocketKind",
+    "SocketType",
     "close",
+    "create_connection",
+    "create_server",
     "dup",
     "error",
+    "fromfd",
     "gaierror",
     "getaddrinfo",
     "getdefaulttimeout",
+    "getfqdn",
     "gethostbyaddr",
     "gethostbyname",
     "gethostbyname_ex",
@@ -275,6 +274,7 @@ __all__ = [
     "getprotobyname",
     "getservbyname",
     "getservbyport",
+    "has_dualstack_ipv6",
     "has_ipv6",
     "herror",
     "htonl",
@@ -321,6 +321,8 @@ if sys.platform == "win32":
         "IPPROTO_PGM",
         "IPPROTO_RDP",
         "IPPROTO_ST",
+        "MSG_BCAST",
+        "MSG_MCAST",
         "RCVALL_MAX",
         "RCVALL_OFF",
         "RCVALL_ON",
@@ -329,10 +331,8 @@ if sys.platform == "win32":
         "SIO_LOOPBACK_FAST_PATH",
         "SIO_RCVALL",
         "SO_EXCLUSIVEADDRUSE",
-        "fromshare",
         "errorTab",
-        "MSG_BCAST",
-        "MSG_MCAST",
+        "fromshare",
     ]
 
 if sys.platform != "darwin" or sys.version_info >= (3, 9):
@@ -350,12 +350,12 @@ if sys.platform != "darwin" or sys.version_info >= (3, 9):
 if sys.platform == "darwin":
     from _socket import PF_SYSTEM as PF_SYSTEM, SYSPROTO_CONTROL as SYSPROTO_CONTROL
 
-    __all__ += ["PF_SYSTEM", "SYSPROTO_CONTROL", "AF_SYSTEM"]
+    __all__ += ["AF_SYSTEM", "PF_SYSTEM", "SYSPROTO_CONTROL"]
 
 if sys.platform != "darwin":
     from _socket import TCP_KEEPIDLE as TCP_KEEPIDLE
 
-    __all__ += ["TCP_KEEPIDLE", "AF_IRDA", "MSG_ERRQUEUE"]
+    __all__ += ["AF_IRDA", "MSG_ERRQUEUE", "TCP_KEEPIDLE"]
 
 if sys.version_info >= (3, 10):
     from _socket import IP_RECVTOS as IP_RECVTOS
@@ -394,7 +394,26 @@ if sys.platform != "win32" and sys.platform != "darwin":
     )
 
     __all__ += [
+        "AF_ASH",
+        "AF_ATMPVC",
+        "AF_ATMSVC",
+        "AF_AX25",
+        "AF_BRIDGE",
+        "AF_ECONET",
+        "AF_KEY",
+        "AF_LLC",
+        "AF_NETBEUI",
+        "AF_NETROM",
+        "AF_PPPOX",
+        "AF_ROSE",
+        "AF_SECURITY",
+        "AF_WANPIPE",
+        "AF_X25",
         "IP_TRANSPARENT",
+        "MSG_CMSG_CLOEXEC",
+        "MSG_CONFIRM",
+        "MSG_FASTOPEN",
+        "MSG_MORE",
         "SCM_CREDENTIALS",
         "SO_BINDTODEVICE",
         "SO_DOMAIN",
@@ -414,25 +433,6 @@ if sys.platform != "win32" and sys.platform != "darwin":
         "TCP_SYNCNT",
         "TCP_USER_TIMEOUT",
         "TCP_WINDOW_CLAMP",
-        "AF_ASH",
-        "AF_ATMPVC",
-        "AF_ATMSVC",
-        "AF_AX25",
-        "AF_BRIDGE",
-        "AF_ECONET",
-        "AF_KEY",
-        "AF_LLC",
-        "AF_NETBEUI",
-        "AF_NETROM",
-        "AF_PPPOX",
-        "AF_ROSE",
-        "AF_SECURITY",
-        "AF_WANPIPE",
-        "AF_X25",
-        "MSG_CMSG_CLOEXEC",
-        "MSG_CONFIRM",
-        "MSG_FASTOPEN",
-        "MSG_MORE",
     ]
 
 if sys.platform != "win32" and sys.platform != "darwin" and sys.version_info >= (3, 11):
@@ -465,31 +465,31 @@ if sys.platform != "win32":
     )
 
     __all__ += [
+        "AF_ROUTE",
+        "AF_UNIX",
         "CMSG_LEN",
         "CMSG_SPACE",
         "EAI_ADDRFAMILY",
         "EAI_OVERFLOW",
         "EAI_SYSTEM",
+        "IPPROTO_GRE",
+        "IPPROTO_IPIP",
+        "IPPROTO_RSVP",
+        "IPPROTO_TP",
+        "IPV6_RTHDR_TYPE_0",
         "IP_DEFAULT_MULTICAST_LOOP",
         "IP_DEFAULT_MULTICAST_TTL",
         "IP_MAX_MEMBERSHIPS",
         "IP_RECVOPTS",
         "IP_RECVRETOPTS",
         "IP_RETOPTS",
-        "IPPROTO_GRE",
-        "IPPROTO_IPIP",
-        "IPPROTO_RSVP",
-        "IPPROTO_TP",
-        "IPV6_RTHDR_TYPE_0",
+        "MSG_DONTWAIT",
+        "MSG_EOR",
+        "MSG_NOSIGNAL",
         "SCM_RIGHTS",
         "SO_REUSEPORT",
         "TCP_NOTSENT_LOWAT",
         "sethostname",
-        "AF_ROUTE",
-        "AF_UNIX",
-        "MSG_DONTWAIT",
-        "MSG_EOR",
-        "MSG_NOSIGNAL",
     ]
 
     if sys.platform != "darwin" or sys.version_info >= (3, 9):
@@ -656,6 +656,14 @@ if sys.platform == "linux":
     )
 
     __all__ += [
+        "AF_ALG",
+        "AF_CAN",
+        "AF_NETLINK",
+        "AF_PACKET",
+        "AF_QIPCRTR",
+        "AF_RDS",
+        "AF_TIPC",
+        "AF_VSOCK",
         "ALG_OP_DECRYPT",
         "ALG_OP_ENCRYPT",
         "ALG_OP_SIGN",
@@ -722,14 +730,16 @@ if sys.platform == "linux":
         "PF_CAN",
         "PF_PACKET",
         "PF_RDS",
-        "SO_VM_SOCKETS_BUFFER_MAX_SIZE",
-        "SO_VM_SOCKETS_BUFFER_MIN_SIZE",
-        "SO_VM_SOCKETS_BUFFER_SIZE",
+        "SOCK_CLOEXEC",
+        "SOCK_NONBLOCK",
         "SOL_ALG",
         "SOL_CAN_BASE",
         "SOL_CAN_RAW",
         "SOL_RDS",
         "SOL_TIPC",
+        "SO_VM_SOCKETS_BUFFER_MAX_SIZE",
+        "SO_VM_SOCKETS_BUFFER_MIN_SIZE",
+        "SO_VM_SOCKETS_BUFFER_SIZE",
         "TIPC_ADDR_ID",
         "TIPC_ADDR_NAME",
         "TIPC_ADDR_NAMESEQ",
@@ -745,28 +755,18 @@ if sys.platform == "linux":
         "TIPC_NODE_SCOPE",
         "TIPC_PUBLISHED",
         "TIPC_SRC_DROPPABLE",
+        "TIPC_SUBSCR_TIMEOUT",
         "TIPC_SUB_CANCEL",
         "TIPC_SUB_PORTS",
         "TIPC_SUB_SERVICE",
-        "TIPC_SUBSCR_TIMEOUT",
         "TIPC_TOP_SRV",
         "TIPC_WAIT_FOREVER",
         "TIPC_WITHDRAWN",
         "TIPC_ZONE_SCOPE",
-        "VM_SOCKETS_INVALID_VERSION",
         "VMADDR_CID_ANY",
         "VMADDR_CID_HOST",
         "VMADDR_PORT_ANY",
-        "AF_CAN",
-        "AF_PACKET",
-        "AF_RDS",
-        "AF_TIPC",
-        "AF_ALG",
-        "AF_NETLINK",
-        "AF_VSOCK",
-        "AF_QIPCRTR",
-        "SOCK_CLOEXEC",
-        "SOCK_NONBLOCK",
+        "VM_SOCKETS_INVALID_VERSION",
     ]
 
     if sys.version_info < (3, 11):
@@ -923,6 +923,10 @@ if sys.version_info >= (3, 12):
         )
 
         __all__ += [
+            "HVSOCKET_ADDRESS_FLAG_PASSTHRU",
+            "HVSOCKET_CONNECTED_SUSPEND",
+            "HVSOCKET_CONNECT_TIMEOUT",
+            "HVSOCKET_CONNECT_TIMEOUT_MAX",
             "HV_GUID_BROADCAST",
             "HV_GUID_CHILDREN",
             "HV_GUID_LOOPBACK",
@@ -930,10 +934,6 @@ if sys.version_info >= (3, 12):
             "HV_GUID_WILDCARD",
             "HV_GUID_ZERO",
             "HV_PROTOCOL_RAW",
-            "HVSOCKET_ADDRESS_FLAG_PASSTHRU",
-            "HVSOCKET_CONNECT_TIMEOUT",
-            "HVSOCKET_CONNECT_TIMEOUT_MAX",
-            "HVSOCKET_CONNECTED_SUSPEND",
         ]
     else:
         from _socket import (
@@ -954,10 +954,10 @@ if sys.version_info >= (3, 12):
         # FreeBSD >= 14.0
         from _socket import PF_DIVERT as PF_DIVERT
 
-        __all__ += ["PF_DIVERT", "AF_DIVERT"]
+        __all__ += ["AF_DIVERT", "PF_DIVERT"]
 
 if sys.platform != "win32" and sys.version_info >= (3, 9):
-    __all__ += ["send_fds", "recv_fds"]
+    __all__ += ["recv_fds", "send_fds"]
 
 if sys.platform != "win32" or sys.version_info >= (3, 9):
     if sys.platform != "linux":
@@ -982,6 +982,9 @@ if sys.platform != "win32" and sys.platform != "linux":
     )
 
     __all__ += [
+        "AI_DEFAULT",
+        "AI_MASK",
+        "AI_V4MAPPED_CFG",
         "EAI_BADHINTS",
         "EAI_MAX",
         "EAI_PROTOCOL",
@@ -990,11 +993,8 @@ if sys.platform != "win32" and sys.platform != "linux":
         "IPPROTO_IPCOMP",
         "IPPROTO_XTP",
         "LOCAL_PEERCRED",
-        "SCM_CREDS",
-        "AI_DEFAULT",
-        "AI_MASK",
-        "AI_V4MAPPED_CFG",
         "MSG_EOF",
+        "SCM_CREDS",
     ]
     if sys.platform != "darwin" or sys.version_info >= (3, 9):
         from _socket import IPV6_USE_MIN_MTU as IPV6_USE_MIN_MTU
@@ -1011,7 +1011,7 @@ if sys.platform != "win32" and sys.platform != "darwin" and sys.platform != "lin
         SO_SETFIB as SO_SETFIB,
     )
 
-    __all__ += ["SO_SETFIB", "MSG_BTAG", "MSG_ETAG", "IPPROTO_BIP", "IPPROTO_MOBILE", "IPPROTO_VRRP", "MSG_NOTIFICATION"]
+    __all__ += ["IPPROTO_BIP", "IPPROTO_MOBILE", "IPPROTO_VRRP", "MSG_BTAG", "MSG_ETAG", "MSG_NOTIFICATION", "SO_SETFIB"]
 
 if sys.platform != "linux":
     from _socket import (

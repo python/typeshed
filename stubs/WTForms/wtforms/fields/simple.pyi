@@ -8,18 +8,18 @@ from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 
 __all__ = (
     "BooleanField",
-    "TextAreaField",
-    "PasswordField",
-    "FileField",
-    "MultipleFileField",
-    "HiddenField",
-    "SearchField",
-    "SubmitField",
-    "StringField",
-    "TelField",
-    "URLField",
-    "EmailField",
     "ColorField",
+    "EmailField",
+    "FileField",
+    "HiddenField",
+    "MultipleFileField",
+    "PasswordField",
+    "SearchField",
+    "StringField",
+    "SubmitField",
+    "TelField",
+    "TextAreaField",
+    "URLField",
 )
 
 class BooleanField(Field):

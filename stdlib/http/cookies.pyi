@@ -6,7 +6,7 @@ from typing_extensions import TypeAlias
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-__all__ = ["CookieError", "BaseCookie", "SimpleCookie"]
+__all__ = ["BaseCookie", "CookieError", "SimpleCookie"]
 
 _DataType: TypeAlias = str | Mapping[str, str | Morsel[Any]]
 _T = TypeVar("_T")

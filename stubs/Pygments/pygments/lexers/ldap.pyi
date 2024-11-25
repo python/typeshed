@@ -1,6 +1,6 @@
 from ..lexer import RegexLexer
 
-__all__ = ["LdifLexer", "LdaprcLexer"]
+__all__ = ["LdaprcLexer", "LdifLexer"]
 
 class LdifLexer(RegexLexer): ...
 class LdaprcLexer(RegexLexer): ...

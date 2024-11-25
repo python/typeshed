@@ -6,7 +6,7 @@ from types import TracebackType
 from typing import Any, TypeVar, overload
 from typing_extensions import Self
 
-__all__ = ["Shelf", "BsdDbShelf", "DbfilenameShelf", "open"]
+__all__ = ["BsdDbShelf", "DbfilenameShelf", "Shelf", "open"]
 
 _T = TypeVar("_T")
 _VT = TypeVar("_VT")

@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from typing import Any
 
-__all__ = ["JSONDecoder", "JSONDecodeError"]
+__all__ = ["JSONDecodeError", "JSONDecoder"]
 
 class JSONDecodeError(ValueError):
     msg: str

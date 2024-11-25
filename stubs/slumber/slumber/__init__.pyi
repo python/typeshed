@@ -6,7 +6,7 @@ from requests.sessions import _Auth, _Data, _Files
 
 from .serialize import Serializer
 
-__all__ = ["Resource", "API"]
+__all__ = ["API", "Resource"]
 
 class ResourceAttributesMixin:
     # Exists at runtime:

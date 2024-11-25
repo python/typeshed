@@ -3,7 +3,7 @@ from sys import _OptExcInfo
 from typing import Any, Protocol
 from typing_extensions import TypeAlias
 
-__all__ = ["StartResponse", "WSGIEnvironment", "WSGIApplication", "InputStream", "ErrorStream", "FileWrapper"]
+__all__ = ["ErrorStream", "FileWrapper", "InputStream", "StartResponse", "WSGIApplication", "WSGIEnvironment"]
 
 class StartResponse(Protocol):
     def __call__(

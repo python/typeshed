@@ -19,13 +19,13 @@ from .axisgrid import Grid
 
 __all__ = [
     "desaturate",
+    "despine",
+    "get_data_home",
+    "get_dataset_names",
+    "load_dataset",
+    "move_legend",
     "saturate",
     "set_hls_values",
-    "move_legend",
-    "despine",
-    "get_dataset_names",
-    "get_data_home",
-    "load_dataset",
 ]
 
 _VectorT = TypeVar("_VectorT", bound=SupportsGetItem[Any, Any])

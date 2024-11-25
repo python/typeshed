@@ -3,7 +3,7 @@ from collections.abc import Callable, Generator
 
 from ..utils import ObjectWrapper
 
-__all__ = ["tenumerate", "tzip", "tmap"]
+__all__ = ["tenumerate", "tmap", "tzip"]
 
 class DummyTqdmFile(ObjectWrapper):
     def __init__(self, wrapped) -> None: ...

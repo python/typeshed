@@ -5,6 +5,8 @@ from .geometry.base import BaseGeometry
 from .lib import Geometry
 
 __all__ = [
+    "coverage_union",
+    "coverage_union_all",
     "difference",
     "intersection",
     "intersection_all",
@@ -13,8 +15,6 @@ __all__ = [
     "unary_union",
     "union",
     "union_all",
-    "coverage_union",
-    "coverage_union_all",
 ]
 
 @overload

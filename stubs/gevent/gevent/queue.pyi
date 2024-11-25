@@ -10,7 +10,7 @@ from typing_extensions import Self
 from gevent._waiter import Waiter
 from gevent.hub import Hub
 
-__all__ = ["Queue", "PriorityQueue", "LifoQueue", "SimpleQueue", "JoinableQueue", "Channel", "Empty", "Full", "ShutDown"]
+__all__ = ["Channel", "Empty", "Full", "JoinableQueue", "LifoQueue", "PriorityQueue", "Queue", "ShutDown", "SimpleQueue"]
 
 if sys.version_info >= (3, 13):
     from queue import ShutDown as ShutDown

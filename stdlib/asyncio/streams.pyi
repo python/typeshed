@@ -10,15 +10,15 @@ from . import events, protocols, transports
 from .base_events import Server
 
 if sys.platform == "win32":
-    __all__ = ("StreamReader", "StreamWriter", "StreamReaderProtocol", "open_connection", "start_server")
+    __all__ = ("StreamReader", "StreamReaderProtocol", "StreamWriter", "open_connection", "start_server")
 else:
     __all__ = (
         "StreamReader",
-        "StreamWriter",
         "StreamReaderProtocol",
+        "StreamWriter",
         "open_connection",
-        "start_server",
         "open_unix_connection",
+        "start_server",
         "start_unix_server",
     )
 

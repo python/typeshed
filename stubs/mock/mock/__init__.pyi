@@ -1,24 +1,24 @@
 from .mock import *
 
 __all__ = (
-    "__version__",
-    "version_info",
-    "Mock",
-    "MagicMock",
-    "patch",
-    "sentinel",
-    "DEFAULT",
     "ANY",
+    "DEFAULT",
+    "FILTER_DIR",
+    "AsyncMock",
+    "MagicMock",
+    "Mock",
+    "NonCallableMagicMock",
+    "NonCallableMock",
+    "PropertyMock",
+    "ThreadingMock",
+    "__version__",
     "call",
     "create_autospec",
-    "AsyncMock",
-    "ThreadingMock",
-    "FILTER_DIR",
-    "NonCallableMock",
-    "NonCallableMagicMock",
     "mock_open",
-    "PropertyMock",
+    "patch",
     "seal",
+    "sentinel",
+    "version_info",
 )
 __version__: str
 version_info: tuple[int, int, int]

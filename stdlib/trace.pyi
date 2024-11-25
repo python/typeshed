@@ -5,7 +5,7 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any, TypeVar
 from typing_extensions import ParamSpec, TypeAlias
 
-__all__ = ["Trace", "CoverageResults"]
+__all__ = ["CoverageResults", "Trace"]
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")

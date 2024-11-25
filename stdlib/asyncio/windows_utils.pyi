@@ -6,7 +6,7 @@ from typing import Any, AnyStr, Final
 from typing_extensions import Self
 
 if sys.platform == "win32":
-    __all__ = ("pipe", "Popen", "PIPE", "PipeHandle")
+    __all__ = ("PIPE", "PipeHandle", "Popen", "pipe")
 
     BUFSIZE: Final = 8192
     PIPE = subprocess.PIPE

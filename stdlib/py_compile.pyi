@@ -2,7 +2,7 @@ import enum
 import sys
 from typing import AnyStr
 
-__all__ = ["compile", "main", "PyCompileError", "PycInvalidationMode"]
+__all__ = ["PyCompileError", "PycInvalidationMode", "compile", "main"]
 
 class PyCompileError(Exception):
     exc_type_name: str

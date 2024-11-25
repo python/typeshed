@@ -10,22 +10,22 @@ if sys.platform == "win32":
     if sys.version_info >= (3, 13):
         # 3.13 added `EventLoop`.
         __all__ = (
-            "SelectorEventLoop",
-            "ProactorEventLoop",
-            "IocpProactor",
             "DefaultEventLoopPolicy",
-            "WindowsSelectorEventLoopPolicy",
-            "WindowsProactorEventLoopPolicy",
             "EventLoop",
+            "IocpProactor",
+            "ProactorEventLoop",
+            "SelectorEventLoop",
+            "WindowsProactorEventLoopPolicy",
+            "WindowsSelectorEventLoopPolicy",
         )
     else:
         __all__ = (
-            "SelectorEventLoop",
-            "ProactorEventLoop",
-            "IocpProactor",
             "DefaultEventLoopPolicy",
-            "WindowsSelectorEventLoopPolicy",
+            "IocpProactor",
+            "ProactorEventLoop",
+            "SelectorEventLoop",
             "WindowsProactorEventLoopPolicy",
+            "WindowsSelectorEventLoopPolicy",
         )
 
     NULL: Final = 0

@@ -14,10 +14,10 @@ class QueueEmpty(Exception): ...
 class QueueFull(Exception): ...
 
 if sys.version_info >= (3, 13):
-    __all__ = ("Queue", "PriorityQueue", "LifoQueue", "QueueFull", "QueueEmpty", "QueueShutDown")
+    __all__ = ("LifoQueue", "PriorityQueue", "Queue", "QueueEmpty", "QueueFull", "QueueShutDown")
 
 else:
-    __all__ = ("Queue", "PriorityQueue", "LifoQueue", "QueueFull", "QueueEmpty")
+    __all__ = ("LifoQueue", "PriorityQueue", "Queue", "QueueEmpty", "QueueFull")
 
 _T = TypeVar("_T")
 

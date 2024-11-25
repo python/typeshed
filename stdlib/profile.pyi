@@ -3,7 +3,7 @@ from collections.abc import Callable, Mapping
 from typing import Any, TypeVar
 from typing_extensions import ParamSpec, Self, TypeAlias
 
-__all__ = ["run", "runctx", "Profile"]
+__all__ = ["Profile", "run", "runctx"]
 
 def run(statement: str, filename: str | None = None, sort: str | int = -1) -> None: ...
 def runctx(

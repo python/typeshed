@@ -4,9 +4,9 @@ from typing import IO, Any, BinaryIO, Final, Literal, NamedTuple, NoReturn, over
 from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.version_info >= (3, 9):
-    __all__ = ["open", "Error", "Wave_read", "Wave_write"]
+    __all__ = ["Error", "Wave_read", "Wave_write", "open"]
 else:
-    __all__ = ["open", "openfp", "Error", "Wave_read", "Wave_write"]
+    __all__ = ["Error", "Wave_read", "Wave_write", "open", "openfp"]
 
 _File: TypeAlias = str | IO[bytes]
 

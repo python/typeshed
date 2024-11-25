@@ -5,14 +5,14 @@ from typing import Final
 from networkx.utils.backends import _dispatchable
 
 __all__ = [
-    "write_graphml",
-    "read_graphml",
-    "generate_graphml",
-    "write_graphml_xml",
-    "write_graphml_lxml",
-    "parse_graphml",
-    "GraphMLWriter",
     "GraphMLReader",
+    "GraphMLWriter",
+    "generate_graphml",
+    "parse_graphml",
+    "read_graphml",
+    "write_graphml",
+    "write_graphml_lxml",
+    "write_graphml_xml",
 ]
 
 def write_graphml_xml(

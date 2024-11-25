@@ -2,7 +2,7 @@ from _typeshed import SizedBuffer
 from typing import IO, Any, Final
 from typing_extensions import TypeAlias
 
-__all__ = ["binhex", "hexbin", "Error"]
+__all__ = ["Error", "binhex", "hexbin"]
 
 class Error(Exception): ...
 
