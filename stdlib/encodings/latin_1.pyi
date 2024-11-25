@@ -15,7 +15,7 @@ class StreamWriter(Codec, codecs.StreamWriter): ...
 class StreamReader(Codec, codecs.StreamReader): ...
 
 class StreamConverter(StreamWriter, StreamReader):  # type: ignore[misc]  # incompatible methods in base classes
-    encode = codecs.latin_1_decode  # type: ignore[assignment]  # pyright: ignore[reportAssignmentType]
-    decode = codecs.latin_1_encode  # type: ignore[assignment]  # pyright: ignore[reportAssignmentType]
+    encode = codecs.latin_1_decode  # type: ignore[assignment]
+    decode = codecs.latin_1_encode  # type: ignore[assignment]
 
 def getregentry() -> codecs.CodecInfo: ...
