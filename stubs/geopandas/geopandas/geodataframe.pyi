@@ -99,6 +99,7 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
     def from_dict(  # type: ignore[override]
         cls, data: Mapping[Hashable, Any], geometry: _GeomCol | None = None, crs: _ConvertibleToCRS | None = None, **kwargs
     ) -> Self: ...
+    # Keep inline with GeoSeries.from_file and geopandas.io.file._read_file
     @classmethod
     def from_file(
         cls,
@@ -109,6 +110,8 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
         rows: int | slice | None = None,
         engine: Literal["fiona", "pyogrio"] | None = None,
         ignore_geometry: Literal[False] = False,
+        layer: int | str | None = None,
+        encoding: str | None = None,
         **kwargs,  # engine dependent
     ) -> Self: ...
     @classmethod

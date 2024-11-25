@@ -1,14 +1,14 @@
 import os
 from _typeshed import SupportsGetItem, SupportsKeysAndGetItem
 from collections.abc import Iterable
-from typing import Any
+from typing import Any, Final
 
 from ..geodataframe import GeoDataFrame
 
-METADATA_VERSION: str
-SUPPORTED_VERSIONS: list[str]
-GEOARROW_ENCODINGS: list[str]
-SUPPORTED_ENCODINGS: list[str]
+METADATA_VERSION: Final[str]
+SUPPORTED_VERSIONS: Final[list[str]]
+GEOARROW_ENCODINGS: Final[list[str]]
+SUPPORTED_ENCODINGS: Final[list[str]]
 
 def _read_parquet(
     path: str | os.PathLike[str],

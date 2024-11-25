@@ -55,6 +55,7 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
     def y(self) -> pd.Series[float]: ...
     @property
     def z(self) -> pd.Series[float]: ...
+    # Keep inline with GeoDataFrame.from_file and geopandas.io.file._read_file
     @classmethod
     def from_file(
         cls,
@@ -65,6 +66,8 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         rows: int | slice | None = None,
         engine: Literal["fiona", "pyogrio"] | None = None,
         ignore_geometry: Literal[False] = False,
+        layer: int | str | None = None,
+        encoding: str | None = None,
         **kwargs: Any,  # engine dependent
     ) -> GeoSeries: ...
     @classmethod

@@ -9,6 +9,7 @@ from pandas._typing import Axes
 from ..base import _BboxLike, _MaskLike
 from ..geodataframe import GeoDataFrame
 
+# Keep inline with GeoDataFrame.from_file and GeoSeries.from_file
 @overload
 def _read_file(
     filename: str | os.PathLike[str] | SupportsRead[Any],

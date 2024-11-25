@@ -1,10 +1,10 @@
-from typing import Literal, overload
+from typing import Final, Literal, overload
 
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
 from shapely import Geometry
 
-PREDICATES: set[str | None]
+PREDICATES: Final[set[str | None]]
 
 class SpatialIndex:
     geometries: NDArray[np.object_]

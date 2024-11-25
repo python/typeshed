@@ -12,7 +12,8 @@ _PATable: TypeAlias = Incomplete
 _PAField: TypeAlias = Incomplete
 _PAArray: TypeAlias = Incomplete
 
-_GeomEncoding: TypeAlias = Literal["WKB", "geoarrow", "wkb", "GeoArrow"]
+# Literal for language server completions and str because runtime normalizes to lowercase
+_GeomEncoding: TypeAlias = Literal["WKB", "geoarrow"] | str  # noqa: Y051
 
 GEOARROW_ENCODINGS: list[str]
 
