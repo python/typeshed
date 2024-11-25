@@ -256,7 +256,7 @@ class Worksheet(_WorkbookChild):
             | tuple[_CellOrMergedCell | str | float | datetime | None, ...]
             | range
             | GeneratorType[_CellOrMergedCell | str | float | datetime | None, object, object]
-            | dict[int | str, _CellOrMergedCell | str | float | datetime | None]
+            | dict[int | str, str | float | datetime | None]
         ),
     ) -> None: ...
     def insert_rows(self, idx: int, amount: int = 1) -> None: ...
