@@ -85,6 +85,7 @@
         "stubs/python-dateutil",
         "stubs/python-http-client",
         "stubs/python-jose",
+        "stubs/python-socketio",
         "stubs/pywin32",
         "stubs/pyxdg",
         "stubs/PyYAML",
