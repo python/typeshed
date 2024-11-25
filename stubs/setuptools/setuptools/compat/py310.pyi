@@ -1,5 +1,5 @@
-from typing import Any
 import sys
+from typing import Any
 
 __all__ = ["tomllib"]
 
