@@ -1,5 +1,5 @@
 import sys
-from _typeshed import StrOrBytesPath, SupportsWrite
+from _typeshed import MaybeNone, StrOrBytesPath, SupportsWrite
 from collections.abc import Callable, ItemsView, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from re import Pattern
 from typing import Any, ClassVar, Final, Literal, TypeVar, overload
@@ -263,11 +263,11 @@ class RawConfigParser(_Parser):
     ) -> _T: ...
     # This is incompatible with MutableMapping so we ignore the type
     @overload  # type: ignore[override]
-    def get(self, section: str, option: str, *, raw: bool = False, vars: _Section | None = None) -> str | Any: ...
+    def get(self, section: str, option: str, *, raw: bool = False, vars: _Section | None = None) -> str | MaybeNone: ...
     @overload
     def get(
         self, section: str, option: str, *, raw: bool = False, vars: _Section | None = None, fallback: _T
-    ) -> str | _T | Any: ...
+    ) -> str | _T | MaybeNone: ...
     @overload
     def items(self, *, raw: bool = False, vars: _Section | None = None) -> ItemsView[str, SectionProxy]: ...
     @overload
@@ -300,16 +300,22 @@ class SectionProxy(MutableMapping[str, str]):
     def parser(self) -> RawConfigParser: ...
     @property
     def name(self) -> str: ...
-    def get(  # type: ignore[override]
+    # This is incompatible with MutableMapping so we ignore the type
+    @overload  # type: ignore[override]
+    def get(
+        self, option: str, *, raw: bool = False, vars: _Section | None = None, _impl: Any | None = None, **kwargs: Any
+    ) -> str | MaybeNone: ...  # can be None in RawConfigParser's sections
+    @overload
+    def get(
         self,
         option: str,
-        fallback: str | None = None,
+        fallback: _T,
         *,
         raw: bool = False,
         vars: _Section | None = None,
         _impl: Any | None = None,
         **kwargs: Any,
-    ) -> str | Any: ...  # can be None in RawConfigParser's sections
+    ) -> str | _T: ...
     # These are partially-applied version of the methods with the same names in
     # RawConfigParser; the stubs should be kept updated together
     @overload
