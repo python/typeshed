@@ -1,6 +1,3 @@
-humanfriendly.compat.StringIO.seek
-humanfriendly.compat.StringIO.truncate
-
 # Re-exports:
 humanfriendly.usage.import_module
 humanfriendly.compat.which

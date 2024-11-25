@@ -1,5 +1,5 @@
 import sys
-from typing import Final, TypedDict, overload, type_check_only
+from typing import Final, TypedDict, overload
 from typing_extensions import LiteralString, NotRequired
 
 if sys.platform == "win32":
@@ -59,7 +59,7 @@ class RegistryInfo:
     def microsoft(self, key: LiteralString, x86: bool = False) -> LiteralString: ...
     @overload
     def microsoft(self, key: str, x86: bool = False) -> str: ...  # type: ignore[misc]
-    def lookup(self, key: str, name: str) -> str: ...
+    def lookup(self, key: str, name: str) -> str | None: ...
 
 class SystemInfo:
     WinDir: Final[str]
@@ -80,7 +80,7 @@ class SystemInfo:
     @property
     def VCInstallDir(self) -> str: ...
     @property
-    def WindowsSdkVersion(self) -> tuple[str, ...] | None: ...
+    def WindowsSdkVersion(self) -> tuple[LiteralString, ...] | None: ...
     @property
     def WindowsSdkLastVersion(self) -> str: ...
     @property
@@ -94,7 +94,7 @@ class SystemInfo:
     @property
     def UniversalCRTSdkLastVersion(self) -> str: ...
     @property
-    def NetFxSdkVersion(self) -> tuple[str, ...]: ...
+    def NetFxSdkVersion(self) -> tuple[LiteralString, ...]: ...
     @property
     def NetFxSdkDir(self) -> str: ...
     @property
@@ -106,7 +106,6 @@ class SystemInfo:
     @property
     def FrameworkVersion64(self) -> tuple[str, ...] | None: ...
 
-@type_check_only
 class _EnvironmentDict(TypedDict):
     include: str
     lib: str

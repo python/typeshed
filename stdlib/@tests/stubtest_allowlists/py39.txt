@@ -3,7 +3,7 @@ ast.ExtSlice.__new__
 ast.Index.__new__
 builtins.float.__setformat__  # Internal method for CPython test suite
 builtins.input  # Incorrect default value in text signature, fixed in 3.10
-bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
+_?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
 collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
@@ -15,9 +15,6 @@ collections.AsyncGenerator.ag_running
 collections.ByteString  # see comments in py3_common.txt
 collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
-collections.ItemsView.__reversed__
-collections.KeysView.__reversed__
-collections.ValuesView.__reversed__
 configparser.ParsingError.filename
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
@@ -39,11 +36,6 @@ lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
 lib2to3.pgen2.grammar.Grammar.loads
-# platform.uname_result's processor field is now dynamically made to exist
-platform.uname_result.__new__
-platform.uname_result._fields
-platform.uname_result.processor
-sched.Event.__doc__  # __slots__ is overridden
 tkinter.Tk.split
 tkinter.tix.[A-Z_]+
 tkinter.tix.TclVersion
@@ -204,6 +196,15 @@ multiprocessing.managers.DictProxy.popitem
 # Problematic protocol signature at runtime, see source code comments.
 importlib.abc.Traversable.open
 
+# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
+# But have more precise (accurate) signatures in the stub
+multiprocessing.managers.DictProxy.__iter__
+multiprocessing.managers.DictProxy.__len__
+multiprocessing.managers.DictProxy.copy
+multiprocessing.managers.DictProxy.items
+multiprocessing.managers.DictProxy.keys
+multiprocessing.managers.DictProxy.values
+
 # Super-special typing primitives
 typing\.NamedTuple
 typing\.Annotated
@@ -228,6 +229,10 @@ types.SimpleNamespace.__init__  # class doesn't accept positional arguments but 
 # These enums derive from (str, Enum)
 pstats.SortKey.__new__
 tkinter.EventType.__new__
+
+# Items that depend on the existence and flags of SSL
+ssl.RAND_egd
+_ssl.RAND_egd
 
 # Incorrectly star import.
 ctypes._endian.DEFAULT_MODE

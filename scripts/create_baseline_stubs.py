@@ -12,7 +12,8 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-import os
+import glob
+import os.path
 import re
 import subprocess
 import sys
@@ -60,7 +61,7 @@ def run_stubdefaulter(stub_dir: str) -> None:
 
 def run_black(stub_dir: str) -> None:
     print(f"Running Black: black {stub_dir}")
-    subprocess.run(["black", stub_dir])
+    subprocess.run(["pre-commit", "run", "black", "--files", *glob.iglob(f"{stub_dir}/**/*.pyi")])
 
 
 def run_ruff(stub_dir: str) -> None:

@@ -21,10 +21,10 @@ from functools import partial
 from pathlib import Path
 from typing_extensions import TypeAlias
 
-from _metadata import get_recursive_requirements, read_metadata
-from _utils import (
+from ts_utils.metadata import get_recursive_requirements, read_metadata
+from ts_utils.paths import STDLIB_PATH, TEST_CASES_DIR, TS_BASE_PATH, distribution_path
+from ts_utils.utils import (
     PYTHON_VERSION,
-    TEST_CASES_DIR,
     DistributionTests,
     colored,
     distribution_info,
@@ -134,18 +134,20 @@ def setup_testcase_dir(package: DistributionTests, tempdir: Path, verbosity: Ver
     # that has only the required stubs copied over.
     new_typeshed = tempdir / TYPESHED
     new_typeshed.mkdir()
-    shutil.copytree(Path("stdlib"), new_typeshed / "stdlib")
+    shutil.copytree(STDLIB_PATH, new_typeshed / "stdlib")
     requirements = get_recursive_requirements(package.name)
     # mypy refuses to consider a directory a "valid typeshed directory"
     # unless there's a stubs/mypy-extensions path inside it,
     # so add that to the list of stubs to copy over to the new directory
-    for requirement in {package.name, *requirements.typeshed_pkgs, "mypy-extensions"}:
-        shutil.copytree(Path("stubs", requirement), new_typeshed / "stubs" / requirement)
+    typeshed_requirements = [r.name for r in requirements.typeshed_pkgs]
+    for requirement in {package.name, *typeshed_requirements, "mypy-extensions"}:
+        shutil.copytree(distribution_path(requirement), new_typeshed / "stubs" / requirement)
 
     if requirements.external_pkgs:
         venv_location = str(tempdir / VENV_DIR)
         subprocess.run(["uv", "venv", venv_location], check=True, capture_output=True)
-        uv_command = ["uv", "pip", "install", get_mypy_req(), *requirements.external_pkgs]
+        ext_requirements = [str(r) for r in requirements.external_pkgs]
+        uv_command = ["uv", "pip", "install", get_mypy_req(), *ext_requirements]
         if sys.platform == "win32":
             # Reads/writes to the cache are threadsafe with uv generally...
             # but not on old Windows versions
@@ -188,7 +190,7 @@ def run_testcases(
 
     if package.is_stdlib:
         python_exe = sys.executable
-        custom_typeshed = Path(__file__).parent.parent
+        custom_typeshed = TS_BASE_PATH
         flags.append("--no-site-packages")
     else:
         custom_typeshed = tempdir / TYPESHED
