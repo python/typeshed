@@ -23,3 +23,6 @@ uv==0.4.26
 
 # Utilities for typeshed infrastructure scripts.
 ts_utils @ file:lib
+
+# Libraries required by third-party stubs
+tomli; python_version < "3.11"  # setuptools.compat.py310
