@@ -51,7 +51,7 @@ class Worksheet(_WorkbookChild):
     ORIENTATION_PORTRAIT: Final = "portrait"
     ORIENTATION_LANDSCAPE: Final = "landscape"
 
-    _cells: dict[tuple[int, int], _CellOrMergedCell] # private but very useful to understand typing
+    _cells: dict[tuple[int, int], _CellOrMergedCell]  # private but very useful to understand typing
     row_dimensions: DimensionHolder[int, RowDimension]
     column_dimensions: DimensionHolder[str, ColumnDimension]
     row_breaks: RowBreak
@@ -96,7 +96,11 @@ class Worksheet(_WorkbookChild):
     def __getitem__(self, key: slice) -> tuple[Any, ...]: ...  # tuple[AnyOf[_CellOrMergedCell, tuple[_CellOrMergedCell, ...]]]
     # A str could be an individual cell, row, column or full range
     @overload
-    def __getitem__(self, key: str) -> Any: ...  # AnyOf[_CellOrMergedCell, tuple[_CellOrMergedCell, ...], tuple[tuple[_CellOrMergedCell, ...], ...]] # noqa: E501
+    def __getitem__(
+        self, key: str
+    ) -> (
+        Any
+    ): ...  # AnyOf[_CellOrMergedCell, tuple[_CellOrMergedCell, ...], tuple[tuple[_CellOrMergedCell, ...], ...]] # noqa: E501
     def __setitem__(self, key: str, value: _CellValue) -> None: ...
     def __iter__(self) -> Iterator[tuple[_CellOrMergedCell, ...]]: ...
     def __delitem__(self, key: str) -> None: ...
@@ -137,7 +141,9 @@ class Worksheet(_WorkbookChild):
     @overload
     def iter_rows(
         self, min_row: int | None, max_row: int | None, min_col: int | None, max_col: int | None, values_only: bool
-    ) -> Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> (
+        Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]
+    ): ...
     @overload
     def iter_rows(
         self,
@@ -147,7 +153,9 @@ class Worksheet(_WorkbookChild):
         max_col: int | None = None,
         *,
         values_only: bool,
-    ) -> Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> (
+        Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]
+    ): ...
     @property
     def rows(self) -> Generator[tuple[_CellOrMergedCell, ...], None, None]: ...
     @property
@@ -178,7 +186,9 @@ class Worksheet(_WorkbookChild):
     @overload
     def iter_cols(
         self, min_col: int | None, max_col: int | None, min_row: int | None, max_row: int | None, values_only: bool
-    ) -> Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> (
+        Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]
+    ): ...
     @overload
     def iter_cols(
         self,
@@ -188,7 +198,9 @@ class Worksheet(_WorkbookChild):
         max_row: int | None = None,
         *,
         values_only: bool,
-    ) -> Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]: ...
+    ) -> (
+        Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[str | float | datetime | None, ...], None, None]
+    ): ...
     @property
     def columns(self) -> Generator[tuple[_CellOrMergedCell, ...], None, None]: ...
     @property
@@ -242,7 +254,7 @@ class Worksheet(_WorkbookChild):
     def append(
         self,
         iterable: (
-            list[Any] # lists are invariant, but any subtype or union will do
+            list[Any]  # lists are invariant, but any subtype or union will do
             | tuple[_CellOrMergedCell | str | float | datetime | None, ...]
             | range
             | GeneratorType[_CellOrMergedCell | str | float | datetime | None, object, object]
