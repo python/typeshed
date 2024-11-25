@@ -98,9 +98,7 @@ class Worksheet(_WorkbookChild):
     @overload
     def __getitem__(
         self, key: str
-    ) -> (
-        Any
-    ): ...  # AnyOf[_CellOrMergedCell, tuple[_CellOrMergedCell, ...], tuple[tuple[_CellOrMergedCell, ...], ...]] # noqa: E501
+    ) -> Any: ...  # AnyOf[_CellOrMergedCell, tuple[_CellOrMergedCell, ...], tuple[tuple[_CellOrMergedCell, ...], ...]]
     def __setitem__(self, key: str, value: _CellValue) -> None: ...
     def __iter__(self) -> Iterator[tuple[_CellOrMergedCell, ...]]: ...
     def __delitem__(self, key: str) -> None: ...
