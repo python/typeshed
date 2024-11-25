@@ -50,7 +50,7 @@ class Worksheet(_WorkbookChild):
     ORIENTATION_PORTRAIT: Final = "portrait"
     ORIENTATION_LANDSCAPE: Final = "landscape"
 
-    _cells: dict[tuple[int, int], _CellOrMergedCell]
+    _cells: dict[tuple[int, int], _CellOrMergedCell]  # private but very useful to understand typing
     row_dimensions: DimensionHolder[int, RowDimension]
     column_dimensions: DimensionHolder[str, ColumnDimension]
     row_breaks: RowBreak
@@ -85,19 +85,21 @@ class Worksheet(_WorkbookChild):
     @property
     def freeze_panes(self) -> str | None: ...
     @freeze_panes.setter
-    def freeze_panes(self, topLeftCell: str | Cell | None = ...) -> None: ...
-    def cell(self, row: int, column: int, value: _CellValue | None = None) -> Cell: ...
+    def freeze_panes(self, topLeftCell: str | Cell | None = None) -> None: ...
+    def cell(self, row: int, column: int, value: _CellValue | None = None) -> _CellOrMergedCell: ...
     # An int is necessarily a row selection
     @overload
-    def __getitem__(self, key: int) -> tuple[Cell, ...]: ...
+    def __getitem__(self, key: int) -> tuple[_CellOrMergedCell, ...]: ...
     # A slice is necessarily a row or rows, even if targetting a single cell
     @overload
-    def __getitem__(self, key: slice) -> tuple[Any, ...]: ...  # tuple[AnyOf[Cell, tuple[Cell, ...]]]
+    def __getitem__(self, key: slice) -> tuple[Any, ...]: ...  # tuple[AnyOf[_CellOrMergedCell, tuple[_CellOrMergedCell, ...]]]
     # A str could be an individual cell, row, column or full range
     @overload
-    def __getitem__(self, key: str) -> Any: ...  # AnyOf[Cell, tuple[Cell, ...], tuple[tuple[Cell, ...], ...]]
+    def __getitem__(
+        self, key: str
+    ) -> Any: ...  # AnyOf[_CellOrMergedCell, tuple[_CellOrMergedCell, ...], tuple[tuple[_CellOrMergedCell, ...], ...]]
     def __setitem__(self, key: str, value: _CellValue) -> None: ...
-    def __iter__(self) -> Iterator[tuple[Cell, ...]]: ...
+    def __iter__(self) -> Iterator[tuple[_CellOrMergedCell, ...]]: ...
     def __delitem__(self, key: str) -> None: ...
     @property
     def min_row(self) -> int: ...
@@ -148,7 +150,7 @@ class Worksheet(_WorkbookChild):
         values_only: bool,
     ) -> Generator[tuple[_CellOrMergedCell, ...], None, None] | Generator[tuple[_CellValue, ...], None, None]: ...
     @property
-    def rows(self) -> Generator[tuple[Cell, ...], None, None]: ...
+    def rows(self) -> Generator[tuple[_CellOrMergedCell, ...], None, None]: ...
     @property
     def values(self) -> Generator[tuple[_CellValue | None, ...]]: ...
     @overload
@@ -241,10 +243,10 @@ class Worksheet(_WorkbookChild):
     def append(
         self,
         iterable: (
-            list[_CellValue | Cell]
-            | tuple[_CellValue | Cell, ...]
+            list[Any]  # lists are invariant, but any subtype or union will do
+            | tuple[_CellOrMergedCell | _CellValue, ...]
             | range
-            | GeneratorType[_CellValue | Cell, object, object]
+            | GeneratorType[_CellOrMergedCell | _CellValue, object, object]
             | dict[int | str, _CellValue]
         ),
     ) -> None: ...
