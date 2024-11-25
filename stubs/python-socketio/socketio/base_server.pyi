@@ -50,17 +50,9 @@ class BaseServer:
         self, event: EventName, handler: None = None, namespace: str | None = None
     ) -> Callable[[EventHandler], EventHandler]: ...
     @overload
+    def on(self, event: EventName, handler: EventHandler, namespace: str | None = None) -> None: ...
     def on(
-        self,
-        event: EventName,
-        handler: EventHandler,
-        namespace: str | None = None,
-    ) -> None: ...
-    def on(
-        self,
-        event: EventName,
-        handler: EventHandler | None = None,
-        namespace: str | None = None,
+        self, event: EventName, handler: EventHandler | None = None, namespace: str | None = None
     ) -> Callable[[EventHandler], EventHandler] | None: ...
     def event(self, *args, **kwargs): ...
     def register_namespace(self, namespace_handler) -> None: ...
