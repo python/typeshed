@@ -415,6 +415,7 @@ if sys.version_info < (3, 9):
     def callstats() -> tuple[int, int, int, int, int, int, int, int, int, int, int] | None: ...
 
 # Doesn't exist at runtime, but exported in the stubs so pytest etc. can annotate their code more easily.
+@type_check_only
 class UnraisableHookArgs(Protocol):
     exc_type: type[BaseException]
     exc_value: BaseException | None

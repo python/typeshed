@@ -15,9 +15,6 @@ collections.AsyncGenerator.ag_running
 collections.ByteString  # see comments in py3_common.txt
 collections.Callable
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
-collections.ItemsView.__reversed__
-collections.KeysView.__reversed__
-collections.ValuesView.__reversed__
 configparser.ParsingError.filename
 contextlib.AbstractAsyncContextManager.__class_getitem__
 contextlib.AbstractContextManager.__class_getitem__
