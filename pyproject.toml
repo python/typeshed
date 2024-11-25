@@ -115,53 +115,14 @@ ignore = [
 split-on-trailing-comma = false
 combine-as-imports = true
 extra-standard-library = [
+    # Group these with stdlib
     "_typeshed",
     "typing_extensions",
-    # Extra modules not recognized by Ruff/isort
-    "_ast",
-    "_bisect",
-    "_bootlocale",
-    "_codecs",
-    "_collections_abc",
-    "_compat_pickle",
-    "_compression",
-    "_csv",
-    "_ctypes",
-    "_curses",
-    "_decimal",
-    "_dummy_thread",
-    "_dummy_threading",
-    "_heapq",
-    "_imp",
-    "_json",
-    "_locale",
-    "_lsprof",
-    "_markupbase",
-    "_msi",
-    "_operator",
-    "_osx_support",
-    "_posixsubprocess",
-    "_py_abc",
-    "_pydecimal",
-    "_random",
-    "_sitebuiltins",
-    "_socket",
-    "_ssl",
-    "_stat",
-    "_thread",
-    "_threading_local",
-    "_tkinter",
-    "_tracemalloc",
-    "_warnings",
-    "_weakref",
-    "_weakrefset",
-    "_winapi",
-    "genericpath",
-    "opcode",
-    "pyexpat",
+    # Extra modules not recognized by Ruff
+    # Added in Python 3.9
     "zoneinfo",
 ]
-known-first-party = ["_metadata", "_utils"]
+known-first-party = ["_utils", "ts_utils"]
 
 [tool.typeshed]
 oldest_supported_python = "3.8"

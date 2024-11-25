@@ -117,7 +117,7 @@ global___DispatcherConfig = DispatcherConfig
 @typing.final
 class WorkerConfig(google.protobuf.message.Message):
     """Configuration for a tf.data service WorkerServer.
-    Next id: 13
+    Next id: 14
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -130,6 +130,7 @@ class WorkerConfig(google.protobuf.message.Message):
     HEARTBEAT_INTERVAL_MS_FIELD_NUMBER: builtins.int
     DISPATCHER_TIMEOUT_MS_FIELD_NUMBER: builtins.int
     DATA_TRANSFER_PROTOCOL_FIELD_NUMBER: builtins.int
+    DATA_TRANSFER_PORT_FIELD_NUMBER: builtins.int
     DATA_TRANSFER_ADDRESS_FIELD_NUMBER: builtins.int
     CROSS_TRAINER_CACHE_SIZE_BYTES_FIELD_NUMBER: builtins.int
     SNAPSHOT_MAX_CHUNK_SIZE_BYTES_FIELD_NUMBER: builtins.int
@@ -157,11 +158,21 @@ class WorkerConfig(google.protobuf.message.Message):
     runtime.
     """
     data_transfer_protocol: builtins.str
-    """The protocol for the worker to use when transferring data to clients."""
+    """If set, the name of an alternative data transfer protocol for which the
+    worker starts an additional server ("data transfer server"); the trainer
+    can then get data from this server. If not set, no such server is started,
+    and the trainer can only get data from the regular worker server over
+    `protocol`.
+    """
+    data_transfer_port: builtins.int
+    """If `data_transfer_protocol` is set, the port to which the data transfer
+    server binds. If set to `0`, the server binds to any available port.
+    """
     data_transfer_address: builtins.str
-    """The data transfer address of the worker server. The substring "%port%", if
-    specified, will be replaced with the worker's bound port. This is useful
-    when the port is set to `0`.
+    """If `data_transfer_protocol` is set, the address of the data transfer
+    server. The substring "%dts_port%" can be used to represent -- and is
+    replaced with -- the bound port of the data transfer server; this is useful
+    when `data_transfer_port` is set to `0`.
     """
     cross_trainer_cache_size_bytes: builtins.int
     """Maximum size of the cross-trainer cache in bytes. If enabled, make sure
@@ -195,11 +206,12 @@ class WorkerConfig(google.protobuf.message.Message):
         heartbeat_interval_ms: builtins.int | None = ...,
         dispatcher_timeout_ms: builtins.int | None = ...,
         data_transfer_protocol: builtins.str | None = ...,
+        data_transfer_port: builtins.int | None = ...,
         data_transfer_address: builtins.str | None = ...,
         cross_trainer_cache_size_bytes: builtins.int | None = ...,
         snapshot_max_chunk_size_bytes: builtins.int | None = ...,
         shutdown_quiet_period_ms: builtins.int | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["cross_trainer_cache_size_bytes", b"cross_trainer_cache_size_bytes", "data_transfer_address", b"data_transfer_address", "data_transfer_protocol", b"data_transfer_protocol", "dispatcher_address", b"dispatcher_address", "dispatcher_timeout_ms", b"dispatcher_timeout_ms", "heartbeat_interval_ms", b"heartbeat_interval_ms", "port", b"port", "protocol", b"protocol", "shutdown_quiet_period_ms", b"shutdown_quiet_period_ms", "snapshot_max_chunk_size_bytes", b"snapshot_max_chunk_size_bytes", "worker_address", b"worker_address", "worker_tags", b"worker_tags"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["cross_trainer_cache_size_bytes", b"cross_trainer_cache_size_bytes", "data_transfer_address", b"data_transfer_address", "data_transfer_port", b"data_transfer_port", "data_transfer_protocol", b"data_transfer_protocol", "dispatcher_address", b"dispatcher_address", "dispatcher_timeout_ms", b"dispatcher_timeout_ms", "heartbeat_interval_ms", b"heartbeat_interval_ms", "port", b"port", "protocol", b"protocol", "shutdown_quiet_period_ms", b"shutdown_quiet_period_ms", "snapshot_max_chunk_size_bytes", b"snapshot_max_chunk_size_bytes", "worker_address", b"worker_address", "worker_tags", b"worker_tags"]) -> None: ...
 
 global___WorkerConfig = WorkerConfig

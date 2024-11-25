@@ -1,3 +1,4 @@
+# Added in Python 3.8.17
 tarfile.TarInfo.replace
 
 # ==========

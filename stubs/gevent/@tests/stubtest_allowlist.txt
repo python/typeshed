@@ -90,8 +90,6 @@ gevent.subprocess.Popen.__del__
 # we ignore all constants that start with at least one segment of all uppercase
 # letters before the underscore
 gevent\.socket\.[A-Z0-9]+(_\w+)?
-gevent.socket.AddressInfo
-gevent.socket.MsgFlag
 gevent.ssl.PROTOCOL_SSLv2
 gevent.ssl.PROTOCOL_SSLv3
 
@@ -221,3 +219,7 @@ gevent._types
 # useful way to use it as a keyword argument; we mark it positional-only.
 gevent.pool.GroupMappingMixin.imap
 gevent.pool.GroupMappingMixin.imap_unordered
+
+# Importing gevent.monkey.__main__ leads to issues in stubtest, since gevent will
+# try to monkeypatch stubtest
+gevent.monkey.__main__

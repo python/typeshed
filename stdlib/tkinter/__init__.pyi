@@ -1,6 +1,6 @@
 import _tkinter
 import sys
-from _typeshed import Incomplete, StrEnum, StrOrBytesPath
+from _typeshed import Incomplete, MaybeNone, StrEnum, StrOrBytesPath
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
@@ -186,12 +186,15 @@ _XYScrollCommand: TypeAlias = str | Callable[[float, float], object]
 _TakeFocusValue: TypeAlias = bool | Literal[0, 1, ""] | Callable[[str], bool | None]  # -takefocus in manual page named 'options'
 
 if sys.version_info >= (3, 11):
-    class _VersionInfoType(NamedTuple):
+    @type_check_only
+    class _VersionInfoTypeBase(NamedTuple):
         major: int
         minor: int
         micro: int
         releaselevel: str
         serial: int
+
+    class _VersionInfoType(_VersionInfoTypeBase): ...
 
 class EventType(StrEnum):
     Activate = "36"
@@ -509,7 +512,7 @@ class Misc:
         pad: _ScreenUnits = ...,
         uniform: str = ...,
         weight: int = ...,
-    ) -> _GridIndexInfo | Any: ...  # can be None but annoying to check
+    ) -> _GridIndexInfo | MaybeNone: ...  # can be None but annoying to check
     def grid_rowconfigure(
         self,
         index: int | str | list[int] | tuple[int, ...],
@@ -519,7 +522,7 @@ class Misc:
         pad: _ScreenUnits = ...,
         uniform: str = ...,
         weight: int = ...,
-    ) -> _GridIndexInfo | Any: ...  # can be None but annoying to check
+    ) -> _GridIndexInfo | MaybeNone: ...  # can be None but annoying to check
     columnconfigure = grid_columnconfigure
     rowconfigure = grid_rowconfigure
     def grid_location(self, x: _ScreenUnits, y: _ScreenUnits) -> tuple[int, int]: ...
