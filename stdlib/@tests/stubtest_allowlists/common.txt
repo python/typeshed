@@ -71,7 +71,6 @@ encodings\.cp\d+
 encodings.hex_codec
 encodings.idna
 encodings.latin_1
-encodings\.mac_.+
 encodings.punycode
 encodings.quopri_codec
 encodings.raw_unicode_escape
