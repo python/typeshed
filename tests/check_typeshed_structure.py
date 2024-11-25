@@ -93,11 +93,13 @@ def check_distutils() -> None:
     def all_relative_paths_in_directory(path: Path) -> set[Path]:
         return {pyi.relative_to(path) for pyi in path.rglob("*.pyi")}
 
-    all_setuptools_files = all_relative_paths_in_directory(STUBS_PATH / "setuptools" / "setuptools" / "_distutils")
-    all_distutils_files = all_relative_paths_in_directory(STUBS_PATH / "setuptools" / "distutils")
+    setuptools_path = STUBS_PATH / "setuptools" / "setuptools" / "_distutils"
+    distutils_path = STUBS_PATH / "setuptools" / "distutils"
+    all_setuptools_files = all_relative_paths_in_directory(setuptools_path)
+    all_distutils_files = all_relative_paths_in_directory(distutils_path)
     assert all_setuptools_files and all_distutils_files, "Looks like this test might be out of date!"
     extra_files = all_setuptools_files - all_distutils_files
-    joined = "\n".join(f"  * {f}" for f in extra_files)
+    joined = "\n".join(f"  * {distutils_path / f}" for f in extra_files)
     assert not extra_files, f"Files missing from distutils:\n{joined}"
 
 
