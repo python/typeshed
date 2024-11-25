@@ -1,7 +1,7 @@
 import codecs
 from _typeshed import ReadableBuffer
 
-encode = codecs.utf_8_encode
+encode = codecs.utf_16_le_encode
 
 def decode(input: ReadableBuffer, errors: str | None = "strict") -> tuple[str, int]: ...
 
@@ -11,9 +11,9 @@ class IncrementalEncoder(codecs.IncrementalEncoder):
 class IncrementalDecoder(codecs.BufferedIncrementalDecoder): ...
 
 class StreamWriter(codecs.StreamWriter):
-    encode = codecs.utf_8_encode
+    encode = codecs.utf_16_le_encode
 
 class StreamReader(codecs.StreamReader):
-    decode = codecs.utf_8_decode
+    decode = codecs.utf_16_le_decode
 
 def getregentry() -> codecs.CodecInfo: ...
