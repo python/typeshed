@@ -1,14 +1,21 @@
 from _typeshed import Incomplete
+from typing import Callable, Final, ParamSpec, TypeVar, overload
+from wsgiref.types import WSGIEnvironment
 
 default_logger: Incomplete
 
+HandlerParams = ParamSpec("HandlerParams")
+HandlerReturn = TypeVar("HandlerReturn")
+EventHandler = Callable[HandlerParams, HandlerReturn]
+
 class BaseServer:
-    reserved_events: Incomplete
+    handlers: dict[str, dict[str, Callable[..., Incomplete]]]
+    namespace_handlers: dict[str, Incomplete]  # Incomplete is used here since base_namespace.BaseServerNamespace isn't imported
+    reserved_events: Final[list[str]] = ["connect", "disconnect"]
+    environ: WSGIEnvironment
+    _binary_packet: dict[str, Incomplete]
     packet_class: Incomplete
     eio: Incomplete
-    environ: Incomplete
-    handlers: Incomplete
-    namespace_handlers: Incomplete
     not_handled: Incomplete
     logger: Incomplete
     manager: Incomplete
@@ -17,6 +24,7 @@ class BaseServer:
     always_connect: Incomplete
     namespaces: Incomplete
     async_mode: Incomplete
+
     def __init__(
         self,
         client_manager: Incomplete | None = None,
@@ -29,7 +37,21 @@ class BaseServer:
         **kwargs,
     ) -> None: ...
     def is_asyncio_based(self): ...
-    def on(self, event, handler: Incomplete | None = None, namespace: Incomplete | None = None): ...
+    @overload
+    def on(self, event: str, handler: None = None, namespace: str | None = None) -> Callable[[EventHandler], EventHandler]: ...
+    @overload
+    def on(
+        self,
+        event: str,
+        handler: EventHandler,
+        namespace: str | None = None,
+    ) -> None: ...
+    def on(
+        self,
+        event: str,
+        handler: EventHandler | None = None,
+        namespace: str | None = None,
+    ) -> Callable[[EventHandler], EventHandler] | None: ...
     def event(self, *args, **kwargs): ...
     def register_namespace(self, namespace_handler) -> None: ...
     def rooms(self, sid, namespace: Incomplete | None = None): ...
