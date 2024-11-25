@@ -7,7 +7,6 @@
 # (since type checkers don't see `complex` as a subtype of `numbers.Complex`,
 # nor `float` as a subtype of `numbers.Real`, etc.)
 
-from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from typing import Literal, Protocol, overload
 
@@ -165,7 +164,7 @@ class Integral(Rational, _IntegralLike):
     def __int__(self) -> int: ...
     def __index__(self) -> int: ...
     @abstractmethod
-    def __pow__(self, exponent, modulus: Incomplete | None = None) -> _IntegralLike: ...
+    def __pow__(self, exponent, modulus: int | None = None) -> _IntegralLike: ...
     @abstractmethod
     def __lshift__(self, other) -> _IntegralLike: ...
     @abstractmethod
