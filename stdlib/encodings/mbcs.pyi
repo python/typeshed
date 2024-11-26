@@ -11,12 +11,12 @@ if sys.platform == "win32":
         def encode(self, input: str, final: bool = False) -> bytes: ...
 
     class IncrementalDecoder(codecs.BufferedIncrementalDecoder):
-        _buffer_decode = codecs.mbcs_decode  # type: ignore[assignment]
+        _buffer_decode = codecs.mbcs_decode  # type: ignore[assignment]  # pyright: ignore[reportAssignmentType]
 
     class StreamWriter(codecs.StreamWriter):
-        encode = codecs.mbcs_encode  # type: ignore[assignment]
+        encode = codecs.mbcs_encode  # type: ignore[assignment]  # pyright: ignore[reportAssignmentType]
 
     class StreamReader(codecs.StreamReader):
-        decode = codecs.mbcs_decode  # type: ignore[assignment]
+        decode = codecs.mbcs_decode  # type: ignore[assignment]  # pyright: ignore[reportAssignmentType]
 
     def getregentry() -> codecs.CodecInfo: ...
