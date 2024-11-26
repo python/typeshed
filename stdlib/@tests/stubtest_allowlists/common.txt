@@ -90,9 +90,6 @@ xml.sax.expatreader
 # ==========
 _json.encode_basestring
 _thread.RLock
-_thread.allocate
-_thread.exit_thread
-_thread.start_new
 _threading_local._localimpl.localargs
 _threading_local._localimpl.locallock
 builtins.SyntaxError.print_file_and_line
