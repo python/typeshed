@@ -60,14 +60,10 @@ weakref.WeakValueDictionary.update
 # ==========
 encodings.aliases
 encodings.ascii
-encodings.base64_codec
-encodings.bz2_codec
 encodings.charmap
-encodings.hex_codec
 encodings.idna
 encodings.latin_1
 encodings.punycode
-encodings.quopri_codec
 encodings.raw_unicode_escape
 encodings.rot_13
 encodings.undefined
@@ -79,8 +75,6 @@ encodings.utf_32
 encodings.utf_32_be
 encodings.utf_32_le
 encodings.utf_7
-encodings.uu_codec
-encodings.zlib_codec
 turtledemo
 turtledemo\..+
 xml.sax.expatreader
