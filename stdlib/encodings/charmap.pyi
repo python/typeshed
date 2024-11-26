@@ -5,10 +5,10 @@ from _typeshed import ReadableBuffer
 class Codec(codecs.Codec):
     # At runtime, this is codecs.charmap_encode
     @staticmethod
-    def encode(str: str, errors: str | None = None, mapping: _CharMap | None = None, /) -> tuple[bytes, int]: ...  # type: ignore[override]
+    def encode(str: str, errors: str | None = None, mapping: _CharMap | None = None, /) -> tuple[bytes, int]: ...
     # At runtime, this is codecs.charmap_decode
     @staticmethod
-    def decode(data: ReadableBuffer, errors: str | None = None, mapping: _CharMap | None = None, /) -> tuple[str, int]: ...  # type: ignore[override]
+    def decode(data: ReadableBuffer, errors: str | None = None, mapping: _CharMap | None = None, /) -> tuple[str, int]: ...
 
 class IncrementalEncoder(codecs.IncrementalEncoder):
     mapping: _CharMap | None
