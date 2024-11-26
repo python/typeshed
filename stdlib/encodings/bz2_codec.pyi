@@ -1,5 +1,6 @@
 import codecs
 from _typeshed import ReadableBuffer
+from typing import ClassVar
 
 # This codec is bytes to bytes.
 
@@ -16,7 +17,10 @@ class IncrementalEncoder(codecs.IncrementalEncoder):
 class IncrementalDecoder(codecs.IncrementalDecoder):
     def decode(self, input: ReadableBuffer, final: bool = False) -> bytes: ...  # type: ignore[override]
 
-class StreamWriter(Codec, codecs.StreamWriter): ...
-class StreamReader(Codec, codecs.StreamReader): ...
+class StreamWriter(Codec, codecs.StreamWriter):
+    charbuffertype: ClassVar[type] = ...
+
+class StreamReader(Codec, codecs.StreamReader):
+    charbuffertype: ClassVar[type] = ...
 
 def getregentry() -> codecs.CodecInfo: ...
