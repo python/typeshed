@@ -13,16 +13,16 @@ if sys.platform == "win32":
     class IncrementalDecoder(codecs.BufferedIncrementalDecoder):
         # At runtime, this is codecs.mbcs_decode
         @staticmethod
-        def _buffer_decode(data: ReadableBuffer, errors: str | None = None, final: bool = False, /) -> tuple[str, int]: ...  # type: ignore[override]
+        def _buffer_decode(data: ReadableBuffer, errors: str | None = None, final: bool = False, /) -> tuple[str, int]: ...
 
     class StreamWriter(codecs.StreamWriter):
         # At runtime, this is codecs.mbcs_encode
         @staticmethod
-        def encode(str: str, errors: str | None = None, /) -> tuple[bytes, int]: ...  # type: ignore[override]
+        def encode(str: str, errors: str | None = None, /) -> tuple[bytes, int]: ...
 
     class StreamReader(codecs.StreamReader):
         # At runtime, this is codecs.mbcs_decode
         @staticmethod
-        def decode(data: ReadableBuffer, errors: str | None = None, final: bool = False, /) -> tuple[str, int]: ...  # type: ignore[override]
+        def decode(data: ReadableBuffer, errors: str | None = None, final: bool = False, /) -> tuple[str, int]: ...
 
     def getregentry() -> codecs.CodecInfo: ...
