@@ -13,9 +13,9 @@ if sys.platform == "win32":
     class IncrementalDecoder(codecs.BufferedIncrementalDecoder): ...
 
     class StreamWriter(codecs.StreamWriter):
-        encode = codecs.oem_encode
+        encode = codecs.oem_encode  # type: ignore[assignment]
 
     class StreamReader(codecs.StreamReader):
-        decode = codecs.oem_decode
+        decode = codecs.oem_decode  # type: ignore[assignment]
 
     def getregentry() -> codecs.CodecInfo: ...
