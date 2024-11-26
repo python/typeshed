@@ -9,12 +9,18 @@ class IncrementalEncoder(codecs.IncrementalEncoder):
     def encode(self, input: str, final: bool = False) -> bytes: ...
 
 class IncrementalDecoder(codecs.BufferedIncrementalDecoder):
-    _buffer_decode = codecs.utf_32_le_decode  # type: ignore[assignment]  # pyright: ignore[reportAssignmentType]
+    # At runtime, this is codecs.utf_32_le_decode
+    @staticmethod
+    def _buffer_decode(data: ReadableBuffer, errors: str | None = None, final: bool = False, /) -> tuple[str, int]: ...  # type: ignore[override]
 
 class StreamWriter(codecs.StreamWriter):
-    encode = codecs.utf_32_le_encode  # type: ignore[assignment]  # pyright: ignore[reportAssignmentType]
+    # At runtime, this is codecs.utf_32_le_encode
+    @staticmethod
+    def encode(str: str, errors: str | None = None, /) -> tuple[bytes, int]: ...  # type: ignore[override]
 
 class StreamReader(codecs.StreamReader):
-    decode = codecs.utf_32_le_decode  # type: ignore[assignment]  # pyright: ignore[reportAssignmentType]
+    # At runtime, this is codecs.utf_32_le_decode
+    @staticmethod
+    def decode(data: ReadableBuffer, errors: str | None = None, final: bool = False, /) -> tuple[str, int]: ...  # type: ignore[override]
 
 def getregentry() -> codecs.CodecInfo: ...
