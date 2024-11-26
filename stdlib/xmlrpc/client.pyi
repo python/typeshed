@@ -31,7 +31,6 @@ _Marshallable: TypeAlias = (
 )
 _XMLDate: TypeAlias = int | datetime | tuple[int, ...] | time.struct_time
 _HostType: TypeAlias = tuple[str, dict[str, str]] | str
-_Dispatch: TypeAlias = _Marshallable | Literal["_arbitrary_instance"]
 
 def escape(s: str) -> str: ...  # undocumented
 
@@ -109,7 +108,7 @@ class ExpatParser:  # undocumented
 _WriteCallback: TypeAlias = Callable[[str], object]
 
 class Marshaller:
-    dispatch: dict[type[_Dispatch], Callable[[Marshaller, Any, _WriteCallback], None]]
+    dispatch: dict[type[_Marshallable] | Literal["_arbitrary_instance"], Callable[[Marshaller, Any, _WriteCallback], None]]
     memo: dict[Any, None]
     data: None
     encoding: str | None
