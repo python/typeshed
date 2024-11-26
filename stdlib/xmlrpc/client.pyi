@@ -109,7 +109,7 @@ class ExpatParser:  # undocumented
 _WriteCallback: TypeAlias = Callable[[str], object]
 
 class Marshaller:
-    dispatch: dict[_Dispatch, Callable[[Marshaller, Any, _WriteCallback], None]]
+    dispatch: dict[type[_Dispatch], Callable[[Marshaller, Any, _WriteCallback], None]]
     memo: dict[Any, None]
     data: None
     encoding: str | None
