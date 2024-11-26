@@ -71,9 +71,8 @@ extend-safe-fixes = [
     "UP036", # Remove unnecessary `sys.version_info` blocks
 ]
 ignore = [
-    # TODO: Ruff 0.8.0 added sorting of __all__ and __slots_. Validate whether we want this in stubs
+    # TODO: Ruff 0.8.0 added sorting of __all__. Validate whether we want this in stubs
     "RUF022",
-    "RUF023",
 
     ###
     # Rules that can conflict with the formatter (Black)
