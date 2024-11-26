@@ -3,8 +3,18 @@ import sys
 from _typeshed import ReadableBuffer
 
 class Codec(codecs.Codec):
-    encode = codecs.unicode_escape_encode  # type: ignore[assignment]  # pyright: ignore[reportAssignmentType]
-    decode = codecs.unicode_escape_decode  # type: ignore[assignment]  # pyright: ignore[reportAssignmentType]
+    # At runtime, this is codecs.unicode_escape_encode
+    @staticmethod
+    def encode(str: str, errors: str | None = None, /) -> tuple[bytes, int]: ...  # type: ignore[override]
+    # At runtime, this is codecs.unicode_escape_decode
+    if sys.version_info >= (3, 9):
+        @staticmethod
+        def decode(
+            data: str | ReadableBuffer, errors: str | None = None, final: bool = True, /
+        ) -> tuple[str, int]: ...  # type: ignore[override]
+    else:
+        @staticmethod
+        def decode(data: str | ReadableBuffer, errors: str | None = None, /) -> tuple[str, int]: ...  # type: ignore[override]
 
 class IncrementalEncoder(codecs.IncrementalEncoder):
     def encode(self, input: str, final: bool = False) -> bytes: ...
