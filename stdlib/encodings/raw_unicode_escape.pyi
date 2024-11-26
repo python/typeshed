@@ -5,16 +5,14 @@ from _typeshed import ReadableBuffer
 class Codec(codecs.Codec):
     # At runtime, this is codecs.raw_unicode_escape_encode
     @staticmethod
-    def encode(str: str, errors: str | None = None, /) -> tuple[bytes, int]: ...  # type: ignore[override]
+    def encode(str: str, errors: str | None = None, /) -> tuple[bytes, int]: ...
     # At runtime, this is codecs.raw_unicode_escape_decode
     if sys.version_info >= (3, 9):
         @staticmethod
-        def decode(
-            data: str | ReadableBuffer, errors: str | None = None, final: bool = True, /
-        ) -> tuple[str, int]: ...  # type: ignore[override]
+        def decode(data: str | ReadableBuffer, errors: str | None = None, final: bool = True, /) -> tuple[str, int]: ...
     else:
         @staticmethod
-        def decode(data: str | ReadableBuffer, errors: str | None = None, /) -> tuple[str, int]: ...  # type: ignore[override]
+        def decode(data: str | ReadableBuffer, errors: str | None = None, /) -> tuple[str, int]: ...
 
 class IncrementalEncoder(codecs.IncrementalEncoder):
     def encode(self, input: str, final: bool = False) -> bytes: ...
