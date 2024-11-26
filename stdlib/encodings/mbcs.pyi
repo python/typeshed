@@ -3,9 +3,7 @@ import sys
 from _typeshed import ReadableBuffer
 
 if sys.platform == "win32":
-    from codecs import mbcs_decode, mbcs_encode
-
-    encode = mbcs_encode
+    encode = codecs.mbcs_encode
 
     def decode(input: ReadableBuffer, errors: str | None = "strict") -> tuple[str, int]: ...
 
@@ -15,9 +13,9 @@ if sys.platform == "win32":
     class IncrementalDecoder(codecs.BufferedIncrementalDecoder): ...
 
     class StreamWriter(codecs.StreamWriter):
-        encode = mbcs_encode
+        encode = codecs.mbcs_encode
 
     class StreamReader(codecs.StreamReader):
-        decode = mbcs_decode
+        decode = codecs.mbcs_decode
 
     def getregentry() -> codecs.CodecInfo: ...
