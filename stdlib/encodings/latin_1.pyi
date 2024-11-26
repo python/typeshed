@@ -4,10 +4,10 @@ from _typeshed import ReadableBuffer
 class Codec(codecs.Codec):
     # At runtime, this is codecs.latin_1_encode
     @staticmethod
-    def encode(str: str, errors: str | None = None, /) -> tuple[bytes, int]: ...  # type: ignore[override]
+    def encode(str: str, errors: str | None = None, /) -> tuple[bytes, int]: ...
     # At runtime, this is codecs.latin_1_decode
     @staticmethod
-    def decode(data: ReadableBuffer, errors: str | None = None, /) -> tuple[str, int]: ...  # type: ignore[override]
+    def decode(data: ReadableBuffer, errors: str | None = None, /) -> tuple[str, int]: ...
 
 class IncrementalEncoder(codecs.IncrementalEncoder):
     def encode(self, input: str, final: bool = False) -> bytes: ...
