@@ -70,3 +70,7 @@ _?socket.SOL_HCI
 _?socket.SOL_IPX
 _?socket.SOL_NETROM
 _?socket.SOL_ROSE
+
+# This is available on Linux, but it's documented as for kernel debugging and
+# not present on GitHub Actions runners.
+termios.TIOCTTYGSTRUCT
