@@ -421,10 +421,10 @@ class BoundArguments:
 # Classes and functions
 #
 
-_ClassTreeItem: TypeAlias = list[_ClassTreeItem] | tuple[type, tuple[type, ...]]
+_ClassTreeItem: TypeAlias = list[_ClassTreeItem] | list[tuple[type, ...]]
 
 def getclasstree(classes: list[type], unique: bool = False) -> _ClassTreeItem: ...
-def walktree(classes: list[type], children: Mapping[type[Any], list[type]], parent: type[Any] | None) -> list[Any]: ...
+def walktree(classes: list[type], children: Mapping[type[Any], list[type]], parent: type[Any] | None) -> _ClassTreeItem: ...
 
 class Arguments(NamedTuple):
     args: list[str]
