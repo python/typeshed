@@ -59,6 +59,7 @@ weakref.WeakValueDictionary.update
 # TODO: Modules that exist at runtime, but are missing from stubs
 # ==========
 encodings.ascii
+encodings.latin_1
 encodings.raw_unicode_escape
 encodings.unicode_escape
 encodings.utf_16_be
