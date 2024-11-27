@@ -4,8 +4,6 @@ ctypes.GetLastError  # Is actually a pointer
 multiprocessing.reduction.AbstractReducer.DupHandle
 
 # Exists at runtime, but missing from stubs
-encodings.mbcs
-encodings.oem
 _winapi.CreateFileMapping
 _winapi.MapViewOfFile
 _winapi.OpenFileMapping
