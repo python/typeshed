@@ -60,8 +60,6 @@ weakref.WeakValueDictionary.update
 # ==========
 encodings.ascii
 encodings.latin_1
-encodings.raw_unicode_escape
-encodings.unicode_escape
 turtledemo
 turtledemo\..+
 xml.sax.expatreader
