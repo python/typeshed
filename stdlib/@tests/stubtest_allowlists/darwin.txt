@@ -32,6 +32,8 @@ select.POLLMSG   # system dependent
 _winapi
 asyncio.windows_events
 asyncio.windows_utils
+encodings.oem
+encodings.mbcs
 msvcrt
 nt
 winreg
