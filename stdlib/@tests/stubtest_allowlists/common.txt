@@ -66,10 +66,8 @@ encodings.latin_1
 encodings.quopri_codec
 encodings.raw_unicode_escape
 encodings.unicode_escape
-encodings.utf_16
 encodings.utf_16_be
 encodings.utf_16_le
-encodings.utf_32
 encodings.utf_32_be
 encodings.utf_32_le
 encodings.utf_7
