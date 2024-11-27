@@ -88,7 +88,6 @@ xml.sax.expatreader
 # ==========
 # TODO: Module members that exist at runtime, but are missing from stubs
 # ==========
-_json.encode_basestring
 _thread.RLock
 _threading_local._localimpl.localargs
 _threading_local._localimpl.locallock
