@@ -168,7 +168,6 @@ wave.Wave_write.initfp
 # ==========
 
 # Platform differences that cannot be captured by the type system
-os.O_[A-Z_]+
 socket.AF_DECnet
 
 # sys attributes that are not always defined
