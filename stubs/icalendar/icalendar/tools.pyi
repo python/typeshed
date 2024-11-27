@@ -1,6 +1,6 @@
 import datetime
 from typing import Final
-from typing_extensions import TypeGuard
+from typing_extensions import TypeGuard, TypeIs
 
 from pytz.tzinfo import BaseTzInfo
 
