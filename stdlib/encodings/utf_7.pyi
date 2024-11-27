@@ -1,7 +1,7 @@
 import codecs
 from _typeshed import ReadableBuffer
 
-encode = codecs.utf_8_encode
+encode = codecs.utf_7_encode
 
 def decode(input: ReadableBuffer, errors: str | None = "strict") -> tuple[str, int]: ...
 
@@ -9,17 +9,17 @@ class IncrementalEncoder(codecs.IncrementalEncoder):
     def encode(self, input: str, final: bool = False) -> bytes: ...
 
 class IncrementalDecoder(codecs.BufferedIncrementalDecoder):
-    # At runtime, this is codecs.utf_8_decode
+    # At runtime, this is codecs.utf_7_decode
     @staticmethod
     def _buffer_decode(data: ReadableBuffer, errors: str | None = None, final: bool = False, /) -> tuple[str, int]: ...
 
 class StreamWriter(codecs.StreamWriter):
-    # At runtime, this is codecs.utf_8_encode
+    # At runtime, this is codecs.utf_7_encode
     @staticmethod
     def encode(str: str, errors: str | None = None, /) -> tuple[bytes, int]: ...
 
 class StreamReader(codecs.StreamReader):
-    # At runtime, this is codecs.utf_8_decode
+    # At runtime, this is codecs.utf_7_decode
     @staticmethod
     def decode(data: ReadableBuffer, errors: str | None = None, final: bool = False, /) -> tuple[str, int]: ...
 
