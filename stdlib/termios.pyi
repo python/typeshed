@@ -198,8 +198,6 @@ if sys.platform != "win32":
         CDTR_IFLOW: int
         CIGNORE: int
         CRTS_IFLOW: int
-        EXTPROC: int
-        IUTF8: int
         MDMBUF: int
         NL2: int
         NL3: int
