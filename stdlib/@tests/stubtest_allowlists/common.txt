@@ -62,11 +62,6 @@ encodings.ascii
 encodings.latin_1
 encodings.raw_unicode_escape
 encodings.unicode_escape
-encodings.utf_16_be
-encodings.utf_16_le
-encodings.utf_32_be
-encodings.utf_32_le
-encodings.utf_7
 turtledemo
 turtledemo\..+
 xml.sax.expatreader
