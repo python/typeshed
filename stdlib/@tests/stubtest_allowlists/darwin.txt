@@ -22,7 +22,6 @@ select.POLLMSG   # system dependent
 # Platform differences that cannot be captured by the type system
 (posix.O_[A-Z_]+)?
 (posix.ST_[A-Z]+)?
-(termios.[A-Z0-9_]+)?
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
