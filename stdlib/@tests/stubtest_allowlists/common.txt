@@ -58,8 +58,6 @@ weakref.WeakValueDictionary.update
 # ==========
 # TODO: Modules that exist at runtime, but are missing from stubs
 # ==========
-encodings.ascii
-encodings.latin_1
 turtledemo
 turtledemo\..+
 xml.sax.expatreader
