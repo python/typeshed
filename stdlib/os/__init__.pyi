@@ -564,16 +564,16 @@ if sys.platform != "win32":
         CLD_KILLED: int
         CLD_STOPPED: int
 
-    SCHED_OTHER: int  # some flavors of Unix
-    SCHED_FIFO: int  # some flavors of Unix
-    SCHED_RR: int  # some flavors of Unix
+    SCHED_OTHER: int
+    SCHED_FIFO: int
+    SCHED_RR: int
     if sys.platform != "darwin" and sys.platform != "linux":
-        SCHED_SPORADIC: int  # some flavors of Unix
+        SCHED_SPORADIC: int
 
 if sys.platform == "linux":
-    SCHED_BATCH: int  # some flavors of Unix
-    SCHED_IDLE: int  # some flavors of Unix
-    SCHED_RESET_ON_FORK: int  # some flavors of Unix
+    SCHED_BATCH: int
+    SCHED_IDLE: int
+    SCHED_RESET_ON_FORK: int
 
 if sys.platform != "win32":
     RTLD_LAZY: int
@@ -598,8 +598,8 @@ SEEK_SET: int
 SEEK_CUR: int
 SEEK_END: int
 if sys.platform != "win32":
-    SEEK_DATA: int  # some flavors of Unix
-    SEEK_HOLE: int  # some flavors of Unix
+    SEEK_DATA: int
+    SEEK_HOLE: int
 
 O_RDONLY: int
 O_WRONLY: int
