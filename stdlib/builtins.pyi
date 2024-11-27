@@ -1967,7 +1967,7 @@ class SyntaxError(Exception):
     lineno: int | None
     offset: int | None
     text: str | None
-    # Runtime displays errors differently if this attribute exists on the exception.
+    # Errors are displayed differently if this attribute exists on the exception.
     # The value is always None.
     print_file_and_line: None
     if sys.version_info >= (3, 10):
