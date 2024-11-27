@@ -24,7 +24,6 @@ winsound
 multiprocessing.popen_spawn_win32
 
 # Platform differences that cannot be captured by the type system
-fcntl.I_[A-Z0-9_]+
 os.SCHED_[A-Z_]+
 posix.SCHED_[A-Z_]+
 ((os|posix).CLONE_[A-Z]+)?  # Python 3.12+
