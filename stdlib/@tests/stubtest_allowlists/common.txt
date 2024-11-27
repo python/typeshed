@@ -58,22 +58,14 @@ weakref.WeakValueDictionary.update
 # ==========
 # TODO: Modules that exist at runtime, but are missing from stubs
 # ==========
-encodings.aliases
 encodings.ascii
 encodings.base64_codec
 encodings.bz2_codec
-encodings.charmap
 encodings.hex_codec
-encodings.idna
 encodings.latin_1
-encodings.punycode
 encodings.quopri_codec
-encodings.rot_13
-encodings.undefined
-encodings.utf_16
 encodings.utf_16_be
 encodings.utf_16_le
-encodings.utf_32
 encodings.utf_32_be
 encodings.utf_32_le
 encodings.utf_7
@@ -86,11 +78,7 @@ xml.sax.expatreader
 # ==========
 # TODO: Module members that exist at runtime, but are missing from stubs
 # ==========
-_json.encode_basestring
 _thread.RLock
-_thread.allocate
-_thread.exit_thread
-_thread.start_new
 _threading_local._localimpl.localargs
 _threading_local._localimpl.locallock
 builtins.SyntaxError.print_file_and_line
