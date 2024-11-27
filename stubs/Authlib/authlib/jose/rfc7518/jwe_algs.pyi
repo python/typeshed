@@ -46,7 +46,7 @@ class AESGCMAlgorithm(JWEAlgorithm):
 
 class ECDHESAlgorithm(JWEAlgorithm):
     EXTRA_HEADERS: Incomplete
-    ALLOWED_KEY_CLS = ECKey
+    ALLOWED_KEY_CLS = Incomplete
     name: str
     description: str
     key_size: Incomplete

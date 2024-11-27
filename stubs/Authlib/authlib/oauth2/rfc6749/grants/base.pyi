@@ -11,7 +11,7 @@ _SERVER_RESPONSE: TypeAlias = tuple[int, str, list[tuple[str, str]]]
 class BaseGrant:
     TOKEN_ENDPOINT_AUTH_METHODS: Collection[str]
     GRANT_TYPE: str | None
-    TOKEN_RESPONSE_HEADER = Collection[tuple[str, str]]  # noqa: Y026
+    TOKEN_RESPONSE_HEADER: Collection[tuple[str, str]]
     prompt: Incomplete
     redirect_uri: Incomplete
     request: OAuth2Request

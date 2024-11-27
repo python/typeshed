@@ -7,7 +7,7 @@ __all__ = ["BaseOAuth"]
 class BaseOAuth:
     oauth1_client_cls: Incomplete
     oauth2_client_cls: Incomplete
-    framework_integration_cls = FrameworkIntegration
+    framework_integration_cls: type[FrameworkIntegration] = ...
     cache: Incomplete
     fetch_token: Incomplete
     update_token: Incomplete

@@ -3,7 +3,7 @@ from _typeshed import Incomplete
 from authlib.oauth1 import ClientAuth
 
 class OAuth1Client:
-    auth_class = ClientAuth
+    auth_class: type[ClientAuth] = ...
     session: Incomplete
     auth: Incomplete
     def __init__(
