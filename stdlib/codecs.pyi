@@ -3,7 +3,7 @@ from _codecs import *
 from _typeshed import ReadableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Generator, Iterable
-from typing import Any, BinaryIO, Final, Literal, Protocol, TextIO
+from typing import Any, BinaryIO, ClassVar, Final, Literal, Protocol, TextIO
 from typing_extensions import Self
 
 __all__ = [
