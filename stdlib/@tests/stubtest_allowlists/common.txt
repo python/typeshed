@@ -72,7 +72,6 @@ bz2.BZ2File.peek
 codecs.StreamReader.charbuffertype
 codecs.StreamReader.seek
 codecs.StreamWriter.seek
-configparser.RawConfigParser.converters
 ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
