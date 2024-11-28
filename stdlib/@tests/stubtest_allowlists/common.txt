@@ -68,9 +68,6 @@ xml.sax.expatreader
 _thread.RLock
 _threading_local._localimpl.localargs
 _threading_local._localimpl.locallock
-codecs.StreamReader.charbuffertype
-codecs.StreamReader.seek
-codecs.StreamWriter.seek
 ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
