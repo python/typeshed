@@ -66,11 +66,6 @@ xml.sax.expatreader
 # TODO: Module members that exist at runtime, but are missing from stubs
 # ==========
 _thread.RLock
-bz2.BZ2File.peek
-codecs.StreamReader.charbuffertype
-codecs.StreamReader.seek
-codecs.StreamWriter.seek
-configparser.RawConfigParser.converters
 ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
