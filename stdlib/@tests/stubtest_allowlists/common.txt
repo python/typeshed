@@ -8,9 +8,6 @@ _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
-_collections_abc.ItemsView.__reversed__
-_collections_abc.KeysView.__reversed__
-_collections_abc.ValuesView.__reversed__
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
 asyncio.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.base_events.BaseEventLoop.subprocess_exec # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
@@ -26,8 +23,6 @@ copy.PyStringMap  # defined only in Jython
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
-ctypes.string_at  # docstring argument name is wrong
-ctypes.wstring_at  # docstring argument name is wrong
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
@@ -38,32 +33,9 @@ http.client.HTTPConnection.response_class  # the actual type at runtime is abc.A
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
-ipaddress._BaseAddress.is_global
-ipaddress._BaseAddress.is_link_local
-ipaddress._BaseAddress.is_loopback
-ipaddress._BaseAddress.is_multicast
-ipaddress._BaseAddress.is_private
-ipaddress._BaseAddress.is_reserved
-ipaddress._BaseAddress.is_unspecified
-ipaddress._BaseAddress.max_prefixlen
-ipaddress._BaseAddress.packed
-ipaddress._BaseNetwork.max_prefixlen
-multiprocessing.JoinableQueue
-multiprocessing.Queue
-multiprocessing.SimpleQueue
-multiprocessing.queues.JoinableQueue.__init__
-multiprocessing.queues.Queue.__init__
-multiprocessing.queues.SimpleQueue.__init__
-multiprocessing.synchronize.Barrier.__init__
-multiprocessing.synchronize.Condition.acquire
-multiprocessing.synchronize.Condition.release
-multiprocessing.synchronize.SemLock.__init__
-multiprocessing.synchronize.SemLock.acquire
-multiprocessing.synchronize.SemLock.release
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 pickle.Pickler.reducer_override  # implemented in C pickler
-pyexpat.expat_CAPI
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
 shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
@@ -71,7 +43,6 @@ socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
 ssl.Purpose.__new__  # the multiple inheritance confuses mypy
-sys.UnraisableHookArgs  # Not exported from sys
 tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
@@ -83,59 +54,10 @@ typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.update
-xml.parsers.expat.expat_CAPI
 
 # ==========
 # TODO: Modules that exist at runtime, but are missing from stubs
 # ==========
-ctypes.macholib
-ctypes.macholib.dyld
-ctypes.macholib.dylib
-ctypes.macholib.framework
-encodings.aliases
-encodings.ascii
-encodings.base64_codec
-encodings.big5
-encodings.big5hkscs
-encodings.bz2_codec
-encodings.charmap
-encodings\.cp\d+
-encodings\.euc_.+
-encodings.gb18030
-encodings.gb2312
-encodings.gbk
-encodings.hex_codec
-encodings.hp_roman8
-encodings.hz
-encodings.idna
-encodings\.iso2022_.*
-encodings\.iso8859_\d+
-encodings.johab
-encodings\.koi8_\w
-encodings.kz1048
-encodings.latin_1
-encodings\.mac_.+
-encodings.palmos
-encodings.ptcp154
-encodings.punycode
-encodings.quopri_codec
-encodings.raw_unicode_escape
-encodings.rot_13
-encodings\.shift_jis.*
-encodings.tis_620
-encodings.undefined
-encodings.unicode_escape
-encodings.utf_16
-encodings.utf_16_be
-encodings.utf_16_le
-encodings.utf_32
-encodings.utf_32_be
-encodings.utf_32_le
-encodings.utf_7
-encodings.uu_codec
-encodings.zlib_codec
-json.scanner
-sqlite3.dump
 turtledemo
 turtledemo\..+
 xml.sax.expatreader
@@ -143,14 +65,9 @@ xml.sax.expatreader
 # ==========
 # TODO: Module members that exist at runtime, but are missing from stubs
 # ==========
-_json.encode_basestring
 _thread.RLock
-_thread.allocate
-_thread.exit_thread
-_thread.start_new
 _threading_local._localimpl.localargs
 _threading_local._localimpl.locallock
-builtins.SyntaxError.print_file_and_line
 bz2.BZ2File.peek
 codecs.StreamReader.charbuffertype
 codecs.StreamReader.seek
@@ -312,6 +229,8 @@ collections.abc.*  # Types are re-exported from _collections_abc, so errors shou
 _?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
 _?ctypes.Array._type_  # _type_ is abstract, https://github.com/python/typeshed/pull/6361
 _?ctypes.Array._length_ # _length_ is abstract, https://github.com/python/typeshed/pull/6361
+_?ctypes.Structure.__getattr__  # doesn't exist, but makes things easy if we pretend it does
+_?ctypes.Union.__getattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # runtime is *args, **kwargs due to a wrapper
 # we have more accurate signatures in the stubs
@@ -382,7 +301,7 @@ codecs.CodecInfo.streamreader
 codecs.CodecInfo.streamwriter
 
 collections.UserList.sort  # Runtime has *args but will error if any are supplied
-contextvars.Context.__init__  # C signature is broader than what is actually accepted
+_?contextvars.Context.__init__  # C signature is broader than what is actually accepted
 
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter
@@ -396,7 +315,7 @@ csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 p
 
 dataclasses.field  # White lies around defaults
 email.policy.EmailPolicy.message_factory  # "type" at runtime, but protocol in stubs
-hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
+_?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
 hmac.HMAC.blocksize  # use block_size instead
 
 # runtime is *args, **kwargs due to a wrapper
@@ -416,6 +335,13 @@ inspect.Signature.__init__
 inspect.Parameter.empty  # set as private marker _empty
 inspect.Signature.empty  # set as private marker _empty
 
+# At runtime, these are functions from multiprocessing.context._default_context.
+# Typeshed makes them classes instead, which matches CPython documentation.
+# This has been heavily discussed, see #4266 for the primary issue about it.
+multiprocessing.JoinableQueue
+multiprocessing.Queue
+multiprocessing.SimpleQueue
+
 # These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
 # But have more precise (accurate) signatures in the stub
 multiprocessing.managers.BaseListProxy.__imul__
@@ -423,12 +349,6 @@ multiprocessing.managers.BaseListProxy.__len__
 multiprocessing.managers.BaseListProxy.__reversed__
 multiprocessing.managers.BaseListProxy.reverse
 multiprocessing.managers.BaseListProxy.sort
-multiprocessing.managers.DictProxy.__iter__
-multiprocessing.managers.DictProxy.__len__
-multiprocessing.managers.DictProxy.copy
-multiprocessing.managers.DictProxy.items
-multiprocessing.managers.DictProxy.keys
-multiprocessing.managers.DictProxy.values
 
 # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
 multiprocessing.managers.SyncManager.Event
@@ -444,8 +364,24 @@ multiprocessing.reduction.AbstractReducer.ForkingPickler
 # Non-private parameter on __del__
 multiprocessing.pool.Pool.__del__
 
+# These are because the ctx argument has a default value in the stubs but not
+# at runtime. This is a compromise between the runtime signatures of (for example)
+# multiprocessing.Queue and multiprocessing.queues.Queue, which typeshed
+# treats as the same object.
+multiprocessing.queues.JoinableQueue.__init__
+multiprocessing.queues.Queue.__init__
+multiprocessing.queues.SimpleQueue.__init__
+
+# These methods are dynamically created after object initialization,
+# copied from a wrapped lock object. Stubtest doesn't think they exist
+# because of that.
+multiprocessing.synchronize.Condition.acquire
+multiprocessing.synchronize.Condition.release
+multiprocessing.synchronize.SemLock.acquire
+multiprocessing.synchronize.SemLock.release
+
 # C signature is broader than what is actually accepted
-queue.SimpleQueue.__init__
+_?queue.SimpleQueue.__init__
 
 # Items that depend on the existence and flags of SSL
 imaplib.IMAP4_SSL.ssl
@@ -468,6 +404,9 @@ typing_extensions\.ParamSpec.*
 typing(_extensions)?\.Generic
 typing\.Protocol
 typing(_extensions)?\._TypedDict
+typing(_extensions)?\.TypedDict
+typing._Final
+typing._Final.__init_subclass__
 
 # Special primitives
 typing_extensions\.Final
@@ -579,6 +518,7 @@ codecs.StreamRecoder.\w+
 urllib.response.addbase.\w+
 
 # __all__-related weirdness (see #6523)
+email.__all__
 email.base64mime
 email.charset
 email.encoders
@@ -592,8 +532,10 @@ email.mime
 email.parser
 email.quoprimime
 email.utils
+xml.__all__
 xml.dom
 xml.etree
+xml.parsers
 xml.sax
 
 # Missing aliases to existing methods that not many people seem to use.
