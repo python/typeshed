@@ -20,8 +20,6 @@ select.POLLMSG   # system dependent
 (_gdbm)?
 
 # Platform differences that cannot be captured by the type system
-(posix.O_[A-Z_]+)?
-(posix.ST_[A-Z]+)?
 (termios.[A-Z0-9_]+)?
 
 # ==========
@@ -41,10 +39,6 @@ winsound
 
 # multiprocessing.popen_spawn_win32 exists on Darwin but fail to import
 multiprocessing.popen_spawn_win32
-
-# Platform differences that cannot be captured by the type system
-os.SCHED_[A-Z_]+
-posix.SCHED_[A-Z_]+
 
 # Some of these exist on non-windows, but they are useless and this is not intended
 stat.FILE_ATTRIBUTE_[A-Z_]+
