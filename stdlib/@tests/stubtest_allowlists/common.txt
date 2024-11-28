@@ -68,7 +68,6 @@ xml.sax.expatreader
 _thread.RLock
 _threading_local._localimpl.localargs
 _threading_local._localimpl.locallock
-bz2.BZ2File.peek
 codecs.StreamReader.charbuffertype
 codecs.StreamReader.seek
 codecs.StreamWriter.seek
