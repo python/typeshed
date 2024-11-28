@@ -20,7 +20,9 @@ from .futures import Future
 from .protocols import BaseProtocol
 from .tasks import Task
 from .transports import BaseTransport, DatagramTransport, ReadTransport, SubprocessTransport, Transport, WriteTransport
-from .unix_events import AbstractChildWatcher
+
+if sys.version_info < (3, 14):
+    from .unix_events import AbstractChildWatcher
 
 if sys.version_info >= (3, 14):
     __all__ = (

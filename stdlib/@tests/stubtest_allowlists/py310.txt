@@ -261,3 +261,18 @@ tkinter.EventType.__new__
 ctypes._endian.DEFAULT_MODE
 ctypes._endian.RTLD_GLOBAL
 ctypes._endian.RTLD_LOCAL
+
+# runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
+ast.Bytes.__new__
+ast.Ellipsis.__new__
+ast.NameConstant.__new__
+ast.Num.__new__
+ast.Str.__new__
+
+# Special primitives
+typing\.ByteString
+
+# Pretend typing.ByteString is a Union, to better match its documented semantics.
+# As a side effect, this changes the definition of collections.abc.ByteString, which is okay,
+# because it's not an ABC that makes any sense and was deprecated in 3.12
+_collections_abc.ByteString

@@ -151,7 +151,7 @@ wave.Wave_write.initfp
 socket.AF_DECnet
 
 # sys attributes that are not always defined
-sys.gettotalrefcount  # Available on python debug builds
+(sys.gettotalrefcount)?  # Available on python debug builds
 sys.last_traceback
 sys.last_type
 sys.last_value
@@ -222,13 +222,6 @@ _frozen_importlib_external.FileLoader.load_module
 _pydecimal.*  # See comments in file
 argparse.ArgumentParser.__init__  # stubtest doesn't recognise the runtime default (a class) as being compatible with a callback protocol (the stub annotation)
 argparse.Namespace.__getattr__  # The whole point of this class is its attributes are dynamic
-
-# runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
-ast.Bytes.__new__
-ast.Ellipsis.__new__
-ast.NameConstant.__new__
-ast.Num.__new__
-ast.Str.__new__
 
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
 asyncio.proactor_events.BaseProactorEventLoop.sock_recv # nbytes parameter has different name 'n' in implementation
@@ -417,7 +410,6 @@ typing(_extensions)?\.Generator
 typing(_extensions)?\.Coroutine
 typing(_extensions)?\.Collection
 typing(_extensions)?\.Container
-typing\.ByteString
 typing(_extensions)?\.Awaitable
 typing(_extensions)?\.AbstractSet
 
@@ -428,11 +420,6 @@ _collections_abc.Callable
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
 typing._SpecialForm.__call__
 typing._SpecialForm.__init__
-
-# Pretend typing.ByteString is a Union, to better match its documented semantics.
-# As a side effect, this changes the definition of collections.abc.ByteString, which is okay,
-# because it's not an ABC that makes any sense and was deprecated in 3.12
-_collections_abc.ByteString
 
 # These are abstract properties at runtime,
 # but marking them as such in the stub breaks half the the typed-Python ecosystem (see #8726)

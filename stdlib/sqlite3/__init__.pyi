@@ -60,7 +60,6 @@ from sqlite3.dbapi2 import (
     sqlite_version as sqlite_version,
     sqlite_version_info as sqlite_version_info,
     threadsafety as threadsafety,
-    version_info as version_info,
 )
 from types import TracebackType
 from typing import Any, Literal, Protocol, SupportsIndex, TypeVar, final, overload, type_check_only
@@ -205,6 +204,9 @@ if sys.version_info >= (3, 11):
         SQLITE_WARNING as SQLITE_WARNING,
         SQLITE_WARNING_AUTOINDEX as SQLITE_WARNING_AUTOINDEX,
     )
+
+if sys.version_info < (3, 14):
+    from sqlite3.dbapi2 import version_info as version_info
 
 if sys.version_info < (3, 12):
     from sqlite3.dbapi2 import enable_shared_cache as enable_shared_cache, version as version
