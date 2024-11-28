@@ -364,7 +364,7 @@ class TPen:
     st = showturtle
     ht = hideturtle
 
-class RawTurtle(TPen, TNavigator):  # type: ignore[misc]
+class RawTurtle(TPen, TNavigator):  # type: ignore[misc]  # Conflicting methods in base classes
     screen: TurtleScreen
     screens: ClassVar[list[TurtleScreen]]
     def __init__(
