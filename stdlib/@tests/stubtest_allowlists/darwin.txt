@@ -19,9 +19,6 @@ select.POLLMSG   # system dependent
 (fcntl.F_SETLEASE)?
 (_gdbm)?
 
-# Platform differences that cannot be captured by the type system
-(termios.[A-Z0-9_]+)?
-
 # ==========
 # Allowlist entries that cannot or should not be fixed
 # ==========
