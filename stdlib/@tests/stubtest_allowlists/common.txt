@@ -68,7 +68,6 @@ xml.sax.expatreader
 _thread.RLock
 _threading_local._localimpl.localargs
 _threading_local._localimpl.locallock
-modulefinder.test
 multiprocessing.managers.Server.accepter
 multiprocessing.managers.Server.create
 multiprocessing.managers.Server.debug_info
@@ -99,7 +98,6 @@ multiprocessing.pool.ThreadPool.Process
 multiprocessing.synchronize.Semaphore.get_value
 tkinter.Misc.config
 tkinter.font.Font.counter
-turtle.TNavigator.speed
 
 
 # ==========
@@ -152,7 +150,6 @@ wave.Wave_write.initfp
 # ==========
 
 # Platform differences that cannot be captured by the type system
-os.O_[A-Z_]+
 socket.AF_DECnet
 
 # sys attributes that are not always defined
