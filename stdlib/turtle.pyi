@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable, Sequence
 from tkinter import Canvas, Frame, Misc, PhotoImage, Scrollbar
-from typing import Any, ClassVar, overload
+from typing import Any, ClassVar, Literal, TypedDict, overload
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -141,8 +141,18 @@ if sys.version_info < (3, 13):
 _Color: TypeAlias = str | tuple[float, float, float]
 _AnyColor: TypeAlias = Any
 
-# TODO: Replace this with a TypedDict once it becomes standardized.
-_PenState: TypeAlias = dict[str, Any]
+class _PenState(TypedDict):
+    shown: bool
+    pendown: bool
+    pencolor: _Color
+    fillcolor: _Color
+    pensize: int
+    speed: int
+    resizemode: Literal["auto", "user", "noresize"]
+    stretchfactor: tuple[float, float]
+    shearfactor: float
+    outline: int
+    tilt: float
 
 _Speed: TypeAlias = str | float
 _PolygonCoords: TypeAlias = Sequence[tuple[float, float]]

@@ -66,10 +66,6 @@ xml.sax.expatreader
 # TODO: Module members that exist at runtime, but are missing from stubs
 # ==========
 _thread.RLock
-ctypes.ARRAY
-ctypes.SetPointerType
-ctypes.c_voidp
-ctypes.util.test
 multiprocessing.managers.Server.accepter
 multiprocessing.managers.Server.create
 multiprocessing.managers.Server.debug_info
@@ -100,12 +96,6 @@ multiprocessing.pool.ThreadPool.Process
 multiprocessing.synchronize.Semaphore.get_value
 tkinter.Misc.config
 
-_ctypes.PyObj_FromPtr
-_ctypes.Py_DECREF
-_ctypes.Py_INCREF
-_ctypes.buffer_info
-_ctypes.call_cdeclfunction
-_ctypes.call_function
 
 # ==========
 # Modules that exist at runtime, but are deliberately missing from stubs
