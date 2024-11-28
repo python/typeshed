@@ -1,2 +1,7 @@
 # TODO: triage these (new in py313)
 posixpath.splitroot
+
+# These seem like they should be available on Linux, but they're not
+# on GitHub Actions runners for some reason.
+os.CLONE_NEWTIME
+posix.CLONE_NEWTIME
