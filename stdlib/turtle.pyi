@@ -283,6 +283,7 @@ class TNavigator:
     def heading(self) -> float: ...
     def setheading(self, to_angle: float) -> None: ...
     def circle(self, radius: float, extent: float | None = None, steps: int | None = None) -> None: ...
+    def speed(self, s: int | None = 0) -> int | None: ...
     fd = forward
     bk = back
     backward = back
@@ -363,7 +364,7 @@ class TPen:
     st = showturtle
     ht = hideturtle
 
-class RawTurtle(TPen, TNavigator):
+class RawTurtle(TPen, TNavigator):  # type: ignore[misc]
     screen: TurtleScreen
     screens: ClassVar[list[TurtleScreen]]
     def __init__(
