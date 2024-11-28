@@ -69,7 +69,6 @@ _thread.RLock
 _threading_local._localimpl.localargs
 _threading_local._localimpl.locallock
 bz2.BZ2File.peek
-configparser.RawConfigParser.converters
 ctypes.ARRAY
 ctypes.SetPointerType
 ctypes.c_voidp
