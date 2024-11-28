@@ -66,34 +66,6 @@ xml.sax.expatreader
 # TODO: Module members that exist at runtime, but are missing from stubs
 # ==========
 _thread.RLock
-multiprocessing.managers.Server.accepter
-multiprocessing.managers.Server.create
-multiprocessing.managers.Server.debug_info
-multiprocessing.managers.Server.decref
-multiprocessing.managers.Server.dummy
-multiprocessing.managers.Server.fallback_getvalue
-multiprocessing.managers.Server.fallback_mapping
-multiprocessing.managers.Server.fallback_repr
-multiprocessing.managers.Server.fallback_str
-multiprocessing.managers.Server.get_methods
-multiprocessing.managers.Server.handle_request
-multiprocessing.managers.Server.incref
-multiprocessing.managers.Server.number_of_objects
-multiprocessing.managers.Server.public
-multiprocessing.managers.Server.serve_client
-multiprocessing.managers.Server.shutdown
-multiprocessing.managers.SharedMemoryServer.create
-multiprocessing.managers.SharedMemoryServer.list_segments
-multiprocessing.managers.SharedMemoryServer.public
-multiprocessing.managers.SharedMemoryServer.release_segment
-multiprocessing.managers.SharedMemoryServer.shutdown
-multiprocessing.managers.SharedMemoryServer.track_segment
-multiprocessing.managers.SyncManager.Barrier
-multiprocessing.managers.SyncManager.JoinableQueue
-multiprocessing.managers.SyncManager.Pool
-multiprocessing.pool.Pool.Process
-multiprocessing.pool.ThreadPool.Process
-multiprocessing.synchronize.Semaphore.get_value
 tkinter.Misc.config
 tkinter.font.Font.counter
 
