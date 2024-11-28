@@ -41,7 +41,7 @@ class _MetricsDict(TypedDict):
 class Font:
     name: str
     delete_font: bool
-    counter: ClassVar[itertools.count[int]]  # undocumented
+    counter: ClassVar[itertools.count[int]] = ...  # undocumented
     def __init__(
         self,
         # In tkinter, 'root' refers to tkinter.Tk by convention, but the code
