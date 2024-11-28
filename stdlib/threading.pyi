@@ -4,7 +4,7 @@ from _thread import _excepthook, _ExceptHookArgs, get_native_id as get_native_id
 from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
 from types import TracebackType
-from typing import Any, TypeVar
+from typing import Any, TypeVar, final
 
 _T = TypeVar("_T")
 
@@ -103,11 +103,19 @@ class _DummyThread(Thread):
 # This is actually the function _thread.allocate_lock for <= 3.12
 Lock = _thread.LockType
 
-# Actually a function at runtime.
-RLock = _thread.RLock
+# Python implementation of RLock.
+@final
+class _RLock:
+    _count: int
+    def acquire(self, blocking: bool = True, timeout: float = -1) -> bool: ...
+    def release(self) -> None: ...
+    __enter__ = acquire
+    def __exit__(self, t: type[BaseException] | None, v: BaseException | None, tb: TracebackType | None) -> None: ...
+
+RLock = _thread.RLock  # Actually a function at runtime.
 
 class Condition:
-    def __init__(self, lock: Lock | RLock | None = None) -> None: ...
+    def __init__(self, lock: Lock | _RLock | RLock | None = None) -> None: ...
     def __enter__(self) -> bool: ...
     def __exit__(
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
