@@ -101,8 +101,6 @@ multiprocessing.managers.SyncManager.Pool
 multiprocessing.pool.Pool.Process
 multiprocessing.pool.ThreadPool.Process
 multiprocessing.synchronize.Semaphore.get_value
-tkinter.Misc.config
-tkinter.font.Font.counter
 turtle.TNavigator.speed
 
 _ctypes.PyObj_FromPtr

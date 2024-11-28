@@ -1,4 +1,5 @@
 import _tkinter
+import itertools
 import sys
 import tkinter
 from typing import Any, Final, Literal, TypedDict, overload
@@ -40,6 +41,7 @@ class _MetricsDict(TypedDict):
 class Font:
     name: str
     delete_font: bool
+    counter: itertools.count[int]
     def __init__(
         self,
         # In tkinter, 'root' refers to tkinter.Tk by convention, but the code
