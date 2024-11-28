@@ -26,7 +26,7 @@ from _ctypes import (
 )
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
 from typing import Any, ClassVar, Generic, TypeVar
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.platform == "win32":
     from _ctypes import FormatError as FormatError, get_last_error as get_last_error, set_last_error as set_last_error
@@ -123,9 +123,10 @@ def create_string_buffer(init: int | bytes, size: int | None = None) -> Array[c_
 c_buffer = create_string_buffer
 
 def create_unicode_buffer(init: int | str, size: int | None = None) -> Array[c_wchar]: ...
+@deprecated("Deprecated in Python 3.13; removal scheduled for Python 3.15")
 def SetPointerType(
-    pointer: type[_Pointer[Any]], cls: Any  # noqa: F811
-) -> None: ...  # Deprecated  # F811 Redefinition of unused `pointer` from line 22
+    pointer: type[_Pointer[Any]], cls: Any  # noqa: F811  # Redefinition of unused `pointer` from line 22
+) -> None: ...
 def ARRAY(typ: _CT, len: int) -> Array[_CT]: ...  # Soft Deprecated, no plans to remove
 
 if sys.platform == "win32":
