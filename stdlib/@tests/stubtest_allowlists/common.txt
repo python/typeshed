@@ -66,8 +66,6 @@ xml.sax.expatreader
 # TODO: Module members that exist at runtime, but are missing from stubs
 # ==========
 _thread.RLock
-_threading_local._localimpl.localargs
-_threading_local._localimpl.locallock
 multiprocessing.managers.Server.accepter
 multiprocessing.managers.Server.create
 multiprocessing.managers.Server.debug_info
