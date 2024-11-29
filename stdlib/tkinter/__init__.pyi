@@ -627,7 +627,8 @@ class Misc:
     def __getitem__(self, key: str) -> Any: ...
     def cget(self, key: str) -> Any: ...
     def configure(self, cnf: Any = None) -> Any: ...
-    # TODO: config is an alias of configure, but adding that here creates lots of mypy errors
+    # TODO: config is an alias of configure, but adding that here creates
+    # conflict with the type of config in the subclasses. See #13149
 
 class CallWrapper:
     func: Incomplete
