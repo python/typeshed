@@ -11,14 +11,14 @@ class _Credentials(Protocol):
 
 LOGGER: Logger
 
-class PlainCredentials(_Credentials):
+class PlainCredentials:
     TYPE: ClassVar[str]
     erase_on_connect: bool
     username: str
     password: str
     def __init__(self, username: str, password: str, erase_on_connect: bool = False) -> None: ...
 
-class ExternalCredentials(_Credentials):
+class ExternalCredentials:
     TYPE: ClassVar[str]
     erase_on_connect: bool
     def __init__(self) -> None: ...
