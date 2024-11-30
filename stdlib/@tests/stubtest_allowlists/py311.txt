@@ -79,13 +79,6 @@ _collections_abc.MappingView.__class_getitem__
 importlib.metadata._meta.SimplePath.__truediv__  # Runtime definition of protocol is incorrect
 
 
-# ===========
-# 3.9 to 3.12
-# ===========
-
-tkinter.tix.[A-Z_]+
-
-
 # =======
 # <= 3.11
 # =======
@@ -116,6 +109,7 @@ lib2to3.pytree.BasePattern.__new__
 lib2to3.pytree.BasePattern.type
 lib2to3.pytree.NegatedPattern.match
 lib2to3.pytree.NegatedPattern.match_seq
+tkinter.tix.[A-Z_]+
 tkinter.tix.CObjView
 tkinter.tix.DialogShell
 tkinter.tix.ExFileSelectDialog
