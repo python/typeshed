@@ -13,12 +13,12 @@ class _Credentials(Protocol):
 
 LOGGER: Logger
 
-class PlainCredentials(_Credentials, Protocol):
+class PlainCredentials(_Credentials):
     username: str
     password: str
     def __init__(self, username: str, password: str, erase_on_connect: bool = False) -> None: ...
 
-class ExternalCredentials(_Credentials, Protocol):
+class ExternalCredentials(_Credentials):
     def __init__(self) -> None: ...
 
 VALID_TYPES: list[_Credentials]
