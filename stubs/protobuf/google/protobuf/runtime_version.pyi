@@ -1,20 +1,20 @@
 from enum import Enum
-from typing import Final, Literal
+from typing import Final
 
 class Domain(Enum):
     GOOGLE_INTERNAL = 1
     PUBLIC = 2
 
-OSS_DOMAIN: Final[Literal[Domain.PUBLIC]]
-OSS_MAJOR: Final = 5
-OSS_MINOR: Final = 28
-OSS_PATCH: Final = 3
-OSS_SUFFIX: Final = ""
-DOMAIN: Final[Literal[Domain.PUBLIC]]
-MAJOR: Final = OSS_MAJOR
-MINOR: Final = OSS_MINOR
-PATCH: Final = OSS_PATCH
-SUFFIX: Final = OSS_SUFFIX
+OSS_DOMAIN: Final[Domain]
+OSS_MAJOR: Final[int]
+OSS_MINOR: Final[int]
+OSS_PATCH: Final[int]
+OSS_SUFFIX: Final[str]
+DOMAIN: Final[Domain]
+MAJOR: Final[int]
+MINOR: Final[int]
+PATCH: Final[int]
+SUFFIX: Final[str]
 
 class VersionError(Exception): ...
 
