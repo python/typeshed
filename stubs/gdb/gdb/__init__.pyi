@@ -671,21 +671,131 @@ class LineTable:
 # Breakpoints
 
 class Breakpoint:
-    @overload
-    def __init__(
-        self, spec: str, type: int = ..., wp_class: int = ..., internal: bool = ..., temporary: bool = ..., qualified: bool = ...
-    ) -> None: ...
+
+    # The where="spec" form of __init__().  See py-breakpoints.c:bppy_init():keywords for the positional order.
     @overload
     def __init__(
         self,
-        source: str = ...,
-        function: str = ...,
-        label: str = ...,
-        line: int = ...,
+        # where
+        spec: str,
+        # options
+        type: int = ...,
+        wp_class: int = ...,
         internal: bool = ...,
         temporary: bool = ...,
         qualified: bool = ...,
     ) -> None: ...
+
+    # The where="location" form of __init__().  A watchpoint (`type=BP_WATCHPOINT`) cannot be created with this form.
+    #
+    # We exclude the `wp_class` (watchpoint class) option here, even though py-breakpoints.c accepts it.  It doesn't make sense
+    # unless type==BP_WATCHPOINT, and is silently ignored in those cases; allowing it in those cases is likely an oversight, not
+    # an intentional allowance.
+    #
+    # We repeat this 7 times because the type system doesn't have simple a way for us to say "at least one of `function`, `label`,
+    # or `line`", so we must repeat it for each combination of the 3.
+    #
+    # The len=3 combination.
+    @overload
+    def __init__(
+        self,
+        *,
+        # where
+        source: str = ...,
+        function: str,
+        label: str,
+        line: int | str,
+        # options
+        type: int = ...,
+        internal: bool = ...,
+        temporary: bool = ...,
+        qualified: bool = ...,
+    ) -> None: ...
+    # The 3 len=2 combinations.
+    @overload
+    def __init__(
+        self,
+        *,
+        source: str = ...,
+        # where
+        label: str,
+        line: int | str,
+        # options
+        type: int = ...,
+        internal: bool = ...,
+        temporary: bool = ...,
+        qualified: bool = ...,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        *,
+        source: str = ...,
+        # where
+        function: str,
+        line: int | str,
+        # options
+        type: int = ...,
+        internal: bool = ...,
+        temporary: bool = ...,
+        qualified: bool = ...,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        *,
+        source: str = ...,
+        # where
+        function: str,
+        label: str,
+        # options
+        type: int = ...,
+        internal: bool = ...,
+        temporary: bool = ...,
+        qualified: bool = ...,
+    ) -> None: ...
+    # The 3 len=1 combinations.
+    @overload
+    def __init__(
+        self,
+        *,
+        source: str = ...,
+        # where
+        function: str,
+        # options
+        type: int = ...,
+        internal: bool = ...,
+        temporary: bool = ...,
+        qualified: bool = ...,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        *,
+        source: str = ...,
+        # where
+        label: str,
+        # options
+        type: int = ...,
+        internal: bool = ...,
+        temporary: bool = ...,
+        qualified: bool = ...,
+    ) -> None: ...
+    @overload
+    def __init__(
+        self,
+        *,
+        source: str = ...,
+        # where
+        line: int | str,
+        # options
+        type: int = ...,
+        internal: bool = ...,
+        temporary: bool = ...,
+        qualified: bool = ...,
+    ) -> None: ...
+
+    # Methods.
     def stop(self) -> bool: ...
     def is_valid(self) -> bool: ...
     def delete(self) -> None: ...
