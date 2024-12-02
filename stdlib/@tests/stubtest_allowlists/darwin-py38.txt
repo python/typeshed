@@ -1,12 +1,26 @@
-# Doesn't exist on macos:
-spwd
-_msi
-msilib(.[a-z]+)?
-ossaudiodev
+# ======
+# <= 3.9
+# ======
 
 # Added in Python 3.8.14
 sys.set_int_max_str_digits
 sys.get_int_max_str_digits
 
+
+# =======
+# <= 3.10
+# =======
+
 # Added in Python 3.8.17
 tarfile.TarInfo.replace
+
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; <= 3.12
+# =============================================================
+
+# Doesn't exist on macos:
+_msi
+msilib(.[a-z]+)?
+ossaudiodev
+spwd
