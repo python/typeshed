@@ -664,7 +664,7 @@ class YView:
 
 if sys.platform == "darwin":
     @type_check_only
-    class _WMAttributes(TypedDict):
+    class _WmAttributes(TypedDict):
         alpha: float
         fullscreen: int
         modified: int
@@ -676,7 +676,7 @@ if sys.platform == "darwin":
 
 else:
     @type_check_only
-    class _WMAttributes(TypedDict):
+    class _WmAttributes(TypedDict):
         alpha: float
         fullscreen: int
         topmost: int
@@ -694,7 +694,7 @@ class Wm:
         @overload
         def wm_attributes(self, *, return_python_dict: Literal[False] = False) -> tuple[Any, ...]: ...
         @overload
-        def wm_attributes(self, *, return_python_dict: Literal[True]) -> _WMAttributes: ...
+        def wm_attributes(self, *, return_python_dict: Literal[True]) -> _WmAttributes: ...
 
     else:
         @overload
