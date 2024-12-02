@@ -662,6 +662,26 @@ class YView:
     @overload
     def yview_scroll(self, number: _ScreenUnits, what: Literal["pixels"]) -> None: ...
 
+if sys.platform == "darwin":
+    @type_check_only
+    class _WMAttributes(TypedDict):
+        alpha: float
+        fullscreen: int
+        modified: int
+        notify: int
+        titlepath: str
+        topmost: int
+        transparent: int
+        type: str
+
+else:
+    @type_check_only
+    class _WMAttributes(TypedDict):
+        alpha: float
+        fullscreen: int
+        topmost: int
+        type: str
+
 class Wm:
     @overload
     def wm_aspect(self, minNumer: int, minDenom: int, maxNumer: int, maxDenom: int) -> None: ...
@@ -674,7 +694,7 @@ class Wm:
         @overload
         def wm_attributes(self, *, return_python_dict: Literal[False] = False) -> tuple[Any, ...]: ...
         @overload
-        def wm_attributes(self, *, return_python_dict: Literal[True]) -> dict[str, Any]: ...
+        def wm_attributes(self, *, return_python_dict: Literal[True]) -> _WMAttributes: ...
 
     else:
         @overload
@@ -685,8 +705,25 @@ class Wm:
     @overload
     def wm_attributes(self, option: str, value, /, *__other_option_value_pairs: Any) -> None: ...
     if sys.version_info >= (3, 13):
-        @overload
-        def wm_attributes(self, **kwargs: Any) -> None: ...
+        if sys.platform == "darwin":
+            @overload
+            def wm_attributes(
+                self,
+                *,
+                alpha: float = ...,
+                fullscreen: int = ...,
+                modified: int = ...,
+                notify: int = ...,
+                titlepath: str = ...,
+                topmost: int = ...,
+                transparent: int = ...,
+                type: str = ...,
+            ) -> None: ...
+        else:
+            @overload
+            def wm_attributes(
+                self, *, alpha: float = ..., fullscreen: int = ..., topmost: int = ..., type: str = ...
+            ) -> None: ...
 
     attributes = wm_attributes
     def wm_client(self, name: str | None = None) -> str: ...
