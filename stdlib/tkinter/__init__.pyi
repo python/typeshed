@@ -666,20 +666,20 @@ if sys.platform == "darwin":
     @type_check_only
     class _WmAttributes(TypedDict):
         alpha: float
-        fullscreen: int
-        modified: int
-        notify: int
+        fullscreen: bool
+        modified: bool
+        notify: bool
         titlepath: str
-        topmost: int
-        transparent: int
+        topmost: bool
+        transparent: bool
         type: str
 
 else:
     @type_check_only
     class _WmAttributes(TypedDict):
         alpha: float
-        fullscreen: int
-        topmost: int
+        fullscreen: bool
+        topmost: bool
         type: str
 
 class Wm:
@@ -711,18 +711,18 @@ class Wm:
                 self,
                 *,
                 alpha: float = ...,
-                fullscreen: int = ...,
-                modified: int = ...,
-                notify: int = ...,
+                fullscreen: bool = ...,
+                modified: bool = ...,
+                notify: bool = ...,
                 titlepath: str = ...,
-                topmost: int = ...,
-                transparent: int = ...,
+                topmost: bool = ...,
+                transparent: bool = ...,
                 type: str = ...,
             ) -> None: ...
         else:
             @overload
             def wm_attributes(
-                self, *, alpha: float = ..., fullscreen: int = ..., topmost: int = ..., type: str = ...
+                self, *, alpha: float = ..., fullscreen: bool = ..., topmost: bool = ..., type: str = ...
             ) -> None: ...
 
     attributes = wm_attributes
