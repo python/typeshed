@@ -26,7 +26,7 @@ from _ctypes import (
 )
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
 from typing import Any, ClassVar, Generic, TypeVar
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.platform == "win32":
     from _ctypes import FormatError as FormatError, get_last_error as get_last_error, set_last_error as set_last_error
@@ -39,6 +39,7 @@ if sys.version_info >= (3, 9):
 
 _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)
+_CT = TypeVar("_CT", bound=_CData)
 
 DEFAULT_MODE: int
 
@@ -122,6 +123,11 @@ def create_string_buffer(init: int | bytes, size: int | None = None) -> Array[c_
 c_buffer = create_string_buffer
 
 def create_unicode_buffer(init: int | str, size: int | None = None) -> Array[c_wchar]: ...
+@deprecated("Deprecated in Python 3.13; removal scheduled for Python 3.15")
+def SetPointerType(
+    pointer: type[_Pointer[Any]], cls: Any  # noqa: F811  # Redefinition of unused `pointer` from line 22
+) -> None: ...
+def ARRAY(typ: _CT, len: int) -> Array[_CT]: ...  # Soft Deprecated, no plans to remove
 
 if sys.platform == "win32":
     def DllCanUnloadNow() -> int: ...
@@ -130,12 +136,12 @@ if sys.platform == "win32":
 
 def memmove(dst: _CVoidPLike, src: _CVoidConstPLike, count: int) -> int: ...
 def memset(dst: _CVoidPLike, c: int, count: int) -> int: ...
-def string_at(address: _CVoidConstPLike, size: int = -1) -> bytes: ...
+def string_at(ptr: _CVoidConstPLike, size: int = -1) -> bytes: ...
 
 if sys.platform == "win32":
     def WinError(code: int | None = None, descr: str | None = None) -> OSError: ...
 
-def wstring_at(address: _CVoidConstPLike, size: int = -1) -> str: ...
+def wstring_at(ptr: _CVoidConstPLike, size: int = -1) -> str: ...
 
 class c_byte(_SimpleCData[int]): ...
 
@@ -165,6 +171,8 @@ class c_ushort(_SimpleCData[int]): ...
 class c_void_p(_PointerLike, _SimpleCData[int | None]):
     @classmethod
     def from_param(cls, value: Any, /) -> Self | _CArgObject: ...
+
+c_voidp = c_void_p  # backwards compatibility (to a bug)
 
 class c_wchar(_SimpleCData[str]): ...
 

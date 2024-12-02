@@ -2,13 +2,8 @@
 # TODO: Review the following
 # ==========
 
-_posixsubprocess.cloexec_pipe
 curses.has_key
 selectors.KqueueSelector
-
-_ctypes.dlclose
-_ctypes.dlopen
-_ctypes.dlsym
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
@@ -18,6 +13,8 @@ _ctypes.dlsym
 _winapi
 asyncio.windows_events
 asyncio.windows_utils
+encodings.oem
+encodings.mbcs
 msvcrt
 nt
 winreg
@@ -28,12 +25,6 @@ multiprocessing.popen_spawn_win32
 
 # Platform differences that cannot be captured by the type system
 fcntl.I_[A-Z0-9_]+
-os.SCHED_[A-Z_]+
-posix.SCHED_[A-Z_]+
-((os|posix).CLONE_[A-Z]+)?  # Python 3.12+
-(posix.O_[A-Z_]+)?
-(posix.ST_[A-Z]+)?
-(termios.[A-Z0-9_]+)?
 
 # Some of these exist on non-windows, but they are useless and this is not intended
 stat.FILE_ATTRIBUTE_[A-Z_]+
@@ -74,3 +65,7 @@ _?socket.SOL_HCI
 _?socket.SOL_IPX
 _?socket.SOL_NETROM
 _?socket.SOL_ROSE
+
+# This is available on Linux, but it's documented as for kernel debugging and
+# not present on GitHub Actions runners.
+termios.TIOCTTYGSTRUCT

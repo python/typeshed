@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
 from socket import error as error, gaierror as gaierror, herror as herror, timeout as timeout
 from typing import Any, SupportsIndex, overload
-from typing_extensions import TypeAlias
+from typing_extensions import CapsuleType, TypeAlias
 
 _CMSG: TypeAlias = tuple[int, int, bytes]
 _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]
@@ -842,4 +842,4 @@ def if_nameindex() -> list[tuple[int, str]]: ...
 def if_nametoindex(oname: str, /) -> int: ...
 def if_indextoname(index: int, /) -> str: ...
 
-CAPI: object
+CAPI: CapsuleType
