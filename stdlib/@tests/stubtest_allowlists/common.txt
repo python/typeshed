@@ -528,8 +528,6 @@ typing(_extensions)?\.Reversible
 typing(_extensions)?\.Sequence
 typing(_extensions)?\.Sized
 typing(_extensions)?\.ValuesView
-typing_extensions\.Awaitable
-typing_extensions\.Coroutine
 typing_extensions\.Final
 typing_extensions\.LiteralString
 typing_extensions\.NamedTuple
