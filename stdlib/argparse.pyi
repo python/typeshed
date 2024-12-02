@@ -184,7 +184,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
         *,
         title: str = ...,
         description: str | None = ...,
-        prog: str = ...,
+        prog: str | None = None,
         action: type[Action] = ...,
         option_string: str = ...,
         dest: str | None = ...,
