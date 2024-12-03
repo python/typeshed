@@ -157,9 +157,6 @@ wave.Wave_write.initfp
 (sqlite3(.dbapi2)?.Connection.enable_load_extension)?
 (sqlite3(.dbapi2)?.Connection.load_extension)?
 
-# Platform differences that cannot be captured by the type system
-socket.AF_DECnet
-
 # sys attributes that are not always defined
 sys.gettotalrefcount  # Available on python debug builds
 sys.last_traceback
