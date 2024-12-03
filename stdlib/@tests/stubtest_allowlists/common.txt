@@ -600,26 +600,3 @@ xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signatu
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
-
-# Added or modified in a patch release, backported to all security branches,
-# but have yet to find their way to all GitHub Actions images
-(tarfile.tar_filter)?
-(tarfile.fully_trusted_filter)?
-(tarfile.data_filter)?
-(tarfile.TarFile.extractall)?
-(tarfile.TarFile.extract)?
-(tarfile.SpecialFileError)?
-(tarfile.OutsideDestinationError)?
-(tarfile.LinkOutsideDestinationError)?
-(tarfile.FilterError)?
-(tarfile.AbsolutePathError)?
-(tarfile.AbsoluteLinkError)?
-(shutil.unpack_archive)?
-(pyexpat.XMLParserType.GetReparseDeferralEnabled)?
-(pyexpat.XMLParserType.SetReparseDeferralEnabled)?
-(xml.etree.ElementTree.XMLParser.flush)?
-(xml.etree.ElementTree.XMLPullParser.flush)?
-(xml.etree.cElementTree.XMLParser.flush)?
-(xml.etree.cElementTree.XMLPullParser.flush)?
-(xml.parsers.expat.XMLParserType.GetReparseDeferralEnabled)?
-(xml.parsers.expat.XMLParserType.SetReparseDeferralEnabled)?

@@ -15,8 +15,32 @@ email.utils.parseaddr
 # <= 3.10
 # =======
 
-# Added in Python 3.10.12
+# Incompatible changes introduced in Python 3.10.12
+# (Remove once 3.10.12 becomes available for GitHub Actions)
+shutil.unpack_archive
+tarfile.AbsoluteLinkError
+tarfile.AbsolutePathError
+tarfile.FilterError
+tarfile.LinkOutsideDestinationError
+tarfile.OutsideDestinationError
+tarfile.SpecialFileError
+tarfile.TarFile.extract
+tarfile.TarFile.extractall
 tarfile.TarInfo.replace
+tarfile.data_filter
+tarfile.fully_trusted_filter
+tarfile.tar_filter
+
+# Incompatible changes introduced in Python 3.9.14
+# (Remove once 3.9.14 becomes available for GitHub Actions)
+pyexpat.XMLParserType.GetReparseDeferralEnabled
+pyexpat.XMLParserType.SetReparseDeferralEnabled
+xml.etree.ElementTree.XMLParser.flush
+xml.etree.ElementTree.XMLPullParser.flush
+xml.etree.cElementTree.XMLParser.flush
+xml.etree.cElementTree.XMLPullParser.flush
+xml.parsers.expat.XMLParserType.GetReparseDeferralEnabled
+xml.parsers.expat.XMLParserType.SetReparseDeferralEnabled
 
 
 # =============================================================
