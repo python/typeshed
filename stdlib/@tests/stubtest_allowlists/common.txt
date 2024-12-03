@@ -159,12 +159,12 @@ wave.Wave_write.initfp
 
 # sys attributes that are not always defined
 sys.gettotalrefcount  # Available on python debug builds
-sys.last_traceback
-sys.last_type
-sys.last_value
-sys.ps1
-sys.ps2
-sys.tracebacklimit
+sys.last_traceback  # Available after an unhandled error has occured
+sys.last_type  # Available after an unhandled error has occured
+sys.last_value  # Available after an unhandled error has occured
+sys.ps1  # Available in interactive mode
+sys.ps2  # Available in interactive mode
+sys.tracebacklimit  # Must be set first
 
 
 # ==========
