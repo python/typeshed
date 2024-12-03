@@ -2,19 +2,19 @@ curses.has_key
 (os|posix).sched_param  # system dependent. Unclear if macos has it.
 
 # Sometimes these seem to exist on darwin, sometimes not
-(_curses.A_ITALIC)?
-(curses.A_ITALIC)?
-(_socket.MSG_NOSIGNAL)?
-(socket.MsgFlag.MSG_NOSIGNAL)?
-(socket.MSG_NOSIGNAL)?
-(os.preadv)?
-(os.pwritev)?
-(posix.preadv)?
-(posix.pwritev)?
-(readline.append_history_file)?
-(fcntl.F_GETLEASE)?
-(fcntl.F_SETLEASE)?
-(_gdbm)?
+# (_curses.A_ITALIC)?
+# (curses.A_ITALIC)?
+# (_socket.MSG_NOSIGNAL)?
+# (socket.MsgFlag.MSG_NOSIGNAL)?
+# (socket.MSG_NOSIGNAL)?
+# (os.preadv)?
+# (os.pwritev)?
+# (posix.preadv)?
+# (posix.pwritev)?
+# (readline.append_history_file)?
+# (fcntl.F_GETLEASE)?
+# (fcntl.F_SETLEASE)?
+# (_gdbm)?
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
