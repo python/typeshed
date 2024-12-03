@@ -228,10 +228,10 @@ ast.NameConstant.__new__  # runtime is *args, **kwargs due to a wrapper, but we 
 ast.Num.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
 ast.Str.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
-asyncio.proactor_events.BaseProactorEventLoop.sock_recv  # nbytes parameter has different name 'n' in implementation
-asyncio.selector_events.BaseSelectorEventLoop.sock_recv  # nbytes parameter has different name 'n' in implementation
 _?asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
+asyncio.proactor_events.BaseProactorEventLoop.sock_recv  # nbytes parameter has different name 'n' in implementation
+asyncio.selector_events.BaseSelectorEventLoop.sock_recv  # nbytes parameter has different name 'n' in implementation
 
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
@@ -276,8 +276,8 @@ codecs.CodecInfo.streamwriter
 codecs.StreamReaderWriter.\w+
 codecs.StreamRecoder.\w+
 
-collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 collections.UserList.sort  # Runtime has *args but will error if any are supplied
+collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 _?contextvars.Context.__init__  # C signature is broader than what is actually accepted
 
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
@@ -375,12 +375,6 @@ multiprocessing.managers.SyncManager.Namespace
 multiprocessing.managers.SyncManager.RLock
 
 multiprocessing.(dummy|managers).Namespace.__[gs]etattr__  # Any field can be set on Namespace
-
-# alias for a class defined elsewhere,
-# mypy infers the variable has type `(*args) -> ForkingPickler`
-# but stubtest infers the runtime type as <class ForkingPickler>
-multiprocessing.reduction.AbstractReducer.ForkingPickler
-
 multiprocessing.pool.Pool.__del__  # Non-private parameter on __del__
 
 # These are because the ctx argument has a default value in the stubs but not
@@ -390,6 +384,11 @@ multiprocessing.pool.Pool.__del__  # Non-private parameter on __del__
 multiprocessing.queues.JoinableQueue.__init__
 multiprocessing.queues.Queue.__init__
 multiprocessing.queues.SimpleQueue.__init__
+
+# alias for a class defined elsewhere,
+# mypy infers the variable has type `(*args) -> ForkingPickler`
+# but stubtest infers the runtime type as <class ForkingPickler>
+multiprocessing.reduction.AbstractReducer.ForkingPickler
 
 # These methods are dynamically created after object initialization,
 # copied from a wrapped lock object. Stubtest doesn't think they exist
@@ -477,11 +476,11 @@ tkinter.Tk.unsetvar
 tkinter.Tk.wantobjects
 tkinter.Tk.willdispatch
 
-tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
 tkinter.Misc.grid_propagate  # The noarg placeholder is a set value list
 tkinter.Misc.pack_propagate  # The noarg placeholder is a set value list
 tkinter.Tk.report_callback_exception  # A bit of a lie, since it's actually a method, but typing it as an attribute allows it to be assigned to
 tkinter.Wm.wm_iconphoto  # Default value of argument can't be used without runtime error
+tkinter.font.Font.__getitem__  # Argument name differs (doesn't matter for __dunder__ methods)
 traceback.TracebackException.from_exception  # explicitly expanding arguments going into TracebackException __init__
 turtle.ScrolledCanvas.find_all  # Dynamically created, has unnecessary *args
 turtle.ScrolledCanvas.select_clear  # Dynamically created, has unnecessary *args
@@ -567,9 +566,9 @@ urllib.response.addbase.\w+
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
 uuid.bytes_  # Attributes that are intended to be private
 uuid.int_  # Attributes that are intended to be private
+_?weakref\.CallableProxyType\.__getattr__  # Should have all attributes of proxy
 _?weakref\.(ref|ReferenceType)\.__init__  # C implementation has incorrect signature
 _?weakref\.(ref|ReferenceType)\.__call__  # C function default annotation is wrong
-_?weakref\.CallableProxyType\.__getattr__  # Should have all attributes of proxy
 _?weakref\.ProxyType\.__bytes__  # Doesn't actually exist
 _?weakref\.ProxyType\.__getattr__  # Should have all attributes of proxy
 weakref.WeakValueDictionary.setdefault  # has a default value for the "default" argument, but always errors out if no value is supplied for the parameter by the user
