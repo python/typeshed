@@ -1046,7 +1046,6 @@ class AddressFamily(IntEnum):
     AF_INET = 2
     AF_INET6 = 10
     AF_APPLETALK = 5
-    AF_DECnet = 12
     AF_IPX = 4
     AF_SNA = 22
     AF_UNSPEC = 0
@@ -1096,7 +1095,7 @@ class AddressFamily(IntEnum):
 AF_INET = AddressFamily.AF_INET
 AF_INET6 = AddressFamily.AF_INET6
 AF_APPLETALK = AddressFamily.AF_APPLETALK
-AF_DECnet = AddressFamily.AF_DECnet
+AF_DECnet: Literal[12]
 AF_IPX = AddressFamily.AF_IPX
 AF_SNA = AddressFamily.AF_SNA
 AF_UNSPEC = AddressFamily.AF_UNSPEC
