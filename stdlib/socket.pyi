@@ -1046,7 +1046,7 @@ class AddressFamily(IntEnum):
     AF_INET = 2
     AF_INET6 = 10
     AF_APPLETALK = 5
-    AF_DECnet = ...
+    AF_DECnet = 12
     AF_IPX = 4
     AF_SNA = 22
     AF_UNSPEC = 0

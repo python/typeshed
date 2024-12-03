@@ -146,9 +146,6 @@ wave.Wave_write.initfp
 # Platform and installation differences
 # ==========
 
-# Platform differences that cannot be captured by the type system
-socket.AF_DECnet
-
 # sys attributes that are not always defined
 sys.gettotalrefcount  # Available on python debug builds
 sys.last_traceback
