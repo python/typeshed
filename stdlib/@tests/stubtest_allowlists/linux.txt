@@ -1,14 +1,12 @@
-# ==========
-# TODO: Review the following
-# ==========
+# ============================================
+# TODO: Allowlist entries that should be fixed
+# ============================================
 
-curses.has_key
 
-# ==========
-# Allowlist entries that cannot or should not be fixed
-# ==========
-
+# ==========================================
 # Modules that do not exist on Linux systems
+# ==========================================
+
 _winapi
 asyncio.windows_events
 asyncio.windows_utils
@@ -19,24 +17,19 @@ nt
 winreg
 winsound
 
-# multiprocessing.popen_spawn_win32 exists on Linux but fail to import
-multiprocessing.popen_spawn_win32
 
-# Platform differences that cannot be captured by the type system
-fcntl.I_[A-Z0-9_]+
+# ==========================================================
+# Other allowlist entries that cannot or should not be fixed
+# ==========================================================
 
-# Some of these exist on non-windows, but they are useless and this is not intended
-stat.FILE_ATTRIBUTE_[A-Z_]+
-
-# Methods that come from __getattr__() at runtime
-tkinter.Tk.createfilehandler
-tkinter.Tk.deletefilehandler
-
-_?curses.ACS_.* # ACS codes are initialized only after initscr call
+_?curses.ACS_.*  # ACS codes are initialized only after initscr call
 curses.COLORS  # Initialized after start_color
 curses.COLOR_PAIRS  # Initialized after start_color
 curses.COLS  # Initialized only after initscr call
 curses.LINES  # Initialized only after initscr call
+curses.has_key  # stubtest gets confused because this is both a module and a function in curses
+fcntl.I_[A-Z0-9_]+  # Platform differences that cannot be captured by the type system
+multiprocessing.popen_spawn_win32  # exists on Linux but fails to import
 
 # These seem like they should be available on Linux, but they're not
 # on GitHub Actions runners for some reason.
@@ -65,6 +58,12 @@ _?socket.SOL_IPX
 _?socket.SOL_NETROM
 _?socket.SOL_ROSE
 
+# Some of these exist on non-windows, but they are useless and this is not intended
+stat.FILE_ATTRIBUTE_[A-Z_]+
+
 # This is available on Linux, but it's documented as for kernel debugging and
 # not present on GitHub Actions runners.
 termios.TIOCTTYGSTRUCT
+
+tkinter.Tk.createfilehandler  # Methods that come from __getattr__() at runtime
+tkinter.Tk.deletefilehandler  # Methods that come from __getattr__() at runtime
