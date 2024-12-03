@@ -1,8 +1,5 @@
 curses.has_key
 (os|posix).sched_param  # system dependent. Unclear if macos has it.
-select.KQ_FILTER_NETDEV  # system dependent
-select.kqueue.__init__  # default C signature is wrong
-select.POLLMSG   # system dependent
 
 # Sometimes these seem to exist on darwin, sometimes not
 (_curses.A_ITALIC)?
@@ -36,6 +33,8 @@ winsound
 
 # multiprocessing.popen_spawn_win32 exists on Darwin but fail to import
 multiprocessing.popen_spawn_win32
+
+select.kqueue.__init__  # default C signature is wrong
 
 # Some of these exist on non-windows, but they are useless and this is not intended
 stat.FILE_ATTRIBUTE_[A-Z_]+
