@@ -4,14 +4,10 @@
 
 _dummy_threading.Condition.acquire
 _dummy_threading.Condition.release
-_dummy_threading.Event.isSet
 _dummy_threading.ExceptHookArgs
 _dummy_threading.Lock
 _dummy_threading.RLock
 _dummy_threading.Thread.native_id
-_dummy_threading._DummyThread.__init__
-_dummy_threading._RLock.__enter__
-_dummy_threading.local.__new__
 asyncio.WriteTransport.get_write_buffer_limits  # Documented. Exists in subclasses, but not in WriteTransport itself
 asyncio.locks._ContextManagerMixin.__enter__  # Always raises; deliberately omitted from the stub
 asyncio.locks._ContextManagerMixin.__exit__  # Always raises; deliberately omitted from the stub
@@ -19,9 +15,7 @@ asyncio.transports.WriteTransport.get_write_buffer_limits  # Documented. Exists 
 builtins.float.__set_format__  # Internal method for CPython test suite
 dummy_threading.Condition.acquire
 dummy_threading.Condition.release
-dummy_threading.Event.isSet
 dummy_threading.Thread.native_id
-dummy_threading.local.__new__
 typing.NamedTuple.__new__
 typing.NamedTuple._asdict
 typing.NamedTuple._make
