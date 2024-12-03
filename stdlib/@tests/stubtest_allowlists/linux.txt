@@ -3,7 +3,6 @@
 # ==========
 
 curses.has_key
-selectors.KqueueSelector
 
 # ==========
 # Allowlist entries that cannot or should not be fixed
