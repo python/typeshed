@@ -29,7 +29,7 @@ import tomlkit
 from packaging.specifiers import Specifier
 from termcolor import colored
 
-from ts_utils.metadata import StubMetadata, metadata_path, read_metadata
+from ts_utils.metadata import StubMetadata, read_metadata, update_metadata
 from ts_utils.paths import STUBS_PATH, distribution_path
 
 TYPESHED_OWNER = "python"
@@ -653,7 +653,7 @@ _repo_lock = asyncio.Lock()
 BRANCH_PREFIX = "stubsabot"
 
 
-def get_update_pr_body(update: Update, metadata: dict[str, Any]) -> str:
+def get_update_pr_body(update: Update, metadata: Mapping[str, Any]) -> str:
     body = "\n".join(f"{k}: {v}" for k, v in update.links.items())
 
     if update.diff_analysis is not None:
@@ -689,12 +689,7 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(update.distribution)}"
         subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
-        with metadata_path(update.distribution).open("rb") as f:
-            meta = tomlkit.load(f)
-        meta["version"] = update.new_version
-        with metadata_path(update.distribution).open("w", encoding="UTF-8") as f:
-            # tomlkit.dump has partially unknown IO type
-            tomlkit.dump(meta, f)  # pyright: ignore[reportUnknownMemberType]
+        meta = update_metadata(update.distribution, version=update.new_version)
         body = get_update_pr_body(update, meta)
         subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:
@@ -716,14 +711,9 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(obsolete.distribution)}"
         subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
-        with metadata_path(obsolete.distribution).open("rb") as f:
-            meta = tomlkit.load(f)
         obs_string = tomlkit.string(obsolete.obsolete_since_version)
         obs_string.comment(f"Released on {obsolete.obsolete_since_date.date().isoformat()}")
-        meta["obsolete_since"] = obs_string
-        with metadata_path(obsolete.distribution).open("w", encoding="UTF-8") as f:
-            # tomlkit.dump has partially unknown Mapping type
-            tomlkit.dump(meta, f)  # pyright: ignore[reportUnknownMemberType]
+        update_metadata(obsolete.distribution, obsolete_since=obs_string)
         body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
         subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
         if action_level <= ActionLevel.local:

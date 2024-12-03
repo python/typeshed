@@ -304,15 +304,9 @@ with_descriptors.text_int_not_none = "0"
 with_descriptors.text_int_not_none = None  # type: ignore
 with_descriptors.text_int_not_none = object()  # type: ignore
 # If expected type (_T) is not str, it's impossible to use an Element as the value
-with_descriptors.text_int_not_none = cast(  # type: ignore
-    _HasTagAndGet[int], _
-)
-with_descriptors.text_int_not_none = cast(  # type: ignore
-    _HasTagAndGet[None], _
-)
-with_descriptors.text_int_not_none = cast(  # type: ignore
-    _HasTagAndGet[str], _
-)
+with_descriptors.text_int_not_none = cast(_HasTagAndGet[int], _)  # type: ignore
+with_descriptors.text_int_not_none = cast(_HasTagAndGet[None], _)  # type: ignore
+with_descriptors.text_int_not_none = cast(_HasTagAndGet[str], _)  # type: ignore
 
 with_descriptors.text_int_none = 0
 with_descriptors.text_int_none = "0"
@@ -336,9 +330,7 @@ with_descriptors.minmax_float = 0.0
 with_descriptors.minmax_float = None  # type: ignore
 with_descriptors.minmax_float = object()  # type: ignore
 with_descriptors.minmax_float = cast(_HasTagAndGet[float], _)
-with_descriptors.minmax_float = cast(  # type: ignore
-    _HasTagAndGet[None], _
-)
+with_descriptors.minmax_float = cast(_HasTagAndGet[None], _)  # type: ignore
 with_descriptors.minmax_float = cast(_HasTagAndGet[object], _)  # type: ignore
 
 with_descriptors.minmax_float_none = 0

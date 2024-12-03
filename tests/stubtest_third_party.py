@@ -75,15 +75,6 @@ def run_stubtest(
         dist_extras = ", ".join(stubtest_settings.extras)
         dist_req = f"{dist_name}[{dist_extras}]{metadata.version_spec}"
 
-        # If tool.stubtest.stubtest_requirements exists, run "pip install" on it.
-        if stubtest_settings.stubtest_requirements:
-            pip_cmd = [pip_exe, "install", *stubtest_settings.stubtest_requirements]
-            try:
-                subprocess.run(pip_cmd, check=True, capture_output=True)
-            except subprocess.CalledProcessError as e:
-                print_command_failure("Failed to install requirements", e)
-                return False
-
         requirements = get_recursive_requirements(dist_name)
 
         # We need stubtest to be able to import the package, so install mypy into the venv
@@ -92,6 +83,7 @@ def run_stubtest(
         dists_to_install = [dist_req, get_mypy_req()]
         # Internal requirements are added to MYPYPATH
         dists_to_install.extend(str(r) for r in requirements.external_pkgs)
+        dists_to_install.extend(stubtest_settings.stubtest_requirements)
 
         # Since the "gdb" Python package is available only inside GDB, it is not
         # possible to install it through pip, so stub tests cannot install it.

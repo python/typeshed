@@ -1,5 +1,5 @@
-import sys
 import re
+import sys
 from _warnings import warn as warn, warn_explicit as warn_explicit
 from collections.abc import Sequence
 from types import ModuleType, TracebackType

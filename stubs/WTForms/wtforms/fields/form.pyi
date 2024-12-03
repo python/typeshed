@@ -1,8 +1,8 @@
-from collections.abc import Iterator, Sequence
+from collections.abc import Iterator
 from typing import Any, Generic, TypeVar
 
 from wtforms.fields.core import Field, _Widget
-from wtforms.form import BaseForm
+from wtforms.form import BaseForm, _FormErrors
 from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 
 __all__ = ("FormField",)
@@ -37,4 +37,4 @@ class FormField(Field, Generic[_BoundFormT]):
     @property
     def data(self) -> dict[str, Any]: ...
     @property
-    def errors(self) -> dict[str | None, Sequence[str]]: ...  # type: ignore[override]
+    def errors(self) -> _FormErrors: ...  # type: ignore[override]
