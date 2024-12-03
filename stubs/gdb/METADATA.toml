@@ -13,3 +13,16 @@ extra_description = """\
 [tool.stubtest]
 platforms = ["linux"]
 apt_dependencies = ["gdb"]
+# stubtest fails for unknown reasons after upgrading to use Python 3.12:
+#
+# Traceback (most recent call last):
+#   File "/tmp/stubtest-4m851njl/gdb_stubtest.py", line 22, in <module>
+#     from mypy.stubtest import main
+#   File "/tmp/stubtest-4m851njl/lib/python3.12/site-packages/mypy/stubtest.py", line 30, in <module>
+#     from pathlib import Path
+#   File "/usr/lib/python3.12/pathlib.py", line 19, in <module>
+#     from urllib.parse import quote_from_bytes as urlquote_from_bytes
+#   File "/usr/lib/python3.12/urllib/parse.py", line 36, in <module>
+#     import math
+# ModuleNotFoundError: No module named 'math'
+skip = true
