@@ -5,7 +5,7 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
-from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, overload, type_check_only
+from typing import Any, Generic, Literal, NamedTuple, Protocol, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
 
 if sys.version_info >= (3, 11):
@@ -627,7 +627,8 @@ class Misc:
     def __getitem__(self, key: str) -> Any: ...
     def cget(self, key: str) -> Any: ...
     def configure(self, cnf: Any = None) -> Any: ...
-    # TODO: config is an alias of configure, but adding that here creates lots of mypy errors
+    # TODO: config is an alias of configure, but adding that here creates
+    # conflict with the type of config in the subclasses. See #13149
 
 class CallWrapper:
     func: Incomplete
@@ -3454,11 +3455,14 @@ class OptionMenu(Menubutton):
     # configure, config, cget are inherited from Menubutton
     # destroy and __getitem__ are overridden, signature does not change
 
-# Marker to indicate that it is a valid bitmap/photo image. PIL implements compatible versions
-# which don't share a class hierarchy. The actual API is a __str__() which returns a valid name,
-# not something that type checkers can detect.
+# This matches tkinter's image classes (PhotoImage and BitmapImage)
+# and PIL's tkinter-compatible class (PIL.ImageTk.PhotoImage),
+# but not a plain PIL image that isn't tkinter compatible.
+# The reason is that PIL has width and height attributes, not methods.
 @type_check_only
-class _Image: ...
+class _Image(Protocol):
+    def width(self) -> int: ...
+    def height(self) -> int: ...
 
 @type_check_only
 class _BitmapImageLike(_Image): ...
@@ -3477,9 +3481,7 @@ class Image(_Image):
     def __getitem__(self, key): ...
     configure: Incomplete
     config: Incomplete
-    def height(self) -> int: ...
     def type(self): ...
-    def width(self) -> int: ...
 
 class PhotoImage(Image, _PhotoImageLike):
     # This should be kept in sync with PIL.ImageTK.PhotoImage.__init__()
