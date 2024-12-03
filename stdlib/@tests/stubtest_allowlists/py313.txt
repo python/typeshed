@@ -39,7 +39,6 @@ tkinter.Wm.wm_attributes
 # >= 3.12
 # =======
 
-zipfile._path.glob  # Modules that exist at runtime, but are missing from typeshed
 zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
 
 
