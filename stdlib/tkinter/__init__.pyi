@@ -728,7 +728,6 @@ class Wm:
                 titlepath: str = ...,
                 topmost: bool = ...,
                 transparent: bool = ...,
-                type: str = ...,
             ) -> None: ...
         elif sys.platform == "win32":
             @overload
