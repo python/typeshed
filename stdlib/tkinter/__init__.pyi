@@ -678,8 +678,9 @@ elif sys.platform == "win32":
     @type_check_only
     class _WmAttributes(TypedDict):
         alpha: float
-        fullscreen: bool
+        transparentcolor: str
         disabled: bool
+        fullscreen: bool
         toolwindow: bool
         topmost: bool
 
@@ -688,10 +689,10 @@ else:
     @type_check_only
     class _WmAttributes(TypedDict):
         alpha: float
-        fullscreen: bool
         topmost: bool
-        type: str
         zoomed: bool
+        fullscreen: bool
+        type: str
 
 class Wm:
     @overload
@@ -712,7 +713,67 @@ class Wm:
         def wm_attributes(self) -> tuple[Any, ...]: ...
 
     @overload
+    def wm_attributes(self, option: Literal["alpha"], /) -> float: ...
+    @overload
+    def wm_attributes(self, option: Literal["fullscreen"], /) -> bool: ...
+    @overload
+    def wm_attributes(self, option: Literal["topmost"], /) -> bool: ...
+    if sys.platform == "darwin":
+        @overload
+        def wm_attributes(self, option: Literal["modified"], /) -> bool: ...
+        @overload
+        def wm_attributes(self, option: Literal["notify"], /) -> bool: ...
+        @overload
+        def wm_attributes(self, option: Literal["titlepath"], /) -> str: ...
+        @overload
+        def wm_attributes(self, option: Literal["transparent"], /) -> bool: ...
+        @overload
+        def wm_attributes(self, option: Literal["type"], /) -> str: ...
+    elif sys.platform == "win32":
+        @overload
+        def wm_attributes(self, option: Literal["transparentcolor"], /) -> str: ...
+        @overload
+        def wm_attributes(self, option: Literal["disabled"], /) -> bool: ...
+        @overload
+        def wm_attributes(self, option: Literal["toolwindow"], /) -> bool: ...
+    else:
+        # X11
+        @overload
+        def wm_attributes(self, option: Literal["zoomed"], /) -> bool: ...
+        @overload
+        def wm_attributes(self, option: Literal["type"], /) -> str: ...
+
+    @overload
     def wm_attributes(self, option: str, /): ...
+    @overload
+    def wm_attributes(self, option: Literal["alpha"], value: float, /) -> None: ...
+    @overload
+    def wm_attributes(self, option: Literal["fullscreen"], value: bool, /) -> None: ...
+    @overload
+    def wm_attributes(self, option: Literal["topmost"], value: bool, /) -> None: ...
+    if sys.platform == "darwin":
+        @overload
+        def wm_attributes(self, option: Literal["modified"], value: bool, /) -> None: ...
+        @overload
+        def wm_attributes(self, option: Literal["notify"], value: bool, /) -> None: ...
+        @overload
+        def wm_attributes(self, option: Literal["titlepath"], value: str, /) -> None: ...
+        @overload
+        def wm_attributes(self, option: Literal["transparent"], value: bool, /) -> None: ...
+    elif sys.platform == "win32":
+        @overload
+        def wm_attributes(self, option: Literal["transparentcolor"], value: str, /) -> None: ...
+        @overload
+        def wm_attributes(self, option: Literal["disabled"], value: bool, /) -> None: ...
+        @overload
+        def wm_attributes(self, option: Literal["toolwindow"], value: bool, /) -> None: ...
+    else:
+        # X11
+        @overload
+        def wm_attributes(self, option: Literal["zoomed"], value: bool, /) -> None: ...
+        @overload
+        def wm_attributes(self, option: Literal["type"], value: str, /) -> None: ...
+
     @overload
     def wm_attributes(self, option: str, value, /, *__other_option_value_pairs: Any) -> None: ...
     if sys.version_info >= (3, 13):
@@ -735,8 +796,9 @@ class Wm:
                 self,
                 *,
                 alpha: float = ...,
-                fullscreen: bool = ...,
+                transparentcolor: str = ...,
                 disabled: bool = ...,
+                fullscreen: bool = ...,
                 toolwindow: bool = ...,
                 topmost: bool = ...,
             ) -> None: ...
@@ -744,7 +806,7 @@ class Wm:
             # X11
             @overload
             def wm_attributes(
-                self, *, alpha: float = ..., fullscreen: bool = ..., topmost: bool = ..., type: str = ..., zoomed: bool = ...
+                self, *, alpha: float = ..., topmost: bool = ..., zoomed: bool = ..., fullscreen: bool = ..., type: str = ...
             ) -> None: ...
 
     attributes = wm_attributes
