@@ -31,7 +31,6 @@ importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but e
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
-pickle.Pickler.reducer_override  # implemented in C pickler
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
 shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
@@ -408,10 +407,6 @@ os._wrap_close.write  # Methods that come from __getattr__() at runtime
 os._wrap_close.writelines  # Methods that come from __getattr__() at runtime
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
-pickle.Pickler.memo  # undocumented implementation detail, has different type in C/Python implementations
-pickle.Pickler.persistent_id  # C pickler persistent_id is an attribute
-pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
-pickle.Unpickler.persistent_load  # C unpickler persistent_load is an attribute
 _?queue.SimpleQueue.__init__  # C signature is broader than what is actually accepted
 re.Pattern.scanner  # Undocumented and not useful. #6405
 ssl.PROTOCOL_SSLv2  # Depends on the existence and flags of SSL
