@@ -101,9 +101,7 @@ D = dc.make_dataclass(
 assert_type(D.__mro__, Tuple[type, ...])
 
 
-decorator = dc.dataclass(None, frozen=True)
-
-@decorator
+@dc.dataclass(None, frozen=True)
 class Bar:
     attr: str
 
