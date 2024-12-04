@@ -56,7 +56,6 @@ weakref.WeakValueDictionary.update
 
 turtledemo
 turtledemo\..+
-xml.sax.expatreader
 
 
 # ======================================================================
