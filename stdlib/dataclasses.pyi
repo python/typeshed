@@ -98,7 +98,7 @@ if sys.version_info >= (3, 11):
     ) -> type[_T]: ...
     @overload
     def dataclass(
-        cls: None,
+        cls: None = ...,
         /,
         *,
         init: bool = True,
@@ -131,7 +131,7 @@ elif sys.version_info >= (3, 10):
     ) -> type[_T]: ...
     @overload
     def dataclass(
-        cls: None,
+        cls: None = ...,
         /,
         *,
         init: bool = True,
