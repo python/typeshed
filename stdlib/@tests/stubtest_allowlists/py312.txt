@@ -2,13 +2,6 @@
 # New errors in Python 3.12
 # =========================
 
-# TODO: New in 3.12.8
-argparse.ArgumentParser._parse_known_args
-concurrent.futures.process._SafeQueue.__init__
-pickletools.read_stringnl
-token.__all__
-tokenize.__all__
-
 
 # =======
 # >= 3.12

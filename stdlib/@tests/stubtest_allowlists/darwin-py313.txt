@@ -2,11 +2,6 @@
 # >= 3.13
 # =======
 
-# TODO: New in 3.13.1
-_socket.SO_BINDTODEVICE
-socket.__all__
-socket.SO_BINDTODEVICE
-
 # Depends on HAVE_NCURSESW and how we install CPython,
 # should be removed when 3.13 will be officially released:
 _?curses.unget_wch
