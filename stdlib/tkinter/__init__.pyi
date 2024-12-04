@@ -672,15 +672,26 @@ if sys.platform == "darwin":
         titlepath: str
         topmost: bool
         transparent: bool
-        type: str
+        type: str  # Present, but not actually used on darwin
+
+elif sys.platform == "win32":
+    @type_check_only
+    class _WmAttributes(TypedDict):
+        alpha: float
+        fullscreen: bool
+        disabled: bool
+        toolwindow: bool
+        topmost: bool
 
 else:
+    # X11
     @type_check_only
     class _WmAttributes(TypedDict):
         alpha: float
         fullscreen: bool
         topmost: bool
         type: str
+        zoomed: bool
 
 class Wm:
     @overload
@@ -719,10 +730,22 @@ class Wm:
                 transparent: bool = ...,
                 type: str = ...,
             ) -> None: ...
-        else:
+        elif sys.platform == "win32":
             @overload
             def wm_attributes(
-                self, *, alpha: float = ..., fullscreen: bool = ..., topmost: bool = ..., type: str = ...
+                self,
+                *,
+                alpha: float = ...,
+                fullscreen: bool = ...,
+                disabled: bool = ...,
+                toolwindow: bool = ...,
+                topmost: bool = ...,
+            ) -> None: ...
+        else:
+            # X11
+            @overload
+            def wm_attributes(
+                self, *, alpha: float = ..., fullscreen: bool = ..., topmost: bool = ..., type: str = ..., zoomed: bool = ...
             ) -> None: ...
 
     attributes = wm_attributes
