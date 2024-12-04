@@ -463,7 +463,11 @@ class Generator(Iterator[_YieldT_co], Generic[_YieldT_co, _SendT_contra, _Return
     @overload
     @abstractmethod
     def throw(self, typ: BaseException, val: None = None, tb: TracebackType | None = None, /) -> _YieldT_co: ...
-    def close(self) -> None: ...
+    if sys.version_info >= (3, 13):
+        def close(self) -> _ReturnT_co | None: ...
+    else:
+        def close(self) -> None: ...
+
     def __iter__(self) -> Generator[_YieldT_co, _SendT_contra, _ReturnT_co]: ...
     @property
     def gi_code(self) -> CodeType: ...
@@ -753,7 +757,7 @@ class MutableMapping(Mapping[_KT, _VT]):
 
 Text = str
 
-TYPE_CHECKING: bool
+TYPE_CHECKING: Final[bool]
 
 # In stubs, the arguments of the IO class are marked as positional-only.
 # This differs from runtime, but better reflects the fact that in reality
