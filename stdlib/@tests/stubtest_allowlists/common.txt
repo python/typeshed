@@ -1,6 +1,6 @@
-# ==========
+# ============================================
 # TODO: Allowlist entries that should be fixed
-# ==========
+# ============================================
 
 # Please keep sorted alphabetically
 
@@ -8,7 +8,6 @@ _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
-_ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
 asyncio.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.base_events.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 builtins.dict.get
@@ -18,12 +17,10 @@ configparser.SectionProxy.getboolean  # SectionProxy get functions are set in __
 configparser.SectionProxy.getfloat  # SectionProxy get functions are set in __init__
 configparser.SectionProxy.getint  # SectionProxy get functions are set in __init__
 contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favor of its child classes
-copy.PyStringMap  # defined only in Jython
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
-ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented, intentionally missing from typeshed. #6154
 functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
 hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPStatus.description  # set in __new__
@@ -34,7 +31,6 @@ importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but e
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
-pickle.Pickler.reducer_override  # implemented in C pickler
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
 shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
@@ -48,24 +44,24 @@ tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
 tkinter.Misc.after  # we intentionally don't allow everything that "works" at runtime
 tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
-typing(_extensions)?\.IO\.__next__  # Added because IO streams are iterable. See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
-typing.type_check_only  # typing decorator that is not available at runtime
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.update
 
 
-# ==========
+# ===============================================================
 # TODO: Modules that exist at runtime, but are missing from stubs
-# ==========
+# ===============================================================
+
 turtledemo
 turtledemo\..+
 xml.sax.expatreader
 
 
-# ==========
+# ======================================================================
 # TODO: Module members that exist at runtime, but are missing from stubs
-# ==========
+# ======================================================================
+
 _thread.RLock
 multiprocessing.managers.Server.accepter
 multiprocessing.managers.Server.create
@@ -98,16 +94,16 @@ multiprocessing.synchronize.Semaphore.get_value
 tkinter.Misc.config
 
 
-# ==========
+# ======================================================================
 # Modules that exist at runtime, but are deliberately missing from stubs
-# ==========
+# ======================================================================
 
 idlelib
 
 
-# ==========
+# =============================================================================
 # Module members that exist at runtime, but are deliberately missing from stubs
-# ==========
+# =============================================================================
 
 # Undocumented implementation details of a deprecated class
 _frozen_importlib_external.WindowsRegistryFinder.DEBUG_BUILD
@@ -128,6 +124,7 @@ email.contentmanager.get_text_content
 email.contentmanager.set_bytes_content
 email.contentmanager.set_message_content
 email.contentmanager.set_text_content
+ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented #6154
 profile.Profile.dispatch
 profile.Profile.fake_code
 profile.Profile.fake_frame
@@ -145,9 +142,9 @@ wave.Wave_read.initfp
 wave.Wave_write.initfp
 
 
-# ==========
+# =====================================
 # Platform and installation differences
-# ==========
+# =====================================
 
 # LC_MESSAGES is sometimes present in __all__, sometimes not,
 # so stubtest will sometimes complain about exported names being different at runtime to the exported names in the stub
@@ -167,9 +164,9 @@ sys.ps2  # Available in interactive mode
 sys.tracebacklimit  # Must be set first
 
 
-# ==========
+# ==========================================================
 # Other allowlist entries that cannot or should not be fixed
-# ==========
+# ==========================================================
 
 # async at runtime, deliberately not in the stub, see #7491
 _collections_abc.AsyncGenerator.asend  # pos-only differences also.
@@ -202,6 +199,8 @@ _collections_abc.Set.__rand__
 _collections_abc.Set.__ror__
 _collections_abc.Set.__rsub__
 _collections_abc.Set.__rxor__
+
+_ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
 
 # runtime is *args, **kwargs due to a wrapper; we have more accurate signatures in the stubs
 _frozen_importlib_external.ExtensionFileLoader.get_filename
@@ -279,6 +278,7 @@ codecs.StreamRecoder.\w+
 collections.UserList.sort  # Runtime has *args but will error if any are supplied
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
 _?contextvars.Context.__init__  # C signature is broader than what is actually accepted
+copy.PyStringMap  # defined only in Jython
 
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
 csv.Dialect.delimiter
@@ -407,10 +407,6 @@ os._wrap_close.write  # Methods that come from __getattr__() at runtime
 os._wrap_close.writelines  # Methods that come from __getattr__() at runtime
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
-pickle.Pickler.memo  # undocumented implementation detail, has different type in C/Python implementations
-pickle.Pickler.persistent_id  # C pickler persistent_id is an attribute
-pickle.Unpickler.memo  # undocumented implementation detail, has different type in C/Python implementations
-pickle.Unpickler.persistent_load  # C unpickler persistent_load is an attribute
 _?queue.SimpleQueue.__init__  # C signature is broader than what is actually accepted
 re.Pattern.scanner  # Undocumented and not useful. #6405
 ssl.PROTOCOL_SSLv2  # Depends on the existence and flags of SSL
@@ -485,6 +481,7 @@ traceback.TracebackException.from_exception  # explicitly expanding arguments go
 turtle.ScrolledCanvas.find_all  # Dynamically created, has unnecessary *args
 turtle.ScrolledCanvas.select_clear  # Dynamically created, has unnecessary *args
 turtle.ScrolledCanvas.select_item  # Dynamically created, has unnecessary *args
+typing.type_check_only  # typing decorator that is not available at runtime
 
 # Details of runtime definition don't need to be in stubs
 typing._Final
@@ -549,7 +546,9 @@ typing(_extensions)?\.(Async)?ContextManager
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
-typing(_extensions)?\.IO\.__iter__  # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
+# See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
+typing(_extensions)?\.IO\.__iter__
+typing(_extensions)?\.IO\.__next__
 
 types.MethodType.__closure__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.MethodType.__code__  # read-only but not actually a property; stubtest thinks it doesn't exist.
