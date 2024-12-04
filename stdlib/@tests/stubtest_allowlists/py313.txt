@@ -16,8 +16,6 @@ tokenize.__all__
 # =======
 
 # TODO: triage these new errors
-_tkinter.create
-tkinter.Misc.after_info
 tkinter.Misc.busy
 tkinter.Misc.busy_cget
 tkinter.Misc.busy_config
@@ -34,7 +32,6 @@ tkinter.Misc.tk_busy_current
 tkinter.Misc.tk_busy_forget
 tkinter.Misc.tk_busy_hold
 tkinter.Misc.tk_busy_status
-tkinter.Wm.wm_attributes
 
 
 # ====================================
