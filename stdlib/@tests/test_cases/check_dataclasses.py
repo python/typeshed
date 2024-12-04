@@ -105,6 +105,7 @@ assert_type(D.__mro__, Tuple[type, ...])
 class Bar:
     attr: str
 
+
 b = Bar(attr="attr")
 
 if dc.is_dataclass(b):

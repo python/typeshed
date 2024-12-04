@@ -113,7 +113,6 @@ if sys.version_info >= (3, 11):
         weakref_slot: bool = False,
     ) -> Callable[[type[_T]], type[_T]]: ...
 
-
 elif sys.version_info >= (3, 10):
     @overload
     def dataclass(
