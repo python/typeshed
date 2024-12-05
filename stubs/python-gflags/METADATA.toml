@@ -1,9 +1,0 @@
-version = "3.1.*"
-upstream_repository = "https://github.com/google/python-gflags"
-no_longer_updated = true
-extra_description = """\
-`python-gflags` has been merged into
-[Abseil Python Common Libraries](https://github.com/abseil/abseil-py).
-
-Please see [the guidelines](absl_migration/migration_guidelines.md)
-for migrating to [Abseil](https://github.com/abseil/abseil-py)."""
