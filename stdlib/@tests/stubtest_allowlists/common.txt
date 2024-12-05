@@ -590,7 +590,6 @@ weakref.WeakValueDictionary.setdefault  # has a default value for the "default" 
 webbrowser.UnixBrowser.remote_action  # Always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # Always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # Always overridden in inheriting class
-
 xml.__all__  # __all__-related weirdness (see #6523)
 xml.dom  # __all__-related weirdness (see #6523)
 xml.etree  # __all__-related weirdness (see #6523)
