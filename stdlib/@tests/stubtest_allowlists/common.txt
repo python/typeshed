@@ -49,13 +49,6 @@ weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.update
 
 
-# ===============================================================
-# TODO: Modules that exist at runtime, but are missing from stubs
-# ===============================================================
-
-xml.sax.expatreader
-
-
 # ======================================================================
 # TODO: Module members that exist at runtime, but are missing from stubs
 # ======================================================================
