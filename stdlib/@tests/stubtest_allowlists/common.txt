@@ -104,16 +104,27 @@ idlelib
 # Module members that exist at runtime, but are deliberately missing from stubs
 # =============================================================================
 
+_collections_abc.Mapping.__reversed__  # set to None at runtime for a better error message
+
+# Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
+_collections_abc.Set.__rand__
+_collections_abc.Set.__ror__
+_collections_abc.Set.__rsub__
+_collections_abc.Set.__rxor__
+
 # Undocumented implementation details of a deprecated class
 _frozen_importlib_external.WindowsRegistryFinder.DEBUG_BUILD
 _frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY
 _frozen_importlib_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
-importlib._bootstrap_external.WindowsRegistryFinder.DEBUG_BUILD
-importlib._bootstrap_external.WindowsRegistryFinder.REGISTRY_KEY
-importlib._bootstrap_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
-importlib.machinery.WindowsRegistryFinder.DEBUG_BUILD
-importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY
-importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
+
+builtins.OSError.characters_written  # GetSetDescriptor that always raises AttributeError
+builtins.float.__getformat__  # Internal method for CPython test suite
+
+# These super() dunders don't seem to be particularly useful,
+# and having them pop up on autocomplete suggestions would be annoying
+builtins.super.__self__
+builtins.super.__self_class__
+builtins.super.__thisclass__
 
 # Undocumented implementation details
 email.contentmanager.get_and_fixup_unknown_message_content
@@ -123,7 +134,19 @@ email.contentmanager.get_text_content
 email.contentmanager.set_bytes_content
 email.contentmanager.set_message_content
 email.contentmanager.set_text_content
+
 ftplib.FTP.trust_server_pasv_ipv4_address  # Dangerous to use, intentionally undocumented #6154
+hmac.HMAC.blocksize  # use block_size instead
+
+# Undocumented implementation details of a deprecated class
+importlib._bootstrap_external.WindowsRegistryFinder.DEBUG_BUILD
+importlib._bootstrap_external.WindowsRegistryFinder.REGISTRY_KEY
+importlib._bootstrap_external.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
+importlib.machinery.WindowsRegistryFinder.DEBUG_BUILD
+importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY
+importlib.machinery.WindowsRegistryFinder.REGISTRY_KEY_DEBUG
+
+# Undocumented implementation details
 profile.Profile.dispatch
 profile.Profile.fake_code
 profile.Profile.fake_frame
@@ -135,10 +158,54 @@ profile.Profile.trace_dispatch_i
 profile.Profile.trace_dispatch_l
 profile.Profile.trace_dispatch_mac
 profile.Profile.trace_dispatch_return
-turtle.ScrolledCanvas.adjustScrolls
-turtle.ScrolledCanvas.onResize
-wave.Wave_read.initfp
-wave.Wave_write.initfp
+
+re.Pattern.scanner  # Undocumented and not useful. #6405
+
+# Missing aliases to existing methods that not many people seem to use.
+# Complicated multiple inheritance, confuses type checkers.
+tkinter.Grid.bbox
+tkinter.Grid.columnconfigure
+tkinter.Grid.config
+tkinter.Grid.configure
+tkinter.Grid.forget
+tkinter.Grid.grid_bbox
+tkinter.Grid.grid_columnconfigure
+tkinter.Grid.grid_location
+tkinter.Grid.grid_propagate
+tkinter.Grid.grid_rowconfigure
+tkinter.Grid.grid_size
+tkinter.Grid.grid_slaves
+tkinter.Grid.info
+tkinter.Grid.propagate
+tkinter.Grid.rowconfigure
+tkinter.Grid.slaves
+tkinter.Pack.config
+tkinter.Pack.configure
+tkinter.Pack.info
+tkinter.Pack.pack_propagate
+tkinter.Pack.pack_slaves
+tkinter.Pack.slaves
+tkinter.Place.config
+tkinter.Place.configure
+tkinter.Place.forget
+tkinter.Place.place_slaves
+tkinter.Place.slaves
+
+turtle.ScrolledCanvas.adjustScrolls  # Undocumented implementation detail
+turtle.ScrolledCanvas.onResize  # Undocumented implementation detail
+typing_extensions.NewType.__mro_entries__  # just exists for an error message
+uuid.bytes_  # Attributes that are intended to be private
+uuid.int_  # Attributes that are intended to be private
+wave.Wave_read.initfp  # Undocumented implementation detail
+wave.Wave_write.initfp  # Undocumented implementation detail
+_?weakref\.ProxyType\.__bytes__  # Doesn't actually exist
+
+# Undocumented and have a comment in the source code saying "State variables (don't mess with these)"
+wsgiref.handlers.BaseHandler.bytes_sent
+wsgiref.handlers.BaseHandler.headers
+wsgiref.handlers.BaseHandler.headers_sent
+wsgiref.handlers.BaseHandler.result
+wsgiref.handlers.BaseHandler.status
 
 
 # =====================================
@@ -189,15 +256,8 @@ _collections_abc.Generator.gi_code
 _collections_abc.Generator.gi_frame
 _collections_abc.Generator.gi_running
 _collections_abc.Generator.gi_yieldfrom
-_collections_abc.Mapping.__reversed__  # set to None at runtime for a better error message
 _collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
-
-# Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
-_collections_abc.Set.__rand__
-_collections_abc.Set.__ror__
-_collections_abc.Set.__rsub__
-_collections_abc.Set.__rxor__
 
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
 
@@ -247,19 +307,12 @@ builtins.help
 builtins.license
 builtins.quit
 
-builtins.OSError.characters_written  # GetSetDescriptor that always raises AttributeError
-builtins.float.__getformat__  # Internal method for CPython test suite
 builtins.memoryview.__contains__  # C type that implements __getitem__
 builtins.object.__init__  # default C signature is incorrect
 builtins.reveal_locals  # Builtins that type checkers pretends exist
 builtins.reveal_type  # Builtins that type checkers pretends exist
 builtins.type.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
 
-# These super() dunders don't seem to be particularly useful,
-# and having them pop up on autocomplete suggestions would be annoying
-builtins.super.__self__
-builtins.super.__self_class__
-builtins.super.__thisclass__
 
 # The following CodecInfo properties are added in __new__
 codecs.CodecInfo.decode
@@ -321,7 +374,6 @@ enum.auto.__or__  # enum.auto is magic, see comments
 enum.auto.__and__  # enum.auto is magic, see comments
 enum.auto.__xor__  # enum.auto is magic, see comments
 _?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
-hmac.HMAC.blocksize  # use block_size instead
 imaplib.IMAP4_SSL.ssl  # Depends on the existence and flags of SSL
 
 # runtime is *args, **kwargs due to a wrapper; we have more accurate signatures in the stubs
@@ -407,7 +459,6 @@ os._wrap_close.writelines  # Methods that come from __getattr__() at runtime
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
 _?queue.SimpleQueue.__init__  # C signature is broader than what is actually accepted
-re.Pattern.scanner  # Undocumented and not useful. #6405
 ssl.PROTOCOL_SSLv2  # Depends on the existence and flags of SSL
 ssl.PROTOCOL_SSLv3  # Depends on the existence and flags of SSL
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
@@ -418,36 +469,6 @@ threading.Condition.release  # Condition functions are exported in __init__
 # A factory function that returns 'most efficient lock'.
 # Marking it as a function will make it impossible for users to use the Lock type as an annotation.
 threading.RLock
-
-# Missing aliases to existing methods that not many people seem to use.
-# Complicated multiple inheritance, confuses type checkers.
-tkinter.Grid.bbox
-tkinter.Grid.columnconfigure
-tkinter.Grid.config
-tkinter.Grid.configure
-tkinter.Grid.forget
-tkinter.Grid.grid_bbox
-tkinter.Grid.grid_columnconfigure
-tkinter.Grid.grid_location
-tkinter.Grid.grid_propagate
-tkinter.Grid.grid_rowconfigure
-tkinter.Grid.grid_size
-tkinter.Grid.grid_slaves
-tkinter.Grid.info
-tkinter.Grid.propagate
-tkinter.Grid.rowconfigure
-tkinter.Grid.slaves
-tkinter.Pack.config
-tkinter.Pack.configure
-tkinter.Pack.info
-tkinter.Pack.pack_propagate
-tkinter.Pack.pack_slaves
-tkinter.Pack.slaves
-tkinter.Place.config
-tkinter.Place.configure
-tkinter.Place.forget
-tkinter.Place.place_slaves
-tkinter.Place.slaves
 
 # Methods that come from __getattr__() at runtime
 tkinter.Tk.adderrorinfo
@@ -526,7 +547,6 @@ typing_extensions\.NamedTuple
 
 typing._SpecialForm.__call__  # Typing-related weirdness
 typing._SpecialForm.__init__  # Typing-related weirdness
-typing_extensions.NewType.__mro_entries__  # just exists for an error message
 
 # These are abstract properties at runtime,
 # but marking them as such in the stub breaks half the the typed-Python ecosystem (see #8726)
@@ -562,24 +582,14 @@ unittest.runner._WritelnDecorator.write  # Methods that come from __getattr__() 
 urllib.response.addbase.\w+
 
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
-uuid.bytes_  # Attributes that are intended to be private
-uuid.int_  # Attributes that are intended to be private
 _?weakref\.CallableProxyType\.__getattr__  # Should have all attributes of proxy
 _?weakref\.(ref|ReferenceType)\.__init__  # C implementation has incorrect signature
 _?weakref\.(ref|ReferenceType)\.__call__  # C function default annotation is wrong
-_?weakref\.ProxyType\.__bytes__  # Doesn't actually exist
 _?weakref\.ProxyType\.__getattr__  # Should have all attributes of proxy
 weakref.WeakValueDictionary.setdefault  # has a default value for the "default" argument, but always errors out if no value is supplied for the parameter by the user
 webbrowser.UnixBrowser.remote_action  # Always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # Always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # Always overridden in inheriting class
-
-# Undocumented and have a comment in the source code saying "State variables (don't mess with these)"
-wsgiref.handlers.BaseHandler.bytes_sent
-wsgiref.handlers.BaseHandler.headers
-wsgiref.handlers.BaseHandler.headers_sent
-wsgiref.handlers.BaseHandler.result
-wsgiref.handlers.BaseHandler.status
 
 xml.__all__  # __all__-related weirdness (see #6523)
 xml.dom  # __all__-related weirdness (see #6523)
