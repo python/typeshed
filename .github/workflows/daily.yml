@@ -144,6 +144,6 @@ jobs:
               owner: "python",
               repo: "typeshed",
               title: `Daily tests failed on ${new Date().toDateString()}`,
-              body: "Runs listed here: https://github.com/python/typeshed/actions/workflows/daily.yml",
+              body: "Run listed here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
               labels: ["help wanted"],
             })
