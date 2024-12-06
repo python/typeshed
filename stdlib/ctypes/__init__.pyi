@@ -47,7 +47,7 @@ class ArgumentError(Exception): ...
 
 class CDLL:
     _func_flags_: ClassVar[int]
-    _func_restype_: ClassVar[_CDataType]
+    _func_restype_: ClassVar[type[_CDataType]]
     _name: str
     _handle: int
     _FuncPtr: type[_FuncPointer]
