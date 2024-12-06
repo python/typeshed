@@ -6,7 +6,7 @@ from pytz.tzinfo import BaseTzInfo
 
 from .prop import vText
 
-__all__ = ["UIDGenerator", "is_date", "is_datetime", "to_datetime", "is_pytz", "is_pytz_dt", "normalize_pytz"]
+__all__ = ["UIDGenerator", "is_date", "is_datetime", "is_pytz", "is_pytz_dt", "normalize_pytz", "to_datetime"]
 
 class UIDGenerator:
     chars: Final[list[str]]

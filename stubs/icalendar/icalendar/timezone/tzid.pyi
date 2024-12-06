@@ -1,6 +1,6 @@
 import datetime
 
-__all__ = ["tzid_from_tzinfo", "tzid_from_dt", "tzids_from_tzinfo"]
+__all__ = ["tzid_from_dt", "tzid_from_tzinfo", "tzids_from_tzinfo"]
 
 def tzids_from_tzinfo(tzinfo: datetime.tzinfo | None) -> tuple[str, ...]: ...
 def tzid_from_tzinfo(tzinfo: datetime.tzinfo | None) -> str | None: ...

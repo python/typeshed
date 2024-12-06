@@ -17,7 +17,7 @@ __all__ = [
     "TimeBase",
     "TypesFactory",
     "tzid_from_dt",
-    "WEEKDAY_RULE",
+    "tzid_from_tzinfo",
     "vBinary",
     "vBoolean",
     "vCalAddress",
@@ -41,8 +41,6 @@ __all__ = [
     "vUTCOffset",
     "vUri",
     "vWeekday",
-    "tzid_from_dt",
-    "tzid_from_tzinfo",
 ]
 
 _PropType: TypeAlias = type[Any]  # any of the v* classes in this file
