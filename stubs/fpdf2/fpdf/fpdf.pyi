@@ -40,7 +40,7 @@ from .enums import (
     _Align,
 )
 from .errors import FPDFException as FPDFException
-from .fonts import FontFace, TextStyle, TitleStyle as TitleStyle
+from .fonts import CoreFont, FontFace, TextStyle, TitleStyle as TitleStyle, TTFFont
 from .graphics_state import GraphicsStateMixin
 from .html import HTML2FPDF
 from .image_datastructures import (
@@ -86,9 +86,6 @@ class ToCPlaceholder(NamedTuple):
 
 def get_page_format(format: _Format | tuple[float, float], k: float | None = None) -> tuple[float, float]: ...
 
-# TODO: TypedDicts
-_Font: TypeAlias = dict[str, Any]
-
 class FPDF(GraphicsStateMixin):
     MARKDOWN_BOLD_MARKER: ClassVar[str]
     MARKDOWN_ITALICS_MARKER: ClassVar[str]
@@ -102,7 +99,7 @@ class FPDF(GraphicsStateMixin):
 
     page: int
     pages: dict[int, PDFPage]
-    fonts: dict[str, _Font]
+    fonts: dict[str, CoreFont | TTFFont]
     fonts_used_per_page_number: dict[int, set[int]]
     links: dict[int, DestinationXYZ]
     embedded_files: list[PDFEmbeddedFile]

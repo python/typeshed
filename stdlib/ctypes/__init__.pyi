@@ -26,7 +26,7 @@ from _ctypes import (
 )
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
 from typing import Any, ClassVar, Generic, TypeVar
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.platform == "win32":
     from _ctypes import FormatError as FormatError, get_last_error as get_last_error, set_last_error as set_last_error
@@ -39,6 +39,7 @@ if sys.version_info >= (3, 9):
 
 _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)
+_CT = TypeVar("_CT", bound=_CData)
 
 DEFAULT_MODE: int
 
@@ -46,7 +47,7 @@ class ArgumentError(Exception): ...
 
 class CDLL:
     _func_flags_: ClassVar[int]
-    _func_restype_: ClassVar[_CDataType]
+    _func_restype_: ClassVar[type[_CDataType]]
     _name: str
     _handle: int
     _FuncPtr: type[_FuncPointer]
@@ -122,6 +123,11 @@ def create_string_buffer(init: int | bytes, size: int | None = None) -> Array[c_
 c_buffer = create_string_buffer
 
 def create_unicode_buffer(init: int | str, size: int | None = None) -> Array[c_wchar]: ...
+@deprecated("Deprecated in Python 3.13; removal scheduled for Python 3.15")
+def SetPointerType(
+    pointer: type[_Pointer[Any]], cls: Any  # noqa: F811  # Redefinition of unused `pointer` from line 22
+) -> None: ...
+def ARRAY(typ: _CT, len: int) -> Array[_CT]: ...  # Soft Deprecated, no plans to remove
 
 if sys.platform == "win32":
     def DllCanUnloadNow() -> int: ...
@@ -166,6 +172,8 @@ class c_void_p(_PointerLike, _SimpleCData[int | None]):
     @classmethod
     def from_param(cls, value: Any, /) -> Self | _CArgObject: ...
 
+c_voidp = c_void_p  # backwards compatibility (to a bug)
+
 class c_wchar(_SimpleCData[str]): ...
 
 c_int8 = c_byte
@@ -194,7 +202,10 @@ if sys.platform == "win32":
     class HRESULT(_SimpleCData[int]): ...  # TODO undocumented
 
 if sys.version_info >= (3, 12):
-    c_time_t: type[c_int32 | c_int64]  # alias for one or the other at runtime
+    # At runtime, this is an alias for either c_int32 or c_int64,
+    # which are themselves an alias for one of c_short, c_int, c_long, or c_longlong
+    # This covers all our bases.
+    c_time_t: type[c_int32 | c_int64 | c_short | c_int | c_long | c_longlong]
 
 class py_object(_CanCastTo, _SimpleCData[_T]): ...
 
