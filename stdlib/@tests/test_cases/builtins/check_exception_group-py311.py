@@ -21,9 +21,7 @@ if sys.version_info >= (3, 11):
 
     # `BaseExceptionGroup` can work with `Exception`:
     beg2 = BaseExceptionGroup("x", [ValueError()])
-    # FIXME: this is not right, runtime returns `ExceptionGroup` instance instead,
-    # but I am unable to represent this with types right now.
-    assert_type(beg2, BaseExceptionGroup[ValueError])
+    assert_type(beg2, ExceptionGroup[ValueError])
 
     # .subgroup()
     # -----------
