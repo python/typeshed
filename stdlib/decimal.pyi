@@ -190,17 +190,6 @@ class Context:
         flags: None | dict[_TrapType, bool] | Container[_TrapType] = ...,
         traps: None | dict[_TrapType, bool] | Container[_TrapType] = ...,
     ) -> None: ...
-    def __new__(
-        cls,
-        prec: int | None = ...,
-        rounding: str | None = ...,
-        Emin: int | None = ...,
-        Emax: int | None = ...,
-        capitals: int | None = ...,
-        clamp: int | None = ...,
-        flags: None | dict[_TrapType, bool] | Container[_TrapType] = ...,
-        traps: None | dict[_TrapType, bool] | Container[_TrapType] = ...,
-    ) -> Self: ...
     def __reduce__(self) -> tuple[type[Self], tuple[Any, ...]]: ...
     def clear_flags(self) -> None: ...
     def clear_traps(self) -> None: ...

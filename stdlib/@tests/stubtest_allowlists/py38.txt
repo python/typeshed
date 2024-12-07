@@ -16,7 +16,6 @@ builtins.float.__set_format__  # Internal method for CPython test suite
 dummy_threading.Condition.acquire
 dummy_threading.Condition.release
 dummy_threading.Thread.native_id
-typing.NamedTuple.__new__
 typing.NamedTuple._asdict
 typing.NamedTuple._make
 typing.NamedTuple._replace
