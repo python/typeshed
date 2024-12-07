@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from pickle import PickleBuffer as PickleBuffer
 from typing import Any, Protocol, type_check_only
-from typing_extensions import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 class _ReadableFileobj(Protocol):
     def read(self, n: int, /) -> bytes: ...
@@ -69,6 +69,13 @@ class Pickler:
         fix_imports: bool = True,
         buffer_callback: _BufferCallback = None,
     ) -> None: ...
+    def __new__(
+        cls,
+        file: SupportsWrite[bytes],
+        protocol: int | None = None,
+        fix_imports: bool = True,
+        buffer_callback: _BufferCallback = None,
+    ) -> Self: ...
     @property
     def memo(self) -> PicklerMemoProxy: ...
     @memo.setter
@@ -95,6 +102,15 @@ class Unpickler:
         errors: str = "strict",
         buffers: Iterable[Any] | None = (),
     ) -> None: ...
+    def __new__(
+        cls,
+        file: _ReadableFileobj,
+        *,
+        fix_imports: bool = True,
+        encoding: str = "ASCII",
+        errors: str = "strict",
+        buffers: Iterable[Any] | None = (),
+    ) -> Self: ...
     @property
     def memo(self) -> UnpicklerMemoProxy: ...
     @memo.setter

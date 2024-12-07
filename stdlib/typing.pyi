@@ -155,8 +155,8 @@ class TypeVar:
         @property
         def __default__(self) -> Any: ...
     if sys.version_info >= (3, 13):
-        def __init__(
-            self,
+        def __new__(
+            cls,
             name: str,
             *constraints: Any,
             bound: Any | None = None,
@@ -164,21 +164,26 @@ class TypeVar:
             covariant: bool = False,
             infer_variance: bool = False,
             default: Any = ...,
-        ) -> None: ...
+        ) -> Self: ...
     elif sys.version_info >= (3, 12):
-        def __init__(
-            self,
+        def __new__(
+            cls,
             name: str,
             *constraints: Any,
             bound: Any | None = None,
             covariant: bool = False,
             contravariant: bool = False,
             infer_variance: bool = False,
-        ) -> None: ...
+        ) -> Self: ...
+    elif sys.version_info >= (3, 11):
+        def __new__(
+            cls, name: str, *constraints: Any, bound: Any | None = None, covariant: bool = False, contravariant: bool = False
+        ) -> Self: ...
     else:
         def __init__(
             self, name: str, *constraints: Any, bound: Any | None = None, covariant: bool = False, contravariant: bool = False
         ) -> None: ...
+
     if sys.version_info >= (3, 10):
         def __or__(self, right: Any) -> _SpecialForm: ...
         def __ror__(self, left: Any) -> _SpecialForm: ...
@@ -232,7 +237,9 @@ if sys.version_info >= (3, 11):
             def __default__(self) -> Any: ...
             def has_default(self) -> bool: ...
         if sys.version_info >= (3, 13):
-            def __init__(self, name: str, *, default: Any = ...) -> None: ...
+            def __new__(cls, name: str, *, default: Any = ...) -> Self: ...
+        elif sys.version_info >= (3, 12):
+            def __new__(cls, name: str) -> Self: ...
         else:
             def __init__(self, name: str) -> None: ...
 
@@ -245,14 +252,22 @@ if sys.version_info >= (3, 10):
     class ParamSpecArgs:
         @property
         def __origin__(self) -> ParamSpec: ...
-        def __init__(self, origin: ParamSpec) -> None: ...
+        if sys.version_info >= (3, 12):
+            def __new__(cls, origin: ParamSpec) -> Self: ...
+        else:
+            def __init__(self, origin: ParamSpec) -> None: ...
+
         def __eq__(self, other: object) -> bool: ...
 
     @final
     class ParamSpecKwargs:
         @property
         def __origin__(self) -> ParamSpec: ...
-        def __init__(self, origin: ParamSpec) -> None: ...
+        if sys.version_info >= (3, 12):
+            def __new__(cls, origin: ParamSpec) -> Self: ...
+        else:
+            def __init__(self, origin: ParamSpec) -> None: ...
+
         def __eq__(self, other: object) -> bool: ...
 
     @final
@@ -272,8 +287,8 @@ if sys.version_info >= (3, 10):
             @property
             def __default__(self) -> Any: ...
         if sys.version_info >= (3, 13):
-            def __init__(
-                self,
+            def __new__(
+                cls,
                 name: str,
                 *,
                 bound: Any | None = None,
@@ -281,17 +296,21 @@ if sys.version_info >= (3, 10):
                 covariant: bool = False,
                 infer_variance: bool = False,
                 default: Any = ...,
-            ) -> None: ...
+            ) -> Self: ...
         elif sys.version_info >= (3, 12):
-            def __init__(
-                self,
+            def __new__(
+                cls,
                 name: str,
                 *,
                 bound: Any | None = None,
                 contravariant: bool = False,
                 covariant: bool = False,
                 infer_variance: bool = False,
-            ) -> None: ...
+            ) -> Self: ...
+        elif sys.version_info >= (3, 11):
+            def __new__(
+                cls, name: str, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False
+            ) -> Self: ...
         else:
             def __init__(
                 self, name: str, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False
@@ -925,12 +944,12 @@ class NamedTuple(tuple[Any, ...]):
         __orig_bases__: ClassVar[tuple[Any, ...]]
 
     @overload
-    def __init__(self, typename: str, fields: Iterable[tuple[str, Any]], /) -> None: ...
+    def __new__(cls, typename: str, fields: Iterable[tuple[str, Any]], /) -> Self: ...
     @overload
     @typing_extensions.deprecated(
         "Creating a typing.NamedTuple using keyword arguments is deprecated and support will be removed in Python 3.15"
     )
-    def __init__(self, typename: str, fields: None = None, /, **kwargs: Any) -> None: ...
+    def __new__(cls, typename: str, fields: None = None, /, **kwargs: Any) -> Self: ...
     @classmethod
     def _make(cls, iterable: Iterable[Any]) -> typing_extensions.Self: ...
     def _asdict(self) -> dict[str, Any]: ...
@@ -1039,9 +1058,7 @@ if sys.version_info >= (3, 12):
     def override(method: _F, /) -> _F: ...
     @final
     class TypeAliasType:
-        def __init__(
-            self, name: str, value: Any, *, type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] = ()
-        ) -> None: ...
+        def __new__(cls, name: str, value: Any, *, type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] = ()) -> Self: ...
         @property
         def __value__(self) -> Any: ...
         @property
