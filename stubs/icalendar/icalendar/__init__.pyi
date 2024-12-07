@@ -45,10 +45,10 @@ from .prop import (
     vWeekday as vWeekday,
 )
 from .timezone import use_pytz, use_zoneinfo
-from .version import (
+from .version import (  # pyright: ignore[reportGeneralTypeIssues]
     __version__ as __version__,
     __version_tuple__ as __version_tuple__,
-    version as version,  # pyright: ignore[reportGeneralTypeIssues]
+    version as version,
     version_tuple as version_tuple,
 )
 

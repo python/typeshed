@@ -1,5 +1,5 @@
 from . import packages as packages, utils as utils
-from .__version__ import (
+from .__version__ import (  # pyright: ignore[reportGeneralTypeIssues]
     __author__ as __author__,
     __author_email__ as __author_email__,
     __build__ as __build__,
@@ -9,7 +9,7 @@ from .__version__ import (
     __license__ as __license__,
     __title__ as __title__,
     __url__ as __url__,
-    __version__ as __version__,  # pyright: ignore[reportGeneralTypeIssues]
+    __version__ as __version__,
 )
 from .api import (
     delete as delete,
