@@ -169,7 +169,7 @@ importlib.resources.abc.Traversable.open  # Problematic protocol signature at ru
 inspect._ParameterKind.description  # Still exists, but stubtest can't see it
 typing\._SpecialForm.*  # Super-special typing primitive
 typing\.LiteralString  # Super-special typing primitive
-  # Hack to avoid matching subclasses in overload, which is needed to match runtime behavior.
+  
 
 
 # =============================================================
