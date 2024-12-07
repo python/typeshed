@@ -352,3 +352,12 @@ if sys.version_info >= (3, 11):
             raise ex
         except BaseExceptionGroup as e:
             assert all(isinstance(exc, SystemExit) for exc in e.exceptions)
+
+    # Ensure that if we pass in non-base Exceptions, we get an ExceptionGroup
+    x = BaseExceptionGroup("", [ValueError(), KeyError()])
+    assert_type(x, ExceptionGroup[ValueError | KeyError])
+
+    # If at least one of the exceptions is a BaseException, we get a BaseExceptionGroup.
+    # This matches the runtime behavior.
+    y = BaseExceptionGroup("", [ValueError(), KeyError(), SystemExit()])
+    assert_type(y, BaseExceptionGroup[ValueError | KeyError | SystemExit])
