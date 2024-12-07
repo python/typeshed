@@ -2072,10 +2072,10 @@ if sys.version_info >= (3, 11):
     # See `check_exception_group.py` for use-cases and comments.
     class BaseExceptionGroup(BaseException, Generic[_BaseExceptionT_co]):
         @overload
-        def __new__(
+        def __new__(  # type: ignore[misc]
             # Hack to mimic runtime behavior in which we need invariant behavior
             # where sub-classes aren't matched.
-            cls: _BaseExceptionT,  # type: ignore[misc] # pyright: ignore[reportInvalidTypeVarUse]
+            cls: _BaseExceptionT,  # pyright: ignore[reportInvalidTypeVarUse]
             message: str,
             exceptions: Sequence[_ExceptionT_co],
             /,
