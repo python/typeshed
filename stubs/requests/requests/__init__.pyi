@@ -9,7 +9,7 @@ from .__version__ import (
     __license__ as __license__,
     __title__ as __title__,
     __url__ as __url__,
-    __version__ as __version__,
+    __version__ as __version__,  # pyright: ignore[reportGeneralTypeIssues]
 )
 from .api import (
     delete as delete,

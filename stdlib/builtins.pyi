@@ -2073,7 +2073,7 @@ if sys.version_info >= (3, 11):
     class BaseExceptionGroup(BaseException, Generic[_BaseExceptionT_co]):
         @overload
         def __new__(  # type: ignore[misc]
-            # Hack to mimic runtime behavior in which we need behavior
+            # Hack to mimic runtime behavior in which we need
             # where sub-classes aren't matched.
             cls: type[_BaseExceptionT_co],
             message: str,

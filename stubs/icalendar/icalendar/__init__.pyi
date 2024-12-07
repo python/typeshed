@@ -48,7 +48,7 @@ from .timezone import use_pytz, use_zoneinfo
 from .version import (
     __version__ as __version__,
     __version_tuple__ as __version_tuple__,
-    version as version,
+    version as version,  # pyright: ignore[reportGeneralTypeIssues]
     version_tuple as version_tuple,
 )
 
