@@ -239,14 +239,6 @@ asyncio.locks.Condition.acquire
 asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 
-# Weird special builtins that are typed as functions, but aren't functions
-builtins.copyright
-builtins.credits
-builtins.exit
-builtins.help
-builtins.license
-builtins.quit
-
 builtins.OSError.characters_written  # GetSetDescriptor that always raises AttributeError
 builtins.float.__getformat__  # Internal method for CPython test suite
 builtins.memoryview.__contains__  # C type that implements __getitem__
