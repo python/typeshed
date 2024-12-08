@@ -299,20 +299,11 @@ asyncio.locks.Condition.acquire
 asyncio.locks.Condition.locked
 asyncio.locks.Condition.release
 
-# Weird special builtins that are typed as functions, but aren't functions
-builtins.copyright
-builtins.credits
-builtins.exit
-builtins.help
-builtins.license
-builtins.quit
-
 builtins.memoryview.__contains__  # C type that implements __getitem__
 builtins.object.__init__  # default C signature is incorrect
 builtins.reveal_locals  # Builtins that type checkers pretends exist
 builtins.reveal_type  # Builtins that type checkers pretends exist
 builtins.type.__dict__  # read-only but not actually a property; stubtest thinks it's a mutable attribute.
-
 
 # The following CodecInfo properties are added in __new__
 codecs.CodecInfo.decode
@@ -576,11 +567,8 @@ types.ModuleType.__dict__  # read-only but not actually a property; stubtest thi
 types.ModuleType.__getattr__  # this doesn't exist at runtime
 unittest.runner._WritelnDecorator.flush  # Methods that come from __getattr__() at runtime
 unittest.runner._WritelnDecorator.write  # Methods that come from __getattr__() at runtime
-
-# See comments in file. List out methods that are delegated by __getattr__ at runtime.
-# Used to make the relevant class satisfy BinaryIO interface.
-urllib.response.addbase.\w+
-
+urllib.response.addbase.write  # Methods that come from __getattr__() at runtime
+urllib.response.addbase.writelines  # Methods that come from __getattr__() at runtime
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
 _?weakref\.CallableProxyType\.__getattr__  # Should have all attributes of proxy
 _?weakref\.(ref|ReferenceType)\.__init__  # C implementation has incorrect signature
