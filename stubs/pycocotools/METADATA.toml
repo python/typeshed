@@ -1,2 +1,5 @@
 version = "2.0.*"
 upstream_repository = "https://github.com/ppwwyyxx/cocoapi"
+requires = ["numpy>=2.0.0rc1; python_version>='3.9'"]
+# numpy>=2.0.0 requires Python >=3.9
+requires_python = ">=3.9"
