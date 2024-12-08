@@ -10,18 +10,18 @@ from .geometry import GeometryCollection, LinearRing, LineString, MultiLineStrin
 from .lib import Geometry
 
 __all__ = [
-    "points",
-    "linestrings",
-    "linearrings",
-    "polygons",
-    "multipoints",
-    "multilinestrings",
-    "multipolygons",
-    "geometrycollections",
     "box",
-    "prepare",
     "destroy_prepared",
     "empty",
+    "geometrycollections",
+    "linearrings",
+    "linestrings",
+    "multilinestrings",
+    "multipoints",
+    "multipolygons",
+    "points",
+    "polygons",
+    "prepare",
 ]
 
 @overload

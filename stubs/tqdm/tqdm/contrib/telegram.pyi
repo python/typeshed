@@ -5,7 +5,7 @@ from typing import NoReturn, TypeVar, overload
 from ..auto import tqdm as tqdm_auto
 from .utils_worker import MonoWorker
 
-__all__ = ["TelegramIO", "tqdm_telegram", "ttgrange", "tqdm", "trange"]
+__all__ = ["TelegramIO", "tqdm", "tqdm_telegram", "trange", "ttgrange"]
 
 class TelegramIO(MonoWorker):
     API: str

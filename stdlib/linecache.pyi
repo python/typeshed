@@ -4,9 +4,9 @@ from typing import Any
 from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 9):
-    __all__ = ["getline", "clearcache", "checkcache", "lazycache"]
+    __all__ = ["checkcache", "clearcache", "getline", "lazycache"]
 else:
-    __all__ = ["getline", "clearcache", "checkcache"]
+    __all__ = ["checkcache", "clearcache", "getline"]
 
 _ModuleGlobals: TypeAlias = dict[str, Any]
 _ModuleMetadata: TypeAlias = tuple[int, float | None, list[str], str]

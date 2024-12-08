@@ -6,7 +6,7 @@ from typing import Any, AnyStr, Final, Generic, Literal
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-__all__ = ["clear_cache", "cmp", "dircmp", "cmpfiles", "DEFAULT_IGNORES"]
+__all__ = ["DEFAULT_IGNORES", "clear_cache", "cmp", "cmpfiles", "dircmp"]
 
 DEFAULT_IGNORES: list[str]
 BUFSIZE: Final = 8192

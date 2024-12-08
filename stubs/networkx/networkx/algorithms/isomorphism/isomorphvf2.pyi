@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
-__all__ = ["GraphMatcher", "DiGraphMatcher"]
+__all__ = ["DiGraphMatcher", "GraphMatcher"]
 
 class GraphMatcher:
     G1: Incomplete

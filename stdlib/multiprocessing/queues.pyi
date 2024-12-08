@@ -4,7 +4,7 @@ from typing import Any, Generic, TypeVar
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
-__all__ = ["Queue", "SimpleQueue", "JoinableQueue"]
+__all__ = ["JoinableQueue", "Queue", "SimpleQueue"]
 
 _T = TypeVar("_T")
 

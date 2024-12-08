@@ -3,7 +3,7 @@ from types import TracebackType
 from typing import Any, NoReturn, overload
 from typing_extensions import TypeVarTuple, Unpack
 
-__all__ = ["error", "start_new_thread", "exit", "get_ident", "allocate_lock", "interrupt_main", "LockType", "RLock"]
+__all__ = ["LockType", "RLock", "allocate_lock", "error", "exit", "get_ident", "interrupt_main", "start_new_thread"]
 
 _Ts = TypeVarTuple("_Ts")
 

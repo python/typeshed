@@ -4,11 +4,11 @@ from typing_extensions import TypeAlias
 from .cal import Alarm, Event, Todo
 
 __all__ = [
-    "Alarms",
     "AlarmTime",
-    "IncompleteAlarmInformation",
+    "Alarms",
     "ComponentEndMissing",
     "ComponentStartMissing",
+    "IncompleteAlarmInformation",
     "LocalTimezoneMissing",
 ]
 

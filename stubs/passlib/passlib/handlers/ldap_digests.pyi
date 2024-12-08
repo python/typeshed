@@ -5,18 +5,18 @@ from passlib.handlers.misc import plaintext
 from passlib.utils.handlers import PrefixWrapper
 
 __all__ = [
-    "ldap_plaintext",
+    "ldap_bcrypt",
+    "ldap_bsdi_crypt",
+    "ldap_des_crypt",
     "ldap_md5",
-    "ldap_sha1",
+    "ldap_md5_crypt",
+    "ldap_plaintext",
     "ldap_salted_md5",
     "ldap_salted_sha1",
     "ldap_salted_sha256",
     "ldap_salted_sha512",
-    "ldap_des_crypt",
-    "ldap_bsdi_crypt",
-    "ldap_md5_crypt",
+    "ldap_sha1",
     "ldap_sha1_crypt",
-    "ldap_bcrypt",
     "ldap_sha256_crypt",
     "ldap_sha512_crypt",
 ]

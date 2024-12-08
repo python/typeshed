@@ -23,8 +23,8 @@ from .utils import cache
 
 __all__ = [
     "NoSuchStubError",
-    "StubMetadata",
     "PackageDependencies",
+    "StubMetadata",
     "StubtestSettings",
     "get_recursive_requirements",
     "read_dependencies",

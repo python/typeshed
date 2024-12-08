@@ -8,7 +8,7 @@ from types import CodeType, FrameType, TracebackType
 from typing import IO, Any, ClassVar, Final, TypeVar
 from typing_extensions import ParamSpec, Self
 
-__all__ = ["run", "pm", "Pdb", "runeval", "runctx", "runcall", "set_trace", "post_mortem", "help"]
+__all__ = ["Pdb", "help", "pm", "post_mortem", "run", "runcall", "runctx", "runeval", "set_trace"]
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
