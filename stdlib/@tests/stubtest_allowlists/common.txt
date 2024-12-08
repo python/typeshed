@@ -548,11 +548,8 @@ types.ModuleType.__dict__  # read-only but not actually a property; stubtest thi
 types.ModuleType.__getattr__  # this doesn't exist at runtime
 unittest.runner._WritelnDecorator.flush  # Methods that come from __getattr__() at runtime
 unittest.runner._WritelnDecorator.write  # Methods that come from __getattr__() at runtime
-
-# See comments in file. List out methods that are delegated by __getattr__ at runtime.
-# Used to make the relevant class satisfy BinaryIO interface.
-urllib.response.addbase.\w+
-
+urllib.response.addbase.write  # Methods that come from __getattr__() at runtime
+urllib.response.addbase.writelines  # Methods that come from __getattr__() at runtime
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
 uuid.bytes_  # Attributes that are intended to be private
 uuid.int_  # Attributes that are intended to be private
