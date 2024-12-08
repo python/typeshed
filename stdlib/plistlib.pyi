@@ -6,9 +6,9 @@ from enum import Enum
 from typing import IO, Any
 from typing_extensions import Self
 
-__all__ = ["InvalidFileException", "FMT_XML", "FMT_BINARY", "load", "dump", "loads", "dumps", "UID"]
+__all__ = ["FMT_BINARY", "FMT_XML", "UID", "InvalidFileException", "dump", "dumps", "load", "loads"]
 if sys.version_info < (3, 9):
-    __all__ += ["readPlist", "writePlist", "readPlistFromBytes", "writePlistToBytes", "Data"]
+    __all__ += ["Data", "readPlist", "readPlistFromBytes", "writePlist", "writePlistToBytes"]
 
 class PlistFormat(Enum):
     FMT_XML = 1

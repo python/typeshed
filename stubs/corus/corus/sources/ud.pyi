@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 
 from corus.record import Record
 
-__all__ = ["load_ud_gsd", "load_ud_taiga", "load_ud_pud", "load_ud_syntag"]
+__all__ = ["load_ud_gsd", "load_ud_pud", "load_ud_syntag", "load_ud_taiga"]
 
 class UDSent(Record):
     __attributes__: Incomplete

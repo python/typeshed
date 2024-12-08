@@ -4,7 +4,7 @@ from typing import TypeVar, overload
 
 from .handlers import SimpleHandler
 
-__all__ = ["WSGIServer", "WSGIRequestHandler", "demo_app", "make_server"]
+__all__ = ["WSGIRequestHandler", "WSGIServer", "demo_app", "make_server"]
 
 server_version: str  # undocumented
 sys_version: str  # undocumented

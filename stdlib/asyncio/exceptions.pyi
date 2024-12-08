@@ -4,20 +4,20 @@ if sys.version_info >= (3, 11):
     __all__ = (
         "BrokenBarrierError",
         "CancelledError",
-        "InvalidStateError",
-        "TimeoutError",
         "IncompleteReadError",
+        "InvalidStateError",
         "LimitOverrunError",
         "SendfileNotAvailableError",
+        "TimeoutError",
     )
 else:
     __all__ = (
         "CancelledError",
-        "InvalidStateError",
-        "TimeoutError",
         "IncompleteReadError",
+        "InvalidStateError",
         "LimitOverrunError",
         "SendfileNotAvailableError",
+        "TimeoutError",
     )
 
 class CancelledError(BaseException): ...

@@ -1,4 +1,4 @@
-__all__ = ["version", "bootstrap"]
+__all__ = ["bootstrap", "version"]
 
 def version() -> str: ...
 def bootstrap(

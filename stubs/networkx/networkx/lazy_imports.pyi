@@ -1,7 +1,7 @@
 import types
 from _typeshed import Incomplete
 
-__all__ = ["attach", "_lazy_import"]
+__all__ = ["_lazy_import", "attach"]
 
 def attach(module_name, submodules: Incomplete | None = None, submod_attrs: Incomplete | None = None): ...
 

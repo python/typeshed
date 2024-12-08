@@ -12,7 +12,7 @@ from .context import BaseContext
 from .shared_memory import _SLT, ShareableList as _ShareableList, SharedMemory as _SharedMemory
 from .util import Finalize as _Finalize
 
-__all__ = ["BaseManager", "SyncManager", "BaseProxy", "Token", "SharedMemoryManager"]
+__all__ = ["BaseManager", "BaseProxy", "SharedMemoryManager", "SyncManager", "Token"]
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias

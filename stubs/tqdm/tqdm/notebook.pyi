@@ -4,7 +4,7 @@ from typing import NoReturn, TypeVar, overload
 
 from .std import tqdm as std_tqdm, trange as trange
 
-__all__ = ["tqdm_notebook", "tnrange", "tqdm", "trange"]
+__all__ = ["tnrange", "tqdm", "tqdm_notebook", "trange"]
 
 _T = TypeVar("_T")
 

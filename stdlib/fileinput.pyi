@@ -9,18 +9,18 @@ if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 __all__ = [
-    "input",
-    "close",
-    "nextfile",
-    "filename",
-    "lineno",
-    "filelineno",
-    "fileno",
-    "isfirstline",
-    "isstdin",
     "FileInput",
+    "close",
+    "filelineno",
+    "filename",
+    "fileno",
     "hook_compressed",
     "hook_encoded",
+    "input",
+    "isfirstline",
+    "isstdin",
+    "lineno",
+    "nextfile",
 ]
 
 if sys.version_info >= (3, 11):

@@ -9,14 +9,14 @@ from ._monitor import TMonitor
 from .utils import Comparable
 
 __all__ = [
+    "TqdmDeprecationWarning",
+    "TqdmExperimentalWarning",
+    "TqdmKeyError",
+    "TqdmMonitorWarning",
+    "TqdmTypeError",
+    "TqdmWarning",
     "tqdm",
     "trange",
-    "TqdmTypeError",
-    "TqdmKeyError",
-    "TqdmWarning",
-    "TqdmExperimentalWarning",
-    "TqdmDeprecationWarning",
-    "TqdmMonitorWarning",
 ]
 
 class TqdmTypeError(TypeError): ...

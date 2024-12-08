@@ -10,6 +10,7 @@ __all__ = [
     "COLON",
     "COLONEQUAL",
     "COMMA",
+    "COMMENT",
     "DEDENT",
     "DOT",
     "DOUBLESLASH",
@@ -17,6 +18,7 @@ __all__ = [
     "DOUBLESTAR",
     "DOUBLESTAREQUAL",
     "ELLIPSIS",
+    "ENCODING",
     "ENDMARKER",
     "EQEQUAL",
     "EQUAL",
@@ -38,6 +40,7 @@ __all__ = [
     "MINUS",
     "NAME",
     "NEWLINE",
+    "NL",
     "NOTEQUAL",
     "NT_OFFSET",
     "NUMBER",
@@ -65,9 +68,6 @@ __all__ = [
     "VBAR",
     "VBAREQUAL",
     "tok_name",
-    "ENCODING",
-    "NL",
-    "COMMENT",
 ]
 if sys.version_info < (3, 13):
     __all__ += ["ASYNC", "AWAIT"]
@@ -76,7 +76,7 @@ if sys.version_info >= (3, 10):
     __all__ += ["SOFT_KEYWORD"]
 
 if sys.version_info >= (3, 12):
-    __all__ += ["EXCLAMATION", "FSTRING_END", "FSTRING_MIDDLE", "FSTRING_START", "EXACT_TOKEN_TYPES"]
+    __all__ += ["EXACT_TOKEN_TYPES", "EXCLAMATION", "FSTRING_END", "FSTRING_MIDDLE", "FSTRING_START"]
 
 ENDMARKER: int
 NAME: int
