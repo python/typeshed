@@ -10,7 +10,7 @@ _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
 asyncio.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.base_events.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
-builtins.dict.get
+# builtins.dict.get
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
 configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
 configparser.SectionProxy.getboolean  # SectionProxy get functions are set in __init__
@@ -190,7 +190,7 @@ _collections_abc.Generator.gi_frame
 _collections_abc.Generator.gi_running
 _collections_abc.Generator.gi_yieldfrom
 _collections_abc.Mapping.__reversed__  # set to None at runtime for a better error message
-_collections_abc.Mapping.get  # Adding None to the Union messed up mypy
+# _collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
 
 # Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
