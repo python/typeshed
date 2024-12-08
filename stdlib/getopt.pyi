@@ -1,10 +1,15 @@
-from collections.abc import Iterable
+from collections.abc import Iterable, Sequence
+from typing import TypeVar
+
+_StrSequenceT = TypeVar("_StrSequenceT", bound=Sequence[str])
 
 __all__ = ["GetoptError", "error", "getopt", "gnu_getopt"]
 
-def getopt(args: list[str], shortopts: str, longopts: Iterable[str] | str = []) -> tuple[list[tuple[str, str]], list[str]]: ...
+def getopt(
+    args: _StrSequenceT, shortopts: str, longopts: Iterable[str] | str = []
+) -> tuple[list[tuple[str, str]], _StrSequenceT]: ...
 def gnu_getopt(
-    args: list[str], shortopts: str, longopts: Iterable[str] | str = []
+    args: Sequence[str], shortopts: str, longopts: Iterable[str] | str = []
 ) -> tuple[list[tuple[str, str]], list[str]]: ...
 
 class GetoptError(Exception):
