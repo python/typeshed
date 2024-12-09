@@ -78,7 +78,7 @@ collections.Generator.gi_frame
 collections.Generator.gi_running
 collections.Generator.gi_yieldfrom
 collections.Mapping.__reversed__  # Set to None at runtime for a better error message
-# collections.Mapping.get  # Adding None to the Union messed up mypy
+collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 xxsubtype  # module missing from the stubs
 

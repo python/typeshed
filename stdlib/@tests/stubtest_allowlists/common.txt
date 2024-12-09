@@ -190,6 +190,7 @@ _collections_abc.Generator.gi_frame
 _collections_abc.Generator.gi_running
 _collections_abc.Generator.gi_yieldfrom
 _collections_abc.Mapping.__reversed__  # set to None at runtime for a better error message
+_collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
 
 # Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
