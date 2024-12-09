@@ -4,12 +4,18 @@ from wtforms import SelectField
 
 # any way we can specify the choices inline with a literal should work
 
+# tuple of str
+SelectField(choices=("", ""))
+
 # tuple of tuples
 SelectField(choices=(("", ""),))
 SelectField(choices=((1, "1"),))
 SelectField(choices=(("", "", {}),))
 SelectField(choices=((True, "t", {}),))
 SelectField(choices=((True, "t"), (False, "f", {})))
+
+# list of str
+SelectField(choices=["", ""])
 
 # list of tuples
 SelectField(choices=[("", "")])
@@ -36,12 +42,18 @@ SelectField(choices={"a": [(True, "", {})], "b": [(False, "f")]})
 
 # the same should be true for lambdas
 
+# tuple of str
+SelectField(choices=lambda: ("", ""))
+
 # tuple of tuples
 SelectField(choices=lambda: (("", ""),))
 SelectField(choices=lambda: ((1, "1"),))
 SelectField(choices=lambda: (("", "", {}),))
 SelectField(choices=lambda: ((True, "t", {}),))
 SelectField(choices=lambda: ((True, "t"), (False, "f", {})))
+
+# list of str
+SelectField(choices=lambda: ["", ""])
 
 # list of tuples
 SelectField(choices=lambda: [("", "")])
