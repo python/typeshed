@@ -1,5 +1,6 @@
+from logging import Logger
 from typing import Any
 
-log: Any
+log: Logger
 
-def metadata_to_dict(obj): ...
+def metadata_to_dict(obj) -> dict[Any, Any]: ...
