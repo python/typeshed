@@ -102,7 +102,7 @@ result = d_str.get("key", int_value)  # type: ignore[arg-type]
 # Pyright doesn't have a version of no-any-return,
 # and mypy doesn't have a type: ignore that pyright will ignore.
 # def test1() -> str:
-#     return d_any["key"]  # type: ignore[no-any-return]
+#     return d_any["key"]  # mypy: ignore[no-any-return]
 
 
 def test2() -> str:
@@ -110,19 +110,19 @@ def test2() -> str:
 
 
 # def test3() -> str:
-#     return d_any.get("key", None)  # type: ignore[no-any-return]
+#     return d_any.get("key", None)  # mypy: ignore[no-any-return]
 #
 #
 # def test4() -> str:
-#     return d_any.get("key", any_value)  # type: ignore[no-any-return]
+#     return d_any.get("key", any_value)  # mypy: ignore[no-any-return]
 #
 #
 # def test5() -> str:
-#     return d_any.get("key", str_value)  # type: ignore[no-any-return]
+#     return d_any.get("key", str_value)  # mypy: ignore[no-any-return]
 #
 #
 # def test6() -> str:
-#     return d_any.get("key", int_value)  # type: ignore[no-any-return]
+#     return d_any.get("key", int_value)  # mypy: ignore[no-any-return]
 
 
 def test7() -> str:
