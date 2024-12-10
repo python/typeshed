@@ -75,7 +75,8 @@ assert_type(d_any.get("key", int_value), Any)
 assert_type(d_str["key"], str)
 assert_type(d_str.get("key"), Union[str, None])
 assert_type(d_str.get("key", None), Union[str, None])
-assert_type(d_str.get("key", any_value), Any)
+# Pyright has str instead of Any here
+assert_type(d_str.get("key", any_value), Any)  # pyright: ignore[reportAssertTypeFailure]
 assert_type(d_str.get("key", str_value), str)
 assert_type(d_str.get("key", int_value), Union[str, int])
 
@@ -97,28 +98,31 @@ result = d_str.get("key", int_value)  # type: ignore[arg-type]
 
 
 # Return values also make things weird
-def test1() -> str:
-    return d_any["key"]  # type: ignore[no-any-return]
+
+# Pyright doesn't have a version of no-any-return,
+# and mypy doesn't have a type: ignore that pyright will ignore.
+# def test1() -> str:
+#     return d_any["key"]  # type: ignore[no-any-return]
 
 
 def test2() -> str:
     return d_any.get("key")  # type: ignore[return-value]
 
 
-def test3() -> str:
-    return d_any.get("key", None)  # type: ignore[no-any-return]
-
-
-def test4() -> str:
-    return d_any.get("key", any_value)  # type: ignore[no-any-return]
-
-
-def test5() -> str:
-    return d_any.get("key", str_value)  # type: ignore[no-any-return]
-
-
-def test6() -> str:
-    return d_any.get("key", int_value)  # type: ignore[no-any-return]
+# def test3() -> str:
+#     return d_any.get("key", None)  # type: ignore[no-any-return]
+#
+#
+# def test4() -> str:
+#     return d_any.get("key", any_value)  # type: ignore[no-any-return]
+#
+#
+# def test5() -> str:
+#     return d_any.get("key", str_value)  # type: ignore[no-any-return]
+#
+#
+# def test6() -> str:
+#     return d_any.get("key", int_value)  # type: ignore[no-any-return]
 
 
 def test7() -> str:
