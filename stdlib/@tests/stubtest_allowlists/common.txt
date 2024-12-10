@@ -288,8 +288,6 @@ ast.Str.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
 _?asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
-asyncio.proactor_events.BaseProactorEventLoop.sock_recv  # nbytes parameter has different name 'n' in implementation
-asyncio.selector_events.BaseSelectorEventLoop.sock_recv  # nbytes parameter has different name 'n' in implementation
 
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
