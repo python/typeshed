@@ -99,3 +99,14 @@ D = dc.make_dataclass(
 # in case a type checker decides to add some special-casing for
 # `make_dataclass` in the future)
 assert_type(D.__mro__, Tuple[type, ...])
+
+
+@dc.dataclass(None, frozen=True)
+class Bar:
+    attr: str
+
+
+b = Bar(attr="attr")
+
+if dc.is_dataclass(b):
+    assert_type(b, Bar)
