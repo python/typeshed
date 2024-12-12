@@ -12,10 +12,6 @@ asyncio.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several parameters a
 asyncio.base_events.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 builtins.dict.get
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
-configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
-configparser.SectionProxy.getboolean  # SectionProxy get functions are set in __init__
-configparser.SectionProxy.getfloat  # SectionProxy get functions are set in __init__
-configparser.SectionProxy.getint  # SectionProxy get functions are set in __init__
 contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favor of its child classes
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 ctypes.memmove  # CFunctionType
@@ -318,6 +314,10 @@ codecs.StreamRecoder.\w+
 
 collections.UserList.sort  # Runtime has *args but will error if any are supplied
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
+configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
+configparser.SectionProxy.getboolean  # SectionProxy get functions are set in __init__
+configparser.SectionProxy.getfloat  # SectionProxy get functions are set in __init__
+configparser.SectionProxy.getint  # SectionProxy get functions are set in __init__
 _?contextvars.Context.__init__  # C signature is broader than what is actually accepted
 copy.PyStringMap  # defined only in Jython
 
