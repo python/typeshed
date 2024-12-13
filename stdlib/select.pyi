@@ -2,7 +2,7 @@ import sys
 from _typeshed import FileDescriptorLike
 from collections.abc import Iterable
 from types import TracebackType
-from typing import Any, final, type_check_only
+from typing import Any, final
 from typing_extensions import Self
 
 if sys.platform != "win32":
@@ -22,16 +22,14 @@ if sys.platform != "win32":
     POLLWRBAND: int
     POLLWRNORM: int
 
-    # This type is not exposed. It calls itself select.poll.
-    @type_check_only
-    class _poll:
+    # This is actually a function that returns an instance of a class.
+    # The class is not accessible directly, and also calls itself select.poll.
+    class poll:
         # default value is select.POLLIN | select.POLLPRI | select.POLLOUT
         def register(self, fd: FileDescriptorLike, eventmask: int = 7, /) -> None: ...
         def modify(self, fd: FileDescriptorLike, eventmask: int, /) -> None: ...
         def unregister(self, fd: FileDescriptorLike, /) -> None: ...
         def poll(self, timeout: float | None = None, /) -> list[tuple[int, int]]: ...
-
-    def poll() -> _poll: ...
 
 def select(
     rlist: Iterable[Any], wlist: Iterable[Any], xlist: Iterable[Any], timeout: float | None = None, /
