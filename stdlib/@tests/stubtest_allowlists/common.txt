@@ -16,7 +16,6 @@ contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favo
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
-fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
 functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
 hmac.new  # Stub is a white lie; see comments in the stub
 http.HTTPStatus.description  # set in __new__
