@@ -33,7 +33,6 @@ tarfile.TarFile.errors  # errors is initialized for some reason as None even tho
 tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
-tkinter.Misc.after  # we intentionally don't allow everything that "works" at runtime
 tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 weakref.WeakKeyDictionary.update
@@ -458,6 +457,8 @@ threading.Condition.release  # Condition functions are exported in __init__
 # A factory function that returns 'most efficient lock'.
 # Marking it as a function will make it impossible for users to use the Lock type as an annotation.
 threading.RLock
+
+tkinter.Misc.after  # we intentionally don't allow everything that "works" at runtime
 
 # Methods that come from __getattr__() at runtime
 tkinter.Tk.adderrorinfo
