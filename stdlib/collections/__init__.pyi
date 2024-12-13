@@ -478,7 +478,7 @@ class ChainMap(MutableMapping[_KT, _VT]):
     # so the signature should be kept in line with `dict.fromkeys`.
     @classmethod
     @overload
-    def fromkeys(cls, iterable: Iterable[_T]) -> ChainMap[_T, Any | None]: ...
+    def fromkeys(cls, iterable: Iterable[_T], /) -> ChainMap[_T, Any | None]: ...
     @classmethod
     @overload
     # Special-case None: the user probably wants to add non-None values later.
