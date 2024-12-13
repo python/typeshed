@@ -17,16 +17,11 @@ ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this 
 ctypes.memmove  # CFunctionType
 ctypes.memset  # CFunctionType
 fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
-functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
-hmac.new  # Stub is a white lie; see comments in the stub
-http.HTTPStatus.description  # set in __new__
-http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
-optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
 shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
@@ -38,7 +33,6 @@ tarfile.TarFile.errors  # errors is initialized for some reason as None even tho
 tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
-tkinter.Misc.after  # we intentionally don't allow everything that "works" at runtime
 tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 weakref.WeakKeyDictionary.update
@@ -362,7 +356,11 @@ email.policy.EmailPolicy.message_factory  # "type" at runtime, but protocol in s
 enum.auto.__or__  # enum.auto is magic, see comments
 enum.auto.__and__  # enum.auto is magic, see comments
 enum.auto.__xor__  # enum.auto is magic, see comments
+functools.cached_property.__set__  # doesn't exist, but cached_property is settable by another mechanism
 _?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
+hmac.new  # Raises TypeError if optional argument digestmod is not provided
+http.HTTPStatus.description  # set in __new__; work-around for enum wierdness
+http.HTTPStatus.phrase  # set in __new__; work-around for enum wierdness
 imaplib.IMAP4_SSL.ssl  # Depends on the existence and flags of SSL
 
 # runtime is *args, **kwargs due to a wrapper; we have more accurate signatures in the stubs
@@ -438,6 +436,7 @@ multiprocessing.synchronize.Condition.release
 multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
 
+optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 os._wrap_close.read  # Methods that come from __getattr__() at runtime
 os._wrap_close.readable  # Methods that come from __getattr__() at runtime
 os._wrap_close.readline  # Methods that come from __getattr__() at runtime
@@ -458,6 +457,8 @@ threading.Condition.release  # Condition functions are exported in __init__
 # A factory function that returns 'most efficient lock'.
 # Marking it as a function will make it impossible for users to use the Lock type as an annotation.
 threading.RLock
+
+tkinter.Misc.after  # we intentionally don't allow everything that "works" at runtime
 
 # Methods that come from __getattr__() at runtime
 tkinter.Tk.adderrorinfo
