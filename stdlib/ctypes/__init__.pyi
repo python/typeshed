@@ -54,7 +54,7 @@ class _FuncPtr(_CFuncPtr):
 
 # Not a real class; _FuncPtr with a __name__ set on it.
 @type_check_only
-class _NamedFuncPtr(_FuncPtr):
+class _NamedFuncPointer(_FuncPtr):
     __name__: str
 
 class CDLL:
@@ -72,8 +72,8 @@ class CDLL:
         use_last_error: bool = False,
         winmode: int | None = None,
     ) -> None: ...
-    def __getattr__(self, name: str) -> _NamedFuncPtr: ...
-    def __getitem__(self, name_or_ordinal: str) -> _NamedFuncPtr: ...
+    def __getattr__(self, name: str) -> _NamedFuncPointer: ...
+    def __getitem__(self, name_or_ordinal: str) -> _NamedFuncPointer: ...
 
 if sys.platform == "win32":
     class OleDLL(CDLL): ...
