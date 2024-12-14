@@ -2,7 +2,7 @@ import abc
 import sys
 from _typeshed import FileDescriptorOrPath, Unused
 from abc import ABC, abstractmethod
-from collections.abc import AsyncIterator, Awaitable, Callable, Generator, Iterator
+from collections.abc import AsyncGenerator, AsyncIterator, Awaitable, Callable, Generator, Iterator
 from types import TracebackType
 from typing import IO, Any, Generic, Protocol, TypeVar, overload, runtime_checkable
 from typing_extensions import ParamSpec, Self, TypeAlias
@@ -33,6 +33,7 @@ _T_co = TypeVar("_T_co", covariant=True)
 _T_io = TypeVar("_T_io", bound=IO[str] | None)
 _ExitT_co = TypeVar("_ExitT_co", covariant=True, bound=bool | None, default=bool | None)
 _F = TypeVar("_F", bound=Callable[..., Any])
+_G = TypeVar("_G", bound=Generator[Any, Any, Any] | AsyncGenerator[Any, Any])
 _P = ParamSpec("_P")
 
 _ExitFunc: TypeAlias = Callable[[type[BaseException] | None, BaseException | None, TracebackType | None], bool | None]
@@ -64,15 +65,17 @@ class ContextDecorator:
     def _recreate_cm(self) -> Self: ...
     def __call__(self, func: _F) -> _F: ...
 
-class _GeneratorContextManagerBase(Generic[_T_co]):
+class _GeneratorContextManagerBase(Generic[_G]):
     # Ideally this would use Paramspec, but that requires (*args, **kwargs), which this isn't. see #6676
-    def __init__(self, func: Callable[..., Iterator[_T_co]], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
-    gen: Generator[_T_co, Any, Any]
-    func: Callable[..., Generator[_T_co, Any, Any]]
+    def __init__(self, func: Callable[..., _G], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
+    gen: _G
+    func: Callable[..., _G]
     args: tuple[Any, ...]
     kwds: dict[str, Any]
 
-class _GeneratorContextManager(_GeneratorContextManagerBase[_T_co], AbstractContextManager[_T_co, bool | None], ContextDecorator):
+class _GeneratorContextManager(
+    _GeneratorContextManagerBase[Generator[_T_co, Any, Any]], AbstractContextManager[_T_co, bool | None], ContextDecorator
+):
     if sys.version_info >= (3, 9):
         def __exit__(
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
@@ -92,14 +95,18 @@ if sys.version_info >= (3, 10):
         def __call__(self, func: _AF) -> _AF: ...
 
     class _AsyncGeneratorContextManager(
-        _GeneratorContextManagerBase[_T_co], AbstractAsyncContextManager[_T_co, bool | None], AsyncContextDecorator
+        _GeneratorContextManagerBase[AsyncGenerator[_T_co, Any]],
+        AbstractAsyncContextManager[_T_co, bool | None],
+        AsyncContextDecorator,
     ):
         async def __aexit__(
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
         ) -> bool | None: ...
 
 else:
-    class _AsyncGeneratorContextManager(_GeneratorContextManagerBase[_T_co], AbstractAsyncContextManager[_T_co, bool | None]):
+    class _AsyncGeneratorContextManager(
+        _GeneratorContextManagerBase[AsyncGenerator[_T_co, Any]], AbstractAsyncContextManager[_T_co, bool | None]
+    ):
         async def __aexit__(
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
         ) -> bool | None: ...
