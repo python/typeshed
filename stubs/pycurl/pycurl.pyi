@@ -53,7 +53,6 @@ class CurlShare:
     def close(self) -> None: ...
     def setopt(self, option: int, value): ...
 
-
 ACCEPTTIMEOUT_MS: Final = 212
 ACCEPT_ENCODING: Final = 10102
 ADDRESS_SCOPE: Final = 171
