@@ -2,7 +2,7 @@ import abc
 import sys
 from _typeshed import FileDescriptorOrPath, Unused
 from abc import ABC, abstractmethod
-from collections.abc import AsyncGenerator, AsyncIterator, Awaitable, Callable, Generator, Iterator
+from collections.abc import AsyncIterator, Awaitable, Callable, Generator, Iterator
 from types import TracebackType
 from typing import IO, Any, Generic, Protocol, TypeVar, overload, runtime_checkable
 from typing_extensions import ParamSpec, Self, TypeAlias
@@ -64,16 +64,15 @@ class ContextDecorator:
     def _recreate_cm(self) -> Self: ...
     def __call__(self, func: _F) -> _F: ...
 
-class _GeneratorContextManagerBase: ...
-
-class _GeneratorContextManager(_GeneratorContextManagerBase, AbstractContextManager[_T_co, bool | None], ContextDecorator):
-    # __init__ and all instance attributes are actually inherited from _GeneratorContextManagerBase
-    # adding them there is more trouble than it's worth to include in the stub; see #6676
+class _GeneratorContextManagerBase(Generic[_T_co]):
+    # Ideally this would use Paramspec, but that requires (*args, **kwargs), which this isn't. see #6676
     def __init__(self, func: Callable[..., Iterator[_T_co]], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
     gen: Generator[_T_co, Any, Any]
     func: Callable[..., Generator[_T_co, Any, Any]]
     args: tuple[Any, ...]
     kwds: dict[str, Any]
+
+class _GeneratorContextManager(_GeneratorContextManagerBase[_T_co], AbstractContextManager[_T_co, bool | None], ContextDecorator):
     if sys.version_info >= (3, 9):
         def __exit__(
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
@@ -93,26 +92,14 @@ if sys.version_info >= (3, 10):
         def __call__(self, func: _AF) -> _AF: ...
 
     class _AsyncGeneratorContextManager(
-        _GeneratorContextManagerBase, AbstractAsyncContextManager[_T_co, bool | None], AsyncContextDecorator
+        _GeneratorContextManagerBase[_T_co], AbstractAsyncContextManager[_T_co, bool | None], AsyncContextDecorator
     ):
-        # __init__ and these attributes are actually defined in the base class _GeneratorContextManagerBase,
-        # adding them there is more trouble than it's worth to include in the stub (see #6676)
-        def __init__(self, func: Callable[..., AsyncIterator[_T_co]], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
-        gen: AsyncGenerator[_T_co, Any]
-        func: Callable[..., AsyncGenerator[_T_co, Any]]
-        args: tuple[Any, ...]
-        kwds: dict[str, Any]
         async def __aexit__(
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
         ) -> bool | None: ...
 
 else:
-    class _AsyncGeneratorContextManager(_GeneratorContextManagerBase, AbstractAsyncContextManager[_T_co, bool | None]):
-        def __init__(self, func: Callable[..., AsyncIterator[_T_co]], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
-        gen: AsyncGenerator[_T_co, Any]
-        func: Callable[..., AsyncGenerator[_T_co, Any]]
-        args: tuple[Any, ...]
-        kwds: dict[str, Any]
+    class _AsyncGeneratorContextManager(_GeneratorContextManagerBase[_T_co], AbstractAsyncContextManager[_T_co, bool | None]):
         async def __aexit__(
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
         ) -> bool | None: ...
