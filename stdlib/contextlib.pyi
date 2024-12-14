@@ -2,7 +2,7 @@ import abc
 import sys
 from _typeshed import FileDescriptorOrPath, Unused
 from abc import ABC, abstractmethod
-from collections.abc import AsyncGenerator, AsyncIterator, Awaitable, Callable, Generator
+from collections.abc import AsyncGenerator, AsyncIterator, Awaitable, Callable, Generator, Iterator
 from types import TracebackType
 from typing import IO, Any, Generic, Protocol, TypeVar, overload, runtime_checkable
 from typing_extensions import ParamSpec, Self, TypeAlias
@@ -90,9 +90,7 @@ class _GeneratorContextManager(
             self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
         ) -> bool | None: ...
 
-def contextmanager(
-    func: Callable[_P, Generator[_T_co, _SendT_contra, _ReturnT_co]]
-) -> Callable[_P, _GeneratorContextManager[_T_co, _SendT_contra, _ReturnT_co]]: ...
+def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
 
 if sys.version_info >= (3, 10):
     _AF = TypeVar("_AF", bound=Callable[..., Awaitable[Any]])
