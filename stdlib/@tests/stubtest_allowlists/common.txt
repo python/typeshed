@@ -23,7 +23,6 @@ importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but 
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 select.poll  # Depends on configuration
 selectors.DevpollSelector  # Depends on configuration
-shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
@@ -33,7 +32,6 @@ tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
 tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
-unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
 weakref.WeakKeyDictionary.update
 weakref.WeakValueDictionary.update
 
@@ -446,6 +444,7 @@ os._wrap_close.writelines  # Methods that come from __getattr__() at runtime
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
 _?queue.SimpleQueue.__init__  # C signature is broader than what is actually accepted
+shutil.rmtree  # function with attributes, which we approximate with a callable protocol
 ssl.PROTOCOL_SSLv2  # Depends on the existence and flags of SSL
 ssl.PROTOCOL_SSLv3  # Depends on the existence and flags of SSL
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
@@ -568,6 +567,7 @@ unittest.runner._WritelnDecorator.write  # Methods that come from __getattr__() 
 urllib.response.addbase.write  # Methods that come from __getattr__() at runtime
 urllib.response.addbase.writelines  # Methods that come from __getattr__() at runtime
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
+unittest.mock.patch  # function with attributes, which we approximate with a callable class
 _?weakref\.CallableProxyType\.__getattr__  # Should have all attributes of proxy
 _?weakref\.(ref|ReferenceType)\.__init__  # C implementation has incorrect signature
 _?weakref\.(ref|ReferenceType)\.__call__  # C function default annotation is wrong
