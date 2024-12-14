@@ -6,5 +6,5 @@ from .watch import Watch
 __version__: Final[LiteralString]
 
 all: Final[list[Literal["watch", "unwatch"]]]
-watch: Final[Watch]
+watch: Watch
 unwatch: Final = watch.unwatch
