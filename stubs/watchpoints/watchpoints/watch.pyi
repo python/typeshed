@@ -1,0 +1,64 @@
+import threading
+from _typeshed import SupportsWrite, TraceFunction
+from collections.abc import Callable
+from pdb import Pdb
+from types import FrameType
+from typing import Any, Literal, Protocol, TypeVar
+from typing_extensions import TypeAlias
+
+from .watch_element import WatchElement
+
+_T = TypeVar("_T")
+
+# Alias used for fields that must always be valid identifiers
+# A string `x` counts as a valid identifier if both the following are True
+# (1) `x.isidentifier()` evaluates to `True`
+# (2) `keyword.iskeyword(x)` evaluates to `False`
+_Identifier: TypeAlias = str
+
+class Watch:
+    custom_printer: Callable[[Any], None] | None
+    enable: bool
+    file: str | SupportsWrite[str] | None
+    pdb: Pdb | None
+    pdb_enable: bool
+    set_lock: threading.Lock
+    stack_limit: int | None
+    tracefunc_lock: threading.Lock
+    tracefunc_stack: list[TraceFunction | None]
+    watch_list: list[WatchElement]
+
+    def __init__(self) -> None: ...
+    def __call__(
+        self,
+        *args: Any,
+        alias: str = ...,
+        callback: Callable[[FrameType, WatchElement, tuple[str, str, int | None]], None] = ...,
+        cmp: Callable[[Any, Any], bool] = ...,
+        copy: Callable[[_T], _T] = ...,
+        custom_printer: Callable[[Any], None] = ...,
+        deepcopy: bool = False,
+        file: str | SupportsWrite[str] = ...,
+        stack_limit: int | None = 5,
+        track: Literal["object", "variable"] = ...,
+        when: Callable[[Any], bool] = ...,
+    ) -> None: ...
+    def config(
+        self,
+        *,
+        callback: Callable[[FrameType, WatchElement, tuple[str, str, int | None]], None] = ...,
+        pdb: Literal[True] = ...,
+        file: str | SupportsWrite[str] = ...,
+        stack_limit: int | None = 5,
+        custom_printer: Callable[[Any], None] = ...,
+    ) -> None: ...
+    def install(self, func: _Identifier = "watch") -> None: ...
+    def restore(self) -> None: ...
+    def start_trace(self, frame: FrameType) -> None: ...
+    def stop_trace(self, frame: FrameType) -> None: ...
+    def tracefunc(self, frame: FrameType, event: str, arg: Any) -> _TraceFunc: ...
+    def uninstall(self, func: _Identifier = "watch") -> None: ...
+    def unwatch(self, *args: Any) -> None: ...
+
+class _TraceFunc(Protocol):
+    def __call__(self, frame: FrameType, event: str, arg: Any) -> _TraceFunc: ...
