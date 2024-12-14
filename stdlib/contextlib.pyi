@@ -33,7 +33,7 @@ _T_co = TypeVar("_T_co", covariant=True)
 _T_io = TypeVar("_T_io", bound=IO[str] | None)
 _ExitT_co = TypeVar("_ExitT_co", covariant=True, bound=bool | None, default=bool | None)
 _F = TypeVar("_F", bound=Callable[..., Any])
-_G = TypeVar("_G", bound=Generator[Any, Any, Any] | AsyncGenerator[Any, Any])
+_G = TypeVar("_G", bound=Generator[Any, Any, Any] | AsyncGenerator[Any, Any], covariant=True)
 _P = ParamSpec("_P")
 
 _ExitFunc: TypeAlias = Callable[[type[BaseException] | None, BaseException | None, TracebackType | None], bool | None]
