@@ -35,8 +35,6 @@ tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
 tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
 unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
-weakref.WeakKeyDictionary.update
-weakref.WeakValueDictionary.update
 
 
 # ===============================================================
