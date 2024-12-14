@@ -69,7 +69,7 @@ class ContextDecorator:
     def __call__(self, func: _F) -> _F: ...
 
 class _GeneratorContextManagerBase(Generic[_G]):
-    # Ideally this would use Paramspec, but that requires (*args, **kwargs), which this isn't. see #6676
+    # Ideally this would use ParamSpec, but that requires (*args, **kwargs), which this isn't. see #6676
     def __init__(self, func: Callable[..., _G], args: tuple[Any, ...], kwds: dict[str, Any]) -> None: ...
     gen: _G
     func: Callable[..., _G]
