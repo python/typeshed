@@ -107,6 +107,9 @@ class _CFunctionType(_CFuncPtr):
     _restype_: ClassVar[type[_CData | _CDataType] | None]
     _flags_: ClassVar[int]
 
+# Legacy name used by pyserial (and maybe others?)
+_FuncPointer: TypeAlias = _FuncPtr | _CFunctionType  # noqa: Y047  # not used here
+
 def CFUNCTYPE(
     restype: type[_CData | _CDataType] | None,
     *argtypes: type[_CData | _CDataType],
