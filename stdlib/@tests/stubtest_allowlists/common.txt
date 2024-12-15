@@ -441,6 +441,7 @@ pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
 _?queue.SimpleQueue.__init__  # C signature is broader than what is actually accepted
 shutil.rmtree  # function with attributes, which we approximate with a callable protocol
+socketserver.BaseServer.get_request  # Not implemented, but expected to exist on subclasses.
 ssl.PROTOCOL_SSLv2  # Depends on the existence and flags of SSL
 ssl.PROTOCOL_SSLv3  # Depends on the existence and flags of SSL
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
