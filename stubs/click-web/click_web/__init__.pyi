@@ -1,9 +1,9 @@
 import logging
 import types
+from _typeshed import Incomplete
 
 import click
 import flask
-from _typeshed import Incomplete
 
 # This should be jinja2.Environment, but it does not have stubs and forbidden for requires in METADATA.toml
 jinja_env: Incomplete
