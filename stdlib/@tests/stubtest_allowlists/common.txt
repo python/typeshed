@@ -22,7 +22,6 @@ importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but e
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 select.poll  # Depends on configuration
-selectors.DevpollSelector  # Depends on configuration
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
