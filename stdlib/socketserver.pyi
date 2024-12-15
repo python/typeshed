@@ -38,12 +38,7 @@ _AfInetAddress: TypeAlias = tuple[str | bytes | bytearray, int]  # address accep
 
 # This can possibly be generic at some point:
 class BaseServer:
-    address_family: int
     server_address: _Address
-    socket: _socket
-    allow_reuse_address: bool
-    request_queue_size: int
-    socket_type: int
     timeout: float | None
     RequestHandlerClass: Callable[[Any, _RetAddress, Self], BaseRequestHandler]
     def __init__(
@@ -69,6 +64,11 @@ class BaseServer:
     def close_request(self, request: _RequestType) -> None: ...  # undocumented
 
 class TCPServer(BaseServer):
+    address_family: int
+    socket: _socket
+    allow_reuse_address: bool
+    request_queue_size: int
+    socket_type: int
     if sys.version_info >= (3, 11):
         allow_reuse_port: bool
     server_address: _AfInetAddress
