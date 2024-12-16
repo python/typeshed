@@ -62,9 +62,15 @@ class Executor:
     else:
         def submit(self, fn: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs) -> Future[_T]: ...
 
-    def map(
-        self, fn: Callable[..., _T], *iterables: Iterable[Any], timeout: float | None = None, chunksize: int = 1
-    ) -> Iterator[_T]: ...
+    if sys.version_info >= (3, 14):
+        def map(
+            self, fn: Callable[..., _T], *iterables: Iterable[Any], timeout: float | None = None, chunksize: int = 1, buffersize: int | None = None
+        ) -> Iterator[_T]: ...
+    else:
+        def map(
+            self, fn: Callable[..., _T], *iterables: Iterable[Any], timeout: float | None = None, chunksize: int = 1
+        ) -> Iterator[_T]: ...
+
     if sys.version_info >= (3, 9):
         def shutdown(self, wait: bool = True, *, cancel_futures: bool = False) -> None: ...
     else:
