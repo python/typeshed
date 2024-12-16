@@ -421,7 +421,7 @@ class BoundArguments:
 # Classes and functions
 #
 
-_ClassTreeItem: TypeAlias = list[_ClassTreeItem] | list[tuple[type, ...]]
+_ClassTreeItem: TypeAlias = list[tuple[type, ...]] | list[_ClassTreeItem]
 
 def getclasstree(classes: list[type], unique: bool = False) -> _ClassTreeItem: ...
 def walktree(classes: list[type], children: Mapping[type[Any], list[type]], parent: type[Any] | None) -> _ClassTreeItem: ...
