@@ -78,27 +78,19 @@ CONFLICT: Literal[409]
 GONE: Literal[410]
 LENGTH_REQUIRED: Literal[411]
 PRECONDITION_FAILED: Literal[412]
-
 if sys.version_info >= (3, 13):
     CONTENT_TOO_LARGE: Literal[413]
-
 REQUEST_ENTITY_TOO_LARGE: Literal[413]
-
 if sys.version_info >= (3, 13):
     URI_TOO_LONG: Literal[414]
-
 REQUEST_URI_TOO_LONG: Literal[414]
 UNSUPPORTED_MEDIA_TYPE: Literal[415]
-
 if sys.version_info >= (3, 13):
     RANGE_NOT_SATISFIABLE: Literal[416]
-
 REQUESTED_RANGE_NOT_SATISFIABLE: Literal[416]
 EXPECTATION_FAILED: Literal[417]
-
 if sys.version_info >= (3, 13):
     UNPROCESSABLE_CONTENT: Literal[422]
-
 UNPROCESSABLE_ENTITY: Literal[422]
 LOCKED: Literal[423]
 FAILED_DEPENDENCY: Literal[424]
@@ -121,7 +113,6 @@ NETWORK_AUTHENTICATION_REQUIRED: Literal[511]
 
 MISDIRECTED_REQUEST: Literal[421]
 UNAVAILABLE_FOR_LEGAL_REASONS: Literal[451]
-
 if sys.version_info >= (3, 9):
     EARLY_HINTS: Literal[103]
     IM_A_TEAPOT: Literal[418]
