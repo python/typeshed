@@ -39,6 +39,8 @@ _HeaderValue: TypeAlias = ReadableBuffer | str | int
 HTTP_PORT: int
 HTTPS_PORT: int
 
+# Keep these global constants in sync with http.HTTPStatus (http/__init__.pyi).
+# They are present for backward compatibility reasons.
 CONTINUE: Literal[100]
 SWITCHING_PROTOCOLS: Literal[101]
 PROCESSING: Literal[102]

@@ -14,6 +14,7 @@ class HTTPStatus(IntEnum):
     def phrase(self) -> str: ...
     @property
     def description(self) -> str: ...
+    # Keep these synced with the global constants in http/client.pyi.
     CONTINUE = 100
     SWITCHING_PROTOCOLS = 101
     PROCESSING = 102
