@@ -5,7 +5,7 @@ class Behavior:
     name: str
     description: str
     versionString: str
-    knownChildren: ClassVar[dict[str, tuple[int, int | None, Incomplete | None]]]
+    knownChildren: ClassVar[dict[str, tuple[int, int | None, int | None]]]
     quotedPrintable: bool
     defaultBehavior: Any
     hasNative: bool
