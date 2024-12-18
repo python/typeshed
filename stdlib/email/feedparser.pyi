@@ -3,7 +3,7 @@ from email.message import Message
 from email.policy import Policy
 from typing import Generic, TypeVar, overload
 
-__all__ = ["FeedParser", "BytesFeedParser"]
+__all__ = ["BytesFeedParser", "FeedParser"]
 
 _MessageT = TypeVar("_MessageT", bound=Message, default=Message)
 

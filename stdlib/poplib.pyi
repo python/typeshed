@@ -6,7 +6,7 @@ from re import Pattern
 from typing import Any, BinaryIO, Final, NoReturn, overload
 from typing_extensions import TypeAlias
 
-__all__ = ["POP3", "error_proto", "POP3_SSL"]
+__all__ = ["POP3", "POP3_SSL", "error_proto"]
 
 _LongResp: TypeAlias = tuple[bytes, list[bytes], int]
 

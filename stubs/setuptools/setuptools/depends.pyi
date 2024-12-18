@@ -3,7 +3,7 @@ from typing import IO, Any, Literal, TypeVar
 
 _T = TypeVar("_T")
 
-__all__ = ["Require", "find_module", "get_module_constant", "extract_constant"]
+__all__ = ["Require", "extract_constant", "find_module", "get_module_constant"]
 
 def find_module(
     module, paths=None

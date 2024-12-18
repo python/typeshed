@@ -18,22 +18,22 @@ from hvac.api.auth_methods.userpass import Userpass as Userpass
 from hvac.api.vault_api_category import VaultApiCategory
 
 __all__ = (
-    "AuthMethods",
+    "JWT",
+    "OIDC",
     "AppRole",
+    "AuthMethods",
+    "Aws",
     "Azure",
+    "Cert",
     "Gcp",
     "Github",
-    "JWT",
     "Kubernetes",
     "Ldap",
-    "Userpass",
     "LegacyMfa",
-    "OIDC",
     "Okta",
     "Radius",
     "Token",
-    "Aws",
-    "Cert",
+    "Userpass",
 )
 
 class AuthMethods(VaultApiCategory):

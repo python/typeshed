@@ -18,22 +18,22 @@ from hvac.api.secrets_engines.transit import Transit as Transit
 from hvac.api.vault_api_category import VaultApiCategory
 
 __all__ = (
+    "ActiveDirectory",
     "Aws",
     "Azure",
+    "Database",
     "Gcp",
-    "ActiveDirectory",
     "Identity",
     "Kv",
     "KvV1",
     "KvV2",
     "Ldap",
     "Pki",
+    "RabbitMQ",
+    "SecretsEngines",
+    "Ssh",
     "Transform",
     "Transit",
-    "SecretsEngines",
-    "Database",
-    "RabbitMQ",
-    "Ssh",
 )
 
 class SecretsEngines(VaultApiCategory):

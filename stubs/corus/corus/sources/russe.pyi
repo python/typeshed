@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 
 from corus.record import Record
 
-__all__ = ["load_russe_hj", "load_russe_rt", "load_russe_ae"]
+__all__ = ["load_russe_ae", "load_russe_hj", "load_russe_rt"]
 
 class RusseSemRecord(Record):
     __attributes__: Incomplete

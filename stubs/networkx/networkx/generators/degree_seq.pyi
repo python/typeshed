@@ -4,11 +4,11 @@ from networkx.utils.backends import _dispatchable
 
 __all__ = [
     "configuration_model",
+    "degree_sequence_tree",
     "directed_configuration_model",
+    "directed_havel_hakimi_graph",
     "expected_degree_graph",
     "havel_hakimi_graph",
-    "directed_havel_hakimi_graph",
-    "degree_sequence_tree",
     "random_degree_sequence_graph",
 ]
 

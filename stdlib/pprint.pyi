@@ -1,7 +1,7 @@
 import sys
 from typing import IO
 
-__all__ = ["pprint", "pformat", "isreadable", "isrecursive", "saferepr", "PrettyPrinter", "pp"]
+__all__ = ["PrettyPrinter", "isreadable", "isrecursive", "pformat", "pp", "pprint", "saferepr"]
 
 if sys.version_info >= (3, 10):
     def pformat(

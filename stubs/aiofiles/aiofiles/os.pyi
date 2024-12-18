@@ -9,29 +9,29 @@ from aiofiles import ospath
 from aiofiles.ospath import wrap as wrap
 
 __all__ = [
+    "access",
+    "getcwd",
+    "link",
+    "listdir",
+    "makedirs",
+    "mkdir",
     "path",
-    "stat",
+    "readlink",
+    "remove",
+    "removedirs",
     "rename",
     "renames",
     "replace",
-    "remove",
-    "unlink",
-    "mkdir",
-    "makedirs",
     "rmdir",
-    "removedirs",
-    "link",
-    "symlink",
-    "readlink",
-    "listdir",
     "scandir",
-    "access",
+    "stat",
+    "symlink",
+    "unlink",
     "wrap",
-    "getcwd",
 ]
 
 if sys.platform != "win32":
-    __all__ += ["statvfs", "sendfile"]
+    __all__ += ["sendfile", "statvfs"]
 
 path = ospath
 

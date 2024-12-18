@@ -1,7 +1,7 @@
 from typing import Final
 from typing_extensions import deprecated
 
-__all__ = ["available", "enable", "disable", "enabled"]
+__all__ = ["available", "disable", "enable", "enabled"]
 
 available: Final = True
 enabled: Final = True

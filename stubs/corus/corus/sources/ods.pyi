@@ -3,8 +3,8 @@ from _typeshed import Incomplete
 from corus.record import Record
 
 __all__ = [
-    "load_ods_interfax",
     "load_ods_gazeta",
+    "load_ods_interfax",
     "load_ods_izvestia",
     "load_ods_meduza",
     "load_ods_ria",

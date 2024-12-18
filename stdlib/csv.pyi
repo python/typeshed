@@ -33,28 +33,28 @@ if sys.version_info >= (3, 12):
     from types import GenericAlias
 
 __all__ = [
-    "QUOTE_MINIMAL",
     "QUOTE_ALL",
-    "QUOTE_NONNUMERIC",
+    "QUOTE_MINIMAL",
     "QUOTE_NONE",
-    "Error",
+    "QUOTE_NONNUMERIC",
     "Dialect",
+    "DictReader",
+    "DictWriter",
+    "Error",
+    "Sniffer",
     "excel",
     "excel_tab",
     "field_size_limit",
-    "reader",
-    "writer",
-    "register_dialect",
     "get_dialect",
     "list_dialects",
-    "Sniffer",
-    "unregister_dialect",
-    "DictReader",
-    "DictWriter",
+    "reader",
+    "register_dialect",
     "unix_dialect",
+    "unregister_dialect",
+    "writer",
 ]
 if sys.version_info >= (3, 12):
-    __all__ += ["QUOTE_STRINGS", "QUOTE_NOTNULL"]
+    __all__ += ["QUOTE_NOTNULL", "QUOTE_STRINGS"]
 if sys.version_info < (3, 13):
     __all__ += ["__doc__", "__version__"]
 
