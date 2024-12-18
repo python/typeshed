@@ -23,19 +23,19 @@ utc: Any  # dateutil.tz.tz.tzutc
 
 class TimezoneComponent(Component):
     isNative: bool
-    behavior: Any
-    tzinfo: Any
+    behavior: Incomplete
+    tzinfo: Incomplete
     name: str
     useBegin: bool
     def __init__(self, tzinfo: Incomplete | None = None, *args, **kwds) -> None: ...
     @classmethod
     def registerTzinfo(cls, tzinfo): ...
     def gettzinfo(self): ...
-    tzid: Any
-    daylight: Any
-    standard: Any
+    tzid: Incomplete
+    daylight: Incomplete
+    standard: Incomplete
     def settzinfo(self, tzinfo, start: int = 2000, end: int = 2030): ...
-    normal_attributes: Any
+    normal_attributes: Incomplete
     @staticmethod
     def pickTzid(tzinfo, allowUTC: bool = False): ...
     def prettyPrint(self, level, tabwidth) -> None: ...  # type: ignore[override]
@@ -45,7 +45,7 @@ class RecurringComponent(Component):
     def __init__(self, *args, **kwds) -> None: ...
     def getrruleset(self, addRDate: bool = False): ...
     def setrruleset(self, rruleset): ...
-    rruleset: Any
+    rruleset: Incomplete
     def __setattr__(self, name, value) -> None: ...
 
 class TextBehavior(Behavior):
@@ -56,7 +56,7 @@ class TextBehavior(Behavior):
     def encode(cls, line) -> None: ...
 
 class VCalendarComponentBehavior(Behavior):
-    defaultBehavior: Any
+    defaultBehavior: Incomplete
     isComponent: bool
 
 class RecurringBehavior(VCalendarComponentBehavior):
@@ -106,7 +106,7 @@ class VCalendar2_0(VCalendarComponentBehavior):
     name: str
     description: str
     versionString: str
-    sortFirst: Any
+    sortFirst: Incomplete
     @classmethod
     def generateImplicitParameters(cls, obj) -> None: ...
     @classmethod
@@ -116,7 +116,7 @@ class VTimezone(VCalendarComponentBehavior):
     name: str
     hasNative: bool
     description: str
-    sortFirst: Any
+    sortFirst: Incomplete
     @classmethod
     def validate(cls, obj, raiseException, *args): ...
     @staticmethod
@@ -131,7 +131,7 @@ class DaylightOrStandard(VCalendarComponentBehavior):
 
 class VEvent(RecurringBehavior):
     name: str
-    sortFirst: Any
+    sortFirst: Incomplete
     description: str
     @classmethod
     def validate(cls, obj, raiseException, *args): ...
@@ -148,7 +148,7 @@ class VJournal(RecurringBehavior):
 class VFreeBusy(VCalendarComponentBehavior):
     name: str
     description: str
-    sortFirst: Any
+    sortFirst: Incomplete
 
 class VAlarm(VCalendarComponentBehavior):
     name: str
@@ -161,13 +161,13 @@ class VAlarm(VCalendarComponentBehavior):
 class VAvailability(VCalendarComponentBehavior):
     name: str
     description: str
-    sortFirst: Any
+    sortFirst: Incomplete
     @classmethod
     def validate(cls, obj, raiseException, *args): ...
 
 class Available(RecurringBehavior):
     name: str
-    sortFirst: Any
+    sortFirst: Incomplete
     description: str
     @classmethod
     def validate(cls, obj, raiseException, *args): ...
@@ -203,9 +203,9 @@ class FreeBusy(PeriodBehavior):
 
 class RRule(Behavior): ...
 
-utcDateTimeList: Any
-dateTimeOrDateList: Any
-textList: Any
+utcDateTimeList: Incomplete
+dateTimeOrDateList: Incomplete
+textList: Incomplete
 
 def numToDigits(num, places): ...
 def timedeltaToString(delta): ...
