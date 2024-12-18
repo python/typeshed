@@ -1,10 +1,11 @@
-from typing import Any
+from _typeshed import Incomplete
+from typing import Any, ClassVar
 
 class Behavior:
     name: str
     description: str
     versionString: str
-    knownChildren: Any
+    knownChildren: ClassVar[dict[str, tuple[int, int | None, Incomplete | None]]]
     quotedPrintable: bool
     defaultBehavior: Any
     hasNative: bool
