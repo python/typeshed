@@ -1,6 +1,6 @@
-from typing import Any
+from logging import Logger
 
-log: Any
+log: Logger
 CONF_PATH: str
 SERVICE_NAME: str
 ORIGIN: str
