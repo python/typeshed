@@ -330,8 +330,6 @@ _?ctypes.Union.__getattr__  # doesn't exist, but makes things easy if we pretend
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 _?ctypes.Array.__iter__
 
-dataclasses.field  # White lies around defaults
-
 # __all__-related weirdness (see #6523)
 email.__all__
 email.base64mime
