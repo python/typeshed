@@ -22,9 +22,6 @@ importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but e
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 select.poll  # Depends on configuration
-socketserver.BaseServer.fileno  # implemented in derived classes
-socketserver.BaseServer.get_request  # implemented in derived classes
-socketserver.BaseServer.server_bind  # implemented in derived classes
 ssl.Purpose.__new__  # the multiple inheritance confuses mypy
 tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 tkinter.simpledialog.[A-Z_]+
@@ -442,6 +439,7 @@ pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
 _?queue.SimpleQueue.__init__  # C signature is broader than what is actually accepted
 shutil.rmtree  # function with attributes, which we approximate with a callable protocol
+socketserver.BaseServer.get_request  # Not implemented, but expected to exist on subclasses.
 ssl.PROTOCOL_SSLv2  # Depends on the existence and flags of SSL
 ssl.PROTOCOL_SSLv3  # Depends on the existence and flags of SSL
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
