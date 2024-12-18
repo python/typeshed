@@ -1,0 +1,8 @@
+version = "9.2.6"
+upstream_repository = "https://gitlab.kitware.com/vtk/vtk"
+partial_stub = true
+
+[tool.stubtest]
+ignore_missing_stub = true
+# linux and darwin are equivalent
+platforms = ["linux", "win32"]
