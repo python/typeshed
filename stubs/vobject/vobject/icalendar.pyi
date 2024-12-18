@@ -1,18 +1,19 @@
+import datetime
 from _typeshed import Incomplete
 from datetime import timedelta
-from typing import Any
+from typing import Any, Final
 
 from .base import Component
 from .behavior import Behavior
 
-DATENAMES: tuple[str, ...]
-RULENAMES: tuple[str, ...]
-DATESANDRULES: tuple[str, ...]
-PRODID: str
-WEEKDAYS: tuple[str, ...]
-FREQUENCIES: tuple[str, ...]
-zeroDelta: timedelta
-twoHours: timedelta
+DATENAMES: Final[tuple[str, ...]]
+RULENAMES: Final[tuple[str, ...]]
+DATESANDRULES: Final[tuple[str, ...]]
+PRODID: Final[str]
+WEEKDAYS: Final[tuple[str, ...]]
+FREQUENCIES: Final[tuple[str, ...]]
+ZERO_DELTA: Final[timedelta]
+twoHours: Final[timedelta]
 
 def toUnicode(s: str | bytes) -> str: ...
 def registerTzid(tzid, tzinfo) -> None: ...
@@ -106,7 +107,6 @@ class VCalendar2_0(VCalendarComponentBehavior):
     description: str
     versionString: str
     sortFirst: Any
-    knownChildren: Any
     @classmethod
     def generateImplicitParameters(cls, obj) -> None: ...
     @classmethod
@@ -117,7 +117,6 @@ class VTimezone(VCalendarComponentBehavior):
     hasNative: bool
     description: str
     sortFirst: Any
-    knownChildren: Any
     @classmethod
     def validate(cls, obj, raiseException, *args): ...
     @staticmethod
@@ -129,37 +128,31 @@ class TZID(Behavior): ...
 
 class DaylightOrStandard(VCalendarComponentBehavior):
     hasNative: bool
-    knownChildren: Any
 
 class VEvent(RecurringBehavior):
     name: str
     sortFirst: Any
     description: str
-    knownChildren: Any
     @classmethod
     def validate(cls, obj, raiseException, *args): ...
 
 class VTodo(RecurringBehavior):
     name: str
     description: str
-    knownChildren: Any
     @classmethod
     def validate(cls, obj, raiseException, *args): ...
 
 class VJournal(RecurringBehavior):
     name: str
-    knownChildren: Any
 
 class VFreeBusy(VCalendarComponentBehavior):
     name: str
     description: str
     sortFirst: Any
-    knownChildren: Any
 
 class VAlarm(VCalendarComponentBehavior):
     name: str
     description: str
-    knownChildren: Any
     @staticmethod
     def generateImplicitParameters(obj) -> None: ...
     @classmethod
@@ -169,7 +162,6 @@ class VAvailability(VCalendarComponentBehavior):
     name: str
     description: str
     sortFirst: Any
-    knownChildren: Any
     @classmethod
     def validate(cls, obj, raiseException, *args): ...
 
@@ -177,7 +169,6 @@ class Available(RecurringBehavior):
     name: str
     sortFirst: Any
     description: str
-    knownChildren: Any
     @classmethod
     def validate(cls, obj, raiseException, *args): ...
 
@@ -225,7 +216,7 @@ def deltaToOffset(delta): ...
 def periodToString(period, convertToUTC: bool = False): ...
 def isDuration(s): ...
 def stringToDate(s): ...
-def stringToDateTime(s, tzinfo: Incomplete | None = None): ...
+def stringToDateTime(s, tzinfo: datetime.tzinfo | None = None, strict: bool = False) -> datetime.datetime: ...
 
 escapableCharList: str
 

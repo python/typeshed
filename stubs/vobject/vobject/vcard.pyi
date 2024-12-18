@@ -56,7 +56,6 @@ class VCard3_0(VCardBehavior):
     versionString: str
     isComponent: bool
     sortFirst: Any
-    knownChildren: Any
     @classmethod
     def generateImplicitParameters(cls, obj) -> None: ...
 
@@ -67,6 +66,8 @@ class FN(VCardTextBehavior):
 class Label(VCardTextBehavior):
     name: str
     description: str
+
+class GEO(VCardBehavior): ...
 
 wacky_apple_photo_serialize: bool
 REALLY_LARGE: float

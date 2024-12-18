@@ -1,10 +1,10 @@
-from typing import Any
+from typing import Any, ClassVar
 
 class Behavior:
     name: str
     description: str
     versionString: str
-    knownChildren: Any
+    knownChildren: ClassVar[dict[str, tuple[int, int | None, int | None]]]
     quotedPrintable: bool
     defaultBehavior: Any
     hasNative: bool

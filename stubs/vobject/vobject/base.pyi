@@ -1,7 +1,10 @@
 import logging
 from _typeshed import Incomplete, SupportsWrite
 from collections.abc import Iterable, Iterator
-from typing import Any, Literal, TypeVar, overload
+from typing import Any, Final, Literal, TypeVar, overload
+
+_V = TypeVar("_V", bound=VBase)
+_W = TypeVar("_W", bound=SupportsWrite[bytes])
 
 logger: logging.Logger
 DEBUG: bool
@@ -12,8 +15,7 @@ SPACE: str
 TAB: str
 SPACEORTAB: str
 
-_V = TypeVar("_V", bound=VBase)
-_W = TypeVar("_W", bound=SupportsWrite[bytes])
+VERSION: Final[str]
 
 class VBase:
     group: Incomplete | None
