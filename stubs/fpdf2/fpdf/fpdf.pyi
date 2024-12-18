@@ -416,13 +416,7 @@ class FPDF(GraphicsStateMixin):
         **kwargs: Incomplete,  # accepts AnnotationDict arguments
     ) -> AnnotationDict: ...
     def add_action(
-        self,
-        action,
-        x: float,
-        y: float,
-        w: float,
-        h: float,
-        **kwargs: Incomplete,  # accepts AnnotationDict arguments
+        self, action, x: float, y: float, w: float, h: float, **kwargs: Incomplete  # accepts AnnotationDict arguments
     ) -> AnnotationDict: ...
     def highlight(
         self,
