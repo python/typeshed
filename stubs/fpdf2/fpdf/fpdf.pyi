@@ -360,7 +360,7 @@ class FPDF(GraphicsStateMixin):
         alt_text: str | None = None,
         *,
         border_width: int = 0,
-        **kwargs: Incomplete,  # accepts AnnotationDict arguments
+        **kwargs,  # accepts AnnotationDict arguments
     ) -> AnnotationDict: ...
     def embed_file(
         self,
@@ -402,7 +402,7 @@ class FPDF(GraphicsStateMixin):
         name: AnnotationName | str | None = None,
         *,
         flags: tuple[AnnotationFlag, ...] | tuple[str, ...] = ...,
-        **kwargs: Incomplete,  # accepts AnnotationDict arguments
+        **kwargs,  # accepts AnnotationDict arguments
     ) -> AnnotationDict: ...
     def free_text_annotation(
         self,
@@ -413,10 +413,16 @@ class FPDF(GraphicsStateMixin):
         h: float | None = None,
         *,
         flags: tuple[AnnotationFlag, ...] | tuple[str, ...] = ...,
-        **kwargs: Incomplete,  # accepts AnnotationDict arguments
+        **kwargs,  # accepts AnnotationDict arguments
     ) -> AnnotationDict: ...
     def add_action(
-        self, action, x: float, y: float, w: float, h: float, **kwargs: Incomplete  # accepts AnnotationDict arguments
+        self,
+        action,
+        x: float,
+        y: float,
+        w: float,
+        h: float,
+        **kwargs,  # accepts AnnotationDict arguments
     ) -> AnnotationDict: ...
     def highlight(
         self,
@@ -426,7 +432,7 @@ class FPDF(GraphicsStateMixin):
         modification_time: datetime.datetime | None = None,
         *,
         title: str | None = None,
-        **kwargs: Incomplete,  # accepts AnnotationDict arguments
+        **kwargs,  # accepts AnnotationDict arguments
     ) -> _GeneratorContextManager[None]: ...
     add_highlight = highlight
     def add_text_markup_annotation(
@@ -439,7 +445,7 @@ class FPDF(GraphicsStateMixin):
         page: int | None = None,
         *,
         title: str | None = None,
-        **kwargs: Incomplete,  # accepts AnnotationDict arguments
+        **kwargs,  # accepts AnnotationDict arguments
     ) -> AnnotationDict: ...
     def ink_annotation(
         self,
@@ -449,7 +455,7 @@ class FPDF(GraphicsStateMixin):
         border_width: float = 1,
         *,
         title: str | None = None,
-        **kwargs: Incomplete,  # accepts AnnotationDict arguments
+        **kwargs,  # accepts AnnotationDict arguments
     ) -> AnnotationDict: ...
     def text(self, x: float, y: float, text: str = "") -> None: ...
     def rotate(self, angle: float, x: float | None = None, y: float | None = None) -> None: ...
