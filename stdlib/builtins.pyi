@@ -1730,11 +1730,16 @@ def pow(base: _SupportsSomeKindOfPow, exp: complex, mod: None = None) -> complex
 
 quit: _sitebuiltins.Quitter
 
+class _SupportsReversed(Protocol[_T]):
+    def __reversed__(self) -> _T: ...
+
 class reversed(Generic[_T]):
     @overload
     def __new__(cls, sequence: Reversible[_T], /) -> Iterator[_T]: ...  # type: ignore[misc]
     @overload
-    def __new__(cls, sequence: SupportsLenAndGetItem[_T], /) -> Iterator[_T]: ...  # type: ignore[misc]
+    def __new__(cls, sequence: _SupportsReversed[_T], /) -> _T: ...  # type: ignore[misc]
+    @overload
+    def __new__(cls, sequence: SupportsLenAndGetItem[_T], /) -> reversed[_T]: ...
     def __iter__(self) -> Self: ...
     def __next__(self) -> _T: ...
     def __length_hint__(self) -> int: ...
