@@ -66,7 +66,6 @@ collections.Generator.gi_code
 collections.Generator.gi_frame
 collections.Generator.gi_running
 collections.Generator.gi_yieldfrom
-collections.Mapping.__reversed__  # Set to None at runtime for a better error message
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 xxsubtype  # module missing from the stubs
@@ -193,6 +192,7 @@ builtins.property.__get__  # Runtime signature is incorrect (https://github.com/
 builtins.staticmethod.__get__  # Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
 builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
+collections.Mapping.__reversed__  # Set to None at runtime for a better error message, omitted from typeshed
 
 # Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
 collections.Set.__rand__
