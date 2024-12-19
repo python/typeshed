@@ -10,7 +10,6 @@ _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
 asyncio.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.base_events.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
-builtins.dict.get
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
 contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favor of its child classes
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
