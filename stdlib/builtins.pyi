@@ -1730,8 +1730,8 @@ def pow(base: _SupportsSomeKindOfPow, exp: complex, mod: None = None) -> complex
 
 quit: _sitebuiltins.Quitter
 
-class _SupportsReversed(Protocol[_T]):
-    def __reversed__(self) -> _T: ...
+class _SupportsReversed(Protocol[_T_co]):
+    def __reversed__(self) -> _T_co: ...
 
 class reversed(Generic[_T]):
     @overload
