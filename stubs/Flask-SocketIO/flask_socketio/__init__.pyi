@@ -22,6 +22,8 @@ class _ExceptionHandlerDecorator(Protocol):
     def __call__(self, exception_handler: _ExceptionHandler[_R_co]) -> _ExceptionHandler[_R_co]: ...
 
 class SocketIO:
+    # This is an alias for `socketio.Server.reason` in `python-socketio`, which is not typed.
+    reason: Incomplete
     # Many instance attributes are deliberately not included here,
     # as the maintainer of Flask-SocketIO considers them private, internal details:
     # https://github.com/python/typeshed/pull/10735#discussion_r1330768869
