@@ -43,8 +43,7 @@ class _EngineIOServerConfig(TypedDict, total=False):
     monitor_clients: bool
     engineio_logger: Logger | bool
 
-class _SocketIOKwargs(_SocketIOServerOptions, _EngineIOServerConfig):
-    pass
+class _SocketIOKwargs(_SocketIOServerOptions, _EngineIOServerConfig): ...
 
 class SocketIO:
     # This is an alias for `socketio.Server.reason` in `python-socketio`, which is not typed.
