@@ -1965,8 +1965,7 @@ class NameError(Exception):
 class ReferenceError(Exception): ...
 class RuntimeError(Exception): ...
 
-class StopAsyncIteration(Exception):
-    value: Any
+class StopAsyncIteration(Exception): ...
 
 class SyntaxError(Exception):
     msg: str
