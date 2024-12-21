@@ -8,15 +8,15 @@ class SignatureFlag(IntEnum):
     SIGNATURES_EXIST = 1
     APPEND_ONLY = 2
 
-class CoerciveEnum(Enum):
+class CoerciveEnum(Enum):  # type: ignore[misc]  # Enum with no members
     @classmethod
     def coerce(cls, value: Self | str) -> Self: ...
 
-class CoerciveIntEnum(IntEnum):
+class CoerciveIntEnum(IntEnum):  # type: ignore[misc]  # Enum with no members
     @classmethod
     def coerce(cls, value: Self | str | int) -> Self: ...
 
-class CoerciveIntFlag(IntFlag):
+class CoerciveIntFlag(IntFlag):  # type: ignore[misc]  # Enum with no members
     @classmethod
     def coerce(cls, value: Self | str | int) -> Self: ...
 
