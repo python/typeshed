@@ -29,7 +29,7 @@ priv_bytes: Incomplete
 JWKTypesRegistry: Incomplete
 
 class ParmType(Enum):
-    name = "A string with a name"
+    name = "A string with a name"  # pyright: ignore[reportAssignmentType]
     b64 = "Base64url Encoded"
     b64u = "Base64urlUint Encoded"
     unsupported = "Unsupported Parameter"
