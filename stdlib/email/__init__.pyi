@@ -1,7 +1,7 @@
 from collections.abc import Callable
+from email.message import Message
 from email.policy import Policy, _MessageT
-from mailbox import Message
-from typing import IO
+from typing import IO, overload
 from typing_extensions import TypeAlias
 
 # At runtime, listing submodules in __all__ without them being imported is
@@ -31,15 +31,29 @@ __all__ = [  # noqa: F822  # Undefined names in __all__
 _ParamType: TypeAlias = str | tuple[str | None, str | None, str]  # noqa: Y047
 _ParamsType: TypeAlias = str | None | tuple[str, str | None, str]  # noqa: Y047
 
-def message_from_string(
-    s: str, _class: Callable[[], _MessageT] = Message, *, policy: Policy[_MessageT] = ...  # noqa: Y011
-) -> _MessageT: ...
+@overload
+def message_from_string(s: str) -> Message: ...
+@overload
+def message_from_string(s: str, _class: Callable[[], _MessageT]) -> _MessageT: ...
+@overload
+def message_from_string(s: str, _class: Callable[[], _MessageT] = ..., *, policy: Policy[_MessageT]) -> _MessageT: ...
+@overload
+def message_from_bytes(s: bytes | bytearray) -> _MessageT: ...
+@overload
+def message_from_bytes(s: bytes | bytearray, _class: Callable[[], _MessageT]) -> _MessageT: ...
+@overload
 def message_from_bytes(
-    s: bytes | bytearray, _class: Callable[[], _MessageT] = Message, *, policy: Policy[_MessageT] = ...  # noqa: Y011
+    s: bytes | bytearray, _class: Callable[[], _MessageT] = ..., *, policy: Policy[_MessageT]
 ) -> _MessageT: ...
-def message_from_file(
-    fp: IO[str], _class: Callable[[], _MessageT] = Message, *, policy: Policy[_MessageT] = ...  # noqa: Y011
-) -> _MessageT: ...
-def message_from_binary_file(
-    fp: IO[bytes], _class: Callable[[], _MessageT] = Message, *, policy: Policy[_MessageT] = ...  # noqa: Y011
-) -> _MessageT: ...
+@overload
+def message_from_file(fp: IO[str]) -> Message: ...
+@overload
+def message_from_file(fp: IO[str], _class: Callable[[], _MessageT]) -> _MessageT: ...
+@overload
+def message_from_file(fp: IO[str], _class: Callable[[], _MessageT] = ..., *, policy: Policy[_MessageT]) -> _MessageT: ...
+@overload
+def message_from_binary_file(fp: IO[bytes]) -> Message: ...
+@overload
+def message_from_binary_file(fp: IO[bytes], _class: Callable[[], _MessageT]) -> _MessageT: ...
+@overload
+def message_from_binary_file(fp: IO[bytes], _class: Callable[[], _MessageT] = ..., *, policy: Policy[_MessageT]) -> _MessageT: ...
