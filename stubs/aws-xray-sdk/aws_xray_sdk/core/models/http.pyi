@@ -1,5 +1,3 @@
-from typing import Any
-
 URL: str
 METHOD: str
 USER_AGENT: str
@@ -9,5 +7,5 @@ STATUS: str
 CONTENT_LENGTH: str
 XRAY_HEADER: str
 ALT_XRAY_HEADER: str
-request_keys: Any
-response_keys: Any
+request_keys: tuple[str, str, str, str, str]
+response_keys: tuple[str, str]
