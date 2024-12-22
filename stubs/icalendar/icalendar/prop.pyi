@@ -13,9 +13,11 @@ from .timezone import tzid_from_dt as tzid_from_dt, tzid_from_tzinfo as tzid_fro
 
 __all__ = [
     "DURATION_REGEX",
+    "WEEKDAY_RULE",
     "TimeBase",
     "TypesFactory",
-    "WEEKDAY_RULE",
+    "tzid_from_dt",
+    "tzid_from_tzinfo",
     "vBinary",
     "vBoolean",
     "vCalAddress",
@@ -39,8 +41,6 @@ __all__ = [
     "vUTCOffset",
     "vUri",
     "vWeekday",
-    "tzid_from_dt",
-    "tzid_from_tzinfo",
 ]
 
 _PropType: TypeAlias = type[Any]  # any of the v* classes in this file

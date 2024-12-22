@@ -27,7 +27,7 @@ from ._core.typing import ColumnName, DataSource, NormSpec, SupportsDataFrame
 from .palettes import _RGBColorPalette
 from .utils import _DataSourceWideForm, _Palette, _Vector
 
-__all__ = ["FacetGrid", "PairGrid", "JointGrid", "pairplot", "jointplot"]
+__all__ = ["FacetGrid", "JointGrid", "PairGrid", "jointplot", "pairplot"]
 
 _P = ParamSpec("_P")
 _R = TypeVar("_R")

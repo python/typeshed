@@ -1,13 +1,13 @@
 __all__ = [
-    "SingleValueConstraint",
-    "ContainedSubtypeConstraint",
-    "ValueRangeConstraint",
-    "ValueSizeConstraint",
-    "PermittedAlphabetConstraint",
-    "InnerTypeConstraint",
     "ConstraintsExclusion",
     "ConstraintsIntersection",
     "ConstraintsUnion",
+    "ContainedSubtypeConstraint",
+    "InnerTypeConstraint",
+    "PermittedAlphabetConstraint",
+    "SingleValueConstraint",
+    "ValueRangeConstraint",
+    "ValueSizeConstraint",
 ]
 
 class AbstractConstraint:

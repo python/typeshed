@@ -2,7 +2,7 @@ from collections.abc import Callable, Sequence
 from typing import IO, Any
 from typing_extensions import TypeAlias
 
-__all__ = ["Timer", "timeit", "repeat", "default_timer"]
+__all__ = ["Timer", "default_timer", "repeat", "timeit"]
 
 _Timer: TypeAlias = Callable[[], float]
 _Stmt: TypeAlias = str | Callable[[], object]

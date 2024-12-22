@@ -18,34 +18,34 @@ from .thread import ThreadPoolExecutor as ThreadPoolExecutor
 
 if sys.version_info >= (3, 13):
     __all__ = (
+        "ALL_COMPLETED",
         "FIRST_COMPLETED",
         "FIRST_EXCEPTION",
-        "ALL_COMPLETED",
-        "CancelledError",
-        "TimeoutError",
-        "InvalidStateError",
         "BrokenExecutor",
-        "Future",
+        "CancelledError",
         "Executor",
-        "wait",
-        "as_completed",
+        "Future",
+        "InvalidStateError",
         "ProcessPoolExecutor",
         "ThreadPoolExecutor",
+        "TimeoutError",
+        "as_completed",
+        "wait",
     )
 else:
     __all__ = (
+        "ALL_COMPLETED",
         "FIRST_COMPLETED",
         "FIRST_EXCEPTION",
-        "ALL_COMPLETED",
-        "CancelledError",
-        "TimeoutError",
         "BrokenExecutor",
-        "Future",
+        "CancelledError",
         "Executor",
-        "wait",
-        "as_completed",
+        "Future",
         "ProcessPoolExecutor",
         "ThreadPoolExecutor",
+        "TimeoutError",
+        "as_completed",
+        "wait",
     )
 
 def __dir__() -> tuple[str, ...]: ...

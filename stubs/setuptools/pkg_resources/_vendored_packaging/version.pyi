@@ -1,6 +1,6 @@
 from typing import Final
 
-__all__ = ["VERSION_PATTERN", "parse", "Version", "InvalidVersion"]
+__all__ = ["VERSION_PATTERN", "InvalidVersion", "Version", "parse"]
 
 def parse(version: str) -> Version: ...
 

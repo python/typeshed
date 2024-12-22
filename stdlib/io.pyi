@@ -23,25 +23,25 @@ from _io import (
 from typing import Final
 
 __all__ = [
+    "SEEK_CUR",
+    "SEEK_END",
+    "SEEK_SET",
     "BlockingIOError",
-    "open",
-    "open_code",
-    "IOBase",
-    "RawIOBase",
-    "FileIO",
-    "BytesIO",
-    "StringIO",
     "BufferedIOBase",
-    "BufferedReader",
-    "BufferedWriter",
     "BufferedRWPair",
     "BufferedRandom",
+    "BufferedReader",
+    "BufferedWriter",
+    "BytesIO",
+    "FileIO",
+    "IOBase",
+    "RawIOBase",
+    "StringIO",
     "TextIOBase",
     "TextIOWrapper",
     "UnsupportedOperation",
-    "SEEK_SET",
-    "SEEK_CUR",
-    "SEEK_END",
+    "open",
+    "open_code",
 ]
 
 if sys.version_info >= (3, 11):

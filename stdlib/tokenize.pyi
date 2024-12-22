@@ -72,9 +72,9 @@ __all__ = [
     "TILDE",
     "TYPE_COMMENT",
     "TYPE_IGNORE",
-    "TokenInfo",
     "VBAR",
     "VBAREQUAL",
+    "TokenInfo",
     "detect_encoding",
     "generate_tokens",
     "tok_name",
@@ -88,7 +88,7 @@ if sys.version_info >= (3, 10):
     __all__ += ["SOFT_KEYWORD"]
 
 if sys.version_info >= (3, 12):
-    __all__ += ["EXCLAMATION", "FSTRING_END", "FSTRING_MIDDLE", "FSTRING_START", "EXACT_TOKEN_TYPES"]
+    __all__ += ["EXACT_TOKEN_TYPES", "EXCLAMATION", "FSTRING_END", "FSTRING_MIDDLE", "FSTRING_START"]
 
 if sys.version_info >= (3, 13):
     __all__ += ["TokenError", "open"]

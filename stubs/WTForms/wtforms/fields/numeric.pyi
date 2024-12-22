@@ -8,7 +8,7 @@ from wtforms.form import BaseForm
 from wtforms.meta import DefaultMeta, _SupportsGettextAndNgettext
 from wtforms.utils import UnsetValue
 
-__all__ = ("IntegerField", "DecimalField", "FloatField", "IntegerRangeField", "DecimalRangeField")
+__all__ = ("DecimalField", "DecimalRangeField", "FloatField", "IntegerField", "IntegerRangeField")
 
 class LocaleAwareNumberField(Field):
     use_locale: bool

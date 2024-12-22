@@ -9,7 +9,7 @@ from typing_extensions import NamedTuple
 
 from pkg_resources import Distribution, Environment
 
-__all__ = ["PackageIndex", "distros_for_url", "parse_bdist_wininst", "interpret_distro_name"]
+__all__ = ["PackageIndex", "distros_for_url", "interpret_distro_name", "parse_bdist_wininst"]
 
 def parse_bdist_wininst(name): ...
 def distros_for_url(url, metadata: Incomplete | None = None) -> Generator[Distribution]: ...

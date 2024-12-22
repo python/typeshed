@@ -8,7 +8,7 @@ from .constructor import BaseConstructor, FullConstructor, SafeConstructor, Unsa
 from .representer import BaseRepresenter, SafeRepresenter
 from .resolver import BaseResolver, Resolver
 
-__all__ = ["CBaseLoader", "CSafeLoader", "CFullLoader", "CUnsafeLoader", "CLoader", "CBaseDumper", "CSafeDumper", "CDumper"]
+__all__ = ["CBaseDumper", "CBaseLoader", "CDumper", "CFullLoader", "CLoader", "CSafeDumper", "CSafeLoader", "CUnsafeLoader"]
 
 _Readable: TypeAlias = SupportsRead[str | bytes]
 _CLoader: TypeAlias = CLoader | CBaseLoader | CFullLoader | CSafeLoader | CUnsafeLoader  # noqa: Y047  # Used in other modules

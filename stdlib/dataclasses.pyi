@@ -14,18 +14,18 @@ _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 
 __all__ = [
-    "dataclass",
-    "field",
+    "MISSING",
     "Field",
     "FrozenInstanceError",
     "InitVar",
-    "MISSING",
-    "fields",
     "asdict",
     "astuple",
+    "dataclass",
+    "field",
+    "fields",
+    "is_dataclass",
     "make_dataclass",
     "replace",
-    "is_dataclass",
 ]
 
 if sys.version_info >= (3, 10):

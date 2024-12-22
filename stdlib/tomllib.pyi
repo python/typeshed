@@ -2,7 +2,7 @@ from _typeshed import SupportsRead
 from collections.abc import Callable
 from typing import Any
 
-__all__ = ("loads", "load", "TOMLDecodeError")
+__all__ = ("TOMLDecodeError", "load", "loads")
 
 class TOMLDecodeError(ValueError): ...
 
