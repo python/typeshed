@@ -2,12 +2,12 @@ import enum
 from _typeshed import ConvertibleToFloat, SupportsKeysAndGetItem
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence, Set as AbstractSet
 from typing import Any, Generic, Literal, NamedTuple, TypeVar, overload, type_check_only
-from typing_extensions import ParamSpec, Self, TypeAlias
+from typing_extensions import Self, TypeAlias, TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
 _VT_co = TypeVar("_VT_co", covariant=True)
-_P = ParamSpec("_P")
+_Ts = TypeVarTuple("_Ts")
 _Mode: TypeAlias = Literal["string", "filename", "dirname"]
 _OutputStyle: TypeAlias = Literal["nested", "expanded", "compact", "compressed"]
 _CustomFunctions: TypeAlias = Mapping[str, Callable[..., Any]] | Sequence[Callable[..., Any]] | AbstractSet[Callable[..., Any]]
@@ -25,20 +25,18 @@ MODES: frozenset[_Mode]
 class CompileError(ValueError):
     def __init__(self, msg: str) -> None: ...
 
-# _P needs to be positional only and can't contain varargs, but there is no way to express that
-# the arguments also need
-class SassFunction(Generic[_P, _T]):
+class SassFunction(Generic[Unpack[_Ts], _T]):
     @classmethod
-    def from_lambda(cls, name: str, lambda_: Callable[_P, _T]) -> SassFunction[_P, _T]: ...
+    def from_lambda(cls, name: str, lambda_: Callable[[Unpack[_Ts]], _T]) -> SassFunction[Unpack[_Ts], _T]: ...
     @classmethod
-    def from_named_function(cls, function: Callable[_P, _T]) -> SassFunction[_P, _T]: ...
+    def from_named_function(cls, function: Callable[[Unpack[_Ts]], _T]) -> SassFunction[Unpack[_Ts], _T]: ...
     name: str
     arguments: tuple[str, ...]
-    callable_: Callable[_P, _T]
-    def __init__(self, name: str, arguments: Sequence[str], callable_: Callable[_P, _T]) -> None: ...
+    callable_: Callable[[Unpack[_Ts]], _T]
+    def __init__(self, name: str, arguments: Sequence[str], callable_: Callable[[Unpack[_Ts]], _T]) -> None: ...
     @property
     def signature(self) -> str: ...
-    def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _T: ...
+    def __call__(self, *args: Unpack[_Ts]) -> _T: ...
 
 @overload
 def compile(
