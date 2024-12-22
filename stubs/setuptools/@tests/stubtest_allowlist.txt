@@ -108,6 +108,7 @@ setuptools._distutils.zosccompiler
 distutils\..+
 
 # Private APIs, tests and other vendored code
+setuptools.compat.*
 setuptools.config._validate_pyproject.*
 setuptools.command.build_py.build_py.existing_egg_info_dir
 .+?\.tests.*
