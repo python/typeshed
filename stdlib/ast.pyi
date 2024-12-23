@@ -7,7 +7,7 @@ from _ast import (
     PyCF_TYPE_COMMENTS as PyCF_TYPE_COMMENTS,
 )
 from _typeshed import ReadableBuffer, Unused
-from collections.abc import Iterator
+from collections.abc import Iterable, Iterator
 from typing import Any, ClassVar, Generic, Literal, TypedDict, TypeVar as _TypeVar, overload
 from typing_extensions import Self, Unpack, deprecated
 
@@ -1186,12 +1186,18 @@ class Slice(_Slice):
         ) -> Self: ...
 
 class ExtSlice(slice):  # deprecated and moved to ast.py if sys.version_info >= (3, 9)
-    dims: list[slice]
-    def __init__(self, dims: list[slice], **kwargs: Unpack[_SliceAttributes]) -> None: ...
+    if sys.version_info >= (3, 9):
+        def __new__(cls, dims: Iterable[slice] = (), **kwargs: Unpack[_SliceAttributes]) -> Tuple: ...  # type: ignore[misc]
+    else:
+        dims: list[slice]
+        def __init__(self, dims: list[slice], **kwargs: Unpack[_SliceAttributes]) -> None: ...
 
 class Index(slice):  # deprecated and moved to ast.py if sys.version_info >= (3, 9)
-    value: expr
-    def __init__(self, value: expr, **kwargs: Unpack[_SliceAttributes]) -> None: ...
+    if sys.version_info >= (3, 9):
+        def __new__(cls, value: expr, **kwargs: Unpack[_SliceAttributes]) -> expr: ...  # type: ignore[misc]
+    else:
+        value: expr
+        def __init__(self, value: expr, **kwargs: Unpack[_SliceAttributes]) -> None: ...
 
 class expr_context(AST): ...
 class AugLoad(expr_context): ...  # deprecated and moved to ast.py if sys.version_info >= (3, 9)
