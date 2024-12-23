@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from logging import Logger
 from threading import Thread
-from typing import Any, Literal, Protocol, TypedDict, TypeVar, overload
+from typing import Any, Literal, Protocol, TypedDict, TypeVar, Unpack, overload
 from typing_extensions import ParamSpec, TypeAlias
 
 from flask import Flask
@@ -31,8 +31,8 @@ class _SocketIOServerOptions(TypedDict, total=False):
 
 class _EngineIOServerConfig(TypedDict, total=False):
     async_mode: Literal["threading", "eventlet", "gevent", "gevent_uwsgi"]
-    ping_interval: int  # seconds
-    ping_timeout: int  # seconds
+    ping_interval: float | tuple[float, float]  # seconds
+    ping_timeout: float  # seconds
     max_http_buffer_size: int
     allow_upgrades: bool
     http_compression: bool
@@ -62,7 +62,7 @@ class SocketIO:
         channel: str = "flask-socketio",
         path: str = "socket.io",
         resource: str = "socket.io",
-        **kwargs: _SocketIOKwargs,
+        **kwargs: Unpack[_SocketIOKwargs],
     ) -> None: ...
     def init_app(
         self,
@@ -74,7 +74,7 @@ class SocketIO:
         channel: str = "flask-socketio",
         path: str = "socket.io",
         resource: str = "socket.io",
-        **kwargs: _SocketIOKwargs,
+        **kwargs: Unpack[_SocketIOKwargs],
     ) -> None: ...
     def on(self, message: str, namespace: str | None = None) -> _HandlerDecorator: ...
     def on_error(self, namespace: str | None = None) -> _ExceptionHandlerDecorator: ...
