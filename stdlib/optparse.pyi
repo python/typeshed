@@ -1,7 +1,9 @@
+import builtins
 from _typeshed import Incomplete, MaybeNone
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import IO, Any, AnyStr, Literal, NoReturn, overload
+from typing_extensions import Self
 
 __all__ = [
     "Option",
@@ -27,8 +29,9 @@ NO_DEFAULT: tuple[str, ...]
 SUPPRESS_HELP: str
 SUPPRESS_USAGE: str
 
-def check_builtin(option: Option, opt, value: str): ...
-def check_choice(option: Option, opt, value: str) -> str: ...
+# Can return complex, float, or int depending on the option's type
+def check_builtin(option: Option, opt: str, value: str) -> complex: ...
+def check_choice(option: Option, opt: str, value: str) -> str: ...
 
 class OptParseError(Exception):
     msg: str
@@ -109,25 +112,46 @@ class Option:
     ACTIONS: tuple[str, ...]
     ALWAYS_TYPED_ACTIONS: tuple[str, ...]
     ATTRS: list[str]
-    CHECK_METHODS: list[Callable[..., Incomplete]] | None
+    CHECK_METHODS: list[Callable[[Self], object]] | None
     CONST_ACTIONS: tuple[str, ...]
     STORE_ACTIONS: tuple[str, ...]
     TYPED_ACTIONS: tuple[str, ...]
     TYPES: tuple[str, ...]
-    TYPE_CHECKER: dict[str, Callable[[Option, str, Incomplete], Any]]
+    TYPE_CHECKER: dict[str, Callable[[Option, str, str], Any]]
     _long_opts: list[str]
     _short_opts: list[str]
     action: str
+    type: str | None
     dest: str | None
-    default: Incomplete
+    default: Any
     nargs: int
-    type: Incomplete
+    const: Any | None
+    choices: list[str] | tuple[str, ...] | None
     callback: Callable[..., Incomplete] | None
     callback_args: tuple[Incomplete, ...] | None
     callback_kwargs: dict[str, Incomplete] | None
     help: str | None
     metavar: str | None
-    def __init__(self, *opts: str | None, **attrs) -> None: ...
+    def __init__(
+        self,
+        *opts: str | None,
+        # The following keywords are handled by the _set_attrs method. All default to
+        # `None` except for `default`, which defaults to `NO_DEFAULT`.
+        action: str | None = None,
+        type: str | builtins.type | None = None,
+        dest: str | None = None,
+        default: Any = ...,  # = NO_DEFAULT
+        nargs: int | None = None,
+        const: Any | None = None,
+        choices: list[str] | tuple[str, ...] | None = None,
+        # TODO: callback, callback_args, callback_kwargs must be all supplied or all omitted. Add overloads.
+        # Revisit if ParamSpec is ever changed to support non-unpacked args and kwargs.
+        callback: Callable[..., Incomplete] | None = None,
+        callback_args: tuple[Incomplete, ...] | None = None,
+        callback_kwargs: dict[str, Incomplete] | None = None,
+        help: str | None = None,
+        metavar: str | None = None,
+    ) -> None: ...
     def _check_action(self) -> None: ...
     def _check_callback(self) -> None: ...
     def _check_choice(self) -> None: ...
@@ -138,11 +162,11 @@ class Option:
     def _check_type(self) -> None: ...
     def _set_attrs(self, attrs: dict[str, Incomplete]) -> None: ...
     def _set_opt_strings(self, opts: Iterable[str]) -> None: ...
-    def check_value(self, opt: str, value): ...
-    def convert_value(self, opt: str, value): ...
+    def check_value(self, opt: str, value: str) -> Any: ...
+    def convert_value(self, opt: str, value: str | tuple[str, ...] | None) -> Any: ...
     def get_opt_string(self) -> str: ...
-    def process(self, opt, value, values, parser: OptionParser) -> int: ...
-    def take_action(self, action: str, dest: str, opt, value, values, parser: OptionParser) -> int: ...
+    def process(self, opt: str, value: str | tuple[str, ...] | None, values: Values, parser: OptionParser) -> int: ...
+    def take_action(self, action: str, dest: str, opt: str, value: Any, values: Values, parser: OptionParser) -> int: ...
     def takes_value(self) -> bool: ...
 
 make_option = Option
