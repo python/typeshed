@@ -1,3 +1,6 @@
+# TODO: missing from stub
+peewee.__all__
+
 # Stubtest doesn't recognize __ as indicating positional-only arg at runtime
 # https://github.com/python/mypy/issues/15302
 peewee.Model.insert
