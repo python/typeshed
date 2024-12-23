@@ -21,13 +21,11 @@ http.client.HTTPConnection.response_class  # the actual type at runtime is abc.A
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
-numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 select.poll  # Depends on configuration
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
 ssl.Purpose.__new__  # the multiple inheritance confuses mypy
-tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
@@ -430,6 +428,7 @@ multiprocessing.synchronize.Condition.release
 multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
 
+numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 os._wrap_close.read  # Methods that come from __getattr__() at runtime
 os._wrap_close.readable  # Methods that come from __getattr__() at runtime
@@ -445,6 +444,7 @@ shutil.rmtree  # function with attributes, which we approximate with a callable 
 ssl.PROTOCOL_SSLv2  # Depends on the existence and flags of SSL
 ssl.PROTOCOL_SSLv3  # Depends on the existence and flags of SSL
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
+tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
 threading.Condition.acquire  # Condition functions are exported in __init__
 threading.Condition.release  # Condition functions are exported in __init__
