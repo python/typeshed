@@ -2,7 +2,7 @@ import sys
 from _typeshed import FileDescriptorLike
 from collections.abc import Iterable
 from types import TracebackType
-from typing import Any, final
+from typing import Any, ClassVar, final
 from typing_extensions import Self
 
 if sys.platform != "win32":
@@ -53,6 +53,7 @@ if sys.platform != "linux" and sys.platform != "win32":
             data: Any = ...,
             udata: Any = ...,
         ) -> None: ...
+        __hash__: ClassVar[None]  # type: ignore[assignment]
 
     # BSD only
     @final

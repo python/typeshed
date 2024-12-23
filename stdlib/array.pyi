@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Iterable
 
 # pytype crashes if array inherits from collections.abc.MutableSequence instead of typing.MutableSequence
-from typing import Any, Literal, MutableSequence, SupportsIndex, TypeVar, overload  # noqa: Y022
+from typing import Any, ClassVar, Literal, MutableSequence, SupportsIndex, TypeVar, overload  # noqa: Y022
 from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 12):
@@ -64,6 +64,7 @@ class array(MutableSequence[_T]):
         def fromstring(self, buffer: str | ReadableBuffer, /) -> None: ...
         def tostring(self) -> bytes: ...
 
+    __hash__: ClassVar[None]  # type: ignore[assignment]
     def __len__(self) -> int: ...
     @overload
     def __getitem__(self, key: SupportsIndex, /) -> _T: ...

@@ -257,6 +257,7 @@ if sys.version_info >= (3, 10):
             def __init__(self, origin: ParamSpec) -> None: ...
 
         def __eq__(self, other: object) -> bool: ...
+        __hash__: ClassVar[None]  # type: ignore[assignment]
 
     @final
     class ParamSpecKwargs:
@@ -268,6 +269,7 @@ if sys.version_info >= (3, 10):
             def __init__(self, origin: ParamSpec) -> None: ...
 
         def __eq__(self, other: object) -> bool: ...
+        __hash__: ClassVar[None]  # type: ignore[assignment]
 
     @final
     class ParamSpec:
