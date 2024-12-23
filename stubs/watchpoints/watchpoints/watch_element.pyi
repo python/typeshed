@@ -10,6 +10,9 @@ _T = TypeVar("_T")
 _TrackKind: TypeAlias = Literal["object", "variable"] | list[Literal["object", "variable"]]
 
 class WatchElement:
+    # User-defined callbacks passed to `__init__` set as instance variables have arguments of type `Any` to be
+    # compatible with more precisely-annotated signatures. These callbacks are passed from `watchpoints.watch.Watch`.
+
     alias: str | None
     attr: str | None
     cmp: Callable[[Any, Any], bool] | None
@@ -34,13 +37,13 @@ class WatchElement:
         *,
         alias: str | None = ...,
         callback: Callable[[FrameType, WatchElement, tuple[str, str, int | None]], None] | None = ...,
-        cmp: Callable[[Any, Any], bool] | None = ...,
+        cmp: Callable[[Any, Any], bool] | None = ...,  # User-defined comparison callback
         copy: Callable[[_T], _T] | None = ...,
         deepcopy: bool = False,
         default_alias: str | None = ...,
         track: _TrackKind = ...,
         watch_print: WatchPrint = ...,
-        when: Callable[[Any], bool] | None = ...,
+        when: Callable[[Any], bool] | None = ...,  # User-defined callback for conditional watchpoints
     ) -> None: ...
     def belong_to(self, lst: Iterable[object]) -> bool: ...
     def changed(self, frame: FrameType) -> tuple[bool, bool]: ...

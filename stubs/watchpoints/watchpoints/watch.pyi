@@ -17,6 +17,9 @@ _T = TypeVar("_T")
 _Identifier: TypeAlias = str
 
 class Watch:
+    # User-defined callbacks passed to `__call__()` or `config()` set as instance variables have arguments of type `Any` to be
+    # compatible with more precisely-annotated signatures.
+
     custom_printer: Callable[[Any], None] | None
     enable: bool
     file: str | SupportsWrite[str] | None
@@ -34,14 +37,15 @@ class Watch:
         *args: object,
         alias: str = ...,
         callback: Callable[[FrameType, WatchElement, tuple[str, str, int | None]], None] = ...,
-        cmp: Callable[[Any, Any], bool] = ...,
+        cmp: Callable[[Any, Any], bool] = ...,  # User-defined comparison callback; compares 2 arguments of any type
         copy: Callable[[_T], _T] = ...,
+        # User-defined printing callback; writes a string representation of any object to a stream
         custom_printer: Callable[[Any], None] = ...,
         deepcopy: bool = False,
         file: str | SupportsWrite[str] = ...,
         stack_limit: int | None = 5,
         track: Literal["object", "variable"] = ...,
-        when: Callable[[Any], bool] = ...,
+        when: Callable[[Any], bool] = ...,  # User-defined callback for conditional watchpoints
     ) -> None: ...
     def config(
         self,
@@ -50,7 +54,7 @@ class Watch:
         pdb: Literal[True] = ...,
         file: str | SupportsWrite[str] = ...,
         stack_limit: int | None = 5,
-        custom_printer: Callable[[Any], None] = ...,
+        custom_printer: Callable[[Any], None] = ...,  # User-defined printing callback
     ) -> None: ...
     def install(self, func: _Identifier = "watch") -> None: ...
     def restore(self) -> None: ...
