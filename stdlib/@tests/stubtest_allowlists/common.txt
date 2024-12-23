@@ -8,32 +8,25 @@ _collections_abc.AsyncGenerator.ag_await
 _collections_abc.AsyncGenerator.ag_code
 _collections_abc.AsyncGenerator.ag_frame
 _collections_abc.AsyncGenerator.ag_running
+asyncio.__all__
 asyncio.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 asyncio.base_events.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 builtins.dict.get
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
 contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favor of its child classes
-ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
-ctypes.memmove  # CFunctionType
-ctypes.memset  # CFunctionType
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
-numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 select.poll  # Depends on configuration
-selectors.DevpollSelector  # Depends on configuration
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
 ssl.Purpose.__new__  # the multiple inheritance confuses mypy
-tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
 tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
-weakref.WeakKeyDictionary.update
-weakref.WeakValueDictionary.update
 
 
 # ===============================================================
@@ -321,17 +314,16 @@ csv.Dialect.skipinitialspace
 
 csv.DictReader.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
-_?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
 _?ctypes.Array._type_  # _type_ is abstract, https://github.com/python/typeshed/pull/6361
 _?ctypes.Array._length_  # _length_ is abstract, https://github.com/python/typeshed/pull/6361
+_?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
+ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 _?ctypes.Structure.__getattr__  # doesn't exist, but makes things easy if we pretend it does
 _?ctypes.Union.__getattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 _?ctypes.Array.__iter__
-
-dataclasses.field  # White lies around defaults
 
 # __all__-related weirdness (see #6523)
 email.__all__
@@ -397,7 +389,6 @@ multiprocessing.dummy.RLock
 
 # These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
 # But have more precise (accurate) signatures in the stub
-multiprocessing.managers.BaseListProxy.__imul__
 multiprocessing.managers.BaseListProxy.__len__
 multiprocessing.managers.BaseListProxy.__reversed__
 multiprocessing.managers.BaseListProxy.reverse
@@ -433,6 +424,7 @@ multiprocessing.synchronize.Condition.release
 multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
 
+numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 os._wrap_close.read  # Methods that come from __getattr__() at runtime
 os._wrap_close.readable  # Methods that come from __getattr__() at runtime
@@ -448,6 +440,7 @@ shutil.rmtree  # function with attributes, which we approximate with a callable 
 ssl.PROTOCOL_SSLv2  # Depends on the existence and flags of SSL
 ssl.PROTOCOL_SSLv3  # Depends on the existence and flags of SSL
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
+tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
 threading.Condition.acquire  # Condition functions are exported in __init__
 threading.Condition.release  # Condition functions are exported in __init__
