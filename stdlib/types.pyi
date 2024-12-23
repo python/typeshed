@@ -583,7 +583,9 @@ def prepare_class(
 if sys.version_info >= (3, 12):
     def get_original_bases(cls: type, /) -> tuple[Any, ...]: ...
 
-class DynamicClassAttribute:
+# Does not actually inherit from property, but saying it does makes sure that
+# pyright handles this class correctly.
+class DynamicClassAttribute(property):
     fget: Callable[[Any], Any] | None
     fset: Callable[[Any, Any], None] | None
     fdel: Callable[[Any], None] | None
