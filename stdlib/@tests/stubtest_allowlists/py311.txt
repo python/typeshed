@@ -182,7 +182,6 @@ importlib.abc.Traversable.open  # Problematic protocol signature at runtime, see
 os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.GenericAlias.__getattr__
-types.GenericAlias.__mro_entries__
 typing\.NamedTuple  # Super-special typing primitive
 weakref.ProxyType.__reversed__  # Doesn't really exist
 
