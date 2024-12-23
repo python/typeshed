@@ -14,9 +14,6 @@ asyncio.base_events.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several 
 builtins.dict.get
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
 contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favor of its child classes
-ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
-ctypes.memmove  # CFunctionType
-ctypes.memset  # CFunctionType
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
@@ -319,9 +316,10 @@ csv.Dialect.skipinitialspace
 
 csv.DictReader.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
-_?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
 _?ctypes.Array._type_  # _type_ is abstract, https://github.com/python/typeshed/pull/6361
 _?ctypes.Array._length_  # _length_ is abstract, https://github.com/python/typeshed/pull/6361
+_?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
+ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 _?ctypes.Structure.__getattr__  # doesn't exist, but makes things easy if we pretend it does
 _?ctypes.Union.__getattr__  # doesn't exist, but makes things easy if we pretend it does
 
