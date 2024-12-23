@@ -29,6 +29,7 @@ NO_DEFAULT: tuple[str, ...]
 SUPPRESS_HELP: str
 SUPPRESS_USAGE: str
 
+# Can return complex, float, or int depending on the option's type
 def check_builtin(option: Option, opt: str, value: str) -> complex: ...
 def check_choice(option: Option, opt: str, value: str) -> str: ...
 
