@@ -1,3 +1,41 @@
+# TODO: missing from stub
+gevent._abstract_linkable.__all__
+gevent._ffi.loop.__all__
+gevent._ffi.watcher.__all__
+gevent._greenlet_primitives.__all__
+gevent._ident.__all__
+gevent._imap.__all__
+gevent.backdoor.__all__
+gevent.baseserver.__all__
+gevent.event.__all__
+gevent.events.__all__
+gevent.exceptions.__all__
+gevent.fileobject.__all__
+gevent.greenlet.__all__
+gevent.hub.__all__
+gevent.libev.__all__
+gevent.libev.corecext.__all__
+gevent.libuv.__all__
+gevent.libuv.loop.__all__
+gevent.libuv.watcher.__all__
+gevent.local.__all__
+gevent.monkey.__all__
+gevent.os.__all__
+gevent.resolver.__all__
+gevent.resolver.blocking.__all__
+gevent.resolver.dnspython.__all__
+gevent.resolver.thread.__all__
+gevent.resolver_thread.__all__
+gevent.server.__all__
+gevent.signal.__all__
+gevent.socket.__all__
+gevent.ssl.__all__
+gevent.subprocess.__all__
+gevent.threadpool.__all__
+gevent.timeout.__all__
+gevent.util.__all__
+gevent.win32util.__all__
+
 # Error: failed to find stubs
 # =============================
 # testing modules are not included in type stubs

@@ -421,11 +421,10 @@ class BoundArguments:
 # Classes and functions
 #
 
-# TODO: The actual return type should be list[_ClassTreeItem] but mypy doesn't
-# seem to be supporting this at the moment:
-# _ClassTreeItem = list[_ClassTreeItem] | Tuple[type, Tuple[type, ...]]
-def getclasstree(classes: list[type], unique: bool = False) -> list[Any]: ...
-def walktree(classes: list[type], children: Mapping[type[Any], list[type]], parent: type[Any] | None) -> list[Any]: ...
+_ClassTreeItem: TypeAlias = list[tuple[type, ...]] | list[_ClassTreeItem]
+
+def getclasstree(classes: list[type], unique: bool = False) -> _ClassTreeItem: ...
+def walktree(classes: list[type], children: Mapping[type[Any], list[type]], parent: type[Any] | None) -> _ClassTreeItem: ...
 
 class Arguments(NamedTuple):
     args: list[str]

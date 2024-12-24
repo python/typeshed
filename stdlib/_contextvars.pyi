@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable, Iterator, Mapping
 from typing import Any, ClassVar, Generic, TypeVar, final, overload
-from typing_extensions import ParamSpec
+from typing_extensions import ParamSpec, Self
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -13,9 +13,9 @@ _P = ParamSpec("_P")
 @final
 class ContextVar(Generic[_T]):
     @overload
-    def __init__(self, name: str) -> None: ...
+    def __new__(cls, name: str) -> Self: ...
     @overload
-    def __init__(self, name: str, *, default: _T) -> None: ...
+    def __new__(cls, name: str, *, default: _T) -> Self: ...
     def __hash__(self) -> int: ...
     @property
     def name(self) -> str: ...

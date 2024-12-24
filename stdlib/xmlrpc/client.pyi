@@ -108,8 +108,7 @@ class ExpatParser:  # undocumented
 _WriteCallback: TypeAlias = Callable[[str], object]
 
 class Marshaller:
-    # TODO: Replace 'Any' with some kind of binding
-    dispatch: dict[type[Any], Callable[[Marshaller, Any, _WriteCallback], None]]
+    dispatch: dict[type[_Marshallable] | Literal["_arbitrary_instance"], Callable[[Marshaller, Any, _WriteCallback], None]]
     memo: dict[Any, None]
     data: None
     encoding: str | None
