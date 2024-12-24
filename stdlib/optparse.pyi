@@ -2,7 +2,7 @@ import builtins
 from _typeshed import Incomplete, MaybeNone
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import IO, Any, AnyStr, Literal, NoReturn, overload
+from typing import IO, Any, AnyStr, ClassVar, Literal, NoReturn, overload
 from typing_extensions import Self
 
 __all__ = [
@@ -216,6 +216,7 @@ class Values:
     def ensure_value(self, attr: str, value): ...
     def read_file(self, filename: str, mode: str = "careful") -> None: ...
     def read_module(self, modname: str, mode: str = "careful") -> None: ...
+    __hash__: ClassVar[None]  # type: ignore[assignment]
     # __getattr__ doesn't exist, but anything passed as a default to __init__
     # is set on the instance.
     def __getattr__(self, name: str): ...

@@ -3,7 +3,7 @@ from _typeshed import SupportsKeysAndGetItem
 from _weakref import getweakrefcount as getweakrefcount, getweakrefs as getweakrefs, proxy as proxy
 from _weakrefset import WeakSet as WeakSet
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
-from typing import Any, Generic, TypeVar, final, overload
+from typing import Any, ClassVar, Generic, TypeVar, final, overload
 from typing_extensions import ParamSpec, Self
 
 if sys.version_info >= (3, 9):
@@ -47,11 +47,13 @@ class CallableProxyType(Generic[_CallableT]):  # "weakcallableproxy"
     def __eq__(self, value: object, /) -> bool: ...
     def __getattr__(self, attr: str) -> Any: ...
     __call__: _CallableT
+    __hash__: ClassVar[None]  # type: ignore[assignment]
 
 @final
 class ProxyType(Generic[_T]):  # "weakproxy"
     def __eq__(self, value: object, /) -> bool: ...
     def __getattr__(self, attr: str) -> Any: ...
+    __hash__: ClassVar[None]  # type: ignore[assignment]
 
 class ReferenceType(Generic[_T]):  # "weakref"
     __callback__: Callable[[Self], Any]
