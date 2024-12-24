@@ -48,13 +48,13 @@ class ArgumentError(Exception): ...
 # defined within CDLL.__init__
 # Runtime name is ctypes.CDLL.__init__.<locals>._FuncPtr
 @type_check_only
-class _FuncPtr(_CFuncPtr):
+class _CDLLFuncPointer(_CFuncPtr):
     _flags_: ClassVar[int]
     _restype_: ClassVar[type[_CDataType]]
 
-# Not a real class; _FuncPtr with a __name__ set on it.
+# Not a real class; _CDLLFuncPointer with a __name__ set on it.
 @type_check_only
-class _NamedFuncPointer(_FuncPtr):
+class _NamedFuncPointer(_CDLLFuncPointer):
     __name__: str
 
 class CDLL:
@@ -62,7 +62,7 @@ class CDLL:
     _func_restype_: ClassVar[type[_CDataType]]
     _name: str
     _handle: int
-    _FuncPtr: type[_FuncPtr]
+    _FuncPtr: type[_CDLLFuncPointer]
     def __init__(
         self,
         name: str | None,
@@ -108,7 +108,7 @@ class _CFunctionType(_CFuncPtr):
     _flags_: ClassVar[int]
 
 # Alias for either function pointer type
-_FuncPointer: TypeAlias = _FuncPtr | _CFunctionType  # noqa: Y047  # not used here
+_FuncPointer: TypeAlias = _CDLLFuncPointer | _CFunctionType  # noqa: Y047  # not used here
 
 def CFUNCTYPE(
     restype: type[_CData | _CDataType] | None,
