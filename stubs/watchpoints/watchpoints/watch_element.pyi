@@ -16,7 +16,7 @@ class WatchElement:
     alias: str | None
     attr: str | None
     cmp: Callable[[Any, Any], bool] | None
-    copy: Callable[[_T], _T] | None
+    copy: Callable[[Any], object] | None  # User-defined copy callback
     default_alias: str | None
     deepcopy: bool
     exist: bool
