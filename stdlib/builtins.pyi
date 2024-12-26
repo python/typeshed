@@ -1764,7 +1764,14 @@ def sorted(
     iterable: Iterable[SupportsRichComparisonT], /, *, key: None = None, reverse: bool = False
 ) -> list[SupportsRichComparisonT]: ...
 @overload
-def sorted(iterable: Iterable[_T], /, *, key: Callable[[_T], SupportsRichComparison], reverse: bool = False) -> list[_T]: ...
+def sorted(
+    iterable: Iterable[_T], /, *, key: Callable[[_T], SupportsRichComparison], reverse: bool = False
+) -> list[_T]: ...
+
+@overload
+def sorted(
+    iterable: Iterable[tuple[SupportsRichComparisonT, ...]], /, *, key: None = None, reverse: bool = False
+) -> list[tuple[SupportsRichComparisonT, ...]]: ...
 
 _AddableT1 = TypeVar("_AddableT1", bound=SupportsAdd[Any, Any])
 _AddableT2 = TypeVar("_AddableT2", bound=SupportsAdd[Any, Any])
