@@ -111,6 +111,10 @@ ignore = [
     # Issues with using a star-imported name will be caught by type-checkers.
     "F405", # may be undefined, or defined from star imports
 ]
+"lib/ts_utils/**" = [
+    # Doesn't affect stubs. The only re-exports we have should be in our local lib ts_utils
+    "PLC0414", # Import alias does not rename original package
+]
 # See comment on black's force-exclude config above
 "*_pb2.pyi" = [
     "E501", # Line too long
