@@ -14,7 +14,7 @@ import pathspec
 from packaging.requirements import Requirement
 
 try:
-    from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
+    from termcolor import colored as colored  # pyright: ignore[reportAssignmentType] # noqa: PLC0414
 except ImportError:
 
     def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]

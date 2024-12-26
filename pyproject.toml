@@ -40,6 +40,7 @@ select = [
     "B", # flake8-bugbear
     "FA", # flake8-future-annotations
     "I", # isort
+    "PLC", # Pylint Convention
     "RUF", # Ruff-specific and unused-noqa
     "UP", # pyupgrade
     # Flake8 base rules
@@ -105,6 +106,7 @@ ignore = [
     "B", # flake8-bugbear
     # Rules that are out of the control of stub authors:
     "F403", # `from . import *` used; unable to detect undefined names
+    "PLC2701", # Private name import from external module
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.
     "F405", # may be undefined, or defined from star imports
