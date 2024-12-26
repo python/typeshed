@@ -228,7 +228,10 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
     python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
     print("Testing files with pytype...")
     for i, f in enumerate(files_to_test):
-        stderr = None if dry_run else run_pytype(filename=f, python_version=python_version, missing_modules=missing_modules)
+        if dry_run:
+            stderr = None
+        else:
+            stderr = run_pytype(filename=f, python_version=python_version, missing_modules=missing_modules)
         if stderr:
             if print_stderr:
                 print(f"\n{stderr}")
