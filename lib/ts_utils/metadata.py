@@ -250,7 +250,7 @@ def read_metadata(distribution: str) -> StubMetadata:
                 f"Invalid upstream_repository for {distribution!r}: "
                 "URLs for GitHub repositories always have two parts in their paths"
             )
-            assert num_url_path_parts == 2, bad_github_url_msg
+            assert num_url_path_parts == 2, bad_github_url_msg  # noqa: PLR2004 # astral-sh/ruff#10009
 
     obsolete_since: object = data.get("obsolete_since")
     assert isinstance(obsolete_since, (str, type(None)))

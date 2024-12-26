@@ -305,7 +305,7 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubMe
         split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
         if split_url.netloc == "github.com":
             url_path = split_url.path.strip("/")
-            assert len(Path(url_path).parts) == 2
+            assert len(Path(url_path).parts) == 2  # noqa: PLR2004 # astral-sh/ruff#10009
             github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
             async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
                 if response.status == HTTPStatus.OK:
