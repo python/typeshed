@@ -40,6 +40,7 @@ select = [
     "B", # flake8-bugbear
     "FA", # flake8-future-annotations
     "I", # isort
+    "PGH", # pygrep-hooks
     "PLE", # Pylint Error
     "RUF", # Ruff-specific and unused-noqa
     "UP", # pyupgrade
