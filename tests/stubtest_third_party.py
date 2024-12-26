@@ -125,13 +125,11 @@ def run_stubtest(
         stubtest_env = os.environ | {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
 
         # Perform some black magic in order to run stubtest inside uWSGI
-        if dist_name == "uWSGI":
-            if not setup_uwsgi_stubtest_command(dist, venv_dir, stubtest_cmd):
-                return False
+        if dist_name == "uWSGI" and not setup_uwsgi_stubtest_command(dist, venv_dir, stubtest_cmd):
+            return False
 
-        if dist_name == "gdb":
-            if not setup_gdb_stubtest_command(venv_dir, stubtest_cmd):
-                return False
+        if dist_name == "gdb" and not setup_gdb_stubtest_command(venv_dir, stubtest_cmd):
+            return False
 
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
@@ -390,10 +388,7 @@ def main() -> NoReturn:
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
     args = parser.parse_args()
 
-    if len(args.dists) == 0:
-        dists = sorted(STUBS_PATH.iterdir())
-    else:
-        dists = [STUBS_PATH / d for d in args.dists]
+    dists = sorted(STUBS_PATH.iterdir()) if len(args.dists) == 0 else [STUBS_PATH / d for d in args.dists]
 
     result = 0
     for i, dist in enumerate(dists):

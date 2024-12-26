@@ -200,10 +200,7 @@ def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfil
     if not all_python_files:
         return False
 
-    for path in all_python_files:
-        if not any(py_typed_dir in path.parents for py_typed_dir in py_typed_dirs):
-            return False
-    return True
+    return all(any(py_typed_dir in path.parents for py_typed_dir in py_typed_dirs) for path in all_python_files)
 
 
 async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *, session: aiohttp.ClientSession) -> bool:
@@ -747,10 +744,7 @@ async def main() -> None:
     parser.add_argument("distributions", nargs="*", help="Distributions to update, default = all")
     args = parser.parse_args()
 
-    if args.distributions:
-        dists_to_update = args.distributions
-    else:
-        dists_to_update = [path.name for path in STUBS_PATH.iterdir()]
+    dists_to_update = args.distributions if args.distributions else [path.name for path in STUBS_PATH.iterdir()]
 
     if args.action_level > ActionLevel.nothing:
         subprocess.run(["git", "update-index", "--refresh"], capture_output=True)
@@ -765,9 +759,8 @@ async def main() -> None:
             print(f"Cannot run stubsabot, as uncommitted changes are present in {changed_files}!")
             sys.exit(1)
 
-    if args.action_level > ActionLevel.fork:
-        if os.environ.get("GITHUB_TOKEN") is None:
-            raise ValueError("GITHUB_TOKEN environment variable must be set")
+    if args.action_level > ActionLevel.fork and os.environ.get("GITHUB_TOKEN") is None:
+        raise ValueError("GITHUB_TOKEN environment variable must be set")
 
     denylist = {"gdb"}  # gdb is not a pypi distribution
 
