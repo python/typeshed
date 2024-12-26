@@ -19,7 +19,6 @@ import subprocess
 import sys
 import urllib.parse
 from importlib.metadata import distribution
-from itertools import chain
 
 import aiohttp
 import termcolor
@@ -92,12 +91,13 @@ async def get_upstream_repo_url(project: str) -> str | None:
         # Order the project URLs so that we put the ones
         # that are most likely to point to the source code first
         url_names_probably_pointing_to_source = ("Source", "Repository", "Homepage")
-        project_urls_probably_pointing_to_source = (
-            project_urls.get(url_name) for url_name in url_names_probably_pointing_to_source
-        )
-        urls_to_check = chain(
-            (url for url in project_urls_probably_pointing_to_source if url),
-            (url for url_name, url in project_urls.items() if url_name not in url_names_probably_pointing_to_source),
+
+        urls_to_check: list[str] = []
+        for url_name in url_names_probably_pointing_to_source:
+            if url := project_urls.get(url_name):
+                urls_to_check.append(url)  # noqa: PERF401 # False-positive with walrus, this code is the fastest form
+        urls_to_check.extend(
+            [url for url_name, url in project_urls.items() if url_name not in url_names_probably_pointing_to_source]
         )
 
         for url in urls_to_check:
