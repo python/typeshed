@@ -33,23 +33,22 @@ PAGESIZE: int
 class mmap:
     if sys.platform == "win32":
         def __init__(self, fileno: int, length: int, tagname: str | None = ..., access: int = ..., offset: int = ...) -> None: ...
+    elif sys.version_info >= (3, 13):
+        def __new__(
+            cls,
+            fileno: int,
+            length: int,
+            flags: int = ...,
+            prot: int = ...,
+            access: int = ...,
+            offset: int = ...,
+            *,
+            trackfd: bool = True,
+        ) -> Self: ...
     else:
-        if sys.version_info >= (3, 13):
-            def __new__(
-                cls,
-                fileno: int,
-                length: int,
-                flags: int = ...,
-                prot: int = ...,
-                access: int = ...,
-                offset: int = ...,
-                *,
-                trackfd: bool = True,
-            ) -> Self: ...
-        else:
-            def __new__(
-                cls, fileno: int, length: int, flags: int = ..., prot: int = ..., access: int = ..., offset: int = ...
-            ) -> Self: ...
+        def __new__(
+            cls, fileno: int, length: int, flags: int = ..., prot: int = ..., access: int = ..., offset: int = ...
+        ) -> Self: ...
 
     def close(self) -> None: ...
     def flush(self, offset: int = ..., size: int = ...) -> None: ...
