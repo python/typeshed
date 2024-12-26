@@ -39,6 +39,7 @@ external = ["F821", "NQA", "Y"]
 select = [
     "B", # flake8-bugbear
     "FA", # flake8-future-annotations
+    "FURB", # refurb
     "I", # isort
     "RUF", # Ruff-specific and unused-noqa
     "UP", # pyupgrade
