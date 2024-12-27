@@ -1,5 +1,6 @@
 from _typeshed import SupportsDunderGT, SupportsDunderLT, SupportsRead
 from collections.abc import Iterable, Mapping, Sequence
+from getopt import _SliceableT, _StrSequenceT_co
 from re import Pattern
 from typing import Any, Final, Protocol, TypeVar, overload
 from typing_extensions import TypeAlias
@@ -9,7 +10,6 @@ from Xlib.support.lock import _DummyLock
 
 _T = TypeVar("_T")
 _T_contra = TypeVar("_T_contra", contravariant=True)
-_StrSequenceT = TypeVar("_StrSequenceT", bound=Sequence[str])
 
 _DB: TypeAlias = dict[str, tuple[_DB, ...]]
 # A recursive type can be a bit annoying due to dict invariance,
@@ -49,7 +49,7 @@ class ResourceDB:
     def get(self, res: str, cls: str, default: _T) -> _T: ...
     def update(self, db: ResourceDB) -> None: ...
     def output(self) -> str: ...
-    def getopt(self, name: str, argv: _StrSequenceT, opts: Mapping[str, Option]) -> _StrSequenceT: ...
+    def getopt(self, name: str, argv: _SliceableT[_StrSequenceT_co], opts: Mapping[str, Option]) -> _StrSequenceT_co: ...
 
 def bin_insert(list: list[_SupportsComparisons[_T]], element: _SupportsComparisons[_T]) -> None: ...
 def update_db(dest: _DB_Param, src: _DB_Param) -> None: ...
