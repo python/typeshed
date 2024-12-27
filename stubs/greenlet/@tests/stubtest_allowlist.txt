@@ -1,3 +1,6 @@
+# TODO: missing from stub
+greenlet.__all__
+
 # Error: is not present in stub
 # =============================
 # this module only contains C code and exports no Python code, so it's better

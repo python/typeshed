@@ -40,6 +40,7 @@ select = [
     "B", # flake8-bugbear
     "FA", # flake8-future-annotations
     "I", # isort
+    "PGH", # pygrep-hooks
     "RUF", # Ruff-specific and unused-noqa
     "UP", # pyupgrade
     # Flake8 base rules
@@ -71,6 +72,10 @@ extend-safe-fixes = [
     "UP036", # Remove unnecessary `sys.version_info` blocks
 ]
 ignore = [
+    # TODO: Ruff 0.8.0 added sorting of __all__ and __slots_. Validate whether we want this in stubs
+    "RUF022",
+    "RUF023",
+
     ###
     # Rules that can conflict with the formatter (Black)
     # https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
@@ -100,7 +105,6 @@ ignore = [
     # B033 could be slightly useful but Ruff doesn't have per-file select
     "B", # flake8-bugbear
     # Rules that are out of the control of stub authors:
-    "E741", # ambiguous variable name
     "F403", # `from . import *` used; unable to detect undefined names
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.

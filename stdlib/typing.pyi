@@ -155,8 +155,8 @@ class TypeVar:
         @property
         def __default__(self) -> Any: ...
     if sys.version_info >= (3, 13):
-        def __init__(
-            self,
+        def __new__(
+            cls,
             name: str,
             *constraints: Any,
             bound: Any | None = None,
@@ -164,17 +164,21 @@ class TypeVar:
             covariant: bool = False,
             infer_variance: bool = False,
             default: Any = ...,
-        ) -> None: ...
+        ) -> Self: ...
     elif sys.version_info >= (3, 12):
-        def __init__(
-            self,
+        def __new__(
+            cls,
             name: str,
             *constraints: Any,
             bound: Any | None = None,
             covariant: bool = False,
             contravariant: bool = False,
             infer_variance: bool = False,
-        ) -> None: ...
+        ) -> Self: ...
+    elif sys.version_info >= (3, 11):
+        def __new__(
+            cls, name: str, *constraints: Any, bound: Any | None = None, covariant: bool = False, contravariant: bool = False
+        ) -> Self: ...
     else:
         def __init__(
             self, name: str, *constraints: Any, bound: Any | None = None, covariant: bool = False, contravariant: bool = False
@@ -232,7 +236,9 @@ if sys.version_info >= (3, 11):
             def __default__(self) -> Any: ...
             def has_default(self) -> bool: ...
         if sys.version_info >= (3, 13):
-            def __init__(self, name: str, *, default: Any = ...) -> None: ...
+            def __new__(cls, name: str, *, default: Any = ...) -> Self: ...
+        elif sys.version_info >= (3, 12):
+            def __new__(cls, name: str) -> Self: ...
         else:
             def __init__(self, name: str) -> None: ...
 
@@ -245,15 +251,25 @@ if sys.version_info >= (3, 10):
     class ParamSpecArgs:
         @property
         def __origin__(self) -> ParamSpec: ...
-        def __init__(self, origin: ParamSpec) -> None: ...
+        if sys.version_info >= (3, 12):
+            def __new__(cls, origin: ParamSpec) -> Self: ...
+        else:
+            def __init__(self, origin: ParamSpec) -> None: ...
+
         def __eq__(self, other: object) -> bool: ...
+        __hash__: ClassVar[None]  # type: ignore[assignment]
 
     @final
     class ParamSpecKwargs:
         @property
         def __origin__(self) -> ParamSpec: ...
-        def __init__(self, origin: ParamSpec) -> None: ...
+        if sys.version_info >= (3, 12):
+            def __new__(cls, origin: ParamSpec) -> Self: ...
+        else:
+            def __init__(self, origin: ParamSpec) -> None: ...
+
         def __eq__(self, other: object) -> bool: ...
+        __hash__: ClassVar[None]  # type: ignore[assignment]
 
     @final
     class ParamSpec:
@@ -272,8 +288,8 @@ if sys.version_info >= (3, 10):
             @property
             def __default__(self) -> Any: ...
         if sys.version_info >= (3, 13):
-            def __init__(
-                self,
+            def __new__(
+                cls,
                 name: str,
                 *,
                 bound: Any | None = None,
@@ -281,17 +297,21 @@ if sys.version_info >= (3, 10):
                 covariant: bool = False,
                 infer_variance: bool = False,
                 default: Any = ...,
-            ) -> None: ...
+            ) -> Self: ...
         elif sys.version_info >= (3, 12):
-            def __init__(
-                self,
+            def __new__(
+                cls,
                 name: str,
                 *,
                 bound: Any | None = None,
                 contravariant: bool = False,
                 covariant: bool = False,
                 infer_variance: bool = False,
-            ) -> None: ...
+            ) -> Self: ...
+        elif sys.version_info >= (3, 11):
+            def __new__(
+                cls, name: str, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False
+            ) -> Self: ...
         else:
             def __init__(
                 self, name: str, *, bound: Any | None = None, contravariant: bool = False, covariant: bool = False
@@ -463,7 +483,11 @@ class Generator(Iterator[_YieldT_co], Generic[_YieldT_co, _SendT_contra, _Return
     @overload
     @abstractmethod
     def throw(self, typ: BaseException, val: None = None, tb: TracebackType | None = None, /) -> _YieldT_co: ...
-    def close(self) -> None: ...
+    if sys.version_info >= (3, 13):
+        def close(self) -> _ReturnT_co | None: ...
+    else:
+        def close(self) -> None: ...
+
     def __iter__(self) -> Generator[_YieldT_co, _SendT_contra, _ReturnT_co]: ...
     @property
     def gi_code(self) -> CodeType: ...
@@ -753,7 +777,7 @@ class MutableMapping(Mapping[_KT, _VT]):
 
 Text = str
 
-TYPE_CHECKING: bool
+TYPE_CHECKING: Final[bool]
 
 # In stubs, the arguments of the IO class are marked as positional-only.
 # This differs from runtime, but better reflects the fact that in reality
@@ -1035,9 +1059,7 @@ if sys.version_info >= (3, 12):
     def override(method: _F, /) -> _F: ...
     @final
     class TypeAliasType:
-        def __init__(
-            self, name: str, value: Any, *, type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] = ()
-        ) -> None: ...
+        def __new__(cls, name: str, value: Any, *, type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] = ()) -> Self: ...
         @property
         def __value__(self) -> Any: ...
         @property
