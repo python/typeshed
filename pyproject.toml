@@ -43,6 +43,7 @@ select = [
     "PGH", # pygrep-hooks
     "RUF", # Ruff-specific and unused-noqa
     "UP", # pyupgrade
+    "YTT", # flake8-2020
     # Flake8 base rules
     "E", # pycodestyle Error
     "F", # Pyflakes
