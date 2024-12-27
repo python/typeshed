@@ -1,3 +1,5 @@
+# Since this module defines "Self" it is not recognized by Ruff as typing_extensions.Self
+# ruff: noqa: PYI034
 import abc
 import sys
 import typing
