@@ -2,7 +2,7 @@ import contextlib
 from _typeshed import ConvertibleToInt
 from collections.abc import Callable, Iterable, Sequence
 from datetime import datetime
-from typing import Final, Generic, NamedTuple, SupportsIndex, SupportsInt, TypeVar
+from typing import Final, NamedTuple, SupportsIndex, SupportsInt, TypeVar
 from typing_extensions import ParamSpec, TypeAlias
 
 from pyscreeze import (
@@ -18,7 +18,6 @@ from pyscreeze import (
     screenshot as screenshot,
 )
 
-_PointValueT = TypeVar("_PointValueT", int, float, default=float, covariant=True)
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
 # Explicitly mentioning str despite being in the ConvertibleToInt Alias because it has a different meaning (filename on screen)
@@ -60,9 +59,9 @@ def mouseInfo() -> None: ...
 def useImageNotFoundException(value: bool | None = None) -> None: ...
 def isShiftCharacter(character: str) -> bool: ...
 
-class Point(NamedTuple, Generic[_PointValueT]):
-    x: _PointValueT
-    y: _PointValueT
+class Point(NamedTuple):
+    x: int
+    y: int
 
 class Size(NamedTuple):
     width: int
@@ -70,7 +69,7 @@ class Size(NamedTuple):
 
 def getPointOnLine(x1: float, y1: float, x2: float, y2: float, n: float) -> tuple[float, float]: ...
 def linear(n: float) -> float: ...
-def position(x: int | None = None, y: int | None = None) -> Point[int]: ...
+def position(x: int | None = None, y: int | None = None) -> Point: ...
 def size() -> Size: ...
 
 resolution = size
