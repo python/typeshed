@@ -113,12 +113,16 @@ class OutMultiEdgeView(OutEdgeView[_Node]):
     def __iter__(self) -> Iterator[tuple[_Node, _Node, Incomplete]]: ...  # type: ignore[override]
     @overload  # type: ignore[override]  # Has an additional `keys` keyword argument
     def __call__(
+        self, nbunch: _NBunch[_Node], data: Literal[False] = False, *, default: None = None, keys: Literal[True]
+    ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, Incomplete]]: ...
+    @overload
+    def __call__(
         self, nbunch: None = None, data: Literal[False] = False, *, default: Unused = None, keys: Literal[True]
     ) -> Self: ...
     @overload
     def __call__(
-        self, nbunch: _NBunch[_Node], data: Literal[True], *, default: None = None, keys: bool = False
-    ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, dict[str, Incomplete]]]: ...
+        self, nbunch: _NBunch[_Node], data: Literal[True], *, default: None = None, keys: Literal[True]
+    ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, Incomplete, dict[str, Incomplete]]]: ...
     @overload
     def __call__(
         self, nbunch: _NBunch[_Node] = None, *, data: Literal[True], default: None = None, keys: bool = False
