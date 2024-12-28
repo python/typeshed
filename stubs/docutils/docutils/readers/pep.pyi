@@ -9,7 +9,7 @@ from docutils.transforms import Transform
 
 class Reader(standalone.Reader):
 
-    supported: ClassVar[tuple[str]] = ("pep",)
+    supported: ClassVar[tuple[Literal["pep"]]]
 
     settings_spec: ClassVar[tuple[Any, ...]]
 
@@ -18,7 +18,7 @@ class Reader(standalone.Reader):
 
     def get_transforms(self) -> list[type[Transform]]: ...
 
-    settings_default_overrides = {"pep_references": 1, "rfc_references": 1}
+    settings_default_overrides: ClassVar[dict[str, int]]
 
     inliner_class: ClassVar[type[Inliner]]
 
