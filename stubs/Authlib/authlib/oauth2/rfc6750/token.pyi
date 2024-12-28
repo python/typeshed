@@ -1,10 +1,11 @@
+from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Any
-from typing_extensions import TypeAlias
+from typing import Protocol
 
 from authlib.oauth2.rfc6749 import ClientMixin
 
-_TokenGenerator: TypeAlias = Callable[[ClientMixin, str, Any, str], str]
+class _TokenGenerator(Protocol):
+    def __call__(self, *, client: ClientMixin, grant_type: str, user, scope: str) -> str: ...
 
 class BearerTokenGenerator:
     DEFAULT_EXPIRES_IN: int
@@ -24,7 +25,7 @@ class BearerTokenGenerator:
         self,
         grant_type: str,
         client: ClientMixin,
-        user: Any | None = None,
+        user: Incomplete | None = None,
         scope: str | None = None,
         expires_in: int | None = None,
         include_refresh_token: bool = True,
@@ -33,7 +34,7 @@ class BearerTokenGenerator:
         self,
         grant_type: str,
         client: ClientMixin,
-        user: Any | None = None,
+        user: Incomplete | None = None,
         scope: str | None = None,
         expires_in: int | None = None,
         include_refresh_token: bool = True,
