@@ -62,14 +62,6 @@ collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the s
 collections.AsyncIterator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.ByteString  # see comments in py3_common.txt
 collections.Callable
-collections.Coroutine.cr_await
-collections.Coroutine.cr_code
-collections.Coroutine.cr_frame
-collections.Coroutine.cr_running
-collections.Generator.gi_code
-collections.Generator.gi_frame
-collections.Generator.gi_running
-collections.Generator.gi_yieldfrom
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 xxsubtype  # module missing from the stubs
@@ -149,6 +141,9 @@ tkinter.tix.TkVersion
 # ============================================================
 # Allowlist entries that cannot or should not be fixed; <= 3.8
 # ============================================================
+
+asyncio.locks._ContextManagerMixin.__enter__  # Always raises; deliberately omitted from the stub
+asyncio.locks._ContextManagerMixin.__exit__  # Always raises; deliberately omitted from the stub
 
 # Incompatible changes introduced in Python 3.8.20
 # (Remove once 3.8.20 becomes available for GitHub Actions)
