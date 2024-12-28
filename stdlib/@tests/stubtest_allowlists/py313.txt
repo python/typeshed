@@ -3,29 +3,6 @@
 # =========================
 
 
-# =======
-# >= 3.13
-# =======
-
-# TODO: triage these new errors
-tkinter.Misc.busy
-tkinter.Misc.busy_cget
-tkinter.Misc.busy_config
-tkinter.Misc.busy_configure
-tkinter.Misc.busy_current
-tkinter.Misc.busy_forget
-tkinter.Misc.busy_hold
-tkinter.Misc.busy_status
-tkinter.Misc.tk_busy
-tkinter.Misc.tk_busy_cget
-tkinter.Misc.tk_busy_config
-tkinter.Misc.tk_busy_configure
-tkinter.Misc.tk_busy_current
-tkinter.Misc.tk_busy_forget
-tkinter.Misc.tk_busy_hold
-tkinter.Misc.tk_busy_status
-
-
 # ====================================
 # Pre-existing errors from Python 3.12
 # ====================================
