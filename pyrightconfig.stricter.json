@@ -89,7 +89,6 @@
         "stubs/pywin32",
         "stubs/pyxdg",
         "stubs/PyYAML",
-        "stubs/redis",
         "stubs/reportlab",
         "stubs/requests",
         "stubs/requests-oauthlib",
