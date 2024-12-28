@@ -12,7 +12,7 @@ from ssl import (
     SSLWantWriteError as SSLWantWriteError,
     SSLZeroReturnError as SSLZeroReturnError,
 )
-from typing import Any, Literal, TypedDict, final, overload
+from typing import Any, ClassVar, Literal, TypedDict, final, overload
 from typing_extensions import NotRequired, Self, TypeAlias
 
 _PasswordType: TypeAlias = Callable[[], str | bytes | bytearray] | str | bytes | bytearray
@@ -105,7 +105,7 @@ class _SSLContext:
     if sys.version_info >= (3, 13):
         def set_psk_client_callback(self, callback: Callable[[str | None], tuple[str | None, bytes]] | None) -> None: ...
         def set_psk_server_callback(
-            self, callback: Callable[[str | None], tuple[str | None, bytes]] | None, identity_hint: str | None = None
+            self, callback: Callable[[str | None], bytes] | None, identity_hint: str | None = None
         ) -> None: ...
 
 @final
@@ -119,6 +119,7 @@ class MemoryBIO:
 
 @final
 class SSLSession:
+    __hash__: ClassVar[None]  # type: ignore[assignment]
     @property
     def has_ticket(self) -> bool: ...
     @property

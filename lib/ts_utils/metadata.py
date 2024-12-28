@@ -5,7 +5,6 @@
 
 from __future__ import annotations
 
-import os
 import re
 import urllib.parse
 from collections.abc import Mapping
@@ -15,10 +14,11 @@ from typing import Final, NamedTuple, final
 from typing_extensions import Annotated, TypeGuard
 
 import tomli
+import tomlkit
 from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
-from packaging.version import Version
 
+from .paths import PYPROJECT_PATH, STUBS_PATH, distribution_path
 from .utils import cache
 
 __all__ = [
@@ -44,20 +44,15 @@ def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
 
 @cache
 def _get_oldest_supported_python() -> str:
-    with open("pyproject.toml", "rb") as config:
+    with PYPROJECT_PATH.open("rb") as config:
         val = tomli.load(config)["tool"]["typeshed"]["oldest_supported_python"]
     assert type(val) is str
     return val
 
 
-def stubs_path(distribution: str) -> Path:
-    """Return the path to the directory of a third-party distribution."""
-    return Path("stubs", distribution)
-
-
 def metadata_path(distribution: str) -> Path:
     """Return the path to the METADATA.toml file of a third-party distribution."""
-    return stubs_path(distribution) / "METADATA.toml"
+    return distribution_path(distribution) / "METADATA.toml"
 
 
 @final
@@ -141,7 +136,7 @@ class StubMetadata:
     """
 
     distribution: Annotated[str, "The name of the distribution on PyPI"]
-    version: str
+    version_spec: Annotated[Specifier, "Upstream versions that the stubs are compatible with"]
     requires: Annotated[list[Requirement], "The parsed requirements as listed in METADATA.toml"]
     extra_description: str | None
     stub_distribution: Annotated[str, "The name under which the distribution is uploaded to PyPI"]
@@ -212,9 +207,12 @@ def read_metadata(distribution: str) -> StubMetadata:
 
     assert "version" in data, f"Missing 'version' field in METADATA.toml for {distribution!r}"
     version = data["version"]
-    assert isinstance(version, str)
-    # Check that the version parses
-    Version(version[:-2] if version.endswith(".*") else version)
+    assert isinstance(version, str) and len(version) > 0, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
+    # Check that the version spec parses
+    if version[0].isdigit():
+        version = f"=={version}"
+    version_spec = Specifier(version)
+    assert version_spec.operator in {"==", "~="}, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
 
     requires_s: object = data.get("requires", [])
     assert isinstance(requires_s, list)
@@ -289,7 +287,7 @@ def read_metadata(distribution: str) -> StubMetadata:
 
     return StubMetadata(
         distribution=distribution,
-        version=version,
+        version_spec=version_spec,
         requires=requires,
         extra_description=extra_description,
         stub_distribution=stub_distribution,
@@ -301,6 +299,22 @@ def read_metadata(distribution: str) -> StubMetadata:
         stubtest_settings=read_stubtest_settings(distribution),
         requires_python=requires_python,
     )
+
+
+def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocument:
+    """Updates a distribution's METADATA.toml.
+
+    Return the updated TOML dictionary for use without having to open the file separately."""
+    path = metadata_path(distribution)
+    try:
+        with path.open("rb") as file:
+            data = tomlkit.load(file)
+    except FileNotFoundError:
+        raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
+    data.update(new_values)  # pyright: ignore[reportUnknownMemberType] # tomlkit.TOMLDocument.update is partially typed
+    with path.open("w", encoding="UTF-8") as file:
+        tomlkit.dump(data, file)  # pyright: ignore[reportUnknownMemberType] # tomlkit.dump has partially unknown Mapping type
+    return data
 
 
 def parse_requires(distribution: str, req: object) -> Requirement:
@@ -315,7 +329,7 @@ class PackageDependencies(NamedTuple):
 
 @cache
 def get_pypi_name_to_typeshed_name_mapping() -> Mapping[str, str]:
-    return {read_metadata(typeshed_name).stub_distribution: typeshed_name for typeshed_name in os.listdir("stubs")}
+    return {read_metadata(dir.name).stub_distribution: dir.name for dir in STUBS_PATH.iterdir()}
 
 
 @cache

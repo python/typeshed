@@ -10,7 +10,8 @@ import sys
 from importlib.util import find_spec
 from pathlib import Path
 
-from ts_utils.utils import TEST_CASES_DIR, colored, test_cases_path
+from ts_utils.paths import TEST_CASES_DIR, test_cases_path
+from ts_utils.utils import colored
 
 _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
 _TESTCASES_CONFIG_FILE = "pyrightconfig.testcases.json"

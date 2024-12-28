@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -14,17 +15,16 @@ from textwrap import dedent
 from typing import NoReturn
 
 from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata
+from ts_utils.paths import STUBS_PATH, allowlists_path, tests_path
 from ts_utils.utils import (
     PYTHON_VERSION,
     allowlist_stubtest_arguments,
-    allowlists_path,
     colored,
     get_mypy_req,
     print_divider,
     print_error,
     print_info,
     print_success_msg,
-    tests_path,
 )
 
 
@@ -73,16 +73,7 @@ def run_stubtest(
             pip_exe = str(venv_dir / "bin" / "pip")
             python_exe = str(venv_dir / "bin" / "python")
         dist_extras = ", ".join(stubtest_settings.extras)
-        dist_req = f"{dist_name}[{dist_extras}]=={metadata.version}"
-
-        # If tool.stubtest.stubtest_requirements exists, run "pip install" on it.
-        if stubtest_settings.stubtest_requirements:
-            pip_cmd = [pip_exe, "install", *stubtest_settings.stubtest_requirements]
-            try:
-                subprocess.run(pip_cmd, check=True, capture_output=True)
-            except subprocess.CalledProcessError as e:
-                print_command_failure("Failed to install requirements", e)
-                return False
+        dist_req = f"{dist_name}[{dist_extras}]{metadata.version_spec}"
 
         requirements = get_recursive_requirements(dist_name)
 
@@ -92,6 +83,7 @@ def run_stubtest(
         dists_to_install = [dist_req, get_mypy_req()]
         # Internal requirements are added to MYPYPATH
         dists_to_install.extend(str(r) for r in requirements.external_pkgs)
+        dists_to_install.extend(stubtest_settings.stubtest_requirements)
 
         # Since the "gdb" Python package is available only inside GDB, it is not
         # possible to install it through pip, so stub tests cannot install it.
@@ -205,13 +197,7 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         print_error("gdb is not supported on Windows")
         return False
 
-    try:
-        gdb_version = subprocess.check_output(["gdb", "--version"], text=True, stderr=subprocess.STDOUT)
-    except FileNotFoundError:
-        print_error("gdb is not installed")
-        return False
-    if "Python scripting is not supported in this copy of GDB" in gdb_version:
-        print_error("Python scripting is not supported in this copy of GDB")
+    if not gdb_version_check():
         return False
 
     gdb_script = venv_dir / "gdb_stubtest.py"
@@ -275,6 +261,24 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
     # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script
     assert stubtest_cmd[1:3] == ["-m", "mypy.stubtest"]
     stubtest_cmd[1:3] = [str(wrapper_script)]
+    return True
+
+
+def gdb_version_check() -> bool:
+    try:
+        gdb_version_output = subprocess.check_output(["gdb", "--version"], text=True, stderr=subprocess.STDOUT)
+    except FileNotFoundError:
+        print_error("gdb is not installed")
+        return False
+    if "Python scripting is not supported in this copy of GDB" in gdb_version_output:
+        print_error("Python scripting is not supported in this copy of GDB")
+        return False
+    m = re.search(r"GNU gdb\s+.*?(\d+\.\d+(\.[\da-z-]+)+)", gdb_version_output)
+    if m is None:
+        print_error("Failed to determine gdb version:\n" + gdb_version_output)
+        return False
+    gdb_version = m.group(1)
+    print(f"({gdb_version}) ", end="", flush=True)
     return True
 
 
@@ -386,11 +390,10 @@ def main() -> NoReturn:
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
     args = parser.parse_args()
 
-    typeshed_dir = Path(".").resolve()
     if len(args.dists) == 0:
-        dists = sorted((typeshed_dir / "stubs").iterdir())
+        dists = sorted(STUBS_PATH.iterdir())
     else:
-        dists = [typeshed_dir / "stubs" / d for d in args.dists]
+        dists = [STUBS_PATH / d for d in args.dists]
 
     result = 0
     for i, dist in enumerate(dists):

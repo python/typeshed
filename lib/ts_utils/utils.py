@@ -21,10 +21,9 @@ except ImportError:
         return text
 
 
-PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
+from .paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
 
-STDLIB_PATH = Path("stdlib")
-STUBS_PATH = Path("stubs")
+PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
 
 # A backport of functools.cache for Python <3.9
@@ -90,16 +89,14 @@ def venv_python(venv_dir: Path) -> Path:
 # ====================================================================
 
 
-REQS_FILE: Final = "requirements-tests.txt"
-
-
 @cache
 def parse_requirements() -> Mapping[str, Requirement]:
     """Return a dictionary of requirements from the requirements file."""
 
-    with open(REQS_FILE, encoding="UTF-8") as requirements_file:
+    with REQUIREMENTS_PATH.open(encoding="UTF-8") as requirements_file:
         stripped_lines = map(strip_comments, requirements_file)
-        requirements = map(Requirement, filter(None, stripped_lines))
+        stripped_more = [li for li in stripped_lines if not li.startswith("-")]
+        requirements = map(Requirement, filter(None, stripped_more))
         return {requirement.name: requirement for requirement in requirements}
 
 
@@ -155,10 +152,6 @@ def _parse_version(v_str: str) -> tuple[int, int]:
 # ====================================================================
 
 
-TESTS_DIR: Final = "@tests"
-TEST_CASES_DIR: Final = "test_cases"
-
-
 class DistributionTests(NamedTuple):
     name: str
     test_cases_path: Path
@@ -179,17 +172,6 @@ def distribution_info(distribution_name: str) -> DistributionTests:
     raise RuntimeError(f"No test cases found for {distribution_name!r}!")
 
 
-def tests_path(distribution_name: str) -> Path:
-    if distribution_name == "stdlib":
-        return STDLIB_PATH / TESTS_DIR
-    else:
-        return STUBS_PATH / distribution_name / TESTS_DIR
-
-
-def test_cases_path(distribution_name: str) -> Path:
-    return tests_path(distribution_name) / TEST_CASES_DIR
-
-
 def get_all_testcase_directories() -> list[DistributionTests]:
     testcase_directories: list[DistributionTests] = []
     for distribution_path in STUBS_PATH.iterdir():
@@ -199,13 +181,6 @@ def get_all_testcase_directories() -> list[DistributionTests]:
             continue
         testcase_directories.append(pkg_info)
     return [distribution_info("stdlib"), *sorted(testcase_directories)]
-
-
-def allowlists_path(distribution_name: str) -> Path:
-    if distribution_name == "stdlib":
-        return tests_path("stdlib") / "stubtest_allowlists"
-    else:
-        return tests_path(distribution_name)
 
 
 def allowlists(distribution_name: str) -> list[str]:
