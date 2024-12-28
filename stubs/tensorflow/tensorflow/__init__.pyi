@@ -56,6 +56,7 @@ from tensorflow.math import (
     reduce_min as reduce_min,
     reduce_prod as reduce_prod,
     reduce_sum as reduce_sum,
+    round as round,
     sigmoid as sigmoid,
     sign as sign,
     sin as sin,
