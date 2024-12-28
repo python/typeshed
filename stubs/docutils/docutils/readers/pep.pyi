@@ -1,6 +1,6 @@
 __docformat__: str
 
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Literal
 
 from docutils.parsers import Parser
 from docutils.parsers.rst.states import Inliner
@@ -14,7 +14,7 @@ class Reader(standalone.Reader):
     settings_spec: ClassVar[tuple[Any, ...]]
 
     config_section: ClassVar[str]
-    config_section_dependencies: ClassVar[tuple[str]]
+    config_section_dependencies: ClassVar[tuple[Literal['readers'], Literal['standalone reader']]]
 
     def get_transforms(self) -> list[type[Transform]]: ...
 
