@@ -1,9 +1,8 @@
 __docformat__: str
 
-
 from typing import ClassVar, Literal, TypeVar
-from docutils import readers
 
+from docutils import readers
 
 _S = TypeVar("_S")
 
