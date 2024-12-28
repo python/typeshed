@@ -24,8 +24,7 @@ def distribution_path(distribution_name: str) -> Path:
 def tests_path(distribution_name: str) -> Path:
     if distribution_name == "stdlib":
         return STDLIB_PATH / TESTS_DIR
-    else:
-        return STUBS_PATH / distribution_name / TESTS_DIR
+    return STUBS_PATH / distribution_name / TESTS_DIR
 
 
 def test_cases_path(distribution_name: str) -> Path:
@@ -35,5 +34,4 @@ def test_cases_path(distribution_name: str) -> Path:
 def allowlists_path(distribution_name: str) -> Path:
     if distribution_name == "stdlib":
         return tests_path("stdlib") / "stubtest_allowlists"
-    else:
-        return tests_path(distribution_name)
+    return tests_path(distribution_name)

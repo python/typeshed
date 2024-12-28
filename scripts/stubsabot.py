@@ -134,8 +134,7 @@ class Update:
     def new_version(self) -> str:
         if self.new_version_spec.operator == "==":
             return str(self.new_version_spec)[2:]
-        else:
-            return str(self.new_version_spec)
+        return str(self.new_version_spec)
 
 
 @dataclass

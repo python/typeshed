@@ -48,11 +48,10 @@ def extract_proto_file_paths(temp_dir: Path) -> list[str]:
     """
     with open(temp_dir / EXTRACTED_PACKAGE_DIR / "python" / "dist" / "BUILD.bazel") as file:
         matched_lines = filter(None, (re.search(PROTO_FILE_PATTERN, line) for line in file))
-        proto_files = [
+        return [
             EXTRACTED_PACKAGE_DIR + "/src/google/protobuf/" + match.group(1).replace("compiler_", "compiler/") + ".proto"
             for match in matched_lines
         ]
-    return proto_files
 
 
 def main() -> None:

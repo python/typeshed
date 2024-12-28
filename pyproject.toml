@@ -41,6 +41,7 @@ select = [
     "FA", # flake8-future-annotations
     "I", # isort
     "PGH", # pygrep-hooks
+    "RET", # flake8-return
     "RUF", # Ruff-specific and unused-noqa
     "UP", # pyupgrade
     "YTT", # flake8-2020
