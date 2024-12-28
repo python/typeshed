@@ -1,8 +1,7 @@
-import sys
-from typing_extensions import assert_type
-
 import ctypes
+import sys
 from pathlib import Path
+from typing_extensions import assert_type
 
 assert_type(ctypes.CDLL(None), ctypes.CDLL)
 assert_type(ctypes.CDLL("."), ctypes.CDLL)
