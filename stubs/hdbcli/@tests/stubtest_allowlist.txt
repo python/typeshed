@@ -1,3 +1,6 @@
+# TODO: missing from stub
+hdbcli.__all__
+
 # Are set to `None` by default, initialized later:
 hdbcli.dbapi.Error.errorcode
 hdbcli.dbapi.Error.errortext

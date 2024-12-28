@@ -30,8 +30,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # various modules aren't available on macos-13 and higher
-        os: ["ubuntu-latest", "windows-latest", "macos-12"]
+        # As of 2024-10-18, ubuntu-latest can refer to different Ubuntu versions,
+        # which can can cause problems with os module constants.
+        os: ["ubuntu-24.04", "windows-latest", "macos-latest"]
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
       fail-fast: false
 
