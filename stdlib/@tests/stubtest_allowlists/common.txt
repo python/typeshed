@@ -4,48 +4,18 @@
 
 # Please keep sorted alphabetically
 
-_collections_abc.AsyncGenerator.ag_await
-_collections_abc.AsyncGenerator.ag_code
-_collections_abc.AsyncGenerator.ag_frame
-_collections_abc.AsyncGenerator.ag_running
-asyncio.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
-asyncio.base_events.BaseEventLoop.subprocess_exec  # BaseEventLoop adds several parameters and stubtest fails on the difference if we add them
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
-configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
-configparser.SectionProxy.getboolean  # SectionProxy get functions are set in __init__
-configparser.SectionProxy.getfloat  # SectionProxy get functions are set in __init__
-configparser.SectionProxy.getint  # SectionProxy get functions are set in __init__
-contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favor of its child classes
-ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
-ctypes.memmove  # CFunctionType
-ctypes.memset  # CFunctionType
-fractions.Fraction.__new__  # overload is too complicated for stubtest to resolve
-functools.cached_property.__set__  # Stub is a white lie; see comments in the stub
-hmac.new  # Stub is a white lie; see comments in the stub
-http.HTTPStatus.description  # set in __new__
-http.HTTPStatus.phrase  # set in __new__
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
-numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
-optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
-select.poll  # Depends on configuration
-selectors.DevpollSelector  # Depends on configuration
-shutil.rmtree  # stubtest doesn't like that we have this as an instance of a callback protocol instead of a function
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
-ssl.Purpose.__new__  # the multiple inheritance confuses mypy
-tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
-tkinter.Misc.after  # we intentionally don't allow everything that "works" at runtime
 tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
-unittest.mock.patch  # It's a complicated overload and I haven't been able to figure out why stubtest doesn't like it
-weakref.WeakKeyDictionary.update
-weakref.WeakValueDictionary.update
 
 
 # ===============================================================
@@ -61,34 +31,6 @@ turtledemo\..+
 # ======================================================================
 
 _thread.RLock
-multiprocessing.managers.Server.accepter
-multiprocessing.managers.Server.create
-multiprocessing.managers.Server.debug_info
-multiprocessing.managers.Server.decref
-multiprocessing.managers.Server.dummy
-multiprocessing.managers.Server.fallback_getvalue
-multiprocessing.managers.Server.fallback_mapping
-multiprocessing.managers.Server.fallback_repr
-multiprocessing.managers.Server.fallback_str
-multiprocessing.managers.Server.get_methods
-multiprocessing.managers.Server.handle_request
-multiprocessing.managers.Server.incref
-multiprocessing.managers.Server.number_of_objects
-multiprocessing.managers.Server.public
-multiprocessing.managers.Server.serve_client
-multiprocessing.managers.Server.shutdown
-multiprocessing.managers.SharedMemoryServer.create
-multiprocessing.managers.SharedMemoryServer.list_segments
-multiprocessing.managers.SharedMemoryServer.public
-multiprocessing.managers.SharedMemoryServer.release_segment
-multiprocessing.managers.SharedMemoryServer.shutdown
-multiprocessing.managers.SharedMemoryServer.track_segment
-multiprocessing.managers.SyncManager.Barrier
-multiprocessing.managers.SyncManager.JoinableQueue
-multiprocessing.managers.SyncManager.Pool
-multiprocessing.pool.Pool.Process
-multiprocessing.pool.ThreadPool.Process
-multiprocessing.synchronize.Semaphore.get_value
 tkinter.Misc.config
 
 
@@ -245,16 +187,6 @@ _collections_abc.AsyncIterator.__anext__
 _collections_abc.ByteString
 
 _collections_abc.Callable  # Typing-related weirdness
-
-# Coroutine and Generator properties are added programmatically
-_collections_abc.Coroutine.cr_await
-_collections_abc.Coroutine.cr_code
-_collections_abc.Coroutine.cr_frame
-_collections_abc.Coroutine.cr_running
-_collections_abc.Generator.gi_code
-_collections_abc.Generator.gi_frame
-_collections_abc.Generator.gi_running
-_collections_abc.Generator.gi_yieldfrom
 _collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
 
@@ -287,8 +219,6 @@ ast.Str.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
 _?asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
-asyncio.proactor_events.BaseProactorEventLoop.sock_recv  # nbytes parameter has different name 'n' in implementation
-asyncio.selector_events.BaseSelectorEventLoop.sock_recv  # nbytes parameter has different name 'n' in implementation
 
 # Condition functions are exported in __init__
 asyncio.Condition.acquire
@@ -319,6 +249,10 @@ codecs.StreamRecoder.\w+
 
 collections.UserList.sort  # Runtime has *args but will error if any are supplied
 collections.abc.*  # Types are re-exported from _collections_abc, so errors should be fixed there
+configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attributes when custom converters are used
+configparser.SectionProxy.getboolean  # SectionProxy get functions are set in __init__
+configparser.SectionProxy.getfloat  # SectionProxy get functions are set in __init__
+configparser.SectionProxy.getint  # SectionProxy get functions are set in __init__
 _?contextvars.Context.__init__  # C signature is broader than what is actually accepted
 copy.PyStringMap  # defined only in Jython
 
@@ -331,17 +265,16 @@ csv.Dialect.skipinitialspace
 
 csv.DictReader.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
 csv.DictWriter.__init__  # runtime sig has *args but will error if more than 5 positional args are supplied
-_?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
 _?ctypes.Array._type_  # _type_ is abstract, https://github.com/python/typeshed/pull/6361
 _?ctypes.Array._length_  # _length_ is abstract, https://github.com/python/typeshed/pull/6361
+_?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
+ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 _?ctypes.Structure.__getattr__  # doesn't exist, but makes things easy if we pretend it does
 _?ctypes.Union.__getattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 _?ctypes.Array.__iter__
-
-dataclasses.field  # White lies around defaults
 
 # __all__-related weirdness (see #6523)
 email.__all__
@@ -363,7 +296,11 @@ email.policy.EmailPolicy.message_factory  # "type" at runtime, but protocol in s
 enum.auto.__or__  # enum.auto is magic, see comments
 enum.auto.__and__  # enum.auto is magic, see comments
 enum.auto.__xor__  # enum.auto is magic, see comments
+functools.cached_property.__set__  # doesn't exist, but cached_property is settable by another mechanism
 _?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
+hmac.new  # Raises TypeError if optional argument digestmod is not provided
+http.HTTPStatus.description  # set in __new__; work-around for enum wierdness
+http.HTTPStatus.phrase  # set in __new__; work-around for enum wierdness
 imaplib.IMAP4_SSL.ssl  # Depends on the existence and flags of SSL
 
 # runtime is *args, **kwargs due to a wrapper; we have more accurate signatures in the stubs
@@ -403,7 +340,6 @@ multiprocessing.dummy.RLock
 
 # These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
 # But have more precise (accurate) signatures in the stub
-multiprocessing.managers.BaseListProxy.__imul__
 multiprocessing.managers.BaseListProxy.__len__
 multiprocessing.managers.BaseListProxy.__reversed__
 multiprocessing.managers.BaseListProxy.reverse
@@ -439,6 +375,8 @@ multiprocessing.synchronize.Condition.release
 multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
 
+numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
+optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
 os._wrap_close.read  # Methods that come from __getattr__() at runtime
 os._wrap_close.readable  # Methods that come from __getattr__() at runtime
 os._wrap_close.readline  # Methods that come from __getattr__() at runtime
@@ -449,9 +387,11 @@ os._wrap_close.writelines  # Methods that come from __getattr__() at runtime
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
 _?queue.SimpleQueue.__init__  # C signature is broader than what is actually accepted
+shutil.rmtree  # function with attributes, which we approximate with a callable protocol
 ssl.PROTOCOL_SSLv2  # Depends on the existence and flags of SSL
 ssl.PROTOCOL_SSLv3  # Depends on the existence and flags of SSL
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
+tarfile.TarFile.errors  # errors is initialized for some reason as None even though it really only accepts str
 tempfile._TemporaryFileWrapper.[\w_]+  # Dynamically specified by __getattr__, and thus don't exist on the class
 threading.Condition.acquire  # Condition functions are exported in __init__
 threading.Condition.release  # Condition functions are exported in __init__
@@ -459,6 +399,8 @@ threading.Condition.release  # Condition functions are exported in __init__
 # A factory function that returns 'most efficient lock'.
 # Marking it as a function will make it impossible for users to use the Lock type as an annotation.
 threading.RLock
+
+tkinter.Misc.after  # we intentionally don't allow everything that "works" at runtime
 
 # Methods that come from __getattr__() at runtime
 tkinter.Tk.adderrorinfo
@@ -569,6 +511,7 @@ unittest.runner._WritelnDecorator.write  # Methods that come from __getattr__() 
 urllib.response.addbase.write  # Methods that come from __getattr__() at runtime
 urllib.response.addbase.writelines  # Methods that come from __getattr__() at runtime
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
+unittest.mock.patch  # function with attributes, which we approximate with a callable class
 _?weakref\.CallableProxyType\.__getattr__  # Should have all attributes of proxy
 _?weakref\.(ref|ReferenceType)\.__init__  # C implementation has incorrect signature
 _?weakref\.(ref|ReferenceType)\.__call__  # C function default annotation is wrong

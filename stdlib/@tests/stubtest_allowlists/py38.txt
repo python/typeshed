@@ -9,8 +9,6 @@ _dummy_threading.Lock
 _dummy_threading.RLock
 _dummy_threading.Thread.native_id
 asyncio.WriteTransport.get_write_buffer_limits  # Documented. Exists in subclasses, but not in WriteTransport itself
-asyncio.locks._ContextManagerMixin.__enter__  # Always raises; deliberately omitted from the stub
-asyncio.locks._ContextManagerMixin.__exit__  # Always raises; deliberately omitted from the stub
 asyncio.transports.WriteTransport.get_write_buffer_limits  # Documented. Exists in subclasses, but not in WriteTransport itself
 builtins.float.__set_format__  # Internal method for CPython test suite
 dummy_threading.Condition.acquire
@@ -61,23 +59,10 @@ tkinter.tix.wantobjects
 builtins.input  # Incorrect default value in text signature, fixed in 3.10
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
-collections.AsyncGenerator.ag_await
-collections.AsyncGenerator.ag_code
-collections.AsyncGenerator.ag_frame
-collections.AsyncGenerator.ag_running
 collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 collections.AsyncIterator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.ByteString  # see comments in py3_common.txt
 collections.Callable
-collections.Coroutine.cr_await
-collections.Coroutine.cr_code
-collections.Coroutine.cr_frame
-collections.Coroutine.cr_running
-collections.Generator.gi_code
-collections.Generator.gi_frame
-collections.Generator.gi_running
-collections.Generator.gi_yieldfrom
-collections.Mapping.__reversed__  # Set to None at runtime for a better error message
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 xxsubtype  # module missing from the stubs
@@ -158,6 +143,9 @@ tkinter.tix.TkVersion
 # Allowlist entries that cannot or should not be fixed; <= 3.8
 # ============================================================
 
+asyncio.locks._ContextManagerMixin.__enter__  # Always raises; deliberately omitted from the stub
+asyncio.locks._ContextManagerMixin.__exit__  # Always raises; deliberately omitted from the stub
+
 # Incompatible changes introduced in Python 3.8.20
 # (Remove once 3.8.20 becomes available for GitHub Actions)
 email._header_value_parser.NLSET
@@ -183,6 +171,7 @@ builtins.property.__get__  # Runtime signature is incorrect (https://github.com/
 builtins.staticmethod.__get__  # Runtime signature is incorrect (https://github.com/python/cpython/issues/93021)
 builtins.memoryview.__iter__  # C type that implements __getitem__
 builtins.memoryview.cast  # inspect.signature is incorrect about shape being kw-only
+collections.Mapping.__reversed__  # Set to None at runtime for a better error message, omitted from typeshed
 
 # Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
 collections.Set.__rand__
