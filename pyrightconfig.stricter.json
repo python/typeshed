@@ -39,6 +39,7 @@
         "stubs/caldav",
         "stubs/cffi",
         "stubs/click-default-group",
+        "stubs/click-web",
         "stubs/commonmark",
         "stubs/corus",
         "stubs/dateparser",
