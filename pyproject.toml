@@ -77,10 +77,6 @@ extend-safe-fixes = [
     "UP036", # Remove unnecessary `sys.version_info` blocks
 ]
 ignore = [
-    # TODO: Ruff 0.8.0 added sorting of __all__ and __slots_. Validate whether we want this in stubs
-    "RUF022",
-    "RUF023",
-
     ###
     # Rules that can conflict with the formatter (Black)
     # https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
@@ -106,6 +102,11 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "*.pyi" = [
+    # Ruff 0.8.0 added sorting of __all__ and __slots_.
+    # There is no consensus on whether we want to apply this to stubs, so keeping the status quo.
+    # See https://github.com/python/typeshed/pull/13108
+    "RUF022",
+    "RUF023",
     # Most flake8-bugbear rules don't apply for third-party stubs like typeshed.
     # B033 could be slightly useful but Ruff doesn't have per-file select
     "B", # flake8-bugbear
