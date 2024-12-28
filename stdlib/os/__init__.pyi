@@ -231,6 +231,7 @@ if sys.platform == "linux" and sys.version_info >= (3, 12):
         "CLONE_NEWNET",
         "CLONE_NEWNS",
         "CLONE_NEWPID",
+        "CLONE_NEWTIME",
         "CLONE_NEWUSER",
         "CLONE_NEWUTS",
         "CLONE_SIGHAND",
@@ -564,15 +565,16 @@ if sys.platform != "win32":
         CLD_KILLED: int
         CLD_STOPPED: int
 
-    # TODO: SCHED_RESET_ON_FORK not available on darwin?
-    # TODO: SCHED_BATCH and SCHED_IDLE are linux only?
-    SCHED_OTHER: int  # some flavors of Unix
-    SCHED_BATCH: int  # some flavors of Unix
-    SCHED_IDLE: int  # some flavors of Unix
-    SCHED_SPORADIC: int  # some flavors of Unix
-    SCHED_FIFO: int  # some flavors of Unix
-    SCHED_RR: int  # some flavors of Unix
-    SCHED_RESET_ON_FORK: int  # some flavors of Unix
+    SCHED_OTHER: int
+    SCHED_FIFO: int
+    SCHED_RR: int
+    if sys.platform != "darwin" and sys.platform != "linux":
+        SCHED_SPORADIC: int
+
+if sys.platform == "linux":
+    SCHED_BATCH: int
+    SCHED_IDLE: int
+    SCHED_RESET_ON_FORK: int
 
 if sys.platform != "win32":
     RTLD_LAZY: int
@@ -597,8 +599,8 @@ SEEK_SET: int
 SEEK_CUR: int
 SEEK_END: int
 if sys.platform != "win32":
-    SEEK_DATA: int  # some flavors of Unix
-    SEEK_HOLE: int  # some flavors of Unix
+    SEEK_DATA: int
+    SEEK_HOLE: int
 
 O_RDONLY: int
 O_WRONLY: int
@@ -607,34 +609,39 @@ O_APPEND: int
 O_CREAT: int
 O_EXCL: int
 O_TRUNC: int
-# We don't use sys.platform for O_* flags to denote platform-dependent APIs because some codes,
-# including tests for mypy, use a more finer way than sys.platform before using these APIs
-# See https://github.com/python/typeshed/pull/2286 for discussions
-O_DSYNC: int  # Unix only
-O_RSYNC: int  # Unix only
-O_SYNC: int  # Unix only
-O_NDELAY: int  # Unix only
-O_NONBLOCK: int  # Unix only
-O_NOCTTY: int  # Unix only
-O_CLOEXEC: int  # Unix only
-O_SHLOCK: int  # Unix only
-O_EXLOCK: int  # Unix only
-O_BINARY: int  # Windows only
-O_NOINHERIT: int  # Windows only
-O_SHORT_LIVED: int  # Windows only
-O_TEMPORARY: int  # Windows only
-O_RANDOM: int  # Windows only
-O_SEQUENTIAL: int  # Windows only
-O_TEXT: int  # Windows only
-O_ASYNC: int  # Gnu extension if in C library
-O_DIRECT: int  # Gnu extension if in C library
-O_DIRECTORY: int  # Gnu extension if in C library
-O_NOFOLLOW: int  # Gnu extension if in C library
-O_NOATIME: int  # Gnu extension if in C library
-O_PATH: int  # Gnu extension if in C library
-O_TMPFILE: int  # Gnu extension if in C library
-O_LARGEFILE: int  # Gnu extension if in C library
-O_ACCMODE: int  # TODO: when does this exist?
+if sys.platform == "win32":
+    O_BINARY: int
+    O_NOINHERIT: int
+    O_SHORT_LIVED: int
+    O_TEMPORARY: int
+    O_RANDOM: int
+    O_SEQUENTIAL: int
+    O_TEXT: int
+
+if sys.platform != "win32":
+    O_DSYNC: int
+    O_SYNC: int
+    O_NDELAY: int
+    O_NONBLOCK: int
+    O_NOCTTY: int
+    O_CLOEXEC: int
+    O_ASYNC: int  # Gnu extension if in C library
+    O_DIRECTORY: int  # Gnu extension if in C library
+    O_NOFOLLOW: int  # Gnu extension if in C library
+    O_ACCMODE: int  # TODO: when does this exist?
+
+if sys.platform == "linux":
+    O_RSYNC: int
+    O_DIRECT: int  # Gnu extension if in C library
+    O_NOATIME: int  # Gnu extension if in C library
+    O_PATH: int  # Gnu extension if in C library
+    O_TMPFILE: int  # Gnu extension if in C library
+    O_LARGEFILE: int  # Gnu extension if in C library
+
+if sys.platform != "linux" and sys.platform != "win32":
+    O_SHLOCK: int
+    O_EXLOCK: int
+
 if sys.platform == "darwin" and sys.version_info >= (3, 10):
     O_EVTONLY: int
     O_NOFOLLOW_ANY: int
