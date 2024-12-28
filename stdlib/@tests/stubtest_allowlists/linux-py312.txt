@@ -1,11 +1,10 @@
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; <= 3.12
+# =============================================================
+
 # doesn't exist on linux
 _msi
 msilib(.[a-z]+)?
 
 # doesn't exist in all installations
 (nis)?
-
-# These seem like they should be available on Linux, but they're not
-# on GitHub Actions runners for some reason.
-os.CLONE_NEWTIME
-posix.CLONE_NEWTIME
