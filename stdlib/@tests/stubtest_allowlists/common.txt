@@ -4,11 +4,6 @@
 
 # Please keep sorted alphabetically
 
-_collections_abc.AsyncGenerator.ag_await
-_collections_abc.AsyncGenerator.ag_code
-_collections_abc.AsyncGenerator.ag_frame
-_collections_abc.AsyncGenerator.ag_running
-asyncio.__all__
 builtins.dict.get
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
@@ -193,16 +188,6 @@ _collections_abc.AsyncIterator.__anext__
 _collections_abc.ByteString
 
 _collections_abc.Callable  # Typing-related weirdness
-
-# Coroutine and Generator properties are added programmatically
-_collections_abc.Coroutine.cr_await
-_collections_abc.Coroutine.cr_code
-_collections_abc.Coroutine.cr_frame
-_collections_abc.Coroutine.cr_running
-_collections_abc.Generator.gi_code
-_collections_abc.Generator.gi_frame
-_collections_abc.Generator.gi_running
-_collections_abc.Generator.gi_yieldfrom
 _collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
 
