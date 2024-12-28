@@ -124,6 +124,18 @@ class OutMultiEdgeView(OutEdgeView[_Node]):
     ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, dict[str, Incomplete]]]: ...
     @overload
     def __call__(
+        self, nbunch: _NBunch[_Node] = None, *, data: Literal[True], default: Unused = None, keys: Literal[True]
+    ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, Incomplete, dict[str, Incomplete]]]: ...
+    @overload
+    def __call__(
+        self, nbunch: _NBunch[_Node], data: Literal[False] = False, *, default: Unused = None, keys: Literal[True]
+    ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, Incomplete]]: ...
+    @overload
+    def __call__(
+        self, nbunch: _NBunch[_Node], data: Literal[True], *, default: Unused = None, keys: Literal[True]
+    ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, Incomplete, dict[str, Incomplete]]]: ...
+    @overload
+    def __call__(
         self, nbunch: _NBunch[_Node], data: str, *, default: _U | None = None, keys: bool = False
     ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
     @overload
