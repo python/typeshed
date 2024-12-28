@@ -7,9 +7,6 @@
 asyncio.IocpProactor.finish_socket_func
 asyncio.windows_events.IocpProactor.finish_socket_func
 
-ntpath.exists
-os.path.exists
-
 
 # =========
 # 3.12 only
