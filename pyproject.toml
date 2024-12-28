@@ -39,10 +39,22 @@ external = ["F821", "NQA", "Y"]
 select = [
     "B", # flake8-bugbear
     "FA", # flake8-future-annotations
-    "FURB", # refurb
     "I", # isort
     "RUF", # Ruff-specific and unused-noqa
     "UP", # pyupgrade
+    # Most refurb rules are in preview and can be opinionated,
+    # consider them individually as they come out of preview (last check: 0.8.4)
+    "FURB105", # Unnecessary empty string passed to `print`
+    "FURB129", # Instead of calling `readlines()`, iterate over file object directly
+    "FURB136", # Replace `if` expression with `{min_max}` call
+    "FURB161", # Use of `bin({existing}).count('1')`
+    "FURB163", # Prefer `math.{log_function}({arg})` over `math.log` with a redundant base
+    "FURB167", # Use of regular expression alias `re.{}`
+    "FURB168", # Prefer `is` operator over `isinstance` to check if an object is `None`
+    "FURB169", # Compare the identities of `{object}` and None instead of their respective types
+    "FURB177", # Prefer `Path.cwd()` over `Path().resolve()` for current-directory lookups
+    "FURB181", # Use of hashlib's `.digest().hex()`
+    "FURB187", # Use of assignment of `reversed` on list `{name}`
     # Flake8 base rules
     "E", # pycodestyle Error
     "F", # Pyflakes
