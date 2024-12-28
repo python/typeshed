@@ -4,7 +4,6 @@
 
 # Please keep sorted alphabetically
 
-asyncio.__all__
 builtins.dict.get
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
