@@ -1,3 +1,11 @@
+from .alarms import (
+    Alarms as Alarms,
+    AlarmTime as AlarmTime,
+    ComponentEndMissing as ComponentEndMissing,
+    ComponentStartMissing as ComponentStartMissing,
+    IncompleteAlarmInformation as IncompleteAlarmInformation,
+    LocalTimezoneMissing as LocalTimezoneMissing,
+)
 from .cal import (
     Alarm as Alarm,
     Calendar as Calendar,
@@ -5,6 +13,8 @@ from .cal import (
     ComponentFactory as ComponentFactory,
     Event as Event,
     FreeBusy as FreeBusy,
+    IncompleteComponent as IncompleteComponent,
+    InvalidCalendar as InvalidCalendar,
     Journal as Journal,
     Timezone as Timezone,
     TimezoneDaylight as TimezoneDaylight,
@@ -25,6 +35,7 @@ from .prop import (
     vFrequency as vFrequency,
     vGeo as vGeo,
     vInt as vInt,
+    vMonth as vMonth,
     vPeriod as vPeriod,
     vRecur as vRecur,
     vText as vText,
@@ -81,4 +92,13 @@ __all__ = [
     "version_tuple",
     "TypesFactory",
     "Component",
+    "vMonth",
+    "IncompleteComponent",
+    "InvalidCalendar",
+    "Alarms",
+    "AlarmTime",
+    "ComponentEndMissing",
+    "ComponentStartMissing",
+    "IncompleteAlarmInformation",
+    "LocalTimezoneMissing",
 ]

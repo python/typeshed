@@ -162,7 +162,7 @@ it checks all third-party stubs, but you can provide the distributions to
 check on the command line:
 
 ```bash
-(.venv3)$ python3 tests/stubtest_third_party.py Pillow toml  # check stubs/Pillow and stubs/toml
+(.venv3)$ python3 tests/stubtest_third_party.py requests toml  # check stubs/requests and stubs/toml
 ```
 
 If you have the runtime package installed in your local virtual environment, you can also run stubtest

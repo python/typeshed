@@ -13,7 +13,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-from _utils import allowlist_stubtest_arguments, allowlists_path
+from ts_utils.paths import TS_BASE_PATH, allowlists_path
+from ts_utils.utils import allowlist_stubtest_arguments
 
 
 def run_stubtest(typeshed_dir: Path) -> int:
@@ -57,4 +58,4 @@ def run_stubtest(typeshed_dir: Path) -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(run_stubtest(typeshed_dir=Path(".")))
+    sys.exit(run_stubtest(typeshed_dir=TS_BASE_PATH))

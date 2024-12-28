@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
+
 import os
 import sys
 
-from _metadata import read_stubtest_settings
+from ts_utils.metadata import read_stubtest_settings
 
 platform = sys.platform
 distributions = sys.argv[1:]
