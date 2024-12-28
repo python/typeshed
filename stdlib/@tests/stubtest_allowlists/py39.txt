@@ -152,6 +152,14 @@ typing\.NamedTuple  # Super-special typing primitive
 weakref.ProxyType.__reversed__  # Doesn't really exist
 
 
+# ==============================================================
+# Allowlist entries that cannot or should not be fixed; 3.9 only
+# ==============================================================
+
+ast.FormattedValue.conversion  # None on the class, but never None on instances
+_ast.FormattedValue.conversion  # None on the class, but never None on instances
+
+
 # =================================================================
 # Allowlist entries that cannot or should not be fixed; 3.9 to 3.12
 # =================================================================
