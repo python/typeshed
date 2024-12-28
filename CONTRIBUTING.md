@@ -117,7 +117,11 @@ hard-linked extension modules, and the builtins. The `VERSIONS` file lists
 the versions of Python where the module is available.
 
 We accept changes for future versions of Python after the first beta for that
-version was released.
+version was released. We drop support for a Python version three months
+after it reaches [end-of-life](https://devguide.python.org/versions/). This
+means that we will no longer actively test the stubs against that version.
+After six months, we will remove the stubs for that version and start
+to use syntax and typing features not supported by that version.
 
 ### Third-party library stubs
 
@@ -634,8 +638,8 @@ following criteria is met:
 * The upstream package ships a `py.typed` file for at least six months,
   and the upstream type annotations are of a comparable standard to those in
   typeshed, or
-* the package does not support any of the Python versions supported by
-  typeshed.
+* the upstream package was declared or appears to be unmaintained, and
+  retaining the stubs causes maintenance issues in typeshed.
 
 If a package ships its own `py.typed` file, please follow these steps:
 

@@ -1,5 +1,19 @@
-humanfriendly.compat.StringIO.seek
-humanfriendly.compat.StringIO.truncate
+# TODO: missing from stub
+humanfriendly.__all__
+humanfriendly.case.__all__
+humanfriendly.cli.__all__
+humanfriendly.compat.__all__
+humanfriendly.decorators.__all__
+humanfriendly.deprecation.__all__
+humanfriendly.prompts.__all__
+humanfriendly.sphinx.__all__
+humanfriendly.tables.__all__
+humanfriendly.terminal.__all__
+humanfriendly.terminal.html.__all__
+humanfriendly.terminal.spinners.__all__
+humanfriendly.testing.__all__
+humanfriendly.text.__all__
+humanfriendly.usage.__all__
 
 # Re-exports:
 humanfriendly.usage.import_module

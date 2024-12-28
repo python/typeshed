@@ -452,6 +452,7 @@ class BaseEventLoop(AbstractEventLoop):
         bufsize: Literal[0] = 0,
         encoding: None = None,
         errors: None = None,
+        text: Literal[False] | None = None,
         **kwargs: Any,
     ) -> tuple[SubprocessTransport, _ProtocolT]: ...
     def add_reader(self, fd: FileDescriptorLike, callback: Callable[[Unpack[_Ts]], Any], *args: Unpack[_Ts]) -> None: ...

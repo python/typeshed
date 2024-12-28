@@ -35,8 +35,8 @@ from collections.abc import Iterable, Sequence
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]
 from pytype.imports import typeshed  # type: ignore[import]
 
-from _metadata import read_dependencies
-from _utils import SupportedVersionsDict, parse_stdlib_versions_file, supported_versions_for_module
+from ts_utils.metadata import read_dependencies
+from ts_utils.utils import SupportedVersionsDict, parse_stdlib_versions_file, supported_versions_for_module
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"
@@ -163,7 +163,12 @@ def _is_supported_stdlib_version(module_versions: SupportedVersionsDict, filenam
 
 
 def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
-    dist = importlib.metadata.distribution(req_name)
+    try:
+        dist = importlib.metadata.distribution(req_name)
+    except importlib.metadata.PackageNotFoundError:
+        # The package wasn't installed, probably because an environment
+        # marker excluded it.
+        return []
     toplevel_txt_contents = dist.read_text("top_level.txt")
     if toplevel_txt_contents is None:
         if dist.files is None:

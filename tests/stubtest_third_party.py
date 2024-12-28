@@ -5,29 +5,36 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from shutil import rmtree
 from textwrap import dedent
 from typing import NoReturn
 
-from _metadata import NoSuchStubError, get_recursive_requirements, read_metadata
-from _utils import (
+from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata
+from ts_utils.paths import STUBS_PATH, allowlists_path, tests_path
+from ts_utils.utils import (
     PYTHON_VERSION,
     allowlist_stubtest_arguments,
-    allowlists_path,
     colored,
     get_mypy_req,
     print_divider,
     print_error,
+    print_info,
     print_success_msg,
-    tests_path,
 )
 
 
 def run_stubtest(
-    dist: Path, *, parser: argparse.ArgumentParser, verbose: bool = False, specified_platforms_only: bool = False
+    dist: Path,
+    *,
+    parser: argparse.ArgumentParser,
+    verbose: bool = False,
+    specified_platforms_only: bool = False,
+    keep_tmp_dir: bool = False,
 ) -> bool:
     dist_name = dist.name
     try:
@@ -51,8 +58,9 @@ def run_stubtest(
         print(colored(f"skipping (requires Python {metadata.requires_python})", "yellow"))
         return True
 
-    with tempfile.TemporaryDirectory() as tmp:
-        venv_dir = Path(tmp)
+    tmp = tempfile.mkdtemp(prefix="stubtest-")  # TODO: Python 3.12: Use TemporaryDirectory
+    venv_dir = Path(tmp)
+    try:
         try:
             subprocess.run(["uv", "venv", venv_dir, "--seed"], capture_output=True, check=True)
         except subprocess.CalledProcessError as e:
@@ -65,16 +73,7 @@ def run_stubtest(
             pip_exe = str(venv_dir / "bin" / "pip")
             python_exe = str(venv_dir / "bin" / "python")
         dist_extras = ", ".join(stubtest_settings.extras)
-        dist_req = f"{dist_name}[{dist_extras}]=={metadata.version}"
-
-        # If tool.stubtest.stubtest_requirements exists, run "pip install" on it.
-        if stubtest_settings.stubtest_requirements:
-            pip_cmd = [pip_exe, "install", *stubtest_settings.stubtest_requirements]
-            try:
-                subprocess.run(pip_cmd, check=True, capture_output=True)
-            except subprocess.CalledProcessError as e:
-                print_command_failure("Failed to install requirements", e)
-                return False
+        dist_req = f"{dist_name}[{dist_extras}]{metadata.version_spec}"
 
         requirements = get_recursive_requirements(dist_name)
 
@@ -84,6 +83,7 @@ def run_stubtest(
         dists_to_install = [dist_req, get_mypy_req()]
         # Internal requirements are added to MYPYPATH
         dists_to_install.extend(str(r) for r in requirements.external_pkgs)
+        dists_to_install.extend(stubtest_settings.stubtest_requirements)
 
         # Since the "gdb" Python package is available only inside GDB, it is not
         # possible to install it through pip, so stub tests cannot install it.
@@ -150,9 +150,12 @@ def run_stubtest(
             print("Python version: ", end="", flush=True)
             ret = subprocess.run([sys.executable, "-VV"], capture_output=True)
             print_command_output(ret)
+
             print("\nRan with the following environment:")
             ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
             print_command_output(ret)
+            if keep_tmp_dir:
+                print("Path to virtual environment:", venv_dir, flush=True)
 
             print_divider()
             main_allowlist_path = allowlists_path(dist_name) / "stubtest_allowlist.txt"
@@ -173,6 +176,11 @@ def run_stubtest(
             return False
         else:
             print_success_msg()
+            if keep_tmp_dir:
+                print_info(f"Virtual environment kept at: {venv_dir}")
+    finally:
+        if not keep_tmp_dir:
+            rmtree(venv_dir)
 
     if verbose:
         print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
@@ -189,13 +197,7 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         print_error("gdb is not supported on Windows")
         return False
 
-    try:
-        gdb_version = subprocess.check_output(["gdb", "--version"], text=True, stderr=subprocess.STDOUT)
-    except FileNotFoundError:
-        print_error("gdb is not installed")
-        return False
-    if "Python scripting is not supported in this copy of GDB" in gdb_version:
-        print_error("Python scripting is not supported in this copy of GDB")
+    if not gdb_version_check():
         return False
 
     gdb_script = venv_dir / "gdb_stubtest.py"
@@ -259,6 +261,24 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
     # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script
     assert stubtest_cmd[1:3] == ["-m", "mypy.stubtest"]
     stubtest_cmd[1:3] = [str(wrapper_script)]
+    return True
+
+
+def gdb_version_check() -> bool:
+    try:
+        gdb_version_output = subprocess.check_output(["gdb", "--version"], text=True, stderr=subprocess.STDOUT)
+    except FileNotFoundError:
+        print_error("gdb is not installed")
+        return False
+    if "Python scripting is not supported in this copy of GDB" in gdb_version_output:
+        print_error("Python scripting is not supported in this copy of GDB")
+        return False
+    m = re.search(r"GNU gdb\s+.*?(\d+\.\d+(\.[\da-z-]+)+)", gdb_version_output)
+    if m is None:
+        print_error("Failed to determine gdb version:\n" + gdb_version_output)
+        return False
+    gdb_version = m.group(1)
+    print(f"({gdb_version}) ", end="", flush=True)
     return True
 
 
@@ -366,20 +386,26 @@ def main() -> NoReturn:
         action="store_true",
         help="skip the test if the current platform is not specified in METADATA.toml/tool.stubtest.platforms",
     )
+    parser.add_argument("--keep-tmp-dir", action="store_true", help="keep the temporary virtualenv")
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
     args = parser.parse_args()
 
-    typeshed_dir = Path(".").resolve()
     if len(args.dists) == 0:
-        dists = sorted((typeshed_dir / "stubs").iterdir())
+        dists = sorted(STUBS_PATH.iterdir())
     else:
-        dists = [typeshed_dir / "stubs" / d for d in args.dists]
+        dists = [STUBS_PATH / d for d in args.dists]
 
     result = 0
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if not run_stubtest(dist, parser=parser, verbose=args.verbose, specified_platforms_only=args.specified_platforms_only):
+        if not run_stubtest(
+            dist,
+            parser=parser,
+            verbose=args.verbose,
+            specified_platforms_only=args.specified_platforms_only,
+            keep_tmp_dir=args.keep_tmp_dir,
+        ):
             result = 1
     sys.exit(result)
 
