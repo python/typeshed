@@ -44,8 +44,7 @@ SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
 
 
 def distribution_with_test_cases(distribution_name: str) -> DistributionTests:
-    """Helper function for argument-parsing."""
-
+    """Helper function for argument-parsing."""  # noqa: D401
     try:
         return distribution_info(distribution_name)
     except RuntimeError as exc:

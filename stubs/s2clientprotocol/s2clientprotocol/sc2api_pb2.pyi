@@ -86,9 +86,7 @@ class _DifficultyEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._Enu
     CheatInsane: _Difficulty.ValueType  # 10
 
 class Difficulty(_Difficulty, metaclass=_DifficultyEnumTypeWrapper):
-    """
-    Game Setup
-    """
+    """Game Setup"""
 
 VeryEasy: Difficulty.ValueType  # 1
 Easy: Difficulty.ValueType  # 2
@@ -218,9 +216,7 @@ global___Result = Result
 
 @typing.final
 class Request(google.protobuf.message.Message):
-    """
-    Request/Response
-    """
+    """Request/Response"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -1784,9 +1780,7 @@ global___PlayerInfo = PlayerInfo
 
 @typing.final
 class PlayerCommon(google.protobuf.message.Message):
-    """
-    During Game
-    """
+    """During Game"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

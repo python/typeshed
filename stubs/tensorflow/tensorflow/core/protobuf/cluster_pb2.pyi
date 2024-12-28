@@ -34,7 +34,6 @@ class JobDef(google.protobuf.message.Message):
 
     EXAMPLES
     --------
-
     1. A single-process cluster, containing "/job:local/task:0".
 
        Cluster:

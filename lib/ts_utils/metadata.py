@@ -184,7 +184,7 @@ _DIST_NAME_RE: Final = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNOR
 
 
 class NoSuchStubError(ValueError):
-    """Raise NoSuchStubError to indicate that a stubs/{distribution} directory doesn't exist"""
+    """Raise NoSuchStubError to indicate that a stubs/{distribution} directory doesn't exist."""
 
 
 @cache
@@ -302,9 +302,10 @@ def read_metadata(distribution: str) -> StubMetadata:
 
 
 def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocument:
-    """Updates a distribution's METADATA.toml.
+    """Update a distribution's METADATA.toml.
 
-    Return the updated TOML dictionary for use without having to open the file separately."""
+    Return the updated TOML dictionary for use without having to open the file separately.
+    """
     path = metadata_path(distribution)
     try:
         with path.open("rb") as file:

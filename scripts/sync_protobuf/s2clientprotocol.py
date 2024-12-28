@@ -29,7 +29,7 @@ VERSION_PATTERN = re.compile(r'def game_version\(\):\n    return "(.+?)"')
 
 
 def extract_python_version(file_path: Path) -> str:
-    """Extract Python version from s2clientprotocol's build file"""
+    """Extract Python version from s2clientprotocol's build file."""
     match = re.search(VERSION_PATTERN, file_path.read_text())
     assert match
     return match.group(1)

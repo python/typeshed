@@ -40,7 +40,6 @@ class TaskDeviceFilters(google.protobuf.message.Message):
 
     EXAMPLES
     --------
-
     A two-job cluster with the following ClusterDef:
 
      Cluster:

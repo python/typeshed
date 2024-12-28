@@ -56,14 +56,15 @@ XLA_IMPORT_PATTERN = re.compile(r"(\[|\s)xla\.")
 def move_tree(source: Path, destination: Path) -> None:
     """Move directory and merge if destination already exists.
 
-    Can't use shutil.move because it can't merge existing directories."""
+    Can't use shutil.move because it can't merge existing directories.
+    """
     print(f"Moving '{source}' to '{destination}'")
     shutil.copytree(source, destination, dirs_exist_ok=True)
     shutil.rmtree(source)
 
 
 def post_creation() -> None:
-    """Move third-party and fix imports"""
+    """Move third-party and fix imports."""
     print()
     move_tree(STUBS_FOLDER / "tsl", STUBS_FOLDER / "tensorflow" / "tsl")
     move_tree(STUBS_FOLDER / "xla", STUBS_FOLDER / "tensorflow" / "compiler" / "xla")

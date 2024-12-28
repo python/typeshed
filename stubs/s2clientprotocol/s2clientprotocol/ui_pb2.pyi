@@ -22,9 +22,7 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class ObservationUI(google.protobuf.message.Message):
-    """
-    Observation
-    """
+    """Observation"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -250,9 +248,7 @@ global___ProductionPanel = ProductionPanel
 
 @typing.final
 class ActionUI(google.protobuf.message.Message):
-    """
-    Action
-    """
+    """Action"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

@@ -62,7 +62,7 @@ class CommandLineArgs:
 
 
 def valid_path(cmd_arg: str) -> Path:
-    """Helper function for argument-parsing"""
+    """Helper function for argument-parsing."""  # noqa: D401
     path = Path(cmd_arg)
     if not path.exists():
         raise argparse.ArgumentTypeError(f'"{path}" does not exist in typeshed!')
@@ -72,7 +72,7 @@ def valid_path(cmd_arg: str) -> Path:
 
 
 def remove_dev_suffix(version: str) -> str:
-    """Helper function for argument-parsing"""
+    """Helper function for argument-parsing."""  # noqa: D401
     if version.endswith("-dev"):
         return version[: -len("-dev")]
     return version
@@ -303,7 +303,6 @@ def test_third_party_distribution(
     Return a tuple, where the first element indicates mypy's return code
     and the second element is the number of checked files.
     """
-
     files: list[Path] = []
     configurations: list[MypyDistConf] = []
     seen_dists: set[str] = set()
