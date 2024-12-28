@@ -11,7 +11,6 @@ _collections_abc.AsyncGenerator.ag_running
 asyncio.__all__
 builtins.dict.get
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
-contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favor of its child classes
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
