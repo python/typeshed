@@ -12,8 +12,8 @@ class Reader(standalone.Reader[_S]):
 
     supported: ClassVar[tuple[Literal["pep"]]]
 
-    config_section: ClassVar[Literal['pep reader']]
-    config_section_dependencies: ClassVar[tuple[Literal['readers'], Literal['standalone reader']]]
+    config_section: ClassVar[Literal["pep reader"]]
+    config_section_dependencies: ClassVar[tuple[Literal["readers"], Literal["standalone reader"]]]
 
     settings_default_overrides: ClassVar[dict[str, int]]
 
