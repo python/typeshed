@@ -6,7 +6,7 @@ from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from enum import Enum
 from types import TracebackType
-from typing import Any, Generic, NoReturn, TypeVar, overload
+from typing import Any, Generic, Literal, NoReturn, TypeVar, overload
 from typing_extensions import ParamSpec, Self
 
 from google.protobuf.message import Message
@@ -20,7 +20,7 @@ from tensorflow import (
     math as math,
     types as types,
 )
-from tensorflow._aliases import AnyArray, DTypeLike, ShapeLike, Slice, TensorCompatible
+from tensorflow._aliases import AnyArray, DTypeLike, ScalarTensorCompatible, ShapeLike, Slice, TensorCompatible
 from tensorflow.autodiff import GradientTape as GradientTape
 from tensorflow.core.protobuf import struct_pb2
 from tensorflow.dtypes import *
@@ -404,4 +404,11 @@ def ones_like(
     input: RaggedTensor, dtype: DTypeLike | None = None, name: str | None = None, layout: Layout | None = None
 ) -> RaggedTensor: ...
 def reshape(tensor: TensorCompatible, shape: ShapeLike | Tensor, name: str | None = None) -> Tensor: ...
+def pad(
+    tensor: TensorCompatible,
+    paddings: ShapeLike,
+    mode: Literal["CONSTANT", "constant", "REFLECT", "reflect", "SYMMETRIC", "symmectric"] = "CONSTANT",
+    constant_values: ScalarTensorCompatible = 0,
+    name: str | None = None,
+) -> Tensor: ...
 def __getattr__(name: str) -> Incomplete: ...
