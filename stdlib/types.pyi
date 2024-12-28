@@ -1,5 +1,5 @@
 import sys
-from _typeshed import SupportsKeysAndGetItem
+from _typeshed import MaybeNone, SupportsKeysAndGetItem
 from _typeshed.importlib import LoaderProtocol
 from collections.abc import (
     AsyncGenerator,
@@ -89,14 +89,26 @@ class FunctionType:
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
 
     __module__: str
-    def __new__(
-        cls,
-        code: CodeType,
-        globals: dict[str, Any],
-        name: str | None = ...,
-        argdefs: tuple[object, ...] | None = ...,
-        closure: tuple[CellType, ...] | None = ...,
-    ) -> Self: ...
+    if sys.version_info >= (3, 13):
+        def __new__(
+            cls,
+            code: CodeType,
+            globals: dict[str, Any],
+            name: str | None = None,
+            argdefs: tuple[object, ...] | None = None,
+            closure: tuple[CellType, ...] | None = None,
+            kwdefaults: dict[str, object] | None = None,
+        ) -> Self: ...
+    else:
+        def __new__(
+            cls,
+            code: CodeType,
+            globals: dict[str, Any],
+            name: str | None = None,
+            argdefs: tuple[object, ...] | None = None,
+            closure: tuple[CellType, ...] | None = None,
+        ) -> Self: ...
+
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
     @overload
     def __get__(self, instance: None, owner: type, /) -> FunctionType: ...
@@ -337,6 +349,13 @@ class ModuleType:
     __package__: str | None
     __path__: MutableSequence[str]
     __spec__: ModuleSpec | None
+    # N.B. Although this is the same type as `builtins.object.__doc__`,
+    # it is deliberately redeclared here. Most symbols declared in the namespace
+    # of `types.ModuleType` are available as "implicit globals" within a module's
+    # namespace, but this is not true for symbols declared in the namespace of `builtins.object`.
+    # Redeclaring `__doc__` here helps some type checkers understand that `__doc__` is available
+    # as an implicit global in all modules, similar to `__name__`, `__file__`, `__spec__`, etc.
+    __doc__: str | None
     def __init__(self, name: str, doc: str | None = ...) -> None: ...
     # __getattr__ doesn't exist at runtime,
     # but having it here in typeshed makes dynamic imports
@@ -424,6 +443,8 @@ class MethodType:
     @property
     def __closure__(self) -> tuple[CellType, ...] | None: ...  # inherited from the added function
     @property
+    def __code__(self) -> CodeType: ...  # inherited from the added function
+    @property
     def __defaults__(self) -> tuple[Any, ...] | None: ...  # inherited from the added function
     @property
     def __func__(self) -> Callable[..., Any]: ...
@@ -433,7 +454,7 @@ class MethodType:
     def __name__(self) -> str: ...  # inherited from the added function
     @property
     def __qualname__(self) -> str: ...  # inherited from the added function
-    def __new__(cls, func: Callable[..., Any], obj: object, /) -> Self: ...
+    def __new__(cls, func: Callable[..., Any], instance: object, /) -> Self: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
@@ -526,9 +547,9 @@ class FrameType:
     def f_lasti(self) -> int: ...
     # see discussion in #6769: f_lineno *can* sometimes be None,
     # but you should probably file a bug report with CPython if you encounter it being None in the wild.
-    # An `int | None` annotation here causes too many false-positive errors.
+    # An `int | None` annotation here causes too many false-positive errors, so applying `int | Any`.
     @property
-    def f_lineno(self) -> int | Any: ...
+    def f_lineno(self) -> int | MaybeNone: ...
     @property
     def f_locals(self) -> dict[str, Any]: ...
     f_trace: Callable[[FrameType, str, Any], Any] | None
@@ -595,7 +616,7 @@ if sys.version_info >= (3, 9):
         def __args__(self) -> tuple[Any, ...]: ...
         @property
         def __parameters__(self) -> tuple[Any, ...]: ...
-        def __new__(cls, origin: type, args: Any) -> Self: ...
+        def __new__(cls, origin: type, args: Any, /) -> Self: ...
         def __getitem__(self, typeargs: Any, /) -> GenericAlias: ...
         def __eq__(self, value: object, /) -> bool: ...
         def __hash__(self) -> int: ...

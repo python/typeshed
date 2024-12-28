@@ -121,7 +121,9 @@ class Dataset(ABC, Generic[_T1]):
         self,
         map_func: Callable[..., _T2],
         num_parallel_calls: int | None = None,
-        deterministic: None | bool = None,
+        deterministic: bool | None = None,
+        synchronous: bool | None = None,
+        use_unbounded_threadpool: bool = False,
         name: str | None = None,
     ) -> Dataset[_T2]: ...
     def options(self) -> Options: ...
