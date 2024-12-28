@@ -31,7 +31,6 @@ turtledemo\..+
 # TODO: Module members that exist at runtime, but are missing from stubs
 # ======================================================================
 
-_thread.RLock
 tkinter.Misc.config
 
 
