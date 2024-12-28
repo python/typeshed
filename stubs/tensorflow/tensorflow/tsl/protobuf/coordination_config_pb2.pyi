@@ -54,6 +54,7 @@ class CoordinationServiceConfig(google.protobuf.message.Message):
     RECOVERABLE_JOBS_FIELD_NUMBER: builtins.int
     ALLOW_NEW_INCARNATION_TO_RECONNECT_FIELD_NUMBER: builtins.int
     FORCE_DISABLE_FIELD_NUMBER: builtins.int
+    POLL_FOR_ERROR_FROM_SERVICE_AT_STARTUP_FIELD_NUMBER: builtins.int
     service_type: builtins.str
     """Type of coordination service implementation to enable.
     For example, setting the service type as "standalone" starts a service
@@ -95,6 +96,10 @@ class CoordinationServiceConfig(google.protobuf.message.Message):
     not specify any config. This field allows users to explicitly disable
     coordination service under all situations.
     """
+    poll_for_error_from_service_at_startup: builtins.bool
+    """Use long polling to get error from coordination service as the error
+    propagation mechanism.
+    """
     @property
     def coordinated_job_list(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___CoordinatedJob]: ...
     @property
@@ -119,7 +124,8 @@ class CoordinationServiceConfig(google.protobuf.message.Message):
         recoverable_jobs: collections.abc.Iterable[builtins.str] | None = ...,
         allow_new_incarnation_to_reconnect: builtins.bool | None = ...,
         force_disable: builtins.bool | None = ...,
+        poll_for_error_from_service_at_startup: builtins.bool | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["agent_destruction_without_shutdown", b"agent_destruction_without_shutdown", "allow_new_incarnation_to_reconnect", b"allow_new_incarnation_to_reconnect", "cluster_register_timeout_in_ms", b"cluster_register_timeout_in_ms", "coordinated_job_list", b"coordinated_job_list", "enable_health_check", b"enable_health_check", "force_disable", b"force_disable", "heartbeat_timeout_in_ms", b"heartbeat_timeout_in_ms", "recoverable_jobs", b"recoverable_jobs", "service_leader", b"service_leader", "service_type", b"service_type", "shutdown_barrier_timeout_in_ms", b"shutdown_barrier_timeout_in_ms"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["agent_destruction_without_shutdown", b"agent_destruction_without_shutdown", "allow_new_incarnation_to_reconnect", b"allow_new_incarnation_to_reconnect", "cluster_register_timeout_in_ms", b"cluster_register_timeout_in_ms", "coordinated_job_list", b"coordinated_job_list", "enable_health_check", b"enable_health_check", "force_disable", b"force_disable", "heartbeat_timeout_in_ms", b"heartbeat_timeout_in_ms", "poll_for_error_from_service_at_startup", b"poll_for_error_from_service_at_startup", "recoverable_jobs", b"recoverable_jobs", "service_leader", b"service_leader", "service_type", b"service_type", "shutdown_barrier_timeout_in_ms", b"shutdown_barrier_timeout_in_ms"]) -> None: ...
 
 global___CoordinationServiceConfig = CoordinationServiceConfig

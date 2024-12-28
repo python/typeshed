@@ -860,6 +860,7 @@ class OpMetadata(google.protobuf.message.Message):
     DEDUPLICATED_NAME_FIELD_NUMBER: builtins.int
     PRESERVE_LAYOUT_FIELD_NUMBER: builtins.int
     STACK_FRAME_ID_FIELD_NUMBER: builtins.int
+    SCHEDULING_NAME_FIELD_NUMBER: builtins.int
     op_type: builtins.str
     """The framework op name that generated this XLA op.
 
@@ -901,6 +902,8 @@ class OpMetadata(google.protobuf.message.Message):
     """1-based position of the frame in frames flat array.
     Ids are 1-based to keep 0 value as representation of non-set property.
     """
+    scheduling_name: builtins.str
+    """Instruction name available upon scheduling."""
     @property
     def profile_type(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[global___ProfileType.ValueType]:
         """Deprecated, use [ProfileInfo][profile_type] instead."""
@@ -923,9 +926,10 @@ class OpMetadata(google.protobuf.message.Message):
         deduplicated_name: builtins.str | None = ...,
         preserve_layout: builtins.bool | None = ...,
         stack_frame_id: builtins.int | None = ...,
+        scheduling_name: builtins.str | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["profile_info", b"profile_info"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["deduplicated_name", b"deduplicated_name", "op_name", b"op_name", "op_type", b"op_type", "preserve_layout", b"preserve_layout", "profile_info", b"profile_info", "profile_type", b"profile_type", "size_of_generated_code_in_bytes", b"size_of_generated_code_in_bytes", "size_of_memory_working_set_in_bytes", b"size_of_memory_working_set_in_bytes", "source_file", b"source_file", "source_line", b"source_line", "stack_frame_id", b"stack_frame_id"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["deduplicated_name", b"deduplicated_name", "op_name", b"op_name", "op_type", b"op_type", "preserve_layout", b"preserve_layout", "profile_info", b"profile_info", "profile_type", b"profile_type", "scheduling_name", b"scheduling_name", "size_of_generated_code_in_bytes", b"size_of_generated_code_in_bytes", "size_of_memory_working_set_in_bytes", b"size_of_memory_working_set_in_bytes", "source_file", b"source_file", "source_line", b"source_line", "stack_frame_id", b"stack_frame_id"]) -> None: ...
 
 global___OpMetadata = OpMetadata
 
@@ -1379,6 +1383,8 @@ class GatherDimensionNumbers(google.protobuf.message.Message):
     COLLAPSED_SLICE_DIMS_FIELD_NUMBER: builtins.int
     START_INDEX_MAP_FIELD_NUMBER: builtins.int
     INDEX_VECTOR_DIM_FIELD_NUMBER: builtins.int
+    OPERAND_BATCHING_DIMS_FIELD_NUMBER: builtins.int
+    START_INDICES_BATCHING_DIMS_FIELD_NUMBER: builtins.int
     index_vector_dim: builtins.int
     """The dimension in the start_indices input that contains the starting
     indices.
@@ -1409,6 +1415,16 @@ class GatherDimensionNumbers(google.protobuf.message.Message):
         the starting index in the input space.
         """
 
+    @property
+    def operand_batching_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """This is the batch dimensions in the operand."""
+
+    @property
+    def start_indices_batching_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """This is the batch dimensions in the index, and it should be the same size
+        as operand_batching_dims.
+        """
+
     def __init__(
         self,
         *,
@@ -1416,8 +1432,10 @@ class GatherDimensionNumbers(google.protobuf.message.Message):
         collapsed_slice_dims: collections.abc.Iterable[builtins.int] | None = ...,
         start_index_map: collections.abc.Iterable[builtins.int] | None = ...,
         index_vector_dim: builtins.int | None = ...,
+        operand_batching_dims: collections.abc.Iterable[builtins.int] | None = ...,
+        start_indices_batching_dims: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["collapsed_slice_dims", b"collapsed_slice_dims", "index_vector_dim", b"index_vector_dim", "offset_dims", b"offset_dims", "start_index_map", b"start_index_map"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["collapsed_slice_dims", b"collapsed_slice_dims", "index_vector_dim", b"index_vector_dim", "offset_dims", b"offset_dims", "operand_batching_dims", b"operand_batching_dims", "start_index_map", b"start_index_map", "start_indices_batching_dims", b"start_indices_batching_dims"]) -> None: ...
 
 global___GatherDimensionNumbers = GatherDimensionNumbers
 
@@ -1435,6 +1453,8 @@ class ScatterDimensionNumbers(google.protobuf.message.Message):
     INSERTED_WINDOW_DIMS_FIELD_NUMBER: builtins.int
     SCATTER_DIMS_TO_OPERAND_DIMS_FIELD_NUMBER: builtins.int
     INDEX_VECTOR_DIM_FIELD_NUMBER: builtins.int
+    INPUT_BATCHING_DIMS_FIELD_NUMBER: builtins.int
+    SCATTER_INDICES_BATCHING_DIMS_FIELD_NUMBER: builtins.int
     index_vector_dim: builtins.int
     @property
     def update_window_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
@@ -1446,6 +1466,14 @@ class ScatterDimensionNumbers(google.protobuf.message.Message):
 
     @property
     def scatter_dims_to_operand_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    @property
+    def input_batching_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """This is the batch dimension in the input."""
+
+    @property
+    def scatter_indices_batching_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """This is the batch dimension in the index."""
+
     def __init__(
         self,
         *,
@@ -1453,8 +1481,10 @@ class ScatterDimensionNumbers(google.protobuf.message.Message):
         inserted_window_dims: collections.abc.Iterable[builtins.int] | None = ...,
         scatter_dims_to_operand_dims: collections.abc.Iterable[builtins.int] | None = ...,
         index_vector_dim: builtins.int | None = ...,
+        input_batching_dims: collections.abc.Iterable[builtins.int] | None = ...,
+        scatter_indices_batching_dims: collections.abc.Iterable[builtins.int] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["index_vector_dim", b"index_vector_dim", "inserted_window_dims", b"inserted_window_dims", "scatter_dims_to_operand_dims", b"scatter_dims_to_operand_dims", "update_window_dims", b"update_window_dims"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["index_vector_dim", b"index_vector_dim", "input_batching_dims", b"input_batching_dims", "inserted_window_dims", b"inserted_window_dims", "scatter_dims_to_operand_dims", b"scatter_dims_to_operand_dims", "scatter_indices_batching_dims", b"scatter_indices_batching_dims", "update_window_dims", b"update_window_dims"]) -> None: ...
 
 global___ScatterDimensionNumbers = ScatterDimensionNumbers
 
@@ -1982,6 +2012,80 @@ class ReplicaGroup(google.protobuf.message.Message):
 global___ReplicaGroup = ReplicaGroup
 
 @typing.final
+class IotaReplicaGroupListProto(google.protobuf.message.Message):
+    """Represents a list of replica groups (a list of list of devices) with
+    reshaping and transposing an iota array (iota tile assignment). Can be used
+    to represent certain common patterns of device lists in a compact, scalable
+    format.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    NUM_REPLICA_GROUPS_FIELD_NUMBER: builtins.int
+    NUM_DEVICES_PER_GROUP_FIELD_NUMBER: builtins.int
+    IOTA_RESHAPE_DIMS_FIELD_NUMBER: builtins.int
+    IOTA_TRANSPOSE_PERM_FIELD_NUMBER: builtins.int
+    num_replica_groups: builtins.int
+    """Number of replica groups."""
+    num_devices_per_group: builtins.int
+    """Number of devices per group."""
+    @property
+    def iota_reshape_dims(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """The dimensions used to reshape the 1D iota array of device IDs."""
+
+    @property
+    def iota_transpose_perm(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]:
+        """The dimension permutations to transposed the iota array reshaped to
+        iota_reshape_dims. This must have the same size as iota_reshape_dims.
+        """
+
+    def __init__(
+        self,
+        *,
+        num_replica_groups: builtins.int | None = ...,
+        num_devices_per_group: builtins.int | None = ...,
+        iota_reshape_dims: collections.abc.Iterable[builtins.int] | None = ...,
+        iota_transpose_perm: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["iota_reshape_dims", b"iota_reshape_dims", "iota_transpose_perm", b"iota_transpose_perm", "num_devices_per_group", b"num_devices_per_group", "num_replica_groups", b"num_replica_groups"]) -> None: ...
+
+global___IotaReplicaGroupListProto = IotaReplicaGroupListProto
+
+@typing.final
+class CollectiveDeviceListProto(google.protobuf.message.Message):
+    """Represents a series of devices participating in a collective operation (e.g.,
+    all-reduce and all-to-all). While this directly translates to a list of
+    replica groups, it may be used to represent these lists in a compact form.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    REPLICA_GROUPS_FIELD_NUMBER: builtins.int
+    IOTA_REPLICA_GROUP_LIST_FIELD_NUMBER: builtins.int
+    @property
+    def replica_groups(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ReplicaGroup]:
+        """ReplicaGroupV1: List of replica groups. Legacy way of representing device
+        lists.
+        """
+
+    @property
+    def iota_replica_group_list(self) -> global___IotaReplicaGroupListProto:
+        """ReplicaGroupV2: Represents a list of replica groups with reshaping and
+        transposing an iota array.
+        """
+
+    def __init__(
+        self,
+        *,
+        replica_groups: collections.abc.Iterable[global___ReplicaGroup] | None = ...,
+        iota_replica_group_list: global___IotaReplicaGroupListProto | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["iota_replica_group_list", b"iota_replica_group_list"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["iota_replica_group_list", b"iota_replica_group_list", "replica_groups", b"replica_groups"]) -> None: ...
+
+global___CollectiveDeviceListProto = CollectiveDeviceListProto
+
+@typing.final
 class SourceTarget(google.protobuf.message.Message):
     """Describes the source target pair in the collective permute op."""
 
@@ -2236,3 +2340,42 @@ class OutputOperandAliasing(google.protobuf.message.Message):
     def ClearField(self, field_name: typing.Literal["operand_index", b"operand_index", "operand_shape_index", b"operand_shape_index", "output_shape_index", b"output_shape_index"]) -> None: ...
 
 global___OutputOperandAliasing = OutputOperandAliasing
+
+@typing.final
+class OriginalArrayProto(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LEAF_SHAPE_INDEX_FIELD_NUMBER: builtins.int
+    INSTRUCTION_NAME_FIELD_NUMBER: builtins.int
+    SHAPE_INDEX_FIELD_NUMBER: builtins.int
+    instruction_name: builtins.str
+    @property
+    def leaf_shape_index(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    @property
+    def shape_index(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    def __init__(
+        self,
+        *,
+        leaf_shape_index: collections.abc.Iterable[builtins.int] | None = ...,
+        instruction_name: builtins.str | None = ...,
+        shape_index: collections.abc.Iterable[builtins.int] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["instruction_name", b"instruction_name", "leaf_shape_index", b"leaf_shape_index", "shape_index", b"shape_index"]) -> None: ...
+
+global___OriginalArrayProto = OriginalArrayProto
+
+@typing.final
+class OriginalValueProto(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    LEAVES_FIELD_NUMBER: builtins.int
+    @property
+    def leaves(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___OriginalArrayProto]: ...
+    def __init__(
+        self,
+        *,
+        leaves: collections.abc.Iterable[global___OriginalArrayProto] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing.Literal["leaves", b"leaves"]) -> None: ...
+
+global___OriginalValueProto = OriginalValueProto
