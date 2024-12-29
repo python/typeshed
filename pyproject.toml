@@ -95,6 +95,8 @@ ignore = [
     # Long single-line ternaries tend to be less readable with our 130 line-length
     "SIM102", # Use a single if statement instead of nested if statements
     "SIM108", # Use ternary operator {contents} instead of if-else-block
+    # Explicit short-circuiting loops can be more readable and any/all on a single line
+    "SIM110",
     # contextlib.suppress is roughly 3x slower than try/except
     "SIM105", # Use contextlib.suppress() instead of try-except-pass
     # Slower and more verbose https://github.com/astral-sh/ruff/issues/7871

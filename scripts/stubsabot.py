@@ -200,11 +200,10 @@ def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfil
     if not all_python_files:
         return False
 
-    return all(
-        # fmt: skip
-        any(py_typed_dir in path.parents for py_typed_dir in py_typed_dirs)
-        for path in all_python_files
-    )
+    for path in all_python_files:
+        if not any(py_typed_dir in path.parents for py_typed_dir in py_typed_dirs):
+            return False
+    return True
 
 
 async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *, session: aiohttp.ClientSession) -> bool:
