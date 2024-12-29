@@ -111,6 +111,7 @@ class InEdgeView(OutEdgeView[_Node]): ...
 
 class OutMultiEdgeView(OutEdgeView[_Node]):
     def __iter__(self) -> Iterator[tuple[_Node, _Node, Incomplete]]: ...  # type: ignore[override]
+    def __getitem__(self, e: tuple[_Node, _Node, Incomplete]) -> dict[str, Any]: ...  # type: ignore[override]
     @overload  # type: ignore[override]  # Has an additional `keys` keyword argument
     def __call__(  # type: ignore[overload-overlap]
         self, nbunch: None = None, data: Literal[False] = False, *, default: Unused = None, keys: Literal[True]
@@ -151,11 +152,11 @@ class OutMultiEdgeView(OutEdgeView[_Node]):
     def data(self, data: Literal[False], default: Unused = None, nbunch: None = None, *, keys: Literal[True]) -> Self: ...
     @overload
     def data(
-        self, data: Literal[False], default: None = None, nbunch: _NBunch[_Node] = None, *, keys: Literal[False] = False
+        self, data: Literal[False], default: None = None, nbunch: _NBunch[_Node] = None, keys: Literal[False] = False
     ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node]]: ...
     @overload
     def data(
-        self, data: Literal[True] = True, default: None = None, nbunch: _NBunch[_Node] = None, *, keys: Literal[False] = False
+        self, data: Literal[True] = True, default: None = None, nbunch: _NBunch[_Node] = None, keys: Literal[False] = False
     ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, dict[str, Incomplete]]]: ...
     @overload
     def data(
@@ -163,7 +164,7 @@ class OutMultiEdgeView(OutEdgeView[_Node]):
     ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, Incomplete, dict[str, Incomplete]]]: ...
     @overload
     def data(
-        self, data: str, default: _U | None = None, nbunch: _NBunch[_Node] = None, *, keys: Literal[False] = False
+        self, data: str, default: _U | None = None, nbunch: _NBunch[_Node] = None, keys: Literal[False] = False
     ) -> OutMultiEdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
     @overload
     def data(
