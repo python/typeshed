@@ -98,7 +98,7 @@ else:
     SIGCONT: Literal[Signals.SIGCONT]
     SIGHUP: Literal[Signals.SIGHUP]
     SIGIO: Literal[Signals.SIGIO]
-    SIGIOT: Literal[Signals.SIGIOT]
+    SIGIOT: Literal[Signals.SIGABRT]  # alias
     SIGKILL: Literal[Signals.SIGKILL]
     SIGPIPE: Literal[Signals.SIGPIPE]
     SIGPROF: Literal[Signals.SIGPROF]
@@ -147,8 +147,8 @@ else:
     else:
         def sigwait(sigset: Iterable[int], /) -> _SIGNUM: ...
     if sys.platform != "darwin":
-        SIGCLD: Literal[Signals.SIGCLD]
-        SIGPOLL: Literal[Signals.SIGPOLL]
+        SIGCLD: Literal[Signals.SIGCHLD]  # alias
+        SIGPOLL: Literal[Signals.SIGIO]  # alias
         SIGPWR: Literal[Signals.SIGPWR]
         SIGRTMAX: Literal[Signals.SIGRTMAX]
         SIGRTMIN: Literal[Signals.SIGRTMIN]
