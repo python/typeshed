@@ -40,6 +40,7 @@ select = [
     "B", # flake8-bugbear
     "FA", # flake8-future-annotations
     "I", # isort
+    "N", # pep8-naming
     "PGH", # pygrep-hooks
     "RUF", # Ruff-specific and unused-noqa
     "UP", # pyupgrade
@@ -107,6 +108,9 @@ ignore = [
     # See https://github.com/python/typeshed/pull/13108
     "RUF022",
     "RUF023",
+    # Most pep8-naming rules don't apply for third-party stubs like typeshed.
+    # N811 to N814 could apply, but we often use them to disambiguate a name whilst making it look like a more common one
+    "N8",
     # Most flake8-bugbear rules don't apply for third-party stubs like typeshed.
     # B033 could be slightly useful but Ruff doesn't have per-file select
     "B", # flake8-bugbear
