@@ -42,7 +42,7 @@ select = [
     "I", # isort
     "PGH", # pygrep-hooks
     "RUF", # Ruff-specific and unused-noqa
-    "TC", # flake8-quotes
+    "TC", # flake8-type-checking
     "UP", # pyupgrade
     "YTT", # flake8-2020
     # Flake8 base rules
