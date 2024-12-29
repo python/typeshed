@@ -40,9 +40,11 @@ select = [
     "B", # flake8-bugbear
     "FA", # flake8-future-annotations
     "I", # isort
+    "PGH", # pygrep-hooks
     "RUF", # Ruff-specific and unused-noqa
     "SIM", # flake8-simplify
     "UP", # pyupgrade
+    "YTT", # flake8-2020
     # Flake8 base rules
     "E", # pycodestyle Error
     "F", # Pyflakes
@@ -57,25 +59,25 @@ select = [
     "PYI014", # Only simple default values allowed for arguments
     "PYI015", # Only simple default values allowed for assignments
     "PYI016", # Duplicate union member `{}`
+    "PYI019", # Methods like `{method_name}` should return `Self` instead of a custom `TypeVar`
     "PYI020", # Quoted annotations should not be included in stubs
     "PYI025", # Use `from collections.abc import Set as AbstractSet` to avoid confusion with the `set` builtin
     # "PYI026", Waiting for this mypy bug to be fixed: https://github.com/python/mypy/issues/16581
     "PYI030", # Multiple literal members in a union. Use a single literal, e.g. `Literal[{}]`
     "PYI032", # Prefer `object` to `Any` for the second parameter to `{method_name}`
+    "PYI034", # `__new__` methods usually return self at runtime
     "PYI036", # Star-args in `{method_name}` should be annotated with `object`
     "PYI044", # `from __future__ import annotations` has no effect in stub files, since type checkers automatically treat stubs as having those semantics
     "PYI055", # Multiple `type[T]` usages in a union. Combine them into one, e.g., `type[{union_str}]`.
     "PYI058", # Use `{return_type}` as the return value for simple `{method}` methods
+    # "PYI061", # TODO: Enable when out of preview
     "PYI062", # Duplicate literal member `{}`
+    "PYI064", # `Final[Literal[{literal}]]` can be replaced with a bare Final
 ]
 extend-safe-fixes = [
     "UP036", # Remove unnecessary `sys.version_info` blocks
 ]
 ignore = [
-    # TODO: Ruff 0.8.0 added sorting of __all__ and __slots_. Validate whether we want this in stubs
-    "RUF022",
-    "RUF023",
-
     ###
     # Rules that can conflict with the formatter (Black)
     # https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
@@ -106,6 +108,11 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "*.pyi" = [
+    # Ruff 0.8.0 added sorting of __all__ and __slots_.
+    # There is no consensus on whether we want to apply this to stubs, so keeping the status quo.
+    # See https://github.com/python/typeshed/pull/13108
+    "RUF022",
+    "RUF023",
     # Most flake8-bugbear rules don't apply for third-party stubs like typeshed.
     # B033 could be slightly useful but Ruff doesn't have per-file select
     "B", # flake8-bugbear

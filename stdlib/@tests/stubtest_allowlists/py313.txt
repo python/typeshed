@@ -3,29 +3,6 @@
 # =========================
 
 
-# =======
-# >= 3.13
-# =======
-
-# TODO: triage these new errors
-tkinter.Misc.busy
-tkinter.Misc.busy_cget
-tkinter.Misc.busy_config
-tkinter.Misc.busy_configure
-tkinter.Misc.busy_current
-tkinter.Misc.busy_forget
-tkinter.Misc.busy_hold
-tkinter.Misc.busy_status
-tkinter.Misc.tk_busy
-tkinter.Misc.tk_busy_cget
-tkinter.Misc.tk_busy_config
-tkinter.Misc.tk_busy_configure
-tkinter.Misc.tk_busy_current
-tkinter.Misc.tk_busy_forget
-tkinter.Misc.tk_busy_hold
-tkinter.Misc.tk_busy_status
-
-
 # ====================================
 # Pre-existing errors from Python 3.12
 # ====================================
@@ -196,8 +173,6 @@ unittest.case.TestCase.__init_subclass__  # Runtime has *args, **kwargs, but wil
 _ast.ImportFrom.level  # None on the class, but never None on instances
 _weakref.ProxyType.__reversed__  # Doesn't really exist
 ast.ImportFrom.level  # None on the class, but never None on instances
-ast.ExtSlice.__new__  # C signature is broader than what is actually accepted
-ast.Index.__new__  # C signature is broader than what is actually accepted
 
 # Treated an alias of a typing class in the stubs,
 # they are generic to type checkers anyway.
