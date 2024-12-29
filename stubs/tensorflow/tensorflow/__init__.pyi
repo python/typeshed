@@ -20,7 +20,15 @@ from tensorflow import (
     math as math,
     types as types,
 )
-from tensorflow._aliases import AnyArray, DTypeLike, ScalarTensorCompatible, ShapeLike, Slice, TensorCompatible
+from tensorflow._aliases import (
+    AnyArray,
+    DTypeLike,
+    ScalarTensorCompatible,
+    ShapeLike,
+    Slice,
+    TensorCompatible,
+    UIntTensorCompatible,
+)
 from tensorflow.autodiff import GradientTape as GradientTape
 from tensorflow.core.protobuf import struct_pb2
 from tensorflow.dtypes import *
@@ -414,5 +422,12 @@ def pad(
 def shape(input: TensorCompatible, out_type: DTypeLike | None = None, name: str | None = None) -> Tensor: ...
 def where(
     condition: TensorCompatible, x: TensorCompatible | None = None, y: TensorCompatible | None = None, name: str | None = None
+) -> Tensor: ...
+def gather_nd(
+    params: TensorCompatible,
+    indices: UIntTensorCompatible,
+    batch_dims: UIntTensorCompatible = 0,
+    name: str | None = None,
+    bad_indices_policy: Literal["", "DEFAULT", "ERROR", "IGNORE"] = "",
 ) -> Tensor: ...
 def __getattr__(name: str) -> Incomplete: ...
