@@ -107,9 +107,6 @@ ignore = [
     # See https://github.com/python/typeshed/pull/13108
     "RUF022",
     "RUF023",
-    # Most flake8-bugbear rules don't apply for third-party stubs like typeshed.
-    # B033 could be slightly useful but Ruff doesn't have per-file select
-    "B", # flake8-bugbear
     # Rules that are out of the control of stub authors:
     "F403", # `from . import *` used; unable to detect undefined names
     # Stubs can sometimes re-export entire modules.
