@@ -1,5 +1,5 @@
 import builtins
-from _typeshed import Incomplete, MaybeNone, SupportsWrite
+from _typeshed import MaybeNone, SupportsWrite
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from typing import Any, ClassVar, Literal, NoReturn, overload
