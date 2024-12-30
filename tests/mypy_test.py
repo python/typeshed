@@ -268,9 +268,10 @@ def run_mypy(
             print_success_msg()
         if result.returncode == 0:
             return MypyResult.SUCCESS
-        if result.returncode == 1:
+        elif result.returncode == 1:
             return MypyResult.FAILURE
-        return MypyResult.CRASH
+        else:
+            return MypyResult.CRASH
 
 
 def add_third_party_files(

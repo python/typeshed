@@ -194,7 +194,8 @@ def allowlists(distribution_name: str) -> list[str]:
 
     if distribution_name == "stdlib":
         return ["common.txt", platform_allowlist, version_allowlist, combined_allowlist, local_version_allowlist]
-    return ["stubtest_allowlist.txt", platform_allowlist]
+    else:
+        return ["stubtest_allowlist.txt", platform_allowlist]
 
 
 # ====================================================================
