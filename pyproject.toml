@@ -39,6 +39,7 @@ external = ["F821", "NQA", "Y"]
 select = [
     "ARG", # flake8-unused-arguments
     "B", # flake8-bugbear
+    "EXE", # flake8-executable
     "FA", # flake8-future-annotations
     "I", # isort
     "PGH", # pygrep-hooks
