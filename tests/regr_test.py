@@ -237,7 +237,7 @@ class Result:
     test_case_dir: Path
     tempdir: Path
 
-    def print_description(self, *, verbosity: Verbosity) -> None:
+    def print_description(self) -> None:
         if self.code:
             print(f"{self.command_run}:", end=" ")
             print_error("FAILURE\n")
@@ -382,7 +382,7 @@ def main() -> ReturnCode:
     print()
 
     for result in results:
-        result.print_description(verbosity=verbosity)
+        result.print_description()
 
     code = max(result.code for result in results)
 

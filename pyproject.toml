@@ -37,6 +37,7 @@ exclude = ["**/test_cases/**/*.py"]
 # tell ruff not to flag these as e.g. "unused noqa comments"
 external = ["F821", "NQA", "Y"]
 select = [
+    "ARG", # flake8-unused-arguments
     "B", # flake8-bugbear
     "FA", # flake8-future-annotations
     "I", # isort
@@ -111,9 +112,6 @@ ignore = [
     # Most pep8-naming rules don't apply for third-party stubs like typeshed.
     # N811 to N814 could apply, but we often use them to disambiguate a name whilst making it look like a more common one
     "N8",
-    # Most flake8-bugbear rules don't apply for third-party stubs like typeshed.
-    # B033 could be slightly useful but Ruff doesn't have per-file select
-    "B", # flake8-bugbear
     # Rules that are out of the control of stub authors:
     "F403", # `from . import *` used; unable to detect undefined names
     # Stubs can sometimes re-export entire modules.
