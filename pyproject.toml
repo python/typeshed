@@ -37,6 +37,7 @@ exclude = ["**/test_cases/**/*.py"]
 # tell ruff not to flag these as e.g. "unused noqa comments"
 external = ["F821", "NQA", "Y"]
 select = [
+    "ARG", # flake8-unused-arguments
     "B", # flake8-bugbear
     "FA", # flake8-future-annotations
     "I", # isort
@@ -107,9 +108,6 @@ ignore = [
     # A lot of stubs are incomplete on purpose, and that's configured through pyright
     # Some ANN204 (special method) are autofixable in stubs, but not all.
     "ANN2", # Missing return type annotation for ...
-    # Most flake8-bugbear rules don't apply for third-party stubs like typeshed.
-    # B033 could be slightly useful but Ruff doesn't have per-file select
-    "B", # flake8-bugbear
     # Rules that are out of the control of stub authors:
     "F403", # `from . import *` used; unable to detect undefined names
     # Stubs can sometimes re-export entire modules.
