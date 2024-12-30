@@ -117,19 +117,21 @@ class Option:
     STORE_ACTIONS: tuple[str, ...]
     TYPED_ACTIONS: tuple[str, ...]
     TYPES: tuple[str, ...]
-    TYPE_CHECKER: dict[str, Callable[[Option, str, str], Any]]
+    TYPE_CHECKER: dict[str, Callable[[Option, str, str], object]]
     _long_opts: list[str]
     _short_opts: list[str]
     action: str
     type: str | None
     dest: str | None
-    default: Any
+    default: Any  # default can be "any" type
     nargs: int
-    const: Any | None
+    const: Any | None  # const can be "any" type
     choices: list[str] | tuple[str, ...] | None
-    callback: Callable[..., Incomplete] | None
-    callback_args: tuple[Incomplete, ...] | None
-    callback_kwargs: dict[str, Incomplete] | None
+    # Callback args and kwargs cannot be expressed in Python's type system.
+    # Revisit if ParamSpec is ever changed to work with packed args/kwargs.
+    callback: Callable[..., object] | None
+    callback_args: tuple[Any, ...] | None
+    callback_kwargs: dict[str, Any] | None
     help: str | None
     metavar: str | None
     def __init__(
@@ -144,11 +146,9 @@ class Option:
         nargs: int | None = None,
         const: Any | None = None,
         choices: list[str] | tuple[str, ...] | None = None,
-        # TODO: callback, callback_args, callback_kwargs must be all supplied or all omitted. Add overloads.
-        # Revisit if ParamSpec is ever changed to support non-unpacked args and kwargs.
-        callback: Callable[..., Incomplete] | None = None,
-        callback_args: tuple[Incomplete, ...] | None = None,
-        callback_kwargs: dict[str, Incomplete] | None = None,
+        callback: Callable[..., object] | None = None,
+        callback_args: tuple[Any, ...] | None = None,
+        callback_kwargs: dict[str, Any] | None = None,
         help: str | None = None,
         metavar: str | None = None,
     ) -> None: ...
@@ -160,12 +160,13 @@ class Option:
     def _check_nargs(self) -> None: ...
     def _check_opt_strings(self, opts: Iterable[str | None]) -> list[str]: ...
     def _check_type(self) -> None: ...
-    def _set_attrs(self, attrs: dict[str, Incomplete]) -> None: ...
+    def _set_attrs(self, attrs: dict[str, Any]) -> None: ...  # accepted attrs depend on the ATTRS attribute
     def _set_opt_strings(self, opts: Iterable[str]) -> None: ...
-    def check_value(self, opt: str, value: str) -> Any: ...
-    def convert_value(self, opt: str, value: str | tuple[str, ...] | None) -> Any: ...
+    def check_value(self, opt: str, value: str) -> Any: ...  # return type cannot be known statically
+    def convert_value(self, opt: str, value: str | tuple[str, ...] | None) -> Any: ...  # return type cannot be known statically
     def get_opt_string(self) -> str: ...
     def process(self, opt: str, value: str | tuple[str, ...] | None, values: Values, parser: OptionParser) -> int: ...
+    # value of take_action can be "any" type
     def take_action(self, action: str, dest: str, opt: str, value: Any, values: Values, parser: OptionParser) -> int: ...
     def takes_value(self) -> bool: ...
 
@@ -175,7 +176,7 @@ class OptionContainer:
     _long_opt: dict[str, Option]
     _short_opt: dict[str, Option]
     conflict_handler: str
-    defaults: dict[str, Incomplete]
+    defaults: dict[str, Any]  # default values can be "any" type
     description: str | None
     option_class: type[Option]
     def __init__(
@@ -187,7 +188,25 @@ class OptionContainer:
     @overload
     def add_option(self, opt: Option, /) -> Option: ...
     @overload
-    def add_option(self, arg: str, /, *args: str | None, **kwargs) -> Option: ...
+    def add_option(
+        self,
+        opt_str: str,
+        /,
+        *opts: str | None,
+        action: str | None = None,
+        type: str | builtins.type | None = None,
+        dest: str | None = None,
+        default: Any = ...,  # = NO_DEFAULT
+        nargs: int | None = None,
+        const: Any | None = None,
+        choices: list[str] | tuple[str, ...] | None = None,
+        callback: Callable[..., object] | None = None,
+        callback_args: tuple[Any, ...] | None = None,
+        callback_kwargs: dict[str, Any] | None = None,
+        help: str | None = None,
+        metavar: str | None = None,
+        **kwargs,  # Allow arbitrary keyword arguments for user defined option_class
+    ) -> Option: ...
     def add_options(self, option_list: Iterable[Option]) -> None: ...
     def destroy(self) -> None: ...
     def format_option_help(self, formatter: HelpFormatter) -> str: ...
@@ -209,18 +228,19 @@ class OptionGroup(OptionContainer):
     def set_title(self, title: str) -> None: ...
 
 class Values:
-    def __init__(self, defaults: Mapping[str, Incomplete] | None = None) -> None: ...
-    def _update(self, dict: Mapping[str, Incomplete], mode) -> None: ...
-    def _update_careful(self, dict: Mapping[str, Incomplete]) -> None: ...
-    def _update_loose(self, dict: Mapping[str, Incomplete]) -> None: ...
-    def ensure_value(self, attr: str, value): ...
-    def read_file(self, filename: str, mode: str = "careful") -> None: ...
-    def read_module(self, modname: str, mode: str = "careful") -> None: ...
+    def __init__(self, defaults: Mapping[str, object] | None = None) -> None: ...
+    def _update(self, dict: Mapping[str, object], mode: Literal["careful", "loose"]) -> None: ...
+    def _update_careful(self, dict: Mapping[str, object]) -> None: ...
+    def _update_loose(self, dict: Mapping[str, object]) -> None: ...
+    def ensure_value(self, attr: str, value: object) -> Any: ...  # return type cannot be known statically
+    def read_file(self, filename: str, mode: Literal["careful", "loose"] = "careful") -> None: ...
+    def read_module(self, modname: str, mode: Literal["careful", "loose"] = "careful") -> None: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
     # __getattr__ doesn't exist, but anything passed as a default to __init__
     # is set on the instance.
-    def __getattr__(self, name: str): ...
-    def __setattr__(self, name: str, value, /) -> None: ...
+    def __getattr__(self, name: str) -> Any: ...
+    # TODO mypy infers -> object for __getattr__ if __setattr__ has `value: object`
+    def __setattr__(self, name: str, value: Any, /) -> None: ...
     def __eq__(self, other: object) -> bool: ...
 
 class OptionParser(OptionContainer):
