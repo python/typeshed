@@ -17,7 +17,7 @@ try:
     from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
 except ImportError:
 
-    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
+    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc] # noqa: ARG001
         return text
 
 
