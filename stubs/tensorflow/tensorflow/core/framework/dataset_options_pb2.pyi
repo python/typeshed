@@ -93,7 +93,7 @@ global___ExternalStatePolicy = ExternalStatePolicy
 
 @typing.final
 class AutotuneOptions(google.protobuf.message.Message):
-    """next: 5"""
+    """next: 6"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -101,10 +101,12 @@ class AutotuneOptions(google.protobuf.message.Message):
     CPU_BUDGET_FIELD_NUMBER: builtins.int
     RAM_BUDGET_FIELD_NUMBER: builtins.int
     AUTOTUNE_ALGORITHM_FIELD_NUMBER: builtins.int
+    INITIAL_PARALLELISM_FIELD_NUMBER: builtins.int
     enabled: builtins.bool
     cpu_budget: builtins.int
     ram_budget: builtins.int
     autotune_algorithm: tensorflow.core.framework.model_pb2.AutotuneAlgorithm.ValueType
+    initial_parallelism: builtins.int
     def __init__(
         self,
         *,
@@ -112,15 +114,18 @@ class AutotuneOptions(google.protobuf.message.Message):
         cpu_budget: builtins.int | None = ...,
         ram_budget: builtins.int | None = ...,
         autotune_algorithm: tensorflow.core.framework.model_pb2.AutotuneAlgorithm.ValueType | None = ...,
+        initial_parallelism: builtins.int | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["autotune_algorithm", b"autotune_algorithm", "cpu_budget", b"cpu_budget", "enabled", b"enabled", "optional_autotune_algorithm", b"optional_autotune_algorithm", "optional_cpu_budget", b"optional_cpu_budget", "optional_enabled", b"optional_enabled", "optional_ram_budget", b"optional_ram_budget", "ram_budget", b"ram_budget"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["autotune_algorithm", b"autotune_algorithm", "cpu_budget", b"cpu_budget", "enabled", b"enabled", "optional_autotune_algorithm", b"optional_autotune_algorithm", "optional_cpu_budget", b"optional_cpu_budget", "optional_enabled", b"optional_enabled", "optional_ram_budget", b"optional_ram_budget", "ram_budget", b"ram_budget"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["autotune_algorithm", b"autotune_algorithm", "cpu_budget", b"cpu_budget", "enabled", b"enabled", "initial_parallelism", b"initial_parallelism", "optional_autotune_algorithm", b"optional_autotune_algorithm", "optional_cpu_budget", b"optional_cpu_budget", "optional_enabled", b"optional_enabled", "optional_initial_parallelism", b"optional_initial_parallelism", "optional_ram_budget", b"optional_ram_budget", "ram_budget", b"ram_budget"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["autotune_algorithm", b"autotune_algorithm", "cpu_budget", b"cpu_budget", "enabled", b"enabled", "initial_parallelism", b"initial_parallelism", "optional_autotune_algorithm", b"optional_autotune_algorithm", "optional_cpu_budget", b"optional_cpu_budget", "optional_enabled", b"optional_enabled", "optional_initial_parallelism", b"optional_initial_parallelism", "optional_ram_budget", b"optional_ram_budget", "ram_budget", b"ram_budget"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["optional_autotune_algorithm", b"optional_autotune_algorithm"]) -> typing.Literal["autotune_algorithm"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["optional_cpu_budget", b"optional_cpu_budget"]) -> typing.Literal["cpu_budget"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["optional_enabled", b"optional_enabled"]) -> typing.Literal["enabled"] | None: ...
+    @typing.overload
+    def WhichOneof(self, oneof_group: typing.Literal["optional_initial_parallelism", b"optional_initial_parallelism"]) -> typing.Literal["initial_parallelism"] | None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["optional_ram_budget", b"optional_ram_budget"]) -> typing.Literal["ram_budget"] | None: ...
 
@@ -274,6 +279,25 @@ class OptimizationOptions(google.protobuf.message.Message):
 global___OptimizationOptions = OptimizationOptions
 
 @typing.final
+class ServiceOptions(google.protobuf.message.Message):
+    """next: 2"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PINNED_FIELD_NUMBER: builtins.int
+    pinned: builtins.bool
+    def __init__(
+        self,
+        *,
+        pinned: builtins.bool | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["optional_pinned", b"optional_pinned", "pinned", b"pinned"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["optional_pinned", b"optional_pinned", "pinned", b"pinned"]) -> None: ...
+    def WhichOneof(self, oneof_group: typing.Literal["optional_pinned", b"optional_pinned"]) -> typing.Literal["pinned"] | None: ...
+
+global___ServiceOptions = ServiceOptions
+
+@typing.final
 class ThreadingOptions(google.protobuf.message.Message):
     """next: 3"""
 
@@ -303,7 +327,7 @@ class Options(google.protobuf.message.Message):
     """Message stored with Dataset objects to control how datasets are processed and
     optimized.
 
-    next: 12
+    next: 13
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -314,6 +338,7 @@ class Options(google.protobuf.message.Message):
     AUTOTUNE_OPTIONS_FIELD_NUMBER: builtins.int
     DISTRIBUTE_OPTIONS_FIELD_NUMBER: builtins.int
     OPTIMIZATION_OPTIONS_FIELD_NUMBER: builtins.int
+    SERVICE_OPTIONS_FIELD_NUMBER: builtins.int
     SLACK_FIELD_NUMBER: builtins.int
     THREADING_OPTIONS_FIELD_NUMBER: builtins.int
     EXTERNAL_STATE_POLICY_FIELD_NUMBER: builtins.int
@@ -342,6 +367,10 @@ class Options(google.protobuf.message.Message):
         """The optimization options associated with the dataset."""
 
     @property
+    def service_options(self) -> global___ServiceOptions:
+        """The tf.data service options associated with the dataset."""
+
+    @property
     def threading_options(self) -> global___ThreadingOptions:
         """The threading options associated with the dataset."""
 
@@ -354,14 +383,15 @@ class Options(google.protobuf.message.Message):
         autotune_options: global___AutotuneOptions | None = ...,
         distribute_options: global___DistributeOptions | None = ...,
         optimization_options: global___OptimizationOptions | None = ...,
+        service_options: global___ServiceOptions | None = ...,
         slack: builtins.bool | None = ...,
         threading_options: global___ThreadingOptions | None = ...,
         external_state_policy: global___ExternalStatePolicy.ValueType | None = ...,
         symbolic_checkpoint: builtins.bool | None = ...,
         warm_start: builtins.bool | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["autotune_options", b"autotune_options", "dataset_name", b"dataset_name", "deterministic", b"deterministic", "distribute_options", b"distribute_options", "external_state_policy", b"external_state_policy", "optimization_options", b"optimization_options", "optional_dataset_name", b"optional_dataset_name", "optional_deterministic", b"optional_deterministic", "optional_external_state_policy", b"optional_external_state_policy", "optional_slack", b"optional_slack", "optional_symbolic_checkpoint", b"optional_symbolic_checkpoint", "optional_warm_start", b"optional_warm_start", "slack", b"slack", "symbolic_checkpoint", b"symbolic_checkpoint", "threading_options", b"threading_options", "warm_start", b"warm_start"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["autotune_options", b"autotune_options", "dataset_name", b"dataset_name", "deterministic", b"deterministic", "distribute_options", b"distribute_options", "external_state_policy", b"external_state_policy", "framework_type", b"framework_type", "optimization_options", b"optimization_options", "optional_dataset_name", b"optional_dataset_name", "optional_deterministic", b"optional_deterministic", "optional_external_state_policy", b"optional_external_state_policy", "optional_slack", b"optional_slack", "optional_symbolic_checkpoint", b"optional_symbolic_checkpoint", "optional_warm_start", b"optional_warm_start", "slack", b"slack", "symbolic_checkpoint", b"symbolic_checkpoint", "threading_options", b"threading_options", "warm_start", b"warm_start"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["autotune_options", b"autotune_options", "dataset_name", b"dataset_name", "deterministic", b"deterministic", "distribute_options", b"distribute_options", "external_state_policy", b"external_state_policy", "optimization_options", b"optimization_options", "optional_dataset_name", b"optional_dataset_name", "optional_deterministic", b"optional_deterministic", "optional_external_state_policy", b"optional_external_state_policy", "optional_slack", b"optional_slack", "optional_symbolic_checkpoint", b"optional_symbolic_checkpoint", "optional_warm_start", b"optional_warm_start", "service_options", b"service_options", "slack", b"slack", "symbolic_checkpoint", b"symbolic_checkpoint", "threading_options", b"threading_options", "warm_start", b"warm_start"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["autotune_options", b"autotune_options", "dataset_name", b"dataset_name", "deterministic", b"deterministic", "distribute_options", b"distribute_options", "external_state_policy", b"external_state_policy", "framework_type", b"framework_type", "optimization_options", b"optimization_options", "optional_dataset_name", b"optional_dataset_name", "optional_deterministic", b"optional_deterministic", "optional_external_state_policy", b"optional_external_state_policy", "optional_slack", b"optional_slack", "optional_symbolic_checkpoint", b"optional_symbolic_checkpoint", "optional_warm_start", b"optional_warm_start", "service_options", b"service_options", "slack", b"slack", "symbolic_checkpoint", b"symbolic_checkpoint", "threading_options", b"threading_options", "warm_start", b"warm_start"]) -> None: ...
     @typing.overload
     def WhichOneof(self, oneof_group: typing.Literal["optional_dataset_name", b"optional_dataset_name"]) -> typing.Literal["dataset_name"] | None: ...
     @typing.overload

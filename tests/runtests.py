@@ -7,18 +7,11 @@ import os
 import re
 import subprocess
 import sys
+from importlib.util import find_spec
 from pathlib import Path
-from typing import Any
 
-from _utils import TEST_CASES_DIR, test_cases_path
-
-try:
-    from termcolor import colored  # pyright: ignore[reportAssignmentType]
-except ImportError:
-
-    def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc]
-        return text
-
+from ts_utils.paths import TEST_CASES_DIR, test_cases_path
+from ts_utils.utils import colored
 
 _STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
 _TESTCASES_CONFIG_FILE = "pyrightconfig.testcases.json"
@@ -127,11 +120,11 @@ def main() -> None:
     else:
         print(colored("\nSkipping stubtest since mypy failed.", "yellow"))
 
-    if sys.platform == "win32":
-        print(colored("\nSkipping pytype on Windows. You can run the test with WSL.", "yellow"))
-    else:
+    if find_spec("pytype"):
         print("\nRunning pytype...")
         pytype_result = subprocess.run([sys.executable, "tests/pytype_test.py", path])
+    else:
+        print(colored("\nSkipping pytype on Windows. You need to install it first: `pip install pytype`.", "yellow"))
 
     cases_path = test_cases_path(stub if folder == "stubs" else "stdlib")
     if not cases_path.exists():

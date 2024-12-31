@@ -3,6 +3,7 @@ line-length = 130
 target-version = ["py310"]
 skip-magic-trailing-comma = true
 # Exclude protobuf files because they have long line lengths
+# that can't be autofixed. Like docstrings and import aliases.
 # Ideally, we could configure Black to allow longer line lengths
 # for just these files, but doesn't seem possible yet.
 force-exclude = ".*_pb2.pyi"
@@ -36,27 +37,42 @@ exclude = ["**/test_cases/**/*.py"]
 # tell ruff not to flag these as e.g. "unused noqa comments"
 external = ["F821", "NQA", "Y"]
 select = [
+    "ARG", # flake8-unused-arguments
     "B", # flake8-bugbear
     "FA", # flake8-future-annotations
     "I", # isort
+    "PGH", # pygrep-hooks
     "RUF", # Ruff-specific and unused-noqa
     "UP", # pyupgrade
+    "YTT", # flake8-2020
     # Flake8 base rules
     "E", # pycodestyle Error
     "F", # Pyflakes
     "W", # pycodestyle Warning
-    # PYI: only enable rules that always autofix, avoids duplicate # noqa with flake8-pyi
+    # PYI: only enable rules that have autofixes and that we always want to fix (even manually),
+    # avoids duplicate # noqa with flake8-pyi and flake8-noqa flagging `PYI` codes
     # See https://github.com/plinss/flake8-noqa/issues/22
-    "PYI009", # use `...`, not `pass`, in empty class bodies
-    "PYI010", # function bodies must be empty
-    "PYI012", # class bodies must not contain `pass`
-    "PYI013", # non-empty class bodies must not contain `...`
-    "PYI016", # duplicate union member
-    "PYI020", # quoted annotations are always unnecessary in stubs
-    "PYI025", # always alias `collections.abc.Set` as `AbstractSet` when importing it
-    "PYI032", # use `object`, not `Any`, as the second parameter to `__eq__`
-    "PYI055", # multiple `type[T]` usages in a union
-    "PYI058", # use `Iterator` as the return type for `__iter__` methods
+    "PYI009", # Empty body should contain `...`, not pass
+    "PYI010", # Function body must contain only `...`
+    "PYI012", # Class bodies must not contain `pass`
+    "PYI013", # Non-empty class bodies must not contain `...`
+    "PYI014", # Only simple default values allowed for arguments
+    "PYI015", # Only simple default values allowed for assignments
+    "PYI016", # Duplicate union member `{}`
+    "PYI019", # Methods like `{method_name}` should return `Self` instead of a custom `TypeVar`
+    "PYI020", # Quoted annotations should not be included in stubs
+    "PYI025", # Use `from collections.abc import Set as AbstractSet` to avoid confusion with the `set` builtin
+    # "PYI026", Waiting for this mypy bug to be fixed: https://github.com/python/mypy/issues/16581
+    "PYI030", # Multiple literal members in a union. Use a single literal, e.g. `Literal[{}]`
+    "PYI032", # Prefer `object` to `Any` for the second parameter to `{method_name}`
+    "PYI034", # `__new__` methods usually return self at runtime
+    "PYI036", # Star-args in `{method_name}` should be annotated with `object`
+    "PYI044", # `from __future__ import annotations` has no effect in stub files, since type checkers automatically treat stubs as having those semantics
+    "PYI055", # Multiple `type[T]` usages in a union. Combine them into one, e.g., `type[{union_str}]`.
+    "PYI058", # Use `{return_type}` as the return value for simple `{method}` methods
+    # "PYI061", # TODO: Enable when out of preview
+    "PYI062", # Duplicate literal member `{}`
+    "PYI064", # `Final[Literal[{literal}]]` can be replaced with a bare Final
 ]
 extend-safe-fixes = [
     "UP036", # Remove unnecessary `sys.version_info` blocks
@@ -87,67 +103,34 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "*.pyi" = [
-    # Most flake8-bugbear rules don't apply for third-party stubs like typeshed.
-    # B033 could be slightly useful but Ruff doesn't have per-file select
-    "B", # flake8-bugbear
+    # Ruff 0.8.0 added sorting of __all__ and __slots_.
+    # There is no consensus on whether we want to apply this to stubs, so keeping the status quo.
+    # See https://github.com/python/typeshed/pull/13108
+    "RUF022",
+    "RUF023",
     # Rules that are out of the control of stub authors:
-    "E501", # Line too long
-    "E741", # ambiguous variable name
     "F403", # `from . import *` used; unable to detect undefined names
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.
     "F405", # may be undefined, or defined from star imports
+]
+# See comment on black's force-exclude config above
+"*_pb2.pyi" = [
+    "E501", # Line too long
 ]
 
 [tool.ruff.lint.isort]
 split-on-trailing-comma = false
 combine-as-imports = true
 extra-standard-library = [
+    # Group these with stdlib
     "_typeshed",
     "typing_extensions",
-    # Extra modules not recognized by Ruff/isort
-    "_ast",
-    "_bisect",
-    "_bootlocale",
-    "_codecs",
-    "_collections_abc",
-    "_compat_pickle",
-    "_compression",
-    "_csv",
-    "_ctypes",
-    "_curses",
-    "_decimal",
-    "_dummy_thread",
-    "_dummy_threading",
-    "_heapq",
-    "_imp",
-    "_json",
-    "_locale",
-    "_lsprof",
-    "_markupbase",
-    "_msi",
-    "_operator",
-    "_osx_support",
-    "_posixsubprocess",
-    "_py_abc",
-    "_pydecimal",
-    "_random",
-    "_sitebuiltins",
-    "_socket",
-    "_stat",
-    "_thread",
-    "_threading_local",
-    "_tkinter",
-    "_tracemalloc",
-    "_warnings",
-    "_weakref",
-    "_weakrefset",
-    "_winapi",
-    "genericpath",
-    "opcode",
-    "pyexpat",
+    # Extra modules not recognized by Ruff
+    # Added in Python 3.9
+    "zoneinfo",
 ]
-known-first-party = ["_metadata", "_utils"]
+known-first-party = ["_utils", "ts_utils"]
 
 [tool.typeshed]
 oldest_supported_python = "3.8"

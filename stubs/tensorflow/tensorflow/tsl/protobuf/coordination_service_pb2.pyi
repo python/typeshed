@@ -235,6 +235,33 @@ class HeartbeatResponse(google.protobuf.message.Message):
 global___HeartbeatResponse = HeartbeatResponse
 
 @typing.final
+class PollForErrorRequest(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    SOURCE_TASK_FIELD_NUMBER: builtins.int
+    @property
+    def source_task(self) -> global___CoordinatedTask: ...
+    def __init__(
+        self,
+        *,
+        source_task: global___CoordinatedTask | None = ...,
+    ) -> None: ...
+    def HasField(self, field_name: typing.Literal["source_task", b"source_task"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["source_task", b"source_task"]) -> None: ...
+
+global___PollForErrorRequest = PollForErrorRequest
+
+@typing.final
+class PollForErrorResponse(google.protobuf.message.Message):
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___PollForErrorResponse = PollForErrorResponse
+
+@typing.final
 class WaitForAllTasksRequest(google.protobuf.message.Message):
     """Request and response messages for waiting for all tasks."""
 
@@ -473,15 +500,18 @@ class InsertKeyValueRequest(google.protobuf.message.Message):
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     KV_FIELD_NUMBER: builtins.int
+    ALLOW_OVERWRITE_FIELD_NUMBER: builtins.int
+    allow_overwrite: builtins.bool
     @property
     def kv(self) -> global___KeyValueEntry: ...
     def __init__(
         self,
         *,
         kv: global___KeyValueEntry | None = ...,
+        allow_overwrite: builtins.bool | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["kv", b"kv"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["kv", b"kv"]) -> None: ...
+    def ClearField(self, field_name: typing.Literal["allow_overwrite", b"allow_overwrite", "kv", b"kv"]) -> None: ...
 
 global___InsertKeyValueRequest = InsertKeyValueRequest
 
