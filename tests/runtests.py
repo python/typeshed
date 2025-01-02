@@ -65,7 +65,7 @@ def main() -> None:
     python_version: str = args.python_version
 
     path_tokens = Path(path).parts
-    if len(path_tokens) != 2:  # noqa: PLR2004 # astral-sh/ruff#10009
+    if len(path_tokens) != 2:
         parser.error("'path' argument should be in format <folder>/<stub>.")
     folder, stub = path_tokens
     if folder not in {"stdlib", "stubs"}:

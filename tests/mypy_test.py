@@ -122,7 +122,7 @@ class TestConfig:
 
 
 def log(args: TestConfig, *varargs: object) -> None:
-    if args.verbose >= 2:  # noqa: PLR2004 # astral-sh/ruff#10009
+    if args.verbose >= 2:
         print(colored(" ".join(map(str, varargs)), "blue"))
 
 

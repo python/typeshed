@@ -119,6 +119,8 @@ ignore = [
     "E721", # Do not compare types, use `isinstance()`
     # Leave the size and complexity of tests to human interpretation
     "PLR09", # Too many ...
+    # Too many magic number "2" that are preferable inline. https://github.com/astral-sh/ruff/issues/10009
+    "PLR2004", # Magic value used in comparison, consider replacing `{value}` with a constant variable
     # Slower and more verbose https://github.com/astral-sh/ruff/issues/7871
     "UP038", # Use `X | Y` in `isinstance` call instead of `(X, Y)`
     ###
