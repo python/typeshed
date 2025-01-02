@@ -1,6 +1,7 @@
 from typing import Any, Literal, SupportsIndex
+from typing_extensions import TypeAlias
 
-_UnboundOp = Literal[1, 2, 3]
+_UnboundOp: TypeAlias = Literal[1, 2, 3]
 
 class QueueError(RuntimeError): ...
 class QueueNotFoundError(QueueError): ...
