@@ -140,7 +140,7 @@ def run_stubtest(
 
             print_divider()
             print("Commands run:")
-            print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
+            print_commands(pip_cmd, stubtest_cmd, mypypath)
 
             print_divider()
             print("Command output:\n")
@@ -183,7 +183,7 @@ def run_stubtest(
             rmtree(venv_dir)
 
     if verbose:
-        print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
+        print_commands(pip_cmd, stubtest_cmd, mypypath)
 
     return True
 
@@ -358,7 +358,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     return True
 
 
-def print_commands(dist: Path, pip_cmd: list[str], stubtest_cmd: list[str], mypypath: str) -> None:
+def print_commands(pip_cmd: list[str], stubtest_cmd: list[str], mypypath: str) -> None:
     print()
     print(" ".join(pip_cmd))
     print(f"MYPYPATH={mypypath}", " ".join(stubtest_cmd))
