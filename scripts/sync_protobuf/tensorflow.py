@@ -99,7 +99,7 @@ def main() -> None:
     for old_stub in STUBS_FOLDER.rglob("*_pb2.pyi"):
         old_stub.unlink()
 
-    PROTOC_VERSION = run_protoc(
+    protoc_version = run_protoc(
         proto_paths=(
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/third_party/tsl",
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla",
@@ -130,7 +130,7 @@ def main() -> None:
         "tensorflow",
         extra_description=f"""Partially generated using \
 [mypy-protobuf=={MYPY_PROTOBUF_VERSION}](https://github.com/nipunn1313/mypy-protobuf/tree/v{MYPY_PROTOBUF_VERSION}) \
-and {PROTOC_VERSION} on `tensorflow=={PACKAGE_VERSION}`.""",
+and {protoc_version} on `tensorflow=={PACKAGE_VERSION}`.""",
     )
     print("Updated tensorflow/METADATA.toml")
 
