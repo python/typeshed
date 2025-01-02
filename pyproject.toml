@@ -90,7 +90,6 @@ select = [
     "PYI064", # `Final[Literal[{literal}]]` can be replaced with a bare Final
 ]
 extend-safe-fixes = [
-    "D200", # One-line docstring should fit on one line
     "UP036", # Remove unnecessary `sys.version_info` blocks
 ]
 ignore = [
