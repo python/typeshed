@@ -37,9 +37,12 @@ exclude = ["**/test_cases/**/*.py"]
 # tell ruff not to flag these as e.g. "unused noqa comments"
 external = ["F821", "NQA", "Y"]
 select = [
+    "ARG", # flake8-unused-arguments
     "B", # flake8-bugbear
+    "EXE", # flake8-executable
     "FA", # flake8-future-annotations
     "I", # isort
+    "N", # pep8-naming
     "PGH", # pygrep-hooks
     "RUF", # Ruff-specific and unused-noqa
     "TC", # flake8-type-checking
@@ -49,6 +52,18 @@ select = [
     "E", # pycodestyle Error
     "F", # Pyflakes
     "W", # pycodestyle Warning
+    # Only include flake8-annotations rules that are autofixable. Otherwise leave this to mypy+pyright
+    "ANN2",
+    # Most refurb rules are in preview and can be opinionated,
+    # consider them individually as they come out of preview (last check: 0.8.4)
+    "FURB105", # Unnecessary empty string passed to `print`
+    "FURB129", # Instead of calling `readlines()`, iterate over file object directly
+    "FURB136", # Replace `if` expression with `{min_max}` call
+    "FURB167", # Use of regular expression alias `re.{}`
+    "FURB168", # Prefer `is` operator over `isinstance` to check if an object is `None`
+    "FURB169", # Compare the identities of `{object}` and None instead of their respective types
+    "FURB177", # Prefer `Path.cwd()` over `Path().resolve()` for current-directory lookups
+    "FURB187", # Use of assignment of `reversed` on list `{name}`
     # PYI: only enable rules that have autofixes and that we always want to fix (even manually),
     # avoids duplicate # noqa with flake8-pyi and flake8-noqa flagging `PYI` codes
     # See https://github.com/plinss/flake8-noqa/issues/22
@@ -107,19 +122,22 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "*.pyi" = [
-    # Ruff 0.8.0 added sorting of __all__ and __slots_.
-    # There is no consensus on whether we want to apply this to stubs, so keeping the status quo.
-    # See https://github.com/python/typeshed/pull/13108
-    "RUF022",
-    "RUF023",
-    # Most flake8-bugbear rules don't apply for third-party stubs like typeshed.
-    # B033 could be slightly useful but Ruff doesn't have per-file select
-    "B", # flake8-bugbear
+    # A lot of stubs are incomplete on purpose, and that's configured through pyright
+    # Some ANN204 (special method) are autofixable in stubs, but not all.
+    "ANN2", # Missing return type annotation for ...
+    # Most pep8-naming rules don't apply for third-party stubs like typeshed.
+    # N811 to N814 could apply, but we often use them to disambiguate a name whilst making it look like a more common one
+    "N8",
     # Rules that are out of the control of stub authors:
     "F403", # `from . import *` used; unable to detect undefined names
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.
     "F405", # may be undefined, or defined from star imports
+    # Ruff 0.8.0 added sorting of __all__ and __slots_.
+    # There is no consensus on whether we want to apply this to stubs, so keeping the status quo.
+    # See https://github.com/python/typeshed/pull/13108
+    "RUF022",
+    "RUF023",
 ]
 # See comment on black's force-exclude config above
 "*_pb2.pyi" = [
