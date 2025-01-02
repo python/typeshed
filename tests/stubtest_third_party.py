@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Test typeshed's third party stubs using stubtest"""
+"""Test typeshed's third party stubs using stubtest."""
 
 from __future__ import annotations
 
