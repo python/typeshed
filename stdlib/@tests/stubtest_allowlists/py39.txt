@@ -50,22 +50,10 @@ typing._SpecialForm.__mro_entries__  # Exists at runtime, but missing from stubs
 builtins.input  # Incorrect default value in text signature, fixed in 3.10
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.AsyncGenerator.aclose  # async at runtime, deliberately not in the stub, see #7491
-collections.AsyncGenerator.ag_await
-collections.AsyncGenerator.ag_code
-collections.AsyncGenerator.ag_frame
-collections.AsyncGenerator.ag_running
 collections.AsyncGenerator.asend  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
 collections.AsyncIterator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.ByteString  # see comments in py3_common.txt
 collections.Callable
-collections.Coroutine.cr_await
-collections.Coroutine.cr_code
-collections.Coroutine.cr_frame
-collections.Coroutine.cr_running
-collections.Generator.gi_code
-collections.Generator.gi_frame
-collections.Generator.gi_running
-collections.Generator.gi_yieldfrom
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 xxsubtype  # module missing from the stubs
@@ -141,7 +129,6 @@ tkinter.tix.Shell
 tkinter.tix.TclVersion
 tkinter.tix.TkVersion
 
-
 # ============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.9
 # ============================================================
@@ -149,8 +136,6 @@ tkinter.tix.TkVersion
 _ast.ImportFrom.level  # None on the class, but never None on instances
 _weakref.ProxyType.__reversed__  # Doesn't really exist
 ast.ImportFrom.level  # None on the class, but never None on instances
-ast.ExtSlice.__new__  # C signature is broader than what is actually accepted
-ast.Index.__new__  # C signature is broader than what is actually accepted
 
 # Treated an alias of a typing class in the stubs,
 # they are generic to type checkers anyway.

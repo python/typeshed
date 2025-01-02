@@ -219,7 +219,7 @@ def main() -> None:
     info = get_installed_package_info(project)
     if info is None:
         print(f'Error: "{project}" is not installed', file=sys.stderr)
-        print("", file=sys.stderr)
+        print(file=sys.stderr)
         print(f'Suggestion: Run "python3 -m pip install {project}" and try again', file=sys.stderr)
         sys.exit(1)
     project, version = info
