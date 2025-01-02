@@ -13,13 +13,13 @@ packaging==24.2
 pathspec>=0.11.1
 pre-commit
 # Required by create_baseline_stubs.py. Must match .pre-commit-config.yaml.
-ruff==0.8.4
+ruff==0.8.5
 stubdefaulter==0.1.0
 termcolor>=2.3
 tomli==2.2.1
 tomlkit==0.13.2
 typing_extensions>=4.12.0rc1
-uv==0.5.13
+uv==0.5.14
 
 # Utilities for typeshed infrastructure scripts.
 ts_utils @ file:lib
