@@ -53,6 +53,11 @@ select = [
     "W", # pycodestyle Warning
     # Only include flake8-annotations rules that are autofixable. Otherwise leave this to mypy+pyright
     "ANN2",
+    # Don't include TC rules that create a TYPE_CHECKING block or stringifies annotations
+    "TC004", # Move import `{qualified_name}` out of type-checking block. Import is used for more than type hinting.
+    "TC005", # Found empty type-checking block
+    # "TC008", # TODO: Enable when out of preview
+    "TC010", # Invalid string member in `X | Y`-style union type
     # Most refurb rules are in preview and can be opinionated,
     # consider them individually as they come out of preview (last check: 0.8.4)
     "FURB105", # Unnecessary empty string passed to `print`
