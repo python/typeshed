@@ -92,7 +92,9 @@ global___CloakState = CloakState
 
 @typing.final
 class StartRaw(google.protobuf.message.Message):
-    """Start"""
+    """
+    Start
+    """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -143,7 +145,9 @@ global___StartRaw = StartRaw
 
 @typing.final
 class ObservationRaw(google.protobuf.message.Message):
-    """Observation"""
+    """
+    Observation
+    """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -576,7 +580,9 @@ global___Effect = Effect
 
 @typing.final
 class ActionRaw(google.protobuf.message.Message):
-    """Action"""
+    """
+    Action
+    """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

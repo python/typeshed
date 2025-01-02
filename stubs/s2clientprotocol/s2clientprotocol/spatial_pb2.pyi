@@ -23,7 +23,9 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing.final
 class ObservationFeatureLayer(google.protobuf.message.Message):
-    """Observation - Feature Layer"""
+    """
+    Observation - Feature Layer
+    """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -302,7 +304,9 @@ global___FeatureLayersMinimap = FeatureLayersMinimap
 
 @typing.final
 class ObservationRender(google.protobuf.message.Message):
-    """Observation - Rendered"""
+    """
+    Observation - Rendered
+    """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -325,7 +329,9 @@ global___ObservationRender = ObservationRender
 
 @typing.final
 class ActionSpatial(google.protobuf.message.Message):
-    """Action"""
+    """
+    Action
+    """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
