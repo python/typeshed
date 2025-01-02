@@ -140,7 +140,7 @@ ignore = [
     "RUF023",
 ]
 "*_pb2.pyi" = [
-    # Leave the docstrings as-is, matchin source
+    # Leave the docstrings as-is, matching source
     "D", # pydocstyle
     # See comment on black's force-exclude config above
     "E501", # Line too long

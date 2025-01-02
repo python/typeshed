@@ -62,7 +62,7 @@ class CommandLineArgs:
 
 
 def valid_path(cmd_arg: str) -> Path:
-    """Helper function for argument-parsing."""  # noqa: D401
+    """Parse a CLI argument that is intended to point to a valid typeshed path."""
     path = Path(cmd_arg)
     if not path.exists():
         raise argparse.ArgumentTypeError(f'"{path}" does not exist in typeshed!')
@@ -72,7 +72,10 @@ def valid_path(cmd_arg: str) -> Path:
 
 
 def remove_dev_suffix(version: str) -> str:
-    """Helper function for argument-parsing."""  # noqa: D401
+    """Remove the `-dev` suffix from a version string.
+    
+    This is a helper function for argument-parsing.
+    """
     if version.endswith("-dev"):
         return version[: -len("-dev")]
     return version
