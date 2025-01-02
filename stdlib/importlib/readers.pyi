@@ -11,10 +11,12 @@ from io import BufferedReader
 from typing import Literal, NoReturn, TypeVar
 from typing_extensions import Never
 
-if sys.version_info >= (3, 11):
-    import importlib.resources.abc as abc
+if sys.version_info >= (3, 10):
     from importlib._bootstrap_external import FileLoader
     from zipimport import zipimporter
+
+if sys.version_info >= (3, 11):
+    import importlib.resources.abc as abc
 else:
     import importlib.abc as abc
 
