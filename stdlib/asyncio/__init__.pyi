@@ -410,7 +410,7 @@ if sys.platform == "win32":
             "WindowsSelectorEventLoopPolicy",  # from windows_events
             "WindowsProactorEventLoopPolicy",  # from windows_events
         )
-    elif sys.version_info >= (3, 10) or sys.version_info >= (3, 9):
+    elif sys.version_info >= (3, 9):
         __all__ = (
             "BaseEventLoop",  # from base_events
             "Server",  # from base_events
@@ -972,7 +972,7 @@ else:
             "ThreadedChildWatcher",  # from unix_events
             "DefaultEventLoopPolicy",  # from unix_events
         )
-    elif sys.version_info >= (3, 10) or sys.version_info >= (3, 9):
+    elif sys.version_info >= (3, 9):
         __all__ = (
             "BaseEventLoop",  # from base_events
             "Server",  # from base_events
