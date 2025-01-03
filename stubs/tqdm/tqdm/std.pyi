@@ -226,22 +226,12 @@ class tqdm(Comparable, Generic[_T]):
     @overload
     @classmethod
     def wrapattr(
-        cls,
-        stream: SupportsRead[_U],
-        method: Literal["read"],
-        total: float | None = None,
-        bytes: bool = True,
-        **tqdm_kwargs: Incomplete,
+        cls, stream: SupportsRead[_U], method: Literal["read"], total: float | None = None, bytes: bool = True, **tqdm_kwargs
     ) -> contextlib._GeneratorContextManager[SupportsRead[_U]]: ...
     @overload
     @classmethod
     def wrapattr(
-        cls,
-        stream: SupportsWrite[_U],
-        method: Literal["write"],
-        total: float | None = None,
-        bytes: bool = True,
-        **tqdm_kwargs: Incomplete,
+        cls, stream: SupportsWrite[_U], method: Literal["write"], total: float | None = None, bytes: bool = True, **tqdm_kwargs
     ) -> contextlib._GeneratorContextManager[SupportsWrite[_U]]: ...
 
 @overload
