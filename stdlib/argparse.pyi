@@ -2,7 +2,7 @@ import sys
 from _typeshed import SupportsWrite, sentinel
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
-from typing import IO, Any, ClassVar, Final, Generic, NewType, NoReturn, Protocol, TypeVar, overload
+from typing import IO, Any, ClassVar, Final, Generic, Literal, NewType, NoReturn, Protocol, TypeVar, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
@@ -83,6 +83,105 @@ class _ActionsContainer:
     def _registry_get(self, registry_name: str, value: Any, default: Any = None) -> Any: ...
     def set_defaults(self, **kwargs: Any) -> None: ...
     def get_default(self, dest: str) -> Any: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: Literal["store"],
+        dest: str | None = ...,
+        nargs: int | _NArgsStr | _SUPPRESS_T | None = None,
+        const: Any = ...,
+        default: Any = ...,
+        type: _ActionType = ...,
+        choices: Iterable[_T] | None = ...,
+        required: bool = ...,
+        help: str | None = ...,
+        metavar: str | tuple[str, ...] | None = ...,
+    ) -> _StoreAction: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: Literal["store_const"],
+        dest: str | None = ...,
+        const: Any = ...,
+        default: Any = ...,
+        required: bool = ...,
+        help: str | None = ...,
+        metavar: str | tuple[str, ...] | None = ...,
+    ) -> _StoreConstAction: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: Literal["store_true"],
+        dest: str | None = ...,
+        default: bool = False,
+        required: bool = False,
+        help: str | None = None,
+    ) -> _StoreTrueAction: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: Literal["store_false"],
+        dest: str | None = ...,
+        default: bool = True,
+        required: bool = False,
+        help: str | None = None,
+    ) -> _StoreFalseAction: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: Literal["append"],
+        dest: str | None = ...,
+        nargs: int | _NArgsStr | _SUPPRESS_T | None = None,
+        const: Any = ...,
+        default: Any = ...,
+        type: _ActionType = ...,
+        choices: Iterable[_T] | None = ...,
+        required: bool = ...,
+        help: str | None = ...,
+        metavar: str | tuple[str, ...] | None = ...,
+    ) -> Action: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: Literal["append_const"],
+        dest: str | None = ...,
+        const: Any = ...,
+        default: Any = ...,
+        required: bool = ...,
+        help: str | None = ...,
+        metavar: str | tuple[str, ...] | None = ...,
+    ) -> Action: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: Literal["count"],
+        dest: str | None = ...,
+        default: Any = ...,
+        required: bool = ...,
+        help: str | None = ...,
+    ) -> Action: ...
+    @overload
+    def add_argument(
+        self, *name_or_flags: str, action: Literal["help"], dest: str | None = ..., default: Any = ..., help: str | None = ...
+    ) -> Action: ...
+    @overload
+    def add_argument(
+        self,
+        *name_or_flags: str,
+        action: Literal["version"],
+        version: str = ...,
+        dest: str | None = ...,
+        default: Any = ...,
+        help: str | None = ...,
+    ) -> Action: ...
+    @overload
     def add_argument(
         self,
         *name_or_flags: str,
