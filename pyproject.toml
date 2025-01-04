@@ -47,6 +47,7 @@ select = [
     "PGH", # pygrep-hooks
     "PLR", # Pylint Refactor
     "RUF", # Ruff-specific and unused-noqa
+    "TRY", # tryceratops
     "UP", # pyupgrade
     "YTT", # flake8-2020
     # Flake8 base rules
@@ -121,6 +122,8 @@ ignore = [
     "PLR09", # Too many ...
     # Too many magic number "2" that are preferable inline. https://github.com/astral-sh/ruff/issues/10009
     "PLR2004", # Magic value used in comparison, consider replacing `{value}` with a constant variable
+    # Mostly from scripts and tests, it's ok to have messages passed directly to exceptions
+    "TRY003", # Avoid specifying long messages outside the exception class
     # Slower and more verbose https://github.com/astral-sh/ruff/issues/7871
     "UP038", # Use `X | Y` in `isinstance` call instead of `(X, Y)`
     ###
