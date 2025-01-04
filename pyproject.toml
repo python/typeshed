@@ -45,6 +45,7 @@ select = [
     "I", # isort
     "N", # pep8-naming
     "PGH", # pygrep-hooks
+    "PLC", # Pylint Convention
     "RUF", # Ruff-specific and unused-noqa
     "TRY", # tryceratops
     "UP", # pyupgrade
@@ -138,6 +139,7 @@ ignore = [
     "N8",
     # Rules that are out of the control of stub authors:
     "F403", # `from . import *` used; unable to detect undefined names
+    "PLC2701", # Private name import from external module
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.
     "F405", # may be undefined, or defined from star imports
@@ -146,6 +148,10 @@ ignore = [
     # See https://github.com/python/typeshed/pull/13108
     "RUF022",
     "RUF023",
+]
+"lib/ts_utils/**" = [
+    # Doesn't affect stubs. The only re-exports we have should be in our local lib ts_utils
+    "PLC0414", # Import alias does not rename original package
 ]
 "*_pb2.pyi" = [
     # Leave the docstrings as-is, matching source

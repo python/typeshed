@@ -90,14 +90,14 @@ _T2 = TypeVar("_T2")
 _T3 = TypeVar("_T3")
 _T4 = TypeVar("_T4")
 _T5 = TypeVar("_T5")
-_SupportsNextT = TypeVar("_SupportsNextT", bound=SupportsNext[Any], covariant=True)
-_SupportsAnextT = TypeVar("_SupportsAnextT", bound=SupportsAnext[Any], covariant=True)
+_SupportsNextT_co = TypeVar("_SupportsNextT_co", bound=SupportsNext[Any], covariant=True)
+_SupportsAnextT_co = TypeVar("_SupportsAnextT_co", bound=SupportsAnext[Any], covariant=True)
 _AwaitableT = TypeVar("_AwaitableT", bound=Awaitable[Any])
 _AwaitableT_co = TypeVar("_AwaitableT_co", bound=Awaitable[Any], covariant=True)
 _P = ParamSpec("_P")
-_StartT = TypeVar("_StartT", covariant=True, default=Any)
-_StopT = TypeVar("_StopT", covariant=True, default=Any)
-_StepT = TypeVar("_StepT", covariant=True, default=Any)
+_StartT_co = TypeVar("_StartT_co", covariant=True, default=Any)
+_StopT_co = TypeVar("_StopT_co", covariant=True, default=Any)
+_StepT_co = TypeVar("_StepT_co", covariant=True, default=Any)
 
 class object:
     __doc__: str | None
@@ -940,13 +940,13 @@ class bool(int):
     def __invert__(self) -> int: ...
 
 @final
-class slice(Generic[_StartT, _StopT, _StepT]):
+class slice(Generic[_StartT_co, _StopT_co, _StepT_co]):
     @property
-    def start(self) -> _StartT: ...
+    def start(self) -> _StartT_co: ...
     @property
-    def step(self) -> _StepT: ...
+    def step(self) -> _StepT_co: ...
     @property
-    def stop(self) -> _StopT: ...
+    def stop(self) -> _StopT_co: ...
     @overload
     def __new__(cls, stop: int | None, /) -> slice[int | MaybeNone, int | MaybeNone, int | MaybeNone]: ...
     @overload
@@ -1303,7 +1303,7 @@ class _PathLike(Protocol[AnyStr_co]):
     def __fspath__(self) -> AnyStr_co: ...
 
 if sys.version_info >= (3, 10):
-    def aiter(async_iterable: SupportsAiter[_SupportsAnextT], /) -> _SupportsAnextT: ...
+    def aiter(async_iterable: SupportsAiter[_SupportsAnextT_co], /) -> _SupportsAnextT_co: ...
 
     class _SupportsSynchronousAnext(Protocol[_AwaitableT_co]):
         def __anext__(self) -> _AwaitableT_co: ...
@@ -1465,7 +1465,7 @@ class _GetItemIterable(Protocol[_T_co]):
     def __getitem__(self, i: int, /) -> _T_co: ...
 
 @overload
-def iter(object: SupportsIter[_SupportsNextT], /) -> _SupportsNextT: ...
+def iter(object: SupportsIter[_SupportsNextT_co], /) -> _SupportsNextT_co: ...
 @overload
 def iter(object: _GetItemIterable[_T], /) -> Iterator[_T]: ...
 @overload
@@ -1672,17 +1672,17 @@ def print(
     *values: object, sep: str | None = " ", end: str | None = "\n", file: _SupportsWriteAndFlush[str] | None = None, flush: bool
 ) -> None: ...
 
-_E = TypeVar("_E", contravariant=True)
-_M = TypeVar("_M", contravariant=True)
+_E_contra = TypeVar("_E_contra", contravariant=True)
+_M_contra = TypeVar("_M_contra", contravariant=True)
 
-class _SupportsPow2(Protocol[_E, _T_co]):
-    def __pow__(self, other: _E, /) -> _T_co: ...
+class _SupportsPow2(Protocol[_E_contra, _T_co]):
+    def __pow__(self, other: _E_contra, /) -> _T_co: ...
 
-class _SupportsPow3NoneOnly(Protocol[_E, _T_co]):
-    def __pow__(self, other: _E, modulo: None = None, /) -> _T_co: ...
+class _SupportsPow3NoneOnly(Protocol[_E_contra, _T_co]):
+    def __pow__(self, other: _E_contra, modulo: None = None, /) -> _T_co: ...
 
-class _SupportsPow3(Protocol[_E, _M, _T_co]):
-    def __pow__(self, other: _E, modulo: _M, /) -> _T_co: ...
+class _SupportsPow3(Protocol[_E_contra, _M_contra, _T_co]):
+    def __pow__(self, other: _E_contra, modulo: _M_contra, /) -> _T_co: ...
 
 _SupportsSomeKindOfPow = (  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
     _SupportsPow2[Any, Any] | _SupportsPow3NoneOnly[Any, Any] | _SupportsPow3[Any, Any, Any]
@@ -1718,11 +1718,11 @@ def pow(base: float, exp: complex | _SupportsSomeKindOfPow, mod: None = None) ->
 @overload
 def pow(base: complex, exp: complex | _SupportsSomeKindOfPow, mod: None = None) -> complex: ...
 @overload
-def pow(base: _SupportsPow2[_E, _T_co], exp: _E, mod: None = None) -> _T_co: ...  # type: ignore[overload-overlap]
+def pow(base: _SupportsPow2[_E_contra, _T_co], exp: _E_contra, mod: None = None) -> _T_co: ...  # type: ignore[overload-overlap]
 @overload
-def pow(base: _SupportsPow3NoneOnly[_E, _T_co], exp: _E, mod: None = None) -> _T_co: ...  # type: ignore[overload-overlap]
+def pow(base: _SupportsPow3NoneOnly[_E_contra, _T_co], exp: _E_contra, mod: None = None) -> _T_co: ...  # type: ignore[overload-overlap]
 @overload
-def pow(base: _SupportsPow3[_E, _M, _T_co], exp: _E, mod: _M) -> _T_co: ...
+def pow(base: _SupportsPow3[_E_contra, _M_contra, _T_co], exp: _E_contra, mod: _M_contra) -> _T_co: ...
 @overload
 def pow(base: _SupportsSomeKindOfPow, exp: float, mod: None = None) -> Any: ...
 @overload
