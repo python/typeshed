@@ -4,19 +4,12 @@
 
 # Please keep sorted alphabetically
 
-_collections_abc.AsyncGenerator.ag_await
-_collections_abc.AsyncGenerator.ag_code
-_collections_abc.AsyncGenerator.ag_frame
-_collections_abc.AsyncGenerator.ag_running
-asyncio.__all__
 builtins.dict.get
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
-contextlib._GeneratorContextManagerBase.__init__  # skipped in the stubs in favor of its child classes
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
-select.poll  # Depends on configuration
 socketserver.BaseServer.fileno  # implemented in derived classes
 socketserver.BaseServer.get_request  # implemented in derived classes
 socketserver.BaseServer.server_bind  # implemented in derived classes
@@ -38,35 +31,6 @@ turtledemo\..+
 # TODO: Module members that exist at runtime, but are missing from stubs
 # ======================================================================
 
-_thread.RLock
-multiprocessing.managers.Server.accepter
-multiprocessing.managers.Server.create
-multiprocessing.managers.Server.debug_info
-multiprocessing.managers.Server.decref
-multiprocessing.managers.Server.dummy
-multiprocessing.managers.Server.fallback_getvalue
-multiprocessing.managers.Server.fallback_mapping
-multiprocessing.managers.Server.fallback_repr
-multiprocessing.managers.Server.fallback_str
-multiprocessing.managers.Server.get_methods
-multiprocessing.managers.Server.handle_request
-multiprocessing.managers.Server.incref
-multiprocessing.managers.Server.number_of_objects
-multiprocessing.managers.Server.public
-multiprocessing.managers.Server.serve_client
-multiprocessing.managers.Server.shutdown
-multiprocessing.managers.SharedMemoryServer.create
-multiprocessing.managers.SharedMemoryServer.list_segments
-multiprocessing.managers.SharedMemoryServer.public
-multiprocessing.managers.SharedMemoryServer.release_segment
-multiprocessing.managers.SharedMemoryServer.shutdown
-multiprocessing.managers.SharedMemoryServer.track_segment
-multiprocessing.managers.SyncManager.Barrier
-multiprocessing.managers.SyncManager.JoinableQueue
-multiprocessing.managers.SyncManager.Pool
-multiprocessing.pool.Pool.Process
-multiprocessing.pool.ThreadPool.Process
-multiprocessing.synchronize.Semaphore.get_value
 tkinter.Misc.config
 
 
@@ -223,16 +187,6 @@ _collections_abc.AsyncIterator.__anext__
 _collections_abc.ByteString
 
 _collections_abc.Callable  # Typing-related weirdness
-
-# Coroutine and Generator properties are added programmatically
-_collections_abc.Coroutine.cr_await
-_collections_abc.Coroutine.cr_code
-_collections_abc.Coroutine.cr_frame
-_collections_abc.Coroutine.cr_running
-_collections_abc.Generator.gi_code
-_collections_abc.Generator.gi_frame
-_collections_abc.Generator.gi_running
-_collections_abc.Generator.gi_yieldfrom
 _collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
 
