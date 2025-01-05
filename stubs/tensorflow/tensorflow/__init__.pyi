@@ -23,6 +23,7 @@ from tensorflow import (
 from tensorflow._aliases import (
     AnyArray,
     DTypeLike,
+    IntArray,
     ScalarTensorCompatible,
     ShapeLike,
     Slice,
@@ -414,7 +415,7 @@ def ones_like(
 def reshape(tensor: TensorCompatible, shape: ShapeLike | Tensor, name: str | None = None) -> Tensor: ...
 def pad(
     tensor: TensorCompatible,
-    paddings: ShapeLike,
+    paddings: Tensor | IntArray | Iterable[Iterable[int]],
     mode: Literal["CONSTANT", "constant", "REFLECT", "reflect", "SYMMETRIC", "symmectric"] = "CONSTANT",
     constant_values: ScalarTensorCompatible = 0,
     name: str | None = None,
