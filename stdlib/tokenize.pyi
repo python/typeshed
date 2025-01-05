@@ -4,7 +4,7 @@ from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
 from token import *
 from token import EXACT_TOKEN_TYPES as EXACT_TOKEN_TYPES
-from typing import Any, NamedTuple, TextIO, type_check_only
+from typing import NamedTuple, TextIO, type_check_only
 from typing_extensions import TypeAlias
 
 __all__ = [
@@ -132,7 +132,7 @@ class Untokenizer:
 
 # the docstring says "returns bytes" but is incorrect --
 # if the ENCODING token is missing, it skips the encode
-def untokenize(iterable: Iterable[_Token]) -> Any: ...
+def untokenize(iterable: Iterable[_Token]) -> bytes | str: ...
 def detect_encoding(readline: Callable[[], bytes | bytearray]) -> tuple[str, Sequence[bytes]]: ...
 def tokenize(readline: Callable[[], bytes | bytearray]) -> Generator[TokenInfo, None, None]: ...
 def generate_tokens(readline: Callable[[], str]) -> Generator[TokenInfo, None, None]: ...
