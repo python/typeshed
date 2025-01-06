@@ -111,8 +111,8 @@ select = [
     "SIM223", # Use `{expr}` instead of `{replaced}`
     "SIM300", # Yoda condition detected
     "SIM401", # Use `{contents}` instead of an if block
-    "SIM910", # Use {expected}` instead of `{actual}` (dict-get-with-none-default)
-    "SIM911", # Use {expected}` instead of `{actual}` (zip-dict-keys-and-values)
+    "SIM910", # Use `{expected}` instead of `{actual}` (dict-get-with-none-default)
+    "SIM911", # Use `{expected}` instead of `{actual}` (zip-dict-keys-and-values)
     # Don't include TC rules that create a TYPE_CHECKING block or stringifies annotations
     "TC004", # Move import `{qualified_name}` out of type-checking block. Import is used for more than type hinting.
     "TC005", # Found empty type-checking block
