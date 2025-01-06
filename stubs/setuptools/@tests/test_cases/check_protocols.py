@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import Any
 
-
 from setuptools.command.editable_wheel import EditableStrategy, _LinkTree, _StaticPth, _TopLevelFinder
 from setuptools.config.expand import EnsurePackagesDiscovered
 from setuptools.config.pyprojecttoml import _EnsurePackagesDiscovered
