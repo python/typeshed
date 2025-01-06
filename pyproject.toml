@@ -99,7 +99,16 @@ select = [
     "SIM114", # Combine `if` branches using logical `or` operator
     "SIM115", # Use a context manager for opening files
     "SIM118", # Use key `{operator}` dict instead of key `{operator} dict.keys()`
-    "SIM2", # flake8-simplify conditional ordering rules
+    "SIM201", # Use `{left} != {right}` instead of not `{left} == {right}`
+    "SIM202", # Use `{left} == {right}` instead of not `{left} != {right}`
+    "SIM208", # Use `{expr}` instead of `not (not {expr})`
+    "SIM210", # Remove unnecessary `True if ... else False`
+    "SIM211", # Use `not ...` instead of `False if ... else True`
+    "SIM212", # Use `{expr_else} if {expr_else} else {expr_body}` instead of `{expr_body} if not {expr_else} else {expr_else}`
+    "SIM220", # Use `False` instead of `{name} and not {name}`
+    "SIM221", # Use `True` instead of `{name} or not {name}`
+    "SIM222", # Use `{expr}` instead of `{replaced}`
+    "SIM223", # Use `{expr}` instead of `{replaced}`
     "SIM300", # Yoda condition detected
     "SIM401", # Use `{contents}` instead of an if block
     "SIM910", # Use {expected}` instead of `{actual}` (dict-get-with-none-default)
