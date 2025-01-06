@@ -104,4 +104,3 @@ setuptools.config._validate_pyproject.*
 setuptools.compat.*
 setuptools.command.build_py.build_py.existing_egg_info_dir
 .+?\.tests.*
-.+?\._vendor.*
