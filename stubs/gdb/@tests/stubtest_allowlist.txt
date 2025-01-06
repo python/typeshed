@@ -73,3 +73,6 @@ gdb.Progspace.xmethods
 
 # stubtest thinks this can't be sub-classed at runtime, but it is
 gdb.disassembler.DisassemblerPart
+
+gdb.TuiEnabledEvent
+gdb.events.tui_enabled
