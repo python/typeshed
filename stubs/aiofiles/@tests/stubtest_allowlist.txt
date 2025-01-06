@@ -1,3 +1,8 @@
+# TODO: missing from stub
+aiofiles.__all__
+aiofiles.tempfile.__all__
+aiofiles.threadpool.__all__
+
 # These all delegate using *args,**kwargs, but stubs use signature of
 # method they are being delegated to.
 aiofiles.threadpool.binary.AsyncBufferedIOBase.close
