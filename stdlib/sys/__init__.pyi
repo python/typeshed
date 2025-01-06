@@ -12,7 +12,6 @@ _T = TypeVar("_T")
 
 # see https://github.com/python/typeshed/issues/8513#issue-1333671093 for the rationale behind this alias
 _ExitCode: TypeAlias = str | int | None
-_OptExcInfo: TypeAlias = OptExcInfo  # noqa: Y047  # TODO: obsolete, remove fall 2022 or later
 
 # ----- sys variables -----
 if sys.platform != "win32":
@@ -74,7 +73,7 @@ if sys.version_info >= (3, 10):
 __stdin__: Final[TextIOWrapper | None]  # Contains the original value of stdin
 __stdout__: Final[TextIOWrapper | None]  # Contains the original value of stdout
 __stderr__: Final[TextIOWrapper | None]  # Contains the original value of stderr
-tracebacklimit: int
+tracebacklimit: int | None
 version: str
 api_version: int
 warnoptions: Any
@@ -394,6 +393,10 @@ if sys.platform == "win32":
     def getwindowsversion() -> _WinVersion: ...
 
 def intern(string: str, /) -> str: ...
+
+if sys.version_info >= (3, 13):
+    def _is_gil_enabled() -> bool: ...
+
 def is_finalizing() -> bool: ...
 def breakpointhook(*args: Any, **kwargs: Any) -> Any: ...
 
@@ -415,6 +418,7 @@ if sys.version_info < (3, 9):
     def callstats() -> tuple[int, int, int, int, int, int, int, int, int, int, int] | None: ...
 
 # Doesn't exist at runtime, but exported in the stubs so pytest etc. can annotate their code more easily.
+@type_check_only
 class UnraisableHookArgs(Protocol):
     exc_type: type[BaseException]
     exc_value: BaseException | None

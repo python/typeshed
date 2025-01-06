@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
 from socket import error as error, gaierror as gaierror, herror as herror, timeout as timeout
 from typing import Any, SupportsIndex, overload
-from typing_extensions import TypeAlias
+from typing_extensions import CapsuleType, TypeAlias
 
 _CMSG: TypeAlias = tuple[int, int, bytes]
 _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]
@@ -78,8 +78,10 @@ if sys.platform == "win32":
     SO_EXCLUSIVEADDRUSE: int
 if sys.platform != "win32":
     SO_REUSEPORT: int
+    if sys.platform != "darwin" or sys.version_info >= (3, 13):
+        SO_BINDTODEVICE: int
+
 if sys.platform != "win32" and sys.platform != "darwin":
-    SO_BINDTODEVICE: int
     SO_DOMAIN: int
     SO_MARK: int
     SO_PASSCRED: int
@@ -842,4 +844,4 @@ def if_nameindex() -> list[tuple[int, str]]: ...
 def if_nametoindex(oname: str, /) -> int: ...
 def if_indextoname(index: int, /) -> str: ...
 
-CAPI: object
+CAPI: CapsuleType
