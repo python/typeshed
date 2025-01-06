@@ -74,7 +74,7 @@ def create_parser() -> argparse.ArgumentParser:
 
 
 def run_pytype(*, filename: str, python_version: str, missing_modules: Iterable[str]) -> str | None:
-    """Runs pytype, returning the stderr if any."""
+    """Run pytype, returning the stderr if any."""
     if python_version not in _LOADERS:
         options = pytype_config.Options.create("", parse_pyi=True, python_version=python_version)
         # For simplicity, pretends missing modules are part of the stdlib.
@@ -107,7 +107,7 @@ def _get_relative(filename: str) -> str:
 
 
 def _get_module_name(filename: str) -> str:
-    """Converts a filename {subdir}/m.n/module/foo to module.foo."""
+    """Convert a filename {subdir}/m.n/module/foo to module.foo."""
     parts = _get_relative(filename).split(os.path.sep)
     if parts[0] == "stdlib":
         module_parts = parts[1:]

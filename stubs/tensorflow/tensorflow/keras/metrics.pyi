@@ -23,7 +23,7 @@ class Metric(tf.keras.layers.Layer[tf.Tensor, tf.Tensor], metaclass=ABCMeta):
     def result(self) -> _Output: ...
     # Metric inherits from keras.Layer, but its add_weight method is incompatible with the one from "Layer".
     @override
-    def add_weight(  # type: ignore
+    def add_weight(  # type: ignore[override]
         self,
         name: str,
         shape: Iterable[int | None] | None = (),

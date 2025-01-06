@@ -1,3 +1,9 @@
+# TODO: missing from stub
+gevent.ares.__all__
+gevent.libev.corecffi.__all__
+gevent.resolver.ares.__all__
+gevent.resolver_ares.__all__
+
 # Error: is not present in stub
 # =============================
 # internal API stuff we dropped because it wasn't necessary
@@ -13,11 +19,6 @@ gevent.subprocess.Popen.rawlink
 # this is currently missing from the gevent implementation, but we'll ignore
 # it for simplicity's sake
 gevent.socket.SocketType.sendmsg_afalg
-
-# Due to the way gevent copies globals from other modules, there's a few symbols
-# that may not end up in the module, that would otherwise end up there with a
-# `from x import *`. None of these seem critical, so we ignore them
-gevent.socket.MsgFlag
 
 # Error: is inconsistent
 # ======================

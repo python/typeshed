@@ -1,4 +1,8 @@
+# TODO: missing from stub
+tqdm._main.__all__
+tqdm._tqdm.__all__
+tqdm._tqdm_gui.__all__
+tqdm._tqdm_notebook.__all__
+
 # Cannot import in stubtest
 tqdm.__main__
-# disco-py fails to install through pip and is an archived project
-tqdm.contrib.discord

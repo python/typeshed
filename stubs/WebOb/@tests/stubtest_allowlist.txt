@@ -1,3 +1,18 @@
+# TODO: missing from stub
+webob.__all__
+webob.byterange.__all__
+webob.client.__all__
+webob.cookies.__all__
+webob.datetime_utils.__all__
+webob.dec.__all__
+webob.etag.__all__
+webob.exc.__all__
+webob.headers.__all__
+webob.multidict.__all__
+webob.request.__all__
+webob.response.__all__
+webob.static.__all__
+
 # Error: is not present in stub
 # =============================
 # These are plain strings, regex strings or compiled regex patterns

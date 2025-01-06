@@ -632,13 +632,13 @@ def latest_commit_is_different_to_last_commit_on_origin(branch: str) -> bool:
         return True
 
 
-class RemoteConflict(Exception):
+class RemoteConflictError(Exception):
     pass
 
 
 def somewhat_safe_force_push(branch: str) -> None:
     if has_non_stubsabot_commits(branch):
-        raise RemoteConflict(f"origin/{branch} has non-stubsabot changes that are not on {branch}!")
+        raise RemoteConflictError(f"origin/{branch} has non-stubsabot changes that are not on {branch}!")
     subprocess.check_call(["git", "push", "origin", branch, "--force"])
 
 
@@ -808,7 +808,7 @@ async def main() -> None:
                     if isinstance(update, Obsolete):  # pyright: ignore[reportUnnecessaryIsInstance]
                         await suggest_typeshed_obsolete(update, session, action_level=args.action_level)
                         continue
-                except RemoteConflict as e:
+                except RemoteConflictError as e:
                     print(colored(f"... but ran into {type(e).__qualname__}: {e}", "red"))
                     continue
                 raise AssertionError

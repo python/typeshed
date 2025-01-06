@@ -1,2 +1,5 @@
+# TODO: missing from stub
+editdistance.__all__
+
 # Not public API -- the submodule is an implementation detail due to it being a cythonized package
 editdistance.bycython

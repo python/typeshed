@@ -1,1 +1,5 @@
+# TODO: missing from stub
+MySQLdb.__all__
+MySQLdb.constants.__all__
+
 MySQLdb.Connection

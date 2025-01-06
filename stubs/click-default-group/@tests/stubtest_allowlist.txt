@@ -1,0 +1,2 @@
+# TODO: missing from stub
+click_default_group.__all__

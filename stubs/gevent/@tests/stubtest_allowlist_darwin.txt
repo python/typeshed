@@ -1,3 +1,9 @@
+# TODO: missing from stub
+gevent.ares.__all__
+gevent.libev.corecffi.__all__
+gevent.resolver.ares.__all__
+gevent.resolver_ares.__all__
+
 # Error: is not present in stub
 # =============================
 # internal API stuff we dropped because it wasn't necessary

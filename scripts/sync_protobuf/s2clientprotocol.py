@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Generates the protobuf stubs for the given s2clientprotocol version using mypy-protobuf.
 Generally, new minor versions are a good time to update the stubs.
@@ -29,7 +30,7 @@ VERSION_PATTERN = re.compile(r'def game_version\(\):\n    return "(.+?)"')
 
 
 def extract_python_version(file_path: Path) -> str:
-    """Extract Python version from s2clientprotocol's build file"""
+    """Extract Python version from s2clientprotocol's build file."""
     match = re.search(VERSION_PATTERN, file_path.read_text())
     assert match
     return match.group(1)
@@ -46,14 +47,14 @@ def main() -> None:
     for old_stub in STUBS_FOLDER.rglob("*_pb2.pyi"):
         old_stub.unlink()
 
-    PROTOC_VERSION = run_protoc(
+    protoc_version = run_protoc(
         proto_paths=(EXTRACTED_PACKAGE_DIR,),
         mypy_out=STUBS_FOLDER,
         proto_globs=(f"{EXTRACTED_PACKAGE_DIR}/s2clientprotocol/*.proto",),
         cwd=temp_dir,
     )
 
-    PYTHON_S2_CLIENT_PROTO_VERSION = extract_python_version(temp_dir / EXTRACTED_PACKAGE_DIR / "s2clientprotocol" / "build.py")
+    python_s2_client_proto_version = extract_python_version(temp_dir / EXTRACTED_PACKAGE_DIR / "s2clientprotocol" / "build.py")
 
     # Cleanup after ourselves, this is a temp dir, but it can still grow fast if run multiple times
     shutil.rmtree(temp_dir)
@@ -62,8 +63,8 @@ def main() -> None:
         "s2clientprotocol",
         extra_description=f"""Partially generated using \
 [mypy-protobuf=={MYPY_PROTOBUF_VERSION}](https://github.com/nipunn1313/mypy-protobuf/tree/v{MYPY_PROTOBUF_VERSION}) \
-and {PROTOC_VERSION} on \
-[s2client-proto {PYTHON_S2_CLIENT_PROTO_VERSION}](https://github.com/Blizzard/s2client-proto/tree/{PACKAGE_VERSION}).""",
+and {protoc_version} on \
+[s2client-proto {python_s2_client_proto_version}](https://github.com/Blizzard/s2client-proto/tree/{PACKAGE_VERSION}).""",
     )
     print("Updated s2clientprotocol/METADATA.toml")
 

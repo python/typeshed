@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Generates the protobuf stubs for the given tensorflow version using mypy-protobuf.
 Generally, new minor versions are a good time to update the stubs.
@@ -56,14 +57,15 @@ XLA_IMPORT_PATTERN = re.compile(r"(\[|\s)xla\.")
 def move_tree(source: Path, destination: Path) -> None:
     """Move directory and merge if destination already exists.
 
-    Can't use shutil.move because it can't merge existing directories."""
+    Can't use shutil.move because it can't merge existing directories.
+    """
     print(f"Moving '{source}' to '{destination}'")
     shutil.copytree(source, destination, dirs_exist_ok=True)
     shutil.rmtree(source)
 
 
 def post_creation() -> None:
-    """Move third-party and fix imports"""
+    """Move third-party and fix imports."""
     print()
     move_tree(STUBS_FOLDER / "tsl", STUBS_FOLDER / "tensorflow" / "tsl")
     move_tree(STUBS_FOLDER / "xla", STUBS_FOLDER / "tensorflow" / "compiler" / "xla")
@@ -99,7 +101,7 @@ def main() -> None:
     for old_stub in STUBS_FOLDER.rglob("*_pb2.pyi"):
         old_stub.unlink()
 
-    PROTOC_VERSION = run_protoc(
+    protoc_version = run_protoc(
         proto_paths=(
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/third_party/tsl",
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla",
@@ -130,7 +132,7 @@ def main() -> None:
         "tensorflow",
         extra_description=f"""Partially generated using \
 [mypy-protobuf=={MYPY_PROTOBUF_VERSION}](https://github.com/nipunn1313/mypy-protobuf/tree/v{MYPY_PROTOBUF_VERSION}) \
-and {PROTOC_VERSION} on `tensorflow=={PACKAGE_VERSION}`.""",
+and {protoc_version} on `tensorflow=={PACKAGE_VERSION}`.""",
     )
     print("Updated tensorflow/METADATA.toml")
 
