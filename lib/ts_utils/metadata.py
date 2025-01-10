@@ -280,7 +280,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert isinstance(tools_settings, dict)
     assert tools_settings.keys() <= _KNOWN_METADATA_TOOL_FIELDS.keys(), f"Unrecognised tool for {distribution!r}"
     for tool, tk in _KNOWN_METADATA_TOOL_FIELDS.items():
-        settings_for_tool: object = tools_settings.get(tool, {})  # pyright: ignore[reportUnknownMemberType]
+        settings_for_tool: object = tools_settings.get(tool, {})  # pyright ignore reportUnknownMemberType 
         assert isinstance(settings_for_tool, dict)
         for key in settings_for_tool:
             assert key in tk, f"Unrecognised {tool} key {key!r} for {distribution!r}"
@@ -312,9 +312,9 @@ def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocu
             data = tomlkit.load(file)
     except FileNotFoundError:
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
-    data.update(new_values)  # pyright: ignore[reportUnknownMemberType] # tomlkit.TOMLDocument.update is partially typed
+    data.update(new_values)  # pyright ignore reportUnknownMemberType # tomlkit.TOMLDocument.update is partially typed
     with path.open("w", encoding="UTF-8") as file:
-        tomlkit.dump(data, file)  # pyright: ignore[reportUnknownMemberType] # tomlkit.dump has partially unknown Mapping type
+        tomlkit.dump(data, file)  # pyright ignore reportUnknownMemberType # tomlkit.dump has partially unknown Mapping type
     return data
 
 
