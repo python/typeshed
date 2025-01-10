@@ -85,7 +85,8 @@ def run_pytype(*, filename: str, python_version: str, missing_modules: Iterable[
     stderr: str | None
     try:
         with pytype_config.verbosity_from(options):
-            ast = loader.load_file(_get_module_name(filename), filename)
+            #ast = loader.load_file(_get_module_name(filename), filename)
+            ast = loader.load_file((filename), filename)
             loader.finish_and_verify_ast(ast)
     except Exception:
         stderr = traceback.format_exc()
