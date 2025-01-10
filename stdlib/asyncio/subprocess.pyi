@@ -45,7 +45,7 @@ class Process[CommOut: PIPE | int | IO[Any] | None, CommErr: PIPE | int | IO[Any
 if sys.version_info >= (3, 11):
     async def create_subprocess_shell[Out: PIPE | int | IO[Any] | None, Err: PIPE | int | IO[Any] | None](
         cmd: str | bytes,
-        stdin: PIPE | int | IO[Any] | None = None,
+        stdin: int | IO[Any] | None = None,
         stdout: Out = None,
         stderr: Err = None,
         limit: int = 65536,
