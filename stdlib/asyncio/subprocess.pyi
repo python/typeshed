@@ -3,7 +3,7 @@ import sys
 from _typeshed import StrOrBytesPath
 from asyncio import events, protocols, streams, transports
 from collections.abc import Callable, Collection
-from typing import IO, Any, Literal
+from typing import IO, Any, Literal, overload
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 __all__ = ("create_subprocess_exec", "create_subprocess_shell")
@@ -19,7 +19,7 @@ class SubprocessStreamProtocol(streams.FlowControlMixin, protocols.SubprocessPro
     def __init__(self, limit: int, loop: events.AbstractEventLoop) -> None: ...
     def pipe_data_received(self, fd: int, data: bytes | str) -> None: ...
 
-class Process[CommOut: PIPE | int | IO[Any] | None, CommErr: PIPE | int | IO[Any] | None]:
+class Process[CommOut: (PIPE, int, IO[Any], None), CommErr: (PIPE, int, IO[Any], None)]:
     stdin: streams.StreamWriter | None
     stdout: streams.StreamReader | None
     stderr: streams.StreamReader | None
@@ -52,7 +52,7 @@ class Process[CommOut: PIPE | int | IO[Any] | None, CommErr: PIPE | int | IO[Any
 
 if sys.version_info >= (3, 11):
     async def create_subprocess_shell[
-        Out: PIPE | int | IO[Any] | None, Err: PIPE | int | IO[Any] | None
+        Out: (PIPE, int, IO[Any], None), Err: (PIPE, int, IO[Any], None)
     ](
         cmd: str | bytes,
         stdin: int | IO[Any] | None = None,
@@ -86,7 +86,7 @@ if sys.version_info >= (3, 11):
         pipesize: int = -1,
     ) -> Process[Out, Err]: ...
     async def create_subprocess_exec[
-        Out: PIPE | int | IO[Any] | None, Err: PIPE | int | IO[Any] | None
+        Out: (PIPE, int, IO[Any], None), Err: (PIPE, int, IO[Any], None)
     ](
         program: StrOrBytesPath,
         *args: StrOrBytesPath,
@@ -122,7 +122,7 @@ if sys.version_info >= (3, 11):
 
 elif sys.version_info >= (3, 10):
     async def create_subprocess_shell[
-        Out: PIPE | int | IO[Any] | None, Err: PIPE | int | IO[Any] | None
+        Out: (PIPE, int, IO[Any], None), Err: (PIPE, int, IO[Any], None)
     ](
         cmd: str | bytes,
         stdin: int | IO[Any] | None = None,
@@ -155,7 +155,7 @@ elif sys.version_info >= (3, 10):
         pipesize: int = -1,
     ) -> Process[Out, Err]: ...
     async def create_subprocess_exec[
-        Out: PIPE | int | IO[Any] | None, Err: PIPE | int | IO[Any] | None
+        Out: (PIPE, int, IO[Any], None), Err: (PIPE, int, IO[Any], None)
     ](
         program: StrOrBytesPath,
         *args: StrOrBytesPath,
@@ -190,7 +190,7 @@ elif sys.version_info >= (3, 10):
 
 else:  # >= 3.9
     async def create_subprocess_shell[
-        Out: PIPE | int | IO[Any] | None, Err: PIPE | int | IO[Any] | None
+        Out: (PIPE, int, IO[Any], None), Err: (PIPE, int, IO[Any], None)
     ](
         cmd: str | bytes,
         stdin: int | IO[Any] | None = None,
@@ -223,7 +223,7 @@ else:  # >= 3.9
         umask: int = -1,
     ) -> Process[Out, Err]: ...
     async def create_subprocess_exec[
-        Out: PIPE | int | IO[Any] | None, Err: PIPE | int | IO[Any] | None
+        Out: (PIPE, int, IO[Any], None), Err: (PIPE, int, IO[Any], None)
     ](
         program: StrOrBytesPath,
         *args: StrOrBytesPath,
