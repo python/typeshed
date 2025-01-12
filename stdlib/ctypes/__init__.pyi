@@ -24,6 +24,7 @@ from _ctypes import (
     set_errno as set_errno,
     sizeof as sizeof,
 )
+from _typeshed import StrPath
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
 from typing import Any, ClassVar, Generic, TypeVar, type_check_only
 from typing_extensions import Self, TypeAlias, deprecated
@@ -48,24 +49,29 @@ class ArgumentError(Exception): ...
 # defined within CDLL.__init__
 # Runtime name is ctypes.CDLL.__init__.<locals>._FuncPtr
 @type_check_only
-class _FuncPtr(_CFuncPtr):
+class _CDLLFuncPointer(_CFuncPtr):
     _flags_: ClassVar[int]
     _restype_: ClassVar[type[_CDataType]]
 
-# Not a real class; _FuncPtr with a __name__ set on it.
+# Not a real class; _CDLLFuncPointer with a __name__ set on it.
 @type_check_only
-class _NamedFuncPointer(_FuncPtr):
+class _NamedFuncPointer(_CDLLFuncPointer):
     __name__: str
+
+if sys.version_info >= (3, 12):
+    _NameTypes: TypeAlias = StrPath | None
+else:
+    _NameTypes: TypeAlias = str | None
 
 class CDLL:
     _func_flags_: ClassVar[int]
     _func_restype_: ClassVar[type[_CDataType]]
     _name: str
     _handle: int
-    _FuncPtr: type[_FuncPtr]
+    _FuncPtr: type[_CDLLFuncPointer]
     def __init__(
         self,
-        name: str | None,
+        name: _NameTypes,
         mode: int = ...,
         handle: int | None = None,
         use_errno: bool = False,
@@ -108,7 +114,7 @@ class _CFunctionType(_CFuncPtr):
     _flags_: ClassVar[int]
 
 # Alias for either function pointer type
-_FuncPointer: TypeAlias = _FuncPtr | _CFunctionType  # noqa: Y047  # not used here
+_FuncPointer: TypeAlias = _CDLLFuncPointer | _CFunctionType  # noqa: Y047  # not used here
 
 def CFUNCTYPE(
     restype: type[_CData | _CDataType] | None,
@@ -153,7 +159,14 @@ def ARRAY(typ: _CT, len: int) -> Array[_CT]: ...  # Soft Deprecated, no plans to
 if sys.platform == "win32":
     def DllCanUnloadNow() -> int: ...
     def DllGetClassObject(rclsid: Any, riid: Any, ppv: Any) -> int: ...  # TODO not documented
-    def GetLastError() -> int: ...
+
+    # Actually just an instance of _NamedFuncPointer (aka _CDLLFuncPointer),
+    # but we want to set a more specific __call__
+    @type_check_only
+    class _GetLastErrorFunctionType(_NamedFuncPointer):
+        def __call__(self) -> int: ...
+
+    GetLastError: _GetLastErrorFunctionType
 
 # Actually just an instance of _CFunctionType, but we want to set a more
 # specific __call__.

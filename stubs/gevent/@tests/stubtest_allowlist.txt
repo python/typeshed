@@ -213,7 +213,6 @@ gevent.socket.wait_write
 # we have punted on ssl, the gevent version of these functions have an additional
 # argument for timeouts/blocking and there are some with different default values
 # for nbytes/length, for now we ignore that fact
-gevent.ssl.Purpose.__new__
 gevent.ssl.SSLSocket.__init__
 gevent.ssl.SSLSocket.do_handshake
 gevent.ssl.SSLSocket.read
