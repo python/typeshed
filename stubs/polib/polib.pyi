@@ -1,5 +1,6 @@
 from collections.abc import Callable
 from typing import IO, Any, Generic, Literal, SupportsIndex, TypeVar, overload
+from os import PathLike
 
 _TB = TypeVar("_TB", bound=_BaseEntry)
 _TP = TypeVar("_TP", bound=POFile)
