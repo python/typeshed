@@ -18,3 +18,7 @@ stubs/openpyxl/openpyxl/descriptors/nested.pyi
 
 # matplotlib not installed during tests
 stubs/shapely/shapely/plotting.pyi
+
+# configobj not installed during tests
+stubs/ruamel.yaml/ruamel/yaml/configobjwalker.pyi
+stubs/ruamel.yaml/ruamel/yaml/util.pyi
