@@ -91,7 +91,6 @@ setuptools._distutils.command.install_data
 setuptools._distutils.command.install_egg_info
 setuptools._distutils.command.install_headers
 setuptools._distutils.compat.py39
-setuptools._distutils.core
 setuptools._distutils.cygwinccompiler
 setuptools._distutils.debug
 setuptools._distutils.dir_util

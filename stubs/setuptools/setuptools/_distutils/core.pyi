@@ -3,9 +3,9 @@ from collections.abc import Iterable, Mapping
 from typing import Final, TypedDict, type_check_only
 from typing_extensions import Unpack
 
-from ..dist import Distribution as Distribution
-from ..extension import Extension as Extension
 from .cmd import Command as Command
+from .dist import Distribution as Distribution
+from .extension import Extension as Extension
 
 @type_check_only
 class _SetupArgs(TypedDict, total=False):  # total=False for custom Distributions that could accept more arguments
