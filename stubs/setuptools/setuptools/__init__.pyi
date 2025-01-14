@@ -1,10 +1,10 @@
 from abc import abstractmethod
 from collections.abc import Sequence
-from distutils.core import _SetupArgs as _DistutilsSetupArgs
 from typing import Any, Literal, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import NotRequired, Unpack
 
 from ._distutils.cmd import Command as _Command
+from ._distutils.core import _SetupArgs as _DistutilsSetupArgs
 from .command.alias import alias
 from .command.bdist_egg import bdist_egg
 from .command.bdist_rpm import bdist_rpm
