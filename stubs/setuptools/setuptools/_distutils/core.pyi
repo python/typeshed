@@ -1,10 +1,11 @@
 from _typeshed import Incomplete, StrOrBytesPath
 from collections.abc import Iterable, Mapping
-from distutils.cmd import Command as Command
-from distutils.dist import Distribution as Distribution
-from distutils.extension import Extension as Extension
 from typing import Final, TypedDict, type_check_only
 from typing_extensions import Unpack
+
+from ..dist import Distribution as Distribution
+from ..extension import Extension as Extension
+from .cmd import Command as Command
 
 @type_check_only
 class _SetupArgs(TypedDict, total=False):  # total=False for custom Distributions that could accept more arguments
