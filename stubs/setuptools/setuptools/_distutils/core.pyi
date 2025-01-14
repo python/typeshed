@@ -7,6 +7,8 @@ from .cmd import Command as Command
 from .dist import Distribution as Distribution
 from .extension import Extension as Extension
 
+__all__ = ["Distribution", "Command", "Extension", "setup"]
+
 @type_check_only
 class _SetupArgs(TypedDict, total=False):  # total=False for custom Distributions that could accept more arguments
     name: str
