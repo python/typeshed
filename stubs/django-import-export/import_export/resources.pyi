@@ -1,3 +1,4 @@
+import _typeshed
 from _typeshed import Incomplete
 from collections import OrderedDict
 from collections.abc import Iterator, Sequence
@@ -5,8 +6,6 @@ from functools import partial
 from logging import Logger
 from typing import Any, ClassVar, Generic, Literal, NoReturn, TypeVar, overload
 from typing_extensions import TypeAlias, deprecated
-
-import _typeshed
 
 from django.db.models import Field as DjangoField, ForeignObjectRel, Model, QuerySet
 from django.utils.safestring import SafeString
