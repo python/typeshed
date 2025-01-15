@@ -1,0 +1,6 @@
+from _typeshed import Incomplete
+
+HEADERS: Incomplete
+
+def to_string(o): ...
+def dump() -> None: ...
