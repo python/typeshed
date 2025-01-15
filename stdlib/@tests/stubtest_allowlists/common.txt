@@ -459,7 +459,6 @@ turtle.ScrolledCanvas.select_item  # Dynamically created, has unnecessary *args
 
 types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
 types.GenericAlias.__getattr__
-types.GenericAlias.__mro_entries__
 
 typing.type_check_only  # typing decorator that is not available at runtime
 
