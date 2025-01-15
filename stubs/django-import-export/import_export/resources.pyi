@@ -1,5 +1,4 @@
 import _typeshed
-from _typeshed import Incomplete
 from collections import OrderedDict
 from collections.abc import Iterator, Sequence
 from functools import partial
@@ -15,7 +14,7 @@ from .instance_loaders import BaseInstanceLoader
 from .results import Error, Result, RowResult
 from .widgets import ForeignKeyWidget, ManyToManyWidget, Widget
 
-Dataset: TypeAlias = Incomplete  # tablib.Dataset
+Dataset: TypeAlias = _typeshed.Incomplete  # tablib.Dataset
 logger: Logger
 
 @overload
