@@ -242,7 +242,54 @@ with what you'd like to do or have ideas that will help you do it.
 
 ### Stub Content and Style
 
-Refer to the documentation on [Writing and Maintaining Stubs](https://typing.readthedocs.io/en/latest/guides/writing_stubs.html) for information on how to write stubs, including guidelines for content and coding style.
+Each Python module is represented by a .pyi "stub file". This is a syntactically valid Python file, where all methods are empty and [type annotations](https://typing.readthedocs.io/en/latest/spec/annotations.html) are used to describe function signatures and variable types.
+
+Typeshed follows the standard type system guidelines for [stub content](https://typing.readthedocs.io/en/latest/guides/writing_stubs.html#stub-content) and [coding style](https://typing.readthedocs.io/en/latest/guides/writing_stubs.html#style-guide).
+
+### What to include
+
+Stubs should include the complete interface (classes, functions,
+constants, etc.) of the module they cover, but it is not always
+clear exactly what is part of the interface.
+
+The following should always be included:
+- All objects listed in the module's documentation.
+- All objects included in ``__all__`` (if present).
+
+Other objects may be included if they are being used in practice
+or if they are not prefixed with an underscore. This means
+that typeshed will generally accept contributions that add missing
+objects, even if they are undocumented. Undocumented objects should
+be marked with a comment of the form ``# undocumented``.
+
+### Incomplete Annotations
+
+When submitting new stubs, it is not necessary to annotate all arguments,
+return types, and fields. Such items should either be left unannotated or
+use `_typeshed.Incomplete` if this is not possible:
+
+```python
+from _typeshed import Incomplete
+
+field: Incomplete  # unannotated
+
+def foo(x): ...  # unannotated argument and return type
+```
+
+`Incomplete` can also be used for partially known types:
+
+```python
+def foo(x: Incomplete | None = None) -> list[Incomplete]: ...
+```
+
+### What to do when a project's documentation and implementation disagree
+
+Type stubs are meant to be external type annotations for a given
+library.  While they are useful documentation in its own merit, they
+augment the project's concrete implementation, not the project's
+documentation.  Whenever you find them disagreeing, model the type
+information after the actual implementation and file an issue on the
+project's tracker to fix their documentation.
 
 ### Docstrings
 
