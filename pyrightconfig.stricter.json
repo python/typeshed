@@ -44,7 +44,6 @@
         "stubs/corus",
         "stubs/dateparser",
         "stubs/defusedxml",
-        "stubs/django-import-export",
         "stubs/docker",
         "stubs/docutils",
         "stubs/Flask-SocketIO",
