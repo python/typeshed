@@ -4,4 +4,4 @@ from typing import Final
 
 __all__ = ["make_scanner"]
 
-NUMBER_RE: Final[Pattern[str]]
+NUMBER_RE: Final[Pattern[str]]  # undocumented
