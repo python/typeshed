@@ -13,7 +13,7 @@ from pyproj import CRS
 from shapely import Geometry, MultiPolygon, Point, Polygon
 from shapely.geometry.base import BaseGeometry
 
-from .array import GeometryArray
+from .array import GeometryArray, _Array1D
 from .geodataframe import GeoDataFrame
 from .geoseries import GeoSeries
 from .sindex import SpatialIndex
@@ -162,7 +162,7 @@ class GeoPandasBase:
     @property
     def bounds(self) -> pd.DataFrame: ...
     @property
-    def total_bounds(self) -> NDArray[np.float64]: ...
+    def total_bounds(self) -> _Array1D[np.float64]: ...
     @property
     def sindex(self) -> SpatialIndex: ...
     @property
