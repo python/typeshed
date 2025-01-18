@@ -40,12 +40,11 @@ VENV_DIR = ".venv"
 TYPESHED = "typeshed"
 
 SUPPORTED_PLATFORMS = ["linux", "darwin", "win32"]
-SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
+SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9"]
 
 
 def distribution_with_test_cases(distribution_name: str) -> DistributionTests:
-    """Helper function for argument-parsing."""
-
+    """Parse a CLI argument that is intended to be to a valid typeshed distribution."""
     try:
         return distribution_info(distribution_name)
     except RuntimeError as exc:

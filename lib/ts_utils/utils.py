@@ -92,7 +92,6 @@ def venv_python(venv_dir: Path) -> Path:
 @cache
 def parse_requirements() -> Mapping[str, Requirement]:
     """Return a dictionary of requirements from the requirements file."""
-
     with REQUIREMENTS_PATH.open(encoding="UTF-8") as requirements_file:
         stripped_lines = map(strip_comments, requirements_file)
         stripped_more = [li for li in stripped_lines if not li.startswith("-")]
