@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections import OrderedDict
 from collections.abc import Iterator
+from functools import cached_property
 from typing import Any, ClassVar, Literal
 from typing_extensions import TypeAlias
 
@@ -11,12 +12,12 @@ Dataset: TypeAlias = Incomplete  # tablib.Dataset
 
 class Error:
     error: Exception
-    traceback: str
     row: dict[str, Any]
     number: int | None
-    def __init__(
-        self, error: Exception, traceback: str | None = None, row: dict[str, Any] | None = None, number: int | None = None
-    ) -> None: ...
+    def __init__(self, error: Exception, row: dict[str, Any] | None = None, number: int | None = None) -> None: ...
+    def __repr__(self) -> str: ...
+    @cached_property
+    def traceback(self) -> str: ...
 
 _ImportType: TypeAlias = Literal["update", "new", "delete", "skip", "error", "invalid"]
 
