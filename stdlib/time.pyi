@@ -1,6 +1,7 @@
 import sys
 from _typeshed import structseq
-from typing import Any, Final, Literal, Protocol, final
+from types import SimpleNamespace
+from typing import Any, Final, Literal, final
 from typing_extensions import TypeAlias
 
 _TimeTuple: TypeAlias = tuple[int, int, int, int, int, int, int, int, int]
@@ -12,9 +13,13 @@ tzname: tuple[str, str]
 
 if sys.platform == "linux":
     CLOCK_BOOTTIME: int
+    if sys.version_info >= (3, 9):
+        CLOCK_TAI: int
+
 if sys.platform != "linux" and sys.platform != "win32" and sys.platform != "darwin":
     CLOCK_PROF: int  # FreeBSD, NetBSD, OpenBSD
     CLOCK_UPTIME: int  # FreeBSD, OpenBSD
+    CLOCK_HIGHRES: int  # Solaris only
 
 if sys.platform != "win32":
     CLOCK_MONOTONIC: int
@@ -22,17 +27,12 @@ if sys.platform != "win32":
     CLOCK_PROCESS_CPUTIME_ID: int
     CLOCK_REALTIME: int
     CLOCK_THREAD_CPUTIME_ID: int
-    if sys.platform != "linux" and sys.platform != "darwin":
-        CLOCK_HIGHRES: int  # Solaris only
 
 if sys.platform == "darwin":
     CLOCK_UPTIME_RAW: int
     if sys.version_info >= (3, 13):
         CLOCK_UPTIME_RAW_APPROX: int
         CLOCK_MONOTONIC_RAW_APPROX: int
-
-if sys.version_info >= (3, 9) and sys.platform == "linux":
-    CLOCK_TAI: int
 
 # Constructor takes an iterable of any type, of length between 9 and 11 elements.
 # However, it always *behaves* like a tuple of 9 elements,
@@ -76,36 +76,31 @@ def sleep(seconds: float, /) -> None: ...
 def strftime(format: str, time_tuple: _TimeTuple | struct_time = ..., /) -> str: ...
 def strptime(data_string: str, format: str = "%a %b %d %H:%M:%S %Y", /) -> struct_time: ...
 def time() -> float: ...
+def time_ns() -> int: ...
+def monotonic() -> float: ...
+def monotonic_ns() -> int: ...
+def perf_counter() -> float: ...
+def perf_counter_ns() -> int: ...
+def process_time() -> float: ...
+def process_time_ns() -> int: ...
+def thread_time() -> float: ...
+def thread_time_ns() -> int: ...
 
-if sys.platform != "win32":
-    def tzset() -> None: ...  # Unix only
-
-class _ClockInfo(Protocol):
+class _ClockInfo(SimpleNamespace):
     adjustable: bool
     implementation: str
     monotonic: bool
     resolution: float
 
 def get_clock_info(name: Literal["monotonic", "perf_counter", "process_time", "time", "thread_time"], /) -> _ClockInfo: ...
-def monotonic() -> float: ...
-def perf_counter() -> float: ...
-def process_time() -> float: ...
 
 if sys.platform != "win32":
+    def tzset() -> None: ...  # Unix only
     def clock_getres(clk_id: int, /) -> float: ...  # Unix only
     def clock_gettime(clk_id: int, /) -> float: ...  # Unix only
     def clock_settime(clk_id: int, time: float, /) -> None: ...  # Unix only
-
-if sys.platform != "win32":
     def clock_gettime_ns(clk_id: int, /) -> int: ...
     def clock_settime_ns(clock_id: int, time: int, /) -> int: ...
 
 if sys.platform == "linux":
     def pthread_getcpuclockid(thread_id: int, /) -> int: ...
-
-def monotonic_ns() -> int: ...
-def perf_counter_ns() -> int: ...
-def process_time_ns() -> int: ...
-def time_ns() -> int: ...
-def thread_time() -> float: ...
-def thread_time_ns() -> int: ...
