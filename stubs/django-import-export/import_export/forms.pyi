@@ -1,10 +1,10 @@
-from collections.abc import Sequence
+from collections.abc import Iterable, Sequence
 from typing import Any
 
 from django import forms
 
 from .formats.base_formats import Format
-from .resources import Resource
+from .resources import ModelResource, Resource
 
 class ImportExportFormBase(forms.Form):
     resource: forms.ChoiceField
@@ -27,3 +27,12 @@ class ConfirmImportForm(forms.Form):
 
 class ExportForm(ImportExportFormBase):
     export_items: forms.MultipleChoiceField
+
+class SelectableFieldsExportForm(ExportForm):
+    resources: Iterable[ModelResource[Any]]
+    is_selectable_fields_form: bool
+    resource_fields: dict[str, list[str]]
+    @staticmethod
+    def create_boolean_field_name(resource: ModelResource[Any], field_name: str) -> str: ...
+    def get_selected_resource(self) -> ModelResource[Any]: ...
+    def get_selected_resource_export_fields(self) -> list[str]: ...
