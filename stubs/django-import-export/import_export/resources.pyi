@@ -24,7 +24,7 @@ def get_related_model(field: DjangoField[Any, Any]) -> Model | None: ...
 def has_natural_foreign_key(model: Model) -> bool: ...
 
 class ResourceOptions(Generic[_ModelT]):
-    model: _ModelT
+    model: _ModelT | str
     fields: Sequence[str] | None
     exclude: Sequence[str] | None
     instance_loader_class: type[BaseInstanceLoader] | None
