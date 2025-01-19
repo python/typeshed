@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from logging import Logger
 from typing import Any, Literal, TypeVar
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, deprecated
 
 from django.contrib import admin
 from django.contrib.admin.helpers import ActionForm
@@ -82,6 +82,10 @@ class ExportMixin(BaseExportMixin[_ModelT], ImportExportMixinBase):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]: ...
     def get_export_form_class(self) -> type[Form]: ...
     def export_action(self, request: HttpRequest) -> TemplateResponse: ...
+    @deprecated(
+        "The 'get_valid_export_item_pks()' method is deprecated and will be removed in a future release. "
+        "Overwrite 'get_queryset()' or 'get_export_queryset()' instead."
+    )
     def get_valid_export_item_pks(self, request: HttpRequest) -> list[str]: ...
     def changelist_view(self, request: HttpRequest, extra_context: dict[str, Any] | None = None) -> HttpResponse: ...
     def get_export_filename(self, request: HttpRequest, queryset: QuerySet[_ModelT], file_format: Format) -> str: ...  # type: ignore[override]
