@@ -1,7 +1,7 @@
 import io
 import os
-from _typeshed import Incomplete, SupportsGetItem, SupportsRead, SupportsWrite
-from collections.abc import Callable, Hashable, Iterable, Iterator, Mapping
+from _typeshed import Incomplete, SupportsGetItem, SupportsLenAndGetItem, SupportsRead, SupportsWrite
+from collections.abc import Callable, Container, Hashable, Iterable, Iterator, Mapping
 from json import JSONEncoder
 from typing import Any, Literal, overload
 from typing_extensions import Self
@@ -68,7 +68,7 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
         geometry: _GeomCol | None = None,
         crs: _ConvertibleToCRS | None = None,
     ) -> None: ...
-    def __setattr__(self, attr: str, val: Any) -> None: ...
+    def __setattr__(self, attr: str, val: Any) -> None: ...  # Can set arbitrary objects
     @property
     def geometry(self) -> GeoSeries: ...
     @geometry.setter
@@ -97,13 +97,18 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
     def crs(self, value: _ConvertibleToCRS | None) -> None: ...
     @classmethod
     def from_dict(  # type: ignore[override]
-        cls, data: Mapping[Hashable, Any], geometry: _GeomCol | None = None, crs: _ConvertibleToCRS | None = None, **kwargs
+        # Mapping[Any, Any] because of invariance keys and arbitrary values
+        cls,
+        data: Mapping[Any, Any],
+        geometry: _GeomCol | None = None,
+        crs: _ConvertibleToCRS | None = None,
+        **kwargs,
     ) -> Self: ...
     # Keep inline with GeoSeries.from_file and geopandas.io.file._read_file
     @classmethod
     def from_file(
         cls,
-        filename: str | os.PathLike[str] | SupportsRead[Any],
+        filename: str | os.PathLike[str] | SupportsRead[Incomplete],
         *,
         bbox: _BboxLike | None = None,
         mask: _MaskLike | None = None,
@@ -119,8 +124,8 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
         cls,
         features: (
             _SupportsGeoInterface
-            | Mapping[str, _SupportsGeoInterface | SupportsGetItem[str, Any]]
-            | Iterable[_SupportsGeoInterface | SupportsGetItem[str, Any]]
+            | Mapping[str, _SupportsGeoInterface | SupportsGetItem[str, Incomplete]]
+            | Iterable[_SupportsGeoInterface | SupportsGetItem[str, Incomplete]]
         ),
         crs: _ConvertibleToCRS | None = None,
         columns: Axes | None = None,
@@ -135,8 +140,8 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
         crs: _ConvertibleToCRS | None = None,
         index_col: str | list[str] | None = None,
         coerce_float: bool = True,
-        parse_dates: list[str] | dict[str, str] | dict[str, dict[str, Any]] | None = None,
-        params: list[Scalar] | tuple[Scalar, ...] | Mapping[str, Scalar] | None = None,
+        parse_dates: Container[str | Mapping[str, Incomplete]] | Mapping[str, str | Mapping[str, Incomplete]] | None = None,
+        params: SupportsLenAndGetItem[Scalar] | Mapping[str, Scalar] | None = None,
         *,
         chunksize: int,
     ) -> Iterator[GeoDataFrame]: ...
@@ -150,8 +155,8 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
         crs: _ConvertibleToCRS | None = None,
         index_col: str | list[str] | None = None,
         coerce_float: bool = True,
-        parse_dates: list[str] | dict[str, str] | dict[str, dict[str, Any]] | None = None,
-        params: list[Scalar] | tuple[Scalar, ...] | Mapping[str, Scalar] | None = None,
+        parse_dates: Container[str | Mapping[str, Incomplete]] | Mapping[str, str | Mapping[str, Incomplete]] | None = None,
+        params: SupportsLenAndGetItem[Scalar] | Mapping[str, Scalar] | None = None,
         chunksize: None = None,
     ) -> GeoDataFrame: ...
     @classmethod
@@ -171,14 +176,16 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
         cls: type[JSONEncoder] | None = None,
         indent: int | str | None = None,
         separators: tuple[str, str] | None = None,
-        default: Callable[[Any], Any] | None = None,
+        default: Callable[..., Any] | None = None,  # as typed in the json stdlib module
         sort_keys: bool = False,
         **kwargs,
     ) -> str: ...
     @property
-    def __geo_interface__(self) -> dict[str, Any]: ...
-    def iterfeatures(self, na: str = "null", show_bbox: bool = False, drop_id: bool = False) -> Iterator[dict[str, Any]]: ...
-    def to_geo_dict(self, na: str = "null", show_bbox: bool = False, drop_id: bool = False) -> dict[str, Any]: ...
+    def __geo_interface__(self) -> dict[str, Any]: ...  # values are arbitrary
+    def iterfeatures(
+        self, na: str = "null", show_bbox: bool = False, drop_id: bool = False
+    ) -> Iterator[dict[str, Incomplete]]: ...
+    def to_geo_dict(self, na: str = "null", show_bbox: bool = False, drop_id: bool = False) -> dict[str, Incomplete]: ...
     def to_wkb(
         self,
         hex: bool = False,
@@ -233,7 +240,7 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
         self,
         filename: str | os.PathLike[str] | io.BytesIO,
         driver: str | None = None,
-        schema: dict[str, Any] | None = None,
+        schema: dict[str, Incomplete] | None = None,
         index: bool | None = None,
         *,
         # kwargs from `_to_file` function
@@ -245,7 +252,7 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
         layer: int | str | None = None,
         encoding: str | None = None,
         overwrite: bool | None = ...,
-        **kwargs: Any,  # engine and driver dependent
+        **kwargs,  # engine and driver dependent
     ) -> None: ...
     @overload
     def set_crs(
@@ -282,13 +289,13 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
         axis: Axis = 0,
         raw: bool = False,
         result_type: Literal["expand", "reduce", "broadcast"] | None = None,
-        args: tuple[Any, ...] = (),
+        args: tuple[Any, ...] = (),  # type inexpressible in the typing system
         *,
         by_row: Literal[False, "compat"] = "compat",
         engine: Literal["python", "numba"] = "python",
         engine_kwargs: dict[str, bool] | None = None,
         **kwargs,
-    ) -> pd.DataFrame | pd.Series[Any]: ...
+    ) -> pd.DataFrame | pd.Series[Incomplete]: ...
     def __finalize__(self, other, method: str | None = None, **kwargs) -> Self: ...
     def dissolve(
         self,
@@ -305,7 +312,7 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
     def explode(self, column: IndexLabel | None = None, ignore_index: bool = False, index_parts: bool = False) -> Self: ...
     def astype(
         self,
-        dtype: AstypeArg | Mapping[Any, Dtype] | pd.Series[Any],
+        dtype: AstypeArg | Mapping[Any, Dtype] | pd.Series[Any],  # any because of mapping invariance and series typevar bounds
         copy: bool | None = None,
         errors: Literal["ignore", "raise"] = "raise",
     ) -> GeoDataFrame | pd.DataFrame: ...
@@ -318,7 +325,7 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
         index: bool = False,
         index_label: IndexLabel | None = None,
         chunksize: int | None = None,
-        dtype: dict[Any, Incomplete] | None = None,
+        dtype: dict[Any, Incomplete] | None = None,  # columns can be of "any" type
     ) -> None: ...
     @property
     def plot(self) -> GeoplotAccessor: ...

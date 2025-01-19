@@ -13,8 +13,8 @@ from .geoseries import GeoSeries
 
 def _explore(
     df: GeoDataFrame,
-    column: Hashable | NDArray[Any] | pd.Series[Any] | None = None,
-    cmap: str | Colormap | branca.colormap.ColorMap | Sequence[str] | Callable[[Any], str] | None = None,
+    column: Hashable | NDArray[Any] | pd.Series[Any] | None = None,  # Accepts "any" array or series
+    cmap: str | Colormap | branca.colormap.ColorMap | Sequence[str] | Callable[[Any], str] | None = None,  # accepts "any" object
     color: str | ArrayLike | None = None,
     m: folium.Map | None = None,
     tiles: str | folium.TileLayer | xyzservices.TileProvider | None = "OpenStreetMap",
@@ -30,10 +30,11 @@ def _explore(
     vmax: float | None = None,
     width: float | str = "100%",
     height: float | str = "100%",
-    categories: Sequence[Any] | NDArray[Any] | pd.Series[Any] | pd.Index[Any] | None = None,
+    categories: Sequence[Any] | NDArray[Any] | pd.Series[Any] | pd.Index[Any] | None = None,  # categories can have "any" type
     classification_kwds: MutableMapping[str, Any] | None = None,
     control_scale: bool = True,
     marker_type: str | folium.Marker | None = None,
+    # The following kwds will never be typed more precisely than "Any"
     marker_kwds: MutableMapping[str, Any] = {},
     style_kwds: MutableMapping[str, Any] = {},
     highlight_kwds: MutableMapping[str, Any] = {},
@@ -42,7 +43,7 @@ def _explore(
     popup_kwds: MutableMapping[str, Any] = {},
     legend_kwds: MutableMapping[str, Any] = {},
     map_kwds: MutableMapping[str, Any] = {},
-    **kwargs: Any,
+    **kwargs,
 ) -> folium.Map: ...
 def _explore_geoseries(
     s: GeoSeries,
@@ -55,9 +56,10 @@ def _explore_geoseries(
     height: float | str = "100%",
     control_scale: bool = True,
     marker_type: str | folium.Marker | None = None,
+    # The following kwds will never be typed more precisely than "Any"
     marker_kwds: MutableMapping[str, Any] = {},
     style_kwds: MutableMapping[str, Any] = {},
     highlight_kwds: MutableMapping[str, Any] = {},
     map_kwds: MutableMapping[str, Any] = {},
-    **kwargs: Any,
+    **kwargs,
 ) -> folium.Map: ...

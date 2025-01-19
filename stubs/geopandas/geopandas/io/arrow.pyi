@@ -13,12 +13,10 @@ SUPPORTED_ENCODINGS: Final[list[str]]
 def _read_parquet(
     path: str | os.PathLike[str],
     columns: Iterable[str] | None = None,
-    storage_options: SupportsKeysAndGetItem[str, Any] | None = None,
+    storage_options: SupportsKeysAndGetItem[str, Any] | None = None,  # type depend on the connection
     bbox: SupportsGetItem[int, float] | None = None,
-    **kwargs: Any,  # kwargs passed to pyarrow.parquet.read_table
+    **kwargs,  # kwargs passed to pyarrow.parquet.read_table
 ) -> GeoDataFrame: ...
 def _read_feather(
-    path: str | os.PathLike[str],
-    columns: Iterable[str] | None = None,
-    **kwargs: Any,  # kwargs passed to pyarrow.feather.read_table
+    path: str | os.PathLike[str], columns: Iterable[str] | None = None, **kwargs  # kwargs passed to pyarrow.feather.read_table
 ) -> GeoDataFrame: ...

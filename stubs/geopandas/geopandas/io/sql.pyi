@@ -1,5 +1,5 @@
 import sqlite3
-from _typeshed import SupportsLenAndGetItem
+from _typeshed import Incomplete, SupportsLenAndGetItem
 from collections.abc import Container, Iterator, Mapping
 from contextlib import AbstractContextManager
 from typing import Any, Protocol, overload
@@ -29,6 +29,7 @@ class _SqlalchemyTransactionLike(Protocol):
     def rollback(self) -> None: ...
     def commit(self) -> None: ...
 
+# `Any` is used in places where it would require to copy a lot of types from sqlalchemy
 class _SqlAlchemyEventTarget(Protocol):
     dispatch: Any
 
@@ -85,7 +86,7 @@ def _read_postgis(
     crs: _ConvertibleToCRS | None = None,
     index_col: str | Container[str] | None = None,
     coerce_float: bool = True,
-    parse_dates: Container[str | Mapping[str, Any]] | Mapping[str, str | Mapping[str, Any]] | None = None,
+    parse_dates: Container[str | Mapping[str, Incomplete]] | Mapping[str, str | Mapping[str, Incomplete]] | None = None,
     params: SupportsLenAndGetItem[Scalar] | Mapping[str, Scalar] | None = None,
     *,
     chunksize: int,
@@ -98,7 +99,7 @@ def _read_postgis(
     crs: _ConvertibleToCRS | None = None,
     index_col: str | Container[str] | None = None,
     coerce_float: bool = True,
-    parse_dates: Container[str | Mapping[str, Any]] | Mapping[str, str | Mapping[str, Any]] | None = None,
+    parse_dates: Container[str | Mapping[str, Incomplete]] | Mapping[str, str | Mapping[str, Incomplete]] | None = None,
     params: SupportsLenAndGetItem[Scalar] | Mapping[str, Scalar] | None = None,
     chunksize: None = None,
 ) -> GeoDataFrame: ...
@@ -110,7 +111,7 @@ def _read_postgis(
     crs: _ConvertibleToCRS | None = None,
     index_col: str | Container[str] | None = None,
     coerce_float: bool = True,
-    parse_dates: Container[str | Mapping[str, Any]] | Mapping[str, str | Mapping[str, Any]] | None = None,
+    parse_dates: Container[str | Mapping[str, Incomplete]] | Mapping[str, str | Mapping[str, Incomplete]] | None = None,
     params: SupportsLenAndGetItem[Scalar] | Mapping[str, Scalar] | None = None,
     chunksize: int | None = None,
 ) -> GeoDataFrame | Iterator[GeoDataFrame]: ...

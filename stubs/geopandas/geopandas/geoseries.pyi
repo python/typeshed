@@ -1,7 +1,7 @@
 import io
 import json
 import os
-from _typeshed import SupportsRead, Unused
+from _typeshed import Incomplete, SupportsRead, Unused
 from collections.abc import Callable, Hashable
 from typing import Any, Literal, final, overload
 from typing_extensions import Self
@@ -59,7 +59,7 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
     @classmethod
     def from_file(
         cls,
-        filename: str | os.PathLike[str] | SupportsRead[Any],
+        filename: str | os.PathLike[str] | SupportsRead[Incomplete],
         *,
         bbox: _BboxLike | None = None,
         mask: _MaskLike | None = None,
@@ -68,7 +68,7 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         ignore_geometry: Literal[False] = False,
         layer: int | str | None = None,
         encoding: str | None = None,
-        **kwargs: Any,  # engine dependent
+        **kwargs,  # engine dependent
     ) -> GeoSeries: ...
     @classmethod
     def from_wkb(
@@ -125,7 +125,7 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         fastpath: bool = False,
     ) -> Self: ...
     @property
-    def __geo_interface__(self) -> dict[str, Any]: ...
+    def __geo_interface__(self) -> dict[str, Any]: ...  # values are arbitrary
     # Keep method to_file roughly in line with GeoDataFrame.to_file
     def to_file(
         self,
@@ -134,7 +134,7 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         index: bool | None = None,
         *,
         # kwargs from `_to_file` function
-        schema: dict[str, Any] | None = None,
+        schema: dict[str, Incomplete] | None = None,
         mode: Literal["w", "a"] = "w",
         crs: _ConvertibleToCRS | None = None,
         engine: Literal["fiona", "pyogrio"] | None = None,
@@ -143,7 +143,7 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         layer: int | str | None = None,
         encoding: str | None = None,
         overwrite: bool | None = ...,
-        **kwargs: Any,  # engine and driver dependent
+        **kwargs,  # engine and driver dependent
     ) -> None: ...
     # *** TODO: compare `__getitem__` with pandas-stubs ***
     # def __getitem__(self, key): ...
@@ -195,9 +195,9 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         cls: type[json.JSONEncoder] | None = None,
         indent: None | int | str = None,
         separators: tuple[str, str] | None = None,
-        default: Callable[[Any], Any] | None = None,
+        default: Callable[..., Any] | None = None,  # as typed in the json stdlib module
         sort_keys: bool = False,
-        **kwds: Any,
+        **kwds,
     ) -> str: ...
     @overload
     def to_wkb(self, hex: Literal[False] = False, **kwargs) -> pd.Series[bytes]: ...

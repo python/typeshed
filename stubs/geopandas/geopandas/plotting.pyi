@@ -1,5 +1,6 @@
+from _typeshed import Incomplete
 from collections.abc import Collection, Hashable, Iterable, Mapping, Sequence
-from typing import Any, Literal, overload
+from typing import Literal, overload
 from typing_extensions import TypeAlias
 
 import numpy as np
@@ -29,7 +30,7 @@ def plot_series(
     vmax: float = ...,
     facecolor: _ColorOrColors | None = None,
     norm: Normalize | None = None,
-    **style_kwds: Any,
+    **style_kwds,
 ) -> Axes: ...
 
 # IMPORTANT: keep roughly in sync with `GeoplotAccessor` methods below
@@ -48,10 +49,10 @@ def plot_dataframe(
     vmax: float | None = None,
     markersize: str | float | Iterable[float] | ArrayLike | None = None,
     figsize: tuple[float, float] | None = None,
-    legend_kwds: dict[str, Any] | None = None,
+    legend_kwds: dict[str, Incomplete] | None = None,
     categories: Iterable[Hashable] | None = None,
-    classification_kwds: dict[str, Any] | None = None,
-    missing_kwds: dict[str, Any] | None = None,
+    classification_kwds: dict[str, Incomplete] | None = None,
+    missing_kwds: dict[str, Incomplete] | None = None,
     aspect: Literal["auto", "equal"] | float | None = "auto",
     autolim: bool = True,
     *,
@@ -62,7 +63,7 @@ def plot_dataframe(
     edgecolor: _ColorOrColors | None = None,
     linewidth: float = ...,
     label: str = "NaN",
-    **style_kwds: Any,
+    **style_kwds,
 ) -> Axes: ...
 
 # IMPORTANT: keep roughly in sync with `plot_dataframe`
@@ -85,7 +86,7 @@ class GeoplotAccessor(PlotAccessor):
         title: str | None = None,
         grid: bool | None = None,
         legend: bool | Literal["reverse"] = True,
-        style: str | Sequence[str] | Mapping[Any, str] | None = None,
+        style: str | Sequence[str] | Mapping[Incomplete, str] | None = None,
         logx: bool | Literal["sym"] = False,
         logy: bool | Literal["sym"] = False,
         loglog: bool | Literal["sym"] = False,
@@ -100,9 +101,9 @@ class GeoplotAccessor(PlotAccessor):
         cmap: str | Colormap | None = None,  # also accepts `colormap` but plot_dataframe uses `cmap`
         colorbar: bool | None = None,
         position: float = 0.5,
-        table: bool | pd.Series[Any] | pd.DataFrame = False,
-        yerr: pd.DataFrame | pd.Series[float] | ArrayLike | Mapping[Any, ArrayLike] | str = ...,
-        xerr: pd.DataFrame | pd.Series[float] | ArrayLike | Mapping[Any, ArrayLike] | str = ...,
+        table: bool | pd.Series[Incomplete] | pd.DataFrame = False,
+        yerr: pd.DataFrame | pd.Series[float] | ArrayLike | Mapping[Incomplete, ArrayLike] | str = ...,
+        xerr: pd.DataFrame | pd.Series[float] | ArrayLike | Mapping[Incomplete, ArrayLike] | str = ...,
         stacked: bool = ...,  # default value depends on kind
         secondary_y: bool | Sequence[Hashable] = False,
         mark_right: bool = True,
@@ -127,7 +128,7 @@ class GeoplotAccessor(PlotAccessor):
         title: str | Collection[str] | None = None,
         grid: bool | None = None,
         legend: bool | Literal["reverse"] = True,
-        style: str | Sequence[str] | Mapping[Any, str] | None = None,
+        style: str | Sequence[str] | Mapping[Incomplete, str] | None = None,
         logx: bool | Literal["sym"] = False,
         logy: bool | Literal["sym"] = False,
         loglog: bool | Literal["sym"] = False,
@@ -142,9 +143,9 @@ class GeoplotAccessor(PlotAccessor):
         cmap: str | Colormap | None = None,  # also accepts `colormap` but plot_dataframe uses `cmap`
         colorbar: bool | None = None,
         position: float = 0.5,
-        table: bool | pd.Series[Any] | pd.DataFrame = False,
-        yerr: pd.DataFrame | pd.Series[float] | ArrayLike | Mapping[Any, ArrayLike] | str = ...,
-        xerr: pd.DataFrame | pd.Series[float] | ArrayLike | Mapping[Any, ArrayLike] | str = ...,
+        table: bool | pd.Series[Incomplete] | pd.DataFrame = False,
+        yerr: pd.DataFrame | pd.Series[float] | ArrayLike | Mapping[Incomplete, ArrayLike] | str = ...,
+        xerr: pd.DataFrame | pd.Series[float] | ArrayLike | Mapping[Incomplete, ArrayLike] | str = ...,
         stacked: bool = ...,  # default value depends on kind
         secondary_y: bool | Sequence[Hashable] = False,
         mark_right: bool = True,
@@ -169,7 +170,7 @@ class GeoplotAccessor(PlotAccessor):
         title: str | Collection[str] | None = None,
         grid: bool | None = None,
         legend: bool | Literal["reverse"] = True,
-        style: str | Sequence[str] | Mapping[Any, str] | None = None,
+        style: str | Sequence[str] | Mapping[Incomplete, str] | None = None,
         logx: bool | Literal["sym"] = False,
         logy: bool | Literal["sym"] = False,
         loglog: bool | Literal["sym"] = False,
@@ -184,9 +185,9 @@ class GeoplotAccessor(PlotAccessor):
         cmap: str | Colormap | None = None,  # also accepts `colormap` but plot_dataframe uses `cmap`
         colorbar: bool | None = None,
         position: float = 0.5,
-        table: bool | pd.Series[Any] | pd.DataFrame = False,
-        yerr: pd.DataFrame | pd.Series[float] | ArrayLike | Mapping[Any, ArrayLike] | str = ...,
-        xerr: pd.DataFrame | pd.Series[float] | ArrayLike | Mapping[Any, ArrayLike] | str = ...,
+        table: bool | pd.Series[Incomplete] | pd.DataFrame = False,
+        yerr: pd.DataFrame | pd.Series[float] | ArrayLike | Mapping[Incomplete, ArrayLike] | str = ...,
+        xerr: pd.DataFrame | pd.Series[float] | ArrayLike | Mapping[Incomplete, ArrayLike] | str = ...,
         stacked: bool = ...,  # default value depends on kind
         secondary_y: bool | Sequence[Hashable] = False,
         mark_right: bool = True,
@@ -210,10 +211,10 @@ class GeoplotAccessor(PlotAccessor):
         vmax: float | None = None,
         markersize: str | float | Iterable[float] | ArrayLike | None = None,
         figsize: tuple[float, float] | None = None,
-        legend_kwds: dict[str, Any] | None = None,
+        legend_kwds: dict[str, Incomplete] | None = None,
         categories: Iterable[Hashable] | None = None,
-        classification_kwds: dict[str, Any] | None = None,
-        missing_kwds: dict[str, Any] | None = None,
+        classification_kwds: dict[str, Incomplete] | None = None,
+        missing_kwds: dict[str, Incomplete] | None = None,
         aspect: Literal["auto", "equal"] | float | None = "auto",
         *,
         kind: Literal["geo"] = "geo",
@@ -224,7 +225,7 @@ class GeoplotAccessor(PlotAccessor):
         edgecolor: _ColorOrColors | None = None,
         linewidth: float = ...,
         label: str = "NaN",
-        **style_kwds: Any,
+        **style_kwds,
     ) -> Axes: ...
     def geo(
         self,
@@ -241,10 +242,10 @@ class GeoplotAccessor(PlotAccessor):
         vmax: float | None = None,
         markersize: str | float | Iterable[float] | ArrayLike | None = None,
         figsize: tuple[float, float] | None = None,
-        legend_kwds: dict[str, Any] | None = None,
+        legend_kwds: dict[str, Incomplete] | None = None,
         categories: Iterable[Hashable] | None = None,
-        classification_kwds: dict[str, Any] | None = None,
-        missing_kwds: dict[str, Any] | None = None,
+        classification_kwds: dict[str, Incomplete] | None = None,
+        missing_kwds: dict[str, Incomplete] | None = None,
         aspect: Literal["auto", "equal"] | float | None = "auto",
         *,
         # Extracted from `**style_kwds`
@@ -254,5 +255,5 @@ class GeoplotAccessor(PlotAccessor):
         edgecolor: _ColorOrColors | None = None,
         linewidth: float = ...,
         label: str = "NaN",
-        **style_kwds: Any,
+        **style_kwds,
     ) -> Axes: ...

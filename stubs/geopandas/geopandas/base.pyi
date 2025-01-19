@@ -25,21 +25,23 @@ class _SupportsToWkt(Protocol):
 @type_check_only
 class _SupportsGeoInterface(Protocol):  # noqa: Y046
     @property
-    def __geo_interface__(self) -> dict[str, Any]: ...
+    def __geo_interface__(self) -> dict[str, Any]: ...  # values are arbitrary
 
-_ConvertibleToCRS: TypeAlias = str | int | tuple[str, str] | list[str] | dict[str, Any] | _SupportsToWkt
+_ConvertibleToCRS: TypeAlias = str | int | tuple[str, str] | list[str] | dict[str, Incomplete] | _SupportsToWkt
 _AffinityOrigin: TypeAlias = Literal["center", "centroid"] | Point | tuple[float, float] | tuple[float, float, float]
 _ClipMask: TypeAlias = GeoDataFrame | GeoSeries | Polygon | MultiPolygon | tuple[float, float, float, float]  # noqa: Y047
+# np.floating[Any] because precision is not important
 _BboxLike: TypeAlias = Sequence[float] | NDArray[np.floating[Any]] | Geometry | GeoDataFrame | GeoSeries  # noqa: Y047
-_MaskLike: TypeAlias = dict[str, Any] | Geometry | GeoDataFrame | GeoSeries  # noqa: Y047
+_MaskLike: TypeAlias = dict[str, Incomplete] | Geometry | GeoDataFrame | GeoSeries  # noqa: Y047
 
-# XXX: cannot use IndexOpsMixin[Geometry] because of IndexOpsMixin type variable bounds
-_GeoListLike: TypeAlias = ArrayLike | Sequence[Geometry] | IndexOpsMixin[Incomplete]
+# Cannot use IndexOpsMixin[Geometry] because of IndexOpsMixin type variable bounds
+_GeoListLike: TypeAlias = ArrayLike | Sequence[Geometry] | IndexOpsMixin[Any]
 _ConvertibleToGeoSeries: TypeAlias = Geometry | Mapping[int, Geometry] | Mapping[str, Geometry] | _GeoListLike  # noqa: Y047
 
-# XXX: cannot use pd.Series[Geometry] because of pd.Series type variable bounds
+# Cannot use pd.Series[Geometry] because of pd.Series type variable bounds
 _GeomSeq: TypeAlias = Sequence[Geometry] | NDArray[np.object_] | pd.Series[Any] | GeometryArray | GeoSeries
 _GeomCol: TypeAlias = Hashable | _GeomSeq  # name of column or column values  # noqa: Y047
+# dict[Any, Any] because of variance issues
 _ConvertibleToDataFrame: TypeAlias = (  # noqa: Y047
     ListLikeU | pd.DataFrame | dict[Any, Any] | Iterable[ListLikeU | tuple[Hashable, ListLikeU] | dict[Any, Any]]
 )
@@ -104,7 +106,7 @@ class GeoPandasBase:
         mitre_limit: float = 5.0,
     ) -> GeoSeries: ...
     @property
-    def interiors(self) -> pd.Series[Any]: ...
+    def interiors(self) -> pd.Series[Any]: ...  # Cannot use pd.Series[BaseGeometry]
     def remove_repeated_points(self, tolerance: float = 0.0) -> GeoSeries: ...
     def set_precision(
         self, grid_size: float, mode: Literal["valid_output", "pointwise", "keep_collapsed"] = "valid_output"
