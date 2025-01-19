@@ -1,5 +1,5 @@
 import sys
-from _typeshed import StrOrBytesPath
+from _typeshed import Incomplete, StrOrBytesPath
 from collections.abc import Iterable
 from cProfile import Profile as _cProfile
 from profile import Profile
@@ -45,15 +45,16 @@ else:
 if sys.version_info >= (3, 9):
     from dataclasses import dataclass, field
 
+    # ruff: noqa: PYI015
     @dataclass(unsafe_hash=True)
     class FunctionProfile:
         ncalls: str
         tottime: float
         percall_tottime: float
         cumtime: float
-        percall_cumtime: float = field(default=2)
-        file_name: str = field(default_factory=str)
-        line_number: int = field(kw_only=True)
+        percall_cumtime: float = field(default=2)  # noqa: Y015
+        file_name: str = field(default_factory=Incomplete)  # noqa: Y015
+        line_number: int = field(kw_only=True)  # noqa: Y015
 
     @dataclass(unsafe_hash=True)
     class StatsProfile:
