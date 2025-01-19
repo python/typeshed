@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from logging import Logger
-from typing import Any, TypeVar
+from typing import Any, Literal, TypeVar
 from typing_extensions import TypeAlias
 
 from django.contrib import admin
@@ -38,6 +38,7 @@ class ImportMixin(BaseImportMixin[_ModelT], ImportExportMixinBase):
     import_form_class: type[Form] = ...
     confirm_form_class: type[Form] = ...
     from_encoding: str
+    import_error_display: Sequence[Literal["message", "row", "traceback"]]
     skip_admin_log: bool | None
     tmp_storage_class: str | type[BaseStorage]
     def get_skip_admin_log(self) -> bool: ...
