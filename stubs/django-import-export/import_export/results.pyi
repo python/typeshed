@@ -34,7 +34,6 @@ class RowResult:
     object_repr: str | None
     instance: Model
     original: Model
-    new_record: bool | None
     def __init__(self) -> None: ...
     def add_instance_info(self, instance: Model) -> None: ...
 
