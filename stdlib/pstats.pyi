@@ -43,7 +43,7 @@ else:
         TIME = "time"
 
 if sys.version_info >= (3, 9):
-    from dataclasses import dataclass
+    from dataclasses import dataclass, field
 
     @dataclass(unsafe_hash=True)
     class FunctionProfile:
@@ -51,9 +51,9 @@ if sys.version_info >= (3, 9):
         tottime: float
         percall_tottime: float
         cumtime: float
-        percall_cumtime: float
-        file_name: str
-        line_number: int
+        percall_cumtime: float = field(default=2)
+        file_name: str = field(default_factory=str)
+        line_number: int = field(kw_only=True)
 
     @dataclass(unsafe_hash=True)
     class StatsProfile:
