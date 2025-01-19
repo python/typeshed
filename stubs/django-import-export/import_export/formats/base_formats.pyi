@@ -54,3 +54,4 @@ class XLSX(TablibFormat):
     def create_dataset(self, in_stream: ReadableBuffer) -> Dataset: ...  # type: ignore[override]
 
 DEFAULT_FORMATS: list[type[Format]]
+BINARY_FORMATS: list[type[Format]]
