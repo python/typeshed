@@ -6,49 +6,20 @@ from logging import Logger
 from typing import Any, ClassVar, Generic, Literal, NoReturn, TypeVar, overload
 from typing_extensions import TypeAlias
 
-from django.db.models import Field as DjangoField, ForeignObjectRel, Model, QuerySet
+from django.db.models import Field as DjangoField, Model, QuerySet
 from django.utils.safestring import SafeString
 
+from .declarative import DeclarativeMetaclass, ModelDeclarativeMetaclass
 from .fields import Field
 from .instance_loaders import BaseInstanceLoader
+from .options import ResourceOptions
 from .results import Error, Result, RowResult
 from .widgets import ForeignKeyWidget, ManyToManyWidget, Widget
 
 Dataset: TypeAlias = _typeshed.Incomplete  # tablib.Dataset
 logger: Logger
 
-@overload
-def get_related_model(field: ForeignObjectRel) -> Model: ...
-@overload
-def get_related_model(field: DjangoField[Any, Any]) -> Model | None: ...
 def has_natural_foreign_key(model: Model) -> bool: ...
-
-class ResourceOptions(Generic[_ModelT]):
-    model: _ModelT | str
-    fields: Sequence[str] | None
-    exclude: Sequence[str] | None
-    instance_loader_class: type[BaseInstanceLoader] | None
-    import_id_fields: Sequence[str]
-    export_order: Sequence[str] | None
-    import_order: Sequence[str] | None
-    widgets: dict[str, Any] | None
-    use_transactions: bool | None
-    skip_unchanged: bool
-    report_skipped: bool
-    clean_model_instances: bool
-    chunk_size: int | None
-    skip_diff: bool
-    skip_html_diff: bool
-    use_bulk: bool
-    batch_size: int
-    force_init_instance: bool
-    using_db: str | None
-    store_row_values: bool
-    store_instance: bool
-    use_natural_foreign_keys: bool
-
-class DeclarativeMetaclass(type):
-    def __new__(cls: type[_typeshed.Self], name: str, bases: tuple[type[Any], ...], attrs: dict[str, Any]) -> _typeshed.Self: ...
 
 class Diff:
     left: list[str]
@@ -167,9 +138,6 @@ class Resource(Generic[_ModelT], metaclass=DeclarativeMetaclass):
     def get_user_visible_fields(self) -> list[str]: ...
     def iter_queryset(self, queryset: QuerySet[_ModelT]) -> Iterator[_ModelT]: ...
     def export(self, queryset: QuerySet[_ModelT] | None = None, **kwargs: Any) -> Dataset: ...
-
-class ModelDeclarativeMetaclass(DeclarativeMetaclass):
-    def __new__(cls: type[_typeshed.Self], name: str, bases: tuple[type[Any], ...], attrs: dict[str, Any]) -> _typeshed.Self: ...
 
 class ModelResource(Resource[_ModelT], metaclass=ModelDeclarativeMetaclass):
     DEFAULT_RESOURCE_FIELD: ClassVar[type[Field]] = ...
