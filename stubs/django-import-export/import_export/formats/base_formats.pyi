@@ -1,8 +1,11 @@
 from _typeshed import Incomplete, ReadableBuffer
+from logging import Logger
 from typing import IO, Any, ClassVar
 from typing_extensions import Self, TypeAlias
 
 Dataset: TypeAlias = Incomplete  # tablib.Dataset
+
+logger: Logger
 
 class Format:
     def get_title(self) -> type[Self]: ...
