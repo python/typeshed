@@ -1,7 +1,6 @@
 from typing import Any
 
 from django import forms
-from django.contrib.admin.helpers import ActionForm
 
 from .formats.base_formats import Format
 from .resources import Resource
@@ -26,6 +25,5 @@ class ConfirmImportForm(forms.Form):
 
 class ExportForm(ImportExportFormBase):
     file_format: forms.ChoiceField
+    export_items: forms.MultipleChoiceField
     def __init__(self, formats: list[Format], *args: Any, **kwargs: Any) -> None: ...
-
-def export_action_form_factory(formats: list[tuple[str, str]]) -> type[ActionForm]: ...
