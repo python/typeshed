@@ -13,7 +13,10 @@ class Error:
     error: Exception
     traceback: str
     row: dict[str, Any]
-    def __init__(self, error: Exception, traceback: str | None = None, row: dict[str, Any] | None = None) -> None: ...
+    number: int | None
+    def __init__(
+        self, error: Exception, traceback: str | None = None, row: dict[str, Any] | None = None, number: int | None = None
+    ) -> None: ...
 
 _ImportType: TypeAlias = Literal["update", "new", "delete", "skip", "error", "invalid"]
 
@@ -37,6 +40,11 @@ class RowResult:
     def __init__(self) -> None: ...
     def add_instance_info(self, instance: Model) -> None: ...
 
+class ErrorRow:
+    number: int
+    errors: list[Error]
+    def __init__(self, number: int, errors: list[Error]) -> None: ...
+
 class InvalidRow:
     number: int
     error: ValidationError
@@ -55,6 +63,7 @@ class Result:
     diff_headers: list[str]
     rows: list[RowResult]
     invalid_rows: list[InvalidRow]
+    error_rows: list[ErrorRow]
     failed_dataset: Dataset
     totals: OrderedDict[_ImportType, int]
     total_rows: int
@@ -65,6 +74,7 @@ class Result:
     def add_dataset_headers(self, headers: list[str] | None) -> None: ...
     def append_failed_row(self, row: dict[str, Any], error: Exception) -> None: ...
     def append_invalid_row(self, number: int, row: dict[str, Any], validation_error: ValidationError) -> None: ...
+    def append_error_row(self, number: int, row: dict[str, Any], errors: list[Error]) -> None: ...
     def increment_row_result_total(self, row_result: RowResult) -> None: ...
     def row_errors(self) -> list[tuple[int, Any]]: ...
     def has_errors(self) -> bool: ...
