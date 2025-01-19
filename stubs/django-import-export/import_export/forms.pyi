@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from typing import Any
 
 from django import forms
@@ -7,23 +8,22 @@ from .resources import Resource
 
 class ImportExportFormBase(forms.Form):
     resource: forms.ChoiceField
-    def __init__(self, *args: Any, resources: list[type[Resource[Any]]] | None = None, **kwargs: Any) -> None: ...
+    format: forms.ChoiceField
+    def __init__(
+        self, formats: list[type[Format]], resources: list[type[Resource[Any]]] | None = None, *args: Any, **kwargs: Any
+    ) -> None: ...
 
 class ImportForm(ImportExportFormBase):
     import_file: forms.FileField
-    input_format: forms.ChoiceField
-    def __init__(self, import_formats: list[Format], *args: Any, **kwargs: Any) -> None: ...
+    field_order: Sequence[str]
     @property
     def media(self) -> forms.Media: ...
 
 class ConfirmImportForm(forms.Form):
     import_file_name: forms.CharField
     original_file_name: forms.CharField
-    input_format: forms.CharField
     resource: forms.CharField
     def clean_import_file_name(self) -> str: ...
 
 class ExportForm(ImportExportFormBase):
-    file_format: forms.ChoiceField
     export_items: forms.MultipleChoiceField
-    def __init__(self, formats: list[Format], *args: Any, **kwargs: Any) -> None: ...
