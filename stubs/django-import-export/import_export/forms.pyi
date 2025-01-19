@@ -10,7 +10,7 @@ class ImportExportFormBase(forms.Form):
     resource: forms.ChoiceField
     format: forms.ChoiceField
     def __init__(
-        self, formats: list[type[Format]], resources: list[type[Resource[Any]]] | None = None, *args: Any, **kwargs: Any
+        self, formats: list[type[Format]], resources: list[type[Resource[Any]]] | None = None, **kwargs: Any
     ) -> None: ...
 
 class ImportForm(ImportExportFormBase):
