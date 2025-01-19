@@ -4,7 +4,7 @@ from collections.abc import Iterator, Sequence
 from functools import partial
 from logging import Logger
 from typing import Any, ClassVar, Generic, Literal, NoReturn, TypeVar, overload
-from typing_extensions import TypeAlias, deprecated
+from typing_extensions import TypeAlias
 
 from django.db.models import Field as DjangoField, ForeignObjectRel, Model, QuerySet
 from django.utils.safestring import SafeString
@@ -133,26 +133,12 @@ class Resource(Generic[_ModelT], metaclass=DeclarativeMetaclass):
     def handle_import_error(self, result: Result, error: Exception, raise_errors: Literal[True]) -> NoReturn: ...
     @overload
     def handle_import_error(self, result: Result, error: Exception, raise_errors: Literal[False] = ...) -> None: ...
-    @overload
-    @deprecated("raise_errors argument is deprecated and will be removed in a future release.")
     def import_row(
         self,
         row: dict[str, Any],
         instance_loader: BaseInstanceLoader,
         using_transactions: bool = True,
         dry_run: bool = False,
-        *,
-        raise_errors: bool,
-        **kwargs: Any,
-    ) -> RowResult: ...
-    @overload
-    def import_row(
-        self,
-        row: dict[str, Any],
-        instance_loader: BaseInstanceLoader,
-        using_transactions: bool = True,
-        dry_run: bool = False,
-        raise_errors: None = None,
         **kwargs: Any,
     ) -> RowResult: ...
     def import_data(
@@ -165,8 +151,6 @@ class Resource(Generic[_ModelT], metaclass=DeclarativeMetaclass):
         rollback_on_validation_errors: bool = False,
         **kwargs: Any,
     ) -> Result: ...
-    @overload
-    @deprecated("rollback_on_validation_errors argument is deprecated and will be removed in a future release.")
     def import_data_inner(
         self,
         dataset: Dataset,
@@ -174,18 +158,6 @@ class Resource(Generic[_ModelT], metaclass=DeclarativeMetaclass):
         raise_errors: bool,
         using_transactions: bool,
         collect_failed_rows: bool,
-        rollback_on_validation_errors: bool,
-        **kwargs: Any,
-    ) -> Result: ...
-    @overload
-    def import_data_inner(
-        self,
-        dataset: Dataset,
-        dry_run: bool,
-        raise_errors: bool,
-        using_transactions: bool,
-        collect_failed_rows: bool,
-        rollback_on_validation_errors: None = None,
         **kwargs: Any,
     ) -> Result: ...
     def get_export_order(self) -> tuple[str, ...]: ...

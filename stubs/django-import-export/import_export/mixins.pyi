@@ -19,7 +19,6 @@ logger: Logger
 _ModelT = TypeVar("_ModelT", bound=Model)
 
 class BaseImportExportMixin(Generic[_ModelT]):
-    resource_class: type[Resource[_ModelT]]
     resource_classes: SupportsGetItem[int, type[Resource[_ModelT]]]
     @property
     def formats(self) -> list[type[Format]]: ...
@@ -43,8 +42,6 @@ class BaseExportMixin(BaseImportExportMixin[_ModelT]):
     escape_exported_data: bool
     escape_html: bool
     escape_formulae: bool
-    @property
-    def should_escape_html(self) -> bool: ...
     @property
     def should_escape_formulae(self) -> bool: ...
     def get_export_formats(self) -> list[Format]: ...
