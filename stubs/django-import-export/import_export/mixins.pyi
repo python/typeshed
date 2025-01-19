@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, SupportsGetItem
 from logging import Logger
 from typing import Any, Generic, TypeVar
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, deprecated
 
 from django.db.models import Model, QuerySet
 from django.forms import BaseForm, Form
@@ -59,5 +59,6 @@ class ExportViewMixin(BaseExportMixin[_ModelT]):
 
 _FormT = TypeVar("_FormT", bound=BaseForm)
 
+@deprecated("ExportViewFormMixin is deprecated and will be removed in a future release.")
 class ExportViewFormMixin(ExportViewMixin[_ModelT], FormView[_FormT]):  # type: ignore[misc]
     def form_valid(self, form: _FormT) -> HttpResponse: ...
