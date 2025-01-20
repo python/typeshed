@@ -7,7 +7,6 @@ from re import Pattern
 from typing import Any, Literal, TypeVar
 from typing_extensions import ParamSpec
 
-_C = TypeVar("_C", bound=Callable[..., Any])
 _Func = TypeVar("_Func", bound=Callable[..., Any])
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
