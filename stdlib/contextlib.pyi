@@ -64,7 +64,7 @@ class AbstractAsyncContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ign
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None, /
     ) -> _ExitT_co: ...
 
-class _WrappedCallable(Callable[_P, _R]):
+class _WrappedCallable(Generic[_P, _R]):
     __wrapped__: Callable[_P, _R]
     def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _R: ...
 
