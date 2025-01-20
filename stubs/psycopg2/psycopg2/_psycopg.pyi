@@ -1,6 +1,7 @@
 import datetime as dt
 from _typeshed import ConvertibleToInt, Incomplete, SupportsRead, SupportsReadline, SupportsWrite, Unused
 from collections.abc import Callable, Iterable, Mapping, Sequence
+from io import TextIOBase
 from types import TracebackType
 from typing import Any, Literal, NoReturn, Protocol, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
@@ -122,7 +123,7 @@ class cursor:
     def copy_expert(
         self,
         sql: str | bytes | Composable,
-        file: _SupportsReadAndReadline | SupportsWrite[bytes] | SupportsWrite[str],
+        file: _SupportsReadAndReadline | SupportsWrite[bytes] | TextIOBase,
         size: int = 8192,
     ) -> None: ...
     def copy_from(
@@ -136,7 +137,7 @@ class cursor:
     ) -> None: ...
     def copy_to(
         self,
-        file: SupportsWrite[bytes] | SupportsWrite[str],
+        file: SupportsWrite[bytes] | TextIOBase,
         table: str,
         sep: str = "\t",
         null: str = "\\N",
