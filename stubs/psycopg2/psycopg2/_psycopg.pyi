@@ -120,10 +120,10 @@ class cursor:
     def cast(self, oid: int, s: str | bytes, /) -> Any: ...
     def close(self) -> None: ...
     def copy_expert(
-        self, 
-        sql: str | bytes | Composable, 
-        file: _SupportsReadAndReadline | SupportsWrite[bytes] | SupportsWrite[str], 
-        size: int = 8192
+        self,
+        sql: str | bytes | Composable,
+        file: _SupportsReadAndReadline | SupportsWrite[bytes] | SupportsWrite[str],
+        size: int = 8192,
     ) -> None: ...
     def copy_from(
         self,
@@ -135,12 +135,12 @@ class cursor:
         columns: Iterable[str] | None = None,
     ) -> None: ...
     def copy_to(
-        self, 
-        file: SupportsWrite[bytes] | SupportsWrite[str], 
-        table: str, 
-        sep: str = "\t", 
-        null: str = "\\N", 
-        columns: Iterable[str] | None = None
+        self,
+        file: SupportsWrite[bytes] | SupportsWrite[str],
+        table: str,
+        sep: str = "\t",
+        null: str = "\\N",
+        columns: Iterable[str] | None = None,
     ) -> None: ...
     def execute(self, query: str | bytes | Composable, vars: _Vars = None) -> None: ...
     def executemany(self, query: str | bytes | Composable, vars_list: Iterable[_Vars]) -> None: ...
