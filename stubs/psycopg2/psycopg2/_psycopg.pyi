@@ -122,10 +122,10 @@ class cursor:
     def cast(self, oid: int, s: str | bytes, /) -> Any: ...
     def close(self) -> None: ...
     def copy_expert(
-        self, 
-        sql: str | bytes | Composable, 
+        self,
+        sql: str | bytes | Composable,
         file: _SupportsReadAndReadline[bytes] | _SupportsReadAndReadline[str] | SupportsWrite[bytes] | TextIO,
-        size: int = 8192
+        size: int = 8192,
     ) -> None: ...
     def copy_from(
         self,
