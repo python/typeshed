@@ -124,7 +124,7 @@ class cursor:
     def copy_expert(
         self,
         sql: str | bytes | Composable,
-        file: _SupportsReadAndReadline[bytes] | _SupportsReadAndReadline[str] | SupportsWrite[bytes] | TextIO,
+        file: _SupportsReadAndReadline[bytes] | SupportsWrite[bytes] | TextIO,
         size: int = 8192,
     ) -> None: ...
     def copy_from(
