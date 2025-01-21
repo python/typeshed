@@ -1,9 +1,9 @@
-from _typeshed import Incomplete, ReadableBuffer
+from _typeshed import ReadableBuffer
 from logging import Logger
 from typing import IO, Any, ClassVar
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
 
-Dataset: TypeAlias = Incomplete  # tablib.Dataset
+from tablib import Dataset  # type: ignore[import-not-found]  # pyright: ignore[reportMissingImports]
 
 logger: Logger
 
