@@ -33,7 +33,7 @@ class LineReader(Packetizer):
     def handle_line(self, line: str) -> None: ...
     def write_line(self, text: str) -> None: ...
 
-_T = TypeVar("_T", bound=Protocol)
+_T = TypeVar("_T", bound=Protocol, default=Protocol)
 
 class ReaderThread(threading.Thread, Generic[_T]):
     serial: Serial
