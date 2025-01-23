@@ -7,7 +7,7 @@ from typing_extensions import Self
 
 from serial import Serial
 
-_P = TypeVar("_P", bound=Protocol, default="Protocol")
+_P = TypeVar("_P", bound=Protocol, default="Protocol")  # noqa: Y020
 
 class Protocol:
     def connection_made(self, transport: ReaderThread[Self]) -> None: ...
