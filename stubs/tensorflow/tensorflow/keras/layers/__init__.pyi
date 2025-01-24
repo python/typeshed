@@ -455,11 +455,7 @@ class MaxPooling2D(Layer[tf.Tensor, tf.Tensor]):
 MaxPool2D = MaxPooling2D
 
 class GlobalAveragePooling2D(Layer[tf.Tensor, tf.Tensor]):
-    def __init__(
-        self,
-        data_format: None | Literal["channels_last", "channels_first"] = None,
-        keepdims: bool = False,
-    ) -> None: ...
+    def __init__(self, data_format: None | Literal["channels_last", "channels_first"] = None, keepdims: bool = False) -> None: ...
 
 GlobalAvgPool2D = GlobalAveragePooling2D
 
