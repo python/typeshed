@@ -8,7 +8,7 @@ compress = ZSTD_compress
 dumps = ZSTD_compress
 econde = ZSTD_compress
 
-def ZSTD_check(data: bytes | str) -> int: ...
+def ZSTD_check(data: ReadableBuffer) -> int: ...
 
 check = ZSTD_check
 
