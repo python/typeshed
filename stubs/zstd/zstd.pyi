@@ -6,6 +6,7 @@ def ZSTD_compress(data: ReadableBuffer, level: int = ..., threads: int = ..., /)
 
 compress = ZSTD_compress
 dumps = ZSTD_compress
+econde = ZSTD_compress
 
 def ZSTD_check(data: bytes | str) -> int: ...
 
