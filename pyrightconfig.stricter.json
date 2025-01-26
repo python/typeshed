@@ -44,6 +44,7 @@
         "stubs/corus",
         "stubs/dateparser",
         "stubs/defusedxml",
+        "stubs/dirhash",
         "stubs/docker",
         "stubs/docutils",
         "stubs/Flask-SocketIO",
