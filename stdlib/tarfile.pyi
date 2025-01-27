@@ -242,13 +242,12 @@ def open(
     pax_headers: Mapping[str, str] | None = ...,
     debug: int | None = ...,
     errorlevel: int | None = ...,
-    preset: int | None = ...,
 ) -> TarFile: ...
 @overload
 def open(
     name: StrOrBytesPath | WriteableBuffer | None = None,
     *,
-    mode: Literal["w|", "w|gz", "w|bz2", "w|xz"],
+    mode: Literal["w|", "w|xz"],
     fileobj: IO[bytes] | None = None,
     bufsize: int = 10240,
     format: int | None = ...,
@@ -260,7 +259,24 @@ def open(
     pax_headers: Mapping[str, str] | None = ...,
     debug: int | None = ...,
     errorlevel: int | None = ...,
-    preset: int | None = ...,
+) -> TarFile: ...
+@overload
+def open(
+    name: StrOrBytesPath | WriteableBuffer | None = None,
+    *,
+    mode: Literal["w|gz", "w|bz2"],
+    fileobj: IO[bytes] | None = None,
+    bufsize: int = 10240,
+    format: int | None = ...,
+    tarinfo: type[TarInfo] | None = ...,
+    dereference: bool | None = ...,
+    ignore_zeros: bool | None = ...,
+    encoding: str | None = ...,
+    errors: str = ...,
+    pax_headers: Mapping[str, str] | None = ...,
+    debug: int | None = ...,
+    errorlevel: int | None = ...,
+    compresslevel: int = 9,
 ) -> TarFile: ...
 
 class ExFileObject(io.BufferedReader):
