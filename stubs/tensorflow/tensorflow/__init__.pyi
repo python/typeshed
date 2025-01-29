@@ -27,6 +27,7 @@ from tensorflow._aliases import (
     ScalarTensorCompatible,
     ShapeLike,
     Slice,
+    SparseTensorCompatible,
     TensorCompatible,
     UIntTensorCompatible,
 )
@@ -420,7 +421,7 @@ def pad(
     constant_values: ScalarTensorCompatible = 0,
     name: str | None = None,
 ) -> Tensor: ...
-def shape(input: TensorCompatible, out_type: DTypeLike | None = None, name: str | None = None) -> Tensor: ...
+def shape(input: SparseTensorCompatible, out_type: DTypeLike | None = None, name: str | None = None) -> Tensor: ...
 def where(
     condition: TensorCompatible, x: TensorCompatible | None = None, y: TensorCompatible | None = None, name: str | None = None
 ) -> Tensor: ...
