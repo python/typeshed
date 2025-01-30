@@ -1,0 +1,6 @@
+from networkx.utils.backends import _dispatchable
+
+@_dispatchable
+def leiden_communities(G, weight='weight', resolution=1, max_level=None, seed=None): ...
+@_dispatchable
+def leiden_partitions(G, weight='weight', resolution=1, seed=None): ...
