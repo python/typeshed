@@ -15,8 +15,6 @@ def symmetric_difference(G, H): ...
 
 _X = TypeVar("_X", bound=Hashable, covariant=True)
 _Y = TypeVar("_Y", bound=Hashable, covariant=True)
-# GT = TypeVar('GT', bound=Graph[_Node])
-# TODO: This does not handle the cases when graphs of different types are passed which is allowed
 
 @_dispatchable
 def compose(G: DiGraph[_X], H: DiGraph[_Y]) -> DiGraph[_X | _Y]: ...

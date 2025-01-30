@@ -18,7 +18,7 @@ def make_clique_bipartite(
     G: Graph[_Node], fpos: Unused = None, create_using: type[Graph[_Node]] | None = None, name: Unused = None
 ) -> Graph[_Node]: ...
 @overload
-def node_clique_number(  # type: ignore[misc]  # Incompatible return types
+def node_clique_number(
     G: Graph[_Node],
     nodes: Iterable[_Node] | None = None,
     cliques: Iterable[Iterable[_Node]] | None = None,

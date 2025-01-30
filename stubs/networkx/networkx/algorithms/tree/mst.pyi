@@ -40,7 +40,9 @@ class SpanningTreeIterator:
     minimum: Incomplete
     ignore_nan: Incomplete
     partition_key: str
+
     def __init__(self, G, weight: str = "weight", minimum: bool = True, ignore_nan: bool = False) -> None: ...
     partition_queue: Incomplete
+
     def __iter__(self) -> Iterator[Incomplete]: ...
     def __next__(self): ...

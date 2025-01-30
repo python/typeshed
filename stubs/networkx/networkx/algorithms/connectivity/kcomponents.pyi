@@ -4,7 +4,6 @@ from networkx.algorithms.flow import edmonds_karp
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["k_components"]
-
 default_flow_func = edmonds_karp
 
 @_dispatchable

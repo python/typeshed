@@ -5,7 +5,6 @@ from networkx.utils.backends import _dispatchable
 from .preflowpush import preflow_push
 
 __all__ = ["maximum_flow", "maximum_flow_value", "minimum_cut", "minimum_cut_value"]
-
 default_flow_func = preflow_push
 
 @_dispatchable

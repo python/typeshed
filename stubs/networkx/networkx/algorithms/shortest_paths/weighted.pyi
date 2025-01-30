@@ -5,7 +5,6 @@ from typing_extensions import TypeAlias
 
 from networkx.utils.backends import _dispatchable
 
-# type alias for the weight function
 _WeightFunction: TypeAlias = Callable[[Any, Any, dict[str, Any]], float | None]
 
 @_dispatchable

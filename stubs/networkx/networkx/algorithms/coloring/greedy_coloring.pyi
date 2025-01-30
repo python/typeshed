@@ -39,6 +39,7 @@ class _Node:
     color: int
     adj_list: Incomplete
     adj_color: Incomplete
+
     def __init__(self, node_id, n) -> None: ...
     def assign_color(self, adj_entry, color) -> None: ...
     def clear_color(self, adj_entry, color) -> None: ...
@@ -51,4 +52,5 @@ class _AdjEntry:
     mate: Incomplete
     col_next: Incomplete
     col_prev: Incomplete
+
     def __init__(self, node_id) -> None: ...

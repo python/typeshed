@@ -18,7 +18,6 @@ def simulated_annealing_tsp(
     init_cycle,
     weight: str = "weight",
     source: Incomplete | None = None,
-    # docstring says int, but it can be a float and does become a float mid-equation if alpha is also a float
     temp: float = 100,
     move: str = "1-1",
     max_iterations: int = 10,

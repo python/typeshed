@@ -47,7 +47,9 @@ class ArborescenceIterator:
     method: Incomplete
     partition_key: str
     init_partition: Incomplete
+
     def __init__(self, G, weight: str = "weight", minimum: bool = True, init_partition: Incomplete | None = None) -> None: ...
     partition_queue: Incomplete
+
     def __iter__(self) -> Iterator[Incomplete]: ...
     def __next__(self): ...

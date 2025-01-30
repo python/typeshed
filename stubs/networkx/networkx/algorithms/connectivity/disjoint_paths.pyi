@@ -5,7 +5,6 @@ from networkx.algorithms.flow import edmonds_karp
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["edge_disjoint_paths", "node_disjoint_paths"]
-
 default_flow_func = edmonds_karp
 
 @_dispatchable

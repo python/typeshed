@@ -10,6 +10,7 @@ def simple_cycles(G, length_bound: Incomplete | None = None) -> Generator[Incomp
 
 class _NeighborhoodCache(dict[Incomplete, Incomplete]):
     G: Incomplete
+
     def __init__(self, G) -> None: ...
     def __missing__(self, v): ...
 

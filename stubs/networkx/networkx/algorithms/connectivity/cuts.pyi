@@ -4,7 +4,6 @@ from networkx.algorithms.flow import edmonds_karp
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["minimum_st_node_cut", "minimum_node_cut", "minimum_st_edge_cut", "minimum_edge_cut"]
-
 default_flow_func = edmonds_karp
 
 @_dispatchable
