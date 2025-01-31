@@ -79,6 +79,7 @@
         "stubs/pyflakes",
         "stubs/Pygments",
         "stubs/PyMySQL",
+        "stubs/pytest-snapshot",
         "stubs/python-crontab",
         "stubs/python-dateutil",
         "stubs/python-http-client",
