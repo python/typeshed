@@ -4,7 +4,7 @@ import sre_constants
 import sys
 from _typeshed import MaybeNone, ReadableBuffer
 from collections.abc import Callable, Iterator, Mapping
-from typing import Any, AnyStr, Generic, Literal, TypeVar, final, overload
+from typing import Any, AnyStr, Final, Generic, Literal, TypeVar, final, overload
 from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 9):
@@ -224,26 +224,27 @@ class RegexFlag(enum.IntFlag):
     if sys.version_info >= (3, 11):
         NOFLAG = 0
 
-A = RegexFlag.A
-ASCII = RegexFlag.ASCII
-DEBUG = RegexFlag.DEBUG
-I = RegexFlag.I
-IGNORECASE = RegexFlag.IGNORECASE
-L = RegexFlag.L
-LOCALE = RegexFlag.LOCALE
-M = RegexFlag.M
-MULTILINE = RegexFlag.MULTILINE
-S = RegexFlag.S
-DOTALL = RegexFlag.DOTALL
-X = RegexFlag.X
-VERBOSE = RegexFlag.VERBOSE
-U = RegexFlag.U
-UNICODE = RegexFlag.UNICODE
+A: Final = RegexFlag.A
+ASCII: Final = RegexFlag.ASCII
+DEBUG: Final = RegexFlag.DEBUG
+I: Final = RegexFlag.I
+IGNORECASE: Final = RegexFlag.IGNORECASE
+L: Final = RegexFlag.L
+LOCALE: Final = RegexFlag.LOCALE
+M: Final = RegexFlag.M
+MULTILINE: Final = RegexFlag.MULTILINE
+S: Final = RegexFlag.S
+DOTALL: Final = RegexFlag.DOTALL
+X: Final = RegexFlag.X
+VERBOSE: Final = RegexFlag.VERBOSE
+U: Final = RegexFlag.U
+UNICODE: Final = RegexFlag.UNICODE
 if sys.version_info < (3, 13):
-    T = RegexFlag.T
-    TEMPLATE = RegexFlag.TEMPLATE
+    T: Final = RegexFlag.T
+    TEMPLATE: Final = RegexFlag.TEMPLATE
 if sys.version_info >= (3, 11):
-    NOFLAG = RegexFlag.NOFLAG
+    # pytype chokes on `NOFLAG: Final = RegexFlag.NOFLAG` with LiteralValueError
+    NOFLAG: Final[Literal[RegexFlag.NOFLAG]]
 _FlagsType: TypeAlias = int | RegexFlag
 
 # Type-wise the compile() overloads are unnecessary, they could also be modeled using
