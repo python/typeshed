@@ -6,5 +6,5 @@ from networkx.utils.backends import _dispatchable
 
 @_dispatchable
 def bfs_beam_edges(
-    G: Graph[_Node], source: _Node, value: Callable, width: int | None = None
+    G: Graph[_Node], source: _Node, value: Callable[..., Incomplete], width: int | None = None
 ) -> Generator[Incomplete, Incomplete, Incomplete]: ...

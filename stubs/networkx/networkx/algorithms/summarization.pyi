@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Iterable
 
 from networkx.classes.graph import Graph, _Node
@@ -9,7 +10,7 @@ def dedensify(G: Graph[_Node], threshold: int, prefix=None, copy: bool | None = 
 def snap_aggregation(
     G: Graph[_Node],
     node_attributes,
-    edge_attributes: Iterable | None = (),
+    edge_attributes: Iterable[Incomplete] | None = (),
     prefix: str = "Supernode-",
     supernode_attribute: str = "group",
     superedge_attribute: str = "types",

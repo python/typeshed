@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Callable
 
 from networkx.classes.graph import Graph, _Node
@@ -10,8 +11,8 @@ def quotient_graph(
     G: Graph[_Node],
     partition,
     edge_relation=None,
-    node_data: Callable | None = None,
-    edge_data: Callable | None = None,
+    node_data: Callable[..., Incomplete] | None = None,
+    edge_data: Callable[..., Incomplete] | None = None,
     weight: str | None = "weight",
     relabel: bool = False,
     create_using: Graph[_Node] | None = None,
@@ -22,4 +23,4 @@ def contracted_nodes(G: Graph[_Node], u, v, self_loops: bool = True, copy: bool 
 identified_nodes = contracted_nodes
 
 @_dispatchable
-def contracted_edge(G: Graph[_Node], edge: tuple, self_loops: bool = True, copy: bool = True): ...
+def contracted_edge(G: Graph[_Node], edge: tuple[Incomplete], self_loops: bool = True, copy: bool = True): ...

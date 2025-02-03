@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Callable
 
 from networkx.algorithms.flow import edmonds_karp
@@ -13,7 +14,7 @@ def minimum_st_edge_cut(
     G: Graph[_Node],
     s: _Node,
     t: _Node,
-    flow_func: Callable | None = None,
+    flow_func: Callable[..., Incomplete] | None = None,
     auxiliary: DiGraph[_Node] | None = None,
     residual: DiGraph[_Node] | None = None,
 ): ...
@@ -22,11 +23,15 @@ def minimum_st_node_cut(
     G: Graph[_Node],
     s: _Node,
     t: _Node,
-    flow_func: Callable | None = None,
+    flow_func: Callable[..., Incomplete] | None = None,
     auxiliary: DiGraph[_Node] | None = None,
     residual: DiGraph[_Node] | None = None,
 ): ...
 @_dispatchable
-def minimum_node_cut(G: Graph[_Node], s: _Node | None = None, t: _Node | None = None, flow_func: Callable | None = None): ...
+def minimum_node_cut(
+    G: Graph[_Node], s: _Node | None = None, t: _Node | None = None, flow_func: Callable[..., Incomplete] | None = None
+): ...
 @_dispatchable
-def minimum_edge_cut(G: Graph[_Node], s: _Node | None = None, t: _Node | None = None, flow_func: Callable | None = None): ...
+def minimum_edge_cut(
+    G: Graph[_Node], s: _Node | None = None, t: _Node | None = None, flow_func: Callable[..., Incomplete] | None = None
+): ...

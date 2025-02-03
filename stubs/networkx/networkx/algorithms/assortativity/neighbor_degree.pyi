@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Iterable
 
 from networkx.classes.graph import Graph, _Node
@@ -8,6 +9,6 @@ def average_neighbor_degree(
     G: Graph[_Node],
     source: str | None = "out",
     target: str | None = "out",
-    nodes: Iterable | None = None,
+    nodes: Iterable[Incomplete] | None = None,
     weight: str | None = None,
 ): ...

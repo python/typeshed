@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Callable
 
 from networkx.algorithms.flow import edmonds_karp
@@ -8,4 +9,4 @@ __all__ = ["k_components"]
 default_flow_func = edmonds_karp
 
 @_dispatchable
-def k_components(G: Graph[_Node], flow_func: Callable | None = None): ...
+def k_components(G: Graph[_Node], flow_func: Callable[..., Incomplete] | None = None): ...

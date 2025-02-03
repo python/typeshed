@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Iterable
 
 from networkx.classes.graph import Graph, _Node
@@ -8,4 +9,4 @@ def local_node_connectivity(G: Graph[_Node], source: _Node, target: _Node, cutof
 @_dispatchable
 def node_connectivity(G: Graph[_Node], s: _Node | None = None, t: _Node | None = None): ...
 @_dispatchable
-def all_pairs_node_connectivity(G: Graph[_Node], nbunch: Iterable | None = None, cutoff: int | None = None): ...
+def all_pairs_node_connectivity(G: Graph[_Node], nbunch: Iterable[Incomplete] | None = None, cutoff: int | None = None): ...

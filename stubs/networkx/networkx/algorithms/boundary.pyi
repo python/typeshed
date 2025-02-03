@@ -10,101 +10,101 @@ _U = TypeVar("_U")
 @overload
 def edge_boundary(
     G: Graph[_Node],
-    nbunch1: Iterable,
-    nbunch2: Iterable | None = None,
+    nbunch1: Iterable[Incomplete],
+    nbunch2: Iterable[Incomplete] | None = None,
     data=False,
     keys: bool = False,
-    default: object | None = None,
+    default: Incomplete | None = None,
 ) -> Generator[tuple[_Node, _Node], None, None]: ...
 @overload
 def edge_boundary(
     G: Graph[_Node],
-    nbunch1: Iterable,
-    nbunch2: Iterable | None = None,
+    nbunch1: Iterable[Incomplete],
+    nbunch2: Iterable[Incomplete] | None = None,
     data=False,
     keys: bool = False,
-    default: object | None = None,
+    default: Incomplete | None = None,
 ) -> Generator[tuple[_Node, _Node, dict[str, Incomplete]], None, None]: ...
 @overload
 def edge_boundary(
     G: Graph[_Node],
-    nbunch1: Iterable,
-    nbunch2: Iterable | None = None,
+    nbunch1: Iterable[Incomplete],
+    nbunch2: Iterable[Incomplete] | None = None,
     data=False,
     keys: bool = False,
-    default: object | None = None,
+    default: Incomplete | None = None,
 ) -> Generator[tuple[_Node, _Node, dict[str, Incomplete]], None, None]: ...
 @overload
 def edge_boundary(
     G: Graph[_Node],
-    nbunch1: Iterable,
-    nbunch2: Iterable | None = None,
+    nbunch1: Iterable[Incomplete],
+    nbunch2: Iterable[Incomplete] | None = None,
     data=False,
     keys: bool = False,
-    default: object | None = None,
+    default: _U | None = None,
 ) -> Generator[tuple[_Node, _Node, dict[str, _U]], None, None]: ...
 @overload
 def edge_boundary(
     G: Graph[_Node],
-    nbunch1: Iterable,
-    nbunch2: Iterable | None = None,
+    nbunch1: Iterable[Incomplete],
+    nbunch2: Iterable[Incomplete] | None = None,
     data=False,
     keys: bool = False,
-    default: object | None = None,
+    default: _U | None = None,
 ) -> Generator[tuple[_Node, _Node, dict[str, _U]], None, None]: ...
 @overload
 def edge_boundary(
     G: Graph[_Node],
-    nbunch1: Iterable,
-    nbunch2: Iterable | None = None,
+    nbunch1: Iterable[Incomplete],
+    nbunch2: Iterable[Incomplete] | None = None,
     data=False,
     keys: bool = False,
-    default: object | None = None,
+    default: Incomplete | None = None,
 ) -> Generator[tuple[_Node, _Node, int], None, None]: ...
 @overload
 def edge_boundary(
     G: Graph[_Node],
-    nbunch1: Iterable,
-    nbunch2: Iterable | None = None,
+    nbunch1: Iterable[Incomplete],
+    nbunch2: Iterable[Incomplete] | None = None,
     data=False,
     keys: bool = False,
-    default: object | None = None,
+    default: Incomplete | None = None,
 ) -> Generator[tuple[_Node, _Node, int], None, None]: ...
 @overload
 def edge_boundary(
     G: Graph[_Node],
-    nbunch1: Iterable,
-    nbunch2: Iterable | None = None,
+    nbunch1: Iterable[Incomplete],
+    nbunch2: Iterable[Incomplete] | None = None,
     data=False,
     keys: bool = False,
-    default: object | None = None,
+    default: Incomplete | None = None,
 ) -> Generator[tuple[_Node, _Node, int, dict[str, Incomplete]], None, None]: ...
 @overload
 def edge_boundary(
     G: Graph[_Node],
-    nbunch1: Iterable,
-    nbunch2: Iterable | None = None,
+    nbunch1: Iterable[Incomplete],
+    nbunch2: Iterable[Incomplete] | None = None,
     data=False,
     keys: bool = False,
-    default: object | None = None,
+    default: Incomplete | None = None,
 ) -> Generator[tuple[_Node, _Node, int, dict[str, Incomplete]], None, None]: ...
 @overload
 def edge_boundary(
     G: Graph[_Node],
-    nbunch1: Iterable,
-    nbunch2: Iterable | None = None,
+    nbunch1: Iterable[Incomplete],
+    nbunch2: Iterable[Incomplete] | None = None,
     data=False,
     keys: bool = False,
-    default: object | None = None,
+    default: _U | None = None,
 ) -> Generator[tuple[_Node, _Node, int, dict[str, _U]], None, None]: ...
 @overload
 def edge_boundary(
     G: Graph[_Node],
-    nbunch1: Iterable,
-    nbunch2: Iterable | None = None,
+    nbunch1: Iterable[Incomplete],
+    nbunch2: Iterable[Incomplete] | None = None,
     data=False,
     keys: bool = False,
-    default: object | None = None,
+    default: _U | None = None,
 ) -> Generator[tuple[_Node, _Node, int, dict[str, _U]], None, None]: ...
 @_dispatchable
-def node_boundary(G: Graph[_Node], nbunch1: Iterable, nbunch2: Iterable | None = None) -> set[_Node]: ...
+def node_boundary(G: Graph[_Node], nbunch1: Iterable[Incomplete], nbunch2: Iterable[Incomplete] | None = None) -> set[_Node]: ...

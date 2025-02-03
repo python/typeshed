@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Callable
 
 from networkx.classes.digraph import DiGraph
@@ -9,7 +10,12 @@ from numpy.random import RandomState
 def christofides(G: Graph[_Node], weight: str | None = "weight", tree: Graph[_Node] | None = None): ...
 @_dispatchable
 def traveling_salesman_problem(
-    G: Graph[_Node], weight: str | None = "weight", nodes=None, cycle: bool = True, method: Callable | None = None, **kwargs
+    G: Graph[_Node],
+    weight: str = "weight",
+    nodes=None,
+    cycle: bool = True,
+    method: Callable[..., Incomplete] | None = None,
+    **kwargs,
 ): ...
 @_dispatchable
 def asadpour_atsp(

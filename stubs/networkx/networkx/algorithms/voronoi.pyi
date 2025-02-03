@@ -1,4 +1,4 @@
-from _typeshed import SupportsGetItem
+from _typeshed import Incomplete, SupportsGetItem
 from collections.abc import Callable
 from typing import Any
 
@@ -7,5 +7,7 @@ from networkx.utils.backends import _dispatchable
 
 @_dispatchable
 def voronoi_cells(
-    G: Graph[_Node], center_nodes: set, weight: str | Callable[[Any, Any, SupportsGetItem[str, Any]], float | None] = "weight"
+    G: Graph[_Node],
+    center_nodes: set[Incomplete],
+    weight: str | Callable[[Any, Any, SupportsGetItem[str, Any]], float | None] | None = "weight",
 ): ...
