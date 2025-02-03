@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from collections.abc import Callable
 
 from networkx.utils.backends import _dispatchable
 
@@ -20,4 +20,4 @@ def faster_could_be_isomorphic(G1, G2): ...
 faster_graph_could_be_isomorphic = faster_could_be_isomorphic
 
 @_dispatchable
-def is_isomorphic(G1, G2, node_match: Incomplete | None = None, edge_match: Incomplete | None = None): ...
+def is_isomorphic(G1, G2, node_match: Callable = None, edge_match: Callable = None): ...

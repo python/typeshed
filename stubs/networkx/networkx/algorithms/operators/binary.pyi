@@ -1,4 +1,4 @@
-from collections.abc import Hashable
+from collections.abc import Hashable, Iterable
 from typing import TypeVar
 
 from networkx.classes.digraph import DiGraph
@@ -17,6 +17,6 @@ _X = TypeVar("_X", bound=Hashable, covariant=True)
 _Y = TypeVar("_Y", bound=Hashable, covariant=True)
 
 @_dispatchable
-def compose(G: DiGraph[_X], H: DiGraph[_Y]) -> DiGraph[_X | _Y]: ...
+def compose(G, H) -> DiGraph[_X | _Y]: ...
 @_dispatchable
-def union(G: DiGraph[_X], H: DiGraph[_Y], rename=()) -> DiGraph[_X | _Y]: ...
+def union(G, H, rename: Iterable | None = ()) -> DiGraph[_X | _Y]: ...

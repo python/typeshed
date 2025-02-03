@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 class _DataEssentialsAndFunctions:
@@ -40,4 +41,4 @@ class _DataEssentialsAndFunctions:
     def find_leaving_edge(self, Wn, We): ...
 
 @_dispatchable
-def network_simplex(G, demand: str = "demand", capacity: str = "capacity", weight: str = "weight"): ...
+def network_simplex(G: Graph[_Node], demand: str = "demand", capacity: str = "capacity", weight: str = "weight"): ...

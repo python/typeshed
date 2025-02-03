@@ -2,15 +2,15 @@ from _typeshed import Incomplete
 from collections.abc import Generator, Mapping, MutableSet, Reversible
 
 from networkx.classes.digraph import DiGraph
-from networkx.classes.graph import _Node
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["check_planarity", "is_planar", "PlanarEmbedding"]
 
 @_dispatchable
-def is_planar(G) -> bool: ...
+def is_planar(G: Graph[_Node]) -> bool: ...
 @_dispatchable
-def check_planarity(G, counterexample: bool = False): ...
+def check_planarity(G: Graph[_Node], counterexample: bool = False): ...
 
 class Interval:
     low: Incomplete

@@ -2,7 +2,10 @@ from _typeshed import Incomplete
 from collections.abc import Iterator
 from dataclasses import dataclass
 
+from networkx.classes.digraph import DiGraph
+from networkx.classes.graph import _Node
 from networkx.utils.backends import _dispatchable
+from numpy.random import RandomState
 
 __all__ = [
     "branching_weight",
@@ -15,24 +18,26 @@ __all__ = [
 ]
 
 @_dispatchable
-def branching_weight(G, attr: str = "weight", default: float = 1): ...
+def branching_weight(G: DiGraph[_Node], attr: str = "weight", default: float = 1): ...
 @_dispatchable
-def greedy_branching(G, attr: str = "weight", default: float = 1, kind: str = "max", seed: Incomplete | None = None): ...
+def greedy_branching(
+    G: DiGraph[_Node], attr: str = "weight", default: float = 1, kind: str = "max", seed: int | RandomState | None = None
+): ...
 @_dispatchable
 def maximum_branching(
-    G, attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
+    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str = None
 ): ...
 @_dispatchable
 def minimum_branching(
-    G, attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
+    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str = None
 ): ...
 @_dispatchable
 def maximum_spanning_arborescence(
-    G, attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
+    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str = None
 ): ...
 @_dispatchable
 def minimum_spanning_arborescence(
-    G, attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: Incomplete | None = None
+    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str = None
 ): ...
 
 class ArborescenceIterator:
