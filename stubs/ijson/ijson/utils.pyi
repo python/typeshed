@@ -1,10 +1,19 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from typing import Any, Callable, TypeVar
+from typing_extensions import ParamSpec
 
-def coroutine(func): ...
-def chain(sink, *coro_pipeline): ...
+_P = ParamSpec("_P")
+_T = TypeVar("_T")
+_GS = TypeVar("_GS")
+_GR = TypeVar("_GR")
+_CoroPipelineArgs = tuple[Callable[..., Any], tuple[Any, ...], dict[str, Any]]
 
-class sendable_list(list):
-    send: Incomplete
+def coroutine(func: Callable[_P, Generator[_T, _GS, _GR]]) -> Callable[_P, Generator[_T, _GS, _GR]]: ...
+def chain(sink: list[Any], *coro_pipeline: _CoroPipelineArgs) -> list[Any]: ...
 
-def coros2gen(source, *coro_pipeline) -> Generator[Incomplete]: ...
+class sendable_list(list[_T]):
+    # send = list.append
+    def send(self, object: _T, /) -> None: ...
+
+def coros2gen(source, *coro_pipeline: _CoroPipelineArgs) -> Generator[Incomplete]: ...
