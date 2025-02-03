@@ -1,3 +1,4 @@
+from _typeshed import SupportsGetItem
 from collections.abc import Callable
 from typing import Any
 
@@ -10,7 +11,7 @@ def astar_path(
     source: _Node,
     target: _Node,
     heuristic: Callable = None,
-    weight: str | Callable[[Any, Any, dict[str, Any]], float | None] = "weight",
+    weight: str | Callable[[Any, Any, SupportsGetItem[str, Any]], float | None] = "weight",
     *,
     cutoff: float | None = None,
 ): ...
@@ -20,7 +21,7 @@ def astar_path_length(
     source: _Node,
     target: _Node,
     heuristic: Callable = None,
-    weight: str | Callable[[Any, Any, dict[str, Any]], float | None] = "weight",
+    weight: str | Callable[[Any, Any, SupportsGetItem[str, Any]], float | None] = "weight",
     *,
     cutoff: float | None = None,
 ): ...

@@ -1,3 +1,4 @@
+from _typeshed import SupportsGetItem
 from collections.abc import Generator
 
 from networkx.classes.graph import Graph, _Node
@@ -11,7 +12,7 @@ def is_locally_k_edge_connected(G: Graph[_Node], s: _Node, t: _Node, k: int): ..
 def k_edge_augmentation(
     G: Graph[_Node],
     k: int,
-    avail: set[tuple[int, int]] | set[tuple[int, int, float]] | dict[tuple[int, int], float] = None,
+    avail: set[tuple[int, int]] | set[tuple[int, int, float]] | SupportsGetItem[tuple[int, int], float] = None,
     weight: str = None,
     partial: bool = False,
 ) -> Generator[tuple[_Node, _Node], None, None]: ...

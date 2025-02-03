@@ -1,5 +1,5 @@
-from _typeshed import Incomplete
-from collections.abc import Callable, Generator
+from _typeshed import Incomplete, SupportsGetItem
+from collections.abc import Callable, Generator, Iterable
 from typing import Any
 
 from networkx.classes.graph import Graph, _Node
@@ -8,7 +8,7 @@ from networkx.utils.backends import _dispatchable
 __all__ = ["all_simple_paths", "is_simple_path", "shortest_simple_paths", "all_simple_edge_paths"]
 
 @_dispatchable
-def is_simple_path(G: Graph[_Node], nodes: list): ...
+def is_simple_path(G: Graph[_Node], nodes: Iterable): ...
 @_dispatchable
 def all_simple_paths(G: Graph[_Node], source: _Node, target, cutoff: int | None = None) -> Generator[list[_Node], None, None]: ...
 @_dispatchable
@@ -17,7 +17,10 @@ def all_simple_edge_paths(
 ) -> Generator[list[_Node] | list[tuple[_Node, _Node]], None, list[_Node] | None]: ...
 @_dispatchable
 def shortest_simple_paths(
-    G: Graph[_Node], source: _Node, target: _Node, weight: str | Callable[[Any, Any, dict[str, Any]], float | None] = None
+    G: Graph[_Node],
+    source: _Node,
+    target: _Node,
+    weight: str | Callable[[Any, Any, SupportsGetItem[str, Any]], float | None] = None,
 ) -> Generator[list[_Node], None, None]: ...
 
 class PathBuffer:
