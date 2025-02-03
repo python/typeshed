@@ -14,18 +14,18 @@ def edge_disjoint_paths(
     G: Graph[_Node],
     s: _Node,
     t: _Node,
-    flow_func: Callable = None,
+    flow_func: Callable | None = None,
     cutoff: int | None = None,
-    auxiliary: DiGraph[_Node] = None,
-    residual: DiGraph[_Node] = None,
+    auxiliary: DiGraph[_Node] | None = None,
+    residual: DiGraph[_Node] | None = None,
 ) -> Generator[Incomplete, None, None]: ...
 @_dispatchable
 def node_disjoint_paths(
     G: Graph[_Node],
     s: _Node,
     t: _Node,
-    flow_func: Callable = None,
+    flow_func: Callable | None = None,
     cutoff: int | None = None,
-    auxiliary: DiGraph[_Node] = None,
-    residual: DiGraph[_Node] = None,
+    auxiliary: DiGraph[_Node] | None = None,
+    residual: DiGraph[_Node] | None = None,
 ) -> Generator[Incomplete, None, None]: ...

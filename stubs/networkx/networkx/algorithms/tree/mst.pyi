@@ -39,7 +39,9 @@ def partition_spanning_tree(
 @_dispatchable
 def maximum_spanning_tree(G: Graph[_Node], weight: str = "weight", algorithm: str = "kruskal", ignore_nan: bool = False): ...
 @_dispatchable
-def random_spanning_tree(G: Graph[_Node], weight: str = None, *, multiplicative=True, seed: int | RandomState | None = None): ...
+def random_spanning_tree(
+    G: Graph[_Node], weight: str | None = None, *, multiplicative=True, seed: int | RandomState | None = None
+): ...
 
 class SpanningTreeIterator:
     @dataclass

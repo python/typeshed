@@ -25,19 +25,19 @@ def greedy_branching(
 ): ...
 @_dispatchable
 def maximum_branching(
-    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str = None
+    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str | None = None
 ): ...
 @_dispatchable
 def minimum_branching(
-    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str = None
+    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str | None = None
 ): ...
 @_dispatchable
 def maximum_spanning_arborescence(
-    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str = None
+    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str | None = None
 ): ...
 @_dispatchable
 def minimum_spanning_arborescence(
-    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str = None
+    G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str | None = None
 ): ...
 
 class ArborescenceIterator:

@@ -7,7 +7,7 @@ def edmonds_karp(
     s: _Node,
     t: _Node,
     capacity: str = "capacity",
-    residual: Graph[_Node] = None,
+    residual: Graph[_Node] | None = None,
     value_only: bool = False,
-    cutoff: float = None,
+    cutoff: float | None = None,
 ): ...

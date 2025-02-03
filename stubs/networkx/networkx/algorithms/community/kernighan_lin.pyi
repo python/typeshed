@@ -4,5 +4,9 @@ from numpy.random import RandomState
 
 @_dispatchable
 def kernighan_lin_bisection(
-    G: Graph[_Node], partition: tuple = None, max_iter: int = 10, weight: str = "weight", seed: int | RandomState | None = None
+    G: Graph[_Node],
+    partition: tuple | None = None,
+    max_iter: int = 10,
+    weight: str = "weight",
+    seed: int | RandomState | None = None,
 ): ...

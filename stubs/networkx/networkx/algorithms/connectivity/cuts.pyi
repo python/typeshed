@@ -13,20 +13,20 @@ def minimum_st_edge_cut(
     G: Graph[_Node],
     s: _Node,
     t: _Node,
-    flow_func: Callable = None,
-    auxiliary: DiGraph[_Node] = None,
-    residual: DiGraph[_Node] = None,
+    flow_func: Callable | None = None,
+    auxiliary: DiGraph[_Node] | None = None,
+    residual: DiGraph[_Node] | None = None,
 ): ...
 @_dispatchable
 def minimum_st_node_cut(
     G: Graph[_Node],
     s: _Node,
     t: _Node,
-    flow_func: Callable = None,
-    auxiliary: DiGraph[_Node] = None,
-    residual: DiGraph[_Node] = None,
+    flow_func: Callable | None = None,
+    auxiliary: DiGraph[_Node] | None = None,
+    residual: DiGraph[_Node] | None = None,
 ): ...
 @_dispatchable
-def minimum_node_cut(G: Graph[_Node], s: _Node = None, t: _Node = None, flow_func: Callable = None): ...
+def minimum_node_cut(G: Graph[_Node], s: _Node | None = None, t: _Node | None = None, flow_func: Callable | None = None): ...
 @_dispatchable
-def minimum_edge_cut(G: Graph[_Node], s: _Node = None, t: _Node = None, flow_func: Callable = None): ...
+def minimum_edge_cut(G: Graph[_Node], s: _Node | None = None, t: _Node | None = None, flow_func: Callable | None = None): ...

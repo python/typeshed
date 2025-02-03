@@ -5,7 +5,7 @@ from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
 
 @_dispatchable
-def complete_bipartite_graph(n1, n2, create_using: Graph[_Node] = None): ...
+def complete_bipartite_graph(n1, n2, create_using: Graph[_Node] | None = None): ...
 @_dispatchable
 def configuration_model(
     aseq: Iterable, bseq: Iterable, create_using: Graph[_Node] | None = None, seed: int | RandomState | None = None

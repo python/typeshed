@@ -6,14 +6,14 @@ from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
 
 @_dispatchable
-def christofides(G: Graph[_Node], weight: str | None = "weight", tree: Graph[_Node] = None): ...
+def christofides(G: Graph[_Node], weight: str | None = "weight", tree: Graph[_Node] | None = None): ...
 @_dispatchable
 def traveling_salesman_problem(
-    G: Graph[_Node], weight: str | None = "weight", nodes=None, cycle: bool = True, method: Callable = None, **kwargs
+    G: Graph[_Node], weight: str | None = "weight", nodes=None, cycle: bool = True, method: Callable | None = None, **kwargs
 ): ...
 @_dispatchable
 def asadpour_atsp(
-    G: DiGraph[_Node], weight: str | None = "weight", seed: int | RandomState | None = None, source: str = None
+    G: DiGraph[_Node], weight: str | None = "weight", seed: int | RandomState | None = None, source: str | None = None
 ): ...
 @_dispatchable
 def greedy_tsp(G: Graph[_Node], weight: str | None = "weight", source=None): ...

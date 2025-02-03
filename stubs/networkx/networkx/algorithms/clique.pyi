@@ -14,7 +14,7 @@ def find_cliques_recursive(G: Graph[_Node], nodes: Iterable | None = None) -> It
 def make_max_clique_graph(G: Graph[_Node], create_using: Graph[_Node] | None = None) -> Graph[_Node]: ...
 @_dispatchable
 def make_clique_bipartite(
-    G: Graph[_Node], fpos: bool = None, create_using: Graph[_Node] | None = None, name=None
+    G: Graph[_Node], fpos: bool | None = None, create_using: Graph[_Node] | None = None, name=None
 ) -> Graph[_Node]: ...
 @overload
 def node_clique_number(

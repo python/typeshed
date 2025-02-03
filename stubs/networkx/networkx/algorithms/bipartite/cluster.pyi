@@ -4,7 +4,7 @@ from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 @_dispatchable
-def latapy_clustering(G: Graph[_Node], nodes: Iterable = None, mode: str = "dot"): ...
+def latapy_clustering(G: Graph[_Node], nodes: Iterable | None = None, mode: str = "dot"): ...
 
 clustering = latapy_clustering
 

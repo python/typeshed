@@ -5,10 +5,14 @@ from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 @_dispatchable
-def attribute_mixing_dict(G: Graph[_Node], attribute: str, nodes: Iterable = None, normalized: bool = False): ...
+def attribute_mixing_dict(G: Graph[_Node], attribute: str, nodes: Iterable | None = None, normalized: bool = False): ...
 @_dispatchable
 def attribute_mixing_matrix(
-    G: Graph[_Node], attribute: str, nodes: Iterable = None, mapping: SupportsGetItem | None = None, normalized: bool = True
+    G: Graph[_Node],
+    attribute: str,
+    nodes: Iterable | None = None,
+    mapping: SupportsGetItem | None = None,
+    normalized: bool = True,
 ): ...
 @_dispatchable
 def degree_mixing_dict(
@@ -20,7 +24,7 @@ def degree_mixing_matrix(
     x: str = "out",
     y: str = "in",
     weight: str | None = None,
-    nodes: Iterable = None,
+    nodes: Iterable | None = None,
     normalized: bool = True,
     mapping: SupportsGetItem | None = None,
 ): ...

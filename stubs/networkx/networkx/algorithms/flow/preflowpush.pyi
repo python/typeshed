@@ -7,7 +7,7 @@ def preflow_push(
     s: _Node,
     t: _Node,
     capacity: str = "capacity",
-    residual: Graph[_Node] = None,
+    residual: Graph[_Node] | None = None,
     global_relabel_freq: float = 1,
     value_only: bool = False,
 ): ...

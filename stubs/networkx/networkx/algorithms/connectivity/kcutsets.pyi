@@ -9,4 +9,6 @@ __all__ = ["all_node_cuts"]
 default_flow_func = edmonds_karp
 
 @_dispatchable
-def all_node_cuts(G: Graph[_Node], k: int = None, flow_func: Callable = None) -> Generator[Incomplete, None, None]: ...
+def all_node_cuts(
+    G: Graph[_Node], k: int | None = None, flow_func: Callable | None = None
+) -> Generator[Incomplete, None, None]: ...

@@ -5,8 +5,8 @@ from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 @_dispatchable
-def node_attribute_xy(G: Graph[_Node], attribute, nodes: Iterable = None) -> Generator[Incomplete, None, None]: ...
+def node_attribute_xy(G: Graph[_Node], attribute, nodes: Iterable | None = None) -> Generator[Incomplete, None, None]: ...
 @_dispatchable
 def node_degree_xy(
-    G: Graph[_Node], x: str = "out", y: str = "in", weight: str | None = None, nodes: Iterable = None
+    G: Graph[_Node], x: str = "out", y: str = "in", weight: str | None = None, nodes: Iterable | None = None
 ) -> Generator[Incomplete, None, None]: ...

@@ -7,7 +7,7 @@ from numpy.random import RandomState
 
 @_dispatchable
 def asyn_lpa_communities(
-    G: Graph[_Node], weight: str = None, seed: int | RandomState | None = None
+    G: Graph[_Node], weight: str | None = None, seed: int | RandomState | None = None
 ) -> Generator[Incomplete, Incomplete, None]: ...
 @_dispatchable
 def label_propagation_communities(G: Graph[_Node]): ...

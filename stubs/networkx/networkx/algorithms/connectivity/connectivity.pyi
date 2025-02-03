@@ -20,28 +20,32 @@ def local_node_connectivity(
     G: Graph[_Node],
     s: _Node,
     t: _Node,
-    flow_func: Callable = None,
-    auxiliary: DiGraph[_Node] = None,
-    residual: DiGraph[_Node] = None,
+    flow_func: Callable | None = None,
+    auxiliary: DiGraph[_Node] | None = None,
+    residual: DiGraph[_Node] | None = None,
     cutoff: float | None = None,
 ): ...
 @_dispatchable
-def node_connectivity(G: Graph[_Node], s: _Node = None, t: _Node = None, flow_func: Callable = None): ...
+def node_connectivity(G: Graph[_Node], s: _Node | None = None, t: _Node | None = None, flow_func: Callable | None = None): ...
 @_dispatchable
-def average_node_connectivity(G: Graph[_Node], flow_func: Callable = None): ...
+def average_node_connectivity(G: Graph[_Node], flow_func: Callable | None = None): ...
 @_dispatchable
-def all_pairs_node_connectivity(G: Graph[_Node], nbunch: Iterable = None, flow_func: Callable = None): ...
+def all_pairs_node_connectivity(G: Graph[_Node], nbunch: Iterable | None = None, flow_func: Callable | None = None): ...
 @_dispatchable
 def local_edge_connectivity(
     G: Graph[_Node],
     s: _Node,
     t: _Node,
-    flow_func: Callable = None,
-    auxiliary: DiGraph[_Node] = None,
-    residual: DiGraph[_Node] = None,
+    flow_func: Callable | None = None,
+    auxiliary: DiGraph[_Node] | None = None,
+    residual: DiGraph[_Node] | None = None,
     cutoff: float | None = None,
 ): ...
 @_dispatchable
 def edge_connectivity(
-    G: Graph[_Node], s: _Node = None, t: _Node = None, flow_func: Callable = None, cutoff: float | None = None
+    G: Graph[_Node],
+    s: _Node | None = None,
+    t: _Node | None = None,
+    flow_func: Callable | None = None,
+    cutoff: float | None = None,
 ): ...

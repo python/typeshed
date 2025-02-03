@@ -9,14 +9,18 @@ __all__ = ["maximum_flow", "maximum_flow_value", "minimum_cut", "minimum_cut_val
 default_flow_func = preflow_push
 
 @_dispatchable
-def maximum_flow(flowG: Graph[_Node], _s: _Node, _t: _Node, capacity: str = "capacity", flow_func: Callable = None, **kwargs): ...
-@_dispatchable
-def maximum_flow_value(
-    flowG: Graph[_Node], _s: _Node, _t: _Node, capacity: str = "capacity", flow_func: Callable = None, **kwargs
+def maximum_flow(
+    flowG: Graph[_Node], _s: _Node, _t: _Node, capacity: str = "capacity", flow_func: Callable | None = None, **kwargs
 ): ...
 @_dispatchable
-def minimum_cut(flowG: Graph[_Node], _s: _Node, _t: _Node, capacity: str = "capacity", flow_func: Callable = None, **kwargs): ...
+def maximum_flow_value(
+    flowG: Graph[_Node], _s: _Node, _t: _Node, capacity: str = "capacity", flow_func: Callable | None = None, **kwargs
+): ...
+@_dispatchable
+def minimum_cut(
+    flowG: Graph[_Node], _s: _Node, _t: _Node, capacity: str = "capacity", flow_func: Callable | None = None, **kwargs
+): ...
 @_dispatchable
 def minimum_cut_value(
-    flowG: Graph[_Node], _s: _Node, _t: _Node, capacity: str = "capacity", flow_func: Callable = None, **kwargs
+    flowG: Graph[_Node], _s: _Node, _t: _Node, capacity: str = "capacity", flow_func: Callable | None = None, **kwargs
 ): ...

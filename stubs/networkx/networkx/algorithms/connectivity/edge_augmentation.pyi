@@ -12,7 +12,7 @@ def is_locally_k_edge_connected(G: Graph[_Node], s: _Node, t: _Node, k: int): ..
 def k_edge_augmentation(
     G: Graph[_Node],
     k: int,
-    avail: set[tuple[int, int]] | set[tuple[int, int, float]] | SupportsGetItem[tuple[int, int], float] = None,
-    weight: str = None,
+    avail: set[tuple[int, int]] | set[tuple[int, int, float]] | SupportsGetItem[tuple[int, int], float] | None = None,
+    weight: str | None = None,
     partial: bool = False,
 ) -> Generator[tuple[_Node, _Node], None, None]: ...

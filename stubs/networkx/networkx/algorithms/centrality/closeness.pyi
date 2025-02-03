@@ -9,5 +9,9 @@ def closeness_centrality(
 ) -> dict[_Node, float]: ...
 @_dispatchable
 def incremental_closeness_centrality(
-    G: Graph[_Node], edge: tuple, prev_cc: SupportsGetItem = None, insertion: bool | None = True, wf_improved: bool | None = True
+    G: Graph[_Node],
+    edge: tuple,
+    prev_cc: SupportsGetItem | None = None,
+    insertion: bool | None = True,
+    wf_improved: bool | None = True,
 ) -> dict[_Node, float]: ...

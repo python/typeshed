@@ -5,5 +5,5 @@ from networkx.utils.backends import _dispatchable
 
 @_dispatchable
 def average_degree_connectivity(
-    G: Graph[_Node], source="in+out", target="in+out", nodes: Iterable = None, weight: str | None = None
+    G: Graph[_Node], source="in+out", target="in+out", nodes: Iterable | None = None, weight: str | None = None
 ): ...

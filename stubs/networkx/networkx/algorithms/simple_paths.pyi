@@ -20,7 +20,7 @@ def shortest_simple_paths(
     G: Graph[_Node],
     source: _Node,
     target: _Node,
-    weight: str | Callable[[Any, Any, SupportsGetItem[str, Any]], float | None] = None,
+    weight: str | Callable[[Any, Any, SupportsGetItem[str, Any]], float] | None = None,
 ) -> Generator[list[_Node], None, None]: ...
 
 class PathBuffer:
