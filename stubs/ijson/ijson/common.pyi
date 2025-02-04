@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, ReadableBuffer, SupportsRead
-from collections.abc import Generator
+from collections.abc import Callable, Generator, Iterable, MutableMapping
 from decimal import Decimal
-from typing import Any, Callable, Iterable, MutableMapping
+from typing import Any
 from typing_extensions import TypeGuard
 
 class JSONError(Exception): ...

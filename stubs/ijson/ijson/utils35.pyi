@@ -1,6 +1,7 @@
 import collections
 from _typeshed import SupportsRead
-from typing import Any, Callable, TypeVar
+from collections.abc import Callable
+from typing import Any, TypeVar
 
 from ijson import compat
 from ijson.utils import _CoroPipelineArgs

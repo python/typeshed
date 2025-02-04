@@ -1,12 +1,10 @@
 from collections import OrderedDict
-from typing import Callable, Iterable, TypeVar
-from typing_extensions import ParamSpec
+from collections.abc import Callable, Iterable
+from typing_extensions import TypeAlias
 
 from ijson._abstract_backend import _BackendModule
 
-_P = ParamSpec("_P")
-_T = TypeVar("_T")
-_Benchmark = Callable[[int], bytes]
+_Benchmark: TypeAlias = Callable[[int], bytes]
 
 BACKEND_NAMES: tuple[str, ...]
 
