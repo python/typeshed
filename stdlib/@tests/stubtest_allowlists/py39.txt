@@ -25,6 +25,7 @@ hmac.HMAC.outer
 builtins.float.__setformat__  # Internal method for CPython test suite
 typing._SpecialForm.__mro_entries__  # Exists at runtime, but missing from stubs
 
+
 # ===================================
 # Pre-existing errors from Python 3.8
 # ===================================
