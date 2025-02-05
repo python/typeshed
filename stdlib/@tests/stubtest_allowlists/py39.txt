@@ -25,7 +25,6 @@ hmac.HMAC.outer
 builtins.float.__setformat__  # Internal method for CPython test suite
 typing._SpecialForm.__mro_entries__  # Exists at runtime, but missing from stubs
 
-
 # ===================================
 # Pre-existing errors from Python 3.8
 # ===================================
@@ -75,6 +74,7 @@ _?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C sign
 configparser.ParsingError.filename
 enum.Enum._generate_next_value_
 importlib.abc.Finder.find_module
+urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
 xml.etree.ElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
 xml.etree.cElementTree.Element.__bool__  # Doesn't really exist; see comments in stub
 
