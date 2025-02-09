@@ -47,7 +47,7 @@ jobs:
       - run: uv pip install -r requirements-tests.txt --system
       - name: Install external dependencies for 3rd-party stubs
         run: |
-          mapfile -t DEPENDENCIES < <( python tests/get_external_stub_requirements.py )
+          DEPENDENCIES=$( python tests/get_external_stub_requirements.py )
           if [ -n "$DEPENDENCIES" ]; then
               echo "Installing packages:"
               for DEP in "${DEPENDENCIES[@]}"; do echo "  ${DEP}"; done
@@ -108,7 +108,7 @@ jobs:
         run: uv venv .venv
       - name: Install 3rd-party stub dependencies
         run: |
-          mapfile -t DEPENDENCIES < <( python tests/get_external_stub_requirements.py )
+          DEPENDENCIES=$( python tests/get_external_stub_requirements.py )
           if [ -n "$DEPENDENCIES" ]; then
               echo "Installing packages:"
               for DEP in "${DEPENDENCIES[@]}"; do echo "  ${DEP}"; done
