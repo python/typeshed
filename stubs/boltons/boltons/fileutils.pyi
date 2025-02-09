@@ -1,8 +1,8 @@
 from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Generator, Iterable
+from os import PathLike
 from types import TracebackType
 from typing import IO, Any, NoReturn
-from os import PathLike
 from typing_extensions import Self
 
 def mkdir_p(path: StrOrBytesPath) -> None: ...
