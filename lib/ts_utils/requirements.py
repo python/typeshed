@@ -18,7 +18,7 @@ def get_external_stub_requirements(distributions: Iterable[str] = ()) -> set[Req
     return set(itertools.chain.from_iterable([read_dependencies(distribution).external_pkgs for distribution in distributions]))
 
 
-def get_stubtest_system_requirements(distributions: Iterable[str] = (), platform=sys.platform) -> list[str]:
+def get_stubtest_system_requirements(distributions: Iterable[str] = (), platform: str = sys.platform) -> list[str]:
     if not distributions:
         distributions = os.listdir(STUBS_PATH)
 
