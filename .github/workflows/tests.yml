@@ -107,12 +107,13 @@ jobs:
       - name: Create an isolated venv for testing
         run: uv venv .venv
       - name: Translate pyright to uv python platform
-        id: uv_python_platform
         run: |
           if [ "$UV_PYTHON_PLATFORM" = "Darwin" ]; then
             UV_PYTHON_PLATFORM="macos"
           fi
-          echo "UV_PYTHON_PLATFORM=${UV_PYTHON_PLATFORM,,}" >> $GITHUB_OUTPUT
+          echo "UV_PYTHON_PLATFORM=${UV_PYTHON_PLATFORM,,}" >> $GITHUB_ENV
+        env:
+          UV_PYTHON_PLATFORM: ${{ matrix.python-platform }}
       - name: Install 3rd-party stub dependencies
         run: |
           mapfile -t DEPENDENCIES < <( python tests/get_external_stub_requirements.py )
@@ -121,7 +122,7 @@ jobs:
               for DEP in "${DEPENDENCIES[@]}"; do echo "  ${DEP}"; done
               uv pip install \
                 --python-version ${{ matrix.python-version }} \
-                --python-platform ${{ steps.uv_python_platform.outputs.UV_PYTHON_PLATFORM }} \
+                --python-platform $UV_PYTHON_PLATFORM \
                 "${DEPENDENCIES[@]}"
           fi
       - name: Activate the isolated venv for the rest of the job
