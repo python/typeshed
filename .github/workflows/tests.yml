@@ -49,8 +49,7 @@ jobs:
         run: |
           DEPENDENCIES=$( python tests/get_external_stub_requirements.py )
           if [ -n "$DEPENDENCIES" ]; then
-              echo "Installing packages:"
-              for DEP in "${DEPENDENCIES[@]}"; do echo "  ${DEP}"; done
+              printf "Installing packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
               uv pip install "${DEPENDENCIES[@]}" --system
           fi
       - run: uv pip freeze
@@ -110,8 +109,7 @@ jobs:
         run: |
           DEPENDENCIES=$( python tests/get_external_stub_requirements.py )
           if [ -n "$DEPENDENCIES" ]; then
-              echo "Installing packages:"
-              for DEP in "${DEPENDENCIES[@]}"; do echo "  ${DEP}"; done
+              printf "Installing packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
               # TODO: We need to specify the platform here, but the platforms
               # strings supported by uv are different from the ones supported by
               # pyright.
