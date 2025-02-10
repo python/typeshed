@@ -7,6 +7,7 @@ _T = TypeVar("_T")
 _DefaultT = TypeVar("_DefaultT", default=None)
 _NoneLiteral = TypeVar("_NoneLiteral", default=None)
 _ScopeT = TypeVar("_ScopeT", Literal["request"], Literal["response"], None, default=None)
+_ScopeT2 = TypeVar("_ScopeT2", Literal["request"], Literal["response"], None)
 
 class UpdateDict(dict[str, Any]):
     updated: Callable[..., Any] | None
@@ -64,13 +65,17 @@ class CacheControl(Generic[_ScopeT]):
     def __init__(self, properties: dict[str, Any], type: _ScopeT) -> None: ...
     @overload
     @classmethod
-    def parse(cls, header: str, updates_to: Callable[[dict[str, Any]], Any] | None = None, type: None = None) -> Self: ...
+    def parse(
+        cls, header: str, updates_to: Callable[[dict[str, Any]], Any] | None = None, type: None = None
+    ) -> CacheControl[None]: ...
     @overload
     @classmethod
-    def parse(cls, header: str, updates_to: Callable[[dict[str, Any]], Any] | None, type: _ScopeT) -> Self: ...
+    def parse(cls, header: str, updates_to: Callable[[dict[str, Any]], Any] | None, type: _ScopeT2) -> CacheControl[_ScopeT2]: ...
     @overload
     @classmethod
-    def parse(cls, header: str, updates_to: Callable[[dict[str, Any]], Any] | None = None, *, type: _ScopeT) -> Self: ...
+    def parse(
+        cls, header: str, updates_to: Callable[[dict[str, Any]], Any] | None = None, *, type: _ScopeT2
+    ) -> CacheControl[_ScopeT2]: ...
     max_stale: value_property[int, None, Literal["*"], Literal["request"]]
     min_fresh: value_property[int, None, None, Literal["request"]]
     only_if_cached: exists_property[Literal["request"]]

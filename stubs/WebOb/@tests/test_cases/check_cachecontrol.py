@@ -22,7 +22,7 @@ shared_cc = CacheControl.parse("")
 assert_type(req_cc, CacheControl[Literal["request"]])
 assert_type(res_cc, CacheControl[Literal["response"]])
 assert_type(shared_cc, CacheControl[None])
-any_cc: CacheControl[Any]
+any_cc = CacheControl[Any]({}, None)
 
 assert_type(req_cc.max_stale, Union[int, Literal["*"], None])
 res_cc.max_stale  # type: ignore
@@ -44,15 +44,16 @@ assert_type(res_cc.public, bool)
 shared_cc.public  # type: ignore
 assert_type(any_cc.public, bool)
 
+# NOTE: pyright gets confused about the `Literal["*"]` the types match
 req_cc.private  # type: ignore
-assert_type(res_cc.private, Union[str, Literal["*"], None])
+assert_type(res_cc.private, Union[str, Literal["*"], None])  # pyright: ignore
 shared_cc.private  # type: ignore
-assert_type(any_cc.private, Union[str, Literal["*"], None])
+assert_type(any_cc.private, Union[str, Literal["*"], None])  # pyright: ignore
 
-assert_type(req_cc.no_cache, Union[str, Literal["*"], None])
-assert_type(res_cc.no_cache, Union[str, Literal["*"], None])
-assert_type(shared_cc.no_cache, Union[str, Literal["*"], None])
-assert_type(any_cc.no_cache, Union[str, Literal["*"], None])
+assert_type(req_cc.no_cache, Union[str, Literal["*"], None])  # pyright: ignore
+assert_type(res_cc.no_cache, Union[str, Literal["*"], None])  # pyright: ignore
+assert_type(shared_cc.no_cache, Union[str, Literal["*"], None])  # pyright: ignore
+assert_type(any_cc.no_cache, Union[str, Literal["*"], None])  # pyright: ignore
 
 assert_type(req_cc.no_store, bool)
 assert_type(res_cc.no_store, bool)
@@ -74,10 +75,11 @@ assert_type(res_cc.proxy_revalidate, bool)
 shared_cc.proxy_revalidate  # type: ignore
 assert_type(any_cc.proxy_revalidate, bool)
 
-assert_type(req_cc.max_age, Union[int, Literal[-1], None])
-assert_type(res_cc.max_age, Union[int, Literal[-1], None])
-assert_type(shared_cc.max_age, Union[int, Literal[-1], None])
-assert_type(any_cc.max_age, Union[int, Literal[-1], None])
+# NOTE: pyright gets confused about the `Literal[-1]` the types match
+assert_type(req_cc.max_age, Union[int, Literal[-1], None])  # pyright: ignore
+assert_type(res_cc.max_age, Union[int, Literal[-1], None])  # pyright: ignore
+assert_type(shared_cc.max_age, Union[int, Literal[-1], None])  # pyright: ignore
+assert_type(any_cc.max_age, Union[int, Literal[-1], None])  # pyright: ignore
 
 req_cc.s_maxage  # type: ignore
 assert_type(res_cc.s_maxage, Union[int, None])
