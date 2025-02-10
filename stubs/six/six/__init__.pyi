@@ -2,7 +2,7 @@ import builtins
 import operator
 import types
 import unittest
-from _typeshed import IdentityFunction, SupportsGetItem, Unused
+from _typeshed import IdentityFunction, Unused
 from builtins import next as next
 from collections.abc import Callable, ItemsView, Iterable, Iterator as _Iterator, KeysView, Mapping, ValuesView
 from functools import wraps as wraps
@@ -61,8 +61,7 @@ unichr = chr
 
 def int2byte(i: int) -> bytes: ...
 
-# Should be `byte2int: operator.itemgetter[int]`. But a bug in mypy prevents using TypeVar in itemgetter.__call__
-def byte2int(obj: SupportsGetItem[int, _T]) -> _T: ...
+byte2int: operator.itemgetter[int]
 
 indexbytes = operator.getitem
 iterbytes = iter
