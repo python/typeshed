@@ -17,6 +17,7 @@ expected_type_itemgetter_call: Callable[[SupportsGetItem[int, _T]], _T]  # pyrig
 
 # Expecting itemgetter(1) to be assignable to this
 # based on the example below: min({"first": 1, "second": 2}.items(), key=itemgetter(1))
+# That example and assigning to this variable are what failed in https://github.com/python/mypy/issues/14032
 expected_assignable_to: Callable[[tuple[str, int]], SupportsDunderLT[Any] | SupportsDunderGT[Any]]
 
 
