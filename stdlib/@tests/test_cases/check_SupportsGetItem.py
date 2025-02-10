@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 from _typeshed import SupportsDunderGT, SupportsDunderLT, SupportsGetItem
 from collections.abc import Callable
 from operator import itemgetter
-from typing import Any, Tuple, TypeVar, Union
+from typing import Any, TypeVar
 
 _T = TypeVar("_T")
 
@@ -17,7 +19,7 @@ test_items = min({"first": 1, "second": 2}.items(), key=itemgetter(1))
 test_dict_standalone = min({"first": 1, "second": 2}, key=standalone_call)
 test_items_standalone = min({"first": 1, "second": 2}.items(), key=standalone_call)
 
-expected_type_form_min_param_1: Callable[[Tuple[str, int]], Union[SupportsDunderLT[Any], SupportsDunderGT[Any]]]
+expected_type_form_min_param_1: Callable[[tuple[str, int]], SupportsDunderLT[Any] | SupportsDunderGT[Any]]
 revealed_type_itemgetter_call: Callable[[SupportsGetItem[Any, _T]], _T]  # pyright: ignore[reportGeneralTypeIssues]
 
 revealed_type_itemgetter_call = itemgetter(1)
