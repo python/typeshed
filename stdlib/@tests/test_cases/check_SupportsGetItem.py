@@ -1,9 +1,6 @@
-from _typeshed import SupportsGetItem
+from _typeshed import SupportsDunderGT, SupportsDunderLT, SupportsGetItem
+from collections.abc import Callable
 from operator import itemgetter
-from collections.abc import Callable
-from typing import TypeVar
-from _typeshed import SupportsDunderGT, SupportsDunderLT
-from collections.abc import Callable
 from typing import Any, Tuple, TypeVar, Union
 
 _T = TypeVar("_T")
