@@ -1283,7 +1283,7 @@ class property:
     def __delete__(self, instance: Any, /) -> None: ...
 
 @final
-class _NotImplementedType(Any):
+class _NotImplementedType:
     __call__: None
 
 NotImplemented: _NotImplementedType
