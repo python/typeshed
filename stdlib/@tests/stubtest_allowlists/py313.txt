@@ -59,18 +59,6 @@ typing(_extensions)?\.IO\.write
 typing(_extensions)?\.IO\.writelines
 
 
-# ======
-# >= 3.9
-# ======
-
-# Exists at runtime, but missing from stubs
-_collections_abc.AsyncIterable.__class_getitem__
-_collections_abc.Awaitable.__class_getitem__
-_collections_abc.Container.__class_getitem__
-_collections_abc.Iterable.__class_getitem__
-_collections_abc.MappingView.__class_getitem__
-
-
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.13
 # =============================================================
@@ -126,8 +114,7 @@ typing.ParamSpecKwargs.__mro_entries__
 typing.TypeVar.__mro_entries__
 typing.TypeVarTuple.__mro_entries__
 
-# TODO: mypy should infer that this attribute is inherited from builtins.type;
-# why doesn't it infer this?
+# These exist at runtime because the protocol uses PEP-695 syntax in CPython
 typing.SupportsAbs.__type_params__
 typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
@@ -164,26 +151,3 @@ dataclasses.KW_ONLY  # white lies around defaults
 importlib.metadata._meta.SimplePath.joinpath  # Runtime definition of protocol is incorrect
 unittest.TestCase.__init_subclass__  # Runtime has *args, **kwargs, but will error if any are supplied
 unittest.case.TestCase.__init_subclass__  # Runtime has *args, **kwargs, but will error if any are supplied
-
-
-# ============================================================
-# Allowlist entries that cannot or should not be fixed; >= 3.9
-# ============================================================
-
-_ast.ImportFrom.level  # None on the class, but never None on instances
-_weakref.ProxyType.__reversed__  # Doesn't really exist
-ast.ImportFrom.level  # None on the class, but never None on instances
-
-# Treated an alias of a typing class in the stubs,
-# they are generic to type checkers anyway.
-contextlib.AbstractAsyncContextManager.__class_getitem__
-contextlib.AbstractContextManager.__class_getitem__
-
-functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
-importlib.abc.Traversable.open  # Problematic protocol signature at runtime, see source code comments.
-os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
-types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
-types.GenericAlias.__getattr__
-types.GenericAlias.__mro_entries__
-typing\.NamedTuple  # Super-special typing primitive
-weakref.ProxyType.__reversed__  # Doesn't really exist

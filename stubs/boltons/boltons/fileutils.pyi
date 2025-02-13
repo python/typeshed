@@ -1,10 +1,12 @@
 from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Generator, Iterable
+from os import PathLike
 from types import TracebackType
 from typing import IO, Any, NoReturn
 from typing_extensions import Self
 
 def mkdir_p(path: StrOrBytesPath) -> None: ...
+def rotate_file(filename: PathLike[str], *, keep: int = 5) -> None: ...
 
 class FilePerms:
     user: str
