@@ -8,7 +8,6 @@ from _asyncio import (
     _unregister_task as _unregister_task,
 )
 from collections.abc import AsyncIterator, Awaitable, Coroutine, Generator, Iterable, Iterator
-from types import CoroutineType
 from typing import Any, Literal, Protocol, TypeVar, overload
 from typing_extensions import TypeAlias
 
@@ -82,7 +81,6 @@ else:
     _FutureLike: TypeAlias = Future[_T] | Generator[Any, None, _T] | Awaitable[_T]
 
 _TaskYieldType: TypeAlias = Future[object] | None
-_ThreadsafeCouroutineType: TypeAlias = Coroutine[Any, Any, _T] | CoroutineType[Any, Any, _T]
 
 FIRST_COMPLETED = concurrent.futures.FIRST_COMPLETED
 FIRST_EXCEPTION = concurrent.futures.FIRST_EXCEPTION
@@ -351,7 +349,7 @@ else:
     ) -> Future[list[_T | BaseException]]: ...
 
 # unlike some asyncio apis, This does strict runtime checking of actually being a coroutine, not of any future-like.
-def run_coroutine_threadsafe(coro: _ThreadsafeCouroutineType[_T], loop: AbstractEventLoop) -> concurrent.futures.Future[_T]: ...
+def run_coroutine_threadsafe(coro: Coroutine[Any, Any, _T], loop: AbstractEventLoop) -> concurrent.futures.Future[_T]: ...
 
 if sys.version_info >= (3, 10):
     def shield(arg: _FutureLike[_T]) -> Future[_T]: ...
