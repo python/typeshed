@@ -1,10 +1,12 @@
 from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Generator, Iterable
+from os import PathLike
 from types import TracebackType
 from typing import IO, Any, NoReturn
 from typing_extensions import Self
 
 def mkdir_p(path: StrOrBytesPath) -> None: ...
+def rotate_file(filename: PathLike[str], *, keep: int = 5) -> None: ...
 
 class FilePerms:
     user: str
@@ -41,7 +43,11 @@ class AtomicSaver:
     ) -> None: ...
 
 def iter_find_files(
-    directory: str, patterns: str | Iterable[str], ignored: str | Iterable[str] | None = None, include_dirs: bool = False
+    directory: str,
+    patterns: str | Iterable[str],
+    ignored: str | Iterable[str] | None = None,
+    include_dirs: bool = False,
+    max_depth: int | None = None,
 ) -> Generator[str, None, None]: ...
 def copy_tree(
     src: StrOrBytesPath,

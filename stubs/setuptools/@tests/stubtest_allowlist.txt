@@ -75,6 +75,7 @@ setuptools._distutils.sysconfig.parse_config_h
 setuptools._distutils.sysconfig.parse_makefile
 setuptools._distutils.sysconfig.project_base
 setuptools._distutils.sysconfig.python_build
+setuptools._distutils.util.is_freethreaded
 setuptools._distutils.util.MACOSX_VERSION_VAR
 
 # Missing submodules from setuptools._distutils
@@ -89,7 +90,6 @@ setuptools._distutils.command.config
 setuptools._distutils.command.install_data
 setuptools._distutils.command.install_egg_info
 setuptools._distutils.command.install_headers
-setuptools._distutils.compat.py38
 setuptools._distutils.compat.py39
 setuptools._distutils.core
 setuptools._distutils.cygwinccompiler
@@ -98,7 +98,6 @@ setuptools._distutils.dir_util
 setuptools._distutils.fancy_getopt
 setuptools._distutils.file_util
 setuptools._distutils.log
-setuptools._distutils.spawn
 setuptools._distutils.text_file
 setuptools._distutils.unixccompiler
 setuptools._distutils.version
@@ -110,6 +109,7 @@ distutils\..+
 
 # Private APIs, tests and other vendored code
 setuptools.config._validate_pyproject.*
+setuptools.compat.*
 setuptools.command.build_py.build_py.existing_egg_info_dir
 .+?\.tests.*
 .+?\._vendor.*

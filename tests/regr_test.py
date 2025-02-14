@@ -21,10 +21,10 @@ from functools import partial
 from pathlib import Path
 from typing_extensions import TypeAlias
 
-from _metadata import get_recursive_requirements, read_metadata
-from _utils import (
+from ts_utils.metadata import get_recursive_requirements, read_metadata
+from ts_utils.paths import STDLIB_PATH, TEST_CASES_DIR, TS_BASE_PATH, distribution_path
+from ts_utils.utils import (
     PYTHON_VERSION,
-    TEST_CASES_DIR,
     DistributionTests,
     colored,
     distribution_info,
@@ -40,12 +40,11 @@ VENV_DIR = ".venv"
 TYPESHED = "typeshed"
 
 SUPPORTED_PLATFORMS = ["linux", "darwin", "win32"]
-SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
+SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9"]
 
 
 def distribution_with_test_cases(distribution_name: str) -> DistributionTests:
-    """Helper function for argument-parsing."""
-
+    """Parse a CLI argument that is intended to be to a valid typeshed distribution."""
     try:
         return distribution_info(distribution_name)
     except RuntimeError as exc:
@@ -134,14 +133,14 @@ def setup_testcase_dir(package: DistributionTests, tempdir: Path, verbosity: Ver
     # that has only the required stubs copied over.
     new_typeshed = tempdir / TYPESHED
     new_typeshed.mkdir()
-    shutil.copytree(Path("stdlib"), new_typeshed / "stdlib")
+    shutil.copytree(STDLIB_PATH, new_typeshed / "stdlib")
     requirements = get_recursive_requirements(package.name)
     # mypy refuses to consider a directory a "valid typeshed directory"
     # unless there's a stubs/mypy-extensions path inside it,
     # so add that to the list of stubs to copy over to the new directory
     typeshed_requirements = [r.name for r in requirements.typeshed_pkgs]
     for requirement in {package.name, *typeshed_requirements, "mypy-extensions"}:
-        shutil.copytree(Path("stubs", requirement), new_typeshed / "stubs" / requirement)
+        shutil.copytree(distribution_path(requirement), new_typeshed / "stubs" / requirement)
 
     if requirements.external_pkgs:
         venv_location = str(tempdir / VENV_DIR)
@@ -190,7 +189,7 @@ def run_testcases(
 
     if package.is_stdlib:
         python_exe = sys.executable
-        custom_typeshed = Path(__file__).parent.parent
+        custom_typeshed = TS_BASE_PATH
         flags.append("--no-site-packages")
     else:
         custom_typeshed = tempdir / TYPESHED
@@ -237,7 +236,7 @@ class Result:
     test_case_dir: Path
     tempdir: Path
 
-    def print_description(self, *, verbosity: Verbosity) -> None:
+    def print_description(self) -> None:
         if self.code:
             print(f"{self.command_run}:", end=" ")
             print_error("FAILURE\n")
@@ -382,7 +381,7 @@ def main() -> ReturnCode:
     print()
 
     for result in results:
-        result.print_description(verbosity=verbosity)
+        result.print_description()
 
     code = max(result.code for result in results)
 
