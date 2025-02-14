@@ -8,8 +8,8 @@ from _asyncio import (
     _unregister_task as _unregister_task,
 )
 from collections.abc import AsyncIterator, Awaitable, Coroutine, Generator, Iterable, Iterator
-from typing import Any, Literal, Protocol, TypeVar, overload
 from types import CoroutineType
+from typing import Any, Literal, Protocol, TypeVar, overload
 from typing_extensions import TypeAlias
 
 from . import _CoroutineLike
@@ -83,7 +83,6 @@ else:
 
 _TaskYieldType: TypeAlias = Future[object] | None
 _ThreadsafeCouroutineType: TypeAlias = Coroutine[Any, Any, _T] | CoroutineType[Any, Any, _T]
-
 
 FIRST_COMPLETED = concurrent.futures.FIRST_COMPLETED
 FIRST_EXCEPTION = concurrent.futures.FIRST_EXCEPTION
