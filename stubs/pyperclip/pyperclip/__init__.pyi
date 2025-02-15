@@ -1,7 +1,8 @@
 __all__ = ["copy", "paste", "set_clipboard", "determine_clipboard"]
 
 from collections.abc import Callable
-from typing import Any, Literal, Protocol, TypeAlias
+from typing import Any, Literal, Protocol
+from typing_extensions import TypeAlias
 
 class PyperclipException(RuntimeError): ...
 
@@ -16,7 +17,7 @@ class _WinDLLUser32Function(Protocol):
 # Wrapper for ctypes calls, should not be exposed to the developer
 class CheckedCall:
     def __init__(self, f: _WinDLLUser32Function) -> None: ...
-    def __call__(self, *args: Any): ...
+    def __call__(self, *args: Any) -> Any: ...
     def __setattr__(self, key: str, value: Any) -> None: ...
 
 _ClipboardMechanismName: TypeAlias = Literal[
