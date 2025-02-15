@@ -1,7 +1,8 @@
 __all__ = ["copy", "paste", "set_clipboard", "determine_clipboard"]
 
 from collections.abc import Callable
-from typing import Any, Literal, TypeAlias
+from typing import Any, Literal, TypeAlias, Protocol
+
 
 class PyperclipException(RuntimeError): ...
 
@@ -10,9 +11,14 @@ class PyperclipWindowsException(PyperclipException):
 
 class PyperclipTimeoutException(PyperclipException): ...
 
+
+class WinDLLUser32Function(Protocol):
+    def __call__(self, *args: Any) -> Any: ...
+
+
 # Wrapper for ctypes calls, should not be exposed to the developer
 class CheckedCall:
-    def __init__(self, f: Callable[[...], Any]) -> None: ...
+    def __init__(self, f: WinDLLUser32Function) -> None: ...
     def __call__(self, *args: Any): ...
     def __setattr__(self, key: str, value: Any) -> None: ...
 
