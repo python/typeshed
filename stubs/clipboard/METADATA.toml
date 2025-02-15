@@ -1,6 +1,7 @@
 version = "0.0.*"
 upstream_repository = "https://github.com/terryyin/clipboard"
-requires = ["pyperclip"]
+requires = ["types-pyperclip"]
+partial_stub = true
 
 [tool.stubtest]
 platforms = ["win32", "linux", "darwin"]
