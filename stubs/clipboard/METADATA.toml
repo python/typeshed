@@ -1,0 +1,8 @@
+version = "0.0.*"
+upstream_repository = "https://github.com/terryyin/clipboard"
+requires = ["pyperclip"]
+
+[tool.stubtest]
+skip = true  # Dependent on pyperclip's types being uploaded.
+platforms = ["win32", "linux", "darwin"]
+stubtest_requirements = ["pyperclip"]
