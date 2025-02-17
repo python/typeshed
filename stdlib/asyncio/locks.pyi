@@ -15,6 +15,7 @@ if sys.version_info >= (3, 10):
 else:
     _LoopBoundMixin = object
 
+# Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.version_info >= (3, 11):
     __all__ = ("Lock", "Event", "Condition", "Semaphore", "BoundedSemaphore", "Barrier")
 else:
@@ -101,10 +102,10 @@ class BoundedSemaphore(Semaphore): ...
 
 if sys.version_info >= (3, 11):
     class _BarrierState(enum.Enum):  # undocumented
-        FILLING: str
-        DRAINING: str
-        RESETTING: str
-        BROKEN: str
+        FILLING = "filling"
+        DRAINING = "draining"
+        RESETTING = "resetting"
+        BROKEN = "broken"
 
     class Barrier(_LoopBoundMixin):
         def __init__(self, parties: int) -> None: ...

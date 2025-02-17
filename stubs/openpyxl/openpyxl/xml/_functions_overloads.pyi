@@ -77,7 +77,7 @@ def fromstring(text: str | ReadableBuffer, parser: XMLParser | None = None) -> E
 # from lxml.etree import fromstring
 # But made partial, removing parser arg
 @overload
-def fromstring(text: str | bytes, *, base_url: str | bytes = ...) -> _lxml_Element: ...  # type: ignore[overload-overlap]
+def fromstring(text: str | bytes, *, base_url: str | bytes = ...) -> _lxml_Element: ...
 
 # from defusedxml.ElementTree import fromstring
 @overload
@@ -108,7 +108,7 @@ def tostring(
     doctype: str = ...,
     exclusive: bool = ...,
     with_comments: bool = ...,
-    inclusive_ns_prefixes: Incomplete = ...,
+    inclusive_ns_prefixes=...,
 ) -> bytes: ...
 
 # from xml.etree.ElementTree import iterparse

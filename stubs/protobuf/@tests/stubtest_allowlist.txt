@@ -13,12 +13,8 @@ google.protobuf.message.Message.DESCRIPTOR
 # See https://github.com/protocolbuffers/protobuf/blob/3ea30d80847cd9561db570ae7f673afc15523545/python/google/protobuf/message.py#L67
 google.protobuf.message.Message.Extensions
 
-# These are typed as (self, **kwargs) at runtime as thin wrapper functions
-# around the underlying true typing. We prefer the true typing
+# Has *args that would fail at runtime with any positional argument
 google.protobuf.internal.containers.BaseContainer.sort
-google.protobuf.message.Message.SerializePartialToString
-google.protobuf.message.Message.SerializeToString
-google.protobuf.text_format.MessageToBytes
 
 # Stubbed as static method, but actually exists as a property that's
 # a function. Typeshed's typing is more useful

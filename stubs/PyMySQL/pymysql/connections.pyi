@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
 from socket import socket as _socket
+from ssl import _PasswordType
 from typing import Any, AnyStr, Generic, TypeVar, overload
 from typing_extensions import Self
 
@@ -9,17 +10,19 @@ from .constants import CLIENT as CLIENT, COMMAND as COMMAND, FIELD_TYPE as FIELD
 from .cursors import Cursor
 from .util import byte2int as byte2int, int2byte as int2byte
 
-SSL_ENABLED: Any
-DEFAULT_USER: Any
-DEBUG: Any
-DEFAULT_CHARSET: Any
+SSL_ENABLED: bool
+DEFAULT_USER: str | None
+DEBUG: bool
+DEFAULT_CHARSET: str
+TEXT_TYPES: set[int]
+MAX_PACKET_LEN: int
 
 _C = TypeVar("_C", bound=Cursor)
 _C2 = TypeVar("_C2", bound=Cursor)
 
 def dump_packet(data): ...
 def pack_int24(n): ...
-def lenenc_int(i: int) -> bytes: ...
+def _lenenc_int(i: int) -> bytes: ...
 
 class MysqlPacket:
     connection: Any
@@ -103,6 +106,7 @@ class Connection(Generic[_C]):
         ssl_cert=None,
         ssl_disabled=None,
         ssl_key=None,
+        ssl_key_password: _PasswordType | None = None,
         ssl_verify_cert=None,
         ssl_verify_identity=None,
         read_default_group: Incomplete | None = None,
@@ -124,7 +128,8 @@ class Connection(Generic[_C]):
     ) -> None: ...
     @overload
     def __init__(
-        self: Connection[_C],  # different between overloads
+        # different between overloads:
+        self: Connection[_C],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         *,
         host: str | None = None,
         user: Incomplete | None = None,

@@ -21,7 +21,7 @@ the project the stubs are for, but instead report them here to typeshed.**
 Further documentation on stub files, typeshed, and Python's typing system in
 general, can also be found at https://typing.readthedocs.io/en/latest/.
 
-Typeshed supports Python versions 3.8 and up.
+Typeshed supports Python versions 3.9 to 3.13.
 
 ## Using
 
@@ -31,11 +31,11 @@ If you're just using a type checker ([mypy](https://github.com/python/mypy/),
 developing it, you don't need to interact with the typeshed repo at
 all: a copy of standard library part of typeshed is bundled with type checkers.
 And type stubs for third party packages and modules you are using can
-be installed from PyPI. For example, if you are using `Pillow` and `requests`,
+be installed from PyPI. For example, if you are using `html5lib` and `requests`,
 you can install the type stubs using
 
 ```bash
-$ pip install types-Pillow types-requests
+$ pip install types-html5lib types-requests
 ```
 
 These PyPI packages follow [PEP 561](http://www.python.org/dev/peps/pep-0561/)

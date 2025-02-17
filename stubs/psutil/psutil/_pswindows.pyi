@@ -3,9 +3,9 @@ from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import Any, NamedTuple
 
+from psutil import _psutil_windows
 from psutil._common import (
     ENCODING as ENCODING,
-    ENCODING_ERRS as ENCODING_ERRS,
     AccessDenied as AccessDenied,
     NoSuchProcess as NoSuchProcess,
     TimeoutExpired as TimeoutExpired,
@@ -17,7 +17,6 @@ from psutil._common import (
     parse_environ_block as parse_environ_block,
     usage_percent as usage_percent,
 )
-from psutil._compat import PY3 as PY3
 from psutil._psutil_windows import (
     ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
     BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS,
@@ -35,13 +34,14 @@ AF_LINK: int
 AddressFamily: Any
 TCP_STATUSES: Any
 
+# These noqas workaround https://github.com/astral-sh/ruff/issues/10874
 class Priority(enum.IntEnum):
-    ABOVE_NORMAL_PRIORITY_CLASS: Any
-    BELOW_NORMAL_PRIORITY_CLASS: Any
-    HIGH_PRIORITY_CLASS: Any
-    IDLE_PRIORITY_CLASS: Any
-    NORMAL_PRIORITY_CLASS: Any
-    REALTIME_PRIORITY_CLASS: Any
+    ABOVE_NORMAL_PRIORITY_CLASS = _psutil_windows.ABOVE_NORMAL_PRIORITY_CLASS  # noqa: F811
+    BELOW_NORMAL_PRIORITY_CLASS = _psutil_windows.BELOW_NORMAL_PRIORITY_CLASS  # noqa: F811
+    HIGH_PRIORITY_CLASS = _psutil_windows.HIGH_PRIORITY_CLASS  # noqa: F811
+    IDLE_PRIORITY_CLASS = _psutil_windows.IDLE_PRIORITY_CLASS  # noqa: F811
+    NORMAL_PRIORITY_CLASS = _psutil_windows.NORMAL_PRIORITY_CLASS  # noqa: F811
+    REALTIME_PRIORITY_CLASS = _psutil_windows.REALTIME_PRIORITY_CLASS  # noqa: F811
 
 IOPRIO_VERYLOW: int
 IOPRIO_LOW: int
@@ -49,19 +49,19 @@ IOPRIO_NORMAL: int
 IOPRIO_HIGH: int
 
 class IOPriority(enum.IntEnum):
-    IOPRIO_VERYLOW: int
-    IOPRIO_LOW: int
-    IOPRIO_NORMAL: int
-    IOPRIO_HIGH: int
+    IOPRIO_VERYLOW = 0
+    IOPRIO_LOW = 1
+    IOPRIO_NORMAL = 2
+    IOPRIO_HIGH = 3
 
 pinfo_map: Any
 
 class scputimes(NamedTuple):
-    user: Any
-    system: Any
-    idle: Any
-    interrupt: Any
-    dpc: Any
+    user: float
+    system: float
+    idle: float
+    interrupt: float
+    dpc: float
 
 class svmem(NamedTuple):
     total: int
@@ -114,7 +114,6 @@ class pio(NamedTuple):
     other_bytes: Any
 
 def convert_dos_path(s): ...
-def py2_strencode(s): ...
 def getpagesize(): ...
 def virtual_memory() -> svmem: ...
 def swap_memory(): ...
@@ -180,7 +179,7 @@ class Process:
     def send_signal(self, sig) -> None: ...
     def wait(self, timeout: Incomplete | None = None): ...
     def username(self): ...
-    def create_time(self): ...
+    def create_time(self, fast_only: bool = False): ...
     def num_threads(self): ...
     def threads(self): ...
     def cpu_times(self): ...
@@ -188,7 +187,7 @@ class Process:
     def resume(self) -> None: ...
     def cwd(self): ...
     def open_files(self): ...
-    def connections(self, kind: str = "inet"): ...
+    def net_connections(self, kind: str = "inet"): ...
     def nice_get(self): ...
     def nice_set(self, value): ...
     def ionice_get(self): ...

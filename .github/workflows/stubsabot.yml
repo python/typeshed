@@ -44,7 +44,7 @@ jobs:
     needs: [stubsabot]
     if: ${{ github.repository == 'python/typeshed' && always() && (needs.stubsabot.result == 'failure') }}
     steps:
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -52,5 +52,5 @@ jobs:
               owner: "python",
               repo: "typeshed",
               title: `Stubsabot failed on ${new Date().toDateString()}`,
-              body: "Stubsabot runs are listed here: https://github.com/python/typeshed/actions/workflows/stubsabot.yml",
+              body: "Stubsabot run is listed here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
             })

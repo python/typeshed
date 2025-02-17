@@ -1,6 +1,6 @@
 import sys
 from types import TracebackType
-from typing import Any, Literal
+from typing import ClassVar
 from typing_extensions import Self
 
 from ._distutils.errors import DistutilsError
@@ -13,9 +13,7 @@ class UnpickleableException(Exception):
 
 class ExceptionSaver:
     def __enter__(self) -> Self: ...
-    def __exit__(
-        self, type: type[BaseException] | None, exc: BaseException | None, tb: TracebackType | None
-    ) -> Literal[True] | None: ...
+    def __exit__(self, type: type[BaseException] | None, exc: BaseException | None, tb: TracebackType | None) -> bool: ...
     def resume(self) -> None: ...
 
 def run_setup(setup_script, args): ...
@@ -56,10 +54,10 @@ class AbstractSandbox:
     def utime(self, path, *args, **kw): ...
 
 class DirectorySandbox(AbstractSandbox):
-    write_ops: Any
+    write_ops: ClassVar[dict[str, None]]
     def __init__(self, sandbox, exceptions=...) -> None: ...
     def tmpnam(self) -> None: ...
     def open(self, file, flags, mode: int = 511, *args, **kw): ...  # type: ignore[override]
 
 class SandboxViolation(DistutilsError):
-    tmpl: Any
+    tmpl: str

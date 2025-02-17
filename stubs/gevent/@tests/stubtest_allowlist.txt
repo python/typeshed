@@ -1,3 +1,41 @@
+# TODO: missing from stub
+gevent._abstract_linkable.__all__
+gevent._ffi.loop.__all__
+gevent._ffi.watcher.__all__
+gevent._greenlet_primitives.__all__
+gevent._ident.__all__
+gevent._imap.__all__
+gevent.backdoor.__all__
+gevent.baseserver.__all__
+gevent.event.__all__
+gevent.events.__all__
+gevent.exceptions.__all__
+gevent.fileobject.__all__
+gevent.greenlet.__all__
+gevent.hub.__all__
+gevent.libev.__all__
+gevent.libev.corecext.__all__
+gevent.libuv.__all__
+gevent.libuv.loop.__all__
+gevent.libuv.watcher.__all__
+gevent.local.__all__
+gevent.monkey.__all__
+gevent.os.__all__
+gevent.resolver.__all__
+gevent.resolver.blocking.__all__
+gevent.resolver.dnspython.__all__
+gevent.resolver.thread.__all__
+gevent.resolver_thread.__all__
+gevent.server.__all__
+gevent.signal.__all__
+gevent.socket.__all__
+gevent.ssl.__all__
+gevent.subprocess.__all__
+gevent.threadpool.__all__
+gevent.timeout.__all__
+gevent.util.__all__
+gevent.win32util.__all__
+
 # Error: failed to find stubs
 # =============================
 # testing modules are not included in type stubs
@@ -90,11 +128,8 @@ gevent.subprocess.Popen.__del__
 # we ignore all constants that start with at least one segment of all uppercase
 # letters before the underscore
 gevent\.socket\.[A-Z0-9]+(_\w+)?
-gevent.socket.AddressInfo
-gevent.socket.MsgFlag
 gevent.ssl.PROTOCOL_SSLv2
 gevent.ssl.PROTOCOL_SSLv3
-gevent.ssl.RAND_egd
 
 # Error: differs from runtime type
 # ======================
@@ -178,7 +213,6 @@ gevent.socket.wait_write
 # we have punted on ssl, the gevent version of these functions have an additional
 # argument for timeouts/blocking and there are some with different default values
 # for nbytes/length, for now we ignore that fact
-gevent.ssl.Purpose.__new__
 gevent.ssl.SSLSocket.__init__
 gevent.ssl.SSLSocket.do_handshake
 gevent.ssl.SSLSocket.read
@@ -222,3 +256,7 @@ gevent._types
 # useful way to use it as a keyword argument; we mark it positional-only.
 gevent.pool.GroupMappingMixin.imap
 gevent.pool.GroupMappingMixin.imap_unordered
+
+# Importing gevent.monkey.__main__ leads to issues in stubtest, since gevent will
+# try to monkeypatch stubtest
+gevent.monkey.__main__

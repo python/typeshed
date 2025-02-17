@@ -8,12 +8,11 @@ __pycache__/
 # Distribution / packaging
 .Python
 /env/
-/build/
+/lib/build/
 /develop-eggs/
 /dist/
 /downloads/
 /eggs/
-/lib/
 /lib64/
 /parts/
 /sdist/
@@ -73,4 +72,4 @@ analyze.py
 .python-version
 
 # deliberately local test configuration files
-tests/stubtest_allowlists/*.local
+stdlib/@tests/stubtest_allowlists/*.local

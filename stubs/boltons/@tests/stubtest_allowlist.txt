@@ -1,22 +1,19 @@
-# These names exist in __all__, but have no definition:
-boltons.strutils.int_list_complement
-boltons.strutils.int_list_to_int_tuples
+# TODO: missing from stub
+boltons.debugutils.__all__
+boltons.dictutils.__all__
+boltons.excutils.__all__
+boltons.fileutils.__all__
+boltons.formatutils.__all__
+boltons.gcutils.__all__
+boltons.jsonutils.__all__
+boltons.listutils.__all__
+boltons.namedutils.__all__
+boltons.pathutils.__all__
+boltons.queueutils.__all__
+boltons.setutils.__all__
+boltons.strutils.__all__
+boltons.tableutils.__all__
+boltons.tbutils.__all__
 
-# Internal compatibility aliases
-boltons.cacheutils.basestring
-boltons.funcutils.basestring
-boltons.funcutils.make_method
-boltons.iterutils.basestring
-
-boltons.cacheutils.bytes
-boltons.cacheutils.str
-boltons.cacheutils.unicode
-boltons.cacheutils.xrange
-boltons.deprutils.ModuleType.__dict__
-boltons.deprutils.ModuleType.__getattr__
-boltons.iterutils.unicode
-boltons.iterutils.xrange
-boltons.mathutils.unicode
-boltons.urlutils.OMD
-boltons.urlutils.unichr
-boltons.urlutils.unicode
+boltons.funcutils.CachedInstancePartial.__partialmethod__
+boltons.funcutils.InstancePartial.__partialmethod__
