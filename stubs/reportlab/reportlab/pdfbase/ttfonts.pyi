@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Any, Final, NamedTuple
+from typing import Final, NamedTuple
 from typing_extensions import Self
 
 from reportlab.pdfbase import pdfdoc, pdfmetrics
