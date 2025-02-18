@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 
-from braintree.graphql.enums.recommendations import Recommendations as Recommendations
-from braintree.graphql.inputs.customer_session_input import CustomerSessionInput as CustomerSessionInput
+from braintree.graphql.enums.recommendations import Recommendations
+from braintree.graphql.inputs.customer_session_input import CustomerSessionInput
 
 class CustomerRecommendationsInput:
     def __init__(

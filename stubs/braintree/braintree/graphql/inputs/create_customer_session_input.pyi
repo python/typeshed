@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from braintree.graphql.inputs.customer_session_input import CustomerSessionInput as CustomerSessionInput
+from braintree.graphql.inputs.customer_session_input import CustomerSessionInput
 
 class CreateCustomerSessionInput:
     def __init__(

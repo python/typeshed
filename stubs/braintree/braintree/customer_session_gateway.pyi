@@ -1,17 +1,8 @@
 from _typeshed import Incomplete
 
-from braintree.error_result import ErrorResult as ErrorResult
-from braintree.exceptions.unexpected_error import UnexpectedError as UnexpectedError
-from braintree.graphql import (
-    CreateCustomerSessionInput as CreateCustomerSessionInput,
-    CustomerRecommendations as CustomerRecommendations,
-    CustomerRecommendationsInput as CustomerRecommendationsInput,
-    CustomerRecommendationsPayload as CustomerRecommendationsPayload,
-    PaymentOptions as PaymentOptions,
-    UpdateCustomerSessionInput as UpdateCustomerSessionInput,
-)
-from braintree.successful_result import SuccessfulResult as SuccessfulResult
-from braintree.util.graphql_client import GraphQLClient as GraphQLClient
+from braintree.error_result import ErrorResult
+from braintree.graphql import CreateCustomerSessionInput, CustomerRecommendationsInput, UpdateCustomerSessionInput
+from braintree.successful_result import SuccessfulResult
 
 class CustomerSessionGateway:
     gateway: Incomplete

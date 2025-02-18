@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from braintree.graphql.enums import RecommendedPaymentOption as RecommendedPaymentOption
+from braintree.graphql.enums import RecommendedPaymentOption
 
 class PaymentOptions:
     payment_option: Incomplete
