@@ -1,6 +1,5 @@
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
-from numpy.random import RandomState
 
 @_dispatchable
-def diameter(G: Graph[_Node], seed: int | RandomState | None = None): ...
+def cd_index(G: Graph[_Node], node: _Node, time_delta, *, time: str = "time", weight: str | None = None): ...
