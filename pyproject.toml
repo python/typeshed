@@ -45,6 +45,7 @@ select = [
     "I", # isort
     "N", # pep8-naming
     "PGH", # pygrep-hooks
+    "PLE", # Pylint Error
     "RUF", # Ruff-specific and unused-noqa
     "TRY", # tryceratops
     "UP", # pyupgrade
