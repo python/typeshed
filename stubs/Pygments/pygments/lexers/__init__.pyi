@@ -2,7 +2,7 @@ from _typeshed import FileDescriptorOrPath, Incomplete, StrPath
 from collections.abc import Iterator
 from typing import Any
 
-from pygments.lexer import Lexer
+from pygments.lexer import Lexer, LexerMeta
 
 def get_all_lexers(plugins: bool = True) -> Iterator[tuple[str, tuple[str, ...], tuple[str, ...], tuple[str, ...]]]: ...
 def find_lexer_class(name: str) -> LexerMeta | None: ...
