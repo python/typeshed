@@ -1,6 +1,7 @@
 from _typeshed import ConvertibleToFloat, Incomplete
 from collections.abc import Callable, Iterable, Iterator
-from typing import Any, Literal, Self, overload
+from typing import Any, Literal, overload
+from typing_extensions import Self
 
 class _StatsProperty:
     name: str
