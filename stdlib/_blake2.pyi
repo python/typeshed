@@ -1,4 +1,5 @@
 import sys
+from _hashlib import HASH
 from _typeshed import ReadableBuffer
 from typing import ClassVar, final
 from typing_extensions import Self
@@ -13,7 +14,7 @@ BLAKE2S_PERSON_SIZE: int = 8
 BLAKE2S_SALT_SIZE: int = 8
 
 @final
-class blake2b:
+class blake2b(HASH):
     MAX_DIGEST_SIZE: ClassVar[int] = 64
     MAX_KEY_SIZE: ClassVar[int] = 64
     PERSON_SIZE: ClassVar[int] = 16
@@ -65,7 +66,7 @@ class blake2b:
     def update(self, data: ReadableBuffer, /) -> None: ...
 
 @final
-class blake2s:
+class blake2s(HASH):
     MAX_DIGEST_SIZE: ClassVar[int] = 32
     MAX_KEY_SIZE: ClassVar[int] = 32
     PERSON_SIZE: ClassVar[int] = 8
