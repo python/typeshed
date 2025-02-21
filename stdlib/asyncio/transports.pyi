@@ -1,9 +1,9 @@
+from _typeshed import ReadableBuffer
 from asyncio.events import AbstractEventLoop
 from asyncio.protocols import BaseProtocol
 from collections.abc import Iterable, Mapping
 from socket import _Address
 from typing import Any
-from _typeshed import ReadableBuffer
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 __all__ = ("BaseTransport", "ReadTransport", "WriteTransport", "Transport", "DatagramTransport", "SubprocessTransport")
