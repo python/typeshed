@@ -1,7 +1,6 @@
 from _typeshed import ReadableBuffer
 import ssl
 import sys
-from _typeshed import ReadableBuffer
 from collections import deque
 from collections.abc import Callable
 from enum import Enum
