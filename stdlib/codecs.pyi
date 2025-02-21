@@ -4,7 +4,7 @@ from _typeshed import ReadableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Generator, Iterable
 from typing import Any, BinaryIO, ClassVar, Final, Literal, Protocol, TextIO, overload
-from typing_extensions import Self
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "register",
@@ -58,7 +58,7 @@ BOM32_LE: Final = b"\xff\xfe"
 BOM64_BE: Final = b"\x00\x00\xfe\xff"
 BOM64_LE: Final = b"\xff\xfe\x00\x00"
 
-_BufferedEncoding = Literal[
+_BufferedEncoding: TypeAlias = Literal[
     "idna",
     "raw-unicode-escape",
     "unicode-escape",
