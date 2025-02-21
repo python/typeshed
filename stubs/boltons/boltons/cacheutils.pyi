@@ -133,8 +133,8 @@ class ThresholdCounter(Generic[_T]):
     def update(self, iterable: Iterable[_T] | Mapping[_T, int], **kwargs: Iterable[_T] | Mapping[_T, int]) -> None: ...
 
 class MinIDMap(Generic[_T]):
-    mapping: weakref.WeakKeyDictionary[_T, int]
-    ref_map: dict[_T, int]
+    mapping: weakref.WeakKeyDictionary[_T, tuple[int, weakref.ReferenceType[_T]]]
+    ref_map: dict[weakref.ReferenceType[_T], int]
     free: list[int]
     def __init__(self) -> None: ...
     def get(self, a: _T) -> int: ...
