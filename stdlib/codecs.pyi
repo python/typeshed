@@ -58,7 +58,20 @@ BOM32_LE: Final = b"\xff\xfe"
 BOM64_BE: Final = b"\x00\x00\xfe\xff"
 BOM64_LE: Final = b"\xff\xfe\x00\x00"
 
-_BufferedEncoding = Literal["idna", "raw-unicode-escape", "unicode-escape", "utf-16", "utf-16-be", "utf-16-le", "utf-32", "utf-32-be", "utf-32-le", "utf-7", "utf-8", "utf-8-sig"]
+_BufferedEncoding = Literal[
+    "idna",
+    "raw-unicode-escape",
+    "unicode-escape",
+    "utf-16",
+    "utf-16-be",
+    "utf-16-le",
+    "utf-32",
+    "utf-32-be",
+    "utf-32-le",
+    "utf-7",
+    "utf-8",
+    "utf-8-sig",
+]
 
 class _WritableStream(Protocol):
     def write(self, data: bytes, /) -> object: ...
