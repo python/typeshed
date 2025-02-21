@@ -70,3 +70,5 @@ class Zips:
     SUPPORTED: set[str | None]
 
 ZIPS: Zips
+
+JWE_SIZE_LIMIT: int
