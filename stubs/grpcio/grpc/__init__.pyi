@@ -2,7 +2,6 @@ import abc
 import enum
 import threading
 import typing
-from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from concurrent import futures
 from types import ModuleType, TracebackType
@@ -304,11 +303,11 @@ class Server(abc.ABC):
 
 # This class has no supported interface
 class ChannelCredentials:
-    def __init__(self, credentials: Incomplete) -> None: ...
+    def __init__(self, credentials) -> None: ...
 
 # This class has no supported interface
 class CallCredentials:
-    def __init__(self, credentials: Incomplete) -> None: ...
+    def __init__(self, credentials) -> None: ...
 
 class AuthMetadataContext(abc.ABC):
     service_url: str
@@ -322,11 +321,11 @@ class AuthMetadataPlugin(abc.ABC):
 
 # This class has no supported interface
 class ServerCredentials:
-    def __init__(self, credentials: Incomplete) -> None: ...
+    def __init__(self, credentials) -> None: ...
 
 # This class has no supported interface
 class ServerCertificateConfiguration:
-    def __init__(self, certificate_configuration: Incomplete) -> None: ...
+    def __init__(self, certificate_configuration) -> None: ...
 
 # gRPC Exceptions:
 
@@ -386,9 +385,9 @@ class ClientCallDetails(abc.ABC):
     compression: Compression | None
 
 # An object that is both a Call for the RPC and a Future. In the event of
-# RPC completion, the return Call-Future’s result value will be the
+# RPC completion, the return Call-Future's result value will be the
 # response message of the RPC. Should the event terminate with non-OK
-# status, the returned Call-Future’s exception value will be an RpcError.
+# status, the returned Call-Future's exception value will be an RpcError.
 #
 class CallFuture(Call, Future[_TResponse], metaclass=abc.ABCMeta): ...
 
@@ -399,16 +398,16 @@ class UnaryUnaryClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]
         # FIXME: decode these cryptic runes to confirm the typing mystery of
         # this callable's signature that was left for us by past civilisations:
         #
-        #     continuation – A function that proceeds with the invocation by
+        #     continuation - A function that proceeds with the invocation by
         #     executing the next interceptor in chain or invoking the actual RPC
-        #     on the underlying Channel. It is the interceptor’s responsibility
+        #     on the underlying Channel. It is the interceptor's responsibility
         #     to call it if it decides to move the RPC forward. The interceptor
         #     can use response_future = continuation(client_call_details,
         #     request) to continue with the RPC. continuation returns an object
         #     that is both a Call for the RPC and a Future. In the event of RPC
-        #     completion, the return Call-Future’s result value will be the
+        #     completion, the return Call-Future's result value will be the
         #     response message of the RPC. Should the event terminate with non-OK
-        #     status, the returned Call-Future’s exception value will be an
+        #     status, the returned Call-Future's exception value will be an
         #     RpcError.
         #
         continuation: Callable[[ClientCallDetails, _TRequest], CallFuture[_TResponse]],

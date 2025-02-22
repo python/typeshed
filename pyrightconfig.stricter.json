@@ -51,6 +51,7 @@
         "stubs/gdb",
         "stubs/geopandas",
         "stubs/google-cloud-ndb",
+        "stubs/grpcio/grpc/__init__.pyi",
         "stubs/hdbcli/hdbcli/dbapi.pyi",
         "stubs/html5lib",
         "stubs/httplib2",
