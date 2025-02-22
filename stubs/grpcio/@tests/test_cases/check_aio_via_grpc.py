@@ -5,5 +5,4 @@ from typing_extensions import assert_type
 # Both import methods work, see the comment in grpc/__init__.py.
 from grpc import aio
 
-assert_type(aio.Channel(), aio.Channel)
 assert_type(aio.Server(), aio.Server)
