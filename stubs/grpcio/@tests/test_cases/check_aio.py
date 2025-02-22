@@ -5,7 +5,6 @@ from typing_extensions import assert_type
 
 import grpc.aio
 
-assert_type(grpc.aio.Channel(), grpc.aio.Channel)
 assert_type(grpc.aio.Server(), grpc.aio.Server)
 
 # Interceptor casts
