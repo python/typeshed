@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, StrPath
+from _typeshed import StrPath
 from collections.abc import Iterable
 from typing import Any, Literal
 
@@ -26,18 +26,19 @@ class Analysis(Target):
     def __init__(
         self,
         scripts: Iterable[StrPath],
-        pathex: Incomplete | None = None,
+        pathex: Iterable[StrPath] | None = None,
         binaries: Iterable[tuple[StrPath, StrPath]] | None = None,
         datas: Iterable[tuple[StrPath, StrPath]] | None = None,
-        hiddenimports: Incomplete | None = None,
-        hookspath: Incomplete | None = None,
+        hiddenimports: Iterable[str] | None = None,
+        hookspath: Iterable[StrPath] | None = None,
         hooksconfig: dict[str, dict[str, Any]] | None = None,
-        excludes: Incomplete | None = None,
-        runtime_hooks: Incomplete | None = None,
+        excludes: Iterable[str] | None = None,
+        runtime_hooks: Iterable[StrPath] | None = None,
         cipher: _PyiBlockCipher = None,
         win_no_prefer_redirects: bool = False,
         win_private_assemblies: bool = False,
         noarchive: bool = False,
-        module_collection_mode: Incomplete | None = None,
+        # https://pyinstaller.org/en/stable/hooks.html#hook-global-variables
+        module_collection_mode: dict[str, Literal["pyz", "pyc", "py", "pyz+py", "py+pyz"]] | None = None,
         optimize: Literal[-1, 0, 1, 2] | None = -1,
     ) -> None: ...
