@@ -13,7 +13,7 @@ are important to the project's success.
     * Small fixes and additions can be submitted directly as pull requests,
       but [contact us](README.md#discussion) before starting significant work.
     * Create your stubs, considering [what to include](#what-to-include) and
-      conforming to the [coding style](#stub-file-coding-style).
+      conforming to the [coding style](https://typing.readthedocs.io/en/latest/guides/writing_stubs.html#style-guide).
 4. Optionally [format and check your stubs](#code-formatting).
 5. Optionally [run the tests](tests/README.md).
 6. [Submit your changes](#submitting-changes) by opening a pull request.
