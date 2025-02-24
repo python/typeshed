@@ -1,7 +1,7 @@
 import email.policy
 from email.message import EmailMessage, Message
 from email.parser import BytesParser, Parser
-from typing import assert_type
+from typing_extensions import assert_type
 
 p1 = Parser()
 p2 = Parser(policy=email.policy.default)
