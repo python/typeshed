@@ -46,6 +46,6 @@ class Analysis(Target):
         win_private_assemblies: bool = False,
         noarchive: bool = False,
         # https://pyinstaller.org/en/stable/hooks.html#hook-global-variables
-        module_collection_mode: dict[str, Literal["pyz", "pyc", "py", "pyz+py", "py+pyz"]] | None = None,
+        module_collection_mode: dict[str, str] | None = None,
         optimize: Literal[-1, 0, 1, 2] | None = -1,
     ) -> None: ...
