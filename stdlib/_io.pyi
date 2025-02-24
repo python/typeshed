@@ -102,7 +102,7 @@ class _BufferedReaderStream(Protocol):
     @property
     def closed(self) -> bool: ...
     @property
-    def name(self) -> str: ...
+    def name(self) -> Any: ...  # Type is inconsistent between the various I/O types.
     @property
     def mode(self) -> str: ...
     def fileno(self) -> int: ...
@@ -153,8 +153,7 @@ class _TextIOBase(_IOBase):
 @type_check_only
 class _WrappedBuffer(Protocol):
     # "name" is wrapped by TextIOWrapper. Its type is inconsistent between
-    # the various I/O types, see the comments on TextIOWrapper.name and
-    # TextIO.name.
+    # the various I/O types.
     @property
     def name(self) -> Any: ...
     @property
