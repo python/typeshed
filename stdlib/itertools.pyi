@@ -22,6 +22,11 @@ _T7 = TypeVar("_T7")
 _T8 = TypeVar("_T8")
 _T9 = TypeVar("_T9")
 _T10 = TypeVar("_T10")
+_T11 = TypeVar("_T11")
+_T12 = TypeVar("_T12")
+_T13 = TypeVar("_T13")
+_T14 = TypeVar("_T14")
+_T15 = TypeVar("_T15")
 
 _Step: TypeAlias = SupportsFloat | SupportsInt | SupportsIndex | SupportsComplex
 
@@ -272,6 +277,96 @@ class product(Generic[_T_co]):
         iter10: Iterable[_T10],
         /,
     ) -> product[tuple[_T1, _T2, _T3, _T4, _T5, _T6, _T7, _T8, _T9, _T10]]: ...
+    @overload
+    def __new__(
+        cls,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5],
+        iter6: Iterable[_T6],
+        iter7: Iterable[_T7],
+        iter8: Iterable[_T8],
+        iter9: Iterable[_T9],
+        iter10: Iterable[_T10],
+        iter11: Iterable[_T11],
+        /,
+    ) -> product[tuple[_T1, _T2, _T3, _T4, _T5, _T6, _T7, _T8, _T9, _T10, _T11]]: ...
+    @overload
+    def __new__(
+        cls,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5],
+        iter6: Iterable[_T6],
+        iter7: Iterable[_T7],
+        iter8: Iterable[_T8],
+        iter9: Iterable[_T9],
+        iter10: Iterable[_T10],
+        iter11: Iterable[_T11],
+        iter12: Iterable[_T12],
+        /,
+    ) -> product[tuple[_T1, _T2, _T3, _T4, _T5, _T6, _T7, _T8, _T9, _T10, _T11, _T12]]: ...
+    @overload
+    def __new__(
+        cls,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5],
+        iter6: Iterable[_T6],
+        iter7: Iterable[_T7],
+        iter8: Iterable[_T8],
+        iter9: Iterable[_T9],
+        iter10: Iterable[_T10],
+        iter11: Iterable[_T11],
+        iter12: Iterable[_T12],
+        iter13: Iterable[_T13],
+        /,
+    ) -> product[tuple[_T1, _T2, _T3, _T4, _T5, _T6, _T7, _T8, _T9, _T10, _T11, _T12, _T13]]: ...
+    @overload
+    def __new__(
+        cls,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5],
+        iter6: Iterable[_T6],
+        iter7: Iterable[_T7],
+        iter8: Iterable[_T8],
+        iter9: Iterable[_T9],
+        iter10: Iterable[_T10],
+        iter11: Iterable[_T11],
+        iter12: Iterable[_T12],
+        iter13: Iterable[_T13],
+        iter14: Iterable[_T14],
+        /,
+    ) -> product[tuple[_T1, _T2, _T3, _T4, _T5, _T6, _T7, _T8, _T9, _T10, _T11, _T12, _T13, _T14]]: ...
+    @overload
+    def __new__(
+        cls,
+        iter1: Iterable[_T1],
+        iter2: Iterable[_T2],
+        iter3: Iterable[_T3],
+        iter4: Iterable[_T4],
+        iter5: Iterable[_T5],
+        iter6: Iterable[_T6],
+        iter7: Iterable[_T7],
+        iter8: Iterable[_T8],
+        iter9: Iterable[_T9],
+        iter10: Iterable[_T10],
+        iter11: Iterable[_T11],
+        iter12: Iterable[_T12],
+        iter13: Iterable[_T13],
+        iter14: Iterable[_T14],
+        iter15: Iterable[_T15],
+        /,
+    ) -> product[tuple[_T1, _T2, _T3, _T4, _T5, _T6, _T7, _T8, _T9, _T10, _T11, _T12, _T13, _T14, _T15]]: ...
     @overload
     def __new__(cls, *iterables: Iterable[_T1], repeat: int = 1) -> product[tuple[_T1, ...]]: ...
     def __iter__(self) -> Self: ...
