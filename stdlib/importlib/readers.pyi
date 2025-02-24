@@ -12,9 +12,9 @@ from typing import Literal, NoReturn, TypeVar
 from typing_extensions import Never
 
 if sys.version_info >= (3, 11):
-    import importlib.resources.abc as abc
+    from importlib.resources import abc
 else:
-    import importlib.abc as abc
+    from importlib import abc
 
 if sys.version_info >= (3, 10):
     if sys.version_info >= (3, 11):
