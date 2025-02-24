@@ -29,7 +29,7 @@ class Analysis(Target):
     hookspath: list[tuple[StrPath, int]]
     excludes: list[str]
     custom_runtime_hooks: list[StrPath]
-    module_collection_mode: dict[str, Literal["pyz", "pyc", "py", "pyz+py", "py+pyz"]]
+    module_collection_mode: dict[str, str]
     def __init__(
         self,
         scripts: Iterable[StrPath],
