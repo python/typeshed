@@ -29,6 +29,7 @@ class Analysis(Target):
     hookspath: list[tuple[StrPath, int]]
     excludes: list[str]
     custom_runtime_hooks: list[StrPath]
+    # https://pyinstaller.org/en/stable/hooks.html#hook-global-variables
     module_collection_mode: dict[str, str]
     def __init__(
         self,
@@ -45,7 +46,6 @@ class Analysis(Target):
         win_no_prefer_redirects: bool = False,
         win_private_assemblies: bool = False,
         noarchive: bool = False,
-        # https://pyinstaller.org/en/stable/hooks.html#hook-global-variables
         module_collection_mode: dict[str, str] | None = None,
         optimize: Literal[-1, 0, 1, 2] | None = -1,
     ) -> None: ...
