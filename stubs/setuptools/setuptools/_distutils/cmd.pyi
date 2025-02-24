@@ -85,11 +85,22 @@ class Command:
     @overload
     def move_file(self, src: BytesPath, dst: _BytesPathT, level: Unused = 1) -> _BytesPathT | bytes: ...
     def spawn(self, cmd: MutableSequence[str], search_path: bool = True, level: Unused = 1) -> None: ...
+    @overload
     def make_archive(
         self,
         base_name: str,
         format: str,
         root_dir: StrOrBytesPath | None = None,
+        base_dir: str | None = None,
+        owner: str | None = None,
+        group: str | None = None,
+    ) -> str: ...
+    @overload
+    def make_archive(
+        self,
+        base_name: StrPath,
+        format: str,
+        root_dir: StrOrBytesPath,
         base_dir: str | None = None,
         owner: str | None = None,
         group: str | None = None,

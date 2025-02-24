@@ -1,10 +1,22 @@
 from _typeshed import StrOrBytesPath, StrPath
-from typing import Literal
+from typing import Literal, overload
 
+@overload
 def make_archive(
     base_name: str,
     format: str,
     root_dir: StrOrBytesPath | None = None,
+    base_dir: str | None = None,
+    verbose: bool = False,
+    dry_run: bool = False,
+    owner: str | None = None,
+    group: str | None = None,
+) -> str: ...
+@overload
+def make_archive(
+    base_name: StrPath,
+    format: str,
+    root_dir: StrOrBytesPath,
     base_dir: str | None = None,
     verbose: bool = False,
     dry_run: bool = False,
