@@ -1,11 +1,3 @@
-# Is always set in __init__
-pkg_resources.PathMetadata.egg_info
-pkg_resources.EggMetadata.loader
-pkg_resources.ZipProvider.loader
-
-# @classmethod alias not handled correctly by stubtest
-pkg_resources.ZipManifests.load
-
 # Is a functools.partial, so stubtest says "is not a function"
 setuptools.modified.newer_pairwise_group
 setuptools._distutils._modified.newer_pairwise_group
@@ -109,4 +101,3 @@ setuptools.config._validate_pyproject.*
 setuptools.compat.*
 setuptools.command.build_py.build_py.existing_egg_info_dir
 .+?\.tests.*
-.+?\._vendor.*
