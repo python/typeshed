@@ -24,6 +24,10 @@ class Analysis(Target):
     zipfiles: list[_TOCTuple]
     datas: list[_TOCTuple]
 
+    inputs: list[str]
+    dependencies: list[_TOCTuple]
+    noarchive: bool
+    optimize: int
     pathex: list[StrPath]
     hiddenimports: list[str]
     hookspath: list[tuple[StrPath, int]]
