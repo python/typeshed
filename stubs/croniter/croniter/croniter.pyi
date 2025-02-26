@@ -14,17 +14,11 @@ _Expressions: TypeAlias = list[str]  # fixed-length list of 5 or 6 strings
 class _AllIter(Protocol[_R_co]):
     @overload
     def __call__(
-        self,
-        ret_type: type[_R2_co],
-        start_time: float | datetime.datetime | None = None,
-        update_current: bool | None = None,
+        self, ret_type: type[_R2_co], start_time: float | datetime.datetime | None = None, update_current: bool | None = None
     ) -> Generator[_R2_co]: ...
     @overload
     def __call__(
-        self,
-        ret_type: None = None,
-        start_time: float | datetime.datetime | None = None,
-        update_current: bool | None = None,
+        self, ret_type: None = None, start_time: float | datetime.datetime | None = None, update_current: bool | None = None
     ) -> Generator[_R_co]: ...
 
 def is_32bit() -> bool: ...
@@ -220,31 +214,19 @@ class croniter(Generic[_R_co]):
     def timedelta_to_seconds(td: datetime.timedelta) -> float: ...
     @overload
     def all_next(
-        self,
-        ret_type: type[_R2_co],
-        start_time: float | datetime.datetime | None = None,
-        update_current: bool | None = None,
+        self, ret_type: type[_R2_co], start_time: float | datetime.datetime | None = None, update_current: bool | None = None
     ) -> Generator[_R2_co]: ...
     @overload
     def all_next(
-        self,
-        ret_type: None = None,
-        start_time: float | datetime.datetime | None = None,
-        update_current: bool | None = None,
+        self, ret_type: None = None, start_time: float | datetime.datetime | None = None, update_current: bool | None = None
     ) -> Generator[_R_co]: ...
     @overload
     def all_prev(
-        self,
-        ret_type: type[_R2_co],
-        start_time: float | datetime.datetime | None = None,
-        update_current: bool | None = None,
+        self, ret_type: type[_R2_co], start_time: float | datetime.datetime | None = None, update_current: bool | None = None
     ) -> Generator[_R2_co]: ...
     @overload
     def all_prev(
-        self,
-        ret_type: None = None,
-        start_time: float | datetime.datetime | None = None,
-        update_current: bool | None = None,
+        self, ret_type: None = None, start_time: float | datetime.datetime | None = None, update_current: bool | None = None
     ) -> Generator[_R_co]: ...
     def iter(self, *args: Unused, **kwargs: Unused) -> _AllIter[_R_co]: ...
     def __iter__(self) -> Self: ...
