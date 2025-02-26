@@ -8,7 +8,6 @@ from typing_extensions import Never, Self, TypeAlias
 
 _R_co = TypeVar("_R_co", float, datetime.datetime, default=float, covariant=True)
 _R2_co = TypeVar("_R2_co", float, datetime.datetime, covariant=True)
-_RetType: TypeAlias = type[float | datetime.datetime]
 _Expressions: TypeAlias = list[str]  # fixed-length list of 5 or 6 strings
 
 class _AllIter(Protocol[_R_co]):
