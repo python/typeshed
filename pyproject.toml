@@ -179,4 +179,4 @@ extra-standard-library = [
 known-first-party = ["_utils", "ts_utils"]
 
 [tool.typeshed]
-oldest_supported_python = "3.8"
+oldest_supported_python = "3.9"
