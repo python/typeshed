@@ -10,6 +10,7 @@ from _typeshed import (
     ConvertibleToFloat,
     ConvertibleToInt,
     FileDescriptorOrPath,
+    MaybeNone,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,
@@ -946,6 +947,14 @@ class slice(Generic[_StartT, _StopT, _StepT]):
     def step(self) -> _StepT: ...
     @property
     def stop(self) -> _StopT: ...
+    @overload
+    def __new__(cls, start: None, stop: None, step: None = None, /) -> slice[MaybeNone, MaybeNone, MaybeNone]: ...
+    @overload
+    def __new__(cls, stop: int | None, /) -> slice[int | MaybeNone, int | MaybeNone, int | MaybeNone]: ...
+    @overload
+    def __new__(
+        cls, start: int | None, stop: int | None, step: int | None = None, /
+    ) -> slice[int | MaybeNone, int | MaybeNone, int | MaybeNone]: ...
     @overload
     def __new__(cls, stop: _T2, /) -> slice[None, _T2, None]: ...
     @overload
