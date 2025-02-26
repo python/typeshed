@@ -45,6 +45,12 @@ idlelib
 # Module members that exist at runtime, but are deliberately missing from stubs
 # =============================================================================
 
+_collections_abc.AsyncIterable.__class_getitem__
+_collections_abc.Awaitable.__class_getitem__
+_collections_abc.Container.__class_getitem__
+_collections_abc.Iterable.__class_getitem__
+_collections_abc.MappingView.__class_getitem__
+
 _collections_abc.Mapping.__reversed__  # set to None at runtime for a better error message
 
 # Adding these reflected dunders to `typing.AbstractSet` causes a large number of false-positives. See #7414.
@@ -211,8 +217,11 @@ _?ast.excepthandler.__init__
 _?ast.expr.__init__
 _?ast.stmt.__init__
 
+_ast.ImportFrom.level  # None on the class, but never None on instances
+
 ast.Bytes.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
 ast.Ellipsis.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
+ast.ImportFrom.level  # None on the class, but never None on instances
 ast.NameConstant.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
 ast.Num.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
 ast.Str.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
@@ -253,7 +262,14 @@ configparser.SectionProxy.__getattr__  # SectionProxy can have arbitrary attribu
 configparser.SectionProxy.getboolean  # SectionProxy get functions are set in __init__
 configparser.SectionProxy.getfloat  # SectionProxy get functions are set in __init__
 configparser.SectionProxy.getint  # SectionProxy get functions are set in __init__
+
+# Treated an alias of a typing class in the stubs,
+# they are generic to type checkers anyway.
+contextlib.AbstractAsyncContextManager.__class_getitem__
+contextlib.AbstractContextManager.__class_getitem__
+
 _?contextvars.Context.__init__  # C signature is broader than what is actually accepted
+
 copy.PyStringMap  # defined only in Jython
 
 # The Dialect properties are initialized as None in Dialect but their values are enforced in _Dialect
@@ -296,7 +312,10 @@ email.policy.EmailPolicy.message_factory  # "type" at runtime, but protocol in s
 enum.auto.__or__  # enum.auto is magic, see comments
 enum.auto.__and__  # enum.auto is magic, see comments
 enum.auto.__xor__  # enum.auto is magic, see comments
+
+functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
 functools.cached_property.__set__  # doesn't exist, but cached_property is settable by another mechanism
+
 _?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
 hmac.new  # Raises TypeError if optional argument digestmod is not provided
 http.HTTPStatus.description  # set in __new__; work-around for enum wierdness
@@ -310,6 +329,7 @@ importlib._bootstrap_external.FileLoader.get_resource_reader
 importlib._bootstrap_external.FileLoader.load_module
 importlib.abc.FileLoader.get_filename
 importlib.abc.FileLoader.load_module
+importlib.abc.Traversable.open  # Problematic protocol signature at runtime, see source code comments.
 importlib.machinery.ExtensionFileLoader.get_filename
 
 # We can't distinguish not having a default value from having a default value of inspect.Parameter.empty
@@ -377,6 +397,7 @@ multiprocessing.synchronize.SemLock.release
 
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
+
 os._wrap_close.read  # Methods that come from __getattr__() at runtime
 os._wrap_close.readable  # Methods that come from __getattr__() at runtime
 os._wrap_close.readline  # Methods that come from __getattr__() at runtime
@@ -384,6 +405,8 @@ os._wrap_close.readlines  # Methods that come from __getattr__() at runtime
 os._wrap_close.writable  # Methods that come from __getattr__() at runtime
 os._wrap_close.write  # Methods that come from __getattr__() at runtime
 os._wrap_close.writelines  # Methods that come from __getattr__() at runtime
+os.PathLike.__class_getitem__  # PathLike is a protocol; we don't expect all PathLike classes to implement class_getitem
+
 pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
 _?queue.SimpleQueue.__init__  # C signature is broader than what is actually accepted
@@ -433,6 +456,10 @@ traceback.TracebackException.from_exception  # explicitly expanding arguments go
 turtle.ScrolledCanvas.find_all  # Dynamically created, has unnecessary *args
 turtle.ScrolledCanvas.select_clear  # Dynamically created, has unnecessary *args
 turtle.ScrolledCanvas.select_item  # Dynamically created, has unnecessary *args
+
+types.GenericAlias.__call__  # Would be complicated to fix properly, Any could silence problems. #6392
+types.GenericAlias.__getattr__
+
 typing.type_check_only  # typing decorator that is not available at runtime
 
 # Details of runtime definition don't need to be in stubs
@@ -468,6 +495,7 @@ typing(_extensions)?\.Match
 typing(_extensions)?\.MutableMapping
 typing(_extensions)?\.MutableSequence
 typing(_extensions)?\.MutableSet
+typing(_extensions)?\.NamedTuple
 typing(_extensions)?\.Pattern
 typing(_extensions)?\.Reversible
 typing(_extensions)?\.Sequence
@@ -475,7 +503,6 @@ typing(_extensions)?\.Sized
 typing(_extensions)?\.ValuesView
 typing_extensions\.Final
 typing_extensions\.LiteralString
-typing_extensions\.NamedTuple
 
 typing._SpecialForm.__call__  # Typing-related weirdness
 typing._SpecialForm.__init__  # Typing-related weirdness
@@ -510,13 +537,15 @@ unittest.runner._WritelnDecorator.flush  # Methods that come from __getattr__() 
 unittest.runner._WritelnDecorator.write  # Methods that come from __getattr__() at runtime
 urllib.response.addbase.write  # Methods that come from __getattr__() at runtime
 urllib.response.addbase.writelines  # Methods that come from __getattr__() at runtime
-urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
 unittest.mock.patch  # function with attributes, which we approximate with a callable class
+
 _?weakref\.CallableProxyType\.__getattr__  # Should have all attributes of proxy
 _?weakref\.(ref|ReferenceType)\.__init__  # C implementation has incorrect signature
 _?weakref\.(ref|ReferenceType)\.__call__  # C function default annotation is wrong
 _?weakref\.ProxyType\.__getattr__  # Should have all attributes of proxy
+_?weakref\.ProxyType\.__reversed__  # Doesn't really exist
 weakref.WeakValueDictionary.setdefault  # has a default value for the "default" argument, but always errors out if no value is supplied for the parameter by the user
+
 webbrowser.UnixBrowser.remote_action  # Always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newtab  # Always overridden in inheriting class
 webbrowser.UnixBrowser.remote_action_newwin  # Always overridden in inheriting class
