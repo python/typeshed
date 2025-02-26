@@ -10,7 +10,6 @@ from _typeshed import (
     ConvertibleToFloat,
     ConvertibleToInt,
     FileDescriptorOrPath,
-    MaybeNone,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,
