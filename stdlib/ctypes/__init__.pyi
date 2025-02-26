@@ -24,6 +24,7 @@ from _ctypes import (
     set_errno as set_errno,
     sizeof as sizeof,
 )
+from _typeshed import StrPath
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
 from typing import Any, ClassVar, Generic, TypeVar, type_check_only
 from typing_extensions import Self, TypeAlias, deprecated
@@ -57,6 +58,11 @@ class _CDLLFuncPointer(_CFuncPtr):
 class _NamedFuncPointer(_CDLLFuncPointer):
     __name__: str
 
+if sys.version_info >= (3, 12):
+    _NameTypes: TypeAlias = StrPath | None
+else:
+    _NameTypes: TypeAlias = str | None
+
 class CDLL:
     _func_flags_: ClassVar[int]
     _func_restype_: ClassVar[type[_CDataType]]
@@ -65,7 +71,7 @@ class CDLL:
     _FuncPtr: type[_CDLLFuncPointer]
     def __init__(
         self,
-        name: str | None,
+        name: _NameTypes,
         mode: int = ...,
         handle: int | None = None,
         use_errno: bool = False,
@@ -153,7 +159,14 @@ def ARRAY(typ: _CT, len: int) -> Array[_CT]: ...  # Soft Deprecated, no plans to
 if sys.platform == "win32":
     def DllCanUnloadNow() -> int: ...
     def DllGetClassObject(rclsid: Any, riid: Any, ppv: Any) -> int: ...  # TODO not documented
-    def GetLastError() -> int: ...
+
+    # Actually just an instance of _NamedFuncPointer (aka _CDLLFuncPointer),
+    # but we want to set a more specific __call__
+    @type_check_only
+    class _GetLastErrorFunctionType(_NamedFuncPointer):
+        def __call__(self) -> int: ...
+
+    GetLastError: _GetLastErrorFunctionType
 
 # Actually just an instance of _CFunctionType, but we want to set a more
 # specific __call__.

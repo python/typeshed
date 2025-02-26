@@ -1,14 +1,7 @@
 # TODO: missing from stub
 psutil.__all__
 psutil._common.__all__
-psutil._compat.__all__
 psutil._psposix.__all__
-
-# These super() dunders don't seem to be particularly useful,
-# and having them pop up on autocomplete suggestions would be annoying
-psutil._compat.super.__self__
-psutil._compat.super.__self_class__
-psutil._compat.super.__thisclass__
 
 # Stubtest does not support these platforms
 psutil._psaix
