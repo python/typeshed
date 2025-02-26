@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
-from typing import ClassVar
+from typing import Any, ClassVar
 
-class BaseClaims(dict[str, object]):
+class BaseClaims(dict[str, Any]):  # dict values are key-dependent
     REGISTERED_CLAIMS: ClassVar[list[str]]
     header: Incomplete
     options: Incomplete
