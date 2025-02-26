@@ -204,7 +204,6 @@ class _Pickler:
     dispatch_table: Mapping[type, Callable[[Any], _ReducedType]]
     bin: bool  # undocumented
     dispatch: ClassVar[dict[type, Callable[[Unpickler, Any], None]]]  # undocumented, _Pickler only
-    reducer_override: Callable[[Any], Any]
     def __init__(
         self,
         file: SupportsWrite[bytes],
@@ -216,6 +215,10 @@ class _Pickler:
     def dump(self, obj: Any) -> None: ...
     def clear_memo(self) -> None: ...
     def persistent_id(self, obj: Any) -> Any: ...
+    # The following method is not defined on _Pickler, but can be defined on
+    # sub-classes. Should return `NotImplemented` if pickling the supplied
+    # object is not supported and returns the same types as `__reduce__()`.
+    def reducer_override(self, obj: object, /) -> Any: ...
 
 class _Unpickler:
     dispatch: ClassVar[dict[int, Callable[[Unpickler], None]]]  # undocumented, _Unpickler only
