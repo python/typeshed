@@ -950,9 +950,9 @@ class slice(Generic[_StartT, _StopT, _StepT]):
     @overload
     def __new__(cls, start: None, stop: None, step: None = None, /) -> slice[MaybeNone, MaybeNone, MaybeNone]: ...
     @overload
-    def __new__(cls, stop: int | None, /) -> slice[int | MaybeNone, int | MaybeNone, int | MaybeNone]: ...
+    def __new__(cls, stop: int | None, /) -> slice[int | MaybeNone, int | MaybeNone, int | MaybeNone]: ...  # type: ignore[overload-overlap]
     @overload
-    def __new__(
+    def __new__(  # type: ignore[overload-overlap]
         cls, start: int | None, stop: int | None, step: int | None = None, /
     ) -> slice[int | MaybeNone, int | MaybeNone, int | MaybeNone]: ...
     @overload
