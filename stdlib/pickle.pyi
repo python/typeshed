@@ -218,7 +218,7 @@ class _Pickler:
     # The following method is not defined on _Pickler, but can be defined on
     # sub-classes. Should return `NotImplemented` if pickling the supplied
     # object is not supported and returns the same types as `__reduce__()`.
-    def reducer_override(self, obj: object, /) -> Any: ...
+    def reducer_override(self, obj: object, /) -> _ReducedType: ...
 
 class _Unpickler:
     dispatch: ClassVar[dict[int, Callable[[Unpickler], None]]]  # undocumented, _Unpickler only
