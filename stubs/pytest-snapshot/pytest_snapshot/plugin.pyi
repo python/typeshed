@@ -4,7 +4,7 @@ from pathlib import Path
 from types import TracebackType
 from typing import Any
 
-import _pytest
+import _pytest.config.argparsing
 import pytest
 
 PARAMETRIZED_TEST_REGEX: re.Pattern[str]
