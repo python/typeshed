@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import sys
-from typing import TypeVar
+from typing import Never, TypeVar
 from typing_extensions import assert_type
 
 if sys.version_info >= (3, 11):
@@ -23,7 +23,7 @@ if sys.version_info >= (3, 11):
     beg2 = BaseExceptionGroup("x", [ValueError()])
     # FIXME: this is not right, runtime returns `ExceptionGroup` instance instead,
     # but I am unable to represent this with types right now.
-    assert_type(beg2, BaseExceptionGroup[ValueError])
+    assert_type(beg2, ExceptionGroup[ValueError])
 
     # .subgroup()
     # -----------
@@ -218,7 +218,13 @@ if sys.version_info >= (3, 11):
 
     cb1 = CustomBaseGroup("x", [SystemExit()])
     assert_type(cb1, CustomBaseGroup[SystemExit])
-    cb2 = CustomBaseGroup("x", [ValueError()])
+
+    # Custom subclasses that don't implement __new__ are now kinda borked when
+    # passing non-base exceptions.
+    # With current typing it's not possible to have this working at the same time
+    # as making BaseExceptionGroup initialized with non-base exceptions return ExceptionGroup
+    assert_type(CustomBaseGroup("x", [ValueError()]), CustomBaseGroup[Never])
+    cb2: CustomBaseGroup[ValueError] = CustomBaseGroup("x", [ValueError()])
     assert_type(cb2, CustomBaseGroup[ValueError])
 
     # .subgroup()
