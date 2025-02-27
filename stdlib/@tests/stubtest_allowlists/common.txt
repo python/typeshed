@@ -19,14 +19,6 @@ tkinter.simpledialog.TkVersion
 tkinter.Text.count  # stubtest somehow thinks that index1 parameter has a default value, but it doesn't in any of the overloads
 
 
-# ===============================================================
-# TODO: Modules that exist at runtime, but are missing from stubs
-# ===============================================================
-
-turtledemo
-turtledemo\..+
-
-
 # ======================================================================
 # TODO: Module members that exist at runtime, but are missing from stubs
 # ======================================================================
