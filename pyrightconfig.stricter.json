@@ -52,6 +52,7 @@
         "stubs/humanfriendly",
         "stubs/hvac",
         "stubs/icalendar",
+        "stubs/ijson",
         "stubs/influxdb-client",
         "stubs/jmespath",
         "stubs/jsonschema",
