@@ -1,7 +1,7 @@
+from collections.abc import Generator
 from pathlib import Path
 from types import TracebackType
 from typing import Any
-from collections.abc import Generator
 
 import pytest
 
