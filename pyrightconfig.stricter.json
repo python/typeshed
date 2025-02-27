@@ -47,7 +47,6 @@
         "stubs/geopandas",
         "stubs/google-cloud-ndb",
         "stubs/hdbcli/hdbcli/dbapi.pyi",
-        "stubs/hnswlib",
         "stubs/html5lib",
         "stubs/httplib2",
         "stubs/humanfriendly",
