@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import sys
 from typing import TypeVar
-from typing_extensions import assert_type, Never
+from typing_extensions import Never, assert_type
 
 if sys.version_info >= (3, 11):
     # This can be removed later, but right now Flake8 does not know
