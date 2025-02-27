@@ -78,9 +78,17 @@ else:
     ]
 
 if sys.version_info >= (3, 13):
+    class _UNNAMED_SECTION: ...
+    UNNAMED_SECTION: _UNNAMED_SECTION
+
     _SectionName: TypeAlias = str | _UNNAMED_SECTION
+    # A list of sections can only include an unnamed section if the parser was initialized with
+    # allow_unnamed_section=True. Any prevents users from having to use explicit
+    # type checks if allow_unnamed_section is False (the default).
+    _SectionNameList: TypeAlias = list[_SectionName | Any]
 else:
     _SectionName: TypeAlias = str
+    _SectionNameList: TypeAlias = list[str]
 
 _Section: TypeAlias = Mapping[str, str]
 _Parser: TypeAlias = MutableMapping[str, _Section]
@@ -225,7 +233,7 @@ class RawConfigParser(_Parser):
     def __iter__(self) -> Iterator[str]: ...
     def __contains__(self, key: object) -> bool: ...
     def defaults(self) -> _Section: ...
-    def sections(self) -> list[_SectionName]: ...
+    def sections(self) -> _SectionNameList: ...
     def add_section(self, section: _SectionName) -> None: ...
     def has_section(self, section: _SectionName) -> bool: ...
     def options(self, section: _SectionName) -> list[str]: ...
@@ -410,9 +418,6 @@ class MissingSectionHeaderError(ParsingError):
     def __init__(self, filename: str, lineno: int, line: str) -> None: ...
 
 if sys.version_info >= (3, 13):
-    class _UNNAMED_SECTION: ...
-    UNNAMED_SECTION: _UNNAMED_SECTION
-
     class MultilineContinuationError(ParsingError):
         lineno: int
         line: str
