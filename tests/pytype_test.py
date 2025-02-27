@@ -40,7 +40,7 @@ from ts_utils.utils import SupportedVersionsDict, parse_stdlib_versions_file, su
 
 TYPESHED_SUBDIRS = ["stdlib", "stubs"]
 TYPESHED_HOME = "TYPESHED_HOME"
-_LOADERS = {}
+_LOADERS: dict[str, tuple[pytype_config.Options, load_pytd.Loader]] = {}
 
 
 def main() -> None:
