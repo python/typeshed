@@ -1,11 +1,11 @@
+import re
 from collections.abc import Generator
 from pathlib import Path
 from types import TracebackType
 from typing import Any
-import re
 
-import pytest
 import _pytest
+import pytest
 
 PARAMETRIZED_TEST_REGEX: re.Pattern[str]
 
