@@ -10,7 +10,6 @@
         "**/@tests/test_cases",
         "stdlib/distutils/command",
         "stdlib/distutils/dist.pyi",
-        "stdlib/importlib/readers.pyi",
         "stdlib/lib2to3/fixes/*.pyi",
         "stdlib/numbers.pyi",
         "stdlib/optparse.pyi",
