@@ -1,7 +1,6 @@
 version = "0.9.*"
 upstream_repository = "https://github.com/joseph-roitman/pytest-snapshot"
 requires = []
-partial_stub = false
 
 [tool.stubtest]
 stubtest_requirements = []
