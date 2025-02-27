@@ -2,9 +2,14 @@ from collections.abc import Generator
 from pathlib import Path
 from types import TracebackType
 from typing import Any
+import re
 
 import pytest
+import _pytest
 
+PARAMETRIZED_TEST_REGEX: re.Pattern[str]
+
+def pytest_addoption(parser: _pytest.config.argparsing.Parser) -> None: ...
 @pytest.fixture
 def snapshot(request: pytest.FixtureRequest) -> Generator[Snapshot, Any, None]: ...
 
