@@ -2077,7 +2077,9 @@ if sys.version_info >= (3, 11):
     # See `check_exception_group.py` for use-cases and comments.
     class BaseExceptionGroup(BaseException, Generic[_BaseExceptionT_co]):
         @overload
-        def __new__(cls, message: str, exceptions: Sequence[_ExceptionT_co], /) -> ExceptionGroup[_ExceptionT_co]: ...
+        def __new__(
+            cls: ExceptionGroup[_ExceptionT_co], message: str, exceptions: Sequence[_ExceptionT_co], /
+        ) -> ExceptionGroup[_ExceptionT_co]: ...
         @overload
         def __new__(cls, message: str, exceptions: Sequence[_BaseExceptionT_co], /) -> Self: ...
         @property
