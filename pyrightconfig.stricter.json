@@ -28,6 +28,7 @@
         "stubs/Authlib",
         "stubs/aws-xray-sdk",
         "stubs/beautifulsoup4",
+        "stubs/biopandas",
         "stubs/bleach/bleach/sanitizer.pyi",
         "stubs/boltons",
         "stubs/braintree",
