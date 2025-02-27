@@ -1,7 +1,3 @@
 version = "0.9.*"
 upstream_repository = "https://github.com/joseph-roitman/pytest-snapshot"
 requires = []
-
-[tool.stubtest]
-stubtest_requirements = []
-ignore_missing_stub = true
