@@ -55,11 +55,6 @@ select = [
     "W", # pycodestyle Warning
     # Only include flake8-annotations rules that are autofixable. Otherwise leave this to mypy+pyright
     "ANN2",
-    # Don't include TC rules that create a TYPE_CHECKING block or stringifies annotations
-    "TC004", # Move import `{qualified_name}` out of type-checking block. Import is used for more than type hinting.
-    "TC005", # Found empty type-checking block
-    # "TC008", # TODO: Enable when out of preview
-    "TC010", # Invalid string member in `X | Y`-style union type
     # Most refurb rules are in preview and can be opinionated,
     # consider them individually as they come out of preview (last check: 0.8.4)
     "FURB105", # Unnecessary empty string passed to `print`
@@ -94,6 +89,35 @@ select = [
     # "PYI061", # TODO: Enable when out of preview
     "PYI062", # Duplicate literal member `{}`
     "PYI064", # `Final[Literal[{literal}]]` can be replaced with a bare Final
+    # flake8-simplify, excluding rules that can reduce performance or readability due to long line formatting
+    "SIM101", # Multiple `isinstance` calls for `{name}`, merge into a single call
+    "SIM103", # Return the condition `{condition}` directly
+    "SIM107", # Don't use return in `try-except` and `finally`
+    "SIM109", # Use `{replacement}` instead of multiple equality comparisons
+    "SIM112", # Use capitalized environment variable `{expected}` instead of `{actual}`
+    "SIM113", # Use `enumerate()` for index variable `{index}` in `for` loop
+    "SIM114", # Combine `if` branches using logical `or` operator
+    "SIM115", # Use a context manager for opening files
+    "SIM118", # Use key `{operator}` dict instead of key `{operator} dict.keys()`
+    "SIM201", # Use `{left} != {right}` instead of not `{left} == {right}`
+    "SIM202", # Use `{left} == {right}` instead of not `{left} != {right}`
+    "SIM208", # Use `{expr}` instead of `not (not {expr})`
+    "SIM210", # Remove unnecessary `True if ... else False`
+    "SIM211", # Use `not ...` instead of `False if ... else True`
+    "SIM212", # Use `{expr_else} if {expr_else} else {expr_body}` instead of `{expr_body} if not {expr_else} else {expr_else}`
+    "SIM220", # Use `False` instead of `{name} and not {name}`
+    "SIM221", # Use `True` instead of `{name} or not {name}`
+    "SIM222", # Use `{expr}` instead of `{replaced}`
+    "SIM223", # Use `{expr}` instead of `{replaced}`
+    "SIM300", # Yoda condition detected
+    "SIM401", # Use `{contents}` instead of an if block
+    "SIM910", # Use `{expected}` instead of `{actual}` (dict-get-with-none-default)
+    "SIM911", # Use `{expected}` instead of `{actual}` (zip-dict-keys-and-values)
+    # Don't include TC rules that create a TYPE_CHECKING block or stringifies annotations
+    "TC004", # Move import `{qualified_name}` out of type-checking block. Import is used for more than type hinting.
+    "TC005", # Found empty type-checking block
+    # "TC008", # TODO: Enable when out of preview
+    "TC010", # Invalid string member in `X | Y`-style union type
 ]
 extend-safe-fixes = [
     "UP036", # Remove unnecessary `sys.version_info` blocks
@@ -112,6 +136,8 @@ ignore = [
     ###
     # We're not a library, no need to document everything
     "D1", # Missing docstring in ...
+    # Sometimes, an extra blank line is more readable
+    "D202", # No blank lines allowed after function docstring
     # Doesn't support split "summary line"
     "D205", # 1 blank line required between summary line and description
     # Used for direct, non-subclass type comparison, for example: `type(val) is str`
