@@ -1,5 +1,5 @@
-from configparser import SectionProxy
+from configparser import RawConfigParser, SectionProxy
 from typing_extensions import assert_type
 
-sp: SectionProxy
+sp = SectionProxy(RawConfigParser(), "")
 assert_type(sp.get("foo", fallback="hi"), str)
