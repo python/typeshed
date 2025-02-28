@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 from collections.abc import Callable, Generator
-from typing import Any, TypeVar
+from typing import Any, Iterable, TypeVar
 from typing_extensions import ParamSpec, TypeAlias
 
 _P = ParamSpec("_P")
@@ -16,4 +15,4 @@ class sendable_list(list[_T]):
     # send = list.append
     def send(self, object: _T, /) -> None: ...
 
-def coros2gen(source, *coro_pipeline: _CoroPipelineArgs) -> Generator[Incomplete]: ...
+def coros2gen(source: Iterable[_T], *coro_pipeline: _CoroPipelineArgs) -> Generator[_T, Any, None]: ...
