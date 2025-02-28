@@ -10,6 +10,7 @@ on:
     paths:
       - "scripts/**"
       - "tests/**"
+      - "lib/**"
       - ".github/workflows/meta_tests.yml"
       - "requirements-tests.txt"
       - "pyproject.toml"
