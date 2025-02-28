@@ -320,7 +320,14 @@ class SectionProxy(MutableMapping[str, str]):
     # This is incompatible with MutableMapping so we ignore the type
     @overload  # type: ignore[override]
     def get(
-        self, option: str, *, raw: bool = False, vars: _Section | None = None, _impl: Any | None = None, **kwargs: Any
+        self,
+        option: str,
+        fallback: None = None,
+        *,
+        raw: bool = False,
+        vars: _Section | None = None,
+        _impl: Any | None = None,
+        **kwargs: Any,
     ) -> str | None: ...
     @overload
     def get(
