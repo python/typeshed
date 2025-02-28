@@ -22,7 +22,7 @@ _SKIPPED = colored("Skipped", "yellow")
 _FAILED = colored("Failed", "red")
 # We're using the oldest fully supported version because it's the most likely to produce errors
 # due to unsupported syntax, feature, or bug in a tool.
-_PYTHON_VERSION = "3.8"
+_PYTHON_VERSION = "3.9"
 
 
 def _parse_jsonc(json_text: str) -> str:
@@ -55,7 +55,7 @@ def main() -> None:
     parser.add_argument(
         "--python-version",
         default=_PYTHON_VERSION,
-        choices=("3.8", "3.9", "3.10", "3.11", "3.12", "3.13"),
+        choices=("3.9", "3.10", "3.11", "3.12", "3.13"),
         help="Target Python version for the test (default: %(default)s).",
     )
     parser.add_argument("path", help="Path of the stub to test in format <folder>/<stub>, from the root of the project.")

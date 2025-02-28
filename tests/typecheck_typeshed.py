@@ -55,6 +55,8 @@ def run_mypy_as_subprocess(directory: str, platform: str, version: str) -> Retur
         "--python-version",
         version,
         "--strict",
+        "--strict-bytes",
+        "--local-partial-types",
         "--pretty",
         "--show-traceback",
         "--no-error-summary",
