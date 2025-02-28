@@ -1,7 +1,7 @@
 import collections
-from _typeshed import SupportsRead
+from _typeshed import Incomplete, SupportsRead
 from collections.abc import Callable
-from typing import Any, TypeVar
+from typing import TypeVar
 
 from ijson import compat
 from ijson.utils import _CoroPipelineArgs
@@ -16,12 +16,12 @@ class sendable_deque(collections.deque[_T]):
     def send(self, x: _T, /) -> None: ...
 
 class async_iterable:
-    events: sendable_deque[Any]
-    coro: list[Any]
+    events: sendable_deque[Incomplete]
+    coro: list[Incomplete]
     coro_finished: bool
-    f: SupportsRead[Any]
+    f: SupportsRead[Incomplete]
     buf_size: int
     read: Callable[[int], bytes] | None
-    def __init__(self, f: SupportsRead[Any], buf_size: int, *coro_pipeline: _CoroPipelineArgs) -> None: ...
+    def __init__(self, f: SupportsRead[Incomplete], buf_size: int, *coro_pipeline: _CoroPipelineArgs) -> None: ...
     def __aiter__(self): ...
     async def __anext__(self): ...

@@ -1,6 +1,7 @@
 from _ctypes import Structure
+from _typeshed import Incomplete
 from ctypes import CDLL, _CFunctionType
-from typing import Any, ClassVar
+from typing import ClassVar
 
 C_EMPTY: type[_CFunctionType]
 C_INT: type[_CFunctionType]
@@ -17,5 +18,5 @@ class _CallbacksStructure(Structure):
     _fields_: ClassVar[list[tuple[str, type[_CFunctionType]]]]
 
 def get_yajl(version: int) -> CDLL: ...
-def make_callbaks(send: Any, use_float: bool, yajl_version: int) -> _CallbacksStructure: ...
-def yajl_get_error(yajl: Any, handle, buffer) -> str | bytes | None: ...
+def make_callbaks(send: Incomplete, use_float: bool, yajl_version: int) -> _CallbacksStructure: ...
+def yajl_get_error(yajl: Incomplete, handle, buffer) -> str | bytes | None: ...
