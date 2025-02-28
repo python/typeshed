@@ -327,7 +327,7 @@ class SectionProxy(MutableMapping[str, str]):
         raw: bool = False,
         vars: _Section | None = None,
         _impl: Any | None = None,
-        **kwargs: Any,
+        **kwargs: Any,  # passed to the underlying parser's get() method
     ) -> str | None: ...
     @overload
     def get(
@@ -338,7 +338,7 @@ class SectionProxy(MutableMapping[str, str]):
         raw: bool = False,
         vars: _Section | None = None,
         _impl: Any | None = None,
-        **kwargs: Any,
+        **kwargs: Any,  # passed to the underlying parser's get() method
     ) -> str | _T: ...
     # These are partially-applied version of the methods with the same names in
     # RawConfigParser; the stubs should be kept updated together
