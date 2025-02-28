@@ -25,7 +25,7 @@ class bdist_wheel(Command):
     boolean_options: ClassVar[list[str]]
 
     bdist_dir: str | None
-    data_dir: str | None
+    data_dir: str
     plat_name: str | None
     plat_tag: str | None
     format: str

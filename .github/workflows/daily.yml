@@ -34,8 +34,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        # As of 2024-10-18, ubuntu-latest can refer to different Ubuntu versions,
+        # which can can cause problems with os module constants.
+        os: ["ubuntu-24.04", "windows-latest", "macos-latest"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
       fail-fast: false
 
     steps:
@@ -119,8 +121,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install uv
-        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+      - uses: astral-sh/setup-uv@v5
       - name: Run tests
         run: |
           cd stub_uploader
@@ -144,6 +145,6 @@ jobs:
               owner: "python",
               repo: "typeshed",
               title: `Daily tests failed on ${new Date().toDateString()}`,
-              body: "Runs listed here: https://github.com/python/typeshed/actions/workflows/daily.yml",
+              body: "Run listed here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
               labels: ["help wanted"],
             })

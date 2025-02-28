@@ -1,3 +1,8 @@
+# TODO: missing from stub
+pytz.__all__
+pytz.reference.__all__
+pytz.tzinfo.__all__
+
 # "Abstract" methods, see the .pyi file for more details.
 pytz.BaseTzInfo.localize
 pytz.BaseTzInfo.normalize
