@@ -81,7 +81,6 @@ select = [
     # "PYI026", Waiting for this mypy bug to be fixed: https://github.com/python/mypy/issues/16581
     "PYI030", # Multiple literal members in a union. Use a single literal, e.g. `Literal[{}]`
     "PYI032", # Prefer `object` to `Any` for the second parameter to `{method_name}`
-    "PYI034", # `__new__` methods usually return self at runtime
     "PYI036", # Star-args in `{method_name}` should be annotated with `object`
     "PYI044", # `from __future__ import annotations` has no effect in stub files, since type checkers automatically treat stubs as having those semantics
     "PYI055", # Multiple `type[T]` usages in a union. Combine them into one, e.g., `type[{union_str}]`.
