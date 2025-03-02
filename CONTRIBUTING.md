@@ -28,7 +28,7 @@ it takes a bit longer. For more details, read below.
 
 Typeshed runs continuous integration (CI) on all pull requests. This means that
 if you file a pull request (PR), our full test suite
--- including our linter, [Flake8](https://github.com/PyCQA/flake8) --
+-- including our linter, [`flake8-pyi`](https://github.com/pycqa/flake8-pyi) --
 is run on your PR. It also means that bots will automatically apply
 changes to your PR (using [Black](https://github.com/psf/black) and
 [Ruff](https://github.com/astral-sh/ruff)) to fix any formatting issues.
@@ -88,8 +88,7 @@ The code is formatted using [`Black`](https://github.com/psf/black).
 Various other autofixes and lint rules are
 also performed by [`Ruff`](https://github.com/astral-sh/ruff) and
 [`Flake8`](https://github.com/pycqa/flake8),
-with plugins [`flake8-pyi`](https://github.com/pycqa/flake8-pyi),
-and [`flake8-noqa`](https://github.com/plinss/flake8-noqa).
+with plugin [`flake8-pyi`](https://github.com/pycqa/flake8-pyi).
 
 The repository is equipped with a [pre-commit.ci](https://pre-commit.ci/)
 configuration file. This means that you don't *need* to do anything yourself to

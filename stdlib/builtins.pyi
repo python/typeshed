@@ -1,4 +1,3 @@
-# ruff: noqa: PYI036 # This is the module declaring BaseException
 import _ast
 import _sitebuiltins
 import _typeshed
@@ -870,7 +869,11 @@ class memoryview(Sequence[_I]):
     def __new__(cls, obj: ReadableBuffer) -> Self: ...
     def __enter__(self) -> Self: ...
     def __exit__(
-        self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None, /
+        self,
+        exc_type: type[BaseException] | None,  # noqa: PYI036 # This is the module declaring BaseException
+        exc_val: BaseException | None,
+        exc_tb: TracebackType | None,
+        /,
     ) -> None: ...
     @overload
     def cast(self, format: Literal["c", "@c"], shape: list[int] | tuple[int, ...] = ...) -> memoryview[bytes]: ...
