@@ -115,7 +115,7 @@ def reader(
 ) -> _reader: ...
 def register_dialect(
     name: str,
-    dialect: type[Dialect] = ...,
+    dialect: type[Dialect | csv.Dialect] = ...,
     *,
     delimiter: str = ",",
     quotechar: str | None = '"',
