@@ -4,7 +4,7 @@ from typing import Generic, Protocol, TypeVar, overload, type_check_only
 _StrSequenceT_co = TypeVar("_StrSequenceT_co", covariant=True, bound=Sequence[str])
 
 @type_check_only
-class _SliceableT(Protocol, Generic[_StrSequenceT_co]):
+class _SliceableT(Protocol[_StrSequenceT_co]):
     @overload
     def __getitem__(self, key: int, /) -> str: ...
     @overload
