@@ -66,8 +66,7 @@ select = [
     "FURB177", # Prefer `Path.cwd()` over `Path().resolve()` for current-directory lookups
     "FURB187", # Use of assignment of `reversed` on list `{name}`
     # PYI: only enable rules that have autofixes and that we always want to fix (even manually),
-    # avoids duplicate # noqa with flake8-pyi and flake8-noqa flagging `PYI` codes
-    # See https://github.com/plinss/flake8-noqa/issues/22
+    # avoids duplicate # noqa with flake8-pyi
     "PYI009", # Empty body should contain `...`, not pass
     "PYI010", # Function body must contain only `...`
     "PYI012", # Class bodies must not contain `pass`
