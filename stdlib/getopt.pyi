@@ -1,5 +1,5 @@
 from collections.abc import Iterable, Sequence
-from typing import Generic, Protocol, TypeVar, overload, type_check_only
+from typing import Protocol, TypeVar, overload, type_check_only
 
 _StrSequenceT_co = TypeVar("_StrSequenceT_co", covariant=True, bound=Sequence[str])
 

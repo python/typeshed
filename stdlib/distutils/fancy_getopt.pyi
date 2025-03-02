@@ -18,7 +18,9 @@ class FancyGetopt:
     @overload
     def getopt(self, args: _SliceableT[_StrSequenceT_co] | None = None, object: None = None) -> _GR[_StrSequenceT_co]: ...
     @overload
-    def getopt(self, args: _SliceableT[_StrSequenceT_co] | None, object: Any) -> _StrSequenceT_co: ...  # object is an arbitrary non-slotted object
+    def getopt(
+        self, args: _SliceableT[_StrSequenceT_co] | None, object: Any
+    ) -> _StrSequenceT_co: ...  # object is an arbitrary non-slotted object
     def get_option_order(self) -> list[tuple[str, str]]: ...
     def generate_help(self, header: str | None = None) -> list[str]: ...
 
