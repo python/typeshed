@@ -5,7 +5,6 @@ from typing import Any, Final, overload
 from typing_extensions import TypeAlias
 
 _Option: TypeAlias = tuple[str, str | None, str]
-_GR: TypeAlias = tuple[_StrSequenceT_co, OptionDummy]
 
 longopt_pat: Final = r"[a-zA-Z](?:[a-zA-Z0-9-]*)"
 longopt_re: Final[Pattern[str]]
@@ -16,7 +15,9 @@ class FancyGetopt:
     def __init__(self, option_table: list[_Option] | None = None) -> None: ...
     # TODO kinda wrong, `getopt(object=object())` is invalid
     @overload
-    def getopt(self, args: _SliceableT[_StrSequenceT_co] | None = None, object: None = None) -> _GR[_StrSequenceT_co]: ...
+    def getopt(
+        self, args: _SliceableT[_StrSequenceT_co] | None = None, object: None = None
+    ) -> tuple[_StrSequenceT_co, OptionDummy]: ...
     @overload
     def getopt(
         self, args: _SliceableT[_StrSequenceT_co] | None, object: Any
@@ -28,7 +29,7 @@ class FancyGetopt:
 @overload
 def fancy_getopt(
     options: list[_Option], negative_opt: Mapping[_Option, _Option], object: None, args: _SliceableT[_StrSequenceT_co] | None
-) -> _GR[_StrSequenceT_co]: ...
+) -> tuple[_StrSequenceT_co, OptionDummy]: ...
 @overload
 def fancy_getopt(
     options: list[_Option], negative_opt: Mapping[_Option, _Option], object: Any, args: _SliceableT[_StrSequenceT_co] | None
