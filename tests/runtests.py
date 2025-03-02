@@ -104,18 +104,19 @@ def main() -> None:
         if folder == "stdlib":
             print("\nRunning stubtest...")
             stubtest_result = subprocess.run([sys.executable, "tests/stubtest_stdlib.py", stub])
-        elif run_stubtest:
-            print("\nRunning stubtest...")
-            stubtest_result = subprocess.run([sys.executable, "tests/stubtest_third_party.py", stub])
         else:
-            print(
-                colored(
-                    f"\nSkipping stubtest for {stub!r}..."
-                    + "\nNOTE: Running third-party stubtest involves downloading and executing arbitrary code from PyPI."
-                    + f"\nOnly run stubtest if you trust the {stub!r} package.",
-                    "yellow",
+            if run_stubtest:
+                print("\nRunning stubtest...")
+                stubtest_result = subprocess.run([sys.executable, "tests/stubtest_third_party.py", stub])
+            else:
+                print(
+                    colored(
+                        f"\nSkipping stubtest for {stub!r}..."
+                        + "\nNOTE: Running third-party stubtest involves downloading and executing arbitrary code from PyPI."
+                        + f"\nOnly run stubtest if you trust the {stub!r} package.",
+                        "yellow",
+                    )
                 )
-            )
     else:
         print(colored("\nSkipping stubtest since mypy failed.", "yellow"))
 
