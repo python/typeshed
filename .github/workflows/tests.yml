@@ -110,9 +110,6 @@ jobs:
           DEPENDENCIES=$( python tests/get_external_stub_requirements.py )
           if [ -n "$DEPENDENCIES" ]; then
               printf "Installing packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
-              # TODO: We need to specify the platform here, but the platforms
-              # strings supported by uv are different from the ones supported by
-              # pyright.
               uv pip install --python-version ${{ matrix.python-version }} $DEPENDENCIES
           fi
       - name: Activate the isolated venv for the rest of the job
