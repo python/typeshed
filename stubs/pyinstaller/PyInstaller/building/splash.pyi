@@ -7,11 +7,11 @@ splash_requirements: list[str]
 # Referenced in https://pyinstaller.org/en/stable/spec-files.html#example-merge-spec-file
 # Not to be imported during runtime, but is the type reference for spec files which are executed as python code
 class Splash(Target):
-    image_file: StrPath
+    image_file: str
     full_tk: bool
     tcl_lib: str
     tk_lib: str
-    name: StrPath
+    name: str
     script_name: StrPath
     minify_script: bool
     max_img_size: tuple[int, int]
@@ -27,7 +27,7 @@ class Splash(Target):
     binaries: list[_TOCTuple]
     def __init__(
         self,
-        image_file: StrPath,
+        image_file: str,
         binaries: list[_TOCTuple],
         datas: list[_TOCTuple],
         *,
@@ -39,7 +39,7 @@ class Splash(Target):
         full_tk: bool = False,
         minify_script: bool = True,
         name: str = ...,
-        script_name: str = ...,
+        script_name: StrPath = ...,
         max_img_size: tuple[int, int] | None = (760, 480),
         always_on_top: bool = True,
     ) -> None: ...
