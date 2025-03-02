@@ -115,7 +115,7 @@ _SupportsProdNoDefaultT = TypeVar("_SupportsProdNoDefaultT", bound=_SupportsProd
 # This stub is based on the type stub for `builtins.sum`.
 # Like `builtins.sum`, it cannot be precisely represented in a type stub
 # without introducing many false positives.
-# For more details on its limitations and false positives, see #7578.
+# For more details on its limitations and false positives, see #13572.
 # Instead, just like `builtins.sum`, we explicitly handle several useful cases.
 @overload
 def prod(iterable: Iterable[bool | _LiteralInteger], /, *, start: int = 1) -> int: ...  # type: ignore[overload-overlap]
