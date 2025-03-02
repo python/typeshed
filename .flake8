@@ -13,4 +13,3 @@ per-file-ignores =
   stubs/*_pb2.pyi: Y021, Y023, Y026, Y053
 
 exclude = .venv*,.git
-noqa_require_code = true
