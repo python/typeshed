@@ -33,9 +33,9 @@ exclude = [
 # are invoked via separate runs of ruff in pre-commit:
 # see our .pre-commit-config.yaml file for details
 exclude = ["**/test_cases/**/*.py"]
-# We still use flake8-pyi and flake8-noqa to check these (see .flake8 config file);
+# We still use flake8-pyi to check these (see .flake8 config file);
 # tell ruff not to flag these as e.g. "unused noqa comments"
-external = ["F821", "NQA", "Y"]
+external = ["F821", "Y"]
 select = [
     "ARG", # flake8-unused-arguments
     "B", # flake8-bugbear
@@ -67,8 +67,7 @@ select = [
     "FURB177", # Prefer `Path.cwd()` over `Path().resolve()` for current-directory lookups
     "FURB187", # Use of assignment of `reversed` on list `{name}`
     # PYI: only enable rules that have autofixes and that we always want to fix (even manually),
-    # avoids duplicate # noqa with flake8-pyi and flake8-noqa flagging `PYI` codes
-    # See https://github.com/plinss/flake8-noqa/issues/22
+    # avoids duplicate # noqa with flake8-pyi
     "PYI009", # Empty body should contain `...`, not pass
     "PYI010", # Function body must contain only `...`
     "PYI012", # Class bodies must not contain `pass`
@@ -82,7 +81,6 @@ select = [
     # "PYI026", Waiting for this mypy bug to be fixed: https://github.com/python/mypy/issues/16581
     "PYI030", # Multiple literal members in a union. Use a single literal, e.g. `Literal[{}]`
     "PYI032", # Prefer `object` to `Any` for the second parameter to `{method_name}`
-    "PYI034", # `__new__` methods usually return self at runtime
     "PYI036", # Star-args in `{method_name}` should be annotated with `object`
     "PYI044", # `from __future__ import annotations` has no effect in stub files, since type checkers automatically treat stubs as having those semantics
     "PYI055", # Multiple `type[T]` usages in a union. Combine them into one, e.g., `type[{union_str}]`.
