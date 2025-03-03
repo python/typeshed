@@ -33,9 +33,9 @@ exclude = [
 # are invoked via separate runs of ruff in pre-commit:
 # see our .pre-commit-config.yaml file for details
 exclude = ["**/test_cases/**/*.py"]
-# We still use flake8-pyi and flake8-noqa to check these (see .flake8 config file);
+# We still use flake8-pyi to check these (see .flake8 config file);
 # tell ruff not to flag these as e.g. "unused noqa comments"
-external = ["F821", "NQA", "Y"]
+external = ["F821", "Y"]
 select = [
     "ARG", # flake8-unused-arguments
     "B", # flake8-bugbear
@@ -45,6 +45,7 @@ select = [
     "I", # isort
     "N", # pep8-naming
     "PGH", # pygrep-hooks
+    "PLC", # Pylint Convention
     "RUF", # Ruff-specific and unused-noqa
     "TRY", # tryceratops
     "UP", # pyupgrade
@@ -66,8 +67,7 @@ select = [
     "FURB177", # Prefer `Path.cwd()` over `Path().resolve()` for current-directory lookups
     "FURB187", # Use of assignment of `reversed` on list `{name}`
     # PYI: only enable rules that have autofixes and that we always want to fix (even manually),
-    # avoids duplicate # noqa with flake8-pyi and flake8-noqa flagging `PYI` codes
-    # See https://github.com/plinss/flake8-noqa/issues/22
+    # avoids duplicate # noqa with flake8-pyi
     "PYI009", # Empty body should contain `...`, not pass
     "PYI010", # Function body must contain only `...`
     "PYI012", # Class bodies must not contain `pass`
@@ -81,7 +81,6 @@ select = [
     # "PYI026", Waiting for this mypy bug to be fixed: https://github.com/python/mypy/issues/16581
     "PYI030", # Multiple literal members in a union. Use a single literal, e.g. `Literal[{}]`
     "PYI032", # Prefer `object` to `Any` for the second parameter to `{method_name}`
-    "PYI034", # `__new__` methods usually return self at runtime
     "PYI036", # Star-args in `{method_name}` should be annotated with `object`
     "PYI044", # `from __future__ import annotations` has no effect in stub files, since type checkers automatically treat stubs as having those semantics
     "PYI055", # Multiple `type[T]` usages in a union. Combine them into one, e.g., `type[{union_str}]`.
@@ -159,19 +158,26 @@ ignore = [
     # A lot of stubs are incomplete on purpose, and that's configured through pyright
     # Some ANN204 (special method) are autofixable in stubs, but not all.
     "ANN2", # Missing return type annotation for ...
-    # Most pep8-naming rules don't apply for third-party stubs like typeshed.
-    # N811 to N814 could apply, but we often use them to disambiguate a name whilst making it look like a more common one
-    "N8",
+    # Ruff 0.8.0 added sorting of __all__ and __slots_.
+    # There is no consensus on whether we want to apply this to stubs, so keeping the status quo.
+    # See https://github.com/python/typeshed/pull/13108
+    "RUF022", # `__all__` is not sorted
+    "RUF023", # `{}.__slots__` is not sorted
+    ###
     # Rules that are out of the control of stub authors:
+    ###
     "F403", # `from . import *` used; unable to detect undefined names
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.
     "F405", # may be undefined, or defined from star imports
-    # Ruff 0.8.0 added sorting of __all__ and __slots_.
-    # There is no consensus on whether we want to apply this to stubs, so keeping the status quo.
-    # See https://github.com/python/typeshed/pull/13108
-    "RUF022",
-    "RUF023",
+    # Most pep8-naming rules don't apply for third-party stubs like typeshed.
+    # N811 to N814 could apply, but we often use them to disambiguate a name whilst making it look like a more common one
+    "N8", # pep8-naming
+    "PLC2701", # Private name import from external module
+]
+"lib/ts_utils/**" = [
+    # Doesn't affect stubs. The only re-exports we have should be in our local lib ts_utils
+    "PLC0414", # Import alias does not rename original package
 ]
 "*_pb2.pyi" = [
     # Leave the docstrings as-is, matching source
