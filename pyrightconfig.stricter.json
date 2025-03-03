@@ -95,6 +95,7 @@
         "stubs/tqdm",
         "stubs/ttkthemes",
         "stubs/vobject",
+        "stubs/watchpoints",
         "stubs/workalendar",
         "stubs/wurlitzer",
     ],
