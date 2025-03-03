@@ -31,12 +31,11 @@ repos:
     hooks:
       - id: black
   - repo: https://github.com/pycqa/flake8
-    rev: 7.1.1
+    rev: 7.1.2
     hooks:
       - id: flake8
         language: python
         additional_dependencies:
-          - "flake8-noqa==1.4.0"
           - "flake8-pyi==24.9.0"
         types: [file]
         types_or: [python, pyi]
