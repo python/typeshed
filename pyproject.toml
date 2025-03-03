@@ -45,6 +45,7 @@ select = [
     "I", # isort
     "N", # pep8-naming
     "PGH", # pygrep-hooks
+    "PLC", # Pylint Convention
     "RUF", # Ruff-specific and unused-noqa
     "TRY", # tryceratops
     "UP", # pyupgrade
@@ -159,19 +160,26 @@ ignore = [
     # A lot of stubs are incomplete on purpose, and that's configured through pyright
     # Some ANN204 (special method) are autofixable in stubs, but not all.
     "ANN2", # Missing return type annotation for ...
-    # Most pep8-naming rules don't apply for third-party stubs like typeshed.
-    # N811 to N814 could apply, but we often use them to disambiguate a name whilst making it look like a more common one
-    "N8",
+    # Ruff 0.8.0 added sorting of __all__ and __slots_.
+    # There is no consensus on whether we want to apply this to stubs, so keeping the status quo.
+    # See https://github.com/python/typeshed/pull/13108
+    "RUF022", # `__all__` is not sorted
+    "RUF023", # `{}.__slots__` is not sorted
+    ###
     # Rules that are out of the control of stub authors:
+    ###
     "F403", # `from . import *` used; unable to detect undefined names
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.
     "F405", # may be undefined, or defined from star imports
-    # Ruff 0.8.0 added sorting of __all__ and __slots_.
-    # There is no consensus on whether we want to apply this to stubs, so keeping the status quo.
-    # See https://github.com/python/typeshed/pull/13108
-    "RUF022",
-    "RUF023",
+    # Most pep8-naming rules don't apply for third-party stubs like typeshed.
+    # N811 to N814 could apply, but we often use them to disambiguate a name whilst making it look like a more common one
+    "N8", # pep8-naming
+    "PLC2701", # Private name import from external module
+]
+"lib/ts_utils/**" = [
+    # Doesn't affect stubs. The only re-exports we have should be in our local lib ts_utils
+    "PLC0414", # Import alias does not rename original package
 ]
 "*_pb2.pyi" = [
     # Leave the docstrings as-is, matching source
