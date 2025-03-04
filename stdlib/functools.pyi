@@ -151,7 +151,7 @@ class partialmethod(Generic[_T]):
     if sys.version_info >= (3, 9):
         def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
-if sys.version_info >= (3, 10):
+if sys.version_info >= (3, 11):
     _RegType = type[Any] | types.UnionType
 else:
     _RegType = type[Any]
