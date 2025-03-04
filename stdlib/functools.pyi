@@ -152,9 +152,9 @@ class partialmethod(Generic[_T]):
         def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 if sys.version_info >= (3, 11):
-    _RegType = type[Any] | types.UnionType
+    _RegType: TypeAlias = type[Any] | types.UnionType
 else:
-    _RegType = type[Any]
+    _RegType: TypeAlias = type[Any]
 
 class _SingleDispatchCallable(Generic[_T]):
     registry: types.MappingProxyType[Any, Callable[..., _T]]
