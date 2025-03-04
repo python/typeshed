@@ -46,6 +46,7 @@ select = [
     "N", # pep8-naming
     "PGH", # pygrep-hooks
     "PLC", # Pylint Convention
+    "PLE", # Pylint Error
     "PLR", # Pylint Refactor
     "RUF", # Ruff-specific and unused-noqa
     "TRY", # tryceratops
