@@ -36,7 +36,6 @@ __all__ = [
 ]
 
 _StrOrBytesPathT = TypeVar("_StrOrBytesPathT", bound=StrOrBytesPath)
-_StrPathT = TypeVar("_StrPathT", bound=StrPath)
 # Return value of some functions that may either return a path-like object that was passed in or
 # a string
 _PathReturn: TypeAlias = Any
