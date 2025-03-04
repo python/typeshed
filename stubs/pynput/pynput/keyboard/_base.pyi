@@ -79,6 +79,7 @@ class Key(enum.Enum):
     tab = cast(KeyCode, ...)
     up = cast(KeyCode, ...)
     media_play_pause = cast(KeyCode, ...)
+    media_stop = cast(KeyCode, ...)
     media_volume_mute = cast(KeyCode, ...)
     media_volume_down = cast(KeyCode, ...)
     media_volume_up = cast(KeyCode, ...)
