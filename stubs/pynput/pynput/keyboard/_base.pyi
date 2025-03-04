@@ -85,6 +85,8 @@ class Key(enum.Enum):
     media_volume_up = cast(KeyCode, ...)
     media_previous = cast(KeyCode, ...)
     media_next = cast(KeyCode, ...)
+    if sys.platform == "darwin":
+        media_eject = cast(KeyCode, ...)
     insert = cast(KeyCode, ...)
     menu = cast(KeyCode, ...)
     num_lock = cast(KeyCode, ...)
