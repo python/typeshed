@@ -32,5 +32,5 @@ class OAuth1(AuthBase):
         encoding: str = "utf-8",
         nonce: Incomplete | None = None,
         timestamp: Incomplete | None = None,
-        **kwargs: Any,
+        **kwargs: Any,  # passed to client_class's __init__
     ) -> None: ...
