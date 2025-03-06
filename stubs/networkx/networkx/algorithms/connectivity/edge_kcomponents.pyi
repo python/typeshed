@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from typing import Self
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -16,6 +17,6 @@ class EdgeComponentAuxGraph:
     H: Incomplete
 
     @classmethod
-    def construct(cls, G): ...
+    def construct(EdgeComponentAuxGraph, G) -> Self: ...
     def k_edge_components(self, k: int) -> Generator[Incomplete, Incomplete, None]: ...
     def k_edge_subgraphs(self, k: int) -> Generator[Incomplete, Incomplete, None]: ...
