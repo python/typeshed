@@ -1,4 +1,5 @@
 import abc
+import collections
 import sys
 import typing
 from _collections_abc import dict_items, dict_keys, dict_values
@@ -55,7 +56,6 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039
     TypedDict as TypedDict,
     Union as Union,
     ValuesView as ValuesView,
-    _Alias,
     cast as cast,
     no_type_check as no_type_check,
     no_type_check_decorator as no_type_check_decorator,
@@ -252,7 +252,7 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
         # Since this module defines "Self" it is not recognized by Ruff as typing_extensions.Self
         def __ior__(self, value: Self, /) -> Self: ...  # type: ignore[misc]
 
-OrderedDict = _Alias()
+OrderedDict = collections.OrderedDict
 
 def get_type_hints(
     obj: Callable[..., Any],
