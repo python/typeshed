@@ -34,10 +34,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # As of 2024-10-18, ubuntu-latest can refer to different Ubuntu versions,
-        # which can can cause problems with os module constants.
-        os: ["ubuntu-24.04", "windows-latest", "macos-latest"]
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
       fail-fast: false
 
     steps:
@@ -61,18 +59,14 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # As of 2024-10-18, ubuntu-latest can refer to different Ubuntu versions,
-        # which causes problems when testing gdb.
-        os: ["ubuntu-24.04", "windows-latest", "macos-latest"]
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
         shard-index: [0, 1, 2, 3]
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          # TODO: Use Python 3.12. As of 2024-03-08, several third-party
-          # packages fail to install with Python 3.12.
-          python-version: "3.11"
+          python-version: "3.12"
           cache: pip
           cache-dependency-path: |
             requirements-tests.txt

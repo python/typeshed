@@ -308,7 +308,7 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubMe
             assert len(Path(url_path).parts) == 2
             github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
             async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
-                if response.status == 200:
+                if response.status == HTTPStatus.OK:
                     tags: list[dict[str, Any]] = await response.json()
                     assert isinstance(tags, list)
                     return GitHubInfo(repo_path=url_path, tags=tags)
@@ -632,13 +632,13 @@ def latest_commit_is_different_to_last_commit_on_origin(branch: str) -> bool:
         return True
 
 
-class RemoteConflict(Exception):
+class RemoteConflictError(Exception):
     pass
 
 
 def somewhat_safe_force_push(branch: str) -> None:
     if has_non_stubsabot_commits(branch):
-        raise RemoteConflict(f"origin/{branch} has non-stubsabot changes that are not on {branch}!")
+        raise RemoteConflictError(f"origin/{branch} has non-stubsabot changes that are not on {branch}!")
     subprocess.check_call(["git", "push", "origin", branch, "--force"])
 
 
@@ -808,7 +808,7 @@ async def main() -> None:
                     if isinstance(update, Obsolete):  # pyright: ignore[reportUnnecessaryIsInstance]
                         await suggest_typeshed_obsolete(update, session, action_level=args.action_level)
                         continue
-                except RemoteConflict as e:
+                except RemoteConflictError as e:
                     print(colored(f"... but ran into {type(e).__qualname__}: {e}", "red"))
                     continue
                 raise AssertionError

@@ -13,3 +13,6 @@ extra_description = """\
 [tool.stubtest]
 platforms = ["linux"]
 apt_dependencies = ["gdb"]
+# TODO (2025-03-05): unskip once `gdb` can be installed on `ubuntu-24.04`,
+# see https://github.com/python/typeshed/pull/13582
+skip = true
