@@ -11,6 +11,15 @@ email.utils.getaddresses
 email.utils.parseaddr
 
 
+# ======
+# <= 3.9
+# ======
+
+# Added in Python 3.9.14
+sys.set_int_max_str_digits
+sys.get_int_max_str_digits
+
+
 # =======
 # <= 3.10
 # =======
@@ -41,6 +50,7 @@ xml.etree.cElementTree.XMLParser.flush
 xml.etree.cElementTree.XMLPullParser.flush
 xml.parsers.expat.XMLParserType.GetReparseDeferralEnabled
 xml.parsers.expat.XMLParserType.SetReparseDeferralEnabled
+xml.sax.expatreader.ExpatParser.flush
 
 
 # =============================================================

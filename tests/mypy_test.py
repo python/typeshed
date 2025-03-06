@@ -44,7 +44,7 @@ except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
 
-SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
+SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [STDLIB_PATH, STUBS_PATH]
 
@@ -62,7 +62,7 @@ class CommandLineArgs:
 
 
 def valid_path(cmd_arg: str) -> Path:
-    """Helper function for argument-parsing"""
+    """Parse a CLI argument that is intended to point to a valid typeshed path."""
     path = Path(cmd_arg)
     if not path.exists():
         raise argparse.ArgumentTypeError(f'"{path}" does not exist in typeshed!')
@@ -72,7 +72,10 @@ def valid_path(cmd_arg: str) -> Path:
 
 
 def remove_dev_suffix(version: str) -> str:
-    """Helper function for argument-parsing"""
+    """Remove the `-dev` suffix from a version string.
+
+    This is a helper function for argument-parsing.
+    """
     if version.endswith("-dev"):
         return version[: -len("-dev")]
     return version
@@ -303,7 +306,6 @@ def test_third_party_distribution(
     Return a tuple, where the first element indicates mypy's return code
     and the second element is the number of checked files.
     """
-
     files: list[Path] = []
     configurations: list[MypyDistConf] = []
     seen_dists: set[str] = set()

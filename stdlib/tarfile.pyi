@@ -572,7 +572,7 @@ class TarInfo:
         self,
         *,
         name: str = ...,
-        mtime: int = ...,
+        mtime: float = ...,
         mode: int = ...,
         linkname: str = ...,
         uid: int = ...,

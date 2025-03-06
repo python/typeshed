@@ -367,7 +367,6 @@ if sys.platform != "win32" and sys.platform != "darwin":
         IP_TRANSPARENT as IP_TRANSPARENT,
         IPX_TYPE as IPX_TYPE,
         SCM_CREDENTIALS as SCM_CREDENTIALS,
-        SO_BINDTODEVICE as SO_BINDTODEVICE,
         SO_DOMAIN as SO_DOMAIN,
         SO_MARK as SO_MARK,
         SO_PASSCRED as SO_PASSCRED,
@@ -396,7 +395,6 @@ if sys.platform != "win32" and sys.platform != "darwin":
     __all__ += [
         "IP_TRANSPARENT",
         "SCM_CREDENTIALS",
-        "SO_BINDTODEVICE",
         "SO_DOMAIN",
         "SO_MARK",
         "SO_PASSCRED",
@@ -516,6 +514,11 @@ if sys.platform != "win32":
             "IPV6_RECVPKTINFO",
             "IPV6_RTHDRDSTOPTS",
         ]
+
+    if sys.platform != "darwin":
+        from _socket import SO_BINDTODEVICE as SO_BINDTODEVICE
+
+        __all__ += ["SO_BINDTODEVICE"]
 
 if sys.platform != "darwin" and sys.platform != "linux":
     if sys.platform != "win32" or sys.version_info >= (3, 9):
@@ -1396,7 +1399,7 @@ def create_server(
     address: _Address, *, family: int = ..., backlog: int | None = None, reuse_port: bool = False, dualstack_ipv6: bool = False
 ) -> socket: ...
 
-# the 5th tuple item is an address
+# The 5th tuple item is the socket address, for IP4, IP6, or IP6 if Python is compiled with --disable-ipv6, respectively.
 def getaddrinfo(
     host: bytes | str | None, port: bytes | str | int | None, family: int = 0, type: int = 0, proto: int = 0, flags: int = 0
-) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int]]]: ...
+) -> list[tuple[AddressFamily, SocketKind, int, str, tuple[str, int] | tuple[str, int, int, int] | tuple[int, bytes]]]: ...
