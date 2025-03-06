@@ -4,10 +4,8 @@ from collections.abc import Iterator, Sequence
 from io import TextIOWrapper
 from os import PathLike
 from typing import IO, Literal, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
 from zipfile import ZipFile
-
-_ReadWriteBinaryMode: TypeAlias = Literal["r", "w", "rb", "wb"]
 
 _ZF = TypeVar("_ZF", bound=ZipFile)
 
