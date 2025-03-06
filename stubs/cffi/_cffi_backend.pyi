@@ -127,13 +127,13 @@ class FFI:
 
     def __init__(
         self,
-        module_name: str = ...,
+        module_name: bytes = ...,
         _version: int = ...,
-        _types: str = ...,
-        _globals: tuple[str | int, ...] = ...,
-        _struct_unions: tuple[tuple[str, ...], ...] = ...,
-        _enums: tuple[str, ...] = ...,
-        _typenames: tuple[str, ...] = ...,
+        _types: bytes = ...,
+        _globals: tuple[bytes | int, ...] = ...,
+        _struct_unions: tuple[tuple[bytes, ...], ...] = ...,
+        _enums: tuple[bytes, ...] = ...,
+        _typenames: tuple[bytes, ...] = ...,
         _includes: tuple[FFI, ...] = ...,
     ) -> None: ...
     @overload
