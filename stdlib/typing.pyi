@@ -1,8 +1,6 @@
 # Since this module defines "overload" it is not recognized by Ruff as typing.overload
 # ruff: noqa: F811
-# TODO: The collections import is required, otherwise mypy crashes.
-# https://github.com/python/mypy/issues/16744
-import collections  # noqa: F401  # pyright: ignore[reportUnusedImport]
+import collections
 import sys
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
@@ -372,20 +370,15 @@ def type_check_only(func_or_cls: _FT) -> _FT: ...
 
 # Type aliases and type constructors
 
-class _Alias:
-    # Class for defining generic aliases for library types.
-    def __getitem__(self, typeargs: Any) -> Any: ...
-
-List = _Alias()
-Dict = _Alias()
-DefaultDict = _Alias()
-Set = _Alias()
-FrozenSet = _Alias()
-Counter = _Alias()
-Deque = _Alias()
-ChainMap = _Alias()
-
-OrderedDict = _Alias()
+List = list
+Dict = dict
+DefaultDict = collections.defaultdict
+Set = set
+FrozenSet = frozenset
+Counter = collections.Counter
+Deque = collections.deque
+ChainMap = collections.ChainMap
+OrderedDict = collections.OrderedDict
 
 if sys.version_info >= (3, 9):
     Annotated: _SpecialForm
