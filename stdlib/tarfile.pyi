@@ -189,7 +189,7 @@ class TarFile:
     def open(
         cls,
         name: StrOrBytesPath | None,
-        mode: Literal["x", "x:", "a", "a:", "w", "w:"],
+        mode: Literal["x", "x:", "a", "a:", "w", "w:", "w:tar"],
         fileobj: _Fileobj | None = None,
         bufsize: int = 10240,
         *,
@@ -209,7 +209,7 @@ class TarFile:
         cls,
         name: StrOrBytesPath | None = None,
         *,
-        mode: Literal["x", "x:", "a", "a:", "w", "w:"],
+        mode: Literal["x", "x:", "a", "a:", "w", "w:", "w:tar"],
         fileobj: _Fileobj | None = None,
         bufsize: int = 10240,
         format: int | None = ...,
@@ -320,7 +320,6 @@ class TarFile:
         pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
-        preset: int | None = ...,
     ) -> Self: ...
     @overload
     @classmethod
@@ -328,7 +327,7 @@ class TarFile:
         cls,
         name: StrOrBytesPath | WriteableBuffer | None = None,
         *,
-        mode: Literal["w|", "w|gz", "w|bz2", "w|xz"],
+        mode: Literal["w|", "w|xz"],
         fileobj: _Fileobj | None = None,
         bufsize: int = 10240,
         format: int | None = ...,
@@ -340,7 +339,26 @@ class TarFile:
         pax_headers: Mapping[str, str] | None = ...,
         debug: int | None = ...,
         errorlevel: int | None = ...,
-        preset: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def open(
+        cls,
+        name: StrOrBytesPath | WriteableBuffer | None = None,
+        *,
+        mode: Literal["w|gz", "w|bz2"],
+        fileobj: _Fileobj | None = None,
+        bufsize: int = 10240,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        errors: str = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+        compresslevel: int = 9,
     ) -> Self: ...
     @classmethod
     def taropen(
