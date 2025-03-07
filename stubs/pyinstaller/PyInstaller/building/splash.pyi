@@ -27,7 +27,7 @@ class Splash(Target):
     binaries: list[_TOCTuple]
     def __init__(
         self,
-        image_file: str,
+        image_file: StrPath,
         binaries: list[_TOCTuple],
         datas: list[_TOCTuple],
         *,
