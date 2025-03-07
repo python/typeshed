@@ -100,6 +100,7 @@ as it's currently excluded from the requirements file:
   If you already have [uv](https://docs.astral.sh/uv/getting-started/installation/) installed, you can simply replace the commands above with:
 
   ```shell
+  uv venv
   uv pip install -r requirements-tests.txt
   ```
 
