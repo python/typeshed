@@ -124,7 +124,7 @@ def main() -> None:
         print("\nRunning pytype...")
         pytype_result = subprocess.run([sys.executable, "tests/pytype_test.py", path])
     else:
-        print(colored("\nSkipping pytype on Windows. You need to install it first: `pip install pytype`.", "yellow"))
+        print(colored("\nSkipping pytype on Windows. You need to install it first: `uv pip install pytype`.", "yellow"))
 
     cases_path = test_cases_path(stub if folder == "stubs" else "stdlib")
     if not cases_path.exists():
