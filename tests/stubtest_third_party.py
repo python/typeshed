@@ -12,6 +12,7 @@ import tempfile
 from pathlib import Path
 from shutil import rmtree
 from textwrap import dedent
+from time import time
 from typing import NoReturn
 
 from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata
@@ -25,6 +26,7 @@ from ts_utils.utils import (
     print_error,
     print_info,
     print_success_msg,
+    print_time,
 )
 
 
@@ -36,12 +38,16 @@ def run_stubtest(
     specified_platforms_only: bool = False,
     keep_tmp_dir: bool = False,
 ) -> bool:
+    """Run stubtest for a single distribution."""
+
     dist_name = dist.name
     try:
         metadata = read_metadata(dist_name)
     except NoSuchStubError as e:
         parser.error(str(e))
     print(f"{dist_name}... ", end="", flush=True)
+
+    t = time()
 
     stubtest_settings = metadata.stubtest_settings
     if stubtest_settings.skip:
@@ -136,6 +142,7 @@ def run_stubtest(
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
+            print_time(time() - t)
             print_error("fail")
 
             print_divider()
@@ -175,6 +182,7 @@ def run_stubtest(
 
             return False
         else:
+            print_time(time() - t)
             print_success_msg()
             if keep_tmp_dir:
                 print_info(f"Virtual environment kept at: {venv_dir}")

@@ -143,3 +143,6 @@ reportlab.graphics.utils.processGlyph
 reportlab.graphics.testdrawings
 reportlab.graphics.testshapes
 reportlab.graphics.barcode.test
+
+# named tuple docstring
+reportlab.pdfbase.ttfonts.ShapeData.__doc__

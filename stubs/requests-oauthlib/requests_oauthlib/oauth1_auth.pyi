@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from logging import Logger
+from typing import Any
 
 from oauthlib.oauth1 import Client
 from requests.auth import AuthBase
@@ -23,11 +24,13 @@ class OAuth1(AuthBase):
         signature_type="AUTH_HEADER",
         rsa_key: Incomplete | None = None,
         verifier: Incomplete | None = None,
-        decoding: str = "utf-8",
+        decoding: str | None = "utf-8",
         client_class: type[Client] | None = None,
         force_include_body: bool = False,
         *,
+        realm: Incomplete | None = None,
         encoding: str = "utf-8",
         nonce: Incomplete | None = None,
         timestamp: Incomplete | None = None,
+        **kwargs: Any,  # passed to client_class's __init__
     ) -> None: ...
