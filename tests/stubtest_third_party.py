@@ -252,6 +252,7 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         import sys
 
         stubtest_env = os.environ | {{"STUBTEST_ARGS": json.dumps(sys.argv)}}
+        stubtest_env.pop("LD_LIBRARY_PATH", None)
         gdb_cmd = [
             "gdb",
             "--quiet",
