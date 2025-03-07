@@ -1,5 +1,6 @@
-from braintree.resource import Resource
 from _typeshed import Incomplete
+
+from braintree.resource import Resource
 
 class PayPalPaymentResource(Resource):
     def __init__(self, gateway, attributes) -> None: ...
