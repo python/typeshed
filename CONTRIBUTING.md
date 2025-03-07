@@ -69,6 +69,7 @@ Note that some tests require extra setup steps to install the required dependenc
 
   </td>
 </tr>
+<tr><!-- disables zebra striping --></tr>
 <tr>
   <td>Windows</td>
   <td>
@@ -91,6 +92,7 @@ as it's currently excluded from the requirements file:
 
   </td>
 </tr>
+<tr><!-- disables zebra striping --></tr>
 <tr>
   <td>Using uv</td>
   <td>
