@@ -67,7 +67,7 @@ int_value = 1
 
 assert_type(d_any["key"], Any)
 assert_type(d_any.get("key"), Union[Any, None])
-assert_type(d_any.get("key", None), Any)
+assert_type(d_any.get("key", None), Union[Any, None])
 assert_type(d_any.get("key", any_value), Any)
 assert_type(d_any.get("key", str_value), Any)
 assert_type(d_any.get("key", int_value), Any)
@@ -84,14 +84,14 @@ assert_type(d_str.get("key", int_value), Union[str, int])
 result: str
 result = d_any["key"]
 result = d_any.get("key")  # type: ignore[assignment]
-result = d_any.get("key", None)
+result = d_any.get("key", None)  # type: ignore[assignment]
 result = d_any.get("key", any_value)
 result = d_any.get("key", str_value)
 result = d_any.get("key", int_value)
 
 result = d_str["key"]
 result = d_str.get("key")  # type: ignore[assignment]
-result = d_str.get("key", None)  # type: ignore[arg-type]
+result = d_str.get("key", None)  # type: ignore[assignment]
 result = d_str.get("key", any_value)
 result = d_str.get("key", str_value)
 result = d_str.get("key", int_value)  # type: ignore[arg-type]
@@ -134,11 +134,11 @@ def test8() -> str:
 
 
 def test9() -> str:
-    return d_str.get("key", None)  # type: ignore[arg-type]
+    return d_str.get("key", None)  # type: ignore[return-value]
 
 
 def test10() -> str:
-    return d_str.get("key", any_value)
+    return d_str.get("key", any_value)  # type: ignore[no-any-return]
 
 
 def test11() -> str:
