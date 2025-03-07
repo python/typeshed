@@ -619,8 +619,8 @@ if sys.version_info >= (3, 12):
 # pyright handles this class correctly.
 class DynamicClassAttribute(property):
     fget: Callable[[Any], Any] | None
-    fset: Callable[[Any, Any], object] | None
-    fdel: Callable[[Any], object] | None
+    fset: Callable[[Any, Any], object] | None  # type: ignore[assignment]
+    fdel: Callable[[Any], object] | None  # type: ignore[assignment]
     overwrite_doc: bool
     __isabstractmethod__: bool
     def __init__(
