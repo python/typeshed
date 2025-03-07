@@ -92,7 +92,8 @@ result = d_any.get("key", int_value)
 result = d_str["key"]
 result = d_str.get("key")  # type: ignore[assignment]
 result = d_str.get("key", None)  # type: ignore[assignment]
-result = d_str.get("key", any_value)
+# Pyright has str | None here, see https://github.com/microsoft/pyright/discussions/9570
+result = d_str.get("key", any_value)  # pyright: ignore[reportAssignmentType]
 result = d_str.get("key", str_value)
 result = d_str.get("key", int_value)  # type: ignore[arg-type]
 
