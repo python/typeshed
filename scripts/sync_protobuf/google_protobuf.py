@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run
 """
 Generates the protobuf stubs for the given protobuf version using mypy-protobuf.
 Generally, new minor versions are a good time to update the stubs.

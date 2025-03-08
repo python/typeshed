@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run
 """Run mypy on typeshed's stdlib and third-party stubs."""
 
 from __future__ import annotations

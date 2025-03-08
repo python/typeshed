@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run
 
 # TODO: It should be possible to specify the Python version and platform
 # and limit the output to the packages that are compatible with that version

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run
 """Test typeshed's third party stubs using stubtest."""
 
 from __future__ import annotations

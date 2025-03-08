@@ -300,14 +300,13 @@ Typeshed includes `scripts/create_baseline_stubs.py`.
 It generates stubs automatically using a tool called
 [stubgen](https://mypy.readthedocs.io/en/latest/stubgen.html) that comes with mypy.
 
-To get started, fork typeshed, clone your fork, and then
-[create a virtualenv](#-or-create-a-local-development-environment).
+To get started, fork typeshed, clone your fork, and then [prepare your environment](#preparing-the-environment).
 You can then install the library with `pip` into the virtualenv and run the script below,
 replacing `$INSERT_LIBRARY_NAME_HERE` with the name of the library:
 
 ```bash
 (.venv)$ pip install $INSERT_LIBRARY_NAME_HERE
-(.venv)$ python3 scripts/create_baseline_stubs.py $INSERT_LIBRARY_NAME_HERE
+(.venv)$ uv run scripts/create_baseline_stubs.py $INSERT_LIBRARY_NAME_HERE
 ```
 
 When the script has finished running, it will print instructions telling you what to do next.

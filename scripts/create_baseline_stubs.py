@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run
 
 """Script to generate unannotated baseline stubs using stubgen.
 
 Basic usage:
-$ python3 scripts/create_baseline_stubs.py <project on PyPI>
+$ uv run scripts/create_baseline_stubs.py <project on PyPI>
 
 Run with -h for more help.
 """

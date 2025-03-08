@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run
 """Test typeshed's stdlib using stubtest.
 
 stubtest is a script in the mypy project that compares stubs to the actual objects at runtime.

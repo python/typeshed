@@ -33,15 +33,15 @@ false-positive errors for idiomatic usage of these classes.
 ## Running the tests
 
 To verify the stdlib test cases pass with mypy, run
-`python tests/regr_test.py stdlib` from the root of the typeshed repository.
+`uv run tests/regr_test.py stdlib` from the root of the typeshed repository.
 This assumes that the development environment has been set up as described in
 the [CONTRIBUTING.md](../CONTRIBUTING.md) document.
 
 For third-party-library stubs, pass the name of the runtime library the stubs
 are for. For example, to run the tests for our `requests` stubs, run
-`python tests/regr_test.py requests`.
+`uv run tests/regr_test.py requests`.
 
-Run `python tests/regr_test.py -h` for the full range of CLI options this script
+Run `uv run tests/regr_test.py -h` for the full range of CLI options this script
 supports. There is no equivalent script for pyright currently; for pyright, the
 tests are checked in CI using a GitHub Action.
 

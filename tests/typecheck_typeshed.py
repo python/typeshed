@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run
 """Run mypy on the "tests" and "scripts" directories."""
 
 from __future__ import annotations

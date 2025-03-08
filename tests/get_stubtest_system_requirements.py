@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run
 import sys
 
 from ts_utils.requirements import get_stubtest_system_requirements
