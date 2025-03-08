@@ -1,4 +1,4 @@
-#!/usr/bin/env -S uv run
+#!/usr/bin/env python3
 """Run mypy on the test cases for the stdlib and third-party stubs."""
 
 from __future__ import annotations

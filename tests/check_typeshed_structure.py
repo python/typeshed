@@ -1,4 +1,4 @@
-#!/usr/bin/env -S uv run
+#!/usr/bin/env python3
 
 """
 Check that the typeshed repository contains the correct files in the

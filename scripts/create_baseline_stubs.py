@@ -1,4 +1,4 @@
-#!/usr/bin/env -S uv run
+#!/usr/bin/env python3
 
 """Script to generate unannotated baseline stubs using stubgen.
 
