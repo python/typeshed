@@ -486,7 +486,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
         print(colored(f"took {venv_elapsed_time:.2f} seconds", "blue"))
 
     # STAGE 3: For each {virtual_environment: requirements_set} pairing,
-    # `pip install` the requirements set into the virtual environment
+    # `uv pip install` the requirements set into the virtual environment
     pip_start_time = time.perf_counter()
 
     # Limit workers to 10 at a time, since this makes network requests
