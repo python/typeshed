@@ -415,7 +415,7 @@ TYPEFLAG_FPREDECLID: int
 TYPEFLAG_FREPLACEABLE: int
 TYPEFLAG_FRESTRICTED: int
 TYPEFLAG_FREVERSEBIND: int
-RecordClasses: dict[Incomplete, com_record]
+RecordClasses: dict[str, com_record]
 TypeIIDs: dict[_win32typing.PyIID, type]
 URL_MK_LEGACY: int
 URL_MK_UNIFORM: int
