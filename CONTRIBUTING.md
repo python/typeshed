@@ -305,14 +305,14 @@ You can then install the library with `uv pip` into the virtualenv and run the s
 replacing `$INSERT_LIBRARY_NAME_HERE` with the name of the library:
 
 ```bash
-(.venv)$ uv pip install $INSERT_LIBRARY_NAME_HERE
+(.venv)$ pip install $INSERT_LIBRARY_NAME_HERE
 (.venv)$ python3 scripts/create_baseline_stubs.py $INSERT_LIBRARY_NAME_HERE
 ```
 
 When the script has finished running, it will print instructions telling you what to do next.
 
 If it has been a while since you set up the virtualenv, make sure you have
-the latest mypy (`uv pip install -r requirements-tests.txt`) before running the script.
+the latest mypy (`pip install -r requirements-tests.txt`) before running the script.
 
 ### Supported type system features
 
