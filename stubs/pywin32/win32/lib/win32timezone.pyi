@@ -1,5 +1,14 @@
 import datetime
-from _typeshed import Incomplete
+from _operator import _SupportsComparison
+from _typeshed import Incomplete, SupportsKeysAndGetItem
+from collections.abc import Iterable
+from typing import TypeVar
+from typing_extensions import Self
+
+_RangeMapKT = TypeVar("_RangeMapKT", bound=_SupportsComparison)
+
+_T = TypeVar("_T")
+_VT = TypeVar("_VT")
 
 log: Incomplete
 
@@ -27,7 +36,7 @@ class TimeZoneInfo(datetime.tzinfo):
     tzRegKey: str
     timeZoneName: Incomplete
     fixedStandardTime: Incomplete
-    def __init__(self, param: Incomplete | None = ..., fix_standard_time: bool = ...) -> None: ...
+    def __init__(self, param: str | TimeZoneDefinition, fix_standard_time: bool = False) -> None: ...
     def tzname(self, dt): ...
     def getWinInfo(self, targetYear): ...
     def utcoffset(self, dt): ...
@@ -59,10 +68,12 @@ DLLCache: Incomplete
 
 def resolveMUITimeZone(spec): ...
 
-class RangeMap(dict[int, str]):
+class RangeMap(dict[_RangeMapKT, _VT]):
     sort_params: Incomplete
     match: Incomplete
     def __init__(self, source, sort_params=..., key_match_comparator=...) -> None: ...
+    @classmethod
+    def left(cls, source: SupportsKeysAndGetItem[_RangeMapKT, _VT] | Iterable[tuple[_RangeMapKT, _VT]]) -> Self: ...
     def __getitem__(self, item): ...
     def get(self, key, default: Incomplete | None = ...): ...
     def bounds(self): ...
