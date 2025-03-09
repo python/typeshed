@@ -301,7 +301,7 @@ It generates stubs automatically using a tool called
 [stubgen](https://mypy.readthedocs.io/en/latest/stubgen.html) that comes with mypy.
 
 To get started, fork typeshed, clone your fork, and then [prepare your environment](#preparing-the-environment).
-You can then install the library with `uv pip` into the virtualenv and run the script below,
+You can then install the library with `pip` into the virtualenv and run the script below,
 replacing `$INSERT_LIBRARY_NAME_HERE` with the name of the library:
 
 ```bash
