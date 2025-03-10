@@ -18,15 +18,23 @@ from types import TracebackType
 from typing import IO, Any, BinaryIO, ClassVar, Literal, overload
 from typing_extensions import Self, deprecated
 
+if sys.version_info >= (3, 13):
+    from pathlib._abc import PathBase as _PathBase, PurePathBase as _PurePathBase
+else:
+    _PathBase = object
+    _PurePathBase = object
+
 if sys.version_info >= (3, 9):
     from types import GenericAlias
 
 __all__ = ["PurePath", "PurePosixPath", "PureWindowsPath", "Path", "PosixPath", "WindowsPath"]
 
 if sys.version_info >= (3, 13):
+    from pathlib._abc import UnsupportedOperation as UnsupportedOperation
+
     __all__ += ["UnsupportedOperation"]
 
-class PurePath(PathLike[str]):
+class PurePath(PathLike[str], _PurePathBase):
     if sys.version_info >= (3, 13):
         parser: ClassVar[types.ModuleType]
         def full_match(self, pattern: StrPath, *, case_sensitive: bool | None = None) -> bool: ...
@@ -100,7 +108,9 @@ class PurePath(PathLike[str]):
 class PurePosixPath(PurePath): ...
 class PureWindowsPath(PurePath): ...
 
-class Path(PurePath):
+# This should be Path(_PathBase, PurePath), but _PathBase has to be at the end for the
+# _Pathbase = object trick to work.
+class Path(PurePath, _PathBase):
     if sys.version_info >= (3, 12):
         def __new__(cls, *args: StrPath, **kwargs: Unused) -> Self: ...  # pyright: ignore[reportInconsistentConstructor]
     else:
@@ -224,7 +234,12 @@ class Path(PurePath):
     # Fallback if mode is not specified
     @overload
     def open(
-        self, mode: str, buffering: int = -1, encoding: str | None = None, errors: str | None = None, newline: str | None = None
+        self,
+        mode: str = "r",
+        buffering: int = -1,
+        encoding: str | None = None,
+        errors: str | None = None,
+        newline: str | None = None,
     ) -> IO[Any]: ...
     if sys.platform != "win32":
         # These methods do "exist" on Windows, but they always raise NotImplementedError,
@@ -291,6 +306,3 @@ class Path(PurePath):
 
 class PosixPath(Path, PurePosixPath): ...
 class WindowsPath(Path, PureWindowsPath): ...
-
-if sys.version_info >= (3, 13):
-    class UnsupportedOperation(NotImplementedError): ...
