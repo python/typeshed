@@ -3,7 +3,7 @@ from _operator import _SupportsComparison
 from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import Callable, Iterable, Mapping
 from logging import Logger
-from typing import ClassVar, TypeVar, overload
+from typing import ClassVar, TypeVar, overload, type_check_only
 from typing_extensions import Self
 
 _RangeMapKT = TypeVar("_RangeMapKT", bound=_SupportsComparison)
@@ -102,7 +102,10 @@ class RangeMap(dict[_RangeMapKT, _VT]):
     @overload
     def get(self, key: _RangeMapKT, default: None = None) -> _VT | None: ...
     def bounds(self) -> tuple[_RangeMapKT, _RangeMapKT]: ...
-    undefined_value = type("RangeValueUndefined", (), {})()
+    @type_check_only
+    class RangeValueUndefined: ...
+
+    undefined_value: RangeValueUndefined
 
     class Item(int): ...
     first_item: Item
