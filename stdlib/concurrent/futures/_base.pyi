@@ -64,7 +64,12 @@ class Executor:
 
     if sys.version_info >= (3, 14):
         def map(
-            self, fn: Callable[..., _T], *iterables: Iterable[Any], timeout: float | None = None, chunksize: int = 1, buffersize: int | None = None
+            self,
+            fn: Callable[..., _T],
+            *iterables: Iterable[Any],
+            timeout: float | None = None,
+            chunksize: int = 1,
+            buffersize: int | None = None,
         ) -> Iterator[_T]: ...
     else:
         def map(
