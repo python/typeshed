@@ -253,7 +253,7 @@ This has the following keys:
   Only add extra OSes to the test
   if there are platform-specific branches in a stubs package.
 
-`*_dependencies` are usually packages needed to `pip install` the implementation
+`*_dependencies` are usually system packages needed to install the python implementation
 distribution.
 
 The format of all `METADATA.toml` files can be checked by running
@@ -330,8 +330,7 @@ Typeshed includes `scripts/create_baseline_stubs.py`.
 It generates stubs automatically using a tool called
 [stubgen](https://mypy.readthedocs.io/en/latest/stubgen.html) that comes with mypy.
 
-To get started, fork typeshed, clone your fork, and then
-[create a virtualenv](#-or-create-a-local-development-environment).
+To get started, fork typeshed, clone your fork, and then [prepare your environment](#preparing-the-environment).
 You can then install the library with `pip` into the virtualenv and run the script below,
 replacing `$INSERT_LIBRARY_NAME_HERE` with the name of the library:
 
