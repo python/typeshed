@@ -16,7 +16,7 @@ from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWra
 from os import PathLike, stat_result
 from types import TracebackType
 from typing import IO, Any, BinaryIO, ClassVar, Literal, overload
-from typing_extensions import Self, deprecated
+from typing_extensions import Never, Self, deprecated
 
 if sys.version_info >= (3, 9):
     from types import GenericAlias
@@ -238,7 +238,9 @@ class Path(PurePath):
 
     # This method does "exist" on Windows on <3.12, but always raises NotImplementedError
     # On py312+, it works properly on Windows, as with all other platforms
-    if sys.platform != "win32" or sys.version_info >= (3, 12):
+    if sys.platform == "win32" and sys.version_info < (3, 12):
+        def is_mount(self: Never) -> bool: ...  # type: ignore[misc]
+    else:
         def is_mount(self) -> bool: ...
 
     if sys.version_info >= (3, 9):
