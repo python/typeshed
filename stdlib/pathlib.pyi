@@ -226,9 +226,13 @@ class Path(PurePath):
     def open(
         self, mode: str, buffering: int = -1, encoding: str | None = None, errors: str | None = None, newline: str | None = None
     ) -> IO[Any]: ...
-    if sys.platform != "win32":
-        # These methods do "exist" on Windows, but they always raise NotImplementedError,
-        # so it's safer to pretend they don't exist
+
+    # These methods do "exist" on Windows on <3.13, but they always raise NotImplementedError.
+    if sys.platform == "win32":
+        if sys.version_info < (3, 13):
+            def owner(self: Never) -> str: ...  # type: ignore[misc]
+            def group(self: Never) -> str: ...  # type: ignore[misc]
+    else:
         if sys.version_info >= (3, 13):
             def owner(self, *, follow_symlinks: bool = True) -> str: ...
             def group(self, *, follow_symlinks: bool = True) -> str: ...
