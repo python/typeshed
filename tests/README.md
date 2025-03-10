@@ -24,17 +24,17 @@ may require extra dependencies external to typeshed to be installed in your virt
 prior to running the test.
 You can list or install all of a stubs package's external dependencies using the following script:
 ```bash
-(.venv3)$ python tests/get_external_stub_requirements.py <third_party_stub>  # List external dependencies for <third_party_stub>
-(.venv3)$ python tests/get_external_stub_requirements.py <third_party_stub1> <third_party_stub2>  # List external dependencies for <third_party_stub1> and <third_party_stub2>
-(.venv3)$ python tests/get_external_stub_requirements.py  # List external dependencies for all third-party stubs in typeshed
-(.venv3)$ python scripts/install_all_third_party_dependencies.py  # Install external dependencies for all third-party stubs in typeshed
+(.venv)$ uv run tests/get_external_stub_requirements.py <third_party_stub>  # List external dependencies for <third_party_stub>
+(.venv)$ uv run tests/get_external_stub_requirements.py <third_party_stub1> <third_party_stub2>  # List external dependencies for <third_party_stub1> and <third_party_stub2>
+(.venv)$ uv run tests/get_external_stub_requirements.py  # List external dependencies for all third-party stubs in typeshed
+(.venv)$ uv run scripts/install_all_third_party_dependencies.py  # Install external dependencies for all third-party stubs in typeshed
 ```
 
 ## Run all tests for a specific stub
 
 Run using:
 ```bash
-(.venv3)$ python3 tests/runtests.py <stdlib-or-stubs>/<stub-to-test>
+(.venv)$ uv run tests/runtests.py <stdlib-or-stubs>/<stub-to-test>
 ```
 
 This script will run all tests below for a specific typeshed directory. If a
@@ -44,7 +44,7 @@ be selected. A summary of the results will be printed to the terminal.
 You must provide a single argument which is a path to the stubs to test, like
 so: `stdlib/os` or `stubs/requests`.
 
-Run `python tests/runtests.py --help` for information on the various configuration options
+Run `uv run tests/runtests.py --help` for information on the various configuration options
 for this script. Note that if you use the `--run-stubtest` flag with the stdlib stubs,
 whether or not the test passes will depend on the exact version of Python
 you're using, as well as various other details regarding your local environment.
@@ -54,7 +54,7 @@ For more information, see the docs on [`stubtest_stdlib.py`](#stubtest_stdlibpy)
 
 Run using:
 ```bash
-(.venv3)$ python3 tests/mypy_test.py
+(.venv)$ uv run tests/mypy_test.py
 ```
 
 The test has two parts: running mypy on the stdlib stubs,
@@ -64,7 +64,7 @@ This test is shallow — it verifies that all stubs can be
 imported but doesn't check whether stubs match their implementation
 (in the Python standard library or a third-party package).
 
-Run `python tests/mypy_test.py --help` for information on the various configuration options
+Run `uv run tests/mypy_test.py --help` for information on the various configuration options
 for this script.
 
 ## pytype\_test.py
@@ -74,7 +74,7 @@ Python 3.13 and above.
 
 Run using:
 ```bash
-(.venv3)$ python3 tests/pytype_test.py
+(.venv)$ uv run tests/pytype_test.py
 ```
 
 This test works similarly to `mypy_test.py`, except it uses `pytype`.
@@ -85,9 +85,9 @@ This test requires [Node.js](https://nodejs.org) to be installed. Although
 typeshed runs pyright in CI, it does not currently use this script. However,
 this script uses the same pyright version and configuration as the CI.
 ```bash
-(.venv3)$ python3 tests/pyright_test.py                                # Check all files
-(.venv3)$ python3 tests/pyright_test.py stdlib/sys.pyi                 # Check one file
-(.venv3)$ python3 tests/pyright_test.py -p pyrightconfig.stricter.json # Check with the stricter config.
+(.venv)$ uv run tests/pyright_test.py                                # Check all files
+(.venv)$ uv run tests/pyright_test.py stdlib/sys.pyi                 # Check one file
+(.venv)$ uv run tests/pyright_test.py -p pyrightconfig.stricter.json # Check with the stricter config.
 ```
 
 `pyrightconfig.stricter.json` is a stricter configuration that enables additional
@@ -101,7 +101,7 @@ This test runs mypy against the test cases for typeshed's stdlib and third-party
 stubs. See [the REGRESSION.md document](./REGRESSION.md)
 in this directory
 for more information about what
-these test cases are for and how they work. Run `python tests/regr_test.py --help`
+these test cases are for and how they work. Run `uv run tests/regr_test.py --help`
 for information on the various configuration options.
 
 ## check\_typeshed\_structure.py
@@ -110,14 +110,14 @@ This checks that typeshed's directory structure and metadata files are correct.
 
 Run using:
 ```bash
-$ python3 tests/check_typeshed_structure.py
+$ uv run tests/check_typeshed_structure.py
 ```
 
 ## stubtest\_stdlib.py
 
 Run using
 ```bash
-(.venv3)$ python3 tests/stubtest_stdlib.py
+(.venv)$ uv run tests/stubtest_stdlib.py
 ```
 
 This test compares the stdlib stubs against the objects at runtime. Because of
@@ -152,7 +152,7 @@ stubtest on.
 
 Run using
 ```bash
-(.venv3)$ python3 tests/stubtest_third_party.py
+(.venv)$ uv run tests/stubtest_third_party.py
 ```
 
 Similar to `stubtest_stdlib.py`, but tests the third party stubs. By default,
@@ -160,13 +160,13 @@ it checks all third-party stubs, but you can provide the distributions to
 check on the command line:
 
 ```bash
-(.venv3)$ python3 tests/stubtest_third_party.py requests toml  # check stubs/requests and stubs/toml
+(.venv)$ uv run tests/stubtest_third_party.py requests toml  # check stubs/requests and stubs/toml
 ```
 
 If you have the runtime package installed in your local virtual environment, you can also run stubtest
 directly, with
 ```bash
-(.venv3)$ MYPYPATH=<path-to-module-stubs> python3 -m mypy.stubtest \
+(.venv)$ MYPYPATH=<path-to-module-stubs> uv run -m mypy.stubtest \
   --custom-typeshed-dir <path-to-typeshed> \
   <third-party-module>
 ```
@@ -200,9 +200,9 @@ for missing objects rather than trying to match the runtime in every detail.
 
 Run using
 ```bash
-(.venv3)$ python3 tests/typecheck_typeshed.py
+(.venv)$ uv run tests/typecheck_typeshed.py
 ```
 
 This is a small wrapper script that uses mypy to typecheck typeshed's own code in the
-`scripts` and `tests` directories. Run `python tests/typecheck_typeshed.py --help` for
+`scripts` and `tests` directories. Run `uv run tests/typecheck_typeshed.py --help` for
 information on the various configuration options.
