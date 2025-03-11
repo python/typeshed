@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Test typeshed's third party stubs using stubtest"""
+"""Test typeshed's third party stubs using stubtest."""
 
 from __future__ import annotations
 
@@ -12,6 +12,7 @@ import tempfile
 from pathlib import Path
 from shutil import rmtree
 from textwrap import dedent
+from time import time
 from typing import NoReturn
 
 from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata
@@ -25,6 +26,7 @@ from ts_utils.utils import (
     print_error,
     print_info,
     print_success_msg,
+    print_time,
 )
 
 
@@ -36,12 +38,16 @@ def run_stubtest(
     specified_platforms_only: bool = False,
     keep_tmp_dir: bool = False,
 ) -> bool:
+    """Run stubtest for a single distribution."""
+
     dist_name = dist.name
     try:
         metadata = read_metadata(dist_name)
     except NoSuchStubError as e:
         parser.error(str(e))
     print(f"{dist_name}... ", end="", flush=True)
+
+    t = time()
 
     stubtest_settings = metadata.stubtest_settings
     if stubtest_settings.skip:
@@ -75,15 +81,6 @@ def run_stubtest(
         dist_extras = ", ".join(stubtest_settings.extras)
         dist_req = f"{dist_name}[{dist_extras}]{metadata.version_spec}"
 
-        # If tool.stubtest.stubtest_requirements exists, run "pip install" on it.
-        if stubtest_settings.stubtest_requirements:
-            pip_cmd = [pip_exe, "install", *stubtest_settings.stubtest_requirements]
-            try:
-                subprocess.run(pip_cmd, check=True, capture_output=True)
-            except subprocess.CalledProcessError as e:
-                print_command_failure("Failed to install requirements", e)
-                return False
-
         requirements = get_recursive_requirements(dist_name)
 
         # We need stubtest to be able to import the package, so install mypy into the venv
@@ -92,6 +89,7 @@ def run_stubtest(
         dists_to_install = [dist_req, get_mypy_req()]
         # Internal requirements are added to MYPYPATH
         dists_to_install.extend(str(r) for r in requirements.external_pkgs)
+        dists_to_install.extend(stubtest_settings.stubtest_requirements)
 
         # Since the "gdb" Python package is available only inside GDB, it is not
         # possible to install it through pip, so stub tests cannot install it.
@@ -144,11 +142,12 @@ def run_stubtest(
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
+            print_time(time() - t)
             print_error("fail")
 
             print_divider()
             print("Commands run:")
-            print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
+            print_commands(pip_cmd, stubtest_cmd, mypypath)
 
             print_divider()
             print("Command output:\n")
@@ -183,6 +182,7 @@ def run_stubtest(
 
             return False
         else:
+            print_time(time() - t)
             print_success_msg()
             if keep_tmp_dir:
                 print_info(f"Virtual environment kept at: {venv_dir}")
@@ -191,7 +191,7 @@ def run_stubtest(
             rmtree(venv_dir)
 
     if verbose:
-        print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
+        print_commands(pip_cmd, stubtest_cmd, mypypath)
 
     return True
 
@@ -252,6 +252,9 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         import sys
 
         stubtest_env = os.environ | {{"STUBTEST_ARGS": json.dumps(sys.argv)}}
+        # With LD_LIBRARY_PATH set, some GitHub action runners look in the wrong
+        # location for gdb, causing stubtest to fail.
+        stubtest_env.pop("LD_LIBRARY_PATH", None)
         gdb_cmd = [
             "gdb",
             "--quiet",
@@ -366,7 +369,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     return True
 
 
-def print_commands(dist: Path, pip_cmd: list[str], stubtest_cmd: list[str], mypypath: str) -> None:
+def print_commands(pip_cmd: list[str], stubtest_cmd: list[str], mypypath: str) -> None:
     print()
     print(" ".join(pip_cmd))
     print(f"MYPYPATH={mypypath}", " ".join(stubtest_cmd))

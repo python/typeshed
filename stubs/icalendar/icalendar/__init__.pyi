@@ -1,3 +1,12 @@
+from . import version as version_mod
+from .alarms import (
+    Alarms as Alarms,
+    AlarmTime as AlarmTime,
+    ComponentEndMissing as ComponentEndMissing,
+    ComponentStartMissing as ComponentStartMissing,
+    IncompleteAlarmInformation as IncompleteAlarmInformation,
+    LocalTimezoneMissing as LocalTimezoneMissing,
+)
 from .cal import (
     Alarm as Alarm,
     Calendar as Calendar,
@@ -37,12 +46,6 @@ from .prop import (
     vWeekday as vWeekday,
 )
 from .timezone import use_pytz, use_zoneinfo
-from .version import (
-    __version__ as __version__,
-    __version_tuple__ as __version_tuple__,
-    version as version,
-    version_tuple as version_tuple,
-)
 
 __all__ = [
     "Calendar",
@@ -87,4 +90,15 @@ __all__ = [
     "vMonth",
     "IncompleteComponent",
     "InvalidCalendar",
+    "Alarms",
+    "AlarmTime",
+    "ComponentEndMissing",
+    "ComponentStartMissing",
+    "IncompleteAlarmInformation",
+    "LocalTimezoneMissing",
 ]
+
+__version__ = version_mod.__version__
+__version_tuple__ = version_mod.__version_tuple__
+version = version_mod.version
+version_tuple = version_mod.version_tuple

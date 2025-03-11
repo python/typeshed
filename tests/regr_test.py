@@ -40,12 +40,11 @@ VENV_DIR = ".venv"
 TYPESHED = "typeshed"
 
 SUPPORTED_PLATFORMS = ["linux", "darwin", "win32"]
-SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
+SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9"]
 
 
 def distribution_with_test_cases(distribution_name: str) -> DistributionTests:
-    """Helper function for argument-parsing."""
-
+    """Parse a CLI argument that is intended to be to a valid typeshed distribution."""
     try:
         return distribution_info(distribution_name)
     except RuntimeError as exc:
@@ -237,7 +236,7 @@ class Result:
     test_case_dir: Path
     tempdir: Path
 
-    def print_description(self, *, verbosity: Verbosity) -> None:
+    def print_description(self) -> None:
         if self.code:
             print(f"{self.command_run}:", end=" ")
             print_error("FAILURE\n")
@@ -382,7 +381,7 @@ def main() -> ReturnCode:
     print()
 
     for result in results:
-        result.print_description(verbosity=verbosity)
+        result.print_description()
 
     code = max(result.code for result in results)
 
