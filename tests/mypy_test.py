@@ -55,7 +55,7 @@ else:
     from contextlib import contextmanager
 
     @contextmanager
-    def _named_temporary_file() -> Generator[tempfile._TemporaryFileWrapper[str]]:
+    def _named_temporary_file() -> Generator[tempfile._TemporaryFileWrapper[str]]:  # pyright: ignore[reportPrivateUsage]
         temp = tempfile.NamedTemporaryFile("w+", delete=False)  # noqa: SIM115
         try:
             yield temp
