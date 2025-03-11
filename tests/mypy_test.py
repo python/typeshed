@@ -290,7 +290,7 @@ def add_third_party_files(
         if name.startswith("."):
             continue
         add_files(files, (root / name), args)
-        add_configuration(configurations, distribution)
+    add_configuration(configurations, distribution)
 
 
 class TestResult(NamedTuple):
