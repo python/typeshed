@@ -48,7 +48,7 @@ def get_installed_package_info(project: str) -> tuple[str, str] | None:
     """
     # Not using "uv pip freeze" because if this is run from a global Python,
     # it'll mistakenly list the .venv's packages.
-    r = subprocess.run(("pip", "freeze"), capture_output=True, text=True, check=True)
+    r = subprocess.run(["pip", "freeze"], capture_output=True, text=True, check=True)
     return search_pip_freeze_output(project, r.stdout)
 
 
