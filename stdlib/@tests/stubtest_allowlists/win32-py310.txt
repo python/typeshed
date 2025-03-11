@@ -45,16 +45,6 @@ xml.sax.expatreader.ExpatParser.flush
 
 
 # =============================================================
-# Allowlist entries that cannot or should not be fixed; <= 3.11
-# =============================================================
-
-# pathlib methods that exist on Windows, but always raise NotImplementedError,
-# so are omitted from the stub
-pathlib.Path.is_mount
-pathlib.WindowsPath.is_mount
-
-
-# =============================================================
 # Allowlist entries that cannot or should not be fixed; <= 3.12
 # =============================================================
 
@@ -63,7 +53,3 @@ crypt
 nis
 ossaudiodev
 spwd
-
-# pathlib functions that rely on modules that don't exist on Windows
-pathlib.Path.owner
-pathlib.Path.group
