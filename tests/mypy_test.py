@@ -214,7 +214,8 @@ def run_mypy(
     env_vars = dict(os.environ)
     if mypypath is not None:
         env_vars["MYPYPATH"] = mypypath
-    with tempfile.NamedTemporaryFile("w+", delete_on_close=False) as temp:
+    # TODO: Use delete_on_close on Python 3.12
+    with tempfile.NamedTemporaryFile("w+", delete=False) as temp:
         temp.write("[mypy]\n")
         for dist_conf in configurations:
             temp.write(f"[mypy-{dist_conf.module_name}]\n")
