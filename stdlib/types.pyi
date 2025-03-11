@@ -17,7 +17,7 @@ from collections.abc import (
 from importlib.machinery import ModuleSpec
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
-from typing import Any, ClassVar, Literal, Mapping, TypeVar, final, overload  # noqa: Y022
+from typing import Any, ClassVar, Literal, Mapping, TypeAliasType, TypeVar, final, overload  # noqa: Y022
 from typing_extensions import ParamSpec, Self, TypeVarTuple, deprecated
 
 __all__ = [
@@ -650,7 +650,7 @@ def coroutine(func: _Fn) -> _Fn: ...
 if sys.version_info >= (3, 9):
     class GenericAlias:
         @property
-        def __origin__(self) -> type: ...
+        def __origin__(self) -> type | TypeAliasType: ...
         @property
         def __args__(self) -> tuple[Any, ...]: ...
         @property
