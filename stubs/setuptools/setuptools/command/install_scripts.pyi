@@ -1,6 +1,5 @@
+from setuptools._distutils.command import install_scripts as orig
 from setuptools.dist import Distribution
-
-from .._distutils.command import install_scripts as orig
 
 class install_scripts(orig.install_scripts):
     distribution: Distribution  # override distutils.dist.Distribution with setuptools.dist.Distribution

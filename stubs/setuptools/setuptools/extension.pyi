@@ -1,7 +1,7 @@
 from _typeshed import StrPath
 from collections.abc import Iterable
 
-from ._distutils.extension import Extension as _Extension
+from setuptools._distutils.extension import Extension as _Extension
 
 def have_pyrex() -> bool: ...
 

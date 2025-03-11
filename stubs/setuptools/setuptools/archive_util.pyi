@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
 
-from ._distutils.errors import DistutilsError
+from setuptools._distutils.errors import DistutilsError
 
 __all__ = [
     "unpack_archive",

@@ -12,17 +12,16 @@ import tempfile
 import time
 from collections import defaultdict
 from dataclasses import dataclass
-from enum import Enum
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import Any, NamedTuple
+from typing import NamedTuple
 from typing_extensions import Annotated, TypeAlias
 
-import tomli
 from packaging.requirements import Requirement
 
-from ts_utils.metadata import PackageDependencies, get_recursive_requirements, metadata_path, read_metadata
+from ts_utils.metadata import PackageDependencies, get_recursive_requirements, read_metadata
+from ts_utils.mypy import MypyDistConf, MypyResult, mypy_configuration_from_distribution, temporary_mypy_config_file
 from ts_utils.paths import STDLIB_PATH, STUBS_PATH, TESTS_DIR, TS_BASE_PATH, distribution_path
 from ts_utils.utils import (
     PYTHON_VERSION,
@@ -157,50 +156,6 @@ def add_files(files: list[Path], module: Path, args: TestConfig) -> None:
         files.extend(sorted(file for file in module.rglob("*.pyi") if match(file, args)))
 
 
-class MypyDistConf(NamedTuple):
-    module_name: str
-    values: dict[str, dict[str, Any]]
-
-
-# The configuration section in the metadata file looks like the following, with multiple module sections possible
-# [mypy-tests]
-# [mypy-tests.yaml]
-# module_name = "yaml"
-# [mypy-tests.yaml.values]
-# disallow_incomplete_defs = true
-# disallow_untyped_defs = true
-
-
-def add_configuration(configurations: list[MypyDistConf], distribution: str) -> None:
-    with metadata_path(distribution).open("rb") as f:
-        data = tomli.load(f)
-
-    # TODO: This could be added to ts_utils.metadata, but is currently unused
-    mypy_tests_conf: dict[str, dict[str, Any]] = data.get("mypy-tests", {})
-    if not mypy_tests_conf:
-        return
-
-    assert isinstance(mypy_tests_conf, dict), "mypy-tests should be a section"
-    for section_name, mypy_section in mypy_tests_conf.items():
-        assert isinstance(mypy_section, dict), f"{section_name} should be a section"
-        module_name = mypy_section.get("module_name")
-
-        assert module_name is not None, f"{section_name} should have a module_name key"
-        assert isinstance(module_name, str), f"{section_name} should be a key-value pair"
-
-        assert "values" in mypy_section, f"{section_name} should have a values section"
-        values: dict[str, dict[str, Any]] = mypy_section["values"]
-        assert isinstance(values, dict), "values should be a section"
-
-        configurations.append(MypyDistConf(module_name, values.copy()))
-
-
-class MypyResult(Enum):
-    SUCCESS = 0
-    FAILURE = 1
-    CRASH = 2
-
-
 def run_mypy(
     args: TestConfig,
     configurations: list[MypyDistConf],
@@ -214,14 +169,7 @@ def run_mypy(
     env_vars = dict(os.environ)
     if mypypath is not None:
         env_vars["MYPYPATH"] = mypypath
-    with tempfile.NamedTemporaryFile("w+") as temp:
-        temp.write("[mypy]\n")
-        for dist_conf in configurations:
-            temp.write(f"[mypy-{dist_conf.module_name}]\n")
-            for k, v in dist_conf.values.items():
-                temp.write(f"{k} = {v}\n")
-        temp.flush()
-
+    with temporary_mypy_config_file(configurations) as temp:
         flags = [
             "--python-version",
             args.version,
@@ -277,9 +225,7 @@ def run_mypy(
             return MypyResult.CRASH
 
 
-def add_third_party_files(
-    distribution: str, files: list[Path], args: TestConfig, configurations: list[MypyDistConf], seen_dists: set[str]
-) -> None:
+def add_third_party_files(distribution: str, files: list[Path], args: TestConfig, seen_dists: set[str]) -> None:
     typeshed_reqs = get_recursive_requirements(distribution).typeshed_pkgs
     if distribution in seen_dists:
         return
@@ -290,7 +236,6 @@ def add_third_party_files(
         if name.startswith("."):
             continue
         add_files(files, (root / name), args)
-        add_configuration(configurations, distribution)
 
 
 class TestResult(NamedTuple):
@@ -307,9 +252,9 @@ def test_third_party_distribution(
     and the second element is the number of checked files.
     """
     files: list[Path] = []
-    configurations: list[MypyDistConf] = []
     seen_dists: set[str] = set()
-    add_third_party_files(distribution, files, args, configurations, seen_dists)
+    add_third_party_files(distribution, files, args, seen_dists)
+    configurations = mypy_configuration_from_distribution(distribution)
 
     if not files and args.filter:
         return TestResult(MypyResult.SUCCESS, 0)

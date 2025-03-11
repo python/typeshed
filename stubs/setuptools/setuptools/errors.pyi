@@ -1,4 +1,4 @@
-from ._distutils import errors as _distutils_errors
+from setuptools._distutils import errors as _distutils_errors
 
 ByteCompileError = _distutils_errors.DistutilsByteCompileError
 CCompilerError = _distutils_errors.CCompilerError

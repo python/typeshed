@@ -1,6 +1,6 @@
 from typing import ClassVar
 
-from .._distutils.cmd import Command
+from setuptools._distutils.cmd import Command
 
 class dist_info(Command):
     description: str
