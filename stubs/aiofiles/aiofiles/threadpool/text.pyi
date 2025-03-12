@@ -1,4 +1,3 @@
-from _typeshed import FileDescriptorOrPath
 from collections.abc import Iterable
 from typing import BinaryIO
 
