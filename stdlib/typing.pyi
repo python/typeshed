@@ -363,6 +363,11 @@ _KT_co = TypeVar("_KT_co", covariant=True)  # Key type covariant containers.
 _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 _TC = TypeVar("_TC", bound=type[object])
 
+# Type variable used for the return type of the I/O name() methods.
+# The return type of these methods is usually str, but may be bytes or int
+# for some I/O classes or under certain circumstances.
+_NameT = TypeVar("_NameT", bound=str | bytes | int, default=str)
+
 def overload(func: _F) -> _F: ...
 def no_type_check(arg: _F) -> _F: ...
 def no_type_check_decorator(decorator: Callable[_P, _T]) -> Callable[_P, _T]: ...
@@ -762,16 +767,16 @@ TYPE_CHECKING: Final[bool]
 # In stubs, the arguments of the IO class are marked as positional-only.
 # This differs from runtime, but better reflects the fact that in reality
 # classes deriving from IO use different names for the arguments.
-class IO(Generic[AnyStr]):
+class IO(Generic[AnyStr, _NameT]):
     # At runtime these are all abstract properties,
     # but making them abstract in the stub is hugely disruptive, for not much gain.
     # See #8726
     @property
     def mode(self) -> str: ...
-    # Usually str, but may be bytes if a bytes path was passed to open(). See #10737.
-    # If PEP 696 becomes available, we may want to use a defaulted TypeVar here.
+    # Usually str, but may be bytes if a bytes path was passed to open(), or
+    # int if the file was opened with a file descriptor.
     @property
-    def name(self) -> str | Any: ...
+    def name(self) -> _NameT: ...
     @abstractmethod
     def close(self) -> None: ...
     @property
