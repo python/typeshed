@@ -29,4 +29,6 @@
     "reportUnnecessaryIsInstance": "none",
     // The name of the self/cls parameter is out of typeshed's control.
     "reportSelfClsParameterName": "none",
+    // DO NOT MERGE! Temporary workaround until https://github.com/pypa/distutils/pull/338 is merged upstream
+    "reportMissingTypeStubs": "none",
 }
