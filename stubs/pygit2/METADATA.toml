@@ -3,5 +3,11 @@ upstream_repository = "https://github.com/libgit2/pygit2"
 requires = ["types-cffi"]
 obsolete_since = "1.16.0" # Released on 2024-10-11
 
+# When ran directly on our stubs, mypy won't understand that they are partial
+# This is not an issue with pyright because it understands per-module py.typed (setuptools/_distutils/py.typed)
+[mypy-tests.distutils]
+module_name = "setuptools._distutils.*"
+values = { "follow_untyped_imports" = true }
+
 [tool.stubtest]
 platforms = ["darwin", "linux", "win32"]
