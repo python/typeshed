@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 import sys
 import tempfile
-from collections.abc import Iterable
+from collections.abc import Generator, Iterable
 from contextlib import contextmanager
 from enum import Enum
 from typing import Any, NamedTuple
@@ -59,7 +59,7 @@ def mypy_configuration_from_distribution(distribution: str) -> list[MypyDistConf
 
 
 @contextmanager
-def temporary_mypy_config_file(configurations: Iterable[MypyDistConf]) -> tempfile._TemporaryFileWrapper[str]:
+def temporary_mypy_config_file(configurations: Iterable[MypyDistConf]) -> Generator[tempfile._TemporaryFileWrapper[str]]:
     # We need to work around a limitation of tempfile.NamedTemporaryFile on Windows
     # For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
     # Python 3.12 added a workaround with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
