@@ -59,7 +59,9 @@ def mypy_configuration_from_distribution(distribution: str) -> list[MypyDistConf
 
 
 @contextmanager
-def temporary_mypy_config_file(configurations: Iterable[MypyDistConf]) -> Generator[tempfile._TemporaryFileWrapper[str]]:
+def temporary_mypy_config_file(
+    configurations: Iterable[MypyDistConf],
+) -> Generator[tempfile._TemporaryFileWrapper[str]]:  # pyright: ignore[reportPrivateUsage]
     # We need to work around a limitation of tempfile.NamedTemporaryFile on Windows
     # For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
     # Python 3.12 added a workaround with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`

@@ -205,24 +205,24 @@ def run_mypy(
         if args.verbose:
             print(colored(f"running {' '.join(mypy_command)}", "blue"))
         result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
-        if result.returncode:
-            print_error(f"failure (exit code {result.returncode})\n")
-            if result.stdout:
-                print_error(result.stdout)
-            if result.stderr:
-                print_error(result.stderr)
-            if non_types_dependencies and args.verbose:
-                print("Ran with the following environment:")
-                subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
-                print()
-        else:
-            print_success_msg()
-        if result.returncode == 0:
-            return MypyResult.SUCCESS
-        elif result.returncode == 1:
-            return MypyResult.FAILURE
-        else:
-            return MypyResult.CRASH
+    if result.returncode:
+        print_error(f"failure (exit code {result.returncode})\n")
+        if result.stdout:
+            print_error(result.stdout)
+        if result.stderr:
+            print_error(result.stderr)
+        if non_types_dependencies and args.verbose:
+            print("Ran with the following environment:")
+            subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
+            print()
+    else:
+        print_success_msg()
+    if result.returncode == 0:
+        return MypyResult.SUCCESS
+    elif result.returncode == 1:
+        return MypyResult.FAILURE
+    else:
+        return MypyResult.CRASH
 
 
 def add_third_party_files(distribution: str, files: list[Path], args: TestConfig, seen_dists: set[str]) -> None:
