@@ -2,6 +2,9 @@
 setuptools.msvc._EnvironmentDict.__mutable_keys__
 setuptools.msvc._EnvironmentDict.__readonly_keys__
 
+# Runtime initializes to None, but this really should never be None when used
+setuptools._distutils.compilers.C.base.Compiler.compiler_type
+
 # Reexported from https://github.com/pypa/distutils; problems should be fixed there
 distutils\..+
 setuptools._distutils\..+

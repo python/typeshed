@@ -61,3 +61,8 @@ win32com(ext)?.axdebug.stackframe
 # failed to import, ImportError: cannot import name 'axdebug' from 'win32com.axdebug'
 win32com(ext)?.axdebug.gateways
 win32com(ext)?.axscript.client.debug
+
+# These missing is likely an issue with the upstream build's WINVER target on 309.
+# Keep them in stubs as there will likely be a patch soon.
+# https://github.com/mhammond/pywin32/issues/2486
+win32com(ext)?\.shell\.shell\.\w+?

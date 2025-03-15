@@ -1,13 +1,33 @@
 from __future__ import annotations
 
+import functools
+import os
+import sys
 import tempfile
-from collections.abc import Iterable
+from collections.abc import Generator, Iterable
 from enum import Enum
 from typing import Any, NamedTuple
 
 import tomli
 
 from ts_utils.metadata import metadata_path
+
+# We need to work around a limitation of tempfile.NamedTemporaryFile on Windows
+# For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
+# Python 3.12 added a workaround with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
+if sys.platform != "win32":
+    _named_temporary_file = functools.partial(tempfile.NamedTemporaryFile, "w+")
+else:
+    from contextlib import contextmanager
+
+    @contextmanager
+    def _named_temporary_file() -> Generator[tempfile._TemporaryFileWrapper[str]]:  # pyright: ignore[reportPrivateUsage]
+        temp = tempfile.NamedTemporaryFile("w+", delete=False)  # noqa: SIM115
+        try:
+            yield temp
+        finally:
+            temp.close()
+            os.remove(temp.name)
 
 
 class MypyDistConf(NamedTuple):
@@ -56,7 +76,7 @@ def mypy_configuration_from_distribution(distribution: str) -> list[MypyDistConf
 
 
 def temporary_mypy_config_file(configurations: Iterable[MypyDistConf]) -> tempfile._TemporaryFileWrapper[str]:
-    temp = tempfile.NamedTemporaryFile("w+", delete=False)  # noqa: SIM115 # Cleaning is up to the caller
+    temp = _named_temporary_file()
     temp.write("[mypy]\n")
     for dist_conf in configurations:
         temp.write(f"[mypy-{dist_conf.module_name}]\n")
