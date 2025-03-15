@@ -7,7 +7,7 @@ setuptools.config._validate_pyproject.*
 setuptools.compat.*
 .+?\.tests.*
 
-# DO NOT MERGE! Temporary workaround until https://github.com/pypa/distutils/pull/338 is merged upstream
+# DO NOT MERGE! Temporary workaround until https://github.com/pypa/distutils/pull/345 is merged upstream
 # stubtest fails on implicit submodule imports for __all__ (in setuptools/_distutils/command/__init__.py)
 setuptools.command.bdist_rpm
 setuptools.command.bdist_wheel
