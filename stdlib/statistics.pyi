@@ -1,5 +1,5 @@
 import sys
-from _typeshed import SupportsRichComparisonT
+from _typeshed import ConvertibleToFloat, SupportsRichComparisonT
 from collections.abc import Callable, Hashable, Iterable, Sequence
 from decimal import Decimal
 from fractions import Fraction
@@ -79,7 +79,7 @@ def stdev(data: Iterable[_NumberT], xbar: _NumberT | None = None) -> _NumberT: .
 def variance(data: Iterable[_NumberT], xbar: _NumberT | None = None) -> _NumberT: ...
 
 class NormalDist:
-    def __init__(self, mu: float = 0.0, sigma: float = 1.0) -> None: ...
+    def __init__(self, mu: ConvertibleToFloat = 0.0, sigma: float = 1.0) -> None: ...
     @property
     def mean(self) -> float: ...
     @property
