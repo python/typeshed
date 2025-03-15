@@ -1,33 +1,16 @@
 from __future__ import annotations
 
-import functools
 import os
 import sys
 import tempfile
-from collections.abc import Generator, Iterable
+from collections.abc import Iterable
+from contextlib import contextmanager
 from enum import Enum
 from typing import Any, NamedTuple
 
 import tomli
 
 from ts_utils.metadata import metadata_path
-
-# We need to work around a limitation of tempfile.NamedTemporaryFile on Windows
-# For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
-# Python 3.12 added a workaround with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
-if sys.platform != "win32":
-    _named_temporary_file = functools.partial(tempfile.NamedTemporaryFile, "w+")
-else:
-    from contextlib import contextmanager
-
-    @contextmanager
-    def _named_temporary_file() -> Generator[tempfile._TemporaryFileWrapper[str]]:  # pyright: ignore[reportPrivateUsage]
-        temp = tempfile.NamedTemporaryFile("w+", delete=False)  # noqa: SIM115
-        try:
-            yield temp
-        finally:
-            temp.close()
-            os.remove(temp.name)
 
 
 class MypyDistConf(NamedTuple):
@@ -75,12 +58,21 @@ def mypy_configuration_from_distribution(distribution: str) -> list[MypyDistConf
     return [validate_configuration(section_name, mypy_section) for section_name, mypy_section in mypy_tests_conf.items()]
 
 
+@contextmanager
 def temporary_mypy_config_file(configurations: Iterable[MypyDistConf]) -> tempfile._TemporaryFileWrapper[str]:
-    temp = _named_temporary_file()
-    temp.write("[mypy]\n")
-    for dist_conf in configurations:
-        temp.write(f"[mypy-{dist_conf.module_name}]\n")
-        for k, v in dist_conf.values.items():
-            temp.write(f"{k} = {v}\n")
-    temp.flush()
-    return temp
+    # We need to work around a limitation of tempfile.NamedTemporaryFile on Windows
+    # For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
+    # Python 3.12 added a workaround with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
+    temp = tempfile.NamedTemporaryFile("w+", delete=sys.platform != "win32")  # noqa: SIM115
+    try:
+        for dist_conf in configurations:
+            temp.write(f"[mypy-{dist_conf.module_name}]\n")
+            for k, v in dist_conf.values.items():
+                temp.write(f"{k} = {v}\n")
+        temp.write("[mypy]\n")
+        temp.flush()
+        yield temp
+    finally:
+        temp.close()
+        if sys.platform == "win32":
+            os.remove(temp.name)
