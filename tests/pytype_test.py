@@ -49,13 +49,15 @@ def main() -> None:
     subdir_paths = [os.path.join(typeshed_location, d) for d in TYPESHED_SUBDIRS]
     check_subdirs_discoverable(subdir_paths)
     old_typeshed_home = os.environ.get(TYPESHED_HOME)
-    os.environ[TYPESHED_HOME] = typeshed_location
-    files_to_test = determine_files_to_test(paths=args.files or subdir_paths)
-    run_all_tests(files_to_test=files_to_test, print_stderr=args.print_stderr, dry_run=args.dry_run)
-    if old_typeshed_home is None:
-        del os.environ[TYPESHED_HOME]
-    else:
-        os.environ[TYPESHED_HOME] = old_typeshed_home
+    try:
+        os.environ[TYPESHED_HOME] = typeshed_location
+        files_to_test = determine_files_to_test(paths=args.files or subdir_paths)
+        run_all_tests(files_to_test=files_to_test, print_stderr=args.print_stderr, dry_run=args.dry_run)
+    finally:
+        if old_typeshed_home is None:
+            del os.environ[TYPESHED_HOME]
+        else:
+            os.environ[TYPESHED_HOME] = old_typeshed_home
 
 
 def create_parser() -> argparse.ArgumentParser:
