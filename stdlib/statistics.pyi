@@ -3,7 +3,7 @@ from _typeshed import SupportsRichComparisonT
 from collections.abc import Callable, Hashable, Iterable, Sequence
 from decimal import Decimal
 from fractions import Fraction
-from typing import Any, Literal, NamedTuple, SupportsFloat, SupportsIndex, TypeVar
+from typing import Literal, NamedTuple, SupportsFloat, SupportsIndex, TypeVar
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -37,6 +37,9 @@ _NumberT = TypeVar("_NumberT", float, Decimal, Fraction)
 
 # Used in mode, multimode
 _HashableT = TypeVar("_HashableT", bound=Hashable)
+
+# Used in NormalDist.samples and kde_random
+_Seed: TypeAlias = int | float | str | bytes | bytearray | None  # noqa: Y041
 
 class StatisticsError(ValueError): ...
 
@@ -89,7 +92,7 @@ class NormalDist:
     def variance(self) -> float: ...
     @classmethod
     def from_samples(cls, data: Iterable[SupportsFloat]) -> Self: ...
-    def samples(self, n: SupportsIndex, *, seed: Any | None = None) -> list[float]: ...
+    def samples(self, n: SupportsIndex, *, seed: _Seed = None) -> list[float]: ...
     def pdf(self, x: float) -> float: ...
     def cdf(self, x: float) -> float: ...
     def inv_cdf(self, p: float) -> float: ...
@@ -152,10 +155,4 @@ if sys.version_info >= (3, 13):
     def kde(
         data: Sequence[float], h: float, kernel: _Kernel = "normal", *, cumulative: bool = False
     ) -> Callable[[float], float]: ...
-    def kde_random(
-        data: Sequence[float],
-        h: float,
-        kernel: _Kernel = "normal",
-        *,
-        seed: int | float | str | bytes | bytearray | None = None,  # noqa: Y041
-    ) -> Callable[[], float]: ...
+    def kde_random(data: Sequence[float], h: float, kernel: _Kernel = "normal", *, seed: _Seed = None) -> Callable[[], float]: ...
