@@ -2,6 +2,12 @@ version = "1.16.*"
 upstream_repository = "https://foss.heptapod.net/pypy/cffi"
 requires = ["types-setuptools"]
 
+# When ran directly on our stubs, mypy won't understand that they are partial
+# This is not an issue with pyright because it understands per-module py.typed (setuptools/_distutils/py.typed)
+[mypy-tests.distutils]
+module_name = "setuptools._distutils.*"
+values = { "follow_untyped_imports" = true }
+
 [tool.stubtest]
 # linux and darwin are mostly equivalent, except for a single `RTLD_DEEPBIND` variable
 platforms = ["linux", "win32"]

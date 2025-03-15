@@ -1,8 +1,7 @@
 from typing import Protocol
 
+from setuptools._distutils.command.build import build as _build
 from setuptools.dist import Distribution
-
-from .._distutils.command.build import build as _build
 
 class build(_build):
     distribution: Distribution  # override distutils.dist.Distribution with setuptools.dist.Distribution

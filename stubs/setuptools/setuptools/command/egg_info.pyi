@@ -1,8 +1,9 @@
 from _typeshed import Incomplete
 from typing import ClassVar, Final
 
+from setuptools._distutils.filelist import FileList as _FileList
+
 from .. import Command, SetuptoolsDeprecationWarning
-from .._distutils.filelist import FileList as _FileList
 from .sdist import sdist
 
 PY_MAJOR: Final[str]
