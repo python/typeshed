@@ -90,6 +90,49 @@ class GPUOptions(google.protobuf.message.Message):
             ) -> None: ...
             def ClearField(self, field_name: typing.Literal["device_ordinal", b"device_ordinal", "memory_limit_mb", b"memory_limit_mb", "priority", b"priority"]) -> None: ...
 
+        @typing.final
+        class StreamMergeOptions(google.protobuf.message.Message):
+            """Whether to merge data transfer streams into the compute stream in the
+            same stream group. Stream merging helps reduce the overhead caused by
+            stream synchronization, especially when data transfers are frequent. For
+            example, setting "merge_host_to_device_stream = true" will make the
+            compute stream responsible for both computation and host to device memory
+            copy.
+            """
+
+            DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+            MERGE_HOST_TO_DEVICE_STREAM_FIELD_NUMBER: builtins.int
+            MERGE_DEVICE_TO_HOST_STREAM_FIELD_NUMBER: builtins.int
+            MERGE_DEVICE_TO_DEVICE_STREAM_FIELD_NUMBER: builtins.int
+            merge_host_to_device_stream: builtins.bool
+            """If true, the compute stream will be used for host_to_device copy as
+            well. It's no longer necessary to record an event before the copy to
+            let the copy stream wait for the compute stream to finish. There is
+            also no need to wait for the copy to complete before executing the
+            callback function.
+            """
+            merge_device_to_host_stream: builtins.bool
+            """If true, the compute stream will be used for device_to_host copy as
+            well. It's no longer necessary to record an event before the copy to
+            let the copy stream wait for the compute stream to finish.
+            """
+            merge_device_to_device_stream: builtins.bool
+            """If true, the compute stream will be used for device_to_device copy as
+            well. It's no longer necessary to record an event before the copy to
+            let the copy stream wait for the compute stream of the sending device
+            to finish. There is also no need to wait for the compute stream of the
+            receiving device to finish if the copy is within the same device.
+            """
+            def __init__(
+                self,
+                *,
+                merge_host_to_device_stream: builtins.bool | None = ...,
+                merge_device_to_host_stream: builtins.bool | None = ...,
+                merge_device_to_device_stream: builtins.bool | None = ...,
+            ) -> None: ...
+            def ClearField(self, field_name: typing.Literal["merge_device_to_device_stream", b"merge_device_to_device_stream", "merge_device_to_host_stream", b"merge_device_to_host_stream", "merge_host_to_device_stream", b"merge_host_to_device_stream"]) -> None: ...
+
         VIRTUAL_DEVICES_FIELD_NUMBER: builtins.int
         NUM_VIRTUAL_DEVICES_PER_GPU_FIELD_NUMBER: builtins.int
         USE_UNIFIED_MEMORY_FIELD_NUMBER: builtins.int
@@ -105,6 +148,9 @@ class GPUOptions(google.protobuf.message.Message):
         GPU_HOST_MEM_LIMIT_IN_MB_FIELD_NUMBER: builtins.int
         GPU_HOST_MEM_DISALLOW_GROWTH_FIELD_NUMBER: builtins.int
         GPU_SYSTEM_MEMORY_SIZE_IN_MB_FIELD_NUMBER: builtins.int
+        POPULATE_PJRT_GPU_CLIENT_CREATION_INFO_FIELD_NUMBER: builtins.int
+        NODE_ID_FIELD_NUMBER: builtins.int
+        STREAM_MERGE_OPTIONS_FIELD_NUMBER: builtins.int
         num_virtual_devices_per_gpu: builtins.int
         """The number of virtual devices to create on each visible GPU. The
         available memory will be split equally among all virtual devices. If the
@@ -200,6 +246,14 @@ class GPUOptions(google.protobuf.message.Message):
         system memory size for better resource estimation of multi-tenancy(one
         gpu with multiple model) use case.
         """
+        populate_pjrt_gpu_client_creation_info: builtins.bool
+        """If true, save information needed for created a PjRt GPU client for
+        creating a client with remote devices.
+        """
+        node_id: builtins.int
+        """node_id for use when creating a PjRt GPU client with remote devices,
+        which enumerates jobs*tasks from a ServerDef.
+        """
         @property
         def virtual_devices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___GPUOptions.Experimental.VirtualDevices]:
             """The multi virtual device settings. If empty (not set), it will create
@@ -242,6 +296,8 @@ class GPUOptions(google.protobuf.message.Message):
                result in undefined behavior.
             """
 
+        @property
+        def stream_merge_options(self) -> global___GPUOptions.Experimental.StreamMergeOptions: ...
         def __init__(
             self,
             *,
@@ -260,8 +316,12 @@ class GPUOptions(google.protobuf.message.Message):
             gpu_host_mem_limit_in_mb: builtins.float | None = ...,
             gpu_host_mem_disallow_growth: builtins.bool | None = ...,
             gpu_system_memory_size_in_mb: builtins.int | None = ...,
+            populate_pjrt_gpu_client_creation_info: builtins.bool | None = ...,
+            node_id: builtins.int | None = ...,
+            stream_merge_options: global___GPUOptions.Experimental.StreamMergeOptions | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["collective_ring_order", b"collective_ring_order", "disallow_retry_on_allocation_failure", b"disallow_retry_on_allocation_failure", "gpu_host_mem_disallow_growth", b"gpu_host_mem_disallow_growth", "gpu_host_mem_limit_in_mb", b"gpu_host_mem_limit_in_mb", "gpu_system_memory_size_in_mb", b"gpu_system_memory_size_in_mb", "internal_fragmentation_fraction", b"internal_fragmentation_fraction", "kernel_tracker_max_bytes", b"kernel_tracker_max_bytes", "kernel_tracker_max_interval", b"kernel_tracker_max_interval", "kernel_tracker_max_pending", b"kernel_tracker_max_pending", "num_dev_to_dev_copy_streams", b"num_dev_to_dev_copy_streams", "num_virtual_devices_per_gpu", b"num_virtual_devices_per_gpu", "timestamped_allocator", b"timestamped_allocator", "use_cuda_malloc_async", b"use_cuda_malloc_async", "use_unified_memory", b"use_unified_memory", "virtual_devices", b"virtual_devices"]) -> None: ...
+        def HasField(self, field_name: typing.Literal["stream_merge_options", b"stream_merge_options"]) -> builtins.bool: ...
+        def ClearField(self, field_name: typing.Literal["collective_ring_order", b"collective_ring_order", "disallow_retry_on_allocation_failure", b"disallow_retry_on_allocation_failure", "gpu_host_mem_disallow_growth", b"gpu_host_mem_disallow_growth", "gpu_host_mem_limit_in_mb", b"gpu_host_mem_limit_in_mb", "gpu_system_memory_size_in_mb", b"gpu_system_memory_size_in_mb", "internal_fragmentation_fraction", b"internal_fragmentation_fraction", "kernel_tracker_max_bytes", b"kernel_tracker_max_bytes", "kernel_tracker_max_interval", b"kernel_tracker_max_interval", "kernel_tracker_max_pending", b"kernel_tracker_max_pending", "node_id", b"node_id", "num_dev_to_dev_copy_streams", b"num_dev_to_dev_copy_streams", "num_virtual_devices_per_gpu", b"num_virtual_devices_per_gpu", "populate_pjrt_gpu_client_creation_info", b"populate_pjrt_gpu_client_creation_info", "stream_merge_options", b"stream_merge_options", "timestamped_allocator", b"timestamped_allocator", "use_cuda_malloc_async", b"use_cuda_malloc_async", "use_unified_memory", b"use_unified_memory", "virtual_devices", b"virtual_devices"]) -> None: ...
 
     PER_PROCESS_GPU_MEMORY_FRACTION_FIELD_NUMBER: builtins.int
     ALLOW_GROWTH_FIELD_NUMBER: builtins.int
@@ -713,6 +773,7 @@ class ConfigProto(google.protobuf.message.Message):
         XLA_FUSION_AUTOTUNER_THRESH_FIELD_NUMBER: builtins.int
         USE_TFRT_FIELD_NUMBER: builtins.int
         ENABLE_MULTI_HOST_FIELD_NUMBER: builtins.int
+        TFRT_USE_IFRT_FIELD_NUMBER: builtins.int
         BACKEND_SERVER_PORT_FIELD_NUMBER: builtins.int
         TARGET_TPU_FIELD_NUMBER: builtins.int
         TARGET_GPU_FIELD_NUMBER: builtins.int
@@ -826,6 +887,10 @@ class ConfigProto(google.protobuf.message.Message):
         """Whether runtime execution uses TFRT."""
         enable_multi_host: builtins.bool
         """If true, use Pathways with TFRT API for multi host support."""
+        tfrt_use_ifrt: builtins.bool
+        """If true, use ifrt as the backend for TFRT. This is only used when
+        `use_tfrt` is true.
+        """
         backend_server_port: builtins.int
         """Port for the Pathways server. Ignored if enable_multi_host=false."""
         target_tpu: builtins.bool
@@ -902,6 +967,7 @@ class ConfigProto(google.protobuf.message.Message):
             xla_fusion_autotuner_thresh: builtins.int | None = ...,
             use_tfrt: builtins.bool | None = ...,
             enable_multi_host: builtins.bool | None = ...,
+            tfrt_use_ifrt: builtins.bool | None = ...,
             backend_server_port: builtins.int | None = ...,
             target_tpu: builtins.bool | None = ...,
             target_gpu: builtins.bool | None = ...,
@@ -913,7 +979,7 @@ class ConfigProto(google.protobuf.message.Message):
             disable_eager_executor_streaming_enqueue: builtins.bool | None = ...,
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["coordination_config", b"coordination_config", "session_metadata", b"session_metadata"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["backend_server_port", b"backend_server_port", "collective_deterministic_sequential_execution", b"collective_deterministic_sequential_execution", "collective_group_leader", b"collective_group_leader", "collective_nccl", b"collective_nccl", "coordination_config", b"coordination_config", "disable_eager_executor_streaming_enqueue", b"disable_eager_executor_streaming_enqueue", "disable_functional_ops_lowering", b"disable_functional_ops_lowering", "disable_optimize_for_static_graph", b"disable_optimize_for_static_graph", "disable_output_partition_graphs", b"disable_output_partition_graphs", "disable_thread_spinning", b"disable_thread_spinning", "enable_mlir_bridge", b"enable_mlir_bridge", "enable_mlir_graph_optimization", b"enable_mlir_graph_optimization", "enable_multi_host", b"enable_multi_host", "executor_type", b"executor_type", "mlir_bridge_rollout", b"mlir_bridge_rollout", "optimize_for_static_graph", b"optimize_for_static_graph", "recv_buf_max_chunk", b"recv_buf_max_chunk", "session_metadata", b"session_metadata", "share_cluster_devices_in_session", b"share_cluster_devices_in_session", "share_session_state_in_clusterspec_propagation", b"share_session_state_in_clusterspec_propagation", "stream_merge_threshold", b"stream_merge_threshold", "target_gpu", b"target_gpu", "target_tpu", b"target_tpu", "use_numa_affinity", b"use_numa_affinity", "use_tfrt", b"use_tfrt", "xla_fusion_autotuner_thresh", b"xla_fusion_autotuner_thresh", "xla_prefer_single_graph_cluster", b"xla_prefer_single_graph_cluster"]) -> None: ...
+        def ClearField(self, field_name: typing.Literal["backend_server_port", b"backend_server_port", "collective_deterministic_sequential_execution", b"collective_deterministic_sequential_execution", "collective_group_leader", b"collective_group_leader", "collective_nccl", b"collective_nccl", "coordination_config", b"coordination_config", "disable_eager_executor_streaming_enqueue", b"disable_eager_executor_streaming_enqueue", "disable_functional_ops_lowering", b"disable_functional_ops_lowering", "disable_optimize_for_static_graph", b"disable_optimize_for_static_graph", "disable_output_partition_graphs", b"disable_output_partition_graphs", "disable_thread_spinning", b"disable_thread_spinning", "enable_mlir_bridge", b"enable_mlir_bridge", "enable_mlir_graph_optimization", b"enable_mlir_graph_optimization", "enable_multi_host", b"enable_multi_host", "executor_type", b"executor_type", "mlir_bridge_rollout", b"mlir_bridge_rollout", "optimize_for_static_graph", b"optimize_for_static_graph", "recv_buf_max_chunk", b"recv_buf_max_chunk", "session_metadata", b"session_metadata", "share_cluster_devices_in_session", b"share_cluster_devices_in_session", "share_session_state_in_clusterspec_propagation", b"share_session_state_in_clusterspec_propagation", "stream_merge_threshold", b"stream_merge_threshold", "target_gpu", b"target_gpu", "target_tpu", b"target_tpu", "tfrt_use_ifrt", b"tfrt_use_ifrt", "use_numa_affinity", b"use_numa_affinity", "use_tfrt", b"use_tfrt", "xla_fusion_autotuner_thresh", b"xla_fusion_autotuner_thresh", "xla_prefer_single_graph_cluster", b"xla_prefer_single_graph_cluster"]) -> None: ...
 
     DEVICE_COUNT_FIELD_NUMBER: builtins.int
     INTRA_OP_PARALLELISM_THREADS_FIELD_NUMBER: builtins.int
@@ -923,6 +989,7 @@ class ConfigProto(google.protobuf.message.Message):
     PLACEMENT_PERIOD_FIELD_NUMBER: builtins.int
     DEVICE_FILTERS_FIELD_NUMBER: builtins.int
     GPU_OPTIONS_FIELD_NUMBER: builtins.int
+    PLUGGABLE_DEVICE_OPTIONS_FIELD_NUMBER: builtins.int
     ALLOW_SOFT_PLACEMENT_FIELD_NUMBER: builtins.int
     LOG_DEVICE_PLACEMENT_FIELD_NUMBER: builtins.int
     GRAPH_OPTIONS_FIELD_NUMBER: builtins.int
@@ -1045,6 +1112,10 @@ class ConfigProto(google.protobuf.message.Message):
         """Options that apply to all GPUs."""
 
     @property
+    def pluggable_device_options(self) -> global___GPUOptions:
+        """Options that apply to pluggable devices."""
+
+    @property
     def graph_options(self) -> global___GraphOptions:
         """Options that apply to all graphs."""
 
@@ -1069,6 +1140,7 @@ class ConfigProto(google.protobuf.message.Message):
         placement_period: builtins.int | None = ...,
         device_filters: collections.abc.Iterable[builtins.str] | None = ...,
         gpu_options: global___GPUOptions | None = ...,
+        pluggable_device_options: global___GPUOptions | None = ...,
         allow_soft_placement: builtins.bool | None = ...,
         log_device_placement: builtins.bool | None = ...,
         graph_options: global___GraphOptions | None = ...,
@@ -1079,8 +1151,8 @@ class ConfigProto(google.protobuf.message.Message):
         share_cluster_devices_in_session: builtins.bool | None = ...,
         experimental: global___ConfigProto.Experimental | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["cluster_def", b"cluster_def", "experimental", b"experimental", "gpu_options", b"gpu_options", "graph_options", b"graph_options", "rpc_options", b"rpc_options"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["allow_soft_placement", b"allow_soft_placement", "cluster_def", b"cluster_def", "device_count", b"device_count", "device_filters", b"device_filters", "experimental", b"experimental", "gpu_options", b"gpu_options", "graph_options", b"graph_options", "inter_op_parallelism_threads", b"inter_op_parallelism_threads", "intra_op_parallelism_threads", b"intra_op_parallelism_threads", "isolate_session_state", b"isolate_session_state", "log_device_placement", b"log_device_placement", "operation_timeout_in_ms", b"operation_timeout_in_ms", "placement_period", b"placement_period", "rpc_options", b"rpc_options", "session_inter_op_thread_pool", b"session_inter_op_thread_pool", "share_cluster_devices_in_session", b"share_cluster_devices_in_session", "use_per_session_threads", b"use_per_session_threads"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["cluster_def", b"cluster_def", "experimental", b"experimental", "gpu_options", b"gpu_options", "graph_options", b"graph_options", "pluggable_device_options", b"pluggable_device_options", "rpc_options", b"rpc_options"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["allow_soft_placement", b"allow_soft_placement", "cluster_def", b"cluster_def", "device_count", b"device_count", "device_filters", b"device_filters", "experimental", b"experimental", "gpu_options", b"gpu_options", "graph_options", b"graph_options", "inter_op_parallelism_threads", b"inter_op_parallelism_threads", "intra_op_parallelism_threads", b"intra_op_parallelism_threads", "isolate_session_state", b"isolate_session_state", "log_device_placement", b"log_device_placement", "operation_timeout_in_ms", b"operation_timeout_in_ms", "placement_period", b"placement_period", "pluggable_device_options", b"pluggable_device_options", "rpc_options", b"rpc_options", "session_inter_op_thread_pool", b"session_inter_op_thread_pool", "share_cluster_devices_in_session", b"share_cluster_devices_in_session", "use_per_session_threads", b"use_per_session_threads"]) -> None: ...
 
 global___ConfigProto = ConfigProto
 

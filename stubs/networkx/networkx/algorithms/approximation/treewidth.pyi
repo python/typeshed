@@ -1,15 +1,17 @@
 from _typeshed import Incomplete
 
-from networkx.utils.backends import _dispatch
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
 __all__ = ["treewidth_min_degree", "treewidth_min_fill_in"]
 
-@_dispatch
-def treewidth_min_degree(G): ...
-@_dispatch
-def treewidth_min_fill_in(G): ...
+@_dispatchable
+def treewidth_min_degree(G: Graph[_Node]): ...
+@_dispatchable
+def treewidth_min_fill_in(G: Graph[_Node]): ...
 
 class MinDegreeHeuristic:
     count: Incomplete
+
     def __init__(self, graph) -> None: ...
     def best_node(self, graph): ...

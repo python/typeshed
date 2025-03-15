@@ -1,8 +1,7 @@
-from _typeshed import Incomplete
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
-from networkx.utils.backends import _dispatch
-
-@_dispatch
-def is_threshold_graph(G): ...
-@_dispatch
-def find_threshold_graph(G, create_using: Incomplete | None = None): ...
+@_dispatchable
+def is_threshold_graph(G: Graph[_Node]): ...
+@_dispatchable
+def find_threshold_graph(G: Graph[_Node], create_using: Graph[_Node] | None = None): ...

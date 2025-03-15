@@ -10,7 +10,7 @@ from tensorflow.saved_model.experimental import VariablePolicy
 from tensorflow.types.experimental import ConcreteFunction, PolymorphicFunction
 
 _P = ParamSpec("_P")
-_R = TypeVar("_R", covariant=True)
+_R_co = TypeVar("_R_co", covariant=True)
 
 class Asset:
     @property
@@ -47,15 +47,19 @@ class SaveOptions:
         "experimental_image_format",
         "experimental_skip_saver",
         "experimental_sharding_callback",
+        "extra_tags",
     )
     namespace_whitelist: list[str]
     save_debug_info: bool
     function_aliases: dict[str, PolymorphicFunction[..., object]]
+    experimental_debug_stripper: bool
     experimental_io_device: str
     experimental_variable_policy: VariablePolicy
     experimental_custom_gradients: bool
     experimental_image_format: bool
     experimental_skip_saver: bool
+    experimental_sharding_callback: Incomplete | None
+    extra_tags: Incomplete | None
     def __init__(
         self,
         namespace_whitelist: list[str] | None = None,
@@ -68,14 +72,15 @@ class SaveOptions:
         experimental_image_format: bool = False,
         experimental_skip_saver: bool = False,
         experimental_sharding_callback: Incomplete | None = None,
+        extra_tags: Incomplete | None = None,
     ) -> None: ...
 
 def contains_saved_model(export_dir: str | Path) -> bool: ...
 
-class _LoadedAttributes(Generic[_P, _R]):
-    signatures: Mapping[str, ConcreteFunction[_P, _R]]
+class _LoadedAttributes(Generic[_P, _R_co]):
+    signatures: Mapping[str, ConcreteFunction[_P, _R_co]]
 
-class _LoadedModel(AutoTrackable, _LoadedAttributes[_P, _R]):
+class _LoadedModel(AutoTrackable, _LoadedAttributes[_P, _R_co]):
     variables: list[tf.Variable]
     trainable_variables: list[tf.Variable]
     # TF1 model artifact specific

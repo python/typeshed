@@ -1,20 +1,10 @@
-# new in py313
-fcntl.F_GETNOSIGPIPE
-fcntl.F_OFD_GETLK
-fcntl.F_OFD_SETLK
-fcntl.F_OFD_SETLKW
-fcntl.F_RDAHEAD
-fcntl.F_SETNOSIGPIPE
-posixpath.splitroot
+# =======
+# >= 3.13
+# =======
 
-# Exists locally on MacOS but not on GitHub
-(mmap.MAP_32BIT)?
+# Depends on HAVE_NCURSESW and how we install CPython,
+# should be removed when 3.13 will be officially released:
+_?curses.unget_wch
+_?curses.window.get_wch
 
-# These entries looks like a `setup-python` bug:
-(dbm.gnu)?
-(_?locale.bind_textdomain_codeset)?
-(_?locale.bindtextdomain)?
-(_?locale.dcgettext)?
-(_?locale.dgettext)?
-(_?locale.gettext)?
-(_?locale.textdomain)?
+(mmap.MAP_32BIT)?  # Exists locally on MacOS but not on GitHub

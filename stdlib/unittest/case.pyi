@@ -6,8 +6,21 @@ from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Se
 from contextlib import AbstractContextManager
 from re import Pattern
 from types import TracebackType
-from typing import Any, AnyStr, ClassVar, Generic, NamedTuple, NoReturn, Protocol, SupportsAbs, SupportsRound, TypeVar, overload
-from typing_extensions import ParamSpec, Self, TypeAlias
+from typing import (
+    Any,
+    AnyStr,
+    ClassVar,
+    Final,
+    Generic,
+    NamedTuple,
+    NoReturn,
+    Protocol,
+    SupportsAbs,
+    SupportsRound,
+    TypeVar,
+    overload,
+)
+from typing_extensions import Never, ParamSpec, Self, TypeAlias
 from warnings import WarningMessage
 
 if sys.version_info >= (3, 9):
@@ -22,7 +35,7 @@ _E = TypeVar("_E", bound=BaseException)
 _FT = TypeVar("_FT", bound=Callable[..., Any])
 _P = ParamSpec("_P")
 
-DIFF_OMITTED: str
+DIFF_OMITTED: Final[str]
 
 class _BaseTestCaseContext:
     test_case: TestCase
@@ -309,6 +322,10 @@ class TestCase:
         def assertDictContainsSubset(
             self, subset: Mapping[Any, Any], dictionary: Mapping[Any, Any], msg: object = None
         ) -> None: ...
+
+    if sys.version_info >= (3, 10):
+        # Runtime has *args, **kwargs, but will error if any are supplied
+        def __init_subclass__(cls, *args: Never, **kwargs: Never) -> None: ...
 
 class FunctionTestCase(TestCase):
     def __init__(

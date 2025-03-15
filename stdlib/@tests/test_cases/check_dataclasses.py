@@ -15,14 +15,9 @@ class Foo:
 
 assert_type(dc.fields(Foo), Tuple[dc.Field[Any], ...])
 
-# Mypy correctly emits errors on these
-# due to the fact it's a dataclass class, not an instance.
-# Pyright, however, handles ClassVar members in protocols differently.
-# See https://github.com/microsoft/pyright/issues/4339
-#
-# dc.asdict(Foo)
-# dc.astuple(Foo)
-# dc.replace(Foo)
+dc.asdict(Foo)  # type: ignore
+dc.astuple(Foo)  # type: ignore
+dc.replace(Foo)  # type: ignore
 
 # See #9723 for why we can't make this assertion
 # if dc.is_dataclass(Foo):
@@ -41,8 +36,23 @@ if dc.is_dataclass(f):
     assert_type(f, Foo)
 
 
+def is_dataclass_any(arg: Any) -> None:
+    if dc.is_dataclass(arg):
+        assert_type(arg, Union["DataclassInstance", Type["DataclassInstance"]])
+
+
+def is_dataclass_object(arg: object) -> None:
+    if dc.is_dataclass(arg):
+        assert_type(arg, Union["DataclassInstance", Type["DataclassInstance"]])
+
+
+def is_dataclass_type(arg: type) -> None:
+    if dc.is_dataclass(arg):
+        assert_type(arg, Type["DataclassInstance"])
+
+
 def check_other_isdataclass_overloads(x: type, y: object) -> None:
-    # TODO: pyright correctly emits an error on this, but mypy does not -- why?
+    # TODO: neither pyright nor mypy emit error on this -- why?
     # dc.fields(x)
 
     dc.fields(y)  # type: ignore
@@ -60,27 +70,17 @@ def check_other_isdataclass_overloads(x: type, y: object) -> None:
         assert_type(x, Type["DataclassInstance"])
         assert_type(dc.fields(x), Tuple[dc.Field[Any], ...])
 
-        # Mypy correctly emits an error on these due to the fact
-        # that it's a dataclass class, not a dataclass instance.
-        # Pyright, however, handles ClassVar members in protocols differently.
-        # See https://github.com/microsoft/pyright/issues/4339
-        #
-        # dc.asdict(x)
-        # dc.astuple(x)
-        # dc.replace(x)
+        dc.asdict(x)  # type: ignore
+        dc.astuple(x)  # type: ignore
+        dc.replace(x)  # type: ignore
 
     if dc.is_dataclass(y):
         assert_type(y, Union["DataclassInstance", Type["DataclassInstance"]])
         assert_type(dc.fields(y), Tuple[dc.Field[Any], ...])
 
-        # Mypy correctly emits an error on these due to the fact we don't know
-        # whether it's a dataclass class or a dataclass instance.
-        # Pyright, however, handles ClassVar members in protocols differently.
-        # See https://github.com/microsoft/pyright/issues/4339
-        #
-        # dc.asdict(y)
-        # dc.astuple(y)
-        # dc.replace(y)
+        dc.asdict(y)  # type: ignore
+        dc.astuple(y)  # type: ignore
+        dc.replace(y)  # type: ignore
 
     if dc.is_dataclass(y) and not isinstance(y, type):
         assert_type(y, "DataclassInstance")

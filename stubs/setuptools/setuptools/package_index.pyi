@@ -1,16 +1,24 @@
 import configparser
+import urllib.request
 from _typeshed import Incomplete
-from typing import Any
+from collections.abc import Generator
+from hashlib import _Hash
+from re import Pattern
+from typing import ClassVar
+from typing_extensions import NamedTuple
 
-from pkg_resources import Environment
+from pkg_resources import Distribution, Environment
 
 __all__ = ["PackageIndex", "distros_for_url", "parse_bdist_wininst", "interpret_distro_name"]
 
 def parse_bdist_wininst(name): ...
-def distros_for_url(url, metadata: Incomplete | None = None) -> None: ...
+def distros_for_url(url, metadata: Incomplete | None = None) -> Generator[Distribution]: ...
+def distros_for_location(
+    location, basename, metadata: Incomplete | None = None
+) -> list[Distribution] | Generator[Distribution]: ...
 def interpret_distro_name(
     location, basename, metadata, py_version: Incomplete | None = None, precedence=1, platform: Incomplete | None = None
-) -> None: ...
+) -> Generator[Distribution]: ...
 
 class ContentChecker:
     def feed(self, block) -> None: ...
@@ -18,10 +26,10 @@ class ContentChecker:
     def report(self, reporter, template) -> None: ...
 
 class HashChecker(ContentChecker):
-    pattern: Any
-    hash_name: Any
-    hash: Any
-    expected: Any
+    pattern: ClassVar[Pattern[str]]
+    hash_name: Incomplete
+    hash: _Hash
+    expected: Incomplete
     def __init__(self, hash_name, expected) -> None: ...
     @classmethod
     def from_url(cls, url): ...
@@ -30,13 +38,13 @@ class HashChecker(ContentChecker):
     def report(self, reporter, template): ...
 
 class PackageIndex(Environment):
-    index_url: Any
-    scanned_urls: Any
-    fetched_urls: Any
-    package_pages: Any
-    allows: Any
-    to_scan: Any
-    opener: Any
+    index_url: str
+    scanned_urls: dict[Incomplete, Incomplete]
+    fetched_urls: dict[Incomplete, Incomplete]
+    package_pages: dict[Incomplete, Incomplete]
+    allows: Incomplete
+    to_scan: list[Incomplete]
+    opener = urllib.request.urlopen
     def __init__(
         self,
         index_url: str = "https://pypi.org/simple/",
@@ -80,11 +88,9 @@ class PackageIndex(Environment):
     def info(self, msg, *args) -> None: ...
     def warn(self, msg, *args) -> None: ...
 
-class Credential:
-    username: Any
-    password: Any
-    def __init__(self, username, password) -> None: ...
-    def __iter__(self): ...
+class Credential(NamedTuple):
+    username: str
+    password: str
 
 class PyPIConfig(configparser.RawConfigParser):
     def __init__(self) -> None: ...

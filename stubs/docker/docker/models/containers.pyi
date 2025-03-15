@@ -35,7 +35,7 @@ class Container(Model):
     def diff(self): ...
     def exec_run(
         self,
-        cmd,
+        cmd: str | list[str],
         stdout: bool = True,
         stderr: bool = True,
         stdin: bool = False,
@@ -51,7 +51,7 @@ class Container(Model):
     ) -> ExecResult: ...
     def export(self, chunk_size: int | None = 2097152) -> str: ...
     def get_archive(
-        self, path, chunk_size: int | None = 2097152, encode_stream: bool = False
+        self, path: str, chunk_size: int | None = 2097152, encode_stream: bool = False
     ) -> tuple[Incomplete, Incomplete]: ...
     def kill(self, signal: Incomplete | None = None): ...
     @overload
@@ -203,7 +203,7 @@ class ContainerCollection(Collection[Container]):
         uts_mode: str | None = None,
         version: str | None = None,
         volume_driver: str | None = None,
-        volumes: dict[str, str] | list[str] | None = None,
+        volumes: dict[str, dict[str, str]] | list[str] | None = None,
         volumes_from: list[str] | None = None,
         working_dir: str | None = None,
     ) -> bytes: ...  # TODO: This should return a stream, if `stream` is True
@@ -298,7 +298,7 @@ class ContainerCollection(Collection[Container]):
         uts_mode: str | None = None,
         version: str | None = None,
         volume_driver: str | None = None,
-        volumes: dict[str, str] | list[str] | None = None,
+        volumes: dict[str, dict[str, str]] | list[str] | None = None,
         volumes_from: list[str] | None = None,
         working_dir: str | None = None,
     ) -> Container: ...
@@ -389,7 +389,7 @@ class ContainerCollection(Collection[Container]):
         uts_mode: str | None = None,
         version: str | None = None,
         volume_driver: str | None = None,
-        volumes: dict[str, str] | list[str] | None = None,
+        volumes: dict[str, dict[str, str]] | list[str] | None = None,
         volumes_from: list[str] | None = None,
         working_dir: str | None = None,
     ) -> Container: ...

@@ -17,10 +17,11 @@ assert_type(pow(1, 0, None), Literal[1])
 # assert_type(pow(2, 4, 0), NoReturn)
 
 assert_type(pow(2, 4), int)
-# pyright infers a literal type here, but mypy does not. Unfortunately,
-# there is no way to ignore an error only for mypy, so we can't check
-# pyright's handling (https://github.com/python/mypy/issues/12358).
-assert_type(2**4, int)  # pyright: ignore
+# pyright infers a literal type here, but mypy does not.
+# Unfortunately, there is no way to ignore an error only for mypy,
+# whilst getting both pyright and mypy to respect `type: ignore`.
+# So we can't check pyright's handling (https://github.com/python/mypy/issues/12358).
+assert_type(2**4, int)  # pyright: ignore[reportAssertTypeFailure]
 # pyright version: assert_type(2**4, Literal[16])
 assert_type(pow(4, 6, None), int)
 
@@ -34,8 +35,7 @@ assert_type(pow(2, 8.5), float)
 assert_type(2**8.6, float)
 assert_type(pow(2, 8.6, None), float)
 
-# TODO: Why does this pass pyright but not mypy??
-# assert_type((-2) ** 0.5, complex)
+assert_type((-2) ** 0.5, complex)
 
 assert_type(pow((-5), 8.42, None), complex)
 
@@ -47,7 +47,9 @@ assert_type(pow(complex(6), 6.2), complex)
 assert_type(complex(6) ** 6.2, complex)
 assert_type(pow(complex(9), 7.3, None), complex)
 
-assert_type(pow(Fraction(), 4, None), Fraction)
+# pyright infers Fraction | float | complex, while mypy infers Fraction.
+# This is probably because of differences in @overload handling.
+assert_type(pow(Fraction(), 4, None), Fraction)  # pyright: ignore[reportAssertTypeFailure]
 assert_type(Fraction() ** 4, Fraction)
 
 assert_type(pow(Fraction(3, 7), complex(1, 8)), complex)

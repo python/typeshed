@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from networkx.utils.backends import _dispatch
+from networkx.utils.backends import _dispatchable
 
 class CurrentEdge:
     def __init__(self, edges) -> None: ...
@@ -10,6 +10,7 @@ class CurrentEdge:
 class Level:
     active: Incomplete
     inactive: Incomplete
+
     def __init__(self) -> None: ...
 
 class GlobalRelabelThreshold:
@@ -18,9 +19,9 @@ class GlobalRelabelThreshold:
     def is_reached(self): ...
     def clear_work(self) -> None: ...
 
-@_dispatch
+@_dispatchable
 def build_residual_network(G, capacity): ...
-@_dispatch
+@_dispatchable
 def detect_unboundedness(R, s, t) -> None: ...
-@_dispatch
+@_dispatchable
 def build_flow_dict(G, R): ...

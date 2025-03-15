@@ -1,4 +1,5 @@
-from typing import Any, ClassVar
+from _typeshed import Incomplete
+from typing import ClassVar
 
 from .setopt import option_base
 
@@ -9,8 +10,8 @@ class alias(option_base):
     command_consumes_arguments: bool
     user_options: ClassVar[list[tuple[str, str, str]]]
     boolean_options: ClassVar[list[str]]
-    args: Any
-    remove: Any
+    args: Incomplete
+    remove: Incomplete
     def initialize_options(self) -> None: ...
     def finalize_options(self) -> None: ...
     def run(self) -> None: ...

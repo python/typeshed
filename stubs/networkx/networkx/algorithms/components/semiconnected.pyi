@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
-from networkx.utils.backends import _dispatch
-
-@_dispatch
-def is_semiconnected(G, topo_order: Incomplete | None = None): ...
+@_dispatchable
+def is_semiconnected(G: Graph[_Node]): ...

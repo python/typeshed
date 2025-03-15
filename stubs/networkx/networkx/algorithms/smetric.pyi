@@ -1,4 +1,5 @@
-from networkx.utils.backends import _dispatch
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
-@_dispatch
-def s_metric(G, normalized: bool = True): ...
+@_dispatchable
+def s_metric(G: Graph[_Node]): ...

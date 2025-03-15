@@ -41,6 +41,7 @@ class TensorProto(google.protobuf.message.Message):
     UINT64_VAL_FIELD_NUMBER: builtins.int
     FLOAT8_VAL_FIELD_NUMBER: builtins.int
     dtype: tensorflow.core.framework.types_pb2.DataType.ValueType
+    """Data type of the tensor."""
     version_number: builtins.int
     """Only one of the representations below is set, one of "tensor_contents" and
     the "xxx_val" attributes.  We are not using oneof because as oneofs cannot
