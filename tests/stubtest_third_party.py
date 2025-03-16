@@ -31,11 +31,7 @@ from ts_utils.utils import (
 
 
 def run_stubtest(
-    dist: Path,
-    *,
-    verbose: bool = False,
-    specified_platforms_only: bool = False,
-    keep_tmp_dir: bool = False,
+    dist: Path, *, verbose: bool = False, specified_platforms_only: bool = False, keep_tmp_dir: bool = False
 ) -> bool:
     """Run stubtest for a single distribution."""
 
@@ -408,10 +404,7 @@ def main() -> NoReturn:
             continue
         try:
             if not run_stubtest(
-                dist,
-                verbose=args.verbose,
-                specified_platforms_only=args.specified_platforms_only,
-                keep_tmp_dir=args.keep_tmp_dir,
+                dist, verbose=args.verbose, specified_platforms_only=args.specified_platforms_only, keep_tmp_dir=args.keep_tmp_dir
             ):
                 result = 1
         except NoSuchStubError as e:
