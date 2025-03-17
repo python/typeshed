@@ -97,3 +97,7 @@ setuptools.config._validate_pyproject.*
 setuptools.compat.*
 setuptools.command.build_py.build_py.existing_egg_info_dir
 .+?\.tests.*
+
+# https://github.com/python/mypy/issues/18810
+.*\.__mutable_keys__
+.*\.__readonly_keys__

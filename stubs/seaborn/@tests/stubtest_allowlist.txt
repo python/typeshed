@@ -5,3 +5,7 @@ seaborn.external.docscrape.NumpyDocString.__str__  # weird signature
 seaborn.axisgrid.Grid.tight_layout  # the method doesn't really take pos args but runtime has *args
 
 seaborn.external.appdirs.unicode
+
+# https://github.com/python/mypy/issues/18810
+.*\.__mutable_keys__
+.*\.__readonly_keys__
