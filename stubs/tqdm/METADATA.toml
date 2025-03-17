@@ -5,3 +5,6 @@ requires = ["types-requests"]
 [tool.stubtest]
 extras = ["slack", "telegram"]
 stubtest_requirements = ["dask", "pandas", "rich", "tensorflow"]
+# tensorflow 2.19 doesn't support Python 3.13:
+# https://github.com/tensorflow/tensorflow/issues/78774
+skip = true
