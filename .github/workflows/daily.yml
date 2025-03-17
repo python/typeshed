@@ -114,7 +114,8 @@ jobs:
           path: stub_uploader
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          # Keep in sync with stub_uploader's check_scripts.yml workflow.
+          python-version: "3.13"
       - uses: astral-sh/setup-uv@v5
       - name: Run tests
         run: |
