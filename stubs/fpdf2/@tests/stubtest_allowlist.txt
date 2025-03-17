@@ -12,4 +12,5 @@ fpdf.fonts.HarfBuzzFont
 fpdf.unicode_script.UNICODE_RANGE_TO_SCRIPT
 
 # Ignore stubtest weirdness "fpdf.fonts.Glyph._DT is not present at runtime"
+# https://github.com/python/mypy/issues/18811
 fpdf.fonts.Glyph._DT
