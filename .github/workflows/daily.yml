@@ -66,7 +66,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.13"
           cache: pip
           cache-dependency-path: |
             requirements-tests.txt
@@ -114,6 +114,7 @@ jobs:
           path: stub_uploader
       - uses: actions/setup-python@v5
         with:
+          # Keep in sync with stub_uploader's check_scripts.yml workflow.
           python-version: "3.12"
       - uses: astral-sh/setup-uv@v5
       - name: Run tests
