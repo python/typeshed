@@ -27,7 +27,7 @@ concurrency:
 
 jobs:
   stubtest-third-party:
-    name: Check third party stubs with stubtest
+    name: stubtest: third party
 
     runs-on: ${{ matrix.os }}
     strategy:
