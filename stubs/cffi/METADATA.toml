@@ -5,5 +5,3 @@ requires = ["types-setuptools"]
 [tool.stubtest]
 # linux and darwin are mostly equivalent, except for a single `RTLD_DEEPBIND` variable
 platforms = ["linux", "win32"]
-# cffi 1.16 doesn't support Python 3.13. Support was added in cffi 1.17.0.
-skip = true
