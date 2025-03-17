@@ -28,7 +28,7 @@ concurrency:
 
 jobs:
   mypy:
-    name: Run mypy against the scripts and tests directories
+    name: Check scripts and tests with mypy
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -43,7 +43,7 @@ jobs:
       - run: uv pip install -r requirements-tests.txt --system
       - run: python ./tests/typecheck_typeshed.py --platform=${{ matrix.platform }}
   pyright:
-    name: Run pyright against the scripts and tests directories
+    name: Check scripts and tests with pyright
     runs-on: ubuntu-latest
     strategy:
       matrix:
