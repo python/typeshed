@@ -29,7 +29,7 @@ env:
 
 jobs:
   stubtest-stdlib:
-    name: stubtest: stdlib
+    name: "stubtest: stdlib"
     if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -54,7 +54,7 @@ jobs:
         run: python tests/stubtest_stdlib.py
 
   stubtest-third-party:
-    name: stubtest: third party
+    name: "stubtest: third party"
     if: ${{ github.repository == 'python/typeshed' || github.event_name == 'workflow_dispatch' }}
     runs-on: ${{ matrix.os }}
     strategy:

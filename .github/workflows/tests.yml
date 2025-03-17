@@ -35,7 +35,7 @@ jobs:
       - run: python ./tests/check_typeshed_structure.py
 
   pytype:
-    name: pytype: Check stubs
+    name: "pytype: Check stubs"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -56,7 +56,7 @@ jobs:
       - run: ./tests/pytype_test.py --print-stderr
 
   mypy:
-    name: mypy: Check stubs
+    name: "mypy: Check stubs"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -73,7 +73,7 @@ jobs:
       - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
 
   regression-tests:
-    name: mypy: Run test cases
+    name: "mypy: Run test cases"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -87,7 +87,7 @@ jobs:
       - run: python ./tests/regr_test.py --all --verbosity QUIET
 
   pyright:
-    name: pyright: Run test cases
+    name: "pyright: Run test cases"
     runs-on: ubuntu-latest
     strategy:
       matrix:
