@@ -6,6 +6,6 @@ seaborn.axisgrid.Grid.tight_layout  # the method doesn't really take pos args bu
 
 seaborn.external.appdirs.unicode
 
-# https://github.com/python/mypy/issues/18810
+# https://github.com/python/typeshed/pull/13646
 .*\.__mutable_keys__
 .*\.__readonly_keys__

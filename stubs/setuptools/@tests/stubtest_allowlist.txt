@@ -98,6 +98,6 @@ setuptools.compat.*
 setuptools.command.build_py.build_py.existing_egg_info_dir
 .+?\.tests.*
 
-# https://github.com/python/mypy/issues/18810
+# https://github.com/python/typeshed/pull/13646
 .*\.__mutable_keys__
 .*\.__readonly_keys__
