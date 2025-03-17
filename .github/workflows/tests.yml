@@ -141,7 +141,7 @@ jobs:
           project: ./pyrightconfig.testcases.json
 
   stub-uploader:
-    name: Run stub_uploader tests
+    name: stub_uploader tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout typeshed
