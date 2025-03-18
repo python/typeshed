@@ -130,9 +130,7 @@ if sys.version_info >= (3, 12):
 if sys.version_info >= (3, 13):
     __all__ += ["get_protocol_members", "is_protocol", "NoDefault", "TypeIs", "ReadOnly"]
 
-class Any:
-    pass
-
+class Any: ...
 class _Final: ...
 
 def final(f: _T) -> _T: ...
