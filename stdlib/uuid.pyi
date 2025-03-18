@@ -87,6 +87,11 @@ if sys.version_info >= (3, 12):
 else:
     def uuid5(namespace: UUID, name: str) -> UUID: ...
 
+if sys.version_info >= (3, 14):
+    def uuid6(node: int | None = None, clock_seq: int | None = None) -> UUID: ...
+    def uuid7() -> UUID: ...
+    def uuid8(a: int | None = None, b: int | None = None, c: int | None = None) -> UUID: ...
+
 NAMESPACE_DNS: UUID
 NAMESPACE_URL: UUID
 NAMESPACE_OID: UUID
@@ -95,6 +100,10 @@ RESERVED_NCS: str
 RFC_4122: str
 RESERVED_MICROSOFT: str
 RESERVED_FUTURE: str
+
+if sys.version_info >= (3, 14):
+    NIL: UUID
+    MAX: UUID
 
 if sys.version_info >= (3, 12):
     def main() -> None: ...
