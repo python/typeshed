@@ -6,3 +6,7 @@ tqdm._tqdm_notebook.__all__
 
 # Cannot import in stubtest
 tqdm.__main__
+
+# TODO: Reenable on tensorflow supports Python 3.13 and is added to the
+# stubtest dependencies in METADATA.toml.
+tqdm.keras
