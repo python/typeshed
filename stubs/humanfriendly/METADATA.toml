@@ -3,3 +3,5 @@ upstream_repository = "https://github.com/xolox/python-humanfriendly"
 
 [tool.stubtest]
 stubtest_requirements = ["docutils", "mock"]
+# Package is unsupported and doesn't support Python 3.13 as of 2025-03-17.
+skip = true
