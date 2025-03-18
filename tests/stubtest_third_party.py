@@ -31,20 +31,12 @@ from ts_utils.utils import (
 
 
 def run_stubtest(
-    dist: Path,
-    *,
-    parser: argparse.ArgumentParser,
-    verbose: bool = False,
-    specified_platforms_only: bool = False,
-    keep_tmp_dir: bool = False,
+    dist: Path, *, verbose: bool = False, specified_platforms_only: bool = False, keep_tmp_dir: bool = False
 ) -> bool:
     """Run stubtest for a single distribution."""
 
     dist_name = dist.name
-    try:
-        metadata = read_metadata(dist_name)
-    except NoSuchStubError as e:
-        parser.error(str(e))
+    metadata = read_metadata(dist_name)
     print(f"{dist_name}... ", end="", flush=True)
 
     t = time()
@@ -252,6 +244,9 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         import sys
 
         stubtest_env = os.environ | {{"STUBTEST_ARGS": json.dumps(sys.argv)}}
+        # With LD_LIBRARY_PATH set, some GitHub action runners look in the wrong
+        # location for gdb, causing stubtest to fail.
+        stubtest_env.pop("LD_LIBRARY_PATH", None)
         gdb_cmd = [
             "gdb",
             "--quiet",
@@ -407,14 +402,13 @@ def main() -> NoReturn:
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if not run_stubtest(
-            dist,
-            parser=parser,
-            verbose=args.verbose,
-            specified_platforms_only=args.specified_platforms_only,
-            keep_tmp_dir=args.keep_tmp_dir,
-        ):
-            result = 1
+        try:
+            if not run_stubtest(
+                dist, verbose=args.verbose, specified_platforms_only=args.specified_platforms_only, keep_tmp_dir=args.keep_tmp_dir
+            ):
+                result = 1
+        except NoSuchStubError as e:
+            parser.error(str(e))
     sys.exit(result)
 
 

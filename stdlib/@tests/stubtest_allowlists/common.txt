@@ -4,15 +4,11 @@
 
 # Please keep sorted alphabetically
 
-builtins.dict.get
 collections\.ChainMap\.fromkeys  # https://github.com/python/mypy/issues/17023
 http.client.HTTPConnection.response_class  # the actual type at runtime is abc.ABCMeta
 importlib.abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.abc.MetaPathFinder.find_spec  # Not defined on the actual class, but expected to exist.
 importlib.abc.PathEntryFinder.find_spec  # Not defined on the actual class, but expected to exist.
-socketserver.BaseServer.fileno  # implemented in derived classes
-socketserver.BaseServer.get_request  # implemented in derived classes
-socketserver.BaseServer.server_bind  # implemented in derived classes
 tkinter.simpledialog.[A-Z_]+
 tkinter.simpledialog.TclVersion
 tkinter.simpledialog.TkVersion
@@ -411,6 +407,7 @@ pickle._Pickler\..*  # Best effort typing for undocumented internals
 pickle._Unpickler\..*  # Best effort typing for undocumented internals
 _?queue.SimpleQueue.__init__  # C signature is broader than what is actually accepted
 shutil.rmtree  # function with attributes, which we approximate with a callable protocol
+socketserver.BaseServer.get_request  # Not implemented, but expected to exist on subclasses.
 ssl.PROTOCOL_SSLv2  # Depends on the existence and flags of SSL
 ssl.PROTOCOL_SSLv3  # Depends on the existence and flags of SSL
 sys.implementation  # Actually SimpleNamespace but then you wouldn't have convenient attributes
