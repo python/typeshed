@@ -36,6 +36,7 @@
         "stubs/click-web",
         "stubs/commonmark",
         "stubs/corus",
+        "stubs/cysimdjson",
         "stubs/dateparser",
         "stubs/defusedxml",
         "stubs/docker",
