@@ -17,13 +17,11 @@ def nearest_colour_index(
     colour_map: dict[int, tuple[int, int, int] | None], rgb: tuple[int, int, int] | None, debug: int = 0
 ) -> int: ...
 
-_T = TypeVar("_T")
+class EqNeAttrs:
+    def __eq__(self, other: object) -> bool: ...
+    def __ne__(self, other: object) -> bool: ...
 
-class EqNeAttrs(Generic[_T]):
-    def __eq__(self, other: _T) -> bool: ...
-    def __ne__(self, other: _T) -> bool: ...
-
-class Font(BaseObject, EqNeAttrs[Font]):
+class Font(BaseObject, EqNeAttrs):
     bold: Literal[0, 1]
     character_set: int
     colour_index: int
@@ -43,7 +41,7 @@ class Font(BaseObject, EqNeAttrs[Font]):
 def handle_efont(book: Book, data: bytes) -> None: ...
 def handle_font(book: Book, data: bytes) -> None: ...
 
-class Format(BaseObject, EqNeAttrs[Format]):
+class Format(BaseObject, EqNeAttrs):
     format_key: int
     type: int
     format_str: str
@@ -70,7 +68,7 @@ def handle_xf(self: Book, data: bytes) -> None: ...
 def xf_epilogue(self: Book) -> None: ...
 def initialise_book(book: Book) -> None: ...
 
-class XFBorder(BaseObject, EqNeAttrs[XFBorder]):
+class XFBorder(BaseObject, EqNeAttrs):
     top_colour_index: int
     bottom_colour_index: int
     left_colour_index: int
@@ -84,12 +82,12 @@ class XFBorder(BaseObject, EqNeAttrs[XFBorder]):
     diag_down: Literal[0, 1]
     diag_up: Literal[0, 1]
 
-class XFBackground(BaseObject, EqNeAttrs[XFBackground]):
+class XFBackground(BaseObject, EqNeAttrs):
     fill_pattern: int
     background_colour_index: int
     pattern_colour_index: int
 
-class XFAlignment(BaseObject, EqNeAttrs[XFAlignment]):
+class XFAlignment(BaseObject, EqNeAttrs):
     hor_align: int
     vert_align: int
     rotation: int
@@ -98,7 +96,7 @@ class XFAlignment(BaseObject, EqNeAttrs[XFAlignment]):
     shrink_to_fit: Literal[0, 1]
     text_direction: Literal[0, 1, 2]
 
-class XFProtection(BaseObject, EqNeAttrs[XFProtection]):
+class XFProtection(BaseObject, EqNeAttrs):
     cell_locked: Literal[0, 1]
     formula_hidden: Literal[0, 1]
 

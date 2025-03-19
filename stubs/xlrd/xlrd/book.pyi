@@ -11,7 +11,6 @@ from .formula import *
 from .timemachine import *
 
 empty_cell: sheet.Cell
-DEBUG: int
 MY_EOF: int
 SUPBOOK_UNK: int
 SUPBOOK_INTERNAL: int
@@ -147,6 +146,5 @@ class Book(BaseObject):
 
 # Helper functions
 def expand_cell_address(inrow: int, incol: int) -> tuple[int, int, int, int]: ...
-def colname(colx: int) -> str: ...
 def display_cell_address(rowx: int, colx: int, relrow: int, relcol: int) -> str: ...
 def unpack_SST_table(datatab: list[bytes], nstrings: int) -> tuple[list[str], dict[int, list[tuple[int, int]]]]: ...

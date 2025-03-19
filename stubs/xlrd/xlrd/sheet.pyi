@@ -8,7 +8,6 @@ from .book import *
 from .formatting import XF
 from .timemachine import *
 
-DEBUG: int
 OBJ_MSO_DEBUG: int
 
 class MSODrawing(BaseObject): ...
