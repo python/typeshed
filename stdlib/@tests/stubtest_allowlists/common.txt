@@ -501,10 +501,6 @@ typing(_extensions)?\.ValuesView
 typing_extensions\.Final
 typing_extensions\.LiteralString
 
-# Initialized at runtime
-typing_extensions\.TypeAliasType\.__parameters__
-typing_extensions\.TypeAliasType\.__value__
-
 # Typing-related weirdness
 typing._SpecialForm.__call__
 typing._SpecialForm.__init__
@@ -529,6 +525,10 @@ typing(_extensions)?\.(Async)?ContextManager
 # See https://github.com/python/typeshed/commit/97bc450acd60c1bcdafef3ce8fbe3b95a9c0cac3
 typing(_extensions)?\.IO\.__iter__
 typing(_extensions)?\.IO\.__next__
+
+# Initialized at runtime
+typing_extensions.TypeAliasType.__parameters__
+typing_extensions.TypeAliasType.__value__
 
 types.MethodType.__closure__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.MethodType.__code__  # read-only but not actually a property; stubtest thinks it doesn't exist.
