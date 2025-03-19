@@ -4,7 +4,7 @@ from collections.abc import Callable, Sequence
 from typing import Any, Literal, overload
 
 from .biffh import *
-from .book import *
+from .book import Book
 from .formatting import XF
 from .timemachine import *
 

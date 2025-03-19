@@ -1,13 +1,10 @@
 import sys
 from collections.abc import Callable
-from typing import Any, Protocol, TextIO
+from typing import Any, TextIO
 
 from .timemachine import *
 
 DEBUG: int
-
-class HasAttrs(Protocol):
-    def __setattr__(self, name: str, value: Any) -> None: ...
 
 class XLRDError(Exception): ...
 
@@ -147,10 +144,10 @@ XL_FORMULA_OPCODES: tuple[int, int, int]
 
 def is_cell_opcode(c: int) -> bool: ...
 def upkbits(
-    tgt_obj: HasAttrs, src: int, manifest: list[tuple[int, int, str]], local_setattr: Callable[[Any, str, Any], None] = ...
+    tgt_obj: object, src: int, manifest: list[tuple[int, int, str]], local_setattr: Callable[[Any, str, Any], None] = ...
 ) -> None: ...
 def upkbitsL(
-    tgt_obj: HasAttrs,
+    tgt_obj: object,
     src: int,
     manifest: list[tuple[int, int, str]],
     local_setattr: Callable[[Any, str, Any], None] = ...,

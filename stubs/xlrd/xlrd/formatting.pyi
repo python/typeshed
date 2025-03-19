@@ -50,7 +50,6 @@ class Format(BaseObject, EqNeAttrs):
 std_format_strings: dict[int, str]
 fmt_code_ranges: list[tuple[int, int, int]]
 std_format_code_types: dict[int, int]
-date_chars: str
 date_char_dict: dict[str, Literal[5]]
 skip_char_dict: dict[str, Literal[1]]
 num_char_dict: dict[str, Literal[5]]
