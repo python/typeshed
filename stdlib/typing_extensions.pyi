@@ -3,7 +3,7 @@ import enum
 import sys
 import typing
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import IdentityFunction, Incomplete
+from _typeshed import IdentityFunction, Incomplete, Unused
 from contextlib import AbstractAsyncContextManager as AsyncContextManager, AbstractContextManager as ContextManager
 from types import ModuleType
 from typing import (  # noqa: Y022,Y037,Y038,Y039
@@ -584,7 +584,7 @@ else:
         def __module__(self) -> str | None: ...  # type: ignore[override]
         # Returns typing._GenericAlias, which isn't stubbed.
         def __getitem__(self, parameters: Incomplete | tuple[Incomplete, ...]) -> Any: ...
-        def __init_subclass__(cls, *args, **kwargs) -> NoReturn: ...
+        def __init_subclass__(cls, *args: Unused, **kwargs: Unused) -> NoReturn: ...
         def __call__(self) -> NoReturn: ...
         if sys.version_info >= (3, 10):
             def __or__(self, right: Any) -> _SpecialForm: ...
