@@ -97,6 +97,7 @@
         "stubs/vobject",
         "stubs/workalendar",
         "stubs/wurlitzer",
+        "stubs/xlrd",
     ],
     "typeCheckingMode": "strict",
     // TODO: Complete incomplete stubs
