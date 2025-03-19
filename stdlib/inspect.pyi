@@ -345,7 +345,7 @@ class Signature:
 
 if sys.version_info >= (3, 10):
     def get_annotations(
-        obj: Callable[..., object] | type[Any] | ModuleType, # any callable, class, or module
+        obj: Callable[..., object] | type[Any] | ModuleType,  # any callable, class, or module
         *,
         globals: Mapping[str, Any] | None = None,  # value types depend on the key
         locals: Mapping[str, Any] | None = None,  # value types depend on the key
