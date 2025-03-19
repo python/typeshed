@@ -617,7 +617,7 @@ def get_annotations(
     globals: Mapping[str, Any] | None = None,  # value types depend on the key
     locals: Mapping[str, Any] | None = None,  # value types depend on the key
     eval_str: bool = False,
-    format: Format = Format.VALUE,
+    format: Format = Format.VALUE,  # noqa: Y011
 ) -> dict[str, Any]: ...  # values are type expressions
 def evaluate_forward_ref(
     forward_ref: ForwardRef,
@@ -626,6 +626,6 @@ def evaluate_forward_ref(
     globals: Mapping[str, Any] | None = None,  # value types depend on the key
     locals: Mapping[str, Any] | None = None,  # value types depend on the key
     type_params: Iterable[TypeVar | ParamSpec | TypeVarTuple] | None = None,
-    format: Format = Format.VALUE,
+    format: Format = Format.VALUE,  # noqa: Y011
     _recursive_guard: Container[str] = ...,
 ) -> Any: ...  # str if format is Format.STRING, otherwise a type expression
