@@ -1,20 +1,19 @@
 from collections.abc import Callable
-from typing import Generic, Literal, TypeAlias, TypeVar
+from typing import Generic, Literal, TypeVar
 
 from .biffh import BaseObject
 from .book import Book
 from .timemachine import *
 
 DEBUG: int
-_RGB: TypeAlias = tuple[int, int, int]
-excel_default_palette_b5: tuple[_RGB, ...]
-excel_default_palette_b2: tuple[_RGB, ...]
-excel_default_palette_b8: tuple[_RGB, ...]
-default_palette: dict[int, tuple[_RGB, ...]]
+excel_default_palette_b5: tuple[tuple[int, int, int], ...]
+excel_default_palette_b2: tuple[tuple[int, int, int], ...]
+excel_default_palette_b8: tuple[tuple[int, int, int], ...]
+default_palette: dict[int, tuple[tuple[int, int, int], ...]]
 built_in_style_names: list[str]
 
 def initialise_colour_map(book: Book) -> None: ...
-def nearest_colour_index(colour_map: dict[int, _RGB | None], rgb: _RGB | None, debug: int = 0) -> int: ...
+def nearest_colour_index(colour_map: dict[int, tuple[int, int, int] | None], rgb: tuple[int, int, int] | None, debug: int = 0) -> int: ...
 
 _T = TypeVar("_T")
 

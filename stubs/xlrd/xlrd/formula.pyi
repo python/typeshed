@@ -1,3 +1,5 @@
+from typing_extensions import Self
+
 from . import book
 from .timemachine import *
 
@@ -52,7 +54,7 @@ class Operand:
     rank: int
     def __init__(self, akind: int | None = None, avalue: float | str | None = None, arank: int = 0, atext: str = "?") -> None: ...
 
-class Ref3D(tuple):
+class Ref3D(tuple[int, int, int, int, int, int, int, int, int, int, int, int]):
     coords: tuple[int, int, int, int, int, int]
     relflags: tuple[int, int, int, int, int, int]
     shtxlo: int
@@ -61,6 +63,7 @@ class Ref3D(tuple):
     rowxhi: int
     colxlo: int
     colxhi: int
+    def __new__(cls, atuple: tuple[int, int, int, int, int, int, int, int, int, int, int, int]) -> Self: ...
     def __init__(self, atuple: tuple[int, int, int, int, int, int, int, int, int, int, int, int]) -> None: ...
 
 def evaluate_name_formula(bk: book.Book, nobj: book.Name, namex: str, blah: int = 0, level: int = 0) -> None: ...
