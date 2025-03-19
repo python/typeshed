@@ -4,7 +4,8 @@ from collections.abc import Callable, Sequence
 from typing import Any, Literal, overload
 
 from .biffh import *
-from .formatting import XF, Book
+from .book import Book
+from .formatting import XF
 from .timemachine import *
 
 OBJ_MSO_DEBUG: int
