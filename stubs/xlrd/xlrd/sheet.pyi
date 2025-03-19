@@ -4,7 +4,7 @@ from collections.abc import Callable, Sequence
 from typing import Any, Literal, overload
 
 from .biffh import *
-from .formatting import XF
+from .formatting import XF, Book
 from .timemachine import *
 
 OBJ_MSO_DEBUG: int
@@ -72,8 +72,6 @@ class Rowinfo(BaseObject):
     def __setstate__(self, state: tuple[int | None, ...]) -> None: ...
 
 class Sheet(BaseObject):
-    from .book import Book
-
     name: str
     book: Book
     nrows: int
