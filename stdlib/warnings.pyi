@@ -3,8 +3,8 @@ import sys
 from _warnings import warn as warn, warn_explicit as warn_explicit
 from collections.abc import Sequence
 from types import ModuleType, TracebackType
-from typing import Any, Generic, Literal, TextIO, TypeVar, overload
-from typing_extensions import LiteralString, TypeAlias
+from typing import Any, Generic, Literal, TextIO, overload
+from typing_extensions import LiteralString, TypeAlias, TypeVar
 
 __all__ = [
     "warn",
@@ -21,7 +21,7 @@ if sys.version_info >= (3, 13):
     __all__ += ["deprecated"]
 
 _T = TypeVar("_T")
-_W_co = TypeVar("_W_co", bound=list[WarningMessage] | None, covariant=True)
+_W_co = TypeVar("_W_co", bound=list[WarningMessage] | None, default=list[WarningMessage] | None, covariant=True)
 
 if sys.version_info >= (3, 14):
     _ActionKind: TypeAlias = Literal["default", "error", "ignore", "always", "module", "once"]
@@ -93,7 +93,7 @@ class catch_warnings(Generic[_W_co]):
         ) -> None: ...
         @overload
         def __init__(
-            self: catch_warnings[list[WarningMessage] | None],
+            self,
             *,
             record: bool,
             module: ModuleType | None = None,
@@ -110,9 +110,7 @@ class catch_warnings(Generic[_W_co]):
             self: catch_warnings[list[WarningMessage]], *, record: Literal[True], module: ModuleType | None = None
         ) -> None: ...
         @overload
-        def __init__(
-            self: catch_warnings[list[WarningMessage] | None], *, record: bool, module: ModuleType | None = None
-        ) -> None: ...
+        def __init__(self, *, record: bool, module: ModuleType | None = None) -> None: ...
 
     def __enter__(self) -> _W_co: ...
     def __exit__(
