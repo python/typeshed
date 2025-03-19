@@ -7,7 +7,7 @@ from typing_extensions import Self
 
 from .biffh import *
 from .formatting import XF, Font, Format
-from .formula import Operand
+from .formula import *
 from .sheet import Cell, Sheet
 from .timemachine import *
 
