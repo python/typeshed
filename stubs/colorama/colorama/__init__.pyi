@@ -7,3 +7,5 @@ from .initialise import (
     just_fix_windows_console as just_fix_windows_console,
     reinit as reinit,
 )
+
+__version__: str

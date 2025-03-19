@@ -3,8 +3,8 @@ from array import array
 from collections.abc import Callable, Sequence
 from typing import Any, Literal, overload
 
+from . import book
 from .biffh import *
-from .book import Book
 from .formatting import XF
 from .timemachine import *
 
@@ -18,7 +18,7 @@ class Note(BaseObject):
     author: str
     col_hidden: int
     colx: int
-    rich_text_runlist: list[tuple[str, int]]
+    rich_text_runlist: list[tuple[str, int]] | None
     row_hidden: int
     rowx: int
     show: int
@@ -74,7 +74,7 @@ class Rowinfo(BaseObject):
 
 class Sheet(BaseObject):
     name: str
-    book: Book
+    book: book.Book
     nrows: int
     ncols: int
     colinfo_map: dict[int, Colinfo]
@@ -123,7 +123,7 @@ class Sheet(BaseObject):
     scl_mag_factor: int | None
     utter_max_rows: int
     utter_max_cols: int
-    def __init__(self, book: Book, position: int, name: str, number: int) -> None: ...
+    def __init__(self, book: book.Book, position: int, name: str, number: int) -> None: ...
     def cell(self, rowx: int, colx: int) -> Cell: ...
     def cell_value(self, rowx: int, colx: int) -> str: ...
     def cell_type(self, rowx: int, colx: int) -> int: ...
@@ -146,7 +146,7 @@ class Sheet(BaseObject):
     def tidy_dimensions(self) -> None: ...
     def put_cell_ragged(self, rowx: int, colx: int, ctype: int | None, value: str, xf_index: int | None) -> None: ...
     def put_cell_unragged(self, rowx: int, colx: int, ctype: int | None, value: str, xf_index: int | None) -> None: ...
-    def read(self, bk: Book) -> Literal[1]: ...
+    def read(self, bk: book.Book) -> Literal[1]: ...
     def string_record_contents(self, data: bytes) -> str | None: ...
     def update_cooked_mag_factors(self) -> None: ...
     def fixed_BIFF2_xfindex(self, cell_attr: bytes, rowx: int, colx: int, true_xfx: int | None = None) -> int: ...
