@@ -576,7 +576,8 @@ else:
         @property
         def __type_params__(self) -> tuple[TypeVar | ParamSpec | TypeVarTuple, ...]: ...
         @property
-        # `__parameters__` can include special forms if a `TypeVarTuple` was passed as a `type_params` element to the constructor method
+        # `__parameters__` can include special forms if a `TypeVarTuple` was
+        # passed as a `type_params` element to the constructor method.
         def __parameters__(self) -> tuple[TypeVar | ParamSpec | Any, ...]: ...
         @property
         def __name__(self) -> str: ...
