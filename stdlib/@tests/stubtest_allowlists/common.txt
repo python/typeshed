@@ -526,6 +526,10 @@ typing(_extensions)?\.(Async)?ContextManager
 typing(_extensions)?\.IO\.__iter__
 typing(_extensions)?\.IO\.__next__
 
+# Will always raise. Not included to avoid type checkers inferring that
+# TypeAliasType instances are callable.
+typing_extensions.TypeAliasType.__call__
+
 types.MethodType.__closure__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.MethodType.__code__  # read-only but not actually a property; stubtest thinks it doesn't exist.
 types.MethodType.__defaults__  # read-only but not actually a property; stubtest thinks it doesn't exist.
