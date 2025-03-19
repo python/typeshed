@@ -612,7 +612,7 @@ class Format(enum.IntEnum):
 
 # PEP 649/749
 def get_annotations(
-    obj: Callable[..., object] | type[Any] | ModuleType,  # any callable, class, or module
+    obj: Callable[..., object] | type[object] | ModuleType,  # any callable, class, or module
     *,
     globals: Mapping[str, Any] | None = None,  # value types depend on the key
     locals: Mapping[str, Any] | None = None,  # value types depend on the key
@@ -622,7 +622,7 @@ def get_annotations(
 def evaluate_forward_ref(
     forward_ref: ForwardRef,
     *,
-    owner: Callable[..., object] | type[Any] | ModuleType | None = None,  # any callable, class, or module
+    owner: Callable[..., object] | type[object] | ModuleType | None = None,  # any callable, class, or module
     globals: Mapping[str, Any] | None = None,  # value types depend on the key
     locals: Mapping[str, Any] | None = None,  # value types depend on the key
     type_params: Iterable[TypeVar | ParamSpec | TypeVarTuple] | None = None,
