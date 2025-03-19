@@ -501,8 +501,13 @@ typing(_extensions)?\.ValuesView
 typing_extensions\.Final
 typing_extensions\.LiteralString
 
-typing._SpecialForm.__call__  # Typing-related weirdness
-typing._SpecialForm.__init__  # Typing-related weirdness
+# Initialized at runtime
+typing_extensions\.TypeAliasType\.__parameters__
+typing_extensions\.TypeAliasType\.__value__
+
+# Typing-related weirdness
+typing._SpecialForm.__call__
+typing._SpecialForm.__init__
 
 # These are abstract properties at runtime,
 # but marking them as such in the stub breaks half the the typed-Python ecosystem (see #8726)
