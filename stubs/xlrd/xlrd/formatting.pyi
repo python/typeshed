@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Generic, Literal, TypeVar
+from typing import Literal
 
 from .biffh import BaseObject
 from .book import Book
