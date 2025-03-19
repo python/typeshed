@@ -13,7 +13,9 @@ default_palette: dict[int, tuple[tuple[int, int, int], ...]]
 built_in_style_names: list[str]
 
 def initialise_colour_map(book: Book) -> None: ...
-def nearest_colour_index(colour_map: dict[int, tuple[int, int, int] | None], rgb: tuple[int, int, int] | None, debug: int = 0) -> int: ...
+def nearest_colour_index(
+    colour_map: dict[int, tuple[int, int, int] | None], rgb: tuple[int, int, int] | None, debug: int = 0
+) -> int: ...
 
 _T = TypeVar("_T")
 
