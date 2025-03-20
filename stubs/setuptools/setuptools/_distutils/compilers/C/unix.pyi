@@ -4,6 +4,7 @@ from collections.abc import Iterable
 from typing import ClassVar
 
 from . import base
+from .base import _Macro
 
 class Compiler(base.Compiler):
     src_extensions: ClassVar[list[str]]
@@ -20,7 +21,7 @@ class Compiler(base.Compiler):
         self,
         source: str | os.PathLike[str],
         output_file: str | os.PathLike[str] | None = None,
-        macros: list[base._Macro] | None = None,
+        macros: list[_Macro] | None = None,
         include_dirs: list[str] | tuple[str, ...] | None = None,
         extra_preargs: list[str] | None = None,
         extra_postargs: Iterable[str] | None = None,
