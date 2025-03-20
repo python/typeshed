@@ -1,7 +1,8 @@
 import os
 from _typeshed import Incomplete
 from collections.abc import Iterable
-from typing import ClassVar, TypeAlias
+from typing import ClassVar
+from typing_extensions import TypeAlias
 
 from . import base
 
