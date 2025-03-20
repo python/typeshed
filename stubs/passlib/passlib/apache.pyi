@@ -4,13 +4,14 @@ from .context import CryptContext
 from .hash import htdigest
 
 class _CommonFile:
-    encoding: str
-    return_unicode: bool
+    encoding: str | None
+    return_unicode: bool | None
     autosave: bool
     @classmethod
     def from_string(
         cls,
         data: str | bytes,
+        *,
         new: bool = False,
         autoload: bool = True,
         autosave: bool = False,
@@ -21,6 +22,7 @@ class _CommonFile:
     def from_path(
         cls,
         path: str,
+        *,
         new: bool = False,
         autoload: bool = True,
         autosave: bool = False,
@@ -55,6 +57,7 @@ class HtpasswdFile(_CommonFile):
         path: str | None = None,
         default_scheme: str | None = None,
         context: CryptContext = ...,
+        *,
         new: bool = False,
         autoload: bool = True,
         autosave: bool = False,
@@ -77,6 +80,7 @@ class HtdigestFile(_CommonFile):
         self,
         path: str | None = None,
         default_realm: str | None = None,
+        *,
         new: bool = False,
         autoload: bool = True,
         autosave: bool = False,
