@@ -18,7 +18,8 @@ class Command:
     sub_commands: ClassVar[list[tuple[str, Callable[[Any], bool] | None]]]
     user_options: ClassVar[
         # Specifying both because list is invariant. Avoids mypy override assignment issues
-        list[tuple[str, str, str]] | list[tuple[str, str | None, str]]
+        list[tuple[str, str, str]]
+        | list[tuple[str, str | None, str]]
     ]
     def __init__(self, dist: Distribution) -> None: ...
     def ensure_finalized(self) -> None: ...
