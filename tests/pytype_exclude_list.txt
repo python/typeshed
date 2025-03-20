@@ -5,6 +5,10 @@
 stdlib/builtins.pyi
 stdlib/typing.pyi
 
+# can't subscript memoryview for some reason
+stdlib/asyncio/sslproto.pyi
+stdlib/asyncio/transports.pyi
+
 # errors about import statements
 stubs/mysqlclient/MySQLdb/__init__.pyi
 stubs/mysqlclient/MySQLdb/connections.pyi
