@@ -1,6 +1,6 @@
 from collections.abc import Iterator
 from re import Pattern
-from typing import Any, Generic, TypedDict, TypeVar, overload
+from typing import Generic, TypedDict, TypeVar, overload
 
 from markdown.core import Markdown
 
@@ -16,7 +16,7 @@ AMP_SUBSTITUTE: str
 HTML_PLACEHOLDER: str
 HTML_PLACEHOLDER_RE: Pattern[str]
 TAG_PLACEHOLDER: str
-RTL_BIDI_RANGES: Any
+RTL_BIDI_RANGES: tuple[tuple[str, str], tuple[str, str]]
 
 def get_installed_extensions(): ...
 def deprecated(message: str, stacklevel: int = 2): ...
