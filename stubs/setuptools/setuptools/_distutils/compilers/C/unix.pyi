@@ -1,10 +1,11 @@
 import os
 from _typeshed import Incomplete
 from collections.abc import Iterable
-from typing import ClassVar
+from typing import ClassVar, TypeAlias
 
 from . import base
-from .base import _Macro
+
+_Macro: TypeAlias = tuple[str] | tuple[str, str | None]
 
 class Compiler(base.Compiler):
     src_extensions: ClassVar[list[str]]
