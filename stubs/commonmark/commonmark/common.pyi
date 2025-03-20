@@ -1,5 +1,6 @@
 import html
-from typing import Any
+import re
+from typing import AnyStr, Literal, overload
 
 HTMLunescape = html.unescape
 ENTITY: str
@@ -8,28 +9,31 @@ ATTRIBUTENAME: str
 UNQUOTEDVALUE: str
 SINGLEQUOTEDVALUE: str
 DOUBLEQUOTEDVALUE: str
-ATTRIBUTEVALUE: Any
-ATTRIBUTEVALUESPEC: Any
-ATTRIBUTE: Any
-OPENTAG: Any
-CLOSETAG: Any
+ATTRIBUTEVALUE: str
+ATTRIBUTEVALUESPEC: str
+ATTRIBUTE: str
+OPENTAG: str
+CLOSETAG: str
 HTMLCOMMENT: str
 PROCESSINGINSTRUCTION: str
-DECLARATION: Any
+DECLARATION: str
 CDATA: str
-HTMLTAG: Any
-reHtmlTag: Any
-reBackslashOrAmp: Any
+HTMLTAG: str
+reHtmlTag: re.Pattern[str]
+reBackslashOrAmp: re.Pattern[str]
 ESCAPABLE: str
-reEntityOrEscapedChar: Any
+reEntityOrEscapedChar: re.Pattern[str]
 XMLSPECIAL: str
-reXmlSpecial: Any
+reXmlSpecial: re.Pattern[str]
 
-def unescape_char(s): ...
-def unescape_string(s): ...
-def normalize_uri(uri): ...
+def unescape_char(s: AnyStr) -> AnyStr: ...
+def unescape_string(s: str) -> str: ...
+def normalize_uri(uri: str) -> str: ...
 
-UNSAFE_MAP: Any
+UNSAFE_MAP: dict[str, str]
 
-def replace_unsafe_char(s): ...
-def escape_xml(s): ...
+def replace_unsafe_char(s: str) -> str: ...
+@overload
+def escape_xml(s: None) -> Literal[""]: ...
+@overload
+def escape_xml(s: str) -> str: ...
