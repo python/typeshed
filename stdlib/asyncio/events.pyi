@@ -68,7 +68,7 @@ _ExceptionHandler: TypeAlias = Callable[[AbstractEventLoop, _Context], object]
 _ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
 _SSLContext: TypeAlias = bool | None | ssl.SSLContext
 
-if sys.version_info >= (3, 13, 2):
+if sys.version_info >= (3, 13):  # all Task kwargs added in 3.13.2
     class _TaskFactory(Protocol):
         def __call__(
             self,
@@ -179,7 +179,7 @@ class AbstractEventLoop:
     @abstractmethod
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
-    if sys.version_info >= (3, 13, 2):
+    if sys.version_info >= (3, 13):  # all Task kwargs added in 3.13.2
         @abstractmethod
         def create_task(
             self, coro: _TaskCompatibleCoro[_T], *, name: str | None = None, context: Context | None = None, eager_start: bool | None = None

@@ -87,7 +87,7 @@ class BaseEventLoop(AbstractEventLoop):
     # Future methods
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
-    if sys.version_info >= (3, 13, 2):
+    if sys.version_info >= (3, 13):  # all Task kwargs added in 3.13.2
         def create_task(
             self, coro: _TaskCompatibleCoro[_T], *, name: str | None = None, context: Context | None = None, eager_start: bool | None = None
         ) -> Task[_T]: ...
