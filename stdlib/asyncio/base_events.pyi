@@ -1,6 +1,7 @@
 import ssl
 import sys
 from _typeshed import FileDescriptorLike, ReadableBuffer, WriteableBuffer
+from _asyncio import _TaskCompatibleCoro
 from asyncio import _AwaitableLike, _CoroutineLike
 from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle, _TaskFactory
 from asyncio.futures import Future
@@ -86,7 +87,11 @@ class BaseEventLoop(AbstractEventLoop):
     # Future methods
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
-    if sys.version_info >= (3, 11):
+    if sys.version_info >= (3, 13, 2):
+        def create_task(
+            self, coro: _TaskCompatibleCoro[_T], *, name: str | None = None, context: Context | None = None, eager_start: bool | None = None
+        ) -> Task[_T]: ...
+    elif sys.version_info >= (3, 11):
         def create_task(self, coro: _CoroutineLike[_T], *, name: object = None, context: Context | None = None) -> Task[_T]: ...
     else:
         def create_task(self, coro: _CoroutineLike[_T], *, name: object = None) -> Task[_T]: ...
