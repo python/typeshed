@@ -1,8 +1,8 @@
 import random
 from abc import abstractmethod
 from collections.abc import Callable, Iterator, MutableMapping, Sequence
-from typing import Any, Literal
-from typing_extensions import TypeAlias
+from typing import Any, Final, Literal, overload
+from typing_extensions import Self, TypeAlias
 
 class SequenceGenerator:
     length: int | None
@@ -17,11 +17,16 @@ class SequenceGenerator:
     @property
     def entropy(self) -> float: ...
     def __next__(self) -> str: ...
-    def __call__(self, returns: None | int | Callable[[Any], Iterator[Any]] = None) -> str | list[str] | Iterator[str]: ...
-    def __iter__(self) -> Iterator[str]: ...
+    @overload
+    def __call__(self, returns: None = None) -> str: ...
+    @overload
+    def __call__(self, returns: int) -> list[str]: ...
+    @overload
+    def __call__(self, returns: Callable[[Any], Iterator[Any]]) -> Iterator[str]: ...  # "returns" must be the "iter" builtin
+    def __iter__(self) -> Self: ...
 
 _Charset: TypeAlias = Literal["ascii_72", "ascii_62", "ascii_50", "hex"]
-default_charsets: dict[_Charset, str]
+default_charsets: Final[dict[_Charset, str]]
 
 class WordGenerator(SequenceGenerator):
     charset: _Charset
@@ -41,12 +46,12 @@ class WordGenerator(SequenceGenerator):
 def genword(
     entropy: int | None = None,
     length: int | None = None,
-    returns: None | int | Callable[[Any], Iterator[Any]] = None,
+    returns: Callable[[Any], Iterator[Any]] | int | None = None,
     *,
     chars: str | None = None,
     charset: _Charset | None = None,
     rng: random.Random | None = None,
-) -> str | list[str] | Iterator[str]: ...
+) -> Iterator[str] | list[str] | str: ...
 
 class WordsetDict(MutableMapping[Any, Any]):
     paths: dict[str, str] | None
@@ -82,10 +87,10 @@ class PhraseGenerator(SequenceGenerator):
 def genphrase(
     entropy: int | None = None,
     length: int | None = None,
-    returns: None | int | Callable[[Any], Iterator[Any]] = None,
+    returns: Callable[[Any], Iterator[Any]] | int | None = None,
     *,
     wordset: _Wordset | None = None,
     words: Sequence[str | bytes] | None = None,
     sep: str | bytes | None = None,
     rng: random.Random | None = None,
-) -> str | list[str] | Iterator[str]: ...
+) -> Iterator[str] | list[str] | str: ...
