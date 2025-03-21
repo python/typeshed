@@ -33,7 +33,7 @@ an issue or mail one of the active maintainers.
 The process for preparing and submitting changes as outlined
 in the [CONTRIBUTING document](./CONTRIBUTING.md) also applies to
 maintainers.  This ensures high quality contributions and keeps
-everybody on the same page.  Avoid direct pushes to the repository.
+everybody on the same page.  Do not make direct pushes to the repository.
 
 ### Reviewing and merging pull requests
 
