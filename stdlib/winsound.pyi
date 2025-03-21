@@ -28,6 +28,7 @@ if sys.platform == "win32":
         MB_ICONINFORMATION: Final = 64
         MB_ICONSTOP: Final = 16
         MB_ICONWARNING: Final = 48
+
     def Beep(frequency: int, duration: int) -> None: ...
     # Can actually accept anything ORed with 4, and if not it's definitely str, but that's inexpressible
     @overload
