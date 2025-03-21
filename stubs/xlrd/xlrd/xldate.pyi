@@ -1,12 +1,12 @@
 import datetime
-from typing import Literal
+from typing import Final, Literal
 
-_JDN_delta: tuple[int, int]
-epoch_1904: datetime.datetime
-epoch_1900: datetime.datetime
-epoch_1900_minus_1: datetime.datetime
-_XLDAYS_TOO_LARGE: tuple[int, int]
-_days_in_month: tuple[None, int, int, int, int, int, int, int, int, int, int, int, int]
+_JDN_delta: Final[tuple[int, int]]
+epoch_1904: Final[datetime.datetime]
+epoch_1900: Final[datetime.datetime]
+epoch_1900_minus_1: Final[datetime.datetime]
+_XLDAYS_TOO_LARGE: Final[tuple[int, int]]
+_days_in_month: Final[tuple[None, int, int, int, int, int, int, int, int, int, int, int, int]]
 
 class XLDateError(ValueError): ...
 class XLDateNegative(XLDateError): ...

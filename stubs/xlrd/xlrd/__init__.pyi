@@ -1,5 +1,6 @@
 import sys
 from _typeshed import SupportsWrite
+from typing import Final
 
 from . import timemachine as timemachine
 from .biffh import (
@@ -19,9 +20,9 @@ from .info import __VERSION__ as __VERSION__, __version__ as __version__
 from .sheet import empty_cell as empty_cell
 from .xldate import XLDateError as XLDateError, xldate_as_datetime as xldate_as_datetime, xldate_as_tuple as xldate_as_tuple
 
-FILE_FORMAT_DESCRIPTIONS: dict[str, str]
-ZIP_SIGNATURE: bytes
-PEEK_SIZE: int
+FILE_FORMAT_DESCRIPTIONS: Final[dict[str, str]]
+ZIP_SIGNATURE: Final[bytes]
+PEEK_SIZE: Final[int]
 
 def inspect_format(path: str | None = None, content: bytes | None = None) -> str | None: ...
 def open_workbook(

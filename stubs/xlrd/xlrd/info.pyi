@@ -1,2 +1,4 @@
-__version__: str
-__VERSION__: str
+from typing import Final
+
+__version__: Final[str]
+__VERSION__: Final[str]

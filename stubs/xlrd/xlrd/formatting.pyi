@@ -1,16 +1,16 @@
 from collections.abc import Callable
-from typing import Literal
+from typing import Final, Literal
 
 from .biffh import BaseObject
 from .book import Book
 from .timemachine import *
 
-DEBUG: int
-excel_default_palette_b5: tuple[tuple[int, int, int], ...]
-excel_default_palette_b2: tuple[tuple[int, int, int], ...]
-excel_default_palette_b8: tuple[tuple[int, int, int], ...]
-default_palette: dict[int, tuple[tuple[int, int, int], ...]]
-built_in_style_names: list[str]
+DEBUG: Final[int]
+excel_default_palette_b5: Final[tuple[tuple[int, int, int], ...]]
+excel_default_palette_b2: Final[tuple[tuple[int, int, int], ...]]
+excel_default_palette_b8: Final[tuple[tuple[int, int, int], ...]]
+default_palette: Final[dict[int, tuple[tuple[int, int, int], ...]]]
+built_in_style_names: Final[list[str]]
 
 def initialise_colour_map(book: Book) -> None: ...
 def nearest_colour_index(

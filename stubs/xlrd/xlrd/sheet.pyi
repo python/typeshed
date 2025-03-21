@@ -1,14 +1,14 @@
 from _typeshed import SupportsWrite
 from array import array
 from collections.abc import Callable, Sequence
-from typing import Any, Literal, overload
+from typing import Any, Final, Literal, overload
 
 from .biffh import *
 from .book import Book
 from .formatting import XF
 from .timemachine import *
 
-OBJ_MSO_DEBUG: int
+OBJ_MSO_DEBUG: Final[int]
 
 class MSODrawing(BaseObject): ...
 class MSObj(BaseObject): ...
@@ -38,8 +38,8 @@ class Hyperlink(BaseObject):
 
 def unpack_RK(rk_str: bytes) -> float: ...
 
-cellty_from_fmtty: dict[int, int]
-ctype_text: dict[int, str]
+cellty_from_fmtty: Final[dict[int, int]]
+ctype_text: Final[dict[int, str]]
 
 class Cell(BaseObject):
     ctype: int
@@ -47,7 +47,7 @@ class Cell(BaseObject):
     xf_index: int | None
     def __init__(self, ctype: int, value: str, xf_index: int | None = None) -> None: ...
 
-empty_cell: Cell
+empty_cell: Final[Cell]
 
 class Colinfo(BaseObject):
     width: int

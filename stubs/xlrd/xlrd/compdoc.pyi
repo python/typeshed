@@ -1,14 +1,15 @@
 import sys
 from _typeshed import SupportsWrite
+from typing import Final
 
 from .timemachine import *
 
-SIGNATURE: bytes
-EOCSID: int
-FREESID: int
-SATSID: int
-MSATSID: int
-EVILSID: int
+SIGNATURE: Final[bytes]
+EOCSID: Final[int]
+FREESID: Final[int]
+SATSID: Final[int]
+MSATSID: Final[int]
+EVILSID: Final[int]
 
 class CompDocError(Exception): ...
 

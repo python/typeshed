@@ -1,3 +1,4 @@
+from typing import Final
 from typing_extensions import Self
 
 from .book import Book, Name
@@ -30,20 +31,20 @@ __all__ = [
     "Ref3D",
 ]
 
-FMLA_TYPE_CELL: int
-FMLA_TYPE_SHARED: int
-FMLA_TYPE_ARRAY: int
-FMLA_TYPE_COND_FMT: int
-FMLA_TYPE_DATA_VAL: int
-FMLA_TYPE_NAME: int
-oBOOL: int
-oERR: int
-oNUM: int
-oREF: int
-oREL: int
-oSTRG: int
-oUNK: int
-okind_dict: dict[int, str]
+FMLA_TYPE_CELL: Final[int]
+FMLA_TYPE_SHARED: Final[int]
+FMLA_TYPE_ARRAY: Final[int]
+FMLA_TYPE_COND_FMT: Final[int]
+FMLA_TYPE_DATA_VAL: Final[int]
+FMLA_TYPE_NAME: Final[int]
+oBOOL: Final[int]
+oERR: Final[int]
+oNUM: Final[int]
+oREF: Final[int]
+oREL: Final[int]
+oSTRG: Final[int]
+oUNK: Final[int]
+okind_dict: Final[dict[int, str]]
 
 class FormulaError(Exception): ...
 
@@ -77,10 +78,10 @@ def decompile_formula(
     blah: int = 0,
     level: int = 0,
     r1c1: int = 0,
-): ...
+) -> str | None: ...
 def dump_formula(bk: Book, data: bytes, fmlalen: int, bv: int, reldelta: int, blah: int = 0, isname: int = 0) -> None: ...
 def cellname(rowx: int, colx: int) -> str: ...
 def cellnameabs(rowx: int, colx: int, r1c1: int = 0) -> str: ...
 def colname(colx: int) -> str: ...
 def rangename3d(book: Book, ref3d: Ref3D) -> str: ...
-def rangename3drel(book: Book, ref3d: Ref3D, browx: int | None = None, bcolx: int | None = None, r1c1: int = 0): ...
+def rangename3drel(book: Book, ref3d: Ref3D, browx: int | None = None, bcolx: int | None = None, r1c1: int = 0) -> str: ...

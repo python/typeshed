@@ -2,7 +2,7 @@ import sys
 from _typeshed import SupportsWrite
 from collections.abc import Iterator
 from types import TracebackType
-from typing import Literal
+from typing import Final, Literal
 from typing_extensions import Self
 
 from .biffh import *
@@ -11,16 +11,16 @@ from .formula import *
 from .sheet import Cell, Sheet
 from .timemachine import *
 
-empty_cell: Cell
-MY_EOF: int
-SUPBOOK_UNK: int
-SUPBOOK_INTERNAL: int
-SUPBOOK_EXTERNAL: int
-SUPBOOK_ADDIN: int
-SUPBOOK_DDEOLE: int
-SUPPORTED_VERSIONS: tuple[int, ...]
-builtin_name_from_code: dict[str, str]
-code_from_builtin_name: dict[str, str]
+empty_cell: Final[Cell]
+MY_EOF: Final[int]
+SUPBOOK_UNK: Final[int]
+SUPBOOK_INTERNAL: Final[int]
+SUPBOOK_EXTERNAL: Final[int]
+SUPBOOK_ADDIN: Final[int]
+SUPBOOK_DDEOLE: Final[int]
+SUPPORTED_VERSIONS: Final[tuple[int, ...]]
+builtin_name_from_code: Final[dict[str, str]]
+code_from_builtin_name: Final[dict[str, str]]
 
 def open_workbook_xls(
     filename: str | None = None,
@@ -139,8 +139,8 @@ class Book(BaseObject):
     def handle_supbook(self, data: bytes) -> None: ...
     def handle_sheethdr(self, data: bytes) -> None: ...
     def handle_sheetsoffset(self, data: bytes) -> None: ...
-    def handle_sst(self, data) -> None: ...
-    def handle_writeaccess(self, data) -> None: ...
+    def handle_sst(self, data: bytes) -> None: ...
+    def handle_writeaccess(self, data: bytes) -> None: ...
     def parse_globals(self) -> None: ...
     def read(self, pos: int, length: int) -> bytes: ...
     def getbof(self, rqd_stream: int) -> int | None: ...
