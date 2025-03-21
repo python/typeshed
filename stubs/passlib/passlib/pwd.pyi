@@ -46,9 +46,9 @@ class WordGenerator(SequenceGenerator):
 
 @overload
 def genword(
+    returns: None = None,
     entropy: int | None = None,
     length: int | None = None,
-    returns: None = None,
     *,
     chars: str | None = None,
     charset: _Charset | None = None,
@@ -56,9 +56,9 @@ def genword(
 ) -> str: ...
 @overload
 def genword(
+    returns: int,
     entropy: int | None = None,
     length: int | None = None,
-    returns: int | None = None,
     *,
     chars: str | None = None,
     charset: _Charset | None = None,
@@ -66,9 +66,9 @@ def genword(
 ) -> list[str]: ...
 @overload
 def genword(
+    returns: Callable[[Any], Iterator[Any]],
     entropy: int | None = None,
     length: int | None = None,
-    returns: Callable[[Any], Iterator[Any]] | None = None,
     *,
     chars: str | None = None,
     charset: _Charset | None = None,
@@ -108,9 +108,9 @@ class PhraseGenerator(SequenceGenerator):
 
 @overload
 def genphrase(
+    returns: None = None,
     entropy: int | None = None,
     length: int | None = None,
-    returns: None = None,
     *,
     wordset: _Wordset | None = None,
     words: Sequence[str | bytes] | None = None,
@@ -119,9 +119,9 @@ def genphrase(
 ) -> str: ...
 @overload
 def genphrase(
+    returns: int,
     entropy: int | None = None,
     length: int | None = None,
-    returns: int | None = None,
     *,
     wordset: _Wordset | None = None,
     words: Sequence[str | bytes] | None = None,
@@ -130,9 +130,9 @@ def genphrase(
 ) -> list[str]: ...
 @overload
 def genphrase(
+    returns: Callable[[Any], Iterator[Any]],
     entropy: int | None = None,
     length: int | None = None,
-    returns: Callable[[Any], Iterator[Any]] | None = None,
     *,
     wordset: _Wordset | None = None,
     words: Sequence[str | bytes] | None = None,
