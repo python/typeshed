@@ -88,7 +88,6 @@
         "stubs/reportlab",
         "stubs/requests",
         "stubs/requests-oauthlib",
-        "stubs/rfc3339-validator",
         "stubs/seaborn",
         "stubs/setuptools/setuptools",
         "stubs/shapely",
