@@ -105,13 +105,36 @@ class PhraseGenerator(SequenceGenerator):
     @property
     def symbol_count(self) -> int: ...
 
+@overload
 def genphrase(
     entropy: int | None = None,
     length: int | None = None,
-    returns: Callable[[Any], Iterator[Any]] | int | None = None,
+    returns: None = None,
     *,
     wordset: _Wordset | None = None,
     words: Sequence[str | bytes] | None = None,
     sep: str | bytes | None = None,
     rng: random.Random | None = None,
-) -> Iterator[str] | list[str] | str: ...
+) -> str: ...
+@overload
+def genphrase(
+    returns: int,
+    entropy: int | None = None,
+    length: int | None = None,
+    *,
+    wordset: _Wordset | None = None,
+    words: Sequence[str | bytes] | None = None,
+    sep: str | bytes | None = None,
+    rng: random.Random | None = None,
+) -> list[str]: ...
+@overload
+def genphrase(
+    returns: Callable[[Any], Iterator[Any]],
+    entropy: int | None = None,
+    length: int | None = None,
+    *,
+    wordset: _Wordset | None = None,
+    words: Sequence[str | bytes] | None = None,
+    sep: str | bytes | None = None,
+    rng: random.Random | None = None,
+) -> Iterator[str]: ...
