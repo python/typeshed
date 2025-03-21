@@ -43,15 +43,36 @@ class WordGenerator(SequenceGenerator):
     @property
     def symbol_count(self) -> int: ...
 
+@overload
 def genword(
     entropy: int | None = None,
     length: int | None = None,
-    returns: Callable[[Any], Iterator[Any]] | int | None = None,
+    returns: None = None,
     *,
     chars: str | None = None,
     charset: _Charset | None = None,
     rng: random.Random | None = None,
-) -> Iterator[str] | list[str] | str: ...
+) -> str: ...
+@overload
+def genword(
+    returns: int,
+    entropy: int | None = None,
+    length: int | None = None,
+    *,
+    chars: str | None = None,
+    charset: _Charset | None = None,
+    rng: random.Random | None = None,
+) -> list[str]: ...
+@overload
+def genword(
+    returns: Callable[[Any], Iterator[Any]],
+    entropy: int | None = None,
+    length: int | None = None,
+    *,
+    chars: str | None = None,
+    charset: _Charset | None = None,
+    rng: random.Random | None = None,
+) -> Iterator[str]: ...
 
 class WordsetDict(MutableMapping[Any, Any]):
     paths: dict[str, str] | None
