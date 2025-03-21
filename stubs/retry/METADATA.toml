@@ -1,3 +1,2 @@
 version = "0.9.*"
 upstream_repository = "https://github.com/invl/retry"
-requires = ["types-decorator"]
