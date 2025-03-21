@@ -88,6 +88,7 @@
         "stubs/reportlab",
         "stubs/requests",
         "stubs/requests-oauthlib",
+        "stubs/retry",
         "stubs/seaborn",
         "stubs/setuptools/setuptools",
         "stubs/shapely",

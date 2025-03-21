@@ -1,6 +1,0 @@
-# TODO: missing from stub
-retry.__all__
-
-retry.compat
-retry.tests
-retry.tests.test_retry
