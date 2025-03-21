@@ -64,7 +64,7 @@ _Wordset: TypeAlias = Literal["eff_long", "eff_short", "eff_prefixed", "bip39"]
 
 class PhraseGenerator(SequenceGenerator):
     wordset: _Wordset
-    words: Sequence[str | bytes]
+    words: Sequence[str | bytes] | None
     sep: str | None
     def __init__(
         self,
