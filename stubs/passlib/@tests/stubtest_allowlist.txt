@@ -95,3 +95,7 @@ passlib.tests.*
 # was dropped from the standard library of Python 3.13, but is still available
 # in some environments.
 (passlib.hosts.host_context)?
+
+# Fields differs at runtime:
+passlib.apache._CommonFile.encoding
+passlib.apache._CommonFile.return_unicode
