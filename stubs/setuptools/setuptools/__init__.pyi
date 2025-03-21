@@ -4,7 +4,8 @@ from collections.abc import Mapping, Sequence
 from typing import Any, Literal, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import NotRequired
 
-from ._distutils.cmd import Command as _Command
+from setuptools._distutils.cmd import Command as _Command
+
 from .command.alias import alias
 from .command.bdist_egg import bdist_egg
 from .command.bdist_rpm import bdist_rpm

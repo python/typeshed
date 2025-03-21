@@ -4,7 +4,8 @@ from collections.abc import Callable, Iterable
 from typing import Any, ClassVar, Generic, TypeVar
 from typing_extensions import TypeAlias
 
-from .._distutils.dist import DistributionMetadata
+from setuptools._distutils.dist import DistributionMetadata
+
 from ..dist import Distribution
 from . import expand
 
