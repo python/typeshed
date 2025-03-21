@@ -4,8 +4,8 @@ from .context import CryptContext
 from .hash import htdigest
 
 class _CommonFile:
-    encoding: str | None
-    return_unicode: bool | None
+    encoding: str
+    return_unicode: bool
     autosave: bool
     @classmethod
     def from_string(
