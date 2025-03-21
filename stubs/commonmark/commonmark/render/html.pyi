@@ -1,12 +1,12 @@
 import re
 from builtins import list as _list  # conflicts with a method named "list"
-from typing import Any, Literal, overload
+from typing import Any, Final, Literal, overload
 
 from commonmark.node import Node
 from commonmark.render.renderer import Renderer
 
-reUnsafeProtocol: re.Pattern[str]
-reSafeDataProtocol: re.Pattern[str]
+reUnsafeProtocol: Final[re.Pattern[str]]
+reSafeDataProtocol: Final[re.Pattern[str]]
 
 def potentially_unsafe(url: str) -> bool | None: ...
 

@@ -1,7 +1,8 @@
 import re
+from typing import Final
 from typing_extensions import Self
 
-reContainer: re.Pattern[str]
+reContainer: Final[re.Pattern[str]]
 
 def is_container(node: Node) -> bool: ...
 

@@ -1,31 +1,31 @@
 import html
 import re
-from typing import Any, Literal
+from typing import Any, Final, Literal
 
 from .node import Node
 
 HTMLunescape = html.unescape
-ESCAPED_CHAR: str
-rePunctuation: re.Pattern[str]
-reLinkTitle: re.Pattern[str]
-reLinkDestinationBraces: re.Pattern[str]
-reEscapable: re.Pattern[str]
-reEntityHere: re.Pattern[str]
-reTicks: re.Pattern[str]
-reTicksHere: re.Pattern[str]
-reEllipses: re.Pattern[str]
-reDash: re.Pattern[str]
-reEmailAutolink: re.Pattern[str]
-reAutolink: re.Pattern[str]
-reSpnl: re.Pattern[str]
-reWhitespaceChar: re.Pattern[str]
-reWhitespace: re.Pattern[str]
-reUnicodeWhitespaceChar: re.Pattern[str]
-reFinalSpace: re.Pattern[str]
-reInitialSpace: re.Pattern[str]
-reSpaceAtEndOfLine: re.Pattern[str]
-reLinkLabel: re.Pattern[str]
-reMain: re.Pattern[str]
+ESCAPED_CHAR: Final[str]
+rePunctuation: Final[re.Pattern[str]]
+reLinkTitle: Final[re.Pattern[str]]
+reLinkDestinationBraces: Final[re.Pattern[str]]
+reEscapable: Final[re.Pattern[str]]
+reEntityHere: Final[re.Pattern[str]]
+reTicks: Final[re.Pattern[str]]
+reTicksHere: Final[re.Pattern[str]]
+reEllipses: Final[re.Pattern[str]]
+reDash: Final[re.Pattern[str]]
+reEmailAutolink: Final[re.Pattern[str]]
+reAutolink: Final[re.Pattern[str]]
+reSpnl: Final[re.Pattern[str]]
+reWhitespaceChar: Final[re.Pattern[str]]
+reWhitespace: Final[re.Pattern[str]]
+reUnicodeWhitespaceChar: Final[re.Pattern[str]]
+reFinalSpace: Final[re.Pattern[str]]
+reInitialSpace: Final[re.Pattern[str]]
+reSpaceAtEndOfLine: Final[re.Pattern[str]]
+reLinkLabel: Final[re.Pattern[str]]
+reMain: Final[re.Pattern[str]]
 
 def text(s: str) -> Node: ...
 def smart_dashes(chars: str) -> str: ...

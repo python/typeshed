@@ -1,22 +1,22 @@
 import re
-from typing import Any, Literal
+from typing import Any, Final, Literal
 
 from .inlines import InlineParser
 from .node import Node
 
-CODE_INDENT: int
-reHtmlBlockOpen: list[re.Pattern[str]]
-reHtmlBlockClose: list[re.Pattern[str]]
-reThematicBreak: re.Pattern[str]
-reMaybeSpecial: re.Pattern[str]
-reNonSpace: re.Pattern[str]
-reBulletListMarker: re.Pattern[str]
-reOrderedListMarker: re.Pattern[str]
-reATXHeadingMarker: re.Pattern[str]
-reCodeFence: re.Pattern[str]
-reClosingCodeFence: re.Pattern[str]
-reSetextHeadingLine: re.Pattern[str]
-reLineEnding: re.Pattern[str]
+CODE_INDENT: Final[int]
+reHtmlBlockOpen: Final[list[re.Pattern[str]]]
+reHtmlBlockClose: Final[list[re.Pattern[str]]]
+reThematicBreak: Final[re.Pattern[str]]
+reMaybeSpecial: Final[re.Pattern[str]]
+reNonSpace: Final[re.Pattern[str]]
+reBulletListMarker: Final[re.Pattern[str]]
+reOrderedListMarker: Final[re.Pattern[str]]
+reATXHeadingMarker: Final[re.Pattern[str]]
+reCodeFence: Final[re.Pattern[str]]
+reClosingCodeFence: Final[re.Pattern[str]]
+reSetextHeadingLine: Final[re.Pattern[str]]
+reLineEnding: Final[re.Pattern[str]]
 
 def is_blank(s: str) -> bool: ...
 def is_space_or_tab(s: str) -> bool: ...
@@ -168,4 +168,4 @@ class Parser:
     def process_inlines(self, block: Node) -> None: ...
     def parse(self, my_input: str) -> Node: ...
 
-CAMEL_RE: re.Pattern[str]
+CAMEL_RE: Final[re.Pattern[str]]
