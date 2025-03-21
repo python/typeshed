@@ -1,7 +1,7 @@
 import random
 from abc import abstractmethod
 from collections.abc import Callable, Iterator, MutableMapping, Sequence
-from typing import Any, Literal, overload
+from typing import Any, Literal
 from typing_extensions import TypeAlias
 
 class SequenceGenerator:
@@ -17,13 +17,7 @@ class SequenceGenerator:
     @property
     def entropy(self) -> float: ...
     def __next__(self) -> str: ...
-    @overload
-    def __call__(self, returns: None = None) -> str: ...
-    @overload
-    def __call__(self, returns: int) -> list[str]: ...
-    # If returns is ``iter`` builtin, will return an iterator that yields passwords.
-    @overload
-    def __call__(self, returns: Callable[[Any], Iterator[Any]]) -> Iterator[str]: ...
+    def __call__(self, returns: None | int | Callable[[Any], Iterator[Any]] = None) -> str | list[str] | Iterator[str]: ...
     def __iter__(self) -> Iterator[str]: ...
 
 _Charset: TypeAlias = Literal["ascii_72", "ascii_62", "ascii_50", "hex"]
@@ -44,36 +38,15 @@ class WordGenerator(SequenceGenerator):
     @property
     def symbol_count(self) -> int: ...
 
-@overload
 def genword(
-    returns: None = None,
     entropy: int | None = None,
     length: int | None = None,
+    returns: None | int | Callable[[Any], Iterator[Any]] = None,
     *,
     chars: str | None = None,
     charset: _Charset | None = None,
     rng: random.Random | None = None,
-) -> str: ...
-@overload
-def genword(
-    returns: int,
-    entropy: int | None = None,
-    length: int | None = None,
-    *,
-    chars: str | None = None,
-    charset: _Charset | None = None,
-    rng: random.Random | None = None,
-) -> list[str]: ...
-@overload
-def genword(
-    returns: Callable[[Any], Iterator[Any]],
-    entropy: int | None = None,
-    length: int | None = None,
-    *,
-    chars: str | None = None,
-    charset: _Charset | None = None,
-    rng: random.Random | None = None,
-) -> Iterator[str]: ...
+) -> str | list[str] | Iterator[str]: ...
 
 class WordsetDict(MutableMapping[Any, Any]):
     paths: dict[str, str] | None
@@ -106,36 +79,13 @@ class PhraseGenerator(SequenceGenerator):
     @property
     def symbol_count(self) -> int: ...
 
-@overload
 def genphrase(
-    returns: None = None,
     entropy: int | None = None,
     length: int | None = None,
+    returns: None | int | Callable[[Any], Iterator[Any]] = None,
     *,
     wordset: _Wordset | None = None,
     words: Sequence[str | bytes] | None = None,
     sep: str | bytes | None = None,
     rng: random.Random | None = None,
-) -> str: ...
-@overload
-def genphrase(
-    returns: int,
-    entropy: int | None = None,
-    length: int | None = None,
-    *,
-    wordset: _Wordset | None = None,
-    words: Sequence[str | bytes] | None = None,
-    sep: str | bytes | None = None,
-    rng: random.Random | None = None,
-) -> list[str]: ...
-@overload
-def genphrase(
-    returns: Callable[[Any], Iterator[Any]],
-    entropy: int | None = None,
-    length: int | None = None,
-    *,
-    wordset: _Wordset | None = None,
-    words: Sequence[str | bytes] | None = None,
-    sep: str | bytes | None = None,
-    rng: random.Random | None = None,
-) -> Iterator[str]: ...
+) -> str | list[str] | Iterator[str]: ...
