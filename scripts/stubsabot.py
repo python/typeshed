@@ -308,7 +308,7 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubMe
             assert len(Path(url_path).parts) == 2
             github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
             async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
-                if response.status == 200:
+                if response.status == HTTPStatus.OK:
                     tags: list[dict[str, Any]] = await response.json()
                     assert isinstance(tags, list)
                     return GitHubInfo(repo_path=url_path, tags=tags)
@@ -676,7 +676,8 @@ def get_update_pr_body(update: Update, metadata: Mapping[str, Any]) -> str:
         body += textwrap.dedent(
             f"""
 
-            :warning: Review this PR manually, as stubtest is skipped in CI for {update.distribution}! :warning:
+            :warning: Review this PR manually, as stubtest is skipped in CI for {update.distribution}!
+            Also check whether stubtest can be reenabled. :warning:
             """
         )
     return body

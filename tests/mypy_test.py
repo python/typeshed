@@ -5,12 +5,14 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures
+import functools
 import os
 import subprocess
 import sys
 import tempfile
 import time
 from collections import defaultdict
+from collections.abc import Generator
 from dataclasses import dataclass
 from enum import Enum
 from itertools import product
@@ -44,7 +46,25 @@ except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
 
-SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9", "3.8"]
+# We need to work around a limitation of tempfile.NamedTemporaryFile on Windows
+# For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
+# Python 3.12 added a workaround with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
+if sys.platform != "win32":
+    _named_temporary_file = functools.partial(tempfile.NamedTemporaryFile, "w+")
+else:
+    from contextlib import contextmanager
+
+    @contextmanager
+    def _named_temporary_file() -> Generator[tempfile._TemporaryFileWrapper[str]]:  # pyright: ignore[reportPrivateUsage]
+        temp = tempfile.NamedTemporaryFile("w+", delete=False)  # noqa: SIM115
+        try:
+            yield temp
+        finally:
+            temp.close()
+            os.remove(temp.name)
+
+
+SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [STDLIB_PATH, STUBS_PATH]
 
@@ -214,7 +234,8 @@ def run_mypy(
     env_vars = dict(os.environ)
     if mypypath is not None:
         env_vars["MYPYPATH"] = mypypath
-    with tempfile.NamedTemporaryFile("w+") as temp:
+
+    with _named_temporary_file() as temp:
         temp.write("[mypy]\n")
         for dist_conf in configurations:
             temp.write(f"[mypy-{dist_conf.module_name}]\n")
@@ -290,7 +311,7 @@ def add_third_party_files(
         if name.startswith("."):
             continue
         add_files(files, (root / name), args)
-        add_configuration(configurations, distribution)
+    add_configuration(configurations, distribution)
 
 
 class TestResult(NamedTuple):
