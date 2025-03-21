@@ -13,7 +13,7 @@ if sys.platform == "win32":
     SND_NODEFAULT: Final = 2
     SND_NOSTOP: Final = 16
     SND_NOWAIT: Final = 8192
-    if if sys.version_info >= (3, 14):
+    if sys.version_info >= (3, 14):
         SND_SENTRY: Final = 524288
         SND_SYNC: Final = 0
         SND_SYSTEM: Final = 2097152
@@ -23,7 +23,7 @@ if sys.platform == "win32":
     MB_ICONHAND: Final = 16
     MB_ICONQUESTION: Final = 32
     MB_OK: Final = 0
-    if if sys.version_info >= (3, 14):
+    if sys.version_info >= (3, 14):
         MB_ICONERROR: Final = 16
         MB_ICONINFORMATION: Final = 64
         MB_ICONSTOP: Final = 16
