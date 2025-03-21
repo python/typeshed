@@ -81,3 +81,18 @@ message when closing the PR. Example message:
     <fails some tests OR has unresolved review feedback OR has a merge conflict>
     after three months of inactivity. If you are still interested, please feel free to open
     a new PR (or ping us to reopen this one).
+
+### Closing PRs for future standard library changes
+
+*See also the [guidelines in the CONTRIBUTING file](./CONTRIBUTING.md#standard-library-stubs).*
+
+When rejecting a PR for a change for a future Python version, use a message
+like:
+
+    Thanks for contributing! Unfortunately, we only accept pull requests to the
+    standard library for future Python versions after the first beta version
+    has been released. This is in part to prevent churn in the stubs, and in
+    part because the testing infrastructure for the future version is not yet
+    in place. When the first beta version has been releasd and this PR is
+    still relevant, please feel free to leave a comment here to reopen it.
+    Alternatively, you can open a new PR.
