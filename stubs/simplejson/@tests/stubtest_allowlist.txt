@@ -1,8 +1,3 @@
-# TODO: missing from stub
-simplejson.__all__
-simplejson.decoder.__all__
-simplejson.scanner.__all__
-
 # Speedups (C vs Python inconsistency):
 simplejson.scanner.make_scanner
 simplejson.scanner.JSONDecodeError.__init__
@@ -18,4 +13,3 @@ simplejson.tests.*
 simplejson.compat
 simplejson.ordered_dict
 simplejson.tool
-simplejson.OrderedDict

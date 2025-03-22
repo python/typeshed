@@ -1,6 +1,3 @@
-# TODO: missing from stub
-shapely._ragged_array.__all__
-
 shapely\.geometry\.conftest
 shapely\.tests.*
 
