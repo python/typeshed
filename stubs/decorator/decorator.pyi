@@ -14,7 +14,7 @@ _P = ParamSpec("_P")
 
 DEF: Final[Pattern[str]]
 POS: Final[Literal[inspect._ParameterKind.POSITIONAL_OR_KEYWORD]]
-EMPTY: Final[inspect._empty]
+EMPTY: Final[type[inspect._empty]]
 
 class FunctionMaker:
     args: list[str]
