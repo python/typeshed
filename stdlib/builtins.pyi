@@ -218,6 +218,9 @@ class type:
         def __ror__(self, value: Any, /) -> types.UnionType: ...
     if sys.version_info >= (3, 12):
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
+    if sys.version_info >= (3, 13):
+        __static_attributes__: tuple[str, ...]
+        # Not defining __firstlineno__ because the attribute is removed when __module__ is set.
 
 class super:
     @overload
