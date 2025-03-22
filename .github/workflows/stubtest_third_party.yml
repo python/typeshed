@@ -71,6 +71,7 @@ jobs:
               fi
 
               PYTHON_EXECUTABLE="xvfb-run python"
+              EXTRA_ARGS=""
             else
               if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
                 echo "Installing Homebrew packages: $PACKAGES"
@@ -83,9 +84,10 @@ jobs:
               fi
 
               PYTHON_EXECUTABLE="python"
+              EXTRA_ARGS="--specified-platforms-only"
             fi
 
-            $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-platforms-only $STUBS
+            $PYTHON_EXECUTABLE tests/stubtest_third_party.py $EXTRA_ARGS $STUBS
           else
             echo "Nothing to test"
           fi

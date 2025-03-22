@@ -32,6 +32,7 @@ __all__ = [
     "read_stubtest_settings",
 ]
 
+DEFAULT_STUBTEST_PLATFORMS = ["linux"]
 
 _STUBTEST_PLATFORM_MAPPING: Final = {"linux": "apt_dependencies", "darwin": "brew_dependencies", "win32": "choco_dependencies"}
 # Some older websites have a bad pattern of using query params for navigation.
@@ -91,7 +92,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     choco_dependencies: object = data.get("choco_dependencies", [])
     extras: object = data.get("extras", [])
     ignore_missing_stub: object = data.get("ignore_missing_stub", False)
-    specified_platforms: object = data.get("platforms", ["linux"])
+    specified_platforms: object = data.get("platforms", [])
     stubtest_requirements: object = data.get("stubtest_requirements", [])
 
     assert type(skip) is bool
@@ -109,7 +110,7 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     assert not unrecognised_platforms, f"Unrecognised platforms specified for {distribution!r}: {unrecognised_platforms}"
 
     for platform, dep_key in _STUBTEST_PLATFORM_MAPPING.items():
-        if platform not in specified_platforms:
+        if platform not in (specified_platforms or DEFAULT_STUBTEST_PLATFORMS):
             assert dep_key not in data, (
                 f"Stubtest is not run on {platform} in CI for {distribution!r}, "
                 f"but {dep_key!r} are specified in METADATA.toml"
