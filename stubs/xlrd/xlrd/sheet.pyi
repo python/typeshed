@@ -74,7 +74,7 @@ class Rowinfo(BaseObject):
 
 class Sheet(BaseObject):
     name: str
-    book: Book
+    book: Book | None
     nrows: int
     ncols: int
     colinfo_map: dict[int, Colinfo]

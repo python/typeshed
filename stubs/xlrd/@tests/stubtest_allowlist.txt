@@ -1,2 +1,0 @@
-# Book is not imported at runtime:
-xlrd.book.Book
