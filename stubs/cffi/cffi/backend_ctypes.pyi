@@ -1,14 +1,15 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
 
 unicode = str
 long = int
 xrange = range
-bytechr: Incomplete
+bytechr: Callable[[float], bytes]
 
 class CTypesType(type): ...
 
 class CTypesData:
-    __metaclass__: Incomplete
+    __metaclass__: CTypesType
     __name__: str
     def __init__(self, *args) -> None: ...
     def __iter__(self): ...

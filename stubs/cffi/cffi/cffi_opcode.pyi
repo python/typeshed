@@ -1,92 +1,92 @@
-from _typeshed import Incomplete
+from typing import Final, Literal
 
 class CffiOp:
-    op: Incomplete
-    arg: Incomplete
-    def __init__(self, op, arg) -> None: ...
-    def as_c_expr(self): ...
-    def as_python_bytes(self): ...
+    op: int | None
+    arg: str | None
+    def __init__(self, op: int | None, arg: str | None) -> None: ...
+    def as_c_expr(self) -> str: ...
+    def as_python_bytes(self) -> str: ...
 
-def format_four_bytes(num): ...
+def format_four_bytes(num: int) -> str: ...
 
-OP_PRIMITIVE: int
-OP_POINTER: int
-OP_ARRAY: int
-OP_OPEN_ARRAY: int
-OP_STRUCT_UNION: int
-OP_ENUM: int
-OP_FUNCTION: int
-OP_FUNCTION_END: int
-OP_NOOP: int
-OP_BITFIELD: int
-OP_TYPENAME: int
-OP_CPYTHON_BLTN_V: int
-OP_CPYTHON_BLTN_N: int
-OP_CPYTHON_BLTN_O: int
-OP_CONSTANT: int
-OP_CONSTANT_INT: int
-OP_GLOBAL_VAR: int
-OP_DLOPEN_FUNC: int
-OP_DLOPEN_CONST: int
-OP_GLOBAL_VAR_F: int
-OP_EXTERN_PYTHON: int
-PRIM_VOID: int
-PRIM_BOOL: int
-PRIM_CHAR: int
-PRIM_SCHAR: int
-PRIM_UCHAR: int
-PRIM_SHORT: int
-PRIM_USHORT: int
-PRIM_INT: int
-PRIM_UINT: int
-PRIM_LONG: int
-PRIM_ULONG: int
-PRIM_LONGLONG: int
-PRIM_ULONGLONG: int
-PRIM_FLOAT: int
-PRIM_DOUBLE: int
-PRIM_LONGDOUBLE: int
-PRIM_WCHAR: int
-PRIM_INT8: int
-PRIM_UINT8: int
-PRIM_INT16: int
-PRIM_UINT16: int
-PRIM_INT32: int
-PRIM_UINT32: int
-PRIM_INT64: int
-PRIM_UINT64: int
-PRIM_INTPTR: int
-PRIM_UINTPTR: int
-PRIM_PTRDIFF: int
-PRIM_SIZE: int
-PRIM_SSIZE: int
-PRIM_INT_LEAST8: int
-PRIM_UINT_LEAST8: int
-PRIM_INT_LEAST16: int
-PRIM_UINT_LEAST16: int
-PRIM_INT_LEAST32: int
-PRIM_UINT_LEAST32: int
-PRIM_INT_LEAST64: int
-PRIM_UINT_LEAST64: int
-PRIM_INT_FAST8: int
-PRIM_UINT_FAST8: int
-PRIM_INT_FAST16: int
-PRIM_UINT_FAST16: int
-PRIM_INT_FAST32: int
-PRIM_UINT_FAST32: int
-PRIM_INT_FAST64: int
-PRIM_UINT_FAST64: int
-PRIM_INTMAX: int
-PRIM_UINTMAX: int
-PRIM_FLOATCOMPLEX: int
-PRIM_DOUBLECOMPLEX: int
-PRIM_CHAR16: int
-PRIM_CHAR32: int
-PRIMITIVE_TO_INDEX: Incomplete
-F_UNION: int
-F_CHECK_FIELDS: int
-F_PACKED: int
-F_EXTERNAL: int
-F_OPAQUE: int
-G_FLAGS: Incomplete
-CLASS_NAME: Incomplete
+OP_PRIMITIVE: Literal[1]
+OP_POINTER: Literal[3]
+OP_ARRAY: Literal[5]
+OP_OPEN_ARRAY: Literal[7]
+OP_STRUCT_UNION: Literal[9]
+OP_ENUM: Literal[11]
+OP_FUNCTION: Literal[13]
+OP_FUNCTION_END: Literal[15]
+OP_NOOP: Literal[17]
+OP_BITFIELD: Literal[19]
+OP_TYPENAME: Literal[21]
+OP_CPYTHON_BLTN_V: Literal[23]
+OP_CPYTHON_BLTN_N: Literal[25]
+OP_CPYTHON_BLTN_O: Literal[27]
+OP_CONSTANT: Literal[29]
+OP_CONSTANT_INT: Literal[31]
+OP_GLOBAL_VAR: Literal[33]
+OP_DLOPEN_FUNC: Literal[35]
+OP_DLOPEN_CONST: Literal[37]
+OP_GLOBAL_VAR_F: Literal[39]
+OP_EXTERN_PYTHON: Literal[41]
+PRIM_VOID: Literal[0]
+PRIM_BOOL: Literal[1]
+PRIM_CHAR: Literal[2]
+PRIM_SCHAR: Literal[3]
+PRIM_UCHAR: Literal[4]
+PRIM_SHORT: Literal[5]
+PRIM_USHORT: Literal[6]
+PRIM_INT: Literal[7]
+PRIM_UINT: Literal[8]
+PRIM_LONG: Literal[9]
+PRIM_ULONG: Literal[10]
+PRIM_LONGLONG: Literal[11]
+PRIM_ULONGLONG: Literal[12]
+PRIM_FLOAT: Literal[13]
+PRIM_DOUBLE: Literal[14]
+PRIM_LONGDOUBLE: Literal[15]
+PRIM_WCHAR: Literal[16]
+PRIM_INT8: Literal[17]
+PRIM_UINT8: Literal[18]
+PRIM_INT16: Literal[19]
+PRIM_UINT16: Literal[20]
+PRIM_INT32: Literal[21]
+PRIM_UINT32: Literal[22]
+PRIM_INT64: Literal[23]
+PRIM_UINT64: Literal[24]
+PRIM_INTPTR: Literal[25]
+PRIM_UINTPTR: Literal[26]
+PRIM_PTRDIFF: Literal[27]
+PRIM_SIZE: Literal[28]
+PRIM_SSIZE: Literal[29]
+PRIM_INT_LEAST8: Literal[30]
+PRIM_UINT_LEAST8: Literal[31]
+PRIM_INT_LEAST16: Literal[32]
+PRIM_UINT_LEAST16: Literal[33]
+PRIM_INT_LEAST32: Literal[34]
+PRIM_UINT_LEAST32: Literal[35]
+PRIM_INT_LEAST64: Literal[36]
+PRIM_UINT_LEAST64: Literal[37]
+PRIM_INT_FAST8: Literal[38]
+PRIM_UINT_FAST8: Literal[39]
+PRIM_INT_FAST16: Literal[40]
+PRIM_UINT_FAST16: Literal[41]
+PRIM_INT_FAST32: Literal[42]
+PRIM_UINT_FAST32: Literal[43]
+PRIM_INT_FAST64: Literal[44]
+PRIM_UINT_FAST64: Literal[45]
+PRIM_INTMAX: Literal[46]
+PRIM_UINTMAX: Literal[47]
+PRIM_FLOATCOMPLEX: Literal[48]
+PRIM_DOUBLECOMPLEX: Literal[49]
+PRIM_CHAR16: Literal[50]
+PRIM_CHAR32: Literal[51]
+PRIMITIVE_TO_INDEX: Final[dict[str, int]]
+F_UNION: Literal[1]
+F_CHECK_FIELDS: Literal[2]
+F_PACKED: Literal[4]
+F_EXTERNAL: Literal[8]
+F_OPAQUE: Literal[16]
+G_FLAGS: Final[dict[bytes, bytes]]
+CLASS_NAME: Final[dict[int, str]]
