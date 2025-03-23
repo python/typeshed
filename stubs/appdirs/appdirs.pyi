@@ -1,6 +1,6 @@
 import sys
 from _typeshed import StrPath
-from typing import Final
+from typing import Final, Literal
 
 if sys.platform == "win32":
     from ctypes import windll as windll
@@ -9,27 +9,28 @@ __version__: Final[str]
 __version_info__: Final[tuple[int, int, int]]
 unicode = str
 system: Final[str]
+PY3: Literal[True]
 
 def user_data_dir(
     appname: StrPath | None = None, appauthor: StrPath | None = None, version: StrPath | None = None, roaming: bool = False
 ) -> StrPath: ...
 def site_data_dir(
-    appname: StrPath | None = None, appauthor: StrPath | None = None, version: StrPath | None = None, roaming: bool = False
+    appname: StrPath | None = None, appauthor: StrPath | None = None, version: StrPath | None = None, multipath: bool = False
 ) -> StrPath: ...
 def user_config_dir(
     appname: StrPath | None = None, appauthor: StrPath | None = None, version: StrPath | None = None, roaming: bool = False
 ) -> StrPath: ...
 def site_config_dir(
-    appname: StrPath | None = None, appauthor: StrPath | None = None, version: StrPath | None = None, roaming: bool = False
+    appname: StrPath | None = None, appauthor: StrPath | None = None, version: StrPath | None = None, multipath: bool = False
 ) -> StrPath: ...
 def user_cache_dir(
-    appname: StrPath | None = None, appauthor: StrPath | None = None, version: StrPath | None = None, roaming: bool = False
+    appname: StrPath | None = None, appauthor: StrPath | None = None, version: StrPath | None = None, opinion: bool = True
 ) -> StrPath: ...
 def user_state_dir(
     appname: StrPath | None = None, appauthor: StrPath | None = None, version: StrPath | None = None, roaming: bool = False
 ) -> StrPath: ...
 def user_log_dir(
-    appname: StrPath | None = None, appauthor: StrPath | None = None, version: StrPath | None = None, roaming: bool = False
+    appname: StrPath | None = None, appauthor: StrPath | None = None, version: StrPath | None = None, opinion: bool = True
 ) -> StrPath: ...
 
 class AppDirs:
