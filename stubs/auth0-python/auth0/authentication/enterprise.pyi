@@ -1,0 +1,6 @@
+from .base import AuthenticationBase as AuthenticationBase
+from typing import Any
+
+class Enterprise(AuthenticationBase):
+    def saml_metadata(self) -> Any: ...
+    def wsfed_metadata(self) -> Any: ...

@@ -24,6 +24,7 @@
         "stdlib/tkinter/ttk.pyi",
         "stubs/aiofiles/aiofiles/tempfile/temptypes.pyi",
         "stubs/antlr4-python3-runtime",
+        "stubs/auth0-python",
         "stubs/Authlib",
         "stubs/aws-xray-sdk",
         "stubs/beautifulsoup4",
