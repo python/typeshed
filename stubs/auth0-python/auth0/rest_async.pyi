@@ -1,9 +1,17 @@
-import aiohttp
-from .rest import EmptyResponse as EmptyResponse, JsonResponse as JsonResponse, PlainResponse as PlainResponse, Response as Response, RestClient as RestClient
 from _typeshed import Incomplete
+from typing import Any
+
+import aiohttp
 from auth0.exceptions import RateLimitError as RateLimitError
 from auth0.types import RequestData as RequestData
-from typing import Any
+
+from .rest import (
+    EmptyResponse as EmptyResponse,
+    JsonResponse as JsonResponse,
+    PlainResponse as PlainResponse,
+    Response as Response,
+    RestClient as RestClient,
+)
 
 class AsyncRestClient(RestClient):
     timeout: Incomplete

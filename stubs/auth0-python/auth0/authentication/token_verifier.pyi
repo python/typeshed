@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
+from typing import Any, ClassVar
+
 from auth0.exceptions import TokenValidationError as TokenValidationError
 from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey as RSAPublicKey
-from typing import Any, ClassVar
 
 class SignatureVerifier:
     DISABLE_JWT_CHECKS: ClassVar[dict[str, bool]]
@@ -9,7 +10,7 @@ class SignatureVerifier:
     def verify_signature(self, token: str) -> dict[str, Any]: ...
 
 class SymmetricSignatureVerifier(SignatureVerifier):
-    def __init__(self, shared_secret: str, algorithm: str = 'HS256') -> None: ...
+    def __init__(self, shared_secret: str, algorithm: str = "HS256") -> None: ...
 
 class JwksFetcher:
     CACHE_TTL: ClassVar[int]
@@ -17,11 +18,13 @@ class JwksFetcher:
     def get_key(self, key_id: str) -> RSAPublicKey: ...
 
 class AsymmetricSignatureVerifier(SignatureVerifier):
-    def __init__(self, jwks_url: str, algorithm: str = 'RS256', cache_ttl: int = ...) -> None: ...
+    def __init__(self, jwks_url: str, algorithm: str = "RS256", cache_ttl: int = ...) -> None: ...
 
 class TokenVerifier:
     iss: Incomplete
     aud: Incomplete
     leeway: Incomplete
     def __init__(self, signature_verifier: SignatureVerifier, issuer: str, audience: str, leeway: int = 0) -> None: ...
-    def verify(self, token: str, nonce: str | None = None, max_age: int | None = None, organization: str | None = None) -> dict[str, Any]: ...
+    def verify(
+        self, token: str, nonce: str | None = None, max_age: int | None = None, organization: str | None = None
+    ) -> dict[str, Any]: ...

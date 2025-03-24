@@ -1,13 +1,19 @@
-from .. import TokenValidationError as TokenValidationError
-from ..rest_async import AsyncRestClient as AsyncRestClient
-from .token_verifier import AsymmetricSignatureVerifier as AsymmetricSignatureVerifier, JwksFetcher as JwksFetcher, TokenVerifier as TokenVerifier
 from _typeshed import Incomplete
-from aiohttp import ClientSession as ClientSession
-from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey as RSAPublicKey
 from typing import Any
 
+from aiohttp import ClientSession as ClientSession
+from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicKey as RSAPublicKey
+
+from .. import TokenValidationError as TokenValidationError
+from ..rest_async import AsyncRestClient as AsyncRestClient
+from .token_verifier import (
+    AsymmetricSignatureVerifier as AsymmetricSignatureVerifier,
+    JwksFetcher as JwksFetcher,
+    TokenVerifier as TokenVerifier,
+)
+
 class AsyncAsymmetricSignatureVerifier(AsymmetricSignatureVerifier):
-    def __init__(self, jwks_url: str, algorithm: str = 'RS256') -> None: ...
+    def __init__(self, jwks_url: str, algorithm: str = "RS256") -> None: ...
     def set_session(self, session: ClientSession) -> None: ...
     async def verify_signature(self, token) -> dict[str, Any]: ...
 
@@ -20,6 +26,10 @@ class AsyncTokenVerifier(TokenVerifier):
     iss: Incomplete
     aud: Incomplete
     leeway: Incomplete
-    def __init__(self, signature_verifier: AsyncAsymmetricSignatureVerifier, issuer: str, audience: str, leeway: int = 0) -> None: ...
+    def __init__(
+        self, signature_verifier: AsyncAsymmetricSignatureVerifier, issuer: str, audience: str, leeway: int = 0
+    ) -> None: ...
     def set_session(self, session: ClientSession) -> None: ...
-    async def verify(self, token: str, nonce: str | None = None, max_age: int | None = None, organization: str | None = None) -> dict[str, Any]: ...
+    async def verify(
+        self, token: str, nonce: str | None = None, max_age: int | None = None, organization: str | None = None
+    ) -> dict[str, Any]: ...

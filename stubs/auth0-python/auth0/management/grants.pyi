@@ -1,14 +1,35 @@
-from ..rest import RestClient as RestClient, RestClientOptions as RestClientOptions
-from ..types import TimeoutType as TimeoutType
 from _typeshed import Incomplete
 from typing import Any
+
+from ..rest import RestClient as RestClient, RestClientOptions as RestClientOptions
+from ..types import TimeoutType as TimeoutType
 
 class Grants:
     domain: Incomplete
     protocol: Incomplete
     client: Incomplete
-    def __init__(self, domain: str, token: str, telemetry: bool = True, timeout: TimeoutType = 5.0, protocol: str = 'https', rest_options: RestClientOptions | None = None) -> None: ...
-    def all(self, page: int | None = None, per_page: int | None = None, include_totals: bool = False, extra_params: dict[str, Any] | None = None): ...
-    async def all_async(self, page: int | None = None, per_page: int | None = None, include_totals: bool = False, extra_params: dict[str, Any] | None = None): ...
+    def __init__(
+        self,
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None: ...
+    def all(
+        self,
+        page: int | None = None,
+        per_page: int | None = None,
+        include_totals: bool = False,
+        extra_params: dict[str, Any] | None = None,
+    ): ...
+    async def all_async(
+        self,
+        page: int | None = None,
+        per_page: int | None = None,
+        include_totals: bool = False,
+        extra_params: dict[str, Any] | None = None,
+    ): ...
     def delete(self, id: str) -> Any: ...
     async def delete_async(self, id: str) -> Any: ...

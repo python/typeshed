@@ -1,13 +1,22 @@
-from ..rest import RestClient as RestClient, RestClientOptions as RestClientOptions
-from ..types import TimeoutType as TimeoutType
 from _typeshed import Incomplete
 from typing import Any
+
+from ..rest import RestClient as RestClient, RestClientOptions as RestClientOptions
+from ..types import TimeoutType as TimeoutType
 
 class Tickets:
     domain: Incomplete
     protocol: Incomplete
     client: Incomplete
-    def __init__(self, domain: str, token: str, telemetry: bool = True, timeout: TimeoutType = 5.0, protocol: str = 'https', rest_options: RestClientOptions | None = None) -> None: ...
+    def __init__(
+        self,
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None: ...
     def create_email_verification(self, body: dict[str, Any]) -> dict[str, Any]: ...
     async def create_email_verification_async(self, body: dict[str, Any]) -> dict[str, Any]: ...
     def create_pswd_change(self, body: dict[str, Any]) -> dict[str, Any]: ...
