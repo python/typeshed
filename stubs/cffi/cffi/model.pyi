@@ -1,14 +1,14 @@
 from _thread import LockType
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import Literal
+from typing import Final
 
 from .error import CDefError as CDefError, VerificationError as VerificationError, VerificationMissing as VerificationMissing
 from .lock import allocate_lock as allocate_lock
 
-Q_CONST: Literal[1]
-Q_RESTRICT: Literal[2]
-Q_VOLATILE: Literal[4]
+Q_CONST: Final = 1
+Q_RESTRICT: Final = 2
+Q_VOLATILE: Final = 4
 
 def qualify(quals: int, replace_with: str) -> str: ...
 
