@@ -1,3 +1,10 @@
+[project]
+# This section is needed to avoid writing --no-project everytime when using "uv run"
+# https://github.com/astral-sh/uv/issues/8666
+name = "typeshed"
+version = "0"
+requires-python = ">=3.9" # Minimum version to run tests, used by uv run
+
 [tool.black]
 line-length = 130
 target-version = ["py310"]

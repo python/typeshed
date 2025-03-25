@@ -14,6 +14,10 @@
 
 zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
 
+# Initialized at runtime
+typing_extensions.TypeAliasType.__parameters__
+typing_extensions.TypeAliasType.__value__
+
 
 # =======
 # >= 3.11
@@ -147,5 +151,3 @@ builtins.property.__set_name__  # Doesn't actually exist
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 dataclasses.KW_ONLY  # white lies around defaults
 importlib.metadata._meta.SimplePath.joinpath  # Runtime definition of protocol is incorrect
-unittest.TestCase.__init_subclass__  # Runtime has *args, **kwargs, but will error if any are supplied
-unittest.case.TestCase.__init_subclass__  # Runtime has *args, **kwargs, but will error if any are supplied

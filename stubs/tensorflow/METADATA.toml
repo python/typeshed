@@ -10,3 +10,6 @@ partial_stub = true
 ignore_missing_stub = true
 # TODO: Support/update to keras 3.7
 stubtest_requirements = ["keras==3.6.*"]
+# tensorflow 2.19 doesn't support Python 3.13:
+# https://github.com/tensorflow/tensorflow/issues/78774
+skip = true
