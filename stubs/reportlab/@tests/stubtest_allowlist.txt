@@ -1,26 +1,5 @@
 # TODO: missing from stub
-reportlab.graphics.barcode.__all__
 reportlab.graphics.barcode.dmtx.__all__
-reportlab.graphics.barcode.eanbc.__all__
-reportlab.graphics.barcode.ecc200datamatrix.__all__
-reportlab.graphics.barcode.usps4s.__all__
-reportlab.graphics.barcode.widgets.__all__
-reportlab.graphics.svgpath.__all__
-reportlab.graphics.transform.__all__
-reportlab.graphics.utils.__all__
-reportlab.lib.arciv.__all__
-reportlab.lib.formatters.__all__
-reportlab.lib.pygments2xpre.__all__
-reportlab.lib.rl_accel.__all__
-reportlab.lib.rltempfile.__all__
-reportlab.lib.styles.__all__
-reportlab.pdfgen.canvas.__all__
-reportlab.platypus.frames.__all__
-reportlab.platypus.multicol.__all__
-reportlab.platypus.paragraph.__all__
-reportlab.platypus.xpreformatted.__all__
-reportlab.rl_config.__all__
-reportlab.rl_settings.__all__
 
 # Error: is inconsistent
 # ======================
