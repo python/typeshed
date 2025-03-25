@@ -1,5 +1,6 @@
 # TODO: missing from stub
 gevent.os.__all__
+gevent.socket.__all__
 gevent.ssl.__all__
 gevent.subprocess.__all__
 
@@ -33,7 +34,6 @@ gevent._ffi.ERROR
 gevent._ffi.GEVENT_DEBUG_LEVEL
 gevent._ffi.TRACE
 gevent._ffi.loop.AbstractLoop.async
-gevent._ffi.loop.assign_standard_callbacks
 gevent._fileobjectcommon.UniversalNewlineBytesWrapper
 gevent._waiter.Waiter.switch_args
 
@@ -46,8 +46,6 @@ gevent.libuv.watcher.watcher.feed
 # unnecessary python 2 compatibility stuff
 gevent._config.Config.trace_malloc
 gevent._imap.IMapUnordered.next
-gevent.monkey.patch_builtins
-gevent.monkey.patch_sys
 gevent.pywsgi.Environ.iteritems
 
 # weird method that doesn't work with this being generic, so we removed it

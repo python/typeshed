@@ -70,5 +70,3 @@ T1SearchPath: Incomplete
 TTFSearchPath: Incomplete
 CMapSearchPath: Incomplete
 shapedFontGlob: list[Incomplete]
-
-__all__ = ("_reset", "register_reset")

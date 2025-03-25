@@ -1,3 +1,6 @@
+# VictoriaDayTuesdayAfterFirstMondayMay is not defined:
+workalendar.europe.scotland.mixins.__all__
+
 workalendar.core.CoreCalendar.name
 workalendar.skyfield_astronomy
 workalendar.tests

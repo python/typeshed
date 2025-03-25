@@ -1,5 +1,10 @@
 # TODO: missing from stub
 reportlab.graphics.barcode.dmtx.__all__
+reportlab.rl_config.__all__
+
+# Incorrect __all__ names in runtime
+reportlab.graphics.barcode.eanbc.__all__
+reportlab.graphics.barcode.ecc200datamatrix.__all__
 
 # Error: is inconsistent
 # ======================
