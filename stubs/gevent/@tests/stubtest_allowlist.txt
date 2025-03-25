@@ -1,6 +1,5 @@
 # TODO: missing from stub
 gevent.os.__all__
-gevent.signal.__all__
 gevent.socket.__all__
 gevent.ssl.__all__
 gevent.subprocess.__all__
