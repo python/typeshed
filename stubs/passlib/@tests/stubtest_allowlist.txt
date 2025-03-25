@@ -32,7 +32,6 @@ passlib.utils.decor.__all__
 passlib.utils.handlers.__all__
 passlib.utils.md4.__all__
 passlib.utils.pbkdf2.__all__
-passlib.win32.__all__
 
 # proxy module that uses some import magic incompatible with stubtest
 passlib.hash
