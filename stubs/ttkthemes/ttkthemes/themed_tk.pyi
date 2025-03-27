@@ -1,9 +1,9 @@
-import tkinter as tk
+import tkinter
 from _typeshed import Incomplete
 
 from ._widget import ThemedWidget
 
-class ThemedTk(tk.Tk, ThemedWidget):
+class ThemedTk(tkinter.Tk, ThemedWidget):
     def __init__(
         self,
         # non-keyword-only args copied from tkinter.Tk
