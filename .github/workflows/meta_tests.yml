@@ -28,7 +28,7 @@ concurrency:
 
 jobs:
   mypy:
-    name: Run mypy against the scripts and tests directories
+    name: Check scripts and tests with mypy
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -38,12 +38,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.13"
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
       - run: python ./tests/typecheck_typeshed.py --platform=${{ matrix.platform }}
   pyright:
-    name: Run pyright against the scripts and tests directories
+    name: Check scripts and tests with pyright
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -53,6 +53,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
+          # TODO: Since pytype is not available for Python 3.13, and
+          # pytype_test.py imports pytype, we need to use Python 3.12 for now.
           python-version: "3.12"
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
@@ -70,7 +72,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.13"
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - name: Git config
         run: |

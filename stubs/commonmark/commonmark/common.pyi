@@ -1,35 +1,39 @@
 import html
-from typing import Any
+import re
+from typing import AnyStr, Final, Literal, overload
 
 HTMLunescape = html.unescape
-ENTITY: str
-TAGNAME: str
-ATTRIBUTENAME: str
-UNQUOTEDVALUE: str
-SINGLEQUOTEDVALUE: str
-DOUBLEQUOTEDVALUE: str
-ATTRIBUTEVALUE: Any
-ATTRIBUTEVALUESPEC: Any
-ATTRIBUTE: Any
-OPENTAG: Any
-CLOSETAG: Any
-HTMLCOMMENT: str
-PROCESSINGINSTRUCTION: str
-DECLARATION: Any
-CDATA: str
-HTMLTAG: Any
-reHtmlTag: Any
-reBackslashOrAmp: Any
-ESCAPABLE: str
-reEntityOrEscapedChar: Any
-XMLSPECIAL: str
-reXmlSpecial: Any
+ENTITY: Final[str]
+TAGNAME: Final[str]
+ATTRIBUTENAME: Final[str]
+UNQUOTEDVALUE: Final[str]
+SINGLEQUOTEDVALUE: Final[str]
+DOUBLEQUOTEDVALUE: Final[str]
+ATTRIBUTEVALUE: Final[str]
+ATTRIBUTEVALUESPEC: Final[str]
+ATTRIBUTE: Final[str]
+OPENTAG: Final[str]
+CLOSETAG: Final[str]
+HTMLCOMMENT: Final[str]
+PROCESSINGINSTRUCTION: Final[str]
+DECLARATION: Final[str]
+CDATA: Final[str]
+HTMLTAG: Final[str]
+reHtmlTag: Final[re.Pattern[str]]
+reBackslashOrAmp: Final[re.Pattern[str]]
+ESCAPABLE: Final[str]
+reEntityOrEscapedChar: Final[re.Pattern[str]]
+XMLSPECIAL: Final[str]
+reXmlSpecial: Final[re.Pattern[str]]
 
-def unescape_char(s): ...
-def unescape_string(s): ...
-def normalize_uri(uri): ...
+def unescape_char(s: AnyStr) -> AnyStr: ...
+def unescape_string(s: str) -> str: ...
+def normalize_uri(uri: str) -> str: ...
 
-UNSAFE_MAP: Any
+UNSAFE_MAP: Final[dict[str, str]]
 
-def replace_unsafe_char(s): ...
-def escape_xml(s): ...
+def replace_unsafe_char(s: str) -> str: ...
+@overload
+def escape_xml(s: None) -> Literal[""]: ...
+@overload
+def escape_xml(s: str) -> str: ...

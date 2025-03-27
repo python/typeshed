@@ -2,6 +2,9 @@
 setuptools.modified.newer_pairwise_group
 setuptools._distutils._modified.newer_pairwise_group
 
+# Runtime initializes to None, but this really should never be None when used
+setuptools._distutils.compilers.C.base.Compiler.compiler_type
+
 # Dynamically created in __init__
 setuptools._distutils.dist.Distribution.get_name
 setuptools._distutils.dist.Distribution.get_version
@@ -28,13 +31,6 @@ setuptools._distutils.dist.Distribution.get_obsoletes
 # Missing objects from setuptools._distutils
 setuptools._distutils.archive_util.ARCHIVE_FORMATS
 setuptools._distutils.archive_util.check_archive_formats
-setuptools._distutils.ccompiler.CCompiler.EXECUTABLE
-setuptools._distutils.ccompiler.CCompiler.SHARED_LIBRARY
-setuptools._distutils.ccompiler.CCompiler.SHARED_OBJECT
-setuptools._distutils.ccompiler.CCompiler.compiler_type
-setuptools._distutils.ccompiler.CCompiler.out_extensions
-setuptools._distutils.ccompiler.CCompiler.set_executable
-setuptools._distutils.ccompiler.compiler_class
 setuptools._distutils.cmd.Command.dump_options
 setuptools._distutils.command.build_clib.show_compilers
 setuptools._distutils.command.build_ext.extension_name_re
