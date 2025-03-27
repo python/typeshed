@@ -1,1 +1,3 @@
 def _unescape(s: str) -> str: ...
+
+__all__ = ["_unescape"]
