@@ -87,7 +87,7 @@ def run_pytype(*, filename: str, python_version: str, missing_modules: Iterable[
         with pytype_config.verbosity_from(options):
             ast = loader.load_file(_get_module_name(filename), filename)
             loader.finish_and_verify_ast(ast)
-    except Exception:
+    except Exception:  # noqa: BLE001 # Forwarding the traceback for logging
         stderr = traceback.format_exc()
     else:
         stderr = None
