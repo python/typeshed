@@ -47,6 +47,7 @@ __all__ = [
     "SpringHolidayFirstMondayJune",
     "VictoriaDayFourthMondayMay",
     "VictoriaDayLastMondayMay",
+    "VictoriaDayTuesdayAfterFirstMondayMay",  # noqa: F822 # pyright: ignore[reportUnsupportedDunderAll] see https://github.com/workalendar/workalendar/pull/778
     "VictoriaDayFirstMondayJune",
     "FairHolidayLastMondayJune",
     "FairHolidayFirstMondayJuly",
