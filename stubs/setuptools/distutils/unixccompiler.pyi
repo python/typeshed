@@ -1,3 +1,1 @@
-from .compilers.C import unix
-
-UnixCCompiler = unix.Compiler
+from setuptools._distutils.unixcompiler import *
