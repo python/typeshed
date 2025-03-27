@@ -1,0 +1,2 @@
+# Testing modules are not included in type stubs
+commonmark.tests.*

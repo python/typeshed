@@ -1,1 +1,3 @@
 def normalize_reference(string: str) -> str: ...
+
+__all__ = ["normalize_reference"]
