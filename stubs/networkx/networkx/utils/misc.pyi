@@ -3,7 +3,7 @@ from _typeshed import Incomplete
 from types import ModuleType
 from typing_extensions import TypeAlias
 
-import numpy
+import numpy as np
 
 __all__ = [
     "flatten",
@@ -23,7 +23,7 @@ __all__ = [
 ]
 
 _RandomNumberGenerator: TypeAlias = (
-    ModuleType | random.Random | numpy.random.RandomState | numpy.random.Generator | PythonRandomInterface
+    ModuleType | random.Random | np.random.RandomState | np.random.Generator | PythonRandomInterface
 )
 _RandomState: TypeAlias = int | _RandomNumberGenerator | None
 
@@ -36,7 +36,7 @@ def groups(many_to_one): ...
 def create_random_state(random_state: Incomplete | None = None): ...
 
 class PythonRandomViaNumpyBits(random.Random):
-    def __init__(self, rng: numpy.random.Generator | None = None) -> None: ...
+    def __init__(self, rng: np.random.Generator | None = None) -> None: ...
     def getrandbits(self, k: int) -> int: ...
 
 class PythonRandomInterface:

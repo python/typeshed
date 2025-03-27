@@ -3,7 +3,7 @@ from collections.abc import Callable, Collection, Hashable, Iterable
 from typing import Literal, TypeVar, overload
 from typing_extensions import TypeAlias
 
-import numpy
+import numpy as np
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
@@ -21,8 +21,8 @@ _G = TypeVar("_G", bound=Graph[Hashable])
 def to_pandas_adjacency(
     G: Graph[_Node],
     nodelist: _Axes[_Node] | None = None,
-    dtype: numpy.dtype[Incomplete] | None = None,
-    order: numpy._OrderCF = None,
+    dtype: np.dtype[Incomplete] | None = None,
+    order: np._OrderCF = None,
     multigraph_weight: Callable[[list[float]], float] = ...,
     weight: str = "weight",
     nonedge: float = 0.0,
@@ -72,17 +72,17 @@ def from_pandas_edgelist(
 def to_numpy_array(
     G: Graph[_Node],
     nodelist: Collection[_Node] | None = None,
-    dtype: numpy.dtype[Incomplete] | None = None,
-    order: numpy._OrderCF = None,
+    dtype: np.dtype[Incomplete] | None = None,
+    order: np._OrderCF = None,
     multigraph_weight: Callable[[list[float]], float] = ...,
     weight: str = "weight",
     nonedge: float = 0.0,
-) -> numpy.ndarray[Incomplete, numpy.dtype[Incomplete]]: ...
+) -> np.ndarray[Incomplete, np.dtype[Incomplete]]: ...
 @overload
 def from_numpy_array(
-    A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: None = None
+    A: np.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, create_using: None = None
 ) -> Graph[Incomplete]: ...
 @overload
-def from_numpy_array(A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, *, create_using: type[_G]) -> _G: ...
+def from_numpy_array(A: np.ndarray[Incomplete, Incomplete], parallel_edges: bool = False, *, create_using: type[_G]) -> _G: ...
 @overload
-def from_numpy_array(A: numpy.ndarray[Incomplete, Incomplete], parallel_edges: bool, create_using: type[_G]) -> _G: ...
+def from_numpy_array(A: np.ndarray[Incomplete, Incomplete], parallel_edges: bool, create_using: type[_G]) -> _G: ...

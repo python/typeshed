@@ -50,6 +50,7 @@ select = [
     "EXE", # flake8-executable
     "FA", # flake8-future-annotations
     "I", # isort
+    "ICN", # flake8-import-conventions
     "N", # pep8-naming
     "PGH", # pygrep-hooks
     "PLC", # Pylint Convention
@@ -203,6 +204,9 @@ ignore = [
 
 [tool.ruff.lint.pydocstyle]
 convention = "pep257" # https://docs.astral.sh/ruff/settings/#lint_pydocstyle_convention
+
+[tool.lint.flake8-import-conventions.extend-aliases]
+"numpy.typing" = "npt"
 
 [tool.ruff.lint.isort]
 split-on-trailing-comma = false
