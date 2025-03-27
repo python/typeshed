@@ -1,5 +1,4 @@
-# VictoriaDayTuesdayAfterFirstMondayMay is not defined but using in __all__ runtime:
-workalendar.europe.scotland.mixins.__all__
+# VictoriaDayTuesdayAfterFirstMondayMay is not defined but used in __all__ runtime:
 workalendar.europe.scotland.mixins.VictoriaDayTuesdayAfterFirstMondayMay
 
 workalendar.core.CoreCalendar.name

@@ -202,6 +202,4 @@ __all__ = [
     "HasManyBackends",
     # other helpers
     "PrefixWrapper",
-    # TODO: a bunch of other things are commonly assumed in this namespace
-    #       (e.g. HEX_CHARS etc); need to audit uses and update this list.
 ]
