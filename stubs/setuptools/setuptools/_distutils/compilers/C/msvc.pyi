@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import ClassVar, Final
 
 from . import base
@@ -6,8 +5,6 @@ from . import base
 PLAT_SPEC_TO_RUNTIME: Final[dict[str, str]]
 
 class Compiler(base.Compiler):
-    compiler_type: ClassVar[str]
-    executables: ClassVar[dict[str, Incomplete]]
     src_extensions: ClassVar[list[str]]
     res_extension: ClassVar[str]
     obj_extension: ClassVar[str]
