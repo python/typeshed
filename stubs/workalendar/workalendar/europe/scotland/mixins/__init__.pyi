@@ -35,6 +35,9 @@ class BattleStirlingBridge:
 class AyrGoldCup:
     def get_variable_days(self, year): ...
 
+# Names in __all__ with no definition:
+#   VictoriaDayTuesdayAfterFirstMondayMay
+
 __all__ = [
     "AyrGoldCup",
     "SpringHolidayFirstMondayApril",
@@ -56,5 +59,4 @@ __all__ = [
     "AutumnHolidayFirstMondayOctober",
     "AutumnHolidaySecondMondayOctober",
     "AutumnHolidayThirdMondayOctober",
-    "VictoriaDayTuesdayAfterFirstMondayMay",  # noqa: F822 # pyright: ignore[reportUnsupportedDunderAll]
 ]
