@@ -120,7 +120,8 @@ def _get_module_name(filename: str) -> str:
 def check_subdirs_discoverable(subdir_paths: list[str]) -> None:
     for p in subdir_paths:
         if not os.path.isdir(p):
-            raise SystemExit(f"Cannot find typeshed subdir at {p} (specify parent dir via --typeshed-location)")
+            msg = f"Cannot find typeshed subdir at {p} (specify parent dir via --typeshed-location)"
+            raise SystemExit(msg)
 
 
 def determine_files_to_test(*, paths: Sequence[str]) -> list[str]:
@@ -172,7 +173,8 @@ def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
     toplevel_txt_contents = dist.read_text("top_level.txt")
     if toplevel_txt_contents is None:
         if dist.files is None:
-            raise RuntimeError("Can't read find the packages associated with requirement {req_name!r}")
+            msg = "Can't read find the packages associated with requirement {req_name!r}"
+            raise RuntimeError(msg)
         maybe_modules = [f.parts[0] if len(f.parts) > 1 else inspect.getmodulename(f) for f in dist.files]
         packages = [name for name in maybe_modules if name is not None and "." not in name]
     else:
@@ -247,7 +249,8 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
     for f, v, err in bad:
         print(f"\n{f} ({v}): {err}")
     if errors:
-        raise SystemExit("\nRun again with --print-stderr to get the full stacktrace.")
+        msg = "\nRun again with --print-stderr to get the full stacktrace."
+        raise SystemExit(msg)
 
 
 if __name__ == "__main__":

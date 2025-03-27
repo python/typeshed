@@ -200,7 +200,8 @@ def read_metadata(distribution: str) -> StubMetadata:
         with metadata_path(distribution).open("rb") as f:
             data: dict[str, object] = tomli.load(f)
     except FileNotFoundError:
-        raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
+        msg = f"Typeshed has no stubs for {distribution!r}!"
+        raise NoSuchStubError(msg) from None
 
     unknown_metadata_fields = data.keys() - _KNOWN_METADATA_FIELDS
     assert not unknown_metadata_fields, f"Unexpected keys in METADATA.toml for {distribution!r}: {unknown_metadata_fields}"
@@ -311,7 +312,8 @@ def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocu
         with path.open("rb") as file:
             data = tomlkit.load(file)
     except FileNotFoundError:
-        raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
+        msg = f"Typeshed has no stubs for {distribution!r}!"
+        raise NoSuchStubError(msg) from None
     data.update(new_values)  # pyright: ignore[reportUnknownMemberType] # tomlkit.TOMLDocument.update is partially typed
     with path.open("w", encoding="UTF-8") as file:
         tomlkit.dump(data, file)  # pyright: ignore[reportUnknownMemberType] # tomlkit.dump has partially unknown Mapping type

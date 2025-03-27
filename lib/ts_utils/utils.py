@@ -170,9 +170,11 @@ def distribution_info(distribution_name: str) -> DistributionTests:
     test_path = test_cases_path(distribution_name)
     if test_path.is_dir():
         if not list(test_path.iterdir()):
-            raise RuntimeError(f"{distribution_name!r} has a '{TEST_CASES_DIR}' directory but it is empty!")
+            msg = f"{distribution_name!r} has a '{TEST_CASES_DIR}' directory but it is empty!"
+            raise RuntimeError(msg)
         return DistributionTests(distribution_name, test_path)
-    raise RuntimeError(f"No test cases found for {distribution_name!r}!")
+    msg = f"No test cases found for {distribution_name!r}!"
+    raise RuntimeError(msg)
 
 
 def get_all_testcase_directories() -> list[DistributionTests]:

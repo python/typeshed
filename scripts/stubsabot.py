@@ -50,7 +50,8 @@ class ActionLevel(enum.IntEnum):
         try:
             return cls[cmd_arg]
         except KeyError:
-            raise argparse.ArgumentTypeError(f'Argument must be one of "{list(cls.__members__)}"') from None
+            msg = f'Argument must be one of "{list(cls.__members__)}"'
+            raise argparse.ArgumentTypeError(msg) from None
 
     nothing = 0, "make no changes"
     local = 1, "make changes that affect local repo"
@@ -225,9 +226,11 @@ async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *,
             with zipfile.ZipFile(body) as zf:
                 return all_py_files_in_source_are_in_py_typed_dirs(zf)
         else:
-            raise AssertionError(f"Package file {release_to_download.filename!r} does not end with '.tar.gz' or '.zip'")
+            msg = f"Package file {release_to_download.filename!r} does not end with '.tar.gz' or '.zip'"
+            raise AssertionError(msg)
     else:
-        raise AssertionError(f"Unknown package type for {release_to_download.distribution}: {packagetype!r}")
+        msg = f"Unknown package type for {release_to_download.distribution}: {packagetype!r}"
+        raise AssertionError(msg)
 
 
 async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
@@ -272,7 +275,8 @@ def get_updated_version_spec(spec: Specifier, version: packaging.version.Version
     elif spec.operator == "~=":
         updated_spec = Specifier(f"~={version}")
     else:
-        raise ValueError(f"Unsupported version operator: {spec.operator}")
+        msg = f"Unsupported version operator: {spec.operator}"
+        raise ValueError(msg)
     assert version in updated_spec, f"{version} not in {updated_spec}"
     return updated_spec
 
@@ -555,7 +559,8 @@ async def create_or_update_pull_request(*, title: str, body: str, branch_name: s
             pr_number = await update_existing_pull_request(title=title, body=body, branch_name=branch_name, session=session)
         else:
             response.raise_for_status()
-            raise AssertionError(f"Unexpected response: {response.status}")
+            msg = f"Unexpected response: {response.status}"
+            raise AssertionError(msg)
     await update_pull_request_label(pr_number=pr_number, session=session)
 
 
@@ -638,7 +643,8 @@ class RemoteConflictError(Exception):
 
 def somewhat_safe_force_push(branch: str) -> None:
     if has_non_stubsabot_commits(branch):
-        raise RemoteConflictError(f"origin/{branch} has non-stubsabot changes that are not on {branch}!")
+        msg = f"origin/{branch} has non-stubsabot changes that are not on {branch}!"
+        raise RemoteConflictError(msg)
     subprocess.check_call(["git", "push", "origin", branch, "--force"])
 
 
@@ -768,7 +774,8 @@ async def main() -> None:
 
     if args.action_level > ActionLevel.fork:
         if os.environ.get("GITHUB_TOKEN") is None:
-            raise ValueError("GITHUB_TOKEN environment variable must be set")
+            msg = "GITHUB_TOKEN environment variable must be set"
+            raise ValueError(msg)
 
     denylist = {"gdb"}  # gdb is not a pypi distribution
 

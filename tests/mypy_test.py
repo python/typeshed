@@ -85,9 +85,11 @@ def valid_path(cmd_arg: str) -> Path:
     """Parse a CLI argument that is intended to point to a valid typeshed path."""
     path = Path(cmd_arg)
     if not path.exists():
-        raise argparse.ArgumentTypeError(f'"{path}" does not exist in typeshed!')
+        msg = f'"{path}" does not exist in typeshed!'
+        raise argparse.ArgumentTypeError(msg)
     if not (path in DIRECTORIES_TO_TEST or any(directory in path.parents for directory in DIRECTORIES_TO_TEST)):
-        raise argparse.ArgumentTypeError('mypy_test.py only tests the stubs found in the "stdlib" and "stubs" directories')
+        msg = 'mypy_test.py only tests the stubs found in the "stdlib" and "stubs" directories'
+        raise argparse.ArgumentTypeError(msg)
     return path
 
 
