@@ -24,6 +24,7 @@ from typing import Annotated, Any, ClassVar, NamedTuple
 from typing_extensions import Self, TypeAlias
 
 import aiohttp
+import anyio
 import packaging.version
 import tomlkit
 from packaging.specifiers import Specifier
@@ -689,10 +690,10 @@ async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession
     title = f"[stubsabot] Bump {update.distribution} to {update.new_version}"
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(update.distribution)}"
-        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
+        await anyio.run_process(["git", "checkout", "-B", branch_name, "origin/main"], check=True)
         meta = update_metadata(update.distribution, version=update.new_version)
         body = get_update_pr_body(update, meta)
-        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
+        await anyio.run_process(["git", "commit", "--all", "-m", f"{title}\n\n{body}"], check=True)
         if action_level <= ActionLevel.local:
             return
         if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
@@ -711,12 +712,12 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
     title = f"[stubsabot] Mark {obsolete.distribution} as obsolete since {obsolete.obsolete_since_version}"
     async with _repo_lock:
         branch_name = f"{BRANCH_PREFIX}/{normalize(obsolete.distribution)}"
-        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
+        await anyio.run_process(["git", "checkout", "-B", branch_name, "origin/main"], check=True)
         obs_string = tomlkit.string(obsolete.obsolete_since_version)
         obs_string.comment(f"Released on {obsolete.obsolete_since_date.date().isoformat()}")
         update_metadata(obsolete.distribution, obsolete_since=obs_string)
         body = "\n".join(f"{k}: {v}" for k, v in obsolete.links.items())
-        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
+        await anyio.run_process(["git", "commit", "--all", "-m", f"{title}\n\n{body}"], check=True)
         if action_level <= ActionLevel.local:
             return
         if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
@@ -754,15 +755,17 @@ async def main() -> None:
         dists_to_update = [path.name for path in STUBS_PATH.iterdir()]
 
     if args.action_level > ActionLevel.nothing:
-        subprocess.run(["git", "update-index", "--refresh"], capture_output=True)
-        diff_result = subprocess.run(["git", "diff-index", "HEAD", "--name-only"], text=True, capture_output=True)
+        await anyio.run_process(["git", "update-index", "--refresh"])
+        diff_result = await anyio.run_process(["git", "diff-index", "HEAD", "--name-only"])
+        stdout = diff_result.stdout.decode()
+        stderr = diff_result.stderr.decode()
         if diff_result.returncode:
             print("Unexpected exception!")
-            print(diff_result.stdout)
-            print(diff_result.stderr)
+            print(stdout)
+            print(stderr)
             sys.exit(diff_result.returncode)
-        if diff_result.stdout:
-            changed_files = ", ".join(repr(line) for line in diff_result.stdout.split("\n") if line)
+        if stdout:
+            changed_files = ", ".join(repr(line) for line in stdout.split("\n") if line)
             print(f"Cannot run stubsabot, as uncommitted changes are present in {changed_files}!")
             sys.exit(1)
 
@@ -772,12 +775,10 @@ async def main() -> None:
 
     denylist = {"gdb"}  # gdb is not a pypi distribution
 
-    original_branch = subprocess.run(
-        ["git", "branch", "--show-current"], text=True, capture_output=True, check=True
-    ).stdout.strip()
+    original_branch = (await anyio.run_process(["git", "branch", "--show-current"], check=True)).stdout.decode().strip()
 
     if args.action_level >= ActionLevel.local:
-        subprocess.check_call(["git", "fetch", "--prune", "--all"])
+        await anyio.run_process(["git", "fetch", "--prune", "--all"], check=True)
 
     try:
         conn = aiohttp.TCPConnector(limit_per_host=10)
@@ -817,7 +818,7 @@ async def main() -> None:
         # if you need to cleanup, try:
         # git branch -D $(git branch --list 'stubsabot/*')
         if args.action_level >= ActionLevel.local and original_branch:
-            subprocess.check_call(["git", "checkout", original_branch])
+            await anyio.run_process(["git", "checkout", original_branch], check=True)
 
 
 if __name__ == "__main__":

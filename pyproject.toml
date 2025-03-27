@@ -45,6 +45,7 @@ exclude = ["**/test_cases/**/*.py"]
 external = ["F821", "Y"]
 select = [
     "ARG", # flake8-unused-arguments
+    "ASYNC", # flake8-async
     "B", # flake8-bugbear
     "D", # pydocstyle
     "EXE", # flake8-executable
