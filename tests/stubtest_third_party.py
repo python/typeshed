@@ -182,7 +182,7 @@ def run_stubtest(
             print_success_msg()
 
             if (
-                not stubtest_settings.platforms
+                sys.platform not in stubtest_settings.platforms
                 and sys.platform not in DEFAULT_STUBTEST_PLATFORMS
                 and not specified_platforms_only
             ):
@@ -201,14 +201,7 @@ def run_stubtest(
 
 
 def should_skip_dist(stubtest_settings: StubtestSettings, *, specified_platforms_only: bool) -> bool:
-    if stubtest_settings.platforms:
-        # Platforms explicitly specified in METADATA.toml:
-        # skip if the current platform is not in the list.
-        return sys.platform not in stubtest_settings.platforms
-    else:
-        # Platforms not specified in METADATA.toml:
-        # skip if the --specified-platforms-only flag is set.
-        return specified_platforms_only
+    return specified_platforms_only and sys.platform not in stubtest_settings.platforms
 
 
 def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
