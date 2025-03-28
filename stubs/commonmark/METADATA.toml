@@ -1,2 +1,6 @@
 version = "0.9.*"
 upstream_repository = "https://github.com/rtfd/commonmark.py"
+no_longer_updated = true
+extra_description = """\
+`commonmark` is deprecated in favor of [markdown-it-py](https://pypi.org/project/markdown-it-py/).
+See [this issue](https://github.com/readthedocs/commonmark.py/issues/308) for background and discussion."""
