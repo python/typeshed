@@ -44,6 +44,7 @@ exclude = ["**/test_cases/**/*.py"]
 # tell ruff not to flag these as e.g. "unused noqa comments"
 external = ["F821", "Y"]
 select = [
+    "A", # flake8-builtins
     "ARG", # flake8-unused-arguments
     "B", # flake8-bugbear
     "D", # pydocstyle
@@ -181,6 +182,8 @@ ignore = [
     ###
     # Rules that are out of the control of stub authors:
     ###
+    # Names in stubs should match the implementation, even if it's ambiguous.
+    "A", # flake8-builtins
     "F403", # `from . import *` used; unable to detect undefined names
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.

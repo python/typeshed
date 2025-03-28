@@ -610,13 +610,13 @@ def main() -> None:
     args = parser.parse_args(namespace=CommandLineArgs())
     versions = args.python_version or SUPPORTED_VERSIONS
     platforms = args.platform or [sys.platform]
-    filter = args.filter or DIRECTORIES_TO_TEST
+    path_filter = args.filter or DIRECTORIES_TO_TEST
     exclude = args.exclude or []
     summary = TestSummary()
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
         for version, platform in product(versions, platforms):
-            config = TestConfig(args.verbose, filter, exclude, version, platform)
+            config = TestConfig(args.verbose, path_filter, exclude, version, platform)
             version_summary = test_typeshed(args=config, tempdir=td_path)
             summary.merge(version_summary)
 
