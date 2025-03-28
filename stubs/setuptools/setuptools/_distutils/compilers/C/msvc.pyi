@@ -10,10 +10,8 @@ class Compiler(base.Compiler):
     obj_extension: ClassVar[str]
     static_lib_extension: ClassVar[str]
     shared_lib_extension: ClassVar[str]
-    # This was accidentally removed upstream and should be back pretty soon.
-    # shared_lib_format: ClassVar[str]
-    # static_lib_format = shared_lib_format
-    static_lib_format: ClassVar[str]
+    shared_lib_format: ClassVar[str]
+    static_lib_format = shared_lib_format
     exe_extension: ClassVar[str]
     initialized: bool
     def initialize(self, plat_name: str | None = None) -> None: ...
