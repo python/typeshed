@@ -4,7 +4,7 @@ from collections.abc import Iterator
 from contextlib import AbstractContextManager
 from pathlib import Path
 from types import ModuleType
-from typing import Any, BinaryIO, TextIO, Literal
+from typing import Any, BinaryIO, Literal, TextIO
 from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 11):

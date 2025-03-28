@@ -7,7 +7,7 @@ if sys.version_info >= (3, 11):
     from contextlib import AbstractContextManager
     from importlib.abc import ResourceReader, Traversable
     from pathlib import Path
-    from typing import overload, Literal
+    from typing import Literal, overload
     from typing_extensions import TypeAlias, deprecated
 
     Package: TypeAlias = str | types.ModuleType

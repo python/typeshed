@@ -8,7 +8,7 @@ if sys.version_info >= (3, 13):
     from importlib.resources._common import Anchor
     from io import TextIOWrapper
     from pathlib import Path
-    from typing import BinaryIO, overload, Literal
+    from typing import BinaryIO, Literal, overload
     from typing_extensions import Unpack
 
     def open_binary(anchor: Anchor, *path_names: StrPath) -> BinaryIO: ...
