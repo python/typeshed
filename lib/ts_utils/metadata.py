@@ -330,7 +330,7 @@ class PackageDependencies(NamedTuple):
 
 @cache
 def get_pypi_name_to_typeshed_name_mapping() -> Mapping[str, str]:
-    return {read_metadata(dir.name).stub_distribution: dir.name for dir in STUBS_PATH.iterdir()}
+    return {read_metadata(stub_dir.name).stub_distribution: stub_dir.name for stub_dir in STUBS_PATH.iterdir()}
 
 
 @cache

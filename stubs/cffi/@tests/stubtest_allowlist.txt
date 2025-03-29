@@ -1,6 +1,3 @@
-# TODO: missing from stub
-cffi.__all__
-
 # added dynamically and not detected by stubtest
 cffi.(api.)?FFI.CData
 cffi.(api.)?FFI.CType

@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.13"
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
       - run: python ./tests/check_typeshed_structure.py
@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          # Max supported Python version as of pytype 2024.9.13
+          # Max supported Python version as of pytype 2024.10.11
           python-version: "3.12"
       - uses: astral-sh/setup-uv@v5
       - run: uv pip install -r requirements-tests.txt --system
@@ -98,7 +98,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: "3.13"
       - uses: astral-sh/setup-uv@v5
       - name: Install typeshed test-suite requirements
         # Install these so we can run `get_external_stub_requirements.py`
@@ -122,14 +122,14 @@ jobs:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
+          annotate: ${{ matrix.python-version == '3.13' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
       - name: Run pyright with stricter settings on some of the stubs
         uses: jakebailey/pyright-action@v2
         with:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
+          annotate: ${{ matrix.python-version == '3.13' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.stricter.json
       - name: Run pyright on the test cases
         uses: jakebailey/pyright-action@v2
@@ -137,7 +137,7 @@ jobs:
           version: PATH
           python-platform: ${{ matrix.python-platform }}
           python-version: ${{ matrix.python-version }}
-          annotate: ${{ matrix.python-version == '3.12' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
+          annotate: ${{ matrix.python-version == '3.13' && matrix.python-platform == 'Linux' }} # Having each job create the same comment is too noisy.
           project: ./pyrightconfig.testcases.json
 
   stub-uploader:
@@ -155,7 +155,8 @@ jobs:
           path: stub_uploader
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          # Keep in sync with stub_uploader's check_scripts.yml workflow.
+          python-version: "3.13"
       - uses: astral-sh/setup-uv@v5
       - name: Run tests
         run: |
