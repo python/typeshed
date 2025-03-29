@@ -4,6 +4,7 @@ import sys
 from _typeshed import StrPath, SupportsNoArgReadline, SupportsRead
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
+from email._policybase import _MessageT
 from types import TracebackType
 from typing import IO, Any, AnyStr, Generic, Literal, Protocol, TypeVar, overload
 from typing_extensions import Self, TypeAlias
@@ -32,7 +33,6 @@ __all__ = [
 ]
 
 _T = TypeVar("_T")
-_MessageT = TypeVar("_MessageT", bound=Message)
 
 class _SupportsReadAndReadline(SupportsRead[bytes], SupportsNoArgReadline[bytes], Protocol): ...
 
