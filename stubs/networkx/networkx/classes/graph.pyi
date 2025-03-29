@@ -4,7 +4,7 @@ from functools import cached_property
 from typing import Any, ClassVar, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
-import numpy
+import numpy as np
 from networkx.classes.coreviews import AdjacencyView, AtlasView
 from networkx.classes.digraph import DiGraph
 from networkx.classes.reportviews import DiDegreeView, NodeView, OutEdgeView
@@ -22,7 +22,7 @@ _Data: TypeAlias = (
     | dict[_Node, dict[_Node, dict[str, Any]]]
     | dict[_Node, Iterable[_Node]]
     | Iterable[_EdgePlus[_Node]]
-    | numpy.ndarray[Any, Any]
+    | np.ndarray[Any, Any]
     # | scipy.sparse.base.spmatrix
 )
 

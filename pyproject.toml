@@ -51,6 +51,7 @@ select = [
     "EXE", # flake8-executable
     "FA", # flake8-future-annotations
     "I", # isort
+    "ICN", # flake8-import-conventions
     "N", # pep8-naming
     "PGH", # pygrep-hooks
     "PLC", # Pylint Convention
@@ -206,6 +207,25 @@ ignore = [
 
 [tool.ruff.lint.pydocstyle]
 convention = "pep257" # https://docs.astral.sh/ruff/settings/#lint_pydocstyle_convention
+
+[tool.ruff.lint.flake8-import-conventions.aliases]
+# Same as default
+"altair"="alt"
+"matplotlib"="mpl"
+"matplotlib.pyplot"="plt"
+"numpy"="np"
+"pandas"="pd"
+"seaborn"="sns"
+"tensorflow"="tf"
+# "tkinter"="tk" # Causes name conflict in stdlib/tkinter/ttk.py with Style.tk
+"holoviews"="hv"
+"panel"="pn"
+"plotly.express"="px"
+"polars"="pl"
+"pyarrow"="pa"
+"xml.etree.ElementTree"="ET"
+# Added
+"numpy.typing" = "npt"
 
 [tool.ruff.lint.isort]
 split-on-trailing-comma = false

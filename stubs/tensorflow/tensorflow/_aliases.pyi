@@ -5,7 +5,7 @@ from collections.abc import Iterable, Mapping, Sequence
 from typing import Any, Protocol, TypeVar
 from typing_extensions import TypeAlias
 
-import numpy  # pytype needs the unaliased import to resolve DTypeLike
+import numpy  # noqa: ICN001 # pytype needs the unaliased import to resolve DTypeLike
 import numpy as np
 import numpy.typing as npt
 import tensorflow as tf
