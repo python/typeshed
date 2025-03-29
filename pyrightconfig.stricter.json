@@ -35,6 +35,7 @@
         "stubs/click-default-group",
         "stubs/click-web",
         "stubs/corus",
+        "stubs/cysimdjson",
         "stubs/dateparser",
         "stubs/defusedxml",
         "stubs/docker",
