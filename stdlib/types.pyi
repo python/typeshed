@@ -17,7 +17,7 @@ from collections.abc import (
 from importlib.machinery import ModuleSpec
 
 # pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
-from typing import Any, ClassVar, Literal, Mapping, TypeVar, final, overload  # noqa: Y022
+from typing import Any, ClassVar, Literal, Mapping, TypeVar, Union, final, overload  # noqa: Y022
 from typing_extensions import ParamSpec, Self, TypeAliasType, TypeVarTuple, deprecated
 
 __all__ = [
@@ -672,17 +672,9 @@ if sys.version_info >= (3, 9):
         # GenericAlias delegates attr access to `__origin__`
         def __getattr__(self, name: str) -> Any: ...
 
-if sys.version_info >= (3, 10):
-    @final
-    class NoneType:
-        def __bool__(self) -> Literal[False]: ...
-
-    @final
-    class EllipsisType: ...
-
-    from builtins import _NotImplementedType
-
-    NotImplementedType = _NotImplementedType
+if sys.version_info >= (3, 14):
+    UnionType = Union
+elif sys.version_info >= (3, 10):
     @final
     class UnionType:
         @property
@@ -693,6 +685,17 @@ if sys.version_info >= (3, 10):
         def __ror__(self, value: Any, /) -> UnionType: ...
         def __eq__(self, value: object, /) -> bool: ...
         def __hash__(self) -> int: ...
+
+    @final
+    class NoneType:
+        def __bool__(self) -> Literal[False]: ...
+
+    @final
+    class EllipsisType: ...
+
+    from builtins import _NotImplementedType
+
+    NotImplementedType = _NotImplementedType
 
 if sys.version_info >= (3, 13):
     @final
