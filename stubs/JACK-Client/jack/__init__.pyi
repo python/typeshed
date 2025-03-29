@@ -316,6 +316,7 @@ def set_error_function(callback: Callable[[str], object] | None = None) -> None:
 def set_info_function(callback: Callable[[str], object] | None = None) -> None: ...
 def client_pid(name: str) -> int: ...
 
+# Some METADATA_ constants are not available on all systems.
 METADATA_CONNECTED: Final[str]
 METADATA_HARDWARE: Final[str]
 METADATA_ICON_LARGE: Final[str]
