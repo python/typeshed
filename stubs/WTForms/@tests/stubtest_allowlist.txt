@@ -1,6 +1,3 @@
-# TODO: missing from stub
-wtforms.form.__all__
-
 # Error: is not present at runtime
 # =============================
 # This is hack to get around Field.__new__ not being able to return

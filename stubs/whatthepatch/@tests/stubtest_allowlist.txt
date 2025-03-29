@@ -1,2 +1,0 @@
-# TODO: missing from stub
-whatthepatch.__all__

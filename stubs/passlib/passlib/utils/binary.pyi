@@ -49,3 +49,32 @@ class LazyBase64Engine(Base64Engine):
 h64: Any
 h64big: Any
 bcrypt64: Any
+
+__all__ = [
+    # constants
+    "BASE64_CHARS",
+    "PADDED_BASE64_CHARS",
+    "AB64_CHARS",
+    "HASH64_CHARS",
+    "BCRYPT_CHARS",
+    "HEX_CHARS",
+    "LOWER_HEX_CHARS",
+    "UPPER_HEX_CHARS",
+    "ALL_BYTE_VALUES",
+    # misc
+    "compile_byte_translation",
+    # base64
+    "ab64_encode",
+    "ab64_decode",
+    "b64s_encode",
+    "b64s_decode",
+    # base32
+    "b32encode",
+    "b32decode",
+    # custom encodings
+    "Base64Engine",
+    "LazyBase64Engine",
+    "h64",
+    "h64big",
+    "bcrypt64",
+]
