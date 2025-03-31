@@ -109,8 +109,6 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     assert _is_list_of_strings(extras)
     assert _is_list_of_strings(stubtest_requirements)
 
-    assert len(ci_platforms) > 0, f"ci_platforms is empty for {distribution!r}, use `skip = true` to skip stubtest"
-
     unrecognised_platforms = set(ci_platforms) - _STUBTEST_PLATFORM_MAPPING.keys()
     assert not unrecognised_platforms, f"Unrecognised ci_platforms specified for {distribution!r}: {unrecognised_platforms}"
 
