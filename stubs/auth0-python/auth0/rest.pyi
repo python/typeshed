@@ -1,9 +1,11 @@
-import requests
 from _typeshed import Incomplete
+from collections.abc import Mapping
+from typing import Any
+
+import requests
 from auth0.exceptions import Auth0Error as Auth0Error, RateLimitError as RateLimitError
 from auth0.rest_async import RequestsResponse as RequestsResponse
 from auth0.types import RequestData as RequestData, TimeoutType as TimeoutType
-from typing import Any, Mapping
 
 UNKNOWN_ERROR: str
 
@@ -19,7 +21,9 @@ class RestClient:
     base_headers: Incomplete
     telemetry: Incomplete
     timeout: Incomplete
-    def __init__(self, jwt: str | None, telemetry: bool = True, timeout: TimeoutType = 5.0, options: RestClientOptions | None = None) -> None: ...
+    def __init__(
+        self, jwt: str | None, telemetry: bool = True, timeout: TimeoutType = 5.0, options: RestClientOptions | None = None
+    ) -> None: ...
     def MAX_REQUEST_RETRIES(self) -> int: ...
     def MAX_REQUEST_RETRY_JITTER(self) -> int: ...
     def MAX_REQUEST_RETRY_DELAY(self) -> int: ...

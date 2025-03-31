@@ -29,4 +29,35 @@ from .user_blocks import UserBlocks as UserBlocks
 from .users import Users as Users
 from .users_by_email import UsersByEmail as UsersByEmail
 
-__all__ = ['Auth0', 'Actions', 'AttackProtection', 'Blacklists', 'Branding', 'ClientCredentials', 'ClientGrants', 'Clients', 'Connections', 'CustomDomains', 'DeviceCredentials', 'EmailTemplates', 'Emails', 'Grants', 'Guardian', 'Hooks', 'Jobs', 'LogStreams', 'Logs', 'Organizations', 'ResourceServers', 'Roles', 'RulesConfigs', 'Rules', 'Stats', 'Tenants', 'Tickets', 'UserBlocks', 'UsersByEmail', 'Users']
+__all__ = [
+    "Auth0",
+    "Actions",
+    "AttackProtection",
+    "Blacklists",
+    "Branding",
+    "ClientCredentials",
+    "ClientGrants",
+    "Clients",
+    "Connections",
+    "CustomDomains",
+    "DeviceCredentials",
+    "EmailTemplates",
+    "Emails",
+    "Grants",
+    "Guardian",
+    "Hooks",
+    "Jobs",
+    "LogStreams",
+    "Logs",
+    "Organizations",
+    "ResourceServers",
+    "Roles",
+    "RulesConfigs",
+    "Rules",
+    "Stats",
+    "Tenants",
+    "Tickets",
+    "UserBlocks",
+    "UsersByEmail",
+    "Users",
+]

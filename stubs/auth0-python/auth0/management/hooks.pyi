@@ -1,15 +1,40 @@
-from ..rest import RestClient as RestClient, RestClientOptions as RestClientOptions
-from ..types import TimeoutType as TimeoutType
 from _typeshed import Incomplete
 from typing import Any
+
+from ..rest import RestClient as RestClient, RestClientOptions as RestClientOptions
+from ..types import TimeoutType as TimeoutType
 
 class Hooks:
     domain: Incomplete
     protocol: Incomplete
     client: Incomplete
-    def __init__(self, domain: str, token: str, telemetry: bool = True, timeout: TimeoutType = 5.0, protocol: str = 'https', rest_options: RestClientOptions | None = None) -> None: ...
-    def all(self, enabled: bool = True, fields: list[str] | None = None, include_fields: bool = True, page: int | None = None, per_page: int | None = None, include_totals: bool = False): ...
-    async def all_async(self, enabled: bool = True, fields: list[str] | None = None, include_fields: bool = True, page: int | None = None, per_page: int | None = None, include_totals: bool = False): ...
+    def __init__(
+        self,
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None: ...
+    def all(
+        self,
+        enabled: bool = True,
+        fields: list[str] | None = None,
+        include_fields: bool = True,
+        page: int | None = None,
+        per_page: int | None = None,
+        include_totals: bool = False,
+    ): ...
+    async def all_async(
+        self,
+        enabled: bool = True,
+        fields: list[str] | None = None,
+        include_fields: bool = True,
+        page: int | None = None,
+        per_page: int | None = None,
+        include_totals: bool = False,
+    ): ...
     def create(self, body: dict[str, Any]) -> dict[str, Any]: ...
     async def create_async(self, body: dict[str, Any]) -> dict[str, Any]: ...
     def get(self, id: str, fields: list[str] | None = None) -> dict[str, Any]: ...

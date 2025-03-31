@@ -1,13 +1,22 @@
-from ..rest import RestClient as RestClient, RestClientOptions as RestClientOptions
-from ..types import TimeoutType as TimeoutType
 from _typeshed import Incomplete
 from typing import Any
+
+from ..rest import RestClient as RestClient, RestClientOptions as RestClientOptions
+from ..types import TimeoutType as TimeoutType
 
 class UserBlocks:
     domain: Incomplete
     protocol: Incomplete
     client: Incomplete
-    def __init__(self, domain: str, token: str, telemetry: bool = True, timeout: TimeoutType = 5.0, protocol: str = 'https', rest_options: RestClientOptions | None = None) -> None: ...
+    def __init__(
+        self,
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None: ...
     def get_by_identifier(self, identifier: str) -> dict[str, Any]: ...
     async def get_by_identifier_async(self, identifier: str) -> dict[str, Any]: ...
     def unblock_by_identifier(self, identifier: dict[str, Any]) -> Any: ...

@@ -1,3 +1,7 @@
+from _typeshed import Incomplete
+
+from auth0.rest import RestClientOptions as RestClientOptions
+
 from .actions import Actions as Actions
 from .attack_protection import AttackProtection as AttackProtection
 from .blacklists import Blacklists as Blacklists
@@ -28,8 +32,6 @@ from .tickets import Tickets as Tickets
 from .user_blocks import UserBlocks as UserBlocks
 from .users import Users as Users
 from .users_by_email import UsersByEmail as UsersByEmail
-from _typeshed import Incomplete
-from auth0.rest import RestClientOptions as RestClientOptions
 
 class Auth0:
     actions: Incomplete

@@ -1,15 +1,25 @@
+from _typeshed import Incomplete
+from builtins import list as _list
+from typing import Any
+
 from ..rest import RestClient as RestClient, RestClientOptions as RestClientOptions
 from ..types import TimeoutType as TimeoutType
-from _typeshed import Incomplete
-from typing import Any
 
 class LogStreams:
     domain: Incomplete
     protocol: Incomplete
     client: Incomplete
-    def __init__(self, domain: str, token: str, telemetry: bool = True, timeout: TimeoutType = 5.0, protocol: str = 'https', rest_options: RestClientOptions | None = None) -> None: ...
-    def list(self) -> list[dict[str, Any]]: ...
-    async def list_async(self) -> list[dict[str, Any]]: ...
+    def __init__(
+        self,
+        domain: str,
+        token: str,
+        telemetry: bool = True,
+        timeout: TimeoutType = 5.0,
+        protocol: str = "https",
+        rest_options: RestClientOptions | None = None,
+    ) -> None: ...
+    def list(self) -> _list[dict[str, Any]]: ...
+    async def list_async(self) -> _list[dict[str, Any]]: ...
     def get(self, id: str) -> dict[str, Any]: ...
     async def get_async(self, id: str) -> dict[str, Any]: ...
     def create(self, body: dict[str, Any]) -> dict[str, Any]: ...

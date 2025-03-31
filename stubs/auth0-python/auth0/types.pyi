@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, TypeAlias
 
-TimeoutType = float | tuple[float, float]
-RequestData = dict[str, Any] | list[Any]
+TimeoutType: TypeAlias = float | tuple[float, float]
+RequestData: TypeAlias = dict[str, Any] | list[Any]
