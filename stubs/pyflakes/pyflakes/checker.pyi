@@ -37,13 +37,11 @@ _OmitType: TypeAlias = str | tuple[str, ...] | None
 
 def iter_child_nodes(node: ast.AST, omit: _OmitType = None, _fields_order: _FieldsOrder = ...) -> Iterator[ast.AST]: ...
 @overload
-def convert_to_value(item: ast.Str) -> str: ...  # type: ignore[overload-overlap]
+def convert_to_value(item: ast.Constant) -> Any: ...  # type: ignore[overload-overlap]  # Any value allowed for ast.Constant.value
 @overload
-def convert_to_value(item: ast.Bytes) -> bytes: ...  # type: ignore[overload-overlap]
+def convert_to_value(item: ast.Tuple) -> tuple[Any, ...]: ...  # type: ignore[overload-overlap]  # Items depend on their ast type
 @overload
-def convert_to_value(item: ast.Tuple) -> tuple[Incomplete, ...]: ...  # type: ignore[overload-overlap]
-@overload
-def convert_to_value(item: ast.Name | ast.NameConstant) -> Incomplete: ...
+def convert_to_value(item: ast.Name) -> VariableKey: ...  # type: ignore[overload-overlap]
 @overload
 def convert_to_value(item: ast.AST) -> UnhandledKeyType: ...
 def is_notimplemented_name_node(node: object) -> bool: ...
