@@ -84,6 +84,7 @@ jobs:
             fi
 
             PYTHON_EXECUTABLE="xvfb-run python"
+            EXTRA_ARGS=""
           else
             if [ "${{ runner.os }}" = "macOS" ] && [ -n "$PACKAGES" ]; then
               brew install -q $PACKAGES
@@ -94,9 +95,10 @@ jobs:
             fi
 
             PYTHON_EXECUTABLE="python"
+            EXTRA_ARGS="--specified-platforms-only"
           fi
 
-          $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-platforms-only --num-shards 4 --shard-index ${{ matrix.shard-index }}
+          $PYTHON_EXECUTABLE tests/stubtest_third_party.py $EXTRA_ARGS --num-shards 4 --shard-index ${{ matrix.shard-index }}
 
   stub-uploader:
     name: stub_uploader tests
