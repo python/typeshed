@@ -1,8 +1,9 @@
 from _typeshed import Unused
 from collections.abc import Callable, Iterator, MutableMapping, Sequence
 from contextlib import AbstractContextManager
-from typing import Any, Protocol, TypeVar, overload
-from typing_extensions import deprecated
+from functools import _Wrapped
+from typing import Any, TypeVar, overload
+from typing_extensions import deprecated, ParamSpec
 
 __all__ = ("Cache", "FIFOCache", "LFUCache", "LRUCache", "MRUCache", "RRCache", "TLRUCache", "TTLCache", "cached", "cachedmethod")
 __version__: str
@@ -11,6 +12,7 @@ _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _T = TypeVar("_T")
 _R = TypeVar("_R")
+_P = ParamSpec("_P")
 
 class Cache(MutableMapping[_KT, _VT]):
     @overload
@@ -100,18 +102,14 @@ class TLRUCache(_TimedCache[_KT, _VT]):
     def ttu(self) -> Callable[[_KT, _VT, float], float]: ...
     def expire(self, time: float | None = None) -> list[tuple[_KT, _VT]]: ...
 
-class _Cached(Protocol[_R]):
-    __wrapped__: Callable[..., _R]
-    def __call__(self, *args: Any, **kwargs: Any) -> _R: ...
-
 def cached(
     cache: MutableMapping[_KT, Any] | None,
     key: Callable[..., _KT] = ...,
     lock: AbstractContextManager[Any] | None = None,
     info: bool = False,
-) -> Callable[[Callable[..., _R]], _Cached[_R]]: ...
+) -> Callable[[Callable[_P, _R]], _Wrapped[_P, _R, _P, _R]]: ...
 def cachedmethod(
     cache: Callable[[Any], MutableMapping[_KT, Any] | None],
     key: Callable[..., _KT] = ...,
     lock: Callable[[Any], AbstractContextManager[Any]] | None = None,
-) -> Callable[[Callable[..., _R]], _Cached[_R]]: ...
+) -> Callable[[Callable[_P, _R]], _Wrapped[_P, _R, _P, _R]]: ...
