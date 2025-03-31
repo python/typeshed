@@ -47,16 +47,23 @@ select = [
     "A", # flake8-builtins
     "ARG", # flake8-unused-arguments
     "B", # flake8-bugbear
+    "C4", # flake8-comprehensions
     "D", # pydocstyle
+    "DTZ", # flake8-datetimez
     "EXE", # flake8-executable
     "FA", # flake8-future-annotations
+    "FBT", # flake8-boolean-trap
+    "FLY", # flynt
     "I", # isort
     "N", # pep8-naming
     "PGH", # pygrep-hooks
     "PLC", # Pylint Convention
     "PLE", # Pylint Error
     "PLR", # Pylint Refactor
+    "RSE", # flake8-raise
     "RUF", # Ruff-specific and unused-noqa
+    "SLOT", # flake8-slots
+    "T10", # flake8-debugger
     "TRY", # tryceratops
     "UP", # pyupgrade
     "YTT", # flake8-2020
