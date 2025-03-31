@@ -1,5 +1,6 @@
 import ast
 import sys
+from _typeshed import Incomplete
 from collections.abc import Callable, Generator, Iterable, Iterator
 from contextlib import contextmanager
 from re import Pattern
@@ -40,9 +41,9 @@ def convert_to_value(item: ast.Str) -> str: ...  # type: ignore[overload-overlap
 @overload
 def convert_to_value(item: ast.Bytes) -> bytes: ...  # type: ignore[overload-overlap]
 @overload
-def convert_to_value(item: ast.Tuple) -> tuple[Any, ...]: ...  # type: ignore[overload-overlap]
+def convert_to_value(item: ast.Tuple) -> tuple[Incomplete, ...]: ...  # type: ignore[overload-overlap]
 @overload
-def convert_to_value(item: ast.Name | ast.NameConstant) -> Any: ...
+def convert_to_value(item: ast.Name | ast.NameConstant) -> Incomplete: ...
 @overload
 def convert_to_value(item: ast.AST) -> UnhandledKeyType: ...
 def is_notimplemented_name_node(node: object) -> bool: ...
@@ -50,7 +51,7 @@ def is_notimplemented_name_node(node: object) -> bool: ...
 class Binding:
     name: str
     source: ast.AST | None
-    used: Literal[False] | tuple[Any, ast.AST]
+    used: Literal[False] | tuple[Incomplete, ast.AST]
     def __init__(self, name: str, source: ast.AST | None) -> None: ...
     def redefines(self, other: Binding) -> bool: ...
 
@@ -69,7 +70,7 @@ class VariableKey:
 
 class Importation(Definition):
     fullName: str
-    redefined: list[Any]
+    redefined: list[Incomplete]
     def __init__(self, name: str, source: ast.AST | None, full_name: str | None = None) -> None: ...
     @property
     def source_statement(self) -> str: ...
@@ -86,7 +87,7 @@ class StarImportation(Importation):
     def __init__(self, name: str, source: ast.AST) -> None: ...
 
 class FutureImportation(ImportationFrom):
-    used: tuple[Any, ast.AST]
+    used: tuple[Incomplete, ast.AST]
     def __init__(self, name: str, source: ast.AST, scope) -> None: ...
 
 class Argument(Binding): ...
@@ -111,7 +112,7 @@ class FunctionScope(Scope):
     usesLocals: bool
     alwaysUsed: ClassVar[set[str]]
     globals: set[str]
-    returnValue: Any
+    returnValue: Incomplete
     isGenerator: bool
     def __init__(self) -> None: ...
     def unused_assignments(self) -> Iterator[tuple[str, Binding]]: ...
@@ -151,34 +152,34 @@ if sys.version_info >= (3, 10):
     _MatchAs: TypeAlias = ast.MatchAs
     _MatchOr: TypeAlias = ast.MatchOr
 else:
-    _Match: TypeAlias = Any
-    _MatchCase: TypeAlias = Any
-    _MatchValue: TypeAlias = Any
-    _MatchSingleton: TypeAlias = Any
-    _MatchSequence: TypeAlias = Any
-    _MatchStar: TypeAlias = Any
-    _MatchMapping: TypeAlias = Any
-    _MatchClass: TypeAlias = Any
-    _MatchAs: TypeAlias = Any
-    _MatchOr: TypeAlias = Any
+    _Match: TypeAlias = Incomplete
+    _MatchCase: TypeAlias = Incomplete
+    _MatchValue: TypeAlias = Incomplete
+    _MatchSingleton: TypeAlias = Incomplete
+    _MatchSequence: TypeAlias = Incomplete
+    _MatchStar: TypeAlias = Incomplete
+    _MatchMapping: TypeAlias = Incomplete
+    _MatchClass: TypeAlias = Incomplete
+    _MatchAs: TypeAlias = Incomplete
+    _MatchOr: TypeAlias = Incomplete
 
 if sys.version_info >= (3, 12):
     _TypeVar: TypeAlias = ast.TypeVar
     _TypeAlias: TypeAlias = ast.TypeAlias
 else:
-    _TypeVar: TypeAlias = Any
-    _TypeAlias: TypeAlias = Any
+    _TypeVar: TypeAlias = Incomplete
+    _TypeAlias: TypeAlias = Incomplete
 
 class Checker:
     nodeDepth: int
     offset: tuple[int, int] | None
     builtIns: set[str]
-    deadScopes: list[Any]
-    messages: list[Any]
+    deadScopes: list[Incomplete]
+    messages: list[Incomplete]
     filename: str
     withDoctest: bool
     scopeStack: list[Scope]
-    exceptHandlers: list[Any]
+    exceptHandlers: list[Incomplete]
     root: ast.AST
     def __init__(
         self,
@@ -186,7 +187,7 @@ class Checker:
         filename: str = "(none)",
         builtins: Iterable[str] | None = None,
         withDoctest: bool = False,
-        file_tokens: tuple[Any, ...] = (),
+        file_tokens: tuple[Incomplete, ...] = (),
     ) -> None: ...
     def deferFunction(self, callable: _AnyFunction) -> None: ...
     @property
