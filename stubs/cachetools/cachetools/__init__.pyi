@@ -3,7 +3,7 @@ from collections.abc import Callable, Iterator, MutableMapping, Sequence
 from contextlib import AbstractContextManager
 from functools import _Wrapped
 from typing import Any, TypeVar, overload
-from typing_extensions import deprecated, ParamSpec
+from typing_extensions import ParamSpec, deprecated
 
 __all__ = ("Cache", "FIFOCache", "LFUCache", "LRUCache", "MRUCache", "RRCache", "TLRUCache", "TTLCache", "cached", "cachedmethod")
 __version__: str
