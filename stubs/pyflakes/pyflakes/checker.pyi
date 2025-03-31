@@ -5,7 +5,7 @@ from collections.abc import Callable, Generator, Iterable, Iterator
 from contextlib import contextmanager
 from re import Pattern
 from typing import Any, ClassVar, Literal, TypeVar, overload
-from typing_extensions import ParamSpec, TypeAlias
+from typing_extensions import Never, ParamSpec, TypeAlias
 
 from pyflakes.messages import Message
 
@@ -150,23 +150,25 @@ if sys.version_info >= (3, 10):
     _MatchAs: TypeAlias = ast.MatchAs
     _MatchOr: TypeAlias = ast.MatchOr
 else:
-    _Match: TypeAlias = Incomplete
-    _MatchCase: TypeAlias = Incomplete
-    _MatchValue: TypeAlias = Incomplete
-    _MatchSingleton: TypeAlias = Incomplete
-    _MatchSequence: TypeAlias = Incomplete
-    _MatchStar: TypeAlias = Incomplete
-    _MatchMapping: TypeAlias = Incomplete
-    _MatchClass: TypeAlias = Incomplete
-    _MatchAs: TypeAlias = Incomplete
-    _MatchOr: TypeAlias = Incomplete
+    # The methods using these should never be called on Python < 3.10.
+    _Match: TypeAlias = Never
+    _MatchCase: TypeAlias = Never
+    _MatchValue: TypeAlias = Never
+    _MatchSingleton: TypeAlias = Never
+    _MatchSequence: TypeAlias = Never
+    _MatchStar: TypeAlias = Never
+    _MatchMapping: TypeAlias = Never
+    _MatchClass: TypeAlias = Never
+    _MatchAs: TypeAlias = Never
+    _MatchOr: TypeAlias = Never
 
 if sys.version_info >= (3, 12):
     _TypeVar: TypeAlias = ast.TypeVar
     _TypeAlias: TypeAlias = ast.TypeAlias
 else:
-    _TypeVar: TypeAlias = Incomplete
-    _TypeAlias: TypeAlias = Incomplete
+    # The methods using these should never be called on Python < 3.12.
+    _TypeVar: TypeAlias = Never
+    _TypeAlias: TypeAlias = Never
 
 class Checker:
     nodeDepth: int
