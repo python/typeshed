@@ -3,4 +3,4 @@ upstream_repository = "https://github.com/antlr/antlr4"
 
 [tool.stubtest]
 ignore_missing_stub = true
-platforms = ["linux", "win32"]
+ci_platforms = ["linux", "win32"]

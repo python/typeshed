@@ -15,13 +15,7 @@ from textwrap import dedent
 from time import time
 from typing import NoReturn
 
-from ts_utils.metadata import (
-    DEFAULT_STUBTEST_PLATFORMS,
-    NoSuchStubError,
-    StubtestSettings,
-    get_recursive_requirements,
-    read_metadata,
-)
+from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata
 from ts_utils.paths import STUBS_PATH, allowlists_path, tests_path
 from ts_utils.utils import (
     PYTHON_VERSION,
@@ -33,11 +27,12 @@ from ts_utils.utils import (
     print_info,
     print_success_msg,
     print_time,
+    print_warning,
 )
 
 
 def run_stubtest(
-    dist: Path, *, verbose: bool = False, specified_platforms_only: bool = False, keep_tmp_dir: bool = False
+    dist: Path, *, verbose: bool = False, ci_platforms_only: bool = False, keep_tmp_dir: bool = False
 ) -> bool:
     """Run stubtest for a single distribution."""
 
@@ -49,11 +44,15 @@ def run_stubtest(
 
     stubtest_settings = metadata.stubtest_settings
     if stubtest_settings.skip:
-        print(colored("skipping", "yellow"))
+        print(colored("skipping (skip = true)", "yellow"))
         return True
 
-    if should_skip_dist(stubtest_settings, specified_platforms_only=specified_platforms_only):
-        print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
+    if stubtest_settings.supported_platforms is not None and sys.platform not in stubtest_settings.supported_platforms:
+        print(colored("skipping (platform not supported)", "yellow"))
+        return True
+
+    if ci_platforms_only and sys.platform not in stubtest_settings.ci_platforms:
+        print(colored("skipping (platform skipped in CI)", "yellow"))
         return True
 
     if not metadata.requires_python.contains(PYTHON_VERSION):
@@ -181,12 +180,8 @@ def run_stubtest(
             print_time(time() - t)
             print_success_msg()
 
-            if (
-                sys.platform not in stubtest_settings.platforms
-                and sys.platform not in DEFAULT_STUBTEST_PLATFORMS
-                and not specified_platforms_only
-            ):
-                print(colored(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI", "yellow"))
+            if sys.platform not in stubtest_settings.ci_platforms:
+                print_warning(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI")
 
             if keep_tmp_dir:
                 print_info(f"Virtual environment kept at: {venv_dir}")
@@ -198,10 +193,6 @@ def run_stubtest(
         print_commands(pip_cmd, stubtest_cmd, mypypath)
 
     return True
-
-
-def should_skip_dist(stubtest_settings: StubtestSettings, *, specified_platforms_only: bool) -> bool:
-    return specified_platforms_only and sys.platform not in stubtest_settings.platforms
 
 
 def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
@@ -401,9 +392,9 @@ def main() -> NoReturn:
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument(
-        "--specified-platforms-only",
+        "--ci-platforms-only",
         action="store_true",
-        help="skip the test if the current platform is not specified in METADATA.toml/tool.stubtest.platforms",
+        help="skip the test if the current platform is not specified in METADATA.toml/tool.stubtest.ci-platforms",
     )
     parser.add_argument("--keep-tmp-dir", action="store_true", help="keep the temporary virtualenv")
     parser.add_argument("dists", metavar="DISTRIBUTION", type=str, nargs=argparse.ZERO_OR_MORE)
@@ -420,7 +411,7 @@ def main() -> NoReturn:
             continue
         try:
             if not run_stubtest(
-                dist, verbose=args.verbose, specified_platforms_only=args.specified_platforms_only, keep_tmp_dir=args.keep_tmp_dir
+                dist, verbose=args.verbose, ci_platforms_only=args.ci_platforms_only, keep_tmp_dir=args.keep_tmp_dir
             ):
                 result = 1
         except NoSuchStubError as e:

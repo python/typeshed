@@ -95,7 +95,7 @@ jobs:
             fi
 
             PYTHON_EXECUTABLE="python"
-            EXTRA_ARGS="--specified-platforms-only"
+            EXTRA_ARGS="--ci-platforms-only"
           fi
 
           $PYTHON_EXECUTABLE tests/stubtest_third_party.py $EXTRA_ARGS --num-shards 4 --shard-index ${{ matrix.shard-index }}
