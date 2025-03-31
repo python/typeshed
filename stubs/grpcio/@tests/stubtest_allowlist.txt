@@ -1,32 +1,5 @@
 # Error: is not present at runtime
 # =============================
-# Classes introduced in the typing library to provide interface structure.
-grpc.Behaviour
-grpc.CallFuture
-grpc.CallIterator
-grpc.CertificateChainPair
-grpc.Interceptor
-grpc.Metadata
-grpc.RequestDeserializer
-grpc.RequestSerializer
-grpc.ResponseDeserializer
-grpc.ResponseSerializer
-grpc.aio.DoneCallback
-grpc.aio.DoneCallbackType
-grpc.aio.EOFType
-grpc.aio.InterceptedCall
-grpc.aio.MetadataKey
-grpc.aio.MetadataType
-grpc.aio.MetadataValue
-grpc.aio.MetadatumType
-grpc.aio.RequestSerializer
-grpc.aio.ResponseDeserializer
-grpc_health.v1.health.SendResponseCallback
-grpc_reflection.v1alpha.reflection.AnyServer
-grpc_reflection.v1alpha.reflection.AnyServicerContext
-
-# Error: is not present at runtime
-# =============================
 # Error class attributes that aren't defined.
 grpc.RpcError.code
 grpc.RpcError.details

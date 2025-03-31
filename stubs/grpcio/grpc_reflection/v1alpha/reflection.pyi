@@ -10,14 +10,14 @@ from grpc_reflection.v1alpha._base import BaseReflectionServicer
 
 SERVICE_NAME: str
 
-AnyServer: typing_extensions.TypeAlias = grpc.Server | aio.Server
-AnyServicerContext: typing_extensions.TypeAlias = grpc.ServicerContext | aio.ServicerContext[Incomplete, Incomplete]
+_AnyServer: typing_extensions.TypeAlias = grpc.Server | aio.Server
+_AnyServicerContext: typing_extensions.TypeAlias = grpc.ServicerContext | aio.ServicerContext[Incomplete, Incomplete]
 
 class ReflectionServicer(BaseReflectionServicer):
     def ServerReflectionInfo(
-        self, request_iterator: Iterable[_reflection_pb2.ServerReflectionRequest], context: AnyServicerContext
+        self, request_iterator: Iterable[_reflection_pb2.ServerReflectionRequest], context: _AnyServicerContext
     ) -> None: ...
 
 def enable_server_reflection(
-    service_names: Iterable[str], server: AnyServer, pool: descriptor_pool.DescriptorPool | None = ...
+    service_names: Iterable[str], server: _AnyServer, pool: descriptor_pool.DescriptorPool | None = ...
 ) -> None: ...

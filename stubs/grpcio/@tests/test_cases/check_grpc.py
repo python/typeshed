@@ -41,6 +41,6 @@ assert_type(call_details.method, str)
 assert_type(call_details.timeout, typing.Optional[float])
 
 # Call iterator
-call_iter: grpc.CallIterator[str] = typing.cast(typing.Any, None)
+call_iter: grpc._CallIterator[str] = typing.cast(typing.Any, None)
 for call in call_iter:
     assert_type(call, str)

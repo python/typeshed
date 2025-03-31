@@ -16,7 +16,7 @@ class _Watcher:
     def close(self) -> None: ...
 
 # FIXME: This needs further investigation
-class SendResponseCallback(typing.Protocol):
+class _SendResponseCallback(typing.Protocol):
     def __call__(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any: ...
 
 class HealthServicer(_health_pb2_grpc.HealthServicer):
@@ -28,7 +28,7 @@ class HealthServicer(_health_pb2_grpc.HealthServicer):
         self,
         request: _health_pb2.HealthCheckRequest,
         context: ServicerContext,
-        send_response_callback: SendResponseCallback | None = ...,
+        send_response_callback: _SendResponseCallback | None = ...,
     ) -> _health_pb2.HealthCheckResponse: ...
     def set(self, service: str, status: _health_pb2.HealthCheckResponse.ServingStatus) -> None: ...
     def enter_graceful_shutdown(self) -> None: ...

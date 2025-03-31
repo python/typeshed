@@ -80,8 +80,8 @@ def server(
 # XXX: The docs suggest these type signatures for aio, but not for non-async,
 # and it's unclear why;
 # https://grpc.github.io/grpc/python/grpc_asyncio.html#grpc.aio.Channel.stream_stream
-RequestSerializer: TypeAlias = Callable[[typing.Any], bytes]
-ResponseDeserializer: TypeAlias = Callable[[bytes], typing.Any]
+_RequestSerializer: TypeAlias = Callable[[typing.Any], bytes]
+_ResponseDeserializer: TypeAlias = Callable[[bytes], typing.Any]
 
 class Channel(abc.ABC):
     @abc.abstractmethod
@@ -94,29 +94,29 @@ class Channel(abc.ABC):
     def stream_stream(
         self,
         method: str,
-        request_serializer: RequestSerializer | None = ...,
-        response_deserializer: ResponseDeserializer | None = ...,
+        request_serializer: _RequestSerializer | None = ...,
+        response_deserializer: _ResponseDeserializer | None = ...,
     ) -> StreamStreamMultiCallable[typing.Any, typing.Any]: ...
     @abc.abstractmethod
     def stream_unary(
         self,
         method: str,
-        request_serializer: RequestSerializer | None = ...,
-        response_deserializer: ResponseDeserializer | None = ...,
+        request_serializer: _RequestSerializer | None = ...,
+        response_deserializer: _ResponseDeserializer | None = ...,
     ) -> StreamUnaryMultiCallable[typing.Any, typing.Any]: ...
     @abc.abstractmethod
     def unary_stream(
         self,
         method: str,
-        request_serializer: RequestSerializer | None = ...,
-        response_deserializer: ResponseDeserializer | None = ...,
+        request_serializer: _RequestSerializer | None = ...,
+        response_deserializer: _ResponseDeserializer | None = ...,
     ) -> UnaryStreamMultiCallable[typing.Any, typing.Any]: ...
     @abc.abstractmethod
     def unary_unary(
         self,
         method: str,
-        request_serializer: RequestSerializer | None = ...,
-        response_deserializer: ResponseDeserializer | None = ...,
+        request_serializer: _RequestSerializer | None = ...,
+        response_deserializer: _ResponseDeserializer | None = ...,
     ) -> UnaryUnaryMultiCallable[typing.Any, typing.Any]: ...
     @abc.abstractmethod
     async def __aenter__(self) -> Self: ...
@@ -153,8 +153,8 @@ class Server(metaclass=abc.ABCMeta):
 
 # Client-Side Context:
 
-DoneCallbackType: TypeAlias = Callable[[typing.Any], None]
-EOFType: TypeAlias = object
+_DoneCallbackType: TypeAlias = Callable[[typing.Any], None]
+_EOFType: TypeAlias = object
 
 class RpcContext(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -166,7 +166,7 @@ class RpcContext(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def cancel(self) -> bool: ...
     @abc.abstractmethod
-    def add_done_callback(self, callback: DoneCallbackType) -> None: ...
+    def add_done_callback(self, callback: _DoneCallbackType) -> None: ...
 
 class Call(RpcContext, metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -188,7 +188,7 @@ class UnaryStreamCall(Call, typing.Generic[_TRequest, _TResponse], metaclass=abc
     @abc.abstractmethod
     def __aiter__(self) -> AsyncIterator[_TResponse]: ...
     @abc.abstractmethod
-    async def read(self) -> EOFType | _TResponse: ...
+    async def read(self) -> _EOFType | _TResponse: ...
 
 class StreamUnaryCall(Call, typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -202,7 +202,7 @@ class StreamStreamCall(Call, typing.Generic[_TRequest, _TResponse], metaclass=ab
     @abc.abstractmethod
     def __aiter__(self) -> AsyncIterator[_TResponse]: ...
     @abc.abstractmethod
-    async def read(self) -> EOFType | _TResponse: ...
+    async def read(self) -> _EOFType | _TResponse: ...
     @abc.abstractmethod
     async def write(self, request: _TRequest) -> None: ...
     @abc.abstractmethod
@@ -210,21 +210,22 @@ class StreamStreamCall(Call, typing.Generic[_TRequest, _TResponse], metaclass=ab
 
 # Service-Side Context:
 
-class DoneCallback(typing.Generic[_TRequest, _TResponse]):
+@typing.type_check_only
+class _DoneCallback(typing.Generic[_TRequest, _TResponse]):
     def __call__(self, ctx: ServicerContext[_TRequest, _TResponse]) -> None: ...
 
 class ServicerContext(typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    async def abort(self, code: StatusCode, details: str = ..., trailing_metadata: MetadataType = ...) -> typing.NoReturn: ...
+    async def abort(self, code: StatusCode, details: str = ..., trailing_metadata: _MetadataType = ...) -> typing.NoReturn: ...
     @abc.abstractmethod
     async def read(self) -> _TRequest: ...
     @abc.abstractmethod
     async def write(self, message: _TResponse) -> None: ...
     @abc.abstractmethod
-    async def send_initial_metadata(self, initial_metadata: MetadataType) -> None: ...
-    def add_done_callback(self, callback: DoneCallback[_TRequest, _TResponse]) -> None: ...
+    async def send_initial_metadata(self, initial_metadata: _MetadataType) -> None: ...
+    def add_done_callback(self, callback: _DoneCallback[_TRequest, _TResponse]) -> None: ...
     @abc.abstractmethod
-    def set_trailing_metadata(self, trailing_metadata: MetadataType) -> None: ...
+    def set_trailing_metadata(self, trailing_metadata: _MetadataType) -> None: ...
     @abc.abstractmethod
     def invocation_metadata(self) -> Metadata | None: ...
     @abc.abstractmethod
@@ -273,13 +274,14 @@ class ClientCallDetails(abc.ABC):
     # As at 1.53.0, this is not supported in aio:
     # compression: Compression | None
 
-class InterceptedCall(typing.Generic[_TRequest, _TResponse]):
+@typing.type_check_only
+class _InterceptedCall(typing.Generic[_TRequest, _TResponse]):
     def __init__(self, interceptors_task: asyncio.Task[typing.Any]) -> None: ...
     def __del__(self) -> None: ...
     def cancel(self) -> bool: ...
     def cancelled(self) -> bool: ...
     def done(self) -> bool: ...
-    def add_done_callback(self, callback: DoneCallback[_TRequest, _TResponse]) -> None: ...
+    def add_done_callback(self, callback: _DoneCallback[_TRequest, _TResponse]) -> None: ...
     def time_remaining(self) -> float | None: ...
     async def initial_metadata(self) -> Metadata | None: ...
     async def trailing_metadata(self) -> Metadata | None: ...
@@ -288,7 +290,7 @@ class InterceptedCall(typing.Generic[_TRequest, _TResponse]):
     async def debug_error_string(self) -> str | None: ...
     async def wait_for_connection(self) -> None: ...
 
-class InterceptedUnaryUnaryCall(InterceptedCall[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class InterceptedUnaryUnaryCall(_InterceptedCall[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     def __await__(self) -> Generator[Incomplete, None, _TResponse]: ...
     def __init__(
         self,
@@ -300,8 +302,8 @@ class InterceptedUnaryUnaryCall(InterceptedCall[_TRequest, _TResponse], metaclas
         wait_for_ready: bool | None,
         channel: Channel,
         method: bytes,
-        request_serializer: RequestSerializer,
-        response_deserializer: ResponseDeserializer,
+        request_serializer: _RequestSerializer,
+        response_deserializer: _ResponseDeserializer,
         loop: asyncio.AbstractEventLoop,
     ) -> None: ...
 
@@ -315,8 +317,8 @@ class InterceptedUnaryUnaryCall(InterceptedCall[_TRequest, _TResponse], metaclas
         credentials: CallCredentials | None,
         wait_for_ready: bool | None,
         request: _TRequest,
-        request_serializer: RequestSerializer,
-        response_deserializer: ResponseDeserializer,
+        request_serializer: _RequestSerializer,
+        response_deserializer: _ResponseDeserializer,
     ) -> UnaryUnaryCall[_TRequest, _TResponse]: ...
     def time_remaining(self) -> float | None: ...
 
@@ -376,7 +378,7 @@ class UnaryUnaryMultiCallable(typing.Generic[_TRequest, _TResponse], metaclass=a
         request: _TRequest,
         *,
         timeout: float | None = ...,
-        metadata: MetadataType | None = ...,
+        metadata: _MetadataType | None = ...,
         credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = ...,
@@ -390,7 +392,7 @@ class UnaryStreamMultiCallable(typing.Generic[_TRequest, _TResponse], metaclass=
         request: _TRequest,
         *,
         timeout: float | None = ...,
-        metadata: MetadataType | None = ...,
+        metadata: _MetadataType | None = ...,
         credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = ...,
@@ -403,7 +405,7 @@ class StreamUnaryMultiCallable(typing.Generic[_TRequest, _TResponse], metaclass=
         self,
         request_iterator: AsyncIterator[_TRequest] | Iterator[_TRequest] | None = None,
         timeout: float | None = ...,
-        metadata: MetadataType | None = ...,
+        metadata: _MetadataType | None = ...,
         credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = ...,
@@ -416,7 +418,7 @@ class StreamStreamMultiCallable(typing.Generic[_TRequest, _TResponse], metaclass
         self,
         request_iterator: AsyncIterator[_TRequest] | Iterator[_TRequest] | None = None,
         timeout: float | None = ...,
-        metadata: MetadataType | None = ...,
+        metadata: _MetadataType | None = ...,
         credentials: CallCredentials | None = ...,
         # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = ...,
@@ -425,29 +427,29 @@ class StreamStreamMultiCallable(typing.Generic[_TRequest, _TResponse], metaclass
 
 # Metadata:
 
-MetadataKey: TypeAlias = str
-MetadataValue: TypeAlias = str | bytes
-MetadatumType: TypeAlias = tuple[MetadataKey, MetadataValue]
-MetadataType: TypeAlias = Metadata | Sequence[MetadatumType]
+_MetadataKey: TypeAlias = str
+_MetadataValue: TypeAlias = str | bytes
+_MetadatumType: TypeAlias = tuple[_MetadataKey, _MetadataValue]
+_MetadataType: TypeAlias = Metadata | Sequence[_MetadatumType]
 _T = typing.TypeVar("_T")
 
-class Metadata(Mapping[MetadataKey, MetadataValue]):
-    def __init__(self, *args: tuple[MetadataKey, MetadataValue]) -> None: ...
+class Metadata(Mapping[_MetadataKey, _MetadataValue]):
+    def __init__(self, *args: tuple[_MetadataKey, _MetadataValue]) -> None: ...
     @classmethod
-    def from_tuple(cls, raw_metadata: tuple[MetadataKey, MetadataValue]) -> Metadata: ...
-    def add(self, key: MetadataKey, value: MetadataValue) -> None: ...
+    def from_tuple(cls, raw_metadata: tuple[_MetadataKey, _MetadataValue]) -> Metadata: ...
+    def add(self, key: _MetadataKey, value: _MetadataValue) -> None: ...
     def __len__(self) -> int: ...
-    def __getitem__(self, key: MetadataKey) -> MetadataValue: ...
-    def __setitem__(self, key: MetadataKey, value: MetadataValue) -> None: ...
-    def __delitem__(self, key: MetadataKey) -> None: ...
-    def delete_all(self, key: MetadataKey) -> None: ...
-    def __iter__(self) -> Iterator[MetadataKey]: ...
+    def __getitem__(self, key: _MetadataKey) -> _MetadataValue: ...
+    def __setitem__(self, key: _MetadataKey, value: _MetadataValue) -> None: ...
+    def __delitem__(self, key: _MetadataKey) -> None: ...
+    def delete_all(self, key: _MetadataKey) -> None: ...
+    def __iter__(self) -> Iterator[_MetadataKey]: ...
     @typing.overload
-    def get(self, key: MetadataKey) -> MetadataValue | None: ...
+    def get(self, key: _MetadataKey) -> _MetadataValue | None: ...
     @typing.overload
-    def get(self, key: MetadataKey, default: _T) -> MetadataValue | _T: ...
-    def get_all(self, key: MetadataKey) -> list[MetadataValue]: ...
-    def set_all(self, key: MetadataKey, values: list[MetadataValue]) -> None: ...
+    def get(self, key: _MetadataKey, default: _T) -> _MetadataValue | _T: ...
+    def get_all(self, key: _MetadataKey) -> list[_MetadataValue]: ...
+    def set_all(self, key: _MetadataKey, values: list[_MetadataValue]) -> None: ...
     def __contains__(self, key: object) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
     def __add__(self, other: typing.Any) -> Metadata: ...
