@@ -292,7 +292,7 @@ class Array(_CData, Generic[_CT], metaclass=_PyCArrayType):
     @raw.setter
     def raw(self, value: ReadableBuffer) -> None: ...
     value: Any  # Note: bytes if _CT == c_char, str if _CT == c_wchar, unavailable otherwise
-    # TODO These methods cannot be annotated correctly at the moment.
+    # TODO: These methods cannot be annotated correctly at the moment.
     # All of these "Any"s stand for the array's element type, but it's not possible to use _CT
     # here, because of a special feature of ctypes.
     # By default, when accessing an element of an Array[_CT], the returned object has type _CT.

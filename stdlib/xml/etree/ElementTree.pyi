@@ -366,7 +366,7 @@ _E = TypeVar("_E", default=Element)
 class XMLParser(Generic[_E]):
     parser: XMLParserType
     target: _Target
-    # TODO-what is entity used for???
+    # TODO: what is entity used for???
     entity: dict[str, str]
     version: str
     def __init__(self, *, target: _Target | None = None, encoding: str | None = None) -> None: ...
