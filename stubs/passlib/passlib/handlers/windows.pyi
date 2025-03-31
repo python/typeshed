@@ -42,3 +42,5 @@ class msdcc2(uh.HasUserContext, uh.StaticHandler):
     checksum_size: ClassVar[int]
     @classmethod
     def raw(cls, secret, user): ...
+
+__all__ = ["lmhash", "nthash", "bsd_nthash", "msdcc", "msdcc2"]
