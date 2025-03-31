@@ -46,6 +46,8 @@ def get_installed_package_info(project: str) -> tuple[str, str] | None:
 
     Return (normalized project name, installed version) if successful.
     """
+    # Not using "uv pip freeze" because if this is run from a global Python,
+    # it'll mistakenly list the .venv's packages.
     r = subprocess.run(["pip", "freeze"], capture_output=True, text=True, check=True)
     return search_pip_freeze_output(project, r.stdout)
 
@@ -220,7 +222,7 @@ def main() -> None:
     if info is None:
         print(f'Error: "{project}" is not installed', file=sys.stderr)
         print(file=sys.stderr)
-        print(f'Suggestion: Run "python3 -m pip install {project}" and try again', file=sys.stderr)
+        print(f"Suggestion: Run `{sys.executable} -m pip install {project}` and try again", file=sys.stderr)
         sys.exit(1)
     project, version = info
 
