@@ -1,13 +1,13 @@
 from _typeshed import Incomplete
-from typing import Any, Coroutine
+from typing import Any
 
 from .. import TokenValidationError as TokenValidationError
 from ..rest_async import AsyncRestClient as AsyncRestClient
 from .token_verifier import (
     AsymmetricSignatureVerifier as AsymmetricSignatureVerifier,
     JwksFetcher as JwksFetcher,
-    TokenVerifier as TokenVerifier,
     SignatureVerifier as SignatureVerifier,
+    TokenVerifier as TokenVerifier,
 )
 
 class AsyncAsymmetricSignatureVerifier(AsymmetricSignatureVerifier):
