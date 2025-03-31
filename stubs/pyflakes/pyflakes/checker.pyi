@@ -11,7 +11,6 @@ from pyflakes.messages import Message
 _AnyFunction: TypeAlias = Callable[..., Any]
 _F = TypeVar("_F", bound=_AnyFunction)
 _P = ParamSpec("_P")
-_T = TypeVar("_T")
 
 PYPY: bool
 
