@@ -22,4 +22,5 @@ pyflakes.messages.UndefinedLocal.message_args
 pyflakes.messages.UndefinedName.message_args
 pyflakes.messages.UnusedAnnotation.message_args
 pyflakes.messages.UnusedImport.message_args
+pyflakes.messages.UnusedIndirectAssignment.message_args
 pyflakes.messages.UnusedVariable.message_args
