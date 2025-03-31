@@ -1,5 +1,5 @@
 from types import TracebackType
-from typing import Self
+from typing_extensions import Self
 
 from auth0.rest import RestClientOptions as RestClientOptions
 
