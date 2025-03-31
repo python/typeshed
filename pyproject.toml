@@ -76,6 +76,9 @@ select = [
     "FURB169", # Compare the identities of `{object}` and None instead of their respective types
     "FURB177", # Prefer `Path.cwd()` over `Path().resolve()` for current-directory lookups
     "FURB187", # Use of assignment of `reversed` on list `{name}`
+    # Autofixable flake8-use-pathlib only
+    "PTH201", # Do not pass the current directory explicitly to `Path`
+    "PTH210", # Invalid suffix passed to `.with_suffix()`
     # PYI: only enable rules that have autofixes and that we always want to fix (even manually),
     # avoids duplicate # noqa with flake8-pyi
     "PYI009", # Empty body should contain `...`, not pass
