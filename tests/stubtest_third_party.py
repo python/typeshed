@@ -31,9 +31,7 @@ from ts_utils.utils import (
 )
 
 
-def run_stubtest(
-    dist: Path, *, verbose: bool = False, ci_platforms_only: bool = False, keep_tmp_dir: bool = False
-) -> bool:
+def run_stubtest(dist: Path, *, verbose: bool = False, ci_platforms_only: bool = False, keep_tmp_dir: bool = False) -> bool:
     """Run stubtest for a single distribution."""
 
     dist_name = dist.name
