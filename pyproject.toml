@@ -53,6 +53,7 @@ select = [
     "I", # isort
     "N", # pep8-naming
     "PGH", # pygrep-hooks
+    "PIE", # flake8-pie
     "PLC", # Pylint Convention
     "PLE", # Pylint Error
     "PLR", # Pylint Refactor
