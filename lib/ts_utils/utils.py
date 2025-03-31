@@ -123,11 +123,11 @@ def parse_stdlib_versions_file() -> SupportedVersionsDict:
     result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
     with VERSIONS_PATH.open(encoding="UTF-8") as f:
         for line in f:
-            line = strip_comments(line)
-            if line == "":
+            stripped_line = strip_comments(line)
+            if stripped_line == "":
                 continue
-            m = VERSION_LINE_RE.match(line)
-            assert m, f"invalid VERSIONS line: {line}"
+            m = VERSION_LINE_RE.match(stripped_line)
+            assert m, f"invalid VERSIONS line: {stripped_line}"
             mod: str = m.group(1)
             assert mod not in result, f"Duplicate module {mod} in VERSIONS"
             min_version = _parse_version(m.group(2))
