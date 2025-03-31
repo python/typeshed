@@ -208,7 +208,7 @@ def allowlists(distribution_name: str) -> list[str]:
 
 @cache
 def get_gitignore_spec() -> pathspec.PathSpec:
-    with open(".gitignore", encoding="UTF-8") as f:
+    with Path(".gitignore").open(encoding="UTF-8") as f:
         return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())
 
 

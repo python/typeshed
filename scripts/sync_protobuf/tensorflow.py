@@ -6,7 +6,6 @@ Generally, new minor versions are a good time to update the stubs.
 
 from __future__ import annotations
 
-import os
 import re
 import shutil
 import subprocess
@@ -72,7 +71,7 @@ def post_creation() -> None:
 
     for path in STUBS_FOLDER.rglob("*_pb2.pyi"):
         print(f"Fixing imports in '{path}'")
-        with open(path) as file:
+        with path.open() as file:
             filedata = file.read()
 
         # Replace the target string
@@ -80,13 +79,13 @@ def post_creation() -> None:
         filedata = re.sub(XLA_IMPORT_PATTERN, "\\1tensorflow.compiler.xla.", filedata)
 
         # Write the file out again
-        with open(path, "w") as file:
+        with path.open("w") as file:
             file.write(filedata)
 
     print()
     for to_remove in PROTOS_TO_REMOVE:
         file_path = STUBS_FOLDER / "tensorflow" / to_remove
-        os.remove(file_path)
+        file_path.unlink()
         print(f"Removed '{file_path}'")
 
 

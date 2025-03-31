@@ -3,6 +3,7 @@ from __future__ import annotations
 import subprocess
 import sys
 from http.client import HTTPResponse
+from pathlib import Path
 from typing import TYPE_CHECKING, Iterable
 from urllib.request import urlopen
 from zipfile import ZipFile
@@ -17,10 +18,10 @@ if TYPE_CHECKING:
 MYPY_PROTOBUF_VERSION = mypy_protobuf__version__
 
 
-def download_file(url: str, destination: StrPath) -> None:
+def download_file(url: str, destination: Path) -> None:
     print(f"Downloading '{url}' to '{destination}'")
     resp: HTTPResponse
-    with urlopen(url) as resp, open(destination, "wb") as file:
+    with urlopen(url) as resp, destination.open("wb") as file:
         file.write(resp.read())
 
 

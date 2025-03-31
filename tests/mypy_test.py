@@ -61,7 +61,7 @@ else:
             yield temp
         finally:
             temp.close()
-            os.remove(temp.name)
+            Path(temp.name).unlink()
 
 
 SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9"]
@@ -590,15 +590,14 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
 
 def test_typeshed(args: TestConfig, tempdir: Path) -> TestSummary:
     print(f"*** Testing Python {args.version} on {args.platform}")
-    stdlib_dir, stubs_dir = Path("stdlib"), Path("stubs")
     summary = TestSummary()
 
-    if stdlib_dir in args.filter or any(stdlib_dir in path.parents for path in args.filter):
+    if STDLIB_PATH in args.filter or any(STDLIB_PATH in path.parents for path in args.filter):
         mypy_result, files_checked = test_stdlib(args)
         summary.register_result(mypy_result, files_checked)
         print()
 
-    if stubs_dir in args.filter or any(stubs_dir in path.parents for path in args.filter):
+    if STUBS_PATH in args.filter or any(STUBS_PATH in path.parents for path in args.filter):
         tp_results = test_third_party_stubs(args, tempdir)
         summary.merge(tp_results)
         print()

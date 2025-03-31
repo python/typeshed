@@ -56,6 +56,7 @@ select = [
     "PLC", # Pylint Convention
     "PLE", # Pylint Error
     "PLR", # Pylint Refactor
+    "PTH", # flake8-use-pathlib
     "RUF", # Ruff-specific and unused-noqa
     "TRY", # tryceratops
     "UP", # pyupgrade
