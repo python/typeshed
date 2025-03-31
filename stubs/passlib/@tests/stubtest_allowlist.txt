@@ -1,6 +1,5 @@
 # TODO: missing from stub
-passlib.apache.__all__
-passlib.context.__all__
+passlib.hosts.__all__
 passlib.crypto._blowfish.__all__
 passlib.crypto._blowfish.base.__all__
 passlib.crypto._blowfish.unrolled.__all__
@@ -28,17 +27,11 @@ passlib.handlers.sha1_crypt.__all__
 passlib.handlers.sha2_crypt.__all__
 passlib.handlers.sun_md5_crypt.__all__
 passlib.handlers.windows.__all__
-passlib.hosts.__all__
-passlib.ifc.__all__
-passlib.pwd.__all__
-passlib.registry.__all__
-passlib.totp.__all__
 passlib.utils.binary.__all__
 passlib.utils.decor.__all__
 passlib.utils.handlers.__all__
 passlib.utils.md4.__all__
 passlib.utils.pbkdf2.__all__
-passlib.win32.__all__
 
 # proxy module that uses some import magic incompatible with stubtest
 passlib.hash

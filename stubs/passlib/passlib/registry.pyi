@@ -13,3 +13,5 @@ def register_crypt_handler(
 ) -> None: ...  # expected handler is object with attr handler.name
 def get_crypt_handler(name: str, default: Any = ...) -> Any: ...  # returns handler or default
 def list_crypt_handlers(loaded_only: bool = False) -> list[str]: ...
+
+__all__ = ["register_crypt_handler_path", "register_crypt_handler", "get_crypt_handler", "list_crypt_handlers"]
