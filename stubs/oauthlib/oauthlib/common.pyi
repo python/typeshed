@@ -2,7 +2,7 @@ import re
 from _typeshed import Incomplete, SupportsLenAndGetItem
 from collections.abc import Iterable, Mapping
 from logging import Logger
-from typing import Final, Literal, TypeVar, overload
+from typing import Any, Final, Literal, TypeVar, overload
 from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")
@@ -63,7 +63,7 @@ class Request:
     body: str | dict[str, str] | list[tuple[str, str]] | None
     decoded_body: list[tuple[str, str]] | None
     oauth_params: list[str]
-    validator_log: dict[str, object]
+    validator_log: dict[str, Any]  # value type depends on the key
     def __init__(
         self,
         uri: str,
