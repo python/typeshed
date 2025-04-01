@@ -35,7 +35,9 @@ def run_protoc(
 ) -> str:
     """TODO: Describe parameters and return."""
     protoc_version = (
-        subprocess.run([sys.executable, "-m", "grpc_tools.protoc", "--version"], capture_output=True).stdout.decode().strip()
+        subprocess.run([sys.executable, "-m", "grpc_tools.protoc", "--version"], capture_output=True, check=False)
+        .stdout.decode()
+        .strip()
     )
     print()
     print(protoc_version)
