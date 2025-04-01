@@ -6,7 +6,7 @@ pyright==1.1.398
 pytype==2024.10.11; platform_system != "Windows" and python_version >= "3.10" and python_version < "3.13"
 
 # Libraries used by our various scripts.
-aiohttp==3.10.11
+aiohttp==3.11.12
 grpcio-tools>=1.66.2 # For grpc_tools.protoc
 mypy-protobuf==3.6.0
 packaging==24.2
@@ -19,7 +19,7 @@ termcolor>=2.3
 tomli==2.2.1
 tomlkit==0.13.2
 typing_extensions>=4.13.0rc1
-uv==0.5.14
+uv==0.6.11
 
 # Utilities for typeshed infrastructure scripts.
 ts_utils @ file:lib
