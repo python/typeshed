@@ -6,7 +6,6 @@ from ..rest_async import AsyncRestClient as AsyncRestClient
 from .token_verifier import (
     AsymmetricSignatureVerifier as AsymmetricSignatureVerifier,
     JwksFetcher as JwksFetcher,
-    SignatureVerifier as SignatureVerifier,
     TokenVerifier as TokenVerifier,
 )
 

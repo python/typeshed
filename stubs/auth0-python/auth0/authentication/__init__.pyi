@@ -7,4 +7,4 @@ from .revoke_token import RevokeToken as RevokeToken
 from .social import Social as Social
 from .users import Users as Users
 
-__all__ = ["Database", "Delegated", "Enterprise", "GetToken", "Passwordless", "RevokeToken", "Social", "Users"]
+__all__ = ("Database", "Delegated", "Enterprise", "GetToken", "Passwordless", "RevokeToken", "Social", "Users")

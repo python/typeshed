@@ -29,7 +29,7 @@ from .user_blocks import UserBlocks as UserBlocks
 from .users import Users as Users
 from .users_by_email import UsersByEmail as UsersByEmail
 
-__all__ = [
+__all__ = (
     "Auth0",
     "Actions",
     "AttackProtection",
@@ -60,4 +60,4 @@ __all__ = [
     "UserBlocks",
     "UsersByEmail",
     "Users",
-]
+)
