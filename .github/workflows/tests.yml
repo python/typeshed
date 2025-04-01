@@ -42,7 +42,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           # Max supported Python version as of pytype 2024.10.11
-          python-version: "3.12"
+          python-version: "3.13"
       - uses: astral-sh/setup-uv@v5
       - run: uv pip install -r requirements-tests.txt --system
       - name: Install external dependencies for 3rd-party stubs
@@ -81,7 +81,7 @@ jobs:
         with:
           # Use py311 for now, as py312 seems to be around 30s slower in CI
           # TODO: figure out why that is (#11590)
-          python-version: "3.11"
+          python-version: "3.13"
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
       - run: python ./tests/regr_test.py --all --verbosity QUIET
