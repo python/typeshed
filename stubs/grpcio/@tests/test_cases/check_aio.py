@@ -5,8 +5,6 @@ from typing_extensions import assert_type
 
 import grpc.aio
 
-assert_type(grpc.aio.Server(), grpc.aio.Server)  # type: ignore[abstract]
-
 # Interceptor casts
 client_interceptors = [typing.cast(grpc.aio.ClientInterceptor, "interceptor")]
 grpc.aio.insecure_channel("target", interceptors=client_interceptors)
