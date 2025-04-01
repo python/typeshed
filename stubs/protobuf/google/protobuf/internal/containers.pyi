@@ -11,7 +11,6 @@ _T = TypeVar("_T")
 _K = TypeVar("_K", bound=bool | int | str)
 _ScalarV = TypeVar("_ScalarV", bound=bool | int | float | str | bytes)
 _MessageV = TypeVar("_MessageV", bound=Message)
-_M = TypeVar("_M")
 
 class _ValueChecker(Protocol[_T]):
     def CheckValue(self, proposed_value: _T) -> _T: ...

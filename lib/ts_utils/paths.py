@@ -5,7 +5,7 @@ from typing import Final
 # installed into the user's virtual env, so we can't determine the path
 # to typeshed. Installing ts_utils editable would solve that, see
 # https://github.com/python/typeshed/pull/12806.
-TS_BASE_PATH: Final = Path("")
+TS_BASE_PATH: Final = Path()
 STDLIB_PATH: Final = TS_BASE_PATH / "stdlib"
 STUBS_PATH: Final = TS_BASE_PATH / "stubs"
 

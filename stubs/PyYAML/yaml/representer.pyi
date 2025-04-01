@@ -9,7 +9,6 @@ from yaml.error import YAMLError as YAMLError
 from yaml.nodes import MappingNode as MappingNode, Node as Node, ScalarNode as ScalarNode, SequenceNode as SequenceNode
 
 _T = TypeVar("_T")
-_R = TypeVar("_R", bound=BaseRepresenter)
 
 class RepresenterError(YAMLError): ...
 
