@@ -277,7 +277,7 @@ def run_mypy(
         mypy_command = [python_path, "-m", "mypy", *mypy_args]
         if args.verbose:
             print(colored(f"running {' '.join(mypy_command)}", "blue"))
-        result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
+        result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars, check=False)
         if result.returncode:
             print_error(f"failure (exit code {result.returncode})\n")
             if result.stdout:
@@ -286,7 +286,7 @@ def run_mypy(
                 print_error(result.stderr)
             if non_types_dependencies and args.verbose:
                 print("Ran with the following environment:")
-                subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
+                subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)}, check=False)
                 print()
         else:
             print_success_msg()
