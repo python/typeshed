@@ -224,7 +224,7 @@ def run_testcases(
             msg += f"{description}: MYPYPATH not set"
         msg += "\n"
         verbose_log(msg)
-    return subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
+    return subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars, check=False)
 
 
 @dataclass(frozen=True)

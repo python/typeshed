@@ -5,7 +5,7 @@ import typing
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction, Incomplete, Unused
 from contextlib import AbstractAsyncContextManager as AsyncContextManager, AbstractContextManager as ContextManager
-from types import ModuleType
+from types import GenericAlias, ModuleType
 from typing import (  # noqa: Y022,Y037,Y038,Y039
     IO as IO,
     TYPE_CHECKING as TYPE_CHECKING,
@@ -67,8 +67,6 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039
 
 if sys.version_info >= (3, 10):
     from types import UnionType
-if sys.version_info >= (3, 9):
-    from types import GenericAlias
 
 # Please keep order the same as at runtime.
 __all__ = [
@@ -249,23 +247,22 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     def setdefault(self, k: Never, default: object) -> object: ...
     # Mypy plugin hook for 'pop' expects that 'default' has a type variable type.
     def pop(self, k: Never, default: _T = ...) -> object: ...  # pyright: ignore[reportInvalidTypeVarUse]
-    def update(self: _T, m: _T, /) -> None: ...
+    def update(self, m: Self, /) -> None: ...
     def items(self) -> dict_items[str, object]: ...
     def keys(self) -> dict_keys[str, object]: ...
     def values(self) -> dict_values[str, object]: ...
     def __delitem__(self, k: Never) -> None: ...
-    if sys.version_info >= (3, 9):
-        @overload
-        def __or__(self, value: Self, /) -> Self: ...
-        @overload
-        def __or__(self, value: dict[str, Any], /) -> dict[str, object]: ...
-        @overload
-        def __ror__(self, value: Self, /) -> Self: ...
-        @overload
-        def __ror__(self, value: dict[str, Any], /) -> dict[str, object]: ...
-        # supposedly incompatible definitions of `__ior__` and `__or__`:
-        # Since this module defines "Self" it is not recognized by Ruff as typing_extensions.Self
-        def __ior__(self, value: Self, /) -> Self: ...  # type: ignore[misc]
+    @overload
+    def __or__(self, value: Self, /) -> Self: ...
+    @overload
+    def __or__(self, value: dict[str, Any], /) -> dict[str, object]: ...
+    @overload
+    def __ror__(self, value: Self, /) -> Self: ...
+    @overload
+    def __ror__(self, value: dict[str, Any], /) -> dict[str, object]: ...
+    # supposedly incompatible definitions of `__ior__` and `__or__`:
+    # Since this module defines "Self" it is not recognized by Ruff as typing_extensions.Self
+    def __ior__(self, value: Self, /) -> Self: ...  # type: ignore[misc]
 
 OrderedDict = _Alias()
 
@@ -281,10 +278,8 @@ if sys.version_info >= (3, 10):
     @overload
     def get_origin(tp: UnionType) -> type[UnionType]: ...
 
-if sys.version_info >= (3, 9):
-    @overload
-    def get_origin(tp: GenericAlias) -> type: ...
-
+@overload
+def get_origin(tp: GenericAlias) -> type: ...
 @overload
 def get_origin(tp: ParamSpecArgs | ParamSpecKwargs) -> ParamSpec: ...
 @overload
@@ -364,8 +359,6 @@ else:
     ) -> IdentityFunction: ...
 
     class NamedTuple(tuple[Any, ...]):
-        if sys.version_info < (3, 9):
-            _field_types: ClassVar[dict[str, type]]
         _field_defaults: ClassVar[dict[str, Any]]
         _fields: ClassVar[tuple[str, ...]]
         __orig_bases__: ClassVar[tuple[Any, ...]]
