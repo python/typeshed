@@ -22,7 +22,7 @@ repos:
         name: Run ruff on the test cases
         args:
           - "--exit-non-zero-on-fix"
-          - "--select=FA,I,ICN001,RUF100,UP007"
+          - "--select=FA,I,ICN001,RUF100"
           - "--no-force-exclude"
           - "--unsafe-fixes"
         files: '.*test_cases/.+\.py$'
