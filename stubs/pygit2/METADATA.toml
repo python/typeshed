@@ -11,3 +11,5 @@ values = { "follow_untyped_imports" = true }
 
 [tool.stubtest]
 platforms = ["darwin", "linux", "win32"]
+# Does not build on any platform on Python 3.13 as of 2025-03-17.
+skip = true

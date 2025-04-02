@@ -204,7 +204,7 @@ def run_mypy(
         mypy_command = [python_path, "-m", "mypy", *mypy_args]
         if args.verbose:
             print(colored(f"running {' '.join(mypy_command)}", "blue"))
-        result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
+        result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars, check=False)
     if result.returncode:
         print_error(f"failure (exit code {result.returncode})\n")
         if result.stdout:
@@ -213,7 +213,7 @@ def run_mypy(
             print_error(result.stderr)
         if non_types_dependencies and args.verbose:
             print("Ran with the following environment:")
-            subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
+            subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)}, check=False)
             print()
     else:
         print_success_msg()
@@ -431,7 +431,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
         print(colored(f"took {venv_elapsed_time:.2f} seconds", "blue"))
 
     # STAGE 3: For each {virtual_environment: requirements_set} pairing,
-    # `pip install` the requirements set into the virtual environment
+    # `uv pip install` the requirements set into the virtual environment
     pip_start_time = time.perf_counter()
 
     # Limit workers to 10 at a time, since this makes network requests
@@ -534,13 +534,13 @@ def main() -> None:
     args = parser.parse_args(namespace=CommandLineArgs())
     versions = args.python_version or SUPPORTED_VERSIONS
     platforms = args.platform or [sys.platform]
-    filter = args.filter or DIRECTORIES_TO_TEST
+    path_filter = args.filter or DIRECTORIES_TO_TEST
     exclude = args.exclude or []
     summary = TestSummary()
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
         for version, platform in product(versions, platforms):
-            config = TestConfig(args.verbose, filter, exclude, version, platform)
+            config = TestConfig(args.verbose, path_filter, exclude, version, platform)
             version_summary = test_typeshed(args=config, tempdir=td_path)
             summary.merge(version_summary)
 

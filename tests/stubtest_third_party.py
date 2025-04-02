@@ -32,20 +32,12 @@ from ts_utils.utils import (
 
 
 def run_stubtest(
-    dist: Path,
-    *,
-    parser: argparse.ArgumentParser,
-    verbose: bool = False,
-    specified_platforms_only: bool = False,
-    keep_tmp_dir: bool = False,
+    dist: Path, *, verbose: bool = False, specified_platforms_only: bool = False, keep_tmp_dir: bool = False
 ) -> bool:
     """Run stubtest for a single distribution."""
 
     dist_name = dist.name
-    try:
-        metadata = read_metadata(dist_name)
-    except NoSuchStubError as e:
-        parser.error(str(e))
+    metadata = read_metadata(dist_name)
     print(f"{dist_name}... ", end="", flush=True)
 
     t = time()
@@ -160,11 +152,11 @@ def run_stubtest(
 
                 print_divider()
                 print("Python version: ", end="", flush=True)
-                ret = subprocess.run([sys.executable, "-VV"], capture_output=True)
+                ret = subprocess.run([sys.executable, "-VV"], capture_output=True, check=False)
                 print_command_output(ret)
 
                 print("\nRan with the following environment:")
-                ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
+                ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True, check=False)
                 print_command_output(ret)
                 if keep_tmp_dir:
                     print("Path to virtual environment:", venv_dir, flush=True)
@@ -176,7 +168,9 @@ def run_stubtest(
                     print()
                 else:
                     print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {main_allowlist_path}:")
-                    ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
+                    ret = subprocess.run(
+                        [*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True, check=False
+                    )
                     print_command_output(ret)
 
                 print_divider()
@@ -415,14 +409,13 @@ def main() -> NoReturn:
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if not run_stubtest(
-            dist,
-            parser=parser,
-            verbose=args.verbose,
-            specified_platforms_only=args.specified_platforms_only,
-            keep_tmp_dir=args.keep_tmp_dir,
-        ):
-            result = 1
+        try:
+            if not run_stubtest(
+                dist, verbose=args.verbose, specified_platforms_only=args.specified_platforms_only, keep_tmp_dir=args.keep_tmp_dir
+            ):
+                result = 1
+        except NoSuchStubError as e:
+            parser.error(str(e))
     sys.exit(result)
 
 
