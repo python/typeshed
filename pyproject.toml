@@ -53,6 +53,7 @@ select = [
     "I", # isort
     "N", # pep8-naming
     "PGH", # pygrep-hooks
+    "PIE", # flake8-pie
     "PL", # Pylint
     "RUF", # Ruff-specific and unused-noqa
     "TRY", # tryceratops
