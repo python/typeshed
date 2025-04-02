@@ -11,7 +11,9 @@ if sys.version_info >= (3, 13):
 _T = TypeVar("_T")
 
 class Full(Exception): ...
-class ShutDown(Exception): ...
+
+if sys.version_info >= (3, 13):
+    class ShutDown(Exception): ...
 
 class Queue(Generic[_T]):
     maxsize: int
