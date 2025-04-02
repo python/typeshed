@@ -46,8 +46,7 @@ path: list[str]
 path_hooks: list[Callable[[str], PathEntryFinderProtocol]]
 path_importer_cache: dict[str, PathEntryFinderProtocol | None]
 platform: LiteralString
-if sys.version_info >= (3, 9):
-    platlibdir: str
+platlibdir: str
 prefix: str
 pycache_prefix: str | None
 ps1: object
@@ -409,14 +408,6 @@ if sys.platform != "win32":
 def setrecursionlimit(limit: int, /) -> None: ...
 def setswitchinterval(interval: float, /) -> None: ...
 def gettotalrefcount() -> int: ...  # Debug builds only
-
-if sys.version_info < (3, 9):
-    def getcheckinterval() -> int: ...  # deprecated
-    def setcheckinterval(n: int, /) -> None: ...  # deprecated
-
-if sys.version_info < (3, 9):
-    # An 11-tuple or None
-    def callstats() -> tuple[int, int, int, int, int, int, int, int, int, int, int] | None: ...
 
 # Doesn't exist at runtime, but exported in the stubs so pytest etc. can annotate their code more easily.
 @type_check_only
