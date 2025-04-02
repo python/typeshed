@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import Any
 
 from auth0.exceptions import RateLimitError as RateLimitError
 from auth0.types import RequestData as RequestData
@@ -13,7 +14,7 @@ from .rest import (
 
 class AsyncRestClient(RestClient):
     timeout: Incomplete
-    def __init__(self, *args: Incomplete, **kwargs: Incomplete) -> None: ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
     def set_session(self, session) -> None: ...
     async def get(
         self, url: str, params: dict[str, Incomplete] | None = None, headers: dict[str, str] | None = None
