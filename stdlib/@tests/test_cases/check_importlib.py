@@ -10,7 +10,6 @@ from importlib.machinery import ModuleSpec
 from types import ModuleType
 from typing_extensions import Self
 
-
 # Assert that some Path classes are Traversable.
 def traverse(t: importlib.abc.Traversable) -> None:
     pass
