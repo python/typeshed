@@ -1,6 +1,5 @@
 from __future__ import annotations
-
-import typing
+from typing import Any
 
 import grpc
 
@@ -10,5 +9,5 @@ class CallProxy:
     def __init__(self, target: grpc.Call) -> None:
         self._target = target
 
-    def __getattr__(self, name: str) -> typing.Any:
+    def __getattr__(self, name: str) -> Any:
         return getattr(self._target, name)

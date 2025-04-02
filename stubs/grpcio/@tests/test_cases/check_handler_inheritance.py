@@ -1,6 +1,6 @@
 from __future__ import annotations
+from typing import cast
 
-import typing
 from typing_extensions import assert_type
 
 import grpc
@@ -30,7 +30,7 @@ class ServiceHandler(grpc.ServiceRpcHandler[Request, Response]):
 
 
 h = ServiceHandler()
-ctx = typing.cast(grpc.ServicerContext, None)
+ctx = cast(grpc.ServicerContext, None)
 svc = h.service(grpc.HandlerCallDetails())
 if svc is not None and svc.unary_unary is not None:
     svc.unary_unary(Request(), ctx)

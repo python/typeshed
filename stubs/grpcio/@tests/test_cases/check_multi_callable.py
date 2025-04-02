@@ -1,6 +1,6 @@
 from __future__ import annotations
+from typing import Protocol, cast
 
-import typing
 from typing_extensions import assert_type
 
 import grpc
@@ -14,14 +14,14 @@ class DummyReply:
     pass
 
 
-class DummyServiceStub(typing.Protocol):
+class DummyServiceStub(Protocol):
     UnaryUnary: grpc.UnaryUnaryMultiCallable[DummyRequest, DummyReply]
     UnaryStream: grpc.UnaryStreamMultiCallable[DummyRequest, DummyReply]
     StreamUnary: grpc.StreamUnaryMultiCallable[DummyRequest, DummyReply]
     StreamStream: grpc.StreamStreamMultiCallable[DummyRequest, DummyReply]
 
 
-stub: DummyServiceStub = typing.cast(typing.Any, None)
+stub = cast(DummyServiceStub, None)
 req = DummyRequest()
 
 assert_type(stub.UnaryUnary(req), DummyReply)

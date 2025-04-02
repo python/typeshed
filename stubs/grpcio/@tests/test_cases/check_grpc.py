@@ -1,6 +1,6 @@
 from __future__ import annotations
+from typing import Optional, cast
 
-import typing
 from typing_extensions import assert_type
 
 import grpc
@@ -17,7 +17,7 @@ assert_type(creds, grpc.ChannelCredentials)
 # Other credential types:
 assert_type(grpc.alts_channel_credentials(), grpc.ChannelCredentials)
 assert_type(grpc.alts_server_credentials(), grpc.ServerCredentials)
-assert_type(grpc.compute_engine_channel_credentials(typing.cast(typing.Any, None)), grpc.ChannelCredentials)
+assert_type(grpc.compute_engine_channel_credentials(grpc.CallCredentials("")), grpc.ChannelCredentials)
 assert_type(grpc.insecure_server_credentials(), grpc.ServerCredentials)
 
 # XDS credentials:
@@ -38,9 +38,9 @@ assert_type(grpc.insecure_channel("target", [("a", "b"), ("c", "d")]), grpc.Chan
 # Client call details optionals:
 call_details = grpc.ClientCallDetails()
 assert_type(call_details.method, str)
-assert_type(call_details.timeout, typing.Optional[float])
+assert_type(call_details.timeout, Optional[float])
 
 # Call iterator
-call_iter: grpc._CallIterator[str] = typing.cast(typing.Any, None)
+call_iter = cast(grpc._CallIterator[str], None)
 for call in call_iter:
     assert_type(call, str)

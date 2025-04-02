@@ -1,10 +1,10 @@
 import abc
 import asyncio
-import typing
 from _typeshed import Incomplete
 from collections.abc import AsyncIterable, AsyncIterator, Awaitable, Callable, Generator, Iterable, Iterator, Mapping, Sequence
 from concurrent import futures
 from types import TracebackType
+from typing import Any, Generic, NoReturn, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
 from grpc import (
@@ -21,8 +21,8 @@ from grpc import (
     _Options,
 )
 
-_TRequest = typing.TypeVar("_TRequest")
-_TResponse = typing.TypeVar("_TResponse")
+_TRequest = TypeVar("_TRequest")
+_TResponse = TypeVar("_TResponse")
 
 # Exceptions:
 
@@ -68,8 +68,8 @@ def secure_channel(
 
 def server(
     migration_thread_pool: futures.Executor | None = ...,
-    handlers: Sequence[GenericRpcHandler[typing.Any, typing.Any]] | None = ...,
-    interceptors: Sequence[ServerInterceptor[typing.Any, typing.Any]] | None = ...,
+    handlers: Sequence[GenericRpcHandler[Any, Any]] | None = ...,
+    interceptors: Sequence[ServerInterceptor[Any, Any]] | None = ...,
     options: _Options | None = ...,
     maximum_concurrent_rpcs: int | None = ...,
     compression: Compression | None = ...,
@@ -80,8 +80,8 @@ def server(
 # XXX: The docs suggest these type signatures for aio, but not for non-async,
 # and it's unclear why;
 # https://grpc.github.io/grpc/python/grpc_asyncio.html#grpc.aio.Channel.stream_stream
-_RequestSerializer: TypeAlias = Callable[[typing.Any], bytes]
-_ResponseDeserializer: TypeAlias = Callable[[bytes], typing.Any]
+_RequestSerializer: TypeAlias = Callable[[Any], bytes]
+_ResponseDeserializer: TypeAlias = Callable[[bytes], Any]
 
 class Channel(abc.ABC):
     @abc.abstractmethod
@@ -96,28 +96,28 @@ class Channel(abc.ABC):
         method: str,
         request_serializer: _RequestSerializer | None = ...,
         response_deserializer: _ResponseDeserializer | None = ...,
-    ) -> StreamStreamMultiCallable[typing.Any, typing.Any]: ...
+    ) -> StreamStreamMultiCallable[Any, Any]: ...
     @abc.abstractmethod
     def stream_unary(
         self,
         method: str,
         request_serializer: _RequestSerializer | None = ...,
         response_deserializer: _ResponseDeserializer | None = ...,
-    ) -> StreamUnaryMultiCallable[typing.Any, typing.Any]: ...
+    ) -> StreamUnaryMultiCallable[Any, Any]: ...
     @abc.abstractmethod
     def unary_stream(
         self,
         method: str,
         request_serializer: _RequestSerializer | None = ...,
         response_deserializer: _ResponseDeserializer | None = ...,
-    ) -> UnaryStreamMultiCallable[typing.Any, typing.Any]: ...
+    ) -> UnaryStreamMultiCallable[Any, Any]: ...
     @abc.abstractmethod
     def unary_unary(
         self,
         method: str,
         request_serializer: _RequestSerializer | None = ...,
         response_deserializer: _ResponseDeserializer | None = ...,
-    ) -> UnaryUnaryMultiCallable[typing.Any, typing.Any]: ...
+    ) -> UnaryUnaryMultiCallable[Any, Any]: ...
     @abc.abstractmethod
     async def __aenter__(self) -> Self: ...
     @abc.abstractmethod
@@ -131,7 +131,7 @@ class Channel(abc.ABC):
 
 class Server(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def add_generic_rpc_handlers(self, generic_rpc_handlers: Iterable[GenericRpcHandler[typing.Any, typing.Any]]) -> None: ...
+    def add_generic_rpc_handlers(self, generic_rpc_handlers: Iterable[GenericRpcHandler[Any, Any]]) -> None: ...
 
     # Returns an integer port on which server will accept RPC requests.
     @abc.abstractmethod
@@ -153,7 +153,7 @@ class Server(metaclass=abc.ABCMeta):
 
 # Client-Side Context:
 
-_DoneCallbackType: TypeAlias = Callable[[typing.Any], None]
+_DoneCallbackType: TypeAlias = Callable[[Any], None]
 _EOFType: TypeAlias = object
 
 class RpcContext(metaclass=abc.ABCMeta):
@@ -180,17 +180,17 @@ class Call(RpcContext, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def wait_for_connection(self) -> None: ...
 
-class UnaryUnaryCall(Call, typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class UnaryUnaryCall(Call, Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __await__(self) -> Generator[None, None, _TResponse]: ...
 
-class UnaryStreamCall(Call, typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class UnaryStreamCall(Call, Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __aiter__(self) -> AsyncIterator[_TResponse]: ...
     @abc.abstractmethod
     async def read(self) -> _EOFType | _TResponse: ...
 
-class StreamUnaryCall(Call, typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class StreamUnaryCall(Call, Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def write(self, request: _TRequest) -> None: ...
     @abc.abstractmethod
@@ -198,7 +198,7 @@ class StreamUnaryCall(Call, typing.Generic[_TRequest, _TResponse], metaclass=abc
     @abc.abstractmethod
     def __await__(self) -> Generator[None, None, _TResponse]: ...
 
-class StreamStreamCall(Call, typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class StreamStreamCall(Call, Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __aiter__(self) -> AsyncIterator[_TResponse]: ...
     @abc.abstractmethod
@@ -210,13 +210,13 @@ class StreamStreamCall(Call, typing.Generic[_TRequest, _TResponse], metaclass=ab
 
 # Service-Side Context:
 
-@typing.type_check_only
-class _DoneCallback(typing.Generic[_TRequest, _TResponse]):
+@type_check_only
+class _DoneCallback(Generic[_TRequest, _TResponse]):
     def __call__(self, ctx: ServicerContext[_TRequest, _TResponse]) -> None: ...
 
-class ServicerContext(typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class ServicerContext(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    async def abort(self, code: StatusCode, details: str = ..., trailing_metadata: _MetadataType = ...) -> typing.NoReturn: ...
+    async def abort(self, code: StatusCode, details: str = ..., trailing_metadata: _MetadataType = ...) -> NoReturn: ...
     @abc.abstractmethod
     async def read(self) -> _TRequest: ...
     @abc.abstractmethod
@@ -274,9 +274,9 @@ class ClientCallDetails(abc.ABC):
     # As at 1.53.0, this is not supported in aio:
     # compression: Compression | None
 
-@typing.type_check_only
-class _InterceptedCall(typing.Generic[_TRequest, _TResponse]):
-    def __init__(self, interceptors_task: asyncio.Task[typing.Any]) -> None: ...
+@type_check_only
+class _InterceptedCall(Generic[_TRequest, _TResponse]):
+    def __init__(self, interceptors_task: asyncio.Task[Any]) -> None: ...
     def __del__(self) -> None: ...
     def cancel(self) -> bool: ...
     def cancelled(self) -> bool: ...
@@ -322,7 +322,7 @@ class InterceptedUnaryUnaryCall(_InterceptedCall[_TRequest, _TResponse], metacla
     ) -> UnaryUnaryCall[_TRequest, _TResponse]: ...
     def time_remaining(self) -> float | None: ...
 
-class UnaryUnaryClientInterceptor(typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class UnaryUnaryClientInterceptor(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def intercept_unary_unary(
         self,
@@ -332,7 +332,7 @@ class UnaryUnaryClientInterceptor(typing.Generic[_TRequest, _TResponse], metacla
         request: _TRequest,
     ) -> _TResponse: ...
 
-class UnaryStreamClientInterceptor(typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class UnaryStreamClientInterceptor(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def intercept_unary_stream(
         self,
@@ -341,7 +341,7 @@ class UnaryStreamClientInterceptor(typing.Generic[_TRequest, _TResponse], metacl
         request: _TRequest,
     ) -> AsyncIterable[_TResponse] | UnaryStreamCall[_TRequest, _TResponse]: ...
 
-class StreamUnaryClientInterceptor(typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class StreamUnaryClientInterceptor(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def intercept_stream_unary(
         self,
@@ -350,7 +350,7 @@ class StreamUnaryClientInterceptor(typing.Generic[_TRequest, _TResponse], metacl
         request_iterator: AsyncIterable[_TRequest] | Iterable[_TRequest],
     ) -> AsyncIterable[_TResponse] | UnaryStreamCall[_TRequest, _TResponse]: ...
 
-class StreamStreamClientInterceptor(typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class StreamStreamClientInterceptor(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def intercept_stream_stream(
         self,
@@ -361,7 +361,7 @@ class StreamStreamClientInterceptor(typing.Generic[_TRequest, _TResponse], metac
 
 # Server-Side Interceptor:
 
-class ServerInterceptor(typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class ServerInterceptor(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     async def intercept_service(
         self,
@@ -371,7 +371,7 @@ class ServerInterceptor(typing.Generic[_TRequest, _TResponse], metaclass=abc.ABC
 
 # Multi-Callable Interfaces:
 
-class UnaryUnaryMultiCallable(typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class UnaryUnaryMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __call__(
         self,
@@ -385,7 +385,7 @@ class UnaryUnaryMultiCallable(typing.Generic[_TRequest, _TResponse], metaclass=a
         compression: Compression | None = ...,
     ) -> UnaryUnaryCall[_TRequest, _TResponse]: ...
 
-class UnaryStreamMultiCallable(typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class UnaryStreamMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __call__(
         self,
@@ -399,7 +399,7 @@ class UnaryStreamMultiCallable(typing.Generic[_TRequest, _TResponse], metaclass=
         compression: Compression | None = ...,
     ) -> UnaryStreamCall[_TRequest, _TResponse]: ...
 
-class StreamUnaryMultiCallable(typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class StreamUnaryMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __call__(
         self,
@@ -412,7 +412,7 @@ class StreamUnaryMultiCallable(typing.Generic[_TRequest, _TResponse], metaclass=
         compression: Compression | None = ...,
     ) -> StreamUnaryCall[_TRequest, _TResponse]: ...
 
-class StreamStreamMultiCallable(typing.Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
+class StreamStreamMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def __call__(
         self,
@@ -431,7 +431,7 @@ _MetadataKey: TypeAlias = str
 _MetadataValue: TypeAlias = str | bytes
 _MetadatumType: TypeAlias = tuple[_MetadataKey, _MetadataValue]
 _MetadataType: TypeAlias = Metadata | Sequence[_MetadatumType]
-_T = typing.TypeVar("_T")
+_T = TypeVar("_T")
 
 class Metadata(Mapping[_MetadataKey, _MetadataValue]):
     def __init__(self, *args: tuple[_MetadataKey, _MetadataValue]) -> None: ...
@@ -444,12 +444,12 @@ class Metadata(Mapping[_MetadataKey, _MetadataValue]):
     def __delitem__(self, key: _MetadataKey) -> None: ...
     def delete_all(self, key: _MetadataKey) -> None: ...
     def __iter__(self) -> Iterator[_MetadataKey]: ...
-    @typing.overload
+    @overload
     def get(self, key: _MetadataKey) -> _MetadataValue | None: ...
-    @typing.overload
+    @overload
     def get(self, key: _MetadataKey, default: _T) -> _MetadataValue | _T: ...
     def get_all(self, key: _MetadataKey) -> list[_MetadataValue]: ...
     def set_all(self, key: _MetadataKey, values: list[_MetadataValue]) -> None: ...
     def __contains__(self, key: object) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
-    def __add__(self, other: typing.Any) -> Metadata: ...
+    def __add__(self, other: Any) -> Metadata: ...
