@@ -18,8 +18,8 @@ from enum import Enum
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import Any, NamedTuple
-from typing_extensions import Annotated, TypeAlias
+from typing import Annotated, Any, NamedTuple
+from typing_extensions import TypeAlias
 
 import tomli
 from packaging.requirements import Requirement
