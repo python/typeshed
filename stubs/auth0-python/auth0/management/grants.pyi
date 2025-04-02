@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Any
 
 from ..rest import RestClient as RestClient, RestClientOptions as RestClientOptions
 from ..types import TimeoutType as TimeoutType
@@ -22,14 +21,14 @@ class Grants:
         page: int | None = None,
         per_page: int | None = None,
         include_totals: bool = False,
-        extra_params: dict[str, Any] | None = None,
+        extra_params: dict[str, Incomplete] | None = None,
     ): ...
     async def all_async(
         self,
         page: int | None = None,
         per_page: int | None = None,
         include_totals: bool = False,
-        extra_params: dict[str, Any] | None = None,
+        extra_params: dict[str, Incomplete] | None = None,
     ): ...
-    def delete(self, id: str) -> Any: ...
-    async def delete_async(self, id: str) -> Any: ...
+    def delete(self, id: str) -> Incomplete: ...
+    async def delete_async(self, id: str) -> Incomplete: ...

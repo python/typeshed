@@ -1,4 +1,4 @@
-from typing import Any
+from _typeshed import Incomplete
 
 from .base import AuthenticationBase as AuthenticationBase
 
@@ -11,4 +11,4 @@ class Delegated(AuthenticationBase):
         id_token: str | None = None,
         refresh_token: str | None = None,
         scope: str = "openid",
-    ) -> Any: ...
+    ) -> Incomplete: ...

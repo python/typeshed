@@ -1,6 +1,6 @@
-from typing import Any
+from _typeshed import Incomplete
 
 from .base import AuthenticationBase as AuthenticationBase
 
 class PushedAuthorizationRequests(AuthenticationBase):
-    def pushed_authorization_request(self, response_type: str, redirect_uri: str, **kwargs) -> Any: ...
+    def pushed_authorization_request(self, response_type: str, redirect_uri: str, **kwargs) -> Incomplete: ...
