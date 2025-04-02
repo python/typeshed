@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Generic, Iterable, TypeVar, Union
-from typing_extensions import assert_type
+import os
+from typing import Any, Dict, Generic, Iterable, Mapping, TypeVar, Union
+from typing_extensions import Self, assert_type
 
 # These do follow `__init__` overloads order:
 # mypy and pyright have different opinions about this one:
@@ -148,3 +149,61 @@ def test11() -> str:
 
 def test12() -> str:
     return d_str.get("key", int_value)  # type: ignore[arg-type]
+
+
+# Tests for `dict.__(r)or__`.
+
+
+class CustomDictSubclass(dict[_KT, _VT]):
+    pass
+
+
+class CustomMappingWithDunderOr(Mapping[_KT, _VT]):
+    def __or__(self, other: Mapping[_KT, _VT]) -> dict[_KT, _VT]:
+        return {}
+
+    def __ror__(self, other: Mapping[_KT, _VT]) -> dict[_KT, _VT]:
+        return {}
+
+    def __ior__(self, other: Mapping[_KT, _VT]) -> Self:
+        return self
+
+
+def test_dict_dot_or(
+    a: dict[int, int],
+    b: CustomDictSubclass[int, int],
+    c: dict[str, str],
+    d: Mapping[int, int],
+    e: CustomMappingWithDunderOr[str, str],
+) -> None:
+    # dict.__(r)or__ always returns a dict, even if called on a subclass of dict:
+    assert_type(a | b, dict[int, int])
+    assert_type(b | a, dict[int, int])
+
+    assert_type(a | c, dict[Union[int, str], Union[int, str]])
+
+    # arbitrary mappings are not accepted by `dict.__or__`;
+    # it has to be a subclass of `dict`
+    a | d  # type: ignore
+
+    # but Mappings such as `os._Environ` or `CustomMappingWithDunderOr`,
+    # which define `__ror__` methods that accept `dict`, are fine:
+    assert_type(a | os.environ, dict[Union[str, int], Union[str, int]])
+    assert_type(os.environ | a, dict[Union[str, int], Union[str, int]])
+
+    assert_type(c | os.environ, dict[str, str])
+    assert_type(c | e, dict[str, str])
+
+    assert_type(os.environ | c, dict[str, str])
+    assert_type(e | c, dict[str, str])
+
+    # store "untainted" `CustomMappingWithDunderOr[str, str]` to test `__ior__` against ` dict[str, str]` later
+    # Invalid `e |= a` causes pyright to join `Unknown` to `e`'s type
+    f = e
+
+    e |= c
+    e |= a  # type: ignore
+
+    c |= f
+
+    c |= a  # type: ignore
