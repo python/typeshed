@@ -30,7 +30,6 @@ _DateTuple = tuple[int, int, int, int, int, int]  # noqa: Y026
 _ZipFileMode = Literal["r", "w", "x", "a"]  # noqa: Y026
 
 _ReadWriteMode: TypeAlias = Literal["r", "w"]
-_ReadWriteBinaryMode: TypeAlias = Literal["r", "w", "rb", "wb"]
 
 class BadZipFile(Exception): ...
 
