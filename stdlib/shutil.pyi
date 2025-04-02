@@ -1,6 +1,6 @@
 import os
 import sys
-from _typeshed import BytesPath, ExcInfo, FileDescriptorOrPath, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
+from _typeshed import BytesPath, ExcInfo, FileDescriptorOrPath, MaybeNone, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Sequence
 from tarfile import _TarfileFilter
 from typing import Any, AnyStr, NamedTuple, NoReturn, Protocol, TypeVar, overload
@@ -128,7 +128,7 @@ _CopyFn: TypeAlias = Callable[[str, str], object] | Callable[[StrPath, StrPath],
 # N.B. shutil.move appears to take bytes arguments, however,
 # this does not work when dst is (or is within) an existing directory.
 # (#6832)
-def move(src: StrPath, dst: _StrPathT, copy_function: _CopyFn = ...) -> _StrPathT | str | None: ...
+def move(src: StrPath, dst: _StrPathT, copy_function: _CopyFn = ...) -> _StrPathT | str | MaybeNone: ...
 
 class _ntuple_diskusage(NamedTuple):
     total: int
