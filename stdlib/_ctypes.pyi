@@ -4,11 +4,9 @@ from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from ctypes import CDLL, ArgumentError as ArgumentError, c_void_p
+from types import GenericAlias
 from typing import Any, ClassVar, Generic, TypeVar, final, overload, type_check_only
 from typing_extensions import Self, TypeAlias
-
-if sys.version_info >= (3, 9):
-    from types import GenericAlias
 
 _T = TypeVar("_T")
 _CT = TypeVar("_CT", bound=_CData)
@@ -317,8 +315,7 @@ class Array(_CData, Generic[_CT], metaclass=_PyCArrayType):
     # Can't inherit from Sized because the metaclass conflict between
     # Sized and _CData prevents using _CDataMeta.
     def __len__(self) -> int: ...
-    if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 def addressof(obj: _CData | _CDataType, /) -> int: ...
 def alignment(obj_or_type: _CData | _CDataType | type[_CData | _CDataType], /) -> int: ...

@@ -129,12 +129,7 @@ _CopyFn: TypeAlias = Callable[[str, str], object] | Callable[[StrPath, StrPath],
 # N.B. shutil.move appears to take bytes arguments, however,
 # this does not work when dst is (or is within) an existing directory.
 # (#6832)
-if sys.version_info >= (3, 9):
-    def move(src: StrPath, dst: StrPath, copy_function: _CopyFn = ...) -> _PathReturn: ...
-
-else:
-    # See https://bugs.python.org/issue32689
-    def move(src: str, dst: StrPath, copy_function: _CopyFn = ...) -> _PathReturn: ...
+def move(src: StrPath, dst: StrPath, copy_function: _CopyFn = ...) -> _PathReturn: ...
 
 class _ntuple_diskusage(NamedTuple):
     total: int

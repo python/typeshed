@@ -26,6 +26,7 @@ from _ctypes import (
 )
 from _typeshed import StrPath
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
+from types import GenericAlias
 from typing import Any, ClassVar, Generic, TypeVar, type_check_only
 from typing_extensions import Self, TypeAlias, deprecated
 
@@ -34,9 +35,6 @@ if sys.platform == "win32":
 
 if sys.version_info >= (3, 11):
     from ctypes._endian import BigEndianUnion as BigEndianUnion, LittleEndianUnion as LittleEndianUnion
-
-if sys.version_info >= (3, 9):
-    from types import GenericAlias
 
 _T = TypeVar("_T")
 _DLLT = TypeVar("_DLLT", bound=CDLL)
@@ -92,8 +90,7 @@ class LibraryLoader(Generic[_DLLT]):
     def __getattr__(self, name: str) -> _DLLT: ...
     def __getitem__(self, name: str) -> _DLLT: ...
     def LoadLibrary(self, name: str) -> _DLLT: ...
-    if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 cdll: LibraryLoader[CDLL]
 if sys.platform == "win32":
@@ -151,9 +148,7 @@ c_buffer = create_string_buffer
 
 def create_unicode_buffer(init: int | str, size: int | None = None) -> Array[c_wchar]: ...
 @deprecated("Deprecated in Python 3.13; removal scheduled for Python 3.15")
-def SetPointerType(
-    pointer: type[_Pointer[Any]], cls: Any  # noqa: F811  # Redefinition of unused `pointer` from line 22
-) -> None: ...
+def SetPointerType(pointer: type[_Pointer[Any]], cls: Any) -> None: ...  # noqa: F811
 def ARRAY(typ: _CT, len: int) -> Array[_CT]: ...  # Soft Deprecated, no plans to remove
 
 if sys.platform == "win32":
