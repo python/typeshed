@@ -57,9 +57,7 @@ select = [
     "I", # isort
     "N", # pep8-naming
     "PGH", # pygrep-hooks
-    "PLC", # Pylint Convention
-    "PLE", # Pylint Error
-    "PLR", # Pylint Refactor
+    "PL", # Pylint
     "RSE", # flake8-raise
     "RUF", # Ruff-specific and unused-noqa
     "SLOT", # flake8-slots
@@ -83,6 +81,9 @@ select = [
     "FURB169", # Compare the identities of `{object}` and None instead of their respective types
     "FURB177", # Prefer `Path.cwd()` over `Path().resolve()` for current-directory lookups
     "FURB187", # Use of assignment of `reversed` on list `{name}`
+    # Autofixable flake8-use-pathlib only
+    "PTH201", # Do not pass the current directory explicitly to `Path`
+    "PTH210", # Invalid suffix passed to `.with_suffix()`
     # PYI: only enable rules that have autofixes and that we always want to fix (even manually),
     # avoids duplicate # noqa with flake8-pyi
     "PYI009", # Empty body should contain `...`, not pass
@@ -190,15 +191,19 @@ ignore = [
     # Rules that are out of the control of stub authors:
     ###
     # Names in stubs should match the implementation, even if it's ambiguous.
+    # https://github.com/astral-sh/ruff/issues/15293
     "A", # flake8-builtins
-    "F403", # `from . import *` used; unable to detect undefined names
     # Stubs can sometimes re-export entire modules.
     # Issues with using a star-imported name will be caught by type-checkers.
+    "F403", # `from . import *` used; unable to detect undefined names
     "F405", # may be undefined, or defined from star imports
     # Most pep8-naming rules don't apply for third-party stubs like typeshed.
     # N811 to N814 could apply, but we often use them to disambiguate a name whilst making it look like a more common one
     "N8", # pep8-naming
+    # Stubs are allowed to use private variables (pyright's reportPrivateUsage is also disabled)
     "PLC2701", # Private name import from external module
+    # Names in stubs should match implementation
+    "PLW0211", # First argument of a static method should not be named `{argument_name}`
 ]
 "lib/ts_utils/**" = [
     # Doesn't affect stubs. The only re-exports we have should be in our local lib ts_utils
