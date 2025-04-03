@@ -28,11 +28,11 @@
       enabled: false,
     },
     {
-      "groupName": "most test/lint dependencies",
-      "matchManagers": ["pip_requirements", "pre-commit"],
-      "excludePackageNames": ["pytype", "pyright"],
-      "description": "Quarterly update of most test dependencies",
-      "schedule": ["every 3 months on the first day of the month"]
+      groupName: "most test/lint dependencies",
+      matchManagers: ["pip_requirements", "pre-commit"],
+      matchPackageNames: ["!pytype", "!pyright"],
+      description: "Quarterly update of most test dependencies",
+      schedule: ["every 3 months on the first day of the month"]
     },
     {
       "groupName": "pytype and pyright",
