@@ -10,14 +10,14 @@ from importlib.machinery import ModuleSpec
 from types import ModuleType
 from typing_extensions import Self
 
+
 # Assert that some Path classes are Traversable.
-if sys.version_info >= (3, 9):
+def traverse(t: importlib.abc.Traversable) -> None:
+    pass
 
-    def traverse(t: importlib.abc.Traversable) -> None:
-        pass
 
-    traverse(pathlib.Path())
-    traverse(zipfile.Path(""))
+traverse(pathlib.Path())
+traverse(zipfile.Path(""))
 
 
 class MetaFinder:

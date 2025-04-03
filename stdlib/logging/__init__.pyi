@@ -273,10 +273,7 @@ class Formatter:
     datefmt: str | None  # undocumented
     _style: PercentStyle  # undocumented
     default_time_format: str
-    if sys.version_info >= (3, 9):
-        default_msec_format: str | None
-    else:
-        default_msec_format: str
+    default_msec_format: str | None
 
     if sys.version_info >= (3, 10):
         def __init__(
@@ -577,37 +574,20 @@ if sys.version_info >= (3, 11):
     def getLevelNamesMapping() -> dict[str, int]: ...
 
 def makeLogRecord(dict: Mapping[str, object]) -> LogRecord: ...
-
-if sys.version_info >= (3, 9):
-    def basicConfig(
-        *,
-        filename: StrPath | None = ...,
-        filemode: str = ...,
-        format: str = ...,
-        datefmt: str | None = ...,
-        style: _FormatStyle = ...,
-        level: _Level | None = ...,
-        stream: SupportsWrite[str] | None = ...,
-        handlers: Iterable[Handler] | None = ...,
-        force: bool | None = ...,
-        encoding: str | None = ...,
-        errors: str | None = ...,
-    ) -> None: ...
-
-else:
-    def basicConfig(
-        *,
-        filename: StrPath | None = ...,
-        filemode: str = ...,
-        format: str = ...,
-        datefmt: str | None = ...,
-        style: _FormatStyle = ...,
-        level: _Level | None = ...,
-        stream: SupportsWrite[str] | None = ...,
-        handlers: Iterable[Handler] | None = ...,
-        force: bool = ...,
-    ) -> None: ...
-
+def basicConfig(
+    *,
+    filename: StrPath | None = ...,
+    filemode: str = ...,
+    format: str = ...,
+    datefmt: str | None = ...,
+    style: _FormatStyle = ...,
+    level: _Level | None = ...,
+    stream: SupportsWrite[str] | None = ...,
+    handlers: Iterable[Handler] | None = ...,
+    force: bool | None = ...,
+    encoding: str | None = ...,
+    errors: str | None = ...,
+) -> None: ...
 def shutdown(handlerList: Sequence[Any] = ...) -> None: ...  # handlerList is undocumented
 def setLoggerClass(klass: type[Logger]) -> None: ...
 def captureWarnings(capture: bool) -> None: ...
@@ -633,14 +613,10 @@ class FileHandler(StreamHandler[TextIOWrapper]):
     mode: str  # undocumented
     encoding: str | None  # undocumented
     delay: bool  # undocumented
-    if sys.version_info >= (3, 9):
-        errors: str | None  # undocumented
-        def __init__(
-            self, filename: StrPath, mode: str = "a", encoding: str | None = None, delay: bool = False, errors: str | None = None
-        ) -> None: ...
-    else:
-        def __init__(self, filename: StrPath, mode: str = "a", encoding: str | None = None, delay: bool = False) -> None: ...
-
+    errors: str | None  # undocumented
+    def __init__(
+        self, filename: StrPath, mode: str = "a", encoding: str | None = None, delay: bool = False, errors: str | None = None
+    ) -> None: ...
     def _open(self) -> TextIOWrapper: ...  # undocumented
 
 class NullHandler(Handler): ...

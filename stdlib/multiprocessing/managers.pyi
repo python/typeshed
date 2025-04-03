@@ -13,7 +13,7 @@ from collections.abc import (
     Sequence,
     Set as AbstractSet,
 )
-from types import TracebackType
+from types import GenericAlias, TracebackType
 from typing import Any, AnyStr, ClassVar, Generic, SupportsIndex, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
@@ -24,9 +24,6 @@ from .shared_memory import _SLT, ShareableList as _ShareableList, SharedMemory a
 from .util import Finalize as _Finalize
 
 __all__ = ["BaseManager", "SyncManager", "BaseProxy", "Token", "SharedMemoryManager"]
-
-if sys.version_info >= (3, 9):
-    from types import GenericAlias
 
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")
@@ -70,8 +67,7 @@ class ValueProxy(BaseProxy, Generic[_T]):
     def get(self) -> _T: ...
     def set(self, value: _T) -> None: ...
     value: _T
-    if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 if sys.version_info >= (3, 13):
     class _BaseDictProxy(BaseProxy, MutableMapping[_KT, _VT]):
