@@ -142,8 +142,6 @@ extend-safe-fixes = [
     "UP036", # Remove unnecessary `sys.version_info` blocks
 ]
 ignore = [
-    # TODO: Link all in-code TODOs to existing issues
-    "TD003", # Missing issue link for this TODO
     ###
     # Rules that can conflict with the formatter (Black)
     # https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
@@ -174,6 +172,7 @@ ignore = [
     "TD001", # Invalid TODO tag: `{tag}`
     # Git blame is sufficient
     "TD002", # Missing author in TODO;
+    "TD003", # Missing issue link for this TODO
     # Mostly from scripts and tests, it's ok to have messages passed directly to exceptions
     "TRY003", # Avoid specifying long messages outside the exception class
     # Slower and more verbose https://github.com/astral-sh/ruff/issues/7871
