@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
+import functools
 import re
 import sys
 from collections.abc import Iterable, Mapping
-from functools import lru_cache
 from pathlib import Path
 from typing import Any, Final, NamedTuple
 from typing_extensions import TypeAlias
@@ -24,11 +24,6 @@ except ImportError:
 from .paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
 
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
-
-
-# A backport of functools.cache for Python <3.9
-# This module is imported by mypy_test.py, which needs to run on 3.8 in CI
-cache = lru_cache(None)
 
 
 def strip_comments(text: str) -> str:
@@ -81,7 +76,7 @@ def print_time(t: float) -> None:
 # ====================================================================
 
 
-@cache
+@functools.cache
 def venv_python(venv_dir: Path) -> Path:
     if sys.platform == "win32":
         return venv_dir / "Scripts" / "python.exe"
@@ -93,7 +88,7 @@ def venv_python(venv_dir: Path) -> Path:
 # ====================================================================
 
 
-@cache
+@functools.cache
 def parse_requirements() -> Mapping[str, Requirement]:
     """Return a dictionary of requirements from the requirements file."""
     with REQUIREMENTS_PATH.open(encoding="UTF-8") as requirements_file:
@@ -206,7 +201,7 @@ def allowlists(distribution_name: str) -> list[str]:
 # ====================================================================
 
 
-@cache
+@functools.cache
 def get_gitignore_spec() -> pathspec.PathSpec:
     with open(".gitignore", encoding="UTF-8") as f:
         return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())
