@@ -11,13 +11,11 @@ from collections.abc import (
     Iterable,
     Iterator,
     KeysView,
-    Mapping,  # noqa: Y022
+    Mapping,
     MutableSequence,
     ValuesView,
 )
 from importlib.machinery import ModuleSpec
-
-# pytype crashes if types.MappingProxyType inherits from collections.abc.Mapping instead of typing.Mapping
 from typing import Any, ClassVar, Literal, TypeVar, final, overload
 from typing_extensions import ParamSpec, Self, TypeAliasType, TypeVarTuple, deprecated
 
