@@ -6,12 +6,9 @@ from io import TextIOWrapper
 from re import Pattern
 from string import Template
 from time import struct_time
-from types import FrameType, TracebackType
+from types import FrameType, GenericAlias, TracebackType
 from typing import Any, ClassVar, Final, Generic, Literal, Protocol, TextIO, TypeVar, overload
 from typing_extensions import Self, TypeAlias, deprecated
-
-if sys.version_info >= (3, 11):
-    from types import GenericAlias
 
 __all__ = [
     "BASIC_FORMAT",

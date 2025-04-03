@@ -1,13 +1,9 @@
 import sys
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
-from collections.abc import Iterable
-
-# pytype crashes if array inherits from collections.abc.MutableSequence instead of typing.MutableSequence
-from typing import Any, ClassVar, Literal, MutableSequence, SupportsIndex, TypeVar, overload  # noqa: Y022
+from collections.abc import Iterable, MutableSequence
+from types import GenericAlias
+from typing import Any, ClassVar, Literal, SupportsIndex, TypeVar, overload
 from typing_extensions import Self, TypeAlias
-
-if sys.version_info >= (3, 12):
-    from types import GenericAlias
 
 _IntTypeCode: TypeAlias = Literal["b", "B", "h", "H", "i", "I", "l", "L", "q", "Q"]
 _FloatTypeCode: TypeAlias = Literal["f", "d"]

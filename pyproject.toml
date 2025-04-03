@@ -18,7 +18,7 @@ force-exclude = ".*_pb2.pyi"
 [tool.ruff]
 line-length = 130
 # Oldest supported Python version
-target-version = "py38"
+target-version = "py39"
 fix = true
 exclude = [
     # virtual environment

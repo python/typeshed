@@ -36,7 +36,7 @@ from types import CellType, CodeType, GenericAlias, TracebackType
 
 # mypy crashes if any of {ByteString, Sequence, MutableSequence, Mapping, MutableMapping}
 # are imported from collections.abc in builtins.pyi
-from typing import (  # noqa: Y022
+from typing import (  # noqa: Y022,UP035
     IO,
     Any,
     BinaryIO,
