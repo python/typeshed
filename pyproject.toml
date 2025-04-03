@@ -63,6 +63,7 @@ select = [
     "RUF", # Ruff-specific and unused-noqa
     "SLOT", # flake8-slots
     "T10", # flake8-debugger
+    "TD", # flake8-todos
     "TRY", # tryceratops
     "UP", # pyupgrade
     "YTT", # flake8-2020
@@ -167,6 +168,11 @@ ignore = [
     "PLR2004", # Magic value used in comparison, consider replacing `{value}` with a constant variable
     # Keep codeflow path separation explicit
     "PLR5501", # Use `elif` instead of `else` then `if`, to reduce indentation
+    # Allow FIXME
+    "TD001", # Invalid TODO tag: `{tag}`
+    # Git blame is sufficient
+    "TD002", # Missing author in TODO;
+    "TD003", # Missing issue link for this TODO
     # Mostly from scripts and tests, it's ok to have messages passed directly to exceptions
     "TRY003", # Avoid specifying long messages outside the exception class
     # Slower and more verbose https://github.com/astral-sh/ruff/issues/7871

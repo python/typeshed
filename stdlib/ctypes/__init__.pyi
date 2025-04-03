@@ -153,7 +153,7 @@ def ARRAY(typ: _CT, len: int) -> Array[_CT]: ...  # Soft Deprecated, no plans to
 
 if sys.platform == "win32":
     def DllCanUnloadNow() -> int: ...
-    def DllGetClassObject(rclsid: Any, riid: Any, ppv: Any) -> int: ...  # TODO not documented
+    def DllGetClassObject(rclsid: Any, riid: Any, ppv: Any) -> int: ...  # TODO: not documented
 
     # Actually just an instance of _NamedFuncPointer (aka _CDLLFuncPointer),
     # but we want to set a more specific __call__
@@ -242,7 +242,7 @@ class c_bool(_SimpleCData[bool]):
     def __init__(self, value: bool = ...) -> None: ...
 
 if sys.platform == "win32":
-    class HRESULT(_SimpleCData[int]): ...  # TODO undocumented
+    class HRESULT(_SimpleCData[int]): ...  # TODO: undocumented
 
 if sys.version_info >= (3, 12):
     # At runtime, this is an alias for either c_int32 or c_int64,
