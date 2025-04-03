@@ -7,6 +7,10 @@
   "semanticCommits": "disabled",
   "separateMajorMinor": false,
   "prHourlyLimit": 10,
+  // This package rule disables updates for `actions/setup-python` Python versions:
+  // it's better to do these manually as there's often a reason why we can't use
+  // the latest Python version in CI for a specific job
+  ignoreDeps: ["python"],
   "pre-commit": {
     "enabled": true
   },
@@ -14,10 +18,6 @@
     {
       groupName: "GitHub Actions",
       matchManagers: ["github-actions"],
-      // This package rule disables updates for `actions/setup-python` Python versions:
-      // it's better to do these manually as there's often a reason why we can't use
-      // the latest Python version in CI for a specific job
-      matchPackageNames: ["!python"],
       description: "Quarterly update of GitHub Action dependencies",
       schedule: ["every 3 months on the first day of the month"]
     },
