@@ -1,9 +1,9 @@
 import sys
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Iterable, MutableSequence
+from types import GenericAlias
 from typing import Any, ClassVar, Literal, SupportsIndex, TypeVar, overload
 from typing_extensions import Self, TypeAlias
-from types import GenericAlias
 
 _IntTypeCode: TypeAlias = Literal["b", "B", "h", "H", "i", "I", "l", "L", "q", "Q"]
 _FloatTypeCode: TypeAlias = Literal["f", "d"]

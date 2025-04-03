@@ -4,7 +4,6 @@ import sys
 import typing
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction, Incomplete, Unused
-from collections import ChainMap as ChainMap, Counter as Counter
 from collections.abc import (
     AsyncGenerator as AsyncGenerator,
     AsyncIterable as AsyncIterable,
@@ -40,7 +39,9 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     AnyStr as AnyStr,
     BinaryIO as BinaryIO,
     Callable as Callable,
+    ChainMap as ChainMap,
     ClassVar as ClassVar,
+    Counter as Counter,
     DefaultDict as DefaultDict,
     Deque as Deque,
     Dict as Dict,
