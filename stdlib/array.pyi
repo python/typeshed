@@ -1,9 +1,9 @@
 import sys
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
-from collections.abc import Iterable
+from collections.abc import Iterable, MutableSequence  # noqa: Y022
 
 # pytype crashes if array inherits from collections.abc.MutableSequence instead of typing.MutableSequence
-from typing import Any, ClassVar, Literal, MutableSequence, SupportsIndex, TypeVar, overload  # noqa: Y022
+from typing import Any, ClassVar, Literal, SupportsIndex, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 12):
