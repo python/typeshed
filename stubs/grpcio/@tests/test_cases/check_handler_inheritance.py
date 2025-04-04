@@ -1,6 +1,6 @@
 from __future__ import annotations
-from typing import cast
 
+from typing import cast
 from typing_extensions import assert_type
 
 import grpc
