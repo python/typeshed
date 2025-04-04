@@ -168,7 +168,7 @@ def add_pyright_exclusion(stub_dir: Path) -> None:
         third_party_excludes[-1] = last_line + "\n"
 
     # Must use forward slash in the .json file
-    line_to_add = f'        "{stub_dir}",\n'.replace("\\", "/")
+    line_to_add = f'        "{stub_dir.as_posix()}",\n'
 
     if line_to_add in third_party_excludes:
         print(f"{PYRIGHT_CONFIG} already up-to-date")
