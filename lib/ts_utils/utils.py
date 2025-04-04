@@ -204,7 +204,7 @@ def allowlists(distribution_name: str) -> list[str]:
 @functools.cache
 def get_gitignore_spec() -> pathspec.PathSpec:
     with open(".gitignore", encoding="UTF-8") as f:
-        return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())
+        return pathspec.GitIgnoreSpec.from_lines(f)
 
 
 def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
