@@ -170,6 +170,8 @@ def match(path: Path, args: TestConfig) -> bool:
 
 def add_files(files: list[Path], module: Path, args: TestConfig) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
+    if module.name.startswith("."):
+        return
     if module.is_file() and module.suffix == ".pyi":
         if match(module, args):
             files.append(module)
@@ -307,10 +309,8 @@ def add_third_party_files(
     seen_dists.add(distribution)
     seen_dists.update(r.name for r in typeshed_reqs)
     root = distribution_path(distribution)
-    for name in os.listdir(root):
-        if name.startswith("."):
-            continue
-        add_files(files, (root / name), args)
+    for path in root.iterdir():
+        add_files(files, path, args)
     add_configuration(configurations, distribution)
 
 
@@ -359,7 +359,7 @@ def test_third_party_distribution(
 def test_stdlib(args: TestConfig) -> TestResult:
     files: list[Path] = []
     for file in STDLIB_PATH.iterdir():
-        if file.name in ("VERSIONS", TESTS_DIR) or file.name.startswith("."):
+        if file.name in ("VERSIONS", TESTS_DIR):
             continue
         add_files(files, file, args)
 
@@ -536,7 +536,7 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
     gitignore_spec = get_gitignore_spec()
     distributions_to_check: dict[str, PackageDependencies] = {}
 
-    for distribution in sorted(os.listdir("stubs")):
+    for distribution in sorted([distribution.name for distribution in Path("stubs").iterdir()]):
         dist_path = distribution_path(distribution)
 
         if spec_matches_path(gitignore_spec, dist_path):
