@@ -4,6 +4,7 @@ import subprocess
 import sys
 from collections.abc import Iterable
 from http.client import HTTPResponse
+from pathlib import Path
 from typing import TYPE_CHECKING
 from urllib.request import urlopen
 from zipfile import ZipFile
@@ -18,11 +19,11 @@ if TYPE_CHECKING:
 MYPY_PROTOBUF_VERSION = mypy_protobuf__version__
 
 
-def download_file(url: str, destination: StrPath) -> None:
+def download_file(url: str, destination: Path) -> None:
     print(f"Downloading '{url}' to '{destination}'")
     resp: HTTPResponse
-    with urlopen(url) as resp, open(destination, "wb") as file:
-        file.write(resp.read())
+    with urlopen(url) as resp:
+        destination.write_bytes(resp.read())
 
 
 def extract_archive(archive_path: StrPath, destination: StrPath) -> None:
