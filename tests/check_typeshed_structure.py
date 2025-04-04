@@ -7,6 +7,7 @@ correct places, and that various configuration files are correct.
 
 from __future__ import annotations
 
+import os
 import re
 from pathlib import Path
 
@@ -112,7 +113,7 @@ def check_test_cases() -> None:
 
 def check_no_symlinks() -> None:
     """Check that there are no symlinks in the typeshed repository."""
-    files = [(root / file) for root, _, files in Path().walk() for file in files]
+    files = [Path(root) / file for root, _, files in os.walk(".") for file in files]
     no_symlink = "You cannot use symlinks in typeshed, please copy {} to its link."
     for file in files:
         if file.suffix == ".pyi" and file.is_symlink():
@@ -137,9 +138,9 @@ def check_versions_file() -> None:
 
 def _find_stdlib_modules() -> set[str]:
     modules = set[str]()
-    for path, _, files in STDLIB_PATH.walk():
+    for path, _, files in os.walk(STDLIB_PATH):
         for filename in files:
-            base_module = ".".join(path.parts[1:])
+            base_module = ".".join(Path(path).parts[1:])
             if filename == "__init__.pyi":
                 modules.add(base_module)
             elif filename.endswith(".pyi"):
