@@ -1,0 +1,17 @@
+# Omit tests
+auth0\.test.*
+
+# Omit _async functions because they aren't present in the code
+auth0\..*_async
+
+# Inconsistently implemented, ommitted
+auth0.asyncify.AsyncRestClient.file_post
+auth0.authentication.async_token_verifier.AsyncRestClient.file_post
+auth0.management.Auth0\..*
+auth0.rest_async.AsyncRestClient.file_post
+auth0.authentication.async_token_verifier.AsyncTokenVerifier.verify
+
+# TYPE_CHECKING override makes these show up wrong
+auth0.management.async_auth0.RestClientOptions
+auth0.management.auth0.RestClientOptions
+auth0.rest.RequestsResponse

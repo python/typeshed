@@ -60,17 +60,17 @@ def run_stubgen(package: str, output: Path) -> None:
 
 def run_stubdefaulter(stub_dir: Path) -> None:
     print(f"Running stubdefaulter: stubdefaulter --packages {stub_dir}")
-    subprocess.run(["stubdefaulter", "--packages", stub_dir])
+    subprocess.run(["stubdefaulter", "--packages", stub_dir], check=False)
 
 
 def run_black(stub_dir: Path) -> None:
     print(f"Running Black: black {stub_dir}")
-    subprocess.run(["pre-commit", "run", "black", "--files", *stub_dir.rglob("*.pyi")])
+    subprocess.run(["pre-commit", "run", "black", "--files", *stub_dir.rglob("*.pyi")], check=False)
 
 
 def run_ruff(stub_dir: Path) -> None:
     print(f"Running Ruff: ruff check {stub_dir} --fix-only")
-    subprocess.run([sys.executable, "-m", "ruff", "check", stub_dir, "--fix-only"])
+    subprocess.run([sys.executable, "-m", "ruff", "check", stub_dir, "--fix-only"], check=False)
 
 
 async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSession) -> dict[str, str]:
@@ -103,9 +103,9 @@ async def get_upstream_repo_url(project: str) -> str | None:
             url for url_name, url in project_urls.items() if url_name not in url_names_probably_pointing_to_source
         )
 
-        for url in urls_to_check:
+        for url_to_check in urls_to_check:
             # Remove `www.`; replace `http://` with `https://`
-            url = re.sub(r"^(https?://)?(www\.)?", "https://", url)
+            url = re.sub(r"^(https?://)?(www\.)?", "https://", url_to_check)
             netloc = urllib.parse.urlparse(url).netloc
             if netloc in {"gitlab.com", "github.com", "bitbucket.org", "foss.heptapod.net"}:
                 # truncate to https://site.com/user/repo

@@ -8,7 +8,6 @@ correct places, and that various configuration files are correct.
 from __future__ import annotations
 
 import re
-import sys
 from pathlib import Path
 
 from ts_utils.metadata import read_metadata
@@ -168,7 +167,6 @@ def check_requirement_pins() -> None:
 
 
 if __name__ == "__main__":
-    assert sys.version_info >= (3, 9), "Python 3.9+ is required to run this test"
     check_versions_file()
     check_metadata()
     check_requirement_pins()

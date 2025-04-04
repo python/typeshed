@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
+import functools
 import re
 import sys
 from collections.abc import Iterable, Mapping
-from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, Final, NamedTuple, Tuple
+from typing import Any, Final, NamedTuple
 from typing_extensions import TypeAlias
 
 import pathspec
@@ -24,11 +24,6 @@ except ImportError:
 from .paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
 
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
-
-
-# A backport of functools.cache for Python <3.9
-# This module is imported by mypy_test.py, which needs to run on 3.8 in CI
-cache = lru_cache(None)
 
 
 def strip_comments(text: str) -> str:
@@ -81,7 +76,7 @@ def print_time(t: float) -> None:
 # ====================================================================
 
 
-@cache
+@functools.cache
 def venv_python(venv_dir: Path) -> Path:
     if sys.platform == "win32":
         return venv_dir / "Scripts" / "python.exe"
@@ -93,7 +88,7 @@ def venv_python(venv_dir: Path) -> Path:
 # ====================================================================
 
 
-@cache
+@functools.cache
 def parse_requirements() -> Mapping[str, Requirement]:
     """Return a dictionary of requirements from the requirements file."""
     with REQUIREMENTS_PATH.open(encoding="UTF-8") as requirements_file:
@@ -111,8 +106,8 @@ def get_mypy_req() -> str:
 # Parsing the stdlib/VERSIONS file
 # ====================================================================
 
-VersionTuple: TypeAlias = Tuple[int, int]
-SupportedVersionsDict: TypeAlias = Dict[str, Tuple[VersionTuple, VersionTuple]]
+VersionTuple: TypeAlias = tuple[int, int]
+SupportedVersionsDict: TypeAlias = dict[str, tuple[VersionTuple, VersionTuple]]
 
 VERSIONS_PATH = STDLIB_PATH / "VERSIONS"
 VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
@@ -123,11 +118,11 @@ def parse_stdlib_versions_file() -> SupportedVersionsDict:
     result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
     with VERSIONS_PATH.open(encoding="UTF-8") as f:
         for line in f:
-            line = strip_comments(line)
-            if line == "":
+            stripped_line = strip_comments(line)
+            if stripped_line == "":
                 continue
-            m = VERSION_LINE_RE.match(line)
-            assert m, f"invalid VERSIONS line: {line}"
+            m = VERSION_LINE_RE.match(stripped_line)
+            assert m, f"invalid VERSIONS line: {stripped_line}"
             mod: str = m.group(1)
             assert mod not in result, f"Duplicate module {mod} in VERSIONS"
             min_version = _parse_version(m.group(2))
@@ -206,7 +201,7 @@ def allowlists(distribution_name: str) -> list[str]:
 # ====================================================================
 
 
-@cache
+@functools.cache
 def get_gitignore_spec() -> pathspec.PathSpec:
     with Path(".gitignore").open(encoding="UTF-8") as f:
         return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())

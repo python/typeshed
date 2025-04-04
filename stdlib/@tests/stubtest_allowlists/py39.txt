@@ -1,8 +1,3 @@
-# ========================
-# New errors in Python 3.9
-# ========================
-
-
 # ========
 # 3.9 only
 # ========
@@ -16,24 +11,7 @@ collections.MappingView.__class_getitem__
 hmac.HMAC.digest_cons
 hmac.HMAC.inner
 hmac.HMAC.outer
-
-
-# ===========
-# 3.9 to 3.10
-# ===========
-
-builtins.float.__setformat__  # Internal method for CPython test suite
-typing._SpecialForm.__mro_entries__  # Exists at runtime, but missing from stubs
-
-
-# ===================================
-# Pre-existing errors from Python 3.8
-# ===================================
-
-
-# ======
-# <= 3.9
-# ======
+xxsubtype  # module missing from the stubs
 
 builtins.input  # Incorrect default value in text signature, fixed in 3.10
 collections.AsyncGenerator.__anext__  # async at runtime, deliberately not in the stub, see #7491
@@ -44,13 +22,13 @@ collections.ByteString  # see comments in py3_common.txt
 collections.Callable
 collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
-xxsubtype  # module missing from the stubs
 
-
-# =======
+# ===========
 # <= 3.10
-# =======
+# ===========
 
+builtins.float.__setformat__  # Internal method for CPython test suite
+typing._SpecialForm.__mro_entries__  # Exists at runtime, but missing from stubs
 email.contentmanager.typ
 gettext.install  # codeset default value is ['unspecified'] so can't be specified
 gettext.translation  # codeset default value is ['unspecified'] so can't be specified
