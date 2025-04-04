@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Any, Protocol, cast
+from typing import Protocol, cast
 
 from typing_extensions import assert_type
 
