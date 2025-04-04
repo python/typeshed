@@ -136,8 +136,7 @@ def create_metadata(project: str, stub_dir: Path, version: str) -> None:
     else:
         metadata += f'upstream_repository = "{upstream_repo_url}"\n'
     print(f"Writing {filename}")
-    with filename.open("w", encoding="UTF-8") as file:
-        file.write(metadata)
+    filename.write_text(metadata, encoding="UTF-8")
 
 
 def add_pyright_exclusion(stub_dir: Path) -> None:
