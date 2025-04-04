@@ -1,7 +1,6 @@
 import abc
 import enum
 import sys
-import typing
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import IdentityFunction, Incomplete, Unused
 from collections.abc import (
@@ -57,6 +56,7 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     Tuple as Tuple,
     Type as Type,
     TypedDict as TypedDict,
+    TypeVar as _TypeVar,
     Union as Union,
     _Alias,
     cast as cast,
@@ -195,10 +195,10 @@ __all__ = [
     "CapsuleType",
 ]
 
-_T = typing.TypeVar("_T")
-_F = typing.TypeVar("_F", bound=Callable[..., Any])
-_TC = typing.TypeVar("_TC", bound=type[object])
-_T_co = typing.TypeVar("_T_co", covariant=True)  # Any type covariant containers.
+_T = _TypeVar("_T")
+_F = _TypeVar("_F", bound=Callable[..., Any])
+_TC = _TypeVar("_TC", bound=type[object])
+_T_co = _TypeVar("_T_co", covariant=True)  # Any type covariant containers.
 
 class _Final: ...  # This should be imported from typing but that breaks pytype
 
