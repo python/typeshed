@@ -152,7 +152,7 @@ def check_metadata() -> None:
     """Check that all METADATA.toml files are valid."""
     for distribution in STUBS_PATH.iterdir():
         # This function does various sanity checks for METADATA.toml files
-        read_metadata(distribution)
+        read_metadata(distribution.name)
 
 
 def check_requirement_pins() -> None:
