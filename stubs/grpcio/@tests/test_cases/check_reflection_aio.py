@@ -1,9 +1,9 @@
 from __future__ import annotations
+from typing import cast
 
-import typing
 
 import grpc.aio
 from grpc_reflection.v1alpha.reflection import enable_server_reflection
 
-server = typing.cast(grpc.aio.Server, None)
+server = cast(grpc.aio.Server, None)
 enable_server_reflection(["foo"], server, None)

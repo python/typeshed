@@ -1,21 +1,21 @@
 from __future__ import annotations
+from typing import Any, cast
 
-import typing
 from typing_extensions import assert_type
 
 import grpc.aio
 
 # Interceptor casts
-client_interceptors = [typing.cast(grpc.aio.ClientInterceptor, "interceptor")]
+client_interceptors: list[grpc.aio.ClientInterceptor] = []
 grpc.aio.insecure_channel("target", interceptors=client_interceptors)
 
-server_interceptors = [typing.cast(grpc.aio.ServerInterceptor[typing.Any, typing.Any], "interceptor")]
+server_interceptors: list[grpc.aio.ServerInterceptor[Any, Any]] = []
 grpc.aio.server(interceptors=server_interceptors)
 
 
 # Metadata
 async def metadata() -> None:
-    metadata = await typing.cast(grpc.aio.Call, None).initial_metadata()
+    metadata = await cast(grpc.aio.Call, None).initial_metadata()
     assert_type(metadata["foo"], grpc.aio._MetadataValue)
     for k in metadata:
         assert_type(k, str)

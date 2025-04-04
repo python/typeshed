@@ -1,10 +1,10 @@
 import abc
 import enum
 import threading
-import typing
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from concurrent import futures
 from types import ModuleType, TracebackType
+from typing import Any, Generic, NoReturn, Protocol, TypeVar, type_check_only
 from typing_extensions import Self, TypeAlias
 
 __version__: str
@@ -12,16 +12,16 @@ __version__: str
 # This class encodes an uninhabited type, requiring use of explicit casts or ignores
 # in order to satisfy type checkers. This allows grpc-stubs to add proper stubs
 # later, allowing those overrides to be removed.
-# The alternative is typing.Any, but a future replacement of Any with a proper type
+# The alternative is Any, but a future replacement of Any with a proper type
 # would result in type errors where previously the type checker was happy, which
 # we want to avoid. Forcing the user to use overrides provides forwards-compatibility.
-@typing.type_check_only
+@type_check_only
 class _PartialStubMustCastOrIgnore: ...
 
 # XXX: Early attempts to tame this used literals for all the keys (gRPC is
 # a bit segfaulty and doesn't adequately validate the option keys), but that
 # didn't quite work out. Maybe it's something we can come back to?
-_OptionKeyValue: TypeAlias = tuple[str, typing.Any]
+_OptionKeyValue: TypeAlias = tuple[str, Any]
 _Options: TypeAlias = Sequence[_OptionKeyValue]
 
 class Compression(enum.IntEnum):
@@ -41,35 +41,35 @@ class LocalConnectionType(enum.Enum):
 # - https://github.com/grpc/grpc/blob/0e1984effd7e977ef18f1ad7fde7d10a2a153e1d/src/python/grpcio_tests/tests/unit/_invocation_defects_test.py#L66
 _Metadata: TypeAlias = tuple[tuple[str, str | bytes], ...]
 
-_TRequest = typing.TypeVar("_TRequest")
-_TResponse = typing.TypeVar("_TResponse")
+_TRequest = TypeVar("_TRequest")
+_TResponse = TypeVar("_TResponse")
 
 # XXX: These are probably the SerializeToTring/FromString pb2 methods, but
 # this needs further investigation
-@typing.type_check_only
-class _RequestSerializer(typing.Protocol):
-    def __call__(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any: ...
+@type_check_only
+class _RequestSerializer(Protocol):
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
-@typing.type_check_only
-class _RequestDeserializer(typing.Protocol):
-    def __call__(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any: ...
+@type_check_only
+class _RequestDeserializer(Protocol):
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
-@typing.type_check_only
-class _ResponseSerializer(typing.Protocol):
-    def __call__(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any: ...
+@type_check_only
+class _ResponseSerializer(Protocol):
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
-@typing.type_check_only
-class _ResponseDeserializer(typing.Protocol):
-    def __call__(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any: ...
+@type_check_only
+class _ResponseDeserializer(Protocol):
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 # Future Interfaces:
 
 class FutureTimeoutError(Exception): ...
 class FutureCancelledError(Exception): ...
 
-_TFutureValue = typing.TypeVar("_TFutureValue")
+_TFutureValue = TypeVar("_TFutureValue")
 
-class Future(abc.ABC, typing.Generic[_TFutureValue]):
+class Future(abc.ABC, Generic[_TFutureValue]):
     @abc.abstractmethod
     def add_done_callback(self, fn: Callable[[Future[_TFutureValue]], None]) -> None: ...
     @abc.abstractmethod
@@ -87,7 +87,7 @@ class Future(abc.ABC, typing.Generic[_TFutureValue]):
 
     # FIXME: unsure of the exact return type here. Is it a traceback.StackSummary?
     @abc.abstractmethod
-    def traceback(self, timeout: float | None = ...) -> typing.Any: ...
+    def traceback(self, timeout: float | None = ...) -> Any: ...
 
 # Create Client:
 
@@ -129,8 +129,8 @@ def composite_channel_credentials(
 
 def server(
     thread_pool: futures.ThreadPoolExecutor,
-    handlers: list[GenericRpcHandler[typing.Any, typing.Any]] | None = ...,
-    interceptors: list[ServerInterceptor[typing.Any, typing.Any]] | None = ...,
+    handlers: list[GenericRpcHandler[Any, Any]] | None = ...,
+    interceptors: list[ServerInterceptor[Any, Any]] | None = ...,
     options: _Options | None = ...,
     maximum_concurrent_rpcs: int | None = ...,
     compression: Compression | None = ...,
@@ -168,33 +168,33 @@ def xds_server_credentials(fallback_credentials: ServerCredentials) -> ServerCre
 #    def FloobDoob(self, request, context):
 #       return response
 #
-@typing.type_check_only
-class _Behaviour(typing.Protocol):
-    def __call__(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any: ...
+@type_check_only
+class _Behaviour(Protocol):
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 def unary_unary_rpc_method_handler(
     behavior: _Behaviour,
     request_deserializer: _RequestDeserializer | None = ...,
     response_serializer: _ResponseSerializer | None = ...,
-) -> RpcMethodHandler[typing.Any, typing.Any]: ...
+) -> RpcMethodHandler[Any, Any]: ...
 def unary_stream_rpc_method_handler(
     behavior: _Behaviour,
     request_deserializer: _RequestDeserializer | None = ...,
     response_serializer: _ResponseSerializer | None = ...,
-) -> RpcMethodHandler[typing.Any, typing.Any]: ...
+) -> RpcMethodHandler[Any, Any]: ...
 def stream_unary_rpc_method_handler(
     behavior: _Behaviour,
     request_deserializer: _RequestDeserializer | None = ...,
     response_serializer: _ResponseSerializer | None = ...,
-) -> RpcMethodHandler[typing.Any, typing.Any]: ...
+) -> RpcMethodHandler[Any, Any]: ...
 def stream_stream_rpc_method_handler(
     behavior: _Behaviour,
     request_deserializer: _RequestDeserializer | None = ...,
     response_serializer: _ResponseSerializer | None = ...,
-) -> RpcMethodHandler[typing.Any, typing.Any]: ...
+) -> RpcMethodHandler[Any, Any]: ...
 def method_handlers_generic_handler(
-    service: str, method_handlers: dict[str, RpcMethodHandler[typing.Any, typing.Any]]
-) -> GenericRpcHandler[typing.Any, typing.Any]: ...
+    service: str, method_handlers: dict[str, RpcMethodHandler[Any, Any]]
+) -> GenericRpcHandler[Any, Any]: ...
 
 # Channel Ready Future:
 
@@ -250,14 +250,14 @@ class Channel(abc.ABC):
         method: str,
         request_serializer: _RequestSerializer | None = ...,
         response_deserializer: _ResponseDeserializer | None = ...,
-    ) -> StreamStreamMultiCallable[typing.Any, typing.Any]: ...
+    ) -> StreamStreamMultiCallable[Any, Any]: ...
     @abc.abstractmethod
     def stream_unary(
         self,
         method: str,
         request_serializer: _RequestSerializer | None = ...,
         response_deserializer: _ResponseDeserializer | None = ...,
-    ) -> StreamUnaryMultiCallable[typing.Any, typing.Any]: ...
+    ) -> StreamUnaryMultiCallable[Any, Any]: ...
     @abc.abstractmethod
     def subscribe(self, callback: Callable[[ChannelConnectivity], None], try_to_connect: bool = ...) -> None: ...
     @abc.abstractmethod
@@ -266,14 +266,14 @@ class Channel(abc.ABC):
         method: str,
         request_serializer: _RequestSerializer | None = ...,
         response_deserializer: _ResponseDeserializer | None = ...,
-    ) -> UnaryStreamMultiCallable[typing.Any, typing.Any]: ...
+    ) -> UnaryStreamMultiCallable[Any, Any]: ...
     @abc.abstractmethod
     def unary_unary(
         self,
         method: str,
         request_serializer: _RequestSerializer | None = ...,
         response_deserializer: _ResponseDeserializer | None = ...,
-    ) -> UnaryUnaryMultiCallable[typing.Any, typing.Any]: ...
+    ) -> UnaryUnaryMultiCallable[Any, Any]: ...
     @abc.abstractmethod
     def unsubscribe(self, callback: Callable[[ChannelConnectivity], None]) -> None: ...
     def __enter__(self) -> Self: ...
@@ -285,7 +285,7 @@ class Channel(abc.ABC):
 
 class Server(abc.ABC):
     @abc.abstractmethod
-    def add_generic_rpc_handlers(self, generic_rpc_handlers: Iterable[GenericRpcHandler[typing.Any, typing.Any]]) -> None: ...
+    def add_generic_rpc_handlers(self, generic_rpc_handlers: Iterable[GenericRpcHandler[Any, Any]]) -> None: ...
 
     # Returns an integer port on which server will accept RPC requests.
     @abc.abstractmethod
@@ -335,7 +335,7 @@ class ServerCertificateConfiguration:
 
 # gRPC Exceptions:
 
-@typing.type_check_only
+@type_check_only
 class _Metadatum:
     key: str
     value: bytes
@@ -396,10 +396,10 @@ class ClientCallDetails(abc.ABC):
 # response message of the RPC. Should the event terminate with non-OK
 # status, the returned Call-Future's exception value will be an RpcError.
 #
-@typing.type_check_only
+@type_check_only
 class _CallFuture(Call, Future[_TResponse], metaclass=abc.ABCMeta): ...
 
-class UnaryUnaryClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]):
+class UnaryUnaryClientInterceptor(abc.ABC, Generic[_TRequest, _TResponse]):
     @abc.abstractmethod
     def intercept_unary_unary(
         self,
@@ -423,11 +423,11 @@ class UnaryUnaryClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]
         request: _TRequest,
     ) -> _CallFuture[_TResponse]: ...
 
-@typing.type_check_only
-class _CallIterator(Call, typing.Generic[_TResponse], metaclass=abc.ABCMeta):
+@type_check_only
+class _CallIterator(Call, Generic[_TResponse], metaclass=abc.ABCMeta):
     def __iter__(self) -> Iterator[_TResponse]: ...
 
-class UnaryStreamClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]):
+class UnaryStreamClientInterceptor(abc.ABC, Generic[_TRequest, _TResponse]):
     @abc.abstractmethod
     def intercept_unary_stream(
         self,
@@ -436,7 +436,7 @@ class UnaryStreamClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse
         request: _TRequest,
     ) -> _CallIterator[_TResponse]: ...
 
-class StreamUnaryClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]):
+class StreamUnaryClientInterceptor(abc.ABC, Generic[_TRequest, _TResponse]):
     @abc.abstractmethod
     def intercept_stream_unary(
         self,
@@ -445,7 +445,7 @@ class StreamUnaryClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse
         request_iterator: Iterator[_TRequest],
     ) -> _CallFuture[_TResponse]: ...
 
-class StreamStreamClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]):
+class StreamStreamClientInterceptor(abc.ABC, Generic[_TRequest, _TResponse]):
     @abc.abstractmethod
     def intercept_stream_stream(
         self,
@@ -459,9 +459,9 @@ class StreamStreamClientInterceptor(abc.ABC, typing.Generic[_TRequest, _TRespons
 class ServicerContext(RpcContext, metaclass=abc.ABCMeta):
     # misnamed parameter 'details', does not align with status.proto, where it is called 'message':
     @abc.abstractmethod
-    def abort(self, code: StatusCode, details: str) -> typing.NoReturn: ...
+    def abort(self, code: StatusCode, details: str) -> NoReturn: ...
     @abc.abstractmethod
-    def abort_with_status(self, status: Status) -> typing.NoReturn: ...
+    def abort_with_status(self, status: Status) -> NoReturn: ...
 
     # FIXME: The docs say "A map of strings to an iterable of bytes for each auth property".
     # Does that mean 'bytes' (which is iterable), or 'Iterable[bytes]'?
@@ -491,7 +491,7 @@ class ServicerContext(RpcContext, metaclass=abc.ABCMeta):
 
 # Service-Side Handler:
 
-class RpcMethodHandler(abc.ABC, typing.Generic[_TRequest, _TResponse]):
+class RpcMethodHandler(abc.ABC, Generic[_TRequest, _TResponse]):
     request_streaming: bool
     response_streaming: bool
 
@@ -513,7 +513,7 @@ class HandlerCallDetails(abc.ABC):
     method: str
     invocation_metadata: _Metadata
 
-class GenericRpcHandler(abc.ABC, typing.Generic[_TRequest, _TResponse]):
+class GenericRpcHandler(abc.ABC, Generic[_TRequest, _TResponse]):
     @abc.abstractmethod
     def service(self, handler_call_details: HandlerCallDetails) -> RpcMethodHandler[_TRequest, _TResponse] | None: ...
 
@@ -523,7 +523,7 @@ class ServiceRpcHandler(GenericRpcHandler[_TRequest, _TResponse], metaclass=abc.
 
 # Service-Side Interceptor:
 
-class ServerInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]):
+class ServerInterceptor(abc.ABC, Generic[_TRequest, _TResponse]):
     @abc.abstractmethod
     def intercept_service(
         self,
@@ -533,7 +533,7 @@ class ServerInterceptor(abc.ABC, typing.Generic[_TRequest, _TResponse]):
 
 # Multi-Callable Interfaces:
 
-class UnaryUnaryMultiCallable(abc.ABC, typing.Generic[_TRequest, _TResponse]):
+class UnaryUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
     @abc.abstractmethod
     def __call__(
         self,
@@ -570,7 +570,7 @@ class UnaryUnaryMultiCallable(abc.ABC, typing.Generic[_TRequest, _TResponse]):
         # this is slightly unclear so this return type is a best-effort guess.
     ) -> tuple[_TResponse, Call]: ...
 
-class UnaryStreamMultiCallable(abc.ABC, typing.Generic[_TRequest, _TResponse]):
+class UnaryStreamMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
     @abc.abstractmethod
     def __call__(
         self,
@@ -583,7 +583,7 @@ class UnaryStreamMultiCallable(abc.ABC, typing.Generic[_TRequest, _TResponse]):
         compression: Compression | None = ...,
     ) -> _CallIterator[_TResponse]: ...
 
-class StreamUnaryMultiCallable(abc.ABC, typing.Generic[_TRequest, _TResponse]):
+class StreamUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
     @abc.abstractmethod
     def __call__(
         self,
@@ -620,7 +620,7 @@ class StreamUnaryMultiCallable(abc.ABC, typing.Generic[_TRequest, _TResponse]):
         # this is slightly unclear so this return type is a best-effort guess.
     ) -> tuple[_TResponse, Call]: ...
 
-class StreamStreamMultiCallable(abc.ABC, typing.Generic[_TRequest, _TResponse]):
+class StreamStreamMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
     @abc.abstractmethod
     def __call__(
         self,

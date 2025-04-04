@@ -1,5 +1,5 @@
-import typing
 from concurrent import futures
+from typing import Any, Protocol
 
 from grpc import ServicerContext
 from grpc_health.v1 import health_pb2 as _health_pb2, health_pb2_grpc as _health_pb2_grpc
@@ -16,8 +16,8 @@ class _Watcher:
     def close(self) -> None: ...
 
 # FIXME: This needs further investigation
-class _SendResponseCallback(typing.Protocol):
-    def __call__(self, *args: typing.Any, **kwargs: typing.Any) -> typing.Any: ...
+class _SendResponseCallback(Protocol):
+    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
 
 class HealthServicer(_health_pb2_grpc.HealthServicer):
     def __init__(
