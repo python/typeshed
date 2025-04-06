@@ -1,9 +1,7 @@
-import collections.abc
 from collections.abc import Callable
 from typing import Any
 from typing_extensions import Self
 
-Iterable = collections.abc.Iterable
 __tracebackhide__: bool
 
 class CollectionMixin:
