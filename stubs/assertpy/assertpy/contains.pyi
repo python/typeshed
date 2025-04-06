@@ -1,6 +1,8 @@
 from typing import Any
 from typing_extensions import Self
 
+str_types: tuple[type[str]]
+xrange = range
 __tracebackhide__: bool
 
 class ContainsMixin:

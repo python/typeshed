@@ -1,6 +1,9 @@
+import collections.abc
 from typing_extensions import Self
 
+str_types: tuple[type[str]]
 unicode = str
+Iterable = collections.abc.Iterable
 __tracebackhide__: bool
 
 class StringMixin:
