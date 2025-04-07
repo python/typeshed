@@ -27,7 +27,7 @@ class Client:
     state_generator: Callable[[], str]
     state: str | None
     redirect_url: str | None
-    code: Incomplete
+    code: str | None
     expires_in: ConvertibleToInt | None
     code_verifier: str | None
     code_challenge: str | None
