@@ -14,12 +14,9 @@ from _typeshed import (
 from collections.abc import Callable, Generator, Iterator, Sequence
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike, stat_result
-from types import TracebackType
+from types import GenericAlias, TracebackType
 from typing import IO, Any, BinaryIO, ClassVar, Literal, overload
-from typing_extensions import Self, deprecated
-
-if sys.version_info >= (3, 9):
-    from types import GenericAlias
+from typing_extensions import Never, Self, deprecated
 
 __all__ = ["PurePath", "PurePosixPath", "PureWindowsPath", "Path", "PosixPath", "WindowsPath"]
 
@@ -68,7 +65,7 @@ class PurePath(PathLike[str]):
     def is_reserved(self) -> bool: ...
     if sys.version_info >= (3, 12):
         def is_relative_to(self, other: StrPath, /, *_deprecated: StrPath) -> bool: ...
-    elif sys.version_info >= (3, 9):
+    else:
         def is_relative_to(self, *other: StrPath) -> bool: ...
 
     if sys.version_info >= (3, 12):
@@ -82,16 +79,14 @@ class PurePath(PathLike[str]):
         def relative_to(self, *other: StrPath) -> Self: ...
 
     def with_name(self, name: str) -> Self: ...
-    if sys.version_info >= (3, 9):
-        def with_stem(self, stem: str) -> Self: ...
-
+    def with_stem(self, stem: str) -> Self: ...
     def with_suffix(self, suffix: str) -> Self: ...
     def joinpath(self, *other: StrPath) -> Self: ...
     @property
     def parents(self) -> Sequence[Self]: ...
     @property
     def parent(self) -> Self: ...
-    if sys.version_info >= (3, 9) and sys.version_info < (3, 11):
+    if sys.version_info < (3, 11):
         def __class_getitem__(cls, type: Any) -> GenericAlias: ...
 
     if sys.version_info >= (3, 12):
@@ -129,12 +124,10 @@ class Path(PurePath):
         def read_text(self, encoding: str | None = None, errors: str | None = None) -> str: ...
 
     if sys.version_info >= (3, 13):
-        def glob(
-            self, pattern: str, *, case_sensitive: bool | None = None, recurse_symlinks: bool = False
-        ) -> Generator[Self, None, None]: ...
+        def glob(self, pattern: str, *, case_sensitive: bool | None = None, recurse_symlinks: bool = False) -> Iterator[Self]: ...
         def rglob(
             self, pattern: str, *, case_sensitive: bool | None = None, recurse_symlinks: bool = False
-        ) -> Generator[Self, None, None]: ...
+        ) -> Iterator[Self]: ...
     elif sys.version_info >= (3, 12):
         def glob(self, pattern: str, *, case_sensitive: bool | None = None) -> Generator[Self, None, None]: ...
         def rglob(self, pattern: str, *, case_sensitive: bool | None = None) -> Generator[Self, None, None]: ...
@@ -228,9 +221,13 @@ class Path(PurePath):
     def open(
         self, mode: str, buffering: int = -1, encoding: str | None = None, errors: str | None = None, newline: str | None = None
     ) -> IO[Any]: ...
-    if sys.platform != "win32":
-        # These methods do "exist" on Windows, but they always raise NotImplementedError,
-        # so it's safer to pretend they don't exist
+
+    # These methods do "exist" on Windows on <3.13, but they always raise NotImplementedError.
+    if sys.platform == "win32":
+        if sys.version_info < (3, 13):
+            def owner(self: Never) -> str: ...  # type: ignore[misc]
+            def group(self: Never) -> str: ...  # type: ignore[misc]
+    else:
         if sys.version_info >= (3, 13):
             def owner(self, *, follow_symlinks: bool = True) -> str: ...
             def group(self, *, follow_symlinks: bool = True) -> str: ...
@@ -240,11 +237,12 @@ class Path(PurePath):
 
     # This method does "exist" on Windows on <3.12, but always raises NotImplementedError
     # On py312+, it works properly on Windows, as with all other platforms
-    if sys.platform != "win32" or sys.version_info >= (3, 12):
+    if sys.platform == "win32" and sys.version_info < (3, 12):
+        def is_mount(self: Never) -> bool: ...  # type: ignore[misc]
+    else:
         def is_mount(self) -> bool: ...
 
-    if sys.version_info >= (3, 9):
-        def readlink(self) -> Self: ...
+    def readlink(self) -> Self: ...
 
     if sys.version_info >= (3, 10):
         def rename(self, target: StrPath) -> Self: ...

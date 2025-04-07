@@ -1,6 +1,6 @@
-# ======
-# <= 3.9
-# ======
+# ========
+# 3.9 only
+# ========
 
 # `eventmask` argument exists at runtime, but is not correctly recognized
 # while being inspected by stubtest. Fixed in Python 3.10.

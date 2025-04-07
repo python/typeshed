@@ -1,62 +1,63 @@
-# Since this module defines "Self" it is not recognized by Ruff as typing_extensions.Self
-# ruff: noqa: PYI034
 import abc
+import enum
 import sys
 import typing
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import IdentityFunction
+from _typeshed import IdentityFunction, Incomplete, Unused
+from collections.abc import (
+    AsyncGenerator as AsyncGenerator,
+    AsyncIterable as AsyncIterable,
+    AsyncIterator as AsyncIterator,
+    Awaitable as Awaitable,
+    Collection as Collection,
+    Container as Container,
+    Coroutine as Coroutine,
+    Generator as Generator,
+    Hashable as Hashable,
+    ItemsView as ItemsView,
+    Iterable as Iterable,
+    Iterator as Iterator,
+    KeysView as KeysView,
+    Mapping as Mapping,
+    MappingView as MappingView,
+    MutableMapping as MutableMapping,
+    MutableSequence as MutableSequence,
+    MutableSet as MutableSet,
+    Reversible as Reversible,
+    Sequence as Sequence,
+    Sized as Sized,
+    ValuesView as ValuesView,
+)
 from contextlib import AbstractAsyncContextManager as AsyncContextManager, AbstractContextManager as ContextManager
-from typing import (  # noqa: Y022,Y037,Y038,Y039
+from re import Match as Match, Pattern as Pattern
+from types import GenericAlias, ModuleType
+from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     IO as IO,
     TYPE_CHECKING as TYPE_CHECKING,
     AbstractSet as AbstractSet,
     Any as Any,
     AnyStr as AnyStr,
-    AsyncGenerator as AsyncGenerator,
-    AsyncIterable as AsyncIterable,
-    AsyncIterator as AsyncIterator,
-    Awaitable as Awaitable,
     BinaryIO as BinaryIO,
     Callable as Callable,
     ChainMap as ChainMap,
     ClassVar as ClassVar,
-    Collection as Collection,
-    Container as Container,
-    Coroutine as Coroutine,
     Counter as Counter,
     DefaultDict as DefaultDict,
     Deque as Deque,
     Dict as Dict,
     ForwardRef as ForwardRef,
     FrozenSet as FrozenSet,
-    Generator as Generator,
     Generic as Generic,
-    Hashable as Hashable,
-    ItemsView as ItemsView,
-    Iterable as Iterable,
-    Iterator as Iterator,
-    KeysView as KeysView,
     List as List,
-    Mapping as Mapping,
-    MappingView as MappingView,
-    Match as Match,
-    MutableMapping as MutableMapping,
-    MutableSequence as MutableSequence,
-    MutableSet as MutableSet,
     NoReturn as NoReturn,
     Optional as Optional,
-    Pattern as Pattern,
-    Reversible as Reversible,
-    Sequence as Sequence,
     Set as Set,
-    Sized as Sized,
     Text as Text,
     TextIO as TextIO,
     Tuple as Tuple,
     Type as Type,
     TypedDict as TypedDict,
     Union as Union,
-    ValuesView as ValuesView,
     _Alias,
     cast as cast,
     no_type_check as no_type_check,
@@ -67,12 +68,11 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039
 
 if sys.version_info >= (3, 10):
     from types import UnionType
-if sys.version_info >= (3, 9):
-    from types import GenericAlias
 
+# Please keep order the same as at runtime.
 __all__ = [
+    # Super-special typing primitives.
     "Any",
-    "Buffer",
     "ClassVar",
     "Concatenate",
     "Final",
@@ -85,14 +85,16 @@ __all__ = [
     "TypeVar",
     "TypeVarTuple",
     "Unpack",
+    # ABCs (from collections.abc).
     "Awaitable",
     "AsyncIterator",
     "AsyncIterable",
     "Coroutine",
     "AsyncGenerator",
     "AsyncContextManager",
-    "CapsuleType",
+    "Buffer",
     "ChainMap",
+    # Concrete collection types.
     "ContextManager",
     "Counter",
     "Deque",
@@ -100,20 +102,34 @@ __all__ = [
     "NamedTuple",
     "OrderedDict",
     "TypedDict",
-    "SupportsIndex",
+    # Structural checks, a.k.a. protocols.
     "SupportsAbs",
-    "SupportsRound",
     "SupportsBytes",
     "SupportsComplex",
     "SupportsFloat",
+    "SupportsIndex",
     "SupportsInt",
+    "SupportsRound",
+    # One-off things.
     "Annotated",
     "assert_never",
     "assert_type",
+    "clear_overloads",
     "dataclass_transform",
     "deprecated",
+    "Doc",
+    "evaluate_forward_ref",
+    "get_overloads",
     "final",
+    "Format",
+    "get_annotations",
+    "get_args",
+    "get_origin",
+    "get_original_bases",
+    "get_protocol_members",
+    "get_type_hints",
     "IntVar",
+    "is_protocol",
     "is_typeddict",
     "Literal",
     "NewType",
@@ -126,18 +142,18 @@ __all__ = [
     "Text",
     "TypeAlias",
     "TypeAliasType",
+    "TypeForm",
     "TypeGuard",
+    "TypeIs",
     "TYPE_CHECKING",
     "Never",
     "NoReturn",
+    "ReadOnly",
     "Required",
     "NotRequired",
-    "clear_overloads",
-    "get_args",
-    "get_origin",
-    "get_original_bases",
-    "get_overloads",
-    "get_type_hints",
+    "NoDefault",
+    "NoExtraItems",
+    # Pure aliases, have always been in typing
     "AbstractSet",
     "AnyStr",
     "BinaryIO",
@@ -145,7 +161,6 @@ __all__ = [
     "Collection",
     "Container",
     "Dict",
-    "Doc",
     "ForwardRef",
     "FrozenSet",
     "Generator",
@@ -163,7 +178,6 @@ __all__ = [
     "MutableMapping",
     "MutableSequence",
     "MutableSet",
-    "NoDefault",
     "Optional",
     "Pattern",
     "Reversible",
@@ -175,12 +189,10 @@ __all__ = [
     "Union",
     "ValuesView",
     "cast",
-    "get_protocol_members",
-    "is_protocol",
     "no_type_check",
     "no_type_check_decorator",
-    "ReadOnly",
-    "TypeIs",
+    # Added dynamically
+    "CapsuleType",
 ]
 
 _T = typing.TypeVar("_T")
@@ -236,22 +248,22 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
     def setdefault(self, k: Never, default: object) -> object: ...
     # Mypy plugin hook for 'pop' expects that 'default' has a type variable type.
     def pop(self, k: Never, default: _T = ...) -> object: ...  # pyright: ignore[reportInvalidTypeVarUse]
-    def update(self: _T, m: _T, /) -> None: ...
+    def update(self, m: Self, /) -> None: ...
     def items(self) -> dict_items[str, object]: ...
     def keys(self) -> dict_keys[str, object]: ...
     def values(self) -> dict_values[str, object]: ...
     def __delitem__(self, k: Never) -> None: ...
-    if sys.version_info >= (3, 9):
-        @overload
-        def __or__(self, value: Self, /) -> Self: ...
-        @overload
-        def __or__(self, value: dict[str, Any], /) -> dict[str, object]: ...
-        @overload
-        def __ror__(self, value: Self, /) -> Self: ...
-        @overload
-        def __ror__(self, value: dict[str, Any], /) -> dict[str, object]: ...
-        # supposedly incompatible definitions of `__ior__` and `__or__`:
-        def __ior__(self, value: Self, /) -> Self: ...  # type: ignore[misc]
+    @overload
+    def __or__(self, value: Self, /) -> Self: ...
+    @overload
+    def __or__(self, value: dict[str, Any], /) -> dict[str, object]: ...
+    @overload
+    def __ror__(self, value: Self, /) -> Self: ...
+    @overload
+    def __ror__(self, value: dict[str, Any], /) -> dict[str, object]: ...
+    # supposedly incompatible definitions of `__ior__` and `__or__`:
+    # Since this module defines "Self" it is not recognized by Ruff as typing_extensions.Self
+    def __ior__(self, value: Self, /) -> Self: ...  # type: ignore[misc]
 
 OrderedDict = _Alias()
 
@@ -267,10 +279,8 @@ if sys.version_info >= (3, 10):
     @overload
     def get_origin(tp: UnionType) -> type[UnionType]: ...
 
-if sys.version_info >= (3, 9):
-    @overload
-    def get_origin(tp: GenericAlias) -> type: ...
-
+@overload
+def get_origin(tp: GenericAlias) -> type: ...
 @overload
 def get_origin(tp: ParamSpecArgs | ParamSpecKwargs) -> ParamSpec: ...
 @overload
@@ -350,8 +360,6 @@ else:
     ) -> IdentityFunction: ...
 
     class NamedTuple(tuple[Any, ...]):
-        if sys.version_info < (3, 9):
-            _field_types: ClassVar[dict[str, type]]
         _field_defaults: ClassVar[dict[str, Any]]
         _fields: ClassVar[tuple[str, ...]]
         __orig_bases__: ClassVar[tuple[Any, ...]]
@@ -383,33 +391,11 @@ if sys.version_info >= (3, 12):
         SupportsIndex as SupportsIndex,
         SupportsInt as SupportsInt,
         SupportsRound as SupportsRound,
-        TypeAliasType as TypeAliasType,
         override as override,
     )
 else:
     def override(arg: _F, /) -> _F: ...
     def get_original_bases(cls: type, /) -> tuple[Any, ...]: ...
-    @final
-    class TypeAliasType:
-        def __init__(
-            self, name: str, value: Any, *, type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] = ()
-        ) -> None: ...
-        @property
-        def __value__(self) -> Any: ...
-        @property
-        def __type_params__(self) -> tuple[TypeVar | ParamSpec | TypeVarTuple, ...]: ...
-        @property
-        def __parameters__(self) -> tuple[Any, ...]: ...
-        @property
-        def __name__(self) -> str: ...
-        # It's writable on types, but not on instances of TypeAliasType.
-        @property
-        def __module__(self) -> str | None: ...  # type: ignore[override]
-        # Returns typing._GenericAlias, which isn't stubbed.
-        def __getitem__(self, parameters: Any) -> Any: ...
-        if sys.version_info >= (3, 10):
-            def __or__(self, right: Any) -> _SpecialForm: ...
-            def __ror__(self, left: Any) -> _SpecialForm: ...
 
     # mypy and pyright object to this being both ABC and Protocol.
     # At runtime it inherits from ABC and is not a Protocol, but it is on the
@@ -570,8 +556,71 @@ else:
     ReadOnly: _SpecialForm
     TypeIs: _SpecialForm
 
+# TypeAliasType was added in Python 3.12, but had significant changes in 3.14.
+if sys.version_info >= (3, 14):
+    from typing import TypeAliasType as TypeAliasType
+else:
+    @final
+    class TypeAliasType:
+        def __init__(
+            self, name: str, value: Any, *, type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] = ()
+        ) -> None: ...  # value is a type expression
+        @property
+        def __value__(self) -> Any: ...  # a type expression
+        @property
+        def __type_params__(self) -> tuple[TypeVar | ParamSpec | TypeVarTuple, ...]: ...
+        @property
+        # `__parameters__` can include special forms if a `TypeVarTuple` was
+        # passed as a `type_params` element to the constructor method.
+        def __parameters__(self) -> tuple[TypeVar | ParamSpec | Any, ...]: ...
+        @property
+        def __name__(self) -> str: ...
+        # It's writable on types, but not on instances of TypeAliasType.
+        @property
+        def __module__(self) -> str | None: ...  # type: ignore[override]
+        # Returns typing._GenericAlias, which isn't stubbed.
+        def __getitem__(self, parameters: Incomplete | tuple[Incomplete, ...]) -> Any: ...
+        def __init_subclass__(cls, *args: Unused, **kwargs: Unused) -> NoReturn: ...
+        if sys.version_info >= (3, 10):
+            def __or__(self, right: Any) -> _SpecialForm: ...
+            def __ror__(self, left: Any) -> _SpecialForm: ...
+
+# PEP 727
 class Doc:
     documentation: str
     def __init__(self, documentation: str, /) -> None: ...
     def __hash__(self) -> int: ...
     def __eq__(self, other: object) -> bool: ...
+
+# PEP 728
+class _NoExtraItemsType: ...
+
+NoExtraItems: _NoExtraItemsType
+
+# PEP 747
+TypeForm: _SpecialForm
+
+class Format(enum.IntEnum):
+    VALUE = 1
+    FORWARDREF = 2
+    STRING = 3
+
+# PEP 649/749
+def get_annotations(
+    obj: Callable[..., object] | type[object] | ModuleType,  # any callable, class, or module
+    *,
+    globals: Mapping[str, Any] | None = None,  # value types depend on the key
+    locals: Mapping[str, Any] | None = None,  # value types depend on the key
+    eval_str: bool = False,
+    format: Format = Format.VALUE,  # noqa: Y011
+) -> dict[str, Any]: ...  # values are type expressions
+def evaluate_forward_ref(
+    forward_ref: ForwardRef,
+    *,
+    owner: Callable[..., object] | type[object] | ModuleType | None = None,  # any callable, class, or module
+    globals: Mapping[str, Any] | None = None,  # value types depend on the key
+    locals: Mapping[str, Any] | None = None,  # value types depend on the key
+    type_params: Iterable[TypeVar | ParamSpec | TypeVarTuple] | None = None,
+    format: Format = Format.VALUE,  # noqa: Y011
+    _recursive_guard: Container[str] = ...,
+) -> Any: ...  # str if format is Format.STRING, otherwise a type expression

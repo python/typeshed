@@ -28,7 +28,7 @@ it takes a bit longer. For more details, read below.
 
 Typeshed runs continuous integration (CI) on all pull requests. This means that
 if you file a pull request (PR), our full test suite
--- including our linter, [Flake8](https://github.com/PyCQA/flake8) --
+-- including our linter, [`flake8-pyi`](https://github.com/pycqa/flake8-pyi) --
 is run on your PR. It also means that bots will automatically apply
 changes to your PR (using [Black](https://github.com/psf/black) and
 [Ruff](https://github.com/astral-sh/ruff)) to fix any formatting issues.
@@ -50,37 +50,67 @@ please refer to this
 
 Note that some tests require extra setup steps to install the required dependencies.
 
-### Linux/Mac OS/WSL
+<table>
+<tr>
+  <td>Linux / macOS / WSL</td>
+  <td>
 
-On Linux and Mac OS, you will be able to run the full test suite on Python
-3.9-3.12.
-To install the necessary requirements, run the following commands from a
-terminal window:
+  On Linux and macOS, you will be able to run the full test suite on Python
+  3.9-3.12.
+  To install the necessary requirements, run the following commands from a
+  terminal window:
 
-```bash
-$ python3 -m venv .venv
-$ source .venv/bin/activate
-(.venv)$ pip install -U pip
-(.venv)$ pip install -r requirements-tests.txt
-```
+  ```bash
+  $ python3 -m venv .venv
+  $ source .venv/bin/activate
+  (.venv)$ pip install -U pip
+  (.venv)$ pip install -r requirements-tests.txt
+  ```
 
-### Windows
+  </td>
+</tr>
+<tr><!-- disables zebra striping --></tr>
+<tr>
+  <td>Windows</td>
+  <td>
 
-Run the following commands from a Windows terminal to install all requirements:
+  Run the following commands from a Windows terminal to install all requirements:
 
-```powershell
-> python -m venv .venv
-> .venv\Scripts\activate
-(.venv) > pip install -U pip
-(.venv) > pip install -r "requirements-tests.txt"
-```
+  ```powershell
+  > python -m venv .venv
+  > .venv\Scripts\activate
+  (.venv) > pip install -U pip
+  (.venv) > pip install -r requirements-tests.txt
+  ```
 
-To be able to run pytype tests, you'll also need to install it manually
+  To be able to run pytype tests, you'll also need to install it manually
 as it's currently excluded from the requirements file:
 
-```powershell
-(.venv) > pip install -U pytype
-```
+  ```powershell
+  (.venv) > pip install -U pytype
+  ```
+
+  </td>
+</tr>
+<tr><!-- disables zebra striping --></tr>
+<tr>
+  <td>Using uv</td>
+  <td>
+
+  If you already have [uv](https://docs.astral.sh/uv/getting-started/installation/) installed, you can simply replace the commands above with:
+
+  ```shell
+  uv venv
+  uv pip install -r requirements-tests.txt
+  ```
+
+  ```shell
+  uv pip install -U pytype
+  ```
+
+  </td>
+</tr>
+</table>
 
 ## Code formatting
 
@@ -88,8 +118,7 @@ The code is formatted using [`Black`](https://github.com/psf/black).
 Various other autofixes and lint rules are
 also performed by [`Ruff`](https://github.com/astral-sh/ruff) and
 [`Flake8`](https://github.com/pycqa/flake8),
-with plugins [`flake8-pyi`](https://github.com/pycqa/flake8-pyi),
-and [`flake8-noqa`](https://github.com/plinss/flake8-noqa).
+with plugin [`flake8-pyi`](https://github.com/pycqa/flake8-pyi).
 
 The repository is equipped with a [pre-commit.ci](https://pre-commit.ci/)
 configuration file. This means that you don't *need* to do anything yourself to
@@ -433,33 +462,6 @@ steps:
 If feeling kindly, please update [mypy](https://github.com/python/mypy/blob/master/mypy/stubinfo.py)
 for any stub obsoletions or removals.
 
-## Maintainer guidelines
-
-The process for preparing and submitting changes also applies to
-maintainers.  This ensures high quality contributions and keeps
-everybody on the same page.  Avoid direct pushes to the repository.
-
-When reviewing pull requests, follow these guidelines:
-
-* Typing is hard. Try to be helpful and explain issues with the PR,
-  especially to new contributors.
-* When reviewing auto-generated stubs, just scan for red flags and obvious
-  errors. Leave possible manual improvements for separate PRs.
-* When reviewing large, hand-crafted PRs, you only need to look for red flags
-  and general issues, and do a few spot checks.
-* Review smaller, hand-crafted PRs thoroughly.
-
-When merging pull requests, follow these guidelines:
-
-* Always wait for tests to pass before merging PRs.
-* Use "[Squash and merge](https://github.com/blog/2141-squash-your-commits)" to merge PRs.
-* Make sure the commit message is meaningful. For example, remove irrelevant
-  intermediate commit messages.
-* The commit message for third-party stubs is used to generate the changelog.
-  It should be valid Markdown, be comprehensive, read like a changelog entry,
-  and assume that the reader has no access to the diff.
-* Delete branches for merged PRs (by maintainers pushing to the main repo).
-
 ### Marking PRs as "deferred"
 
 We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/status%3A%20deferred)
@@ -471,25 +473,9 @@ external factor. Blockers can include:
 - A dependency on a typing PEP that is still under consideration.
 - A pending change in a related project, such as stub-uploader.
 
-PRs should only be marked as "deferred" if there is a clear path towards getting
-the blocking issue resolved within a reasonable time frame. If a PR depends on
-a more amorphous change, such as a type system change that has not yet reached
-the PEP stage, it should instead be closed.
-
-Maintainers who add the "deferred" label should state clearly what exactly the
-blocker is, usually with a link to an open issue in another project.
-
 ### Closing stale PRs
 
 To keep the number of open PRs manageable, we may close PRs when they have been
 open for too long. Specifically, we close open PRs that either have failures in CI,
 serious merge conflicts or unaddressed feedback, and that have not seen any
 activity in three months.
-
-We want to maintain a welcoming atmosphere for contributors, so use a friendly
-message when closing the PR. Example message:
-
-    Thanks for contributing! I'm closing this PR for now, because it still
-    <fails some tests OR has unresolved review feedback OR has a merge conflict>
-    after three months of inactivity. If you are still interested, please feel free to open
-    a new PR (or ping us to reopen this one).

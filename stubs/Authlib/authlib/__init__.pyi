@@ -2,7 +2,7 @@ from typing import Final
 
 from .consts import author, homepage, version
 
-__version__ = version
-__homepage__ = homepage
-__author__ = author
-__license__: Final[str]
+__version__: Final = version
+__homepage__: Final = homepage
+__author__: Final = author
+__license__: Final = "BSD-3-Clause"
