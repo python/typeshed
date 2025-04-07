@@ -36,7 +36,7 @@ if sys.platform == "win32":
 if sys.version_info >= (3, 11):
     from ctypes._endian import BigEndianUnion as BigEndianUnion, LittleEndianUnion as LittleEndianUnion
 
-_T = TypeVar("_T")
+_T = TypeVar("_T", default=Any)
 _DLLT = TypeVar("_DLLT", bound=CDLL)
 _CT = TypeVar("_CT", bound=_CData)
 
