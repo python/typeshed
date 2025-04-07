@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from collections.abc import MutableMapping
 
+import aiohttp
 from auth0.exceptions import RateLimitError as RateLimitError
 from auth0.types import RequestData as RequestData
 
@@ -13,8 +15,7 @@ from .rest import (
 
 class AsyncRestClient(RestClient):
     timeout: Incomplete
-    def __init__(self, *args, **kwargs) -> None: ...
-    def set_session(self, session) -> None: ...
+    def set_session(self, session: aiohttp.ClientSession) -> None: ...
     async def get(self, url: str, params: dict[str, Incomplete] | None = None, headers: dict[str, str] | None = None): ...
     async def post(self, url: str, data: RequestData | None = None, headers: dict[str, str] | None = None): ...
     async def file_post(self, *args, **kwargs): ...
@@ -23,7 +24,7 @@ class AsyncRestClient(RestClient):
     async def delete(self, url: str, params: dict[str, Incomplete] | None = None, data: RequestData | None = None): ...
 
 class RequestsResponse:
-    status_code: Incomplete
-    headers: Incomplete
-    text: Incomplete
-    def __init__(self, response, text: str) -> None: ...
+    status_code: int
+    headers: MutableMapping[str, str]
+    text: str
+    def __init__(self, response: aiohttp.ClientResponse, text: str) -> None: ...
