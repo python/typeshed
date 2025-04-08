@@ -1,12 +1,11 @@
 import logging
 import types
-from _typeshed import Incomplete
 
 import click
 import flask
+import jinja2
 
-# This should be jinja2.Environment, but it does not have stubs and forbidden for requires in METADATA.toml
-jinja_env: Incomplete
+jinja_env: jinja2.Environment
 script_file: str | None
 click_root_cmd: str | None
 OUTPUT_FOLDER: str
