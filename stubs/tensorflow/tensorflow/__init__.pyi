@@ -147,7 +147,7 @@ class VariableAggregation(Enum):
 class _VariableMetaclass(type): ...
 
 # Variable class in intent/documentation is a Tensor. In implementation there's
-# TODO comment to make it Tensor. It is not actually Tensor type wise, but even
+# TODO: comment to make it Tensor. It is not actually Tensor type wise, but even
 # dynamically patches on most methods of tf.Tensor
 # https://github.com/tensorflow/tensorflow/blob/9524a636cae9ae3f0554203c1ba7ee29c85fcf12/tensorflow/python/ops/variables.py#L1086.
 class Variable(Tensor, metaclass=_VariableMetaclass):

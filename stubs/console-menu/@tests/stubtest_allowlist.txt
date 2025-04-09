@@ -1,4 +1,0 @@
-# TODO: missing from stub
-consolemenu.__all__
-consolemenu.format.__all__
-consolemenu.items.__all__
