@@ -34,6 +34,12 @@ class _Attributes(TypedDict, Generic[_EndPositionT], total=False):
 # but they consider themselves to live in the ast module,
 # so we'll define the stubs in this file.
 class AST:
+    @overload
+    def __init__(self) -> None: ...
+    if sys.version_info < (3, 15):
+        @deprecated("Support for arbitrary keyword arguments is deprecated and will be removed in Python 3.15.")
+        @overload
+        def __init__(self, **kwargs: Any) -> None: ...
     if sys.version_info >= (3, 10):
         __match_args__ = ()
     _attributes: ClassVar[tuple[str, ...]]
