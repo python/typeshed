@@ -113,7 +113,7 @@ def check_test_cases() -> None:
 
 def check_no_symlinks() -> None:
     """Check that there are no symlinks in the typeshed repository."""
-    files = [Path(root) / file for root, _, files in os.walk(".") for file in files]
+    files = [Path(root, file) for root, _, files in os.walk(".") for file in files]
     no_symlink = "You cannot use symlinks in typeshed, please copy {} to its link."
     for file in files:
         if file.suffix == ".pyi" and file.is_symlink():

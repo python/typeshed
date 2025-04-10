@@ -144,7 +144,7 @@ def find_stubs_in_paths(paths: Sequence[Path]) -> list[Path]:
     for path in paths:
         if path.is_dir():
             for root, _, fns in os.walk(path):
-                filenames.extend(Path(root) / fn for fn in fns if fn.endswith(".pyi"))
+                filenames.extend(Path(root, fn) for fn in fns if fn.endswith(".pyi"))
         else:
             filenames.append(path)
     return filenames

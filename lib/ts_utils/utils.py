@@ -21,7 +21,7 @@ except ImportError:
         return text
 
 
-from .paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
+from .paths import GITIGNORE_PATH, REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
 
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
@@ -203,7 +203,7 @@ def allowlists(distribution_name: str) -> list[str]:
 
 @functools.cache
 def get_gitignore_spec() -> pathspec.PathSpec:
-    with Path(".gitignore").open(encoding="UTF-8") as f:
+    with GITIGNORE_PATH.open(encoding="UTF-8") as f:
         return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())
 
 
