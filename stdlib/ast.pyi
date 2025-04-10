@@ -37,8 +37,8 @@ class AST:
     @overload
     def __init__(self) -> None: ...
     if sys.version_info < (3, 15):
-        @deprecated("Support for arbitrary keyword arguments is deprecated and will be removed in Python 3.15.")
         @overload
+        @deprecated("Support for arbitrary keyword arguments is deprecated and will be removed in Python 3.15.")
         def __init__(self, **kwargs: Any) -> None: ...
     if sys.version_info >= (3, 10):
         __match_args__ = ()
