@@ -1,45 +1,3 @@
-# TODO: missing from stub
-passlib.apache.__all__
-passlib.context.__all__
-passlib.crypto._blowfish.__all__
-passlib.crypto._blowfish.base.__all__
-passlib.crypto._blowfish.unrolled.__all__
-passlib.crypto._md4.__all__
-passlib.crypto.digest.__all__
-passlib.crypto.scrypt.__all__
-passlib.crypto.scrypt._builtin.__all__
-passlib.handlers.argon2.__all__
-passlib.handlers.bcrypt.__all__
-passlib.handlers.cisco.__all__
-passlib.handlers.des_crypt.__all__
-passlib.handlers.digests.__all__
-passlib.handlers.django.__all__
-passlib.handlers.fshp.__all__
-passlib.handlers.md5_crypt.__all__
-passlib.handlers.misc.__all__
-passlib.handlers.mssql.__all__
-passlib.handlers.pbkdf2.__all__
-passlib.handlers.phpass.__all__
-passlib.handlers.postgres.__all__
-passlib.handlers.roundup.__all__
-passlib.handlers.scram.__all__
-passlib.handlers.scrypt.__all__
-passlib.handlers.sha1_crypt.__all__
-passlib.handlers.sha2_crypt.__all__
-passlib.handlers.sun_md5_crypt.__all__
-passlib.handlers.windows.__all__
-passlib.hosts.__all__
-passlib.ifc.__all__
-passlib.pwd.__all__
-passlib.registry.__all__
-passlib.totp.__all__
-passlib.utils.binary.__all__
-passlib.utils.decor.__all__
-passlib.utils.handlers.__all__
-passlib.utils.md4.__all__
-passlib.utils.pbkdf2.__all__
-passlib.win32.__all__
-
 # proxy module that uses some import magic incompatible with stubtest
 passlib.hash
 
@@ -94,6 +52,7 @@ passlib.tests.*
 # This is only available when the crypt module is available. This module
 # was dropped from the standard library of Python 3.13, but is still available
 # in some environments.
+passlib.hosts.__all__
 (passlib.hosts.host_context)?
 
 # Fields differs at runtime:

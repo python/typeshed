@@ -72,7 +72,7 @@ def post_creation() -> None:
 
     for path in STUBS_FOLDER.rglob("*_pb2.pyi"):
         print(f"Fixing imports in '{path}'")
-        with open(path) as file:
+        with open(path, encoding="utf-8") as file:
             filedata = file.read()
 
         # Replace the target string
@@ -80,7 +80,7 @@ def post_creation() -> None:
         filedata = re.sub(XLA_IMPORT_PATTERN, "\\1tensorflow.compiler.xla.", filedata)
 
         # Write the file out again
-        with open(path, "w") as file:
+        with open(path, "w", encoding="utf-8") as file:
             file.write(filedata)
 
     print()
@@ -137,7 +137,7 @@ and {protoc_version} on `tensorflow=={PACKAGE_VERSION}`.""",
     print("Updated tensorflow/METADATA.toml")
 
     # Run pre-commit to cleanup the stubs
-    subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")))
+    subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")), check=False)
 
 
 if __name__ == "__main__":

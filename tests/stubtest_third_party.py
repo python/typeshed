@@ -147,11 +147,11 @@ def run_stubtest(
 
             print_divider()
             print("Python version: ", end="", flush=True)
-            ret = subprocess.run([sys.executable, "-VV"], capture_output=True)
+            ret = subprocess.run([sys.executable, "-VV"], capture_output=True, check=False)
             print_command_output(ret)
 
             print("\nRan with the following environment:")
-            ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
+            ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True, check=False)
             print_command_output(ret)
             if keep_tmp_dir:
                 print("Path to virtual environment:", venv_dir, flush=True)
@@ -163,7 +163,7 @@ def run_stubtest(
                 print()
             else:
                 print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {main_allowlist_path}:")
-                ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
+                ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True, check=False)
                 print_command_output(ret)
 
             print_divider()
