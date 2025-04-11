@@ -203,11 +203,8 @@ class itemgetter(Generic[_T_co]):
     # __key: _KT_contra in SupportsGetItem seems to be causing variance issues, ie:
     # TypeVar "_KT_contra@SupportsGetItem" is contravariant
     #   "tuple[int, int]" is incompatible with protocol "SupportsIndex"
-    # preventing [_T_co, ...] instead of [Any, ...]
-    #
-    # A suspected mypy issue prevents using [..., _T] instead of [..., Any] here.
-    # https://github.com/python/mypy/issues/14032
-    def __call__(self, obj: SupportsGetItem[Any, Any]) -> Any: ...
+    # preventing [_T_co, _T] instead of [Any, _T]
+    def __call__(self, obj: SupportsGetItem[Any, _T]) -> _T: ...
 
 @final
 class methodcaller:
