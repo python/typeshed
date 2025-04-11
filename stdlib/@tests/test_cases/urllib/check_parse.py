@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from urllib.parse import quote, quote_plus, urlencode
 
 urlencode({"a": "b"}, quote_via=quote)
