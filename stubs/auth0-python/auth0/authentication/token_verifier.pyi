@@ -20,9 +20,9 @@ class AsymmetricSignatureVerifier(SignatureVerifier):
     def __init__(self, jwks_url: str, algorithm: str = "RS256", cache_ttl: int = ...) -> None: ...
 
 class TokenVerifier:
-    iss: Incomplete
-    aud: Incomplete
-    leeway: Incomplete
+    iss: str
+    aud: str
+    leeway: int
     def __init__(self, signature_verifier: SignatureVerifier, issuer: str, audience: str, leeway: int = 0) -> None: ...
     def verify(
         self, token: str, nonce: str | None = None, max_age: int | None = None, organization: str | None = None
