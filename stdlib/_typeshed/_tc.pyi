@@ -17,7 +17,7 @@ promote = object()
 
 # Internal mypy fallback type for all typed dicts.
 # N.B. Keep this mostly in sync with typing_extensions._TypedDict/mypy_extensions._TypedDict
-class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
+class TypedDictFallback(Mapping[str, object], metaclass=ABCMeta):
     __total__: ClassVar[bool]
     __required_keys__: ClassVar[frozenset[str]]
     __optional_keys__: ClassVar[frozenset[str]]

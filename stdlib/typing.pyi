@@ -927,7 +927,7 @@ class NamedTuple(tuple[Any, ...]):
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
 # N.B. Keep this mostly in sync with typing_extensions._TypedDict/mypy_extensions._TypedDict
-# Obsolete, use _typeshed._tc._TypedDict instead.
+# Obsolete, use _typeshed._tc.TypedDictFallback instead.
 @type_check_only
 class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
     __total__: ClassVar[bool]
