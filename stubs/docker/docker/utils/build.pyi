@@ -1,6 +1,6 @@
 import io
 from _typeshed import Incomplete, StrOrBytesPath, StrPath
-from collections.abc import Generator, Iterable
+from collections.abc import Generator, Iterable, MutableSequence
 from os import PathLike
 from tarfile import _Fileobj
 from tempfile import _TemporaryFileWrapper
@@ -13,7 +13,7 @@ def tar(
     fileobj: _Fileobj | None = None,
     gzip: bool = False,
 ) -> _TemporaryFileWrapper[bytes] | _Fileobj: ...
-def exclude_paths(root: StrPath, patterns: list[str], dockerfile: str | None = None) -> set[str]: ...
+def exclude_paths(root: StrPath, patterns: MutableSequence[str], dockerfile: str | None = None) -> set[str]: ...
 def build_file_list(root: str) -> list[str]: ...
 def create_archive(
     root: str,
