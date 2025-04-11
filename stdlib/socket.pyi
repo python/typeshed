@@ -514,7 +514,7 @@ if sys.platform != "win32":
         "IPV6_RTHDRDSTOPTS",
     ]
 
-    if sys.platform != "darwin":
+    if sys.platform != "darwin" or sys.version_info >= (3, 13):
         from _socket import SO_BINDTODEVICE as SO_BINDTODEVICE
 
         __all__ += ["SO_BINDTODEVICE"]
