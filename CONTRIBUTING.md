@@ -247,11 +247,16 @@ This has the following keys:
   that need to be installed for stubtest to run successfully
 * `choco_dependencies` (default: `[]`): A list of Windows Chocolatey packages
   that need to be installed for stubtest to run successfully
-* `platforms` (default: `["linux"]`): A list of OSes on which to run stubtest.
-  Can contain `win32`, `linux`, and `darwin` values.
-  If not specified, stubtest is run only on `linux`.
-  Only add extra OSes to the test
-  if there are platform-specific branches in a stubs package.
+* `supported_platforms` (default: all platforms): A list of OSes on which
+  stubtest can be run. When a package is not platform-specific, this should
+  not be set. If the package is platform-specific, this should usually be set
+  to the supported platforms, unless stubtest is known to fail on a
+  specific platform.
+* `ci_platforms` (default: `["linux"]`): A list of OSes on which to run
+  stubtest as part of our continuous integration (CI) tests. Can contain
+  `win32`, `linux`, and `darwin` values. If not specified, stubtest is run
+  only on `linux`. Only add extra OSes to the test if there are
+  platform-specific branches in a stubs package.
 
 `*_dependencies` are usually packages needed to `pip install` the implementation
 distribution.
