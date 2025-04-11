@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from pickle import PickleBuffer as PickleBuffer
 from typing import Any, Protocol, type_check_only
-from typing_extensions import TypeAlias, Self
+from typing_extensions import Self, TypeAlias
 
 class _ReadableFileobj(Protocol):
     def read(self, n: int, /) -> bytes: ...
