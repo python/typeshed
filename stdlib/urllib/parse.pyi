@@ -1,7 +1,7 @@
 import sys
-from collections.abc import Callable, Iterable, Mapping, Sequence
+from collections.abc import Iterable, Mapping, Sequence
 from types import GenericAlias
-from typing import Any, AnyStr, Generic, Literal, NamedTuple, TypeVar, overload
+from typing import Any, AnyStr, Generic, Literal, NamedTuple, Protocol, overload
 from typing_extensions import TypeAlias
 
 __all__ = [
@@ -132,38 +132,30 @@ def urldefrag(url: str) -> DefragResult: ...
 @overload
 def urldefrag(url: bytes | bytearray | None) -> DefragResultBytes: ...
 
-_Q = TypeVar("_Q", bound=str | Iterable[int])
 _QueryType: TypeAlias = (
-    Mapping[Any, Any] | Mapping[Any, Sequence[Any]] | Sequence[tuple[Any, Any]] | Sequence[tuple[Any, Sequence[Any]]]
+    Mapping[str, str | bytes]
+    | Mapping[bytes, str | bytes]
+    | Mapping[str | bytes, str | bytes]
+    | Mapping[str, Sequence[str | bytes]]
+    | Mapping[bytes, Sequence[str | bytes]]
+    | Mapping[str | bytes, Sequence[str | bytes]]
+    | Sequence[tuple[str | bytes, str | bytes]]
+    | Sequence[tuple[str | bytes, Sequence[str | bytes]]]
 )
 
-@overload
+class _QuoteVia(Protocol):
+    @overload
+    def __call__(self, string: str, safe: str | bytes, encoding: str, errors: str) -> str: ...
+    @overload
+    def __call__(self, string: bytes, safe: str | bytes) -> str: ...
+
 def urlencode(
     query: _QueryType,
     doseq: bool = False,
-    safe: str = "",
+    safe: str | bytes = "",
     encoding: str | None = None,
     errors: str | None = None,
-    quote_via: Callable[[AnyStr, str, str, str], str] = ...,
-) -> str: ...
-@overload
-def urlencode(
-    query: _QueryType,
-    doseq: bool,
-    safe: _Q,
-    encoding: str | None = None,
-    errors: str | None = None,
-    quote_via: Callable[[AnyStr, _Q, str, str], str] = ...,
-) -> str: ...
-@overload
-def urlencode(
-    query: _QueryType,
-    doseq: bool = False,
-    *,
-    safe: _Q,
-    encoding: str | None = None,
-    errors: str | None = None,
-    quote_via: Callable[[AnyStr, _Q, str, str], str] = ...,
+    quote_via: _QuoteVia = ...,
 ) -> str: ...
 def urljoin(base: AnyStr, url: AnyStr | None, allow_fragments: bool = True) -> AnyStr: ...
 @overload
