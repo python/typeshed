@@ -15,7 +15,7 @@ _T = TypeVar("_T")
 # Used for an undocumented mypy feature. Does not exist at runtime.
 promote = object()
 
-# Internal mypy fallback type for all typed dicts.
+# Fallback type providing methods and attributes that appear on all `TypedDict` types.
 # N.B. Keep this mostly in sync with typing_extensions._TypedDict/mypy_extensions._TypedDict
 class TypedDictFallback(Mapping[str, object], metaclass=ABCMeta):
     __total__: ClassVar[bool]
@@ -51,6 +51,7 @@ class TypedDictFallback(Mapping[str, object], metaclass=ABCMeta):
     # supposedly incompatible definitions of __or__ and __ior__
     def __ior__(self, value: typing_extensions.Self, /) -> typing_extensions.Self: ...  # type: ignore[misc]
 
+# Fallback type providing methods and attributes that appear on all `NamedTuple` types.
 class NamedTupleFallback(tuple[Any, ...]):
     _field_defaults: ClassVar[dict[str, Any]]
     _fields: ClassVar[tuple[str, ...]]
