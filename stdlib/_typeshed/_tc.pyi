@@ -13,7 +13,7 @@ from typing_extensions import Never
 _T = TypeVar("_T")
 
 # Used for an undocumented mypy feature. Does not exist at runtime.
-_promote = object()
+promote = object()
 
 # Internal mypy fallback type for all typed dicts.
 # N.B. Keep this mostly in sync with typing_extensions._TypedDict/mypy_extensions._TypedDict

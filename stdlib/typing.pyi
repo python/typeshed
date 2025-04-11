@@ -193,7 +193,7 @@ class TypeVar:
         def has_default(self) -> bool: ...
 
 # Used for an undocumented mypy feature. Does not exist at runtime.
-# Obsolete, use _typeshed._tc._promote instead.
+# Obsolete, use _typeshed._tc.promote instead.
 _promote = object()
 
 # N.B. Keep this definition in sync with typing_extensions._SpecialForm
