@@ -903,6 +903,7 @@ if sys.version_info >= (3, 11):
 
 # Type constructors
 
+# Obsolete, will be changed to a function. Use _typeshed._tc.NamedTupleFallback instead.
 class NamedTuple(tuple[Any, ...]):
     _field_defaults: ClassVar[dict[str, Any]]
     _fields: ClassVar[tuple[str, ...]]

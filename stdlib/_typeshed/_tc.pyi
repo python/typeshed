@@ -6,7 +6,7 @@ import sys
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
 from abc import ABCMeta
-from collections.abc import Awaitable, Generator, Mapping
+from collections.abc import Awaitable, Generator, Iterable, Mapping
 from typing import Any, ClassVar, Generic, TypeVar, overload
 from typing_extensions import Never
 
@@ -50,6 +50,28 @@ class TypedDictFallback(Mapping[str, object], metaclass=ABCMeta):
     def __ror__(self, value: dict[str, Any], /) -> dict[str, object]: ...
     # supposedly incompatible definitions of __or__ and __ior__
     def __ior__(self, value: typing_extensions.Self, /) -> typing_extensions.Self: ...  # type: ignore[misc]
+
+class NamedTupleFallback(tuple[Any, ...]):
+    _field_defaults: ClassVar[dict[str, Any]]
+    _fields: ClassVar[tuple[str, ...]]
+    # __orig_bases__ sometimes exists on <3.12, but not consistently
+    # So we only add it to the stub on 3.12+.
+    if sys.version_info >= (3, 12):
+        __orig_bases__: ClassVar[tuple[Any, ...]]
+
+    @overload
+    def __init__(self, typename: str, fields: Iterable[tuple[str, Any]], /) -> None: ...
+    @overload
+    @typing_extensions.deprecated(
+        "Creating a typing.NamedTuple using keyword arguments is deprecated and support will be removed in Python 3.15"
+    )
+    def __init__(self, typename: str, fields: None = None, /, **kwargs: Any) -> None: ...
+    @classmethod
+    def _make(cls, iterable: Iterable[Any]) -> typing_extensions.Self: ...
+    def _asdict(self) -> dict[str, Any]: ...
+    def _replace(self, **kwargs: Any) -> typing_extensions.Self: ...
+    if sys.version_info >= (3, 13):
+        def __replace__(self, **kwargs: Any) -> typing_extensions.Self: ...
 
 # Non-default variations to accommodate couroutines, and `AwaitableGenerator` having a 4th type parameter.
 _S = TypeVar("_S")
