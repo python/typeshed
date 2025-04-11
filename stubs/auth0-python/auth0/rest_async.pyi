@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 
 from auth0.exceptions import RateLimitError as RateLimitError
 from auth0.types import RequestData as RequestData
-from multidict import CIMultiDictProxy
 
 from .rest import (
     EmptyResponse as EmptyResponse,
@@ -24,6 +23,6 @@ class AsyncRestClient(RestClient):
 
 class RequestsResponse:
     status_code: int
-    headers: CIMultiDictProxy[str]
+    headers: Incomplete
     text: str
     def __init__(self, response, text: str) -> None: ...
