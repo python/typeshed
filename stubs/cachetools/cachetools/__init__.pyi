@@ -1,8 +1,9 @@
-from _typeshed import IdentityFunction, Unused
+from _typeshed import Unused
 from collections.abc import Callable, Iterator, MutableMapping, Sequence
 from contextlib import AbstractContextManager
+from functools import _Wrapped
 from typing import Any, TypeVar, overload
-from typing_extensions import deprecated
+from typing_extensions import ParamSpec, deprecated
 
 __all__ = ("Cache", "FIFOCache", "LFUCache", "LRUCache", "MRUCache", "RRCache", "TLRUCache", "TTLCache", "cached", "cachedmethod")
 __version__: str
@@ -10,6 +11,8 @@ __version__: str
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
 _T = TypeVar("_T")
+_R = TypeVar("_R")
+_P = ParamSpec("_P")
 
 class Cache(MutableMapping[_KT, _VT]):
     @overload
@@ -104,9 +107,9 @@ def cached(
     key: Callable[..., _KT] = ...,
     lock: AbstractContextManager[Any] | None = None,
     info: bool = False,
-) -> IdentityFunction: ...
+) -> Callable[[Callable[_P, _R]], _Wrapped[_P, _R, _P, _R]]: ...
 def cachedmethod(
     cache: Callable[[Any], MutableMapping[_KT, Any] | None],
     key: Callable[..., _KT] = ...,
     lock: Callable[[Any], AbstractContextManager[Any]] | None = None,
-) -> IdentityFunction: ...
+) -> Callable[[Callable[_P, _R]], _Wrapped[_P, _R, _P, _R]]: ...
