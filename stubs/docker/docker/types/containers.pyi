@@ -3,16 +3,19 @@ from typing import Literal
 
 from docker._types import ContainerWeightDevice
 
+from .. import errors
 from .base import DictType
+from .healthcheck import Healthcheck
+from .networks import NetworkingConfig
 from .services import Mount
 
 class LogConfigTypesEnum:
-    JSON: Incomplete
-    SYSLOG: Incomplete
-    JOURNALD: Incomplete
-    GELF: Incomplete
-    FLUENTD: Incomplete
-    NONE: Incomplete
+    JSON: str
+    SYSLOG: str
+    JOURNALD: str
+    GELF: str
+    FLUENTD: str
+    NONE: str
 
 class LogConfig(DictType):
     types: type[LogConfigTypesEnum]
@@ -68,21 +71,21 @@ class HostConfig(dict[str, Incomplete]):
     def __init__(
         self,
         version: str,
-        binds: Incomplete | None = None,
-        port_bindings: Incomplete | None = None,
-        lxc_conf: dict[Incomplete, Incomplete] | None = None,
+        binds: dict[str, dict[str, str]] | list[str] | None = None,
+        port_bindings: dict[int | str, Incomplete] | None = None,
+        lxc_conf: dict[str, Incomplete] | list[dict[str, Incomplete]] | None = None,
         publish_all_ports: bool = False,
         links: dict[str, str | None] | None = None,
         privileged: bool = False,
-        dns: list[Incomplete] | None = None,
-        dns_search: list[Incomplete] | None = None,
+        dns: list[str] | None = None,
+        dns_search: list[str] | None = None,
         volumes_from: list[str] | None = None,
         network_mode: str | None = None,
-        restart_policy: dict[Incomplete, Incomplete] | None = None,
+        restart_policy: dict[str, str | int] | None = None,
         cap_add: list[str] | None = None,
         cap_drop: list[str] | None = None,
         devices: list[str] | None = None,
-        extra_hosts: dict[Incomplete, Incomplete] | None = None,
+        extra_hosts: dict[str, Incomplete] | None = None,
         read_only: bool | None = None,
         pid_mode: str | None = None,
         ipc_mode: str | None = None,
@@ -100,13 +103,13 @@ class HostConfig(dict[str, Incomplete]):
         cpu_period: int | None = None,
         blkio_weight: int | None = None,
         blkio_weight_device: list[ContainerWeightDevice] | None = None,
-        device_read_bps: Incomplete | None = None,
-        device_write_bps: Incomplete | None = None,
-        device_read_iops: Incomplete | None = None,
-        device_write_iops: Incomplete | None = None,
+        device_read_bps: list[dict[str, str | int]] | None = None,
+        device_write_bps: list[dict[str, str | int]] | None = None,
+        device_read_iops: list[dict[str, str | int]] | None = None,
+        device_write_iops: list[dict[str, str | int]] | None = None,
         oom_kill_disable: bool = False,
         shm_size: str | int | None = None,
-        sysctls: dict[Incomplete, Incomplete] | None = None,
+        sysctls: dict[str, str] | None = None,
         tmpfs: dict[str, str] | None = None,
         oom_score_adj: int | None = None,
         dns_opt: list[Incomplete] | None = None,
@@ -134,16 +137,16 @@ class HostConfig(dict[str, Incomplete]):
         cgroupns: Literal["private", "host"] | None = None,
     ) -> None: ...
 
-def host_config_type_error(param, param_value, expected): ...
-def host_config_version_error(param, version, less_than: bool = True): ...
-def host_config_value_error(param, param_value): ...
-def host_config_incompatible_error(param, param_value, incompatible_param): ...
+def host_config_type_error(param: str, param_value, expected: str) -> TypeError: ...
+def host_config_version_error(param: str, version: str, less_than: bool = True) -> errors.InvalidVersion: ...
+def host_config_value_error(param: str, param_value) -> ValueError: ...
+def host_config_incompatible_error(param: str, param_value: str, incompatible_param: str) -> errors.InvalidArgument: ...
 
 class ContainerConfig(dict[str, Incomplete]):
     def __init__(
         self,
         version: str,
-        image,
+        image: str,
         command: str | list[str],
         hostname: str | None = None,
         user: str | int | None = None,
@@ -157,12 +160,12 @@ class ContainerConfig(dict[str, Incomplete]):
         entrypoint: str | list[str] | None = None,
         working_dir: str | None = None,
         domainname: str | None = None,
-        host_config: Incomplete | None = None,
+        host_config: HostConfig | None = None,
         mac_address: str | None = None,
         labels: dict[str, str] | list[str] | None = None,
         stop_signal: str | None = None,
-        networking_config: Incomplete | None = None,
-        healthcheck: Incomplete | None = None,
+        networking_config: NetworkingConfig | None = None,
+        healthcheck: Healthcheck | None = None,
         stop_timeout: int | None = None,
         runtime: str | None = None,
     ) -> None: ...
