@@ -193,6 +193,7 @@ class TypeVar:
         def has_default(self) -> bool: ...
 
 # Used for an undocumented mypy feature. Does not exist at runtime.
+# Obsolete, use _typeshed._tc._promote instead.
 _promote = object()
 
 # N.B. Keep this definition in sync with typing_extensions._SpecialForm
@@ -531,6 +532,7 @@ class Coroutine(Awaitable[_ReturnT_nd_co], Generic[_YieldT_co, _SendT_nd_contra,
 
 # NOTE: This type does not exist in typing.py or PEP 484 but mypy needs it to exist.
 # The parameters correspond to Generator, but the 4th is the original type.
+# Obsolete, use _typeshed._tc.AwaitableGenerator instead.
 @type_check_only
 class AwaitableGenerator(
     Awaitable[_ReturnT_nd_co],
@@ -925,6 +927,7 @@ class NamedTuple(tuple[Any, ...]):
 
 # Internal mypy fallback type for all typed dicts (does not exist at runtime)
 # N.B. Keep this mostly in sync with typing_extensions._TypedDict/mypy_extensions._TypedDict
+# Obsolete, use _typeshed._tc._TypedDict instead.
 @type_check_only
 class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
     __total__: ClassVar[bool]
