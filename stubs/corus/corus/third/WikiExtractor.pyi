@@ -1,4 +1,3 @@
-import typing
 from _typeshed import Incomplete
 from collections.abc import Generator
 from math import (
@@ -14,6 +13,7 @@ from math import (
     tan as tan,
     trunc as trunc,
 )
+from typing import TypeVar
 
 PY2: Incomplete
 text_type = str
@@ -52,7 +52,7 @@ quote_quote: Incomplete
 spaces: Incomplete
 dots: Incomplete
 
-_T = typing.TypeVar("_T")
+_T = TypeVar("_T")
 
 class Template(list[_T]):
     @classmethod

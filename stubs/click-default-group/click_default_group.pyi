@@ -1,5 +1,5 @@
-import typing as t
 from _typeshed import Incomplete
+from collections.abc import Sequence
 
 import click
 
@@ -23,7 +23,7 @@ class DefaultCommandFormatter:
     formatter: click.HelpFormatter
     mark: str
     def __init__(self, group: click.Group, formatter: click.HelpFormatter, mark: str = ...) -> None: ...
-    def write_dl(self, rows: t.Sequence[tuple[str, str]], col_max: int = 30, col_spacing: int = -2) -> None: ...
+    def write_dl(self, rows: Sequence[tuple[str, str]], col_max: int = 30, col_spacing: int = -2) -> None: ...
     def __getattr__(self, attr: str) -> Incomplete: ...
     # __getattr__ used to ala-derive from click.HelpFormatter:
     # indent_increment: int
