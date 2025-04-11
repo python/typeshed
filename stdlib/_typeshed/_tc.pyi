@@ -1,8 +1,6 @@
-"""
-Internals used by some type checkers.
-
-Don't use this module directly. It is only for type checkers to use.
-"""
+# Internals used by some type checkers.
+#
+# Don't use this module directly. It is only for type checkers to use.
 
 import sys
 import typing_extensions
@@ -10,8 +8,8 @@ from _collections_abc import dict_items, dict_keys, dict_values
 from abc import ABCMeta
 from collections.abc import Awaitable, Generator, Mapping
 from types import CellType, CodeType
-from typing import Any, ClassVar, Generic, TypeVar, overload
-from typing_extensions import Never, ParamSpec, TypeVarTuple, final
+from typing import Any, ClassVar, Generic, TypeVar, final, overload
+from typing_extensions import Never, ParamSpec, TypeVarTuple
 
 _T = TypeVar("_T")
 
