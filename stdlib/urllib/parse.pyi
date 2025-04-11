@@ -132,15 +132,16 @@ def urldefrag(url: str) -> DefragResult: ...
 @overload
 def urldefrag(url: bytes | bytearray | None) -> DefragResultBytes: ...
 
+# The values are passed to `str()` (unless they are bytes), so anything is valid.
 _QueryType: TypeAlias = (
-    Mapping[str, str | bytes]
-    | Mapping[bytes, str | bytes]
-    | Mapping[str | bytes, str | bytes]
-    | Mapping[str, Sequence[str | bytes]]
-    | Mapping[bytes, Sequence[str | bytes]]
-    | Mapping[str | bytes, Sequence[str | bytes]]
-    | Sequence[tuple[str | bytes, str | bytes]]
-    | Sequence[tuple[str | bytes, Sequence[str | bytes]]]
+    Mapping[str, object]
+    | Mapping[bytes, object]
+    | Mapping[str | bytes, object]
+    | Mapping[str, Sequence[object]]
+    | Mapping[bytes, Sequence[object]]
+    | Mapping[str | bytes, Sequence[object]]
+    | Sequence[tuple[str | bytes, object]]
+    | Sequence[tuple[str | bytes, Sequence[object]]]
 )
 
 class _QuoteVia(Protocol):
