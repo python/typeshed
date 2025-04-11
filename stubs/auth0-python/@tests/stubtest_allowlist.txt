@@ -3,6 +3,7 @@ auth0\.test.*
 
 # Omit _async functions because they aren't present in the code
 auth0\..*_async
+auth0\.management\.async_auth0\..*
 
 # Inconsistently implemented, ommitted
 auth0.asyncify.AsyncRestClient.file_post
