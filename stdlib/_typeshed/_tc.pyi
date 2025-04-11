@@ -7,9 +7,8 @@ import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
 from abc import ABCMeta
 from collections.abc import Awaitable, Generator, Mapping
-from types import CellType, CodeType
-from typing import Any, ClassVar, Generic, TypeVar, final, overload
-from typing_extensions import Never, ParamSpec, TypeVarTuple
+from typing import Any, ClassVar, Generic, TypeVar, overload
+from typing_extensions import Never
 
 _T = TypeVar("_T")
 
@@ -65,27 +64,3 @@ class AwaitableGenerator(
     Generic[_YieldT_co, _SendT_nd_contra, _ReturnT_nd_co, _S],
     metaclass=ABCMeta,
 ): ...
-
-@final
-class function:
-    # Make sure this class definition stays roughly in line with `types.FunctionType`
-    @property
-    def __closure__(self) -> tuple[CellType, ...] | None: ...
-    __code__: CodeType
-    __defaults__: tuple[Any, ...] | None
-    __dict__: dict[str, Any]
-    @property
-    def __globals__(self) -> dict[str, Any]: ...
-    __name__: str
-    __qualname__: str
-    __annotations__: dict[str, Any]
-    __kwdefaults__: dict[str, Any]
-    if sys.version_info >= (3, 10):
-        @property
-        def __builtins__(self) -> dict[str, Any]: ...
-    if sys.version_info >= (3, 12):
-        __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
-
-    __module__: str
-    # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
-    def __get__(self, instance: object, owner: type | None = None, /) -> Any: ...
