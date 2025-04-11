@@ -1,7 +1,8 @@
 import datetime
 from _typeshed import FileDescriptorOrPath, Incomplete, ReadableBuffer
 from collections.abc import Iterable, Mapping
-from typing import Literal, NamedTuple, NoReturn, Protocol, TypedDict, TypeVar, overload, type_check_only
+from shlex import _ShlexInstream
+from typing import Literal, NamedTuple, NoReturn, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import deprecated
 
 from ..tls import TLSConfig
@@ -9,13 +10,6 @@ from ..tls import TLSConfig
 _T = TypeVar("_T")
 _K = TypeVar("_K")
 _V = TypeVar("_V")
-
-# This Protocol is taken from stdlib/shlex.pyi
-@type_check_only
-class _ShlexInstream(Protocol):
-    def read(self, size: Literal[1], /) -> str: ...
-    def readline(self) -> object: ...
-    def close(self) -> object: ...
 
 @type_check_only
 class _EnvKWArgs(TypedDict, total=False):
