@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Iterable, Mapping, Sequence
 from types import GenericAlias
-from typing import Any, AnyStr, Generic, Literal, NamedTuple, Protocol, overload
+from typing import Any, AnyStr, Generic, Literal, NamedTuple, Protocol, overload, type_check_only
 from typing_extensions import TypeAlias
 
 __all__ = [
@@ -132,7 +132,7 @@ def urldefrag(url: str) -> DefragResult: ...
 @overload
 def urldefrag(url: bytes | bytearray | None) -> DefragResultBytes: ...
 
-# The values are passed to `str()` (unless they are bytes), so anything is valid.
+# The values are passed through `str()` (unless they are bytes), so anything is valid.
 _QueryType: TypeAlias = (
     Mapping[str, object]
     | Mapping[bytes, object]
@@ -144,6 +144,7 @@ _QueryType: TypeAlias = (
     | Sequence[tuple[str | bytes, Sequence[object]]]
 )
 
+@type_check_only
 class _QuoteVia(Protocol):
     @overload
     def __call__(self, string: str, safe: str | bytes, encoding: str, errors: str) -> str: ...
