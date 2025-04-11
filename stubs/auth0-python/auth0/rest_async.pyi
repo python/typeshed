@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
-from collections.abc import MutableMapping
 
 from auth0.exceptions import RateLimitError as RateLimitError
 from auth0.types import RequestData as RequestData
+from multidict import CIMultiDictProxy
 
 from .rest import (
     EmptyResponse as EmptyResponse,
@@ -24,6 +24,6 @@ class AsyncRestClient(RestClient):
 
 class RequestsResponse:
     status_code: int
-    headers: MutableMapping[str, str]
+    headers: CIMultiDictProxy[str]
     text: str
     def __init__(self, response, text: str) -> None: ...
