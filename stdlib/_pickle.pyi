@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, SupportsWrite
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from pickle import PickleBuffer as PickleBuffer
 from typing import Any, Protocol, type_check_only
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, Self
 
 class _ReadableFileobj(Protocol):
     def read(self, n: int, /) -> bytes: ...
@@ -78,7 +78,7 @@ class Pickler:
     if sys.version_info >= (3, 13):
         def persistent_id(self, obj: Any, /) -> Any: ...
     else:
-        persistent_id: Callable[[Any], Any]
+        persistent_id: Callable[[Self, Any], Any]
 
 @type_check_only
 class UnpicklerMemoProxy:
@@ -104,4 +104,4 @@ class Unpickler:
     if sys.version_info >= (3, 13):
         def persistent_load(self, pid: Any, /) -> Any: ...
     else:
-        persistent_load: Callable[[Any], Any]
+        persistent_load: Callable[[Self, Any], Any]
