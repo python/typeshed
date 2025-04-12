@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from typing import Literal
+from collections.abc import Mapping
+from typing import Final, Literal
 
 from docker._types import ContainerWeightDevice
 
@@ -10,12 +11,12 @@ from .networks import NetworkingConfig
 from .services import Mount
 
 class LogConfigTypesEnum:
-    JSON: str
-    SYSLOG: str
-    JOURNALD: str
-    GELF: str
-    FLUENTD: str
-    NONE: str
+    JSON: Final = "json-file"
+    SYSLOG: Final = "syslog"
+    JOURNALD: Final = "journald"
+    GELF: Final = "gelf"
+    FLUENTD: Final = "fluentd"
+    NONE: Final = "none"
 
 class LogConfig(DictType):
     types: type[LogConfigTypesEnum]
@@ -71,8 +72,8 @@ class HostConfig(dict[str, Incomplete]):
     def __init__(
         self,
         version: str,
-        binds: dict[str, dict[str, str]] | list[str] | None = None,
-        port_bindings: dict[int | str, Incomplete] | None = None,
+        binds: dict[str, Mapping[str, str]] | list[str] | None = None,
+        port_bindings: Mapping[int | str, Incomplete] | None = None,
         lxc_conf: dict[str, Incomplete] | list[dict[str, Incomplete]] | None = None,
         publish_all_ports: bool = False,
         links: dict[str, str | None] | None = None,
@@ -85,7 +86,7 @@ class HostConfig(dict[str, Incomplete]):
         cap_add: list[str] | None = None,
         cap_drop: list[str] | None = None,
         devices: list[str] | None = None,
-        extra_hosts: dict[str, Incomplete] | None = None,
+        extra_hosts: dict[str, Incomplete] | list[Incomplete] | None = None,
         read_only: bool | None = None,
         pid_mode: str | None = None,
         ipc_mode: str | None = None,
@@ -137,9 +138,9 @@ class HostConfig(dict[str, Incomplete]):
         cgroupns: Literal["private", "host"] | None = None,
     ) -> None: ...
 
-def host_config_type_error(param: str, param_value, expected: str) -> TypeError: ...
+def host_config_type_error(param: str, param_value: object, expected: str) -> TypeError: ...
 def host_config_version_error(param: str, version: str, less_than: bool = True) -> errors.InvalidVersion: ...
-def host_config_value_error(param: str, param_value) -> ValueError: ...
+def host_config_value_error(param: str, param_value: object) -> ValueError: ...
 def host_config_incompatible_error(param: str, param_value: str, incompatible_param: str) -> errors.InvalidArgument: ...
 
 class ContainerConfig(dict[str, Incomplete]):

@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from typing import Literal, TypeVar, overload
+from collections.abc import Iterable, Mapping
+from typing import Final, Literal, TypeVar, overload
 
 from .healthcheck import Healthcheck
 
@@ -36,7 +37,7 @@ class ContainerSpec(dict[str, Incomplete]):
         workdir: str | None = None,
         user: str | None = None,
         labels: dict[Incomplete, Incomplete] | None = None,
-        mounts: list[Mount] | None = None,
+        mounts: Iterable[str | Mount] | None = None,
         stop_grace_period: int | None = None,
         secrets: list[SecretReference] | None = None,
         tty: bool | None = None,
@@ -45,7 +46,7 @@ class ContainerSpec(dict[str, Incomplete]):
         read_only: bool | None = None,
         stop_signal: str | None = None,
         healthcheck: Healthcheck | None = None,
-        hosts: dict[str, str] | None = None,
+        hosts: Mapping[str, str] | None = None,
         dns_config: DNSConfig | None = None,
         configs: list[ConfigReference] | None = None,
         privileges: Privileges | None = None,
@@ -98,9 +99,9 @@ class UpdateConfig(dict[str, Incomplete]):
 class RollbackConfig(UpdateConfig): ...
 
 class RestartConditionTypesEnum:
-    NONE: str
-    ON_FAILURE: str
-    ANY: str
+    NONE: Final = "none"
+    ON_FAILURE: Final = "on-failure"
+    ANY: Final = "any"
 
 class RestartPolicy(dict[str, Incomplete]):
     condition_types: type[RestartConditionTypesEnum]
@@ -112,12 +113,14 @@ class DriverConfig(dict[str, Incomplete]):
     def __init__(self, name: str, options: dict[Incomplete, Incomplete] | None = None) -> None: ...
 
 class EndpointSpec(dict[str, Incomplete]):
-    def __init__(self, mode: str | None = None, ports: dict[str, str | tuple[str | None, ...]] | None = None) -> None: ...
+    def __init__(
+        self, mode: str | None = None, ports: dict[str, str | tuple[str | None, ...]] | list[dict[str, str]] | None = None
+    ) -> None: ...
 
 @overload
 def convert_service_ports(ports: list[_T]) -> list[_T]: ...
 @overload
-def convert_service_ports(ports: dict[str, str | tuple[str | None, ...]]) -> list[dict[str, str | Incomplete]]: ...
+def convert_service_ports(ports: dict[str, str | tuple[str | None, ...]]) -> list[dict[str, str]]: ...
 
 class ServiceMode(dict[str, Incomplete]):
     mode: Literal["replicated", "global", "ReplicatedJob", "GlobalJob"]
@@ -156,8 +159,8 @@ class Placement(dict[str, Incomplete]):
     def __init__(
         self,
         constraints: list[str] | None = None,
-        preferences: list[tuple[str, str]] | None = None,
-        platforms: list[tuple[str, str]] | None = None,
+        preferences: Iterable[tuple[str, str] | PlacementPreference] | None = None,
+        platforms: Iterable[tuple[str, str]] | None = None,
         maxreplicas: int | None = None,
     ) -> None: ...
 

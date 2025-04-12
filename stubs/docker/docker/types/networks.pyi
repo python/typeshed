@@ -5,7 +5,7 @@ class EndpointConfig(dict[str, Incomplete]):
         self,
         version: str,
         aliases: list[Incomplete] | None = None,
-        links: list[Incomplete] | None = None,
+        links: dict[str, str] | list[str] | None = None,
         ipv4_address: str | None = None,
         ipv6_address: str | None = None,
         link_local_ips: list[str] | None = None,
