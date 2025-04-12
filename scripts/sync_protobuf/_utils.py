@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import subprocess
 import sys
+from collections.abc import Iterable
 from http.client import HTTPResponse
-from typing import TYPE_CHECKING, Iterable
+from typing import TYPE_CHECKING
 from urllib.request import urlopen
 from zipfile import ZipFile
 

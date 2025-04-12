@@ -11,9 +11,9 @@ email.utils.getaddresses
 email.utils.parseaddr
 
 
-# ======
-# <= 3.9
-# ======
+# ========
+# 3.9 only
+# ========
 
 # Added in Python 3.9.14
 sys.set_int_max_str_digits

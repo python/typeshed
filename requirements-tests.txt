@@ -1,7 +1,7 @@
 # Type checkers that we test our stubs against. These should always
 # be pinned to a specific version to make failure reproducible.
 mypy==1.15.0
-pyright==1.1.398
+pyright==1.1.399
 # pytype can be installed on Windows, but requires building wheels, let's not do that on the CI
 pytype==2024.10.11; platform_system != "Windows" and python_version >= "3.10" and python_version < "3.13"
 
@@ -13,7 +13,7 @@ packaging==24.2
 pathspec>=0.11.1
 pre-commit
 # Required by create_baseline_stubs.py. Must match .pre-commit-config.yaml.
-ruff==0.11.2
+ruff==0.11.4
 stubdefaulter==0.1.0
 termcolor>=2.3
 tomli==2.2.1
