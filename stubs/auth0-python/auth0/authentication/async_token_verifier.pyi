@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from .. import TokenValidationError as TokenValidationError
 from ..rest_async import AsyncRestClient as AsyncRestClient
 from .token_verifier import (
@@ -18,9 +16,9 @@ class AsyncJwksFetcher(JwksFetcher):
     async def get_key(self, key_id: str): ...
 
 class AsyncTokenVerifier(TokenVerifier):
-    iss: Incomplete
-    aud: Incomplete
-    leeway: Incomplete
+    iss: str
+    aud: str
+    leeway: int
     def __init__(
         self, signature_verifier: AsyncAsymmetricSignatureVerifier, issuer: str, audience: str, leeway: int = 0
     ) -> None: ...
