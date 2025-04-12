@@ -1,12 +1,12 @@
 import re
-from typing import TypeVar
+from typing import ClassVar, TypeVar
 
 import click
 
 _T = TypeVar("_T")
 
 class EmailParamType(click.ParamType):
-    EMAIL_REGEX: re.Pattern[str]
+    EMAIL_REGEX: ClassVar[re.Pattern[str]]
     def convert(self, value: str, param: click.Parameter | None, ctx: click.Context | None) -> str: ...
 
 class PasswordParamType(click.ParamType):

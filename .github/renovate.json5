@@ -7,32 +7,26 @@
   "semanticCommits": "disabled",
   "separateMajorMinor": false,
   "prHourlyLimit": 10,
+  // This package rule disables updates for `actions/setup-python` Python versions:
+  // it's better to do these manually as there's often a reason why we can't use
+  // the latest Python version in CI for a specific job
+  ignoreDeps: ["python"],
   "pre-commit": {
     "enabled": true
   },
   "packageRules": [
     {
-      "groupName": "GitHub Actions",
-      "matchManagers": ["github-actions"],
-      "description": "Quarterly update of GitHub Action dependencies",
-      "schedule": ["every 3 months on the first day of the month"]
-    },
-    {
-      // This package rule disables updates for `actions/setup-python` Python versions:
-      // it's better to do these manually as there's often a reason why we can't use
-      // the latest Python version in CI for a specific job
-      groupName: "Python versions",
+      groupName: "GitHub Actions",
       matchManagers: ["github-actions"],
-      matchPackageNames: ["python"],
-      description: "Disable PRs updating Python versions",
-      enabled: false,
+      description: "Quarterly update of GitHub Action dependencies",
+      schedule: ["every 3 months on the first day of the month"]
     },
     {
-      "groupName": "most test/lint dependencies",
-      "matchManagers": ["pip_requirements", "pre-commit"],
-      "excludePackageNames": ["pytype", "pyright"],
-      "description": "Quarterly update of most test dependencies",
-      "schedule": ["every 3 months on the first day of the month"]
+      groupName: "most test/lint dependencies",
+      matchManagers: ["pip_requirements", "pre-commit"],
+      matchPackageNames: ["!pytype", "!pyright"],
+      description: "Quarterly update of most test dependencies",
+      schedule: ["every 3 months on the first day of the month"]
     },
     {
       "groupName": "pytype and pyright",

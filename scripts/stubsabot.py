@@ -730,8 +730,6 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
 
 
 async def main() -> None:
-    assert sys.version_info >= (3, 9)
-
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--action-level",
