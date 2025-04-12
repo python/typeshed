@@ -15,8 +15,8 @@ from dataclasses import dataclass
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import NamedTuple
-from typing_extensions import Annotated, TypeAlias
+from typing import Annotated, NamedTuple
+from typing_extensions import TypeAlias
 
 from packaging.requirements import Requirement
 
