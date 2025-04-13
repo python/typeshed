@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Mapping
+from collections.abc import Iterable, Mapping
 from typing import Final, Literal
 
 from docker._types import ContainerWeightDevice
@@ -76,13 +76,13 @@ class HostConfig(dict[str, Incomplete]):
         port_bindings: Mapping[int | str, Incomplete] | None = None,
         lxc_conf: dict[str, Incomplete] | list[dict[str, Incomplete]] | None = None,
         publish_all_ports: bool = False,
-        links: dict[str, str | None] | None = None,
+        links: Mapping[str, str | None] | None = None,
         privileged: bool = False,
         dns: list[str] | None = None,
         dns_search: list[str] | None = None,
         volumes_from: list[str] | None = None,
         network_mode: str | None = None,
-        restart_policy: dict[str, str | int] | None = None,
+        restart_policy: Mapping[str, str | int] | None = None,
         cap_add: list[str] | None = None,
         cap_drop: list[str] | None = None,
         devices: list[str] | None = None,
@@ -99,15 +99,15 @@ class HostConfig(dict[str, Incomplete]):
         kernel_memory: str | int | None = None,
         mem_swappiness: int | None = None,
         cgroup_parent: str | None = None,
-        group_add: list[str | int] | None = None,
+        group_add: Iterable[str | int] | None = None,
         cpu_quota: int | None = None,
         cpu_period: int | None = None,
         blkio_weight: int | None = None,
         blkio_weight_device: list[ContainerWeightDevice] | None = None,
-        device_read_bps: list[dict[str, str | int]] | None = None,
-        device_write_bps: list[dict[str, str | int]] | None = None,
-        device_read_iops: list[dict[str, str | int]] | None = None,
-        device_write_iops: list[dict[str, str | int]] | None = None,
+        device_read_bps: list[Mapping[str, str | int]] | None = None,
+        device_write_bps: list[Mapping[str, str | int]] | None = None,
+        device_read_iops: list[Mapping[str, str | int]] | None = None,
+        device_write_iops: list[Mapping[str, str | int]] | None = None,
         oom_kill_disable: bool = False,
         shm_size: str | int | None = None,
         sysctls: dict[str, str] | None = None,
@@ -154,7 +154,7 @@ class ContainerConfig(dict[str, Incomplete]):
         detach: bool = False,
         stdin_open: bool = False,
         tty: bool = False,
-        ports: dict[str, int | list[int] | tuple[str, int] | None] | None = None,
+        ports: Mapping[str, int | list[int] | tuple[str, int] | None] | None = None,
         environment: dict[str, str] | list[str] | None = None,
         volumes: str | list[str] | None = None,
         network_disabled: bool = False,

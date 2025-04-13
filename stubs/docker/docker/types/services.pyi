@@ -14,7 +14,7 @@ class TaskTemplate(dict[str, Incomplete]):
         restart_policy: RestartPolicy | None = None,
         placement: Placement | list[str] | None = None,
         log_driver: DriverConfig | None = None,
-        networks: list[str | NetworkAttachmentConfig] | None = None,
+        networks: Iterable[str | NetworkAttachmentConfig] | None = None,
         force_update: int | None = None,
     ) -> None: ...
     @property
@@ -114,13 +114,13 @@ class DriverConfig(dict[str, Incomplete]):
 
 class EndpointSpec(dict[str, Incomplete]):
     def __init__(
-        self, mode: str | None = None, ports: dict[str, str | tuple[str | None, ...]] | list[dict[str, str]] | None = None
+        self, mode: str | None = None, ports: Mapping[str, str | tuple[str | None, ...]] | list[dict[str, str]] | None = None
     ) -> None: ...
 
 @overload
 def convert_service_ports(ports: list[_T]) -> list[_T]: ...
 @overload
-def convert_service_ports(ports: dict[str, str | tuple[str | None, ...]]) -> list[dict[str, str]]: ...
+def convert_service_ports(ports: Mapping[str, str | tuple[str | None, ...]]) -> list[dict[str, str]]: ...
 
 class ServiceMode(dict[str, Incomplete]):
     mode: Literal["replicated", "global", "ReplicatedJob", "GlobalJob"]
