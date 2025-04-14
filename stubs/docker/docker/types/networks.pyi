@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
+from collections.abc import Iterable
 
 class EndpointConfig(dict[str, Incomplete]):
     def __init__(
         self,
         version: str,
         aliases: list[Incomplete] | None = None,
-        links: dict[str, str] | list[str] | None = None,
+        links: dict[str, str] | dict[str, None] | dict[str, str | None] | Iterable[tuple[str, str | None]] | None = None,
         ipv4_address: str | None = None,
         ipv6_address: str | None = None,
         link_local_ips: list[str] | None = None,

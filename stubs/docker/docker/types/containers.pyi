@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
-from typing import Final, Literal
+from typing import Any, Final, Literal
 
 from docker._types import ContainerWeightDevice
 
@@ -76,7 +76,7 @@ class HostConfig(dict[str, Incomplete]):
         port_bindings: Mapping[int | str, Incomplete] | None = None,
         lxc_conf: dict[str, Incomplete] | list[dict[str, Incomplete]] | None = None,
         publish_all_ports: bool = False,
-        links: Mapping[str, str | None] | None = None,
+        links: dict[str, str] | dict[str, None] | dict[str, str | None] | Iterable[tuple[str, str | None]] | None = None,
         privileged: bool = False,
         dns: list[str] | None = None,
         dns_search: list[str] | None = None,
@@ -154,7 +154,9 @@ class ContainerConfig(dict[str, Incomplete]):
         detach: bool = False,
         stdin_open: bool = False,
         tty: bool = False,
-        ports: Mapping[str, int | list[int] | tuple[str, int] | None] | None = None,
+        # list is invariant, enumerating all possible union combination would be too complex for:
+        # list[str | int | tuple[int | str, str] | tuple[int | str, ...]]
+        ports: dict[str, dict[Incomplete, Incomplete]] | list[Any] | None = None,
         environment: dict[str, str] | list[str] | None = None,
         volumes: str | list[str] | None = None,
         network_disabled: bool = False,
