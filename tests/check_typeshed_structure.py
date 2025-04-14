@@ -94,7 +94,7 @@ def check_distutils() -> None:
         relative_path = path.relative_to(relative_to)
         if relative_path.parts[0] in {"_msvccompiler.py", "__init__.py"}:
             return True
-        return not any([part in {"tests", "compat"} or part.startswith("_") for part in relative_path.parts])
+        return not any((part in {"tests", "compat"}) or part.startswith("_") for part in relative_path.parts)
 
     def all_setuptools_distutils_relative_paths(path: Path) -> set[Path]:
         return {file.relative_to(path).with_suffix(".pyi") for file in path.rglob("*.py") if is_exposed_module(path, file)}
