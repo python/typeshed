@@ -1,20 +1,18 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import Any, Generic, Literal, TypeVar, overload
+from collections.abc import Callable, Iterable, Sequence
+from typing import Any, Generic, Literal, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
-from tensorflow import Tensor, Variable, VariableAggregation, VariableSynchronization
-from tensorflow._aliases import AnyArray, DTypeLike, TensorCompatible, TensorLike
+from tensorflow import Tensor, Variable
+from tensorflow._aliases import AnyArray, DataSequence, DTypeLike, Float, TensorCompatible, TensorLike
 from tensorflow.keras.activations import _Activation
 from tensorflow.keras.constraints import Constraint
 from tensorflow.keras.initializers import _Initializer
-from tensorflow.keras.layers.preprocessing import IntegerLookup as IntegerLookup, StringLookup as StringLookup
 from tensorflow.keras.regularizers import Regularizer, _Regularizer
-from tensorflow.python.feature_column.feature_column_v2 import DenseColumn, SequenceDenseColumn
 
-_InputT = TypeVar("_InputT", contravariant=True)
-_OutputT = TypeVar("_OutputT", covariant=True)
+_InputT_contra = TypeVar("_InputT_contra", contravariant=True)
+_OutputT_co = TypeVar("_OutputT_co", covariant=True)
 
 class InputSpec:
     dtype: str | None
@@ -33,6 +31,7 @@ class InputSpec:
         axes: dict[int, int | None] | None = None,
         allow_last_axis_squeeze: bool = False,
         name: str | None = None,
+        optional: bool = False,
     ) -> None: ...
     def get_config(self) -> dict[str, Any]: ...
     @classmethod
@@ -40,9 +39,9 @@ class InputSpec:
 
 # Most layers have input and output type of just Tensor and when we support default type variables,
 # maybe worth trying.
-class Layer(tf.Module, Generic[_InputT, _OutputT]):
+class Layer(tf.Module, Generic[_InputT_contra, _OutputT_co]):
     # The most general type is ContainerGeneric[InputSpec] as it really
-    # depends on _InputT. For most Layers it is just InputSpec
+    # depends on _InputT_contra. For most Layers it is just InputSpec
     # though. Maybe describable with HKT?
     input_spec: InputSpec | Any
 
@@ -51,17 +50,28 @@ class Layer(tf.Module, Generic[_InputT, _OutputT]):
     @trainable.setter
     def trainable(self, value: bool) -> None: ...
     def __init__(
-        self, trainable: bool = True, name: str | None = None, dtype: DTypeLike | None = None, dynamic: bool = False
+        self,
+        *,
+        activity_regularizer: _Regularizer = None,
+        trainable: bool = True,
+        dtype: DTypeLike | None = None,
+        autocast: bool = True,
+        name: str | None = None,
+        # **kwargs
+        input_dim: int | None = None,
+        input_shape: Any = None,
     ) -> None: ...
 
     # *args/**kwargs are allowed, but have obscure footguns and tensorflow documentation discourages their usage.
     # First argument will automatically be cast to layer's compute dtype, but any other tensor arguments will not be.
     # Also various tensorflow tools/apis can misbehave if they encounter a layer with *args/**kwargs.
-    def __call__(self, inputs: _InputT, *, training: bool = False, mask: TensorCompatible | None = None) -> _OutputT: ...
-    def call(self, inputs: _InputT, /) -> _OutputT: ...
+    def __call__(
+        self, inputs: _InputT_contra, *, training: bool = False, mask: TensorCompatible | None = None
+    ) -> _OutputT_co: ...
+    def call(self, inputs: _InputT_contra, /) -> _OutputT_co: ...
 
-    # input_shape's real type depends on _InputT, but we can't express that without HKT.
-    # For example _InputT tf.Tensor -> tf.TensorShape, _InputT dict[str, tf.Tensor] -> dict[str, tf.TensorShape].
+    # input_shape's real type depends on _InputT_contra, but we can't express that without HKT.
+    # For example _InputT_contra tf.Tensor -> tf.TensorShape, _InputT_contra dict[str, tf.Tensor] -> dict[str, tf.TensorShape].
     def build(self, input_shape: Any, /) -> None: ...
     @overload
     def compute_output_shape(self: Layer[tf.Tensor, tf.Tensor], input_shape: tf.TensorShape, /) -> tf.TensorShape: ...
@@ -69,18 +79,17 @@ class Layer(tf.Module, Generic[_InputT, _OutputT]):
     def compute_output_shape(self, input_shape: Any, /) -> Any: ...
     def add_weight(
         self,
-        name: str | None = None,
         shape: Iterable[int | None] | None = None,
-        dtype: DTypeLike | None = None,
         initializer: _Initializer | None = None,
+        dtype: DTypeLike | None = None,
+        trainable: bool = True,
+        autocast: bool = True,
         regularizer: _Regularizer = None,
-        trainable: bool | None = None,
         constraint: _Constraint = None,
-        use_resource: bool | None = None,
-        synchronization: VariableSynchronization = ...,
-        aggregation: VariableAggregation = ...,
+        aggregation: Literal["mean", "sum", "only_first_replica"] = "mean",
+        name: str | None = None,
     ) -> tf.Variable: ...
-    def add_loss(self, losses: tf.Tensor | Sequence[tf.Tensor] | Callable[[], tf.Tensor]) -> None: ...
+    def add_loss(self, loss: tf.Tensor | Sequence[tf.Tensor] | Callable[[], tf.Tensor]) -> None: ...
     def count_params(self) -> int: ...
     @property
     def trainable_variables(self) -> list[Variable]: ...
@@ -112,6 +121,89 @@ _LayerDtype: TypeAlias = DTypeLike | dict[str, Any] | Any
 
 _Constraint: TypeAlias = str | dict[str, Any] | Constraint | None
 
+# IndexLookup is not exported by Keras
+@type_check_only
+class _IndexLookup(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self,
+        max_tokens: int | None,
+        num_oov_indices: int,
+        mask_token: str | None,
+        oov_token: str,
+        vocabulary_dtype: Literal["int64", "string"],
+        vocabulary: str | None | TensorCompatible = None,
+        idf_weights: TensorCompatible | None = None,
+        invert: bool = False,
+        output_mode: Literal["int", "count", "multi_hot", "one_hot", "tf_idf"] = "int",
+        sparse: bool = False,
+        pad_to_max_tokens: bool = False,
+        name: str | None = None,
+        *,
+        # **kwargs
+        vocabulary_size: int | None = None,
+        has_input_vocabulary: bool = ...,
+        trainable: bool | None = None,
+        dtype: _LayerDtype | None = None,
+        # **kwargs passed to Layer
+        activity_regularizer: _Regularizer = None,
+        autocast: bool = True,
+    ) -> None: ...
+    def compute_output_signature(self, input_spec) -> tf.TensorSpec: ...
+    def get_vocabulary(self, include_special_tokens: bool = True) -> list[Incomplete]: ...
+    def vocabulary_size(self) -> int: ...
+
+class StringLookup(_IndexLookup):
+    def __init__(
+        self,
+        max_tokens: int | None = None,
+        num_oov_indices: int = 1,
+        mask_token: str | None = None,
+        oov_token: str = "[UNK]",
+        vocabulary: str | None | TensorCompatible = None,
+        idf_weights: TensorCompatible | None = None,
+        invert: bool = False,
+        output_mode: Literal["int", "count", "multi_hot", "one_hot", "tf_idf"] = "int",
+        pad_to_max_tokens: bool = False,
+        sparse: bool = False,
+        encoding: str = "utf-8",
+        name: str | None = None,
+        *,
+        # **kwargs passed to IndexLookup
+        vocabulary_size: int | None = None,
+        has_input_vocabulary: bool = ...,
+        trainable: bool | None = None,
+        dtype: _LayerDtype | None = None,
+        activity_regularizer: _Regularizer = None,
+        autocast: bool = True,
+    ) -> None: ...
+    def adapt(self, data: tf.data.Dataset[TensorLike] | AnyArray | DataSequence, steps: Float | None = None) -> None: ...
+
+class IntegerLookup(_IndexLookup):
+    def __init__(
+        self,
+        max_tokens: int | None = None,
+        num_oov_indices: int = 1,
+        mask_token: int | None = None,
+        oov_token: int = -1,
+        vocabulary: str | None | TensorCompatible = None,
+        vocabulary_dtype: Literal["int64"] = "int64",
+        idf_weights: TensorCompatible | None = None,
+        invert: bool = False,
+        output_mode: Literal["int", "count", "multi_hot", "one_hot", "tf_idf"] = "int",
+        sparse: bool = False,
+        pad_to_max_tokens: bool = False,
+        name: str | None = None,
+        *,
+        # **kwargs passed to IndexLookup
+        vocabulary_size: int | None = None,
+        has_input_vocabulary: bool = ...,
+        trainable: bool | None = None,
+        dtype: _LayerDtype | None = None,
+        activity_regularizer: _Regularizer = None,
+        autocast: bool = True,
+    ) -> None: ...
+    def adapt(self, data: tf.data.Dataset[TensorLike] | AnyArray | DataSequence, steps: Float | None = None) -> None: ...
+
 # Layer's compute_output_shape commonly have instance as first argument name instead of self.
 # This is an artifact of actual implementation commonly uses a decorator to define it.
 # Layer.build has same weirdness sometimes. For both marked as positional only.
@@ -128,9 +220,12 @@ class Dense(Layer[tf.Tensor, tf.Tensor]):
         activity_regularizer: _Regularizer = None,
         kernel_constraint: _Constraint = None,
         bias_constraint: _Constraint = None,
+        lora_rank: int | None = None,
+        *,
+        # **kwargs passed to Layer
         trainable: bool = True,
         dtype: _LayerDtype | None = None,
-        dynamic: bool = False,
+        autocast: bool = True,
         name: str | None = None,
     ) -> None: ...
 
@@ -150,9 +245,13 @@ class BatchNormalization(Layer[tf.Tensor, tf.Tensor]):
         gamma_regularizer: _Regularizer = None,
         beta_constraint: _Constraint = None,
         gamma_constraint: _Constraint = None,
+        synchronized: bool = False,
+        *,
+        # **kwargs passed to Layer
+        activity_regularizer: _Regularizer = None,
         trainable: bool = True,
         dtype: _LayerDtype | None = None,
-        dynamic: bool = False,
+        autocast: bool = True,
         name: str | None = None,
     ) -> None: ...
 
@@ -162,9 +261,12 @@ class ReLU(Layer[tf.Tensor, tf.Tensor]):
         max_value: float | None = None,
         negative_slope: float | None = 0.0,
         threshold: float | None = 0.0,
+        *,
+        # **kwargs passed to Layer
+        activity_regularizer: _Regularizer = None,
         trainable: bool = True,
         dtype: _LayerDtype | None = None,
-        dynamic: bool = False,
+        autocast: bool = True,
         name: str | None = None,
     ) -> None: ...
 
@@ -174,9 +276,12 @@ class Dropout(Layer[tf.Tensor, tf.Tensor]):
         rate: float,
         noise_shape: TensorCompatible | Sequence[int | None] | None = None,
         seed: int | None = None,
+        *,
+        # **kwargs passed to Layer
+        activity_regularizer: _Regularizer = None,
         trainable: bool = True,
         dtype: _LayerDtype | None = None,
-        dynamic: bool = False,
+        autocast: bool = True,
         name: str | None = None,
     ) -> None: ...
 
@@ -189,10 +294,15 @@ class Embedding(Layer[tf.Tensor, tf.Tensor]):
         embeddings_regularizer: _Regularizer = None,
         embeddings_constraint: _Constraint = None,
         mask_zero: bool = False,
+        weights=None,
+        lora_rank: int | None = None,
+        *,
         input_length: int | None = None,
+        # **kwargs passed to Layer
+        activity_regularizer: _Regularizer = None,
         trainable: bool = True,
         dtype: _LayerDtype | None = None,
-        dynamic: bool = False,
+        autocast: bool = True,
         name: str | None = None,
     ) -> None: ...
 
@@ -215,15 +325,26 @@ class Conv2D(Layer[tf.Tensor, tf.Tensor]):
         activity_regularizer: _Regularizer = None,
         kernel_constraint: _Constraint = None,
         bias_constraint: _Constraint = None,
+        *,
+        # **kwargs passed to Layer
         trainable: bool = True,
         dtype: _LayerDtype | None = None,
-        dynamic: bool = False,
+        autocast: bool = True,
         name: str | None = None,
     ) -> None: ...
 
+Convolution2D = Conv2D
+
 class Identity(Layer[tf.Tensor, tf.Tensor]):
     def __init__(
-        self, trainable: bool = True, dtype: _LayerDtype = None, dynamic: bool = False, name: str | None = None
+        self,
+        *,
+        # **kwargs passed to Layer
+        activity_regularizer: _Regularizer = None,
+        trainable: bool = True,
+        dtype: _LayerDtype | None = None,
+        autocast: bool = True,
+        name: str | None = None,
     ) -> None: ...
 
 class LayerNormalization(Layer[tf.Tensor, tf.Tensor]):
@@ -233,25 +354,19 @@ class LayerNormalization(Layer[tf.Tensor, tf.Tensor]):
         epsilon: float = 0.001,
         center: bool = True,
         scale: bool = True,
+        rms_scaling: bool = False,
         beta_initializer: _Initializer = "zeros",
         gamma_initializer: _Initializer = "ones",
         beta_regularizer: _Regularizer = None,
         gamma_regularizer: _Regularizer = None,
         beta_constraint: _Constraint = None,
         gamma_constraint: _Constraint = None,
+        *,
+        # **kwargs passed to Layer
+        activity_regularizer: _Regularizer = None,
         trainable: bool = True,
         dtype: _LayerDtype | None = None,
-        dynamic: bool = False,
-        name: str | None = None,
-    ) -> None: ...
-
-class DenseFeatures(Layer[Mapping[str, TensorLike], tf.Tensor]):
-    def __init__(
-        self,
-        feature_columns: Sequence[DenseColumn | SequenceDenseColumn],
-        trainable: bool = True,
-        dtype: _LayerDtype = None,
-        dynamic: bool = False,
+        autocast: bool = True,
         name: str | None = None,
     ) -> None: ...
 
@@ -265,20 +380,23 @@ class MultiHeadAttention(Layer[Any, tf.Tensor]):
         use_bias: bool = True,
         output_shape: tuple[int, ...] | None = None,
         attention_axes: tuple[int, ...] | None = None,
-        kernel_initialize: _Initializer = "glorot_uniform",
+        kernel_initializer: _Initializer = "glorot_uniform",
         bias_initializer: _Initializer = "zeros",
         kernel_regularizer: Regularizer | None = None,
         bias_regularizer: _Regularizer | None = None,
         activity_regularizer: _Regularizer | None = None,
         kernel_constraint: _Constraint | None = None,
         bias_constraint: _Constraint | None = None,
+        seed: int | None = None,
+        *,
+        # **kwargs passed to Layer
         trainable: bool = True,
         dtype: _LayerDtype | None = None,
-        dynamic: bool = False,
+        autocast: bool = True,
         name: str | None = None,
     ) -> None: ...
     # @override
-    @overload  # type: ignore
+    @overload  # type: ignore[override]
     def __call__(
         self,
         query: tf.Tensor,
@@ -317,9 +435,12 @@ class GaussianDropout(Layer[tf.Tensor, tf.Tensor]):
         self,
         rate: float,
         seed: int | None = None,
+        *,
+        # **kwargs passed to Layer
+        activity_regularizer: _Regularizer = None,
         trainable: bool = True,
-        dtype: _LayerDtype = None,
-        dynamic: bool = False,
+        dtype: _LayerDtype | None = None,
+        autocast: bool = True,
         name: str | None = None,
     ) -> None: ...
 

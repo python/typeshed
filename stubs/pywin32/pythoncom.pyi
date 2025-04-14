@@ -1,4 +1,7 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
+from abc import abstractmethod
+from collections.abc import Sequence
+from typing import ClassVar, SupportsInt, overload
 from typing_extensions import TypeAlias, deprecated
 
 import _win32typing
@@ -7,6 +10,15 @@ from win32.lib.pywintypes import TimeType, com_error as com_error
 error: TypeAlias = com_error  # noqa: Y042
 
 class internal_error(Exception): ...
+
+class com_record:
+    @abstractmethod
+    def __init__(self, /, *args, **kwargs) -> None: ...
+    TLBID: ClassVar[str]
+    MJVER: ClassVar[int]
+    MNVER: ClassVar[int]
+    LCID: ClassVar[int]
+    GUID: ClassVar[str]
 
 def CoCreateFreeThreadedMarshaler(unk: _win32typing.PyIUnknown, /) -> _win32typing.PyIUnknown: ...
 def CoCreateInstanceEx(
@@ -58,7 +70,13 @@ def GetActiveObject(cls, /) -> _win32typing.PyIUnknown: ...
 def GetClassFile(fileName, /) -> _win32typing.PyIID: ...
 def GetFacilityString(scode, /) -> str: ...
 def GetRecordFromGuids(
-    iid: _win32typing.PyIID, verMajor, verMinor, lcid, infoIID: _win32typing.PyIID, data: Incomplete | None = ..., /
+    iid: str | _win32typing.PyIID,
+    verMajor: int,
+    verMinor: int,
+    lcid: int,
+    infoIID: str | _win32typing.PyIID,
+    data: Incomplete | None = ...,
+    /,
 ): ...
 def GetRecordFromTypeInfo(TypeInfo: _win32typing.PyITypeInfo, /): ...
 def GetRunningObjectTable(reserved: int = ..., /) -> _win32typing.PyIRunningObjectTable: ...
@@ -72,7 +90,7 @@ def MakePyFactory(iid: _win32typing.PyIID, /) -> _win32typing.PyIClassFactory: .
 @deprecated("Use pywintypes.IID() instead.")
 def MakeIID(iidString: str, is_bytes: bool = ..., /) -> _win32typing.PyIID: ...
 @deprecated("Use pywintypes.Time() instead.")
-def MakeTime(timeRepr, /) -> TimeType: ...
+def MakeTime(timeRepr: SupportsInt | Sequence[SupportsInt] | TimeType, /) -> TimeType: ...
 def MkParseDisplayName(
     displayName: str, bindCtx: _win32typing.PyIBindCtx | None = ..., /
 ) -> tuple[_win32typing.PyIMoniker, Incomplete, _win32typing.PyIBindCtx]: ...
@@ -101,28 +119,34 @@ def RevokeActiveObject(handle, /) -> None: ...
 def RegisterDragDrop(hwnd: int, dropTarget: _win32typing.PyIDropTarget, /) -> None: ...
 def RevokeDragDrop(hwnd: int, /) -> None: ...
 def DoDragDrop() -> None: ...
-def StgCreateDocfile(name: str, mode, reserved: int = ..., /) -> _win32typing.PyIStorage: ...
+def StgCreateDocfile(name: str | None, mode: int, reserved: int = ..., /) -> _win32typing.PyIStorage: ...
 def StgCreateDocfileOnILockBytes(lockBytes: _win32typing.PyILockBytes, mode, reserved=..., /) -> _win32typing.PyIStorage: ...
 def StgOpenStorageOnILockBytes(
     lockBytes: _win32typing.PyILockBytes,
     stgPriority: _win32typing.PyIStorage,
+    mode,
     snbExclude: Incomplete | None = ...,
     reserved: int = ...,
     /,
 ) -> _win32typing.PyIStorage: ...
 def StgIsStorageFile(name: str, /): ...
 def STGMEDIUM() -> _win32typing.PySTGMEDIUM: ...
+@overload
 def StgOpenStorage(
-    name: str, other: _win32typing.PyIStorage, mode, snbExclude: Incomplete | None = ..., reserved=..., /
+    name: str | None, other: _win32typing.PyIStorage, mode: int, snbExclude: Unused = ..., reserved: int = ..., /
+) -> _win32typing.PyIStorage: ...
+@overload
+def StgOpenStorage(
+    name: str, other: _win32typing.PyIStorage | None, mode: int, snbExclude: Unused = ..., reserved: int = ..., /
 ) -> _win32typing.PyIStorage: ...
 def StgOpenStorageEx(
-    Name: str, Mode, stgfmt, Attrs, riid: _win32typing.PyIID, StgOptions: Incomplete | None = ...
+    Name: str, Mode: int, stgfmt: int, Attrs: int, riid: _win32typing.PyIID, StgOptions: Incomplete | None = ...
 ) -> _win32typing.PyIStorage: ...
 def StgCreateStorageEx(
     Name: str,
-    Mode,
-    stgfmt,
-    Attrs,
+    Mode: int,
+    stgfmt: int,
+    Attrs: int,
     riid: _win32typing.PyIID,
     StgOptions: Incomplete | None = ...,
     SecurityDescriptor: _win32typing.PySECURITY_DESCRIPTOR | None = ...,
@@ -391,6 +415,7 @@ TYPEFLAG_FPREDECLID: int
 TYPEFLAG_FREPLACEABLE: int
 TYPEFLAG_FRESTRICTED: int
 TYPEFLAG_FREVERSEBIND: int
+RecordClasses: dict[str, com_record]
 TypeIIDs: dict[_win32typing.PyIID, type]
 URL_MK_LEGACY: int
 URL_MK_UNIFORM: int

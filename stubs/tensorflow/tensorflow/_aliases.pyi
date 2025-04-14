@@ -32,7 +32,7 @@ KerasSerializable: TypeAlias = KerasSerializable1 | KerasSerializable2
 TensorValue: TypeAlias = tf.Tensor  # Alias for a 0D Tensor
 Integer: TypeAlias = TensorValue | int | IntArray | np.number[Any]  # Here IntArray are assumed to be 0D.
 Float: TypeAlias = Integer | float | FloatArray
-Slice: TypeAlias = int | slice | None
+Slice: TypeAlias = tf.Tensor | tf.RaggedTensor | int | slice | None
 FloatDataSequence: TypeAlias = Sequence[float] | Sequence[FloatDataSequence]
 IntDataSequence: TypeAlias = Sequence[int] | Sequence[IntDataSequence]
 StrDataSequence: TypeAlias = Sequence[str] | Sequence[StrDataSequence]
@@ -65,7 +65,7 @@ ContainerTensorShape: TypeAlias = ContainerGeneric[tf.TensorShape]
 ContainerInputSpec: TypeAlias = ContainerGeneric[InputSpec]
 
 AnyArray: TypeAlias = npt.NDArray[Any]
-FloatArray: TypeAlias = npt.NDArray[np.float_ | np.float16 | np.float32 | np.float64]
+FloatArray: TypeAlias = npt.NDArray[np.float16 | np.float32 | np.float64]
 UIntArray: TypeAlias = npt.NDArray[np.uint | np.uint8 | np.uint16 | np.uint32 | np.uint64]
 SignedIntArray: TypeAlias = npt.NDArray[np.int_ | np.int8 | np.int16 | np.int32 | np.int64]
 IntArray: TypeAlias = UIntArray | SignedIntArray

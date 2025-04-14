@@ -2,11 +2,11 @@ import dataclasses
 from _typeshed import Incomplete
 from collections.abc import Generator
 from dataclasses import dataclass
-from typing import overload
-from typing_extensions import Self
+from typing import Final, overload
+from typing_extensions import Self, deprecated
 
 from .drawing import DeviceGray, DeviceRGB, Number
-from .enums import TextEmphasis
+from .enums import Align, TextEmphasis
 from .syntax import PDFObject
 
 # Only defined if harfbuzz is installed.
@@ -38,6 +38,40 @@ class FontFace:
     @overload
     @staticmethod
     def combine(default_style: FontFace | None, override_style: FontFace | None) -> FontFace: ...
+
+class TextStyle(FontFace):
+    t_margin: int
+    l_margin: int | Align
+    b_margin: int
+    def __init__(
+        self,
+        font_family: str | None = None,
+        font_style: str | None = None,
+        font_size_pt: int | None = None,
+        color: int | tuple[int, int, int] | None = None,
+        fill_color: int | tuple[int, int, int] | None = None,
+        underline: bool = False,
+        t_margin: int | None = None,
+        l_margin: int | Align | str | None = None,
+        b_margin: int | None = None,
+    ): ...
+    def replace(  # type: ignore[override]
+        self,
+        /,
+        font_family: str | None = None,
+        emphasis: TextEmphasis | None = None,
+        font_size_pt: int | None = None,
+        color: int | tuple[int, int, int] | None = None,
+        fill_color: int | tuple[int, int, int] | None = None,
+        t_margin: int | None = None,
+        l_margin: int | None = None,
+        b_margin: int | None = None,
+    ) -> TextStyle: ...
+
+@deprecated("fpdf.TitleStyle is deprecated since 2.7.10. It has been replaced by fpdf.TextStyle.")
+class TitleStyle(TextStyle): ...
+
+__pdoc__: Final[dict[str, bool]]
 
 class _FontMixin:
     i: int
@@ -84,19 +118,13 @@ class PDFFontDescriptor(PDFObject):
     font_name: Incomplete
     def __init__(self, ascent, descent, cap_height, flags, font_b_box, italic_angle, stem_v, missing_width) -> None: ...
 
+@dataclass(order=True)
 class Glyph:
     glyph_id: int
     unicode: tuple[Incomplete, ...]
     glyph_name: str
     glyph_width: int
-    def __hash__(self): ...
-    def __init__(self, glyph_id, unicode, glyph_name, glyph_width) -> None: ...
-    def __lt__(self, other): ...
-    def __gt__(self, other): ...
-    def __le__(self, other): ...
-    def __ge__(self, other): ...
-
-    __match_args__ = ("glyph_id", "unicode", "glyph_name", "glyph_width")
+    def __hash__(self) -> int: ...
 
 class SubsetMap:
     font: TTFFont

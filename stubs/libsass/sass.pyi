@@ -160,16 +160,43 @@ class SassMap(Mapping[_KT, _VT_co]):
     @overload
     def __init__(self) -> None: ...
     @overload
-    def __init__(self: SassMap[str, _VT_co], **kwargs: _VT_co) -> None: ...
+    def __init__(self: SassMap[str, _VT_co], **kwargs: _VT_co) -> None: ...  # pyright: ignore[reportInvalidTypeVarUse]  #11780
     @overload
     def __init__(self, map: SupportsKeysAndGetItem[_KT, _VT_co], /) -> None: ...
     @overload
-    def __init__(self: SassMap[str, _VT_co], map: SupportsKeysAndGetItem[str, _VT_co], /, **kwargs: _VT_co) -> None: ...
+    def __init__(
+        self: SassMap[str, _VT_co],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        map: SupportsKeysAndGetItem[str, _VT_co],
+        /,
+        **kwargs: _VT_co,
+    ) -> None: ...
     @overload
     def __init__(self, iterable: Iterable[tuple[_KT, _VT_co]], /) -> None: ...
     @overload
-    def __init__(self: SassMap[str, _VT_co], iterable: Iterable[tuple[str, _VT_co]], /, **kwargs: _VT_co) -> None: ...
+    def __init__(
+        self: SassMap[str, _VT_co],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
+        iterable: Iterable[tuple[str, _VT_co]],
+        /,
+        **kwargs: _VT_co,
+    ) -> None: ...
     def __getitem__(self, key: _KT) -> _VT_co: ...
     def __iter__(self) -> Iterator[_KT]: ...
     def __len__(self) -> int: ...
     def __hash__(self) -> int: ...
+
+__all__ = (
+    "MODES",
+    "OUTPUT_STYLES",
+    "SOURCE_COMMENTS",
+    "CompileError",
+    "SassColor",
+    "SassError",
+    "SassFunction",
+    "SassList",
+    "SassMap",
+    "SassNumber",
+    "SassWarning",
+    "and_join",
+    "compile",
+    "libsass_version",
+)

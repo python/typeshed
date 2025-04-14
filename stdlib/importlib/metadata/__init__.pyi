@@ -1,6 +1,7 @@
 import abc
 import pathlib
 import sys
+import types
 from _collections_abc import dict_keys, dict_values
 from _typeshed import StrPath
 from collections.abc import Iterable, Iterator, Mapping
@@ -36,11 +37,8 @@ if sys.version_info >= (3, 10):
     from importlib.metadata._meta import PackageMetadata as PackageMetadata, SimplePath
     def packages_distributions() -> Mapping[str, list[str]]: ...
 
-    if sys.version_info >= (3, 12):
-        # It's generic but shouldn't be
-        _SimplePath: TypeAlias = SimplePath[Any]
-    else:
-        _SimplePath: TypeAlias = SimplePath
+    _SimplePath: TypeAlias = SimplePath
+
 else:
     _SimplePath: TypeAlias = Path
 
@@ -48,7 +46,9 @@ class PackageNotFoundError(ModuleNotFoundError):
     @property
     def name(self) -> str: ...  # type: ignore[override]
 
-if sys.version_info >= (3, 11):
+if sys.version_info >= (3, 13):
+    _EntryPointBase = object
+elif sys.version_info >= (3, 11):
     class DeprecatedTuple:
         def __getitem__(self, item: int) -> str: ...
 
@@ -71,11 +71,10 @@ class EntryPoint(_EntryPointBase):
     def load(self) -> Any: ...  # Callable[[], Any] or an importable module
     @property
     def extras(self) -> list[str]: ...
-    if sys.version_info >= (3, 9):
-        @property
-        def module(self) -> str: ...
-        @property
-        def attr(self) -> str: ...
+    @property
+    def module(self) -> str: ...
+    @property
+    def attr(self) -> str: ...
     if sys.version_info >= (3, 10):
         dist: ClassVar[Distribution | None]
         def matches(
@@ -139,7 +138,7 @@ if sys.version_info >= (3, 10) and sys.version_info < (3, 12):
     class Deprecated(Generic[_KT, _VT]):
         def __getitem__(self, name: _KT) -> _VT: ...
         @overload
-        def get(self, name: _KT) -> _VT | None: ...
+        def get(self, name: _KT, default: None = None) -> _VT | None: ...
         @overload
         def get(self, name: _KT, default: _T) -> _VT | _T: ...
         def __iter__(self) -> Iterator[_KT]: ...
@@ -155,7 +154,7 @@ if sys.version_info >= (3, 10) and sys.version_info < (3, 12):
         @property
         def names(self) -> set[str]: ...
         @overload
-        def select(self) -> Self: ...  # type: ignore[misc]
+        def select(self) -> Self: ...
         @overload
         def select(
             self,
@@ -226,6 +225,9 @@ class Distribution(_distribution_parent):
     if sys.version_info >= (3, 10):
         @property
         def name(self) -> str: ...
+    if sys.version_info >= (3, 13):
+        @property
+        def origin(self) -> types.SimpleNamespace: ...
 
 class DistributionFinder(MetaPathFinder):
     class Context:
@@ -240,7 +242,10 @@ class DistributionFinder(MetaPathFinder):
 class MetadataPathFinder(DistributionFinder):
     @classmethod
     def find_distributions(cls, context: DistributionFinder.Context = ...) -> Iterable[PathDistribution]: ...
-    if sys.version_info >= (3, 10):
+    if sys.version_info >= (3, 11):
+        @classmethod
+        def invalidate_caches(cls) -> None: ...
+    elif sys.version_info >= (3, 10):
         # Yes, this is an instance method that has a parameter named "cls"
         def invalidate_caches(cls) -> None: ...
 
@@ -271,7 +276,7 @@ if sys.version_info >= (3, 12):
 
 elif sys.version_info >= (3, 10):
     @overload
-    def entry_points() -> SelectableGroups: ...  # type: ignore[overload-overlap]
+    def entry_points() -> SelectableGroups: ...
     @overload
     def entry_points(
         *, name: str = ..., value: str = ..., group: str = ..., module: str = ..., attr: str = ..., extras: list[str] = ...

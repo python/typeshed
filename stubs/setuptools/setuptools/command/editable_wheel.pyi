@@ -1,8 +1,9 @@
-from _typeshed import Incomplete, StrPath
+from _typeshed import Incomplete, StrPath, Unused
+from collections.abc import Iterator, Mapping
 from enum import Enum
 from pathlib import Path
 from types import TracebackType
-from typing import Protocol
+from typing import ClassVar, Protocol
 from typing_extensions import Self, TypeAlias
 
 from .. import Command, errors, namespaces
@@ -13,68 +14,64 @@ from ..warnings import SetuptoolsWarning
 _WheelFile: TypeAlias = Incomplete
 
 class _EditableMode(Enum):
-    STRICT: str
-    LENIENT: str
-    COMPAT: str
+    STRICT = "strict"
+    LENIENT = "lenient"
+    COMPAT = "compat"
     @classmethod
     def convert(cls, mode: str | None) -> _EditableMode: ...
 
 class editable_wheel(Command):
     description: str
-    user_options: Incomplete
+    user_options: ClassVar[list[tuple[str, str | None, str]]]
     dist_dir: Incomplete
     dist_info_dir: Incomplete
     project_dir: Incomplete
     mode: Incomplete
     def initialize_options(self) -> None: ...
-    package_dir: Incomplete
+    package_dir: dict[Incomplete, Incomplete]
     def finalize_options(self) -> None: ...
     def run(self) -> None: ...
 
 class EditableStrategy(Protocol):
-    def __call__(self, wheel: _WheelFile, files: list[str], mapping: dict[str, str]) -> None: ...
-    def __enter__(self): ...
+    def __call__(self, wheel: _WheelFile, files: list[str], mapping: Mapping[str, str]) -> Unused: ...
+    def __enter__(self) -> Self: ...
     def __exit__(
         self, _exc_type: type[BaseException] | None, _exc_value: BaseException | None, _traceback: TracebackType | None
-    ) -> None: ...
+    ) -> Unused: ...
 
 class _StaticPth:
-    dist: Incomplete
-    name: Incomplete
-    path_entries: Incomplete
+    dist: Distribution
+    name: str
+    path_entries: list[Path]
     def __init__(self, dist: Distribution, name: str, path_entries: list[Path]) -> None: ...
-    def __call__(self, wheel: _WheelFile, files: list[str], mapping: dict[str, str]): ...
+    def __call__(self, wheel: _WheelFile, files: list[str], mapping: Mapping[str, str]): ...
     def __enter__(self) -> Self: ...
-    def __exit__(
-        self, _exc_type: type[BaseException] | None, _exc_value: BaseException | None, _traceback: TracebackType | None
-    ) -> None: ...
+    def __exit__(self, _exc_type: Unused, _exc_value: Unused, _traceback: Unused) -> None: ...
 
 class _LinkTree(_StaticPth):
-    auxiliary_dir: Incomplete
-    build_lib: Incomplete
+    auxiliary_dir: Path
+    build_lib: Path
     def __init__(self, dist: Distribution, name: str, auxiliary_dir: StrPath, build_lib: StrPath) -> None: ...
-    def __call__(self, wheel: _WheelFile, files: list[str], mapping: dict[str, str]): ...
+    def __call__(self, wheel: _WheelFile, files: list[str], mapping: Mapping[str, str]): ...
     def __enter__(self) -> Self: ...
-    def __exit__(
-        self, _exc_type: type[BaseException] | None, _exc_value: BaseException | None, _traceback: TracebackType | None
-    ) -> None: ...
+    def __exit__(self, _exc_type: Unused, _exc_value: Unused, _traceback: Unused) -> None: ...
 
 class _TopLevelFinder:
-    dist: Incomplete
-    name: Incomplete
+    dist: Distribution
+    name: str
     def __init__(self, dist: Distribution, name: str) -> None: ...
-    def __call__(self, wheel: _WheelFile, files: list[str], mapping: dict[str, str]): ...
+    def template_vars(self) -> tuple[str, str, dict[str, str], dict[str, list[str]]]: ...
+    def get_implementation(self) -> Iterator[tuple[str, bytes]]: ...
+    def __call__(self, wheel: _WheelFile, files: list[str], mapping: Mapping[str, str]): ...
     def __enter__(self) -> Self: ...
-    def __exit__(
-        self, _exc_type: type[BaseException] | None, _exc_value: BaseException | None, _traceback: TracebackType | None
-    ) -> None: ...
+    def __exit__(self, _exc_type: Unused, _exc_value: Unused, _traceback: Unused) -> None: ...
 
 class _NamespaceInstaller(namespaces.Installer):
     distribution: Incomplete
     src_root: Incomplete
     installation_dir: Incomplete
     editable_name: Incomplete
-    outputs: Incomplete
+    outputs: list[str]
     dry_run: bool
     def __init__(self, distribution, installation_dir, editable_name, src_root) -> None: ...
 

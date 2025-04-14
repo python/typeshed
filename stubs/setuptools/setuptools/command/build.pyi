@@ -1,9 +1,11 @@
 from typing import Protocol
 
+from setuptools.dist import Distribution
+
 from .._distutils.command.build import build as _build
 
 class build(_build):
-    def get_sub_commands(self): ...
+    distribution: Distribution  # override distutils.dist.Distribution with setuptools.dist.Distribution
 
 class SubCommand(Protocol):
     editable_mode: bool

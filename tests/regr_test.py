@@ -13,47 +13,42 @@ import subprocess
 import sys
 import tempfile
 import threading
-from collections.abc import Callable
-from contextlib import ExitStack, suppress
+from collections.abc import Callable, Generator
+from contextlib import ExitStack, contextmanager, suppress
 from dataclasses import dataclass
 from enum import IntEnum
 from functools import partial
 from pathlib import Path
 from typing_extensions import TypeAlias
 
-from parse_metadata import get_recursive_requirements, read_metadata
-from utils import (
+from ts_utils.metadata import get_recursive_requirements, read_metadata
+from ts_utils.paths import STDLIB_PATH, TEST_CASES_DIR, TS_BASE_PATH, distribution_path
+from ts_utils.utils import (
     PYTHON_VERSION,
-    PackageInfo,
+    DistributionTests,
     colored,
+    distribution_info,
     get_all_testcase_directories,
     get_mypy_req,
     print_error,
-    testcase_dir_from_package_name,
     venv_python,
 )
 
 ReturnCode: TypeAlias = int
 
-TEST_CASES = "test_cases"
 VENV_DIR = ".venv"
 TYPESHED = "typeshed"
 
 SUPPORTED_PLATFORMS = ["linux", "darwin", "win32"]
-SUPPORTED_VERSIONS = ["3.12", "3.11", "3.10", "3.9", "3.8"]
+SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9"]
 
 
-def package_with_test_cases(package_name: str) -> PackageInfo:
-    """Helper function for argument-parsing"""
-
-    if package_name == "stdlib":
-        return PackageInfo("stdlib", Path(TEST_CASES))
-    test_case_dir = testcase_dir_from_package_name(package_name)
-    if test_case_dir.is_dir():
-        if not os.listdir(test_case_dir):
-            raise argparse.ArgumentTypeError(f"{package_name!r} has a 'test_cases' directory but it is empty!")
-        return PackageInfo(package_name, test_case_dir)
-    raise argparse.ArgumentTypeError(f"No test cases found for {package_name!r}!")
+def distribution_with_test_cases(distribution_name: str) -> DistributionTests:
+    """Parse a CLI argument that is intended to be to a valid typeshed distribution."""
+    try:
+        return distribution_info(distribution_name)
+    except RuntimeError as exc:
+        raise argparse.ArgumentTypeError(str(exc)) from exc
 
 
 class Verbosity(IntEnum):
@@ -65,7 +60,7 @@ class Verbosity(IntEnum):
 parser = argparse.ArgumentParser(description="Script to run mypy against various test cases for typeshed's stubs")
 parser.add_argument(
     "packages_to_test",
-    type=package_with_test_cases,
+    type=distribution_with_test_cases,
     nargs="*",
     action="extend",
     help=(
@@ -118,13 +113,13 @@ def verbose_log(msg: str) -> None:
     _PRINT_QUEUE.put(colored(msg, "blue"))
 
 
-def setup_testcase_dir(package: PackageInfo, tempdir: Path, verbosity: Verbosity) -> None:
+def setup_testcase_dir(package: DistributionTests, tempdir: Path, verbosity: Verbosity) -> None:
     if verbosity is verbosity.VERBOSE:
         verbose_log(f"{package.name}: Setting up testcase dir in {tempdir}")
     # --warn-unused-ignores doesn't work for files inside typeshed.
     # SO, to work around this, we copy the test_cases directory into a TemporaryDirectory,
     # and run the test cases inside of that.
-    shutil.copytree(package.test_case_directory, tempdir / TEST_CASES)
+    shutil.copytree(package.test_cases_path, tempdir / TEST_CASES_DIR)
     if package.is_stdlib:
         return
 
@@ -138,19 +133,25 @@ def setup_testcase_dir(package: PackageInfo, tempdir: Path, verbosity: Verbosity
     # that has only the required stubs copied over.
     new_typeshed = tempdir / TYPESHED
     new_typeshed.mkdir()
-    shutil.copytree(Path("stdlib"), new_typeshed / "stdlib")
+    shutil.copytree(STDLIB_PATH, new_typeshed / "stdlib")
     requirements = get_recursive_requirements(package.name)
     # mypy refuses to consider a directory a "valid typeshed directory"
     # unless there's a stubs/mypy-extensions path inside it,
     # so add that to the list of stubs to copy over to the new directory
-    for requirement in {package.name, *requirements.typeshed_pkgs, "mypy-extensions"}:
-        shutil.copytree(Path("stubs", requirement), new_typeshed / "stubs" / requirement)
+    typeshed_requirements = [r.name for r in requirements.typeshed_pkgs]
+    for requirement in {package.name, *typeshed_requirements, "mypy-extensions"}:
+        shutil.copytree(distribution_path(requirement), new_typeshed / "stubs" / requirement)
 
     if requirements.external_pkgs:
         venv_location = str(tempdir / VENV_DIR)
         subprocess.run(["uv", "venv", venv_location], check=True, capture_output=True)
-        # Use --no-cache-dir to avoid issues with concurrent read/writes to the cache
-        uv_command = ["uv", "pip", "install", get_mypy_req(), *requirements.external_pkgs, "--no-cache-dir"]
+        ext_requirements = [str(r) for r in requirements.external_pkgs]
+        uv_command = ["uv", "pip", "install", get_mypy_req(), *ext_requirements]
+        if sys.platform == "win32":
+            # Reads/writes to the cache are threadsafe with uv generally...
+            # but not on old Windows versions
+            # https://github.com/astral-sh/uv/issues/2810
+            uv_command.append("--no-cache-dir")
         if verbosity is Verbosity.VERBOSE:
             verbose_log(f"{package.name}: Setting up venv in {venv_location}. {uv_command=}\n")
         try:
@@ -163,10 +164,10 @@ def setup_testcase_dir(package: PackageInfo, tempdir: Path, verbosity: Verbosity
 
 
 def run_testcases(
-    package: PackageInfo, version: str, platform: str, *, tempdir: Path, verbosity: Verbosity
+    package: DistributionTests, version: str, platform: str, *, tempdir: Path, verbosity: Verbosity
 ) -> subprocess.CompletedProcess[str]:
     env_vars = dict(os.environ)
-    new_test_case_dir = tempdir / TEST_CASES
+    new_test_case_dir = tempdir / TEST_CASES_DIR
 
     # "--enable-error-code ignore-without-code" is purposefully omitted.
     # See https://github.com/python/typeshed/pull/8083
@@ -188,7 +189,7 @@ def run_testcases(
 
     if package.is_stdlib:
         python_exe = sys.executable
-        custom_typeshed = Path(__file__).parent.parent
+        custom_typeshed = TS_BASE_PATH
         flags.append("--no-site-packages")
     else:
         custom_typeshed = tempdir / TYPESHED
@@ -223,7 +224,7 @@ def run_testcases(
             msg += f"{description}: MYPYPATH not set"
         msg += "\n"
         verbose_log(msg)
-    return subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
+    return subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars, check=False)
 
 
 @dataclass(frozen=True)
@@ -235,18 +236,20 @@ class Result:
     test_case_dir: Path
     tempdir: Path
 
-    def print_description(self, *, verbosity: Verbosity) -> None:
+    def print_description(self) -> None:
         if self.code:
             print(f"{self.command_run}:", end=" ")
             print_error("FAILURE\n")
-            replacements = (str(self.tempdir / TEST_CASES), str(self.test_case_dir))
+            replacements = (str(self.tempdir / TEST_CASES_DIR), str(self.test_case_dir))
             if self.stderr:
                 print_error(self.stderr, fix_path=replacements)
             if self.stdout:
                 print_error(self.stdout, fix_path=replacements)
 
 
-def test_testcase_directory(package: PackageInfo, version: str, platform: str, *, verbosity: Verbosity, tempdir: Path) -> Result:
+def test_testcase_directory(
+    package: DistributionTests, version: str, platform: str, *, verbosity: Verbosity, tempdir: Path
+) -> Result:
     msg = f"mypy --platform {platform} --python-version {version} on the "
     msg += "standard library test cases" if package.is_stdlib else f"test cases for {package.name!r}"
     if verbosity > Verbosity.QUIET:
@@ -258,7 +261,7 @@ def test_testcase_directory(package: PackageInfo, version: str, platform: str, *
         command_run=msg,
         stderr=proc_info.stderr,
         stdout=proc_info.stdout,
-        test_case_dir=package.test_case_directory,
+        test_case_dir=package.test_cases_path,
         tempdir=tempdir,
     )
 
@@ -278,26 +281,26 @@ def print_queued_messages(ev: threading.Event) -> None:
 
 def concurrently_run_testcases(
     stack: ExitStack,
-    testcase_directories: list[PackageInfo],
+    testcase_directories: list[DistributionTests],
     verbosity: Verbosity,
     platforms_to_test: list[str],
     versions_to_test: list[str],
 ) -> list[Result]:
     packageinfo_to_tempdir = {
-        package_info: Path(stack.enter_context(tempfile.TemporaryDirectory())) for package_info in testcase_directories
+        distribution_info: Path(stack.enter_context(tempfile.TemporaryDirectory())) for distribution_info in testcase_directories
     }
     to_do: list[Callable[[], Result]] = []
     for testcase_dir, tempdir in packageinfo_to_tempdir.items():
         pkg = testcase_dir.name
         requires_python = None
-        if not testcase_dir.is_stdlib:  # type: ignore[misc]  # mypy bug, already fixed on master
+        if not testcase_dir.is_stdlib:
             requires_python = read_metadata(pkg).requires_python
             if not requires_python.contains(PYTHON_VERSION):
                 msg = f"skipping {pkg!r} (requires Python {requires_python}; test is being run using Python {PYTHON_VERSION})"
                 print(colored(msg, "yellow"))
                 continue
         for version in versions_to_test:
-            if not testcase_dir.is_stdlib:  # type: ignore[misc]  # mypy bug, already fixed on master
+            if not testcase_dir.is_stdlib:
                 assert requires_python is not None
                 if not requires_python.contains(version):
                     msg = f"skipping {pkg!r} for target Python {version} (requires Python {requires_python})"
@@ -311,6 +314,19 @@ def concurrently_run_testcases(
     if not to_do:
         return []
 
+    @contextmanager
+    def cleanup_threads(
+        event: threading.Event, printer_thread: threading.Thread, executor: concurrent.futures.ThreadPoolExecutor
+    ) -> Generator[None]:
+        try:
+            yield
+        except:
+            _PRINT_QUEUE.put("Shutting down worker threads...")
+            event.set()
+            printer_thread.join()
+            executor.shutdown(cancel_futures=True)
+            raise
+
     event = threading.Event()
     printer_thread = threading.Thread(target=print_queued_messages, args=(event,))
     printer_thread.start()
@@ -323,10 +339,14 @@ def concurrently_run_testcases(
             executor.submit(setup_testcase_dir, package, tempdir, verbosity)
             for package, tempdir in packageinfo_to_tempdir.items()
         ]
-        concurrent.futures.wait(testcase_futures)
+
+        with cleanup_threads(event, printer_thread, executor):
+            concurrent.futures.wait(testcase_futures)
 
         mypy_futures = [executor.submit(task) for task in to_do]
-        results = [future.result() for future in mypy_futures]
+
+        with cleanup_threads(event, printer_thread, executor):
+            results = [future.result() for future in mypy_futures]
 
     event.set()
     printer_thread.join()
@@ -361,7 +381,7 @@ def main() -> ReturnCode:
     print()
 
     for result in results:
-        result.print_description(verbosity=verbosity)
+        result.print_description()
 
     code = max(result.code for result in results)
 

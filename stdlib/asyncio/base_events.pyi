@@ -8,15 +8,14 @@ from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
 from asyncio.transports import BaseTransport, DatagramTransport, ReadTransport, SubprocessTransport, Transport, WriteTransport
 from collections.abc import Callable, Iterable, Sequence
+from concurrent.futures import Executor, ThreadPoolExecutor
 from contextvars import Context
 from socket import AddressFamily, SocketKind, _Address, _RetAddress, socket
 from typing import IO, Any, Literal, TypeVar, overload
 from typing_extensions import TypeAlias, TypeVarTuple, Unpack
 
-if sys.version_info >= (3, 9):
-    __all__ = ("BaseEventLoop", "Server")
-else:
-    __all__ = ("BaseEventLoop",)
+# Keep asyncio.__all__ updated with any changes to __all__ here
+__all__ = ("BaseEventLoop", "Server")
 
 _T = TypeVar("_T")
 _Ts = TypeVarTuple("_Ts")
@@ -48,6 +47,10 @@ class Server(AbstractServer):
             backlog: int,
             ssl_handshake_timeout: float | None,
         ) -> None: ...
+
+    if sys.version_info >= (3, 13):
+        def close_clients(self) -> None: ...
+        def abort_clients(self) -> None: ...
 
     def get_loop(self) -> AbstractEventLoop: ...
     def is_serving(self) -> bool: ...
@@ -91,8 +94,8 @@ class BaseEventLoop(AbstractEventLoop):
     def call_soon_threadsafe(
         self, callback: Callable[[Unpack[_Ts]], object], *args: Unpack[_Ts], context: Context | None = None
     ) -> Handle: ...
-    def run_in_executor(self, executor: Any, func: Callable[[Unpack[_Ts]], _T], *args: Unpack[_Ts]) -> Future[_T]: ...
-    def set_default_executor(self, executor: Any) -> None: ...
+    def run_in_executor(self, executor: Executor | None, func: Callable[[Unpack[_Ts]], _T], *args: Unpack[_Ts]) -> Future[_T]: ...
+    def set_default_executor(self, executor: ThreadPoolExecutor) -> None: ...  # type: ignore[override]
     # Network I/O methods returning Futures.
     async def getaddrinfo(
         self,
@@ -222,7 +225,48 @@ class BaseEventLoop(AbstractEventLoop):
             happy_eyeballs_delay: float | None = None,
             interleave: int | None = None,
         ) -> tuple[Transport, _ProtocolT]: ...
-    if sys.version_info >= (3, 11):
+
+    if sys.version_info >= (3, 13):
+        # 3.13 added `keep_alive`.
+        @overload
+        async def create_server(
+            self,
+            protocol_factory: _ProtocolFactory,
+            host: str | Sequence[str] | None = None,
+            port: int = ...,
+            *,
+            family: int = ...,
+            flags: int = ...,
+            sock: None = None,
+            backlog: int = 100,
+            ssl: _SSLContext = None,
+            reuse_address: bool | None = None,
+            reuse_port: bool | None = None,
+            keep_alive: bool | None = None,
+            ssl_handshake_timeout: float | None = None,
+            ssl_shutdown_timeout: float | None = None,
+            start_serving: bool = True,
+        ) -> Server: ...
+        @overload
+        async def create_server(
+            self,
+            protocol_factory: _ProtocolFactory,
+            host: None = None,
+            port: None = None,
+            *,
+            family: int = ...,
+            flags: int = ...,
+            sock: socket = ...,
+            backlog: int = 100,
+            ssl: _SSLContext = None,
+            reuse_address: bool | None = None,
+            reuse_port: bool | None = None,
+            keep_alive: bool | None = None,
+            ssl_handshake_timeout: float | None = None,
+            ssl_shutdown_timeout: float | None = None,
+            start_serving: bool = True,
+        ) -> Server: ...
+    elif sys.version_info >= (3, 11):
         @overload
         async def create_server(
             self,
@@ -259,26 +303,6 @@ class BaseEventLoop(AbstractEventLoop):
             ssl_shutdown_timeout: float | None = None,
             start_serving: bool = True,
         ) -> Server: ...
-        async def start_tls(
-            self,
-            transport: BaseTransport,
-            protocol: BaseProtocol,
-            sslcontext: ssl.SSLContext,
-            *,
-            server_side: bool = False,
-            server_hostname: str | None = None,
-            ssl_handshake_timeout: float | None = None,
-            ssl_shutdown_timeout: float | None = None,
-        ) -> Transport | None: ...
-        async def connect_accepted_socket(
-            self,
-            protocol_factory: Callable[[], _ProtocolT],
-            sock: socket,
-            *,
-            ssl: _SSLContext = None,
-            ssl_handshake_timeout: float | None = None,
-            ssl_shutdown_timeout: float | None = None,
-        ) -> tuple[Transport, _ProtocolT]: ...
     else:
         @overload
         async def create_server(
@@ -314,6 +338,29 @@ class BaseEventLoop(AbstractEventLoop):
             ssl_handshake_timeout: float | None = None,
             start_serving: bool = True,
         ) -> Server: ...
+
+    if sys.version_info >= (3, 11):
+        async def start_tls(
+            self,
+            transport: BaseTransport,
+            protocol: BaseProtocol,
+            sslcontext: ssl.SSLContext,
+            *,
+            server_side: bool = False,
+            server_hostname: str | None = None,
+            ssl_handshake_timeout: float | None = None,
+            ssl_shutdown_timeout: float | None = None,
+        ) -> Transport | None: ...
+        async def connect_accepted_socket(
+            self,
+            protocol_factory: Callable[[], _ProtocolT],
+            sock: socket,
+            *,
+            ssl: _SSLContext = None,
+            ssl_handshake_timeout: float | None = None,
+            ssl_shutdown_timeout: float | None = None,
+        ) -> tuple[Transport, _ProtocolT]: ...
+    else:
         async def start_tls(
             self,
             transport: BaseTransport,
@@ -404,6 +451,7 @@ class BaseEventLoop(AbstractEventLoop):
         bufsize: Literal[0] = 0,
         encoding: None = None,
         errors: None = None,
+        text: Literal[False] | None = None,
         **kwargs: Any,
     ) -> tuple[SubprocessTransport, _ProtocolT]: ...
     def add_reader(self, fd: FileDescriptorLike, callback: Callable[[Unpack[_Ts]], Any], *args: Unpack[_Ts]) -> None: ...
@@ -434,7 +482,7 @@ class BaseEventLoop(AbstractEventLoop):
     def set_debug(self, enabled: bool) -> None: ...
     if sys.version_info >= (3, 12):
         async def shutdown_default_executor(self, timeout: float | None = None) -> None: ...
-    elif sys.version_info >= (3, 9):
+    else:
         async def shutdown_default_executor(self) -> None: ...
 
     def __del__(self) -> None: ...

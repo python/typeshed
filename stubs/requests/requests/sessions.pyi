@@ -3,8 +3,6 @@ from collections.abc import Callable, Iterable, Mapping, MutableMapping
 from typing import Any, TypedDict
 from typing_extensions import Self, TypeAlias
 
-from urllib3._collections import RecentlyUsedContainer
-
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, utils
 from .models import Response
 from .structures import CaseInsensitiveDict as CaseInsensitiveDict
@@ -131,8 +129,7 @@ class Session(SessionRedirectMixin):
     max_redirects: int
     trust_env: bool
     cookies: RequestsCookieJar
-    adapters: MutableMapping[Any, Any]
-    redirect_cache: RecentlyUsedContainer[Any, Any]
+    adapters: MutableMapping[str, adapters.BaseAdapter]
     def __init__(self) -> None: ...
     def __enter__(self) -> Self: ...
     def __exit__(self, *args: Unused) -> None: ...

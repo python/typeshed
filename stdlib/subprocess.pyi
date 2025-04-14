@@ -1,12 +1,9 @@
 import sys
-from _typeshed import ReadableBuffer, StrOrBytesPath
+from _typeshed import MaybeNone, ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable, Collection, Iterable, Mapping, Sequence
-from types import TracebackType
-from typing import IO, Any, AnyStr, Generic, Literal, TypeVar, overload
+from types import GenericAlias, TracebackType
+from typing import IO, Any, AnyStr, Final, Generic, Literal, TypeVar, overload
 from typing_extensions import Self, TypeAlias
-
-if sys.version_info >= (3, 9):
-    from types import GenericAlias
 
 __all__ = [
     "Popen",
@@ -74,8 +71,8 @@ _T = TypeVar("_T")
 
 # These two are private but documented
 if sys.version_info >= (3, 11):
-    _USE_VFORK: bool
-_USE_POSIX_SPAWN: bool
+    _USE_VFORK: Final[bool]
+_USE_POSIX_SPAWN: Final[bool]
 
 class CompletedProcess(Generic[_T]):
     # morally: _CMD
@@ -87,8 +84,7 @@ class CompletedProcess(Generic[_T]):
     stderr: _T
     def __init__(self, args: _CMD, returncode: int, stdout: _T | None = None, stderr: _T | None = None) -> None: ...
     def check_returncode(self) -> None: ...
-    if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
+    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 if sys.version_info >= (3, 11):
     # 3.11 adds "process_group" argument
@@ -500,7 +496,7 @@ elif sys.version_info >= (3, 10):
         pipesize: int = -1,
     ) -> CompletedProcess[Any]: ...
 
-elif sys.version_info >= (3, 9):
+else:
     # 3.9 adds arguments "user", "group", "extra_groups" and "umask"
     @overload
     def run(
@@ -694,177 +690,6 @@ elif sys.version_info >= (3, 9):
         group: str | int | None = None,
         extra_groups: Iterable[str | int] | None = None,
         umask: int = -1,
-    ) -> CompletedProcess[Any]: ...
-
-else:
-    @overload
-    def run(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stdout: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        universal_newlines: bool | None = None,
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        *,
-        capture_output: bool = False,
-        check: bool = False,
-        encoding: str | None = None,
-        errors: str | None = None,
-        input: str | None = None,
-        text: Literal[True],
-        timeout: float | None = None,
-    ) -> CompletedProcess[str]: ...
-    @overload
-    def run(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stdout: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        universal_newlines: bool | None = None,
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        *,
-        capture_output: bool = False,
-        check: bool = False,
-        encoding: str,
-        errors: str | None = None,
-        input: str | None = None,
-        text: bool | None = None,
-        timeout: float | None = None,
-    ) -> CompletedProcess[str]: ...
-    @overload
-    def run(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stdout: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        universal_newlines: bool | None = None,
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        *,
-        capture_output: bool = False,
-        check: bool = False,
-        encoding: str | None = None,
-        errors: str,
-        input: str | None = None,
-        text: bool | None = None,
-        timeout: float | None = None,
-    ) -> CompletedProcess[str]: ...
-    @overload
-    def run(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stdout: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        *,
-        universal_newlines: Literal[True],
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        # where the *real* keyword only args start
-        capture_output: bool = False,
-        check: bool = False,
-        encoding: str | None = None,
-        errors: str | None = None,
-        input: str | None = None,
-        text: bool | None = None,
-        timeout: float | None = None,
-    ) -> CompletedProcess[str]: ...
-    @overload
-    def run(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stdout: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        universal_newlines: Literal[False] | None = None,
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        *,
-        capture_output: bool = False,
-        check: bool = False,
-        encoding: None = None,
-        errors: None = None,
-        input: ReadableBuffer | None = None,
-        text: Literal[False] | None = None,
-        timeout: float | None = None,
-    ) -> CompletedProcess[bytes]: ...
-    @overload
-    def run(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stdout: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        universal_newlines: bool | None = None,
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        *,
-        capture_output: bool = False,
-        check: bool = False,
-        encoding: str | None = None,
-        errors: str | None = None,
-        input: _InputString | None = None,
-        text: bool | None = None,
-        timeout: float | None = None,
     ) -> CompletedProcess[Any]: ...
 
 # Same args as Popen.__init__
@@ -889,6 +714,7 @@ if sys.version_info >= (3, 11):
         start_new_session: bool = False,
         pass_fds: Collection[int] = ...,
         *,
+        encoding: str | None = None,
         timeout: float | None = None,
         text: bool | None = None,
         user: str | int | None = None,
@@ -920,6 +746,7 @@ elif sys.version_info >= (3, 10):
         start_new_session: bool = False,
         pass_fds: Collection[int] = ...,
         *,
+        encoding: str | None = None,
         timeout: float | None = None,
         text: bool | None = None,
         user: str | int | None = None,
@@ -927,35 +754,6 @@ elif sys.version_info >= (3, 10):
         extra_groups: Iterable[str | int] | None = None,
         umask: int = -1,
         pipesize: int = -1,
-    ) -> int: ...
-
-elif sys.version_info >= (3, 9):
-    # 3.9 adds arguments "user", "group", "extra_groups" and "umask"
-    def call(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stdout: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        universal_newlines: bool | None = None,
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        *,
-        timeout: float | None = None,
-        text: bool | None = None,
-        user: str | int | None = None,
-        group: str | int | None = None,
-        extra_groups: Iterable[str | int] | None = None,
-        umask: int = -1,
     ) -> int: ...
 
 else:
@@ -978,8 +776,13 @@ else:
         start_new_session: bool = False,
         pass_fds: Collection[int] = ...,
         *,
+        encoding: str | None = None,
         timeout: float | None = None,
         text: bool | None = None,
+        user: str | int | None = None,
+        group: str | int | None = None,
+        extra_groups: Iterable[str | int] | None = None,
+        umask: int = -1,
     ) -> int: ...
 
 # Same args as Popen.__init__
@@ -1005,6 +808,7 @@ if sys.version_info >= (3, 11):
         pass_fds: Collection[int] = ...,
         timeout: float | None = ...,
         *,
+        encoding: str | None = None,
         text: bool | None = None,
         user: str | int | None = None,
         group: str | int | None = None,
@@ -1036,41 +840,13 @@ elif sys.version_info >= (3, 10):
         pass_fds: Collection[int] = ...,
         timeout: float | None = ...,
         *,
+        encoding: str | None = None,
         text: bool | None = None,
         user: str | int | None = None,
         group: str | int | None = None,
         extra_groups: Iterable[str | int] | None = None,
         umask: int = -1,
         pipesize: int = -1,
-    ) -> int: ...
-
-elif sys.version_info >= (3, 9):
-    # 3.9 adds arguments "user", "group", "extra_groups" and "umask"
-    def check_call(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stdout: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        universal_newlines: bool | None = None,
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        timeout: float | None = ...,
-        *,
-        text: bool | None = None,
-        user: str | int | None = None,
-        group: str | int | None = None,
-        extra_groups: Iterable[str | int] | None = None,
-        umask: int = -1,
     ) -> int: ...
 
 else:
@@ -1094,7 +870,12 @@ else:
         pass_fds: Collection[int] = ...,
         timeout: float | None = ...,
         *,
+        encoding: str | None = None,
         text: bool | None = None,
+        user: str | int | None = None,
+        group: str | int | None = None,
+        extra_groups: Iterable[str | int] | None = None,
+        umask: int = -1,
     ) -> int: ...
 
 if sys.version_info >= (3, 11):
@@ -1471,184 +1252,6 @@ elif sys.version_info >= (3, 10):
         pipesize: int = -1,
     ) -> Any: ...  # morally: -> str | bytes
 
-elif sys.version_info >= (3, 9):
-    # 3.9 adds arguments "user", "group", "extra_groups" and "umask"
-    @overload
-    def check_output(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        universal_newlines: bool | None = None,
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        *,
-        timeout: float | None = None,
-        input: _InputString | None = ...,
-        encoding: str | None = None,
-        errors: str | None = None,
-        text: Literal[True],
-        user: str | int | None = None,
-        group: str | int | None = None,
-        extra_groups: Iterable[str | int] | None = None,
-        umask: int = -1,
-    ) -> str: ...
-    @overload
-    def check_output(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        universal_newlines: bool | None = None,
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        *,
-        timeout: float | None = None,
-        input: _InputString | None = ...,
-        encoding: str,
-        errors: str | None = None,
-        text: bool | None = None,
-        user: str | int | None = None,
-        group: str | int | None = None,
-        extra_groups: Iterable[str | int] | None = None,
-        umask: int = -1,
-    ) -> str: ...
-    @overload
-    def check_output(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        universal_newlines: bool | None = None,
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        *,
-        timeout: float | None = None,
-        input: _InputString | None = ...,
-        encoding: str | None = None,
-        errors: str,
-        text: bool | None = None,
-        user: str | int | None = None,
-        group: str | int | None = None,
-        extra_groups: Iterable[str | int] | None = None,
-        umask: int = -1,
-    ) -> str: ...
-    @overload
-    def check_output(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        *,
-        universal_newlines: Literal[True],
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        # where the real keyword only ones start
-        timeout: float | None = None,
-        input: _InputString | None = ...,
-        encoding: str | None = None,
-        errors: str | None = None,
-        text: bool | None = None,
-        user: str | int | None = None,
-        group: str | int | None = None,
-        extra_groups: Iterable[str | int] | None = None,
-        umask: int = -1,
-    ) -> str: ...
-    @overload
-    def check_output(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        universal_newlines: Literal[False] | None = None,
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        *,
-        timeout: float | None = None,
-        input: _InputString | None = ...,
-        encoding: None = None,
-        errors: None = None,
-        text: Literal[False] | None = None,
-        user: str | int | None = None,
-        group: str | int | None = None,
-        extra_groups: Iterable[str | int] | None = None,
-        umask: int = -1,
-    ) -> bytes: ...
-    @overload
-    def check_output(
-        args: _CMD,
-        bufsize: int = -1,
-        executable: StrOrBytesPath | None = None,
-        stdin: _FILE = None,
-        stderr: _FILE = None,
-        preexec_fn: Callable[[], Any] | None = None,
-        close_fds: bool = True,
-        shell: bool = False,
-        cwd: StrOrBytesPath | None = None,
-        env: _ENV | None = None,
-        universal_newlines: bool | None = None,
-        startupinfo: Any = None,
-        creationflags: int = 0,
-        restore_signals: bool = True,
-        start_new_session: bool = False,
-        pass_fds: Collection[int] = ...,
-        *,
-        timeout: float | None = None,
-        input: _InputString | None = ...,
-        encoding: str | None = None,
-        errors: str | None = None,
-        text: bool | None = None,
-        user: str | int | None = None,
-        group: str | int | None = None,
-        extra_groups: Iterable[str | int] | None = None,
-        umask: int = -1,
-    ) -> Any: ...  # morally: -> str | bytes
-
 else:
     @overload
     def check_output(
@@ -1674,6 +1277,10 @@ else:
         encoding: str | None = None,
         errors: str | None = None,
         text: Literal[True],
+        user: str | int | None = None,
+        group: str | int | None = None,
+        extra_groups: Iterable[str | int] | None = None,
+        umask: int = -1,
     ) -> str: ...
     @overload
     def check_output(
@@ -1699,6 +1306,10 @@ else:
         encoding: str,
         errors: str | None = None,
         text: bool | None = None,
+        user: str | int | None = None,
+        group: str | int | None = None,
+        extra_groups: Iterable[str | int] | None = None,
+        umask: int = -1,
     ) -> str: ...
     @overload
     def check_output(
@@ -1724,6 +1335,10 @@ else:
         encoding: str | None = None,
         errors: str,
         text: bool | None = None,
+        user: str | int | None = None,
+        group: str | int | None = None,
+        extra_groups: Iterable[str | int] | None = None,
+        umask: int = -1,
     ) -> str: ...
     @overload
     def check_output(
@@ -1750,6 +1365,10 @@ else:
         encoding: str | None = None,
         errors: str | None = None,
         text: bool | None = None,
+        user: str | int | None = None,
+        group: str | int | None = None,
+        extra_groups: Iterable[str | int] | None = None,
+        umask: int = -1,
     ) -> str: ...
     @overload
     def check_output(
@@ -1775,6 +1394,10 @@ else:
         encoding: None = None,
         errors: None = None,
         text: Literal[False] | None = None,
+        user: str | int | None = None,
+        group: str | int | None = None,
+        extra_groups: Iterable[str | int] | None = None,
+        umask: int = -1,
     ) -> bytes: ...
     @overload
     def check_output(
@@ -1800,11 +1423,15 @@ else:
         encoding: str | None = None,
         errors: str | None = None,
         text: bool | None = None,
+        user: str | int | None = None,
+        group: str | int | None = None,
+        extra_groups: Iterable[str | int] | None = None,
+        umask: int = -1,
     ) -> Any: ...  # morally: -> str | bytes
 
-PIPE: int
-STDOUT: int
-DEVNULL: int
+PIPE: Final[int]
+STDOUT: Final[int]
+DEVNULL: Final[int]
 
 class SubprocessError(Exception): ...
 
@@ -1840,7 +1467,7 @@ class Popen(Generic[AnyStr]):
     stdout: IO[AnyStr] | None
     stderr: IO[AnyStr] | None
     pid: int
-    returncode: int | Any
+    returncode: int | MaybeNone
     universal_newlines: bool
 
     if sys.version_info >= (3, 11):
@@ -2215,183 +1842,6 @@ class Popen(Generic[AnyStr]):
             umask: int = -1,
             pipesize: int = -1,
         ) -> None: ...
-    elif sys.version_info >= (3, 9):
-        # user, group, extra_groups, umask were added in 3.9
-        @overload
-        def __init__(
-            self: Popen[str],
-            args: _CMD,
-            bufsize: int = -1,
-            executable: StrOrBytesPath | None = None,
-            stdin: _FILE | None = None,
-            stdout: _FILE | None = None,
-            stderr: _FILE | None = None,
-            preexec_fn: Callable[[], Any] | None = None,
-            close_fds: bool = True,
-            shell: bool = False,
-            cwd: StrOrBytesPath | None = None,
-            env: _ENV | None = None,
-            universal_newlines: bool | None = None,
-            startupinfo: Any | None = None,
-            creationflags: int = 0,
-            restore_signals: bool = True,
-            start_new_session: bool = False,
-            pass_fds: Collection[int] = (),
-            *,
-            text: bool | None = None,
-            encoding: str,
-            errors: str | None = None,
-            user: str | int | None = None,
-            group: str | int | None = None,
-            extra_groups: Iterable[str | int] | None = None,
-            umask: int = -1,
-        ) -> None: ...
-        @overload
-        def __init__(
-            self: Popen[str],
-            args: _CMD,
-            bufsize: int = -1,
-            executable: StrOrBytesPath | None = None,
-            stdin: _FILE | None = None,
-            stdout: _FILE | None = None,
-            stderr: _FILE | None = None,
-            preexec_fn: Callable[[], Any] | None = None,
-            close_fds: bool = True,
-            shell: bool = False,
-            cwd: StrOrBytesPath | None = None,
-            env: _ENV | None = None,
-            universal_newlines: bool | None = None,
-            startupinfo: Any | None = None,
-            creationflags: int = 0,
-            restore_signals: bool = True,
-            start_new_session: bool = False,
-            pass_fds: Collection[int] = (),
-            *,
-            text: bool | None = None,
-            encoding: str | None = None,
-            errors: str,
-            user: str | int | None = None,
-            group: str | int | None = None,
-            extra_groups: Iterable[str | int] | None = None,
-            umask: int = -1,
-        ) -> None: ...
-        @overload
-        def __init__(
-            self: Popen[str],
-            args: _CMD,
-            bufsize: int = -1,
-            executable: StrOrBytesPath | None = None,
-            stdin: _FILE | None = None,
-            stdout: _FILE | None = None,
-            stderr: _FILE | None = None,
-            preexec_fn: Callable[[], Any] | None = None,
-            close_fds: bool = True,
-            shell: bool = False,
-            cwd: StrOrBytesPath | None = None,
-            env: _ENV | None = None,
-            *,
-            universal_newlines: Literal[True],
-            startupinfo: Any | None = None,
-            creationflags: int = 0,
-            restore_signals: bool = True,
-            start_new_session: bool = False,
-            pass_fds: Collection[int] = (),
-            # where the *real* keyword only args start
-            text: bool | None = None,
-            encoding: str | None = None,
-            errors: str | None = None,
-            user: str | int | None = None,
-            group: str | int | None = None,
-            extra_groups: Iterable[str | int] | None = None,
-            umask: int = -1,
-        ) -> None: ...
-        @overload
-        def __init__(
-            self: Popen[str],
-            args: _CMD,
-            bufsize: int = -1,
-            executable: StrOrBytesPath | None = None,
-            stdin: _FILE | None = None,
-            stdout: _FILE | None = None,
-            stderr: _FILE | None = None,
-            preexec_fn: Callable[[], Any] | None = None,
-            close_fds: bool = True,
-            shell: bool = False,
-            cwd: StrOrBytesPath | None = None,
-            env: _ENV | None = None,
-            universal_newlines: bool | None = None,
-            startupinfo: Any | None = None,
-            creationflags: int = 0,
-            restore_signals: bool = True,
-            start_new_session: bool = False,
-            pass_fds: Collection[int] = (),
-            *,
-            text: Literal[True],
-            encoding: str | None = None,
-            errors: str | None = None,
-            user: str | int | None = None,
-            group: str | int | None = None,
-            extra_groups: Iterable[str | int] | None = None,
-            umask: int = -1,
-        ) -> None: ...
-        @overload
-        def __init__(
-            self: Popen[bytes],
-            args: _CMD,
-            bufsize: int = -1,
-            executable: StrOrBytesPath | None = None,
-            stdin: _FILE | None = None,
-            stdout: _FILE | None = None,
-            stderr: _FILE | None = None,
-            preexec_fn: Callable[[], Any] | None = None,
-            close_fds: bool = True,
-            shell: bool = False,
-            cwd: StrOrBytesPath | None = None,
-            env: _ENV | None = None,
-            universal_newlines: Literal[False] | None = None,
-            startupinfo: Any | None = None,
-            creationflags: int = 0,
-            restore_signals: bool = True,
-            start_new_session: bool = False,
-            pass_fds: Collection[int] = (),
-            *,
-            text: Literal[False] | None = None,
-            encoding: None = None,
-            errors: None = None,
-            user: str | int | None = None,
-            group: str | int | None = None,
-            extra_groups: Iterable[str | int] | None = None,
-            umask: int = -1,
-        ) -> None: ...
-        @overload
-        def __init__(
-            self: Popen[Any],
-            args: _CMD,
-            bufsize: int = -1,
-            executable: StrOrBytesPath | None = None,
-            stdin: _FILE | None = None,
-            stdout: _FILE | None = None,
-            stderr: _FILE | None = None,
-            preexec_fn: Callable[[], Any] | None = None,
-            close_fds: bool = True,
-            shell: bool = False,
-            cwd: StrOrBytesPath | None = None,
-            env: _ENV | None = None,
-            universal_newlines: bool | None = None,
-            startupinfo: Any | None = None,
-            creationflags: int = 0,
-            restore_signals: bool = True,
-            start_new_session: bool = False,
-            pass_fds: Collection[int] = (),
-            *,
-            text: bool | None = None,
-            encoding: str | None = None,
-            errors: str | None = None,
-            user: str | int | None = None,
-            group: str | int | None = None,
-            extra_groups: Iterable[str | int] | None = None,
-            umask: int = -1,
-        ) -> None: ...
     else:
         @overload
         def __init__(
@@ -2417,6 +1867,10 @@ class Popen(Generic[AnyStr]):
             text: bool | None = None,
             encoding: str,
             errors: str | None = None,
+            user: str | int | None = None,
+            group: str | int | None = None,
+            extra_groups: Iterable[str | int] | None = None,
+            umask: int = -1,
         ) -> None: ...
         @overload
         def __init__(
@@ -2442,6 +1896,10 @@ class Popen(Generic[AnyStr]):
             text: bool | None = None,
             encoding: str | None = None,
             errors: str,
+            user: str | int | None = None,
+            group: str | int | None = None,
+            extra_groups: Iterable[str | int] | None = None,
+            umask: int = -1,
         ) -> None: ...
         @overload
         def __init__(
@@ -2468,6 +1926,10 @@ class Popen(Generic[AnyStr]):
             text: bool | None = None,
             encoding: str | None = None,
             errors: str | None = None,
+            user: str | int | None = None,
+            group: str | int | None = None,
+            extra_groups: Iterable[str | int] | None = None,
+            umask: int = -1,
         ) -> None: ...
         @overload
         def __init__(
@@ -2493,6 +1955,10 @@ class Popen(Generic[AnyStr]):
             text: Literal[True],
             encoding: str | None = None,
             errors: str | None = None,
+            user: str | int | None = None,
+            group: str | int | None = None,
+            extra_groups: Iterable[str | int] | None = None,
+            umask: int = -1,
         ) -> None: ...
         @overload
         def __init__(
@@ -2518,6 +1984,10 @@ class Popen(Generic[AnyStr]):
             text: Literal[False] | None = None,
             encoding: None = None,
             errors: None = None,
+            user: str | int | None = None,
+            group: str | int | None = None,
+            extra_groups: Iterable[str | int] | None = None,
+            umask: int = -1,
         ) -> None: ...
         @overload
         def __init__(
@@ -2543,12 +2013,16 @@ class Popen(Generic[AnyStr]):
             text: bool | None = None,
             encoding: str | None = None,
             errors: str | None = None,
+            user: str | int | None = None,
+            group: str | int | None = None,
+            extra_groups: Iterable[str | int] | None = None,
+            umask: int = -1,
         ) -> None: ...
 
     def poll(self) -> int | None: ...
     def wait(self, timeout: float | None = None) -> int: ...
     # morally the members of the returned tuple should be optional
-    # TODO this should allow ReadableBuffer for Popen[bytes], but adding
+    # TODO: this should allow ReadableBuffer for Popen[bytes], but adding
     # overloads for that runs into a mypy bug (python/mypy#14070).
     def communicate(self, input: AnyStr | None = None, timeout: float | None = None) -> tuple[AnyStr, AnyStr]: ...
     def send_signal(self, sig: int) -> None: ...
@@ -2559,8 +2033,7 @@ class Popen(Generic[AnyStr]):
         self, exc_type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
     def __del__(self) -> None: ...
-    if sys.version_info >= (3, 9):
-        def __class_getitem__(cls, item: Any) -> GenericAlias: ...
+    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 # The result really is always a str.
 if sys.version_info >= (3, 11):
@@ -2574,6 +2047,11 @@ else:
 def list2cmdline(seq: Iterable[StrOrBytesPath]) -> str: ...  # undocumented
 
 if sys.platform == "win32":
+    if sys.version_info >= (3, 13):
+        from _winapi import STARTF_FORCEOFFFEEDBACK, STARTF_FORCEONFEEDBACK
+
+        __all__ += ["STARTF_FORCEOFFFEEDBACK", "STARTF_FORCEONFEEDBACK"]
+
     class STARTUPINFO:
         def __init__(
             self,

@@ -1,4 +1,5 @@
-from networkx.utils.backends import _dispatch
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
-@_dispatch
-def ramsey_R2(G): ...
+@_dispatchable
+def ramsey_R2(G: Graph[_Node]): ...

@@ -12,7 +12,7 @@ from openpyxl.worksheet.cell_range import CellRange, MultiCellRange
 
 _T = TypeVar("_T")
 _P = TypeVar("_P", str, ReadableBuffer)
-_N = TypeVar("_N", bound=bool)
+_N = TypeVar("_N", bound=bool, default=Literal[False])
 _L = TypeVar("_L", bound=Sized)
 _M = TypeVar("_M", int, float)
 
@@ -36,7 +36,7 @@ class Typed(Descriptor[_T], Generic[_T, _N]):
 
     @overload
     def __init__(
-        self: Typed[_T, Literal[True]],
+        self: Typed[_T, Literal[True]],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         name: str | None = None,
         *,
         expected_type: _ExpectedTypeParam[_T],
@@ -45,7 +45,7 @@ class Typed(Descriptor[_T], Generic[_T, _N]):
     ) -> None: ...
     @overload
     def __init__(
-        self: Typed[_T, Literal[False]],
+        self: Typed[_T, Literal[False]],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         name: str | None = None,
         *,
         expected_type: _ExpectedTypeParam[_T],
@@ -64,7 +64,7 @@ class Typed(Descriptor[_T], Generic[_T, _N]):
 class Convertible(Typed[_T, _N]):
     @overload
     def __init__(
-        self: Convertible[_T, Literal[True]],
+        self: Convertible[_T, Literal[True]],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         name: str | None = None,
         *,
         expected_type: _ExpectedTypeParam[_T],
@@ -72,7 +72,7 @@ class Convertible(Typed[_T, _N]):
     ) -> None: ...
     @overload
     def __init__(
-        self: Convertible[_T, Literal[False]],
+        self: Convertible[_T, Literal[False]],  # pyright: ignore[reportInvalidTypeVarUse]  #11780
         name: str | None = None,
         *,
         expected_type: _ExpectedTypeParam[_T],
@@ -296,7 +296,7 @@ class Default(Typed[_T, _N]):  # unused
 class Alias(Descriptor[Incomplete]):
     alias: str
     def __init__(self, alias: str) -> None: ...
-    def __set__(self, instance: Serialisable | Strict, value: Incomplete) -> None: ...
+    def __set__(self, instance: Serialisable | Strict, value) -> None: ...
     def __get__(self, instance: Serialisable | Strict, cls: Unused): ...
 
 class MatchPattern(Descriptor[_P], Generic[_P, _N]):

@@ -22,7 +22,7 @@ from typing import (
     final,
     overload,
 )
-from typing_extensions import Buffer, LiteralString, TypeAlias
+from typing_extensions import Buffer, LiteralString, Self as _Self, TypeAlias
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -47,10 +47,15 @@ AnyStr_co = TypeVar("AnyStr_co", str, bytes, covariant=True)  # noqa: Y001
 # isn't possible or a type is already partially known. In cases like these,
 # use Incomplete instead of Any as a marker. For example, use
 # "Incomplete | None" instead of "Any | None".
-Incomplete: TypeAlias = Any
+Incomplete: TypeAlias = Any  # stable
 
 # To describe a function parameter that is unused and will work with anything.
-Unused: TypeAlias = object
+Unused: TypeAlias = object  # stable
+
+# Marker for return types that include None, but where forcing the user to
+# check for None can be detrimental. Sometimes called "the Any trick". See
+# CONTRIBUTING.md for more information.
+MaybeNone: TypeAlias = Any  # stable
 
 # Used to mark arguments that default to a sentinel value. This prevents
 # stubtest from complaining about the default value not matching.
@@ -112,6 +117,12 @@ class SupportsSub(Protocol[_T_contra, _T_co]):
 class SupportsRSub(Protocol[_T_contra, _T_co]):
     def __rsub__(self, x: _T_contra, /) -> _T_co: ...
 
+class SupportsMul(Protocol[_T_contra, _T_co]):
+    def __mul__(self, x: _T_contra, /) -> _T_co: ...
+
+class SupportsRMul(Protocol[_T_contra, _T_co]):
+    def __rmul__(self, x: _T_contra, /) -> _T_co: ...
+
 class SupportsDivMod(Protocol[_T_contra, _T_co]):
     def __divmod__(self, other: _T_contra, /) -> _T_co: ...
 
@@ -148,11 +159,17 @@ class SupportsKeysAndGetItem(Protocol[_KT, _VT_co]):
 
 # stable
 class SupportsGetItem(Protocol[_KT_contra, _VT_co]):
+    def __getitem__(self, key: _KT_contra, /) -> _VT_co: ...
+
+# stable
+class SupportsContainsAndGetItem(Protocol[_KT_contra, _VT_co]):
     def __contains__(self, x: Any, /) -> bool: ...
     def __getitem__(self, key: _KT_contra, /) -> _VT_co: ...
 
 # stable
-class SupportsItemAccess(SupportsGetItem[_KT_contra, _VT], Protocol[_KT_contra, _VT]):
+class SupportsItemAccess(Protocol[_KT_contra, _VT]):
+    def __contains__(self, x: Any, /) -> bool: ...
+    def __getitem__(self, key: _KT_contra, /) -> _VT: ...
     def __setitem__(self, key: _KT_contra, value: _VT, /) -> None: ...
     def __delitem__(self, key: _KT_contra, /) -> None: ...
 
@@ -311,7 +328,9 @@ class structseq(Generic[_T_co]):
     # The second parameter will accept a dict of any kind without raising an exception,
     # but only has any meaning if you supply it a dict where the keys are strings.
     # https://github.com/python/typeshed/pull/6560#discussion_r767149830
-    def __new__(cls: type[Self], sequence: Iterable[_T_co], dict: dict[str, Any] = ...) -> Self: ...
+    def __new__(cls, sequence: Iterable[_T_co], dict: dict[str, Any] = ...) -> _Self: ...
+    if sys.version_info >= (3, 13):
+        def __replace__(self, **kwargs: Any) -> _Self: ...
 
 # Superset of typing.AnyStr that also includes LiteralString
 AnyOrLiteralStr = TypeVar("AnyOrLiteralStr", str, bytes, LiteralString)  # noqa: Y001
