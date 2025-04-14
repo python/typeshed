@@ -15,8 +15,8 @@ from dataclasses import dataclass
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import NamedTuple
-from typing_extensions import Annotated, TypeAlias
+from typing import Annotated, NamedTuple
+from typing_extensions import TypeAlias
 
 from packaging.requirements import Requirement
 
@@ -317,8 +317,7 @@ def stdlib_module_name_from_path(path: Path) -> str:
     assert path.suffix == ".pyi"
     parts = list(path.parts[1:-1])
     if path.parts[-1] != "__init__.pyi":
-        # TODO: Python 3.9+: Use removesuffix.
-        parts.append(path.parts[-1][:-4])
+        parts.append(path.parts[-1].removesuffix(".pyi"))
     return ".".join(parts)
 
 
