@@ -4,7 +4,7 @@ from typing import Final
 
 import requests
 from auth0.exceptions import Auth0Error as Auth0Error, RateLimitError as RateLimitError
-from auth0.rest_async import RequestsResponse as RequestsResponse
+from auth0.rest_async import RequestsResponse
 from auth0.types import RequestData as RequestData, TimeoutType as TimeoutType
 
 UNKNOWN_ERROR: Final[str]

@@ -1,3 +1,5 @@
+from _typeshed import Incomplete
+
 from .. import TokenValidationError as TokenValidationError
 from ..rest_async import AsyncRestClient as AsyncRestClient
 from .token_verifier import (
@@ -23,3 +25,6 @@ class AsyncTokenVerifier(TokenVerifier):
         self, signature_verifier: AsyncAsymmetricSignatureVerifier, issuer: str, audience: str, leeway: int = 0
     ) -> None: ...
     def set_session(self, session) -> None: ...
+    async def verify(  # type: ignore[override] # Differs from supertype
+        self, token: str, nonce: str | None = None, max_age: int | None = None, organization: str | None = None
+    ) -> dict[str, Incomplete]: ...

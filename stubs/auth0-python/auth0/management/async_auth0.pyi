@@ -1,7 +1,7 @@
 from types import TracebackType
 from typing_extensions import Self
 
-from auth0.rest import RestClientOptions as RestClientOptions
+from auth0.rest import RestClientOptions
 
 from ..asyncify import asyncify as asyncify
 from .auth0 import Auth0 as Auth0

@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-from auth0.rest import RestClientOptions as RestClientOptions
+from auth0.rest import RestClientOptions
 
 from .actions import Actions as Actions
 from .attack_protection import AttackProtection as AttackProtection
