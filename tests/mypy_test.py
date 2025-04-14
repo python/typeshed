@@ -12,16 +12,17 @@ import tempfile
 import time
 from collections import defaultdict
 from dataclasses import dataclass
+from enum import Enum
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import Annotated, NamedTuple
+from typing import Annotated, Any, NamedTuple
 from typing_extensions import TypeAlias
 
 from packaging.requirements import Requirement
 
 from ts_utils.metadata import PackageDependencies, get_recursive_requirements, read_metadata
-from ts_utils.mypy import MypyDistConf, MypyResult, mypy_configuration_from_distribution, temporary_mypy_config_file
+from ts_utils.mypy import MypyDistConf, mypy_configuration_from_distribution, temporary_mypy_config_file
 from ts_utils.paths import STDLIB_PATH, STUBS_PATH, TESTS_DIR, TS_BASE_PATH, distribution_path
 from ts_utils.utils import (
     PYTHON_VERSION,
@@ -156,6 +157,21 @@ def add_files(files: list[Path], module: Path, args: TestConfig) -> None:
         files.extend(sorted(file for file in module.rglob("*.pyi") if match(file, args)))
 
 
+class MypyResult(Enum):
+    SUCCESS = 0
+    FAILURE = 1
+    CRASH = 2
+
+    @staticmethod
+    def from_process_result(result: subprocess.CompletedProcess[Any]) -> MypyResult:
+        if result.returncode == 0:
+            return MypyResult.SUCCESS
+        elif result.returncode == 1:
+            return MypyResult.FAILURE
+        else:
+            return MypyResult.CRASH
+
+
 def run_mypy(
     args: TestConfig,
     configurations: list[MypyDistConf],
@@ -217,12 +233,8 @@ def run_mypy(
             print()
     else:
         print_success_msg()
-    if result.returncode == 0:
-        return MypyResult.SUCCESS
-    elif result.returncode == 1:
-        return MypyResult.FAILURE
-    else:
-        return MypyResult.CRASH
+
+    return MypyResult.from_process_result(result)
 
 
 def add_third_party_files(distribution: str, files: list[Path], args: TestConfig, seen_dists: set[str]) -> None:

@@ -5,7 +5,6 @@ import sys
 import tempfile
 from collections.abc import Generator, Iterable
 from contextlib import contextmanager
-from enum import Enum
 from typing import Any, NamedTuple
 
 import tomli
@@ -16,12 +15,6 @@ from ts_utils.metadata import metadata_path
 class MypyDistConf(NamedTuple):
     module_name: str
     values: dict[str, dict[str, Any]]
-
-
-class MypyResult(Enum):
-    SUCCESS = 0
-    FAILURE = 1
-    CRASH = 2
 
 
 # The configuration section in the metadata file looks like the following, with multiple module sections possible
