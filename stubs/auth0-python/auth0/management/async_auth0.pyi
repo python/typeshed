@@ -3,7 +3,6 @@ from typing_extensions import Self
 
 from auth0.rest import RestClientOptions
 
-
 class AsyncAuth0:
     def __init__(self, domain: str, token: str, rest_options: RestClientOptions | None = None) -> None: ...
     def set_session(self, session) -> None: ...
