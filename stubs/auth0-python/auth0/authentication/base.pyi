@@ -1,10 +1,8 @@
 from _typeshed import Incomplete
 from typing import Final
 
-from auth0.rest import RestClient as RestClient, RestClientOptions as RestClientOptions
-from auth0.types import RequestData as RequestData
-
-from .client_authentication import add_client_authentication as add_client_authentication
+from auth0.rest import RestClient
+from auth0.types import RequestData
 
 UNKNOWN_ERROR: Final[str]
 

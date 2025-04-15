@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from typing import ClassVar
 
-from auth0.exceptions import TokenValidationError as TokenValidationError
-
 class SignatureVerifier:
     DISABLE_JWT_CHECKS: ClassVar[dict[str, bool]]
     def __init__(self, algorithm: str) -> None: ...
