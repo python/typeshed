@@ -6,7 +6,3 @@ auth0\._asyncified.*
 
 # Inconsistently implemented, ommitted
 auth0\.management\.Auth0\..*
-
-# TYPE_CHECKING block in the source makes these show up wrong
-auth0.management.auth0.RestClientOptions
-auth0.rest.RequestsResponse
