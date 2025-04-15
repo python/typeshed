@@ -1,4 +1,4 @@
-from .base import AuthenticationBase as AuthenticationBase
+from .base import AuthenticationBase
 
 class GetToken(AuthenticationBase):
     def authorization_code(self, code: str, redirect_uri: str | None, grant_type: str = "authorization_code"): ...

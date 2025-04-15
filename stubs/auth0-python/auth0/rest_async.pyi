@@ -1,15 +1,8 @@
 from _typeshed import Incomplete
 
-from auth0.exceptions import RateLimitError as RateLimitError
-from auth0.types import RequestData as RequestData
+from auth0.types import RequestData
 
-from .rest import (
-    EmptyResponse as EmptyResponse,
-    JsonResponse as JsonResponse,
-    PlainResponse as PlainResponse,
-    Response as Response,
-    RestClient as RestClient,
-)
+from .rest import RestClient
 
 class AsyncRestClient(RestClient):
     timeout: Incomplete
