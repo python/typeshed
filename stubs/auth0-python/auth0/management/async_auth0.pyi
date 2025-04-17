@@ -42,7 +42,7 @@ class AsyncAuth0:
         self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
     ) -> None: ...
 
-	# Same attributes as Auth0
+    # Same attributes as Auth0
     # See note in stubs/auth0-python/@tests/stubtest_allowlist.txt about _async methods
     actions: Actions
     attack_protection: AttackProtection
