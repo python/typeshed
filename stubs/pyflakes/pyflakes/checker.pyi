@@ -1,10 +1,10 @@
 import ast
 import sys
-from _typeshed import Incomplete
+from _typeshed import Incomplete, StrOrLiteralStr
 from collections.abc import Callable, Generator, Iterable, Iterator
 from contextlib import contextmanager
 from re import Pattern
-from typing import Any, ClassVar, Literal, TypeVar, overload
+from typing import Any, ClassVar, Final, Literal, TypeVar, overload
 from typing_extensions import Never, ParamSpec, TypeAlias
 
 from pyflakes.messages import Message
@@ -13,16 +13,25 @@ _AnyFunction: TypeAlias = Callable[..., Any]
 _F = TypeVar("_F", bound=_AnyFunction)
 _P = ParamSpec("_P")
 
-PYPY: bool
+PYPY: Final[bool]
+builtin_vars: Final[list[str]]
 
-def getAlternatives(n: ast.If | ast.Try) -> list[ast.AST]: ...
+def parse_format_string(
+    format_string: StrOrLiteralStr,
+) -> Iterable[tuple[StrOrLiteralStr, StrOrLiteralStr | None, StrOrLiteralStr | None, StrOrLiteralStr | None]]: ...
 
-FOR_TYPES: tuple[type[ast.For], type[ast.AsyncFor]]
-MAPPING_KEY_RE: Pattern[str]
-CONVERSION_FLAG_RE: Pattern[str]
-WIDTH_RE: Pattern[str]
-PRECISION_RE: Pattern[str]
-LENGTH_RE: Pattern[str]
+if sys.version_info >= (3, 10):
+    def getAlternatives(n: ast.If | ast.Try | ast.Match) -> list[ast.AST]: ...
+
+else:
+    def getAlternatives(n: ast.If | ast.Try) -> list[ast.AST]: ...
+
+FOR_TYPES: Final[tuple[type[ast.For], type[ast.AsyncFor]]]
+MAPPING_KEY_RE: Final[Pattern[str]]
+CONVERSION_FLAG_RE: Final[Pattern[str]]
+WIDTH_RE: Final[Pattern[str]]
+PRECISION_RE: Final[Pattern[str]]
+LENGTH_RE: Final[Pattern[str]]
 VALID_CONVERSIONS: frozenset[str]
 
 _FormatType: TypeAlias = tuple[str | None, str | None, str | None, str | None, str]
@@ -44,7 +53,7 @@ def convert_to_value(item: ast.Tuple) -> tuple[Any, ...]: ...  # type: ignore[ov
 def convert_to_value(item: ast.Name) -> VariableKey: ...  # type: ignore[overload-overlap]
 @overload
 def convert_to_value(item: ast.AST) -> UnhandledKeyType: ...
-def is_notimplemented_name_node(node: object) -> bool: ...
+def is_notimplemented_name_node(node: ast.AST) -> bool: ...
 
 class Binding:
     name: str
@@ -90,6 +99,7 @@ class FutureImportation(ImportationFrom):
 
 class Argument(Binding): ...
 class Assignment(Binding): ...
+class NamedExprAssignment(Assignment): ...
 
 class Annotation(Binding):
     def redefines(self, other: Binding) -> Literal[False]: ...
@@ -165,18 +175,22 @@ else:
 
 if sys.version_info >= (3, 12):
     _TypeVar: TypeAlias = ast.TypeVar
+    _ParamSpec: TypeAlias = ast.ParamSpec
+    _TypeVarTuple: TypeAlias = ast.TypeVarTuple
     _TypeAlias: TypeAlias = ast.TypeAlias
 else:
     # The methods using these should never be called on Python < 3.12.
     _TypeVar: TypeAlias = Never
+    _ParamSpec: TypeAlias = Never
+    _TypeVarTuple: TypeAlias = Never
     _TypeAlias: TypeAlias = Never
 
 class Checker:
     nodeDepth: int
     offset: tuple[int, int] | None
     builtIns: set[str]
-    deadScopes: list[Incomplete]
-    messages: list[Incomplete]
+    deadScopes: list[Scope]
+    messages: list[Message]
     filename: str
     withDoctest: bool
     scopeStack: list[Scope]
@@ -211,7 +225,7 @@ class Checker:
     def getScopeNode(self, node: ast.AST) -> ast.AST | None: ...
     def differentForks(self, lnode: ast.AST, rnode: ast.AST) -> bool: ...
     def addBinding(self, node: ast.AST, value: Binding) -> None: ...
-    def getNodeHandler(self, node_class: type[ast.AST]): ...
+    def getNodeHandler(self, node_class: type[ast.AST]) -> Callable[[ast.AST], None]: ...
     def handleNodeLoad(self, node: ast.AST, parent: ast.AST) -> None: ...
     def handleNodeStore(self, node: ast.AST) -> None: ...
     def handleNodeDelete(self, node: ast.AST) -> None: ...
@@ -318,6 +332,11 @@ class Checker:
     def IMPORT(self, node: ast.Import) -> None: ...
     def IMPORTFROM(self, node: ast.ImportFrom) -> None: ...
     def TRY(self, node: ast.Try) -> None: ...
+    if sys.version_info >= (3, 11):
+        def TRYSTAR(self, node: ast.TryStar) -> None: ...
+    else:
+        def TRYSTAR(self, node: ast.Try) -> None: ...
+
     def EXCEPTHANDLER(self, node: ast.ExceptHandler) -> None: ...
     def ANNASSIGN(self, node: ast.AnnAssign) -> None: ...
     def COMPARE(self, node: ast.Compare) -> None: ...
@@ -332,4 +351,6 @@ class Checker:
     def MATCHMAPPING(self, node: _MatchMapping) -> None: ...
     def MATCHSTAR(self, node: _MatchStar) -> None: ...
     def TYPEVAR(self, node: _TypeVar) -> None: ...
+    def PARAMSPEC(self, node: _ParamSpec) -> None: ...
+    def TYPEVARTUPLE(self, node: _TypeVarTuple) -> None: ...
     def TYPEALIAS(self, node: _TypeAlias) -> None: ...
