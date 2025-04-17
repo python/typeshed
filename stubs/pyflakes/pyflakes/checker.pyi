@@ -1,6 +1,6 @@
 import ast
 import sys
-from _typeshed import Incomplete, StrOrLiteralStr
+from _typeshed import StrOrLiteralStr, Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from re import Pattern
@@ -58,7 +58,7 @@ def is_notimplemented_name_node(node: ast.AST) -> bool: ...
 class Binding:
     name: str
     source: ast.AST | None
-    used: Literal[False] | tuple[Incomplete, ast.AST]
+    used: Literal[False] | tuple[Scope, ast.AST]
     def __init__(self, name: str, source: ast.AST | None) -> None: ...
     def redefines(self, other: Binding) -> bool: ...
 
@@ -77,7 +77,7 @@ class VariableKey:
 
 class Importation(Definition):
     fullName: str
-    redefined: list[Incomplete]
+    redefined: list[ast.AST]
     def __init__(self, name: str, source: ast.AST | None, full_name: str | None = None) -> None: ...
     @property
     def source_statement(self) -> str: ...
@@ -121,7 +121,7 @@ class FunctionScope(Scope):
     usesLocals: bool
     alwaysUsed: ClassVar[set[str]]
     globals: set[str]
-    returnValue: Incomplete
+    returnValue: ast.expr | None
     isGenerator: bool
     def __init__(self) -> None: ...
     def unused_assignments(self) -> Iterator[tuple[str, Binding]]: ...
@@ -194,7 +194,7 @@ class Checker:
     filename: str
     withDoctest: bool
     scopeStack: list[Scope]
-    exceptHandlers: list[Incomplete]
+    exceptHandlers: list[tuple[()] | str]
     root: ast.AST
     def __init__(
         self,
@@ -202,7 +202,7 @@ class Checker:
         filename: str = "(none)",
         builtins: Iterable[str] | None = None,
         withDoctest: bool = False,
-        file_tokens: tuple[Incomplete, ...] = (),
+        file_tokens: Unused = (),
     ) -> None: ...
     def deferFunction(self, callable: _AnyFunction) -> None: ...
     @property
