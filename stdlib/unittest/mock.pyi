@@ -1,4 +1,5 @@
 import sys
+from _typeshed import MaybeNone
 from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import _GeneratorContextManager
 from types import TracebackType
@@ -159,7 +160,7 @@ class NonCallableMock(Base, Any):
     side_effect: Any
     called: bool
     call_count: int
-    call_args: _Call | None
+    call_args: _Call | MaybeNone
     call_args_list: _CallList
     mock_calls: _CallList
     def _format_mock_call_signature(self, args: Any, kwargs: Any) -> str: ...
