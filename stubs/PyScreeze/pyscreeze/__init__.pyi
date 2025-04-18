@@ -140,7 +140,7 @@ def locateCenterOnScreen(
 def locateCenterOnScreen(
     image: str | Image.Image,
     *,
-    minSearchTime: float,
+    minSearchTime: float = 0,
     grayscale: bool | None = None,
     limit: Unused = 1,
     region: tuple[int, int, int, int] | None = None,
