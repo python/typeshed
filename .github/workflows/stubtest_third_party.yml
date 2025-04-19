@@ -85,7 +85,7 @@ jobs:
               PYTHON_EXECUTABLE="python"
             fi
 
-            $PYTHON_EXECUTABLE tests/stubtest_third_party.py --specified-platforms-only $STUBS
+            $PYTHON_EXECUTABLE tests/stubtest_third_party.py --ci-platforms-only $STUBS
           else
             echo "Nothing to test"
           fi
