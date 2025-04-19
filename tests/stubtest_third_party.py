@@ -15,7 +15,13 @@ from textwrap import dedent
 from time import time
 from typing import NoReturn
 
-from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata
+from ts_utils.metadata import (
+    DEFAULT_STUBTEST_PLATFORMS,
+    NoSuchStubError,
+    StubtestSettings,
+    get_recursive_requirements,
+    read_metadata,
+)
 from ts_utils.paths import STUBS_PATH, allowlists_path, tests_path
 from ts_utils.utils import (
     PYTHON_VERSION,
@@ -46,11 +52,9 @@ def run_stubtest(
         print(colored("skipping", "yellow"))
         return True
 
-    if sys.platform not in stubtest_settings.platforms:
-        if specified_platforms_only:
-            print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
-            return True
-        print(colored(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI.", "yellow"))
+    if should_skip_dist(stubtest_settings, specified_platforms_only=specified_platforms_only):
+        print(colored("skipping (platform not specified in METADATA.toml)", "yellow"))
+        return True
 
     if not metadata.requires_python.contains(PYTHON_VERSION):
         print(colored(f"skipping (requires Python {metadata.requires_python})", "yellow"))
@@ -176,6 +180,14 @@ def run_stubtest(
         else:
             print_time(time() - t)
             print_success_msg()
+
+            if (
+                sys.platform not in stubtest_settings.platforms
+                and sys.platform not in DEFAULT_STUBTEST_PLATFORMS
+                and not specified_platforms_only
+            ):
+                print(colored(f"Note: {dist_name} is not currently tested on {sys.platform} in typeshed's CI", "yellow"))
+
             if keep_tmp_dir:
                 print_info(f"Virtual environment kept at: {venv_dir}")
     finally:
@@ -186,6 +198,10 @@ def run_stubtest(
         print_commands(pip_cmd, stubtest_cmd, mypypath)
 
     return True
+
+
+def should_skip_dist(stubtest_settings: StubtestSettings, *, specified_platforms_only: bool) -> bool:
+    return specified_platforms_only and sys.platform not in stubtest_settings.platforms
 
 
 def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
