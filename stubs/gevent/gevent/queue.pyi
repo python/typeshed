@@ -50,7 +50,7 @@ class SimpleQueue(Generic[_T]):
     next = __next__
 
 @final
-class UnboundQueue(Queue[_T]):
+class UnboundQueue(SimpleQueue[_T]):
     @overload
     def __init__(self, maxsize: None = None) -> None: ...
     @overload
