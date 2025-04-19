@@ -2,9 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import Any, ClassVar
 
+from setuptools._distutils.command import install as orig
 from setuptools.dist import Distribution
-
-from .._distutils.command import install as orig
 
 class install(orig.install):
     distribution: Distribution  # override distutils.dist.Distribution with setuptools.dist.Distribution

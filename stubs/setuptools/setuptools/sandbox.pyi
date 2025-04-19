@@ -3,7 +3,7 @@ from types import TracebackType
 from typing import ClassVar
 from typing_extensions import Self
 
-from ._distutils.errors import DistutilsError
+from setuptools._distutils.errors import DistutilsError
 
 __all__ = ["AbstractSandbox", "DirectorySandbox", "SandboxViolation", "run_setup"]
 
