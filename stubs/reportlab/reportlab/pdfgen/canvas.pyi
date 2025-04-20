@@ -239,6 +239,7 @@ class Canvas(_PDFColorSetter):
         charSpace: float = 0,
         direction: Literal["LTR", "RTL"] | None = None,
         wordSpace: float | None = None,
+        shaping: bool = False,
     ) -> None: ...
     def drawRightString(
         self,
@@ -249,6 +250,7 @@ class Canvas(_PDFColorSetter):
         charSpace: float = 0,
         direction: Literal["LTR", "RTL"] | None = None,
         wordSpace: float | None = None,
+        shaping: bool = False,
     ) -> None: ...
     def drawCentredString(
         self,
@@ -259,6 +261,7 @@ class Canvas(_PDFColorSetter):
         charSpace: float = 0,
         direction: Literal["LTR", "RTL"] | None = None,
         wordSpace: float | None = None,
+        shaping: bool = False,
     ) -> None: ...
     def drawAlignedString(
         self,
@@ -270,6 +273,7 @@ class Canvas(_PDFColorSetter):
         charSpace: float = 0,
         direction: Literal["LTR", "RTL"] | None = None,
         wordSpace: float | None = None,
+        shaping: bool = False,
     ) -> None: ...
     def getAvailableFonts(self): ...
     def listLoadedFonts0(self): ...
@@ -304,6 +308,5 @@ class Canvas(_PDFColorSetter):
     @property
     def acroForm(self): ...
     def drawBoundary(self, sb, x1: float, y1: float, width: float, height: float) -> None: ...
-    def shapedText(self, text) -> tuple[Incomplete, Incomplete]: ...
 
 __all__ = ["Canvas", "ShowBoundaryValue"]
