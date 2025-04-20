@@ -211,7 +211,7 @@ else:
     def NamedTemporaryFile(mode: OpenTextMode) -> tempfile._TemporaryFileWrapper[str]:  # noqa: N802
         def close(self: tempfile._TemporaryFileWrapper[str]) -> None:
             os.remove(temp.name)
-            return tempfile._TemporaryFileWrapper.close(self)
+            return self.close()
 
         temp = tempfile.NamedTemporaryFile(mode, delete=False)  # noqa: SIM115, TID251
         temp.close = close  # type: ignore[assignment] # pyright: ignore[reportAttributeAccessIssue]
