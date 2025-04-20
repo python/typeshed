@@ -91,7 +91,6 @@
         "stubs/shapely",
         "stubs/tensorflow",
         "stubs/tqdm",
-        "stubs/ttkthemes",
         "stubs/vobject",
         "stubs/workalendar",
         "stubs/wurlitzer",
