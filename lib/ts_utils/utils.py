@@ -210,7 +210,7 @@ else:
 
     def NamedTemporaryFile(mode: OpenTextMode) -> tempfile._TemporaryFileWrapper[str]:  # noqa: N802
         def close(self: tempfile._TemporaryFileWrapper[str]) -> None:
-            os.remove(temp.name)
+            os.remove(self.name)
             return self.close()
 
         temp = tempfile.NamedTemporaryFile(mode, delete=False)  # noqa: SIM115, TID251
