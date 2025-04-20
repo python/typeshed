@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import os
-import sys
 import tempfile
 from collections.abc import Generator, Iterable
 from contextlib import contextmanager
@@ -70,5 +68,3 @@ def temporary_mypy_config_file(
         yield temp
     finally:
         temp.close()
-        if sys.platform == "win32":
-            os.remove(temp.name)
