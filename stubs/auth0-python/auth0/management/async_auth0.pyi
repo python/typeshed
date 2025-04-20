@@ -1,10 +1,7 @@
 from types import TracebackType
 from typing_extensions import Self
 
-from auth0.rest import RestClientOptions as RestClientOptions
-
-from ..asyncify import asyncify as asyncify
-from .auth0 import Auth0 as Auth0
+from auth0.rest import RestClientOptions
 
 class AsyncAuth0:
     def __init__(self, domain: str, token: str, rest_options: RestClientOptions | None = None) -> None: ...
