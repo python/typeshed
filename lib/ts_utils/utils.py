@@ -9,6 +9,7 @@ import sys
 import tempfile
 from collections.abc import Iterable, Mapping
 from pathlib import Path
+from types import MethodType
 from typing import TYPE_CHECKING, Any, Final, NamedTuple
 from typing_extensions import TypeAlias
 
@@ -201,6 +202,9 @@ def allowlists(distribution_name: str) -> list[str]:
         return ["stubtest_allowlist.txt", platform_allowlist]
 
 
+# Re-exposing as a public name to avoid many pyright reportPrivateUsage
+TemporaryFileWrapper = tempfile._TemporaryFileWrapper  # pyright: ignore[reportPrivateUsage]
+
 # We need to work around a limitation of tempfile.NamedTemporaryFile on Windows
 # For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
 # Python 3.12 added a cross-platform solution with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
@@ -208,13 +212,13 @@ if sys.platform != "win32":
     NamedTemporaryFile = tempfile.NamedTemporaryFile  # noqa: TID251
 else:
 
-    def NamedTemporaryFile(mode: OpenTextMode) -> tempfile._TemporaryFileWrapper[str]:  # noqa: N802
-        def close(self: tempfile._TemporaryFileWrapper[str]) -> None:
-            tempfile._TemporaryFileWrapper.close(self)
+    def NamedTemporaryFile(mode: OpenTextMode) -> TemporaryFileWrapper[str]:  # noqa: N802
+        def close(self: TemporaryFileWrapper[str]) -> None:
+            TemporaryFileWrapper.close(self)  # pyright: ignore[reportUnknownMemberType]
             os.remove(self.name)
 
         temp = tempfile.NamedTemporaryFile(mode, delete=False)  # noqa: SIM115, TID251
-        temp.close = close  # type: ignore[assignment] # pyright: ignore[reportAttributeAccessIssue]
+        temp.close = MethodType(close, temp)  # type: ignore[method-assign]
         return temp
 
 
