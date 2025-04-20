@@ -10,6 +10,7 @@ from typing import Any, NamedTuple
 import tomli
 
 from ts_utils.metadata import metadata_path
+from ts_utils.utils import NamedTemporaryFile
 
 
 class MypyDistConf(NamedTuple):
@@ -58,7 +59,7 @@ def temporary_mypy_config_file(
     # We need to work around a limitation of tempfile.NamedTemporaryFile on Windows
     # For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
     # Python 3.12 added a workaround with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
-    temp = tempfile.NamedTemporaryFile("w+", delete=sys.platform != "win32")  # noqa: SIM115
+    temp = NamedTemporaryFile("w+")
     try:
         for dist_conf in configurations:
             temp.write(f"[mypy-{dist_conf.module_name}]\n")

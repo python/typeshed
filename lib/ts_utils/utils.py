@@ -3,15 +3,22 @@
 from __future__ import annotations
 
 import functools
+import os
 import re
 import sys
+import tempfile
 from collections.abc import Iterable, Mapping
 from pathlib import Path
-from typing import Any, Final, NamedTuple
+from typing import TYPE_CHECKING, Any, Final, NamedTuple
 from typing_extensions import TypeAlias
 
 import pathspec
 from packaging.requirements import Requirement
+
+from .paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
+
+if TYPE_CHECKING:
+    from _typeshed import OpenTextMode
 
 try:
     from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
@@ -20,8 +27,6 @@ except ImportError:
     def colored(text: str, color: str | None = None, **kwargs: Any) -> str:  # type: ignore[misc] # noqa: ARG001
         return text
 
-
-from .paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
 
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
 
@@ -196,6 +201,23 @@ def allowlists(distribution_name: str) -> list[str]:
         return ["stubtest_allowlist.txt", platform_allowlist]
 
 
+# We need to work around a limitation of tempfile.NamedTemporaryFile on Windows
+# For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
+# Python 3.12 added a cross-platform solution with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
+if sys.platform != "win32":
+    NamedTemporaryFile = tempfile.NamedTemporaryFile  # noqa: TID251
+else:
+
+    def NamedTemporaryFile(mode: OpenTextMode) -> tempfile._TemporaryFileWrapper[str]:  # noqa: N802
+        def close(self: tempfile._TemporaryFileWrapper[str]) -> None:
+            os.remove(temp.name)
+            return tempfile._TemporaryFileWrapper.close(self)
+
+        temp = tempfile.NamedTemporaryFile(mode, delete=False)  # noqa: SIM115, TID251
+        temp.close = close  # type: ignore[assignment] # pyright: ignore[reportAttributeAccessIssue]
+        return temp
+
+
 # ====================================================================
 # Parsing .gitignore
 # ====================================================================
@@ -215,7 +237,7 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
 
 
 # ====================================================================
-# mypy/stubtest call
+# stubtest call
 # ====================================================================
 
 
