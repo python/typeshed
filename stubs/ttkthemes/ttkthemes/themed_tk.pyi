@@ -22,7 +22,7 @@ class ThemedTk(tkinter.Tk, ThemedWidget):
         gif_override: bool = ...,
     ) -> None: ...
     def set_theme(self, theme_name: str, toplevel: bool | None = None, themebg: bool | None = None) -> None: ...
-    # TODO: currently no good way to say "use the same big list of kwargs as parent class but also add these"
+    # Keep this in sync with tkinter.Tk
     def config(  # type: ignore[override]
         self,
         kw: dict[str, Any] | None = None,
