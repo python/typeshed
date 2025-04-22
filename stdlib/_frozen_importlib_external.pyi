@@ -36,7 +36,10 @@ def spec_from_file_location(
     loader: LoaderProtocol | None = None,
     submodule_search_locations: list[str] | None = ...,
 ) -> importlib.machinery.ModuleSpec | None: ...
-
+@deprecated(
+    "Deprecated as of Python 3.6: Use site configuration instead. "
+    "Future versions of Python may not enable this finder by default."
+)
 class WindowsRegistryFinder(importlib.abc.MetaPathFinder):
     if sys.version_info < (3, 12):
         @classmethod
