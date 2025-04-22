@@ -33,7 +33,7 @@ def visiblename(name: str, all: Container[str] | None = None, obj: object = None
 def classify_class_attrs(object: object) -> list[tuple[str, str, type, str]]: ...
 
 if sys.version_info >= (3, 13):
-    @deprecated("Deprecated as of Python 3.13.")
+    @deprecated("Deprecated in Python 3.13.")
     def ispackage(path: str) -> bool: ...
 
 else:
