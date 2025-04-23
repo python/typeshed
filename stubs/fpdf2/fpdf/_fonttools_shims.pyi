@@ -14,7 +14,7 @@ class _TTGlyph(Protocol):
 _TTGlyphSet: TypeAlias = Mapping[str, _TTGlyph]  # Simplified for our needs
 
 # fonttools.ttLib.TTFont
-_TTFont: TypeAlias = Any
+_TTFont: TypeAlias = Any  # noqa: Y047
 
 # from fontTools.misc.loggingTools
 
