@@ -33,7 +33,6 @@
         "stubs/braintree",
         "stubs/caldav",
         "stubs/cffi",
-        "stubs/click-default-group",
         "stubs/click-web",
         "stubs/corus",
         "stubs/dateparser",
