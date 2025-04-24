@@ -55,7 +55,7 @@ jobs:
             --num-shards 4 --shard-index ${{ matrix.shard-index }} \
             --debug \
             --output concise \
-            --additional-flags="--report-deprecated-as-note" \
+            --additional-flags="--enable-error-code=deprecated --report-deprecated-as-note" \
             | tee diff_${{ matrix.shard-index }}.txt
           ) || [ $? -eq 1 ]
       - if: ${{ matrix.shard-index == 0 }}
