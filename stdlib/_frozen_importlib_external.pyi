@@ -124,7 +124,7 @@ class SourceFileLoader(importlib.abc.FileLoader, FileLoader, importlib.abc.Sourc
     def source_to_code(  # type: ignore[override]  # incompatible with InspectLoader.source_to_code
         self,
         data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive,
-        path: ReadableBuffer | StrPath = "<string>",
+        path: ReadableBuffer | StrPath,
         *,
         _optimize: int = -1,
     ) -> types.CodeType:
