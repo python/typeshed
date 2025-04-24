@@ -6,7 +6,7 @@ from typing import Final, overload
 from typing_extensions import Self, deprecated
 
 from .drawing import DeviceGray, DeviceRGB, Number
-from .enums import TextEmphasis
+from .enums import Align, TextEmphasis
 from .syntax import PDFObject
 
 # Only defined if harfbuzz is installed.
@@ -41,7 +41,7 @@ class FontFace:
 
 class TextStyle(FontFace):
     t_margin: int
-    l_margin: int
+    l_margin: int | Align
     b_margin: int
     def __init__(
         self,
@@ -52,7 +52,7 @@ class TextStyle(FontFace):
         fill_color: int | tuple[int, int, int] | None = None,
         underline: bool = False,
         t_margin: int | None = None,
-        l_margin: int | None = None,
+        l_margin: int | Align | str | None = None,
         b_margin: int | None = None,
     ): ...
     def replace(  # type: ignore[override]
@@ -118,19 +118,13 @@ class PDFFontDescriptor(PDFObject):
     font_name: Incomplete
     def __init__(self, ascent, descent, cap_height, flags, font_b_box, italic_angle, stem_v, missing_width) -> None: ...
 
+@dataclass(order=True)
 class Glyph:
     glyph_id: int
     unicode: tuple[Incomplete, ...]
     glyph_name: str
     glyph_width: int
-    def __hash__(self): ...
-    def __init__(self, glyph_id, unicode, glyph_name, glyph_width) -> None: ...
-    def __lt__(self, other): ...
-    def __gt__(self, other): ...
-    def __le__(self, other): ...
-    def __ge__(self, other): ...
-
-    __match_args__ = ("glyph_id", "unicode", "glyph_name", "glyph_width")
+    def __hash__(self) -> int: ...
 
 class SubsetMap:
     font: TTFFont

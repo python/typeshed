@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""Test typeshed's third party stubs using stubtest"""
+"""Test typeshed's third party stubs using stubtest."""
 
 from __future__ import annotations
 
 import argparse
 import os
+import re
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
 from shutil import rmtree
 from textwrap import dedent
+from time import time
 from typing import NoReturn
 
 from ts_utils.metadata import NoSuchStubError, get_recursive_requirements, read_metadata
@@ -24,23 +26,20 @@ from ts_utils.utils import (
     print_error,
     print_info,
     print_success_msg,
+    print_time,
 )
 
 
 def run_stubtest(
-    dist: Path,
-    *,
-    parser: argparse.ArgumentParser,
-    verbose: bool = False,
-    specified_platforms_only: bool = False,
-    keep_tmp_dir: bool = False,
+    dist: Path, *, verbose: bool = False, specified_platforms_only: bool = False, keep_tmp_dir: bool = False
 ) -> bool:
+    """Run stubtest for a single distribution."""
+
     dist_name = dist.name
-    try:
-        metadata = read_metadata(dist_name)
-    except NoSuchStubError as e:
-        parser.error(str(e))
+    metadata = read_metadata(dist_name)
     print(f"{dist_name}... ", end="", flush=True)
+
+    t = time()
 
     stubtest_settings = metadata.stubtest_settings
     if stubtest_settings.skip:
@@ -74,15 +73,6 @@ def run_stubtest(
         dist_extras = ", ".join(stubtest_settings.extras)
         dist_req = f"{dist_name}[{dist_extras}]{metadata.version_spec}"
 
-        # If tool.stubtest.stubtest_requirements exists, run "pip install" on it.
-        if stubtest_settings.stubtest_requirements:
-            pip_cmd = [pip_exe, "install", *stubtest_settings.stubtest_requirements]
-            try:
-                subprocess.run(pip_cmd, check=True, capture_output=True)
-            except subprocess.CalledProcessError as e:
-                print_command_failure("Failed to install requirements", e)
-                return False
-
         requirements = get_recursive_requirements(dist_name)
 
         # We need stubtest to be able to import the package, so install mypy into the venv
@@ -91,6 +81,7 @@ def run_stubtest(
         dists_to_install = [dist_req, get_mypy_req()]
         # Internal requirements are added to MYPYPATH
         dists_to_install.extend(str(r) for r in requirements.external_pkgs)
+        dists_to_install.extend(stubtest_settings.stubtest_requirements)
 
         # Since the "gdb" Python package is available only inside GDB, it is not
         # possible to install it through pip, so stub tests cannot install it.
@@ -143,11 +134,12 @@ def run_stubtest(
         try:
             subprocess.run(stubtest_cmd, env=stubtest_env, check=True, capture_output=True)
         except subprocess.CalledProcessError as e:
+            print_time(time() - t)
             print_error("fail")
 
             print_divider()
             print("Commands run:")
-            print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
+            print_commands(pip_cmd, stubtest_cmd, mypypath)
 
             print_divider()
             print("Command output:\n")
@@ -155,11 +147,11 @@ def run_stubtest(
 
             print_divider()
             print("Python version: ", end="", flush=True)
-            ret = subprocess.run([sys.executable, "-VV"], capture_output=True)
+            ret = subprocess.run([sys.executable, "-VV"], capture_output=True, check=False)
             print_command_output(ret)
 
             print("\nRan with the following environment:")
-            ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True)
+            ret = subprocess.run([pip_exe, "freeze", "--all"], capture_output=True, check=False)
             print_command_output(ret)
             if keep_tmp_dir:
                 print("Path to virtual environment:", venv_dir, flush=True)
@@ -171,7 +163,7 @@ def run_stubtest(
                 print()
             else:
                 print(f"Re-running stubtest with --generate-allowlist.\nAdd the following to {main_allowlist_path}:")
-                ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True)
+                ret = subprocess.run([*stubtest_cmd, "--generate-allowlist"], env=stubtest_env, capture_output=True, check=False)
                 print_command_output(ret)
 
             print_divider()
@@ -182,6 +174,7 @@ def run_stubtest(
 
             return False
         else:
+            print_time(time() - t)
             print_success_msg()
             if keep_tmp_dir:
                 print_info(f"Virtual environment kept at: {venv_dir}")
@@ -190,7 +183,7 @@ def run_stubtest(
             rmtree(venv_dir)
 
     if verbose:
-        print_commands(dist, pip_cmd, stubtest_cmd, mypypath)
+        print_commands(pip_cmd, stubtest_cmd, mypypath)
 
     return True
 
@@ -204,13 +197,7 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         print_error("gdb is not supported on Windows")
         return False
 
-    try:
-        gdb_version = subprocess.check_output(["gdb", "--version"], text=True, stderr=subprocess.STDOUT)
-    except FileNotFoundError:
-        print_error("gdb is not installed")
-        return False
-    if "Python scripting is not supported in this copy of GDB" in gdb_version:
-        print_error("Python scripting is not supported in this copy of GDB")
+    if not gdb_version_check():
         return False
 
     gdb_script = venv_dir / "gdb_stubtest.py"
@@ -257,6 +244,9 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
         import sys
 
         stubtest_env = os.environ | {{"STUBTEST_ARGS": json.dumps(sys.argv)}}
+        # With LD_LIBRARY_PATH set, some GitHub action runners look in the wrong
+        # location for gdb, causing stubtest to fail.
+        stubtest_env.pop("LD_LIBRARY_PATH", None)
         gdb_cmd = [
             "gdb",
             "--quiet",
@@ -274,6 +264,24 @@ def setup_gdb_stubtest_command(venv_dir: Path, stubtest_cmd: list[str]) -> bool:
     # replace "-m mypy.stubtest" in stubtest_cmd with the path to our wrapper script
     assert stubtest_cmd[1:3] == ["-m", "mypy.stubtest"]
     stubtest_cmd[1:3] = [str(wrapper_script)]
+    return True
+
+
+def gdb_version_check() -> bool:
+    try:
+        gdb_version_output = subprocess.check_output(["gdb", "--version"], text=True, stderr=subprocess.STDOUT)
+    except FileNotFoundError:
+        print_error("gdb is not installed")
+        return False
+    if "Python scripting is not supported in this copy of GDB" in gdb_version_output:
+        print_error("Python scripting is not supported in this copy of GDB")
+        return False
+    m = re.search(r"GNU gdb\s+.*?(\d+\.\d+(\.[\da-z-]+)+)", gdb_version_output)
+    if m is None:
+        print_error("Failed to determine gdb version:\n" + gdb_version_output)
+        return False
+    gdb_version = m.group(1)
+    print(f"({gdb_version}) ", end="", flush=True)
     return True
 
 
@@ -353,7 +361,7 @@ def setup_uwsgi_stubtest_command(dist: Path, venv_dir: Path, stubtest_cmd: list[
     return True
 
 
-def print_commands(dist: Path, pip_cmd: list[str], stubtest_cmd: list[str], mypypath: str) -> None:
+def print_commands(pip_cmd: list[str], stubtest_cmd: list[str], mypypath: str) -> None:
     print()
     print(" ".join(pip_cmd))
     print(f"MYPYPATH={mypypath}", " ".join(stubtest_cmd))
@@ -394,14 +402,13 @@ def main() -> NoReturn:
     for i, dist in enumerate(dists):
         if i % args.num_shards != args.shard_index:
             continue
-        if not run_stubtest(
-            dist,
-            parser=parser,
-            verbose=args.verbose,
-            specified_platforms_only=args.specified_platforms_only,
-            keep_tmp_dir=args.keep_tmp_dir,
-        ):
-            result = 1
+        try:
+            if not run_stubtest(
+                dist, verbose=args.verbose, specified_platforms_only=args.specified_platforms_only, keep_tmp_dir=args.keep_tmp_dir
+            ):
+                result = 1
+        except NoSuchStubError as e:
+            parser.error(str(e))
     sys.exit(result)
 
 

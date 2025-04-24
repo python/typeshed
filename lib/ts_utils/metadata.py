@@ -5,25 +5,26 @@
 
 from __future__ import annotations
 
+import functools
 import re
 import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Final, NamedTuple, final
-from typing_extensions import Annotated, TypeGuard
+from typing import Annotated, Final, NamedTuple, final
+from typing_extensions import TypeGuard
 
 import tomli
+import tomlkit
 from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
 
 from .paths import PYPROJECT_PATH, STUBS_PATH, distribution_path
-from .utils import cache
 
 __all__ = [
     "NoSuchStubError",
-    "StubMetadata",
     "PackageDependencies",
+    "StubMetadata",
     "StubtestSettings",
     "get_recursive_requirements",
     "read_dependencies",
@@ -41,7 +42,7 @@ def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
     return isinstance(obj, list) and all(isinstance(item, str) for item in obj)
 
 
-@cache
+@functools.cache
 def _get_oldest_supported_python() -> str:
     with PYPROJECT_PATH.open("rb") as config:
         val = tomli.load(config)["tool"]["typeshed"]["oldest_supported_python"]
@@ -78,7 +79,7 @@ class StubtestSettings:
         return ret
 
 
-@cache
+@functools.cache
 def read_stubtest_settings(distribution: str) -> StubtestSettings:
     """Return an object describing the stubtest settings for a single stubs distribution."""
     with metadata_path(distribution).open("rb") as f:
@@ -183,10 +184,10 @@ _DIST_NAME_RE: Final = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNOR
 
 
 class NoSuchStubError(ValueError):
-    """Raise NoSuchStubError to indicate that a stubs/{distribution} directory doesn't exist"""
+    """Raise NoSuchStubError to indicate that a stubs/{distribution} directory doesn't exist."""
 
 
-@cache
+@functools.cache
 def read_metadata(distribution: str) -> StubMetadata:
     """Return an object describing the metadata of a stub as given in the METADATA.toml file.
 
@@ -300,6 +301,23 @@ def read_metadata(distribution: str) -> StubMetadata:
     )
 
 
+def update_metadata(distribution: str, **new_values: object) -> tomlkit.TOMLDocument:
+    """Update a distribution's METADATA.toml.
+
+    Return the updated TOML dictionary for use without having to open the file separately.
+    """
+    path = metadata_path(distribution)
+    try:
+        with path.open("rb") as file:
+            data = tomlkit.load(file)
+    except FileNotFoundError:
+        raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
+    data.update(new_values)  # pyright: ignore[reportUnknownMemberType] # tomlkit.TOMLDocument.update is partially typed
+    with path.open("w", encoding="UTF-8") as file:
+        tomlkit.dump(data, file)  # pyright: ignore[reportUnknownMemberType] # tomlkit.dump has partially unknown Mapping type
+    return data
+
+
 def parse_requires(distribution: str, req: object) -> Requirement:
     assert isinstance(req, str), f"Invalid requirement {req!r} for {distribution!r}"
     return Requirement(req)
@@ -310,12 +328,12 @@ class PackageDependencies(NamedTuple):
     external_pkgs: tuple[Requirement, ...]
 
 
-@cache
+@functools.cache
 def get_pypi_name_to_typeshed_name_mapping() -> Mapping[str, str]:
-    return {read_metadata(dir.name).stub_distribution: dir.name for dir in STUBS_PATH.iterdir()}
+    return {read_metadata(stub_dir.name).stub_distribution: stub_dir.name for stub_dir in STUBS_PATH.iterdir()}
 
 
-@cache
+@functools.cache
 def read_dependencies(distribution: str) -> PackageDependencies:
     """Read the dependencies listed in a METADATA.toml file for a stubs package.
 
@@ -342,7 +360,7 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     return PackageDependencies(tuple(typeshed), tuple(external))
 
 
-@cache
+@functools.cache
 def get_recursive_requirements(package_name: str) -> PackageDependencies:
     """Recursively gather dependencies for a single stubs package.
 

@@ -30,7 +30,6 @@ _DateTuple = tuple[int, int, int, int, int, int]  # noqa: Y026
 _ZipFileMode = Literal["r", "w", "x", "a"]  # noqa: Y026
 
 _ReadWriteMode: TypeAlias = Literal["r", "w"]
-_ReadWriteBinaryMode: TypeAlias = Literal["r", "w", "rb", "wb"]
 
 class BadZipFile(Exception): ...
 
@@ -321,25 +320,20 @@ else:
             @property
             def stem(self) -> str: ...
 
-        if sys.version_info >= (3, 9):
-            @overload
-            def open(
-                self,
-                mode: Literal["r", "w"] = "r",
-                encoding: str | None = None,
-                errors: str | None = None,
-                newline: str | None = None,
-                line_buffering: bool = ...,
-                write_through: bool = ...,
-                *,
-                pwd: bytes | None = None,
-            ) -> TextIOWrapper: ...
-            @overload
-            def open(self, mode: Literal["rb", "wb"], *, pwd: bytes | None = None) -> IO[bytes]: ...
-        else:
-            def open(
-                self, mode: _ReadWriteBinaryMode = "r", pwd: bytes | None = None, *, force_zip64: bool = False
-            ) -> IO[bytes]: ...
+        @overload
+        def open(
+            self,
+            mode: Literal["r", "w"] = "r",
+            encoding: str | None = None,
+            errors: str | None = None,
+            newline: str | None = None,
+            line_buffering: bool = ...,
+            write_through: bool = ...,
+            *,
+            pwd: bytes | None = None,
+        ) -> TextIOWrapper: ...
+        @overload
+        def open(self, mode: Literal["rb", "wb"], *, pwd: bytes | None = None) -> IO[bytes]: ...
 
         if sys.version_info >= (3, 10):
             def iterdir(self) -> Iterator[Self]: ...
@@ -362,14 +356,6 @@ else:
             def joinpath(self, *other: StrPath) -> Path: ...
         else:
             def joinpath(self, add: StrPath) -> Path: ...  # undocumented
-        if sys.version_info >= (3, 12):
-            def glob(self, pattern: str) -> Iterator[Self]: ...
-            def rglob(self, pattern: str) -> Iterator[Self]: ...
-            def is_symlink(self) -> Literal[False]: ...
-            def relative_to(self, other: Path, *extra: StrPath) -> str: ...
-            def match(self, path_pattern: str) -> bool: ...
-            def __eq__(self, other: object) -> bool: ...
-            def __hash__(self) -> int: ...
 
         def __truediv__(self, add: StrPath) -> Path: ...
 
