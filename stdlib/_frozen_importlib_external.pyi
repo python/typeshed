@@ -121,13 +121,13 @@ class FileLoader:
 class SourceFileLoader(importlib.abc.FileLoader, FileLoader, importlib.abc.SourceLoader, SourceLoader):  # type: ignore[misc]  # incompatible method arguments in base classes
     def set_data(self, path: str, data: ReadableBuffer, *, _mode: int = 0o666) -> None: ...
     def path_stats(self, path: str) -> Mapping[str, Any]: ...
-    def source_to_code(
+    def source_to_code(  # type: ignore[override]  # incompatible with InspectLoader.source_to_code
         self,
         data: ReadableBuffer | str | _ast.Module | _ast.Expression | _ast.Interactive,
         path: ReadableBuffer | StrPath = "<string>",
         *,
         _optimize: int = -1,
-    ) -> types.CodeType: # type: ignore[override]  # incompatible with InspectLoader.source_to_code
+    ) -> types.CodeType:
         ...
 
 class SourcelessFileLoader(importlib.abc.FileLoader, FileLoader, _LoaderBasics):
