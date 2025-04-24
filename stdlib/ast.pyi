@@ -1437,19 +1437,19 @@ class withitem(AST):
 if sys.version_info >= (3, 10):
     class match_case(AST):
         __match_args__ = ("pattern", "guard", "body")
-        pattern: _Pattern
+        pattern: pattern
         guard: expr | None
         body: list[stmt]
         if sys.version_info >= (3, 13):
-            def __init__(self, pattern: _Pattern, guard: expr | None = None, body: list[stmt] = ...) -> None: ...
+            def __init__(self, pattern: pattern, guard: expr | None = None, body: list[stmt] = ...) -> None: ...
         else:
             @overload
-            def __init__(self, pattern: _Pattern, guard: expr | None, body: list[stmt]) -> None: ...
+            def __init__(self, pattern: pattern, guard: expr | None, body: list[stmt]) -> None: ...
             @overload
-            def __init__(self, pattern: _Pattern, guard: expr | None = None, *, body: list[stmt]) -> None: ...
+            def __init__(self, pattern: pattern, guard: expr | None = None, *, body: list[stmt]) -> None: ...
 
         if sys.version_info >= (3, 14):
-            def __replace__(self, *, pattern: _Pattern = ..., guard: expr | None = ..., body: list[stmt] = ...) -> Self: ...
+            def __replace__(self, *, pattern: pattern = ..., guard: expr | None = ..., body: list[stmt] = ...) -> Self: ...
 
     class pattern(AST):
         lineno: int
@@ -1462,9 +1462,6 @@ if sys.version_info >= (3, 10):
             def __replace__(
                 self, *, lineno: int = ..., col_offset: int = ..., end_lineno: int = ..., end_col_offset: int = ...
             ) -> Self: ...
-
-    # Without the alias, Pyright complains variables named pattern are recursively defined
-    _Pattern: typing_extensions.TypeAlias = pattern
 
     class MatchValue(pattern):
         __match_args__ = ("value",)
@@ -1571,15 +1568,15 @@ if sys.version_info >= (3, 10):
 
     class MatchAs(pattern):
         __match_args__ = ("pattern", "name")
-        pattern: _Pattern | None
+        pattern: pattern | None
         name: _Identifier | None
         def __init__(
-            self, pattern: _Pattern | None = None, name: _Identifier | None = None, **kwargs: Unpack[_Attributes[int]]
+            self, pattern: pattern | None = None, name: _Identifier | None = None, **kwargs: Unpack[_Attributes[int]]
         ) -> None: ...
 
         if sys.version_info >= (3, 14):
             def __replace__(
-                self, *, pattern: _Pattern | None = ..., name: _Identifier | None = ..., **kwargs: Unpack[_Attributes[int]]
+                self, *, pattern: pattern | None = ..., name: _Identifier | None = ..., **kwargs: Unpack[_Attributes[int]]
             ) -> Self: ...
 
     class MatchOr(pattern):
