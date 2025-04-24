@@ -101,6 +101,8 @@ class PDFResources(PDFObject):
     font: Incomplete
     x_object: Incomplete
     ext_g_state: Incomplete
+    shading: Incomplete
+    pattern: Incomplete
     def __init__(self, proc_set, font, x_object, ext_g_state, shading, pattern) -> None: ...
 
 class PDFFontStream(PDFContentStream):
@@ -212,11 +214,11 @@ class OutputIntentDictionary:
         dest_output_profile: PDFICCProfile | None = None,
         info: str | None = None,
     ) -> None: ...
-    def serialize(self, _security_handler: Incomplete | None = None, _obj_id: Incomplete | None = None): ...
+    def serialize(self, _security_handler: StandardSecurityHandler | None = None, _obj_id: Incomplete | None = None): ...
 
 class ResourceCatalog:
-    resources: defaultdict[Incomplete, dict[Incomplete, Incomplete]]
-    resources_per_page: defaultdict[Incomplete, set[Incomplete]]
+    resources: defaultdict[PDFResourceType, dict[Incomplete, Incomplete]]
+    resources_per_page: defaultdict[tuple[int, PDFResourceType], set[Incomplete]]
 
     def add(self, resource_type: PDFResourceType, resource, page_number: int) -> Incomplete | None: ...
     def get_items(self, resource_type: PDFResourceType): ...
