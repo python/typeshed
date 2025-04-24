@@ -127,8 +127,7 @@ class SourceFileLoader(importlib.abc.FileLoader, FileLoader, importlib.abc.Sourc
         path: ReadableBuffer | StrPath,
         *,
         _optimize: int = -1,
-    ) -> types.CodeType:
-        ...
+    ) -> types.CodeType: ...
 
 class SourcelessFileLoader(importlib.abc.FileLoader, FileLoader, _LoaderBasics):
     def get_code(self, fullname: str) -> types.CodeType | None: ...
