@@ -1,0 +1,15 @@
+version = "1.*"
+upstream_repository = "https://github.com/grpc/grpc"
+partial_stub = true
+requires = [
+    "types-protobuf",
+]
+
+[tool.stubtest]
+ignore_missing_stub = true
+stubtest_requirements = [
+    "grpcio-channelz",
+    "grpcio-health-checking",
+    "grpcio-reflection",
+    "grpcio-status",
+]
