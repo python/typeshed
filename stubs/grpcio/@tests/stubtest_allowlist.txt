@@ -16,12 +16,8 @@ grpc_reflection.v1alpha._base.BaseReflectionServicer.__init__
 grpc.Server.add_registered_method_handlers
 grpc.ServicerContext.code
 grpc.ServicerContext.details
-grpc.__all__
-grpc.aio.EOF
 grpc.aio.Server.add_registered_method_handlers
-grpc.aio.__all__
-grpc.aio.init_grpc_aio
-grpc.aio.shutdown_grpc_aio
+grpc.aio._typing.*
 grpc_channelz.v1.*
 grpc_health.v1.*
 grpc_reflection.v1alpha.*
