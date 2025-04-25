@@ -52,15 +52,30 @@ class Table:
         outer_border_width: float | None = None,
         num_heading_rows: int = 1,
         repeat_headings: TableHeadingsDisplay | int = 1,
+        min_row_height: Incomplete | None = None,
     ) -> None: ...
-    def row(self, cells: Iterable[str] = (), style: FontFace | None = None) -> Row: ...
+    def row(
+        self,
+        cells: Iterable[str] = (),
+        style: FontFace | None = None,
+        v_align: VAlign | str | None = None,
+        min_height: Incomplete | None = None,
+    ) -> Row: ...
     def render(self) -> None: ...
     def get_cell_border(self, i: int, j: int, cell: Cell) -> str | Literal[0, 1]: ...
 
 class Row:
     cells: list[Cell]
     style: FontFace
-    def __init__(self, table: Table, style: FontFace | None = None) -> None: ...
+    v_align: VAlign | None
+    min_height: Incomplete | None
+    def __init__(
+        self,
+        table: Table,
+        style: FontFace | None = None,
+        v_align: VAlign | str | None = None,
+        min_height: Incomplete | None = None,
+    ) -> None: ...
     @property
     def cols_count(self) -> int: ...
     @property
