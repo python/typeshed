@@ -77,3 +77,10 @@ class DestinationXYZ(Destination):
     page_ref: Incomplete | None
     def __init__(self, page: int, top: float, left: float = 0, zoom: float | Literal["null"] = "null") -> None: ...
     def serialize(self) -> str: ...
+    def replace(
+        self,
+        page: Incomplete | None = None,
+        top: float | None = None,
+        left: float | None = None,
+        zoom: float | Literal["null"] | None = None,
+    ) -> DestinationXYZ: ...
