@@ -6,7 +6,6 @@ from concurrent import futures
 from types import TracebackType
 from typing import Any, Generic, NoReturn, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
-from grpc.aio._typing import EOFType
 
 from grpc import (
     CallCredentials,
@@ -21,6 +20,7 @@ from grpc import (
     StatusCode,
     _Options,
 )
+from grpc.aio._typing import EOFType
 
 _TRequest = TypeVar("_TRequest")
 _TResponse = TypeVar("_TResponse")
