@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from typing import Literal
 
 from braintree.braintree_gateway import BraintreeGateway
 from braintree.util.graphql_client import GraphQLClient

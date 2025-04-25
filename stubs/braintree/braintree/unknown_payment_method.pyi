@@ -1,5 +1,3 @@
-from typing import Literal
-
 from braintree.resource import Resource
 
 class UnknownPaymentMethod(Resource):
