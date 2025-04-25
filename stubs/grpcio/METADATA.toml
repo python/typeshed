@@ -1,4 +1,4 @@
-version = "1.*"
+version = "1.71.*"
 upstream_repository = "https://github.com/grpc/grpc"
 partial_stub = true
 requires = [
@@ -8,8 +8,8 @@ requires = [
 [tool.stubtest]
 ignore_missing_stub = true
 stubtest_requirements = [
-    "grpcio-channelz",
-    "grpcio-health-checking",
-    "grpcio-reflection",
-    "grpcio-status",
+    "grpcio-channelz==1.71.*",
+    "grpcio-health-checking==1.71.*",
+    "grpcio-reflection==1.71.*",
+    "grpcio-status==1.71.*",
 ]
