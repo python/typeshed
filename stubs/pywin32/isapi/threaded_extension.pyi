@@ -1,7 +1,6 @@
 import threading
-from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Final, Literal
+from typing import Final
 
 import isapi.simple
 
