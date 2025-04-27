@@ -1,7 +1,7 @@
 import sys
+import types
 from collections import deque
 from collections.abc import Iterable
-import types
 
 # technically it is using _PySimpleQueue, which has the same interface as SimpleQueue
 from queue import Empty as Empty, Full as Full
