@@ -29,7 +29,6 @@ class SimpleQueue(Generic[_T]):
 
     @classmethod
     def __class_getitem__(cls, item: Any, /) -> types.GenericAlias: ...
-
     @overload
     def __init__(self, maxsize: int | None = None) -> None: ...
     @overload
