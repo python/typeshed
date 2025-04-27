@@ -1,8 +1,8 @@
 import sys
 from _typeshed import ReadableBuffer, Unused
 from collections.abc import Iterator
-from typing import Final, Literal, NoReturn, overload
-from typing_extensions import Self
+from typing import Final, Literal, overload
+from typing_extensions import Never, Self
 
 ACCESS_DEFAULT: int
 ACCESS_READ: int
@@ -74,7 +74,7 @@ class mmap:
     def __getitem__(self, key: int, /) -> int: ...
     @overload
     def __getitem__(self, key: slice, /) -> bytes: ...
-    def __delitem__(self, key: int | slice, /) -> NoReturn: ...
+    def __delitem__(self, key: int | slice, /) -> Never: ...
     @overload
     def __setitem__(self, key: int, value: int, /) -> None: ...
     @overload

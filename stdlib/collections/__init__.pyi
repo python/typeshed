@@ -2,8 +2,8 @@ import sys
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import SupportsItems, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
 from types import GenericAlias
-from typing import Any, ClassVar, Generic, NoReturn, SupportsIndex, TypeVar, final, overload
-from typing_extensions import Self
+from typing import Any, ClassVar, Generic, SupportsIndex, TypeVar, final, overload
+from typing_extensions import Never, Self
 
 if sys.version_info >= (3, 10):
     from collections.abc import (
@@ -281,7 +281,7 @@ class Counter(dict[_T, int], Generic[_T]):
     def elements(self) -> Iterator[_T]: ...
     def most_common(self, n: int | None = None) -> list[tuple[_T, int]]: ...
     @classmethod
-    def fromkeys(cls, iterable: Any, v: int | None = None) -> NoReturn: ...  # type: ignore[override]
+    def fromkeys(cls, iterable: Any, v: int | None = None) -> Never: ...  # type: ignore[override]
     @overload
     def subtract(self, iterable: None = None, /) -> None: ...
     @overload

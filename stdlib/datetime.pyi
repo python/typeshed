@@ -1,8 +1,8 @@
 import sys
 from abc import abstractmethod
 from time import struct_time
-from typing import ClassVar, Final, NoReturn, SupportsIndex, final, overload, type_check_only
-from typing_extensions import CapsuleType, Self, TypeAlias, deprecated
+from typing import ClassVar, Final, SupportsIndex, final, overload, type_check_only
+from typing_extensions import CapsuleType, Never, Self, TypeAlias, deprecated
 
 if sys.version_info >= (3, 11):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")
@@ -97,7 +97,7 @@ class date:
     def __add__(self, value: timedelta, /) -> Self: ...
     def __radd__(self, value: timedelta, /) -> Self: ...
     @overload
-    def __sub__(self, value: datetime, /) -> NoReturn: ...
+    def __sub__(self, value: datetime, /) -> Never: ...
     @overload
     def __sub__(self, value: Self, /) -> timedelta: ...
     @overload
