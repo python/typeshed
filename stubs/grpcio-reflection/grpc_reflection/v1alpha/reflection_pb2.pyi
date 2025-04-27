@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 from typing import ClassVar
 
@@ -20,7 +21,7 @@ class ServerReflectionRequest(message.Message):
     file_containing_extension: ExtensionRequest
     all_extension_numbers_of_type: str
     list_services: str
-    def __init__(self, host: str | None = ..., file_by_filename: str | None = ..., file_containing_symbol: str | None = ..., file_containing_extension: ExtensionRequest | Mapping | None = ..., all_extension_numbers_of_type: str | None = ..., list_services: str | None = ...) -> None: ...
+    def __init__(self, host: str | None = ..., file_by_filename: str | None = ..., file_containing_symbol: str | None = ..., file_containing_extension: ExtensionRequest | Mapping[Incomplete, Incomplete] | None = ..., all_extension_numbers_of_type: str | None = ..., list_services: str | None = ...) -> None: ...
 
 class ExtensionRequest(message.Message):
     __slots__ = ("containing_type", "extension_number")
@@ -44,7 +45,7 @@ class ServerReflectionResponse(message.Message):
     all_extension_numbers_response: ExtensionNumberResponse
     list_services_response: ListServiceResponse
     error_response: ErrorResponse
-    def __init__(self, valid_host: str | None = ..., original_request: ServerReflectionRequest | Mapping | None = ..., file_descriptor_response: FileDescriptorResponse | Mapping | None = ..., all_extension_numbers_response: ExtensionNumberResponse | Mapping | None = ..., list_services_response: ListServiceResponse | Mapping | None = ..., error_response: ErrorResponse | Mapping | None = ...) -> None: ...
+    def __init__(self, valid_host: str | None = ..., original_request: ServerReflectionRequest | Mapping[Incomplete, Incomplete] | None = ..., file_descriptor_response: FileDescriptorResponse | Mapping[Incomplete, Incomplete] | None = ..., all_extension_numbers_response: ExtensionNumberResponse | Mapping[Incomplete, Incomplete] | None = ..., list_services_response: ListServiceResponse | Mapping[Incomplete, Incomplete] | None = ..., error_response: ErrorResponse | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
 
 class FileDescriptorResponse(message.Message):
     __slots__ = ("file_descriptor_proto",)
@@ -64,7 +65,7 @@ class ListServiceResponse(message.Message):
     __slots__ = ("service",)
     SERVICE_FIELD_NUMBER: ClassVar[int]
     service: containers.RepeatedCompositeFieldContainer[ServiceResponse]
-    def __init__(self, service: Iterable[ServiceResponse | Mapping] | None = ...) -> None: ...
+    def __init__(self, service: Iterable[ServiceResponse | Mapping[Incomplete, Incomplete]] | None = ...) -> None: ...
 
 class ServiceResponse(message.Message):
     __slots__ = ("name",)
