@@ -1,4 +1,5 @@
 import threading
+from _typeshed import Unused
 from collections.abc import Callable
 from typing import Final
 
