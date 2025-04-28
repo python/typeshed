@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsRead
+from _typeshed import Incomplete, SupportsRead, Unused
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Literal, NoReturn, Protocol
 from typing_extensions import Self, TypeAlias
@@ -52,6 +52,7 @@ __all__ = [
     "XBox",
     "splitLine",
     "splitLines",
+    "PlacedStory",
 ]
 
 _HAlignment: TypeAlias = Literal["LEFT", "CENTER", "CENTRE", "RIGHT", 0, 1, 2]
@@ -98,7 +99,7 @@ class Flowable:
     #       make everyone happy here, sigh...
     def drawOn(self, canvas: Canvas, x: float, y: float) -> None: ...
     def wrapOn(self, canv: Canvas, aW: float, aH: float) -> tuple[float, float]: ...
-    def wrap(self, aW: float, aH: float, /) -> tuple[float, float]: ...
+    def wrap(self, aW: float, aH: float) -> tuple[float, float]: ...
     def minWidth(self) -> float: ...
     def splitOn(self, canv: Canvas, aW: float, aH: float) -> list[Flowable]: ...
     def split(self, aW: float, aH: float, /) -> list[Flowable]: ...
@@ -217,7 +218,7 @@ class ParagraphAndImage(Flowable):
     def draw(self) -> None: ...
 
 class FailOnWrap(NullDraw):
-    def wrap(self, aW: float, aH: float, /) -> NoReturn: ...
+    def wrap(self, aW: float, aH: float) -> NoReturn: ...
 
 class FailOnDraw(Flowable):
     def draw(self) -> NoReturn: ...
@@ -270,6 +271,27 @@ class KeepInFrame(_Container, Flowable):
         vAlign: str = "BOTTOM",
         fakeWidth: bool | None = None,
     ) -> None: ...
+
+class PlacedStory(Flowable):
+    def __init__(
+        self,
+        x,
+        y,
+        maxWidth: float,
+        maxHeight: float,
+        content: list[Flowable] = [],
+        mergeSpace: Incomplete | None = 1,
+        mode: Literal["error", "continue", "shrink", "truncate"] = "shrink",
+        name: str = "",
+        anchor: str = "sw",
+        fakeWidth: bool | None = None,
+        hAlign: str = "LEFT",
+        vAlign: str = "BOTTOM",
+        showBoundary=None,
+        origin="page",
+    ) -> None: ...
+    def wrap(self, _aW: Unused, _aH: Unused) -> tuple[Literal[0], Literal[0]]: ...
+    def drawOn(self, canv: Canvas, lx: float, ly: float, _sW=0) -> None: ...
 
 class _FindSplitterMixin: ...
 
