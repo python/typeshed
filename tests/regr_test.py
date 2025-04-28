@@ -22,6 +22,7 @@ from pathlib import Path
 from typing_extensions import TypeAlias
 
 from ts_utils.metadata import get_recursive_requirements, read_metadata
+from ts_utils.mypy import mypy_configuration_from_distribution, temporary_mypy_config_file
 from ts_utils.paths import STDLIB_PATH, TEST_CASES_DIR, TS_BASE_PATH, distribution_path
 from ts_utils.utils import (
     PYTHON_VERSION,
@@ -169,62 +170,71 @@ def run_testcases(
     env_vars = dict(os.environ)
     new_test_case_dir = tempdir / TEST_CASES_DIR
 
-    # "--enable-error-code ignore-without-code" is purposefully omitted.
-    # See https://github.com/python/typeshed/pull/8083
-    flags = [
-        "--python-version",
-        version,
-        "--show-traceback",
-        "--no-error-summary",
-        "--platform",
-        platform,
-        "--strict",
-        "--pretty",
-        # Avoid race conditions when reading the cache
-        # (https://github.com/python/typeshed/issues/11220)
-        "--no-incremental",
-        # Not useful for the test cases
-        "--disable-error-code=empty-body",
-    ]
-
     if package.is_stdlib:
-        python_exe = sys.executable
-        custom_typeshed = TS_BASE_PATH
-        flags.append("--no-site-packages")
+        configurations = []
     else:
-        custom_typeshed = tempdir / TYPESHED
-        env_vars["MYPYPATH"] = os.pathsep.join(map(str, custom_typeshed.glob("stubs/*")))
-        has_non_types_dependencies = (tempdir / VENV_DIR).exists()
-        if has_non_types_dependencies:
-            python_exe = str(venv_python(tempdir / VENV_DIR))
-        else:
+        configurations = mypy_configuration_from_distribution(package.name)
+
+    with temporary_mypy_config_file(configurations) as temp:
+
+        # "--enable-error-code ignore-without-code" is purposefully omitted.
+        # See https://github.com/python/typeshed/pull/8083
+        flags = [
+            "--python-version",
+            version,
+            "--show-traceback",
+            "--no-error-summary",
+            "--platform",
+            platform,
+            "--strict",
+            "--pretty",
+            "--config-file",
+            temp.name,
+            # Avoid race conditions when reading the cache
+            # (https://github.com/python/typeshed/issues/11220)
+            "--no-incremental",
+            # Not useful for the test cases
+            "--disable-error-code=empty-body",
+        ]
+
+        if package.is_stdlib:
             python_exe = sys.executable
+            custom_typeshed = TS_BASE_PATH
             flags.append("--no-site-packages")
-
-    flags.extend(["--custom-typeshed-dir", str(custom_typeshed)])
-
-    # If the test-case filename ends with -py39,
-    # only run the test if --python-version was set to 3.9 or higher (for example)
-    for path in new_test_case_dir.rglob("*.py"):
-        if match := re.fullmatch(r".*-py3(\d{1,2})", path.stem):
-            minor_version_required = int(match[1])
-            assert f"3.{minor_version_required}" in SUPPORTED_VERSIONS
-            python_minor_version = int(version.split(".")[1])
-            if minor_version_required > python_minor_version:
-                continue
-        flags.append(str(path))
-
-    mypy_command = [python_exe, "-m", "mypy", *flags]
-    if verbosity is Verbosity.VERBOSE:
-        description = f"{package.name}/{version}/{platform}"
-        msg = f"{description}: {mypy_command=}\n"
-        if "MYPYPATH" in env_vars:
-            msg += f"{description}: {env_vars['MYPYPATH']=}"
         else:
-            msg += f"{description}: MYPYPATH not set"
-        msg += "\n"
-        verbose_log(msg)
-    return subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars, check=False)
+            custom_typeshed = tempdir / TYPESHED
+            env_vars["MYPYPATH"] = os.pathsep.join(map(str, custom_typeshed.glob("stubs/*")))
+            has_non_types_dependencies = (tempdir / VENV_DIR).exists()
+            if has_non_types_dependencies:
+                python_exe = str(venv_python(tempdir / VENV_DIR))
+            else:
+                python_exe = sys.executable
+                flags.append("--no-site-packages")
+
+        flags.extend(["--custom-typeshed-dir", str(custom_typeshed)])
+
+        # If the test-case filename ends with -py39,
+        # only run the test if --python-version was set to 3.9 or higher (for example)
+        for path in new_test_case_dir.rglob("*.py"):
+            if match := re.fullmatch(r".*-py3(\d{1,2})", path.stem):
+                minor_version_required = int(match[1])
+                assert f"3.{minor_version_required}" in SUPPORTED_VERSIONS
+                python_minor_version = int(version.split(".")[1])
+                if minor_version_required > python_minor_version:
+                    continue
+            flags.append(str(path))
+
+        mypy_command = [python_exe, "-m", "mypy", *flags]
+        if verbosity is Verbosity.VERBOSE:
+            description = f"{package.name}/{version}/{platform}"
+            msg = f"{description}: {mypy_command=}\n"
+            if "MYPYPATH" in env_vars:
+                msg += f"{description}: {env_vars['MYPYPATH']=}"
+            else:
+                msg += f"{description}: MYPYPATH not set"
+            msg += "\n"
+            verbose_log(msg)
+        return subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars, check=False)
 
 
 @dataclass(frozen=True)
