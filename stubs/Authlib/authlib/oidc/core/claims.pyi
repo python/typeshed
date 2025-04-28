@@ -16,17 +16,14 @@ class IDToken(JWTClaims):
 
 class CodeIDToken(IDToken):
     RESPONSE_TYPES: Incomplete
-    REGISTERED_CLAIMS: Incomplete
 
 class ImplicitIDToken(IDToken):
     RESPONSE_TYPES: Incomplete
     ESSENTIAL_CLAIMS: Incomplete
-    REGISTERED_CLAIMS: Incomplete
     def validate_at_hash(self) -> None: ...
 
 class HybridIDToken(ImplicitIDToken):
     RESPONSE_TYPES: Incomplete
-    REGISTERED_CLAIMS: Incomplete
     def validate(self, now: Incomplete | None = None, leeway: int = 0) -> None: ...
     def validate_c_hash(self) -> None: ...
 

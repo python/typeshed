@@ -166,6 +166,7 @@ _KNOWN_METADATA_FIELDS: Final = frozenset(
         "tool",
         "partial_stub",
         "requires_python",
+        "mypy-tests",
     }
 )
 _KNOWN_METADATA_TOOL_FIELDS: Final = {
