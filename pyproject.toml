@@ -139,6 +139,8 @@ select = [
     "TC005", # Found empty type-checking block
     # "TC008", # TODO: Enable when out of preview
     "TC010", # Invalid string member in `X | Y`-style union type
+    # Used for lint.flake8-import-conventions.aliases
+    "TID251", # `{name}` is banned: {message}
 ]
 extend-safe-fixes = [
     "UP036", # Remove unnecessary `sys.version_info` blocks
@@ -234,6 +236,9 @@ convention = "pep257" # https://docs.astral.sh/ruff/settings/#lint_pydocstyle_co
 # Prevent aliasing these, as it causes false-negatives for certain rules
 typing_extensions = "typing_extensions"
 typing = "typing"
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"tempfile.NamedTemporaryFile".msg = "Use `ts_util.util.NamedTemporaryFile` instead."
 
 [tool.ruff.lint.isort]
 split-on-trailing-comma = false
