@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Any, ClassVar
+from typing import Any, ClassVar, NoReturn
 
 from setuptools.dist import Distribution
 
@@ -20,4 +20,4 @@ class install(orig.install):
     extra_dirs: str
     def handle_extra_path(self): ...
     def run(self): ...
-    def do_egg_install(self) -> None: ...
+    def do_egg_install(self) -> NoReturn: ...
