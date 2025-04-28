@@ -1,5 +1,4 @@
 from _typeshed import SupportsWrite
-from typing import TextIO
 
 from .messages import Message
 
