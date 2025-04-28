@@ -1,9 +1,7 @@
 from typing import Final
 
-import grpc
-
 GRPC_GENERATED_VERSION: Final[str]
-GRPC_VERSION: Final = grpc.__version__
+GRPC_VERSION: Final[str]
 
 class HealthStub:
     def __init__(self, channel) -> None: ...
