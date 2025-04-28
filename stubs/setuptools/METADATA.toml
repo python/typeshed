@@ -8,5 +8,5 @@ requires = ["setuptools"] # For pkg_resources
 
 [tool.stubtest]
 # darwin is equivalent to linux for OS-specific methods
-platforms = ["linux", "win32"]
+ci_platforms = ["linux", "win32"]
 stubtest_requirements = ["tomli"]
