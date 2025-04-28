@@ -89,13 +89,27 @@ def check_tests_dir(tests_dir: Path) -> None:
 def check_distutils() -> None:
     """Check whether all setuptools._distutils files are re-exported from distutils."""
 
-    def all_relative_paths_in_directory(path: Path) -> set[Path]:
-        return {pyi.relative_to(path) for pyi in path.rglob("*.pyi")}
+    def is_exposed_module(relative_to: Path, path: Path) -> bool:
+        # This feels hacky, but it is code hyper-specific to setuptools/_distutils after all.
+        relative_path = path.relative_to(relative_to)
+        if relative_path.parts[0] in {"_msvccompiler.py", "__init__.py"}:
+            return True
+        return not any((part in {"tests", "compat"}) or part.startswith("_") for part in relative_path.parts)
 
-    setuptools_path = STUBS_PATH / "setuptools" / "setuptools" / "_distutils"
+    def all_setuptools_distutils_relative_paths(path: Path) -> set[Path]:
+        return {file.relative_to(path).with_suffix(".pyi") for file in path.rglob("*.py") if is_exposed_module(path, file)}
+
+    def all_distutils_stub_relative_paths(path: Path) -> set[Path]:
+        return {file.relative_to(path) for file in path.rglob("*.pyi")}
+
+    from importlib.util import find_spec
+
+    setuptools_distutils_spec = find_spec("setuptools._distutils")
+    assert setuptools_distutils_spec and setuptools_distutils_spec.origin, "Is setuptools installed?"
+    setuptools_path = Path(setuptools_distutils_spec.origin).parent
     distutils_path = STUBS_PATH / "setuptools" / "distutils"
-    all_setuptools_files = all_relative_paths_in_directory(setuptools_path)
-    all_distutils_files = all_relative_paths_in_directory(distutils_path)
+    all_setuptools_files = all_setuptools_distutils_relative_paths(setuptools_path)
+    all_distutils_files = all_distutils_stub_relative_paths(distutils_path)
     assert all_setuptools_files and all_distutils_files, "Looks like this test might be out of date!"
     extra_files = all_setuptools_files - all_distutils_files
     joined = "\n".join(f"  * {distutils_path / f}" for f in extra_files)

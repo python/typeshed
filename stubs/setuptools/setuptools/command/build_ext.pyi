@@ -1,9 +1,8 @@
 from _typeshed import Incomplete
 from typing import ClassVar
 
+from setuptools._distutils.command.build_ext import build_ext as _build_ext
 from setuptools.dist import Distribution
-
-from .._distutils.command.build_ext import build_ext as _build_ext
 
 have_rtld: bool
 use_stubs: bool

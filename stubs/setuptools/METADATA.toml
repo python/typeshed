@@ -4,7 +4,15 @@ extra_description = """\
 Given that `pkg_resources` is typed since `setuptools >= 71.1`, \
 it is no longer included with `types-setuptools`.
 """
-requires = ["setuptools"] # For pkg_resources
+requires = ["setuptools"] # For pkg_resources and setuptools._distutils
+# setuptools/_distutils is a vendor of pypa's distutils. Which is now as typed as typeshed.
+partial_stub = true
+
+# When ran directly on our stubs, mypy won't understand that they are partial
+# This is not an issue with pyright because it understands per-module py.typed (setuptools/_distutils/py.typed)
+[mypy-tests.distutils]
+module_name = "setuptools._distutils.*"
+values = { "follow_untyped_imports" = true }
 
 [tool.stubtest]
 # darwin is equivalent to linux for OS-specific methods

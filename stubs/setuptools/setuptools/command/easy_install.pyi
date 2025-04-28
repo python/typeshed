@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable, Iterator
-from typing import Any, ClassVar, Literal, NoReturn, TypedDict
+from typing import Any, ClassVar, NoReturn, TypedDict
 from typing_extensions import Self
 
 from pkg_resources import Distribution, Environment
@@ -44,7 +44,7 @@ class easy_install(Command):
     pth_file: Incomplete
     site_dirs: Incomplete
     installed_projects: Incomplete
-    verbose: bool | Literal[0, 1]
+    verbose: bool
     def initialize_options(self) -> None: ...
     def delete_blockers(self, blockers) -> None: ...
     config_vars: dict[str, Any]
