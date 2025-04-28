@@ -1,28 +1,26 @@
-from typing import ClassVar
+from _typeshed import Incomplete
+from typing import ClassVar, final
 
-from google.protobuf import descriptor, message
-from google.protobuf.internal import enum_type_wrapper
+from google._upb._message import Descriptor, FileDescriptor, MessageMeta
+from google.protobuf import message
 
-DESCRIPTOR: descriptor.FileDescriptor
+DESCRIPTOR: FileDescriptor
 
-class HealthCheckRequest(message.Message):
-    __slots__ = ("service",)
+@final
+class HealthCheckRequest(message.Message, metaclass=MessageMeta):
     SERVICE_FIELD_NUMBER: ClassVar[int]
     service: str
     def __init__(self, service: str | None = ...) -> None: ...
+    DESCRIPTOR: Descriptor
 
-class HealthCheckResponse(message.Message):
-    __slots__ = ("status",)
-    class ServingStatus(int, metaclass=enum_type_wrapper.EnumTypeWrapper):
-        __slots__ = ()
-        UNKNOWN: ClassVar[HealthCheckResponse.ServingStatus]
-        SERVING: ClassVar[HealthCheckResponse.ServingStatus]
-        NOT_SERVING: ClassVar[HealthCheckResponse.ServingStatus]
-        SERVICE_UNKNOWN: ClassVar[HealthCheckResponse.ServingStatus]
-    UNKNOWN: HealthCheckResponse.ServingStatus
-    SERVING: HealthCheckResponse.ServingStatus
-    NOT_SERVING: HealthCheckResponse.ServingStatus
-    SERVICE_UNKNOWN: HealthCheckResponse.ServingStatus
+@final
+class HealthCheckResponse(message.Message, metaclass=MessageMeta):
+    ServingStatus: Incomplete
+    UNKNOWN: Incomplete
+    SERVING: Incomplete
+    NOT_SERVING: Incomplete
+    SERVICE_UNKNOWN: Incomplete
     STATUS_FIELD_NUMBER: ClassVar[int]
-    status: HealthCheckResponse.ServingStatus
-    def __init__(self, status: HealthCheckResponse.ServingStatus | str | None = ...) -> None: ...
+    status: Incomplete
+    def __init__(self, status: Incomplete | str | None = ...) -> None: ...
+    DESCRIPTOR: Descriptor
