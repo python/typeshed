@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from typing import Iterator
-from typing_extensions import assert_type, Never
+from typing_extensions import Never, assert_type
 
 
 class OldStyleIter:
