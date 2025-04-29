@@ -45,6 +45,7 @@ from typing import (  # noqa: Y022,UP035
     Mapping,
     MutableMapping,
     MutableSequence,
+    Never,
     Protocol,
     Sequence,
     SupportsAbs,
@@ -1470,6 +1471,8 @@ def input(prompt: object = "", /) -> str: ...
 class _GetItemIterable(Protocol[_T_co]):
     def __getitem__(self, i: int, /) -> _T_co: ...
 
+@overload
+def iter(object: Literal[""], /) -> Iterator[Never]: ...
 @overload
 def iter(object: SupportsIter[_SupportsNextT_co], /) -> _SupportsNextT_co: ...
 @overload
