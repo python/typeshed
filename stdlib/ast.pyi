@@ -1180,12 +1180,12 @@ class Slice(_Slice):
         ) -> Self: ...
 
 @deprecated("Deprecated since Python 3.9. Use ast.Tuple instead.")
-class ExtSlice(slice):
-    def __new__(cls, dims: Iterable[slice] = (), **kwargs: Unpack[_SliceAttributes]) -> Tuple: ...  # type: ignore[misc]
+class ExtSlice(slice):  # type: ignore[deprecated]
+    def __new__(cls, dims: Iterable[slice] = (), **kwargs: Unpack[_SliceAttributes]) -> Tuple: ...  # type: ignore[deprecated]
 
 @deprecated("Deprecated since Python 3.9. Use the index value directly instead.")
-class Index(slice):
-    def __new__(cls, value: expr, **kwargs: Unpack[_SliceAttributes]) -> expr: ...  # type: ignore[misc]
+class Index(slice):  # type: ignore[deprecated]
+    def __new__(cls, value: expr, **kwargs: Unpack[_SliceAttributes]) -> expr: ...
 
 class expr_context(AST): ...
 
@@ -2016,12 +2016,12 @@ class NodeVisitor:
         def visit_TypeAlias(self, node: TypeAlias) -> Any: ...
 
     # visit methods for deprecated nodes
-    def visit_ExtSlice(self, node: ExtSlice) -> Any: ...
-    def visit_Index(self, node: Index) -> Any: ...
-    def visit_Suite(self, node: Suite) -> Any: ...
-    def visit_AugLoad(self, node: AugLoad) -> Any: ...
-    def visit_AugStore(self, node: AugStore) -> Any: ...
-    def visit_Param(self, node: Param) -> Any: ...
+    def visit_ExtSlice(self, node: ExtSlice) -> Any: ...  # type: ignore[deprecated]
+    def visit_Index(self, node: Index) -> Any: ...  # type: ignore[deprecated]
+    def visit_Suite(self, node: Suite) -> Any: ...  # type: ignore[deprecated]
+    def visit_AugLoad(self, node: AugLoad) -> Any: ...  # type: ignore[deprecated]
+    def visit_AugStore(self, node: AugStore) -> Any: ...  # type: ignore[deprecated]
+    def visit_Param(self, node: Param) -> Any: ...  # type: ignore[deprecated]
 
     if sys.version_info < (3, 14):
         @deprecated("Replaced by visit_Constant; removed in Python 3.14")
