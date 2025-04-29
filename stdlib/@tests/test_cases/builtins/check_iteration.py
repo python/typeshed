@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from typing import Iterator
-from typing_extensions import assert_type
+from typing_extensions import assert_type, Never
 
 
 class OldStyleIter:
@@ -14,3 +14,7 @@ for x in iter(OldStyleIter()):
 
 assert_type(iter(OldStyleIter()), Iterator[str])
 assert_type(next(iter(OldStyleIter())), str)
+
+assert_type(iter(()), Iterator[Never])
+assert_type(iter(list[Never]()), Iterator[Never])
+assert_type(iter(""), Iterator[Never])
