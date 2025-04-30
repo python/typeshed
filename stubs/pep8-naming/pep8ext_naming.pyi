@@ -1,9 +1,10 @@
 import argparse
 import ast
+import enum
 import optparse
 from collections import deque
 from collections.abc import Callable, Generator, Iterable, Sequence
-from typing import Final, Literal
+from typing import Any, Final, Literal
 from typing_extensions import Self
 
 __version__: Final[str]
@@ -13,22 +14,29 @@ METACLASS_BASES: Final[frozenset[Literal["type", "ABCMeta"]]]
 METHOD_CONTAINER_NODES: Final[set[ast.AST]]
 FUNC_NODES: Final[tuple[type[ast.FunctionDef], type[ast.AsyncFunctionDef]]]
 
-class _ASTCheckMeta(type):
-    codes: tuple[str, ...]
+class BaseASTCheck:
     all: list[BaseASTCheck]
-    def __init__(cls, class_name: str, bases: tuple[object, ...], namespace: Iterable[str]) -> None: ...
-
-class BaseASTCheck(metaclass=_ASTCheckMeta):
     codes: tuple[str, ...]
-    all: list[BaseASTCheck]
+    def __init_subclass__(cls, **kwargs: Any) -> None: ...
     def err(self, node: ast.AST, code: str, **kwargs: str) -> tuple[int, int, str, Self]: ...
+
+class NameSet(frozenset[str]):
+    def __new__(cls, iterable: Iterable[str]) -> Self: ...
+    def __contains__(self, item: object, /) -> bool: ...
+
+@enum.unique
+class FunctionType(enum.Enum):
+    CLASSMETHOD = "classmethod"
+    STATICMETHOD = "staticmethod"
+    FUNCTION = "function"
+    METHOD = "method"
 
 class NamingChecker:
     name: str
     version: str
     visitors: Sequence[BaseASTCheck]
-    decorator_to_type: dict[str, Literal["classmethod", "staticmethod"]]
-    ignore_names: frozenset[str]
+    decorator_to_type: dict[str, Literal[FunctionType.CLASSMETHOD, FunctionType.STATICMETHOD]]
+    ignored: NameSet
     def __init__(self, tree: ast.AST, filename: str) -> None: ...
     @classmethod
     def add_options(cls, parser: optparse.OptionParser) -> None: ...
@@ -38,7 +46,9 @@ class NamingChecker:
     def visit_tree(self, node: ast.AST, parents: deque[ast.AST]) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_node(self, node: ast.AST, parents: Sequence[ast.AST]) -> Generator[tuple[int, int, str, Self]]: ...
     def tag_class_functions(self, cls_node: ast.ClassDef) -> None: ...
-    def set_function_nodes_types(self, nodes: Iterable[ast.AST], ismetaclass: bool, late_decoration: dict[str, str]) -> None: ...
+    def set_function_nodes_types(
+        self, nodes: Iterable[ast.AST], ismetaclass: bool, late_decoration: dict[str, FunctionType]
+    ) -> None: ...
     @classmethod
     def find_decorator_name(cls, d: ast.Expr) -> str: ...
     @staticmethod
@@ -53,7 +63,7 @@ class ClassNameCheck(BaseASTCheck):
     @classmethod
     def superclass_names(cls, name: str, parents: Sequence[ast.AST], _names: set[str] | None = None) -> set[str]: ...
     def visit_classdef(
-        self, node: ast.ClassDef, parents: Sequence[ast.AST], ignore: Iterable[str] | None = None
+        self, node: ast.ClassDef, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
 
 class FunctionNameCheck(BaseASTCheck):
@@ -63,10 +73,10 @@ class FunctionNameCheck(BaseASTCheck):
     @staticmethod
     def has_override_decorator(node: ast.FunctionDef | ast.AsyncFunctionDef) -> bool: ...
     def visit_functiondef(
-        self, node: ast.FunctionDef, parents: Sequence[ast.AST], ignore: Iterable[str] | None = None
+        self, node: ast.FunctionDef, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_asyncfunctiondef(
-        self, node: ast.AsyncFunctionDef, parents: Sequence[ast.AST], ignore: Iterable[str] | None = None
+        self, node: ast.AsyncFunctionDef, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
 
 class FunctionArgNamesCheck(BaseASTCheck):
@@ -75,10 +85,10 @@ class FunctionArgNamesCheck(BaseASTCheck):
     N804: str
     N805: str
     def visit_functiondef(
-        self, node: ast.FunctionDef, parents: Sequence[ast.AST], ignore: Iterable[str] | None = None
+        self, node: ast.FunctionDef, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_asyncfunctiondef(
-        self, node: ast.AsyncFunctionDef, parents: Sequence[ast.AST], ignore: Iterable[str] | None = None
+        self, node: ast.AsyncFunctionDef, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
 
 class ImportAsCheck(BaseASTCheck):
@@ -89,10 +99,10 @@ class ImportAsCheck(BaseASTCheck):
     N814: str
     N817: str
     def visit_importfrom(
-        self, node: ast.ImportFrom, parents: Sequence[ast.AST], ignore: Iterable[str] | None = None
+        self, node: ast.ImportFrom, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_import(
-        self, node: ast.Import, parents: Sequence[ast.AST], ignore: Iterable[str] | None = None
+        self, node: ast.Import, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
 
 class VariablesCheck(BaseASTCheck):
@@ -103,40 +113,38 @@ class VariablesCheck(BaseASTCheck):
     @staticmethod
     def is_namedtupe(node_value: ast.AST) -> bool: ...
     def visit_assign(
-        self, node: ast.Assign, parents: Sequence[ast.AST], ignore: Iterable[str] | None = None
+        self, node: ast.Assign, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_namedexpr(
-        self, node: ast.NamedExpr, parents: Sequence[ast.AST], ignore: Iterable[str]
+        self, node: ast.NamedExpr, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_annassign(
-        self, node: ast.AnnAssign, parents: Sequence[ast.AST], ignore: Iterable[str]
+        self, node: ast.AnnAssign, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_with(
-        self, node: ast.With, parents: Sequence[ast.AST], ignore: Iterable[str]
+        self, node: ast.With, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_asyncwith(
-        self, node: ast.AsyncWith, parents: Sequence[ast.AST], ignore: Iterable[str]
+        self, node: ast.AsyncWith, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
-    def visit_for(
-        self, node: ast.For, parents: Sequence[ast.AST], ignore: Iterable[str]
-    ) -> Generator[tuple[int, int, str, Self]]: ...
+    def visit_for(self, node: ast.For, parents: Sequence[ast.AST], ignored: NameSet) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_asyncfor(
-        self, node: ast.AsyncFor, parents: Sequence[ast.AST], ignore: Iterable[str]
+        self, node: ast.AsyncFor, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_excepthandler(
-        self, node: ast.ExceptHandler, parents: Sequence[ast.AST], ignore: Iterable[str]
+        self, node: ast.ExceptHandler, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_generatorexp(
-        self, node: ast.GeneratorExp, parents: Sequence[ast.AST], ignore: Iterable[str]
+        self, node: ast.GeneratorExp, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_listcomp(
-        self, node: ast.ListComp, parents: Sequence[ast.AST], ignore: Iterable[str]
+        self, node: ast.ListComp, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_dictcomp(
-        self, node: ast.DictComp, parents: Sequence[ast.AST], ignore: Iterable[str]
+        self, node: ast.DictComp, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     def visit_setcomp(
-        self, node: ast.SetComp, parents: Sequence[ast.AST], ignore: Iterable[str]
+        self, node: ast.SetComp, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
     @staticmethod
     def global_variable_check(name: str) -> Literal["N816"] | None: ...
@@ -144,5 +152,11 @@ class VariablesCheck(BaseASTCheck):
     def class_variable_check(name: str) -> Literal["N815"] | None: ...
     @staticmethod
     def function_variable_check(func: Callable[..., object], var_name: str) -> Literal["N806"] | None: ...
+
+class TypeVarNameCheck(BaseASTCheck):
+    N808: str
+    def visit_module(
+        self, node: ast.Module, parents: Sequence[ast.AST], ignored: NameSet
+    ) -> Generator[tuple[int, int, str, Self]]: ...
 
 def is_mixed_case(name: str) -> bool: ...
