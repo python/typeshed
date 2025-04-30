@@ -3,7 +3,7 @@ import ast
 import enum
 import optparse
 from collections import deque
-from collections.abc import Callable, Generator, Iterable, Sequence
+from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from typing import Any, Final, Literal
 from typing_extensions import Self
 
@@ -17,6 +17,7 @@ FUNC_NODES: Final[tuple[type[ast.FunctionDef], type[ast.AsyncFunctionDef]]]
 class BaseASTCheck:
     all: list[BaseASTCheck]
     codes: tuple[str, ...]
+    # Per convention, unknown kwargs are passed to the super-class. See there for the types.
     def __init_subclass__(cls, **kwargs: Any) -> None: ...
     def err(self, node: ast.AST, code: str, **kwargs: str) -> tuple[int, int, str, Self]: ...
 
@@ -35,7 +36,7 @@ class NamingChecker:
     name: str
     version: str
     visitors: Sequence[BaseASTCheck]
-    decorator_to_type: dict[str, Literal[FunctionType.CLASSMETHOD, FunctionType.STATICMETHOD]]
+    decorator_to_type: dict[str, FunctionType]
     ignored: NameSet
     def __init__(self, tree: ast.AST, filename: str) -> None: ...
     @classmethod
@@ -47,7 +48,7 @@ class NamingChecker:
     def visit_node(self, node: ast.AST, parents: Sequence[ast.AST]) -> Generator[tuple[int, int, str, Self]]: ...
     def tag_class_functions(self, cls_node: ast.ClassDef) -> None: ...
     def set_function_nodes_types(
-        self, nodes: Iterable[ast.AST], ismetaclass: bool, late_decoration: dict[str, FunctionType]
+        self, nodes: Iterator[ast.AST], ismetaclass: bool, late_decoration: dict[str, FunctionType]
     ) -> None: ...
     @classmethod
     def find_decorator_name(cls, d: ast.Expr) -> str: ...
@@ -56,8 +57,8 @@ class NamingChecker:
 
 class ClassNameCheck(BaseASTCheck):
     codes: tuple[Literal["N801"], Literal["N818"]]
-    N801: str
-    N818: str
+    N801: Final[str]
+    N818: Final[str]
     @classmethod
     def get_classdef(cls, name: str, parents: Sequence[ast.AST]) -> ast.ClassDef | None: ...
     @classmethod
@@ -68,8 +69,8 @@ class ClassNameCheck(BaseASTCheck):
 
 class FunctionNameCheck(BaseASTCheck):
     codes: tuple[Literal["N802"], Literal["N807"]]
-    N802: str
-    N807: str
+    N802: Final[str]
+    N807: Final[str]
     @staticmethod
     def has_override_decorator(node: ast.FunctionDef | ast.AsyncFunctionDef) -> bool: ...
     def visit_functiondef(
@@ -81,9 +82,9 @@ class FunctionNameCheck(BaseASTCheck):
 
 class FunctionArgNamesCheck(BaseASTCheck):
     codes: tuple[Literal["N803"], Literal["N804"], Literal["N805"]]
-    N803: str
-    N804: str
-    N805: str
+    N803: Final[str]
+    N804: Final[str]
+    N805: Final[str]
     def visit_functiondef(
         self, node: ast.FunctionDef, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
@@ -93,11 +94,11 @@ class FunctionArgNamesCheck(BaseASTCheck):
 
 class ImportAsCheck(BaseASTCheck):
     codes: tuple[Literal["N811"], Literal["N812"], Literal["N813"], Literal["N814"], Literal["N817"]]
-    N811: str
-    N812: str
-    N813: str
-    N814: str
-    N817: str
+    N811: Final[str]
+    N812: Final[str]
+    N813: Final[str]
+    N814: Final[str]
+    N817: Final[str]
     def visit_importfrom(
         self, node: ast.ImportFrom, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
@@ -107,9 +108,9 @@ class ImportAsCheck(BaseASTCheck):
 
 class VariablesCheck(BaseASTCheck):
     codes: tuple[Literal["N806"], Literal["N815"], Literal["N816"]]
-    N806: str
-    N815: str
-    N816: str
+    N806: Final[str]
+    N815: Final[str]
+    N816: Final[str]
     @staticmethod
     def is_namedtupe(node_value: ast.AST) -> bool: ...
     def visit_assign(
@@ -154,7 +155,7 @@ class VariablesCheck(BaseASTCheck):
     def function_variable_check(func: Callable[..., object], var_name: str) -> Literal["N806"] | None: ...
 
 class TypeVarNameCheck(BaseASTCheck):
-    N808: str
+    N808: Final[str]
     def visit_module(
         self, node: ast.Module, parents: Sequence[ast.AST], ignored: NameSet
     ) -> Generator[tuple[int, int, str, Self]]: ...
