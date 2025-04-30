@@ -1181,11 +1181,11 @@ class Slice(_Slice):
 
 @deprecated("Deprecated since Python 3.9. Use ast.Tuple instead.")
 class ExtSlice(slice):  # type: ignore[deprecated]
-    def __new__(cls, dims: Iterable[slice] = (), **kwargs: Unpack[_SliceAttributes]) -> Tuple: ...  # type: ignore[deprecated]
+    def __new__(cls, dims: Iterable[slice] = (), **kwargs: Unpack[_SliceAttributes]) -> Tuple: ...  # type: ignore[misc]
 
 @deprecated("Deprecated since Python 3.9. Use the index value directly instead.")
 class Index(slice):  # type: ignore[deprecated]
-    def __new__(cls, value: expr, **kwargs: Unpack[_SliceAttributes]) -> expr: ...
+    def __new__(cls, value: expr, **kwargs: Unpack[_SliceAttributes]) -> expr: ...  # type: ignore[misc]
 
 class expr_context(AST): ...
 
