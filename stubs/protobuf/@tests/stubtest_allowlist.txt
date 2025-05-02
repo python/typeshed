@@ -16,10 +16,6 @@ google.protobuf.message.Message.Extensions
 # Has *args that would fail at runtime with any positional argument
 google.protobuf.internal.containers.BaseContainer.sort
 
-# Stubbed as static method, but actually exists as a property that's
-# a function. Typeshed's typing is more useful
-google.protobuf.service.Service.GetDescriptor
-
 # These are deliberately omitted in the stub.
 # The classes can't be constructed directly anyway,
 # so the signatures of their constructors are somewhat irrelevant.
