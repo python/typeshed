@@ -1,10 +1,14 @@
-from typing import Any, ClassVar, NamedTuple
-from typing_extensions import Self
+from collections.abc import Callable, Sequence
+from typing import Any, ClassVar, Literal, NamedTuple
+from typing_extensions import Self, TypeAlias
 
+from docutils.nodes import Node
 from docutils.transforms import Transform
 
 __docformat__: str
 __version__: str
+
+_ComponentType: TypeAlias = Literal["reader", "parser", "writer"]
 
 class _VersionInfo(NamedTuple):
     major: int
@@ -36,9 +40,9 @@ class SettingsSpec:
 class TransformSpec:
     def get_transforms(self) -> list[type[Transform]]: ...
     default_transforms: ClassVar[tuple[Any, ...]]
-    unknown_reference_resolvers: ClassVar[list[Any]]
+    unknown_reference_resolvers: ClassVar[Sequence[Callable[[Node], bool]]]
 
 class Component(SettingsSpec, TransformSpec):
-    component_type: ClassVar[str | None]
+    component_type: ClassVar[_ComponentType | None]
     supported: ClassVar[tuple[str, ...]]
     def supports(self, format: str) -> bool: ...
