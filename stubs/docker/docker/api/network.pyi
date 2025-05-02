@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Iterable
 from typing import Any, Literal, TypedDict, type_check_only
 from typing_extensions import TypeAlias
 
@@ -43,7 +44,7 @@ class NetworkApiMixin:
         ipv4_address: Incomplete | None = None,
         ipv6_address: Incomplete | None = None,
         aliases: Incomplete | None = None,
-        links: Incomplete | None = None,
+        links: dict[str, str] | dict[str, None] | dict[str, str | None] | Iterable[tuple[str, str | None]] | None = None,
         link_local_ips: Incomplete | None = None,
         driver_opt: Incomplete | None = None,
         mac_address: Incomplete | None = None,

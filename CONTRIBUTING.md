@@ -9,7 +9,7 @@ are important to the project's success.
 
 1. [Prepare your environment](#preparing-the-environment).
 2. Find out [where to make your changes](#where-to-make-changes).
-3. [Prepare your changes](#preparing-changes):
+3. [Making your changes](#making-changes):
     * Small fixes and additions can be submitted directly as pull requests,
       but [contact us](README.md#discussion) before starting significant work.
     * Create your stubs, considering [what to include](#what-to-include) and
@@ -111,29 +111,6 @@ as it's currently excluded from the requirements file:
   </td>
 </tr>
 </table>
-
-## Code formatting
-
-The code is formatted using [`Black`](https://github.com/psf/black).
-Various other autofixes and lint rules are
-also performed by [`Ruff`](https://github.com/astral-sh/ruff) and
-[`Flake8`](https://github.com/pycqa/flake8),
-with plugin [`flake8-pyi`](https://github.com/pycqa/flake8-pyi).
-
-The repository is equipped with a [pre-commit.ci](https://pre-commit.ci/)
-configuration file. This means that you don't *need* to do anything yourself to
-run the code formatters or linters. When you push a commit, a bot will run
-those for you right away and add any autofixes to your PR. Anything
-that can't be autofixed will show up as a CI failure, hopefully with an error
-message that will make it clear what's gone wrong.
-
-That being said, if you *want* to run the formatters and linters locally
-when you commit, you're free to do so. To use the same configuration as we use
-in CI, we recommend doing this via pre-commit:
-
-```bash
-(.venv)$ pre-commit run --all-files
-```
 
 ## Where to make changes
 
@@ -260,7 +237,7 @@ The format of all `METADATA.toml` files can be checked by running
 `python3 ./tests/check_typeshed_structure.py`.
 
 
-## Preparing Changes
+## Making Changes
 
 ### Before you begin
 
@@ -274,6 +251,27 @@ with what you'd like to do or have ideas that will help you do it.
 Each Python module is represented by a .pyi "stub file". This is a syntactically valid Python file, where all methods are empty and [type annotations](https://typing.readthedocs.io/en/latest/spec/annotations.html) are used to describe function signatures and variable types.
 
 Typeshed follows the standard type system guidelines for [stub content](https://typing.readthedocs.io/en/latest/guides/writing_stubs.html#stub-content) and [coding style](https://typing.readthedocs.io/en/latest/guides/writing_stubs.html#style-guide).
+
+The code is formatted using [`Black`](https://github.com/psf/black).
+Various other autofixes and lint rules are
+also performed by [`Ruff`](https://github.com/astral-sh/ruff) and
+[`Flake8`](https://github.com/pycqa/flake8),
+with plugin [`flake8-pyi`](https://github.com/pycqa/flake8-pyi).
+
+The repository is equipped with a [pre-commit.ci](https://pre-commit.ci/)
+configuration file. This means that you don't *need* to do anything yourself to
+run the code formatters or linters. When you push a commit, a bot will run
+those for you right away and add any autofixes to your PR. Anything
+that can't be autofixed will show up as a CI failure, hopefully with an error
+message that will make it clear what's gone wrong.
+
+That being said, if you *want* to run the formatters and linters locally
+when you commit, you're free to do so. To use the same configuration as we use
+in CI, we recommend doing this via pre-commit:
+
+```bash
+(.venv)$ pre-commit run --all-files
+```
 
 ### What to include
 
