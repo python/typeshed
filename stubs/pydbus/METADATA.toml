@@ -1,0 +1,3 @@
+version = "0.6.*"
+requires = ["pygobject-stubs"]
+upstream_repository = "https://github.com/LEW21/pydbus"
