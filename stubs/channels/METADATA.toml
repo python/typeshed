@@ -1,0 +1,8 @@
+version = "4.*"
+upstream_repository = "https://github.com/django/channels"
+requires = ["django-stubs", "asgiref"]
+requires_python = ">=3.10"
+
+[tool.stubtest]
+skip = true  # due to the need of django mypy plugin config, it should be skipped.
+stubtest_requirements = ["daphne"]
