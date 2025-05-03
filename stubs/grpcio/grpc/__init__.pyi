@@ -87,7 +87,7 @@ class Future(abc.ABC, Generic[_TFutureValue]):
 
     # FIXME: unsure of the exact return type here. Is it a traceback.StackSummary?
     @abc.abstractmethod
-    def traceback(self, timeout: float | None = None) -> Any: ...
+    def traceback(self, timeout: float | None = None): ...
 
 # Create Client:
 

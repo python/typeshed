@@ -40,9 +40,6 @@ class AioRpcError(RpcError):
         details: str | None = None,
         debug_error_string: str | None = None,
     ) -> None: ...
-
-    # FIXME: confirm if these are present in the parent type. The remaining
-    # methods already exist.
     def debug_error_string(self) -> str: ...
     def initial_metadata(self) -> Metadata: ...
 
