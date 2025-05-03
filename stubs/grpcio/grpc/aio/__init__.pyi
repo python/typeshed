@@ -37,8 +37,8 @@ class AioRpcError(RpcError):
         code: StatusCode,
         initial_metadata: Metadata,
         trailing_metadata: Metadata,
-        details: str | None = ...,
-        debug_error_string: str | None = ...,
+        details: str | None = None,
+        debug_error_string: str | None = None,
     ) -> None: ...
 
     # FIXME: confirm if these are present in the parent type. The remaining
@@ -52,27 +52,27 @@ class ClientInterceptor(metaclass=abc.ABCMeta): ...
 
 def insecure_channel(
     target: str,
-    options: _Options | None = ...,
-    compression: Compression | None = ...,
-    interceptors: Sequence[ClientInterceptor] | None = ...,
+    options: _Options | None = None,
+    compression: Compression | None = None,
+    interceptors: Sequence[ClientInterceptor] | None = None,
 ) -> Channel: ...
 def secure_channel(
     target: str,
     credentials: ChannelCredentials,
-    options: _Options | None = ...,
-    compression: Compression | None = ...,
-    interceptors: Sequence[ClientInterceptor] | None = ...,
+    options: _Options | None = None,
+    compression: Compression | None = None,
+    interceptors: Sequence[ClientInterceptor] | None = None,
 ) -> Channel: ...
 
 # Create Server:
 
 def server(
-    migration_thread_pool: futures.Executor | None = ...,
-    handlers: Sequence[GenericRpcHandler[Any, Any]] | None = ...,
-    interceptors: Sequence[ServerInterceptor[Any, Any]] | None = ...,
-    options: _Options | None = ...,
-    maximum_concurrent_rpcs: int | None = ...,
-    compression: Compression | None = ...,
+    migration_thread_pool: futures.Executor | None = None,
+    handlers: Sequence[GenericRpcHandler[Any, Any]] | None = None,
+    interceptors: Sequence[ServerInterceptor[Any, Any]] | None = None,
+    options: _Options | None = None,
+    maximum_concurrent_rpcs: int | None = None,
+    compression: Compression | None = None,
 ) -> Server: ...
 
 # Channel Object:
@@ -85,38 +85,38 @@ _ResponseDeserializer: TypeAlias = Callable[[bytes], Any]
 
 class Channel(abc.ABC):
     @abc.abstractmethod
-    async def close(self, grace: float | None = ...) -> None: ...
+    async def close(self, grace: float | None = None) -> None: ...
     @abc.abstractmethod
-    def get_state(self, try_to_connect: bool = ...) -> ChannelConnectivity: ...
+    def get_state(self, try_to_connect: bool = False) -> ChannelConnectivity: ...
     @abc.abstractmethod
     async def wait_for_state_change(self, last_observed_state: ChannelConnectivity) -> None: ...
     @abc.abstractmethod
     def stream_stream(
         self,
         method: str,
-        request_serializer: _RequestSerializer | None = ...,
-        response_deserializer: _ResponseDeserializer | None = ...,
+        request_serializer: _RequestSerializer | None = None,
+        response_deserializer: _ResponseDeserializer | None = None,
     ) -> StreamStreamMultiCallable[Any, Any]: ...
     @abc.abstractmethod
     def stream_unary(
         self,
         method: str,
-        request_serializer: _RequestSerializer | None = ...,
-        response_deserializer: _ResponseDeserializer | None = ...,
+        request_serializer: _RequestSerializer | None = None,
+        response_deserializer: _ResponseDeserializer | None = None,
     ) -> StreamUnaryMultiCallable[Any, Any]: ...
     @abc.abstractmethod
     def unary_stream(
         self,
         method: str,
-        request_serializer: _RequestSerializer | None = ...,
-        response_deserializer: _ResponseDeserializer | None = ...,
+        request_serializer: _RequestSerializer | None = None,
+        response_deserializer: _ResponseDeserializer | None = None,
     ) -> UnaryStreamMultiCallable[Any, Any]: ...
     @abc.abstractmethod
     def unary_unary(
         self,
         method: str,
-        request_serializer: _RequestSerializer | None = ...,
-        response_deserializer: _ResponseDeserializer | None = ...,
+        request_serializer: _RequestSerializer | None = None,
+        response_deserializer: _ResponseDeserializer | None = None,
     ) -> UnaryUnaryMultiCallable[Any, Any]: ...
     @abc.abstractmethod
     async def __aenter__(self) -> Self: ...
@@ -149,7 +149,7 @@ class Server(metaclass=abc.ABCMeta):
 
     # Returns a bool indicates if the operation times out. Timeout is in seconds.
     @abc.abstractmethod
-    async def wait_for_termination(self, timeout: float | None = ...) -> bool: ...
+    async def wait_for_termination(self, timeout: float | None = None) -> bool: ...
 
 # Client-Side Context:
 
@@ -216,7 +216,7 @@ class _DoneCallback(Generic[_TRequest, _TResponse]):
 
 class ServicerContext(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    async def abort(self, code: StatusCode, details: str = ..., trailing_metadata: _MetadataType = ...) -> NoReturn: ...
+    async def abort(self, code: StatusCode, details: str = "", trailing_metadata: _MetadataType = ()) -> NoReturn: ...
     @abc.abstractmethod
     async def read(self) -> _TRequest: ...
     @abc.abstractmethod
@@ -377,12 +377,12 @@ class UnaryUnaryMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABCM
         self,
         request: _TRequest,
         *,
-        timeout: float | None = ...,
-        metadata: _MetadataType | None = ...,
-        credentials: CallCredentials | None = ...,
+        timeout: float | None = None,
+        metadata: _MetadataType | None = None,
+        credentials: CallCredentials | None = None,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = ...,
-        compression: Compression | None = ...,
+        wait_for_ready: bool | None = None,
+        compression: Compression | None = None,
     ) -> UnaryUnaryCall[_TRequest, _TResponse]: ...
 
 class UnaryStreamMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
@@ -391,12 +391,12 @@ class UnaryStreamMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABC
         self,
         request: _TRequest,
         *,
-        timeout: float | None = ...,
-        metadata: _MetadataType | None = ...,
-        credentials: CallCredentials | None = ...,
+        timeout: float | None = None,
+        metadata: _MetadataType | None = None,
+        credentials: CallCredentials | None = None,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = ...,
-        compression: Compression | None = ...,
+        wait_for_ready: bool | None = None,
+        compression: Compression | None = None,
     ) -> UnaryStreamCall[_TRequest, _TResponse]: ...
 
 class StreamUnaryMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
@@ -404,12 +404,12 @@ class StreamUnaryMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABC
     def __call__(
         self,
         request_iterator: AsyncIterator[_TRequest] | Iterator[_TRequest] | None = None,
-        timeout: float | None = ...,
-        metadata: _MetadataType | None = ...,
-        credentials: CallCredentials | None = ...,
+        timeout: float | None = None,
+        metadata: _MetadataType | None = None,
+        credentials: CallCredentials | None = None,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = ...,
-        compression: Compression | None = ...,
+        wait_for_ready: bool | None = None,
+        compression: Compression | None = None,
     ) -> StreamUnaryCall[_TRequest, _TResponse]: ...
 
 class StreamStreamMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABCMeta):
@@ -417,12 +417,12 @@ class StreamStreamMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.AB
     def __call__(
         self,
         request_iterator: AsyncIterator[_TRequest] | Iterator[_TRequest] | None = None,
-        timeout: float | None = ...,
-        metadata: _MetadataType | None = ...,
-        credentials: CallCredentials | None = ...,
+        timeout: float | None = None,
+        metadata: _MetadataType | None = None,
+        credentials: CallCredentials | None = None,
         # FIXME: optional bool seems weird, but that's what the docs suggest
-        wait_for_ready: bool | None = ...,
-        compression: Compression | None = ...,
+        wait_for_ready: bool | None = None,
+        compression: Compression | None = None,
     ) -> StreamStreamCall[_TRequest, _TResponse]: ...
 
 # Metadata:
