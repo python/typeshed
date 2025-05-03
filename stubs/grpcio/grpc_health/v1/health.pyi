@@ -1,5 +1,7 @@
+from _typeshed import Incomplete
+from collections.abc import Callable
 from concurrent import futures
-from typing import Any, Final, Protocol, overload
+from typing import Final, overload
 from typing_extensions import Self
 
 from grpc import ServicerContext
@@ -16,10 +18,6 @@ class _Watcher:
     def add(self, response: health_pb2.HealthCheckResponse) -> None: ...
     def close(self) -> None: ...
 
-# FIXME: This needs further investigation
-class _SendResponseCallback(Protocol):
-    def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-
 class HealthServicer(health_pb2_grpc.HealthServicer):
     def __init__(
         self, experimental_non_blocking: bool = True, experimental_thread_pool: futures.ThreadPoolExecutor | None = None
@@ -31,7 +29,7 @@ class HealthServicer(health_pb2_grpc.HealthServicer):
     ) -> _Watcher: ...
     @overload
     def Watch(
-        self, request: health_pb2.HealthCheckRequest, context: ServicerContext, send_response_callback: _SendResponseCallback
+        self, request: health_pb2.HealthCheckRequest, context: ServicerContext, send_response_callback: Callable[..., Incomplete]
     ) -> None: ...
     def set(self, service: str, status: health_pb2.HealthCheckResponse.ServingStatus) -> None: ...
     def enter_graceful_shutdown(self) -> None: ...
