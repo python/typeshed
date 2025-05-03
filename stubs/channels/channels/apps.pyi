@@ -1,0 +1,6 @@
+from django.apps import AppConfig
+from django.utils.functional import _StrOrPromise
+
+class ChannelsConfig(AppConfig):
+    name: str = ...
+    verbose_name: _StrOrPromise = ...
