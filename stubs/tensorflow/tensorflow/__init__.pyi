@@ -417,7 +417,7 @@ def reshape(tensor: TensorCompatible, shape: ShapeLike | Tensor, name: str | Non
 def pad(
     tensor: TensorCompatible,
     paddings: Tensor | IntArray | Iterable[Iterable[int]],
-    mode: Literal["CONSTANT", "constant", "REFLECT", "reflect", "SYMMETRIC", "symmectric"] = "CONSTANT",
+    mode: Literal["CONSTANT", "constant", "REFLECT", "reflect", "SYMMETRIC", "symmetric"] = "CONSTANT",
     constant_values: ScalarTensorCompatible = 0,
     name: str | None = None,
 ) -> Tensor: ...
