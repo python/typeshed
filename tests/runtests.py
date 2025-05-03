@@ -13,7 +13,7 @@ from ts_utils.paths import TEST_CASES_DIR, test_cases_path
 from ts_utils.utils import colored
 
 _STRICTER_CONFIG_FILE = Path("pyrightconfig.stricter.json")
-_TESTCASES_CONFIG_FILE = "pyrightconfig.testcases.json"
+_TESTCASES_CONFIG_FILE = Path("pyrightconfig.testcases.json")
 _NPX_ERROR_PATTERN = r"error (runn|find)ing npx"
 _NPX_ERROR_MESSAGE = colored("\nSkipping Pyright tests: npx is not installed or can't be run!", "yellow")
 _SUCCESS = colored("Success", "green")
