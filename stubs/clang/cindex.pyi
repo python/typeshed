@@ -143,7 +143,6 @@ class TokenKind(BaseEnumeration):
     @staticmethod
     def register(value: int, name: str) -> None: ...
 
-
 class BaseEnumeration:
     value: int
     def __init__(self, value: int) -> None: ...
@@ -167,7 +166,7 @@ class CursorKind(BaseEnumeration):
     def is_unexposed(self) -> bool: ...
 
     # What inspired this stub in the first place was this entire list of enums.
-    
+
     UNEXPOSED_DECL: int
     STRUCT_DECL: int
     UNION_DECL: int
