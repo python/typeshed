@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import itertools
+import os
 import sys
 from collections.abc import Iterable
 
@@ -12,14 +13,14 @@ from ts_utils.paths import STUBS_PATH
 
 def get_external_stub_requirements(distributions: Iterable[str] = ()) -> set[Requirement]:
     if not distributions:
-        distributions = [distribution.name for distribution in STUBS_PATH.iterdir()]
+        distributions = os.listdir(STUBS_PATH)
 
     return set(itertools.chain.from_iterable([read_dependencies(distribution).external_pkgs for distribution in distributions]))
 
 
 def get_stubtest_system_requirements(distributions: Iterable[str] = (), platform: str = sys.platform) -> list[str]:
     if not distributions:
-        distributions = [distribution.name for distribution in STUBS_PATH.iterdir()]
+        distributions = os.listdir(STUBS_PATH)
 
     requirements: list[str] = []
     for distribution in distributions:

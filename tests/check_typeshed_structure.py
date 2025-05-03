@@ -151,9 +151,9 @@ def _find_stdlib_modules() -> set[str]:
 
 def check_metadata() -> None:
     """Check that all METADATA.toml files are valid."""
-    for distribution in STUBS_PATH.iterdir():
+    for distribution in os.listdir(STUBS_PATH):
         # This function does various sanity checks for METADATA.toml files
-        read_metadata(distribution.name)
+        read_metadata(distribution)
 
 
 def check_requirement_pins() -> None:

@@ -472,7 +472,7 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
     gitignore_spec = get_gitignore_spec()
     distributions_to_check: dict[str, PackageDependencies] = {}
 
-    for distribution in sorted([distribution.name for distribution in STUBS_PATH.iterdir()]):
+    for distribution in sorted(os.listdir("stubs")):
         dist_path = distribution_path(distribution)
 
         if spec_matches_path(gitignore_spec, dist_path):

@@ -170,6 +170,8 @@ ignore = [
     "PLR2004", # Magic value used in comparison, consider replacing `{value}` with a constant variable
     # Keep codeflow path separation explicit
     "PLR5501", # Use `elif` instead of `else` then `if`, to reduce indentation
+    # Often just leads to redundant more verbose code when needing an actual str
+    "PTH208", # Use `pathlib.Path.iterdir()` instead.
     # Allow FIXME
     "TD001", # Invalid TODO tag: `{tag}`
     # Git blame is sufficient
