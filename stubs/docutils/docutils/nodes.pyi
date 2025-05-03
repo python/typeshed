@@ -462,8 +462,8 @@ class NodeVisitor:
     def unknown_departure(self, node: Node) -> Any: ...
 
     # These methods only exist on the subclasses `GenericNodeVisitor` and `SparseNodeVisitor` at runtime.
-    # If subclassing `NodeVisitor` directly, `visit_*` methods must be implemented for nodes and children that will be called with `Node.walk()` and
-    # `Node.walkabout()`.
+    # If subclassing `NodeVisitor` directly, `visit_*` methods must be implemented for nodes and children that will be called
+    # with `Node.walk()` and `Node.walkabout()`.
     # `depart_*` methods must also be implemented for nodes and children that will be called with `Node.walkabout()`.
     def visit_Text(self, node: Text) -> Any: ...
     def visit_abbreviation(self, node: abbreviation) -> Any: ...
