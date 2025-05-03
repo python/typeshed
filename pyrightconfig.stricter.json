@@ -49,7 +49,6 @@
         "stubs/grpcio-reflection/grpc_reflection/v1alpha",
         "stubs/grpcio-status/grpc_status",
         "stubs/grpcio/grpc/__init__.pyi",
-        "stubs/grpcio/grpc_status/rpc_status.pyi",
         "stubs/hdbcli/hdbcli/dbapi.pyi",
         "stubs/html5lib",
         "stubs/httplib2",
