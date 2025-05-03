@@ -54,7 +54,7 @@ class _EditionEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTy
     EDITION_2024: _Edition.ValueType  # 1001
     EDITION_1_TEST_ONLY: _Edition.ValueType  # 1
     """Placeholder editions for testing feature resolution.  These should not be
-    used or relyed on outside of tests.
+    used or relied on outside of tests.
     """
     EDITION_2_TEST_ONLY: _Edition.ValueType  # 2
     EDITION_99997_TEST_ONLY: _Edition.ValueType  # 99997
@@ -90,7 +90,7 @@ comparison.
 EDITION_2024: Edition.ValueType  # 1001
 EDITION_1_TEST_ONLY: Edition.ValueType  # 1
 """Placeholder editions for testing feature resolution.  These should not be
-used or relyed on outside of tests.
+used or relied on outside of tests.
 """
 EDITION_2_TEST_ONLY: Edition.ValueType  # 2
 EDITION_99997_TEST_ONLY: Edition.ValueType  # 99997
@@ -151,9 +151,16 @@ class FileDescriptorProto(google.protobuf.message.Message):
     The supported values are "proto2", "proto3", and "editions".
 
     If `edition` is present, this value must be "editions".
+    WARNING: This field should only be used by protobuf plugins or special
+    cases like the proto compiler. Other uses are discouraged and
+    developers should rely on the protoreflect APIs for their client language.
     """
     edition: global___Edition.ValueType
-    """The edition of the proto file."""
+    """The edition of the proto file.
+    WARNING: This field should only be used by protobuf plugins or special
+    cases like the proto compiler. Other uses are discouraged and
+    developers should rely on the protoreflect APIs for their client language.
+    """
     @property
     def dependency(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]:
         """Names of files imported by this file."""
@@ -982,7 +989,11 @@ class FileOptions(google.protobuf.message.Message):
     """
     @property
     def features(self) -> global___FeatureSet:
-        """Any features defined in the specific edition."""
+        """Any features defined in the specific edition.
+        WARNING: This field should only be used by protobuf plugins or special
+        cases like the proto compiler. Other uses are discouraged and
+        developers should rely on the protoreflect APIs for their client language.
+        """
 
     @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
@@ -1099,7 +1110,11 @@ class MessageOptions(google.protobuf.message.Message):
     """
     @property
     def features(self) -> global___FeatureSet:
-        """Any features defined in the specific edition."""
+        """Any features defined in the specific edition.
+        WARNING: This field should only be used by protobuf plugins or special
+        cases like the proto compiler. Other uses are discouraged and
+        developers should rely on the protoreflect APIs for their client language.
+        """
 
     @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
@@ -1188,10 +1203,7 @@ class FieldOptions(google.protobuf.message.Message):
         RETENTION_SOURCE: FieldOptions._OptionRetention.ValueType  # 2
 
     class OptionRetention(_OptionRetention, metaclass=_OptionRetentionEnumTypeWrapper):
-        """If set to RETENTION_SOURCE, the option will be omitted from the binary.
-        Note: as of January 2023, support for this is in progress and does not yet
-        have an effect (b/264593489).
-        """
+        """If set to RETENTION_SOURCE, the option will be omitted from the binary."""
 
     RETENTION_UNKNOWN: FieldOptions.OptionRetention.ValueType  # 0
     RETENTION_RUNTIME: FieldOptions.OptionRetention.ValueType  # 1
@@ -1217,8 +1229,7 @@ class FieldOptions(google.protobuf.message.Message):
     class OptionTargetType(_OptionTargetType, metaclass=_OptionTargetTypeEnumTypeWrapper):
         """This indicates the types of entities that the field may apply to when used
         as an option. If it is unset, then the field may be freely used as an
-        option on any kind of entity. Note: as of January 2023, support for this is
-        in progress and does not yet have an effect (b/264593489).
+        option on any kind of entity.
         """
 
     TARGET_TYPE_UNKNOWN: FieldOptions.OptionTargetType.ValueType  # 0
@@ -1382,7 +1393,11 @@ class FieldOptions(google.protobuf.message.Message):
     def edition_defaults(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FieldOptions.EditionDefault]: ...
     @property
     def features(self) -> global___FeatureSet:
-        """Any features defined in the specific edition."""
+        """Any features defined in the specific edition.
+        WARNING: This field should only be used by protobuf plugins or special
+        cases like the proto compiler. Other uses are discouraged and
+        developers should rely on the protoreflect APIs for their client language.
+        """
 
     @property
     def feature_support(self) -> global___FieldOptions.FeatureSupport: ...
@@ -1421,7 +1436,11 @@ class OneofOptions(google.protobuf.message.Message):
     UNINTERPRETED_OPTION_FIELD_NUMBER: builtins.int
     @property
     def features(self) -> global___FeatureSet:
-        """Any features defined in the specific edition."""
+        """Any features defined in the specific edition.
+        WARNING: This field should only be used by protobuf plugins or special
+        cases like the proto compiler. Other uses are discouraged and
+        developers should rely on the protoreflect APIs for their client language.
+        """
 
     @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
@@ -1467,7 +1486,11 @@ class EnumOptions(google.protobuf.message.Message):
     """
     @property
     def features(self) -> global___FeatureSet:
-        """Any features defined in the specific edition."""
+        """Any features defined in the specific edition.
+        WARNING: This field should only be used by protobuf plugins or special
+        cases like the proto compiler. Other uses are discouraged and
+        developers should rely on the protoreflect APIs for their client language.
+        """
 
     @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
@@ -1509,7 +1532,11 @@ class EnumValueOptions(google.protobuf.message.Message):
     """
     @property
     def features(self) -> global___FeatureSet:
-        """Any features defined in the specific edition."""
+        """Any features defined in the specific edition.
+        WARNING: This field should only be used by protobuf plugins or special
+        cases like the proto compiler. Other uses are discouraged and
+        developers should rely on the protoreflect APIs for their client language.
+        """
 
     @property
     def feature_support(self) -> global___FieldOptions.FeatureSupport:
@@ -1553,7 +1580,11 @@ class ServiceOptions(google.protobuf.message.Message):
     """
     @property
     def features(self) -> global___FeatureSet:
-        """Any features defined in the specific edition."""
+        """Any features defined in the specific edition.
+        WARNING: This field should only be used by protobuf plugins or special
+        cases like the proto compiler. Other uses are discouraged and
+        developers should rely on the protoreflect APIs for their client language.
+        """
 
     @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
@@ -1617,7 +1648,11 @@ class MethodOptions(google.protobuf.message.Message):
     idempotency_level: global___MethodOptions.IdempotencyLevel.ValueType
     @property
     def features(self) -> global___FeatureSet:
-        """Any features defined in the specific edition."""
+        """Any features defined in the specific edition.
+        WARNING: This field should only be used by protobuf plugins or special
+        cases like the proto compiler. Other uses are discouraged and
+        developers should rely on the protoreflect APIs for their client language.
+        """
 
     @property
     def uninterpreted_option(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___UninterpretedOption]:
@@ -1813,18 +1848,35 @@ class FeatureSet(google.protobuf.message.Message):
     ALLOW: FeatureSet.JsonFormat.ValueType  # 1
     LEGACY_BEST_EFFORT: FeatureSet.JsonFormat.ValueType  # 2
 
+    class _EnforceNamingStyle:
+        ValueType = typing.NewType("ValueType", builtins.int)
+        V: typing_extensions.TypeAlias = ValueType
+
+    class _EnforceNamingStyleEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[FeatureSet._EnforceNamingStyle.ValueType], builtins.type):
+        DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
+        ENFORCE_NAMING_STYLE_UNKNOWN: FeatureSet._EnforceNamingStyle.ValueType  # 0
+        STYLE2024: FeatureSet._EnforceNamingStyle.ValueType  # 1
+        STYLE_LEGACY: FeatureSet._EnforceNamingStyle.ValueType  # 2
+
+    class EnforceNamingStyle(_EnforceNamingStyle, metaclass=_EnforceNamingStyleEnumTypeWrapper): ...
+    ENFORCE_NAMING_STYLE_UNKNOWN: FeatureSet.EnforceNamingStyle.ValueType  # 0
+    STYLE2024: FeatureSet.EnforceNamingStyle.ValueType  # 1
+    STYLE_LEGACY: FeatureSet.EnforceNamingStyle.ValueType  # 2
+
     FIELD_PRESENCE_FIELD_NUMBER: builtins.int
     ENUM_TYPE_FIELD_NUMBER: builtins.int
     REPEATED_FIELD_ENCODING_FIELD_NUMBER: builtins.int
     UTF8_VALIDATION_FIELD_NUMBER: builtins.int
     MESSAGE_ENCODING_FIELD_NUMBER: builtins.int
     JSON_FORMAT_FIELD_NUMBER: builtins.int
+    ENFORCE_NAMING_STYLE_FIELD_NUMBER: builtins.int
     field_presence: global___FeatureSet.FieldPresence.ValueType
     enum_type: global___FeatureSet.EnumType.ValueType
     repeated_field_encoding: global___FeatureSet.RepeatedFieldEncoding.ValueType
     utf8_validation: global___FeatureSet.Utf8Validation.ValueType
     message_encoding: global___FeatureSet.MessageEncoding.ValueType
     json_format: global___FeatureSet.JsonFormat.ValueType
+    enforce_naming_style: global___FeatureSet.EnforceNamingStyle.ValueType
     def __init__(
         self,
         *,
@@ -1834,9 +1886,10 @@ class FeatureSet(google.protobuf.message.Message):
         utf8_validation: global___FeatureSet.Utf8Validation.ValueType | None = ...,
         message_encoding: global___FeatureSet.MessageEncoding.ValueType | None = ...,
         json_format: global___FeatureSet.JsonFormat.ValueType | None = ...,
+        enforce_naming_style: global___FeatureSet.EnforceNamingStyle.ValueType | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["enum_type", b"enum_type", "field_presence", b"field_presence", "json_format", b"json_format", "message_encoding", b"message_encoding", "repeated_field_encoding", b"repeated_field_encoding", "utf8_validation", b"utf8_validation"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["enum_type", b"enum_type", "field_presence", b"field_presence", "json_format", b"json_format", "message_encoding", b"message_encoding", "repeated_field_encoding", b"repeated_field_encoding", "utf8_validation", b"utf8_validation"]) -> None: ...
+    def HasField(self, field_name: typing.Literal["enforce_naming_style", b"enforce_naming_style", "enum_type", b"enum_type", "field_presence", b"field_presence", "json_format", b"json_format", "message_encoding", b"message_encoding", "repeated_field_encoding", b"repeated_field_encoding", "utf8_validation", b"utf8_validation"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing.Literal["enforce_naming_style", b"enforce_naming_style", "enum_type", b"enum_type", "field_presence", b"field_presence", "json_format", b"json_format", "message_encoding", b"message_encoding", "repeated_field_encoding", b"repeated_field_encoding", "utf8_validation", b"utf8_validation"]) -> None: ...
 
 global___FeatureSet = FeatureSet
 

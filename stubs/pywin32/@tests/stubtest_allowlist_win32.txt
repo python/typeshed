@@ -30,8 +30,6 @@ win32com.servers.*
 win32com(ext)?.axscript.client.pyscript_rexec
 win32com(ext)?.axscript.client.pyscript
 win32com(ext)?.axscript.client.scriptdispatch
-# Other scripts
-isapi.install
 
 # Demos, tests and debugging
 win32com.demos.*
@@ -47,7 +45,7 @@ win32com(ext)?.directsound.test.*
 # It's safer to not even expose this method as deprecated.
 (win32.)?win32gui.PyMakeBuffer
 
-# Axdebug is not built on Python 3.11 anyway: https://github.com/mhammond/pywin32/blob/main/setup.py#L398-L402
+# Axdebug is not built on Python 3.11 anyway: https://github.com/mhammond/pywin32/blob/c0f06cf49252b4848d0c74832247280291b00b03/setup.py#L386-L390
 #
 # failed to import, ImportError: DLL load failed while importing axdebug: The specified module could not be found.
 win32com(ext)?.axdebug.axdebug

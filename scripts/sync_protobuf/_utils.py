@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import subprocess
 import sys
+from collections.abc import Iterable
 from http.client import HTTPResponse
-from typing import TYPE_CHECKING, Iterable
+from typing import TYPE_CHECKING
 from urllib.request import urlopen
 from zipfile import ZipFile
 
@@ -33,9 +34,11 @@ def extract_archive(archive_path: StrPath, destination: StrPath) -> None:
 def run_protoc(
     proto_paths: Iterable[StrPath], mypy_out: StrPath, proto_globs: Iterable[str], cwd: StrOrBytesPath | None = None
 ) -> str:
-    """TODO: Describe parameters and return"""
+    """TODO: Describe parameters and return."""
     protoc_version = (
-        subprocess.run([sys.executable, "-m", "grpc_tools.protoc", "--version"], capture_output=True).stdout.decode().strip()
+        subprocess.run([sys.executable, "-m", "grpc_tools.protoc", "--version"], capture_output=True, check=False)
+        .stdout.decode()
+        .strip()
     )
     print()
     print(protoc_version)

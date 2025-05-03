@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Generates the protobuf stubs for the given protobuf version using mypy-protobuf.
 Generally, new minor versions are a good time to update the stubs.
@@ -31,7 +32,7 @@ PROTO_FILE_PATTERN = re.compile(r'"//:(.*)_proto"')
 
 
 def extract_python_version(file_path: Path) -> str:
-    """Extract the Python version from https://github.com/protocolbuffers/protobuf/blob/main/version.json"""
+    """Extract the Python version from https://github.com/protocolbuffers/protobuf/blob/main/version.json ."""
     with open(file_path) as file:
         data: dict[str, Any] = json.load(file)
     # The root key will be the protobuf source code version
@@ -44,7 +45,7 @@ def extract_proto_file_paths(temp_dir: Path) -> list[str]:
     """
     Roughly reproduce the subset of .proto files on the public interface
     as described in py_proto_library calls in
-    https://github.com/protocolbuffers/protobuf/blob/main/python/dist/BUILD.bazel
+    https://github.com/protocolbuffers/protobuf/blob/main/python/dist/BUILD.bazel .
     """
     with open(temp_dir / EXTRACTED_PACKAGE_DIR / "python" / "dist" / "BUILD.bazel") as file:
         matched_lines = filter(None, (re.search(PROTO_FILE_PATTERN, line) for line in file))
@@ -66,14 +67,14 @@ def main() -> None:
     for old_stub in STUBS_FOLDER.rglob("*_pb2.pyi"):
         old_stub.unlink()
 
-    PROTOC_VERSION = run_protoc(
+    protoc_version = run_protoc(
         proto_paths=(f"{EXTRACTED_PACKAGE_DIR}/src",),
         mypy_out=STUBS_FOLDER,
         proto_globs=extract_proto_file_paths(temp_dir),
         cwd=temp_dir,
     )
 
-    PYTHON_PROTOBUF_VERSION = extract_python_version(temp_dir / EXTRACTED_PACKAGE_DIR / "version.json")
+    python_protobuf_version = extract_python_version(temp_dir / EXTRACTED_PACKAGE_DIR / "version.json")
 
     # Cleanup after ourselves, this is a temp dir, but it can still grow fast if run multiple times
     shutil.rmtree(temp_dir)
@@ -82,14 +83,14 @@ def main() -> None:
         "protobuf",
         extra_description=f"""Partially generated using \
 [mypy-protobuf=={MYPY_PROTOBUF_VERSION}](https://github.com/nipunn1313/mypy-protobuf/tree/v{MYPY_PROTOBUF_VERSION}) \
-and {PROTOC_VERSION} on \
+and {protoc_version} on \
 [protobuf v{PACKAGE_VERSION}](https://github.com/protocolbuffers/protobuf/releases/tag/v{PACKAGE_VERSION}) \
-(python `protobuf=={PYTHON_PROTOBUF_VERSION}`).""",
+(python `protobuf=={python_protobuf_version}`).""",
     )
     print("Updated protobuf/METADATA.toml")
 
     # Run pre-commit to cleanup the stubs
-    subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")))
+    subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")), check=False)
 
 
 if __name__ == "__main__":
