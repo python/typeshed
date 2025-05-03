@@ -380,7 +380,6 @@ class UnaryUnaryMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABCM
         timeout: float | None = None,
         metadata: _MetadataType | None = None,
         credentials: CallCredentials | None = None,
-        # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = None,
         compression: Compression | None = None,
     ) -> UnaryUnaryCall[_TRequest, _TResponse]: ...
@@ -394,7 +393,6 @@ class UnaryStreamMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABC
         timeout: float | None = None,
         metadata: _MetadataType | None = None,
         credentials: CallCredentials | None = None,
-        # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = None,
         compression: Compression | None = None,
     ) -> UnaryStreamCall[_TRequest, _TResponse]: ...
@@ -407,7 +405,6 @@ class StreamUnaryMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.ABC
         timeout: float | None = None,
         metadata: _MetadataType | None = None,
         credentials: CallCredentials | None = None,
-        # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = None,
         compression: Compression | None = None,
     ) -> StreamUnaryCall[_TRequest, _TResponse]: ...
@@ -420,7 +417,6 @@ class StreamStreamMultiCallable(Generic[_TRequest, _TResponse], metaclass=abc.AB
         timeout: float | None = None,
         metadata: _MetadataType | None = None,
         credentials: CallCredentials | None = None,
-        # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = None,
         compression: Compression | None = None,
     ) -> StreamStreamCall[_TRequest, _TResponse]: ...

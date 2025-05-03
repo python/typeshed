@@ -541,7 +541,6 @@ class UnaryUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
         timeout: float | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
-        # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = None,
         compression: Compression | None = None,
     ) -> _TResponse: ...
@@ -552,7 +551,6 @@ class UnaryUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
         timeout: float | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
-        # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = None,
         compression: Compression | None = None,
     ) -> _CallFuture[_TResponse]: ...
@@ -563,7 +561,6 @@ class UnaryUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
         timeout: float | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
-        # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = None,
         compression: Compression | None = None,
         # FIXME: Return value is documented as "The response value for the RPC and a Call value for the RPC";
@@ -578,7 +575,6 @@ class UnaryStreamMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
         timeout: float | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
-        # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = None,
         compression: Compression | None = None,
     ) -> _CallIterator[_TResponse]: ...
@@ -591,7 +587,6 @@ class StreamUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
         timeout: float | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
-        # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = None,
         compression: Compression | None = None,
     ) -> _TResponse: ...
@@ -602,7 +597,6 @@ class StreamUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
         timeout: float | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
-        # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = None,
         compression: Compression | None = None,
     ) -> _CallFuture[_TResponse]: ...
@@ -613,7 +607,6 @@ class StreamUnaryMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
         timeout: float | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
-        # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = None,
         compression: Compression | None = None,
         # FIXME: Return value is documented as "The response value for the RPC and a Call value for the RPC";
@@ -628,7 +621,6 @@ class StreamStreamMultiCallable(abc.ABC, Generic[_TRequest, _TResponse]):
         timeout: float | None = None,
         metadata: _Metadata | None = None,
         credentials: CallCredentials | None = None,
-        # FIXME: optional bool seems weird, but that's what the docs suggest
         wait_for_ready: bool | None = None,
         compression: Compression | None = None,
     ) -> _CallIterator[_TResponse]: ...
