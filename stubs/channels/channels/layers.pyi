@@ -1,7 +1,7 @@
 import asyncio
 from re import Pattern
-from typing import Any, TypeAlias, overload
-from typing_extensions import deprecated
+from typing import Any, overload
+from typing_extensions import TypeAlias, deprecated
 
 class ChannelLayerManager:
     backends: dict[str, BaseChannelLayer]

@@ -1,6 +1,6 @@
 from collections.abc import Iterable
-from typing import Any, Literal, TypeAlias, TypedDict, overload
-from typing_extensions import NotRequired
+from typing import Any, Literal, TypedDict, overload
+from typing_extensions import NotRequired, TypeAlias
 
 from asgiref.typing import ASGIVersions
 from channels.testing.application import ApplicationCommunicator
