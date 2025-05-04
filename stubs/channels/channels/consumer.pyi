@@ -4,6 +4,7 @@ from typing import Any, ClassVar, Protocol
 from asgiref.typing import ASGIReceiveCallable, ASGISendCallable, Scope, WebSocketScope
 from channels.auth import UserLazyObject
 from channels.db import database_sync_to_async
+from channels.layers import BaseChannelLayer
 from django.contrib.sessions.backends.base import SessionBase
 from django.utils.functional import LazyObject
 
@@ -35,7 +36,7 @@ class AsyncConsumer:
     channel_layer_alias: ClassVar[str] = ...
 
     scope: _ChannelScope
-    channel_layer: Any
+    channel_layer: BaseChannelLayer
     channel_name: str
     channel_receive: ASGIReceiveCallable
     base_send: ASGISendCallable
