@@ -8,7 +8,7 @@ import re
 import subprocess
 import sys
 from importlib.util import find_spec
-from pathlib import Path
+from pathlib import Path, PurePath
 
 from ts_utils.paths import TEST_CASES_DIR, test_cases_path
 from ts_utils.utils import colored
@@ -58,7 +58,9 @@ def main() -> None:
         choices=("3.9", "3.10", "3.11", "3.12", "3.13"),
         help="Target Python version for the test (default: %(default)s).",
     )
-    parser.add_argument("path", help="Path of the stub to test in format <folder>/<stub>, from the root of the project.")
+    parser.add_argument(
+        "path", help=f"Path of the stub to test in format {PurePath('<folder>', '<stub>')}, from the root of the project."
+    )
     args = parser.parse_args()
     path: str = args.path
     run_stubtest: bool = args.run_stubtest
@@ -66,7 +68,7 @@ def main() -> None:
 
     path_tokens = Path(path).parts
     if len(path_tokens) != 2:
-        parser.error("'path' argument should be in format <folder>/<stub>.")
+        parser.error(f"'path' argument should be in format {PurePath('<folder>', '<stub>')}.")
     folder, stub = path_tokens
     if folder not in {"stdlib", "stubs"}:
         parser.error("Only the 'stdlib' and 'stubs' folders are supported.")
