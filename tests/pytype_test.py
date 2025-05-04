@@ -100,7 +100,7 @@ def _get_relative(filename: StrPath) -> Path:
     filepath = Path(filename)
     for d in TYPESHED_SUBDIRS:
         try:
-            return filepath.relative_to(Path(d).parent)
+            return filepath.relative_to(Path(d).absolute().parent)
         except ValueError:
             continue
     raise ValueError(f"{filepath} not relative to {TYPESHED_SUBDIRS}")
