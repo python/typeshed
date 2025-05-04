@@ -1,5 +1,6 @@
 from collections.abc import Callable
-from typing import Any, ClassVar, TypeAlias
+from typing import Any, ClassVar
+from typing_extensions import TypeAlias
 
 from channels.routing import ProtocolTypeRouter
 from channels.utils import _ChannelApplication
