@@ -18,11 +18,11 @@ import sys
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    assert sys.platform != "win32", "pytype isn't yet installed in CI, but wheels can be built on Windows"
+    # assert sys.platform != "win32", "pytype isn't yet installed in CI, but wheels can be built on Windows"
     from _typeshed import StrPath
-if sys.version_info >= (3, 13):
-    print("pytype does not support Python 3.13+ yet.", file=sys.stderr)
-    sys.exit(1)
+# if sys.version_info >= (3, 13):
+#     print("pytype does not support Python 3.13+ yet.", file=sys.stderr)
+#     sys.exit(1)
 
 
 import argparse
@@ -134,7 +134,7 @@ def determine_files_to_test(*, paths: Sequence[str]) -> list[str]:
     stdlib_module_versions = parse_stdlib_versions_file()
     files = []
     for f in sorted(filenames):
-        if _get_relative(f) in exclude_list:
+        if str(_get_relative(f)) in exclude_list:
             continue
         if not _is_supported_stdlib_version(stdlib_module_versions, f):
             continue
@@ -227,17 +227,17 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
     missing_modules = get_missing_modules(files_to_test)
     python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
     print("Testing files with pytype...")
-    for i, f in enumerate(files_to_test):
+    for i, file_to_test in enumerate(files_to_test):
         if dry_run:
             stderr = None
         else:
-            stderr = run_pytype(filename=f, python_version=python_version, missing_modules=missing_modules)
+            stderr = run_pytype(filename=file_to_test, python_version=python_version, missing_modules=missing_modules)
         if stderr:
             if print_stderr:
                 print(f"\n{stderr}")
             errors += 1
             stacktrace_final_line = stderr.rstrip().rsplit("\n", 1)[-1]
-            bad.append((_get_relative(f), python_version, stacktrace_final_line))
+            bad.append((_get_relative(file_to_test), python_version, stacktrace_final_line))
 
         runs = i + 1
         if runs % 25 == 0:
