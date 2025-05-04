@@ -444,4 +444,21 @@ class GaussianDropout(Layer[tf.Tensor, tf.Tensor]):
         name: str | None = None,
     ) -> None: ...
 
+class MaxPooling2D(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(
+        self,
+        pool_size: int | tuple[int, int] = (2, 2),
+        strides: int | tuple[int, int] | None = None,
+        padding: Literal["valid", "same"] = "valid",
+        data_format: None | Literal["channels_last", "channels_first"] = None,
+        name: str | None = None,
+    ) -> None: ...
+
+MaxPool2D = MaxPooling2D
+
+class GlobalAveragePooling2D(Layer[tf.Tensor, tf.Tensor]):
+    def __init__(self, data_format: None | Literal["channels_last", "channels_first"] = None, keepdims: bool = False) -> None: ...
+
+GlobalAvgPool2D = GlobalAveragePooling2D
+
 def __getattr__(name: str) -> Incomplete: ...
