@@ -2,12 +2,13 @@ from typing import Any
 
 from asgiref.typing import WebSocketConnectEvent, WebSocketDisconnectEvent, WebSocketReceiveEvent
 from channels.consumer import AsyncConsumer, SyncConsumer, _ChannelScope
+from channels.layers import BaseChannelLayer
 
 class WebsocketConsumer(SyncConsumer):
     groups: list[str] | None
     scope: _ChannelScope
     channel_name: str
-    channel_layer: Any
+    channel_layer: BaseChannelLayer
     channel_receive: Any
     base_send: Any
 
@@ -37,7 +38,7 @@ class AsyncWebsocketConsumer(AsyncConsumer):
     groups: list[str] | None
     scope: _ChannelScope
     channel_name: str
-    channel_layer: Any
+    channel_layer: BaseChannelLayer
     channel_receive: Any
     base_send: Any
 
