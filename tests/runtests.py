@@ -138,7 +138,7 @@ def main() -> None:
         regr_test_returncode = 0
     else:
         print(f"\nRunning Pyright regression tests for Python {python_version}...")
-        command = [
+        command: list[str | Path] = [
             sys.executable,
             "tests/pyright_test.py",
             str(cases_path),
