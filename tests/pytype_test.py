@@ -18,11 +18,11 @@ import sys
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    # assert sys.platform != "win32", "pytype isn't yet installed in CI, but wheels can be built on Windows"
+    assert sys.platform != "win32", "pytype isn't yet installed in CI, but wheels can be built on Windows"
     from _typeshed import StrPath
-# if sys.version_info >= (3, 13):
-#     print("pytype does not support Python 3.13+ yet.", file=sys.stderr)
-#     sys.exit(1)
+if sys.version_info >= (3, 13):
+    print("pytype does not support Python 3.13+ yet.", file=sys.stderr)
+    sys.exit(1)
 
 
 import argparse
