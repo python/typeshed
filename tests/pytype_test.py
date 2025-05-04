@@ -134,7 +134,7 @@ def determine_files_to_test(*, paths: Sequence[str]) -> list[str]:
     stdlib_module_versions = parse_stdlib_versions_file()
     files = []
     for f in sorted(filenames):
-        if str(_get_relative(f)) in exclude_list:
+        if _get_relative(f).as_posix() in exclude_list:
             continue
         if not _is_supported_stdlib_version(stdlib_module_versions, f):
             continue
