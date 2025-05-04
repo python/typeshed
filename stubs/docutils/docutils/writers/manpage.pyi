@@ -1,3 +1,9 @@
 from _typeshed import Incomplete
 
+from docutils import nodes
+
+class Translator(nodes.NodeVisitor):
+    def visit_admonition(self, node: nodes.admonition, name: str | None = None) -> None: ...
+    def __getattr__(self, name: str, /) -> Incomplete: ...
+
 def __getattr__(name: str) -> Incomplete: ...
