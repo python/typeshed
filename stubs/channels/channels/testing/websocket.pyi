@@ -1,11 +1,12 @@
 from collections.abc import Iterable
-from typing import Any, Literal, TypedDict, overload
+from typing import Any, Literal, TypedDict, overload, type_check_only
 from typing_extensions import NotRequired, TypeAlias
 
 from asgiref.typing import ASGIVersions
 from channels.testing.application import ApplicationCommunicator
 from channels.utils import _ChannelApplication
 
+@type_check_only
 class _WebsocketTestScope(TypedDict, total=False):
     spec_version: int
     type: Literal["websocket"]
