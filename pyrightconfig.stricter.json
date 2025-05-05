@@ -81,6 +81,7 @@
         "stubs/PyMySQL",
         "stubs/python-crontab",
         "stubs/python-dateutil",
+        "stubs/python-decouple",
         "stubs/python-http-client",
         "stubs/python-jose",
         "stubs/pywin32",
