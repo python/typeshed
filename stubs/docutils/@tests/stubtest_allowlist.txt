@@ -12,6 +12,7 @@ docutils.nodes.Text.__new__
 docutils.parsers.recommonmark_wrapper
 docutils.parsers.rst.directives.admonitions.BaseAdmonition.node_class  # must be overridden by base classes (pseudo-abstract)
 docutils.parsers.rst.directives.misc.MetaBody.__getattr__
+docutils.readers.standalone.Reader.document
 docutils.statemachine.State.nested_sm  # is initialised in __init__
 docutils.statemachine.State.nested_sm_kwargs  # is initialised in __init__
 docutils.statemachine.ViewList.__iter__ # doesn't exist at runtime, but the class is iterable due to __getitem__
