@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, type_check_only
 
 from asgiref.typing import ASGIReceiveCallable, ASGISendCallable
 from django.urls.resolvers import URLPattern
@@ -14,6 +14,7 @@ class ProtocolTypeRouter:
     def __init__(self, application_mapping: dict[str, Any]) -> None: ...
     async def __call__(self, scope: _ChannelScope, receive: ASGIReceiveCallable, send: ASGISendCallable) -> None: ...
 
+@type_check_only
 class _ExtendedURLPattern(URLPattern):
     callback: _ASGIApplicationProtocol | URLRouter
 

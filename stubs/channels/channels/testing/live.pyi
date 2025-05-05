@@ -10,7 +10,7 @@ from django.db.backends.sqlite3.base import DatabaseWrapper
 from django.test.testcases import TransactionTestCase
 from django.test.utils import modify_settings
 
-DaphneProcess: TypeAlias = Any
+DaphneProcess: TypeAlias = Any  # TODO: temporary hack for daphne.testing.DaphneProcess; remove once daphne provides types
 
 _StaticWrapper: TypeAlias = Callable[[ProtocolTypeRouter], _ChannelApplication]
 
