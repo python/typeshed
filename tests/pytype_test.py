@@ -100,7 +100,7 @@ def _get_relative(filename: StrPath) -> Path:
     filepath = Path(filename)
     for d in TYPESHED_SUBDIRS:
         try:
-            return filepath.relative_to(d.parent)
+            return filepath.absolute().relative_to(Path(d).absolute().parent)
         except ValueError:
             continue
     raise ValueError(f"{filepath} not relative to {TYPESHED_SUBDIRS}")
@@ -135,7 +135,7 @@ def determine_files_to_test(*, paths: Iterable[Path]) -> list[Path]:
     return [
         f
         for f in sorted(filenames)
-        if str(_get_relative(f)) not in exclude_list and _is_supported_stdlib_version(stdlib_module_versions, f)
+        if _get_relative(f).as_posix() not in exclude_list and _is_supported_stdlib_version(stdlib_module_versions, f)
     ]
 
 

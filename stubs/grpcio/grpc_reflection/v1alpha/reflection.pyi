@@ -1,23 +1,28 @@
-import typing_extensions
 from _typeshed import Incomplete
 from collections.abc import Iterable
+from typing import Final
+from typing_extensions import TypeAlias
 
 import grpc
+import grpc.aio
 from google.protobuf import descriptor_pool
-from grpc import aio
 from grpc_reflection.v1alpha import reflection_pb2 as _reflection_pb2
 from grpc_reflection.v1alpha._base import BaseReflectionServicer
 
-SERVICE_NAME: str
+from . import _async as aio
 
-_AnyServer: typing_extensions.TypeAlias = grpc.Server | aio.Server
-_AnyServicerContext: typing_extensions.TypeAlias = grpc.ServicerContext | aio.ServicerContext[Incomplete, Incomplete]
+SERVICE_NAME: Final[str]
+
+_AnyServer: TypeAlias = grpc.Server | grpc.aio.Server
+_AnyServicerContext: TypeAlias = grpc.ServicerContext | grpc.aio.ServicerContext[Incomplete, Incomplete]
 
 class ReflectionServicer(BaseReflectionServicer):
     def ServerReflectionInfo(
         self, request_iterator: Iterable[_reflection_pb2.ServerReflectionRequest], context: _AnyServicerContext
-    ) -> None: ...
+    ): ...
 
 def enable_server_reflection(
-    service_names: Iterable[str], server: _AnyServer, pool: descriptor_pool.DescriptorPool | None = ...
+    service_names: Iterable[str], server: _AnyServer, pool: descriptor_pool.DescriptorPool | None = None
 ) -> None: ...
+
+__all__ = ["SERVICE_NAME", "ReflectionServicer", "enable_server_reflection", "aio"]
