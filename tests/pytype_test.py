@@ -123,7 +123,7 @@ def check_subdirs_discoverable(subdir_paths: Iterable[Path]) -> None:
             raise SystemExit(f"Cannot find typeshed subdir at {p} (specify parent dir via --typeshed-location)")
 
 
-def determine_files_to_test(*, paths: Sequence[Path]) -> list[Path]:
+def determine_files_to_test(*, paths: Iterable[Path]) -> list[Path]:
     """Determine all files to test.
 
     Checks for files in the pytype exclude list and for the stdlib VERSIONS file.
@@ -139,7 +139,7 @@ def determine_files_to_test(*, paths: Sequence[Path]) -> list[Path]:
     ]
 
 
-def find_stubs_in_paths(paths: Sequence[Path]) -> list[Path]:
+def find_stubs_in_paths(paths: Iterable[Path]) -> list[Path]:
     filenames: list[Path] = []
     for path in paths:
         if path.is_dir():
@@ -178,7 +178,7 @@ def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
     return sorted({package.removesuffix("-stubs") for package in packages})
 
 
-def get_missing_modules(files_to_test: Sequence[Path]) -> Iterable[str]:
+def get_missing_modules(files_to_test: Iterable[Path]) -> Iterable[str]:
     """Get names of modules that should be treated as missing.
 
     Some typeshed stubs depend on dependencies outside of typeshed. Since pytype
