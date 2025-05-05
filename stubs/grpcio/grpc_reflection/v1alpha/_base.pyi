@@ -1,6 +1,6 @@
-from _typeshed import Incomplete
+from grpc_reflection.v1alpha import reflection_pb2_grpc
 
-def __getattr__(name: str) -> Incomplete: ...
+class BaseReflectionServicer(reflection_pb2_grpc.ServerReflectionServicer):
+    def __init__(self, service_names, pool=None) -> None: ...
 
-# FIXME: Incomplete
-class BaseReflectionServicer: ...
+__all__ = ["BaseReflectionServicer"]
