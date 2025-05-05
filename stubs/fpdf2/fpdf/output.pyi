@@ -5,7 +5,7 @@ from typing import Final
 
 from .annotations import AnnotationDict
 from .encryption import StandardSecurityHandler
-from .enums import PageLabelStyle
+from .enums import OutputIntentSubType, PageLabelStyle, PDFResourceType
 from .fpdf import FPDF
 from .image_datastructures import RasterImageInfo
 from .line_break import TotalPagesSubstitutionFragment
@@ -86,6 +86,7 @@ class PDFCatalog(PDFObject):
     metadata: Incomplete | None
     names: Incomplete | None
     outlines: Incomplete | None
+    output_intents: Incomplete | None
     struct_tree_root: Incomplete | None
     def __init__(
         self,
@@ -100,7 +101,9 @@ class PDFResources(PDFObject):
     font: Incomplete
     x_object: Incomplete
     ext_g_state: Incomplete
-    def __init__(self, proc_set, font, x_object, ext_g_state) -> None: ...
+    shading: Incomplete
+    pattern: Incomplete
+    def __init__(self, proc_set, font, x_object, ext_g_state, shading, pattern) -> None: ...
 
 class PDFFontStream(PDFContentStream):
     length1: int
@@ -135,7 +138,7 @@ class PDFXObject(PDFContentStream):
         decode_parms: Incomplete | None = None,
     ) -> None: ...
 
-class PDFICCPObject(PDFContentStream):
+class PDFICCProfile(PDFContentStream):
     n: Incomplete
     alternate: Name
     def __init__(self, contents: bytes, n, alternate: str) -> None: ...
@@ -164,7 +167,8 @@ class PDFPage(PDFObject):
     resources: Incomplete | None
     parent: Incomplete | None
     def __init__(self, duration: Incomplete | None, transition, contents, index) -> None: ...
-    def index(self): ...
+    def index(self) -> int: ...
+    def set_index(self, i: int) -> None: ...
     def dimensions(self) -> tuple[float | None, float | None]: ...
     def set_dimensions(self, width_pt: float | None, height_pt: float | None) -> None: ...
     def set_page_label(self, previous_page_label: PDFPageLabel, page_label: PDFPageLabel) -> None: ...
@@ -191,6 +195,35 @@ class PDFXrefAndTrailer(ContentWithoutID):
     info_obj: Incomplete | None
     def __init__(self, output_builder) -> None: ...
     def serialize(self, _security_handler: StandardSecurityHandler | None = None) -> str: ...
+
+class OutputIntentDictionary:
+    type: Name
+    s: Name
+    output_condition_identifier: PDFString | None
+    output_condition: PDFString | None
+    registry_name: PDFString | None
+    dest_output_profile: Incomplete | None
+    info: PDFString | None
+
+    def __init__(
+        self,
+        subtype: OutputIntentSubType | str,
+        output_condition_identifier: str,
+        output_condition: str | None = None,
+        registry_name: str | None = None,
+        dest_output_profile: PDFICCProfile | None = None,
+        info: str | None = None,
+    ) -> None: ...
+    def serialize(self, _security_handler: StandardSecurityHandler | None = None, _obj_id: Incomplete | None = None): ...
+
+class ResourceCatalog:
+    resources: defaultdict[PDFResourceType, dict[Incomplete, Incomplete]]
+    resources_per_page: defaultdict[tuple[int, PDFResourceType], set[Incomplete]]
+
+    def add(self, resource_type: PDFResourceType, resource, page_number: int) -> Incomplete | None: ...
+    def get_items(self, resource_type: PDFResourceType): ...
+    def get_resources_per_page(self, page_number: int, resource_type: PDFResourceType): ...
+    def get_used_resources(self, resource_type: PDFResourceType) -> set[Incomplete]: ...
 
 class OutputProducer:
     fpdf: FPDF

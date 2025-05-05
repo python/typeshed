@@ -9,6 +9,10 @@
 
 zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
 
+# Initialized at runtime
+typing_extensions.TypeAliasType.__parameters__
+typing_extensions.TypeAliasType.__value__
+
 
 # ====================================
 # Pre-existing errors from Python 3.11
@@ -44,8 +48,6 @@ _collections_abc.MutableMapping.setdefault
 posixpath.join
 ntpath.join
 os.path.join
-
-types.DynamicClassAttribute..*  # In the stub we pretend it's an alias for property, but it has positional-only differences
 
 # typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
 # to mark these as positional-only for compatibility with existing sub-classes.
@@ -159,8 +161,6 @@ builtins.property.__set_name__  # Doesn't actually exist
 collections\.UserList\.index  # ignoring pos-or-keyword parameter
 dataclasses.KW_ONLY  # white lies around defaults
 importlib.metadata._meta.SimplePath.joinpath  # Runtime definition of protocol is incorrect
-unittest.TestCase.__init_subclass__  # Runtime has *args, **kwargs, but will error if any are supplied
-unittest.case.TestCase.__init_subclass__  # Runtime has *args, **kwargs, but will error if any are supplied
 
 
 # ===============================================================
@@ -228,3 +228,9 @@ sunau.Au_write.initfp
 threading.Lock  # Factory function at runtime, but that wouldn't let us use it in type hints
 types.SimpleNamespace.__init__  # class doesn't accept positional arguments but has default C signature
 typing_extensions\.Annotated  # Undocumented implementation details
+
+# These methods have no default implementation for Python < 3.13.
+_pickle.Pickler.persistent_id
+_pickle.Unpickler.persistent_load
+pickle.Pickler.persistent_id
+pickle.Unpickler.persistent_load

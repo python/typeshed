@@ -5,13 +5,14 @@
 
 from __future__ import annotations
 
+import functools
 import re
 import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Final, NamedTuple, final
-from typing_extensions import Annotated, TypeGuard
+from typing import Annotated, Final, NamedTuple, final
+from typing_extensions import TypeGuard
 
 import tomli
 import tomlkit
@@ -19,7 +20,6 @@ from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
 
 from .paths import PYPROJECT_PATH, STUBS_PATH, distribution_path
-from .utils import cache
 
 __all__ = [
     "NoSuchStubError",
@@ -42,7 +42,7 @@ def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
     return isinstance(obj, list) and all(isinstance(item, str) for item in obj)
 
 
-@cache
+@functools.cache
 def _get_oldest_supported_python() -> str:
     with PYPROJECT_PATH.open("rb") as config:
         val = tomli.load(config)["tool"]["typeshed"]["oldest_supported_python"]
@@ -79,7 +79,7 @@ class StubtestSettings:
         return ret
 
 
-@cache
+@functools.cache
 def read_stubtest_settings(distribution: str) -> StubtestSettings:
     """Return an object describing the stubtest settings for a single stubs distribution."""
     with metadata_path(distribution).open("rb") as f:
@@ -166,6 +166,7 @@ _KNOWN_METADATA_FIELDS: Final = frozenset(
         "tool",
         "partial_stub",
         "requires_python",
+        "mypy-tests",
     }
 )
 _KNOWN_METADATA_TOOL_FIELDS: Final = {
@@ -187,7 +188,7 @@ class NoSuchStubError(ValueError):
     """Raise NoSuchStubError to indicate that a stubs/{distribution} directory doesn't exist."""
 
 
-@cache
+@functools.cache
 def read_metadata(distribution: str) -> StubMetadata:
     """Return an object describing the metadata of a stub as given in the METADATA.toml file.
 
@@ -328,12 +329,12 @@ class PackageDependencies(NamedTuple):
     external_pkgs: tuple[Requirement, ...]
 
 
-@cache
+@functools.cache
 def get_pypi_name_to_typeshed_name_mapping() -> Mapping[str, str]:
-    return {read_metadata(dir.name).stub_distribution: dir.name for dir in STUBS_PATH.iterdir()}
+    return {read_metadata(stub_dir.name).stub_distribution: stub_dir.name for stub_dir in STUBS_PATH.iterdir()}
 
 
-@cache
+@functools.cache
 def read_dependencies(distribution: str) -> PackageDependencies:
     """Read the dependencies listed in a METADATA.toml file for a stubs package.
 
@@ -360,7 +361,7 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     return PackageDependencies(tuple(typeshed), tuple(external))
 
 
-@cache
+@functools.cache
 def get_recursive_requirements(package_name: str) -> PackageDependencies:
     """Recursively gather dependencies for a single stubs package.
 

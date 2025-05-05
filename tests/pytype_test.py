@@ -19,6 +19,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     assert sys.platform != "win32", "pytype isn't yet installed in CI, but wheels can be built on Windows"
+    from _typeshed import StrPath
 if sys.version_info >= (3, 13):
     print("pytype does not support Python 3.13+ yet.", file=sys.stderr)
     sys.exit(1)
@@ -30,6 +31,7 @@ import inspect
 import os
 import traceback
 from collections.abc import Iterable, Sequence
+from pathlib import Path
 
 # pytype is not py.typed https://github.com/google/pytype/issues/1325
 from pytype import config as pytype_config, load_pytd  # type: ignore[import]
@@ -94,21 +96,19 @@ def run_pytype(*, filename: str, python_version: str, missing_modules: Iterable[
     return stderr
 
 
-def _get_relative(filename: str) -> str:
-    top = 0
+def _get_relative(filename: StrPath) -> Path:
+    filepath = Path(filename)
     for d in TYPESHED_SUBDIRS:
         try:
-            top = filename.index(d + os.path.sep)
+            return filepath.absolute().relative_to(Path(d).absolute().parent)
         except ValueError:
             continue
-        else:
-            break
-    return filename[top:]
+    raise ValueError(f"{filepath} not relative to {TYPESHED_SUBDIRS}")
 
 
 def _get_module_name(filename: str) -> str:
     """Convert a filename {subdir}/m.n/module/foo to module.foo."""
-    parts = _get_relative(filename).split(os.path.sep)
+    parts = _get_relative(filename).parts
     if parts[0] == "stdlib":
         module_parts = parts[1:]
     else:
@@ -134,7 +134,7 @@ def determine_files_to_test(*, paths: Sequence[str]) -> list[str]:
     stdlib_module_versions = parse_stdlib_versions_file()
     files = []
     for f in sorted(filenames):
-        if _get_relative(f) in exclude_list:
+        if _get_relative(f).as_posix() in exclude_list:
             continue
         if not _is_supported_stdlib_version(stdlib_module_versions, f):
             continue
@@ -154,7 +154,7 @@ def find_stubs_in_paths(paths: Sequence[str]) -> list[str]:
 
 
 def _is_supported_stdlib_version(module_versions: SupportedVersionsDict, filename: str) -> bool:
-    parts = _get_relative(filename).split(os.path.sep)
+    parts = _get_relative(filename).parts
     if parts[0] != "stdlib":
         return True
     module_name = _get_module_name(filename)
@@ -227,17 +227,17 @@ def run_all_tests(*, files_to_test: Sequence[str], print_stderr: bool, dry_run: 
     missing_modules = get_missing_modules(files_to_test)
     python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
     print("Testing files with pytype...")
-    for i, f in enumerate(files_to_test):
+    for i, file_to_test in enumerate(files_to_test):
         if dry_run:
             stderr = None
         else:
-            stderr = run_pytype(filename=f, python_version=python_version, missing_modules=missing_modules)
+            stderr = run_pytype(filename=file_to_test, python_version=python_version, missing_modules=missing_modules)
         if stderr:
             if print_stderr:
                 print(f"\n{stderr}")
             errors += 1
             stacktrace_final_line = stderr.rstrip().rsplit("\n", 1)[-1]
-            bad.append((_get_relative(f), python_version, stacktrace_final_line))
+            bad.append((_get_relative(file_to_test), python_version, stacktrace_final_line))
 
         runs = i + 1
         if runs % 25 == 0:

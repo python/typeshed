@@ -6,7 +6,7 @@ from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from enum import Enum
 from types import TracebackType
-from typing import Any, Generic, NoReturn, TypeVar, overload
+from typing import Any, Generic, Literal, TypeVar, overload
 from typing_extensions import ParamSpec, Self
 
 from google.protobuf.message import Message
@@ -20,7 +20,17 @@ from tensorflow import (
     math as math,
     types as types,
 )
-from tensorflow._aliases import AnyArray, DTypeLike, ShapeLike, Slice, TensorCompatible
+from tensorflow._aliases import (
+    AnyArray,
+    DTypeLike,
+    IntArray,
+    ScalarTensorCompatible,
+    ShapeLike,
+    Slice,
+    SparseTensorCompatible,
+    TensorCompatible,
+    UIntTensorCompatible,
+)
 from tensorflow.autodiff import GradientTape as GradientTape
 from tensorflow.core.protobuf import struct_pb2
 from tensorflow.dtypes import *
@@ -56,6 +66,7 @@ from tensorflow.math import (
     reduce_min as reduce_min,
     reduce_prod as reduce_prod,
     reduce_sum as reduce_sum,
+    round as round,
     sigmoid as sigmoid,
     sign as sign,
     sin as sin,
@@ -114,7 +125,7 @@ class Tensor:
     def __gt__(self, other: TensorCompatible, name: str | None = None) -> Tensor: ...
     def __le__(self, other: TensorCompatible, name: str | None = None) -> Tensor: ...
     def __lt__(self, other: TensorCompatible, name: str | None = None) -> Tensor: ...
-    def __bool__(self) -> NoReturn: ...
+    def __bool__(self) -> _bool: ...
     def __getitem__(self, slice_spec: Slice | tuple[Slice, ...]) -> Tensor: ...
     def __len__(self) -> int: ...
     # This only works for rank 0 tensors.
@@ -136,7 +147,7 @@ class VariableAggregation(Enum):
 class _VariableMetaclass(type): ...
 
 # Variable class in intent/documentation is a Tensor. In implementation there's
-# TODO comment to make it Tensor. It is not actually Tensor type wise, but even
+# TODO: comment to make it Tensor. It is not actually Tensor type wise, but even
 # dynamically patches on most methods of tf.Tensor
 # https://github.com/tensorflow/tensorflow/blob/9524a636cae9ae3f0554203c1ba7ee29c85fcf12/tensorflow/python/ops/variables.py#L1086.
 class Variable(Tensor, metaclass=_VariableMetaclass):
@@ -403,4 +414,22 @@ def ones_like(
     input: RaggedTensor, dtype: DTypeLike | None = None, name: str | None = None, layout: Layout | None = None
 ) -> RaggedTensor: ...
 def reshape(tensor: TensorCompatible, shape: ShapeLike | Tensor, name: str | None = None) -> Tensor: ...
+def pad(
+    tensor: TensorCompatible,
+    paddings: Tensor | IntArray | Iterable[Iterable[int]],
+    mode: Literal["CONSTANT", "constant", "REFLECT", "reflect", "SYMMETRIC", "symmetric"] = "CONSTANT",
+    constant_values: ScalarTensorCompatible = 0,
+    name: str | None = None,
+) -> Tensor: ...
+def shape(input: SparseTensorCompatible, out_type: DTypeLike | None = None, name: str | None = None) -> Tensor: ...
+def where(
+    condition: TensorCompatible, x: TensorCompatible | None = None, y: TensorCompatible | None = None, name: str | None = None
+) -> Tensor: ...
+def gather_nd(
+    params: TensorCompatible,
+    indices: UIntTensorCompatible,
+    batch_dims: UIntTensorCompatible = 0,
+    name: str | None = None,
+    bad_indices_policy: Literal["", "DEFAULT", "ERROR", "IGNORE"] = "",
+) -> Tensor: ...
 def __getattr__(name: str) -> Incomplete: ...
