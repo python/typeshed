@@ -40,7 +40,7 @@ from ts_utils.metadata import read_dependencies
 from ts_utils.paths import STDLIB_PATH, STUBS_PATH, TS_BASE_PATH
 from ts_utils.utils import SupportedVersionsDict, parse_stdlib_versions_file, supported_versions_for_module
 
-TYPESHED_SUBDIRS = [STDLIB_PATH, STUBS_PATH]
+TYPESHED_SUBDIRS = [STDLIB_PATH.absolute(), STUBS_PATH.absolute()]
 TYPESHED_HOME = "TYPESHED_HOME"
 EXCLUDE_LIST = TS_BASE_PATH / "tests" / "pytype_exclude_list.txt"
 _LOADERS: dict[str, tuple[pytype_config.Options, load_pytd.Loader]] = {}
@@ -100,7 +100,7 @@ def _get_relative(filename: StrPath) -> Path:
     filepath = Path(filename)
     for d in TYPESHED_SUBDIRS:
         try:
-            return filepath.absolute().relative_to(Path(d).absolute().parent)
+            return filepath.absolute().relative_to(d.parent)
         except ValueError:
             continue
     raise ValueError(f"{filepath} not relative to {TYPESHED_SUBDIRS}")
