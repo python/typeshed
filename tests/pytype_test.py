@@ -205,13 +205,13 @@ def get_missing_modules(files_to_test: Sequence[Path]) -> Iterable[str]:
     }
 
     with EXCLUDE_LIST.open() as f:
-        for excluded_file in f:
-            if not excluded_file.startswith("stubs/"):
+        for line in f:
+            if not line.startswith("stubs/"):
                 # Skips comments, empty lines, and stdlib files, which are in
                 # the exclude list because pytype has its own version.
                 continue
-            parts = Path(excluded_file.strip()).with_suffix("").parts
-            missing_modules.add("/".join(parts[2:]))
+            _ts_subdir, _distribution, module_path = line.split("/", 2)
+            missing_modules.add(module_path.rsplit(".", 1)[0])
     return missing_modules
 
 
