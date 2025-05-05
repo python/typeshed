@@ -73,7 +73,7 @@ from typing_extensions import (  # noqa: Y023
 )
 
 _T = TypeVar("_T")
-_I = TypeVar("_I", default=int)
+_I = TypeVar("_I", int, bytes, float, bool, default=int)  # possibly memoryview types
 _T_co = TypeVar("_T_co", covariant=True)
 _T_contra = TypeVar("_T_contra", contravariant=True)
 _R_co = TypeVar("_R_co", covariant=True)
@@ -872,7 +872,7 @@ class memoryview(Sequence[_I]):
     @overload
     def cast(self, format: Literal["?"], shape: list[int] | tuple[int, ...] = ...) -> memoryview[bool]: ...
     @overload
-    def cast(self, format: _IntegerFormats, shape: list[int] | tuple[int, ...] = ...) -> memoryview: ...
+    def cast(self, format: _IntegerFormats, shape: list[int] | tuple[int, ...] = ...) -> memoryview[int]: ...
     @overload
     def __getitem__(self, key: SupportsIndex | tuple[SupportsIndex, ...], /) -> _I: ...
     @overload
