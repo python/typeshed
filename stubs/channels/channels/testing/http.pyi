@@ -1,5 +1,5 @@
 from collections.abc import Iterable
-from typing import Literal, TypedDict
+from typing import Literal, TypedDict, type_check_only
 
 from channels.testing.application import ApplicationCommunicator
 from channels.utils import _ChannelApplication
@@ -10,6 +10,7 @@ class _HTTPTestResponse(TypedDict, total=False):
     headers: Iterable[tuple[bytes, bytes]]
     body: bytes
 
+@type_check_only
 class _HTTPTestScope(TypedDict, total=False):
     type: Literal["http"]
     http_version: str
