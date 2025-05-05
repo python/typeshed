@@ -9,11 +9,6 @@ requires-python = ">=3.9" # Minimum version to run tests, used by uv run
 line-length = 130
 target-version = ["py310"]
 skip-magic-trailing-comma = true
-# Exclude protobuf files because they have long line lengths
-# that can't be autofixed. Like docstrings and import aliases.
-# Ideally, we could configure Black to allow longer line lengths
-# for just these files, but doesn't seem possible yet.
-force-exclude = ".*_pb2.pyi"
 
 [tool.ruff]
 line-length = 130

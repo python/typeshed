@@ -4,8 +4,3 @@
 grpc.RpcError.code
 grpc.RpcError.details
 grpc.RpcError.trailing_metadata
-
-# Error: is inconsistent
-# =============================
-# Stub class is incomplete.
-grpc_reflection.v1alpha._base.BaseReflectionServicer.__init__
