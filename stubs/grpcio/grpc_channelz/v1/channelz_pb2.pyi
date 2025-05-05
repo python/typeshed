@@ -7,6 +7,7 @@ from google.protobuf import any_pb2, duration_pb2, message, timestamp_pb2, wrapp
 from google.protobuf.internal import containers
 
 DESCRIPTOR: FileDescriptor
+
 @final
 class Channel(message.Message, metaclass=MessageMeta):
     REF_FIELD_NUMBER: ClassVar[int]
@@ -19,7 +20,14 @@ class Channel(message.Message, metaclass=MessageMeta):
     channel_ref: containers.RepeatedCompositeFieldContainer[ChannelRef]
     subchannel_ref: containers.RepeatedCompositeFieldContainer[SubchannelRef]
     socket_ref: containers.RepeatedCompositeFieldContainer[SocketRef]
-    def __init__(self, ref: ChannelRef | Mapping[Incomplete, Incomplete] | None = ..., data: ChannelData | Mapping[Incomplete, Incomplete] | None = ..., channel_ref: Iterable[ChannelRef | Mapping[Incomplete, Incomplete]] | None = ..., subchannel_ref: Iterable[SubchannelRef | Mapping[Incomplete, Incomplete]] | None = ..., socket_ref: Iterable[SocketRef | Mapping[Incomplete, Incomplete]] | None = ...) -> None: ...
+    def __init__(
+        self,
+        ref: ChannelRef | Mapping[Incomplete, Incomplete] | None = ...,
+        data: ChannelData | Mapping[Incomplete, Incomplete] | None = ...,
+        channel_ref: Iterable[ChannelRef | Mapping[Incomplete, Incomplete]] | None = ...,
+        subchannel_ref: Iterable[SubchannelRef | Mapping[Incomplete, Incomplete]] | None = ...,
+        socket_ref: Iterable[SocketRef | Mapping[Incomplete, Incomplete]] | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -34,7 +42,14 @@ class Subchannel(message.Message, metaclass=MessageMeta):
     channel_ref: containers.RepeatedCompositeFieldContainer[ChannelRef]
     subchannel_ref: containers.RepeatedCompositeFieldContainer[SubchannelRef]
     socket_ref: containers.RepeatedCompositeFieldContainer[SocketRef]
-    def __init__(self, ref: SubchannelRef | Mapping[Incomplete, Incomplete] | None = ..., data: ChannelData | Mapping[Incomplete, Incomplete] | None = ..., channel_ref: Iterable[ChannelRef | Mapping[Incomplete, Incomplete]] | None = ..., subchannel_ref: Iterable[SubchannelRef | Mapping[Incomplete, Incomplete]] | None = ..., socket_ref: Iterable[SocketRef | Mapping[Incomplete, Incomplete]] | None = ...) -> None: ...
+    def __init__(
+        self,
+        ref: SubchannelRef | Mapping[Incomplete, Incomplete] | None = ...,
+        data: ChannelData | Mapping[Incomplete, Incomplete] | None = ...,
+        channel_ref: Iterable[ChannelRef | Mapping[Incomplete, Incomplete]] | None = ...,
+        subchannel_ref: Iterable[SubchannelRef | Mapping[Incomplete, Incomplete]] | None = ...,
+        socket_ref: Iterable[SocketRef | Mapping[Incomplete, Incomplete]] | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -67,7 +82,16 @@ class ChannelData(message.Message, metaclass=MessageMeta):
     calls_succeeded: int
     calls_failed: int
     last_call_started_timestamp: timestamp_pb2.Timestamp
-    def __init__(self, state: ChannelConnectivityState | Mapping[Incomplete, Incomplete] | None = ..., target: str | None = ..., trace: ChannelTrace | Mapping[Incomplete, Incomplete] | None = ..., calls_started: int | None = ..., calls_succeeded: int | None = ..., calls_failed: int | None = ..., last_call_started_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
+    def __init__(
+        self,
+        state: ChannelConnectivityState | Mapping[Incomplete, Incomplete] | None = ...,
+        target: str | None = ...,
+        trace: ChannelTrace | Mapping[Incomplete, Incomplete] | None = ...,
+        calls_started: int | None = ...,
+        calls_succeeded: int | None = ...,
+        calls_failed: int | None = ...,
+        last_call_started_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -87,7 +111,14 @@ class ChannelTraceEvent(message.Message, metaclass=MessageMeta):
     timestamp: timestamp_pb2.Timestamp
     channel_ref: ChannelRef
     subchannel_ref: SubchannelRef
-    def __init__(self, description: str | None = ..., severity: Incomplete | str | None = ..., timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ..., channel_ref: ChannelRef | Mapping[Incomplete, Incomplete] | None = ..., subchannel_ref: SubchannelRef | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
+    def __init__(
+        self,
+        description: str | None = ...,
+        severity: Incomplete | str | None = ...,
+        timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ...,
+        channel_ref: ChannelRef | Mapping[Incomplete, Incomplete] | None = ...,
+        subchannel_ref: SubchannelRef | Mapping[Incomplete, Incomplete] | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -98,7 +129,12 @@ class ChannelTrace(message.Message, metaclass=MessageMeta):
     num_events_logged: int
     creation_timestamp: timestamp_pb2.Timestamp
     events: containers.RepeatedCompositeFieldContainer[ChannelTraceEvent]
-    def __init__(self, num_events_logged: int | None = ..., creation_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ..., events: Iterable[ChannelTraceEvent | Mapping[Incomplete, Incomplete]] | None = ...) -> None: ...
+    def __init__(
+        self,
+        num_events_logged: int | None = ...,
+        creation_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ...,
+        events: Iterable[ChannelTraceEvent | Mapping[Incomplete, Incomplete]] | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -145,7 +181,12 @@ class Server(message.Message, metaclass=MessageMeta):
     ref: ServerRef
     data: ServerData
     listen_socket: containers.RepeatedCompositeFieldContainer[SocketRef]
-    def __init__(self, ref: ServerRef | Mapping[Incomplete, Incomplete] | None = ..., data: ServerData | Mapping[Incomplete, Incomplete] | None = ..., listen_socket: Iterable[SocketRef | Mapping[Incomplete, Incomplete]] | None = ...) -> None: ...
+    def __init__(
+        self,
+        ref: ServerRef | Mapping[Incomplete, Incomplete] | None = ...,
+        data: ServerData | Mapping[Incomplete, Incomplete] | None = ...,
+        listen_socket: Iterable[SocketRef | Mapping[Incomplete, Incomplete]] | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -160,7 +201,14 @@ class ServerData(message.Message, metaclass=MessageMeta):
     calls_succeeded: int
     calls_failed: int
     last_call_started_timestamp: timestamp_pb2.Timestamp
-    def __init__(self, trace: ChannelTrace | Mapping[Incomplete, Incomplete] | None = ..., calls_started: int | None = ..., calls_succeeded: int | None = ..., calls_failed: int | None = ..., last_call_started_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
+    def __init__(
+        self,
+        trace: ChannelTrace | Mapping[Incomplete, Incomplete] | None = ...,
+        calls_started: int | None = ...,
+        calls_succeeded: int | None = ...,
+        calls_failed: int | None = ...,
+        last_call_started_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -177,7 +225,15 @@ class Socket(message.Message, metaclass=MessageMeta):
     remote: Address
     security: Security
     remote_name: str
-    def __init__(self, ref: SocketRef | Mapping[Incomplete, Incomplete] | None = ..., data: SocketData | Mapping[Incomplete, Incomplete] | None = ..., local: Address | Mapping[Incomplete, Incomplete] | None = ..., remote: Address | Mapping[Incomplete, Incomplete] | None = ..., security: Security | Mapping[Incomplete, Incomplete] | None = ..., remote_name: str | None = ...) -> None: ...
+    def __init__(
+        self,
+        ref: SocketRef | Mapping[Incomplete, Incomplete] | None = ...,
+        data: SocketData | Mapping[Incomplete, Incomplete] | None = ...,
+        local: Address | Mapping[Incomplete, Incomplete] | None = ...,
+        remote: Address | Mapping[Incomplete, Incomplete] | None = ...,
+        security: Security | Mapping[Incomplete, Incomplete] | None = ...,
+        remote_name: str | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -208,7 +264,22 @@ class SocketData(message.Message, metaclass=MessageMeta):
     local_flow_control_window: wrappers_pb2.Int64Value
     remote_flow_control_window: wrappers_pb2.Int64Value
     option: containers.RepeatedCompositeFieldContainer[SocketOption]
-    def __init__(self, streams_started: int | None = ..., streams_succeeded: int | None = ..., streams_failed: int | None = ..., messages_sent: int | None = ..., messages_received: int | None = ..., keep_alives_sent: int | None = ..., last_local_stream_created_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ..., last_remote_stream_created_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ..., last_message_sent_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ..., last_message_received_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ..., local_flow_control_window: wrappers_pb2.Int64Value | Mapping[Incomplete, Incomplete] | None = ..., remote_flow_control_window: wrappers_pb2.Int64Value | Mapping[Incomplete, Incomplete] | None = ..., option: Iterable[SocketOption | Mapping[Incomplete, Incomplete]] | None = ...) -> None: ...
+    def __init__(
+        self,
+        streams_started: int | None = ...,
+        streams_succeeded: int | None = ...,
+        streams_failed: int | None = ...,
+        messages_sent: int | None = ...,
+        messages_received: int | None = ...,
+        keep_alives_sent: int | None = ...,
+        last_local_stream_created_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ...,
+        last_remote_stream_created_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ...,
+        last_message_sent_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ...,
+        last_message_received_timestamp: timestamp_pb2.Timestamp | Mapping[Incomplete, Incomplete] | None = ...,
+        local_flow_control_window: wrappers_pb2.Int64Value | Mapping[Incomplete, Incomplete] | None = ...,
+        remote_flow_control_window: wrappers_pb2.Int64Value | Mapping[Incomplete, Incomplete] | None = ...,
+        option: Iterable[SocketOption | Mapping[Incomplete, Incomplete]] | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -220,11 +291,13 @@ class Address(message.Message, metaclass=MessageMeta):
         ip_address: bytes
         port: int
         def __init__(self, ip_address: bytes | None = ..., port: int | None = ...) -> None: ...
+
     @final
     class UdsAddress(message.Message, metaclass=MessageMeta):
         FILENAME_FIELD_NUMBER: ClassVar[int]
         filename: str
         def __init__(self, filename: str | None = ...) -> None: ...
+
     @final
     class OtherAddress(message.Message, metaclass=MessageMeta):
         NAME_FIELD_NUMBER: ClassVar[int]
@@ -232,13 +305,19 @@ class Address(message.Message, metaclass=MessageMeta):
         name: str
         value: any_pb2.Any
         def __init__(self, name: str | None = ..., value: any_pb2.Any | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
+
     TCPIP_ADDRESS_FIELD_NUMBER: ClassVar[int]
     UDS_ADDRESS_FIELD_NUMBER: ClassVar[int]
     OTHER_ADDRESS_FIELD_NUMBER: ClassVar[int]
     tcpip_address: Address.TcpIpAddress
     uds_address: Address.UdsAddress
     other_address: Address.OtherAddress
-    def __init__(self, tcpip_address: Address.TcpIpAddress | Mapping[Incomplete, Incomplete] | None = ..., uds_address: Address.UdsAddress | Mapping[Incomplete, Incomplete] | None = ..., other_address: Address.OtherAddress | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
+    def __init__(
+        self,
+        tcpip_address: Address.TcpIpAddress | Mapping[Incomplete, Incomplete] | None = ...,
+        uds_address: Address.UdsAddress | Mapping[Incomplete, Incomplete] | None = ...,
+        other_address: Address.OtherAddress | Mapping[Incomplete, Incomplete] | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -253,7 +332,14 @@ class Security(message.Message, metaclass=MessageMeta):
         other_name: str
         local_certificate: bytes
         remote_certificate: bytes
-        def __init__(self, standard_name: str | None = ..., other_name: str | None = ..., local_certificate: bytes | None = ..., remote_certificate: bytes | None = ...) -> None: ...
+        def __init__(
+            self,
+            standard_name: str | None = ...,
+            other_name: str | None = ...,
+            local_certificate: bytes | None = ...,
+            remote_certificate: bytes | None = ...,
+        ) -> None: ...
+
     @final
     class OtherSecurity(message.Message, metaclass=MessageMeta):
         NAME_FIELD_NUMBER: ClassVar[int]
@@ -261,11 +347,16 @@ class Security(message.Message, metaclass=MessageMeta):
         name: str
         value: any_pb2.Any
         def __init__(self, name: str | None = ..., value: any_pb2.Any | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
+
     TLS_FIELD_NUMBER: ClassVar[int]
     OTHER_FIELD_NUMBER: ClassVar[int]
     tls: Security.Tls
     other: Security.OtherSecurity
-    def __init__(self, tls: Security.Tls | Mapping[Incomplete, Incomplete] | None = ..., other: Security.OtherSecurity | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
+    def __init__(
+        self,
+        tls: Security.Tls | Mapping[Incomplete, Incomplete] | None = ...,
+        other: Security.OtherSecurity | Mapping[Incomplete, Incomplete] | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -276,7 +367,12 @@ class SocketOption(message.Message, metaclass=MessageMeta):
     name: str
     value: str
     additional: any_pb2.Any
-    def __init__(self, name: str | None = ..., value: str | None = ..., additional: any_pb2.Any | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
+    def __init__(
+        self,
+        name: str | None = ...,
+        value: str | None = ...,
+        additional: any_pb2.Any | Mapping[Incomplete, Incomplete] | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -292,7 +388,9 @@ class SocketOptionLinger(message.Message, metaclass=MessageMeta):
     DURATION_FIELD_NUMBER: ClassVar[int]
     active: bool
     duration: duration_pb2.Duration
-    def __init__(self, active: bool = ..., duration: duration_pb2.Duration | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
+    def __init__(
+        self, active: bool = ..., duration: duration_pb2.Duration | Mapping[Incomplete, Incomplete] | None = ...
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -355,7 +453,38 @@ class SocketOptionTcpInfo(message.Message, metaclass=MessageMeta):
     tcpi_snd_cwnd: int
     tcpi_advmss: int
     tcpi_reordering: int
-    def __init__(self, tcpi_state: int | None = ..., tcpi_ca_state: int | None = ..., tcpi_retransmits: int | None = ..., tcpi_probes: int | None = ..., tcpi_backoff: int | None = ..., tcpi_options: int | None = ..., tcpi_snd_wscale: int | None = ..., tcpi_rcv_wscale: int | None = ..., tcpi_rto: int | None = ..., tcpi_ato: int | None = ..., tcpi_snd_mss: int | None = ..., tcpi_rcv_mss: int | None = ..., tcpi_unacked: int | None = ..., tcpi_sacked: int | None = ..., tcpi_lost: int | None = ..., tcpi_retrans: int | None = ..., tcpi_fackets: int | None = ..., tcpi_last_data_sent: int | None = ..., tcpi_last_ack_sent: int | None = ..., tcpi_last_data_recv: int | None = ..., tcpi_last_ack_recv: int | None = ..., tcpi_pmtu: int | None = ..., tcpi_rcv_ssthresh: int | None = ..., tcpi_rtt: int | None = ..., tcpi_rttvar: int | None = ..., tcpi_snd_ssthresh: int | None = ..., tcpi_snd_cwnd: int | None = ..., tcpi_advmss: int | None = ..., tcpi_reordering: int | None = ...) -> None: ...
+    def __init__(
+        self,
+        tcpi_state: int | None = ...,
+        tcpi_ca_state: int | None = ...,
+        tcpi_retransmits: int | None = ...,
+        tcpi_probes: int | None = ...,
+        tcpi_backoff: int | None = ...,
+        tcpi_options: int | None = ...,
+        tcpi_snd_wscale: int | None = ...,
+        tcpi_rcv_wscale: int | None = ...,
+        tcpi_rto: int | None = ...,
+        tcpi_ato: int | None = ...,
+        tcpi_snd_mss: int | None = ...,
+        tcpi_rcv_mss: int | None = ...,
+        tcpi_unacked: int | None = ...,
+        tcpi_sacked: int | None = ...,
+        tcpi_lost: int | None = ...,
+        tcpi_retrans: int | None = ...,
+        tcpi_fackets: int | None = ...,
+        tcpi_last_data_sent: int | None = ...,
+        tcpi_last_ack_sent: int | None = ...,
+        tcpi_last_data_recv: int | None = ...,
+        tcpi_last_ack_recv: int | None = ...,
+        tcpi_pmtu: int | None = ...,
+        tcpi_rcv_ssthresh: int | None = ...,
+        tcpi_rtt: int | None = ...,
+        tcpi_rttvar: int | None = ...,
+        tcpi_snd_ssthresh: int | None = ...,
+        tcpi_snd_cwnd: int | None = ...,
+        tcpi_advmss: int | None = ...,
+        tcpi_reordering: int | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
@@ -425,7 +554,9 @@ class GetServerSocketsResponse(message.Message, metaclass=MessageMeta):
     END_FIELD_NUMBER: ClassVar[int]
     socket_ref: containers.RepeatedCompositeFieldContainer[SocketRef]
     end: bool
-    def __init__(self, socket_ref: Iterable[SocketRef | Mapping[Incomplete, Incomplete]] | None = ..., end: bool = ...) -> None: ...
+    def __init__(
+        self, socket_ref: Iterable[SocketRef | Mapping[Incomplete, Incomplete]] | None = ..., end: bool = ...
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
