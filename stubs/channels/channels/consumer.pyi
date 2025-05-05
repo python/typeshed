@@ -1,5 +1,5 @@
 from collections.abc import Awaitable
-from typing import Any, ClassVar, Protocol
+from typing import Any, ClassVar, Protocol, type_check_only
 
 from asgiref.typing import ASGIReceiveCallable, ASGISendCallable, Scope, WebSocketScope
 from channels.auth import UserLazyObject
@@ -8,10 +8,12 @@ from channels.layers import BaseChannelLayer
 from django.contrib.sessions.backends.base import SessionBase
 from django.utils.functional import LazyObject
 
+@type_check_only
 class _LazySession(SessionBase, LazyObject):  # type: ignore[misc]
     _wrapped: SessionBase
 
 # Base ASGI Scope definition
+@type_check_only
 class _ChannelScope(WebSocketScope, total=False):
     # Channel specific
     channel: str
@@ -24,7 +26,7 @@ class _ChannelScope(WebSocketScope, total=False):
     user: UserLazyObject | None
 
 def get_handler_name(message: dict[str, Any]) -> str: ...
-
+@type_check_only
 class _ASGIApplicationProtocol(Protocol):
     consumer_class: Any
     consumer_initkwargs: dict[str, Any]
