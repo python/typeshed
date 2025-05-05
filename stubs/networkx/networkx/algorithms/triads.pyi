@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Generator, Iterable
+from collections.abc import Collection, Generator
 
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import Graph, _Node
@@ -7,7 +7,7 @@ from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
 
 @_dispatchable
-def triadic_census(G: DiGraph[_Node], nodelist: Iterable[Incomplete] | None = None): ...
+def triadic_census(G: DiGraph[_Node], nodelist: Collection[_Node] | None = None): ...
 @_dispatchable
 def is_triad(G: Graph[_Node]): ...
 @_dispatchable
