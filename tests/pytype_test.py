@@ -210,7 +210,7 @@ def get_missing_modules(files_to_test: Iterable[Path]) -> Iterable[str]:
                 # Skips comments, empty lines, and stdlib files, which are in
                 # the exclude list because pytype has its own version.
                 continue
-            _ts_subdir, _distribution, module_path = line.split("/", 2)
+            _ts_subdir, _distribution, module_path = line.strip().split("/", 2)
             missing_modules.add(module_path.removesuffix(".pyi"))
     return missing_modules
 
