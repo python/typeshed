@@ -426,6 +426,7 @@ class UnaryUnaryClientInterceptor(abc.ABC, Generic[_TRequest, _TResponse]):
 @type_check_only
 class _CallIterator(Call, Generic[_TResponse], metaclass=abc.ABCMeta):
     def __iter__(self) -> Iterator[_TResponse]: ...
+    def __next__(self) -> _TResponse: ...
 
 class UnaryStreamClientInterceptor(abc.ABC, Generic[_TRequest, _TResponse]):
     @abc.abstractmethod
