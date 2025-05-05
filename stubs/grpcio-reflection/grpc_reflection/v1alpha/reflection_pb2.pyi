@@ -22,8 +22,17 @@ class ServerReflectionRequest(message.Message, metaclass=MessageMeta):
     file_containing_extension: ExtensionRequest
     all_extension_numbers_of_type: str
     list_services: str
-    def __init__(self, host: str | None = ..., file_by_filename: str | None = ..., file_containing_symbol: str | None = ..., file_containing_extension: ExtensionRequest | Mapping[Incomplete, Incomplete] | None = ..., all_extension_numbers_of_type: str | None = ..., list_services: str | None = ...) -> None: ...
+    def __init__(
+        self,
+        host: str | None = ...,
+        file_by_filename: str | None = ...,
+        file_containing_symbol: str | None = ...,
+        file_containing_extension: ExtensionRequest | Mapping[Incomplete, Incomplete] | None = ...,
+        all_extension_numbers_of_type: str | None = ...,
+        list_services: str | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
+
 @final
 class ExtensionRequest(message.Message, metaclass=MessageMeta):
     CONTAINING_TYPE_FIELD_NUMBER: ClassVar[int]
@@ -47,7 +56,15 @@ class ServerReflectionResponse(message.Message, metaclass=MessageMeta):
     all_extension_numbers_response: ExtensionNumberResponse
     list_services_response: ListServiceResponse
     error_response: ErrorResponse
-    def __init__(self, valid_host: str | None = ..., original_request: ServerReflectionRequest | Mapping[Incomplete, Incomplete] | None = ..., file_descriptor_response: FileDescriptorResponse | Mapping[Incomplete, Incomplete] | None = ..., all_extension_numbers_response: ExtensionNumberResponse | Mapping[Incomplete, Incomplete] | None = ..., list_services_response: ListServiceResponse | Mapping[Incomplete, Incomplete] | None = ..., error_response: ErrorResponse | Mapping[Incomplete, Incomplete] | None = ...) -> None: ...
+    def __init__(
+        self,
+        valid_host: str | None = ...,
+        original_request: ServerReflectionRequest | Mapping[Incomplete, Incomplete] | None = ...,
+        file_descriptor_response: FileDescriptorResponse | Mapping[Incomplete, Incomplete] | None = ...,
+        all_extension_numbers_response: ExtensionNumberResponse | Mapping[Incomplete, Incomplete] | None = ...,
+        list_services_response: ListServiceResponse | Mapping[Incomplete, Incomplete] | None = ...,
+        error_response: ErrorResponse | Mapping[Incomplete, Incomplete] | None = ...,
+    ) -> None: ...
     DESCRIPTOR: Descriptor
 
 @final
