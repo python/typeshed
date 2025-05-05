@@ -5,6 +5,7 @@ from channels.testing.application import ApplicationCommunicator
 from channels.utils import _ChannelApplication
 
 # HTTP test-specific response type
+@type_check_only
 class _HTTPTestResponse(TypedDict, total=False):
     status: int
     headers: Iterable[tuple[bytes, bytes]]
