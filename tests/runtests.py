@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import re
 import subprocess
 import sys
@@ -13,8 +12,8 @@ from pathlib import Path
 from ts_utils.paths import TEST_CASES_DIR, test_cases_path
 from ts_utils.utils import colored
 
-_STRICTER_CONFIG_FILE = "pyrightconfig.stricter.json"
-_TESTCASES_CONFIG_FILE = "pyrightconfig.testcases.json"
+_STRICTER_CONFIG_FILE = Path("pyrightconfig.stricter.json")
+_TESTCASES_CONFIG_FILE = Path("pyrightconfig.testcases.json")
 _NPX_ERROR_PATTERN = r"error (runn|find)ing npx"
 _NPX_ERROR_MESSAGE = colored("\nSkipping Pyright tests: npx is not installed or can't be run!", "yellow")
 _SUCCESS = colored("Success", "green")
@@ -33,10 +32,9 @@ def _parse_jsonc(json_text: str) -> str:
     return valid_json
 
 
-def _get_strict_params(stub_path: str) -> list[str]:
-    with open(_STRICTER_CONFIG_FILE, encoding="UTF-8") as file:
-        data = json.loads(_parse_jsonc(file.read()))
-    lower_stub_path = stub_path.lower()
+def _get_strict_params(stub_path: Path) -> list[str | Path]:
+    data = json.loads(_parse_jsonc(_STRICTER_CONFIG_FILE.read_text(encoding="UTF-8")))
+    lower_stub_path = stub_path.as_posix().lower()
     if any(lower_stub_path == stub.lower() for stub in data["exclude"]):
         return []
     return ["-p", _STRICTER_CONFIG_FILE]
@@ -60,23 +58,22 @@ def main() -> None:
     )
     parser.add_argument("path", help="Path of the stub to test in format <folder>/<stub>, from the root of the project.")
     args = parser.parse_args()
-    path: str = args.path
+    path = Path(args.path)
     run_stubtest: bool = args.run_stubtest
     python_version: str = args.python_version
 
-    path_tokens = Path(path).parts
-    if len(path_tokens) != 2:
+    if len(path.parts) != 2:
         parser.error("'path' argument should be in format <folder>/<stub>.")
-    folder, stub = path_tokens
+    folder, stub = path.parts
     if folder not in {"stdlib", "stubs"}:
         parser.error("Only the 'stdlib' and 'stubs' folders are supported.")
-    if not os.path.exists(path):
+    if not path.exists():
         parser.error(f"{path=} does not exist.")
     stubtest_result: subprocess.CompletedProcess[bytes] | None = None
     pytype_result: subprocess.CompletedProcess[bytes] | None = None
 
     print("\nRunning pre-commit...")
-    pre_commit_result = subprocess.run(["pre-commit", "run", "--files", *Path(path).rglob("*")], check=False)
+    pre_commit_result = subprocess.run(["pre-commit", "run", "--files", *path.rglob("*")], check=False)
 
     print("\nRunning check_typeshed_structure.py...")
     check_structure_result = subprocess.run([sys.executable, "tests/check_typeshed_structure.py"], check=False)
@@ -141,7 +138,7 @@ def main() -> None:
         regr_test_returncode = 0
     else:
         print(f"\nRunning Pyright regression tests for Python {python_version}...")
-        command = [
+        command: list[str | Path] = [
             sys.executable,
             "tests/pyright_test.py",
             str(cases_path),
