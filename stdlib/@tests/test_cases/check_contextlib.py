@@ -1,7 +1,15 @@
 from __future__ import annotations
 
-from contextlib import ExitStack
+from contextlib import AbstractContextManager, ExitStack
 from typing_extensions import assert_type
+
+
+class CM1(AbstractContextManager):
+    def __exit__(self, *args) -> None:
+        return None
+
+with CM1() as cm1:
+    assert_type(cm1, CM1)
 
 
 # See issue #7961
