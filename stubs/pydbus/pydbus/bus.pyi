@@ -122,6 +122,12 @@ class OrgBluezLEAdvertisingManager1Dict(TypedDict, total=False):
     SupportedInstances: int
     SupportedSecondaryChannels: list[str]
 
+@type_check_only
+class OrgBluezNetwork1Dict(TypedDict, total=False):
+    Connected: bool
+    Interface: str
+    UUID: str
+
 # This is for keys under /org/bluez/hci0/*
 _OrgBluezDict = TypedDict(
     "_OrgBluezDict",
@@ -135,6 +141,7 @@ _OrgBluezDict = TypedDict(
         "org.bluez.Input1": OrgBluezInput1Dict,
         "org.bluez.LEAdvertisingManager1": OrgBluezLEAdvertisingManager1Dict,
         "org.bluez.Media1": OrgBluezMedia1Dict,
+        "org.bluez.Network1": OrgBluezNetwork1Dict,
         "org.bluez.MediaControl1": OrgBluezMediaControl1Dict,
         # The following always appear as empty dictionaries on my system.
         "org.bluez.AgentManager1": dict[str, Any],
