@@ -1,4 +1,3 @@
-import os
 from _typeshed import StrOrBytesPath
 
 def print_as_hex(s: str) -> None: ...

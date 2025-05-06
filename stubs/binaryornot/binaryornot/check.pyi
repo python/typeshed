@@ -1,4 +1,3 @@
-import os
 from _typeshed import StrOrBytesPath
 
 def is_binary(filename: StrOrBytesPath) -> bool: ...
