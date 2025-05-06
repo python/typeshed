@@ -129,6 +129,7 @@ class OrgBluezNetwork1Dict(TypedDict, total=False):
     UUID: str
 
 # This is for keys under /org/bluez/hci0/*
+# Refer to https://github.com/bluez/bluez/blob/master/doc/ for interface details
 _OrgBluezDict = TypedDict(
     "_OrgBluezDict",
     {
@@ -143,7 +144,8 @@ _OrgBluezDict = TypedDict(
         "org.bluez.Media1": OrgBluezMedia1Dict,
         "org.bluez.Network1": OrgBluezNetwork1Dict,
         "org.bluez.MediaControl1": OrgBluezMediaControl1Dict,
-        # The following always appear as empty dictionaries on my system.
+        # Dicts below are always empty because they have no properties. However, the key existence may still be useful
+        # for introspection.
         "org.bluez.AgentManager1": dict[str, Any],
         "org.bluez.BatteryProviderManager1": dict[str, Any],
         "org.bluez.NetworkServer1": dict[str, Any],
