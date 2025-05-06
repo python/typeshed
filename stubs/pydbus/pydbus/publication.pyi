@@ -1,4 +1,3 @@
-from collections.abc import Iterable
 from typing import TypeVar
 
 from .bus import Bus
@@ -19,7 +18,5 @@ class Publication(Exitable):
 
 class PublicationMixin:
     def publish(
-        self,
-        bus_name: str,
-        *objects: tuple[str, str, str | list[str] | tuple[str, ...]] | tuple[str, str] | tuple[str] | str,
+        self, bus_name: str, *objects: tuple[str, str, str | list[str] | tuple[str, ...]] | tuple[str, str] | tuple[str] | str
     ) -> Publication: ...
