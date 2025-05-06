@@ -11,7 +11,7 @@ class Publication(Exitable):
         self,
         bus: Bus[_T],
         bus_name: str,
-        *objects: Iterable[tuple[str, str, str | list[str] | tuple[str, ...]] | tuple[str, str] | tuple[str] | str],
+        *objects: tuple[str, str, str | list[str] | tuple[str, ...]] | tuple[str, str] | tuple[str] | str,
         allow_replacement: bool = True,
         replace: bool = False,
     ) -> None: ...
