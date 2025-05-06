@@ -206,10 +206,10 @@ To use this feature, add the following configuration to the `tool.stubtest` sect
 
 ```toml
 mypy_plugins = ["mypy_django_plugin.main"]
-mypy_plugins_config = { "django-stubs" = { "django_settings_module" = "django_settings" } }
+mypy_plugins_config = { "django-stubs" = { "django_settings_module" = "@tests.django_settings" } }
 ```
 
-For Django stubs specifically, you'll need to create a `django_settings.py` file in your test directory
+For Django stubs specifically, you'll need to create a `django_settings.py` file in your `@tests` directory
 that contains the Django settings required by the plugin. This file will be referenced by the plugin
 configuration to properly validate Django-specific types during stubtest execution.
 
