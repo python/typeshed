@@ -1,5 +1,4 @@
 import types
-from collections.abc import Iterable
 from typing_extensions import Self
 
 class Exitable:
