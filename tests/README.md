@@ -196,6 +196,23 @@ that stubtest reports to be missing should necessarily be added to the stub.
 For some implementation details, it is often better to add allowlist entries
 for missing objects rather than trying to match the runtime in every detail.
 
+### Support for mypy plugins in stubtest
+
+For stubs that require mypy plugins to check correctly (such as Django), stubtest
+supports configuring mypy plugins through the METADATA.toml file. This allows stubtest to
+leverage type information provided by these plugins when validating stubs.
+
+To use this feature, add the following configuration to the `tool.stubtest` section in your METADATA.toml:
+
+```toml
+mypy_plugins = ["mypy_django_plugin.main"]
+mypy_plugins_config = { "django-stubs" = { "django_settings_module" = "django_settings" } }
+```
+
+For Django stubs specifically, you'll need to create a `django_settings.py` file in your test directory
+that contains the Django settings required by the plugin. This file will be referenced by the plugin
+configuration to properly validate Django-specific types during stubtest execution.
+
 ## typecheck\_typeshed.py
 
 Run using
