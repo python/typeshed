@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Collection
 
 from networkx.utils.backends import _dispatchable
 
@@ -22,7 +23,7 @@ def windmill_graph(n, k): ...
 def stochastic_block_model(
     sizes,
     p,
-    nodelist: Incomplete | None = None,
+    nodelist: Collection[Incomplete] | None = None,
     seed: Incomplete | None = None,
     directed: bool = False,
     selfloops: bool = False,
