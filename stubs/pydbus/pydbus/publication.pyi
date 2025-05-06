@@ -21,5 +21,5 @@ class PublicationMixin:
     def publish(
         self,
         bus_name: str,
-        *objects: Iterable[tuple[str, str, str | list[str] | tuple[str, ...]] | tuple[str, str] | tuple[str] | str],
+        *objects: tuple[str, str, str | list[str] | tuple[str, ...]] | tuple[str, str] | tuple[str] | str,
     ) -> Publication: ...
