@@ -11,7 +11,7 @@ import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Annotated, Final, NamedTuple, final, Any
+from typing import Annotated, Any, Final, NamedTuple, final
 from typing_extensions import TypeGuard
 
 import tomli
@@ -40,6 +40,7 @@ _QUERY_URL_ALLOWLIST = {"sourceware.org"}
 
 def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
     return isinstance(obj, list) and all(isinstance(item, str) for item in obj)
+
 
 def _is_nested_dict(obj: object) -> TypeGuard[dict[str, dict[str, Any]]]:
     return isinstance(obj, dict) and all(isinstance(item, dict) for item in obj.values())

@@ -73,7 +73,7 @@ def check_stubs() -> None:
         assert not dist.name.startswith("types-"), f"Directory name not allowed to start with 'types-': {dist}"
 
         extra_allowed_files = {
-            "django_settings.py",  # This file contains Django settings used by the mypy_django_plugin during stubtest execution.
+            "django_settings.py"  # This file contains Django settings used by the mypy_django_plugin during stubtest execution.
         }
         allowed = {"METADATA.toml", "README", "README.md", "README.rst", *extra_allowed_files, TESTS_DIR}
         assert_consistent_filetypes(dist, kind=".pyi", allowed=allowed)
