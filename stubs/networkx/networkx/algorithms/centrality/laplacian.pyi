@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from collections.abc import Iterable
+from collections.abc import Collection
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -8,7 +7,7 @@ from networkx.utils.backends import _dispatchable
 def laplacian_centrality(
     G: Graph[_Node],
     normalized: bool = True,
-    nodelist: Iterable[Incomplete] | None = None,
+    nodelist: Collection[_Node] | None = None,
     weight: str | None = "weight",
     walk_type: str | None = None,
     alpha: float = 0.95,
