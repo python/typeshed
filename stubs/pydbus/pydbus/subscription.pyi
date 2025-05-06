@@ -17,7 +17,7 @@ class Subscription(Exitable):
         object: str | None,
         arg0: str | None,
         flags: Gio.DBusSignalFlags,
-        callback: Callable[[str, str, str, str, Variant], None] | None,
+        callback: Callable[[str, str, str, str, Variant], object] | None,
     ) -> None: ...
     def unsubscribe(self) -> None: ...  # added by ExitableWithAliases('unsubscribe')
     def disconnect(self) -> None: ...  # added by ExitableWithAliases('disconnect')
@@ -33,5 +33,5 @@ class SubscriptionMixin:
         object: str | None = None,
         arg0: str | None = None,
         flags: Gio.DBusSignalFlags = ...,
-        signal_fired: Callable[[str, str, str, str, Variant], None] | None = None,
+        signal_fired: Callable[[str, str, str, str, Variant], object] | None = None,
     ) -> Subscription: ...
