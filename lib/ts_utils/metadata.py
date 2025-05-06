@@ -43,7 +43,7 @@ def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
 
 
 def _is_nested_dict(obj: object) -> TypeGuard[dict[str, dict[str, Any]]]:
-    return isinstance(obj, dict) and all(isinstance(item, dict) for item in obj.values())
+    return isinstance(obj, dict) and all(isinstance(k, str) and isinstance(v, dict) for k, v in obj.items())
 
 
 @functools.cache
