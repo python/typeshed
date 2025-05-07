@@ -2,6 +2,19 @@ from _typeshed import Incomplete
 
 from networkx.utils.backends import _dispatchable
 
+__all__ = [
+    "caveman_graph",
+    "connected_caveman_graph",
+    "relaxed_caveman_graph",
+    "random_partition_graph",
+    "planted_partition_graph",
+    "gaussian_random_partition_graph",
+    "ring_of_cliques",
+    "windmill_graph",
+    "stochastic_block_model",
+    "LFR_benchmark_graph",
+]
+
 @_dispatchable
 def caveman_graph(l, k): ...
 @_dispatchable

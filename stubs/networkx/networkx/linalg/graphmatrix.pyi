@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["incidence_matrix", "adjacency_matrix"]
+
 @_dispatchable
 def incidence_matrix(
     G,

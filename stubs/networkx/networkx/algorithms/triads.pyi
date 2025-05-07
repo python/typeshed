@@ -6,6 +6,8 @@ from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
 
+__all__ = ["triadic_census", "is_triad", "all_triplets", "all_triads", "triads_by_type", "triad_type", "random_triad"]
+
 @_dispatchable
 def triadic_census(G: DiGraph[_Node], nodelist: Iterable[Incomplete] | None = None): ...
 @_dispatchable

@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
+__all__ = ["ISMAGS"]
+
 class ISMAGS:
     graph: Incomplete
     subgraph: Incomplete
