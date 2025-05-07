@@ -1,0 +1,10 @@
+# Probably not an intentional export
+pydbus.Variant
+# This is only used to add a method to Gio.DBusConnection. Likely only for internal use.
+pydbus.bus.pydbus_property
+# Flag value default is literal 0, but we can use nice enums for these
+pydbus.bus_names.OwnMixin.own_name
+pydbus.bus_names.WatchMixin.watch_name
+pydbus.subscription.SubscriptionMixin.subscribe
+# Necessary to access D-Bus methods and properties
+pydbus.proxy.ProxyObject.__getattr__
