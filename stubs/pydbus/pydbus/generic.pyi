@@ -20,6 +20,7 @@ _T = TypeVar("_T")
 
 class bound_signal(Generic[_T]):
     __signal__: signal[_T]
+    __self__: _T
 
     def __init__(self, signal: signal[_T], instance: _T) -> None: ...
     @property
