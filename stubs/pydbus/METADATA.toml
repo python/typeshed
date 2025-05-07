@@ -4,4 +4,4 @@ upstream_repository = "https://github.com/LEW21/pydbus"
 
 [tool.stubtest]
 stubtest_requirements = ["pygobject"]
-apt_dependencies = ["libcairo2-dev"]
+apt_dependencies = ["libcairo2-dev", "libgirepository1.0-dev"]
