@@ -748,7 +748,7 @@ class Import(stmt):
 class ImportFrom(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("module", "names", "level")
-    module: str | None
+    module: _Identifier | None
     names: list[alias]
     level: int
     if sys.version_info >= (3, 13):
@@ -1417,7 +1417,7 @@ class alias(AST):
     end_col_offset: int | None
     if sys.version_info >= (3, 10):
         __match_args__ = ("name", "asname")
-    name: str
+    name: _Identifier
     asname: _Identifier | None
     def __init__(self, name: str, asname: _Identifier | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
