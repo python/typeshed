@@ -273,25 +273,25 @@ def make_valid(
     geometry: Geometry, *, method: Literal["linework"] = "linework", keep_collapsed: Literal[True] = True, **kwargs
 ) -> BaseGeometry: ...
 @overload
-def make_valid(geometry: Geometry, *, method: Literal["structure"], keep_collapsed: bool = True, **kwargs) -> BaseGeometry: ...
-@overload
 def make_valid(
     geometry: None, *, method: Literal["linework"] = "linework", keep_collapsed: Literal[True] = True, **kwargs
 ) -> None: ...
-@overload
-def make_valid(geometry: None, *, method: Literal["structure"], keep_collapsed: bool = True, **kwargs) -> None: ...
 @overload
 def make_valid(
     geometry: Geometry | None, *, method: Literal["linework"] = "linework", keep_collapsed: Literal[True] = True, **kwargs
 ) -> BaseGeometry | None: ...
 @overload
 def make_valid(
-    geometry: Geometry | None, *, method: Literal["structure"], keep_collapsed: bool = True, **kwargs
-) -> BaseGeometry | None: ...
-@overload
-def make_valid(
     geometry: OptGeoArrayLikeSeq, *, method: Literal["linework"] = "linework", keep_collapsed: Literal[True] = True, **kwargs
 ) -> GeoArray: ...
+@overload
+def make_valid(geometry: Geometry, *, method: Literal["structure"], keep_collapsed: bool = True, **kwargs) -> BaseGeometry: ...
+@overload
+def make_valid(geometry: None, *, method: Literal["structure"], keep_collapsed: bool = True, **kwargs) -> None: ...
+@overload
+def make_valid(
+    geometry: Geometry | None, *, method: Literal["structure"], keep_collapsed: bool = True, **kwargs
+) -> BaseGeometry | None: ...
 @overload
 def make_valid(
     geometry: OptGeoArrayLikeSeq, *, method: Literal["structure"], keep_collapsed: bool = True, **kwargs
