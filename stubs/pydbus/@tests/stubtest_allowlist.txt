@@ -1,5 +1,5 @@
-# Probably not an intentional export
-pydbus.Variant
+# Ignore Variant as it is probably not an intentional export
+pydbus.__all__
 # This is only used to add a method to Gio.DBusConnection. Likely only for internal use.
 pydbus.bus.pydbus_property
 # Flag value default is literal 0, but we can use nice enums for these
