@@ -9,7 +9,7 @@ _T = TypeVar("_T")
 _ST = TypeVar("_ST")  # signal type
 
 @type_check_only
-class OrgBluezAdapter1Dict(TypedDict, total=False):
+class _OrgBluezAdapter1Dict(TypedDict, total=False):  # noqa: Y049
     Address: str
     AddressType: Literal["public", "random"]
     Alias: str
@@ -29,7 +29,7 @@ class OrgBluezAdapter1Dict(TypedDict, total=False):
     Version: int
 
 @type_check_only
-class OrgBluezDevice1Dict(TypedDict, total=False):
+class _OrgBluezDevice1Dict(TypedDict, total=False):  # noqa: Y049
     Adapter: str
     Address: str
     AddressType: Literal["public", "random"]
@@ -50,24 +50,24 @@ class OrgBluezDevice1Dict(TypedDict, total=False):
     WakeAllowed: bool
 
 @type_check_only
-class OrgBluezInput1Dict(TypedDict, total=False):
+class _OrgBluezInput1Dict(TypedDict, total=False):  # noqa: Y049
     ReconnectMode: str
 
 @type_check_only
-class OrgBluezMedia1Dict(TypedDict, total=False):
+class _OrgBluezMedia1Dict(TypedDict, total=False):  # noqa: Y049
     SupportedUUIDs: list[str]
 
 @type_check_only
-class OrgBluezMediaControl1Dict(TypedDict, total=False):
+class _OrgBluezMediaControl1Dict(TypedDict, total=False):  # noqa: Y049
     Connected: bool
 
 @type_check_only
-class OrgBluezBattery1Dict(TypedDict, total=False):
+class _OrgBluezBattery1Dict(TypedDict, total=False):  # noqa: Y049
     Percentage: int
     Source: str
 
 @type_check_only
-class OrgBluezGattService1Dict(TypedDict, total=False):
+class _OrgBluezGattService1Dict(TypedDict, total=False):  # noqa: Y049
     Device: str
     Handle: int
     Includes: list[str]
@@ -75,7 +75,7 @@ class OrgBluezGattService1Dict(TypedDict, total=False):
     UUID: str
 
 @type_check_only
-class OrgBluezGattCharacteristic1Dict(TypedDict, total=False):
+class _OrgBluezGattCharacteristic1Dict(TypedDict, total=False):  # noqa: Y049
     Flags: list[str]
     Handle: int
     MTU: int
@@ -84,14 +84,14 @@ class OrgBluezGattCharacteristic1Dict(TypedDict, total=False):
     Value: list[int]
 
 @type_check_only
-class OrgBluezGattDescriptor1Dict(TypedDict, total=False):
+class _OrgBluezGattDescriptor1Dict(TypedDict, total=False):  # noqa: Y049
     Characteristic: str
     Handle: int
     UUID: str
     Value: list[int]
 
 @type_check_only
-class OrgBluezLEAdvertisingManager1Dict(TypedDict, total=False):
+class _OrgBluezLEAdvertisingManager1Dict(TypedDict, total=False):  # noqa: Y049
     ActiveInstances: int
     SupportedCapabilities: dict[str, int]  # e.g. MaxTxPower: 7
     SupportedFeatures: list[str]
@@ -100,7 +100,7 @@ class OrgBluezLEAdvertisingManager1Dict(TypedDict, total=False):
     SupportedSecondaryChannels: list[str]
 
 @type_check_only
-class OrgBluezNetwork1Dict(TypedDict, total=False):
+class _OrgBluezNetwork1Dict(TypedDict, total=False):  # noqa: Y049
     Connected: bool
     Interface: str
     UUID: str
@@ -110,17 +110,17 @@ class OrgBluezNetwork1Dict(TypedDict, total=False):
 _OrgBluezDict = TypedDict(
     "_OrgBluezDict",
     {
-        "org.bluez.Adapter1": OrgBluezAdapter1Dict,
-        "org.bluez.Battery1": OrgBluezBattery1Dict,
-        "org.bluez.Device1": OrgBluezDevice1Dict,
-        "org.bluez.GattCharacteristic1": OrgBluezGattCharacteristic1Dict,
-        "org.bluez.GattDescriptor1": OrgBluezGattDescriptor1Dict,
-        "org.bluez.GattService1": OrgBluezGattService1Dict,
-        "org.bluez.Input1": OrgBluezInput1Dict,
-        "org.bluez.LEAdvertisingManager1": OrgBluezLEAdvertisingManager1Dict,
-        "org.bluez.Media1": OrgBluezMedia1Dict,
-        "org.bluez.Network1": OrgBluezNetwork1Dict,
-        "org.bluez.MediaControl1": OrgBluezMediaControl1Dict,
+        "org.bluez.Adapter1": _OrgBluezAdapter1Dict,
+        "org.bluez.Battery1": _OrgBluezBattery1Dict,
+        "org.bluez.Device1": _OrgBluezDevice1Dict,
+        "org.bluez.GattCharacteristic1": _OrgBluezGattCharacteristic1Dict,
+        "org.bluez.GattDescriptor1": _OrgBluezGattDescriptor1Dict,
+        "org.bluez.GattService1": _OrgBluezGattService1Dict,
+        "org.bluez.Input1": _OrgBluezInput1Dict,
+        "org.bluez.LEAdvertisingManager1": _OrgBluezLEAdvertisingManager1Dict,
+        "org.bluez.Media1": _OrgBluezMedia1Dict,
+        "org.bluez.Network1": _OrgBluezNetwork1Dict,
+        "org.bluez.MediaControl1": _OrgBluezMediaControl1Dict,
         # Dicts below are always empty because they have no properties. However, the key existence may still be useful
         # for introspection.
         "org.bluez.AgentManager1": dict[str, Any],
