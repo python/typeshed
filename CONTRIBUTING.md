@@ -122,8 +122,11 @@ includes pure Python modules, dynamically loaded extension modules,
 hard-linked extension modules, and the builtins. The `VERSIONS` file lists
 the versions of Python where the module is available.
 
-We accept changes for future versions of Python after the first beta for that
-version was released. We drop support for a Python version three months
+We start accepting changes for future versions of Python at some point during
+the beta phase for that release. Check the [README file](README.md) for the
+currently supported versions.
+
+We drop support for a Python version three months
 after it reaches [end-of-life](https://devguide.python.org/versions/). This
 means that we will no longer actively test the stubs against that version.
 After six months, we will remove the stubs for that version and start
