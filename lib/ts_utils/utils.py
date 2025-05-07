@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import functools
-import os
 import re
 import sys
 import tempfile
@@ -16,7 +15,7 @@ from typing_extensions import TypeAlias
 import pathspec
 from packaging.requirements import Requirement
 
-from .paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
+from .paths import GITIGNORE_PATH, REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
 
 if TYPE_CHECKING:
     from _typeshed import OpenTextMode
@@ -215,7 +214,7 @@ else:
     def NamedTemporaryFile(mode: OpenTextMode) -> TemporaryFileWrapper[str]:  # noqa: N802
         def close(self: TemporaryFileWrapper[str]) -> None:
             TemporaryFileWrapper.close(self)  # pyright: ignore[reportUnknownMemberType]
-            os.remove(self.name)
+            Path(self.name).unlink()
 
         temp = tempfile.NamedTemporaryFile(mode, delete=False)  # noqa: SIM115, TID251
         temp.close = MethodType(close, temp)  # type: ignore[method-assign]
@@ -229,7 +228,7 @@ else:
 
 @functools.cache
 def get_gitignore_spec() -> pathspec.PathSpec:
-    with open(".gitignore", encoding="UTF-8") as f:
+    with GITIGNORE_PATH.open(encoding="UTF-8") as f:
         return pathspec.GitIgnoreSpec.from_lines(f)
 
 

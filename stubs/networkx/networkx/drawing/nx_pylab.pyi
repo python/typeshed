@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Collection
 
 def draw(G, pos: Incomplete | None = None, ax: Incomplete | None = None, **kwds) -> None: ...
 def draw_networkx(
@@ -7,7 +8,7 @@ def draw_networkx(
 def draw_networkx_nodes(
     G,
     pos,
-    nodelist: Incomplete | None = None,
+    nodelist: Collection[Incomplete] | None = None,
     node_size: Incomplete | int = 300,
     node_color: str = "#1f78b4",
     node_shape: str = "o",
@@ -39,7 +40,7 @@ def draw_networkx_edges(
     arrows: Incomplete | None = None,
     label: Incomplete | None = None,
     node_size: Incomplete | int = 300,
-    nodelist: Incomplete | None = None,
+    nodelist: list[Incomplete] | None = None,
     node_shape: str = "o",
     connectionstyle: str = "arc3",
     min_source_margin: int = 0,
@@ -79,7 +80,7 @@ def draw_networkx_edge_labels(
     rotate: bool = True,
     clip_on: bool = True,
     node_size: int = 300,
-    nodelist: Incomplete | None = None,
+    nodelist: list[Incomplete] | None = None,
     connectionstyle: str = "arc3",
     hide_ticks: bool = True,
 ): ...
