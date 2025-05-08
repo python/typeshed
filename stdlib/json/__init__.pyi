@@ -1,6 +1,7 @@
 from _typeshed import SupportsRead, SupportsWrite
 from collections.abc import Callable
-from typing import Any, TypeAlias, TypeVar, overload
+from typing import Any, TypeVar, overload
+from typing_extensions import TypeAlias
 
 from .decoder import JSONDecodeError as JSONDecodeError, JSONDecoder as JSONDecoder
 from .encoder import JSONEncoder as JSONEncoder
