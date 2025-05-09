@@ -541,7 +541,9 @@ class While(stmt):
         def __init__(self, test: expr, body: list[stmt], orelse: list[stmt], **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
-        def __replace__(self, *, test: expr = ..., body: list[stmt] = ..., orelse: list[stmt] = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
+        def __replace__(
+            self, *, test: expr = ..., body: list[stmt] = ..., orelse: list[stmt] = ..., **kwargs: Unpack[_Attributes]
+        ) -> Self: ...
 
 class If(stmt):
     if sys.version_info >= (3, 10):
