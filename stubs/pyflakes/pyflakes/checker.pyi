@@ -185,10 +185,10 @@ else:
     _TypeVarTuple: TypeAlias = Never
     _TypeAlias: TypeAlias = Never
 
-if sys.version_info < (3, 14):  # noqa: Y066
-    _NameConstant: TypeAlias = ast.NameConstant
-else:
+if sys.version_info >= (3, 14):
     _NameConstant: TypeAlias = Never
+else:
+    _NameConstant: TypeAlias = ast.NameConstant
 
 class Checker:
     nodeDepth: int
