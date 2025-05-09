@@ -28,6 +28,9 @@ json.dumps(False)
 json.dumps(None)
 json.dumps("hello")
 
+x: dict[str, float | int] = {"a": 1, "b": 2.0}
+json.dumps(x)
+
 
 # Custom types are supported when a custom encoder is provided.
 def decimal_encoder(obj: Decimal) -> float:
