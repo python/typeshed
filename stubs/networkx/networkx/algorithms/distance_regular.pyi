@@ -1,6 +1,8 @@
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["is_distance_regular", "is_strongly_regular", "intersection_array", "global_parameters"]
+
 @_dispatchable
 def is_distance_regular(G: Graph[_Node]): ...
 @_dispatchable

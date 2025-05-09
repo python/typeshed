@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Iterator
 
+__all__ = ["MappedQueue"]
+
 class _HeapElement:
     priority: Incomplete
     element: Incomplete
