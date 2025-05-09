@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from decimal import Decimal
-from typing import Any, TypedDict
+from typing import TypedDict
 
 
 class _File:
