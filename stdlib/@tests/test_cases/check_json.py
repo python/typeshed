@@ -11,16 +11,7 @@ json.dumps(object())  # type: ignore
 json.dumps(Decimal(1))  # type: ignore
 
 # Serializable types are supported, included nested JSON.
-json.dumps(
-    {
-        "a": 34,
-        "b": [1, 2, 3],
-        "c": {
-            "d": "hello",
-            "e": False,
-        },
-    }
-)
+json.dumps({"a": 34, "b": [1, 2, 3], "c": {"d": "hello", "e": False}})
 json.dumps(
     {
         "numbers": [1, 2, 3, 4, 5],
