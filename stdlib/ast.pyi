@@ -174,6 +174,7 @@ class FunctionDef(stmt):
             returns: expr | None = ...,
             type_comment: str | None = ...,
             type_params: list[type_param] = ...,
+            **kwargs: Unpack[_Attributes],
         ) -> Self: ...
 
 class AsyncFunctionDef(stmt):
@@ -245,11 +246,11 @@ class AsyncFunctionDef(stmt):
             *,
             name: str = ...,
             args: arguments = ...,
-            body: list[stmt],
-            decorator_list: list[expr],
-            returns: expr | None,
-            type_comment: str | None,
-            type_params: list[type_param],
+            body: list[stmt] = ...,
+            decorator_list: list[expr] = ...,
+            returns: expr | None = ...,
+            type_comment: str | None = ...,
+            type_params: list[type_param] = ...,
         ) -> Self: ...
 
 class ClassDef(stmt):
@@ -301,12 +302,12 @@ class ClassDef(stmt):
         def __replace__(
             self,
             *,
-            name: str,
-            bases: list[expr],
-            keywords: list[keyword],
-            body: list[stmt],
-            decorator_list: list[expr],
-            type_params: list[type_param],
+            name: str = ...,
+            bases: list[expr] = ...,
+            keywords: list[keyword] = ...,
+            body: list[stmt] = ...,
+            decorator_list: list[expr] = ...,
+            type_params: list[type_param] = ...,
             **kwargs: Unpack[_Attributes],
         ) -> Self: ...
 
@@ -377,7 +378,7 @@ if sys.version_info >= (3, 12):
             ) -> None: ...
 
         if sys.version_info >= (3, 14):
-            def __replace__(
+            def __replace__(  # type: ignore[override]
                 self,
                 *,
                 name: Name = ...,
@@ -540,7 +541,9 @@ class While(stmt):
         def __init__(self, test: expr, body: list[stmt], orelse: list[stmt], **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
-        def __replace__(self, *, test: expr, body: list[stmt], orelse: list[stmt], **kwargs: Unpack[_Attributes]) -> Self: ...
+        def __replace__(
+            self, *, test: expr = ..., body: list[stmt] = ..., orelse: list[stmt] = ..., **kwargs: Unpack[_Attributes]
+        ) -> Self: ...
 
 class If(stmt):
     if sys.version_info >= (3, 10):
@@ -725,7 +728,7 @@ class Assert(stmt):
     def __init__(self, test: expr, msg: expr | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
-        def __replace__(self, *, test: expr, msg: expr | None, **kwargs: Unpack[_Attributes]) -> Self: ...
+        def __replace__(self, *, test: expr = ..., msg: expr | None = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
 
 class Import(stmt):
     if sys.version_info >= (3, 10):
@@ -775,7 +778,7 @@ class Global(stmt):
         def __init__(self, names: list[str], **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
-        def __replace__(self, *, names: list[str], **kwargs: Unpack[_Attributes]) -> Self: ...
+        def __replace__(self, *, names: list[str] = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
 
 class Nonlocal(stmt):
     if sys.version_info >= (3, 10):
