@@ -33,6 +33,9 @@ json.dumps("hello")
 x: dict[str, float | int] = {"a": 1, "b": 2.0}
 json.dumps(x)
 
+z: dict[str, dict[str, dict[str, list[int]]]] = {"a": {"b": {"c": [1, 2, 3]}}}
+json.dumps(z)
+
 
 # Custom types are supported when a custom encoder is provided.
 def decimal_encoder(obj: Decimal) -> float:

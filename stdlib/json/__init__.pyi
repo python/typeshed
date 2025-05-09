@@ -1,5 +1,5 @@
 from _typeshed import SupportsRead, SupportsWrite
-from collections.abc import Callable
+from collections.abc import Callable, Mapping, Sequence
 from typing import Any, TypeVar, overload
 from typing_extensions import TypeAlias
 
@@ -10,7 +10,7 @@ __all__ = ["dump", "dumps", "load", "loads", "JSONDecoder", "JSONDecodeError", "
 
 _T = TypeVar("_T")
 
-_JSON: TypeAlias = dict[str, _JSON] | list[_JSON] | str | float | bool | None
+_JSON: TypeAlias = Mapping[str, _JSON] | Sequence[_JSON] | str | float | bool | None
 
 @overload
 def dumps(
