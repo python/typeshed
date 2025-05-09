@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
 from functools import cached_property
+from typing import ClassVar
 from typing_extensions import TypeAlias
 
 from networkx.classes.coreviews import MultiAdjacencyView
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _MapFactory, _Node
 from networkx.classes.multidigraph import MultiDiGraph
 from networkx.classes.reportviews import OutMultiEdgeView
 
@@ -12,6 +13,7 @@ _MultiEdge: TypeAlias = tuple[_Node, _Node, int]  # noqa: Y047
 __all__ = ["MultiGraph"]
 
 class MultiGraph(Graph[_Node]):
+    edge_key_dict_factory: ClassVar[_MapFactory]
     def __init__(self, incoming_graph_data: Incomplete | None = None, multigraph_input: bool | None = None, **attr) -> None: ...
     @cached_property
     def adj(self) -> MultiAdjacencyView[_Node, _Node, dict[str, Incomplete]]: ...

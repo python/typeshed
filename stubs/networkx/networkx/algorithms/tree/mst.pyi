@@ -57,10 +57,11 @@ def random_spanning_tree(
 ): ...
 
 class SpanningTreeIterator:
-    @dataclass
+    @dataclass(order=True)
     class Partition:
         mst_weight: float
         partition_dict: dict[Incomplete, Incomplete]
+        def __copy__(self) -> SpanningTreeIterator.Partition: ...
 
     G: Incomplete
     weight: Incomplete
