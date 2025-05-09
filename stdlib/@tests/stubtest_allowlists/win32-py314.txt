@@ -1,3 +1,15 @@
+# ====================================================================
+# TODO: New errors in Python 3.14 that need to be fixed or moved below
+# ====================================================================
+
+_socket.IPV6_RECVERR
+_socket.IP_RECVTTL
+_socket.SO_ORIGINAL_DST
+socket.IPV6_RECVERR
+socket.IP_RECVERR
+socket.SO_ORIGINAL_DST
+
+
 # =======
 # >= 3.12
 # =======

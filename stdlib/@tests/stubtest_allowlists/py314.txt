@@ -134,14 +134,6 @@ _heapq.heappushpop_max
 _heapq.heapreplace_max
 _imp.pyc_magic_number_token
 _posixsubprocess.fork_exec
-_socket.CAN_RAW_ERR_FILTER
-_socket.IPV6_RECVERR
-_socket.IP_FREEBIND
-_socket.IP_RECVERR
-_socket.IP_RECVORIGDSTADDR
-_socket.IP_RECVTTL
-_socket.SO_ORIGINAL_DST
-_socket.VMADDR_CID_LOCAL
 _socket.if_indextoname
 _ssl.HAS_PHA
 _thread.RLock.locked
@@ -394,7 +386,6 @@ dis.distb
 enum.Enum.__signature__
 enum.EnumMeta.__signature__
 enum.EnumType.__signature__
-errno.EHWPOISON
 faulthandler.dump_c_stack
 fnmatch.__all__
 fnmatch.filterfalse
@@ -472,8 +463,6 @@ multiprocessing.process.BaseProcess.interrupt
 multiprocessing.reduction.ACKNOWLEDGE
 multiprocessing.synchronize.SemLock.locked
 os.__all__
-os.SCHED_DEADLINE
-os.SCHED_NORMAL
 os.readinto
 pathlib.Path.copy_into
 pathlib.Path.copytree
@@ -482,7 +471,6 @@ pathlib.Path.info
 pathlib.Path.move
 pathlib.Path.move_into
 pathlib.Path.rmtree
-pathlib.Path,
 pathlib.PurePath.is_relative_to
 pathlib.PurePath.is_relative_to
 pathlib.PurePath.relative_to
@@ -504,8 +492,6 @@ pkgutil.__all__
 pkgutil.find_loader
 pkgutil.get_loader
 platform.invalidate_caches
-posix.SCHED_DEADLINE
-posix.SCHED_NORMAL
 posix.readinto
 pstats.FunctionProfile.__annotate_func__
 pstats.FunctionProfile.__annotations_cache__
@@ -515,14 +501,7 @@ pyexpat.errors.XML_ERROR_NOT_STARTED
 select.EPOLLWAKEUP
 shutil.__all__
 socket.__all__
-socket.CAN_RAW_ERR_FILTER
-socket.IPV6_RECVERR
-socket.IP_FREEBIND
-socket.IP_RECVERR
-socket.IP_RECVORIGDSTADDR
 socket.IP_RECVTTL
-socket.SO_ORIGINAL_DST
-socket.VMADDR_CID_LOCAL
 socket.if_indextoname
 sre_compile.CH_NEGATE
 sre_constants.CH_NEGATE
