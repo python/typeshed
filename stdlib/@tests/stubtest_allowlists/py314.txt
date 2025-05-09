@@ -14,16 +14,11 @@
 
 zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
 
-# Initialized at runtime
-typing_extensions.TypeAliasType.__parameters__
-typing_extensions.TypeAliasType.__value__
-
 
 # =======
 # >= 3.11
 # =======
 
-enum.Enum.__init__
 typing.NewType.__mro_entries__
 
 
@@ -127,7 +122,6 @@ typing_extensions.SupportsRound.__type_params__
 # Allowlist entries that cannot or should not be fixed; >= 3.11
 # =============================================================
 
-argparse._MutuallyExclusiveGroup.add_mutually_exclusive_group  # deprecated, forwards arguments to super
 enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
 enum.auto.value  # The stub for enum.auto is nothing like the implementation
 http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
