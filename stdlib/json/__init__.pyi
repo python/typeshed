@@ -10,7 +10,9 @@ __all__ = ["dump", "dumps", "load", "loads", "JSONDecoder", "JSONDecodeError", "
 
 _T = TypeVar("_T")
 
-_JSON: TypeAlias = Mapping[str, _JSON] | Sequence[_JSON] | str | float | bool | None
+# Mapping[str, object] is used to maintain compatibility with typed dictionaries
+# despite it being very loose it's preferrable to using Any.
+_JSON: TypeAlias = Mapping[str, object] | Sequence[_JSON] | str | float | bool | None
 
 @overload
 def dumps(

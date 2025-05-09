@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from decimal import Decimal
+from typing import TypedDict
 
 
 class _File:
@@ -77,3 +78,11 @@ def custom_encoder(obj: Decimal) -> Decimal:
 
 json.dumps(Decimal(1), default=custom_encoder)  #  type: ignore
 json.dump(Decimal(1), fp, default=custom_encoder)  #  type: ignore
+
+
+class MyTypedDict(TypedDict):
+    a: str
+    b: str
+
+
+json.dumps(MyTypedDict(a="hello", b="world"))
