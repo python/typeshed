@@ -8,7 +8,7 @@ pytype==2024.10.11; platform_system != "Windows" and python_version >= "3.10" an
 # Libraries used by our various scripts.
 aiohttp==3.11.15
 # TODO (2025-05-09): No wheels exist for Python 3.14 yet, slowing down CI
-# considerably
+# considerably and prone to fail.
 grpcio-tools>=1.66.2; python_version < "3.14" # For grpc_tools.protoc
 mypy-protobuf==3.6.0
 packaging==24.2
@@ -16,7 +16,7 @@ pathspec>=0.11.1
 pre-commit
 # Required by create_baseline_stubs.py. Must match .pre-commit-config.yaml.
 ruff==0.11.4
-# TODO (2025-05-07): Dependency libcst doesn't support Python 3.14 yet
+# TODO (2025-05-07): Dependency libcst doesn't support Python 3.14 yet.
 stubdefaulter==0.1.0; python_version < "3.14"
 termcolor>=2.3
 tomli==2.2.1
