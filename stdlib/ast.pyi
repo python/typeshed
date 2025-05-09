@@ -1274,9 +1274,7 @@ class ExceptHandler(excepthandler):
         ) -> None: ...
     else:
         @overload
-        def __init__(
-            self, type: expr | None, name: str | None, body: list[stmt], **kwargs: Unpack[_Attributes]
-        ) -> None: ...
+        def __init__(self, type: expr | None, name: str | None, body: list[stmt], **kwargs: Unpack[_Attributes]) -> None: ...
         @overload
         def __init__(
             self, type: expr | None = None, name: str | None = None, *, body: list[stmt], **kwargs: Unpack[_Attributes]
@@ -1284,12 +1282,7 @@ class ExceptHandler(excepthandler):
 
     if sys.version_info >= (3, 14):
         def __replace__(
-            self,
-            *,
-            type: expr | None = ...,
-            name: str | None = ...,
-            body: list[stmt] = ...,
-            **kwargs: Unpack[_Attributes],
+            self, *, type: expr | None = ..., name: str | None = ..., body: list[stmt] = ..., **kwargs: Unpack[_Attributes]
         ) -> Self: ...
 
 class arguments(AST):
@@ -1379,12 +1372,7 @@ class arg(AST):
 
     if sys.version_info >= (3, 14):
         def __replace__(
-            self,
-            *,
-            arg: str = ...,
-            annotation: expr | None = ...,
-            type_comment: str | None = ...,
-            **kwargs: Unpack[_Attributes],
+            self, *, arg: str = ..., annotation: expr | None = ..., type_comment: str | None = ..., **kwargs: Unpack[_Attributes]
         ) -> Self: ...
 
 class keyword(AST):
@@ -1502,11 +1490,7 @@ if sys.version_info >= (3, 10):
             ) -> None: ...
         else:
             def __init__(
-                self,
-                keys: list[expr],
-                patterns: list[pattern],
-                rest: str | None = None,
-                **kwargs: Unpack[_Attributes[int]],
+                self, keys: list[expr], patterns: list[pattern], rest: str | None = None, **kwargs: Unpack[_Attributes[int]]
             ) -> None: ...
 
         if sys.version_info >= (3, 14):
@@ -1620,11 +1604,7 @@ if sys.version_info >= (3, 12):
         if sys.version_info >= (3, 13):
             default_value: expr | None
             def __init__(
-                self,
-                name: str,
-                bound: expr | None = None,
-                default_value: expr | None = None,
-                **kwargs: Unpack[_Attributes[int]],
+                self, name: str, bound: expr | None = None, default_value: expr | None = None, **kwargs: Unpack[_Attributes[int]]
             ) -> None: ...
         else:
             def __init__(self, name: str, bound: expr | None = None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
@@ -1647,9 +1627,7 @@ if sys.version_info >= (3, 12):
         name: str
         if sys.version_info >= (3, 13):
             default_value: expr | None
-            def __init__(
-                self, name: str, default_value: expr | None = None, **kwargs: Unpack[_Attributes[int]]
-            ) -> None: ...
+            def __init__(self, name: str, default_value: expr | None = None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
         else:
             def __init__(self, name: str, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
@@ -1666,9 +1644,7 @@ if sys.version_info >= (3, 12):
         name: str
         if sys.version_info >= (3, 13):
             default_value: expr | None
-            def __init__(
-                self, name: str, default_value: expr | None = None, **kwargs: Unpack[_Attributes[int]]
-            ) -> None: ...
+            def __init__(self, name: str, default_value: expr | None = None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
         else:
             def __init__(self, name: str, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
