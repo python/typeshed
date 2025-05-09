@@ -149,11 +149,6 @@ class AnnotationState:
 def in_annotation(func: _F) -> _F: ...
 def in_string_annotation(func: _F) -> _F: ...
 
-if sys.version_info < (3, 14):
-    _NameConstant: TypeAlias = ast.NameConstant
-else:
-    _NameConstant: TypeAlias = Never
-
 if sys.version_info >= (3, 10):
     _Match: TypeAlias = ast.Match
     _MatchCase: TypeAlias = ast.match_case
@@ -189,6 +184,11 @@ else:
     _ParamSpec: TypeAlias = Never
     _TypeVarTuple: TypeAlias = Never
     _TypeAlias: TypeAlias = Never
+
+if sys.version_info < (3, 14):  # noqa: Y066
+    _NameConstant: TypeAlias = ast.NameConstant
+else:
+    _NameConstant: TypeAlias = Never
 
 class Checker:
     nodeDepth: int
