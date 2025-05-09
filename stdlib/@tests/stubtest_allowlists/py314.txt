@@ -134,6 +134,7 @@ _heapq.heappushpop_max
 _heapq.heapreplace_max
 _imp.pyc_magic_number_token
 _posixsubprocess.fork_exec
+_socket.IP_RECVTTL
 _socket.if_indextoname
 _ssl.HAS_PHA
 _thread.RLock.locked

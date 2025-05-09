@@ -14,7 +14,6 @@ ctypes.c_longdouble_complex._type_
 multiprocessing.popen_fork.Popen.interrupt
 multiprocessing.reduction.ACKNOWLEDGE
 posix.readinto
-select.EPOLLWAKEUP
 
 
 # =======

@@ -3,7 +3,6 @@
 # ====================================================================
 
 _socket.IPV6_RECVERR
-_socket.IP_RECVTTL
 _socket.SO_ORIGINAL_DST
 socket.IPV6_RECVERR
 socket.IP_RECVERR

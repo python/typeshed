@@ -9,7 +9,6 @@ _socket.IPV6_RECVERR
 _socket.IP_FREEBIND
 _socket.IP_RECVERR
 _socket.IP_RECVORIGDSTADDR
-_socket.IP_RECVTTL
 _socket.SO_ORIGINAL_DST
 _socket.VMADDR_CID_LOCAL
 asyncio.tools
