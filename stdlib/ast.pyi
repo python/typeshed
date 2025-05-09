@@ -164,15 +164,15 @@ class FunctionDef(stmt):
         ) -> None: ...
 
     if sys.version_info >= (3, 14):
-        def __replace__(  # type: ignore[override]
+        def __replace__(
             self,
             *,
             name: str = ...,
             args: arguments = ...,
             body: list[stmt] = ...,
             decorator_list: list[expr] = ...,
-            returns: expr | None,
-            type_comment: str | None,
+            returns: expr | None = ...,
+            type_comment: str | None = ...,
             type_params: list[type_param] = ...,
             **kwargs: Unpack[_Attributes],
         ) -> Self: ...
@@ -241,15 +241,15 @@ class AsyncFunctionDef(stmt):
         ) -> None: ...
 
     if sys.version_info >= (3, 14):
-        def __replace__(  # type: ignore[override]
+        def __replace__(
             self,
             *,
             name: str = ...,
             args: arguments = ...,
             body: list[stmt] = ...,
             decorator_list: list[expr] = ...,
-            returns: expr | None,
-            type_comment: str | None,
+            returns: expr | None = ...,
+            type_comment: str | None = ...,
             type_params: list[type_param] = ...,
         ) -> Self: ...
 
@@ -728,7 +728,7 @@ class Assert(stmt):
     def __init__(self, test: expr, msg: expr | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
-        def __replace__(self, *, test: expr = ..., msg: expr | None, **kwargs: Unpack[_Attributes]) -> Self: ...  # type: ignore[override]
+        def __replace__(self, *, test: expr = ..., msg: expr | None = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
 
 class Import(stmt):
     if sys.version_info >= (3, 10):
