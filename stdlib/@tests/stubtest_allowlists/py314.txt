@@ -123,7 +123,6 @@ _ctypes.POINTER
 _ctypes.byref
 _ctypes.byref
 _ctypes.pointer
-_curses.assume_default_colors
 _decimal.Decimal.from_number
 _decimal.IEEEContext
 _decimal.IEEE_CONTEXT_MAX_BITS
@@ -133,7 +132,6 @@ _heapq.heappush_max
 _heapq.heappushpop_max
 _heapq.heapreplace_max
 _imp.pyc_magic_number_token
-_posixsubprocess.fork_exec
 _socket.IP_RECVTTL
 _socket.if_indextoname
 _ssl.HAS_PHA
@@ -289,10 +287,6 @@ asyncio.tasks.eager_task_factory
 asyncio.tasks.eager_task_factory
 asyncio.tasks.eager_task_factory
 asyncio.tasks.eager_task_factory
-asyncio.tools
-asyncio.unix_events.__all__
-asyncio.unix_events.DefaultEventLoopPolicy
-asyncio.unix_events._DefaultEventLoopPolicy
 bdb.Bdb.__init__
 bdb.Bdb.disable_current_event
 bdb.Bdb.restart_events
@@ -354,9 +348,6 @@ ctypes.POINTER
 ctypes.POINTER
 ctypes.byref
 ctypes.byref
-ctypes.c_double_complex._type_
-ctypes.c_float_complex._type_
-ctypes.c_longdouble_complex._type_
 ctypes.memoryview_at
 ctypes.pointer
 ctypes.py_object.__class_getitem__
@@ -459,9 +450,7 @@ multiprocessing.managers._BaseDictProxy.__or__
 multiprocessing.managers._BaseDictProxy.__reversed__
 multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
-multiprocessing.popen_fork.Popen.interrupt
 multiprocessing.process.BaseProcess.interrupt
-multiprocessing.reduction.ACKNOWLEDGE
 multiprocessing.synchronize.SemLock.locked
 os.__all__
 os.readinto
@@ -493,13 +482,11 @@ pkgutil.__all__
 pkgutil.find_loader
 pkgutil.get_loader
 platform.invalidate_caches
-posix.readinto
 pstats.FunctionProfile.__annotate_func__
 pstats.FunctionProfile.__annotations_cache__
 pstats.StatsProfile.__annotate_func__
 pstats.StatsProfile.__annotations_cache__
 pyexpat.errors.XML_ERROR_NOT_STARTED
-select.EPOLLWAKEUP
 shutil.__all__
 socket.__all__
 socket.IP_RECVTTL
