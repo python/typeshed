@@ -1,5 +1,6 @@
-from typing import TypedDict
+from typing import TypedDict, type_check_only
 
+@type_check_only
 class _Versions(TypedDict):
     dirty: bool
     error: None
