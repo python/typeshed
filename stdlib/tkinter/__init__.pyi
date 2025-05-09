@@ -3736,6 +3736,7 @@ class PhotoImage(Image, _PhotoImageLike):
         self,
         data: (
             str
+            | bytes
             | list[str]
             | list[list[str]]
             | list[tuple[str, ...]]
