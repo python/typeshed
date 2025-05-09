@@ -90,8 +90,7 @@ json.dumps(MyTypedDict(a="hello", b="world"))
 
 # We should allow anything for subclasses of json.JSONEncoder.
 # Type-checking custom encoders is not practical without generics.
-class MyJSONEncoder(json.JSONEncoder):
-    def default(self, obj: Any) -> Any: ...
+class MyJSONEncoder(json.JSONEncoder): ...
 
 
 json.dumps(Decimal(1), cls=MyJSONEncoder)
