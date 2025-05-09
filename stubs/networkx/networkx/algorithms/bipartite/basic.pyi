@@ -4,6 +4,8 @@ from collections.abc import Iterable
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["is_bipartite", "is_bipartite_node_set", "color", "sets", "density", "degrees"]
+
 @_dispatchable
 def color(G: Graph[_Node]): ...
 @_dispatchable

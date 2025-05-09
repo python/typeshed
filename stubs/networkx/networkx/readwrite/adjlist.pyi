@@ -3,6 +3,8 @@ from collections.abc import Generator
 
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["generate_adjlist", "write_adjlist", "parse_adjlist", "read_adjlist"]
+
 def generate_adjlist(G, delimiter: str = " ") -> Generator[Incomplete, None, None]: ...
 def write_adjlist(G, path, comments: str = "#", delimiter: str = " ", encoding: str = "utf-8") -> None: ...
 @_dispatchable
