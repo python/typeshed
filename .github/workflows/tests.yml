@@ -70,6 +70,13 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
+      - name: Install required APT packages
+        run: |
+          DEPENDENCIES=$( python tests/get_external_apt_dependencies.py )
+          if [ -n "$DEPENDENCIES" ]; then
+              printf "Installing APT packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
+              sudo apt-get install -qy $DEPENDENCIES
+          fi
       - run: |
           # python-version can sometimes be pinned to a specific version or to "-dev", but
           # mypy understands only X.Y version numbers.
