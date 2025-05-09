@@ -103,6 +103,13 @@ jobs:
       - name: Install typeshed test-suite requirements
         # Install these so we can run `get_external_stub_requirements.py`
         run: uv pip install -r requirements-tests.txt --system
+      - name: Install required APT packages
+        run: |
+          DEPENDENCIES=$( python tests/get_external_apt_dependencies.py )
+          if [ -n "$DEPENDENCIES" ]; then
+              printf "Installing APT packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
+              sudo apt-get install -qy $DEPENDENCIES
+          fi
       - name: Create an isolated venv for testing
         run: uv venv .venv
       - name: Install 3rd-party stub dependencies
