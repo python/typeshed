@@ -22,7 +22,7 @@ def dumps(
     ensure_ascii: bool = True,
     check_circular: bool = True,
     allow_nan: bool = True,
-    cls: type[JSONEncoder] | None = None,
+    cls: None = None,
     indent: None | int | str = None,
     separators: tuple[str, str] | None = None,
     default: None = None,
@@ -31,16 +31,33 @@ def dumps(
 ) -> str: ...
 @overload
 def dumps(
-    obj: _T,
+    obj: _JSON | _T,
     *,
     skipkeys: bool = False,
     ensure_ascii: bool = True,
     check_circular: bool = True,
     allow_nan: bool = True,
-    cls: type[JSONEncoder] | None = None,
+    cls: None = None,
     indent: None | int | str = None,
     separators: tuple[str, str] | None = None,
     default: Callable[[_T], _JSON],
+    sort_keys: bool = False,
+    **kwds: Any,
+) -> str: ...
+
+# Type-checking subclasses without generics isn't practical.
+@overload
+def dumps(
+    obj: object,
+    *,
+    skipkeys: bool = False,
+    ensure_ascii: bool = True,
+    check_circular: bool = True,
+    allow_nan: bool = True,
+    cls: type[JSONEncoder],
+    indent: None | int | str = None,
+    separators: tuple[str, str] | None = None,
+    default: Callable[[Any], Any] | None = None,
     sort_keys: bool = False,
     **kwds: Any,
 ) -> str: ...
@@ -53,7 +70,7 @@ def dump(
     ensure_ascii: bool = True,
     check_circular: bool = True,
     allow_nan: bool = True,
-    cls: type[JSONEncoder] | None = None,
+    cls: None = None,
     indent: None | int | str = None,
     separators: tuple[str, str] | None = None,
     default: None = None,
@@ -62,7 +79,7 @@ def dump(
 ) -> None: ...
 @overload
 def dump(
-    obj: _T,
+    obj: _JSON | _T,
     fp: SupportsWrite[str],
     *,
     skipkeys: bool = False,
@@ -73,6 +90,24 @@ def dump(
     indent: None | int | str = None,
     separators: tuple[str, str] | None = None,
     default: Callable[[_T], _JSON],
+    sort_keys: bool = False,
+    **kwds: Any,
+) -> None: ...
+
+# Type-checking subclasses without generics isn't practical.
+@overload
+def dump(
+    obj: object,
+    fp: SupportsWrite[str],
+    *,
+    skipkeys: bool = False,
+    ensure_ascii: bool = True,
+    check_circular: bool = True,
+    allow_nan: bool = True,
+    cls: type[JSONEncoder],
+    indent: None | int | str = None,
+    separators: tuple[str, str] | None = None,
+    default: Callable[[Any], Any] | None = None,
     sort_keys: bool = False,
     **kwds: Any,
 ) -> None: ...

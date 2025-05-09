@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from decimal import Decimal
-from typing import TypedDict
+from typing import Any, TypedDict
 
 
 class _File:
@@ -86,3 +86,13 @@ class MyTypedDict(TypedDict):
 
 
 json.dumps(MyTypedDict(a="hello", b="world"))
+
+
+# We should allow anything for subclasses of json.JSONEncoder.
+# Type-checking custom encoders is not practical without generics.
+class MyJSONEncoder(json.JSONEncoder):
+    def default(self, obj: Any) -> Any: ...
+
+
+json.dumps(Decimal(1), cls=MyJSONEncoder)
+json.dump(Decimal(1), fp, cls=MyJSONEncoder)
