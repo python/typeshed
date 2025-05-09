@@ -14,7 +14,8 @@ _T = TypeVar("_T")
 # as the type, but that forces users to define their own custom JSON types when using `json.dumps()
 # or `json.dump()` on a passed in value. Instead we opt for a more permissive type that focuses on
 # checking non-nested structures.
-_JSON: TypeAlias = dict[str, Any] | list[Any] | str | int | float | bool | None
+_JSONValue: TypeAlias = str | int | float | bool | None
+_JSON: TypeAlias = dict[str, Any] | list[_JSONValue] | str | int | float | bool | None
 
 @overload
 def dumps(
