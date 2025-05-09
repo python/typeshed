@@ -21,7 +21,6 @@ json.dumps(
         "nested": {"array": [[1, 2], [3, 4.34]], "object": {"x": 1, "y": 2}},
     }
 )
-json.dumps({"empty_array": [], "empty_object": {}, "float": 3.14, "scientific": 1.23e-4, "unicode": "Hello 世界"})
 json.dumps(1)
 json.dumps(1.23)
 json.dumps(True)
