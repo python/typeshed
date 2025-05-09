@@ -7,7 +7,9 @@ pytype==2024.10.11; platform_system != "Windows" and python_version >= "3.10" an
 
 # Libraries used by our various scripts.
 aiohttp==3.11.15
-grpcio-tools>=1.66.2 # For grpc_tools.protoc
+# TODO (2025-05-09): No wheels exist for Python 3.14 yet, slowing down CI
+# considerably
+grpcio-tools>=1.66.2; python_version < "3.14" # For grpc_tools.protoc
 mypy-protobuf==3.6.0
 packaging==24.2
 pathspec>=0.11.1
