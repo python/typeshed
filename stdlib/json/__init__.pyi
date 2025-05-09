@@ -10,7 +10,11 @@ __all__ = ["dump", "dumps", "load", "loads", "JSONDecoder", "JSONDecodeError", "
 
 _T = TypeVar("_T")
 
-_JSON: TypeAlias = dict[str, _JSON] | list[_JSON] | str | int | float | bool | None
+# We could use `_JSON: TypeAlias = dict[str, _JSON] | list[_JSON] | str | int | float | bool | None`
+# as the type, but that forces users to define their own custom JSON types when using `json.dumps()
+# or `json.dump()` on a passed in value. Instead we opt for a more permissive type that focuses on
+# checking non-nested structures.
+_JSON: TypeAlias = dict[str, Any] | list[Any] | str | int | float | bool | None
 
 @overload
 def dumps(
