@@ -11,8 +11,10 @@ if __name__ == "__main__":
     distributions = sys.argv[1:]
     if not distributions:
         distributions = os.listdir(STUBS_PATH)
-    dependencies = set(itertools.chain.from_iterable(
-        read_metadata(distribution).stubtest_settings.apt_dependencies for distribution in distributions
-    ))
+    dependencies = set(
+        itertools.chain.from_iterable(
+            read_metadata(distribution).stubtest_settings.apt_dependencies for distribution in distributions
+        )
+    )
     for dependency in sorted(dependencies):
         print(dependency)
