@@ -2,13 +2,13 @@ import json
 from decimal import Decimal
 
 
-# By default, json.dumps() will not accept any non-serializable objects.
+# By default, json.dumps() will not accept any non JSON-serializable objects.
 class CustomClass: ...
 
 
-json.dumps(CustomClass())  # Error
-json.dumps(object())  # Error
-json.dumps(Decimal(1))  # Error
+json.dumps(CustomClass())  # type: ignore
+json.dumps(object())  # type: ignore
+json.dumps(Decimal(1))  # type: ignore
 
 # Serializable types are supported, included nested JSON.
 json.dumps(
@@ -47,7 +47,7 @@ def decimal_encoder(obj: Decimal) -> float:
 json.dumps(Decimal(1), default=decimal_encoder)
 
 
-# If the custom encoder doesn't return JSON, it will raise.
+# If the custom encoder doesn't return JSON, it will lead a typing error..
 def custom_encoder(obj: Decimal) -> Decimal:
     return obj
 
