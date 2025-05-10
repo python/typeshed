@@ -601,27 +601,33 @@ NoExtraItems: _NoExtraItemsType
 # PEP 747
 TypeForm: _SpecialForm
 
-class Format(enum.IntEnum):
-    VALUE = 1
-    FORWARDREF = 2
-    STRING = 3
-
 # PEP 649/749
-def get_annotations(
-    obj: Callable[..., object] | type[object] | ModuleType,  # any callable, class, or module
-    *,
-    globals: Mapping[str, Any] | None = None,  # value types depend on the key
-    locals: Mapping[str, Any] | None = None,  # value types depend on the key
-    eval_str: bool = False,
-    format: Format = Format.VALUE,  # noqa: Y011
-) -> dict[str, Any]: ...  # values are type expressions
-def evaluate_forward_ref(
-    forward_ref: ForwardRef,
-    *,
-    owner: Callable[..., object] | type[object] | ModuleType | None = None,  # any callable, class, or module
-    globals: Mapping[str, Any] | None = None,  # value types depend on the key
-    locals: Mapping[str, Any] | None = None,  # value types depend on the key
-    type_params: Iterable[TypeVar | ParamSpec | TypeVarTuple] | None = None,
-    format: Format = Format.VALUE,  # noqa: Y011
-    _recursive_guard: Container[str] = ...,
-) -> Any: ...  # str if format is Format.STRING, otherwise a type expression
+if sys.version_info >= (3, 14):
+    from typing import evaluate_forward_ref as evaluate_forward_ref
+
+    from annotationlib import Format as Format, get_annotations as get_annotations
+else:
+    class Format(enum.IntEnum):
+        VALUE = 1
+        VALUE_WITH_FAKE_GLOBALS = 2
+        FORWARDREF = 3
+        STRING = 4
+
+    def get_annotations(
+        obj: Callable[..., object] | type[object] | ModuleType,  # any callable, class, or module
+        *,
+        globals: Mapping[str, Any] | None = None,  # value types depend on the key
+        locals: Mapping[str, Any] | None = None,  # value types depend on the key
+        eval_str: bool = False,
+        format: Format = Format.VALUE,  # noqa: Y011
+    ) -> dict[str, Any]: ...  # values are type expressions
+    def evaluate_forward_ref(
+        forward_ref: ForwardRef,
+        *,
+        owner: Callable[..., object] | type[object] | ModuleType | None = None,  # any callable, class, or module
+        globals: Mapping[str, Any] | None = None,  # value types depend on the key
+        locals: Mapping[str, Any] | None = None,  # value types depend on the key
+        type_params: Iterable[TypeVar | ParamSpec | TypeVarTuple] | None = None,
+        format: Format = Format.VALUE,  # noqa: Y011
+        _recursive_guard: Container[str] = ...,
+    ) -> Any: ...  # str if format is Format.STRING, otherwise a type expression

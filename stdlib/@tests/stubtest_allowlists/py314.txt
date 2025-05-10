@@ -387,6 +387,7 @@ typing(_extensions)?\.IO\.writelines
 .*\.ForwardRef\.__ast_node__
 .*\.ForwardRef\.__cell__
 .*\.ForwardRef\.__code__
+.*\.ForwardRef\.__extra_names__
 .*\.ForwardRef\.__forward_evaluated__
 .*\.ForwardRef\.__forward_value__
 .*\.ForwardRef\.__globals__

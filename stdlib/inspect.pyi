@@ -142,6 +142,8 @@ if sys.version_info >= (3, 11):
             "getasyncgenstate",
             "BufferFlags",
         ]
+    if sys.version_info >= (3, 14):
+        __all__ += ["CO_HAS_DOCSTRING", "CO_METHOD", "ispackage"]
 
 _P = ParamSpec("_P")
 _T = TypeVar("_T")
