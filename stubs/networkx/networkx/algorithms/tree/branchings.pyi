@@ -12,6 +12,7 @@ __all__ = [
     "greedy_branching",
     "maximum_branching",
     "minimum_branching",
+    "minimal_branching",
     "maximum_spanning_arborescence",
     "minimum_spanning_arborescence",
     "ArborescenceIterator",
@@ -31,6 +32,8 @@ def maximum_branching(
 def minimum_branching(
     G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str | None = None
 ): ...
+@_dispatchable
+def minimal_branching(G, /, *, attr="weight", default=1, preserve_attrs=False, partition=None): ...
 @_dispatchable
 def maximum_spanning_arborescence(
     G: DiGraph[_Node], attr: str = "weight", default: float = 1, preserve_attrs: bool = False, partition: str | None = None

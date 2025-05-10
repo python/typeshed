@@ -22,6 +22,7 @@ from braintree.masterpass_card import MasterpassCard
 from braintree.meta_checkout_card import MetaCheckoutCard
 from braintree.meta_checkout_token import MetaCheckoutToken
 from braintree.package_details import PackageDetails
+from braintree.payment_facilitator import PaymentFacilitator
 from braintree.paypal_account import PayPalAccount
 from braintree.paypal_here import PayPalHere
 from braintree.resource import Resource
@@ -59,13 +60,6 @@ class Transaction(Resource):
         Api: Final = "api"
         ControlPanel: Final = "control_panel"
         Recurring: Final = "recurring"
-
-    class EscrowStatus:
-        HoldPending: Final = "hold_pending"
-        Held: Final = "held"
-        ReleasePending: Final = "release_pending"
-        Released: Final = "released"
-        Refunded: Final = "refunded"
 
     class Status:
         AuthorizationExpired: Final = "authorization_expired"
@@ -105,21 +99,15 @@ class Transaction(Resource):
     @staticmethod
     def clone_transaction(transaction_id, params): ...
     @staticmethod
-    def cancel_release(transaction_id): ...
-    @staticmethod
     def credit(params: Incomplete | None = None): ...
     @staticmethod
     def find(transaction_id): ...
-    @staticmethod
-    def hold_in_escrow(transaction_id): ...
     @staticmethod
     def refund(transaction_id, amount_or_options: Incomplete | None = None): ...
     @staticmethod
     def sale(params: Incomplete | None = None): ...
     @staticmethod
     def search(*query): ...
-    @staticmethod
-    def release_from_escrow(transaction_id): ...
     @staticmethod
     def submit_for_settlement(transaction_id, amount: Incomplete | None = None, params: Incomplete | None = None): ...
     @staticmethod
@@ -185,6 +173,7 @@ class Transaction(Resource):
     facilitated_details: FacilitatedDetails
     facilitator_details: FacilitatorDetails
     network_transaction_id: Incomplete
+    payment_facilitator: PaymentFacilitator
     def __init__(self, gateway, attributes) -> None: ...
     @property
     def vault_billing_address(self): ...

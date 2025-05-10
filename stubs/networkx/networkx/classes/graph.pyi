@@ -26,6 +26,8 @@ _Data: TypeAlias = (
     # | scipy.sparse.base.spmatrix
 )
 
+__all__ = ["Graph"]
+
 class Graph(Collection[_Node]):
     node_dict_factory: ClassVar[_MapFactory] = ...
     node_attr_dict_factory: ClassVar[_MapFactory] = ...

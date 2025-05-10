@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["from_sparse6_bytes", "read_sparse6", "to_sparse6_bytes", "write_sparse6"]
+
 @_dispatchable
 def from_sparse6_bytes(string): ...
 def to_sparse6_bytes(G, nodes: Incomplete | None = None, header: bool = True): ...

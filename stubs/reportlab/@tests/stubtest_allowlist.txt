@@ -20,7 +20,6 @@ reportlab.graphics.shapes.Drawing.wrap
 reportlab\.platypus\.(doctemplate\.|flowables\.|tableofcontents\.)?[A-Za-z_]+\.split
 reportlab\.platypus\.(doctemplate\.|flowables\.|tableofcontents\.)?[A-Za-z_]+\.wrap
 reportlab.platypus.multicol.MultiCol.split
-reportlab.platypus.multicol.MultiCol.wrap
 reportlab.platypus.para.FastPara.split
 reportlab.platypus.para.FastPara.wrap
 reportlab.platypus.para.Para.split

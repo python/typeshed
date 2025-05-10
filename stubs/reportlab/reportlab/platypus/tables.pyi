@@ -40,7 +40,9 @@ class CellStyle(PropertySet):
     background: _Color
     valign: Literal["TOP", "MIDDLE", "BOTTOM"]
     href: str | None
-    destination: Incomplete
+    direction: str | None
+    shaping: Incomplete | None
+    destination: Incomplete | None
     def __init__(self, name: str, parent: CellStyle | None = None) -> None: ...
     def copy(self, result: CellStyle | None = None) -> CellStyle: ...
 

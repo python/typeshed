@@ -1,0 +1,742 @@
+# ====================================================================
+# TODO: New errors in Python 3.14 that need to be fixed or moved below
+# ====================================================================
+
+_ast.Add.__annotations_cache__
+_ast.And.__annotations_cache__
+_ast.AnnAssign.__annotations_cache__
+_ast.Assert.__annotations_cache__
+_ast.Assign.__annotations_cache__
+_ast.AsyncFor.__annotations_cache__
+_ast.AsyncFunctionDef.__annotations_cache__
+_ast.AsyncWith.__annotations_cache__
+_ast.Attribute.__annotations_cache__
+_ast.AugAssign.__annotations_cache__
+_ast.Await.__annotations_cache__
+_ast.BinOp.__annotations_cache__
+_ast.BitAnd.__annotations_cache__
+_ast.BitOr.__annotations_cache__
+_ast.BitXor.__annotations_cache__
+_ast.BoolOp.__annotations_cache__
+_ast.Break.__annotations_cache__
+_ast.Call.__annotations_cache__
+_ast.ClassDef.__annotations_cache__
+_ast.Compare.__annotations_cache__
+_ast.Constant.__annotations_cache__
+_ast.Continue.__annotations_cache__
+_ast.Del.__annotations_cache__
+_ast.Delete.__annotations_cache__
+_ast.Dict.__annotations_cache__
+_ast.DictComp.__annotations_cache__
+_ast.Div.__annotations_cache__
+_ast.Eq.__annotations_cache__
+_ast.ExceptHandler.__annotations_cache__
+_ast.Expr.__annotations_cache__
+_ast.Expression.__annotations_cache__
+_ast.FloorDiv.__annotations_cache__
+_ast.For.__annotations_cache__
+_ast.FormattedValue.__annotations_cache__
+_ast.FunctionDef.__annotations_cache__
+_ast.FunctionType.__annotations_cache__
+_ast.GeneratorExp.__annotations_cache__
+_ast.Global.__annotations_cache__
+_ast.Gt.__annotations_cache__
+_ast.GtE.__annotations_cache__
+_ast.If.__annotations_cache__
+_ast.IfExp.__annotations_cache__
+_ast.Import.__annotations_cache__
+_ast.ImportFrom.__annotations_cache__
+_ast.In.__annotations_cache__
+_ast.Interactive.__annotations_cache__
+_ast.Invert.__annotations_cache__
+_ast.Is.__annotations_cache__
+_ast.IsNot.__annotations_cache__
+_ast.JoinedStr.__annotations_cache__
+_ast.LShift.__annotations_cache__
+_ast.Lambda.__annotations_cache__
+_ast.List.__annotations_cache__
+_ast.ListComp.__annotations_cache__
+_ast.Load.__annotations_cache__
+_ast.Lt.__annotations_cache__
+_ast.LtE.__annotations_cache__
+_ast.MatMult.__annotations_cache__
+_ast.Match.__annotations_cache__
+_ast.MatchAs.__annotations_cache__
+_ast.MatchClass.__annotations_cache__
+_ast.MatchMapping.__annotations_cache__
+_ast.MatchOr.__annotations_cache__
+_ast.MatchSequence.__annotations_cache__
+_ast.MatchSingleton.__annotations_cache__
+_ast.MatchStar.__annotations_cache__
+_ast.MatchValue.__annotations_cache__
+_ast.Mod.__annotations_cache__
+_ast.Module.__annotations_cache__
+_ast.Mult.__annotations_cache__
+_ast.Name.__annotations_cache__
+_ast.NamedExpr.__annotations_cache__
+_ast.Nonlocal.__annotations_cache__
+_ast.Not.__annotations_cache__
+_ast.NotEq.__annotations_cache__
+_ast.NotIn.__annotations_cache__
+_ast.Or.__annotations_cache__
+_ast.ParamSpec.__annotations_cache__
+_ast.Pass.__annotations_cache__
+_ast.Pow.__annotations_cache__
+_ast.RShift.__annotations_cache__
+_ast.Raise.__annotations_cache__
+_ast.Return.__annotations_cache__
+_ast.Set.__annotations_cache__
+_ast.SetComp.__annotations_cache__
+_ast.Slice.__annotations_cache__
+_ast.Starred.__annotations_cache__
+_ast.Store.__annotations_cache__
+_ast.Sub.__annotations_cache__
+_ast.Subscript.__annotations_cache__
+_ast.Try.__annotations_cache__
+_ast.TryStar.__annotations_cache__
+_ast.Tuple.__annotations_cache__
+_ast.TypeAlias.__annotations_cache__
+_ast.TypeIgnore.__annotations_cache__
+_ast.TypeVar.__annotations_cache__
+_ast.TypeVarTuple.__annotations_cache__
+_ast.UAdd.__annotations_cache__
+_ast.USub.__annotations_cache__
+_ast.UnaryOp.__annotations_cache__
+_ast.While.__annotations_cache__
+_ast.With.__annotations_cache__
+_ast.Yield.__annotations_cache__
+_ast.YieldFrom.__annotations_cache__
+_ast.alias.__annotations_cache__
+_ast.arg.__annotations_cache__
+_ast.arguments.__annotations_cache__
+_ast.comprehension.__annotations_cache__
+_ast.keyword.__annotations_cache__
+_ast.match_case.__annotations_cache__
+_ast.withitem.__annotations_cache__
+_asyncio.all_tasks
+_asyncio.future_add_to_awaited_by
+_asyncio.future_discard_from_awaited_by
+_compression
+_contextvars.Token.__enter__
+_contextvars.Token.__exit__
+_ctypes.POINTER
+_ctypes.byref
+_ctypes.pointer
+_decimal.Decimal.from_number
+_decimal.IEEEContext
+_decimal.IEEE_CONTEXT_MAX_BITS
+_heapq.heapify_max
+_heapq.heappop_max
+_heapq.heappush_max
+_heapq.heappushpop_max
+_heapq.heapreplace_max
+_imp.pyc_magic_number_token
+_socket.IP_RECVTTL
+_socket.if_indextoname
+_ssl.HAS_PHA
+_thread.RLock.locked
+_thread.set_name
+annotationlib
+argparse.HelpFormatter.__init__
+ast.Add.__annotations_cache__
+ast.And.__annotations_cache__
+ast.AnnAssign.__annotations_cache__
+ast.Assert.__annotations_cache__
+ast.Assign.__annotations_cache__
+ast.AsyncFor.__annotations_cache__
+ast.AsyncFunctionDef.__annotations_cache__
+ast.AsyncWith.__annotations_cache__
+ast.Attribute.__annotations_cache__
+ast.AugAssign.__annotations_cache__
+ast.Await.__annotations_cache__
+ast.BinOp.__annotations_cache__
+ast.BitAnd.__annotations_cache__
+ast.BitOr.__annotations_cache__
+ast.BitXor.__annotations_cache__
+ast.BoolOp.__annotations_cache__
+ast.Break.__annotations_cache__
+ast.Call.__annotations_cache__
+ast.ClassDef.__annotations_cache__
+ast.Compare.__annotations_cache__
+ast.Constant.__annotations_cache__
+ast.Continue.__annotations_cache__
+ast.Del.__annotations_cache__
+ast.Delete.__annotations_cache__
+ast.Dict.__annotations_cache__
+ast.DictComp.__annotations_cache__
+ast.Div.__annotations_cache__
+ast.Eq.__annotations_cache__
+ast.ExceptHandler.__annotations_cache__
+ast.Expr.__annotations_cache__
+ast.Expression.__annotations_cache__
+ast.FloorDiv.__annotations_cache__
+ast.For.__annotations_cache__
+ast.FormattedValue.__annotations_cache__
+ast.FunctionDef.__annotations_cache__
+ast.FunctionType.__annotations_cache__
+ast.GeneratorExp.__annotations_cache__
+ast.Global.__annotations_cache__
+ast.Gt.__annotations_cache__
+ast.GtE.__annotations_cache__
+ast.If.__annotations_cache__
+ast.IfExp.__annotations_cache__
+ast.Import.__annotations_cache__
+ast.ImportFrom.__annotations_cache__
+ast.In.__annotations_cache__
+ast.Interactive.__annotations_cache__
+ast.Interpolation
+ast.Invert.__annotations_cache__
+ast.Is.__annotations_cache__
+ast.IsNot.__annotations_cache__
+ast.JoinedStr.__annotations_cache__
+ast.LShift.__annotations_cache__
+ast.Lambda.__annotations_cache__
+ast.List.__annotations_cache__
+ast.ListComp.__annotations_cache__
+ast.Load.__annotations_cache__
+ast.Lt.__annotations_cache__
+ast.LtE.__annotations_cache__
+ast.MatMult.__annotations_cache__
+ast.Match.__annotations_cache__
+ast.MatchAs.__annotations_cache__
+ast.MatchClass.__annotations_cache__
+ast.MatchMapping.__annotations_cache__
+ast.MatchOr.__annotations_cache__
+ast.MatchSequence.__annotations_cache__
+ast.MatchSingleton.__annotations_cache__
+ast.MatchStar.__annotations_cache__
+ast.MatchValue.__annotations_cache__
+ast.Mod.__annotations_cache__
+ast.Module.__annotations_cache__
+ast.Mult.__annotations_cache__
+ast.Name.__annotations_cache__
+ast.NamedExpr.__annotations_cache__
+ast.Nonlocal.__annotations_cache__
+ast.Not.__annotations_cache__
+ast.NotEq.__annotations_cache__
+ast.NotIn.__annotations_cache__
+ast.Or.__annotations_cache__
+ast.ParamSpec.__annotations_cache__
+ast.Pass.__annotations_cache__
+ast.Pow.__annotations_cache__
+ast.RShift.__annotations_cache__
+ast.Raise.__annotations_cache__
+ast.Return.__annotations_cache__
+ast.Set.__annotations_cache__
+ast.SetComp.__annotations_cache__
+ast.Slice.__annotations_cache__
+ast.Starred.__annotations_cache__
+ast.Store.__annotations_cache__
+ast.Sub.__annotations_cache__
+ast.Subscript.__annotations_cache__
+ast.TemplateStr
+ast.Try.__annotations_cache__
+ast.TryStar.__annotations_cache__
+ast.Tuple.__annotations_cache__
+ast.TypeAlias.__annotations_cache__
+ast.TypeIgnore.__annotations_cache__
+ast.TypeVar.__annotations_cache__
+ast.TypeVarTuple.__annotations_cache__
+ast.UAdd.__annotations_cache__
+ast.USub.__annotations_cache__
+ast.UnaryOp.__annotations_cache__
+ast.While.__annotations_cache__
+ast.With.__annotations_cache__
+ast.Yield.__annotations_cache__
+ast.YieldFrom.__annotations_cache__
+ast.alias.__annotations_cache__
+ast.arg.__annotations_cache__
+ast.arguments.__annotations_cache__
+ast.comprehension.__annotations_cache__
+ast.keyword.__annotations_cache__
+ast.match_case.__annotations_cache__
+ast.withitem.__annotations_cache__
+asyncio.__all__
+asyncio.FrameCallGraphEntry
+asyncio.FutureCallGraph
+asyncio._AbstractEventLoopPolicy
+asyncio._DefaultEventLoopPolicy
+asyncio._get_event_loop_policy
+asyncio._set_event_loop_policy
+asyncio.capture_call_graph
+asyncio.eager_task_factory
+asyncio.format_call_graph
+asyncio.future_add_to_awaited_by
+asyncio.future_discard_from_awaited_by
+asyncio.print_call_graph
+asyncio.events.__all__
+asyncio.events.AbstractEventLoopPolicy
+asyncio.events.BaseDefaultEventLoopPolicy
+asyncio.events._AbstractEventLoopPolicy
+asyncio.events._get_event_loop_policy
+asyncio.events._set_event_loop_policy
+asyncio.futures.__all__
+asyncio.futures.future_add_to_awaited_by
+asyncio.futures.future_discard_from_awaited_by
+asyncio.graph
+asyncio.tasks.eager_task_factory
+bdb.Bdb.__init__
+bdb.Bdb.disable_current_event
+bdb.Bdb.restart_events
+bdb.Bdb.start_trace
+bdb.Bdb.stop_trace
+builtins.BaseExceptionGroup.split
+builtins.BaseExceptionGroup.subgroup
+builtins.ExceptionGroup.split
+builtins.ExceptionGroup.subgroup
+builtins.bytearray.resize
+builtins.classmethod.__annotate__
+builtins.classmethod.__class_getitem__
+builtins.complex.from_number
+builtins.float.from_number
+builtins.int.__round__
+builtins.memoryview.__class_getitem__
+builtins.staticmethod.__annotate__
+builtins.staticmethod.__class_getitem__
+builtins.type.__annotate__
+code.compile_command
+codeop.compile_command
+compression
+compression.bz2
+compression.gzip
+compression.lzma
+compression.zlib
+compression.zstd
+concurrent.futures.__all__
+concurrent.futures.InterpreterPoolExecutor
+concurrent.futures.ThreadPoolExecutor.BROKEN
+concurrent.futures.ThreadPoolExecutor.prepare_context
+concurrent.futures.interpreter
+concurrent.futures.thread.ThreadPoolExecutor.BROKEN
+concurrent.futures.thread.ThreadPoolExecutor.prepare_context
+concurrent.futures.thread.WorkerContext
+concurrent.futures.thread._WorkItem.__init__
+concurrent.futures.thread._WorkItem.run
+concurrent.futures.thread._worker
+configparser.__all__
+configparser.InvalidWriteError
+configparser.UnnamedSectionDisabledError
+contextvars.Token.__enter__
+contextvars.Token.__exit__
+ctypes.POINTER
+ctypes.byref
+ctypes.memoryview_at
+ctypes.pointer
+ctypes.py_object.__class_getitem__
+ctypes.util.dllist
+ctypes.wintypes.HCONV
+ctypes.wintypes.HCONVLIST
+ctypes.wintypes.HCURSOR
+ctypes.wintypes.HDDEDATA
+ctypes.wintypes.HDROP
+ctypes.wintypes.HFILE
+ctypes.wintypes.HRESULT
+ctypes.wintypes.HSZ
+dataclasses.Field.__init__
+dataclasses.Field.doc
+dataclasses.field
+dataclasses.make_dataclass
+decimal.Decimal.from_number
+decimal.DecimalTuple.__annotate_func__
+decimal.DecimalTuple.__annotations_cache__
+decimal.IEEE_CONTEXT_MAX_BITS
+dis.Bytecode.__init__
+dis.Instruction.make
+dis.dis
+dis.disassemble
+dis.distb
+enum.Enum.__signature__
+enum.EnumMeta.__signature__
+enum.EnumType.__signature__
+faulthandler.dump_c_stack
+fnmatch.__all__
+fnmatch.filterfalse
+fractions.Fraction.__pow__
+fractions.Fraction.__rpow__
+fractions.Fraction.from_number
+functools.__all__
+functools.Placeholder
+functools.WRAPPER_ASSIGNMENTS
+functools.partialmethod.__new__
+functools.reduce
+functools.update_wrapper
+functools.wraps
+gzip.GzipFile.readinto
+gzip.GzipFile.readinto1
+gzip.compress
+http.server.__all__
+http.server.HTTPSServer
+http.server.ThreadingHTTPSServer
+imaplib.IMAP4.file
+imaplib.IMAP4.idle
+imaplib.IMAP4_SSL.file
+imaplib.IMAP4_stream.file
+importlib.abc.ResourceReader
+importlib.abc.Traversable
+importlib.abc.TraversableResources
+importlib.machinery.__all__
+importlib.machinery.AppleFrameworkLoader
+importlib.metadata.PackageMetadata.__annotate_func__
+importlib.metadata.PackageMetadata.__annotations_cache__
+importlib.metadata._meta.PackageMetadata.__annotate_func__
+importlib.metadata._meta.PackageMetadata.__annotations_cache__
+importlib.metadata._meta.SimplePath.__annotate_func__
+importlib.metadata._meta.SimplePath.__annotations_cache__
+importlib.resources.abc.Traversable.__annotate_func__
+importlib.resources.abc.Traversable.__annotations_cache__
+importlib.util.__all__
+importlib.util.Loader
+inspect.__all__
+inspect.CO_HAS_DOCSTRING
+inspect.CO_METHOD
+inspect.Signature.format
+inspect.Signature.from_callable
+inspect.formatannotation
+inspect.get_annotations
+inspect.ispackage
+inspect.signature
+io.__all__
+io.Reader
+io.Writer
+ipaddress._IPAddressBase.version
+logging.handlers.SysLogHandler.__init__
+marshal.dump
+marshal.dumps
+multiprocessing.forkserver.main
+multiprocessing.managers.BaseListProxy.clear
+multiprocessing.managers.BaseListProxy.copy
+multiprocessing.managers.DictProxy.__ior__
+multiprocessing.managers.SyncManager.set
+multiprocessing.managers._BaseDictProxy.__ior__
+multiprocessing.managers._BaseDictProxy.__or__
+multiprocessing.managers._BaseDictProxy.__reversed__
+multiprocessing.managers._BaseDictProxy.__ror__
+multiprocessing.managers._BaseDictProxy.fromkeys
+multiprocessing.process.BaseProcess.interrupt
+multiprocessing.synchronize.SemLock.locked
+os.__all__
+os.readinto
+pathlib.Path.copy_into
+pathlib.Path.copytree
+pathlib.Path.delete
+pathlib.Path.info
+pathlib.Path.move
+pathlib.Path.move_into
+pathlib.Path.rmtree
+pathlib.PurePath.is_relative_to
+pathlib.PurePath.relative_to
+pathlib.types
+pdb.__all__
+pdb.Pdb.__init__
+pdb.Pdb.checkline
+pdb.Pdb.complete_multiline_names
+pdb.Pdb.print_stack_trace
+pdb.Pdb.set_trace
+pdb.Pdb.set_trace_async
+pdb.get_default_backend
+pdb.set_default_backend
+pdb.set_trace
+pkgutil.__all__
+pkgutil.find_loader
+pkgutil.get_loader
+pstats.FunctionProfile.__annotate_func__
+pstats.FunctionProfile.__annotations_cache__
+pstats.StatsProfile.__annotate_func__
+pstats.StatsProfile.__annotations_cache__
+pyexpat.errors.XML_ERROR_NOT_STARTED
+shutil.__all__
+socket.__all__
+socket.IP_RECVTTL
+socket.if_indextoname
+sre_compile.CH_NEGATE
+sre_constants.CH_NEGATE
+sre_parse.CH_NEGATE
+string.Template.flags
+string.templatelib
+sys.is_remote_debug_enabled
+sys.remote_exec
+tarfile.TarFile.zstopen
+threading.Thread.__init__
+threading._RLock.locked
+tkinter.Event.__class_getitem__
+token.__all__
+token.TSTRING_END
+token.TSTRING_MIDDLE
+token.TSTRING_START
+tokenize.__all__
+tokenize.TSTRING_END
+tokenize.TSTRING_MIDDLE
+tokenize.TSTRING_START
+tomllib.TOMLDecodeError.__init__
+traceback.__all__
+turtle.__all__
+turtle.RawTurtle.fill
+turtle.RawTurtle.poly
+turtle.TurtleScreen.no_animation
+turtle.TurtleScreen.save
+turtle.fill
+turtle.no_animation
+turtle.poly
+turtle.save
+types.CodeType.co_branches
+types.FrameType.f_generator
+types.FunctionType.__annotate__
+types.LambdaType.__annotate__
+types.ModuleType.__annotate__
+types.UnionType.__class_getitem__
+types.UnionType.__mro_entries__
+types.UnionType.__name__
+types.UnionType.__qualname__
+typing.__all__
+typing.ForwardRef.__arg__
+typing.ForwardRef.__ast_node__
+typing.ForwardRef.__cell__
+typing.ForwardRef.__code__
+typing.ForwardRef.__extra_names__
+typing.ForwardRef.__forward_arg__
+typing.ForwardRef.__forward_code__
+typing.ForwardRef.__globals__
+typing.ForwardRef.__init__
+typing.ForwardRef.__init_subclass__
+typing.ForwardRef.__owner__
+typing.ForwardRef.__stringifier_dict__
+typing.ForwardRef.evaluate
+typing.ParamSpec.evaluate_default
+typing.SupportsAbs.__annotate_func__
+typing.SupportsAbs.__annotations_cache__
+typing.SupportsBytes.__annotate_func__
+typing.SupportsBytes.__annotations_cache__
+typing.SupportsComplex.__annotate_func__
+typing.SupportsComplex.__annotations_cache__
+typing.SupportsFloat.__annotate_func__
+typing.SupportsFloat.__annotations_cache__
+typing.SupportsIndex.__annotate_func__
+typing.SupportsIndex.__annotations_cache__
+typing.SupportsInt.__annotate_func__
+typing.SupportsInt.__annotations_cache__
+typing.SupportsRound.__annotate_func__
+typing.SupportsRound.__annotations_cache__
+typing.TypeAliasType.evaluate_value
+typing.TypeVar.evaluate_bound
+typing.TypeVar.evaluate_constraints
+typing.TypeVar.evaluate_default
+typing.TypeVarTuple.evaluate_default
+typing.Union
+typing.evaluate_forward_ref
+typing.get_type_hints
+typing_extensions.ForwardRef.__arg__
+typing_extensions.ForwardRef.__ast_node__
+typing_extensions.ForwardRef.__cell__
+typing_extensions.ForwardRef.__code__
+typing_extensions.ForwardRef.__extra_names__
+typing_extensions.ForwardRef.__forward_arg__
+typing_extensions.ForwardRef.__forward_code__
+typing_extensions.ForwardRef.__globals__
+typing_extensions.ForwardRef.__init__
+typing_extensions.ForwardRef.__init_subclass__
+typing_extensions.ForwardRef.__owner__
+typing_extensions.ForwardRef.__stringifier_dict__
+typing_extensions.ForwardRef.evaluate
+typing_extensions.SupportsAbs.__annotate_func__
+typing_extensions.SupportsAbs.__annotations_cache__
+typing_extensions.SupportsBytes.__annotate_func__
+typing_extensions.SupportsBytes.__annotations_cache__
+typing_extensions.SupportsComplex.__annotate_func__
+typing_extensions.SupportsComplex.__annotations_cache__
+typing_extensions.SupportsFloat.__annotate_func__
+typing_extensions.SupportsFloat.__annotations_cache__
+typing_extensions.SupportsIndex.__annotate_func__
+typing_extensions.SupportsIndex.__annotations_cache__
+typing_extensions.SupportsInt.__annotate_func__
+typing_extensions.SupportsInt.__annotations_cache__
+typing_extensions.SupportsRound.__annotate_func__
+typing_extensions.SupportsRound.__annotations_cache__
+typing_extensions.TypeAliasType.evaluate_value
+typing_extensions.Union
+typing_extensions.evaluate_forward_ref
+typing_extensions.get_type_hints
+unittest.TestCase.assertEndsWith
+unittest.TestCase.assertHasAttr
+unittest.TestCase.assertIsSubclass
+unittest.TestCase.assertNotEndsWith
+unittest.TestCase.assertNotHasAttr
+unittest.TestCase.assertNotIsSubclass
+unittest.TestCase.assertNotStartsWith
+unittest.TestCase.assertStartsWith
+unittest.case.TestCase.assertEndsWith
+unittest.case.TestCase.assertHasAttr
+unittest.case.TestCase.assertIsSubclass
+unittest.case.TestCase.assertNotEndsWith
+unittest.case.TestCase.assertNotHasAttr
+unittest.case.TestCase.assertNotIsSubclass
+unittest.case.TestCase.assertNotStartsWith
+unittest.case.TestCase.assertStartsWith
+urllib.request.__all__
+urllib.request.FancyURLopener
+urllib.request.URLopener
+urllib.request.pathname2url
+urllib.request.url2pathname
+wsgiref.types.ErrorStream.__annotate_func__
+wsgiref.types.ErrorStream.__annotations_cache__
+wsgiref.types.FileWrapper.__annotate_func__
+wsgiref.types.FileWrapper.__annotations_cache__
+wsgiref.types.InputStream.__annotate_func__
+wsgiref.types.InputStream.__annotations_cache__
+wsgiref.types.StartResponse.__annotate_func__
+wsgiref.types.StartResponse.__annotations_cache__
+wsgiref.types._Readable.__annotate_func__
+wsgiref.types._Readable.__annotations_cache__
+xml.parsers.expat.errors.XML_ERROR_NOT_STARTED
+xml.sax.__all__
+xml.sax.InputSource
+zipfile.ZipFile.data_offset
+zipfile._path.glob.Translator.__annotate_func__
+
+
+# =========================
+# New errors in Python 3.14
+# =========================
+
+
+# ====================================
+# Pre-existing errors from Python 3.13
+# ====================================
+
+
+# =======
+# >= 3.12
+# =======
+
+zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
+
+
+# =======
+# >= 3.11
+# =======
+
+typing.NewType.__mro_entries__
+
+
+# =======
+# >= 3.10
+# =======
+
+builtins.ellipsis  # type is not exposed anywhere
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
+
+# positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
+_collections_abc.Coroutine.send
+_collections_abc.Coroutine.throw
+_collections_abc.Generator.send
+_collections_abc.Generator.throw
+
+# These are not positional-only at runtime, but we treat them as positional-only to match dict.
+_collections_abc.MutableMapping.pop
+_collections_abc.MutableMapping.setdefault
+
+# These three have a pos-or-keyword first parameter at runtime, but deliberately have a pos-only first parameter in the stub. #6812
+posixpath.join
+ntpath.join
+os.path.join
+
+# typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
+# to mark these as positional-only for compatibility with existing sub-classes.
+typing(_extensions)?\.BinaryIO\.write
+typing(_extensions)?\.IO\.read
+typing(_extensions)?\.IO\.readline
+typing(_extensions)?\.IO\.readlines
+typing(_extensions)?\.IO\.seek
+typing(_extensions)?\.IO\.truncate
+typing(_extensions)?\.IO\.write
+typing(_extensions)?\.IO\.writelines
+
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >= 3.13
+# =============================================================
+
+_pyrepl\..+  # The internal implementation of the REPL on py313+; not for public consumption
+codecs.backslashreplace_errors  # Runtime incorrectly has `self`
+codecs.ignore_errors  # Runtime incorrectly has `self`
+codecs.namereplace_errors  # Runtime incorrectly has `self`
+codecs.replace_errors  # Runtime incorrectly has `self`
+codecs.strict_errors  # Runtime incorrectly has `self`
+codecs.xmlcharrefreplace_errors  # Runtime incorrectly has `self`
+
+# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
+# But have more precise (accurate) signatures in the stub
+multiprocessing.managers._BaseDictProxy.__iter__
+multiprocessing.managers._BaseDictProxy.__len__
+multiprocessing.managers._BaseDictProxy.clear
+multiprocessing.managers._BaseDictProxy.copy
+multiprocessing.managers._BaseDictProxy.items
+multiprocessing.managers._BaseDictProxy.keys
+multiprocessing.managers._BaseDictProxy.popitem
+multiprocessing.managers._BaseDictProxy.values
+
+# To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
+types.MappingProxyType.get
+
+typing_extensions.Protocol  # Super-special typing primitive
+
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >= 3.12
+# =============================================================
+
+# Runtime AST node runtime constructor behaviour is too loose.
+# For static typing, the loose behaviour is undesirable (https://github.com/python/typeshed/issues/8378).
+# For the runtime, the loose behaviour is deprecated in Python 3.13 (https://github.com/python/cpython/issues/105858)
+_?ast.type_param.__init__
+
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedNonAbstract.__new__
+
+# Deprecated argument is supported at runtime by renaming it through a decorator.
+importlib.resources._common.files
+importlib.resources.files
+
+sys._monitoring  # Doesn't really exist. See comments in the stub.
+sys.last_exc  # not always defined
+
+# These only exist to give a better error message if you try to subclass an instance
+typing.ParamSpec.__mro_entries__
+typing.ParamSpecArgs.__mro_entries__
+typing.ParamSpecKwargs.__mro_entries__
+typing.TypeVar.__mro_entries__
+typing.TypeVarTuple.__mro_entries__
+
+# These exist at runtime because the protocol uses PEP-695 syntax in CPython
+typing.SupportsAbs.__type_params__
+typing.SupportsRound.__type_params__
+typing_extensions.SupportsAbs.__type_params__
+typing_extensions.SupportsRound.__type_params__
+
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >= 3.11
+# =============================================================
+
+enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
+enum.auto.value  # The stub for enum.auto is nothing like the implementation
+http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
+importlib.resources.abc.Traversable.open  # Problematic protocol signature at runtime, see source code comments.
+inspect._ParameterKind.description  # Still exists, but stubtest can't see it
+typing\._SpecialForm.*  # Super-special typing primitive
+typing\.LiteralString  # Super-special typing primitive
+
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >= 3.10
+# =============================================================
+
+# Runtime AST node runtime constructor behaviour is too loose.
+# For static typing, the loose behaviour is undesirable (https://github.com/python/typeshed/issues/8378).
+# For the runtime, the loose behaviour is deprecated in Python 3.13 (https://github.com/python/cpython/issues/105858)
+_?ast.pattern.__init__
+
+_collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
+builtins.property.__set_name__  # Doesn't actually exist
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
+dataclasses.KW_ONLY  # white lies around defaults
+importlib.metadata._meta.SimplePath.joinpath  # Runtime definition of protocol is incorrect
