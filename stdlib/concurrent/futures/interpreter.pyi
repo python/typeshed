@@ -24,17 +24,24 @@ if sys.version_info >= (3, 14):
     from concurrent.futures.thread import WorkerContext as ThreadWorkerContext
 
     class WorkerContext(ThreadWorkerContext):
+        # Parent class doesn't have `shared` argument,
         @overload
         @classmethod
         def prepare(
-            cls, initializer: Callable[[Unpack[_Ts]], object], initargs: tuple[Unpack[_Ts]], shared: Mapping[str, object]
-        ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...
+            cls,
+            initializer: Callable[[Unpack[_Ts]], object],
+            initargs: tuple[Unpack[_Ts]],
+            shared: Mapping[str, object],
+        ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...  #  type: ignore[override]
         @overload
         @classmethod
         def prepare(
-            cls, initializer: Callable[[], object], initargs: tuple[()], shared: Mapping[str, object]
-        ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...
-        def __init__(self, initdata: _Task, shared: Mapping[str, object] | None = None) -> None: ...
+            cls,
+            initializer: Callable[[], object],
+            initargs: tuple[()],
+            shared: Mapping[str, object],
+        ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...  #  type: ignore[override]
+        def __init__(self, initdata: _Task, shared: Mapping[str, object] | None = None) -> None: ...  #  type: ignore[override]
 
 class BrokenInterpreterPool(BrokenExecutor): ...
 
