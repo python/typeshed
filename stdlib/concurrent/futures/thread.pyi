@@ -21,8 +21,10 @@ def _python_exit() -> None: ...
 
 _S = TypeVar("_S")
 
-_Task: TypeAlias = tuple[Callable[_P, _R], tuple[Any, ...], dict[str, Any]]
-_ResolveTaskFunc: TypeAlias = Callable[Concatenate[Callable[_P, _R], _P], _Task[_P, _R]]
+_Task: TypeAlias = tuple[Callable[..., Any], tuple[Any, ...], dict[str, Any]]
+_ResolveTaskFunc: TypeAlias = Callable[
+    Concatenate[Callable[_P, _R], _P], tuple[Callable[_P, _R], tuple[Any, ...], dict[str, Any]]
+]
 
 class _WorkItem(Generic[_S]):
     future: Future[_S]

@@ -1,13 +1,15 @@
 import sys
 from collections.abc import Mapping
 from concurrent.futures import BrokenExecutor, ThreadPoolExecutor
-from typing import Any, Callable, Final, Self, TypeAlias, overload
-from typing_extensions import Concatenate, ParamSpec, TypeVar, TypeVarTuple, Unpack
+from typing import Any, Callable, Final, overload
+from typing_extensions import Concatenate, ParamSpec, Self, TypeAlias, TypeVar, TypeVarTuple, Unpack
 
 from _interpreters import InterpreterError
 
-_Task: TypeAlias = tuple[Callable[_P, _R], tuple[Any, ...], dict[str, Any]]
-_ResolveTaskFunc: TypeAlias = Callable[Concatenate[Callable[_P, _R], _P], _Task[_P, _R]]
+_Task: TypeAlias = tuple[Callable[..., Any], tuple[Any, ...], dict[str, Any]]
+_ResolveTaskFunc: TypeAlias = Callable[
+    Concatenate[Callable[_P, _R], _P], tuple[Callable[_P, _R], tuple[Any, ...], dict[str, Any]]
+]
 
 _Ts = TypeVarTuple("_Ts")
 _P = ParamSpec("_P")
