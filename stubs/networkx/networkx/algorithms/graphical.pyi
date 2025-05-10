@@ -3,6 +3,15 @@ from collections.abc import Iterable
 
 from networkx.utils.backends import _dispatchable
 
+__all__ = [
+    "is_graphical",
+    "is_multigraphical",
+    "is_pseudographical",
+    "is_digraphical",
+    "is_valid_degree_sequence_erdos_gallai",
+    "is_valid_degree_sequence_havel_hakimi",
+]
+
 @_dispatchable
 def is_graphical(sequence: Iterable[Incomplete], method="eg"): ...
 @_dispatchable

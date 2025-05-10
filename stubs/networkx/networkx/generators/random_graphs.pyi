@@ -2,6 +2,28 @@ from _typeshed import Incomplete
 
 from networkx.utils.backends import _dispatchable
 
+__all__ = [
+    "fast_gnp_random_graph",
+    "gnp_random_graph",
+    "dense_gnm_random_graph",
+    "gnm_random_graph",
+    "erdos_renyi_graph",
+    "binomial_graph",
+    "newman_watts_strogatz_graph",
+    "watts_strogatz_graph",
+    "connected_watts_strogatz_graph",
+    "random_regular_graph",
+    "barabasi_albert_graph",
+    "dual_barabasi_albert_graph",
+    "extended_barabasi_albert_graph",
+    "powerlaw_cluster_graph",
+    "random_lobster",
+    "random_shell_graph",
+    "random_powerlaw_tree",
+    "random_powerlaw_tree_sequence",
+    "random_kernel_graph",
+]
+
 @_dispatchable
 def fast_gnp_random_graph(n, p, seed: Incomplete | None = None, directed: bool = False): ...
 @_dispatchable

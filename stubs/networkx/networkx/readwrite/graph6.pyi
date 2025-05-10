@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["from_graph6_bytes", "read_graph6", "to_graph6_bytes", "write_graph6"]
+
 @_dispatchable
 def from_graph6_bytes(bytes_in): ...
 def to_graph6_bytes(G, nodes: Incomplete | None = None, header: bool = True): ...
