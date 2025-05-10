@@ -21,9 +21,8 @@ def _python_exit() -> None: ...
 
 _S = TypeVar("_S")
 
-if sys.version_info >= (3, 14):
-    _Task: TypeAlias = tuple[Callable[_P, _R], tuple[Any, ...], dict[str, Any]]
-    _ResolveTaskFunc: TypeAlias = Callable[Concatenate[Callable[_P, _R], _P], _Task[_P, _R]]
+_Task: TypeAlias = tuple[Callable[_P, _R], tuple[Any, ...], dict[str, Any]]
+_ResolveTaskFunc: TypeAlias = Callable[Concatenate[Callable[_P, _R], _P], _Task[_P, _R]]
 
 class _WorkItem(Generic[_S]):
     future: Future[_S]
