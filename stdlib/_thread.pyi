@@ -4,8 +4,8 @@ from _typeshed import structseq
 from collections.abc import Callable
 from threading import Thread
 from types import TracebackType
-from typing import Any, Final, NoReturn, final, overload
-from typing_extensions import TypeVarTuple, Unpack
+from typing import Any, Final, final, overload
+from typing_extensions import Never, TypeVarTuple, Unpack
 
 _Ts = TypeVarTuple("_Ts")
 
@@ -76,8 +76,8 @@ if sys.version_info >= (3, 10):
 else:
     def interrupt_main() -> None: ...
 
-def exit() -> NoReturn: ...
-def exit_thread() -> NoReturn: ...  # Obsolete synonym for exit()
+def exit() -> Never: ...
+def exit_thread() -> Never: ...  # Obsolete synonym for exit()
 def allocate_lock() -> LockType: ...
 def allocate() -> LockType: ...  # Obsolete synonym for allocate_lock()
 def get_ident() -> int: ...

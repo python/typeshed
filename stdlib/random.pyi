@@ -3,7 +3,8 @@ import sys
 from _typeshed import SupportsLenAndGetItem
 from collections.abc import Callable, Iterable, MutableSequence, Sequence, Set as AbstractSet
 from fractions import Fraction
-from typing import Any, ClassVar, NoReturn, TypeVar
+from typing import Any, ClassVar, TypeVar
+from typing_extensions import Never
 
 __all__ = [
     "Random",
@@ -97,8 +98,8 @@ class Random(_random.Random):
 # SystemRandom is not implemented for all OS's; good on Windows & Linux
 class SystemRandom(Random):
     def getrandbits(self, k: int) -> int: ...  # k can be passed by keyword
-    def getstate(self, *args: Any, **kwds: Any) -> NoReturn: ...
-    def setstate(self, *args: Any, **kwds: Any) -> NoReturn: ...
+    def getstate(self, *args: Any, **kwds: Any) -> Never: ...
+    def setstate(self, *args: Any, **kwds: Any) -> Never: ...
 
 _inst: Random
 seed = _inst.seed
