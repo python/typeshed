@@ -116,7 +116,6 @@ _ast.withitem.__annotations_cache__
 _asyncio.all_tasks
 _asyncio.future_add_to_awaited_by
 _asyncio.future_discard_from_awaited_by
-_compression
 _contextvars.Token.__enter__
 _contextvars.Token.__exit__
 _ctypes.POINTER
@@ -308,11 +307,11 @@ builtins.staticmethod.__class_getitem__
 builtins.type.__annotate__
 code.compile_command
 codeop.compile_command
-compression
-compression.bz2
-compression.gzip
-compression.lzma
-compression.zlib
+compression.gzip.GzipFile.readinto
+compression.gzip.GzipFile.readinto
+compression.gzip.GzipFile.readinto1
+compression.gzip.GzipFile.readinto1
+compression.gzip.compress
 compression.zstd
 concurrent.futures.__all__
 concurrent.futures.Executor.map

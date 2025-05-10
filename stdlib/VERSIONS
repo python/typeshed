@@ -28,7 +28,7 @@ _bz2: 3.3-
 _codecs: 3.0-
 _collections_abc: 3.3-
 _compat_pickle: 3.1-
-_compression: 3.5-
+_compression: 3.5-3.13
 _contextvars: 3.7-
 _csv: 3.0-
 _ctypes: 3.0-
@@ -117,6 +117,7 @@ collections: 3.0-
 collections.abc: 3.3-
 colorsys: 3.0-
 compileall: 3.0-
+compression: 3.14-
 concurrent: 3.2-
 configparser: 3.0-
 contextlib: 3.0-
