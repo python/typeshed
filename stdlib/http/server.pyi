@@ -11,6 +11,7 @@ from typing import Any, AnyStr, BinaryIO, ClassVar, Protocol
 from typing_extensions import Self, deprecated
 
 class _SSLModule(Protocol):
+    @staticmethod
     def create_default_context(
         purpose: Purpose = ...,
         *,
