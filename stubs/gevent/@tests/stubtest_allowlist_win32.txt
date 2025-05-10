@@ -19,4 +19,3 @@ gevent.libev.corecext.*
 # these won't work until we find out if we can install libev somehow with choco
 gevent.libev.corecffi
 gevent.libev.watcher
-

@@ -1,19 +1,15 @@
-import sys
-from collections.abc import Callable, Sequence
-from typing import Any, Generic, TypeVar, Iterable
+from collections.abc import Callable, Iterable, Sequence
+from typing import Any, Generic, TypeVar
 from typing_extensions import Self
 
 from gevent._types import _AddrinfoResult, _Loop, _NameinfoResult, _SockAddr
 
-
-
 _T = TypeVar("_T")
-
-
 
 class ares_host_result(tuple[str, list[str], list[str]]):
     family: int
     def __new__(cls, family: int,  iterable: Iterable[Any]) -> Self: ...
+
 
 class Result(Generic[_T]):
     exception: BaseException | None

@@ -1,6 +1,3 @@
-import sys
-
-
 from collections.abc import Sequence
 from typing import TypedDict
 
