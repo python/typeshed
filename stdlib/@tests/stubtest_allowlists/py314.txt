@@ -625,11 +625,6 @@ urllib.request.pathname2url
 urllib.request.url2pathname
 urllib.request.url2pathname
 urllib.request.url2pathname
-uuid.MAX
-uuid.NIL
-uuid.uuid6
-uuid.uuid7
-uuid.uuid8
 wsgiref.types.ErrorStream.__annotate_func__
 wsgiref.types.ErrorStream.__annotations_cache__
 wsgiref.types.FileWrapper.__annotate_func__
