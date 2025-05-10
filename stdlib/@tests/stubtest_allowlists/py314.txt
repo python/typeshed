@@ -394,7 +394,6 @@ functools.reduce
 functools.reduce
 functools.update_wrapper
 functools.wraps
-getpass.getpass
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
