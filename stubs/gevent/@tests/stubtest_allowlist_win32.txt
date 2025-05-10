@@ -20,8 +20,3 @@ gevent.libev.corecext.*
 gevent.libev.corecffi
 gevent.libev.watcher
 
-# these don't work on windows
-gevent.ares
-gevent.resolver.ares
-gevent.resolver.cares
-gevent.resolver_ares
