@@ -20,7 +20,7 @@ class ExecutionFailed(InterpreterError): ...
 UNBOUND: Final = 2
 
 if sys.version_info >= (3, 14):
-    from thread import WorkerContext as ThreadWorkerContext
+    from concurrent.futures.thread import WorkerContext as ThreadWorkerContext
 
     class WorkerContext(ThreadWorkerContext):
         @overload
