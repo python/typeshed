@@ -353,7 +353,10 @@ class DataclassInstance(Protocol):
     __dataclass_fields__: ClassVar[dict[str, Field[Any]]]
 
 # Anything that can be passed to the int/float constructors
-ConvertibleToInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+if sys.version_info >= (3, 14):
+    ConvertibleToInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex | SupportsTrunc
+else:
+    ConvertibleToInt: TypeAlias = str | ReadableBuffer | SupportsInt | SupportsIndex
 ConvertibleToFloat: TypeAlias = str | ReadableBuffer | SupportsFloat | SupportsIndex
 
 # A few classes updated from Foo(str, Enum) to Foo(StrEnum). This is a convenience so these
