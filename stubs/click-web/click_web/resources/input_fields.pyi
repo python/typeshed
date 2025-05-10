@@ -46,7 +46,7 @@ class BaseInput:
     def _build_name(self, name: str): ...
 
 class ChoiceInput(BaseInput):
-    param_type_cls: type[click.Choice]
+    param_type_cls: type[click.Choice[Any]]
 
 class FlagInput(BaseInput):
     param_type_cls: None
