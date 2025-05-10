@@ -1,6 +1,18 @@
 from _typeshed import Incomplete
 
+from networkx.classes.graph import Graph
 from networkx.utils.backends import _dispatchable
+
+__all__ = [
+    "geometric_edges",
+    "geographical_threshold_graph",
+    "navigable_small_world_graph",
+    "random_geometric_graph",
+    "soft_random_geometric_graph",
+    "thresholded_random_geometric_graph",
+    "waxman_graph",
+    "geometric_soft_configuration_graph",
+]
 
 @_dispatchable
 def geometric_edges(G, radius, p: float = 2): ...
@@ -54,3 +66,7 @@ def thresholded_random_geometric_graph(
     p: float = 2,
     seed: Incomplete | None = None,
 ): ...
+@_dispatchable
+def geometric_soft_configuration_graph(
+    *, beta, n=None, gamma=None, mean_degree=None, kappas=None, seed=None
+) -> Graph[Incomplete]: ...

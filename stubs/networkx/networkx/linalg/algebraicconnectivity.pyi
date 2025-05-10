@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["algebraic_connectivity", "fiedler_vector", "spectral_ordering", "spectral_bisection"]
+
 class _PCGSolver:
     def __init__(self, A, M) -> None: ...
     def solve(self, B, tol): ...

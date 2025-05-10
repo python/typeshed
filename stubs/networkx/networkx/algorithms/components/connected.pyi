@@ -4,6 +4,8 @@ from collections.abc import Generator
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["number_connected_components", "connected_components", "is_connected", "node_connected_component"]
+
 @_dispatchable
 def connected_components(G: Graph[_Node]) -> Generator[Incomplete, None, None]: ...
 @_dispatchable
