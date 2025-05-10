@@ -2,16 +2,22 @@ import _socket
 import email.message
 import io
 import socketserver
-import ssl
 import sys
 from _ssl import _PasswordType
-from _typeshed import StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
+from _typeshed import ReadableBuffer, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
 from collections.abc import Callable, Iterable, Mapping, Sequence
+from ssl import Purpose, SSLContext
 from typing import Any, AnyStr, BinaryIO, ClassVar, Protocol
 from typing_extensions import Self, deprecated
 
 class _SSLModule(Protocol):
-    create_default_context = ssl.create_default_context
+    def create_default_context(
+        purpose: Purpose = ...,
+        *,
+        cafile: StrOrBytesPath | None = None,
+        capath: StrOrBytesPath | None = None,
+        cadata: str | ReadableBuffer | None = None,
+    ) -> SSLContext: ...
 
 if sys.version_info >= (3, 14):
     __all__ = [
