@@ -157,9 +157,9 @@ class Path(PurePath):
 
     if sys.version_info >= (3, 14):
         @overload
-        def copy_into(self, target_dir: _T, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> _T: ...
+        def copy_into(self, target_dir: _T, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> _T: ...  # type: ignore[overload-overlap]
         @overload
-        def copy_into(self, target_dir: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> Self: ...  # type: ignore[overload-overlap]
+        def copy_into(self, target_dir: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> Self: ...
         def copy(self, target: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> None: ...
         def copytree(
             self,
