@@ -1497,23 +1497,10 @@ class map(Generic[_S]):
     # 3.14 adds `strict` argument.
     if sys.version_info >= (3, 14):
         @overload
-        def __new__(
-            cls,
-            func: Callable[[_T1], _S],
-            iterable: Iterable[_T1],
-            /,
-            *,
-            strict: bool = False,
-        ) -> Self: ...
+        def __new__(cls, func: Callable[[_T1], _S], iterable: Iterable[_T1], /, *, strict: bool = False) -> Self: ...
         @overload
         def __new__(
-            cls,
-            func: Callable[[_T1, _T2], _S],
-            iterable: Iterable[_T1],
-            iter2: Iterable[_T2],
-            /,
-            *,
-            strict: bool = False,
+            cls, func: Callable[[_T1, _T2], _S], iterable: Iterable[_T1], iter2: Iterable[_T2], /, *, strict: bool = False
         ) -> Self: ...
         @overload
         def __new__(
