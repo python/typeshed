@@ -33,8 +33,8 @@ if sys.version_info >= (3, 13):
 
 if sys.version_info >= (3, 14):
     my_path = MyCustomPath(".")
-    pth = my_path.copy_into(pathlib.Path("."))
-    assert_type(pth, pathlib.Path)
+    pth = my_path.copy_into(Path("."))
+    assert_type(pth, Path)
 
     # If the destination is a non-Path, it should default to a base Path.
     pth = my_path.copy_into(".")
