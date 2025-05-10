@@ -687,9 +687,7 @@ if sys.version_info >= (3, 10):
 
     NotImplementedType = _NotImplementedType
 
-if sys.version_info >= (3, 14):
-    from typing import Union as UnionType  # noqa: Y037
-elif sys.version_info >= (3, 10):
+if sys.version_info >= (3, 10):
     @final
     class UnionType:
         @property

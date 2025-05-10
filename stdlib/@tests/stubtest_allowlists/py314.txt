@@ -278,10 +278,6 @@ turtle.poly
 turtle.save
 types.CodeType.co_branches
 types.FrameType.f_generator
-types.UnionType.__class_getitem__
-types.UnionType.__mro_entries__
-types.UnionType.__name__
-types.UnionType.__qualname__
 unittest.TestCase.assertEndsWith
 unittest.TestCase.assertHasAttr
 unittest.TestCase.assertIsSubclass
@@ -320,6 +316,14 @@ zipfile.ZipFile.data_offset
 # New errors in Python 3.14
 # =========================
 
+
+# Union and UnionType are aliases in 3.14 but type checkers need some changes
+typing_extensions.Union
+typing.Union
+types.UnionType.__class_getitem__
+types.UnionType.__mro_entries__
+types.UnionType.__name__
+types.UnionType.__qualname__
 
 # ====================================
 # Pre-existing errors from Python 3.13
