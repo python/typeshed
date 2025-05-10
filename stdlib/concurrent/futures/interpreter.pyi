@@ -1,9 +1,9 @@
+import sys
 from collections.abc import Mapping
 from concurrent.futures import BrokenExecutor, ThreadPoolExecutor
 from typing import Callable, Final, Self, overload
 from typing_extensions import ParamSpec, TypeVar, TypeVarTuple, Unpack
 
-import thread
 from _interpreters import InterpreterError
 from thread import _ResolveTaskFunc, _Task
 
@@ -15,18 +15,21 @@ class ExecutionFailed(InterpreterError): ...
 
 UNBOUND: Final = 2
 
-class WorkerContext(thread.WorkerContext):
-    @overload
-    @classmethod
-    def prepare(
-        cls, initializer: Callable[[Unpack[_Ts]], object], initargs: tuple[Unpack[_Ts]], shared: Mapping[str, object]
-    ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...
-    @overload
-    @classmethod
-    def prepare(
-        cls, initializer: Callable[[], object], initargs: tuple[()], shared: Mapping[str, object]
-    ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...
-    def __init__(self, initdata: _Task[_P, _R], shared: Mapping[str, object] | None = None) -> None: ...
+if sys.version_info >= (3, 14):
+    from thread import WorkerContext as ThreadWorkerContext
+
+    class WorkerContext(ThreadWorkerContext):
+        @overload
+        @classmethod
+        def prepare(
+            cls, initializer: Callable[[Unpack[_Ts]], object], initargs: tuple[Unpack[_Ts]], shared: Mapping[str, object]
+        ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...
+        @overload
+        @classmethod
+        def prepare(
+            cls, initializer: Callable[[], object], initargs: tuple[()], shared: Mapping[str, object]
+        ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...
+        def __init__(self, initdata: _Task[_P, _R], shared: Mapping[str, object] | None = None) -> None: ...
 
 class BrokenInterpreterPool(BrokenExecutor): ...
 
