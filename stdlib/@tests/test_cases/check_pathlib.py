@@ -3,6 +3,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path, PureWindowsPath
 from typing_extensions import assert_type
+import pathlib
 
 
 class MyCustomPath(Path): ...
@@ -35,9 +36,9 @@ if sys.version_info >= (3, 13):
 
 if sys.version_info >= (3, 14):
     my_path = MyCustomPath(".")
-    pth = my_path.copy_into(my_path)
-    assert_type(pth, MyCustomPath)
+    pth = my_path.copy_into(pathlib.Path("."))
+    assert_type(pth, pathlib.Path)
 
     # If the destination is a non-Path, it should default to a base Path.
     pth = my_path.copy_into(".")
-    assert_type(pth, Path)
+    assert_type(pth, MyCustomPath)
