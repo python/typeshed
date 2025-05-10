@@ -6,6 +6,7 @@ from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 _U = TypeVar("_U")
+__all__ = ["edge_boundary", "node_boundary"]
 
 @overload
 def edge_boundary(

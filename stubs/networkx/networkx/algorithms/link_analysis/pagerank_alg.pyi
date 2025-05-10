@@ -4,6 +4,8 @@ from collections.abc import Collection
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["pagerank", "google_matrix"]
+
 @_dispatchable
 def pagerank(
     G: Graph[_Node],

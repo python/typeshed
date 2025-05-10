@@ -2,6 +2,25 @@ from _typeshed import Incomplete
 
 import numpy
 
+__all__ = [
+    "bipartite_layout",
+    "circular_layout",
+    "forceatlas2_layout",
+    "kamada_kawai_layout",
+    "random_layout",
+    "rescale_layout",
+    "rescale_layout_dict",
+    "shell_layout",
+    "spring_layout",
+    "spectral_layout",
+    "planar_layout",
+    "fruchterman_reingold_layout",
+    "spiral_layout",
+    "multipartite_layout",
+    "bfs_layout",
+    "arf_layout",
+]
+
 def random_layout(G, center: Incomplete | None = None, dim: int = 2, seed: Incomplete | None = None): ...
 def circular_layout(G, scale: float = 1, center: Incomplete | None = None, dim: int = 2): ...
 def shell_layout(
@@ -59,5 +78,24 @@ def arf_layout(
     *,
     seed: int | numpy.random.RandomState | None = None,
 ): ...
+def forceatlas2_layout(
+    G,
+    pos=None,
+    *,
+    max_iter=100,
+    jitter_tolerance=1.0,
+    scaling_ratio=2.0,
+    gravity=1.0,
+    distributed_action=False,
+    strong_gravity=False,
+    node_mass=None,
+    node_size=None,
+    weight=None,
+    dissuade_hubs=False,
+    linlog=False,
+    seed=None,
+    dim=2,
+) -> dict[Incomplete, Incomplete]: ...
 def rescale_layout(pos, scale: float = 1): ...
 def rescale_layout_dict(pos, scale: float = 1): ...
+def bfs_layout(G, start, *, align="vertical", scale=1, center=None) -> dict[Incomplete, Incomplete]: ...

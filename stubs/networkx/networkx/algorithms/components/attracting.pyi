@@ -3,6 +3,8 @@ from collections.abc import Generator
 
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["number_attracting_components", "attracting_components", "is_attracting_component"]
+
 @_dispatchable
 def attracting_components(G) -> Generator[Incomplete, None, None]: ...
 @_dispatchable

@@ -9,6 +9,8 @@ from networkx.classes.reportviews import OutMultiEdgeView
 
 _MultiEdge: TypeAlias = tuple[_Node, _Node, int]  # noqa: Y047
 
+__all__ = ["MultiGraph"]
+
 class MultiGraph(Graph[_Node]):
     def __init__(self, incoming_graph_data: Incomplete | None = None, multigraph_input: bool | None = None, **attr) -> None: ...
     @cached_property

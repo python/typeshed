@@ -9,6 +9,31 @@ from networkx.classes.graph import Graph, _Edge, _NBunch, _Node
 _D = TypeVar("_D")
 _U = TypeVar("_U")
 
+__all__ = [
+    "NodeView",
+    "NodeDataView",
+    "EdgeView",
+    "OutEdgeView",
+    "InEdgeView",
+    "EdgeDataView",
+    "OutEdgeDataView",
+    "InEdgeDataView",
+    "MultiEdgeView",
+    "OutMultiEdgeView",
+    "InMultiEdgeView",
+    "MultiEdgeDataView",
+    "OutMultiEdgeDataView",
+    "InMultiEdgeDataView",
+    "DegreeView",
+    "DiDegreeView",
+    "InDegreeView",
+    "OutDegreeView",
+    "MultiDegreeView",
+    "DiMultiDegreeView",
+    "InMultiDegreeView",
+    "OutMultiDegreeView",
+]
+
 class NodeView(Mapping[_Node, dict[str, Any]], AbstractSet[_Node]):
     def __init__(self, graph: Graph[_Node]) -> None: ...
     def __len__(self) -> int: ...

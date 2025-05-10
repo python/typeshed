@@ -2,6 +2,8 @@ from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
 
+__all__ = ["hamiltonian_path", "is_reachable", "is_strongly_connected", "is_tournament", "random_tournament", "score_sequence"]
+
 @_dispatchable
 def is_tournament(G: Graph[_Node]): ...
 @_dispatchable
