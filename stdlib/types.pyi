@@ -19,6 +19,9 @@ from importlib.machinery import ModuleSpec
 from typing import Any, ClassVar, Literal, TypeVar, final, overload
 from typing_extensions import ParamSpec, Self, TypeAliasType, TypeVarTuple, deprecated
 
+if sys.version_info >= (3, 14):
+    from _typeshed import AnnotateFunc
+
 __all__ = [
     "FunctionType",
     "LambdaType",
@@ -78,6 +81,8 @@ class FunctionType:
     __name__: str
     __qualname__: str
     __annotations__: dict[str, Any]
+    if sys.version_info >= (3, 14):
+        __annotate__: AnnotateFunc | None
     __kwdefaults__: dict[str, Any] | None
     if sys.version_info >= (3, 10):
         @property
@@ -352,6 +357,10 @@ class ModuleType:
     # Redeclaring `__doc__` here helps some type checkers understand that `__doc__` is available
     # as an implicit global in all modules, similar to `__name__`, `__file__`, `__spec__`, etc.
     __doc__: str | None
+    __annotations__: dict[str, Any]
+    if sys.version_info >= (3, 14):
+        __annotate__: AnnotateFunc | None
+
     def __init__(self, name: str, doc: str | None = ...) -> None: ...
     # __getattr__ doesn't exist at runtime,
     # but having it here in typeshed makes dynamic imports
@@ -677,6 +686,10 @@ if sys.version_info >= (3, 10):
     from builtins import _NotImplementedType
 
     NotImplementedType = _NotImplementedType
+
+if sys.version_info >= (3, 14):
+    from typing import Union as UnionType  # noqa: Y037
+elif sys.version_info >= (3, 10):
     @final
     class UnionType:
         @property

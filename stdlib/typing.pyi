@@ -23,6 +23,11 @@ from types import (
 )
 from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, deprecated
 
+if sys.version_info >= (3, 14):
+    from _typeshed import EvaluateFunc
+
+    from annotationlib import Format
+
 if sys.version_info >= (3, 10):
     from types import UnionType
 
@@ -107,6 +112,9 @@ __all__ = [
 
 if sys.version_info < (3, 14):
     __all__ += ["ByteString"]
+
+if sys.version_info >= (3, 14):
+    __all__ += ["evaluate_forward_ref"]
 
 if sys.version_info >= (3, 10):
     __all__ += ["Concatenate", "ParamSpec", "ParamSpecArgs", "ParamSpecKwargs", "TypeAlias", "TypeGuard", "is_typeddict"]
@@ -193,6 +201,13 @@ class TypeVar:
     if sys.version_info >= (3, 13):
         def __typing_prepare_subst__(self, alias: Any, args: Any) -> tuple[Any, ...]: ...
         def has_default(self) -> bool: ...
+    if sys.version_info >= (3, 14):
+        @property
+        def evaluate_bound(self) -> EvaluateFunc: ...
+        @property
+        def evaluate_constraints(self) -> EvaluateFunc: ...
+        @property
+        def evaluate_default(self) -> EvaluateFunc: ...
 
 # Used for an undocumented mypy feature. Does not exist at runtime.
 _promote = object()
@@ -205,7 +220,20 @@ class _SpecialForm(_Final):
         def __or__(self, other: Any) -> _SpecialForm: ...
         def __ror__(self, other: Any) -> _SpecialForm: ...
 
-Union: _SpecialForm
+if sys.version_info >= (3, 14):
+    @final
+    class Union:
+        @property
+        def __args__(self) -> tuple[Any, ...]: ...
+        @property
+        def __parameters__(self) -> tuple[Any, ...]: ...
+        def __or__(self, value: Any, /) -> Union: ...
+        def __ror__(self, value: Any, /) -> Union: ...
+        def __eq__(self, value: object, /) -> bool: ...
+        def __hash__(self) -> int: ...
+
+else:
+    Union: _SpecialForm
 Generic: _SpecialForm
 Protocol: _SpecialForm
 Callable: _SpecialForm
@@ -246,6 +274,9 @@ if sys.version_info >= (3, 11):
         def __iter__(self) -> Any: ...
         def __typing_subst__(self, arg: Never) -> Never: ...
         def __typing_prepare_subst__(self, alias: Any, args: Any) -> tuple[Any, ...]: ...
+        if sys.version_info >= (3, 14):
+            @property
+            def evaluate_default(self) -> EvaluateFunc: ...
 
 if sys.version_info >= (3, 10):
     @final
@@ -330,6 +361,9 @@ if sys.version_info >= (3, 10):
         def __ror__(self, left: Any) -> _SpecialForm: ...
         if sys.version_info >= (3, 13):
             def has_default(self) -> bool: ...
+        if sys.version_info >= (3, 14):
+            @property
+            def evaluate_default(self) -> EvaluateFunc: ...
 
     Concatenate: _SpecialForm
     TypeAlias: _SpecialForm
@@ -860,12 +894,24 @@ _get_type_hints_obj_allowed_types: typing_extensions.TypeAlias = (  # noqa: Y042
     | MethodDescriptorType
 )
 
-def get_type_hints(
-    obj: _get_type_hints_obj_allowed_types,
-    globalns: dict[str, Any] | None = None,
-    localns: Mapping[str, Any] | None = None,
-    include_extras: bool = False,
-) -> dict[str, Any]: ...
+if sys.version_info >= (3, 14):
+    def get_type_hints(
+        obj: _get_type_hints_obj_allowed_types,
+        globalns: dict[str, Any] | None = None,
+        localns: Mapping[str, Any] | None = None,
+        include_extras: bool = False,
+        *,
+        format: Format | None = None,
+    ) -> dict[str, Any]: ...
+
+else:
+    def get_type_hints(
+        obj: _get_type_hints_obj_allowed_types,
+        globalns: dict[str, Any] | None = None,
+        localns: Mapping[str, Any] | None = None,
+        include_extras: bool = False,
+    ) -> dict[str, Any]: ...
+
 def get_args(tp: Any) -> tuple[Any, ...]: ...
 
 if sys.version_info >= (3, 10):
@@ -962,56 +1008,70 @@ class _TypedDict(Mapping[str, object], metaclass=ABCMeta):
     # supposedly incompatible definitions of __or__ and __ior__
     def __ior__(self, value: typing_extensions.Self, /) -> typing_extensions.Self: ...  # type: ignore[misc]
 
-@final
-class ForwardRef(_Final):
-    __forward_arg__: str
-    __forward_code__: CodeType
-    __forward_evaluated__: bool
-    __forward_value__: Any | None
-    __forward_is_argument__: bool
-    __forward_is_class__: bool
-    __forward_module__: Any | None
+if sys.version_info >= (3, 14):
+    from annotationlib import ForwardRef as ForwardRef
 
-    def __init__(self, arg: str, is_argument: bool = True, module: Any | None = None, *, is_class: bool = False) -> None: ...
+    def evaluate_forward_ref(
+        forward_ref: ForwardRef,
+        *,
+        owner: object = None,
+        globals: dict[str, Any] | None = None,
+        locals: Mapping[str, Any] | None = None,
+        type_params: tuple[TypeVar, ParamSpec, TypeVarTuple] | None = None,
+        format: Format | None = None,
+    ) -> Any: ...
 
-    if sys.version_info >= (3, 13):
-        @overload
-        @deprecated(
-            "Failing to pass a value to the 'type_params' parameter of ForwardRef._evaluate() is deprecated, "
-            "as it leads to incorrect behaviour when evaluating a stringified annotation "
-            "that references a PEP 695 type parameter. It will be disallowed in Python 3.15."
-        )
-        def _evaluate(
-            self, globalns: dict[str, Any] | None, localns: Mapping[str, Any] | None, *, recursive_guard: frozenset[str]
-        ) -> Any | None: ...
-        @overload
-        def _evaluate(
-            self,
-            globalns: dict[str, Any] | None,
-            localns: Mapping[str, Any] | None,
-            type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...],
-            *,
-            recursive_guard: frozenset[str],
-        ) -> Any | None: ...
-    elif sys.version_info >= (3, 12):
-        def _evaluate(
-            self,
-            globalns: dict[str, Any] | None,
-            localns: Mapping[str, Any] | None,
-            type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] | None = None,
-            *,
-            recursive_guard: frozenset[str],
-        ) -> Any | None: ...
-    else:
-        def _evaluate(
-            self, globalns: dict[str, Any] | None, localns: Mapping[str, Any] | None, recursive_guard: frozenset[str]
-        ) -> Any | None: ...
+else:
+    @final
+    class ForwardRef(_Final):
+        __forward_arg__: str
+        __forward_code__: CodeType
+        __forward_evaluated__: bool
+        __forward_value__: Any | None
+        __forward_is_argument__: bool
+        __forward_is_class__: bool
+        __forward_module__: Any | None
 
-    def __eq__(self, other: object) -> bool: ...
-    def __hash__(self) -> int: ...
-    if sys.version_info >= (3, 11):
-        def __or__(self, other: Any) -> _SpecialForm: ...
-        def __ror__(self, other: Any) -> _SpecialForm: ...
+        def __init__(self, arg: str, is_argument: bool = True, module: Any | None = None, *, is_class: bool = False) -> None: ...
+
+        if sys.version_info >= (3, 13):
+            @overload
+            @deprecated(
+                "Failing to pass a value to the 'type_params' parameter of ForwardRef._evaluate() is deprecated, "
+                "as it leads to incorrect behaviour when evaluating a stringified annotation "
+                "that references a PEP 695 type parameter. It will be disallowed in Python 3.15."
+            )
+            def _evaluate(
+                self, globalns: dict[str, Any] | None, localns: Mapping[str, Any] | None, *, recursive_guard: frozenset[str]
+            ) -> Any | None: ...
+            @overload
+            def _evaluate(
+                self,
+                globalns: dict[str, Any] | None,
+                localns: Mapping[str, Any] | None,
+                type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...],
+                *,
+                recursive_guard: frozenset[str],
+            ) -> Any | None: ...
+        elif sys.version_info >= (3, 12):
+            def _evaluate(
+                self,
+                globalns: dict[str, Any] | None,
+                localns: Mapping[str, Any] | None,
+                type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] | None = None,
+                *,
+                recursive_guard: frozenset[str],
+            ) -> Any | None: ...
+        else:
+            def _evaluate(
+                self, globalns: dict[str, Any] | None, localns: Mapping[str, Any] | None, recursive_guard: frozenset[str]
+            ) -> Any | None: ...
+
+        def __eq__(self, other: object) -> bool: ...
+        def __hash__(self) -> int: ...
+        if sys.version_info >= (3, 11):
+            def __or__(self, other: Any) -> _SpecialForm: ...
+            def __ror__(self, other: Any) -> _SpecialForm: ...
 
 if sys.version_info >= (3, 10):
     def is_typeddict(tp: object) -> bool: ...
@@ -1037,6 +1097,9 @@ if sys.version_info >= (3, 12):
         def __getitem__(self, parameters: Any) -> GenericAlias: ...
         def __or__(self, right: Any) -> _SpecialForm: ...
         def __ror__(self, left: Any) -> _SpecialForm: ...
+        if sys.version_info >= (3, 14):
+            @property
+            def evaluate_value(self) -> EvaluateFunc: ...
 
 if sys.version_info >= (3, 13):
     def is_protocol(tp: type, /) -> bool: ...

@@ -72,6 +72,9 @@ from typing_extensions import (  # noqa: Y023
     deprecated,
 )
 
+if sys.version_info >= (3, 14):
+    from _typeshed import AnnotateFunc
+
 _T = TypeVar("_T")
 _I = TypeVar("_I", default=int)
 _T_co = TypeVar("_T_co", covariant=True)
@@ -215,6 +218,9 @@ class type:
         def __ror__(self, value: Any, /) -> types.UnionType: ...
     if sys.version_info >= (3, 12):
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
+    __annotations__: dict[str, Any]
+    if sys.version_info >= (3, 14):
+        __annotate__: AnnotateFunc | None
 
 class super:
     @overload

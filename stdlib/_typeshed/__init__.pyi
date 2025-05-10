@@ -364,3 +364,9 @@ else:
     from enum import Enum
 
     class StrEnum(str, Enum): ...
+
+if sys.version_info >= (3, 14):
+    from annotationlib import Format
+
+    AnnotateFunc: TypeAlias = Callable[[Format], dict[str, Any]]
+    EvaluateFunc: TypeAlias = Callable[[Format], Any]
