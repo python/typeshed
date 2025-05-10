@@ -8,8 +8,7 @@ _T = TypeVar("_T")
 
 class ares_host_result(tuple[str, list[str], list[str]]):
     family: int
-    def __new__(cls, family: int,  iterable: Iterable[Any]) -> Self: ...
-
+    def __new__(cls, family: int, iterable: Iterable[Any]) -> Self: ...
 
 class Result(Generic[_T]):
     exception: BaseException | None
