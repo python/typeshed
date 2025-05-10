@@ -28,9 +28,6 @@ if PureWindowsPath("asdf") == Path("asdf"):  # type: ignore
 
 
 if sys.version_info >= (3, 13):
-
-    class MyCustomPath(Path): ...
-
     pth = MyCustomPath.from_uri("file:///tmp/abc.txt")
     assert_type(pth, MyCustomPath)
 
