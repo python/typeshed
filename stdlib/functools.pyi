@@ -31,8 +31,13 @@ _RWrapped = TypeVar("_RWrapped")
 _PWrapper = ParamSpec("_PWrapper")
 _RWrapper = TypeVar("_RWrapper")
 
-@overload
-def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], initial: _T, /) -> _T: ...
+if sys.version_info >= (3, 14):
+    @overload
+    def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], /, initial: _T) -> _T: ...
+else:
+    @overload
+    def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], initial: _T, /) -> _T: ...
+
 @overload
 def reduce(function: Callable[[_T, _T], _T], sequence: Iterable[_T], /) -> _T: ...
 
