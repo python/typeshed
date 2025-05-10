@@ -400,9 +400,6 @@ gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
 gzip.GzipFile.readinto1
 gzip.compress
-http.server.__all__
-http.server.HTTPSServer
-http.server.ThreadingHTTPSServer
 imaplib.IMAP4.file
 imaplib.IMAP4.idle
 imaplib.IMAP4_SSL.file
