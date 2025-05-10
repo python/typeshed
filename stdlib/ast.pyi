@@ -251,6 +251,7 @@ class AsyncFunctionDef(stmt):
             returns: expr | None = ...,
             type_comment: str | None = ...,
             type_params: list[type_param] = ...,
+            **kwargs: Unpack[_Attributes],
         ) -> Self: ...
 
 class ClassDef(stmt):
