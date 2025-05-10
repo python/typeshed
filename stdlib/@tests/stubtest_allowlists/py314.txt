@@ -366,8 +366,6 @@ functools.__all__
 functools.Placeholder
 functools.WRAPPER_ASSIGNMENTS
 functools.partialmethod.__new__
-functools.partialmethod.__new__
-functools.partialmethod.__new__
 functools.update_wrapper
 functools.wraps
 gzip.GzipFile.readinto
