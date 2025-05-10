@@ -2,7 +2,7 @@ import dis
 import enum
 import sys
 import types
-from _typeshed import StrPath
+from _typeshed import AnnotationForm, StrPath
 from collections import OrderedDict
 from collections.abc import AsyncGenerator, Awaitable, Callable, Coroutine, Generator, Mapping, Sequence, Set as AbstractSet
 from types import (
@@ -390,7 +390,7 @@ elif sys.version_info >= (3, 10):
         globals: Mapping[str, Any] | None = None,  # value types depend on the key
         locals: Mapping[str, Any] | None = None,  # value types depend on the key
         eval_str: bool = False,
-    ) -> dict[str, Any]: ...  # values are type expressions
+    ) -> dict[str, AnnotationForm]: ...  # values are type expressions
 
 # The name is the same as the enum's name in CPython
 class _ParameterKind(enum.IntEnum):

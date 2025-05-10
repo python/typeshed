@@ -1,11 +1,12 @@
 import sys
+from typing import Literal
 
 if sys.version_info >= (3, 14):
     import enum
     import types
-    from _typeshed import AnnotateFunc, EvaluateFunc, SupportsItems
+    from _typeshed import AnnotateFunc, AnnotationForm, EvaluateFunc, SupportsItems
     from collections.abc import Mapping
-    from typing import Any, ParamSpec, TypeVar, TypeVarTuple, final
+    from typing import Any, ParamSpec, TypeVar, TypeVarTuple, final, overload
     from warnings import deprecated
 
     __all__ = [
@@ -33,6 +34,27 @@ if sys.version_info >= (3, 14):
         def __init__(
             self, arg: str, *, module: str | None = None, owner: object = None, is_argument: bool = True, is_class: bool = False
         ) -> None: ...
+        @overload
+        def evaluate(
+            self,
+            *,
+            globals: dict[str, Any] | None = None,
+            locals: Mapping[str, Any] | None = None,
+            type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] | None = None,
+            owner: object = None,
+            format: Literal[Format.STRING],
+        ) -> str: ...
+        @overload
+        def evaluate(
+            self,
+            *,
+            globals: dict[str, Any] | None = None,
+            locals: Mapping[str, Any] | None = None,
+            type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] | None = None,
+            owner: object = None,
+            format: Literal[Format.FORWARDREF],
+        ) -> AnnotationForm | ForwardRef: ...
+        @overload
         def evaluate(
             self,
             *,
@@ -41,7 +63,7 @@ if sys.version_info >= (3, 14):
             type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] | None = None,
             owner: object = None,
             format: Format = Format.VALUE,  # noqa: Y011
-        ) -> Any: ...
+        ) -> AnnotationForm: ...
         @deprecated("Use ForwardRef.evaluate() or typing.evaluate_forward_ref() instead.")
         def _evaluate(
             self,
@@ -50,7 +72,7 @@ if sys.version_info >= (3, 14):
             type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] = ...,
             *,
             recursive_guard: frozenset[str],
-        ) -> Any: ...
+        ) -> AnnotationForm: ...
         @property
         def __forward_arg__(self) -> str: ...
         @property
@@ -60,16 +82,51 @@ if sys.version_info >= (3, 14):
         def __or__(self, other: Any) -> types.UnionType: ...
         def __ror__(self, other: Any) -> types.UnionType: ...
 
-    def call_evaluate_function(evaluate: EvaluateFunc, format: Format, *, owner: object = None) -> Any: ...
-    def call_annotate_function(annotate: AnnotateFunc, format: Format, *, owner: object = None) -> dict[str, Any]: ...
+    @overload
+    def call_evaluate_function(evaluate: EvaluateFunc, format: Literal[Format.STRING], *, owner: object = None) -> str: ...
+    @overload
+    def call_evaluate_function(
+        evaluate: EvaluateFunc, format: Literal[Format.FORWARDREF], *, owner: object = None
+    ) -> AnnotationForm | ForwardRef: ...
+    @overload
+    def call_evaluate_function(evaluate: EvaluateFunc, format: Format, *, owner: object = None) -> AnnotationForm: ...
+    @overload
+    def call_annotate_function(
+        annotate: AnnotateFunc, format: Literal[Format.STRING], *, owner: object = None
+    ) -> dict[str, str]: ...
+    @overload
+    def call_annotate_function(
+        annotate: AnnotateFunc, format: Literal[Format.FORWARDREF], *, owner: object = None
+    ) -> dict[str, AnnotationForm | ForwardRef]: ...
+    @overload
+    def call_annotate_function(annotate: AnnotateFunc, format: Format, *, owner: object = None) -> dict[str, AnnotationForm]: ...
     def get_annotate_from_class_namespace(obj: Mapping[str, object]) -> AnnotateFunc | None: ...
+    @overload
     def get_annotations(
-        obj: object,
+        obj: Any,  # any object with __annotations__ or __annotate__
+        *,
+        globals: dict[str, object] | None = None,
+        locals: Mapping[str, object] | None = None,
+        eval_str: bool = False,
+        format: Literal[Format.STRING],
+    ) -> dict[str, str]: ...
+    @overload
+    def get_annotations(
+        obj: Any,
+        *,
+        globals: dict[str, object] | None = None,
+        locals: Mapping[str, object] | None = None,
+        eval_str: bool = False,
+        format: Literal[Format.FORWARDREF],
+    ) -> dict[str, AnnotationForm | ForwardRef]: ...
+    @overload
+    def get_annotations(
+        obj: Any,
         *,
         globals: dict[str, object] | None = None,
         locals: Mapping[str, object] | None = None,
         eval_str: bool = False,
         format: Format = Format.VALUE,  # noqa: Y011
-    ) -> dict[str, Any]: ...
+    ) -> dict[str, AnnotationForm]: ...
     def type_repr(value: object) -> str: ...
     def annotations_to_string(annotations: SupportsItems[str, object]) -> dict[str, str]: ...

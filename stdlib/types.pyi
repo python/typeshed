@@ -1,5 +1,5 @@
 import sys
-from _typeshed import MaybeNone, SupportsKeysAndGetItem
+from _typeshed import AnnotationForm, MaybeNone, SupportsKeysAndGetItem
 from _typeshed.importlib import LoaderProtocol
 from collections.abc import (
     AsyncGenerator,
@@ -80,7 +80,7 @@ class FunctionType:
     def __globals__(self) -> dict[str, Any]: ...
     __name__: str
     __qualname__: str
-    __annotations__: dict[str, Any]
+    __annotations__: dict[str, AnnotationForm]
     if sys.version_info >= (3, 14):
         __annotate__: AnnotateFunc | None
     __kwdefaults__: dict[str, Any] | None
@@ -357,7 +357,7 @@ class ModuleType:
     # Redeclaring `__doc__` here helps some type checkers understand that `__doc__` is available
     # as an implicit global in all modules, similar to `__name__`, `__file__`, `__spec__`, etc.
     __doc__: str | None
-    __annotations__: dict[str, Any]
+    __annotations__: dict[str, AnnotationForm]
     if sys.version_info >= (3, 14):
         __annotate__: AnnotateFunc | None
 
@@ -686,8 +686,6 @@ if sys.version_info >= (3, 10):
     from builtins import _NotImplementedType
 
     NotImplementedType = _NotImplementedType
-
-if sys.version_info >= (3, 10):
     @final
     class UnionType:
         @property
