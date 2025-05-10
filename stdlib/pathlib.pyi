@@ -15,8 +15,10 @@ from collections.abc import Callable, Generator, Iterator, Sequence
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike, stat_result
 from types import GenericAlias, TracebackType
-from typing import IO, Any, BinaryIO, ClassVar, Literal, overload
+from typing import IO, Any, BinaryIO, ClassVar, Literal, TypeVar, overload
 from typing_extensions import Never, Self, deprecated
+
+_T = TypeVar("_T", bound=PurePath)
 
 __all__ = ["PurePath", "PurePosixPath", "PureWindowsPath", "Path", "PosixPath", "WindowsPath"]
 
@@ -154,6 +156,10 @@ class Path(PurePath):
     def mkdir(self, mode: int = 0o777, parents: bool = False, exist_ok: bool = False) -> None: ...
 
     if sys.version_info >= (3, 14):
+        @overload
+        def copy_into(self, target_dir: _T, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> _T: ...
+        @overload
+        def copy_into(self, target_dir: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> Path: ...
         def copy(self, target: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> None: ...
         def copytree(
             self,
