@@ -243,8 +243,5 @@ class QueueListener:
     if sys.version_info >= (3, 14):
         def __enter__(self) -> Self: ...
         def __exit__(
-            self,
-            exc_type: type[BaseException] | None,
-            exc_value: BaseException | None,
-            traceback: TracebackType | None,
+            self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None
         ) -> None: ...
