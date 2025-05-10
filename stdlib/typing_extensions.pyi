@@ -275,7 +275,8 @@ def get_type_hints(
 ) -> dict[str, Any]: ...
 def get_args(tp: Any) -> tuple[Any, ...]: ...
 
-if sys.version_info >= (3, 10):
+# Leads to incompatible overlap on 3.14 where Union and UnionType are aliases
+if sys.version_info >= (3, 10) and sys.version_info < (3, 14):
     @overload
     def get_origin(tp: UnionType) -> type[UnionType]: ...
 
