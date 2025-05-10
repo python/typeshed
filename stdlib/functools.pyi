@@ -34,6 +34,7 @@ _RWrapper = TypeVar("_RWrapper")
 if sys.version_info >= (3, 14):
     @overload
     def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], /, initial: _T) -> _T: ...
+
 else:
     @overload
     def reduce(function: Callable[[_T, _S], _T], sequence: Iterable[_S], initial: _T, /) -> _T: ...
