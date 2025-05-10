@@ -4,7 +4,11 @@ from typing import ClassVar
 
 __all__ = ["generate_network_text", "write_network_text"]
 
-class _AsciiBaseGlyphs:
+class BaseGlyphs:
+    @classmethod
+    def as_dict(cls) -> dict[str, str]: ...
+
+class AsciiBaseGlyphs(BaseGlyphs):
     empty: ClassVar[str]
     newtree_last: ClassVar[str]
     newtree_mid: ClassVar[str]
@@ -12,17 +16,19 @@ class _AsciiBaseGlyphs:
     within_forest: ClassVar[str]
     within_tree: ClassVar[str]
 
-class AsciiDirectedGlyphs(_AsciiBaseGlyphs):
+class AsciiDirectedGlyphs(AsciiBaseGlyphs):
     last: ClassVar[str]
     mid: ClassVar[str]
     backedge: ClassVar[str]
+    vertical_edge: ClassVar[str]
 
-class AsciiUndirectedGlyphs(_AsciiBaseGlyphs):
+class AsciiUndirectedGlyphs(AsciiBaseGlyphs):
     last: ClassVar[str]
     mid: ClassVar[str]
     backedge: ClassVar[str]
+    vertical_edge: ClassVar[str]
 
-class _UtfBaseGlyphs:
+class UtfBaseGlyphs(BaseGlyphs):
     empty: ClassVar[str]
     newtree_last: ClassVar[str]
     newtree_mid: ClassVar[str]
@@ -30,12 +36,12 @@ class _UtfBaseGlyphs:
     within_forest: ClassVar[str]
     within_tree: ClassVar[str]
 
-class UtfDirectedGlyphs(_UtfBaseGlyphs):
+class UtfDirectedGlyphs(UtfBaseGlyphs):
     last: ClassVar[str]
     mid: ClassVar[str]
     backedge: ClassVar[str]
 
-class UtfUndirectedGlyphs(_UtfBaseGlyphs):
+class UtfUndirectedGlyphs(UtfBaseGlyphs):
     last: ClassVar[str]
     mid: ClassVar[str]
     backedge: ClassVar[str]
