@@ -28,18 +28,12 @@ if sys.version_info >= (3, 14):
         @overload
         @classmethod
         def prepare(
-            cls,
-            initializer: Callable[[Unpack[_Ts]], object],
-            initargs: tuple[Unpack[_Ts]],
-            shared: Mapping[str, object],
+            cls, initializer: Callable[[Unpack[_Ts]], object], initargs: tuple[Unpack[_Ts]], shared: Mapping[str, object]
         ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...  #  type: ignore[override]
         @overload
         @classmethod
         def prepare(
-            cls,
-            initializer: Callable[[], object],
-            initargs: tuple[()],
-            shared: Mapping[str, object],
+            cls, initializer: Callable[[], object], initargs: tuple[()], shared: Mapping[str, object]
         ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...  #  type: ignore[override]
         def __init__(self, initdata: _Task, shared: Mapping[str, object] | None = None) -> None: ...  #  type: ignore[override]
 
