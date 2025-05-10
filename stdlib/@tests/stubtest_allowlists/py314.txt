@@ -6,8 +6,6 @@ _asyncio.all_tasks
 _asyncio.future_add_to_awaited_by
 _asyncio.future_discard_from_awaited_by
 _compression
-_contextvars.Token.__enter__
-_contextvars.Token.__exit__
 _ctypes.POINTER
 _ctypes.byref
 _ctypes.pointer
@@ -92,8 +90,6 @@ concurrent.futures.thread._worker
 configparser.__all__
 configparser.InvalidWriteError
 configparser.UnnamedSectionDisabledError
-contextvars.Token.__enter__
-contextvars.Token.__exit__
 ctypes.POINTER
 ctypes.byref
 ctypes.memoryview_at
