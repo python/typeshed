@@ -19,24 +19,14 @@ class WorkerContext(thread.WorkerContext):
     @overload
     @classmethod
     def prepare(
-        cls,
-        initializer: Callable[[Unpack[_Ts]], object],
-        initargs: tuple[Unpack[_Ts]],
-        shared: Mapping[str, object],
+        cls, initializer: Callable[[Unpack[_Ts]], object], initargs: tuple[Unpack[_Ts]], shared: Mapping[str, object]
     ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...
     @overload
     @classmethod
     def prepare(
-        cls,
-        initializer: Callable[[], object],
-        initargs: tuple[()],
-        shared: Mapping[str, object],
+        cls, initializer: Callable[[], object], initargs: tuple[()], shared: Mapping[str, object]
     ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...
-    def __init__(
-        self,
-        initdata: _Task[_P, _R],
-        shared: Mapping[str, object] | None = None,
-    ) -> None: ...
+    def __init__(self, initdata: _Task[_P, _R], shared: Mapping[str, object] | None = None) -> None: ...
 
 class BrokenInterpreterPool(BrokenExecutor): ...
 

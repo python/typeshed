@@ -39,29 +39,17 @@ if sys.version_info >= (3, 14):
         @overload
         @classmethod
         def prepare(
-            cls,
-            initializer: Callable[[Unpack[_Ts]], object],
-            initargs: tuple[Unpack[_Ts]],
+            cls, initializer: Callable[[Unpack[_Ts]], object], initargs: tuple[Unpack[_Ts]]
         ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...
         @overload
         @classmethod
         def prepare(
-            cls,
-            initializer: Callable[[], object],
-            initargs: tuple[()],
+            cls, initializer: Callable[[], object], initargs: tuple[()]
         ) -> tuple[Callable[[], Self], _ResolveTaskFunc[_P, _R]]: ...
         @overload
-        def __init__(
-            self,
-            initializer: Callable[[Unpack[_Ts]], object],
-            initargs: tuple[Unpack[_Ts]],
-        ) -> None: ...
+        def __init__(self, initializer: Callable[[Unpack[_Ts]], object], initargs: tuple[Unpack[_Ts]]) -> None: ...
         @overload
-        def __init__(
-            self,
-            initializer: Callable[[], object],
-            initargs: tuple[()],
-        ) -> None: ...
+        def __init__(self, initializer: Callable[[], object], initargs: tuple[()]) -> None: ...
         def initialize(self) -> None: ...
         def finalize(self) -> None: ...
         def run(self, task: _Task[_P, _R]) -> None: ...
