@@ -2,19 +2,57 @@ import _socket
 import email.message
 import io
 import socketserver
+import ssl
 import sys
-from _typeshed import StrPath, SupportsRead, SupportsWrite
-from collections.abc import Mapping, Sequence
-from typing import Any, AnyStr, BinaryIO, ClassVar
-from typing_extensions import deprecated
+from _ssl import _PasswordType
+from _typeshed import StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
+from collections.abc import Callable, Iterable, Mapping, Sequence
+from typing import Any, AnyStr, BinaryIO, ClassVar, Protocol
+from typing_extensions import Self, deprecated
 
-__all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler", "CGIHTTPRequestHandler"]
+class _SSLModule(Protocol):
+    create_default_context = ssl.create_default_context
+
+if sys.version_info >= (3, 14):
+    __all__ = [
+        "HTTPServer",
+        "ThreadingHTTPServer",
+        "HTTPSServer",
+        "ThreadingHTTPSServer",
+        "BaseHTTPRequestHandler",
+        "SimpleHTTPRequestHandler",
+        "CGIHTTPRequestHandler",
+    ]
+else:
+    __all__ = ["HTTPServer", "ThreadingHTTPServer", "BaseHTTPRequestHandler", "SimpleHTTPRequestHandler", "CGIHTTPRequestHandler"]
 
 class HTTPServer(socketserver.TCPServer):
     server_name: str
     server_port: int
 
 class ThreadingHTTPServer(socketserver.ThreadingMixIn, HTTPServer): ...
+
+if sys.version_info >= (3, 14):
+    class HTTPSServer(HTTPServer):
+        ssl: _SSLModule
+        certfile: StrOrBytesPath
+        keyfile: StrOrBytesPath | None
+        password: _PasswordType | None
+        alpn_protocols: Iterable[str]
+        def __init__(
+            self,
+            server_address: socketserver._AfInetAddress,
+            RequestHandlerClass: Callable[[Any, _socket._RetAddress, Self], socketserver.BaseRequestHandler],
+            bind_and_activate: bool = True,
+            *,
+            certfile: StrOrBytesPath,
+            keyfile: StrOrBytesPath | None = None,
+            password: _PasswordType | None = None,
+            alpn_protocols: Iterable[str] | None = None,
+        ) -> None: ...
+        def server_activate(self) -> None: ...
+
+    class ThreadingHTTPSServer(socketserver.ThreadingMixIn, HTTPSServer): ...
 
 class BaseHTTPRequestHandler(socketserver.StreamRequestHandler):
     client_address: tuple[str, int]
