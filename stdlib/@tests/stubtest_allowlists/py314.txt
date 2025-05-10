@@ -251,7 +251,6 @@ ast.arg.__annotations_cache__
 ast.arguments.__annotations_cache__
 ast.comprehension.__annotations_cache__
 ast.keyword.__annotations_cache__
-ast.main
 ast.match_case.__annotations_cache__
 ast.withitem.__annotations_cache__
 asyncio.__all__
