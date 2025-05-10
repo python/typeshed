@@ -82,7 +82,6 @@ builtins.int.__round__
 builtins.memoryview.__class_getitem__
 builtins.staticmethod.__annotate__
 builtins.staticmethod.__class_getitem__
-builtins.type.__annotate__
 code.compile_command
 codeop.compile_command
 compression
@@ -388,8 +387,6 @@ typing(_extensions)?\.IO\.writelines
 .*\.ForwardRef\.__cell__
 .*\.ForwardRef\.__code__
 .*\.ForwardRef\.__extra_names__
-.*\.ForwardRef\.__forward_evaluated__
-.*\.ForwardRef\.__forward_value__
 .*\.ForwardRef\.__globals__
 .*\.ForwardRef\.__init_subclass__
 .*\.ForwardRef\.__owner__

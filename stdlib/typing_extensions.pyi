@@ -267,12 +267,16 @@ class _TypedDict(Mapping[str, object], metaclass=abc.ABCMeta):
 
 OrderedDict = _Alias()
 
-def get_type_hints(
-    obj: Callable[..., Any],
-    globalns: dict[str, Any] | None = None,
-    localns: Mapping[str, Any] | None = None,
-    include_extras: bool = False,
-) -> dict[str, Any]: ...
+if sys.version_info >= (3, 13):
+    from typing import get_type_hints as get_type_hints
+else:
+    def get_type_hints(
+        obj: Callable[..., Any],
+        globalns: dict[str, Any] | None = None,
+        localns: Mapping[str, Any] | None = None,
+        include_extras: bool = False,
+    ) -> dict[str, Any]: ...
+
 def get_args(tp: Any) -> tuple[Any, ...]: ...
 
 # Leads to incompatible overlap on 3.14 where Union and UnionType are aliases
