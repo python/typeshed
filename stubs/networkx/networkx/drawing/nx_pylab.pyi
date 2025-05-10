@@ -1,6 +1,23 @@
 from _typeshed import Incomplete
 from collections.abc import Collection
 
+__all__ = [
+    "draw",
+    "draw_networkx",
+    "draw_networkx_nodes",
+    "draw_networkx_edges",
+    "draw_networkx_labels",
+    "draw_networkx_edge_labels",
+    "draw_circular",
+    "draw_kamada_kawai",
+    "draw_random",
+    "draw_spectral",
+    "draw_spring",
+    "draw_planar",
+    "draw_shell",
+    "draw_forceatlas2",
+]
+
 def draw(G, pos: Incomplete | None = None, ax: Incomplete | None = None, **kwds) -> None: ...
 def draw_networkx(
     G, pos: Incomplete | None = None, arrows: Incomplete | None = None, with_labels: bool = True, **kwds
@@ -91,3 +108,4 @@ def draw_spectral(G, **kwargs) -> None: ...
 def draw_spring(G, **kwargs) -> None: ...
 def draw_shell(G, nlist: Incomplete | None = None, **kwargs) -> None: ...
 def draw_planar(G, **kwargs) -> None: ...
+def draw_forceatlas2(G, **kwargs) -> None: ...

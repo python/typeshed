@@ -4,6 +4,17 @@ from collections.abc import Generator
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
+__all__ = [
+    "bidirectional_shortest_path",
+    "single_source_shortest_path",
+    "single_source_shortest_path_length",
+    "single_target_shortest_path",
+    "single_target_shortest_path_length",
+    "all_pairs_shortest_path",
+    "all_pairs_shortest_path_length",
+    "predecessor",
+]
+
 @_dispatchable
 def single_source_shortest_path_length(G: Graph[_Node], source: _Node, cutoff: int | None = None): ...
 @_dispatchable

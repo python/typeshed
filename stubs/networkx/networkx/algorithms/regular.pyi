@@ -1,6 +1,8 @@
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["is_regular", "is_k_regular", "k_factor"]
+
 @_dispatchable
 def is_regular(G: Graph[_Node]): ...
 @_dispatchable
