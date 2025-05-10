@@ -364,8 +364,6 @@ dataclasses.Field.__init__
 dataclasses.Field.doc
 dataclasses.field
 dataclasses.make_dataclass
-datetime.date.strptime
-datetime.time.strptime
 decimal.Decimal.from_number
 decimal.DecimalTuple.__annotate_func__
 decimal.DecimalTuple.__annotations_cache__
