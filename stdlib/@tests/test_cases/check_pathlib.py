@@ -35,6 +35,6 @@ if sys.version_info >= (3, 14):
     pth = my_path.copy_into(Path("."))
     assert_type(pth, Path)
 
-    # If the destination is a non-Path, it should default to a base Path.
+    # If the destination is a non-Path, it should default to `Self`.
     pth = my_path.copy_into(".")
     assert_type(pth, MyCustomPath)
