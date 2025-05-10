@@ -107,7 +107,6 @@ class object:
     __doc__: str | None
     __dict__: dict[str, Any]
     __module__: str
-    __annotations__: dict[str, Any]
     @property
     def __class__(self) -> type[Self]: ...
     @__class__.setter
