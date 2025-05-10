@@ -407,8 +407,6 @@ io.__all__
 io.Reader
 io.Writer
 ipaddress._IPAddressBase.version
-logging.handlers.QueueListener.__enter__
-logging.handlers.QueueListener.__exit__
 logging.handlers.SysLogHandler.__init__
 marshal.dump
 marshal.dumps
