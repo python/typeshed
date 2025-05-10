@@ -279,8 +279,7 @@ else:
 
 def get_args(tp: Any) -> tuple[Any, ...]: ...
 
-# Leads to incompatible overlap on 3.14 where Union and UnionType are aliases
-if sys.version_info >= (3, 10) and sys.version_info < (3, 14):
+if sys.version_info >= (3, 10):
     @overload
     def get_origin(tp: UnionType) -> type[UnionType]: ...
 

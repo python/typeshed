@@ -904,9 +904,6 @@ def get_args(tp: Any) -> tuple[Any, ...]: ...
 if sys.version_info >= (3, 10):
     @overload
     def get_origin(tp: ParamSpecArgs | ParamSpecKwargs) -> ParamSpec: ...
-
-if sys.version_info >= (3, 10) and sys.version_info < (3, 14):
-    # Leads to incompatible overlap on 3.14 where Union and UnionType are aliases
     @overload
     def get_origin(tp: UnionType) -> type[UnionType]: ...
 
