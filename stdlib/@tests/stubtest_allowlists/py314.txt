@@ -30,7 +30,6 @@ argparse.HelpFormatter.__init__
 argparse.HelpFormatter.__init__
 ast.Interpolation
 ast.TemplateStr
-ast.main
 asyncio.__all__
 asyncio.FrameCallGraphEntry
 asyncio.FutureCallGraph
@@ -140,8 +139,6 @@ dataclasses.Field.__init__
 dataclasses.Field.doc
 dataclasses.field
 dataclasses.make_dataclass
-datetime.date.strptime
-datetime.time.strptime
 decimal.Decimal.from_number
 decimal.IEEE_CONTEXT_MAX_BITS
 dis.Bytecode.__init__
@@ -168,7 +165,6 @@ functools.reduce
 functools.reduce
 functools.update_wrapper
 functools.wraps
-getpass.getpass
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
@@ -238,7 +234,6 @@ pdb.set_trace
 pkgutil.__all__
 pkgutil.find_loader
 pkgutil.get_loader
-platform.invalidate_caches
 pyexpat.errors.XML_ERROR_NOT_STARTED
 shutil.__all__
 socket.__all__
@@ -301,11 +296,6 @@ urllib.request.pathname2url
 urllib.request.url2pathname
 urllib.request.url2pathname
 urllib.request.url2pathname
-uuid.MAX
-uuid.NIL
-uuid.uuid6
-uuid.uuid7
-uuid.uuid8
 xml.parsers.expat.errors.XML_ERROR_NOT_STARTED
 xml.sax.__all__
 xml.sax.InputSource
