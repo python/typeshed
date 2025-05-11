@@ -1,7 +1,7 @@
 from asyncio import Future
 from dataclasses import dataclass
 from types import FrameType
-from typing import Any, TextIO, TypeVar, overload
+from typing import Any, Generic, TextIO, TypeVar, overload
 
 _T = TypeVar("_T")
 
@@ -12,7 +12,7 @@ class FrameCallGraphEntry:
     frame: FrameType
 
 @dataclass(frozen=True)
-class FutureCallGraph[_T]:
+class FutureCallGraph(Generic[_T]):
     future: Future[_T]
     call_stack: tuple[FrameCallGraphEntry, ...]
     awaited_by: tuple[FutureCallGraph[Any], ...]
