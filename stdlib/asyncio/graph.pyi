@@ -1,8 +1,8 @@
 from asyncio import Future
 from dataclasses import dataclass
 from types import FrameType
-from typing import Any, TextIO, overload
-
+from typing import Any, overload
+from _typeshed import SupportsWrite
 
 __all__ = ("capture_call_graph", "format_call_graph", "print_call_graph", "FrameCallGraphEntry", "FutureCallGraph")
 
@@ -22,5 +22,5 @@ def capture_call_graph(future: None = None, /, *, depth: int = 1, limit: int | N
 def capture_call_graph(future: Future[Any], /, *, depth: int = 1, limit: int | None = None) -> FutureCallGraph | None: ...
 def format_call_graph(future: Future[Any] | None = None, /, *, depth: int = 1, limit: int | None = None) -> str: ...
 def print_call_graph(
-    future: Future[Any] | None = None, /, *, file: TextIO | None = None, depth: int = 1, limit: int | None = None
+    future: Future[Any] | None = None, /, *, file: SupportsWrite[str] | None = None, depth: int = 1, limit: int | None = None
 ) -> None: ...
