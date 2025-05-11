@@ -1035,7 +1035,7 @@ else:
         __forward_arg__: str
         __forward_code__: CodeType
         __forward_evaluated__: bool
-        __forward_value__: _AnnotationForm | None
+        __forward_value__: Any | None  # should be _AnnotationForm but mypy complains
         __forward_is_argument__: bool
         __forward_is_class__: bool
         __forward_module__: Any | None
