@@ -7,11 +7,11 @@ _T = TypeVar("_T")
 
 __all__ = ("capture_call_graph", "format_call_graph", "print_call_graph", "FrameCallGraphEntry", "FutureCallGraph")
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True)
 class FrameCallGraphEntry:
     frame: FrameType
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True)
 class FutureCallGraph[_T]:
     future: Future[_T]
     call_stack: tuple[FrameCallGraphEntry, ...]
