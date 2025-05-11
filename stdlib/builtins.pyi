@@ -5,7 +5,6 @@ import sys
 import types
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
-    AnnotationForm,
     AnyStr_co,
     ConvertibleToFloat,
     ConvertibleToInt,
@@ -72,9 +71,6 @@ from typing_extensions import (  # noqa: Y023
     TypeVarTuple,
     deprecated,
 )
-
-if sys.version_info >= (3, 14):
-    from _typeshed import AnnotateFunc
 
 _T = TypeVar("_T")
 _I = TypeVar("_I", default=int)
@@ -219,9 +215,6 @@ class type:
         def __ror__(self, value: Any, /) -> types.UnionType: ...
     if sys.version_info >= (3, 12):
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
-    __annotations__: dict[str, AnnotationForm]
-    if sys.version_info >= (3, 14):
-        __annotate__: AnnotateFunc | None
 
 class super:
     @overload
@@ -1024,9 +1017,7 @@ class function:
     def __globals__(self) -> dict[str, Any]: ...
     __name__: str
     __qualname__: str
-    __annotations__: dict[str, AnnotationForm]
-    if sys.version_info >= (3, 14):
-        __annotate__: AnnotateFunc | None
+    __annotations__: dict[str, Any]
     __kwdefaults__: dict[str, Any]
     if sys.version_info >= (3, 10):
         @property

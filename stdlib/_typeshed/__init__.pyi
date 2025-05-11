@@ -367,14 +367,3 @@ else:
     from enum import Enum
 
     class StrEnum(str, Enum): ...
-
-# Objects that appear in annotations or in type expressions.
-# Similar to PEP 747's TypeForm but a little broader.
-AnnotationForm: TypeAlias = Any
-
-if sys.version_info >= (3, 14):
-    from annotationlib import Format
-
-    # These return annotations, which can be arbitrary objects
-    AnnotateFunc: TypeAlias = Callable[[Format], dict[str, AnnotationForm]]
-    EvaluateFunc: TypeAlias = Callable[[Format], AnnotationForm]
