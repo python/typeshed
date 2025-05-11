@@ -18,7 +18,7 @@ from types import GenericAlias, TracebackType
 from typing import IO, Any, BinaryIO, ClassVar, Literal, TypeVar, overload, type_check_only
 from typing_extensions import Never, Self, deprecated
 
-_T = TypeVar("_T")
+_T = TypeVar("_T", bound=PurePath)
 
 __all__ = ["PurePath", "PurePosixPath", "PureWindowsPath", "Path", "PosixPath", "WindowsPath"]
 
@@ -171,21 +171,21 @@ class Path(PurePath):
         @property
         def info(self) -> _PathInfo: ...
         @overload
-        def move_into(self, target_dir: StrPath) -> Self: ...  # type: ignore[overload-overlap]
-        @overload
         def move_into(self, target_dir: _T) -> _T: ...  # type: ignore[overload-overlap]
         @overload
-        def move(self, target: StrPath) -> Self: ...  # type: ignore[overload-overlap]
+        def move_into(self, target_dir: StrPath) -> Self: ...  # type: ignore[overload-overlap]
         @overload
         def move(self, target: _T) -> _T: ...  # type: ignore[overload-overlap]
         @overload
-        def copy_into(self, target_dir: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> Self: ...  # type: ignore[overload-overlap]
+        def move(self, target: StrPath) -> Self: ...  # type: ignore[overload-overlap]
         @overload
         def copy_into(self, target_dir: _T, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> _T: ...  # type: ignore[overload-overlap]
         @overload
-        def copy(self, target: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> Self: ...  # type: ignore[overload-overlap]
+        def copy_into(self, target_dir: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> Self: ...  # type: ignore[overload-overlap]
         @overload
         def copy(self, target: _T, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> _T: ...  # type: ignore[overload-overlap]
+        @overload
+        def copy(self, target: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> Self: ...  # type: ignore[overload-overlap]
 
     # Adapted from builtins.open
     # Text mode: always returns a TextIOWrapper
