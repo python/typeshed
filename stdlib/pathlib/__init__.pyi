@@ -163,7 +163,7 @@ class Path(PurePath):
         from .types import PathInfo
 
         @property
-        def info(self) -> _PathInfo: ...
+        def info(self) -> PathInfo: ...
         @overload
         def move_into(self, target_dir: _PathT) -> _PathT: ...  # type: ignore[overload-overlap]
         @overload
