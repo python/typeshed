@@ -87,9 +87,6 @@ concurrent.futures.thread.WorkerContext
 concurrent.futures.thread._WorkItem.__init__
 concurrent.futures.thread._WorkItem.run
 concurrent.futures.thread._worker
-configparser.__all__
-configparser.InvalidWriteError
-configparser.UnnamedSectionDisabledError
 ctypes.POINTER
 ctypes.byref
 ctypes.memoryview_at
