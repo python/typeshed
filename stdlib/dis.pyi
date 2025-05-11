@@ -258,26 +258,16 @@ else:
 if sys.version_info >= (3, 13):
     # 3.13 made `show_cache` `None` by default
     def get_instructions(
-        x: _HaveCodeType,
-        *,
-        first_line: int | None = None,
-        show_caches: bool | None = None,
-        adaptive: bool = False,
+        x: _HaveCodeType, *, first_line: int | None = None, show_caches: bool | None = None, adaptive: bool = False
     ) -> Iterator[Instruction]: ...
+
 elif sys.version_info >= (3, 11):
     def get_instructions(
-        x: _HaveCodeType,
-        *,
-        first_line: int | None = None,
-        show_caches: bool = False,
-        adaptive: bool = False,
+        x: _HaveCodeType, *, first_line: int | None = None, show_caches: bool = False, adaptive: bool = False
     ) -> Iterator[Instruction]: ...
+
 else:
-    def get_instructions(
-        x: _HaveCodeType,
-        *,
-        first_line: int | None = None,
-    ) -> Iterator[Instruction]: ...
+    def get_instructions(x: _HaveCodeType, *, first_line: int | None = None) -> Iterator[Instruction]: ...
 
 def show_code(co: _HaveCodeType, *, file: IO[str] | None = None) -> None: ...
 
