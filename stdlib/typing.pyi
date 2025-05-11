@@ -145,12 +145,6 @@ if sys.version_info >= (3, 13):
 class Any: ...
 class _Final: ...
 
-# Objects that appear in annotations or in type expressions.
-# Similar to PEP 747's TypeForm but a little broader.
-# Duplicated from _typeshed.AnnotationForm; using it directly causes import cycle issues.
-# See https://github.com/python/typeshed/pull/13999
-_AnnotationForm: TypeAlias = Any  # noqa: PYI015
-
 def final(f: _T) -> _T: ...
 @final
 class TypeVar:
@@ -928,8 +922,7 @@ if sys.version_info >= (3, 10):
 @overload
 def get_origin(tp: GenericAlias) -> type: ...
 @overload
-# argument should be _AnnotationForm but that triggers a mypy bug
-def get_origin(tp: Any) -> _AnnotationForm | None: ...
+def get_origin(tp: _AnnotationForm) -> _AnnotationForm | None: ...
 @overload
 def cast(typ: type[_T], val: Any) -> _T: ...
 @overload
@@ -1035,7 +1028,7 @@ else:
         __forward_arg__: str
         __forward_code__: CodeType
         __forward_evaluated__: bool
-        __forward_value__: Any | None  # should be _AnnotationForm but mypy complains
+        __forward_value__: _AnnotationForm | None
         __forward_is_argument__: bool
         __forward_is_class__: bool
         __forward_module__: Any | None
@@ -1118,3 +1111,9 @@ if sys.version_info >= (3, 13):
     NoDefault: _NoDefaultType
     TypeIs: _SpecialForm
     ReadOnly: _SpecialForm
+
+# Objects that appear in annotations or in type expressions.
+# Similar to PEP 747's TypeForm but a little broader.
+# Duplicated from _typeshed.AnnotationForm; using it directly causes import cycle issues.
+# See https://github.com/python/typeshed/pull/13999
+_AnnotationForm: TypeAlias = Any  # noqa: PYI015
