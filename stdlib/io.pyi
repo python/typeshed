@@ -42,9 +42,10 @@ __all__ = [
     "SEEK_SET",
     "SEEK_CUR",
     "SEEK_END",
-    "Reader",
-    "Writer",
 ]
+
+if sys.version_info >= (3, 14):
+    __all__ += ["Reader", "Writer"]
 
 if sys.version_info >= (3, 11):
     from _io import text_encoding as text_encoding
@@ -64,8 +65,9 @@ class RawIOBase(_RawIOBase, IOBase): ...
 class BufferedIOBase(_BufferedIOBase, IOBase): ...
 class TextIOBase(_TextIOBase, IOBase): ...
 
-class Reader(Protocol[_T_co]):
-    def read(self, size: int = ..., /) -> _T_co: ...
+if sys.version_info >= (3, 14):
+    class Reader(Protocol[_T_co]):
+        def read(self, size: int = ..., /) -> _T_co: ...
 
-class Writer(Protocol[_T_contra]):
-    def write(self, data: _T_contra, /) -> int: ...
+    class Writer(Protocol[_T_contra]):
+        def write(self, data: _T_contra, /) -> int: ...
