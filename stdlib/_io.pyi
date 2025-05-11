@@ -149,7 +149,6 @@ class _BufferedWriterStream(Protocol):
 
 _BufferedWriterStreamT = TypeVar("_BufferedWriterStreamT", bound=_BufferedWriterStream, default=_BufferedWriterStream)
 
-
 class BufferedWriter(BufferedIOBase, _BufferedIOBase, BinaryIO, Generic[_BufferedWriterStreamT]):  # type: ignore[misc]  # incompatible definitions of writelines in the base classes
     raw: _BufferedWriterStreamT
     def __init__(self, raw: _BufferedWriterStreamT, buffer_size: int = 8192) -> None: ...
