@@ -18,20 +18,13 @@ from types import GenericAlias, TracebackType
 from typing import IO, Any, BinaryIO, ClassVar, Literal, TypeVar, overload, type_check_only
 from typing_extensions import Never, Self, deprecated
 
-_T = TypeVar("_T", bound=PurePath)
+_PathT = TypeVar("_PathT", bound=PurePath)
 
 __all__ = ["PurePath", "PurePosixPath", "PureWindowsPath", "Path", "PosixPath", "WindowsPath"]
 
 if sys.version_info >= (3, 13):
     __all__ += ["UnsupportedOperation"]
 
-# All `_PathInfoBase` classes implement these methods but no concrete base class is defined.
-@type_check_only
-class _PathInfo:
-    def exists(self, *, follow_symlinks: bool = True) -> bool: ...
-    def is_dir(self, *, follow_symlinks: bool = True) -> bool: ...
-    def is_file(self, *, follow_symlinks: bool = True) -> bool: ...
-    def is_symlink(self) -> bool: ...
 
 class PurePath(PathLike[str]):
     if sys.version_info >= (3, 13):
@@ -168,22 +161,24 @@ class Path(PurePath):
     def mkdir(self, mode: int = 0o777, parents: bool = False, exist_ok: bool = False) -> None: ...
 
     if sys.version_info >= (3, 14):
+        from .types import PathInfo
+
         @property
         def info(self) -> _PathInfo: ...
         @overload
-        def move_into(self, target_dir: _T) -> _T: ...  # type: ignore[overload-overlap]
+        def move_into(self, target_dir: _PathT) -> _PathT: ...  # type: ignore[overload-overlap]
         @overload
         def move_into(self, target_dir: StrPath) -> Self: ...  # type: ignore[overload-overlap]
         @overload
-        def move(self, target: _T) -> _T: ...  # type: ignore[overload-overlap]
+        def move(self, target: _PathT) -> _PathT: ...  # type: ignore[overload-overlap]
         @overload
         def move(self, target: StrPath) -> Self: ...  # type: ignore[overload-overlap]
         @overload
-        def copy_into(self, target_dir: _T, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> _T: ...  # type: ignore[overload-overlap]
+        def copy_into(self, target_dir: _PathT, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> _PathT: ...  # type: ignore[overload-overlap]
         @overload
         def copy_into(self, target_dir: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> Self: ...  # type: ignore[overload-overlap]
         @overload
-        def copy(self, target: _T, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> _T: ...  # type: ignore[overload-overlap]
+        def copy(self, target: _PathT, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> _PathT: ...  # type: ignore[overload-overlap]
         @overload
         def copy(self, target: StrPath, *, follow_symlinks: bool = True, preserve_metadata: bool = False) -> Self: ...  # type: ignore[overload-overlap]
 
