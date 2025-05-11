@@ -3,7 +3,7 @@ import types
 from _typeshed import SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sized
 from types import GenericAlias
-from typing import Any, Final, Generic, NamedTuple, TypedDict, TypeVar, final, overload
+from typing import Any, Final, Generic, Literal, NamedTuple, TypedDict, TypeVar, final, overload
 from typing_extensions import ParamSpec, Self, TypeAlias
 
 __all__ = [
@@ -68,13 +68,33 @@ def lru_cache(maxsize: int | None = 128, typed: bool = False) -> Callable[[Calla
 def lru_cache(maxsize: Callable[..., _T], typed: bool = False) -> _lru_cache_wrapper[_T]: ...
 
 if sys.version_info >= (3, 14):
-    WRAPPER_ASSIGNMENTS: Final = ("__module__", "__name__", "__qualname__", "__doc__", "__annotate__", "__type_params__")
+    WRAPPER_ASSIGNMENTS: Final[
+        tuple[
+            Literal["__module__"],
+            Literal["__name__"],
+            Literal["__qualname__"],
+            Literal["__doc__"],
+            Literal["__annotate__"],
+            Literal["__type_params__"],
+        ]
+    ]
 elif sys.version_info >= (3, 12):
-    WRAPPER_ASSIGNMENTS: Final = ("__module__", "__name__", "__qualname__", "__doc__", "__annotations__", "__type_params__")
+    WRAPPER_ASSIGNMENTS: Final[
+        tuple[
+            Literal["__module__"],
+            Literal["__name__"],
+            Literal["__qualname__"],
+            Literal["__doc__"],
+            Literal["__annotations__"],
+            Literal["__type_params__"],
+        ]
+    ]
 else:
-    WRAPPER_ASSIGNMENTS: Final = ("__module__", "__name__", "__qualname__", "__doc__", "__annotations__")
+    WRAPPER_ASSIGNMENTS: Final[
+        tuple[Literal["__module__"], Literal["__name__"], Literal["__qualname__"], Literal["__doc__"], Literal["__annotations__"]]
+    ]
 
-WRAPPER_UPDATES: Final = ("__dict__",)
+WRAPPER_UPDATES: tuple[Literal["__dict__"]]
 
 class _Wrapped(Generic[_PWrapped, _RWrapped, _PWrapper, _RWrapper]):
     __wrapped__: Callable[_PWrapped, _RWrapped]
