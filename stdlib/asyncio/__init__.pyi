@@ -21,6 +21,9 @@ from .tasks import *
 from .threads import *
 from .transports import *
 
+if sys.version_info >= (3, 14):
+    from .graph import *
+
 if sys.version_info >= (3, 11):
     from .taskgroups import *
     from .timeouts import *
@@ -32,7 +35,6 @@ else:
 
 if sys.platform == "win32":
     if sys.version_info >= (3, 14):
-        from .graph import *
 
         __all__ = (
             "BaseEventLoop",  # from base_events
@@ -508,8 +510,6 @@ if sys.platform == "win32":
         )
 else:
     if sys.version_info >= (3, 14):
-        from .graph import *
-
         __all__ = (
             "BaseEventLoop",  # from base_events
             "Server",  # from base_events
