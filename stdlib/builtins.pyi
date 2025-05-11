@@ -1011,6 +1011,7 @@ class tuple(Sequence[_T_co]):
 # Doesn't exist at runtime, but deleting this breaks mypy and pyright. See:
 # https://github.com/python/typeshed/issues/7580
 # https://github.com/python/mypy/issues/8240
+# Obsolete, use types.FunctionType instead.
 @final
 @type_check_only
 class function:
