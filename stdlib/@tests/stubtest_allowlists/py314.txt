@@ -262,6 +262,9 @@ types.UnionType.__mro_entries__
 types.UnionType.__name__
 types.UnionType.__qualname__
 
+# Assigning `__new__` causes `func` not to get recognized.
+functools.partialmethod.__new__
+
 # ====================================
 # Pre-existing errors from Python 3.13
 # ====================================
