@@ -147,16 +147,6 @@ multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
 os.__all__
 os.readinto
-pathlib.Path.copy_into
-pathlib.Path.copytree
-pathlib.Path.delete
-pathlib.Path.info
-pathlib.Path.move
-pathlib.Path.move_into
-pathlib.Path.rmtree
-pathlib.PurePath.is_relative_to
-pathlib.PurePath.relative_to
-pathlib.types
 pdb.__all__
 pdb.Pdb.__init__
 pdb.Pdb.checkline
