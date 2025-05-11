@@ -31,7 +31,7 @@ if sys.version_info >= (3, 14):
         "MAX_INTERPOLATION_DEPTH",
         "UNNAMED_SECTION",
     )
-if sys.version_info >= (3, 13):
+elif sys.version_info >= (3, 13):
     __all__ = (
         "NoSectionError",
         "DuplicateOptionError",
