@@ -142,6 +142,10 @@ class MaxBlockingTime(FloatSettingMixin, Setting[float]):
     default: float
     desc: str
 
+class PrintBlockingReports(BoolSettingMixin, Setting[bool]):
+    default: bool
+    desc: str
+
 class MonitorMemoryPeriod(FloatSettingMixin, Setting[float]):
     default: int
     desc: str

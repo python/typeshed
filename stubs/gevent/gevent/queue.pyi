@@ -52,18 +52,6 @@ class SimpleQueue(Generic[_T]):
     def __next__(self) -> _T: ...
     next = __next__
 
-@final
-class UnboundQueue(SimpleQueue[_T]):
-    @overload
-    def __init__(self, maxsize: None = None) -> None: ...
-    @overload
-    def __init__(self, maxsize: None, items: Iterable[_T]) -> None: ...
-    @overload
-    def __init__(self, maxsize: None = None, *, items: Iterable[_T]) -> None: ...
-
-class PriorityQueue(SimpleQueue[_T]): ...
-class LifoQueue(SimpleQueue[_T]): ...
-
 class Queue(SimpleQueue[_T]):
     @property
     def unfinished_tasks(self) -> int: ...  # readonly in Cython
@@ -78,6 +66,20 @@ class Queue(SimpleQueue[_T]):
     def shutdown(self, immediate: bool = False) -> None: ...
 
 JoinableQueue = Queue
+
+@final
+class UnboundQueue(Queue[_T]):
+    @overload
+    def __init__(self, maxsize: None = None) -> None: ...
+    @overload
+    def __init__(self, maxsize: None, items: Iterable[_T]) -> None: ...
+    @overload
+    def __init__(self, maxsize: None = None, *, items: Iterable[_T]) -> None: ...
+
+class PriorityQueue(Queue[_T]): ...
+class LifoQueue(Queue[_T]): ...
+
+
 
 class Channel(Generic[_T]):
     @property
