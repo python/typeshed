@@ -68,31 +68,11 @@ def lru_cache(maxsize: int | None = 128, typed: bool = False) -> Callable[[Calla
 def lru_cache(maxsize: Callable[..., _T], typed: bool = False) -> _lru_cache_wrapper[_T]: ...
 
 if sys.version_info >= (3, 14):
-    WRAPPER_ASSIGNMENTS: Final = (
-        "__module__",
-        "__name__",
-        "__qualname__",
-        "__doc__",
-        "__annotate__",
-        "__type_params__",
-    )
+    WRAPPER_ASSIGNMENTS: Final = ("__module__", "__name__", "__qualname__", "__doc__", "__annotate__", "__type_params__")
 elif sys.version_info >= (3, 12):
-    WRAPPER_ASSIGNMENTS: Final = (
-        "__module__",
-        "__name__",
-        "__qualname__",
-        "__doc__",
-        "__annotations__",
-        "__type_params__",
-    )
+    WRAPPER_ASSIGNMENTS: Final = ("__module__", "__name__", "__qualname__", "__doc__", "__annotations__", "__type_params__")
 else:
-    WRAPPER_ASSIGNMENTS: Final = (
-        "__module__",
-        "__name__",
-        "__qualname__",
-        "__doc__",
-        "__annotations__",
-    )
+    WRAPPER_ASSIGNMENTS: Final = ("__module__", "__name__", "__qualname__", "__doc__", "__annotations__")
 
 WRAPPER_UPDATES: Final = ("__dict__",)
 
