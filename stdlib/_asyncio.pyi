@@ -6,7 +6,7 @@ from types import FrameType, GenericAlias
 from typing import Any, Literal, TextIO, TypeVar
 from typing_extensions import Self, TypeAlias
 
-_T = TypeVar("_T")
+_T = TypeVar("_T", default=Any)
 _T_co = TypeVar("_T_co", covariant=True)
 _TaskYieldType: TypeAlias = Future[object] | None
 
