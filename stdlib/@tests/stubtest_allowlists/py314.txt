@@ -5,7 +5,6 @@
 _asyncio.all_tasks
 _asyncio.future_add_to_awaited_by
 _asyncio.future_discard_from_awaited_by
-_compression
 _ctypes.POINTER
 _ctypes.byref
 _ctypes.pointer
@@ -69,11 +68,11 @@ builtins.staticmethod.__annotate__
 builtins.staticmethod.__class_getitem__
 code.compile_command
 codeop.compile_command
-compression
-compression.bz2
-compression.gzip
-compression.lzma
-compression.zlib
+compression.gzip.GzipFile.readinto
+compression.gzip.GzipFile.readinto
+compression.gzip.GzipFile.readinto1
+compression.gzip.GzipFile.readinto1
+compression.gzip.compress
 compression.zstd
 concurrent.futures.__all__
 concurrent.futures.InterpreterPoolExecutor
