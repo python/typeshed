@@ -113,13 +113,6 @@ fnmatch.filterfalse
 fractions.Fraction.__pow__
 fractions.Fraction.__rpow__
 fractions.Fraction.from_number
-functools.__all__
-functools.Placeholder
-functools.WRAPPER_ASSIGNMENTS
-functools.partialmethod.__new__
-functools.reduce
-functools.update_wrapper
-functools.wraps
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
 gzip.compress
@@ -257,6 +250,9 @@ types.UnionType.__class_getitem__
 types.UnionType.__mro_entries__
 types.UnionType.__name__
 types.UnionType.__qualname__
+
+# Assigning `__new__` causes `func` not to get recognized.
+functools.partialmethod.__new__
 
 # ====================================
 # Pre-existing errors from Python 3.13
