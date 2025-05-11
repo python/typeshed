@@ -97,7 +97,7 @@ def run_stubtest(
             return False
 
         mypy_configuration = mypy_configuration_from_distribution(dist_name)
-        with temporary_mypy_config_file(mypy_configuration) as temp:
+        with temporary_mypy_config_file(mypy_configuration, stubtest_settings) as temp:
             ignore_missing_stub = ["--ignore-missing-stub"] if stubtest_settings.ignore_missing_stub else []
             packages_to_check = [d.name for d in dist.iterdir() if d.is_dir() and d.name.isidentifier()]
             modules_to_check = [d.stem for d in dist.iterdir() if d.is_file() and d.suffix == ".pyi"]

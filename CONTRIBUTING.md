@@ -229,6 +229,12 @@ This has the following keys:
   If not specified, stubtest is run only on `linux`.
   Only add extra OSes to the test
   if there are platform-specific branches in a stubs package.
+* `mypy_plugins` (default: `[]`): A list of Python modules to use as mypy plugins
+when running stubtest. For example: `mypy_plugins = ["mypy_django_plugin.main"]`
+* `mypy_plugins_config` (default: `{}`): A dictionary mapping plugin names to their
+configuration dictionaries for use by mypy plugins. For example:
+`mypy_plugins_config = {"django-stubs" = {"django_settings_module" = "@tests.django_settings"}}`
+
 
 `*_dependencies` are usually packages needed to `pip install` the implementation
 distribution.
