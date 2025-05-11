@@ -1,8 +1,8 @@
+from _typeshed import SupportsWrite
 from asyncio import Future
 from dataclasses import dataclass
 from types import FrameType
 from typing import Any, overload
-from _typeshed import SupportsWrite
 
 __all__ = ("capture_call_graph", "format_call_graph", "print_call_graph", "FrameCallGraphEntry", "FutureCallGraph")
 
