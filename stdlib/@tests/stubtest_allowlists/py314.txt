@@ -129,9 +129,6 @@ importlib.machinery.__all__
 importlib.machinery.AppleFrameworkLoader
 importlib.util.__all__
 importlib.util.Loader
-io.__all__
-io.Reader
-io.Writer
 ipaddress._IPAddressBase.version
 logging.handlers.SysLogHandler.__init__
 marshal.dump
@@ -298,6 +295,13 @@ typing(_extensions)?\.IO\.writelines
 .*\.ForwardRef\.__init_subclass__
 .*\.ForwardRef\.__owner__
 .*\.ForwardRef\.__stringifier_dict__
+
+# These protocols use ABC hackery at runtime.
+io.Reader.__class_getitem__
+io.Reader.read
+io.Writer.__class_getitem__
+io.Writer.write
+
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.13
