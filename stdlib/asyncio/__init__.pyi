@@ -536,6 +536,13 @@ else:
             "Future",  # from futures
             "wrap_future",  # from futures
             "isfuture",  # from futures
+            "future_discard_from_awaited_by",  # from futures
+            "future_add_to_awaited_by",  # from futures
+            "capture_call_graph",  # from graph
+            "format_call_graph",  # from graph
+            "print_call_graph",  # from graph
+            "FrameCallGraphEntry",  # from graph
+            "FutureCallGraph",  # from graph
             "Lock",  # from locks
             "Event",  # from locks
             "Condition",  # from locks
