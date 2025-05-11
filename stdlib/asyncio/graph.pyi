@@ -1,9 +1,8 @@
 from asyncio import Future
 from dataclasses import dataclass
 from types import FrameType
-from typing import Any, Generic, TextIO, TypeVar, overload
+from typing import Any, TextIO, overload
 
-_T = TypeVar("_T")
 
 __all__ = ("capture_call_graph", "format_call_graph", "print_call_graph", "FrameCallGraphEntry", "FutureCallGraph")
 
@@ -12,16 +11,16 @@ class FrameCallGraphEntry:
     frame: FrameType
 
 @dataclass(frozen=True)
-class FutureCallGraph(Generic[_T]):
-    future: Future[_T]
+class FutureCallGraph:
+    future: Future[Any]
     call_stack: tuple[FrameCallGraphEntry, ...]
-    awaited_by: tuple[FutureCallGraph[Any], ...]
+    awaited_by: tuple[FutureCallGraph, ...]
 
 @overload
-def capture_call_graph(future: None = None, /, *, depth: int = 1, limit: int | None = None) -> FutureCallGraph[Any] | None: ...
+def capture_call_graph(future: None = None, /, *, depth: int = 1, limit: int | None = None) -> FutureCallGraph | None: ...
 @overload
-def capture_call_graph(future: Future[_T], /, *, depth: int = 1, limit: int | None = None) -> FutureCallGraph[_T] | None: ...
-def format_call_graph(future: Future[_T] | None = None, /, *, depth: int = 1, limit: int | None = None) -> str: ...
+def capture_call_graph(future: Future[Any], /, *, depth: int = 1, limit: int | None = None) -> FutureCallGraph | None: ...
+def format_call_graph(future: Future[Any] | None = None, /, *, depth: int = 1, limit: int | None = None) -> str: ...
 def print_call_graph(
-    future: Future[_T] | None = None, /, *, file: TextIO | None = None, depth: int = 1, limit: int | None = None
+    future: Future[Any] | None = None, /, *, file: TextIO | None = None, depth: int = 1, limit: int | None = None
 ) -> None: ...
