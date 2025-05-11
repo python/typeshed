@@ -130,22 +130,44 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     _subparsers: _ArgumentGroup | None
 
     # Note: the constructor arguments are also used in _SubParsersAction.add_parser.
-    def __init__(
-        self,
-        prog: str | None = None,
-        usage: str | None = None,
-        description: str | None = None,
-        epilog: str | None = None,
-        parents: Sequence[ArgumentParser] = [],
-        formatter_class: _FormatterClass = ...,
-        prefix_chars: str = "-",
-        fromfile_prefix_chars: str | None = None,
-        argument_default: Any = None,
-        conflict_handler: str = "error",
-        add_help: bool = True,
-        allow_abbrev: bool = True,
-        exit_on_error: bool = True,
-    ) -> None: ...
+    if sys.version_info >= (3, 14):
+        def __init__(
+            self,
+            prog: str | None = None,
+            usage: str | None = None,
+            description: str | None = None,
+            epilog: str | None = None,
+            parents: Sequence[ArgumentParser] = [],
+            formatter_class: _FormatterClass = ...,
+            prefix_chars: str = "-",
+            fromfile_prefix_chars: str | None = None,
+            argument_default: Any = None,
+            conflict_handler: str = "error",
+            add_help: bool = True,
+            allow_abbrev: bool = True,
+            exit_on_error: bool = True,
+            *,
+            suggest_on_error: bool = False,
+            color: bool = False,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            prog: str | None = None,
+            usage: str | None = None,
+            description: str | None = None,
+            epilog: str | None = None,
+            parents: Sequence[ArgumentParser] = [],
+            formatter_class: _FormatterClass = ...,
+            prefix_chars: str = "-",
+            fromfile_prefix_chars: str | None = None,
+            argument_default: Any = None,
+            conflict_handler: str = "error",
+            add_help: bool = True,
+            allow_abbrev: bool = True,
+            exit_on_error: bool = True,
+        ) -> None: ...
+
     @overload
     def parse_args(self, args: Sequence[str] | None = None, namespace: None = None) -> Namespace: ...
     @overload
