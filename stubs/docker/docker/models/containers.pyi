@@ -1,5 +1,6 @@
 import datetime
 from _typeshed import Incomplete
+from collections.abc import Iterable, Mapping
 from typing import Literal, NamedTuple, TypedDict, overload
 from typing_extensions import NotRequired
 
@@ -35,7 +36,7 @@ class Container(Model):
     def diff(self): ...
     def exec_run(
         self,
-        cmd,
+        cmd: str | list[str],
         stdout: bool = True,
         stderr: bool = True,
         stdin: bool = False,
@@ -51,7 +52,7 @@ class Container(Model):
     ) -> ExecResult: ...
     def export(self, chunk_size: int | None = 2097152) -> str: ...
     def get_archive(
-        self, path, chunk_size: int | None = 2097152, encode_stream: bool = False
+        self, path: str, chunk_size: int | None = 2097152, encode_stream: bool = False
     ) -> tuple[Incomplete, Incomplete]: ...
     def kill(self, signal: Incomplete | None = None): ...
     @overload
@@ -152,7 +153,7 @@ class ContainerCollection(Collection[Container]):
         entrypoint: str | list[str] | None = None,
         environment: dict[str, str] | list[str] | None = None,
         extra_hosts: dict[str, str] | None = None,
-        group_add: list[str | int] | None = None,
+        group_add: Iterable[str | int] | None = None,
         healthcheck: dict[Incomplete, Incomplete] | None = None,
         hostname: str | None = None,
         init: bool | None = None,
@@ -161,7 +162,7 @@ class ContainerCollection(Collection[Container]):
         isolation: str | None = None,
         kernel_memory: str | int | None = None,
         labels: dict[str, str] | list[str] | None = None,
-        links: dict[str, str | None] | None = None,
+        links: dict[str, str] | dict[str, None] | dict[str, str | None] | Iterable[tuple[str, str | None]] | None = None,
         log_config: LogConfig | None = None,
         lxc_conf: dict[Incomplete, Incomplete] | None = None,
         mac_address: str | None = None,
@@ -181,7 +182,7 @@ class ContainerCollection(Collection[Container]):
         pid_mode: str | None = None,
         pids_limit: int | None = None,
         platform: str | None = None,
-        ports: dict[str, int | list[int] | tuple[str, int] | None] | None = None,
+        ports: Mapping[str, int | list[int] | tuple[str, int] | None] | None = None,
         privileged: bool = False,
         publish_all_ports: bool = False,
         read_only: bool | None = None,
@@ -247,7 +248,7 @@ class ContainerCollection(Collection[Container]):
         entrypoint: str | list[str] | None = None,
         environment: dict[str, str] | list[str] | None = None,
         extra_hosts: dict[str, str] | None = None,
-        group_add: list[str | int] | None = None,
+        group_add: Iterable[str | int] | None = None,
         healthcheck: dict[Incomplete, Incomplete] | None = None,
         hostname: str | None = None,
         init: bool | None = None,
@@ -256,7 +257,7 @@ class ContainerCollection(Collection[Container]):
         isolation: str | None = None,
         kernel_memory: str | int | None = None,
         labels: dict[str, str] | list[str] | None = None,
-        links: dict[str, str | None] | None = None,
+        links: dict[str, str] | dict[str, None] | dict[str, str | None] | Iterable[tuple[str, str | None]] | None = None,
         log_config: LogConfig | None = None,
         lxc_conf: dict[Incomplete, Incomplete] | None = None,
         mac_address: str | None = None,
@@ -276,7 +277,7 @@ class ContainerCollection(Collection[Container]):
         pid_mode: str | None = None,
         pids_limit: int | None = None,
         platform: str | None = None,
-        ports: dict[str, int | list[int] | tuple[str, int] | None] | None = None,
+        ports: Mapping[str, int | list[int] | tuple[str, int] | None] | None = None,
         privileged: bool = False,
         publish_all_ports: bool = False,
         read_only: bool | None = None,
@@ -338,7 +339,7 @@ class ContainerCollection(Collection[Container]):
         entrypoint: str | list[str] | None = None,
         environment: dict[str, str] | list[str] | None = None,
         extra_hosts: dict[str, str] | None = None,
-        group_add: list[str | int] | None = None,
+        group_add: Iterable[str | int] | None = None,
         healthcheck: dict[Incomplete, Incomplete] | None = None,
         hostname: str | None = None,
         init: bool | None = None,
@@ -347,7 +348,7 @@ class ContainerCollection(Collection[Container]):
         isolation: str | None = None,
         kernel_memory: str | int | None = None,
         labels: dict[str, str] | list[str] | None = None,
-        links: dict[str, str | None] | None = None,
+        links: dict[str, str] | dict[str, None] | dict[str, str | None] | Iterable[tuple[str, str | None]] | None = None,
         log_config: LogConfig | None = None,
         lxc_conf: dict[Incomplete, Incomplete] | None = None,
         mac_address: str | None = None,
@@ -367,7 +368,7 @@ class ContainerCollection(Collection[Container]):
         pid_mode: str | None = None,
         pids_limit: int | None = None,
         platform: str | None = None,
-        ports: dict[str, int | list[int] | tuple[str, int] | None] | None = None,
+        ports: Mapping[str, int | list[int] | tuple[str, int] | None] | None = None,
         privileged: bool = False,
         publish_all_ports: bool = False,
         read_only: bool | None = None,

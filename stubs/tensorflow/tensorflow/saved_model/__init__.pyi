@@ -10,7 +10,7 @@ from tensorflow.saved_model.experimental import VariablePolicy
 from tensorflow.types.experimental import ConcreteFunction, PolymorphicFunction
 
 _P = ParamSpec("_P")
-_R = TypeVar("_R", covariant=True)
+_R_co = TypeVar("_R_co", covariant=True)
 
 class Asset:
     @property
@@ -77,10 +77,10 @@ class SaveOptions:
 
 def contains_saved_model(export_dir: str | Path) -> bool: ...
 
-class _LoadedAttributes(Generic[_P, _R]):
-    signatures: Mapping[str, ConcreteFunction[_P, _R]]
+class _LoadedAttributes(Generic[_P, _R_co]):
+    signatures: Mapping[str, ConcreteFunction[_P, _R_co]]
 
-class _LoadedModel(AutoTrackable, _LoadedAttributes[_P, _R]):
+class _LoadedModel(AutoTrackable, _LoadedAttributes[_P, _R_co]):
     variables: list[tf.Variable]
     trainable_variables: list[tf.Variable]
     # TF1 model artifact specific

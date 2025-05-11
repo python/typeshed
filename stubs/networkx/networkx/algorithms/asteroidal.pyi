@@ -1,6 +1,9 @@
-from networkx.utils.backends import _dispatch
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
-@_dispatch
-def find_asteroidal_triple(G): ...
-@_dispatch
-def is_at_free(G): ...
+__all__ = ["is_at_free", "find_asteroidal_triple"]
+
+@_dispatchable
+def find_asteroidal_triple(G: Graph[_Node]): ...
+@_dispatchable
+def is_at_free(G: Graph[_Node]): ...

@@ -1,9 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
-from networkx.utils.backends import _dispatch
+from networkx.utils.backends import _dispatchable
 
-@_dispatch
+__all__ = ["nonisomorphic_trees", "number_of_nonisomorphic_trees"]
+
+@_dispatchable
 def nonisomorphic_trees(order, create: str = "graph") -> Generator[Incomplete, None, None]: ...
-@_dispatch
+@_dispatchable
 def number_of_nonisomorphic_trees(order): ...

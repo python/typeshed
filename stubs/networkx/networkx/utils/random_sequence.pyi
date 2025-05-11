@@ -1,5 +1,14 @@
 from _typeshed import Incomplete
 
+__all__ = [
+    "powerlaw_sequence",
+    "zipf_rv",
+    "cumulative_distribution",
+    "discrete_sequence",
+    "random_weighted_sample",
+    "weighted_choice",
+]
+
 def powerlaw_sequence(n, exponent: float = 2.0, seed: Incomplete | None = None): ...
 def zipf_rv(alpha, xmin: int = 1, seed: Incomplete | None = None): ...
 def cumulative_distribution(distribution): ...

@@ -1,0 +1,416 @@
+# ====================================================================
+# TODO: New errors in Python 3.14 that need to be fixed or moved below
+# ====================================================================
+
+_asyncio.all_tasks
+_asyncio.future_add_to_awaited_by
+_asyncio.future_discard_from_awaited_by
+_compression
+_ctypes.POINTER
+_ctypes.byref
+_ctypes.pointer
+_decimal.Decimal.from_number
+_decimal.IEEEContext
+_decimal.IEEE_CONTEXT_MAX_BITS
+_heapq.heapify_max
+_heapq.heappop_max
+_heapq.heappush_max
+_heapq.heappushpop_max
+_heapq.heapreplace_max
+_imp.pyc_magic_number_token
+_socket.IP_RECVTTL
+_socket.if_indextoname
+_ssl.HAS_PHA
+_thread.RLock.locked
+_thread.set_name
+argparse.HelpFormatter.__init__
+ast.Interpolation
+ast.TemplateStr
+asyncio.__all__
+asyncio.FrameCallGraphEntry
+asyncio.FutureCallGraph
+asyncio._AbstractEventLoopPolicy
+asyncio._DefaultEventLoopPolicy
+asyncio._get_event_loop_policy
+asyncio._set_event_loop_policy
+asyncio.capture_call_graph
+asyncio.eager_task_factory
+asyncio.format_call_graph
+asyncio.future_add_to_awaited_by
+asyncio.future_discard_from_awaited_by
+asyncio.print_call_graph
+asyncio.events.__all__
+asyncio.events.AbstractEventLoopPolicy
+asyncio.events.BaseDefaultEventLoopPolicy
+asyncio.events._AbstractEventLoopPolicy
+asyncio.events._get_event_loop_policy
+asyncio.events._set_event_loop_policy
+asyncio.futures.__all__
+asyncio.futures.future_add_to_awaited_by
+asyncio.futures.future_discard_from_awaited_by
+asyncio.graph
+asyncio.tasks.eager_task_factory
+bdb.Bdb.__init__
+bdb.Bdb.disable_current_event
+bdb.Bdb.restart_events
+bdb.Bdb.start_trace
+bdb.Bdb.stop_trace
+builtins.BaseExceptionGroup.split
+builtins.BaseExceptionGroup.subgroup
+builtins.ExceptionGroup.split
+builtins.ExceptionGroup.subgroup
+builtins.bytearray.resize
+builtins.classmethod.__annotate__
+builtins.classmethod.__class_getitem__
+builtins.complex.from_number
+builtins.float.from_number
+builtins.int.__round__
+builtins.memoryview.__class_getitem__
+builtins.staticmethod.__annotate__
+builtins.staticmethod.__class_getitem__
+code.compile_command
+codeop.compile_command
+compression
+compression.bz2
+compression.gzip
+compression.lzma
+compression.zlib
+compression.zstd
+concurrent.futures.__all__
+concurrent.futures.InterpreterPoolExecutor
+concurrent.futures.ThreadPoolExecutor.BROKEN
+concurrent.futures.ThreadPoolExecutor.prepare_context
+concurrent.futures.interpreter
+concurrent.futures.thread.ThreadPoolExecutor.BROKEN
+concurrent.futures.thread.ThreadPoolExecutor.prepare_context
+concurrent.futures.thread.WorkerContext
+concurrent.futures.thread._WorkItem.__init__
+concurrent.futures.thread._WorkItem.run
+concurrent.futures.thread._worker
+ctypes.POINTER
+ctypes.byref
+ctypes.memoryview_at
+ctypes.pointer
+ctypes.py_object.__class_getitem__
+ctypes.util.dllist
+ctypes.wintypes.HCONV
+ctypes.wintypes.HCONVLIST
+ctypes.wintypes.HCURSOR
+ctypes.wintypes.HDDEDATA
+ctypes.wintypes.HDROP
+ctypes.wintypes.HFILE
+ctypes.wintypes.HRESULT
+ctypes.wintypes.HSZ
+dataclasses.Field.__init__
+dataclasses.Field.doc
+dataclasses.field
+dataclasses.make_dataclass
+decimal.Decimal.from_number
+decimal.IEEE_CONTEXT_MAX_BITS
+dis.Bytecode.__init__
+dis.Instruction.make
+dis.dis
+dis.disassemble
+dis.distb
+enum.Enum.__signature__
+enum.EnumMeta.__signature__
+enum.EnumType.__signature__
+faulthandler.dump_c_stack
+fnmatch.__all__
+fnmatch.filterfalse
+fractions.Fraction.__pow__
+fractions.Fraction.__rpow__
+fractions.Fraction.from_number
+gzip.GzipFile.readinto
+gzip.GzipFile.readinto1
+gzip.compress
+http.server.__all__
+http.server.HTTPSServer
+http.server.ThreadingHTTPSServer
+imaplib.IMAP4.file
+imaplib.IMAP4.idle
+imaplib.IMAP4_SSL.file
+imaplib.IMAP4_stream.file
+importlib.abc.ResourceReader
+importlib.abc.Traversable
+importlib.abc.TraversableResources
+importlib.machinery.__all__
+importlib.machinery.AppleFrameworkLoader
+importlib.util.__all__
+importlib.util.Loader
+io.__all__
+io.Reader
+io.Writer
+ipaddress._IPAddressBase.version
+logging.handlers.SysLogHandler.__init__
+marshal.dump
+marshal.dumps
+multiprocessing.forkserver.main
+multiprocessing.managers.BaseListProxy.clear
+multiprocessing.managers.BaseListProxy.copy
+multiprocessing.managers.DictProxy.__ior__
+multiprocessing.managers.SyncManager.set
+multiprocessing.managers._BaseDictProxy.__ior__
+multiprocessing.managers._BaseDictProxy.__or__
+multiprocessing.managers._BaseDictProxy.__reversed__
+multiprocessing.managers._BaseDictProxy.__ror__
+multiprocessing.managers._BaseDictProxy.fromkeys
+multiprocessing.process.BaseProcess.interrupt
+multiprocessing.synchronize.SemLock.locked
+os.__all__
+os.readinto
+pathlib.Path.copy_into
+pathlib.Path.copytree
+pathlib.Path.delete
+pathlib.Path.info
+pathlib.Path.move
+pathlib.Path.move_into
+pathlib.Path.rmtree
+pathlib.PurePath.is_relative_to
+pathlib.PurePath.relative_to
+pathlib.types
+pdb.__all__
+pdb.Pdb.__init__
+pdb.Pdb.checkline
+pdb.Pdb.complete_multiline_names
+pdb.Pdb.print_stack_trace
+pdb.Pdb.set_trace
+pdb.Pdb.set_trace_async
+pdb.get_default_backend
+pdb.set_default_backend
+pdb.set_trace
+pkgutil.__all__
+pkgutil.find_loader
+pkgutil.get_loader
+pyexpat.errors.XML_ERROR_NOT_STARTED
+shutil.__all__
+socket.__all__
+socket.IP_RECVTTL
+socket.if_indextoname
+sre_compile.CH_NEGATE
+sre_constants.CH_NEGATE
+sre_parse.CH_NEGATE
+string.Template.flags
+string.templatelib
+sys.is_remote_debug_enabled
+sys.remote_exec
+tarfile.TarFile.zstopen
+threading.Thread.__init__
+threading._RLock.locked
+tkinter.Event.__class_getitem__
+tomllib.TOMLDecodeError.__init__
+traceback.__all__
+turtle.__all__
+turtle.RawTurtle.fill
+turtle.RawTurtle.poly
+turtle.TurtleScreen.no_animation
+turtle.TurtleScreen.save
+turtle.fill
+turtle.no_animation
+turtle.poly
+turtle.save
+types.CodeType.co_branches
+types.FrameType.f_generator
+unittest.TestCase.assertEndsWith
+unittest.TestCase.assertHasAttr
+unittest.TestCase.assertIsSubclass
+unittest.TestCase.assertNotEndsWith
+unittest.TestCase.assertNotHasAttr
+unittest.TestCase.assertNotIsSubclass
+unittest.TestCase.assertNotStartsWith
+unittest.TestCase.assertStartsWith
+unittest.case.TestCase.assertEndsWith
+unittest.case.TestCase.assertHasAttr
+unittest.case.TestCase.assertIsSubclass
+unittest.case.TestCase.assertNotEndsWith
+unittest.case.TestCase.assertNotHasAttr
+unittest.case.TestCase.assertNotIsSubclass
+unittest.case.TestCase.assertNotStartsWith
+unittest.case.TestCase.assertStartsWith
+urllib.request.__all__
+urllib.request.FancyURLopener
+urllib.request.URLopener
+urllib.request.pathname2url
+urllib.request.url2pathname
+xml.parsers.expat.errors.XML_ERROR_NOT_STARTED
+xml.sax.__all__
+xml.sax.InputSource
+zipfile.ZipFile.data_offset
+
+
+# =========================
+# New errors in Python 3.14
+# =========================
+
+
+# Union and UnionType are aliases in 3.14 but type checkers need some changes
+typing_extensions.Union
+typing.Union
+types.UnionType.__class_getitem__
+types.UnionType.__mro_entries__
+types.UnionType.__name__
+types.UnionType.__qualname__
+
+# Assigning `__new__` causes `func` not to get recognized.
+functools.partialmethod.__new__
+
+# ====================================
+# Pre-existing errors from Python 3.13
+# ====================================
+
+
+# =======
+# >= 3.12
+# =======
+
+zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
+
+
+# =======
+# >= 3.11
+# =======
+
+typing.NewType.__mro_entries__
+
+
+# =======
+# >= 3.10
+# =======
+
+builtins.ellipsis  # type is not exposed anywhere
+importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
+
+# positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
+_collections_abc.Coroutine.send
+_collections_abc.Coroutine.throw
+_collections_abc.Generator.send
+_collections_abc.Generator.throw
+
+# These are not positional-only at runtime, but we treat them as positional-only to match dict.
+_collections_abc.MutableMapping.pop
+_collections_abc.MutableMapping.setdefault
+
+# These three have a pos-or-keyword first parameter at runtime, but deliberately have a pos-only first parameter in the stub. #6812
+posixpath.join
+ntpath.join
+os.path.join
+
+# typing.IO uses positional-or-keyword arguments, but in the stubs we prefer
+# to mark these as positional-only for compatibility with existing sub-classes.
+typing(_extensions)?\.BinaryIO\.write
+typing(_extensions)?\.IO\.read
+typing(_extensions)?\.IO\.readline
+typing(_extensions)?\.IO\.readlines
+typing(_extensions)?\.IO\.seek
+typing(_extensions)?\.IO\.truncate
+typing(_extensions)?\.IO\.write
+typing(_extensions)?\.IO\.writelines
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >= 3.14
+# =============================================================
+
+# Internal annotations machinery
+.*\.__annotate_func__
+.*\.__annotations_cache__
+
+# Undocumented private attributes
+.*\.ForwardRef\.__arg__
+.*\.ForwardRef\.__ast_node__
+.*\.ForwardRef\.__cell__
+.*\.ForwardRef\.__code__
+.*\.ForwardRef\.__extra_names__
+.*\.ForwardRef\.__globals__
+.*\.ForwardRef\.__init_subclass__
+.*\.ForwardRef\.__owner__
+.*\.ForwardRef\.__stringifier_dict__
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >= 3.13
+# =============================================================
+
+_pyrepl\..+  # The internal implementation of the REPL on py313+; not for public consumption
+codecs.backslashreplace_errors  # Runtime incorrectly has `self`
+codecs.ignore_errors  # Runtime incorrectly has `self`
+codecs.namereplace_errors  # Runtime incorrectly has `self`
+codecs.replace_errors  # Runtime incorrectly has `self`
+codecs.strict_errors  # Runtime incorrectly has `self`
+codecs.xmlcharrefreplace_errors  # Runtime incorrectly has `self`
+
+# These multiprocessing proxy methods have *args, **kwargs signatures at runtime,
+# But have more precise (accurate) signatures in the stub
+multiprocessing.managers._BaseDictProxy.__iter__
+multiprocessing.managers._BaseDictProxy.__len__
+multiprocessing.managers._BaseDictProxy.clear
+multiprocessing.managers._BaseDictProxy.copy
+multiprocessing.managers._BaseDictProxy.items
+multiprocessing.managers._BaseDictProxy.keys
+multiprocessing.managers._BaseDictProxy.popitem
+multiprocessing.managers._BaseDictProxy.values
+
+# To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
+types.MappingProxyType.get
+
+typing_extensions.Protocol  # Super-special typing primitive
+
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >= 3.12
+# =============================================================
+
+# Runtime AST node runtime constructor behaviour is too loose.
+# For static typing, the loose behaviour is undesirable (https://github.com/python/typeshed/issues/8378).
+# For the runtime, the loose behaviour is deprecated in Python 3.13 (https://github.com/python/cpython/issues/105858)
+_?ast.type_param.__init__
+
+# Deprecation wrapper classes; their methods are just pass-through, so we can ignore them.
+importlib.metadata.DeprecatedNonAbstract.__new__
+
+# Deprecated argument is supported at runtime by renaming it through a decorator.
+importlib.resources._common.files
+importlib.resources.files
+
+sys._monitoring  # Doesn't really exist. See comments in the stub.
+sys.last_exc  # not always defined
+
+# These only exist to give a better error message if you try to subclass an instance
+typing.ParamSpec.__mro_entries__
+typing.ParamSpecArgs.__mro_entries__
+typing.ParamSpecKwargs.__mro_entries__
+typing.TypeVar.__mro_entries__
+typing.TypeVarTuple.__mro_entries__
+
+# These exist at runtime because the protocol uses PEP-695 syntax in CPython
+typing.SupportsAbs.__type_params__
+typing.SupportsRound.__type_params__
+typing_extensions.SupportsAbs.__type_params__
+typing_extensions.SupportsRound.__type_params__
+
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >= 3.11
+# =============================================================
+
+enum.auto.__init__  # The stub for enum.auto is nothing like the implementation
+enum.auto.value  # The stub for enum.auto is nothing like the implementation
+http.HTTPMethod.description  # mutable instance attribute at runtime but we pretend it's a property
+importlib.resources.abc.Traversable.open  # Problematic protocol signature at runtime, see source code comments.
+inspect._ParameterKind.description  # Still exists, but stubtest can't see it
+typing\._SpecialForm.*  # Super-special typing primitive
+typing\.LiteralString  # Super-special typing primitive
+
+
+# =============================================================
+# Allowlist entries that cannot or should not be fixed; >= 3.10
+# =============================================================
+
+# Runtime AST node runtime constructor behaviour is too loose.
+# For static typing, the loose behaviour is undesirable (https://github.com/python/typeshed/issues/8378).
+# For the runtime, the loose behaviour is deprecated in Python 3.13 (https://github.com/python/cpython/issues/105858)
+_?ast.pattern.__init__
+
+_collections_abc.AsyncGenerator.athrow  # async at runtime, deliberately not in the stub, see #7491. Pos-only differences also.
+builtins.property.__set_name__  # Doesn't actually exist
+collections\.UserList\.index  # ignoring pos-or-keyword parameter
+dataclasses.KW_ONLY  # white lies around defaults
+importlib.metadata._meta.SimplePath.joinpath  # Runtime definition of protocol is incorrect

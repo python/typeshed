@@ -1,4 +1,22 @@
 from _typeshed import Incomplete
+from collections.abc import Collection
+
+__all__ = [
+    "draw",
+    "draw_networkx",
+    "draw_networkx_nodes",
+    "draw_networkx_edges",
+    "draw_networkx_labels",
+    "draw_networkx_edge_labels",
+    "draw_circular",
+    "draw_kamada_kawai",
+    "draw_random",
+    "draw_spectral",
+    "draw_spring",
+    "draw_planar",
+    "draw_shell",
+    "draw_forceatlas2",
+]
 
 def draw(G, pos: Incomplete | None = None, ax: Incomplete | None = None, **kwds) -> None: ...
 def draw_networkx(
@@ -7,7 +25,7 @@ def draw_networkx(
 def draw_networkx_nodes(
     G,
     pos,
-    nodelist: Incomplete | None = None,
+    nodelist: Collection[Incomplete] | None = None,
     node_size: Incomplete | int = 300,
     node_color: str = "#1f78b4",
     node_shape: str = "o",
@@ -20,6 +38,7 @@ def draw_networkx_nodes(
     edgecolors: Incomplete | None = None,
     label: Incomplete | None = None,
     margins: Incomplete | None = None,
+    hide_ticks: bool = True,
 ): ...
 def draw_networkx_edges(
     G,
@@ -38,11 +57,12 @@ def draw_networkx_edges(
     arrows: Incomplete | None = None,
     label: Incomplete | None = None,
     node_size: Incomplete | int = 300,
-    nodelist: Incomplete | None = None,
+    nodelist: list[Incomplete] | None = None,
     node_shape: str = "o",
     connectionstyle: str = "arc3",
     min_source_margin: int = 0,
     min_target_margin: int = 0,
+    hide_ticks: bool = True,
 ): ...
 def draw_networkx_labels(
     G,
@@ -58,6 +78,7 @@ def draw_networkx_labels(
     verticalalignment: str = "center",
     ax: Incomplete | None = None,
     clip_on: bool = True,
+    hide_ticks: bool = True,
 ): ...
 def draw_networkx_edge_labels(
     G,
@@ -75,6 +96,10 @@ def draw_networkx_edge_labels(
     ax: Incomplete | None = None,
     rotate: bool = True,
     clip_on: bool = True,
+    node_size: int = 300,
+    nodelist: list[Incomplete] | None = None,
+    connectionstyle: str = "arc3",
+    hide_ticks: bool = True,
 ): ...
 def draw_circular(G, **kwargs) -> None: ...
 def draw_kamada_kawai(G, **kwargs) -> None: ...
@@ -83,3 +108,4 @@ def draw_spectral(G, **kwargs) -> None: ...
 def draw_spring(G, **kwargs) -> None: ...
 def draw_shell(G, nlist: Incomplete | None = None, **kwargs) -> None: ...
 def draw_planar(G, **kwargs) -> None: ...
+def draw_forceatlas2(G, **kwargs) -> None: ...

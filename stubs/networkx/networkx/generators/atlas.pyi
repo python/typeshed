@@ -1,6 +1,8 @@
-from networkx.utils.backends import _dispatch
+from networkx.utils.backends import _dispatchable
 
-@_dispatch
+__all__ = ["graph_atlas", "graph_atlas_g"]
+
+@_dispatchable
 def graph_atlas(i): ...
-@_dispatch
+@_dispatchable
 def graph_atlas_g(): ...

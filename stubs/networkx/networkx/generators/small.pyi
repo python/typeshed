@@ -1,50 +1,76 @@
 from _typeshed import Incomplete
 
-from networkx.utils.backends import _dispatch
+from networkx.utils.backends import _dispatchable
 
-@_dispatch
+__all__ = [
+    "LCF_graph",
+    "bull_graph",
+    "chvatal_graph",
+    "cubical_graph",
+    "desargues_graph",
+    "diamond_graph",
+    "dodecahedral_graph",
+    "frucht_graph",
+    "heawood_graph",
+    "hoffman_singleton_graph",
+    "house_graph",
+    "house_x_graph",
+    "icosahedral_graph",
+    "krackhardt_kite_graph",
+    "moebius_kantor_graph",
+    "octahedral_graph",
+    "pappus_graph",
+    "petersen_graph",
+    "sedgewick_maze_graph",
+    "tetrahedral_graph",
+    "truncated_cube_graph",
+    "truncated_tetrahedron_graph",
+    "tutte_graph",
+]
+
+@_dispatchable
 def LCF_graph(n, shift_list, repeats, create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def bull_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def chvatal_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def cubical_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def desargues_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def diamond_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def dodecahedral_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def frucht_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def heawood_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def hoffman_singleton_graph(): ...
-@_dispatch
+@_dispatchable
 def house_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def house_x_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def icosahedral_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def krackhardt_kite_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def moebius_kantor_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def octahedral_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def pappus_graph(): ...
-@_dispatch
+@_dispatchable
 def petersen_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def sedgewick_maze_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def tetrahedral_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def truncated_cube_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def truncated_tetrahedron_graph(create_using: Incomplete | None = None): ...
-@_dispatch
+@_dispatchable
 def tutte_graph(create_using: Incomplete | None = None): ...

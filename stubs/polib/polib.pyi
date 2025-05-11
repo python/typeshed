@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from pathlib import Path
 from typing import IO, Any, Generic, Literal, SupportsIndex, TypeVar, overload
 
 _TB = TypeVar("_TB", bound=_BaseEntry)
@@ -11,9 +12,9 @@ default_encoding: str
 # encoding: str
 # check_for_duplicates: bool
 @overload
-def pofile(pofile: str, *, klass: type[_TP], **kwargs: Any) -> _TP: ...
+def pofile(pofile: str | Path, *, klass: type[_TP], **kwargs: Any) -> _TP: ...
 @overload
-def pofile(pofile: str, **kwargs: Any) -> POFile: ...
+def pofile(pofile: str | Path, **kwargs: Any) -> POFile: ...
 @overload
 def mofile(mofile: str, *, klass: type[_TM], **kwargs: Any) -> _TM: ...
 @overload
@@ -154,3 +155,16 @@ class _MOFileParser(Generic[_TM]):
     def __init__(self, mofile: str, *args: Any, **kwargs: Any) -> None: ...
     def __del__(self) -> None: ...
     def parse(self) -> _TM: ...
+
+__all__ = [
+    "pofile",
+    "POFile",
+    "POEntry",
+    "mofile",
+    "MOFile",
+    "MOEntry",
+    "default_encoding",
+    "escape",
+    "unescape",
+    "detect_encoding",
+]

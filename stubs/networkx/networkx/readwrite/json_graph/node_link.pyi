@@ -1,11 +1,21 @@
 from _typeshed import Incomplete
 
-from networkx.utils.backends import _dispatch
+from networkx.utils.backends import _dispatchable
+
+__all__ = ["node_link_data", "node_link_graph"]
 
 def node_link_data(
-    G, *, source: str = "source", target: str = "target", name: str = "id", key: str = "key", link: str = "links"
+    G,
+    *,
+    source: str = "source",
+    target: str = "target",
+    name: str = "id",
+    key: str = "key",
+    edges: str | None = None,
+    nodes: str = "nodes",
+    link: str | None = None,
 ): ...
-@_dispatch
+@_dispatchable
 def node_link_graph(
     data,
     directed: bool = False,
@@ -16,5 +26,7 @@ def node_link_graph(
     target: str = "target",
     name: str = "id",
     key: str = "key",
-    link: str = "links",
+    edges: str | None = None,
+    nodes: str = "nodes",
+    link: str | None = None,
 ): ...

@@ -1,4 +1,7 @@
-from networkx.utils.backends import _dispatch
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
-@_dispatch
-def is_partition(G, communities): ...
+__all__ = ["is_partition"]
+
+@_dispatchable
+def is_partition(G: Graph[_Node], communities): ...

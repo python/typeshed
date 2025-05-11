@@ -1,6 +1,7 @@
-from _typeshed import Incomplete
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
-from networkx.utils.backends import _dispatch
+__all__ = ["lukes_partitioning"]
 
-@_dispatch
-def lukes_partitioning(G, max_size, node_weight: Incomplete | None = None, edge_weight: Incomplete | None = None): ...
+@_dispatchable
+def lukes_partitioning(G: Graph[_Node], max_size: int, node_weight=None, edge_weight=None): ...
