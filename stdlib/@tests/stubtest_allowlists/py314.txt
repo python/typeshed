@@ -23,7 +23,6 @@ _socket.if_indextoname
 _ssl.HAS_PHA
 _thread.RLock.locked
 _thread.set_name
-argparse.HelpFormatter.__init__
 ast.Interpolation
 ast.TemplateStr
 asyncio.__all__
