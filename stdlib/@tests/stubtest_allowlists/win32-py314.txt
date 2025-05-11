@@ -1,0 +1,60 @@
+# ====================================================================
+# TODO: New errors in Python 3.14 that need to be fixed or moved below
+# ====================================================================
+
+_socket.IPV6_RECVERR
+_socket.IP_RECVERR
+_socket.SOL_RFCOMM
+_socket.SO_ORIGINAL_DST
+_socket.SO_BTH_ENCRYPT
+_socket.SO_BTH_MTU
+_socket.SO_BTH_MTU_MAX
+_socket.SO_BTH_MTU_MIN
+_socket.TCP_QUICKACK
+_winapi.COPY_FILE_DIRECTORY
+asyncio.WindowsProactorEventLoopPolicy.get_child_watcher
+asyncio.WindowsProactorEventLoopPolicy.set_child_watcher
+asyncio._WindowsProactorEventLoopPolicy
+asyncio._WindowsSelectorEventLoopPolicy
+asyncio.windows_events.__all__
+asyncio.windows_events.DefaultEventLoopPolicy
+asyncio.windows_events.WindowsProactorEventLoopPolicy
+asyncio.windows_events.WindowsSelectorEventLoopPolicy
+asyncio.windows_events._DefaultEventLoopPolicy
+asyncio.windows_events._WindowsProactorEventLoopPolicy
+asyncio.windows_events._WindowsSelectorEventLoopPolicy
+compression.zlib.ZLIBNG_VERSION
+ctypes.c_double_complex
+ctypes.c_float_complex
+ctypes.c_longdouble_complex
+encodings.win32_code_page_search_function
+nt.readinto
+pathlib.Path.group
+pathlib.Path.owner
+socket.IPV6_RECVERR
+socket.IP_RECVERR
+socket.SOL_RFCOMM
+socket.SO_ORIGINAL_DST
+socket.SO_BTH_ENCRYPT
+socket.SO_BTH_MTU
+socket.SO_BTH_MTU_MAX
+socket.SO_BTH_MTU_MIN
+socket.TCP_QUICKACK
+winsound.MB_ICONERROR
+winsound.MB_ICONINFORMATION
+winsound.MB_ICONSTOP
+winsound.MB_ICONWARNING
+winsound.SND_SENTRY
+winsound.SND_SYNC
+winsound.SND_SYSTEM
+zlib.ZLIBNG_VERSION
+
+
+# =======
+# >= 3.12
+# =======
+
+# Undocumented internal method, not really for public consumption.
+# (Hard to add types for unless we add stubs for the undocumented _overlapped module...)
+asyncio.IocpProactor.finish_socket_func
+asyncio.windows_events.IocpProactor.finish_socket_func

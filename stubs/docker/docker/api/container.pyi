@@ -1,6 +1,6 @@
 import datetime
 from _typeshed import Incomplete
-from typing import Literal, TypedDict, overload, type_check_only
+from typing import Any, Literal, TypedDict, overload, type_check_only
 from typing_extensions import TypeAlias
 
 from docker._types import WaitContainerResponse
@@ -61,7 +61,9 @@ class ContainerApiMixin:
         detach: bool = False,
         stdin_open: bool = False,
         tty: bool = False,
-        ports: list[int] | None = None,
+        # list is invariant, enumerating all possible union combination would be too complex for:
+        # list[str | int | tuple[int | str, str] | tuple[int | str, ...]]
+        ports: dict[str, dict[Incomplete, Incomplete]] | list[Any] | None = None,
         environment: dict[str, str] | list[str] | None = None,
         volumes: str | list[str] | None = None,
         network_disabled: bool = False,

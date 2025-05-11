@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import ItemsView, Iterable, Iterator, KeysView, Mapping, ValuesView
 from typing_extensions import Self
 
-__all__ = ["Config", "config"]
+__all__ = ["Config"]
 
 class Config(Mapping[str, Incomplete]):
     def __init_subclass__(cls, strict: bool = True) -> None: ...

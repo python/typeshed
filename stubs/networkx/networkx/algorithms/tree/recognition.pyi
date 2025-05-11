@@ -2,6 +2,8 @@ from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
+__all__ = ["is_arborescence", "is_branching", "is_forest", "is_tree"]
+
 @_dispatchable
 def is_arborescence(G: Graph[_Node]): ...
 @_dispatchable

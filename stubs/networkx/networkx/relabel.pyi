@@ -11,6 +11,8 @@ from networkx.utils.backends import _dispatchable
 _X = TypeVar("_X", bound=Hashable)
 _Y = TypeVar("_Y", bound=Hashable)
 
+__all__ = ["convert_node_labels_to_integers", "relabel_nodes"]
+
 @overload
 def relabel_nodes(G: MultiDiGraph[_X], mapping: Mapping[_X, _Y], copy: bool = True) -> MultiDiGraph[_X | _Y]: ...
 @overload
