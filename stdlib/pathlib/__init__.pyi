@@ -22,6 +22,9 @@ _PathT = TypeVar("_PathT", bound=PurePath)
 
 __all__ = ["PurePath", "PurePosixPath", "PureWindowsPath", "Path", "PosixPath", "WindowsPath"]
 
+if sys.version_info >= (3, 14):
+    from pathlib.types import PathInfo
+
 if sys.version_info >= (3, 13):
     __all__ += ["UnsupportedOperation"]
 
@@ -160,7 +163,6 @@ class Path(PurePath):
     def mkdir(self, mode: int = 0o777, parents: bool = False, exist_ok: bool = False) -> None: ...
 
     if sys.version_info >= (3, 14):
-        from .types import PathInfo
 
         @property
         def info(self) -> PathInfo: ...
