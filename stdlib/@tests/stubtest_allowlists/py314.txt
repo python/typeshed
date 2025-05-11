@@ -169,7 +169,6 @@ multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
 os.__all__
 os.readinto
-pathlib.types
 pdb.__all__
 pdb.Pdb.__init__
 pdb.Pdb.checkline
