@@ -502,14 +502,6 @@ tarfile.TarFile.zstopen
 threading.Thread.__init__
 threading._RLock.locked
 tkinter.Event.__class_getitem__
-token.__all__
-token.TSTRING_END
-token.TSTRING_MIDDLE
-token.TSTRING_START
-tokenize.__all__
-tokenize.TSTRING_END
-tokenize.TSTRING_MIDDLE
-tokenize.TSTRING_START
 tomllib.TOMLDecodeError.__init__
 tomllib.TOMLDecodeError.__init__
 tomllib.TOMLDecodeError.__init__
