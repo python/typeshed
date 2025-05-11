@@ -245,6 +245,8 @@ extra-standard-library = [
     # Extra modules not recognized by Ruff
     # Added in Python 3.9
     "zoneinfo",
+    # Added in Python 3.14
+    "compression",
 ]
 known-first-party = ["_utils", "ts_utils"]
 
