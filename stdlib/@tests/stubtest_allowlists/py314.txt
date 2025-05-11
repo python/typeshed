@@ -199,7 +199,6 @@ threading.Thread.__init__
 threading._RLock.locked
 tkinter.Event.__class_getitem__
 tomllib.TOMLDecodeError.__init__
-traceback.__all__
 turtle.__all__
 turtle.RawTurtle.fill
 turtle.RawTurtle.poly
