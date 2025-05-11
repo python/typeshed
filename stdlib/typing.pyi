@@ -147,9 +147,9 @@ class _Final: ...
 
 # Objects that appear in annotations or in type expressions.
 # Similar to PEP 747's TypeForm but a little broader.
-# Ideally should be in _typeshed but that causes import cycle issues.
+# Duplicated from _typeshed.AnnotationForm; using it directly causes import cycle issues.
 # See https://github.com/python/typeshed/pull/13999
-_AnnotationForm: TypeAlias = ...
+_AnnotationForm: TypeAlias = Any  # noqa: PYI015
 
 def final(f: _T) -> _T: ...
 @final
