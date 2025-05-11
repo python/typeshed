@@ -20,7 +20,7 @@ from _io import (
     open as open,
     open_code as open_code,
 )
-from typing import Final
+from typing import Final, Protocol, TypeVar
 
 __all__ = [
     "BlockingIOError",
@@ -42,12 +42,17 @@ __all__ = [
     "SEEK_SET",
     "SEEK_CUR",
     "SEEK_END",
+    "Reader",
+    "Writer",
 ]
 
 if sys.version_info >= (3, 11):
     from _io import text_encoding as text_encoding
 
     __all__ += ["DEFAULT_BUFFER_SIZE", "IncrementalNewlineDecoder", "text_encoding"]
+
+_T_co = TypeVar("_T_co", covariant=True)
+_T_contra = TypeVar("_T_contra", contravariant=True)
 
 SEEK_SET: Final = 0
 SEEK_CUR: Final = 1
@@ -58,3 +63,9 @@ class IOBase(_IOBase, metaclass=abc.ABCMeta): ...
 class RawIOBase(_RawIOBase, IOBase): ...
 class BufferedIOBase(_BufferedIOBase, IOBase): ...
 class TextIOBase(_TextIOBase, IOBase): ...
+
+class Reader(Protocol[_T_co]):
+    def read(self, size: int = ..., /) -> _T_co: ...
+
+class Writer(Protocol[_T_contra]):
+    def write(self, data: _T_contra, /) -> int: ...
