@@ -27,6 +27,10 @@ extension_descriptions = {".pyi": "stub", ".py": ".py"}
 # consistent CI runs.
 linters = {"mypy", "pyright", "pytype", "ruff"}
 
+ALLOWED_PY_FILES_IN_TESTS_DIR = {
+    "django_settings.py"  # This file contains Django settings used by the mypy_django_plugin during stubtest execution.
+}
+
 
 def assert_consistent_filetypes(
     directory: Path, *, kind: str, allowed: set[str], allow_nonidentifier_filenames: bool = False
@@ -81,7 +85,9 @@ def check_stubs() -> None:
 
 
 def check_tests_dir(tests_dir: Path) -> None:
-    py_files_present = any(file.suffix == ".py" for file in tests_dir.iterdir())
+    py_files_present = any(
+        file.suffix == ".py" and file.name not in ALLOWED_PY_FILES_IN_TESTS_DIR for file in tests_dir.iterdir()
+    )
     error_message = f"Test-case files must be in an `{TESTS_DIR}/{TEST_CASES_DIR}` directory, not in the `{TESTS_DIR}` directory"
     assert not py_files_present, error_message
 
