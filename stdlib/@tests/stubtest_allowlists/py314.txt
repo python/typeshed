@@ -313,6 +313,13 @@ typing(_extensions)?\.IO\.writelines
 .*\.ForwardRef\.__owner__
 .*\.ForwardRef\.__stringifier_dict__
 
+# These protocols use ABC hackery at runtime.
+io.Reader.__class_getitem__
+io.Reader.read
+io.Writer.__class_getitem__
+io.Writer.write
+
+
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.13
 # =============================================================
