@@ -79,8 +79,6 @@ class UnboundQueue(Queue[_T]):
 class PriorityQueue(Queue[_T]): ...
 class LifoQueue(Queue[_T]): ...
 
-
-
 class Channel(Generic[_T]):
     @property
     def getters(self) -> deque[Waiter[Any]]: ...  # readonly in Cython
