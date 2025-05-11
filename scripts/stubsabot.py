@@ -308,7 +308,7 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubMe
             assert len(Path(url_path).parts) == 2
             github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
             async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
-                if response.status == 200:
+                if response.status == HTTPStatus.OK:
                     tags: list[dict[str, Any]] = await response.json()
                     assert isinstance(tags, list)
                     return GitHubInfo(repo_path=url_path, tags=tags)
@@ -676,7 +676,8 @@ def get_update_pr_body(update: Update, metadata: Mapping[str, Any]) -> str:
         body += textwrap.dedent(
             f"""
 
-            :warning: Review this PR manually, as stubtest is skipped in CI for {update.distribution}! :warning:
+            :warning: Review this PR manually, as stubtest is skipped in CI for {update.distribution}!
+            Also check whether stubtest can be reenabled. :warning:
             """
         )
     return body
@@ -729,8 +730,6 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
 
 
 async def main() -> None:
-    assert sys.version_info >= (3, 9)
-
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--action-level",
@@ -753,8 +752,8 @@ async def main() -> None:
         dists_to_update = [path.name for path in STUBS_PATH.iterdir()]
 
     if args.action_level > ActionLevel.nothing:
-        subprocess.run(["git", "update-index", "--refresh"], capture_output=True)
-        diff_result = subprocess.run(["git", "diff-index", "HEAD", "--name-only"], text=True, capture_output=True)
+        subprocess.run(["git", "update-index", "--refresh"], capture_output=True, check=False)
+        diff_result = subprocess.run(["git", "diff-index", "HEAD", "--name-only"], text=True, capture_output=True, check=False)
         if diff_result.returncode:
             print("Unexpected exception!")
             print(diff_result.stdout)

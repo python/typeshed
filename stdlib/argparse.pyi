@@ -17,6 +17,7 @@ __all__ = [
     "MetavarTypeHelpFormatter",
     "Namespace",
     "Action",
+    "BooleanOptionalAction",
     "ONE_OR_MORE",
     "OPTIONAL",
     "PARSER",
@@ -24,9 +25,6 @@ __all__ = [
     "SUPPRESS",
     "ZERO_OR_MORE",
 ]
-
-if sys.version_info >= (3, 9):
-    __all__ += ["BooleanOptionalAction"]
 
 _T = TypeVar("_T")
 _ActionT = TypeVar("_ActionT", bound=Action)
@@ -132,7 +130,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     _subparsers: _ArgumentGroup | None
 
     # Note: the constructor arguments are also used in _SubParsersAction.add_parser.
-    if sys.version_info >= (3, 9):
+    if sys.version_info >= (3, 14):
         def __init__(
             self,
             prog: str | None = None,
@@ -148,6 +146,9 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             add_help: bool = True,
             allow_abbrev: bool = True,
             exit_on_error: bool = True,
+            *,
+            suggest_on_error: bool = False,
+            color: bool = False,
         ) -> None: ...
     else:
         def __init__(
@@ -164,6 +165,7 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
             conflict_handler: str = "error",
             add_help: bool = True,
             allow_abbrev: bool = True,
+            exit_on_error: bool = True,
         ) -> None: ...
 
     @overload
@@ -272,7 +274,21 @@ class HelpFormatter:
         def __init__(self, formatter: HelpFormatter, parent: Self | None, heading: str | None = None) -> None: ...
         def format_help(self) -> str: ...
 
-    def __init__(self, prog: str, indent_increment: int = 2, max_help_position: int = 24, width: int | None = None) -> None: ...
+    if sys.version_info >= (3, 14):
+        def __init__(
+            self,
+            prog: str,
+            indent_increment: int = 2,
+            max_help_position: int = 24,
+            width: int | None = None,
+            prefix_chars: str = "-",
+            color: bool = False,
+        ) -> None: ...
+    else:
+        def __init__(
+            self, prog: str, indent_increment: int = 2, max_help_position: int = 24, width: int | None = None
+        ) -> None: ...
+
     def _indent(self) -> None: ...
     def _dedent(self) -> None: ...
     def _add_item(self, func: Callable[..., str], args: Iterable[Any]) -> None: ...
@@ -352,8 +368,7 @@ class Action(_AttributeHolder):
     def __call__(
         self, parser: ArgumentParser, namespace: Namespace, values: str | Sequence[Any] | None, option_string: str | None = None
     ) -> None: ...
-    if sys.version_info >= (3, 9):
-        def format_usage(self) -> str: ...
+    def format_usage(self) -> str: ...
 
 if sys.version_info >= (3, 12):
     class BooleanOptionalAction(Action):
@@ -418,7 +433,7 @@ if sys.version_info >= (3, 12):
                 metavar: str | tuple[str, ...] | None = sentinel,
             ) -> None: ...
 
-elif sys.version_info >= (3, 9):
+else:
     class BooleanOptionalAction(Action):
         @overload
         def __init__(
@@ -452,14 +467,30 @@ class Namespace(_AttributeHolder):
     def __eq__(self, other: object) -> bool: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
 
-class FileType:
-    # undocumented
-    _mode: str
-    _bufsize: int
-    _encoding: str | None
-    _errors: str | None
-    def __init__(self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None) -> None: ...
-    def __call__(self, string: str) -> IO[Any]: ...
+if sys.version_info >= (3, 14):
+    @deprecated("Deprecated in Python 3.14; Simply open files after parsing arguments")
+    class FileType:
+        # undocumented
+        _mode: str
+        _bufsize: int
+        _encoding: str | None
+        _errors: str | None
+        def __init__(
+            self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None
+        ) -> None: ...
+        def __call__(self, string: str) -> IO[Any]: ...
+
+else:
+    class FileType:
+        # undocumented
+        _mode: str
+        _bufsize: int
+        _encoding: str | None
+        _errors: str | None
+        def __init__(
+            self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None
+        ) -> None: ...
+        def __call__(self, string: str) -> IO[Any]: ...
 
 # undocumented
 class _ArgumentGroup(_ActionsContainer):
@@ -713,29 +744,6 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             exit_on_error: bool = ...,
             **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
         ) -> _ArgumentParserT: ...
-    elif sys.version_info >= (3, 9):
-        def add_parser(
-            self,
-            name: str,
-            *,
-            help: str | None = ...,
-            aliases: Sequence[str] = ...,
-            # Kwargs from ArgumentParser constructor
-            prog: str | None = ...,
-            usage: str | None = ...,
-            description: str | None = ...,
-            epilog: str | None = ...,
-            parents: Sequence[_ArgumentParserT] = ...,
-            formatter_class: _FormatterClass = ...,
-            prefix_chars: str = ...,
-            fromfile_prefix_chars: str | None = ...,
-            argument_default: Any = ...,
-            conflict_handler: str = ...,
-            add_help: bool = ...,
-            allow_abbrev: bool = ...,
-            exit_on_error: bool = ...,
-            **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
-        ) -> _ArgumentParserT: ...
     else:
         def add_parser(
             self,
@@ -756,6 +764,7 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             conflict_handler: str = ...,
             add_help: bool = ...,
             allow_abbrev: bool = ...,
+            exit_on_error: bool = ...,
             **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
         ) -> _ArgumentParserT: ...
 

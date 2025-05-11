@@ -41,6 +41,7 @@ class Paragraph:
     skip_leading_spaces: bool
     wrapmode: Incomplete
     bullet: Bullet | None
+    first_line_indent: float
 
     def __init__(
         self,
@@ -54,6 +55,7 @@ class Paragraph:
         bullet_string: str = "",
         skip_leading_spaces: bool = False,
         wrapmode: WrapMode | None = None,
+        first_line_indent: float = 0,
     ) -> None: ...
     def __enter__(self): ...
     def __exit__(self, exc_type, exc_value, traceback) -> None: ...
@@ -134,6 +136,7 @@ class ParagraphCollectorMixin:
         bullet_string: str = "",
         bullet_r_margin: float | None = None,
         wrapmode: WrapMode | None = None,
+        first_line_indent: float = 0,
     ) -> Paragraph: ...
     def end_paragraph(self) -> None: ...
     def image(

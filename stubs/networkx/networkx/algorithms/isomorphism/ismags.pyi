@@ -1,11 +1,14 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
+__all__ = ["ISMAGS"]
+
 class ISMAGS:
     graph: Incomplete
     subgraph: Incomplete
     node_equality: Incomplete
     edge_equality: Incomplete
+
     def __init__(
         self,
         graph,
