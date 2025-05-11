@@ -1116,4 +1116,4 @@ if sys.version_info >= (3, 13):
 # Similar to PEP 747's TypeForm but a little broader.
 # Duplicated from _typeshed.AnnotationForm; using it directly causes import cycle issues.
 # See https://github.com/python/typeshed/pull/13999
-_AnnotationForm: TypeAlias = Any  # noqa: PYI015
+_AnnotationForm: typing_extensions.TypeAlias = Any
