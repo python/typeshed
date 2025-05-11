@@ -107,11 +107,7 @@ dataclasses.field
 dataclasses.make_dataclass
 decimal.Decimal.from_number
 decimal.IEEE_CONTEXT_MAX_BITS
-dis.Bytecode.__init__
 dis.Instruction.make
-dis.dis
-dis.disassemble
-dis.distb
 enum.Enum.__signature__
 enum.EnumMeta.__signature__
 enum.EnumType.__signature__
