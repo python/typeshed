@@ -119,6 +119,7 @@ collections.abc: 3.3-
 colorsys: 3.0-
 compileall: 3.0-
 concurrent: 3.2-
+concurrent.futures.interpreter: 3.14-
 configparser: 3.0-
 contextlib: 3.0-
 contextvars: 3.7-
