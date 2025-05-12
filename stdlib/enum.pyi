@@ -4,7 +4,6 @@ import types
 from _typeshed import SupportsKeysAndGetItem, Unused
 from builtins import property as _builtins_property
 from collections.abc import Callable, Iterable, Iterator, Mapping
-from inspect import Signature
 from typing import Any, Generic, Literal, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
@@ -168,6 +167,7 @@ class EnumMeta(type):
         @overload
         def __call__(cls: type[_EnumMemberT], value: Any, *values: Any) -> _EnumMemberT: ...
     if sys.version_info >= (3, 14):
+        from inspect import Signature
         @property
         def __signature__(cls) -> Signature: ...
 
