@@ -141,8 +141,6 @@ string.templatelib
 sys.is_remote_debug_enabled
 sys.remote_exec
 tarfile.TarFile.zstopen
-threading.Thread.__init__
-threading._RLock.locked
 tkinter.Event.__class_getitem__
 turtle.__all__
 turtle.RawTurtle.fill

@@ -6,6 +6,7 @@ from collections.abc import Callable, Iterable, Mapping
 from types import TracebackType
 from typing import Any, TypeVar, final
 from typing_extensions import deprecated
+from contextvars import ContextVar
 
 _T = TypeVar("_T")
 
@@ -76,16 +77,29 @@ class Thread:
     @property
     def ident(self) -> int | None: ...
     daemon: bool
-    def __init__(
-        self,
-        group: None = None,
-        target: Callable[..., object] | None = None,
-        name: str | None = None,
-        args: Iterable[Any] = (),
-        kwargs: Mapping[str, Any] | None = None,
-        *,
-        daemon: bool | None = None,
-    ) -> None: ...
+    if sys.version_info >= (3, 14):
+        def __init__(
+            self,
+            group: None = None,
+            target: Callable[..., object] | None = None,
+            name: str | None = None,
+            args: Iterable[Any] = (),
+            kwargs: Mapping[str, Any] | None = None,
+            *,
+            daemon: bool | None = None,
+            context: ContextVar[Any] | None = None,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            group: None = None,
+            target: Callable[..., object] | None = None,
+            name: str | None = None,
+            args: Iterable[Any] = (),
+            kwargs: Mapping[str, Any] | None = None,
+            *,
+            daemon: bool | None = None,
+        ) -> None: ...
     def start(self) -> None: ...
     def run(self) -> None: ...
     def join(self, timeout: float | None = None) -> None: ...
@@ -115,6 +129,9 @@ class _RLock:
     def release(self) -> None: ...
     __enter__ = acquire
     def __exit__(self, t: type[BaseException] | None, v: BaseException | None, tb: TracebackType | None) -> None: ...
+
+    if sys.version_info >= (3, 14):
+        def locked(self) -> bool: ...
 
 RLock = _thread.RLock  # Actually a function at runtime.
 
