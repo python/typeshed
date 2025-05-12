@@ -85,10 +85,6 @@ ctypes.wintypes.HDROP
 ctypes.wintypes.HFILE
 ctypes.wintypes.HRESULT
 ctypes.wintypes.HSZ
-dataclasses.Field.__init__
-dataclasses.Field.doc
-dataclasses.field
-dataclasses.make_dataclass
 dis.Instruction.make
 enum.Enum.__signature__
 enum.EnumMeta.__signature__
