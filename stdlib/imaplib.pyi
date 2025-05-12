@@ -44,7 +44,7 @@ class IMAP4:
     def open(self, host: str = "", port: int = 143, timeout: float | None = None) -> None: ...
     if sys.version_info >= (3, 14):
         @property
-        @deprecated("Deprecated in Python 3.14; IMAP4.file is unsupported, can cause errors, and may be removed.")
+        @deprecated("IMAP4.file is unsupported, can cause errors, and may be removed.")
         def file(self) -> IO[str] | IO[bytes]: ...
     else:
         file: IO[str] | IO[bytes]
@@ -139,7 +139,7 @@ class IMAP4_SSL(IMAP4):
     sslobj: SSLSocket
     if sys.version_info >= (3, 14):
         @property
-        @deprecated("Deprecated in Python 3.14; IMAP4_SSL.file is unsupported, can cause errors, and may be removed.")
+        @deprecated("IMAP4_SSL.file is unsupported, can cause errors, and may be removed.")
         def file(self) -> IO[Any]: ...
     else:
         file: IO[Any]
@@ -152,7 +152,7 @@ class IMAP4_stream(IMAP4):
     def __init__(self, command: str) -> None: ...
     if sys.version_info >= (3, 14):
         @property
-        @deprecated("Deprecated in Python 3.14; IMAP4_stream.file is unsupported, can cause errors, and may be removed.")
+        @deprecated("IMAP4_stream.file is unsupported, can cause errors, and may be removed.")
         def file(self) -> IO[Any]: ...
     else:
         file: IO[Any]
