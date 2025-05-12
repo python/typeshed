@@ -102,10 +102,6 @@ fractions.Fraction.from_number
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
 gzip.compress
-imaplib.IMAP4.file
-imaplib.IMAP4.idle
-imaplib.IMAP4_SSL.file
-imaplib.IMAP4_stream.file
 importlib.abc.ResourceReader
 importlib.abc.Traversable
 importlib.abc.TraversableResources
