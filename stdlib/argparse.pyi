@@ -751,7 +751,7 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             color: bool = False,
             **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
         ) -> _ArgumentParserT: ...
-    if sys.version_info >= (3, 13):
+    elif sys.version_info >= (3, 13):
         def add_parser(
             self,
             name: str,
