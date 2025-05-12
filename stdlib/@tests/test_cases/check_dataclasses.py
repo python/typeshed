@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import dataclasses as dc
+import sys
 from typing import TYPE_CHECKING, Any, Dict, FrozenSet, Tuple, Type, Union
 from typing_extensions import Annotated, assert_type
-import sys
 
 if TYPE_CHECKING:
     from _typeshed import DataclassInstance
@@ -102,10 +102,12 @@ D = dc.make_dataclass(
 assert_type(D.__mro__, Tuple[type, ...])
 
 
-
 if sys.version_info >= (3, 14):
 
-    def custom_dataclass[T](cls: type[T], /, *,
+    def custom_dataclass[T](
+        cls: type[T],
+        /,
+        *,
         init: bool = True,
         repr: bool = True,
         eq: bool = True,
@@ -133,6 +135,7 @@ if sys.version_info >= (3, 14):
         return custom_dc
 
     dc.make_dataclass(
-        "D", [("a", Union[int, None]), "y", ("z", Annotated[FrozenSet[bytes], "metadata"], dc.field(default=frozenset({b"foo"})))],
+        "D",
+        [("a", Union[int, None]), "y", ("z", Annotated[FrozenSet[bytes], "metadata"], dc.field(default=frozenset({b"foo"})))],
         decorator=custom_dataclass,
     )

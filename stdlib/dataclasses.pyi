@@ -31,7 +31,6 @@ if sys.version_info >= (3, 10):
 
 _DataclassT = TypeVar("_DataclassT", bound=DataclassInstance)
 
-
 @type_check_only
 class _DataclassFactory(Protocol):
     def __call__(
@@ -50,7 +49,6 @@ class _DataclassFactory(Protocol):
         slots: bool = False,
         weakref_slot: bool = False,
     ) -> type[_T]: ...
-
 
 # define _MISSING_TYPE as an enum within the type stubs,
 # even though that is not really its type at runtime
@@ -94,8 +92,6 @@ if sys.version_info >= (3, 11):
         slots: bool = False,
         weakref_slot: bool = False,
     ) -> type[_T]: ...
-
-
     @overload
     def dataclass(
         *,
