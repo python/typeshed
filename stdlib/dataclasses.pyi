@@ -152,9 +152,14 @@ class Field(Generic[_T]):
     init: bool
     compare: bool
     metadata: types.MappingProxyType[Any, Any]
-    doc: str | None
+
     if sys.version_info >= (3, 14):
+        doc: str | None
+
+    if sys.version_info >= (3, 10):
         kw_only: bool | Literal[_MISSING_TYPE.MISSING]
+
+    if sys.version_info >= (3, 14):
         def __init__(
             self,
             default: _T,
