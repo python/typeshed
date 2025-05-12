@@ -113,7 +113,6 @@ importlib.machinery.__all__
 importlib.machinery.AppleFrameworkLoader
 importlib.util.__all__
 importlib.util.Loader
-ipaddress._IPAddressBase.version
 logging.handlers.SysLogHandler.__init__
 marshal.dump
 marshal.dumps
