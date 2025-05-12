@@ -3,10 +3,10 @@ import sys
 from _thread import _excepthook, _ExceptHookArgs, get_native_id as get_native_id
 from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
+from contextvars import ContextVar
 from types import TracebackType
 from typing import Any, TypeVar, final
 from typing_extensions import deprecated
-from contextvars import ContextVar
 
 _T = TypeVar("_T")
 
@@ -100,6 +100,7 @@ class Thread:
             *,
             daemon: bool | None = None,
         ) -> None: ...
+
     def start(self) -> None: ...
     def run(self) -> None: ...
     def join(self, timeout: float | None = None) -> None: ...
