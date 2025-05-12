@@ -1,4 +1,3 @@
-
 from tensorflow.python.trackable.base import Trackable
 
 class _ResourceMetaclass(type): ...

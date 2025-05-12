@@ -1,4 +1,3 @@
-
 import arrow
 
 class DateMathException(Exception): ...
