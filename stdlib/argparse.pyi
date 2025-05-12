@@ -123,6 +123,11 @@ class ArgumentParser(_AttributeHolder, _ActionsContainer):
     fromfile_prefix_chars: str | None
     add_help: bool
     allow_abbrev: bool
+    exit_on_error: bool
+
+    if sys.version_info >= (3, 14):
+        suggest_on_error: bool
+        color: bool
 
     # undocumented
     _positionals: _ArgumentGroup
@@ -720,7 +725,33 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
 
     # Note: `add_parser` accepts all kwargs of `ArgumentParser.__init__`. It also
     # accepts its own `help` and `aliases` kwargs.
-    if sys.version_info >= (3, 13):
+    if sys.version_info >= (3, 14):
+        def add_parser(
+            self,
+            name: str,
+            *,
+            deprecated: bool = False,
+            help: str | None = ...,
+            aliases: Sequence[str] = ...,
+            # Kwargs from ArgumentParser constructor
+            prog: str | None = ...,
+            usage: str | None = ...,
+            description: str | None = ...,
+            epilog: str | None = ...,
+            parents: Sequence[_ArgumentParserT] = ...,
+            formatter_class: _FormatterClass = ...,
+            prefix_chars: str = ...,
+            fromfile_prefix_chars: str | None = ...,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+            add_help: bool = ...,
+            allow_abbrev: bool = ...,
+            exit_on_error: bool = ...,
+            suggest_on_error: bool = False,
+            color: bool = False,
+            **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
+        ) -> _ArgumentParserT: ...
+    elif sys.version_info >= (3, 13):
         def add_parser(
             self,
             name: str,
