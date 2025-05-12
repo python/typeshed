@@ -52,14 +52,6 @@ class ThreadPoolExecutor(Executor):
         self,
         max_workers: int | None = None,
         thread_name_prefix: str = "",
-        initializer: Callable[[], object] | None = None,
-        initargs: tuple[()] = (),
-    ) -> None: ...
-    @overload
-    def __init__(
-        self,
-        max_workers: int | None = None,
-        thread_name_prefix: str = "",
         *,
         initializer: Callable[[Unpack[_Ts]], object],
         initargs: tuple[Unpack[_Ts]],
