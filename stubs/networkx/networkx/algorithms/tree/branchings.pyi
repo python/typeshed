@@ -44,10 +44,11 @@ def minimum_spanning_arborescence(
 ): ...
 
 class ArborescenceIterator:
-    @dataclass
+    @dataclass(order=True)
     class Partition:
         mst_weight: float
         partition_dict: dict[Incomplete, Incomplete]
+        def __copy__(self) -> ArborescenceIterator.Partition: ...
 
     G: Incomplete
     weight: Incomplete

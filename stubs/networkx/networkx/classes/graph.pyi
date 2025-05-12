@@ -29,12 +29,13 @@ _Data: TypeAlias = (
 __all__ = ["Graph"]
 
 class Graph(Collection[_Node]):
-    node_dict_factory: ClassVar[_MapFactory] = ...
-    node_attr_dict_factory: ClassVar[_MapFactory] = ...
-    adjlist_outer_dict_factory: ClassVar[_MapFactory] = ...
-    adjlist_inner_dict_factory: ClassVar[_MapFactory] = ...
-    edge_attr_dict_factory: ClassVar[_MapFactory] = ...
-    graph_attr_dict_factory: ClassVar[_MapFactory] = ...
+    __networkx_backend__: ClassVar[str]
+    node_dict_factory: ClassVar[_MapFactory]
+    node_attr_dict_factory: ClassVar[_MapFactory]
+    adjlist_outer_dict_factory: ClassVar[_MapFactory]
+    adjlist_inner_dict_factory: ClassVar[_MapFactory]
+    edge_attr_dict_factory: ClassVar[_MapFactory]
+    graph_attr_dict_factory: ClassVar[_MapFactory]
 
     graph: dict[str, Any]
 
