@@ -99,10 +99,6 @@ ctypes.wintypes.HDROP
 ctypes.wintypes.HFILE
 ctypes.wintypes.HRESULT
 ctypes.wintypes.HSZ
-dataclasses.Field.__init__
-dataclasses.Field.doc
-dataclasses.field
-dataclasses.make_dataclass
 decimal.Decimal.from_number
 decimal.IEEE_CONTEXT_MAX_BITS
 dis.Instruction.make
