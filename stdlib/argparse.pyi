@@ -717,8 +717,8 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             add_help: bool = ...,
             allow_abbrev: bool = ...,
             exit_on_error: bool = ...,
-            suggest_on_error: bool = ...,
-            color: bool = ...,
+            suggest_on_error: bool = False,
+            color: bool = False,
             **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
         ) -> _ArgumentParserT: ...
     if sys.version_info >= (3, 13):
