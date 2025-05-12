@@ -14,7 +14,7 @@ if sys.version_info >= (3, 14):
         lineno: int
         colno: int
         @overload
-        def __init__(self, msg: str, doc: str, pos: int) -> None: ...  # type: ignore[override]
+        def __init__(self, msg: str, doc: str, pos: int) -> None: ...  # type: ignore[overload-overlap]
         @overload
         @deprecated("Deprecated in Python 3.14; Please set 'msg', 'doc' and 'pos' arguments only.")
         def __init__(self, *args: Any) -> None: ...
