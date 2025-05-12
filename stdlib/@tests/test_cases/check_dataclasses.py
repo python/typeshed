@@ -102,7 +102,7 @@ D = dc.make_dataclass(
 assert_type(D.__mro__, Tuple[type, ...])
 
 
-if sys.version_info >= (3, 13):
+if sys.version_info >= (3, 14):
 
     def custom_dataclass[T](
         cls: type[T],
