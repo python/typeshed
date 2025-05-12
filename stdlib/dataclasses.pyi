@@ -5,8 +5,8 @@ from _typeshed import DataclassInstance
 from builtins import type as Type  # alias to avoid name clashes with fields named "type"
 from collections.abc import Callable, Iterable, Mapping
 from types import GenericAlias
-from typing import Any, Generic, Literal, Protocol, TypeVar, overload
-from typing_extensions import Never, TypeIs, type_check_only
+from typing import Any, Generic, Literal, Protocol, TypeVar, overload, type_check_only
+from typing_extensions import Never, TypeIs
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
