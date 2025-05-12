@@ -103,9 +103,12 @@ assert_type(D.__mro__, Tuple[type, ...])
 
 
 if sys.version_info >= (3, 14):
+    from typing import TypeVar
 
-    def custom_dataclass[T](
-        cls: type[T],
+    _T = TypeVar("_T")
+
+    def custom_dataclass(
+        cls: type[_T],
         /,
         *,
         init: bool = True,
@@ -118,7 +121,7 @@ if sys.version_info >= (3, 14):
         kw_only: bool = False,
         slots: bool = False,
         weakref_slot: bool = False,
-    ) -> type[T]:
+    ) -> type[_T]:
         custom_dc_maker = dc.dataclass(
             init=init,
             repr=repr,
