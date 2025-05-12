@@ -14,16 +14,10 @@ if sys.version_info >= (3, 14):
         lineno: int
         colno: int
         @overload
-        def __init__(self, msg: str, doc: str, pos: int) -> None: ...
+        def __init__(self, msg: str, doc: str, pos: int) -> None: ...  # type: ignore[override]
         @overload
         @deprecated("Deprecated in Python 3.14; Please set 'msg', 'doc' and 'pos' arguments only.")
-        def __init__(
-            self,
-            msg: str = ...,  # type: ignore[assignment]
-            doc: str = ...,  # type: ignore[assignment]
-            pos: int = ...,  # type: ignore[assignment]
-            *args: Any,
-        ) -> None: ...
+        def __init__(self, *args: Any) -> None: ...
 
 else:
     class TOMLDecodeError(ValueError): ...
