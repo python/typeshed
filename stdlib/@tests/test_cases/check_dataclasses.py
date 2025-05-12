@@ -102,7 +102,7 @@ D = dc.make_dataclass(
 assert_type(D.__mro__, Tuple[type, ...])
 
 
-if sys.version_info >= (3, 14):
+if sys.version_info >= (3, 13):
 
     def custom_dataclass[T](
         cls: type[T],
@@ -119,8 +119,7 @@ if sys.version_info >= (3, 14):
         slots: bool = False,
         weakref_slot: bool = False,
     ) -> type[T]:
-        custom_dc = dc.dataclass(
-            cls,
+        custom_dc_maker = dc.dataclass(
             init=init,
             repr=repr,
             eq=eq,
@@ -132,7 +131,7 @@ if sys.version_info >= (3, 14):
             slots=slots,
             weakref_slot=weakref_slot,
         )
-        return custom_dc
+        return custom_dc_maker(cls)
 
     dc.make_dataclass(
         "D",

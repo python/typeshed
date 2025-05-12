@@ -79,21 +79,6 @@ def dataclass(cls: type[_T], /) -> type[_T]: ...
 if sys.version_info >= (3, 11):
     @overload
     def dataclass(
-        cls: type[_T],
-        *,
-        init: bool = True,
-        repr: bool = True,
-        eq: bool = True,
-        order: bool = False,
-        unsafe_hash: bool = False,
-        frozen: bool = False,
-        match_args: bool = True,
-        kw_only: bool = False,
-        slots: bool = False,
-        weakref_slot: bool = False,
-    ) -> type[_T]: ...
-    @overload
-    def dataclass(
         *,
         init: bool = True,
         repr: bool = True,
