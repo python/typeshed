@@ -279,7 +279,21 @@ class HelpFormatter:
         def __init__(self, formatter: HelpFormatter, parent: Self | None, heading: str | None = None) -> None: ...
         def format_help(self) -> str: ...
 
-    def __init__(self, prog: str, indent_increment: int = 2, max_help_position: int = 24, width: int | None = None) -> None: ...
+    if sys.version_info >= (3, 14):
+        def __init__(
+            self,
+            prog: str,
+            indent_increment: int = 2,
+            max_help_position: int = 24,
+            width: int | None = None,
+            prefix_chars: str = "-",
+            color: bool = False,
+        ) -> None: ...
+    else:
+        def __init__(
+            self, prog: str, indent_increment: int = 2, max_help_position: int = 24, width: int | None = None
+        ) -> None: ...
+
     def _indent(self) -> None: ...
     def _dedent(self) -> None: ...
     def _add_item(self, func: Callable[..., str], args: Iterable[Any]) -> None: ...
@@ -458,14 +472,30 @@ class Namespace(_AttributeHolder):
     def __eq__(self, other: object) -> bool: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
 
-class FileType:
-    # undocumented
-    _mode: str
-    _bufsize: int
-    _encoding: str | None
-    _errors: str | None
-    def __init__(self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None) -> None: ...
-    def __call__(self, string: str) -> IO[Any]: ...
+if sys.version_info >= (3, 14):
+    @deprecated("Deprecated in Python 3.14; Simply open files after parsing arguments")
+    class FileType:
+        # undocumented
+        _mode: str
+        _bufsize: int
+        _encoding: str | None
+        _errors: str | None
+        def __init__(
+            self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None
+        ) -> None: ...
+        def __call__(self, string: str) -> IO[Any]: ...
+
+else:
+    class FileType:
+        # undocumented
+        _mode: str
+        _bufsize: int
+        _encoding: str | None
+        _errors: str | None
+        def __init__(
+            self, mode: str = "r", bufsize: int = -1, encoding: str | None = None, errors: str | None = None
+        ) -> None: ...
+        def __call__(self, string: str) -> IO[Any]: ...
 
 # undocumented
 class _ArgumentGroup(_ActionsContainer):
