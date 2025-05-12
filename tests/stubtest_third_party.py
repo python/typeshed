@@ -125,7 +125,13 @@ def run_stubtest(
             # It seems that some other environment variables are needed too,
             # because the CI fails if we pass only os.environ["DISPLAY"]. I didn't
             # "bisect" to see which variables are actually needed.
-            stubtest_env = os.environ | {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
+            stubtest_env = os.environ | {
+                "MYPYPATH": mypypath,
+                "MYPY_FORCE_COLOR": "1",
+                # Prevent stubtest crash due to special unicode character
+                # https://github.com/python/mypy/issues/19071
+                "PYTHONUTF8": "1",
+            }
 
             # Perform some black magic in order to run stubtest inside uWSGI
             if dist_name == "uWSGI":

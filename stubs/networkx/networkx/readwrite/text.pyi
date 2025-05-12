@@ -40,11 +40,13 @@ class UtfDirectedGlyphs(UtfBaseGlyphs):
     last: ClassVar[str]
     mid: ClassVar[str]
     backedge: ClassVar[str]
+    vertical_edge: ClassVar[str]
 
 class UtfUndirectedGlyphs(UtfBaseGlyphs):
     last: ClassVar[str]
     mid: ClassVar[str]
     backedge: ClassVar[str]
+    vertical_edge: ClassVar[str]
 
 def generate_network_text(
     graph,

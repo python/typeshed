@@ -35,9 +35,6 @@ networkx\.(utils\.)?(backends\.)?_dispatchable\.__call__
 networkx.conftest
 networkx(\..+?)?\.tests(\..+?)?
 
-# Stubtest crashes due to special unicode character
-networkx.readwrite.text.*
-
 # "..._DT is not present at runtime" but we don't set it in stubs, I don't understand this one
 networkx(\.algorithms)?(\.tree)?(\.mst)?\.SpanningTreeIterator\.Partition\._DT
 networkx(\.algorithms)?(\.tree)?(\.branchings)?\.ArborescenceIterator\.Partition\._DT
