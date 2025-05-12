@@ -7,6 +7,8 @@ from typing_extensions import deprecated
 __all__ = ("loads", "load", "TOMLDecodeError")
 
 if sys.version_info >= (3, 14):
+    class DEPRECATED_DEFAULT: ...
+
     class TOMLDecodeError(ValueError):
         msg: str
         doc: str
@@ -14,10 +16,16 @@ if sys.version_info >= (3, 14):
         lineno: int
         colno: int
         @overload
-        def __init__(self, msg: str, doc: str, pos: int) -> None: ...  # type: ignore[overload-overlap]
+        def __init__(self, msg: str, doc: str, pos: int) -> None: ...
         @overload
         @deprecated("Deprecated in Python 3.14; Please set 'msg', 'doc' and 'pos' arguments only.")
-        def __init__(self, *args: Any) -> None: ...
+        def __init__(
+            self,
+            msg: str | type[DEPRECATED_DEFAULT] = ...,
+            doc: str | type[DEPRECATED_DEFAULT] = ...,
+            pos: int | type[DEPRECATED_DEFAULT] = ...,
+            *args: Any,
+        ) -> None: ...
 
 else:
     class TOMLDecodeError(ValueError): ...
