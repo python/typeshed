@@ -24,7 +24,7 @@ class _HasName(Protocol):
 
 # `_interpreters.exec` technically gives us a simple namespace.
 @type_check_only
-class _ExecInfo(Protocol):
+class _ExcInfo(Protocol):
     formatted: str
     msg: str
     type: _HasName
@@ -35,7 +35,7 @@ if sys.version_info >= (3, 14):
     from _interpreters import InterpreterError
 
     class ExecutionFailed(InterpreterError):
-        def __init__(self, excinfo: _ExecInfo) -> None: ...  #  type: ignore[override]
+        def __init__(self, excinfo: _ExcInfo) -> None: ...  #  type: ignore[override]
 
     UNBOUND: Final = 2
 
