@@ -8,9 +8,6 @@ _asyncio.future_discard_from_awaited_by
 _ctypes.POINTER
 _ctypes.byref
 _ctypes.pointer
-_decimal.Decimal.from_number
-_decimal.IEEEContext
-_decimal.IEEE_CONTEXT_MAX_BITS
 _heapq.heapify_max
 _heapq.heappop_max
 _heapq.heappush_max
@@ -99,8 +96,6 @@ ctypes.wintypes.HDROP
 ctypes.wintypes.HFILE
 ctypes.wintypes.HRESULT
 ctypes.wintypes.HSZ
-decimal.Decimal.from_number
-decimal.IEEE_CONTEXT_MAX_BITS
 dis.Instruction.make
 enum.Enum.__signature__
 enum.EnumMeta.__signature__

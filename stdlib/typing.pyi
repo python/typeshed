@@ -6,7 +6,7 @@ import collections  # noqa: F401  # pyright: ignore[reportUnusedImport]
 import sys
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import AnnotationForm, IdentityFunction, ReadableBuffer, SupportsKeysAndGetItem
+from _typeshed import IdentityFunction, ReadableBuffer, SupportsKeysAndGetItem
 from abc import ABCMeta, abstractmethod
 from re import Match as Match, Pattern as Pattern
 from types import (
@@ -142,6 +142,10 @@ if sys.version_info >= (3, 12):
 if sys.version_info >= (3, 13):
     __all__ += ["get_protocol_members", "is_protocol", "NoDefault", "TypeIs", "ReadOnly"]
 
+# We can't use this name here because it leads to issues with mypy, likely
+# due to an import cycle. Below instead we use Any with a comment.
+# from _typeshed import AnnotationForm
+
 class Any: ...
 class _Final: ...
 
@@ -151,9 +155,9 @@ class TypeVar:
     @property
     def __name__(self) -> str: ...
     @property
-    def __bound__(self) -> AnnotationForm | None: ...
+    def __bound__(self) -> Any | None: ...  # AnnotationForm
     @property
-    def __constraints__(self) -> tuple[AnnotationForm, ...]: ...
+    def __constraints__(self) -> tuple[Any, ...]: ...  # AnnotationForm
     @property
     def __covariant__(self) -> bool: ...
     @property
@@ -163,24 +167,24 @@ class TypeVar:
         def __infer_variance__(self) -> bool: ...
     if sys.version_info >= (3, 13):
         @property
-        def __default__(self) -> AnnotationForm: ...
+        def __default__(self) -> Any: ...  # AnnotationForm
     if sys.version_info >= (3, 13):
         def __new__(
             cls,
             name: str,
-            *constraints: AnnotationForm,
-            bound: AnnotationForm | None = None,
+            *constraints: Any,  # AnnotationForm
+            bound: Any | None = None,  # AnnotationForm
             contravariant: bool = False,
             covariant: bool = False,
             infer_variance: bool = False,
-            default: AnnotationForm = ...,
+            default: Any = ...,  # AnnotationForm
         ) -> Self: ...
     elif sys.version_info >= (3, 12):
         def __new__(
             cls,
             name: str,
-            *constraints: AnnotationForm,
-            bound: AnnotationForm | None = None,
+            *constraints: Any,  # AnnotationForm
+            bound: Any | None = None,  # AnnotationForm
             covariant: bool = False,
             contravariant: bool = False,
             infer_variance: bool = False,
@@ -189,8 +193,8 @@ class TypeVar:
         def __new__(
             cls,
             name: str,
-            *constraints: AnnotationForm,
-            bound: AnnotationForm | None = None,
+            *constraints: Any,  # AnnotationForm
+            bound: Any | None = None,  # AnnotationForm
             covariant: bool = False,
             contravariant: bool = False,
         ) -> Self: ...
@@ -198,14 +202,14 @@ class TypeVar:
         def __init__(
             self,
             name: str,
-            *constraints: AnnotationForm,
-            bound: AnnotationForm | None = None,
+            *constraints: Any,  # AnnotationForm
+            bound: Any | None = None,  # AnnotationForm
             covariant: bool = False,
             contravariant: bool = False,
         ) -> None: ...
     if sys.version_info >= (3, 10):
-        def __or__(self, right: AnnotationForm) -> _SpecialForm: ...
-        def __ror__(self, left: AnnotationForm) -> _SpecialForm: ...
+        def __or__(self, right: Any) -> _SpecialForm: ...  # AnnotationForm
+        def __ror__(self, left: Any) -> _SpecialForm: ...  # AnnotationForm
     if sys.version_info >= (3, 11):
         def __typing_subst__(self, arg: Any) -> Any: ...
     if sys.version_info >= (3, 13):
@@ -260,10 +264,10 @@ if sys.version_info >= (3, 11):
         def __name__(self) -> str: ...
         if sys.version_info >= (3, 13):
             @property
-            def __default__(self) -> AnnotationForm: ...
+            def __default__(self) -> Any: ...  # AnnotationForm
             def has_default(self) -> bool: ...
         if sys.version_info >= (3, 13):
-            def __new__(cls, name: str, *, default: AnnotationForm = ...) -> Self: ...
+            def __new__(cls, name: str, *, default: Any = ...) -> Self: ...  # AnnotationForm
         elif sys.version_info >= (3, 12):
             def __new__(cls, name: str) -> Self: ...
         else:
@@ -306,7 +310,7 @@ if sys.version_info >= (3, 10):
         @property
         def __name__(self) -> str: ...
         @property
-        def __bound__(self) -> AnnotationForm | None: ...
+        def __bound__(self) -> Any | None: ...  # AnnotationForm
         @property
         def __covariant__(self) -> bool: ...
         @property
@@ -316,35 +320,45 @@ if sys.version_info >= (3, 10):
             def __infer_variance__(self) -> bool: ...
         if sys.version_info >= (3, 13):
             @property
-            def __default__(self) -> AnnotationForm: ...
+            def __default__(self) -> Any: ...  # AnnotationForm
         if sys.version_info >= (3, 13):
             def __new__(
                 cls,
                 name: str,
                 *,
-                bound: AnnotationForm | None = None,
+                bound: Any | None = None,  # AnnotationForm
                 contravariant: bool = False,
                 covariant: bool = False,
                 infer_variance: bool = False,
-                default: AnnotationForm = ...,
+                default: Any = ...,  # AnnotationForm
             ) -> Self: ...
         elif sys.version_info >= (3, 12):
             def __new__(
                 cls,
                 name: str,
                 *,
-                bound: AnnotationForm | None = None,
+                bound: Any | None = None,  # AnnotationForm
                 contravariant: bool = False,
                 covariant: bool = False,
                 infer_variance: bool = False,
             ) -> Self: ...
         elif sys.version_info >= (3, 11):
             def __new__(
-                cls, name: str, *, bound: AnnotationForm | None = None, contravariant: bool = False, covariant: bool = False
+                cls,
+                name: str,
+                *,
+                bound: Any | None = None,  # AnnotationForm
+                contravariant: bool = False,
+                covariant: bool = False,
             ) -> Self: ...
         else:
             def __init__(
-                self, name: str, *, bound: AnnotationForm | None = None, contravariant: bool = False, covariant: bool = False
+                self,
+                name: str,
+                *,
+                bound: Any | None = None,  # AnnotationForm
+                contravariant: bool = False,
+                covariant: bool = False,
             ) -> None: ...
 
         @property
@@ -368,7 +382,7 @@ if sys.version_info >= (3, 10):
     TypeGuard: _SpecialForm
 
     class NewType:
-        def __init__(self, name: str, tp: AnnotationForm) -> None: ...
+        def __init__(self, name: str, tp: Any) -> None: ...  # AnnotationForm
         if sys.version_info >= (3, 11):
             @staticmethod
             def __call__(x: _T, /) -> _T: ...
@@ -901,7 +915,7 @@ if sys.version_info >= (3, 14):
         include_extras: bool = False,
         *,
         format: Format | None = None,
-    ) -> dict[str, AnnotationForm]: ...
+    ) -> dict[str, Any]: ...  # AnnotationForm
 
 else:
     def get_type_hints(
@@ -909,9 +923,9 @@ else:
         globalns: dict[str, Any] | None = None,
         localns: Mapping[str, Any] | None = None,
         include_extras: bool = False,
-    ) -> dict[str, AnnotationForm]: ...
+    ) -> dict[str, Any]: ...  # AnnotationForm
 
-def get_args(tp: AnnotationForm) -> tuple[AnnotationForm, ...]: ...
+def get_args(tp: Any) -> tuple[Any, ...]: ...  # AnnotationForm
 
 if sys.version_info >= (3, 10):
     @overload
@@ -922,7 +936,7 @@ if sys.version_info >= (3, 10):
 @overload
 def get_origin(tp: GenericAlias) -> type: ...
 @overload
-def get_origin(tp: AnnotationForm) -> AnnotationForm | None: ...
+def get_origin(tp: Any) -> Any | None: ...  # AnnotationForm
 @overload
 def cast(typ: type[_T], val: Any) -> _T: ...
 @overload
@@ -933,7 +947,7 @@ def cast(typ: object, val: Any) -> Any: ...
 if sys.version_info >= (3, 11):
     def reveal_type(obj: _T, /) -> _T: ...
     def assert_never(arg: Never, /) -> Never: ...
-    def assert_type(val: _T, typ: AnnotationForm, /) -> _T: ...
+    def assert_type(val: _T, typ: Any, /) -> _T: ...  # AnnotationForm
     def clear_overloads() -> None: ...
     def get_overloads(func: Callable[..., object]) -> Sequence[Callable[..., object]]: ...
     def dataclass_transform(
@@ -1020,7 +1034,7 @@ if sys.version_info >= (3, 14):
         locals: Mapping[str, Any] | None = None,
         type_params: tuple[TypeVar, ParamSpec, TypeVarTuple] | None = None,
         format: Format | None = None,
-    ) -> AnnotationForm: ...
+    ) -> Any: ...  # AnnotationForm
 
 else:
     @final
@@ -1028,7 +1042,7 @@ else:
         __forward_arg__: str
         __forward_code__: CodeType
         __forward_evaluated__: bool
-        __forward_value__: AnnotationForm | None
+        __forward_value__: Any | None  # AnnotationForm
         __forward_is_argument__: bool
         __forward_is_class__: bool
         __forward_module__: Any | None
@@ -1044,7 +1058,7 @@ else:
             )
             def _evaluate(
                 self, globalns: dict[str, Any] | None, localns: Mapping[str, Any] | None, *, recursive_guard: frozenset[str]
-            ) -> AnnotationForm | None: ...
+            ) -> Any | None: ...  # AnnotationForm
             @overload
             def _evaluate(
                 self,
@@ -1053,7 +1067,7 @@ else:
                 type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...],
                 *,
                 recursive_guard: frozenset[str],
-            ) -> AnnotationForm | None: ...
+            ) -> Any | None: ...  # AnnotationForm
         elif sys.version_info >= (3, 12):
             def _evaluate(
                 self,
@@ -1062,11 +1076,11 @@ else:
                 type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] | None = None,
                 *,
                 recursive_guard: frozenset[str],
-            ) -> AnnotationForm | None: ...
+            ) -> Any | None: ...  # AnnotationForm
         else:
             def _evaluate(
                 self, globalns: dict[str, Any] | None, localns: Mapping[str, Any] | None, recursive_guard: frozenset[str]
-            ) -> AnnotationForm | None: ...
+            ) -> Any | None: ...  # AnnotationForm
 
         def __eq__(self, other: object) -> bool: ...
         def __hash__(self) -> int: ...
@@ -1085,17 +1099,17 @@ if sys.version_info >= (3, 12):
     class TypeAliasType:
         def __new__(cls, name: str, value: Any, *, type_params: tuple[TypeVar | ParamSpec | TypeVarTuple, ...] = ()) -> Self: ...
         @property
-        def __value__(self) -> AnnotationForm: ...
+        def __value__(self) -> Any: ...  # AnnotationForm
         @property
         def __type_params__(self) -> tuple[TypeVar | ParamSpec | TypeVarTuple, ...]: ...
         @property
-        def __parameters__(self) -> tuple[AnnotationForm, ...]: ...
+        def __parameters__(self) -> tuple[Any, ...]: ...  # AnnotationForm
         @property
         def __name__(self) -> str: ...
         # It's writable on types, but not on instances of TypeAliasType.
         @property
         def __module__(self) -> str | None: ...  # type: ignore[override]
-        def __getitem__(self, parameters: AnnotationForm) -> GenericAlias: ...
+        def __getitem__(self, parameters: Any) -> GenericAlias: ...  # AnnotationForm
         def __or__(self, right: Any) -> _SpecialForm: ...
         def __ror__(self, left: Any) -> _SpecialForm: ...
         if sys.version_info >= (3, 14):
