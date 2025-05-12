@@ -60,17 +60,6 @@ compression.gzip.GzipFile.readinto1
 compression.gzip.GzipFile.readinto1
 compression.gzip.compress
 compression.zstd
-concurrent.futures.__all__
-concurrent.futures.InterpreterPoolExecutor
-concurrent.futures.ThreadPoolExecutor.BROKEN
-concurrent.futures.ThreadPoolExecutor.prepare_context
-concurrent.futures.interpreter
-concurrent.futures.thread.ThreadPoolExecutor.BROKEN
-concurrent.futures.thread.ThreadPoolExecutor.prepare_context
-concurrent.futures.thread.WorkerContext
-concurrent.futures.thread._WorkItem.__init__
-concurrent.futures.thread._WorkItem.run
-concurrent.futures.thread._worker
 ctypes.POINTER
 ctypes.byref
 ctypes.memoryview_at
