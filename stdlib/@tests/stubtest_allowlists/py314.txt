@@ -16,7 +16,6 @@ _heapq.heapreplace_max
 _imp.pyc_magic_number_token
 _socket.IP_RECVTTL
 _socket.if_indextoname
-_ssl.HAS_PHA
 _thread.RLock.locked
 _thread.set_name
 ast.Interpolation
