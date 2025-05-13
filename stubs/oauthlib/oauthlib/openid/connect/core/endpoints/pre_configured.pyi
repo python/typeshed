@@ -1,5 +1,4 @@
 from collections.abc import Callable
-from typing import Any
 
 from oauthlib.common import Request
 from oauthlib.oauth2.rfc6749.endpoints import (
@@ -48,6 +47,4 @@ class Server(AuthorizationEndpoint, IntrospectEndpoint, TokenEndpoint, ResourceE
         token_expires_in: int | Callable[[Request], int] | None = None,
         token_generator: Callable[[Request], str] | None = None,
         refresh_token_generator: Callable[[Request], str] | None = None,
-        *args: Any,  # actually, these are not used
-        **kwargs: Any,  # actually, these are not used
     ) -> None: ...
