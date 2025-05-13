@@ -58,7 +58,6 @@ ctypes.wintypes.HDROP
 ctypes.wintypes.HFILE
 ctypes.wintypes.HRESULT
 ctypes.wintypes.HSZ
-dis.Instruction.make
 enum.Enum.__signature__
 enum.EnumMeta.__signature__
 enum.EnumType.__signature__
