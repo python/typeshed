@@ -1077,7 +1077,7 @@ if sys.version_info >= (3, 14):
         value: expr
         str: _Str
         conversion: _Str | None
-        format_spec: _Str
+        format_spec: _Str | None = None
         def __init__(
             self,
             value: expr = ...,
