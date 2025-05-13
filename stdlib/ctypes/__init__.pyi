@@ -1,6 +1,5 @@
 import sys
 from _ctypes import (
-    POINTER as POINTER,
     RTLD_GLOBAL as RTLD_GLOBAL,
     RTLD_LOCAL as RTLD_LOCAL,
     Array as Array,
@@ -19,7 +18,6 @@ from _ctypes import (
     alignment as alignment,
     byref as byref,
     get_errno as get_errno,
-    pointer as pointer,
     resize as resize,
     set_errno as set_errno,
     sizeof as sizeof,
@@ -35,6 +33,12 @@ if sys.platform == "win32":
 
 if sys.version_info >= (3, 11):
     from ctypes._endian import BigEndianUnion as BigEndianUnion, LittleEndianUnion as LittleEndianUnion
+
+if sys.version_info < (3, 14):
+    from _ctypes import (
+        POINTER as POINTER,
+        pointer as pointer,
+    )
 
 _T = TypeVar("_T", default=Any)
 _DLLT = TypeVar("_DLLT", bound=CDLL)
