@@ -1,5 +1,4 @@
 from collections.abc import Callable
-from typing import Any
 
 from oauthlib.common import Request
 
@@ -31,8 +30,6 @@ class Server(AuthorizationEndpoint, IntrospectEndpoint, TokenEndpoint, ResourceE
         token_expires_in: int | Callable[[Request], int] | None = None,
         token_generator: Callable[[Request], str] | None = None,
         refresh_token_generator: Callable[[Request], str] | None = None,
-        *args: Any,  # actually, these are not used
-        **kwargs: Any,  # actually, these are not used
     ) -> None: ...
 
 class WebApplicationServer(AuthorizationEndpoint, IntrospectEndpoint, TokenEndpoint, ResourceEndpoint, RevocationEndpoint):
@@ -45,7 +42,6 @@ class WebApplicationServer(AuthorizationEndpoint, IntrospectEndpoint, TokenEndpo
         token_generator: Callable[[Request], str] | None = None,
         token_expires_in: int | Callable[[Request], int] | None = None,
         refresh_token_generator: Callable[[Request], str] | None = None,
-        **kwargs: Any,  # actually, these are not used
     ) -> None: ...
 
 class MobileApplicationServer(AuthorizationEndpoint, IntrospectEndpoint, ResourceEndpoint, RevocationEndpoint):
@@ -57,7 +53,6 @@ class MobileApplicationServer(AuthorizationEndpoint, IntrospectEndpoint, Resourc
         token_generator: Callable[[Request], str] | None = None,
         token_expires_in: int | Callable[[Request], int] | None = None,
         refresh_token_generator: Callable[[Request], str] | None = None,
-        **kwargs: Any,  # actually, these are not used
     ) -> None: ...
 
 class LegacyApplicationServer(TokenEndpoint, IntrospectEndpoint, ResourceEndpoint, RevocationEndpoint):
@@ -70,7 +65,6 @@ class LegacyApplicationServer(TokenEndpoint, IntrospectEndpoint, ResourceEndpoin
         token_generator: Callable[[Request], str] | None = None,
         token_expires_in: int | Callable[[Request], int] | None = None,
         refresh_token_generator: Callable[[Request], str] | None = None,
-        **kwargs: Any,  # actually, these are not used
     ) -> None: ...
 
 class BackendApplicationServer(TokenEndpoint, IntrospectEndpoint, ResourceEndpoint, RevocationEndpoint):
@@ -82,5 +76,4 @@ class BackendApplicationServer(TokenEndpoint, IntrospectEndpoint, ResourceEndpoi
         token_generator: Callable[[Request], str] | None = None,
         token_expires_in: int | Callable[[Request], int] | None = None,
         refresh_token_generator: Callable[[Request], str] | None = None,
-        **kwargs: Any,  # actually, these are not used
     ) -> None: ...
