@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Hashable, Mapping
 from typing import Literal, TypeVar, overload
 
@@ -26,5 +25,5 @@ def convert_node_labels_to_integers(
     G: Graph[Hashable],
     first_label: int = 0,
     ordering: Literal["default", "sorted", "increasing degree", "decreasing degree"] = "default",
-    label_attribute: Incomplete | None = None,
+    label_attribute=None,
 ) -> Graph[int]: ...
