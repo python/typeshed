@@ -111,7 +111,6 @@ sre_compile.CH_NEGATE
 sre_constants.CH_NEGATE
 sre_parse.CH_NEGATE
 string.Template.flags
-string.templatelib
 sys.is_remote_debug_enabled
 sys.remote_exec
 tarfile.TarFile.zstopen
