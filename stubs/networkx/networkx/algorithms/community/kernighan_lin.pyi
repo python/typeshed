@@ -9,7 +9,7 @@ __all__ = ["kernighan_lin_bisection"]
 @_dispatchable
 def kernighan_lin_bisection(
     G: Graph[_Node],
-    partition: tuple[Incomplete] | None = None,
+    partition: tuple[Incomplete, Incomplete] | None = None,
     max_iter: int = 10,
     weight: str = "weight",
     seed: int | RandomState | None = None,

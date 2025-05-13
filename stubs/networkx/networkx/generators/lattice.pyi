@@ -1,20 +1,21 @@
 from _typeshed import Incomplete
+from collections.abc import Iterable
 
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["grid_2d_graph", "grid_graph", "hypercube_graph", "triangular_lattice_graph", "hexagonal_lattice_graph"]
 
 @_dispatchable
-def grid_2d_graph(m, n, periodic: bool = False, create_using: Incomplete | None = None): ...
+def grid_2d_graph(m, n, periodic: bool | tuple[bool, bool] = False, create_using: Incomplete | None = None): ...
 @_dispatchable
-def grid_graph(dim, periodic: bool = False): ...
+def grid_graph(dim, periodic: bool | Iterable[bool] = False): ...
 @_dispatchable
 def hypercube_graph(n): ...
 @_dispatchable
 def triangular_lattice_graph(
-    m, n, periodic: bool = False, with_positions: bool = True, create_using: Incomplete | None = None
+    m: int, n: int, periodic: bool = False, with_positions: bool = True, create_using: Incomplete | None = None
 ): ...
 @_dispatchable
 def hexagonal_lattice_graph(
-    m, n, periodic: bool = False, with_positions: bool = True, create_using: Incomplete | None = None
+    m: int, n: int, periodic: bool = False, with_positions: bool = True, create_using: Incomplete | None = None
 ): ...

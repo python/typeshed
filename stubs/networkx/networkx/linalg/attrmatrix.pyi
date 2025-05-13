@@ -1,14 +1,17 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
 
 from networkx.utils.backends import _dispatchable
+
+from ..classes.graph import Graph
 
 __all__ = ["attr_matrix", "attr_sparse_matrix"]
 
 @_dispatchable
 def attr_matrix(
-    G,
-    edge_attr: Incomplete | None = None,
-    node_attr: Incomplete | None = None,
+    G: Graph[Incomplete],
+    edge_attr: str | Callable[[Incomplete, Incomplete], Incomplete] | None = None,
+    node_attr: str | Callable[[Incomplete], Incomplete] | None = None,
     normalized: bool = False,
     rc_order: Incomplete | None = None,
     dtype: Incomplete | None = None,
@@ -16,9 +19,9 @@ def attr_matrix(
 ): ...
 @_dispatchable
 def attr_sparse_matrix(
-    G,
-    edge_attr: Incomplete | None = None,
-    node_attr: Incomplete | None = None,
+    G: Graph[Incomplete],
+    edge_attr: str | Callable[[Incomplete, Incomplete], Incomplete] | None = None,
+    node_attr: str | Callable[[Incomplete], Incomplete] | None = None,
     normalized: bool = False,
     rc_order: Incomplete | None = None,
     dtype: Incomplete | None = None,

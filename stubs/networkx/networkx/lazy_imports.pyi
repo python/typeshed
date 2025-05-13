@@ -1,9 +1,10 @@
 import types
 from _typeshed import Incomplete
+from collections.abc import Mapping
 
 __all__ = ["attach", "_lazy_import"]
 
-def attach(module_name, submodules: Incomplete | None = None, submod_attrs: Incomplete | None = None): ...
+def attach(module_name: str, submodules: set[str] | None = None, submod_attrs: Mapping[str, Incomplete] | None = None): ...
 
 class DelayedImportErrorModule(types.ModuleType):
     def __init__(self, frame_data, *args, **kwargs) -> None: ...

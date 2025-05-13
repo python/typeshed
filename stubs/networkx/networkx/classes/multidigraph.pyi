@@ -5,7 +5,9 @@ from networkx.classes.coreviews import MultiAdjacencyView
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import _Node
 from networkx.classes.multigraph import MultiGraph
-from networkx.classes.reportviews import InMultiDegreeView, OutMultiDegreeView, OutMultiEdgeView
+from networkx.classes.reportviews import DiMultiDegreeView, InMultiDegreeView, OutMultiDegreeView, OutMultiEdgeView
+
+__all__ = ["MultiDiGraph"]
 
 __all__ = ["MultiDiGraph"]
 
@@ -19,11 +21,11 @@ class MultiDiGraph(MultiGraph[_Node], DiGraph[_Node]):
     @cached_property
     def out_edges(self) -> OutMultiEdgeView[_Node]: ...
     @cached_property
+    def degree(self) -> DiMultiDegreeView[_Node]: ...
+    @cached_property
     def in_edges(self) -> OutMultiEdgeView[_Node]: ...
     @cached_property
     def in_degree(self) -> InMultiDegreeView[_Node]: ...
     @cached_property
     def out_degree(self) -> OutMultiDegreeView[_Node]: ...
     def to_undirected(self, reciprocal: bool = False, as_view: bool = False) -> MultiGraph[_Node]: ...  # type: ignore[override]
-    def reverse(self, copy: bool = True) -> MultiDiGraph[_Node]: ...
-    def copy(self, as_view: bool = False) -> MultiDiGraph[_Node]: ...
