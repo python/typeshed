@@ -1,3 +1,4 @@
+from _typeshed import Unused
 from collections.abc import Callable
 
 from oauthlib.common import Request
@@ -47,4 +48,5 @@ class Server(AuthorizationEndpoint, IntrospectEndpoint, TokenEndpoint, ResourceE
         token_expires_in: int | Callable[[Request], int] | None = None,
         token_generator: Callable[[Request], str] | None = None,
         refresh_token_generator: Callable[[Request], str] | None = None,
+        *args: Unused,
     ) -> None: ...
