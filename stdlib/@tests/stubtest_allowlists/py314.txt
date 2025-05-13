@@ -46,8 +46,6 @@ builtins.int.__round__
 builtins.memoryview.__class_getitem__
 builtins.staticmethod.__annotate__
 builtins.staticmethod.__class_getitem__
-code.compile_command
-codeop.compile_command
 compression.gzip.GzipFile.readinto
 compression.gzip.GzipFile.readinto
 compression.gzip.GzipFile.readinto1
