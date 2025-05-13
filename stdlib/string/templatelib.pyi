@@ -1,4 +1,5 @@
-from typing import Any, Literal, Iterator, final
+from collections.abc import Iterator
+from typing import Any, Literal, final
 
 __all__ = ["Interpolation", "Template"]
 
