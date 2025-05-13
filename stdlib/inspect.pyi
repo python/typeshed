@@ -418,11 +418,11 @@ class Parameter:
     def __init__(self, name: str, kind: _ParameterKind, *, default: Any = ..., annotation: Any = ...) -> None: ...
     empty = _empty
 
-    POSITIONAL_ONLY: ClassVar[Literal[0]]
-    POSITIONAL_OR_KEYWORD: ClassVar[Literal[1]]
-    VAR_POSITIONAL: ClassVar[Literal[2]]
-    KEYWORD_ONLY: ClassVar[Literal[3]]
-    VAR_KEYWORD: ClassVar[Literal[4]]
+    POSITIONAL_ONLY: ClassVar[Literal[_ParameterKind.POSITIONAL_ONLY]]
+    POSITIONAL_OR_KEYWORD: ClassVar[Literal[_ParameterKind.POSITIONAL_OR_KEYWORD]]
+    VAR_POSITIONAL: ClassVar[Literal[_ParameterKind.VAR_POSITIONAL]]
+    KEYWORD_ONLY: ClassVar[Literal[_ParameterKind.KEYWORD_ONLY]]
+    VAR_KEYWORD: ClassVar[Literal[_ParameterKind.VAR_KEYWORD]]
     @property
     def name(self) -> str: ...
     @property

@@ -4,7 +4,6 @@ import types
 from _typeshed import SupportsKeysAndGetItem, Unused
 from builtins import property as _builtins_property
 from collections.abc import Callable, Iterable, Iterator, Mapping
-from inspect import Signature
 from typing import Any, Generic, Literal, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
@@ -54,6 +53,7 @@ _EnumerationT = TypeVar("_EnumerationT", bound=type[Enum])
 # >>> Enum('Foo', names={'RED': 1, 'YELLOW': 2})
 # <enum 'Foo'>
 _EnumNames: TypeAlias = str | Iterable[str] | Iterable[Iterable[str | Any]] | Mapping[str, Any]
+_Signature: TypeAlias = Any  # TODO: Unable to import Signature from inspect module
 
 if sys.version_info >= (3, 11):
     class nonmember(Generic[_EnumMemberT]):
@@ -169,7 +169,7 @@ class EnumMeta(type):
         def __call__(cls: type[_EnumMemberT], value: Any, *values: Any) -> _EnumMemberT: ...
     if sys.version_info >= (3, 14):
         @property
-        def __signature__(cls) -> Signature: ...
+        def __signature__(cls) -> _Signature: ...
 
     _member_names_: list[str]  # undocumented
     _member_map_: dict[str, Enum]  # undocumented
