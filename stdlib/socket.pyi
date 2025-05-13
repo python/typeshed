@@ -1023,6 +1023,11 @@ if sys.platform != "linux":
 
     __all__ += ["IPPROTO_GGP", "IPPROTO_IPV4", "IPPROTO_MAX", "IPPROTO_ND", "IP_RECVDSTADDR", "SO_USELOOPBACK"]
 
+if sys.version_info >= (3, 14):
+    from _socket import IP_RECVTTL as IP_RECVTTL
+
+    __all__ += ["IP_RECVTTL"]
+
 # Re-exported from errno
 EBADF: int
 EAGAIN: int

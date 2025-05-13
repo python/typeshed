@@ -229,6 +229,8 @@ if sys.platform != "win32":
     IP_RECVOPTS: int
     IP_RECVRETOPTS: int
     IP_RETOPTS: int
+if sys.version_info >= (3, 14):
+    IP_RECVTTL: int
 if sys.platform != "win32" and sys.platform != "darwin":
     IP_TRANSPARENT: int
 if sys.platform != "win32" and sys.platform != "darwin" and sys.version_info >= (3, 11):
