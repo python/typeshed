@@ -12,12 +12,7 @@ class ISMAGS:
     edge_equality: Incomplete
 
     def __init__(
-        self,
-        graph: Graph[Incomplete],
-        subgraph: Graph[Incomplete],
-        node_match: Incomplete | None = None,
-        edge_match: Incomplete | None = None,
-        cache: Incomplete | None = None,
+        self, graph: Graph[Incomplete], subgraph: Graph[Incomplete], node_match=None, edge_match=None, cache=None
     ) -> None: ...
     def find_isomorphisms(self, symmetry: bool = True) -> Generator[Incomplete, Incomplete, Incomplete]: ...
     def largest_common_subgraph(self, symmetry: bool = True) -> Generator[Incomplete, Incomplete, None]: ...

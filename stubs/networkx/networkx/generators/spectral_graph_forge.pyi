@@ -8,5 +8,5 @@ __all__ = ["spectral_graph_forge"]
 
 @_dispatchable
 def spectral_graph_forge(
-    G: Graph[Incomplete], alpha: float, transformation: str = "identity", seed: Incomplete | None = None
+    G: Graph[Incomplete], alpha: float, transformation: str = "identity", seed=None
 ) -> Graph[Incomplete]: ...

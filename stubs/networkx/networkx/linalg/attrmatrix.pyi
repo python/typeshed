@@ -13,9 +13,9 @@ def attr_matrix(
     edge_attr: str | Callable[[Incomplete, Incomplete], Incomplete] | None = None,
     node_attr: str | Callable[[Incomplete], Incomplete] | None = None,
     normalized: bool = False,
-    rc_order: Incomplete | None = None,
-    dtype: Incomplete | None = None,
-    order: Incomplete | None = None,
+    rc_order=None,
+    dtype=None,
+    order=None,
 ): ...
 @_dispatchable
 def attr_sparse_matrix(
@@ -23,6 +23,6 @@ def attr_sparse_matrix(
     edge_attr: str | Callable[[Incomplete, Incomplete], Incomplete] | None = None,
     node_attr: str | Callable[[Incomplete], Incomplete] | None = None,
     normalized: bool = False,
-    rc_order: Incomplete | None = None,
-    dtype: Incomplete | None = None,
+    rc_order=None,
+    dtype=None,
 ): ...

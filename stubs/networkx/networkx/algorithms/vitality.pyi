@@ -7,5 +7,5 @@ __all__ = ["closeness_vitality"]
 
 @_dispatchable
 def closeness_vitality(
-    G: Graph[_Node], node: Incomplete | None = None, weight: str | None = None, wiener_index: float | None = None
+    G: Graph[_Node], node=None, weight: str | None = None, wiener_index: float | None = None
 ) -> float | dict[Incomplete, Incomplete]: ...

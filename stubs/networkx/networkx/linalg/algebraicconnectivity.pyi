@@ -12,7 +12,7 @@ class _PCGSolver:
 
 class _LUSolver:
     def __init__(self, A) -> None: ...
-    def solve(self, B, tol: Incomplete | None = None): ...
+    def solve(self, B, tol=None): ...
 
 @_dispatchable
 def algebraic_connectivity(
@@ -21,7 +21,7 @@ def algebraic_connectivity(
     normalized: bool = False,
     tol: float = 1e-08,
     method: str = "tracemin_pcg",
-    seed: Incomplete | None = None,
+    seed=None,
 ): ...
 @_dispatchable
 def fiedler_vector(
@@ -30,7 +30,7 @@ def fiedler_vector(
     normalized: bool = False,
     tol: float = 1e-08,
     method: str = "tracemin_pcg",
-    seed: Incomplete | None = None,
+    seed=None,
 ): ...
 @_dispatchable
 def spectral_ordering(
@@ -39,14 +39,9 @@ def spectral_ordering(
     normalized: bool = False,
     tol: float = 1e-08,
     method: str = "tracemin_pcg",
-    seed: Incomplete | None = None,
+    seed=None,
 ): ...
 @_dispatchable
 def spectral_bisection(
-    G,
-    weight: str = "weight",
-    normalized: bool = False,
-    tol: float = 1e-08,
-    method: str = "tracemin_pcg",
-    seed: Incomplete | None = None,
+    G, weight: str = "weight", normalized: bool = False, tol: float = 1e-08, method: str = "tracemin_pcg", seed=None
 ): ...

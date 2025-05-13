@@ -15,7 +15,7 @@ def edge_boundary(
     nbunch2: Iterable[Incomplete] | None = None,
     data: bool | Incomplete = False,
     keys: bool = False,
-    default: Incomplete | None = None,
+    default=None,
 ) -> Generator[tuple[_Node, _Node], None, None]: ...
 @overload
 def edge_boundary(
@@ -24,7 +24,7 @@ def edge_boundary(
     nbunch2: Iterable[Incomplete] | None = None,
     data: bool | Incomplete = False,
     keys: bool = False,
-    default: Incomplete | None = None,
+    default=None,
 ) -> Generator[tuple[_Node, _Node, dict[str, Incomplete]], None, None]: ...
 @overload
 def edge_boundary(
@@ -33,7 +33,7 @@ def edge_boundary(
     nbunch2: Iterable[Incomplete] | None = None,
     data: bool | Incomplete = False,
     keys: bool = False,
-    default: Incomplete | None = None,
+    default=None,
 ) -> Generator[tuple[_Node, _Node, dict[str, Incomplete]], None, None]: ...
 @overload
 def edge_boundary(
@@ -60,7 +60,7 @@ def edge_boundary(
     nbunch2: Iterable[Incomplete] | None = None,
     data: bool | Incomplete = False,
     keys: bool = False,
-    default: Incomplete | None = None,
+    default=None,
 ) -> Generator[tuple[_Node, _Node, int], None, None]: ...
 @overload
 def edge_boundary(
@@ -69,7 +69,7 @@ def edge_boundary(
     nbunch2: Iterable[Incomplete] | None = None,
     data: bool | Incomplete = False,
     keys: bool = False,
-    default: Incomplete | None = None,
+    default=None,
 ) -> Generator[tuple[_Node, _Node, int], None, None]: ...
 @overload
 def edge_boundary(
@@ -78,7 +78,7 @@ def edge_boundary(
     nbunch2: Iterable[Incomplete] | None = None,
     data: bool | Incomplete = False,
     keys: bool = False,
-    default: Incomplete | None = None,
+    default=None,
 ) -> Generator[tuple[_Node, _Node, int, dict[str, Incomplete]], None, None]: ...
 @overload
 def edge_boundary(
@@ -87,7 +87,7 @@ def edge_boundary(
     nbunch2: Iterable[Incomplete] | None = None,
     data: bool | Incomplete = False,
     keys: bool = False,
-    default: Incomplete | None = None,
+    default=None,
 ) -> Generator[tuple[_Node, _Node, int, dict[str, Incomplete]], None, None]: ...
 @overload
 def edge_boundary(

@@ -25,7 +25,7 @@ def directed_laplacian_matrix(
     G: DiGraph[Incomplete],
     nodelist: Collection[Incomplete] | None = None,
     weight: str = "weight",
-    walk_type: Incomplete | None = None,
+    walk_type=None,
     alpha: float = 0.95,
 ): ...
 @_dispatchable
@@ -33,6 +33,6 @@ def directed_combinatorial_laplacian_matrix(
     G: DiGraph[Incomplete],
     nodelist: Collection[Incomplete] | None = None,
     weight: str = "weight",
-    walk_type: Incomplete | None = None,
+    walk_type=None,
     alpha: float = 0.95,
 ): ...

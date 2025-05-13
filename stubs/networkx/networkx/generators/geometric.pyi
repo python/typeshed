@@ -24,7 +24,7 @@ def random_geometric_graph(
     dim: int = 2,
     pos: Mapping[Incomplete, Incomplete] | None = None,
     p: float = 2,
-    seed: Incomplete | None = None,
+    seed=None,
 ): ...
 @_dispatchable
 def soft_random_geometric_graph(
@@ -33,8 +33,8 @@ def soft_random_geometric_graph(
     dim: int = 2,
     pos: Mapping[Incomplete, Incomplete] | None = None,
     p: float = 2,
-    p_dist: Incomplete | None = None,
-    seed: Incomplete | None = None,
+    p_dist=None,
+    seed=None,
 ): ...
 @_dispatchable
 def geographical_threshold_graph(
@@ -43,9 +43,9 @@ def geographical_threshold_graph(
     dim: int = 2,
     pos: Mapping[Incomplete, Incomplete] | None = None,
     weight: Mapping[Incomplete, Incomplete] | None = None,
-    metric: Incomplete | None = None,
-    p_dist: Incomplete | None = None,
-    seed: Incomplete | None = None,
+    metric=None,
+    p_dist=None,
+    seed=None,
 ): ...
 @_dispatchable
 def waxman_graph(
@@ -54,13 +54,13 @@ def waxman_graph(
     alpha: float = 0.1,
     L: float | None = None,
     domain=(0, 0, 1, 1),
-    metric: Incomplete | None = None,
-    seed: Incomplete | None = None,
+    metric=None,
+    seed=None,
 ) -> Graph[Incomplete]: ...
 
 # docstring marks p as int, but it still works with floats. So I think it's better for consistency
 @_dispatchable
-def navigable_small_world_graph(n: int, p: float = 1, q: int = 1, r: float = 2, dim: int = 2, seed: Incomplete | None = None): ...
+def navigable_small_world_graph(n: int, p: float = 1, q: int = 1, r: float = 2, dim: int = 2, seed=None): ...
 @_dispatchable
 def thresholded_random_geometric_graph(
     n: int | Iterable[Incomplete],
@@ -70,7 +70,7 @@ def thresholded_random_geometric_graph(
     pos: Mapping[Incomplete, Incomplete] | None = None,
     weight: Mapping[Incomplete, Incomplete] | None = None,
     p: float = 2,
-    seed: Incomplete | None = None,
+    seed=None,
 ): ...
 @_dispatchable
 def geometric_soft_configuration_graph(

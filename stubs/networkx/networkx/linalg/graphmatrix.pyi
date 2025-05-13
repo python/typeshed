@@ -9,13 +9,9 @@ __all__ = ["incidence_matrix", "adjacency_matrix"]
 
 @_dispatchable
 def incidence_matrix(
-    G: Graph[Incomplete],
-    nodelist: Collection[Incomplete] | None = None,
-    edgelist: Incomplete | None = None,
-    oriented: bool = False,
-    weight: Incomplete | None = None,
+    G: Graph[Incomplete], nodelist: Collection[Incomplete] | None = None, edgelist=None, oriented: bool = False, weight=None
 ): ...
 @_dispatchable
 def adjacency_matrix(
-    G: Graph[Incomplete], nodelist: Collection[Incomplete] | None = None, dtype: Incomplete | None = None, weight: str = "weight"
+    G: Graph[Incomplete], nodelist: Collection[Incomplete] | None = None, dtype=None, weight: str = "weight"
 ): ...

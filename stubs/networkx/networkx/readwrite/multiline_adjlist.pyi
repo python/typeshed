@@ -13,20 +13,15 @@ def write_multiline_adjlist(
 ) -> None: ...
 @_dispatchable
 def parse_multiline_adjlist(
-    lines,
-    comments: str = "#",
-    delimiter: str | None = None,
-    create_using: Incomplete | None = None,
-    nodetype: Incomplete | None = None,
-    edgetype: Incomplete | None = None,
+    lines, comments: str = "#", delimiter: str | None = None, create_using=None, nodetype=None, edgetype=None
 ): ...
 @_dispatchable
 def read_multiline_adjlist(
     path,
     comments: str = "#",
     delimiter: str | None = None,
-    create_using: Incomplete | None = None,
-    nodetype: Incomplete | None = None,
-    edgetype: Incomplete | None = None,
+    create_using=None,
+    nodetype=None,
+    edgetype=None,
     encoding: str = "utf-8",
 ): ...

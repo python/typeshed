@@ -22,22 +22,17 @@ def write_edgelist(
 ) -> None: ...
 @_dispatchable
 def parse_edgelist(
-    lines,
-    comments: str = "#",
-    delimiter: str | None = None,
-    create_using: Incomplete | None = None,
-    nodetype: Incomplete | None = None,
-    data: bool | Incomplete = True,
+    lines, comments: str = "#", delimiter: str | None = None, create_using=None, nodetype=None, data: bool | Incomplete = True
 ): ...
 @_dispatchable
 def read_edgelist(
     path,
     comments: str = "#",
     delimiter: str | None = None,
-    create_using: Incomplete | None = None,
-    nodetype: Incomplete | None = None,
+    create_using=None,
+    nodetype=None,
     data: bool | Incomplete = True,
-    edgetype: Incomplete | None = None,
+    edgetype=None,
     encoding: str = "utf-8",
 ): ...
 def write_weighted_edgelist(
@@ -45,10 +40,5 @@ def write_weighted_edgelist(
 ) -> None: ...
 @_dispatchable
 def read_weighted_edgelist(
-    path,
-    comments: str = "#",
-    delimiter: str | None = None,
-    create_using: Incomplete | None = None,
-    nodetype: Incomplete | None = None,
-    encoding: str = "utf-8",
+    path, comments: str = "#", delimiter: str | None = None, create_using=None, nodetype=None, encoding: str = "utf-8"
 ): ...

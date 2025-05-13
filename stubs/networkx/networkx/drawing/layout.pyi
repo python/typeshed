@@ -25,18 +25,13 @@ __all__ = [
 ]
 
 def random_layout(
-    G: Graph[Incomplete], center: ArrayLike | None = None, dim: int = 2, seed: Incomplete | None = None
+    G: Graph[Incomplete], center: ArrayLike | None = None, dim: int = 2, seed=None
 ) -> dict[Incomplete, Incomplete]: ...
 def circular_layout(
     G: Graph[Incomplete], scale: float = 1, center: ArrayLike | None = None, dim: int = 2
 ) -> dict[Incomplete, Incomplete]: ...
 def shell_layout(
-    G: Graph[Incomplete],
-    nlist: Incomplete | None = None,
-    rotate: Incomplete | None = None,
-    scale: float = 1,
-    center: ArrayLike | None = None,
-    dim: int = 2,
+    G: Graph[Incomplete], nlist=None, rotate=None, scale: float = 1, center: ArrayLike | None = None, dim: int = 2
 ) -> dict[Incomplete, Incomplete]: ...
 def bipartite_layout(
     G: Graph[Incomplete],
@@ -48,24 +43,24 @@ def bipartite_layout(
 ) -> dict[Incomplete, Incomplete]: ...
 def spring_layout(
     G: Graph[Incomplete],
-    k: Incomplete | None = None,
-    pos: Incomplete | None = None,
-    fixed: Incomplete | None = None,
+    k=None,
+    pos=None,
+    fixed=None,
     iterations: int = 50,
     threshold: float = 0.0001,
     weight: str = "weight",
     scale: float = 1,
     center: ArrayLike | None = None,
     dim: int = 2,
-    seed: Incomplete | None = None,
+    seed=None,
 ) -> dict[Incomplete, Incomplete]: ...
 
 fruchterman_reingold_layout = spring_layout
 
 def kamada_kawai_layout(
     G: Graph[Incomplete],
-    dist: Incomplete | None = None,
-    pos: Incomplete | None = None,
+    dist=None,
+    pos=None,
     weight: str = "weight",
     scale: float = 1,
     center: ArrayLike | None = None,
@@ -90,7 +85,7 @@ def multipartite_layout(
 ) -> dict[Incomplete, Incomplete]: ...
 def arf_layout(
     G: Graph[Incomplete],
-    pos: Incomplete | None = None,
+    pos=None,
     scaling: float = 1,
     a: float = 1.1,
     etol: float = 1e-06,
