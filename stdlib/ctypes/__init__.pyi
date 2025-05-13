@@ -25,7 +25,7 @@ from _ctypes import (
 from _typeshed import StrPath
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
 from types import GenericAlias
-from typing import Any, ClassVar, Generic, Literal, TypeVar, type_check_only
+from typing import Any, ClassVar, Generic, Literal, TypeVar, type_check_only, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.platform == "win32":
@@ -34,12 +34,22 @@ if sys.platform == "win32":
 if sys.version_info >= (3, 11):
     from ctypes._endian import BigEndianUnion as BigEndianUnion, LittleEndianUnion as LittleEndianUnion
 
-if sys.version_info < (3, 14):
-    from _ctypes import POINTER as POINTER, pointer as pointer
-
+_CT = TypeVar("_CT", bound=_CData)
 _T = TypeVar("_T", default=Any)
 _DLLT = TypeVar("_DLLT", bound=CDLL)
-_CT = TypeVar("_CT", bound=_CData)
+
+if sys.version_info >= (3, 14):
+    @overload
+    @deprecated("ctypes.POINTER with string")
+    def POINTER(obj: str) -> type[Any]: ...
+    @overload
+    def POINTER(obj: None) -> type[c_void_p]: ...
+    @overload
+    def POINTER(obj: type[_CT]) -> type[_Pointer[_CT]]: ...
+
+    def pointer(obj: _CT) -> _Pointer[_CT]: ...
+else:
+    from _ctypes import POINTER as POINTER, pointer as pointer
 
 DEFAULT_MODE: int
 
