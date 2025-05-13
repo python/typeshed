@@ -15,8 +15,6 @@ _socket.IP_RECVTTL
 _socket.if_indextoname
 _thread.RLock.locked
 _thread.set_name
-ast.Interpolation
-ast.TemplateStr
 asyncio.__all__
 asyncio._AbstractEventLoopPolicy
 asyncio._DefaultEventLoopPolicy
