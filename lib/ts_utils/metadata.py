@@ -11,7 +11,7 @@ import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Annotated, Final, NamedTuple, final
+from typing import Annotated, Any, Final, NamedTuple, final
 from typing_extensions import TypeGuard
 
 import tomli
@@ -40,6 +40,10 @@ _QUERY_URL_ALLOWLIST = {"sourceware.org"}
 
 def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
     return isinstance(obj, list) and all(isinstance(item, str) for item in obj)
+
+
+def _is_nested_dict(obj: object) -> TypeGuard[dict[str, dict[str, Any]]]:
+    return isinstance(obj, dict) and all(isinstance(k, str) and isinstance(v, dict) for k, v in obj.items())
 
 
 @functools.cache
@@ -71,6 +75,8 @@ class StubtestSettings:
     ignore_missing_stub: bool
     platforms: list[str]
     stubtest_requirements: list[str]
+    mypy_plugins: list[str]
+    mypy_plugins_config: dict[str, dict[str, Any]]
 
     def system_requirements_for_platform(self, platform: str) -> list[str]:
         assert platform in _STUBTEST_PLATFORM_MAPPING, f"Unrecognised platform {platform!r}"
@@ -93,6 +99,8 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     ignore_missing_stub: object = data.get("ignore_missing_stub", False)
     specified_platforms: object = data.get("platforms", ["linux"])
     stubtest_requirements: object = data.get("stubtest_requirements", [])
+    mypy_plugins: object = data.get("mypy_plugins", [])
+    mypy_plugins_config: object = data.get("mypy_plugins_config", {})
 
     assert type(skip) is bool
     assert type(ignore_missing_stub) is bool
@@ -104,6 +112,8 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     assert _is_list_of_strings(choco_dependencies)
     assert _is_list_of_strings(extras)
     assert _is_list_of_strings(stubtest_requirements)
+    assert _is_list_of_strings(mypy_plugins)
+    assert _is_nested_dict(mypy_plugins_config)
 
     unrecognised_platforms = set(specified_platforms) - _STUBTEST_PLATFORM_MAPPING.keys()
     assert not unrecognised_platforms, f"Unrecognised platforms specified for {distribution!r}: {unrecognised_platforms}"
@@ -124,6 +134,8 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
         ignore_missing_stub=ignore_missing_stub,
         platforms=specified_platforms,
         stubtest_requirements=stubtest_requirements,
+        mypy_plugins=mypy_plugins,
+        mypy_plugins_config=mypy_plugins_config,
     )
 
 
@@ -179,6 +191,8 @@ _KNOWN_METADATA_TOOL_FIELDS: Final = {
         "ignore_missing_stub",
         "platforms",
         "stubtest_requirements",
+        "mypy_plugins",
+        "mypy_plugins_config",
     }
 }
 _DIST_NAME_RE: Final = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNORECASE)
