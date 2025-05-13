@@ -1,3 +1,4 @@
+import builtins
 import os
 import sys
 import typing_extensions
@@ -1070,29 +1071,27 @@ if sys.version_info >= (3, 14):
         def __init__(self, values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
         def __replace__(self, *, values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
 
-    _Str: typing_extensions.TypeAlias = str
-
     class Interpolation(expr):
         __match_args__ = ("value", "str", "conversion", "format_spec")
         value: expr
-        str: _Str
-        conversion: _Str | None
-        format_spec: _Str | None = None
+        str: builtins.str
+        conversion: int
+        format_spec: builtins.str | None = None
         def __init__(
             self,
             value: expr = ...,
-            str: _Str = ...,
-            conversion: _Str | None = ...,
-            format_spec: _Str = ...,
+            str: builtins.str = ...,
+            conversion: int = ...,
+            format_spec: builtins.str | None = ...,
             **kwargs: Unpack[_Attributes],
         ) -> None: ...
         def __replace__(
             self,
             *,
             value: expr = ...,
-            str: _Str = ...,
-            conversion: _Str | None = ...,
-            format_spec: _Str = ...,
+            str: builtins.str = ...,
+            conversion: int = ...,
+            format_spec: builtins.str | None = ...,
             **kwargs: Unpack[_Attributes],
         ) -> Self: ...
 
