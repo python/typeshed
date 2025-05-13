@@ -1,3 +1,4 @@
+import builtins
 import os
 import sys
 import typing_extensions
@@ -1062,6 +1063,37 @@ class JoinedStr(expr):
 
     if sys.version_info >= (3, 14):
         def __replace__(self, *, values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
+
+if sys.version_info >= (3, 14):
+    class TemplateStr(expr):
+        __match_args__ = ("values",)
+        values: list[expr]
+        def __init__(self, values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
+        def __replace__(self, *, values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
+
+    class Interpolation(expr):
+        __match_args__ = ("value", "str", "conversion", "format_spec")
+        value: expr
+        str: builtins.str
+        conversion: int
+        format_spec: builtins.str | None = None
+        def __init__(
+            self,
+            value: expr = ...,
+            str: builtins.str = ...,
+            conversion: int = ...,
+            format_spec: builtins.str | None = ...,
+            **kwargs: Unpack[_Attributes],
+        ) -> None: ...
+        def __replace__(
+            self,
+            *,
+            value: expr = ...,
+            str: builtins.str = ...,
+            conversion: int = ...,
+            format_spec: builtins.str | None = ...,
+            **kwargs: Unpack[_Attributes],
+        ) -> Self: ...
 
 class Constant(expr):
     if sys.version_info >= (3, 10):
