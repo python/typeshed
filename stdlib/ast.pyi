@@ -1063,6 +1063,24 @@ class JoinedStr(expr):
     if sys.version_info >= (3, 14):
         def __replace__(self, *, values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
 
+if sys.version_info >= (3, 14):
+    class TemplateStr(expr):
+        __match_args__ = ("values",)
+        values: list[expr]
+        def __init__(self, values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
+        def __replace__(self, *, values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
+
+    _Str: typing_extensions.TypeAlias = str
+
+    class Interpolation(expr):
+        __match_args__ = ("value", "str", "conversion", "format_spec")
+        value: expr
+        str: _Str
+        conversion: _Str | None
+        format_spec: _Str
+        def __init__(self, value: expr = ..., str: _Str = ..., conversion: _Str | None = ..., format_spec: _Str = ..., **kwargs: Unpack[_Attributes]) -> None: ...
+        def __replace__(self, *, value: expr = ..., str: _Str = ..., conversion: _Str | None = ..., format_spec: _Str = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
+
 class Constant(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value", "kind")
