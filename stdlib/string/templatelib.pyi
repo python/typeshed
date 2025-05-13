@@ -4,7 +4,7 @@ from typing import Any, Literal, final
 __all__ = ["Interpolation", "Template"]
 
 @final
-class Template:
+class Template:  # TODO: consider making `Template` generic on `TypeVarTuple`
     strings: tuple[str, ...]
     interpolations: tuple[Interpolation, ...]
 
@@ -12,7 +12,7 @@ class Template:
     def __iter__(self) -> Iterator[str | Interpolation]: ...
     def __add__(self, other: Template | str) -> Template: ...
     @property
-    def values(self) -> tuple[Any, ...]: ...
+    def values(self) -> tuple[Any, ...]: ...  # Tuple of interpolation values, which can have any type
 
 @final
 class Interpolation:
