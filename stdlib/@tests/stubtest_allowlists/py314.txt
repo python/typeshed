@@ -67,8 +67,6 @@ enum.Enum.__signature__
 enum.EnumMeta.__signature__
 enum.EnumType.__signature__
 faulthandler.dump_c_stack
-fnmatch.__all__
-fnmatch.filterfalse
 fractions.Fraction.__pow__
 fractions.Fraction.__rpow__
 fractions.Fraction.from_number
