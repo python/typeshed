@@ -15,7 +15,7 @@ class _LazySession(SessionBase, LazyObject):  # type: ignore[misc]
 # Base ASGI Scope definition
 @type_check_only
 class _ChannelScope(WebSocketScope, total=False):
-    # Channel specific
+    # Channels specific
     channel: str
     url_route: dict[str, Any]
     path_remaining: str
