@@ -35,10 +35,7 @@ if sys.version_info >= (3, 11):
     from ctypes._endian import BigEndianUnion as BigEndianUnion, LittleEndianUnion as LittleEndianUnion
 
 if sys.version_info < (3, 14):
-    from _ctypes import (
-        POINTER as POINTER,
-        pointer as pointer,
-    )
+    from _ctypes import POINTER as POINTER, pointer as pointer
 
 _T = TypeVar("_T", default=Any)
 _DLLT = TypeVar("_DLLT", bound=CDLL)
@@ -152,7 +149,7 @@ c_buffer = create_string_buffer
 
 def create_unicode_buffer(init: int | str, size: int | None = None) -> Array[c_wchar]: ...
 @deprecated("Deprecated in Python 3.13; removal scheduled for Python 3.15")
-def SetPointerType(pointer: type[_Pointer[Any]], cls: Any) -> None: ...  # noqa: F811
+def SetPointerType(pointer: type[_Pointer[Any]], cls: Any) -> None: ...
 def ARRAY(typ: _CT, len: int) -> Array[_CT]: ...  # Soft Deprecated, no plans to remove
 
 if sys.platform == "win32":
