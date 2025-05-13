@@ -200,7 +200,11 @@ class InEdgeView(OutEdgeView[_Node]):
     ) -> InEdgeDataView[_Node, tuple[_Node, _Node, _U]]: ...
 
 class OutMultiEdgeView(OutEdgeView[_Node]):
-    dataview: type[OutMultiEdgeDataView | MultiEdgeDataView | InMultiEdgeDataView]  # Include subtypes' possible types
+    dataview: type[  # Include subtypes' possible types
+        OutMultiEdgeDataView[Incomplete, Incomplete]
+        | MultiEdgeDataView[Incomplete, Incomplete]
+        | InMultiEdgeDataView[Incomplete, Incomplete]
+    ]
     def __iter__(self) -> Iterator[tuple[_Node, _Node, Incomplete]]: ...  # type: ignore[override]
     def __getitem__(self, e: tuple[_Node, _Node, Incomplete]) -> dict[str, Any]: ...  # type: ignore[override]
     dataview = OutMultiEdgeDataView

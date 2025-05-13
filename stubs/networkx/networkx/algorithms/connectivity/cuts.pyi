@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Never
+from typing_extensions import Never
 
 from networkx.algorithms.flow import edmonds_karp
 from networkx.classes.digraph import DiGraph

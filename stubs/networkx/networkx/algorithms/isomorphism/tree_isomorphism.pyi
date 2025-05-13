@@ -5,6 +5,7 @@ from networkx.utils.backends import _dispatchable
 
 __all__ = ["rooted_tree_isomorphism", "tree_isomorphism"]
 
+@_dispatchable
 def root_trees(t1, root1, t2, root2): ...
 @_dispatchable
 def assign_levels(G: Graph[Incomplete], root): ...

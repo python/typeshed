@@ -1,3 +1,5 @@
+from _typeshed import Incomplete
+
 from networkx.utils.backends import _dispatchable
 
 from ..classes import MultiDiGraph
@@ -25,4 +27,4 @@ def scale_free_graph(
 @_dispatchable
 def random_uniform_k_out_graph(n: int, k: int, self_loops: bool = True, with_replacement: bool = True, seed=None): ...
 @_dispatchable
-def random_k_out_graph(n: int, k: int, alpha: float, self_loops: bool = True, seed=None) -> MultiDiGraph: ...
+def random_k_out_graph(n: int, k: int, alpha: float, self_loops: bool = True, seed=None) -> MultiDiGraph[Incomplete]: ...
