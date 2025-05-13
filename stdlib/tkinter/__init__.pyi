@@ -286,7 +286,7 @@ else:
 
 _W = TypeVar("_W", bound=Misc)
 # Events considered covariant because you should never assign to event.widget.
-_W_co = TypeVar("_W_co", covariant=True, bound=Misc)
+_W_co = TypeVar("_W_co", covariant=True, bound=Misc, default=Misc)
 
 class Event(Generic[_W_co]):
     serial: int
