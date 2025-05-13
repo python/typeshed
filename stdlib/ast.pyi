@@ -1078,8 +1078,23 @@ if sys.version_info >= (3, 14):
         str: _Str
         conversion: _Str | None
         format_spec: _Str
-        def __init__(self, value: expr = ..., str: _Str = ..., conversion: _Str | None = ..., format_spec: _Str = ..., **kwargs: Unpack[_Attributes]) -> None: ...
-        def __replace__(self, *, value: expr = ..., str: _Str = ..., conversion: _Str | None = ..., format_spec: _Str = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
+        def __init__(
+            self,
+            value: expr = ...,
+            str: _Str = ...,
+            conversion: _Str | None = ...,
+            format_spec: _Str = ...,
+            **kwargs: Unpack[_Attributes],
+        ) -> None: ...
+        def __replace__(
+            self,
+            *,
+            value: expr = ...,
+            str: _Str = ...,
+            conversion: _Str | None = ...,
+            format_spec: _Str = ...,
+            **kwargs: Unpack[_Attributes],
+        ) -> Self: ...
 
 class Constant(expr):
     if sys.version_info >= (3, 10):
