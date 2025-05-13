@@ -5,9 +5,6 @@
 _asyncio.all_tasks
 _asyncio.future_add_to_awaited_by
 _asyncio.future_discard_from_awaited_by
-_ctypes.POINTER
-_ctypes.byref
-_ctypes.pointer
 _heapq.heapify_max
 _heapq.heappop_max
 _heapq.heappush_max
@@ -54,10 +51,7 @@ compression.gzip.GzipFile.readinto1
 compression.gzip.GzipFile.readinto1
 compression.gzip.compress
 compression.zstd
-ctypes.POINTER
-ctypes.byref
 ctypes.memoryview_at
-ctypes.pointer
 ctypes.py_object.__class_getitem__
 ctypes.util.dllist
 ctypes.wintypes.HCONV
