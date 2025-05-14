@@ -11,8 +11,6 @@ _heapq.heappush_max
 _heapq.heappushpop_max
 _heapq.heapreplace_max
 _imp.pyc_magic_number_token
-_socket.IP_RECVTTL
-_socket.if_indextoname
 _thread.RLock.locked
 _thread.set_name
 asyncio.__all__
@@ -75,8 +73,6 @@ importlib.machinery.__all__
 importlib.machinery.AppleFrameworkLoader
 importlib.util.__all__
 importlib.util.Loader
-marshal.dump
-marshal.dumps
 multiprocessing.forkserver.main
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
@@ -89,16 +85,8 @@ multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
-os.__all__
-os.readinto
-pkgutil.__all__
-pkgutil.find_loader
-pkgutil.get_loader
 pyexpat.errors.XML_ERROR_NOT_STARTED
 shutil.__all__
-socket.__all__
-socket.IP_RECVTTL
-socket.if_indextoname
 sre_compile.CH_NEGATE
 sre_constants.CH_NEGATE
 sre_parse.CH_NEGATE
@@ -118,11 +106,6 @@ turtle.poly
 turtle.save
 types.CodeType.co_branches
 types.FrameType.f_generator
-urllib.request.__all__
-urllib.request.FancyURLopener
-urllib.request.URLopener
-urllib.request.pathname2url
-urllib.request.url2pathname
 xml.parsers.expat.errors.XML_ERROR_NOT_STARTED
 xml.sax.__all__
 xml.sax.InputSource
