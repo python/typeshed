@@ -72,6 +72,7 @@
         "stubs/oauthlib",
         "stubs/openpyxl",
         "stubs/opentracing",
+        "stubs/paramiko/paramiko/_winapi.pyi",
         "stubs/parsimonious/parsimonious/nodes.pyi",
         "stubs/passlib",
         "stubs/peewee",
