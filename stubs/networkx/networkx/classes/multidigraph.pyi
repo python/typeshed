@@ -9,8 +9,6 @@ from networkx.classes.reportviews import DiMultiDegreeView, InMultiDegreeView, O
 
 __all__ = ["MultiDiGraph"]
 
-__all__ = ["MultiDiGraph"]
-
 class MultiDiGraph(MultiGraph[_Node], DiGraph[_Node]):
     @cached_property
     def succ(self) -> MultiAdjacencyView[_Node, _Node, dict[str, Incomplete]]: ...
