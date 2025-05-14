@@ -95,23 +95,13 @@ class FlexFigure(Figure):
 
 class ImageFigure(FlexFigure):
     filename: Incomplete
-    def __init__(
-        self,
-        filename,
-        caption,
-        background=None,
-        scaleFactor=None,
-        hAlign: str = "CENTER",
-        border=None,
-    ) -> None: ...
+    def __init__(self, filename, caption, background=None, scaleFactor=None, hAlign: str = "CENTER", border=None) -> None: ...
     def drawFigure(self) -> None: ...
 
 class DrawingFigure(FlexFigure):
     drawing: Incomplete
     growToFit: int
-    def __init__(
-        self, modulename, classname, caption, baseDir=None, background=None
-    ) -> None: ...
+    def __init__(self, modulename, classname, caption, baseDir=None, background=None) -> None: ...
     def drawFigure(self) -> None: ...
 
 def demo1(canvas) -> None: ...

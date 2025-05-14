@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 class ServiceApiMixin:
     def create_service(
         self,

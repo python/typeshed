@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from abc import ABCMeta
 from collections.abc import Mapping
 from typing import Any

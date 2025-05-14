@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from hvac.api.vault_api_base import VaultApiBase
 
 DEFAULT_MOUNT_POINT: str
@@ -56,33 +54,12 @@ class Transit(VaultApiBase):
         associated_data: str | None = None,
     ): ...
     def rewrap_data(
-        self,
-        name,
-        ciphertext,
-        context=None,
-        key_version=None,
-        nonce=None,
-        batch_input=None,
-        mount_point="transit",
+        self, name, ciphertext, context=None, key_version=None, nonce=None, batch_input=None, mount_point="transit"
     ): ...
-    def generate_data_key(
-        self,
-        name,
-        key_type,
-        context=None,
-        nonce=None,
-        bits=None,
-        mount_point="transit",
-    ): ...
-    def generate_random_bytes(
-        self, n_bytes=None, output_format=None, mount_point="transit"
-    ): ...
-    def hash_data(
-        self, hash_input, algorithm=None, output_format=None, mount_point="transit"
-    ): ...
-    def generate_hmac(
-        self, name, hash_input, key_version=None, algorithm=None, mount_point="transit"
-    ): ...
+    def generate_data_key(self, name, key_type, context=None, nonce=None, bits=None, mount_point="transit"): ...
+    def generate_random_bytes(self, n_bytes=None, output_format=None, mount_point="transit"): ...
+    def hash_data(self, hash_input, algorithm=None, output_format=None, mount_point="transit"): ...
+    def generate_hmac(self, name, hash_input, key_version=None, algorithm=None, mount_point="transit"): ...
     def sign_data(
         self,
         name,

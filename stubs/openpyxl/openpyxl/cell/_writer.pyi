@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Unused
 
 from openpyxl.cell import _CellOrMergedCell
 

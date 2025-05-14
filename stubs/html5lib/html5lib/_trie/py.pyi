@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from ._base import Trie as ABCTrie
 
 class Trie(ABCTrie):

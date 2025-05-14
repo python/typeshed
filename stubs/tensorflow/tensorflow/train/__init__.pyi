@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import Any, TypeVar
 from typing_extensions import Self

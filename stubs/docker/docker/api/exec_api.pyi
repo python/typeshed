@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 class ExecApiMixin:
     def exec_create(
         self,

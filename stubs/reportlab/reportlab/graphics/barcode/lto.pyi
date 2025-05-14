@@ -17,13 +17,7 @@ class BaseLTOLabel(Standard39):
     border: Incomplete
     label: Incomplete
     def __init__(
-        self,
-        prefix: str = "",
-        number=None,
-        subtype: str = "1",
-        border=None,
-        checksum: bool = False,
-        availheight=None,
+        self, prefix: str = "", number=None, subtype: str = "1", border=None, checksum: bool = False, availheight=None
     ) -> None: ...
     def drawOn(self, canvas, x, y) -> None: ...
 

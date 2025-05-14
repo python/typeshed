@@ -1,5 +1,4 @@
 import argparse
-from _typeshed import Incomplete
 
 def main_inner(parser, argns): ...
 

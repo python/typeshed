@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Any
 
 def constant_to_class_kind(value): ...
@@ -58,14 +57,7 @@ class BaseObjectInfo:
     experimental: Any
     raw_definition: Any
     def __init__(
-        self,
-        oid=None,
-        name=None,
-        description=None,
-        obsolete: bool = False,
-        extensions=None,
-        experimental=None,
-        definition=None,
+        self, oid=None, name=None, description=None, obsolete: bool = False, extensions=None, experimental=None, definition=None
     ) -> None: ...
     @property
     def oid_info(self): ...
@@ -155,14 +147,7 @@ class AttributeTypeInfo(BaseObjectInfo):
     ) -> None: ...
 
 class LdapSyntaxInfo(BaseObjectInfo):
-    def __init__(
-        self,
-        oid=None,
-        description=None,
-        extensions=None,
-        experimental=None,
-        definition=None,
-    ) -> None: ...
+    def __init__(self, oid=None, description=None, extensions=None, experimental=None, definition=None) -> None: ...
 
 class DitContentRuleInfo(BaseObjectInfo):
     auxiliary_classes: Any

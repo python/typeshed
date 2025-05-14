@@ -71,13 +71,9 @@ class CalculatedItem(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     @overload
-    def __init__(
-        self, field: ConvertibleToInt | None = None, *, formula: str, pivotArea: PivotArea, extLst=None
-    ) -> None: ...
+    def __init__(self, field: ConvertibleToInt | None = None, *, formula: str, pivotArea: PivotArea, extLst=None) -> None: ...
     @overload
-    def __init__(
-        self, field: ConvertibleToInt | None, formula: str, pivotArea: PivotArea, extLst=None
-    ) -> None: ...
+    def __init__(self, field: ConvertibleToInt | None, formula: str, pivotArea: PivotArea, extLst=None) -> None: ...
 
 class ServerFormat(Serialisable):
     tagname: ClassVar[str]

@@ -20,9 +20,7 @@ class SelectConnection(BaseConnection):
         internal_connection_workflow: bool = True,
     ) -> None: ...
     @classmethod
-    def create_connection(
-        cls, connection_configs, on_done, custom_ioloop=None, workflow=None
-    ): ...
+    def create_connection(cls, connection_configs, on_done, custom_ioloop=None, workflow=None): ...
 
 class _Timeout:
     deadline: Incomplete

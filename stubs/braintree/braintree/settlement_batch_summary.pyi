@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from braintree.resource import Resource
 
 class SettlementBatchSummary(Resource):

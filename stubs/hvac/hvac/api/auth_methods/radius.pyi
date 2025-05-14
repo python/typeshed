@@ -1,19 +1,10 @@
-from _typeshed import Incomplete
-
 from hvac.api.vault_api_base import VaultApiBase
 
 DEFAULT_MOUNT_POINT: str
 
 class Radius(VaultApiBase):
     def configure(
-        self,
-        host,
-        secret,
-        port=None,
-        unregistered_user_policies=None,
-        dial_timeout=None,
-        nas_port=None,
-        mount_point="radius",
+        self, host, secret, port=None, unregistered_user_policies=None, dial_timeout=None, nas_port=None, mount_point="radius"
     ): ...
     def read_configuration(self, mount_point="radius"): ...
     def register_user(self, username, policies=None, mount_point="radius"): ...

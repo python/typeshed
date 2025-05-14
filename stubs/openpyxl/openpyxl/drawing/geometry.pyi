@@ -497,9 +497,7 @@ class GeomRect(Serialisable):
     t: Incomplete
     r: Incomplete
     b: Incomplete
-    def __init__(
-        self, l=None, t=None, r=None, b=None
-    ) -> None: ...
+    def __init__(self, l=None, t=None, r=None, b=None) -> None: ...
 
 class AdjPoint2D(Serialisable):
     x: Incomplete

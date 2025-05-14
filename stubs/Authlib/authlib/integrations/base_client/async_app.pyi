@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from authlib.integrations.base_client.sync_app import OAuth1Base, OAuth2Base
 
 __all__ = ["AsyncOAuth1Mixin", "AsyncOAuth2Mixin"]

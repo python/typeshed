@@ -37,13 +37,7 @@ class FontFinder:
     validate: Incomplete
     verbose: Incomplete
     def __init__(
-        self,
-        dirs=[],
-        useCache: bool = True,
-        validate: bool = False,
-        recur: bool = False,
-        fsEncoding=None,
-        verbose: int = 0,
+        self, dirs=[], useCache: bool = True, validate: bool = False, recur: bool = False, fsEncoding=None, verbose: int = 0
     ) -> None: ...
     def addDirectory(self, dirName, recur=None) -> None: ...
     def addDirectories(self, dirNames, recur=None) -> None: ...

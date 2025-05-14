@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from hvac.api.auth_methods.jwt import JWT
 
 class OIDC(JWT):

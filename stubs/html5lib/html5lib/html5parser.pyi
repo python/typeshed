@@ -21,9 +21,7 @@ class HTMLParser:
     tree: Any
     errors: list[Incomplete]
     phases: Any
-    def __init__(
-        self, tree=None, strict: bool = False, namespaceHTMLElements: bool = True, debug: bool = False
-    ) -> None: ...
+    def __init__(self, tree=None, strict: bool = False, namespaceHTMLElements: bool = True, debug: bool = False) -> None: ...
     firstStartTag: bool
     log: Any
     compatMode: str

@@ -1,18 +1,9 @@
-from _typeshed import Incomplete
-
 from hvac.api.system_backend.system_backend_mixin import SystemBackendMixin
 
 class Auth(SystemBackendMixin):
     def list_auth_methods(self): ...
     def enable_auth_method(
-        self,
-        method_type,
-        description=None,
-        config=None,
-        plugin_name=None,
-        local: bool = False,
-        path=None,
-        **kwargs,
+        self, method_type, description=None, config=None, plugin_name=None, local: bool = False, path=None, **kwargs
     ): ...
     def disable_auth_method(self, path): ...
     def read_auth_method_tuning(self, path): ...

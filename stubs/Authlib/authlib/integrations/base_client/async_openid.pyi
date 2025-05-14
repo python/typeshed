@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 __all__ = ["AsyncOpenIDMixin"]
 
 class AsyncOpenIDMixin:

@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsRead
+from _typeshed import SupportsRead
 from codecs import CodecInfo
 from typing import Any, Protocol, overload
 from typing_extensions import TypeAlias

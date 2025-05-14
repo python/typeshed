@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Callable, MutableMapping, Sequence
 from types import ModuleType
 from typing import Any, Generic, TypeVar, overload

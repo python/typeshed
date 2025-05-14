@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Any
 
 class ExtendedOperationContainer:
@@ -6,15 +5,7 @@ class ExtendedOperationContainer:
 
 class StandardExtendedOperations(ExtendedOperationContainer):
     def who_am_i(self, controls=None): ...
-    def modify_password(
-        self,
-        user=None,
-        old_password=None,
-        new_password=None,
-        hash_algorithm=None,
-        salt=None,
-        controls=None,
-    ): ...
+    def modify_password(self, user=None, old_password=None, new_password=None, hash_algorithm=None, salt=None, controls=None): ...
     def paged_search(
         self,
         search_base,
@@ -96,12 +87,7 @@ class MicrosoftExtendedOperations(ExtendedOperationContainer):
     def add_members_to_groups(self, members, groups, fix: bool = True): ...
     def remove_members_from_groups(self, members, groups, fix: bool = True): ...
     def persistent_search(
-        self,
-        search_base: str = "",
-        search_scope="SUBTREE",
-        attributes="*",
-        streaming: bool = True,
-        callback=None,
+        self, search_base: str = "", search_scope="SUBTREE", attributes="*", streaming: bool = True, callback=None
     ): ...
 
 class ExtendedOperationsRoot(ExtendedOperationContainer):

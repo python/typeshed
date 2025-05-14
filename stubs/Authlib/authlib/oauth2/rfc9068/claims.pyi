@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from authlib.jose import JWTClaims
 
 class JWTAccessTokenClaims(JWTClaims):

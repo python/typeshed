@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from io import TextIOWrapper
 from typing import Any
 

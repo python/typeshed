@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from ...extend.operation import ExtendedOperation
 from ...protocol.novell import ReplicaList
 from ...protocol.rfc4511 import LDAPDN

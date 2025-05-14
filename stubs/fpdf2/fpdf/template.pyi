@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from os import PathLike
 from typing import Any
 

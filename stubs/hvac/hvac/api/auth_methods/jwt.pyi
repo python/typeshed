@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from hvac.api.vault_api_base import VaultApiBase
 
 class JWT(VaultApiBase):

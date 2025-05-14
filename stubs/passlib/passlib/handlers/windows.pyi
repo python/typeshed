@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Any, ClassVar, Literal, overload
 
 import passlib.utils.handlers as uh

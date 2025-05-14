@@ -44,11 +44,7 @@ class Output(TransformSpec):
     component_type: ClassVar[str]
     default_destination_path: ClassVar[str | None]
     def __init__(
-        self,
-        destination=None,
-        destination_path=None,
-        encoding: str | None = None,
-        error_handler: str = "strict",
+        self, destination=None, destination_path=None, encoding: str | None = None, error_handler: str = "strict"
     ) -> None: ...
     def write(self, data: str) -> Any: ...  # returns bytes or str
     def encode(self, data: str) -> Any: ...  # returns bytes or str

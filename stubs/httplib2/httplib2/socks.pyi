@@ -1,5 +1,4 @@
 import socket
-from _typeshed import Incomplete
 
 PROXY_TYPE_SOCKS4: int
 PROXY_TYPE_SOCKS5: int
@@ -13,28 +12,14 @@ class Socks5Error(ProxyError): ...
 class Socks4Error(ProxyError): ...
 class HTTPError(ProxyError): ...
 
-def setdefaultproxy(
-    proxytype=None,
-    addr=None,
-    port=None,
-    rdns: bool = True,
-    username=None,
-    password=None,
-) -> None: ...
+def setdefaultproxy(proxytype=None, addr=None, port=None, rdns: bool = True, username=None, password=None) -> None: ...
 def wrapmodule(module) -> None: ...
 
 class socksocket(socket.socket):
     def __init__(self, family=..., type=..., proto: int = 0, _sock=None) -> None: ...
     def sendall(self, content, *args): ...
     def setproxy(
-        self,
-        proxytype=None,
-        addr=None,
-        port=None,
-        rdns: bool = True,
-        username=None,
-        password=None,
-        headers=None,
+        self, proxytype=None, addr=None, port=None, rdns: bool = True, username=None, password=None, headers=None
     ) -> None: ...
     def getproxysockname(self): ...
     def getproxypeername(self): ...

@@ -33,14 +33,7 @@ class _Namespace(_BaseNamespace, Protocol):
         ignore_queue: bool = False,
     ) -> None: ...
     def call(
-        self,
-        event: str,
-        data=None,
-        to=None,
-        sid=None,
-        namespace: str | None = None,
-        timeout=None,
-        ignore_queue: bool = False,
+        self, event: str, data=None, to=None, sid=None, namespace: str | None = None, timeout=None, ignore_queue: bool = False
     ): ...
     def enter_room(self, sid, room: str, namespace: str | None = None): ...
     def leave_room(self, sid, room: str, namespace: str | None = None): ...

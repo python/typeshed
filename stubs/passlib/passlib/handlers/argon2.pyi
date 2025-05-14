@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Any, ClassVar
 
 import passlib.utils.handlers as uh
@@ -53,15 +52,7 @@ class _Argon2Common(  # type: ignore[misc]
     def identify(cls, hash): ...
     @classmethod
     def from_string(cls, hash): ...
-    def __init__(
-        self,
-        type=None,
-        type_d: bool = False,
-        version=None,
-        memory_cost=None,
-        data=None,
-        **kwds,
-    ) -> None: ...
+    def __init__(self, type=None, type_d: bool = False, version=None, memory_cost=None, data=None, **kwds) -> None: ...
 
 class _NoBackend(_Argon2Common):
     @classmethod

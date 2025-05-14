@@ -118,9 +118,7 @@ class RelativeRect(Serialisable):
     right: Alias
     b: Incomplete
     bottom: Alias
-    def __init__(
-        self, l=None, t=None, r=None, b=None
-    ) -> None: ...
+    def __init__(self, l=None, t=None, r=None, b=None) -> None: ...
 
 class StretchInfoProperties(Serialisable):
     tagname: ClassVar[str]

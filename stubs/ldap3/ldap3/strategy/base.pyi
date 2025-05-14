@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Any
 
 unix_socket_available: bool

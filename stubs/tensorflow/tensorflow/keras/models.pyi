@@ -22,9 +22,7 @@ class Model(Layer[_InputT_contra, _OutputT_co]):
     optimizer: Optimizer | None
     # This is actually TensorFlowTrainer.loss
     @deprecated("Instead, use `model.compute_loss(x, y, y_pred, sample_weight)`.")
-    def loss(
-        self, y: TensorCompatible | None, y_pred: TensorCompatible | None, sample_weight=None
-    ) -> tf.Tensor | None: ...
+    def loss(self, y: TensorCompatible | None, y_pred: TensorCompatible | None, sample_weight=None) -> tf.Tensor | None: ...
     stop_training: bool
 
     def __new__(cls, *args: Any, **kwargs: Any) -> Model[_InputT_contra, _OutputT_co]: ...

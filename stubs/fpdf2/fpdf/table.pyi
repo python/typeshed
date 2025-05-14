@@ -55,11 +55,7 @@ class Table:
         min_row_height=None,
     ) -> None: ...
     def row(
-        self,
-        cells: Iterable[str] = (),
-        style: FontFace | None = None,
-        v_align: VAlign | str | None = None,
-        min_height=None,
+        self, cells: Iterable[str] = (), style: FontFace | None = None, v_align: VAlign | str | None = None, min_height=None
     ) -> Row: ...
     def render(self) -> None: ...
     def get_cell_border(self, i: int, j: int, cell: Cell) -> str | Literal[0, 1]: ...
@@ -70,11 +66,7 @@ class Row:
     v_align: VAlign | None
     min_height: Incomplete | None
     def __init__(
-        self,
-        table: Table,
-        style: FontFace | None = None,
-        v_align: VAlign | str | None = None,
-        min_height=None,
+        self, table: Table, style: FontFace | None = None, v_align: VAlign | str | None = None, min_height=None
     ) -> None: ...
     @property
     def cols_count(self) -> int: ...

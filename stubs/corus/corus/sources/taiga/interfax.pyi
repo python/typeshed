@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 __all__ = ["load_taiga_interfax_metas", "load_taiga_interfax"]
 
 def load_taiga_interfax_metas(path, offset: int = 0, count: int = 1): ...

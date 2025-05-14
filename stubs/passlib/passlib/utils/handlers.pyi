@@ -13,9 +13,7 @@ UC_HEX_CHARS = UPPER_HEX_CHARS
 LC_HEX_CHARS = LOWER_HEX_CHARS
 
 def parse_mc2(hash, prefix, sep="$", handler=None): ...
-def parse_mc3(
-    hash, prefix, sep="$", rounds_base: int = 10, default_rounds=None, handler=None
-): ...
+def parse_mc3(hash, prefix, sep="$", rounds_base: int = 10, default_rounds=None, handler=None): ...
 def render_mc2(ident, salt, checksum, sep="$"): ...
 def render_mc3(ident, rounds, salt, checksum, sep="$", rounds_base: int = 10): ...
 
@@ -84,9 +82,7 @@ class HasManyIdents(GenericHandler):
     ident_aliases: ClassVar[dict[str, str] | None]
     ident: str  # type: ignore[misc]
     @classmethod
-    def using(  # type: ignore[override]
-        cls, default_ident=None, ident=None, **kwds
-    ): ...
+    def using(cls, default_ident=None, ident=None, **kwds): ...  # type: ignore[override]
     def __init__(self, ident=None, **kwds) -> None: ...
 
 class HasSalt(GenericHandler):
@@ -156,16 +152,7 @@ class PrefixWrapper:
     prefix: Any
     orig_prefix: Any
     __doc__: Any
-    def __init__(
-        self,
-        name,
-        wrapped,
-        prefix="",
-        orig_prefix="",
-        lazy: bool = False,
-        doc=None,
-        ident=None,
-    ) -> None: ...
+    def __init__(self, name, wrapped, prefix="", orig_prefix="", lazy: bool = False, doc=None, ident=None) -> None: ...
     @property
     def wrapped(self): ...
     @property

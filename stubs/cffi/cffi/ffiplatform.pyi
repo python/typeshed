@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, StrOrBytesPath
+from _typeshed import StrOrBytesPath
 from typing import Any, Final
 
 LIST_OF_FILE_NAMES: Final[list[str]]

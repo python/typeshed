@@ -1,7 +1,6 @@
 import sys
 from _typeshed import (
     BytesPath,
-    Incomplete,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,

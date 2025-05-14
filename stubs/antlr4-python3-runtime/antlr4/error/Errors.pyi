@@ -21,11 +21,7 @@ class RecognitionException(Exception):
     offendingToken: Incomplete
     offendingState: int
     def __init__(
-        self,
-        message: str | None = None,
-        recognizer: Recognizer | None = None,
-        input: InputStream | None = None,
-        ctx=None,
+        self, message: str | None = None, recognizer: Recognizer | None = None, input: InputStream | None = None, ctx=None
     ) -> None: ...
     def getExpectedTokens(self): ...
 

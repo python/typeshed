@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from hvac.api.vault_api_base import VaultApiBase
 
 class AppRole(VaultApiBase):
@@ -28,23 +26,10 @@ class AppRole(VaultApiBase):
     def read_role_id(self, role_name, mount_point="approle"): ...
     def update_role_id(self, role_name, role_id, mount_point="approle"): ...
     def generate_secret_id(
-        self,
-        role_name,
-        metadata=None,
-        cidr_list=None,
-        token_bound_cidrs=None,
-        mount_point="approle",
-        wrap_ttl=None,
+        self, role_name, metadata=None, cidr_list=None, token_bound_cidrs=None, mount_point="approle", wrap_ttl=None
     ): ...
     def create_custom_secret_id(
-        self,
-        role_name,
-        secret_id,
-        metadata=None,
-        cidr_list=None,
-        token_bound_cidrs=None,
-        mount_point="approle",
-        wrap_ttl=None,
+        self, role_name, secret_id, metadata=None, cidr_list=None, token_bound_cidrs=None, mount_point="approle", wrap_ttl=None
     ): ...
     def read_secret_id(self, role_name, secret_id, mount_point="approle"): ...
     def destroy_secret_id(self, role_name, secret_id, mount_point="approle"): ...

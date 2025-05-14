@@ -1,17 +1,8 @@
-from _typeshed import Incomplete
-
 from hvac.api.vault_api_base import VaultApiBase
 
 class Aws(VaultApiBase):
     def configure_root_iam_credentials(
-        self,
-        access_key,
-        secret_key,
-        region=None,
-        iam_endpoint=None,
-        sts_endpoint=None,
-        max_retries=None,
-        mount_point="aws",
+        self, access_key, secret_key, region=None, iam_endpoint=None, sts_endpoint=None, max_retries=None, mount_point="aws"
     ): ...
     def rotate_root_iam_credentials(self, mount_point="aws"): ...
     def configure_lease(self, lease, lease_max, mount_point="aws"): ...
@@ -33,11 +24,5 @@ class Aws(VaultApiBase):
     def list_roles(self, mount_point="aws"): ...
     def delete_role(self, name, mount_point="aws"): ...
     def generate_credentials(
-        self,
-        name,
-        role_arn=None,
-        ttl=None,
-        endpoint: str = "creds",
-        mount_point="aws",
-        role_session_name=None,
+        self, name, role_arn=None, ttl=None, endpoint: str = "creds", mount_point="aws", role_session_name=None
     ): ...

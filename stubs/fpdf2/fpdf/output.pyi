@@ -34,14 +34,7 @@ class PDFFont(PDFObject):
     c_i_d_system_info: Incomplete | None
     font_descriptor: Incomplete | None
     c_i_d_to_g_i_d_map: Incomplete | None
-    def __init__(
-        self,
-        subtype: str,
-        base_font: str,
-        encoding: str | None = None,
-        d_w=None,
-        w=None,
-    ) -> None: ...
+    def __init__(self, subtype: str, base_font: str, encoding: str | None = None, d_w=None, w=None) -> None: ...
 
 class CIDSystemInfo(PDFObject):
     registry: PDFString
@@ -88,13 +81,7 @@ class PDFCatalog(PDFObject):
     outlines: Incomplete | None
     output_intents: Incomplete | None
     struct_tree_root: Incomplete | None
-    def __init__(
-        self,
-        lang: str | None = None,
-        page_layout=None,
-        page_mode=None,
-        viewer_preferences=None,
-    ) -> None: ...
+    def __init__(self, lang: str | None = None, page_layout=None, page_mode=None, viewer_preferences=None) -> None: ...
 
 class PDFResources(PDFObject):
     proc_set: Incomplete

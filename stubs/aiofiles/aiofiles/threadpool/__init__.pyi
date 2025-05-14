@@ -1,6 +1,5 @@
 from _typeshed import (
     FileDescriptorOrPath,
-    Incomplete,
     OpenBinaryMode,
     OpenBinaryModeReading,
     OpenBinaryModeUpdating,

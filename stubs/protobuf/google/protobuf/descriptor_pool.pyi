@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Unused
 
 class DescriptorPool:
     def __new__(cls, descriptor_db=None): ...

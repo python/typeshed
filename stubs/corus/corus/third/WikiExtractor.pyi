@@ -217,9 +217,7 @@ def extract_process(opts, i, jobs_queue, output_queue) -> None: ...
 
 report_period: int
 
-def reduce_process(
-    opts, output_queue, spool_length, out_file=None, file_size: int = 0, file_compress: bool = True
-) -> None: ...
+def reduce_process(opts, output_queue, spool_length, out_file=None, file_size: int = 0, file_compress: bool = True) -> None: ...
 
 minFileSize: Incomplete
 

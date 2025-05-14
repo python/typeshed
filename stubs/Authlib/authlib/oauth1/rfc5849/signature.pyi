@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 SIGNATURE_HMAC_SHA1: str
 SIGNATURE_RSA_SHA1: str
 SIGNATURE_PLAINTEXT: str

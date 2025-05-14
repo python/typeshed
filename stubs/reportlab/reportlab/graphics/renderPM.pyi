@@ -32,14 +32,7 @@ BEZIER_ARC_MAGIC: float
 class PMCanvas:
     ctm: Incomplete
     def __init__(
-        self,
-        w,
-        h,
-        dpi: int = 72,
-        bg: int = 16777215,
-        configPIL=None,
-        backend=None,
-        backendFmt: str = "RGB",
+        self, w, h, dpi: int = 72, bg: int = 16777215, configPIL=None, backend=None, backendFmt: str = "RGB"
     ) -> None: ...
     def toPIL(self): ...
     def saveToFile(self, fn, fmt=None): ...

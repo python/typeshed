@@ -172,11 +172,7 @@ class Font(Serialisable):
     pitchFamily: MinMax[float, Literal[True]]
     charset: Integer[Literal[True]]
     def __init__(
-        self,
-        typeface: str,
-        panose=None,
-        pitchFamily: ConvertibleToFloat | None = None,
-        charset: ConvertibleToInt | None = None,
+        self, typeface: str, panose=None, pitchFamily: ConvertibleToFloat | None = None, charset: ConvertibleToInt | None = None
     ) -> None: ...
 
 class CharacterProperties(Serialisable):

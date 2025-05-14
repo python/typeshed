@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Any
 
 __all__ = ["DJANGO_VERSION", "MIN_DJANGO_VERSION", "get_preset_config", "quirks"]

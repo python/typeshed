@@ -33,9 +33,7 @@ class SSHConnectionPool(urllib3.connectionpool.HTTPConnectionPool):
     ssh_transport: Incomplete
     timeout: Incomplete
     ssh_host: Incomplete
-    def __init__(
-        self, ssh_client=None, timeout: int = 60, maxsize: int = 10, host=None
-    ) -> None: ...
+    def __init__(self, ssh_client=None, timeout: int = 60, maxsize: int = 10, host=None) -> None: ...
 
 class SSHHTTPAdapter(BaseHTTPAdapter):
     __attrs__: Incomplete

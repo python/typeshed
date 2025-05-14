@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Literal
 
 from .enums import Duplex, PageBoundaries, PageMode, TextDirection

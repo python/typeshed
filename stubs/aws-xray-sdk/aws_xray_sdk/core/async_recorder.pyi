@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from types import TracebackType
 
 from .models.segment import SegmentContextManager

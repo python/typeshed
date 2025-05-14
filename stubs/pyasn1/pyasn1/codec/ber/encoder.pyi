@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, Unused
+from _typeshed import Unused
 from abc import abstractmethod
 
 from pyasn1.type.base import Asn1Type

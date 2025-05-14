@@ -57,37 +57,13 @@ class SVGCanvas:
     def rect(self, x1, y1, x2, y2, rx: int = 8, ry: int = 8, link_info=None, **_svgAttrs) -> None: ...
     def roundRect(self, x1, y1, x2, y2, rx: int = 8, ry: int = 8, link_info=None, **_svgAttrs) -> None: ...
     def drawString(
-        self,
-        s,
-        x,
-        y,
-        angle: int = 0,
-        link_info=None,
-        text_anchor: str = "left",
-        textRenderMode: int = 0,
-        **_svgAttrs,
+        self, s, x, y, angle: int = 0, link_info=None, text_anchor: str = "left", textRenderMode: int = 0, **_svgAttrs
     ) -> None: ...
     def drawCentredString(
-        self,
-        s,
-        x,
-        y,
-        angle: int = 0,
-        text_anchor: str = "middle",
-        link_info=None,
-        textRenderMode: int = 0,
-        **_svgAttrs,
+        self, s, x, y, angle: int = 0, text_anchor: str = "middle", link_info=None, textRenderMode: int = 0, **_svgAttrs
     ) -> None: ...
     def drawRightString(
-        self,
-        text,
-        x,
-        y,
-        angle: int = 0,
-        text_anchor: str = "end",
-        link_info=None,
-        textRenderMode: int = 0,
-        **_svgAttrs,
+        self, text, x, y, angle: int = 0, text_anchor: str = "end", link_info=None, textRenderMode: int = 0, **_svgAttrs
     ) -> None: ...
     def comment(self, data) -> None: ...
     def drawImage(self, image, x, y, width, height, embed: bool = True) -> None: ...

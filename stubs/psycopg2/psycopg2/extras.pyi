@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections import OrderedDict
 from collections.abc import Callable
 from typing import Any, NamedTuple, TypeVar, overload
@@ -181,9 +180,7 @@ class PhysicalReplicationConnection(_replicationConnection):
 class StopReplication(Exception): ...
 
 class ReplicationCursor(_replicationCursor):
-    def create_replication_slot(
-        self, slot_name, slot_type=None, output_plugin=None
-    ) -> None: ...
+    def create_replication_slot(self, slot_name, slot_type=None, output_plugin=None) -> None: ...
     def drop_replication_slot(self, slot_name) -> None: ...
     def start_replication(
         self,
@@ -230,13 +227,7 @@ class HstoreAdapter:
     @classmethod
     def get_oids(cls, conn_or_curs): ...
 
-def register_hstore(
-    conn_or_curs,
-    globally: bool = False,
-    unicode: bool = False,
-    oid=None,
-    array_oid=None,
-) -> None: ...
+def register_hstore(conn_or_curs, globally: bool = False, unicode: bool = False, oid=None, array_oid=None) -> None: ...
 
 class CompositeCaster:
     name: Any

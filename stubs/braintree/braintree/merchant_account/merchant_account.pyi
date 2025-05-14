@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Final
 
 from braintree.resource import Resource

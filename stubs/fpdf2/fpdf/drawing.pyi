@@ -379,17 +379,13 @@ class PaintedPath:
     def arc_to(self, rx, ry, rotation, large_arc, positive_sweep, x, y) -> Self: ...
     def arc_relative(self, rx, ry, rotation, large_arc, positive_sweep, dx, dy) -> Self: ...
     def close(self) -> None: ...
-    def render(
-        self, gsd_registry, style, last_item, initial_point, debug_stream=None, pfx=None
-    ): ...
+    def render(self, gsd_registry, style, last_item, initial_point, debug_stream=None, pfx=None): ...
     def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
 
 class ClippingPath(PaintedPath):
     paint_rule: Incomplete
     def __init__(self, x: int = 0, y: int = 0) -> None: ...
-    def render(
-        self, gsd_registry, style, last_item, initial_point, debug_stream=None, pfx=None
-    ): ...
+    def render(self, gsd_registry, style, last_item, initial_point, debug_stream=None, pfx=None): ...
     def render_debug(self, gsd_registry, style, last_item, initial_point, debug_stream, pfx): ...
 
 class GraphicsContext:
@@ -409,24 +405,10 @@ class GraphicsContext:
     def remove_last_item(self) -> None: ...
     def merge(self, other_context) -> None: ...
     def build_render_list(
-        self,
-        gsd_registry,
-        style,
-        last_item,
-        initial_point,
-        debug_stream=None,
-        pfx=None,
-        _push_stack: bool = True,
+        self, gsd_registry, style, last_item, initial_point, debug_stream=None, pfx=None, _push_stack: bool = True
     ): ...
     def render(
-        self,
-        gsd_registry,
-        style: DrawingContext,
-        last_item,
-        initial_point,
-        debug_stream=None,
-        pfx=None,
-        _push_stack: bool = True,
+        self, gsd_registry, style: DrawingContext, last_item, initial_point, debug_stream=None, pfx=None, _push_stack: bool = True
     ): ...
     def render_debug(
         self, gsd_registry, style: DrawingContext, last_item, initial_point, debug_stream, pfx, _push_stack: bool = True

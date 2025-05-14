@@ -11,20 +11,5 @@ class JWTBearerTokenGenerator:
     @staticmethod
     def get_sub_value(user): ...
     def get_token_data(self, grant_type, client, expires_in, user=None, scope=None): ...
-    def generate(
-        self,
-        grant_type,
-        client,
-        user=None,
-        scope=None,
-        expires_in=None,
-    ): ...
-    def __call__(
-        self,
-        grant_type,
-        client,
-        user=None,
-        scope=None,
-        expires_in=None,
-        include_refresh_token: bool = True,
-    ): ...
+    def generate(self, grant_type, client, user=None, scope=None, expires_in=None): ...
+    def __call__(self, grant_type, client, user=None, scope=None, expires_in=None, include_refresh_token: bool = True): ...

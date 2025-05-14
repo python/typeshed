@@ -47,24 +47,12 @@ DEFAULT: _SentinelObject
 
 class _Call(tuple[Any, ...]):
     def __new__(
-        cls,
-        value: Any = (),
-        name: Incomplete | None = "",
-        parent=None,
-        two: bool = False,
-        from_kall: bool = True,
+        cls, value: Any = (), name: Incomplete | None = "", parent=None, two: bool = False, from_kall: bool = True
     ) -> Self: ...
     name: Any
     parent: Any
     from_kall: Any
-    def __init__(
-        self,
-        value: Any = (),
-        name=None,
-        parent=None,
-        two: bool = False,
-        from_kall: bool = True,
-    ) -> None: ...
+    def __init__(self, value: Any = (), name=None, parent=None, two: bool = False, from_kall: bool = True) -> None: ...
     def __eq__(self, other: object) -> bool: ...
     def __ne__(self, other: object, /) -> bool: ...
     def __call__(self, *args: Any, **kwargs: Any) -> _Call: ...
@@ -350,14 +338,7 @@ class _ANY:
 ANY: Any
 
 def create_autospec(
-    spec: Any,
-    spec_set: Any = False,
-    instance: Any = False,
-    _parent=None,
-    _name=None,
-    *,
-    unsafe: bool = False,
-    **kwargs: Any,
+    spec: Any, spec_set: Any = False, instance: Any = False, _parent=None, _name=None, *, unsafe: bool = False, **kwargs: Any
 ) -> Any: ...
 
 class _SpecState:
@@ -367,15 +348,7 @@ class _SpecState:
     parent: Any
     instance: Any
     name: Any
-    def __init__(
-        self,
-        spec: Any,
-        spec_set: Any = False,
-        parent=None,
-        name=None,
-        ids=None,
-        instance: Any = False,
-    ) -> None: ...
+    def __init__(self, spec: Any, spec_set: Any = False, parent=None, name=None, ids=None, instance: Any = False) -> None: ...
 
 def mock_open(mock=None, read_data: Any = "") -> Any: ...
 

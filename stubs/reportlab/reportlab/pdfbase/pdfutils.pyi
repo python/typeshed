@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Final
 
 __version__: Final[str]

@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Any, NamedTuple
 
 class Operation(NamedTuple):
@@ -76,21 +75,14 @@ class Reader(Cursor):
     def search_object(self, entry_dn=None, attributes=None): ...
     def search_level(self, attributes=None): ...
     def search_subtree(self, attributes=None): ...
-    def search_paged(
-        self, paged_size, paged_criticality: bool = True, generator: bool = True, attributes=None
-    ): ...
+    def search_paged(self, paged_size, paged_criticality: bool = True, generator: bool = True, attributes=None): ...
 
 class Writer(Cursor):
     entry_class: Any
     attribute_class: Any
     entry_initial_status: Any
     @staticmethod
-    def from_cursor(
-        cursor,
-        connection=None,
-        object_def=None,
-        custom_validator=None,
-    ): ...
+    def from_cursor(cursor, connection=None, object_def=None, custom_validator=None): ...
     @staticmethod
     def from_response(connection, object_def, response=None): ...
     dereference_aliases: Any

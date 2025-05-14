@@ -1,5 +1,4 @@
 import datetime
-from _typeshed import Incomplete
 from typing import ClassVar, Literal, Protocol, TypeVar
 
 from ..relativedelta import relativedelta

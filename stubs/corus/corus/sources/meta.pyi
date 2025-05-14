@@ -11,16 +11,7 @@ class Meta(Record):
     instruction: Incomplete
     tags: Incomplete
     functions: Incomplete
-    def __init__(
-        self,
-        title,
-        url=None,
-        description=None,
-        stats=None,
-        instruction=(),
-        tags=(),
-        functions=(),
-    ) -> None: ...
+    def __init__(self, title, url=None, description=None, stats=None, instruction=(), tags=(), functions=()) -> None: ...
 
 class Group(Record):
     __attributes__: Incomplete
@@ -29,9 +20,7 @@ class Group(Record):
     description: Incomplete
     instruction: Incomplete
     metas: Incomplete
-    def __init__(
-        self, title, url=None, description=None, instruction=(), metas=()
-    ) -> None: ...
+    def __init__(self, title, url=None, description=None, instruction=(), metas=()) -> None: ...
 
 def is_group(item): ...
 

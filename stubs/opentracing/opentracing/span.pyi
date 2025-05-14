@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from types import TracebackType
 from typing import Any
 from typing_extensions import Self

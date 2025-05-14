@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from threading import Thread
 from typing import Any
 

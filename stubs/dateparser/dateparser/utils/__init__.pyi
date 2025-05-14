@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections import OrderedDict
 from collections.abc import Mapping
 from logging import Logger

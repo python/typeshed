@@ -6,15 +6,7 @@ DEFAULT_MOUNT_POINT: str
 logger: Incomplete
 
 class Azure(VaultApiBase):
-    def configure(
-        self,
-        tenant_id,
-        resource,
-        environment=None,
-        client_id=None,
-        client_secret=None,
-        mount_point="azure",
-    ): ...
+    def configure(self, tenant_id, resource, environment=None, client_id=None, client_secret=None, mount_point="azure"): ...
     def read_config(self, mount_point="azure"): ...
     def delete_config(self, mount_point="azure"): ...
     def create_role(

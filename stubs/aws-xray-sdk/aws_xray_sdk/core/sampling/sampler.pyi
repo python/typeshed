@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Any
 
 from .connector import ServiceConnector as ServiceConnector

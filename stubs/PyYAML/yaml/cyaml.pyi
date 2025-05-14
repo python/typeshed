@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsRead
+from _typeshed import SupportsRead
 from collections.abc import Mapping, Sequence
 from typing import IO, Any
 from typing_extensions import TypeAlias

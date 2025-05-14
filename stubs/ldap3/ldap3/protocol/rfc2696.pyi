@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Final
 
 from pyasn1.type.constraint import ConstraintsIntersection, ValueRangeConstraint

@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from braintree.error_result import ErrorResult
 from braintree.resource import Resource
 from braintree.subscription import Subscription

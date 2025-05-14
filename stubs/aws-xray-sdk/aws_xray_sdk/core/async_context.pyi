@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from .context import Context as _Context
 
 class AsyncContext(_Context):

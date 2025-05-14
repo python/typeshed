@@ -1,25 +1,14 @@
-from _typeshed import Incomplete
-
 from hvac.api.vault_api_base import VaultApiBase
 
 DEFAULT_MOUNT_POINT: str
 
 class Okta(VaultApiBase):
     def configure(
-        self,
-        org_name,
-        api_token=None,
-        base_url=None,
-        ttl=None,
-        max_ttl=None,
-        bypass_okta_mfa=None,
-        mount_point="okta",
+        self, org_name, api_token=None, base_url=None, ttl=None, max_ttl=None, bypass_okta_mfa=None, mount_point="okta"
     ): ...
     def read_config(self, mount_point="okta"): ...
     def list_users(self, mount_point="okta"): ...
-    def register_user(
-        self, username, groups=None, policies=None, mount_point="okta"
-    ): ...
+    def register_user(self, username, groups=None, policies=None, mount_point="okta"): ...
     def read_user(self, username, mount_point="okta"): ...
     def delete_user(self, username, mount_point="okta"): ...
     def list_groups(self, mount_point="okta"): ...

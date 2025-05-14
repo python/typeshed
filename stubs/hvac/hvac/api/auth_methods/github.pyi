@@ -1,18 +1,9 @@
-from _typeshed import Incomplete
-
 from hvac.api.vault_api_base import VaultApiBase
 
 DEFAULT_MOUNT_POINT: str
 
 class Github(VaultApiBase):
-    def configure(
-        self,
-        organization,
-        base_url=None,
-        ttl=None,
-        max_ttl=None,
-        mount_point="github",
-    ): ...
+    def configure(self, organization, base_url=None, ttl=None, max_ttl=None, mount_point="github"): ...
     def read_configuration(self, mount_point="github"): ...
     def map_team(self, team_name, policies=None, mount_point="github"): ...
     def read_team_mapping(self, team_name, mount_point="github"): ...

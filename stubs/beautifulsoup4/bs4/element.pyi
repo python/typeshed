@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, ReadableBuffer
+from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from re import Pattern
 from typing import Any, Literal, TypeVar, overload
@@ -362,13 +362,7 @@ class Tag(PageElement):
         self, selector: str, namespaces=None, *, flags: int = ..., custom: dict[str, str] | None = ...
     ) -> Tag | None: ...
     def select(
-        self,
-        selector: str,
-        namespaces=None,
-        limit: int | None = None,
-        *,
-        flags: int = ...,
-        custom: dict[str, str] | None = ...,
+        self, selector: str, namespaces=None, limit: int | None = None, *, flags: int = ..., custom: dict[str, str] | None = ...
     ) -> ResultSet[Tag]: ...
     def childGenerator(self) -> Iterable[PageElement]: ...
     def recursiveChildGenerator(self) -> Iterable[PageElement]: ...

@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from braintree.add_on import AddOn
 from braintree.discount import Discount
 from braintree.resource import Resource

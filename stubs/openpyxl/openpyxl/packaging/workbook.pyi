@@ -38,11 +38,7 @@ class ChildSheet(Serialisable):
     state: NoneSet[_VisibilityType]
     id: Incomplete
     def __init__(
-        self,
-        name: str,
-        sheetId: ConvertibleToInt,
-        state: _VisibilityType | Literal["none"] | None = "visible",
-        id=None,
+        self, name: str, sheetId: ConvertibleToInt, state: _VisibilityType | Literal["none"] | None = "visible", id=None
     ) -> None: ...
 
 class PivotCache(Serialisable):

@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 class md4:
     name: str
     digest_size: int

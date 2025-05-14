@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToInt, Incomplete
+from _typeshed import ConvertibleToInt
 from collections.abc import Hashable
 
 import psycopg2

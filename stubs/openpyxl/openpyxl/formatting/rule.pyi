@@ -194,36 +194,9 @@ def ColorScaleRule(
     end_value=None,
     end_color=None,
 ): ...
-def FormulaRule(
-    formula=None,
-    stopIfTrue=None,
-    font=None,
-    border=None,
-    fill=None,
-): ...
-def CellIsRule(
-    operator=None,
-    formula=None,
-    stopIfTrue=None,
-    font=None,
-    border=None,
-    fill=None,
-): ...
-def IconSetRule(
-    icon_style=None,
-    type=None,
-    values=None,
-    showValue=None,
-    percent=None,
-    reverse=None,
-): ...
+def FormulaRule(formula=None, stopIfTrue=None, font=None, border=None, fill=None): ...
+def CellIsRule(operator=None, formula=None, stopIfTrue=None, font=None, border=None, fill=None): ...
+def IconSetRule(icon_style=None, type=None, values=None, showValue=None, percent=None, reverse=None): ...
 def DataBarRule(
-    start_type=None,
-    start_value=None,
-    end_type=None,
-    end_value=None,
-    color=None,
-    showValue=None,
-    minLength=None,
-    maxLength=None,
+    start_type=None, start_value=None, end_type=None, end_value=None, color=None, showValue=None, minLength=None, maxLength=None
 ): ...

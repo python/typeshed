@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 __all__ = ["Sequencer", "getSequencer", "setSequencer"]
 
 class _Counter:

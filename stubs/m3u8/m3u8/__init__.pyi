@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Callable, Mapping
 from typing import Any
 from typing_extensions import TypeAlias

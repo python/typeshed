@@ -1,5 +1,4 @@
 import http.client
-from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import Any, ClassVar
 from typing_extensions import Self
@@ -87,14 +86,7 @@ class AllHosts: ...
 class ProxyInfo:
     bypass_hosts: Any
     def __init__(
-        self,
-        proxy_type,
-        proxy_host,
-        proxy_port,
-        proxy_rdns: bool = True,
-        proxy_user=None,
-        proxy_pass=None,
-        proxy_headers=None,
+        self, proxy_type, proxy_host, proxy_port, proxy_rdns: bool = True, proxy_user=None, proxy_pass=None, proxy_headers=None
     ) -> None: ...
     def astuple(self): ...
     def isgood(self): ...
@@ -103,9 +95,7 @@ class ProxyInfo:
 
 class HTTPConnectionWithTimeout(http.client.HTTPConnection):
     proxy_info: Any
-    def __init__(
-        self, host, port=None, timeout=None, proxy_info=None
-    ) -> None: ...
+    def __init__(self, host, port=None, timeout=None, proxy_info=None) -> None: ...
     sock: Any
     def connect(self) -> None: ...
 
@@ -167,15 +157,7 @@ class Http:
     def add_credentials(self, name, password, domain: str = "") -> None: ...
     def add_certificate(self, key, cert, domain, password=None) -> None: ...
     def clear_credentials(self) -> None: ...
-    def request(
-        self,
-        uri,
-        method: str = "GET",
-        body=None,
-        headers=None,
-        redirections=5,
-        connection_type=None,
-    ): ...
+    def request(self, uri, method: str = "GET", body=None, headers=None, redirections=5, connection_type=None): ...
 
 class Response(dict[str, Any]):
     fromcache: bool

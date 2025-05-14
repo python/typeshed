@@ -1,5 +1,4 @@
 import time
-from _typeshed import Incomplete
 from types import TracebackType
 from typing import Any
 

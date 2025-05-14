@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, Incomplete
+from _typeshed import ConvertibleToFloat
 from collections.abc import Iterator
 from typing import ClassVar, Final, Literal
 from typing_extensions import TypeAlias

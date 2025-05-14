@@ -47,50 +47,14 @@ class OAuth2Client:
     def token(self): ...
     @token.setter
     def token(self, token) -> None: ...
-    def create_authorization_url(
-        self, url, state=None, code_verifier=None, **kwargs
-    ): ...
+    def create_authorization_url(self, url, state=None, code_verifier=None, **kwargs): ...
     def fetch_token(
-        self,
-        url=None,
-        body: str = "",
-        method: str = "POST",
-        headers=None,
-        auth=None,
-        grant_type=None,
-        state=None,
-        **kwargs,
+        self, url=None, body: str = "", method: str = "POST", headers=None, auth=None, grant_type=None, state=None, **kwargs
     ): ...
     def token_from_fragment(self, authorization_response, state=None): ...
-    def refresh_token(
-        self,
-        url=None,
-        refresh_token=None,
-        body: str = "",
-        auth=None,
-        headers=None,
-        **kwargs,
-    ): ...
+    def refresh_token(self, url=None, refresh_token=None, body: str = "", auth=None, headers=None, **kwargs): ...
     def ensure_active_token(self, token=None): ...
-    def revoke_token(
-        self,
-        url,
-        token=None,
-        token_type_hint=None,
-        body=None,
-        auth=None,
-        headers=None,
-        **kwargs,
-    ): ...
-    def introspect_token(
-        self,
-        url,
-        token=None,
-        token_type_hint=None,
-        body=None,
-        auth=None,
-        headers=None,
-        **kwargs,
-    ): ...
+    def revoke_token(self, url, token=None, token_type_hint=None, body=None, auth=None, headers=None, **kwargs): ...
+    def introspect_token(self, url, token=None, token_type_hint=None, body=None, auth=None, headers=None, **kwargs): ...
     def register_compliance_hook(self, hook_type, hook) -> None: ...
     def parse_response_token(self, resp): ...

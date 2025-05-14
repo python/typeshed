@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Any, TypeVar
 
 from pygments.formatter import Formatter

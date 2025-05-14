@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from passlib.crypto.digest import norm_hash_name as norm_hash_name
 
 def get_prf(name): ...

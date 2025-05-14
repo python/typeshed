@@ -13,14 +13,7 @@ class CallableValue:
 class AttrMapValue:
     validate: Incomplete
     desc: Incomplete
-    def __init__(
-        self,
-        validate=None,
-        desc=None,
-        initial=None,
-        advancedUsage: int = 0,
-        **kw,
-    ) -> None: ...
+    def __init__(self, validate=None, desc=None, initial=None, advancedUsage: int = 0, **kw) -> None: ...
     def __getattr__(self, name): ...
 
 class AttrMap(dict[str, AttrMapValue]):
@@ -30,11 +23,4 @@ class AttrMap(dict[str, AttrMapValue]):
 
 def validateSetattr(obj, name, value) -> None: ...
 def hook__setattr__(obj): ...
-def addProxyAttribute(
-    src,
-    name,
-    validate=None,
-    desc=None,
-    initial=None,
-    dst=None,
-) -> None: ...
+def addProxyAttribute(src, name, validate=None, desc=None, initial=None, dst=None) -> None: ...

@@ -28,10 +28,5 @@ class AuthorizationTokenGrantDispatcher(Dispatcher):
     default_grant: Incomplete | None
     oidc_grant: Incomplete | None
     request_validator: OAuth2RequestValidator
-    def __init__(
-        self,
-        request_validator: OAuth2RequestValidator,
-        default_grant=None,
-        oidc_grant=None,
-    ) -> None: ...
+    def __init__(self, request_validator: OAuth2RequestValidator, default_grant=None, oidc_grant=None) -> None: ...
     def create_token_response(self, request: Request, token_handler): ...

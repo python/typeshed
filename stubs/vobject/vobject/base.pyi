@@ -36,18 +36,10 @@ class VBase:
     # Use Any because args and kwargs are passed to the behavior object
     @overload
     def serialize(
-        self,
-        buf: None = None,
-        lineLength: int = 75,
-        validate: bool = True,
-        behavior=None,
-        *args: Any,
-        **kwargs: Any,
+        self, buf: None = None, lineLength: int = 75, validate: bool = True, behavior=None, *args: Any, **kwargs: Any
     ) -> str: ...
     @overload
-    def serialize(
-        self, buf: _W, lineLength: int = 75, validate: bool = True, behavior=None, *args: Any, **kwargs: Any
-    ) -> _W: ...
+    def serialize(self, buf: _W, lineLength: int = 75, validate: bool = True, behavior=None, *args: Any, **kwargs: Any) -> _W: ...
 
 def toVName(name, stripNum: int = 0, upper: bool = False): ...
 
@@ -60,16 +52,7 @@ class ContentLine(VBase):
     lineNumber: Incomplete
     value: Incomplete
     def __init__(
-        self,
-        name,
-        params,
-        value,
-        group=None,
-        encoded: bool = False,
-        isNative: bool = False,
-        lineNumber=None,
-        *args,
-        **kwds,
+        self, name, params, value, group=None, encoded: bool = False, isNative: bool = False, lineNumber=None, *args, **kwds
     ) -> None: ...
     @classmethod
     def duplicate(cls, copyit): ...

@@ -38,15 +38,7 @@ class URL:
     def __init__(self, url: str = "") -> None: ...
     @classmethod
     def from_parts(
-        cls,
-        scheme=None,
-        host=None,
-        path_parts=(),
-        query_params=(),
-        fragment: str = "",
-        port=None,
-        username=None,
-        password=None,
+        cls, scheme=None, host=None, path_parts=(), query_params=(), fragment: str = "", port=None, username=None, password=None
     ): ...
     query_params: Incomplete
     qp: Incomplete

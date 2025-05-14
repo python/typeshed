@@ -1,4 +1,4 @@
-from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete, Unused
+from _typeshed import ConvertibleToFloat, ConvertibleToInt, Unused
 from collections.abc import Callable, Iterator
 from typing import ClassVar, Literal, TypeVar
 from typing_extensions import Self

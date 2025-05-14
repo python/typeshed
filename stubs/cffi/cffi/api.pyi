@@ -1,6 +1,6 @@
 import sys
 import types
-from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
+from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Hashable
 from typing import Any, Literal, TypeVar, overload
 from typing_extensions import TypeAlias

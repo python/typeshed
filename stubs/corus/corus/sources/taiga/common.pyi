@@ -25,15 +25,7 @@ class Author(Record):
     profession: Incomplete
     about: Incomplete
     url: Incomplete
-    def __init__(
-        self,
-        name,
-        readers=None,
-        texts=None,
-        profession=None,
-        about=None,
-        url=None,
-    ) -> None: ...
+    def __init__(self, name, readers=None, texts=None, profession=None, about=None, url=None) -> None: ...
 
 class Meta(Record):
     __attributes__: Incomplete

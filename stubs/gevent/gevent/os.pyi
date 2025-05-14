@@ -1,6 +1,6 @@
 import os
 import sys
-from _typeshed import FileDescriptor, Incomplete, ReadableBuffer
+from _typeshed import FileDescriptor, ReadableBuffer
 from collections.abc import Callable
 from typing import Literal
 
@@ -16,14 +16,9 @@ if sys.platform != "win32":
     def fork_gevent() -> int: ...
     def forkpty_gevent() -> tuple[int, int]: ...
     waitpid = os.waitpid
-    def fork_and_watch(
-        callback=None, loop=None, ref: bool = False, fork: Callable[[], int] = ...
-    ) -> int: ...
+    def fork_and_watch(callback=None, loop=None, ref: bool = False, fork: Callable[[], int] = ...) -> int: ...
     def forkpty_and_watch(
-        callback=None,
-        loop=None,
-        ref: bool = False,
-        forkpty: Callable[[], tuple[int, int]] = ...,
+        callback=None, loop=None, ref: bool = False, forkpty: Callable[[], tuple[int, int]] = ...
     ) -> tuple[int, int]: ...
 
     posix_spawn = os.posix_spawn

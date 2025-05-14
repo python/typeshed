@@ -72,9 +72,7 @@ class NonVisualDrawingShapeProps(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     txBox: Incomplete
-    def __init__(
-        self, spLocks=None, txBox: _ConvertibleToBool | None = None, extLst: Unused = None
-    ) -> None: ...
+    def __init__(self, spLocks=None, txBox: _ConvertibleToBool | None = None, extLst: Unused = None) -> None: ...
 
 class NonVisualDrawingProps(Serialisable):
     tagname: ClassVar[str]

@@ -48,13 +48,7 @@ class PDFDocument(PDFObject):
     fontMapping: Incomplete
     delayedFonts: Incomplete
     def __init__(
-        self,
-        dummyoutline: int = 0,
-        compression=1,
-        invariant=0,
-        filename=None,
-        pdfVersion=(1, 3),
-        lang=None,
+        self, dummyoutline: int = 0, compression=1, invariant=0, filename=None, pdfVersion=(1, 3), lang=None
     ) -> None: ...
     compression: Incomplete
     def setCompression(self, onoff) -> None: ...
@@ -159,9 +153,7 @@ class PDFStream(PDFObject):
     dictionary: Incomplete
     content: Incomplete
     filters: Incomplete
-    def __init__(
-        self, dictionary=None, content=None, filters=None
-    ) -> None: ...
+    def __init__(self, dictionary=None, content=None, filters=None) -> None: ...
     def format(self, document): ...
 
 def teststream(content=None): ...
@@ -213,16 +205,7 @@ class PDFCrossReferenceTable(PDFObject):
 
 class PDFTrailer(PDFObject):
     startxref: Incomplete
-    def __init__(
-        self,
-        startxref,
-        Size=None,
-        Prev=None,
-        Root=None,
-        Info=None,
-        ID=None,
-        Encrypt=None,
-    ) -> None: ...
+    def __init__(self, startxref, Size=None, Prev=None, Root=None, Info=None, ID=None, Encrypt=None) -> None: ...
     def format(self, document): ...
 
 class PDFCatalog(PDFObject):
@@ -307,9 +290,7 @@ class PDFPageLabel(PDFCatalog):
     S: Incomplete
     St: Incomplete
     P: Incomplete
-    def __init__(
-        self, style=None, start=None, prefix=None
-    ) -> None: ...
+    def __init__(self, style=None, start=None, prefix=None) -> None: ...
     def __lt__(self, oth): ...
 
 def testpage(document) -> None: ...
@@ -344,9 +325,7 @@ class PDFOutlines(PDFObject):
     buildtree: Incomplete
     closedict: Incomplete
     def __init__(self) -> None: ...
-    def addOutlineEntry(
-        self, destinationname, level: int = 0, title=None, closed=None
-    ) -> None: ...
+    def addOutlineEntry(self, destinationname, level: int = 0, title=None, closed=None) -> None: ...
     def setDestinations(self, destinationtree) -> None: ...
     def format(self, document): ...
     def setNames(self, canvas, *nametree) -> None: ...

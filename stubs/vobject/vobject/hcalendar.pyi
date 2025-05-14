@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 from .icalendar import VCalendar2_0
 
 class HCalendar(VCalendar2_0):

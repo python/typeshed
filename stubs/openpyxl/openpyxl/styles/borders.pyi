@@ -43,10 +43,7 @@ class Side(Serialisable):
     style: NoneSet[_SideStyle]
     border_style: Alias
     def __init__(
-        self,
-        style: _SideStyle | Literal["none"] | None = None,
-        color: str | Color | None = None,
-        border_style=None,
+        self, style: _SideStyle | Literal["none"] | None = None, color: str | Color | None = None, border_style=None
     ) -> None: ...
 
 class Border(Serialisable):

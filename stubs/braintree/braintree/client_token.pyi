@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 class ClientToken:
     @staticmethod
     def generate(params=None, gateway=None): ...

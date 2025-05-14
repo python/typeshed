@@ -155,13 +155,7 @@ class Connection(Class):
         reply_text: Incomplete
         class_id: Incomplete
         method_id: Incomplete
-        def __init__(
-            self,
-            reply_code=None,
-            reply_text: _str = "",
-            class_id=None,
-            method_id=None,
-        ) -> None: ...
+        def __init__(self, reply_code=None, reply_text: _str = "", class_id=None, method_id=None) -> None: ...
         @property
         def synchronous(self) -> Literal[True]: ...
         def decode(self, encoded: bytes, offset: int = 0) -> Self: ...
@@ -256,13 +250,7 @@ class Channel(Class):
         reply_text: Incomplete
         class_id: Incomplete
         method_id: Incomplete
-        def __init__(
-            self,
-            reply_code=None,
-            reply_text: _str = "",
-            class_id=None,
-            method_id=None,
-        ) -> None: ...
+        def __init__(self, reply_code=None, reply_text: _str = "", class_id=None, method_id=None) -> None: ...
         @property
         def synchronous(self) -> Literal[True]: ...
         def decode(self, encoded: bytes, offset: int = 0) -> Self: ...
@@ -355,9 +343,7 @@ class Exchange(Class):
         exchange: Incomplete
         if_unused: Incomplete
         nowait: bool
-        def __init__(
-            self, ticket: int = 0, exchange=None, if_unused: bool = False, nowait: bool = False
-        ) -> None: ...
+        def __init__(self, ticket: int = 0, exchange=None, if_unused: bool = False, nowait: bool = False) -> None: ...
         @property
         def synchronous(self) -> Literal[True]: ...
         def decode(self, encoded: bytes, offset: int = 0) -> Self: ...
@@ -380,13 +366,7 @@ class Exchange(Class):
         nowait: bool
         arguments: Incomplete | None
         def __init__(
-            self,
-            ticket: int = 0,
-            destination=None,
-            source=None,
-            routing_key: _str = "",
-            nowait: bool = False,
-            arguments=None,
+            self, ticket: int = 0, destination=None, source=None, routing_key: _str = "", nowait: bool = False, arguments=None
         ) -> None: ...
         @property
         def synchronous(self) -> Literal[True]: ...
@@ -410,13 +390,7 @@ class Exchange(Class):
         nowait: bool
         arguments: Incomplete
         def __init__(
-            self,
-            ticket: int = 0,
-            destination=None,
-            source=None,
-            routing_key: _str = "",
-            nowait: bool = False,
-            arguments=None,
+            self, ticket: int = 0, destination=None, source=None, routing_key: _str = "", nowait: bool = False, arguments=None
         ) -> None: ...
         @property
         def synchronous(self) -> Literal[True]: ...
@@ -480,13 +454,7 @@ class Queue(Class):
         nowait: bool
         arguments: Incomplete
         def __init__(
-            self,
-            ticket: int = 0,
-            queue: _str = "",
-            exchange=None,
-            routing_key: _str = "",
-            nowait: bool = False,
-            arguments=None,
+            self, ticket: int = 0, queue: _str = "", exchange=None, routing_key: _str = "", nowait: bool = False, arguments=None
         ) -> None: ...
         @property
         def synchronous(self) -> Literal[True]: ...
@@ -552,14 +520,7 @@ class Queue(Class):
         exchange: Incomplete
         routing_key: Incomplete
         arguments: Incomplete
-        def __init__(
-            self,
-            ticket: int = 0,
-            queue: _str = "",
-            exchange=None,
-            routing_key: _str = "",
-            arguments=None,
-        ) -> None: ...
+        def __init__(self, ticket: int = 0, queue: _str = "", exchange=None, routing_key: _str = "", arguments=None) -> None: ...
         @property
         def synchronous(self) -> Literal[True]: ...
         def decode(self, encoded: bytes, offset: int = 0) -> Self: ...
@@ -670,13 +631,7 @@ class Basic(Class):
         reply_text: Incomplete
         exchange: Incomplete
         routing_key: Incomplete
-        def __init__(
-            self,
-            reply_code=None,
-            reply_text: _str = "",
-            exchange=None,
-            routing_key=None,
-        ) -> None: ...
+        def __init__(self, reply_code=None, reply_text: _str = "", exchange=None, routing_key=None) -> None: ...
         @property
         def synchronous(self) -> Literal[False]: ...
         def decode(self, encoded: bytes, offset: int = 0) -> Self: ...
@@ -690,12 +645,7 @@ class Basic(Class):
         exchange: Incomplete
         routing_key: Incomplete
         def __init__(
-            self,
-            consumer_tag=None,
-            delivery_tag=None,
-            redelivered: bool = False,
-            exchange=None,
-            routing_key=None,
+            self, consumer_tag=None, delivery_tag=None, redelivered: bool = False, exchange=None, routing_key=None
         ) -> None: ...
         @property
         def synchronous(self) -> Literal[False]: ...
@@ -721,12 +671,7 @@ class Basic(Class):
         routing_key: Incomplete
         message_count: Incomplete
         def __init__(
-            self,
-            delivery_tag=None,
-            redelivered: bool = False,
-            exchange=None,
-            routing_key=None,
-            message_count=None,
+            self, delivery_tag=None, redelivered: bool = False, exchange=None, routing_key=None, message_count=None
         ) -> None: ...
         @property
         def synchronous(self) -> Literal[False]: ...

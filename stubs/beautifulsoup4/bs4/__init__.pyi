@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, SupportsRead
+from _typeshed import SupportsRead
 from collections.abc import Iterator, Sequence
 from typing import Any
 from typing_extensions import Self
@@ -55,16 +55,7 @@ class BeautifulSoup(Tag):
     preserve_whitespace_tag_stack: Any
     string_container_stack: Any
     def reset(self) -> None: ...
-    def new_tag(
-        self,
-        name,
-        namespace=None,
-        nsprefix=None,
-        attrs={},
-        sourceline=None,
-        sourcepos=None,
-        **kwattrs,
-    ) -> Tag: ...
+    def new_tag(self, name, namespace=None, nsprefix=None, attrs={}, sourceline=None, sourcepos=None, **kwattrs) -> Tag: ...
     def string_container(self, base_class=None): ...
     def new_string(self, s, subclass=None): ...
     def insert_before(self, *args) -> None: ...
@@ -74,14 +65,7 @@ class BeautifulSoup(Tag):
     def endData(self, containerClass=None) -> None: ...
     def object_was_parsed(self, o, parent=None, most_recent_element=None) -> None: ...
     def handle_starttag(
-        self,
-        name,
-        namespace,
-        nsprefix,
-        attrs,
-        sourceline=None,
-        sourcepos=None,
-        namespaces: dict[str, str] | None = None,
+        self, name, namespace, nsprefix, attrs, sourceline=None, sourcepos=None, namespaces: dict[str, str] | None = None
     ): ...
     def handle_endtag(self, name, nsprefix=None) -> None: ...
     def handle_data(self, data) -> None: ...

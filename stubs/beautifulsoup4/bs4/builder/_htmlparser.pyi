@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from html.parser import HTMLParser
 from typing import Any
 
@@ -30,10 +29,6 @@ class HTMLParserTreeBuilder(HTMLTreeBuilder):
     parser_args: Any
     def __init__(self, parser_args=None, parser_kwargs=None, **kwargs) -> None: ...
     def prepare_markup(
-        self,
-        markup,
-        user_specified_encoding=None,
-        document_declared_encoding=None,
-        exclude_encodings=None,
+        self, markup, user_specified_encoding=None, document_declared_encoding=None, exclude_encodings=None
     ) -> None: ...
     def feed(self, markup) -> None: ...

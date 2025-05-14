@@ -414,9 +414,7 @@ class ListFlowable(_Container, Flowable):
     style: ListStyle
     # NOTE: style has to be a ListStyle, but this will be annoying with sheet["ul"]
     # TODO: Use Unpack for kwds with the ListStyle properties + spaceBefore/spaceAfter
-    def __init__(
-        self, flowables: Iterable[_NestedFlowable], start=None, style: PropertySet | None = None, **kwds
-    ) -> None: ...
+    def __init__(self, flowables: Iterable[_NestedFlowable], start=None, style: PropertySet | None = None, **kwds) -> None: ...
 
 class TopPadder(Flowable):
     # NOTE: TopPadder is mostly a transparent wrapper, we may consider trying
