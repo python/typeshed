@@ -146,13 +146,13 @@ class SysLogHandler(Handler):
     priority_map: ClassVar[dict[str, str]]  # undocumented
     if sys.version_info >= (3, 14):
         timeout: float | None
-        def __init___(
+        def __init__(
             self,
             address: tuple[str, int] | str = ("localhost", 514),
             facility: str | int = 1,
             socktype: SocketKind | None = None,
             timeout: float | None = None,
-        ): ...
+        ) -> None: ...
     else:
         def __init__(
             self, address: tuple[str, int] | str = ("localhost", 514), facility: str | int = 1, socktype: SocketKind | None = None
