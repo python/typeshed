@@ -1029,24 +1029,21 @@ if sys.version_info >= (3, 14):
     __all__ += ["IP_RECVTTL"]
 
     if sys.platform == "win32" or sys.platform == "linux":
-        from _socket import (
-            IPV6_RECVERR as IPV6_RECVERR,
-            IP_RECVERR as IP_RECVERR,
-            SO_ORIGINAL_DST as SO_ORIGINAL_DST,
-        )
-        __all__ += ['IP_RECVERR', 'IPV6_RECVERR', 'SO_ORIGINAL_DST']
+        from _socket import IP_RECVERR as IP_RECVERR, IPV6_RECVERR as IPV6_RECVERR, SO_ORIGINAL_DST as SO_ORIGINAL_DST
+
+        __all__ += ["IP_RECVERR", "IPV6_RECVERR", "SO_ORIGINAL_DST"]
 
     if sys.platform == "win32":
         from _socket import (
-            SOL_RFCOMM as SOL_RFCOMM,
             SO_BTH_ENCRYPT as SO_BTH_ENCRYPT,
             SO_BTH_MTU as SO_BTH_MTU,
             SO_BTH_MTU_MAX as SO_BTH_MTU_MAX,
             SO_BTH_MTU_MIN as SO_BTH_MTU_MIN,
+            SOL_RFCOMM as SOL_RFCOMM,
             TCP_QUICKACK as TCP_QUICKACK,
         )
 
-        __all__ += ['SOL_RFCOMM', 'SO_BTH_ENCRYPT', 'SO_BTH_MTU', 'SO_BTH_MTU_MAX', 'SO_BTH_MTU_MIN', 'TCP_QUICKACK']
+        __all__ += ["SOL_RFCOMM", "SO_BTH_ENCRYPT", "SO_BTH_MTU", "SO_BTH_MTU_MAX", "SO_BTH_MTU_MIN", "TCP_QUICKACK"]
 
     if sys.platform == "linux":
         from _socket import (
@@ -1056,7 +1053,8 @@ if sys.version_info >= (3, 14):
             SO_ORIGINAL_DST as SO_ORIGINAL_DST,
             VMADDR_CID_LOCAL as VMADDR_CID_LOCAL,
         )
-        __all__ += ['CAN_RAW_ERR_FILTER', 'IP_FREEBIND', 'IP_RECVORIGDSTADDR', 'VMADDR_CID_LOCAL']
+
+        __all__ += ["CAN_RAW_ERR_FILTER", "IP_FREEBIND", "IP_RECVORIGDSTADDR", "VMADDR_CID_LOCAL"]
 
 # Re-exported from errno
 EBADF: int
