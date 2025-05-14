@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
+from typing import Literal
 
 from networkx.utils.backends import _dispatchable
 
@@ -13,7 +14,7 @@ __all__ = [
 ]
 
 @_dispatchable
-def is_graphical(sequence: Iterable[Incomplete], method="eg") -> bool: ...
+def is_graphical(sequence: Iterable[Incomplete], method: Literal["eg", "hh"] = "eg") -> bool: ...
 @_dispatchable
 def is_valid_degree_sequence_havel_hakimi(deg_sequence: Iterable[Incomplete]) -> bool: ...
 @_dispatchable

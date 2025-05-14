@@ -4,13 +4,6 @@
 
 _curses.assume_default_colors
 _posixsubprocess.fork_exec
-_socket.CAN_RAW_ERR_FILTER
-_socket.IPV6_RECVERR
-_socket.IP_FREEBIND
-_socket.IP_RECVERR
-_socket.IP_RECVORIGDSTADDR
-_socket.SO_ORIGINAL_DST
-_socket.VMADDR_CID_LOCAL
 asyncio.tools
 asyncio.unix_events.__all__
 asyncio.unix_events.DefaultEventLoopPolicy
@@ -21,16 +14,4 @@ ctypes.c_longdouble_complex._type_
 errno.EHWPOISON
 multiprocessing.popen_fork.Popen.interrupt
 multiprocessing.reduction.ACKNOWLEDGE
-os.SCHED_DEADLINE
-os.SCHED_NORMAL
-posix.SCHED_DEADLINE
-posix.SCHED_NORMAL
-posix.readinto
 select.EPOLLWAKEUP
-socket.CAN_RAW_ERR_FILTER
-socket.IPV6_RECVERR
-socket.IP_FREEBIND
-socket.IP_RECVERR
-socket.IP_RECVORIGDSTADDR
-socket.SO_ORIGINAL_DST
-socket.VMADDR_CID_LOCAL

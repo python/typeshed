@@ -2,15 +2,6 @@
 # TODO: New errors in Python 3.14 that need to be fixed or moved below
 # ====================================================================
 
-_socket.IPV6_RECVERR
-_socket.IP_RECVERR
-_socket.SOL_RFCOMM
-_socket.SO_ORIGINAL_DST
-_socket.SO_BTH_ENCRYPT
-_socket.SO_BTH_MTU
-_socket.SO_BTH_MTU_MAX
-_socket.SO_BTH_MTU_MIN
-_socket.TCP_QUICKACK
 _winapi.COPY_FILE_DIRECTORY
 asyncio.WindowsProactorEventLoopPolicy.get_child_watcher
 asyncio.WindowsProactorEventLoopPolicy.set_child_watcher
@@ -31,15 +22,6 @@ encodings.win32_code_page_search_function
 nt.readinto
 pathlib.Path.group
 pathlib.Path.owner
-socket.IPV6_RECVERR
-socket.IP_RECVERR
-socket.SOL_RFCOMM
-socket.SO_ORIGINAL_DST
-socket.SO_BTH_ENCRYPT
-socket.SO_BTH_MTU
-socket.SO_BTH_MTU_MAX
-socket.SO_BTH_MTU_MIN
-socket.TCP_QUICKACK
 winsound.MB_ICONERROR
 winsound.MB_ICONINFORMATION
 winsound.MB_ICONSTOP

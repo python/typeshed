@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
+from networkx.classes.digraph import DiGraph
+from networkx.classes.graph import _Node
+from networkx.classes.multidigraph import MultiDiGraph
 from networkx.utils.backends import _dispatchable
-
-from ...classes.digraph import DiGraph
 
 __all__ = ["number_attracting_components", "attracting_components", "is_attracting_component"]
 
@@ -12,4 +13,4 @@ def attracting_components(G: DiGraph[Incomplete]) -> Generator[Incomplete, None,
 @_dispatchable
 def number_attracting_components(G: DiGraph[Incomplete]) -> int: ...
 @_dispatchable
-def is_attracting_component(G: DiGraph[Incomplete]) -> bool: ...
+def is_attracting_component(G: DiGraph[_Node] | MultiDiGraph[_Node]) -> bool: ...
