@@ -88,9 +88,6 @@ multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
-pkgutil.__all__
-pkgutil.find_loader
-pkgutil.get_loader
 pyexpat.errors.XML_ERROR_NOT_STARTED
 shutil.__all__
 sre_compile.CH_NEGATE
