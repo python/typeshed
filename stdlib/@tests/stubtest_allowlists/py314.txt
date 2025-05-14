@@ -117,11 +117,6 @@ turtle.poly
 turtle.save
 types.CodeType.co_branches
 types.FrameType.f_generator
-urllib.request.__all__
-urllib.request.FancyURLopener
-urllib.request.URLopener
-urllib.request.pathname2url
-urllib.request.url2pathname
 xml.parsers.expat.errors.XML_ERROR_NOT_STARTED
 xml.sax.__all__
 xml.sax.InputSource
