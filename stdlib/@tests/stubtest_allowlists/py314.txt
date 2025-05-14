@@ -90,8 +90,6 @@ multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
-os.__all__
-os.readinto
 pkgutil.__all__
 pkgutil.find_loader
 pkgutil.get_loader
