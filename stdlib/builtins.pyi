@@ -1391,6 +1391,28 @@ def divmod(x: _T_contra, y: SupportsRDivMod[_T_contra, _T_co], /) -> _T_co: ...
 # The `globals` argument to `eval` has to be `dict[str, Any]` rather than `dict[str, object]` due to invariance.
 # (The `globals` argument has to be a "real dict", rather than any old mapping, unlike the `locals` argument.)
 if sys.version_info >= (3, 13):
+    @overload
+    def eval(
+        source: Literal["'na' * 5"],
+        /,
+        globals: dict[str, Any] | None = None,
+        locals: Mapping[str, object] | None = None,
+    ) -> Literal["nanananana"]: ...
+    @overload
+    def eval(
+        source: Literal["'almonds'"],
+        /,
+        globals: dict[str, Any] | None = None,
+        locals: Mapping[str, object] | None = None,
+    ) -> Literal["almonds"]: ...
+    @overload
+    def eval(
+        source: Literal["1+5"],
+        /,
+        globals: dict[str, Any] | None = None,
+        locals: Mapping[str, object] | None = None,
+    ) -> Literal[6]: ...
+    @overload
     def eval(
         source: str | ReadableBuffer | CodeType,
         /,
