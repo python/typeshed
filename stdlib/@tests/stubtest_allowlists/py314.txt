@@ -11,8 +11,6 @@ _heapq.heappush_max
 _heapq.heappushpop_max
 _heapq.heapreplace_max
 _imp.pyc_magic_number_token
-_socket.IP_RECVTTL
-_socket.if_indextoname
 _thread.RLock.locked
 _thread.set_name
 asyncio.__all__
@@ -95,9 +93,6 @@ pkgutil.find_loader
 pkgutil.get_loader
 pyexpat.errors.XML_ERROR_NOT_STARTED
 shutil.__all__
-socket.__all__
-socket.IP_RECVTTL
-socket.if_indextoname
 sre_compile.CH_NEGATE
 sre_constants.CH_NEGATE
 sre_parse.CH_NEGATE
