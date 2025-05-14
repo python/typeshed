@@ -5,7 +5,7 @@ __origin__: str
 
 def parse(
     file,
-    parser: Incomplete | None = None,
+    parser=None,
     bufsize: int | None = None,
     forbid_dtd: bool = False,
     forbid_entities: bool = True,
@@ -13,7 +13,7 @@ def parse(
 ) -> Document: ...
 def parseString(
     string: str,
-    parser: Incomplete | None = None,
+    parser=None,
     forbid_dtd: bool = False,
     forbid_entities: bool = True,
     forbid_external: bool = True,

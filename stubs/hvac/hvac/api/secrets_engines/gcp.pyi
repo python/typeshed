@@ -7,9 +7,9 @@ DEFAULT_MOUNT_POINT: str
 class Gcp(VaultApiBase):
     def configure(
         self,
-        credentials: Incomplete | None = None,
-        ttl: Incomplete | None = None,
-        max_ttl: Incomplete | None = None,
+        credentials=None,
+        ttl=None,
+        max_ttl=None,
         mount_point="gcp",
     ): ...
     def rotate_root_credentials(self, mount_point="gcp"): ...
@@ -19,8 +19,8 @@ class Gcp(VaultApiBase):
         name,
         project,
         bindings,
-        secret_type: Incomplete | None = None,
-        token_scopes: Incomplete | None = None,
+        secret_type=None,
+        token_scopes=None,
         mount_point="gcp",
     ): ...
     def rotate_roleset_account(self, name, mount_point="gcp"): ...
@@ -41,9 +41,9 @@ class Gcp(VaultApiBase):
         self,
         name,
         service_account_email,
-        bindings: Incomplete | None = None,
-        secret_type: Incomplete | None = None,
-        token_scopes: Incomplete | None = None,
+        bindings=None,
+        secret_type=None,
+        token_scopes=None,
         mount_point="gcp",
     ): ...
     def rotate_static_account_key(self, name, mount_point="gcp"): ...
@@ -63,8 +63,8 @@ class Gcp(VaultApiBase):
         self,
         name,
         service_account_email,
-        token_scopes: Incomplete | None = None,
-        ttl: Incomplete | None = None,
+        token_scopes=None,
+        ttl=None,
         mount_point="gcp",
     ): ...
     def read_impersonated_account(self, name, mount_point="gcp"): ...

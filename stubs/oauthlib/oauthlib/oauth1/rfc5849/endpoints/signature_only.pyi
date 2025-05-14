@@ -7,5 +7,5 @@ log: Logger
 
 class SignatureOnlyEndpoint(BaseEndpoint):
     def validate_request(
-        self, uri, http_method: str = "GET", body: Incomplete | None = None, headers: Incomplete | None = None
+        self, uri, http_method: str = "GET", body=None, headers=None
     ): ...

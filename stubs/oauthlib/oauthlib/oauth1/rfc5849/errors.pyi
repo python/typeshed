@@ -8,10 +8,10 @@ class OAuth1Error(Exception):
     status_code: Any
     def __init__(
         self,
-        description: Incomplete | None = None,
-        uri: Incomplete | None = None,
+        description=None,
+        uri=None,
         status_code: int = 400,
-        request: Incomplete | None = None,
+        request=None,
     ) -> None: ...
     def in_uri(self, uri): ...
     @property

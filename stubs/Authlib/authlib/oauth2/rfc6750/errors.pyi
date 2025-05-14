@@ -12,11 +12,11 @@ class InvalidTokenError(OAuth2Error):
     extra_attributes: Incomplete
     def __init__(
         self,
-        description: Incomplete | None = None,
-        uri: Incomplete | None = None,
-        status_code: Incomplete | None = None,
-        state: Incomplete | None = None,
-        realm: Incomplete | None = None,
+        description=None,
+        uri=None,
+        status_code=None,
+        state=None,
+        realm=None,
         **extra_attributes,
     ) -> None: ...
     def get_headers(self): ...

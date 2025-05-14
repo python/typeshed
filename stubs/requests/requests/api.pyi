@@ -84,7 +84,7 @@ def head(
 def post(
     url: str | bytes,
     data: _Data | None = None,
-    json: Incomplete | None = None,
+    json=None,
     *,
     params: _Params | None = ...,
     headers: _HeadersMapping | None = ...,

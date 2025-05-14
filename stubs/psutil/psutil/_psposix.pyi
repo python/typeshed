@@ -3,8 +3,8 @@ from _typeshed import Incomplete
 def pid_exists(pid): ...
 def wait_pid(
     pid,
-    timeout: Incomplete | None = None,
-    proc_name: Incomplete | None = None,
+    timeout=None,
+    proc_name=None,
     _waitpid=...,
     _timer=...,
     _min=...,

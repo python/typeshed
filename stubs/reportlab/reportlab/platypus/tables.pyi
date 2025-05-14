@@ -85,7 +85,7 @@ class Table(Flowable):
         rowSplitRange: tuple[int, int] | None = None,
         spaceBefore: float | None = None,
         spaceAfter: float | None = None,
-        longTableOptimize: Incomplete | None = None,
+        longTableOptimize=None,
         minRowHeights: Sequence[float] | None = None,
         cornerRadii: _CornerRadii | _UNSET_ | None = ...,
         renderCB: TableRenderCB | None = None,

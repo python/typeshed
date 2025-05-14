@@ -4,7 +4,7 @@ from authlib.common.errors import AuthlibHTTPError
 
 class OAuth1Error(AuthlibHTTPError):
     def __init__(
-        self, description: Incomplete | None = None, uri: Incomplete | None = None, status_code: Incomplete | None = None
+        self, description=None, uri=None, status_code=None
     ) -> None: ...
     def get_headers(self): ...
 

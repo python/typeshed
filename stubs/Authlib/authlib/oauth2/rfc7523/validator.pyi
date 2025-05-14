@@ -19,6 +19,6 @@ class JWTBearerTokenValidator(BearerTokenValidator):
     public_key: Incomplete
     claims_options: Incomplete
     def __init__(
-        self, public_key, issuer: Incomplete | None = None, realm: Incomplete | None = None, **extra_attributes
+        self, public_key, issuer=None, realm=None, **extra_attributes
     ) -> None: ...
     def authenticate_token(self, token_string): ...

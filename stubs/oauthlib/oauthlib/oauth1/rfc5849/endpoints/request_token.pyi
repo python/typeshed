@@ -11,8 +11,8 @@ class RequestTokenEndpoint(BaseEndpoint):
         self,
         uri,
         http_method: str = "GET",
-        body: Incomplete | None = None,
-        headers: Incomplete | None = None,
-        credentials: Incomplete | None = None,
+        body=None,
+        headers=None,
+        credentials=None,
     ): ...
     def validate_request_token_request(self, request): ...

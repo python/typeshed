@@ -5,8 +5,8 @@ def compare_operation(
     attribute,
     value,
     auto_encode,
-    schema: Incomplete | None = None,
-    validator: Incomplete | None = None,
+    schema=None,
+    validator=None,
     check_names: bool = False,
 ): ...
 def compare_request_to_dict(request): ...

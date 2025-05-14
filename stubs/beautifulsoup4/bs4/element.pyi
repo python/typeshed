@@ -359,12 +359,12 @@ class Tag(PageElement):
     @property
     def descendants(self) -> Iterable[PageElement]: ...
     def select_one(
-        self, selector: str, namespaces: Incomplete | None = None, *, flags: int = ..., custom: dict[str, str] | None = ...
+        self, selector: str, namespaces=None, *, flags: int = ..., custom: dict[str, str] | None = ...
     ) -> Tag | None: ...
     def select(
         self,
         selector: str,
-        namespaces: Incomplete | None = None,
+        namespaces=None,
         limit: int | None = None,
         *,
         flags: int = ...,

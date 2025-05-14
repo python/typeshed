@@ -8,11 +8,11 @@ class AuthorizationEndpoint(BaseEndpoint):
         self,
         uri,
         http_method: str = "GET",
-        body: Incomplete | None = None,
-        headers: Incomplete | None = None,
-        realms: Incomplete | None = None,
-        credentials: Incomplete | None = None,
+        body=None,
+        headers=None,
+        realms=None,
+        credentials=None,
     ): ...
     def get_realms_and_credentials(
-        self, uri, http_method: str = "GET", body: Incomplete | None = None, headers: Incomplete | None = None
+        self, uri, http_method: str = "GET", body=None, headers=None
     ): ...

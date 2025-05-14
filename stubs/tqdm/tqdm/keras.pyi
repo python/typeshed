@@ -29,7 +29,7 @@ class _Callback:
 
 class TqdmCallback(_Callback):
     @staticmethod
-    def bar2callback(bar, pop: Incomplete | None = None, delta=...): ...
+    def bar2callback(bar, pop=None, delta=...): ...
     tqdm_class: Incomplete
     epoch_bar: Incomplete
     on_epoch_end: Incomplete
@@ -39,9 +39,9 @@ class TqdmCallback(_Callback):
     on_batch_end: Incomplete
     def __init__(
         self,
-        epochs: Incomplete | None = None,
-        data_size: Incomplete | None = None,
-        batch_size: Incomplete | None = None,
+        epochs=None,
+        data_size=None,
+        batch_size=None,
         verbose: int = 1,
         tqdm_class=...,
         **tqdm_kwargs,

@@ -45,8 +45,8 @@ class Output(TransformSpec):
     default_destination_path: ClassVar[str | None]
     def __init__(
         self,
-        destination: Incomplete | None = None,
-        destination_path: Incomplete | None = None,
+        destination=None,
+        destination_path=None,
         encoding: str | None = None,
         error_handler: str = "strict",
     ) -> None: ...
@@ -68,8 +68,8 @@ class ErrorOutput:
 class FileInput(Input[IO[str]]):
     def __init__(
         self,
-        source: Incomplete | None = None,
-        source_path: Incomplete | None = None,
+        source=None,
+        source_path=None,
         encoding: str | None = None,
         error_handler: str = "strict",
         autoclose: bool = True,

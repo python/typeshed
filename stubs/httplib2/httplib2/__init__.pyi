@@ -41,7 +41,7 @@ class DigestAuthentication(Authentication):
     challenge: Any
     A1: Any
     def __init__(self, credentials, host, request_uri, headers, response, content, http) -> None: ...
-    def request(self, method, request_uri, headers, content, cnonce: Incomplete | None = None): ...
+    def request(self, method, request_uri, headers, content, cnonce=None): ...
     def response(self, response, content): ...
 
 class HmacDigestAuthentication(Authentication):
@@ -92,9 +92,9 @@ class ProxyInfo:
         proxy_host,
         proxy_port,
         proxy_rdns: bool = True,
-        proxy_user: Incomplete | None = None,
-        proxy_pass: Incomplete | None = None,
-        proxy_headers: Incomplete | None = None,
+        proxy_user=None,
+        proxy_pass=None,
+        proxy_headers=None,
     ) -> None: ...
     def astuple(self): ...
     def isgood(self): ...
@@ -104,7 +104,7 @@ class ProxyInfo:
 class HTTPConnectionWithTimeout(http.client.HTTPConnection):
     proxy_info: Any
     def __init__(
-        self, host, port: Incomplete | None = None, timeout: Incomplete | None = None, proxy_info: Incomplete | None = None
+        self, host, port=None, timeout=None, proxy_info=None
     ) -> None: ...
     sock: Any
     def connect(self) -> None: ...
@@ -119,16 +119,16 @@ class HTTPSConnectionWithTimeout(http.client.HTTPSConnection):
     def __init__(
         self,
         host,
-        port: Incomplete | None = None,
-        key_file: Incomplete | None = None,
-        cert_file: Incomplete | None = None,
-        timeout: Incomplete | None = None,
-        proxy_info: Incomplete | None = None,
-        ca_certs: Incomplete | None = None,
+        port=None,
+        key_file=None,
+        cert_file=None,
+        timeout=None,
+        proxy_info=None,
+        ca_certs=None,
         disable_ssl_certificate_validation: bool = False,
-        tls_maximum_version: Incomplete | None = None,
-        tls_minimum_version: Incomplete | None = None,
-        key_password: Incomplete | None = None,
+        tls_maximum_version=None,
+        tls_minimum_version=None,
+        key_password=None,
     ) -> None: ...
     sock: Any
     def connect(self) -> None: ...
@@ -155,26 +155,26 @@ class Http:
     forward_authorization_headers: bool
     def __init__(
         self,
-        cache: Incomplete | None = None,
-        timeout: Incomplete | None = None,
+        cache=None,
+        timeout=None,
         proxy_info=...,
-        ca_certs: Incomplete | None = None,
+        ca_certs=None,
         disable_ssl_certificate_validation: bool = False,
-        tls_maximum_version: Incomplete | None = None,
-        tls_minimum_version: Incomplete | None = None,
+        tls_maximum_version=None,
+        tls_minimum_version=None,
     ) -> None: ...
     def close(self) -> None: ...
     def add_credentials(self, name, password, domain: str = "") -> None: ...
-    def add_certificate(self, key, cert, domain, password: Incomplete | None = None) -> None: ...
+    def add_certificate(self, key, cert, domain, password=None) -> None: ...
     def clear_credentials(self) -> None: ...
     def request(
         self,
         uri,
         method: str = "GET",
-        body: Incomplete | None = None,
-        headers: Incomplete | None = None,
+        body=None,
+        headers=None,
         redirections=5,
-        connection_type: Incomplete | None = None,
+        connection_type=None,
     ): ...
 
 class Response(dict[str, Any]):

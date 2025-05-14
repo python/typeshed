@@ -16,7 +16,7 @@ class RichText(Serialisable):
     paragraphs: Alias
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
-        self, bodyPr: RichTextProperties | None = None, lstStyle: ListStyle | None = None, p: Incomplete | None = None
+        self, bodyPr: RichTextProperties | None = None, lstStyle: ListStyle | None = None, p=None
     ) -> None: ...
 
 class Text(Serialisable):

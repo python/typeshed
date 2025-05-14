@@ -63,7 +63,7 @@ class NonVisualGroupDrawingShapeProps(Serialisable):
     grpSpLocks: Typed[GroupLocking, Literal[True]]
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
-    def __init__(self, grpSpLocks: Incomplete | None = None, extLst: Unused = None) -> None: ...
+    def __init__(self, grpSpLocks=None, extLst: Unused = None) -> None: ...
 
 class NonVisualDrawingShapeProps(Serialisable):
     tagname: ClassVar[str]
@@ -73,7 +73,7 @@ class NonVisualDrawingShapeProps(Serialisable):
     __elements__: ClassVar[tuple[str, ...]]
     txBox: Incomplete
     def __init__(
-        self, spLocks: Incomplete | None = None, txBox: _ConvertibleToBool | None = None, extLst: Unused = None
+        self, spLocks=None, txBox: _ConvertibleToBool | None = None, extLst: Unused = None
     ) -> None: ...
 
 class NonVisualDrawingProps(Serialisable):
@@ -91,7 +91,7 @@ class NonVisualDrawingProps(Serialisable):
     @overload
     def __init__(
         self,
-        id: Incomplete | None = None,
+        id=None,
         *,
         name: str,
         descr: str | None = None,

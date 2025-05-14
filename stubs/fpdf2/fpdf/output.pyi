@@ -39,8 +39,8 @@ class PDFFont(PDFObject):
         subtype: str,
         base_font: str,
         encoding: str | None = None,
-        d_w: Incomplete | None = None,
-        w: Incomplete | None = None,
+        d_w=None,
+        w=None,
     ) -> None: ...
 
 class CIDSystemInfo(PDFObject):
@@ -91,9 +91,9 @@ class PDFCatalog(PDFObject):
     def __init__(
         self,
         lang: str | None = None,
-        page_layout: Incomplete | None = None,
-        page_mode: Incomplete | None = None,
-        viewer_preferences: Incomplete | None = None,
+        page_layout=None,
+        page_mode=None,
+        viewer_preferences=None,
     ) -> None: ...
 
 class PDFResources(PDFObject):
@@ -134,8 +134,8 @@ class PDFXObject(PDFContentStream):
         color_space,
         bits_per_component,
         img_filter: str | None = None,
-        decode: Incomplete | None = None,
-        decode_parms: Incomplete | None = None,
+        decode=None,
+        decode_parms=None,
     ) -> None: ...
 
 class PDFICCProfile(PDFContentStream):
@@ -214,7 +214,7 @@ class OutputIntentDictionary:
         dest_output_profile: PDFICCProfile | None = None,
         info: str | None = None,
     ) -> None: ...
-    def serialize(self, _security_handler: StandardSecurityHandler | None = None, _obj_id: Incomplete | None = None): ...
+    def serialize(self, _security_handler: StandardSecurityHandler | None = None, _obj_id=None): ...
 
 class ResourceCatalog:
     resources: defaultdict[PDFResourceType, dict[Incomplete, Incomplete]]

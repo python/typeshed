@@ -19,11 +19,11 @@ class BaseLTOLabel(Standard39):
     def __init__(
         self,
         prefix: str = "",
-        number: Incomplete | None = None,
+        number=None,
         subtype: str = "1",
-        border: Incomplete | None = None,
+        border=None,
         checksum: bool = False,
-        availheight: Incomplete | None = None,
+        availheight=None,
     ) -> None: ...
     def drawOn(self, canvas, x, y) -> None: ...
 

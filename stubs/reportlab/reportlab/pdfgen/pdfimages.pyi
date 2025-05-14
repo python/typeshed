@@ -16,7 +16,7 @@ class PDFImage:
     filters: Incomplete
     source: Incomplete
     def __init__(
-        self, image, x, y, width: Incomplete | None = None, height: Incomplete | None = None, caching: int = 0
+        self, image, x, y, width=None, height=None, caching: int = 0
     ) -> None: ...
     def jpg_imagedata(self): ...
     def cache_imagedata(self): ...
@@ -33,6 +33,6 @@ class PDFImage:
         anchor: str = "sw",
         anchorAtXY: bool = False,
         showBoundary: bool = False,
-        extraReturn: Incomplete | None = None,
+        extraReturn=None,
     ): ...
     def format(self, document): ...

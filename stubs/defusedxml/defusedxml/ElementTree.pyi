@@ -10,7 +10,7 @@ class DefusedXMLParser(_XMLParser):
     def __init__(
         self,
         html=...,
-        target: Incomplete | None = None,
+        target=None,
         encoding: str | None = None,
         forbid_dtd: bool = False,
         forbid_entities: bool = True,

@@ -15,16 +15,16 @@ class AttrMapValue:
     desc: Incomplete
     def __init__(
         self,
-        validate: Incomplete | None = None,
-        desc: Incomplete | None = None,
-        initial: Incomplete | None = None,
+        validate=None,
+        desc=None,
+        initial=None,
         advancedUsage: int = 0,
         **kw,
     ) -> None: ...
     def __getattr__(self, name): ...
 
 class AttrMap(dict[str, AttrMapValue]):
-    def __init__(self, BASE: Incomplete | None = None, UNWANTED=[], **kw) -> None: ...
+    def __init__(self, BASE=None, UNWANTED=[], **kw) -> None: ...
     def remove(self, unwanted) -> None: ...
     def clone(self, UNWANTED=[], **kw): ...
 
@@ -33,8 +33,8 @@ def hook__setattr__(obj): ...
 def addProxyAttribute(
     src,
     name,
-    validate: Incomplete | None = None,
-    desc: Incomplete | None = None,
-    initial: Incomplete | None = None,
-    dst: Incomplete | None = None,
+    validate=None,
+    desc=None,
+    initial=None,
+    dst=None,
 ) -> None: ...

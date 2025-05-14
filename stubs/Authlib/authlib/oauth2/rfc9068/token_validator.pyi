@@ -14,7 +14,7 @@ class JWTBearerTokenValidator(BearerTokenValidator):
         token,
         scopes,
         request,
-        groups: Incomplete | None = None,
-        roles: Incomplete | None = None,
-        entitlements: Incomplete | None = None,
+        groups=None,
+        roles=None,
+        entitlements=None,
     ) -> None: ...

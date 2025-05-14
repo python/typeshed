@@ -25,7 +25,7 @@ class RecognitionException(Exception):
         message: str | None = None,
         recognizer: Recognizer | None = None,
         input: InputStream | None = None,
-        ctx: Incomplete | None = None,
+        ctx=None,
     ) -> None: ...
     def getExpectedTokens(self): ...
 
@@ -42,10 +42,10 @@ class NoViableAltException(RecognitionException):
     def __init__(
         self,
         recognizer,
-        input: Incomplete | None = None,
-        startToken: Incomplete | None = None,
-        offendingToken: Incomplete | None = None,
-        deadEndConfigs: Incomplete | None = None,
+        input=None,
+        startToken=None,
+        offendingToken=None,
+        deadEndConfigs=None,
         ctx: ParserRuleContext | None = None,
     ) -> None: ...
 

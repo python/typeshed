@@ -14,9 +14,9 @@ class Meta(Record):
     def __init__(
         self,
         title,
-        url: Incomplete | None = None,
-        description: Incomplete | None = None,
-        stats: Incomplete | None = None,
+        url=None,
+        description=None,
+        stats=None,
         instruction=(),
         tags=(),
         functions=(),
@@ -30,7 +30,7 @@ class Group(Record):
     instruction: Incomplete
     metas: Incomplete
     def __init__(
-        self, title, url: Incomplete | None = None, description: Incomplete | None = None, instruction=(), metas=()
+        self, title, url=None, description=None, instruction=(), metas=()
     ) -> None: ...
 
 def is_group(item): ...
@@ -39,7 +39,7 @@ class Stats(Record):
     __attributes__: Incomplete
     bytes: Incomplete
     count: Incomplete
-    def __init__(self, bytes: Incomplete | None = None, count: Incomplete | None = None) -> None: ...
+    def __init__(self, bytes=None, count=None) -> None: ...
 
 NER: str
 NEWS: str

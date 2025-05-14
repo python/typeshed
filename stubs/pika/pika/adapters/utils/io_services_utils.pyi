@@ -11,7 +11,7 @@ class SocketConnectionMixin:
 
 class StreamingConnectionMixin:
     def create_streaming_connection(
-        self, protocol_factory, sock, on_done, ssl_context: Incomplete | None = None, server_hostname: Incomplete | None = None
+        self, protocol_factory, sock, on_done, ssl_context=None, server_hostname=None
     ): ...
 
 class _AsyncServiceAsyncHandle(AbstractIOReference):

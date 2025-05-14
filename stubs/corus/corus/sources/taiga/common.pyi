@@ -28,11 +28,11 @@ class Author(Record):
     def __init__(
         self,
         name,
-        readers: Incomplete | None = None,
-        texts: Incomplete | None = None,
-        profession: Incomplete | None = None,
-        about: Incomplete | None = None,
-        url: Incomplete | None = None,
+        readers=None,
+        texts=None,
+        profession=None,
+        about=None,
+        url=None,
     ) -> None: ...
 
 class Meta(Record):
@@ -51,16 +51,16 @@ class Meta(Record):
     def __init__(
         self,
         id,
-        timestamp: Incomplete | None = None,
-        tags: Incomplete | None = None,
-        themes: Incomplete | None = None,
-        rubric: Incomplete | None = None,
-        genre: Incomplete | None = None,
-        topic: Incomplete | None = None,
-        author: Incomplete | None = None,
-        lang: Incomplete | None = None,
-        title: Incomplete | None = None,
-        url: Incomplete | None = None,
+        timestamp=None,
+        tags=None,
+        themes=None,
+        rubric=None,
+        genre=None,
+        topic=None,
+        author=None,
+        lang=None,
+        title=None,
+        url=None,
     ) -> None: ...
 
 def load_tar(path, offset: int = 0) -> Generator[Incomplete]: ...
@@ -73,5 +73,5 @@ def load_texts(path, pattern, offset, count, parse_id, load, encoding: str = "ut
 def parse_filename_id(path): ...
 def load_tar_texts(path, pattern, offset, count, parse_id=...): ...
 def load_zip_texts(path, pattern, offset, count, parse_id=...): ...
-def merge_metas(records, metas: Incomplete | None = None) -> Generator[Incomplete]: ...
+def merge_metas(records, metas=None) -> Generator[Incomplete]: ...
 def patch_month(date, months): ...

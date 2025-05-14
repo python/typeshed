@@ -37,14 +37,14 @@ class PMCanvas:
         h,
         dpi: int = 72,
         bg: int = 16777215,
-        configPIL: Incomplete | None = None,
-        backend: Incomplete | None = None,
+        configPIL=None,
+        backend=None,
         backendFmt: str = "RGB",
     ) -> None: ...
     def toPIL(self): ...
-    def saveToFile(self, fn, fmt: Incomplete | None = None): ...
+    def saveToFile(self, fn, fmt=None): ...
     def saveToString(self, fmt: str = "GIF"): ...
-    def setFont(self, fontName, fontSize, leading: Incomplete | None = None) -> None: ...
+    def setFont(self, fontName, fontSize, leading=None) -> None: ...
     def __setattr__(self, name, value) -> None: ...
     def __getattr__(self, name): ...
     def fillstrokepath(self, stroke: int = 1, fill: int = 1) -> None: ...
@@ -59,7 +59,7 @@ class PMCanvas:
         x: float,
         y: float,
         text: str,
-        _fontInfo: Incomplete | None = None,
+        _fontInfo=None,
         text_anchor: str = "left",
         direction: str | None = None,
         shaping: bool = False,
@@ -83,13 +83,13 @@ class PMCanvas:
     def setLineJoin(self, join) -> None: ...
     strokeWidth: Incomplete
     def setLineWidth(self, width) -> None: ...
-    def stringWidth(self, text, fontName: Incomplete | None = None, fontSize: Incomplete | None = None): ...
+    def stringWidth(self, text, fontName=None, fontSize=None): ...
 
 def drawToPMCanvas(
     d: Drawing,
     dpi: float = 72,
     bg: int = 0xFFFFFF,
-    configPIL: Incomplete | None = None,
+    configPIL=None,
     showBoundary=...,
     backend="rlPyCairo",
     backendFmt: str = "RGB",
@@ -98,7 +98,7 @@ def drawToPIL(
     d: Drawing,
     dpi: float = 72,
     bg: int = 0xFFFFFF,
-    configPIL: Incomplete | None = None,
+    configPIL=None,
     showBoundary=...,
     backend="rlPyCairo",
     backendFmt: str = "RGB",
@@ -107,7 +107,7 @@ def drawToPILP(
     d: Drawing,
     dpi: float = 72,
     bg: int = 0xFFFFFF,
-    configPIL: Incomplete | None = None,
+    configPIL=None,
     showBoundary=...,
     backend="rlPyCairo",
     backendFmt: str = "RGB",
@@ -118,7 +118,7 @@ def drawToFile(
     fmt: str = "GIF",
     dpi: float = 72,
     bg: int = 0xFFFFFF,
-    configPIL: Incomplete | None = None,
+    configPIL=None,
     showBoundary=...,
     backend="rlPyCairo",
     backendFmt: str = "RGB",
@@ -128,7 +128,7 @@ def drawToString(
     fmt: str = "GIF",
     dpi: float = 72,
     bg: int = 0xFFFFFF,
-    configPIL: Incomplete | None = None,
+    configPIL=None,
     showBoundary=...,
     backend="rlPyCairo",
     backendFmt: str = "RGB",

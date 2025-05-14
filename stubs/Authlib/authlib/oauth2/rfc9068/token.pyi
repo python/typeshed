@@ -9,8 +9,8 @@ class JWTBearerTokenGenerator(BearerTokenGenerator):
         self,
         issuer,
         alg: str = "RS256",
-        refresh_token_generator: Incomplete | None = None,
-        expires_generator: Incomplete | None = None,
+        refresh_token_generator=None,
+        expires_generator=None,
     ) -> None: ...
     def get_jwks(self) -> None: ...
     def get_extra_claims(self, client, grant_type, user, scope): ...

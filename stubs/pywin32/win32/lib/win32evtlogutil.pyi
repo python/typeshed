@@ -9,10 +9,10 @@ langid: Incomplete
 
 def AddSourceToRegistry(
     appName,
-    msgDLL: Incomplete | None = None,
+    msgDLL=None,
     eventLogType: str = "Application",
-    eventLogFlags: Incomplete | None = None,
-    categoryDLL: Incomplete | None = None,
+    eventLogFlags=None,
+    categoryDLL=None,
     categoryCount: int = 0,
 ) -> None: ...
 def RemoveSourceFromRegistry(appName, eventLogType: str = ...) -> None: ...

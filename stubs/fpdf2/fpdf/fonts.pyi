@@ -29,7 +29,7 @@ class FontFace:
     def __init__(
         self,
         family: str | None = None,
-        emphasis: Incomplete | None = None,
+        emphasis=None,
         size_pt: int | None = None,
         color: int | tuple[Number, Number, Number] | DeviceGray | DeviceRGB | None = None,
         fill_color: int | tuple[Number, Number, Number] | DeviceGray | DeviceRGB | None = None,
@@ -151,10 +151,10 @@ class SubsetMap:
     def pick_glyph(self, glyph): ...
     def get_glyph(
         self,
-        glyph: Incomplete | None = None,
-        unicode: Incomplete | None = None,
-        glyph_name: Incomplete | None = None,
-        glyph_width: Incomplete | None = None,
+        glyph=None,
+        unicode=None,
+        glyph_name=None,
+        glyph_width=None,
     ) -> Glyph: ...
     def get_all_glyph_names(self): ...
 

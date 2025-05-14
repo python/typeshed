@@ -13,7 +13,7 @@ def update_wrapper(wrapper: _T, wrapped: object, assigned: Sequence[str] = ..., 
 def copy_globals(
     source: ModuleType,
     globs: MutableMapping[str, Any],
-    only_names: Incomplete | None = None,
+    only_names=None,
     ignore_missing_names: bool = False,
     names_to_ignore: Sequence[str] = ...,
     dunder_names_to_keep: Sequence[str] = ...,

@@ -329,7 +329,7 @@ class Point2D(Serialisable):
     namespace: ClassVar[str]
     x: Incomplete
     y: Incomplete
-    def __init__(self, x: Incomplete | None = None, y: Incomplete | None = None) -> None: ...
+    def __init__(self, x=None, y=None) -> None: ...
 
 class PositiveSize2D(Serialisable):
     tagname: ClassVar[str]
@@ -498,13 +498,13 @@ class GeomRect(Serialisable):
     r: Incomplete
     b: Incomplete
     def __init__(
-        self, l: Incomplete | None = None, t: Incomplete | None = None, r: Incomplete | None = None, b: Incomplete | None = None
+        self, l=None, t=None, r=None, b=None
     ) -> None: ...
 
 class AdjPoint2D(Serialisable):
     x: Incomplete
     y: Incomplete
-    def __init__(self, x: Incomplete | None = None, y: Incomplete | None = None) -> None: ...
+    def __init__(self, x=None, y=None) -> None: ...
 
 class ConnectionSite(Serialisable):
     ang: MinMax[float, Literal[False]]

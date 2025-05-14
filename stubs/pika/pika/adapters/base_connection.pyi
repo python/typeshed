@@ -22,7 +22,7 @@ class BaseConnection(Connection, metaclass=abc.ABCMeta):
     @classmethod
     @abc.abstractmethod
     def create_connection(
-        cls, connection_configs, on_done, custom_ioloop: Incomplete | None = None, workflow: Incomplete | None = None
+        cls, connection_configs, on_done, custom_ioloop=None, workflow=None
     ): ...
     @property
     def ioloop(self): ...

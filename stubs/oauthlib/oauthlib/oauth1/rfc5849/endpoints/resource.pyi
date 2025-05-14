@@ -10,7 +10,7 @@ class ResourceEndpoint(BaseEndpoint):
         self,
         uri,
         http_method: str = "GET",
-        body: Incomplete | None = None,
-        headers: Incomplete | None = None,
-        realms: Incomplete | None = None,
+        body=None,
+        headers=None,
+        realms=None,
     ): ...

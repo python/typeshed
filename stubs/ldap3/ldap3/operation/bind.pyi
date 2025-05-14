@@ -4,9 +4,9 @@ def bind_operation(
     version,
     authentication,
     name: str = "",
-    password: Incomplete | None = None,
-    sasl_mechanism: Incomplete | None = None,
-    sasl_credentials: Incomplete | None = None,
+    password=None,
+    sasl_mechanism=None,
+    sasl_credentials=None,
     auto_encode: bool = False,
 ): ...
 def bind_request_to_dict(request): ...
@@ -14,8 +14,8 @@ def bind_response_operation(
     result_code,
     matched_dn: str = "",
     diagnostic_message: str = "",
-    referral: Incomplete | None = None,
-    server_sasl_credentials: Incomplete | None = None,
+    referral=None,
+    server_sasl_credentials=None,
 ): ...
 def bind_response_to_dict(response): ...
 def sicily_bind_response_to_dict(response): ...

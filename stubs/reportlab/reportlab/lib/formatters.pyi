@@ -17,9 +17,9 @@ class DecimalFormatter(Formatter):
         self,
         places: int = 2,
         decimalSep: str = ".",
-        thousandSep: Incomplete | None = None,
-        prefix: Incomplete | None = None,
-        suffix: Incomplete | None = None,
+        thousandSep=None,
+        prefix=None,
+        suffix=None,
     ) -> None: ...
     def format(self, num): ...
 

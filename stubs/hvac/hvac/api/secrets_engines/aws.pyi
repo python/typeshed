@@ -7,10 +7,10 @@ class Aws(VaultApiBase):
         self,
         access_key,
         secret_key,
-        region: Incomplete | None = None,
-        iam_endpoint: Incomplete | None = None,
-        sts_endpoint: Incomplete | None = None,
-        max_retries: Incomplete | None = None,
+        region=None,
+        iam_endpoint=None,
+        sts_endpoint=None,
+        max_retries=None,
         mount_point="aws",
     ): ...
     def rotate_root_iam_credentials(self, mount_point="aws"): ...
@@ -20,13 +20,13 @@ class Aws(VaultApiBase):
         self,
         name,
         credential_type,
-        policy_document: Incomplete | None = None,
-        default_sts_ttl: Incomplete | None = None,
-        max_sts_ttl: Incomplete | None = None,
-        role_arns: Incomplete | None = None,
-        policy_arns: Incomplete | None = None,
+        policy_document=None,
+        default_sts_ttl=None,
+        max_sts_ttl=None,
+        role_arns=None,
+        policy_arns=None,
         legacy_params: bool = False,
-        iam_tags: Incomplete | None = None,
+        iam_tags=None,
         mount_point="aws",
     ): ...
     def read_role(self, name, mount_point="aws"): ...
@@ -35,9 +35,9 @@ class Aws(VaultApiBase):
     def generate_credentials(
         self,
         name,
-        role_arn: Incomplete | None = None,
-        ttl: Incomplete | None = None,
+        role_arn=None,
+        ttl=None,
         endpoint: str = "creds",
         mount_point="aws",
-        role_session_name: Incomplete | None = None,
+        role_session_name=None,
     ): ...

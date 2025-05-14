@@ -7,11 +7,11 @@ class Auth(SystemBackendMixin):
     def enable_auth_method(
         self,
         method_type,
-        description: Incomplete | None = None,
-        config: Incomplete | None = None,
-        plugin_name: Incomplete | None = None,
+        description=None,
+        config=None,
+        plugin_name=None,
         local: bool = False,
-        path: Incomplete | None = None,
+        path=None,
         **kwargs,
     ): ...
     def disable_auth_method(self, path): ...
@@ -19,12 +19,12 @@ class Auth(SystemBackendMixin):
     def tune_auth_method(
         self,
         path,
-        default_lease_ttl: Incomplete | None = None,
-        max_lease_ttl: Incomplete | None = None,
-        description: Incomplete | None = None,
-        audit_non_hmac_request_keys: Incomplete | None = None,
-        audit_non_hmac_response_keys: Incomplete | None = None,
-        listing_visibility: Incomplete | None = None,
-        passthrough_request_headers: Incomplete | None = None,
+        default_lease_ttl=None,
+        max_lease_ttl=None,
+        description=None,
+        audit_non_hmac_request_keys=None,
+        audit_non_hmac_response_keys=None,
+        listing_visibility=None,
+        passthrough_request_headers=None,
         **kwargs,
     ): ...

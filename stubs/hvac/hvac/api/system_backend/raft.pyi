@@ -9,9 +9,9 @@ class Raft(SystemBackendMixin):
         self,
         leader_api_addr,
         retry: bool = False,
-        leader_ca_cert: Incomplete | None = None,
-        leader_client_cert: Incomplete | None = None,
-        leader_client_key: Incomplete | None = None,
+        leader_ca_cert=None,
+        leader_client_cert=None,
+        leader_client_key=None,
     ): ...
     def read_raft_config(self): ...
     def remove_raft_node(self, server_id): ...

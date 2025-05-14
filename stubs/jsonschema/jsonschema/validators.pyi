@@ -31,11 +31,11 @@ class _Validator:
     def __init__(
         self,
         schema: Schema,
-        resolver: Incomplete | None = None,
+        resolver=None,
         format_checker: FormatChecker | None = None,
         *,
         registry: SchemaRegistry = ...,
-        _resolver: Incomplete | None = None,
+        _resolver=None,
     ) -> None: ...
     @classmethod
     def check_schema(cls, schema: Schema, format_checker: FormatChecker | Unset = ...) -> None: ...
@@ -49,7 +49,7 @@ class _Validator:
         schema: Schema,
         path: Incomplete | None = ...,
         schema_path: Incomplete | None = ...,
-        resolver: Incomplete | None = None,
+        resolver=None,
     ) -> Generator[Incomplete, None, None]: ...
     def validate(self, *args, **kwargs) -> None: ...
     def is_type(self, instance, type): ...
@@ -59,7 +59,7 @@ def validates(version: str) -> Callable[..., Incomplete]: ...
 def create(
     meta_schema: Schema,
     validators: Mapping[str, _ValidatorCallback] | tuple[()] = (),
-    version: Incomplete | None = None,
+    version=None,
     type_checker: TypeChecker = ...,
     format_checker: FormatChecker = ...,
     id_of: Callable[[Schema], str] = ...,
@@ -68,9 +68,9 @@ def create(
 def extend(
     validator,
     validators=(),
-    version: Incomplete | None = None,
-    type_checker: Incomplete | None = None,
-    format_checker: Incomplete | None = None,
+    version=None,
+    type_checker=None,
+    format_checker=None,
 ): ...
 
 # At runtime these are fields that are assigned the return values of create() calls.
@@ -95,8 +95,8 @@ class RefResolver:
         store: SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] = ...,
         cache_remote: bool = True,
         handlers: SupportsKeysAndGetItem[str, _Handler] | Iterable[tuple[str, _Handler]] = (),
-        urljoin_cache: Incomplete | None = None,
-        remote_cache: Incomplete | None = None,
+        urljoin_cache=None,
+        remote_cache=None,
     ) -> None: ...
     @classmethod
     def from_schema(cls, schema: Schema, id_of=..., *args, **kwargs): ...

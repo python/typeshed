@@ -32,13 +32,13 @@ class DateSearchWithDetection:
         self,
         text,
         languages,
-        settings: Incomplete | None = None,
+        settings=None,
         detect_languages_function: _DetectLanguagesFunction | None = None,
     ): ...
     def search_dates(
         self,
         text,
-        languages: Incomplete | None = None,
-        settings: Incomplete | None = None,
+        languages=None,
+        settings=None,
         detect_languages_function: _DetectLanguagesFunction | None = None,
     ): ...

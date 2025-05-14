@@ -25,21 +25,21 @@ class Canvas(_PDFColorSetter):
         filename: str | IO[bytes],
         pagesize: tuple[float, float] | None = None,
         bottomup: int = 1,
-        pageCompression: Incomplete | None = None,
-        invariant: Incomplete | None = None,
+        pageCompression=None,
+        invariant=None,
         verbosity: int = 0,
-        encrypt: Incomplete | None = None,
-        cropMarks: Incomplete | None = None,
-        pdfVersion: Incomplete | None = None,
-        enforceColorSpace: Incomplete | None = None,
+        encrypt=None,
+        cropMarks=None,
+        pdfVersion=None,
+        enforceColorSpace=None,
         initialFontName: float | None = None,
         initialFontSize: float | None = None,
         initialLeading: float | None = None,
-        cropBox: Incomplete | None = None,
-        artBox: Incomplete | None = None,
-        trimBox: Incomplete | None = None,
-        bleedBox: Incomplete | None = None,
-        lang: Incomplete | None = None,
+        cropBox=None,
+        artBox=None,
+        trimBox=None,
+        bleedBox=None,
+        lang=None,
     ) -> None: ...
     def setEncrypt(self, encrypt) -> None: ...
     def init_graphics_state(self) -> None: ...
@@ -49,7 +49,7 @@ class Canvas(_PDFColorSetter):
     STATE_RANGE: Incomplete
     def setAuthor(self, author: str | None) -> None: ...
     def setDateFormatter(self, dateFormatter) -> None: ...
-    def addOutlineEntry(self, title, key, level: int = 0, closed: Incomplete | None = None) -> None: ...
+    def addOutlineEntry(self, title, key, level: int = 0, closed=None) -> None: ...
     def setOutlineNames0(self, *nametree) -> None: ...
     def setTitle(self, title: str | None) -> None: ...
     def setSubject(self, subject: str | None) -> None: ...
@@ -66,11 +66,11 @@ class Canvas(_PDFColorSetter):
         self,
         key,
         fit: str = "Fit",
-        left: Incomplete | None = None,
-        top: Incomplete | None = None,
-        bottom: Incomplete | None = None,
-        right: Incomplete | None = None,
-        zoom: Incomplete | None = None,
+        left=None,
+        top=None,
+        bottom=None,
+        right=None,
+        zoom=None,
     ): ...
     def bookmarkHorizontalAbsolute(self, key, top, left: int = 0, fit: str = "XYZ", **kw): ...
     def bookmarkHorizontal(self, key, relativeX, relativeY, **kw) -> None: ...
@@ -87,7 +87,7 @@ class Canvas(_PDFColorSetter):
         anchor: str = "c",
         anchorAtXY: bool = False,
         showBoundary: bool = False,
-        extraReturn: Incomplete | None = None,
+        extraReturn=None,
     ): ...
     def drawImage(
         self,
@@ -96,15 +96,15 @@ class Canvas(_PDFColorSetter):
         y: float,
         width: float | None = None,
         height: float | None = None,
-        mask: Incomplete | None = None,
+        mask=None,
         preserveAspectRatio: bool = False,
         anchor: str = "c",
         anchorAtXY: bool = False,
         showBoundary: bool = False,
-        extraReturn: Incomplete | None = None,
+        extraReturn=None,
     ): ...
     def beginForm(
-        self, name, lowerx: int = 0, lowery: int = 0, upperx: Incomplete | None = None, uppery: Incomplete | None = None
+        self, name, lowerx: int = 0, lowery: int = 0, upperx=None, uppery=None
     ) -> None: ...
     def endForm(self, **extra_attributes) -> None: ...
     def addPostScriptCommand(self, command, position: int = 1) -> None: ...
@@ -112,18 +112,18 @@ class Canvas(_PDFColorSetter):
         self,
         contents,
         DA,
-        Rect: Incomplete | None = None,
+        Rect=None,
         addtopage: int = 1,
-        name: Incomplete | None = None,
+        name=None,
         relative: int = 0,
         **kw,
     ) -> None: ...
     def textAnnotation(
         self,
         contents,
-        Rect: Incomplete | None = None,
+        Rect=None,
         addtopage: int = 1,
-        name: Incomplete | None = None,
+        name=None,
         relative: int = 0,
         **kw,
     ) -> None: ...
@@ -132,20 +132,20 @@ class Canvas(_PDFColorSetter):
         self,
         contents,
         Rect,
-        QuadPoints: Incomplete | None = None,
+        QuadPoints=None,
         Color=[0.83, 0.89, 0.95],
         addtopage: int = 1,
-        name: Incomplete | None = None,
+        name=None,
         relative: int = 0,
         **kw,
     ) -> None: ...
     def inkAnnotation(
         self,
         contents,
-        InkList: Incomplete | None = None,
-        Rect: Incomplete | None = None,
+        InkList=None,
+        Rect=None,
         addtopage: int = 1,
-        name: Incomplete | None = None,
+        name=None,
         relative: int = 0,
         **kw,
     ) -> None: ...
@@ -154,25 +154,25 @@ class Canvas(_PDFColorSetter):
         self,
         contents,
         destinationname,
-        Rect: Incomplete | None = None,
+        Rect=None,
         addtopage: int = 1,
-        name: Incomplete | None = None,
+        name=None,
         thickness: int = 0,
         color: Color | None = None,
-        dashArray: Incomplete | None = None,
+        dashArray=None,
         **kw,
     ): ...
     def linkRect(
         self,
         contents,
         destinationname,
-        Rect: Incomplete | None = None,
+        Rect=None,
         addtopage: int = 1,
-        name: Incomplete | None = None,
+        name=None,
         relative: int = 1,
         thickness: int = 0,
         color: Color | None = None,
-        dashArray: Incomplete | None = None,
+        dashArray=None,
         **kw,
     ): ...
     def linkURL(
@@ -182,7 +182,7 @@ class Canvas(_PDFColorSetter):
         relative: int = 0,
         thickness: int = 0,
         color: Color | None = None,
-        dashArray: Incomplete | None = None,
+        dashArray=None,
         kind: str = "URI",
         **kw,
     ) -> None: ...
@@ -214,8 +214,8 @@ class Canvas(_PDFColorSetter):
         y: float,
         size: float = 5,
         gap: float = 1,
-        text: Incomplete | None = None,
-        strokeColor: Incomplete | None = None,
+        text=None,
+        strokeColor=None,
         strokeWidth: float | None = None,
         fontSize: float = 3,
     ) -> None: ...
@@ -228,8 +228,8 @@ class Canvas(_PDFColorSetter):
     def circle(self, x_cen, y_cen, r, stroke: int = 1, fill: int = 0) -> None: ...
     def roundRect(self, x, y, width, height, radius, stroke: int = 1, fill: int = 0) -> None: ...
     def shade(self, shading) -> None: ...
-    def linearGradient(self, x0, y0, x1, y1, colors, positions: Incomplete | None = None, extend: bool = True) -> None: ...
-    def radialGradient(self, x, y, radius, colors, positions: Incomplete | None = None, extend: bool = True) -> None: ...
+    def linearGradient(self, x0, y0, x1, y1, colors, positions=None, extend: bool = True) -> None: ...
+    def radialGradient(self, x, y, radius, colors, positions=None, extend: bool = True) -> None: ...
     def drawString(
         self,
         x: float,
@@ -286,12 +286,12 @@ class Canvas(_PDFColorSetter):
     def setMiterLimit(self, limit) -> None: ...
     def setDash(self, array: list[float] | tuple[float, ...] | float = [], phase: float = 0) -> None: ...
     def beginPath(self): ...
-    def drawPath(self, aPath, stroke: int = 1, fill: int = 0, fillMode: Incomplete | None = None) -> None: ...
-    def clipPath(self, aPath, stroke: int = 1, fill: int = 0, fillMode: Incomplete | None = None) -> None: ...
+    def drawPath(self, aPath, stroke: int = 1, fill: int = 0, fillMode=None) -> None: ...
+    def clipPath(self, aPath, stroke: int = 1, fill: int = 0, fillMode=None) -> None: ...
     def beginText(self, x: float = 0, y: float = 0, direction: Literal["LTR", "RTL"] | None = None) -> PDFTextObject: ...
     def drawText(self, aTextObject: PDFTextObject) -> None: ...
     def setPageCompression(self, pageCompression: int = 1) -> None: ...
-    def setPageDuration(self, duration: Incomplete | None = None) -> None: ...
+    def setPageDuration(self, duration=None) -> None: ...
     def setPageTransition(
         self, effectname: str | None = None, duration: float = 1, direction: float = 0, dimension: str = "H", motion: str = "I"
     ) -> None: ...
@@ -303,7 +303,7 @@ class Canvas(_PDFColorSetter):
     def getCatalogEntry(self, key): ...
     def delCatalogEntry(self, key) -> None: ...
     def addPageLabel(
-        self, pageNum, style: Incomplete | None = None, start: Incomplete | None = None, prefix: Incomplete | None = None
+        self, pageNum, style=None, start=None, prefix=None
     ) -> None: ...
     @property
     def acroForm(self): ...

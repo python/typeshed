@@ -9,11 +9,11 @@ class Quota(SystemBackendMixin):
         self,
         name,
         rate,
-        path: Incomplete | None = None,
-        interval: Incomplete | None = None,
-        block_interval: Incomplete | None = None,
-        role: Incomplete | None = None,
-        rate_limit_type: Incomplete | None = None,
-        inheritable: Incomplete | None = None,
+        path=None,
+        interval=None,
+        block_interval=None,
+        role=None,
+        rate_limit_type=None,
+        inheritable=None,
     ): ...
     def delete_quota(self, name): ...

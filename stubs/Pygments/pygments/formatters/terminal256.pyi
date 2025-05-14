@@ -13,8 +13,8 @@ class EscapeSequence:
     italic: Any
     def __init__(
         self,
-        fg: Incomplete | None = None,
-        bg: Incomplete | None = None,
+        fg=None,
+        bg=None,
         bold: bool = False,
         underline: bool = False,
         italic: bool = False,

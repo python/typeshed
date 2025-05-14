@@ -18,13 +18,13 @@ class Record(Serialisable):
     def __init__(
         self,
         _fields=(),
-        m: Incomplete | None = None,
-        n: Incomplete | None = None,
-        b: Incomplete | None = None,
-        e: Incomplete | None = None,
-        s: Incomplete | None = None,
-        d: Incomplete | None = None,
-        x: Incomplete | None = None,
+        m=None,
+        n=None,
+        b=None,
+        e=None,
+        s=None,
+        d=None,
+        x=None,
     ) -> None: ...
 
 class RecordList(Serialisable):

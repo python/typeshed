@@ -44,10 +44,10 @@ class SessionRedirectMixin:
         resp,
         req,
         stream: bool = False,
-        timeout: Incomplete | None = None,
+        timeout=None,
         verify: bool = True,
-        cert: Incomplete | None = None,
-        proxies: Incomplete | None = None,
+        cert=None,
+        proxies=None,
         yield_requests: bool = False,
         **adapter_kwargs,
     ): ...
@@ -151,7 +151,7 @@ class Session(SessionRedirectMixin):
         stream: bool | None = None,
         verify: _Verify | None = None,
         cert: _Cert | None = None,
-        json: Incomplete | None = None,
+        json=None,
     ) -> Response: ...
     def get(
         self,
@@ -214,7 +214,7 @@ class Session(SessionRedirectMixin):
         self,
         url: str | bytes,
         data: _Data | None = None,
-        json: Incomplete | None = None,
+        json=None,
         *,
         params: _Params | None = ...,
         headers: _HeadersUpdateMapping | None = ...,

@@ -48,7 +48,7 @@ class NonVisualPictureProperties(Serialisable):
     extLst: Typed[ExtensionList, Literal[True]]
     __elements__: ClassVar[tuple[str, ...]]
     def __init__(
-        self, preferRelativeResize: _ConvertibleToBool | None = None, picLocks: Incomplete | None = None, extLst: Unused = None
+        self, preferRelativeResize: _ConvertibleToBool | None = None, picLocks=None, extLst: Unused = None
     ) -> None: ...
 
 class PictureNonVisual(Serialisable):

@@ -42,14 +42,14 @@ class ChildSheet(Serialisable):
         name: str,
         sheetId: ConvertibleToInt,
         state: _VisibilityType | Literal["none"] | None = "visible",
-        id: Incomplete | None = None,
+        id=None,
     ) -> None: ...
 
 class PivotCache(Serialisable):
     tagname: ClassVar[str]
     cacheId: Integer[Literal[False]]
     id: Incomplete
-    def __init__(self, cacheId: ConvertibleToInt, id: Incomplete | None = None) -> None: ...
+    def __init__(self, cacheId: ConvertibleToInt, id=None) -> None: ...
 
 class WorkbookPackage(Serialisable):
     tagname: ClassVar[str]

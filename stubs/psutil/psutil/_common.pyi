@@ -219,7 +219,7 @@ class NoSuchProcess(Error):
     pid: Any
     name: Any
     msg: Any
-    def __init__(self, pid, name: Incomplete | None = None, msg: Incomplete | None = None) -> None: ...
+    def __init__(self, pid, name=None, msg=None) -> None: ...
 
 class ZombieProcess(NoSuchProcess):
     __module__: str
@@ -228,7 +228,7 @@ class ZombieProcess(NoSuchProcess):
     name: Any
     msg: Any
     def __init__(
-        self, pid, name: Incomplete | None = None, ppid: Incomplete | None = None, msg: Incomplete | None = None
+        self, pid, name=None, ppid=None, msg=None
     ) -> None: ...
 
 class AccessDenied(Error):
@@ -236,14 +236,14 @@ class AccessDenied(Error):
     pid: Any
     name: Any
     msg: Any
-    def __init__(self, pid: Incomplete | None = None, name: Incomplete | None = None, msg: Incomplete | None = None) -> None: ...
+    def __init__(self, pid=None, name=None, msg=None) -> None: ...
 
 class TimeoutExpired(Error):
     __module__: str
     seconds: Any
     pid: Any
     name: Any
-    def __init__(self, seconds, pid: Incomplete | None = None, name: Incomplete | None = None) -> None: ...
+    def __init__(self, seconds, pid=None, name=None) -> None: ...
 
 _Func = TypeVar("_Func", bound=Callable[..., Any])
 
@@ -269,7 +269,7 @@ class _WrapNumbers:
     reminder_keys: Any
     def __init__(self) -> None: ...
     def run(self, input_dict, name): ...
-    def cache_clear(self, name: Incomplete | None = None) -> None: ...
+    def cache_clear(self, name=None) -> None: ...
     def cache_info(self): ...
 
 def wrap_numbers(input_dict, name: str): ...

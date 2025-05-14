@@ -15,7 +15,7 @@ class Loss(ABC):
     reduction: _ReductionValues
     name: str | None
     def __init__(
-        self, name: str | None = None, reduction: _ReductionValues = "sum_over_batch_size", dtype: Incomplete | None = None
+        self, name: str | None = None, reduction: _ReductionValues = "sum_over_batch_size", dtype=None
     ) -> None: ...
     @abstractmethod
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
@@ -34,7 +34,7 @@ class BinaryCrossentropy(Loss):
         axis: int = -1,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "binary_crossentropy",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -49,7 +49,7 @@ class BinaryFocalCrossentropy(Loss):
         axis: int = -1,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "binary_focal_crossentropy",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -61,7 +61,7 @@ class CategoricalCrossentropy(Loss):
         axis: int = -1,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "categorical_crossentropy",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -70,7 +70,7 @@ class CategoricalHinge(Loss):
         self,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "categorical_hinge",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -80,13 +80,13 @@ class CosineSimilarity(Loss):
         axis: int = -1,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "cosine_similarity",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
 class Hinge(Loss):
     def __init__(
-        self, reduction: _ReductionValues = "sum_over_batch_size", name: str | None = "hinge", dtype: Incomplete | None = None
+        self, reduction: _ReductionValues = "sum_over_batch_size", name: str | None = "hinge", dtype=None
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -96,7 +96,7 @@ class Huber(Loss):
         delta: float = 1.0,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "huber_loss",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -105,13 +105,13 @@ class KLDivergence(Loss):
         self,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "kl_divergence",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
 class LogCosh(Loss):
     def __init__(
-        self, reduction: _ReductionValues = "sum_over_batch_size", name: str | None = "log_cosh", dtype: Incomplete | None = None
+        self, reduction: _ReductionValues = "sum_over_batch_size", name: str | None = "log_cosh", dtype=None
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -120,7 +120,7 @@ class MeanAbsoluteError(Loss):
         self,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "mean_absolute_error",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -129,7 +129,7 @@ class MeanAbsolutePercentageError(Loss):
         self,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "mean_absolute_percentage_error",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -138,7 +138,7 @@ class MeanSquaredError(Loss):
         self,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "mean_squared_error",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -147,13 +147,13 @@ class MeanSquaredLogarithmicError(Loss):
         self,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "mean_squared_logarithmic_error",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
 class Poisson(Loss):
     def __init__(
-        self, reduction: _ReductionValues = "sum_over_batch_size", name: str | None = "poisson", dtype: Incomplete | None = None
+        self, reduction: _ReductionValues = "sum_over_batch_size", name: str | None = "poisson", dtype=None
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -164,7 +164,7 @@ class SparseCategoricalCrossentropy(Loss):
         ignore_class: int | None = None,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str = "sparse_categorical_crossentropy",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 
@@ -173,7 +173,7 @@ class SquaredHinge(Loss):
         self,
         reduction: _ReductionValues = "sum_over_batch_size",
         name: str | None = "squared_hinge",
-        dtype: Incomplete | None = None,
+        dtype=None,
     ) -> None: ...
     def call(self, y_true: Tensor, y_pred: Tensor) -> Tensor: ...
 

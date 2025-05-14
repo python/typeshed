@@ -66,7 +66,7 @@ _CustomTagsParser: TypeAlias = Callable[[str, int, dict[str, Any], dict[str, Any
 def loads(content: str, uri: str | None = None, custom_tags_parser: _CustomTagsParser | None = None) -> M3U8: ...
 def load(
     uri: str,
-    timeout: Incomplete | None = None,
+    timeout=None,
     headers: Mapping[str, Any] = {},
     custom_tags_parser: _CustomTagsParser | None = None,
     http_client: _HTTPClientProtocol = ...,

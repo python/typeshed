@@ -31,7 +31,7 @@ def open(
     opener: _Opener | None = None,
     *,
     loop: AbstractEventLoop | None = None,
-    executor: Incomplete | None = None,
+    executor=None,
 ) -> AiofilesContextManager[AsyncTextIOWrapper]: ...
 
 # Unbuffered binary: returns a FileIO
@@ -47,7 +47,7 @@ def open(
     opener: _Opener | None = None,
     *,
     loop: AbstractEventLoop | None = None,
-    executor: Incomplete | None = None,
+    executor=None,
 ) -> AiofilesContextManager[AsyncFileIO]: ...
 
 # Buffered binary reading/updating: AsyncBufferedReader
@@ -63,7 +63,7 @@ def open(
     opener: _Opener | None = None,
     *,
     loop: AbstractEventLoop | None = None,
-    executor: Incomplete | None = None,
+    executor=None,
 ) -> AiofilesContextManager[AsyncBufferedReader]: ...
 
 # Buffered binary writing: AsyncBufferedIOBase
@@ -79,7 +79,7 @@ def open(
     opener: _Opener | None = None,
     *,
     loop: AbstractEventLoop | None = None,
-    executor: Incomplete | None = None,
+    executor=None,
 ) -> AiofilesContextManager[AsyncBufferedIOBase]: ...
 
 # Buffering cannot be determined: fall back to _UnknownAsyncBinaryIO
@@ -95,7 +95,7 @@ def open(
     opener: _Opener | None = None,
     *,
     loop: AbstractEventLoop | None = None,
-    executor: Incomplete | None = None,
+    executor=None,
 ) -> AiofilesContextManager[_UnknownAsyncBinaryIO]: ...
 
 stdin: AsyncTextIndirectIOWrapper

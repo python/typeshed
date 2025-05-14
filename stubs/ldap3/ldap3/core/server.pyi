@@ -23,13 +23,13 @@ class Server:
         host: str,
         port: int | None = None,
         use_ssl: bool = False,
-        allowed_referral_hosts: Incomplete | None = None,
+        allowed_referral_hosts=None,
         get_info: Literal["NO_INFO", "DSA", "SCHEMA", "ALL"] = "SCHEMA",
-        tls: Incomplete | None = None,
-        formatter: Incomplete | None = None,
-        connect_timeout: Incomplete | None = None,
+        tls=None,
+        formatter=None,
+        connect_timeout=None,
         mode: Literal["IP_SYSTEM_DEFAULT", "IP_V4_ONLY", "IP_V6_ONLY", "IP_V4_PREFERRED", "IP_V6_PREFERRED"] = "IP_V6_PREFERRED",
-        validator: Incomplete | None = None,
+        validator=None,
     ) -> None: ...
     @property
     def address_info(self): ...
@@ -37,15 +37,15 @@ class Server:
     def reset_availability(self) -> None: ...
     def check_availability(
         self,
-        source_address: Incomplete | None = None,
-        source_port: Incomplete | None = None,
-        source_port_list: Incomplete | None = None,
+        source_address=None,
+        source_port=None,
+        source_port_list=None,
     ): ...
     @staticmethod
     def next_message_id(): ...
     def get_info_from_server(self, connection) -> None: ...
-    def attach_dsa_info(self, dsa_info: Incomplete | None = None) -> None: ...
-    def attach_schema_info(self, dsa_schema: Incomplete | None = None) -> None: ...
+    def attach_dsa_info(self, dsa_info=None) -> None: ...
+    def attach_schema_info(self, dsa_schema=None) -> None: ...
     @property
     def info(self): ...
     @property
@@ -55,10 +55,10 @@ class Server:
         host,
         dsa_info,
         dsa_schema,
-        port: Incomplete | None = None,
+        port=None,
         use_ssl: bool = False,
-        formatter: Incomplete | None = None,
-        validator: Incomplete | None = None,
+        formatter=None,
+        validator=None,
     ): ...
     def candidate_addresses(self): ...
     def has_control(self, control): ...

@@ -16,7 +16,7 @@ class Transform(VaultApiBase):
         template,
         tweak_source: str = "supplied",
         masking_character: str = "*",
-        allowed_roles: Incomplete | None = None,
+        allowed_roles=None,
         mount_point: str = "transform",
     ): ...
     def create_or_update_fpe_transformation(
@@ -24,7 +24,7 @@ class Transform(VaultApiBase):
         name,
         template,
         tweak_source: str = "supplied",
-        allowed_roles: Incomplete | None = None,
+        allowed_roles=None,
         mount_point: str = "transform",
     ): ...
     def create_or_update_masking_transformation(
@@ -32,7 +32,7 @@ class Transform(VaultApiBase):
         name,
         template,
         masking_character: str = "*",
-        allowed_roles: Incomplete | None = None,
+        allowed_roles=None,
         mount_point: str = "transform",
     ): ...
     def create_or_update_tokenization_transformation(
@@ -40,8 +40,8 @@ class Transform(VaultApiBase):
         name,
         max_ttl: int = 0,
         mapping_mode: str = "default",
-        allowed_roles: Incomplete | None = None,
-        stores: Incomplete | None = None,
+        allowed_roles=None,
+        stores=None,
         mount_point: str = "transform",
     ): ...
     def read_transformation(self, name, mount_point: str = "transform"): ...
@@ -60,10 +60,10 @@ class Transform(VaultApiBase):
         name,
         driver,
         connection_string,
-        username: Incomplete | None = None,
-        password: Incomplete | None = None,
+        username=None,
+        password=None,
         type: str = "sql",
-        supported_transformations: Incomplete | None = None,
+        supported_transformations=None,
         schema: str = "public",
         max_open_connections: int = 4,
         max_idle_connections: int = 4,
@@ -73,29 +73,29 @@ class Transform(VaultApiBase):
     def encode(
         self,
         role_name,
-        value: Incomplete | None = None,
-        transformation: Incomplete | None = None,
-        tweak: Incomplete | None = None,
-        batch_input: Incomplete | None = None,
+        value=None,
+        transformation=None,
+        tweak=None,
+        batch_input=None,
         mount_point: str = "transform",
     ): ...
     def decode(
         self,
         role_name,
-        value: Incomplete | None = None,
-        transformation: Incomplete | None = None,
-        tweak: Incomplete | None = None,
-        batch_input: Incomplete | None = None,
+        value=None,
+        transformation=None,
+        tweak=None,
+        batch_input=None,
         mount_point: str = "transform",
     ): ...
     def validate_token(
-        self, role_name, value, transformation, batch_input: Incomplete | None = None, mount_point: str = "transform"
+        self, role_name, value, transformation, batch_input=None, mount_point: str = "transform"
     ): ...
     def check_tokenization(
-        self, role_name, value, transformation, batch_input: Incomplete | None = None, mount_point: str = "transform"
+        self, role_name, value, transformation, batch_input=None, mount_point: str = "transform"
     ): ...
     def retrieve_token_metadata(
-        self, role_name, value, transformation, batch_input: Incomplete | None = None, mount_point: str = "transform"
+        self, role_name, value, transformation, batch_input=None, mount_point: str = "transform"
     ): ...
     def snapshot_tokenization_state(self, name, limit: int = 1000, continuation: str = "", mount_point: str = "transform"): ...
     def restore_tokenization_state(self, name, values, mount_point: str = "transform"): ...

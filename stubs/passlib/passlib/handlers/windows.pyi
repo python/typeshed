@@ -9,7 +9,7 @@ class lmhash(uh.TruncateMixin, uh.HasEncodingContext, uh.StaticHandler):
     checksum_size: ClassVar[int]
     truncate_size: ClassVar[int]
     @classmethod
-    def raw(cls, secret, encoding: Incomplete | None = None): ...
+    def raw(cls, secret, encoding=None): ...
 
 class nthash(uh.StaticHandler):
     name: ClassVar[str]
