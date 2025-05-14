@@ -1393,24 +1393,15 @@ def divmod(x: _T_contra, y: SupportsRDivMod[_T_contra, _T_co], /) -> _T_co: ...
 if sys.version_info >= (3, 13):
     @overload
     def eval(
-        source: Literal["'na' * 5"],
-        /,
-        globals: dict[str, Any] | None = None,
-        locals: Mapping[str, object] | None = None,
+        source: Literal["'na' * 5"], /, globals: dict[str, Any] | None = None, locals: Mapping[str, object] | None = None
     ) -> Literal["nanananana"]: ...
     @overload
     def eval(
-        source: Literal["'almonds'"],
-        /,
-        globals: dict[str, Any] | None = None,
-        locals: Mapping[str, object] | None = None,
+        source: Literal["'almonds'"], /, globals: dict[str, Any] | None = None, locals: Mapping[str, object] | None = None
     ) -> Literal["almonds"]: ...
     @overload
     def eval(
-        source: Literal["1+5"],
-        /,
-        globals: dict[str, Any] | None = None,
-        locals: Mapping[str, object] | None = None,
+        source: Literal["1+5"], /, globals: dict[str, Any] | None = None, locals: Mapping[str, object] | None = None
     ) -> Literal[6]: ...
     @overload
     def eval(
