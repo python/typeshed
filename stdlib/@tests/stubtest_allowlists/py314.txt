@@ -74,8 +74,6 @@ importlib.machinery.AppleFrameworkLoader
 importlib.util.__all__
 importlib.util.Loader
 logging.handlers.SysLogHandler.__init__
-marshal.dump
-marshal.dumps
 multiprocessing.forkserver.main
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
