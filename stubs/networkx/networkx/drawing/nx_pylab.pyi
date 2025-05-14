@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Collection
+from collections.abc import Collection, Sequence
 
 __all__ = [
     "draw",
