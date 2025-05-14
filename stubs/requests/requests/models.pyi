@@ -15,7 +15,6 @@ from .structures import CaseInsensitiveDict as CaseInsensitiveDict
 
 _JSON: TypeAlias = Any  # any object that can be serialized to JSON
 
-
 default_hooks = hooks.default_hooks
 HTTPBasicAuth = auth.HTTPBasicAuth
 cookiejar_from_dict = cookies.cookiejar_from_dict
