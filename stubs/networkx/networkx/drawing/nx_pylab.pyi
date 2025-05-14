@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Collection
+from collections.abc import Collection, Sequence
 
 __all__ = [
     "draw",
@@ -25,7 +25,7 @@ def draw_networkx_nodes(
     pos,
     nodelist: Collection[Incomplete] | None = None,
     node_size: Incomplete | int = 300,
-    node_color: str = "#1f78b4",
+    node_color: str | Sequence[str] = "#1f78b4",
     node_shape: str = "o",
     alpha=None,
     cmap=None,
