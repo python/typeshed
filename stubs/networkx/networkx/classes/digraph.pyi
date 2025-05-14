@@ -16,8 +16,6 @@ from networkx.classes.reportviews import (
 
 __all__ = ["DiGraph"]
 
-__all__ = ["DiGraph"]
-
 class DiGraph(Graph[_Node]):
     @cached_property
     def succ(self) -> AdjacencyView[_Node, _Node, dict[str, Incomplete]]: ...
