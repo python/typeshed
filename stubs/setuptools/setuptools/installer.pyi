@@ -1,4 +1,5 @@
 from importlib import metadata
+from typing import Any
 from typing_extensions import deprecated
 
 @deprecated(
@@ -12,4 +13,4 @@ def fetch_build_egg(dist, req) -> metadata.Distribution | metadata.PathDistribut
 
 # Returns packaging.requirements.Requirement
 # But since this module is deprecated, we avoid declaring a dependency on packaging
-def strip_marker(req): ...
+def strip_marker(req) -> Any: ...
