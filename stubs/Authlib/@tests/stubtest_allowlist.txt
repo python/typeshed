@@ -1,3 +1,4 @@
+# TODO: check these entries
 authlib.jose.ECKey.PRIVATE_KEY_CLS
 authlib.jose.ECKey.PUBLIC_KEY_CLS
 authlib.jose.RSAKey.PRIVATE_KEY_CLS
@@ -29,8 +30,4 @@ authlib.oauth2.rfc7521.AssertionClient.oauth_error_class
 authlib.oauth2.rfc7521.client.AssertionClient.oauth_error_class
 authlib.oauth2.rfc7523.JWTBearerTokenValidator.token_cls
 authlib.oauth2.rfc7523.validator.JWTBearerTokenValidator.token_cls
-authlib.oauth2.rfc7591.ClientRegistrationEndpoint.claims_class
-authlib.oauth2.rfc7591.endpoint.ClientRegistrationEndpoint.claims_class
-authlib.oauth2.rfc7592.ClientConfigurationEndpoint.claims_class
-authlib.oauth2.rfc7592.endpoint.ClientConfigurationEndpoint.claims_class
 authlib.oauth2.rfc9068.claims.JWTAccessTokenClaims.validate

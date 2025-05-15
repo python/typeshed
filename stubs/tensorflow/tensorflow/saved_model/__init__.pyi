@@ -10,7 +10,7 @@ from tensorflow.saved_model.experimental import VariablePolicy
 from tensorflow.types.experimental import ConcreteFunction, PolymorphicFunction
 
 _P = ParamSpec("_P")
-_R = TypeVar("_R", covariant=True)
+_R_co = TypeVar("_R_co", covariant=True)
 
 class Asset:
     @property
@@ -71,16 +71,16 @@ class SaveOptions:
         experimental_custom_gradients: bool = True,
         experimental_image_format: bool = False,
         experimental_skip_saver: bool = False,
-        experimental_sharding_callback: Incomplete | None = None,
-        extra_tags: Incomplete | None = None,
+        experimental_sharding_callback=None,
+        extra_tags=None,
     ) -> None: ...
 
 def contains_saved_model(export_dir: str | Path) -> bool: ...
 
-class _LoadedAttributes(Generic[_P, _R]):
-    signatures: Mapping[str, ConcreteFunction[_P, _R]]
+class _LoadedAttributes(Generic[_P, _R_co]):
+    signatures: Mapping[str, ConcreteFunction[_P, _R_co]]
 
-class _LoadedModel(AutoTrackable, _LoadedAttributes[_P, _R]):
+class _LoadedModel(AutoTrackable, _LoadedAttributes[_P, _R_co]):
     variables: list[tf.Variable]
     trainable_variables: list[tf.Variable]
     # TF1 model artifact specific
