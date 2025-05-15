@@ -286,7 +286,7 @@ else:
 
 _W = TypeVar("_W", bound=Misc)
 # Events considered covariant because you should never assign to event.widget.
-_W_co = TypeVar("_W_co", covariant=True, bound=Misc)
+_W_co = TypeVar("_W_co", covariant=True, bound=Misc, default=Misc)
 
 class Event(Generic[_W_co]):
     serial: int
@@ -977,6 +977,7 @@ class Tk(Misc, Wm):
         sync: bool = False,
         use: str | None = None,
     ) -> None: ...
+    # Keep this in sync with ttktheme.ThemedTk. See issue #13858
     @overload
     def configure(
         self,
@@ -3735,6 +3736,7 @@ class PhotoImage(Image, _PhotoImageLike):
         self,
         data: (
             str
+            | bytes
             | list[str]
             | list[list[str]]
             | list[tuple[str, ...]]
@@ -3742,7 +3744,7 @@ class PhotoImage(Image, _PhotoImageLike):
             | tuple[list[str], ...]
             | tuple[tuple[str, ...], ...]
         ),
-        to: tuple[int, int] | None = None,
+        to: tuple[int, int] | tuple[int, int, int, int] | None = None,
     ) -> None: ...
     if sys.version_info >= (3, 13):
         def read(
