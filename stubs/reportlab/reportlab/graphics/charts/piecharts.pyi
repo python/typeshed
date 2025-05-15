@@ -80,7 +80,8 @@ class Pie(AbstractPieChart):
     sideLabels: int
     sideLabelsOffset: float
     slices: Incomplete
-    def __init__(self, **kwd) -> None: ...
+    angleRange: int
+    def __init__(self, *, angleRange: int = 360, **kwds) -> None: ...
     def demo(self): ...
     centerx: Incomplete
     centery: Incomplete
