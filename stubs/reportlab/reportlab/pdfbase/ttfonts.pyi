@@ -137,7 +137,7 @@ class TTFont:
         internalName: Incomplete
         frozen: int
         subsets: Incomplete
-        def __init__(self, asciiReadable: Incomplete | None = None, ttf: Incomplete | None = None) -> None: ...
+        def __init__(self, asciiReadable=None, ttf=None) -> None: ...
 
     fontName: str
     face: TTFontFace
