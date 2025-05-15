@@ -6,6 +6,11 @@ reportlab.rl_config.__all__
 reportlab.graphics.barcode.eanbc.__all__
 reportlab.graphics.barcode.ecc200datamatrix.__all__
 
+# shapeFragWord has two incompatible definitions, depending on whether
+# uharfbuzz is installed or not. We use the version where uharfbuzz is
+# installed.
+reportlab.pdfbase.ttfonts.shapeFragWord
+
 # Error: is inconsistent
 # ======================
 # The drawOn method violates LSP all over the place and it's usually

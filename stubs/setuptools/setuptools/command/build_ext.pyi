@@ -9,7 +9,6 @@ have_rtld: bool
 use_stubs: bool
 libtype: str
 
-def if_dl(s): ...
 def get_abi3_suffix(): ...
 
 class build_ext(_build_ext):
