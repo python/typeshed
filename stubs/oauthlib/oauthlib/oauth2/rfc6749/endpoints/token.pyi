@@ -25,8 +25,8 @@ class TokenEndpoint(BaseEndpoint):
         http_method: _HTTPMethod = "POST",
         body: str | None = None,
         headers: dict[str, str] | None = None,
-        credentials: Incomplete | None = None,
-        grant_type_for_scope: Incomplete | None = None,
-        claims: Incomplete | None = None,
+        credentials=None,
+        grant_type_for_scope=None,
+        claims=None,
     ): ...
     def validate_token_request(self, request: Request) -> None: ...
