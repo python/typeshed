@@ -45,7 +45,6 @@
         "stubs/fpdf2",
         "stubs/gdb",
         "stubs/geopandas",
-        "stubs/gevent",
         "stubs/google-cloud-ndb",
         "stubs/grpcio-channelz/grpc_channelz/v1",
         "stubs/grpcio-health-checking/grpc_health/v1/health_pb2_grpc.pyi",
