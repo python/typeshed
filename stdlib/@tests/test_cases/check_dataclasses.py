@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import dataclasses as dc
+import sys
 from typing import TYPE_CHECKING, Any, Dict, FrozenSet, Tuple, Type, Union
 from typing_extensions import Annotated, assert_type
 
@@ -99,3 +100,44 @@ D = dc.make_dataclass(
 # in case a type checker decides to add some special-casing for
 # `make_dataclass` in the future)
 assert_type(D.__mro__, Tuple[type, ...])
+
+
+if sys.version_info >= (3, 14):
+    from typing import TypeVar
+
+    _T = TypeVar("_T")
+
+    def custom_dataclass(
+        cls: type[_T],
+        /,
+        *,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
+        match_args: bool = True,
+        kw_only: bool = False,
+        slots: bool = False,
+        weakref_slot: bool = False,
+    ) -> type[_T]:
+        custom_dc_maker = dc.dataclass(
+            init=init,
+            repr=repr,
+            eq=eq,
+            order=order,
+            unsafe_hash=unsafe_hash,
+            frozen=frozen,
+            match_args=match_args,
+            kw_only=kw_only,
+            slots=slots,
+            weakref_slot=weakref_slot,
+        )
+        return custom_dc_maker(cls)
+
+    dc.make_dataclass(
+        "D",
+        [("a", Union[int, None]), "y", ("z", Annotated[FrozenSet[bytes], "metadata"], dc.field(default=frozenset({b"foo"})))],
+        decorator=custom_dataclass,
+    )
