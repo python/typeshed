@@ -27,6 +27,10 @@ extension_descriptions = {".pyi": "stub", ".py": ".py"}
 # consistent CI runs.
 linters = {"mypy", "pyright", "pytype", "ruff"}
 
+ALLOWED_PY_FILES_IN_TESTS_DIR = {
+    "django_settings.py"  # This file contains Django settings used by the mypy_django_plugin during stubtest execution.
+}
+
 
 def assert_consistent_filetypes(
     directory: Path, *, kind: str, allowed: set[str], allow_nonidentifier_filenames: bool = False
@@ -81,7 +85,9 @@ def check_stubs() -> None:
 
 
 def check_tests_dir(tests_dir: Path) -> None:
-    py_files_present = any(file.suffix == ".py" for file in tests_dir.iterdir())
+    py_files_present = any(
+        file.suffix == ".py" and file.name not in ALLOWED_PY_FILES_IN_TESTS_DIR for file in tests_dir.iterdir()
+    )
     error_message = f"Test-case files must be in an `{TESTS_DIR}/{TEST_CASES_DIR}` directory, not in the `{TESTS_DIR}` directory"
     assert not py_files_present, error_message
 
@@ -113,11 +119,10 @@ def check_test_cases() -> None:
 
 def check_no_symlinks() -> None:
     """Check that there are no symlinks in the typeshed repository."""
-    files = [os.path.join(root, file) for root, _, files in os.walk(".") for file in files]
+    files = [Path(root, file) for root, _, files in os.walk(".") for file in files]
     no_symlink = "You cannot use symlinks in typeshed, please copy {} to its link."
     for file in files:
-        _, ext = os.path.splitext(file)
-        if ext == ".pyi" and os.path.islink(file):
+        if file.suffix == ".pyi" and file.is_symlink():
             raise ValueError(no_symlink.format(file))
 
 
@@ -141,18 +146,18 @@ def _find_stdlib_modules() -> set[str]:
     modules = set[str]()
     for path, _, files in os.walk(STDLIB_PATH):
         for filename in files:
-            base_module = ".".join(os.path.normpath(path).split(os.sep)[1:])
+            base_module = ".".join(Path(path).parts[1:])
             if filename == "__init__.pyi":
                 modules.add(base_module)
             elif filename.endswith(".pyi"):
-                mod, _ = os.path.splitext(filename)
+                mod = filename[:-4]
                 modules.add(f"{base_module}.{mod}" if base_module else mod)
     return modules
 
 
 def check_metadata() -> None:
     """Check that all METADATA.toml files are valid."""
-    for distribution in os.listdir("stubs"):
+    for distribution in os.listdir(STUBS_PATH):
         # This function does various sanity checks for METADATA.toml files
         read_metadata(distribution)
 

@@ -12,19 +12,20 @@ from __future__ import annotations
 
 import argparse
 import asyncio
-import glob
-import os.path
 import re
 import subprocess
 import sys
 import urllib.parse
 from http import HTTPStatus
 from importlib.metadata import distribution
+from pathlib import Path
 
 import aiohttp
 import termcolor
 
-PYRIGHT_CONFIG = "pyrightconfig.stricter.json"
+from ts_utils.paths import STDLIB_PATH, STUBS_PATH
+
+PYRIGHT_CONFIG = Path("pyrightconfig.stricter.json")
 
 
 def search_pip_freeze_output(project: str, output: str) -> tuple[str, str] | None:
@@ -52,22 +53,22 @@ def get_installed_package_info(project: str) -> tuple[str, str] | None:
     return search_pip_freeze_output(project, r.stdout)
 
 
-def run_stubgen(package: str, output: str) -> None:
+def run_stubgen(package: str, output: Path) -> None:
     print(f"Running stubgen: stubgen -o {output} -p {package}")
     subprocess.run(["stubgen", "-o", output, "-p", package, "--export-less"], check=True)
 
 
-def run_stubdefaulter(stub_dir: str) -> None:
+def run_stubdefaulter(stub_dir: Path) -> None:
     print(f"Running stubdefaulter: stubdefaulter --packages {stub_dir}")
     subprocess.run(["stubdefaulter", "--packages", stub_dir], check=False)
 
 
-def run_black(stub_dir: str) -> None:
+def run_black(stub_dir: Path) -> None:
     print(f"Running Black: black {stub_dir}")
-    subprocess.run(["pre-commit", "run", "black", "--files", *glob.iglob(f"{stub_dir}/**/*.pyi")], check=False)
+    subprocess.run(["pre-commit", "run", "black", "--files", *stub_dir.rglob("*.pyi")], check=False)
 
 
-def run_ruff(stub_dir: str) -> None:
+def run_ruff(stub_dir: Path) -> None:
     print(f"Running Ruff: ruff check {stub_dir} --fix-only")
     subprocess.run([sys.executable, "-m", "ruff", "check", stub_dir, "--fix-only"], check=False)
 
@@ -115,14 +116,14 @@ async def get_upstream_repo_url(project: str) -> str | None:
     return None
 
 
-def create_metadata(project: str, stub_dir: str, version: str) -> None:
+def create_metadata(project: str, stub_dir: Path, version: str) -> None:
     """Create a METADATA.toml file."""
     match = re.match(r"[0-9]+.[0-9]+", version)
     if match is None:
         sys.exit(f"Error: Cannot parse version number: {version}")
-    filename = os.path.join(stub_dir, "METADATA.toml")
+    filename = stub_dir / "METADATA.toml"
     version = match.group(0)
-    if os.path.exists(filename):
+    if filename.exists():
         return
     metadata = f'version = "{version}.*"\n'
     upstream_repo_url = asyncio.run(get_upstream_repo_url(project))
@@ -135,13 +136,12 @@ def create_metadata(project: str, stub_dir: str, version: str) -> None:
     else:
         metadata += f'upstream_repository = "{upstream_repo_url}"\n'
     print(f"Writing {filename}")
-    with open(filename, "w", encoding="UTF-8") as file:
-        file.write(metadata)
+    filename.write_text(metadata, encoding="UTF-8")
 
 
-def add_pyright_exclusion(stub_dir: str) -> None:
+def add_pyright_exclusion(stub_dir: Path) -> None:
     """Exclude stub_dir from strict pyright checks."""
-    with open(PYRIGHT_CONFIG, encoding="UTF-8") as f:
+    with PYRIGHT_CONFIG.open(encoding="UTF-8") as f:
         lines = f.readlines()
     i = 0
     while i < len(lines) and not lines[i].strip().startswith('"exclude": ['):
@@ -167,7 +167,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
         third_party_excludes[-1] = last_line + "\n"
 
     # Must use forward slash in the .json file
-    line_to_add = f'        "{stub_dir}",\n'.replace("\\", "/")
+    line_to_add = f'        "{stub_dir.as_posix()}",\n'
 
     if line_to_add in third_party_excludes:
         print(f"{PYRIGHT_CONFIG} already up-to-date")
@@ -177,7 +177,7 @@ def add_pyright_exclusion(stub_dir: str) -> None:
     third_party_excludes.sort(key=str.lower)
 
     print(f"Updating {PYRIGHT_CONFIG}")
-    with open(PYRIGHT_CONFIG, "w", encoding="UTF-8") as f:
+    with PYRIGHT_CONFIG.open("w", encoding="UTF-8") as f:
         f.writelines(before_third_party_excludes)
         f.writelines(third_party_excludes)
         f.writelines(after_third_party_excludes)
@@ -194,7 +194,7 @@ def main() -> None:
     parser.add_argument("--package", help="generate stubs for this Python package (default is autodetected)")
     args = parser.parse_args()
     project = args.project
-    package = args.package
+    package: str = args.package
 
     if not re.match(r"[a-zA-Z0-9-_.]+$", project):
         sys.exit(f"Invalid character in project name: {project!r}")
@@ -214,7 +214,7 @@ def main() -> None:
         print(f'Using detected package "{package}" for project "{project}"', file=sys.stderr)
         print("Suggestion: Try again with --package argument if that's not what you wanted", file=sys.stderr)
 
-    if not os.path.isdir("stubs") or not os.path.isdir("stdlib"):
+    if not STUBS_PATH.is_dir() or not STDLIB_PATH.is_dir():
         sys.exit("Error: Current working directory must be the root of typeshed repository")
 
     # Get normalized project name and version of installed package.
@@ -226,9 +226,9 @@ def main() -> None:
         sys.exit(1)
     project, version = info
 
-    stub_dir = os.path.join("stubs", project)
-    package_dir = os.path.join(stub_dir, package)
-    if os.path.exists(package_dir):
+    stub_dir = STUBS_PATH / project
+    package_dir = stub_dir / package
+    if package_dir.exists():
         sys.exit(f"Error: {package_dir} already exists (delete it first)")
 
     run_stubgen(package, stub_dir)
