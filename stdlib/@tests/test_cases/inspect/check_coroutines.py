@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from inspect import iscoroutinefunction
 from collections.abc import Awaitable, Callable, Coroutine
+from inspect import iscoroutinefunction
 from typing import Any
 from typing_extensions import assert_type
 
