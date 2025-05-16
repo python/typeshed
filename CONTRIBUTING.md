@@ -312,7 +312,7 @@ def foo(x): ...  # unannotated argument and return type
 `Incomplete` can also be used for partially known types:
 
 ```python
-def foo(x: Incomplete | None = None) -> list[Incomplete]: ...
+def foo(x: Incomplete | None) -> list[Incomplete]: ...
 ```
 
 ### What to do when a project's documentation and implementation disagree

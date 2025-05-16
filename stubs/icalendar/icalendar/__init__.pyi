@@ -25,6 +25,7 @@ from .enums import (
 from .error import (
     ComponentEndMissing as ComponentEndMissing,
     ComponentStartMissing as ComponentStartMissing,
+    FeatureWillBeRemovedInFutureVersion as FeatureWillBeRemovedInFutureVersion,
     IncompleteAlarmInformation as IncompleteAlarmInformation,
     IncompleteComponent as IncompleteComponent,
     InvalidCalendar as InvalidCalendar,
@@ -38,6 +39,7 @@ from .prop import (
     vCalAddress as vCalAddress,
     vDate as vDate,
     vDatetime as vDatetime,
+    vDDDLists as vDDDLists,
     vDDDTypes as vDDDTypes,
     vDuration as vDuration,
     vFloat as vFloat,
@@ -72,6 +74,7 @@ __all__ = [
     "vCalAddress",
     "vDatetime",
     "vDate",
+    "vDDDLists",
     "vDDDTypes",
     "vDuration",
     "vFloat",
@@ -114,6 +117,7 @@ __all__ = [
     "vSkip",
     "RELTYPE",
     "ROLE",
+    "FeatureWillBeRemovedInFutureVersion",
 ]
 
 __version__ = version_mod.__version__
