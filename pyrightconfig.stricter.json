@@ -9,6 +9,7 @@
         // test cases use a custom pyrightconfig file
         "**/@tests/test_cases",
         "stdlib/__main__.pyi",
+        "stdlib/distutils/cmd.pyi",
         "stdlib/distutils/command",
         "stdlib/distutils/dist.pyi",
         "stdlib/encodings/__init__.pyi",
