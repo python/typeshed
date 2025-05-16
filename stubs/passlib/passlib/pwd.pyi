@@ -138,3 +138,5 @@ def genphrase(
     sep: str | bytes | None = None,
     rng: random.Random | None = None,
 ) -> Iterator[str]: ...
+
+__all__ = ["genword", "default_charsets", "genphrase", "default_wordsets"]
