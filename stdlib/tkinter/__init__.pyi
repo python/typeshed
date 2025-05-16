@@ -888,13 +888,7 @@ class Wm:
     @overload
     def wm_geometry(self, newGeometry: str) -> None: ...
     geometry = wm_geometry
-    def wm_grid(
-        self,
-        baseWidth=None,
-        baseHeight=None,
-        widthInc=None,
-        heightInc=None,
-    ): ...
+    def wm_grid(self, baseWidth=None, baseHeight=None, widthInc=None, heightInc=None): ...
     grid = wm_grid
     def wm_group(self, pathName=None): ...
     group = wm_group
