@@ -167,7 +167,6 @@ if sys.version_info >= (3, 14):
 
     class SetProxy(_BaseSetProxy[_T]): ...
 
-
 class BaseListProxy(BaseProxy, MutableSequence[_T]):
     __builtins__: ClassVar[dict[str, Any]]
     def __len__(self) -> int: ...
