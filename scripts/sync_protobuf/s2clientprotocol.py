@@ -69,7 +69,7 @@ and {protoc_version} on \
     print("Updated s2clientprotocol/METADATA.toml")
 
     # Run pre-commit to cleanup the stubs
-    subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")))
+    subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")), check=False)
 
 
 if __name__ == "__main__":

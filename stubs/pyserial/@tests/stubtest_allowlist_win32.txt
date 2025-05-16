@@ -1,6 +1,3 @@
-# TODO: missing from stub
-serial.win32.__all__
-
 # Error: failed to import
 # =======================
 serial.serialposix  # Posix only
