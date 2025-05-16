@@ -84,8 +84,8 @@ async def get_project_urls_from_pypi(project: str, session: aiohttp.ClientSessio
 
 
 async def get_upstream_repo_url(project: str) -> str | None:
-    # aiohttp is overkill here, but it would also just be silly
-    # to have both requests and aiohttp in our requirements-tests.txt file.
+    # aiohttp is overkill here, but it would also just be silly to have
+    # both requests and aiohttp in our dev dependency-group in pyproject.toml.
     async with aiohttp.ClientSession() as session:
         project_urls = await get_project_urls_from_pypi(project, session)
 

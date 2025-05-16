@@ -10,7 +10,6 @@ STDLIB_PATH: Final = TS_BASE_PATH / "stdlib"
 STUBS_PATH: Final = TS_BASE_PATH / "stubs"
 
 PYPROJECT_PATH: Final = TS_BASE_PATH / "pyproject.toml"
-REQUIREMENTS_PATH: Final = TS_BASE_PATH / "requirements-tests.txt"
 GITIGNORE_PATH: Final = TS_BASE_PATH / ".gitignore"
 
 TESTS_DIR: Final = "@tests"

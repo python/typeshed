@@ -41,10 +41,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-          cache-dependency-path: requirements-tests.txt
+          cache-dependency-path: pyproject.toml
           allow-prereleases: true
           check-latest: true
       - name: Install dependencies
-        run: pip install -r requirements-tests.txt
+        run: pip install --group=dev
       - name: Run stubtest
         run: python tests/stubtest_stdlib.py
