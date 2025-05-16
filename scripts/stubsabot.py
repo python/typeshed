@@ -676,7 +676,8 @@ def get_update_pr_body(update: Update, metadata: Mapping[str, Any]) -> str:
         body += textwrap.dedent(
             f"""
 
-            :warning: Review this PR manually, as stubtest is skipped in CI for {update.distribution}! :warning:
+            :warning: Review this PR manually, as stubtest is skipped in CI for {update.distribution}!
+            Also check whether stubtest can be reenabled. :warning:
             """
         )
     return body
@@ -729,8 +730,6 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
 
 
 async def main() -> None:
-    assert sys.version_info >= (3, 9)
-
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--action-level",
@@ -753,8 +752,8 @@ async def main() -> None:
         dists_to_update = [path.name for path in STUBS_PATH.iterdir()]
 
     if args.action_level > ActionLevel.nothing:
-        subprocess.run(["git", "update-index", "--refresh"], capture_output=True)
-        diff_result = subprocess.run(["git", "diff-index", "HEAD", "--name-only"], text=True, capture_output=True)
+        subprocess.run(["git", "update-index", "--refresh"], capture_output=True, check=False)
+        diff_result = subprocess.run(["git", "diff-index", "HEAD", "--name-only"], text=True, capture_output=True, check=False)
         if diff_result.returncode:
             print("Unexpected exception!")
             print(diff_result.stdout)

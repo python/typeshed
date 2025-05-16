@@ -183,11 +183,6 @@ _collections_abc.AsyncGenerator.__anext__
 _collections_abc.AsyncGenerator.aclose
 _collections_abc.AsyncIterator.__anext__
 
-# Pretend typing.ByteString is a Union, to better match its documented semantics.
-# As a side effect, this changes the definition of collections.abc.ByteString, which is okay,
-# because it's not an ABC that makes any sense and was deprecated in 3.12
-_collections_abc.ByteString
-
 _collections_abc.Callable  # Typing-related weirdness
 _collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
@@ -215,12 +210,7 @@ _?ast.stmt.__init__
 
 _ast.ImportFrom.level  # None on the class, but never None on instances
 
-ast.Bytes.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
-ast.Ellipsis.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
 ast.ImportFrom.level  # None on the class, but never None on instances
-ast.NameConstant.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
-ast.Num.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
-ast.Str.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
 _?asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
@@ -312,7 +302,6 @@ enum.auto.__xor__  # enum.auto is magic, see comments
 functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
 functools.cached_property.__set__  # doesn't exist, but cached_property is settable by another mechanism
 
-_?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
 hmac.new  # Raises TypeError if optional argument digestmod is not provided
 http.HTTPStatus.description  # set in __new__; work-around for enum wierdness
 http.HTTPStatus.phrase  # set in __new__; work-around for enum wierdness
@@ -325,7 +314,6 @@ importlib._bootstrap_external.FileLoader.get_resource_reader
 importlib._bootstrap_external.FileLoader.load_module
 importlib.abc.FileLoader.get_filename
 importlib.abc.FileLoader.load_module
-importlib.abc.Traversable.open  # Problematic protocol signature at runtime, see source code comments.
 importlib.machinery.ExtensionFileLoader.get_filename
 
 # We can't distinguish not having a default value from having a default value of inspect.Parameter.empty
@@ -464,6 +452,7 @@ typing._Final
 typing._Final.__init_subclass__
 typing\.Protocol
 typing(_extensions)?\._TypedDict
+typing(_extensions)?\.Any.*
 typing(_extensions)?\.Generic
 typing(_extensions)?\.TypedDict
 typing_extensions\.ParamSpec.*
@@ -471,7 +460,6 @@ typing_extensions\.TypeVar.*
 typing_extensions\._SpecialForm.*
 
 # Special primitives
-typing\.ByteString
 typing(_extensions)?\.AbstractSet
 typing(_extensions)?\.AsyncGenerator
 typing(_extensions)?\.AsyncIterable
@@ -501,8 +489,9 @@ typing(_extensions)?\.ValuesView
 typing_extensions\.Final
 typing_extensions\.LiteralString
 
-typing._SpecialForm.__call__  # Typing-related weirdness
-typing._SpecialForm.__init__  # Typing-related weirdness
+# Typing-related weirdness
+typing._SpecialForm.__call__
+typing._SpecialForm.__init__
 
 # These are abstract properties at runtime,
 # but marking them as such in the stub breaks half the the typed-Python ecosystem (see #8726)
