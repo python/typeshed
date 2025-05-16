@@ -124,7 +124,6 @@ jobs:
         run: uv pip install -r requirements-tests.txt --system
       - name: Install required APT packages
         run: |
-          uv --version
           DEPENDENCIES=$( python tests/get_external_apt_dependencies.py )
           if [ -n "$DEPENDENCIES" ]; then
               printf "Installing APT packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
@@ -134,6 +133,7 @@ jobs:
         run: uv venv .venv
       - name: Install 3rd-party stub dependencies
         run: |
+          uv --version
           DEPENDENCIES=$( python tests/get_external_stub_requirements.py )
           if [ -n "$DEPENDENCIES" ]; then
               printf "Installing packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
