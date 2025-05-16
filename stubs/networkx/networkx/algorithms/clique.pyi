@@ -39,7 +39,7 @@ def number_of_cliques(G, nodes=None, cliques=None) -> int | dict[Incomplete, Inc
 def max_weight_clique(G, weight="weight") -> tuple[Incomplete, Incomplete]: ...
 
 class MaxWeightClique:
-    G: Graph[_Node]
+    G: Graph[Incomplete]
     incumbent_nodes: list[Incomplete]
     incumbent_weight: int
     node_weights: dict[Incomplete, int]
