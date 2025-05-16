@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import Collection
-from itertools import chain
 
 from networkx.utils.backends import _dispatchable
 
@@ -18,7 +17,6 @@ __all__ = [
     "degree_sequence_tree",
     "random_degree_sequence_graph",
 ]
-chaini = chain.from_iterable
 
 @_dispatchable
 def configuration_model(deg_sequence, create_using=None, seed=None) -> MultiGraph[Incomplete]: ...

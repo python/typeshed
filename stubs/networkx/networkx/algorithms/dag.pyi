@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Generator, Iterable
-from itertools import chain
 
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import Graph, _Node
@@ -24,8 +23,6 @@ __all__ = [
     "dag_to_branching",
     "compute_v_structures",
 ]
-
-chaini = chain.from_iterable
 
 @_dispatchable
 def descendants(G: Graph[_Node], source) -> set[_Node]: ...

@@ -1,13 +1,10 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
-from itertools import chain
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["contracted_edge", "contracted_nodes", "equivalence_classes", "identified_nodes", "quotient_graph"]
-
-chaini = chain.from_iterable
 
 @_dispatchable
 def equivalence_classes(iterable: Iterable[Incomplete], relation): ...
