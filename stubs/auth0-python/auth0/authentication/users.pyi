@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 
-from auth0.rest import RestClient as RestClient, RestClientOptions as RestClientOptions
-from auth0.types import TimeoutType as TimeoutType
+from auth0.rest import RestClient
+from auth0.types import TimeoutType
 
 class Users:
     domain: str

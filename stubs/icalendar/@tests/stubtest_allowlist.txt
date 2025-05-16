@@ -12,6 +12,7 @@ icalendar.cal.Component.set_inline
 
 # Stubtest gets confused by multiple inheritance.
 icalendar.prop.vSkip.__new__
+icalendar.vSkip.__new__
 
 # Stubtest incorrectly reports that stub argument "cls" should be
 # positional or keyword.

@@ -9,11 +9,6 @@ requires-python = ">=3.9" # Minimum version to run tests, used by uv run
 line-length = 130
 target-version = ["py310"]
 skip-magic-trailing-comma = true
-# Exclude protobuf files because they have long line lengths
-# that can't be autofixed. Like docstrings and import aliases.
-# Ideally, we could configure Black to allow longer line lengths
-# for just these files, but doesn't seem possible yet.
-force-exclude = ".*_pb2.pyi"
 
 [tool.ruff]
 line-length = 130
@@ -59,6 +54,7 @@ select = [
     "PGH", # pygrep-hooks
     "PIE", # flake8-pie
     "PL", # Pylint
+    "PTH", # flake8-use-pathlib
     "RSE", # flake8-raise
     "RUF", # Ruff-specific and unused-noqa
     "SLOT", # flake8-slots
@@ -85,9 +81,6 @@ select = [
     "FURB187", # Use of assignment of `reversed` on list `{name}`
     # Used for lint.flake8-import-conventions.aliases
     "ICN001", # `{name}` should be imported as `{asname}`
-    # Autofixable flake8-use-pathlib only
-    "PTH201", # Do not pass the current directory explicitly to `Path`
-    "PTH210", # Invalid suffix passed to `.with_suffix()`
     # PYI: only enable rules that have autofixes and that we always want to fix (even manually),
     # avoids duplicate # noqa with flake8-pyi
     "PYI009", # Empty body should contain `...`, not pass
@@ -139,6 +132,8 @@ select = [
     "TC005", # Found empty type-checking block
     # "TC008", # TODO: Enable when out of preview
     "TC010", # Invalid string member in `X | Y`-style union type
+    # Used for lint.flake8-import-conventions.aliases
+    "TID251", # `{name}` is banned: {message}
 ]
 extend-safe-fixes = [
     "UP036", # Remove unnecessary `sys.version_info` blocks
@@ -170,6 +165,8 @@ ignore = [
     "PLR2004", # Magic value used in comparison, consider replacing `{value}` with a constant variable
     # Keep codeflow path separation explicit
     "PLR5501", # Use `elif` instead of `else` then `if`, to reduce indentation
+    # Often just leads to redundant more verbose code when needing an actual str
+    "PTH208", # Use `pathlib.Path.iterdir()` instead.
     # Allow FIXME
     "TD001", # Invalid TODO tag: `{tag}`
     # Git blame is sufficient
@@ -235,6 +232,9 @@ convention = "pep257" # https://docs.astral.sh/ruff/settings/#lint_pydocstyle_co
 typing_extensions = "typing_extensions"
 typing = "typing"
 
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"tempfile.NamedTemporaryFile".msg = "Use `ts_util.util.NamedTemporaryFile` instead."
+
 [tool.ruff.lint.isort]
 split-on-trailing-comma = false
 combine-as-imports = true
@@ -245,6 +245,8 @@ extra-standard-library = [
     # Extra modules not recognized by Ruff
     # Added in Python 3.9
     "zoneinfo",
+    # Added in Python 3.14
+    "compression",
 ]
 known-first-party = ["_utils", "ts_utils"]
 
