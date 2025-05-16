@@ -187,7 +187,7 @@ class Dataset(ABC, Generic[_T1_co]):
         path: str,
         compression: _CompressionTypes = None,
         shard_func: Callable[[_T1_co], int] | None = None,
-        checkpoint_args: Incomplete | None = None,
+        checkpoint_args=None,
     ) -> None: ...
     def scan(
         self, initial_state: _T2, scan_func: Callable[[_T2, _T1_co], tuple[_T2, _T3]], name: str | None = None

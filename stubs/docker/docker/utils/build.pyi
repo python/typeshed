@@ -1,5 +1,5 @@
 import io
-from _typeshed import Incomplete, StrOrBytesPath, StrPath
+from _typeshed import StrOrBytesPath, StrPath
 from collections.abc import Generator, Iterable, MutableSequence
 from os import PathLike
 from tarfile import _Fileobj
@@ -16,11 +16,7 @@ def tar(
 def exclude_paths(root: StrPath, patterns: MutableSequence[str], dockerfile: str | None = None) -> set[str]: ...
 def build_file_list(root: str) -> list[str]: ...
 def create_archive(
-    root: str,
-    files: Iterable[str] | None = None,
-    fileobj: _Fileobj | None = None,
-    gzip: bool = False,
-    extra_files: Incomplete | None = None,
+    root: str, files: Iterable[str] | None = None, fileobj: _Fileobj | None = None, gzip: bool = False, extra_files=None
 ) -> _TemporaryFileWrapper[bytes] | _Fileobj: ...
 def mkbuildcontext(dockerfile: io.IOBase | StrOrBytesPath) -> _TemporaryFileWrapper[bytes]: ...
 def split_path(p: str) -> list[str]: ...

@@ -12,7 +12,7 @@ class Configuration:
         public_key: str,
         private_key: str,
         *,
-        http_strategy: Incomplete | None = None,
+        http_strategy=None,
         timeout: int = 60,
         wrap_http_exceptions: bool = False,
     ) -> None: ...
@@ -23,7 +23,7 @@ class Configuration:
         public_key: str,
         private_key: str,
         *,
-        http_strategy: Incomplete | None = None,
+        http_strategy=None,
         timeout: int = 60,
         wrap_http_exceptions: bool = False,
     ) -> Configuration: ...
@@ -46,7 +46,7 @@ class Configuration:
     wrap_http_exceptions: bool
     def __init__(
         self,
-        environment: Incomplete | None = None,
+        environment=None,
         merchant_id: str | None = None,
         public_key: str | None = None,
         private_key: str | None = None,
@@ -56,7 +56,7 @@ class Configuration:
         *args,
         timeout: int = 60,
         wrap_http_exceptions: bool = False,
-        http_strategy: Incomplete | None = None,
+        http_strategy=None,
     ) -> None: ...
     def base_merchant_path(self) -> str: ...
     def base_url(self) -> str: ...

@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import Any, TypeVar
 from typing_extensions import Self
@@ -31,7 +30,7 @@ class CheckpointOptions:
         experimental_write_callbacks: None | list[Callable[[str], object] | Callable[[], object]] = None,
         enable_async: bool = False,
         experimental_skip_slot_variables: bool = False,
-        experimental_sharding_callback: Incomplete | None = None,
+        experimental_sharding_callback=None,
     ) -> None: ...
 
 _T = TypeVar("_T", bound=list[str] | tuple[str] | dict[int, str])
