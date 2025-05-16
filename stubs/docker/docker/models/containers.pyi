@@ -46,15 +46,15 @@ class Container(Model):
         detach: bool = False,
         stream: bool = False,
         socket: bool = False,
-        environment: Incomplete | None = None,
-        workdir: Incomplete | None = None,
+        environment=None,
+        workdir=None,
         demux: bool = False,
     ) -> ExecResult: ...
     def export(self, chunk_size: int | None = 2097152) -> str: ...
     def get_archive(
         self, path: str, chunk_size: int | None = 2097152, encode_stream: bool = False
     ) -> tuple[Incomplete, Incomplete]: ...
-    def kill(self, signal: Incomplete | None = None): ...
+    def kill(self, signal=None): ...
     @overload
     def logs(
         self,
@@ -141,9 +141,9 @@ class ContainerCollection(Collection[Container]):
         detach: Literal[False] = False,
         device_cgroup_rules: list[Incomplete] | None = None,
         device_read_bps: list[Incomplete] | None = None,
-        device_read_iops: Incomplete | None = None,
-        device_write_bps: Incomplete | None = None,
-        device_write_iops: Incomplete | None = None,
+        device_read_iops=None,
+        device_write_bps=None,
+        device_write_iops=None,
         devices: list[str] | None = None,
         device_requests: list[DeviceRequest] | None = None,
         dns: list[Incomplete] | None = None,
@@ -236,9 +236,9 @@ class ContainerCollection(Collection[Container]):
         detach: Literal[True],
         device_cgroup_rules: list[Incomplete] | None = None,
         device_read_bps: list[Incomplete] | None = None,
-        device_read_iops: Incomplete | None = None,
-        device_write_bps: Incomplete | None = None,
-        device_write_iops: Incomplete | None = None,
+        device_read_iops=None,
+        device_write_bps=None,
+        device_write_iops=None,
         devices: list[str] | None = None,
         device_requests: list[DeviceRequest] | None = None,
         dns: list[Incomplete] | None = None,
@@ -327,9 +327,9 @@ class ContainerCollection(Collection[Container]):
         detach: Literal[True],
         device_cgroup_rules: list[Incomplete] | None = None,
         device_read_bps: list[Incomplete] | None = None,
-        device_read_iops: Incomplete | None = None,
-        device_write_bps: Incomplete | None = None,
-        device_write_iops: Incomplete | None = None,
+        device_read_iops=None,
+        device_write_bps=None,
+        device_write_iops=None,
         devices: list[str] | None = None,
         device_requests: list[DeviceRequest] | None = None,
         dns: list[Incomplete] | None = None,
@@ -399,13 +399,13 @@ class ContainerCollection(Collection[Container]):
         self,
         all: bool = False,
         before: str | None = None,
-        filters: Incomplete | None = None,
+        filters=None,
         limit: int = -1,
         since: str | None = None,
         sparse: bool = False,
         ignore_removed: bool = False,
     ): ...
-    def prune(self, filters: Incomplete | None = None): ...
+    def prune(self, filters=None): ...
 
 RUN_CREATE_KWARGS: list[str]
 RUN_HOST_CONFIG_KWARGS: list[str]
