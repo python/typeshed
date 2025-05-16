@@ -116,7 +116,7 @@ jobs:
         with:
           # Keep in sync with stub_uploader's check_scripts.yml workflow.
           python-version: "3.13"
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v6
       - name: Run tests
         run: |
           cd stub_uploader
