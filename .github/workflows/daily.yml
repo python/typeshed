@@ -116,7 +116,14 @@ jobs:
         with:
           # Keep in sync with stub_uploader's check_scripts.yml workflow.
           python-version: "3.13"
+      - name: Determine uv version from requirements-tests.txt
+        id: determine_uv_version
+        run: |
+          uv_version=$(grep '^uv==' requirements-tests.txt | cut -d = -f 3)
+          echo "uv_version=$uv_version" >> $GITHUB_OUTPUT
       - uses: astral-sh/setup-uv@v6
+        with:
+          version: ${{ steps.determine_uv_version.outputs.uv_version }}
       - name: Run tests
         run: |
           cd stub_uploader
