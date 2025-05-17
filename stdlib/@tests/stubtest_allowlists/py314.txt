@@ -26,10 +26,6 @@ asyncio.events._AbstractEventLoopPolicy
 asyncio.events._get_event_loop_policy
 asyncio.events._set_event_loop_policy
 asyncio.tasks.eager_task_factory
-builtins.BaseExceptionGroup.split
-builtins.BaseExceptionGroup.subgroup
-builtins.ExceptionGroup.split
-builtins.ExceptionGroup.subgroup
 builtins.bytearray.resize
 builtins.classmethod.__annotate__
 builtins.classmethod.__class_getitem__
