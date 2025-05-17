@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import sys
 from collections.abc import Callable
 from decimal import Decimal
