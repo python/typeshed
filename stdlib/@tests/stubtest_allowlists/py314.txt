@@ -3,8 +3,6 @@
 # ====================================================================
 
 _asyncio.all_tasks
-_asyncio.future_add_to_awaited_by
-_asyncio.future_discard_from_awaited_by
 _heapq.heapify_max
 _heapq.heappop_max
 _heapq.heappush_max
@@ -26,10 +24,6 @@ asyncio.events._AbstractEventLoopPolicy
 asyncio.events._get_event_loop_policy
 asyncio.events._set_event_loop_policy
 asyncio.tasks.eager_task_factory
-builtins.BaseExceptionGroup.split
-builtins.BaseExceptionGroup.subgroup
-builtins.ExceptionGroup.split
-builtins.ExceptionGroup.subgroup
 builtins.bytearray.resize
 builtins.classmethod.__annotate__
 builtins.classmethod.__class_getitem__
