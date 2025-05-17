@@ -77,7 +77,6 @@ multiprocessing.forkserver.main
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
-multiprocessing.managers.SyncManager.set
 multiprocessing.managers._BaseDictProxy.__ior__
 multiprocessing.managers._BaseDictProxy.__or__
 multiprocessing.managers._BaseDictProxy.__reversed__
