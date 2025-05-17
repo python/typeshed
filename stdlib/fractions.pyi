@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import sys
 from collections.abc import Callable
 from decimal import Decimal
@@ -147,4 +149,4 @@ class Fraction(Rational):
     def conjugate(self) -> Fraction: ...
     if sys.version_info >= (3, 14):
         @classmethod
-        def from_number(cls, _ComparableNum) -> Self: ...
+        def from_number(cls, _ComparableNum | _ConvertibleToIntegerRatio) -> Self: ...
