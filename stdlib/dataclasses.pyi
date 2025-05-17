@@ -73,10 +73,24 @@ def astuple(obj: DataclassInstance) -> tuple[Any, ...]: ...
 def astuple(obj: DataclassInstance, *, tuple_factory: Callable[[list[Any]], _T]) -> _T: ...
 @overload
 def dataclass(cls: None, /) -> Callable[[type[_T]], type[_T]]: ...
-@overload
-def dataclass(cls: type[_T], /) -> type[_T]: ...
 
 if sys.version_info >= (3, 11):
+    @overload
+    def dataclass(
+        cls: type[_T],
+        /,
+        *,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
+        match_args: bool = True,
+        kw_only: bool = False,
+        slots: bool = False,
+        weakref_slot: bool = False,
+    ) -> type[_T]: ...
     @overload
     def dataclass(
         *,
@@ -95,6 +109,21 @@ if sys.version_info >= (3, 11):
 elif sys.version_info >= (3, 10):
     @overload
     def dataclass(
+        cls: type[_T],
+        /,
+        *,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
+        match_args: bool = True,
+        kw_only: bool = False,
+        slots: bool = False,
+    ) -> type[_T]: ...
+    @overload
+    def dataclass(
         *,
         init: bool = True,
         repr: bool = True,
@@ -108,6 +137,18 @@ elif sys.version_info >= (3, 10):
     ) -> Callable[[type[_T]], type[_T]]: ...
 
 else:
+    @overload
+    def dataclass(
+        cls: type[_T],
+        /,
+        *,
+        init: bool = True,
+        repr: bool = True,
+        eq: bool = True,
+        order: bool = False,
+        unsafe_hash: bool = False,
+        frozen: bool = False,
+    ) -> type[_T]: ...
     @overload
     def dataclass(
         *,
