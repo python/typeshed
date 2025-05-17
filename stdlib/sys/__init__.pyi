@@ -7,6 +7,7 @@ from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
 from typing import Any, Final, Literal, NoReturn, Protocol, TextIO, TypeVar, final, type_check_only
 from typing_extensions import LiteralString, TypeAlias
+from _typeshed import StrOrBytesPath
 
 _T = TypeVar("_T")
 
@@ -470,3 +471,7 @@ if sys.version_info >= (3, 12):
     from . import _monitoring
 
     monitoring = _monitoring
+
+if sys.version_info >= (3, 14):
+    def is_remote_debug_enabled() -> bool: ... 
+    def remote_exec(pid: int, script: StrOrBytesPath) -> None: ...
