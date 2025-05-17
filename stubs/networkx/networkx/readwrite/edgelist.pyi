@@ -3,6 +3,8 @@ from collections.abc import Generator
 
 from networkx.utils.backends import _dispatchable
 
+from ..classes.graph import Graph
+
 __all__ = [
     "generate_edgelist",
     "write_edgelist",
@@ -12,23 +14,31 @@ __all__ = [
     "write_weighted_edgelist",
 ]
 
-def generate_edgelist(G, delimiter: str = " ", data: bool = True) -> Generator[Incomplete, None, None]: ...
-def write_edgelist(G, path, comments: str = "#", delimiter: str = " ", data: bool = True, encoding: str = "utf-8") -> None: ...
+def generate_edgelist(
+    G: Graph[Incomplete], delimiter: str = " ", data: bool | Incomplete = True
+) -> Generator[Incomplete, None, None]: ...
+def write_edgelist(
+    G: Graph[Incomplete], path, comments: str = "#", delimiter: str = " ", data: bool | Incomplete = True, encoding: str = "utf-8"
+) -> None: ...
 @_dispatchable
-def parse_edgelist(lines, comments: str = "#", delimiter=None, create_using=None, nodetype=None, data: bool = True): ...
+def parse_edgelist(
+    lines, comments: str = "#", delimiter: str | None = None, create_using=None, nodetype=None, data: bool | Incomplete = True
+): ...
 @_dispatchable
 def read_edgelist(
     path,
     comments: str = "#",
-    delimiter=None,
+    delimiter: str | None = None,
     create_using=None,
     nodetype=None,
-    data: bool = True,
+    data: bool | Incomplete = True,
     edgetype=None,
     encoding: str = "utf-8",
 ): ...
-def write_weighted_edgelist(G, path, comments: str = "#", delimiter: str = " ", encoding: str = "utf-8") -> None: ...
+def write_weighted_edgelist(
+    G: Graph[Incomplete], path, comments: str = "#", delimiter: str = " ", encoding: str = "utf-8"
+) -> None: ...
 @_dispatchable
 def read_weighted_edgelist(
-    path, comments: str = "#", delimiter=None, create_using=None, nodetype=None, encoding: str = "utf-8"
+    path, comments: str = "#", delimiter: str | None = None, create_using=None, nodetype=None, encoding: str = "utf-8"
 ): ...

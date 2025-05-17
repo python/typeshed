@@ -1,4 +1,8 @@
+from _typeshed import Incomplete
+
 from networkx.utils.backends import _dispatchable
+
+from ..classes.graph import Graph
 
 __all__ = ["algebraic_connectivity", "fiedler_vector", "spectral_ordering", "spectral_bisection"]
 
@@ -12,15 +16,30 @@ class _LUSolver:
 
 @_dispatchable
 def algebraic_connectivity(
-    G, weight: str = "weight", normalized: bool = False, tol: float = 1e-08, method: str = "tracemin_pcg", seed=None
+    G: Graph[Incomplete],
+    weight: str = "weight",
+    normalized: bool = False,
+    tol: float = 1e-08,
+    method: str = "tracemin_pcg",
+    seed=None,
 ): ...
 @_dispatchable
 def fiedler_vector(
-    G, weight: str = "weight", normalized: bool = False, tol: float = 1e-08, method: str = "tracemin_pcg", seed=None
+    G: Graph[Incomplete],
+    weight: str = "weight",
+    normalized: bool = False,
+    tol: float = 1e-08,
+    method: str = "tracemin_pcg",
+    seed=None,
 ): ...
 @_dispatchable
 def spectral_ordering(
-    G, weight: str = "weight", normalized: bool = False, tol: float = 1e-08, method: str = "tracemin_pcg", seed=None
+    G: Graph[Incomplete],
+    weight: str = "weight",
+    normalized: bool = False,
+    tol: float = 1e-08,
+    method: str = "tracemin_pcg",
+    seed=None,
 ): ...
 @_dispatchable
 def spectral_bisection(

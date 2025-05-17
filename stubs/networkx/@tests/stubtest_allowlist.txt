@@ -40,7 +40,4 @@ networkx(\.algorithms)?(\.tree)?(\.mst)?\.SpanningTreeIterator\.Partition\._DT
 networkx(\.algorithms)?(\.tree)?(\.branchings)?\.ArborescenceIterator\.Partition\._DT
 
 # variable differs from runtime type abc.ABCMeta
-networkx.classes.reportviews.EdgeView.dataview
-networkx.classes.reportviews.InEdgeView.dataview
-networkx.classes.reportviews.OutEdgeView.dataview
-networkx.classes.reportviews.OutMultiEdgeView.dataview
+networkx\.classes\.reportviews\.\w*EdgeView\.dataview

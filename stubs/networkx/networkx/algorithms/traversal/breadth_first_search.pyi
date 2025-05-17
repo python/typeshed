@@ -17,7 +17,9 @@ __all__ = [
 ]
 
 @_dispatchable
-def generic_bfs_edges(G, source, neighbors=None, depth_limit=None) -> Generator[tuple[Incomplete, Incomplete]]: ...
+def generic_bfs_edges(
+    G: Graph[Incomplete], source, neighbors=None, depth_limit=None
+) -> Generator[tuple[Incomplete, Incomplete]]: ...
 @_dispatchable
 def bfs_edges(
     G: Graph[_Node],
@@ -45,6 +47,8 @@ def bfs_successors(
 @_dispatchable
 def bfs_layers(G: Graph[_Node], sources) -> Generator[Incomplete, None, None]: ...
 @_dispatchable
-def bfs_labeled_edges(G, sources) -> Generator[tuple[Incomplete, Incomplete, Literal["tree", "level", "forward", "reverse"]]]: ...
+def bfs_labeled_edges(
+    G: Graph[Incomplete], sources
+) -> Generator[tuple[Incomplete, Incomplete, Literal["tree", "level", "forward", "reverse"]]]: ...
 @_dispatchable
 def descendants_at_distance(G: Graph[_Node], source, distance): ...
