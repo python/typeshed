@@ -90,11 +90,11 @@ def check_other_isdataclass_overloads(x: type, y: object) -> None:
         assert_type(dc.astuple(y), Tuple[Any, ...])
         dc.replace(y)
 
+
 class _D: ...
 
-custom_dc = dc.dataclass(
-    _D, init=True,
-)
+
+custom_dc = dc.dataclass(_D, init=True)
 assert_type(custom_dc, type[_D])
 
 
