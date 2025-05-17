@@ -127,7 +127,7 @@ class FFI:
 
     def __init__(
         self,
-        module_name: bytes = ...,
+        module_name: str = ...,
         _version: int = ...,
         _types: bytes = ...,
         _globals: tuple[bytes | int, ...] = ...,
