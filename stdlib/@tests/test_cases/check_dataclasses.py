@@ -97,6 +97,9 @@ class _D: ...
 custom_dc = dc.dataclass(_D, init=True)
 assert_type(custom_dc, type[_D])
 
+custom_dc_2 = dc.dataclass(None, init=True)(_D)
+assert_type(custom_dc_2, type[_D])
+
 
 # Regression test for #11653
 D = dc.make_dataclass(
