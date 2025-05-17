@@ -3,8 +3,6 @@
 # ====================================================================
 
 _asyncio.all_tasks
-_asyncio.future_add_to_awaited_by
-_asyncio.future_discard_from_awaited_by
 _heapq.heapify_max
 _heapq.heappop_max
 _heapq.heappush_max
