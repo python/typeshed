@@ -2200,7 +2200,9 @@ if sys.version_info >= (3, 11):
             self, matcher_value: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
         ) -> ExceptionGroup[_ExceptionT] | None: ...
         @overload
-        def subgroup(self, matcher_value: Callable[[_ExceptionT_co | Self], bool], /) -> ExceptionGroup[_ExceptionT_co] | None: ...
+        def subgroup(
+            self, matcher_value: Callable[[_ExceptionT_co | Self], bool], /
+        ) -> ExceptionGroup[_ExceptionT_co] | None: ...
         @overload  # type: ignore[override]
         def split(
             self, matcher_value: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
