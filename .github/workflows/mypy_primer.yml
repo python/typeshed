@@ -33,12 +33,12 @@ jobs:
         with:
           python-version: "3.13"
       - name: Install dependencies
-        run: pip install git+https://github.com/hauntsaninja/mypy_primer.git
+        run: pip install git+https://github.com/hauntsaninja/mypy_primer.git dependency-groups
       - name: Run mypy_primer
         shell: bash
         run: |
           cd typeshed_to_test
-          MYPY_VERSION=$(grep mypy== requirements-tests.txt | cut -d = -f 3)
+          MYPY_VERSION=$(python3 -m dependency_groups dev | grep mypy== | cut -d = -f3)
           echo "new commit"
           git rev-list --format=%s --max-count=1 $GITHUB_SHA
           git checkout -b upstream_main origin/main

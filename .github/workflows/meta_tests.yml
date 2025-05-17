@@ -12,7 +12,6 @@ on:
       - "tests/**"
       - "lib/**"
       - ".github/workflows/meta_tests.yml"
-      - "requirements-tests.txt"
       - "pyproject.toml"
 
 permissions:
@@ -40,7 +39,7 @@ jobs:
         with:
           python-version: "3.13"
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - run: uv pip install -r requirements-tests.txt --system
+      - run: uv pip install --group=dev --system
       - run: python ./tests/typecheck_typeshed.py --platform=${{ matrix.platform }}
   pyright:
     name: Check scripts and tests with pyright
@@ -57,7 +56,7 @@ jobs:
           # pytype_test.py imports pytype, we need to use Python 3.12 for now.
           python-version: "3.12"
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
-      - run: uv pip install -r requirements-tests.txt --system
+      - run: uv pip install --group=dev --system
       - name: Run pyright on typeshed
         uses: jakebailey/pyright-action@v2
         with:
@@ -78,5 +77,5 @@ jobs:
         run: |
           git config --global user.name stubsabot
           git config --global user.email '<>'
-      - run: uv pip install -r requirements-tests.txt --system
+      - run: uv pip install --group=dev --system
       - run: python scripts/stubsabot.py --action-level local
