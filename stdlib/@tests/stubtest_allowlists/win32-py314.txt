@@ -22,13 +22,6 @@ encodings.win32_code_page_search_function
 nt.readinto
 pathlib.Path.group
 pathlib.Path.owner
-winsound.MB_ICONERROR
-winsound.MB_ICONINFORMATION
-winsound.MB_ICONSTOP
-winsound.MB_ICONWARNING
-winsound.SND_SENTRY
-winsound.SND_SYNC
-winsound.SND_SYSTEM
 zlib.ZLIBNG_VERSION
 
 
