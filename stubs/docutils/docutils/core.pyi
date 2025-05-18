@@ -9,10 +9,10 @@ from docutils.parsers import Parser
 from docutils.readers import Reader
 from docutils.writers import Writer, _WriterParts
 
-__docformat__: str
+__docformat__: Final[str]
 
 class Publisher:
-    document: Incomplete
+    document: Incomplete | None
     reader: Reader[Incomplete]
     parser: Parser
     writer: Writer[Incomplete]

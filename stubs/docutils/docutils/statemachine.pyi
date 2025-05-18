@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
 from re import Match, Pattern
-from typing import Any, ClassVar, Generic, SupportsIndex, TypeVar, overload
+from typing import Any, ClassVar, Final, Generic, SupportsIndex, TypeVar, overload
 from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
@@ -9,6 +9,8 @@ _Context = TypeVar("_Context")
 _TransitionResult: TypeAlias = tuple[_Context, str | None, list[str]]
 _TransitionMethod: TypeAlias = Callable[[Match[str], _Context, str], _TransitionResult[_Context]]
 _Observer: TypeAlias = Callable[[StateMachine[_Context]], None]
+
+__docformat__: Final[str]
 
 class StateMachine(Generic[_Context]):
     input_lines: StringList | None
@@ -99,6 +101,7 @@ class StateWS(State[_Context]):
     known_indent_sm_kwargs: dict[str, Any] | None
     ws_patterns: dict[str, Pattern[str]]
     ws_initial_transitions: Sequence[str]
+    patterns: dict[str, Pattern[str]] | None
     def __init__(self, state_machine: StateMachine[_Context], debug: bool = False) -> None: ...
     def add_initial_transitions(self) -> None: ...
     def blank(self, match: Match[str], context: _Context, next_state: str) -> _TransitionResult[_Context]: ...
@@ -163,7 +166,7 @@ class ViewList(Generic[_T]):
     def source(self, i: int) -> str: ...
     def offset(self, i: int) -> int: ...
     def disconnect(self) -> None: ...
-    def xitems(self) -> Generator[tuple[str, int, str], None, None]: ...
+    def xitems(self) -> Generator[tuple[str, int, str]]: ...
     def pprint(self) -> None: ...
 
     # dummy atribute to indicate to mypy that ViewList is Iterable[str]
