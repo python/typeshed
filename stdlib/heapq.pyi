@@ -1,5 +1,6 @@
 import sys
-#from _heapq import *
+
+# from _heapq import *
 from _typeshed import SupportsRichComparison
 from collections.abc import Callable, Generator, Iterable
 from typing import Any, Final, TypeVar
