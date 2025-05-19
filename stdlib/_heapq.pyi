@@ -1,7 +1,7 @@
 import sys
 from typing import Any, Final, TypeVar
 
-_T = TypeVar("_T") # list items must be comparable
+_T = TypeVar("_T")  # list items must be comparable
 
 __about__: Final[str]
 
