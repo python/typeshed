@@ -4,7 +4,7 @@ from typing import Any, Union
 from typing_extensions import assert_type
 
 
-def check_update_method() -> None:
+def check_update_method__int_key() -> None:
     d: dict[int, int] = {}
     d.update({1: 2})
     d.update([(1, 2)])
@@ -16,7 +16,7 @@ def check_update_method() -> None:
     d.update([("", 3)])  # type: ignore
     d.update([(3, "")])  # type: ignore
 
-def check_update_method2() -> None:
+def check_update_method__str_key() -> None:
     d: dict[str, int] = {}
     d.update({"": 2})
     d.update([("", 2)])
