@@ -15,7 +15,7 @@ class JsonWebToken:
     SENSITIVE_NAMES: Final[tuple[str, ...]]
     SENSITIVE_VALUES: Final[Pattern[str]]
 
-    def __init__(self, algorithms, private_headers: Incomplete | None = None) -> None: ...
+    def __init__(self, algorithms, private_headers=None) -> None: ...
     def check_sensitive_data(self, payload) -> None: ...
     def encode(self, header, payload, key, check: bool = True): ...
     @overload
@@ -24,8 +24,8 @@ class JsonWebToken:
         s: str | bytes,
         key: _LoadKey | KeySet | tuple[Incomplete, ...] | list[Incomplete] | str,
         claims_cls: None = None,
-        claims_options: Incomplete | None = None,
-        claims_params: Incomplete | None = None,
+        claims_options=None,
+        claims_params=None,
     ) -> JWTClaims: ...
     @overload
     def decode(
@@ -33,8 +33,8 @@ class JsonWebToken:
         s: str | bytes,
         key: _LoadKey | KeySet | tuple[Incomplete, ...] | list[Incomplete] | str,
         claims_cls: type[_T],
-        claims_options: Incomplete | None = None,
-        claims_params: Incomplete | None = None,
+        claims_options=None,
+        claims_params=None,
     ) -> _T: ...
 
 def decode_payload(bytes_payload): ...
