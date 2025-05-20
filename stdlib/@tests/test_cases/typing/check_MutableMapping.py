@@ -16,6 +16,7 @@ def check_update_method__int_key() -> None:
     d.update([("", 3)])  # type: ignore
     d.update([(3, "")])  # type: ignore
 
+
 def check_update_method__str_key() -> None:
     d: dict[str, int] = {}
     d.update({"": 2})
@@ -28,7 +29,6 @@ def check_update_method__str_key() -> None:
     d.update([(1, 3)])  # type: ignore
     d.update([("", "")])  # type: ignore
 
-        
 
 def check_setdefault_method() -> None:
     d: dict[int, str] = {}
