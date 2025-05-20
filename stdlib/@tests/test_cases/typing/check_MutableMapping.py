@@ -26,6 +26,7 @@ def check_update_method__str_key() -> None:
     d.update({1: 3})  # type: ignore
     d.update({"": ""})  # type: ignore
     d.update([(1, 3)])  # type: ignore
+    d.update([("", "")])  # type: ignore
 
         
 
