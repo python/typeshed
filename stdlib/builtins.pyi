@@ -400,6 +400,9 @@ class float:
     def __abs__(self) -> float: ...
     def __hash__(self) -> int: ...
     def __bool__(self) -> bool: ...
+    if sys.version_info >= (3, 14):
+        @classmethod
+        def from_number(cls, number: float | SupportsIndex | SupportsFloat, /) -> Self: ...
 
 class complex:
     # Python doesn't currently accept SupportsComplex for the second argument
@@ -435,6 +438,9 @@ class complex:
     def __bool__(self) -> bool: ...
     if sys.version_info >= (3, 11):
         def __complex__(self) -> complex: ...
+    if sys.version_info >= (3, 14):
+        @classmethod
+        def from_number(cls, number: complex | SupportsComplex | SupportsFloat | SupportsIndex, /) -> Self: ...
 
 class _FormatMapMapping(Protocol):
     def __getitem__(self, key: str, /) -> Any: ...
@@ -1028,7 +1034,7 @@ class function:
     __annotations__: dict[str, AnnotationForm]
     if sys.version_info >= (3, 14):
         __annotate__: AnnotateFunc | None
-    __kwdefaults__: dict[str, Any]
+    __kwdefaults__: dict[str, Any] | None
     if sys.version_info >= (3, 10):
         @property
         def __builtins__(self) -> dict[str, Any]: ...
@@ -1036,6 +1042,26 @@ class function:
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
 
     __module__: str
+    if sys.version_info >= (3, 13):
+        def __new__(
+            cls,
+            code: CodeType,
+            globals: dict[str, Any],
+            name: str | None = None,
+            argdefs: tuple[object, ...] | None = None,
+            closure: tuple[CellType, ...] | None = None,
+            kwdefaults: dict[str, object] | None = None,
+        ) -> Self: ...
+    else:
+        def __new__(
+            cls,
+            code: CodeType,
+            globals: dict[str, Any],
+            name: str | None = None,
+            argdefs: tuple[object, ...] | None = None,
+            closure: tuple[CellType, ...] | None = None,
+        ) -> Self: ...
+
     # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
     def __get__(self, instance: object, owner: type | None = None, /) -> Any: ...
 
@@ -2160,27 +2186,27 @@ if sys.version_info >= (3, 11):
         def exceptions(self) -> tuple[_BaseExceptionT_co | BaseExceptionGroup[_BaseExceptionT_co], ...]: ...
         @overload
         def subgroup(
-            self, condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
+            self, matcher_value: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
         ) -> ExceptionGroup[_ExceptionT] | None: ...
         @overload
         def subgroup(
-            self, condition: type[_BaseExceptionT] | tuple[type[_BaseExceptionT], ...], /
+            self, matcher_value: type[_BaseExceptionT] | tuple[type[_BaseExceptionT], ...], /
         ) -> BaseExceptionGroup[_BaseExceptionT] | None: ...
         @overload
         def subgroup(
-            self, condition: Callable[[_BaseExceptionT_co | Self], bool], /
+            self, matcher_value: Callable[[_BaseExceptionT_co | Self], bool], /
         ) -> BaseExceptionGroup[_BaseExceptionT_co] | None: ...
         @overload
         def split(
-            self, condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
+            self, matcher_value: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
         ) -> tuple[ExceptionGroup[_ExceptionT] | None, BaseExceptionGroup[_BaseExceptionT_co] | None]: ...
         @overload
         def split(
-            self, condition: type[_BaseExceptionT] | tuple[type[_BaseExceptionT], ...], /
+            self, matcher_value: type[_BaseExceptionT] | tuple[type[_BaseExceptionT], ...], /
         ) -> tuple[BaseExceptionGroup[_BaseExceptionT] | None, BaseExceptionGroup[_BaseExceptionT_co] | None]: ...
         @overload
         def split(
-            self, condition: Callable[[_BaseExceptionT_co | Self], bool], /
+            self, matcher_value: Callable[[_BaseExceptionT_co | Self], bool], /
         ) -> tuple[BaseExceptionGroup[_BaseExceptionT_co] | None, BaseExceptionGroup[_BaseExceptionT_co] | None]: ...
         # In reality it is `NonEmptySequence`:
         @overload
@@ -2197,17 +2223,19 @@ if sys.version_info >= (3, 11):
         # We accept a narrower type, but that's OK.
         @overload  # type: ignore[override]
         def subgroup(
-            self, condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
+            self, matcher_value: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
         ) -> ExceptionGroup[_ExceptionT] | None: ...
         @overload
-        def subgroup(self, condition: Callable[[_ExceptionT_co | Self], bool], /) -> ExceptionGroup[_ExceptionT_co] | None: ...
+        def subgroup(
+            self, matcher_value: Callable[[_ExceptionT_co | Self], bool], /
+        ) -> ExceptionGroup[_ExceptionT_co] | None: ...
         @overload  # type: ignore[override]
         def split(
-            self, condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
+            self, matcher_value: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
         ) -> tuple[ExceptionGroup[_ExceptionT] | None, ExceptionGroup[_ExceptionT_co] | None]: ...
         @overload
         def split(
-            self, condition: Callable[[_ExceptionT_co | Self], bool], /
+            self, matcher_value: Callable[[_ExceptionT_co | Self], bool], /
         ) -> tuple[ExceptionGroup[_ExceptionT_co] | None, ExceptionGroup[_ExceptionT_co] | None]: ...
 
 if sys.version_info >= (3, 13):

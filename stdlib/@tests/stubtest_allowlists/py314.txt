@@ -3,13 +3,6 @@
 # ====================================================================
 
 _asyncio.all_tasks
-_asyncio.future_add_to_awaited_by
-_asyncio.future_discard_from_awaited_by
-_heapq.heapify_max
-_heapq.heappop_max
-_heapq.heappush_max
-_heapq.heappushpop_max
-_heapq.heapreplace_max
 _imp.pyc_magic_number_token
 _thread.RLock.locked
 _thread.set_name
@@ -26,15 +19,9 @@ asyncio.events._AbstractEventLoopPolicy
 asyncio.events._get_event_loop_policy
 asyncio.events._set_event_loop_policy
 asyncio.tasks.eager_task_factory
-builtins.BaseExceptionGroup.split
-builtins.BaseExceptionGroup.subgroup
-builtins.ExceptionGroup.split
-builtins.ExceptionGroup.subgroup
 builtins.bytearray.resize
 builtins.classmethod.__annotate__
 builtins.classmethod.__class_getitem__
-builtins.complex.from_number
-builtins.float.from_number
 builtins.int.__round__
 builtins.memoryview.__class_getitem__
 builtins.staticmethod.__annotate__
@@ -62,7 +49,6 @@ enum.EnumType.__signature__
 faulthandler.dump_c_stack
 fractions.Fraction.__pow__
 fractions.Fraction.__rpow__
-fractions.Fraction.from_number
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
 gzip.compress
@@ -91,8 +77,6 @@ sre_compile.CH_NEGATE
 sre_constants.CH_NEGATE
 sre_parse.CH_NEGATE
 string.Template.flags
-sys.is_remote_debug_enabled
-sys.remote_exec
 tarfile.TarFile.zstopen
 tkinter.Event.__class_getitem__
 turtle.__all__
