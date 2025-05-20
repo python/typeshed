@@ -6,9 +6,28 @@ from typing_extensions import assert_type
 
 def check_update_method() -> None:
     d: dict[int, int] = {}
-    d.update({1: 2}, a=3)
-    d.update([(1, 2)], a=3)
+    d.update({1: 2})
+    d.update([(1, 2)])
+    d.update(a=3)  # type: ignore
+    d.update({1: 2}, a=3)  # type: ignore
+    d.update([(1, 2)], a=3)  # type: ignore
+    d.update({"": 3})  # type: ignore
+    d.update({1: ""})  # type: ignore
+    d.update([("", 3)])  # type: ignore
+    d.update([(3, "")])  # type: ignore
 
+def check_update_method2() -> None:
+    d: dict[str, int] = {}
+    d.update({"": 2})
+    d.update([("", 2)])
+    d.update(a=3)
+    d.update({"": 2}, a=3)
+    d.update([("", 2)], a=3)
+    d.update({1: 3})  # type: ignore
+    d.update({"": ""})  # type: ignore
+    d.update([(1, 3)])  # type: ignore
+
+        
 
 def check_setdefault_method() -> None:
     d: dict[int, str] = {}
