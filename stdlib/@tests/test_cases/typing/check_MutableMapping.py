@@ -4,6 +4,12 @@ from typing import Any, Union
 from typing_extensions import assert_type
 
 
+def check_update_method() -> None:
+    d: dict[int, int] = {}
+    d.update({1: 2}, a=3)
+    d.update([(1, 2)], a=3)
+
+
 def check_setdefault_method() -> None:
     d: dict[int, str] = {}
     d2: dict[int, str | None] = {}
