@@ -8,11 +8,11 @@ from _typeshed import (
     Unused,
 )
 from re import Pattern
-from typing import IO, Any, ClassVar, Generic, Literal, TypeVar
+from typing import IO, Any, ClassVar, Final, Generic, Literal, TypeVar
 
 from docutils import TransformSpec, nodes
 
-__docformat__: str
+__docformat__: Final = "reStructuredText"
 
 class InputError(OSError): ...
 class OutputError(OSError): ...
@@ -95,13 +95,13 @@ class FileOutput(Output):
     destination_path: Incomplete
     def __init__(
         self,
-        destination: Incomplete | None = None,
-        destination_path: Incomplete | None = None,
-        encoding: Incomplete | None = None,
+        destination=None,
+        destination_path=None,
+        encoding=None,
         error_handler: str = "strict",
         autoclose: bool = True,
-        handle_io_errors: Incomplete | None = None,
-        mode: Incomplete | None = None,
+        handle_io_errors=None,
+        mode=None,
     ) -> None: ...
     def open(self) -> None: ...
     def write(self, data): ...

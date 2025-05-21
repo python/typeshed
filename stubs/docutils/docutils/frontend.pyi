@@ -7,7 +7,7 @@ from typing import Any, ClassVar, Final
 from docutils import SettingsSpec
 from docutils.utils import DependencyList
 
-__docformat__: Final[str]
+__docformat__: Final = "reStructuredText"
 
 def store_multiple(option, opt, value, parser, *args, **kwargs) -> None: ...
 def read_config_file(option, opt, value, parser) -> None: ...

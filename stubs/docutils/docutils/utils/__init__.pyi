@@ -14,7 +14,7 @@ _T = TypeVar("_T")
 _Observer: TypeAlias = Callable[[nodes.system_message], object]
 _SystemMessageLevel: TypeAlias = Literal[0, 1, 2, 3, 4]
 
-__docformat__: Final[str]
+__docformat__: Final = "reStructuredText"
 
 class DependencyList:
     list: list[str]

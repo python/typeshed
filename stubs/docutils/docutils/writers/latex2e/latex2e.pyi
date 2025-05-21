@@ -1,5 +1,5 @@
 import re
-from _typeshed import StrPath, Unused
+from _typeshed import Incomplete, StrPath, Unused
 from collections.abc import Iterable
 from pathlib import Path
 from typing import Any, ClassVar, Final, Literal, TypeVar
@@ -27,7 +27,12 @@ class Writer(_Writer[str]):
     config_section_dependencies: ClassVar[tuple[str, ...]]
     head_parts: ClassVar[tuple[str, ...]]
     visitor_attributes: ClassVar[tuple[str, ...]]
+
+    output: Incomplete
+    translator_class: Incomplete
+
     def __init__(self) -> None: ...
+    def get_transforms(self): ...
     def translate(self) -> None: ...
     def assemble_parts(self) -> None: ...
 
@@ -39,6 +44,7 @@ class Babel:
     reporter: Reporter | None
     language: str
     otherlanguages: dict[str, str]
+    setup: Incomplete
 
     def __init__(self, language_code: str, reporter: Reporter | None = None) -> None: ...
     def __call__(self) -> str: ...
@@ -73,12 +79,18 @@ class CharMaps:
     pifont: ClassVar[dict[int, str]]
 
 class DocumentClass:
+    document_class: Incomplete
+    sections: Incomplete
     def __init__(self, document_class, with_part: bool = False) -> None: ...
     def section(self, level: int) -> str: ...
     def latex_section_depth(self, depth: int) -> int: ...
 
 class Table:
     legacy_column_widths: bool
+    caption: Incomplete
+    stubs: Incomplete
+    colwidths_auto: bool
+    borders: Incomplete
     def __init__(self, translator: LaTeXTranslator, latex_type: str) -> None: ...
     def open(self) -> None: ...
     def close(self) -> None: ...
@@ -121,7 +133,55 @@ class LaTeXTranslator(NodeVisitor):
     literal: ClassVar[bool]
     alltt: ClassVar[bool]
 
-    def __init__(self, document: _Document, babel_class: type = Babel) -> None: ...
+    warn: Incomplete
+    error: Incomplete
+    settings: Incomplete
+    latex_encoding: Incomplete
+    use_latex_toc: Incomplete
+    use_latex_docinfo: Incomplete
+    use_latex_citations: Incomplete
+    reference_label: Incomplete
+    hyperlink_color: Incomplete
+    font_encoding: Incomplete
+    literal_block_env: str
+    literal_block_options: str
+    bibtex: Incomplete
+    language_module: Incomplete
+    babel: Incomplete
+    author_separator: Incomplete
+    documentoptions: Incomplete
+    d_class: Incomplete
+    graphicx_package: str
+    docutils_footnotes: Incomplete
+    head_prefix: Incomplete
+    requirements: Incomplete
+    latex_preamble: Incomplete
+    fallbacks: Incomplete
+    pdfsetup: Incomplete
+    title: Incomplete
+    subtitle: Incomplete
+    titledata: Incomplete
+    body_pre_docinfo: Incomplete
+    docinfo: Incomplete
+    dedication: Incomplete
+    abstract: Incomplete
+    body: Incomplete
+    context: Incomplete
+    title_labels: Incomplete
+    subtitle_labels: Incomplete
+    author_stack: Incomplete
+    date: Incomplete
+    pdfauthor: Incomplete
+    pdfinfo: Incomplete
+    table_stack: Incomplete
+    active_table: Incomplete
+    out: Incomplete
+    out_stack: Incomplete
+    fallback_stylesheet: Incomplete
+    stylesheet: Incomplete
+    hyperref_options: str
+
+    def __init__(self, document: _Document, babel_class: type = ...) -> None: ...
     def stylesheet_call(self, path: StrPath) -> str: ...
     def to_latex_encoding(self, docutils_encoding: str) -> str: ...
     def language_label(self, docutil_label: str): ...

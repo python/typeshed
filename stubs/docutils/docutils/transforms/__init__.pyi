@@ -9,7 +9,7 @@ from docutils.nodes import Node, document, pending
 
 _TransformTuple: TypeAlias = tuple[str, type[Transform], Node | None, dict[str, Any]]
 
-__docformat__: Final[str]
+__docformat__: Final = "reStructuredText"
 
 class TransformError(ApplicationError): ...
 

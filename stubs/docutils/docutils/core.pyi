@@ -9,7 +9,7 @@ from docutils.parsers import Parser
 from docutils.readers import Reader
 from docutils.writers import Writer, _WriterParts
 
-__docformat__: Final[str]
+__docformat__: Final = "reStructuredText"
 
 class Publisher:
     document: Incomplete | None

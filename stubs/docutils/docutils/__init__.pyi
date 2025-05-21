@@ -3,7 +3,7 @@ from typing_extensions import Self
 
 from docutils.transforms import Transform
 
-__docformat__: Final[str]
+__docformat__: Final = "reStructuredText"
 __version__: Final[str]
 
 class _VersionInfo(NamedTuple):
