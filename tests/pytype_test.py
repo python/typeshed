@@ -169,7 +169,7 @@ def _get_pkgs_associated_with_requirement(req_name: str) -> list[str]:
     toplevel_txt_contents = dist.read_text("top_level.txt")
     if toplevel_txt_contents is None:
         if dist.files is None:
-            raise RuntimeError("Can't read find the packages associated with requirement {req_name!r}")
+            raise RuntimeError(f"Can't read find the packages associated with requirement {req_name!r}")
         maybe_modules = [f.parts[0] if len(f.parts) > 1 else inspect.getmodulename(f) for f in dist.files]
         packages = [name for name in maybe_modules if name is not None and "." not in name]
     else:
