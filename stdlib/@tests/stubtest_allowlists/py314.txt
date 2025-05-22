@@ -58,7 +58,6 @@ multiprocessing.forkserver.main
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
-multiprocessing.managers.SyncManager.set
 multiprocessing.managers._BaseDictProxy.__ior__
 multiprocessing.managers._BaseDictProxy.__or__
 multiprocessing.managers._BaseDictProxy.__reversed__
@@ -66,7 +65,6 @@ multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
-pyexpat.errors.XML_ERROR_NOT_STARTED
 shutil.__all__
 sre_compile.CH_NEGATE
 sre_constants.CH_NEGATE
@@ -85,10 +83,6 @@ turtle.poly
 turtle.save
 types.CodeType.co_branches
 types.FrameType.f_generator
-xml.parsers.expat.errors.XML_ERROR_NOT_STARTED
-xml.sax.__all__
-xml.sax.InputSource
-
 
 # =========================
 # New errors in Python 3.14
@@ -206,6 +200,12 @@ multiprocessing.managers._BaseDictProxy.items
 multiprocessing.managers._BaseDictProxy.keys
 multiprocessing.managers._BaseDictProxy.popitem
 multiprocessing.managers._BaseDictProxy.values
+
+multiprocessing.managers._BaseSetProxy.__iter__
+multiprocessing.managers._BaseSetProxy.__len__
+multiprocessing.managers._BaseSetProxy.clear
+multiprocessing.managers._BaseSetProxy.copy
+multiprocessing.managers._BaseSetProxy.pop
 
 # To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
 types.MappingProxyType.get

@@ -3,7 +3,6 @@ docutils.frontend.ConfigParser.read
 docutils.frontend.OptionParser.__getattr__
 docutils.io.FileOutput.__getattr__
 docutils.io.FileOutput.__init__
-docutils.languages.LanguageImporter.__getattr__
 docutils.nodes.Element.__iter__ # doesn't exist at runtime, but the class is iterable due to __getitem__
 docutils.nodes.Element.tagname  # class variable is overridden in __init__ method
 docutils.nodes.GenericNodeVisitor.__getattr__

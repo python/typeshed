@@ -1,9 +1,10 @@
-from typing import ClassVar, Final, Protocol
+from typing import ClassVar, Final, Protocol, type_check_only
 
 from docutils.utils import Reporter
 
 __docformat__: Final = "reStructuredText"
 
+@type_check_only
 class _LanguageModule(Protocol):
     labels: dict[str, str]
     author_separators: list[str]

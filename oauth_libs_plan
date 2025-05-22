@@ -1,0 +1,11 @@
+first of all, complete stubs for stubs/oauthlib (Authlib also have missing stubs)
+
+later, check page:
+https://pypi.org/project/oauthlib/
+
+for next repos, need to be sure about missing stubs:
+https://github.com/evonove/django-oauth-toolkit
+https://github.com/lepture/flask-oauthlib
+https://github.com/singingwolfboy/flask-dance
+https://github.com/tilgovi/pyramid-oauthlib
+https://github.com/thomsonreuters/bottle-oauthlib

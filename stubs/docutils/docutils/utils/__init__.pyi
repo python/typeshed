@@ -8,7 +8,7 @@ from typing_extensions import TypeAlias
 from docutils import ApplicationError, DataError, nodes
 from docutils.frontend import Values
 from docutils.io import ErrorOutput, FileOutput
-from docutils.nodes import document
+from docutils.nodes import document, unescape as unescape
 
 _T = TypeVar("_T")
 _Observer: TypeAlias = Callable[[nodes.system_message], object]
