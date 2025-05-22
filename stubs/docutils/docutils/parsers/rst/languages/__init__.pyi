@@ -1,9 +1,10 @@
-from typing import ClassVar, Final, Protocol
+from typing import ClassVar, Final, Protocol, type_check_only
 
 from docutils.languages import LanguageImporter
 
 __docformat__: Final = "reStructuredText"
 
+@type_check_only
 class _RstLanguageModule(Protocol):
     directives: dict[str, str]
     roles: dict[str, str]
