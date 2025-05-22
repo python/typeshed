@@ -66,7 +66,6 @@ multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
-pyexpat.errors.XML_ERROR_NOT_STARTED
 shutil.__all__
 sre_compile.CH_NEGATE
 sre_constants.CH_NEGATE
@@ -85,10 +84,6 @@ turtle.poly
 turtle.save
 types.CodeType.co_branches
 types.FrameType.f_generator
-xml.parsers.expat.errors.XML_ERROR_NOT_STARTED
-xml.sax.__all__
-xml.sax.InputSource
-
 
 # =========================
 # New errors in Python 3.14
