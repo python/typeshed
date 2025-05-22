@@ -1,12 +1,8 @@
-from _typeshed import Incomplete
-
 from networkx.utils.backends import _dispatchable
 
-from ..classes.graph import Graph
+from ..classes.graph import Graph, _Node
 
 __all__ = ["spectral_graph_forge"]
 
 @_dispatchable
-def spectral_graph_forge(
-    G: Graph[Incomplete], alpha: float, transformation: str = "identity", seed=None
-) -> Graph[Incomplete]: ...
+def spectral_graph_forge(G: Graph[_Node], alpha: float, transformation: str = "identity", seed=None) -> Graph[_Node]: ...

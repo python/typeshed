@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 
 from networkx.utils.backends import _dispatchable
 
-from ..classes.graph import Graph
+from ..classes.graph import Graph, _Node
 
 __all__ = [
     "fast_gnp_random_graph",
@@ -47,11 +47,11 @@ def connected_watts_strogatz_graph(n: int, k: int, p: float, tries: int = 100, s
 @_dispatchable
 def random_regular_graph(d, n: int, seed=None): ...
 @_dispatchable
-def barabasi_albert_graph(n: int, m: int, seed=None, initial_graph: Graph[Incomplete] | None = None) -> Graph[Incomplete]: ...
+def barabasi_albert_graph(n: int, m: int, seed=None, initial_graph: Graph[_Node] | None = None) -> Graph[_Node]: ...
 @_dispatchable
 def dual_barabasi_albert_graph(
-    n: int, m1, m2, p: float, seed=None, initial_graph: Graph[Incomplete] | None = None
-) -> Graph[Incomplete]: ...
+    n: int, m1, m2, p: float, seed=None, initial_graph: Graph[_Node] | None = None
+) -> Graph[_Node]: ...
 @_dispatchable
 def extended_barabasi_albert_graph(n: int, m: int, p: float, q, seed=None) -> Graph[Incomplete]: ...
 @_dispatchable

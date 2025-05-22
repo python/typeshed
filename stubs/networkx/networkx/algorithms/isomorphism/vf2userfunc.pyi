@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
 
-from ...classes.graph import Graph
+from ...classes.graph import Graph, _Node
 from . import isomorphvf2 as vf2
 
 __all__ = ["GraphMatcher", "DiGraphMatcher", "MultiGraphMatcher", "MultiDiGraphMatcher"]
@@ -14,8 +14,8 @@ class GraphMatcher(vf2.GraphMatcher):
 
     def __init__(
         self,
-        G1: Graph[Incomplete],
-        G2: Graph[Incomplete],
+        G1: Graph[_Node],
+        G2: Graph[_Node],
         node_match: Callable[..., Incomplete] | None = None,
         edge_match: Callable[..., Incomplete] | None = None,
     ) -> None: ...
@@ -29,8 +29,8 @@ class DiGraphMatcher(vf2.DiGraphMatcher):
 
     def __init__(
         self,
-        G1: Graph[Incomplete],
-        G2: Graph[Incomplete],
+        G1: Graph[_Node],
+        G2: Graph[_Node],
         node_match: Callable[..., Incomplete] | None = None,
         edge_match: Callable[..., Incomplete] | None = None,
     ) -> None: ...

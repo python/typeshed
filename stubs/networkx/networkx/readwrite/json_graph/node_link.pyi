@@ -3,12 +3,12 @@ from collections.abc import Mapping
 
 from networkx.utils.backends import _dispatchable
 
-from ...classes.graph import Graph
+from ...classes.graph import Graph, _Node
 
 __all__ = ["node_link_data", "node_link_graph"]
 
 def node_link_data(
-    G: Graph[Incomplete],
+    G: Graph[_Node],
     *,
     source: str = "source",
     target: str = "target",

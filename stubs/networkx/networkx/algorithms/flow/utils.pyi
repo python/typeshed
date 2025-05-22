@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 
 from networkx.utils.backends import _dispatchable
 
-from ...classes.graph import Graph
+from ...classes.graph import Graph, _Node
 
 __all__ = ["CurrentEdge", "Level", "GlobalRelabelThreshold", "build_residual_network", "detect_unboundedness", "build_flow_dict"]
 
@@ -24,8 +24,8 @@ class GlobalRelabelThreshold:
     def clear_work(self) -> None: ...
 
 @_dispatchable
-def build_residual_network(G: Graph[Incomplete], capacity): ...
+def build_residual_network(G: Graph[_Node], capacity): ...
 @_dispatchable
 def detect_unboundedness(R, s, t) -> None: ...
 @_dispatchable
-def build_flow_dict(G: Graph[Incomplete], R): ...
+def build_flow_dict(G: Graph[_Node], R): ...

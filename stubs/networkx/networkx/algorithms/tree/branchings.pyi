@@ -65,7 +65,7 @@ class ArborescenceIterator:
 
     def __init__(
         self,
-        G: Graph[Incomplete],
+        G: Graph[_Node],
         weight: str = "weight",
         minimum: bool = True,
         init_partition: tuple[Incomplete, Incomplete] | None = None,

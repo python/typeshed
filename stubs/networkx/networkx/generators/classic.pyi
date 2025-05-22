@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 
-from networkx.classes import Graph
+from networkx.classes.graph import Graph
 from networkx.utils.backends import _dispatchable
 
 __all__ = [

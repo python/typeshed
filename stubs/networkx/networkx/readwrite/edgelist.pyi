@@ -3,7 +3,7 @@ from collections.abc import Generator
 
 from networkx.utils.backends import _dispatchable
 
-from ..classes.graph import Graph
+from ..classes.graph import Graph, _Node
 
 __all__ = [
     "generate_edgelist",
@@ -15,10 +15,10 @@ __all__ = [
 ]
 
 def generate_edgelist(
-    G: Graph[Incomplete], delimiter: str = " ", data: bool | Incomplete = True
+    G: Graph[_Node], delimiter: str = " ", data: bool | Incomplete = True
 ) -> Generator[Incomplete, None, None]: ...
 def write_edgelist(
-    G: Graph[Incomplete], path, comments: str = "#", delimiter: str = " ", data: bool | Incomplete = True, encoding: str = "utf-8"
+    G: Graph[_Node], path, comments: str = "#", delimiter: str = " ", data: bool | Incomplete = True, encoding: str = "utf-8"
 ) -> None: ...
 @_dispatchable
 def parse_edgelist(
@@ -36,7 +36,7 @@ def read_edgelist(
     encoding: str = "utf-8",
 ): ...
 def write_weighted_edgelist(
-    G: Graph[Incomplete], path, comments: str = "#", delimiter: str = " ", encoding: str = "utf-8"
+    G: Graph[_Node], path, comments: str = "#", delimiter: str = " ", encoding: str = "utf-8"
 ) -> None: ...
 @_dispatchable
 def read_weighted_edgelist(

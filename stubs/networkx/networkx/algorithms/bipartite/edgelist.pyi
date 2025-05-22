@@ -8,7 +8,7 @@ __all__ = ["generate_edgelist", "write_edgelist", "parse_edgelist", "read_edgeli
 
 @_dispatchable
 def write_edgelist(
-    G: Graph[Incomplete],
+    G: Graph[_Node],
     path,
     comments: str = "#",
     delimiter: str = " ",
@@ -17,7 +17,7 @@ def write_edgelist(
 ) -> None: ...
 @_dispatchable
 def generate_edgelist(
-    G: Graph[Incomplete], delimiter: str = " ", data: bool | Iterable[Incomplete] = True
+    G: Graph[_Node], delimiter: str = " ", data: bool | Iterable[Incomplete] = True
 ) -> Generator[str, None, None]: ...
 @_dispatchable
 def parse_edgelist(

@@ -3,13 +3,13 @@ from collections.abc import Callable
 
 from networkx.utils.backends import _dispatchable
 
-from ..classes.graph import Graph
+from ..classes.graph import Graph, _Node
 
 __all__ = ["attr_matrix", "attr_sparse_matrix"]
 
 @_dispatchable
 def attr_matrix(
-    G: Graph[Incomplete],
+    G: Graph[_Node],
     edge_attr: str | Callable[[Incomplete, Incomplete], Incomplete] | None = None,
     node_attr: str | Callable[[Incomplete], Incomplete] | None = None,
     normalized: bool = False,
@@ -19,7 +19,7 @@ def attr_matrix(
 ): ...
 @_dispatchable
 def attr_sparse_matrix(
-    G: Graph[Incomplete],
+    G: Graph[_Node],
     edge_attr: str | Callable[[Incomplete, Incomplete], Incomplete] | None = None,
     node_attr: str | Callable[[Incomplete], Incomplete] | None = None,
     normalized: bool = False,
