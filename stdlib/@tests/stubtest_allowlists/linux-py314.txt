@@ -2,7 +2,6 @@
 # TODO: New errors in Python 3.14 that need to be fixed or moved below
 # ====================================================================
 
-_curses.assume_default_colors
 _posixsubprocess.fork_exec
 asyncio.tools
 asyncio.unix_events.__all__
