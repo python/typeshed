@@ -107,7 +107,6 @@ class object:
     __doc__: str | None
     __dict__: dict[str, Any]
     __module__: str
-    __annotations__: dict[str, Any]
     @property
     def __class__(self) -> type[Self]: ...
     @__class__.setter
@@ -154,6 +153,9 @@ class staticmethod(Generic[_P, _R_co]):
         @property
         def __wrapped__(self) -> Callable[_P, _R_co]: ...
         def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _R_co: ...
+    __annotations__: dict[str, AnnotationForm]
+    if sys.version_info >= (3, 14):
+        __annotate__: AnnotateFunc | None
 
 class classmethod(Generic[_T, _P, _R_co]):
     @property
@@ -170,6 +172,9 @@ class classmethod(Generic[_T, _P, _R_co]):
         __qualname__: str
         @property
         def __wrapped__(self) -> Callable[Concatenate[type[_T], _P], _R_co]: ...
+    __annotations__: dict[str, AnnotationForm]
+    if sys.version_info >= (3, 14):
+        __annotate__: AnnotateFunc | None
 
 class type:
     # object.__base__ is None. Otherwise, it would be a type.

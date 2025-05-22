@@ -1,6 +1,6 @@
 import sys
 import types
-from _typeshed import SupportsAllComparisons, SupportsItems
+from _typeshed import AnnotationForm, SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sized
 from types import GenericAlias
 from typing import Any, Final, Generic, Literal, NamedTuple, TypedDict, TypeVar, final, overload
@@ -105,6 +105,7 @@ class _Wrapped(Generic[_PWrapped, _RWrapped, _PWrapper, _RWrapper]):
 
 class _Wrapper(Generic[_PWrapped, _RWrapped]):
     def __call__(self, f: Callable[_PWrapper, _RWrapper]) -> _Wrapped[_PWrapped, _RWrapped, _PWrapper, _RWrapper]: ...
+    __annotations__: dict[str, AnnotationForm]
 
 if sys.version_info >= (3, 14):
     def update_wrapper(
