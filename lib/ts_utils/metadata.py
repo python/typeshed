@@ -47,7 +47,7 @@ def _is_nested_dict(obj: object) -> TypeGuard[dict[str, dict[str, Any]]]:
 
 
 @functools.cache
-def _get_oldest_supported_python() -> str:
+def get_oldest_supported_python() -> str:
     with PYPROJECT_PATH.open("rb") as config:
         val = tomli.load(config)["tool"]["typeshed"]["oldest_supported_python"]
     assert type(val) is str
@@ -276,7 +276,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     partial_stub: object = data.get("partial_stub", True)
     assert type(partial_stub) is bool
     requires_python_str: object = data.get("requires_python")
-    oldest_supported_python = _get_oldest_supported_python()
+    oldest_supported_python = get_oldest_supported_python()
     oldest_supported_python_specifier = Specifier(f">={oldest_supported_python}")
     if requires_python_str is None:
         requires_python = oldest_supported_python_specifier

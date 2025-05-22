@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Collection
+from collections.abc import Collection, Iterable, Sequence
 
 __all__ = [
     "draw",
@@ -18,44 +18,42 @@ __all__ = [
     "draw_forceatlas2",
 ]
 
-def draw(G, pos: Incomplete | None = None, ax: Incomplete | None = None, **kwds) -> None: ...
-def draw_networkx(
-    G, pos: Incomplete | None = None, arrows: Incomplete | None = None, with_labels: bool = True, **kwds
-) -> None: ...
+def draw(G, pos=None, ax=None, **kwds) -> None: ...
+def draw_networkx(G, pos=None, arrows=None, with_labels: bool = True, **kwds) -> None: ...
 def draw_networkx_nodes(
     G,
     pos,
     nodelist: Collection[Incomplete] | None = None,
     node_size: Incomplete | int = 300,
-    node_color: str = "#1f78b4",
+    node_color: str | Sequence[str] = "#1f78b4",
     node_shape: str = "o",
-    alpha: Incomplete | None = None,
-    cmap: Incomplete | None = None,
-    vmin: Incomplete | None = None,
-    vmax: Incomplete | None = None,
-    ax: Incomplete | None = None,
-    linewidths: Incomplete | None = None,
-    edgecolors: Incomplete | None = None,
-    label: Incomplete | None = None,
-    margins: Incomplete | None = None,
+    alpha=None,
+    cmap=None,
+    vmin=None,
+    vmax=None,
+    ax=None,
+    linewidths=None,
+    edgecolors=None,
+    label=None,
+    margins=None,
     hide_ticks: bool = True,
 ): ...
 def draw_networkx_edges(
     G,
     pos,
-    edgelist: Incomplete | None = None,
+    edgelist=None,
     width: float = 1.0,
     edge_color: str = "k",
     style: str = "solid",
-    alpha: Incomplete | None = None,
-    arrowstyle: Incomplete | None = None,
+    alpha=None,
+    arrowstyle=None,
     arrowsize: int = 10,
-    edge_cmap: Incomplete | None = None,
-    edge_vmin: Incomplete | None = None,
-    edge_vmax: Incomplete | None = None,
-    ax: Incomplete | None = None,
-    arrows: Incomplete | None = None,
-    label: Incomplete | None = None,
+    edge_cmap=None,
+    edge_vmin=None,
+    edge_vmax=None,
+    ax=None,
+    arrows=None,
+    label=None,
     node_size: Incomplete | int = 300,
     nodelist: list[Incomplete] | None = None,
     node_shape: str = "o",
@@ -67,33 +65,33 @@ def draw_networkx_edges(
 def draw_networkx_labels(
     G,
     pos,
-    labels: Incomplete | None = None,
+    labels=None,
     font_size: int = 12,
     font_color: str = "k",
     font_family: str = "sans-serif",
     font_weight: str = "normal",
-    alpha: Incomplete | None = None,
-    bbox: Incomplete | None = None,
+    alpha=None,
+    bbox=None,
     horizontalalignment: str = "center",
     verticalalignment: str = "center",
-    ax: Incomplete | None = None,
+    ax=None,
     clip_on: bool = True,
     hide_ticks: bool = True,
 ): ...
 def draw_networkx_edge_labels(
     G,
     pos,
-    edge_labels: Incomplete | None = None,
+    edge_labels=None,
     label_pos: float = 0.5,
     font_size: int = 10,
     font_color: str = "k",
     font_family: str = "sans-serif",
     font_weight: str = "normal",
-    alpha: Incomplete | None = None,
-    bbox: Incomplete | None = None,
+    alpha=None,
+    bbox=None,
     horizontalalignment: str = "center",
     verticalalignment: str = "center",
-    ax: Incomplete | None = None,
+    ax=None,
     rotate: bool = True,
     clip_on: bool = True,
     node_size: int = 300,
@@ -106,6 +104,9 @@ def draw_kamada_kawai(G, **kwargs) -> None: ...
 def draw_random(G, **kwargs) -> None: ...
 def draw_spectral(G, **kwargs) -> None: ...
 def draw_spring(G, **kwargs) -> None: ...
-def draw_shell(G, nlist: Incomplete | None = None, **kwargs) -> None: ...
+def draw_shell(G, nlist=None, **kwargs) -> None: ...
 def draw_planar(G, **kwargs) -> None: ...
 def draw_forceatlas2(G, **kwargs) -> None: ...
+def apply_alpha(
+    colors, alpha: float | Iterable[float], elem_list, cmap=None, vmin: float | None = None, vmax: float | None = None
+): ...

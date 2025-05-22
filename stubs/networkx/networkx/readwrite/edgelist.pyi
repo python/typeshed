@@ -15,32 +15,20 @@ __all__ = [
 def generate_edgelist(G, delimiter: str = " ", data: bool = True) -> Generator[Incomplete, None, None]: ...
 def write_edgelist(G, path, comments: str = "#", delimiter: str = " ", data: bool = True, encoding: str = "utf-8") -> None: ...
 @_dispatchable
-def parse_edgelist(
-    lines,
-    comments: str = "#",
-    delimiter: Incomplete | None = None,
-    create_using: Incomplete | None = None,
-    nodetype: Incomplete | None = None,
-    data: bool = True,
-): ...
+def parse_edgelist(lines, comments: str = "#", delimiter=None, create_using=None, nodetype=None, data: bool = True): ...
 @_dispatchable
 def read_edgelist(
     path,
     comments: str = "#",
-    delimiter: Incomplete | None = None,
-    create_using: Incomplete | None = None,
-    nodetype: Incomplete | None = None,
+    delimiter=None,
+    create_using=None,
+    nodetype=None,
     data: bool = True,
-    edgetype: Incomplete | None = None,
+    edgetype=None,
     encoding: str = "utf-8",
 ): ...
 def write_weighted_edgelist(G, path, comments: str = "#", delimiter: str = " ", encoding: str = "utf-8") -> None: ...
 @_dispatchable
 def read_weighted_edgelist(
-    path,
-    comments: str = "#",
-    delimiter: Incomplete | None = None,
-    create_using: Incomplete | None = None,
-    nodetype: Incomplete | None = None,
-    encoding: str = "utf-8",
+    path, comments: str = "#", delimiter=None, create_using=None, nodetype=None, encoding: str = "utf-8"
 ): ...

@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterator
 from dataclasses import dataclass
+from typing import Final
 
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import _Node
@@ -18,6 +19,11 @@ __all__ = [
     "ArborescenceIterator",
 ]
 
+KINDS: Final[set[str]]
+STYLES: Final[dict[str, str]]
+INF: Final[float]
+
+def random_string(L=15, seed=None): ...
 @_dispatchable
 def branching_weight(G: DiGraph[_Node], attr: str = "weight", default: float = 1): ...
 @_dispatchable
@@ -44,10 +50,11 @@ def minimum_spanning_arborescence(
 ): ...
 
 class ArborescenceIterator:
-    @dataclass
+    @dataclass(order=True)
     class Partition:
         mst_weight: float
         partition_dict: dict[Incomplete, Incomplete]
+        def __copy__(self) -> ArborescenceIterator.Partition: ...
 
     G: Incomplete
     weight: Incomplete
@@ -56,7 +63,7 @@ class ArborescenceIterator:
     partition_key: str
     init_partition: Incomplete
 
-    def __init__(self, G, weight: str = "weight", minimum: bool = True, init_partition: Incomplete | None = None) -> None: ...
+    def __init__(self, G, weight: str = "weight", minimum: bool = True, init_partition=None) -> None: ...
     partition_queue: Incomplete
 
     def __iter__(self) -> Iterator[Incomplete]: ...
