@@ -89,7 +89,7 @@ turtle.poly
 turtle.save
 types.CodeType.co_branches
 types.FrameType.f_generator
-
+zipfile.ZipFile.data_offset
 
 # =========================
 # New errors in Python 3.14
