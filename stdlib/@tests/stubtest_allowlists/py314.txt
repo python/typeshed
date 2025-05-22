@@ -20,12 +20,7 @@ asyncio.events._get_event_loop_policy
 asyncio.events._set_event_loop_policy
 asyncio.tasks.eager_task_factory
 builtins.bytearray.resize
-builtins.classmethod.__annotate__
-builtins.classmethod.__class_getitem__
 builtins.int.__round__
-builtins.memoryview.__class_getitem__
-builtins.staticmethod.__annotate__
-builtins.staticmethod.__class_getitem__
 compression.gzip.GzipFile.readinto
 compression.gzip.GzipFile.readinto
 compression.gzip.GzipFile.readinto1
@@ -89,7 +84,6 @@ turtle.poly
 turtle.save
 types.CodeType.co_branches
 types.FrameType.f_generator
-zipfile.ZipFile.data_offset
 
 # =========================
 # New errors in Python 3.14
