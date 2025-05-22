@@ -8,7 +8,7 @@ from typing_extensions import TypeAlias
 from docutils import ApplicationError, DataError, nodes
 from docutils.frontend import Values
 from docutils.io import ErrorOutput, FileOutput
-from docutils.nodes import document
+from docutils.nodes import document, unescape as unescape
 
 _T = TypeVar("_T")
 _Observer: TypeAlias = Callable[[nodes.system_message], object]
@@ -138,4 +138,3 @@ def xml_declaration(encoding: str | None = None) -> str: ...
 release_level_abbreviations: dict[str, str]
 
 def version_identifier(version_info: tuple[int, int, int, str, int, bool] | None = None) -> str: ...
-def unescape(text: str, restore_backslashes: bool = False, respect_whitespace: bool = False) -> str: ...
