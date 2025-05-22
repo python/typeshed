@@ -298,11 +298,11 @@ class FPDF(GraphicsStateMixin):
     def get_string_width(self, s: str, normalized: bool = False, markdown: bool = False) -> float: ...
     def set_line_width(self, width: float) -> None: ...
     def set_page_background(self, background) -> None: ...
-    def drawing_context(self, debug_stream: Incomplete | None = None) -> _GeneratorContextManager[DrawingContext]: ...
+    def drawing_context(self, debug_stream=None) -> _GeneratorContextManager[DrawingContext]: ...
     def new_path(
-        self, x: float = 0, y: float = 0, paint_rule: PathPaintRule = ..., debug_stream: Incomplete | None = None
+        self, x: float = 0, y: float = 0, paint_rule: PathPaintRule = ..., debug_stream=None
     ) -> _GeneratorContextManager[PaintedPath]: ...
-    def draw_path(self, path: PaintedPath, debug_stream: Incomplete | None = None) -> None: ...
+    def draw_path(self, path: PaintedPath, debug_stream=None) -> None: ...
     def set_dash_pattern(self, dash: float = 0, gap: float = 0, phase: float = 0) -> None: ...
     def line(self, x1: float, y1: float, x2: float, y2: float) -> None: ...
     def polyline(
@@ -505,14 +505,14 @@ class FPDF(GraphicsStateMixin):
     def local_context(
         self,
         *,
-        font_family: Incomplete | None = None,
-        font_style: Incomplete | None = None,
-        font_size_pt: Incomplete | None = None,
-        line_width: Incomplete | None = None,
-        draw_color: Incomplete | None = None,
-        fill_color: Incomplete | None = None,
-        text_color: Incomplete | None = None,
-        dash_pattern: Incomplete | None = None,
+        font_family=None,
+        font_style=None,
+        font_size_pt=None,
+        line_width=None,
+        draw_color=None,
+        fill_color=None,
+        text_color=None,
+        dash_pattern=None,
         font_size=...,  # semi-deprecated, prefer font_size_pt
         char_vpos=...,
         char_spacing=...,

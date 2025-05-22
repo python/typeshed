@@ -5,6 +5,7 @@ import sys
 import types
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import (
+    AnnotationForm,
     AnyStr_co,
     ConvertibleToFloat,
     ConvertibleToInt,
@@ -71,6 +72,9 @@ from typing_extensions import (  # noqa: Y023
     TypeVarTuple,
     deprecated,
 )
+
+if sys.version_info >= (3, 14):
+    from _typeshed import AnnotateFunc
 
 _T = TypeVar("_T")
 _I = TypeVar("_I", default=int)
@@ -150,6 +154,9 @@ class staticmethod(Generic[_P, _R_co]):
         @property
         def __wrapped__(self) -> Callable[_P, _R_co]: ...
         def __call__(self, *args: _P.args, **kwargs: _P.kwargs) -> _R_co: ...
+    if sys.version_info >= (3, 14):
+        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+        __annotate__: AnnotateFunc | None
 
 class classmethod(Generic[_T, _P, _R_co]):
     @property
@@ -166,6 +173,9 @@ class classmethod(Generic[_T, _P, _R_co]):
         __qualname__: str
         @property
         def __wrapped__(self) -> Callable[Concatenate[type[_T], _P], _R_co]: ...
+    if sys.version_info >= (3, 14):
+        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+        __annotate__: AnnotateFunc | None
 
 class type:
     # object.__base__ is None. Otherwise, it would be a type.
@@ -215,6 +225,9 @@ class type:
         def __ror__(self, value: Any, /) -> types.UnionType: ...
     if sys.version_info >= (3, 12):
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
+    __annotations__: dict[str, AnnotationForm]
+    if sys.version_info >= (3, 14):
+        __annotate__: AnnotateFunc | None
 
 class super:
     @overload
@@ -393,6 +406,9 @@ class float:
     def __abs__(self) -> float: ...
     def __hash__(self) -> int: ...
     def __bool__(self) -> bool: ...
+    if sys.version_info >= (3, 14):
+        @classmethod
+        def from_number(cls, number: float | SupportsIndex | SupportsFloat, /) -> Self: ...
 
 class complex:
     # Python doesn't currently accept SupportsComplex for the second argument
@@ -428,6 +444,9 @@ class complex:
     def __bool__(self) -> bool: ...
     if sys.version_info >= (3, 11):
         def __complex__(self) -> complex: ...
+    if sys.version_info >= (3, 14):
+        @classmethod
+        def from_number(cls, number: complex | SupportsComplex | SupportsFloat | SupportsIndex, /) -> Self: ...
 
 class _FormatMapMapping(Protocol):
     def __getitem__(self, key: str, /) -> Any: ...
@@ -902,6 +921,8 @@ class memoryview(Sequence[_I]):
     # See https://github.com/python/cpython/issues/125420
     index: ClassVar[None]  # type: ignore[assignment]
     count: ClassVar[None]  # type: ignore[assignment]
+    if sys.version_info >= (3, 14):
+        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 @final
 class bool(int):
@@ -1004,6 +1025,7 @@ class tuple(Sequence[_T_co]):
 # Doesn't exist at runtime, but deleting this breaks mypy and pyright. See:
 # https://github.com/python/typeshed/issues/7580
 # https://github.com/python/mypy/issues/8240
+# Obsolete, use types.FunctionType instead.
 @final
 @type_check_only
 class function:
@@ -1017,8 +1039,10 @@ class function:
     def __globals__(self) -> dict[str, Any]: ...
     __name__: str
     __qualname__: str
-    __annotations__: dict[str, Any]
-    __kwdefaults__: dict[str, Any]
+    __annotations__: dict[str, AnnotationForm]
+    if sys.version_info >= (3, 14):
+        __annotate__: AnnotateFunc | None
+    __kwdefaults__: dict[str, Any] | None
     if sys.version_info >= (3, 10):
         @property
         def __builtins__(self) -> dict[str, Any]: ...
@@ -1026,6 +1050,26 @@ class function:
         __type_params__: tuple[TypeVar | ParamSpec | TypeVarTuple, ...]
 
     __module__: str
+    if sys.version_info >= (3, 13):
+        def __new__(
+            cls,
+            code: CodeType,
+            globals: dict[str, Any],
+            name: str | None = None,
+            argdefs: tuple[object, ...] | None = None,
+            closure: tuple[CellType, ...] | None = None,
+            kwdefaults: dict[str, object] | None = None,
+        ) -> Self: ...
+    else:
+        def __new__(
+            cls,
+            code: CodeType,
+            globals: dict[str, Any],
+            name: str | None = None,
+            argdefs: tuple[object, ...] | None = None,
+            closure: tuple[CellType, ...] | None = None,
+        ) -> Self: ...
+
     # mypy uses `builtins.function.__get__` to represent methods, properties, and getset_descriptors so we type the return as Any.
     def __get__(self, instance: object, owner: type | None = None, /) -> Any: ...
 
@@ -1494,48 +1538,108 @@ license: _sitebuiltins._Printer
 def locals() -> dict[str, Any]: ...
 
 class map(Generic[_S]):
-    @overload
-    def __new__(cls, func: Callable[[_T1], _S], iterable: Iterable[_T1], /) -> Self: ...
-    @overload
-    def __new__(cls, func: Callable[[_T1, _T2], _S], iterable: Iterable[_T1], iter2: Iterable[_T2], /) -> Self: ...
-    @overload
-    def __new__(
-        cls, func: Callable[[_T1, _T2, _T3], _S], iterable: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3], /
-    ) -> Self: ...
-    @overload
-    def __new__(
-        cls,
-        func: Callable[[_T1, _T2, _T3, _T4], _S],
-        iterable: Iterable[_T1],
-        iter2: Iterable[_T2],
-        iter3: Iterable[_T3],
-        iter4: Iterable[_T4],
-        /,
-    ) -> Self: ...
-    @overload
-    def __new__(
-        cls,
-        func: Callable[[_T1, _T2, _T3, _T4, _T5], _S],
-        iterable: Iterable[_T1],
-        iter2: Iterable[_T2],
-        iter3: Iterable[_T3],
-        iter4: Iterable[_T4],
-        iter5: Iterable[_T5],
-        /,
-    ) -> Self: ...
-    @overload
-    def __new__(
-        cls,
-        func: Callable[..., _S],
-        iterable: Iterable[Any],
-        iter2: Iterable[Any],
-        iter3: Iterable[Any],
-        iter4: Iterable[Any],
-        iter5: Iterable[Any],
-        iter6: Iterable[Any],
-        /,
-        *iterables: Iterable[Any],
-    ) -> Self: ...
+    # 3.14 adds `strict` argument.
+    if sys.version_info >= (3, 14):
+        @overload
+        def __new__(cls, func: Callable[[_T1], _S], iterable: Iterable[_T1], /, *, strict: bool = False) -> Self: ...
+        @overload
+        def __new__(
+            cls, func: Callable[[_T1, _T2], _S], iterable: Iterable[_T1], iter2: Iterable[_T2], /, *, strict: bool = False
+        ) -> Self: ...
+        @overload
+        def __new__(
+            cls,
+            func: Callable[[_T1, _T2, _T3], _S],
+            iterable: Iterable[_T1],
+            iter2: Iterable[_T2],
+            iter3: Iterable[_T3],
+            /,
+            *,
+            strict: bool = False,
+        ) -> Self: ...
+        @overload
+        def __new__(
+            cls,
+            func: Callable[[_T1, _T2, _T3, _T4], _S],
+            iterable: Iterable[_T1],
+            iter2: Iterable[_T2],
+            iter3: Iterable[_T3],
+            iter4: Iterable[_T4],
+            /,
+            *,
+            strict: bool = False,
+        ) -> Self: ...
+        @overload
+        def __new__(
+            cls,
+            func: Callable[[_T1, _T2, _T3, _T4, _T5], _S],
+            iterable: Iterable[_T1],
+            iter2: Iterable[_T2],
+            iter3: Iterable[_T3],
+            iter4: Iterable[_T4],
+            iter5: Iterable[_T5],
+            /,
+            *,
+            strict: bool = False,
+        ) -> Self: ...
+        @overload
+        def __new__(
+            cls,
+            func: Callable[..., _S],
+            iterable: Iterable[Any],
+            iter2: Iterable[Any],
+            iter3: Iterable[Any],
+            iter4: Iterable[Any],
+            iter5: Iterable[Any],
+            iter6: Iterable[Any],
+            /,
+            *iterables: Iterable[Any],
+            strict: bool = False,
+        ) -> Self: ...
+    else:
+        @overload
+        def __new__(cls, func: Callable[[_T1], _S], iterable: Iterable[_T1], /) -> Self: ...
+        @overload
+        def __new__(cls, func: Callable[[_T1, _T2], _S], iterable: Iterable[_T1], iter2: Iterable[_T2], /) -> Self: ...
+        @overload
+        def __new__(
+            cls, func: Callable[[_T1, _T2, _T3], _S], iterable: Iterable[_T1], iter2: Iterable[_T2], iter3: Iterable[_T3], /
+        ) -> Self: ...
+        @overload
+        def __new__(
+            cls,
+            func: Callable[[_T1, _T2, _T3, _T4], _S],
+            iterable: Iterable[_T1],
+            iter2: Iterable[_T2],
+            iter3: Iterable[_T3],
+            iter4: Iterable[_T4],
+            /,
+        ) -> Self: ...
+        @overload
+        def __new__(
+            cls,
+            func: Callable[[_T1, _T2, _T3, _T4, _T5], _S],
+            iterable: Iterable[_T1],
+            iter2: Iterable[_T2],
+            iter3: Iterable[_T3],
+            iter4: Iterable[_T4],
+            iter5: Iterable[_T5],
+            /,
+        ) -> Self: ...
+        @overload
+        def __new__(
+            cls,
+            func: Callable[..., _S],
+            iterable: Iterable[Any],
+            iter2: Iterable[Any],
+            iter3: Iterable[Any],
+            iter4: Iterable[Any],
+            iter5: Iterable[Any],
+            iter6: Iterable[Any],
+            /,
+            *iterables: Iterable[Any],
+        ) -> Self: ...
+
     def __iter__(self) -> Self: ...
     def __next__(self) -> _S: ...
 
@@ -2090,27 +2194,27 @@ if sys.version_info >= (3, 11):
         def exceptions(self) -> tuple[_BaseExceptionT_co | BaseExceptionGroup[_BaseExceptionT_co], ...]: ...
         @overload
         def subgroup(
-            self, condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
+            self, matcher_value: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
         ) -> ExceptionGroup[_ExceptionT] | None: ...
         @overload
         def subgroup(
-            self, condition: type[_BaseExceptionT] | tuple[type[_BaseExceptionT], ...], /
+            self, matcher_value: type[_BaseExceptionT] | tuple[type[_BaseExceptionT], ...], /
         ) -> BaseExceptionGroup[_BaseExceptionT] | None: ...
         @overload
         def subgroup(
-            self, condition: Callable[[_BaseExceptionT_co | Self], bool], /
+            self, matcher_value: Callable[[_BaseExceptionT_co | Self], bool], /
         ) -> BaseExceptionGroup[_BaseExceptionT_co] | None: ...
         @overload
         def split(
-            self, condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
+            self, matcher_value: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
         ) -> tuple[ExceptionGroup[_ExceptionT] | None, BaseExceptionGroup[_BaseExceptionT_co] | None]: ...
         @overload
         def split(
-            self, condition: type[_BaseExceptionT] | tuple[type[_BaseExceptionT], ...], /
+            self, matcher_value: type[_BaseExceptionT] | tuple[type[_BaseExceptionT], ...], /
         ) -> tuple[BaseExceptionGroup[_BaseExceptionT] | None, BaseExceptionGroup[_BaseExceptionT_co] | None]: ...
         @overload
         def split(
-            self, condition: Callable[[_BaseExceptionT_co | Self], bool], /
+            self, matcher_value: Callable[[_BaseExceptionT_co | Self], bool], /
         ) -> tuple[BaseExceptionGroup[_BaseExceptionT_co] | None, BaseExceptionGroup[_BaseExceptionT_co] | None]: ...
         # In reality it is `NonEmptySequence`:
         @overload
@@ -2127,17 +2231,19 @@ if sys.version_info >= (3, 11):
         # We accept a narrower type, but that's OK.
         @overload  # type: ignore[override]
         def subgroup(
-            self, condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
+            self, matcher_value: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
         ) -> ExceptionGroup[_ExceptionT] | None: ...
         @overload
-        def subgroup(self, condition: Callable[[_ExceptionT_co | Self], bool], /) -> ExceptionGroup[_ExceptionT_co] | None: ...
+        def subgroup(
+            self, matcher_value: Callable[[_ExceptionT_co | Self], bool], /
+        ) -> ExceptionGroup[_ExceptionT_co] | None: ...
         @overload  # type: ignore[override]
         def split(
-            self, condition: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
+            self, matcher_value: type[_ExceptionT] | tuple[type[_ExceptionT], ...], /
         ) -> tuple[ExceptionGroup[_ExceptionT] | None, ExceptionGroup[_ExceptionT_co] | None]: ...
         @overload
         def split(
-            self, condition: Callable[[_ExceptionT_co | Self], bool], /
+            self, matcher_value: Callable[[_ExceptionT_co | Self], bool], /
         ) -> tuple[ExceptionGroup[_ExceptionT_co] | None, ExceptionGroup[_ExceptionT_co] | None]: ...
 
 if sys.version_info >= (3, 13):

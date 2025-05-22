@@ -43,7 +43,7 @@ jobs:
         with:
           # Max supported Python version as of pytype 2024.10.11
           python-version: "3.12"
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v6
       - run: uv pip install -r requirements-tests.txt --system
       - name: Install external dependencies for 3rd-party stubs
         run: |
@@ -61,7 +61,8 @@ jobs:
     strategy:
       matrix:
         platform: ["linux", "win32", "darwin"]
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        # TODO (2025-05-10) "3.13.2" should be "3.14-dev", see below.
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.13.2"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
@@ -70,7 +71,25 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
-      - run: python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${{ matrix.python-version }}
+      - name: Install required APT packages
+        run: |
+          DEPENDENCIES=$( python tests/get_external_apt_dependencies.py )
+          if [ -n "$DEPENDENCIES" ]; then
+              printf "Installing APT packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
+              sudo apt-get install -qy $DEPENDENCIES
+          fi
+      - name: Run mypy_test.py
+        run: |
+          # TODO: (2025-05-10) This is a bad hack to work around mypy crashing
+          # when running on Python 3.14. See https://github.com/python/mypy/pull/19020.
+          if [[ "${{ matrix.python-version }}" == "3.13.2" ]]; then
+              MYPY_PY_VERSION="3.14"
+          else
+            # python-version can sometimes be pinned to a specific version or to "-dev", but
+            # mypy understands only X.Y version numbers.
+            MYPY_PY_VERSION=$(echo ${{ matrix.python-version }} | cut -d - -f 1 | cut -d . -f 1-2)
+          fi
+          python ./tests/mypy_test.py --platform=${{ matrix.platform }} --python-version=${MYPY_PY_VERSION}
 
   regression-tests:
     name: "mypy: Run test cases"
@@ -92,17 +111,24 @@ jobs:
     strategy:
       matrix:
         python-platform: ["Linux", "Windows", "Darwin"]
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v6
       - name: Install typeshed test-suite requirements
         # Install these so we can run `get_external_stub_requirements.py`
         run: uv pip install -r requirements-tests.txt --system
+      - name: Install required APT packages
+        run: |
+          DEPENDENCIES=$( python tests/get_external_apt_dependencies.py )
+          if [ -n "$DEPENDENCIES" ]; then
+              printf "Installing APT packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
+              sudo apt-get install -qy $DEPENDENCIES
+          fi
       - name: Create an isolated venv for testing
         run: uv venv .venv
       - name: Install 3rd-party stub dependencies
@@ -157,7 +183,7 @@ jobs:
         with:
           # Keep in sync with stub_uploader's check_scripts.yml workflow.
           python-version: "3.13"
-      - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v6
       - name: Run tests
         run: |
           cd stub_uploader

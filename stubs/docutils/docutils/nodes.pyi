@@ -87,6 +87,7 @@ class Node:
 # Left out
 # - def ensure_str (deprecated)
 # - def unescape (canonical import from docutils.utils)
+def unescape(text: str, restore_backslashes: bool = False, respect_whitespace: bool = False) -> str: ...
 
 class Text(Node, str):
     tagname: ClassVar[str]

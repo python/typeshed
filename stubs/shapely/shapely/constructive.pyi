@@ -1,6 +1,5 @@
 from collections.abc import Sequence
 from typing import Any, Literal, SupportsIndex, overload
-from typing_extensions import TypeAlias
 
 from ._enum import ParamEnum
 from ._typing import ArrayLike, ArrayLikeSeq, GeoArray, OptGeoArrayLike, OptGeoArrayLikeSeq, OptGeoT
@@ -42,8 +41,6 @@ __all__ = [
     "snap",
     "voronoi_polygons",
 ]
-
-_Method: TypeAlias = Literal["linework", "structure"]
 
 class BufferCapStyle(ParamEnum):
     round = 1
@@ -269,25 +266,35 @@ def build_area(geometry: None, **kwargs) -> None: ...
 def build_area(geometry: Geometry | None, **kwargs) -> BaseGeometry | None: ...
 @overload
 def build_area(geometry: OptGeoArrayLikeSeq, **kwargs) -> GeoArray: ...
+
+# make_valid with `method="linework"` only accepts `keep_collapsed=True`
 @overload
-def make_valid(geometry: Geometry, *, method: _Method = "linework", keep_collapsed: bool = True, **kwargs) -> BaseGeometry: ...
+def make_valid(
+    geometry: Geometry, *, method: Literal["linework"] = "linework", keep_collapsed: Literal[True] = True, **kwargs
+) -> BaseGeometry: ...
 @overload
-def make_valid(geometry: None, *, method: _Method = "linework", keep_collapsed: bool = True, **kwargs) -> None: ...
+def make_valid(
+    geometry: None, *, method: Literal["linework"] = "linework", keep_collapsed: Literal[True] = True, **kwargs
+) -> None: ...
+@overload
+def make_valid(
+    geometry: Geometry | None, *, method: Literal["linework"] = "linework", keep_collapsed: Literal[True] = True, **kwargs
+) -> BaseGeometry | None: ...
+@overload
+def make_valid(
+    geometry: OptGeoArrayLikeSeq, *, method: Literal["linework"] = "linework", keep_collapsed: Literal[True] = True, **kwargs
+) -> GeoArray: ...
+@overload
+def make_valid(geometry: Geometry, *, method: Literal["structure"], keep_collapsed: bool = True, **kwargs) -> BaseGeometry: ...
+@overload
+def make_valid(geometry: None, *, method: Literal["structure"], keep_collapsed: bool = True, **kwargs) -> None: ...
 @overload
 def make_valid(
     geometry: Geometry | None, *, method: Literal["structure"], keep_collapsed: bool = True, **kwargs
 ) -> BaseGeometry | None: ...
 @overload
 def make_valid(
-    geometry: Geometry | None, *, method: Literal["linework"], keep_collapsed: Literal[True], **kwargs
-) -> BaseGeometry | None: ...
-@overload
-def make_valid(
     geometry: OptGeoArrayLikeSeq, *, method: Literal["structure"], keep_collapsed: bool = True, **kwargs
-) -> GeoArray: ...
-@overload
-def make_valid(
-    geometry: OptGeoArrayLikeSeq, *, method: Literal["linework"], keep_collapsed: Literal[True], **kwargs
 ) -> GeoArray: ...
 @overload
 def minimum_clearance_line(geometry: Point, **kwargs) -> Point: ...

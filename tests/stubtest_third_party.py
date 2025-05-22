@@ -97,7 +97,7 @@ def run_stubtest(
             return False
 
         mypy_configuration = mypy_configuration_from_distribution(dist_name)
-        with temporary_mypy_config_file(mypy_configuration) as temp:
+        with temporary_mypy_config_file(mypy_configuration, stubtest_settings) as temp:
             ignore_missing_stub = ["--ignore-missing-stub"] if stubtest_settings.ignore_missing_stub else []
             packages_to_check = [d.name for d in dist.iterdir() if d.is_dir() and d.name.isidentifier()]
             modules_to_check = [d.stem for d in dist.iterdir() if d.is_file() and d.suffix == ".pyi"]
@@ -125,7 +125,13 @@ def run_stubtest(
             # It seems that some other environment variables are needed too,
             # because the CI fails if we pass only os.environ["DISPLAY"]. I didn't
             # "bisect" to see which variables are actually needed.
-            stubtest_env = os.environ | {"MYPYPATH": mypypath, "MYPY_FORCE_COLOR": "1"}
+            stubtest_env = os.environ | {
+                "MYPYPATH": mypypath,
+                "MYPY_FORCE_COLOR": "1",
+                # Prevent stubtest crash due to special unicode character
+                # https://github.com/python/mypy/issues/19071
+                "PYTHONUTF8": "1",
+            }
 
             # Perform some black magic in order to run stubtest inside uWSGI
             if dist_name == "uWSGI":
