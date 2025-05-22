@@ -88,7 +88,6 @@ types.FrameType.f_generator
 xml.parsers.expat.errors.XML_ERROR_NOT_STARTED
 xml.sax.__all__
 xml.sax.InputSource
-zipfile.ZipFile.data_offset
 
 
 # =========================
