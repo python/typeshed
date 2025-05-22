@@ -11,6 +11,4 @@ ctypes.c_double_complex._type_
 ctypes.c_float_complex._type_
 ctypes.c_longdouble_complex._type_
 errno.EHWPOISON
-multiprocessing.popen_fork.Popen.interrupt
-multiprocessing.reduction.ACKNOWLEDGE
 select.EPOLLWAKEUP
