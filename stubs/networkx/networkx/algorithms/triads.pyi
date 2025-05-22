@@ -12,7 +12,7 @@ __all__ = ["triadic_census", "is_triad", "all_triplets", "all_triads", "triads_b
 
 TRICODES: Final[tuple[int, ...]]
 TRIAD_NAMES: Final[tuple[str, ...]]
-TRICODE_TO_NAME: dict[int, str]
+TRICODE_TO_NAME: Final[dict[int, str]]
 
 @_dispatchable
 def triadic_census(G: DiGraph[_Node], nodelist: Collection[_Node] | None = None) -> dict[str, int]: ...

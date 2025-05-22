@@ -19,8 +19,8 @@ __all__ = [
     "ArborescenceIterator",
 ]
 
-KINDS: set[str]
-STYLES: dict[str, str]
+KINDS: Final[set[str]]
+STYLES: Final[dict[str, str]]
 INF: Final[float]
 
 def random_string(L=15, seed=None): ...

@@ -1,6 +1,6 @@
 from _typeshed import Incomplete, SupportsLenAndGetItem
 from collections.abc import Callable, Iterable, Mapping
-from typing import Literal, TypeVar
+from typing import Any, Literal, TypeVar
 
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import Graph, _Node
@@ -15,7 +15,7 @@ __all__ = [
     "simulated_annealing_tsp",
     "threshold_accepting_tsp",
 ]
-_SupportsLenAndGetItemT = TypeVar("_SupportsLenAndGetItemT", bound=SupportsLenAndGetItem[Incomplete])
+_SupportsLenAndGetItemT = TypeVar("_SupportsLenAndGetItemT", bound=SupportsLenAndGetItem[Any])
 
 def swap_two_nodes(soln: _SupportsLenAndGetItemT, seed) -> _SupportsLenAndGetItemT: ...
 def move_one_node(soln: _SupportsLenAndGetItemT, seed) -> _SupportsLenAndGetItemT: ...

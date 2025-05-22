@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Generator
 from dataclasses import dataclass
 from enum import Enum
-from typing import Literal
+from typing import Final, Literal
 from typing_extensions import Self
 
 from networkx.classes.graph import Graph, _Node
@@ -33,7 +33,7 @@ def kruskal_mst_edges(G: Graph[_Node], minimum, weight="weight", keys=True, data
 @_dispatchable
 def prim_mst_edges(G: Graph[_Node], minimum, weight="weight", keys=True, data=True, ignore_nan=False): ...
 
-ALGORITHMS: dict[str, Callable[..., Generator[Incomplete, Incomplete, Incomplete]]] = ...
+ALGORITHMS: Final[dict[str, Callable[..., Generator[Incomplete, Incomplete, Incomplete]]]]
 
 @_dispatchable
 def minimum_spanning_edges(

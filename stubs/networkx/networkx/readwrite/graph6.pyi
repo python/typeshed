@@ -1,9 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
-
-from ..classes.graph import Graph, _Node
 
 __all__ = ["from_graph6_bytes", "read_graph6", "to_graph6_bytes", "write_graph6"]
 

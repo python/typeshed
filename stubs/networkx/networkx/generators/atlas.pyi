@@ -9,8 +9,7 @@ from ..classes.graph import Graph
 __all__ = ["graph_atlas", "graph_atlas_g"]
 
 NUM_GRAPHS: Final = 1253
-
-ATLAS_FILE: Traversable
+ATLAS_FILE: Final[Traversable]
 
 @_dispatchable
 def graph_atlas(i: int) -> Graph[Incomplete]: ...

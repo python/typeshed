@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
-from ..classes.graph import Graph, _Node
+from networkx.classes.graph import Graph, _Node
 
 __all__ = ["cuthill_mckee_ordering", "reverse_cuthill_mckee_ordering"]
 
