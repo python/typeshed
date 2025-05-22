@@ -43,7 +43,14 @@ jobs:
         with:
           # Max supported Python version as of pytype 2024.10.11
           python-version: "3.12"
+      - name: Determine uv version from requirements-tests.txt
+        id: determine_uv_version
+        run: |
+          uv_version=$(grep '^uv==' requirements-tests.txt | cut -d = -f 3)
+          echo "uv_version=$uv_version" >> $GITHUB_OUTPUT
       - uses: astral-sh/setup-uv@v6
+        with:
+          version: ${{ steps.determine_uv_version.outputs.uv_version }}
       - run: uv pip install -r requirements-tests.txt --system
       - name: Install external dependencies for 3rd-party stubs
         run: |
@@ -118,7 +125,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
+      - name: Determine uv version from requirements-tests.txt
+        id: determine_uv_version
+        run: |
+          uv_version=$(grep '^uv==' requirements-tests.txt | cut -d = -f 3)
+          echo "uv_version=$uv_version" >> $GITHUB_OUTPUT
       - uses: astral-sh/setup-uv@v6
+        with:
+          version: ${{ steps.determine_uv_version.outputs.uv_version }}
       - name: Install typeshed test-suite requirements
         # Install these so we can run `get_external_stub_requirements.py`
         run: uv pip install -r requirements-tests.txt --system
@@ -183,7 +197,14 @@ jobs:
         with:
           # Keep in sync with stub_uploader's check_scripts.yml workflow.
           python-version: "3.13"
+      - name: Determine uv version from requirements-tests.txt
+        id: determine_uv_version
+        run: |
+          uv_version=$(grep '^uv==' requirements-tests.txt | cut -d = -f 3)
+          echo "uv_version=$uv_version" >> $GITHUB_OUTPUT
       - uses: astral-sh/setup-uv@v6
+        with:
+          version: ${{ steps.determine_uv_version.outputs.uv_version }}
       - name: Run tests
         run: |
           cd stub_uploader
