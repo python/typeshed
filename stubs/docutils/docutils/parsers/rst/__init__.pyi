@@ -1,19 +1,22 @@
-from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
-from typing import Any, ClassVar, Literal
+from typing import Any, ClassVar, Final, Literal
 from typing_extensions import TypeAlias
 
 from docutils import nodes, parsers
 from docutils.parsers.rst.states import Inliner, RSTState, RSTStateMachine
 from docutils.statemachine import StringList
 from docutils.transforms import Transform
+from docutils.utils import Reporter
+
+__docformat__: Final[str]
 
 class Parser(parsers.Parser):
-    settings_spec: ClassVar[Incomplete]
+    settings_spec: ClassVar[tuple[Any, ...]]
     config_section_dependencies: ClassVar[tuple[str, ...]]
     initial_state: Literal["Body", "RFC2822Body"]
     state_classes: Sequence[type[RSTState]]
     inliner: Inliner | None
+    statemachine: RSTStateMachine
     def __init__(self, rfc2822: bool = False, inliner: Inliner | None = None) -> None: ...
     def get_transforms(self) -> list[type[Transform]]: ...
     def parse(self, inputstring: str, document: nodes.document) -> None: ...
@@ -38,6 +41,7 @@ class Directive:
     block_text: str
     state: RSTState
     state_machine: RSTStateMachine = ...
+    reporter: Reporter
     def __init__(
         self,
         name: str,
