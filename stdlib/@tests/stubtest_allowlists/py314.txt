@@ -58,7 +58,6 @@ multiprocessing.forkserver.main
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
-multiprocessing.managers.SyncManager.set
 multiprocessing.managers._BaseDictProxy.__ior__
 multiprocessing.managers._BaseDictProxy.__or__
 multiprocessing.managers._BaseDictProxy.__reversed__
@@ -201,6 +200,12 @@ multiprocessing.managers._BaseDictProxy.items
 multiprocessing.managers._BaseDictProxy.keys
 multiprocessing.managers._BaseDictProxy.popitem
 multiprocessing.managers._BaseDictProxy.values
+
+multiprocessing.managers._BaseSetProxy.__iter__
+multiprocessing.managers._BaseSetProxy.__len__
+multiprocessing.managers._BaseSetProxy.clear
+multiprocessing.managers._BaseSetProxy.copy
+multiprocessing.managers._BaseSetProxy.pop
 
 # To match `dict`, we lie about the runtime, but use overloads to match the correct behavior
 types.MappingProxyType.get
