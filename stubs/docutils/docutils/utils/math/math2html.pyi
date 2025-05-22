@@ -280,7 +280,7 @@ class FormulaParser(Parser):
     def parsemultiliner(self, reader, start, ending): ...
 
 class FormulaBit(Container):
-    type: Incomplete
+    type: str | None
     size: int
     original: str
     contents: Incomplete
@@ -303,14 +303,13 @@ class TaggedBit(FormulaBit):
 class FormulaConstant(Constant):
     original: Incomplete
     size: int
-    type: Incomplete
+    type: str | None
     def __init__(self, string) -> None: ...
     def computesize(self): ...
     def clone(self): ...
 
 class RawText(FormulaBit):
     def detect(self, pos): ...
-    type: str
     def parsebit(self, pos) -> None: ...
 
 class FormulaSymbol(FormulaBit):
@@ -322,7 +321,6 @@ class FormulaSymbol(FormulaBit):
 
 class FormulaNumber(FormulaBit):
     def detect(self, pos): ...
-    type: str
     def parsebit(self, pos): ...
 
 class Comment(FormulaBit):
@@ -405,7 +403,7 @@ class FormulaFactory:
 class FormulaCommand(FormulaBit):
     types: Incomplete
     start: Incomplete
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str] | dict[str, list[str]] | None]
     def detect(self, pos): ...
     output: Incomplete
     def parsebit(self, pos): ...
@@ -426,23 +424,22 @@ class CommandBit(FormulaCommand):
     def parsetext(self, pos): ...
 
 class EmptyCommand(CommandBit):
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str]]
     contents: Incomplete
     def parsebit(self, pos) -> None: ...
 
 class SpacedCommand(CommandBit):
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str]]
     contents: Incomplete
     def parsebit(self, pos) -> None: ...
 
 class AlphaCommand(EmptyCommand):
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str]]
     greek_capitals: Incomplete
-    type: str
     def parsebit(self, pos) -> None: ...
 
 class OneParamFunction(CommandBit):
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str]]
     simplified: bool
     output: Incomplete
     def parsebit(self, pos) -> None: ...
@@ -450,21 +447,19 @@ class OneParamFunction(CommandBit):
     def simplifyifpossible(self) -> None: ...
 
 class SymbolFunction(CommandBit):
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str]]
     def detect(self, pos): ...
     output: Incomplete
     def parsebit(self, pos) -> None: ...
 
 class TextFunction(CommandBit):
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str]]
     output: Incomplete
     def parsebit(self, pos) -> None: ...
-    type: str
     def process(self) -> None: ...
 
 class FontFunction(OneParamFunction):
-    commandmap: Incomplete
-    type: str
+    commandmap: ClassVar[dict[str, str]]
     def process(self) -> None: ...
 
 class BigBracket:
@@ -536,38 +531,38 @@ class EquationEnvironment(MultiRowFormula):
     def parsebit(self, pos) -> None: ...
 
 class BeginCommand(CommandBit):
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str]]
     types: Incomplete
     size: Incomplete
     def parsebit(self, pos) -> None: ...
     def findbit(self, piece): ...
 
 class CombiningFunction(OneParamFunction):
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str]]
     def parsebit(self, pos) -> None: ...
     def parsesingleparameter(self, pos): ...
 
 class OversetFunction(OneParamFunction):
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str]]
     symbol: Incomplete
     parameter: Incomplete
     output: Incomplete
     def parsebit(self, pos) -> None: ...
 
 class UndersetFunction(OneParamFunction):
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str]]
     symbol: Incomplete
     parameter: Incomplete
     output: Incomplete
     def parsebit(self, pos) -> None: ...
 
 class LimitCommand(EmptyCommand):
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str]]
     output: Incomplete
     def parsebit(self, pos) -> None: ...
 
 class LimitPreviousCommand(LimitCommand):
-    commandmap: Incomplete
+    commandmap: ClassVar[None]  # type: ignore[assignment]
     output: Incomplete
     def parsebit(self, pos) -> None: ...
 
@@ -583,7 +578,7 @@ class LimitsProcessor(MathsProcessor):
     def getscript(self, contents, index): ...
 
 class BracketCommand(OneParamFunction):
-    commandmap: Incomplete
+    commandmap: ClassVar[dict[str, str]]
     def parsebit(self, pos) -> None: ...
     original: Incomplete
     command: Incomplete
