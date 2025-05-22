@@ -1,4 +1,0 @@
-add __all__ vars to cffi, gevent and others
-
-complete jwcrypto
-complete pika
