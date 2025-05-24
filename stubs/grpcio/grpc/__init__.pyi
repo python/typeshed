@@ -1,15 +1,11 @@
 import abc
 import enum
-import sys
 import threading
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from concurrent import futures
 from types import ModuleType, TracebackType
 from typing import Any, Generic, NoReturn, Protocol, TypeVar, type_check_only
 from typing_extensions import Self, TypeAlias
-
-if sys.version_info >= (3, 6):
-    from grpc import aio
 
 __version__: str
 
