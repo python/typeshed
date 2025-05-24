@@ -28,7 +28,6 @@ if sys.platform != "win32":
             uid: SupportsIndex | None,
             child_umask: int,
             preexec_fn: Callable[[], None],
-            allow_vfork: bool,
             /,
         ) -> int: ...
     else:
