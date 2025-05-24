@@ -101,8 +101,6 @@ if sys.platform == "win32":
 
         class _WindowsProactorEventLoopPolicy(events._BaseDefaultEventLoopPolicy):
             _loop_factory: ClassVar[type[ProactorEventLoop]]
-            def get_child_watcher(self) -> NoReturn: ...
-            def set_child_watcher(self, watcher: Any) -> NoReturn: ...
 
     else:
         class WindowsSelectorEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
