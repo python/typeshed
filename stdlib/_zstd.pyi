@@ -1,7 +1,7 @@
 from _typeshed import ReadableBuffer
 from collections.abc import Mapping
 from typing import Any, Final, Literal, final
-from typing_extensions import Self
+from typing_extensions import Self, TypeAlias
 
 ZSTD_CLEVEL_DEFAULT: Final[int]
 ZSTD_DStreamOutSize: Final[int]
@@ -35,18 +35,24 @@ ZSTD_greedy: Final[int]
 ZSTD_lazy: Final[int]
 ZSTD_lazy2: Final[int]
 
+_ZstdCompressorContinue: TypeAlias = Literal[0]
+_ZstdCompressorFlushBlock: TypeAlias = Literal[1]
+_ZstdCompressorFlushFrame: TypeAlias = Literal[2]
+
 @final
 class ZstdCompressor:
-    CONTINUE: Final = 0
-    FLUSH_BLOCK: Final = 1
-    FLUSH_FRAME: Final = 2
+    CONTINUE: Final[_ZstdCompressorContinue] = 0
+    FLUSH_BLOCK: Final[_ZstdCompressorFlushBlock] = 1
+    FLUSH_FRAME: Final[_ZstdCompressorFlushFrame] = 2
     def __init__(
         self, level: int | None = ..., options: Mapping[int, int] | None = ..., zstd_dict: ZstdDict | None = ...
     ) -> None: ...
-    def compress(self, /, data: ReadableBuffer, mode: Literal[0, 1, 2] = ...) -> bytes: ...
-    def flush(self, /, mode: Literal[1, 2] = ...) -> bytes: ...
+    def compress(
+        self, /, data: ReadableBuffer, mode: _ZstdCompressorContinue | _ZstdCompressorFlushBlock | _ZstdCompressorFlushFrame = ...
+    ) -> bytes: ...
+    def flush(self, /, mode: _ZstdCompressorFlushBlock | _ZstdCompressorFlushFrame = ...) -> bytes: ...
     @property
-    def last_mode(self) -> Literal[0, 1, 2]: ...
+    def last_mode(self) -> _ZstdCompressorContinue | _ZstdCompressorFlushBlock | _ZstdCompressorFlushFrame: ...
 
 @final
 class ZstdDecompressor:

@@ -5,7 +5,7 @@ from compression.zstd import ZstdDict
 from typing import IO, Literal, TextIO, overload
 from typing_extensions import TypeAlias
 
-from _zstd import ZstdCompressor
+from _zstd import ZstdCompressor, _ZstdCompressorFlushBlock, _ZstdCompressorFlushFrame
 
 __all__ = ("ZstdFile", "open")
 
@@ -43,7 +43,7 @@ class ZstdFile(_streams.BaseStream):
         zstd_dict: ZstdDict | None = ...,
     ) -> None: ...
     def write(self, data: ReadableBuffer, /) -> int: ...
-    def flush(self, mode: Literal[1, 2] = ...) -> bytes: ...  # type: ignore[override]
+    def flush(self, mode: _ZstdCompressorFlushBlock | _ZstdCompressorFlushFrame = ...) -> bytes: ...  # type: ignore[override]
     def read(self, size: int | None = ...) -> bytes: ...
     def read1(self, size: int | None = ...) -> bytes: ...
     def readinto(self, b: WriteableBuffer) -> int: ...
