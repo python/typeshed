@@ -112,7 +112,6 @@ def cached(
     key: Callable[..., _KT] = ...,
     lock: AbstractContextManager[Any] | None = None,
     condition: bool | None = None,
-    info: bool = False,
 ) -> IdentityFunction: ...
 def cachedmethod(
     cache: Callable[[Any], MutableMapping[_KT, Any] | None],
