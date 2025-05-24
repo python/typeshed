@@ -10,9 +10,13 @@ from . import events, futures, proactor_events, selector_events, streams, window
 if sys.platform == "win32":
     if sys.version_info >= (3, 14):
         __all__ = (
-            'SelectorEventLoop', 'ProactorEventLoop', 'IocpProactor',
-            '_DefaultEventLoopPolicy', '_WindowsSelectorEventLoopPolicy',
-            '_WindowsProactorEventLoopPolicy', 'EventLoop',
+            "SelectorEventLoop",
+            "ProactorEventLoop",
+            "IocpProactor",
+            "_DefaultEventLoopPolicy",
+            "_WindowsSelectorEventLoopPolicy",
+            "_WindowsProactorEventLoopPolicy",
+            "EventLoop",
         )
     elif sys.version_info >= (3, 13):
         # 3.13 added `EventLoop`.
