@@ -46,7 +46,9 @@ if sys.platform == "win32":
             "AbstractServer",  # from events
             "Handle",  # from events
             "TimerHandle",  # from events
+            "_get_event_loop_policy",  # from events
             "get_event_loop_policy",  # from events
+            "_set_event_loop_policy",  # from events
             "set_event_loop_policy",  # from events
             "get_event_loop",  # from events
             "set_event_loop",  # from events
@@ -133,8 +135,8 @@ if sys.platform == "win32":
             "ProactorEventLoop",  # from windows_events
             "IocpProactor",  # from windows_events
             "_DefaultEventLoopPolicy",  # from windows_events
-            "WindowsSelectorEventLoopPolicy",  # from windows_events
-            "WindowsProactorEventLoopPolicy",  # from windows_events
+            "_WindowsSelectorEventLoopPolicy",  # from windows_events
+            "_WindowsProactorEventLoopPolicy",  # from windows_events
             "EventLoop",  # from windows_events
         )
     elif sys.version_info >= (3, 13):
@@ -520,7 +522,9 @@ else:
             "AbstractServer",  # from events
             "Handle",  # from events
             "TimerHandle",  # from events
+            "_get_event_loop_policy",  # from events
             "get_event_loop_policy",  # from events
+            "_set_event_loop_policy",  # from events
             "set_event_loop_policy",  # from events
             "get_event_loop",  # from events
             "set_event_loop",  # from events
