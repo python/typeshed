@@ -132,7 +132,7 @@ if sys.platform == "win32":
             "SelectorEventLoop",  # from windows_events
             "ProactorEventLoop",  # from windows_events
             "IocpProactor",  # from windows_events
-            "DefaultEventLoopPolicy",  # from windows_events
+            "_DefaultEventLoopPolicy",  # from windows_events
             "WindowsSelectorEventLoopPolicy",  # from windows_events
             "WindowsProactorEventLoopPolicy",  # from windows_events
             "EventLoop",  # from windows_events
@@ -606,7 +606,7 @@ else:
             "DatagramTransport",  # from transports
             "SubprocessTransport",  # from transports
             "SelectorEventLoop",  # from unix_events
-            "DefaultEventLoopPolicy",  # from unix_events
+            "_DefaultEventLoopPolicy",  # from unix_events
             "EventLoop",  # from unix_events
         )
     elif sys.version_info >= (3, 13):

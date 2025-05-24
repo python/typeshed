@@ -8,7 +8,13 @@ from . import events, futures, proactor_events, selector_events, streams, window
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.platform == "win32":
-    if sys.version_info >= (3, 13):
+    if sys.version_info >= (3, 14):
+        __all__ = (
+            'SelectorEventLoop', 'ProactorEventLoop', 'IocpProactor',
+            '_DefaultEventLoopPolicy', '_WindowsSelectorEventLoopPolicy',
+            '_WindowsProactorEventLoopPolicy', 'EventLoop',
+        )
+    elif sys.version_info >= (3, 13):
         # 3.13 added `EventLoop`.
         __all__ = (
             "SelectorEventLoop",
@@ -96,6 +102,9 @@ if sys.platform == "win32":
         def get_child_watcher(self) -> NoReturn: ...
         def set_child_watcher(self, watcher: Any) -> NoReturn: ...
 
-    DefaultEventLoopPolicy = WindowsSelectorEventLoopPolicy
+    if sys.version_info >= (3, 14):
+        _DefaultEventLoopPolicy = _WindowsProactorEventLoopPolicy
+    else:
+        DefaultEventLoopPolicy = WindowsSelectorEventLoopPolicy
     if sys.version_info >= (3, 13):
         EventLoop = ProactorEventLoop

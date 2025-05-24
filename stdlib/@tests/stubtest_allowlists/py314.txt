@@ -8,7 +8,6 @@ _thread.RLock.locked
 _thread.set_name
 asyncio.__all__
 asyncio._AbstractEventLoopPolicy
-asyncio._DefaultEventLoopPolicy
 asyncio._get_event_loop_policy
 asyncio._set_event_loop_policy
 asyncio.eager_task_factory

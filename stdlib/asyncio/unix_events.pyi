@@ -16,7 +16,11 @@ _Ts = TypeVarTuple("_Ts")
 # Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.platform != "win32":
     if sys.version_info >= (3, 14):
-        __all__ = ("SelectorEventLoop", "DefaultEventLoopPolicy", "EventLoop")
+        __all__ = (
+            'SelectorEventLoop',
+            '_DefaultEventLoopPolicy',
+            'EventLoop',
+        )
     elif sys.version_info >= (3, 13):
         # Adds EventLoop
         __all__ = (
@@ -179,7 +183,10 @@ if sys.platform != "win32":
 
     SelectorEventLoop = _UnixSelectorEventLoop
 
-    DefaultEventLoopPolicy = _UnixDefaultEventLoopPolicy
+    if sys.version_info >= (3, 14):
+        _DefaultEventLoopPolicy = _UnixDefaultEventLoopPolicy
+    else:
+        DefaultEventLoopPolicy = _UnixDefaultEventLoopPolicy
 
     if sys.version_info >= (3, 13):
         EventLoop = SelectorEventLoop
