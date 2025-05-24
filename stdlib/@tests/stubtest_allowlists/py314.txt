@@ -6,7 +6,6 @@ _asyncio.all_tasks
 _imp.pyc_magic_number_token
 _thread.RLock.locked
 _thread.set_name
-asyncio.__all__
 asyncio.eager_task_factory
 asyncio.tasks.eager_task_factory
 builtins.bytearray.resize
