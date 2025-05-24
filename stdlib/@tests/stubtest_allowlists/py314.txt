@@ -38,9 +38,6 @@ ctypes.wintypes.HDROP
 ctypes.wintypes.HFILE
 ctypes.wintypes.HRESULT
 ctypes.wintypes.HSZ
-enum.Enum.__signature__
-enum.EnumMeta.__signature__
-enum.EnumType.__signature__
 faulthandler.dump_c_stack
 fractions.Fraction.__pow__
 fractions.Fraction.__rpow__
