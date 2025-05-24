@@ -63,8 +63,8 @@ Note that some tests require extra setup steps to install the required dependenc
   ```bash
   $ python3 -m venv .venv
   $ source .venv/bin/activate
-  (.venv)$ pip install -U pip
-  (.venv)$ pip install -r requirements-tests.txt
+  (.venv)$ pip install -U "pip>=25.1"
+  (.venv)$ pip install --group=dev
   ```
 
   </td>
@@ -79,8 +79,8 @@ Note that some tests require extra setup steps to install the required dependenc
   ```powershell
   > python -m venv .venv
   > .venv\Scripts\activate
-  (.venv) > pip install -U pip
-  (.venv) > pip install -r requirements-tests.txt
+  (.venv) > pip install -U "pip>=25.1"
+  (.venv) > pip install --group=dev
   ```
 
   To be able to run pytype tests, you'll also need to install it manually
@@ -100,8 +100,7 @@ as it's currently excluded from the requirements file:
   If you already have [uv](https://docs.astral.sh/uv/getting-started/installation/) installed, you can simply replace the commands above with:
 
   ```shell
-  uv venv
-  uv pip install -r requirements-tests.txt
+  uv pip install --group=dev
   ```
 
   ```shell
@@ -220,7 +219,7 @@ This has the following keys:
   in addition to the requirements in the `requires` field.
 * `apt_dependencies` (default: `[]`): A list of Ubuntu APT packages
   that need to be installed for stubtest to run successfully.
-* `brew_dependencies` (default: `[]`): A list of MacOS Homebrew packages
+* `brew_dependencies` (default: `[]`): A list of macOS Homebrew packages
   that need to be installed for stubtest to run successfully
 * `choco_dependencies` (default: `[]`): A list of Windows Chocolatey packages
   that need to be installed for stubtest to run successfully
@@ -347,7 +346,7 @@ replacing `$INSERT_LIBRARY_NAME_HERE` with the name of the library:
 When the script has finished running, it will print instructions telling you what to do next.
 
 If it has been a while since you set up the virtualenv, make sure you have
-the latest mypy (`pip install -r requirements-tests.txt`) before running the script.
+the latest mypy (`pip install --group=dev`) before running the script.
 
 ### Supported type system features
 
