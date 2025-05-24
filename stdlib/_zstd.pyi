@@ -1,6 +1,7 @@
 from _typeshed import ReadableBuffer
 from compression.zstd import _OptionsCompress, _OptionsDecompress
-from typing import Any, Final, Literal, Self, final
+from typing import Any, Final, Literal, final
+from typing_extensions import Self
 
 ZSTD_CLEVEL_DEFAULT: Final[int]
 ZSTD_DStreamOutSize: Final[int]
