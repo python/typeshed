@@ -95,16 +95,24 @@ if sys.platform == "win32":
 
     SelectorEventLoop = _WindowsSelectorEventLoop
 
-    class WindowsSelectorEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
-        _loop_factory: ClassVar[type[SelectorEventLoop]]
-        if sys.version_info < (3, 14):
+    if sys.version_info >= (3, 14):
+        class _WindowsSelectorEventLoopPolicy(events._BaseDefaultEventLoopPolicy):
+            _loop_factory: ClassVar[type[SelectorEventLoop]]
+
+        class _WindowsProactorEventLoopPolicy(events._BaseDefaultEventLoopPolicy):
+            _loop_factory: ClassVar[type[ProactorEventLoop]]
+            def get_child_watcher(self) -> NoReturn: ...
+            def set_child_watcher(self, watcher: Any) -> NoReturn: ...
+    else:
+        class WindowsSelectorEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
+            _loop_factory: ClassVar[type[SelectorEventLoop]]
             def get_child_watcher(self) -> NoReturn: ...
             def set_child_watcher(self, watcher: Any) -> NoReturn: ...
 
-    class WindowsProactorEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
-        _loop_factory: ClassVar[type[ProactorEventLoop]]
-        def get_child_watcher(self) -> NoReturn: ...
-        def set_child_watcher(self, watcher: Any) -> NoReturn: ...
+        class WindowsProactorEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
+            _loop_factory: ClassVar[type[ProactorEventLoop]]
+            def get_child_watcher(self) -> NoReturn: ...
+            def set_child_watcher(self, watcher: Any) -> NoReturn: ...
 
     if sys.version_info >= (3, 14):
         _DefaultEventLoopPolicy = _WindowsProactorEventLoopPolicy
