@@ -1,6 +1,7 @@
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
+from collections.abc import Mapping
 from compression._common import _streams
-from compression.zstd import ZstdDict, _OptionsCompress, _OptionsDecompress
+from compression.zstd import ZstdDict
 from typing import IO, Literal, TextIO, overload
 from typing_extensions import TypeAlias
 
@@ -27,7 +28,7 @@ class ZstdFile(_streams.BaseStream):
         mode: _ReadBinaryMode = ...,
         *,
         level: None = ...,
-        options: _OptionsDecompress | None = ...,
+        options: Mapping[int, int] | None = ...,
         zstd_dict: ZstdDict | None = ...,
     ) -> None: ...
     @overload
@@ -38,7 +39,7 @@ class ZstdFile(_streams.BaseStream):
         mode: _WriteBinaryMode,
         *,
         level: int | None = ...,
-        options: _OptionsCompress | None = ...,
+        options: Mapping[int, int] | None = ...,
         zstd_dict: ZstdDict | None = ...,
     ) -> None: ...
     def write(self, data: ReadableBuffer, /) -> int: ...
@@ -62,7 +63,7 @@ def open(
     mode: _ReadBinaryMode = ...,
     *,
     level: None = ...,
-    options: _OptionsDecompress | None = ...,
+    options: Mapping[int, int] | None = ...,
     zstd_dict: ZstdDict | None = ...,
     encoding: str | None = ...,
     errors: str | None = ...,
@@ -75,7 +76,7 @@ def open(
     mode: _WriteBinaryMode,
     *,
     level: int | None = ...,
-    options: _OptionsCompress | None = ...,
+    options: Mapping[int, int] | None = ...,
     zstd_dict: ZstdDict | None = ...,
     encoding: str | None = ...,
     errors: str | None = ...,
@@ -88,7 +89,7 @@ def open(
     mode: _ReadTextMode,
     *,
     level: None = ...,
-    options: _OptionsDecompress | None = ...,
+    options: Mapping[int, int] | None = ...,
     zstd_dict: ZstdDict | None = ...,
     encoding: str | None = ...,
     errors: str | None = ...,
@@ -101,7 +102,7 @@ def open(
     mode: _WriteTextMode,
     *,
     level: int | None = ...,
-    options: _OptionsCompress | None = ...,
+    options: Mapping[int, int] | None = ...,
     zstd_dict: ZstdDict | None = ...,
     encoding: str | None = ...,
     errors: str | None = ...,
