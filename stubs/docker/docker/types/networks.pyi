@@ -10,7 +10,7 @@ class EndpointConfig(dict[str, Incomplete]):
         ipv4_address: str | None = None,
         ipv6_address: str | None = None,
         link_local_ips: list[str] | None = None,
-        driver_opt: Incomplete | None = None,
+        driver_opt=None,
         mac_address: str | None = None,
     ) -> None: ...
 

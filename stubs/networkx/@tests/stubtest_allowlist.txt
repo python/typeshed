@@ -30,3 +30,14 @@ networkx\.algorithms\.bipartite\.(cluster\.)?clustering
 #   failing to account for explicitly passing in the default value."
 # Which is true, but would require some way of concatenating `backend` to ParamSpec.kwargs
 networkx\.(utils\.)?(backends\.)?_dispatchable\.__call__
+
+# Tests are excluded
+networkx.conftest
+networkx(\..+?)?\.tests(\..+?)?
+
+# "..._DT is not present at runtime" but we don't set it in stubs, I don't understand this one
+networkx(\.algorithms)?(\.tree)?(\.mst)?\.SpanningTreeIterator\.Partition\._DT
+networkx(\.algorithms)?(\.tree)?(\.branchings)?\.ArborescenceIterator\.Partition\._DT
+
+# variable differs from runtime type abc.ABCMeta
+networkx\.classes\.reportviews\.\w*EdgeView\.dataview

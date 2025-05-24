@@ -9,6 +9,7 @@ import sys
 from importlib.util import find_spec
 from pathlib import Path
 
+from ts_utils.metadata import get_oldest_supported_python, read_metadata
 from ts_utils.paths import TEST_CASES_DIR, test_cases_path
 from ts_utils.utils import colored
 
@@ -19,9 +20,6 @@ _NPX_ERROR_MESSAGE = colored("\nSkipping Pyright tests: npx is not installed or 
 _SUCCESS = colored("Success", "green")
 _SKIPPED = colored("Skipped", "yellow")
 _FAILED = colored("Failed", "red")
-# We're using the oldest fully supported version because it's the most likely to produce errors
-# due to unsupported syntax, feature, or bug in a tool.
-_PYTHON_VERSION = "3.9"
 
 
 def _parse_jsonc(json_text: str) -> str:
@@ -52,15 +50,16 @@ def main() -> None:
     )
     parser.add_argument(
         "--python-version",
-        default=_PYTHON_VERSION,
+        default=None,
         choices=("3.9", "3.10", "3.11", "3.12", "3.13", "3.14"),
-        help="Target Python version for the test (default: %(default)s).",
+        # We're using the oldest fully supported version because it's the most likely to produce errors
+        # due to unsupported syntax, feature, or bug in a tool.
+        help="Target Python version for the test (defaults to oldest supported Python version).",
     )
     parser.add_argument("path", help="Path of the stub to test in format <folder>/<stub>, from the root of the project.")
     args = parser.parse_args()
     path = Path(args.path)
     run_stubtest: bool = args.run_stubtest
-    python_version: str = args.python_version
 
     if len(path.parts) != 2:
         parser.error("'path' argument should be in format <folder>/<stub>.")
@@ -69,6 +68,14 @@ def main() -> None:
         parser.error("Only the 'stdlib' and 'stubs' folders are supported.")
     if not path.exists():
         parser.error(f"{path=} does not exist.")
+
+    if args.python_version:
+        python_version: str = args.python_version
+    elif folder in "stubs":
+        python_version = read_metadata(stub).requires_python.version
+    else:
+        python_version = get_oldest_supported_python()
+
     stubtest_result: subprocess.CompletedProcess[bytes] | None = None
     pytype_result: subprocess.CompletedProcess[bytes] | None = None
 

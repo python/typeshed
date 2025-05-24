@@ -24,7 +24,7 @@ termcolor>=2.3
 tomli==2.2.1
 tomlkit==0.13.2
 typing_extensions>=4.13.0rc1
-uv==0.6.11
+uv==0.7.4
 
 # Utilities for typeshed infrastructure scripts.
 ts_utils @ file:lib

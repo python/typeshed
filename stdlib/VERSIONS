@@ -87,6 +87,7 @@ asynchat: 3.0-3.11
 asyncio: 3.4-
 asyncio.exceptions: 3.8-
 asyncio.format_helpers: 3.7-
+asyncio.graph: 3.14-
 asyncio.mixins: 3.10-
 asyncio.runners: 3.7-
 asyncio.staggered: 3.8-
@@ -120,6 +121,7 @@ colorsys: 3.0-
 compileall: 3.0-
 compression: 3.14-
 concurrent: 3.2-
+concurrent.futures.interpreter: 3.14-
 configparser: 3.0-
 contextlib: 3.0-
 contextvars: 3.7-
@@ -281,6 +283,7 @@ ssl: 3.0-
 stat: 3.0-
 statistics: 3.4-
 string: 3.0-
+string.templatelib: 3.14-
 stringprep: 3.0-
 struct: 3.0-
 subprocess: 3.0-
