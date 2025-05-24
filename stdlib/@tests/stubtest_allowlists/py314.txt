@@ -11,12 +11,6 @@ asyncio._AbstractEventLoopPolicy
 asyncio._get_event_loop_policy
 asyncio._set_event_loop_policy
 asyncio.eager_task_factory
-asyncio.events.__all__
-asyncio.events.AbstractEventLoopPolicy
-asyncio.events.BaseDefaultEventLoopPolicy
-asyncio.events._AbstractEventLoopPolicy
-asyncio.events._get_event_loop_policy
-asyncio.events._set_event_loop_policy
 asyncio.tasks.eager_task_factory
 builtins.bytearray.resize
 builtins.int.__round__
