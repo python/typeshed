@@ -82,6 +82,8 @@ turtle.poly
 turtle.save
 types.CodeType.co_branches
 types.FrameType.f_generator
+zipfile.__all__
+zipfile.ZIP_ZSTANDARD
 
 # =========================
 # New errors in Python 3.14
