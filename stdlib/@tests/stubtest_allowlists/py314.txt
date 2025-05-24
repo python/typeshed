@@ -26,7 +26,6 @@ compression.gzip.GzipFile.readinto
 compression.gzip.GzipFile.readinto1
 compression.gzip.GzipFile.readinto1
 compression.gzip.compress
-compression.zstd
 ctypes.memoryview_at
 ctypes.py_object.__class_getitem__
 ctypes.util.dllist
