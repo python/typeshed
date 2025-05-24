@@ -1,5 +1,5 @@
 from _typeshed import Incomplete, SupportsGetItem
-from collections.abc import Callable
+from collections.abc import Callable, Collection
 from typing import Any
 
 from networkx.classes.graph import Graph, _Node
@@ -10,6 +10,6 @@ __all__ = ["voronoi_cells"]
 @_dispatchable
 def voronoi_cells(
     G: Graph[_Node],
-    center_nodes: set[Incomplete],
+    center_nodes: Collection[Incomplete],
     weight: str | Callable[[Any, Any, SupportsGetItem[str, Any]], float | None] | None = "weight",
-): ...
+) -> dict[Incomplete, set[Incomplete]]: ...

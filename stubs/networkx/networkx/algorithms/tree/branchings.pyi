@@ -1,10 +1,10 @@
 from _typeshed import Incomplete
-from collections.abc import Iterator
 from dataclasses import dataclass
 from typing import Final
+from typing_extensions import Self
 
 from networkx.classes.digraph import DiGraph
-from networkx.classes.graph import _Node
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
 
@@ -63,8 +63,14 @@ class ArborescenceIterator:
     partition_key: str
     init_partition: Incomplete
 
-    def __init__(self, G, weight: str = "weight", minimum: bool = True, init_partition=None) -> None: ...
+    def __init__(
+        self,
+        G: Graph[_Node],
+        weight: str = "weight",
+        minimum: bool = True,
+        init_partition: tuple[Incomplete, Incomplete] | None = None,
+    ) -> None: ...
     partition_queue: Incomplete
 
-    def __iter__(self) -> Iterator[Incomplete]: ...
+    def __iter__(self) -> Self: ...
     def __next__(self): ...
