@@ -63,9 +63,6 @@ multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
 shutil.__all__
-sre_compile.CH_NEGATE
-sre_constants.CH_NEGATE
-sre_parse.CH_NEGATE
 string.Template.flags
 tarfile.TarFile.zstopen
 tkinter.Event.__class_getitem__
