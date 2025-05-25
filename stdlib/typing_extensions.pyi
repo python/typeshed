@@ -692,4 +692,7 @@ else:
     ) -> AnnotationForm: ...
 
 # PEP 661
-Sentinel: _SpecialForm
+class Sentinel:
+    def __init__(self, name: str, repr: str | None = None) -> None: ...
+    def __or__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
+    def __ror__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
