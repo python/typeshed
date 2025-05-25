@@ -68,9 +68,10 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
 
 if sys.version_info >= (3, 10):
     from types import UnionType
-    _UnionType: TypeAlias = UnionType
+
+    _UnionType: TypeAlias = ...
 else:
-    _UnionType: TypeAlias = Any
+    _UnionType: TypeAlias = ...
 
 # Please keep order the same as at runtime.
 __all__ = [
