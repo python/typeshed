@@ -11,7 +11,7 @@ from importlib._bootstrap_external import (
     source_from_cache as source_from_cache,
     spec_from_file_location as spec_from_file_location,
 )
-from importlib.abc import Loader as Loader
+from importlib.abc import Loader
 from typing_extensions import ParamSpec
 
 _P = ParamSpec("_P")
