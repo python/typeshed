@@ -44,13 +44,6 @@ fractions.Fraction.__rpow__
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
 gzip.compress
-importlib.abc.ResourceReader
-importlib.abc.Traversable
-importlib.abc.TraversableResources
-importlib.machinery.__all__
-importlib.machinery.AppleFrameworkLoader
-importlib.util.__all__
-importlib.util.Loader
 multiprocessing.forkserver.main
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
