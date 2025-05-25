@@ -13,9 +13,11 @@ from typing import TYPE_CHECKING, Any, Final, NamedTuple
 from typing_extensions import TypeAlias
 
 import pathspec
+import tomllib
+from dependency_groups import resolve
 from packaging.requirements import Requirement
 
-from .paths import GITIGNORE_PATH, REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
+from .paths import GITIGNORE_PATH, PYPROJECT_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
 
 if TYPE_CHECKING:
     from _typeshed import OpenTextMode
@@ -95,12 +97,12 @@ def venv_python(venv_dir: Path) -> Path:
 
 @functools.cache
 def parse_requirements() -> Mapping[str, Requirement]:
-    """Return a dictionary of requirements from the requirements file."""
-    with REQUIREMENTS_PATH.open(encoding="UTF-8") as requirements_file:
-        stripped_lines = map(strip_comments, requirements_file)
-        stripped_more = [li for li in stripped_lines if not li.startswith("-")]
-        requirements = map(Requirement, filter(None, stripped_more))
-        return {requirement.name: requirement for requirement in requirements}
+    """Return a dictionary of requirements found in the dev dependency group."""
+    with PYPROJECT_PATH.open("rb") as requirements_file:
+        pyproject = tomllib.load(requirements_file)
+
+    requirements = [Requirement(requirement) for requirement in resolve(pyproject["dependency-groups"], "dev")]
+    return {requirement.name: requirement for requirement in requirements}
 
 
 def get_mypy_req() -> str:

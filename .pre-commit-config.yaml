@@ -10,6 +10,10 @@ repos:
       - id: mixed-line-ending
         args: [--fix=lf]
       - id: check-case-conflict
+  - repo: https://github.com/sirosen/dependency-groups
+    rev: 1.3.1 # must match pyproject.toml
+    hooks:
+      - id: lint-dependency-groups
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.11.4 # must match requirements-tests.txt
     hooks:
