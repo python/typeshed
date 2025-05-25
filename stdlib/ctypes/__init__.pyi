@@ -202,7 +202,8 @@ if sys.version_info >= (3, 14):
 
 class py_object(_CanCastTo, _SimpleCData[_T]):
     _type_: ClassVar[Literal["O"]]
-    def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+    if sys.version_info >= (3, 14):
+        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 class c_bool(_SimpleCData[bool]):
     _type_: ClassVar[Literal["?"]]
