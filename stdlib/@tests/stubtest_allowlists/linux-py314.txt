@@ -3,6 +3,3 @@
 # ====================================================================
 
 asyncio.tools
-asyncio.unix_events.__all__
-asyncio.unix_events.DefaultEventLoopPolicy
-asyncio.unix_events._DefaultEventLoopPolicy
