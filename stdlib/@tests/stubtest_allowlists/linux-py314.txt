@@ -6,6 +6,3 @@ asyncio.tools
 asyncio.unix_events.__all__
 asyncio.unix_events.DefaultEventLoopPolicy
 asyncio.unix_events._DefaultEventLoopPolicy
-ctypes.c_double_complex._type_
-ctypes.c_float_complex._type_
-ctypes.c_longdouble_complex._type_

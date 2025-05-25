@@ -15,9 +15,6 @@ asyncio.windows_events._DefaultEventLoopPolicy
 asyncio.windows_events._WindowsProactorEventLoopPolicy
 asyncio.windows_events._WindowsSelectorEventLoopPolicy
 compression.zlib.ZLIBNG_VERSION
-ctypes.c_double_complex
-ctypes.c_float_complex
-ctypes.c_longdouble_complex
 encodings.win32_code_page_search_function
 nt.readinto
 pathlib.Path.group

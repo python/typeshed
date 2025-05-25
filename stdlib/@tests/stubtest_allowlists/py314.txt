@@ -27,17 +27,6 @@ compression.gzip.GzipFile.readinto1
 compression.gzip.GzipFile.readinto1
 compression.gzip.compress
 compression.zstd
-ctypes.memoryview_at
-ctypes.py_object.__class_getitem__
-ctypes.util.dllist
-ctypes.wintypes.HCONV
-ctypes.wintypes.HCONVLIST
-ctypes.wintypes.HCURSOR
-ctypes.wintypes.HDDEDATA
-ctypes.wintypes.HDROP
-ctypes.wintypes.HFILE
-ctypes.wintypes.HRESULT
-ctypes.wintypes.HSZ
 faulthandler.dump_c_stack
 fractions.Fraction.__pow__
 fractions.Fraction.__rpow__
