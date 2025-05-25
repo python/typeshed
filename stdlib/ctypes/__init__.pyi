@@ -31,6 +31,9 @@ from typing_extensions import Self, TypeAlias, deprecated
 if sys.platform == "win32":
     from _ctypes import FormatError as FormatError, get_last_error as get_last_error, set_last_error as set_last_error
 
+    if sys.version_info >= (3, 14):
+        from _ctypes import COMError as COMError
+
 if sys.version_info >= (3, 11):
     from ctypes._endian import BigEndianUnion as BigEndianUnion, LittleEndianUnion as LittleEndianUnion
 
