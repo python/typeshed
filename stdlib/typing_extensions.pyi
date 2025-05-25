@@ -110,6 +110,8 @@ __all__ = [
     "SupportsIndex",
     "SupportsInt",
     "SupportsRound",
+    "Reader",
+    "Writer",
     # One-off things.
     "Annotated",
     "assert_never",
@@ -136,6 +138,7 @@ __all__ = [
     "overload",
     "override",
     "Protocol",
+    "Sentinel",
     "reveal_type",
     "runtime",
     "runtime_checkable",
@@ -446,6 +449,19 @@ else:
         @abc.abstractmethod
         def __round__(self, ndigits: int, /) -> _T_co: ...
 
+if sys.version_info >= (3, 14):
+    from io import Reader as Reader, Writer as Writer
+else:
+    @runtime_checkable
+    class Reader(Protocol_[T_co]):
+        @abc.abstractmethod
+        def read(self, size: int = ..., /) -> T_co: ...
+
+    @runtime_checkable
+    class Writer(Protocol[_T_contra]):
+        @abc.abstractmethod
+        def write(self, data: T_contra, /) -> int: ...
+
 if sys.version_info >= (3, 13):
     from types import CapsuleType as CapsuleType
     from typing import (
@@ -670,6 +686,9 @@ else:
         globals: Mapping[str, Any] | None = None,  # value types depend on the key
         locals: Mapping[str, Any] | None = None,  # value types depend on the key
         type_params: Iterable[TypeVar | ParamSpec | TypeVarTuple] | None = None,
-        format: Format = Format.VALUE,  # noqa: Y011
+        format: Format | None = None,
         _recursive_guard: Container[str] = ...,
     ) -> AnnotationForm: ...
+
+# PEP 661
+Sentinel: _SpecialForm
