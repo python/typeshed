@@ -169,10 +169,10 @@ typing(_extensions)?\.IO\.writelines
 .*\.ForwardRef\.__stringifier_dict__
 
 # These protocols use ABC hackery at runtime.
-io.Reader.__class_getitem__
-io.Reader.read
-io.Writer.__class_getitem__
-io.Writer.write
+(io|typing_extensions)\.Reader\.__class_getitem__
+(io|typing_extensions)\.Reader\.read
+(io|typing_extensions)\.Writer\.__class_getitem__
+(io|typing_extensions)\.Writer\.write
 
 
 # =============================================================
