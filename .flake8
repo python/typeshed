@@ -3,7 +3,7 @@
 # F821: Typeshed is a testing ground for flake8-pyi, which monkeypatches F821
 select = Y, F821
 # Ignore rules normally excluded by default
-extend-ignore = Y090
+extend-ignore = Y09
 per-file-ignores =
   # Generated protobuf files:
   # Y021: Include docstrings
