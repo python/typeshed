@@ -202,6 +202,7 @@ _T = _TypeVar("_T")
 _F = _TypeVar("_F", bound=Callable[..., Any])
 _TC = _TypeVar("_TC", bound=type[object])
 _T_co = _TypeVar("_T_co", covariant=True)  # Any type covariant containers.
+_T_contra = _TypeVar("_T_contra", contravariant=True)
 
 class _Final: ...  # This should be imported from typing but that breaks pytype
 
@@ -453,14 +454,14 @@ if sys.version_info >= (3, 14):
     from io import Reader as Reader, Writer as Writer
 else:
     @runtime_checkable
-    class Reader(Protocol_[T_co]):
+    class Reader(Protocol[_T_co]):
         @abc.abstractmethod
-        def read(self, size: int = ..., /) -> T_co: ...
+        def read(self, size: int = ..., /) -> _T_co: ...
 
     @runtime_checkable
     class Writer(Protocol[_T_contra]):
         @abc.abstractmethod
-        def write(self, data: T_contra, /) -> int: ...
+        def write(self, data: _T_contra, /) -> int: ...
 
 if sys.version_info >= (3, 13):
     from types import CapsuleType as CapsuleType
