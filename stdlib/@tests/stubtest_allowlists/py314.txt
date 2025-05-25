@@ -51,7 +51,6 @@ multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
-shutil.__all__
 string.Template.flags
 tarfile.TarFile.zstopen
 tkinter.Event.__class_getitem__
