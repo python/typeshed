@@ -16,7 +16,6 @@ compression.gzip.GzipFile.readinto1
 compression.gzip.GzipFile.readinto1
 compression.gzip.compress
 compression.zstd
-faulthandler.dump_c_stack
 fractions.Fraction.__pow__
 fractions.Fraction.__rpow__
 gzip.GzipFile.readinto
