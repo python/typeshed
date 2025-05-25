@@ -77,6 +77,10 @@ importlib.metadata._meta.SimplePath.__truediv__  # Runtime definition of protoco
 builtins.float.__setformat__  # Internal method for CPython test suite
 typing._SpecialForm.__mro_entries__  # Exists at runtime, but missing from stubs
 
+# Will always raise. Not included to avoid type checkers inferring that
+# TypeAliasType instances are callable.
+typing_extensions.Sentinel.__call__
+
 
 # =======
 # <= 3.10
