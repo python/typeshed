@@ -488,7 +488,6 @@ typing(_extensions)?\.Sized
 typing(_extensions)?\.ValuesView
 typing_extensions\.Final
 typing_extensions\.LiteralString
-typing_extensions\.Sentinal
 
 # Typing-related weirdness
 typing._SpecialForm.__call__
