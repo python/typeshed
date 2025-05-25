@@ -68,6 +68,9 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
 
 if sys.version_info >= (3, 10):
     from types import UnionType
+    _UnionType: TypeAlias = UnionType
+else:
+    _UnionType: TypeAlias = Any
 
 # Please keep order the same as at runtime.
 __all__ = [
@@ -694,5 +697,5 @@ else:
 # PEP 661
 class Sentinel:
     def __init__(self, name: str, repr: str | None = None) -> None: ...
-    def __or__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
-    def __ror__(self, other: Any) -> UnionType: ...  # other can be any type form legal for unions
+    def __or__(self, other: Any) -> _UnionType: ...  # other can be any type form legal for unions
+    def __ror__(self, other: Any) -> _UnionType: ...  # other can be any type form legal for unions
