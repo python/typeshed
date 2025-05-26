@@ -4,9 +4,6 @@
 
 _winapi.COPY_FILE_DIRECTORY
 compression.zlib.ZLIBNG_VERSION
-ctypes.c_double_complex
-ctypes.c_float_complex
-ctypes.c_longdouble_complex
 encodings.win32_code_page_search_function
 nt.readinto
 pathlib.Path.group
