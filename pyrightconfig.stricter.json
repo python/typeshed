@@ -33,7 +33,6 @@
         "stubs/beautifulsoup4",
         "stubs/boltons",
         "stubs/braintree",
-        "stubs/caldav",
         "stubs/cffi",
         "stubs/click-web",
         "stubs/corus",
