@@ -1,13 +1,13 @@
 import ssl
 import sys
-from _typeshed import ReadableBuffer, StrOrBytesPath, SupportsRead
+from _typeshed import ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from email.message import Message
 from http.client import HTTPConnection, HTTPMessage, HTTPResponse
 from http.cookiejar import CookieJar
 from re import Pattern
 from typing import IO, Any, ClassVar, NoReturn, Protocol, TypeVar, overload
-from typing_extensions import TypeAlias, deprecated
+from typing_extensions import Reader, TypeAlias, deprecated
 from urllib.error import HTTPError as HTTPError
 from urllib.response import addclosehook, addinfourl
 
@@ -50,7 +50,7 @@ if sys.version_info < (3, 14):
 
 _T = TypeVar("_T")
 _UrlopenRet: TypeAlias = Any
-_DataType: TypeAlias = ReadableBuffer | SupportsRead[bytes] | Iterable[bytes] | None
+_DataType: TypeAlias = ReadableBuffer | Reader[bytes] | Iterable[bytes] | None
 
 if sys.version_info >= (3, 13):
     def urlopen(

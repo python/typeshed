@@ -1,7 +1,7 @@
 import pickle
 import sys
 from _pickle import _ReducedType
-from _typeshed import HasFileno, SupportsWrite, Unused
+from _typeshed import HasFileno, Unused
 from abc import ABCMeta
 from builtins import type as Type  # alias to avoid name clash
 from collections.abc import Callable
@@ -9,6 +9,7 @@ from copyreg import _DispatchTableType
 from multiprocessing import connection
 from socket import socket
 from typing import Any, Final
+from typing_extensions import Writer
 
 if sys.platform == "win32":
     __all__ = ["send_handle", "recv_handle", "ForkingPickler", "register", "dump", "DupHandle", "duplicate", "steal_handle"]
@@ -19,7 +20,7 @@ HAVE_SEND_HANDLE: Final[bool]
 
 class ForkingPickler(pickle.Pickler):
     dispatch_table: _DispatchTableType
-    def __init__(self, file: SupportsWrite[bytes], protocol: int | None = ...) -> None: ...
+    def __init__(self, file: Writer[bytes], protocol: int | None = ...) -> None: ...
     @classmethod
     def register(cls, type: Type, reduce: Callable[[Any], _ReducedType]) -> None: ...
     @classmethod
@@ -28,7 +29,7 @@ class ForkingPickler(pickle.Pickler):
 
 register = ForkingPickler.register
 
-def dump(obj: Any, file: SupportsWrite[bytes], protocol: int | None = None) -> None: ...
+def dump(obj: Any, file: Writer[bytes], protocol: int | None = None) -> None: ...
 
 if sys.platform == "win32":
     def duplicate(

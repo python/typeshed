@@ -24,11 +24,10 @@ if sys.version_info >= (3, 10):
 else:
     from _csv import _reader as Reader, _writer as Writer
 
-from _typeshed import SupportsWrite
 from collections.abc import Collection, Iterable, Mapping, Sequence
 from types import GenericAlias
 from typing import Any, Generic, Literal, TypeVar, overload
-from typing_extensions import Self
+from typing_extensions import Self, Writer as _Writer
 
 __all__ = [
     "QUOTE_MINIMAL",
@@ -128,7 +127,7 @@ class DictWriter(Generic[_T]):
     writer: Writer
     def __init__(
         self,
-        f: SupportsWrite[str],
+        f: _Writer[str],
         fieldnames: Collection[_T],
         restval: Any | None = "",
         extrasaction: Literal["raise", "ignore"] = "raise",

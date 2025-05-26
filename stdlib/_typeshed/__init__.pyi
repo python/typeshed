@@ -22,7 +22,7 @@ from typing import (
     final,
     overload,
 )
-from typing_extensions import Buffer, LiteralString, Self as _Self, TypeAlias
+from typing_extensions import Buffer, LiteralString, Self as _Self, TypeAlias, deprecated
 
 _KT = TypeVar("_KT")
 _KT_co = TypeVar("_KT_co", covariant=True)
@@ -253,7 +253,7 @@ FileDescriptor: TypeAlias = int  # stable
 FileDescriptorLike: TypeAlias = int | HasFileno  # stable
 FileDescriptorOrPath: TypeAlias = int | StrOrBytesPath
 
-# stable
+@deprecated("Use typing_extensions.Reader instead. Will be removed in December 2025 or later.")
 class SupportsRead(Protocol[_T_co]):
     def read(self, length: int = ..., /) -> _T_co: ...
 
@@ -265,7 +265,7 @@ class SupportsReadline(Protocol[_T_co]):
 class SupportsNoArgReadline(Protocol[_T_co]):
     def readline(self) -> _T_co: ...
 
-# stable
+@deprecated("Use typing_extensions.Writer instead. Will be removed in December 2025 or later.")
 class SupportsWrite(Protocol[_T_contra]):
     def write(self, s: _T_contra, /) -> object: ...
 

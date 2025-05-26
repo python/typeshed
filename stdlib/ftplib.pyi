@@ -1,11 +1,11 @@
 import sys
-from _typeshed import SupportsRead, SupportsReadline
+from _typeshed import SupportsReadline
 from collections.abc import Callable, Iterable, Iterator
 from socket import socket
 from ssl import SSLContext
 from types import TracebackType
 from typing import Any, Final, Literal, TextIO
-from typing_extensions import Self
+from typing_extensions import Reader, Self
 
 __all__ = ["FTP", "error_reply", "error_temp", "error_perm", "error_proto", "all_errors", "FTP_TLS"]
 
@@ -83,7 +83,7 @@ class FTP:
     def storbinary(
         self,
         cmd: str,
-        fp: SupportsRead[bytes],
+        fp: Reader[bytes],
         blocksize: int = 8192,
         callback: Callable[[bytes], object] | None = None,
         rest: int | str | None = None,

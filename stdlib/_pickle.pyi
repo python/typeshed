@@ -1,8 +1,8 @@
-from _typeshed import ReadableBuffer, SupportsWrite
+from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from pickle import PickleBuffer as PickleBuffer
 from typing import Any, Protocol, type_check_only
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, Writer
 
 class _ReadableFileobj(Protocol):
     def read(self, n: int, /) -> bytes: ...
@@ -20,7 +20,7 @@ _ReducedType: TypeAlias = (
 
 def dump(
     obj: Any,
-    file: SupportsWrite[bytes],
+    file: Writer[bytes],
     protocol: int | None = None,
     *,
     fix_imports: bool = True,
@@ -63,7 +63,7 @@ class Pickler:
     bin: bool  # undocumented
     def __init__(
         self,
-        file: SupportsWrite[bytes],
+        file: Writer[bytes],
         protocol: int | None = None,
         fix_imports: bool = True,
         buffer_callback: _BufferCallback = None,

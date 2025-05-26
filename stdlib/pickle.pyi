@@ -12,10 +12,10 @@ from _pickle import (
     load as load,
     loads as loads,
 )
-from _typeshed import ReadableBuffer, SupportsWrite
+from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterable, Mapping
 from typing import Any, ClassVar, SupportsBytes, SupportsIndex, final
-from typing_extensions import Self
+from typing_extensions import Self, Writer
 
 __all__ = [
     "PickleBuffer",
@@ -207,7 +207,7 @@ class _Pickler:
     reducer_override: Callable[[Any], Any]
     def __init__(
         self,
-        file: SupportsWrite[bytes],
+        file: Writer[bytes],
         protocol: int | None = None,
         *,
         fix_imports: bool = True,
