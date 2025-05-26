@@ -151,7 +151,7 @@ class CodeType:
     def co_firstlineno(self) -> int: ...
     if sys.version_info >= (3, 10):
         @property
-        @deprecated("Will be removed in Python 3.14. Use the co_lines() method instead.")
+        @deprecated("Will be removed in Python 3.15. Use the co_lines() method instead.")
         def co_lnotab(self) -> bytes: ...
     else:
         @property
