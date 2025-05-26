@@ -35,6 +35,7 @@
         "stubs/braintree",
         "stubs/cffi",
         "stubs/click-web",
+        "stubs/corus",
         "stubs/dateparser",
         "stubs/defusedxml",
         "stubs/docker",
