@@ -22,12 +22,7 @@ class Generator(Generic[_MessageT]):
     ) -> None: ...
     @overload
     def __init__(
-        self,
-        outfp: Writer[str],
-        mangle_from_: bool | None = None,
-        maxheaderlen: int | None = None,
-        *,
-        policy: Policy[_MessageT],
+        self, outfp: Writer[str], mangle_from_: bool | None = None, maxheaderlen: int | None = None, *, policy: Policy[_MessageT]
     ) -> None: ...
     def write(self, s: str) -> None: ...
     def flatten(self, msg: _MessageT, unixfrom: bool = False, linesep: str | None = None) -> None: ...

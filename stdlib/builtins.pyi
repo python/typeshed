@@ -1771,11 +1771,7 @@ class _SupportsWriteAndFlush(Writer[_T_contra], SupportsFlush, Protocol[_T_contr
 
 @overload
 def print(
-    *values: object,
-    sep: str | None = " ",
-    end: str | None = "\n",
-    file: Writer[str] | None = None,
-    flush: Literal[False] = False,
+    *values: object, sep: str | None = " ", end: str | None = "\n", file: Writer[str] | None = None, flush: Literal[False] = False
 ) -> None: ...
 @overload
 def print(

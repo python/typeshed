@@ -62,11 +62,7 @@ class Pickler:
     reducer_override: Callable[[Any], Any]
     bin: bool  # undocumented
     def __init__(
-        self,
-        file: Writer[bytes],
-        protocol: int | None = None,
-        fix_imports: bool = True,
-        buffer_callback: _BufferCallback = None,
+        self, file: Writer[bytes], protocol: int | None = None, fix_imports: bool = True, buffer_callback: _BufferCallback = None
     ) -> None: ...
     @property
     def memo(self) -> PicklerMemoProxy: ...
