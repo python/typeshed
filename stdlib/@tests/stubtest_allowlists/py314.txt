@@ -16,29 +16,11 @@ compression.gzip.GzipFile.readinto1
 compression.gzip.GzipFile.readinto1
 compression.gzip.compress
 compression.zstd
-ctypes.memoryview_at
-ctypes.py_object.__class_getitem__
-ctypes.util.dllist
-ctypes.wintypes.HCONV
-ctypes.wintypes.HCONVLIST
-ctypes.wintypes.HCURSOR
-ctypes.wintypes.HDDEDATA
-ctypes.wintypes.HDROP
-ctypes.wintypes.HFILE
-ctypes.wintypes.HRESULT
-ctypes.wintypes.HSZ
 fractions.Fraction.__pow__
 fractions.Fraction.__rpow__
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
 gzip.compress
-importlib.abc.ResourceReader
-importlib.abc.Traversable
-importlib.abc.TraversableResources
-importlib.machinery.__all__
-importlib.machinery.AppleFrameworkLoader
-importlib.util.__all__
-importlib.util.Loader
 multiprocessing.forkserver.main
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
@@ -50,7 +32,6 @@ multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
-string.Template.flags
 tarfile.TarFile.zstopen
 tkinter.Event.__class_getitem__
 turtle.__all__
@@ -62,8 +43,6 @@ turtle.fill
 turtle.no_animation
 turtle.poly
 turtle.save
-types.CodeType.co_branches
-types.FrameType.f_generator
 
 # =========================
 # New errors in Python 3.14
@@ -106,6 +85,7 @@ typing.NewType.__mro_entries__
 
 builtins.ellipsis  # type is not exposed anywhere
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
+importlib.util.Loader.exec_module
 
 # positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
 _collections_abc.Coroutine.send
