@@ -21,13 +21,6 @@ fractions.Fraction.__rpow__
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
 gzip.compress
-importlib.abc.ResourceReader
-importlib.abc.Traversable
-importlib.abc.TraversableResources
-importlib.machinery.__all__
-importlib.machinery.AppleFrameworkLoader
-importlib.util.__all__
-importlib.util.Loader
 multiprocessing.forkserver.main
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
@@ -93,6 +86,7 @@ typing.NewType.__mro_entries__
 
 builtins.ellipsis  # type is not exposed anywhere
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
+importlib.util.Loader.exec_module
 
 # positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
 _collections_abc.Coroutine.send
