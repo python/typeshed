@@ -1,7 +1,7 @@
 import sys
 from _typeshed import StrOrBytesPath
-from importlib.abc import ZipReader
 from importlib.machinery import ModuleSpec
+from importlib.readers import ZipReader
 from types import CodeType, ModuleType
 from typing_extensions import deprecated
 
