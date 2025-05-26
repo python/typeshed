@@ -8,8 +8,6 @@ _thread.RLock.locked
 _thread.set_name
 asyncio.eager_task_factory
 asyncio.tasks.eager_task_factory
-builtins.bytearray.resize
-builtins.int.__round__
 compression.gzip.GzipFile.readinto
 compression.gzip.GzipFile.readinto
 compression.gzip.GzipFile.readinto1
