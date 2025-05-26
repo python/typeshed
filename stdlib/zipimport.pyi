@@ -5,6 +5,11 @@ from types import CodeType, ModuleType
 from typing_extensions import deprecated
 
 if sys.version_info >= (3, 10):
+    from importlib.readers import ZipReader
+else:
+    from importlib.abc import ResourceReader
+
+if sys.version_info >= (3, 10):
     from _frozen_importlib_external import _LoaderBasics
 else:
     _LoaderBasics = object
@@ -29,13 +34,10 @@ class zipimporter(_LoaderBasics):
     def get_data(self, pathname: str) -> bytes: ...
     def get_filename(self, fullname: str) -> str: ...
     if sys.version_info >= (3, 14):
-        from importlib.readers import ZipReader
         def get_resource_reader(self, fullname: str) -> ZipReader: ...  # undocumented
     elif sys.version_info >= (3, 10):
-        from importlib.readers import ZipReader
         def get_resource_reader(self, fullname: str) -> ZipReader | None: ...  # undocumented
     else:
-        from importlib.abc import ResourceReader
         def get_resource_reader(self, fullname: str) -> ResourceReader | None: ...  # undocumented
 
     def get_source(self, fullname: str) -> str | None: ...
