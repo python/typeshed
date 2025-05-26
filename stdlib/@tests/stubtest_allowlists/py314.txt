@@ -87,7 +87,6 @@ typing.NewType.__mro_entries__
 builtins.ellipsis  # type is not exposed anywhere
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
 importlib.util.Loader.exec_module
-importlib.util.LazyLoader.exec_module
 
 # positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
 _collections_abc.Coroutine.send
