@@ -113,7 +113,7 @@ class FileLoader(_bootstrap_external.FileLoader, ResourceLoader, ExecutionLoader
     def get_filename(self, name: str | None = None) -> str: ...
     def load_module(self, name: str | None = None) -> types.ModuleType: ...
 
-if sys.version_info < (3, 14):
+if sys.version_info < (3, 11):
     class ResourceReader(metaclass=ABCMeta):
         @abstractmethod
         def open_resource(self, resource: str) -> IO[bytes]: ...
@@ -174,3 +174,10 @@ if sys.version_info < (3, 14):
         def resource_path(self, resource: Any) -> str: ...
         def is_resource(self, path: str) -> bool: ...
         def contents(self) -> Iterator[str]: ...
+
+elif sys.version_info < (3, 14):
+    from importlib.resources.abc import (
+        ResourceReader as ResourceReader,
+        Traversable as Traversable,
+        TraversableResources as TraversableResources,
+    )

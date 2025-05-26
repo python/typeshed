@@ -1,7 +1,6 @@
 import sys
 from _typeshed import StrOrBytesPath
 from importlib.machinery import ModuleSpec
-from importlib.readers import ZipReader
 from types import CodeType, ModuleType
 from typing_extensions import deprecated
 
@@ -30,8 +29,10 @@ class zipimporter(_LoaderBasics):
     def get_data(self, pathname: str) -> bytes: ...
     def get_filename(self, fullname: str) -> str: ...
     if sys.version_info >= (3, 14):
+        from importlib.readers import ZipReader
         def get_resource_reader(self, fullname: str) -> ZipReader: ...  # undocumented
     elif sys.version_info >= (3, 10):
+        from importlib.readers import ZipReader
         def get_resource_reader(self, fullname: str) -> ZipReader | None: ...  # undocumented
     else:
         from importlib.abc import ResourceReader
