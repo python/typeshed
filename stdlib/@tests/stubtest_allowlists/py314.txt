@@ -32,7 +32,6 @@ multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
-string.Template.flags
 tarfile.TarFile.zstopen
 tkinter.Event.__class_getitem__
 turtle.__all__
