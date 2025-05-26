@@ -171,6 +171,8 @@ class CodeType:
         @property
         def co_qualname(self) -> str: ...
         def co_positions(self) -> Iterable[tuple[int | None, int | None, int | None, int | None]]: ...
+    if sys.version_info >= (3, 14):
+        def co_branches(self) -> Iterator[tuple[int, int, int]]: ...
 
     if sys.version_info >= (3, 11):
         def __new__(
@@ -580,6 +582,9 @@ class FrameType:
     f_trace_lines: bool
     f_trace_opcodes: bool
     def clear(self) -> None: ...
+    if sys.version_info >= (3, 14):
+        @property
+        def f_generator(self) -> GeneratorType[Any, Any, Any] | CoroutineType[Any, Any, Any] | None: ...
 
 @final
 class GetSetDescriptorType:

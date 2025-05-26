@@ -51,8 +51,6 @@ turtle.fill
 turtle.no_animation
 turtle.poly
 turtle.save
-types.CodeType.co_branches
-types.FrameType.f_generator
 
 # =========================
 # New errors in Python 3.14
