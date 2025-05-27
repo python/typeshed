@@ -2,7 +2,6 @@
 # TODO: New errors in Python 3.14 that need to be fixed or moved below
 # ====================================================================
 
-_asyncio.all_tasks
 asyncio.eager_task_factory
 asyncio.tasks.eager_task_factory
 compression.gzip.GzipFile.readinto
