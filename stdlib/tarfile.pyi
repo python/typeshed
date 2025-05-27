@@ -221,7 +221,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def open(
@@ -493,7 +492,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def taropen(
@@ -530,7 +528,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def gzopen(
@@ -585,7 +582,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def bz2open(
@@ -622,7 +618,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def bz2open(
@@ -659,7 +654,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def xzopen(
