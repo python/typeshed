@@ -201,9 +201,10 @@ class TarFile:
         @overload
         def __init__(
             self,
+            fileobj: _Fileobj,
+            *,
             name: StrOrBytesPath | None = None,
             mode: Literal["r", "a", "w", "x"] = "r",
-            fileobj: _Fileobj | None = None,
             format: int | None = None,
             tarinfo: type[TarInfo] | None = None,
             dereference: bool | None = None,
@@ -215,12 +216,12 @@ class TarFile:
             errorlevel: int | None = None,
             copybufsize: int | None = None,
         ) -> None: ...
+        @overload
         def __init__(
             self,
-            fileobj: _Fileobj,
-            *,
             name: StrOrBytesPath | None = None,
             mode: Literal["r", "a", "w", "x"] = "r",
+            fileobj: _Fileobj | None = None,
             format: int | None = None,
             tarinfo: type[TarInfo] | None = None,
             dereference: bool | None = None,
