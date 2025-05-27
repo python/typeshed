@@ -25,6 +25,7 @@ if sys.version_info >= (3, 14):
         *,
         authkey_r: int | None = None,
     ) -> None: ...
+
 else:
     def main(
         listener_fd: int | None,
