@@ -3,7 +3,6 @@
 # ====================================================================
 
 _asyncio.all_tasks
-_imp.pyc_magic_number_token
 asyncio.eager_task_factory
 asyncio.tasks.eager_task_factory
 compression.gzip.GzipFile.readinto
