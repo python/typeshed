@@ -125,6 +125,7 @@ class TarFile:
     extraction_filter: _FilterFunction | None
     if sys.version_info >= (3, 13):
         stream: bool
+        @overload
         def __init__(
             self,
             name: StrOrBytesPath | None = None,
@@ -180,6 +181,7 @@ class TarFile:
             stream: bool = False,
         ) -> None: ...
     else:
+        @overload
         def __init__(
             self,
             name: StrOrBytesPath | None = None,
