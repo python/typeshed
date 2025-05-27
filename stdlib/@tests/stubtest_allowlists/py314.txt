@@ -28,15 +28,6 @@ multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
 tarfile.TarFile.zstopen
 tkinter.Event.__class_getitem__
-turtle.__all__
-turtle.RawTurtle.fill
-turtle.RawTurtle.poly
-turtle.TurtleScreen.no_animation
-turtle.TurtleScreen.save
-turtle.fill
-turtle.no_animation
-turtle.poly
-turtle.save
 
 # =========================
 # New errors in Python 3.14
