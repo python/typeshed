@@ -144,7 +144,7 @@ class TarFile:
             stream: bool = False,
         ) -> None: ...
         @overload
-        def __init__(  # noqa: F811
+        def __init__(
             self,
             name: StrOrBytesPath,
             mode: Literal["r", "a", "w", "x"] = "r",
@@ -199,7 +199,7 @@ class TarFile:
             copybufsize: int | None = None,  # undocumented
         ) -> None: ...
         @overload
-        def __init__(  # noqa: F811
+        def __init__(
             self,
             name: StrOrBytesPath,
             mode: Literal["r", "a", "w", "x"] = "r",
