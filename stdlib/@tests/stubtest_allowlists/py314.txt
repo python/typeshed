@@ -15,7 +15,6 @@ fractions.Fraction.__rpow__
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
 gzip.compress
-multiprocessing.forkserver.main
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
