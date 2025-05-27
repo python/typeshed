@@ -142,7 +142,6 @@ class TarFile:
             copybufsize: int | None = None,  # undocumented
             stream: bool = False,
         ) -> None: ...
-
         @overload
         def __init__(  # noqa: F811
             self,
@@ -161,7 +160,6 @@ class TarFile:
             copybufsize: int | None = None,  # undocumented
             stream: bool = False,
         ) -> None: ...
-
         @overload
         def __init__(
             self,
@@ -197,7 +195,6 @@ class TarFile:
             errorlevel: int | None = None,
             copybufsize: int | None = None,  # undocumented
         ) -> None: ...
-
         @overload
         def __init__(  # noqa: F811
             self,
@@ -215,7 +212,6 @@ class TarFile:
             errorlevel: int | None = None,
             copybufsize: int | None = None,  # undocumented
         ) -> None: ...
-
         def __init__(
             self,
             fileobj: _Fileobj,
