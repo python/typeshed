@@ -128,6 +128,27 @@ class TarFile:
         @overload
         def __init__(
             self,
+<<<<<<< HEAD
+=======
+            name: StrOrBytesPath | None = None,
+            mode: Literal["r", "a", "w", "x"] = "r",
+            fileobj: _Fileobj | None = None,
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: int | None = None,
+            errorlevel: int | None = None,
+            copybufsize: int | None = None,  # undocumented
+            stream: bool = False,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+>>>>>>> 6f4f644ff93bc6823d0d77a8c93e9b64233d475a
             name: StrOrBytesPath,
             mode: Literal["r", "a", "w", "x"] = "r",
             fileobj: _Fileobj | None = None,
@@ -182,9 +203,9 @@ class TarFile:
         ) -> None: ...
     else:
         @overload
-        def __init__(  # Специфичная версия
+        def __init__(
             self,
-            name: StrOrBytesPath,
+            name: StrOrBytesPath | None = None,
             mode: Literal["r", "a", "w", "x"] = "r",
             fileobj: _Fileobj | None = None,
             format: int | None = None,
@@ -196,10 +217,10 @@ class TarFile:
             pax_headers: Mapping[str, str] | None = None,
             debug: int | None = None,
             errorlevel: int | None = None,
-            copybufsize: int | None = None,
+            copybufsize: int | None = None,  # undocumented
         ) -> None: ...
         @overload
-        def __init__(  # Общая версия
+        def __init__(
             self,
             name: StrOrBytesPath | None = None,
             mode: Literal["r", "a", "w", "x"] = "r",
@@ -215,7 +236,7 @@ class TarFile:
             errorlevel: int | None = None,
             copybufsize: int | None = None,
         ) -> None: ...
-        def __init__(  # Реализация с fileobj как позиционным аргументом
+        def __init__(
             self,
             fileobj: _Fileobj,
             *,
