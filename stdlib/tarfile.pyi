@@ -184,27 +184,9 @@ class TarFile:
         @overload
         def __init__(
             self,
-            name: StrOrBytesPath | None = None,
+            name: StrOrBytesPath,
             mode: Literal["r", "a", "w", "x"] = "r",
             fileobj: _Fileobj | None = None,
-            format: int | None = None,
-            tarinfo: type[TarInfo] | None = None,
-            dereference: bool | None = None,
-            ignore_zeros: bool | None = None,
-            encoding: str | None = None,
-            errors: str = "surrogateescape",
-            pax_headers: Mapping[str, str] | None = None,
-            debug: int | None = None,
-            errorlevel: int | None = None,
-            copybufsize: int | None = None,  # undocumented
-        ) -> None: ...
-        @overload
-        def __init__(
-            self,
-            fileobj: _Fileobj,
-            *,
-            name: StrOrBytesPath | None = None,
-            mode: Literal["r", "a", "w", "x"] = "r",
             format: int | None = None,
             tarinfo: type[TarInfo] | None = None,
             dereference: bool | None = None,
@@ -222,6 +204,24 @@ class TarFile:
             name: StrOrBytesPath | None = None,
             mode: Literal["r", "a", "w", "x"] = "r",
             fileobj: _Fileobj | None = None,
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: int | None = None,
+            errorlevel: int | None = None,
+            copybufsize: int | None = None,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            fileobj: _Fileobj,
+            *,
+            name: StrOrBytesPath | None = None,
+            mode: Literal["r", "a", "w", "x"] = "r",
             format: int | None = None,
             tarinfo: type[TarInfo] | None = None,
             dereference: bool | None = None,
