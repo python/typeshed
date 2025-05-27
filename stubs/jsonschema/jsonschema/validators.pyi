@@ -11,6 +11,7 @@ from ._format import FormatChecker
 from ._types import TypeChecker
 from ._utils import Unset, URIDict
 from .exceptions import ValidationError
+from .protocols import Validator
 
 # these type aliases do not exist at runtime, they're only defined here in the stub
 _JsonObject: TypeAlias = Mapping[str, Any]
@@ -118,4 +119,4 @@ class RefResolver:
     def resolve_remote(self, uri: str): ...
 
 def validate(instance: object, schema: Schema, cls: type[_Validator] | None = None, *args: Any, **kwargs: Any) -> None: ...
-def validator_for(schema: Schema | bool, default: type[_Validator] | Unset = ...) -> type[_Validator]: ...
+def validator_for(schema: Schema | bool, default: type[Validator] | Unset = ...) -> type[Validator]: ...
