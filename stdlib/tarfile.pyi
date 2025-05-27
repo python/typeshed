@@ -142,11 +142,10 @@ class TarFile:
             copybufsize: int | None = None,  # undocumented
             stream: bool = False,
         ) -> None: ...
-
         @overload
         def __init__(  # noqa: F811
             self,
-            name: StrOrBytesPath | None,
+            name: StrOrBytesPath,
             mode: Literal["r", "a", "w", "x"] = "r",
             fileobj: _Fileobj | None = None,
             format: int | None = None,
@@ -161,11 +160,11 @@ class TarFile:
             copybufsize: int | None = None,  # undocumented
             stream: bool = False,
         ) -> None: ...
-
         @overload
         def __init__(
             self,
             fileobj: _Fileobj,
+            *,
             name: StrOrBytesPath | None = None,
             mode: Literal["r", "a", "w", "x"] = "r",
             format: int | None = None,
@@ -197,11 +196,10 @@ class TarFile:
             errorlevel: int | None = None,
             copybufsize: int | None = None,  # undocumented
         ) -> None: ...
-
         @overload
         def __init__(  # noqa: F811
             self,
-            name: StrOrBytesPath | None,
+            name: StrOrBytesPath,
             mode: Literal["r", "a", "w", "x"] = "r",
             fileobj: _Fileobj | None = None,
             format: int | None = None,
@@ -215,10 +213,10 @@ class TarFile:
             errorlevel: int | None = None,
             copybufsize: int | None = None,  # undocumented
         ) -> None: ...
-
         def __init__(
             self,
             fileobj: _Fileobj,
+            *,
             name: StrOrBytesPath | None = None,
             mode: Literal["r", "a", "w", "x"] = "r",
             format: int | None = None,
