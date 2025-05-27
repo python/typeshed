@@ -106,6 +106,7 @@ _excepthook: Callable[[_ExceptHookArgs], Any]
 
 if sys.version_info >= (3, 12):
     def daemon_threads_allowed() -> bool: ...
+
 if sys.version_info >= (3, 14):
     def set_name(name: str) -> None: ...
 
