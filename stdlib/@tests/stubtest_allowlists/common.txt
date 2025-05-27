@@ -549,5 +549,4 @@ xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signatu
 xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
 
-tarfile.TarFile.open # Always overridden for fix open(name=None, fileobj=None)
 tarfile.open # Overridden by TarFile.open
