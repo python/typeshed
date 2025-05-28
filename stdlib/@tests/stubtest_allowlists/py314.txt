@@ -2,10 +2,6 @@
 # TODO: New errors in Python 3.14 that need to be fixed or moved below
 # ====================================================================
 
-_asyncio.all_tasks
-_imp.pyc_magic_number_token
-_thread.RLock.locked
-_thread.set_name
 asyncio.eager_task_factory
 asyncio.tasks.eager_task_factory
 compression.gzip.GzipFile.readinto
@@ -19,7 +15,6 @@ fractions.Fraction.__rpow__
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
 gzip.compress
-multiprocessing.forkserver.main
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
@@ -32,15 +27,6 @@ multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
 tarfile.TarFile.zstopen
 tkinter.Event.__class_getitem__
-turtle.__all__
-turtle.RawTurtle.fill
-turtle.RawTurtle.poly
-turtle.TurtleScreen.no_animation
-turtle.TurtleScreen.save
-turtle.fill
-turtle.no_animation
-turtle.poly
-turtle.save
 
 # =========================
 # New errors in Python 3.14
