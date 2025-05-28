@@ -5,13 +5,14 @@
 
 from __future__ import annotations
 
+import functools
 import re
 import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Final, NamedTuple, final
-from typing_extensions import Annotated, TypeGuard
+from typing import Annotated, Any, Final, NamedTuple, final
+from typing_extensions import TypeGuard
 
 import tomli
 import tomlkit
@@ -19,7 +20,6 @@ from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
 
 from .paths import PYPROJECT_PATH, STUBS_PATH, distribution_path
-from .utils import cache
 
 __all__ = [
     "NoSuchStubError",
@@ -43,8 +43,12 @@ def _is_list_of_strings(obj: object) -> TypeGuard[list[str]]:
     return isinstance(obj, list) and all(isinstance(item, str) for item in obj)
 
 
-@cache
-def _get_oldest_supported_python() -> str:
+def _is_nested_dict(obj: object) -> TypeGuard[dict[str, dict[str, Any]]]:
+    return isinstance(obj, dict) and all(isinstance(k, str) and isinstance(v, dict) for k, v in obj.items())
+
+
+@functools.cache
+def get_oldest_supported_python() -> str:
     with PYPROJECT_PATH.open("rb") as config:
         val = tomli.load(config)["tool"]["typeshed"]["oldest_supported_python"]
     assert type(val) is str
@@ -73,6 +77,8 @@ class StubtestSettings:
     supported_platforms: list[str] | None  # None means all platforms
     ci_platforms: list[str]
     stubtest_requirements: list[str]
+    mypy_plugins: list[str]
+    mypy_plugins_config: dict[str, dict[str, Any]]
 
     def system_requirements_for_platform(self, platform: str) -> list[str]:
         assert platform in _STUBTEST_PLATFORM_MAPPING, f"Unrecognised platform {platform!r}"
@@ -81,7 +87,7 @@ class StubtestSettings:
         return ret
 
 
-@cache
+@functools.cache
 def read_stubtest_settings(distribution: str) -> StubtestSettings:
     """Return an object describing the stubtest settings for a single stubs distribution."""
     with metadata_path(distribution).open("rb") as f:
@@ -96,6 +102,8 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     supported_platforms: object = data.get("supported_platforms")
     ci_platforms: object = data.get("ci_platforms", DEFAULT_STUBTEST_PLATFORMS)
     stubtest_requirements: object = data.get("stubtest_requirements", [])
+    mypy_plugins: object = data.get("mypy_plugins", [])
+    mypy_plugins_config: object = data.get("mypy_plugins_config", {})
 
     assert type(skip) is bool
     assert type(ignore_missing_stub) is bool
@@ -108,6 +116,8 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
     assert _is_list_of_strings(choco_dependencies)
     assert _is_list_of_strings(extras)
     assert _is_list_of_strings(stubtest_requirements)
+    assert _is_list_of_strings(mypy_plugins)
+    assert _is_nested_dict(mypy_plugins_config)
 
     unrecognised_platforms = set(ci_platforms) - _STUBTEST_PLATFORM_MAPPING.keys()
     assert not unrecognised_platforms, f"Unrecognised ci_platforms specified for {distribution!r}: {unrecognised_platforms}"
@@ -134,6 +144,8 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
         supported_platforms=supported_platforms,
         ci_platforms=ci_platforms,
         stubtest_requirements=stubtest_requirements,
+        mypy_plugins=mypy_plugins,
+        mypy_plugins_config=mypy_plugins_config,
     )
 
 
@@ -176,6 +188,7 @@ _KNOWN_METADATA_FIELDS: Final = frozenset(
         "tool",
         "partial_stub",
         "requires_python",
+        "mypy-tests",
     }
 )
 _KNOWN_METADATA_TOOL_FIELDS: Final = {
@@ -189,6 +202,8 @@ _KNOWN_METADATA_TOOL_FIELDS: Final = {
         "supported_platforms",
         "ci_platforms",
         "stubtest_requirements",
+        "mypy_plugins",
+        "mypy_plugins_config",
     }
 }
 _DIST_NAME_RE: Final = re.compile(r"^[a-z0-9]([a-z0-9._-]*[a-z0-9])?$", re.IGNORECASE)
@@ -198,7 +213,7 @@ class NoSuchStubError(ValueError):
     """Raise NoSuchStubError to indicate that a stubs/{distribution} directory doesn't exist."""
 
 
-@cache
+@functools.cache
 def read_metadata(distribution: str) -> StubMetadata:
     """Return an object describing the metadata of a stub as given in the METADATA.toml file.
 
@@ -272,7 +287,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     partial_stub: object = data.get("partial_stub", True)
     assert type(partial_stub) is bool
     requires_python_str: object = data.get("requires_python")
-    oldest_supported_python = _get_oldest_supported_python()
+    oldest_supported_python = get_oldest_supported_python()
     oldest_supported_python_specifier = Specifier(f">={oldest_supported_python}")
     if requires_python_str is None:
         requires_python = oldest_supported_python_specifier
@@ -339,12 +354,12 @@ class PackageDependencies(NamedTuple):
     external_pkgs: tuple[Requirement, ...]
 
 
-@cache
+@functools.cache
 def get_pypi_name_to_typeshed_name_mapping() -> Mapping[str, str]:
     return {read_metadata(stub_dir.name).stub_distribution: stub_dir.name for stub_dir in STUBS_PATH.iterdir()}
 
 
-@cache
+@functools.cache
 def read_dependencies(distribution: str) -> PackageDependencies:
     """Read the dependencies listed in a METADATA.toml file for a stubs package.
 
@@ -371,7 +386,7 @@ def read_dependencies(distribution: str) -> PackageDependencies:
     return PackageDependencies(tuple(typeshed), tuple(external))
 
 
-@cache
+@functools.cache
 def get_recursive_requirements(package_name: str) -> PackageDependencies:
     """Recursively gather dependencies for a single stubs package.
 
