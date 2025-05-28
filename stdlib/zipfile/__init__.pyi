@@ -17,6 +17,7 @@ __all__ = [
     "ZIP_DEFLATED",
     "ZIP_BZIP2",
     "ZIP_LZMA",
+    "ZIP_ZSTANDARD",
     "is_zipfile",
     "ZipInfo",
     "ZipFile",
@@ -364,10 +365,19 @@ else:
 
 def is_zipfile(filename: StrOrBytesPath | _SupportsReadSeekTell) -> bool: ...
 
-ZIP_STORED: Final[int]
-ZIP_DEFLATED: Final[int]
 ZIP64_LIMIT: Final[int]
 ZIP_FILECOUNT_LIMIT: Final[int]
 ZIP_MAX_COMMENT: Final[int]
-ZIP_BZIP2: Final[int]
-ZIP_LZMA: Final[int]
+
+ZIP_STORED: Final = 0
+ZIP_DEFLATED: Final = 8
+ZIP_BZIP2: Final = 12
+ZIP_LZMA: Final = 14
+ZIP_ZSTANDARD: Final = 93
+
+DEFAULT_VERSION: Final[int]
+ZIP64_VERSION: Final[int]
+BZIP2_VERSION: Final[int]
+LZMA_VERSION: Final[int]
+ZSTANDARD_VERSION: Final[int]
+MAX_EXTRACT_VERSION: Final[int]

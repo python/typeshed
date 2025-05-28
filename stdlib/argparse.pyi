@@ -286,7 +286,6 @@ class HelpFormatter:
             indent_increment: int = 2,
             max_help_position: int = 24,
             width: int | None = None,
-            prefix_chars: str = "-",
             color: bool = False,
         ) -> None: ...
     else:
