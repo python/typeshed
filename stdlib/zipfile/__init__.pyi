@@ -17,13 +17,15 @@ __all__ = [
     "ZIP_DEFLATED",
     "ZIP_BZIP2",
     "ZIP_LZMA",
-    "ZIP_ZSTANDARD",
     "is_zipfile",
     "ZipInfo",
     "ZipFile",
     "PyZipFile",
     "LargeZipFile",
 ]
+
+if sys.version_info >= (3, 14):
+    __all__ += ["ZIP_ZSTANDARD"]
 
 # TODO: use TypeAlias for these two when mypy bugs are fixed
 # https://github.com/python/mypy/issues/16581
@@ -373,11 +375,13 @@ ZIP_STORED: Final = 0
 ZIP_DEFLATED: Final = 8
 ZIP_BZIP2: Final = 12
 ZIP_LZMA: Final = 14
-ZIP_ZSTANDARD: Final = 93
+if sys.version_info >= (3, 14):
+    ZIP_ZSTANDARD: Final = 93
 
 DEFAULT_VERSION: Final[int]
 ZIP64_VERSION: Final[int]
 BZIP2_VERSION: Final[int]
 LZMA_VERSION: Final[int]
-ZSTANDARD_VERSION: Final[int]
+if sys.version_info >= (3, 14):
+    ZSTANDARD_VERSION: Final[int]
 MAX_EXTRACT_VERSION: Final[int]
