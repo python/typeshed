@@ -3,6 +3,7 @@ import sys
 from _asyncio import (
     _get_running_loop as _get_running_loop,
     _set_running_loop as _set_running_loop,
+    _TaskCompatibleCoro,
     get_event_loop as get_event_loop,
     get_running_loop as get_running_loop,
 )
@@ -71,8 +72,22 @@ _ExceptionHandler: TypeAlias = Callable[[AbstractEventLoop, _Context], object]
 _ProtocolFactory: TypeAlias = Callable[[], BaseProtocol]
 _SSLContext: TypeAlias = bool | None | ssl.SSLContext
 
-class _TaskFactory(Protocol):
-    def __call__(self, loop: AbstractEventLoop, factory: _CoroutineLike[_T], /) -> Future[_T]: ...
+if sys.version_info >= (3, 13):  # all Task kwargs added in 3.13.2
+    class _TaskFactory(Protocol):
+        def __call__(
+            self,
+            loop: AbstractEventLoop,
+            coro: _TaskCompatibleCoro[_T],
+            /,
+            *,
+            name: str | None = ...,
+            context: Context | None = None,
+            eager_start: bool = False,
+        ) -> Task[_T]: ...
+
+else:
+    class _TaskFactory(Protocol):
+        def __call__(self, loop: AbstractEventLoop, coro: _CoroutineLike[_T], /) -> Task[_T]: ...
 
 class Handle:
     _cancelled: bool
@@ -161,7 +176,17 @@ class AbstractEventLoop:
     @abstractmethod
     def create_future(self) -> Future[Any]: ...
     # Tasks methods
-    if sys.version_info >= (3, 11):
+    if sys.version_info >= (3, 13):  # all Task kwargs added in 3.13.2
+        @abstractmethod
+        def create_task(
+            self,
+            coro: _TaskCompatibleCoro[_T],
+            *,
+            name: str | None = None,
+            context: Context | None = None,
+            eager_start: bool | None = None,
+        ) -> Task[_T]: ...
+    elif sys.version_info >= (3, 11):
         @abstractmethod
         def create_task(
             self, coro: _CoroutineLike[_T], *, name: str | None = None, context: Context | None = None
