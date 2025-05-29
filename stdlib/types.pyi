@@ -101,6 +101,7 @@ class FunctionType:
             closure: tuple[CellType, ...] | None = None,
             kwdefaults: dict[str, object] | None = None,
         ) -> Self: ...
+
     else:
         def __new__(
             cls,
@@ -153,6 +154,7 @@ class CodeType:
         @property
         @deprecated("Will be removed in Python 3.15. Use the co_lines() method instead.")
         def co_lnotab(self) -> bytes: ...
+
     else:
         @property
         def co_lnotab(self) -> bytes: ...
@@ -197,6 +199,7 @@ class CodeType:
             cellvars: tuple[str, ...] = ...,
             /,
         ) -> Self: ...
+
     elif sys.version_info >= (3, 10):
         def __new__(
             cls,
@@ -218,6 +221,7 @@ class CodeType:
             cellvars: tuple[str, ...] = ...,
             /,
         ) -> Self: ...
+
     else:
         def __new__(
             cls,
@@ -262,6 +266,7 @@ class CodeType:
             co_linetable: bytes = ...,
             co_exceptiontable: bytes = ...,
         ) -> Self: ...
+
     elif sys.version_info >= (3, 10):
         def replace(
             self,
@@ -283,6 +288,7 @@ class CodeType:
             co_name: str = ...,
             co_linetable: bytes = ...,
         ) -> Self: ...
+
     else:
         def replace(
             self,
@@ -333,6 +339,7 @@ class SimpleNamespace:
     __hash__: ClassVar[None]  # type: ignore[assignment]
     if sys.version_info >= (3, 13):
         def __init__(self, mapping_or_iterable: Mapping[str, Any] | Iterable[tuple[str, Any]] = (), /, **kwargs: Any) -> None: ...
+
     else:
         def __init__(self, **kwargs: Any) -> None: ...
 
@@ -482,7 +489,10 @@ class MethodType:
     def __qualname__(self) -> str: ...  # inherited from the added function
     def __new__(cls, func: Callable[..., Any], instance: object, /) -> Self: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
-    def __get__(self, instance: object, owner: type | None = None, /) -> Self: ...
+
+    if sys.version_info >= (3, 13):
+        def __get__(self, instance: object, owner: type | None = None, /) -> Self: ...
+
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
 
