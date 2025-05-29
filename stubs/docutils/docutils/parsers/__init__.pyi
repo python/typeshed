@@ -3,7 +3,7 @@ from typing import Any, ClassVar, Final
 from docutils import Component
 from docutils.nodes import document as _document
 
-__docformat__: Final[str]
+__docformat__: Final = "reStructuredText"
 
 class Parser(Component):
     settings_spec: ClassVar[tuple[Any, ...]]

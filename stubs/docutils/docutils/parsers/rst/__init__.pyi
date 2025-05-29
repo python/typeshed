@@ -8,7 +8,7 @@ from docutils.statemachine import StringList
 from docutils.transforms import Transform
 from docutils.utils import Reporter
 
-__docformat__: Final[str]
+__docformat__: Final = "reStructuredText"
 
 class Parser(parsers.Parser):
     settings_spec: ClassVar[tuple[Any, ...]]
