@@ -1,9 +1,12 @@
-from typing import Any, ClassVar
+from typing import Any, ClassVar, Final
 
 from docutils import Component
 from docutils.nodes import document as _document
 
+__docformat__: Final[str]
+
 class Parser(Component):
+    settings_spec: ClassVar[tuple[Any, ...]]
     component_type: ClassVar[str]
     config_section: ClassVar[str]
     inputstring: Any  # defined after call to setup_parse()
