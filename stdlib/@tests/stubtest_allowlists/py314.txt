@@ -56,8 +56,8 @@ functools.partialmethod.__new__
 zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
 
 # Types that require `__setattr__` and `__delattr__` for typing purposes:
-argparse.Namespace.__setattr__
-argparse.Namespace.__delattr__
+types.SimpleNamespace.__setattr__
+types.SimpleNamespace.__delattr__
 
 
 # =======

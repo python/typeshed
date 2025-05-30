@@ -19,8 +19,8 @@ typing_extensions.TypeAliasType.__parameters__
 typing_extensions.TypeAliasType.__value__
 
 # Types that require `__setattr__` and `__delattr__` for typing purposes:
-argparse.Namespace.__setattr__
-argparse.Namespace.__delattr__
+types.SimpleNamespace.__setattr__
+types.SimpleNamespace.__delattr__
 
 
 # =======
