@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Mapping
-from typing import Any, Generic, TypeVar, overload
+from typing import Any, Final, Generic, TypeVar, overload
 from typing_extensions import ParamSpec, Self
 
 _P = ParamSpec("_P")
 _R = TypeVar("_R")
 __all__ = ["_dispatchable"]
+FAILED_TO_CONVERT: Final[str]
 
 class _dispatchable(Generic[_P, _R]):
     __defaults__: Incomplete

@@ -16,5 +16,5 @@ def birank(
     bottom_personalization: dict[str, int] | None = None,
     max_iter: int = 100,
     tol: float = 1.0e-6,
-    weight: str = "weight",
+    weight: str | None = "weight",
 ) -> dict[_Node, float]: ...

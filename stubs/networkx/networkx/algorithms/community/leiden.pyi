@@ -7,10 +7,12 @@ __all__ = ["leiden_communities", "leiden_partitions"]
 @_dispatchable
 def leiden_communities(
     G: Graph[_Node],
-    weight: str = "weight",
+    weight: str | None = "weight",
     resolution: float = 1,
     max_level: int | None = None,
     seed: int | RandomState | None = None,
 ): ...
 @_dispatchable
-def leiden_partitions(G: Graph[_Node], weight: str = "weight", resolution: float = 1, seed: int | RandomState | None = None): ...
+def leiden_partitions(
+    G: Graph[_Node], weight: str | None = "weight", resolution: float = 1, seed: int | RandomState | None = None
+): ...
