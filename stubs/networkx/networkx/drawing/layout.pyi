@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
 
 __all__ = [
@@ -25,7 +26,13 @@ def random_layout(G, center=None, dim: int = 2, seed: int | RandomState | None =
 def circular_layout(G, scale: float = 1, center=None, dim: int = 2, store_pos_as: str | None = None): ...
 def shell_layout(G, nlist=None, rotate=None, scale: float = 1, center=None, dim: int = 2, store_pos_as: str | None = None): ...
 def bipartite_layout(
-    G, nodes, align: str = "vertical", scale: float = 1, center=None, aspect_ratio: float = ..., store_pos_as: str | None = None
+    G,
+    nodes=None,
+    align: str = "vertical",
+    scale: float = 1,
+    center=None,
+    aspect_ratio: float = ...,
+    store_pos_as: str | None = None,
 ): ...
 def spring_layout(
     G,
@@ -76,6 +83,7 @@ def arf_layout(
     seed: int | RandomState | None = None,
     store_pos_as: str | None = None,
 ): ...
+@_dispatchable
 def forceatlas2_layout(
     G,
     pos=None,

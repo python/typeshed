@@ -81,23 +81,42 @@ def create_empty_copy(G, with_data: bool = True): ...
 
 # incomplete: Can "Any scalar value" be enforced?
 @overload
-def set_node_attributes(G: Graph[Hashable], values: SupportsItems[_Node, Unused], name: str) -> None: ...
+def set_node_attributes(
+    G: Graph[Hashable],
+    values: SupportsItems[_Node, Unused],
+    name: str,
+    *,
+    backend=None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
+    **backend_kwargs,
+) -> None: ...
 @overload
 def set_node_attributes(
     G: Graph[_Node],
     values: SupportsItems[_Node, SupportsKeysAndGetItem[Incomplete, Incomplete] | Iterable[tuple[Incomplete, Incomplete]]],
     name: None = None,
+    *,
+    backend=None,
+    **backend_kwargs,
 ) -> None: ...
 @_dispatchable
 def get_node_attributes(G: Graph[_Node], name: str, default=None) -> dict[_Node, Incomplete]: ...
 @_dispatchable
 def remove_node_attributes(G, *attr_names, nbunch=None) -> None: ...
 @overload
-def set_edge_attributes(G: Graph[_Node], values: SupportsItems[tuple[_Node, _Node], Incomplete], name: str) -> None: ...
+def set_edge_attributes(
+    G: Graph[_Node],
+    values: SupportsItems[tuple[_Node, _Node], Incomplete],
+    name: str,
+    *,
+    backend=None,  # @_dispatchable adds these arguments, but we can't use this decorator with @overload
+    **backend_kwargs,
+) -> None: ...
 @overload
-def set_edge_attributes(G: MultiGraph[_Node], values: dict[tuple[_Node, _Node, Incomplete], Incomplete], name: str) -> None: ...
+def set_edge_attributes(
+    G: MultiGraph[_Node], values: dict[tuple[_Node, _Node, Incomplete], Incomplete], name: str, *, backend=None, **backend_kwargs
+) -> None: ...
 @overload
-def set_edge_attributes(G: Graph[Hashable], values, name: None = None) -> None: ...
+def set_edge_attributes(G: Graph[Hashable], values, name: None = None, *, backend=None, **backend_kwargs) -> None: ...
 @_dispatchable
 def get_edge_attributes(G: Graph[_Node], name: str, default=None) -> dict[tuple[_Node, _Node], Incomplete]: ...
 @_dispatchable
