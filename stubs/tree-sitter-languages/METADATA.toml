@@ -1,6 +1,7 @@
 version = "1.10.*"
 upstream_repository = "https://github.com/grantjenks/py-tree-sitter-languages"
 requires = ["tree-sitter>=0.20.3"]
+no_longer_updated = true
 
 [tool.stubtest]
 # This package is unmaintained and doesn't support Python 3.13.
