@@ -18,6 +18,10 @@ zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in diff
 typing_extensions.TypeAliasType.__parameters__
 typing_extensions.TypeAliasType.__value__
 
+# Types that require `__setattr__` and `__delattr__` for typing purposes:
+argparse.Namespace.__setattr__
+argparse.Namespace.__delattr__
+
 
 # =======
 # >= 3.11
