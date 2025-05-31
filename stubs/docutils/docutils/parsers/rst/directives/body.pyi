@@ -1,13 +1,16 @@
 from collections.abc import Callable
-from typing import Any, ClassVar, Final
+from typing import ClassVar, Final
+from typing_extensions import TypeAlias
 
 from docutils import nodes
 from docutils.parsers.rst import Directive
 
 __docformat__: Final = "reStructuredText"
 
+_DirectiveFn: TypeAlias = Callable[[str | None], str | list[str]]
+
 class BasePseudoSection(Directive):
-    option_spec: ClassVar[dict[str, Callable[[str], Any]]]
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     node_class: ClassVar[type[nodes.Node] | None]
     def run(self): ...
 
@@ -16,27 +19,27 @@ class Topic(BasePseudoSection):
 
 class Sidebar(BasePseudoSection):
     node_class: ClassVar[type[nodes.Node]]
-    option_spec: ClassVar[dict[str, Callable[[str], Any]]]
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class LineBlock(Directive):
-    option_spec: ClassVar[dict[str, Callable[[str], Any]]]
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class ParsedLiteral(Directive):
-    option_spec: ClassVar[dict[str, Callable[[str], Any]]]
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class CodeBlock(Directive):
-    option_spec: ClassVar[dict[str, Callable[[str], Any]]]
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class MathBlock(Directive):
-    option_spec: ClassVar[dict[str, Callable[[str], Any]]]
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class Rubric(Directive):
-    option_spec: ClassVar[dict[str, Callable[[str], Any]]]
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class BlockQuote(Directive):
@@ -53,9 +56,9 @@ class PullQuote(BlockQuote):
     classes: ClassVar[list[str]]
 
 class Compound(Directive):
-    option_spec: ClassVar[dict[str, Callable[[str], Any]]]
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class Container(Directive):
-    option_spec: ClassVar[dict[str, Callable[[str], Any]]]
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...

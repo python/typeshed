@@ -1,7 +1,7 @@
 import csv
 from _typeshed import Incomplete
 from collections.abc import Callable
-from typing import Any, ClassVar, Final
+from typing import ClassVar, Final
 
 from docutils.parsers.rst import Directive
 
@@ -10,7 +10,7 @@ __docformat__: Final = "reStructuredText"
 def align(argument): ...
 
 class Table(Directive):
-    option_spec: ClassVar[dict[str, Callable[[str], Any]]]
+    option_spec: ClassVar[dict[str, Callable[[str | None], str | list[str]]]]
     def make_title(self): ...
     def check_table_dimensions(self, rows, header_rows, stub_columns) -> None: ...
     def set_table_width(self, table_node) -> None: ...
