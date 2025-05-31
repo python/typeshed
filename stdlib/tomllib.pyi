@@ -1,8 +1,7 @@
 import sys
-from _typeshed import SupportsRead
 from collections.abc import Callable
 from typing import Any, overload
-from typing_extensions import deprecated
+from typing_extensions import Reader, deprecated
 
 __all__ = ("loads", "load", "TOMLDecodeError")
 
@@ -22,5 +21,5 @@ if sys.version_info >= (3, 14):
 else:
     class TOMLDecodeError(ValueError): ...
 
-def load(fp: SupportsRead[bytes], /, *, parse_float: Callable[[str], Any] = ...) -> dict[str, Any]: ...
+def load(fp: Reader[bytes], /, *, parse_float: Callable[[str], Any] = ...) -> dict[str, Any]: ...
 def loads(s: str, /, *, parse_float: Callable[[str], Any] = ...) -> dict[str, Any]: ...

@@ -2,15 +2,15 @@ import sys
 import unittest.case
 import unittest.result
 import unittest.suite
-from _typeshed import SupportsFlush, SupportsWrite
+from _typeshed import SupportsFlush
 from collections.abc import Callable, Iterable
 from typing import Any, Generic, Protocol, TypeVar
-from typing_extensions import Never, TypeAlias
+from typing_extensions import Never, TypeAlias, Writer
 from warnings import _ActionKind
 
 _ResultClassType: TypeAlias = Callable[[_TextTestStream, bool, int], TextTestResult[Any]]
 
-class _SupportsWriteAndFlush(SupportsWrite[str], SupportsFlush, Protocol): ...
+class _SupportsWriteAndFlush(Writer[str], SupportsFlush, Protocol): ...
 
 # All methods used by unittest.runner.TextTestResult's stream
 class _TextTestStream(_SupportsWriteAndFlush, Protocol):
@@ -28,7 +28,7 @@ class _WritelnDecorator:
     __getstate__: Never
     # Methods proxied from the wrapped stream object via __getattr__
     def flush(self) -> object: ...
-    def write(self, s: str, /) -> object: ...
+    def write(self, s: str, /) -> int: ...
 
 _StreamT = TypeVar("_StreamT", bound=_TextTestStream, default=_WritelnDecorator)
 

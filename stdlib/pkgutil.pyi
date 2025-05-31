@@ -1,9 +1,9 @@
 import sys
-from _typeshed import StrOrBytesPath, SupportsRead
+from _typeshed import StrOrBytesPath
 from _typeshed.importlib import LoaderProtocol, MetaPathFinderProtocol, PathEntryFinderProtocol
 from collections.abc import Callable, Iterable, Iterator
 from typing import IO, Any, NamedTuple, TypeVar
-from typing_extensions import deprecated
+from typing_extensions import Reader, deprecated
 
 __all__ = [
     "get_importer",
@@ -45,7 +45,7 @@ if sys.version_info < (3, 14):
 def get_importer(path_item: StrOrBytesPath) -> PathEntryFinderProtocol | None: ...
 def iter_importers(fullname: str = "") -> Iterator[MetaPathFinderProtocol | PathEntryFinderProtocol]: ...
 def iter_modules(path: Iterable[StrOrBytesPath] | None = None, prefix: str = "") -> Iterator[ModuleInfo]: ...
-def read_code(stream: SupportsRead[bytes]) -> Any: ...  # undocumented
+def read_code(stream: Reader[bytes]) -> Any: ...  # undocumented
 def walk_packages(
     path: Iterable[StrOrBytesPath] | None = None, prefix: str = "", onerror: Callable[[str], object] | None = None
 ) -> Iterator[ModuleInfo]: ...

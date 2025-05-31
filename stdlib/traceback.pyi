@@ -1,9 +1,9 @@
 import sys
-from _typeshed import SupportsWrite, Unused
+from _typeshed import Unused
 from collections.abc import Generator, Iterable, Iterator, Mapping
 from types import FrameType, TracebackType
 from typing import Any, ClassVar, Literal, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, TypeAlias, Writer, deprecated
 
 __all__ = [
     "extract_stack",
@@ -32,7 +32,7 @@ if sys.version_info >= (3, 14):
 
 _FrameSummaryTuple: TypeAlias = tuple[str, int, str, str | None]
 
-def print_tb(tb: TracebackType | None, limit: int | None = None, file: SupportsWrite[str] | None = None) -> None: ...
+def print_tb(tb: TracebackType | None, limit: int | None = None, file: Writer[str] | None = None) -> None: ...
 
 if sys.version_info >= (3, 10):
     @overload
@@ -42,12 +42,12 @@ if sys.version_info >= (3, 10):
         value: BaseException | None = ...,
         tb: TracebackType | None = ...,
         limit: int | None = None,
-        file: SupportsWrite[str] | None = None,
+        file: Writer[str] | None = None,
         chain: bool = True,
     ) -> None: ...
     @overload
     def print_exception(
-        exc: BaseException, /, *, limit: int | None = None, file: SupportsWrite[str] | None = None, chain: bool = True
+        exc: BaseException, /, *, limit: int | None = None, file: Writer[str] | None = None, chain: bool = True
     ) -> None: ...
     @overload
     def format_exception(
@@ -67,7 +67,7 @@ else:
         value: BaseException | None,
         tb: TracebackType | None,
         limit: int | None = None,
-        file: SupportsWrite[str] | None = None,
+        file: Writer[str] | None = None,
         chain: bool = True,
     ) -> None: ...
     def format_exception(
@@ -78,13 +78,13 @@ else:
         chain: bool = True,
     ) -> list[str]: ...
 
-def print_exc(limit: int | None = None, file: SupportsWrite[str] | None = None, chain: bool = True) -> None: ...
-def print_last(limit: int | None = None, file: SupportsWrite[str] | None = None, chain: bool = True) -> None: ...
-def print_stack(f: FrameType | None = None, limit: int | None = None, file: SupportsWrite[str] | None = None) -> None: ...
+def print_exc(limit: int | None = None, file: Writer[str] | None = None, chain: bool = True) -> None: ...
+def print_last(limit: int | None = None, file: Writer[str] | None = None, chain: bool = True) -> None: ...
+def print_stack(f: FrameType | None = None, limit: int | None = None, file: Writer[str] | None = None) -> None: ...
 def extract_tb(tb: TracebackType | None, limit: int | None = None) -> StackSummary: ...
 def extract_stack(f: FrameType | None = None, limit: int | None = None) -> StackSummary: ...
 def format_list(extracted_list: Iterable[FrameSummary | _FrameSummaryTuple]) -> list[str]: ...
-def print_list(extracted_list: Iterable[FrameSummary | _FrameSummaryTuple], file: SupportsWrite[str] | None = None) -> None: ...
+def print_list(extracted_list: Iterable[FrameSummary | _FrameSummaryTuple], file: Writer[str] | None = None) -> None: ...
 
 if sys.version_info >= (3, 13):
     @overload
@@ -242,7 +242,7 @@ class TracebackException:
         def format_exception_only(self) -> Generator[str, None, None]: ...
 
     if sys.version_info >= (3, 11):
-        def print(self, *, file: SupportsWrite[str] | None = None, chain: bool = True) -> None: ...
+        def print(self, *, file: Writer[str] | None = None, chain: bool = True) -> None: ...
 
 class FrameSummary:
     if sys.version_info >= (3, 11):

@@ -1,9 +1,8 @@
 import _typeshed
 import sys
-from _typeshed import SupportsWrite
 from collections.abc import Callable
 from typing import Any, Literal, TypeVar
-from typing_extensions import Concatenate, ParamSpec, deprecated
+from typing_extensions import Concatenate, ParamSpec, Writer, deprecated
 
 _T = TypeVar("_T")
 _R_co = TypeVar("_R_co", covariant=True)
@@ -24,7 +23,7 @@ class ABCMeta(type):
 
     def __instancecheck__(cls: ABCMeta, instance: Any) -> bool: ...
     def __subclasscheck__(cls: ABCMeta, subclass: type) -> bool: ...
-    def _dump_registry(cls: ABCMeta, file: SupportsWrite[str] | None = None) -> None: ...
+    def _dump_registry(cls: ABCMeta, file: Writer[str] | None = None) -> None: ...
     def register(cls: ABCMeta, subclass: type[_T]) -> type[_T]: ...
 
 def abstractmethod(funcobj: _FuncT) -> _FuncT: ...

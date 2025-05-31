@@ -3,12 +3,12 @@ import io
 import ssl
 import sys
 import types
-from _typeshed import MaybeNone, ReadableBuffer, SupportsRead, SupportsReadline, WriteableBuffer
+from _typeshed import MaybeNone, ReadableBuffer, SupportsReadline, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from email._policybase import _MessageT
 from socket import socket
 from typing import BinaryIO, Literal, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Reader, Self, TypeAlias
 
 __all__ = [
     "HTTPResponse",
@@ -32,7 +32,7 @@ __all__ = [
     "HTTPSConnection",
 ]
 
-_DataType: TypeAlias = SupportsRead[bytes] | Iterable[ReadableBuffer] | ReadableBuffer
+_DataType: TypeAlias = Reader[bytes] | Iterable[ReadableBuffer] | ReadableBuffer
 _T = TypeVar("_T")
 _HeaderValue: TypeAlias = ReadableBuffer | str | int
 

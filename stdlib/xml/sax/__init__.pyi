@@ -1,8 +1,8 @@
 import sys
-from _typeshed import ReadableBuffer, StrPath, SupportsRead, _T_co
+from _typeshed import ReadableBuffer, StrPath, _T_co
 from collections.abc import Iterable
 from typing import Protocol
-from typing_extensions import TypeAlias
+from typing_extensions import Reader, TypeAlias
 from xml.sax._exceptions import (
     SAXException as SAXException,
     SAXNotRecognizedException as SAXNotRecognizedException,
@@ -13,7 +13,7 @@ from xml.sax._exceptions import (
 from xml.sax.handler import ContentHandler as ContentHandler, ErrorHandler as ErrorHandler
 from xml.sax.xmlreader import InputSource as InputSource, XMLReader
 
-class _SupportsReadClose(SupportsRead[_T_co], Protocol[_T_co]):
+class _SupportsReadClose(Reader[_T_co], Protocol[_T_co]):
     def close(self) -> None: ...
 
 _Source: TypeAlias = StrPath | _SupportsReadClose[bytes] | _SupportsReadClose[str]
