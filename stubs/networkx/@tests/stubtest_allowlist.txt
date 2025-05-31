@@ -16,9 +16,6 @@ networkx\.(algorithms\.)?(centrality\.)?(current_flow_closeness\.)?information_c
 networkx\.(generators\.)?(random_graphs\.)?binomial_graph
 networkx\.(generators\.)?(random_graphs\.)?erdos_renyi_graph
 networkx\.(algorithms\.(minors\.(contraction\.)?)?)?identified_nodes
-networkx\.algorithms\.isomorphism\.isomorph\.faster_graph_could_be_isomorphic
-networkx\.algorithms\.isomorphism\.isomorph\.fast_graph_could_be_isomorphic
-networkx\.algorithms\.isomorphism\.isomorph\.graph_could_be_isomorphic
 networkx\.algorithms\.flow\.maxflow\.default_flow_func
 networkx\.algorithms\.[a-z_\.]+\.default_flow_func
 networkx\.(algorithms\.(centrality\.(load\.)?)?)?load_centrality
