@@ -1,9 +1,9 @@
-from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
+from _typeshed import ReadableBuffer, StrOrBytesPath, SupportsWrite, WriteableBuffer
 from collections.abc import Mapping
 from compression._common import _streams
 from compression.zstd import ZstdDict
-from io import TextIOWrapper
-from typing import IO, Literal, overload
+from io import TextIOWrapper, _WrappedBuffer
+from typing import Literal, overload, type_check_only
 from typing_extensions import TypeAlias
 
 from _zstd import ZstdCompressor, _ZstdCompressorFlushBlock, _ZstdCompressorFlushFrame
@@ -14,8 +14,14 @@ _ReadBinaryMode: TypeAlias = Literal["r", "rb"]
 _WriteBinaryMode: TypeAlias = Literal["w", "wb", "x", "xb", "a", "ab"]
 _ReadTextMode: TypeAlias = Literal["rt"]
 _WriteTextMode: TypeAlias = Literal["wt", "xt", "at"]
-_PathOrFileBinary: TypeAlias = StrOrBytesPath | IO[bytes]
-_PathOrFileText: TypeAlias = StrOrBytesPath | IO[str]
+
+@type_check_only
+class _FileBinaryRead(_streams._Reader):
+    def close(self) -> None: ...
+
+@type_check_only
+class _FileBinaryWrite(SupportsWrite[bytes]):
+    def close(self) -> None: ...
 
 class ZstdFile(_streams.BaseStream):
     FLUSH_BLOCK = ZstdCompressor.FLUSH_BLOCK
@@ -24,7 +30,7 @@ class ZstdFile(_streams.BaseStream):
     @overload
     def __init__(
         self,
-        file: _PathOrFileBinary,
+        file: StrOrBytesPath | _FileBinaryRead,
         /,
         mode: _ReadBinaryMode = "r",
         *,
@@ -35,7 +41,7 @@ class ZstdFile(_streams.BaseStream):
     @overload
     def __init__(
         self,
-        file: _PathOrFileBinary,
+        file: StrOrBytesPath | _FileBinaryWrite,
         /,
         mode: _WriteBinaryMode,
         *,
@@ -59,7 +65,7 @@ class ZstdFile(_streams.BaseStream):
 
 @overload
 def open(
-    file: _PathOrFileBinary,
+    file: StrOrBytesPath | _FileBinaryRead,
     /,
     mode: _ReadBinaryMode = "rb",
     *,
@@ -72,7 +78,7 @@ def open(
 ) -> ZstdFile: ...
 @overload
 def open(
-    file: _PathOrFileBinary,
+    file: StrOrBytesPath | _FileBinaryWrite,
     /,
     mode: _WriteBinaryMode,
     *,
@@ -85,7 +91,7 @@ def open(
 ) -> ZstdFile: ...
 @overload
 def open(
-    file: _PathOrFileText,
+    file: StrOrBytesPath | _WrappedBuffer,
     /,
     mode: _ReadTextMode,
     *,
@@ -98,7 +104,7 @@ def open(
 ) -> TextIOWrapper: ...
 @overload
 def open(
-    file: _PathOrFileText,
+    file: StrOrBytesPath | _WrappedBuffer,
     /,
     mode: _WriteTextMode,
     *,
