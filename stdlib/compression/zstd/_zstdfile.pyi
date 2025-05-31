@@ -25,11 +25,11 @@ class ZstdFile(_streams.BaseStream):
         self,
         file: _PathOrFileBinary,
         /,
-        mode: _ReadBinaryMode = ...,
+        mode: _ReadBinaryMode = "r",
         *,
-        level: None = ...,
-        options: Mapping[int, int] | None = ...,
-        zstd_dict: ZstdDict | None = ...,
+        level: None = None,
+        options: Mapping[int, int] | None = None,
+        zstd_dict: ZstdDict | None = None,
     ) -> None: ...
     @overload
     def __init__(
@@ -38,19 +38,19 @@ class ZstdFile(_streams.BaseStream):
         /,
         mode: _WriteBinaryMode,
         *,
-        level: int | None = ...,
-        options: Mapping[int, int] | None = ...,
-        zstd_dict: ZstdDict | None = ...,
+        level: int | None = None,
+        options: Mapping[int, int] | None = None,
+        zstd_dict: ZstdDict | None = None,
     ) -> None: ...
     def write(self, data: ReadableBuffer, /) -> int: ...
-    def flush(self, mode: _ZstdCompressorFlushBlock | _ZstdCompressorFlushFrame = ...) -> bytes: ...  # type: ignore[override]
-    def read(self, size: int | None = ...) -> bytes: ...
-    def read1(self, size: int | None = ...) -> bytes: ...
+    def flush(self, mode: _ZstdCompressorFlushBlock | _ZstdCompressorFlushFrame = 1) -> bytes: ...  # type: ignore[override]
+    def read(self, size: int | None = -1) -> bytes: ...
+    def read1(self, size: int | None = -1) -> bytes: ...
     def readinto(self, b: WriteableBuffer) -> int: ...
     def readinto1(self, b: WriteableBuffer) -> int: ...
-    def readline(self, size: int | None = ...) -> bytes: ...
-    def seek(self, offset: int, whence: int = ...) -> int: ...
-    def peek(self, size: int = ...) -> bytes: ...
+    def readline(self, size: int | None = -1) -> bytes: ...
+    def seek(self, offset: int, whence: int = 0) -> int: ...
+    def peek(self, size: int = -1) -> bytes: ...
     @property
     def name(self) -> str | bytes: ...
     @property
@@ -60,14 +60,14 @@ class ZstdFile(_streams.BaseStream):
 def open(
     file: _PathOrFileBinary,
     /,
-    mode: _ReadBinaryMode = ...,
+    mode: _ReadBinaryMode = "rb",
     *,
-    level: None = ...,
-    options: Mapping[int, int] | None = ...,
-    zstd_dict: ZstdDict | None = ...,
-    encoding: str | None = ...,
-    errors: str | None = ...,
-    newline: str | None = ...,
+    level: None = None,
+    options: Mapping[int, int] | None = None,
+    zstd_dict: ZstdDict | None = None,
+    encoding: str | None = None,
+    errors: str | None = None,
+    newline: str | None = None,
 ) -> ZstdFile: ...
 @overload
 def open(
@@ -75,12 +75,12 @@ def open(
     /,
     mode: _WriteBinaryMode,
     *,
-    level: int | None = ...,
-    options: Mapping[int, int] | None = ...,
-    zstd_dict: ZstdDict | None = ...,
-    encoding: str | None = ...,
-    errors: str | None = ...,
-    newline: str | None = ...,
+    level: int | None = None,
+    options: Mapping[int, int] | None = None,
+    zstd_dict: ZstdDict | None = None,
+    encoding: str | None = None,
+    errors: str | None = None,
+    newline: str | None = None,
 ) -> ZstdFile: ...
 @overload
 def open(
@@ -88,12 +88,12 @@ def open(
     /,
     mode: _ReadTextMode,
     *,
-    level: None = ...,
-    options: Mapping[int, int] | None = ...,
-    zstd_dict: ZstdDict | None = ...,
-    encoding: str | None = ...,
-    errors: str | None = ...,
-    newline: str | None = ...,
+    level: None = None,
+    options: Mapping[int, int] | None = None,
+    zstd_dict: ZstdDict | None = None,
+    encoding: str | None = None,
+    errors: str | None = None,
+    newline: str | None = None,
 ) -> TextIO: ...
 @overload
 def open(
@@ -101,10 +101,10 @@ def open(
     /,
     mode: _WriteTextMode,
     *,
-    level: int | None = ...,
-    options: Mapping[int, int] | None = ...,
-    zstd_dict: ZstdDict | None = ...,
-    encoding: str | None = ...,
-    errors: str | None = ...,
-    newline: str | None = ...,
+    level: int | None = None,
+    options: Mapping[int, int] | None = None,
+    zstd_dict: ZstdDict | None = None,
+    encoding: str | None = None,
+    errors: str | None = None,
+    newline: str | None = None,
 ) -> TextIO: ...
