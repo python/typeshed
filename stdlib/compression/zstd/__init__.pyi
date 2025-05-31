@@ -32,7 +32,7 @@ __all__ = (
 )
 
 zstd_version_info: Final[tuple[int, int, int]]
-COMPRESSION_LEVEL_DEFAULT: Final[int]
+COMPRESSION_LEVEL_DEFAULT: Final = _zstd.ZSTD_CLEVEL_DEFAULT
 
 class FrameInfo:
     decompressed_size: int

@@ -3,37 +3,37 @@ from collections.abc import Mapping
 from typing import Any, Final, Literal, final
 from typing_extensions import Self, TypeAlias
 
-ZSTD_CLEVEL_DEFAULT: Final[int]
-ZSTD_DStreamOutSize: Final[int]
-ZSTD_btlazy2: Final[int]
-ZSTD_btopt: Final[int]
-ZSTD_btultra: Final[int]
-ZSTD_btultra2: Final[int]
-ZSTD_c_chainLog: Final[int]
-ZSTD_c_checksumFlag: Final[int]
-ZSTD_c_compressionLevel: Final[int]
-ZSTD_c_contentSizeFlag: Final[int]
-ZSTD_c_dictIDFlag: Final[int]
-ZSTD_c_enableLongDistanceMatching: Final[int]
-ZSTD_c_hashLog: Final[int]
-ZSTD_c_jobSize: Final[int]
-ZSTD_c_ldmBucketSizeLog: Final[int]
-ZSTD_c_ldmHashLog: Final[int]
-ZSTD_c_ldmHashRateLog: Final[int]
-ZSTD_c_ldmMinMatch: Final[int]
-ZSTD_c_minMatch: Final[int]
-ZSTD_c_nbWorkers: Final[int]
-ZSTD_c_overlapLog: Final[int]
-ZSTD_c_searchLog: Final[int]
-ZSTD_c_strategy: Final[int]
-ZSTD_c_targetLength: Final[int]
-ZSTD_c_windowLog: Final[int]
-ZSTD_d_windowLogMax: Final[int]
-ZSTD_dfast: Final[int]
-ZSTD_fast: Final[int]
-ZSTD_greedy: Final[int]
-ZSTD_lazy: Final[int]
-ZSTD_lazy2: Final[int]
+ZSTD_CLEVEL_DEFAULT: Final = 3
+ZSTD_DStreamOutSize: Final = 131072
+ZSTD_btlazy2: Final = 6
+ZSTD_btopt: Final = 7
+ZSTD_btultra: Final = 8
+ZSTD_btultra2: Final = 9
+ZSTD_c_chainLog: Final = 103
+ZSTD_c_checksumFlag: Final = 201
+ZSTD_c_compressionLevel: Final = 100
+ZSTD_c_contentSizeFlag: Final = 200
+ZSTD_c_dictIDFlag: Final = 202
+ZSTD_c_enableLongDistanceMatching: Final = 160
+ZSTD_c_hashLog: Final = 102
+ZSTD_c_jobSize: Final = 401
+ZSTD_c_ldmBucketSizeLog: Final = 163
+ZSTD_c_ldmHashLog: Final = 161
+ZSTD_c_ldmHashRateLog: Final = 164
+ZSTD_c_ldmMinMatch: Final = 162
+ZSTD_c_minMatch: Final = 105
+ZSTD_c_nbWorkers: Final = 400
+ZSTD_c_overlapLog: Final = 402
+ZSTD_c_searchLog: Final = 104
+ZSTD_c_strategy: Final = 107
+ZSTD_c_targetLength: Final = 106
+ZSTD_c_windowLog: Final = 101
+ZSTD_d_windowLogMax: Final = 100
+ZSTD_dfast: Final = 2
+ZSTD_fast: Final = 1
+ZSTD_greedy: Final = 3
+ZSTD_lazy: Final = 4
+ZSTD_lazy2: Final = 5
 
 _ZstdCompressorContinue: TypeAlias = Literal[0]
 _ZstdCompressorFlushBlock: TypeAlias = Literal[1]
