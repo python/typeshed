@@ -42,9 +42,9 @@ _ZstdCompressorFlushFrame: TypeAlias = Literal[2]
 
 @final
 class ZstdCompressor:
-    CONTINUE: Final[_ZstdCompressorContinue] = 0
-    FLUSH_BLOCK: Final[_ZstdCompressorFlushBlock] = 1
-    FLUSH_FRAME: Final[_ZstdCompressorFlushFrame] = 2
+    CONTINUE: Final = 0
+    FLUSH_BLOCK: Final = 1
+    FLUSH_FRAME: Final = 2
     def __init__(
         self, level: int | None = None, options: Mapping[int, int] | None = None, zstd_dict: ZstdDict | None = None
     ) -> None: ...
