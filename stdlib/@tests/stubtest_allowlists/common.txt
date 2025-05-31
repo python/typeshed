@@ -210,6 +210,8 @@ _?ast.stmt.__init__
 
 _ast.ImportFrom.level  # None on the class, but never None on instances
 
+argparse.Namespace.__setattr__  # should allow setting any attribute
+
 ast.ImportFrom.level  # None on the class, but never None on instances
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
 _?asyncio.Future.__init__  # Usually initialized from c object
@@ -272,7 +274,9 @@ _?ctypes.Array._length_  # _length_ is abstract, https://github.com/python/types
 _?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 _?ctypes.Structure.__getattr__  # doesn't exist, but makes things easy if we pretend it does
+_?ctypes.Structure.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 _?ctypes.Union.__getattr__  # doesn't exist, but makes things easy if we pretend it does
+_?ctypes.Union.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
@@ -322,6 +326,8 @@ inspect.Signature.__init__
 
 inspect.Parameter.empty  # set as private marker _empty
 inspect.Signature.empty  # set as private marker _empty
+
+logging.LogRecord.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
@@ -380,7 +386,9 @@ multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
 
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
+
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
+optparse.Values.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 
 os._wrap_close.read  # Methods that come from __getattr__() at runtime
 os._wrap_close.readable  # Methods that come from __getattr__() at runtime
