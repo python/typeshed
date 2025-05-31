@@ -2,7 +2,8 @@ from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Mapping
 from compression._common import _streams
 from compression.zstd import ZstdDict
-from typing import IO, Literal, TextIO, overload
+from io import TextIOWrapper
+from typing import IO, Literal, overload
 from typing_extensions import TypeAlias
 
 from _zstd import ZstdCompressor, _ZstdCompressorFlushBlock, _ZstdCompressorFlushFrame
@@ -94,7 +95,7 @@ def open(
     encoding: str | None = None,
     errors: str | None = None,
     newline: str | None = None,
-) -> TextIO: ...
+) -> TextIOWrapper: ...
 @overload
 def open(
     file: _PathOrFileText,
@@ -107,4 +108,4 @@ def open(
     encoding: str | None = None,
     errors: str | None = None,
     newline: str | None = None,
-) -> TextIO: ...
+) -> TextIOWrapper: ...
