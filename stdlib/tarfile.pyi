@@ -125,6 +125,25 @@ class TarFile:
     extraction_filter: _FilterFunction | None
     if sys.version_info >= (3, 13):
         stream: bool
+        @overload
+        def __init__(
+            self,
+            name: StrOrBytesPath,
+            mode: Literal["r", "a", "w", "x"] = "r",
+            fileobj: _Fileobj | None = None,
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: int | None = None,
+            errorlevel: int | None = None,
+            copybufsize: int | None = None,
+            stream: bool = False,
+        ) -> None: ...
+        @overload
         def __init__(
             self,
             name: StrOrBytesPath | None = None,
@@ -139,10 +158,47 @@ class TarFile:
             pax_headers: Mapping[str, str] | None = None,
             debug: int | None = None,
             errorlevel: int | None = None,
-            copybufsize: int | None = None,  # undocumented
+            copybufsize: int | None = None,
+            stream: bool = False,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            fileobj: _Fileobj,
+            *,
+            name: StrOrBytesPath | None = None,
+            mode: Literal["r", "a", "w", "x"] = "r",
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: int | None = None,
+            errorlevel: int | None = None,
+            copybufsize: int | None = None,
             stream: bool = False,
         ) -> None: ...
     else:
+        @overload
+        def __init__(
+            self,
+            name: StrOrBytesPath,
+            mode: Literal["r", "a", "w", "x"] = "r",
+            fileobj: _Fileobj | None = None,
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: int | None = None,
+            errorlevel: int | None = None,
+            copybufsize: int | None = None,
+        ) -> None: ...
+        @overload
         def __init__(
             self,
             name: StrOrBytesPath | None = None,
@@ -157,7 +213,25 @@ class TarFile:
             pax_headers: Mapping[str, str] | None = None,
             debug: int | None = None,
             errorlevel: int | None = None,
-            copybufsize: int | None = None,  # undocumented
+            copybufsize: int | None = None,
+        ) -> None: ...
+        @overload
+        def __init__(
+            self,
+            fileobj: _Fileobj,
+            *,
+            name: StrOrBytesPath | None = None,
+            mode: Literal["r", "a", "w", "x"] = "r",
+            format: int | None = None,
+            tarinfo: type[TarInfo] | None = None,
+            dereference: bool | None = None,
+            ignore_zeros: bool | None = None,
+            encoding: str | None = None,
+            errors: str = "surrogateescape",
+            pax_headers: Mapping[str, str] | None = None,
+            debug: int | None = None,
+            errorlevel: int | None = None,
+            copybufsize: int | None = None,
         ) -> None: ...
 
     def __enter__(self) -> Self: ...
@@ -169,11 +243,49 @@ class TarFile:
     @classmethod
     def open(
         cls,
+        name: StrOrBytesPath,
+        mode: Literal["r", "r:*", "r:", "r:gz", "r:bz2", "r:xz"] = "r",
+        fileobj: _Fileobj | None = None,
+        bufsize: int = 10240,
+        *,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        errors: str = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def open(
+        cls,
         name: StrOrBytesPath | None = None,
         mode: Literal["r", "r:*", "r:", "r:gz", "r:bz2", "r:xz"] = "r",
         fileobj: _Fileobj | None = None,
         bufsize: int = 10240,
         *,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        errors: str = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def open(
+        cls,
+        fileobj: _Fileobj,
+        *,
+        name: StrOrBytesPath | None = None,
+        mode: Literal["r", "r:*", "r:", "r:gz", "r:bz2", "r:xz"] = "r",
+        bufsize: int = 10240,
         format: int | None = ...,
         tarinfo: type[TarInfo] | None = ...,
         dereference: bool | None = ...,
@@ -418,6 +530,25 @@ class TarFile:
         errorlevel: int | None = ...,
         compresslevel: int = 9,
     ) -> Self: ...
+    @overload
+    @classmethod
+    def taropen(
+        cls,
+        name: StrOrBytesPath,
+        mode: Literal["r", "a", "w", "x"] = "r",
+        fileobj: _Fileobj | None = None,
+        *,
+        compresslevel: int = ...,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
     @classmethod
     def taropen(
         cls,
@@ -426,6 +557,60 @@ class TarFile:
         fileobj: _Fileobj | None = None,
         *,
         compresslevel: int = ...,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def taropen(
+        cls,
+        fileobj: _Fileobj,
+        *,
+        name: StrOrBytesPath | None,
+        mode: Literal["r", "a", "w", "x"] = "r",
+        compresslevel: int = ...,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def gzopen(
+        cls,
+        name: StrOrBytesPath,
+        mode: Literal["r"] = "r",
+        fileobj: _GzipReadableFileobj | None = None,
+        compresslevel: int = 9,
+        *,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def gzopen(
+        cls,
+        name: StrOrBytesPath,
+        mode: Literal["w", "x"],
+        fileobj: _GzipWritableFileobj | None = None,
+        compresslevel: int = 9,
+        *,
         format: int | None = ...,
         tarinfo: type[TarInfo] | None = ...,
         dereference: bool | None = ...,
@@ -473,6 +658,78 @@ class TarFile:
     ) -> Self: ...
     @overload
     @classmethod
+    def gzopen(
+        cls,
+        fileobj: _GzipReadableFileobj,
+        *,
+        name: StrOrBytesPath | None,
+        mode: Literal["r"] = "r",
+        compresslevel: int = 9,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def gzopen(
+        cls,
+        fileobj: _GzipWritableFileobj,
+        *,
+        name: StrOrBytesPath | None,
+        mode: Literal["w", "x"],
+        compresslevel: int = 9,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def bz2open(
+        cls,
+        name: StrOrBytesPath,
+        mode: Literal["r"] = "r",
+        fileobj: _Bz2ReadableFileobj | None = None,
+        compresslevel: int = 9,
+        *,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def bz2open(
+        cls,
+        name: StrOrBytesPath,
+        mode: Literal["w", "x"],
+        fileobj: _Bz2WritableFileobj | None = None,
+        compresslevel: int = 9,
+        *,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
     def bz2open(
         cls,
         name: StrOrBytesPath | None,
@@ -507,6 +764,61 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
+    @overload
+    @classmethod
+    def bz2open(
+        cls,
+        fileobj: _Bz2ReadableFileobj,
+        *,
+        name: StrOrBytesPath | None,
+        mode: Literal["r"] = "r",
+        compresslevel: int = 9,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def bz2open(
+        cls,
+        fileobj: _Bz2WritableFileobj,
+        *,
+        name: StrOrBytesPath | None,
+        mode: Literal["w", "x"],
+        compresslevel: int = 9,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def xzopen(
+        cls,
+        name: StrOrBytesPath,
+        mode: Literal["r", "w", "x"] = "r",
+        fileobj: IO[bytes] | None = None,
+        preset: int | None = None,
+        *,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
     @classmethod
     def xzopen(
         cls,
@@ -515,6 +827,24 @@ class TarFile:
         fileobj: IO[bytes] | None = None,
         preset: int | None = None,
         *,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def xzopen(
+        cls,
+        fileobj: IO[bytes],
+        *,
+        name: StrOrBytesPath | None,
+        mode: Literal["r", "w", "x"] = "r",
+        preset: int | None = None,
         format: int | None = ...,
         tarinfo: type[TarInfo] | None = ...,
         dereference: bool | None = ...,
