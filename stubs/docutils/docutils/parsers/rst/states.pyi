@@ -1,16 +1,16 @@
+from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from re import Match, Pattern
 from types import ModuleType
 from typing import Any, ClassVar, Final, Literal, TypeVar, overload
+from typing_extensions import Never, TypeAlias
 
-from _typeshed import Incomplete
 from docutils import ApplicationError, DataError, nodes
 from docutils.parsers.rst import Directive
 from docutils.parsers.rst.languages import _RstLanguageModule
 from docutils.parsers.rst.tableparser import TableParser
 from docutils.statemachine import StateMachine, StateMachineWS, StateWS, StringList
 from docutils.utils import Reporter
-from typing_extensions import Never, TypeAlias
 
 __docformat__: Final = "reStructuredText"
 
