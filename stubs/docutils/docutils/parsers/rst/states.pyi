@@ -1,16 +1,16 @@
-from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from re import Match, Pattern
 from types import ModuleType
 from typing import Any, ClassVar, Final, Literal, TypeVar, overload
-from typing_extensions import Never, TypeAlias
 
+from _typeshed import Incomplete
 from docutils import ApplicationError, DataError, nodes
 from docutils.parsers.rst import Directive
 from docutils.parsers.rst.languages import _RstLanguageModule
 from docutils.parsers.rst.tableparser import TableParser
 from docutils.statemachine import StateMachine, StateMachineWS, StateWS, StringList
 from docutils.utils import Reporter
+from typing_extensions import Never, TypeAlias
 
 __docformat__: Final = "reStructuredText"
 
@@ -35,7 +35,7 @@ class RSTStateMachine(StateMachineWS[Incomplete]):
     document: nodes.document
     reporter: Reporter
     node: nodes.document | None
-    def run(
+    def run(  # type: ignore[override]
         self,
         input_lines: Sequence[str] | StringList,
         document: nodes.document,
@@ -51,12 +51,12 @@ class NestedStateMachine(StateMachineWS[Incomplete]):
     reporter: Reporter
     language: Incomplete
     node: Incomplete
-    def run(
+    def run(  # type: ignore[override]
         self, input_lines: Sequence[str] | StringList, input_offset: int, memo, node: nodes.Node, match_titles: bool = True
     ) -> list[str]: ...
 
 class RSTState(StateWS[list[str]]):
-    nested_sm: ClassVar[type[NestedStateMachine]]
+    nested_sm: ClassVar[type[NestedStateMachine]]  # type: ignore[misc]
     nested_sm_cache: ClassVar[list[StateMachine[Incomplete]]]
     nested_sm_kwargs: dict[str, Any]
     def __init__(self, state_machine, debug: bool = False) -> None: ...
@@ -270,7 +270,7 @@ class Body(RSTState):
 
 class RFC2822Body(Body):
     patterns: ClassVar[dict[str, str | Pattern[str]]]
-    initial_transitions: ClassVar[list[tuple[str | tuple[str, str], str]]]
+    initial_transitions: ClassVar[list[tuple[str | tuple[str, str], str]]]  # type: ignore[assignment]
 
     def rfc2822(self, match: Match[str], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[str]]: ...
     def rfc2822_field(self, match: Match[str]): ...
@@ -295,29 +295,29 @@ class SpecializedBody(Body):
     text = invalid_input
 
 class BulletList(SpecializedBody):
-    def bullet(self, match: Match[str], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[Any]]: ...
+    def bullet(self, match: Match[str], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[Any]]: ...  # type: ignore[override]
 
 class DefinitionList(SpecializedBody):
-    def text(self, match: Match[str], context: Any, next_state: Any) -> tuple[list[str], Literal["Definition"], list[Any]]: ...
+    def text(self, match: Match[str], context: Any, next_state: Any) -> tuple[list[str], Literal["Definition"], list[Any]]: ...  # type: ignore[override]
 
 class EnumeratedList(SpecializedBody):
     auto: int
     blank_finish: Incomplete
     lastordinal: Incomplete
 
-    def enumerator(self, match: Match[str], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[Any]]: ...
+    def enumerator(self, match: Match[str], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[Any]]: ...  # type: ignore[override]
 
 class FieldList(SpecializedBody):
     blank_finish: Incomplete
 
-    def field_marker(
+    def field_marker(  # type: ignore[override]
         self, match: Match[str], context: Any, next_state: _NextState
     ) -> tuple[list[Any], _NextState, list[Any]]: ...
 
 class OptionList(SpecializedBody):
     blank_finish: Incomplete
 
-    def option_marker(
+    def option_marker(  # type: ignore[override]
         self, match: Match[str], context: Any, next_state: _NextState
     ) -> tuple[list[Any], _NextState, list[Any]]: ...
 
@@ -326,7 +326,7 @@ class RFC2822List(SpecializedBody, RFC2822Body):
     initial_transitions: ClassVar[list[tuple[str | tuple[str, str], str]]]
     blank_finish: Incomplete
 
-    def rfc2822(
+    def rfc2822(  # type: ignore[override]
         self, match: Match[str], context: Any, next_state: Any
     ) -> tuple[list[Any], Literal["RFC2822List"], list[Any]]: ...
     def blank(self, match: Any = None, context: Any = None, next_state: Any = None) -> Never: ...
@@ -335,25 +335,23 @@ class ExtensionOptions(FieldList):
     def parse_field_body(self, indented: StringList, offset: Any, node: nodes.Node) -> None: ...
 
 class LineBlock(SpecializedBody):
-    blank: Incomplete
     blank_finish: Incomplete
 
     def blank(self, match: Any = None, context: Any = None, next_state: Any = None) -> Never: ...
-    def line_block(self, match: Match[Any], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[Any]]: ...
+    def line_block(self, match: Match[Any], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[Any]]: ...  # type: ignore[override]
 
 class Explicit(SpecializedBody):
     blank_finish: Incomplete
-    blank: Incomplete
 
-    def explicit_markup(
+    def explicit_markup(  # type: ignore[override]
         self, match: Match[str], context: Any, next_state: _NextState
     ) -> tuple[list[Any], _NextState, list[Any]]: ...
-    def anonymous(self, match: Match[str], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[Any]]: ...
+    def anonymous(self, match: Match[str], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[Any]]: ...  # type: ignore[override]
     def blank(self, match: Any = None, context: Any = None, next_state: Any = None) -> Never: ...
 
 class SubstitutionDef(Body):
     patterns: ClassVar[dict[str, str | Pattern[str]]]
-    initial_transitions: ClassVar[list[str]]
+    initial_transitions: ClassVar[list[str]]  # type: ignore[assignment]
     blank_finish: Incomplete
 
     def embedded_directive(self, match: Match[str], context: Any, next_state: Any) -> Never: ...
@@ -387,18 +385,18 @@ class SpecializedText(Text):
 
 class Definition(SpecializedText):
     def eof(self, context: Any) -> list[Any]: ...
-    def indent(
-        self, match: Any, context: StringList, next_state: Any
+    def indent(  # type: ignore[override]
+        self, match: Any, context: list[str], next_state: Any
     ) -> tuple[list[Any], Literal["DefinitionList"], list[Any]]: ...
 
 class Line(SpecializedText):
     eofcheck: Literal[1]
 
     def eof(self, context: Any) -> list[Any]: ...
-    def blank(self, match: Any, context: Any, next_state: Any) -> tuple[list[Any], Literal["Body"], list[Any]]: ...
-    def text(self, match: Match[str], context: StringList, next_state: Any) -> tuple[list[Any], Literal["Body"], list[Any]]: ...
-    def indent(self, match: Match[str], context: StringList, next_state: Any) -> tuple[list[Any], Literal["Body"], list[Any]]: ...
-    def underline(self, match: Any, context: StringList, next_state: Any) -> tuple[list[Any], Literal["Body"], list[Any]]: ...
+    def blank(self, match: Any, context: Any, next_state: Any) -> tuple[list[Any], Literal["Body"], list[Any]]: ...  # type: ignore[override]
+    def text(self, match: Match[str], context: list[str], next_state: Any) -> tuple[list[Any], Literal["Body"], list[Any]]: ...  # type: ignore[override]
+    def indent(self, match: Match[str], context: list[str], next_state: Any) -> tuple[list[Any], Literal["Body"], list[Any]]: ...  # type: ignore[override]
+    def underline(self, match: Any, context: list[str], next_state: Any) -> tuple[list[Any], Literal["Body"], list[Any]]: ...  # type: ignore[override]
     def short_overline(self, context: list[Any], blocktext: Any, lineno: int | None, lines: int = 1) -> None: ...
     def state_correction(self, context: list[Any], lines: int = 1) -> Never: ...
 
@@ -414,8 +412,8 @@ class QuotedLiteralBlock(RSTState):
     ) -> tuple[_EmptyContext, _NextState, list[Any]]: ...
     @overload
     def blank(self, match: Any, context: Any, next_state: _NextState) -> Never: ...
-    def eof(self, context: StringList) -> list[Any]: ...
-    def indent(self, match: Any, context: StringList, next_state: Any) -> Never: ...
+    def eof(self, context: list[str]) -> list[Any]: ...
+    def indent(self, match: Any, context: list[str], next_state: Any) -> Never: ...
     def initial_quoted(
         self, match: Match[str], context: Any, next_state: _NextState
     ) -> tuple[list[str], _NextState, list[Any]]: ...
