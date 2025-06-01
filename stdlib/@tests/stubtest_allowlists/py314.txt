@@ -55,6 +55,10 @@ functools.partialmethod.__new__
 
 zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
 
+# Types that require `__setattr__` and `__delattr__` for typing purposes:
+types.SimpleNamespace.__setattr__
+types.SimpleNamespace.__delattr__
+
 
 # =======
 # >= 3.11
@@ -100,10 +104,6 @@ typing(_extensions)?\.IO\.writelines
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.14
 # =============================================================
-
-# Internal annotations machinery
-.*\.__annotate_func__
-.*\.__annotations_cache__
 
 # Undocumented private attributes
 .*\.ForwardRef\.__arg__
