@@ -53,14 +53,6 @@ reportlab.lib.utils.CIDict.get
 reportlab.lib.utils.CIDict.pop
 reportlab.lib.utils.CIDict.setdefault
 
-# these have a __module__ argument which confuses stubtest
-reportlab.lib.testutils.rlSkip
-reportlab.lib.testutils.rlSkipIf
-reportlab.lib.testutils.rlSkipUnless
-
-# __map__ argument confuses stubtest
-reportlab.lib.styles.str2alignment
-
 # __new__ just forwards the arguments to the super class
 # it doesn't actually accept arbitrary arguments
 reportlab.platypus.doctemplate.PTCycle.__new__
@@ -83,6 +75,10 @@ reportlab.graphics.barcode.qrencoder.i
 reportlab.lib.fonts.k
 reportlab.lib.pdfencrypt.i
 
+# should allow setting any attribute
+reportlab.lib.abag.ABag.__setattr__
+reportlab.lib.styles.PropertySet.__setattr__
+
 # *-imports that cause a mess we don't want to propagate
 reportlab.graphics.charts.lineplots.pi
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.EVEN_ODD
@@ -94,25 +90,6 @@ reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.decimalSymbol
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.pi
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.shapeChecking
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.verbose
-
-# messed up __all__ which contains just a string
-reportlab.graphics.barcode.qr.C
-reportlab.graphics.barcode.qr.Q
-reportlab.graphics.barcode.qr.W
-reportlab.graphics.barcode.qr.__all__
-reportlab.graphics.barcode.qr.d
-reportlab.graphics.barcode.qr.e
-reportlab.graphics.barcode.qr.g
-reportlab.graphics.barcode.qr.i
-reportlab.graphics.barcode.qr.o
-reportlab.graphics.barcode.qr.r
-reportlab.graphics.barcode.qr.t
-
-# spelling mistake in __all__
-reportlab.graphics.barcode.ecc200datamatrix.ECC200datamatrix
-
-# wasn't removed from __all__ by accident
-reportlab.graphics.barcode.eanbc.isEanString
 
 
 # Error: is not present at runtime
