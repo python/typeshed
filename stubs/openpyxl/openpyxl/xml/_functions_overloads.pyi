@@ -1,7 +1,7 @@
 # This file does not exist at runtime. It is a helper file to overload imported functions in openpyxl.xml.functions
 
-from _typeshed import Incomplete, ReadableBuffer
-from collections.abc import Iterable, Iterator, Mapping, Sequence
+from _typeshed import Incomplete, ReadableBuffer, Unused
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from typing import Any, Protocol, TypeVar, overload
 from typing_extensions import TypeAlias
 from xml.etree.ElementTree import Element, ElementTree, QName, XMLParser, _FileRead
@@ -18,7 +18,8 @@ _T_co = TypeVar("_T_co", covariant=True)
 # lxml.etree._Element
 # xml.etree.Element
 class _HasTag(Protocol):
-    tag: str
+    # See openpyxl.xml.functions.localname for when tag can be callable
+    tag: str | Callable[..., Unused]
 
 class _HasGet(Protocol[_T_co]):
     def get(self, value: str, /) -> _T_co | None: ...
@@ -56,11 +57,11 @@ _lxml_ElementTree: TypeAlias = ElementTree  # noqa: Y042
 # from lxml.etree import QName
 _lxml_QName: TypeAlias = QName  # noqa: Y042
 
-# from xml.etree import fromstring
+# from xml.etree.ElementTree import SubElement
 @overload
 def SubElement(parent: _ParentElement[_T], tag: str, attrib: dict[str, str] = ..., **extra: str) -> _T: ...
 
-# from lxml.etree import fromstring
+# from lxml.etree import SubElement
 @overload
 def SubElement(
     _parent: _lxml_Element,  # This would be preferable as a protocol, but it's a C-Extension
