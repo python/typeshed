@@ -267,12 +267,8 @@ with_descriptors.convertible_not_none = "0"
 with_descriptors.convertible_not_none = None  # type: ignore
 with_descriptors.convertible_not_none = object()  # type: ignore
 with_descriptors.convertible_not_none = cast(_HasTagAndGet[str], _)
-with_descriptors.convertible_not_none = cast(  # type: ignore
-    _HasTagAndGet[None], _
-)
-with_descriptors.convertible_not_none = cast(  # type: ignore
-    _HasTagAndGet[object], _
-)
+with_descriptors.convertible_not_none = cast(_HasTagAndGet[None], _)  # type: ignore
+with_descriptors.convertible_not_none = cast(_HasTagAndGet[object], _)  # type: ignore
 
 with_descriptors.convertible_none = 0
 with_descriptors.convertible_none = "0"
@@ -429,12 +425,8 @@ with_descriptors.float_not_none = b"0"
 with_descriptors.float_not_none = None  # type: ignore
 with_descriptors.float_not_none = object()  # type: ignore
 with_descriptors.float_not_none = cast(_HasTagAndGet[float], _)
-with_descriptors.float_not_none = cast(  # type: ignore
-    _HasTagAndGet[None], _
-)
-with_descriptors.float_not_none = cast(  # type: ignore
-    _HasTagAndGet[object], _
-)
+with_descriptors.float_not_none = cast(_HasTagAndGet[None], _)  # type: ignore
+with_descriptors.float_not_none = cast(_HasTagAndGet[object], _)  # type: ignore
 
 with_descriptors.float_none = 0
 with_descriptors.float_none = 0.0
@@ -454,12 +446,8 @@ with_descriptors.integer_not_none = b"0"
 with_descriptors.integer_not_none = None  # type: ignore
 with_descriptors.integer_not_none = object()  # type: ignore
 with_descriptors.integer_not_none = cast(_HasTagAndGet[int], _)
-with_descriptors.integer_not_none = cast(  # type: ignore
-    _HasTagAndGet[None], _
-)
-with_descriptors.integer_not_none = cast(  # type: ignore
-    _HasTagAndGet[object], _
-)
+with_descriptors.integer_not_none = cast(_HasTagAndGet[None], _)  # type: ignore
+with_descriptors.integer_not_none = cast(_HasTagAndGet[object], _)  # type: ignore
 
 with_descriptors.integer_none = 0
 with_descriptors.integer_none = 0.0
