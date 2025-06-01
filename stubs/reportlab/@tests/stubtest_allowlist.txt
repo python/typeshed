@@ -91,6 +91,9 @@ reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.pi
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.shapeChecking
 reportlab\.graphics\.render(base|PDF|PM|PS|SVG)\.verbose
 
+# messed up __all__ which contains just a string
+reportlab.graphics.barcode.qr.__all__
+
 
 # Error: is not present at runtime
 # ================================
