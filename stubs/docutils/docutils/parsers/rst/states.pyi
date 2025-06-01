@@ -2,14 +2,17 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from re import Match, Pattern
 from types import ModuleType
-from typing import Any, Literal, Never, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import Any, ClassVar, Final, Literal, TypeVar, overload
+from typing_extensions import Never, TypeAlias
 
 from docutils import ApplicationError, DataError, nodes
 from docutils.parsers.rst import Directive
+from docutils.parsers.rst.languages import _RstLanguageModule
 from docutils.parsers.rst.tableparser import TableParser
 from docutils.statemachine import StateMachine, StateMachineWS, StateWS, StringList
 from docutils.utils import Reporter
+
+__docformat__: Final = "reStructuredText"
 
 _Context = TypeVar("_Context")
 _NextState = TypeVar("_NextState", str, None)
@@ -26,6 +29,12 @@ class Struct:
     def __init__(self, **keywordargs) -> None: ...
 
 class RSTStateMachine(StateMachineWS[Incomplete]):
+    language: _RstLanguageModule
+    match_titles: bool
+    memo: Struct | None
+    document: nodes.document
+    reporter: Reporter
+    node: nodes.document | None
     def run(
         self,
         input_lines: Sequence[str] | StringList,
@@ -36,13 +45,20 @@ class RSTStateMachine(StateMachineWS[Incomplete]):
     ) -> None: ...
 
 class NestedStateMachine(StateMachineWS[Incomplete]):
+    match_titles: bool
+    memo: Incomplete
+    document: nodes.document
+    reporter: Reporter
+    language: Incomplete
+    node: Incomplete
     def run(
         self, input_lines: Sequence[str] | StringList, input_offset: int, memo, node: nodes.Node, match_titles: bool = True
     ) -> list[str]: ...
 
 class RSTState(StateWS[list[str]]):
-    nested_sm: type[NestedStateMachine]
-    nested_sm_cache: list[StateMachine[Incomplete]]
+    nested_sm: ClassVar[type[NestedStateMachine]]
+    nested_sm_cache: ClassVar[list[StateMachine[Incomplete]]]
+    nested_sm_kwargs: dict[str, Any]
     def __init__(self, state_machine, debug: bool = False) -> None: ...
     memo: Incomplete
     reporter: Reporter
@@ -174,13 +190,15 @@ class Body(RSTState):
     grid_table_top_pat: Pattern[str]
     simple_table_top_pat: Pattern[str]
     pats: dict[str, str]
-    patterns: dict[str, str | Pattern[str]]
-    initial_transitions: tuple[str, ...]
-    attribution_pattern: Pattern[str]
-    explicit = Struct()
+    patterns: ClassVar[dict[str, str | Pattern[str]]]
+    initial_transitions: ClassVar[tuple[str, ...]]
+    explicit: Struct
 
     def indent(self, match: Any, context: _Context, next_state: str) -> _TransitionResult[_Context]: ...
     def block_quote(self, indented: StringList, line_offset: int) -> list[nodes.block_quote | nodes.system_message]: ...
+
+    attribution_pattern: Pattern[str]
+
     def split_attribution(
         self, indented: StringList, line_offset: int
     ) -> tuple[StringList, None, None, None, None] | tuple[StringList, StringList, int, StringList, int]: ...
@@ -251,13 +269,15 @@ class Body(RSTState):
     def text(self, match: Match[str], context, next_state: str) -> tuple[list[str], Literal["Text"], list[Any]]: ...
 
 class RFC2822Body(Body):
-    patterns: dict[str, str | Pattern[str]]
-    initial_transitions: list[tuple[str | tuple[str, str], str]]
+    patterns: ClassVar[dict[str, str | Pattern[str]]]
+    initial_transitions: ClassVar[list[tuple[str | tuple[str, str], str]]]
 
     def rfc2822(self, match: Match[str], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[str]]: ...
     def rfc2822_field(self, match: Match[str]): ...
 
 class SpecializedBody(Body):
+    blank_finish: Incomplete
+
     def invalid_input(self, match: Any = None, context: Any = None, next_state: Any = None) -> Never: ...
 
     indent = invalid_input
@@ -281,19 +301,31 @@ class DefinitionList(SpecializedBody):
     def text(self, match: Match[str], context: Any, next_state: Any) -> tuple[list[str], Literal["Definition"], list[Any]]: ...
 
 class EnumeratedList(SpecializedBody):
+    auto: int
+    blank_finish: Incomplete
+    lastordinal: Incomplete
+
     def enumerator(self, match: Match[str], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[Any]]: ...
 
 class FieldList(SpecializedBody):
+    blank_finish: Incomplete
+
     def field_marker(
         self, match: Match[str], context: Any, next_state: _NextState
     ) -> tuple[list[Any], _NextState, list[Any]]: ...
 
 class OptionList(SpecializedBody):
+    blank_finish: Incomplete
+
     def option_marker(
         self, match: Match[str], context: Any, next_state: _NextState
     ) -> tuple[list[Any], _NextState, list[Any]]: ...
 
 class RFC2822List(SpecializedBody, RFC2822Body):
+    patterns: ClassVar[dict[str, str | Pattern[str]]]
+    initial_transitions: ClassVar[list[tuple[str | tuple[str, str], str]]]
+    blank_finish: Incomplete
+
     def rfc2822(
         self, match: Match[str], context: Any, next_state: Any
     ) -> tuple[list[Any], Literal["RFC2822List"], list[Any]]: ...
@@ -303,10 +335,16 @@ class ExtensionOptions(FieldList):
     def parse_field_body(self, indented: StringList, offset: Any, node: nodes.Node) -> None: ...
 
 class LineBlock(SpecializedBody):
+    blank: Incomplete
+    blank_finish: Incomplete
+
     def blank(self, match: Any = None, context: Any = None, next_state: Any = None) -> Never: ...
     def line_block(self, match: Match[Any], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[Any]]: ...
 
 class Explicit(SpecializedBody):
+    blank_finish: Incomplete
+    blank: Incomplete
+
     def explicit_markup(
         self, match: Match[str], context: Any, next_state: _NextState
     ) -> tuple[list[Any], _NextState, list[Any]]: ...
@@ -314,11 +352,16 @@ class Explicit(SpecializedBody):
     def blank(self, match: Any = None, context: Any = None, next_state: Any = None) -> Never: ...
 
 class SubstitutionDef(Body):
+    patterns: ClassVar[dict[str, str | Pattern[str]]]
+    initial_transitions: ClassVar[list[str]]
+    blank_finish: Incomplete
+
     def embedded_directive(self, match: Match[str], context: Any, next_state: Any) -> Never: ...
     def text(self, match: Any, context: Any, next_state: Any) -> Never: ...
 
 class Text(RSTState):
-    classifier_delimiter: Pattern[str]
+    patterns: ClassVar[dict[str, str | Pattern[str]]]
+    initial_transitions: ClassVar[list[tuple[str, str]]]
 
     def blank(self, match: Match[str], context: Any, next_state: Any) -> tuple[list[Any], Literal["Body"], list[Any]]: ...
     def eof(self, context: Any) -> list[Any]: ...
@@ -330,6 +373,7 @@ class Text(RSTState):
     def literal_block(self) -> list[nodes.Node]: ...
     def quoted_literal_block(self) -> list[nodes.Node]: ...
     def definition_list_item(self, termline: StringList) -> tuple[nodes.definition_list_item, bool]: ...
+    classifier_delimiter: Pattern[str]
     def term(self, lines: StringList, lineno: int) -> tuple[nodes.Node, nodes.system_message]: ...
 
 class SpecializedText(Text):
@@ -359,6 +403,7 @@ class Line(SpecializedText):
     def state_correction(self, context: list[Any], lines: int = 1) -> Never: ...
 
 class QuotedLiteralBlock(RSTState):
+    patterns: ClassVar[dict[str, str | Pattern[str]]]
     messages: list[Incomplete]
     initial_lineno: int | None
 
