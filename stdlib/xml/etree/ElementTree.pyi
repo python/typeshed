@@ -268,9 +268,14 @@ class _IterParseIterator(Iterator[tuple[_EventType, _EventT_co]], Protocol[_Even
 
 # See the comment for _EventT_co above for possible iterator types.
 @overload
-def iterparse(source: _FileRead, events: Iterable[_EventType], parser: XMLParser | None = None) -> _IterParseIterator[Any]: ...
+def iterparse(source: _FileRead, events: Iterable[_EventType]) -> _IterParseIterator[Any]: ...
 @overload
-def iterparse(source: _FileRead, events: None = None, parser: XMLParser | None = None) -> _IterParseIterator[Element[str]]: ...
+def iterparse(source: _FileRead, events: None = None) -> _IterParseIterator[Element[str]]: ...
+# In case a custom parser is passed, the type of the second element of the tuple
+# yielded by iterparse depends on the parser.
+@overload
+@deprecated("The *parser* argument is deprecated.")
+def iterparse(source: _FileRead, events: Iterable[_EventType], parser: XMLParser | None = None) -> _IterParseIterator[Any]: ...
 
 _EventQueue: TypeAlias = tuple[str] | tuple[str, tuple[str, str]] | tuple[str, None]
 
