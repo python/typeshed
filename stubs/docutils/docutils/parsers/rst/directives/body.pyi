@@ -7,7 +7,7 @@ from docutils.parsers.rst import Directive
 
 __docformat__: Final = "reStructuredText"
 
-_DirectiveFn: TypeAlias = Callable[[str | None], str | list[str]]
+_DirectiveFn: TypeAlias = Callable[[str], str | list[str]]
 
 class BasePseudoSection(Directive):
     option_spec: ClassVar[dict[str, _DirectiveFn]]

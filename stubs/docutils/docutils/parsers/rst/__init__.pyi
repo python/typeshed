@@ -30,7 +30,7 @@ class Directive:
     required_arguments: ClassVar[int]
     optional_arguments: ClassVar[int]
     final_argument_whitespace: ClassVar[bool]
-    option_spec: ClassVar[dict[str, Callable[[str | None], Incomplete]] | None]
+    option_spec: ClassVar[dict[str, Callable[[str], Incomplete]] | None]
     has_content: ClassVar[bool]
     name: str
     arguments: list[str]
