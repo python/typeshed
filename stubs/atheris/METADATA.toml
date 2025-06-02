@@ -1,6 +1,7 @@
 version = "2.3.*"
 upstream_repository = "https://github.com/google/atheris"
 partial_stub = true
+no_longer_updated = true
 
 [tool.stubtest]
 ignore_missing_stub = true
