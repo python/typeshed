@@ -267,11 +267,7 @@ class _IterParseIterator(Iterator[tuple[_EventType, _EventT_co]], Protocol[_Even
 
 # See the comment for _EventT_co above for possible iterator types.
 @overload
-def iterparse(
-    source: _FileRead,
-    events: Sequence[_EventType],
-    parser: XMLParser | None = None
-) -> _IterParseIterator[Any]: ...
+def iterparse(source: _FileRead, events: Sequence[_EventType], parser: XMLParser | None = None) -> _IterParseIterator[Any]: ...
 @overload
 def iterparse(source: _FileRead, events: None = None, parser: XMLParser | None = None) -> _IterParseIterator[Element[str]]: ...
 
