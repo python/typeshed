@@ -86,6 +86,7 @@
         "stubs/python-crontab",
         "stubs/python-datemath",
         "stubs/python-dateutil",
+        "stubs/python-decouple",
         "stubs/python-http-client",
         "stubs/python-jose",
         "stubs/pytz/pytz/lazy.pyi",
