@@ -271,6 +271,7 @@ class _IterParseIterator(Iterator[tuple[_EventType, _EventT_co]], Protocol[_Even
 def iterparse(source: _FileRead, events: Iterable[_EventType]) -> _IterParseIterator[Any]: ...
 @overload
 def iterparse(source: _FileRead, events: None = None) -> _IterParseIterator[Element[str]]: ...
+
 # In case a custom parser is passed, the type of the second element of the tuple
 # yielded by iterparse depends on the parser.
 @overload
