@@ -249,11 +249,12 @@ def dump(elem: Element | ElementTree[Any]) -> None: ...
 def indent(tree: Element | ElementTree[Any], space: str = "  ", level: int = 0) -> None: ...
 def parse(source: _FileRead, parser: XMLParser[Any] | None = None) -> ElementTree[Element]: ...
 
-# The possible element types depend on events passed to iterparse.
-# * start, end: Element[str]
-# * comment, pi: Element[_ElementCallable]
-# * start-ns: tuple[str, str] (prefix, uri)
-# * end-ns: None
+# The type of the second element of the tuple yielded by iterparse depends
+# on the event type in the first element of the tuple:
+#  * start, end: Element[str]
+#  * comment, pi: Element[_ElementCallable]
+#  * start-ns: tuple[str, str] (prefix, uri)
+#  * end-ns: None
 _EventT_co = TypeVar("_EventT_co", bound=Element[str] | Element[_ElementCallable] | tuple[str, str] | None, covariant=True)
 _EventType: TypeAlias = Literal["start", "end", "comment", "pi", "start-ns", "end-ns"]
 
