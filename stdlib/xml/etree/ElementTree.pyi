@@ -249,16 +249,31 @@ def dump(elem: Element | ElementTree[Any]) -> None: ...
 def indent(tree: Element | ElementTree[Any], space: str = "  ", level: int = 0) -> None: ...
 def parse(source: _FileRead, parser: XMLParser[Any] | None = None) -> ElementTree[Element]: ...
 
-# This class is defined inside the body of iterparse
+# The possible element types depend on events passed to iterparse.
+# * start, end: Element[str]
+# * comment, pi: Element[_ElementCallable]
+# * start-ns: tuple[str, str] (prefix, uri)
+# * end-ns: None
+_EventT_co = TypeVar("_EventT_co", bound=Element[str] | Element[_ElementCallable] | tuple[str, str] | None, covariant=True)
+_EventType: TypeAlias = Literal["start", "end", "comment", "pi", "start-ns", "end-ns"]
+
+# This class is defined inside the body of iterparse.
 @type_check_only
-class _IterParseIterator(Iterator[tuple[str, Element]], Protocol):
-    def __next__(self) -> tuple[str, Element]: ...
+class _IterParseIterator(Iterator[tuple[_EventType, _EventT_co]], Protocol[_EventT_co]):
     if sys.version_info >= (3, 13):
         def close(self) -> None: ...
     if sys.version_info >= (3, 11):
         def __del__(self) -> None: ...
 
-def iterparse(source: _FileRead, events: Sequence[str] | None = None, parser: XMLParser | None = None) -> _IterParseIterator: ...
+# See the comment for _EventT_co above for possible iterator types.
+@overload
+def iterparse(
+    source: _FileRead,
+    events: Sequence[_EventType],
+    parser: XMLParser | None = None
+) -> _IterParseIterator[Any]: ...
+@overload
+def iterparse(source: _FileRead, events: None = None, parser: XMLParser | None = None) -> _IterParseIterator[Element[str]]: ...
 
 _EventQueue: TypeAlias = tuple[str] | tuple[str, tuple[str, str]] | tuple[str, None]
 
