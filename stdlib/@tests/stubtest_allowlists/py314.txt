@@ -2,33 +2,18 @@
 # TODO: New errors in Python 3.14 that need to be fixed or moved below
 # ====================================================================
 
-_asyncio.all_tasks
-_imp.pyc_magic_number_token
-_thread.RLock.locked
-_thread.set_name
 asyncio.eager_task_factory
 asyncio.tasks.eager_task_factory
-builtins.bytearray.resize
-builtins.int.__round__
 compression.gzip.GzipFile.readinto
 compression.gzip.GzipFile.readinto
 compression.gzip.GzipFile.readinto1
 compression.gzip.GzipFile.readinto1
 compression.gzip.compress
-compression.zstd
 fractions.Fraction.__pow__
 fractions.Fraction.__rpow__
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
 gzip.compress
-importlib.abc.ResourceReader
-importlib.abc.Traversable
-importlib.abc.TraversableResources
-importlib.machinery.__all__
-importlib.machinery.AppleFrameworkLoader
-importlib.util.__all__
-importlib.util.Loader
-multiprocessing.forkserver.main
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
@@ -39,18 +24,8 @@ multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
-string.Template.flags
 tarfile.TarFile.zstopen
 tkinter.Event.__class_getitem__
-turtle.__all__
-turtle.RawTurtle.fill
-turtle.RawTurtle.poly
-turtle.TurtleScreen.no_animation
-turtle.TurtleScreen.save
-turtle.fill
-turtle.no_animation
-turtle.poly
-turtle.save
 
 # =========================
 # New errors in Python 3.14
@@ -79,6 +54,10 @@ functools.partialmethod.__new__
 
 zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
 
+# Types that require `__setattr__` and `__delattr__` for typing purposes:
+types.SimpleNamespace.__setattr__
+types.SimpleNamespace.__delattr__
+
 
 # =======
 # >= 3.11
@@ -93,6 +72,7 @@ typing.NewType.__mro_entries__
 
 builtins.ellipsis  # type is not exposed anywhere
 importlib._abc.Loader.exec_module  # See Lib/importlib/_abc.py. Might be defined for backwards compatibility
+importlib.util.Loader.exec_module
 
 # positional-only complaints caused by differences between typing aliases and the "real" classes in the stdlib
 _collections_abc.Coroutine.send
@@ -123,10 +103,6 @@ typing(_extensions)?\.IO\.writelines
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.14
 # =============================================================
-
-# Internal annotations machinery
-.*\.__annotate_func__
-.*\.__annotations_cache__
 
 # Undocumented private attributes
 .*\.ForwardRef\.__arg__
