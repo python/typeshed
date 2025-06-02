@@ -9,7 +9,6 @@ compression.gzip.GzipFile.readinto
 compression.gzip.GzipFile.readinto1
 compression.gzip.GzipFile.readinto1
 compression.gzip.compress
-compression.zstd
 fractions.Fraction.__pow__
 fractions.Fraction.__rpow__
 gzip.GzipFile.readinto
@@ -54,6 +53,10 @@ functools.partialmethod.__new__
 # =======
 
 zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
+
+# Types that require `__setattr__` and `__delattr__` for typing purposes:
+types.SimpleNamespace.__setattr__
+types.SimpleNamespace.__delattr__
 
 
 # =======
@@ -100,10 +103,6 @@ typing(_extensions)?\.IO\.writelines
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.14
 # =============================================================
-
-# Internal annotations machinery
-.*\.__annotate_func__
-.*\.__annotations_cache__
 
 # Undocumented private attributes
 .*\.ForwardRef\.__arg__
