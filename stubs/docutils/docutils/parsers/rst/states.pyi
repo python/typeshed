@@ -8,7 +8,6 @@ from typing_extensions import Never, TypeAlias
 from docutils import ApplicationError, DataError, nodes
 from docutils.parsers.rst import Directive
 from docutils.parsers.rst.languages import _RstLanguageModule
-from docutils.parsers.rst.tableparser import TableParser
 from docutils.statemachine import StateMachine, StateMachineWS, StateWS, StringList
 from docutils.utils import Reporter
 
