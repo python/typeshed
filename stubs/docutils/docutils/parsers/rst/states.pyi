@@ -187,7 +187,7 @@ class Inliner:
     dispatch: dict[str, Callable[[Match[str], int], tuple[str, list[nodes.problematic], str, list[nodes.system_message]]]] = ...
 
 class Body(RSTState):
-    double_width_pad_char: TableParser
+    double_width_pad_char: str
     enum: Struct
     grid_table_top_pat: Pattern[str]
     simple_table_top_pat: Pattern[str]
