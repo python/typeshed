@@ -193,12 +193,9 @@ class Body(RSTState):
     patterns: ClassVar[dict[str, str | Pattern[str]]]
     initial_transitions: ClassVar[tuple[str, ...]]
     explicit: Struct
-
     def indent(self, match: Any, context: _Context, next_state: str) -> _TransitionResult[_Context]: ...
     def block_quote(self, indented: StringList, line_offset: int) -> list[nodes.block_quote | nodes.system_message]: ...
-
     attribution_pattern: Pattern[str]
-
     def split_attribution(
         self, indented: StringList, line_offset: int
     ) -> tuple[StringList, None, None, None, None] | tuple[StringList, StringList, int, StringList, int]: ...
@@ -271,15 +268,12 @@ class Body(RSTState):
 class RFC2822Body(Body):
     patterns: ClassVar[dict[str, str | Pattern[str]]]
     initial_transitions: ClassVar[list[tuple[str | tuple[str, str], str]]]  # type: ignore[assignment]
-
     def rfc2822(self, match: Match[str], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[str]]: ...
     def rfc2822_field(self, match: Match[str]): ...
 
 class SpecializedBody(Body):
     blank_finish: Incomplete
-
     def invalid_input(self, match: Any = None, context: Any = None, next_state: Any = None) -> Never: ...
-
     indent = invalid_input
     bullet = invalid_input
     enumerator = invalid_input
@@ -304,19 +298,16 @@ class EnumeratedList(SpecializedBody):
     auto: int
     blank_finish: Incomplete
     lastordinal: Incomplete
-
     def enumerator(self, match: Match[str], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[Any]]: ...  # type: ignore[override]
 
 class FieldList(SpecializedBody):
     blank_finish: Incomplete
-
     def field_marker(  # type: ignore[override]
         self, match: Match[str], context: Any, next_state: _NextState
     ) -> tuple[list[Any], _NextState, list[Any]]: ...
 
 class OptionList(SpecializedBody):
     blank_finish: Incomplete
-
     def option_marker(  # type: ignore[override]
         self, match: Match[str], context: Any, next_state: _NextState
     ) -> tuple[list[Any], _NextState, list[Any]]: ...
@@ -325,7 +316,6 @@ class RFC2822List(SpecializedBody, RFC2822Body):
     patterns: ClassVar[dict[str, str | Pattern[str]]]
     initial_transitions: ClassVar[list[tuple[str | tuple[str, str], str]]]
     blank_finish: Incomplete
-
     def rfc2822(  # type: ignore[override]
         self, match: Match[str], context: Any, next_state: Any
     ) -> tuple[list[Any], Literal["RFC2822List"], list[Any]]: ...
@@ -336,13 +326,11 @@ class ExtensionOptions(FieldList):
 
 class LineBlock(SpecializedBody):
     blank_finish: Incomplete
-
     def blank(self, match: Any = None, context: Any = None, next_state: Any = None) -> Never: ...
     def line_block(self, match: Match[Any], context: Any, next_state: _NextState) -> tuple[list[Any], _NextState, list[Any]]: ...  # type: ignore[override]
 
 class Explicit(SpecializedBody):
     blank_finish: Incomplete
-
     def explicit_markup(  # type: ignore[override]
         self, match: Match[str], context: Any, next_state: _NextState
     ) -> tuple[list[Any], _NextState, list[Any]]: ...
@@ -391,7 +379,6 @@ class Definition(SpecializedText):
 
 class Line(SpecializedText):
     eofcheck: Literal[1]
-
     def eof(self, context: Any) -> list[Any]: ...
     def blank(self, match: Any, context: Any, next_state: Any) -> tuple[list[Any], Literal["Body"], list[Any]]: ...  # type: ignore[override]
     def text(self, match: Match[str], context: list[str], next_state: Any) -> tuple[list[Any], Literal["Body"], list[Any]]: ...  # type: ignore[override]
@@ -404,7 +391,6 @@ class QuotedLiteralBlock(RSTState):
     patterns: ClassVar[dict[str, str | Pattern[str]]]
     messages: list[Incomplete]
     initial_lineno: int | None
-
     def __init__(self, state_machine: StateMachine[Incomplete], debug=False) -> None: ...
     @overload
     def blank(
