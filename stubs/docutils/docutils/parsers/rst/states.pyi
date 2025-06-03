@@ -28,7 +28,7 @@ class MarkupMismatch(Exception): ...
 class Struct:
     def __init__(self, **keywordargs) -> None: ...
 
-class RSTStateMachine(StateMachineWS[Incomplete]):
+class RSTStateMachine(StateMachineWS[list[str]]):
     language: _RstLanguageModule
     match_titles: bool
     memo: Struct | None
@@ -44,7 +44,7 @@ class RSTStateMachine(StateMachineWS[Incomplete]):
         inliner: Inliner | None = None,
     ) -> None: ...
 
-class NestedStateMachine(StateMachineWS[Incomplete]):
+class NestedStateMachine(StateMachineWS[list[str]]):
     match_titles: bool
     memo: Incomplete
     document: nodes.document
