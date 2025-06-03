@@ -89,7 +89,7 @@ assert_type((-95) ** 8.42, Any)
 # Fraction.__pow__/__rpow__ with modulo parameter
 # With the None parameter, we get the correct type, but with a non-None parameter, we receive TypeError
 if sys.version_info >= (3, 14):
-    assert_type(pow(Fraction(3, 4), 2, None), Fraction)
+    assert_type(pow(Fraction(3, 4), 2, None), Fraction)  # pyright: ignore[reportAssertTypeFailure]
     assert_type(pow(Fraction(3, 4), 2, "Non-none value"), Any)  # type: ignore[misc]
     assert_type(pow(Fraction(3, 4), 2, True), Any)  # type: ignore[misc]
 
