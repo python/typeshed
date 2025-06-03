@@ -294,17 +294,17 @@ class BulletList(SpecializedBody):
     def bullet(self, match: Match[str], context: Unused, next_state: _NextState) -> tuple[EmptyList, _NextState, EmptyList]: ...  # type: ignore[override]
 
 class DefinitionList(SpecializedBody):
-    def text(
+    def text(  # type: ignore[override]
         self, match: Match[str], context: Unused, next_state: Unused
-    ) -> tuple[list[str], Literal["Definition"], EmptyList]: ...  # type: ignore[override]
+    ) -> tuple[list[str], Literal["Definition"], EmptyList]: ...
 
 class EnumeratedList(SpecializedBody):
     auto: int
     blank_finish: Incomplete
     lastordinal: Incomplete
-    def enumerator(
+    def enumerator(  # type: ignore[override]
         self, match: Match[str], context: Unused, next_state: _NextState
-    ) -> tuple[EmptyList, _NextState, EmptyList]: ...  # type: ignore[override]
+    ) -> tuple[EmptyList, _NextState, EmptyList]: ...
 
 class FieldList(SpecializedBody):
     blank_finish: Incomplete
@@ -333,18 +333,18 @@ class ExtensionOptions(FieldList):
 class LineBlock(SpecializedBody):
     blank_finish: Incomplete
     def blank(self, match: Unused = None, context: Unused = None, next_state: Unused = None) -> Never: ...
-    def line_block(
+    def line_block(  # type: ignore[override]
         self, match: Match[str], context: Unused, next_state: _NextState
-    ) -> tuple[EmptyList, _NextState, EmptyList]: ...  # type: ignore[override]
+    ) -> tuple[EmptyList, _NextState, EmptyList]: ...
 
 class Explicit(SpecializedBody):
     blank_finish: Incomplete
     def explicit_markup(  # type: ignore[override]
         self, match: Match[str], context: Unused, next_state: _NextState
     ) -> tuple[EmptyList, _NextState, EmptyList]: ...
-    def anonymous(
+    def anonymous(  # type: ignore[override]
         self, match: Match[str], context: Unused, next_state: _NextState
-    ) -> tuple[EmptyList, _NextState, EmptyList]: ...  # type: ignore[override]
+    ) -> tuple[EmptyList, _NextState, EmptyList]: ...
     def blank(self, match: Unused = None, context: Unused = None, next_state: Unused = None) -> Never: ...
 
 class SubstitutionDef(Body):
@@ -357,9 +357,9 @@ class SubstitutionDef(Body):
 class Text(RSTState):
     patterns: ClassVar[dict[str, str | Pattern[str]]]
     initial_transitions: ClassVar[list[tuple[str, str]]]
-    def blank(self, match: Unused, context, next_state: Unused) -> tuple[EmptyList, Literal["Body"], EmptyList]: ...
+    def blank(self, match: Unused, context, next_state: Unused) -> tuple[list[str], Literal["Body"], list[str]]: ...
     def eof(self, context): ...
-    def indent(self, match: Unused, context, next_state: Unused) -> tuple[EmptyList, Literal["Body"], EmptyList]: ...
+    def indent(self, match: Unused, context, next_state: Unused) -> tuple[list[str], Literal["Body"], list[str]]: ...
     def underline(
         self, match: Match[str], context: Sequence[str], next_state: _NextState
     ) -> tuple[EmptyList, _NextState, EmptyList]: ...
@@ -379,22 +379,22 @@ class SpecializedText(Text):
     text = invalid_input
 
 class Definition(SpecializedText):
-    def eof(self, context: Unused) -> EmptyList: ...
+    def eof(self, context: Unused) -> list[str]: ...
     def indent(  # type: ignore[override]
         self, match: Unused, context: list[str], next_state: Unused
     ) -> tuple[list[str], Literal["DefinitionList"], list[str]]: ...
 
 class Line(SpecializedText):
     eofcheck: Literal[1]
-    def eof(self, context: Any) -> EmptyList: ...
+    def eof(self, context: Any) -> list[str]: ...
     def blank(self, match: Unused, context: Any, next_state: Unused) -> tuple[EmptyList, Literal["Body"], EmptyList]: ...  # type: ignore[override]
     def text(self, match: Match[str], context: list[str], next_state: Unused) -> tuple[EmptyList, Literal["Body"], EmptyList]: ...  # type: ignore[override]
-    def indent(
+    def indent(  # type: ignore[override]
         self, match: Match[str], context: list[str], next_state: Unused
-    ) -> tuple[EmptyList, Literal["Body"], EmptyList]: ...  # type: ignore[override]
-    def underline(
+    ) -> tuple[EmptyList, Literal["Body"], EmptyList]: ...
+    def underline(  # type: ignore[override]
         self, match: Unused, context: list[str], next_state: Unused
-    ) -> tuple[EmptyList, Literal["Body"], EmptyList]: ...  # type: ignore[override]
+    ) -> tuple[EmptyList, Literal["Body"], EmptyList]: ...
     def short_overline(self, context, blocktext: Unused, lineno: int | None, lines: int = 1) -> None: ...
     def state_correction(self, context, lines: int = 1) -> Never: ...
 
