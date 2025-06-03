@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import sys
 from decimal import Decimal
 from fractions import Fraction
 from typing import Any, Literal
@@ -85,12 +86,18 @@ assert_type(pow(4.7, 9.2, None), Any)
 # See #7046 -- float for a positive 1st arg, complex otherwise
 assert_type((-95) ** 8.42, Any)
 
+# Fraction.__pow__/__rpow__ with modulo parameter
+# With the None parameter, we get the correct type, but with a non-None parameter, we receive TypeError
+if sys.version_info >= (3, 14):
+    assert_type(pow(Fraction(3, 4), 2, None), Fraction)
+    assert_type(pow(Fraction(3, 4), 2, "Non-none value"), Any)  # type: ignore[misc]
+    assert_type(pow(Fraction(3, 4), 2, True), Any)  # type: ignore[misc]
+
 # All of the following cases should fail a type-checker.
 pow(1.9, 4, 6)  # type: ignore
 pow(4, 7, 4.32)  # type: ignore
 pow(6.2, 5.9, 73)  # type: ignore
 pow(complex(6), 6.2, 7)  # type: ignore
-pow(Fraction(), 5, 8)  # type: ignore
 Decimal("8.7") ** 3.14  # type: ignore
 
 # TODO: This fails at runtime, but currently passes mypy and pyright:

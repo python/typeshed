@@ -9,8 +9,6 @@ compression.gzip.GzipFile.readinto
 compression.gzip.GzipFile.readinto1
 compression.gzip.GzipFile.readinto1
 compression.gzip.compress
-fractions.Fraction.__pow__
-fractions.Fraction.__rpow__
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
 gzip.compress
