@@ -19,7 +19,7 @@ _NextState = TypeVar("_NextState", str, None)
 _EmptyContext = TypeVar("_EmptyContext", Literal[""], None)
 _TransitionResult: TypeAlias = tuple[_Context, str | None, list[str]]
 
-EmptyList = list[object]
+EmptyList: TypeAlias = list[object]
 
 class MarkupError(DataError): ...
 class UnknownInterpretedRoleError(DataError): ...
