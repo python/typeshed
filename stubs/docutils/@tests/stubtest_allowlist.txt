@@ -17,4 +17,4 @@ docutils.statemachine.ViewList.__iter__ # doesn't exist at runtime, but the clas
 docutils.transforms.Transform.__getattr__
 docutils.transforms.Transformer.__getattr__
 docutils.TransformSpec.unknown_reference_resolvers
-docutils.writers.odf_odt.pygmentsformatter
+docutils.writers.odf_odt.pygmentsformatter # this file is missing at runtime
