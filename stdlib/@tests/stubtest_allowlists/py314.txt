@@ -22,7 +22,6 @@ multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
-tarfile.TarFile.zstopen
 tkinter.Event.__class_getitem__
 
 # =========================
