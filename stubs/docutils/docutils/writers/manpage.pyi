@@ -1,10 +1,16 @@
+import re
 from _typeshed import Incomplete
-from re import Pattern
-from typing import ClassVar, Final, NoReturn
+from collections.abc import Callable
+from typing import ClassVar, Final, NoReturn, Protocol, type_check_only
 
 from docutils import nodes, writers
 from docutils.frontend import Values
 from docutils.languages import _LanguageModule
+
+@type_check_only
+class _RegexPatternSub(Protocol):
+    # Matches the signature of the bound instance method `re.Pattern[str].sub` exactly
+    def __call__(self, /, repl: str | Callable[[re.Match[str]], str], string: str, count: int = 0) -> str: ...
 
 __docformat__: Final = "reStructuredText"
 FIELD_LIST_INDENT: Final[int]
@@ -25,8 +31,8 @@ class Table:
     def as_list(self) -> list[str]: ...
 
 class Translator(nodes.NodeVisitor):
-    words_and_spaces: ClassVar[Pattern[str]]
-    possibly_a_roff_command: ClassVar[Pattern[str]]
+    words_and_spaces: ClassVar[re.Pattern[str]]
+    possibly_a_roff_command: ClassVar[re.Pattern[str]]
     document_start: ClassVar[str]
     settings: Values
     language: _LanguageModule
@@ -81,7 +87,7 @@ class Translator(nodes.NodeVisitor):
     def visit_colspec(self, node: nodes.colspec) -> None: ...
     def depart_colspec(self, node: nodes.colspec) -> None: ...
     def write_colspecs(self) -> None: ...
-    def visit_comment(self, node: nodes.comment, sub=...) -> None: ...
+    def visit_comment(self, node: nodes.comment, sub: _RegexPatternSub = ...) -> None: ...
     def visit_contact(self, node: nodes.contact) -> None: ...
     def depart_contact(self, node: nodes.contact) -> None: ...
     def visit_container(self, node: nodes.container) -> None: ...
