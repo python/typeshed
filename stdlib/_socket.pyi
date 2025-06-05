@@ -229,9 +229,8 @@ if sys.platform != "win32":
     IP_RECVOPTS: int
     IP_RECVRETOPTS: int
     IP_RETOPTS: int
-if sys.version_info >= (3, 13):
-    if sys.platform == "linux":
-        CAN_RAW_ERR_FILTER: int
+if sys.version_info >= (3, 13) and sys.platform == "linux":
+    CAN_RAW_ERR_FILTER: int
 if sys.version_info >= (3, 14):
     IP_RECVTTL: int
 
