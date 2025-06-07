@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from typing import Any, ClassVar, Final, Literal
 from typing_extensions import TypeAlias
