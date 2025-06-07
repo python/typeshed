@@ -1,0 +1,3 @@
+channels.auth.UserLazyObject
+channels.auth.UserLazyObject.*
+channels.db.database_sync_to_async
