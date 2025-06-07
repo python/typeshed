@@ -1,13 +1,13 @@
 import email.message
 import io
 import sys
-from _typeshed import StrPath, SupportsNoArgReadline, SupportsRead
+from _typeshed import StrPath, SupportsNoArgReadline
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from email._policybase import _MessageT
 from types import GenericAlias, TracebackType
 from typing import IO, Any, AnyStr, Generic, Literal, Protocol, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Reader, Self, TypeAlias
 
 __all__ = [
     "Mailbox",
@@ -31,7 +31,7 @@ __all__ = [
 
 _T = TypeVar("_T")
 
-class _SupportsReadAndReadline(SupportsRead[bytes], SupportsNoArgReadline[bytes], Protocol): ...
+class _SupportsReadAndReadline(Reader[bytes], SupportsNoArgReadline[bytes], Protocol): ...
 
 _MessageData: TypeAlias = email.message.Message | bytes | str | io.StringIO | _SupportsReadAndReadline
 

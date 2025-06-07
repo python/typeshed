@@ -1,4 +1,3 @@
-from _typeshed import SupportsRead
 from collections.abc import Callable
 from email._policybase import _MessageT
 from email.feedparser import BytesFeedParser as BytesFeedParser, FeedParser as FeedParser
@@ -6,6 +5,7 @@ from email.message import Message
 from email.policy import Policy
 from io import _WrappedBuffer
 from typing import Generic, overload
+from typing_extensions import Reader
 
 __all__ = ["Parser", "HeaderParser", "BytesParser", "BytesHeaderParser", "FeedParser", "BytesFeedParser"]
 
@@ -16,11 +16,11 @@ class Parser(Generic[_MessageT]):
     def __init__(self, _class: None = None, *, policy: Policy[_MessageT]) -> None: ...
     @overload
     def __init__(self, _class: Callable[[], _MessageT] | None, *, policy: Policy[_MessageT] = ...) -> None: ...
-    def parse(self, fp: SupportsRead[str], headersonly: bool = False) -> _MessageT: ...
+    def parse(self, fp: Reader[str], headersonly: bool = False) -> _MessageT: ...
     def parsestr(self, text: str, headersonly: bool = False) -> _MessageT: ...
 
 class HeaderParser(Parser[_MessageT]):
-    def parse(self, fp: SupportsRead[str], headersonly: bool = True) -> _MessageT: ...
+    def parse(self, fp: Reader[str], headersonly: bool = True) -> _MessageT: ...
     def parsestr(self, text: str, headersonly: bool = True) -> _MessageT: ...
 
 class BytesParser(Generic[_MessageT]):

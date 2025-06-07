@@ -1,13 +1,13 @@
 import gzip
 import http.client
 import time
-from _typeshed import ReadableBuffer, SizedBuffer, SupportsRead, SupportsWrite
+from _typeshed import ReadableBuffer, SizedBuffer
 from collections.abc import Callable, Iterable, Mapping
 from datetime import datetime
 from io import BytesIO
 from types import TracebackType
 from typing import Any, ClassVar, Final, Literal, Protocol, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Reader, Self, TypeAlias, Writer
 
 class _SupportsTimeTuple(Protocol):
     def timetuple(self) -> time.struct_time: ...
@@ -85,7 +85,7 @@ class DateTime:
     def make_comparable(self, other: _DateTimeComparable) -> tuple[str, str]: ...  # undocumented
     def timetuple(self) -> time.struct_time: ...  # undocumented
     def decode(self, data: Any) -> None: ...
-    def encode(self, out: SupportsWrite[str]) -> None: ...
+    def encode(self, out: Writer[str]) -> None: ...
 
 def _datetime(data: Any) -> DateTime: ...  # undocumented
 def _datetime_type(data: str) -> datetime: ...  # undocumented
@@ -94,7 +94,7 @@ class Binary:
     data: bytes
     def __init__(self, data: bytes | bytearray | None = None) -> None: ...
     def decode(self, data: ReadableBuffer) -> None: ...
-    def encode(self, out: SupportsWrite[str]) -> None: ...
+    def encode(self, out: Writer[str]) -> None: ...
     def __eq__(self, other: object) -> bool: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
 
@@ -208,7 +208,7 @@ def gzip_decode(data: ReadableBuffer, max_decode: int = 20971520) -> bytes: ... 
 
 class GzipDecodedResponse(gzip.GzipFile):  # undocumented
     io: BytesIO
-    def __init__(self, response: SupportsRead[ReadableBuffer]) -> None: ...
+    def __init__(self, response: Reader[ReadableBuffer]) -> None: ...
 
 class _Method:  # undocumented
     __send: Callable[[str, tuple[_Marshallable, ...]], _Marshallable]

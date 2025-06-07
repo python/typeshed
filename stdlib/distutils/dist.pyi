@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, StrOrBytesPath, StrPath, SupportsWrite
+from _typeshed import Incomplete, StrOrBytesPath, StrPath
 from collections.abc import Iterable, MutableMapping
 from distutils.cmd import Command
 from distutils.command.bdist import bdist
@@ -23,7 +23,7 @@ from distutils.command.sdist import sdist
 from distutils.command.upload import upload
 from re import Pattern
 from typing import IO, ClassVar, Literal, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, Writer
 
 command_re: Pattern[str]
 
@@ -51,7 +51,7 @@ class DistributionMetadata:
     obsoletes: list[str] | None
     def read_pkg_file(self, file: IO[str]) -> None: ...
     def write_pkg_info(self, base_dir: StrPath) -> None: ...
-    def write_pkg_file(self, file: SupportsWrite[str]) -> None: ...
+    def write_pkg_file(self, file: Writer[str]) -> None: ...
     def get_name(self) -> str: ...
     def get_version(self) -> str: ...
     def get_fullname(self) -> str: ...

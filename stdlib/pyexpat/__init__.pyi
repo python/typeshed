@@ -1,8 +1,8 @@
-from _typeshed import ReadableBuffer, SupportsRead
+from _typeshed import ReadableBuffer
 from collections.abc import Callable
 from pyexpat import errors as errors, model as model
 from typing import Any, Final, final
-from typing_extensions import CapsuleType, TypeAlias
+from typing_extensions import CapsuleType, Reader, TypeAlias
 from xml.parsers.expat import ExpatError as ExpatError
 
 EXPAT_VERSION: Final[str]  # undocumented
@@ -20,7 +20,7 @@ _Model: TypeAlias = tuple[int, int, str | None, tuple[Any, ...]]
 @final
 class XMLParserType:
     def Parse(self, data: str | ReadableBuffer, isfinal: bool = False, /) -> int: ...
-    def ParseFile(self, file: SupportsRead[bytes], /) -> int: ...
+    def ParseFile(self, file: Reader[bytes], /) -> int: ...
     def SetBase(self, base: str, /) -> None: ...
     def GetBase(self) -> str | None: ...
     def GetInputContext(self) -> bytes | None: ...

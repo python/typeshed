@@ -1,13 +1,13 @@
 import bz2
 import io
 import sys
-from _typeshed import ReadableBuffer, StrOrBytesPath, StrPath, SupportsRead, WriteableBuffer
+from _typeshed import ReadableBuffer, StrOrBytesPath, StrPath, WriteableBuffer
 from builtins import list as _list  # aliases to avoid name clashes with fields named "type" or "list"
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
 from typing import IO, ClassVar, Literal, Protocol, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Reader, Self, TypeAlias, deprecated
 
 __all__ = [
     "TarFile",
@@ -582,7 +582,7 @@ class TarFile:
         *,
         filter: Callable[[TarInfo], TarInfo | None] | None = None,
     ) -> None: ...
-    def addfile(self, tarinfo: TarInfo, fileobj: SupportsRead[bytes] | None = None) -> None: ...
+    def addfile(self, tarinfo: TarInfo, fileobj: Reader[bytes] | None = None) -> None: ...
     def gettarinfo(
         self, name: StrOrBytesPath | None = None, arcname: str | None = None, fileobj: IO[bytes] | None = None
     ) -> TarInfo: ...

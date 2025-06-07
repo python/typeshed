@@ -1,6 +1,6 @@
 import sys
 import threading
-from _typeshed import StrPath, SupportsWrite
+from _typeshed import StrPath
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from io import TextIOWrapper
 from re import Pattern
@@ -8,7 +8,7 @@ from string import Template
 from time import struct_time
 from types import FrameType, GenericAlias, TracebackType
 from typing import Any, ClassVar, Final, Generic, Literal, Protocol, TextIO, TypeVar, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, TypeAlias, Writer, deprecated
 
 __all__ = [
     "BASIC_FORMAT",
@@ -582,7 +582,7 @@ def basicConfig(
     datefmt: str | None = ...,
     style: _FormatStyle = ...,
     level: _Level | None = ...,
-    stream: SupportsWrite[str] | None = ...,
+    stream: Writer[str] | None = ...,
     handlers: Iterable[Handler] | None = ...,
     force: bool | None = ...,
     encoding: str | None = ...,
@@ -595,7 +595,7 @@ def setLogRecordFactory(factory: Callable[..., LogRecord]) -> None: ...
 
 lastResort: Handler | None
 
-_StreamT = TypeVar("_StreamT", bound=SupportsWrite[str])
+_StreamT = TypeVar("_StreamT", bound=Writer[str])
 
 class StreamHandler(Handler, Generic[_StreamT]):
     stream: _StreamT  # undocumented
