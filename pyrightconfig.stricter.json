@@ -37,6 +37,7 @@
         "stubs/click-web",
         "stubs/dateparser",
         "stubs/defusedxml",
+        "stubs/django-filter",
         "stubs/docker",
         "stubs/docutils",
         "stubs/flake8-typing-imports",
