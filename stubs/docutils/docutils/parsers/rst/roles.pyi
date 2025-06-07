@@ -9,8 +9,8 @@ from docutils.nodes import Node, system_message
 from docutils.parsers.rst.states import Inliner
 from docutils.utils import Reporter
 
-__docformat__: Final[str]
-DEFAULT_INTERPRETED_ROLE: Final[str]
+__docformat__: Final = "reStructuredText"
+DEFAULT_INTERPRETED_ROLE: Final = "title-reference"
 
 _RoleFn: TypeAlias = Callable[
     [str, str, str, int, docutils.parsers.rst.states.Inliner, Mapping[str, Any], Sequence[str]],

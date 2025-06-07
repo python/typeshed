@@ -8,10 +8,9 @@ from docutils.statemachine import StringList
 from docutils.transforms import Transform
 from docutils.utils import Reporter
 
-__docformat__: Final[str]
+__docformat__: Final = "reStructuredText"
 
 class Parser(parsers.Parser):
-    settings_spec: ClassVar[tuple[Any, ...]]
     config_section_dependencies: ClassVar[tuple[str, ...]]
     initial_state: Literal["Body", "RFC2822Body"]
     state_classes: Sequence[type[RSTState]]
@@ -30,11 +29,11 @@ class Directive:
     required_arguments: ClassVar[int]
     optional_arguments: ClassVar[int]
     final_argument_whitespace: ClassVar[bool]
-    option_spec: ClassVar[dict[str, Callable[[str], Any]] | None]
+    option_spec: ClassVar[dict[str, Callable[[str], Incomplete]] | None]
     has_content: ClassVar[bool]
     name: str
     arguments: list[str]
-    options: dict[str, Any]
+    options: dict[str, Incomplete]
     content: StringList
     lineno: int
     content_offset: int
@@ -46,7 +45,7 @@ class Directive:
         self,
         name: str,
         arguments: list[str],
-        options: dict[str, Any],
+        options: dict[str, Incomplete],
         content: StringList,
         lineno: int,
         content_offset: int,

@@ -1,6 +1,7 @@
 import csv
 from _typeshed import Incomplete
-from typing import Final
+from collections.abc import Callable
+from typing import ClassVar, Final
 
 from docutils.parsers.rst import Directive
 
@@ -9,10 +10,7 @@ __docformat__: Final = "reStructuredText"
 def align(argument): ...
 
 class Table(Directive):
-    optional_arguments: int
-    final_argument_whitespace: bool
-    option_spec: Incomplete
-    has_content: bool
+    option_spec: ClassVar[dict[str, Callable[[str], str | list[str]]]]
     def make_title(self): ...
     def check_table_dimensions(self, rows, header_rows, stub_columns) -> None: ...
     def set_table_width(self, table_node) -> None: ...
@@ -25,8 +23,6 @@ class RSTTable(Table):
     def run(self): ...
 
 class CSVTable(Table):
-    option_spec: Incomplete
-
     class DocutilsDialect(csv.Dialect):
         delimiter: str
         quotechar: str
@@ -61,7 +57,6 @@ class CSVTable(Table):
     def parse_csv_data_into_rows(self, csv_data, dialect, source): ...
 
 class ListTable(Table):
-    option_spec: Incomplete
     def run(self): ...
     def check_list_content(self, node): ...
     def build_table_from_list(self, table_data, col_widths, header_rows, stub_columns): ...

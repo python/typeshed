@@ -2,11 +2,12 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Sequence
 from re import Match, Pattern
 from types import ModuleType
-from typing import Any, Final
+from typing import Any, ClassVar, Final, NoReturn
 from typing_extensions import TypeAlias
 
 from docutils import ApplicationError, DataError, nodes
-from docutils.statemachine import StateMachine, StateMachineWS, StateWS
+from docutils.parsers.rst.languages import _RstLanguageModule
+from docutils.statemachine import StateMachine, StateMachineWS, StateWS, StringList
 from docutils.utils import Reporter
 
 __docformat__: Final = "reStructuredText"
@@ -21,29 +22,35 @@ class Struct:
     def __init__(self, **keywordargs) -> None: ...
 
 class RSTStateMachine(StateMachineWS[list[str]]):
-    language: Incomplete
-    match_titles: Incomplete
-    memo: Incomplete
-    document: Incomplete
-    reporter: Incomplete
-    node: Incomplete
-    def run(
-        self, input_lines, document, input_offset: int = 0, match_titles: bool = True, inliner: Incomplete | None = None
+    language: _RstLanguageModule
+    match_titles: bool
+    memo: Struct | None
+    document: nodes.document
+    reporter: Reporter
+    node: nodes.document | None
+    def run(  # type: ignore[override]
+        self,
+        input_lines: Sequence[str] | StringList,
+        document: nodes.document,
+        input_offset: int = 0,
+        match_titles: bool = True,
+        inliner: Inliner | None = None,
     ) -> None: ...
 
 class NestedStateMachine(StateMachineWS[list[str]]):
-    match_titles: Incomplete
+    match_titles: bool
     memo: Incomplete
-    document: Incomplete
-    reporter: Incomplete
+    document: nodes.document
+    reporter: Reporter
     language: Incomplete
     node: Incomplete
-    def run(self, input_lines, input_offset, memo, node, match_titles: bool = True): ...
+    def run(  # type: ignore[override]
+        self, input_lines: Sequence[str] | StringList, input_offset: int, memo, node, match_titles: bool = True
+    ) -> list[str]: ...
 
 class RSTState(StateWS[list[str]]):
-    nested_sm: type[StateMachineWS[list[str]]]
-    nested_sm_cache: Incomplete
-    nested_sm_kwargs: Incomplete
+    nested_sm: type[NestedStateMachine]
+    nested_sm_cache: list[StateMachine[Incomplete]]
     def __init__(self, state_machine, debug: bool = False) -> None: ...
     memo: Incomplete
     reporter: Reporter
@@ -96,7 +103,7 @@ class Inliner:
     start_string_prefix: str
     end_string_suffix: str
     parts: _DefinitionType
-    patterns: Any
+    patterns: Struct
     def init_customizations(self, settings: Any) -> None: ...
     reporter: Reporter
     document: nodes.document
@@ -176,8 +183,8 @@ class Body(RSTState):
     simple_table_top_pat: Incomplete
     simple_table_border_pat: Incomplete
     pats: Incomplete
-    patterns: Incomplete
-    initial_transitions: Incomplete
+    patterns: ClassVar[dict[str, str | Pattern[str]]]
+    initial_transitions: ClassVar[tuple[str, ...]]
     def indent(self, match, context, next_state): ...
     def block_quote(self, indented, line_offset): ...
     attribution_pattern: Incomplete
@@ -187,7 +194,7 @@ class Body(RSTState):
     def bullet(self, match, context, next_state): ...
     def list_item(self, indent): ...
     def enumerator(self, match, context, next_state): ...
-    def parse_enumerator(self, match, expected_sequence: Incomplete | None = None): ...
+    def parse_enumerator(self, match, expected_sequence=None): ...
     def is_enumerated_list_item(self, ordinal, sequence, format): ...
     def make_enumerator(self, ordinal, sequence, format): ...
     def field_marker(self, match, context, next_state): ...
@@ -209,7 +216,7 @@ class Body(RSTState):
     def isolate_grid_table(self): ...
     def isolate_simple_table(self): ...
     def malformed_table(self, block, detail: str = "", offset: int = 0): ...
-    def build_table(self, tabledata, tableline, stub_columns: int = 0, widths: Incomplete | None = None): ...
+    def build_table(self, tabledata, tableline, stub_columns: int = 0, widths=None): ...
     def build_table_row(self, rowdata, tableline): ...
     explicit: Incomplete
     def footnote(self, match): ...
@@ -232,22 +239,22 @@ class Body(RSTState):
     def explicit_markup(self, match, context, next_state): ...
     def explicit_construct(self, match): ...
     def explicit_list(self, blank_finish) -> None: ...
-    def anonymous(self, match, context, next_state): ...
+    def anonymous(self, match: Match[str], context: list[str] | None, next_state: str): ...
     def anonymous_target(self, match): ...
     def line(self, match, context, next_state): ...
     def text(self, match, context, next_state): ...
 
 class RFC2822Body(Body):
-    patterns: Incomplete
-    initial_transitions: Incomplete
+    patterns: ClassVar[dict[str, str | Pattern[str]]]
+    initial_transitions: ClassVar[list[tuple[str | tuple[str, str], str]]]  # type: ignore[assignment]
     def rfc2822(self, match, context, next_state): ...
     def rfc2822_field(self, match): ...
 
 class SpecializedBody(Body):
     def invalid_input(
-        self, match: Incomplete | None = None, context: Incomplete | None = None, next_state: Incomplete | None = None
-    ) -> None: ...
-    indent = invalid_input
+        self, match: Match[str] | None = None, context: list[str] | None = None, next_state: str | None = None
+    ) -> NoReturn: ...
+    indent = invalid_input  # type: ignore[assignment]
     bullet = invalid_input
     enumerator = invalid_input
     field_marker = invalid_input
@@ -257,34 +264,42 @@ class SpecializedBody(Body):
     grid_table_top = invalid_input
     simple_table_top = invalid_input
     explicit_markup = invalid_input
-    anonymous = invalid_input
+    anonymous = invalid_input  # type: ignore[assignment]
     line = invalid_input
     text = invalid_input
 
 class BulletList(SpecializedBody):
     blank_finish: Incomplete
-    def bullet(self, match, context, next_state): ...
+    def bullet(  # type: ignore[override]
+        self, match: Match[str], context: list[str] | None, next_state: str | None
+    ) -> tuple[list[str], str | None, list[str]]: ...
 
 class DefinitionList(SpecializedBody):
-    def text(self, match, context, next_state): ...
+    def text(self, match: Match[str], context: list[str] | None, next_state: str | None) -> tuple[list[str], str, list[str]]: ...  # type: ignore[override]
 
 class EnumeratedList(SpecializedBody):
     auto: int
     blank_finish: Incomplete
     lastordinal: Incomplete
-    def enumerator(self, match, context, next_state): ...
+    def enumerator(  # type: ignore[override]
+        self, match: Match[str], context: list[str] | None, next_state: str | None
+    ) -> tuple[list[str], str | None, list[str]]: ...
 
 class FieldList(SpecializedBody):
     blank_finish: Incomplete
-    def field_marker(self, match, context, next_state): ...
+    def field_marker(  # type: ignore[override]
+        self, match: Match[str], context: list[str] | None, next_state: str | None
+    ) -> tuple[list[str], str | None, list[str]]: ...
 
 class OptionList(SpecializedBody):
     blank_finish: Incomplete
-    def option_marker(self, match, context, next_state): ...
+    def option_marker(  # type: ignore[override]
+        self, match: Match[str], context: list[str] | None, next_state: str | None
+    ) -> tuple[list[str], str | None, list[str]]: ...
 
 class RFC2822List(SpecializedBody, RFC2822Body):
-    patterns: Incomplete
-    initial_transitions: Incomplete
+    patterns: ClassVar[dict[str, str | Pattern[str]]]
+    initial_transitions: ClassVar[list[tuple[str | tuple[str, str], str]]]  # type: ignore[assignment]
     blank_finish: Incomplete
     def rfc2822(self, match, context, next_state): ...
     blank: Incomplete
@@ -295,24 +310,30 @@ class ExtensionOptions(FieldList):
 class LineBlock(SpecializedBody):
     blank: Incomplete
     blank_finish: Incomplete
-    def line_block(self, match, context, next_state): ...
+    def line_block(  # type: ignore[override]
+        self, match: Match[str], context: list[str] | None, next_state: str | None
+    ) -> tuple[list[str], str | None, list[str]]: ...
 
 class Explicit(SpecializedBody):
     blank_finish: Incomplete
-    def explicit_markup(self, match, context, next_state): ...
-    def anonymous(self, match, context, next_state): ...
     blank: Incomplete
+    def explicit_markup(  # type: ignore[override]
+        self, match: Match[str], context: list[str] | None, next_state: str | None
+    ) -> tuple[list[str], str | None, list[str]]: ...
+    def anonymous(  # type: ignore[override]
+        self, match: Match[str], context: list[str] | None, next_state: str | None
+    ) -> tuple[list[str], str | None, list[str]]: ...
 
 class SubstitutionDef(Body):
-    patterns: Incomplete
-    initial_transitions: Incomplete
+    patterns: ClassVar[dict[str, str | Pattern[str]]]
+    initial_transitions: ClassVar[list[str]]  # type: ignore[assignment]
     blank_finish: Incomplete
     def embedded_directive(self, match, context, next_state) -> None: ...
     def text(self, match, context, next_state) -> None: ...
 
 class Text(RSTState):
-    patterns: Incomplete
-    initial_transitions: Incomplete
+    patterns: ClassVar[dict[str, str | Pattern[str]]]
+    initial_transitions: ClassVar[list[tuple[str, str]]]
     def blank(self, match, context, next_state): ...
     def eof(self, context): ...
     def indent(self, match, context, next_state): ...
@@ -327,8 +348,8 @@ class Text(RSTState):
 class SpecializedText(Text):
     def eof(self, context): ...
     def invalid_input(
-        self, match: Incomplete | None = None, context: Incomplete | None = None, next_state: Incomplete | None = None
-    ) -> None: ...
+        self, match: Match[str] | None = None, context: list[str] | None = None, next_state: str | None = None
+    ) -> NoReturn: ...
     blank = invalid_input
     indent = invalid_input
     underline = invalid_input
@@ -337,29 +358,36 @@ class SpecializedText(Text):
 class Definition(SpecializedText):
     def eof(self, context): ...
     blank_finish: Incomplete
-    def indent(self, match, context, next_state): ...
+    def indent(  # type: ignore[override]
+        self, match: Match[str] | None, context: list[str], next_state: str | None
+    ) -> tuple[list[str], str, list[str]]: ...
 
 class Line(SpecializedText):
     eofcheck: int
-    def eof(self, context): ...
-    def blank(self, match, context, next_state): ...
-    def text(self, match, context, next_state): ...
-    indent = text
-    def underline(self, match, context, next_state): ...
+    def eof(self, context: list[str]): ...
+    def blank(self, match: Match[str] | None, context: list[str], next_state: str | None) -> tuple[list[str], str, list[str]]: ...  # type: ignore[override]
+    def text(self, match: Match[str], context: list[str], next_state: str | None) -> tuple[list[str], str, list[str]]: ...  # type: ignore[override]
+    indent = text  # type: ignore[assignment]
+    def underline(  # type: ignore[override]
+        self, match: Match[str] | None, context: list[str], next_state: str | None
+    ) -> tuple[list[str], str, list[str]]: ...
     def short_overline(self, context, blocktext, lineno, lines: int = 1) -> None: ...
     def state_correction(self, context, lines: int = 1) -> None: ...
 
 class QuotedLiteralBlock(RSTState):
-    patterns: Incomplete
-    initial_transitions: Incomplete
+    patterns: ClassVar[dict[str, str | Pattern[str]]]
     messages: Incomplete
     initial_lineno: Incomplete
     def __init__(self, state_machine, debug: bool = False) -> None: ...
     def blank(self, match, context, next_state): ...
     def eof(self, context): ...
-    def indent(self, match, context, next_state) -> None: ...
-    def initial_quoted(self, match, context, next_state): ...
-    def quoted(self, match, context, next_state): ...
-    def text(self, match, context, next_state) -> None: ...
+    def indent(self, match: Match[str] | None, context: list[str], next_state: str | None) -> NoReturn: ...
+    def initial_quoted(
+        self, match: Match[str], context: list[str] | None, next_state: str | None
+    ) -> tuple[list[str], str | None, list[str]]: ...
+    def quoted(
+        self, match: Match[str], context: list[str], next_state: str | None
+    ) -> tuple[list[str], str | None, list[str]]: ...
+    def text(self, match: Match[str] | None, context: list[str] | None, next_state: str | None) -> None: ...
 
 state_classes: tuple[type[RSTState], ...]

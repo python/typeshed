@@ -5,9 +5,6 @@ from docutils.parsers.rst import Directive
 
 __docformat__: Final = "reStructuredText"
 
-# TODO: add Image attr using Protocol
-class PIL: ...
-
 class Image(Directive):
     align_h_values: Incomplete
     align_v_values: Incomplete

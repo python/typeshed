@@ -1,5 +1,5 @@
 from pathlib import Path
-from re import Pattern
+from re import Match, Pattern
 from typing import ClassVar, Final
 
 from docutils.parsers.rst import Directive
@@ -25,8 +25,10 @@ class DefaultRole(Directive): ...
 class Title(Directive): ...
 
 class MetaBody(SpecializedBody):
-    def field_marker(self, match, context, next_state): ...
-    def parsemeta(self, match): ...
+    def field_marker(  # type: ignore[override]
+        self, match: Match[str], context: list[str], next_state: str | None
+    ) -> tuple[list[str], str | None, list[str]]: ...
+    def parsemeta(self, match: Match[str]): ...
 
 class Meta(Directive):
     SMkwargs: ClassVar[dict[str, tuple[MetaBody]]]

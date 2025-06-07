@@ -1,80 +1,64 @@
-from _typeshed import Incomplete
-from typing import Final
+from collections.abc import Callable
+from typing import ClassVar, Final
+from typing_extensions import TypeAlias
 
 from docutils import nodes
 from docutils.parsers.rst import Directive
 
 __docformat__: Final = "reStructuredText"
 
+_DirectiveFn: TypeAlias = Callable[[str], str | list[str]]
+
 class BasePseudoSection(Directive):
-    required_arguments: int
-    optional_arguments: int
-    final_argument_whitespace: bool
-    option_spec: Incomplete
-    has_content: bool
-    node_class: Incomplete
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
+    node_class: ClassVar[type[nodes.Node] | None]
     def run(self): ...
 
 class Topic(BasePseudoSection):
-    node_class = nodes.topic
+    node_class: ClassVar[type[nodes.Node]]
 
 class Sidebar(BasePseudoSection):
-    node_class = nodes.sidebar
-    required_arguments: int
-    optional_arguments: int
-    option_spec: Incomplete
+    node_class: ClassVar[type[nodes.Node]]
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class LineBlock(Directive):
-    option_spec: Incomplete
-    has_content: bool
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class ParsedLiteral(Directive):
-    option_spec: Incomplete
-    has_content: bool
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class CodeBlock(Directive):
-    optional_arguments: int
-    option_spec: Incomplete
-    has_content: bool
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class MathBlock(Directive):
-    option_spec: Incomplete
-    has_content: bool
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class Rubric(Directive):
-    required_arguments: int
-    optional_arguments: int
-    final_argument_whitespace: bool
-    option_spec: Incomplete
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class BlockQuote(Directive):
-    has_content: bool
-    classes: Incomplete
+    classes: ClassVar[list[str]]
     def run(self): ...
 
 class Epigraph(BlockQuote):
-    classes: Incomplete
+    classes: ClassVar[list[str]]
 
 class Highlights(BlockQuote):
-    classes: Incomplete
+    classes: ClassVar[list[str]]
 
 class PullQuote(BlockQuote):
-    classes: Incomplete
+    classes: ClassVar[list[str]]
 
 class Compound(Directive):
-    option_spec: Incomplete
-    has_content: bool
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
 
 class Container(Directive):
-    optional_arguments: int
-    final_argument_whitespace: bool
-    option_spec: Incomplete
-    has_content: bool
+    option_spec: ClassVar[dict[str, _DirectiveFn]]
     def run(self): ...
