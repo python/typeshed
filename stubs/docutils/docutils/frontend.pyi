@@ -60,7 +60,7 @@ class OptionParser(optparse.OptionParser, SettingsSpec):
     version_template: ClassVar[str]
     lists: Incomplete
     config_files: Incomplete
-    relative_path_settings: Incomplete
+    relative_path_settings: ClassVar[tuple[str, ...]]
     version: Incomplete
     components: Incomplete
     def __init__(
@@ -86,7 +86,7 @@ class ConfigParser(RawConfigParser):
     old_settings: Incomplete
     old_warning: str
     not_utf8_error: str
-    def read(self, filenames, option_parser: Incomplete | None = None): ...
+    def read(self, filenames, option_parser=None): ...
     def handle_old_config(self, filename) -> None: ...
     def validate_settings(self, filename, option_parser) -> None: ...
     def optionxform(self, optionstr): ...

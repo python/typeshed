@@ -10,7 +10,7 @@ _TransitionResult: TypeAlias = tuple[_Context, str | None, list[str]]
 _TransitionMethod: TypeAlias = Callable[[Match[str], _Context, str], _TransitionResult[_Context]]
 _Observer: TypeAlias = Callable[[StateMachine[_Context]], None]
 
-__docformat__: Final[str]
+__docformat__: Final = "reStructuredText"
 
 class StateMachine(Generic[_Context]):
     input_lines: StringList | None
@@ -101,7 +101,6 @@ class StateWS(State[_Context]):
     known_indent_sm_kwargs: dict[str, Any] | None
     ws_patterns: dict[str, Pattern[str]]
     ws_initial_transitions: Sequence[str]
-    patterns: dict[str, Pattern[str]] | None
     def __init__(self, state_machine: StateMachine[_Context], debug: bool = False) -> None: ...
     def add_initial_transitions(self) -> None: ...
     def blank(self, match: Match[str], context: _Context, next_state: str) -> _TransitionResult[_Context]: ...

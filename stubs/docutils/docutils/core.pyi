@@ -7,6 +7,7 @@ from docutils.frontend import OptionParser
 from docutils.io import FileInput, Input, Output, StringInput
 from docutils.parsers import Parser
 from docutils.readers import Reader
+from docutils.utils import SystemMessage
 from docutils.writers import Writer, _WriterParts
 
 __docformat__: Final = "reStructuredText"
@@ -32,7 +33,7 @@ class Publisher:
         destination_class=...,
         settings: dict[str, Incomplete] | None = None,
     ) -> None: ...
-    def set_reader(self, reader_name: str, parser: Parser | None = None, parser_name: str | None = None) -> None: ...
+    def set_reader(self, reader_name: str, parser: Parser | None, parser_name: str | None) -> None: ...
     def set_writer(self, writer_name: str) -> None: ...
     def set_components(self, reader_name: str, parser_name: str, writer_name: str) -> None: ...
     @deprecated("Publisher.setup_option_parser is deprecated, and will be removed in Docutils 0.21.")
@@ -54,7 +55,13 @@ class Publisher:
     ): ...
     def process_programmatic_settings(self, settings_spec, settings_overrides, config_section) -> None: ...
     def process_command_line(
-        self, argv=None, usage=None, description=None, settings_spec=None, config_section=None, **defaults
+        self,
+        argv: list[str] | None = None,
+        usage=None,
+        description: str | None = None,
+        settings_spec=None,
+        config_section=None,
+        **defaults,
     ) -> None: ...
     def set_io(self, source_path=None, destination_path=None) -> None: ...
     def set_source(self, source=None, source_path=None) -> None: ...
@@ -62,7 +69,7 @@ class Publisher:
     def apply_transforms(self) -> None: ...
     def publish(
         self,
-        argv=None,
+        argv: list[str] | None = None,
         usage: str | None = None,
         description: str | None = None,
         settings_spec=None,
@@ -72,9 +79,9 @@ class Publisher:
     ): ...
     def debugging_dumps(self) -> None: ...
     def prompt(self) -> None: ...
-    def report_Exception(self, error) -> None: ...
-    def report_SystemMessage(self, error) -> None: ...
-    def report_UnicodeError(self, error) -> None: ...
+    def report_Exception(self, error: BaseException) -> None: ...
+    def report_SystemMessage(self, error: SystemMessage) -> None: ...
+    def report_UnicodeError(self, error: UnicodeEncodeError) -> None: ...
 
 default_usage: Final[str]
 default_description: Final[str]
@@ -91,7 +98,7 @@ def publish_cmdline(
     settings_overrides=None,
     config_section: str | None = None,
     enable_exit_status: bool = True,
-    argv=None,
+    argv: list[str] | None = None,
     usage: str = ...,
     description: str = ...,
 ): ...
@@ -182,14 +189,14 @@ def publish_cmdline_to_binary(
     settings_overrides=None,
     config_section: str | None = None,
     enable_exit_status: bool = True,
-    argv=None,
+    argv: list[str] | None = None,
     usage: str = ...,
     description: str = ...,
     destination=None,
     destination_class=...,
 ): ...
 def publish_programmatically(
-    source_class,
+    source_class: type[FileInput],
     source,
     source_path: FileInput | StringInput,
     destination_class,
@@ -204,8 +211,8 @@ def publish_programmatically(
     settings,
     settings_spec,
     settings_overrides,
-    config_section,
-    enable_exit_status,
+    config_section: str,
+    enable_exit_status: bool,
 ) -> tuple[str | bytes | None, Publisher]: ...
 def rst2something(writer: str, documenttype: str, doc_path: str = "") -> None: ...
 def rst2html() -> None: ...
