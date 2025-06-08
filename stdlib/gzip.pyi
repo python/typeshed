@@ -166,6 +166,7 @@ class _GzipReader(DecompressReader):
 
 if sys.version_info >= (3, 14):
     def compress(data: SizedBuffer, compresslevel: int = 9, *, mtime: float = 0) -> bytes: ...
+
 else:
     def compress(data: SizedBuffer, compresslevel: int = 9, *, mtime: float | None = None) -> bytes: ...
 
