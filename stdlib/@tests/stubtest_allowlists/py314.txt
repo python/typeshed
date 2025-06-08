@@ -12,16 +12,6 @@ compression.gzip.compress
 gzip.GzipFile.readinto
 gzip.GzipFile.readinto1
 gzip.compress
-multiprocessing.managers.BaseListProxy.clear
-multiprocessing.managers.BaseListProxy.copy
-multiprocessing.managers.DictProxy.__ior__
-multiprocessing.managers._BaseDictProxy.__ior__
-multiprocessing.managers._BaseDictProxy.__or__
-multiprocessing.managers._BaseDictProxy.__reversed__
-multiprocessing.managers._BaseDictProxy.__ror__
-multiprocessing.managers._BaseDictProxy.fromkeys
-multiprocessing.process.BaseProcess.interrupt
-multiprocessing.synchronize.SemLock.locked
 tarfile.TarFile.zstopen
 tkinter.Event.__class_getitem__
 
