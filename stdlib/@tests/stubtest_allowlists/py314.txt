@@ -2,8 +2,6 @@
 # TODO: New errors in Python 3.14 that need to be fixed or moved below
 # ====================================================================
 
-asyncio.eager_task_factory
-asyncio.tasks.eager_task_factory
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
