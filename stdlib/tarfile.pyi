@@ -106,7 +106,7 @@ PAX_NAME_FIELDS: set[str]
 
 ENCODING: str
 
-class _TarOptions(TypedDict, total=False):
+class _TarOpenOptions(TypedDict, total=False):
     compresslevel: int
     format: int | None
     tarinfo: type[TarInfo] | None
@@ -438,7 +438,7 @@ class TarFile:
         name: StrOrBytesPath | None,
         mode: Literal["r", "a", "w", "x"] = "r",
         fileobj: _Fileobj | None = None,
-        **kwargs: _TarOptions,
+        **kwargs: _TarOpenOptions,
     ) -> Self: ...
     @overload
     @classmethod
@@ -601,7 +601,7 @@ class TarFile:
             level: None = None,
             options: Mapping[int, int] | None = None,
             zstd_dict: ZstdDict | None = None,
-            **kwargs: _TarOptions,
+            **kwargs: _TarOpenOptions,
         ) -> Self: ...
         @classmethod
         @overload
@@ -613,7 +613,7 @@ class TarFile:
             level: int | None = None,
             options: Mapping[int, int] | None = None,
             zstd_dict: ZstdDict | None = None,
-            **kwargs: _TarOptions,
+            **kwargs: _TarOpenOptions,
         ) -> Self: ...
 
 open = TarFile.open
