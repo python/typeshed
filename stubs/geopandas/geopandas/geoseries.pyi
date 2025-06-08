@@ -1,14 +1,14 @@
 import io
 import json
 import os
-from _typeshed import Incomplete, SupportsRead, Unused
+from _typeshed import Incomplete, SupportsRead
 from collections.abc import Callable, Hashable
 from typing import Any, Literal, final, overload
 from typing_extensions import Self
 
 import pandas as pd
 from numpy.typing import ArrayLike
-from pandas._typing import Axes, AxisIndex, Dtype
+from pandas._typing import Axes, Dtype
 from pyproj import CRS
 from shapely.geometry.base import BaseGeometry
 
@@ -145,11 +145,7 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         overwrite: bool | None = ...,
         **kwargs,  # engine and driver dependent
     ) -> None: ...
-    # *** TODO: compare `__getitem__` with pandas-stubs ***
-    # def __getitem__(self, key): ...
-    # *** `sort_index` is annotated with `-> Self` in pandas-stubs; no need to override it ***
-    # def sort_index(self, *args, **kwargs): ...
-    def take(self, indices: ArrayLike, axis: AxisIndex = 0, **kwargs: Unused) -> GeoSeries: ...
+    # *** `__getitem__`, `sort_index` and `take` are annotated with `-> Self` in pandas-stubs; no need to override them ***
     # *** `apply` annotation in pandas-stubs is compatible except for deprecated `convert_dtype` argument ***
     # def apply(self, func, convert_dtype: bool | None = None, args=(), **kwargs): ...
     def isna(self) -> pd.Series[bool]: ...
