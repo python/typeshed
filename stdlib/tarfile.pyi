@@ -6,7 +6,7 @@ from builtins import list as _list  # aliases to avoid name clashes with fields 
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
-from typing import IO, TYPE_CHECKING, ClassVar, Literal, Protocol, TypedDict, overload
+from typing import IO, ClassVar, Literal, Protocol, TypedDict, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
@@ -590,33 +590,32 @@ class TarFile:
     ) -> TarInfo: ...
     def close(self) -> None: ...
     if sys.version_info >= (3, 14):
-        if TYPE_CHECKING:
-            from compression.zstd import ZstdDict
+        from compression.zstd import ZstdDict
 
-            @classmethod
-            @overload
-            def zstopen(
-                cls,
-                name: StrOrBytesPath | None,
-                mode: Literal["r", "rb"] = "r",
-                fileobj: _Fileobj | None = None,
-                level: None = None,
-                options: Mapping[int, int] | None = None,
-                zstd_dict: ZstdDict | None = None,
-                **kwargs: _TarOpenOptions,
-            ) -> Self: ...
-            @classmethod
-            @overload
-            def zstopen(
-                cls,
-                name: StrOrBytesPath | None,
-                mode: Literal["w", "x"],
-                fileobj: _Fileobj | None = None,
-                level: int | None = None,
-                options: Mapping[int, int] | None = None,
-                zstd_dict: ZstdDict | None = None,
-                **kwargs: _TarOpenOptions,
-            ) -> Self: ...
+        @classmethod
+        @overload
+        def zstopen(
+            cls,
+            name: StrOrBytesPath | None,
+            mode: Literal["r", "rb"] = "r",
+            fileobj: _Fileobj | None = None,
+            level: None = None,
+            options: Mapping[int, int] | None = None,
+            zstd_dict: "ZstdDict | None" = None,
+            **kwargs: _TarOpenOptions,
+        ) -> Self: ...
+        @classmethod
+        @overload
+        def zstopen(
+            cls,
+            name: StrOrBytesPath | None,
+            mode: Literal["w", "x"],
+            fileobj: _Fileobj | None = None,
+            level: int | None = None,
+            options: Mapping[int, int] | None = None,
+            zstd_dict: "ZstdDict | None" = None,
+            **kwargs: _TarOpenOptions,
+        ) -> Self: ...
 
 open = TarFile.open
 
