@@ -25,6 +25,14 @@ class _Attributes(TypedDict, Generic[_EndPositionT], total=False):
     end_lineno: _EndPositionT
     end_col_offset: _EndPositionT
 
+if sys.version_info >= (3, 10):
+    from types import EllipsisType
+
+    _ConstantValue: typing_extensions.TypeAlias = str | bytes | bool | int | float | complex | None | EllipsisType
+else:
+    # Rely on builtins.ellipsis
+    _ConstantValue: typing_extensions.TypeAlias = str | bytes | bool | int | float | complex | None | ellipsis  # noqa: F821
+
 # The various AST classes are implemented in C, and imported from _ast at runtime,
 # but they consider themselves to live in the ast module,
 # so we'll define the stubs in this file.
@@ -34,7 +42,7 @@ class AST:
     _attributes: ClassVar[tuple[str, ...]]
     _fields: ClassVar[tuple[str, ...]]
     if sys.version_info >= (3, 13):
-        _field_types: ClassVar[dict[str, Any]]
+        _field_types: ClassVar[dict[str, _ConstantValue | AST | list[AST] | list[str]]]
 
     if sys.version_info >= (3, 14):
         def __replace__(self) -> Self: ...
@@ -1094,14 +1102,6 @@ if sys.version_info >= (3, 14):
             format_spec: builtins.str | None = ...,
             **kwargs: Unpack[_Attributes],
         ) -> Self: ...
-
-if sys.version_info >= (3, 10):
-    from types import EllipsisType
-
-    _ConstantValue: typing_extensions.TypeAlias = str | bytes | bool | int | float | complex | None | EllipsisType
-else:
-    # Rely on builtins.ellipsis
-    _ConstantValue: typing_extensions.TypeAlias = str | bytes | bool | int | float | complex | None | ellipsis  # noqa: F821
 
 class Constant(expr):
     if sys.version_info >= (3, 10):
