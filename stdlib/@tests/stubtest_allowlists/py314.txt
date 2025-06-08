@@ -2,14 +2,6 @@
 # TODO: New errors in Python 3.14 that need to be fixed or moved below
 # ====================================================================
 
-compression.gzip.GzipFile.readinto
-compression.gzip.GzipFile.readinto
-compression.gzip.GzipFile.readinto1
-compression.gzip.GzipFile.readinto1
-compression.gzip.compress
-gzip.GzipFile.readinto
-gzip.GzipFile.readinto1
-gzip.compress
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
