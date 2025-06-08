@@ -4,7 +4,7 @@ from _typeshed import Incomplete, MaybeNone, StrOrBytesPath
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from tkinter.constants import *
 from tkinter.font import _FontDescription
-from types import TracebackType
+from types import GenericAlias, TracebackType
 from typing import Any, ClassVar, Generic, Literal, NamedTuple, Protocol, TypedDict, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
 
@@ -309,7 +309,7 @@ class Event(Generic[_W_co]):
     widget: _W_co
     delta: int
     if sys.version_info >= (3, 14):
-        def __class_getitem__(cls, item: Any, /) -> Any: ...
+        def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
 
 def NoDefaultRoot() -> None: ...
 
