@@ -8,7 +8,7 @@ from typing_extensions import Self
 
 import pandas as pd
 from numpy.typing import ArrayLike
-from pandas._typing import AggFuncTypeFrame, AstypeArg, Axes, Axis, Dtype, GroupByObject, IndexLabel, Scalar
+from pandas._typing import AggFuncTypeFrame, Axes, Axis, Dtype, GroupByObject, IndexLabel, Scalar
 from pyproj import CRS
 
 from ._decorator import doc
@@ -313,12 +313,6 @@ class GeoDataFrame(GeoPandasBase, pd.DataFrame):  # type: ignore[misc]
         **kwargs,
     ) -> GeoDataFrame: ...
     def explode(self, column: IndexLabel | None = None, ignore_index: bool = False, index_parts: bool = False) -> Self: ...
-    def astype(
-        self,
-        dtype: AstypeArg | Mapping[Any, Dtype] | pd.Series[Any],  # any because of mapping invariance and series typevar bounds
-        copy: bool | None = None,
-        errors: Literal["ignore", "raise"] = "raise",
-    ) -> GeoDataFrame: ...
     def to_postgis(
         self,
         name: str,
