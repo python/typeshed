@@ -23,7 +23,6 @@ multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
 tarfile.TarFile.zstopen
-tkinter.Event.__class_getitem__
 
 # =========================
 # New errors in Python 3.14

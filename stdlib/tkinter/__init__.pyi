@@ -308,6 +308,8 @@ class Event(Generic[_W_co]):
     type: EventType
     widget: _W_co
     delta: int
+    if sys.version_info >= (3, 14):
+        def __class_getitem__(cls, item: Any) -> Any: ...
 
 def NoDefaultRoot() -> None: ...
 
