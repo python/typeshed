@@ -94,11 +94,11 @@ if sys.version_info >= (3, 13):
         def items(self) -> list[tuple[_KT, _VT]]: ...  # type: ignore[override]
         def values(self) -> list[_VT]: ...  # type: ignore[override]
         if sys.version_info >= (3, 14):
-            def __ior__(self, value: Mapping[_KT, _VT], /) -> Self: ...  # type: ignore[override,misc]
-            def __or__(self, value: Mapping[_KT, _VT], /) -> dict[_KT, _VT]: ...  # type: ignore[override,misc]
-            def __reversed__(self) -> Iterator[_KT]: ...
-            def __ror__(self, value: Mapping[_KT, _VT], /) -> dict[_KT, _VT]: ...  # type: ignore[override,misc]
-            def fromkeys(self, iterable: Iterable[_KT], value: _VT, /) -> dict[_KT, _VT]: ...  # type: ignore[override,misc]
+            def __ior__(self, value: Mapping[_KT, _VT], /) -> Self: ...  # type: ignore[misc]
+            def __or__(self, value: Mapping[_KT, _VT], /) -> dict[_KT, _VT]: ...  # type: ignore[misc]
+            def __reversed__(self) -> Iterator[_KT]: ...  # type: ignore[misc]
+            def __ror__(self, value: Mapping[_KT, _VT], /) -> dict[_KT, _VT]: ...  # type: ignore[misc]
+            def fromkeys(self, iterable: Iterable[_KT], value: _VT, /) -> dict[_KT, _VT]: ...  # type: ignore[misc]
 
     class DictProxy(_BaseDictProxy[_KT, _VT]):
         def __class_getitem__(cls, args: Any, /) -> GenericAlias: ...
@@ -204,8 +204,8 @@ class BaseListProxy(BaseProxy, MutableSequence[_T]):
     @overload
     def sort(self, *, key: Callable[[_T], SupportsRichComparison], reverse: bool = ...) -> None: ...
     if sys.version_info >= (3, 14):
-        def clear(self) -> None: ...
-        def copy(self) -> list[_T]: ...
+        def clear(self) -> None: ...  # type: ignore[misc]
+        def copy(self) -> list[_T]: ...  # type: ignore[misc]
 
 class ListProxy(BaseListProxy[_T]):
     def __iadd__(self, value: Iterable[_T], /) -> Self: ...  # type: ignore[override]
