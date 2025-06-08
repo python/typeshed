@@ -6,7 +6,7 @@ from builtins import list as _list  # aliases to avoid name clashes with fields 
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
-from typing import IO, ClassVar, Literal, Protocol, TypedDict, overload
+from typing import IO, ClassVar, TYPE_CHECKING, Literal, Protocol, TypedDict, overload
 from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
@@ -590,7 +590,8 @@ class TarFile:
     ) -> TarInfo: ...
     def close(self) -> None: ...
     if sys.version_info >= (3, 14):
-        from compression.zstd import ZstdDict
+        if TYPE_CHECKING:
+            from compression.zstd import ZstdDict
 
         @classmethod
         @overload
