@@ -1,10 +1,1 @@
-from typing import ClassVar, Final, TypeVar
-
-from docutils import readers
-
-__docformat__: Final = "reStructuredText"
-
-_S = TypeVar("_S", bound=str | bytes)
-
-class Reader(readers.Reader[_S]):
-    config_section_dependencies: ClassVar[tuple[str, ...]]  # type: ignore[override]
+def __getattr__(name: str): ...  # incomplete module
