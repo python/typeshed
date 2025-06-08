@@ -590,7 +590,7 @@ class TarFile:
     ) -> TarInfo: ...
     def close(self) -> None: ...
     if sys.version_info >= (3, 14):
-        from compression.zstd import ZstdDict
+        import compression.zstd
 
         @classmethod
         @overload
@@ -601,7 +601,7 @@ class TarFile:
             fileobj: _Fileobj | None = None,
             level: None = None,
             options: Mapping[int, int] | None = None,
-            zstd_dict: ZstdDict | None = None,
+            zstd_dict: compression.zstd.ZstdDict | None = None,
             **kwargs: _TarOpenOptions,
         ) -> Self: ...
         @classmethod
@@ -613,7 +613,7 @@ class TarFile:
             fileobj: _Fileobj | None = None,
             level: int | None = None,
             options: Mapping[int, int] | None = None,
-            zstd_dict: ZstdDict | None = None,
+            zstd_dict: compression.zstd.ZstdDict | None = None,
             **kwargs: _TarOpenOptions,
         ) -> Self: ...
 
