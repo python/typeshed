@@ -4,7 +4,6 @@ import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath, StrPath, SupportsRead, WriteableBuffer
 from builtins import list as _list  # aliases to avoid name clashes with fields named "type" or "list"
 from collections.abc import Callable, Iterable, Iterator, Mapping
-from compression.zstd import ZstdDict
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
 from typing import IO, ClassVar, Literal, Protocol, TypedDict, overload
@@ -591,6 +590,8 @@ class TarFile:
     ) -> TarInfo: ...
     def close(self) -> None: ...
     if sys.version_info >= (3, 14):
+        from compression.zstd import ZstdDict
+
         @classmethod
         @overload
         def zstopen(
