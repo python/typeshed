@@ -78,7 +78,7 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         data: ArrayLike,  # array-like of bytes handled by shapely.from_wkb(data)
         index: Axes | None = None,
         crs: _ConvertibleToCRS | None = None,
-        on_invalid: Literal["raise", "warn", "ignore"] = "raise",
+        on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise",
         *,
         dtype: Dtype | None = None,
         name: Hashable = None,
@@ -91,7 +91,7 @@ class GeoSeries(GeoPandasBase, pd.Series[BaseGeometry]):  # type: ignore[type-va
         data: ArrayLike,  # array-like of str handled by shapely.from_wkt(data)
         index: Axes | None = None,
         crs: _ConvertibleToCRS | None = None,
-        on_invalid: Literal["raise", "warn", "ignore"] = "raise",
+        on_invalid: Literal["raise", "warn", "ignore", "fix"] = "raise",
         *,
         dtype: Dtype | None = None,
         name: Hashable = None,
