@@ -45,14 +45,14 @@ class Module(mod):
     if sys.version_info >= (3, 10):
         __match_args__ = ("body", "type_ignores")
     body: list[stmt]
-    type_ignores: list[TypeIgnore]
+    type_ignores: list[type_ignore]
     if sys.version_info >= (3, 13):
-        def __init__(self, body: list[stmt] = ..., type_ignores: list[TypeIgnore] = ...) -> None: ...
+        def __init__(self, body: list[stmt] = ..., type_ignores: list[type_ignore] = ...) -> None: ...
     else:
-        def __init__(self, body: list[stmt], type_ignores: list[TypeIgnore]) -> None: ...
+        def __init__(self, body: list[stmt], type_ignores: list[type_ignore]) -> None: ...
 
     if sys.version_info >= (3, 14):
-        def __replace__(self, *, body: list[stmt] = ..., type_ignores: list[TypeIgnore] = ...) -> Self: ...
+        def __replace__(self, *, body: list[stmt] = ..., type_ignores: list[type_ignore] = ...) -> Self: ...
 
 class Interactive(mod):
     if sys.version_info >= (3, 10):
@@ -652,14 +652,14 @@ class Try(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("body", "handlers", "orelse", "finalbody")
     body: list[stmt]
-    handlers: list[ExceptHandler]
+    handlers: list[excepthandler]
     orelse: list[stmt]
     finalbody: list[stmt]
     if sys.version_info >= (3, 13):
         def __init__(
             self,
             body: list[stmt] = ...,
-            handlers: list[ExceptHandler] = ...,
+            handlers: list[excepthandler] = ...,
             orelse: list[stmt] = ...,
             finalbody: list[stmt] = ...,
             **kwargs: Unpack[_Attributes],
@@ -668,7 +668,7 @@ class Try(stmt):
         def __init__(
             self,
             body: list[stmt],
-            handlers: list[ExceptHandler],
+            handlers: list[excepthandler],
             orelse: list[stmt],
             finalbody: list[stmt],
             **kwargs: Unpack[_Attributes],
@@ -679,7 +679,7 @@ class Try(stmt):
             self,
             *,
             body: list[stmt] = ...,
-            handlers: list[ExceptHandler] = ...,
+            handlers: list[excepthandler] = ...,
             orelse: list[stmt] = ...,
             finalbody: list[stmt] = ...,
             **kwargs: Unpack[_Attributes],
@@ -689,14 +689,14 @@ if sys.version_info >= (3, 11):
     class TryStar(stmt):
         __match_args__ = ("body", "handlers", "orelse", "finalbody")
         body: list[stmt]
-        handlers: list[ExceptHandler]
+        handlers: list[excepthandler]
         orelse: list[stmt]
         finalbody: list[stmt]
         if sys.version_info >= (3, 13):
             def __init__(
                 self,
                 body: list[stmt] = ...,
-                handlers: list[ExceptHandler] = ...,
+                handlers: list[excepthandler] = ...,
                 orelse: list[stmt] = ...,
                 finalbody: list[stmt] = ...,
                 **kwargs: Unpack[_Attributes],
@@ -705,7 +705,7 @@ if sys.version_info >= (3, 11):
             def __init__(
                 self,
                 body: list[stmt],
-                handlers: list[ExceptHandler],
+                handlers: list[excepthandler],
                 orelse: list[stmt],
                 finalbody: list[stmt],
                 **kwargs: Unpack[_Attributes],
@@ -716,7 +716,7 @@ if sys.version_info >= (3, 11):
                 self,
                 *,
                 body: list[stmt] = ...,
-                handlers: list[ExceptHandler] = ...,
+                handlers: list[excepthandler] = ...,
                 orelse: list[stmt] = ...,
                 finalbody: list[stmt] = ...,
                 **kwargs: Unpack[_Attributes],
