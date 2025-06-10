@@ -12,11 +12,13 @@
 # >= 3.12
 # =======
 
-zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
-
 # Initialized at runtime
 typing_extensions.TypeAliasType.__parameters__
 typing_extensions.TypeAliasType.__value__
+
+# Types that require `__setattr__` and `__delattr__` for typing purposes:
+types.SimpleNamespace.__setattr__
+types.SimpleNamespace.__delattr__
 
 
 # =======
