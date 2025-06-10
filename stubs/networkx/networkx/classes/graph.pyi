@@ -7,7 +7,7 @@ from typing_extensions import Self, TypeAlias
 import numpy
 from networkx.classes.coreviews import AdjacencyView, AtlasView
 from networkx.classes.digraph import DiGraph
-from networkx.classes.reportviews import DiDegreeView, NodeView, OutEdgeView
+from networkx.classes.reportviews import DegreeView, DiDegreeView, NodeView, OutEdgeView
 
 _Node = TypeVar("_Node", bound=Hashable)
 _NodeWithData: TypeAlias = tuple[_Node, dict[str, Any]]

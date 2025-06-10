@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
-from collections.abc import Iterator
 from dataclasses import dataclass
 from typing import Final
+from typing_extensions import Self
 
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import _Node

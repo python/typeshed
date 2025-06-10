@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Iterator
 from functools import cached_property
+from typing_extensions import Self
 
 from networkx.classes.coreviews import AdjacencyView
 from networkx.classes.graph import Graph, _Node
-from networkx.classes.reportviews import DiDegreeView, OutEdgeView
+from networkx.classes.reportviews import InDegreeView, InMultiDegreeView, OutDegreeView, OutEdgeView, OutMultiDegreeView
 
 __all__ = ["DiGraph"]
 

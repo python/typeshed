@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
 from typing import NamedTuple
 
 __all__ = ["not_implemented_for", "open_file", "nodes_or_number", "np_random_state", "py_random_state", "argmap"]
