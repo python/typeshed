@@ -31,3 +31,9 @@ authlib.oauth2.rfc7521.client.AssertionClient.oauth_error_class
 authlib.oauth2.rfc7523.JWTBearerTokenValidator.token_cls
 authlib.oauth2.rfc7523.validator.JWTBearerTokenValidator.token_cls
 authlib.oauth2.rfc9068.claims.JWTAccessTokenClaims.validate
+
+# Re-exports of hashlib functions whose signatures changed in Python 3.13.4.
+# (Remove once 3.13.4 is consistently available)
+(authlib.jose.rfc7518.jws_algs.HMACAlgorithm.SHA256)?
+(authlib.jose.rfc7518.jws_algs.HMACAlgorithm.SHA384)?
+(authlib.jose.rfc7518.jws_algs.HMACAlgorithm.SHA512)?
