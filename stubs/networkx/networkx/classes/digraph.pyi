@@ -4,7 +4,7 @@ from functools import cached_property
 
 from networkx.classes.coreviews import AdjacencyView
 from networkx.classes.graph import Graph, _Node
-from networkx.classes.reportviews import DiDegreeView, OutEdgeView
+from networkx.classes.reportviews import OutEdgeView
 
 __all__ = ["DiGraph"]
 

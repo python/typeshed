@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from collections.abc import Iterator
 from dataclasses import dataclass
 from typing import Final
 
