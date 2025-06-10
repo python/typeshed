@@ -1,9 +1,9 @@
 import sys
 from _collections_abc import dict_keys
-from _typeshed import FileDescriptorOrPath, ReadableBuffer, SupportsRead, SupportsWrite
+from _typeshed import FileDescriptorOrPath, ReadableBuffer
 from collections.abc import Callable, Generator, ItemsView, Iterable, Iterator, Mapping, Sequence
 from typing import Any, Final, Generic, Literal, Protocol, SupportsIndex, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, TypeGuard, deprecated
+from typing_extensions import Reader, TypeAlias, TypeGuard, Writer, deprecated
 from xml.parsers.expat import XMLParserType
 
 __all__ = [
@@ -36,9 +36,9 @@ __all__ = [
 ]
 
 _T = TypeVar("_T")
-_FileRead: TypeAlias = FileDescriptorOrPath | SupportsRead[bytes] | SupportsRead[str]
-_FileWriteC14N: TypeAlias = FileDescriptorOrPath | SupportsWrite[bytes]
-_FileWrite: TypeAlias = _FileWriteC14N | SupportsWrite[str]
+_FileRead: TypeAlias = FileDescriptorOrPath | Reader[bytes] | Reader[str]
+_FileWriteC14N: TypeAlias = FileDescriptorOrPath | Writer[bytes]
+_FileWrite: TypeAlias = _FileWriteC14N | Writer[str]
 
 VERSION: Final[str]
 
@@ -66,7 +66,7 @@ def canonicalize(
 def canonicalize(
     xml_data: str | ReadableBuffer | None = None,
     *,
-    out: SupportsWrite[str],
+    out: Writer[str],
     from_file: _FileRead | None = None,
     with_comments: bool = False,
     strip_text: bool = False,

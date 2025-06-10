@@ -1,12 +1,12 @@
 import sys
-from _typeshed import OptExcInfo, SupportsWrite, Unused
+from _typeshed import OptExcInfo, Unused
 from abc import abstractmethod
 from builtins import list as _list  # "list" conflicts with method name
 from collections.abc import Callable, Container, Mapping, MutableMapping
 from reprlib import Repr
 from types import MethodType, ModuleType, TracebackType
 from typing import IO, Any, AnyStr, Final, NoReturn, Protocol, TypeVar
-from typing_extensions import TypeGuard, deprecated
+from typing_extensions import TypeGuard, Writer, deprecated
 
 __all__ = ["help"]
 
@@ -282,7 +282,7 @@ if sys.version_info >= (3, 11):
         thing: str | object,
         title: str = "Python Library Documentation: %s",
         forceload: bool = ...,
-        output: SupportsWrite[str] | None = None,
+        output: Writer[str] | None = None,
         is_cli: bool = False,
     ) -> None: ...
 
@@ -291,7 +291,7 @@ else:
         thing: str | object,
         title: str = "Python Library Documentation: %s",
         forceload: bool = ...,
-        output: SupportsWrite[str] | None = None,
+        output: Writer[str] | None = None,
     ) -> None: ...
 
 def writedoc(thing: str | object, forceload: bool = ...) -> None: ...

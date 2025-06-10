@@ -1,5 +1,5 @@
 import codecs
-from _typeshed import SupportsRead, SupportsWrite
+from typing_extensions import Reader, Writer
 
 # This codec is string to string.
 
@@ -20,4 +20,4 @@ def getregentry() -> codecs.CodecInfo: ...
 
 rot13_map: dict[int, int]
 
-def rot13(infile: SupportsRead[str], outfile: SupportsWrite[str]) -> None: ...
+def rot13(infile: Reader[str], outfile: Writer[str]) -> None: ...

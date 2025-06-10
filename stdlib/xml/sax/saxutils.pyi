@@ -1,8 +1,8 @@
-from _typeshed import SupportsWrite
 from codecs import StreamReaderWriter, StreamWriter
 from collections.abc import Mapping
 from io import RawIOBase, TextIOBase
 from typing import Literal, NoReturn
+from typing_extensions import Writer
 from xml.sax import _Source, handler, xmlreader
 
 def escape(data: str, entities: Mapping[str, str] = {}) -> str: ...
@@ -12,7 +12,7 @@ def quoteattr(data: str, entities: Mapping[str, str] = {}) -> str: ...
 class XMLGenerator(handler.ContentHandler):
     def __init__(
         self,
-        out: TextIOBase | RawIOBase | StreamWriter | StreamReaderWriter | SupportsWrite[bytes] | None = None,
+        out: TextIOBase | RawIOBase | StreamWriter | StreamReaderWriter | Writer[bytes] | None = None,
         encoding: str = "iso-8859-1",
         short_empty_elements: bool = False,
     ) -> None: ...

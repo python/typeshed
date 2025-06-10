@@ -4,11 +4,11 @@ import io
 import socketserver
 import sys
 from _ssl import _PasswordType
-from _typeshed import ReadableBuffer, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
+from _typeshed import ReadableBuffer, StrOrBytesPath, StrPath
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from ssl import Purpose, SSLContext
 from typing import Any, AnyStr, BinaryIO, ClassVar, Protocol, type_check_only
-from typing_extensions import Self, deprecated
+from typing_extensions import Reader, Self, Writer, deprecated
 
 if sys.version_info >= (3, 14):
     __all__ = [
@@ -115,7 +115,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def send_head(self) -> io.BytesIO | BinaryIO | None: ...  # undocumented
     def list_directory(self, path: StrPath) -> io.BytesIO | None: ...  # undocumented
     def translate_path(self, path: str) -> str: ...  # undocumented
-    def copyfile(self, source: SupportsRead[AnyStr], outputfile: SupportsWrite[AnyStr]) -> None: ...  # undocumented
+    def copyfile(self, source: Reader[AnyStr], outputfile: Writer[AnyStr]) -> None: ...  # undocumented
     def guess_type(self, path: StrPath) -> str: ...  # undocumented
 
 def executable(path: StrPath) -> bool: ...  # undocumented

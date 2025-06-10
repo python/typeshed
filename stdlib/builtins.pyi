@@ -28,7 +28,6 @@ from _typeshed import (
     SupportsRDivMod,
     SupportsRichComparison,
     SupportsRichComparisonT,
-    SupportsWrite,
 )
 from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
@@ -70,6 +69,7 @@ from typing_extensions import (  # noqa: Y023
     TypeGuard,
     TypeIs,
     TypeVarTuple,
+    Writer,
     deprecated,
 )
 
@@ -1768,15 +1768,11 @@ def open(
 ) -> IO[Any]: ...
 def ord(c: str | bytes | bytearray, /) -> int: ...
 
-class _SupportsWriteAndFlush(SupportsWrite[_T_contra], SupportsFlush, Protocol[_T_contra]): ...
+class _SupportsWriteAndFlush(Writer[_T_contra], SupportsFlush, Protocol[_T_contra]): ...
 
 @overload
 def print(
-    *values: object,
-    sep: str | None = " ",
-    end: str | None = "\n",
-    file: SupportsWrite[str] | None = None,
-    flush: Literal[False] = False,
+    *values: object, sep: str | None = " ", end: str | None = "\n", file: Writer[str] | None = None, flush: Literal[False] = False
 ) -> None: ...
 @overload
 def print(

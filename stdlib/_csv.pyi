@@ -1,9 +1,8 @@
 import csv
 import sys
-from _typeshed import SupportsWrite
 from collections.abc import Iterable
 from typing import Any, Final, Literal, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self, TypeAlias, Writer as _Writer
 
 __version__: Final[str]
 
@@ -89,7 +88,7 @@ else:
         def writerows(self, rows: Iterable[Iterable[Any]]) -> None: ...
 
 def writer(
-    csvfile: SupportsWrite[str],
+    csvfile: _Writer[str],
     dialect: _DialectLike = "excel",
     *,
     delimiter: str = ",",
