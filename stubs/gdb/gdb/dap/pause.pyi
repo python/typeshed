@@ -1,1 +1,1 @@
-def __getattr__(name: str): ...  # incomplete module
+def pause(**args) -> None: ...  # args argument is unused

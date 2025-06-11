@@ -1,1 +1,64 @@
-def __getattr__(name: str): ...  # incomplete module
+import abc
+from collections import defaultdict
+from collections.abc import Generator
+from contextlib import AbstractContextManager
+from typing import TypedDict, type_check_only
+from typing_extensions import NotRequired
+
+import gdb
+
+@type_check_only
+class ValueFormat(TypedDict, total=False):
+    hex: bool
+
+@type_check_only
+class ExportedReference(TypedDict):
+    variableReference: int
+    name: NotRequired[str]
+
+@type_check_only
+class ExportedVariableReference(ExportedReference):
+    indexedVariables: NotRequired[int]
+    namedVariables: NotRequired[int]
+    memoryReference: NotRequired[str]
+    type: NotRequired[str]
+    value: NotRequired[str]
+
+all_variables: list[BaseReference]
+
+def clear_vars(event: object) -> None: ...  # event argument is unused
+def apply_format(value_format: ValueFormat | None) -> AbstractContextManager[None]: ...
+
+class BaseReference(abc.ABC):
+    ref: int
+    name: str
+    children: list[VariableReference | None] | None
+    by_name: dict[str, VariableReference]
+    name_counts: defaultdict[str, int]
+    def __init__(self, name: str) -> None: ...
+    def to_object(self) -> ExportedReference: ...
+    @abc.abstractmethod
+    def has_children(self) -> bool: ...
+    def reset_children(self): ...
+    @abc.abstractmethod
+    def fetch_one_child(self, index: int) -> tuple[str, gdb.Value]: ...
+    @abc.abstractmethod
+    def child_count(self) -> int: ...
+    def fetch_children(self, start: int, count: int) -> Generator[VariableReference]: ...
+    def find_child_by_name(self, name: str) -> VariableReference: ...
+
+class VariableReference(BaseReference):
+    result_name: str
+    value: gdb.Value
+    child_cache: list[tuple[int | str, gdb.Value]] | None
+    count: int | None
+    printer: gdb._PrettyPrinter
+    def __init__(self, name: str, value: gdb.Value, result_name: str = "value") -> None: ...
+    def assign(self, value: gdb.Value) -> None: ...
+    def has_children(self) -> bool: ...
+    def cache_children(self) -> list[tuple[int | str, gdb.Value]]: ...
+    def child_count(self) -> int: ...
+    def to_object(self) -> ExportedVariableReference: ...
+    def fetch_one_child(self, idx: int) -> tuple[str, gdb.Value]: ...
+
+def find_variable(ref: int) -> BaseReference: ...

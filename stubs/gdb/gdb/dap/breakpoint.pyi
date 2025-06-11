@@ -1,1 +1,50 @@
-def __getattr__(name: str): ...  # incomplete module
+from _typeshed import Incomplete
+from collections.abc import Generator, Sequence
+from contextlib import contextmanager
+from typing import TypedDict, type_check_only
+from typing_extensions import NotRequired
+
+from .. import Breakpoint
+from .sources import Source
+
+@type_check_only
+class _SourceBreakpoint(TypedDict):
+    source: str
+    line: int
+    condition: NotRequired[str | None]
+    hitCondition: NotRequired[str | None]
+    logMessage: NotRequired[str | None]
+
+@type_check_only
+class _ExceptionFilterOptions(TypedDict):
+    filderId: str
+    condition: NotRequired[str | None]
+
+@type_check_only
+class _BreakpointDescriptor(TypedDict):
+    id: int
+    verified: bool
+    reason: NotRequired[str]
+    source: NotRequired[Source]
+    line: NotRequired[int]
+    instructionReference: NotRequired[str]
+
+@type_check_only
+class _SetBreakpointResult(TypedDict):
+    breakpoints: list[_BreakpointDescriptor]
+
+# frozenset entries are tuples from _SourceBreakpoint.items() or _ExceptionFilterOptions.items()
+breakpoint_map: dict[str, dict[frozenset[Incomplete], Breakpoint]]
+
+@contextmanager
+def suppress_new_breakpoint_event() -> Generator[None]: ...
+def set_breakpoint(
+    *, source: Source, breakpoints: Sequence[_SourceBreakpoint] = (), **args
+) -> _SetBreakpointResult: ...  # args argument is unused
+def set_fn_breakpoint(*, breakpoints: Sequence[_SourceBreakpoint], **args) -> _SetBreakpointResult: ...  # args argument is unused
+def set_insn_breakpoints(
+    *, breakpoints: Sequence[_SourceBreakpoint], offset: int | None = None, **args
+) -> _SetBreakpointResult: ...  # args argument is unused
+def set_exception_breakpoints(
+    *, filters: Sequence[str], filterOptions: Sequence[_ExceptionFilterOptions] = (), **args
+) -> _SetBreakpointResult: ...  # args argument is unused
