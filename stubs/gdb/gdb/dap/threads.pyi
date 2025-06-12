@@ -1,3 +1,4 @@
+from _typeshed import Unused
 from typing import TypedDict, type_check_only
 from typing_extensions import NotRequired
 
@@ -10,4 +11,4 @@ class _Thread(TypedDict):
 class _ThreadsResult(TypedDict):
     threads: list[_Thread]
 
-def threads(**args) -> _ThreadsResult: ...  # args argument is unused
+def threads(**args: Unused) -> _ThreadsResult: ...

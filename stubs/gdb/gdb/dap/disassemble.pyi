@@ -1,3 +1,4 @@
+from _typeshed import Unused
 from typing import TypedDict, type_check_only
 from typing_extensions import NotRequired
 
@@ -17,5 +18,5 @@ class _DisassembleResult(TypedDict):
     instructions: list[_Instruction]
 
 def disassemble(
-    *, memoryReference: str, offset: int = 0, instructionOffset: int = 0, instructionCount: int, **extra
-) -> _DisassembleResult: ...  # extra argument is unused
+    *, memoryReference: str, offset: int = 0, instructionOffset: int = 0, instructionCount: int, **extra: Unused
+) -> _DisassembleResult: ...

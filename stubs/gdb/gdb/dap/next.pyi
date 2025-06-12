@@ -1,3 +1,4 @@
+from _typeshed import Unused
 from typing import Literal, TypedDict, type_check_only
 from typing_extensions import TypeAlias
 
@@ -7,13 +8,7 @@ class _ContinueRequestResult(TypedDict):
 
 _Granularity: TypeAlias = Literal["statement", "instruction"]
 
-def next(
-    *, threadId: int, singleThread: bool = False, granularity: _Granularity = "statement", **args
-) -> None: ...  # args argument is unused
-def step_in(
-    *, threadId: int, singleThread: bool = False, granularity: _Granularity = "statement", **args
-) -> None: ...  # args argument is unused
-def step_out(*, threadId: int, singleThread: bool = False, **args): ...  # args argument is unused
-def continue_request(
-    *, threadId: int, singleThread: bool = False, **args
-) -> _ContinueRequestResult: ...  # args argument is unused
+def next(*, threadId: int, singleThread: bool = False, granularity: _Granularity = "statement", **args: Unused) -> None: ...
+def step_in(*, threadId: int, singleThread: bool = False, granularity: _Granularity = "statement", **args: Unused) -> None: ...
+def step_out(*, threadId: int, singleThread: bool = False, **args: Unused): ...
+def continue_request(*, threadId: int, singleThread: bool = False, **args: Unused) -> _ContinueRequestResult: ...

@@ -1,5 +1,5 @@
 import threading
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Callable
 from contextlib import AbstractContextManager
 from typing import Any, BinaryIO, Generic, TypeVar, type_check_only
@@ -51,9 +51,9 @@ def request(name: str, *, response: bool = True, on_dap_thread: bool = False, ex
 def capability(name: str, value: bool = True) -> _Wrapper: ...
 def client_bool_capability(name: str) -> bool: ...
 def initialize(**args) -> dict[str, bool]: ...  # args is arbitrary values for Server.config
-def terminate(**args) -> None: ...  # args argument is unused
-def disconnect(*, terminateDebuggee: bool = False, **args): ...  # args argument is unused
-def cancel(**args) -> None: ...  # args argument is unused
+def terminate(**args: Unused) -> None: ...
+def disconnect(*, terminateDebuggee: bool = False, **args: Unused): ...
+def cancel(**args: Unused) -> None: ...
 
 class Invoker:
     cmd: str

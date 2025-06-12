@@ -1,3 +1,4 @@
+from _typeshed import Unused
 from collections.abc import Iterable
 from typing import TypedDict, type_check_only
 from typing_extensions import NotRequired
@@ -20,7 +21,7 @@ class _ScopeReferenceDescriptor(ReferenceDescriptor):
 class _ScopesResult(TypedDict):
     scopes: list[_ScopeReferenceDescriptor]
 
-def clear_scopes(event) -> None: ...  # event argument is unused
+def clear_scopes(event: Unused) -> None: ...
 def set_finish_value(val: gdb.Value) -> None: ...
 def symbol_value(sym: SymValueWrapper, frame: FrameDecorator) -> tuple[str, gdb.Value]: ...
 
@@ -43,4 +44,4 @@ class _FinishScopeReference(_ScopeReference): ...
 class _RegisterReference(_ScopeReference):
     def __init__(self, name: str, frame: FrameDecorator) -> None: ...
 
-def scopes(*, frameId: int, **extra) -> _ScopesResult: ...  # extra argument is unused
+def scopes(*, frameId: int, **extra: Unused) -> _ScopesResult: ...

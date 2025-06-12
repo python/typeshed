@@ -1,4 +1,4 @@
-from _typeshed import Incomplete
+from _typeshed import Incomplete, Unused
 from collections.abc import Sequence
 from contextlib import AbstractContextManager
 from typing import TypedDict, type_check_only
@@ -39,13 +39,11 @@ class _SetBreakpointResult(TypedDict):
 breakpoint_map: dict[str, dict[frozenset[Incomplete], gdb.Breakpoint]]
 
 def suppress_new_breakpoint_event() -> AbstractContextManager[None]: ...
-def set_breakpoint(
-    *, source: Source, breakpoints: Sequence[_SourceBreakpoint] = (), **args
-) -> _SetBreakpointResult: ...  # args argument is unused
-def set_fn_breakpoint(*, breakpoints: Sequence[_SourceBreakpoint], **args) -> _SetBreakpointResult: ...  # args argument is unused
+def set_breakpoint(*, source: Source, breakpoints: Sequence[_SourceBreakpoint] = (), **args: Unused) -> _SetBreakpointResult: ...
+def set_fn_breakpoint(*, breakpoints: Sequence[_SourceBreakpoint], **args: Unused) -> _SetBreakpointResult: ...
 def set_insn_breakpoints(
-    *, breakpoints: Sequence[_SourceBreakpoint], offset: int | None = None, **args
-) -> _SetBreakpointResult: ...  # args argument is unused
+    *, breakpoints: Sequence[_SourceBreakpoint], offset: int | None = None, **args: Unused
+) -> _SetBreakpointResult: ...
 def set_exception_breakpoints(
-    *, filters: Sequence[str], filterOptions: Sequence[_ExceptionFilterOptions] = (), **args
-) -> _SetBreakpointResult: ...  # args argument is unused
+    *, filters: Sequence[str], filterOptions: Sequence[_ExceptionFilterOptions] = (), **args: Unused
+) -> _SetBreakpointResult: ...

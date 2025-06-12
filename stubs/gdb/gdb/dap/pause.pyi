@@ -1,1 +1,3 @@
-def pause(**args) -> None: ...  # args argument is unused
+from _typeshed import Unused
+
+def pause(**args: Unused) -> None: ...

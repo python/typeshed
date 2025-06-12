@@ -1,4 +1,5 @@
 import abc
+from _typeshed import Unused
 from collections import defaultdict
 from collections.abc import Generator
 from contextlib import AbstractContextManager
@@ -30,7 +31,7 @@ class VariableReferenceDescriptor(ReferenceDescriptor):
 
 all_variables: list[BaseReference]
 
-def clear_vars(event: object) -> None: ...  # event argument is unused
+def clear_vars(event: Unused) -> None: ...
 def apply_format(value_format: ValueFormat | None) -> AbstractContextManager[None]: ...
 
 class BaseReference(abc.ABC):

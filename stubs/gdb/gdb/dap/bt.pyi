@@ -1,3 +1,4 @@
+from _typeshed import Unused
 from typing import TypedDict, type_check_only
 from typing_extensions import NotRequired
 
@@ -40,8 +41,8 @@ def check_stack_frame(
     line: bool = False,
     module: bool = False,
     includeAll: bool = False,
-    **rest,
-) -> _StackFrameFormat: ...  # rest argument is unused
+    **rest: Unused,
+) -> _StackFrameFormat: ...
 def stacktrace(
-    *, levels: int = 0, startFrame: int = 0, threadId: int, format: _StackFrameFormat | None = None, **extra
-) -> _StaceTraceResult: ...  # extra argument is unused
+    *, levels: int = 0, startFrame: int = 0, threadId: int, format: _StackFrameFormat | None = None, **extra: Unused
+) -> _StaceTraceResult: ...

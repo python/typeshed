@@ -1,3 +1,4 @@
+from _typeshed import Unused
 from typing import TypedDict, type_check_only
 
 from .sources import Source
@@ -11,5 +12,5 @@ class _BreakpointLocationsResult(TypedDict):
     breakpoints: list[_Line]
 
 def breakpoint_locations(
-    *, source: Source, line: int, endLine: int | None = None, **extra
-) -> _BreakpointLocationsResult: ...  # extra argument is unused
+    *, source: Source, line: int, endLine: int | None = None, **extra: Unused
+) -> _BreakpointLocationsResult: ...

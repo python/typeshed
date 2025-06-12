@@ -1,3 +1,4 @@
+from _typeshed import Unused
 from typing import Literal, TypedDict, type_check_only
 
 import gdb
@@ -17,14 +18,14 @@ def eval_request(
     frameId: int | None = None,
     context: Literal["watch", "variables", "hover", "repl"] = "variables",
     format: ValueFormat | None = None,
-    **args,
-) -> VariableReferenceDescriptor: ...  # args argument is unused
+    **args: Unused,
+) -> VariableReferenceDescriptor: ...
 def variables(
-    *, variablesReference: int, start: int = 0, count: int = 0, format: ValueFormat | None = None, **args
-) -> _VariablesResult: ...  # args argument is unused
+    *, variablesReference: int, start: int = 0, count: int = 0, format: ValueFormat | None = None, **args: Unused
+) -> _VariablesResult: ...
 def set_expression(
-    *, expression: str, value: str, frameId: int | None = None, format: ValueFormat | None = None, **args
-) -> VariableReferenceDescriptor: ...  # args argument is unused
+    *, expression: str, value: str, frameId: int | None = None, format: ValueFormat | None = None, **args: Unused
+) -> VariableReferenceDescriptor: ...
 def set_variable(
-    *, variablesReference: int, name: str, value: str, format: ValueFormat | None = None, **args
-) -> VariableReferenceDescriptor: ...  # args argument is unused
+    *, variablesReference: int, name: str, value: str, format: ValueFormat | None = None, **args: Unused
+) -> VariableReferenceDescriptor: ...
