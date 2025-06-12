@@ -2,10 +2,10 @@ from typing import TypedDict, type_check_only
 from typing_extensions import NotRequired
 
 from .sources import Source
+from .varref import ValueFormat
 
 @type_check_only
-class _StackFrameFormat(TypedDict, total=False):
-    hex: bool
+class _StackFrameFormat(ValueFormat, total=False):
     parameters: bool
     parameterTypes: bool
     parameterNames: bool
@@ -29,6 +29,9 @@ class _StaceTraceResult(TypedDict):
 
 def check_stack_frame(
     *,
+    # From source:
+    #   Note that StackFrameFormat extends ValueFormat, which is why
+    #   "hex" appears here.
     hex: bool = False,
     parameters: bool = False,
     parameterTypes: bool = False,

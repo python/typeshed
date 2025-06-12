@@ -3,42 +3,49 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from contextlib import AbstractContextManager
 from typing import Any, BinaryIO, Generic, TypeVar, type_check_only
+from typing_extensions import TypeAlias
 
 from .startup import DAPQueue
 
 _T = TypeVar("_T")
+_F = TypeVar("_F", bound=Callable[..., Any])
+
+_RequestID: TypeAlias = int
+_EventBody: TypeAlias = Any  # arbitrary object, implicitly constrained by the event being sent
+_JSONValue: TypeAlias = Any  # any object that can be handled by json.dumps/json.loads
 
 class NotStoppedException(Exception): ...
 
 class CancellationHandler:
     lock: threading.Lock
-    reqs: list[int]
-    in_flight_dap_thread: int | None
-    def starting(self, req: int) -> None: ...
-    def done(self, req: int) -> None: ...  # req argument is not used
-    def cancel(self, req: int) -> None: ...
-    def interruptable_region(self, req: int) -> AbstractContextManager[None]: ...
+    reqs: list[_RequestID]
+    in_flight_dap_thread: _RequestID | None
+    in_flight_gdb_thread: _RequestID | None
+    def starting(self, req: _RequestID) -> None: ...
+    def done(self, req: _RequestID) -> None: ...  # req argument is not used
+    def cancel(self, req: _RequestID) -> None: ...
+    def interruptable_region(self, req: _RequestID | None) -> AbstractContextManager[None]: ...
 
 class Server:
     in_stream: BinaryIO
     out_stream: BinaryIO
     child_stream: BinaryIO
-    delay_events: list[tuple[str, Any]]  # second tuple item is an arbitrary object
-    write_queue: DAPQueue[Any | None]  # objects in queue must be passable to json.dumps
-    read_queue: DAPQueue[Any | None]  # objects in queue are returned from json.loads
+    delay_events: list[tuple[str, _EventBody]]
+    write_queue: DAPQueue[_JSONValue | None]
+    read_queue: DAPQueue[_JSONValue | None]
     done: bool
     canceller: CancellationHandler
     config: dict[str, Incomplete]
-    def __init__(self, in_stream, out_stream, child_stream) -> None: ...
+    def __init__(self, in_stream: BinaryIO, out_stream: BinaryIO, child_stream: BinaryIO) -> None: ...
     def main_loop(self) -> None: ...
-    def send_event(self, event: str, body: Any | None = None) -> None: ...  # body is an arbitrary object
-    def send_event_later(self, event: str, body: Any | None = None) -> None: ...  # body is an arbitrary object
+    def send_event(self, event: str, body: _EventBody | None = None) -> None: ...
+    def send_event_later(self, event: str, body: _EventBody | None = None) -> None: ...
     def shutdown(self) -> None: ...
 
-def send_event(event: str, body: Any | None = None) -> None: ...  # body is an arbitrary object
+def send_event(event: str, body: _EventBody | None = None) -> None: ...
 @type_check_only
 class _Wrapper:
-    def __call__(self, func: _T) -> _T: ...
+    def __call__(self, func: _F) -> _F: ...
 
 def request(name: str, *, response: bool = True, on_dap_thread: bool = False, expect_stopped: bool = True) -> _Wrapper: ...
 def capability(name: str, value: bool = True) -> _Wrapper: ...
@@ -49,10 +56,14 @@ def disconnect(*, terminateDebuggee: bool = False, **args): ...  # args argument
 def cancel(**args) -> None: ...  # args argument is unused
 
 class Invoker:
+    cmd: str
     def __init__(self, cmd: str) -> None: ...
     def __call__(self) -> None: ...
 
 class Cancellable(Generic[_T]):
+    fn: Callable[[], _T]
+    result_q: DAPQueue[_T] | None
+    req: _RequestID
     def __init__(self, fn: Callable[[], _T], result_q: DAPQueue[_T] | None = None) -> None: ...
     def __call__(self) -> None: ...
 

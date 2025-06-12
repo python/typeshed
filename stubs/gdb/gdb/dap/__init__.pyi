@@ -10,6 +10,7 @@ from . import (
     pause as pause,
     scopes as scopes,
     sources as sources,
+    startup as startup,
     threads as threads,
 )
 from .server import Server as Server

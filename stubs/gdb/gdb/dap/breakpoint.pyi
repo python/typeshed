@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
-from collections.abc import Generator, Sequence
-from contextlib import contextmanager
+from collections.abc import Sequence
+from contextlib import AbstractContextManager
 from typing import TypedDict, type_check_only
 from typing_extensions import NotRequired
 
-from .. import Breakpoint
+import gdb
+
 from .sources import Source
 
 @type_check_only
@@ -24,7 +25,8 @@ class _ExceptionFilterOptions(TypedDict):
 class _BreakpointDescriptor(TypedDict):
     id: int
     verified: bool
-    reason: NotRequired[str]
+    reason: NotRequired[str]  # only present when verified is False. Possibly only literal "pending" or "failed"
+    message: NotRequired[str]  # only present when reason == "failed"
     source: NotRequired[Source]
     line: NotRequired[int]
     instructionReference: NotRequired[str]
@@ -34,10 +36,9 @@ class _SetBreakpointResult(TypedDict):
     breakpoints: list[_BreakpointDescriptor]
 
 # frozenset entries are tuples from _SourceBreakpoint.items() or _ExceptionFilterOptions.items()
-breakpoint_map: dict[str, dict[frozenset[Incomplete], Breakpoint]]
+breakpoint_map: dict[str, dict[frozenset[Incomplete], gdb.Breakpoint]]
 
-@contextmanager
-def suppress_new_breakpoint_event() -> Generator[None]: ...
+def suppress_new_breakpoint_event() -> AbstractContextManager[None]: ...
 def set_breakpoint(
     *, source: Source, breakpoints: Sequence[_SourceBreakpoint] = (), **args
 ) -> _SetBreakpointResult: ...  # args argument is unused

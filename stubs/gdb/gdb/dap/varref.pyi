@@ -12,16 +12,20 @@ class ValueFormat(TypedDict, total=False):
     hex: bool
 
 @type_check_only
-class ExportedReference(TypedDict):
+class ReferenceDescriptor(TypedDict):
+    # Result of BaseReference.to_object()
     variableReference: int
     name: NotRequired[str]
 
 @type_check_only
-class ExportedVariableReference(ExportedReference):
+class VariableReferenceDescriptor(ReferenceDescriptor):
+    # Result of VariableReference.to_object()
     indexedVariables: NotRequired[int]
     namedVariables: NotRequired[int]
     memoryReference: NotRequired[str]
     type: NotRequired[str]
+    # Below key name set by VariableReference.result_name
+    # Could be modelled with extra_items=str if PEP 728 is accepted.
     value: NotRequired[str]
 
 all_variables: list[BaseReference]
@@ -36,7 +40,7 @@ class BaseReference(abc.ABC):
     by_name: dict[str, VariableReference]
     name_counts: defaultdict[str, int]
     def __init__(self, name: str) -> None: ...
-    def to_object(self) -> ExportedReference: ...
+    def to_object(self) -> ReferenceDescriptor: ...
     @abc.abstractmethod
     def has_children(self) -> bool: ...
     def reset_children(self): ...
@@ -58,7 +62,8 @@ class VariableReference(BaseReference):
     def has_children(self) -> bool: ...
     def cache_children(self) -> list[tuple[int | str, gdb.Value]]: ...
     def child_count(self) -> int: ...
-    def to_object(self) -> ExportedVariableReference: ...
+    def to_object(self) -> VariableReferenceDescriptor: ...
+    # note: parameter named changed from 'index' to 'idx'
     def fetch_one_child(self, idx: int) -> tuple[str, gdb.Value]: ...
 
 def find_variable(ref: int) -> BaseReference: ...

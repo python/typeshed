@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from typing import Any, TypeVar
 
-_T = TypeVar("_T", bound=Callable[..., Any])
+_F = TypeVar("_F", bound=Callable[..., Any])
 
-def type_check(func: _T) -> _T: ...
+def type_check(func: _F) -> _F: ...

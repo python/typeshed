@@ -5,12 +5,12 @@ from typing_extensions import NotRequired
 import gdb
 
 from ..FrameDecorator import FrameDecorator, SymValueWrapper
-from .varref import BaseReference, ExportedReference
+from .varref import BaseReference, ReferenceDescriptor
 
 frame_to_scope: dict[int, _ScopeReference]
 
 @type_check_only
-class _ExportedScopeReference(ExportedReference):
+class _ScopeReferenceDescriptor(ReferenceDescriptor):
     presentationHint: str
     expensive: bool
     namedVariables: int
@@ -18,10 +18,10 @@ class _ExportedScopeReference(ExportedReference):
 
 @type_check_only
 class _ScopesResult(TypedDict):
-    scopes: list[_ExportedScopeReference]
+    scopes: list[_ScopeReferenceDescriptor]
 
 def clear_scopes(event) -> None: ...  # event argument is unused
-def set_finish_value(val: object) -> None: ...
+def set_finish_value(val: gdb.Value) -> None: ...
 def symbol_value(sym: SymValueWrapper, frame: FrameDecorator) -> tuple[str, gdb.Value]: ...
 
 class _ScopeReference(BaseReference):
@@ -32,9 +32,10 @@ class _ScopeReference(BaseReference):
     line: int | None
     var_list: tuple[SymValueWrapper, ...]
     def __init__(self, name: str, hint: str, frame: FrameDecorator, var_list: Iterable[SymValueWrapper]) -> None: ...
-    def to_object(self) -> _ExportedScopeReference: ...
+    def to_object(self) -> _ScopeReferenceDescriptor: ...
     def has_children(self) -> bool: ...
     def child_count(self) -> int: ...
+    # note: parameter named changed from 'index' to 'idx'
     def fetch_one_child(self, idx: int) -> tuple[str, gdb.Value]: ...
 
 class _FinishScopeReference(_ScopeReference): ...
