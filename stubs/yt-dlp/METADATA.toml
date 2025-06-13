@@ -1,0 +1,2 @@
+version = "2025.05.*"
+upstream_repository = "https://github.com/yt-dlp/yt-dlp"
