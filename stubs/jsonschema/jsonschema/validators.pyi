@@ -9,6 +9,7 @@ from referencing.typing import URI
 
 from ._format import FormatChecker
 from ._types import TypeChecker
+from ._typing import SchemaKeywordValidator
 from ._utils import Unset, URIDict
 from .exceptions import ValidationError
 from .protocols import Validator
@@ -21,10 +22,10 @@ _ValidatorCallback: TypeAlias = Callable[[Any, Any, _JsonValue, _JsonObject], It
 # This class does not exist at runtime. Compatible classes are created at
 # runtime by create().
 class _Validator:
-    VALIDATORS: ClassVar[dict[Incomplete, Incomplete]]
-    META_SCHEMA: ClassVar[dict[Incomplete, Incomplete]]
-    TYPE_CHECKER: ClassVar[Incomplete]
-    FORMAT_CHECKER: ClassVar[Incomplete]
+    VALIDATORS: ClassVar[dict[str, SchemaKeywordValidator]]
+    META_SCHEMA: ClassVar[dict[str, Incomplete]]
+    TYPE_CHECKER: ClassVar[TypeChecker]
+    FORMAT_CHECKER: ClassVar[FormatChecker]
     @staticmethod
     def ID_OF(contents: Schema) -> URI | None: ...
     schema: Schema
@@ -54,7 +55,7 @@ class _Validator:
     def iter_errors(self, instance, _schema: Schema | None) -> Generator[Incomplete]: ...
     def descend(
         self, instance, schema: Schema, path: Incomplete | None = ..., schema_path: Incomplete | None = ..., resolver=None
-    ) -> Generator[Incomplete, None, None]: ...
+    ) -> Generator[Incomplete]: ...
     def validate(self, *args, **kwargs) -> None: ...
     def is_type(self, instance, type) -> bool: ...
     @overload
@@ -63,7 +64,7 @@ class _Validator:
     @deprecated("Passing a schema to Validator.is_valid is deprecated and will be removed in a future release.")
     def is_valid(self, instance, _schema: Schema | None) -> bool: ...
 
-def validates(version: str) -> Callable[..., Incomplete]: ...
+def validates(version: str) -> Callable[[_Validator], _Validator]: ...
 def create(
     meta_schema: Schema,
     validators: Mapping[str, _ValidatorCallback] | tuple[()] = (),
