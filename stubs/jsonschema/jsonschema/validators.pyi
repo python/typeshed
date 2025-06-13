@@ -9,7 +9,6 @@ from referencing.typing import URI
 
 from ._format import FormatChecker
 from ._types import TypeChecker
-from ._typing import SchemaKeywordValidator
 from ._utils import Unset, URIDict
 from .exceptions import ValidationError
 from .protocols import Validator
@@ -22,10 +21,10 @@ _ValidatorCallback: TypeAlias = Callable[[Any, Any, _JsonValue, _JsonObject], It
 # This class does not exist at runtime. Compatible classes are created at
 # runtime by create().
 class _Validator:
-    VALIDATORS: ClassVar[dict[str, SchemaKeywordValidator]]
-    META_SCHEMA: ClassVar[dict[str, Incomplete]]
-    TYPE_CHECKER: ClassVar[TypeChecker]
-    FORMAT_CHECKER: ClassVar[FormatChecker]
+    VALIDATORS: ClassVar[dict[Incomplete, Incomplete]]
+    META_SCHEMA: ClassVar[dict[Incomplete, Incomplete]]
+    TYPE_CHECKER: ClassVar[Incomplete]
+    FORMAT_CHECKER: ClassVar[Incomplete]
     @staticmethod
     def ID_OF(contents: Schema) -> URI | None: ...
     schema: Schema
