@@ -71,3 +71,23 @@ jsonschema.validators.Draft7Validator.__attrs_attrs__
 jsonschema.validators.Draft7Validator.__attrs_own_setattr__
 jsonschema.validators.Draft7Validator.__attrs_post_init__
 jsonschema.validators.Draft7Validator.__match_args__
+# >= Python 3.13
+jsonschema.Draft201909Validator.__replace__
+jsonschema.Draft202012Validator.__replace__
+jsonschema.Draft3Validator.__replace__
+jsonschema.Draft4Validator.__replace__
+jsonschema.Draft6Validator.__replace__
+jsonschema.Draft7Validator.__replace__
+jsonschema.RefResolutionError.__replace__
+jsonschema.TypeChecker.__replace__
+jsonschema._types.TypeChecker.__replace__
+jsonschema.cli._Outputter.__replace__
+jsonschema.cli._PlainFormatter.__replace__
+jsonschema.cli._PrettyFormatter.__replace__
+jsonschema.exceptions.RefResolutionError.__replace__
+jsonschema.validators.Draft201909Validator.__replace__
+jsonschema.validators.Draft202012Validator.__replace__
+jsonschema.validators.Draft3Validator.__replace__
+jsonschema.validators.Draft4Validator.__replace__
+jsonschema.validators.Draft6Validator.__replace__
+jsonschema.validators.Draft7Validator.__replace__
