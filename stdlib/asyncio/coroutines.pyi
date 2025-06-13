@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Awaitable, Callable, Coroutine
 from typing import Any, TypeVar, overload
-from typing_extensions import ParamSpec, TypeGuard, TypeIs
+from typing_extensions import ParamSpec, TypeGuard, TypeIs, deprecated
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.version_info >= (3, 11):
@@ -17,11 +17,15 @@ if sys.version_info < (3, 11):
     def coroutine(func: _FunctionT) -> _FunctionT: ...
 
 @overload
+@deprecated("Use inspect.iscoroutinefunction instead")
 def iscoroutinefunction(func: Callable[..., Coroutine[Any, Any, Any]]) -> bool: ...
 @overload
+@deprecated("Use inspect.iscoroutinefunction instead")
 def iscoroutinefunction(func: Callable[_P, Awaitable[_T]]) -> TypeGuard[Callable[_P, Coroutine[Any, Any, _T]]]: ...
 @overload
+@deprecated("Use inspect.iscoroutinefunction instead")
 def iscoroutinefunction(func: Callable[_P, object]) -> TypeGuard[Callable[_P, Coroutine[Any, Any, Any]]]: ...
 @overload
+@deprecated("Use inspect.iscoroutinefunction instead")
 def iscoroutinefunction(func: object) -> TypeGuard[Callable[..., Coroutine[Any, Any, Any]]]: ...
 def iscoroutine(obj: object) -> TypeIs[Coroutine[Any, Any, Any]]: ...
