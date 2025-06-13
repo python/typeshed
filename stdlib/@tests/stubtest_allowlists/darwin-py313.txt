@@ -2,9 +2,4 @@
 # >= 3.13
 # =======
 
-# Depends on HAVE_NCURSESW and how we install CPython,
-# should be removed when 3.13 will be officially released:
-_?curses.unget_wch
-_?curses.window.get_wch
-
 (mmap.MAP_32BIT)?  # Exists locally on MacOS but not on GitHub

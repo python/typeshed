@@ -27,7 +27,7 @@ class TimezoneComponent(Component):
     tzinfo: Incomplete
     name: str
     useBegin: bool
-    def __init__(self, tzinfo: Incomplete | None = None, *args, **kwds) -> None: ...
+    def __init__(self, tzinfo=None, *args, **kwds) -> None: ...
     @classmethod
     def registerTzinfo(cls, tzinfo): ...
     def gettzinfo(self): ...
@@ -118,7 +118,7 @@ class VTimezone(VCalendarComponentBehavior):
     description: str
     sortFirst: Incomplete
     @classmethod
-    def validate(cls, obj, raiseException, *args): ...
+    def validate(cls, obj, raiseException: bool, *args) -> bool: ...  # type: ignore[override]
     @staticmethod
     def transformToNative(obj): ...
     @staticmethod
@@ -134,13 +134,13 @@ class VEvent(RecurringBehavior):
     sortFirst: Incomplete
     description: str
     @classmethod
-    def validate(cls, obj, raiseException, *args): ...
+    def validate(cls, obj, raiseException: bool, *args) -> bool: ...  # type: ignore[override]
 
 class VTodo(RecurringBehavior):
     name: str
     description: str
     @classmethod
-    def validate(cls, obj, raiseException, *args): ...
+    def validate(cls, obj, raiseException: bool, *args) -> bool: ...  # type: ignore[override]
 
 class VJournal(RecurringBehavior):
     name: str
@@ -156,21 +156,21 @@ class VAlarm(VCalendarComponentBehavior):
     @staticmethod
     def generateImplicitParameters(obj) -> None: ...
     @classmethod
-    def validate(cls, obj, raiseException, *args): ...
+    def validate(cls, obj, raiseException: bool, *args) -> bool: ...  # type: ignore[override]
 
 class VAvailability(VCalendarComponentBehavior):
     name: str
     description: str
     sortFirst: Incomplete
     @classmethod
-    def validate(cls, obj, raiseException, *args): ...
+    def validate(cls, obj, raiseException: bool, *args) -> bool: ...  # type: ignore[override]
 
 class Available(RecurringBehavior):
     name: str
     sortFirst: Incomplete
     description: str
     @classmethod
-    def validate(cls, obj, raiseException, *args): ...
+    def validate(cls, obj, raiseException: bool, *args) -> bool: ...  # type: ignore[override]
 
 class Duration(Behavior):
     name: str
@@ -220,9 +220,9 @@ def stringToDateTime(s, tzinfo: datetime.tzinfo | None = None, strict: bool = Fa
 
 escapableCharList: str
 
-def stringToTextValues(s, listSeparator: str = ",", charList: Incomplete | None = None, strict: bool = False): ...
+def stringToTextValues(s, listSeparator: str = ",", charList=None, strict: bool = False): ...
 def stringToDurations(s, strict: bool = False): ...
 def parseDtstart(contentline, allowSignatureMismatch: bool = False): ...
-def stringToPeriod(s, tzinfo: Incomplete | None = None): ...
+def stringToPeriod(s, tzinfo=None): ...
 def getTransition(transitionTo, year, tzinfo): ...
 def tzinfo_eq(tzinfo1, tzinfo2, startYear: int = 2000, endYear: int = 2020): ...

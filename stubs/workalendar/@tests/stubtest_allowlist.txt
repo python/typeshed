@@ -1,15 +1,7 @@
-# TODO: missing from stub
-workalendar.africa.__all__
-workalendar.america.__all__
-workalendar.asia.__all__
-workalendar.astronomy.__all__
-workalendar.europe.__all__
+# VictoriaDayTuesdayAfterFirstMondayMay is not defined but used in __all__ runtime:
 workalendar.europe.scotland.mixins.__all__
-workalendar.oceania.__all__
-workalendar.usa.__all__
 
 workalendar.core.CoreCalendar.name
-workalendar.europe.scotland.mixins.VictoriaDayTuesdayAfterFirstMondayMay
 workalendar.skyfield_astronomy
 workalendar.tests
 workalendar.core.classproperty

@@ -1,6 +1,3 @@
-# TODO: missing from stub
-wtforms.form.__all__
-
 # Error: is not present at runtime
 # =============================
 # This is hack to get around Field.__new__ not being able to return
@@ -11,6 +8,14 @@ wtforms.fields.core.Field.__get__
 # Since DefaultMeta can contain arbitrary values we added __getattr__
 # to let mypy know that arbitrary attribute access is possible
 wtforms.meta.DefaultMeta.__getattr__
+
+# Should allow setting and deleting any attribute
+wtforms.Flags.__delattr__
+wtforms.Flags.__setattr__
+wtforms.fields.Flags.__delattr__
+wtforms.fields.Flags.__setattr__
+wtforms.fields.core.Flags.__delattr__
+wtforms.fields.core.Flags.__setattr__
 
 # Error: variable differs from runtime
 # ======================

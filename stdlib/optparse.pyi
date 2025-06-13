@@ -2,7 +2,7 @@ import builtins
 from _typeshed import MaybeNone, SupportsWrite
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import Any, ClassVar, Literal, NoReturn, overload
+from typing import Any, ClassVar, Final, Literal, NoReturn, overload
 from typing_extensions import Self
 
 __all__ = [
@@ -24,10 +24,10 @@ __all__ = [
     "BadOptionError",
     "check_choice",
 ]
-
-NO_DEFAULT: tuple[str, ...]
-SUPPRESS_HELP: str
-SUPPRESS_USAGE: str
+# pytype is not happy with `NO_DEFAULT: Final = ("NO", "DEFAULT")`
+NO_DEFAULT: Final[tuple[Literal["NO"], Literal["DEFAULT"]]]
+SUPPRESS_HELP: Final = "SUPPRESSHELP"
+SUPPRESS_USAGE: Final = "SUPPRESSUSAGE"
 
 # Can return complex, float, or int depending on the option's type
 def check_builtin(option: Option, opt: str, value: str) -> complex: ...
@@ -239,7 +239,7 @@ class Values:
     # __getattr__ doesn't exist, but anything passed as a default to __init__
     # is set on the instance.
     def __getattr__(self, name: str) -> Any: ...
-    # TODO mypy infers -> object for __getattr__ if __setattr__ has `value: object`
+    # TODO: mypy infers -> object for __getattr__ if __setattr__ has `value: object`
     def __setattr__(self, name: str, value: Any, /) -> None: ...
     def __eq__(self, other: object) -> bool: ...
 
