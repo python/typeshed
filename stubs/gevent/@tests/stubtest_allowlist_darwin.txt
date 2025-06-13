@@ -1,9 +1,3 @@
-# TODO: missing from stub
-gevent.ares.__all__
-gevent.libev.corecffi.__all__
-gevent.resolver.ares.__all__
-gevent.resolver_ares.__all__
-
 # Error: is not present in stub
 # =============================
 # internal API stuff we dropped because it wasn't necessary
@@ -23,10 +17,6 @@ gevent.libev.watcher.watcher.feed
 # undocumented argument for internal use only
 gevent.libev.watcher.watcher.__init__
 
-# ares_host_result always has the same layout, so we set the arguments on __new__
-# to reflect that fact, we don't care that the implementation accepts any number
-# of arguments
-gevent.resolver.cares.ares_host_result.__new__
 
 # we have punted on socket, the gevent version of these functions sometimes use
 # named parameters, while the base implementation only allows positional arguments

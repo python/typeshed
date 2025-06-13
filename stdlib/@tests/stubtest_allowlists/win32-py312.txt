@@ -26,6 +26,6 @@ nis
 ossaudiodev
 spwd
 
-# pathlib functions that rely on modules that don't exist on Windows
-pathlib.Path.owner
-pathlib.Path.group
+# Incompatible changes introduced in Python 3.12.11
+# (Remove once 3.12.11 becomes available for Windows)
+(ntpath.realpath)?

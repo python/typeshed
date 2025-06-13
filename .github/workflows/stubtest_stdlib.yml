@@ -26,14 +26,12 @@ concurrency:
 
 jobs:
   stubtest-stdlib:
-    name: Check stdlib with stubtest
+    name: "stubtest: stdlib"
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # As of 2024-10-18, ubuntu-latest can refer to different Ubuntu versions,
-        # which can can cause problems with os module constants.
-        os: ["ubuntu-24.04", "windows-latest", "macos-latest"]
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14-dev"]
       fail-fast: false
 
     steps:
