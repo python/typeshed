@@ -73,6 +73,3 @@ gdb.Progspace.xmethods
 
 # stubtest thinks this can't be sub-classed at runtime, but it is
 gdb.disassembler.DisassemblerPart
-
-# incomplete modules
-gdb\.dap\.[a-z_]+\.[A-Za-z_]+
