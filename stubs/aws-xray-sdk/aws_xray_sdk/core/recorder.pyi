@@ -1,4 +1,5 @@
 import time
+from _typeshed import FileDescriptorOrPath
 from collections.abc import Callable, Iterable
 from logging import Logger
 from typing import Any
@@ -17,8 +18,8 @@ log: Logger
 TRACING_NAME_KEY: str
 DAEMON_ADDR_KEY: str
 CONTEXT_MISSING_KEY: str
-XRAY_META: Any
-SERVICE_INFO: Any
+XRAY_META: dict[str, dict[str, str]]
+SERVICE_INFO: dict[str, str]
 
 class AWSXRayRecorder:
     def __init__(self) -> None: ...
@@ -27,7 +28,7 @@ class AWSXRayRecorder:
         sampling: bool | None = None,
         plugins: Iterable[str] | None = None,
         context_missing: str | None = None,
-        sampling_rules: dict[str, Any] | str | None = None,
+        sampling_rules: dict[str, Any] | FileDescriptorOrPath | None = None,
         daemon_address: str | None = None,
         service: str | None = None,
         context: Context | None = None,
@@ -84,9 +85,9 @@ class AWSXRayRecorder:
     @service.setter
     def service(self, value: str) -> None: ...
     @property
-    def dynamic_naming(self) -> Any | DefaultDynamicNaming: ...
+    def dynamic_naming(self) -> DefaultDynamicNaming | None: ...
     @dynamic_naming.setter
-    def dynamic_naming(self, value: Any | DefaultDynamicNaming) -> None: ...
+    def dynamic_naming(self, value: DefaultDynamicNaming | str) -> None: ...
     @property
     def context(self) -> Context: ...
     @context.setter
