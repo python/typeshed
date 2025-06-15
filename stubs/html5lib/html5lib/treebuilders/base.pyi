@@ -23,11 +23,11 @@ class ActiveFormattingElements(list[Incomplete]):
     def nodesEqual(self, node1, node2) -> bool: ...
 
 class TreeBuilder:
-    documentClass: type | None
-    elementClass: type | None
-    commentClass: type | None
-    doctypeClass: type | None
-    fragmentClass: type | None
+    documentClass: Incomplete
+    elementClass: Incomplete
+    commentClass: Incomplete
+    doctypeClass: Incomplete
+    fragmentClass: Incomplete
     defaultNamespace: str | None
     def __init__(self, namespaceHTMLElements: bool | None) -> None: ...
     openElements: Incomplete
