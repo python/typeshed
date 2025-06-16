@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import TypeAlias
 from collections.abc import Iterable
 
 from networkx.classes.graph import Graph, _Node
@@ -7,12 +8,14 @@ from networkx.utils.backends import _dispatchable
 
 __all__ = ["from_nested_tuple", "from_prufer_sequence", "NotATree", "to_nested_tuple", "to_prufer_sequence"]
 
+_NestedTuple: TypeAlias = tuple['_NestedTuple', ...]
+
 class NotATree(NetworkXException): ...
 
 @_dispatchable
 def to_nested_tuple(T: Graph[_Node], root: _Node, canonical_form: bool = False): ...
 @_dispatchable
-def from_nested_tuple(sequence: tuple[Incomplete, ...], sensible_relabeling: bool = False): ...
+def from_nested_tuple(sequence: _NestedTuple, sensible_relabeling: bool = False): ...
 @_dispatchable
 def to_prufer_sequence(T: Graph[_Node]): ...
 @_dispatchable
