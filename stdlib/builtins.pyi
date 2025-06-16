@@ -419,32 +419,20 @@ class complex:
     if sys.version_info >= (3, 14):
         @overload
         def __new__(
-            cls,
-            real: SupportsComplex | SupportsFloat | SupportsIndex = ...,
-            imag: SupportsFloat | SupportsIndex = ...,
+            cls, real: SupportsComplex | SupportsFloat | SupportsIndex = ..., imag: SupportsFloat | SupportsIndex = ...
         ) -> Self: ...
         @overload
         def __new__(cls, real: str | SupportsComplex | SupportsFloat | SupportsIndex) -> Self: ...
         @overload
         @deprecated(
-            "Passing a complex number as the 'real' or 'imag' argument is deprecated. "
-            "Use the single-argument form instead."
+            "Passing a complex number as the 'real' or 'imag' argument is deprecated. " "Use the single-argument form instead."
         )
-        def __new__(
-            cls,
-            real: complex,
-            imag: complex | SupportsFloat | SupportsIndex = ...,
-        ) -> Self: ...
+        def __new__(cls, real: complex, imag: complex | SupportsFloat | SupportsIndex = ...) -> Self: ...
         @overload
         @deprecated(
-            "Passing a complex number as the 'real' or 'imag' argument is deprecated. "
-            "Use the single-argument form instead."
+            "Passing a complex number as the 'real' or 'imag' argument is deprecated. " "Use the single-argument form instead."
         )
-        def __new__(
-            cls,
-            real: SupportsComplex | SupportsFloat | SupportsIndex | complex,
-            imag: complex,
-        ) -> Self: ...
+        def __new__(cls, real: SupportsComplex | SupportsFloat | SupportsIndex | complex, imag: complex) -> Self: ...
     else:
         @overload
         def __new__(
@@ -454,6 +442,7 @@ class complex:
         ) -> Self: ...
         @overload
         def __new__(cls, real: str | SupportsComplex | SupportsFloat | SupportsIndex | complex) -> Self: ...
+
     @property
     def real(self) -> float: ...
     @property
