@@ -9,13 +9,13 @@ from typing import Any
 from typing_extensions import assert_type
 
 
-# asyncio.iscoroutinefunction is deprecated, expecting a warning.
 def test_iscoroutinefunction_asyncio(
     x: Callable[[str, int], Coroutine[str, int, bytes]],
     y: Callable[[str, int], Awaitable[bytes]],
     z: Callable[[str, int], str | Awaitable[bytes]],
     xx: object,
 ) -> None:
+    # asyncio.iscoroutinefunction is deprecated >= 3.11, expecting a warning.
     if sys.version_info >= (3, 11):
         if iscoroutinefunction(x):  # pyright: ignore
             assert_type(x, Callable[[str, int], Coroutine[str, int, bytes]])
