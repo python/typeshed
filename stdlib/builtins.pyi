@@ -442,7 +442,7 @@ class complex:
         )
         def __new__(
             cls,
-            real: SupportsComplex | SupportsFloat | SupportsIndex | complex = ...,
+            real: SupportsComplex | SupportsFloat | SupportsIndex | complex,
             imag: complex,
         ) -> Self: ...
     else:
