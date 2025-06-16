@@ -415,24 +415,27 @@ class float:
         def from_number(cls, number: float | SupportsIndex | SupportsFloat, /) -> Self: ...
 
 class complex:
-    # Python doesn't currently accept SupportsComplex for the second argument
     if sys.version_info >= (3, 14):
         @overload
         def __new__(
-            cls, real: SupportsComplex | SupportsFloat | SupportsIndex = ..., imag: SupportsFloat | SupportsIndex = ...
+            cls,
+            real: complex | SupportsComplex | SupportsFloat | SupportsIndex | str,
+            /,
+            imag: complex | SupportsFloat | SupportsIndex = ...,
         ) -> Self: ...
         @overload
-        def __new__(cls, real: str | SupportsComplex | SupportsFloat | SupportsIndex) -> Self: ...
+        def __new__(cls, real: SupportsFloat | SupportsIndex = ..., imag: SupportsFloat | SupportsIndex = ...) -> Self: ...
+        @overload
+        def __new__(cls, real: SupportsFloat | SupportsIndex) -> Self: ...
         @overload
         @deprecated(
-            "Passing a complex number as the 'real' or 'imag' argument is deprecated. " "Use the single-argument form instead."
+            "Passing a complex number as the 'real' or 'imag' argument is deprecated. Use the single-argument form instead."
         )
-        def __new__(cls, real: complex, imag: complex | SupportsFloat | SupportsIndex = ...) -> Self: ...
-        @overload
-        @deprecated(
-            "Passing a complex number as the 'real' or 'imag' argument is deprecated. " "Use the single-argument form instead."
-        )
-        def __new__(cls, real: SupportsComplex | SupportsFloat | SupportsIndex | complex, imag: complex) -> Self: ...
+        def __new__(
+            cls,
+            real: complex | SupportsComplex | SupportsFloat | SupportsIndex = ...,
+            imag: complex | SupportsFloat | SupportsIndex = ...,
+        ) -> Self: ...
     else:
         @overload
         def __new__(
