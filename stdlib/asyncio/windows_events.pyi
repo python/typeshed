@@ -3,6 +3,7 @@ import sys
 from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable
 from typing import IO, Any, ClassVar, Final, NoReturn
+from typing_extensions import deprecated
 
 from . import events, futures, proactor_events, selector_events, streams, windows_utils
 
@@ -115,6 +116,13 @@ if sys.platform == "win32":
 
     if sys.version_info >= (3, 14):
         _DefaultEventLoopPolicy = _WindowsProactorEventLoopPolicy
+        
+        @deprecated("Deprecated as of Python 3.14; will be removed in Python 3.16")
+        class DefaultEventLoopPolicy(_WindowsProactorEventLoopPolicy): ...
+        @deprecated("Deprecated as of Python 3.14; will be removed in Python 3.16")
+        class WindowsSelectorEventLoopPolicy(_WindowsSelectorEventLoopPolicy): ...
+        @deprecated("Deprecated as of Python 3.14; will be removed in Python 3.16")
+        class WindowsProactorEventLoopPolicy(_WindowsProactorEventLoopPolicy): ...
     else:
         DefaultEventLoopPolicy = WindowsSelectorEventLoopPolicy
     if sys.version_info >= (3, 13):
