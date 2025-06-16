@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from networkx.classes.graph import Graph, _Node
 from networkx.exception import NetworkXException
