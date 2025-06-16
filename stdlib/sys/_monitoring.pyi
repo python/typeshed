@@ -8,7 +8,7 @@
 import sys
 from collections.abc import Callable
 from types import CodeType
-from typing import Any, Final
+from typing import Any, Final, final
 from typing_extensions import deprecated
 
 DEBUGGER_ID: Final[int]
@@ -22,6 +22,7 @@ def get_tool(tool_id: int, /) -> str | None: ...
 
 events: Final[_events]
 
+@final
 class _events:
     CALL: Final[int]
     C_RAISE: Final[int]
