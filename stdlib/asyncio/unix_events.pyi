@@ -185,6 +185,7 @@ if sys.platform != "win32":
         _DefaultEventLoopPolicy = _UnixDefaultEventLoopPolicy
         @deprecated("Deprecated as of Python 3.14; will be removed in Python 3.16")
         class DefaultEventLoopPolicy(_UnixDefaultEventLoopPolicy): ...
+
     else:
         DefaultEventLoopPolicy = _UnixDefaultEventLoopPolicy
 
