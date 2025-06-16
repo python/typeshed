@@ -168,7 +168,6 @@ if sys.platform != "win32":
 
     if sys.version_info >= (3, 14):
         class _UnixDefaultEventLoopPolicy(events._BaseDefaultEventLoopPolicy): ...
-
     else:
         class _UnixDefaultEventLoopPolicy(events.BaseDefaultEventLoopPolicy):
             if sys.version_info >= (3, 12):

@@ -3,7 +3,6 @@ import sys
 from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable
 from typing import IO, Any, ClassVar, Final, NoReturn
-from typing_extensions import deprecated
 
 from . import events, futures, proactor_events, selector_events, streams, windows_utils
 
