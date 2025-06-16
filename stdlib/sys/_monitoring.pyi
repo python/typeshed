@@ -32,7 +32,7 @@ class _events:
     LINE: Final[int]
     NO_EVENTS: Final[int]
     PY_RESUME: Final[int]
-    PY_RETURN: int
+    PY_RETURN: Final[int]
     PY_START: Final[int]
     PY_THROW: Final[int]
     PY_UNWIND: Final[int]
