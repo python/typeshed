@@ -9,6 +9,7 @@ import sys
 from collections.abc import Callable
 from types import CodeType
 from typing import Any, Final
+from typing_extensions import deprecated
 
 DEBUGGER_ID: Final[int]
 COVERAGE_ID: Final[int]
@@ -22,7 +23,6 @@ def get_tool(tool_id: int, /) -> str | None: ...
 events: _events
 
 class _events:
-    BRANCH: Final[int]
     CALL: Final[int]
     C_RAISE: Final[int]
     C_RETURN: Final[int]
@@ -43,6 +43,13 @@ class _events:
     if sys.version_info >= (3, 14):
         BRANCH_LEFT: Final[int]
         BRANCH_TAKEN: Final[int]
+
+        @property
+        @deprecated("BRANCH is deprecated; use BRANCH_LEFT or BRANCH_TAKEN instead")
+        def BRANCH(self) -> int: ...
+
+    else:
+        BRANCH: Final[int]
 
 def get_events(tool_id: int, /) -> int: ...
 def set_events(tool_id: int, event_set: int, /) -> None: ...
