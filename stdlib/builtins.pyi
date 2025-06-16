@@ -426,8 +426,6 @@ class complex:
         @overload
         def __new__(cls, real: SupportsFloat | SupportsIndex = ..., imag: SupportsFloat | SupportsIndex = ...) -> Self: ...
         @overload
-        def __new__(cls, real: SupportsFloat | SupportsIndex) -> Self: ...
-        @overload
         @deprecated(
             "Passing a complex number as the 'real' or 'imag' argument is deprecated. Use the single-argument form instead."
         )
