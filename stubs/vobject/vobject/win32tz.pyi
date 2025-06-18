@@ -5,19 +5,19 @@ from _typeshed import Incomplete
 from typing import Any, SupportsIndex
 
 if sys.platform == "win32":
-    handle: winreg.ConnectRegistry
-    tzparent: winreg.OpenKey
-    parentsize: winreg.QueryInfoKey
-    localkey: winreg.OpenKey
+    handle: winreg.HKEYType
+    tzparent: winreg.HKEYType
+    parentsize: int
+    localkey: winreg.HKEYType
     WEEKS: datetime.timedelta
-    def list_timezones() -> list[winreg.EnumKey]: ...
+    def list_timezones() -> list[str]: ...
 
     class win32tz(datetime.tzinfo):
         data: win32tz_data
         def __init__(self, name: str | None) -> None: ...
-        def utcoffset(self, dt: datetime.datetime) -> datetime.timedelta: ...
-        def dst(self, dt: datetime.datetime) -> datetime.timedelta: ...
-        def tzname(self, dt: datetime.datetime): ...
+        def utcoffset(self, dt: datetime.datetime) -> datetime.timedelta: ...  # type: ignore[override]
+        def dst(self, dt: datetime.datetime) -> datetime.timedelta: ...  # type: ignore[override]
+        def tzname(self, dt: datetime.datetime) -> str | None: ...  # type: ignore[override]
 
     def pickNthWeekday(
         year: SupportsIndex, month: SupportsIndex, dayofweek: int, hour: SupportsIndex, minute: SupportsIndex, whichweek: int
