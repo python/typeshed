@@ -3,8 +3,8 @@ from __future__ import annotations
 import inspect
 from asyncio import iscoroutinefunction
 from collections.abc import Awaitable, Callable, Coroutine
-from typing import Any
 from types import CoroutineType
+from typing import Any
 from typing_extensions import assert_type
 
 
