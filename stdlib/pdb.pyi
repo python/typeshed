@@ -59,7 +59,7 @@ class Pdb(Bdb, Cmd):
     stack: list[tuple[FrameType, int]]
     curindex: int
     curframe: FrameType | None
-    if sys.version_info >= (3, 14):
+    if sys.version_info >= (3, 13):
         @property
         @deprecated("curframe_locals is deprecated. Derived debuggers should access pdb.Pdb.curframe.f_locals instead.")
         def curframe_locals(self) -> Mapping[str, Any]: ...
