@@ -93,7 +93,14 @@ class _ActionsContainer:
     ) -> Action: ...
     if sys.version_info >= (3, 14):
         @overload
-        def add_argument_group(self, title: str | None = None, description: str | None = None) -> _ArgumentGroup: ...
+        def add_argument_group(
+            self,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> _ArgumentGroup: ...
         @overload
         @deprecated("Passing 'prefix_chars' to add_argument_group() is deprecated")
         def add_argument_group(

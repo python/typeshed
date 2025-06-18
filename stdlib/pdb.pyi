@@ -61,7 +61,7 @@ class Pdb(Bdb, Cmd):
     curframe: FrameType | None
     if sys.version_info >= (3, 14):
         @property
-        @deprecated("curframe_locals is deprecated. Use get_frame_locals() instead.")
+        @deprecated("curframe_locals is deprecated. Derived debuggers should access pdb.Pdb.curframe.f_locals instead.")
         def curframe_locals(self) -> Mapping[str, Any]: ...
     else:
         curframe_locals: Mapping[str, Any]
