@@ -115,7 +115,6 @@ if sys.platform == "win32":
 
     if sys.version_info >= (3, 14):
         _DefaultEventLoopPolicy = _WindowsProactorEventLoopPolicy
-
     else:
         DefaultEventLoopPolicy = WindowsSelectorEventLoopPolicy
     if sys.version_info >= (3, 13):
