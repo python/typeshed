@@ -751,11 +751,8 @@ class ImportFrom(stmt):
     names: list[alias]
     level: int
     if sys.version_info >= (3, 13):
-        @overload
-        def __init__(self, module: str | None, names: list[alias], level: int, **kwargs: Unpack[_Attributes]) -> None: ...
-        @overload
         def __init__(
-            self, module: str | None = None, names: list[alias] = ..., *, level: int, **kwargs: Unpack[_Attributes]
+            self, module: str | None = None, names: list[alias] = ..., *, level: int | None = None, **kwargs: Unpack[_Attributes]
         ) -> None: ...
     else:
         @overload
