@@ -749,10 +749,27 @@ class ImportFrom(stmt):
         __match_args__ = ("module", "names", "level")
     module: str | None
     names: list[alias]
-    level: int | None
+    if sys.version_info >= (3, 10):
+        level: int | None
+    else:
+        level: int
     if sys.version_info >= (3, 13):
+        @overload
         def __init__(
-            self, module: str | None = None, names: list[alias] = ..., *, level: int | None = None, **kwargs: Unpack[_Attributes]
+            self, module: None = None, names: list[alias] = ..., *, level: int | None = None, **kwargs: Unpack[_Attributes]
+        ) -> None: ...
+        @overload
+        def __init__(
+            self, module: str | None = None, *, names: list[alias] = ..., level: int | None = None, **kwargs: Unpack[_Attributes]
+        ) -> None: ...
+    elif sys.version_info >= (3, 10):
+        @overload
+        def __init__(
+            self, module: str | None, names: list[alias], level: int | None = None, **kwargs: Unpack[_Attributes]
+        ) -> None: ...
+        @overload
+        def __init__(
+            self, module: str | None = None, *, names: list[alias], level: int | None = None, **kwargs: Unpack[_Attributes]
         ) -> None: ...
     else:
         @overload
@@ -764,7 +781,7 @@ class ImportFrom(stmt):
 
     if sys.version_info >= (3, 14):
         def __replace__(
-            self, *, module: str | None = ..., names: list[alias] = ..., level: int = ..., **kwargs: Unpack[_Attributes]
+            self, *, module: str | None = ..., names: list[alias] = ..., level: int | None = ..., **kwargs: Unpack[_Attributes]
         ) -> Self: ...
 
 class Global(stmt):
