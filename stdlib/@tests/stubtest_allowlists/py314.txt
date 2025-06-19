@@ -5,7 +5,6 @@
 _zstd.ZstdCompressor.set_pledged_input_size
 asyncio.tools
 compression.zstd.ZstdCompressor.set_pledged_input_size
-concurrent.interpreters
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
@@ -33,6 +32,15 @@ types.UnionType.__qualname__
 
 # Assigning `__new__` causes `func` not to get recognized.
 functools.partialmethod.__new__
+
+# decorator approximated by classmethod
+concurrent.interpreters._crossinterp.classonly.*
+
+# object() sentinels at runtime represented by NewTypes in the stubs
+concurrent.interpreters._crossinterp.UNBOUND_ERROR
+concurrent.interpreters._crossinterp.UNBOUND_REMOVE
+concurrent.interpreters._queues.UNBOUND_ERROR
+concurrent.interpreters._queues.UNBOUND_REMOVE
 
 # ====================================
 # Pre-existing errors from Python 3.13
