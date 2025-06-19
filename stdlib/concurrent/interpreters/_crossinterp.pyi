@@ -1,0 +1,27 @@
+from collections.abc import Callable
+from typing import Never, NewType
+from typing_extensions import Self, TypeAlias
+
+from _interpqueues import _UnboundOp
+
+class ItemInterpreterDestroyed(Exception): ...
+
+# Actually a descriptor that behaves similarly to classmethod but prevents
+# access from instances.
+classonly = classmethod
+
+class UnboundItem:
+    def __new__(cls) -> Never: ...
+    @classonly
+    def singleton(cls, kind: str, module: str, name: str = "UNBOUND") -> Self: ...
+
+_UnboundErrorType = NewType("_UnboundErrorType", object)
+_UnboundRemoveType = NewType("_UnboundRemoveType", object)
+
+UNBOUND_ERROR: _UnboundErrorType
+UNBOUND_REMOVE: _UnboundRemoveType
+UNBOUND: UnboundItem  # analogous to UNBOUND_REPLACE in C
+_AnyUnbound: TypeAlias = _UnboundErrorType | _UnboundRemoveType | UnboundItem
+
+def serialize_unbound(unbound: _AnyUnbound) -> tuple[_UnboundOp]: ...
+def resolve_unbound(flag: _UnboundOp, exctype_destroyed: Callable[[str], BaseException]) -> UnboundItem: ...
