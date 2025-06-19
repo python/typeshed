@@ -12,7 +12,7 @@ class _TaskInfo(NamedTuple):  # TaskInfo_Type from _remote_debugging
     task_id: int
     task_name: str
     coroutine_stack: list[_CoroInfo]
-    awaited_by: list[_TaskInfo]
+    awaited_by: list[_CoroInfo]
 
 @type_check_only
 class _CoroInfo(NamedTuple):  # CoroInfo_Type from _remote_debugging
