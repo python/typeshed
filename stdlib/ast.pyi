@@ -749,7 +749,7 @@ class ImportFrom(stmt):
         __match_args__ = ("module", "names", "level")
     module: str | None
     names: list[alias]
-    level: int
+    level: int | None
     if sys.version_info >= (3, 13):
         def __init__(
             self, module: str | None = None, names: list[alias] = ..., *, level: int | None = None, **kwargs: Unpack[_Attributes]
