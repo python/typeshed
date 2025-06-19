@@ -3,7 +3,6 @@
 # ====================================================================
 
 _winapi.COPY_FILE_DIRECTORY
-asyncio.tools
 compression.zlib.ZLIBNG_VERSION
 encodings.win32_code_page_search_function
 nt.readinto
