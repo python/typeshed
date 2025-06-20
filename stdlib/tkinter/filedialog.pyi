@@ -1,4 +1,4 @@
-from _typeshed import Incomplete, StrPath, StrOrBytesPath
+from _typeshed import Incomplete, StrOrBytesPath, StrPath
 from collections.abc import Hashable, Iterable
 from tkinter import Button, Entry, Event, Frame, Listbox, Misc, Scrollbar, StringVar, Toplevel, commondialog
 from typing import IO, ClassVar, Literal
