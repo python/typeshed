@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, StrOrBytesPath
-from collections.abc import Iterable
+from collections.abc import Hashable, Iterable
 from tkinter import Button, Entry, Event, Frame, Listbox, Misc, Scrollbar, StringVar, Toplevel, commondialog
-from typing import IO, ClassVar, Hashable, Literal
+from typing import IO, ClassVar, Literal
 
 __all__ = [
     "FileDialog",
