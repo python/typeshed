@@ -1,3 +1,4 @@
+import sys
 from typing import Any, ClassVar, Final
 
 import click
@@ -46,7 +47,10 @@ class BaseInput:
     def _build_name(self, name: str) -> str: ...
 
 class ChoiceInput(BaseInput):
-    param_type_cls: type[click.Choice[Any]]
+    if sys.version_info >= (3, 10):
+        param_type_cls: type[click.Choice[Any]]
+    else:
+        param_type_cls: type[click.Choice]  # pyright: ignore[reportMissingTypeArgument]
 
 class FlagInput(BaseInput):
     param_type_cls: None
