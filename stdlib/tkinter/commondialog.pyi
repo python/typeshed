@@ -1,12 +1,12 @@
-from _typeshed import Incomplete
 from collections.abc import Mapping
-from typing import ClassVar
+from tkinter import Misc
+from typing import Any, ClassVar
 
 __all__ = ["Dialog"]
 
 class Dialog:
     command: ClassVar[str | None]
-    master: Incomplete | None
-    options: Mapping[str, Incomplete]
-    def __init__(self, master=None, **options) -> None: ...
-    def show(self, **options): ...
+    master: Misc | None
+    options: Mapping[str, Any]
+    def __init__(self, master: Misc = None, **options: Any) -> None: ...
+    def show(self, **options: Any): ...
