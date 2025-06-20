@@ -50,7 +50,7 @@ class ChoiceInput(BaseInput):
     if sys.version_info >= (3, 10):
         param_type_cls: type[click.Choice[Any]]
     else:
-        param_type_cls: type[click.Choice]  # pyright: ignore[reportMissingTypeArgument]
+        param_type_cls: type[click.Choice]
 
 class FlagInput(BaseInput):
     param_type_cls: None
