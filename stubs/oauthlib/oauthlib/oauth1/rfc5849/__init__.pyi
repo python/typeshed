@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
 from logging import Logger
 from typing import Any, Final
 
