@@ -25,7 +25,6 @@
         "stdlib/tkinter/scrolledtext.pyi",
         "stdlib/tkinter/tix.pyi",
         "stdlib/tkinter/ttk.pyi",
-        "stubs/aiofiles",
         "stubs/antlr4-python3-runtime",
         "stubs/auth0-python",
         "stubs/Authlib",
