@@ -1,7 +1,8 @@
-from typing import Any, TypedDict
+from typing import Any, TypedDict, type_check_only
 
 import click
 
+@type_check_only
 class _FormData(TypedDict):
     command: click.Command
     fields: list[dict[str, Any]]  # each item is result of resources.input_fields.get_input_field() function
