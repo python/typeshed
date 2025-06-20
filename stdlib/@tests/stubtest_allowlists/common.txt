@@ -208,11 +208,8 @@ _?ast.excepthandler.__init__
 _?ast.expr.__init__
 _?ast.stmt.__init__
 
-_ast.ImportFrom.level  # None on the class, but never None on instances
-
 argparse.Namespace.__setattr__  # should allow setting any attribute
 
-ast.ImportFrom.level  # None on the class, but never None on instances
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
 _?asyncio.Future.__init__  # Usually initialized from c object
 asyncio.futures.Future.__init__  # Usually initialized from c object
