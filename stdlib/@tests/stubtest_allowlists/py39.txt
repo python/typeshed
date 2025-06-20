@@ -1,6 +1,8 @@
 # ========
 # 3.9 only
 # ========
+_ast.ImportFrom.level  # None on the class, but never None on instances
+ast.ImportFrom.level  # None on the class, but never None on instances
 
 # Exists at runtime, but missing from stubs
 collections.AsyncIterable.__class_getitem__
