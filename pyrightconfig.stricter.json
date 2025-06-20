@@ -34,7 +34,6 @@
         "stubs/boltons",
         "stubs/braintree",
         "stubs/cffi",
-        "stubs/click-web",
         "stubs/dateparser",
         "stubs/defusedxml",
         "stubs/docker",
