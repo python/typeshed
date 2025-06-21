@@ -1,0 +1,97 @@
+/*
+ * ⚠ Disclaimer: The typeshed team doesn't commit to maintaining this file. It exists purely for
+ * your ease of use.
+*/
+{
+    "[git-commit]": {
+        "editor.rulers": [
+            72
+        ]
+    },
+    "[json][jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[json][jsonc][python][toml]": {
+        "editor.tabSize": 4
+    },
+    // The typeshed team recommends these extensions "fixAll" "OnSave" for your ease of use.
+    "[json][jsonc][yaml][python][toml]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit"
+        },
+        "editor.formatOnSave": true
+    },
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            // The typeshed team recommends using Ruff for import statements.
+            "source.organizeImports": "never",
+            "source.unusedImports": "never"
+        },
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.rulers": [
+            130
+        ]
+    },
+    "[toml]": {
+        "editor.defaultFormatter": "tamasfe.even-better-toml",
+        "editor.rulers": [
+            90
+        ]
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "black-formatter.importStrategy": "fromEnvironment",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "never"
+    },
+    "editor.comments.insertSpace": true,
+    "editor.detectIndentation": false,
+    // The typeshed team recommends disabling generalized "on save" actions in favor of "on save"
+    // actions per extension.
+    "editor.formatOnSave": false,
+    "editor.insertSpaces": true,
+    "editor.rulers": [
+        90,
+        130
+    ],
+    "editor.tabSize": 2,
+    "evenBetterToml.formatter.alignComments": false,
+    "evenBetterToml.formatter.alignEntries": false,
+    "evenBetterToml.formatter.allowedBlankLines": 1,
+    "evenBetterToml.formatter.arrayAutoCollapse": true,
+    "evenBetterToml.formatter.arrayAutoExpand": true,
+    "evenBetterToml.formatter.arrayTrailingComma": true,
+    "evenBetterToml.formatter.columnWidth": 90,
+    "evenBetterToml.formatter.compactArrays": true,
+    "evenBetterToml.formatter.compactEntries": false,
+    "evenBetterToml.formatter.compactInlineTables": false,
+    "evenBetterToml.formatter.indentEntries": false,
+    "evenBetterToml.formatter.indentTables": false,
+    "evenBetterToml.formatter.inlineTableExpand": false,
+    "evenBetterToml.formatter.reorderArrays": true,
+    // "We" do not want you to reorder TOML keys because "we" like keeping TOML keys in a "specific
+    // non-alphabetical order" that feels more natural to "us". (Note: This file does not document
+    // the "specific non-alphabetical order", and this file does not identify who "we" are.)
+    "evenBetterToml.formatter.reorderKeys": false,
+    "evenBetterToml.formatter.trailingNewline": true,
+    "files.eol": "\n",
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.*_cache": true // This includes the mypy and Ruff caches.
+    },
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "flake8.args": [
+        "--config=.flake8 ${workspaceRoot}"
+    ],
+    // Using Ruff instead of isort
+    "isort.check": false,
+    "mypy-type-checker.args": [
+        "--custom-typeshed-dir=${workspaceRoot}",
+        "--strict",
+        // A developer's environment might not have a library that typeshed provides a stub for.
+        "--ignore-missing-imports"
+    ],
+}

@@ -60,7 +60,7 @@ analyze.py
 *~
 .*.sw?
 .vscode/*
-!.vscode/settings.default.json
+!.vscode/settings.json
 !.vscode/extensions.json
 .idea/
 .venv*/

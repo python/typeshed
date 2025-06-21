@@ -1,5 +1,4 @@
 // ⚠ Disclaimer: The typeshed team doesn't commit to maintaining this file. It exists purely for your ease of use.
-// Keep in alphabetical order
 {
     "recommendations": [
         "bierner.github-markdown-preview",
@@ -14,9 +13,6 @@
         "redhat.vscode-yaml",
     ],
     "unwantedRecommendations": [
-        /*
-        * Don't recommend by default for this workspace
-        */
         "christian-kohler.npm-intellisense",
         /*
         * Must disable in this workspace
@@ -32,10 +28,5 @@
         "ms-python.autopep8",
         // Not using pylint
         "ms-python.pylint",
-        // VSCode has implemented an optimized version
-        "coenraads.bracket-pair-colorizer",
-        "coenraads.bracket-pair-colorizer-2",
-        // Obsoleted by Pylance
-        "ms-pyright.pyright",
     ],
 }

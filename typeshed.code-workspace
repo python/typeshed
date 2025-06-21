@@ -1,0 +1,25 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "[python]": {
+            "editor.defaultFormatter": "ms-python.black-formatter"
+        },
+        "files.associations": {
+            ".flake8": "properties",
+            "**/stubtest_allowlists/*.txt": "properties",
+            "pyrightconfig*.json": "jsonc",
+            "pytype_exclude_list.txt": "properties",
+            "settings.default.json": "jsonc",
+            "stubtest_allowlist*.txt": "properties"
+        },
+        "flake8.importStrategy": "fromEnvironment",
+        "mypy-type-checker.importStrategy": "fromEnvironment",
+        "ruff.fixAll": true,
+        "ruff.importStrategy": "fromEnvironment",
+        "ruff.organizeImports": true,
+    }
+}
