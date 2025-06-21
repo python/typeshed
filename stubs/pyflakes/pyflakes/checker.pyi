@@ -191,6 +191,7 @@ if sys.version_info >= (3, 14):
     _Interpolation: TypeAlias = ast.Interpolation
 else:
     _NameConstant: TypeAlias = ast.NameConstant
+    # The methods using these should never be called on Python < 3.14.
     _TemplateStr: TypeAlias = Never
     _Interpolation: TypeAlias = Never
 
