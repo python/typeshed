@@ -1310,26 +1310,300 @@ class _DrawList:
                 ImDrawFlags flags = 0
             )
         """
-    def add_polyline(self, points: list[tuple[float, float]], col: int, flags: int = 0, thickness: float = 1.0) -> None: ...
-    def path_clear(self) -> None: ...
-    def path_line_to(self, x: float, y: float) -> None: ...
+    def add_polyline(self, points: list[tuple[float, float]], col: int, flags: int = 0, thickness: float = 1.0) -> None:
+        """
+        Add a optionally closed polyline to the draw list.
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Polyline example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_polyline([(20, 35), (90, 35), (55, 80)], imgui.get_color_u32_rgba(1,1,0,1), flags=imgui.DRAW_NONE, thickness=3)
+            draw_list.add_polyline([(110, 35), (180, 35), (145, 80)], imgui.get_color_u32_rgba(1,0,0,1), flags=imgui.DRAW_CLOSED, thickness=3)
+            imgui.end()
+
+        Args:
+            points (list): list of points
+            col (float): RGBA color specification
+            flags (ImDrawFlags): Drawing flags. See:
+                :ref:`list of available flags <draw-flag-options>`.
+            thickness (float): line thickness
+
+        .. wraps::
+            void ImDrawList::AddPolyline(
+                const ImVec2* points,
+                int num_points,
+                ImU32 col,
+                flags flags,
+                float thickness
+            )
+        """
+    def path_clear(self) -> None:
+        """
+        Clear the current list of path point
+
+        .. wraps::
+            void ImDrawList::PathClear()
+        """
+    def path_line_to(self, x: float, y: float) -> None:
+        """
+        Add a point to the path list
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Path line to example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.path_clear()
+            draw_list.path_line_to(20, 35)
+            draw_list.path_line_to(180, 80)
+            draw_list.path_stroke(imgui.get_color_u32_rgba(1,1,0,1), flags=0, thickness=3)
+            draw_list.path_clear()
+            draw_list.path_line_to(180, 35)
+            draw_list.path_line_to(20, 80)
+            draw_list.path_stroke(imgui.get_color_u32_rgba(1,0,0,1), flags=0, thickness=3)
+            imgui.end()
+
+        Args:
+            x (float): path point x coordinate
+            y (float): path point y coordinate
+
+        .. wraps::
+            void ImDrawList::PathLineTo(
+                const ImVec2& pos,
+            )
+        """
     def path_arc_to(
         self, center_x: float, center_y: float, radius: float, a_min: float, a_max: float, num_segments: int = 0
-    ) -> None: ...
+    ) -> None:
+        """
+        Add an arc to the path list
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Path arc to example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.path_clear()
+            draw_list.path_arc_to(55, 60, 30, 1, 5)
+            draw_list.path_stroke(imgui.get_color_u32_rgba(1,1,0,1), flags=0, thickness=3)
+            draw_list.path_clear()
+            draw_list.path_arc_to(155, 60, 30, -2, 2)
+            draw_list.path_fill_convex(imgui.get_color_u32_rgba(1,0,0,1))
+            imgui.end()
+
+        Args:
+            center_x (float): arc center x coordinate
+            center_y (float): arc center y coordinate
+            radius (flaot): radius of the arc
+            a_min (float): minimum angle of the arc (in radian)
+            a_max (float): maximum angle of the arc (in radian)
+            num_segments (ImU32): Number of segments, defaults to 0 meaning auto-tesselation
+
+        .. wraps::
+            void ImDrawList::PathArcTo(
+                const ImVec2& center,
+                float radius,
+                float a_min,
+                float a_max,
+                int num_segments = 0
+            )
+        """
     def path_arc_to_fast(
         self, center_x: float, center_y: float, radius: float, a_min_of_12: float, a_max_of_12: float
-    ) -> None: ...
+    ) -> None:
+        """
+        Add an arc to the path list
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Path arc to fast example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.path_clear()
+            draw_list.path_arc_to_fast(55, 60, 30, 0, 6)
+            draw_list.path_stroke(imgui.get_color_u32_rgba(1,1,0,1), flags=0, thickness=3)
+            draw_list.path_clear()
+            draw_list.path_arc_to_fast(155, 60, 30, 3, 9)
+            draw_list.path_fill_convex(imgui.get_color_u32_rgba(1,0,0,1))
+            imgui.end()
+
+        Args:
+            center_x (float): arc center x coordinate
+            center_y (float): arc center y coordinate
+            radius (flaot): radius of the arc
+            a_min_of_12 (ImU32): minimum angle of the arc
+            a_max_of_12 (ImU32): maximum angle of the arc
+
+        .. wraps::
+            void ImDrawList::PathArcToFast(
+                const ImVec2& center,
+                float radius,
+                int a_min_of_12,
+                int a_max_of_12
+            )
+        """
     def path_rect(
         self, point1_x: float, point1_y: float, point2_x: float, point2_y: float, rounding: float = 0.0, flags: int = 0
-    ) -> None: ...
-    def path_fill_convex(self, col: int) -> None: ...
-    def path_stroke(self, col: int, flags: int = 0, thickness: float = 1.0) -> None: ...
-    def channels_split(self, channels_count: int) -> None: ...
+    ) -> None:
+        """
+        Add a rect to the path list
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Path arc to fast example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.path_clear()
+            draw_list.path_rect(20, 35, 90, 80)
+            draw_list.path_stroke(imgui.get_color_u32_rgba(1,1,0,1), flags=0, thickness=3)
+            draw_list.path_clear()
+            draw_list.path_rect(110, 35, 180, 80, 5)
+            draw_list.path_fill_convex(imgui.get_color_u32_rgba(1,0,0,1))
+            imgui.end()
+
+        Args:
+            point1_x (float): point1 x coordinate
+            point1_y (float): point1 y coordinate
+            point2_x (float): point2 x coordinate
+            point2_y (float): point2 y coordinate
+            rounding (flaot): Degree of rounding, defaults to 0.0
+            flags (ImDrawFlags):Draw flags, defaults to 0. See:
+                :ref:`list of available flags <draw-flag-options>`.
+
+        .. wraps::
+            void ImDrawList::PathRect(
+                const ImVec2& p1,
+                const ImVec2& p2,
+                float rounding = 0.0,
+                ImDrawFlags flags = 0
+            )
+        """
+    def path_fill_convex(self, col: int) -> None:
+        """
+        Note: Filled shapes must always use clockwise winding order.
+        The anti-aliasing fringe depends on it. Counter-clockwise shapes
+        will have "inward" anti-aliasing.
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Path fill convex example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.path_clear()
+            draw_list.path_line_to(100, 60)
+            draw_list.path_arc_to(100, 60, 30, 0.5, 5.5)
+            draw_list.path_fill_convex(imgui.get_color_u32_rgba(1,1,0,1))
+            imgui.end()
+
+        Args:
+            col (ImU32): color to fill the path shape with
+
+        .. wraps::
+            void ImDrawList::PathFillConvex(
+                ImU32   col
+            );
+        """
+    def path_stroke(self, col: int, flags: int = 0, thickness: float = 1.0) -> None:
+        """
+        Args:
+            col (ImU32): color to fill the path shape with
+            flags (ImDrawFlags): draw flags, defaults to 0. See:
+                :ref:`list of available flags <draw-flag-options>`.
+            thickness (float): Line thickness in pixels
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Path stroke example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.path_clear()
+            draw_list.path_line_to(100, 60)
+            draw_list.path_arc_to(100, 60, 30, 0.5, 5.5)
+            draw_list.path_stroke(imgui.get_color_u32_rgba(1,1,0,1), flags=imgui.DRAW_CLOSED, thickness=3)
+            imgui.end()
+
+
+        .. wraps::
+            void ImDrawList::PathStroke(
+                ImU32 col,
+                ImDrawFlags flags = 0,
+                float thickness = 1.0
+            );
+        """
+    def channels_split(self, channels_count: int) -> None:
+        """
+        Use to split render into layers.
+        By switching channels to can render out-of-order (e.g. submit FG primitives before BG primitives)
+        Use to minimize draw calls (e.g. if going back-and-forth between multiple clipping rectangles, prefer to append into separate channels then merge at the end)
+
+        Prefer using your own persistent instance of ImDrawListSplitter as you can stack them.
+        Using the ImDrawList::ChannelsXXXX you cannot stack a split over another.
+
+        Warning - be careful with using channels as "layers".
+        Child windows are always drawn after their parent, so they will
+        paint over its channels.
+        To paint over child windows, use `OverlayDrawList`.
+        """
     def channels_set_current(self, idx: int) -> None: ...
     def channels_merge(self) -> None: ...
-    def prim_reserve(self, idx_count: int, vtx_count: int) -> None: ...
-    def prim_unreserve(self, idx_count: int, vtx_count: int) -> None: ...
-    def prim_rect(self, a_x: float, a_y: float, b_x: float, b_y: float, color: int = 0xFFFFFFFF) -> None: ...
+    def prim_reserve(self, idx_count: int, vtx_count: int) -> None:
+        """
+        Reserve space for a number of vertices and indices.
+        You must finish filling your reserved data before calling `prim_reserve()` again, as it may
+        reallocate or submit the intermediate results. `prim_unreserve()` can be used to release
+        unused allocations.
+
+        Drawing a quad is 6 idx (2 triangles) with 2 sharing vertices for a total of 4 vertices.
+
+        Args:
+            idx_count (int): Number of indices to add to IdxBuffer
+            vtx_count (int): Number of verticies to add to VtxBuffer
+
+        .. wraps::
+            void PrimReserve(int idx_count, int vtx_count)
+        """
+    def prim_unreserve(self, idx_count: int, vtx_count: int) -> None:
+        """
+        Release the a number of reserved vertices/indices from the end of the
+        last reservation made with `prim_reserve()`.
+
+        Args:
+            idx_count (int): Number of indices to remove from IdxBuffer
+            vtx_count (int): Number of verticies to remove from VtxBuffer
+
+        .. wraps::
+            void PrimUnreserve(int idx_count, int vtx_count)
+        """
+    def prim_rect(self, a_x: float, a_y: float, b_x: float, b_y: float, color: int = 0xFFFFFFFF) -> None:
+        """
+        Axis aligned rectangle (2 triangles)
+        Reserve primitive space with `prim_rect()` before calling `prim_quad_UV()`.
+        Each call to `prim_rect()` is 6 idx and 4 vtx.
+
+        Args:
+            a_x, a_y (float): First rectangle point coordinates
+            b_x, b_y (float): Opposite rectangle point coordinates
+            color (ImU32): Color
+
+        .. wraps::
+            void PrimRect(const ImVec2& a, const ImVec2& b, ImU32 col)
+        """
     def prim_rect_UV(
         self,
         a_x: float,
@@ -1341,7 +1615,23 @@ class _DrawList:
         uv_b_u: float,
         uv_b_v: float,
         color: int = 0xFFFFFFFF,
-    ) -> None: ...
+    ) -> None:
+        """
+        Axis aligned rectangle (2 triangles) with custom UV coordinates.
+        Reserve primitive space with `prim_reserve()` before calling `prim_rect_UV()`.
+        Each call to `prim_rect_UV()` is 6 idx and 4 vtx.
+        Set the texture ID using `push_texture_id()`.
+
+        Args:
+            a_x, a_y (float): First rectangle point coordinates
+            b_x, b_y (float): Opposite rectangle point coordinates
+            uv_a_u, uv_a_v (float): First rectangle point UV coordinates
+            uv_b_u, uv_b_v (float): Opposite rectangle point UV coordinates
+            color (ImU32): Color
+
+        .. wraps::
+            void PrimRectUV(const ImVec2& a, const ImVec2& b, const ImVec2& uv_a, const ImVec2& uv_b, ImU32 col)
+        """
     def prim_quad_UV(
         self,
         a_x: float,
@@ -1361,10 +1651,61 @@ class _DrawList:
         uv_d_u: float,
         uv_d_v: float,
         color: int = 0xFFFFFFFF,
-    ) -> None: ...
-    def prim_write_vtx(self, pos_x: float, pos_y: float, u: float, v: float, color: int = 0xFFFFFFFF) -> None: ...
-    def prim_write_idx(self, idx: int) -> None: ...
-    def prim_vtx(self, pos_x: float, pos_y: float, u: float, v: float, color: int = 0xFFFFFFFF) -> None: ...
+    ) -> None:
+        """
+        Custom quad (2 triangles) with custom UV coordinates.
+        Reserve primitive space with `prim_reserve()` before calling `prim_quad_UV()`.
+        Each call to `prim_quad_UV()` is 6 idx and 4 vtx.
+        Set the texture ID using `push_texture_id()`.
+
+        Args:
+            a_x, a_y (float): Point 1 coordinates
+            b_x, b_y (float): Point 2 coordinates
+            c_x, c_y (float): Point 3 coordinates
+            d_x, d_y (float): Point 4 coordinates
+            uv_a_u, uv_a_v (float): Point 1 UV coordinates
+            uv_b_u, uv_b_v (float): Point 2 UV coordinates
+            uv_c_u, uv_c_v (float): Point 3 UV coordinates
+            uv_d_u, uv_d_v (float): Point 4 UV coordinates
+            color (ImU32): Color
+
+        .. wraps::
+            void PrimQuadUV(const ImVec2& a, const ImVec2& b, const ImVec2& c, const ImVec2& d, const ImVec2& uv_a, const ImVec2& uv_b, const ImVec2& uv_c, const ImVec2& uv_d, ImU32 col)
+        """
+    def prim_write_vtx(self, pos_x: float, pos_y: float, u: float, v: float, color: int = 0xFFFFFFFF) -> None:
+        """
+        Write a vertex
+
+        Args:
+            pos_x, pos_y (float): Point coordinates
+            u, v (float): Point UV coordinates
+            color (ImU32): Color
+
+        .. wraps::
+            void  PrimWriteVtx(const ImVec2& pos, const ImVec2& uv, ImU32 col)
+        """
+    def prim_write_idx(self, idx: int) -> None:
+        """
+        Write index
+
+        Args:
+            idx (ImDrawIdx): index to write
+
+        .. wraps::
+            void  PrimWriteIdx(ImDrawIdx idx)
+        """
+    def prim_vtx(self, pos_x: float, pos_y: float, u: float, v: float, color: int = 0xFFFFFFFF) -> None:
+        """
+        Write vertex with unique index
+
+        Args:
+            pos_x, pos_y (float): Point coordinates
+            u, v (float): Point UV coordinates
+            color (ImU32): Color
+
+        .. wraps::
+            void PrimVtx(const ImVec2& pos, const ImVec2& uv, ImU32 col)
+        """
     @property
     def commands(self) -> list[_DrawCmd]: ...
 
