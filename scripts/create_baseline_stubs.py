@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """Script to generate unannotated baseline stubs using stubgen.
 
 Basic usage:
@@ -22,7 +20,6 @@ from pathlib import Path
 
 import aiohttp
 import termcolor
-
 from ts_utils.paths import STDLIB_PATH, STUBS_PATH
 
 PYRIGHT_CONFIG = Path("pyrightconfig.stricter.json")
