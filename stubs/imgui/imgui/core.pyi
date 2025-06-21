@@ -2023,9 +2023,10 @@ class _ImGuiSizeCallbackData:
 
 class _callback_user_info:
     def __init__(self) -> None: ...
-
     def populate(
-        self, callback_fn: typing.Callable[[_ImGuiInputTextCallbackData | _ImGuiSizeCallbackData], typing.Any], user_data: typing.Any
+        self,
+        callback_fn: typing.Callable[[_ImGuiInputTextCallbackData | _ImGuiSizeCallbackData], typing.Any],
+        user_data: typing.Any,
     ) -> None: ...
 
 class _BeginEndGroup:
