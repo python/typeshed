@@ -90,7 +90,6 @@
         "stubs/python-jose",
         "stubs/pytz/pytz/lazy.pyi",
         "stubs/pywin32",
-        "stubs/pyxdg",
         "stubs/PyYAML",
         "stubs/reportlab",
         "stubs/requests",
