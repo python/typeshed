@@ -1,17 +1,18 @@
 from . import core
 
 __all__ = (
-    'text_ansi',
-    'text_ansi_colored',
-    'font',
-    'styled',
-    'istyled',
-    'colored',
-    'vertex_buffer_vertex_pos_offset',
-    'vertex_buffer_vertex_uv_offset',
-    'vertex_buffer_vertex_col_offset',
-    'vertex_buffer_vertex_size',
-    'index_buffer_index_size')
+    "text_ansi",
+    "text_ansi_colored",
+    "font",
+    "styled",
+    "istyled",
+    "colored",
+    "vertex_buffer_vertex_pos_offset",
+    "vertex_buffer_vertex_uv_offset",
+    "vertex_buffer_vertex_col_offset",
+    "vertex_buffer_vertex_size",
+    "index_buffer_index_size",
+)
 
 text_ansi = core._ansifeed_text_ansi
 text_ansi_colored = core._ansifeed_text_ansi_colored

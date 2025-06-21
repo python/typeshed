@@ -6,14 +6,14 @@ import typing as _t
 from collections.abc import Buffer as _Buffer
 
 # Condition enum
-Condition = _t.NewType('Condition', _enum.IntFlag)
+Condition = _t.NewType("Condition", _enum.IntFlag)
 NONE = _t.cast(Condition, ...)
 ALWAYS = _t.cast(Condition, ...)
 ONCE = _t.cast(Condition, ...)
 FIRST_USE_EVER = _t.cast(Condition, ...)
 APPEARING = _t.cast(Condition, ...)
 
-StyleVar = _t.NewType('StyleVar', _enum.IntFlag)
+StyleVar = _t.NewType("StyleVar", _enum.IntFlag)
 STYLE_ALPHA = _t.cast(StyleVar, ...)
 STYLE_WINDOW_PADDING = _t.cast(StyleVar, ...)
 STYLE_WINDOW_ROUNDING = _t.cast(StyleVar, ...)
@@ -39,7 +39,7 @@ STYLE_TAB_ROUNDING = _t.cast(StyleVar, ...)
 STYLE_BUTTON_TEXT_ALIGN = _t.cast(StyleVar, ...)
 STYLE_SELECTABLE_TEXT_ALIGN = _t.cast(StyleVar, ...)
 
-ButtonFlags = _t.NewType('ButtonFlags', _enum.IntFlag)
+ButtonFlags = _t.NewType("ButtonFlags", _enum.IntFlag)
 BUTTON_NONE = _t.cast(ButtonFlags, ...)
 BUTTON_MOUSE_BUTTON_LEFT = _t.cast(ButtonFlags, ...)
 BUTTON_MOUSE_BUTTON_RIGHT = _t.cast(ButtonFlags, ...)
@@ -92,7 +92,7 @@ NAV_INPUT_TWEAK_SLOW = _t.cast(int, ...)
 NAV_INPUT_TWEAK_FAST = _t.cast(int, ...)
 NAV_INPUT_COUNT = _t.cast(int, ...)
 
-WindowFlags = _t.NewType('WindowFlags', _enum.IntFlag)
+WindowFlags = _t.NewType("WindowFlags", _enum.IntFlag)
 WINDOW_NONE = _t.cast(WindowFlags, ...)
 WINDOW_NO_TITLE_BAR = _t.cast(WindowFlags, ...)
 WINDOW_NO_RESIZE = _t.cast(WindowFlags, ...)
@@ -118,7 +118,7 @@ WINDOW_NO_NAV = _t.cast(WindowFlags, ...)
 WINDOW_NO_DECORATION = _t.cast(WindowFlags, ...)
 WINDOW_NO_INPUTS = _t.cast(WindowFlags, ...)
 
-ColorEditFlags = _t.NewType('ColorEditFlags', _enum.IntFlag)
+ColorEditFlags = _t.NewType("ColorEditFlags", _enum.IntFlag)
 COLOR_EDIT_NONE = _t.cast(ColorEditFlags, ...)
 COLOR_EDIT_NO_ALPHA = _t.cast(ColorEditFlags, ...)
 COLOR_EDIT_NO_PICKER = _t.cast(ColorEditFlags, ...)
@@ -147,7 +147,7 @@ COLOR_EDIT_INPUT_HSV = _t.cast(ColorEditFlags, ...)
 
 COLOR_EDIT_DEFAULT_OPTIONS = _t.cast(ColorEditFlags, ...)
 
-TreeNodeFlags = _t.NewType('TreeNodeFlags', _enum.IntFlag)
+TreeNodeFlags = _t.NewType("TreeNodeFlags", _enum.IntFlag)
 TREE_NODE_NONE = _t.cast(TreeNodeFlags, ...)
 TREE_NODE_SELECTED = _t.cast(TreeNodeFlags, ...)
 TREE_NODE_FRAMED = _t.cast(TreeNodeFlags, ...)
@@ -165,7 +165,7 @@ TREE_NODE_SPAN_FULL_WIDTH = _t.cast(TreeNodeFlags, ...)
 TREE_NODE_NAV_LEFT_JUPS_BACK_HERE = _t.cast(TreeNodeFlags, ...)
 TREE_NODE_COLLAPSING_HEADER = _t.cast(TreeNodeFlags, ...)
 
-PopupFlags = _t.NewType('PopupFlags', _enum.IntFlag)
+PopupFlags = _t.NewType("PopupFlags", _enum.IntFlag)
 POPUP_NONE = _t.cast(PopupFlags, ...)
 POPUP_MOUSE_BUTTON_LEFT = _t.cast(PopupFlags, ...)
 POPUP_MOUSE_BUTTON_RIGHT = _t.cast(PopupFlags, ...)
@@ -178,7 +178,7 @@ POPUP_ANY_POPUP_ID = _t.cast(PopupFlags, ...)
 POPUP_ANY_POPUP_LEVEL = _t.cast(PopupFlags, ...)
 POPUP_ANY_POPUP = _t.cast(PopupFlags, ...)
 
-SelectableFlags = _t.NewType('SelectableFlags', _enum.IntFlag)
+SelectableFlags = _t.NewType("SelectableFlags", _enum.IntFlag)
 SELECTABLE_NONE = _t.cast(SelectableFlags, ...)
 SELECTABLE_DONT_CLOSE_POPUPS = _t.cast(SelectableFlags, ...)
 SELECTABLE_SPAN_ALL_COLUMNS = _t.cast(SelectableFlags, ...)
@@ -186,7 +186,7 @@ SELECTABLE_ALLOW_DOUBLE_CLICK = _t.cast(SelectableFlags, ...)
 SELECTABLE_DISABLED = _t.cast(SelectableFlags, ...)
 SELECTABLE_ALLOW_ITEM_OVERLAP = _t.cast(SelectableFlags, ...)
 
-ComboFlags = _t.NewType('ComboFlags', _enum.IntFlag)
+ComboFlags = _t.NewType("ComboFlags", _enum.IntFlag)
 COMBO_NONE = _t.cast(ComboFlags, ...)
 COMBO_POPUP_ALIGN_LEFT = _t.cast(ComboFlags, ...)
 COMBO_HEIGHT_SMALL = _t.cast(ComboFlags, ...)
@@ -197,7 +197,7 @@ COMBO_NO_ARROW_BUTTON = _t.cast(ComboFlags, ...)
 COMBO_NO_PREVIEW = _t.cast(ComboFlags, ...)
 COMBO_HEIGHT_MASK = _t.cast(ComboFlags, ...)
 
-TabBarFlags = _t.NewType('TabBarFlags', _enum.IntFlag)
+TabBarFlags = _t.NewType("TabBarFlags", _enum.IntFlag)
 TAB_BAR_NONE = _t.cast(TabBarFlags, ...)
 TAB_BAR_REORDERABLE = _t.cast(TabBarFlags, ...)
 TAB_BAR_AUTO_SELECT_NEW_TABS = _t.cast(TabBarFlags, ...)
@@ -210,7 +210,7 @@ TAB_BAR_FITTING_POLICY_SCROLL = _t.cast(TabBarFlags, ...)
 TAB_BAR_FITTING_POLICY_MASK = _t.cast(TabBarFlags, ...)
 TAB_BAR_FITTING_POLICY_DEFAULT = _t.cast(TabBarFlags, ...)
 
-TabItemFlags = _t.NewType('TabItemFlags', _enum.IntFlag)
+TabItemFlags = _t.NewType("TabItemFlags", _enum.IntFlag)
 TAB_ITEM_NONE = _t.cast(TabItemFlags, ...)
 TAB_ITEM_UNSAVED_DOCUMENT = _t.cast(TabItemFlags, ...)
 TAB_ITEM_SET_SELECTED = _t.cast(TabItemFlags, ...)
@@ -221,7 +221,7 @@ TAB_ITEM_NO_REORDER = _t.cast(TabItemFlags, ...)
 TAB_ITEM_LEADING = _t.cast(TabItemFlags, ...)
 TAB_ITEM_TRAILING = _t.cast(TabItemFlags, ...)
 
-TableFlags = _t.NewType('TableFlags', _enum.IntFlag)
+TableFlags = _t.NewType("TableFlags", _enum.IntFlag)
 TABLE_NONE = _t.cast(TableFlags, ...)
 TABLE_RESIZABLE = _t.cast(TableFlags, ...)
 TABLE_REORDERABLE = _t.cast(TableFlags, ...)
@@ -258,7 +258,7 @@ TABLE_SCROLL_Y = _t.cast(TableFlags, ...)
 TABLE_SORT_MULTI = _t.cast(TableFlags, ...)
 TABLE_SORT_TRISTATE = _t.cast(TableFlags, ...)
 
-TableColumnFlags = _t.NewType('TableColumnFlags', _enum.IntFlag)
+TableColumnFlags = _t.NewType("TableColumnFlags", _enum.IntFlag)
 TABLE_COLUMN_NONE = _t.cast(TableColumnFlags, ...)
 TABLE_COLUMN_DEFAULT_HIDE = _t.cast(TableColumnFlags, ...)
 TABLE_COLUMN_DEFAULT_SORT = _t.cast(TableColumnFlags, ...)
@@ -281,24 +281,24 @@ TABLE_COLUMN_IS_VISIBLE = _t.cast(TableColumnFlags, ...)
 TABLE_COLUMN_IS_SORTED = _t.cast(TableColumnFlags, ...)
 TABLE_COLUMN_IS_HOVERED = _t.cast(TableColumnFlags, ...)
 
-TableRowFlags = _t.NewType('TableRowFlags', _enum.IntFlag)
+TableRowFlags = _t.NewType("TableRowFlags", _enum.IntFlag)
 TABLE_ROW_NONE = _t.cast(TableRowFlags, ...)
 TABLE_ROW_HEADERS = _t.cast(TableRowFlags, ...)
 
-TableBackgroundTarget = _t.NewType('TableBackgroundTarget', int)
+TableBackgroundTarget = _t.NewType("TableBackgroundTarget", int)
 TABLE_BACKGROUND_TARGET_NONE = _t.cast(TableBackgroundTarget, ...)
 TABLE_BACKGROUND_TARGET_ROW_BG0 = _t.cast(TableBackgroundTarget, ...)
 TABLE_BACKGROUND_TARGET_ROW_BG1 = _t.cast(TableBackgroundTarget, ...)
 TABLE_BACKGROUND_TARGET_CELL_BG = _t.cast(TableBackgroundTarget, ...)
 
-FocusFlags = _t.NewType('FocusFlags', _enum.IntFlag)
+FocusFlags = _t.NewType("FocusFlags", _enum.IntFlag)
 FOCUS_NONE = _t.cast(FocusFlags, ...)
 FOCUS_CHILD_WINDOWS = _t.cast(FocusFlags, ...)
 FOCUS_ROOT_WINDOW = _t.cast(FocusFlags, ...)
 FOCUS_ANY_WINDOW = _t.cast(FocusFlags, ...)
 FOCUS_ROOT_AND_CHILD_WINDOWS = _t.cast(FocusFlags, ...)
 
-HoverFlags = _t.NewType('HoverFlags', _enum.IntFlag)
+HoverFlags = _t.NewType("HoverFlags", _enum.IntFlag)
 HOVERED_NONE = _t.cast(HoverFlags, ...)
 HOVERED_CHILD_WINDOWS = _t.cast(HoverFlags, ...)
 HOVERED_ROOT_WINDOW = _t.cast(HoverFlags, ...)
@@ -310,7 +310,7 @@ HOVERED_ALLOW_WHEN_DISABLED = _t.cast(HoverFlags, ...)
 HOVERED_RECT_ONLY = _t.cast(HoverFlags, ...)
 HOVERED_ROOT_AND_CHILD_WINDOWS = _t.cast(HoverFlags, ...)
 
-DragDropFlags = _t.NewType('DragDropFlags', _enum.IntFlag)
+DragDropFlags = _t.NewType("DragDropFlags", _enum.IntFlag)
 DRAG_DROP_NONE = _t.cast(DragDropFlags, ...)
 DRAG_DROP_SOURCE_NO_PREVIEW_TOOLTIP = _t.cast(DragDropFlags, ...)
 DRAG_DROP_SOURCE_NO_DISABLE_HOVER = _t.cast(DragDropFlags, ...)
@@ -319,25 +319,25 @@ DRAG_DROP_SOURCE_ALLOW_NULL_ID = _t.cast(DragDropFlags, ...)
 DRAG_DROP_SOURCE_EXTERN = _t.cast(DragDropFlags, ...)
 DRAG_DROP_SOURCE_AUTO_EXPIRE_PAYLOAD = _t.cast(DragDropFlags, ...)
 
-DragDropAcceptFlags = _t.NewType('DragDropAcceptFlags', _enum.IntFlag)
+DragDropAcceptFlags = _t.NewType("DragDropAcceptFlags", _enum.IntFlag)
 DRAG_DROP_ACCEPT_BEFORE_DELIVERY = _t.cast(DragDropAcceptFlags, ...)
 DRAG_DROP_ACCEPT_NO_DRAW_DEFAULT_RECT = _t.cast(DragDropAcceptFlags, ...)
 DRAG_DROP_ACCEPT_NO_PREVIEW_TOOLTIP = _t.cast(DragDropAcceptFlags, ...)
 DRAG_DROP_ACCEPT_PEEK_ONLY = _t.cast(DragDropAcceptFlags, ...)
 
-Direction = _t.NewType('Direction', int)
+Direction = _t.NewType("Direction", int)
 DIRECTION_NONE = _t.cast(Direction, ...)
 DIRECTION_LEFT = _t.cast(Direction, ...)
 DIRECTION_RIGHT = _t.cast(Direction, ...)
 DIRECTION_UP = _t.cast(Direction, ...)
 DIRECTION_DOWN = _t.cast(Direction, ...)
 
-SortDirection = _t.NewType('SortDirection', int)
+SortDirection = _t.NewType("SortDirection", int)
 SORT_DIRECTION_NONE = _t.cast(SortDirection, ...)
 SORT_DIRECTION_ASCENDING = _t.cast(SortDirection, ...)
 SORT_DIRECTION_DESCENDING = _t.cast(SortDirection, ...)
 
-MouseCursor = _t.NewType('MouseCursor', int)
+MouseCursor = _t.NewType("MouseCursor", int)
 MOUSE_CURSOR_NONE = _t.cast(MouseCursor, ...)
 MOUSE_CURSOR_ARROW = _t.cast(MouseCursor, ...)
 MOUSE_CURSOR_TEXT_INPUT = _t.cast(MouseCursor, ...)
@@ -349,7 +349,7 @@ MOUSE_CURSOR_RESIZE_NWSE = _t.cast(MouseCursor, ...)
 MOUSE_CURSOR_HAND = _t.cast(MouseCursor, ...)
 MOUSE_CURSOR_NOT_ALLOWED = _t.cast(MouseCursor, ...)
 
-Color = _t.NewType('Color', int)
+Color = _t.NewType("Color", int)
 COLOR_TEXT = _t.cast(Color, ...)
 COLOR_TEXT_DISABLED = _t.cast(Color, ...)
 COLOR_WINDOW_BACKGROUND = _t.cast(Color, ...)
@@ -405,7 +405,7 @@ COLOR_NAV_WINDOWING_DIM_BACKGROUND = _t.cast(Color, ...)
 COLOR_MODAL_WINDOW_DIM_BACKGROUND = _t.cast(Color, ...)
 COLOR_COUNT = _t.cast(Color, ...)
 
-DataType = _t.NewType('DataType', int)
+DataType = _t.NewType("DataType", int)
 DATA_TYPE_S8 = _t.cast(DataType, ...)
 DATA_TYPE_U8 = _t.cast(DataType, ...)
 DATA_TYPE_S16 = _t.cast(DataType, ...)
@@ -417,7 +417,7 @@ DATA_TYPE_U64 = _t.cast(DataType, ...)
 DATA_TYPE_FLOAT = _t.cast(DataType, ...)
 DATA_TYPE_DOUBLE = _t.cast(DataType, ...)
 
-TextInputFlags = _t.NewType('TextInputFlags', _enum.IntFlag)
+TextInputFlags = _t.NewType("TextInputFlags", _enum.IntFlag)
 INPUT_TEXT_NONE = _t.cast(TextInputFlags, ...)
 INPUT_TEXT_CHARS_DECIMAL = _t.cast(TextInputFlags, ...)
 INPUT_TEXT_CHARS_HEXADECIMAL = _t.cast(TextInputFlags, ...)
@@ -441,7 +441,7 @@ INPUT_TEXT_CHARS_SCIENTIFIC = _t.cast(TextInputFlags, ...)
 INPUT_TEXT_CALLBACK_RESIZE = _t.cast(TextInputFlags, ...)
 INPUT_TEXT_CALLBACK_EDIT = _t.cast(TextInputFlags, ...)
 
-DrawCornerFlags = _t.NewType('DrawCornerFlags', _enum.IntFlag)
+DrawCornerFlags = _t.NewType("DrawCornerFlags", _enum.IntFlag)
 DRAW_CORNER_NONE = _t.cast(DrawCornerFlags, ...)
 DRAW_CORNER_TOP_LEFT = _t.cast(DrawCornerFlags, ...)
 DRAW_CORNER_TOP_RIGHT = _t.cast(DrawCornerFlags, ...)
@@ -453,7 +453,7 @@ DRAW_CORNER_LEFT = _t.cast(DrawCornerFlags, ...)
 DRAW_CORNER_RIGHT = _t.cast(DrawCornerFlags, ...)
 DRAW_CORNER_ALL = _t.cast(DrawCornerFlags, ...)
 
-DrawFlags = _t.NewType('DrawFlags', _enum.IntFlag)
+DrawFlags = _t.NewType("DrawFlags", _enum.IntFlag)
 DRAW_NONE = _t.cast(DrawFlags, ...)
 DRAW_CLOSED = _t.cast(DrawFlags, ...)
 DRAW_ROUND_CORNERS_TOP_LEFT = _t.cast(DrawFlags, ...)
@@ -467,20 +467,20 @@ DRAW_ROUND_CORNERS_LEFT = _t.cast(DrawFlags, ...)
 DRAW_ROUND_CORNERS_RIGHT = _t.cast(DrawFlags, ...)
 DRAW_ROUND_CORNERS_ALL = _t.cast(DrawFlags, ...)
 
-DrawListFlags = _t.NewType('DrawListFlags', _enum.IntFlag)
+DrawListFlags = _t.NewType("DrawListFlags", _enum.IntFlag)
 DRAW_LIST_NONE = _t.cast(DrawListFlags, ...)
 DRAW_LIST_ANTI_ALIASED_LINES = _t.cast(DrawListFlags, ...)
 DRAW_LIST_ANTI_ALIASED_LINES_USE_TEX = _t.cast(DrawListFlags, ...)
 DRAW_LIST_ANTI_ALIASED_FILL = _t.cast(DrawListFlags, ...)
 DRAW_LIST_ALLOW_VTX_OFFSET = _t.cast(DrawListFlags, ...)
 
-FontAtlasFlags = _t.NewType('FontAtlasFlags', _enum.IntFlag)
+FontAtlasFlags = _t.NewType("FontAtlasFlags", _enum.IntFlag)
 FONT_ATLAS_NONE = _t.cast(FontAtlasFlags, ...)
 FONT_ATLAS_NO_POWER_OF_TWO_HEIGHT = _t.cast(FontAtlasFlags, ...)
 FONT_ATLAS_NO_MOUSE_CURSOR = _t.cast(FontAtlasFlags, ...)
 FONT_ATLAS_NO_BAKED_LINES = _t.cast(FontAtlasFlags, ...)
 
-ConfigFlags = _t.NewType('ConfigFlags', _enum.IntFlag)
+ConfigFlags = _t.NewType("ConfigFlags", _enum.IntFlag)
 CONFIG_NONE = _t.cast(ConfigFlags, ...)
 CONFIG_NAV_ENABLE_KEYBOARD = _t.cast(ConfigFlags, ...)
 CONFIG_NAV_ENABLE_GAMEPAD = _t.cast(ConfigFlags, ...)
@@ -491,33 +491,40 @@ CONFIG_NO_MOUSE_CURSOR_CHANGE = _t.cast(ConfigFlags, ...)
 CONFIG_IS_RGB = _t.cast(ConfigFlags, ...)
 CONFIG_IS_TOUCH_SCREEN = _t.cast(ConfigFlags, ...)
 
-BackendFlags = _t.NewType('BackendFlags', _enum.IntFlag)
+BackendFlags = _t.NewType("BackendFlags", _enum.IntFlag)
 BACKEND_NONE = _t.cast(BackendFlags, ...)
 BACKEND_HAS_GAMEPAD = _t.cast(BackendFlags, ...)
 BACKEND_HAS_MOUSE_CURSORS = _t.cast(BackendFlags, ...)
 BACKEND_HAS_SET_MOUSE_POS = _t.cast(BackendFlags, ...)
 BACKEND_RENDERER_HAS_VTX_OFFSET = _t.cast(BackendFlags, ...)
 
-SliderFlags = _t.NewType('SliderFlags', _enum.IntFlag)
+SliderFlags = _t.NewType("SliderFlags", _enum.IntFlag)
 SLIDER_FLAGS_NONE = _t.cast(SliderFlags, ...)
 SLIDER_FLAGS_ALWAYS_CLAMP = _t.cast(SliderFlags, ...)
 SLIDER_FLAGS_LOGARITHMIC = _t.cast(SliderFlags, ...)
 SLIDER_FLAGS_NO_ROUND_TO_FORMAT = _t.cast(SliderFlags, ...)
 SLIDER_FLAGS_NO_INPUT = _t.cast(SliderFlags, ...)
 
-MouseButton = _t.NewType('MouseButton', int)
+MouseButton = _t.NewType("MouseButton", int)
 MOUSE_BUTTON_LEFT = _t.cast(MouseButton, ...)
 MOUSE_BUTTON_RIGHT = _t.cast(MouseButton, ...)
 MOUSE_BUTTON_MIDDLE = _t.cast(MouseButton, ...)
 
-ViewportFlags = _t.NewType('ViewportFlags', _enum.IntFlag)
+ViewportFlags = _t.NewType("ViewportFlags", _enum.IntFlag)
 VIEWPORT_FLAGS_NONE = _t.cast(ViewportFlags, ...)
 VIEWPORT_FLAGS_IS_PLATFORM_WINDOW = _t.cast(ViewportFlags, ...)
 VIEWPORT_FLAGS_IS_PLATFORM_MONITOR = _t.cast(ViewportFlags, ...)
 VIEWPORT_FLAGS_OWNED_BY_APP = _t.cast(ViewportFlags, ...)
 
-Vec2 = _t.NamedTuple('Vec2', [('x', float), ('y', float)])
-Vec4 = _t.NamedTuple('Vec4', [('x', float), ('y', float), ('z', float), ('w', float)])
+class Vec2(_t.NamedTuple):
+    x: float
+    y: float
+
+class Vec4(_t.NamedTuple):
+    x: float
+    y: float
+    z: float
+    w: float
 
 class _ImGuiContext:
     _keepalive_cache: list[int]
@@ -527,321 +534,843 @@ class _ImGuiContext:
 class _DrawCmd:
     @property
     def clip_rect(self) -> Vec4: ...
-
     @property
     def texture_id(self) -> int: ...
-
     @property
     def elem_count(self) -> int: ...
 
 class _DrawList:
+    """
+    Low level drawing API.
+
+    _DrawList instance can be acquired by calling :func:`get_window_draw_list`.
+    """
+
     flags: int
 
     @property
     def cmd_buffer_size(self) -> int: ...
-
     @property
     def cmd_buffer_data(self) -> int: ...
-
     @property
     def vtx_buffer_size(self) -> int: ...
-
     @property
     def vtx_buffer_data(self) -> int: ...
-
     @property
     def idx_buffer_size(self) -> int: ...
-
     @property
     def idx_buffer_data(self) -> int: ...
+    def push_clip_rect(
+        self,
+        clip_rect_min_x: float,
+        clip_rect_min_y: float,
+        clip_rect_max_x: float,
+        clip_rect_max_y: float,
+        intersect_with_current_clip_rect: bool = False,
+    ) -> None:
+        """
+        Render-level scissoring. This is passed down to your render function
+        but not used for CPU-side coarse clipping. Prefer using higher-level :func:`push_clip_rect()`
+        to affect logic (hit-testing and widget culling)
 
-    def push_clip_rect(self,
-                       clip_rect_min_x: float,
-                       clip_rect_min_y: float,
-                       clip_rect_max_x: float,
-                       clip_rect_max_y: float,
-                       intersect_with_current_clip_rect: bool = False) -> None: ...
+        .. wraps::
+            void PushClipRect(ImVec2 clip_rect_min, ImVec2 clip_rect_max, bool intersect_with_current_clip_rect = false)
+        """
+    def push_clip_rect_full_screen(self) -> None:
+        """
+        .. wraps::
+            void PushClipRectFullScreen()
+        """
+    def pop_clip_rect(self) -> None:
+        """
+        Render-level scisoring.
 
-    def push_clip_rect_full_screen(self) -> None: ...
+        .. wraps::
+            void PopClipRect()
+        """
+    def push_texture_id(self, texture_id: int) -> None:
+        """
+        .. wraps::
+            void PushTextureID(ImTextureID texture_id)
+        """
+    def pop_texture_id(self) -> None:
+        """
+        .. wraps::
+            void PopTextureID()
+        """
+    def get_clip_rect_min(self) -> Vec2:
+        """
+        .. wraps::
+            ImVec2 GetClipRectMin()
+        """
+    def get_clip_rect_max(self) -> Vec2:
+        """
+        .. wraps::
+            ImVec2 GetClipRectMax()
+        """
+    def add_line(self, start_x: float, start_y: float, end_x: float, end_y: float, col: int, thickness: float = 1.0) -> None:
+        """
+        Add a straight line to the draw list.
 
-    def pop_clip_rect(self) -> None: ...
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
 
-    def push_texture_id(self, texture_id: int) -> None: ...
+            imgui.begin("Line example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_line(20, 35, 180, 80, imgui.get_color_u32_rgba(1,1,0,1), 3)
+            draw_list.add_line(180, 35, 20, 80, imgui.get_color_u32_rgba(1,0,0,1), 3)
+            imgui.end()
 
-    def pop_texture_id(self) -> None: ...
+        Args:
+            start_x (float): X coordinate of first point
+            start_y (float): Y coordinate of first point
+            end_x (float): X coordinate of second point
+            end_y (float): Y coordinate of second point
+            col (ImU32): RGBA color specification
+            thickness (float): Line thickness in pixels
 
-    def get_clip_rect_min(self) -> Vec2: ...
+        .. wraps::
+            void ImDrawList::AddLine(
+                const ImVec2& a,
+                const ImVec2& b,
+                ImU32 col,
+                float thickness = 1.0f
+            )
+        """
+    def add_rect(
+        self,
+        upper_left_x: float,
+        upper_left_y: float,
+        lower_right_x: float,
+        lower_right_y: float,
+        col: int,
+        rounding: float = 0.0,
+        flags: int = 0,
+        thickness: float = 1.0,
+    ) -> None:
+        """
+        Add a rectangle outline to the draw list.
 
-    def get_clip_rect_max(self) -> Vec2: ...
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
 
-    def add_line(self,
-                 start_x: float,
-                 start_y: float,
-                 end_x: float,
-                 end_y: float,
-                 col: int,
-                 thickness: float = 1.0) -> None: ...
+            imgui.begin("Rect example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_rect(20, 35, 90, 80, imgui.get_color_u32_rgba(1,1,0,1), thickness=3)
+            draw_list.add_rect(110, 35, 180, 80, imgui.get_color_u32_rgba(1,0,0,1), rounding=5, thickness=3)
+            imgui.end()
 
-    def add_rect(self,
-                 upper_left_x: float,
-                 upper_left_y: float,
-                 lower_right_x: float,
-                 lower_right_y: float,
-                 col: int,
-                 rounding: float = 0.0,
-                 flags: int = 0,
-                 thickness: float = 1.0) -> None: ...
+        Args:
+            upper_left_x (float): X coordinate of top-left corner
+            upper_left_y (float): Y coordinate of top-left corner
+            lower_right_x (float): X coordinate of lower-right corner
+            lower_right_y (float): Y coordinate of lower-right corner
+            col (ImU32): RGBA color specification
+            rounding (float): Degree of rounding, defaults to 0.0
+            flags (ImDrawFlags): Draw flags, defaults to 0. See:
+                :ref:`list of available flags <draw-flag-options>`.
+            thickness (float): Line thickness, defaults to 1.0
 
-    def add_rect_filled(self,
-                        upper_left_x: float,
-                        upper_left_y: float,
-                        lower_right_x: float,
-                        lower_right_y: float,
-                        col: int,
-                        rounding: float = 0.0,
-                        flags: int = 0) -> None: ...
+        .. wraps::
+            void ImDrawList::AddRect(
+                const ImVec2& a,
+                const ImVec2& b,
+                ImU32 col,
+                float rounding = 0.0f,
+                ImDrawFlags flags = 0,
+                float thickness = 1.0f
+            )
+        """
+    def add_rect_filled(
+        self,
+        upper_left_x: float,
+        upper_left_y: float,
+        lower_right_x: float,
+        lower_right_y: float,
+        col: int,
+        rounding: float = 0.0,
+        flags: int = 0,
+    ) -> None:
+        """
+        Add a filled rectangle to the draw list.
 
-    def add_rect_filled_multicolor(self,
-                                   upper_left_x: float,
-                                   upper_left_y: float,
-                                   lower_right_x: float,
-                                   lower_right_y: float,
-                                   col_upr_left: int,
-                                   col_upr_right: int,
-                                   col_bot_right: int,
-                                   col_bot_left: int) -> None: ...
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
 
-    def add_quad(self,
-                 point1_x: float,
-                 point1_y: float,
-                 point2_x: float,
-                 point2_y: float,
-                 point3_x: float,
-                 point3_y: float,
-                 point4_x: float,
-                 point4_y: float,
-                 col: int,
-                 thickness: float = 1.0) -> None: ...
+            imgui.begin("Filled rect example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_rect_filled(20, 35, 90, 80, imgui.get_color_u32_rgba(1,1,0,1))
+            draw_list.add_rect_filled(110, 35, 180, 80, imgui.get_color_u32_rgba(1,0,0,1), 5)
+            imgui.end()
 
-    def add_quad_filled(self,
-                        point1_x: float,
-                        point1_y: float,
-                        point2_x: float,
-                        point2_y: float,
-                        point3_x: float,
-                        point3_y: float,
-                        point4_x: float,
-                        point4_y: float,
-                        col: int) -> None: ...
+        Args:
+            upper_left_x (float): X coordinate of top-left corner
+            upper_left_y (float): Y coordinate of top-left corner
+            lower_right_x (float): X coordinate of lower-right corner
+            lower_right_y (float): Y coordinate of lower-right corner
+            col (ImU32): RGBA color specification
+            rounding (float): Degree of rounding, defaults to 0.0
+            flags (ImDrawFlags): Draw flags, defaults to 0. See:
+                :ref:`list of available flags <draw-flag-options>`.
 
-    def add_triangle(self,
-                     point1_x: float,
-                     point1_y: float,
-                     point2_x: float,
-                     point2_y: float,
-                     point3_x: float,
-                     point3_y: float,
-                     col: int,
-                     thickness: float = 1.0) -> None: ...
+        .. wraps::
+            void ImDrawList::AddRectFilled(
+                const ImVec2& a,
+                const ImVec2& b,
+                ImU32 col,
+                float rounding = 0.0f,
+                ImDrawFlags flags = 0
+            )
+        """
+    def add_rect_filled_multicolor(
+        self,
+        upper_left_x: float,
+        upper_left_y: float,
+        lower_right_x: float,
+        lower_right_y: float,
+        col_upr_left: int,
+        col_upr_right: int,
+        col_bot_right: int,
+        col_bot_left: int,
+    ) -> None:
+        """
+        Add a multicolor filled rectangle to the draw list.
 
-    def add_triangle_filled(self,
-                            point1_x: float,
-                            point1_y: float,
-                            point2_x: float,
-                            point2_y: float,
-                            point3_x: float,
-                            point3_y: float,
-                            col: int) -> None: ...
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
 
-    def add_bezier_cubic(self,
-                         point1_x: float,
-                         point1_y: float,
-                         point2_x: float,
-                         point2_y: float,
-                         point3_x: float,
-                         point3_y: float,
-                         point4_x: float,
-                         point4_y: float,
-                         col: int,
-                         thickness: float,
-                         num_segments: int = 0) -> None: ...
+            imgui.begin("Multicolored filled rect example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_rect_filled_multicolor(20, 35, 190, 80, imgui.get_color_u32_rgba(1,0,0,1),
+                imgui.get_color_u32_rgba(0,1,0,1), imgui.get_color_u32_rgba(0,0,1,1),
+                imgui.get_color_u32_rgba(1,1,1,1))
+            imgui.end()
 
-    def add_bezier_quadratic(self,
-                             point1_x: float,
-                             point1_y: float,
-                             point2_x: float,
-                             point2_y: float,
-                             point3_x: float,
-                             point3_y: float,
-                             col: int,
-                             thickness: float,
-                             num_segments: int = 0) -> None: ...
+        Args:
+            upper_left_x (float): X coordinate of top-left corner
+            upper_left_y (float): Y coordinate of top-left corner
+            lower_right_x (float): X coordinate of lower-right corner
+            lower_right_y (float): Y coordinate of lower-right corner
+            col_upr_left (ImU32): RGBA color for the top left corner
+            col_upr_right (ImU32): RGBA color for the top right corner
+            col_bot_right (ImU32): RGBA color for the bottom right corner
+            col_bot_left (ImU32): RGBA color for the bottom left corner
 
-    def add_circle(self,
-                   centre_x: float,
-                   centre_y: float,
-                   radius: float,
-                   col: int,
-                   num_segments: int = 0,
-                   thickness: float = 1.0) -> None: ...
+        .. wraps::
+            void ImDrawList::AddRectFilledMultiColor(
+                const ImVec2& a,
+                const ImVec2& b,
+                ImU32 col_upr_left,
+                ImU32 col_upr_right,
+                ImU32 col_bot_right,
+                ImU32 col_bot_left
+            )
+        """
+    def add_quad(
+        self,
+        point1_x: float,
+        point1_y: float,
+        point2_x: float,
+        point2_y: float,
+        point3_x: float,
+        point3_y: float,
+        point4_x: float,
+        point4_y: float,
+        col: int,
+        thickness: float = 1.0,
+    ) -> None:
+        """
+        Add a quad to the list.
 
-    def add_circle_filled(self,
-                          centre_x: float,
-                          centre_y: float,
-                          radius: float,
-                          col: int,
-                          num_segments: int = 0) -> None: ...
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
 
-    def add_ngon(self,
-                 centre_x: float,
-                 centre_y: float,
-                 radius: float,
-                 col: int,
-                 num_segments: int,
-                 thickness: float = 1.0) -> None: ...
+            imgui.begin("Quad example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_quad(20, 35, 85, 30, 90, 80, 17, 76, imgui.get_color_u32_rgba(1,1,0,1))
+            draw_list.add_quad(110, 35, 177, 33, 180, 80, 112, 79, imgui.get_color_u32_rgba(1,0,0,1), 5)
+            imgui.end()
 
-    def add_ngon_filled(self,
-                        centre_x: float,
-                        centre_y: float,
-                        radius: float,
-                        col: int,
-                        num_segments: int) -> None: ...
+        Args:
+            point1_x (float): X coordinate of first corner
+            point1_y (float): Y coordinate of first corner
+            point2_x (float): X coordinate of second corner
+            point2_y (float): Y coordinate of second corner
+            point3_x (float): X coordinate of third corner
+            point3_y (float): Y coordinate of third corner
+            point4_x (float): X coordinate of fourth corner
+            point4_y (float): Y coordinate of fourth corner
+            col (ImU32): RGBA color specification
+            thickness (float): Line thickness
 
-    def add_text(self,
-                 pos_x: float,
-                 pos_y: float,
-                 col: int,
-                 text: str) -> None: ...
+        .. wraps::
+            void ImDrawList::AddQuad(
+                const ImVec2& p1,
+                const ImVec2& p2,
+                const ImVec2& p3,
+                const ImVec2& p4,
+                ImU32 col,
+                float thickness = 1.0
+            )
+        """
+    def add_quad_filled(
+        self,
+        point1_x: float,
+        point1_y: float,
+        point2_x: float,
+        point2_y: float,
+        point3_x: float,
+        point3_y: float,
+        point4_x: float,
+        point4_y: float,
+        col: int,
+    ) -> None:
+        """
+        Add a filled quad to the list.
 
-    def add_image(self,
-                  texture_id: int,
-                  a: tuple[int, int],
-                  b: tuple[int, int],
-                  uv_a: tuple[int, int] = (0, 0),
-                  uv_b: tuple[int, int] = (1, 1),
-                  col: int = 0xffffffff) -> None: ...
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
 
-    def add_image_rounded(self,
-                          texture_id: int,
-                          a: tuple[int, int],
-                          b: tuple[int, int],
-                          uv_a: tuple[int, int] = (0, 0),
-                          uv_b: tuple[int, int] = (1, 1),
-                          col: int = 0xffffffff,
-                          rounding: float = 0.0,
-                          flags: int = 0) -> None: ...
+            imgui.begin("Filled Quad example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_quad_filled(20, 35, 85, 30, 90, 80, 17, 76, imgui.get_color_u32_rgba(1,1,0,1))
+            draw_list.add_quad_filled(110, 35, 177, 33, 180, 80, 112, 79, imgui.get_color_u32_rgba(1,0,0,1))
+            imgui.end()
 
-    def add_polyline(self,
-                     points: list[tuple[float, float]],
-                     col: int,
-                     flags: int = 0,
-                     thickness: float = 1.0) -> None: ...
+        Args:
+            point1_x (float): X coordinate of first corner
+            point1_y (float): Y coordinate of first corner
+            point2_x (float): X coordinate of second corner
+            point2_y (float): Y coordinate of second corner
+            point3_x (float): X coordinate of third corner
+            point3_y (float): Y coordinate of third corner
+            point4_x (float): X coordinate of fourth corner
+            point4_y (float): Y coordinate of fourth corner
+            col (ImU32): RGBA color specification
 
+        .. wraps::
+            void ImDrawList::AddQuadFilled(
+                const ImVec2& p1,
+                const ImVec2& p2,
+                const ImVec2& p3,
+                const ImVec2& p4,
+                ImU32 col
+            )
+        """
+    def add_triangle(
+        self,
+        point1_x: float,
+        point1_y: float,
+        point2_x: float,
+        point2_y: float,
+        point3_x: float,
+        point3_y: float,
+        col: int,
+        thickness: float = 1.0,
+    ) -> None:
+        """
+        Add a triangle to the list.
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Triangle example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_triangle(20, 35, 90, 35, 55, 80, imgui.get_color_u32_rgba(1,1,0,1))
+            draw_list.add_triangle(110, 35, 180, 35, 145, 80, imgui.get_color_u32_rgba(1,0,0,1), 5)
+            imgui.end()
+
+        Args:
+            point1_x (float): X coordinate of first corner
+            point1_y (float): Y coordinate of first corner
+            point2_x (float): X coordinate of second corner
+            point2_y (float): Y coordinate of second corner
+            point3_x (float): X coordinate of third corner
+            point3_y (float): Y coordinate of third corner
+            col (ImU32): RGBA color specification
+            thickness (float): Line thickness
+
+        .. wraps::
+            void ImDrawList::AddTriangle(
+                const ImVec2& p1,
+                const ImVec2& p2,
+                const ImVec2& p3,
+                ImU32 col,
+                float thickness = 1.0
+            )
+        """
+    def add_triangle_filled(
+        self,
+        point1_x: float,
+        point1_y: float,
+        point2_x: float,
+        point2_y: float,
+        point3_x: float,
+        point3_y: float,
+        col: int
+    ) -> None:
+        """
+        Add a filled triangle to the list.
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Filled triangle example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_triangle_filled(20, 35, 90, 35, 55, 80, imgui.get_color_u32_rgba(1,1,0,1))
+            draw_list.add_triangle_filled(110, 35, 180, 35, 145, 80, imgui.get_color_u32_rgba(1,0,0,1))
+            imgui.end()
+
+        Args:
+            point1_x (float): X coordinate of first corner
+            point1_y (float): Y coordinate of first corner
+            point2_x (float): X coordinate of second corner
+            point2_y (float): Y coordinate of second corner
+            point3_x (float): X coordinate of third corner
+            point3_y (float): Y coordinate of third corner
+            col (ImU32): RGBA color specification
+
+        .. wraps::
+            void ImDrawList::AddTriangleFilled(
+                const ImVec2& p1,
+                const ImVec2& p2,
+                const ImVec2& p3,
+                ImU32 col
+            )
+        """
+    def add_bezier_cubic(
+        self,
+        point1_x: float,
+        point1_y: float,
+        point2_x: float,
+        point2_y: float,
+        point3_x: float,
+        point3_y: float,
+        point4_x: float,
+        point4_y: float,
+        col: int,
+        thickness: float,
+        num_segments: int = 0,
+    ) -> None:
+        """
+        Add a cubic bezier curve to the list.
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Cubic bezier example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_bezier_cubic(20, 35, 90, 80, 110, 180, 145, 35, imgui.get_color_u32_rgba(1,1,0,1), 2)
+            imgui.end()
+
+        Args:
+            point1_x (float): X coordinate of first point
+            point1_y (float): Y coordinate of first point
+            point2_x (float): X coordinate of second point
+            point2_y (float): Y coordinate of second point
+            point3_x (float): X coordinate of third point
+            point3_y (float): Y coordinate of third point
+            point4_x (float): X coordinate of fourth point
+            point4_y (float): Y coordinate of fourth point
+            col (ImU32): RGBA color specification
+            thickness (float): Line thickness
+            num_segments (ImU32): Number of segments, defaults to 0 meaning auto-tesselation
+
+        .. wraps::
+            void ImDrawList::AddBezierCubic(
+                const ImVec2& p1,
+                const ImVec2& p2,
+                const ImVec2& p3,
+                const ImVec2& p4,
+                ImU32 col,
+                float thickness,
+                int num_segments = 0
+            )
+        """
+    def add_bezier_quadratic(
+        self,
+        point1_x: float,
+        point1_y: float,
+        point2_x: float,
+        point2_y: float,
+        point3_x: float,
+        point3_y: float,
+        col: int,
+        thickness: float,
+        num_segments: int = 0,
+    ) -> None:
+        """
+        Add a quadratic bezier curve to the list.
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Quadratic bezier example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_bezier_quadratic(20, 35, 90, 80, 145, 35, imgui.get_color_u32_rgba(1,1,0,1), 2)
+            imgui.end()
+
+        Args:
+            point1_x (float): X coordinate of first point
+            point1_y (float): Y coordinate of first point
+            point2_x (float): X coordinate of second point
+            point2_y (float): Y coordinate of second point
+            point3_x (float): X coordinate of third point
+            point3_y (float): Y coordinate of third point
+            col (ImU32): RGBA color specification
+            thickness (float): Line thickness
+            num_segments (ImU32): Number of segments, defaults to 0 meaning auto-tesselation
+
+        .. wraps::
+            void ImDrawList::AddBezierCubic(
+                const ImVec2& p1,
+                const ImVec2& p2,
+                const ImVec2& p3,
+                ImU32 col,
+                float thickness,
+                int num_segments = 0
+            )
+        """
+    def add_circle(
+        self,
+        centre_x: float,
+        centre_y: float,
+        radius: float,
+        col: int,
+        num_segments: int = 0,
+        thickness: float = 1.0
+    ) -> None:
+        """
+        Add a circle to the draw list.
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Circle example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_circle(100, 60, 30, imgui.get_color_u32_rgba(1,1,0,1), thickness=3)
+            imgui.end()
+
+        Args:
+            centre_x (float): circle centre coordinates
+            centre_y (float): circle centre coordinates
+            radius (float): circle radius
+            col (ImU32): RGBA color specification
+            num_segments (ImU32): Number of segments, defaults to 0 meaning auto-tesselation
+            thickness (float): Line thickness
+
+        .. wraps::
+            void ImDrawList::AddCircle(
+                const ImVec2& centre,
+                float radius,
+                ImU32 col,
+                int num_segments = 0,
+                float thickness = 1.0
+            )
+        """
+    def add_circle_filled(
+        self,
+        centre_x: float,
+        centre_y: float,
+        radius: float,
+        col: int,
+        num_segments: int = 0) -> None:
+        """
+        Add a filled circle to the draw list.
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Filled circle example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_circle_filled(100, 60, 30, imgui.get_color_u32_rgba(1,1,0,1))
+            imgui.end()
+
+        Args:
+            centre_x (float): circle centre coordinates
+            centre_y (float): circle centre coordinates
+            radius (float): circle radius
+            col (ImU32): RGBA color specification
+            num_segments (ImU32): Number of segments, defaults to 0 meaning auto-tesselation
+
+        .. wraps::
+            void ImDrawList::AddCircleFilled(
+                const ImVec2& centre,
+                float radius,
+                ImU32 col,
+                int num_segments = 0
+            )
+        """
+    def add_ngon(
+        self,
+        centre_x: float,
+        centre_y: float,
+        radius: float,
+        col: int,
+        num_segments: int,
+        thickness: float = 1.0
+    ) -> None:
+        """
+        Draw a regular Ngon
+
+        Args:
+            centre_x (float): circle centre coordinates
+            centre_y (float): circle centre coordinates
+            radius (float): Distance of points to center
+            col (ImU32): RGBA color specification
+            num_segments (int): Number of segments
+            thickness (float): Line thickness
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Ngon Example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_ngon(100, 60, 30, imgui.get_color_u32_rgba(1,1,0,1), 5)
+            imgui.end()
+
+        .. wraps::
+            void  AddNgon(
+                const ImVec2& center,
+                float radius,
+                ImU32 col,
+                int num_segments,
+                float thickness = 1.0f
+            )
+        """
+    def add_ngon_filled(self, centre_x: float, centre_y: float, radius: float, col: int, num_segments: int) -> None:
+        """
+        Draw a regular Ngon
+
+        Args:
+            centre_x (float): circle centre coordinates
+            centre_y (float): circle centre coordinates
+            radius (float): Distance of points to center
+            col (ImU32): RGBA color specification
+            num_segments (int): Number of segments
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Filled Ngon Example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_ngon_filled(100, 60, 30, imgui.get_color_u32_rgba(1,1,0,1), 5)
+            imgui.end()
+
+        .. wraps::
+            void  AddNgonFilled(
+                const ImVec2& center,
+                float radius,
+                ImU32 col,
+                int num_segments
+            )
+        """
+    def add_text(self, pos_x: float, pos_y: float, col: int, text: str) -> None:
+        """
+        Add text to the draw list.
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Text example")
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_text(20, 35, imgui.get_color_u32_rgba(1,1,0,1), "Hello!")
+            imgui.end()
+
+        Args:
+            pos_x (float): X coordinate of the text's upper-left corner
+            pos_y (float): Y coordinate of the text's upper-left corner
+            col (ImU32): RGBA color specification
+            text (str): text
+
+        .. wraps::
+            void ImDrawList::AddText(
+                const ImVec2& pos,
+                ImU32 col,
+                const char* text_begin,
+                const char* text_end = NULL
+            )
+        """
+    def add_image(
+        self,
+        texture_id: int,
+        a: tuple[int, int],
+        b: tuple[int, int],
+        uv_a: tuple[int, int] = (0, 0),
+        uv_b: tuple[int, int] = (1, 1),
+        col: int = 0xFFFFFFFF,
+    ) -> None:
+        """
+        Add image to the draw list. Aspect ratio is not preserved.
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Image example")
+            texture_id = imgui.get_io().fonts.texture_id
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_image(texture_id, (20, 35), (180, 80), col=imgui.get_color_u32_rgba(0.5,0.5,1,1))
+            imgui.end()
+
+        Args:
+            texture_id (object): ID of the texture to draw
+            a (tuple): top-left image corner coordinates,
+            b (tuple): bottom-right image corner coordinates,
+            uv_a (tuple): UV coordinates of the top-left corner, defaults to (0, 0)
+            uv_b (tuple): UV coordinates of the bottom-right corner, defaults to (1, 1)
+            col (ImU32): tint color, defaults to 0xffffffff (no tint)
+
+        .. wraps::
+            void ImDrawList::AddImage(
+                ImTextureID user_texture_id,
+                const ImVec2& a,
+                const ImVec2& b,
+                const ImVec2& uv_a = ImVec2(0,0),
+                const ImVec2& uv_b = ImVec2(1,1),
+                ImU32 col = 0xFFFFFFFF
+            )
+        """
+    def add_image_rounded(
+        self,
+        texture_id: int,
+        a: tuple[int, int],
+        b: tuple[int, int],
+        uv_a: tuple[int, int] = (0, 0),
+        uv_b: tuple[int, int] = (1, 1),
+        col: int = 0xFFFFFFFF,
+        rounding: float = 0.0,
+        flags: int = 0,
+    ) -> None:
+        """
+        Add rounded image to the draw list. Aspect ratio is not preserved.
+
+        .. visual-example::
+            :auto_layout:
+            :width: 200
+            :height: 100
+
+            imgui.begin("Image example")
+            texture_id = imgui.get_io().fonts.texture_id
+            draw_list = imgui.get_window_draw_list()
+            draw_list.add_image_rounded(texture_id, (20, 35), (180, 80), col=imgui.get_color_u32_rgba(0.5,0.5,1,1), rounding=10)
+            imgui.end()
+
+        Args:
+            texture_id (object): ID of the texture to draw
+            a (tuple): top-left image corner coordinates,
+            b (tuple): bottom-right image corner coordinates,
+            uv_a (tuple): UV coordinates of the top-left corner, defaults to (0, 0)
+            uv_b (tuple): UV coordinates of the bottom-right corner, defaults to (1, 1)
+            col (ImU32): tint color, defaults to 0xffffffff (no tint)
+            rounding (float): degree of rounding, defaults to 0.0
+            flags (ImDrawFlags): draw flags, defaults to 0. See:
+                :ref:`list of available flags <draw-flag-options>`.
+
+        .. wraps::
+            void ImDrawList::AddImageRounded(
+                ImTextureID user_texture_id,
+                const ImVec2& a,
+                const ImVec2& b,
+                const ImVec2& uv_a = ImVec2(0,0),
+                const ImVec2& uv_b = ImVec2(1,1),
+                ImU32 col = 0xFFFFFFFF,
+                float rounding = 0.0f,
+                ImDrawFlags flags = 0
+            )
+        """
+    def add_polyline(self, points: list[tuple[float, float]], col: int, flags: int = 0, thickness: float = 1.0) -> None: ...
     def path_clear(self) -> None: ...
-
     def path_line_to(self, x: float, y: float) -> None: ...
-
-    def path_arc_to(self,
-                    center_x: float,
-                    center_y: float,
-                    radius: float,
-                    a_min: float,
-                    a_max: float,
-                    num_segments: int = 0) -> None: ...
-
-    def path_arc_to_fast(self,
-                         center_x: float,
-                         center_y: float,
-                         radius: float,
-                         a_min_of_12: float,
-                         a_max_of_12: float) -> None: ...
-
-    def path_rect(self,
-                  point1_x: float,
-                  point1_y: float,
-                  point2_x: float,
-                  point2_y: float,
-                  rounding: float = 0.0,
-                  flags: int = 0) -> None: ...
-
+    def path_arc_to(
+        self, center_x: float, center_y: float, radius: float, a_min: float, a_max: float, num_segments: int = 0
+    ) -> None: ...
+    def path_arc_to_fast(
+        self, center_x: float, center_y: float, radius: float, a_min_of_12: float, a_max_of_12: float
+    ) -> None: ...
+    def path_rect(
+        self, point1_x: float, point1_y: float, point2_x: float, point2_y: float, rounding: float = 0.0, flags: int = 0
+    ) -> None: ...
     def path_fill_convex(self, col: int) -> None: ...
-
-    def path_stroke(self,
-                    col: int,
-                    flags: int = 0,
-                    thickness: float = 1.0) -> None: ...
-
+    def path_stroke(self, col: int, flags: int = 0, thickness: float = 1.0) -> None: ...
     def channels_split(self, channels_count: int) -> None: ...
-
     def channels_set_current(self, idx: int) -> None: ...
-
     def channels_merge(self) -> None: ...
-
     def prim_reserve(self, idx_count: int, vtx_count: int) -> None: ...
-
     def prim_unreserve(self, idx_count: int, vtx_count: int) -> None: ...
-
-    def prim_rect(self,
-                  a_x: float,
-                  a_y: float,
-                  b_x: float,
-                  b_y: float,
-                  color: int = 0xffffffff) -> None: ...
-
-    def prim_rect_UV(self,
-                     a_x: float,
-                     a_y: float,
-                     b_x: float,
-                     b_y: float,
-                     uv_a_u: float,
-                     uv_a_v: float,
-                     uv_b_u: float,
-                     uv_b_v: float,
-                     color: int = 0xffffffff) -> None: ...
-
-    def prim_quad_UV(self,
-                     a_x: float,
-                     a_y: float,
-                     b_x: float,
-                     b_y: float,
-                     c_x: float,
-                     c_y: float,
-                     d_x: float,
-                     d_y: float,
-                     uv_a_u: float,
-                     uv_a_v: float,
-                     uv_b_u: float,
-                     uv_b_v: float,
-                     uv_c_u: float,
-                     uv_c_v: float,
-                     uv_d_u: float,
-                     uv_d_v: float,
-                     color: int = 0xffffffff) -> None: ...
-
-    def prim_write_vtx(self,
-                       pos_x: float,
-                       pos_y: float,
-                       u: float,
-                       v: float,
-                       color: int = 0xffffffff) -> None: ...
-
+    def prim_rect(self, a_x: float, a_y: float, b_x: float, b_y: float, color: int = 0xFFFFFFFF) -> None: ...
+    def prim_rect_UV(
+        self,
+        a_x: float,
+        a_y: float,
+        b_x: float,
+        b_y: float,
+        uv_a_u: float,
+        uv_a_v: float,
+        uv_b_u: float,
+        uv_b_v: float,
+        color: int = 0xFFFFFFFF,
+    ) -> None: ...
+    def prim_quad_UV(
+        self,
+        a_x: float,
+        a_y: float,
+        b_x: float,
+        b_y: float,
+        c_x: float,
+        c_y: float,
+        d_x: float,
+        d_y: float,
+        uv_a_u: float,
+        uv_a_v: float,
+        uv_b_u: float,
+        uv_b_v: float,
+        uv_c_u: float,
+        uv_c_v: float,
+        uv_d_u: float,
+        uv_d_v: float,
+        color: int = 0xFFFFFFFF,
+    ) -> None: ...
+    def prim_write_vtx(self, pos_x: float, pos_y: float, u: float, v: float, color: int = 0xFFFFFFFF) -> None: ...
     def prim_write_idx(self, idx: int) -> None: ...
-
-    def prim_vtx(self,
-                 pos_x: float,
-                 pos_y: float,
-                 u: float,
-                 v: float,
-                 color: int = 0xffffffff) -> None: ...
-
+    def prim_vtx(self, pos_x: float, pos_y: float, u: float, v: float, color: int = 0xFFFFFFFF) -> None: ...
     @property
     def commands(self) -> list[_DrawCmd]: ...
 
 class _Colors:
-    def __init__(self, gui_style: 'GuiStyle') -> None: ...
-
+    def __init__(self, gui_style: GuiStyle) -> None: ...
     def __getitem__(self, variable: int) -> Vec4: ...
-
     def __setitem__(self, variable: int, value: Vec4) -> None: ...
 
 class GuiStyle:
@@ -887,183 +1416,135 @@ class GuiStyle:
     circle_tessellation_max_error: float
 
     @staticmethod
-    def create() -> 'GuiStyle': ...
-
+    def create() -> GuiStyle: ...
     def color(self, variable: int) -> Vec4: ...
-
     @property
     def colors(self) -> _Colors: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _ImGuiTableColumnSortSpecs:
-    column_user_id: _t.Any # TODO _ImGuiTableColumnSortSpecs.column_user_id
+    column_user_id: _t.Any  # TODO _ImGuiTableColumnSortSpecs.column_user_id
     column_index: int
     sort_order: int
     sord_direction: int
 
     def __init__(self) -> None: ...
-
     def _require_pointer(self) -> None: ...
 
 class _ImGuiTableColumnSortSpecs_array:
     def __init__(self) -> None: ...
-
     def __getitem__(self, idx: int) -> _ImGuiTableColumnSortSpecs: ...
-
     def __iter__(self) -> _t.Self: ...
-
     def __next__(self) -> _ImGuiTableColumnSortSpecs: ...
-
     def _require_pointer(self) -> None: ...
 
 class _ImGuiTableSortSpecs:
     specs_dirty: bool
 
     def __init__(self) -> None: ...
-
     @property
     def specs(self) -> _ImGuiTableColumnSortSpecs_array: ...
-
     @property
     def specs_count(self) -> int: ...
-
     def _require_pointer(self) -> None: ...
 
 class _ImGuiViewport:
     def __init__(self) -> None: ...
-
     def get_center(self) -> Vec2: ...
-
     def get_work_center(self) -> Vec2: ...
-
     @property
     def flags(self) -> int: ...
-
     @property
     def pos(self) -> Vec2: ...
-
     @property
     def size(self) -> Vec2: ...
-
     @property
     def work_pos(self) -> Vec2: ...
-
     @property
     def work_size(self) -> Vec2: ...
-
     def _require_pointer(self) -> None: ...
 
 class _DrawData:
     def __init__(self) -> None: ...
-
     def deindex_all_buffers(self) -> None: ...
-
     def scale_clip_rects(self, width: float, height: float) -> None: ...
-
     @property
     def valid(self) -> bool: ...
-
     @property
     def cmd_count(self) -> int: ...
-
     @property
     def total_vtx_count(self) -> int: ...
-
     @property
     def display_pos(self) -> Vec2: ...
-
     @property
     def display_size(self) -> Vec2: ...
-
     @property
     def frame_buffer_scale(self) -> Vec2: ...
-
     @property
     def total_idx_count(self) -> int: ...
-
     @property
     def command_lists(self) -> list[_DrawList]: ...
-
     def _require_pointer(self) -> None: ...
 
-class _StaticGlyphRanges:
-    pass
+class _StaticGlyphRanges: ...
 
 class GlyphRanges:
     def __init__(self, glyph_ranges: _t.Iterable[int]) -> None: ...
 
 class FontConfig:
-    def __init__(self,
-                 font_no: int | None = None,
-                 size_pixels: float | None = None,
-                 oversample_h: int | None = None,
-                 oversample_v: int | None = None,
-                 pixel_snap_h: bool | None = None,
-                 glyph_extra_spacing_x: float | None = None,
-                 glyph_extra_spacing_y: float | None = None,
-                 glyph_offset_x: float | None = None,
-                 glyph_offset_y: float | None = None,
-                 glyph_min_advance_x: float | None = None,
-                 glyph_max_advance_x: float | None = None,
-                 merge_mode: bool | None = None,
-                 font_builder_flags: int | None = None,
-                 rasterizer_multiply: float | None = None,
-                 ellipsis_char: _t.Any | None = None) -> None: ... # TODO FontConfig.__init__:ellipsis_char
+    def __init__(
+        self,
+        font_no: int | None = None,
+        size_pixels: float | None = None,
+        oversample_h: int | None = None,
+        oversample_v: int | None = None,
+        pixel_snap_h: bool | None = None,
+        glyph_extra_spacing_x: float | None = None,
+        glyph_extra_spacing_y: float | None = None,
+        glyph_offset_x: float | None = None,
+        glyph_offset_y: float | None = None,
+        glyph_min_advance_x: float | None = None,
+        glyph_max_advance_x: float | None = None,
+        merge_mode: bool | None = None,
+        font_builder_flags: int | None = None,
+        rasterizer_multiply: float | None = None,
+        ellipsis_char: _t.Any | None = None,
+    ) -> None: ...  # TODO FontConfig.__init__:ellipsis_char
 
-class _Font:
-    pass
+class _Font: ...
 
 class _FontAtlas:
     texture_id: int
     texture_desired_width: int
 
     def __init__(self) -> None: ...
-
     def add_font_default(self) -> _Font: ...
-
-    def add_font_from_file_ttf(self,
-                               filename: str,
-                               size_pixels: float,
-                               font_config: FontConfig | None = None,
-                               glyph_ranges: GlyphRanges | _StaticGlyphRanges | None = None) -> _Font: ...
-
+    def add_font_from_file_ttf(
+        self,
+        filename: str,
+        size_pixels: float,
+        font_config: FontConfig | None = None,
+        glyph_ranges: GlyphRanges | _StaticGlyphRanges | None = None,
+    ) -> _Font: ...
     def clear_tex_data(self) -> None: ...
-
     def clear_input_data(self) -> None: ...
-
     def clear_fonts(self) -> None: ...
-
     def clear(self) -> None: ...
-
     def get_glyph_ranges_chinese(self) -> _StaticGlyphRanges: ...
-
     def get_glyph_ranges_chinese_full(self) -> _StaticGlyphRanges: ...
-
     def get_glyph_ranges_cyrillic(self) -> _StaticGlyphRanges: ...
-
     def get_glyph_ranges_default(self) -> _StaticGlyphRanges: ...
-
     def get_glyph_ranges_japanese(self) -> _StaticGlyphRanges: ...
-
     def get_glyph_ranges_korean(self) -> _StaticGlyphRanges: ...
-
     def get_glyph_ranges_latin(self) -> _StaticGlyphRanges: ...
-
     def get_glyph_ranges_thai(self) -> _StaticGlyphRanges: ...
-
     def get_glyph_ranges_vietnamese(self) -> _StaticGlyphRanges: ...
-
     def get_tex_data_as_alpha8(self) -> tuple[int, int, bytes]: ...
-
     def get_tex_data_as_rgba32(self) -> tuple[int, int, bytes]: ...
-
     @property
     def texture_width(self) -> int: ...
-
     @property
     def texture_height(self) -> int: ...
-
     def _require_pointer(self) -> None: ...
 
 class _IO:
@@ -1100,70 +1581,47 @@ class _IO:
     key_super: bool
 
     def __init__(self) -> None: ...
-
     @property
-    def key_map(self) -> _t.Mapping[int, int]: ... # TODO Real type would be `cython.view.array`
-
+    def key_map(self) -> _t.Mapping[int, int]: ...  # TODO Real type would be `cython.view.array`
     @property
     def fonts(self) -> _FontAtlas: ...
-
     @property
-    def mouse_down(self) -> _t.Mapping[int, int]: ... # TODO Real type would be `cython.view.array`
-
+    def mouse_down(self) -> _t.Mapping[int, int]: ...  # TODO Real type would be `cython.view.array`
     @property
-    def keys_down(self) -> _t.Mapping[int, int]: ... # TODO Real type would be `cython.view.array`
-
+    def keys_down(self) -> _t.Mapping[int, int]: ...  # TODO Real type would be `cython.view.array`
     @property
-    def nav_inputs(self) -> _t.Mapping[int, float]: ... # TODO Real type would be `cython.view.array`
-
+    def nav_inputs(self) -> _t.Mapping[int, float]: ...  # TODO Real type would be `cython.view.array`
     @property
     def want_capture_mouse(self) -> bool: ...
-
     @property
     def want_capture_keyboard(self) -> bool: ...
-
     @property
     def want_text_input(self) -> bool: ...
-
     @property
     def want_set_mouse_pos(self) -> bool: ...
-
     @property
     def want_save_ini_settings(self) -> bool: ...
-
     @property
     def nav_active(self) -> bool: ...
-
     @property
     def nav_visible(self) -> bool: ...
-
     @property
     def framerate(self) -> float: ...
-
     @property
     def metrics_render_vertices(self) -> int: ...
-
     @property
     def metrics_render_indices(self) -> int: ...
-
     @property
     def metrics_render_windows(self) -> int: ...
-
     @property
     def metrics_active_windows(self) -> int: ...
-
     @property
     def metrics_active_allocations(self) -> int: ...
-
     @property
     def mouse_delta(self) -> Vec2: ...
-
     def add_input_character(self, c: int) -> None: ...
-
     def add_input_character_utf16(self, chars: str) -> None: ...
-
     def add_input_character_utf8(self, chars: str) -> None: ...
-
     def clear_input_characters(self) -> None: ...
 
 class _InputTextSharedBuffer:
@@ -1178,51 +1636,35 @@ class _ImGuiInputTextCallbackData:
     selection_end: int
 
     def __init__(self) -> None: ...
-
     def delete_chars(self, pos: int, bytes_count: int) -> None: ...
-
     def insert_chars(self, pos: int, text: str) -> None: ...
-
     def select_all(self) -> None: ...
-
     def clear_selection(self) -> None: ...
-
     def has_selection(self) -> bool: ...
-
     @property
     def event_flag(self) -> int: ...
-
     @property
     def flags(self) -> int: ...
-
     @property
     def user_data(self) -> _t.Any: ...
-
     @property
     def event_key(self) -> int: ...
-
     @property
     def buffer_text_length(self) -> int: ...
-
     @property
     def buffer_size(self) -> int: ...
-
     def _require_pointer(self) -> None: ...
 
 class _ImGuiSizeCallbackData:
     desired_size: Vec2
 
     def __init__(self): ...
-
     @property
     def user_data(self) -> _t.Any: ...
-
     @property
     def pos(self) -> Vec2: ...
-
     @property
     def current_size(self) -> Vec2: ...
-
     def _require_pointer(self) -> None: ...
 
 class _callback_user_info:
@@ -1232,203 +1674,137 @@ class _callback_user_info:
 
 class _BeginEndGroup:
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndDragDropSource:
     @property
     def dragging(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __bool__(self) -> bool: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndDragDropTarget:
     @property
     def hovered(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __bool__(self) -> bool: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndTabItem:
     @property
     def opened(self) -> bool: ...
-
     @property
     def selected(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __getitem__(self, item: int) -> bool: ...
-
     def __iter__(self) -> _t.Iterator[bool]: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndTabBar:
     @property
     def opened(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __getitem__(self, item: int) -> bool: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEnd:
     @property
     def expanded(self) -> bool: ...
-
     @property
     def opened(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __getitem__(self, item: int) -> bool: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndChild:
     @property
     def visible(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __bool__(self) -> bool: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndListBox:
     @property
     def opened(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __bool__(self) -> bool: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndTooltip:
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
 
 class _BeginEndMainMenuBar:
     @property
     def opened(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __bool__(self) -> bool: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndMenuBar:
     @property
     def opened(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __bool__(self) -> bool: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndMenu:
     @property
     def opened(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __bool__(self) -> bool: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndPopup:
     @property
     def opened(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __bool__(self) -> bool: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndPopupModal:
     @property
     def opened(self) -> bool: ...
-
     @property
     def visible(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __getitem__(self, item: int) -> bool: ...
-
     def __iter__(self) -> _t.Iterator[bool]: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndTable:
     @property
     def opened(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __bool__(self) -> bool: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndCombo:
     @property
     def opened(self) -> bool: ...
-
     def __enter__(self) -> _t.Self: ...
-
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
-
     def __bool__(self) -> bool: ...
-
     def __eq__(self, other: object) -> bool: ...
 
 def get_io() -> _IO: ...
-
 def get_style() -> GuiStyle: ...
-
 def new_frame() -> None:
-    '''
+    """
     Start a new frame.
 
     After calling this you can submit any command from this point until
@@ -1436,10 +1812,10 @@ def new_frame() -> None:
 
     .. wraps::
         void NewFrame()
-    '''
+    """
 
 def end_frame() -> None:
-    '''
+    """
     End a frame.
 
     ends the ImGui frame. automatically called by Render(), so most likely
@@ -1450,18 +1826,18 @@ def end_frame() -> None:
 
     .. wraps::
         void EndFrame()
-    '''
+    """
 
 def render() -> None:
-    '''
+    """
     Finalize frame, set rendering data, and run render callback (if set).
 
     .. wraps::
         void Render()
-    '''
+    """
 
 def show_user_guide() -> None:
-    '''
+    """
     Show ImGui user guide editor.
 
     .. visual-example::
@@ -1476,48 +1852,48 @@ def show_user_guide() -> None:
 
     .. wraps::
         void ShowUserGuide()
-    '''
+    """
 
 def get_version() -> str:
-    '''
+    """
     Get the version of Dear ImGui.
 
     .. wraps::
         void GetVersion()
-    '''
+    """
 
 def style_colors_dark(dst: GuiStyle | None = None) -> None:
-    '''
+    """
     Set the style to Dark.
 
        new, recommended style (default)
 
     .. wraps::
         void StyleColorsDark(ImGuiStyle* dst = NULL)
-    '''
+    """
 
 def style_colors_classic(dst: GuiStyle | None = None) -> None:
-    '''
+    """
     Set the style to Classic.
 
        classic imgui style.
 
     .. wraps::
         void StyleColorsClassic(ImGuiStyle* dst = NULL)
-    '''
+    """
 
 def style_colors_light(dst: GuiStyle | None = None) -> None:
-    '''
+    """
     Set the style to Light.
 
        best used with borders and a custom, thicker font
 
     .. wraps::
         void StyleColorsLight(ImGuiStyle* dst = NULL)
-    '''
+    """
 
 def show_style_editor(style: GuiStyle | None = None) -> None:
-    '''
+    """
     Show ImGui style editor.
 
     .. visual-example::
@@ -1534,10 +1910,10 @@ def show_style_editor(style: GuiStyle | None = None) -> None:
 
     .. wraps::
         void ShowStyleEditor(ImGuiStyle* ref = NULL)
-    '''
+    """
 
 def show_demo_window(closable: bool = False) -> bool:
-    '''
+    """
     Show ImGui demo window.
 
     .. visual-example::
@@ -1555,10 +1931,10 @@ def show_demo_window(closable: bool = False) -> bool:
 
     .. wraps::
         void ShowDemoWindow(bool* p_open = NULL)
-    '''
+    """
 
 def show_about_window(closable: bool = False) -> bool:
-    '''
+    """
     Create About window.
     Display Dear ImGui version, credits and build/system information.
 
@@ -1570,10 +1946,10 @@ def show_about_window(closable: bool = False) -> bool:
 
     .. wraps::
         void ShowAboutWindow(bool* p_open = NULL)
-    '''
+    """
 
 def show_test_window() -> None:
-    '''
+    """
     Show ImGui demo window.
 
     .. visual-example::
@@ -1585,10 +1961,10 @@ def show_test_window() -> None:
 
     .. wraps::
         void ShowDemoWindow()
-    '''
+    """
 
 def show_metrics_window(closable: bool = False) -> bool:
-    '''
+    """
     Show ImGui metrics window.
 
     .. visual-example::
@@ -1606,16 +1982,12 @@ def show_metrics_window(closable: bool = False) -> bool:
 
     .. wraps::
         void ShowMetricsWindow(bool* p_open = NULL)
-    '''
+    """
 
 def show_style_selector(label: str) -> bool: ...
-
 def show_font_selector(label: str) -> None: ...
-
-def begin(label: str,
-          closable: bool = False,
-          flags: WindowFlags = WINDOW_NONE) -> _BeginEnd:
-    '''
+def begin(label: str, closable: bool = False, flags: WindowFlags = WINDOW_NONE) -> _BeginEnd:
+    """
     Begin a window.
 
     .. visual-example::
@@ -1647,10 +2019,10 @@ def begin(label: str,
             bool* p_open = NULL,
             ImGuiWindowFlags flags = 0
         )
-    '''
+    """
 
 def get_draw_data() -> _DrawData:
-    '''
+    """
     Get draw data.
 
     valid after :any:`render()` and until the next call
@@ -1661,10 +2033,10 @@ def get_draw_data() -> _DrawData:
 
     .. wraps::
         ImDrawData* GetDrawData()
-    '''
+    """
 
 def end() -> None:
-    '''
+    """
     End a window.
 
     This finishes appending to current window, and pops it off the window
@@ -1672,14 +2044,12 @@ def end() -> None:
 
     .. wraps::
         void End()
-    '''
+    """
 
-def begin_child(label: str | int,
-                width: float = 0.0,
-                height: float = 0.0,
-                border: bool = False,
-                flags: WindowFlags = WINDOW_NONE) -> _BeginEndChild:
-    '''
+def begin_child(
+    label: str | int, width: float = 0.0, height: float = 0.0, border: bool = False, flags: WindowFlags = WINDOW_NONE
+) -> _BeginEndChild:
+    """
     Begin a scrolling region.
 
     **Note:** sizing of child region allows for three modes:
@@ -1733,19 +2103,19 @@ def begin_child(label: str | int,
             bool border = false,
             ImGuiWindowFlags flags = 0
         )
-    '''
+    """
 
 def end_child() -> None:
-    '''
+    """
     End scrolling region.
     Only call if ``begin_child().visible`` is True.
 
     .. wraps::
         void EndChild()
-    '''
+    """
 
 def get_content_region_max() -> Vec2:
-    '''
+    """
     Get current content boundaries in window coordinates.
 
     Typically window boundaries include scrolling, or current
@@ -1756,10 +2126,10 @@ def get_content_region_max() -> Vec2:
 
     .. wraps::
         ImVec2 GetContentRegionMax()
-    '''
+    """
 
 def get_content_region_available() -> Vec2:
-    '''
+    """
     Get available content region.
 
     It is shortcut for:
@@ -1772,10 +2142,10 @@ def get_content_region_available() -> Vec2:
 
     .. wraps::
         ImVec2 GetContentRegionMax()
-    '''
+    """
 
 def get_content_region_available_width() -> float:
-    '''
+    """
     Get available content region width.
 
     Returns:
@@ -1783,10 +2153,10 @@ def get_content_region_available_width() -> float:
 
     .. wraps::
         float GetContentRegionAvailWidth()
-    '''
+    """
 
 def get_window_content_region_min() -> Vec2:
-    '''
+    """
     Get minimal current window content boundaries in window coordinates.
 
     It translates roughly to: ``(0, 0) - Scroll``
@@ -1796,10 +2166,10 @@ def get_window_content_region_min() -> Vec2:
 
     .. wraps::
         ImVec2 GetWindowContentRegionMin()
-    '''
+    """
 
 def get_window_content_region_max() -> Vec2:
-    '''
+    """
     Get maximal current window content boundaries in window coordinates.
 
     It translates roughly to: ``(0, 0) + Size - Scroll``
@@ -1809,10 +2179,10 @@ def get_window_content_region_max() -> Vec2:
 
     .. wraps::
         ImVec2 GetWindowContentRegionMin()
-    '''
+    """
 
 def get_window_content_region_width() -> float:
-    '''
+    """
     Get available current window content region width.
 
     Returns:
@@ -1820,10 +2190,10 @@ def get_window_content_region_width() -> float:
 
     .. wraps::
         float GetWindowContentRegionWidth()
-    '''
+    """
 
 def set_window_focus() -> None:
-    '''
+    """
     Set window to be focused
 
     Call inside :func:`begin()`.
@@ -1841,10 +2211,10 @@ def set_window_focus() -> None:
 
     .. wraps::
         void SetWindowFocus()
-    '''
+    """
 
 def set_window_focus_labeled(label: str) -> None:
-    '''
+    """
     Set focus to the window named label
 
     Args:
@@ -1872,12 +2242,10 @@ def set_window_focus_labeled(label: str) -> None:
         void SetWindowFocus(
             const char* name
         )
-    '''
+    """
 
-def set_window_size(width: float,
-                    height: float,
-                    condition: Condition = ONCE) -> None:
-    '''
+def set_window_size(width: float, height: float, condition: Condition = ONCE) -> None:
+    """
     Set window size
 
     Call inside :func:`begin()`.
@@ -1905,13 +2273,10 @@ def set_window_size(width: float,
             const ImVec2& size,
             ImGuiCond cond = 0,
         )
-    '''
+    """
 
-def set_window_size_named(label: str,
-                          width: float,
-                          height: float,
-                          condition: Condition = ONCE) -> None:
-    '''
+def set_window_size_named(label: str, width: float, height: float, condition: Condition = ONCE) -> None:
+    """
     Set the window with label to some size
 
     Args:
@@ -1941,10 +2306,10 @@ def set_window_size_named(label: str,
              ImGuiCond cond
         )
 
-    '''
+    """
 
 def get_scroll_x() -> int:
-    '''
+    """
     Get scrolling amount [0..GetScrollMaxX()]
 
     Returns:
@@ -1952,10 +2317,10 @@ def get_scroll_x() -> int:
 
     .. wraps::
         int GetScrollX()
-    '''
+    """
 
 def get_scroll_y() -> int:
-    '''
+    """
     Get scrolling amount [0..GetScrollMaxY()]
 
     Returns:
@@ -1963,10 +2328,10 @@ def get_scroll_y() -> int:
 
     .. wraps::
         int GetScrollY()
-    '''
+    """
 
 def get_scroll_max_x() -> int:
-    '''
+    """
     Get maximum scrolling amount ~~ ContentSize.X - WindowSize.X
 
     Returns:
@@ -1974,10 +2339,10 @@ def get_scroll_max_x() -> int:
 
     .. wraps::
         int GetScrollMaxX()
-    '''
+    """
 
 def get_scroll_max_y() -> int:
-    '''
+    """
     Get maximum scrolling amount ~~ ContentSize.X - WindowSize.X
 
     Returns:
@@ -1985,26 +2350,26 @@ def get_scroll_max_y() -> int:
 
     .. wraps::
         int GetScrollMaxY()
-    '''
+    """
 
 def set_scroll_x(scroll_x: float) -> None:
-    '''
+    """
     Set scrolling amount [0..SetScrollMaxX()]
 
     .. wraps::
         int SetScrollX(float)
-    '''
+    """
 
 def set_scroll_y(scroll_y: float) -> None:
-    '''
+    """
     Set scrolling amount [0..SetScrollMaxY()]
 
     .. wraps::
         int SetScrollY(flot)
-    '''
+    """
 
 def set_window_font_scale(scale: float) -> None:
-    '''
+    """
     Adjust per-window font scale for current window.
 
     Function should be called inside window context so after calling
@@ -2026,11 +2391,10 @@ def set_window_font_scale(scale: float) -> None:
 
     .. wraps::
         void SetWindowFontScale(float scale)
-    '''
+    """
 
-def set_next_window_collapsed(collapsed: bool,
-                              condition: Condition = ALWAYS) -> None:
-    '''
+def set_next_window_collapsed(collapsed: bool, condition: Condition = ALWAYS) -> None:
+    """
     Set next window collapsed state.
 
     .. visual-example::
@@ -2054,26 +2418,26 @@ def set_next_window_collapsed(collapsed: bool,
              bool collapsed, ImGuiCond cond = 0
          )
 
-    '''
+    """
 
 def set_next_window_focus() -> None:
-    '''
+    """
     Set next window to be focused (most front).
 
     .. wraps::
         void SetNextWindowFocus()
-    '''
+    """
 
 def set_next_window_bg_alpha(alpha: float) -> None:
-    '''
+    """
     Set next window background color alpha. Helper to easily modify ImGuiCol_WindowBg/ChildBg/PopupBg.
 
     .. wraps::
         void SetNextWindowBgAlpha(float)
-    '''
+    """
 
 def get_window_draw_list() -> _DrawList:
-    '''
+    """
     Get the draw list associated with the window, to append your own drawing primitives
 
     It may be useful if you want to do your own drawing via the :class:`_DrawList`
@@ -2107,10 +2471,10 @@ def get_window_draw_list() -> _DrawList:
 
     .. wraps::
         ImDrawList* GetWindowDrawList()
-    '''
+    """
 
 def get_overlay_draw_list() -> _DrawList:
-    '''
+    """
     Get a special draw list that will be drawn last (over all windows).
 
     Useful for drawing overlays.
@@ -2120,10 +2484,10 @@ def get_overlay_draw_list() -> _DrawList:
 
     .. wraps::
         ImDrawList* GetWindowDrawList()
-    '''
+    """
 
 def get_window_position() -> Vec2:
-    '''
+    """
     Get current window position.
 
     It may be useful if you want to do your own drawing via the DrawList
@@ -2134,10 +2498,10 @@ def get_window_position() -> Vec2:
 
     .. wraps::
         ImVec2 GetWindowPos()
-    '''
+    """
 
 def get_window_size() -> Vec2:
-    '''
+    """
     Get current window size.
 
     Returns:
@@ -2145,10 +2509,10 @@ def get_window_size() -> Vec2:
 
     .. wraps::
         ImVec2 GetWindowSize()
-    '''
+    """
 
 def get_window_width() -> float:
-    '''
+    """
     Get current window width.
 
     Returns:
@@ -2156,10 +2520,10 @@ def get_window_width() -> float:
 
     .. wraps::
         float GetWindowWidth()
-    '''
+    """
 
 def get_window_height() -> float:
-    '''
+    """
     Get current window height.
 
     Returns:
@@ -2167,14 +2531,12 @@ def get_window_height() -> float:
 
     .. wraps::
         float GetWindowHeight()
-    '''
+    """
 
-def set_next_window_position(x: float,
-                             y: float,
-                             condition: Condition = ALWAYS,
-                             pivot_x: float = 0.0,
-                             pivot_y: float = 0.0) -> None:
-    '''
+def set_next_window_position(
+    x: float, y: float, condition: Condition = ALWAYS, pivot_x: float = 0.0, pivot_y: float = 0.0
+) -> None:
+    """
     Set next window position.
 
     Call before :func:`begin()`.
@@ -2204,12 +2566,10 @@ def set_next_window_position(x: float,
             ImGuiCond cond = 0,
             const ImVec2& pivot = ImVec2(0,0)
         )
-    '''
+    """
 
-def set_next_window_size(width: float,
-                         height: float,
-                         condition: Condition = ALWAYS) -> None:
-    '''
+def set_next_window_size(width: float, height: float, condition: Condition = ALWAYS) -> None:
+    """
     Set next window size.
 
     Call before :func:`begin()`.
@@ -2235,13 +2595,15 @@ def set_next_window_size(width: float,
         void SetNextWindowSize(
             const ImVec2& size, ImGuiCond cond = 0
         )
-    '''
+    """
 
-def set_next_window_size_constraints(size_min: tuple[float, float],
-                                     size_max: tuple[float, float],
-                                     callback: _t.Callable[[_ImGuiSizeCallbackData], None] | None = None,
-                                     user_data: _t.Any = None) -> None:
-    '''
+def set_next_window_size_constraints(
+    size_min: tuple[float, float],
+    size_max: tuple[float, float],
+    callback: _t.Callable[[_ImGuiSizeCallbackData], None] | None = None,
+    user_data: _t.Any = None,
+) -> None:
+    """
     Set next window size limits. use -1,-1 on either X/Y axis to preserve the current size.
     Sizes will be rounded down.
 
@@ -2271,10 +2633,10 @@ def set_next_window_size_constraints(size_min: tuple[float, float],
             ImGuiSizeCallback custom_callback = NULL,
             void* custom_callback_user_data = NULL
         )
-    '''
+    """
 
 def set_next_window_content_size(width: float, height: float) -> None:
-    '''
+    """
     Set content size of the next window. Show scrollbars
     if content doesn't fit in the window
 
@@ -2299,12 +2661,10 @@ def set_next_window_content_size(width: float, height: float) -> None:
         void SetNextWindowContentSize(
             const ImVec2& size
         )
-    '''
+    """
 
-def set_window_position(x: float,
-                        y: float,
-                        condition: Condition = ALWAYS) -> None:
-    '''
+def set_window_position(x: float, y: float, condition: Condition = ALWAYS) -> None:
+    """
     Set the size of the current window
 
     Call inside: func: 'begin()'
@@ -2332,13 +2692,10 @@ def set_window_position(x: float,
             const ImVec2& pos,
             ImGuiCond cond
         )
-    '''
+    """
 
-def set_window_position_labeled(label: str,
-                                x: float,
-                                y: float,
-                                condition: Condition = ALWAYS) -> None:
-    '''
+def set_window_position_labeled(label: str, x: float, y: float, condition: Condition = ALWAYS) -> None:
+    """
     Set the size of the window with label
 
     Args:
@@ -2368,11 +2725,10 @@ def set_window_position_labeled(label: str,
             ImGuiCond cond
         )
 
-    '''
+    """
 
-def set_window_collapsed(collapsed: bool,
-                         condition: Condition = ALWAYS) -> None:
-    '''
+def set_window_collapsed(collapsed: bool, condition: Condition = ALWAYS) -> None:
+    """
     Set the current window to be collapsed
 
     Call inside: func: 'begin()'
@@ -2395,12 +2751,10 @@ def set_window_collapsed(collapsed: bool,
             bool collapsed,
             ImGuiCond cond
         )
-    '''
+    """
 
-def set_window_collapsed_labeled(label: str,
-                                 collapsed: bool,
-                                 condition: Condition = ALWAYS) -> None:
-    '''
+def set_window_collapsed_labeled(label: str, collapsed: bool, condition: Condition = ALWAYS) -> None:
+    """
     Set window with label to collapse
 
     Args:
@@ -2423,18 +2777,18 @@ def set_window_collapsed_labeled(label: str,
             bool collapsed,
             ImGuiCond cond
         )
-    '''
+    """
 
 def is_window_collapsed() -> bool:
-    '''
+    """
     Check if current window is collapsed.
 
     Returns:
         bool: True if window is collapsed
-    '''
+    """
 
 def tree_node(text: str, flags: TreeNodeFlags = TREE_NODE_NONE) -> bool:
-    '''
+    """
     Draw a tree node.
 
     Returns 'true' if the node is drawn, call :func:`tree_pop()` to finish.
@@ -2462,10 +2816,10 @@ def tree_node(text: str, flags: TreeNodeFlags = TREE_NODE_NONE) -> bool:
     .. wraps::
         bool TreeNode(const char* label)
         bool TreeNodeEx(const char* label, ImGuiTreeNodeFlags flags = 0)
-    '''
+    """
 
 def tree_pop() -> None:
-    '''
+    """
     Called to clear the tree nodes stack and return back the identation.
 
     For a tree example see :func:`tree_node()`.
@@ -2473,10 +2827,10 @@ def tree_pop() -> None:
 
     .. wraps::
         void TreePop()
-    '''
+    """
 
 def get_tree_node_to_label_spacing() -> float:
-    '''
+    """
     Horizontal distance preceding label when using ``tree_node*()``
     or ``bullet() == (g.FontSize + style.FramePadding.x*2)`` for a
     regular unframed TreeNode
@@ -2498,12 +2852,10 @@ def get_tree_node_to_label_spacing() -> float:
 
     .. wraps::
         float GetTreeNodeToLabelSpacing()
-    '''
+    """
 
-def collapsing_header(text: str,
-                      visible: bool | None = None,
-                      flags: TreeNodeFlags = TREE_NODE_NONE) -> bool:
-    '''
+def collapsing_header(text: str, visible: bool | None = None, flags: TreeNodeFlags = TREE_NODE_NONE) -> bool:
+    """
     Collapsable/Expandable header view.
 
     Returns 'true' if the header is open. Doesn't indent or push to stack,
@@ -2546,11 +2898,10 @@ def collapsing_header(text: str,
             bool* p_visible,
             ImGuiTreeNodeFlags flags = 0
         )
-    '''
+    """
 
-def set_next_item_open(is_open: bool,
-                       condition: Condition = NONE) -> None:
-    '''
+def set_next_item_open(is_open: bool, condition: Condition = NONE) -> None:
+    """
     Set next TreeNode/CollapsingHeader open state.
 
     Args:
@@ -2560,14 +2911,12 @@ def set_next_item_open(is_open: bool,
 
     .. wraps::
         void SetNextItemOpen(bool is_open, ImGuiCond cond = 0)
-    '''
+    """
 
-def selectable(label: str,
-               selected: bool = False,
-               flags: SelectableFlags = SELECTABLE_NONE,
-               width: float = 0.0,
-               height: float = 0.0) -> bool:
-    '''
+def selectable(
+    label: str, selected: bool = False, flags: SelectableFlags = SELECTABLE_NONE, width: float = 0.0, height: float = 0.0
+) -> bool:
+    """
     Selectable text. Returns 'true' if the item is pressed.
 
     Width of 0.0 will use the available width in the parent container.
@@ -2616,13 +2965,10 @@ def selectable(label: str,
             ImGuiSelectableFlags flags = 0,
             const ImVec2& size = ImVec2(0,0)
         )
-    '''
+    """
 
-def listbox(label: str,
-            current: int,
-            items: _t.Iterable[str],
-            height_in_items: int = -1) -> tuple[bool, int]:
-    '''
+def listbox(label: str, current: int, items: _t.Iterable[str], height_in_items: int = -1) -> tuple[bool, int]:
+    """
     Show listbox widget.
 
     .. visual-example::
@@ -2659,12 +3005,10 @@ def listbox(label: str,
             int height_in_items = -1
         )
 
-    '''
+    """
 
-def begin_list_box(label: str,
-                   width: float = 0.0,
-                   height: float = 0.0) -> _BeginEndListBox:
-    '''
+def begin_list_box(label: str, width: float = 0.0, height: float = 0.0) -> _BeginEndListBox:
+    """
     Open a framed scrolling region.
 
     For use if you want to reimplement :func:`listbox` with custom data
@@ -2711,12 +3055,10 @@ def begin_list_box(label: str,
             const ImVec2& size = ImVec2(0,0)
         )
 
-    '''
+    """
 
-def listbox_header(label: str,
-                   width: float = 0.0,
-                   height: float = 0.0) -> bool:
-    '''
+def listbox_header(label: str, width: float = 0.0, height: float = 0.0) -> bool:
+    """
     *Obsoleted in imgui v1.81 from February 2021, refer to :func:`begin_list_box()`*
 
     For use if you want to reimplement :func:`listbox()` with custom data
@@ -2735,10 +3077,10 @@ def listbox_header(label: str,
             const char* label,
             const ImVec2& size = ImVec2(0,0)
         )
-    '''
+    """
 
 def end_list_box() -> None:
-    '''
+    """
     Closing the listbox, previously opened by :func:`begin_list_box()`.
     Only call if ``begin_list_box().opened`` is True.
 
@@ -2746,10 +3088,10 @@ def end_list_box() -> None:
 
     .. wraps::
         void EndListBox()
-    '''
+    """
 
 def listbox_footer() -> None:
-    '''
+    """
     *Obsoleted in imgui v1.81 from February 2021, refer to :func:`end_list_box()`*
 
     Closing the listbox, previously opened by :func:`listbox_header()`.
@@ -2758,10 +3100,10 @@ def listbox_footer() -> None:
 
     .. wraps::
         void ListBoxFooter()
-    '''
+    """
 
 def set_tooltip(text: str) -> None:
-    '''
+    """
     Set tooltip under mouse-cursor.
 
     Usually used with :func:`is_item_hovered()`.
@@ -2781,10 +3123,10 @@ def set_tooltip(text: str) -> None:
 
     .. wraps::
         void SetTooltip(const char* fmt, ...)
-    '''
+    """
 
 def begin_tooltip() -> _BeginEndTooltip:
-    '''
+    """
     Use to create full-featured tooltip windows that aren't just text.
 
     .. visual-example::
@@ -2809,20 +3151,20 @@ def begin_tooltip() -> _BeginEndTooltip:
         _BeginEndTooltip: Use with ``with`` to automatically call :func:`end_tooltip` when the block ends.
 
 
-    '''
+    """
 
 def end_tooltip() -> None:
-    '''
+    """
     End tooltip window.
 
     See :func:`begin_tooltip()` for full usage example.
 
     .. wraps::
         void EndTooltip()
-    '''
+    """
 
 def begin_main_menu_bar() -> _BeginEndMainMenuBar:
-    '''
+    """
     Create new full-screen menu bar.
 
     Use with ``with`` to automatically call :func:`end_main_menu_bar` if necessary.
@@ -2871,10 +3213,10 @@ def begin_main_menu_bar() -> _BeginEndMainMenuBar:
 
     .. wraps::
         bool BeginMainMenuBar()
-    '''
+    """
 
 def end_main_menu_bar() -> None:
-    '''
+    """
     Close main menu bar context.
 
     Only call this function if the ``end_main_menu_bar().opened`` is True.
@@ -2884,10 +3226,10 @@ def end_main_menu_bar() -> None:
 
     .. wraps::
         bool EndMainMenuBar()
-    '''
+    """
 
 def begin_menu_bar() -> _BeginEndMenuBar:
-    '''
+    """
     Append new menu menu bar to current window.
 
     This function is different from :func:`begin_main_menu_bar`, as this is
@@ -2934,10 +3276,10 @@ def begin_menu_bar() -> _BeginEndMenuBar:
 
     .. wraps::
         bool BeginMenuBar()
-    '''
+    """
 
 def end_menu_bar() -> None:
-    '''
+    """
     Close menu bar context.
 
     Only call this function if ``begin_menu_bar().opened`` is True.
@@ -2947,10 +3289,10 @@ def end_menu_bar() -> None:
 
     .. wraps::
         void EndMenuBar()
-    '''
+    """
 
 def begin_menu(label: str, enabled: bool = True) -> _BeginEndMenu:
-    '''
+    """
     Create new expandable menu in current menu bar.
 
     Use with ``with`` to automatically call :func:`end_menu` if necessary.
@@ -2973,10 +3315,10 @@ def begin_menu(label: str, enabled: bool = True) -> _BeginEndMenu:
             const char* label,
             bool enabled
         )
-    '''
+    """
 
 def end_menu() -> None:
-    '''
+    """
     Close menu context.
 
     Only call this function if ``begin_menu().opened`` returns True.
@@ -2986,13 +3328,10 @@ def end_menu() -> None:
 
     .. wraps::
         void EndMenu()
-    '''
+    """
 
-def menu_item(label: str,
-              shortcut: str | None = None,
-              selected: bool = False,
-              enabled: bool = True) -> tuple[bool, bool]:
-    '''
+def menu_item(label: str, shortcut: str | None = None, selected: bool = False, enabled: bool = True) -> tuple[bool, bool]:
+    """
     Create a menu item.
 
     Item shortcuts are displayed for convenience but not processed by ImGui at
@@ -3020,10 +3359,10 @@ def menu_item(label: str,
             bool* p_selected,
             bool enabled = true
         )
-    '''
+    """
 
 def open_popup(label: str, flags: PopupFlags = POPUP_NONE) -> None:
-    '''
+    """
     Open a popup window.
 
     Marks a popup window as open. Popups are closed when user click outside,
@@ -3057,11 +3396,10 @@ def open_popup(label: str, flags: PopupFlags = POPUP_NONE) -> None:
             const char* str_id,
             ImGuiPopupFlags popup_flags = 0
         )
-    '''
+    """
 
-def open_popup_on_item_click(label: str | None = None,
-                             popup_flags: PopupFlags = POPUP_MOUSE_BUTTON_RIGHT) -> None:
-    '''
+def open_popup_on_item_click(label: str | None = None, popup_flags: PopupFlags = POPUP_MOUSE_BUTTON_RIGHT) -> None:
+    """
     Helper to open popup when clicked on last item.
     (note: actually triggers on the mouse _released_ event to be consistent with popup behaviors)
 
@@ -3071,10 +3409,10 @@ def open_popup_on_item_click(label: str | None = None,
 
     .. wraps::
         void OpenPopupOnItemClick(const char* str_id = NULL, ImGuiPopupFlags popup_flags = 1)
-    '''
+    """
 
 def begin_popup(label: str, flags: WindowFlags = WINDOW_NONE) -> _BeginEndPopup:
-    '''
+    """
     Open a popup window.
 
     The attribute ``opened`` is True if the popup is open and you can start outputting
@@ -3134,12 +3472,10 @@ def begin_popup(label: str, flags: WindowFlags = WINDOW_NONE) -> _BeginEndPopup:
             const char* str_id,
             ImGuiWindowFlags flags = 0
         )
-    '''
+    """
 
-def begin_popup_modal(title: str,
-                      visible: bool | None = None,
-                      flags: WindowFlags = WINDOW_NONE) -> _BeginEndPopupModal:
-    '''
+def begin_popup_modal(title: str, visible: bool | None = None, flags: WindowFlags = WINDOW_NONE) -> _BeginEndPopupModal:
+    """
     Begin pouring popup contents.
 
     Differs from :func:`begin_popup` with its modality - meaning it
@@ -3208,11 +3544,10 @@ def begin_popup_modal(title: str,
             bool* p_open = NULL,
             ImGuiWindowFlags extra_flags = 0
         )
-    '''
+    """
 
-def begin_popup_context_item(label: str | None = None,
-                             mouse_button: PopupFlags = POPUP_MOUSE_BUTTON_RIGHT) -> _BeginEndPopup:
-    '''
+def begin_popup_context_item(label: str | None = None, mouse_button: PopupFlags = POPUP_MOUSE_BUTTON_RIGHT) -> _BeginEndPopup:
+    """
     This is a helper function to handle the most simple case of associating
     one named popup to one given widget.
 
@@ -3252,12 +3587,12 @@ def begin_popup_context_item(label: str | None = None,
             const char* str_id = NULL,
             int mouse_button = 1
         )
-    '''
+    """
 
-def begin_popup_context_window(label: str | None = None,
-                               popup_flags: PopupFlags = POPUP_MOUSE_BUTTON_RIGHT,
-                               also_over_items: bool = True) -> _BeginEndPopup:
-    '''
+def begin_popup_context_window(
+    label: str | None = None, popup_flags: PopupFlags = POPUP_MOUSE_BUTTON_RIGHT, also_over_items: bool = True
+) -> _BeginEndPopup:
+    """
     Helper function to open and begin popup when clicked on current window.
 
     As all popup functions it should end with :func:`end_popup`.
@@ -3297,11 +3632,10 @@ def begin_popup_context_window(label: str | None = None,
             const char* str_id = NULL,
             ImGuiPopupFlags popup_flags = 1
         )
-    '''
+    """
 
-def begin_popup_context_void(label: str | None = None,
-                             popup_flags: PopupFlags = POPUP_MOUSE_BUTTON_RIGHT) -> _BeginEndPopup:
-    '''
+def begin_popup_context_void(label: str | None = None, popup_flags: PopupFlags = POPUP_MOUSE_BUTTON_RIGHT) -> _BeginEndPopup:
+    """
     Open+begin popup when clicked in void (where there are no windows).
 
     Args:
@@ -3315,10 +3649,10 @@ def begin_popup_context_void(label: str | None = None,
 
     .. wraps::
         bool BeginPopupContextVoid(const char* str_id = NULL, ImGuiPopupFlags popup_flags = 1)
-    '''
+    """
 
 def is_popup_open(label: str, flags: PopupFlags = POPUP_NONE) -> bool:
-    '''
+    """
     Popups: test function
 
     * ``is_popup_open()`` with POPUP_ANY_POPUP_ID: return true if any popup is open at the current BeginPopup() level of the popup stack.
@@ -3329,10 +3663,10 @@ def is_popup_open(label: str, flags: PopupFlags = POPUP_NONE) -> bool:
 
     .. wraps::
         bool IsPopupOpen(const char* str_id, ImGuiPopupFlags flags = 0)
-    '''
+    """
 
 def end_popup() -> None:
-    '''
+    """
     End a popup window.
 
     Should be called after each XYZPopupXYZ function.
@@ -3343,10 +3677,10 @@ def end_popup() -> None:
 
     .. wraps::
         void EndPopup()
-    '''
+    """
 
 def close_current_popup() -> None:
-    '''
+    """
     Close the current popup window begin-ed directly above this call.
     Clicking on a :func:`menu_item()` or :func:`selectable()` automatically
     close the current popup.
@@ -3356,15 +3690,17 @@ def close_current_popup() -> None:
 
     .. wraps::
         void CloseCurrentPopup()
-    '''
+    """
 
-def begin_table(label: str,
-                column: int,
-                flags: TableFlags = TABLE_NONE,
-                outer_size_width: float = 0.0,
-                outer_size_height: float = 0.0,
-                inner_width: float = 0.0) -> _BeginEndTable:
-    '''
+def begin_table(
+    label: str,
+    column: int,
+    flags: TableFlags = TABLE_NONE,
+    outer_size_width: float = 0.0,
+    outer_size_height: float = 0.0,
+    inner_width: float = 0.0,
+) -> _BeginEndTable:
+    """
 
     Returns:
         _BeginEndPopup: Use ``opened`` bool attribute to tell if the table is opened.
@@ -3379,46 +3715,45 @@ def begin_table(label: str,
             const ImVec2& outer_size = ImVec2(0.0f, 0.0f),
             float inner_width = 0.0f
         )
-    '''
+    """
 
 def end_table() -> None:
-    '''
+    """
     End a previously opened table.
     Only call this function if ``begin_table().opened`` is True.
 
     .. wraps::
         void EndTable()
-    '''
+    """
 
 def table_next_row(row_flags: TableRowFlags = TABLE_ROW_NONE, min_row_height: float = 0.0) -> None:
-    '''
+    """
 
     .. wraps::
         void TableNextRow(
             ImGuiTableRowFlags row_flags = 0,
             float min_row_height = 0.0f
         )
-    '''
+    """
 
 def table_next_column() -> bool:
-    '''
+    """
 
     .. wraps::
         bool TableNextColumn()
-    '''
+    """
 
 def table_set_column_index(column_n: int) -> bool:
-    '''
+    """
 
     .. wraps::
         bool TableSetColumnIndex(int column_n)
-    '''
+    """
 
-def table_setup_column(label: str,
-                       flags: TableColumnFlags = TABLE_COLUMN_NONE,
-                       init_width_or_weight: float = 0.0,
-                       user_id: int = 0) -> None:
-    '''
+def table_setup_column(
+    label: str, flags: TableColumnFlags = TABLE_COLUMN_NONE, init_width_or_weight: float = 0.0, user_id: int = 0
+) -> None:
+    """
 
     .. wraps::
         void TableSetupColumn(
@@ -3427,77 +3762,77 @@ def table_setup_column(label: str,
             float init_width_or_weight = 0.0f,
             ImU32 user_id  = 0
         )
-    '''
+    """
 
 def table_setup_scroll_freeze(cols: int, rows: int) -> None:
-    '''
+    """
 
     .. wraps::
         void TableSetupScrollFreeze(int cols, int rows)
-    '''
+    """
 
 def table_headers_row() -> None:
-    '''
+    """
 
     .. wraps::
         void TableHeadersRow()
-    '''
+    """
 
 def table_header(label: str) -> None:
-    '''
+    """
 
     .. wraps::
         void TableHeader(const char* label)
-    '''
+    """
 
 def table_get_sort_specs() -> _ImGuiTableSortSpecs:
-    '''
+    """
 
     .. wraps::
         ImGuiTableSortSpecs* TableGetSortSpecs()
-    '''
+    """
 
 def table_get_column_count() -> int:
-    '''
+    """
 
     .. wraps::
         int TableGetColumnCount()
-    '''
+    """
 
 def table_get_column_index() -> int:
-    '''
+    """
 
     .. wraps::
         int TableGetColumnIndex()
-    '''
+    """
 
 def table_get_row_index() -> int:
-    '''
+    """
 
     .. wraps::
         int TableGetRowIndex()
-    '''
+    """
 
 def table_get_column_name(column_n: int = -1) -> str:
-    '''
+    """
 
     .. wraps::
         const char* TableGetColumnName(
             int column_n  = -1
         )
-    '''
+    """
 
 def table_get_column_flags(column_n: int = -1) -> TableColumnFlags:
-    '''
+    """
 
     .. wraps::
         ImGuiTableColumnFlags TableGetColumnFlags(
             int column_n = -1
         )
-    '''
+    """
 
 def table_set_background_color(target: int, color: int, column_n: int = -1) -> None:
-    '''
+    """
 
     .. wraps::
         void TableSetBgColor(
@@ -3505,10 +3840,10 @@ def table_set_background_color(target: int, color: int, column_n: int = -1) -> N
             ImU32 color,
             int column_n  = -1
         )
-    '''
+    """
 
 def text(text: str) -> None:
-    '''
+    """
     Add text to current widget stack.
 
     .. visual-example::
@@ -3525,14 +3860,10 @@ def text(text: str) -> None:
 
     .. wraps::
         Text(const char* fmt, ...)
-    '''
+    """
 
-def text_colored(text: str,
-                 r: float,
-                 g: float,
-                 b: float,
-                 a: float = 1.0) -> None:
-    '''
+def text_colored(text: str, r: float, g: float, b: float, a: float = 1.0) -> None:
+    """
     Add colored text to current widget stack.
 
     It is a shortcut for:
@@ -3562,10 +3893,10 @@ def text_colored(text: str,
 
     .. wraps::
         TextColored(const ImVec4& col, const char* fmt, ...)
-    '''
+    """
 
 def text_disabled(text: str) -> None:
-    '''
+    """
     Add disabled(grayed out) text to current widget stack.
 
     .. visual-example::
@@ -3582,10 +3913,10 @@ def text_disabled(text: str) -> None:
 
     .. wraps::
         TextDisabled(const char*, ...)
-    '''
+    """
 
 def text_wrapped(text: str) -> None:
-    '''
+    """
     Add wrappable text to current widget stack.
 
     .. visual-example::
@@ -3604,10 +3935,10 @@ def text_wrapped(text: str) -> None:
 
     .. wraps::
         TextWrapped(const char* fmt, ...)
-    '''
+    """
 
 def label_text(label: str, text: str) -> None:
-    '''
+    """
     Display text+label aligned the same way as value+label widgets.
 
     .. visual-example::
@@ -3625,10 +3956,10 @@ def label_text(label: str, text: str) -> None:
 
     .. wraps::
         void LabelText(const char* label, const char* fmt, ...)
-    '''
+    """
 
 def text_unformatted(text: str) -> None:
-    '''
+    """
     Big area text display - the size is defined by it's container.
     Recommended for long chunks of text.
 
@@ -3647,10 +3978,10 @@ def text_unformatted(text: str) -> None:
 
     .. wraps::
         TextUnformatted(const char* text, const char* text_end = NULL)
-    '''
+    """
 
 def bullet() -> None:
-    '''
+    """
     Display a small circle and keep the cursor on the same line.
 
     .. advance cursor x position by ``get_tree_node_to_label_spacing()``,
@@ -3669,10 +4000,10 @@ def bullet() -> None:
 
     .. wraps::
         void Bullet()
-    '''
+    """
 
 def bullet_text(text: str) -> None:
-    '''
+    """
     Display bullet and text.
 
     This is shortcut for:
@@ -3697,10 +4028,10 @@ def bullet_text(text: str) -> None:
 
     .. wraps::
         void BulletText(const char* fmt, ...)
-    '''
+    """
 
 def button(label: str, width: int = 0, height: int = 0) -> bool:
-    '''
+    """
     Display button.
 
     .. visual-example::
@@ -3722,10 +4053,10 @@ def button(label: str, width: int = 0, height: int = 0) -> bool:
 
     .. wraps::
         bool Button(const char* label, const ImVec2& size = ImVec2(0,0))
-    '''
+    """
 
 def small_button(label: str) -> bool:
-    '''
+    """
     Display small button (with 0 frame padding).
 
     .. visual-example::
@@ -3745,10 +4076,10 @@ def small_button(label: str) -> bool:
 
     .. wraps::
         bool SmallButton(const char* label)
-    '''
+    """
 
 def arrow_button(label: str, direction: int = DIRECTION_NONE) -> bool:
-    '''
+    """
     Display an arrow button
 
     .. visual-example::
@@ -3768,13 +4099,10 @@ def arrow_button(label: str, direction: int = DIRECTION_NONE) -> bool:
 
     .. wraps::
         bool ArrowButton(const char*, ImGuiDir)
-    '''
+    """
 
-def invisible_button(identifier: str,
-                     width: float,
-                     height: float,
-                     flags: ButtonFlags = BUTTON_NONE) -> bool:
-    '''
+def invisible_button(identifier: str, width: float, height: float, flags: ButtonFlags = BUTTON_NONE) -> bool:
+    """
     Create invisible button.
 
     Flexible button behavior without the visuals, frequently useful to build custom behaviors using the public api (along with IsItemActive, IsItemHovered, etc.)
@@ -3801,16 +4129,10 @@ def invisible_button(identifier: str,
 
     .. wraps::
         bool InvisibleButton(const char* str_id, const ImVec2& size, ImGuiButtonFlags flags = 0)
-    '''
+    """
 
-def color_button(desc_id: str,
-                 r: float,
-                 g: float,
-                 b: float,
-                 a: float = 1.0,
-                 width: float = 0.0,
-                 height: float = 0.0) -> bool:
-    '''
+def color_button(desc_id: str, r: float, g: float, b: float, a: float = 1.0, width: float = 0.0, height: float = 0.0) -> bool:
+    """
     Display colored button.
 
     .. visual-example::
@@ -3843,17 +4165,19 @@ def color_button(desc_id: str,
             ImGuiColorEditFlags flags,
             ImVec2 size
         )
-    '''
+    """
 
-def image_button(texture_id: int,
-                 width: float,
-                 height: float,
-                 uv0: tuple[float, float] = (0.0, 0.0),
-                 uv1: tuple[float, float] = (1.0, 1.0),
-                 tint_color: tuple[float, float, float, float] = (1.0, 1.0, 1.0, 1.0),
-                 border_color: tuple[float, float, float, float] = (0.0, 0.0, 0.0, 0.0),
-                 frame_padding: int = -1) -> bool:
-    '''
+def image_button(
+    texture_id: int,
+    width: float,
+    height: float,
+    uv0: tuple[float, float] = (0.0, 0.0),
+    uv1: tuple[float, float] = (1.0, 1.0),
+    tint_color: tuple[float, float, float, float] = (1.0, 1.0, 1.0, 1.0),
+    border_color: tuple[float, float, float, float] = (0.0, 0.0, 0.0, 0.0),
+    frame_padding: int = -1,
+) -> bool:
+    """
     Display image.
 
     .. todo:: add example with some preconfigured image
@@ -3884,16 +4208,18 @@ def image_button(texture_id: int,
             const ImVec4& bg_col = ImVec4(0,0,0,0),
             const ImVec4& tint_col = ImVec4(1,1,1,1)
         )
-    '''
+    """
 
-def image(texture_id: int,
-          width: float,
-          height: float,
-          uv0: tuple[float, float] = (0.0, 0.0),
-          uv1: tuple[float, float] = (1.0, 1.0),
-          tint_color: tuple[float, float, float, float] = (1.0, 1.0, 1.0, 1.0),
-          border_color: tuple[float, float, float, float] = (0.0, 0.0, 0.0, 0.0)) -> None:
-    '''
+def image(
+    texture_id: int,
+    width: float,
+    height: float,
+    uv0: tuple[float, float] = (0.0, 0.0),
+    uv1: tuple[float, float] = (1.0, 1.0),
+    tint_color: tuple[float, float, float, float] = (1.0, 1.0, 1.0, 1.0),
+    border_color: tuple[float, float, float, float] = (0.0, 0.0, 0.0, 0.0),
+) -> None:
+    """
     Display image.
 
     .. visual-example::
@@ -3927,10 +4253,10 @@ def image(texture_id: int,
             const ImVec4& tint_col = ImVec4(1,1,1,1),
             const ImVec4& border_col = ImVec4(0,0,0,0)
         )
-    '''
+    """
 
 def checkbox(label: str, state: bool) -> tuple[bool, bool]:
-    '''
+    """
     Display checkbox widget.
 
     .. visual-example::
@@ -3970,10 +4296,10 @@ def checkbox(label: str, state: bool) -> tuple[bool, bool]:
 
     .. wraps::
         bool Checkbox(const char* label, bool* v)
-    '''
+    """
 
 def checkbox_flags(label: str, flags: int, flags_value: int) -> tuple[bool, int]:
-    '''
+    """
     Display checkbox widget that handle integer flags (bit fields).
 
     It is useful for handling window/style flags or any kind of flags
@@ -4024,10 +4350,10 @@ def checkbox_flags(label: str, flags: int, flags_value: int) -> tuple[bool, int]
             const char* label, unsigned int* flags,
             unsigned int flags_value
         )
-    '''
+    """
 
 def radio_button(label: str, active: bool) -> bool:
-    '''Display radio button widget
+    """Display radio button widget
 
     .. visual-example::
         :auto_layout:
@@ -4053,12 +4379,10 @@ def radio_button(label: str, active: bool) -> bool:
 
     .. wraps::
         bool RadioButton(const char* label, bool active)
-    '''
+    """
 
-def begin_combo(label: str,
-                preview_value: str,
-                flags: ComboFlags = COMBO_NONE) -> _BeginEndCombo:
-    '''
+def begin_combo(label: str, preview_value: str, flags: ComboFlags = COMBO_NONE) -> _BeginEndCombo:
+    """
     Begin a combo box with control over how items are displayed.
 
     .. visual-example::
@@ -4121,22 +4445,19 @@ def begin_combo(label: str,
             ImGuiComboFlags flags = 0
         )
 
-    '''
+    """
 
 def end_combo() -> None:
-    '''
+    """
     End combo box.
     Only call if ``begin_combo().opened`` is True.
 
     .. wraps::
         void EndCombo()
-    '''
+    """
 
-def combo(label: str,
-          current: int,
-          items: list[str],
-          height_in_items: int = -1) -> tuple[bool, int]:
-    '''
+def combo(label: str, current: int, items: list[str], height_in_items: int = -1) -> tuple[bool, int]:
+    """
     Display combo widget.
 
     .. visual-example::
@@ -4170,14 +4491,12 @@ def combo(label: str,
             int height_in_items = -1
         )
 
-    '''
+    """
 
-def color_edit3(label: str,
-                r: float,
-                g: float,
-                b: float,
-                flags: ColorEditFlags = COLOR_EDIT_NONE) -> tuple[bool, tuple[float, float, float]]:
-    '''
+def color_edit3(
+    label: str, r: float, g: float, b: float, flags: ColorEditFlags = COLOR_EDIT_NONE
+) -> tuple[bool, tuple[float, float, float]]:
+    """
     Display color edit widget for color without alpha value.
 
     .. visual-example::
@@ -4212,15 +4531,12 @@ def color_edit3(label: str,
 
     .. wraps::
         bool ColorEdit3(const char* label, float col[3], ImGuiColorEditFlags flags = 0)
-    '''
+    """
 
-def color_edit4(label: str,
-                r: float,
-                g: float,
-                b: float,
-                a: float,
-                flags: ColorEditFlags = COLOR_EDIT_NONE) -> tuple[bool, tuple[float, float, float, float]]:
-    '''
+def color_edit4(
+    label: str, r: float, g: float, b: float, a: float, flags: ColorEditFlags = COLOR_EDIT_NONE
+) -> tuple[bool, tuple[float, float, float, float]]:
+    """
     Display color edit widget for color with alpha value.
 
     .. visual-example::
@@ -4257,17 +4573,19 @@ def color_edit4(label: str,
         ColorEdit4(
             const char* label, float col[4], ImGuiColorEditFlags flags
         )
-    '''
+    """
 
-def drag_float(label: str,
-               value: float,
-               change_speed: float = 1.0,
-               min_value: float = 0.0,
-               max_value: float = 0.0,
-               format: str = '%.3f',
-               flags: SliderFlags = SLIDER_FLAGS_NONE,
-               power: float = 1.0) -> tuple[bool, float]:
-    '''
+def drag_float(
+    label: str,
+    value: float,
+    change_speed: float = 1.0,
+    min_value: float = 0.0,
+    max_value: float = 0.0,
+    format: str = "%.3f",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+    power: float = 1.0,
+) -> tuple[bool, float]:
+    """
     Display float drag widget.
 
     .. todo::
@@ -4319,18 +4637,20 @@ def drag_float(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def drag_float2(label: str,
-                value0: float,
-                value1: float,
-                change_speed: float = 1.0,
-                min_value: float = 0.0,
-                max_value: float = 0.0,
-                format: str = '%.3f',
-                flags: SliderFlags = SLIDER_FLAGS_NONE,
-                power: float = 1.0) -> tuple[bool, tuple[float, float]]:
-    '''
+def drag_float2(
+    label: str,
+    value0: float,
+    value1: float,
+    change_speed: float = 1.0,
+    min_value: float = 0.0,
+    max_value: float = 0.0,
+    format: str = "%.3f",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+    power: float = 1.0,
+) -> tuple[bool, tuple[float, float]]:
+    """
     Display float drag widget with 2 values.
 
     .. visual-example::
@@ -4376,19 +4696,21 @@ def drag_float2(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def drag_float3(label: str,
-                value0: float,
-                value1: float,
-                value2: float,
-                change_speed: float = 1.0,
-                min_value: float = 0.0,
-                max_value: float = 0.0,
-                format: str = '%.3f',
-                flags: SliderFlags = SLIDER_FLAGS_NONE,
-                power: float = 1.0) -> tuple[bool, tuple[float, float, float]]:
-    '''
+def drag_float3(
+    label: str,
+    value0: float,
+    value1: float,
+    value2: float,
+    change_speed: float = 1.0,
+    min_value: float = 0.0,
+    max_value: float = 0.0,
+    format: str = "%.3f",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+    power: float = 1.0,
+) -> tuple[bool, tuple[float, float, float]]:
+    """
     Display float drag widget with 3 values.
 
     .. visual-example::
@@ -4434,20 +4756,22 @@ def drag_float3(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def drag_float4(label: str,
-                value0: float,
-                value1: float,
-                value2: float,
-                value3: float,
-                change_speed: float = 1.0,
-                min_value: float = 0.0,
-                max_value: float = 0.0,
-                format: str = '%.3f',
-                flags: SliderFlags = SLIDER_FLAGS_NONE,
-                power: float = 1.0) -> tuple[bool, tuple[float, float, float, float]]:
-    '''
+def drag_float4(
+    label: str,
+    value0: float,
+    value1: float,
+    value2: float,
+    value3: float,
+    change_speed: float = 1.0,
+    min_value: float = 0.0,
+    max_value: float = 0.0,
+    format: str = "%.3f",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+    power: float = 1.0,
+) -> tuple[bool, tuple[float, float, float, float]]:
+    """
     Display float drag widget with 4 values.
 
     .. visual-example::
@@ -4493,18 +4817,20 @@ def drag_float4(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def drag_float_range2(label: str,
-                      current_min: float,
-                      current_max: float,
-                      speed: float = 1.0,
-                      min_value: float = 0.0,
-                      max_value: float = 0.0,
-                      format: str = '%.3f',
-                      format_max: str | None = None,
-                      flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, float, float]:
-    '''
+def drag_float_range2(
+    label: str,
+    current_min: float,
+    current_max: float,
+    speed: float = 1.0,
+    min_value: float = 0.0,
+    max_value: float = 0.0,
+    format: str = "%.3f",
+    format_max: str | None = None,
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, float, float]:
+    """
     Display drag float range widget
 
     Args:
@@ -4549,16 +4875,18 @@ def drag_float_range2(label: str,
             const char* format_max = NULL,
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def drag_int(label: str,
-             value: int,
-             change_speed: float = 1.0,
-             min_value: int = 0,
-             max_value: int = 0,
-             format: str = '%d',
-             flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, int]:
-    '''
+def drag_int(
+    label: str,
+    value: int,
+    change_speed: float = 1.0,
+    min_value: int = 0,
+    max_value: int = 0,
+    format: str = "%d",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, int]:
+    """
     Display int drag widget.
 
     .. todo::
@@ -4604,17 +4932,19 @@ def drag_int(label: str,
             const char* format = '%d',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def drag_int2(label: str,
-              value0: int,
-              value1: int,
-              change_speed: float = 1.0,
-              min_value: int = 0,
-              max_value: int = 0,
-              format: str = '%d',
-              flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, tuple[int, int]]:
-    '''
+def drag_int2(
+    label: str,
+    value0: int,
+    value1: int,
+    change_speed: float = 1.0,
+    min_value: int = 0,
+    max_value: int = 0,
+    format: str = "%d",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, tuple[int, int]]:
+    """
     Display int drag widget with 2 values.
 
     .. visual-example::
@@ -4656,18 +4986,20 @@ def drag_int2(label: str,
             const char* format = '%d',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def drag_int3(label: str,
-              value0: int,
-              value1: int,
-              value2: int,
-              change_speed: float = 1.0,
-              min_value: int = 0,
-              max_value: int = 0,
-              format: str = '%d',
-              flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, tuple[int, int, int]]:
-    '''
+def drag_int3(
+    label: str,
+    value0: int,
+    value1: int,
+    value2: int,
+    change_speed: float = 1.0,
+    min_value: int = 0,
+    max_value: int = 0,
+    format: str = "%d",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, tuple[int, int, int]]:
+    """
     Display int drag widget with 3 values.
 
     .. visual-example::
@@ -4709,19 +5041,21 @@ def drag_int3(label: str,
             const char* format = '%d',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def drag_int4(label: str,
-              value0: int,
-              value1: int,
-              value2: int,
-              value3: int,
-              change_speed: float = 1.0,
-              min_value: int = 0,
-              max_value: int = 0,
-              format: str = '%d',
-              flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, tuple[int, int, int, int]]:
-    '''
+def drag_int4(
+    label: str,
+    value0: int,
+    value1: int,
+    value2: int,
+    value3: int,
+    change_speed: float = 1.0,
+    min_value: int = 0,
+    max_value: int = 0,
+    format: str = "%d",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, tuple[int, int, int, int]]:
+    """
     Display int drag widget with 4 values.
 
     .. visual-example::
@@ -4763,18 +5097,20 @@ def drag_int4(label: str,
             const char* format = '%d',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def drag_int_range2(label: str,
-                    current_min: int,
-                    current_max: int,
-                    speed: float = 1.0,
-                    min_value: int = 0,
-                    max_value: int = 0,
-                    format: str = '%d',
-                    format_max: str | None = None,
-                    flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, int, int]:
-    '''
+def drag_int_range2(
+    label: str,
+    current_min: int,
+    current_max: int,
+    speed: float = 1.0,
+    min_value: int = 0,
+    max_value: int = 0,
+    format: str = "%d",
+    format_max: str | None = None,
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, int, int]:
+    """
     Display drag int range widget
 
     Args:
@@ -4819,17 +5155,19 @@ def drag_int_range2(label: str,
             const char* format_max = NULL,
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def drag_scalar(label: str,
-                data_type: DataType,
-                data: bytes,
-                change_speed: float,
-                min_value: bytes | None = None,
-                max_value: bytes | None = None,
-                format: str | None = None,
-                flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, bytes]:
-    '''
+def drag_scalar(
+    label: str,
+    data_type: DataType,
+    data: bytes,
+    change_speed: float,
+    min_value: bytes | None = None,
+    max_value: bytes | None = None,
+    format: str | None = None,
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, bytes]:
+    """
     Display scalar drag widget.
     Data is passed via ``bytes`` and the type is separatelly given using ``data_type``.
     This is useful to work with specific types (e.g. unsigned 8bit integer, float, double)
@@ -4862,18 +5200,20 @@ def drag_scalar(label: str,
             const char* format = NULL,
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def drag_scalar_N(label: str,
-                  data_type: DataType,
-                  data: bytes,
-                  components: int,
-                  change_speed: float,
-                  min_value: bytes | None = None,
-                  max_value: bytes | None = None,
-                  format: str | None = None,
-                  flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, bytes]:
-    '''
+def drag_scalar_N(
+    label: str,
+    data_type: DataType,
+    data: bytes,
+    components: int,
+    change_speed: float,
+    min_value: bytes | None = None,
+    max_value: bytes | None = None,
+    format: str | None = None,
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, bytes]:
+    """
     Display multiple scalar drag widget.
     Data is passed via ``bytes`` and the type is separatelly given using ``data_type``.
     This is useful to work with specific types (e.g. unsigned 8bit integer, float, double)
@@ -4908,15 +5248,17 @@ def drag_scalar_N(label: str,
             const char* format = NULL,
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def input_text(label: str,
-               value: str,
-               buffer_length: int = -1,
-               flags: TextInputFlags = INPUT_TEXT_NONE,
-               callback: _t.Callable[[_ImGuiInputTextCallbackData], int | None] | None = None,
-               user_data: _t.Any = None) -> tuple[bool, str]:
-    '''
+def input_text(
+    label: str,
+    value: str,
+    buffer_length: int = -1,
+    flags: TextInputFlags = INPUT_TEXT_NONE,
+    callback: _t.Callable[[_ImGuiInputTextCallbackData], int | None] | None = None,
+    user_data: _t.Any = None,
+) -> tuple[bool, str]:
+    """
     Display text input widget.
 
     The ``buffer_length`` is the maximum allowed length of the content. It is the size in bytes, which may not correspond to the number of characters.
@@ -4960,17 +5302,19 @@ def input_text(label: str,
             ImGuiInputTextCallback callback = NULL,
             void* user_data = NULL
         )
-    '''
+    """
 
-def input_text_multiline(label: str,
-                         value: str,
-                         buffer_length: int = -1,
-                         width: float = 0.0,
-                         height: float = 0.0,
-                         flags: TextInputFlags = INPUT_TEXT_NONE,
-                         callback: _t.Callable[[_ImGuiInputTextCallbackData], int | None] | None = None,
-                         user_data: _t.Any = None) -> tuple[bool, str]:
-    '''
+def input_text_multiline(
+    label: str,
+    value: str,
+    buffer_length: int = -1,
+    width: float = 0.0,
+    height: float = 0.0,
+    flags: TextInputFlags = INPUT_TEXT_NONE,
+    callback: _t.Callable[[_ImGuiInputTextCallbackData], int | None] | None = None,
+    user_data: _t.Any = None,
+) -> tuple[bool, str]:
+    """
     Display multiline text input widget.
 
     The ``buffer_length`` is the maximum allowed length of the content. It is the size in bytes, which may not correspond to the number of characters.
@@ -5021,16 +5365,18 @@ def input_text_multiline(label: str,
             ImGuiInputTextCallback callback = NULL,
             void* user_data = NULL
         )
-    '''
+    """
 
-def input_text_with_hint(label: str,
-                         hint: str,
-                         value: str,
-                         buffer_length: int = -1,
-                         flags: TextInputFlags = INPUT_TEXT_NONE,
-                         callback: _t.Callable[[_ImGuiInputTextCallbackData], int | None] | None = None,
-                         user_data: _t.Any = None) -> tuple[bool, str]:
-    '''
+def input_text_with_hint(
+    label: str,
+    hint: str,
+    value: str,
+    buffer_length: int = -1,
+    flags: TextInputFlags = INPUT_TEXT_NONE,
+    callback: _t.Callable[[_ImGuiInputTextCallbackData], int | None] | None = None,
+    user_data: _t.Any = None,
+) -> tuple[bool, str]:
+    """
     Display a text box, if the text is empty a hint on how to fill the box is given.
 
     The ``buffer_length`` is the maximum allowed length of the content. It is the size in bytes, which may not correspond to the number of characters.
@@ -5075,15 +5421,17 @@ def input_text_with_hint(label: str,
             ImGuiInputTextCallback callback = NULL,
             void* user_data = NULL
         )
-    '''
+    """
 
-def input_float(label: str,
-                value: float,
-                step: float = 0.0,
-                step_fast: float = 0.0,
-                format: str = '%.3f',
-                flags: TextInputFlags = INPUT_TEXT_NONE) -> tuple[bool, float]:
-    '''
+def input_float(
+    label: str,
+    value: float,
+    step: float = 0.0,
+    step_fast: float = 0.0,
+    format: str = "%.3f",
+    flags: TextInputFlags = INPUT_TEXT_NONE,
+) -> tuple[bool, float]:
+    """
     Display float input widget.
 
     .. visual-example::
@@ -5119,14 +5467,12 @@ def input_float(label: str,
             const char* format = '%.3f',
             ImGuiInputTextFlags extra_flags = 0
         )
-    '''
+    """
 
-def input_float2(label: str,
-                 value0: float,
-                 value1: float,
-                 format: str = '%.3f',
-                 flags: TextInputFlags = INPUT_TEXT_NONE) -> tuple[bool, tuple[float, float]]:
-    '''
+def input_float2(
+    label: str, value0: float, value1: float, format: str = "%.3f", flags: TextInputFlags = INPUT_TEXT_NONE
+) -> tuple[bool, tuple[float, float]]:
+    """
     Display two-float input widget.
 
     .. visual-example::
@@ -5158,15 +5504,12 @@ def input_float2(label: str,
             const char* format = '%.3f',
             ImGuiInputTextFlags extra_flags = 0
         )
-    '''
+    """
 
-def input_float3(label: str,
-                 value0: float,
-                 value1: float,
-                 value2: float,
-                 format: str = '%.3f',
-                 flags: TextInputFlags = INPUT_TEXT_NONE) -> tuple[bool, tuple[float, float, float]]:
-    '''
+def input_float3(
+    label: str, value0: float, value1: float, value2: float, format: str = "%.3f", flags: TextInputFlags = INPUT_TEXT_NONE
+) -> tuple[bool, tuple[float, float, float]]:
+    """
     Display three-float input widget.
 
     .. visual-example::
@@ -5198,16 +5541,18 @@ def input_float3(label: str,
             const char* format = '%.3f',
             ImGuiInputTextFlags extra_flags = 0
         )
-    '''
+    """
 
-def input_float4(label: str,
-                 value0: float,
-                 value1: float,
-                 value2: float,
-                 value3: float,
-                 format: str = '%.3f',
-                 flags: TextInputFlags = INPUT_TEXT_NONE) -> tuple[bool, tuple[float, float, float, float]]:
-    '''
+def input_float4(
+    label: str,
+    value0: float,
+    value1: float,
+    value2: float,
+    value3: float,
+    format: str = "%.3f",
+    flags: TextInputFlags = INPUT_TEXT_NONE,
+) -> tuple[bool, tuple[float, float, float, float]]:
+    """
     Display four-float input widget.
 
     .. visual-example::
@@ -5239,14 +5584,12 @@ def input_float4(label: str,
             const char* format = '%.3f',
             ImGuiInputTextFlags extra_flags = 0
         )
-    '''
+    """
 
-def input_int(label: str,
-              value: int,
-              step: int = 1,
-              step_fast: int = 100,
-              flags: TextInputFlags = INPUT_TEXT_NONE) -> tuple[bool, int]:
-    '''
+def input_int(
+    label: str, value: int, step: int = 1, step_fast: int = 100, flags: TextInputFlags = INPUT_TEXT_NONE
+) -> tuple[bool, int]:
+    """
     Display integer input widget.
 
     .. visual-example::
@@ -5280,13 +5623,10 @@ def input_int(label: str,
             int step_fast = 100,
             ImGuiInputTextFlags extra_flags = 0
         )
-    '''
+    """
 
-def input_int2(label: str,
-               value0: int,
-               value1: int,
-               flags: TextInputFlags = INPUT_TEXT_NONE) -> tuple[bool, tuple[int, int]]:
-    '''
+def input_int2(label: str, value0: int, value1: int, flags: TextInputFlags = INPUT_TEXT_NONE) -> tuple[bool, tuple[int, int]]:
+    """
     Display two-integer input widget.
 
     .. visual-example::
@@ -5316,14 +5656,12 @@ def input_int2(label: str,
             int v[2],
             ImGuiInputTextFlags extra_flags = 0
         )
-    '''
+    """
 
-def input_int3(label: str,
-               value0: int,
-               value1: int,
-               value2: int,
-               flags: TextInputFlags = INPUT_TEXT_NONE) -> tuple[bool, tuple[int, int, int]]:
-    '''
+def input_int3(
+    label: str, value0: int, value1: int, value2: int, flags: TextInputFlags = INPUT_TEXT_NONE
+) -> tuple[bool, tuple[int, int, int]]:
+    """
     Display three-integer input widget.
 
     .. visual-example::
@@ -5353,15 +5691,12 @@ def input_int3(label: str,
             int v[3],
             ImGuiInputTextFlags extra_flags = 0
         )
-    '''
+    """
 
-def input_int4(label: str,
-               value0: int,
-               value1: int,
-               value2: int,
-               value3: int,
-               flags: TextInputFlags = INPUT_TEXT_NONE) -> tuple[bool, tuple[int, int, int, int]]:
-    '''
+def input_int4(
+    label: str, value0: int, value1: int, value2: int, value3: int, flags: TextInputFlags = INPUT_TEXT_NONE
+) -> tuple[bool, tuple[int, int, int, int]]:
+    """
     Display four-integer input widget.
 
     .. visual-example::
@@ -5391,15 +5726,17 @@ def input_int4(label: str,
             int v[4],
             ImGuiInputTextFlags extra_flags = 0
         )
-    '''
+    """
 
-def input_double(label: str,
-                 value: float,
-                 step: float = 0.0,
-                 step_fast: float = 0.0,
-                 format: str = '%.6f',
-                 flags: TextInputFlags = INPUT_TEXT_NONE) -> tuple[bool, float]:
-    '''
+def input_double(
+    label: str,
+    value: float,
+    step: float = 0.0,
+    step_fast: float = 0.0,
+    format: str = "%.6f",
+    flags: TextInputFlags = INPUT_TEXT_NONE,
+) -> tuple[bool, float]:
+    """
     Display double input widget.
 
     .. visual-example::
@@ -5435,16 +5772,18 @@ def input_double(label: str,
             _bytes(format),
             ImGuiInputTextFlags extra_flags = 0
         )
-    '''
+    """
 
-def input_scalar(label: str,
-                 data_type: DataType,
-                 data: bytes,
-                 step: bytes | None = None,
-                 step_fast: bytes | None = None,
-                 format: str | None = None,
-                 flags: TextInputFlags = INPUT_TEXT_NONE) -> tuple[int, bytes]:
-    '''
+def input_scalar(
+    label: str,
+    data_type: DataType,
+    data: bytes,
+    step: bytes | None = None,
+    step_fast: bytes | None = None,
+    format: str | None = None,
+    flags: TextInputFlags = INPUT_TEXT_NONE,
+) -> tuple[int, bytes]:
+    """
     Display scalar input widget.
     Data is passed via ``bytes`` and the type is separatelly given using ``data_type``.
     This is useful to work with specific types (e.g. unsigned 8bit integer, float, double)
@@ -5474,17 +5813,19 @@ def input_scalar(label: str,
             const char* format = NULL,
             ImGuiInputTextFlags flags = 0
         )
-    '''
+    """
 
-def input_scalar_N(label: str,
-                   data_type: DataType,
-                   data: bytes,
-                   components: int,
-                   step: bytes | None = None,
-                   step_fast: bytes | None = None,
-                   format: str | None = None,
-                   flags: TextInputFlags = INPUT_TEXT_NONE) -> tuple[int, bytes]:
-    '''
+def input_scalar_N(
+    label: str,
+    data_type: DataType,
+    data: bytes,
+    components: int,
+    step: bytes | None = None,
+    step_fast: bytes | None = None,
+    format: str | None = None,
+    flags: TextInputFlags = INPUT_TEXT_NONE,
+) -> tuple[int, bytes]:
+    """
     Display multiple scalar input widget.
     Data is passed via ``bytes`` and the type is separatelly given using ``data_type``.
     This is useful to work with specific types (e.g. unsigned 8bit integer, float, double)
@@ -5516,16 +5857,18 @@ def input_scalar_N(label: str,
             const char* format = NULL,
             ImGuiInputTextFlags flags = 0
         )
-    '''
+    """
 
-def slider_float(label: str,
-                 value: float,
-                 min_value: float,
-                 max_value: float,
-                 format: str = '%.3f',
-                 flags: SliderFlags = SLIDER_FLAGS_NONE,
-                 power: float = 1.0) -> tuple[bool, float]:
-    '''
+def slider_float(
+    label: str,
+    value: float,
+    min_value: float,
+    max_value: float,
+    format: str = "%.3f",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+    power: float = 1.0,
+) -> tuple[bool, float]:
+    """
     Display float slider widget.
     Manually input values aren't clamped and can go off-bounds.
 
@@ -5570,17 +5913,19 @@ def slider_float(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def slider_float2(label: str,
-                  value0: float,
-                  value1: float,
-                  min_value: float,
-                  max_value: float,
-                  format: str = '%.3f',
-                  flags: SliderFlags = SLIDER_FLAGS_NONE,
-                  power: float = 1.0) -> tuple[bool, tuple[float, float]]:
-    '''
+def slider_float2(
+    label: str,
+    value0: float,
+    value1: float,
+    min_value: float,
+    max_value: float,
+    format: str = "%.3f",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+    power: float = 1.0,
+) -> tuple[bool, tuple[float, float]]:
+    """
     Display float slider widget with 2 values.
     Manually input values aren't clamped and can go off-bounds.
 
@@ -5626,18 +5971,20 @@ def slider_float2(label: str,
             ImGuiSliderFlags flags = 0
         )
 
-    '''
+    """
 
-def slider_float3(label: str,
-                  value0: float,
-                  value1: float,
-                  value2: float,
-                  min_value: float,
-                  max_value: float,
-                  format: str = '%.3f',
-                  flags: SliderFlags = SLIDER_FLAGS_NONE,
-                  power: float = 1.0) -> tuple[bool, tuple[float, float, float]]:
-    '''
+def slider_float3(
+    label: str,
+    value0: float,
+    value1: float,
+    value2: float,
+    min_value: float,
+    max_value: float,
+    format: str = "%.3f",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+    power: float = 1.0,
+) -> tuple[bool, tuple[float, float, float]]:
+    """
     Display float slider widget with 3 values.
     Manually input values aren't clamped and can go off-bounds.
 
@@ -5682,19 +6029,21 @@ def slider_float3(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def slider_float4(label: str,
-                  value0: float,
-                  value1: float,
-                  value2: float,
-                  value3: float,
-                  min_value: float,
-                  max_value: float,
-                  format: str = '%.3f',
-                  flags: SliderFlags = SLIDER_FLAGS_NONE,
-                  power: float = 1.0) -> tuple[bool, tuple[float, float, float, float]]:
-    '''
+def slider_float4(
+    label: str,
+    value0: float,
+    value1: float,
+    value2: float,
+    value3: float,
+    min_value: float,
+    max_value: float,
+    format: str = "%.3f",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+    power: float = 1.0,
+) -> tuple[bool, tuple[float, float, float, float]]:
+    """
     Display float slider widget with 4 values.
     Manually input values aren't clamped and can go off-bounds.
 
@@ -5739,15 +6088,17 @@ def slider_float4(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def slider_angle(label: str,
-                 rad_value: float,
-                 value_degrees_min: float = -360.0,
-                 value_degrees_max: float = 360.0,
-                 format: str = '%.0f deg',
-                 flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, float]:
-    '''
+def slider_angle(
+    label: str,
+    rad_value: float,
+    value_degrees_min: float = -360.0,
+    value_degrees_max: float = 360.0,
+    format: str = "%.0f deg",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, float]:
+    """
     Display angle slider widget.
 
     .. visual-example::
@@ -5789,15 +6140,12 @@ def slider_angle(label: str,
             ImGuiSliderFlags flags = 0
         )
 
-    '''
+    """
 
-def slider_int(label: str,
-               value: int,
-               min_value: int,
-               max_value: int,
-               format: str = '%.3f',
-               flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, int]:
-    '''
+def slider_int(
+    label: str, value: int, min_value: int, max_value: int, format: str = "%.3f", flags: SliderFlags = SLIDER_FLAGS_NONE
+) -> tuple[bool, int]:
+    """
     Display int slider widget
 
     .. visual-example::
@@ -5840,16 +6188,18 @@ def slider_int(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def slider_int2(label: str,
-                value0: int,
-                value1: int,
-                min_value: int,
-                max_value: int,
-                format: str = '%.3f',
-                flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, tuple[int, int]]:
-    '''
+def slider_int2(
+    label: str,
+    value0: int,
+    value1: int,
+    min_value: int,
+    max_value: int,
+    format: str = "%.3f",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, tuple[int, int]]:
+    """
     Display int slider widget with 2 values.
 
     .. visual-example::
@@ -5892,17 +6242,19 @@ def slider_int2(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def slider_int3(label: str,
-                value0: int,
-                value1: int,
-                value2: int,
-                min_value: int,
-                max_value: int,
-                format: str = '%.3f',
-                flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, tuple[int, int, int]]:
-    '''
+def slider_int3(
+    label: str,
+    value0: int,
+    value1: int,
+    value2: int,
+    min_value: int,
+    max_value: int,
+    format: str = "%.3f",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, tuple[int, int, int]]:
+    """
     Display int slider widget with 3 values.
 
     .. visual-example::
@@ -5945,18 +6297,20 @@ def slider_int3(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def slider_int4(label: str,
-                value0: int,
-                value1: int,
-                value2: int,
-                value3: int,
-                min_value: int,
-                max_value: int,
-                format: str = '%.3f',
-                flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, tuple[int, int, int, int]]:
-    '''
+def slider_int4(
+    label: str,
+    value0: int,
+    value1: int,
+    value2: int,
+    value3: int,
+    min_value: int,
+    max_value: int,
+    format: str = "%.3f",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, tuple[int, int, int, int]]:
+    """
     Display int slider widget with 4 values.
 
     .. visual-example::
@@ -5998,16 +6352,18 @@ def slider_int4(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def slider_scalar(label: str,
-                  data_type: DataType,
-                  data: bytes,
-                  min_value: bytes,
-                  max_value: bytes,
-                  format: str | None = None,
-                  flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, bytes]:
-    '''
+def slider_scalar(
+    label: str,
+    data_type: DataType,
+    data: bytes,
+    min_value: bytes,
+    max_value: bytes,
+    format: str | None = None,
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, bytes]:
+    """
     Display scalar slider widget.
     Data is passed via ``bytes`` and the type is separatelly given using ``data_type``.
     This is useful to work with specific types (e.g. unsigned 8bit integer, float, double)
@@ -6038,17 +6394,19 @@ def slider_scalar(label: str,
             const char* format = NULL,
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def slider_scalar_N(label: str,
-                    data_type: DataType,
-                    data: bytes,
-                    components: int,
-                    min_value: bytes,
-                    max_value: bytes,
-                    format: str | None = None,
-                    flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, bytes]:
-    '''
+def slider_scalar_N(
+    label: str,
+    data_type: DataType,
+    data: bytes,
+    components: int,
+    min_value: bytes,
+    max_value: bytes,
+    format: str | None = None,
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, bytes]:
+    """
     Display multiple scalar slider widget.
     Data is passed via ``bytes`` and the type is separatelly given using ``data_type``.
     This is useful to work with specific types (e.g. unsigned 8bit integer, float, double)
@@ -6081,17 +6439,19 @@ def slider_scalar_N(label: str,
             const char* format = NULL,
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def v_slider_float(label: str,
-                   width: float,
-                   height: float,
-                   value: float,
-                   min_value: float,
-                   max_value: float,
-                   format: str = '%.f',
-                   flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, float]:
-    '''
+def v_slider_float(
+    label: str,
+    width: float,
+    height: float,
+    value: float,
+    min_value: float,
+    max_value: float,
+    format: str = "%.f",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, float]:
+    """
     Display vertical float slider widget with the specified width and
     height.
 
@@ -6139,17 +6499,19 @@ def v_slider_float(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def v_slider_int(label: str,
-                 width: float,
-                 height: float,
-                 value: int,
-                 min_value: int,
-                 max_value: int,
-                 format: str = '%d',
-                 flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, int]:
-    '''
+def v_slider_int(
+    label: str,
+    width: float,
+    height: float,
+    value: int,
+    min_value: int,
+    max_value: int,
+    format: str = "%d",
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, int]:
+    """
     Display vertical int slider widget with the specified width and height.
 
     .. visual-example::
@@ -6196,18 +6558,20 @@ def v_slider_int(label: str,
             const char* format = '%.3f',
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def v_slider_scalar(label: str,
-                    width: float,
-                    height: float,
-                    data_type: DataType,
-                    data: bytes,
-                    min_value: bytes,
-                    max_value: bytes,
-                    format: str | None = None,
-                    flags: SliderFlags = SLIDER_FLAGS_NONE) -> tuple[bool, bytes]:
-    '''
+def v_slider_scalar(
+    label: str,
+    width: float,
+    height: float,
+    data_type: DataType,
+    data: bytes,
+    min_value: bytes,
+    max_value: bytes,
+    format: str | None = None,
+    flags: SliderFlags = SLIDER_FLAGS_NONE,
+) -> tuple[bool, bytes]:
+    """
     Display vertical scalar slider widget.
     Data is passed via ``bytes`` and the type is separatelly given using ``data_type``.
     This is useful to work with specific types (e.g. unsigned 8bit integer, float, double)
@@ -6241,18 +6605,20 @@ def v_slider_scalar(label: str,
             const char* format = NULL,
             ImGuiSliderFlags flags = 0
         )
-    '''
+    """
 
-def plot_lines(label: str,
-               values: _Buffer, # TODO `plot_lines:values` accept only buffer of floats
-               values_count: int = -1,
-               values_offset: int = 0,
-               overlay_text: str | None = None,
-               scale_min: float = _sys.float_info.max,
-               scale_max: float = _sys.float_info.min,
-               graph_size: tuple[float, float] = (0.0, 0.0),
-               stride: int = _ct.sizeof(_ct.c_float)) -> None:
-    '''
+def plot_lines(
+    label: str,
+    values: _Buffer,  # TODO `plot_lines:values` accept only buffer of floats
+    values_count: int = -1,
+    values_offset: int = 0,
+    overlay_text: str | None = None,
+    scale_min: float = _sys.float_info.max,
+    scale_max: float = _sys.float_info.min,
+    graph_size: tuple[float, float] = (0.0, 0.0),
+    stride: int = _ct.sizeof(_ct.c_float),
+) -> None:
+    """
     Plot a 1D array of float values.
 
     Args:
@@ -6309,17 +6675,19 @@ def plot_lines(label: str,
                 ImVec2 graph_size = ImVec2(0,0),
                 int stride = sizeof(float)
             )
-    '''
+    """
 
-def plot_histogram(label: str,
-                   values: _Buffer, # TODO `plot_histogram:values` accept only buffer of floats
-                   values_count: int = -1,
-                   values_offset: int = 0,
-                   overlay_text: str | None = None,
-                   scale_min: float = _sys.float_info.max,
-                   scale_max: float = _sys.float_info.min,
-                   stride: int = _ct.sizeof(_ct.c_float)) -> None:
-    '''
+def plot_histogram(
+    label: str,
+    values: _Buffer,  # TODO `plot_histogram:values` accept only buffer of floats
+    values_count: int = -1,
+    values_offset: int = 0,
+    overlay_text: str | None = None,
+    scale_min: float = _sys.float_info.max,
+    scale_max: float = _sys.float_info.min,
+    stride: int = _ct.sizeof(_ct.c_float),
+) -> None:
+    """
     Plot a histogram of float values.
 
     Args:
@@ -6377,12 +6745,10 @@ def plot_histogram(label: str,
                 ImVec2 graph_size,
                 int stride
             )
-    '''
+    """
 
-def progress_bar(fraction: float,
-                 size: tuple[float, float] = (-_sys.float_info.min, 0.0),
-                 overlay: str = '') -> None:
-    '''
+def progress_bar(fraction: float, size: tuple[float, float] = (-_sys.float_info.min, 0.0), overlay: str = "") -> None:
+    """
     Show a progress bar.
 
     .. visual-example::
@@ -6407,36 +6773,36 @@ def progress_bar(fraction: float,
             const ImVec2& size_arg = ImVec2(-FLT_MIN, 0),
             const char* overlay = NULL
         )
-    '''
+    """
 
 def is_window_appearing() -> bool:
-    '''
+    """
     Check if current window is appearing.
 
     Returns:
         bool: True if window is appearing
-    '''
+    """
 
 def set_item_default_focus() -> None:
-    '''
+    """
     Make last item the default focused item of a window.
     Please use instead of 'if (is_window_appearing()) set_scroll_here()' to signify 'default item'.
 
     .. wraps::
         void SetItemDefaultFocus()
-    '''
+    """
 
 def set_keyboard_focus_here(offset: int = 0) -> None:
-    '''
+    """
     Focus keyboard on the next widget.
     Use positive 'offset' to access sub components of a multiple component widget. Use -1 to access previous widget.
 
     .. wraps::
         void SetKeyboardFocusHere(int offset = 0)
-    '''
+    """
 
 def is_item_hovered(flags: int = 0) -> bool:
-    '''
+    """
     Check if the last item is hovered by mouse.
 
     Returns:
@@ -6444,10 +6810,10 @@ def is_item_hovered(flags: int = 0) -> bool:
 
     .. wraps::
         bool IsItemHovered(ImGuiHoveredFlags flags = 0)
-    '''
+    """
 
 def is_item_focused() -> bool:
-    '''
+    """
     Check if the last item is focused
 
     Returns:
@@ -6455,10 +6821,10 @@ def is_item_focused() -> bool:
 
     .. wraps::
         bool IsItemFocused()
-    '''
+    """
 
 def is_item_active() -> bool:
-    '''
+    """
     Was the last item active? For ex. button being held or text field
     being edited. Items that don't interact will always return false.
 
@@ -6467,10 +6833,10 @@ def is_item_active() -> bool:
 
     .. wraps::
         bool IsItemActive()
-    '''
+    """
 
 def is_item_clicked(mouse_button: int = 0) -> bool:
-    '''
+    """
     Was the last item hovered and mouse clicked on?
     Button or node that was just being clicked on.
 
@@ -6482,10 +6848,10 @@ def is_item_clicked(mouse_button: int = 0) -> bool:
 
     .. wraps::
         bool IsItemClicked(int mouse_button = 0)
-    '''
+    """
 
 def is_item_visible() -> bool:
-    '''
+    """
     Was the last item visible? Aka not out of sight due to
     clipping/scrolling.
 
@@ -6494,10 +6860,10 @@ def is_item_visible() -> bool:
 
     .. wraps::
         bool IsItemVisible()
-    '''
+    """
 
 def is_item_edited() -> bool:
-    '''
+    """
     Did the last item modify its underlying value this frame? or was pressed?
     This is generally the same as the 'bool' return value of many widgets.
 
@@ -6506,10 +6872,10 @@ def is_item_edited() -> bool:
 
     .. wraps::
         bool IsItemEdited()
-    '''
+    """
 
 def is_item_activated() -> bool:
-    '''
+    """
     Was the last item just made active (item was previously inactive)?
 
     Returns:
@@ -6517,10 +6883,10 @@ def is_item_activated() -> bool:
 
     .. wraps::
         bool IsItemActivated()
-    '''
+    """
 
 def is_item_deactivated() -> bool:
-    '''
+    """
     Was the last item just made inactive (item was previously active)?
     Useful for Undo/Redo patterns with widgets that requires continuous editing.
 
@@ -6529,10 +6895,10 @@ def is_item_deactivated() -> bool:
 
     .. wraps:
         bool IsItemDeactivated()
-    '''
+    """
 
 def is_item_deactivated_after_edit() -> bool:
-    '''
+    """
     Was the last item just made inactive and made a value change when it was active? (e.g. Slider/Drag moved).
     Useful for Undo/Redo patterns with widgets that requires continuous editing.
     Note that you may get false positives (some widgets such as Combo()/ListBox()/Selectable() will return true even when clicking an already selected item).
@@ -6542,18 +6908,18 @@ def is_item_deactivated_after_edit() -> bool:
 
     .. wraps::
         bool IsItemDeactivatedAfterEdit()
-    '''
+    """
 
 def is_item_toggled_open() -> bool:
-    '''
+    """
     Was the last item open state toggled? set by TreeNode().
 
     .. wraps::
         bool IsItemToggledOpen()
-    '''
+    """
 
 def is_any_item_hovered() -> bool:
-    '''
+    """
     Was any of the items hovered.
 
     Returns:
@@ -6561,11 +6927,10 @@ def is_any_item_hovered() -> bool:
 
     .. wraps::
         bool IsAnyItemHovered()
-    '''
-
+    """
 
 def is_any_item_active() -> bool:
-    '''
+    """
     Was any of the items active.
 
     Returns:
@@ -6573,11 +6938,10 @@ def is_any_item_active() -> bool:
 
     .. wraps::
         bool IsAnyItemActive()
-    '''
-
+    """
 
 def is_any_item_focused() -> bool:
-    '''
+    """
     Is any of the items focused.
 
     Returns:
@@ -6585,10 +6949,10 @@ def is_any_item_focused() -> bool:
 
     .. wraps::
         bool IsAnyItemFocused()
-    '''
+    """
 
 def get_item_rect_min() -> Vec2:
-    '''
+    """
     Get bounding rect of the last item in screen space.
 
     Returns:
@@ -6596,11 +6960,10 @@ def get_item_rect_min() -> Vec2:
 
     .. wraps::
         ImVec2 GetItemRectMin()
-    '''
-
+    """
 
 def get_item_rect_max() -> Vec2:
-    '''
+    """
     Get bounding rect of the last item in screen space.
 
     Returns:
@@ -6608,11 +6971,10 @@ def get_item_rect_max() -> Vec2:
 
     .. wraps::
         ImVec2 GetItemRectMax()
-    '''
-
+    """
 
 def get_item_rect_size() -> Vec2:
-    '''
+    """
     Get bounding rect of the last item in screen space.
 
     Returns:
@@ -6620,20 +6982,20 @@ def get_item_rect_size() -> Vec2:
 
     .. wraps::
         ImVec2 GetItemRectSize()
-    '''
+    """
 
 def set_item_allow_overlap() -> None:
-    '''
+    """
     Allow last item to be overlapped by a subsequent item.
     Sometimes useful with invisible buttons, selectables, etc.
     to catch unused area.
 
     .. wraps::
         void SetItemAllowOverlap()
-    '''
+    """
 
 def get_main_viewport() -> _ImGuiViewport:
-    '''
+    """
     Currently represents the Platform Window created by the application which is hosting
     our Dear ImGui windows.
 
@@ -6645,10 +7007,10 @@ def get_main_viewport() -> _ImGuiViewport:
 
     .. wraps::
         ImGuiViewport* GetMainViewport()
-    '''
+    """
 
 def is_window_hovered(flags: HoverFlags = HOVERED_NONE) -> bool:
-    '''
+    """
     Is current window hovered and hoverable (not blocked by a popup).
     Differentiate child windows from each others.
 
@@ -6657,10 +7019,10 @@ def is_window_hovered(flags: HoverFlags = HOVERED_NONE) -> bool:
 
     .. wraps::
         bool IsWindowHovered(ImGuiFocusedFlags flags = 0)
-    '''
+    """
 
 def is_window_focused(flags: FocusFlags = FOCUS_NONE) -> bool:
-    '''
+    """
     Is current window focused.
 
     Returns:
@@ -6668,11 +7030,10 @@ def is_window_focused(flags: FocusFlags = FOCUS_NONE) -> bool:
 
     .. wraps::
         bool IsWindowFocused(ImGuiFocusedFlags flags = 0)
-    '''
-
+    """
 
 def is_rect_visible(size_width: float, size_height: float) -> bool:
-    '''
+    """
     Test if a rectangle of the given size, starting from the cursor
     position is visible (not clipped).
 
@@ -6685,29 +7046,28 @@ def is_rect_visible(size_width: float, size_height: float) -> bool:
 
     .. wraps::
         bool IsRectVisible(const ImVec2& size)
-    '''
+    """
 
 def get_style_color_name(index: int) -> str:
-    '''
+    """
     Get the style color name for a given ImGuiCol index.
 
     .. wraps::
         const char* GetStyleColorName(ImGuiCol idx)
-    '''
+    """
 
 def get_time() -> float:
-    '''Seconds since program start.
+    """Seconds since program start.
 
     Returns:
         float: the time (seconds since program start)
 
     .. wraps::
         float GetTime()
-    '''
-
+    """
 
 def get_background_draw_list() -> _DrawList:
-    '''
+    """
     This draw list will be the first rendering one.
     Useful to quickly draw shapes/text behind dear imgui contents.
 
@@ -6716,10 +7076,10 @@ def get_background_draw_list() -> _DrawList:
 
     .. wraps::
         ImDrawList* GetBackgroundDrawList()
-    '''
+    """
 
 def get_foreground_draw_list() -> _DrawList:
-    '''
+    """
     This draw list will be the last rendered one.
     Useful to quickly draw shapes/text over dear imgui contents.
 
@@ -6728,10 +7088,10 @@ def get_foreground_draw_list() -> _DrawList:
 
     .. wraps::
         ImDrawList* GetForegroundDrawList()
-    '''
+    """
 
 def get_key_index(key: int) -> int:
-    '''
+    """
     Map ImGuiKey_* values into user's key index. == io.KeyMap[key]
 
     Returns:
@@ -6739,10 +7099,10 @@ def get_key_index(key: int) -> int:
 
     .. wraps::
         int GetKeyIndex(ImGuiKey imgui_key)
-    '''
+    """
 
 def is_key_pressed(key_index: int, repeat: bool = False) -> bool:
-    '''
+    """
     Was key pressed (went from !Down to Down).
     If repeat=true, uses io.KeyRepeatDelay / KeyRepeatRate
 
@@ -6751,11 +7111,10 @@ def is_key_pressed(key_index: int, repeat: bool = False) -> bool:
 
     .. wraps::
         bool IsKeyPressed(int user_key_index)
-    '''
-
+    """
 
 def is_key_down(key_index: int) -> bool:
-    '''
+    """
     Returns if key is being held -- io.KeysDown[user_key_index].
     Note that imgui doesn't know the semantic of each entry of
     io.KeysDown[]. Use your own indices/enums according to how
@@ -6766,14 +7125,10 @@ def is_key_down(key_index: int) -> bool:
 
     .. wraps::
         bool IsKeyDown(int user_key_index)
-    '''
+    """
 
-def is_mouse_hovering_rect(r_min_x: float,
-                           r_min_y: float,
-                           r_max_x: float,
-                           r_max_y: float,
-                           clip: bool = True) -> bool:
-    '''
+def is_mouse_hovering_rect(r_min_x: float, r_min_y: float, r_max_x: float, r_max_y: float, clip: bool = True) -> bool:
+    """
     Test if mouse is hovering rectangle with given coordinates.
 
     Args:
@@ -6789,10 +7144,10 @@ def is_mouse_hovering_rect(r_min_x: float,
             const ImVec2& r_max,
             bool clip = true
         )
-    '''
+    """
 
 def is_mouse_double_clicked(button: int = 0) -> bool:
-    '''
+    """
     Return True if mouse was double-clicked.
 
     **Note:** A double-click returns false in IsMouseClicked().
@@ -6805,10 +7160,10 @@ def is_mouse_double_clicked(button: int = 0) -> bool:
 
     .. wraps::
          bool IsMouseDoubleClicked(int button);
-    '''
+    """
 
 def is_mouse_clicked(button: int = 0, repeat: bool = False) -> bool:
-    '''Returns if the mouse was clicked this frame.
+    """Returns if the mouse was clicked this frame.
 
     Args:
         button (int): mouse button index.
@@ -6819,10 +7174,10 @@ def is_mouse_clicked(button: int = 0, repeat: bool = False) -> bool:
 
     .. wraps::
         bool IsMouseClicked(int button, bool repeat = false)
-    '''
+    """
 
 def is_mouse_released(button: int = 0) -> bool:
-    '''
+    """
     Returns if the mouse was released this frame.
 
     Args:
@@ -6833,11 +7188,10 @@ def is_mouse_released(button: int = 0) -> bool:
 
     .. wraps::
         bool IsMouseReleased(int button)
-    '''
-
+    """
 
 def is_mouse_down(button: int = 0) -> bool:
-    '''
+    """
     Returns if the mouse is down.
 
     Args:
@@ -6848,12 +7202,10 @@ def is_mouse_down(button: int = 0) -> bool:
 
     .. wraps::
         bool IsMouseDown(int button)
-    '''
+    """
 
-
-def is_mouse_dragging(button: int,
-                      lock_threshold: float = -1.0) -> bool:
-    '''
+def is_mouse_dragging(button: int, lock_threshold: float = -1.0) -> bool:
+    """
     Returns if mouse is dragging.
 
     Args:
@@ -6866,11 +7218,10 @@ def is_mouse_dragging(button: int,
 
     .. wraps::
         bool IsMouseDragging(int button = 0, float lock_threshold = -1.0f)
-    '''
+    """
 
-def get_mouse_drag_delta(button: int = 0,
-                         lock_threshold: float = -1.0) -> Vec2:
-    '''
+def get_mouse_drag_delta(button: int = 0, lock_threshold: float = -1.0) -> Vec2:
+    """
     Dragging amount since clicking.
 
     Args:
@@ -6883,10 +7234,10 @@ def get_mouse_drag_delta(button: int = 0,
 
     .. wraps::
         ImVec2 GetMouseDragDelta(int button = 0, float lock_threshold = -1.0f)
-    '''
+    """
 
 def get_mouse_pos() -> Vec2:
-    '''
+    """
     Current mouse position.
 
     Returns:
@@ -6894,10 +7245,10 @@ def get_mouse_pos() -> Vec2:
 
     .. wraps::
         ImVec2 GetMousePos()
-    '''
+    """
 
 def get_mouse_position() -> Vec2:
-    '''
+    """
     Current mouse position.
 
     Returns:
@@ -6905,28 +7256,28 @@ def get_mouse_position() -> Vec2:
 
     .. wraps::
         ImVec2 GetMousePos()
-    '''
+    """
 
 def reset_mouse_drag_delta(button: int = 0) -> None:
-    '''Reset the mouse dragging delta.
+    """Reset the mouse dragging delta.
 
     Args:
         button (int): mouse button index.
 
     .. wraps::
         void ResetMouseDragDelta(int button = 0)
-    '''
+    """
 
 def get_mouse_cursor() -> int:
-    '''
+    """
     Return the mouse cursor id.
 
     .. wraps::
         ImGuiMouseCursor GetMouseCursor()
-    '''
+    """
 
 def set_mouse_cursor(mouse_cursor_type: int) -> None:
-    '''
+    """
     Set the mouse cursor id.
 
     Args:
@@ -6934,10 +7285,10 @@ def set_mouse_cursor(mouse_cursor_type: int) -> None:
 
     .. wraps::
         void SetMouseCursor(ImGuiMouseCursor type)
-    '''
+    """
 
 def capture_mouse_from_app(want_capture_mouse_value: bool = True) -> None:
-    '''
+    """
     Attention: misleading name!
     Manually override io.WantCaptureMouse flag next frame
     (said flag is entirely left for your application to handle).
@@ -6947,10 +7298,10 @@ def capture_mouse_from_app(want_capture_mouse_value: bool = True) -> None:
 
     .. wraps::
         void CaptureMouseFromApp(bool want_capture_mouse_value = true)
-    '''
+    """
 
 def get_clipboard_text() -> str:
-    '''
+    """
     Also see the ``log_to_clipboard()`` function to capture GUI into clipboard,
     or easily output text data to the clipboard.
 
@@ -6959,10 +7310,10 @@ def get_clipboard_text() -> str:
 
     .. wraps::
         const char* GetClipboardText()
-    '''
+    """
 
 def load_ini_settings_from_disk(ini_file_name: str) -> None:
-    '''
+    """
     Call after ``create_context()`` and before the first call to ``new_frame()``.
     ``new_frame()`` automatically calls ``load_ini_settings_from_disk(io.ini_file_name)``.
 
@@ -6971,19 +7322,19 @@ def load_ini_settings_from_disk(ini_file_name: str) -> None:
 
     .. wraps::
         void LoadIniSettingsFromDisk(const char* ini_filename)
-    '''
+    """
 
 def load_ini_settings_from_memory(ini_data: str) -> None:
-    '''
+    """
     Call after ``create_context()`` and before the first call to ``new_frame()``
     to provide .ini data from your own data source.
 
     .. wraps::
         void LoadIniSettingsFromMemory(const char* ini_data, size_t ini_size=0)
-    '''
+    """
 
 def save_ini_settings_to_disk(ini_file_name: str) -> None:
-    '''
+    """
     This is automatically called (if ``io.ini_file_name`` is not empty)
     a few seconds after any modification that should be reflected in the .ini file
     (and also by ``destroy_context``).
@@ -6993,10 +7344,10 @@ def save_ini_settings_to_disk(ini_file_name: str) -> None:
 
     .. wraps::
         void SaveIniSettingsToDisk(const char* ini_filename)
-    '''
+    """
 
 def save_ini_settings_to_memory() -> str:
-    '''
+    """
     Return a string with the .ini data which you can save by your own mean.
     Call when ``io.want_save_ini_settings`` is set, then save data by your own mean
     and clear ``io.want_save_ini_settings``.
@@ -7006,10 +7357,10 @@ def save_ini_settings_to_memory() -> str:
 
     .. wraps::
        const char* SaveIniSettingsToMemory(size_t* out_ini_size = NULL)
-    '''
+    """
 
 def set_clipboard_text(text: str) -> None:
-    '''
+    """
     Set the clipboard content
 
     Args:
@@ -7017,10 +7368,10 @@ def set_clipboard_text(text: str) -> None:
 
     .. wraps:
         void SetClipboardText(const char* text)
-    '''
+    """
 
 def set_scroll_here_x(center_x_ratio: float = 0.5) -> None:
-    '''Set scroll here X.
+    """Set scroll here X.
 
     Adjust scrolling amount to make current cursor position visible.
     center_x_ratio =
@@ -7035,10 +7386,10 @@ def set_scroll_here_x(center_x_ratio: float = 0.5) -> None:
 
     .. wraps::
         void SetScrollHereX(float center_x_ratio = 0.5f)
-    '''
+    """
 
 def set_scroll_here_y(center_y_ratio: float = 0.5) -> None:
-    '''
+    """
     Set scroll here Y.
 
     Adjust scrolling amount to make current cursor position visible.
@@ -7054,11 +7405,10 @@ def set_scroll_here_y(center_y_ratio: float = 0.5) -> None:
 
     .. wraps::
         void SetScrollHereY(float center_y_ratio = 0.5f)
-    '''
+    """
 
-def set_scroll_from_pos_x(local_x: float,
-                          center_x_ratio: float = 0.5) -> None:
-    '''
+def set_scroll_from_pos_x(local_x: float, center_x_ratio: float = 0.5) -> None:
+    """
     Set scroll from position X
 
     Adjust scrolling amount to make given position visible.
@@ -7070,11 +7420,10 @@ def set_scroll_from_pos_x(local_x: float,
 
     .. wraps::
         void SetScrollFromPosX(float local_x, float center_x_ratio = 0.5f)
-    '''
+    """
 
-def set_scroll_from_pos_y(local_y: float,
-                          center_y_ratio: float = 0.5) -> None:
-    '''
+def set_scroll_from_pos_y(local_y: float, center_y_ratio: float = 0.5) -> None:
+    """
     Set scroll from position Y
 
     Adjust scrolling amount to make given position visible.
@@ -7086,10 +7435,10 @@ def set_scroll_from_pos_y(local_y: float,
 
     .. wraps::
         void SetScrollFromPosY(float local_y, float center_y_ratio = 0.5f)
-    '''
+    """
 
 def push_font(font: _Font) -> None:
-    '''
+    """
     Push font on a stack.
 
     .. visual-example::
@@ -7125,10 +7474,10 @@ def push_font(font: _Font) -> None:
 
     .. wraps::
         void PushFont(ImFont*)
-    '''
+    """
 
 def pop_font() -> _Font:
-    '''
+    """
     Pop font on a stack.
 
     For example usage see :func:`push_font()`.
@@ -7138,12 +7487,10 @@ def pop_font() -> _Font:
 
     .. wraps::
         void PopFont()
-    '''
+    """
 
-def calc_text_size(text: str,
-                   hide_text_after_double_hash: bool = False,
-                   wrap_width: float = -1.0) -> Vec2:
-    '''
+def calc_text_size(text: str, hide_text_after_double_hash: bool = False, wrap_width: float = -1.0) -> Vec2:
+    """
     Calculate text size.
     Text can be multi-line.
     Optionally ignore text after a ## marker.
@@ -7170,10 +7517,10 @@ def calc_text_size(text: str,
 
     .. wraps::
         CalcTextSize(const char* text, const char* text_end, bool hide_text_after_double_hash, float wrap_width)
-    '''
+    """
 
 def color_convert_u32_to_float4(in_: int) -> Vec4:
-    '''
+    """
     Convert an unsigned int 32 to 4 component r, g, b, a
 
     Args:
@@ -7184,10 +7531,10 @@ def color_convert_u32_to_float4(in_: int) -> Vec4:
 
     .. wraps::
         ImVec4 ColorConvertU32ToFloat4(ImU32 in)
-    '''
+    """
 
 def color_convert_float4_to_u32(r: float, g: float, b: float, a: float) -> int:
-    '''
+    """
     Convert a set of r, g, b, a floats to unsigned int 32 color
 
     Args:
@@ -7198,10 +7545,10 @@ def color_convert_float4_to_u32(r: float, g: float, b: float, a: float) -> int:
 
     .. wraps::
         ImU32 ColorConvertFloat4ToU32(const ImVec4& in)
-    '''
+    """
 
 def color_convert_rgb_to_hsv(r: float, g: float, b: float) -> tuple[float, float, float]:
-    '''
+    """
     Convert color from RGB space to HSV space
 
     Args:
@@ -7212,10 +7559,10 @@ def color_convert_rgb_to_hsv(r: float, g: float, b: float) -> tuple[float, float
 
     .. wraps::
         void ColorConvertRGBtoHSV(float r, float g, float b, float& out_h, float& out_s, float& out_v)
-    '''
+    """
 
 def color_convert_hsv_to_rgb(h: float, s: float, v: float) -> tuple[float, float, float]:
-    '''
+    """
     Convert color from HSV space to RGB space
 
     Args:
@@ -7226,11 +7573,10 @@ def color_convert_hsv_to_rgb(h: float, s: float, v: float) -> tuple[float, float
 
     .. wraps::
         void ColorConvertHSVtoRGB(float h, float s, float v, float& out_r, float& out_g, float& out_b)
-    '''
+    """
 
-def push_style_var(variable: StyleVar,
-                   value: float | tuple[float, float]) -> None:
-    '''
+def push_style_var(variable: StyleVar, value: float | tuple[float, float]) -> None:
+    """
     Push style variable on stack.
 
     This function accepts both float and float two-tuples as ``value``
@@ -7262,14 +7608,10 @@ def push_style_var(variable: StyleVar,
 
     .. wraps::
         PushStyleVar(ImGuiStyleVar idx, float val)
-    '''
+    """
 
-def push_style_color(variable: int,
-                     r: float,
-                     g: float,
-                     b: float,
-                     a: float = 1.0) -> None:
-    '''
+def push_style_color(variable: int, r: float, g: float, b: float, a: float = 1.0) -> None:
+    """
     Push style color on stack.
 
     **Note:** variables pushed on stack need to be popped using
@@ -7298,10 +7640,10 @@ def push_style_color(variable: int,
 
     .. wraps::
         PushStyleColor(ImGuiCol idx, const ImVec4& col)
-    '''
+    """
 
 def pop_style_var(count: int = 1) -> None:
-    '''
+    """
     Pop style variables from stack.
 
     **Note:** This implementation guards you from segfaults caused by
@@ -7314,10 +7656,10 @@ def pop_style_var(count: int = 1) -> None:
 
     .. wraps::
         void PopStyleVar(int count = 1)
-    '''
+    """
 
 def get_font_size() -> float:
-    '''
+    """
     Get current font size (= height in pixels) of current font with current scale applied
 
     Returns:
@@ -7325,14 +7667,12 @@ def get_font_size() -> float:
 
     .. wraps::
         float GetFontSize()
-    '''
+    """
 
 def get_style_color_vec_4(idx: int) -> Vec4: ...
-
 def get_font_tex_uv_white_pixel() -> Vec2: ...
-
 def get_color_u32_idx(idx: int, alpha_mul: float = 1.0) -> int:
-    '''
+    """
     Retrieve given style color with style alpha applied and optional extra alpha multiplier
 
     Returns:
@@ -7340,10 +7680,10 @@ def get_color_u32_idx(idx: int, alpha_mul: float = 1.0) -> int:
 
     .. wraps::
         ImU32 GetColorU32(ImGuiCol idx, alpha_mul)
-    '''
+    """
 
 def get_color_u32_rgba(r: float, g: float, b: float, a: float) -> int:
-    '''
+    """
     Retrieve given color with style alpha applied
 
     Returns:
@@ -7351,10 +7691,10 @@ def get_color_u32_rgba(r: float, g: float, b: float, a: float) -> int:
 
     .. wraps::
         ImU32 GetColorU32(const ImVec4& col)
-    '''
+    """
 
 def get_color_u32(col: int) -> int:
-    '''
+    """
     Retrieve given style color with style alpha applied and optional extra alpha multiplier
 
     Returns:
@@ -7362,10 +7702,10 @@ def get_color_u32(col: int) -> int:
 
     .. wraps::
         ImU32 GetColorU32(ImU32 col)
-    '''
+    """
 
 def push_item_width(item_width: float) -> None:
-    '''
+    """
     Push item width in the stack.
 
     **Note:** sizing of child region allows for three modes:
@@ -7403,10 +7743,10 @@ def push_item_width(item_width: float) -> None:
 
     .. wraps::
         void PushItemWidth(float item_width)
-    '''
+    """
 
 def pop_item_width() -> None:
-    '''
+    """
     Reset width back to the default width.
 
     **Note:** This implementation guards you from segfaults caused by
@@ -7416,10 +7756,10 @@ def pop_item_width() -> None:
 
     .. wraps::
         void PopItemWidth()
-    '''
+    """
 
 def set_next_item_width(item_width: float) -> None:
-    '''
+    """
     Set width of the _next_ common large 'item+label' widget.
     * ``>0.0`` - width in pixels
     * ``<0.0`` - align xx pixels to the right of window
@@ -7443,10 +7783,10 @@ def set_next_item_width(item_width: float) -> None:
 
     .. wraps::
         void SetNextItemWidth(float item_width)
-    '''
+    """
 
 def calculate_item_width() -> None:
-    '''
+    """
     Calculate and return the current item width.
 
     Returns:
@@ -7454,10 +7794,10 @@ def calculate_item_width() -> None:
 
     .. wraps::
         float CalcItemWidth()
-    '''
+    """
 
 def push_text_wrap_pos(wrap_pos_x: float = 0.0) -> None:
-    '''
+    """
     Word-wrapping function for text*() commands.
 
     **Note:** wrapping position allows these modes:
@@ -7470,10 +7810,10 @@ def push_text_wrap_pos(wrap_pos_x: float = 0.0) -> None:
 
     .. wraps::
         float PushTextWrapPos(float wrap_pos_x = 0.0f)
-    '''
+    """
 
 def push_text_wrap_position(wrap_pos_x: float = 0.0) -> None:
-    '''
+    """
     Word-wrapping function for text*() commands.
 
     **Note:** wrapping position allows these modes:
@@ -7486,10 +7826,10 @@ def push_text_wrap_position(wrap_pos_x: float = 0.0) -> None:
 
     .. wraps::
         float PushTextWrapPos(float wrap_pos_x = 0.0f)
-    '''
+    """
 
 def pop_text_wrap_pos() -> None:
-    '''
+    """
     Pop the text wrapping position from the stack.
 
     **Note:** This implementation guards you from segfaults caused by
@@ -7499,10 +7839,10 @@ def pop_text_wrap_pos() -> None:
 
     .. wraps::
         void PopTextWrapPos()
-    '''
+    """
 
 def pop_text_wrap_position() -> None:
-    '''
+    """
     Pop the text wrapping position from the stack.
 
     **Note:** This implementation guards you from segfaults caused by
@@ -7512,15 +7852,14 @@ def pop_text_wrap_position() -> None:
 
     .. wraps::
         void PopTextWrapPos()
-    '''
+    """
 
 def push_allow_keyboard_focus(allow_focus: bool) -> None: ...
 def pop_allow_keyboard_focus() -> None: ...
 def push_button_repeat(repeat: bool) -> None: ...
 def pop_button_repeat() -> None: ...
-
 def pop_style_color(count: int = 1) -> None:
-    '''
+    """
     Pop style color from stack.
 
     **Note:** This implementation guards you from segfaults caused by
@@ -7533,10 +7872,10 @@ def pop_style_color(count: int = 1) -> None:
 
     .. wraps::
         void PopStyleColor(int count = 1)
-    '''
+    """
 
 def separator() -> None:
-    '''
+    """
     Add vertical line as a separator beween elements.
 
     .. visual-example::
@@ -7559,10 +7898,10 @@ def separator() -> None:
 
     .. wraps::
         void Separator()
-    '''
+    """
 
 def same_line(position: float = 0.0, spacing: float = -1.0) -> None:
-    '''
+    """
     Call between widgets or groups to layout them horizontally.
 
     .. visual-example::
@@ -7591,18 +7930,18 @@ def same_line(position: float = 0.0, spacing: float = -1.0) -> None:
 
     .. wraps::
         void SameLine(float pos_x = 0.0f, float spacing_w = -1.0f)
-    '''
+    """
 
 def new_line() -> None:
-    '''
+    """
     Undo :any:`same_line()` call.
 
     .. wraps::
         void NewLine()
-    '''
+    """
 
 def spacing() -> None:
-    '''
+    """
     Add vertical spacing beween elements.
 
     .. visual-example::
@@ -7625,10 +7964,10 @@ def spacing() -> None:
 
     .. wraps::
         void Spacing()
-    '''
+    """
 
 def dummy(width: float, height: float) -> None:
-    '''
+    """
     Add dummy element of given size.
 
     .. visual-example::
@@ -7648,10 +7987,10 @@ def dummy(width: float, height: float) -> None:
 
     .. wraps::
         void Dummy(const ImVec2& size)
-    '''
+    """
 
 def indent(width: float = 0.0) -> None:
-    '''
+    """
     Move content to right by indent width.
 
     .. visual-example::
@@ -7678,10 +8017,10 @@ def indent(width: float = 0.0) -> None:
 
     .. wraps::
         void Indent(float indent_w = 0.0f)
-    '''
+    """
 
 def unindent(width: float = 0.0) -> None:
-    '''
+    """
     Move content to left by indent width.
 
     .. visual-example::
@@ -7708,12 +8047,10 @@ def unindent(width: float = 0.0) -> None:
 
     .. wraps::
         void Unindent(float indent_w = 0.0f)
-    '''
+    """
 
-def columns(count: int = 1,
-            identifier: str | None = None,
-            border: bool = True) -> None:
-    '''
+def columns(count: int = 1, identifier: str | None = None, border: bool = True) -> None:
+    """
     Setup number of columns. Use an identifier to distinguish multiple
     column sets. close with ``columns(1)``.
 
@@ -7768,10 +8105,10 @@ def columns(count: int = 1,
             const char* id = NULL,
             bool border = true
         )
-    '''
+    """
 
 def next_column() -> None:
-    '''Move to the next column drawing.
+    """Move to the next column drawing.
 
     For a complete example see :func:`columns()`.
 
@@ -7779,10 +8116,10 @@ def next_column() -> None:
 
     .. wraps::
         void NextColumn()
-    '''
+    """
 
 def get_column_index() -> int:
-    '''
+    """
     Returns the current column index.
 
     For a complete example see :func:`columns()`.
@@ -7794,10 +8131,10 @@ def get_column_index() -> int:
 
     .. wraps::
         int GetColumnIndex()
-    '''
+    """
 
 def get_column_offset(column_index: int = -1) -> float:
-    '''
+    """
     Returns position of column line (in pixels, from the left side of the
     contents region). Pass -1 to use current column, otherwise 0 to
     :func:`get_columns_count()`. Column 0 is usually 0.0f and not resizable
@@ -7815,10 +8152,10 @@ def get_column_offset(column_index: int = -1) -> float:
 
     .. wraps::
         float GetColumnOffset(int column_index = -1)
-    '''
+    """
 
 def set_column_offset(column_index: int, offset_x: float) -> None:
-    '''
+    """
     Set the position of column line (in pixels, from the left side of the
     contents region). Pass -1 to use current column.
 
@@ -7832,10 +8169,10 @@ def set_column_offset(column_index: int, offset_x: float) -> None:
 
     .. wraps::
         void SetColumnOffset(int column_index, float offset_x)
-    '''
+    """
 
 def get_column_width(column_index: int = -1) -> float:
-    '''
+    """
     Return the column width.
 
     For a complete example see :func:`columns()`.
@@ -7847,10 +8184,10 @@ def get_column_width(column_index: int = -1) -> float:
 
     .. wraps::
         float GetColumnWidth(int column_index = -1)
-    '''
+    """
 
 def set_column_width(column_index: int, width: float) -> None:
-    '''
+    """
     Set the position of column line (in pixels, from the left side of the
     contents region). Pass -1 to use current column.
 
@@ -7864,10 +8201,10 @@ def set_column_width(column_index: int, width: float) -> None:
 
     .. wraps::
         void SetColumnWidth(int column_index, float width)
-    '''
+    """
 
 def get_columns_count() -> int:
-    '''
+    """
     Get count of the columns in the current table.
 
     For a complete example see :func:`columns()`.
@@ -7879,11 +8216,10 @@ def get_columns_count() -> int:
 
     .. wraps::
         int GetColumnsCount()
-    '''
+    """
 
-def begin_tab_bar(identifier: str,
-                  flags: TabBarFlags = TAB_BAR_NONE) -> _BeginEndTabBar:
-    '''
+def begin_tab_bar(identifier: str, flags: TabBarFlags = TAB_BAR_NONE) -> _BeginEndTabBar:
+    """
     Create and append into a TabBar
 
     Args:
@@ -7899,21 +8235,19 @@ def begin_tab_bar(identifier: str,
     .. wraps::
         bool BeginTabBar(const char* str_id, ImGuiTabBarFlags flags = 0)
 
-    '''
+    """
 
 def end_tab_bar() -> None:
-    '''
+    """
     End a previously opened tab bar.
     Only call this function if ``begin_tab_bar().opened`` is True.
 
     .. wraps::
         void EndTabBar()
-    '''
+    """
 
-def begin_tab_item(label: str,
-                   opened: bool | None = None,
-                   flags: TabItemFlags = TAB_ITEM_NONE) -> _BeginEndTabItem:
-    '''
+def begin_tab_item(label: str, opened: bool | None = None, flags: TabItemFlags = TAB_ITEM_NONE) -> _BeginEndTabItem:
+    """
     Create a Tab.
 
     .. visual-example::
@@ -7985,19 +8319,19 @@ def begin_tab_item(label: str,
             bool* p_open = NULL,
             ImGuiTabItemFlags flags = 0
         )
-    '''
+    """
 
 def end_tab_item() -> None:
-    '''
+    """
     End a previously opened tab item.
     Only call this function if ``begin_tab_item().selected`` is True.
 
     .. wraps::
         void EndTabItem()
-    '''
+    """
 
 def tab_item_button(label: str, flags: TabItemFlags = TAB_ITEM_NONE) -> bool:
-    '''
+    """
     Create a Tab behaving like a button.
     Cannot be selected in the tab bar.
 
@@ -8028,10 +8362,10 @@ def tab_item_button(label: str, flags: TabItemFlags = TAB_ITEM_NONE) -> bool:
 
     .. wraps::
         bool TabItemButton(const char* label, ImGuiTabItemFlags flags = 0)
-    '''
+    """
 
 def set_tab_item_closed(tab_or_docked_window_label: str) -> None:
-    '''
+    """
     Notify TabBar or Docking system of a closed tab/window ahead (useful to reduce visual flicker on reorderable tab bars).
     For tab-bar: call after BeginTabBar() and before Tab submissions.
     Otherwise call with a window name.
@@ -8061,10 +8395,10 @@ def set_tab_item_closed(tab_or_docked_window_label: str) -> None:
 
     .. wraps:
         void SetTabItemClosed(const char* tab_or_docked_window_label)
-    '''
+    """
 
 def begin_drag_drop_source(flags: DragDropFlags = DRAG_DROP_NONE) -> _BeginEndDragDropSource:
-    '''
+    """
     Set the current item as a drag and drop source. If ``dragging`` is True, you
     can call :func:`set_drag_drop_payload` and :func:`end_drag_drop_source`.
     Use with ``with`` to automatically call :func:`end_drag_drop_source` if necessary.
@@ -8119,12 +8453,10 @@ def begin_drag_drop_source(flags: DragDropFlags = DRAG_DROP_NONE) -> _BeginEndDr
 
     .. wraps::
         bool BeginDragDropSource(ImGuiDragDropFlags flags = 0)
-    '''
+    """
 
-def set_drag_drop_payload(type: str,
-                          data: bytes,
-                          condition: Condition = ALWAYS) -> bool:
-    '''
+def set_drag_drop_payload(type: str, data: bytes, condition: Condition = ALWAYS) -> bool:
+    """
     Set the payload for a drag and drop source. Only call after
     :func:`begin_drag_drop_source` returns True.
 
@@ -8140,10 +8472,10 @@ def set_drag_drop_payload(type: str,
 
     .. wraps::
         bool SetDragDropPayload(const char* type, const void* data, size_t size, ImGuiCond cond = 0)
-    '''
+    """
 
 def end_drag_drop_source() -> None:
-    '''
+    """
     End the drag and drop source.
     Only call if ``begin_drag_drop_source().dragging`` is True.
 
@@ -8153,10 +8485,10 @@ def end_drag_drop_source() -> None:
 
     .. wraps::
         void EndDragDropSource()
-    '''
+    """
 
 def begin_drag_drop_target() -> _BeginEndDragDropTarget:
-    '''
+    """
     Set the current item as a drag and drop target. If ``hovered`` is True, you
     can call :func:`accept_drag_drop_payload` and :func:`end_drag_drop_target`.
     Use with ``with`` to automatically call :func:`end_drag_drop_target` if necessary.
@@ -8172,12 +8504,11 @@ def begin_drag_drop_target() -> _BeginEndDragDropTarget:
 
     .. wraps::
         bool BeginDragDropTarget()
-    '''
+    """
 
 # TODO Fix DragDropAcceptFlags not having default value for NONE
-def accept_drag_drop_payload(type: str,
-                             flags: DragDropAcceptFlags = _t.cast(DragDropAcceptFlags, 0)) -> bytes | None:
-    '''
+def accept_drag_drop_payload(type: str, flags: DragDropAcceptFlags = _t.cast(DragDropAcceptFlags, 0)) -> bytes | None:
+    """
     Get the drag and drop payload. Only call after :func:`begin_drag_drop_target`
     returns True.
 
@@ -8194,10 +8525,10 @@ def accept_drag_drop_payload(type: str,
 
     .. wraps::
         const ImGuiPayload* AcceptDragDropPayload(const char* type, ImGuiDragDropFlags flags = 0)
-    '''
+    """
 
 def end_drag_drop_target() -> None:
-    '''
+    """
     End the drag and drop source.
     Only call this function if ``begin_drag_drop_target().hovered`` is True.
 
@@ -8207,10 +8538,10 @@ def end_drag_drop_target() -> None:
 
     .. wraps::
         void EndDragDropTarget()
-    '''
+    """
 
 def get_drag_drop_payload() -> bytes | None:
-    '''
+    """
     Peek directly into the current payload from anywhere.
     May return NULL.
 
@@ -8218,14 +8549,16 @@ def get_drag_drop_payload() -> bytes | None:
 
     .. wraps::
         const ImGuiPayload* GetDragDropPayload()
-    '''
+    """
 
-def push_clip_rect(clip_rect_min_x: float,
-                   clip_rect_min_y: float,
-                   clip_rect_max_x: float,
-                   clip_rect_max_y: float,
-                   intersect_with_current_clip_rect: bool = False) -> None:
-    '''
+def push_clip_rect(
+    clip_rect_min_x: float,
+    clip_rect_min_y: float,
+    clip_rect_max_x: float,
+    clip_rect_max_y: float,
+    intersect_with_current_clip_rect: bool = False,
+) -> None:
+    """
     Push the clip region, i.e. the area of the screen to be rendered,on the stack.
     If ``intersect_with_current_clip_rect`` is ``True``, the intersection between pushed
     clip region and previous one is added on the stack.
@@ -8263,18 +8596,18 @@ def push_clip_rect(clip_rect_min_x: float,
             const ImVec2& clip_rect_max,
             bool intersect_with_current_clip_rect
         )
-    '''
+    """
 
 def pop_clip_rect() -> None:
-    '''
+    """
     Pop the last clip region from the stack. See: :func:`push_clip_rect()`.
 
     .. wraps::
         void PopClipRect()
-    '''
+    """
 
 def begin_group() -> _BeginEndGroup:
-    '''
+    """
     Start item group and lock its horizontal starting position.
 
     Captures group bounding box into one 'item'. Thanks to this you can use
@@ -8324,108 +8657,103 @@ def begin_group() -> _BeginEndGroup:
 
     .. wraps::
         void BeginGroup()
-    '''
+    """
 
 def end_group() -> None:
-    '''
+    """
     End group (see: :any:`begin_group`).
 
     .. wraps::
         void EndGroup()
-    '''
+    """
 
 def get_cursor_pos() -> Vec2:
-    '''
+    """
     Get the cursor position.
 
     .. wraps::
         ImVec2 GetCursorPos()
-    '''
+    """
 
 def get_cursor_pos_x() -> float: ...
-
 def get_cursor_pos_y() -> float: ...
-
 def set_cursor_pos(local_pos: tuple[float, float]):
-    '''
+    """
     Set the cursor position in local coordinates [0..<window size>] (useful to work with ImDrawList API)
 
     .. wraps::
         ImVec2 SetCursorScreenPos(const ImVec2& screen_pos)
-    '''
+    """
 
 def set_cursor_pos_x(x: float) -> None: ...
-
 def set_cursor_pos_y(y: float) -> None: ...
-
 def get_cursor_start_pos() -> Vec2:
-    '''
+    """
     Get the initial cursor position.
 
     .. wraps::
         ImVec2 GetCursorStartPos()
-    '''
+    """
 
 def get_cursor_screen_pos() -> Vec2:
-    '''
+    """
     Get the cursor position in absolute screen coordinates [0..io.DisplaySize] (useful to work with ImDrawList API)
 
     .. wraps::
         ImVec2 GetCursorScreenPos()
-    '''
+    """
 
 def set_cursor_screen_pos(screen_pos: tuple[float, float]) -> None:
-    '''
+    """
     Set the cursor position in absolute screen coordinates [0..io.DisplaySize] (useful to work with ImDrawList API)
 
     .. wraps::
         ImVec2 SetCursorScreenPos(const ImVec2& screen_pos)
-    '''
+    """
 
 def get_cursor_position() -> Vec2:
-    '''
+    """
     Get the cursor position.
 
     .. wraps::
         ImVec2 GetCursorPos()
-    '''
+    """
 
 def set_cursor_position(local_pos: tuple[float, float]):
-    '''
+    """
     Set the cursor position in local coordinates [0..<window size>] (useful to work with ImDrawList API)
 
     .. wraps::
         ImVec2 SetCursorScreenPos(const ImVec2& screen_pos)
-    '''
+    """
 
 def get_cursor_start_position() -> Vec2:
-    '''
+    """
     Get the initial cursor position.
 
     .. wraps::
         ImVec2 GetCursorStartPos()
-    '''
+    """
 
 def get_cursor_screen_position() -> Vec2:
-    '''
+    """
     Get the cursor position in absolute screen coordinates [0..io.DisplaySize] (useful to work with ImDrawList API)
 
     .. wraps::
         ImVec2 GetCursorScreenPos()
-    '''
+    """
 
 def set_cursor_screen_position(screen_pos: tuple[float, float]) -> None:
-    '''
+    """
     Set the cursor position in absolute screen coordinates [0..io.DisplaySize] (useful to work with ImDrawList API)
 
     .. wraps::
         ImVec2 SetCursorScreenPos(const ImVec2& screen_pos)
-    '''
+    """
 
 def align_text_to_frame_padding() -> None: ...
-
 def get_text_line_height() -> int:
-    '''
+    """
     Get text line height.
 
     Returns:
@@ -8433,10 +8761,10 @@ def get_text_line_height() -> int:
 
     .. wraps::
         void GetTextLineHeight()
-    '''
+    """
 
 def get_text_line_height_with_spacing() -> int:
-    '''
+    """
     Get text line height, with spacing.
 
     Returns:
@@ -8444,27 +8772,27 @@ def get_text_line_height_with_spacing() -> int:
 
     .. wraps::
         void GetTextLineHeightWithSpacing()
-    '''
+    """
 
 def get_frame_height() -> float:
-    '''
+    """
     ~ FontSize + style.FramePadding.y * 2
 
     .. wraps::
         float GetFrameHeight()
         float GetFrameHeightWithSpacing() except +
-    '''
+    """
 
 def get_frame_height_with_spacing() -> float:
-    '''
+    """
     ~ FontSize + style.FramePadding.y * 2 + style.ItemSpacing.y (distance in pixels between 2 consecutive lines of framed widgets)
 
     .. wraps::
         float GetFrameHeightWithSpacing()
-    '''
+    """
 
 def create_context(shared_font_atlas: _FontAtlas | None = None) -> _ImGuiContext:
-    '''
+    """
     CreateContext
 
     .. todo::
@@ -8474,54 +8802,54 @@ def create_context(shared_font_atlas: _FontAtlas | None = None) -> _ImGuiContext
         ImGuiContext* CreateContext(
                 # note: optional
                 ImFontAtlas* shared_font_atlas = NULL);
-    '''
+    """
 
 def destroy_context(ctx: _ImGuiContext | None = None) -> None:
-    '''
+    """
     DestroyContext
 
     .. wraps::
         DestroyContext(
                 # note: optional
                 ImGuiContext* ctx = NULL);
-    '''
+    """
 
 def get_current_context() -> _ImGuiContext:
-    '''
+    """
     GetCurrentContext
 
     .. wraps::
         ImGuiContext* GetCurrentContext();
-    '''
+    """
 
 def set_current_context(ctx: _ImGuiContext) -> None:
-    '''
+    """
     SetCurrentContext
 
     .. wraps::
         SetCurrentContext(ImGuiContext *ctx);
-    '''
+    """
 
 def push_id(str_id: str) -> None:
-    '''Push an ID into the ID stack
+    """Push an ID into the ID stack
 
     Args:
         str_id (str): ID to push
 
       wraps::
         PushID(const char* str_id)
-    '''
+    """
 
 def pop_id() -> None:
-    '''
+    """
     Pop from the ID stack
 
       wraps::
         PopID()
-    '''
+    """
 
 def _ansifeed_text_ansi(text: str) -> None:
-    '''Add ANSI-escape-formatted text to current widget stack.
+    """Add ANSI-escape-formatted text to current widget stack.
 
     Similar to imgui.text, but with ANSI parsing.
     imgui.text documentation below:
@@ -8540,14 +8868,10 @@ def _ansifeed_text_ansi(text: str) -> None:
 
     .. wraps::
         Text(const char* fmt, ...)
-    '''
+    """
 
-def _ansifeed_text_ansi_colored(text: str,
-                                r: float,
-                                g: float,
-                                b: float,
-                                a: float = 1.0) -> None:
-    '''
+def _ansifeed_text_ansi_colored(text: str, r: float, g: float, b: float, a: float = 1.0) -> None:
+    """
     Add pre-colored ANSI-escape-formatted text to current widget stack.
 
     Similar to imgui.text_colored, but with ANSI parsing.
@@ -8580,11 +8904,11 @@ def _ansifeed_text_ansi_colored(text: str,
 
     .. wraps::
         TextColored(const ImVec4& col, const char* fmt, ...)
-    '''
+    """
 
 @_contextlib.contextmanager
 def _py_font(font: _Font):
-    '''
+    """
     Use specified font in given context.
 
     .. visual-example::
@@ -8609,24 +8933,17 @@ def _py_font(font: _Font):
 
     Args:
         font (_Font): font object retrieved from :any:`add_font_from_file_ttf`.
-    '''
+    """
 
 @_contextlib.contextmanager
 def _py_styled(variable: StyleVar, value: float | tuple[float, float]): ...
-
 @_contextlib.contextmanager
-def _py_colored(variable: int,
-                r: float,
-                g: float,
-                b: float,
-                a: float = 1.0): ...
-
+def _py_colored(variable: int, r: float, g: float, b: float, a: float = 1.0): ...
 @_contextlib.contextmanager
 def _py_istyled(*variables_and_values: tuple[StyleVar, float | tuple[float, float]]): ...
-
 @_contextlib.contextmanager
 def _py_scoped(str_id: str):
-    '''
+    """
     Use scoped ID within a block of code.
 
     This context manager can be used to distinguish widgets sharing
@@ -8637,14 +8954,10 @@ def _py_scoped(str_id: str):
 
     Args:
         str_id (str): ID to push and pop within marked scope
-    '''
+    """
 
 def _py_vertex_buffer_vertex_pos_offset() -> int: ...
-
 def _py_vertex_buffer_vertex_uv_offset() -> int: ...
-
 def _py_vertex_buffer_vertex_col_offset() -> int: ...
-
 def _py_vertex_buffer_vertex_size() -> int: ...
-
 def _py_index_buffer_index_size() -> int: ...

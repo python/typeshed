@@ -20,6 +20,7 @@ from pathlib import Path
 
 import aiohttp
 import termcolor
+
 from ts_utils.paths import STDLIB_PATH, STUBS_PATH
 
 PYRIGHT_CONFIG = Path("pyrightconfig.stricter.json")
