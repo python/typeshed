@@ -1469,7 +1469,7 @@ if sys.version_info >= (3, 10):
             def __init__(self, pattern: ast.pattern, guard: expr | None = None, *, body: list[stmt]) -> None: ...
 
         if sys.version_info >= (3, 14):
-            def __replace__(self, *, pattern: pattern = ..., guard: expr | None = ..., body: list[stmt] = ...) -> Self: ...
+            def __replace__(self, *, pattern: ast.pattern = ..., guard: expr | None = ..., body: list[stmt] = ...) -> Self: ...
 
     class Match(stmt):
         __match_args__ = ("subject", "cases")
@@ -1594,7 +1594,7 @@ if sys.version_info >= (3, 10):
 
         if sys.version_info >= (3, 14):
             def __replace__(
-                self, *, pattern: pattern | None = ..., name: str | None = ..., **kwargs: Unpack[_Attributes[int]]
+                self, *, pattern: ast.pattern | None = ..., name: str | None = ..., **kwargs: Unpack[_Attributes[int]]
             ) -> Self: ...
 
     class MatchOr(pattern):
