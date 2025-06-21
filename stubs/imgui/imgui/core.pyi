@@ -576,11 +576,13 @@ class _DrawList:
         .. wraps::
             void PushClipRect(ImVec2 clip_rect_min, ImVec2 clip_rect_max, bool intersect_with_current_clip_rect = false)
         """
+
     def push_clip_rect_full_screen(self) -> None:
         """
         .. wraps::
             void PushClipRectFullScreen()
         """
+
     def pop_clip_rect(self) -> None:
         """
         Render-level scisoring.
@@ -588,26 +590,31 @@ class _DrawList:
         .. wraps::
             void PopClipRect()
         """
+
     def push_texture_id(self, texture_id: int) -> None:
         """
         .. wraps::
             void PushTextureID(ImTextureID texture_id)
         """
+
     def pop_texture_id(self) -> None:
         """
         .. wraps::
             void PopTextureID()
         """
+
     def get_clip_rect_min(self) -> Vec2:
         """
         .. wraps::
             ImVec2 GetClipRectMin()
         """
+
     def get_clip_rect_max(self) -> Vec2:
         """
         .. wraps::
             ImVec2 GetClipRectMax()
         """
+
     def add_line(self, start_x: float, start_y: float, end_x: float, end_y: float, col: int, thickness: float = 1.0) -> None:
         """
         Add a straight line to the draw list.
@@ -639,6 +646,7 @@ class _DrawList:
                 float thickness = 1.0f
             )
         """
+
     def add_rect(
         self,
         upper_left_x: float,
@@ -685,6 +693,7 @@ class _DrawList:
                 float thickness = 1.0f
             )
         """
+
     def add_rect_filled(
         self,
         upper_left_x: float,
@@ -728,6 +737,7 @@ class _DrawList:
                 ImDrawFlags flags = 0
             )
         """
+
     def add_rect_filled_multicolor(
         self,
         upper_left_x: float,
@@ -774,6 +784,7 @@ class _DrawList:
                 ImU32 col_bot_left
             )
         """
+
     def add_quad(
         self,
         point1_x: float,
@@ -823,6 +834,7 @@ class _DrawList:
                 float thickness = 1.0
             )
         """
+
     def add_quad_filled(
         self,
         point1_x: float,
@@ -869,6 +881,7 @@ class _DrawList:
                 ImU32 col
             )
         """
+
     def add_triangle(
         self,
         point1_x: float,
@@ -913,15 +926,9 @@ class _DrawList:
                 float thickness = 1.0
             )
         """
+
     def add_triangle_filled(
-        self,
-        point1_x: float,
-        point1_y: float,
-        point2_x: float,
-        point2_y: float,
-        point3_x: float,
-        point3_y: float,
-        col: int
+        self, point1_x: float, point1_y: float, point2_x: float, point2_y: float, point3_x: float, point3_y: float, col: int
     ) -> None:
         """
         Add a filled triangle to the list.
@@ -954,6 +961,7 @@ class _DrawList:
                 ImU32 col
             )
         """
+
     def add_bezier_cubic(
         self,
         point1_x: float,
@@ -1005,6 +1013,7 @@ class _DrawList:
                 int num_segments = 0
             )
         """
+
     def add_bezier_quadratic(
         self,
         point1_x: float,
@@ -1051,14 +1060,9 @@ class _DrawList:
                 int num_segments = 0
             )
         """
+
     def add_circle(
-        self,
-        centre_x: float,
-        centre_y: float,
-        radius: float,
-        col: int,
-        num_segments: int = 0,
-        thickness: float = 1.0
+        self, centre_x: float, centre_y: float, radius: float, col: int, num_segments: int = 0, thickness: float = 1.0
     ) -> None:
         """
         Add a circle to the draw list.
@@ -1090,13 +1094,8 @@ class _DrawList:
                 float thickness = 1.0
             )
         """
-    def add_circle_filled(
-        self,
-        centre_x: float,
-        centre_y: float,
-        radius: float,
-        col: int,
-        num_segments: int = 0) -> None:
+
+    def add_circle_filled(self, centre_x: float, centre_y: float, radius: float, col: int, num_segments: int = 0) -> None:
         """
         Add a filled circle to the draw list.
 
@@ -1125,14 +1124,9 @@ class _DrawList:
                 int num_segments = 0
             )
         """
+
     def add_ngon(
-        self,
-        centre_x: float,
-        centre_y: float,
-        radius: float,
-        col: int,
-        num_segments: int,
-        thickness: float = 1.0
+        self, centre_x: float, centre_y: float, radius: float, col: int, num_segments: int, thickness: float = 1.0
     ) -> None:
         """
         Draw a regular Ngon
@@ -1164,6 +1158,7 @@ class _DrawList:
                 float thickness = 1.0f
             )
         """
+
     def add_ngon_filled(self, centre_x: float, centre_y: float, radius: float, col: int, num_segments: int) -> None:
         """
         Draw a regular Ngon
@@ -1193,6 +1188,7 @@ class _DrawList:
                 int num_segments
             )
         """
+
     def add_text(self, pos_x: float, pos_y: float, col: int, text: str) -> None:
         """
         Add text to the draw list.
@@ -1221,6 +1217,7 @@ class _DrawList:
                 const char* text_end = NULL
             )
         """
+
     def add_image(
         self,
         texture_id: int,
@@ -1262,6 +1259,7 @@ class _DrawList:
                 ImU32 col = 0xFFFFFFFF
             )
         """
+
     def add_image_rounded(
         self,
         texture_id: int,
@@ -1310,6 +1308,7 @@ class _DrawList:
                 ImDrawFlags flags = 0
             )
         """
+
     def add_polyline(self, points: list[tuple[float, float]], col: int, flags: int = 0, thickness: float = 1.0) -> None:
         """
         Add a optionally closed polyline to the draw list.
@@ -1341,6 +1340,7 @@ class _DrawList:
                 float thickness
             )
         """
+
     def path_clear(self) -> None:
         """
         Clear the current list of path point
@@ -1348,6 +1348,7 @@ class _DrawList:
         .. wraps::
             void ImDrawList::PathClear()
         """
+
     def path_line_to(self, x: float, y: float) -> None:
         """
         Add a point to the path list
@@ -1378,6 +1379,7 @@ class _DrawList:
                 const ImVec2& pos,
             )
         """
+
     def path_arc_to(
         self, center_x: float, center_y: float, radius: float, a_min: float, a_max: float, num_segments: int = 0
     ) -> None:
@@ -1416,9 +1418,8 @@ class _DrawList:
                 int num_segments = 0
             )
         """
-    def path_arc_to_fast(
-        self, center_x: float, center_y: float, radius: float, a_min_of_12: float, a_max_of_12: float
-    ) -> None:
+
+    def path_arc_to_fast(self, center_x: float, center_y: float, radius: float, a_min_of_12: float, a_max_of_12: float) -> None:
         """
         Add an arc to the path list
 
@@ -1452,6 +1453,7 @@ class _DrawList:
                 int a_max_of_12
             )
         """
+
     def path_rect(
         self, point1_x: float, point1_y: float, point2_x: float, point2_y: float, rounding: float = 0.0, flags: int = 0
     ) -> None:
@@ -1490,6 +1492,7 @@ class _DrawList:
                 ImDrawFlags flags = 0
             )
         """
+
     def path_fill_convex(self, col: int) -> None:
         """
         Note: Filled shapes must always use clockwise winding order.
@@ -1517,6 +1520,7 @@ class _DrawList:
                 ImU32   col
             );
         """
+
     def path_stroke(self, col: int, flags: int = 0, thickness: float = 1.0) -> None:
         """
         Args:
@@ -1546,6 +1550,7 @@ class _DrawList:
                 float thickness = 1.0
             );
         """
+
     def channels_split(self, channels_count: int) -> None:
         """
         Use to split render into layers.
@@ -1560,6 +1565,7 @@ class _DrawList:
         paint over its channels.
         To paint over child windows, use `OverlayDrawList`.
         """
+
     def channels_set_current(self, idx: int) -> None: ...
     def channels_merge(self) -> None: ...
     def prim_reserve(self, idx_count: int, vtx_count: int) -> None:
@@ -1578,6 +1584,7 @@ class _DrawList:
         .. wraps::
             void PrimReserve(int idx_count, int vtx_count)
         """
+
     def prim_unreserve(self, idx_count: int, vtx_count: int) -> None:
         """
         Release the a number of reserved vertices/indices from the end of the
@@ -1590,6 +1597,7 @@ class _DrawList:
         .. wraps::
             void PrimUnreserve(int idx_count, int vtx_count)
         """
+
     def prim_rect(self, a_x: float, a_y: float, b_x: float, b_y: float, color: int = 0xFFFFFFFF) -> None:
         """
         Axis aligned rectangle (2 triangles)
@@ -1604,6 +1612,7 @@ class _DrawList:
         .. wraps::
             void PrimRect(const ImVec2& a, const ImVec2& b, ImU32 col)
         """
+
     def prim_rect_UV(
         self,
         a_x: float,
@@ -1632,6 +1641,7 @@ class _DrawList:
         .. wraps::
             void PrimRectUV(const ImVec2& a, const ImVec2& b, const ImVec2& uv_a, const ImVec2& uv_b, ImU32 col)
         """
+
     def prim_quad_UV(
         self,
         a_x: float,
@@ -1672,6 +1682,7 @@ class _DrawList:
         .. wraps::
             void PrimQuadUV(const ImVec2& a, const ImVec2& b, const ImVec2& c, const ImVec2& d, const ImVec2& uv_a, const ImVec2& uv_b, const ImVec2& uv_c, const ImVec2& uv_d, ImU32 col)
         """
+
     def prim_write_vtx(self, pos_x: float, pos_y: float, u: float, v: float, color: int = 0xFFFFFFFF) -> None:
         """
         Write a vertex
@@ -1684,6 +1695,7 @@ class _DrawList:
         .. wraps::
             void  PrimWriteVtx(const ImVec2& pos, const ImVec2& uv, ImU32 col)
         """
+
     def prim_write_idx(self, idx: int) -> None:
         """
         Write index
@@ -1694,6 +1706,7 @@ class _DrawList:
         .. wraps::
             void  PrimWriteIdx(ImDrawIdx idx)
         """
+
     def prim_vtx(self, pos_x: float, pos_y: float, u: float, v: float, color: int = 0xFFFFFFFF) -> None:
         """
         Write vertex with unique index
@@ -1706,6 +1719,7 @@ class _DrawList:
         .. wraps::
             void PrimVtx(const ImVec2& pos, const ImVec2& uv, ImU32 col)
         """
+
     @property
     def commands(self) -> list[_DrawCmd]: ...
 
@@ -1965,8 +1979,7 @@ class _IO:
     def add_input_character_utf8(self, chars: str) -> None: ...
     def clear_input_characters(self) -> None: ...
 
-class _InputTextSharedBuffer:
-    pass
+class _InputTextSharedBuffer: ...
 
 class _ImGuiInputTextCallbackData:
     event_char: str
@@ -2011,7 +2024,9 @@ class _ImGuiSizeCallbackData:
 class _callback_user_info:
     def __init__(self) -> None: ...
 
-    def populate(self, callback_fn: typing.Callable[[_ImGuiInputTextCallbackData | _ImGuiSizeCallbackData], typing.Any], user_data: typing.Any) -> None: ...
+    def populate(
+        self, callback_fn: typing.Callable[[_ImGuiInputTextCallbackData | _ImGuiSizeCallbackData], typing.Any], user_data: typing.Any
+    ) -> None: ...
 
 class _BeginEndGroup:
     def __enter__(self) -> typing.Self: ...
