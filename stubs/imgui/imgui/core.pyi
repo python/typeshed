@@ -1,526 +1,526 @@
-import contextlib
-import ctypes
-import enum
-import sys
-import typing
-from collections.abc import Buffer
+from collections.abc import Buffer, Iterable, Iterator, Mapping
+from contextlib import contextmanager
+from enum import IntFlag
+from typing import Any, Callable, NamedTuple, NewType, cast
+
+from typing_extensions import Self
 
 # Condition enum
-Condition = typing.NewType("Condition", enum.IntFlag)
-NONE = typing.cast(Condition, ...)
-ALWAYS = typing.cast(Condition, ...)
-ONCE = typing.cast(Condition, ...)
-FIRST_USE_EVER = typing.cast(Condition, ...)
-APPEARING = typing.cast(Condition, ...)
+Condition = NewType("Condition", IntFlag)
+NONE = cast(Condition, ...)
+ALWAYS = cast(Condition, ...)
+ONCE = cast(Condition, ...)
+FIRST_USE_EVER = cast(Condition, ...)
+APPEARING = cast(Condition, ...)
 
-StyleVar = typing.NewType("StyleVar", enum.IntFlag)
-STYLE_ALPHA = typing.cast(StyleVar, ...)
-STYLE_WINDOW_PADDING = typing.cast(StyleVar, ...)
-STYLE_WINDOW_ROUNDING = typing.cast(StyleVar, ...)
-STYLE_WINDOW_BORDERSIZE = typing.cast(StyleVar, ...)
-STYLE_WINDOW_MIN_SIZE = typing.cast(StyleVar, ...)
-STYLE_WINDOW_TITLE_ALIGN = typing.cast(StyleVar, ...)
-STYLE_CHILD_ROUNDING = typing.cast(StyleVar, ...)
-STYLE_CHILD_BORDERSIZE = typing.cast(StyleVar, ...)
-STYLE_POPUP_ROUNDING = typing.cast(StyleVar, ...)
-STYLE_POPUP_BORDERSIZE = typing.cast(StyleVar, ...)
-STYLE_FRAME_PADDING = typing.cast(StyleVar, ...)
-STYLE_FRAME_ROUNDING = typing.cast(StyleVar, ...)
-STYLE_FRAME_BORDERSIZE = typing.cast(StyleVar, ...)
-STYLE_ITEM_SPACING = typing.cast(StyleVar, ...)
-STYLE_ITEM_INNER_SPACING = typing.cast(StyleVar, ...)
-STYLE_INDENT_SPACING = typing.cast(StyleVar, ...)
-STYLE_CELL_PADDING = typing.cast(StyleVar, ...)
-STYLE_SCROLLBAR_SIZE = typing.cast(StyleVar, ...)
-STYLE_SCROLLBAR_ROUNDING = typing.cast(StyleVar, ...)
-STYLE_GRAB_MIN_SIZE = typing.cast(StyleVar, ...)
-STYLE_GRAB_ROUNDING = typing.cast(StyleVar, ...)
-STYLE_TAB_ROUNDING = typing.cast(StyleVar, ...)
-STYLE_BUTTON_TEXT_ALIGN = typing.cast(StyleVar, ...)
-STYLE_SELECTABLE_TEXT_ALIGN = typing.cast(StyleVar, ...)
+StyleVar = NewType("StyleVar", IntFlag)
+STYLE_ALPHA = cast(StyleVar, ...)
+STYLE_WINDOW_PADDING = cast(StyleVar, ...)
+STYLE_WINDOW_ROUNDING = cast(StyleVar, ...)
+STYLE_WINDOW_BORDERSIZE = cast(StyleVar, ...)
+STYLE_WINDOW_MIN_SIZE = cast(StyleVar, ...)
+STYLE_WINDOW_TITLE_ALIGN = cast(StyleVar, ...)
+STYLE_CHILD_ROUNDING = cast(StyleVar, ...)
+STYLE_CHILD_BORDERSIZE = cast(StyleVar, ...)
+STYLE_POPUP_ROUNDING = cast(StyleVar, ...)
+STYLE_POPUP_BORDERSIZE = cast(StyleVar, ...)
+STYLE_FRAME_PADDING = cast(StyleVar, ...)
+STYLE_FRAME_ROUNDING = cast(StyleVar, ...)
+STYLE_FRAME_BORDERSIZE = cast(StyleVar, ...)
+STYLE_ITEM_SPACING = cast(StyleVar, ...)
+STYLE_ITEM_INNER_SPACING = cast(StyleVar, ...)
+STYLE_INDENT_SPACING = cast(StyleVar, ...)
+STYLE_CELL_PADDING = cast(StyleVar, ...)
+STYLE_SCROLLBAR_SIZE = cast(StyleVar, ...)
+STYLE_SCROLLBAR_ROUNDING = cast(StyleVar, ...)
+STYLE_GRAB_MIN_SIZE = cast(StyleVar, ...)
+STYLE_GRAB_ROUNDING = cast(StyleVar, ...)
+STYLE_TAB_ROUNDING = cast(StyleVar, ...)
+STYLE_BUTTON_TEXT_ALIGN = cast(StyleVar, ...)
+STYLE_SELECTABLE_TEXT_ALIGN = cast(StyleVar, ...)
 
-ButtonFlags = typing.NewType("ButtonFlags", enum.IntFlag)
-BUTTON_NONE = typing.cast(ButtonFlags, ...)
-BUTTON_MOUSE_BUTTON_LEFT = typing.cast(ButtonFlags, ...)
-BUTTON_MOUSE_BUTTON_RIGHT = typing.cast(ButtonFlags, ...)
-BUTTON_MOUSE_BUTTON_MIDDLE = typing.cast(ButtonFlags, ...)
+ButtonFlags = NewType("ButtonFlags", IntFlag)
+BUTTON_NONE = cast(ButtonFlags, ...)
+BUTTON_MOUSE_BUTTON_LEFT = cast(ButtonFlags, ...)
+BUTTON_MOUSE_BUTTON_RIGHT = cast(ButtonFlags, ...)
+BUTTON_MOUSE_BUTTON_MIDDLE = cast(ButtonFlags, ...)
 
-KEY_TAB = typing.cast(int, ...)
-KEY_LEFT_ARROW = typing.cast(int, ...)
-KEY_RIGHT_ARROW = typing.cast(int, ...)
-KEY_UP_ARROW = typing.cast(int, ...)
-KEY_DOWN_ARROW = typing.cast(int, ...)
-KEY_PAGE_UP = typing.cast(int, ...)
-KEY_PAGE_DOWN = typing.cast(int, ...)
-KEY_HOME = typing.cast(int, ...)
-KEY_END = typing.cast(int, ...)
-KEY_INSERT = typing.cast(int, ...)
-KEY_DELETE = typing.cast(int, ...)
-KEY_BACKSPACE = typing.cast(int, ...)
-KEY_SPACE = typing.cast(int, ...)
-KEY_ENTER = typing.cast(int, ...)
-KEY_ESCAPE = typing.cast(int, ...)
-KEY_PAD_ENTER = typing.cast(int, ...)
-KEY_A = typing.cast(int, ...)
-KEY_C = typing.cast(int, ...)
-KEY_V = typing.cast(int, ...)
-KEY_X = typing.cast(int, ...)
-KEY_Y = typing.cast(int, ...)
-KEY_Z = typing.cast(int, ...)
+KEY_TAB = cast(int, ...)
+KEY_LEFT_ARROW = cast(int, ...)
+KEY_RIGHT_ARROW = cast(int, ...)
+KEY_UP_ARROW = cast(int, ...)
+KEY_DOWN_ARROW = cast(int, ...)
+KEY_PAGE_UP = cast(int, ...)
+KEY_PAGE_DOWN = cast(int, ...)
+KEY_HOME = cast(int, ...)
+KEY_END = cast(int, ...)
+KEY_INSERT = cast(int, ...)
+KEY_DELETE = cast(int, ...)
+KEY_BACKSPACE = cast(int, ...)
+KEY_SPACE = cast(int, ...)
+KEY_ENTER = cast(int, ...)
+KEY_ESCAPE = cast(int, ...)
+KEY_PAD_ENTER = cast(int, ...)
+KEY_A = cast(int, ...)
+KEY_C = cast(int, ...)
+KEY_V = cast(int, ...)
+KEY_X = cast(int, ...)
+KEY_Y = cast(int, ...)
+KEY_Z = cast(int, ...)
 
-KEY_MOD_NONE = typing.cast(int, ...)
-KEY_MOD_CTRL = typing.cast(int, ...)
-KEY_MOD_SHIFT = typing.cast(int, ...)
-KEY_MOD_ALT = typing.cast(int, ...)
-KEY_MOD_SUPER = typing.cast(int, ...)
+KEY_MOD_NONE = cast(int, ...)
+KEY_MOD_CTRL = cast(int, ...)
+KEY_MOD_SHIFT = cast(int, ...)
+KEY_MOD_ALT = cast(int, ...)
+KEY_MOD_SUPER = cast(int, ...)
 
-NAV_INPUT_ACTIVATE = typing.cast(int, ...)
-NAV_INPUT_CANCEL = typing.cast(int, ...)
-NAV_INPUT_INPUT = typing.cast(int, ...)
-NAV_INPUT_MENU = typing.cast(int, ...)
-NAV_INPUT_DPAD_LEFT = typing.cast(int, ...)
-NAV_INPUT_DPAD_RIGHT = typing.cast(int, ...)
-NAV_INPUT_DPAD_UP = typing.cast(int, ...)
-NAV_INPUT_DPAD_DOWN = typing.cast(int, ...)
-NAV_INPUT_L_STICK_LEFT = typing.cast(int, ...)
-NAV_INPUT_L_STICK_RIGHT = typing.cast(int, ...)
-NAV_INPUT_L_STICK_UP = typing.cast(int, ...)
-NAV_INPUT_L_STICK_DOWN = typing.cast(int, ...)
-NAV_INPUT_FOCUS_PREV = typing.cast(int, ...)
-NAV_INPUT_FOCUS_NEXT = typing.cast(int, ...)
-NAV_INPUT_TWEAK_SLOW = typing.cast(int, ...)
-NAV_INPUT_TWEAK_FAST = typing.cast(int, ...)
-NAV_INPUT_COUNT = typing.cast(int, ...)
+NAV_INPUT_ACTIVATE = cast(int, ...)
+NAV_INPUT_CANCEL = cast(int, ...)
+NAV_INPUT_INPUT = cast(int, ...)
+NAV_INPUT_MENU = cast(int, ...)
+NAV_INPUT_DPAD_LEFT = cast(int, ...)
+NAV_INPUT_DPAD_RIGHT = cast(int, ...)
+NAV_INPUT_DPAD_UP = cast(int, ...)
+NAV_INPUT_DPAD_DOWN = cast(int, ...)
+NAV_INPUT_L_STICK_LEFT = cast(int, ...)
+NAV_INPUT_L_STICK_RIGHT = cast(int, ...)
+NAV_INPUT_L_STICK_UP = cast(int, ...)
+NAV_INPUT_L_STICK_DOWN = cast(int, ...)
+NAV_INPUT_FOCUS_PREV = cast(int, ...)
+NAV_INPUT_FOCUS_NEXT = cast(int, ...)
+NAV_INPUT_TWEAK_SLOW = cast(int, ...)
+NAV_INPUT_TWEAK_FAST = cast(int, ...)
+NAV_INPUT_COUNT = cast(int, ...)
 
-WindowFlags = typing.NewType("WindowFlags", enum.IntFlag)
-WINDOW_NONE = typing.cast(WindowFlags, ...)
-WINDOW_NO_TITLE_BAR = typing.cast(WindowFlags, ...)
-WINDOW_NO_RESIZE = typing.cast(WindowFlags, ...)
-WINDOW_NO_MOVE = typing.cast(WindowFlags, ...)
-WINDOW_NO_SCROLLBAR = typing.cast(WindowFlags, ...)
-WINDOW_NO_SCROLL_WITH_MOUSE = typing.cast(WindowFlags, ...)
-WINDOW_NO_COLLAPSE = typing.cast(WindowFlags, ...)
-WINDOW_ALWAYS_AUTO_RESIZE = typing.cast(WindowFlags, ...)
-WINDOW_NO_BACKGROUND = typing.cast(WindowFlags, ...)
-WINDOW_NO_SAVED_SETTINGS = typing.cast(WindowFlags, ...)
-WINDOW_NO_MOUSE_INPUTS = typing.cast(WindowFlags, ...)
-WINDOW_MENU_BAR = typing.cast(WindowFlags, ...)
-WINDOW_HORIZONTAL_SCROLLING_BAR = typing.cast(WindowFlags, ...)
-WINDOW_NO_FOCUS_ON_APPEARING = typing.cast(WindowFlags, ...)
-WINDOW_NO_BRING_TO_FRONT_ON_FOCUS = typing.cast(WindowFlags, ...)
-WINDOW_ALWAYS_VERTICAL_SCROLLBAR = typing.cast(WindowFlags, ...)
-WINDOW_ALWAYS_HORIZONTAL_SCROLLBAR = typing.cast(WindowFlags, ...)
-WINDOW_ALWAYS_USE_WINDOW_PADDING = typing.cast(WindowFlags, ...)
-WINDOW_NO_NAV_INPUTS = typing.cast(WindowFlags, ...)
-WINDOW_NO_NAV_FOCUS = typing.cast(WindowFlags, ...)
-WINDOW_UNSAVED_DOCUMENT = typing.cast(WindowFlags, ...)
-WINDOW_NO_NAV = typing.cast(WindowFlags, ...)
-WINDOW_NO_DECORATION = typing.cast(WindowFlags, ...)
-WINDOW_NO_INPUTS = typing.cast(WindowFlags, ...)
+WindowFlags = NewType("WindowFlags", IntFlag)
+WINDOW_NONE = cast(WindowFlags, ...)
+WINDOW_NO_TITLE_BAR = cast(WindowFlags, ...)
+WINDOW_NO_RESIZE = cast(WindowFlags, ...)
+WINDOW_NO_MOVE = cast(WindowFlags, ...)
+WINDOW_NO_SCROLLBAR = cast(WindowFlags, ...)
+WINDOW_NO_SCROLL_WITH_MOUSE = cast(WindowFlags, ...)
+WINDOW_NO_COLLAPSE = cast(WindowFlags, ...)
+WINDOW_ALWAYS_AUTO_RESIZE = cast(WindowFlags, ...)
+WINDOW_NO_BACKGROUND = cast(WindowFlags, ...)
+WINDOW_NO_SAVED_SETTINGS = cast(WindowFlags, ...)
+WINDOW_NO_MOUSE_INPUTS = cast(WindowFlags, ...)
+WINDOW_MENU_BAR = cast(WindowFlags, ...)
+WINDOW_HORIZONTAL_SCROLLING_BAR = cast(WindowFlags, ...)
+WINDOW_NO_FOCUS_ON_APPEARING = cast(WindowFlags, ...)
+WINDOW_NO_BRING_TO_FRONT_ON_FOCUS = cast(WindowFlags, ...)
+WINDOW_ALWAYS_VERTICAL_SCROLLBAR = cast(WindowFlags, ...)
+WINDOW_ALWAYS_HORIZONTAL_SCROLLBAR = cast(WindowFlags, ...)
+WINDOW_ALWAYS_USE_WINDOW_PADDING = cast(WindowFlags, ...)
+WINDOW_NO_NAV_INPUTS = cast(WindowFlags, ...)
+WINDOW_NO_NAV_FOCUS = cast(WindowFlags, ...)
+WINDOW_UNSAVED_DOCUMENT = cast(WindowFlags, ...)
+WINDOW_NO_NAV = cast(WindowFlags, ...)
+WINDOW_NO_DECORATION = cast(WindowFlags, ...)
+WINDOW_NO_INPUTS = cast(WindowFlags, ...)
 
-ColorEditFlags = typing.NewType("ColorEditFlags", enum.IntFlag)
-COLOR_EDIT_NONE = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_NO_ALPHA = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_NO_PICKER = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_NO_OPTIONS = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_NO_SMALL_PREVIEW = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_NO_INPUTS = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_NO_TOOLTIP = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_NO_LABEL = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_NO_SIDE_PREVIEW = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_NO_DRAG_DROP = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_NO_BORDER = typing.cast(ColorEditFlags, ...)
+ColorEditFlags = NewType("ColorEditFlags", IntFlag)
+COLOR_EDIT_NONE = cast(ColorEditFlags, ...)
+COLOR_EDIT_NO_ALPHA = cast(ColorEditFlags, ...)
+COLOR_EDIT_NO_PICKER = cast(ColorEditFlags, ...)
+COLOR_EDIT_NO_OPTIONS = cast(ColorEditFlags, ...)
+COLOR_EDIT_NO_SMALL_PREVIEW = cast(ColorEditFlags, ...)
+COLOR_EDIT_NO_INPUTS = cast(ColorEditFlags, ...)
+COLOR_EDIT_NO_TOOLTIP = cast(ColorEditFlags, ...)
+COLOR_EDIT_NO_LABEL = cast(ColorEditFlags, ...)
+COLOR_EDIT_NO_SIDE_PREVIEW = cast(ColorEditFlags, ...)
+COLOR_EDIT_NO_DRAG_DROP = cast(ColorEditFlags, ...)
+COLOR_EDIT_NO_BORDER = cast(ColorEditFlags, ...)
 
-COLOR_EDIT_ALPHA_BAR = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_ALPHA_PREVIEW = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_ALPHA_PREVIEW_HALF = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_HDR = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_DISPLAY_RGB = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_DISPLAY_HSV = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_DISPLAY_HEX = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_UINT8 = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_FLOAT = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_PICKER_HUE_BAR = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_PICKER_HUE_WHEEL = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_INPUT_RGB = typing.cast(ColorEditFlags, ...)
-COLOR_EDIT_INPUT_HSV = typing.cast(ColorEditFlags, ...)
+COLOR_EDIT_ALPHA_BAR = cast(ColorEditFlags, ...)
+COLOR_EDIT_ALPHA_PREVIEW = cast(ColorEditFlags, ...)
+COLOR_EDIT_ALPHA_PREVIEW_HALF = cast(ColorEditFlags, ...)
+COLOR_EDIT_HDR = cast(ColorEditFlags, ...)
+COLOR_EDIT_DISPLAY_RGB = cast(ColorEditFlags, ...)
+COLOR_EDIT_DISPLAY_HSV = cast(ColorEditFlags, ...)
+COLOR_EDIT_DISPLAY_HEX = cast(ColorEditFlags, ...)
+COLOR_EDIT_UINT8 = cast(ColorEditFlags, ...)
+COLOR_EDIT_FLOAT = cast(ColorEditFlags, ...)
+COLOR_EDIT_PICKER_HUE_BAR = cast(ColorEditFlags, ...)
+COLOR_EDIT_PICKER_HUE_WHEEL = cast(ColorEditFlags, ...)
+COLOR_EDIT_INPUT_RGB = cast(ColorEditFlags, ...)
+COLOR_EDIT_INPUT_HSV = cast(ColorEditFlags, ...)
 
-COLOR_EDIT_DEFAULT_OPTIONS = typing.cast(ColorEditFlags, ...)
+COLOR_EDIT_DEFAULT_OPTIONS = cast(ColorEditFlags, ...)
 
-TreeNodeFlags = typing.NewType("TreeNodeFlags", enum.IntFlag)
-TREE_NODE_NONE = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_SELECTED = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_FRAMED = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_ALLOW_ITEM_OVERLAP = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_NO_TREE_PUSH_ON_OPEN = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_NO_AUTO_OPEN_ON_LOG = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_DEFAULT_OPEN = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_OPEN_ON_DOUBLE_CLICK = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_OPEN_ON_ARROW = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_LEAF = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_BULLET = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_FRAME_PADDING = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_SPAN_AVAILABLE_WIDTH = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_SPAN_FULL_WIDTH = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_NAV_LEFT_JUPS_BACK_HERE = typing.cast(TreeNodeFlags, ...)
-TREE_NODE_COLLAPSING_HEADER = typing.cast(TreeNodeFlags, ...)
+TreeNodeFlags = NewType("TreeNodeFlags", IntFlag)
+TREE_NODE_NONE = cast(TreeNodeFlags, ...)
+TREE_NODE_SELECTED = cast(TreeNodeFlags, ...)
+TREE_NODE_FRAMED = cast(TreeNodeFlags, ...)
+TREE_NODE_ALLOW_ITEM_OVERLAP = cast(TreeNodeFlags, ...)
+TREE_NODE_NO_TREE_PUSH_ON_OPEN = cast(TreeNodeFlags, ...)
+TREE_NODE_NO_AUTO_OPEN_ON_LOG = cast(TreeNodeFlags, ...)
+TREE_NODE_DEFAULT_OPEN = cast(TreeNodeFlags, ...)
+TREE_NODE_OPEN_ON_DOUBLE_CLICK = cast(TreeNodeFlags, ...)
+TREE_NODE_OPEN_ON_ARROW = cast(TreeNodeFlags, ...)
+TREE_NODE_LEAF = cast(TreeNodeFlags, ...)
+TREE_NODE_BULLET = cast(TreeNodeFlags, ...)
+TREE_NODE_FRAME_PADDING = cast(TreeNodeFlags, ...)
+TREE_NODE_SPAN_AVAILABLE_WIDTH = cast(TreeNodeFlags, ...)
+TREE_NODE_SPAN_FULL_WIDTH = cast(TreeNodeFlags, ...)
+TREE_NODE_NAV_LEFT_JUPS_BACK_HERE = cast(TreeNodeFlags, ...)
+TREE_NODE_COLLAPSING_HEADER = cast(TreeNodeFlags, ...)
 
-PopupFlags = typing.NewType("PopupFlags", enum.IntFlag)
-POPUP_NONE = typing.cast(PopupFlags, ...)
-POPUP_MOUSE_BUTTON_LEFT = typing.cast(PopupFlags, ...)
-POPUP_MOUSE_BUTTON_RIGHT = typing.cast(PopupFlags, ...)
-POPUP_MOUSE_BUTTON_MIDDLE = typing.cast(PopupFlags, ...)
-POPUP_MOUSE_BUTTON_MASK = typing.cast(PopupFlags, ...)
-POPUP_MOUSE_BUTTON_DEFAULT = typing.cast(PopupFlags, ...)
-POPUP_NO_OPEN_OVER_EXISTING_POPUP = typing.cast(PopupFlags, ...)
-POPUP_NO_OPEN_OVER_ITEMS = typing.cast(PopupFlags, ...)
-POPUP_ANY_POPUP_ID = typing.cast(PopupFlags, ...)
-POPUP_ANY_POPUP_LEVEL = typing.cast(PopupFlags, ...)
-POPUP_ANY_POPUP = typing.cast(PopupFlags, ...)
+PopupFlags = NewType("PopupFlags", IntFlag)
+POPUP_NONE = cast(PopupFlags, ...)
+POPUP_MOUSE_BUTTON_LEFT = cast(PopupFlags, ...)
+POPUP_MOUSE_BUTTON_RIGHT = cast(PopupFlags, ...)
+POPUP_MOUSE_BUTTON_MIDDLE = cast(PopupFlags, ...)
+POPUP_MOUSE_BUTTON_MASK = cast(PopupFlags, ...)
+POPUP_MOUSE_BUTTON_DEFAULT = cast(PopupFlags, ...)
+POPUP_NO_OPEN_OVER_EXISTING_POPUP = cast(PopupFlags, ...)
+POPUP_NO_OPEN_OVER_ITEMS = cast(PopupFlags, ...)
+POPUP_ANY_POPUP_ID = cast(PopupFlags, ...)
+POPUP_ANY_POPUP_LEVEL = cast(PopupFlags, ...)
+POPUP_ANY_POPUP = cast(PopupFlags, ...)
 
-SelectableFlags = typing.NewType("SelectableFlags", enum.IntFlag)
-SELECTABLE_NONE = typing.cast(SelectableFlags, ...)
-SELECTABLE_DONT_CLOSE_POPUPS = typing.cast(SelectableFlags, ...)
-SELECTABLE_SPAN_ALL_COLUMNS = typing.cast(SelectableFlags, ...)
-SELECTABLE_ALLOW_DOUBLE_CLICK = typing.cast(SelectableFlags, ...)
-SELECTABLE_DISABLED = typing.cast(SelectableFlags, ...)
-SELECTABLE_ALLOW_ITEM_OVERLAP = typing.cast(SelectableFlags, ...)
+SelectableFlags = NewType("SelectableFlags", IntFlag)
+SELECTABLE_NONE = cast(SelectableFlags, ...)
+SELECTABLE_DONT_CLOSE_POPUPS = cast(SelectableFlags, ...)
+SELECTABLE_SPAN_ALL_COLUMNS = cast(SelectableFlags, ...)
+SELECTABLE_ALLOW_DOUBLE_CLICK = cast(SelectableFlags, ...)
+SELECTABLE_DISABLED = cast(SelectableFlags, ...)
+SELECTABLE_ALLOW_ITEM_OVERLAP = cast(SelectableFlags, ...)
 
-ComboFlags = typing.NewType("ComboFlags", enum.IntFlag)
-COMBO_NONE = typing.cast(ComboFlags, ...)
-COMBO_POPUP_ALIGN_LEFT = typing.cast(ComboFlags, ...)
-COMBO_HEIGHT_SMALL = typing.cast(ComboFlags, ...)
-COMBO_HEIGHT_REGULAR = typing.cast(ComboFlags, ...)
-COMBO_HEIGHT_LARGE = typing.cast(ComboFlags, ...)
-COMBO_HEIGHT_LARGEST = typing.cast(ComboFlags, ...)
-COMBO_NO_ARROW_BUTTON = typing.cast(ComboFlags, ...)
-COMBO_NO_PREVIEW = typing.cast(ComboFlags, ...)
-COMBO_HEIGHT_MASK = typing.cast(ComboFlags, ...)
+ComboFlags = NewType("ComboFlags", IntFlag)
+COMBO_NONE = cast(ComboFlags, ...)
+COMBO_POPUP_ALIGN_LEFT = cast(ComboFlags, ...)
+COMBO_HEIGHT_SMALL = cast(ComboFlags, ...)
+COMBO_HEIGHT_REGULAR = cast(ComboFlags, ...)
+COMBO_HEIGHT_LARGE = cast(ComboFlags, ...)
+COMBO_HEIGHT_LARGEST = cast(ComboFlags, ...)
+COMBO_NO_ARROW_BUTTON = cast(ComboFlags, ...)
+COMBO_NO_PREVIEW = cast(ComboFlags, ...)
+COMBO_HEIGHT_MASK = cast(ComboFlags, ...)
 
-TabBarFlags = typing.NewType("TabBarFlags", enum.IntFlag)
-TAB_BAR_NONE = typing.cast(TabBarFlags, ...)
-TAB_BAR_REORDERABLE = typing.cast(TabBarFlags, ...)
-TAB_BAR_AUTO_SELECT_NEW_TABS = typing.cast(TabBarFlags, ...)
-TAB_BAR_TAB_LIST_POPUP_BUTTON = typing.cast(TabBarFlags, ...)
-TAB_BAR_NO_CLOSE_WITH_MIDDLE_MOUSE_BUTTON = typing.cast(TabBarFlags, ...)
-TAB_BAR_NO_TAB_LIST_SCROLLING_BUTTONS = typing.cast(TabBarFlags, ...)
-TAB_BAR_NO_TOOLTIP = typing.cast(TabBarFlags, ...)
-TAB_BAR_FITTING_POLICY_RESIZE_DOWN = typing.cast(TabBarFlags, ...)
-TAB_BAR_FITTING_POLICY_SCROLL = typing.cast(TabBarFlags, ...)
-TAB_BAR_FITTING_POLICY_MASK = typing.cast(TabBarFlags, ...)
-TAB_BAR_FITTING_POLICY_DEFAULT = typing.cast(TabBarFlags, ...)
+TabBarFlags = NewType("TabBarFlags", IntFlag)
+TAB_BAR_NONE = cast(TabBarFlags, ...)
+TAB_BAR_REORDERABLE = cast(TabBarFlags, ...)
+TAB_BAR_AUTO_SELECT_NEW_TABS = cast(TabBarFlags, ...)
+TAB_BAR_TAB_LIST_POPUP_BUTTON = cast(TabBarFlags, ...)
+TAB_BAR_NO_CLOSE_WITH_MIDDLE_MOUSE_BUTTON = cast(TabBarFlags, ...)
+TAB_BAR_NO_TAB_LIST_SCROLLING_BUTTONS = cast(TabBarFlags, ...)
+TAB_BAR_NO_TOOLTIP = cast(TabBarFlags, ...)
+TAB_BAR_FITTING_POLICY_RESIZE_DOWN = cast(TabBarFlags, ...)
+TAB_BAR_FITTING_POLICY_SCROLL = cast(TabBarFlags, ...)
+TAB_BAR_FITTING_POLICY_MASK = cast(TabBarFlags, ...)
+TAB_BAR_FITTING_POLICY_DEFAULT = cast(TabBarFlags, ...)
 
-TabItemFlags = typing.NewType("TabItemFlags", enum.IntFlag)
-TAB_ITEM_NONE = typing.cast(TabItemFlags, ...)
-TAB_ITEM_UNSAVED_DOCUMENT = typing.cast(TabItemFlags, ...)
-TAB_ITEM_SET_SELECTED = typing.cast(TabItemFlags, ...)
-TAB_ITEM_NO_CLOSE_WITH_MIDDLE_MOUSE_BUTTON = typing.cast(TabItemFlags, ...)
-TAB_ITEM_NO_PUSH_ID = typing.cast(TabItemFlags, ...)
-TAB_ITEM_NO_TOOLTIP = typing.cast(TabItemFlags, ...)
-TAB_ITEM_NO_REORDER = typing.cast(TabItemFlags, ...)
-TAB_ITEM_LEADING = typing.cast(TabItemFlags, ...)
-TAB_ITEM_TRAILING = typing.cast(TabItemFlags, ...)
+TabItemFlags = NewType("TabItemFlags", IntFlag)
+TAB_ITEM_NONE = cast(TabItemFlags, ...)
+TAB_ITEM_UNSAVED_DOCUMENT = cast(TabItemFlags, ...)
+TAB_ITEM_SET_SELECTED = cast(TabItemFlags, ...)
+TAB_ITEM_NO_CLOSE_WITH_MIDDLE_MOUSE_BUTTON = cast(TabItemFlags, ...)
+TAB_ITEM_NO_PUSH_ID = cast(TabItemFlags, ...)
+TAB_ITEM_NO_TOOLTIP = cast(TabItemFlags, ...)
+TAB_ITEM_NO_REORDER = cast(TabItemFlags, ...)
+TAB_ITEM_LEADING = cast(TabItemFlags, ...)
+TAB_ITEM_TRAILING = cast(TabItemFlags, ...)
 
-TableFlags = typing.NewType("TableFlags", enum.IntFlag)
-TABLE_NONE = typing.cast(TableFlags, ...)
-TABLE_RESIZABLE = typing.cast(TableFlags, ...)
-TABLE_REORDERABLE = typing.cast(TableFlags, ...)
-TABLE_HIDEABLE = typing.cast(TableFlags, ...)
-TABLE_SORTABLE = typing.cast(TableFlags, ...)
-TABLE_NO_SAVED_SETTINGS = typing.cast(TableFlags, ...)
-TABLE_CONTEXT_MENU_IN_BODY = typing.cast(TableFlags, ...)
-TABLE_ROW_BACKGROUND = typing.cast(TableFlags, ...)
-TABLE_BORDERS_INNER_HORIZONTAL = typing.cast(TableFlags, ...)
-TABLE_BORDERS_OUTER_HORIZONTAL = typing.cast(TableFlags, ...)
-TABLE_BORDERS_INNER_VERTICAL = typing.cast(TableFlags, ...)
-TABLE_BORDERS_OUTER_VERTICAL = typing.cast(TableFlags, ...)
-TABLE_BORDERS_HORIZONTAL = typing.cast(TableFlags, ...)
-TABLE_BORDERS_VERTICAL = typing.cast(TableFlags, ...)
-TABLE_BORDERS_INNER = typing.cast(TableFlags, ...)
-TABLE_BORDERS_OUTER = typing.cast(TableFlags, ...)
-TABLE_BORDERS = typing.cast(TableFlags, ...)
-TABLE_NO_BORDERS_IN_BODY = typing.cast(TableFlags, ...)
-TABLE_NO_BORDERS_IN_BODY_UTIL_RESIZE = typing.cast(TableFlags, ...)
-TABLE_SIZING_FIXED_FIT = typing.cast(TableFlags, ...)
-TABLE_SIZING_FIXED_SAME = typing.cast(TableFlags, ...)
-TABLE_SIZING_STRETCH_PROP = typing.cast(TableFlags, ...)
-TABLE_SIZING_STRETCH_SAME = typing.cast(TableFlags, ...)
-TABLE_NO_HOST_EXTEND_X = typing.cast(TableFlags, ...)
-TABLE_NO_HOST_EXTEND_Y = typing.cast(TableFlags, ...)
-TABLE_NO_KEEP_COLUMNS_VISIBLE = typing.cast(TableFlags, ...)
-TABLE_PRECISE_WIDTHS = typing.cast(TableFlags, ...)
-TABLE_NO_CLIP = typing.cast(TableFlags, ...)
-TABLE_PAD_OUTER_X = typing.cast(TableFlags, ...)
-TABLE_NO_PAD_OUTER_X = typing.cast(TableFlags, ...)
-TABLE_NO_PAD_INNER_X = typing.cast(TableFlags, ...)
-TABLE_SCROLL_X = typing.cast(TableFlags, ...)
-TABLE_SCROLL_Y = typing.cast(TableFlags, ...)
-TABLE_SORT_MULTI = typing.cast(TableFlags, ...)
-TABLE_SORT_TRISTATE = typing.cast(TableFlags, ...)
+TableFlags = NewType("TableFlags", IntFlag)
+TABLE_NONE = cast(TableFlags, ...)
+TABLE_RESIZABLE = cast(TableFlags, ...)
+TABLE_REORDERABLE = cast(TableFlags, ...)
+TABLE_HIDEABLE = cast(TableFlags, ...)
+TABLE_SORTABLE = cast(TableFlags, ...)
+TABLE_NO_SAVED_SETTINGS = cast(TableFlags, ...)
+TABLE_CONTEXT_MENU_IN_BODY = cast(TableFlags, ...)
+TABLE_ROW_BACKGROUND = cast(TableFlags, ...)
+TABLE_BORDERS_INNER_HORIZONTAL = cast(TableFlags, ...)
+TABLE_BORDERS_OUTER_HORIZONTAL = cast(TableFlags, ...)
+TABLE_BORDERS_INNER_VERTICAL = cast(TableFlags, ...)
+TABLE_BORDERS_OUTER_VERTICAL = cast(TableFlags, ...)
+TABLE_BORDERS_HORIZONTAL = cast(TableFlags, ...)
+TABLE_BORDERS_VERTICAL = cast(TableFlags, ...)
+TABLE_BORDERS_INNER = cast(TableFlags, ...)
+TABLE_BORDERS_OUTER = cast(TableFlags, ...)
+TABLE_BORDERS = cast(TableFlags, ...)
+TABLE_NO_BORDERS_IN_BODY = cast(TableFlags, ...)
+TABLE_NO_BORDERS_IN_BODY_UTIL_RESIZE = cast(TableFlags, ...)
+TABLE_SIZING_FIXED_FIT = cast(TableFlags, ...)
+TABLE_SIZING_FIXED_SAME = cast(TableFlags, ...)
+TABLE_SIZING_STRETCH_PROP = cast(TableFlags, ...)
+TABLE_SIZING_STRETCH_SAME = cast(TableFlags, ...)
+TABLE_NO_HOST_EXTEND_X = cast(TableFlags, ...)
+TABLE_NO_HOST_EXTEND_Y = cast(TableFlags, ...)
+TABLE_NO_KEEP_COLUMNS_VISIBLE = cast(TableFlags, ...)
+TABLE_PRECISE_WIDTHS = cast(TableFlags, ...)
+TABLE_NO_CLIP = cast(TableFlags, ...)
+TABLE_PAD_OUTER_X = cast(TableFlags, ...)
+TABLE_NO_PAD_OUTER_X = cast(TableFlags, ...)
+TABLE_NO_PAD_INNER_X = cast(TableFlags, ...)
+TABLE_SCROLL_X = cast(TableFlags, ...)
+TABLE_SCROLL_Y = cast(TableFlags, ...)
+TABLE_SORT_MULTI = cast(TableFlags, ...)
+TABLE_SORT_TRISTATE = cast(TableFlags, ...)
 
-TableColumnFlags = typing.NewType("TableColumnFlags", enum.IntFlag)
-TABLE_COLUMN_NONE = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_DEFAULT_HIDE = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_DEFAULT_SORT = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_WIDTH_STRETCH = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_WIDTH_FIXED = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_NO_RESIZE = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_NO_REORDER = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_NO_HIDE = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_NO_CLIP = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_NO_SORT = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_NO_SORT_ASCENDING = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_NO_SORT_DESCENDING = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_NO_HEADER_WIDTH = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_PREFER_SORT_ASCENDING = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_PREFER_SORT_DESCENDING = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_INDENT_ENABLE = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_INDENT_DISABLE = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_IS_ENABLED = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_IS_VISIBLE = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_IS_SORTED = typing.cast(TableColumnFlags, ...)
-TABLE_COLUMN_IS_HOVERED = typing.cast(TableColumnFlags, ...)
+TableColumnFlags = NewType("TableColumnFlags", IntFlag)
+TABLE_COLUMN_NONE = cast(TableColumnFlags, ...)
+TABLE_COLUMN_DEFAULT_HIDE = cast(TableColumnFlags, ...)
+TABLE_COLUMN_DEFAULT_SORT = cast(TableColumnFlags, ...)
+TABLE_COLUMN_WIDTH_STRETCH = cast(TableColumnFlags, ...)
+TABLE_COLUMN_WIDTH_FIXED = cast(TableColumnFlags, ...)
+TABLE_COLUMN_NO_RESIZE = cast(TableColumnFlags, ...)
+TABLE_COLUMN_NO_REORDER = cast(TableColumnFlags, ...)
+TABLE_COLUMN_NO_HIDE = cast(TableColumnFlags, ...)
+TABLE_COLUMN_NO_CLIP = cast(TableColumnFlags, ...)
+TABLE_COLUMN_NO_SORT = cast(TableColumnFlags, ...)
+TABLE_COLUMN_NO_SORT_ASCENDING = cast(TableColumnFlags, ...)
+TABLE_COLUMN_NO_SORT_DESCENDING = cast(TableColumnFlags, ...)
+TABLE_COLUMN_NO_HEADER_WIDTH = cast(TableColumnFlags, ...)
+TABLE_COLUMN_PREFER_SORT_ASCENDING = cast(TableColumnFlags, ...)
+TABLE_COLUMN_PREFER_SORT_DESCENDING = cast(TableColumnFlags, ...)
+TABLE_COLUMN_INDENT_ENABLE = cast(TableColumnFlags, ...)
+TABLE_COLUMN_INDENT_DISABLE = cast(TableColumnFlags, ...)
+TABLE_COLUMN_IS_ENABLED = cast(TableColumnFlags, ...)
+TABLE_COLUMN_IS_VISIBLE = cast(TableColumnFlags, ...)
+TABLE_COLUMN_IS_SORTED = cast(TableColumnFlags, ...)
+TABLE_COLUMN_IS_HOVERED = cast(TableColumnFlags, ...)
 
-TableRowFlags = typing.NewType("TableRowFlags", enum.IntFlag)
-TABLE_ROW_NONE = typing.cast(TableRowFlags, ...)
-TABLE_ROW_HEADERS = typing.cast(TableRowFlags, ...)
+TableRowFlags = NewType("TableRowFlags", IntFlag)
+TABLE_ROW_NONE = cast(TableRowFlags, ...)
+TABLE_ROW_HEADERS = cast(TableRowFlags, ...)
 
-TableBackgroundTarget = typing.NewType("TableBackgroundTarget", int)
-TABLE_BACKGROUND_TARGET_NONE = typing.cast(TableBackgroundTarget, ...)
-TABLE_BACKGROUND_TARGET_ROW_BG0 = typing.cast(TableBackgroundTarget, ...)
-TABLE_BACKGROUND_TARGET_ROW_BG1 = typing.cast(TableBackgroundTarget, ...)
-TABLE_BACKGROUND_TARGET_CELL_BG = typing.cast(TableBackgroundTarget, ...)
+TableBackgroundTarget = NewType("TableBackgroundTarget", int)
+TABLE_BACKGROUND_TARGET_NONE = cast(TableBackgroundTarget, ...)
+TABLE_BACKGROUND_TARGET_ROW_BG0 = cast(TableBackgroundTarget, ...)
+TABLE_BACKGROUND_TARGET_ROW_BG1 = cast(TableBackgroundTarget, ...)
+TABLE_BACKGROUND_TARGET_CELL_BG = cast(TableBackgroundTarget, ...)
 
-FocusFlags = typing.NewType("FocusFlags", enum.IntFlag)
-FOCUS_NONE = typing.cast(FocusFlags, ...)
-FOCUS_CHILD_WINDOWS = typing.cast(FocusFlags, ...)
-FOCUS_ROOT_WINDOW = typing.cast(FocusFlags, ...)
-FOCUS_ANY_WINDOW = typing.cast(FocusFlags, ...)
-FOCUS_ROOT_AND_CHILD_WINDOWS = typing.cast(FocusFlags, ...)
+FocusFlags = NewType("FocusFlags", IntFlag)
+FOCUS_NONE = cast(FocusFlags, ...)
+FOCUS_CHILD_WINDOWS = cast(FocusFlags, ...)
+FOCUS_ROOT_WINDOW = cast(FocusFlags, ...)
+FOCUS_ANY_WINDOW = cast(FocusFlags, ...)
+FOCUS_ROOT_AND_CHILD_WINDOWS = cast(FocusFlags, ...)
 
-HoverFlags = typing.NewType("HoverFlags", enum.IntFlag)
-HOVERED_NONE = typing.cast(HoverFlags, ...)
-HOVERED_CHILD_WINDOWS = typing.cast(HoverFlags, ...)
-HOVERED_ROOT_WINDOW = typing.cast(HoverFlags, ...)
-HOVERED_ANY_WINDOW = typing.cast(HoverFlags, ...)
-HOVERED_ALLOW_WHEN_BLOCKED_BY_POPUP = typing.cast(HoverFlags, ...)
-HOVERED_ALLOW_WHEN_BLOCKED_BY_ACTIVE_ITEM = typing.cast(HoverFlags, ...)
-HOVERED_ALLOW_WHEN_OVERLAPPED = typing.cast(HoverFlags, ...)
-HOVERED_ALLOW_WHEN_DISABLED = typing.cast(HoverFlags, ...)
-HOVERED_RECT_ONLY = typing.cast(HoverFlags, ...)
-HOVERED_ROOT_AND_CHILD_WINDOWS = typing.cast(HoverFlags, ...)
+HoverFlags = NewType("HoverFlags", IntFlag)
+HOVERED_NONE = cast(HoverFlags, ...)
+HOVERED_CHILD_WINDOWS = cast(HoverFlags, ...)
+HOVERED_ROOT_WINDOW = cast(HoverFlags, ...)
+HOVERED_ANY_WINDOW = cast(HoverFlags, ...)
+HOVERED_ALLOW_WHEN_BLOCKED_BY_POPUP = cast(HoverFlags, ...)
+HOVERED_ALLOW_WHEN_BLOCKED_BY_ACTIVE_ITEM = cast(HoverFlags, ...)
+HOVERED_ALLOW_WHEN_OVERLAPPED = cast(HoverFlags, ...)
+HOVERED_ALLOW_WHEN_DISABLED = cast(HoverFlags, ...)
+HOVERED_RECT_ONLY = cast(HoverFlags, ...)
+HOVERED_ROOT_AND_CHILD_WINDOWS = cast(HoverFlags, ...)
 
-DragDropFlags = typing.NewType("DragDropFlags", enum.IntFlag)
-DRAG_DROP_NONE = typing.cast(DragDropFlags, ...)
-DRAG_DROP_SOURCE_NO_PREVIEW_TOOLTIP = typing.cast(DragDropFlags, ...)
-DRAG_DROP_SOURCE_NO_DISABLE_HOVER = typing.cast(DragDropFlags, ...)
-DRAG_DROP_SOURCE_NO_HOLD_TO_OPEN_OTHERS = typing.cast(DragDropFlags, ...)
-DRAG_DROP_SOURCE_ALLOW_NULL_ID = typing.cast(DragDropFlags, ...)
-DRAG_DROP_SOURCE_EXTERN = typing.cast(DragDropFlags, ...)
-DRAG_DROP_SOURCE_AUTO_EXPIRE_PAYLOAD = typing.cast(DragDropFlags, ...)
+DragDropFlags = NewType("DragDropFlags", IntFlag)
+DRAG_DROP_NONE = cast(DragDropFlags, ...)
+DRAG_DROP_SOURCE_NO_PREVIEW_TOOLTIP = cast(DragDropFlags, ...)
+DRAG_DROP_SOURCE_NO_DISABLE_HOVER = cast(DragDropFlags, ...)
+DRAG_DROP_SOURCE_NO_HOLD_TO_OPEN_OTHERS = cast(DragDropFlags, ...)
+DRAG_DROP_SOURCE_ALLOW_NULL_ID = cast(DragDropFlags, ...)
+DRAG_DROP_SOURCE_EXTERN = cast(DragDropFlags, ...)
+DRAG_DROP_SOURCE_AUTO_EXPIRE_PAYLOAD = cast(DragDropFlags, ...)
 
-DragDropAcceptFlags = typing.NewType("DragDropAcceptFlags", enum.IntFlag)
-DRAG_DROP_ACCEPT_BEFORE_DELIVERY = typing.cast(DragDropAcceptFlags, ...)
-DRAG_DROP_ACCEPT_NO_DRAW_DEFAULT_RECT = typing.cast(DragDropAcceptFlags, ...)
-DRAG_DROP_ACCEPT_NO_PREVIEW_TOOLTIP = typing.cast(DragDropAcceptFlags, ...)
-DRAG_DROP_ACCEPT_PEEK_ONLY = typing.cast(DragDropAcceptFlags, ...)
+DragDropAcceptFlags = NewType("DragDropAcceptFlags", IntFlag)
+DRAG_DROP_ACCEPT_BEFORE_DELIVERY = cast(DragDropAcceptFlags, ...)
+DRAG_DROP_ACCEPT_NO_DRAW_DEFAULT_RECT = cast(DragDropAcceptFlags, ...)
+DRAG_DROP_ACCEPT_NO_PREVIEW_TOOLTIP = cast(DragDropAcceptFlags, ...)
+DRAG_DROP_ACCEPT_PEEK_ONLY = cast(DragDropAcceptFlags, ...)
 
-Direction = typing.NewType("Direction", int)
-DIRECTION_NONE = typing.cast(Direction, ...)
-DIRECTION_LEFT = typing.cast(Direction, ...)
-DIRECTION_RIGHT = typing.cast(Direction, ...)
-DIRECTION_UP = typing.cast(Direction, ...)
-DIRECTION_DOWN = typing.cast(Direction, ...)
+Direction = NewType("Direction", int)
+DIRECTION_NONE = cast(Direction, ...)
+DIRECTION_LEFT = cast(Direction, ...)
+DIRECTION_RIGHT = cast(Direction, ...)
+DIRECTION_UP = cast(Direction, ...)
+DIRECTION_DOWN = cast(Direction, ...)
 
-SortDirection = typing.NewType("SortDirection", int)
-SORT_DIRECTION_NONE = typing.cast(SortDirection, ...)
-SORT_DIRECTION_ASCENDING = typing.cast(SortDirection, ...)
-SORT_DIRECTION_DESCENDING = typing.cast(SortDirection, ...)
+SortDirection = NewType("SortDirection", int)
+SORT_DIRECTION_NONE = cast(SortDirection, ...)
+SORT_DIRECTION_ASCENDING = cast(SortDirection, ...)
+SORT_DIRECTION_DESCENDING = cast(SortDirection, ...)
 
-MouseCursor = typing.NewType("MouseCursor", int)
-MOUSE_CURSOR_NONE = typing.cast(MouseCursor, ...)
-MOUSE_CURSOR_ARROW = typing.cast(MouseCursor, ...)
-MOUSE_CURSOR_TEXT_INPUT = typing.cast(MouseCursor, ...)
-MOUSE_CURSOR_RESIZE_ALL = typing.cast(MouseCursor, ...)
-MOUSE_CURSOR_RESIZE_NS = typing.cast(MouseCursor, ...)
-MOUSE_CURSOR_RESIZE_EW = typing.cast(MouseCursor, ...)
-MOUSE_CURSOR_RESIZE_NESW = typing.cast(MouseCursor, ...)
-MOUSE_CURSOR_RESIZE_NWSE = typing.cast(MouseCursor, ...)
-MOUSE_CURSOR_HAND = typing.cast(MouseCursor, ...)
-MOUSE_CURSOR_NOT_ALLOWED = typing.cast(MouseCursor, ...)
+MouseCursor = NewType("MouseCursor", int)
+MOUSE_CURSOR_NONE = cast(MouseCursor, ...)
+MOUSE_CURSOR_ARROW = cast(MouseCursor, ...)
+MOUSE_CURSOR_TEXT_INPUT = cast(MouseCursor, ...)
+MOUSE_CURSOR_RESIZE_ALL = cast(MouseCursor, ...)
+MOUSE_CURSOR_RESIZE_NS = cast(MouseCursor, ...)
+MOUSE_CURSOR_RESIZE_EW = cast(MouseCursor, ...)
+MOUSE_CURSOR_RESIZE_NESW = cast(MouseCursor, ...)
+MOUSE_CURSOR_RESIZE_NWSE = cast(MouseCursor, ...)
+MOUSE_CURSOR_HAND = cast(MouseCursor, ...)
+MOUSE_CURSOR_NOT_ALLOWED = cast(MouseCursor, ...)
 
-Color = typing.NewType("Color", int)
-COLOR_TEXT = typing.cast(Color, ...)
-COLOR_TEXT_DISABLED = typing.cast(Color, ...)
-COLOR_WINDOW_BACKGROUND = typing.cast(Color, ...)
-COLOR_CHILD_BACKGROUND = typing.cast(Color, ...)
-COLOR_POPUP_BACKGROUND = typing.cast(Color, ...)
-COLOR_BORDER = typing.cast(Color, ...)
-COLOR_BORDER_SHADOW = typing.cast(Color, ...)
-COLOR_FRAME_BACKGROUND = typing.cast(Color, ...)
-COLOR_FRAME_BACKGROUND_HOVERED = typing.cast(Color, ...)
-COLOR_FRAME_BACKGROUND_ACTIVE = typing.cast(Color, ...)
-COLOR_TITLE_BACKGROUND = typing.cast(Color, ...)
-COLOR_TITLE_BACKGROUND_ACTIVE = typing.cast(Color, ...)
-COLOR_TITLE_BACKGROUND_COLLAPSED = typing.cast(Color, ...)
-COLOR_MENUBAR_BACKGROUND = typing.cast(Color, ...)
-COLOR_SCROLLBAR_BACKGROUND = typing.cast(Color, ...)
-COLOR_SCROLLBAR_GRAB = typing.cast(Color, ...)
-COLOR_SCROLLBAR_GRAB_HOVERED = typing.cast(Color, ...)
-COLOR_SCROLLBAR_GRAB_ACTIVE = typing.cast(Color, ...)
-COLOR_CHECK_MARK = typing.cast(Color, ...)
-COLOR_SLIDER_GRAB = typing.cast(Color, ...)
-COLOR_SLIDER_GRAB_ACTIVE = typing.cast(Color, ...)
-COLOR_BUTTON = typing.cast(Color, ...)
-COLOR_BUTTON_HOVERED = typing.cast(Color, ...)
-COLOR_BUTTON_ACTIVE = typing.cast(Color, ...)
-COLOR_HEADER = typing.cast(Color, ...)
-COLOR_HEADER_HOVERED = typing.cast(Color, ...)
-COLOR_HEADER_ACTIVE = typing.cast(Color, ...)
-COLOR_SEPARATOR = typing.cast(Color, ...)
-COLOR_SEPARATOR_HOVERED = typing.cast(Color, ...)
-COLOR_SEPARATOR_ACTIVE = typing.cast(Color, ...)
-COLOR_RESIZE_GRIP = typing.cast(Color, ...)
-COLOR_RESIZE_GRIP_HOVERED = typing.cast(Color, ...)
-COLOR_RESIZE_GRIP_ACTIVE = typing.cast(Color, ...)
-COLOR_TAB = typing.cast(Color, ...)
-COLOR_TAB_HOVERED = typing.cast(Color, ...)
-COLOR_TAB_ACTIVE = typing.cast(Color, ...)
-COLOR_TAB_UNFOCUSED = typing.cast(Color, ...)
-COLOR_TAB_UNFOCUSED_ACTIVE = typing.cast(Color, ...)
-COLOR_PLOT_LINES = typing.cast(Color, ...)
-COLOR_PLOT_LINES_HOVERED = typing.cast(Color, ...)
-COLOR_PLOT_HISTOGRAM = typing.cast(Color, ...)
-COLOR_PLOT_HISTOGRAM_HOVERED = typing.cast(Color, ...)
-COLOR_TABLE_HEADER_BACKGROUND = typing.cast(Color, ...)
-COLOR_TABLE_BORDER_STRONG = typing.cast(Color, ...)
-COLOR_TABLE_BORDER_LIGHT = typing.cast(Color, ...)
-COLOR_TABLE_ROW_BACKGROUND = typing.cast(Color, ...)
-COLOR_TABLE_ROW_BACKGROUND_ALT = typing.cast(Color, ...)
-COLOR_TEXT_SELECTED_BACKGROUND = typing.cast(Color, ...)
-COLOR_DRAG_DROP_TARGET = typing.cast(Color, ...)
-COLOR_NAV_HIGHLIGHT = typing.cast(Color, ...)
-COLOR_NAV_WINDOWING_HIGHLIGHT = typing.cast(Color, ...)
-COLOR_NAV_WINDOWING_DIM_BACKGROUND = typing.cast(Color, ...)
-COLOR_MODAL_WINDOW_DIM_BACKGROUND = typing.cast(Color, ...)
-COLOR_COUNT = typing.cast(Color, ...)
+Color = NewType("Color", int)
+COLOR_TEXT = cast(Color, ...)
+COLOR_TEXT_DISABLED = cast(Color, ...)
+COLOR_WINDOW_BACKGROUND = cast(Color, ...)
+COLOR_CHILD_BACKGROUND = cast(Color, ...)
+COLOR_POPUP_BACKGROUND = cast(Color, ...)
+COLOR_BORDER = cast(Color, ...)
+COLOR_BORDER_SHADOW = cast(Color, ...)
+COLOR_FRAME_BACKGROUND = cast(Color, ...)
+COLOR_FRAME_BACKGROUND_HOVERED = cast(Color, ...)
+COLOR_FRAME_BACKGROUND_ACTIVE = cast(Color, ...)
+COLOR_TITLE_BACKGROUND = cast(Color, ...)
+COLOR_TITLE_BACKGROUND_ACTIVE = cast(Color, ...)
+COLOR_TITLE_BACKGROUND_COLLAPSED = cast(Color, ...)
+COLOR_MENUBAR_BACKGROUND = cast(Color, ...)
+COLOR_SCROLLBAR_BACKGROUND = cast(Color, ...)
+COLOR_SCROLLBAR_GRAB = cast(Color, ...)
+COLOR_SCROLLBAR_GRAB_HOVERED = cast(Color, ...)
+COLOR_SCROLLBAR_GRAB_ACTIVE = cast(Color, ...)
+COLOR_CHECK_MARK = cast(Color, ...)
+COLOR_SLIDER_GRAB = cast(Color, ...)
+COLOR_SLIDER_GRAB_ACTIVE = cast(Color, ...)
+COLOR_BUTTON = cast(Color, ...)
+COLOR_BUTTON_HOVERED = cast(Color, ...)
+COLOR_BUTTON_ACTIVE = cast(Color, ...)
+COLOR_HEADER = cast(Color, ...)
+COLOR_HEADER_HOVERED = cast(Color, ...)
+COLOR_HEADER_ACTIVE = cast(Color, ...)
+COLOR_SEPARATOR = cast(Color, ...)
+COLOR_SEPARATOR_HOVERED = cast(Color, ...)
+COLOR_SEPARATOR_ACTIVE = cast(Color, ...)
+COLOR_RESIZE_GRIP = cast(Color, ...)
+COLOR_RESIZE_GRIP_HOVERED = cast(Color, ...)
+COLOR_RESIZE_GRIP_ACTIVE = cast(Color, ...)
+COLOR_TAB = cast(Color, ...)
+COLOR_TAB_HOVERED = cast(Color, ...)
+COLOR_TAB_ACTIVE = cast(Color, ...)
+COLOR_TAB_UNFOCUSED = cast(Color, ...)
+COLOR_TAB_UNFOCUSED_ACTIVE = cast(Color, ...)
+COLOR_PLOT_LINES = cast(Color, ...)
+COLOR_PLOT_LINES_HOVERED = cast(Color, ...)
+COLOR_PLOT_HISTOGRAM = cast(Color, ...)
+COLOR_PLOT_HISTOGRAM_HOVERED = cast(Color, ...)
+COLOR_TABLE_HEADER_BACKGROUND = cast(Color, ...)
+COLOR_TABLE_BORDER_STRONG = cast(Color, ...)
+COLOR_TABLE_BORDER_LIGHT = cast(Color, ...)
+COLOR_TABLE_ROW_BACKGROUND = cast(Color, ...)
+COLOR_TABLE_ROW_BACKGROUND_ALT = cast(Color, ...)
+COLOR_TEXT_SELECTED_BACKGROUND = cast(Color, ...)
+COLOR_DRAG_DROP_TARGET = cast(Color, ...)
+COLOR_NAV_HIGHLIGHT = cast(Color, ...)
+COLOR_NAV_WINDOWING_HIGHLIGHT = cast(Color, ...)
+COLOR_NAV_WINDOWING_DIM_BACKGROUND = cast(Color, ...)
+COLOR_MODAL_WINDOW_DIM_BACKGROUND = cast(Color, ...)
+COLOR_COUNT = cast(Color, ...)
 
-DataType = typing.NewType("DataType", int)
-DATA_TYPE_S8 = typing.cast(DataType, ...)
-DATA_TYPE_U8 = typing.cast(DataType, ...)
-DATA_TYPE_S16 = typing.cast(DataType, ...)
-DATA_TYPE_U16 = typing.cast(DataType, ...)
-DATA_TYPE_S32 = typing.cast(DataType, ...)
-DATA_TYPE_U32 = typing.cast(DataType, ...)
-DATA_TYPE_S64 = typing.cast(DataType, ...)
-DATA_TYPE_U64 = typing.cast(DataType, ...)
-DATA_TYPE_FLOAT = typing.cast(DataType, ...)
-DATA_TYPE_DOUBLE = typing.cast(DataType, ...)
+DataType = NewType("DataType", int)
+DATA_TYPE_S8 = cast(DataType, ...)
+DATA_TYPE_U8 = cast(DataType, ...)
+DATA_TYPE_S16 = cast(DataType, ...)
+DATA_TYPE_U16 = cast(DataType, ...)
+DATA_TYPE_S32 = cast(DataType, ...)
+DATA_TYPE_U32 = cast(DataType, ...)
+DATA_TYPE_S64 = cast(DataType, ...)
+DATA_TYPE_U64 = cast(DataType, ...)
+DATA_TYPE_FLOAT = cast(DataType, ...)
+DATA_TYPE_DOUBLE = cast(DataType, ...)
 
-TextInputFlags = typing.NewType("TextInputFlags", enum.IntFlag)
-INPUT_TEXT_NONE = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_CHARS_DECIMAL = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_CHARS_HEXADECIMAL = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_CHARS_UPPERCASE = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_CHARS_NO_BLANK = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_AUTO_SELECT_ALL = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_ENTER_RETURNS_TRUE = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_CALLBACK_COMPLETION = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_CALLBACK_HISTORY = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_CALLBACK_ALWAYS = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_CALLBACK_CHAR_FILTER = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_ALLOW_TAB_INPUT = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_CTRL_ENTER_FOR_NEW_LINE = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_NO_HORIZONTAL_SCROLL = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_ALWAYS_OVERWRITE = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_ALWAYS_INSERT_MODE = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_READ_ONLY = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_PASSWORD = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_NO_UNDO_REDO = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_CHARS_SCIENTIFIC = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_CALLBACK_RESIZE = typing.cast(TextInputFlags, ...)
-INPUT_TEXT_CALLBACK_EDIT = typing.cast(TextInputFlags, ...)
+TextInputFlags = NewType("TextInputFlags", IntFlag)
+INPUT_TEXT_NONE = cast(TextInputFlags, ...)
+INPUT_TEXT_CHARS_DECIMAL = cast(TextInputFlags, ...)
+INPUT_TEXT_CHARS_HEXADECIMAL = cast(TextInputFlags, ...)
+INPUT_TEXT_CHARS_UPPERCASE = cast(TextInputFlags, ...)
+INPUT_TEXT_CHARS_NO_BLANK = cast(TextInputFlags, ...)
+INPUT_TEXT_AUTO_SELECT_ALL = cast(TextInputFlags, ...)
+INPUT_TEXT_ENTER_RETURNS_TRUE = cast(TextInputFlags, ...)
+INPUT_TEXT_CALLBACK_COMPLETION = cast(TextInputFlags, ...)
+INPUT_TEXT_CALLBACK_HISTORY = cast(TextInputFlags, ...)
+INPUT_TEXT_CALLBACK_ALWAYS = cast(TextInputFlags, ...)
+INPUT_TEXT_CALLBACK_CHAR_FILTER = cast(TextInputFlags, ...)
+INPUT_TEXT_ALLOW_TAB_INPUT = cast(TextInputFlags, ...)
+INPUT_TEXT_CTRL_ENTER_FOR_NEW_LINE = cast(TextInputFlags, ...)
+INPUT_TEXT_NO_HORIZONTAL_SCROLL = cast(TextInputFlags, ...)
+INPUT_TEXT_ALWAYS_OVERWRITE = cast(TextInputFlags, ...)
+INPUT_TEXT_ALWAYS_INSERT_MODE = cast(TextInputFlags, ...)
+INPUT_TEXT_READ_ONLY = cast(TextInputFlags, ...)
+INPUT_TEXT_PASSWORD = cast(TextInputFlags, ...)
+INPUT_TEXT_NO_UNDO_REDO = cast(TextInputFlags, ...)
+INPUT_TEXT_CHARS_SCIENTIFIC = cast(TextInputFlags, ...)
+INPUT_TEXT_CALLBACK_RESIZE = cast(TextInputFlags, ...)
+INPUT_TEXT_CALLBACK_EDIT = cast(TextInputFlags, ...)
 
-DrawCornerFlags = typing.NewType("DrawCornerFlags", enum.IntFlag)
-DRAW_CORNER_NONE = typing.cast(DrawCornerFlags, ...)
-DRAW_CORNER_TOP_LEFT = typing.cast(DrawCornerFlags, ...)
-DRAW_CORNER_TOP_RIGHT = typing.cast(DrawCornerFlags, ...)
-DRAW_CORNER_BOTTOM_LEFT = typing.cast(DrawCornerFlags, ...)
-DRAW_CORNER_BOTTOM_RIGHT = typing.cast(DrawCornerFlags, ...)
-DRAW_CORNER_TOP = typing.cast(DrawCornerFlags, ...)
-DRAW_CORNER_BOTTOM = typing.cast(DrawCornerFlags, ...)
-DRAW_CORNER_LEFT = typing.cast(DrawCornerFlags, ...)
-DRAW_CORNER_RIGHT = typing.cast(DrawCornerFlags, ...)
-DRAW_CORNER_ALL = typing.cast(DrawCornerFlags, ...)
+DrawCornerFlags = NewType("DrawCornerFlags", IntFlag)
+DRAW_CORNER_NONE = cast(DrawCornerFlags, ...)
+DRAW_CORNER_TOP_LEFT = cast(DrawCornerFlags, ...)
+DRAW_CORNER_TOP_RIGHT = cast(DrawCornerFlags, ...)
+DRAW_CORNER_BOTTOM_LEFT = cast(DrawCornerFlags, ...)
+DRAW_CORNER_BOTTOM_RIGHT = cast(DrawCornerFlags, ...)
+DRAW_CORNER_TOP = cast(DrawCornerFlags, ...)
+DRAW_CORNER_BOTTOM = cast(DrawCornerFlags, ...)
+DRAW_CORNER_LEFT = cast(DrawCornerFlags, ...)
+DRAW_CORNER_RIGHT = cast(DrawCornerFlags, ...)
+DRAW_CORNER_ALL = cast(DrawCornerFlags, ...)
 
-DrawFlags = typing.NewType("DrawFlags", enum.IntFlag)
-DRAW_NONE = typing.cast(DrawFlags, ...)
-DRAW_CLOSED = typing.cast(DrawFlags, ...)
-DRAW_ROUND_CORNERS_TOP_LEFT = typing.cast(DrawFlags, ...)
-DRAW_ROUND_CORNERS_TOP_RIGHT = typing.cast(DrawFlags, ...)
-DRAW_ROUND_CORNERS_BOTTOM_LEFT = typing.cast(DrawFlags, ...)
-DRAW_ROUND_CORNERS_BOTTOM_RIGHT = typing.cast(DrawFlags, ...)
-DRAW_ROUND_CORNERS_NONE = typing.cast(DrawFlags, ...)
-DRAW_ROUND_CORNERS_TOP = typing.cast(DrawFlags, ...)
-DRAW_ROUND_CORNERS_BOTTOM = typing.cast(DrawFlags, ...)
-DRAW_ROUND_CORNERS_LEFT = typing.cast(DrawFlags, ...)
-DRAW_ROUND_CORNERS_RIGHT = typing.cast(DrawFlags, ...)
-DRAW_ROUND_CORNERS_ALL = typing.cast(DrawFlags, ...)
+DrawFlags = NewType("DrawFlags", IntFlag)
+DRAW_NONE = cast(DrawFlags, ...)
+DRAW_CLOSED = cast(DrawFlags, ...)
+DRAW_ROUND_CORNERS_TOP_LEFT = cast(DrawFlags, ...)
+DRAW_ROUND_CORNERS_TOP_RIGHT = cast(DrawFlags, ...)
+DRAW_ROUND_CORNERS_BOTTOM_LEFT = cast(DrawFlags, ...)
+DRAW_ROUND_CORNERS_BOTTOM_RIGHT = cast(DrawFlags, ...)
+DRAW_ROUND_CORNERS_NONE = cast(DrawFlags, ...)
+DRAW_ROUND_CORNERS_TOP = cast(DrawFlags, ...)
+DRAW_ROUND_CORNERS_BOTTOM = cast(DrawFlags, ...)
+DRAW_ROUND_CORNERS_LEFT = cast(DrawFlags, ...)
+DRAW_ROUND_CORNERS_RIGHT = cast(DrawFlags, ...)
+DRAW_ROUND_CORNERS_ALL = cast(DrawFlags, ...)
 
-DrawListFlags = typing.NewType("DrawListFlags", enum.IntFlag)
-DRAW_LIST_NONE = typing.cast(DrawListFlags, ...)
-DRAW_LIST_ANTI_ALIASED_LINES = typing.cast(DrawListFlags, ...)
-DRAW_LIST_ANTI_ALIASED_LINES_USE_TEX = typing.cast(DrawListFlags, ...)
-DRAW_LIST_ANTI_ALIASED_FILL = typing.cast(DrawListFlags, ...)
-DRAW_LIST_ALLOW_VTX_OFFSET = typing.cast(DrawListFlags, ...)
+DrawListFlags = NewType("DrawListFlags", IntFlag)
+DRAW_LIST_NONE = cast(DrawListFlags, ...)
+DRAW_LIST_ANTI_ALIASED_LINES = cast(DrawListFlags, ...)
+DRAW_LIST_ANTI_ALIASED_LINES_USE_TEX = cast(DrawListFlags, ...)
+DRAW_LIST_ANTI_ALIASED_FILL = cast(DrawListFlags, ...)
+DRAW_LIST_ALLOW_VTX_OFFSET = cast(DrawListFlags, ...)
 
-FontAtlasFlags = typing.NewType("FontAtlasFlags", enum.IntFlag)
-FONT_ATLAS_NONE = typing.cast(FontAtlasFlags, ...)
-FONT_ATLAS_NO_POWER_OF_TWO_HEIGHT = typing.cast(FontAtlasFlags, ...)
-FONT_ATLAS_NO_MOUSE_CURSOR = typing.cast(FontAtlasFlags, ...)
-FONT_ATLAS_NO_BAKED_LINES = typing.cast(FontAtlasFlags, ...)
+FontAtlasFlags = NewType("FontAtlasFlags", IntFlag)
+FONT_ATLAS_NONE = cast(FontAtlasFlags, ...)
+FONT_ATLAS_NO_POWER_OF_TWO_HEIGHT = cast(FontAtlasFlags, ...)
+FONT_ATLAS_NO_MOUSE_CURSOR = cast(FontAtlasFlags, ...)
+FONT_ATLAS_NO_BAKED_LINES = cast(FontAtlasFlags, ...)
 
-ConfigFlags = typing.NewType("ConfigFlags", enum.IntFlag)
-CONFIG_NONE = typing.cast(ConfigFlags, ...)
-CONFIG_NAV_ENABLE_KEYBOARD = typing.cast(ConfigFlags, ...)
-CONFIG_NAV_ENABLE_GAMEPAD = typing.cast(ConfigFlags, ...)
-CONFIG_NAV_ENABLE_SET_MOUSE_POS = typing.cast(ConfigFlags, ...)
-CONFIG_NAV_NO_CAPTURE_KEYBOARD = typing.cast(ConfigFlags, ...)
-CONFIG_NO_MOUSE = typing.cast(ConfigFlags, ...)
-CONFIG_NO_MOUSE_CURSOR_CHANGE = typing.cast(ConfigFlags, ...)
-CONFIG_IS_RGB = typing.cast(ConfigFlags, ...)
-CONFIG_IS_TOUCH_SCREEN = typing.cast(ConfigFlags, ...)
+ConfigFlags = NewType("ConfigFlags", IntFlag)
+CONFIG_NONE = cast(ConfigFlags, ...)
+CONFIG_NAV_ENABLE_KEYBOARD = cast(ConfigFlags, ...)
+CONFIG_NAV_ENABLE_GAMEPAD = cast(ConfigFlags, ...)
+CONFIG_NAV_ENABLE_SET_MOUSE_POS = cast(ConfigFlags, ...)
+CONFIG_NAV_NO_CAPTURE_KEYBOARD = cast(ConfigFlags, ...)
+CONFIG_NO_MOUSE = cast(ConfigFlags, ...)
+CONFIG_NO_MOUSE_CURSOR_CHANGE = cast(ConfigFlags, ...)
+CONFIG_IS_RGB = cast(ConfigFlags, ...)
+CONFIG_IS_TOUCH_SCREEN = cast(ConfigFlags, ...)
 
-BackendFlags = typing.NewType("BackendFlags", enum.IntFlag)
-BACKEND_NONE = typing.cast(BackendFlags, ...)
-BACKEND_HAS_GAMEPAD = typing.cast(BackendFlags, ...)
-BACKEND_HAS_MOUSE_CURSORS = typing.cast(BackendFlags, ...)
-BACKEND_HAS_SET_MOUSE_POS = typing.cast(BackendFlags, ...)
-BACKEND_RENDERER_HAS_VTX_OFFSET = typing.cast(BackendFlags, ...)
+BackendFlags = NewType("BackendFlags", IntFlag)
+BACKEND_NONE = cast(BackendFlags, ...)
+BACKEND_HAS_GAMEPAD = cast(BackendFlags, ...)
+BACKEND_HAS_MOUSE_CURSORS = cast(BackendFlags, ...)
+BACKEND_HAS_SET_MOUSE_POS = cast(BackendFlags, ...)
+BACKEND_RENDERER_HAS_VTX_OFFSET = cast(BackendFlags, ...)
 
-SliderFlags = typing.NewType("SliderFlags", enum.IntFlag)
-SLIDER_FLAGS_NONE = typing.cast(SliderFlags, ...)
-SLIDER_FLAGS_ALWAYS_CLAMP = typing.cast(SliderFlags, ...)
-SLIDER_FLAGS_LOGARITHMIC = typing.cast(SliderFlags, ...)
-SLIDER_FLAGS_NO_ROUND_TO_FORMAT = typing.cast(SliderFlags, ...)
-SLIDER_FLAGS_NO_INPUT = typing.cast(SliderFlags, ...)
+SliderFlags = NewType("SliderFlags", IntFlag)
+SLIDER_FLAGS_NONE = cast(SliderFlags, ...)
+SLIDER_FLAGS_ALWAYS_CLAMP = cast(SliderFlags, ...)
+SLIDER_FLAGS_LOGARITHMIC = cast(SliderFlags, ...)
+SLIDER_FLAGS_NO_ROUND_TO_FORMAT = cast(SliderFlags, ...)
+SLIDER_FLAGS_NO_INPUT = cast(SliderFlags, ...)
 
-MouseButton = typing.NewType("MouseButton", int)
-MOUSE_BUTTON_LEFT = typing.cast(MouseButton, ...)
-MOUSE_BUTTON_RIGHT = typing.cast(MouseButton, ...)
-MOUSE_BUTTON_MIDDLE = typing.cast(MouseButton, ...)
+MouseButton = NewType("MouseButton", int)
+MOUSE_BUTTON_LEFT = cast(MouseButton, ...)
+MOUSE_BUTTON_RIGHT = cast(MouseButton, ...)
+MOUSE_BUTTON_MIDDLE = cast(MouseButton, ...)
 
-ViewportFlags = typing.NewType("ViewportFlags", enum.IntFlag)
-VIEWPORT_FLAGS_NONE = typing.cast(ViewportFlags, ...)
-VIEWPORT_FLAGS_IS_PLATFORM_WINDOW = typing.cast(ViewportFlags, ...)
-VIEWPORT_FLAGS_IS_PLATFORM_MONITOR = typing.cast(ViewportFlags, ...)
-VIEWPORT_FLAGS_OWNED_BY_APP = typing.cast(ViewportFlags, ...)
+ViewportFlags = NewType("ViewportFlags", IntFlag)
+VIEWPORT_FLAGS_NONE = cast(ViewportFlags, ...)
+VIEWPORT_FLAGS_IS_PLATFORM_WINDOW = cast(ViewportFlags, ...)
+VIEWPORT_FLAGS_IS_PLATFORM_MONITOR = cast(ViewportFlags, ...)
+VIEWPORT_FLAGS_OWNED_BY_APP = cast(ViewportFlags, ...)
 
-class Vec2(typing.NamedTuple):
+class Vec2(NamedTuple):
     x: float
     y: float
 
-class Vec4(typing.NamedTuple):
+class Vec4(NamedTuple):
     x: float
     y: float
     z: float
@@ -1778,10 +1778,10 @@ class GuiStyle:
     def __eq__(self, other: object) -> bool: ...
 
 class _ImGuiTableColumnSortSpecs:
-    column_user_id: typing.Any  # TODO _ImGuiTableColumnSortSpecs.column_user_id
+    column_user_id: int
     column_index: int
     sort_order: int
-    sord_direction: int
+    sort_direction: SortDirection
 
     def __init__(self) -> None: ...
     def _require_pointer(self) -> None: ...
@@ -1789,7 +1789,7 @@ class _ImGuiTableColumnSortSpecs:
 class _ImGuiTableColumnSortSpecs_array:
     def __init__(self) -> None: ...
     def __getitem__(self, idx: int) -> _ImGuiTableColumnSortSpecs: ...
-    def __iter__(self) -> typing.Self: ...
+    def __iter__(self) -> Self: ...
     def __next__(self) -> _ImGuiTableColumnSortSpecs: ...
     def _require_pointer(self) -> None: ...
 
@@ -1844,7 +1844,7 @@ class _DrawData:
 class _StaticGlyphRanges: ...
 
 class GlyphRanges:
-    def __init__(self, glyph_ranges: typing.Iterable[int]) -> None: ...
+    def __init__(self, glyph_ranges: Iterable[int]) -> None: ...
 
 class FontConfig:
     def __init__(
@@ -1863,8 +1863,8 @@ class FontConfig:
         merge_mode: bool | None = None,
         font_builder_flags: int | None = None,
         rasterizer_multiply: float | None = None,
-        ellipsis_char: typing.Any | None = None,
-    ) -> None: ...  # TODO FontConfig.__init__:ellipsis_char
+        ellipsis_char: str | None = None,
+    ) -> None: ...
 
 class _Font: ...
 
@@ -1924,8 +1924,8 @@ class _IO:
     config_windows_resize_from_edges: bool
     config_windows_move_from_title_bar_only: bool
     config_memory_compact_timer: float
-    get_clipboard_text_fn: typing.Callable[[], str | None] | None
-    set_clipboard_text_fn: typing.Callable[[str], typing.Any] | None
+    get_clipboard_text_fn: Callable[[], str | None] | None
+    set_clipboard_text_fn: Callable[[str], None] | None
     mouse_pos: Vec2
     mouse_wheel: float
     mouse_wheel_horizontal: float
@@ -1937,15 +1937,15 @@ class _IO:
 
     def __init__(self) -> None: ...
     @property
-    def key_map(self) -> typing.Mapping[int, int]: ...  # TODO Real type would be `cython.view.array`
+    def key_map(self) -> Mapping[int, int]: ...  # TODO Real type would be `cython.view.array`
     @property
     def fonts(self) -> _FontAtlas: ...
     @property
-    def mouse_down(self) -> typing.Mapping[int, int]: ...  # TODO Real type would be `cython.view.array`
+    def mouse_down(self) -> Mapping[int, int]: ...  # TODO Real type would be `cython.view.array`
     @property
-    def keys_down(self) -> typing.Mapping[int, int]: ...  # TODO Real type would be `cython.view.array`
+    def keys_down(self) -> Mapping[int, int]: ...  # TODO Real type would be `cython.view.array`
     @property
-    def nav_inputs(self) -> typing.Mapping[int, float]: ...  # TODO Real type would be `cython.view.array`
+    def nav_inputs(self) -> Mapping[int, float]: ...  # TODO Real type would be `cython.view.array`
     @property
     def want_capture_mouse(self) -> bool: ...
     @property
@@ -2000,7 +2000,7 @@ class _ImGuiInputTextCallbackData:
     @property
     def flags(self) -> int: ...
     @property
-    def user_data(self) -> typing.Any: ...
+    def user_data(self) -> Any: ... # User-provided callback data
     @property
     def event_key(self) -> int: ...
     @property
@@ -2014,7 +2014,7 @@ class _ImGuiSizeCallbackData:
 
     def __init__(self): ...
     @property
-    def user_data(self) -> typing.Any: ...
+    def user_data(self) -> Any: ... # User-provided callback data
     @property
     def pos(self) -> Vec2: ...
     @property
@@ -2025,18 +2025,20 @@ class _callback_user_info:
     def __init__(self) -> None: ...
 
     def populate(
-        self, callback_fn: typing.Callable[[_ImGuiInputTextCallbackData | _ImGuiSizeCallbackData], typing.Any], user_data: typing.Any
+        self,
+        callback_fn: Callable[[_ImGuiInputTextCallbackData | _ImGuiSizeCallbackData], int | None],
+        user_data: Any, # User-provided callback data
     ) -> None: ...
 
 class _BeginEndGroup:
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndDragDropSource:
     @property
     def dragging(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __bool__(self) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
@@ -2044,7 +2046,7 @@ class _BeginEndDragDropSource:
 class _BeginEndDragDropTarget:
     @property
     def hovered(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __bool__(self) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
@@ -2054,16 +2056,16 @@ class _BeginEndTabItem:
     def opened(self) -> bool: ...
     @property
     def selected(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __getitem__(self, item: int) -> bool: ...
-    def __iter__(self) -> typing.Iterator[bool]: ...
+    def __iter__(self) -> Iterator[bool]: ...
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndTabBar:
     @property
     def opened(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __getitem__(self, item: int) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
@@ -2073,7 +2075,7 @@ class _BeginEnd:
     def expanded(self) -> bool: ...
     @property
     def opened(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __getitem__(self, item: int) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
@@ -2081,7 +2083,7 @@ class _BeginEnd:
 class _BeginEndChild:
     @property
     def visible(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __bool__(self) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
@@ -2089,19 +2091,19 @@ class _BeginEndChild:
 class _BeginEndListBox:
     @property
     def opened(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __bool__(self) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndTooltip:
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
 
 class _BeginEndMainMenuBar:
     @property
     def opened(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __bool__(self) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
@@ -2109,7 +2111,7 @@ class _BeginEndMainMenuBar:
 class _BeginEndMenuBar:
     @property
     def opened(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __bool__(self) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
@@ -2117,7 +2119,7 @@ class _BeginEndMenuBar:
 class _BeginEndMenu:
     @property
     def opened(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __bool__(self) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
@@ -2125,7 +2127,7 @@ class _BeginEndMenu:
 class _BeginEndPopup:
     @property
     def opened(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __bool__(self) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
@@ -2135,16 +2137,16 @@ class _BeginEndPopupModal:
     def opened(self) -> bool: ...
     @property
     def visible(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __getitem__(self, item: int) -> bool: ...
-    def __iter__(self) -> typing.Iterator[bool]: ...
+    def __iter__(self) -> Iterator[bool]: ...
     def __eq__(self, other: object) -> bool: ...
 
 class _BeginEndTable:
     @property
     def opened(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __bool__(self) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
@@ -2152,7 +2154,7 @@ class _BeginEndTable:
 class _BeginEndCombo:
     @property
     def opened(self) -> bool: ...
-    def __enter__(self) -> typing.Self: ...
+    def __enter__(self) -> Self: ...
     def __exit__(self, exc_type, exc_val, exc_tb) -> None: ...
     def __bool__(self) -> bool: ...
     def __eq__(self, other: object) -> bool: ...
@@ -2956,8 +2958,8 @@ def set_next_window_size(width: float, height: float, condition: Condition = ALW
 def set_next_window_size_constraints(
     size_min: tuple[float, float],
     size_max: tuple[float, float],
-    callback: typing.Callable[[_ImGuiSizeCallbackData], None] | None = None,
-    user_data: typing.Any = None,
+    callback: Callable[[_ImGuiSizeCallbackData], None] | None = None,
+    user_data: Any = None, # User-provided callback data
 ) -> None:
     """
     Set next window size limits. use -1,-1 on either X/Y axis to preserve the current size.
@@ -3323,7 +3325,7 @@ def selectable(
         )
     """
 
-def listbox(label: str, current: int, items: typing.Iterable[str], height_in_items: int = -1) -> tuple[bool, int]:
+def listbox(label: str, current: int, items: Iterable[str], height_in_items: int = -1) -> tuple[bool, int]:
     """
     Show listbox widget.
 
@@ -5611,8 +5613,8 @@ def input_text(
     value: str,
     buffer_length: int = -1,
     flags: TextInputFlags = INPUT_TEXT_NONE,
-    callback: typing.Callable[[_ImGuiInputTextCallbackData], int | None] | None = None,
-    user_data: typing.Any = None,
+    callback: Callable[[_ImGuiInputTextCallbackData], int | None] | None = None,
+    user_data: Any = None, # User-provided callback data
 ) -> tuple[bool, str]:
     """
     Display text input widget.
@@ -5667,8 +5669,8 @@ def input_text_multiline(
     width: float = 0.0,
     height: float = 0.0,
     flags: TextInputFlags = INPUT_TEXT_NONE,
-    callback: typing.Callable[[_ImGuiInputTextCallbackData], int | None] | None = None,
-    user_data: typing.Any = None,
+    callback: Callable[[_ImGuiInputTextCallbackData], int | None] | None = None,
+    user_data: Any = None, # User-provided callback data
 ) -> tuple[bool, str]:
     """
     Display multiline text input widget.
@@ -5729,8 +5731,8 @@ def input_text_with_hint(
     value: str,
     buffer_length: int = -1,
     flags: TextInputFlags = INPUT_TEXT_NONE,
-    callback: typing.Callable[[_ImGuiInputTextCallbackData], int | None] | None = None,
-    user_data: typing.Any = None,
+    callback: Callable[[_ImGuiInputTextCallbackData], int | None] | None = None,
+    user_data: Any = None, # User-provided callback data
 ) -> tuple[bool, str]:
     """
     Display a text box, if the text is empty a hint on how to fill the box is given.
@@ -6969,10 +6971,10 @@ def plot_lines(
     values_count: int = -1,
     values_offset: int = 0,
     overlay_text: str | None = None,
-    scale_min: float = sys.float_info.max,
-    scale_max: float = sys.float_info.min,
+    scale_min: float = ...,
+    scale_max: float = ...,
     graph_size: tuple[float, float] = (0.0, 0.0),
-    stride: int = ctypes.sizeof(ctypes.c_float),
+    stride: int = ...,
 ) -> None:
     """
     Plot a 1D array of float values.
@@ -7039,9 +7041,9 @@ def plot_histogram(
     values_count: int = -1,
     values_offset: int = 0,
     overlay_text: str | None = None,
-    scale_min: float = sys.float_info.max,
-    scale_max: float = sys.float_info.min,
-    stride: int = ctypes.sizeof(ctypes.c_float),
+    scale_min: float = ...,
+    scale_max: float = ...,
+    stride: int = ...,
 ) -> None:
     """
     Plot a histogram of float values.
@@ -7103,7 +7105,10 @@ def plot_histogram(
             )
     """
 
-def progress_bar(fraction: float, size: tuple[float, float] = (-sys.float_info.min, 0.0), overlay: str = "") -> None:
+def progress_bar(
+    fraction: float,
+    size: tuple[float, float] = ...,
+    overlay: str = "") -> None:
     """
     Show a progress bar.
 
@@ -8863,7 +8868,7 @@ def begin_drag_drop_target() -> _BeginEndDragDropTarget:
     """
 
 # TODO Fix DragDropAcceptFlags not having default value for NONE
-def accept_drag_drop_payload(type: str, flags: DragDropAcceptFlags = typing.cast(DragDropAcceptFlags, 0)) -> bytes | None:
+def accept_drag_drop_payload(type: str, flags: DragDropAcceptFlags = cast(DragDropAcceptFlags, 0)) -> bytes | None:
     """
     Get the drag and drop payload. Only call after :func:`begin_drag_drop_target`
     returns True.
@@ -9262,7 +9267,7 @@ def _ansifeed_text_ansi_colored(text: str, r: float, g: float, b: float, a: floa
         TextColored(const ImVec4& col, const char* fmt, ...)
     """
 
-@contextlib.contextmanager
+@contextmanager
 def _py_font(font: _Font):
     """
     Use specified font in given context.
@@ -9291,13 +9296,13 @@ def _py_font(font: _Font):
         font (_Font): font object retrieved from :any:`add_font_from_file_ttf`.
     """
 
-@contextlib.contextmanager
+@contextmanager
 def _py_styled(variable: StyleVar, value: float | tuple[float, float]): ...
-@contextlib.contextmanager
+@contextmanager
 def _py_colored(variable: int, r: float, g: float, b: float, a: float = 1.0): ...
-@contextlib.contextmanager
+@contextmanager
 def _py_istyled(*variables_and_values: tuple[StyleVar, float | tuple[float, float]]): ...
-@contextlib.contextmanager
+@contextmanager
 def _py_scoped(str_id: str):
     """
     Use scoped ID within a block of code.
