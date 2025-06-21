@@ -520,8 +520,7 @@ Vec2 = _t.NamedTuple('Vec2', [('x', float), ('y', float)])
 Vec4 = _t.NamedTuple('Vec4', [('x', float), ('y', float), ('z', float), ('w', float)])
 
 class _ImGuiContext:
-    # TODO Detailed type for `_ImGuiContext._keepalive_cache`
-    _keepalive_cache: list
+    _keepalive_cache: list[int]
 
     def __eq__(self, other: object) -> bool: ...
 
@@ -1089,8 +1088,8 @@ class _IO:
     config_windows_resize_from_edges: bool
     config_windows_move_from_title_bar_only: bool
     config_memory_compact_timer: float
-    get_clipboard_text_fn: _t.Callable # TODO Concrete type for `_IO.get_clipboard_text_fn`
-    set_clipboard_text_fn: _t.Callable # TODO Concrete type for `_IO.set_clipboard_text_fn`
+    get_clipboard_text_fn: _t.Callable[[], str | None] | None
+    set_clipboard_text_fn: _t.Callable[[str], _t.Any] | None
     mouse_pos: Vec2
     mouse_wheel: float
     mouse_wheel_horizontal: float
@@ -1167,12 +1166,6 @@ class _IO:
 
     def clear_input_characters(self) -> None: ...
 
-class _callback_user_info:
-    def __init__(self) -> None: ...
-
-    # TODO Concrete type in `_callback_user_info.populate:callback_fn`
-    def populate(self, callback_fn: _t.Callable, user_data: _t.Any) -> None: ...
-
 class _InputTextSharedBuffer:
     pass
 
@@ -1231,6 +1224,11 @@ class _ImGuiSizeCallbackData:
     def current_size(self) -> Vec2: ...
 
     def _require_pointer(self) -> None: ...
+
+class _callback_user_info:
+    def __init__(self) -> None: ...
+
+    def populate(self, callback_fn: _t.Callable[[_ImGuiInputTextCallbackData | _ImGuiSizeCallbackData], _t.Any], user_data: _t.Any) -> None: ...
 
 class _BeginEndGroup:
     def __enter__(self) -> _t.Self: ...
