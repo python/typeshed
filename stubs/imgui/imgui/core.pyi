@@ -9039,7 +9039,7 @@ def get_cursor_pos() -> Vec2:
 
 def get_cursor_pos_x() -> float: ...
 def get_cursor_pos_y() -> float: ...
-def set_cursor_pos(local_pos: tuple[float, float]):
+def set_cursor_pos(local_pos: tuple[float, float]) -> None:
     """
     Set the cursor position in local coordinates [0..<window size>] (useful to work with ImDrawList API)
 
@@ -9081,7 +9081,7 @@ def get_cursor_position() -> Vec2:
         ImVec2 GetCursorPos()
     """
 
-def set_cursor_position(local_pos: tuple[float, float]):
+def set_cursor_position(local_pos: tuple[float, float]) -> None:
     """
     Set the cursor position in local coordinates [0..<window size>] (useful to work with ImDrawList API)
 
@@ -9298,13 +9298,13 @@ def _py_font(font: _Font):
     """
 
 @contextmanager
-def _py_styled(variable: StyleVar, value: float | tuple[float, float]): ...
+def _py_styled(variable: StyleVar, value: float | tuple[float, float]) -> Iterator[None]: ...
 @contextmanager
-def _py_colored(variable: int, r: float, g: float, b: float, a: float = 1.0): ...
+def _py_colored(variable: int, r: float, g: float, b: float, a: float = 1.0) -> Iterator[None]: ...
 @contextmanager
-def _py_istyled(*variables_and_values: tuple[StyleVar, float | tuple[float, float]]): ...
+def _py_istyled(*variables_and_values: tuple[StyleVar, float | tuple[float, float]]) -> Iterator[None]: ...
 @contextmanager
-def _py_scoped(str_id: str):
+def _py_scoped(str_id: str) -> Iterator[None]:
     """
     Use scoped ID within a block of code.
 
