@@ -6,7 +6,7 @@ from typing_extensions import TypeAlias
 from jsonschema._format import FormatChecker
 from jsonschema._types import TypeChecker
 from jsonschema.exceptions import ValidationError
-from jsonschema.validators import RefResolver
+import referencing.jsonschema
 
 _JsonParameter: TypeAlias = str | int | float | bool | None | Mapping[str, _JsonParameter] | Sequence[_JsonParameter]
 
@@ -19,7 +19,7 @@ class Validator(Protocol):
     def __init__(
         self,
         schema: dict[Incomplete, Incomplete] | bool,
-        resolver: RefResolver | None = None,
+        registry: referencing.jsonschema.SchemaRegistry,
         format_checker: FormatChecker | None = None,
     ) -> None: ...
     @classmethod
