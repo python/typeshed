@@ -1,9 +1,8 @@
-from collections.abc import Buffer, Callable, Iterable, Iterator, Mapping
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from contextlib import contextmanager
 from types import TracebackType
 from typing import Any, Final, NamedTuple, NewType, cast, type_check_only
-
-from typing_extensions import Self
+from typing_extensions import Buffer, Self
 
 @type_check_only
 class _IntFlag(int):
@@ -814,11 +813,9 @@ class _ImGuiTableColumnSortSpecs:
     sort_order: int
     sort_direction: SortDirection
 
-    def __init__(self) -> None: ...
     def _require_pointer(self) -> None: ...
 
 class _ImGuiTableColumnSortSpecs_array:
-    def __init__(self) -> None: ...
     def __getitem__(self, idx: int) -> _ImGuiTableColumnSortSpecs: ...
     def __iter__(self) -> Self: ...
     def __next__(self) -> _ImGuiTableColumnSortSpecs: ...
@@ -827,7 +824,6 @@ class _ImGuiTableColumnSortSpecs_array:
 class _ImGuiTableSortSpecs:
     specs_dirty: bool
 
-    def __init__(self) -> None: ...
     @property
     def specs(self) -> _ImGuiTableColumnSortSpecs_array: ...
     @property
@@ -835,7 +831,6 @@ class _ImGuiTableSortSpecs:
     def _require_pointer(self) -> None: ...
 
 class _ImGuiViewport:
-    def __init__(self) -> None: ...
     def get_center(self) -> Vec2: ...
     def get_work_center(self) -> Vec2: ...
     @property
@@ -851,7 +846,6 @@ class _ImGuiViewport:
     def _require_pointer(self) -> None: ...
 
 class _DrawData:
-    def __init__(self) -> None: ...
     def deindex_all_buffers(self) -> None: ...
     def scale_clip_rects(self, width: float, height: float) -> None: ...
     @property
@@ -903,7 +897,6 @@ class _FontAtlas:
     texture_id: int
     texture_desired_width: int
 
-    def __init__(self) -> None: ...
     def add_font_default(self) -> _Font: ...
     def add_font_from_file_ttf(
         self,
@@ -966,7 +959,6 @@ class _IO:
     key_alt: bool
     key_super: bool
 
-    def __init__(self) -> None: ...
     @property
     def key_map(self) -> Mapping[int, int]: ...  # Real return type would be `cython.view.array`
     @property
@@ -1020,7 +1012,6 @@ class _ImGuiInputTextCallbackData:
     selection_start: int
     selection_end: int
 
-    def __init__(self) -> None: ...
     def delete_chars(self, pos: int, bytes_count: int) -> None: ...
     def insert_chars(self, pos: int, text: str) -> None: ...
     def select_all(self) -> None: ...
@@ -1043,7 +1034,6 @@ class _ImGuiInputTextCallbackData:
 class _ImGuiSizeCallbackData:
     desired_size: Vec2
 
-    def __init__(self): ...
     @property
     def user_data(self) -> Any: ...  # User-provided callback data
     @property
@@ -1053,7 +1043,6 @@ class _ImGuiSizeCallbackData:
     def _require_pointer(self) -> None: ...
 
 class _callback_user_info:
-    def __init__(self) -> None: ...
     def populate(
         self,
         callback_fn: Callable[[_ImGuiInputTextCallbackData | _ImGuiSizeCallbackData], int | None],
