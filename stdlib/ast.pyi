@@ -1457,7 +1457,7 @@ if sys.version_info >= (3, 10):
 
     class match_case(AST):
         __match_args__ = ("pattern", "guard", "body")
-        pattern: pattern
+        pattern: ast.pattern
         guard: expr | None
         body: list[stmt]
         if sys.version_info >= (3, 13):
@@ -1586,7 +1586,7 @@ if sys.version_info >= (3, 10):
 
     class MatchAs(pattern):
         __match_args__ = ("pattern", "name")
-        pattern: pattern | None
+        pattern: ast.pattern | None
         name: str | None
         def __init__(
             self, pattern: ast.pattern | None = None, name: str | None = None, **kwargs: Unpack[_Attributes[int]]
