@@ -3,10 +3,10 @@ from collections.abc import Iterator, Mapping, Sequence
 from typing import ClassVar, Protocol
 from typing_extensions import TypeAlias
 
+import referencing.jsonschema
 from jsonschema._format import FormatChecker
 from jsonschema._types import TypeChecker
 from jsonschema.exceptions import ValidationError
-import referencing.jsonschema
 
 _JsonParameter: TypeAlias = str | int | float | bool | None | Mapping[str, _JsonParameter] | Sequence[_JsonParameter]
 
