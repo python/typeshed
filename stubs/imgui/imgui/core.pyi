@@ -2,7 +2,6 @@ from collections.abc import Buffer, Callable, Iterable, Iterator, Mapping
 from contextlib import contextmanager
 from types import TracebackType
 from typing import Any, Final, NamedTuple, NewType, cast, type_check_only
-
 from typing_extensions import Self
 
 @type_check_only
