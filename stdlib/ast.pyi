@@ -33,8 +33,6 @@ class AST:
         __match_args__ = ()
     _attributes: ClassVar[tuple[str, ...]]
     _fields: ClassVar[tuple[str, ...]]
-    if sys.version_info >= (3, 13):
-        _field_types: ClassVar[dict[str, Any]]
 
     if sys.version_info >= (3, 14):
         def __replace__(self) -> Self: ...
@@ -46,6 +44,9 @@ class Module(mod):
         __match_args__ = ("body", "type_ignores")
     body: list[stmt]
     type_ignores: list[TypeIgnore]
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(self, body: list[stmt] = ..., type_ignores: list[TypeIgnore] = ...) -> None: ...
     else:
@@ -59,6 +60,9 @@ class Interactive(mod):
         __match_args__ = ("body",)
     body: list[stmt]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(self, body: list[stmt] = ...) -> None: ...
     else:
         def __init__(self, body: list[stmt]) -> None: ...
@@ -70,6 +74,9 @@ class Expression(mod):
     if sys.version_info >= (3, 10):
         __match_args__ = ("body",)
     body: expr
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, body: expr) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -80,6 +87,9 @@ class FunctionType(mod):
         __match_args__ = ("argtypes", "returns")
     argtypes: list[expr]
     returns: expr
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         @overload
         def __init__(self, argtypes: list[expr], returns: expr) -> None: ...
@@ -114,6 +124,9 @@ class FunctionDef(stmt):
     type_comment: str | None
     if sys.version_info >= (3, 12):
         type_params: list[type_param]
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(
             self,
@@ -192,6 +205,9 @@ class AsyncFunctionDef(stmt):
     if sys.version_info >= (3, 12):
         type_params: list[type_param]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(
             self,
             name: str,
@@ -268,6 +284,9 @@ class ClassDef(stmt):
     if sys.version_info >= (3, 12):
         type_params: list[type_param]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(
             self,
             name: str,
@@ -317,6 +336,9 @@ class Return(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value",)
     value: expr | None
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, value: expr | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -326,6 +348,9 @@ class Delete(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("targets",)
     targets: list[expr]
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(self, targets: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
@@ -340,6 +365,9 @@ class Assign(stmt):
     targets: list[expr]
     value: expr
     type_comment: str | None
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         @overload
         def __init__(
@@ -365,6 +393,9 @@ if sys.version_info >= (3, 12):
         name: Name
         type_params: list[type_param]
         value: expr
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
         if sys.version_info >= (3, 13):
             @overload
             def __init__(
@@ -395,6 +426,9 @@ class AugAssign(stmt):
     target: Name | Attribute | Subscript
     op: operator
     value: expr
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(
         self, target: Name | Attribute | Subscript, op: operator, value: expr, **kwargs: Unpack[_Attributes]
     ) -> None: ...
@@ -416,6 +450,9 @@ class AnnAssign(stmt):
     annotation: expr
     value: expr | None
     simple: int
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     @overload
     def __init__(
         self,
@@ -455,6 +492,9 @@ class For(stmt):
     body: list[stmt]
     orelse: list[stmt]
     type_comment: str | None
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(
             self,
@@ -497,6 +537,9 @@ class AsyncFor(stmt):
     orelse: list[stmt]
     type_comment: str | None
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(
             self,
             target: expr,
@@ -536,6 +579,9 @@ class While(stmt):
     body: list[stmt]
     orelse: list[stmt]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(
             self, test: expr, body: list[stmt] = ..., orelse: list[stmt] = ..., **kwargs: Unpack[_Attributes]
         ) -> None: ...
@@ -554,6 +600,9 @@ class If(stmt):
     body: list[stmt]
     orelse: list[stmt]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(
             self, test: expr, body: list[stmt] = ..., orelse: list[stmt] = ..., **kwargs: Unpack[_Attributes]
         ) -> None: ...
@@ -571,6 +620,9 @@ class With(stmt):
     items: list[withitem]
     body: list[stmt]
     type_comment: str | None
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(
             self,
@@ -601,6 +653,9 @@ class AsyncWith(stmt):
     body: list[stmt]
     type_comment: str | None
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(
             self,
             items: list[withitem] = ...,
@@ -629,6 +684,9 @@ if sys.version_info >= (3, 10):
         subject: expr
         cases: list[match_case]
         if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
+        if sys.version_info >= (3, 13):
             def __init__(self, subject: expr, cases: list[match_case] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
         else:
             def __init__(self, subject: expr, cases: list[match_case], **kwargs: Unpack[_Attributes]) -> None: ...
@@ -643,6 +701,9 @@ class Raise(stmt):
         __match_args__ = ("exc", "cause")
     exc: expr | None
     cause: expr | None
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, exc: expr | None = None, cause: expr | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -655,6 +716,9 @@ class Try(stmt):
     handlers: list[ExceptHandler]
     orelse: list[stmt]
     finalbody: list[stmt]
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(
             self,
@@ -693,6 +757,9 @@ if sys.version_info >= (3, 11):
         orelse: list[stmt]
         finalbody: list[stmt]
         if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
+        if sys.version_info >= (3, 13):
             def __init__(
                 self,
                 body: list[stmt] = ...,
@@ -727,6 +794,9 @@ class Assert(stmt):
         __match_args__ = ("test", "msg")
     test: expr
     msg: expr | None
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, test: expr, msg: expr | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -736,6 +806,9 @@ class Import(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("names",)
     names: list[alias]
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(self, names: list[alias] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
@@ -750,6 +823,9 @@ class ImportFrom(stmt):
     module: str | None
     names: list[alias]
     level: int
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         @overload
         def __init__(self, module: str | None, names: list[alias], level: int, **kwargs: Unpack[_Attributes]) -> None: ...
@@ -775,6 +851,9 @@ class Global(stmt):
         __match_args__ = ("names",)
     names: list[str]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(self, names: list[str] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
         def __init__(self, names: list[str], **kwargs: Unpack[_Attributes]) -> None: ...
@@ -787,6 +866,9 @@ class Nonlocal(stmt):
         __match_args__ = ("names",)
     names: list[str]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(self, names: list[str] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
         def __init__(self, names: list[str], **kwargs: Unpack[_Attributes]) -> None: ...
@@ -798,14 +880,25 @@ class Expr(stmt):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value",)
     value: expr
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, value: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
         def __replace__(self, *, value: expr = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
 
-class Pass(stmt): ...
-class Break(stmt): ...
-class Continue(stmt): ...
+class Pass(stmt):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Break(stmt):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Continue(stmt):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
 
 class expr(AST):
     lineno: int
@@ -823,6 +916,9 @@ class BoolOp(expr):
     op: boolop
     values: list[expr]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(self, op: boolop, values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
         def __init__(self, op: boolop, values: list[expr], **kwargs: Unpack[_Attributes]) -> None: ...
@@ -835,6 +931,9 @@ class NamedExpr(expr):
         __match_args__ = ("target", "value")
     target: Name
     value: expr
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, target: Name, value: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -846,6 +945,9 @@ class BinOp(expr):
     left: expr
     op: operator
     right: expr
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, left: expr, op: operator, right: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -858,6 +960,9 @@ class UnaryOp(expr):
         __match_args__ = ("op", "operand")
     op: unaryop
     operand: expr
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, op: unaryop, operand: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -868,6 +973,9 @@ class Lambda(expr):
         __match_args__ = ("args", "body")
     args: arguments
     body: expr
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, args: arguments, body: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -879,6 +987,9 @@ class IfExp(expr):
     test: expr
     body: expr
     orelse: expr
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, test: expr, body: expr, orelse: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -891,6 +1002,9 @@ class Dict(expr):
         __match_args__ = ("keys", "values")
     keys: list[expr | None]
     values: list[expr]
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(self, keys: list[expr | None] = ..., values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
@@ -906,6 +1020,9 @@ class Set(expr):
         __match_args__ = ("elts",)
     elts: list[expr]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(self, elts: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
         def __init__(self, elts: list[expr], **kwargs: Unpack[_Attributes]) -> None: ...
@@ -918,6 +1035,9 @@ class ListComp(expr):
         __match_args__ = ("elt", "generators")
     elt: expr
     generators: list[comprehension]
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(self, elt: expr, generators: list[comprehension] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
@@ -934,6 +1054,9 @@ class SetComp(expr):
     elt: expr
     generators: list[comprehension]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(self, elt: expr, generators: list[comprehension] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
         def __init__(self, elt: expr, generators: list[comprehension], **kwargs: Unpack[_Attributes]) -> None: ...
@@ -949,6 +1072,9 @@ class DictComp(expr):
     key: expr
     value: expr
     generators: list[comprehension]
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(
             self, key: expr, value: expr, generators: list[comprehension] = ..., **kwargs: Unpack[_Attributes]
@@ -967,6 +1093,9 @@ class GeneratorExp(expr):
     elt: expr
     generators: list[comprehension]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(self, elt: expr, generators: list[comprehension] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
         def __init__(self, elt: expr, generators: list[comprehension], **kwargs: Unpack[_Attributes]) -> None: ...
@@ -980,6 +1109,9 @@ class Await(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value",)
     value: expr
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, value: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -989,6 +1121,9 @@ class Yield(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value",)
     value: expr | None
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, value: expr | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -998,6 +1133,9 @@ class YieldFrom(expr):
     if sys.version_info >= (3, 10):
         __match_args__ = ("value",)
     value: expr
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, value: expr, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -1009,6 +1147,9 @@ class Compare(expr):
     left: expr
     ops: list[cmpop]
     comparators: list[expr]
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(
             self, left: expr, ops: list[cmpop] = ..., comparators: list[expr] = ..., **kwargs: Unpack[_Attributes]
@@ -1028,6 +1169,9 @@ class Call(expr):
     args: list[expr]
     keywords: list[keyword]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(
             self, func: expr, args: list[expr] = ..., keywords: list[keyword] = ..., **kwargs: Unpack[_Attributes]
         ) -> None: ...
@@ -1045,6 +1189,9 @@ class FormattedValue(expr):
     value: expr
     conversion: int
     format_spec: expr | None
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, value: expr, conversion: int, format_spec: expr | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -1057,6 +1204,9 @@ class JoinedStr(expr):
         __match_args__ = ("values",)
     values: list[expr]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(self, values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
         def __init__(self, values: list[expr], **kwargs: Unpack[_Attributes]) -> None: ...
@@ -1068,10 +1218,12 @@ if sys.version_info >= (3, 14):
     class TemplateStr(expr):
         __match_args__ = ("values",)
         values: list[expr]
+        _field_types: ClassVar[dict[str, Any]]
         def __init__(self, values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> None: ...
         def __replace__(self, *, values: list[expr] = ..., **kwargs: Unpack[_Attributes]) -> Self: ...
 
     class Interpolation(expr):
+        _field_types: ClassVar[dict[str, Any]]
         __match_args__ = ("value", "str", "conversion", "format_spec")
         value: expr
         str: builtins.str
@@ -1108,6 +1260,9 @@ class Constant(expr):
         __match_args__ = ("value", "kind")
     value: _ConstantValue
     kind: str | None
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info < (3, 14):
         # Aliases for value, for backwards compatibility
         s: _ConstantValue
@@ -1124,6 +1279,9 @@ class Attribute(expr):
     value: expr
     attr: str
     ctx: expr_context  # Not present in Python < 3.13 if not passed to `__init__`
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, value: expr, attr: str, ctx: expr_context = ..., **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -1137,6 +1295,9 @@ class Subscript(expr):
     value: expr
     slice: _Slice
     ctx: expr_context  # Not present in Python < 3.13 if not passed to `__init__`
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, value: expr, slice: _Slice, ctx: expr_context = ..., **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -1149,6 +1310,9 @@ class Starred(expr):
         __match_args__ = ("value", "ctx")
     value: expr
     ctx: expr_context  # Not present in Python < 3.13 if not passed to `__init__`
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, value: expr, ctx: expr_context = ..., **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -1159,6 +1323,9 @@ class Name(expr):
         __match_args__ = ("id", "ctx")
     id: str
     ctx: expr_context  # Not present in Python < 3.13 if not passed to `__init__`
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, id: str, ctx: expr_context = ..., **kwargs: Unpack[_Attributes]) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -1169,6 +1336,9 @@ class List(expr):
         __match_args__ = ("elts", "ctx")
     elts: list[expr]
     ctx: expr_context  # Not present in Python < 3.13 if not passed to `__init__`
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(self, elts: list[expr] = ..., ctx: expr_context = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
@@ -1183,6 +1353,9 @@ class Tuple(expr):
     elts: list[expr]
     ctx: expr_context  # Not present in Python < 3.13 if not passed to `__init__`
     dims: list[expr]
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(self, elts: list[expr] = ..., ctx: expr_context = ..., **kwargs: Unpack[_Attributes]) -> None: ...
     else:
@@ -1203,6 +1376,9 @@ class Slice(_Slice):
     lower: expr | None
     upper: expr | None
     step: expr | None
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(
         self, lower: expr | None = None, upper: expr | None = None, step: expr | None = None, **kwargs: Unpack[_SliceAttributes]
     ) -> None: ...
@@ -1239,42 +1415,141 @@ class Param(expr_context): ...
 @deprecated("Deprecated since Python 3.9. Unused in Python 3.")
 class Suite(mod): ...
 
-class Load(expr_context): ...
-class Store(expr_context): ...
-class Del(expr_context): ...
+class Load(expr_context):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Store(expr_context):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Del(expr_context):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
 class boolop(AST): ...
-class And(boolop): ...
-class Or(boolop): ...
+
+class And(boolop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Or(boolop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
 class operator(AST): ...
-class Add(operator): ...
-class Sub(operator): ...
-class Mult(operator): ...
-class MatMult(operator): ...
-class Div(operator): ...
-class Mod(operator): ...
-class Pow(operator): ...
-class LShift(operator): ...
-class RShift(operator): ...
-class BitOr(operator): ...
-class BitXor(operator): ...
-class BitAnd(operator): ...
-class FloorDiv(operator): ...
+
+class Add(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Sub(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Mult(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class MatMult(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Div(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Mod(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Pow(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class LShift(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class RShift(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class BitOr(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class BitXor(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class BitAnd(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class FloorDiv(operator):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
 class unaryop(AST): ...
-class Invert(unaryop): ...
-class Not(unaryop): ...
-class UAdd(unaryop): ...
-class USub(unaryop): ...
+
+class Invert(unaryop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Not(unaryop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class UAdd(unaryop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class USub(unaryop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
 class cmpop(AST): ...
-class Eq(cmpop): ...
-class NotEq(cmpop): ...
-class Lt(cmpop): ...
-class LtE(cmpop): ...
-class Gt(cmpop): ...
-class GtE(cmpop): ...
-class Is(cmpop): ...
-class IsNot(cmpop): ...
-class In(cmpop): ...
-class NotIn(cmpop): ...
+
+class Eq(cmpop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class NotEq(cmpop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Lt(cmpop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class LtE(cmpop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Gt(cmpop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class GtE(cmpop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class Is(cmpop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class IsNot(cmpop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class In(cmpop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+class NotIn(cmpop):
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
 
 class comprehension(AST):
     if sys.version_info >= (3, 10):
@@ -1283,6 +1558,9 @@ class comprehension(AST):
     iter: expr
     ifs: list[expr]
     is_async: int
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         @overload
         def __init__(self, target: expr, iter: expr, ifs: list[expr], is_async: int) -> None: ...
@@ -1313,6 +1591,9 @@ class ExceptHandler(excepthandler):
     name: str | None
     body: list[stmt]
     if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
+    if sys.version_info >= (3, 13):
         def __init__(
             self, type: expr | None = None, name: str | None = None, body: list[stmt] = ..., **kwargs: Unpack[_Attributes]
         ) -> None: ...
@@ -1339,6 +1620,9 @@ class arguments(AST):
     kw_defaults: list[expr | None]
     kwarg: arg | None
     defaults: list[expr]
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 13):
         def __init__(
             self,
@@ -1405,6 +1689,9 @@ class arg(AST):
     col_offset: int
     end_lineno: int | None
     end_col_offset: int | None
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 10):
         __match_args__ = ("arg", "annotation", "type_comment")
     arg: str
@@ -1428,6 +1715,9 @@ class keyword(AST):
         __match_args__ = ("arg", "value")
     arg: str | None
     value: expr
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     @overload
     def __init__(self, arg: str | None, value: expr, **kwargs: Unpack[_Attributes]) -> None: ...
     @overload
@@ -1446,6 +1736,9 @@ class alias(AST):
         end_col_offset: int | None
     if sys.version_info >= (3, 10):
         __match_args__ = ("name", "asname")
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     if sys.version_info >= (3, 10):
         def __init__(self, name: str, asname: str | None = None, **kwargs: Unpack[_Attributes]) -> None: ...
     else:
@@ -1459,6 +1752,9 @@ class withitem(AST):
         __match_args__ = ("context_expr", "optional_vars")
     context_expr: expr
     optional_vars: expr | None
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, context_expr: expr, optional_vars: expr | None = None) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -1470,6 +1766,9 @@ if sys.version_info >= (3, 10):
         pattern: _Pattern
         guard: expr | None
         body: list[stmt]
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
         if sys.version_info >= (3, 13):
             def __init__(self, pattern: _Pattern, guard: expr | None = None, body: list[stmt] = ...) -> None: ...
         else:
@@ -1499,6 +1798,9 @@ if sys.version_info >= (3, 10):
     class MatchValue(pattern):
         __match_args__ = ("value",)
         value: expr
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
         def __init__(self, value: expr, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
         if sys.version_info >= (3, 14):
@@ -1507,6 +1809,9 @@ if sys.version_info >= (3, 10):
     class MatchSingleton(pattern):
         __match_args__ = ("value",)
         value: Literal[True, False] | None
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
         def __init__(self, value: Literal[True, False] | None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
         if sys.version_info >= (3, 14):
@@ -1515,6 +1820,9 @@ if sys.version_info >= (3, 10):
     class MatchSequence(pattern):
         __match_args__ = ("patterns",)
         patterns: list[pattern]
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
         if sys.version_info >= (3, 13):
             def __init__(self, patterns: list[pattern] = ..., **kwargs: Unpack[_Attributes[int]]) -> None: ...
         else:
@@ -1528,6 +1836,9 @@ if sys.version_info >= (3, 10):
         keys: list[expr]
         patterns: list[pattern]
         rest: str | None
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
         if sys.version_info >= (3, 13):
             def __init__(
                 self,
@@ -1557,6 +1868,9 @@ if sys.version_info >= (3, 10):
         patterns: list[pattern]
         kwd_attrs: list[str]
         kwd_patterns: list[pattern]
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
         if sys.version_info >= (3, 13):
             def __init__(
                 self,
@@ -1590,6 +1904,9 @@ if sys.version_info >= (3, 10):
     class MatchStar(pattern):
         __match_args__ = ("name",)
         name: str | None
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
         def __init__(self, name: str | None = None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
         if sys.version_info >= (3, 14):
@@ -1599,6 +1916,9 @@ if sys.version_info >= (3, 10):
         __match_args__ = ("pattern", "name")
         pattern: _Pattern | None
         name: str | None
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
         def __init__(
             self, pattern: _Pattern | None = None, name: str | None = None, **kwargs: Unpack[_Attributes[int]]
         ) -> None: ...
@@ -1611,6 +1931,9 @@ if sys.version_info >= (3, 10):
     class MatchOr(pattern):
         __match_args__ = ("patterns",)
         patterns: list[pattern]
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
         if sys.version_info >= (3, 13):
             def __init__(self, patterns: list[pattern] = ..., **kwargs: Unpack[_Attributes[int]]) -> None: ...
         else:
@@ -1626,6 +1949,9 @@ class TypeIgnore(type_ignore):
         __match_args__ = ("lineno", "tag")
     lineno: int
     tag: str
+    if sys.version_info >= (3, 13):
+        _field_types: ClassVar[dict[str, Any]]
+
     def __init__(self, lineno: int, tag: str) -> None: ...
 
     if sys.version_info >= (3, 14):
@@ -1649,6 +1975,9 @@ if sys.version_info >= (3, 12):
             __match_args__ = ("name", "bound")
         name: str
         bound: expr | None
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
         if sys.version_info >= (3, 13):
             default_value: expr | None
             def __init__(
@@ -1674,6 +2003,9 @@ if sys.version_info >= (3, 12):
             __match_args__ = ("name",)
         name: str
         if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
+        if sys.version_info >= (3, 13):
             default_value: expr | None
             def __init__(self, name: str, default_value: expr | None = None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
         else:
@@ -1690,6 +2022,9 @@ if sys.version_info >= (3, 12):
         else:
             __match_args__ = ("name",)
         name: str
+        if sys.version_info >= (3, 13):
+            _field_types: ClassVar[dict[str, Any]]
+
         if sys.version_info >= (3, 13):
             default_value: expr | None
             def __init__(self, name: str, default_value: expr | None = None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
