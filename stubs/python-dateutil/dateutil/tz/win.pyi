@@ -1,5 +1,4 @@
 import sys
-import winreg
 from ctypes import _Pointer, c_wchar
 from datetime import datetime, timedelta
 from typing import Any, ClassVar, Final
@@ -8,6 +7,8 @@ from typing_extensions import Self
 from ._common import tzrangebase
 
 if sys.platform == "win32":
+    from winreg import _KeyType
+
     __all__ = ["tzwin", "tzwinlocal", "tzres"]
 
     ONEWEEK: timedelta
@@ -33,14 +34,12 @@ if sys.platform == "win32":
     class tzwin(tzwinbase):
         hasdst: bool
         def __init__(self, name: str) -> None: ...
-        def __reduce__(self) -> tuple[type[Self], tuple[str, ...]]: ...
+        def __reduce__(self) -> tuple[type[Self], tuple[str, ...]]: ...  # type: ignore[override]
 
     class tzwinlocal(tzwinbase):
         hasdst: bool
         def __init__(self) -> None: ...
-        def __reduce__(self) -> tuple[type[Self], tuple[str, ...]]: ...
+        def __reduce__(self) -> tuple[type[Self], tuple[str, ...]]: ...  # type: ignore[override]
 
     def picknthweekday(year: int, month: int, dayofweek: int, hour: int, minute: int, whichweek: int) -> datetime: ...
-    def valuestodict(
-        key: winreg._KeyType,
-    ) -> dict[str, Any]: ...  # keys and values in dict are results of winreg.EnumValue() function
+    def valuestodict(key: _KeyType) -> dict[str, Any]: ...  # keys and values in dict are results of winreg.EnumValue() function
