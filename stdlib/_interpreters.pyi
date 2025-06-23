@@ -4,7 +4,7 @@ from typing import Any, Final, Literal, SupportsIndex
 from typing_extensions import TypeAlias
 
 _Configs: TypeAlias = Literal["default", "isolated", "legacy", "empty", ""]
-_SharedDict: TypeAlias = dict[str, Any]  # any object can be shared
+_SharedDict: TypeAlias = dict[str, Any]  # many objects can be shared
 
 class InterpreterError(Exception): ...
 class InterpreterNotFoundError(InterpreterError): ...
