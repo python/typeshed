@@ -1,5 +1,5 @@
 import types
-from collections.abc import Callable, Mapping
+from collections.abc import Callable
 from typing import Any, Final, Literal, SupportsIndex
 from typing_extensions import TypeAlias
 
