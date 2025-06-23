@@ -23,7 +23,11 @@ def is_running(id: SupportsIndex, *, restrict: bool = False) -> bool: ...
 def get_config(id: SupportsIndex, *, restrict: bool = False) -> types.SimpleNamespace: ...
 def whence(id: SupportsIndex) -> int: ...
 def exec(
-    id: SupportsIndex, code: str | types.CodeType | Callable[[], object], shared: _SharedDict | None = None, *, restrict: bool = False
+    id: SupportsIndex,
+    code: str | types.CodeType | Callable[[], object],
+    shared: _SharedDict | None = None,
+    *,
+    restrict: bool = False,
 ) -> None | types.SimpleNamespace: ...
 def call(
     id: SupportsIndex,
@@ -34,7 +38,11 @@ def call(
     restrict: bool = False,
 ) -> object: ...
 def run_string(
-    id: SupportsIndex, script: str | types.CodeType | Callable[[], object], shared: _SharedDict | None = None, *, restrict: bool = False
+    id: SupportsIndex,
+    script: str | types.CodeType | Callable[[], object],
+    shared: _SharedDict | None = None,
+    *,
+    restrict: bool = False,
 ) -> None: ...
 def run_func(
     id: SupportsIndex, func: types.CodeType | Callable[[], object], shared: _SharedDict | None = None, *, restrict: bool = False
