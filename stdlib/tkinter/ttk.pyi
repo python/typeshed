@@ -1,6 +1,6 @@
 import _tkinter
 import tkinter
-from _typeshed import Incomplete, MaybeNone
+from _typeshed import MaybeNone
 from collections.abc import Callable
 from tkinter.font import _FontDescription
 from typing import Any, Literal, TypedDict, overload
@@ -49,7 +49,7 @@ _Padding: TypeAlias = (
 _TtkCompound: TypeAlias = Literal["", "text", "image", tkinter._Compound]
 
 class Style:
-    master: Incomplete
+    master: tkinter.Misc
     tk: _tkinter.TkappType
     def __init__(self, master: tkinter.Misc | None = None) -> None: ...
     def configure(self, style, query_opt=None, **kw): ...
@@ -615,7 +615,7 @@ class Panedwindow(Widget, tkinter.PanedWindow):
     ) -> dict[str, tuple[str, str, str, Any, Any]] | None: ...
     @overload
     def config(self, cnf: str) -> tuple[str, str, str, Any, Any]: ...
-    forget: Incomplete
+    forget = tkinter.PanedWindow.forget
     def insert(self, pos, child, **kw) -> None: ...
     def pane(self, pane, option=None, **kw): ...
     def sashpos(self, index, newpos=None): ...
