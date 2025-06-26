@@ -2,9 +2,6 @@
 # TODO: New errors in Python 3.14 that need to be fixed or moved below
 # ====================================================================
 
-_zstd.ZstdCompressor.set_pledged_input_size
-asyncio.tools
-compression.zstd.ZstdCompressor.set_pledged_input_size
 concurrent.interpreters
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
