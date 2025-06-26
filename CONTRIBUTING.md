@@ -77,9 +77,9 @@ Note that some tests require extra setup steps to install the required dependenc
   Run the following commands from a Windows terminal to install all requirements:
 
   ```powershell
-  > python -m venv .venv
+  > py -m venv .venv
   > .venv\Scripts\activate
-  (.venv) > pip install -U pip
+  (.venv) > python -m pip install -U pip
   (.venv) > pip install -r requirements-tests.txt
   ```
 
