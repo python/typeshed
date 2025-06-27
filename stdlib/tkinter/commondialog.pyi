@@ -1,3 +1,4 @@
+import tkinter
 from _typeshed import Incomplete
 from collections.abc import Mapping
 from typing import ClassVar
@@ -8,5 +9,5 @@ class Dialog:
     command: ClassVar[str | None]
     master: tkinter.Misc | None
     options: Mapping[str, Incomplete]
-    def __init__(self, master=None, **options) -> None: ...
+    def __init__(self, master: tkinter.Misc | None = None, **options) -> None: ...
     def show(self, **options): ...
