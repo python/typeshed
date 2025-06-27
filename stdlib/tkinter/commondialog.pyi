@@ -6,7 +6,7 @@ __all__ = ["Dialog"]
 
 class Dialog:
     command: ClassVar[str | None]
-    master: Incomplete | None
+    master: tkinter.Misc | None
     options: Mapping[str, Incomplete]
     def __init__(self, master=None, **options) -> None: ...
     def show(self, **options): ...

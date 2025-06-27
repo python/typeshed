@@ -1,5 +1,6 @@
+import tkinter
 from tkinter.commondialog import Dialog
-from typing import Any, ClassVar, Final
+from typing import Any, ClassVar, Final, Literal
 
 __all__ = ["showinfo", "showwarning", "showerror", "askquestion", "askokcancel", "askyesno", "askyesnocancel", "askretrycancel"]
 
@@ -23,11 +24,96 @@ NO: Final = "no"
 class Message(Dialog):
     command: ClassVar[str]
 
-def showinfo(title: str | None = None, message: str | None = None, **options: Any) -> str: ...
-def showwarning(title: str | None = None, message: str | None = None, **options: Any) -> str: ...
-def showerror(title: str | None = None, message: str | None = None, **options: Any) -> str: ...
-def askquestion(title: str | None = None, message: str | None = None, **options: Any) -> str: ...
-def askokcancel(title: str | None = None, message: str | None = None, **options: Any) -> bool: ...
-def askyesno(title: str | None = None, message: str | None = None, **options: Any) -> bool: ...
-def askyesnocancel(title: str | None = None, message: str | None = None, **options: Any) -> bool | None: ...
-def askretrycancel(title: str | None = None, message: str | None = None, **options: Any) -> bool: ...
+_Icon = Literal["error", "info", "question", "warning"]
+
+_Type = Literal["abortretryignore", "ok", "okcancel", "retrycancel", "yesno", "yesnocancel"]
+
+_Default = Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"]
+
+def showinfo(
+    title: str | None = None,
+    message: str | None = None,
+    *,
+    detail: str = ...,
+    icon: _Icon = ...,
+    type: _Type = ...,
+    default: _Default = ...,
+    parent: tkinter.Misc = ...,
+) -> str: ...
+
+def showwarning(
+    title: str | None = None,
+    message: str | None = None,
+    *,
+    detail: str = ...,
+    icon: _Icon = ...,
+    type: _Type = ...,
+    default: _Default = ...,
+    parent: tkinter.Misc = ...,
+) -> str: ...
+
+def showerror(
+    title: str | None = None,
+    message: str | None = None,
+    *,
+    detail: str = ...,
+    icon: _Icon = ...,
+    type: _Type = ...,
+    default: _Default = ...,
+    parent: tkinter.Misc = ...,
+) -> str: ...
+
+def askquestion(
+    title: str | None = None,
+    message: str | None = None,
+    *,
+    detail: str = ...,
+    icon: _Icon = ...,
+    type: _Type = ...,
+    default: _Default = ...,
+    parent: tkinter.Misc = ...,
+) -> str: ...
+
+def askokcancel(
+    title: str | None = None,
+    message: str | None = None,
+    *,
+    detail: str = ...,
+    icon: _Icon = ...,
+    type: _Type = ...,
+    default: _Default = ...,
+    parent: tkinter.Misc = ...,
+) -> bool: ...
+
+def askyesno(
+    title: str | None = None,
+    message: str | None = None,
+    *,
+    detail: str = ...,
+    icon: _Icon = ...,
+    type: _Type = ...,
+    default: _Default = ...,
+    parent: tkinter.Misc = ...,
+) -> bool: ...
+
+def askyesnocancel(
+    title: str | None = None,
+    message: str | None = None,
+    *,
+    detail: str = ...,
+    icon: _Icon = ...,
+    type: _Type = ...,
+    default: _Default = ...,
+    parent: tkinter.Misc = ...,
+) -> bool | None: ...
+
+def askretrycancel(
+    title: str | None = None,
+    message: str | None = None,
+    *,
+    detail: str = ...,
+    icon: _Icon = ...,
+    type: _Type = ...,
+    default: _Default = ...,
+    parent: tkinter.Misc = ...,
+) -> bool: ...
