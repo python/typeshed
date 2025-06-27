@@ -1,6 +1,6 @@
 import tkinter
 from tkinter.commondialog import Dialog
-from typing import Any, ClassVar, Final, Literal
+from typing import ClassVar, Final, Literal
 
 __all__ = ["showinfo", "showwarning", "showerror", "askquestion", "askokcancel", "askyesno", "askyesnocancel", "askretrycancel"]
 
@@ -40,7 +40,6 @@ def showinfo(
     default: _Default = ...,
     parent: tkinter.Misc = ...,
 ) -> str: ...
-
 def showwarning(
     title: str | None = None,
     message: str | None = None,
@@ -51,7 +50,6 @@ def showwarning(
     default: _Default = ...,
     parent: tkinter.Misc = ...,
 ) -> str: ...
-
 def showerror(
     title: str | None = None,
     message: str | None = None,
@@ -62,7 +60,6 @@ def showerror(
     default: _Default = ...,
     parent: tkinter.Misc = ...,
 ) -> str: ...
-
 def askquestion(
     title: str | None = None,
     message: str | None = None,
@@ -73,7 +70,6 @@ def askquestion(
     default: _Default = ...,
     parent: tkinter.Misc = ...,
 ) -> str: ...
-
 def askokcancel(
     title: str | None = None,
     message: str | None = None,
@@ -84,7 +80,6 @@ def askokcancel(
     default: _Default = ...,
     parent: tkinter.Misc = ...,
 ) -> bool: ...
-
 def askyesno(
     title: str | None = None,
     message: str | None = None,
@@ -95,7 +90,6 @@ def askyesno(
     default: _Default = ...,
     parent: tkinter.Misc = ...,
 ) -> bool: ...
-
 def askyesnocancel(
     title: str | None = None,
     message: str | None = None,
@@ -106,7 +100,6 @@ def askyesnocancel(
     default: _Default = ...,
     parent: tkinter.Misc = ...,
 ) -> bool | None: ...
-
 def askretrycancel(
     title: str | None = None,
     message: str | None = None,
