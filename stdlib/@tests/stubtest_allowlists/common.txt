@@ -184,7 +184,6 @@ _collections_abc.AsyncGenerator.aclose
 _collections_abc.AsyncIterator.__anext__
 
 _collections_abc.Callable  # Typing-related weirdness
-_collections_abc.Mapping.get  # Adding None to the Union messed up mypy
 _collections_abc.Sequence.index  # Supporting None in end is not mandatory
 
 _ctypes.CFuncPtr  # stubtest erroneously thinks it can't be subclassed
