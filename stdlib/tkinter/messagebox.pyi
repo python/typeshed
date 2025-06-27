@@ -1,6 +1,6 @@
 import tkinter
 from tkinter.commondialog import Dialog
-from typing import ClassVar, Final, Literal
+from typing import ClassVar, Final, Literal, TypeAlias
 
 __all__ = ["showinfo", "showwarning", "showerror", "askquestion", "askokcancel", "askyesno", "askyesnocancel", "askretrycancel"]
 
@@ -24,11 +24,9 @@ NO: Final = "no"
 class Message(Dialog):
     command: ClassVar[str]
 
-_Icon = Literal["error", "info", "question", "warning"]
-
-_Type = Literal["abortretryignore", "ok", "okcancel", "retrycancel", "yesno", "yesnocancel"]
-
-_Default = Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"]
+_Icon: TypeAlias = Literal["error", "info", "question", "warning"]
+_Type: TypeAlias = Literal["abortretryignore", "ok", "okcancel", "retrycancel", "yesno", "yesnocancel"]
+_Default: TypeAlias = Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"]
 
 def showinfo(
     title: str | None = None,
