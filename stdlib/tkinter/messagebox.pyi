@@ -1,4 +1,4 @@
-import tkinter
+from tkinter import Misc
 from tkinter.commondialog import Dialog
 from typing import ClassVar, Final, Literal
 from typing_extensions import TypeAlias
@@ -37,7 +37,7 @@ def showinfo(
     icon: _Icon = ...,
     type: _Type = ...,
     default: _Default = ...,
-    parent: tkinter.Misc = ...,
+    parent: Misc = ...,
 ) -> str: ...
 def showwarning(
     title: str | None = None,
@@ -47,7 +47,7 @@ def showwarning(
     icon: _Icon = ...,
     type: _Type = ...,
     default: _Default = ...,
-    parent: tkinter.Misc = ...,
+    parent: Misc = ...,
 ) -> str: ...
 def showerror(
     title: str | None = None,
@@ -57,7 +57,7 @@ def showerror(
     icon: _Icon = ...,
     type: _Type = ...,
     default: _Default = ...,
-    parent: tkinter.Misc = ...,
+    parent: Misc = ...,
 ) -> str: ...
 def askquestion(
     title: str | None = None,
@@ -67,7 +67,7 @@ def askquestion(
     icon: _Icon = ...,
     type: _Type = ...,
     default: _Default = ...,
-    parent: tkinter.Misc = ...,
+    parent: Misc = ...,
 ) -> str: ...
 def askokcancel(
     title: str | None = None,
@@ -77,7 +77,7 @@ def askokcancel(
     icon: _Icon = ...,
     type: _Type = ...,
     default: _Default = ...,
-    parent: tkinter.Misc = ...,
+    parent: Misc = ...,
 ) -> bool: ...
 def askyesno(
     title: str | None = None,
@@ -87,7 +87,7 @@ def askyesno(
     icon: _Icon = ...,
     type: _Type = ...,
     default: _Default = ...,
-    parent: tkinter.Misc = ...,
+    parent: Misc = ...,
 ) -> bool: ...
 def askyesnocancel(
     title: str | None = None,
@@ -97,7 +97,7 @@ def askyesnocancel(
     icon: _Icon = ...,
     type: _Type = ...,
     default: _Default = ...,
-    parent: tkinter.Misc = ...,
+    parent: Misc = ...,
 ) -> bool | None: ...
 def askretrycancel(
     title: str | None = None,
@@ -107,5 +107,5 @@ def askretrycancel(
     icon: _Icon = ...,
     type: _Type = ...,
     default: _Default = ...,
-    parent: tkinter.Misc = ...,
+    parent: Misc = ...,
 ) -> bool: ...
