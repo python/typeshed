@@ -7,6 +7,7 @@ class CustomerRecommendationsPayload:
     recommendations: CustomerRecommendations | None
     def __init__(
         self,
+        session_id: str | None = None,
         is_in_paypal_network: bool | None = None,
         recommendations: CustomerRecommendations | None = None,
         response: dict[str, Any] | None = None,
