@@ -1,6 +1,7 @@
 import tkinter
 from tkinter.commondialog import Dialog
-from typing import ClassVar, Final, Literal, TypeAlias
+from typing import ClassVar, Final, Literal
+from typing_extensions import TypeAlias
 
 __all__ = ["showinfo", "showwarning", "showerror", "askquestion", "askokcancel", "askyesno", "askyesnocancel", "askretrycancel"]
 
