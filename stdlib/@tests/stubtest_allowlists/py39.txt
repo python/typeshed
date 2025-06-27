@@ -20,7 +20,6 @@ collections.AsyncGenerator.asend  # async at runtime, deliberately not in the st
 collections.AsyncIterator.__anext__  # async at runtime, deliberately not in the stub, see #7491
 collections.ByteString  # see comments in py3_common.txt
 collections.Callable
-collections.Mapping.get  # Adding None to the Union messed up mypy
 collections.Sequence.index  # Supporting None in end is not mandatory
 
 # ===========
