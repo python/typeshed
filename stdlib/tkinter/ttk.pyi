@@ -1,10 +1,11 @@
 import _tkinter
+import sys
 import tkinter
-from _typeshed import MaybeNone
+from _typeshed import MaybeNone, Incomplete
 from collections.abc import Callable
 from tkinter.font import _FontDescription
 from typing import Any, Literal, TypedDict, overload, Iterable
-from typing_extensions import TypeAlias, Unpack
+from typing_extensions import TypeAlias, Unpack, Never
 
 __all__ = [
     "Button",
@@ -47,18 +48,68 @@ _Padding: TypeAlias = (
 
 # from ttk_widget (aka ttk::widget) manual page, differs from tkinter._Compound
 _TtkCompound: TypeAlias = Literal["", "text", "image", tkinter._Compound]
+
 # Last item (option value to apply) varies between different options so use Any.
-# This doesn't have to be a tuple so also add a less precise Iterable option.
-_Statespec: TypeAlias = tuple[Unpack[tuple[str, ...]], Any] | Iterable[str | Any]
+# It could also be any iterable with items matching the tuple, but that case
+# hasn't been added here for consistency with _Padding above.
+_Statespec: TypeAlias = tuple[Unpack[tuple[str, ...]], Any]
+_ImageStatespec: TypeAlias = tuple[Unpack[tuple[str, ...]], tkinter._ImageSpec]
+_VsapiStatespec: TypeAlias = tuple[Unpack[tuple[str, ...]], int]
+class _Layout(TypedDict, total=False):
+    side: Literal["left", "right", "top", "bottom"]
+    sticky: str  # consists of letters 'n', 's', 'w', 'e', may contain repeats, may be empty
+    unit: Literal[0, 1] | bool
+    children: _LayoutSpec
+    # Note: there seem to be some other undocumented keys sometimes
+# This could be any sequence when passed as a parameter but will always be a list when returned.
+_LayoutSpec: TypeAlias = list[tuple[str, _Layout | None]]
+
+# Keep these in sync with the appropriate methods in Style
+class _ElementCreateImageKwargs(TypedDict, total=False):
+    border: _Padding
+    height: tkinter._ScreenUnits
+    padding: _Padding
+    sticky: str
+    width: tkinter._ScreenUnits
+_ElementCreateArgsCrossPlatform: TypeAlias = (
+    # Could be any sequence here but types are not homogenous so just type it as tuple
+    tuple[Literal['image'], tkinter._ImageSpec, Unpack[tuple[_ImageStatespec, ...]], _ElementCreateImageKwargs]
+    | tuple[Literal['from'], str, str] | tuple[Literal['from'], str]  # (fromelement is optional)
+)
+if sys.platform == "win32" and sys.version_info >= (3, 13):
+    class _ElementCreateVsapiKwargsPadding(TypedDict, total=False):
+        padding: _Padding
+    class _ElementCreateVsapiKwargsMargin(TypedDict, total=False):
+        padding: _Padding
+    class _ElementCreateVsapiKwargsSize(TypedDict):
+        width: tkinter._ScreenUnits
+        height: tkinter._ScreenUnits
+    _ElementCreateVsapiKwargsDict = (
+        _ElementCreateVsapiKwargsPadding | _ElementCreateVsapiKwargsMargin | _ElementCreateVsapiKwargsSize)
+    _ElementCreateArgs: TypeAlias = (
+        _ElementCreateArgsCrossPlatform
+        | tuple[Literal['vsapi'], str, int, _ElementCreateVsapiKwargsDict]
+        | tuple[Literal['vsapi'], str, int, _VsapiStatespec, _ElementCreateVsapiKwargsDict])
+else:
+    _ElementCreateArgs: TypeAlias = _ElementCreateArgsCrossPlatform
+_ThemeSettingsValue = TypedDict(
+    '_ThemeSettingsValue', {
+        'configure': dict[str, Any],
+        'map': dict[str, Iterable[_Statespec]],
+        'layout': _LayoutSpec,
+        'element create': _ElementCreateArgs,
+    }, total=False
+)
+_ThemeSettings = dict[str, _ThemeSettingsValue]
 
 class Style:
     master: tkinter.Misc
     tk: _tkinter.TkappType
     def __init__(self, master: tkinter.Misc | None = None) -> None: ...
-    def lookup(self, style, option, state=None, default=None): ...
-    def layout(self, style, layoutspec=None): ...
+    # For these methods, values given vary between options. Returned values
+    # seem to be str, but this might not always be the case.
     @overload
-    def configure(self, style: str) -> dict[str, Any]: ...
+    def configure(self, style: str) -> dict[str, Any] | None: ...  # Returns None if no configuration.
     @overload
     def configure(self, style: str, query_opt: str, **kw: Any) -> Any: ...
     @overload
@@ -67,11 +118,35 @@ class Style:
     def map(self, style: str, query_opt: str) -> _Statespec: ...
     @overload
     def map(self, style: str, **kw: Iterable[_Statespec]) -> dict[str, _Statespec]: ...
-    def element_create(self, elementname, etype, *args, **kw) -> None: ...
-    def element_names(self): ...
-    def element_options(self, elementname): ...
-    def theme_create(self, themename, parent=None, settings=None) -> None: ...
-    def theme_settings(self, themename, settings) -> None: ...
+    def lookup(self, style: str, option: str, state: Iterable[str] | None = None, default: Any | None = None) -> Any: ...
+    @overload
+    def layout(self, style: str, layoutspec: _LayoutSpec) -> list[Never]: ...  # Always seems to return an empty list
+    @overload
+    def layout(self, style: str, layoutspec: None = None) -> _LayoutSpec: ...
+    @overload
+    def element_create(self, elementname: str, etype: Literal['image'], __default_image: tkinter._ImageSpec,
+                       *imagespec: _ImageStatespec, border: _Padding = ..., height: tkinter._ScreenUnits = ...,
+                       padding: _Padding = ..., sticky: str = ..., width: tkinter._ScreenUnits = ...) -> None: ...
+    @overload
+    def element_create(self, elementname: str, etype: Literal['from'], __themename: str, __fromelement: str = ...) -> None: ...
+    if sys.platform == 'win32' and sys.version_info >= (3, 13):  # and tk version >= 8.6
+        # margin, padding, and (width + height) are mutually exclusive. width
+        # and height must either both be present or not present at all. Note:
+        # There are other undocumented options if you look at ttk's source code.
+        @overload
+        def element_create(self, elementname: str, etype: Literal['vsapi'], __class: str, __part: int,
+                           __vs_statespec: _VsapiStatespec = (((), 1),), *,  padding: _Padding = ...) -> None: ...
+        @overload
+        def element_create(self, elementname: str, etype: Literal['vsapi'], __class: str, __part: int,
+                           __vs_statespec: _VsapiStatespec = (((), 1),), *, margin: _Padding = ...) -> None: ...
+        @overload
+        def element_create(self, elementname: str, etype: Literal['vsapi'], __class: str, __part: int,
+                           __vs_statespec: _VsapiStatespec = (((), 1),), *, width: tkinter._ScreenUnits,
+                           height: tkinter._ScreenUnits) -> None: ...
+    def element_names(self) -> tuple[str, ...]: ...
+    def element_options(self, elementname: str) -> tuple[str, ...]: ...
+    def theme_create(self, themename: str, parent: str = None, settings: _ThemeSettings | None = None) -> None: ...
+    def theme_settings(self, themename: str, settings: _ThemeSettings) -> None: ...
     def theme_names(self) -> tuple[str, ...]: ...
     @overload
     def theme_use(self, themename: str) -> None: ...
