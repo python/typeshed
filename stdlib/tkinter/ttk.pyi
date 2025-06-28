@@ -2,9 +2,9 @@ import _tkinter
 import sys
 import tkinter
 from _typeshed import MaybeNone
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from tkinter.font import _FontDescription
-from typing import Any, Iterable, Literal, overload, TypedDict
+from typing import Any, Literal, TypedDict, overload
 from typing_extensions import Never, TypeAlias, Unpack
 
 __all__ = [
@@ -55,12 +55,14 @@ _TtkCompound: TypeAlias = Literal["", "text", "image", tkinter._Compound]
 _Statespec: TypeAlias = tuple[Unpack[tuple[str, ...]], Any]
 _ImageStatespec: TypeAlias = tuple[Unpack[tuple[str, ...]], tkinter._ImageSpec]
 _VsapiStatespec: TypeAlias = tuple[Unpack[tuple[str, ...]], int]
+
 class _Layout(TypedDict, total=False):
     side: Literal["left", "right", "top", "bottom"]
     sticky: str  # consists of letters 'n', 's', 'w', 'e', may contain repeats, may be empty
     unit: Literal[0, 1] | bool
     children: _LayoutSpec
     # Note: there seem to be some other undocumented keys sometimes
+
 # This could be any sequence when passed as a parameter but will always be a list when returned.
 _LayoutSpec: TypeAlias = list[tuple[str, _Layout | None]]
 
@@ -71,34 +73,43 @@ class _ElementCreateImageKwargs(TypedDict, total=False):
     padding: _Padding
     sticky: str
     width: tkinter._ScreenUnits
+
 _ElementCreateArgsCrossPlatform: TypeAlias = (
     # Could be any sequence here but types are not homogenous so just type it as tuple
-    tuple[Literal['image'], tkinter._ImageSpec, Unpack[tuple[_ImageStatespec, ...]], _ElementCreateImageKwargs]
-    | tuple[Literal['from'], str, str] | tuple[Literal['from'], str]  # (fromelement is optional)
+    tuple[Literal["image"], tkinter._ImageSpec, Unpack[tuple[_ImageStatespec, ...]], _ElementCreateImageKwargs]
+    | tuple[Literal["from"], str, str]
+    | tuple[Literal["from"], str]  # (fromelement is optional)
 )
 if sys.platform == "win32" and sys.version_info >= (3, 13):
     class _ElementCreateVsapiKwargsPadding(TypedDict, total=False):
         padding: _Padding
+
     class _ElementCreateVsapiKwargsMargin(TypedDict, total=False):
         padding: _Padding
+
     class _ElementCreateVsapiKwargsSize(TypedDict):
         width: tkinter._ScreenUnits
         height: tkinter._ScreenUnits
+
     _ElementCreateVsapiKwargsDict = (
-        _ElementCreateVsapiKwargsPadding | _ElementCreateVsapiKwargsMargin | _ElementCreateVsapiKwargsSize)
+        _ElementCreateVsapiKwargsPadding | _ElementCreateVsapiKwargsMargin | _ElementCreateVsapiKwargsSize
+    )
     _ElementCreateArgs: TypeAlias = (
         _ElementCreateArgsCrossPlatform
-        | tuple[Literal['vsapi'], str, int, _ElementCreateVsapiKwargsDict]
-        | tuple[Literal['vsapi'], str, int, _VsapiStatespec, _ElementCreateVsapiKwargsDict])
+        | tuple[Literal["vsapi"], str, int, _ElementCreateVsapiKwargsDict]
+        | tuple[Literal["vsapi"], str, int, _VsapiStatespec, _ElementCreateVsapiKwargsDict]
+    )
 else:
     _ElementCreateArgs: TypeAlias = _ElementCreateArgsCrossPlatform
 _ThemeSettingsValue = TypedDict(
-    '_ThemeSettingsValue', {
-        'configure': dict[str, Any],
-        'map': dict[str, Iterable[_Statespec]],
-        'layout': _LayoutSpec,
-        'element create': _ElementCreateArgs,
-    }, total=False
+    "_ThemeSettingsValue",
+    {
+        "configure": dict[str, Any],
+        "map": dict[str, Iterable[_Statespec]],
+        "layout": _LayoutSpec,
+        "element create": _ElementCreateArgs,
+    },
+    total=False,
 )
 _ThemeSettings = dict[str, _ThemeSettingsValue]
 
@@ -124,25 +135,59 @@ class Style:
     @overload
     def layout(self, style: str, layoutspec: None = None) -> _LayoutSpec: ...
     @overload
-    def element_create(self, elementname: str, etype: Literal['image'], __default_image: tkinter._ImageSpec,
-                       *imagespec: _ImageStatespec, border: _Padding = ..., height: tkinter._ScreenUnits = ...,
-                       padding: _Padding = ..., sticky: str = ..., width: tkinter._ScreenUnits = ...) -> None: ...
+    def element_create(
+        self,
+        elementname: str,
+        etype: Literal["image"],
+        __default_image: tkinter._ImageSpec,
+        *imagespec: _ImageStatespec,
+        border: _Padding = ...,
+        height: tkinter._ScreenUnits = ...,
+        padding: _Padding = ...,
+        sticky: str = ...,
+        width: tkinter._ScreenUnits = ...,
+    ) -> None: ...
     @overload
-    def element_create(self, elementname: str, etype: Literal['from'], __themename: str, __fromelement: str = ...) -> None: ...
-    if sys.platform == 'win32' and sys.version_info >= (3, 13):  # and tk version >= 8.6
+    def element_create(self, elementname: str, etype: Literal["from"], __themename: str, __fromelement: str = ...) -> None: ...
+    if sys.platform == "win32" and sys.version_info >= (3, 13):  # and tk version >= 8.6
         # margin, padding, and (width + height) are mutually exclusive. width
         # and height must either both be present or not present at all. Note:
         # There are other undocumented options if you look at ttk's source code.
         @overload
-        def element_create(self, elementname: str, etype: Literal['vsapi'], __class: str, __part: int,
-                           __vs_statespec: _VsapiStatespec = (((), 1),), *,  padding: _Padding = ...) -> None: ...
+        def element_create(
+            self,
+            elementname: str,
+            etype: Literal["vsapi"],
+            __class: str,
+            __part: int,
+            __vs_statespec: _VsapiStatespec = (((), 1),),
+            *,
+            padding: _Padding = ...,
+        ) -> None: ...
         @overload
-        def element_create(self, elementname: str, etype: Literal['vsapi'], __class: str, __part: int,
-                           __vs_statespec: _VsapiStatespec = (((), 1),), *, margin: _Padding = ...) -> None: ...
+        def element_create(
+            self,
+            elementname: str,
+            etype: Literal["vsapi"],
+            __class: str,
+            __part: int,
+            __vs_statespec: _VsapiStatespec = (((), 1),),
+            *,
+            margin: _Padding = ...,
+        ) -> None: ...
         @overload
-        def element_create(self, elementname: str, etype: Literal['vsapi'], __class: str, __part: int,
-                           __vs_statespec: _VsapiStatespec = (((), 1),), *, width: tkinter._ScreenUnits,
-                           height: tkinter._ScreenUnits) -> None: ...
+        def element_create(
+            self,
+            elementname: str,
+            etype: Literal["vsapi"],
+            __class: str,
+            __part: int,
+            __vs_statespec: _VsapiStatespec = (((), 1),),
+            *,
+            width: tkinter._ScreenUnits,
+            height: tkinter._ScreenUnits,
+        ) -> None: ...
+
     def element_names(self) -> tuple[str, ...]: ...
     def element_options(self, elementname: str) -> tuple[str, ...]: ...
     def theme_create(self, themename: str, parent: str = None, settings: _ThemeSettings | None = None) -> None: ...
