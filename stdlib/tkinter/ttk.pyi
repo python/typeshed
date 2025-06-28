@@ -1,11 +1,11 @@
 import _tkinter
 import sys
 import tkinter
-from _typeshed import MaybeNone, Incomplete
+from _typeshed import MaybeNone
 from collections.abc import Callable
 from tkinter.font import _FontDescription
-from typing import Any, Literal, TypedDict, overload, Iterable
-from typing_extensions import TypeAlias, Unpack, Never
+from typing import Any, Iterable, Literal, overload, TypedDict
+from typing_extensions import Never, TypeAlias, Unpack
 
 __all__ = [
     "Button",
