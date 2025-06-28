@@ -139,8 +139,14 @@ class Style:
         self,
         elementname: str,
         etype: Literal["image"],
-        default_image: tkinter._ImageSpec,
-        /,
+        # This is technically positional-only and others above are positional-or-keyword.
+        # But as this isn't optional, the ones above must also be positional-only.
+        # However, this is inconsistent with the implementation (as it technically has the ones above as positional-or-keyword
+        # and this one in *args and then it checks that this is present but to get this into the *args, the previous 2 must
+        # also be given positionally so are in practise positional-only). Therefore, stubtest complains.
+        # (I'm not sure if this is the best way to handle this - ignoring the
+        # stubtest error would result in stubs that actually match the code)
+        _default_image: tkinter._ImageSpec,
         *imagespec: _ImageStatespec,
         border: _Padding = ...,
         height: tkinter._ScreenUnits = ...,
@@ -159,10 +165,9 @@ class Style:
             self,
             elementname: str,
             etype: Literal["vsapi"],
-            class_: str,
-            part: int,
-            vs_statespec: _VsapiStatespec = ...,
-            /,
+            _class: str,
+            _part: int,
+            _vs_statespec: _VsapiStatespec = ...,
             *,
             padding: _Padding = ...,
         ) -> None: ...
@@ -171,10 +176,9 @@ class Style:
             self,
             elementname: str,
             etype: Literal["vsapi"],
-            class_: str,
-            part: int,
-            vs_statespec: _VsapiStatespec = ...,
-            /,
+            _class: str,
+            _part: int,
+            _vs_statespec: _VsapiStatespec = ...,
             *,
             margin: _Padding = ...,
         ) -> None: ...
@@ -183,10 +187,9 @@ class Style:
             self,
             elementname: str,
             etype: Literal["vsapi"],
-            class_: str,
-            part: int,
-            vs_statespec: _VsapiStatespec = ...,
-            /,
+            _class: str,
+            _part: int,
+            _vs_statespec: _VsapiStatespec = ...,
             *,
             width: tkinter._ScreenUnits,
             height: tkinter._ScreenUnits,
