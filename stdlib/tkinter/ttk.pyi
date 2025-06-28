@@ -128,7 +128,7 @@ class Style:
     @overload
     def map(self, style: str, query_opt: str) -> _Statespec: ...
     @overload
-    def map(self, style: str, query_op: None = None, **kw: Iterable[_Statespec]) -> dict[str, _Statespec]: ...
+    def map(self, style: str, query_opt: None = None, **kw: Iterable[_Statespec]) -> dict[str, _Statespec]: ...
     def lookup(self, style: str, option: str, state: Iterable[str] | None = None, default: Any | None = None) -> Any: ...
     @overload
     def layout(self, style: str, layoutspec: _LayoutSpec) -> list[Never]: ...  # Always seems to return an empty list
@@ -139,7 +139,7 @@ class Style:
         self,
         elementname: str,
         etype: Literal["image"],
-        __default_image: tkinter._ImageSpec,
+        default_image: tkinter._ImageSpec, /,
         *imagespec: _ImageStatespec,
         border: _Padding = ...,
         height: tkinter._ScreenUnits = ...,
@@ -148,7 +148,7 @@ class Style:
         width: tkinter._ScreenUnits = ...,
     ) -> None: ...
     @overload
-    def element_create(self, elementname: str, etype: Literal["from"], __themename: str, __fromelement: str = ...) -> None: ...
+    def element_create(self, elementname: str, etype: Literal["from"], themename: str, fromelement: str = ..., /) -> None: ...
     if sys.platform == "win32" and sys.version_info >= (3, 13):  # and tk version >= 8.6
         # margin, padding, and (width + height) are mutually exclusive. width
         # and height must either both be present or not present at all. Note:
@@ -158,9 +158,9 @@ class Style:
             self,
             elementname: str,
             etype: Literal["vsapi"],
-            __class: str,
-            __part: int,
-            __vs_statespec: _VsapiStatespec = ...,
+            class_: str,
+            part: int,
+            vs_statespec: _VsapiStatespec = ..., /,
             *,
             padding: _Padding = ...,
         ) -> None: ...
@@ -169,9 +169,9 @@ class Style:
             self,
             elementname: str,
             etype: Literal["vsapi"],
-            __class: str,
-            __part: int,
-            __vs_statespec: _VsapiStatespec = ...,
+            class_: str,
+            part: int,
+            vs_statespec: _VsapiStatespec = ..., /,
             *,
             margin: _Padding = ...,
         ) -> None: ...
@@ -180,9 +180,9 @@ class Style:
             self,
             elementname: str,
             etype: Literal["vsapi"],
-            __class: str,
-            __part: int,
-            __vs_statespec: _VsapiStatespec = ...,
+            class_: str,
+            part: int,
+            vs_statespec: _VsapiStatespec = ..., /,
             *,
             width: tkinter._ScreenUnits,
             height: tkinter._ScreenUnits,
