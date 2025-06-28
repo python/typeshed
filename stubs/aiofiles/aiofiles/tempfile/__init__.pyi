@@ -15,7 +15,6 @@ from typing import AnyStr, Literal, overload
 from ..base import AiofilesContextManager
 from ..threadpool.binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
 from ..threadpool.text import AsyncTextIOWrapper
-from .temptypes import AsyncTemporaryDirectory
 
 # Text mode: always returns AsyncTextIOWrapper
 @overload
