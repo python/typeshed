@@ -3,6 +3,7 @@ from typing import Any
 from braintree.graphql.unions.customer_recommendations import CustomerRecommendations
 
 class CustomerRecommendationsPayload:
+    session_id: str | None
     is_in_paypal_network: bool | None
     recommendations: CustomerRecommendations | None
     def __init__(
