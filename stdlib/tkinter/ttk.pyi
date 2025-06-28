@@ -91,7 +91,7 @@ if sys.platform == "win32" and sys.version_info >= (3, 13):
         width: tkinter._ScreenUnits
         height: tkinter._ScreenUnits
 
-    _ElementCreateVsapiKwargsDict = (
+    _ElementCreateVsapiKwargsDict: TypeAlias = (
         _ElementCreateVsapiKwargsPadding | _ElementCreateVsapiKwargsMargin | _ElementCreateVsapiKwargsSize
     )
     _ElementCreateArgs: TypeAlias = (
@@ -101,7 +101,7 @@ if sys.platform == "win32" and sys.version_info >= (3, 13):
     )
 else:
     _ElementCreateArgs: TypeAlias = _ElementCreateArgsCrossPlatform
-_ThemeSettingsValue = TypedDict(
+_ThemeSettingsValue: TypeAlias = TypedDict(
     "_ThemeSettingsValue",
     {
         "configure": dict[str, Any],
@@ -111,7 +111,7 @@ _ThemeSettingsValue = TypedDict(
     },
     total=False,
 )
-_ThemeSettings = dict[str, _ThemeSettingsValue]
+_ThemeSettings: TypeAlias = dict[str, _ThemeSettingsValue]
 
 class Style:
     master: tkinter.Misc
@@ -160,7 +160,7 @@ class Style:
             etype: Literal["vsapi"],
             __class: str,
             __part: int,
-            __vs_statespec: _VsapiStatespec = (((), 1),),
+            __vs_statespec: _VsapiStatespec = ...,
             *,
             padding: _Padding = ...,
         ) -> None: ...
@@ -171,7 +171,7 @@ class Style:
             etype: Literal["vsapi"],
             __class: str,
             __part: int,
-            __vs_statespec: _VsapiStatespec = (((), 1),),
+            __vs_statespec: _VsapiStatespec = ...,
             *,
             margin: _Padding = ...,
         ) -> None: ...
@@ -182,7 +182,7 @@ class Style:
             etype: Literal["vsapi"],
             __class: str,
             __part: int,
-            __vs_statespec: _VsapiStatespec = (((), 1),),
+            __vs_statespec: _VsapiStatespec = ...,
             *,
             width: tkinter._ScreenUnits,
             height: tkinter._ScreenUnits,
