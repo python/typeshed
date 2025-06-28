@@ -25,18 +25,13 @@ NO: Final = "no"
 class Message(Dialog):
     command: ClassVar[str]
 
-_Icon: TypeAlias = Literal["error", "info", "question", "warning"]
-_Type: TypeAlias = Literal["abortretryignore", "ok", "okcancel", "retrycancel", "yesno", "yesnocancel"]
-_Default: TypeAlias = Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"]
-
 def showinfo(
     title: str | None = None,
     message: str | None = None,
     *,
     detail: str = ...,
-    icon: _Icon = ...,
-    type: _Type = ...,
-    default: _Default = ...,
+    icon: Literal["error", "info", "question", "warning"] = ...,
+    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
     parent: Misc = ...,
 ) -> str: ...
 def showwarning(
@@ -44,9 +39,8 @@ def showwarning(
     message: str | None = None,
     *,
     detail: str = ...,
-    icon: _Icon = ...,
-    type: _Type = ...,
-    default: _Default = ...,
+    icon: Literal["error", "info", "question", "warning"] = ...,
+    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
     parent: Misc = ...,
 ) -> str: ...
 def showerror(
@@ -54,9 +48,8 @@ def showerror(
     message: str | None = None,
     *,
     detail: str = ...,
-    icon: _Icon = ...,
-    type: _Type = ...,
-    default: _Default = ...,
+    icon: Literal["error", "info", "question", "warning"] = ...,
+    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
     parent: Misc = ...,
 ) -> str: ...
 def askquestion(
@@ -64,9 +57,8 @@ def askquestion(
     message: str | None = None,
     *,
     detail: str = ...,
-    icon: _Icon = ...,
-    type: _Type = ...,
-    default: _Default = ...,
+    icon: Literal["error", "info", "question", "warning"] = ...,
+    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
     parent: Misc = ...,
 ) -> str: ...
 def askokcancel(
@@ -74,9 +66,8 @@ def askokcancel(
     message: str | None = None,
     *,
     detail: str = ...,
-    icon: _Icon = ...,
-    type: _Type = ...,
-    default: _Default = ...,
+    icon: Literal["error", "info", "question", "warning"] = ...,
+    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
     parent: Misc = ...,
 ) -> bool: ...
 def askyesno(
@@ -84,9 +75,8 @@ def askyesno(
     message: str | None = None,
     *,
     detail: str = ...,
-    icon: _Icon = ...,
-    type: _Type = ...,
-    default: _Default = ...,
+    icon: Literal["error", "info", "question", "warning"] = ...,
+    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
     parent: Misc = ...,
 ) -> bool: ...
 def askyesnocancel(
@@ -94,9 +84,8 @@ def askyesnocancel(
     message: str | None = None,
     *,
     detail: str = ...,
-    icon: _Icon = ...,
-    type: _Type = ...,
-    default: _Default = ...,
+    icon: Literal["error", "info", "question", "warning"] = ...,
+    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
     parent: Misc = ...,
 ) -> bool | None: ...
 def askretrycancel(
@@ -104,8 +93,7 @@ def askretrycancel(
     message: str | None = None,
     *,
     detail: str = ...,
-    icon: _Icon = ...,
-    type: _Type = ...,
-    default: _Default = ...,
+    icon: Literal["error", "info", "question", "warning"] = ...,
+    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
     parent: Misc = ...,
 ) -> bool: ...
