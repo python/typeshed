@@ -30,7 +30,7 @@ def showinfo(
     *,
     detail: str = ...,
     icon: Literal["error", "info", "question", "warning"] = ...,
-    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
+    default: Literal["ok"] = ...,
     parent: Misc = ...,
 ) -> str: ...
 def showwarning(
@@ -75,7 +75,7 @@ def askyesno(
     *,
     detail: str = ...,
     icon: Literal["error", "info", "question", "warning"] = ...,
-    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
+    default: Literal["yes", "no"] = ...,
     parent: Misc = ...,
 ) -> bool: ...
 def askyesnocancel(
@@ -84,7 +84,7 @@ def askyesnocancel(
     *,
     detail: str = ...,
     icon: Literal["error", "info", "question", "warning"] = ...,
-    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
+    default: Literal["cancel", "yes", "no"] = ...,
     parent: Misc = ...,
 ) -> bool | None: ...
 def askretrycancel(
@@ -93,6 +93,6 @@ def askretrycancel(
     *,
     detail: str = ...,
     icon: Literal["error", "info", "question", "warning"] = ...,
-    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
+    default: Literal["retry", "cancel"] = ...,
     parent: Misc = ...,
 ) -> bool: ...
