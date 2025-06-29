@@ -66,7 +66,7 @@ def askokcancel(
     *,
     detail: str = ...,
     icon: Literal["error", "info", "question", "warning"] = ...,
-    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
+    default: Literal["ok", "cancel"] = ...,
     parent: Misc = ...,
 ) -> bool: ...
 def askyesno(
