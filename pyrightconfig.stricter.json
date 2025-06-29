@@ -83,7 +83,6 @@
         "stubs/pycurl",
         "stubs/Pygments",
         "stubs/PyMySQL",
-        "stubs/python-crontab",
         "stubs/python-datemath",
         "stubs/python-dateutil",
         "stubs/python-http-client",
