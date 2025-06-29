@@ -2,6 +2,7 @@
 # TODO: New errors in Python 3.14 that need to be fixed or moved below
 # ====================================================================
 
+concurrent.interpreters
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__

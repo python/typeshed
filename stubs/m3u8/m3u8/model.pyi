@@ -54,7 +54,7 @@ class M3U8:
     is_i_frames_only: bool | None
     target_duration: float | None
     media_sequence: int | None
-    program_date_time: str | None
+    program_date_time: dt.datetime | None
     is_independent_segments: bool | None
     version: str | None
     allow_cache: str | None
