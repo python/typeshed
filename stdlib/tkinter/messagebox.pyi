@@ -48,7 +48,7 @@ def showerror(
     *,
     detail: str = ...,
     icon: Literal["error", "info", "question", "warning"] = ...,
-    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
+    default: Literal["ok"] = ...,
     parent: Misc = ...,
 ) -> str: ...
 def askquestion(
