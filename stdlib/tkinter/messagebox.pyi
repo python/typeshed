@@ -57,7 +57,7 @@ def askquestion(
     *,
     detail: str = ...,
     icon: Literal["error", "info", "question", "warning"] = ...,
-    default: Literal["abort", "retry", "ignore", "ok", "cancel", "yes", "no"] = ...,
+    default: Literal["yes", "no"] = ...,
     parent: Misc = ...,
 ) -> str: ...
 def askokcancel(
