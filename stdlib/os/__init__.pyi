@@ -683,10 +683,7 @@ else:
 extsep: str
 pathsep: str
 defpath: str
-if sys.platform == "win32":
-    linesep: Literal["\r\n"]
-else:
-    linesep: Literal["\n"]
+linesep: Literal["\n", "\r\n"]
 devnull: str
 name: str
 
