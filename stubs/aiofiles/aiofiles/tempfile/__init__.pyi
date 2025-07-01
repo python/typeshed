@@ -318,6 +318,6 @@ def TemporaryDirectory(
 ) -> AiofilesContextManagerTempDir: ...
 
 class AiofilesContextManagerTempDir(AiofilesContextManager[str]):
-    async def __aenter__(self) -> str: ...  # type: ignore[override]
+    async def __aenter__(self) -> str: ...
 
 __all__ = ["NamedTemporaryFile", "TemporaryFile", "SpooledTemporaryFile", "TemporaryDirectory"]
