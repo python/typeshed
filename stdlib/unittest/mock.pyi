@@ -303,7 +303,7 @@ class _patcher:
         create: bool = ...,
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
-        new_callable: Any | None = ...,
+        new_callable: Callable[..., Any] | None = ...,
         **kwargs: Any,
     ) -> _patch[_T]: ...
     @overload
@@ -315,7 +315,19 @@ class _patcher:
         create: bool = ...,
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
-        new_callable: Any | None = ...,
+        new_callable: Callable[..., _T],
+        **kwargs: Any,
+    ) -> _patch[_T]: ...
+    @overload
+    def __call__(
+        self,
+        target: str,
+        *,
+        spec: Any | None = ...,
+        create: bool = ...,
+        spec_set: Any | None = ...,
+        autospec: Any | None = ...,
+        new_callable: None = ...,
         **kwargs: Any,
     ) -> _patch_default_new: ...
     @overload
@@ -328,7 +340,7 @@ class _patcher:
         create: bool = ...,
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
-        new_callable: Any | None = ...,
+        new_callable: Callable[..., Any] | None = ...,
         **kwargs: Any,
     ) -> _patch[_T]: ...
     @overload
@@ -341,7 +353,20 @@ class _patcher:
         create: bool = ...,
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
-        new_callable: Any | None = ...,
+        new_callable: Callable[..., _T],
+        **kwargs: Any,
+    ) -> _patch[_T]: ...
+    @overload
+    @staticmethod
+    def object(
+        target: Any,
+        attribute: str,
+        *,
+        spec: Any | None = ...,
+        create: bool = ...,
+        spec_set: Any | None = ...,
+        autospec: Any | None = ...,
+        new_callable: None = ...,
         **kwargs: Any,
     ) -> _patch[MagicMock | AsyncMock]: ...
     @staticmethod
