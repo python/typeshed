@@ -34,7 +34,7 @@ __all__ = [
     "AbstractSet",
     "Annotated",
     "Any",
-    "AnyStr",
+    "AnyStr",f
     "AsyncContextManager",
     "AsyncGenerator",
     "AsyncIterable",
@@ -742,7 +742,7 @@ class Mapping(Collection[_KT], Generic[_KT, _VT_co]):
     @abstractmethod
     def __getitem__(self, key: _KT, /) -> _VT_co: ...
     # Mixin methods
-    @overload
+    @overload  # type: ignore[override]
     def get(self, key: _KT, /) -> _VT_co | None: ...
     @overload
     def get(self, key: _KT, /, default: _VT_co) -> _VT_co: ...
