@@ -34,7 +34,7 @@ __all__ = [
     "AbstractSet",
     "Annotated",
     "Any",
-    "AnyStr",f
+    "AnyStr",
     "AsyncContextManager",
     "AsyncGenerator",
     "AsyncIterable",
