@@ -5,7 +5,7 @@ from collections.abc import Iterator, Mapping
 from datetime import datetime, timedelta
 from decimal import Decimal
 from fractions import Fraction
-from typing import TypedDict
+from typing import TypedDict, Union
 from typing_extensions import assert_type
 from unittest.mock import AsyncMock, MagicMock, Mock, patch
 
@@ -181,7 +181,7 @@ assert_type(TestXYZ.method(), int)
 
 
 with patch("sys.exit") as default_new_enter:
-    assert_type(default_new_enter, MagicMock | AsyncMock)
+    assert_type(default_new_enter, Union[MagicMock, AsyncMock])
 
 with patch("sys.exit", new=42) as explicit_new_enter:
     assert_type(explicit_new_enter, int)
@@ -219,7 +219,7 @@ obj_f_explicit_new_callable("a")  # Same as default new
 
 
 with patch.object(Decimal, "exp") as obj_default_new_enter:
-    assert_type(obj_default_new_enter, MagicMock | AsyncMock)
+    assert_type(obj_default_new_enter, Union[MagicMock, AsyncMock])
 
 with patch.object(Decimal, "exp", new=42) as obj_explicit_new_enter:
     assert_type(obj_explicit_new_enter, int)
