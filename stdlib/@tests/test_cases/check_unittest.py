@@ -7,7 +7,7 @@ from decimal import Decimal
 from fractions import Fraction
 from typing import TypedDict
 from typing_extensions import assert_type
-from unittest.mock import MagicMock, Mock, patch, AsyncMock
+from unittest.mock import AsyncMock, MagicMock, Mock, patch
 
 case = unittest.TestCase()
 
@@ -153,9 +153,11 @@ def f_default_new(i: int, mock: MagicMock) -> str:
 def f_explicit_new(i: int) -> str:
     return "asdf"
 
+
 @patch("sys.exit", new_callable=lambda: 42)
 def f_explicit_new_callable(i: int, new_callable_ret: int) -> str:
     return "asdf"
+
 
 assert_type(f_default_new(1), str)
 f_default_new("a")  # Not an error due to ParamSpec limitations
@@ -163,6 +165,7 @@ assert_type(f_explicit_new(1), str)
 f_explicit_new("a")  # type: ignore[arg-type]
 assert_type(f_explicit_new_callable(1), str)
 f_explicit_new_callable("a")  # Same as default new
+
 
 @patch("sys.exit", new=Mock())
 class TestXYZ(unittest.TestCase):
@@ -191,6 +194,7 @@ with patch("sys.exit", new_callable=lambda: 42) as explicit_new_callable_enter:
 # Tests for mock.patch.object
 ###
 
+
 @patch.object(Decimal, "exp")
 def obj_f_default_new(i: int, mock: MagicMock) -> str:
     return "asdf"
@@ -200,9 +204,11 @@ def obj_f_default_new(i: int, mock: MagicMock) -> str:
 def obj_f_explicit_new(i: int) -> str:
     return "asdf"
 
+
 @patch.object(Decimal, "exp", new_callable=lambda: 42)
 def obj_f_explicit_new_callable(i: int, new_callable_ret: int) -> str:
     return "asdf"
+
 
 assert_type(obj_f_default_new(1), str)
 obj_f_default_new("a")  # Not an error due to ParamSpec limitations
@@ -210,7 +216,6 @@ assert_type(obj_f_explicit_new(1), str)
 obj_f_explicit_new("a")  # type: ignore[arg-type]
 assert_type(obj_f_explicit_new_callable(1), str)
 obj_f_explicit_new_callable("a")  # Same as default new
-
 
 
 with patch.object(Decimal, "exp") as obj_default_new_enter:
