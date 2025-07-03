@@ -43,8 +43,8 @@ class AgentRemoteProxy(AgentProxyThread):
     def get_connection(self) -> tuple[socket, _RetAddress]: ...
 
 if sys.platform == "win32":
-    from win_openssh import OpenSSHAgentConnection
-    from win_pageant import PageantConnection
+    from .win_openssh import OpenSSHAgentConnection
+    from .win_pageant import PageantConnection
 
     def get_agent_connection() -> PageantConnection | OpenSSHAgentConnection | None: ...
 
