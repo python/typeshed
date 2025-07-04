@@ -1,9 +1,10 @@
 import re
 from _typeshed import Incomplete
 from collections.abc import Callable
+from typing import Final
 
-CODE_VERIFIER_PATTERN: re.Pattern[str]
-CODE_CHALLENGE_PATTERN: re.Pattern[str]
+CODE_VERIFIER_PATTERN: Final[re.Pattern[str]]
+CODE_CHALLENGE_PATTERN: Final[re.Pattern[str]]
 
 def create_s256_code_challenge(code_verifier): ...
 def compare_plain_code_challenge(code_verifier, code_challenge): ...
