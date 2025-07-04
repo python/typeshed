@@ -38,6 +38,8 @@ if sys.version_info >= (3, 12):
         "AbsolutePathError",
         "LinkOutsideDestinationError",
     ]
+if sys.version_info >= (3, 13):
+    __all__ += ["LinkFallbackError"]
 
 _FilterFunction: TypeAlias = Callable[[TarInfo, str], TarInfo | None]
 _TarfileFilter: TypeAlias = Literal["fully_trusted", "tar", "data"] | _FilterFunction
@@ -199,6 +201,7 @@ class TarFile:
         self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
     def __iter__(self) -> Iterator[TarInfo]: ...
+
     @overload
     @classmethod
     def open(
@@ -256,6 +259,7 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
+
     @overload
     @classmethod
     def open(
@@ -313,6 +317,7 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
+
     @overload
     @classmethod
     def open(
@@ -373,6 +378,7 @@ class TarFile:
         errorlevel: int | None = ...,
         compresslevel: int = 9,
     ) -> Self: ...
+
     @overload
     @classmethod
     def open(
@@ -433,6 +439,7 @@ class TarFile:
         errorlevel: int | None = ...,
         preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
     ) -> Self: ...
+
     @overload
     @classmethod
     def open(
@@ -490,6 +497,7 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
+
     @overload
     @classmethod
     def open(
@@ -547,6 +555,7 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
+
     @overload
     @classmethod
     def open(
@@ -607,6 +616,7 @@ class TarFile:
         errorlevel: int | None = ...,
         compresslevel: int = 9,
     ) -> Self: ...
+
     @overload
     @classmethod
     def taropen(
@@ -661,6 +671,7 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
+
     @overload
     @classmethod
     def gzopen(
@@ -769,6 +780,7 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
+
     @overload
     @classmethod
     def bz2open(
@@ -877,6 +889,7 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
+
     @overload
     @classmethod
     def xzopen(
@@ -931,6 +944,7 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
+
     def getmember(self, name: str) -> TarInfo: ...
     def getmembers(self) -> _list[TarInfo]: ...
     def getnames(self) -> _list[str]: ...
@@ -954,18 +968,28 @@ class TarFile:
         filter: _TarfileFilter | None = ...,
     ) -> None: ...
     def _extract_member(
-        self, tarinfo: TarInfo, targetpath: str, set_attrs: bool = True, numeric_owner: bool = False
-    ) -> None: ...
+        self,
+        tarinfo: TarInfo,
+        targetpath: str,
+        set_attrs: bool = True,
+        numeric_owner: bool = False,
+        *,
+        filter_function: _FilterFunction | None = None,
+        extraction_root: str | None = None,
+    ) -> None: ...  # undocumented
     def extractfile(self, member: str | TarInfo) -> IO[bytes] | None: ...
-    def makedir(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...
-    def makefile(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...
-    def makeunknown(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...
-    def makefifo(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...
-    def makedev(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...
-    def makelink(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...
-    def chown(self, tarinfo: TarInfo, targetpath: StrOrBytesPath, numeric_owner: bool) -> None: ...
-    def chmod(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...
-    def utime(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...
+    def makedir(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
+    def makefile(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
+    def makeunknown(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
+    def makefifo(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
+    def makedev(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
+    def makelink(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
+    def makelink_with_filter(
+        self, tarinfo: TarInfo, targetpath: StrOrBytesPath, filter_function: _FilterFunction, extraction_root: str
+    ) -> None: ...  # undocumented
+    def chown(self, tarinfo: TarInfo, targetpath: StrOrBytesPath, numeric_owner: bool) -> None: ...  # undocumented
+    def chmod(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
+    def utime(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
     def add(
         self,
         name: StrPath,
@@ -1007,6 +1031,9 @@ class AbsoluteLinkError(FilterError):
     def __init__(self, tarinfo: TarInfo) -> None: ...
 
 class LinkOutsideDestinationError(FilterError):
+    def __init__(self, tarinfo: TarInfo, path: str) -> None: ...
+
+class LinkFallbackError(FilterError):
     def __init__(self, tarinfo: TarInfo, path: str) -> None: ...
 
 def fully_trusted_filter(member: TarInfo, dest_path: str) -> TarInfo: ...
