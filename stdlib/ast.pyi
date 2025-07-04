@@ -1711,7 +1711,9 @@ if sys.version_info < (3, 14):
         s: bytes
 
     @deprecated("Replaced by ast.Constant; removed in Python 3.14")
-    class NameConstant(Constant, metaclass=_ABC): ...
+    class NameConstant(Constant, metaclass=_ABC):
+        value: _ConstantValue
+        kind: str | None
 
     @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Ellipsis(Constant, metaclass=_ABC): ...
