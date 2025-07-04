@@ -933,6 +933,24 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
+    @overload
+    @classmethod
+    def xzopen(
+        cls,
+        *,
+        fileobj: IO[bytes] = None,
+        name: StrOrBytesPath | None = None,
+        mode: Literal["r", "w", "x"] = "r",
+        preset: int | None = None,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
     def getmember(self, name: str) -> TarInfo: ...
     def getmembers(self) -> _list[TarInfo]: ...
     def getnames(self) -> _list[str]: ...
