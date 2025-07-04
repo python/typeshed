@@ -17,14 +17,14 @@ packaging==25.0
 pathspec>=0.11.1
 pre-commit
 # Required by create_baseline_stubs.py. Must match .pre-commit-config.yaml.
-ruff==0.12.1
+ruff==0.12.2
 # TODO (2025-05-07): Dependency libcst doesn't support Python 3.14 yet.
 stubdefaulter==0.1.0; python_version < "3.14"
 termcolor>=2.3
 tomli==2.2.1
 tomlkit==0.13.3
 typing_extensions>=4.14.0rc1
-uv==0.7.17
+uv==0.7.19
 
 # Utilities for typeshed infrastructure scripts.
 ts_utils @ file:lib
