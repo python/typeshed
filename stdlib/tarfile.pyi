@@ -968,12 +968,9 @@ class TarFile:
         ) -> None: ...
     else:
         def _extract_member(
-            self,
-            tarinfo: TarInfo,
-            targetpath: str,
-            set_attrs: bool = True,
-            numeric_owner: bool = False,
+            self, tarinfo: TarInfo, targetpath: str, set_attrs: bool = True, numeric_owner: bool = False
         ) -> None: ...
+
     def extractfile(self, member: str | TarInfo) -> IO[bytes] | None: ...
     def makedir(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
     def makefile(self, tarinfo: TarInfo, targetpath: StrOrBytesPath) -> None: ...  # undocumented
