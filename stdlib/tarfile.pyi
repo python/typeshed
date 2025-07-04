@@ -201,7 +201,6 @@ class TarFile:
         self, type: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
     ) -> None: ...
     def __iter__(self) -> Iterator[TarInfo]: ...
-
     @overload
     @classmethod
     def open(
@@ -259,7 +258,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def open(
@@ -317,7 +315,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def open(
@@ -378,7 +375,6 @@ class TarFile:
         errorlevel: int | None = ...,
         compresslevel: int = 9,
     ) -> Self: ...
-
     @overload
     @classmethod
     def open(
@@ -439,7 +435,6 @@ class TarFile:
         errorlevel: int | None = ...,
         preset: Literal[0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def open(
@@ -497,7 +492,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def open(
@@ -555,7 +549,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def open(
@@ -616,7 +609,6 @@ class TarFile:
         errorlevel: int | None = ...,
         compresslevel: int = 9,
     ) -> Self: ...
-
     @overload
     @classmethod
     def taropen(
@@ -671,7 +663,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def gzopen(
@@ -780,7 +771,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def bz2open(
@@ -889,7 +879,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-
     @overload
     @classmethod
     def xzopen(
@@ -944,25 +933,6 @@ class TarFile:
         debug: int | None = ...,
         errorlevel: int | None = ...,
     ) -> Self: ...
-    @overload
-    @classmethod
-    def xzopen(
-        cls,
-        *,
-        fileobj: IO[bytes] | None = None,
-        name: StrOrBytesPath | None = None,
-        mode: Literal["r", "w", "x"] = "r",
-        preset: int | None = None,
-        format: int | None = ...,
-        tarinfo: type[TarInfo] | None = ...,
-        dereference: bool | None = ...,
-        ignore_zeros: bool | None = ...,
-        encoding: str | None = ...,
-        pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
-    ) -> Self: ...
-
     def getmember(self, name: str) -> TarInfo: ...
     def getmembers(self) -> _list[TarInfo]: ...
     def getnames(self) -> _list[str]: ...
