@@ -282,8 +282,8 @@ class TarFile:
     def open(
         cls,
         fileobj: _Fileobj,
+        name: StrOrBytesPath,
         *,
-        name: StrOrBytesPath | None = None,
         mode: Literal["x", "x:", "a", "a:", "w", "w:", "w:tar"],
         bufsize: int = 10240,
         format: int | None = ...,
@@ -613,9 +613,9 @@ class TarFile:
     @classmethod
     def taropen(
         cls,
+        fileobj: _Fileobj,
         name: StrOrBytesPath,
         mode: Literal["r", "a", "w", "x"] = "r",
-        fileobj: _Fileobj | None = None,
         *,
         compresslevel: int = ...,
         format: int | None = ...,
@@ -667,9 +667,9 @@ class TarFile:
     @classmethod
     def gzopen(
         cls,
+        fileobj: _GzipReadableFileobj,
         name: StrOrBytesPath,
         mode: Literal["r"] = "r",
-        fileobj: _GzipReadableFileobj | None = None,
         compresslevel: int = 9,
         *,
         format: int | None = ...,
@@ -685,9 +685,9 @@ class TarFile:
     @classmethod
     def gzopen(
         cls,
+        fileobj: _GzipWritableFileobj,
         name: StrOrBytesPath,
         mode: Literal["w", "x"],
-        fileobj: _GzipWritableFileobj | None = None,
         compresslevel: int = 9,
         *,
         format: int | None = ...,
