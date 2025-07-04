@@ -894,6 +894,24 @@ class TarFile:
     @classmethod
     def xzopen(
         cls,
+        name: StrOrBytesPath | None = None,
+        mode: Literal["r", "w", "x"] = "r",
+        fileobj: IO[bytes] | None = None,
+        preset: int | None = None,
+        *,
+        format: int | None = ...,
+        tarinfo: type[TarInfo] | None = ...,
+        dereference: bool | None = ...,
+        ignore_zeros: bool | None = ...,
+        encoding: str | None = ...,
+        pax_headers: Mapping[str, str] | None = ...,
+        debug: int | None = ...,
+        errorlevel: int | None = ...,
+    ) -> Self: ...
+    @overload
+    @classmethod
+    def xzopen(
+        cls,
         name: StrOrBytesPath,
         mode: Literal["r", "w", "x"] = "r",
         fileobj: IO[bytes] | None = None,
