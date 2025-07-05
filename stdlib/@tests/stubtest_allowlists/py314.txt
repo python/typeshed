@@ -2,16 +2,7 @@
 # TODO: New errors in Python 3.14 that need to be fixed or moved below
 # ====================================================================
 
-asyncio.eager_task_factory
-asyncio.tasks.eager_task_factory
-compression.gzip.GzipFile.readinto
-compression.gzip.GzipFile.readinto
-compression.gzip.GzipFile.readinto1
-compression.gzip.GzipFile.readinto1
-compression.gzip.compress
-gzip.GzipFile.readinto
-gzip.GzipFile.readinto1
-gzip.compress
+concurrent.interpreters
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
@@ -22,7 +13,6 @@ multiprocessing.managers._BaseDictProxy.__ror__
 multiprocessing.managers._BaseDictProxy.fromkeys
 multiprocessing.process.BaseProcess.interrupt
 multiprocessing.synchronize.SemLock.locked
-tkinter.Event.__class_getitem__
 
 # =========================
 # New errors in Python 3.14
@@ -48,8 +38,6 @@ functools.partialmethod.__new__
 # =======
 # >= 3.12
 # =======
-
-zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
 
 # Types that require `__setattr__` and `__delattr__` for typing purposes:
 types.SimpleNamespace.__setattr__

@@ -1,4 +1,4 @@
-version = "3.2.*"
+version = "3.3.*"
 upstream_repository = "https://github.com/oauthlib/oauthlib"
 partial_stub = true
 

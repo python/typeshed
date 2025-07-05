@@ -31,3 +31,37 @@ authlib.oauth2.rfc7521.client.AssertionClient.oauth_error_class
 authlib.oauth2.rfc7523.JWTBearerTokenValidator.token_cls
 authlib.oauth2.rfc7523.validator.JWTBearerTokenValidator.token_cls
 authlib.oauth2.rfc9068.claims.JWTAccessTokenClaims.validate
+
+# Re-exports of hashlib functions whose signatures changed in Python 3.13.4.
+# (Remove once 3.13.4 is consistently available)
+(authlib.jose.rfc7518.jws_algs.HMACAlgorithm.SHA256)?
+(authlib.jose.rfc7518.jws_algs.HMACAlgorithm.SHA384)?
+(authlib.jose.rfc7518.jws_algs.HMACAlgorithm.SHA512)?
+
+# Methods whose *args and **kwargs arguments are added dynamically due to the @hooked decorator:
+authlib.oauth2.rfc6749.AuthorizationCodeGrant.create_token_response
+authlib.oauth2.rfc6749.AuthorizationCodeGrant.validate_token_request
+authlib.oauth2.rfc6749.AuthorizationEndpointMixin.validate_consent_request
+authlib.oauth2.rfc6749.ClientCredentialsGrant.create_token_response
+authlib.oauth2.rfc6749.ImplicitGrant.validate_authorization_request
+authlib.oauth2.rfc6749.RefreshTokenGrant.create_token_response
+authlib.oauth2.rfc6749.ResourceOwnerPasswordCredentialsGrant.create_token_response
+authlib.oauth2.rfc6749.grants.AuthorizationCodeGrant.create_token_response
+authlib.oauth2.rfc6749.grants.AuthorizationCodeGrant.validate_token_request
+authlib.oauth2.rfc6749.grants.AuthorizationEndpointMixin.validate_consent_request
+authlib.oauth2.rfc6749.grants.ClientCredentialsGrant.create_token_response
+authlib.oauth2.rfc6749.grants.ImplicitGrant.validate_authorization_request
+authlib.oauth2.rfc6749.grants.RefreshTokenGrant.create_token_response
+authlib.oauth2.rfc6749.grants.ResourceOwnerPasswordCredentialsGrant.create_token_response
+authlib.oauth2.rfc6749.grants.authorization_code.AuthorizationCodeGrant.create_token_response
+authlib.oauth2.rfc6749.grants.authorization_code.AuthorizationCodeGrant.validate_token_request
+authlib.oauth2.rfc6749.grants.base.AuthorizationEndpointMixin.validate_consent_request
+authlib.oauth2.rfc6749.grants.client_credentials.ClientCredentialsGrant.create_token_response
+authlib.oauth2.rfc6749.grants.implicit.ImplicitGrant.validate_authorization_request
+authlib.oauth2.rfc6749.grants.refresh_token.RefreshTokenGrant.create_token_response
+authlib.oauth2.rfc6749.grants.resource_owner_password_credentials.ResourceOwnerPasswordCredentialsGrant.create_token_response
+authlib.oauth2.rfc8628.DeviceCodeGrant.create_token_response
+authlib.oauth2.rfc8628.device_code.DeviceCodeGrant.create_token_response
+authlib.oidc.core.OpenIDImplicitGrant.validate_consent_request
+authlib.oidc.core.grants.OpenIDImplicitGrant.validate_consent_request
+authlib.oidc.core.grants.implicit.OpenIDImplicitGrant.validate_consent_request
