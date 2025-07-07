@@ -51,7 +51,7 @@ if sys.version_info >= (3, 14):
         worker_context = context[0]()
         assert_type(worker_context, concurrent.futures.interpreter.WorkerContext)
         resolve_task = context[1]
-        # Function should enfore that the arguments are correct.
+        # Function should enforce that the arguments are correct.
         res = resolve_task(_initializer, 1)
         assert_type(res, tuple[bytes, Literal["function"]])
         # When the function is a script, the arguments should be a string.

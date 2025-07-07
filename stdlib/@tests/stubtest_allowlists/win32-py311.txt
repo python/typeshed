@@ -20,3 +20,7 @@ crypt
 nis
 ossaudiodev
 spwd
+
+# Incompatible changes introduced in Python 3.11.13
+# (Remove once 3.11.18 becomes available for Windows)
+(ntpath.realpath)?
