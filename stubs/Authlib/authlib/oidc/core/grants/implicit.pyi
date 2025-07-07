@@ -1,6 +1,9 @@
 from _typeshed import Incomplete
+from logging import Logger
 
 from authlib.oauth2.rfc6749 import ImplicitGrant
+
+log: Logger
 
 class OpenIDImplicitGrant(ImplicitGrant):
     RESPONSE_TYPES: Incomplete
