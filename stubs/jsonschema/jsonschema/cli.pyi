@@ -1,7 +1,7 @@
 import argparse
-from _typeshed import ExcInfo, FileDescriptorOrPath, Incomplete, OptExcInfo
+from _typeshed import ExcInfo, FileDescriptorOrPath, Incomplete, OptExcInfo, SupportsWrite
 from collections.abc import Mapping, Sequence
-from typing import Any, TextIO
+from typing import Any
 from typing_extensions import Self, deprecated
 
 @deprecated("The jsonschema CLI is deprecated and will be removed in a future version. Please use check-jsonschema instead.")
@@ -10,12 +10,16 @@ class _CannotLoadFile(Exception): ...
 @deprecated("The jsonschema CLI is deprecated and will be removed in a future version. Please use check-jsonschema instead.")
 class _Outputter:
     _formatter: _PlainFormatter | _PrettyFormatter
-    _stdout: TextIO
-    _stderr: TextIO
+    _stdout: SupportsWrite[str]
+    _stderr: SupportsWrite[str]
 
-    def __init__(self, formatter: _PlainFormatter | _PrettyFormatter, stdout: TextIO, stderr: TextIO) -> None: ...
+    def __init__(
+        self, formatter: _PlainFormatter | _PrettyFormatter, stdout: SupportsWrite[str], stderr: SupportsWrite[str]
+    ) -> None: ...
     @classmethod
-    def from_arguments(cls, arguments: Mapping[str, Incomplete], stdout: TextIO, stderr: TextIO) -> Self: ...
+    def from_arguments(
+        cls, arguments: Mapping[str, Incomplete], stdout: SupportsWrite[str], stderr: SupportsWrite[str]
+    ) -> Self: ...
     def load(self, path: FileDescriptorOrPath) -> Any: ...  # result of json.load()
     def filenotfound_error(self, *, path: FileDescriptorOrPath, exc_info: OptExcInfo) -> None: ...
     def parsing_error(self, *, path: FileDescriptorOrPath, exc_info: ExcInfo) -> None: ...
@@ -50,4 +54,9 @@ def parse_args(args: Sequence[str] | None) -> dict[str, Any]: ...  # result of v
 @deprecated("The jsonschema CLI is deprecated and will be removed in a future version. Please use check-jsonschema instead.")
 def main(args: Sequence[str] = ...) -> None: ...
 @deprecated("The jsonschema CLI is deprecated and will be removed in a future version. Please use check-jsonschema instead.")
-def run(arguments: Mapping[str, Incomplete], stdout: TextIO = ..., stderr: TextIO = ..., stdin: TextIO = ...) -> int: ...
+def run(
+    arguments: Mapping[str, Incomplete],
+    stdout: SupportsWrite[str] = ...,
+    stderr: SupportsWrite[str] = ...,
+    stdin: SupportsWrite[str] = ...,
+) -> int: ...
