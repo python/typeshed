@@ -15,7 +15,6 @@ from typing import AnyStr, Literal, overload
 from ..base import AiofilesContextManager
 from ..threadpool.binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO
 from ..threadpool.text import AsyncTextIOWrapper
-from .temptypes import AsyncTemporaryDirectory
 
 # Text mode: always returns AsyncTextIOWrapper
 @overload
@@ -318,7 +317,7 @@ def TemporaryDirectory(
     executor=None,
 ) -> AiofilesContextManagerTempDir: ...
 
-class AiofilesContextManagerTempDir(AiofilesContextManager[AsyncTemporaryDirectory]):
-    async def __aenter__(self) -> str: ...  # type: ignore[override]
+class AiofilesContextManagerTempDir(AiofilesContextManager[str]):
+    async def __aenter__(self) -> str: ...
 
 __all__ = ["NamedTemporaryFile", "TemporaryFile", "SpooledTemporaryFile", "TemporaryDirectory"]
