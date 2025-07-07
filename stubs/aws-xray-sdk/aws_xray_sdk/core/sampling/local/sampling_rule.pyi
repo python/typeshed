@@ -1,8 +1,9 @@
-from typing import ClassVar, TypedDict
+from typing import ClassVar, TypedDict, type_check_only
 from typing_extensions import NotRequired
 
 from .reservoir import Reservoir
 
+@type_check_only
 class _Rule(TypedDict):
     description: NotRequired[str]
     host: NotRequired[str]

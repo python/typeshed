@@ -1,8 +1,9 @@
 from _typeshed import Incomplete
 from logging import Logger
 from traceback import StackSummary
-from typing import TypedDict
+from typing import TypedDict, type_check_only
 
+@type_check_only
 class _StackInfo(TypedDict):
     path: str
     line: int

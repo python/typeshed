@@ -1,8 +1,9 @@
-from typing import TypedDict
+from typing import TypedDict, type_check_only
 from typing_extensions import NotRequired
 
 from .sampling_rule import SamplingRule, _Rule
 
+@type_check_only
 class _SamplingRule(TypedDict):
     version: NotRequired[int]
     default: _Rule
