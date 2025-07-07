@@ -1697,6 +1697,8 @@ if sys.version_info < (3, 14):
     @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Num(Constant, metaclass=_ABC):
         value: int | float | complex
+        # Aliases for value, for backwards compatibility
+        n: int | float | complex
 
     @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Str(Constant, metaclass=_ABC):
@@ -1797,7 +1799,7 @@ if sys.version_info >= (3, 13):
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
         optimize: Literal[-1, 0, 1, 2] = -1,
-    ) -> AST: ...
+    ) -> mod: ...
 
 else:
     @overload
@@ -1868,7 +1870,7 @@ else:
         *,
         type_comments: bool = False,
         feature_version: None | int | tuple[int, int] = None,
-    ) -> AST: ...
+    ) -> mod: ...
 
 def literal_eval(node_or_string: str | AST) -> Any: ...
 
