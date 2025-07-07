@@ -57,7 +57,7 @@
         "stubs/jsonschema",
         "stubs/jwcrypto",
         "stubs/ldap3",
-        "stubs/m3u8",
+        "stubs/m3u8/m3u8/model.pyi",
         "stubs/Markdown",
         "stubs/mock/mock/mock.pyi",
         "stubs/mysqlclient",
