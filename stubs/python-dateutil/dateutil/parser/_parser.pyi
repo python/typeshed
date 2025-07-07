@@ -1,5 +1,5 @@
 import re
-from _typeshed import SupportsRead
+from _typeshed import Incomplete, SupportsRead
 from collections.abc import Callable, Mapping
 from datetime import _TzInfo, datetime
 from io import StringIO
@@ -58,7 +58,7 @@ class parserinfo:
     def convertyear(self, year: int, century_specified: bool = False) -> int: ...
     def validate(self, res: datetime) -> bool: ...
 
-class _ymd(list):
+class _ymd(list[Incomplete]):
     century_specified: bool
     dstridx: int | None
     mstridx: int | None
