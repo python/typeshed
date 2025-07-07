@@ -1,8 +1,3 @@
-docutils.frontend.ConfigParser.__getattr__
-docutils.frontend.ConfigParser.read
-docutils.frontend.OptionParser.__getattr__
-docutils.io.FileOutput.__getattr__
-docutils.io.FileOutput.__init__
 docutils.nodes.Element.__iter__ # doesn't exist at runtime, but the class is iterable due to __getitem__
 docutils.nodes.Element.tagname  # class variable is overridden in __init__ method
 docutils.nodes.NodeVisitor.depart_\w+  # Methods are discovered dynamically on commonly-used subclasses
