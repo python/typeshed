@@ -82,10 +82,10 @@ class SupportsNext(Protocol[_T_co]):
 class SupportsAnext(Protocol[_T_co]):
     def __anext__(self) -> Awaitable[_T_co]: ...
 
-# Comparison protocols
 class SupportsBool(Protocol):
     def __bool__(self) -> bool: ...
 
+# Comparison protocols
 class SupportsDunderLT(Protocol[_T_contra]):
     def __lt__(self, other: _T_contra, /) -> SupportsBool: ...
 
