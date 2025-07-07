@@ -36,7 +36,6 @@
         "stubs/defusedxml",
         "stubs/docker",
         "stubs/docutils",
-        "stubs/flake8-typing-imports",
         "stubs/Flask-SocketIO",
         "stubs/fpdf2",
         "stubs/gdb",
