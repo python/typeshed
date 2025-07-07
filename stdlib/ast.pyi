@@ -1697,6 +1697,8 @@ if sys.version_info < (3, 14):
     @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Num(Constant, metaclass=_ABC):
         value: int | float | complex
+        # Aliases for value, for backwards compatibility
+        n: int | float | complex
 
     @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Str(Constant, metaclass=_ABC):
