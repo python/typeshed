@@ -1,3 +1,4 @@
+import sys
 from typing import Any, ClassVar, Final
 
 import click
@@ -24,7 +25,7 @@ class FieldId:
         form_type: str,
         name: str,
         key: str | None = None,
-    ): ...
+    ) -> None: ...
     @classmethod
     def from_string(cls, field_info_as_string: str) -> FieldId: ...
 
@@ -43,10 +44,13 @@ class BaseInput:
     @property
     def type_attrs(self) -> dict[str, Any]: ...
     def _to_cmd_line_name(self, name: str) -> str: ...
-    def _build_name(self, name: str): ...
+    def _build_name(self, name: str) -> str: ...
 
 class ChoiceInput(BaseInput):
-    param_type_cls: type[click.Choice]
+    if sys.version_info >= (3, 10):
+        param_type_cls: type[click.Choice[Any]]
+    else:
+        param_type_cls: type[click.Choice]
 
 class FlagInput(BaseInput):
     param_type_cls: None
@@ -78,4 +82,4 @@ class DefaultInput(BaseInput):
 INPUT_TYPES: Final[list[type[BaseInput]]]
 _DEFAULT_INPUT: Final[list[type[DefaultInput]]]
 
-def get_input_field(ctx: click.Context, param: click.Parameter, command_index, param_index) -> dict[str, Any]: ...
+def get_input_field(ctx: click.Context, param: click.Parameter, command_index: int, param_index: int) -> dict[str, Any]: ...

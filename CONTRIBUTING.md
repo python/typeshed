@@ -229,6 +229,12 @@ This has the following keys:
   If not specified, stubtest is run only on `linux`.
   Only add extra OSes to the test
   if there are platform-specific branches in a stubs package.
+* `mypy_plugins` (default: `[]`): A list of Python modules to use as mypy plugins
+when running stubtest. For example: `mypy_plugins = ["mypy_django_plugin.main"]`
+* `mypy_plugins_config` (default: `{}`): A dictionary mapping plugin names to their
+configuration dictionaries for use by mypy plugins. For example:
+`mypy_plugins_config = {"django-stubs" = {"django_settings_module" = "@tests.django_settings"}}`
+
 
 `*_dependencies` are usually packages needed to `pip install` the implementation
 distribution.
@@ -306,7 +312,7 @@ def foo(x): ...  # unannotated argument and return type
 `Incomplete` can also be used for partially known types:
 
 ```python
-def foo(x: Incomplete | None = None) -> list[Incomplete]: ...
+def foo(x: Incomplete | None) -> list[Incomplete]: ...
 ```
 
 ### What to do when a project's documentation and implementation disagree
@@ -441,7 +447,7 @@ If a package ships its own `py.typed` file, please follow these steps:
 
 1. Open an issue with the earliest month of removal in the subject.
 2. A maintainer will add the
-   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/%22stubs%3A%20removal%22).
 3. Open a PR that sets the `obsolete_since` field in the `METADATA.toml`
    file to the first version of the package that shipped `py.typed`.
 4. After at least six months, open a PR to remove the stubs.
@@ -451,7 +457,7 @@ steps:
 
 1. Open an issue explaining why the stubs should be removed.
 2. A maintainer will add the
-   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/%22stubs%3A%20removal%22).
 3. Open a PR that sets the `no_longer_updated` field in the `METADATA.toml`
    file to `true`.
 4. When a new version of the package was automatically uploaded to PyPI
@@ -462,7 +468,7 @@ for any stub obsoletions or removals.
 
 ### Marking PRs as "deferred"
 
-We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/status%3A%20deferred)
+We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/%22status%3A%20deferred%22)
 to mark PRs and issues that we'd like to accept, but that are blocked by some
 external factor. Blockers can include:
 

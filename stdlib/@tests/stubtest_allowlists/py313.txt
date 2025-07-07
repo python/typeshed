@@ -12,11 +12,13 @@
 # >= 3.12
 # =======
 
-zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
-
 # Initialized at runtime
 typing_extensions.TypeAliasType.__parameters__
 typing_extensions.TypeAliasType.__value__
+
+# Types that require `__setattr__` and `__delattr__` for typing purposes:
+types.SimpleNamespace.__setattr__
+types.SimpleNamespace.__delattr__
 
 
 # =======
@@ -59,6 +61,32 @@ typing(_extensions)?\.IO\.seek
 typing(_extensions)?\.IO\.truncate
 typing(_extensions)?\.IO\.write
 typing(_extensions)?\.IO\.writelines
+
+
+# =======
+# <= 3.13
+# =======
+
+# Pretend typing.ByteString is a Union, to better match its documented semantics.
+# As a side effect, this changes the definition of collections.abc.ByteString, which is okay,
+# because it's not an ABC that makes any sense and was deprecated in 3.12
+_collections_abc.ByteString
+
+ast.Bytes.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
+ast.Ellipsis.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
+ast.NameConstant.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
+ast.Num.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
+ast.Str.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
+
+_?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
+
+importlib.abc.Traversable.open  # Problematic protocol signature at runtime, see source code comments.
+
+typing\.ByteString
+
+# Will always raise. Not included to avoid type checkers inferring that
+# TypeAliasType instances are callable.
+typing_extensions.TypeAliasType.__call__
 
 
 # =============================================================

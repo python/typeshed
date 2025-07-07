@@ -5,6 +5,16 @@ from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
 
+__all__ = [
+    "graph_edit_distance",
+    "optimal_edit_paths",
+    "optimize_graph_edit_distance",
+    "optimize_edit_paths",
+    "simrank_similarity",
+    "panther_similarity",
+    "generate_random_paths",
+]
+
 @_dispatchable
 def graph_edit_distance(
     G1: Graph[_Node],
@@ -94,4 +104,6 @@ def generate_random_paths(
     index_map: SupportsGetItem[Incomplete, Incomplete] | None = None,
     weight: str | None = "weight",
     seed: int | RandomState | None = None,
-) -> Generator[Incomplete, None, None]: ...
+    *,
+    source: _Node | None = None,
+) -> Generator[list[Incomplete]]: ...

@@ -6,7 +6,7 @@ from typing import Any, NamedTuple
 
 import tomli
 
-from ts_utils.metadata import metadata_path
+from ts_utils.metadata import StubtestSettings, metadata_path
 from ts_utils.utils import NamedTemporaryFile, TemporaryFileWrapper
 
 
@@ -50,7 +50,9 @@ def mypy_configuration_from_distribution(distribution: str) -> list[MypyDistConf
 
 
 @contextmanager
-def temporary_mypy_config_file(configurations: Iterable[MypyDistConf]) -> Generator[TemporaryFileWrapper[str]]:
+def temporary_mypy_config_file(
+    configurations: Iterable[MypyDistConf], stubtest_settings: StubtestSettings | None = None
+) -> Generator[TemporaryFileWrapper[str]]:
     temp = NamedTemporaryFile("w+")
     try:
         for dist_conf in configurations:
@@ -58,6 +60,17 @@ def temporary_mypy_config_file(configurations: Iterable[MypyDistConf]) -> Genera
             for k, v in dist_conf.values.items():
                 temp.write(f"{k} = {v}\n")
         temp.write("[mypy]\n")
+
+        if stubtest_settings:
+            if stubtest_settings.mypy_plugins:
+                temp.write(f"plugins = {'.'.join(stubtest_settings.mypy_plugins)}\n")
+
+            if stubtest_settings.mypy_plugins_config:
+                for plugin_name, plugin_dict in stubtest_settings.mypy_plugins_config.items():
+                    temp.write(f"[mypy.plugins.{plugin_name}]\n")
+                    for k, v in plugin_dict.items():
+                        temp.write(f"{k} = {v}\n")
+
         temp.flush()
         yield temp
     finally:

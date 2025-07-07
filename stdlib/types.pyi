@@ -1,5 +1,5 @@
 import sys
-from _typeshed import MaybeNone, SupportsKeysAndGetItem
+from _typeshed import AnnotationForm, MaybeNone, SupportsKeysAndGetItem
 from _typeshed.importlib import LoaderProtocol
 from collections.abc import (
     AsyncGenerator,
@@ -18,6 +18,9 @@ from collections.abc import (
 from importlib.machinery import ModuleSpec
 from typing import Any, ClassVar, Literal, TypeVar, final, overload
 from typing_extensions import ParamSpec, Self, TypeAliasType, TypeVarTuple, deprecated
+
+if sys.version_info >= (3, 14):
+    from _typeshed import AnnotateFunc
 
 __all__ = [
     "FunctionType",
@@ -77,7 +80,9 @@ class FunctionType:
     def __globals__(self) -> dict[str, Any]: ...
     __name__: str
     __qualname__: str
-    __annotations__: dict[str, Any]
+    __annotations__: dict[str, AnnotationForm]
+    if sys.version_info >= (3, 14):
+        __annotate__: AnnotateFunc | None
     __kwdefaults__: dict[str, Any] | None
     if sys.version_info >= (3, 10):
         @property
@@ -146,7 +151,7 @@ class CodeType:
     def co_firstlineno(self) -> int: ...
     if sys.version_info >= (3, 10):
         @property
-        @deprecated("Will be removed in Python 3.14. Use the co_lines() method instead.")
+        @deprecated("Will be removed in Python 3.15. Use the co_lines() method instead.")
         def co_lnotab(self) -> bytes: ...
     else:
         @property
@@ -166,6 +171,8 @@ class CodeType:
         @property
         def co_qualname(self) -> str: ...
         def co_positions(self) -> Iterable[tuple[int | None, int | None, int | None, int | None]]: ...
+    if sys.version_info >= (3, 14):
+        def co_branches(self) -> Iterator[tuple[int, int, int]]: ...
 
     if sys.version_info >= (3, 11):
         def __new__(
@@ -316,7 +323,9 @@ class MappingProxyType(Mapping[_KT, _VT_co]):
     @overload
     def get(self, key: _KT, /) -> _VT_co | None: ...
     @overload
-    def get(self, key: _KT, default: _VT_co | _T2, /) -> _VT_co | _T2: ...
+    def get(self, key: _KT, default: _VT_co, /) -> _VT_co: ...  # type: ignore[misc] # pyright: ignore[reportGeneralTypeIssues] # Covariant type as parameter
+    @overload
+    def get(self, key: _KT, default: _T2, /) -> _VT_co | _T2: ...
     def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
     def __reversed__(self) -> Iterator[_KT]: ...
     def __or__(self, value: Mapping[_T1, _T2], /) -> dict[_KT | _T1, _VT_co | _T2]: ...
@@ -352,6 +361,10 @@ class ModuleType:
     # Redeclaring `__doc__` here helps some type checkers understand that `__doc__` is available
     # as an implicit global in all modules, similar to `__name__`, `__file__`, `__spec__`, etc.
     __doc__: str | None
+    __annotations__: dict[str, AnnotationForm]
+    if sys.version_info >= (3, 14):
+        __annotate__: AnnotateFunc | None
+
     def __init__(self, name: str, doc: str | None = ...) -> None: ...
     # __getattr__ doesn't exist at runtime,
     # but having it here in typeshed makes dynamic imports
@@ -377,7 +390,7 @@ class GeneratorType(Generator[_YieldT_co, _SendT_contra, _ReturnT_co]):
     @property
     def gi_running(self) -> bool: ...
     @property
-    def gi_yieldfrom(self) -> GeneratorType[_YieldT_co, _SendT_contra, Any] | None: ...
+    def gi_yieldfrom(self) -> Iterator[_YieldT_co] | None: ...
     if sys.version_info >= (3, 11):
         @property
         def gi_suspended(self) -> bool: ...
@@ -471,6 +484,10 @@ class MethodType:
     def __qualname__(self) -> str: ...  # inherited from the added function
     def __new__(cls, func: Callable[..., Any], instance: object, /) -> Self: ...
     def __call__(self, *args: Any, **kwargs: Any) -> Any: ...
+
+    if sys.version_info >= (3, 13):
+        def __get__(self, instance: object, owner: type | None = None, /) -> Self: ...
+
     def __eq__(self, value: object, /) -> bool: ...
     def __hash__(self) -> int: ...
 
@@ -571,6 +588,9 @@ class FrameType:
     f_trace_lines: bool
     f_trace_opcodes: bool
     def clear(self) -> None: ...
+    if sys.version_info >= (3, 14):
+        @property
+        def f_generator(self) -> GeneratorType[Any, Any, Any] | CoroutineType[Any, Any, Any] | None: ...
 
 @final
 class GetSetDescriptorType:
