@@ -12,8 +12,6 @@
 # >= 3.12
 # =======
 
-zoneinfo.ZoneInfo.from_file  # Pos-only parameters had different "names" in different Python versions
-
 # Initialized at runtime
 typing_extensions.TypeAliasType.__parameters__
 typing_extensions.TypeAliasType.__value__
