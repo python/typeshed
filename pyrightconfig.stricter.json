@@ -31,7 +31,7 @@
         "stubs/boltons",
         "stubs/braintree",
         "stubs/cffi",
-        "stubs/click-web",
+        "stubs/click-web/resources/input_fields.pyi",
         "stubs/dateparser",
         "stubs/defusedxml",
         "stubs/docker",
