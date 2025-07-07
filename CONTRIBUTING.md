@@ -463,6 +463,7 @@ steps:
 4. When a new version of the package was automatically uploaded to PyPI
    (which can take up to a day), open a PR to remove the stubs.
 
+Don't forget to make sure the library is not in the `pyrightconfig.strict.json` exclusion list.
 If feeling kindly, please update [mypy](https://github.com/python/mypy/blob/master/mypy/stubinfo.py)
 for any stub obsoletions or removals.
 
