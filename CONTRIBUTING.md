@@ -77,9 +77,9 @@ Note that some tests require extra setup steps to install the required dependenc
   Run the following commands from a Windows terminal to install all requirements:
 
   ```powershell
-  > python -m venv .venv
+  > py -m venv .venv
   > .venv\Scripts\activate
-  (.venv) > pip install -U pip
+  (.venv) > python -m pip install -U pip
   (.venv) > pip install -r requirements-tests.txt
   ```
 
@@ -447,7 +447,7 @@ If a package ships its own `py.typed` file, please follow these steps:
 
 1. Open an issue with the earliest month of removal in the subject.
 2. A maintainer will add the
-   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/%22stubs%3A%20removal%22).
 3. Open a PR that sets the `obsolete_since` field in the `METADATA.toml`
    file to the first version of the package that shipped `py.typed`.
 4. After at least six months, open a PR to remove the stubs.
@@ -457,7 +457,7 @@ steps:
 
 1. Open an issue explaining why the stubs should be removed.
 2. A maintainer will add the
-   ["stubs: removal" label](https://github.com/python/typeshed/labels/stubs%3A%20removal).
+   ["stubs: removal" label](https://github.com/python/typeshed/labels/%22stubs%3A%20removal%22).
 3. Open a PR that sets the `no_longer_updated` field in the `METADATA.toml`
    file to `true`.
 4. When a new version of the package was automatically uploaded to PyPI
@@ -468,7 +468,7 @@ for any stub obsoletions or removals.
 
 ### Marking PRs as "deferred"
 
-We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/status%3A%20deferred)
+We sometimes use the ["status: deferred" label](https://github.com/python/typeshed/labels/%22status%3A%20deferred%22)
 to mark PRs and issues that we'd like to accept, but that are blocked by some
 external factor. Blockers can include:
 
