@@ -51,7 +51,6 @@
         "stubs/httplib2",
         "stubs/hvac",
         "stubs/icalendar",
-        "stubs/jmespath",
         "stubs/jsonschema",
         "stubs/jwcrypto",
         "stubs/ldap3",
