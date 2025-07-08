@@ -10,7 +10,7 @@ from ..prepared import PreparedGeometry
 
 @overload
 @deprecated("Use 'shapely.contains_xy' instead (available since shapely 2.0.0).")
-def contains(geometry: Geometry | PreparedGeometry[Geometry], x: float, y: float) -> bool: ...
+def contains(geometry: Geometry | PreparedGeometry[Geometry], x: float, y: float) -> np.bool_: ...
 @overload
 @deprecated("Use 'shapely.contains_xy' instead (available since shapely 2.0.0).")
 def contains(
@@ -25,10 +25,10 @@ def contains(
 @deprecated("Use 'shapely.contains_xy' instead (available since shapely 2.0.0).")
 def contains(
     geometry: Geometry | PreparedGeometry[Geometry], x: ArrayLike[float], y: ArrayLike[float]
-) -> bool | NDArray[np.bool_]: ...
+) -> np.bool_ | NDArray[np.bool_]: ...
 @overload
 @deprecated("Use 'shapely.intersects_xy' instead (available since shapely 2.0.0).")
-def touches(geometry: Geometry | PreparedGeometry[Geometry], x: float, y: float) -> bool: ...
+def touches(geometry: Geometry | PreparedGeometry[Geometry], x: float, y: float) -> np.bool_: ...
 @overload
 @deprecated("Use 'shapely.intersects_xy' instead (available since shapely 2.0.0).")
 def touches(
@@ -43,4 +43,4 @@ def touches(
 @deprecated("Use 'shapely.intersects_xy' instead (available since shapely 2.0.0).")
 def touches(
     geometry: Geometry | PreparedGeometry[Geometry], x: ArrayLike[float], y: ArrayLike[float]
-) -> bool | NDArray[np.bool_]: ...
+) -> np.bool_ | NDArray[np.bool_]: ...
