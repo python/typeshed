@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 class ChannelsConfig(AppConfig):
-    name: str = ...
-    verbose_name: str = ...
+    name: str = "channels"
+    verbose_name: str = "Channels"

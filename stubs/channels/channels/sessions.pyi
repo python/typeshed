@@ -5,6 +5,7 @@ from typing import Any
 from asgiref.typing import ASGIReceiveCallable, ASGISendCallable
 from channels.consumer import _ChannelScope
 from channels.utils import _ChannelApplication
+from django.contrib.sessions.backends.base import SessionBase
 
 class CookieMiddleware:
     inner: _ChannelApplication
@@ -17,22 +18,22 @@ class CookieMiddleware:
         message: dict[str, Any],
         key: str,
         value: str = "",
-        max_age: int | None = ...,
-        expires: str | datetime.datetime | None = ...,
-        path: str = ...,
-        domain: str | None = ...,
-        secure: bool = ...,
-        httponly: bool = ...,
-        samesite: str = ...,
+        max_age: int | None = None,
+        expires: str | datetime.datetime | None = None,
+        path: str = "/",
+        domain: str | None = None,
+        secure: bool = False,
+        httponly: bool = False,
+        samesite: str = "lax",
     ) -> None: ...
     @classmethod
-    def delete_cookie(cls, message: dict[str, Any], key: str, path: str = ..., domain: str | None = ...) -> None: ...
+    def delete_cookie(cls, message: dict[str, Any], key: str, path: str = "/", domain: str | None = None) -> None: ...
 
 class InstanceSessionWrapper:
     save_message_types: list[str]
     cookie_response_message_types: list[str]
     cookie_name: str
-    session_store: Any
+    session_store: SessionBase
     scope: _ChannelScope
     activated: bool
     real_send: ASGISendCallable

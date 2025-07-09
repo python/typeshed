@@ -35,7 +35,7 @@ class HttpCommunicator(ApplicationCommunicator):
         application: _ChannelApplication,
         method: str,
         path: str,
-        body: bytes = ...,
-        headers: Iterable[tuple[bytes, bytes]] | None = ...,
+        body: bytes = b"",
+        headers: Iterable[tuple[bytes, bytes]] | None = None,
     ) -> None: ...
-    async def get_response(self, timeout: float = ...) -> _HTTPTestResponse: ...
+    async def get_response(self, timeout: float = 1) -> _HTTPTestResponse: ...
