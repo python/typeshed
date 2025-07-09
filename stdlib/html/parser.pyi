@@ -24,7 +24,7 @@ class HTMLParser(ParserBase):
     def goahead(self, end: bool) -> None: ...  # undocumented
     def parse_bogus_comment(self, i: int, report: bool = ...) -> int: ...  # undocumented
     if sys.version_info >= (3, 14):
-        def parse_comment(self, i: int, report: bool = True) -> int: ...  # undocumented
+        def parse_comment(self, i: int, report: bool = True) -> int: ...  # type: ignore[override]
 
     def parse_endtag(self, i: int) -> int: ...  # undocumented
     def parse_html_declaration(self, i: int) -> int: ...  # undocumented
