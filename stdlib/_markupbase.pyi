@@ -5,11 +5,7 @@ class ParserBase:
     def reset(self) -> None: ...
     def getpos(self) -> tuple[int, int]: ...
     def unknown_decl(self, data: str) -> None: ...
-    if sys.version_info >= (3, 14):
-        def parse_comment(self, i: int, report: bool = True) -> int: ...  # undocumented
-    else:
-        def parse_comment(self, i: int, report: int = 1) -> int: ...  # undocumented
-
+    def parse_comment(self, i: int, report: int = 1) -> int: ...  # undocumented
     def parse_declaration(self, i: int) -> int: ...  # undocumented
     def parse_marked_section(self, i: int, report: int = 1) -> int: ...  # undocumented
     def updatepos(self, i: int, j: int) -> int: ...  # undocumented
