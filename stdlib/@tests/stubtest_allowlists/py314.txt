@@ -11,6 +11,7 @@ concurrent.futures.interpreter.InterpreterPoolExecutor.prepare_context
 concurrent.futures.interpreter.WorkerContext.__init__
 concurrent.futures.interpreter.WorkerContext.prepare
 concurrent.futures.interpreter.do_call
+html.parser.HTMLParser.parse_comment
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__
