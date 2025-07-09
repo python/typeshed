@@ -1,4 +1,3 @@
-import sys
 from _markupbase import ParserBase
 from re import Pattern
 
@@ -22,10 +21,7 @@ class HTMLParser(ParserBase):
     def check_for_whole_start_tag(self, i: int) -> int: ...  # undocumented
     def clear_cdata_mode(self) -> None: ...  # undocumented
     def goahead(self, end: bool) -> None: ...  # undocumented
-    if sys.version_info >= (3, 14):
-        def parse_comment(self, i: int, report: bool | int = True) -> int: ...  # undocumented
-
-    def parse_bogus_comment(self, i: int, report: bool | int = 1) -> int: ...  # undocumented
+    def parse_bogus_comment(self, i: int, report: bool = True) -> int: ...  # undocumented
     def parse_endtag(self, i: int) -> int: ...  # undocumented
     def parse_html_declaration(self, i: int) -> int: ...  # undocumented
     def parse_pi(self, i: int) -> int: ...  # undocumented
