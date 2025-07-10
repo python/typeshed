@@ -2,7 +2,7 @@ from _typeshed import ReadableBuffer
 from collections.abc import Iterable
 from typing import Final, SupportsBytes, SupportsIndex
 
-from . import connections as connections, converters as converters, cursors as cursors
+from . import connections as connections, constants as constants, converters as converters, cursors as cursors
 from .constants import FIELD_TYPE as FIELD_TYPE
 from .err import (
     DatabaseError as DatabaseError,
@@ -95,7 +95,7 @@ __all__ = [
     "apilevel",
     "connect",
     "connections",
-    "constants",  # noqa: F822
+    "constants",
     "converters",
     "cursors",
     "get_client_info",
