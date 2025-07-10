@@ -6,7 +6,9 @@ from networkx.utils.backends import _dispatchable
 __all__ = ["min_cost_flow_cost", "min_cost_flow", "cost_of_flow", "max_flow_min_cost"]
 
 @_dispatchable
-def min_cost_flow_cost(G: Graph[_Node], demand: str = "demand", capacity: str = "capacity", weight: str = "weight") -> int | float: ...
+def min_cost_flow_cost(
+    G: Graph[_Node], demand: str = "demand", capacity: str = "capacity", weight: str = "weight"
+) -> int | float: ...
 @_dispatchable
 def min_cost_flow(
     G: Graph[_Node], demand: str = "demand", capacity: str = "capacity", weight: str = "weight"
