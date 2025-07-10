@@ -1,3 +1,5 @@
+import asyncio
+from _typeshed import OptExcInfo
 from asyncio import BaseEventLoop
 from collections.abc import Callable, Coroutine
 from concurrent.futures import ThreadPoolExecutor
@@ -10,7 +12,15 @@ _P = ParamSpec("_P")
 _R = TypeVar("_R")
 
 class DatabaseSyncToAsync(SyncToAsync[_P, _R]):
-    def thread_handler(self, loop: BaseEventLoop, *args: Any, **kwargs: Any) -> Any: ...
+    def thread_handler(
+        self,
+        loop: BaseEventLoop,
+        exc_info: OptExcInfo,
+        task_context: list[asyncio.Task[Any]] | None,
+        func: Callable[_P, _R],
+        *args: _P.args,
+        **kwargs: _P.kwargs,
+    ) -> _R: ...
 
 # We define `database_sync_to_async` as a function instead of assigning
 # `DatabaseSyncToAsync(...)` directly, to preserve both decorator and

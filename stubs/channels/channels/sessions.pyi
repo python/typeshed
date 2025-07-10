@@ -11,6 +11,8 @@ class CookieMiddleware:
     inner: _ChannelApplication
 
     def __init__(self, inner: _ChannelApplication) -> None: ...
+
+    # Returns the same type as the provided _ChannelApplication.
     async def __call__(self, scope: _ChannelScope, receive: ASGIReceiveCallable, send: ASGISendCallable) -> Any: ...
     @classmethod
     def set_cookie(

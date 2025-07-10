@@ -1,6 +1,7 @@
 import logging
+from _typeshed import Unused
 from argparse import ArgumentParser
-from typing import Any, TypedDict, type_check_only
+from typing import TypedDict, type_check_only
 
 from channels.layers import BaseChannelLayer
 from channels.worker import Worker
@@ -21,4 +22,4 @@ class Command(BaseCommand):
     channel_layer: BaseChannelLayer
 
     def add_arguments(self, parser: ArgumentParser) -> None: ...
-    def handle(self, *args: Any, **options: _RunWorkerCommandOption) -> None: ...
+    def handle(self, *args: Unused, **options: _RunWorkerCommandOption) -> None: ...

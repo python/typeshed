@@ -1,5 +1,7 @@
+from typing import Final
+
 from django.apps import AppConfig
 
 class ChannelsConfig(AppConfig):
-    name: str = "channels"
+    name: Final = "channels"
     verbose_name: str = "Channels"
