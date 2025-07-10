@@ -17,6 +17,7 @@ class _Expression:
     expression: str
     interpreter: Visitor
     def __init__(self, expression: str, interpreter: Visitor) -> None: ...
+    # `args` and `kwargs` are passed to the appropriate `visit_*` method.
     def visit(self, node: _TreeNode, *args: Any, **kwargs: Any) -> Any: ...
 
 class Visitor:
