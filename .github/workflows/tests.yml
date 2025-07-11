@@ -61,13 +61,14 @@ jobs:
     strategy:
       matrix:
         platform: ["linux", "win32", "darwin"]
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14-dev"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+          allow-prereleases: true
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
       - name: Install required APT packages
