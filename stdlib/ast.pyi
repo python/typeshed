@@ -1099,13 +1099,11 @@ class Constant(expr):
         @deprecated("Will be removed in Python 3.14; use value instead")
         @property
         def n(self) -> _ConstantValue: ...
-        @deprecated("Will be removed in Python 3.14; use value instead")
         @n.setter
         def n(self, value: _ConstantValue) -> None: ...
         @deprecated("Will be removed in Python 3.14; use value instead")
         @property
         def s(self) -> _ConstantValue: ...
-        @deprecated("Will be removed in Python 3.14; use value instead")
         @s.setter
         def s(self, value: _ConstantValue) -> None: ...
 
