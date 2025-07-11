@@ -1503,11 +1503,11 @@ if sys.version_info >= (3, 10):
 
     class MatchSingleton(pattern):
         __match_args__ = ("value",)
-        value: Literal[True, False] | None
-        def __init__(self, value: Literal[True, False] | None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
+        value: bool | None
+        def __init__(self, value: bool | None, **kwargs: Unpack[_Attributes[int]]) -> None: ...
 
         if sys.version_info >= (3, 14):
-            def __replace__(self, *, value: Literal[True, False] | None = ..., **kwargs: Unpack[_Attributes[int]]) -> Self: ...
+            def __replace__(self, *, value: bool | None = ..., **kwargs: Unpack[_Attributes[int]]) -> Self: ...
 
     class MatchSequence(pattern):
         __match_args__ = ("patterns",)
