@@ -5,7 +5,7 @@ from asgiref.typing import WebSocketConnectEvent, WebSocketDisconnectEvent, WebS
 from channels.consumer import AsyncConsumer, SyncConsumer
 
 class WebsocketConsumer(SyncConsumer):
-    groups: list[str] | None
+    groups: list[str]
 
     def __init__(self, *args: Unused, **kwargs: Unused) -> None: ...
     def websocket_connect(self, message: WebSocketConnectEvent) -> None: ...
@@ -33,7 +33,7 @@ class JsonWebsocketConsumer(WebsocketConsumer):
     def encode_json(cls, content: Any) -> str: ...  # Accepts Any like json.dumps()
 
 class AsyncWebsocketConsumer(AsyncConsumer):
-    groups: list[str] | None
+    groups: list[str]
 
     def __init__(self, *args: Unused, **kwargs: Unused) -> None: ...
     async def websocket_connect(self, message: WebSocketConnectEvent) -> None: ...
