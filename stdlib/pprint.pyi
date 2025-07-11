@@ -1,4 +1,5 @@
 import sys
+from _typeshed import SupportsWrite
 from collections import deque
 from typing import IO
 
@@ -112,37 +113,55 @@ class PrettyPrinter:
     def isrecursive(self, object: object) -> bool: ...
     def format(self, object: object, context: dict[int, int], maxlevels: int, level: int) -> tuple[str, bool, bool]: ...
     def _format(
-        self, object: object, stream: IO[str], indent: int, allowance: int, context: dict[int, int], level: int
+        self, object: object, stream: SupportsWrite[str], indent: int, allowance: int, context: dict[int, int], level: int
     ) -> None: ...
     def _pprint_dict(
-        self, object: dict[object, object], stream: IO[str], indent: int, allowance: int, context: dict[int, int], level: int
+        self,
+        object: dict[object, object],
+        stream: SupportsWrite[str],
+        indent: int,
+        allowance: int,
+        context: dict[int, int],
+        level: int,
     ) -> None: ...
     def _pprint_list(
-        self, object: list[object], stream: IO[str], indent: int, allowance: int, context: dict[int, int], level: int
+        self, object: list[object], stream: SupportsWrite[str], indent: int, allowance: int, context: dict[int, int], level: int
     ) -> None: ...
     def _pprint_tuple(
-        self, object: tuple[object, ...], stream: IO[str], indent: int, allowance: int, context: dict[int, int], level: int
+        self,
+        object: tuple[object, ...],
+        stream: SupportsWrite[str],
+        indent: int,
+        allowance: int,
+        context: dict[int, int],
+        level: int,
     ) -> None: ...
     def _pprint_set(
-        self, object: set[object], stream: IO[str], indent: int, allowance: int, context: dict[int, int], level: int
+        self, object: set[object], stream: SupportsWrite[str], indent: int, allowance: int, context: dict[int, int], level: int
     ) -> None: ...
     def _pprint_frozenset(
-        self, object: frozenset[object], stream: IO[str], indent: int, allowance: int, context: dict[int, int], level: int
+        self,
+        object: frozenset[object],
+        stream: SupportsWrite[str],
+        indent: int,
+        allowance: int,
+        context: dict[int, int],
+        level: int,
     ) -> None: ...
     def _pprint_deque(
-        self, object: deque[object], stream: IO[str], indent: int, allowance: int, context: dict[int, int], level: int
+        self, object: deque[object], stream: SupportsWrite[str], indent: int, allowance: int, context: dict[int, int], level: int
     ) -> None: ...
     def _format_dict_items(
         self,
         items: list[tuple[object, object]],
-        stream: IO[str],
+        stream: SupportsWrite[str],
         indent: int,
         allowance: int,
         context: dict[int, int],
         level: int,
     ) -> None: ...
     def _format_items(
-        self, items: list[object], stream: IO[str], indent: int, allowance: int, context: dict[int, int], level: int
+        self, items: list[object], stream: SupportsWrite[str], indent: int, allowance: int, context: dict[int, int], level: int
     ) -> None: ...
     def _repr(self, object: object, context: dict[int, int], level: int) -> str: ...
     def _safe_repr(self, object: object, context: dict[int, int], maxlevels: int, level: int) -> tuple[str, bool, bool]: ...
