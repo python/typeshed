@@ -126,6 +126,8 @@ tkinter.tix.TkVersion
 # because it's not an ABC that makes any sense and was deprecated in 3.12
 _collections_abc.ByteString
 
+ast.Ellipsis.__new__  # Implementation has *args, but shouldn't allow any
+
 _?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
 
 importlib.abc.Traversable.open  # Problematic protocol signature at runtime, see source code comments.
