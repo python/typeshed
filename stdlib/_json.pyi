@@ -25,7 +25,7 @@ class make_encoder:
         markers: dict[int, Any] | None,
         default: Callable[[Any], Any],
         encoder: Callable[[str], str],
-        indent: int | None,
+        indent: str | None,
         key_separator: str,
         item_separator: str,
         sort_keys: bool,
