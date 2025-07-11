@@ -10,7 +10,6 @@ channels.auth.UserLazyObject@AnnotatedWith
 # for better type inference when used as decorator/function
 channels.db.database_sync_to_async
 
-
-# Due to groups type correction raise runtime value, we need to ignore them
+# Set to None on class, but initialized to non-None value in __init__
 channels.generic.websocket.WebsocketConsumer.groups
 channels.generic.websocket.AsyncWebsocketConsumer.groups
