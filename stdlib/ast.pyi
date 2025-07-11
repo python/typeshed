@@ -1096,10 +1096,10 @@ class Constant(expr):
     kind: str | None
     if sys.version_info < (3, 14):
         # Aliases for value, for backwards compatibility
-        @deprecated("Attribute n will be removed in Python 3.14; use value instead")
+        @deprecated("Will be removed in Python 3.14; use value instead")
         @property
         def n(self) -> _ConstantValue: ...
-        @deprecated("Attribute s will be removed in Python 3.14; use value instead")
+        @deprecated("Will be removed in Python 3.14; use value instead")
         @property
         def s(self) -> _ConstantValue: ...
 
