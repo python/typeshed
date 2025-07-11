@@ -1696,32 +1696,32 @@ class _ABC(type):
 if sys.version_info < (3, 14):
     @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Num(Constant, metaclass=_ABC):
-        def __new__(cls, *args, **kwargs) -> Constant: ...
+        def __new__(cls, *args, **kwargs) -> Constant: ...  # type: ignore[misc]
         value: int | float | complex
         # Aliases for value, for backwards compatibility
         n: int | float | complex
 
     @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Str(Constant, metaclass=_ABC):
-        def __new__(cls, *args, **kwargs) -> Constant: ...
+        def __new__(cls, *args, **kwargs) -> Constant: ...  # type: ignore[misc]
         value: str
         # Aliases for value, for backwards compatibility
         s: str
 
     @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Bytes(Constant, metaclass=_ABC):
-        def __new__(cls, *args, **kwargs) -> Constant: ...
+        def __new__(cls, *args, **kwargs) -> Constant: ...  # type: ignore[misc]
         value: bytes
         # Aliases for value, for backwards compatibility
         s: bytes
 
     @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class NameConstant(Constant, metaclass=_ABC):
-        def __new__(cls, *args, **kwargs) -> Constant: ...
+        def __new__(cls, *args, **kwargs) -> Constant: ...  # type: ignore[misc]
 
     @deprecated("Replaced by ast.Constant; removed in Python 3.14")
     class Ellipsis(Constant, metaclass=_ABC):
-        def __new__(cls, *args, **kwargs) -> Constant: ...
+        def __new__(cls, *args, **kwargs) -> Constant: ...  # type: ignore[misc]
 
 # everything below here is defined in ast.py
 
