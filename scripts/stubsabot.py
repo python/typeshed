@@ -10,6 +10,7 @@ import functools
 import io
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tarfile
@@ -25,17 +26,21 @@ from typing_extensions import Self, TypeAlias
 
 import aiohttp
 import packaging.version
+import tomli
 import tomlkit
 from packaging.specifiers import Specifier
 from termcolor import colored
+from tomlkit.items import String
 
-from ts_utils.metadata import StubMetadata, read_metadata, update_metadata
+from ts_utils.metadata import NoSuchStubError, StubMetadata, metadata_path, read_metadata, update_metadata
 from ts_utils.paths import STUBS_PATH, distribution_path
 
 TYPESHED_OWNER = "python"
 TYPESHED_API_URL = f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed"
 
 STUBSABOT_LABEL = "bot: stubsabot"
+
+PYRIGHT_CONFIG = Path("pyrightconfig.stricter.json")
 
 
 class ActionLevel(enum.IntEnum):
@@ -147,6 +152,16 @@ class Obsolete:
 
     def __str__(self) -> str:
         return f"Marking {self.distribution} as obsolete since {self.obsolete_since_version!r}"
+
+
+@dataclass
+class Remove:
+    distribution: str
+    reason: str
+    links: dict[str, str]
+
+    def __str__(self) -> str:
+        return f"Removing {self.distribution} as {self.reason}"
 
 
 @dataclass
@@ -470,11 +485,102 @@ async def analyze_diff(
     return DiffAnalysis(py_files=py_files, py_files_stubbed_in_typeshed=py_files_stubbed_in_typeshed)
 
 
-async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete:
+def obsolete_more_than_6_months(distribution: str) -> bool:
+    try:
+        with metadata_path(distribution).open("rb") as file:
+            data: dict[str, object] = tomli.load(file)
+    except FileNotFoundError:
+        raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
+
+    obsolete_since = data.get("obsolete_since")
+    if not obsolete_since:
+        return False
+
+    assert type(obsolete_since) is String
+    comment: str | None = obsolete_since.trivia.comment
+    if not comment:
+        return False
+
+    release_date_string = comment.removeprefix("# Released on ")
+    release_date = datetime.date.fromisoformat(release_date_string)
+    today = datetime.datetime.now(tz=datetime.timezone.utc).date()
+
+    return release_date >= today
+
+
+def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFile) -> bool:
+    if isinstance(source, zipfile.ZipFile):
+        try:
+            with source.open("METADATA.toml", "r") as f:
+                toml_data: dict[str, object] = tomli.load(f)
+        except KeyError:
+            return False
+    else:
+        try:
+            tarinfo = source.getmember("METADATA.toml")
+            file = source.extractfile(tarinfo)
+            if file is None:
+                return False
+            with file as f:
+                toml_data: dict[str, object] = tomli.load(f)
+        except KeyError:
+            return False
+
+    no_longer_updated = toml_data.get("no_longer_updated", False)
+    assert type(no_longer_updated) is bool
+    return bool(no_longer_updated)
+
+
+async def has_no_longer_updated_release(release_to_download: PypiReleaseDownload, session: aiohttp.ClientSession) -> bool:
+    """
+    Return `True` if the `no_longer_updated` field exists and the value is
+    `True` in the `METADATA.toml` file of latest `types-{distribution}` pypi release.
+    """
+    async with session.get(release_to_download.url) as response:
+        body = io.BytesIO(await response.read())
+
+    packagetype = release_to_download.packagetype
+    if packagetype == "bdist_wheel":
+        assert release_to_download.filename.endswith(".whl")
+        with zipfile.ZipFile(body) as zf:
+            return parse_no_longer_updated_from_archive(zf)
+    elif packagetype == "sdist":
+        # sdist defaults to `.tar.gz` on Lunix and to `.zip` on Windows:
+        # https://docs.python.org/3.11/distutils/sourcedist.html
+        if release_to_download.filename.endswith(".tar.gz"):
+            with tarfile.open(fileobj=body, mode="r:gz") as zf:
+                return parse_no_longer_updated_from_archive(zf)
+        elif release_to_download.filename.endswith(".zip"):
+            with zipfile.ZipFile(body) as zf:
+                return parse_no_longer_updated_from_archive(zf)
+        else:
+            raise AssertionError(f"Package file {release_to_download.filename!r} does not end with '.tar.gz' or '.zip'")
+    else:
+        raise AssertionError(f"Unknown package type for {release_to_download.distribution}: {packagetype!r}")
+
+
+async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove:
     stub_info = read_metadata(distribution)
     if stub_info.is_obsolete:
+        if obsolete_more_than_6_months(stub_info.distribution):
+            pypi_info = await fetch_pypi_info(f"types-{stub_info.distribution}", session)
+            latest_release = pypi_info.get_latest_release()
+            links = {
+                "Typeshed release": f"{pypi_info.pypi_root}",
+                "Typeshed stubs": f"https://github.com/{TYPESHED_OWNER}/typeshed/tree/main/stubs/{stub_info.distribution}",
+            }
+            return Remove(stub_info.distribution, reason="older than 6 months", links=links)
         return NoUpdate(stub_info.distribution, "obsolete")
     if stub_info.no_longer_updated:
+        pypi_info = await fetch_pypi_info(f"types-{stub_info.distribution}", session)
+        latest_release = pypi_info.get_latest_release()
+
+        if await has_no_longer_updated_release(latest_release, session):
+            links = {
+                "Typeshed release": f"{pypi_info.pypi_root}",
+                "Typeshed stubs": f"https://github.com/{TYPESHED_OWNER}/typeshed/tree/main/stubs/{stub_info.distribution}",
+            }
+            return Remove(stub_info.distribution, reason="no longer updated", links=links)
         return NoUpdate(stub_info.distribution, "no longer updated")
 
     pypi_info = await fetch_pypi_info(stub_info.distribution, session)
@@ -683,6 +789,25 @@ def get_update_pr_body(update: Update, metadata: Mapping[str, Any]) -> str:
     return body
 
 
+def remove_stubs(distribution: str) -> None:
+    stub_path = distribution_path(distribution)
+    target_path_prefix = f'"stubs/{distribution}'
+
+    if stub_path.exists() and stub_path.is_dir():
+        shutil.rmtree(stub_path)
+
+    if not PYRIGHT_CONFIG.exists():
+        return
+
+    with PYRIGHT_CONFIG.open("r", encoding="UTF-8") as f:
+        lines = f.readlines()
+
+    lines = [line for line in lines if not line.lstrip().startswith(target_path_prefix)]
+
+    with PYRIGHT_CONFIG.open("w", encoding="UTF-8") as f:
+        f.writelines(lines)
+
+
 async def suggest_typeshed_update(update: Update, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
     if action_level <= ActionLevel.nothing:
         return
@@ -721,6 +846,28 @@ async def suggest_typeshed_obsolete(obsolete: Obsolete, session: aiohttp.ClientS
             return
         if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
             print(f"No PR required: origin/{branch_name} exists and requires no changes!")
+            return
+        somewhat_safe_force_push(branch_name)
+        if action_level <= ActionLevel.fork:
+            return
+
+    await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
+
+
+async def suggest_typeshed_remove(remove: Remove, session: aiohttp.ClientSession, action_level: ActionLevel) -> None:
+    if action_level <= ActionLevel.nothing:
+        return
+    title = f"[stubsabot] Remove {remove.distribution} as {remove.reason}"
+    async with _repo_lock:
+        branch_name = f"{BRANCH_PREFIX}/{normalize(remove.distribution)}"
+        subprocess.check_call(["git", "checkout", "-B", branch_name, "origin/main"])
+        remove_stubs(remove.distribution)
+        body = "\n".join(f"{k}: {v}" for k, v in remove.links.items())
+        subprocess.check_call(["git", "commit", "--all", "-m", f"{title}\n\n{body}"])
+        if action_level <= ActionLevel.local:
+            return
+        if not latest_commit_is_different_to_last_commit_on_origin(branch_name):
+            print(f"No pushing to origin required: origin/{branch_name} exists and requires no changes!")
             return
         somewhat_safe_force_push(branch_name)
         if action_level <= ActionLevel.fork:
@@ -803,9 +950,12 @@ async def main() -> None:
                     if isinstance(update, Update):
                         await suggest_typeshed_update(update, session, action_level=args.action_level)
                         continue
-                    # Redundant, but keeping for extra runtime validation
-                    if isinstance(update, Obsolete):  # pyright: ignore[reportUnnecessaryIsInstance]
+                    if isinstance(update, Obsolete):
                         await suggest_typeshed_obsolete(update, session, action_level=args.action_level)
+                        continue
+                    # Redundant, but keeping for extra runtime validation
+                    if isinstance(update, Remove):  # pyright: ignore[reportUnnecessaryIsInstance]
+                        await suggest_typeshed_remove(update, session, action_level=args.action_level)
                         continue
                 except RemoteConflictError as e:
                     print(colored(f"... but ran into {type(e).__qualname__}: {e}", "red"))
