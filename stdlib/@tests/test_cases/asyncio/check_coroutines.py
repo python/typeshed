@@ -14,17 +14,16 @@ def test_iscoroutinefunction_asyncio(
     z: Callable[[str, int], str | Awaitable[bytes]],
     xx: object,
 ) -> None:
-    # Type ignores are neeeded due to deprecation of iscoroutinefunction in 3.14
-    if iscoroutinefunction(x):  # type: ignore
+    if iscoroutinefunction(x):
         assert_type(x, Callable[[str, int], Coroutine[str, int, bytes]])
 
-    if iscoroutinefunction(y):  # type: ignore
+    if iscoroutinefunction(y):
         assert_type(y, Callable[[str, int], Coroutine[Any, Any, bytes]])
 
-    if iscoroutinefunction(z):  # type: ignore
+    if iscoroutinefunction(z):
         assert_type(z, Callable[[str, int], Coroutine[Any, Any, Any]])
 
-    if iscoroutinefunction(xx):  # type: ignore
+    if iscoroutinefunction(xx):
         assert_type(xx, Callable[..., Coroutine[Any, Any, Any]])
 
 
