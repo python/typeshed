@@ -1,10 +1,11 @@
 import threading
-from _typeshed import Incomplete, Unused
+from _typeshed import Incomplete, SupportsReadline, Unused
 from collections.abc import Callable
 from contextlib import AbstractContextManager
-from typing import Any, BinaryIO, Generic, TypeVar, type_check_only
+from typing import Any, Generic, TypeVar, type_check_only
 from typing_extensions import TypeAlias
 
+from .io import _SupportsReadAndReadlineBytes, _SupportsWriteAndFlushBytes
 from .startup import DAPQueue
 
 _T = TypeVar("_T")
@@ -27,16 +28,21 @@ class CancellationHandler:
     def interruptable_region(self, req: _RequestID | None) -> AbstractContextManager[None]: ...
 
 class Server:
-    in_stream: BinaryIO
-    out_stream: BinaryIO
-    child_stream: BinaryIO
+    in_stream: _SupportsReadAndReadlineBytes
+    out_stream: _SupportsWriteAndFlushBytes
+    child_stream: SupportsReadline[str]
     delay_events: list[tuple[str, _EventBody]]
     write_queue: DAPQueue[_JSONValue | None]
     read_queue: DAPQueue[_JSONValue | None]
     done: bool
     canceller: CancellationHandler
     config: dict[str, Incomplete]
-    def __init__(self, in_stream: BinaryIO, out_stream: BinaryIO, child_stream: BinaryIO) -> None: ...
+    def __init__(
+        self,
+        in_stream: _SupportsReadAndReadlineBytes,
+        out_stream: _SupportsWriteAndFlushBytes,
+        child_stream: SupportsReadline[str],
+    ) -> None: ...
     def main_loop(self) -> None: ...
     def send_event(self, event: str, body: _EventBody | None = None) -> None: ...
     def send_event_later(self, event: str, body: _EventBody | None = None) -> None: ...
