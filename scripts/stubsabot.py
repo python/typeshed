@@ -488,7 +488,7 @@ async def analyze_diff(
 def obsolete_more_than_6_months(distribution: str) -> bool:
     try:
         with metadata_path(distribution).open("rb") as file:
-            data: dict[str, object] = tomli.load(file)
+            data = tomlkit.load(file)
     except FileNotFoundError:
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
 
@@ -511,8 +511,7 @@ def obsolete_more_than_6_months(distribution: str) -> bool:
 def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFile) -> bool:
     if isinstance(source, zipfile.ZipFile):
         try:
-            with source.open("METADATA.toml", "r") as f:
-                toml_data: dict[str, object] = tomli.load(f)
+            file = source.open("METADATA.toml", "r")
         except KeyError:
             return False
     else:
@@ -521,10 +520,11 @@ def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFi
             file = source.extractfile(tarinfo)
             if file is None:
                 return False
-            with file as f:
-                toml_data: dict[str, object] = tomli.load(f)
         except KeyError:
             return False
+
+    with file as f:
+        toml_data: dict[str, object] = tomli.load(f)
 
     no_longer_updated = toml_data.get("no_longer_updated", False)
     assert type(no_longer_updated) is bool
