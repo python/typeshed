@@ -517,7 +517,7 @@ def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFi
     else:
         try:
             tarinfo = source.getmember("METADATA.toml")
-            file = source.extractfile(tarinfo)
+            file = source.extractfile(tarinfo)  # type: ignore[assignment]
             if file is None:
                 return False
         except KeyError:
