@@ -31,7 +31,6 @@
         "stubs/boltons",
         "stubs/braintree",
         "stubs/cffi",
-        "stubs/channels",
         "stubs/dateparser",
         "stubs/defusedxml",
         "stubs/docker",
