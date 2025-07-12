@@ -9,17 +9,17 @@ from typing_extensions import NotRequired
 import gdb
 
 @type_check_only
-class ValueFormat(TypedDict, total=False):
+class _ValueFormat(TypedDict, total=False):
     hex: bool
 
 @type_check_only
-class ReferenceDescriptor(TypedDict):
+class _ReferenceDescriptor(TypedDict):
     # Result of BaseReference.to_object()
     variableReference: int
     name: NotRequired[str]
 
 @type_check_only
-class VariableReferenceDescriptor(ReferenceDescriptor):
+class _VariableReferenceDescriptor(_ReferenceDescriptor):
     # Result of VariableReference.to_object()
     indexedVariables: NotRequired[int]
     namedVariables: NotRequired[int]
@@ -32,7 +32,7 @@ class VariableReferenceDescriptor(ReferenceDescriptor):
 all_variables: list[BaseReference]
 
 def clear_vars(event: Unused) -> None: ...
-def apply_format(value_format: ValueFormat | None) -> AbstractContextManager[None]: ...
+def apply_format(value_format: _ValueFormat | None) -> AbstractContextManager[None]: ...
 
 class BaseReference(abc.ABC):
     ref: int
@@ -41,7 +41,7 @@ class BaseReference(abc.ABC):
     by_name: dict[str, VariableReference]
     name_counts: defaultdict[str, int]
     def __init__(self, name: str) -> None: ...
-    def to_object(self) -> ReferenceDescriptor: ...
+    def to_object(self) -> _ReferenceDescriptor: ...
     @abc.abstractmethod
     def has_children(self) -> bool: ...
     def reset_children(self): ...
@@ -63,7 +63,7 @@ class VariableReference(BaseReference):
     def has_children(self) -> bool: ...
     def cache_children(self) -> list[tuple[int | str, gdb.Value]]: ...
     def child_count(self) -> int: ...
-    def to_object(self) -> VariableReferenceDescriptor: ...
+    def to_object(self) -> _VariableReferenceDescriptor: ...
     # note: parameter named changed from 'index' to 'idx'
     def fetch_one_child(self, idx: int) -> tuple[str, gdb.Value]: ...
 

@@ -3,10 +3,10 @@ from typing import TypedDict, type_check_only
 from typing_extensions import NotRequired
 
 from .sources import Source
-from .varref import ValueFormat
+from .varref import _ValueFormat
 
 @type_check_only
-class _StackFrameFormat(ValueFormat, total=False):
+class _StackFrameFormat(_ValueFormat, total=False):
     parameters: bool
     parameterTypes: bool
     parameterNames: bool
@@ -25,7 +25,8 @@ class _StackFrame(TypedDict):
     moduleId: NotRequired[str | None]
     source: NotRequired[Source]
 
-class _StaceTraceResult(TypedDict):
+@type_check_only
+class _StackTraceResult(TypedDict):
     stackFrames: list[_StackFrame]
 
 def check_stack_frame(
@@ -45,4 +46,4 @@ def check_stack_frame(
 ) -> _StackFrameFormat: ...
 def stacktrace(
     *, levels: int = 0, startFrame: int = 0, threadId: int, format: _StackFrameFormat | None = None, **extra: Unused
-) -> _StaceTraceResult: ...
+) -> _StackTraceResult: ...

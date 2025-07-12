@@ -6,12 +6,12 @@ from typing_extensions import NotRequired
 import gdb
 
 from ..FrameDecorator import FrameDecorator, SymValueWrapper
-from .varref import BaseReference, ReferenceDescriptor
+from .varref import BaseReference, _ReferenceDescriptor
 
 frame_to_scope: dict[int, _ScopeReference]
 
 @type_check_only
-class _ScopeReferenceDescriptor(ReferenceDescriptor):
+class _ScopeReferenceDescriptor(_ReferenceDescriptor):
     presentationHint: str
     expensive: bool
     namedVariables: int
