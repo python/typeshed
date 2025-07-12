@@ -492,7 +492,7 @@ def obsolete_more_than_6_months(distribution: str) -> bool:
     except FileNotFoundError:
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
 
-    obsolete_since = data.get("obsolete_since")
+    obsolete_since = data["obsolete_since"]
     if not obsolete_since:
         return False
 
