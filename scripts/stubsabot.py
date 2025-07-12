@@ -128,7 +128,7 @@ class Update:
     diff_analysis: DiffAnalysis | None
 
     def __str__(self) -> str:
-        return f"Updating {self.distribution} from {self.old_version_spec!r} to {self.new_version_spec!r}"
+        return f"Updating {self.distribution} from '{self.old_version_spec}' to '{self.new_version_spec}'"
 
     @property
     def new_version(self) -> str:
