@@ -14,16 +14,16 @@ def test_iscoroutinefunction_asyncio(
     z: Callable[[str, int], str | Awaitable[bytes]],
     xx: object,
 ) -> None:
-    if iscoroutinefunction(x):
+    if iscoroutinefunction(x):  # pyright: ignore
         assert_type(x, Callable[[str, int], Coroutine[str, int, bytes]])
 
-    if iscoroutinefunction(y):
+    if iscoroutinefunction(y):  # pyright: ignore
         assert_type(y, Callable[[str, int], Coroutine[Any, Any, bytes]])
 
-    if iscoroutinefunction(z):
+    if iscoroutinefunction(z):  # pyright: ignore
         assert_type(z, Callable[[str, int], Coroutine[Any, Any, Any]])
 
-    if iscoroutinefunction(xx):
+    if iscoroutinefunction(xx):  # pyright: ignore
         assert_type(xx, Callable[..., Coroutine[Any, Any, Any]])
 
 
