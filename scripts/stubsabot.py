@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import calendar
 import contextlib
 import datetime
 import enum
@@ -41,6 +42,7 @@ TYPESHED_API_URL = f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed"
 STUBSABOT_LABEL = "bot: stubsabot"
 
 PYRIGHT_CONFIG = Path("pyrightconfig.stricter.json")
+POLICY_MONTHS_DELTA = 6
 
 
 class ActionLevel(enum.IntEnum):
@@ -486,6 +488,13 @@ async def analyze_diff(
 
 
 def obsolete_more_than_6_months(distribution: str) -> bool:
+    def add_months(date: datetime.date, months: int) -> datetime.date:
+        month = date.month - 1 + months
+        year = date.year + month // 12
+        month = month % 12 + 1
+        day = min(date.day, calendar.monthrange(year, month)[1])
+        return datetime.date(year, month, day)
+
     try:
         with metadata_path(distribution).open("rb") as file:
             data = tomlkit.load(file)
@@ -503,9 +512,10 @@ def obsolete_more_than_6_months(distribution: str) -> bool:
 
     release_date_string = comment.removeprefix("# Released on ")
     release_date = datetime.date.fromisoformat(release_date_string)
+    remove_date = add_months(release_date, POLICY_MONTHS_DELTA)
     today = datetime.datetime.now(tz=datetime.timezone.utc).date()
 
-    return release_date >= today
+    return remove_date >= today
 
 
 def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFile) -> bool:
