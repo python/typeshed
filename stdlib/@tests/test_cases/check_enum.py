@@ -36,3 +36,30 @@ if sys.version_info >= (3, 11):
 
     assert_type(Foo.X, Literal[Foo.X])
     assert_type(Foo.X.value, str)
+
+
+if sys.version_info >= (3, 13):
+    
+    class MultiValueEnum(enum.Enum):
+        def __new__(cls, value, *values):
+            self = object.__new__(cls)
+            self._value_ = value
+            for v in values:
+                self._add_value_alias_(v)
+            return self
+
+    class DType(MultiValueEnum):
+        float32 = 'f', 8
+        double64 = 'd', 9
+
+    # Test type inference for primary values
+    assert_type(DType('f'), DType)
+    assert_type(DType('d'), DType)
+    
+    # Test type inference for alias values
+    assert_type(DType(8), DType)
+    assert_type(DType(9), DType)
+    
+    # Test that the enum members have the correct literal types
+    assert_type(DType.float32, Literal[DType.float32])
+    assert_type(DType.double64, Literal[DType.double64])
