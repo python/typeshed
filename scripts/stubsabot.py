@@ -487,14 +487,15 @@ async def analyze_diff(
     return DiffAnalysis(py_files=py_files, py_files_stubbed_in_typeshed=py_files_stubbed_in_typeshed)
 
 
-def obsolete_more_than_6_months(distribution: str) -> bool:
-    def add_months(date: datetime.date, months: int) -> datetime.date:
-        month = date.month - 1 + months
-        year = date.year + month // 12
-        month = month % 12 + 1
-        day = min(date.day, calendar.monthrange(year, month)[1])
-        return datetime.date(year, month, day)
+def _add_months(date: datetime.date, months: int) -> datetime.date:
+    month = date.month - 1 + months
+    year = date.year + month // 12
+    month = month % 12 + 1
+    day = min(date.day, calendar.monthrange(year, month)[1])
+    return datetime.date(year, month, day)
 
+
+def obsolete_more_than_6_months(distribution: str) -> bool:
     try:
         with metadata_path(distribution).open("rb") as file:
             data = tomlkit.load(file)
@@ -512,7 +513,7 @@ def obsolete_more_than_6_months(distribution: str) -> bool:
 
     release_date_string = comment.removeprefix("# Released on ")
     release_date = datetime.date.fromisoformat(release_date_string)
-    remove_date = add_months(release_date, POLICY_MONTHS_DELTA)
+    remove_date = _add_months(release_date, POLICY_MONTHS_DELTA)
     today = datetime.datetime.now(tz=datetime.timezone.utc).date()
 
     return remove_date >= today
