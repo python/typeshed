@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import enum
 import sys
-from typing import Literal, Type
+from typing import Any, Literal, Type
 from typing_extensions import assert_type
 
 A = enum.Enum("A", "spam eggs bacon")
@@ -41,7 +41,7 @@ if sys.version_info >= (3, 11):
 if sys.version_info >= (3, 13):
 
     class MultiValueEnum(enum.Enum):
-        def __new__(cls, value, *values):
+        def __new__(cls, value: object, *values: Any) -> "MultiValueEnum":
             self = object.__new__(cls)
             self._value_ = value
             for v in values:
