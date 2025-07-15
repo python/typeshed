@@ -139,15 +139,6 @@ class PrettyPrinter:
     def _pprint_set(
         self, object: set[object], stream: SupportsWrite[str], indent: int, allowance: int, context: dict[int, int], level: int
     ) -> None: ...
-    def _pprint_frozenset(
-        self,
-        object: frozenset[object],
-        stream: SupportsWrite[str],
-        indent: int,
-        allowance: int,
-        context: dict[int, int],
-        level: int,
-    ) -> None: ...
     def _pprint_deque(
         self, object: deque[object], stream: SupportsWrite[str], indent: int, allowance: int, context: dict[int, int], level: int
     ) -> None: ...
