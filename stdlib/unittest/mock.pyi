@@ -3,7 +3,7 @@ from _typeshed import MaybeNone
 from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import _GeneratorContextManager
 from types import TracebackType
-from typing import Any, ClassVar, Final, Generic, Literal, TypeVar, overload
+from typing import Any, ClassVar, Final, Generic, Literal, TypeVar, overload, type_check_only
 from typing_extensions import ParamSpec, Self, TypeAlias
 
 _T = TypeVar("_T")
@@ -262,6 +262,7 @@ class _patch(Generic[_T]):
 # This class does not exist at runtime, it's a hack to make this work:
 #     @patch("foo")
 #     def bar(..., mock: MagicMock) -> None: ...
+@type_check_only
 class _patch_pass_arg(_patch[_T]):
     @overload
     def __call__(self, func: _TT) -> _TT: ...
@@ -288,6 +289,7 @@ class _patch_dict:
 
 # This class does not exist at runtime, it's a hack to add methods to the
 # patch() function.
+@type_check_only
 class _patcher:
     TEST_PREFIX: str
     dict: type[_patch_dict]
@@ -299,23 +301,28 @@ class _patcher:
         self,
         target: str,
         new: _T,
-        spec: Any | None = ...,
-        create: bool = ...,
-        spec_set: Any | None = ...,
-        autospec: Any | None = ...,
-        new_callable: Callable[..., Any] | None = ...,
-        **kwargs: Any,
+        spec: Literal[False] | None = None,
+        create: bool = False,
+        spec_set: Literal[False] | None = None,
+        autospec: Literal[False] | None = None,
+        new_callable: None = None,
+        *,
+        unsafe: bool = False,
     ) -> _patch[_T]: ...
     @overload
     def __call__(
         self,
         target: str,
         *,
-        spec: Any | None = ...,
-        create: bool = ...,
-        spec_set: Any | None = ...,
-        autospec: Any | None = ...,
+        # If not False or None, this is passed to new_callable
+        spec: Any | Literal[False] | None = None,
+        create: bool = False,
+        # If not False or None, this is passed to new_callable
+        spec_set: Any | Literal[False] | None = None,
+        autospec: Literal[False] | None = None,
         new_callable: Callable[..., _T],
+        unsafe: bool = False,
+        # kwargs are passed to new_callable
         **kwargs: Any,
     ) -> _patch_pass_arg[_T]: ...
     @overload
@@ -323,25 +330,31 @@ class _patcher:
         self,
         target: str,
         *,
-        spec: Any | None = ...,
-        create: bool = ...,
-        spec_set: Any | None = ...,
-        autospec: Any | None = ...,
-        new_callable: None = ...,
+        spec: Any | Literal[False] | None = None,
+        create: bool = False,
+        spec_set: Any | bool | None = None,
+        autospec: Literal[False] | None = None,
+        new_callable: None = None,
+        unsafe: bool = False,
+        # kwargs are passed to the MagicMock/AsyncMock constructor
         **kwargs: Any,
     ) -> _patch_pass_arg[MagicMock | AsyncMock]: ...
+    # This overload also covers the case, where new==DEFAULT. In this case, the return type is _patch[Any].
+    # Ideally we'd be able to add an overload for it so that the return type is _patch[MagicMock],
+    # but that's impossible with the current type system.
     @overload
     @staticmethod
     def object(
         target: Any,
         attribute: str,
         new: _T,
-        spec: Any | None = ...,
-        create: bool = ...,
-        spec_set: Any | None = ...,
-        autospec: Any | None = ...,
-        new_callable: Callable[..., Any] | None = ...,
-        **kwargs: Any,
+        spec: Literal[False] | None = None,
+        create: bool = False,
+        spec_set: Literal[False] | None = None,
+        autospec: Literal[False] | None = None,
+        new_callable: None = None,
+        *,
+        unsafe: bool = False,
     ) -> _patch[_T]: ...
     @overload
     @staticmethod
@@ -349,11 +362,15 @@ class _patcher:
         target: Any,
         attribute: str,
         *,
-        spec: Any | None = ...,
-        create: bool = ...,
-        spec_set: Any | None = ...,
-        autospec: Any | None = ...,
+        # If not False or None, this is passed to new_callable
+        spec: Any | Literal[False] | None = None,
+        create: bool = False,
+        # If not False or None, this is passed to new_callable
+        spec_set: Any | Literal[False] | None = None,
+        autospec: Literal[False] | None = None,
         new_callable: Callable[..., _T],
+        unsafe: bool = False,
+        # kwargs are passed to new_callable
         **kwargs: Any,
     ) -> _patch_pass_arg[_T]: ...
     @overload
@@ -362,21 +379,54 @@ class _patcher:
         target: Any,
         attribute: str,
         *,
-        spec: Any | None = ...,
-        create: bool = ...,
-        spec_set: Any | None = ...,
-        autospec: Any | None = ...,
-        new_callable: None = ...,
+        spec: Any | None = None,
+        create: bool = False,
+        spec_set: Any | None = None,
+        autospec: Literal[False] | None = None,
+        new_callable: None = None,
+        unsafe: bool = False,
+        # kwargs are passed to the MagicMock/AsyncMock constructor
         **kwargs: Any,
     ) -> _patch_pass_arg[MagicMock | AsyncMock]: ...
+    @overload
     @staticmethod
     def multiple(
-        target: Any,
-        spec: Any | None = ...,
-        create: bool = ...,
-        spec_set: Any | None = ...,
-        autospec: Any | None = ...,
-        new_callable: Any | None = ...,
+        target: Any | str,
+        # If not False or None, this is passed to new_callable
+        spec: Any |  Literal[False] | None = None,
+        create: bool = False,
+        # If not False or None, this is passed to new_callable
+        spec_set: Any |  Literal[False] | None = None,
+        autospec: Literal[False] | None = None,
+        *,
+        new_callable: Callable[..., _T],
+        # The kwargs must be DEFAULT
+        **kwargs: Any,
+    ) -> _patch_pass_arg[_T]: ...
+    @overload
+    @staticmethod
+    def multiple(
+        target: Any | str,
+        # If not False or None, this is passed to new_callable
+        spec: Any | Literal[False] | None,
+        create: bool,
+        # If not False or None, this is passed to new_callable
+        spec_set: Any |  Literal[False] | None,
+        autospec: Literal[False] | None,
+        new_callable: Callable[..., _T],
+        # The kwargs must be DEFAULT
+        **kwargs: Any,
+    ) -> _patch_pass_arg[_T]: ...
+    @overload
+    @staticmethod
+    def multiple(
+        target: Any | str,
+        spec: Any | bool | None = None,
+        create: bool = False,
+        spec_set: Any | bool | None = None,
+        autospec: Any | bool | None = None,
+        new_callable: None = None,
+        # The kwargs are the mock objects or DEFAULT
         **kwargs: Any,
     ) -> _patch[Any]: ...
     @staticmethod
