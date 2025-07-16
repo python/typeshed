@@ -2,7 +2,7 @@ import bz2
 import io
 import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath, StrPath, SupportsRead, WriteableBuffer
-from builtins import list as _list
+from builtins import list as _list  # aliases to avoid name clashes with fields named "type" or "list"
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
@@ -267,25 +267,6 @@ class TarFile:
         fileobj: _Fileobj | None = None,
         bufsize: int = 10240,
         *,
-        format: int | None = ...,
-        tarinfo: type[TarInfo] | None = ...,
-        dereference: bool | None = ...,
-        ignore_zeros: bool | None = ...,
-        encoding: str | None = ...,
-        errors: str = ...,
-        pax_headers: Mapping[str, str] | None = ...,
-        debug: int | None = ...,
-        errorlevel: int | None = ...,
-    ) -> Self: ...
-    @overload
-    @classmethod
-    def open(
-        cls,
-        fileobj: _Fileobj,
-        *,
-        name: StrOrBytesPath | None = None,
-        mode: Literal["x", "x:", "a", "a:", "w", "w:", "w:tar"],
-        bufsize: int = 10240,
         format: int | None = ...,
         tarinfo: type[TarInfo] | None = ...,
         dereference: bool | None = ...,

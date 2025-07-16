@@ -556,5 +556,3 @@ xml.etree.cElementTree.XMLParser.__init__  # Defined in C so has general signatu
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
 xml.etree.ElementTree.Element.__iter__
 xml.etree.cElementTree.Element.__iter__
-
-tarfile.open # Overridden by TarFile.open
