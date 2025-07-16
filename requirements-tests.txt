@@ -1,14 +1,14 @@
 # Type checkers that we test our stubs against. These should always
 # be pinned to a specific version to make failure reproducible.
 mypy==1.16.1
-pyright==1.1.400
+pyright==1.1.403
 # pytype can be installed on Windows, but requires building wheels, let's not do that on the CI
 pytype==2024.10.11; platform_system != "Windows" and python_version >= "3.10" and python_version < "3.13"
 
 # Libraries used by our various scripts.
 # TODO (2025-05-09): Installing this on Python 3.14 on Windows fails at
 # the moment.
-aiohttp==3.12.13; python_version < "3.14"
+aiohttp==3.12.14; python_version < "3.14"
 # TODO (2025-05-09): No wheels exist for Python 3.14 yet, slowing down CI
 # considerably and prone to fail.
 grpcio-tools>=1.66.2; python_version < "3.14" # For grpc_tools.protoc

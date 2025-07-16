@@ -7,7 +7,7 @@ import threading
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterator, Mapping, Sequence
 from contextlib import AbstractContextManager
-from typing import Any, Final, Generic, Literal, Protocol, TypeVar, final, overload, type_check_only
+from typing import Any, Final, Generic, Literal, Protocol, TypedDict, TypeVar, final, overload, type_check_only
 from typing_extensions import TypeAlias, deprecated
 
 import gdb.FrameDecorator
@@ -860,10 +860,16 @@ class LazyString:
 
 # Architectures
 
+@type_check_only
+class _Instruction(TypedDict):
+    addr: int
+    asm: str
+    length: int
+
 @final
 class Architecture:
     def name(self) -> str: ...
-    def disassemble(self, start_pc: int, end_pc: int = ..., count: int = ...) -> list[dict[str, object]]: ...
+    def disassemble(self, start_pc: int, end_pc: int = ..., count: int = ...) -> list[_Instruction]: ...
     def integer_type(self, size: int, signed: bool = ...) -> Type: ...
     def registers(self, reggroup: str = ...) -> RegisterDescriptorIterator: ...
     def register_groups(self) -> RegisterGroupsIterator: ...
