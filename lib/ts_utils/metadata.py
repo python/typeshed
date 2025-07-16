@@ -223,7 +223,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     """
     try:
         with metadata_path(distribution).open("rb") as f:
-            data: dict[str, object] = tomli.load(f)
+            data = tomlkit.load(f)
     except FileNotFoundError:
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
 
@@ -231,7 +231,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert not unknown_metadata_fields, f"Unexpected keys in METADATA.toml for {distribution!r}: {unknown_metadata_fields}"
 
     assert "version" in data, f"Missing 'version' field in METADATA.toml for {distribution!r}"
-    version = data["version"]
+    version: object = data.get("version")
     assert isinstance(version, str) and len(version) > 0, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
     # Check that the version spec parses
     if version[0].isdigit():
@@ -298,7 +298,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     if requires_python_str is None:
         requires_python = oldest_supported_python_specifier
     else:
-        assert type(requires_python_str) is str
+        assert isinstance(requires_python_str, str)
         requires_python = Specifier(requires_python_str)
         assert requires_python != oldest_supported_python_specifier, f'requires_python="{requires_python}" is redundant'
         # Check minimum Python version is not less than the oldest version of Python supported by typeshed
