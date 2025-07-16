@@ -18,11 +18,11 @@ import tarfile
 import textwrap
 import urllib.parse
 import zipfile
-from collections.abc import Iterator, Mapping, Sequence
+from collections.abc import Callable, Iterator, Mapping, Sequence
 from dataclasses import dataclass, field
 from http import HTTPStatus
 from pathlib import Path
-from typing import Annotated, Any, ClassVar, NamedTuple
+from typing import Annotated, Any, ClassVar, NamedTuple, TypeVar
 from typing_extensions import Self, TypeAlias
 
 import aiohttp
@@ -175,6 +175,38 @@ class NoUpdate:
         return f"Skipping {self.distribution}: {self.reason}"
 
 
+_T = TypeVar("_T")
+
+
+async def with_extracted_archive(
+    release_to_download: PypiReleaseDownload,
+    *,
+    session: aiohttp.ClientSession,
+    handler: Callable[[zipfile.ZipFile | tarfile.TarFile], _T],
+) -> _T:
+    async with session.get(release_to_download.url) as response:
+        body = io.BytesIO(await response.read())
+
+    packagetype = release_to_download.packagetype
+    if packagetype == "bdist_wheel":
+        assert release_to_download.filename.endswith(".whl")
+        with zipfile.ZipFile(body) as zf:
+            return handler(zf)
+    elif packagetype == "sdist":
+        # sdist defaults to `.tar.gz` on Lunix and to `.zip` on Windows:
+        # https://docs.python.org/3.11/distutils/sourcedist.html
+        if release_to_download.filename.endswith(".tar.gz"):
+            with tarfile.open(fileobj=body, mode="r:gz") as zf:
+                return handler(zf)
+        elif release_to_download.filename.endswith(".zip"):
+            with zipfile.ZipFile(body) as zf:
+                return handler(zf)
+        else:
+            raise AssertionError(f"Package file {release_to_download.filename!r} does not end with '.tar.gz' or '.zip'")
+    else:
+        raise AssertionError(f"Unknown package type for {release_to_download.distribution}: {packagetype!r}")
+
+
 def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfile.TarFile) -> bool:
     py_typed_dirs: list[Path] = []
     all_python_files: list[Path] = []
@@ -224,27 +256,7 @@ def all_py_files_in_source_are_in_py_typed_dirs(source: zipfile.ZipFile | tarfil
 
 
 async def release_contains_py_typed(release_to_download: PypiReleaseDownload, *, session: aiohttp.ClientSession) -> bool:
-    async with session.get(release_to_download.url) as response:
-        body = io.BytesIO(await response.read())
-
-    packagetype = release_to_download.packagetype
-    if packagetype == "bdist_wheel":
-        assert release_to_download.filename.endswith(".whl")
-        with zipfile.ZipFile(body) as zf:
-            return all_py_files_in_source_are_in_py_typed_dirs(zf)
-    elif packagetype == "sdist":
-        # sdist defaults to `.tar.gz` on Lunix and to `.zip` on Windows:
-        # https://docs.python.org/3.11/distutils/sourcedist.html
-        if release_to_download.filename.endswith(".tar.gz"):
-            with tarfile.open(fileobj=body, mode="r:gz") as zf:
-                return all_py_files_in_source_are_in_py_typed_dirs(zf)
-        elif release_to_download.filename.endswith(".zip"):
-            with zipfile.ZipFile(body) as zf:
-                return all_py_files_in_source_are_in_py_typed_dirs(zf)
-        else:
-            raise AssertionError(f"Package file {release_to_download.filename!r} does not end with '.tar.gz' or '.zip'")
-    else:
-        raise AssertionError(f"Unknown package type for {release_to_download.distribution}: {packagetype!r}")
+    return await with_extracted_archive(release_to_download, session=session, handler=all_py_files_in_source_are_in_py_typed_dirs)
 
 
 async def find_first_release_with_py_typed(pypi_info: PypiInfo, *, session: aiohttp.ClientSession) -> PypiReleaseDownload | None:
@@ -542,32 +554,12 @@ def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFi
     return bool(no_longer_updated)
 
 
-async def has_no_longer_updated_release(release_to_download: PypiReleaseDownload, session: aiohttp.ClientSession) -> bool:
+async def has_no_longer_updated_release(release_to_download: PypiReleaseDownload, *, session: aiohttp.ClientSession) -> bool:
     """
     Return `True` if the `no_longer_updated` field exists and the value is
     `True` in the `METADATA.toml` file of latest `types-{distribution}` pypi release.
     """
-    async with session.get(release_to_download.url) as response:
-        body = io.BytesIO(await response.read())
-
-    packagetype = release_to_download.packagetype
-    if packagetype == "bdist_wheel":
-        assert release_to_download.filename.endswith(".whl")
-        with zipfile.ZipFile(body) as zf:
-            return parse_no_longer_updated_from_archive(zf)
-    elif packagetype == "sdist":
-        # sdist defaults to `.tar.gz` on Lunix and to `.zip` on Windows:
-        # https://docs.python.org/3.11/distutils/sourcedist.html
-        if release_to_download.filename.endswith(".tar.gz"):
-            with tarfile.open(fileobj=body, mode="r:gz") as zf:
-                return parse_no_longer_updated_from_archive(zf)
-        elif release_to_download.filename.endswith(".zip"):
-            with zipfile.ZipFile(body) as zf:
-                return parse_no_longer_updated_from_archive(zf)
-        else:
-            raise AssertionError(f"Package file {release_to_download.filename!r} does not end with '.tar.gz' or '.zip'")
-    else:
-        raise AssertionError(f"Unknown package type for {release_to_download.distribution}: {packagetype!r}")
+    return await with_extracted_archive(release_to_download, session=session, handler=parse_no_longer_updated_from_archive)
 
 
 async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove:
@@ -586,7 +578,7 @@ async def determine_action(distribution: str, session: aiohttp.ClientSession) ->
         pypi_info = await fetch_pypi_info(f"types-{stub_info.distribution}", session)
         latest_release = pypi_info.get_latest_release()
 
-        if await has_no_longer_updated_release(latest_release, session):
+        if await has_no_longer_updated_release(latest_release, session=session):
             links = {
                 "Typeshed release": f"{pypi_info.pypi_root}",
                 "Typeshed stubs": f"https://github.com/{TYPESHED_OWNER}/typeshed/tree/main/stubs/{stub_info.distribution}",
