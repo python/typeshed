@@ -34,14 +34,13 @@ from termcolor import colored
 from tomlkit.items import String
 
 from ts_utils.metadata import NoSuchStubError, StubMetadata, metadata_path, read_metadata, update_metadata
-from ts_utils.paths import STUBS_PATH, distribution_path
+from ts_utils.paths import PYRIGHT_CONFIG, STUBS_PATH, distribution_path
 
 TYPESHED_OWNER = "python"
 TYPESHED_API_URL = f"https://api.github.com/repos/{TYPESHED_OWNER}/typeshed"
 
 STUBSABOT_LABEL = "bot: stubsabot"
 
-PYRIGHT_CONFIG = Path("pyrightconfig.stricter.json")
 POLICY_MONTHS_DELTA = 6
 
 
@@ -526,7 +525,7 @@ def obsolete_more_than_6_months(distribution: str) -> bool:
     release_date_string = comment.removeprefix("# Released on ")
     release_date = datetime.date.fromisoformat(release_date_string)
     remove_date = _add_months(release_date, POLICY_MONTHS_DELTA)
-    today = datetime.datetime.now(tz=datetime.timezone.utc).date()
+    today = datetime.datetime.today()  # noqa: DTZ002
 
     return remove_date >= today
 
@@ -573,7 +572,8 @@ async def determine_action(distribution: str, session: aiohttp.ClientSession) ->
                 "Typeshed stubs": f"https://github.com/{TYPESHED_OWNER}/typeshed/tree/main/stubs/{stub_info.distribution}",
             }
             return Remove(stub_info.distribution, reason="older than 6 months", links=links)
-        return NoUpdate(stub_info.distribution, "obsolete")
+        else:
+            return NoUpdate(stub_info.distribution, "obsolete")
     if stub_info.no_longer_updated:
         pypi_info = await fetch_pypi_info(f"types-{stub_info.distribution}", session)
         latest_release = pypi_info.get_latest_release()
@@ -584,7 +584,8 @@ async def determine_action(distribution: str, session: aiohttp.ClientSession) ->
                 "Typeshed stubs": f"https://github.com/{TYPESHED_OWNER}/typeshed/tree/main/stubs/{stub_info.distribution}",
             }
             return Remove(stub_info.distribution, reason="no longer updated", links=links)
-        return NoUpdate(stub_info.distribution, "no longer updated")
+        else:
+            return NoUpdate(stub_info.distribution, "no longer updated")
 
     pypi_info = await fetch_pypi_info(stub_info.distribution, session)
     latest_release = pypi_info.get_latest_release()
@@ -798,9 +799,6 @@ def remove_stubs(distribution: str) -> None:
 
     if stub_path.exists() and stub_path.is_dir():
         shutil.rmtree(stub_path)
-
-    if not PYRIGHT_CONFIG.exists():
-        return
 
     with PYRIGHT_CONFIG.open("r", encoding="UTF-8") as f:
         lines = f.readlines()
