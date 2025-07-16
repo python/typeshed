@@ -393,10 +393,10 @@ class _patcher:
     def multiple(
         target: Any | str,
         # If not False or None, this is passed to new_callable
-        spec: Any |  Literal[False] | None = None,
+        spec: Any | Literal[False] | None = None,
         create: bool = False,
         # If not False or None, this is passed to new_callable
-        spec_set: Any |  Literal[False] | None = None,
+        spec_set: Any | Literal[False] | None = None,
         autospec: Literal[False] | None = None,
         *,
         new_callable: Callable[..., _T],
@@ -411,7 +411,7 @@ class _patcher:
         spec: Any | Literal[False] | None,
         create: bool,
         # If not False or None, this is passed to new_callable
-        spec_set: Any |  Literal[False] | None,
+        spec_set: Any | Literal[False] | None,
         autospec: Literal[False] | None,
         new_callable: Callable[..., _T],
         # The kwargs must be DEFAULT
