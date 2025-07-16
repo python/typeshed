@@ -5,6 +5,7 @@
 
 from __future__ import annotations
 
+import datetime
 import functools
 import re
 import urllib.parse
@@ -18,6 +19,7 @@ import tomli
 import tomlkit
 from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
+from tomlkit.items import String
 
 from .paths import PYPROJECT_PATH, STUBS_PATH, distribution_path
 
@@ -142,6 +144,13 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
 
 @final
 @dataclass(frozen=True)
+class ObsoleteMetadata:
+    since_version: Annotated[str, "A string representing a specific version"]
+    since_date: Annotated[datetime.date, "A date when the package became obsolete"]
+
+
+@final
+@dataclass(frozen=True)
 class StubMetadata:
     """The metadata for a single stubs distribution.
 
@@ -154,7 +163,7 @@ class StubMetadata:
     extra_description: str | None
     stub_distribution: Annotated[str, "The name under which the distribution is uploaded to PyPI"]
     upstream_repository: Annotated[str, "The URL of the upstream repository"] | None
-    obsolete_since: Annotated[str, "A string representing a specific version"] | None
+    obsolete: Annotated[ObsoleteMetadata, "Metadata indicating when the stubs package became obsolete"] | None
     no_longer_updated: bool
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
     partial_stub: Annotated[bool, "Whether this is a partial type stub package as per PEP 561."]
@@ -163,7 +172,7 @@ class StubMetadata:
 
     @property
     def is_obsolete(self) -> bool:
-        return self.obsolete_since is not None
+        return self.obsolete is not None
 
 
 _KNOWN_METADATA_FIELDS: Final = frozenset(
@@ -269,7 +278,14 @@ def read_metadata(distribution: str) -> StubMetadata:
             assert num_url_path_parts == 2, bad_github_url_msg
 
     obsolete_since: object = data.get("obsolete_since")
-    assert isinstance(obsolete_since, (str, type(None)))
+    assert isinstance(obsolete_since, (String, type(None)))
+    if obsolete_since:
+        comment = obsolete_since.trivia.comment
+        since_date_string = comment.removeprefix("# Released on ")
+        since_date = datetime.date.fromisoformat(since_date_string)
+        obsolete = ObsoleteMetadata(since_version=obsolete_since, since_date=since_date)
+    else:
+        obsolete = None
     no_longer_updated: object = data.get("no_longer_updated", False)
     assert type(no_longer_updated) is bool
     uploaded_to_pypi: object = data.get("upload", True)
@@ -308,7 +324,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         extra_description=extra_description,
         stub_distribution=stub_distribution,
         upstream_repository=upstream_repository,
-        obsolete_since=obsolete_since,
+        obsolete=obsolete,
         no_longer_updated=no_longer_updated,
         uploaded_to_pypi=uploaded_to_pypi,
         partial_stub=partial_stub,
