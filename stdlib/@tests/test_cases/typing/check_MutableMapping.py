@@ -30,6 +30,14 @@ def check_update_method__str_key() -> None:
     d.update([("", "")])  # type: ignore
 
 
+def check_update_kwarg_key_type_accepts_str() -> None:
+    d1: dict[str | int, int] = {}
+    d1.update(a=1)
+
+    d2: dict[object, int] = {}
+    d2.update(a=1)
+
+
 def check_setdefault_method() -> None:
     d: dict[int, str] = {}
     d2: dict[int, str | None] = {}
