@@ -525,7 +525,7 @@ def obsolete_more_than_6_months(distribution: str) -> bool:
     release_date_string = comment.removeprefix("# Released on ")
     release_date = datetime.date.fromisoformat(release_date_string)
     remove_date = _add_months(release_date, POLICY_MONTHS_DELTA)
-    today = datetime.date.today()  # noqa: DTZ002
+    today = datetime.date.today()
 
     return remove_date >= today
 
