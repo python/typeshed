@@ -231,7 +231,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert not unknown_metadata_fields, f"Unexpected keys in METADATA.toml for {distribution!r}: {unknown_metadata_fields}"
 
     assert "version" in data, f"Missing 'version' field in METADATA.toml for {distribution!r}"
-    version: object = data.get("version")
+    version: object = data.get("version")  # pyright: ignore[reportUnknownMemberType]
     assert isinstance(version, str) and len(version) > 0, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
     # Check that the version spec parses
     if version[0].isdigit():
@@ -239,11 +239,11 @@ def read_metadata(distribution: str) -> StubMetadata:
     version_spec = Specifier(version)
     assert version_spec.operator in {"==", "~="}, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
 
-    requires_s: object = data.get("requires", [])
+    requires_s: object = data.get("requires", [])  # pyright: ignore[reportUnknownMemberType]
     assert isinstance(requires_s, list)
     requires = [parse_requires(distribution, req) for req in requires_s]
 
-    extra_description: object = data.get("extra_description")
+    extra_description: object = data.get("extra_description")  # pyright: ignore[reportUnknownMemberType]
     assert isinstance(extra_description, (str, type(None)))
 
     if "stub_distribution" in data:
@@ -253,7 +253,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     else:
         stub_distribution = f"types-{distribution}"
 
-    upstream_repository: object = data.get("upstream_repository")
+    upstream_repository: object = data.get("upstream_repository")  # pyright: ignore[reportUnknownMemberType]
     assert isinstance(upstream_repository, (str, type(None)))
     if isinstance(upstream_repository, str):
         parsed_url = urllib.parse.urlsplit(upstream_repository)
@@ -277,7 +277,7 @@ def read_metadata(distribution: str) -> StubMetadata:
             )
             assert num_url_path_parts == 2, bad_github_url_msg
 
-    obsolete_since: object = data.get("obsolete_since")
+    obsolete_since: object = data.get("obsolete_since")  # pyright: ignore[reportUnknownMemberType]
     assert isinstance(obsolete_since, (String, type(None)))
     if obsolete_since:
         comment = obsolete_since.trivia.comment
@@ -286,13 +286,13 @@ def read_metadata(distribution: str) -> StubMetadata:
         obsolete = ObsoleteMetadata(since_version=obsolete_since, since_date=since_date)
     else:
         obsolete = None
-    no_longer_updated: object = data.get("no_longer_updated", False)
+    no_longer_updated: object = data.get("no_longer_updated", False)  # pyright: ignore[reportUnknownMemberType]
     assert type(no_longer_updated) is bool
-    uploaded_to_pypi: object = data.get("upload", True)
+    uploaded_to_pypi: object = data.get("upload", True)  # pyright: ignore[reportUnknownMemberType]
     assert type(uploaded_to_pypi) is bool
-    partial_stub: object = data.get("partial_stub", True)
+    partial_stub: object = data.get("partial_stub", True)  # pyright: ignore[reportUnknownMemberType]
     assert type(partial_stub) is bool
-    requires_python_str: object = data.get("requires_python")
+    requires_python_str: object = data.get("requires_python")  # pyright: ignore[reportUnknownMemberType]
     oldest_supported_python = get_oldest_supported_python()
     oldest_supported_python_specifier = Specifier(f">={oldest_supported_python}")
     if requires_python_str is None:
@@ -308,7 +308,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         assert requires_python.operator == ">=", "'requires_python' should be a minimum version specifier, use '>=3.x'"
 
     empty_tools: dict[object, object] = {}
-    tools_settings: object = data.get("tool", empty_tools)
+    tools_settings: object = data.get("tool", empty_tools)  # pyright: ignore[reportUnknownMemberType]
     assert isinstance(tools_settings, dict)
     assert tools_settings.keys() <= _KNOWN_METADATA_TOOL_FIELDS.keys(), f"Unrecognised tool for {distribution!r}"
     for tool, tk in _KNOWN_METADATA_TOOL_FIELDS.items():
