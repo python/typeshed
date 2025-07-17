@@ -508,7 +508,7 @@ def _add_months(date: datetime.date, months: int) -> datetime.date:
 def obsolete_more_than_n_months(since_date: datetime.date) -> bool:
     remove_date = _add_months(since_date, POLICY_MONTHS_DELTA)
     today = datetime.datetime.now(tz=datetime.timezone.utc).date()
-    return remove_date >= today
+    return remove_date <= today
 
 
 def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFile) -> bool:
