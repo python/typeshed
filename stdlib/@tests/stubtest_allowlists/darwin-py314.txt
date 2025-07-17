@@ -1,20 +1,3 @@
-# ====================================================================
-# TODO: New errors in Python 3.14 that need to be fixed or moved below
-# ====================================================================
-
-_curses.assume_default_colors
-_posixsubprocess.fork_exec
-asyncio.tools
-asyncio.unix_events.__all__
-asyncio.unix_events.DefaultEventLoopPolicy
-asyncio.unix_events._DefaultEventLoopPolicy
-ctypes.c_double_complex._type_
-ctypes.c_float_complex._type_
-ctypes.c_longdouble_complex._type_
-multiprocessing.popen_fork.Popen.interrupt
-multiprocessing.reduction.ACKNOWLEDGE
-
-
 # =======
 # >= 3.13
 # =======

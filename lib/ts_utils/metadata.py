@@ -26,6 +26,7 @@ __all__ = [
     "PackageDependencies",
     "StubMetadata",
     "StubtestSettings",
+    "get_oldest_supported_python",
     "get_recursive_requirements",
     "read_dependencies",
     "read_metadata",
