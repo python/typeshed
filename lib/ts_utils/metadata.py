@@ -5,6 +5,7 @@
 
 from __future__ import annotations
 
+import datetime
 import functools
 import re
 import urllib.parse
@@ -18,6 +19,7 @@ import tomli
 import tomlkit
 from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
+from tomlkit.items import String
 
 from .paths import PYPROJECT_PATH, STUBS_PATH, distribution_path
 
@@ -142,6 +144,13 @@ def read_stubtest_settings(distribution: str) -> StubtestSettings:
 
 @final
 @dataclass(frozen=True)
+class ObsoleteMetadata:
+    since_version: Annotated[str, "A string representing a specific version"]
+    since_date: Annotated[datetime.date, "A date when the package became obsolete"]
+
+
+@final
+@dataclass(frozen=True)
 class StubMetadata:
     """The metadata for a single stubs distribution.
 
@@ -154,7 +163,7 @@ class StubMetadata:
     extra_description: str | None
     stub_distribution: Annotated[str, "The name under which the distribution is uploaded to PyPI"]
     upstream_repository: Annotated[str, "The URL of the upstream repository"] | None
-    obsolete_since: Annotated[str, "A string representing a specific version"] | None
+    obsolete: Annotated[ObsoleteMetadata, "Metadata indicating when the stubs package became obsolete"] | None
     no_longer_updated: bool
     uploaded_to_pypi: Annotated[bool, "Whether or not a distribution is uploaded to PyPI"]
     partial_stub: Annotated[bool, "Whether this is a partial type stub package as per PEP 561."]
@@ -163,7 +172,7 @@ class StubMetadata:
 
     @property
     def is_obsolete(self) -> bool:
-        return self.obsolete_since is not None
+        return self.obsolete is not None
 
 
 _KNOWN_METADATA_FIELDS: Final = frozenset(
@@ -214,7 +223,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     """
     try:
         with metadata_path(distribution).open("rb") as f:
-            data: dict[str, object] = tomli.load(f)
+            data = tomlkit.load(f)
     except FileNotFoundError:
         raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
 
@@ -222,7 +231,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     assert not unknown_metadata_fields, f"Unexpected keys in METADATA.toml for {distribution!r}: {unknown_metadata_fields}"
 
     assert "version" in data, f"Missing 'version' field in METADATA.toml for {distribution!r}"
-    version = data["version"]
+    version: object = data.get("version")  # pyright: ignore[reportUnknownMemberType]
     assert isinstance(version, str) and len(version) > 0, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
     # Check that the version spec parses
     if version[0].isdigit():
@@ -230,11 +239,11 @@ def read_metadata(distribution: str) -> StubMetadata:
     version_spec = Specifier(version)
     assert version_spec.operator in {"==", "~="}, f"Invalid 'version' field in METADATA.toml for {distribution!r}"
 
-    requires_s: object = data.get("requires", [])
+    requires_s: object = data.get("requires", [])  # pyright: ignore[reportUnknownMemberType]
     assert isinstance(requires_s, list)
     requires = [parse_requires(distribution, req) for req in requires_s]
 
-    extra_description: object = data.get("extra_description")
+    extra_description: object = data.get("extra_description")  # pyright: ignore[reportUnknownMemberType]
     assert isinstance(extra_description, (str, type(None)))
 
     if "stub_distribution" in data:
@@ -244,7 +253,7 @@ def read_metadata(distribution: str) -> StubMetadata:
     else:
         stub_distribution = f"types-{distribution}"
 
-    upstream_repository: object = data.get("upstream_repository")
+    upstream_repository: object = data.get("upstream_repository")  # pyright: ignore[reportUnknownMemberType]
     assert isinstance(upstream_repository, (str, type(None)))
     if isinstance(upstream_repository, str):
         parsed_url = urllib.parse.urlsplit(upstream_repository)
@@ -268,21 +277,28 @@ def read_metadata(distribution: str) -> StubMetadata:
             )
             assert num_url_path_parts == 2, bad_github_url_msg
 
-    obsolete_since: object = data.get("obsolete_since")
-    assert isinstance(obsolete_since, (str, type(None)))
-    no_longer_updated: object = data.get("no_longer_updated", False)
+    obsolete_since: object = data.get("obsolete_since")  # pyright: ignore[reportUnknownMemberType]
+    assert isinstance(obsolete_since, (String, type(None)))
+    if obsolete_since:
+        comment = obsolete_since.trivia.comment
+        since_date_string = comment.removeprefix("# Released on ")
+        since_date = datetime.date.fromisoformat(since_date_string)
+        obsolete = ObsoleteMetadata(since_version=obsolete_since, since_date=since_date)
+    else:
+        obsolete = None
+    no_longer_updated: object = data.get("no_longer_updated", False)  # pyright: ignore[reportUnknownMemberType]
     assert type(no_longer_updated) is bool
-    uploaded_to_pypi: object = data.get("upload", True)
+    uploaded_to_pypi: object = data.get("upload", True)  # pyright: ignore[reportUnknownMemberType]
     assert type(uploaded_to_pypi) is bool
-    partial_stub: object = data.get("partial_stub", True)
+    partial_stub: object = data.get("partial_stub", True)  # pyright: ignore[reportUnknownMemberType]
     assert type(partial_stub) is bool
-    requires_python_str: object = data.get("requires_python")
+    requires_python_str: object = data.get("requires_python")  # pyright: ignore[reportUnknownMemberType]
     oldest_supported_python = get_oldest_supported_python()
     oldest_supported_python_specifier = Specifier(f">={oldest_supported_python}")
     if requires_python_str is None:
         requires_python = oldest_supported_python_specifier
     else:
-        assert type(requires_python_str) is str
+        assert isinstance(requires_python_str, str)
         requires_python = Specifier(requires_python_str)
         assert requires_python != oldest_supported_python_specifier, f'requires_python="{requires_python}" is redundant'
         # Check minimum Python version is not less than the oldest version of Python supported by typeshed
@@ -292,7 +308,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         assert requires_python.operator == ">=", "'requires_python' should be a minimum version specifier, use '>=3.x'"
 
     empty_tools: dict[object, object] = {}
-    tools_settings: object = data.get("tool", empty_tools)
+    tools_settings: object = data.get("tool", empty_tools)  # pyright: ignore[reportUnknownMemberType]
     assert isinstance(tools_settings, dict)
     assert tools_settings.keys() <= _KNOWN_METADATA_TOOL_FIELDS.keys(), f"Unrecognised tool for {distribution!r}"
     for tool, tk in _KNOWN_METADATA_TOOL_FIELDS.items():
@@ -308,7 +324,7 @@ def read_metadata(distribution: str) -> StubMetadata:
         extra_description=extra_description,
         stub_distribution=stub_distribution,
         upstream_repository=upstream_repository,
-        obsolete_since=obsolete_since,
+        obsolete=obsolete,
         no_longer_updated=no_longer_updated,
         uploaded_to_pypi=uploaded_to_pypi,
         partial_stub=partial_stub,
