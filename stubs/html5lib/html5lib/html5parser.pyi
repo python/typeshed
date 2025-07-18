@@ -4,6 +4,7 @@ from xml.etree.ElementTree import Element
 
 from ._inputstream import _InputStream
 from ._tokenizer import HTMLTokenizer
+from .treebuilders.base import TreeBuilder
 
 @overload
 def parse(
@@ -21,7 +22,13 @@ class HTMLParser:
     tree: Incomplete
     errors: list[Incomplete]
     phases: Incomplete
-    def __init__(self, tree=None, strict: bool = False, namespaceHTMLElements: bool = True, debug: bool = False) -> None: ...
+    def __init__(
+        self,
+        tree: str | type[TreeBuilder] | None = None,
+        strict: bool = False,
+        namespaceHTMLElements: bool = True,
+        debug: bool = False,
+    ) -> None: ...
     firstStartTag: bool
     log: Incomplete
     compatMode: str

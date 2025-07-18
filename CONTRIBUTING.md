@@ -77,9 +77,9 @@ Note that some tests require extra setup steps to install the required dependenc
   Run the following commands from a Windows terminal to install all requirements:
 
   ```powershell
-  > python -m venv .venv
+  > py -m venv .venv
   > .venv\Scripts\activate
-  (.venv) > pip install -U pip
+  (.venv) > python -m pip install -U pip
   (.venv) > pip install -r requirements-tests.txt
   ```
 
@@ -463,7 +463,8 @@ steps:
 4. When a new version of the package was automatically uploaded to PyPI
    (which can take up to a day), open a PR to remove the stubs.
 
-If feeling kindly, please update [mypy](https://github.com/python/mypy/blob/master/mypy/stubinfo.py)
+Don't forget to make sure the library is not in the [`pyrightconfig.stricter.json`](./pyrightconfig.stricter.json)
+exclusion list. If feeling kindly, please update [mypy](https://github.com/python/mypy/blob/master/mypy/stubinfo.py)
 for any stub obsoletions or removals.
 
 ### Marking PRs as "deferred"
