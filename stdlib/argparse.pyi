@@ -495,16 +495,40 @@ else:
 class _ArgumentGroup(_ActionsContainer):
     title: str | None
     _group_actions: list[Action]
-    def __init__(
-        self,
-        container: _ActionsContainer,
-        title: str | None = None,
-        description: str | None = None,
-        *,
-        prefix_chars: str = ...,
-        argument_default: Any = ...,
-        conflict_handler: str = ...,
-    ) -> None: ...
+    if sys.version_info >= (3, 14):
+        @overload
+        def __init__(
+            self,
+            container: _ActionsContainer,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> None: ...
+        @overload
+        @deprecated("Undocumented `prefix_chars` parameter is deprecated since Python 3.14.")
+        def __init__(
+            self,
+            container: _ActionsContainer,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            prefix_chars: str = ...,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            container: _ActionsContainer,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            prefix_chars: str = ...,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> None: ...
 
 # undocumented
 class _MutuallyExclusiveGroup(_ArgumentGroup):
