@@ -12,4 +12,4 @@ docutils.statemachine.State.nested_sm_kwargs  # is initialised in __init__
 docutils.statemachine.ViewList.__iter__ # doesn't exist at runtime, but the class is iterable due to __getitem__
 docutils.transforms.Transform.__getattr__
 docutils.TransformSpec.unknown_reference_resolvers
-docutils.writers.manpage.Translator.__getattr__
+docutils.writers.odf_odt.pygmentsformatter # this file is missing at runtime
