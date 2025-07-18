@@ -224,8 +224,8 @@ class TarFile:
     @classmethod
     def open(
         cls,
-        fileobj: _Fileobj,
         *,
+        fileobj: _Fileobj,
         name: StrOrBytesPath | None = None,
         mode: Literal["r", "r:*", "r:", "r:gz", "r:bz2", "r:xz"] = "r",
         bufsize: int = 10240,
@@ -244,7 +244,7 @@ class TarFile:
     def open(
         cls,
         *,
-        fileobj: _Fileobj,
+        fileobj: _Fileobj | None = None,
         name: StrOrBytesPath | None = None,
         mode: Literal["r", "r:*", "r:", "r:gz", "r:bz2", "r:xz"] = "r",
         bufsize: int = 10240,
