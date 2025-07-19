@@ -80,18 +80,33 @@ class SSLCertVerificationError(SSLError, ValueError):
 CertificateError = SSLCertVerificationError
 
 if sys.version_info < (3, 12):
-    def wrap_socket(
-        sock: socket.socket,
-        keyfile: StrOrBytesPath | None = None,
-        certfile: StrOrBytesPath | None = None,
-        server_side: bool = False,
-        cert_reqs: int = ...,
-        ssl_version: int = ...,
-        ca_certs: str | None = None,
-        do_handshake_on_connect: bool = True,
-        suppress_ragged_eofs: bool = True,
-        ciphers: str | None = None,
-    ) -> SSLSocket: ...
+    if sys.version_info >= (3, 10):
+        @deprecated("Deprecated in Python 3.9; Removed in 3.12.")
+        def wrap_socket(
+            sock: socket.socket,
+            keyfile: StrOrBytesPath | None = None,
+            certfile: StrOrBytesPath | None = None,
+            server_side: bool = False,
+            cert_reqs: int = ...,
+            ssl_version: int = ...,
+            ca_certs: str | None = None,
+            do_handshake_on_connect: bool = True,
+            suppress_ragged_eofs: bool = True,
+            ciphers: str | None = None,
+        ) -> SSLSocket: ...
+    else:
+        def wrap_socket(
+            sock: socket.socket,
+            keyfile: StrOrBytesPath | None = None,
+            certfile: StrOrBytesPath | None = None,
+            server_side: bool = False,
+            cert_reqs: int = ...,
+            ssl_version: int = ...,
+            ca_certs: str | None = None,
+            do_handshake_on_connect: bool = True,
+            suppress_ragged_eofs: bool = True,
+            ciphers: str | None = None,
+        ) -> SSLSocket: ...
 
 def create_default_context(
     purpose: Purpose = ...,
@@ -132,7 +147,11 @@ else:
 _create_default_https_context: Callable[..., SSLContext]
 
 if sys.version_info < (3, 12):
-    def match_hostname(cert: _PeerCertRetDictType, hostname: str) -> None: ...
+    if sys.version_info >= (3, 10):
+        @deprecated("Deprecated in Python 3.9; Removed in 3.12.")
+        def match_hostname(cert: _PeerCertRetDictType, hostname: str) -> None: ...
+    else:
+        def match_hostname(cert: _PeerCertRetDictType, hostname: str) -> None: ...
 
 def cert_time_to_seconds(cert_time: str) -> int: ...
 
@@ -416,9 +435,11 @@ class SSLContext(_SSLContext):
     if sys.version_info >= (3, 10):
         security_level: int
     if sys.version_info >= (3, 10):
-        # Using the default (None) for the `protocol` parameter is deprecated,
-        # but there isn't a good way of marking that in the stub unless/until PEP 702 is accepted
-        def __new__(cls, protocol: int | None = None, *args: Any, **kwargs: Any) -> Self: ...
+        @overload
+        def __new__(cls, protocol: int, *args: Any, **kwargs: Any) -> Self: ...
+        @overload
+        @deprecated("ssl.SSLContext() without protocol argument is deprecated.")
+        def __new__(cls, protocol: None, *args: Any, **kwargs: Any) -> Self: ...
     else:
         def __new__(cls, protocol: int = ..., *args: Any, **kwargs: Any) -> Self: ...
 
