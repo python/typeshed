@@ -80,7 +80,7 @@ class SSLCertVerificationError(SSLError, ValueError):
 CertificateError = SSLCertVerificationError
 
 if sys.version_info < (3, 12):
-    @deprecated("Deprecated since Python 3.7; Removed in Python 3.12.")
+    @deprecated("Deprecated since Python 3.7. Removed in Python 3.12. Use `SSLContext.wrap_socket()` instead.")
     def wrap_socket(
         sock: socket.socket,
         keyfile: StrOrBytesPath | None = None,
@@ -133,7 +133,7 @@ else:
 _create_default_https_context: Callable[..., SSLContext]
 
 if sys.version_info < (3, 12):
-    @deprecated("Deprecated since Python 3.7; Removed in Python 3.12.")
+    @deprecated("Deprecated since Python 3.7. Removed in Python 3.12.")
     def match_hostname(cert: _PeerCertRetDictType, hostname: str) -> None: ...
 
 def cert_time_to_seconds(cert_time: str) -> int: ...
@@ -421,7 +421,7 @@ class SSLContext(_SSLContext):
         @overload
         def __new__(cls, protocol: int, *args: Any, **kwargs: Any) -> Self: ...
         @overload
-        @deprecated("Deprecated since Python 3.10; Use a specific version of the SSL protocol.")
+        @deprecated("Deprecated since Python 3.10. Use a specific version of the SSL protocol.")
         def __new__(cls, protocol: None = None, *args: Any, **kwargs: Any) -> Self: ...
     else:
         def __new__(cls, protocol: int = ..., *args: Any, **kwargs: Any) -> Self: ...
