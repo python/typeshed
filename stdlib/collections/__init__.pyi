@@ -34,10 +34,16 @@ _VT_co = TypeVar("_VT_co", covariant=True)
 
 @final
 class _tuplegetter(Generic[_T]):  # undocumented
-    @overload
-    def __get__(self, instance: None, owner: type[Any] | None = None) -> Self: ...
-    @overload
-    def __get__(self, instance: object, owner: type[Any] | None = None) -> _T: ...
+    if sys.version_info >= (3, 10):
+        @overload
+        def __get__(self, instance: None, owner: type[Any] | None = None) -> Self: ...
+        @overload
+        def __get__(self, instance: object, owner: type[Any] | None = None) -> _T: ...
+    else:
+        @overload
+        def __get__(self, instance: None, owner: type[Any] | None) -> Self: ...
+        @overload
+        def __get__(self, instance: object, owner: type[Any] | None) -> _T: ...
 
 # namedtuple is special-cased in the type checker; the initializer is ignored.
 def namedtuple(
