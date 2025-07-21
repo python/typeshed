@@ -32,6 +32,13 @@ _VT = TypeVar("_VT")
 _KT_co = TypeVar("_KT_co", covariant=True)
 _VT_co = TypeVar("_VT_co", covariant=True)
 
+@final
+class _tuplegetter(Generic[_T]):  # undocumented
+    @overload
+    def __get__(self, instance: None, owner: type[Any] | None = None) -> Self: ...
+    @overload
+    def __get__(self, instance: object, owner: type[Any] | None = None) -> _T: ...
+
 # namedtuple is special-cased in the type checker; the initializer is ignored.
 def namedtuple(
     typename: str,
