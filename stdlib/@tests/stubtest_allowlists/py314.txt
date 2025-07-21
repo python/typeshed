@@ -2,6 +2,14 @@
 # TODO: New errors in Python 3.14 that need to be fixed or moved below
 # ====================================================================
 
+concurrent.futures.InterpreterPoolExecutor.__init__
+concurrent.futures.InterpreterPoolExecutor.prepare_context
+concurrent.futures.interpreter.ExecutionFailed
+concurrent.futures.interpreter.InterpreterPoolExecutor.__init__
+concurrent.futures.interpreter.InterpreterPoolExecutor.prepare_context
+concurrent.futures.interpreter.WorkerContext.__init__
+concurrent.futures.interpreter.WorkerContext.prepare
+concurrent.futures.interpreter.do_call
 multiprocessing.managers.BaseListProxy.clear
 multiprocessing.managers.BaseListProxy.copy
 multiprocessing.managers.DictProxy.__ior__

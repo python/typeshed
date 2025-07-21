@@ -110,11 +110,7 @@ tkinter.tix.TkVersion
 # because it's not an ABC that makes any sense and was deprecated in 3.12
 _collections_abc.ByteString
 
-ast.Bytes.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
-ast.Ellipsis.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
-ast.NameConstant.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
-ast.Num.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
-ast.Str.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
+ast.Ellipsis.__new__  # Implementation has *args, but shouldn't allow any
 
 _?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
 
