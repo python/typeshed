@@ -32,7 +32,6 @@ _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 _T_io = TypeVar("_T_io", bound=IO[str] | None)
 _ExitT_co = TypeVar("_ExitT_co", covariant=True, bound=bool | None, default=bool | None)
-_SuppressedExcReturnT = TypeVar("_SuppressedExcReturnT", Never, None, default=Never)
 _F = TypeVar("_F", bound=Callable[..., Any])
 _G_co = TypeVar("_G_co", bound=Generator[Any, Any, Any] | AsyncGenerator[Any, Any], covariant=True)
 _P = ParamSpec("_P")
@@ -68,9 +67,11 @@ class AbstractAsyncContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ign
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None, /
     ) -> _ExitT_co: ...
 
+_SuppressedExcReturnT = TypeVar("_SuppressedExcReturnT", Never, None, default=Never)
 # __exit__ can suppress exceptions by returning a true value.
 # _SuppressedReturnT extends the decorated function's return type with
-# - Never, if the decorating context manager never suppresses exceptions;
+# - Never (default, has no effect on the return type),
+#   if the decorating context manager never suppresses exceptions;
 # - None, if the decorating context manager may suppress exceptions.
 # See #13512.
 class ContextDecorator(Generic[_SuppressedExcReturnT]):
