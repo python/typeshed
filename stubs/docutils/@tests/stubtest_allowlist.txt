@@ -4,12 +4,15 @@ docutils.nodes.NodeVisitor.depart_\w+  # Methods are discovered dynamically on c
 docutils.nodes.NodeVisitor.visit_\w+  # Methods are discovered dynamically on commonly-used subclasses
 # these methods take a rawsource parameter that has been deprecated and is completely ignored, so we omit it from the stub
 docutils.nodes.Text.__new__
-docutils.parsers.commonmark_wrapper # doesn't exist at runtime of stubtests
-docutils.parsers.recommonmark_wrapper # doesn't exist at runtime of stubtests
 docutils.parsers.rst.directives.admonitions.BaseAdmonition.node_class  # must be overridden by base classes (pseudo-abstract)
 docutils.statemachine.State.nested_sm  # is initialised in __init__
 docutils.statemachine.State.nested_sm_kwargs  # is initialised in __init__
 docutils.statemachine.ViewList.__iter__ # doesn't exist at runtime, but the class is iterable due to __getitem__
+docutils.transforms.Transform.apply # method apply is not implemented
 docutils.transforms.Transform.__getattr__
 docutils.TransformSpec.unknown_reference_resolvers
-docutils.writers.odf_odt.pygmentsformatter # this file is missing at runtime
+
+# Files that don't exist at runtime of stubtests, raises ImportError:
+docutils.parsers.commonmark_wrapper
+docutils.parsers.recommonmark_wrapper
+docutils.writers.odf_odt.pygmentsformatter # import `pygments` third-party library
