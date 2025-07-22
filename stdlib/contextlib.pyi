@@ -66,17 +66,16 @@ class AbstractAsyncContextManager(ABC, Protocol[_T_co, _ExitT_co]):  # type: ign
         self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None, /
     ) -> _ExitT_co: ...
 
-_SuppressedExcReturnT = TypeVar("_SuppressedExcReturnT", Never, None, default=Never)
+_ExcReturnT = TypeVar("_ExcReturnT", Never, None, default=Never)
 
 # __exit__ can suppress exceptions by returning a true value.
-# _SuppressedReturnT extends the decorated function's return type with
-# - Never (default, has no effect on the return type)
-#   if the decorating context manager never suppresses exceptions;
-# - None if the decorating context manager may suppress exceptions.
+# _ExcReturnT describes function's return type after an exception occurs:
+# - Never (default, the context manager never suppresses exceptions)
+# - None (the context manager may suppress exceptions)
 # See #13512.
-class ContextDecorator(Generic[_SuppressedExcReturnT]):
+class ContextDecorator(Generic[_ExcReturnT]):
     def _recreate_cm(self) -> Self: ...
-    def __call__(self, func: Callable[_P, _R]) -> Callable[_P, _R | _SuppressedExcReturnT]: ...
+    def __call__(self, func: Callable[_P, _R]) -> Callable[_P, _R | _ExcReturnT]: ...
 
 class _GeneratorContextManagerBase(Generic[_G_co]):
     # Ideally this would use ParamSpec, but that requires (*args, **kwargs), which this isn't. see #6676
@@ -98,10 +97,10 @@ class _GeneratorContextManager(
 def contextmanager(func: Callable[_P, Iterator[_T_co]]) -> Callable[_P, _GeneratorContextManager[_T_co]]: ...
 
 if sys.version_info >= (3, 10):
-    # _SuppressedReturnT: see ContextDecorator.
-    class AsyncContextDecorator(Generic[_SuppressedExcReturnT]):
+    # _ExcReturnT: see ContextDecorator.
+    class AsyncContextDecorator(Generic[_ExcReturnT]):
         def _recreate_cm(self) -> Self: ...
-        def __call__(self, func: Callable[_P, _R]) -> Callable[_P, _R | _SuppressedExcReturnT]: ...
+        def __call__(self, func: Callable[_P, _R]) -> Callable[_P, _R | _ExcReturnT]: ...
 
     class _AsyncGeneratorContextManager(
         _GeneratorContextManagerBase[AsyncGenerator[_T_co, _SendT_contra]],
