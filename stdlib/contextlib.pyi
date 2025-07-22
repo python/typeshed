@@ -88,7 +88,7 @@ class _GeneratorContextManagerBase(Generic[_G_co]):
 class _GeneratorContextManager(
     _GeneratorContextManagerBase[Generator[_T_co, _SendT_contra, _ReturnT_co]],
     AbstractContextManager[_T_co, bool | None],
-    ContextDecorator[None],
+    ContextDecorator[_ExcReturnT],
 ):
     def __exit__(
         self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
@@ -105,7 +105,7 @@ if sys.version_info >= (3, 10):
     class _AsyncGeneratorContextManager(
         _GeneratorContextManagerBase[AsyncGenerator[_T_co, _SendT_contra]],
         AbstractAsyncContextManager[_T_co, bool | None],
-        AsyncContextDecorator[None],
+        AsyncContextDecorator[_ExcReturnT],
     ):
         async def __aexit__(
             self, typ: type[BaseException] | None, value: BaseException | None, traceback: TracebackType | None
