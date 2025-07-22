@@ -70,9 +70,9 @@ _SuppressedExcReturnT = TypeVar("_SuppressedExcReturnT", Never, None, default=Ne
 
 # __exit__ can suppress exceptions by returning a true value.
 # _SuppressedReturnT extends the decorated function's return type with
-# - Never (default, has no effect on the return type),
+# - Never (default, has no effect on the return type)
 #   if the decorating context manager never suppresses exceptions;
-# - None, if the decorating context manager may suppress exceptions.
+# - None if the decorating context manager may suppress exceptions.
 # See #13512.
 class ContextDecorator(Generic[_SuppressedExcReturnT]):
     def _recreate_cm(self) -> Self: ...
