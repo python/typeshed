@@ -513,14 +513,11 @@ else:
             "Server",  # from base_events
             "iscoroutinefunction",  # from coroutines
             "iscoroutine",  # from coroutines
-            "_AbstractEventLoopPolicy",  # from events
             "AbstractEventLoop",  # from events
             "AbstractServer",  # from events
             "Handle",  # from events
             "TimerHandle",  # from events
-            "_get_event_loop_policy",  # from events
             "get_event_loop_policy",  # from events
-            "_set_event_loop_policy",  # from events
             "set_event_loop_policy",  # from events
             "get_event_loop",  # from events
             "set_event_loop",  # from events
@@ -606,7 +603,6 @@ else:
             "DatagramTransport",  # from transports
             "SubprocessTransport",  # from transports
             "SelectorEventLoop",  # from unix_events
-            "_DefaultEventLoopPolicy",  # from unix_events
             "EventLoop",  # from unix_events
         )
     elif sys.version_info >= (3, 13):
