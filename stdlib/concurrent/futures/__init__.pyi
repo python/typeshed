@@ -33,7 +33,6 @@ if sys.version_info >= (3, 14):
         "as_completed",
         "ProcessPoolExecutor",
         "ThreadPoolExecutor",
-        "InterpreterPoolExecutor",
     )
 
 elif sys.version_info >= (3, 13):

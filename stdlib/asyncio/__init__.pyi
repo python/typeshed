@@ -41,14 +41,11 @@ if sys.platform == "win32":
             "Server",  # from base_events
             "iscoroutinefunction",  # from coroutines
             "iscoroutine",  # from coroutines
-            "_AbstractEventLoopPolicy",  # from events
             "AbstractEventLoop",  # from events
             "AbstractServer",  # from events
             "Handle",  # from events
             "TimerHandle",  # from events
-            "_get_event_loop_policy",  # from events
             "get_event_loop_policy",  # from events
-            "_set_event_loop_policy",  # from events
             "set_event_loop_policy",  # from events
             "get_event_loop",  # from events
             "set_event_loop",  # from events
@@ -134,7 +131,6 @@ if sys.platform == "win32":
             "SelectorEventLoop",  # from windows_events
             "ProactorEventLoop",  # from windows_events
             "IocpProactor",  # from windows_events
-            "_DefaultEventLoopPolicy",  # from windows_events
             "_WindowsSelectorEventLoopPolicy",  # from windows_events
             "_WindowsProactorEventLoopPolicy",  # from windows_events
             "EventLoop",  # from windows_events
