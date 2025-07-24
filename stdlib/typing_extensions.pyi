@@ -700,3 +700,5 @@ class Sentinel:
     elif sys.version_info >= (3, 10):
         def __or__(self, other: Any) -> _SpecialForm: ...  # other can be any type form legal for unions
         def __ror__(self, other: Any) -> _SpecialForm: ...  # other can be any type form legal for unions
+
+def solid_base(arg: _F, /) -> _F: ...
