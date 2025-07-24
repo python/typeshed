@@ -1,6 +1,6 @@
 import optparse
 from collections.abc import Callable, Collection, Iterator, Mapping
-from typing import Literal, NamedTuple, Protocol, TypedDict, type_check_only
+from typing import Any, Literal, NamedTuple, Protocol, TypedDict, type_check_only
 from typing_extensions import NotRequired
 
 from .extractor import gen_extractors, list_extractors
@@ -20,26 +20,26 @@ class _LoggerProtocol(Protocol):  # noqa: Y046
     def stderr(self, message: str) -> None: ...
 
 @type_check_only
-class _RetrySleepFunctions(TypedDict):
-    default: NotRequired[Callable[[int], int]]
-    file_access: NotRequired[Callable[[int], int]]
-    fragment: NotRequired[Callable[[int], int]]
+class _RetrySleepFunctions(TypedDict, total=False):
+    default: Callable[[int], int]
+    file_access: Callable[[int], int]
+    fragment: Callable[[int], int]
 
 @type_check_only
-class _ProgressTemplateValue(TypedDict):  # noqa: Y049
-    info: NotRequired[str]
-    progress: NotRequired[str]
+class _ProgressTemplateValue(TypedDict, total=False):  # noqa: Y049
+    info: str
+    progress: str
 
 @type_check_only
-class _ExternalDownloader(TypedDict):
-    dash: NotRequired[str]
-    default: NotRequired[str]
-    ftp: NotRequired[str]
-    http: NotRequired[str]
-    m3u8: NotRequired[str]
-    mms: NotRequired[str]
-    rtmp: NotRequired[str]
-    rtsp: NotRequired[str]
+class _ExternalDownloader(TypedDict, total=False):
+    dash: str
+    default: str
+    ftp: str
+    http: str
+    m3u8: str
+    mms: str
+    rtmp: str
+    rtsp: str
 
 @type_check_only
 class _DownloadRange(TypedDict):
@@ -49,9 +49,9 @@ class _DownloadRange(TypedDict):
     title: NotRequired[str]
 
 @type_check_only
-class _Color(TypedDict):
-    stderr: NotRequired[Literal["always", "auto", "no_color", "never"]]
-    stdout: NotRequired[Literal["always", "auto", "no_color", "never"]]
+class _Color(TypedDict, total=False):
+    stderr: Literal["always", "auto", "no_color", "never"]
+    stdout: Literal["always", "auto", "no_color", "never"]
 
 _ProgressTemplate = TypedDict(
     "_ProgressTemplate",
@@ -64,188 +64,185 @@ _ProgressTemplate = TypedDict(
 )
 
 @type_check_only
-class _Params(TypedDict):
-    usenetrc: NotRequired[bool | None]
-    netrc_location: NotRequired[str | None]
-    netrc_cmd: NotRequired[str | None]
-    username: NotRequired[str | None]
-    password: NotRequired[str | None]
-    twofactor: NotRequired[str | None]
-    videopassword: NotRequired[str | None]
-    ap_mso: NotRequired[str | None]
-    ap_username: NotRequired[str | None]
-    ap_password: NotRequired[str | None]
-    client_certificate: NotRequired[str | None]
-    client_certificate_key: NotRequired[str | None]
-    client_certificate_password: NotRequired[str | None]
-    quiet: NotRequired[bool | None]
-    no_warnings: NotRequired[bool | None]
-    forceurl: NotRequired[bool | None]
-    forcetitle: NotRequired[str | None]
-    forceid: NotRequired[bool | None]
-    forcethumbnail: NotRequired[bool | None]
-    forcedescription: NotRequired[bool | None]
-    forceduration: NotRequired[str | None]
-    forcefilename: NotRequired[bool | None]
-    forceprint: NotRequired[Mapping[str, Collection[str]] | Collection[str] | None]
-    print_to_file: NotRequired[Mapping[str, tuple[str, str]] | None]
-    forcejson: NotRequired[bool | None]
-    dump_single_json: NotRequired[bool | None]
-    force_write_download_archive: NotRequired[str | None]
-    simulate: NotRequired[str | None]
-    skip_download: NotRequired[str | None]
-    format: NotRequired[str | Callable[[Mapping[str, object]], Mapping[str, object]] | None]
-    allow_unplayable_formats: NotRequired[bool | None]
-    ignore_no_formats_error: NotRequired[bool | None]
-    format_sort: NotRequired[Collection[str] | None]
-    format_sort_force: NotRequired[str | None]
-    allow_multiple_video_streams: NotRequired[bool | None]
-    allow_multiple_audio_streams: NotRequired[bool | None]
-    check_formats: NotRequired[bool | Literal["selected"] | None]
-    listformats: NotRequired[bool | None]
-    outtmpl: NotRequired[str | Mapping[str, str] | None]
-    outtmpl_na_placeholder: NotRequired[str | None]
-    paths: NotRequired[str | None]
-    restrictfilenames: NotRequired[bool | None]
-    windowsfilenames: NotRequired[bool | None]
-    ignoreerrors: NotRequired[bool | Literal["only_download"] | None]
-    force_generic_extractor: NotRequired[bool | None]
-    allowed_extractors: NotRequired[Collection[str] | None]
-    ratelimit: NotRequired[int | None]
-    throttledratelimit: NotRequired[int | None]
-    overwrites: NotRequired[bool | None]
-    retries: NotRequired[int | None]
-    file_access_retries: NotRequired[int | None]
-    fragment_retries: NotRequired[int | None]
-    extractor_retries: NotRequired[int | None]
-    retry_sleep_functions: NotRequired[_RetrySleepFunctions | None]
-    skip_unavailable_fragments: NotRequired[bool | None]
-    keep_fragments: NotRequired[bool | None]
-    concurrent_fragment_downloads: NotRequired[int | None]
-    buffersize: NotRequired[int | None]
-    noresizebuffer: NotRequired[bool | None]
-    http_chunk_size: NotRequired[int | None]
-    continuedl: NotRequired[bool | None]
-    noprogress: NotRequired[bool | None]
-    progress_with_newline: NotRequired[bool | None]
-    progress_template: NotRequired[_ProgressTemplate | None]
-    playliststart: NotRequired[int | None]
-    playlistend: NotRequired[int | None]
-    playlistreverse: NotRequired[bool | None]
-    playlistrandom: NotRequired[bool | None]
-    lazy_playlist: NotRequired[bool | None]
-    noplaylist: NotRequired[bool | None]
-    logtostderr: NotRequired[bool | None]
-    consoletitle: NotRequired[str | None]
-    nopart: NotRequired[bool | None]
-    updatetime: NotRequired[bool | None]
-    writedescription: NotRequired[bool | None]
-    writeannotations: NotRequired[bool | None]
-    writeinfojson: NotRequired[bool | None]
-    allow_playlist_files: NotRequired[bool | None]
-    clean_infojson: NotRequired[bool | None]
-    getcomments: NotRequired[bool | None]
-    writethumbnail: NotRequired[bool | None]
-    write_all_thumbnails: NotRequired[bool | None]
-    writelink: NotRequired[bool | None]
-    writeurllink: NotRequired[bool | None]
-    writewebloclink: NotRequired[bool | None]
-    writedesktoplink: NotRequired[bool | None]
-    writesubtitles: NotRequired[bool | None]
-    writeautomaticsub: NotRequired[bool | None]
-    allsubtitles: NotRequired[bool | None]
-    listsubtitles: NotRequired[bool | None]
-    subtitlesformat: NotRequired[str | None]
-    subtitleslangs: NotRequired[Collection[str] | None]
-    matchtitle: NotRequired[bool | None]
-    rejecttitle: NotRequired[bool | None]
-    prefer_free_formats: NotRequired[bool | None]
-    trim_file_name: NotRequired[int | None]
-    verbose: NotRequired[bool | None]
-    test: NotRequired[bool | None]
-    keepvideo: NotRequired[str | None]
-    min_filesize: NotRequired[int | None]
-    max_filesize: NotRequired[int | None]
-    min_views: NotRequired[str | None]
-    max_views: NotRequired[str | None]
-    daterange: NotRequired[str | None]
-    cachedir: NotRequired[str | None]
-    age_limit: NotRequired[str | None]
-    download_archive: NotRequired[str | None]
-    break_on_existing: NotRequired[str | None]
-    break_on_reject: NotRequired[bool | None]
-    break_per_url: NotRequired[bool | None]
-    skip_playlist_after_errors: NotRequired[bool | None]
-    cookiefile: NotRequired[str | None]
-    cookiesfrombrowser: NotRequired[tuple[str, ...] | None]
-    legacyserverconnect: NotRequired[bool | None]
-    nocheckcertificate: NotRequired[bool | None]
-    prefer_insecure: NotRequired[str | None]
-    enable_file_urls: NotRequired[str | None]
-    http_headers: NotRequired[Mapping[str, str] | None]
-    proxy: NotRequired[str | None]
-    socket_timeout: NotRequired[int | None]
-    bidi_workaround: NotRequired[bool | None]
-    debug_printtraffic: NotRequired[bool | None]
-    prefer_ffmpeg: NotRequired[bool | None]
-    include_ads: NotRequired[bool | None]
-    default_search: NotRequired[str | None]
-    dynamic_mpd: NotRequired[bool | None]
-    extractor_args: NotRequired[Mapping[str, Mapping[str, object]] | None]
-    youtube_include_dash_manifest: NotRequired[bool | None]
-    youtube_include_hls_manifest: NotRequired[bool | None]
-    encoding: NotRequired[str | None]
-    extract_flat: NotRequired[bool | Literal["in_playlist", "discard", "discard_in_playlist"] | None]
-    live_from_start: NotRequired[bool | None]
-    wait_for_video: NotRequired[tuple[int, int] | None]
-    mark_watched: NotRequired[bool | None]
-    merge_output_format: NotRequired[str | None]
-    final_ext: NotRequired[str | None]
-    postprocessors: NotRequired[Collection[Mapping[str, object]]]
-    fixup: NotRequired[Literal["never", "warn", "detect_or_warn"] | None]
-    source_address: NotRequired[str | None]
-    call_home: NotRequired[bool | None]
-    sleep_interval_requests: NotRequired[int | None]
-    sleep_interval: NotRequired[int | None]
-    max_sleep_interval: NotRequired[int | None]
-    sleep_interval_subtitles: NotRequired[int | None]
-    external_downloader: NotRequired[_ExternalDownloader | None]
-    download_ranges: NotRequired[Callable[[object, YoutubeDL], Iterator[_DownloadRange]] | None]
-    force_keyframes_at_cuts: NotRequired[bool | None]
-    list_thumbnails: NotRequired[str | None]
-    playlist_items: NotRequired[Collection[int] | None]
-    xattr_set_filesize: NotRequired[bool | None]
-    match_filter: NotRequired[
-        Callable[[Mapping[str, object], bool], str | None] | Callable[[Mapping[str, object]], str | None] | None
-    ]
-    color: NotRequired[_Color | None]
-    ffmpeg_location: NotRequired[str | None]
-    hls_prefer_native: NotRequired[bool | None]
-    hls_use_mpegts: NotRequired[bool | None]
-    hls_split_discontinuity: NotRequired[bool | None]
-    max_downloads: NotRequired[int | None]
-    dump_intermediate_pages: NotRequired[bool | None]
-    listformats_table: NotRequired[bool | None]
-    write_pages: NotRequired[bool | None]
-    external_downloader_args: NotRequired[Literal["default"] | Mapping[str, Collection[str]] | Collection[str] | None]
-    postprocessor_args: NotRequired[Mapping[str, Collection[str]] | Collection[str] | None]
-    geo_verification_proxy: NotRequired[str | None]
-    geo_bypass: NotRequired[bool | None]
-    geo_bypass_country: NotRequired[str | None]
-    geo_bypass_ip_block: NotRequired[str | None]
-    compat_opts: NotRequired[dict[str, object] | None]
+class _Params(TypedDict, total=False):
+    usenetrc: bool | None
+    netrc_location: str | None
+    netrc_cmd: str | None
+    username: str | None
+    password: str | None
+    twofactor: str | None
+    videopassword: str | None
+    ap_mso: str | None
+    ap_username: str | None
+    ap_password: str | None
+    client_certificate: str | None
+    client_certificate_key: str | None
+    client_certificate_password: str | None
+    quiet: bool | None
+    no_warnings: bool | None
+    forceurl: bool | None
+    forcetitle: str | None
+    forceid: bool | None
+    forcethumbnail: bool | None
+    forcedescription: bool | None
+    forceduration: str | None
+    forcefilename: bool | None
+    forceprint: Mapping[str, Collection[str]] | Collection[str] | None
+    print_to_file: Mapping[str, tuple[str, str]] | None
+    forcejson: bool | None
+    dump_single_json: bool | None
+    force_write_download_archive: str | None
+    simulate: str | None
+    skip_download: str | None
+    format: str | Callable[[Mapping[str, Any]], Mapping[str, Any]] | None
+    allow_unplayable_formats: bool | None
+    ignore_no_formats_error: bool | None
+    format_sort: Collection[str] | None
+    format_sort_force: str | None
+    allow_multiple_video_streams: bool | None
+    allow_multiple_audio_streams: bool | None
+    check_formats: bool | Literal["selected"] | None
+    listformats: bool | None
+    outtmpl: str | Mapping[str, str] | None
+    outtmpl_na_placeholder: str | None
+    paths: str | None
+    restrictfilenames: bool | None
+    windowsfilenames: bool | None
+    ignoreerrors: bool | Literal["only_download"] | None
+    force_generic_extractor: bool | None
+    allowed_extractors: Collection[str] | None
+    ratelimit: int | None
+    throttledratelimit: int | None
+    overwrites: bool | None
+    retries: int | None
+    file_access_retries: int | None
+    fragment_retries: int | None
+    extractor_retries: int | None
+    retry_sleep_functions: _RetrySleepFunctions | None
+    skip_unavailable_fragments: bool | None
+    keep_fragments: bool | None
+    concurrent_fragment_downloads: int | None
+    buffersize: int | None
+    noresizebuffer: bool | None
+    http_chunk_size: int | None
+    continuedl: bool | None
+    noprogress: bool | None
+    progress_with_newline: bool | None
+    progress_template: _ProgressTemplate | None
+    playliststart: int | None
+    playlistend: int | None
+    playlistreverse: bool | None
+    playlistrandom: bool | None
+    lazy_playlist: bool | None
+    noplaylist: bool | None
+    logtostderr: bool | None
+    consoletitle: str | None
+    nopart: bool | None
+    updatetime: bool | None
+    writedescription: bool | None
+    writeannotations: bool | None
+    writeinfojson: bool | None
+    allow_playlist_files: bool | None
+    clean_infojson: bool | None
+    getcomments: bool | None
+    writethumbnail: bool | None
+    write_all_thumbnails: bool | None
+    writelink: bool | None
+    writeurllink: bool | None
+    writewebloclink: bool | None
+    writedesktoplink: bool | None
+    writesubtitles: bool | None
+    writeautomaticsub: bool | None
+    allsubtitles: bool | None
+    listsubtitles: bool | None
+    subtitlesformat: str | None
+    subtitleslangs: Collection[str] | None
+    matchtitle: bool | None
+    rejecttitle: bool | None
+    prefer_free_formats: bool | None
+    trim_file_name: int | None
+    verbose: bool | None
+    test: bool | None
+    keepvideo: str | None
+    min_filesize: int | None
+    max_filesize: int | None
+    min_views: str | None
+    max_views: str | None
+    daterange: str | None
+    cachedir: str | None
+    age_limit: str | None
+    download_archive: str | None
+    break_on_existing: str | None
+    break_on_reject: bool | None
+    break_per_url: bool | None
+    skip_playlist_after_errors: bool | None
+    cookiefile: str | None
+    cookiesfrombrowser: tuple[str, ...] | None
+    legacyserverconnect: bool | None
+    nocheckcertificate: bool | None
+    prefer_insecure: str | None
+    enable_file_urls: str | None
+    http_headers: Mapping[str, str] | None
+    proxy: str | None
+    socket_timeout: int | None
+    bidi_workaround: bool | None
+    debug_printtraffic: bool | None
+    prefer_ffmpeg: bool | None
+    include_ads: bool | None
+    default_search: str | None
+    dynamic_mpd: bool | None
+    extractor_args: Mapping[str, Mapping[str, Any]] | None
+    youtube_include_dash_manifest: bool | None
+    youtube_include_hls_manifest: bool | None
+    encoding: str | None
+    extract_flat: bool | Literal["in_playlist", "discard", "discard_in_playlist"] | None
+    live_from_start: bool | None
+    wait_for_video: tuple[int, int] | None
+    mark_watched: bool | None
+    merge_output_format: str | None
+    final_ext: str | None
+    postprocessors: Collection[Mapping[str, Any]]
+    fixup: Literal["never", "warn", "detect_or_warn"] | None
+    source_address: str | None
+    call_home: bool | None
+    sleep_interval_requests: int | None
+    sleep_interval: int | None
+    max_sleep_interval: int | None
+    sleep_interval_subtitles: int | None
+    external_downloader: _ExternalDownloader | None
+    download_ranges: Callable[[Any, YoutubeDL], Iterator[_DownloadRange]] | None
+    force_keyframes_at_cuts: bool | None
+    list_thumbnails: str | None
+    playlist_items: Collection[int] | None
+    xattr_set_filesize: bool | None
+    match_filter: NotRequired[Callable[[Mapping[str, Any], bool], str | None] | Callable[[Mapping[str, Any]], str | None] | None]
+    color: _Color | None
+    ffmpeg_location: str | None
+    hls_prefer_native: bool | None
+    hls_use_mpegts: bool | None
+    hls_split_discontinuity: bool | None
+    max_downloads: int | None
+    dump_intermediate_pages: bool | None
+    listformats_table: bool | None
+    write_pages: bool | None
+    external_downloader_args: Literal["default"] | Mapping[str, Collection[str]] | Collection[str] | None
+    postprocessor_args: Mapping[str, Collection[str]] | Collection[str] | None
+    geo_verification_proxy: str | None
+    geo_bypass: bool | None
+    geo_bypass_country: str | None
+    geo_bypass_ip_block: str | None
+    compat_opts: dict[str, Any] | None
+    logger: _LoggerProtocol
     # Undocumented fields below.
-    _deprecation_warnings: NotRequired[Collection[str] | None]
-    _warnings: NotRequired[Collection[str] | None]
-    autonumber_size: NotRequired[int | None]
-    autonumber_start: NotRequired[int | None]
-    cn_verification_proxy: NotRequired[str | None]
-    forceformat: NotRequired[object]
-    load_pages: NotRequired[bool | None]
-    logger: NotRequired[_LoggerProtocol]
-    youtube_print_sig_code: NotRequired[bool | None]
-    progress_hooks: NotRequired[list[Callable[[object], object]]]
-    impersonate: NotRequired[ImpersonateTarget]
+    _deprecation_warnings: Collection[str] | None
+    _warnings: Collection[str] | None
+    autonumber_size: int | None
+    autonumber_start: int | None
+    cn_verification_proxy: str | None
+    load_pages: bool | None
+    youtube_print_sig_code: bool | None
+    progress_hooks: list[Callable[[Mapping[str, Any]], object]]
+    impersonate: ImpersonateTarget
 
 @type_check_only
 class _ParsedOptions(NamedTuple):
