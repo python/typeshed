@@ -1,6 +1,6 @@
 from collections.abc import Collection, Iterator, KeysView
 from enum import Enum
-from http.cookiejar import Cookie, MozillaCookieJar
+from http.cookiejar import Cookie, CookiePolicy, MozillaCookieJar
 from http.cookies import SimpleCookie
 from typing import TextIO, TypeVar
 
@@ -32,7 +32,7 @@ class YDLLogger(_LoggerProtocol):
 class CookieLoadError(YoutubeDLError): ...
 
 class YoutubeDLCookieJar(MozillaCookieJar):
-    def __init__(self, filename: str | None = ..., *args: object, **kwargs: object) -> None: ...
+    def __init__(self, filename: str | None = ..., delayload: bool = False, policy: CookiePolicy | None = None) -> None: ...
     def open(self, file: str, *, write: bool = ...) -> Iterator[TextIO]: ...
     def get_cookie_header(self, url: str) -> str: ...
     def get_cookies_for_url(self, url: str) -> list[Cookie]: ...
@@ -77,7 +77,7 @@ class WindowsChromeCookieDecryptor(ChromeCookieDecryptor):
     def __init__(self, browser_root: str, logger: YDLLogger, meta_version: int | None = None) -> None: ...
 
 def get_cookie_decryptor(
-    browser_root: object,
+    browser_root: str,
     browser_keyring_name: str,
     logger: _LoggerProtocol,
     *,

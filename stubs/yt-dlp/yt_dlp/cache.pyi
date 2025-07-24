@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Any, Literal
 
 from .YoutubeDL import YoutubeDL
 
@@ -6,14 +6,14 @@ class Cache:
     def __init__(self, ydl: YoutubeDL) -> None: ...
     @property
     def enabled(self) -> bool: ...
-    def store(self, section: str, key: str, data: object, dtype: Literal["json"] = "json") -> None: ...
+    def store(self, section: str, key: str, data: Any, dtype: Literal["json"] = "json") -> None: ...
     def load(
         self,
         section: str,
         key: str,
         dtype: Literal["json"] = "json",
-        default: object | None = None,
+        default: Any = None,  # returned if not enabled or if the cache entry is not found
         *,
         min_ver: str | None = None,
-    ) -> object: ...
+    ) -> Any: ...  # Anything JSON serializable
     def remove(self) -> None: ...
