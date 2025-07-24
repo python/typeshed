@@ -245,7 +245,7 @@ class _Formatter(Protocol):
 
 class Handler(Filterer):
     level: int  # undocumented
-    formatter: _Formatter | None  # undocumented
+    formatter: Formatter | None  # undocumented
     lock: threading.Lock | None  # undocumented
     name: str | None  # undocumented
     def __init__(self, level: _Level = 0) -> None: ...
