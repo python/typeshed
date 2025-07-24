@@ -131,6 +131,7 @@ if sys.platform == "win32":
             "SelectorEventLoop",  # from windows_events
             "ProactorEventLoop",  # from windows_events
             "IocpProactor",  # from windows_events
+            "_DefaultEventLoopPolicy",  # from windows_events
             "_WindowsSelectorEventLoopPolicy",  # from windows_events
             "_WindowsProactorEventLoopPolicy",  # from windows_events
             "EventLoop",  # from windows_events
