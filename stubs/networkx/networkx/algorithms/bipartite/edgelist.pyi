@@ -16,9 +16,7 @@ def write_edgelist(
     encoding: str = "utf-8",
 ) -> None: ...
 @_dispatchable
-def generate_edgelist(
-    G: Graph[_Node], delimiter: str = " ", data: bool | Iterable[Incomplete] = True
-) -> Generator[str, None, None]: ...
+def generate_edgelist(G: Graph[_Node], delimiter: str = " ", data: bool | Iterable[Incomplete] = True) -> Generator[str]: ...
 @_dispatchable
 def parse_edgelist(
     lines,

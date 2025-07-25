@@ -65,10 +65,10 @@ MaybeNone: TypeAlias = Any  # stable
 # In cases where the sentinel object is exported and can be used by user code,
 # a construct like this is better:
 #
-# _SentinelType = NewType("_SentinelType", object)
-# sentinel: _SentinelType
+# _SentinelType = NewType("_SentinelType", object)  # does not exist at runtime
+# sentinel: Final[_SentinelType]
 # def foo(x: int | None | _SentinelType = ...) -> None: ...
-sentinel: Any
+sentinel: Any  # stable
 
 # stable
 class IdentityFunction(Protocol):
@@ -82,19 +82,21 @@ class SupportsNext(Protocol[_T_co]):
 class SupportsAnext(Protocol[_T_co]):
     def __anext__(self) -> Awaitable[_T_co]: ...
 
-# Comparison protocols
+class SupportsBool(Protocol):
+    def __bool__(self) -> bool: ...
 
+# Comparison protocols
 class SupportsDunderLT(Protocol[_T_contra]):
-    def __lt__(self, other: _T_contra, /) -> bool: ...
+    def __lt__(self, other: _T_contra, /) -> SupportsBool: ...
 
 class SupportsDunderGT(Protocol[_T_contra]):
-    def __gt__(self, other: _T_contra, /) -> bool: ...
+    def __gt__(self, other: _T_contra, /) -> SupportsBool: ...
 
 class SupportsDunderLE(Protocol[_T_contra]):
-    def __le__(self, other: _T_contra, /) -> bool: ...
+    def __le__(self, other: _T_contra, /) -> SupportsBool: ...
 
 class SupportsDunderGE(Protocol[_T_contra]):
-    def __ge__(self, other: _T_contra, /) -> bool: ...
+    def __ge__(self, other: _T_contra, /) -> SupportsBool: ...
 
 class SupportsAllComparisons(
     SupportsDunderLT[Any], SupportsDunderGT[Any], SupportsDunderLE[Any], SupportsDunderGE[Any], Protocol
@@ -297,9 +299,6 @@ class SupportsGetItemBuffer(SliceableBuffer, IndexableBuffer, Protocol):
     def __getitem__(self, i: int, /) -> int: ...
 
 class SizedBuffer(Sized, Buffer, Protocol): ...
-
-# for compatibility with third-party stubs that may use this
-_BufferWithLen: TypeAlias = SizedBuffer  # not stable  # noqa: Y047
 
 ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType]
 OptExcInfo: TypeAlias = ExcInfo | tuple[None, None, None]

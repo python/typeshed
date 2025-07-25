@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import Collection
-from typing import Any
 
 from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
@@ -15,6 +14,6 @@ def biadjacency_matrix(
     dtype=None,
     weight: str | None = "weight",
     format="csr",
-) -> Any: ...  # Return is a complex union of scipy classes
+): ...  # Return is a complex union of scipy classes depending on the format param
 @_dispatchable
 def from_biadjacency_matrix(A, create_using: Graph[_Node] | None = None, edge_attribute: str = "weight"): ...
