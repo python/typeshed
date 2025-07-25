@@ -46,7 +46,7 @@ def shell_layout(
 ) -> dict[Incomplete, Incomplete]: ...
 def bipartite_layout(
     G: Graph[_Node],
-    nodes,
+    nodes=None,
     align: str = "vertical",
     scale: float = 1,
     center: ArrayLike | None = None,

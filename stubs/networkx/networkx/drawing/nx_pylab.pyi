@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Collection, Iterable, Mapping, Sequence
 
-from networkx.classes.graph import Graph, _Node
-
 from ..classes.graph import Graph, _Node
 
 __all__ = [

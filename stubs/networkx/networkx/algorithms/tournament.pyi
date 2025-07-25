@@ -5,8 +5,6 @@ from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
 
-from ..classes.digraph import DiGraph
-
 __all__ = [
     "hamiltonian_path",
     "is_reachable",
