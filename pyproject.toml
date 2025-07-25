@@ -9,29 +9,29 @@ requires-python = ">=3.9" # Minimum version to run tests, used by uv run
 dev = [
     # Type checkers that we test our stubs against. These should always
     # be pinned to a specific version to make failure reproducible.
-    "mypy ==1.15.0",
-    "pyright ==1.1.400",
+    "mypy ==1.16.1",
+    "pyright ==1.1.403",
     # pytype can be installed on Windows, but requires building wheels, let's not do that on the CI
     "pytype ==2024.10.11; platform_system != 'Windows' and python_version >= '3.10' and python_version < '3.13'",
 
     # Libraries used by our various scripts.
     # TODO (2025-05-09): Installing this on Python 3.14 on Windows fails at the moment.
-    "aiohttp ==3.11.15; python_version < '3.14'",
+    "aiohttp ==3.12.14; python_version < '3.14'",
     "dependency-groups ==1.3.1", # Must match .pre-commit-config.yaml.
     # TODO (2025-05-09): Installing this on Python 3.14 on Windows fails at the moment.
     "grpcio-tools >=1.66.2; python_version < '3.14'", # For grpc_tools.protoc"
     "mypy-protobuf ==3.6.0",
-    "packaging ==24.2",
+    "packaging ==25.0",
     "pathspec >=0.11.1",
     "pre-commit",
-    "ruff ==0.11.4", # Required by create_baseline_stubs.py. Must match .pre-commit-config.yaml.
+    "ruff ==0.12.2", # Required by create_baseline_stubs.py. Must match .pre-commit-config.yaml.
     # TODO (2025-05-07): Dependency libcst doesn't support Python 3.14 yet.
     "stubdefaulter ==0.1.0; python_version < '3.14'",
     "termcolor >=2.3",
     "tomli ==2.2.1",
-    "tomlkit ==0.13.2",
-    "typing_extensions >=4.13.0rc1",
-    "uv ==0.7.4",
+    "tomlkit ==0.13.3",
+    "typing_extensions >=4.14.0rc1",
+    "uv ==0.7.19",
 
     # Utilities for typeshed infrastructure scripts.
     "ts_utils @ file:lib",
@@ -194,6 +194,8 @@ ignore = [
     # Used for direct, non-subclass type comparison, for example: `type(val) is str`
     # see https://github.com/astral-sh/ruff/issues/6465
     "E721", # Do not compare types, use `isinstance()`
+    # Highly opinionated, and it's often necessary to violate it
+    "PLC0415", # `import` should be at the top-level of a file
     # Leave the size and complexity of tests to human interpretation
     "PLR09", # Too many ...
     # Too many magic number "2" that are preferable inline. https://github.com/astral-sh/ruff/issues/10009

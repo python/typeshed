@@ -241,36 +241,36 @@ class ColumnBase(Node):
     __or__: Incomplete
     def __add__(self, rhs: Any) -> Expression: ...
     __sub__: Incomplete
-    __mul__: Callable[[Self, Any], Expression]
-    __div__: Callable[[Self, Any], Expression]
-    __truediv__: Callable[[Self, Any], Expression]
-    __xor__: Callable[[Self, Any], Expression]
+    __mul__: ClassVar[Callable[[Self, Any], Expression]]
+    __div__: ClassVar[Callable[[Self, Any], Expression]]
+    __truediv__: ClassVar[Callable[[Self, Any], Expression]]
+    __xor__: ClassVar[Callable[[Self, Any], Expression]]
     def __radd__(self, rhs: Any) -> Expression: ...
-    __rsub__: Callable[[Self, Any], Expression]
-    __rmul__: Callable[[Self, Any], Expression]
-    __rdiv__: Callable[[Self, Any], Expression]
-    __rtruediv__: Callable[[Self, Any], Expression]
-    __rand__: Callable[[Self, Any], Expression]
-    __ror__: Callable[[Self, Any], Expression]
-    __rxor__: Callable[[Self, Any], Expression]
+    __rsub__: ClassVar[Callable[[Self, Any], Expression]]
+    __rmul__: ClassVar[Callable[[Self, Any], Expression]]
+    __rdiv__: ClassVar[Callable[[Self, Any], Expression]]
+    __rtruediv__: ClassVar[Callable[[Self, Any], Expression]]
+    __rand__: ClassVar[Callable[[Self, Any], Expression]]
+    __ror__: ClassVar[Callable[[Self, Any], Expression]]
+    __rxor__: ClassVar[Callable[[Self, Any], Expression]]
     def __eq__(self, rhs) -> Expression: ...  # type: ignore[override]
     def __ne__(self, rhs) -> Expression: ...  # type: ignore[override]
-    __lt__: Callable[[Self, Any], Expression]
-    __le__: Callable[[Self, Any], Expression]
-    __gt__: Callable[[Self, Any], Expression]
-    __ge__: Callable[[Self, Any], Expression]
-    __lshift__: Callable[[Self, Any], Expression]
-    __rshift__: Callable[[Self, Any], Expression]
-    __mod__: Callable[[Self, Any], Expression]
-    __pow__: Callable[[Self, Any], Expression]
-    like: Callable[[Self, Any], Expression]
-    ilike: Callable[[Self, Any], Expression]
-    bin_and: Callable[[Self, Any], Expression]
-    bin_or: Callable[[Self, Any], Expression]
-    in_: Callable[[Self, Any], Expression]
-    not_in: Callable[[Self, Any], Expression]
-    regexp: Callable[[Self, Any], Expression]
-    iregexp: Callable[[Self, Any], Expression]
+    __lt__: ClassVar[Callable[[Self, Any], Expression]]
+    __le__: ClassVar[Callable[[Self, Any], Expression]]
+    __gt__: ClassVar[Callable[[Self, Any], Expression]]
+    __ge__: ClassVar[Callable[[Self, Any], Expression]]
+    __lshift__: ClassVar[Callable[[Self, Any], Expression]]
+    __rshift__: ClassVar[Callable[[Self, Any], Expression]]
+    __mod__: ClassVar[Callable[[Self, Any], Expression]]
+    __pow__: ClassVar[Callable[[Self, Any], Expression]]
+    like: ClassVar[Callable[[Self, Any], Expression]]
+    ilike: ClassVar[Callable[[Self, Any], Expression]]
+    bin_and: ClassVar[Callable[[Self, Any], Expression]]
+    bin_or: ClassVar[Callable[[Self, Any], Expression]]
+    in_: ClassVar[Callable[[Self, Any], Expression]]
+    not_in: ClassVar[Callable[[Self, Any], Expression]]
+    regexp: ClassVar[Callable[[Self, Any], Expression]]
+    iregexp: ClassVar[Callable[[Self, Any], Expression]]
     def is_null(self, is_null: bool = ...) -> Expression: ...
     def contains(self, rhs) -> Expression: ...
     def startswith(self, rhs) -> Expression: ...
@@ -1103,7 +1103,7 @@ class Field(ColumnBase):
     accessor_class: Incomplete
     auto_increment: bool
     default_index_type: Incomplete
-    field_type: str
+    field_type: ClassVar[str]
     unpack: bool
     null: Incomplete
     index: Incomplete
@@ -1154,43 +1154,32 @@ class Field(ColumnBase):
     def ddl_datatype(self, ctx): ...
     def ddl(self, ctx): ...
 
-class AnyField(Field):
-    field_type: str
+class AnyField(Field): ...
 
 class IntegerField(Field):
-    field_type: str
     def adapt(self, value): ...
 
-class BigIntegerField(IntegerField):
-    field_type: str
-
-class SmallIntegerField(IntegerField):
-    field_type: str
+class BigIntegerField(IntegerField): ...
+class SmallIntegerField(IntegerField): ...
 
 class AutoField(IntegerField):
     auto_increment: bool
-    field_type: str
     def __init__(self, *args, **kwargs) -> None: ...
 
-class BigAutoField(AutoField):
-    field_type: str
+class BigAutoField(AutoField): ...
 
 class IdentityField(AutoField):
-    field_type: str
     def __init__(self, generate_always: bool = ..., **kwargs) -> None: ...
 
 class PrimaryKeyField(AutoField):
     def __init__(self, *args, **kwargs) -> None: ...
 
 class FloatField(Field):
-    field_type: str
     def adapt(self, value): ...
 
-class DoubleField(FloatField):
-    field_type: str
+class DoubleField(FloatField): ...
 
 class DecimalField(Field):
-    field_type: str
     max_digits: Incomplete
     decimal_places: Incomplete
     auto_round: Incomplete
@@ -1214,20 +1203,16 @@ class _StringField(Field):
     def __radd__(self, other): ...
 
 class CharField(_StringField):
-    field_type: str
     max_length: Incomplete
     def __init__(self, max_length: int = ..., *args, **kwargs) -> None: ...
     def get_modifiers(self): ...
 
 class FixedCharField(CharField):
-    field_type: str
     def python_value(self, value): ...
 
-class TextField(_StringField):
-    field_type: str
+class TextField(_StringField): ...
 
 class BlobField(Field):
-    field_type: str
     def bind(self, model, name, set_attribute: bool = ...): ...
     def db_value(self, value): ...
 
@@ -1264,12 +1249,10 @@ class BigBitField(BlobField):
     def db_value(self, value): ...
 
 class UUIDField(Field):
-    field_type: str
     def db_value(self, value): ...
     def python_value(self, value): ...
 
 class BinaryUUIDField(BlobField):
-    field_type: str
     def db_value(self, value): ...
     def python_value(self, value): ...
 
@@ -1278,7 +1261,6 @@ class _BaseFormattedField(Field):
     def __init__(self, formats: Incomplete | None = ..., *args, **kwargs) -> None: ...
 
 class DateTimeField(_BaseFormattedField):
-    field_type: str
     formats: Incomplete
     def adapt(self, value): ...
     def to_timestamp(self): ...
@@ -1297,7 +1279,6 @@ class DateTimeField(_BaseFormattedField):
     def second(self): ...
 
 class DateField(_BaseFormattedField):
-    field_type: str
     formats: Incomplete
     def adapt(self, value): ...
     def to_timestamp(self): ...
@@ -1310,7 +1291,6 @@ class DateField(_BaseFormattedField):
     def day(self): ...
 
 class TimeField(_BaseFormattedField):
-    field_type: str
     formats: Incomplete
     def adapt(self, value): ...
     @property
@@ -1350,7 +1330,6 @@ class IPField(BigIntegerField):
     def python_value(self, val): ...
 
 class BooleanField(Field):
-    field_type: str
     adapt: Incomplete
 
 class BareField(Field):
@@ -1391,7 +1370,7 @@ class ForeignKeyField(Field):
         **kwargs,
     ) -> None: ...
     @property
-    def field_type(self): ...
+    def field_type(self): ...  # type: ignore[override]
     def get_modifiers(self): ...
     def adapt(self, value): ...
     def db_value(self, value): ...

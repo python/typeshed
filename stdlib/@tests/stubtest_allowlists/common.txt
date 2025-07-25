@@ -195,6 +195,10 @@ _frozen_importlib_external.FileLoader.get_filename
 _frozen_importlib_external.FileLoader.get_resource_reader
 _frozen_importlib_external.FileLoader.load_module
 
+# Mismatch of default values of `report` parameter:
+_markupbase.ParserBase.parse_comment
+_markupbase.ParserBase.parse_marked_section
+
 _pydecimal.*  # See comments in file
 _typeshed.*  # Utility types for typeshed, doesn't exist at runtime
 argparse.ArgumentParser.__init__  # stubtest doesn't recognise the runtime default (a class) as being compatible with a callback protocol (the stub annotation)
@@ -209,6 +213,8 @@ _?ast.expr.__init__
 _?ast.stmt.__init__
 
 _ast.ImportFrom.level  # None on the class, but never None on instances
+
+argparse.Namespace.__setattr__  # should allow setting any attribute
 
 ast.ImportFrom.level  # None on the class, but never None on instances
 ast.NodeVisitor.visit_\w+  # Methods are discovered dynamically, see #3796
@@ -272,7 +278,9 @@ _?ctypes.Array._length_  # _length_ is abstract, https://github.com/python/types
 _?ctypes.Array.raw  # exists but stubtest can't see it; only available if _CT == c_char
 ctypes.CDLL._FuncPtr  # None at class level but initialized in __init__ to this value
 _?ctypes.Structure.__getattr__  # doesn't exist, but makes things easy if we pretend it does
+_?ctypes.Structure.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 _?ctypes.Union.__getattr__  # doesn't exist, but makes things easy if we pretend it does
+_?ctypes.Union.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
@@ -303,6 +311,7 @@ functools._lru_cache_wrapper.cache_parameters  # Cannot be detected statically
 functools.cached_property.__set__  # doesn't exist, but cached_property is settable by another mechanism
 
 hmac.new  # Raises TypeError if optional argument digestmod is not provided
+html.parser.HTMLParser.parse_bogus_comment  # default values mismatch
 http.HTTPStatus.description  # set in __new__; work-around for enum wierdness
 http.HTTPStatus.phrase  # set in __new__; work-around for enum wierdness
 imaplib.IMAP4_SSL.ssl  # Depends on the existence and flags of SSL
@@ -322,6 +331,8 @@ inspect.Signature.__init__
 
 inspect.Parameter.empty  # set as private marker _empty
 inspect.Signature.empty  # set as private marker _empty
+
+logging.LogRecord.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 
 # Iterable classes that don't define __iter__ at runtime (usually iterable via __getitem__)
 # These would ideally be special-cased by type checkers; see https://github.com/python/mypy/issues/2220
@@ -380,7 +391,9 @@ multiprocessing.synchronize.SemLock.acquire
 multiprocessing.synchronize.SemLock.release
 
 numbers.Number.__hash__  # typeshed marks this as abstract but code just sets this as None
+
 optparse.Values.__getattr__  # Some attributes are set in __init__ using setattr
+optparse.Values.__setattr__  # doesn't exist, but makes things easy if we pretend it does
 
 os._wrap_close.read  # Methods that come from __getattr__() at runtime
 os._wrap_close.readable  # Methods that come from __getattr__() at runtime
