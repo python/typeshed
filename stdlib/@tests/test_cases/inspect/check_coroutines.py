@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Awaitable, Callable, Coroutine
 from inspect import iscoroutinefunction
+from types import CoroutineType
 from typing import Any
 from typing_extensions import assert_type
 
@@ -16,10 +17,10 @@ def test_iscoroutinefunction(
         assert_type(x, Callable[[str, int], Coroutine[str, int, bytes]])
 
     if iscoroutinefunction(y):
-        assert_type(y, Callable[[str, int], Coroutine[Any, Any, bytes]])
+        assert_type(y, Callable[[str, int], CoroutineType[Any, Any, bytes]])
 
     if iscoroutinefunction(z):
-        assert_type(z, Callable[[str, int], Coroutine[Any, Any, Any]])
+        assert_type(z, Callable[[str, int], CoroutineType[Any, Any, Any]])
 
     if iscoroutinefunction(xx):
-        assert_type(xx, Callable[..., Coroutine[Any, Any, Any]])
+        assert_type(xx, Callable[..., CoroutineType[Any, Any, Any]])
