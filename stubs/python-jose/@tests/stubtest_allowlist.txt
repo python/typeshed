@@ -4,6 +4,3 @@ jose.backends.CryptographyECKey
 jose.backends.CryptographyHMACKey
 jose.backends.CryptographyRSAKey
 jose.backends.ECDSAECKey
-
-# See https://github.com/mpdavis/python-jose/pull/372
-jose.jwt.utc_now
