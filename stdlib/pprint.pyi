@@ -35,7 +35,7 @@ if sys.version_info >= (3, 10):
         depth: int | None = None,
         *,
         compact: bool = False,
-        sort_dicts: bool = True,
+        sort_dicts: bool = False,
         underscore_numbers: bool = False,
     ) -> None: ...
 
@@ -48,7 +48,7 @@ else:
         depth: int | None = 80,
         *,
         compact: bool = False,
-        sort_dicts: bool = True,
+        sort_dicts: bool = False,
     ) -> None: ...
 
 if sys.version_info >= (3, 10):
