@@ -70,6 +70,7 @@
         "stubs/peewee",
         "stubs/pexpect",
         "stubs/pika",
+        "stubs/pony",
         "stubs/protobuf",
         "stubs/psutil",
         "stubs/psycopg2",

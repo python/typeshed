@@ -29,25 +29,25 @@ else:
 if sys.version_info >= (3, 10):
     def pp(
         object: object,
-        stream: IO[str] | None = ...,
-        indent: int = ...,
-        width: int = ...,
-        depth: int | None = ...,
+        stream: IO[str] | None = None,
+        indent: int = 1,
+        width: int = 80,
+        depth: int | None = None,
         *,
-        compact: bool = ...,
+        compact: bool = False,
         sort_dicts: bool = False,
-        underscore_numbers: bool = ...,
+        underscore_numbers: bool = False,
     ) -> None: ...
 
 else:
     def pp(
         object: object,
-        stream: IO[str] | None = ...,
-        indent: int = ...,
-        width: int = ...,
-        depth: int | None = ...,
+        stream: IO[str] | None = None,
+        indent: int = 1,
+        width: int = 80,
+        depth: int | None = None,
         *,
-        compact: bool = ...,
+        compact: bool = False,
         sort_dicts: bool = False,
     ) -> None: ...
 

@@ -31,9 +31,8 @@ import tomli
 import tomlkit
 from packaging.specifiers import Specifier
 from termcolor import colored
-from tomlkit.items import String
 
-from ts_utils.metadata import NoSuchStubError, StubMetadata, metadata_path, read_metadata, update_metadata
+from ts_utils.metadata import ObsoleteMetadata, StubMetadata, read_metadata, update_metadata
 from ts_utils.paths import PYRIGHT_CONFIG, STUBS_PATH, distribution_path
 
 TYPESHED_OWNER = "python"
@@ -506,28 +505,10 @@ def _add_months(date: datetime.date, months: int) -> datetime.date:
     return datetime.date(year, month, day)
 
 
-def obsolete_more_than_6_months(distribution: str) -> bool:
-    try:
-        with metadata_path(distribution).open("rb") as file:
-            data = tomlkit.load(file)
-    except FileNotFoundError:
-        raise NoSuchStubError(f"Typeshed has no stubs for {distribution!r}!") from None
-
-    obsolete_since = data["obsolete_since"]
-    if not obsolete_since:
-        return False
-
-    assert type(obsolete_since) is String
-    comment: str | None = obsolete_since.trivia.comment
-    if not comment:
-        return False
-
-    release_date_string = comment.removeprefix("# Released on ")
-    release_date = datetime.date.fromisoformat(release_date_string)
-    remove_date = _add_months(release_date, POLICY_MONTHS_DELTA)
+def obsolete_more_than_n_months(since_date: datetime.date) -> bool:
+    remove_date = _add_months(since_date, POLICY_MONTHS_DELTA)
     today = datetime.datetime.now(tz=datetime.timezone.utc).date()
-
-    return remove_date >= today
+    return remove_date <= today
 
 
 def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFile) -> bool:
@@ -564,7 +545,10 @@ async def has_no_longer_updated_release(release_to_download: PypiReleaseDownload
 async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove:
     stub_info = read_metadata(distribution)
     if stub_info.is_obsolete:
-        if obsolete_more_than_6_months(stub_info.distribution):
+        assert type(stub_info.obsolete) is ObsoleteMetadata
+        since_date = stub_info.obsolete.since_date
+
+        if obsolete_more_than_n_months(since_date):
             pypi_info = await fetch_pypi_info(f"types-{stub_info.distribution}", session)
             latest_release = pypi_info.get_latest_release()
             links = {
