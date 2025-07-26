@@ -1,8 +1,8 @@
 from collections.abc import Iterator
 from types import GenericAlias
-from typing import Any, Literal, final
+from typing import Any, Literal, TypeVar, final, overload
 
-__all__ = ["Interpolation", "Template"]
+_T = TypeVar("_T")
 
 @final
 class Template:  # TODO: consider making `Template` generic on `TypeVarTuple`
@@ -29,3 +29,8 @@ class Interpolation:
         cls, value: Any, expression: str = "", conversion: Literal["a", "r", "s"] | None = None, format_spec: str = ""
     ) -> Interpolation: ...
     def __class_getitem__(cls, item: Any, /) -> GenericAlias: ...
+
+@overload
+def convert(obj: _T, /, conversion: None) -> _T: ...
+@overload
+def convert(obj: object, /, conversion: Literal["r", "s", "a"]) -> str: ...

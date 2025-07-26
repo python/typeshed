@@ -281,7 +281,7 @@ class HelpFormatter:
 
     if sys.version_info >= (3, 14):
         def __init__(
-            self, prog: str, indent_increment: int = 2, max_help_position: int = 24, width: int | None = None, color: bool = False
+            self, prog: str, indent_increment: int = 2, max_help_position: int = 24, width: int | None = None, color: bool = True
         ) -> None: ...
     else:
         def __init__(
@@ -495,16 +495,40 @@ else:
 class _ArgumentGroup(_ActionsContainer):
     title: str | None
     _group_actions: list[Action]
-    def __init__(
-        self,
-        container: _ActionsContainer,
-        title: str | None = None,
-        description: str | None = None,
-        *,
-        prefix_chars: str = ...,
-        argument_default: Any = ...,
-        conflict_handler: str = ...,
-    ) -> None: ...
+    if sys.version_info >= (3, 14):
+        @overload
+        def __init__(
+            self,
+            container: _ActionsContainer,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> None: ...
+        @overload
+        @deprecated("Undocumented `prefix_chars` parameter is deprecated since Python 3.14.")
+        def __init__(
+            self,
+            container: _ActionsContainer,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            prefix_chars: str,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            container: _ActionsContainer,
+            title: str | None = None,
+            description: str | None = None,
+            *,
+            prefix_chars: str = ...,
+            argument_default: Any = ...,
+            conflict_handler: str = ...,
+        ) -> None: ...
 
 # undocumented
 class _MutuallyExclusiveGroup(_ArgumentGroup):
@@ -738,9 +762,9 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             fromfile_prefix_chars: str | None = ...,
             argument_default: Any = ...,
             conflict_handler: str = ...,
-            add_help: bool = ...,
-            allow_abbrev: bool = ...,
-            exit_on_error: bool = ...,
+            add_help: bool = True,
+            allow_abbrev: bool = True,
+            exit_on_error: bool = True,
             suggest_on_error: bool = False,
             color: bool = False,
             **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
@@ -764,9 +788,9 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             fromfile_prefix_chars: str | None = ...,
             argument_default: Any = ...,
             conflict_handler: str = ...,
-            add_help: bool = ...,
-            allow_abbrev: bool = ...,
-            exit_on_error: bool = ...,
+            add_help: bool = True,
+            allow_abbrev: bool = True,
+            exit_on_error: bool = True,
             **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
         ) -> _ArgumentParserT: ...
     else:
@@ -787,9 +811,9 @@ class _SubParsersAction(Action, Generic[_ArgumentParserT]):
             fromfile_prefix_chars: str | None = ...,
             argument_default: Any = ...,
             conflict_handler: str = ...,
-            add_help: bool = ...,
-            allow_abbrev: bool = ...,
-            exit_on_error: bool = ...,
+            add_help: bool = True,
+            allow_abbrev: bool = True,
+            exit_on_error: bool = True,
             **kwargs: Any,  # Accepting any additional kwargs for custom parser classes
         ) -> _ArgumentParserT: ...
 
