@@ -44,6 +44,8 @@ jobs:
           # Max supported Python version as of pytype 2024.10.11
           python-version: "3.12"
       - uses: astral-sh/setup-uv@v6
+        with:
+          version-file: "requirements-tests.txt"
       - run: uv pip install -r requirements-tests.txt --system
       - name: Install external dependencies for 3rd-party stubs
         run: |
@@ -120,6 +122,8 @@ jobs:
         with:
           python-version: "3.13"
       - uses: astral-sh/setup-uv@v6
+        with:
+          version-file: "requirements-tests.txt"
       - name: Install typeshed test-suite requirements
         # Install these so we can run `get_external_stub_requirements.py`
         run: uv pip install -r requirements-tests.txt --system
@@ -186,6 +190,8 @@ jobs:
           # Keep in sync with stub_uploader's check_scripts.yml workflow.
           python-version: "3.13"
       - uses: astral-sh/setup-uv@v6
+        with:
+          version-file: "typeshed/requirements-tests.txt"
       - name: Run tests
         run: |
           cd stub_uploader
