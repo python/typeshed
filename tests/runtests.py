@@ -6,7 +6,6 @@ import json
 import re
 import subprocess
 import sys
-from importlib.util import find_spec
 from pathlib import Path
 
 from ts_utils.metadata import get_oldest_supported_python, read_metadata
