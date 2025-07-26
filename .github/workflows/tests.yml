@@ -191,7 +191,7 @@ jobs:
           python-version: "3.13"
       - uses: astral-sh/setup-uv@v6
         with:
-          version-file: "requirements-tests.txt"
+          version-file: "typeshed/requirements-tests.txt"
       - name: Run tests
         run: |
           cd stub_uploader
