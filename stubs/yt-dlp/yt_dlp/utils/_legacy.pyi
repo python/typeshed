@@ -98,10 +98,10 @@ class YoutubeDLHandler(urllib.request.AbstractHTTPHandler):
     def __init__(
         self,
         params: Mapping[str, Any],
-        *,
+        *args: Any,  # args passed to urllib.request.AbstractHTTPHandler.__init__().
         context: Any = None,
-        debuglevel: int | None = None,
         source_address: _Address | None = None,
+        debuglevel: int | None = None,
     ) -> None: ...
 
 YoutubeDLHTTPSHandler = YoutubeDLHandler
