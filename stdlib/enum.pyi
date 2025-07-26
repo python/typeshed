@@ -53,6 +53,7 @@ _EnumerationT = TypeVar("_EnumerationT", bound=type[Enum])
 # >>> Enum('Foo', names={'RED': 1, 'YELLOW': 2})
 # <enum 'Foo'>
 _EnumNames: TypeAlias = str | Iterable[str] | Iterable[Iterable[str | Any]] | Mapping[str, Any]
+_Signature: TypeAlias = Any  # TODO: Unable to import Signature from inspect module
 
 if sys.version_info >= (3, 11):
     class nonmember(Generic[_EnumMemberT]):
@@ -166,6 +167,9 @@ class EnumMeta(type):
     if sys.version_info >= (3, 12):
         @overload
         def __call__(cls: type[_EnumMemberT], value: Any, *values: Any) -> _EnumMemberT: ...
+    if sys.version_info >= (3, 14):
+        @property
+        def __signature__(cls) -> _Signature: ...
 
     _member_names_: list[str]  # undocumented
     _member_map_: dict[str, Enum]  # undocumented
@@ -212,9 +216,14 @@ class Enum(metaclass=EnumMeta):
     if sys.version_info >= (3, 11):
         def __copy__(self) -> Self: ...
         def __deepcopy__(self, memo: Any) -> Self: ...
-    if sys.version_info >= (3, 12):
+    if sys.version_info >= (3, 12) and sys.version_info < (3, 14):
         @classmethod
         def __signature__(cls) -> str: ...
+    if sys.version_info >= (3, 13):
+        # Value may be any type, even in special enums. Enabling Enum parsing from
+        # multiple value types
+        def _add_value_alias_(self, value: Any) -> None: ...
+        def _add_alias_(self, name: str) -> None: ...
 
 if sys.version_info >= (3, 11):
     class ReprEnum(Enum): ...

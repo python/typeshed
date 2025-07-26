@@ -143,6 +143,8 @@ class vCategory:
     TZID: property
 
 class TimeBase:
+    params: Parameters
+    ignore_for_equality: set[str]
     def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> int: ...
     RANGE: property

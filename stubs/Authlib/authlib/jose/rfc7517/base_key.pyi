@@ -1,13 +1,14 @@
 from _typeshed import Incomplete
+from typing import ClassVar
 
 class Key:
     kty: str
-    ALLOWED_PARAMS: Incomplete
-    PRIVATE_KEY_OPS: Incomplete
-    PUBLIC_KEY_OPS: Incomplete
-    REQUIRED_JSON_FIELDS: Incomplete
+    ALLOWED_PARAMS: ClassVar[list[str]]
+    PRIVATE_KEY_OPS: ClassVar[list[str]]
+    PUBLIC_KEY_OPS: ClassVar[list[str]]
+    REQUIRED_JSON_FIELDS: ClassVar[list[str]]
     options: Incomplete
-    def __init__(self, options: Incomplete | None = None) -> None: ...
+    def __init__(self, options=None) -> None: ...
     @property
     def tokens(self): ...
     @property

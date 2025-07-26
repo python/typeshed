@@ -8,11 +8,11 @@ from _typeshed import (
     Unused,
 )
 from re import Pattern
-from typing import IO, Any, ClassVar, Generic, Literal, TypeVar
+from typing import IO, Any, ClassVar, Final, Generic, Literal, TypeVar
 
 from docutils import TransformSpec, nodes
 
-__docformat__: str
+__docformat__: Final = "reStructuredText"
 
 class InputError(OSError): ...
 class OutputError(OSError): ...
@@ -43,17 +43,21 @@ class Input(TransformSpec, Generic[_S]):
 class Output(TransformSpec):
     component_type: ClassVar[str]
     default_destination_path: ClassVar[str | None]
+    encoding: Incomplete
+    error_handler: Incomplete
+    destination: Incomplete
+    destination_path: Incomplete
     def __init__(
-        self,
-        destination: Incomplete | None = None,
-        destination_path: Incomplete | None = None,
-        encoding: str | None = None,
-        error_handler: str = "strict",
+        self, destination=None, destination_path=None, encoding: str | None = None, error_handler: str = "strict"
     ) -> None: ...
     def write(self, data: str) -> Any: ...  # returns bytes or str
     def encode(self, data: str) -> Any: ...  # returns bytes or str
 
 class ErrorOutput:
+    destination: Incomplete
+    encoding: Incomplete
+    encoding_errors: Incomplete
+    decoding_errors: Incomplete
     def __init__(
         self,
         destination: str | SupportsWrite[str] | SupportsWrite[bytes] | Literal[False] | None = None,
@@ -66,10 +70,13 @@ class ErrorOutput:
     def isatty(self) -> bool: ...
 
 class FileInput(Input[IO[str]]):
+    autoclose: Incomplete
+    source: Incomplete
+    source_path: Incomplete
     def __init__(
         self,
-        source: Incomplete | None = None,
-        source_path: Incomplete | None = None,
+        source=None,
+        source_path=None,
         encoding: str | None = None,
         error_handler: str = "strict",
         autoclose: bool = True,
@@ -80,17 +87,36 @@ class FileInput(Input[IO[str]]):
     def close(self) -> None: ...
 
 class FileOutput(Output):
+    default_destination_path: ClassVar[str]
     mode: ClassVar[OpenTextModeWriting | OpenBinaryModeWriting]
-    def __getattr__(self, name: str) -> Incomplete: ...
+    opened: bool
+    autoclose: Incomplete
+    destination: Incomplete
+    destination_path: Incomplete
+    def __init__(
+        self,
+        destination=None,
+        destination_path=None,
+        encoding=None,
+        error_handler: str = "strict",
+        autoclose: bool = True,
+        handle_io_errors=None,
+        mode=None,
+    ) -> None: ...
+    def open(self) -> None: ...
+    def write(self, data): ...
+    def close(self) -> None: ...
 
 class BinaryFileOutput(FileOutput): ...
 
 class StringInput(Input[str]):
     default_source_path: ClassVar[str]
+    def read(self): ...
 
 class StringOutput(Output):
     default_destination_path: ClassVar[str]
     destination: str | bytes  # only defined after call to write()
+    def write(self, data): ...
 
 class NullInput(Input[Any]):
     default_source_path: ClassVar[str]
@@ -102,3 +128,4 @@ class NullOutput(Output):
 
 class DocTreeInput(Input[nodes.document]):
     default_source_path: ClassVar[str]
+    def read(self): ...

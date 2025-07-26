@@ -1,28 +1,30 @@
 from _typeshed import Incomplete
 from abc import ABCMeta
+from collections.abc import Iterable
+from typing import ClassVar
 
 class JWEAlgorithmBase(metaclass=ABCMeta):
-    EXTRA_HEADERS: Incomplete
-    name: Incomplete
-    description: Incomplete
+    EXTRA_HEADERS: ClassVar[Iterable[str] | None]
+    name: str | None
+    description: str | None
     algorithm_type: str
     algorithm_location: str
     def prepare_key(self, raw_data) -> None: ...
     def generate_preset(self, enc_alg, key) -> None: ...
 
 class JWEAlgorithm(JWEAlgorithmBase, metaclass=ABCMeta):
-    def wrap(self, enc_alg, headers, key, preset: Incomplete | None = None) -> None: ...
+    def wrap(self, enc_alg, headers, key, preset=None) -> None: ...
     def unwrap(self, enc_alg, ek, headers, key) -> None: ...
 
 class JWEAlgorithmWithTagAwareKeyAgreement(JWEAlgorithmBase, metaclass=ABCMeta):
-    def generate_keys_and_prepare_headers(self, enc_alg, key, sender_key, preset: Incomplete | None = None) -> None: ...
+    def generate_keys_and_prepare_headers(self, enc_alg, key, sender_key, preset=None) -> None: ...
     def agree_upon_key_and_wrap_cek(self, enc_alg, headers, key, sender_key, epk, cek, tag) -> None: ...
-    def wrap(self, enc_alg, headers, key, sender_key, preset: Incomplete | None = None) -> None: ...
-    def unwrap(self, enc_alg, ek, headers, key, sender_key, tag: Incomplete | None = None) -> None: ...
+    def wrap(self, enc_alg, headers, key, sender_key, preset=None) -> None: ...
+    def unwrap(self, enc_alg, ek, headers, key, sender_key, tag=None) -> None: ...
 
 class JWEEncAlgorithm:
-    name: Incomplete
-    description: Incomplete
+    name: str | None
+    description: str | None
     algorithm_type: str
     algorithm_location: str
     IV_SIZE: Incomplete
