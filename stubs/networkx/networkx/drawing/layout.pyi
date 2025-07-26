@@ -2,6 +2,9 @@ from _typeshed import Incomplete
 
 from networkx.utils.backends import _dispatchable
 from numpy.random import RandomState
+from numpy.typing import ArrayLike
+
+from ..classes.graph import Graph, _Node
 
 __all__ = [
     "bipartite_layout",
@@ -23,25 +26,35 @@ __all__ = [
 ]
 
 def random_layout(
-    G, center=None, dim: int = 2, seed: int | RandomState | None = None, store_pos_as: str | None = None
+    G: Graph[_Node],
+    center: ArrayLike | None = None,
+    dim: int = 2,
+    seed: int | RandomState | None = None,
+    store_pos_as: str | None = None,
 ) -> dict[Incomplete, Incomplete]: ...
 def circular_layout(
-    G, scale: float = 1, center=None, dim: int = 2, store_pos_as: str | None = None
+    G: Graph[_Node], scale: float = 1, center: ArrayLike | None = None, dim: int = 2, store_pos_as: str | None = None
 ) -> dict[Incomplete, Incomplete]: ...
 def shell_layout(
-    G, nlist=None, rotate=None, scale: float = 1, center=None, dim: int = 2, store_pos_as: str | None = None
+    G: Graph[_Node],
+    nlist=None,
+    rotate=None,
+    scale: float = 1,
+    center: ArrayLike | None = None,
+    dim: int = 2,
+    store_pos_as: str | None = None,
 ) -> dict[Incomplete, Incomplete]: ...
 def bipartite_layout(
-    G,
+    G: Graph[_Node],
     nodes=None,
     align: str = "vertical",
     scale: float = 1,
-    center=None,
+    center: ArrayLike | None = None,
     aspect_ratio: float = ...,
     store_pos_as: str | None = None,
 ) -> dict[Incomplete, Incomplete]: ...
 def spring_layout(
-    G,
+    G: Graph[_Node],
     k=None,
     pos=None,
     fixed=None,
@@ -49,7 +62,7 @@ def spring_layout(
     threshold: float = 0.0001,
     weight: str = "weight",
     scale: float = 1,
-    center=None,
+    center: ArrayLike | None = None,
     dim: int = 2,
     seed: int | RandomState | None = None,
     store_pos_as: str | None = None,
@@ -61,28 +74,45 @@ def spring_layout(
 fruchterman_reingold_layout = spring_layout
 
 def kamada_kawai_layout(
-    G, dist=None, pos=None, weight: str = "weight", scale: float = 1, center=None, dim: int = 2, store_pos_as: str | None = None
+    G: Graph[_Node],
+    dist=None,
+    pos=None,
+    weight: str = "weight",
+    scale: float = 1,
+    center: ArrayLike | None = None,
+    dim: int = 2,
+    store_pos_as: str | None = None,
 ) -> dict[Incomplete, Incomplete]: ...
 def spectral_layout(
-    G, weight: str = "weight", scale: float = 1, center=None, dim: int = 2, store_pos_as: str | None = None
+    G: Graph[_Node],
+    weight: str = "weight",
+    scale: float = 1,
+    center: ArrayLike | None = None,
+    dim: int = 2,
+    store_pos_as: str | None = None,
 ) -> dict[Incomplete, Incomplete]: ...
 def planar_layout(
-    G, scale: float = 1, center=None, dim: int = 2, store_pos_as: str | None = None
+    G: Graph[_Node], scale: float = 1, center: ArrayLike | None = None, dim: int = 2, store_pos_as: str | None = None
 ) -> dict[Incomplete, Incomplete]: ...
 def spiral_layout(
-    G,
+    G: Graph[_Node],
     scale: float = 1,
-    center=None,
+    center: ArrayLike | None = None,
     dim: int = 2,
     resolution: float = 0.35,
     equidistant: bool = False,
     store_pos_as: str | None = None,
 ) -> dict[Incomplete, Incomplete]: ...
 def multipartite_layout(
-    G, subset_key: str = "subset", align: str = "vertical", scale: float = 1, center=None, store_pos_as: str | None = None
+    G: Graph[_Node],
+    subset_key: str = "subset",
+    align: str = "vertical",
+    scale: float = 1,
+    center: ArrayLike | None = None,
+    store_pos_as: str | None = None,
 ) -> dict[Incomplete, Incomplete]: ...
 def arf_layout(
-    G,
+    G: Graph[_Node],
     pos=None,
     scaling: float = 1,
     a: float = 1.1,

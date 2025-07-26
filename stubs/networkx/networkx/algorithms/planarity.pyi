@@ -51,7 +51,7 @@ class LRPlanarity:
     lowpt_edge: Incomplete
     left_ref: Incomplete
     right_ref: Incomplete
-    embedding: Incomplete
+    embedding: PlanarEmbedding[Incomplete]
 
     def __init__(self, G) -> None: ...
     def lr_planarity(self) -> PlanarEmbedding[Incomplete] | None: ...
