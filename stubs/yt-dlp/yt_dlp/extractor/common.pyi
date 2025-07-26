@@ -407,9 +407,24 @@ class InfoExtractor:
         fatal: bool = False,
     ) -> str | None: ...
     def _og_search_url(self, html: str, *, default: type[NO_DEFAULT] | str = ..., fatal: bool = False) -> str | None: ...
-    def _html_extract_title(self, html: str, name: str = "title", *, fatal: bool = False, **kwargs: Any) -> str | None: ...
+    def _html_extract_title(
+        self,
+        html: str,
+        name: str = "title",
+        *,
+        default: type[NO_DEFAULT] | str = ...,
+        flags: int = 0,
+        group: tuple[int, ...] | list[int] | None = None,
+        fatal: bool = False,
+    ) -> str | None: ...
     def _html_search_meta(
-        self, name: str, html: str, display_name: str | None = None, fatal: bool = False, **kwargs: Any
+        self,
+        name: str,
+        html: str,
+        display_name: str | None = None,
+        fatal: bool = False,
+        flags: int = 0,
+        group: tuple[int, ...] | list[int] | None = None,
     ) -> str | None: ...
     def _dc_search_uploader(self, html: str) -> str | None: ...
     @staticmethod
@@ -429,6 +444,7 @@ class InfoExtractor:
         fatal: bool = True,
         default: type[NO_DEFAULT] | bool = ...,
     ) -> dict[str, Any]: ...
+    # json_ld parameter is passed to json.loads().
     def _json_ld(
         self, json_ld: Any, video_id: str, fatal: bool = True, expected_type: Iterable[str] | str | None = None
     ) -> dict[str, Any]: ...
@@ -483,7 +499,23 @@ class InfoExtractor:
         self, m3u8_url: str, ext: str | None = None, preference: Any = None, quality: Any = None, m3u8_id: str | None = None
     ) -> dict[str, Any]: ...
     def _report_ignoring_subs(self, name: str) -> None: ...
-    def _extract_m3u8_formats(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...
+    def _extract_m3u8_formats(
+        self,
+        m3u8_url: str,
+        video_id: str,
+        ext: str | None = None,
+        entry_protocol: str = "m3u8_native",
+        preference: Any = None,
+        quality: Any = None,
+        m3u8_id: str | None = None,
+        note: str | None = None,
+        errnote: str | None = None,
+        fatal: bool = True,
+        live: bool = False,
+        data: Any = None,
+        headers: Mapping[str, Any] = ...,
+        query: Mapping[str, Any] = ...,
+    ) -> list[dict[str, Any]]: ...
     def _extract_m3u8_formats_and_subtitles(
         self,
         m3u8_url: str,
@@ -550,7 +582,15 @@ class InfoExtractor:
         f4m_params: Mapping[str, Any] | None = None,
         transform_source: Callable[..., str] | None = None,
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]: ...
-    def _extract_smil_formats(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...
+    def _extract_smil_formats(
+        self,
+        smil: ET.Element,
+        smil_url: str,
+        video_id: str,
+        namespace: str | None = None,
+        f4m_params: Mapping[str, Any] | None = None,
+        transform_rtmp_url: Callable[[str, str], tuple[str, str]] | None = None,
+    ) -> list[dict[str, Any]]: ...
     def _extract_smil_info(
         self, smil_url: str, video_id: str, fatal: bool = True, f4m_params: Mapping[str, Any] | None = None
     ) -> dict[str, Any]: ...
@@ -561,7 +601,15 @@ class InfoExtractor:
         self, smil: ET.Element, smil_url: str, video_id: str, f4m_params: Mapping[str, Any] | None = None
     ) -> dict[str, Any]: ...
     def _parse_smil_namespace(self, smil: str) -> str | None: ...
-    def _parse_smil_formats(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...
+    def _parse_smil_formats(
+        self,
+        smil: ET.Element,
+        smil_url: str,
+        video_id: str,
+        namespace: str | None = None,
+        f4m_params: Mapping[str, Any] | None = None,
+        transform_rtmp_url: Callable[[str, str], tuple[str, str]] | None = None,
+    ) -> list[dict[str, Any]]: ...
     def _parse_smil_formats_and_subtitles(
         self,
         smil: ET.Element,
@@ -578,9 +626,29 @@ class InfoExtractor:
     def _parse_xspf(
         self, xspf_doc: ET.Element, playlist_id: str, xspf_url: str | None = None, xspf_base_url: str | None = None
     ) -> list[dict[str, Any]]: ...
-    def _extract_mpd_formats(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...
+    def _extract_mpd_formats(
+        self,
+        mpd_url: str,
+        video_id: str,
+        mpd_id: str | None = None,
+        note: str | None = None,
+        errnote: str | None = None,
+        fatal: bool = True,
+        data: Any = None,
+        headers: Mapping[str, Any] = ...,
+        query: Mapping[str, Any] = ...,
+    ) -> list[dict[str, Any]]: ...
     def _extract_mpd_formats_and_subtitles(
-        self, *args: Any, **kwargs: Any
+        self,
+        mpd_url: str,
+        video_id: str,
+        mpd_id: str | None = None,
+        note: str | None = None,
+        errnote: str | None = None,
+        fatal: bool = True,
+        data: Any = None,
+        headers: Mapping[str, Any] = ...,
+        query: Mapping[str, Any] = ...,
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]: ...
     def _extract_mpd_periods(
         self,
@@ -595,13 +663,33 @@ class InfoExtractor:
         query: Mapping[str, Any] = ...,
     ) -> tuple[list[Any], dict[str, Any]]: ...
     def _parse_mpd_formats_and_subtitles(
-        self, *args: Any, **kwargs: Any
+        self,
+        mpd_url: str,
+        video_id: str,
+        mpd_id: str | None = None,
+        note: str | None = None,
+        errnote: str | None = None,
+        fatal: bool = True,
+        data: Any = None,
+        headers: Mapping[str, Any] = ...,
+        query: Mapping[str, Any] = ...,
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]: ...
     def _merge_mpd_periods(self, periods: Iterable[Mapping[str, Any]]) -> tuple[list[Any], dict[str, Any]]: ...
     def _parse_mpd_periods(
         self, mpd_doc: ET.Element, mpd_id: str | None = None, mpd_base_url: str = "", mpd_url: str | None = None
     ) -> tuple[list[Any], dict[str, Any]]: ...
-    def _extract_ism_formats(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...
+    def _extract_ism_formats(
+        self,
+        ism_url: str,
+        video_id: str,
+        ism_id: str | None = None,
+        note: str | None = None,
+        errnote: str | None = None,
+        fatal: bool = True,
+        data: Any = None,
+        headers: Mapping[str, Any] = ...,
+        query: Mapping[str, Any] = ...,
+    ) -> list[dict[str, Any]]: ...
     def _extract_ism_formats_and_subtitles(
         self,
         ism_url: str,
@@ -629,7 +717,9 @@ class InfoExtractor:
         quality: Any = None,
         _headers: Mapping[str, Any] | None = None,
     ) -> list[dict[str, Any]]: ...
-    def _extract_akamai_formats(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...
+    def _extract_akamai_formats(
+        self, manifest_url: str, video_id: str, hosts: Mapping[str, Any] = ...
+    ) -> list[dict[str, Any]]: ...
     def _extract_akamai_formats_and_subtitles(
         self, manifest_url: str, video_id: str, hosts: Mapping[str, Any] = ...
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]: ...
@@ -637,10 +727,19 @@ class InfoExtractor:
         self, url: str, video_id: str, m3u8_entry_protocol: str = "m3u8_native", skip_protocols: Collection[str] = ...
     ) -> list[dict[str, Any]]: ...
     def _find_jwplayer_data(
-        self, webpage: str, video_id: str | None = None, transform_source: Callable[..., Any] = ...
+        self, webpage: str, video_id: str | None = None, transform_source: Callable[..., str] = ...
     ) -> Any: ...
     def _extract_jwplayer_data(
-        self, webpage: str, video_id: str, *args: Any, transform_source: Callable[..., Any] = ..., **kwargs: Any
+        self,
+        webpage: str,
+        video_id: str,
+        *args: Any,
+        transform_source: Callable[..., str] = ...,
+        require_title: bool = True,
+        m3u8_id: str | None = None,
+        mpd_id: str | None = None,
+        rtmp_params: Mapping[str, Any] | None = None,
+        base_url: str | None = None,
     ) -> list[dict[str, Any]]: ...
     def _parse_jwplayer_data(
         self,
@@ -661,8 +760,21 @@ class InfoExtractor:
         rtmp_params: Mapping[str, Any] | None = None,
         base_url: str | None = None,
     ) -> list[dict[str, Any]]: ...
-    def _int(self, v: Any, name: str, fatal: bool = False, **kwargs: Any) -> int | None: ...
-    def _float(self, v: Any, name: str, fatal: bool = False, **kwargs: Any) -> float | None: ...
+    def _int(
+        self,
+        v: Any,
+        name: str,
+        fatal: bool = False,
+        *,
+        scale: int = 1,
+        default: int | None = None,
+        get_attr: str | None = None,
+        invscale: int = 1,
+        base: int | None = None,
+    ) -> int | None: ...
+    def _float(
+        self, v: Any, name: str, fatal: bool = False, *, scale: int = 1, invscale: int = 1, default: float | None = None
+    ) -> float | None: ...
     def _set_cookie(
         self,
         domain: str,
@@ -690,11 +802,12 @@ class InfoExtractor:
         subtitle_list1: Iterable[Mapping[str, Any]], subtitle_list2: Iterable[Mapping[str, Any]]
     ) -> list[dict[str, Any]]: ...
     @classmethod
-    def _merge_subtitles(cls, *dicts: dict[str, Any], target: Any = None) -> Any: ...
+    def _merge_subtitles(cls, *dicts: dict[str, Any], target: Any = None) -> dict[str, Any]: ...
+    # Calls _get_automatic_captions which only raises NotImplementedError here.
     def extract_automatic_captions(self, *args: Any, **kwargs: Any) -> dict[str, Any]: ...
     @cached_property
     def _cookies_passed(self) -> bool: ...
-    def _mark_watched(self, *args: Any, **kwargs: Any) -> Any: ...
+    def _mark_watched(self, *args: Any, **kwargs: Any) -> Any: ...  # Not implemented here.
     @staticmethod
     def _generic_id(url: str) -> str: ...
     def _generic_title(self, url: str = "", webpage: str = "", *, default: str | None = None) -> str | None: ...
@@ -709,9 +822,11 @@ class InfoExtractor:
     def _extract_chapters_from_description(
         self, description: str | None, duration: str | None
     ) -> list[dict[str, int]] | None: ...
+    # Passes *args and **kwargs to _mark_watched which only raises NotImplementedError here.
     def mark_watched(self, *args: Any, **kwargs: Any) -> None: ...
     def geo_verification_headers(self) -> dict[str, str]: ...
-    def RetryManager(self, **kwargs: Any) -> _RetryManager: ...
+    # kwargs passed to _error_callback.
+    def RetryManager(self, *, _retries: int | None, _error_callback: Callable[..., Any], **kwargs: Any) -> _RetryManager: ...
     @classmethod
     def extract_from_webpage(cls, ydl: YoutubeDL, url: str, webpage: str) -> Iterator[_InfoDict]: ...
     def _yes_playlist(
@@ -725,7 +840,7 @@ class InfoExtractor:
     ) -> bool: ...
     def _error_or_warning(self, err: str, _count: int | None = None, _retries: int = 0, *, fatal: bool = True) -> None: ...
     def _extract_generic_embeds(
-        self, url: str, *args: Any, info_dict: _InfoDict = ..., note: str = "Extracting generic embeds", **kwargs: Any
+        self, url: str, *args: Unused, info_dict: _InfoDict = ..., note: str = "Extracting generic embeds", **kwargs: Unused
     ) -> list[dict[str, Any]]: ...
     @classmethod
     def _extract_from_webpage(cls, url: str, webpage: str) -> Iterator[_InfoDict]: ...
