@@ -25,6 +25,7 @@ from os import PathLike
 from re import Pattern
 from typing import IO, Any, AnyStr, BinaryIO, Generic, NamedTuple, TextIO, TypeVar, overload
 from typing_extensions import Self, TypeAlias
+from urllib.parse import _QueryType, _QuoteVia
 from xml.etree import ElementTree as ET
 
 from yt_dlp.networking import Response
@@ -115,11 +116,16 @@ def clean_html(html: str | None) -> str | None: ...
 class LenientJSONDecoder(json.JSONDecoder):
     def __init__(
         self,
-        *args: Any,
+        *,
         transform_source: Callable[[str], str] | None = None,
         ignore_extra: bool = False,
         close_objects: int = 0,
-        **kwargs: Any,
+        object_hook: Callable[[dict[str, Any]], Any] | None = None,
+        parse_float: Callable[[str], Any] | None = None,
+        parse_int: Callable[[str], Any] | None = None,
+        parse_constant: Callable[[str], Any] | None = None,
+        strict: bool = True,
+        object_pairs_hook: Callable[[list[tuple[str, Any]]], Any] | None = None,
     ) -> None: ...
     def decode(self, s: str) -> Any: ...  # type: ignore[override]
 
@@ -310,7 +316,9 @@ class locked_file:
 
 def get_filesystem_encoding() -> str: ...
 def shell_quote(args: str | Collection[str], *, shell: bool = False) -> str: ...
-def smuggle_url(url: str, data: Any) -> str: ...
+def smuggle_url(url: str, data: Any) -> str: ...  # data may be anything JSON serializable.
+
+# default is simply returned if #__youtubedl_smuggle is present.
 def unsmuggle_url(smug_url: str, default: Any | None = None) -> tuple[str, Any]: ...
 def format_decimal_suffix(num: float, fmt: str = "%d%s", *, factor: int = 1000) -> str: ...
 def format_bytes(bytes: int) -> str: ...
@@ -402,9 +410,27 @@ _V = TypeVar("_V")
 
 def uppercase_escape(s: str) -> str: ...
 def lowercase_escape(s: str) -> str: ...
-def parse_qs(url: str, **kwargs: Any) -> dict[AnyStr, list[AnyStr]]: ...
+def parse_qs(
+    url: str,
+    *,
+    keep_blank_values: bool = False,
+    strict_parsing: bool = False,
+    encoding: str = "utf-8",
+    errors: str = "replace",
+    max_num_fields: int | None = None,
+    separator: str = "&",
+) -> dict[AnyStr, list[AnyStr]]: ...
 def read_batch_urls(batch_fd: FileDescriptorLike) -> list[str]: ...
-def urlencode_postdata(*args: Any, **kargs: Any) -> bytes: ...
+def urlencode_postdata(
+    query: _QueryType,
+    doseq: bool = False,
+    safe: str | bytes = "",
+    encoding: str | None = None,
+    errors: str | None = None,
+    quote_via: _QuoteVia = ...,
+) -> bytes: ...
+
+# Passes kwargs to NamedTuple._replace().
 def update_url(url: str, *, query_update: Mapping[str, str] | None = None, **kwargs: Any) -> str: ...
 def update_url_query(url: str, query: Mapping[str, str]) -> str: ...
 def multipart_encode(data: Mapping[AnyStr, AnyStr], boundary: str | None = None) -> tuple[bytes, str]: ...
@@ -545,7 +571,7 @@ def get_user_config_dirs(package_name: str) -> Iterator[str]: ...
 def get_system_config_dirs(package_name: str) -> Iterator[str]: ...
 def time_seconds(**kwargs: float) -> int: ...
 def jwt_encode_hs256(payload_data: Any, key: str, headers: Mapping[str, Any] = ...) -> bytes: ...  # Passed to json.dumps().
-def jwt_decode_hs256(jwt: str) -> Any: ...
+def jwt_decode_hs256(jwt: str) -> Any: ...  # Returns json.loads() output.
 
 WINDOWS_VT_MODE: bool | None
 

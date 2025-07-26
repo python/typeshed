@@ -1,4 +1,5 @@
 import re
+from _typeshed import Unused
 from collections.abc import Callable, Collection, Iterable, Iterator, Mapping, Sequence
 from functools import cached_property
 from json.decoder import JSONDecoder
@@ -673,7 +674,7 @@ class InfoExtractor:
         secure: bool = False,
         discard: bool = False,
         rest: dict[str, Any] = ...,
-        **kwargs: Any,
+        **kwargs: Unused,
     ) -> None: ...
     def _live_title(self, name: _T) -> _T: ...
     def _get_cookies(self, url: str) -> LenientSimpleCookie: ...
