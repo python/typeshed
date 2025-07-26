@@ -2,9 +2,9 @@ import ssl
 import types
 import urllib.request
 from _socket import _Address
-from _typeshed import Unused
+from _typeshed import ReadableBuffer, SupportsRead, Unused
 from asyncio.events import AbstractEventLoop
-from collections.abc import AsyncIterable, Awaitable, Callable, Collection, Iterable, Mapping, Sequence
+from collections.abc import AsyncIterable, Awaitable, Callable, Collection, Iterable, Mapping, MutableMapping, Sequence
 from http.client import HTTPResponse
 from http.cookiejar import CookieJar
 from socket import socket
@@ -85,7 +85,14 @@ def get_subprocess_encoding() -> str: ...
 def register_socks_protocols() -> None: ...
 def handle_youtubedl_headers(headers: dict[str, Any]) -> dict[str, Any]: ...
 def request_to_url(req: urllib.request.Request | str) -> str: ...
-def sanitized_Request(url: str, *args: Any, **kwargs: Any) -> urllib.request.Request: ...
+def sanitized_Request(
+    url: str,
+    data: ReadableBuffer | SupportsRead[bytes] | Iterable[bytes] | None = None,
+    headers: MutableMapping[str, str] = {},
+    origin_req_host: str | None = None,
+    unverifiable: bool = False,
+    method: str | None = None,
+) -> urllib.request.Request: ...
 
 class YoutubeDLHandler(urllib.request.AbstractHTTPHandler):
     def __init__(
@@ -109,7 +116,7 @@ def make_HTTPS_handler(
     params: Mapping[str, Any], *, debuglevel: int | None = None, source_address: _Address | None = None
 ) -> YoutubeDLHTTPSHandler: ...
 def process_communicate_or_kill(
-    p: Popen[Any], *args: Any, **kwargs: Any  # args/kwargs Passed to Popen.__init__().
+    p: Popen[Any], *args: Any, **kwargs: Any  # args/kwargs passed to Popen.__init__().
 ) -> tuple[AnyStr, AnyStr]: ...
 def encodeFilename(s: str, for_subprocess: Unused = False) -> bytes: ...
 def decodeFilename(b: bytes, for_subprocess: Unused = False) -> str: ...

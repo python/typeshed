@@ -1,6 +1,7 @@
 import re
 from collections.abc import Callable, Collection, Iterable, Iterator, Mapping, Sequence
 from functools import cached_property
+from json.decoder import JSONDecoder
 from typing import Any, Literal, TypedDict, TypeVar, type_check_only
 from typing_extensions import Required, TypeAlias
 from urllib.request import Request, _DataType
@@ -106,14 +107,31 @@ class InfoExtractor:
         transform_source: Callable[..., str] | None = None,
         fatal: bool = True,
         errnote: str | None = None,
-        **parser_kwargs: Any,
+        *,
+        cls: type[JSONDecoder] | None = None,
+        object_hook: Callable[[dict[Any, Any]], Any] | None = None,
+        parse_float: Callable[[str], Any] | None = None,
+        parse_int: Callable[[str], Any] | None = None,
+        parse_constant: Callable[[str], Any] | None = None,
+        object_pairs_hook: Callable[[list[tuple[Any, Any]]], Any] | None = None,
     ) -> Any: ...
-    def _parse_socket_response_as_json(self, data: str, *args: Any, **kwargs: Any) -> Any: ...
+    def _parse_socket_response_as_json(
+        self,
+        data: str,
+        video_id: str,
+        cls: type[JSONDecoder] | None = None,
+        object_hook: Callable[[dict[Any, Any]], Any] | None = None,
+        parse_float: Callable[[str], Any] | None = None,
+        parse_int: Callable[[str], Any] | None = None,
+        parse_constant: Callable[[str], Any] | None = None,
+        object_pairs_hook: Callable[[list[tuple[Any, Any]]], Any] | None = None,
+    ) -> Any: ...
     def report_warning(self, msg: str, video_id: str | None = None, only_once: bool = False) -> None: ...
     def to_screen(
         self, msg: str, message: str, skip_eol: bool = False, quiet: bool | None = None, only_once: bool = False
     ) -> None: ...
-    def write_debug(self, msg: str, *args: Any, **kwargs: Any) -> None: ...
+    def write_debug(self, msg: str, only_once: bool = False) -> None: ...
+    # *args and **kwargs are passed to .params.get() where params is normally a mapping but is not required to be.
     def get_param(self, name: str, default: Any = None, *args: Any, **kwargs: Any) -> Any: ...
     def report_drm(self, video_id: str) -> None: ...
     def report_extraction(self, id_or_name: str) -> None: ...
@@ -138,18 +156,19 @@ class InfoExtractor:
         video_title: str | None = None,
         *,
         url_transparent: bool = False,
-        **kwargs: Any,
+        **kwargs: Any,  # Added to the dict return value.
     ) -> dict[str, Any]: ...
     @classmethod
     def playlist_from_matches(
         cls,
-        matches: Any,
+        matches: Sequence[str],
         playlist_id: str | None = None,
         playlist_title: str | None = None,
         getter: Callable[..., Any] = ...,
         ie: InfoExtractor | None = None,
         video_kwargs: Mapping[str, Any] | None = None,
-        **kwargs: Any,
+        multi_video: bool = False,
+        **kwargs: Any,  # Added to the dict return value.
     ) -> dict[str, Any]: ...
     @staticmethod
     def playlist_result(
@@ -159,7 +178,7 @@ class InfoExtractor:
         playlist_description: str | None = ...,
         *,
         multi_video: bool = ...,
-        **kwargs: Any,
+        **kwargs: Any,  # Added to the dict return value.
     ) -> _InfoDict: ...
     def http_scheme(self) -> str: ...
     @classmethod
@@ -174,6 +193,7 @@ class InfoExtractor:
     def is_suitable(cls, age_limit: int) -> bool: ...
     @classmethod
     def description(cls, *, markdown: bool = True, search_examples: Sequence[str] | None = None) -> str: ...
+    # Calls _get_subtitles which only raises NotImplementedError here.
     def extract_subtitles(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...
     def _configuration_arg(self, key: str, default: Any = ..., *, ie_key: str | None = ..., casesense: bool = ...) -> Any: ...
     # These are dynamically created.
@@ -344,7 +364,12 @@ class InfoExtractor:
         contains_pattern: str | re.Pattern[str] = r"{(?s:.+)}",
         fatal: bool = True,
         default: _StrNoDefaultOrNone = ...,
-        **kwargs: Any,
+        cls: type[JSONDecoder] | None = None,
+        object_hook: Callable[[dict[Any, Any]], Any] | None = None,
+        parse_float: Callable[[str], Any] | None = None,
+        parse_int: Callable[[str], Any] | None = None,
+        parse_constant: Callable[[str], Any] | None = None,
+        object_pairs_hook: Callable[[list[tuple[Any, Any]]], Any] | None = None,
     ) -> Any: ...
     def _html_search_regex(
         self,
@@ -365,12 +390,22 @@ class InfoExtractor:
     def _og_regexes(prop: str) -> list[str]: ...
     @staticmethod
     def _meta_regex(prop: str) -> str: ...
-    def _og_search_property(self, prop: str, html: str, name: str | None = None, **kargs: Any) -> str | None: ...
-    def _og_search_thumbnail(self, html: str, **kargs: Any) -> str | None: ...
-    def _og_search_description(self, html: str, **kargs: Any) -> str | None: ...
-    def _og_search_title(self, html: str, *, fatal: bool = False, **kargs: Any) -> str | None: ...
-    def _og_search_video_url(self, html: str, name: str = "video url", secure: bool = True, **kargs: Any) -> str | None: ...
-    def _og_search_url(self, html: str, **kargs: Any) -> str | None: ...
+    def _og_search_property(
+        self, prop: str, html: str, name: str | None = None, *, default: type[NO_DEFAULT] | str = ..., fatal: bool = False
+    ) -> str | None: ...
+    def _og_search_thumbnail(self, html: str, *, default: type[NO_DEFAULT] | str = ...) -> str | None: ...
+    def _og_search_description(self, html: str, *, default: type[NO_DEFAULT] | str = ...) -> str | None: ...
+    def _og_search_title(self, html: str, *, fatal: bool = False, default: type[NO_DEFAULT] | str = ...) -> str | None: ...
+    def _og_search_video_url(
+        self,
+        html: str,
+        name: str = "video url",
+        secure: bool = True,
+        *,
+        default: type[NO_DEFAULT] | str = ...,
+        fatal: bool = False,
+    ) -> str | None: ...
+    def _og_search_url(self, html: str, *, default: type[NO_DEFAULT] | str = ..., fatal: bool = False) -> str | None: ...
     def _html_extract_title(self, html: str, name: str = "title", *, fatal: bool = False, **kwargs: Any) -> str | None: ...
     def _html_search_meta(
         self, name: str, html: str, display_name: str | None = None, fatal: bool = False, **kwargs: Any
@@ -645,9 +680,10 @@ class InfoExtractor:
     def _apply_first_set_cookie_header(self, url_handle: Response, cookie: str) -> None: ...
     @property
     def _RETURN_TYPE(cls) -> str: ...
-    def _get_subtitles(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...
+    def _get_subtitles(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...  # Not implemented here.
+    # Passes *args and **kwargs to _get_comments.
     def extract_comments(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...
-    def _get_comments(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...
+    def _get_comments(self, *args: Any, **kwargs: Any) -> list[dict[str, Any]]: ...  # Not implemented here.
     @staticmethod
     def _merge_subtitle_items(
         subtitle_list1: Iterable[Mapping[str, Any]], subtitle_list2: Iterable[Mapping[str, Any]]

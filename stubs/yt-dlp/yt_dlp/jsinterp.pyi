@@ -52,7 +52,7 @@ class JSInterpreter:
             ie: InfoExtractor | None = None,
         ) -> None: ...
 
-    # After wrapping, *args and **kwargs are added but do nothing for this fmethod.
+    # After wrapping, *args and **kwargs are added but do nothing for this method.
     def interpret_statement(
         self, stmt: str, local_vars: Mapping[str, Any], allow_recursion: int, *args: Any, **kwargs: Any
     ) -> tuple[Any, bool]: ...
@@ -63,6 +63,7 @@ class JSInterpreter:
     def extract_function_from_code(
         self, argnames: Collection[str], code: str, *global_stack: Iterable[dict[str, Any]]
     ) -> _BuildFunctionReturnType: ...
+    # args are passed to the extracted function.
     def call_function(self, funcname: str, *args: Any) -> function_with_repr[Any]: ...
     def build_function(
         self, argnames: Collection[str], code: str, *global_stack: Iterable[dict[str, Any]]
