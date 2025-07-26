@@ -71,6 +71,7 @@ from typing_extensions import (  # noqa: Y023
     TypeIs,
     TypeVarTuple,
     deprecated,
+    solid_base,
 )
 
 if sys.version_info >= (3, 14):
@@ -241,6 +242,7 @@ _PositiveInteger: TypeAlias = Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
 _NegativeInteger: TypeAlias = Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
 _LiteralInteger = _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
 
+@solid_base
 class int:
     @overload
     def __new__(cls, x: ConvertibleToInt = ..., /) -> Self: ...
@@ -458,6 +460,7 @@ class _FormatMapMapping(Protocol):
 class _TranslateTable(Protocol):
     def __getitem__(self, key: int, /) -> str | int | None: ...
 
+@solid_base
 class str(Sequence[str]):
     @overload
     def __new__(cls, object: object = ...) -> Self: ...
