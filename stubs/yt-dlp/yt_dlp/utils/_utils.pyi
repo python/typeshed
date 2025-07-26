@@ -160,7 +160,7 @@ class ExtractorError(YoutubeDLError):
     orig_msg: Any
     traceback: types.TracebackType | None
     expected: Any
-    cause: Any
+    cause: Exception | str | None
     video_id: str
     ie: InfoExtractor
     exc_info: ExcInfo
@@ -169,7 +169,7 @@ class ExtractorError(YoutubeDLError):
         msg: str,
         tb: types.TracebackType | None = None,
         expected: bool = False,
-        cause: Any | None = None,
+        cause: Exception | str | None = None,
         video_id: str | None = None,
         ie: InfoExtractor | None = None,
     ) -> None: ...
@@ -193,7 +193,7 @@ class GeoRestrictedError(ExtractorError):
         *,
         tb: types.TracebackType | None = None,
         expected: bool = False,
-        cause: Any | None = None,
+        cause: Exception | str | None = None,
         video_id: str | None = None,
         ie: InfoExtractor | None = None,
     ) -> None: ...
@@ -205,7 +205,7 @@ class UserNotLive(ExtractorError):
         *,
         tb: types.TracebackType | None = None,
         expected: bool = False,
-        cause: Any | None = None,
+        cause: Exception | str | None = None,
         video_id: str | None = None,
         ie: InfoExtractor | None = None,
     ) -> None: ...
@@ -677,8 +677,6 @@ if sys.platform == "win32":
 else:
     _ENV: TypeAlias = Mapping[bytes, StrOrBytesPath] | Mapping[str, StrOrBytesPath]
 
-# Much of this is the same as subprocess.Popen, but I do not think copying all of the overloads here is necessary to fix
-# the Any types.
 class Popen(subprocess.Popen[AnyStr]):
     def __init__(
         self,
@@ -687,12 +685,13 @@ class Popen(subprocess.Popen[AnyStr]):
         env: _ENV | None = None,
         text: bool = False,
         shell: bool = False,
-        **kwargs: Any,
+        **kwargs: Any,  # Passed to subprocess.Popen.__init__().
     ) -> None: ...
     def communicate_or_kill(self, input: AnyStr | None = None, timeout: float | None = None) -> tuple[AnyStr, AnyStr]: ...
     def kill(self, *, timeout: int = 0) -> None: ...
+    # kwargs passed to cls.__init__().
     @classmethod
-    def run(cls, *args: Any, timeout: int | None = None, **kwargs: Any) -> tuple[AnyStr, AnyStr]: ...  # Passed to cls.__init__()
+    def run(cls, *args: Any, timeout: int | None = None, **kwargs: Any) -> tuple[AnyStr, AnyStr]: ...
 
 class classproperty:
     def __new__(cls, func: Callable[..., Any] | None = None, *args: Any, **kwargs: Any) -> Self: ...

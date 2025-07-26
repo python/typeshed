@@ -5,6 +5,7 @@ from collections.abc import Iterator
 from importlib.machinery import ModuleSpec
 from pathlib import Path
 from types import ModuleType
+from typing import Any
 
 from .globals import Indirect
 
@@ -25,8 +26,8 @@ COMPAT_PACKAGE_NAME: str = "ytdlp_plugins"
 class PluginSpec:
     module_name: str
     suffix: str
-    destination: Indirect[object]
-    plugin_destination: Indirect[object]
+    destination: Indirect[dict[str, Any]]
+    plugin_destination: Indirect[dict[str, Any]]
 
 class PluginLoader(importlib.abc.Loader):
     def exec_module(self, module: ModuleType) -> None: ...
@@ -39,6 +40,6 @@ class PluginFinder(importlib.abc.MetaPathFinder):
     def invalidate_caches(self) -> None: ...
 
 def directories() -> list[str]: ...
-def load_plugins(plugin_spec: PluginSpec) -> dict[str, type[object]]: ...
+def load_plugins(plugin_spec: PluginSpec) -> dict[str, Any]: ...
 def load_all_plugins() -> None: ...
 def register_plugin_spec(plugin_spec: PluginSpec) -> None: ...

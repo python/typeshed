@@ -2,7 +2,7 @@ import enum
 import functools
 from _typeshed import Unused
 from collections.abc import Iterable, Mapping
-from typing import Literal
+from typing import Any, Literal
 
 from ..extractor.common import _InfoDict
 from .fragment import FragmentFD
@@ -41,7 +41,7 @@ class Aria2cFD(ExternalFD):
     SUPPORTED_PROTOCOLS: tuple[str, ...]
     @staticmethod
     def supports_manifest(manifest: str) -> bool: ...
-    def aria2c_rpc(self, rpc_port: int, rpc_secret: str, method: str, params: Iterable[str] = ()) -> object: ...
+    def aria2c_rpc(self, rpc_port: int, rpc_secret: str, method: str, params: Iterable[str] = ()) -> Any: ...
 
 class HttpieFD(ExternalFD):
     AVAILABLE_OPT: str
@@ -54,7 +54,7 @@ class FFmpegFD(ExternalFD):
     def available(cls, path: str | None = None) -> bool: ...  # type: ignore[override]
     def on_process_started(self, proc: Unused, stdin: Unused) -> None: ...
     @classmethod
-    def can_merge_formats(cls, info_dict: _InfoDict, params: Mapping[str, object]) -> bool: ...
+    def can_merge_formats(cls, info_dict: _InfoDict, params: Mapping[str, Any]) -> bool: ...
 
 class AVconvFD(FFmpegFD): ...
 

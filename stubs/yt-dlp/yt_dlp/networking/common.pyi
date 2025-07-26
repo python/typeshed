@@ -37,7 +37,7 @@ class RequestHandler(abc.ABC, metaclass=abc.ABCMeta):
     headers: HTTPHeaderDict | dict[str, str]
     cookiejar: YoutubeDLCookieJar | None
     timeout: float | int
-    proxies: Mapping[str, object] | dict[str, object]
+    proxies: Mapping[str, Any] | dict[str, Any]
     source_address: str | None
     verbose: bool
     prefer_system_certs: bool
@@ -50,7 +50,7 @@ class RequestHandler(abc.ABC, metaclass=abc.ABCMeta):
         headers: HTTPHeaderDict | Mapping[str, str] | None = None,
         cookiejar: YoutubeDLCookieJar | None = None,
         timeout: float | None = None,
-        proxies: Mapping[str, object] | None = None,
+        proxies: Mapping[str, Any] | None = None,
         source_address: str | None = None,
         verbose: bool = False,
         prefer_system_certs: bool = False,
@@ -70,17 +70,17 @@ class RequestHandler(abc.ABC, metaclass=abc.ABCMeta):
     def __exit__(self, *args: object) -> None: ...
 
 class Request:
-    proxies: Mapping[str, object] | dict[str, object]
-    extensions: Mapping[str, object] | dict[str, object]
+    proxies: Mapping[str, Any] | dict[str, Any]
+    extensions: Mapping[str, Any] | dict[str, Any]
     def __init__(
         self,
         url: str,
         data: _RequestData | None = None,
         headers: HTTPHeaderDict | Mapping[str, str] | None = None,
-        proxies: Mapping[str, object] | None = None,
+        proxies: Mapping[str, Any] | None = None,
         query: Mapping[str, str] | None = None,
         method: str | None = None,
-        extensions: Mapping[str, object] | None = None,
+        extensions: Mapping[str, Any] | None = None,
     ) -> None: ...
     @property
     def url(self) -> str: ...
@@ -104,7 +104,7 @@ class Request:
         data: str | None = None,
         headers: HTTPHeaderDict | Mapping[str, str] | None = None,
         query: Mapping[str, str] | None = None,
-        extensions: Mapping[str, object] | None = None,
+        extensions: Mapping[str, Any] | None = None,
     ) -> None: ...
     def copy(self) -> Self: ...
 
@@ -112,31 +112,31 @@ def HEADRequest(
     url: str,
     data: _RequestData | None = None,
     headers: HTTPHeaderDict | Mapping[str, str] | None = None,
-    proxies: Mapping[str, object] | None = None,
+    proxies: Mapping[str, Any] | None = None,
     query: Mapping[str, str] | None = None,
     *,
     method: str = "HEAD",
-    extensions: Mapping[str, object] | None = None,
+    extensions: Mapping[str, Any] | None = None,
 ) -> Request: ...
 def PATCHRequest(
     url: str,
     data: _RequestData | None = None,
     headers: HTTPHeaderDict | Mapping[str, str] | None = None,
-    proxies: Mapping[str, object] | None = None,
+    proxies: Mapping[str, Any] | None = None,
     query: Mapping[str, str] | None = None,
     *,
     method: str = "PATCH",
-    extensions: Mapping[str, object] | None = None,
+    extensions: Mapping[str, Any] | None = None,
 ) -> Request: ...
 def PUTRequest(
     url: str,
     data: _RequestData | None = None,
     headers: HTTPHeaderDict | Mapping[str, str] | None = None,
-    proxies: Mapping[str, object] | None = None,
+    proxies: Mapping[str, Any] | None = None,
     query: Mapping[str, str] | None = None,
     *,
     method: str = "PUT",
-    extensions: Mapping[str, object] | None = None,
+    extensions: Mapping[str, Any] | None = None,
 ) -> Request: ...
 
 class Response(io.IOBase):
@@ -145,7 +145,7 @@ class Response(io.IOBase):
     status: int
     url: str
     reason: str | None
-    extensions: Mapping[str, object] | dict[str, object]
+    extensions: Mapping[str, Any] | dict[str, Any]
     def __init__(
         self,
         fp: io.IOBase,
@@ -153,7 +153,7 @@ class Response(io.IOBase):
         headers: Mapping[str, str],
         status: int = 200,
         reason: str | None = None,
-        extensions: Mapping[str, object] | dict[str, object] | None = None,
+        extensions: Mapping[str, Any] | dict[str, Any] | None = None,
     ) -> None: ...
     def readable(self) -> bool: ...
     def read(self, amt: int | None = None) -> bytes: ...

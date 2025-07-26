@@ -1,7 +1,7 @@
 import socket
-from _typeshed import ReadableBuffer
+from _socket import _Address
 from collections.abc import Mapping
-from typing import NamedTuple
+from typing import NamedTuple, SupportsIndex
 
 SOCKS4_VERSION: int
 SOCKS4_REPLY_VERSION: int
@@ -57,7 +57,9 @@ class Proxy(NamedTuple):
     remote_dns: bool
 
 class sockssocket(socket.socket):
-    def __init__(self, *args: object, **kwargs: object) -> None: ...
+    def __init__(
+        self, family: int = -1, type: int = -1, proto: int = -1, fileno: SupportsIndex | bytes | None = None
+    ) -> None: ...
     def setproxy(
         self,
         proxytype: ProxyType,
@@ -68,5 +70,5 @@ class sockssocket(socket.socket):
         password: str | None = None,
     ) -> None: ...
     def recvall(self, cnt: int) -> bytes: ...
-    def connect(self, address: tuple[object, ...] | str | ReadableBuffer) -> None: ...
-    def connect_ex(self, address: tuple[object, ...] | str | ReadableBuffer) -> int: ...
+    def connect(self, address: _Address) -> None: ...
+    def connect_ex(self, address: _Address) -> int: ...

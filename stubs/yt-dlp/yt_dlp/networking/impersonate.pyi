@@ -1,5 +1,6 @@
 from abc import ABC
 from dataclasses import dataclass
+from typing import Any
 from typing_extensions import Self
 
 from .common import Request, RequestHandler
@@ -17,9 +18,16 @@ class ImpersonateTarget:
     def from_str(cls, target: str) -> Self: ...
 
 class ImpersonateRequestHandler(RequestHandler, ABC):
-    _SUPPORTED_IMPERSONATE_TARGET_MAP: dict[ImpersonateTarget, object] = ...
+    _SUPPORTED_IMPERSONATE_TARGET_MAP: dict[ImpersonateTarget, Any] = ...  # Copied from source.
 
-    def __init__(self, *, impersonate: ImpersonateTarget | None = None, **kwargs: object) -> None: ...
+    def __init__(
+        self,
+        *,
+        impersonate: ImpersonateTarget | None = None,
+        # All keyword arguments are ignored (passed to RequestHandler as **kwargs but RequestHandler.__init__() has **_ and does
+        # not use it).
+        **kwargs: Any,
+    ) -> None: ...
     @property
     def supported_targets(cls) -> tuple[ImpersonateTarget, ...]: ...
     def is_supported_target(self, target: ImpersonateTarget) -> bool: ...
