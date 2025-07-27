@@ -1,6 +1,7 @@
 import abc
 import enum
 import io
+from _typeshed import Unused
 from collections.abc import Callable, Iterable, Mapping
 from email.message import Message
 from logging import Logger
@@ -57,7 +58,7 @@ class RequestHandler(abc.ABC, metaclass=abc.ABCMeta):
         client_cert: dict[str, str | None] | None = None,
         verify: bool = True,
         legacy_ssl_support: bool = False,
-        **_,
+        **_: Unused,
     ) -> None: ...
     def validate(self, request: Request) -> None: ...
     def send(self, request: Request) -> Response: ...
