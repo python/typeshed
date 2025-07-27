@@ -9,7 +9,7 @@ __all__ = ["escape", "glob", "iglob"]
 if sys.version_info >= (3, 13):
     __all__ += ["translate"]
 
-if sys.version_info >= (3, 10):
+if sys.version_info >= (3, 13):
     @deprecated("Will be removed in Python 3.15; Use `glob.glob` and pass *root_dir* argument instead.")
     def glob0(dirname: AnyStr, pattern: AnyStr) -> list[AnyStr]: ...
     @deprecated("Will be removed in Python 3.15; Use `glob.glob` and pass *root_dir* argument instead.")
