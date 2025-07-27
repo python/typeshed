@@ -59,7 +59,6 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     TypeVar as _TypeVar,
     Union as Union,
     _Alias,
-    _Final,
     _SpecialForm,
     cast as cast,
     no_type_check as no_type_check,
