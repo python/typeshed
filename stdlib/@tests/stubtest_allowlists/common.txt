@@ -470,7 +470,6 @@ typing(_extensions)?\.Generic
 typing(_extensions)?\.TypedDict
 typing_extensions\.ParamSpec.*
 typing_extensions\.TypeVar.*
-typing_extensions\._SpecialForm.*
 
 # Special primitives
 typing(_extensions)?\.AbstractSet
