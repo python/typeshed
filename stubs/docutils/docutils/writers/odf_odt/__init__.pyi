@@ -9,6 +9,7 @@ from xml.etree import ElementTree
 from docutils import nodes, writers
 from docutils.frontend import Values
 from docutils.languages import _LanguageModule
+from docutils.readers import standalone
 
 __docformat__: Final = "reStructuredText"
 VERSION: Final[str]
@@ -420,6 +421,4 @@ class ODFTranslator(nodes.GenericNodeVisitor):
     def visit_sidebar(self, node: nodes.sidebar) -> None: ...
     def depart_sidebar(self, node: nodes.sidebar) -> None: ...
 
-# TODO: readers is incomplete
-# from docutils.readers import standalone
-# class Reader(standalone.Reader): ...
+class Reader(standalone.Reader[str | bytes]): ...

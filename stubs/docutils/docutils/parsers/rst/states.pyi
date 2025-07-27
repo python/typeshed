@@ -186,6 +186,8 @@ class Body(RSTState):
     pats: Incomplete
     patterns: ClassVar[dict[str, str | Pattern[str]]]
     initial_transitions: ClassVar[tuple[str, ...]]
+    sequence: str
+    format: str
     def indent(self, match, context, next_state): ...
     def block_quote(self, indented, line_offset): ...
     attribution_pattern: Incomplete
