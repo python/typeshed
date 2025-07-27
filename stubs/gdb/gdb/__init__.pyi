@@ -238,6 +238,7 @@ SEARCH_FUNCTION_DOMAIN: Final[int]
 
 # Pretty Printing
 
+@type_check_only
 class _PrettyPrinter(Protocol):
     # TODO: The "children" and "display_hint" methods are optional for
     # pretty-printers. Unfortunately, there is no such thing as an optional
@@ -258,6 +259,7 @@ type_printers: list[gdb.types._TypePrinter]
 
 # Filtering Frames
 
+@type_check_only
 class _FrameFilter(Protocol):
     name: str
     enabled: bool
@@ -920,6 +922,7 @@ class TuiWindow:
     def erase(self) -> None: ...
     def write(self, string: str, full_window: bool = ..., /) -> None: ...
 
+@type_check_only
 class _Window(Protocol):
     def close(self) -> None: ...
     def render(self) -> None: ...
@@ -962,6 +965,7 @@ class FreeProgspaceEvent(Event): ...
 class SignalEvent(StopEvent):
     stop_signal: str
 
+@type_check_only
 class _InferiorCallEvent(Event): ...
 
 class InferiorCallPreEvent(_InferiorCallEvent):

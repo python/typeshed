@@ -2,11 +2,12 @@ import sys
 import types
 from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Hashable
-from typing import Any, ClassVar, Literal, Protocol, SupportsIndex, TypeVar, final, overload
+from typing import Any, ClassVar, Literal, Protocol, SupportsIndex, TypeVar, final, overload, type_check_only
 from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")
 
+@type_check_only
 class _Allocator(Protocol):
     def __call__(self, cdecl: str | CType, init: Any = ...) -> _CDataBase: ...
 
