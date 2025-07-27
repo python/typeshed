@@ -557,7 +557,10 @@ async def determine_action(distribution: str, session: aiohttp.ClientSession) ->
     except Exception as exc:
         return Error(distribution, str(exc))
 
-async def determine_action_no_error_handling(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove:
+
+async def determine_action_no_error_handling(
+    distribution: str, session: aiohttp.ClientSession
+) -> Update | NoUpdate | Obsolete | Remove:
     stub_info = read_metadata(distribution)
     if stub_info.is_obsolete:
         assert type(stub_info.obsolete) is ObsoleteMetadata
