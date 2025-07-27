@@ -879,7 +879,7 @@ async def suggest_typeshed_remove(remove: Remove, session: aiohttp.ClientSession
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
 
-async def main() -> None:
+async def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--action-level",
@@ -908,11 +908,11 @@ async def main() -> None:
             print("Unexpected exception!")
             print(diff_result.stdout)
             print(diff_result.stderr)
-            sys.exit(diff_result.returncode)
+            return diff_result.returncode
         if diff_result.stdout:
             changed_files = ", ".join(repr(line) for line in diff_result.stdout.split("\n") if line)
             print(f"Cannot run stubsabot, as uncommitted changes are present in {changed_files}!")
-            sys.exit(1)
+            return 1
 
     if args.action_level > ActionLevel.fork:
         if os.environ.get("GITHUB_TOKEN") is None:
@@ -926,6 +926,8 @@ async def main() -> None:
 
     if args.action_level >= ActionLevel.local:
         subprocess.check_call(["git", "fetch", "--prune", "--all"])
+
+    error = False
 
     try:
         conn = aiohttp.TCPConnector(limit_per_host=10)
@@ -942,7 +944,10 @@ async def main() -> None:
                 print(f"{update.distribution}... ", end="")
                 print(update)
 
-                if isinstance(update, (NoUpdate, Error)):
+                if isinstance(update, NoUpdate):
+                    continue
+                if isinstance(update, Error):
+                    error = True
                     continue
 
                 if args.action_count_limit is not None and action_count >= args.action_count_limit:
@@ -971,6 +976,8 @@ async def main() -> None:
         if args.action_level >= ActionLevel.local and original_branch:
             subprocess.check_call(["git", "checkout", original_branch])
 
+    return 1 if error else 0
+
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    sys.exit(asyncio.run(main()))
