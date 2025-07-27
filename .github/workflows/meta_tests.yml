@@ -53,9 +53,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          # TODO: Since pytype is not available for Python 3.13, and
-          # pytype_test.py imports pytype, we need to use Python 3.12 for now.
-          python-version: "3.12"
+          python-version: "3.13"
       - run: curl -LsSf https://astral.sh/uv/install.sh | sh
       - run: uv pip install -r requirements-tests.txt --system
       - name: Run pyright on typeshed
