@@ -133,7 +133,7 @@ class Update:
     diff_analysis: DiffAnalysis | None
 
     def __str__(self) -> str:
-        return f"Updating {self.distribution} from '{self.old_version_spec}' to '{self.new_version_spec}'"
+        return f"{self.distribution}: {colored('Updating', 'yellow')} from '{self.old_version_spec}' to '{self.new_version_spec}'"
 
     @property
     def new_version(self) -> str:
@@ -151,7 +151,7 @@ class Obsolete:
     links: dict[str, str]
 
     def __str__(self) -> str:
-        return f"Marking {self.distribution} as obsolete since {self.obsolete_since_version!r}"
+        return f"{self.distribution}: {colored('Marking as obsolete', 'yellow')} since {self.obsolete_since_version!r}"
 
 
 @dataclass
@@ -161,7 +161,7 @@ class Remove:
     links: dict[str, str]
 
     def __str__(self) -> str:
-        return f"Removing {self.distribution} as {self.reason}"
+        return f"{self.distribution}: {colored('Removing', 'yellow')} ({self.reason})"
 
 
 @dataclass
@@ -170,7 +170,16 @@ class NoUpdate:
     reason: str
 
     def __str__(self) -> str:
-        return f"Skipping {self.distribution}: {self.reason}"
+        return f"{self.distribution}: {colored('Skipping', 'green')} ({self.reason})"
+
+
+@dataclass
+class Error:
+    distribution: str
+    message: str
+
+    def __str__(self) -> str:
+        return f"{self.distribution}: {colored('Error', 'red')} ({self.message})"
 
 
 _T = TypeVar("_T")
@@ -542,7 +551,13 @@ async def has_no_longer_updated_release(release_to_download: PypiReleaseDownload
     return await with_extracted_archive(release_to_download, session=session, handler=parse_no_longer_updated_from_archive)
 
 
-async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove:
+async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove | Error:
+    try:
+        return await determine_action_no_error_handling(distribution, session)
+    except Exception as exc:
+        return Error(distribution, str(exc))
+
+async def determine_action_no_error_handling(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove:
     stub_info = read_metadata(distribution)
     if stub_info.is_obsolete:
         assert type(stub_info.obsolete) is ObsoleteMetadata
@@ -923,7 +938,7 @@ async def main() -> None:
                 update = await task
                 print(update)
 
-                if isinstance(update, NoUpdate):
+                if isinstance(update, (NoUpdate, Error)):
                     continue
 
                 if args.action_count_limit is not None and action_count >= args.action_count_limit:
