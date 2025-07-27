@@ -133,7 +133,7 @@ class Update:
     diff_analysis: DiffAnalysis | None
 
     def __str__(self) -> str:
-        return f"{self.distribution}: {colored('Updating', 'yellow')} from '{self.old_version_spec}' to '{self.new_version_spec}'"
+        return f"{colored('updating', 'yellow')} from '{self.old_version_spec}' to '{self.new_version_spec}'"
 
     @property
     def new_version(self) -> str:
@@ -151,7 +151,7 @@ class Obsolete:
     links: dict[str, str]
 
     def __str__(self) -> str:
-        return f"{self.distribution}: {colored('Marking as obsolete', 'yellow')} since {self.obsolete_since_version!r}"
+        return f"{colored('marking as obsolete', 'yellow')} since {self.obsolete_since_version!r}"
 
 
 @dataclass
@@ -161,7 +161,7 @@ class Remove:
     links: dict[str, str]
 
     def __str__(self) -> str:
-        return f"{self.distribution}: {colored('Removing', 'yellow')} ({self.reason})"
+        return f"{colored('removing', 'yellow')} ({self.reason})"
 
 
 @dataclass
@@ -170,7 +170,7 @@ class NoUpdate:
     reason: str
 
     def __str__(self) -> str:
-        return f"{self.distribution}: {colored('Skipping', 'green')} ({self.reason})"
+        return f"{colored('skipping', 'green')} ({self.reason})"
 
 
 @dataclass
@@ -179,7 +179,7 @@ class Error:
     message: str
 
     def __str__(self) -> str:
-        return f"{self.distribution}: {colored('Error', 'red')} ({self.message})"
+        return f"{colored('error', 'red')} ({self.message})"
 
 
 _T = TypeVar("_T")
@@ -939,6 +939,7 @@ async def main() -> None:
             action_count = 0
             for task in asyncio.as_completed(tasks):
                 update = await task
+                print(f"{update.distribution}... ", end="")
                 print(update)
 
                 if isinstance(update, (NoUpdate, Error)):
