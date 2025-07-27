@@ -487,19 +487,8 @@ Pen = Turtle
 
 def write_docstringdict(filename: str = "turtle_docstringdict") -> None: ...
 
-# Note: it's somewhat unfortunate that we have to copy the function signatures.
-# It would be nice if we could partially reduce the redundancy by doing something
-# like the following:
-#
-#     _screen: Screen
-#     clear = _screen.clear
-#
-# However, it seems pytype does not support this type of syntax in pyi files.
-
 # Functions copied from TurtleScreenBase:
 
-# Note: mainloop() was always present in the global scope, but was added to
-# TurtleScreenBase in Python 3.0
 def mainloop() -> None: ...
 def textinput(title: str, prompt: str) -> str | None: ...
 def numinput(
