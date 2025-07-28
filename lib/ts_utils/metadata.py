@@ -8,6 +8,7 @@ from __future__ import annotations
 import datetime
 import functools
 import re
+import sys
 import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -15,7 +16,11 @@ from pathlib import Path
 from typing import Annotated, Any, Final, NamedTuple, final
 from typing_extensions import TypeGuard
 
-import tomli
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
+
 import tomlkit
 from packaging.requirements import Requirement
 from packaging.specifiers import Specifier
@@ -52,7 +57,7 @@ def _is_nested_dict(obj: object) -> TypeGuard[dict[str, dict[str, Any]]]:
 @functools.cache
 def get_oldest_supported_python() -> str:
     with PYPROJECT_PATH.open("rb") as config:
-        val = tomli.load(config)["tool"]["typeshed"]["oldest_supported_python"]
+        val = tomllib.load(config)["tool"]["typeshed"]["oldest_supported_python"]
     assert type(val) is str
     return val
 
@@ -92,7 +97,7 @@ class StubtestSettings:
 def read_stubtest_settings(distribution: str) -> StubtestSettings:
     """Return an object describing the stubtest settings for a single stubs distribution."""
     with metadata_path(distribution).open("rb") as f:
-        data: dict[str, object] = tomli.load(f).get("tool", {}).get("stubtest", {})
+        data: dict[str, object] = tomllib.load(f).get("tool", {}).get("stubtest", {})
 
     skip: object = data.get("skip", False)
     apt_dependencies: object = data.get("apt_dependencies", [])
