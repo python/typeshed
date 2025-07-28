@@ -8,6 +8,7 @@ from __future__ import annotations
 import datetime
 import functools
 import re
+import sys
 import urllib.parse
 from collections.abc import Mapping
 from dataclasses import dataclass
