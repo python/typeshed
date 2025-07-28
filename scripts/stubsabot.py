@@ -26,9 +26,9 @@ from typing import Annotated, Any, ClassVar, NamedTuple, TypeVar
 from typing_extensions import Self, TypeAlias
 
 try:
-   import tomllib
+    import tomllib
 except ImportError:
-   import tomli as tomllib
+    import tomli as tomllib
 
 import aiohttp
 import packaging.version
