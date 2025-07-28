@@ -25,9 +25,9 @@ from pathlib import Path
 from typing import Annotated, Any, ClassVar, NamedTuple, TypeVar
 from typing_extensions import Self, TypeAlias
 
-try:
+if sys.version_info >= (3, 11):
     import tomllib
-except ImportError:
+else:
     import tomli as tomllib
 
 import aiohttp

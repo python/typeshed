@@ -4,9 +4,9 @@ from collections.abc import Generator, Iterable
 from contextlib import contextmanager
 from typing import Any, NamedTuple
 
-try:
+if sys.version_info >= (3, 11):
     import tomllib
-except ImportError:
+else:
     import tomli as tomllib
 
 from ts_utils.metadata import StubtestSettings, metadata_path
