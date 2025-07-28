@@ -3,7 +3,7 @@ from _typeshed import MaybeNone, StrOrBytesPath, SupportsWrite
 from collections.abc import Callable, ItemsView, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from re import Pattern
 from typing import Any, ClassVar, Final, Literal, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing_extensions import TypeAlias, deprecated
 
 if sys.version_info >= (3, 14):
     __all__ = (
@@ -329,7 +329,8 @@ class ConfigParser(RawConfigParser):
     ) -> str | _T: ...
 
 if sys.version_info < (3, 12):
-    class SafeConfigParser(ConfigParser): ...  # deprecated alias
+    @deprecated("Deprecated since Python 3.2; removed in Python 3.12. Use `ConfigParser` instead.")
+    class SafeConfigParser(ConfigParser): ...
 
 class SectionProxy(MutableMapping[str, str]):
     def __init__(self, parser: RawConfigParser, name: str) -> None: ...
