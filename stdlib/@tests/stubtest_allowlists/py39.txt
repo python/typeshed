@@ -54,7 +54,6 @@ typing_extensions.Sentinel.__call__
 # =======
 
 _?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
-configparser.ParsingError.filename
 enum.Enum._generate_next_value_
 importlib.abc.Finder.find_module
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
