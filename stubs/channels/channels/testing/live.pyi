@@ -12,6 +12,7 @@ DaphneProcess: TypeAlias = Any  # TODO: temporary hack for daphne.testing.Daphne
 _StaticWrapper: TypeAlias = Callable[[ProtocolTypeRouter], _ChannelApplication]
 
 def make_application(*, static_wrapper: _StaticWrapper | None) -> Any: ...
+def set_database_connection() -> None: ...
 
 class ChannelsLiveServerTestCase(TransactionTestCase):
     host: ClassVar[str] = "localhost"
