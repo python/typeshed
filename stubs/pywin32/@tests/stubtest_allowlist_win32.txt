@@ -21,6 +21,8 @@ win32com.client.util
 win32com.makegw.*
 (win32.lib.)?pywintypes.__import_pywin32_system_module__
 
+# COM object servers scripts
+win32com.servers.*
 # Active X Scripts
 win32com(ext)?.axscript.client.pyscript_rexec
 win32com(ext)?.axscript.client.pyscript
