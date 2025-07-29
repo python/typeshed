@@ -1,5 +1,6 @@
 from collections.abc import Callable, Mapping
-from typing import Literal, Protocol, TypedDict, TypeVar, Unpack
+from typing import Literal, Protocol, TypedDict, TypeVar
+from typing_extensions import Unpack
 
 from _win32typing import PyHKEY, PyIID, PyIUnknown
 from win32con import HKEY_CLASSES_ROOT
