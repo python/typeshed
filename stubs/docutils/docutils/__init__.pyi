@@ -1,10 +1,10 @@
-from typing import Any, ClassVar, NamedTuple
+from typing import Any, ClassVar, Final, NamedTuple
 from typing_extensions import Self
 
 from docutils.transforms import Transform
 
-__docformat__: str
-__version__: str
+__docformat__: Final = "reStructuredText"
+__version__: Final[str]
 
 class _VersionInfo(NamedTuple):
     major: int
@@ -19,14 +19,14 @@ class VersionInfo(_VersionInfo):
         cls, major: int = 0, minor: int = 0, micro: int = 0, releaselevel: str = "final", serial: int = 0, release: bool = True
     ) -> Self: ...
 
-__version_info__: VersionInfo
-__version_details__: str
+__version_info__: Final[VersionInfo]
+__version_details__: Final[str]
 
 class ApplicationError(Exception): ...
 class DataError(ApplicationError): ...
 
 class SettingsSpec:
-    settings_spec: ClassVar[tuple[Any, ...]]
+    settings_spec: ClassVar[tuple[Any, ...]]  # Mixed tuple structure; uses Any for flexibility in nested option definitions
     settings_defaults: ClassVar[dict[Any, Any] | None]
     settings_default_overrides: ClassVar[dict[Any, Any] | None]
     relative_path_settings: ClassVar[tuple[Any, ...]]

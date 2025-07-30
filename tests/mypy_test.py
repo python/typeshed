@@ -16,13 +16,13 @@ from enum import Enum
 from itertools import product
 from pathlib import Path
 from threading import Lock
-from typing import Any, NamedTuple
-from typing_extensions import Annotated, TypeAlias
+from typing import Annotated, Any, NamedTuple
+from typing_extensions import TypeAlias
 
-import tomli
 from packaging.requirements import Requirement
 
-from ts_utils.metadata import PackageDependencies, get_recursive_requirements, metadata_path, read_metadata
+from ts_utils.metadata import PackageDependencies, get_recursive_requirements, read_metadata
+from ts_utils.mypy import MypyDistConf, mypy_configuration_from_distribution, temporary_mypy_config_file
 from ts_utils.paths import STDLIB_PATH, STUBS_PATH, TESTS_DIR, TS_BASE_PATH, distribution_path
 from ts_utils.utils import (
     PYTHON_VERSION,
@@ -44,7 +44,7 @@ except ImportError:
     print_error("Cannot import mypy. Did you install it?")
     sys.exit(1)
 
-SUPPORTED_VERSIONS = ["3.13", "3.12", "3.11", "3.10", "3.9"]
+SUPPORTED_VERSIONS = ["3.14", "3.13", "3.12", "3.11", "3.10", "3.9"]
 SUPPORTED_PLATFORMS = ("linux", "win32", "darwin")
 DIRECTORIES_TO_TEST = [STDLIB_PATH, STUBS_PATH]
 
@@ -150,6 +150,8 @@ def match(path: Path, args: TestConfig) -> bool:
 
 def add_files(files: list[Path], module: Path, args: TestConfig) -> None:
     """Add all files in package or module represented by 'name' located in 'root'."""
+    if module.name.startswith("."):
+        return
     if module.is_file() and module.suffix == ".pyi":
         if match(module, args):
             files.append(module)
@@ -157,48 +159,19 @@ def add_files(files: list[Path], module: Path, args: TestConfig) -> None:
         files.extend(sorted(file for file in module.rglob("*.pyi") if match(file, args)))
 
 
-class MypyDistConf(NamedTuple):
-    module_name: str
-    values: dict[str, dict[str, Any]]
-
-
-# The configuration section in the metadata file looks like the following, with multiple module sections possible
-# [mypy-tests]
-# [mypy-tests.yaml]
-# module_name = "yaml"
-# [mypy-tests.yaml.values]
-# disallow_incomplete_defs = true
-# disallow_untyped_defs = true
-
-
-def add_configuration(configurations: list[MypyDistConf], distribution: str) -> None:
-    with metadata_path(distribution).open("rb") as f:
-        data = tomli.load(f)
-
-    # TODO: This could be added to ts_utils.metadata, but is currently unused
-    mypy_tests_conf: dict[str, dict[str, Any]] = data.get("mypy-tests", {})
-    if not mypy_tests_conf:
-        return
-
-    assert isinstance(mypy_tests_conf, dict), "mypy-tests should be a section"
-    for section_name, mypy_section in mypy_tests_conf.items():
-        assert isinstance(mypy_section, dict), f"{section_name} should be a section"
-        module_name = mypy_section.get("module_name")
-
-        assert module_name is not None, f"{section_name} should have a module_name key"
-        assert isinstance(module_name, str), f"{section_name} should be a key-value pair"
-
-        assert "values" in mypy_section, f"{section_name} should have a values section"
-        values: dict[str, dict[str, Any]] = mypy_section["values"]
-        assert isinstance(values, dict), "values should be a section"
-
-        configurations.append(MypyDistConf(module_name, values.copy()))
-
-
 class MypyResult(Enum):
     SUCCESS = 0
     FAILURE = 1
     CRASH = 2
+
+    @staticmethod
+    def from_process_result(result: subprocess.CompletedProcess[Any]) -> MypyResult:
+        if result.returncode == 0:
+            return MypyResult.SUCCESS
+        elif result.returncode == 1:
+            return MypyResult.FAILURE
+        else:
+            return MypyResult.CRASH
 
 
 def run_mypy(
@@ -214,14 +187,7 @@ def run_mypy(
     env_vars = dict(os.environ)
     if mypypath is not None:
         env_vars["MYPYPATH"] = mypypath
-    with tempfile.NamedTemporaryFile("w+") as temp:
-        temp.write("[mypy]\n")
-        for dist_conf in configurations:
-            temp.write(f"[mypy-{dist_conf.module_name}]\n")
-            for k, v in dist_conf.values.items():
-                temp.write(f"{k} = {v}\n")
-        temp.flush()
-
+    with temporary_mypy_config_file(configurations) as temp:
         flags = [
             "--python-version",
             args.version,
@@ -256,41 +222,32 @@ def run_mypy(
         mypy_command = [python_path, "-m", "mypy", *mypy_args]
         if args.verbose:
             print(colored(f"running {' '.join(mypy_command)}", "blue"))
-        result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars)
-        if result.returncode:
-            print_error(f"failure (exit code {result.returncode})\n")
-            if result.stdout:
-                print_error(result.stdout)
-            if result.stderr:
-                print_error(result.stderr)
-            if non_types_dependencies and args.verbose:
-                print("Ran with the following environment:")
-                subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)})
-                print()
-        else:
-            print_success_msg()
-        if result.returncode == 0:
-            return MypyResult.SUCCESS
-        elif result.returncode == 1:
-            return MypyResult.FAILURE
-        else:
-            return MypyResult.CRASH
+        result = subprocess.run(mypy_command, capture_output=True, text=True, env=env_vars, check=False)
+    if result.returncode:
+        print_error(f"failure (exit code {result.returncode})\n")
+        if result.stdout:
+            print_error(result.stdout)
+        if result.stderr:
+            print_error(result.stderr)
+        if non_types_dependencies and args.verbose:
+            print("Ran with the following environment:")
+            subprocess.run(["uv", "pip", "freeze"], env={**os.environ, "VIRTUAL_ENV": str(venv_dir)}, check=False)
+            print()
+    else:
+        print_success_msg()
+
+    return MypyResult.from_process_result(result)
 
 
-def add_third_party_files(
-    distribution: str, files: list[Path], args: TestConfig, configurations: list[MypyDistConf], seen_dists: set[str]
-) -> None:
+def add_third_party_files(distribution: str, files: list[Path], args: TestConfig, seen_dists: set[str]) -> None:
     typeshed_reqs = get_recursive_requirements(distribution).typeshed_pkgs
     if distribution in seen_dists:
         return
     seen_dists.add(distribution)
     seen_dists.update(r.name for r in typeshed_reqs)
     root = distribution_path(distribution)
-    for name in os.listdir(root):
-        if name.startswith("."):
-            continue
-        add_files(files, (root / name), args)
-        add_configuration(configurations, distribution)
+    for path in root.iterdir():
+        add_files(files, path, args)
 
 
 class TestResult(NamedTuple):
@@ -307,9 +264,9 @@ def test_third_party_distribution(
     and the second element is the number of checked files.
     """
     files: list[Path] = []
-    configurations: list[MypyDistConf] = []
     seen_dists: set[str] = set()
-    add_third_party_files(distribution, files, args, configurations, seen_dists)
+    add_third_party_files(distribution, files, args, seen_dists)
+    configurations = mypy_configuration_from_distribution(distribution)
 
     if not files and args.filter:
         return TestResult(MypyResult.SUCCESS, 0)
@@ -338,7 +295,7 @@ def test_third_party_distribution(
 def test_stdlib(args: TestConfig) -> TestResult:
     files: list[Path] = []
     for file in STDLIB_PATH.iterdir():
-        if file.name in ("VERSIONS", TESTS_DIR) or file.name.startswith("."):
+        if file.name in ("VERSIONS", TESTS_DIR):
             continue
         add_files(files, file, args)
 
@@ -372,8 +329,7 @@ def stdlib_module_name_from_path(path: Path) -> str:
     assert path.suffix == ".pyi"
     parts = list(path.parts[1:-1])
     if path.parts[-1] != "__init__.pyi":
-        # TODO: Python 3.9+: Use removesuffix.
-        parts.append(path.parts[-1][:-4])
+        parts.append(path.parts[-1].removesuffix(".pyi"))
     return ".".join(parts)
 
 
@@ -486,7 +442,7 @@ def setup_virtual_environments(distributions: dict[str, PackageDependencies], ar
         print(colored(f"took {venv_elapsed_time:.2f} seconds", "blue"))
 
     # STAGE 3: For each {virtual_environment: requirements_set} pairing,
-    # `pip install` the requirements set into the virtual environment
+    # `uv pip install` the requirements set into the virtual environment
     pip_start_time = time.perf_counter()
 
     # Limit workers to 10 at a time, since this makes network requests
@@ -569,15 +525,14 @@ def test_third_party_stubs(args: TestConfig, tempdir: Path) -> TestSummary:
 
 def test_typeshed(args: TestConfig, tempdir: Path) -> TestSummary:
     print(f"*** Testing Python {args.version} on {args.platform}")
-    stdlib_dir, stubs_dir = Path("stdlib"), Path("stubs")
     summary = TestSummary()
 
-    if stdlib_dir in args.filter or any(stdlib_dir in path.parents for path in args.filter):
+    if STDLIB_PATH in args.filter or any(STDLIB_PATH in path.parents for path in args.filter):
         mypy_result, files_checked = test_stdlib(args)
         summary.register_result(mypy_result, files_checked)
         print()
 
-    if stubs_dir in args.filter or any(stubs_dir in path.parents for path in args.filter):
+    if STUBS_PATH in args.filter or any(STUBS_PATH in path.parents for path in args.filter):
         tp_results = test_third_party_stubs(args, tempdir)
         summary.merge(tp_results)
         print()
@@ -589,13 +544,13 @@ def main() -> None:
     args = parser.parse_args(namespace=CommandLineArgs())
     versions = args.python_version or SUPPORTED_VERSIONS
     platforms = args.platform or [sys.platform]
-    filter = args.filter or DIRECTORIES_TO_TEST
+    path_filter = args.filter or DIRECTORIES_TO_TEST
     exclude = args.exclude or []
     summary = TestSummary()
     with tempfile.TemporaryDirectory() as td:
         td_path = Path(td)
         for version, platform in product(versions, platforms):
-            config = TestConfig(args.verbose, filter, exclude, version, platform)
+            config = TestConfig(args.verbose, path_filter, exclude, version, platform)
             version_summary = test_typeshed(args=config, tempdir=td_path)
             summary.merge(version_summary)
 

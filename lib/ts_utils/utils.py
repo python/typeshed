@@ -2,16 +2,23 @@
 
 from __future__ import annotations
 
+import functools
 import re
 import sys
+import tempfile
 from collections.abc import Iterable, Mapping
-from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, Final, NamedTuple, Tuple
+from types import MethodType
+from typing import TYPE_CHECKING, Any, Final, NamedTuple
 from typing_extensions import TypeAlias
 
 import pathspec
 from packaging.requirements import Requirement
+
+from .paths import GITIGNORE_PATH, REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
+
+if TYPE_CHECKING:
+    from _typeshed import OpenTextMode
 
 try:
     from termcolor import colored as colored  # pyright: ignore[reportAssignmentType]
@@ -21,14 +28,7 @@ except ImportError:
         return text
 
 
-from .paths import REQUIREMENTS_PATH, STDLIB_PATH, STUBS_PATH, TEST_CASES_DIR, allowlists_path, test_cases_path
-
 PYTHON_VERSION: Final = f"{sys.version_info.major}.{sys.version_info.minor}"
-
-
-# A backport of functools.cache for Python <3.9
-# This module is imported by mypy_test.py, which needs to run on 3.8 in CI
-cache = lru_cache(None)
 
 
 def strip_comments(text: str) -> str:
@@ -72,12 +72,16 @@ def print_divider() -> None:
     print()
 
 
+def print_time(t: float) -> None:
+    print(f"({t:.2f} s) ", end="")
+
+
 # ====================================================================
 # Dynamic venv creation
 # ====================================================================
 
 
-@cache
+@functools.cache
 def venv_python(venv_dir: Path) -> Path:
     if sys.platform == "win32":
         return venv_dir / "Scripts" / "python.exe"
@@ -89,7 +93,7 @@ def venv_python(venv_dir: Path) -> Path:
 # ====================================================================
 
 
-@cache
+@functools.cache
 def parse_requirements() -> Mapping[str, Requirement]:
     """Return a dictionary of requirements from the requirements file."""
     with REQUIREMENTS_PATH.open(encoding="UTF-8") as requirements_file:
@@ -107,8 +111,8 @@ def get_mypy_req() -> str:
 # Parsing the stdlib/VERSIONS file
 # ====================================================================
 
-VersionTuple: TypeAlias = Tuple[int, int]
-SupportedVersionsDict: TypeAlias = Dict[str, Tuple[VersionTuple, VersionTuple]]
+VersionTuple: TypeAlias = tuple[int, int]
+SupportedVersionsDict: TypeAlias = dict[str, tuple[VersionTuple, VersionTuple]]
 
 VERSIONS_PATH = STDLIB_PATH / "VERSIONS"
 VERSION_LINE_RE = re.compile(r"^([a-zA-Z_][a-zA-Z0-9_.]*): ([23]\.\d{1,2})-([23]\.\d{1,2})?$")
@@ -119,11 +123,11 @@ def parse_stdlib_versions_file() -> SupportedVersionsDict:
     result: dict[str, tuple[VersionTuple, VersionTuple]] = {}
     with VERSIONS_PATH.open(encoding="UTF-8") as f:
         for line in f:
-            line = strip_comments(line)
-            if line == "":
+            stripped_line = strip_comments(line)
+            if stripped_line == "":
                 continue
-            m = VERSION_LINE_RE.match(line)
-            assert m, f"invalid VERSIONS line: {line}"
+            m = VERSION_LINE_RE.match(stripped_line)
+            assert m, f"invalid VERSIONS line: {stripped_line}"
             mod: str = m.group(1)
             assert mod not in result, f"Duplicate module {mod} in VERSIONS"
             min_version = _parse_version(m.group(2))
@@ -197,15 +201,35 @@ def allowlists(distribution_name: str) -> list[str]:
         return ["stubtest_allowlist.txt", platform_allowlist]
 
 
+# Re-exposing as a public name to avoid many pyright reportPrivateUsage
+TemporaryFileWrapper = tempfile._TemporaryFileWrapper  # pyright: ignore[reportPrivateUsage]
+
+# We need to work around a limitation of tempfile.NamedTemporaryFile on Windows
+# For details, see https://github.com/python/typeshed/pull/13620#discussion_r1990185997
+# Python 3.12 added a cross-platform solution with `tempfile.NamedTemporaryFile("w+", delete_on_close=False)`
+if sys.platform != "win32":
+    NamedTemporaryFile = tempfile.NamedTemporaryFile  # noqa: TID251
+else:
+
+    def NamedTemporaryFile(mode: OpenTextMode) -> TemporaryFileWrapper[str]:  # noqa: N802
+        def close(self: TemporaryFileWrapper[str]) -> None:
+            TemporaryFileWrapper.close(self)  # pyright: ignore[reportUnknownMemberType]
+            Path(self.name).unlink()
+
+        temp = tempfile.NamedTemporaryFile(mode, delete=False)  # noqa: SIM115, TID251
+        temp.close = MethodType(close, temp)  # type: ignore[method-assign]
+        return temp
+
+
 # ====================================================================
 # Parsing .gitignore
 # ====================================================================
 
 
-@cache
+@functools.cache
 def get_gitignore_spec() -> pathspec.PathSpec:
-    with open(".gitignore", encoding="UTF-8") as f:
-        return pathspec.PathSpec.from_lines("gitwildmatch", f.readlines())
+    with GITIGNORE_PATH.open(encoding="UTF-8") as f:
+        return pathspec.GitIgnoreSpec.from_lines(f)
 
 
 def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
@@ -216,7 +240,7 @@ def spec_matches_path(spec: pathspec.PathSpec, path: Path) -> bool:
 
 
 # ====================================================================
-# mypy/stubtest call
+# stubtest call
 # ====================================================================
 
 
