@@ -39,7 +39,6 @@ PyInstaller\.loader(\.\w+)*
 PyInstaller.log
 PyInstaller\.utils\.cliutils(\.\w+)*
 PyInstaller.utils.conftest
-PyInstaller.utils.git
 PyInstaller.utils.hooks.django
 PyInstaller.utils.hooks.gi
 PyInstaller.utils.hooks.qt

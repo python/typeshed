@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Literal
@@ -23,7 +22,7 @@ class Metric(tf.keras.layers.Layer[tf.Tensor, tf.Tensor], metaclass=ABCMeta):
     def result(self) -> _Output: ...
     # Metric inherits from keras.Layer, but its add_weight method is incompatible with the one from "Layer".
     @override
-    def add_weight(  # type: ignore
+    def add_weight(  # type: ignore[override]
         self,
         name: str,
         shape: Iterable[int | None] | None = (),
@@ -116,4 +115,4 @@ def binary_crossentropy(
 def categorical_crossentropy(
     y_true: TensorCompatible, y_pred: TensorCompatible, from_logits: bool = False, label_smoothing: float = 0.0, axis: int = -1
 ) -> Tensor: ...
-def __getattr__(name: str) -> Incomplete: ...
+def __getattr__(name: str): ...  # incomplete module

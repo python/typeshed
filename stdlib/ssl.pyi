@@ -1,18 +1,51 @@
 import enum
 import socket
 import sys
+from _ssl import (
+    _DEFAULT_CIPHERS as _DEFAULT_CIPHERS,
+    _OPENSSL_API_VERSION as _OPENSSL_API_VERSION,
+    HAS_ALPN as HAS_ALPN,
+    HAS_ECDH as HAS_ECDH,
+    HAS_NPN as HAS_NPN,
+    HAS_SNI as HAS_SNI,
+    OPENSSL_VERSION as OPENSSL_VERSION,
+    OPENSSL_VERSION_INFO as OPENSSL_VERSION_INFO,
+    OPENSSL_VERSION_NUMBER as OPENSSL_VERSION_NUMBER,
+    HAS_SSLv2 as HAS_SSLv2,
+    HAS_SSLv3 as HAS_SSLv3,
+    HAS_TLSv1 as HAS_TLSv1,
+    HAS_TLSv1_1 as HAS_TLSv1_1,
+    HAS_TLSv1_2 as HAS_TLSv1_2,
+    HAS_TLSv1_3 as HAS_TLSv1_3,
+    MemoryBIO as MemoryBIO,
+    RAND_add as RAND_add,
+    RAND_bytes as RAND_bytes,
+    RAND_status as RAND_status,
+    SSLSession as SSLSession,
+    _PasswordType as _PasswordType,  # typeshed only, but re-export for other type stubs to use
+    _SSLContext,
+)
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Callable, Iterable
-from typing import Any, Literal, NamedTuple, TypedDict, final, overload
-from typing_extensions import Never, Self, TypeAlias
+from typing import Any, Literal, NamedTuple, TypedDict, overload, type_check_only
+from typing_extensions import Never, Self, TypeAlias, deprecated
+
+if sys.version_info >= (3, 13):
+    from _ssl import HAS_PSK as HAS_PSK
+
+if sys.version_info < (3, 12):
+    from _ssl import RAND_pseudo_bytes as RAND_pseudo_bytes
+
+if sys.version_info < (3, 10):
+    from _ssl import RAND_egd as RAND_egd
+
+if sys.platform == "win32":
+    from _ssl import enum_certificates as enum_certificates, enum_crls as enum_crls
 
 _PCTRTT: TypeAlias = tuple[tuple[str, str], ...]
 _PCTRTTT: TypeAlias = tuple[_PCTRTT, ...]
 _PeerCertRetDictType: TypeAlias = dict[str, str | _PCTRTTT | _PCTRTT]
 _PeerCertRetType: TypeAlias = _PeerCertRetDictType | bytes | None
-_EnumRetType: TypeAlias = list[tuple[bytes, str, set[str] | bool]]
-_PasswordType: TypeAlias = Callable[[], str | bytes | bytearray] | str | bytes | bytearray
-
 _SrvnmeCbType: TypeAlias = Callable[[SSLSocket | SSLObject, str | None, SSLSocket], int | None]
 
 socket_error = OSError
@@ -47,6 +80,7 @@ class SSLCertVerificationError(SSLError, ValueError):
 CertificateError = SSLCertVerificationError
 
 if sys.version_info < (3, 12):
+    @deprecated("Deprecated since Python 3.7. Removed in Python 3.12. Use `SSLContext.wrap_socket()` instead.")
     def wrap_socket(
         sock: socket.socket,
         keyfile: StrOrBytesPath | None = None,
@@ -59,55 +93,7 @@ if sys.version_info < (3, 12):
         suppress_ragged_eofs: bool = True,
         ciphers: str | None = None,
     ) -> SSLSocket: ...
-
-def create_default_context(
-    purpose: Purpose = ...,
-    *,
-    cafile: StrOrBytesPath | None = None,
-    capath: StrOrBytesPath | None = None,
-    cadata: str | ReadableBuffer | None = None,
-) -> SSLContext: ...
-
-if sys.version_info >= (3, 10):
-    def _create_unverified_context(
-        protocol: int | None = None,
-        *,
-        cert_reqs: int = ...,
-        check_hostname: bool = False,
-        purpose: Purpose = ...,
-        certfile: StrOrBytesPath | None = None,
-        keyfile: StrOrBytesPath | None = None,
-        cafile: StrOrBytesPath | None = None,
-        capath: StrOrBytesPath | None = None,
-        cadata: str | ReadableBuffer | None = None,
-    ) -> SSLContext: ...
-
-else:
-    def _create_unverified_context(
-        protocol: int = ...,
-        *,
-        cert_reqs: int = ...,
-        check_hostname: bool = False,
-        purpose: Purpose = ...,
-        certfile: StrOrBytesPath | None = None,
-        keyfile: StrOrBytesPath | None = None,
-        cafile: StrOrBytesPath | None = None,
-        capath: StrOrBytesPath | None = None,
-        cadata: str | ReadableBuffer | None = None,
-    ) -> SSLContext: ...
-
-_create_default_https_context: Callable[..., SSLContext]
-
-def RAND_bytes(n: int, /) -> bytes: ...
-
-if sys.version_info < (3, 12):
-    def RAND_pseudo_bytes(n: int, /) -> tuple[bytes, bool]: ...
-
-def RAND_status() -> bool: ...
-def RAND_egd(path: str) -> None: ...
-def RAND_add(string: str | ReadableBuffer, entropy: float, /) -> None: ...
-
-if sys.version_info < (3, 12):
+    @deprecated("Deprecated since Python 3.7. Removed in Python 3.12.")
     def match_hostname(cert: _PeerCertRetDictType, hostname: str) -> None: ...
 
 def cert_time_to_seconds(cert_time: str) -> int: ...
@@ -132,10 +118,6 @@ class DefaultVerifyPaths(NamedTuple):
     openssl_capath: str
 
 def get_default_verify_paths() -> DefaultVerifyPaths: ...
-
-if sys.platform == "win32":
-    def enum_certificates(store_name: str) -> _EnumRetType: ...
-    def enum_crls(store_name: str) -> _EnumRetType: ...
 
 class VerifyMode(enum.IntEnum):
     CERT_NONE = 0
@@ -229,21 +211,8 @@ if sys.version_info >= (3, 11) or sys.platform == "linux":
     OP_IGNORE_UNEXPECTED_EOF: Options
 
 HAS_NEVER_CHECK_COMMON_NAME: bool
-HAS_SSLv2: bool
-HAS_SSLv3: bool
-HAS_TLSv1: bool
-HAS_TLSv1_1: bool
-HAS_TLSv1_2: bool
-HAS_TLSv1_3: bool
-HAS_ALPN: bool
-HAS_ECDH: bool
-HAS_SNI: bool
-HAS_NPN: bool
-CHANNEL_BINDING_TYPES: list[str]
 
-OPENSSL_VERSION: str
-OPENSSL_VERSION_INFO: tuple[int, int, int, int, int]
-OPENSSL_VERSION_NUMBER: int
+CHANNEL_BINDING_TYPES: list[str]
 
 class AlertDescription(enum.IntEnum):
     ALERT_DESCRIPTION_ACCESS_DENIED = 49
@@ -302,6 +271,8 @@ ALERT_DESCRIPTION_UNSUPPORTED_CERTIFICATE: AlertDescription
 ALERT_DESCRIPTION_UNSUPPORTED_EXTENSION: AlertDescription
 ALERT_DESCRIPTION_USER_CANCELLED: AlertDescription
 
+# This class is not exposed. It calls itself ssl._ASN1Object.
+@type_check_only
 class _ASN1ObjectBase(NamedTuple):
     nid: int
     shortname: str
@@ -316,6 +287,10 @@ class _ASN1Object(_ASN1ObjectBase):
     def fromname(cls, name: str) -> Self: ...
 
 class Purpose(_ASN1Object, enum.Enum):
+    # Normally this class would inherit __new__ from _ASN1Object, but
+    # because this is an enum, the inherited __new__ is replaced at runtime with
+    # Enum.__new__.
+    def __new__(cls, value: object) -> Self: ...
     SERVER_AUTH = (129, "serverAuth", "TLS Web Server Authentication", "1.3.6.1.5.5.7.3.2")  # pyright: ignore[reportCallIssue]
     CLIENT_AUTH = (130, "clientAuth", "TLS Web Client Authentication", "1.3.6.1.5.5.7.3.1")  # pyright: ignore[reportCallIssue]
 
@@ -356,7 +331,12 @@ class SSLSocket(socket.socket):
     def compression(self) -> str | None: ...
     def get_channel_binding(self, cb_type: str = "tls-unique") -> bytes | None: ...
     def selected_alpn_protocol(self) -> str | None: ...
-    def selected_npn_protocol(self) -> str | None: ...
+    if sys.version_info >= (3, 10):
+        @deprecated("Deprecated since Python 3.10. Use ALPN instead.")
+        def selected_npn_protocol(self) -> str | None: ...
+    else:
+        def selected_npn_protocol(self) -> str | None: ...
+
     def accept(self) -> tuple[SSLSocket, socket._RetAddress]: ...
     def unwrap(self) -> socket.socket: ...
     def version(self) -> str | None: ...
@@ -379,17 +359,15 @@ class TLSVersion(enum.IntEnum):
     TLSv1_2 = 771
     TLSv1_3 = 772
 
-class SSLContext:
-    check_hostname: bool
+class SSLContext(_SSLContext):
     options: Options
     verify_flags: VerifyFlags
     verify_mode: VerifyMode
     @property
-    def protocol(self) -> _SSLMethod: ...
+    def protocol(self) -> _SSLMethod: ...  # type: ignore[override]
     hostname_checks_common_name: bool
     maximum_version: TLSVersion
     minimum_version: TLSVersion
-    sni_callback: Callable[[SSLObject, str, SSLContext], None | int] | None
     # The following two attributes have class-level defaults.
     # However, the docs explicitly state that it's OK to override these attributes on instances,
     # so making these ClassVars wouldn't be appropriate
@@ -400,17 +378,15 @@ class SSLContext:
     if sys.version_info >= (3, 10):
         security_level: int
     if sys.version_info >= (3, 10):
-        # Using the default (None) for the `protocol` parameter is deprecated,
-        # but there isn't a good way of marking that in the stub unless/until PEP 702 is accepted
-        def __new__(cls, protocol: int | None = None, *args: Any, **kwargs: Any) -> Self: ...
+        @overload
+        def __new__(cls, protocol: int, *args: Any, **kwargs: Any) -> Self: ...
+        @overload
+        @deprecated("Deprecated since Python 3.10. Use a specific version of the SSL protocol.")
+        def __new__(cls, protocol: None = None, *args: Any, **kwargs: Any) -> Self: ...
     else:
         def __new__(cls, protocol: int = ..., *args: Any, **kwargs: Any) -> Self: ...
 
-    def cert_store_stats(self) -> dict[str, int]: ...
-    def load_cert_chain(
-        self, certfile: StrOrBytesPath, keyfile: StrOrBytesPath | None = None, password: _PasswordType | None = None
-    ) -> None: ...
-    def load_default_certs(self, purpose: Purpose = ...) -> None: ...
+    def load_default_certs(self, purpose: Purpose = Purpose.SERVER_AUTH) -> None: ...
     def load_verify_locations(
         self,
         cafile: StrOrBytesPath | None = None,
@@ -427,7 +403,12 @@ class SSLContext:
     def set_default_verify_paths(self) -> None: ...
     def set_ciphers(self, cipherlist: str, /) -> None: ...
     def set_alpn_protocols(self, alpn_protocols: Iterable[str]) -> None: ...
-    def set_npn_protocols(self, npn_protocols: Iterable[str]) -> None: ...
+    if sys.version_info >= (3, 10):
+        @deprecated("Deprecated since Python 3.10. Use ALPN instead.")
+        def set_npn_protocols(self, npn_protocols: Iterable[str]) -> None: ...
+    else:
+        def set_npn_protocols(self, npn_protocols: Iterable[str]) -> None: ...
+
     def set_servername_callback(self, server_name_callback: _SrvnmeCbType | None) -> None: ...
     def load_dh_params(self, path: str, /) -> None: ...
     def set_ecdh_curve(self, name: str, /) -> None: ...
@@ -448,7 +429,44 @@ class SSLContext:
         server_hostname: str | bytes | None = None,
         session: SSLSession | None = None,
     ) -> SSLObject: ...
-    def session_stats(self) -> dict[str, int]: ...
+
+def create_default_context(
+    purpose: Purpose = Purpose.SERVER_AUTH,
+    *,
+    cafile: StrOrBytesPath | None = None,
+    capath: StrOrBytesPath | None = None,
+    cadata: str | ReadableBuffer | None = None,
+) -> SSLContext: ...
+
+if sys.version_info >= (3, 10):
+    def _create_unverified_context(
+        protocol: int | None = None,
+        *,
+        cert_reqs: int = ...,
+        check_hostname: bool = False,
+        purpose: Purpose = Purpose.SERVER_AUTH,
+        certfile: StrOrBytesPath | None = None,
+        keyfile: StrOrBytesPath | None = None,
+        cafile: StrOrBytesPath | None = None,
+        capath: StrOrBytesPath | None = None,
+        cadata: str | ReadableBuffer | None = None,
+    ) -> SSLContext: ...
+
+else:
+    def _create_unverified_context(
+        protocol: int = ...,
+        *,
+        cert_reqs: int = ...,
+        check_hostname: bool = False,
+        purpose: Purpose = Purpose.SERVER_AUTH,
+        certfile: StrOrBytesPath | None = None,
+        keyfile: StrOrBytesPath | None = None,
+        cafile: StrOrBytesPath | None = None,
+        capath: StrOrBytesPath | None = None,
+        cadata: str | ReadableBuffer | None = None,
+    ) -> SSLContext: ...
+
+_create_default_https_context = create_default_context
 
 class SSLObject:
     context: SSLContext
@@ -469,7 +487,12 @@ class SSLObject:
     @overload
     def getpeercert(self, binary_form: bool) -> _PeerCertRetType: ...
     def selected_alpn_protocol(self) -> str | None: ...
-    def selected_npn_protocol(self) -> str | None: ...
+    if sys.version_info >= (3, 10):
+        @deprecated("Deprecated since Python 3.10. Use ALPN instead.")
+        def selected_npn_protocol(self) -> str | None: ...
+    else:
+        def selected_npn_protocol(self) -> str | None: ...
+
     def cipher(self) -> tuple[str, str, int] | None: ...
     def shared_ciphers(self) -> list[tuple[str, str, int]] | None: ...
     def compression(self) -> str | None: ...
@@ -482,28 +505,6 @@ class SSLObject:
     if sys.version_info >= (3, 13):
         def get_verified_chain(self) -> list[bytes]: ...
         def get_unverified_chain(self) -> list[bytes]: ...
-
-@final
-class MemoryBIO:
-    pending: int
-    eof: bool
-    def read(self, size: int = -1, /) -> bytes: ...
-    def write(self, b: ReadableBuffer, /) -> int: ...
-    def write_eof(self) -> None: ...
-
-@final
-class SSLSession:
-    @property
-    def has_ticket(self) -> bool: ...
-    @property
-    def id(self) -> bytes: ...
-    @property
-    def ticket_lifetime_hint(self) -> int: ...
-    @property
-    def time(self) -> int: ...
-    @property
-    def timeout(self) -> int: ...
-    def __eq__(self, value: object, /) -> bool: ...
 
 class SSLErrorNumber(enum.IntEnum):
     SSL_ERROR_EOF = 8
@@ -528,8 +529,6 @@ SSL_ERROR_ZERO_RETURN: SSLErrorNumber  # undocumented
 
 def get_protocol_name(protocol_code: int) -> str: ...
 
-if sys.version_info < (3, 9):
-    AF_INET: int
 PEM_FOOTER: str
 PEM_HEADER: str
 SOCK_STREAM: int

@@ -55,12 +55,7 @@ class MetaGraphDef(google.protobuf.message.Message):
             VALUE_FIELD_NUMBER: builtins.int
             key: builtins.str
             value: builtins.str
-            def __init__(
-                self,
-                *,
-                key: builtins.str | None = ...,
-                value: builtins.str | None = ...,
-            ) -> None: ...
+            def __init__(self, *, key: builtins.str | None = ..., value: builtins.str | None = ...) -> None: ...
             def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
         META_GRAPH_VERSION_FIELD_NUMBER: builtins.int
@@ -127,8 +122,30 @@ class MetaGraphDef(google.protobuf.message.Message):
             stripped_default_attrs: builtins.bool | None = ...,
             function_aliases: collections.abc.Mapping[builtins.str, builtins.str] | None = ...,
         ) -> None: ...
-        def HasField(self, field_name: typing.Literal["any_info", b"any_info", "stripped_op_list", b"stripped_op_list"]) -> builtins.bool: ...
-        def ClearField(self, field_name: typing.Literal["any_info", b"any_info", "function_aliases", b"function_aliases", "meta_graph_version", b"meta_graph_version", "stripped_default_attrs", b"stripped_default_attrs", "stripped_op_list", b"stripped_op_list", "tags", b"tags", "tensorflow_git_version", b"tensorflow_git_version", "tensorflow_version", b"tensorflow_version"]) -> None: ...
+        def HasField(
+            self, field_name: typing.Literal["any_info", b"any_info", "stripped_op_list", b"stripped_op_list"]
+        ) -> builtins.bool: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "any_info",
+                b"any_info",
+                "function_aliases",
+                b"function_aliases",
+                "meta_graph_version",
+                b"meta_graph_version",
+                "stripped_default_attrs",
+                b"stripped_default_attrs",
+                "stripped_op_list",
+                b"stripped_op_list",
+                "tags",
+                b"tags",
+                "tensorflow_git_version",
+                b"tensorflow_git_version",
+                "tensorflow_version",
+                b"tensorflow_version",
+            ],
+        ) -> None: ...
 
     @typing.final
     class CollectionDefEntry(google.protobuf.message.Message):
@@ -139,12 +156,7 @@ class MetaGraphDef(google.protobuf.message.Message):
         key: builtins.str
         @property
         def value(self) -> global___CollectionDef: ...
-        def __init__(
-            self,
-            *,
-            key: builtins.str | None = ...,
-            value: global___CollectionDef | None = ...,
-        ) -> None: ...
+        def __init__(self, *, key: builtins.str | None = ..., value: global___CollectionDef | None = ...) -> None: ...
         def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
@@ -157,12 +169,7 @@ class MetaGraphDef(google.protobuf.message.Message):
         key: builtins.str
         @property
         def value(self) -> global___SignatureDef: ...
-        def __init__(
-            self,
-            *,
-            key: builtins.str | None = ...,
-            value: global___SignatureDef | None = ...,
-        ) -> None: ...
+        def __init__(self, *, key: builtins.str | None = ..., value: global___SignatureDef | None = ...) -> None: ...
         def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
@@ -214,8 +221,38 @@ class MetaGraphDef(google.protobuf.message.Message):
         asset_file_def: collections.abc.Iterable[global___AssetFileDef] | None = ...,
         object_graph_def: tensorflow.core.protobuf.saved_object_graph_pb2.SavedObjectGraph | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["graph_def", b"graph_def", "meta_info_def", b"meta_info_def", "object_graph_def", b"object_graph_def", "saver_def", b"saver_def"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["asset_file_def", b"asset_file_def", "collection_def", b"collection_def", "graph_def", b"graph_def", "meta_info_def", b"meta_info_def", "object_graph_def", b"object_graph_def", "saver_def", b"saver_def", "signature_def", b"signature_def"]) -> None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "graph_def",
+            b"graph_def",
+            "meta_info_def",
+            b"meta_info_def",
+            "object_graph_def",
+            b"object_graph_def",
+            "saver_def",
+            b"saver_def",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "asset_file_def",
+            b"asset_file_def",
+            "collection_def",
+            b"collection_def",
+            "graph_def",
+            b"graph_def",
+            "meta_info_def",
+            b"meta_info_def",
+            "object_graph_def",
+            b"object_graph_def",
+            "saver_def",
+            b"saver_def",
+            "signature_def",
+            b"signature_def",
+        ],
+    ) -> None: ...
 
 global___MetaGraphDef = MetaGraphDef
 
@@ -306,11 +343,7 @@ class CollectionDef(google.protobuf.message.Message):
         VALUE_FIELD_NUMBER: builtins.int
         @property
         def value(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
-        def __init__(
-            self,
-            *,
-            value: collections.abc.Iterable[builtins.str] | None = ...,
-        ) -> None: ...
+        def __init__(self, *, value: collections.abc.Iterable[builtins.str] | None = ...) -> None: ...
         def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
     @typing.final
@@ -335,11 +368,7 @@ class CollectionDef(google.protobuf.message.Message):
         VALUE_FIELD_NUMBER: builtins.int
         @property
         def value(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bytes]: ...
-        def __init__(
-            self,
-            *,
-            value: collections.abc.Iterable[builtins.bytes] | None = ...,
-        ) -> None: ...
+        def __init__(self, *, value: collections.abc.Iterable[builtins.bytes] | None = ...) -> None: ...
         def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
     @typing.final
@@ -351,11 +380,7 @@ class CollectionDef(google.protobuf.message.Message):
         VALUE_FIELD_NUMBER: builtins.int
         @property
         def value(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
-        def __init__(
-            self,
-            *,
-            value: collections.abc.Iterable[builtins.int] | None = ...,
-        ) -> None: ...
+        def __init__(self, *, value: collections.abc.Iterable[builtins.int] | None = ...) -> None: ...
         def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
     @typing.final
@@ -367,11 +392,7 @@ class CollectionDef(google.protobuf.message.Message):
         VALUE_FIELD_NUMBER: builtins.int
         @property
         def value(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.float]: ...
-        def __init__(
-            self,
-            *,
-            value: collections.abc.Iterable[builtins.float] | None = ...,
-        ) -> None: ...
+        def __init__(self, *, value: collections.abc.Iterable[builtins.float] | None = ...) -> None: ...
         def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
     @typing.final
@@ -383,11 +404,7 @@ class CollectionDef(google.protobuf.message.Message):
         VALUE_FIELD_NUMBER: builtins.int
         @property
         def value(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[google.protobuf.any_pb2.Any]: ...
-        def __init__(
-            self,
-            *,
-            value: collections.abc.Iterable[google.protobuf.any_pb2.Any] | None = ...,
-        ) -> None: ...
+        def __init__(self, *, value: collections.abc.Iterable[google.protobuf.any_pb2.Any] | None = ...) -> None: ...
         def ClearField(self, field_name: typing.Literal["value", b"value"]) -> None: ...
 
     NODE_LIST_FIELD_NUMBER: builtins.int
@@ -414,9 +431,43 @@ class CollectionDef(google.protobuf.message.Message):
         float_list: global___CollectionDef.FloatList | None = ...,
         any_list: global___CollectionDef.AnyList | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["any_list", b"any_list", "bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind", "node_list", b"node_list"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["any_list", b"any_list", "bytes_list", b"bytes_list", "float_list", b"float_list", "int64_list", b"int64_list", "kind", b"kind", "node_list", b"node_list"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["kind", b"kind"]) -> typing.Literal["node_list", "bytes_list", "int64_list", "float_list", "any_list"] | None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "any_list",
+            b"any_list",
+            "bytes_list",
+            b"bytes_list",
+            "float_list",
+            b"float_list",
+            "int64_list",
+            b"int64_list",
+            "kind",
+            b"kind",
+            "node_list",
+            b"node_list",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "any_list",
+            b"any_list",
+            "bytes_list",
+            b"bytes_list",
+            "float_list",
+            b"float_list",
+            "int64_list",
+            b"int64_list",
+            "kind",
+            b"kind",
+            "node_list",
+            b"node_list",
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing.Literal["kind", b"kind"]
+    ) -> typing.Literal["node_list", "bytes_list", "int64_list", "float_list", "any_list"] | None: ...
 
 global___CollectionDef = CollectionDef
 
@@ -454,7 +505,17 @@ class TensorInfo(google.protobuf.message.Message):
             indices_tensor_name: builtins.str | None = ...,
             dense_shape_tensor_name: builtins.str | None = ...,
         ) -> None: ...
-        def ClearField(self, field_name: typing.Literal["dense_shape_tensor_name", b"dense_shape_tensor_name", "indices_tensor_name", b"indices_tensor_name", "values_tensor_name", b"values_tensor_name"]) -> None: ...
+        def ClearField(
+            self,
+            field_name: typing.Literal[
+                "dense_shape_tensor_name",
+                b"dense_shape_tensor_name",
+                "indices_tensor_name",
+                b"indices_tensor_name",
+                "values_tensor_name",
+                b"values_tensor_name",
+            ],
+        ) -> None: ...
 
     @typing.final
     class CompositeTensor(google.protobuf.message.Message):
@@ -517,9 +578,41 @@ class TensorInfo(google.protobuf.message.Message):
         dtype: tensorflow.core.framework.types_pb2.DataType.ValueType | None = ...,
         tensor_shape: tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing.Literal["composite_tensor", b"composite_tensor", "coo_sparse", b"coo_sparse", "encoding", b"encoding", "name", b"name", "tensor_shape", b"tensor_shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["composite_tensor", b"composite_tensor", "coo_sparse", b"coo_sparse", "dtype", b"dtype", "encoding", b"encoding", "name", b"name", "tensor_shape", b"tensor_shape"]) -> None: ...
-    def WhichOneof(self, oneof_group: typing.Literal["encoding", b"encoding"]) -> typing.Literal["name", "coo_sparse", "composite_tensor"] | None: ...
+    def HasField(
+        self,
+        field_name: typing.Literal[
+            "composite_tensor",
+            b"composite_tensor",
+            "coo_sparse",
+            b"coo_sparse",
+            "encoding",
+            b"encoding",
+            "name",
+            b"name",
+            "tensor_shape",
+            b"tensor_shape",
+        ],
+    ) -> builtins.bool: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "composite_tensor",
+            b"composite_tensor",
+            "coo_sparse",
+            b"coo_sparse",
+            "dtype",
+            b"dtype",
+            "encoding",
+            b"encoding",
+            "name",
+            b"name",
+            "tensor_shape",
+            b"tensor_shape",
+        ],
+    ) -> None: ...
+    def WhichOneof(
+        self, oneof_group: typing.Literal["encoding", b"encoding"]
+    ) -> typing.Literal["name", "coo_sparse", "composite_tensor"] | None: ...
 
 global___TensorInfo = TensorInfo
 
@@ -527,61 +620,6 @@ global___TensorInfo = TensorInfo
 class SignatureDef(google.protobuf.message.Message):
     """SignatureDef defines the signature of a computation supported by a TensorFlow
     graph.
-
-    For example, a model with two loss computations, sharing a single input,
-    might have the following signature_def map, in a MetaGraphDef message.
-
-    Note that across the two SignatureDefs "loss_A" and "loss_B", the input key,
-    output key, and method_name are identical, and will be used by system(s) that
-    implement or rely upon this particular loss method. The output tensor names
-    differ, demonstrating how different outputs can exist for the same method.
-
-    signature_def {
-      key: "loss_A"
-      value {
-        inputs {
-          key: "input"
-          value {
-            name: "input:0"
-            dtype: DT_STRING
-            tensor_shape: ...
-          }
-        }
-        outputs {
-          key: "loss_output"
-          value {
-            name: "loss_output_A:0"
-            dtype: DT_FLOAT
-            tensor_shape: ...
-          }
-        }
-        method_name: "some/package/compute_loss"
-      }
-      ...
-    }
-    signature_def {
-      key: "loss_B"
-      value {
-        inputs {
-          key: "input"
-          value {
-            name: "input:0"
-            dtype: DT_STRING
-            tensor_shape: ...
-          }
-        }
-        outputs {
-          key: "loss_output"
-          value {
-            name: "loss_output_B:0"
-            dtype: DT_FLOAT
-            tensor_shape: ...
-          }
-        }
-        method_name: "some/package/compute_loss"
-      }
-      ...
-    }
     """
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -595,12 +633,7 @@ class SignatureDef(google.protobuf.message.Message):
         key: builtins.str
         @property
         def value(self) -> global___TensorInfo: ...
-        def __init__(
-            self,
-            *,
-            key: builtins.str | None = ...,
-            value: global___TensorInfo | None = ...,
-        ) -> None: ...
+        def __init__(self, *, key: builtins.str | None = ..., value: global___TensorInfo | None = ...) -> None: ...
         def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
@@ -613,12 +646,7 @@ class SignatureDef(google.protobuf.message.Message):
         key: builtins.str
         @property
         def value(self) -> global___TensorInfo: ...
-        def __init__(
-            self,
-            *,
-            key: builtins.str | None = ...,
-            value: global___TensorInfo | None = ...,
-        ) -> None: ...
+        def __init__(self, *, key: builtins.str | None = ..., value: global___TensorInfo | None = ...) -> None: ...
         def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
 
@@ -632,10 +660,7 @@ class SignatureDef(google.protobuf.message.Message):
         @property
         def value(self) -> tensorflow.core.framework.tensor_pb2.TensorProto: ...
         def __init__(
-            self,
-            *,
-            key: builtins.str | None = ...,
-            value: tensorflow.core.framework.tensor_pb2.TensorProto | None = ...,
+            self, *, key: builtins.str | None = ..., value: tensorflow.core.framework.tensor_pb2.TensorProto | None = ...
         ) -> None: ...
         def HasField(self, field_name: typing.Literal["value", b"value"]) -> builtins.bool: ...
         def ClearField(self, field_name: typing.Literal["key", b"key", "value", b"value"]) -> None: ...
@@ -645,14 +670,13 @@ class SignatureDef(google.protobuf.message.Message):
     METHOD_NAME_FIELD_NUMBER: builtins.int
     DEFAULTS_FIELD_NUMBER: builtins.int
     method_name: builtins.str
-    """Extensible method_name information enabling third-party users to mark a
-    SignatureDef as supporting a particular method. This enables producers and
-    consumers of SignatureDefs, e.g. a model definition library and a serving
-    library to have a clear hand-off regarding the semantics of a computation.
+    """Deprecated: TensorFlow 2 always sets this to a fixed value;
+    open-source TF Serving stopped checking by default since release 2.4.
 
-    Note that multiple SignatureDefs in a single MetaGraphDef may have the same
-    method_name. This is commonly used to support multi-headed computation,
-    where a single graph computation may return multiple results.
+    In TensorFlow 1, the method_name enabled users to mark a SignatureDef as
+    supporting a particular method. Multiple SignatureDefs in a single
+    MetaGraphDef could have the same method_name (e.g., to support multi-headed
+    computation).
     """
     @property
     def inputs(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, global___TensorInfo]:
@@ -663,7 +687,9 @@ class SignatureDef(google.protobuf.message.Message):
         """Named output parameters."""
 
     @property
-    def defaults(self) -> google.protobuf.internal.containers.MessageMap[builtins.str, tensorflow.core.framework.tensor_pb2.TensorProto]:
+    def defaults(
+        self,
+    ) -> google.protobuf.internal.containers.MessageMap[builtins.str, tensorflow.core.framework.tensor_pb2.TensorProto]:
         """Named input to corresponding default values if any."""
 
     def __init__(
@@ -674,7 +700,12 @@ class SignatureDef(google.protobuf.message.Message):
         method_name: builtins.str | None = ...,
         defaults: collections.abc.Mapping[builtins.str, tensorflow.core.framework.tensor_pb2.TensorProto] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing.Literal["defaults", b"defaults", "inputs", b"inputs", "method_name", b"method_name", "outputs", b"outputs"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "defaults", b"defaults", "inputs", b"inputs", "method_name", b"method_name", "outputs", b"outputs"
+        ],
+    ) -> None: ...
 
 global___SignatureDef = SignatureDef
 
@@ -697,12 +728,7 @@ class AssetFileDef(google.protobuf.message.Message):
     def tensor_info(self) -> global___TensorInfo:
         """The tensor to bind the asset filename to."""
 
-    def __init__(
-        self,
-        *,
-        tensor_info: global___TensorInfo | None = ...,
-        filename: builtins.str | None = ...,
-    ) -> None: ...
+    def __init__(self, *, tensor_info: global___TensorInfo | None = ..., filename: builtins.str | None = ...) -> None: ...
     def HasField(self, field_name: typing.Literal["tensor_info", b"tensor_info"]) -> builtins.bool: ...
     def ClearField(self, field_name: typing.Literal["filename", b"filename", "tensor_info", b"tensor_info"]) -> None: ...
 
