@@ -262,7 +262,7 @@ class _patch(Generic[_T]):
 # This class does not exist at runtime, it's a hack to make this work:
 #     @patch("foo")
 #     def bar(..., mock: MagicMock) -> None: ...
-class _patch_default_new(_patch[MagicMock | AsyncMock]):
+class _patch_pass_arg(_patch[_T]):
     @overload
     def __call__(self, func: _TT) -> _TT: ...
     # Can't use the following as ParamSpec is only allowed as last parameter:
@@ -303,7 +303,7 @@ class _patcher:
         create: bool = ...,
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
-        new_callable: Any | None = ...,
+        new_callable: Callable[..., Any] | None = ...,
         **kwargs: Any,
     ) -> _patch[_T]: ...
     @overload
@@ -315,9 +315,21 @@ class _patcher:
         create: bool = ...,
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
-        new_callable: Any | None = ...,
+        new_callable: Callable[..., _T],
         **kwargs: Any,
-    ) -> _patch_default_new: ...
+    ) -> _patch_pass_arg[_T]: ...
+    @overload
+    def __call__(
+        self,
+        target: str,
+        *,
+        spec: Any | None = ...,
+        create: bool = ...,
+        spec_set: Any | None = ...,
+        autospec: Any | None = ...,
+        new_callable: None = ...,
+        **kwargs: Any,
+    ) -> _patch_pass_arg[MagicMock | AsyncMock]: ...
     @overload
     @staticmethod
     def object(
@@ -328,7 +340,7 @@ class _patcher:
         create: bool = ...,
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
-        new_callable: Any | None = ...,
+        new_callable: Callable[..., Any] | None = ...,
         **kwargs: Any,
     ) -> _patch[_T]: ...
     @overload
@@ -341,9 +353,22 @@ class _patcher:
         create: bool = ...,
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
-        new_callable: Any | None = ...,
+        new_callable: Callable[..., _T],
         **kwargs: Any,
-    ) -> _patch[MagicMock | AsyncMock]: ...
+    ) -> _patch_pass_arg[_T]: ...
+    @overload
+    @staticmethod
+    def object(
+        target: Any,
+        attribute: str,
+        *,
+        spec: Any | None = ...,
+        create: bool = ...,
+        spec_set: Any | None = ...,
+        autospec: Any | None = ...,
+        new_callable: None = ...,
+        **kwargs: Any,
+    ) -> _patch_pass_arg[MagicMock | AsyncMock]: ...
     @staticmethod
     def multiple(
         target: Any,
