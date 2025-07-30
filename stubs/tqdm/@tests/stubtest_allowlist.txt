@@ -1,8 +1,6 @@
-# TODO: missing from stub
-tqdm._main.__all__
-tqdm._tqdm.__all__
-tqdm._tqdm_gui.__all__
-tqdm._tqdm_notebook.__all__
-
 # Cannot import in stubtest
 tqdm.__main__
+
+# TODO: Reenable when tensorflow supports Python 3.13 and is added to the
+# stubtest dependencies in METADATA.toml.
+tqdm.keras

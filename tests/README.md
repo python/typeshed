@@ -1,8 +1,6 @@
 This directory contains several tests:
 - `tests/mypy_test.py`
 tests the stubs with [mypy](https://github.com/python/mypy/)
-- `tests/pytype_test.py` tests the stubs with
-[pytype](https://github.com/google/pytype/).
 - `tests/pyright_test.py` tests the stubs with
 [pyright](https://github.com/microsoft/pyright).
 - `tests/regr_test.py` runs mypy against the test cases for typeshed's
@@ -19,7 +17,7 @@ in the `tests` and `scripts` directories.
 To run the tests, follow the [setup instructions](../CONTRIBUTING.md#preparing-the-environment)
 in the `CONTRIBUTING.md` document. In particular, you have to run with Python 3.9+.
 
-In order for `pytype_test` and `pyright_test` to work correctly, some third-party stubs
+In order for `pyright_test` to work correctly, some third-party stubs
 may require extra dependencies external to typeshed to be installed in your virtual environment
 prior to running the test.
 You can list or install all of a stubs package's external dependencies using the following script:
@@ -27,9 +25,7 @@ You can list or install all of a stubs package's external dependencies using the
 (.venv3)$ python tests/get_external_stub_requirements.py <third_party_stub>  # List external dependencies for <third_party_stub>
 (.venv3)$ python tests/get_external_stub_requirements.py <third_party_stub1> <third_party_stub2>  # List external dependencies for <third_party_stub1> and <third_party_stub2>
 (.venv3)$ python tests/get_external_stub_requirements.py  # List external dependencies for all third-party stubs in typeshed
-# Install external dependencies for all third-party stubs in typeshed
-(.venv3)$ mapfile -t DEPENDENCIES < <( python tests/get_external_stub_requirements.py )
-(.venv3)$ if [ -n "$DEPENDENCIES" ]; then pip install "${DEPENDENCIES[@]}"; fi
+(.venv3)$ python scripts/install_all_third_party_dependencies.py  # Install external dependencies for all third-party stubs in typeshed
 ```
 
 ## Run all tests for a specific stub
@@ -68,18 +64,6 @@ imported but doesn't check whether stubs match their implementation
 
 Run `python tests/mypy_test.py --help` for information on the various configuration options
 for this script.
-
-## pytype\_test.py
-
-Note: This test cannot be run on Python version < 3.13 as pytype does not yet support
-Python 3.13 and above.
-
-Run using:
-```bash
-(.venv3)$ python3 tests/pytype_test.py
-```
-
-This test works similarly to `mypy_test.py`, except it uses `pytype`.
 
 ## pyright\_test.py
 
@@ -197,6 +181,23 @@ stubtest reports to be missing to the stub. However, note that not *everything*
 that stubtest reports to be missing should necessarily be added to the stub.
 For some implementation details, it is often better to add allowlist entries
 for missing objects rather than trying to match the runtime in every detail.
+
+### Support for mypy plugins in stubtest
+
+For stubs that require mypy plugins to check correctly (such as Django), stubtest
+supports configuring mypy plugins through the METADATA.toml file. This allows stubtest to
+leverage type information provided by these plugins when validating stubs.
+
+To use this feature, add the following configuration to the `tool.stubtest` section in your METADATA.toml:
+
+```toml
+mypy_plugins = ["mypy_django_plugin.main"]
+mypy_plugins_config = { "django-stubs" = { "django_settings_module" = "@tests.django_settings" } }
+```
+
+For Django stubs specifically, you'll need to create a `django_settings.py` file in your `@tests` directory
+that contains the Django settings required by the plugin. This file will be referenced by the plugin
+configuration to properly validate Django-specific types during stubtest execution.
 
 ## typecheck\_typeshed.py
 

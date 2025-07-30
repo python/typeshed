@@ -1,5 +1,6 @@
 from collections.abc import Mapping
-from typing import Any, Literal, TypedDict
+from logging import Logger
+from typing import Literal, TypedDict
 from typing_extensions import NotRequired
 
 from oauthlib.common import Request
@@ -18,7 +19,7 @@ class _AuthorizationCode(TypedDict):
     state: NotRequired[str]
     nonce: NotRequired[str]
 
-log: Any
+log: Logger
 
 class RequestValidator:
     def client_authentication_required(self, request: Request, *args, **kwargs) -> bool: ...
@@ -56,3 +57,4 @@ class RequestValidator:
     def is_pkce_required(self, client_id: str, request: Request) -> bool: ...
     def get_code_challenge(self, code: str, request: Request) -> str: ...
     def get_code_challenge_method(self, code: str, request: Request) -> str: ...
+    def is_origin_allowed(self, client_id: str, origin, request: Request, *args, **kwargs) -> bool: ...

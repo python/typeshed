@@ -2,7 +2,6 @@
 # TODO: Allowlist entries that should be fixed
 # ============================================
 
-ctypes.GetLastError  # Is actually a pointer
 # alias for a class defined elsewhere,
 # mypy infers the variable has type `(*args) -> DupHandle` but stubtest infers the runtime type as <class DupHandle>
 multiprocessing.reduction.AbstractReducer.DupHandle
