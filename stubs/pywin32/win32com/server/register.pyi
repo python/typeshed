@@ -1,5 +1,5 @@
 from collections.abc import Callable, Iterable, Mapping
-from typing import Literal, Protocol, TypedDict, TypeVar, type_check_only
+from typing import Final, Literal, Protocol, TypedDict, TypeVar, type_check_only
 from typing_extensions import Unpack
 
 from _win32typing import PyHKEY, PyIID
@@ -31,7 +31,7 @@ class _ElevatedFlag(TypedDict, total=False):
 class _CommandFlag(_RegisterFlag, _UnregisterFlag, _ElevatedFlag):  # type: ignore[misc]
     ...
 
-CATID_PythonCOMServer: Literal["{B3EF80D0-68E2-11D0-A689-00C04FD658FF}"]
+CATID_PythonCOMServer: Final = "{B3EF80D0-68E2-11D0-A689-00C04FD658FF}"
 
 def recurse_delete_key(path: str | None, base: PyHKEY | int = -2147483648) -> None: ...
 def RegisterServer(
