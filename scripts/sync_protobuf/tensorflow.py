@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Generates the protobuf stubs for the given tensorflow version using mypy-protobuf.
 Generally, new minor versions are a good time to update the stubs.
@@ -5,7 +6,6 @@ Generally, new minor versions are a good time to update the stubs.
 
 from __future__ import annotations
 
-import os
 import re
 import shutil
 import subprocess
@@ -56,35 +56,34 @@ XLA_IMPORT_PATTERN = re.compile(r"(\[|\s)xla\.")
 def move_tree(source: Path, destination: Path) -> None:
     """Move directory and merge if destination already exists.
 
-    Can't use shutil.move because it can't merge existing directories."""
+    Can't use shutil.move because it can't merge existing directories.
+    """
     print(f"Moving '{source}' to '{destination}'")
     shutil.copytree(source, destination, dirs_exist_ok=True)
     shutil.rmtree(source)
 
 
 def post_creation() -> None:
-    """Move third-party and fix imports"""
+    """Move third-party and fix imports."""
     print()
     move_tree(STUBS_FOLDER / "tsl", STUBS_FOLDER / "tensorflow" / "tsl")
     move_tree(STUBS_FOLDER / "xla", STUBS_FOLDER / "tensorflow" / "compiler" / "xla")
 
     for path in STUBS_FOLDER.rglob("*_pb2.pyi"):
         print(f"Fixing imports in '{path}'")
-        with open(path) as file:
-            filedata = file.read()
+        filedata = path.read_text(encoding="utf-8")
 
         # Replace the target string
         filedata = re.sub(TSL_IMPORT_PATTERN, "\\1tensorflow.tsl.", filedata)
         filedata = re.sub(XLA_IMPORT_PATTERN, "\\1tensorflow.compiler.xla.", filedata)
 
         # Write the file out again
-        with open(path, "w") as file:
-            file.write(filedata)
+        path.write_text(filedata, encoding="utf-8")
 
     print()
     for to_remove in PROTOS_TO_REMOVE:
         file_path = STUBS_FOLDER / "tensorflow" / to_remove
-        os.remove(file_path)
+        file_path.unlink()
         print(f"Removed '{file_path}'")
 
 
@@ -99,7 +98,7 @@ def main() -> None:
     for old_stub in STUBS_FOLDER.rglob("*_pb2.pyi"):
         old_stub.unlink()
 
-    PROTOC_VERSION = run_protoc(
+    protoc_version = run_protoc(
         proto_paths=(
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla/third_party/tsl",
             f"{EXTRACTED_PACKAGE_DIR}/third_party/xla",
@@ -130,12 +129,12 @@ def main() -> None:
         "tensorflow",
         extra_description=f"""Partially generated using \
 [mypy-protobuf=={MYPY_PROTOBUF_VERSION}](https://github.com/nipunn1313/mypy-protobuf/tree/v{MYPY_PROTOBUF_VERSION}) \
-and {PROTOC_VERSION} on `tensorflow=={PACKAGE_VERSION}`.""",
+and {protoc_version} on `tensorflow=={PACKAGE_VERSION}`.""",
     )
     print("Updated tensorflow/METADATA.toml")
 
     # Run pre-commit to cleanup the stubs
-    subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")))
+    subprocess.run((sys.executable, "-m", "pre_commit", "run", "--files", *STUBS_FOLDER.rglob("*_pb2.pyi")), check=False)
 
 
 if __name__ == "__main__":

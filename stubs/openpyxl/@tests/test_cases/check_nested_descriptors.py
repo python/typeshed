@@ -167,19 +167,19 @@ assert_type(with_descriptors.minmax_float_none, Union[float, None])
 assert_type(with_descriptors.minmax_int, int)
 assert_type(with_descriptors.minmax_int_none, Union[int, None])
 
-assert_type(with_descriptors.bool_not_none, bool)  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.bool_not_none, bool)
 assert_type(with_descriptors.bool_none, Union[bool, None])
 
 assert_type(with_descriptors.emptytag_not_none, bool)
 assert_type(with_descriptors.emptytag_none, Union[bool, None])
 
-assert_type(with_descriptors.string_not_none, str)  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.string_not_none, str)
 assert_type(with_descriptors.string_none, Union[str, None])
 
-assert_type(with_descriptors.float_not_none, float)  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.float_not_none, float)
 assert_type(with_descriptors.float_none, Union[float, None])
 
-assert_type(with_descriptors.integer_not_none, int)  # type: ignore[assert-type]  # False-positive in mypy
+assert_type(with_descriptors.integer_not_none, int)
 assert_type(with_descriptors.integer_none, Union[int, None])
 
 
@@ -264,15 +264,11 @@ with_descriptors.noneset_list = cast(  # pyright: ignore[reportAttributeAccessIs
 
 with_descriptors.convertible_not_none = 0
 with_descriptors.convertible_not_none = "0"
-with_descriptors.convertible_not_none = None  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-with_descriptors.convertible_not_none = object()  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+with_descriptors.convertible_not_none = None  # type: ignore
+with_descriptors.convertible_not_none = object()  # type: ignore
 with_descriptors.convertible_not_none = cast(_HasTagAndGet[str], _)
-with_descriptors.convertible_not_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-    _HasTagAndGet[None], _
-)
-with_descriptors.convertible_not_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-    _HasTagAndGet[object], _
-)
+with_descriptors.convertible_not_none = cast(_HasTagAndGet[None], _)  # type: ignore
+with_descriptors.convertible_not_none = cast(_HasTagAndGet[object], _)  # type: ignore
 
 with_descriptors.convertible_none = 0
 with_descriptors.convertible_none = "0"
@@ -426,15 +422,11 @@ with_descriptors.float_not_none = 0
 with_descriptors.float_not_none = 0.0
 with_descriptors.float_not_none = "0"
 with_descriptors.float_not_none = b"0"
-with_descriptors.float_not_none = None  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-with_descriptors.float_not_none = object()  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+with_descriptors.float_not_none = None  # type: ignore
+with_descriptors.float_not_none = object()  # type: ignore
 with_descriptors.float_not_none = cast(_HasTagAndGet[float], _)
-with_descriptors.float_not_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-    _HasTagAndGet[None], _
-)
-with_descriptors.float_not_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-    _HasTagAndGet[object], _
-)
+with_descriptors.float_not_none = cast(_HasTagAndGet[None], _)  # type: ignore
+with_descriptors.float_not_none = cast(_HasTagAndGet[object], _)  # type: ignore
 
 with_descriptors.float_none = 0
 with_descriptors.float_none = 0.0
@@ -451,15 +443,11 @@ with_descriptors.integer_not_none = 0
 with_descriptors.integer_not_none = 0.0
 with_descriptors.integer_not_none = "0"
 with_descriptors.integer_not_none = b"0"
-with_descriptors.integer_not_none = None  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-with_descriptors.integer_not_none = object()  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
+with_descriptors.integer_not_none = None  # type: ignore
+with_descriptors.integer_not_none = object()  # type: ignore
 with_descriptors.integer_not_none = cast(_HasTagAndGet[int], _)
-with_descriptors.integer_not_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-    _HasTagAndGet[None], _
-)
-with_descriptors.integer_not_none = cast(  # pyright: ignore[reportAttributeAccessIssue] # false negative in mypy
-    _HasTagAndGet[object], _
-)
+with_descriptors.integer_not_none = cast(_HasTagAndGet[None], _)  # type: ignore
+with_descriptors.integer_not_none = cast(_HasTagAndGet[object], _)  # type: ignore
 
 with_descriptors.integer_none = 0
 with_descriptors.integer_none = 0.0
