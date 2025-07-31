@@ -51,7 +51,7 @@ def print_info(message: str) -> None:
 
 
 def print_warning(message: str) -> None:
-    print(colored(message), "yellow")
+    print(colored(message, "yellow"))
 
 
 def print_error(error: str, end: str = "\n", fix_path: tuple[str, str] = ("", "")) -> None:
