@@ -770,11 +770,7 @@ if sys.platform == "linux":
         "SOCK_NONBLOCK",
     ]
 
-    if sys.version_info < (3, 11):
-        from _socket import CAN_RAW_ERR_FILTER as CAN_RAW_ERR_FILTER
-
-        __all__ += ["CAN_RAW_ERR_FILTER"]
-    if sys.version_info >= (3, 13):
+    if sys.version_info < (3, 11) or sys.version_info >= (3, 13):
         from _socket import CAN_RAW_ERR_FILTER as CAN_RAW_ERR_FILTER
 
         __all__ += ["CAN_RAW_ERR_FILTER"]
