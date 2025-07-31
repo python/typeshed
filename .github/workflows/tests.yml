@@ -34,27 +34,6 @@ jobs:
       - run: uv pip install -r requirements-tests.txt --system
       - run: python ./tests/check_typeshed_structure.py
 
-  pytype:
-    name: "pytype: Check stubs"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          # Max supported Python version as of pytype 2024.10.11
-          python-version: "3.12"
-      - uses: astral-sh/setup-uv@v6
-      - run: uv pip install -r requirements-tests.txt --system
-      - name: Install external dependencies for 3rd-party stubs
-        run: |
-          DEPENDENCIES=$( python tests/get_external_stub_requirements.py )
-          if [ -n "$DEPENDENCIES" ]; then
-              printf "Installing packages:\n  $(echo $DEPENDENCIES | sed 's/ /\n  /g')\n"
-              uv pip install --system $DEPENDENCIES
-          fi
-      - run: uv pip freeze
-      - run: ./tests/pytype_test.py --print-stderr
-
   mypy:
     name: "mypy: Check stubs"
     runs-on: ubuntu-latest
@@ -120,6 +99,8 @@ jobs:
         with:
           python-version: "3.13"
       - uses: astral-sh/setup-uv@v6
+        with:
+          version-file: "requirements-tests.txt"
       - name: Install typeshed test-suite requirements
         # Install these so we can run `get_external_stub_requirements.py`
         run: uv pip install -r requirements-tests.txt --system
@@ -186,6 +167,8 @@ jobs:
           # Keep in sync with stub_uploader's check_scripts.yml workflow.
           python-version: "3.13"
       - uses: astral-sh/setup-uv@v6
+        with:
+          version-file: "typeshed/requirements-tests.txt"
       - name: Run tests
         run: |
           cd stub_uploader

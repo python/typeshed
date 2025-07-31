@@ -83,13 +83,6 @@ Note that some tests require extra setup steps to install the required dependenc
   (.venv) > pip install -r requirements-tests.txt
   ```
 
-  To be able to run pytype tests, you'll also need to install it manually
-as it's currently excluded from the requirements file:
-
-  ```powershell
-  (.venv) > pip install -U pytype
-  ```
-
   </td>
 </tr>
 <tr><!-- disables zebra striping --></tr>
@@ -102,10 +95,6 @@ as it's currently excluded from the requirements file:
   ```shell
   uv venv
   uv pip install -r requirements-tests.txt
-  ```
-
-  ```shell
-  uv pip install -U pytype
   ```
 
   </td>
