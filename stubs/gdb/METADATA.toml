@@ -11,5 +11,5 @@ extra_description = """\
 """
 
 [tool.stubtest]
-platforms = ["linux"]
+ci_platforms = ["linux"]
 apt_dependencies = ["gdb"]
