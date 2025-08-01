@@ -216,6 +216,7 @@ if sys.version_info < (3, 14):
 
 if sys.version_info < (3, 12):
     if sys.version_info >= (3, 10):
+        # deprecation wrapper that has a different name for the argument...
         @deprecated(
             "Deprecated since 3.10; removed in Python 3.12. Instead, open database in URI mode using `cache=shared` parameter."
         )
