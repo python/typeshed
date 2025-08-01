@@ -183,6 +183,7 @@ if sys.platform != "win32":
 
     if sys.version_info >= (3, 14):
         _DefaultEventLoopPolicy = _UnixDefaultEventLoopPolicy
+
     else:
         DefaultEventLoopPolicy = _UnixDefaultEventLoopPolicy
 

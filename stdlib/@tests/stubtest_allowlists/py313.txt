@@ -146,6 +146,8 @@ typing.SupportsRound.__type_params__
 typing_extensions.SupportsAbs.__type_params__
 typing_extensions.SupportsRound.__type_params__
 
+# Don't always exist at runtime
+pdb.Pdb.curframe_locals
 
 # =============================================================
 # Allowlist entries that cannot or should not be fixed; >= 3.11
