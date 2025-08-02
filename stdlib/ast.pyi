@@ -1699,8 +1699,14 @@ if sys.version_info >= (3, 12):
                 self, *, name: str = ..., default_value: expr | None = ..., **kwargs: Unpack[_Attributes[int]]
             ) -> Self: ...
 
-class _ABC(type):
-    def __init__(cls, *args: Unused) -> None: ...
+if sys.version_info >= (3, 14):
+    @type_check_only
+    class _ABC(type):
+        def __init__(cls, *args: Unused) -> None: ...
+
+else:
+    class _ABC(type):
+        def __init__(cls, *args: Unused) -> None: ...
 
 if sys.version_info < (3, 14):
     @deprecated("Replaced by ast.Constant; removed in Python 3.14")
