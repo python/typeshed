@@ -39,6 +39,7 @@ from typing import (
     final,
     overload,
     runtime_checkable,
+    type_check_only,
 )
 from typing_extensions import Self, TypeAlias, Unpack, deprecated
 
@@ -1241,6 +1242,7 @@ def replace(
 ) -> None: ...
 def rmdir(path: StrOrBytesPath, *, dir_fd: int | None = None) -> None: ...
 @final
+@type_check_only
 class _ScandirIterator(Generic[AnyStr]):
     def __del__(self) -> None: ...
     def __iter__(self) -> Self: ...

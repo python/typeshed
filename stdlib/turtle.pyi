@@ -3,7 +3,7 @@ from _typeshed import StrPath
 from collections.abc import Callable, Generator, Sequence
 from contextlib import contextmanager
 from tkinter import Canvas, Frame, Misc, PhotoImage, Scrollbar
-from typing import Any, ClassVar, Literal, TypedDict, overload
+from typing import Any, ClassVar, Literal, TypedDict, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
 __all__ = [
@@ -146,6 +146,7 @@ if sys.version_info < (3, 13):
 _Color: TypeAlias = str | tuple[float, float, float]
 _AnyColor: TypeAlias = Any
 
+@type_check_only
 class _PenState(TypedDict):
     shown: bool
     pendown: bool

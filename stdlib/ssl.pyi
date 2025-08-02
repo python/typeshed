@@ -50,6 +50,7 @@ _SrvnmeCbType: TypeAlias = Callable[[SSLSocket | SSLObject, str | None, SSLSocke
 
 socket_error = OSError
 
+@type_check_only
 class _Cipher(TypedDict):
     aead: bool
     alg_bits: int
