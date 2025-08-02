@@ -1,0 +1,3 @@
+version = "23.3.*"
+upstream_repository = "https://github.com/carltongibson/django-filter"
+requires = ["django-stubs"]
