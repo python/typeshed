@@ -2,7 +2,7 @@ import sys
 from _typeshed import MaybeNone, StrOrBytesPath, SupportsWrite
 from collections.abc import Callable, ItemsView, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from re import Pattern
-from typing import Any, ClassVar, Final, Literal, TypeVar, overload
+from typing import Any, ClassVar, Final, Literal, TypeVar, overload, type_check_only
 from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 14):
@@ -104,7 +104,9 @@ else:
     ]
 
 if sys.version_info >= (3, 13):
+    @type_check_only
     class _UNNAMED_SECTION: ...
+
     UNNAMED_SECTION: _UNNAMED_SECTION
 
     _SectionName: TypeAlias = str | _UNNAMED_SECTION
