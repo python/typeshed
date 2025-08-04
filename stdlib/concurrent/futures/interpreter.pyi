@@ -21,11 +21,13 @@ if sys.version_info >= (3, 14):
     from concurrent.futures.thread import BrokenThreadPool, WorkerContext as ThreadWorkerContext
     from concurrent.interpreters import Interpreter
 
-    def do_call(results: Queue, func: Callable[..., _R], args: tuple[object, ...], kwargs: dict[str, object]) -> _R: ...
+    def do_call(
+        results: Queue[BaseException | None], func: Callable[..., _R], args: tuple[object, ...], kwargs: dict[str, object]
+    ) -> _R: ...
 
     class WorkerContext(ThreadWorkerContext):
         interp: Interpreter | None
-        results: Queue | None
+        results: Queue[BaseException | None] | None
         @overload  # type: ignore[override]
         @classmethod
         def prepare(
