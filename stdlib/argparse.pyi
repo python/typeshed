@@ -120,6 +120,7 @@ class _ActionsContainer:
             description: str | None = None,
             *,
             prefix_chars: str = ...,
+            # argument_default's type must be valid for the arguments in the group
             argument_default: Any = ...,
             conflict_handler: str = ...,
         ) -> _ArgumentGroup: ...
