@@ -2,7 +2,6 @@
 # TODO: New errors in Python 3.14 that need to be fixed or moved below
 # ====================================================================
 
-concurrent.interpreters
 concurrent.futures.InterpreterPoolExecutor.__init__
 concurrent.futures.InterpreterPoolExecutor.prepare_context
 concurrent.futures.interpreter.ExecutionFailed
@@ -37,6 +36,15 @@ types.UnionType.__qualname__
 
 # Assigning `__new__` causes `func` not to get recognized.
 functools.partialmethod.__new__
+
+# decorator approximated by classmethod
+concurrent.interpreters._crossinterp.classonly.*
+
+# object() sentinels at runtime represented by NewTypes in the stubs
+concurrent.interpreters._crossinterp.UNBOUND_ERROR
+concurrent.interpreters._crossinterp.UNBOUND_REMOVE
+concurrent.interpreters._queues.UNBOUND_ERROR
+concurrent.interpreters._queues.UNBOUND_REMOVE
 
 # ====================================
 # Pre-existing errors from Python 3.13
