@@ -8,6 +8,7 @@ from typing import Any
 from typing_extensions import assert_type
 
 
+# asyncio.iscoroutinefunction is deprecated, expecting a warning.
 def test_iscoroutinefunction_asyncio(
     x: Callable[[str, int], Coroutine[str, int, bytes]],
     y: Callable[[str, int], Awaitable[bytes]],
