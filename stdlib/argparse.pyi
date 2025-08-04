@@ -109,7 +109,7 @@ class _ActionsContainer:
             title: str | None = None,
             description: str | None = None,
             *,
-            prefix_chars: str = ...,
+            prefix_chars: str,
             argument_default: Any = ...,
             conflict_handler: str = ...,
         ) -> _ArgumentGroup: ...
