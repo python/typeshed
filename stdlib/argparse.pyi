@@ -98,6 +98,7 @@ class _ActionsContainer:
             title: str | None = None,
             description: str | None = None,
             *,
+            # argument_default's type must be valid for the arguments in the group
             argument_default: Any = ...,
             conflict_handler: str = ...,
         ) -> _ArgumentGroup: ...
