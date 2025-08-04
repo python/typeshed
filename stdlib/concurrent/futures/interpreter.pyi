@@ -1,8 +1,7 @@
 import sys
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
-from queue import Queue
-from typing import Literal, Protocol, overload, type_check_only
+from typing import Any, Literal, Protocol, overload, type_check_only
 from typing_extensions import ParamSpec, Self, TypeAlias, TypeVar, TypeVarTuple, Unpack
 
 _Task: TypeAlias = tuple[bytes, Literal["function", "script"]]
@@ -19,15 +18,13 @@ class _TaskFunc(Protocol):
 
 if sys.version_info >= (3, 14):
     from concurrent.futures.thread import BrokenThreadPool, WorkerContext as ThreadWorkerContext
-    from concurrent.interpreters import Interpreter
+    from concurrent.interpreters import Interpreter, Queue
 
-    def do_call(
-        results: Queue[BaseException | None], func: Callable[..., _R], args: tuple[object, ...], kwargs: dict[str, object]
-    ) -> _R: ...
+    def do_call(results: Queue, func: Callable[..., _R], args: tuple[Any, ...], kwargs: dict[str, Any]) -> _R: ...
 
     class WorkerContext(ThreadWorkerContext):
         interp: Interpreter | None
-        results: Queue[BaseException | None] | None
+        results: Queue | None
         @overload  # type: ignore[override]
         @classmethod
         def prepare(
