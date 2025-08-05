@@ -25,9 +25,13 @@ from pathlib import Path
 from typing import Annotated, Any, ClassVar, NamedTuple, TypeVar
 from typing_extensions import Self, TypeAlias
 
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
+
 import aiohttp
 import packaging.version
-import tomli
 import tomlkit
 from packaging.specifiers import Specifier
 from termcolor import colored
@@ -133,7 +137,7 @@ class Update:
     diff_analysis: DiffAnalysis | None
 
     def __str__(self) -> str:
-        return f"Updating {self.distribution} from '{self.old_version_spec}' to '{self.new_version_spec}'"
+        return f"{colored('updating', 'yellow')} from '{self.old_version_spec}' to '{self.new_version_spec}'"
 
     @property
     def new_version(self) -> str:
@@ -151,7 +155,7 @@ class Obsolete:
     links: dict[str, str]
 
     def __str__(self) -> str:
-        return f"Marking {self.distribution} as obsolete since {self.obsolete_since_version!r}"
+        return f"{colored('marking as obsolete', 'yellow')} since {self.obsolete_since_version!r}"
 
 
 @dataclass
@@ -161,7 +165,7 @@ class Remove:
     links: dict[str, str]
 
     def __str__(self) -> str:
-        return f"Removing {self.distribution} as {self.reason}"
+        return f"{colored('removing', 'yellow')} ({self.reason})"
 
 
 @dataclass
@@ -170,7 +174,16 @@ class NoUpdate:
     reason: str
 
     def __str__(self) -> str:
-        return f"Skipping {self.distribution}: {self.reason}"
+        return f"{colored('skipping', 'green')} ({self.reason})"
+
+
+@dataclass
+class Error:
+    distribution: str
+    message: str
+
+    def __str__(self) -> str:
+        return f"{colored('error', 'red')} ({self.message})"
 
 
 _T = TypeVar("_T")
@@ -527,7 +540,7 @@ def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFi
             return False
 
     with file as f:
-        toml_data: dict[str, object] = tomli.load(f)
+        toml_data: dict[str, object] = tomllib.load(f)
 
     no_longer_updated = toml_data.get("no_longer_updated", False)
     assert type(no_longer_updated) is bool
@@ -542,7 +555,16 @@ async def has_no_longer_updated_release(release_to_download: PypiReleaseDownload
     return await with_extracted_archive(release_to_download, session=session, handler=parse_no_longer_updated_from_archive)
 
 
-async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove:
+async def determine_action(distribution: str, session: aiohttp.ClientSession) -> Update | NoUpdate | Obsolete | Remove | Error:
+    try:
+        return await determine_action_no_error_handling(distribution, session)
+    except Exception as exc:
+        return Error(distribution, str(exc))
+
+
+async def determine_action_no_error_handling(
+    distribution: str, session: aiohttp.ClientSession
+) -> Update | NoUpdate | Obsolete | Remove:
     stub_info = read_metadata(distribution)
     if stub_info.is_obsolete:
         assert type(stub_info.obsolete) is ObsoleteMetadata
@@ -861,7 +883,7 @@ async def suggest_typeshed_remove(remove: Remove, session: aiohttp.ClientSession
     await create_or_update_pull_request(title=title, body=body, branch_name=branch_name, session=session)
 
 
-async def main() -> None:
+async def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--action-level",
@@ -890,11 +912,11 @@ async def main() -> None:
             print("Unexpected exception!")
             print(diff_result.stdout)
             print(diff_result.stderr)
-            sys.exit(diff_result.returncode)
+            return diff_result.returncode
         if diff_result.stdout:
             changed_files = ", ".join(repr(line) for line in diff_result.stdout.split("\n") if line)
             print(f"Cannot run stubsabot, as uncommitted changes are present in {changed_files}!")
-            sys.exit(1)
+            return 1
 
     if args.action_level > ActionLevel.fork:
         if os.environ.get("GITHUB_TOKEN") is None:
@@ -909,6 +931,8 @@ async def main() -> None:
     if args.action_level >= ActionLevel.local:
         subprocess.check_call(["git", "fetch", "--prune", "--all"])
 
+    error = False
+
     try:
         conn = aiohttp.TCPConnector(limit_per_host=10)
         async with aiohttp.ClientSession(connector=conn) as session:
@@ -921,9 +945,13 @@ async def main() -> None:
             action_count = 0
             for task in asyncio.as_completed(tasks):
                 update = await task
+                print(f"{update.distribution}... ", end="")
                 print(update)
 
                 if isinstance(update, NoUpdate):
+                    continue
+                if isinstance(update, Error):
+                    error = True
                     continue
 
                 if args.action_count_limit is not None and action_count >= args.action_count_limit:
@@ -952,6 +980,8 @@ async def main() -> None:
         if args.action_level >= ActionLevel.local and original_branch:
             subprocess.check_call(["git", "checkout", original_branch])
 
+    return 1 if error else 0
+
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    sys.exit(asyncio.run(main()))

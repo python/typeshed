@@ -83,13 +83,6 @@ Note that some tests require extra setup steps to install the required dependenc
   (.venv) > pip install -r requirements-tests.txt
   ```
 
-  To be able to run pytype tests, you'll also need to install it manually
-as it's currently excluded from the requirements file:
-
-  ```powershell
-  (.venv) > pip install -U pytype
-  ```
-
   </td>
 </tr>
 <tr><!-- disables zebra striping --></tr>
@@ -102,10 +95,6 @@ as it's currently excluded from the requirements file:
   ```shell
   uv venv
   uv pip install -r requirements-tests.txt
-  ```
-
-  ```shell
-  uv pip install -U pytype
   ```
 
   </td>
@@ -224,17 +213,21 @@ This has the following keys:
   that need to be installed for stubtest to run successfully
 * `choco_dependencies` (default: `[]`): A list of Windows Chocolatey packages
   that need to be installed for stubtest to run successfully
-* `platforms` (default: `["linux"]`): A list of OSes on which to run stubtest.
-  Can contain `win32`, `linux`, and `darwin` values.
-  If not specified, stubtest is run only on `linux`.
-  Only add extra OSes to the test
-  if there are platform-specific branches in a stubs package.
+* `supported_platforms` (default: all platforms): A list of OSes on which
+  stubtest can be run. When a package is not platform-specific, this should
+  not be set. If the package is platform-specific, this should usually be set
+  to the supported platforms, unless stubtest is known to fail on a
+  specific platform.
+* `ci_platforms` (default: `["linux"]`): A list of OSes on which to run
+  stubtest as part of our continuous integration (CI) tests. Can contain
+  `win32`, `linux`, and `darwin` values. If not specified, stubtest is run
+  only on `linux`. Only add extra OSes to the test if there are
+  platform-specific branches in a stubs package.
 * `mypy_plugins` (default: `[]`): A list of Python modules to use as mypy plugins
 when running stubtest. For example: `mypy_plugins = ["mypy_django_plugin.main"]`
 * `mypy_plugins_config` (default: `{}`): A dictionary mapping plugin names to their
 configuration dictionaries for use by mypy plugins. For example:
 `mypy_plugins_config = {"django-stubs" = {"django_settings_module" = "@tests.django_settings"}}`
-
 
 `*_dependencies` are usually packages needed to `pip install` the implementation
 distribution.
