@@ -25,9 +25,13 @@ from pathlib import Path
 from typing import Annotated, Any, ClassVar, NamedTuple, TypeVar
 from typing_extensions import Self, TypeAlias
 
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
+
 import aiohttp
 import packaging.version
-import tomli
 import tomlkit
 from packaging.specifiers import Specifier
 from termcolor import colored
@@ -536,7 +540,7 @@ def parse_no_longer_updated_from_archive(source: zipfile.ZipFile | tarfile.TarFi
             return False
 
     with file as f:
-        toml_data: dict[str, object] = tomli.load(f)
+        toml_data: dict[str, object] = tomllib.load(f)
 
     no_longer_updated = toml_data.get("no_longer_updated", False)
     assert type(no_longer_updated) is bool
