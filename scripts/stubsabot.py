@@ -22,7 +22,7 @@ from collections.abc import Callable, Iterator, Mapping, Sequence
 from dataclasses import dataclass, field
 from http import HTTPStatus
 from pathlib import Path
-from typing import Annotated, Any, ClassVar, NamedTuple, TypeVar
+from typing import Annotated, Any, ClassVar, Literal, NamedTuple, TypedDict, TypeVar
 from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 11):
@@ -327,15 +327,16 @@ def get_github_api_headers() -> Mapping[str, str]:
 
 
 @dataclass
-class GitHubInfo:
+class GitHostInfo:
+    host: Literal["github", "gitlab"]
     repo_path: str
-    tags: list[dict[str, Any]] = field(repr=False)
+    tags: list[str] = field(repr=False)
 
 
-async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubMetadata) -> GitHubInfo | None:
+async def get_host_repo_info(session: aiohttp.ClientSession, stub_info: StubMetadata) -> GitHostInfo | None:
     """
-    If the project represented by `stub_info` is hosted on GitHub,
-    return information regarding the project as it exists on GitHub.
+    If the project represented by `stub_info` is publicly hosted (e.g. on GitHub)
+    return information regarding the project as it exists on the public host.
 
     Else, return None.
     """
@@ -349,34 +350,48 @@ async def get_github_repo_info(session: aiohttp.ClientSession, stub_info: StubMe
             github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
             async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
                 if response.status == HTTPStatus.OK:
-                    tags: list[dict[str, Any]] = await response.json()
-                    assert isinstance(tags, list)
-                    return GitHubInfo(repo_path=url_path, tags=tags)
+                    tags = [tag["name"] for tag in await response.json()]
+                    return GitHostInfo(host="github", repo_path=url_path, tags=tags)
+        if split_url.netloc == "gitlab.com":
+            url_path = split_url.path.strip("/")
+            assert len(Path(url_path).parts) == 2
+            gitlab_tags_info_url = f"https://gitlab.com/api/v4/projects/{url_path.replace('/', '%2F')}/repository/tags"
+            async with session.get(gitlab_tags_info_url) as response:
+                if response.status == HTTPStatus.OK:
+                    tags = [tag["name"] for tag in await response.json()]
+                    return GitHostInfo(host="gitlab", repo_path=url_path, tags=tags)
     return None
 
 
-class GitHubDiffInfo(NamedTuple):
+class GitHostDiffInfo(NamedTuple):
+    host: Literal["github", "gitlab"]
     repo_path: str
     old_tag: str
     new_tag: str
-    diff_url: str
+
+    @property
+    def diff_url(self) -> str:
+        if self.host == "github":
+            return f"https://github.com/{self.repo_path}/compare/{self.old_tag}...{self.new_tag}"
+        else:
+            assert self.host == "gitlab"
+            return f"https://gitlab.com/{self.repo_path}/-/compare/{self.old_tag}...{self.new_tag}"
 
 
 async def get_diff_info(
     session: aiohttp.ClientSession, stub_info: StubMetadata, pypi_version: packaging.version.Version
-) -> GitHubDiffInfo | None:
+) -> GitHostDiffInfo | None:
     """Return a tuple giving info about the diff between two releases, if possible.
 
     Return `None` if the project isn't hosted on GitHub,
     or if a link pointing to the diff couldn't be found for any other reason.
     """
-    github_info = await get_github_repo_info(session, stub_info)
-    if github_info is None:
+    host_info = await get_host_repo_info(session, stub_info)
+    if host_info is None:
         return None
 
     versions_to_tags: dict[packaging.version.Version, str] = {}
-    for tag in github_info.tags:
-        tag_name = tag["name"]
+    for tag_name in host_info.tags:
         # Some packages in typeshed have tag names
         # that are invalid to be passed to the Version() constructor,
         # e.g. v.1.4.2
@@ -395,11 +410,17 @@ async def get_diff_info(
     else:
         old_tag = versions_to_tags[old_version]
 
-    diff_url = f"https://github.com/{github_info.repo_path}/compare/{old_tag}...{new_tag}"
-    return GitHubDiffInfo(repo_path=github_info.repo_path, old_tag=old_tag, new_tag=new_tag, diff_url=diff_url)
+    return GitHostDiffInfo(host=host_info.host, repo_path=host_info.repo_path, old_tag=old_tag, new_tag=new_tag)
 
 
-FileInfo: TypeAlias = dict[str, Any]
+FileStatus: TypeAlias = Literal["added", "modified", "removed", "renamed"]
+
+
+class FileInfo(TypedDict):
+    filename: str
+    status: FileStatus
+    additions: int
+    deletions: int
 
 
 def _plural_s(num: int, /) -> str:
@@ -494,7 +515,7 @@ class DiffAnalysis:
         return "Stubsabot analysis of the diff between the two releases:\n - " + "\n - ".join(data_points)
 
 
-async def analyze_diff(
+async def analyze_github_diff(
     github_repo_path: str, distribution: str, old_tag: str, new_tag: str, *, session: aiohttp.ClientSession
 ) -> DiffAnalysis | None:
     url = f"https://api.github.com/repos/{github_repo_path}/compare/{old_tag}...{new_tag}"
@@ -504,6 +525,42 @@ async def analyze_diff(
         assert isinstance(json_resp, dict)
     # https://docs.github.com/en/rest/commits/commits#compare-two-commits
     py_files: list[FileInfo] = [file for file in json_resp["files"] if Path(file["filename"]).suffix == ".py"]
+    stub_path = distribution_path(distribution)
+    files_in_typeshed = set(stub_path.rglob("*.pyi"))
+    py_files_stubbed_in_typeshed = [file for file in py_files if (stub_path / f"{file['filename']}i") in files_in_typeshed]
+    return DiffAnalysis(py_files=py_files, py_files_stubbed_in_typeshed=py_files_stubbed_in_typeshed)
+
+
+async def analyze_gitlab_diff(
+    gitlab_repo_path: str, distribution: str, old_tag: str, new_tag: str, *, session: aiohttp.ClientSession
+) -> DiffAnalysis | None:
+    # https://docs.gitlab.com/api/repositories/#compare-branches-tags-or-commits
+    project_id = gitlab_repo_path.replace("/", "%2F")
+    url = f"https://gitlab.com/api/v4/projects/{project_id}/repository/compare?from={old_tag}&to={new_tag}"
+    async with session.get(url) as response:
+        response.raise_for_status()
+        json_resp: dict[str, Any] = await response.json()
+        assert isinstance(json_resp, dict)
+
+    py_files: list[FileInfo] = []
+    for file_diff in json_resp["diffs"]:
+        filename = file_diff["new_path"]
+        if Path(filename).suffix != ".py":
+            continue
+        status: FileStatus
+        if file_diff["new_file"]:
+            status = "added"
+        elif file_diff["renamed_file"]:
+            status = "renamed"
+        elif file_diff["deleted_file"]:
+            status = "removed"
+        else:
+            status = "modified"
+        diff_lines = file_diff["diff"].splitlines()
+        additions = sum(1 for ln in diff_lines if ln.startswith("+"))
+        deletions = sum(1 for ln in diff_lines if ln.startswith("-"))
+        py_files.append(FileInfo(filename=filename, status=status, additions=additions, deletions=deletions))
+
     stub_path = distribution_path(distribution)
     files_in_typeshed = set(stub_path.rglob("*.pyi"))
     py_files_stubbed_in_typeshed = [file for file in py_files if (stub_path / f"{file['filename']}i") in files_in_typeshed]
@@ -626,9 +683,18 @@ async def determine_action_no_error_handling(
 
     if diff_info is None:
         diff_analysis: DiffAnalysis | None = None
-    else:
-        diff_analysis = await analyze_diff(
+    elif diff_info.host == "github":
+        diff_analysis = await analyze_github_diff(
             github_repo_path=diff_info.repo_path,
+            distribution=distribution,
+            old_tag=diff_info.old_tag,
+            new_tag=diff_info.new_tag,
+            session=session,
+        )
+    else:
+        assert diff_info.host == "gitlab"
+        diff_analysis = await analyze_gitlab_diff(
+            gitlab_repo_path=diff_info.repo_path,
             distribution=distribution,
             old_tag=diff_info.old_tag,
             new_tag=diff_info.new_tag,
