@@ -326,9 +326,12 @@ def get_github_api_headers() -> Mapping[str, str]:
     return headers
 
 
+GitHost: TypeAlias = Literal["github", "gitlab"]
+
+
 @dataclass
 class GitHostInfo:
-    host: Literal["github", "gitlab"]
+    host: GitHost
     repo_path: str
     tags: list[str] = field(repr=False)
 
@@ -340,31 +343,35 @@ async def get_host_repo_info(session: aiohttp.ClientSession, stub_info: StubMeta
 
     Else, return None.
     """
-    if stub_info.upstream_repository:
-        # We have various sanity checks for the upstream_repository field in ts_utils.metadata,
-        # so no need to repeat all of them here
-        split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
-        if split_url.netloc == "github.com":
-            url_path = split_url.path.strip("/")
-            assert len(Path(url_path).parts) == 2
-            github_tags_info_url = f"https://api.github.com/repos/{url_path}/tags"
-            async with session.get(github_tags_info_url, headers=get_github_api_headers()) as response:
-                if response.status == HTTPStatus.OK:
-                    tags = [tag["name"] for tag in await response.json()]
-                    return GitHostInfo(host="github", repo_path=url_path, tags=tags)
-        if split_url.netloc == "gitlab.com":
-            url_path = split_url.path.strip("/")
-            assert len(Path(url_path).parts) == 2
-            gitlab_tags_info_url = f"https://gitlab.com/api/v4/projects/{url_path.replace('/', '%2F')}/repository/tags"
-            async with session.get(gitlab_tags_info_url) as response:
-                if response.status == HTTPStatus.OK:
-                    tags = [tag["name"] for tag in await response.json()]
-                    return GitHostInfo(host="gitlab", repo_path=url_path, tags=tags)
+    if not stub_info.upstream_repository:
+        return None
+    # We have various sanity checks for the upstream_repository field in ts_utils.metadata,
+    # so no need to repeat all of them here
+    split_url = urllib.parse.urlsplit(stub_info.upstream_repository)
+    host = split_url.netloc.removesuffix(".com")
+    if host not in ("github", "gitlab"):
+        return None
+    url_path = split_url.path.strip("/")
+    assert len(Path(url_path).parts) == 2
+    if host == "github":
+        # https://docs.github.com/en/rest/git/tags
+        info_url = f"https://api.github.com/repos/{url_path}/tags"
+        headers = get_github_api_headers()
+    else:
+        assert host == "gitlab"
+        # https://docs.gitlab.com/api/tags/
+        info_url = f"https://gitlab.com/api/v4/projects/{url_path.replace('/', '%2F')}/repository/tags"
+        headers = None
+    async with session.get(info_url, headers=headers) as response:
+        if response.status == HTTPStatus.OK:
+            # Conveniently both GitHub and GitLab use the same key name.
+            tags = [tag["name"] for tag in await response.json()]
+            return GitHostInfo(host=host, repo_path=url_path, tags=tags)  # type: ignore[arg-type]
     return None
 
 
 class GitHostDiffInfo(NamedTuple):
-    host: Literal["github", "gitlab"]
+    host: GitHost
     repo_path: str
     old_tag: str
     new_tag: str
@@ -516,9 +523,9 @@ class DiffAnalysis:
 
 
 async def analyze_github_diff(
-    github_repo_path: str, distribution: str, old_tag: str, new_tag: str, *, session: aiohttp.ClientSession
+    repo_path: str, distribution: str, old_tag: str, new_tag: str, *, session: aiohttp.ClientSession
 ) -> DiffAnalysis | None:
-    url = f"https://api.github.com/repos/{github_repo_path}/compare/{old_tag}...{new_tag}"
+    url = f"https://api.github.com/repos/{repo_path}/compare/{old_tag}...{new_tag}"
     async with session.get(url, headers=get_github_api_headers()) as response:
         response.raise_for_status()
         json_resp: dict[str, list[FileInfo]] = await response.json()
@@ -532,10 +539,10 @@ async def analyze_github_diff(
 
 
 async def analyze_gitlab_diff(
-    gitlab_repo_path: str, distribution: str, old_tag: str, new_tag: str, *, session: aiohttp.ClientSession
+    repo_path: str, distribution: str, old_tag: str, new_tag: str, *, session: aiohttp.ClientSession
 ) -> DiffAnalysis | None:
     # https://docs.gitlab.com/api/repositories/#compare-branches-tags-or-commits
-    project_id = gitlab_repo_path.replace("/", "%2F")
+    project_id = repo_path.replace("/", "%2F")
     url = f"https://gitlab.com/api/v4/projects/{project_id}/repository/compare?from={old_tag}&to={new_tag}"
     async with session.get(url) as response:
         response.raise_for_status()
@@ -683,18 +690,10 @@ async def determine_action_no_error_handling(
 
     if diff_info is None:
         diff_analysis: DiffAnalysis | None = None
-    elif diff_info.host == "github":
-        diff_analysis = await analyze_github_diff(
-            github_repo_path=diff_info.repo_path,
-            distribution=distribution,
-            old_tag=diff_info.old_tag,
-            new_tag=diff_info.new_tag,
-            session=session,
-        )
     else:
-        assert diff_info.host == "gitlab"
-        diff_analysis = await analyze_gitlab_diff(
-            gitlab_repo_path=diff_info.repo_path,
+        analyze_diff = {"github": analyze_github_diff, "gitlab": analyze_gitlab_diff}[diff_info.host]
+        diff_analysis = await analyze_diff(
+            repo_path=diff_info.repo_path,
             distribution=distribution,
             old_tag=diff_info.old_tag,
             new_tag=diff_info.new_tag,
