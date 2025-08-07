@@ -23,7 +23,7 @@ class _Classes(TypedDict):
     textarea: type[Textarea]
     radio: type[Radio]
 
-# NOTE: It seems unergonmic having to put isinstance checks everywhere
+# NOTE: It seems unergonomic having to put isinstance checks everywhere
 #       in your test code where you're accessing a form field, so we
 #       return `Any` for now. What we would really like to use here is
 #       `AnyOf`, but that doesn't exist yet.
