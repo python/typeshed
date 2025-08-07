@@ -3,8 +3,6 @@
 # ====================================================================
 
 compression.zlib.ZLIBNG_VERSION
-pathlib.Path.group
-pathlib.Path.owner
 zlib.ZLIBNG_VERSION
 
 
