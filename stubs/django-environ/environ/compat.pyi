@@ -1,13 +1,9 @@
-from _typeshed import Incomplete
-
-from django.core.exceptions import ImproperlyConfigured as ImproperlyConfigured
-
 class ImproperlyConfigured(Exception): ...
 
 def choose_rediscache_driver(): ...
 def choose_postgres_driver(): ...
 def choose_pymemcache_driver(): ...
 
-REDIS_DRIVER: Incomplete
-DJANGO_POSTGRES: Incomplete
-PYMEMCACHE_DRIVER: Incomplete
+REDIS_DRIVER: str
+DJANGO_POSTGRES: str
+PYMEMCACHE_DRIVER: str
