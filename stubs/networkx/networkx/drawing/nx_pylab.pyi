@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
-from collections.abc import Collection, Iterable, Sequence
+from collections.abc import Collection, Iterable, Mapping, Sequence
 
-from networkx.classes.graph import Graph, _Node
+from ..classes.graph import Graph, _Node
 
 __all__ = [
     "display",
@@ -56,7 +56,7 @@ def draw(G: Graph[_Node], pos=None, ax=None, **kwds) -> None: ...
 def draw_networkx(G: Graph[_Node], pos=None, arrows=None, with_labels: bool = True, **kwds) -> None: ...
 def draw_networkx_nodes(
     G: Graph[_Node],
-    pos,
+    pos: Mapping[Incomplete, Incomplete],
     nodelist: Collection[Incomplete] | None = None,
     node_size: Incomplete | int = 300,
     node_color: str | Sequence[str] = "#1f78b4",
@@ -74,7 +74,7 @@ def draw_networkx_nodes(
 ): ...
 def draw_networkx_edges(
     G: Graph[_Node],
-    pos,
+    pos: Mapping[Incomplete, Incomplete],
     edgelist=None,
     width: float = 1.0,
     edge_color: str = "k",
@@ -83,8 +83,8 @@ def draw_networkx_edges(
     arrowstyle=None,
     arrowsize: int = 10,
     edge_cmap=None,
-    edge_vmin=None,
-    edge_vmax=None,
+    edge_vmin: float | None = None,
+    edge_vmax: float | None = None,
     ax=None,
     arrows=None,
     label=None,
@@ -98,7 +98,7 @@ def draw_networkx_edges(
 ): ...
 def draw_networkx_labels(
     G: Graph[_Node],
-    pos,
+    pos: Mapping[Incomplete, Incomplete],
     labels=None,
     font_size: int = 12,
     font_color: str = "k",
@@ -114,7 +114,7 @@ def draw_networkx_labels(
 ): ...
 def draw_networkx_edge_labels(
     G: Graph[_Node],
-    pos,
+    pos: Mapping[Incomplete, Incomplete],
     edge_labels=None,
     label_pos: float = 0.5,
     font_size: int = 10,
