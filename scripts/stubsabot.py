@@ -360,7 +360,8 @@ async def get_host_repo_info(session: aiohttp.ClientSession, stub_info: StubMeta
     else:
         assert host == "gitlab"
         # https://docs.gitlab.com/api/tags/
-        info_url = f"https://gitlab.com/api/v4/projects/{url_path.replace('/', '%2F')}/repository/tags"
+        project_id = urllib.parse.quote(url_path, safe="")
+        info_url = f"https://gitlab.com/api/v4/projects/{project_id}/repository/tags"
         headers = None
     async with session.get(info_url, headers=headers) as response:
         if response.status == HTTPStatus.OK:
@@ -542,7 +543,7 @@ async def analyze_gitlab_diff(
     repo_path: str, distribution: str, old_tag: str, new_tag: str, *, session: aiohttp.ClientSession
 ) -> DiffAnalysis | None:
     # https://docs.gitlab.com/api/repositories/#compare-branches-tags-or-commits
-    project_id = repo_path.replace("/", "%2F")
+    project_id = urllib.parse.quote(repo_path, safe="")
     url = f"https://gitlab.com/api/v4/projects/{project_id}/repository/compare?from={old_tag}&to={new_tag}"
     async with session.get(url) as response:
         response.raise_for_status()
