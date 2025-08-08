@@ -3,7 +3,7 @@ import xml.dom.minidom
 from abc import abstractmethod
 from collections import Counter
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
-from typing import Any, ClassVar, Literal, Protocol, SupportsIndex, TypeVar, overload
+from typing import Any, ClassVar, Final, Literal, Protocol, SupportsIndex, TypeVar, overload, type_check_only
 from typing_extensions import Self, TypeAlias
 
 from docutils.frontend import Values
@@ -12,8 +12,11 @@ from docutils.utils import Reporter
 
 _N = TypeVar("_N", bound=Node)
 
+@type_check_only
 class _DomModule(Protocol):
     Document: type[xml.dom.minidom.Document]
+
+__docformat__: Final = "reStructuredText"
 
 # Functional Node Base Classes
 
@@ -26,7 +29,10 @@ class Node:
     parent: Element | Any
     source: str | None
     line: int | None
-    document: document | None
+    @property
+    def document(self) -> document | None: ...
+    @document.setter
+    def document(self, value: document) -> None: ...
     def __bool__(self) -> Literal[True]: ...
     def asdom(self, dom: _DomModule | None = None) -> xml.dom.minidom.Element: ...
     # While docutils documents the Node class to be abstract it does not
@@ -414,6 +420,7 @@ class entry(Part, Element): ...
 
 class system_message(Special, BackLinkable, PreBibliographic, Element):
     def __init__(self, message: str | None = None, *children: Node, **attributes) -> None: ...
+    def astext(self) -> str: ...
 
 class pending(Special, Invisible, Element):
     transform: type[Transform]

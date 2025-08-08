@@ -1,6 +1,6 @@
 from _typeshed import Unused
 from collections.abc import Callable, Generator, Iterable, Iterator, Sequence
-from typing import Any, Final, Literal, NoReturn, overload
+from typing import Any, Final, Literal, NoReturn, overload, type_check_only
 from typing_extensions import Self
 
 import numpy
@@ -11,6 +11,7 @@ from numpy.typing import NDArray
 # Actual type: _cffi_backend.__CDataOwn <cdata 'struct _jack_position *'>
 # This is not a real subclassing. Just ensuring type-checkers sees this type as compatible with _CDataBase
 # pyright has no error code for subclassing final
+@type_check_only
 class _JackPositionT(_CDataBase):  # type: ignore[misc]  # pyright: ignore[reportGeneralTypeIssues]
     audio_frames_per_video_frame: float
     bar: int
@@ -33,6 +34,7 @@ class _JackPositionT(_CDataBase):  # type: ignore[misc]  # pyright: ignore[repor
     valid: int
     video_offset: int
 
+@type_check_only
 class _CBufferType:
     @overload
     def __getitem__(self, key: int) -> str: ...

@@ -4,10 +4,10 @@ from logging import Logger
 from socket import socket
 from threading import Condition, Event, Lock, Thread
 from types import ModuleType
-from typing import Any, Protocol
+from typing import Any, Protocol, type_check_only
 from typing_extensions import TypeAlias
 
-from paramiko.auth_handler import AuthHandler, _InteractiveCallback
+from paramiko.auth_handler import AuthHandler, AuthOnlyHandler, _InteractiveCallback
 from paramiko.channel import Channel
 from paramiko.message import Message
 from paramiko.packet import Packetizer
@@ -21,6 +21,7 @@ from paramiko.util import ClosingContextManager
 _Addr: TypeAlias = tuple[str, int]
 _SocketLike: TypeAlias = str | _Addr | socket | Channel | ProxyCommand
 
+@type_check_only
 class _KexEngine(Protocol):
     def start_kex(self) -> None: ...
     def parse_next(self, ptype: int, m: Message) -> None: ...
@@ -95,6 +96,8 @@ class Transport(Thread, ClosingContextManager):
     def preferred_macs(self) -> Sequence[str]: ...
     @property
     def preferred_keys(self) -> Sequence[str]: ...
+    @property
+    def preferred_pubkeys(self) -> Sequence[str]: ...
     @property
     def preferred_kex(self) -> Sequence[str]: ...
     @property
@@ -201,3 +204,9 @@ class ChannelMap:
     def delete(self, chanid: int) -> None: ...
     def values(self) -> list[Channel]: ...
     def __len__(self) -> int: ...
+
+class ServiceRequestingTransport(Transport):
+    def ensure_session(self) -> None: ...
+    def get_auth_handler(self) -> AuthOnlyHandler: ...
+    def auth_password(self, username: str, password: str, fallback: bool = True) -> list[str]: ...  # type: ignore[override]
+    def auth_publickey(self, username: str, key: PKey) -> list[str]: ...  # type: ignore[override]

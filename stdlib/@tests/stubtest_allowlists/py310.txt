@@ -107,7 +107,6 @@ tkinter.Tk.split  # Exists at runtime, but missing from stubs
 # =======
 
 _?bz2.BZ2Decompressor.__init__  # function does not accept parameters but C signature is set
-configparser.ParsingError.filename
 enum.Enum._generate_next_value_
 importlib.abc.Finder.find_module
 urllib.request.HTTPPasswordMgrWithPriorAuth.__init__  # Args are passed as is to super, so super args are specified
@@ -163,11 +162,7 @@ tkinter.tix.TkVersion
 # because it's not an ABC that makes any sense and was deprecated in 3.12
 _collections_abc.ByteString
 
-ast.Bytes.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
-ast.Ellipsis.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
-ast.NameConstant.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
-ast.Num.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
-ast.Str.__new__  # runtime is *args, **kwargs due to a wrapper, but we have more accurate signatures in the stubs
+ast.Ellipsis.__new__  # Implementation has *args, but shouldn't allow any
 
 _?hashlib.scrypt  # Raises TypeError if salt, n, r or p are None
 
