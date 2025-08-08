@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping, MutableMapping, Sequence
 from re import Pattern
-from typing import Any, Final, Literal, TypedDict, overload, type_check_only
+from typing import Any, Final, Literal, Required, TypedDict, overload, type_check_only
 from typing_extensions import TypeAlias, deprecated
 
 import requests
@@ -97,7 +97,8 @@ class _Job(TypedDict, total=False):
     _class: str
     url: str
     color: str
-    name: str
+    name: Required[str]
+    fullname: Required[str]
     jobs: list[_Job]
 
 class Jenkins:
