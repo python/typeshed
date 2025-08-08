@@ -1,6 +1,6 @@
 from collections.abc import Callable, Container
 from types import TracebackType
-from typing import Any, Generic, Literal, Protocol
+from typing import Any, Generic, Literal, Protocol, type_check_only
 from typing_extensions import ParamSpec, Self, TypeAlias
 
 from gevent._types import _Loop
@@ -10,6 +10,7 @@ from greenlet import greenlet
 
 _P = ParamSpec("_P")
 
+@type_check_only
 class _SpawnFunc(Protocol):
     def __call__(self, func: Callable[_P, object], /, *args: _P.args, **kwargs: _P.kwargs) -> greenlet: ...
 

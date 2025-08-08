@@ -66,6 +66,7 @@ UNKNOWN: _type
 REPLICATION_LOGICAL: int
 REPLICATION_PHYSICAL: int
 
+@type_check_only
 class _ISQLQuoteProto(Protocol):
     # Objects conforming this protocol should implement a getquoted() and optionally a prepare() method.
     # The real ISQLQuote class is implemented below with more stuff.
@@ -85,6 +86,7 @@ __libpq_version__: int
 
 _T_co = TypeVar("_T_co", covariant=True)
 
+@type_check_only
 class _SupportsReadAndReadline(SupportsRead[_T_co], SupportsReadline[_T_co], Protocol[_T_co]): ...
 
 class cursor:
