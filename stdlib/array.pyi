@@ -36,13 +36,13 @@ class array(MutableSequence[_T]):
             cls: type[array[str]], typecode: Literal["w"], initializer: bytes | bytearray | Iterable[str] = ..., /
         ) -> array[str]: ...
         @overload
-        @deprecated("Deprecated since Python 3.3; will be removed in version 3.16. Use 'w' typecode instead.")
+        @deprecated("Deprecated since Python 3.3; will be removed in Python 3.16. Use 'w' typecode instead.")
         def __new__(
             cls: type[array[str]], typecode: Literal["u"], initializer: bytes | bytearray | Iterable[str] = ..., /
         ) -> array[str]: ...
     else:
         @overload
-        @deprecated("Deprecated since Python 3.3; will be removed in version 3.16.")
+        @deprecated("Deprecated since Python 3.3; will be removed in Python 3.16.")
         def __new__(
             cls: type[array[str]], typecode: _UnicodeTypeCode, initializer: bytes | bytearray | Iterable[str] = ..., /
         ) -> array[str]: ...
