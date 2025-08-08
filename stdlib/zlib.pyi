@@ -27,6 +27,7 @@ Z_SYNC_FLUSH: Final = 2
 Z_TREES: Final = 6
 
 if sys.version_info >= (3, 14) and sys.platform == "win32":
+    # Available when zlib was built with zlib-ng, usually only on Windows
     ZLIBNG_VERSION: Final[str]
 
 class error(Exception): ...
