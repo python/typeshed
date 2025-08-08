@@ -44,7 +44,7 @@ class array(MutableSequence[_T]):
         @overload
         @deprecated("Deprecated since Python 3.3; will be removed in Python 3.16.")
         def __new__(
-            cls: type[array[str]], typecode: _UnicodeTypeCode, initializer: bytes | bytearray | Iterable[str] = ..., /
+            cls: type[array[str]], typecode: Literal["u"], initializer: bytes | bytearray | Iterable[str] = ..., /
         ) -> array[str]: ...
 
     @overload
