@@ -24,7 +24,7 @@ class _SSLArguments(TypedDict, total=False):
     do_handshake_on_connect: bool
     ciphers: str
 
-class StreamServer(BaseServer[[_GeventSocket, _Address]]):
+class StreamServer(BaseServer[_GeventSocket, _Address]):
     backlog: int
     reuse_addr: ClassVar[int | None]
     wrap_socket = ssl_wrap_socket
@@ -68,7 +68,7 @@ class StreamServer(BaseServer[[_GeventSocket, _Address]]):
     def do_close(self, sock: _GeventSocket, address: _Address) -> None: ...
     def wrap_socket_and_handle(self, client_socket: _GeventSocket, address: _StrictAddress) -> Any: ...
 
-class DatagramServer(BaseServer[[_GeventSocket, _Address]]):
+class DatagramServer(BaseServer[_GeventSocket, _Address]):
     reuse_addr: ClassVar[int | None]
     def __init__(
         self,
