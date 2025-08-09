@@ -1,6 +1,5 @@
-import enum
 from collections.abc import Sequence
-from typing import Final, Protocol, final
+from typing import Final, final
 
 import gdb
 from gdb import Architecture, Progspace
