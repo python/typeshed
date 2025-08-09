@@ -1,4 +1,4 @@
-from collections.abc import Hashable, Mapping
+from collections.abc import Hashable
 from functools import cached_property
 from typing import Any, ClassVar, overload
 from typing_extensions import TypeAlias, TypeVar
@@ -10,7 +10,8 @@ from networkx.classes.reportviews import MultiEdgeView
 
 _MultiEdge: TypeAlias = tuple[_Node, _Node, int]  # noqa: Y047
 
-_Any = TypeVar("_Any")
+_DefaultT = TypeVar("_DefaultT")
+_KeyT = TypeVar("_KeyT", bound=Hashable)
 
 __all__ = ["MultiGraph"]
 
@@ -18,23 +19,26 @@ class MultiGraph(Graph[_Node]):
     edge_key_dict_factory: ClassVar[_MapFactory]
     def __init__(self, incoming_graph_data=None, multigraph_input: bool | None = None, **attr: Any) -> None: ...
     @cached_property
-    def adj(self) -> MultiAdjacencyView[_Node, _Node, Mapping[str, Any]]: ...
+    def adj(self) -> MultiAdjacencyView[_Node, _Node, dict[str, Any]]: ...  # data can be any type
     def new_edge_key(self, u: _Node, v: _Node) -> int: ...
-    def add_edge(  # type: ignore[override]
-        self, u_for_edge: _Node, v_for_edge: _Node, key: Hashable | int | None = None, **attr: Any
-    ) -> Hashable | int: ...
+    @overload  # type: ignore[override]  # Has an additional `key` keyword argument
+    def add_edge(self, u_for_edge: _Node, v_for_edge: _Node, key: int | None = None, **attr: Any) -> int: ...
+    @overload
+    def add_edge(self, u_for_edge: _Node, v_for_edge: _Node, key: _KeyT, **attr: Any) -> _KeyT: ...
     # key : hashable identifier, optional (default=lowest unused integer)
-    def remove_edge(self, u, v, key=None): ...
-    def has_edge(self, u: _Node, v: _Node, key=None) -> bool: ...
+    def remove_edge(self, u: _Node, v: _Node, key: Hashable | None = None) -> None: ...
+    def has_edge(self, u: _Node, v: _Node, key: Hashable | None = None) -> bool: ...
     @overload  # type: ignore[override]
-    def get_edge_data(self, u: _Node, v: _Node, key: Hashable, default: _Any | None = None) -> Mapping[str, Any] | _Any: ...
+    def get_edge_data(
+        self, u: _Node, v: _Node, key: Hashable, default: _DefaultT | None = None
+    ) -> dict[str, Any] | _DefaultT: ...
     # key : hashable identifier, optional (default=None).
     # default : any Python object (default=None). Value to return if the specific edge (u, v, key) is not found.
     # Returns: The edge attribute dictionary.
     @overload
     def get_edge_data(
-        self, u: _Node, v: _Node, key: None = None, default: _Any | None = None
-    ) -> Mapping[Hashable, Mapping[str, Any] | _Any]: ...
+        self, u: _Node, v: _Node, key: None = None, default: _DefaultT | None = None
+    ) -> dict[Hashable, dict[str, Any] | _DefaultT]: ...
     # default : any Python object (default=None). Value to return if there are no edges between u and v and no key is specified.
     # Returns: A dictionary mapping edge keys to attribute dictionaries for each of those edges if no specific key is provided.
     def copy(self, as_view: bool = False) -> MultiGraph[_Node]: ...
