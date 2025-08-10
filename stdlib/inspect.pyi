@@ -514,7 +514,7 @@ else:
 def formatannotationrelativeto(object: object) -> Callable[[object], str]: ...
 
 if sys.version_info < (3, 11):
-    @deprecated("Deprecated since Python 3.5; removed in Python 3.11. Use `inspect.signature()` and `Signature` object instead.")
+    @deprecated("Deprecated since Python 3.5; removed in Python 3.11. Use `inspect.signature()` and the `Signature` class instead.")
     def formatargspec(
         args: list[str],
         varargs: str | None = None,

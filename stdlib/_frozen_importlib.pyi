@@ -69,7 +69,7 @@ class BuiltinImporter(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader)
     # Loader
     if sys.version_info < (3, 12):
         @staticmethod
-        @deprecated("Deprecated since Python 3.4; removed in Python 3.12. Now it's done automatically.")
+        @deprecated("Deprecated since Python 3.4; removed in Python 3.12. The module spec is now used by the import machinery to generate a module repr.")
         def module_repr(module: types.ModuleType) -> str: ...
     if sys.version_info >= (3, 10):
         @staticmethod
@@ -105,7 +105,7 @@ class FrozenImporter(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader):
     # Loader
     if sys.version_info < (3, 12):
         @staticmethod
-        @deprecated("Deprecated since Python 3.4; removed in Python 3.12. Now it's done automatically.")
+        @deprecated("Deprecated since Python 3.4; removed in Python 3.12. The module spec is now used by the import machinery to generate a module repr.")
         def module_repr(m: types.ModuleType) -> str: ...
     if sys.version_info >= (3, 10):
         @staticmethod

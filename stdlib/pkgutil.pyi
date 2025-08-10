@@ -30,11 +30,11 @@ class ModuleInfo(NamedTuple):
 def extend_path(path: _PathT, name: str) -> _PathT: ...
 
 if sys.version_info < (3, 12):
-    @deprecated("Deprecated since Python 3.3; removed in Python 3.12. Use `importlib` module instead.")
+    @deprecated("Deprecated since Python 3.3; removed in Python 3.12. Use the `importlib` module instead.")
     class ImpImporter:
         def __init__(self, path: StrOrBytesPath | None = None) -> None: ...
 
-    @deprecated("Deprecated since Python 3.3; removed in Python 3.12. Use `importlib` module instead.")
+    @deprecated("Deprecated since Python 3.3; removed in Python 3.12. Use the `importlib` module instead.")
     class ImpLoader:
         def __init__(self, fullname: str, file: IO[str], filename: StrOrBytesPath, etc: tuple[str, str, int]) -> None: ...
 
