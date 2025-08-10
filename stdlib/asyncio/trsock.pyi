@@ -42,82 +42,82 @@ class TransportSocket:
     def setblocking(self, flag: bool) -> None: ...
     if sys.version_info < (3, 11):
         def _na(self, what: str) -> None: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def accept(self) -> tuple[socket.socket, _RetAddress]: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def connect(self, address: _Address) -> None: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def connect_ex(self, address: _Address) -> int: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def bind(self, address: _Address) -> None: ...
         if sys.platform == "win32":
-            @deprecated("Deprecated and removed in Python 3.11")
+            @deprecated("Deprecated and removed in Python 3.11.")
             def ioctl(self, control: int, option: int | tuple[int, int, int] | bool) -> None: ...
         else:
-            @deprecated("Deprecated and removed in Python 3.11")
+            @deprecated("Deprecated and removed in Python 3.11.")
             def ioctl(self, control: int, option: int | tuple[int, int, int] | bool) -> NoReturn: ...
 
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def listen(self, backlog: int = ..., /) -> None: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def makefile(self) -> BinaryIO: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def sendfile(self, file: BinaryIO, offset: int = ..., count: int | None = ...) -> int: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def close(self) -> None: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def detach(self) -> int: ...
         if sys.platform == "linux":
-            @deprecated("Deprecated and removed in Python 3.11")
+            @deprecated("Deprecated and removed in Python 3.11.")
             def sendmsg_afalg(
                 self, msg: Iterable[ReadableBuffer] = ..., *, op: int, iv: Any = ..., assoclen: int = ..., flags: int = ...
             ) -> int: ...
         else:
-            @deprecated("Deprecated and removed in Python 3.11")
+            @deprecated("Deprecated and removed in Python 3.11.")
             def sendmsg_afalg(
                 self, msg: Iterable[ReadableBuffer] = ..., *, op: int, iv: Any = ..., assoclen: int = ..., flags: int = ...
             ) -> NoReturn: ...
 
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def sendmsg(
             self, buffers: Iterable[ReadableBuffer], ancdata: Iterable[_CMSG] = ..., flags: int = ..., address: _Address = ..., /
         ) -> int: ...
         @overload
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def sendto(self, data: ReadableBuffer, address: _Address) -> int: ...
         @overload
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def sendto(self, data: ReadableBuffer, flags: int, address: _Address) -> int: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def send(self, data: ReadableBuffer, flags: int = ...) -> int: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def sendall(self, data: ReadableBuffer, flags: int = ...) -> None: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def set_inheritable(self, inheritable: bool) -> None: ...
         if sys.platform == "win32":
-            @deprecated("Deprecated and removed in Python 3.11")
+            @deprecated("Deprecated and removed in Python 3.11.")
             def share(self, process_id: int) -> bytes: ...
         else:
-            @deprecated("Deprecated and removed in Python 3.11")
+            @deprecated("Deprecated and removed in Python 3.11.")
             def share(self, process_id: int) -> NoReturn: ...
 
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def recv_into(self, buffer: _WriteBuffer, nbytes: int = ..., flags: int = ...) -> int: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def recvfrom_into(self, buffer: _WriteBuffer, nbytes: int = ..., flags: int = ...) -> tuple[int, _RetAddress]: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def recvmsg_into(
             self, buffers: Iterable[_WriteBuffer], ancbufsize: int = ..., flags: int = ..., /
         ) -> tuple[int, list[_CMSG], int, Any]: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def recvmsg(self, bufsize: int, ancbufsize: int = ..., flags: int = ..., /) -> tuple[bytes, list[_CMSG], int, Any]: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def recvfrom(self, bufsize: int, flags: int = ...) -> tuple[bytes, _RetAddress]: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def recv(self, bufsize: int, flags: int = ...) -> bytes: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def __enter__(self) -> socket.socket: ...
-        @deprecated("Deprecated and removed in Python 3.11")
+        @deprecated("Deprecated and removed in Python 3.11.")
         def __exit__(
             self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
         ) -> None: ...

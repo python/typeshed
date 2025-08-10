@@ -50,7 +50,7 @@ class BuiltinImporter(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader)
     # MetaPathFinder
     if sys.version_info < (3, 12):
         @classmethod
-        @deprecated("Deprecated since Python 3.4; removed in Python 3.12. Use `find_spec()` instead..")
+        @deprecated("Deprecated since Python 3.4; removed in Python 3.12. Use `find_spec()` instead.")
         def find_module(cls, fullname: str, path: Sequence[str] | None = None) -> importlib.abc.Loader | None: ...
 
     @classmethod
@@ -86,7 +86,7 @@ class FrozenImporter(importlib.abc.MetaPathFinder, importlib.abc.InspectLoader):
     # MetaPathFinder
     if sys.version_info < (3, 12):
         @classmethod
-        @deprecated("Deprecated since Python 3.4; removed in Python 3.12. Use `find_spec()` instead..")
+        @deprecated("Deprecated since Python 3.4; removed in Python 3.12. Use `find_spec()` instead.")
         def find_module(cls, fullname: str, path: Sequence[str] | None = None) -> importlib.abc.Loader | None: ...
 
     @classmethod

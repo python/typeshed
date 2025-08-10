@@ -426,7 +426,7 @@ class RawTurtle(TPen, TNavigator):  # type: ignore[misc]  # Conflicting methods 
     def get_shapepoly(self) -> _PolygonCoords | None: ...
 
     if sys.version_info < (3, 13):
-        @deprecated("Deprecated since Python 3.1; removed in Python 3.13. Use `tiltangle()` instead")
+        @deprecated("Deprecated since Python 3.1; removed in Python 3.13. Use `tiltangle()` instead.")
         def settiltangle(self, angle: float) -> None: ...
 
     @overload
@@ -708,7 +708,7 @@ def shapetransform(
 def get_shapepoly() -> _PolygonCoords | None: ...
 
 if sys.version_info < (3, 13):
-    @deprecated("Deprecated since Python 3.1; removed in Python 3.13. Use `tiltangle()` instead")
+    @deprecated("Deprecated since Python 3.1; removed in Python 3.13. Use `tiltangle()` instead.")
     def settiltangle(angle: float) -> None: ...
 
 @overload
