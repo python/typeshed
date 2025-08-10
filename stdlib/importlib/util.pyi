@@ -17,11 +17,20 @@ from typing_extensions import ParamSpec, deprecated
 _P = ParamSpec("_P")
 
 if sys.version_info < (3, 12):
-    @deprecated("Deprecated since Python 3.4; removed in Python 3.12. Now it's done automatically.")
+    @deprecated(
+        "Deprecated since Python 3.4; removed in Python 3.12. "
+        "`__name__`, `__package__` and `__loader__` are now set automatically."
+    )
     def module_for_loader(fxn: Callable[_P, types.ModuleType]) -> Callable[_P, types.ModuleType]: ...
-    @deprecated("Deprecated since Python 3.4; removed in Python 3.12. Now it's done automatically.")
+    @deprecated(
+        "Deprecated since Python 3.4; removed in Python 3.12. "
+        "`__name__`, `__package__` and `__loader__` are now set automatically."
+    )
     def set_loader(fxn: Callable[_P, types.ModuleType]) -> Callable[_P, types.ModuleType]: ...
-    @deprecated("Deprecated since Python 3.4; removed in Python 3.12. Now it's done automatically.")
+    @deprecated(
+        "Deprecated since Python 3.4; removed in Python 3.12. "
+        "`__name__`, `__package__` and `__loader__` are now set automatically."
+    )
     def set_package(fxn: Callable[_P, types.ModuleType]) -> Callable[_P, types.ModuleType]: ...
 
 def resolve_name(name: str, package: str | None) -> str: ...

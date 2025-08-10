@@ -73,51 +73,51 @@ class TransportSocket:
                 self, msg: Iterable[ReadableBuffer] = ..., *, op: int, iv: Any = ..., assoclen: int = ..., flags: int = ...
             ) -> int: ...
         else:
-            @deprecated("Initially it was deprecated; removed in Python 3.11.")
+            @deprecated("Removed in Python 3.11.")
             def sendmsg_afalg(
                 self, msg: Iterable[ReadableBuffer] = ..., *, op: int, iv: Any = ..., assoclen: int = ..., flags: int = ...
             ) -> NoReturn: ...
 
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def sendmsg(
             self, buffers: Iterable[ReadableBuffer], ancdata: Iterable[_CMSG] = ..., flags: int = ..., address: _Address = ..., /
         ) -> int: ...
         @overload
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def sendto(self, data: ReadableBuffer, address: _Address) -> int: ...
         @overload
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def sendto(self, data: ReadableBuffer, flags: int, address: _Address) -> int: ...
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def send(self, data: ReadableBuffer, flags: int = ...) -> int: ...
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def sendall(self, data: ReadableBuffer, flags: int = ...) -> None: ...
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def set_inheritable(self, inheritable: bool) -> None: ...
         if sys.platform == "win32":
-            @deprecated("Initially it was deprecated; removed in Python 3.11.")
+            @deprecated("Removed in Python 3.11.")
             def share(self, process_id: int) -> bytes: ...
         else:
-            @deprecated("Initially it was deprecated; removed in Python 3.11.")
+            @deprecated("Removed in Python 3.11.")
             def share(self, process_id: int) -> NoReturn: ...
 
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def recv_into(self, buffer: _WriteBuffer, nbytes: int = ..., flags: int = ...) -> int: ...
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def recvfrom_into(self, buffer: _WriteBuffer, nbytes: int = ..., flags: int = ...) -> tuple[int, _RetAddress]: ...
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def recvmsg_into(
             self, buffers: Iterable[_WriteBuffer], ancbufsize: int = ..., flags: int = ..., /
         ) -> tuple[int, list[_CMSG], int, Any]: ...
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def recvmsg(self, bufsize: int, ancbufsize: int = ..., flags: int = ..., /) -> tuple[bytes, list[_CMSG], int, Any]: ...
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def recvfrom(self, bufsize: int, flags: int = ...) -> tuple[bytes, _RetAddress]: ...
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def recv(self, bufsize: int, flags: int = ...) -> bytes: ...
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def __enter__(self) -> socket.socket: ...
-        @deprecated("Initially it was deprecated; removed in Python 3.11.")
+        @deprecated("Removed in Python 3.11.")
         def __exit__(
             self, exc_type: Type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None
         ) -> None: ...
