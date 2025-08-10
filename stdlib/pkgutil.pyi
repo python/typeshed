@@ -30,16 +30,18 @@ class ModuleInfo(NamedTuple):
 def extend_path(path: _PathT, name: str) -> _PathT: ...
 
 if sys.version_info < (3, 12):
+    @deprecated("Deprecated since Python 3.3; removed in Python 3.12. Use `importlib` module instead.")
     class ImpImporter:
         def __init__(self, path: StrOrBytesPath | None = None) -> None: ...
 
+    @deprecated("Deprecated since Python 3.3; removed in Python 3.12. Use `importlib` module instead.")
     class ImpLoader:
         def __init__(self, fullname: str, file: IO[str], filename: StrOrBytesPath, etc: tuple[str, str, int]) -> None: ...
 
 if sys.version_info < (3, 14):
-    @deprecated("Use importlib.util.find_spec() instead. Will be removed in Python 3.14.")
+    @deprecated("Deprecated and removed in Python 3.14. Use `importlib.util.find_spec()` instead.")
     def find_loader(fullname: str) -> LoaderProtocol | None: ...
-    @deprecated("Use importlib.util.find_spec() instead. Will be removed in Python 3.14.")
+    @deprecated("Deprecated and removed in Python 3.14. Use `importlib.util.find_spec()` instead.")
     def get_loader(module_or_name: str) -> LoaderProtocol | None: ...
 
 def get_importer(path_item: StrOrBytesPath) -> PathEntryFinderProtocol | None: ...

@@ -13,7 +13,7 @@ from ssl import (
     SSLZeroReturnError as SSLZeroReturnError,
 )
 from typing import Any, ClassVar, Final, Literal, TypedDict, final, overload, type_check_only
-from typing_extensions import NotRequired, Self, TypeAlias
+from typing_extensions import NotRequired, Self, TypeAlias, deprecated
 
 _PasswordType: TypeAlias = Callable[[], str | bytes | bytearray] | str | bytes | bytearray
 _PCTRTT: TypeAlias = tuple[tuple[str, str], ...]
@@ -51,6 +51,7 @@ def RAND_add(string: str | ReadableBuffer, entropy: float, /) -> None: ...
 def RAND_bytes(n: int, /) -> bytes: ...
 
 if sys.version_info < (3, 12):
+    @deprecated("Deprecated since Python 3.6; removed in Python 3.12. Use `ssl.RAND_bytes()` instead.")
     def RAND_pseudo_bytes(n: int, /) -> tuple[bytes, bool]: ...
 
 if sys.version_info < (3, 10):

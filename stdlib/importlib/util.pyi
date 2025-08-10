@@ -12,13 +12,16 @@ from importlib._bootstrap_external import (
     spec_from_file_location as spec_from_file_location,
 )
 from importlib.abc import Loader
-from typing_extensions import ParamSpec
+from typing_extensions import ParamSpec, deprecated
 
 _P = ParamSpec("_P")
 
 if sys.version_info < (3, 12):
+    @deprecated("Deprecated since Python 3.4; removed in Python 3.12. Now it's done automatically.")
     def module_for_loader(fxn: Callable[_P, types.ModuleType]) -> Callable[_P, types.ModuleType]: ...
+    @deprecated("Deprecated since Python 3.4; removed in Python 3.12. Now it's done automatically.")
     def set_loader(fxn: Callable[_P, types.ModuleType]) -> Callable[_P, types.ModuleType]: ...
+    @deprecated("Deprecated since Python 3.4; removed in Python 3.12. Now it's done automatically.")
     def set_package(fxn: Callable[_P, types.ModuleType]) -> Callable[_P, types.ModuleType]: ...
 
 def resolve_name(name: str, package: str | None) -> str: ...
